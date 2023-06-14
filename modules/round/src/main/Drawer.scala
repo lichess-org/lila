@@ -17,22 +17,21 @@ final private[round] class Drawer(
 
   private given Lang = defaultLang
 
-  def autoThreefold(game: Game): Fu[Option[Pov]] = game.drawable ??
+  def autoThreefold(game: Game): Fu[Option[Pov]] = game.drawable.so:
     Pov(game)
-      .map { pov =>
+      .map: pov =>
         if (game.playerHasOfferedDrawRecently(pov.color)) fuccess(pov.some)
         else
-          pov.player.userId ?? { uid => prefApi.getPref(uid, _.autoThreefold) } map { autoThreefold =>
+          pov.player.userId so { uid => prefApi.getPref(uid, _.autoThreefold) } map { autoThreefold =>
             autoThreefold == Pref.AutoThreefold.ALWAYS || {
               autoThreefold == Pref.AutoThreefold.TIME &&
-              game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
+              game.clock.so { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
             } || pov.player.userId.exists(isBotSync)
           } map (_ option pov)
-      }
       .parallel
       .dmap(_.flatten.headOption)
 
-  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
+  def yes(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
     pov match
       case pov if pov.game.history.threefoldRepetition =>
         finisher.other(pov.game, _.Draw, None)
@@ -50,9 +49,8 @@ final private[round] class Drawer(
           publishDrawOffer(progress.game) inject
           List(Event.DrawOffer(by = color.some))
       case _ => fuccess(List(Event.ReloadOwner))
-  }
 
-  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
+  def no(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
     pov match {
       case Pov(g, color) if pov.player.isOfferingDraw =>
         proxy.save {
@@ -70,13 +68,12 @@ final private[round] class Drawer(
         } inject List(Event.DrawOffer(by = none))
       case _ => fuccess(List(Event.ReloadOwner))
     }: Fu[Events]
-  }
 
-  def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
-    (pov.game.drawable && pov.game.history.threefoldRepetition) ??
+  def claim(pov: Pov)(using GameProxy): Fu[Events] =
+    (pov.game.drawable && pov.game.history.threefoldRepetition) so
       finisher.other(pov.game, _.Draw, None)
 
-  def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
+  def force(game: Game)(using GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
   private def publishDrawOffer(game: Game): Unit = if (game.nonAi)
     if (game.isCorrespondence)

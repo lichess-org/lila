@@ -60,7 +60,7 @@ object page:
       notes: Map[GameId, String]
   )(using WebContext) =
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
-    val pageName   = (games.currentPage > 1) ?? s" - page ${games.currentPage}"
+    val pageName   = (games.currentPage > 1) so s" - page ${games.currentPage}"
     views.html.base.layout(
       title = s"${u.username} $filterName$pageName",
       moreJs = moreJs(info, filters.current.name == "search"),

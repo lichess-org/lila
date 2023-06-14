@@ -14,7 +14,7 @@ object mine:
       json: play.api.libs.json.JsObject,
       error: Option[String],
       color: Option[chess.Color]
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(

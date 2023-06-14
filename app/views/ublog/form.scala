@@ -16,9 +16,9 @@ object form:
 
   import views.html.ublog.{ post as postView }
 
-  private def moreCss(implicit ctx: WebContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
+  private def moreCss(using WebContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
-  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(implicit ctx: WebContext) =
+  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using WebContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
@@ -35,7 +35,7 @@ object form:
       )
     }
 
-  def edit(post: UblogPost, f: Form[UblogPostData])(implicit ctx: WebContext) =
+  def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: WebContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
@@ -69,7 +69,7 @@ object form:
       )
     }
 
-  private def imageForm(post: UblogPost)(implicit ctx: WebContext) =
+  private def imageForm(post: UblogPost)(using ctx: WebContext) =
     postForm(
       cls     := "ublog-post-form__image",
       action  := routes.Ublog.image(post.id),
@@ -125,7 +125,7 @@ object form:
           form3.split(
             form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
             form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
-          )(cls := s"ublog-post-form__image-text ${p.image.isDefined ?? "visible"}")
+          )(cls := s"ublog-post-form__image-text ${p.image.isDefined so "visible"}")
         )
       },
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
@@ -194,7 +194,7 @@ object form:
       )
     )
 
-  private def etiquette(implicit ctx: WebContext) = div(cls := "ublog-post-form__etiquette")(
+  private def etiquette(using WebContext) = div(cls := "ublog-post-form__etiquette")(
     p(trans.ublog.safeAndRespectfulContent()),
     p(trans.ublog.inappropriateContentAccountClosed()),
     p(
@@ -208,7 +208,7 @@ object form:
     p(tips)
   )
 
-  def tips(implicit ctx: WebContext) = a(
+  def tips(using WebContext) = a(
     dataIcon := licon.InfoCircle,
     href     := routes.Page.loneBookmark("blog-tips"),
     cls      := "text",

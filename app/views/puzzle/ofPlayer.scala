@@ -12,7 +12,7 @@ import lila.user.User
 
 object ofPlayer:
 
-  def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit ctx: WebContext) =
+  def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(using ctx: WebContext) =
     views.html.base.layout(
       title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
       moreCss = cssTag("puzzle.page"),

@@ -29,10 +29,10 @@ object side:
           "empty"  -> perf.isEmpty,
           "active" -> active.has(perfType)
         ),
-        href := ctx.pref.showRatings.?? {
+        href := ctx.pref.showRatings.so:
           if (isPuzzle) routes.Puzzle.dashboard(30, "home", u.username.some).url
           else routes.User.perfStat(u.username, perfType.key).url
-        },
+        ,
         span(
           h3(perfType.trans),
           if (isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u) && ctx.pref.showRatings) st.rating(strong("?"))

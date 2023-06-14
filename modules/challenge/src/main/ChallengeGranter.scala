@@ -61,12 +61,11 @@ final class ChallengeGranter(
             case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
             case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
             case (_, Pref.Challenge.RATING) =>
-              perfType ?? { pt =>
+              perfType.so: pt =>
                 if (from.perfs(pt).provisional || dest.perfs(pt).provisional) RatingIsProvisional(pt).some
                 else
                   val diff = math.abs(from.perfs(pt).intRating.value - dest.perfs(pt).intRating.value)
                   (diff > ratingThreshold) option RatingOutsideRange(pt)
-              }
             case (_, Pref.Challenge.REGISTERED) => none
             case _ if from == dest              => SelfChallenge.some
             case _                              => none

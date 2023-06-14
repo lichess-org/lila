@@ -9,7 +9,7 @@ import controllers.routes
 
 object username:
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?])(implicit ctx: WebContext) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?])(using WebContext) =
     account.layout(
       title = s"${u.username} - ${trans.editProfile.txt()}",
       active = "username"

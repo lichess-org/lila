@@ -26,39 +26,42 @@ class MarkdownTest extends munit.FunSuite {
     )
   }
   val domain     = config.NetDomain("http://l.org")
-  val gameId     = GameId("abcdefgh")
-  val pgn        = PgnStr("e2 e4")
-  val pgns       = Map(gameId -> pgn)
-  val expander   = MarkdownRender.GameExpand(domain, pgns.get)
-  val gameRender = new MarkdownRender(gameExpand = expander.some)("test") _
+  val gameId     = GameId("gameId12")
+  val studyId    = StudyId("StudyId1")
+  val chapterId  = StudyChapterId("ChaptId1")
+  val gamePgn    = PgnStr("e2 e4")
+  val gameUrl    = s"http://l.org/$gameId"
+  val chapterPgn = PgnStr("Nf3 Nf6 d4")
+  val chapterUrl = s"http://l.org/study/$studyId/$chapterId"
+  val pgns       = Map(gameId.value -> gamePgn, chapterId.value -> chapterPgn)
+  val expander   = MarkdownRender.PgnSourceExpand(domain, pgns.get)
+  val mdRender   = MarkdownRender(pgnExpand = expander.some)("test") _
+
   test("markdown game embeds full link") {
-    val md = Markdown(s"foo [game](http://l.org/$gameId) bar")
+    val md = Markdown(s"foo [game]($gameUrl) bar")
     assertEquals(
-      gameRender(md),
-      Html(
-        s"""<p>foo <div data-pgn="$pgn" data-orientation="white" data-ply="" class="lpv--autostart is2d">http://l.org/$gameId</div> bar</p>
+      mdRender(md),
+      Html:
+        s"""<p>foo <div data-pgn="$gamePgn" class="lpv--autostart is2d">$gameUrl</div> bar</p>
 """
-      )
     )
   }
   test("markdown game embeds auto link") {
-    val md = Markdown(s"foo http://l.org/$gameId bar")
+    val md = Markdown(s"foo $gameUrl bar")
     assertEquals(
-      gameRender(md),
-      Html(
-        s"""<p>foo <div data-pgn="$pgn" data-orientation="white" data-ply="" class="lpv--autostart is2d">http://l.org/$gameId</div> bar</p>
+      mdRender(md),
+      Html:
+        s"""<p>foo <div data-pgn="$gamePgn" class="lpv--autostart is2d">$gameUrl</div> bar</p>
 """
-      )
     )
   }
   test("markdown game embeds auto link with ply") {
-    val md = Markdown(s"prefix http://l.org/$gameId#1 suffix")
+    val md = Markdown(s"prefix $gameUrl#1 suffix")
     assertEquals(
-      gameRender(md),
-      Html(
-        s"""<p>prefix <div data-pgn="$pgn" data-orientation="white" data-ply="1" class="lpv--autostart is2d">http://l.org/$gameId#1</div> suffix</p>
+      mdRender(md),
+      Html:
+        s"""<p>prefix <div data-pgn="$gamePgn" class="lpv--autostart is2d" data-ply="1">$gameUrl#1</div> suffix</p>
 """
-      )
     )
   }
   test("markdown image whitelist pass") {
@@ -73,6 +76,15 @@ class MarkdownTest extends munit.FunSuite {
       render(Markdown("![image](https://evil.com/image.png)")),
       Html("""<p><a href="https://evil.com/image.png" rel="nofollow noopener noreferrer">image</a></p>
 """)
+    )
+  }
+  test("markdown chapter embed auto link") {
+    val md = Markdown(s"foo $chapterUrl bar")
+    assertEquals(
+      mdRender(md),
+      Html:
+        s"""<p>foo <div data-pgn="$chapterPgn" class="lpv--autostart is2d">$chapterUrl</div> bar</p>
+"""
     )
   }
 }

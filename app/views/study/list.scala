@@ -15,7 +15,7 @@ import lila.user.User
 
 object list:
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: Order)(implicit ctx: WebContext) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: Order)(using WebContext) =
     layout(
       title = trans.study.allStudies.txt(),
       active = "all",
@@ -26,7 +26,7 @@ object list:
       withHrefLangs = LangPath(routes.Study.allDefault()).some
     )
 
-  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: WebContext) =
+  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(using WebContext) =
     layout(
       title = trans.study.studiesCreatedByX.txt(owner.titleUsername),
       active = "owner",
@@ -52,7 +52,7 @@ object list:
   def mineLikes(
       pag: Paginator[WithChaptersAndLiked],
       order: Order
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     layout(
       title = trans.study.myFavoriteStudies.txt(),
       active = "mineLikes",
@@ -75,7 +75,7 @@ object list:
       topics = topics.some
     )
 
-  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: WebContext) =
+  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(using WebContext) =
     layout(
       title = trans.study.myPublicStudies.txt(),
       active = "minePublic",
@@ -85,7 +85,7 @@ object list:
       url = o => routes.Study.minePublic(o)
     )
 
-  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: WebContext) =
+  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(using WebContext) =
     layout(
       title = trans.study.myPrivateStudies.txt(),
       active = "minePrivate",
@@ -95,7 +95,7 @@ object list:
       url = o => routes.Study.minePrivate(o)
     )
 
-  def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: WebContext) =
+  def search(pag: Paginator[WithChaptersAndLiked], text: String)(using WebContext) =
     views.html.base.layout(
       title = text,
       moreCss = cssTag("study.index"),
@@ -114,7 +114,7 @@ object list:
       )
     }
 
-  def staffPicks(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: WebContext) =
+  def staffPicks(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using WebContext) =
     views.html.base.layout(
       title = ~doc.getText("doc.title"),
       moreCss = frag(cssTag("study.index"), cssTag("page"))
@@ -127,7 +127,7 @@ object list:
       )
     }
 
-  private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit ctx: WebContext) =
+  private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using WebContext) =
     if (pager.currentPageResults.isEmpty)
       div(cls := "nostudies")(
         iconTag(licon.StudyBoard),
@@ -181,7 +181,7 @@ object list:
       searchFilter: String,
       topics: Option[StudyTopics] = None,
       withHrefLangs: Option[LangPath] = None
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("study.index"),
@@ -190,10 +190,10 @@ object list:
       withHrefLangs = withHrefLangs
     ) {
       main(cls := "page-menu")(
-        menu(active, order, topics.??(_.value)),
+        menu(active, order, topics.so(_.value)),
         main(cls := "page-menu__content study-index box")(
           div(cls := "box__top")(
-            searchForm(title, s"$searchFilter${searchFilter.nonEmpty ?? " "}"),
+            searchForm(title, s"$searchFilter${searchFilter.nonEmpty so " "}"),
             bits.orderSelect(order, active, url),
             bits.newForm()
           ),

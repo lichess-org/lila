@@ -20,10 +20,10 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
 
   def encode: String =
     List(
-      best ?? (_.chars),
+      best so (_.chars),
       variation take Info.LineMaxPlies mkString " ",
-      mate ?? (_.value.toString),
-      cp ?? (_.value.toString)
+      mate so (_.value.toString),
+      cp so (_.value.toString)
     ).dropWhile(_.isEmpty).reverse mkString Info.separator
 
   def hasVariation  = variation.nonEmpty
@@ -48,7 +48,7 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
   def isEmpty = cp.isEmpty && mate.isEmpty
 
   override def toString =
-    s"Info $color [$ply] ${cp.fold("?")(_.showPawns)} ${mate.??(_.value)} $best"
+    s"Info $color [$ply] ${cp.fold("?")(_.showPawns)} ${mate.so(_.value)} $best"
 
 object Info:
 

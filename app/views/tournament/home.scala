@@ -18,7 +18,7 @@ object home:
       finished: List[Tournament],
       winners: lila.tournament.AllWinners,
       json: play.api.libs.json.JsObject
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.tournaments.txt(),
       moreCss = cssTag("tournament.home"),
@@ -60,7 +60,7 @@ object home:
           p(cls := "tour__links")(
             ctx.me map { me =>
               frag(
-                a(href := routes.UserTournament.path(me.username, "created"))("My tournaments"),
+                a(href := routes.UserTournament.path(me.username, "created"))(trans.arena.myTournaments()),
                 br
               )
             },

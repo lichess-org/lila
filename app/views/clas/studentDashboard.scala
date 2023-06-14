@@ -15,7 +15,7 @@ object studentDashboard:
       wall: Html,
       teachers: List[User],
       students: List[Student.WithUser]
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "clas-show dashboard dashboard-student",
       div(cls := "clas-show__top")(
@@ -62,7 +62,7 @@ object studentDashboard:
       div(cls := "students")(studentList(students))
     )
 
-  def studentList(students: List[Student.WithUser])(implicit ctx: WebContext) =
+  def studentList(students: List[Student.WithUser])(using WebContext) =
     table(cls := "slist slist-pad sortable")(
       thead(
         tr(
@@ -74,7 +74,7 @@ object studentDashboard:
         )
       ),
       tbody(
-        students.sortBy(-_.user.seenAt.??(_.toMillis)).map { case Student.WithUser(student, user) =>
+        students.sortBy(-_.user.seenAt.so(_.toMillis)).map { case Student.WithUser(student, user) =>
           tr(
             td(
               userLink(
@@ -97,7 +97,7 @@ object studentDashboard:
       )
     )
 
-  private def challengeTd(user: lila.user.User)(implicit ctx: WebContext) =
+  private def challengeTd(user: lila.user.User)(using ctx: WebContext) =
     if (ctx is user) td
     else
       val online = isOnline(user.id)

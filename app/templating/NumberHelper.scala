@@ -17,9 +17,6 @@ trait NumberHelper { self: I18nHelper =>
 
   def showMillis(millis: Int)(using Lang) = formatter.format((millis / 100).toDouble / 10)
 
-  implicit final class RichInt(number: Int):
-    def localize(using Lang): String = formatter format number
-
-  implicit final class RichLong(number: Long):
-    def localize(using Lang): String = formatter format number
+  extension (e: Int) def localize(using Lang): String  = formatter format e
+  extension (e: Long) def localize(using Lang): String = formatter format e
 }

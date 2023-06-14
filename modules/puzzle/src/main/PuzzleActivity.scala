@@ -26,7 +26,7 @@ final class PuzzleActivity(
       colls.round.map:
         _.find(
           $doc(PuzzleRound.BSONFields.user -> config.user.id) ++
-            config.before.?? { before =>
+            config.before.so { before =>
               $doc(PuzzleRound.BSONFields.date $lt before)
             }
         )

@@ -18,6 +18,8 @@ import lila.hub.LeaderTeam
 import lila.gathering.Condition
 import lila.gathering.Condition.GetUserTeamIds
 import lila.rating.PerfType
+import lila.common.paginator.Paginator
+import lila.common.config.MaxPerPage
 
 final class SimulApi(
     userRepo: UserRepo,
@@ -92,10 +94,10 @@ final class SimulApi(
     repo.findCreated(simulId) flatMapz { simul =>
       Variant(variantKey)
         .filter(simul.variants.contains)
-        .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime) ?? { variant =>
+        .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime) so { variant =>
         val perfType = PerfType(variant, chess.Speed.Rapid)
         verify(simul, user, perfType).map:
-          _.accepted ?? {
+          _.accepted so {
             timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
             val newSimul = simul addApplicant SimulApplicant.make(
               SimulPlayer.make(
@@ -124,7 +126,7 @@ final class SimulApi(
   def start(simulId: SimulId): Funit =
     workQueue(simulId) {
       repo.findCreated(simulId) flatMapz { simul =>
-        simul.start ?? { started =>
+        simul.start so { started =>
           userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
             started.pairings.mapWithIndex(makeGame(started, host)).parallel map { games =>
               games.headOption foreach { (game, _) =>
@@ -162,7 +164,7 @@ final class SimulApi(
     }
 
   def finishGame(game: Game): Funit =
-    game.simulId ?? { simulId =>
+    game.simulId so { simulId =>
       workQueue(simulId) {
         repo.findStarted(simulId) flatMapz { simul =>
           val simul2 = simul.updatePairing(
@@ -197,7 +199,7 @@ final class SimulApi(
       _ foreach { oldSimul =>
         workQueue(oldSimul.id) {
           repo.findCreated(oldSimul.id) flatMapz { simul =>
-            (simul ejectCheater userId) ?? { simul2 =>
+            (simul ejectCheater userId) so { simul2 =>
               update(simul2).void
             }
           }
@@ -206,12 +208,12 @@ final class SimulApi(
     }
 
   def hostPing(simul: Simul): Funit =
-    simul.isCreated ?? {
+    simul.isCreated so {
       repo.setHostSeenNow(simul) >> {
         val applicantIds = simul.applicants.view.map(_.player.user).toSet
         socket.filterPresent(simul, applicantIds) flatMap { online =>
           val leaving = applicantIds diff online.toSet
-          leaving.nonEmpty ??
+          leaving.nonEmpty so
             WithSimul(repo.findCreated, simul.id) {
               _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user)))
             }
@@ -224,6 +226,18 @@ final class SimulApi(
 
   def teamOf(id: SimulId): Fu[Option[TeamId]] =
     repo.coll.primitiveOne[TeamId]($id(id), "team")
+
+  def hostedByUser(userId: UserId, page: Int): Fu[Paginator[Simul]] =
+    Paginator(
+      adapter = repo.byHostAdapter(userId),
+      currentPage = page,
+      maxPerPage = MaxPerPage(20)
+    )
+
+  object countHostedByUser:
+    private val cache = cacheApi[UserId, Int](1024, "simul.nb.hosted"):
+      _.expireAfterWrite(10 minutes).buildAsyncFuture(repo.countByHost)
+    export cache.get
 
   private def makeGame(simul: Simul, host: User)(
       pairing: SimulPairing,

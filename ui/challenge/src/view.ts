@@ -50,7 +50,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
           h(`div.content__text#challenge-text-${c.id}`, [
             h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
             h('span.desc', [
-              h('span.is.is2.color-icon.' + myColor),
+              h('span.is.color-icon.' + myColor),
               ' • ',
               [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • '),
             ]),

@@ -83,8 +83,8 @@ object Team:
         value.contains(s"$separator$teamId$separator")
 
     def toArray: Array[TeamId] = TeamId.from(value split IdsStr.separator)
-    def toList                 = value.nonEmpty ?? toArray.toList
-    def toSet                  = value.nonEmpty ?? toArray.toSet
+    def toList                 = value.nonEmpty so toArray.toList
+    def toSet                  = value.nonEmpty so toArray.toSet
 
   object IdsStr:
 

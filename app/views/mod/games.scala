@@ -127,7 +127,7 @@ object games:
                       },
                       shortClockName(pov.game)
                     ),
-                    td(dataSort := pov.game.tournamentId.??(_.value))(
+                    td(dataSort := pov.game.tournamentId.so(_.value))(
                       pov.game.tournamentId map { tourId =>
                         a(
                           dataIcon := licon.Trophy,
@@ -166,7 +166,7 @@ object games:
                           frag(
                             td(dataSort := basics.moveTimes.sd)(
                               s"${basics.moveTimes / 10}",
-                              basics.mtStreak ?? frag(br, "streak")
+                              basics.mtStreak so frag(br, "streak")
                             ),
                             td(dataSort := basics.blurs)(
                               s"${basics.blurs}%",

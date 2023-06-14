@@ -22,7 +22,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NoBot:
       NotForKids:
         OptionFuOk(env.forum.categRepo byId categId): categ =>
-          categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+          categ.team.so { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
             forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me, inOwnTeam), _) }
           }
   }
@@ -31,7 +31,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NoBot:
       CategGrantWrite(categId):
         OptionFuResult(env.forum.categRepo byId categId) { categ =>
-          categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+          categ.team.so { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
             forms
               .topic(me, inOwnTeam)
               .bindFromRequest()
@@ -54,14 +54,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NotForKids:
       OptionFuResult(topicApi.show(categId, slug, page, ctx.me)) { case (categ, topic, posts) =>
         for
-          unsub       <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
+          unsub       <- ctx.userId so env.timeline.status(s"forum:${topic.id}")
           canRead     <- access.isGrantedRead(categ.slug)
           canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
           canModCateg <- access.isGrantedMod(categ.slug)
           inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
             env.team.cached.isLeader(teamId, me.id)
           }
-          form <- ctx.me.filter(_ => canWrite && topic.open && !topic.isOld) ?? { me =>
+          form <- ctx.me.filter(_ => canWrite && topic.open && !topic.isOld) so { me =>
             forms.postWithCaptcha(me, inOwnTeam) map some
           }
           _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)

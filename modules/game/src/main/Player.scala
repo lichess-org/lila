@@ -188,6 +188,6 @@ object Player:
       rating            -> p.rating,
       ratingDiff        -> p.ratingDiff,
       provisional       -> p.provisional.yes.option(true),
-      blursBits         -> p.blurs.nonEmpty.??(p.blurs),
+      blursBits         -> p.blurs.nonEmpty.so(p.blurs),
       name              -> p.name
     )

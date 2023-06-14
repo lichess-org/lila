@@ -60,10 +60,17 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
 Cremos que é máis probable que se cumpran estas condicións nun equipo que en torneos globais.</string>
   <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
   <string name="numberOfByesA">Un xogador/a ten un \"bye\" de un punto cada vez que o sistema de emparellamento non pode atoparlle opoñente. Adicionalmente, un \"bye\" de medio punto daráselle a un xogador cando entre tardiamente nun torneo.</string>
+  <string name="earlyDrawsQ">Que pasa coas táboas rápidas?</string>
+  <string name="earlyDrawsA">Un xogador recibe un \"bye\" de 1 punto cada vez que o sistema de emparellamento non é quen de asignarlle un opoñente.
+Ademais, outórgaselle un único \"bye\" de medio punto ó xogador que se une tarde ó torneo.</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador/a non xoga unha partida?</string>
   <string name="whatIfOneDoesntPlayA">O seu reló pararase, será marcado e perderá a partida.
 Entón o sistema botará ao xogador do torneo, para que non perda máis partidas.
 El poderá volver a unirse ao torneo en calquera momento.</string>
+  <string name="protectionAgainstNoShowQ">Que se fai cos xogadores ausentes?</string>
+  <string name="protectionAgainstNoShowA">Os xogadores que se inscriben en Torneos Suízos pero que non xogan as súas partidas poden causar problemas.
+Pra mitigar este inconveniente, Lichess impide unirse a un Torneo Suízo durante un período de tempo ós xogadores que non se presentan ás súas partidas.
+De calquera maneira, o creador dun Torneo Suízo pode decidir deixalos participar.</string>
   <string name="lateJoinQ">Poden os xogadores entrar tarde?</string>
   <string name="lateJoinA">Si, pero ata o comezo da metade das rondas; por exemplo, nun torneo suizo de 11 rondas, as xogadoras poden entrar antes de que a 6ª ronda comece e nun de 12 rondas antes de que comece a 7ª ronda.
 As xogadores que entren tarde teñen un só \"bye\", mesmo se non se presentan a varias rondas.</string>

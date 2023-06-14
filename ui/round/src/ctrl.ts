@@ -31,7 +31,7 @@ import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
-import { uciToMove } from 'chessground/util';
+import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { toggle as boardMenuToggle } from 'board/menu';
 
@@ -75,8 +75,6 @@ export default class RoundController {
   firstSeconds = true;
   flip = false;
   menu: ToggleWithUsed;
-  voiceMoveEnabled: Toggle;
-  keyboardMoveEnabled: Toggle;
   confirmMoveEnabled: Toggle = toggle(true);
   loading = false;
   loadingTimeout: number;
@@ -144,14 +142,6 @@ export default class RoundController {
     this.transientMove = new TransientMove(this.socket);
 
     this.menu = boardMenuToggle(redraw);
-    this.voiceMoveEnabled = toggle(d.pref.voiceMove, async v => {
-      await xhr.setPreference('voice', v ? '1' : '0');
-      lichess.reload();
-    });
-    this.keyboardMoveEnabled = toggle(d.pref.keyboardMove, async v => {
-      await xhr.setPreference('keyboardMove', v ? '1' : '0');
-      lichess.reload();
-    });
 
     this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;
@@ -220,7 +210,7 @@ export default class RoundController {
         show: this.voiceMove?.promotionHook(),
       },
       meta,
-      this.keyboardMove?.justSelected() //this.voiceMove?.justSelected()
+      this.keyboardMove?.justSelected()
     );
 
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => this.startPromotion(orig, dest, meta);
@@ -353,6 +343,18 @@ export default class RoundController {
     this.redraw();
   };
 
+  auxMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
+    if (!role) {
+      this.chessground.move(orig, dest);
+      // TODO look into possibility of making cg.Api.move function update player turn itself.
+      this.chessground.state.movable.dests = undefined;
+      this.chessground.state.turnColor = opposite(this.chessground.state.turnColor);
+
+      if (this.startPromotion(orig, dest, { premove: false })) return;
+    }
+    this.sendMove(orig, dest, role, { premove: false });
+  };
+
   sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
     const move: SocketMove = {
       u: orig + dest,
@@ -362,6 +364,7 @@ export default class RoundController {
     this.resign(false);
     if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
       this.moveToSubmit = move;
+      this.voiceMove?.confirm('submitMove', this.submitMove);
       this.redraw();
     } else {
       this.actualSendMove('move', move, {
@@ -377,6 +380,7 @@ export default class RoundController {
     this.resign(false);
     if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
       this.dropToSubmit = drop;
+      this.voiceMove?.confirm('submitMove', this.submitMove);
       this.redraw();
     } else {
       this.actualSendMove('drop', drop, {
@@ -638,7 +642,7 @@ export default class RoundController {
   };
 
   opponentRequest(req: string, i18nKey: string) {
-    this.voiceMove?.opponentRequest(req, (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`));
+    this.voiceMove?.confirm(req, (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`));
     notify(this.noarg(i18nKey));
   }
 

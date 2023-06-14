@@ -20,7 +20,7 @@ object side:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(implicit ctx: WebContext): Option[Frag] =
+  )(using ctx: WebContext): Option[Frag] =
     ctx.noBlind option frag(
       meta(pov, initialFen, tour, simul, userTv, bookmarked),
       pov.game.userIds.filter(isStreaming) map views.html.streamer.bits.contextual
@@ -33,7 +33,7 @@ object side:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(implicit ctx: WebContext): Option[Frag] =
+  )(using ctx: WebContext): Option[Frag] =
     ctx.noBlind option {
       import pov.*
       div(cls := "game__meta")(
@@ -98,7 +98,7 @@ object side:
             }
           )
         },
-        game.variant.chess960.?? {
+        game.variant.chess960.so {
           chess.variant.Chess960
             .positionNumber(initialFen | chess.format.Fen.initial)
             .map { number =>

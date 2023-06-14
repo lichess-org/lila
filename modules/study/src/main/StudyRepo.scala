@@ -59,8 +59,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       .map: docs =>
         for
           doc     <- docs
-          study   <- doc.asOpt[Study]
           chapter <- doc.getAsOpt[Chapter]("chapter")
+          study   <- doc.asOpt[Study]
         yield Study.WithChapter(study, chapter)
 
   def byOrderedIds(ids: Seq[StudyId]) = coll(_.byOrderedIds[Study, StudyId](ids)(_.id))
@@ -98,7 +98,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def sourceByOwner(ownerId: UserId, isMe: Boolean): Source[Study, ?] =
     Source.futureSource:
       coll.map:
-        _.find(selectOwnerId(ownerId) ++ (!isMe ?? selectPublic))
+        _.find(selectOwnerId(ownerId) ++ (!isMe so selectPublic))
           .sort($sort desc "updatedAt")
           .cursor[Study](readPreference = readPref)
           .documentSource()
@@ -262,7 +262,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     coll(_.exists($id(study.id) ++ selectLiker(user.id)))
 
   def filterLiked(user: User, studyIds: Seq[StudyId]): Fu[Set[StudyId]] =
-    studyIds.nonEmpty ??
+    studyIds.nonEmpty so
       coll(_.primitive[StudyId]($inIds(studyIds) ++ selectLiker(user.id), "_id").dmap(_.toSet))
 
   def resetAllRanks: Fu[Int] =

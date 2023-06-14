@@ -347,6 +347,10 @@
     <item quantity="one">%s درس</item>
     <item quantity="other">%s درس ها</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s سیمولتانه</item>
+    <item quantity="other">%s سیمولتانه</item>
+  </plurals>
   <string name="viewTournament">مشاهده مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
   <string name="noDrawBeforeSwissLimit">شما نمی‌توانید در مسابقات سوییس تا قبل از حرکت ۳۰ام بازی را مساوی کنید.</string>

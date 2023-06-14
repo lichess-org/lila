@@ -75,19 +75,17 @@ final class ClasApi(
 
     def areKidsInSameClass(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
-        colls.student.aggregateExists(readPreference = ReadPreference.secondaryPreferred) {
-          implicit framework =>
-            import framework.*
-            Match($doc("userId" $in List(kid1.id, kid2.id))) -> List(
-              GroupField("clasId")("nb" -> SumAll),
-              Match($doc("nb" -> 2)),
-              Limit(1)
-            )
-        }
+        colls.student.aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
+          import framework.*
+          Match($doc("userId" $in List(kid1.id, kid2.id))) -> List(
+            GroupField("clasId")("nb" -> SumAll),
+            Match($doc("nb" -> 2)),
+            Limit(1)
+          )
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      studentCache.isStudent(student) ?? colls.student
-        .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      studentCache.isStudent(student) so colls.student
+        .aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
           import framework.*
           Match($doc("userId" -> student)) -> List(
             Project($doc("clasId" -> true)),
@@ -108,7 +106,6 @@ final class ClasApi(
             Limit(1),
             Project($id(true))
           )
-        }
 
     def archive(c: Clas, t: User, v: Boolean): Funit =
       coll.update

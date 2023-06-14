@@ -18,7 +18,7 @@ final class Learn(env: Env) extends LilaController(env):
   private def serveIndex(using ctx: WebContext) = NoBot:
     pageHit
     ctx.me
-      .?? { me =>
+      .so { me =>
         env.learn.api.get(me) map { Json.toJson(_) } map some
       }
       .map { progress =>

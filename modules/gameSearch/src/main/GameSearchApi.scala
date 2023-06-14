@@ -24,7 +24,7 @@ final class GameSearchApi(
     client.search(query, From(0), Size(max)).map(_.ids)
 
   def store(game: Game) =
-    storable(game) ?? {
+    storable(game) so {
       gameRepo isAnalysed game.id flatMap { analysed =>
         lila.common.LilaFuture
           .retry(

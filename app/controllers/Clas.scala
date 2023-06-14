@@ -97,7 +97,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
       orDefault: WebContext => Fu[Result] = notFound(using _)
   )(using ctx: WebContext): Fu[Result] =
-    isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
+    isGranted(_.Teacher).so(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       if _ then forTeacher
       else
         env.clas.api.clas.byId(id) flatMapz { clas =>
@@ -183,15 +183,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def progress(id: ClasId, key: lila.rating.Perf.Key, days: Int) = Secure(_.Teacher) { ctx ?=> me =>
-    lila.rating.PerfType(key) ?? { perfType =>
-      WithClass(me, id): clas =>
-        env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-          Reasonable(clas, students, "progress"):
-            env.clas.progressApi(perfType, days, students) map { progress =>
-              views.html.clas.teacherDashboard.progress(clas, students, progress)
-            }
-        }
-    }
+    lila.rating
+      .PerfType(key)
+      .so: perfType =>
+        WithClass(me, id): clas =>
+          env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+            Reasonable(clas, students, "progress"):
+              env.clas.progressApi(perfType, days, students) map { progress =>
+                views.html.clas.teacherDashboard.progress(clas, students, progress)
+              }
+          }
   }
 
   def learn(id: ClasId) = Secure(_.Teacher) { ctx ?=> me =>
@@ -242,7 +243,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     else
       WithClassAndStudents(me, id): (clas, students) =>
         for
-          created <- ctx.req.flash.get("created").map(_ split ' ').?? {
+          created <- ctx.req.flash.get("created").map(_ split ' ').so {
             case Array(userId, password) =>
               env.clas.api.student
                 .get(clas, UserId(userId))
@@ -293,18 +294,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def studentManyForm(id: ClasId) = Secure(_.Teacher) { ctx ?=> me =>
     WithClassAndStudents(me, id): (clas, students) =>
-      ctx.req.flash.get("created").?? {
+      ctx.req.flash.get("created").so {
         _.split('/').toList
-          .flatMap {
+          .flatMap:
             _.split(' ') match
               case Array(u, p) => (UserId(u), p).some
               case _           => none
-          }
-          .map { case (u, p) =>
+          .map: (u, p) =>
             env.clas.api.student
               .get(clas, u)
               .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(p)))
-          }
           .parallel
           .map(_.flatten)
       } flatMap { created =>
@@ -475,7 +474,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def becomeTeacher = AuthBody { ctx ?=> me =>
     couldBeTeacher.flatMapz:
       val perm = lila.security.Permission.Teacher.dbKey
-      (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
+      (!me.roles.has(perm) so env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
         Redirect(routes.Clas.index)
   }
 
@@ -492,7 +491,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def invitationAccept(id: ClasInvite.Id) = AuthBody { ctx ?=> me =>
-    Form(single("v" -> boolean))
+    Form(single("v" -> Forms.boolean))
       .bindFromRequest()
       .fold(
         _ => Redirect(routes.Clas.invitation(id)).toFuccess,

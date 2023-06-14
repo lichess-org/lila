@@ -39,7 +39,7 @@ final class PgnDump(
         )
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
-      val tree = flags.moves ?? {
+      val tree = flags.moves so {
         val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
         makeTree(
           flags keepDelayIf game.playable applyDelay {
@@ -47,7 +47,7 @@ final class PgnDump(
             else game.sans
           },
           fenSituation.fold(Ply.initial)(_.ply),
-          flags.clocks ?? ~game.bothClockStates,
+          flags.clocks so ~game.bothClockStates,
           game.startColor
         )
       }
@@ -57,7 +57,7 @@ final class PgnDump(
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
-    (game.whitePlayer.userId ?? lightUserApi.async) zip (game.blackPlayer.userId ?? lightUserApi.async)
+    (game.whitePlayer.userId so lightUserApi.async) zip (game.blackPlayer.userId so lightUserApi.async)
 
   private def rating(p: Player) = p.rating.orElse(p.nameSplit.flatMap(_._2)).fold("?")(_.toString)
 
@@ -116,8 +116,8 @@ final class PgnDump(
           ),
           withRating option Tag(_.WhiteElo, rating(game.whitePlayer)),
           withRating option Tag(_.BlackElo, rating(game.blackPlayer)),
-          withRating ?? ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
-          withRating ?? ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
+          withRating so ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
+          withRating so ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
           wu.flatMap(_.title).map { t =>
             Tag(_.WhiteTitle, t)
           },
@@ -142,8 +142,8 @@ final class PgnDump(
                 case UnknownFinish                                 => "Unknown"
             }
           ).some
-        ).flatten ::: customStartPosition(game.variant).??(
-          initialFen.??(fen =>
+        ).flatten ::: customStartPosition(game.variant).so(
+          initialFen.so(fen =>
             List(
               Tag(_.FEN, fen.value),
               Tag("SetUp", "1")

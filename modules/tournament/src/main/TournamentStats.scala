@@ -12,7 +12,7 @@ final class TournamentStatsApi(
 )(using Executor):
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
-    tournament.isFinished ?? cache.get(tournament.id).dmap(some)
+    tournament.isFinished so cache.get(tournament.id).dmap(some)
 
   private given BSONDocumentHandler[TournamentStats] = Macros.handler
 
@@ -57,9 +57,9 @@ private object TournamentStats:
     TournamentStats(
       games = colorStats.foldLeft(0)(_ + _._2.games),
       moves = colorStats.foldLeft(0)(_ + _._2.moves),
-      whiteWins = colorStats.get(Color.White.some).??(_.games),
-      blackWins = colorStats.get(Color.Black.some).??(_.games),
-      draws = colorStats.get(none).??(_.games),
+      whiteWins = colorStats.get(Color.White.some).so(_.games),
+      blackWins = colorStats.get(Color.Black.some).so(_.games),
+      draws = colorStats.get(none).so(_.games),
       berserks = colorStats.foldLeft(0)(_ + _._2.berserks),
       averageRating = rating
     )

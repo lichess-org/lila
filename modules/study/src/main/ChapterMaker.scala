@@ -20,9 +20,9 @@ final private class ChapterMaker(
   import ChapterMaker.*
 
   def apply(study: Study, data: Data, order: Int, userId: UserId, withRatings: Boolean): Fu[Chapter] =
-    data.game.??(parseGame) flatMap {
+    data.game.so(parseGame) flatMap {
       case None =>
-        data.game ?? pgnFetch.fromUrl flatMap {
+        data.game so pgnFetch.fromUrl flatMap {
           case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
           case _         => fromFenOrPgnOrBlank(study, data, order, userId)
         }
@@ -44,16 +44,7 @@ final private class ChapterMaker(
       }
     } yield Chapter.make(
       studyId = study.id,
-      name = parsed.tags(_.White).flatMap { white =>
-        parsed
-          .tags(_.Black)
-          .ifTrue {
-            data.name.value.isEmpty || data.isDefaultName
-          }
-          .map { black =>
-            StudyChapterName(s"$white - $black")
-          }
-      } | data.name,
+      name = getChapterNameFromPgn(data, parsed),
       setup = Chapter.Setup(
         none,
         parsed.variant,
@@ -67,6 +58,18 @@ final private class ChapterMaker(
       gamebook = data.isGamebook,
       conceal = data.isConceal option parsed.root.ply
     )
+
+  private def getChapterNameFromPgn(data: Data, parsed: PgnImport.Result): StudyChapterName =
+    def vsFromPgnTags = for
+      white <- parsed.tags(_.White)
+      black <- parsed.tags(_.Black)
+    yield s"$white - $black"
+    data.name.some
+      .ifFalse(data.isDefaultName)
+      .orElse:
+        StudyChapterName.from:
+          parsed.tags("Event").orElse(vsFromPgnTags).filter(_.nonEmpty)
+      .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, tags: Tags = Tags.empty): Color =
     data.orientation match
@@ -221,7 +224,7 @@ private[study] object ChapterMaker:
 
     def manyGames =
       game
-        .??(_.linesIterator.take(Study.maxChapters).toList)
+        .so(_.linesIterator.take(Study.maxChapters).toList)
         .map(_.trim)
         .filter(_.nonEmpty)
         .map { g => copy(game = g.some) }

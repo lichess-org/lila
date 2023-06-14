@@ -18,7 +18,7 @@ object list:
       scores: lila.report.Room.Scores,
       streamers: Int,
       appeals: Int
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     layout(filter, scores, streamers, appeals)(
       table(cls := "slist slist-pad see")(
         thead(
@@ -92,7 +92,7 @@ object list:
 
   def layout(filter: String, scores: lila.report.Room.Scores, streamers: Int, appeals: Int)(
       body: Frag
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = "Reports",
       moreCss = cssTag("mod.report")
@@ -110,7 +110,7 @@ object list:
                 "All",
                 scoreTag(scores.highest)
               ),
-              ctx.me ?? { me =>
+              ctx.me so { me =>
                 lila.report.Room.values
                   .filter(lila.report.Room.isGrantedFor(Holder(me)))
                   .map { room =>

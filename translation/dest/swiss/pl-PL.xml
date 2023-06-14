@@ -75,10 +75,17 @@ Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż
   <string name="numberOfByesQ">Ile wolnych losów (punktów bez gry) może otrzymać uczestnik?</string>
   <string name="numberOfByesA">Uczestnik turnieju dostaje wolny los (punkt bez gry) za każdym razem, gdy system parowania nie może znaleźć dla niego przeciwnika.
 Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołącza do turnieju po jego rozpoczęciu.</string>
+  <string name="earlyDrawsQ">Co się stanie gdy zbyt wcześnie nastąpi remis?</string>
+  <string name="earlyDrawsA">Uczestnik turnieju dostaje wolny los (punkt bez gry) za każdym razem, gdy system parowania nie może znaleźć dla niego przeciwnika.
+Dodatkowo, wolny los przyznawany jest graczowi, który dołącza do turnieju po jego rozpoczęciu.</string>
   <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli uczestnik nie rozpocznie partii?</string>
   <string name="whatIfOneDoesntPlayA">Jego czas na zegarze będzie upływał, aż skończy się i wtedy przegra partię.
 Następnie system wycofa takiego uczestnika z turnieju, więc nie przegra on więcej partii.
 Uczestnik ten może w każdej chwili ponownie dołączyć do turnieju.</string>
+  <string name="protectionAgainstNoShowQ">Co się dzieje z graczami, którzy nie przystępują do partii?</string>
+  <string name="protectionAgainstNoShowA">Gracze, którzy zapisali się do turnieju w systemie szwajcarskim, ale nie rozgrywają swoich partii, stanowią problem.
+W celu minimalizacji skali takich sytuacji Lichess uniemożliwia przez pewien czas zapisy na turnieje w systemie szwajcarskim graczom, którzy nie podeszli do partii. 
+Twórca turnieju może jednak zezwolić im na dołączenie.</string>
   <string name="lateJoinQ">Czy można dołączyć do turnieju po jego rozpoczęciu?</string>
   <string name="lateJoinA">Tak, dopóki nie rozpocznie się ponad połowa rund. Na przykład w 11-rundowym turnieju uczestnicy mogą dołączyć przed rozpoczęciem się 6 rundy, a w 12-rundowym turnieju przed rozpoczęciem się rundy 7.
 Uczestnicy dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt bez gry), nawet jeśli przegapili już kilka rund.</string>

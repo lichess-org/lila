@@ -272,8 +272,8 @@ importers:
         specifier: workspace:*
         version: link:../@types/lichess
       lichess-pgn-viewer:
-        specifier: ^1.5.5
-        version: 1.5.5
+        specifier: ^1.5.6
+        version: 1.5.6
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -560,8 +560,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^1.5.5
-        version: 1.5.5
+        specifier: ^1.5.6
+        version: 1.5.6
 
   ui/palantir:
     dependencies:
@@ -785,8 +785,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       lichess-pgn-viewer:
-        specifier: ^1.5.5
-        version: 1.5.5
+        specifier: ^1.5.7
+        version: 1.5.7
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -935,8 +935,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: ^1.5.5
-        version: 1.5.5
+        specifier: ^1.5.6
+        version: 1.5.6
 
   ui/voice:
     dependencies:
@@ -2921,6 +2921,10 @@ packages:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: false
 
+  /@types/node@18.16.17:
+    resolution: {integrity: sha512-QAkjjRA1N7gPJeAP4WLXZtYv6+eMXFNviqktCDt4GLcmCugMr5BcRHfkOjCQzvCsnMp+L79a54zBkbw356xv9Q==}
+    dev: false
+
   /@types/parse5@6.0.3:
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
     dev: false
@@ -3465,6 +3469,10 @@ packages:
     dependencies:
       merge: 1.2.0
       mithril: github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4
+    dev: false
+
+  /chessground@8.3.10:
+    resolution: {integrity: sha512-tYJ9IKR3N+2EP2DCYX3AMcPTCa2ZfOf988tYFHCaPFQ6i/9CQstDteLtrWtOWQjPV3qHXVmsbeCtyhUP0eqS3Q==}
     dev: false
 
   /chessground@8.3.9:
@@ -5004,11 +5012,20 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lichess-pgn-viewer@1.5.5:
-    resolution: {integrity: sha512-cRDzOl0ef0HV96kjclurP86USxJ/a3zfvlFO7z5rWPtK67+ImH4gKVJNU4DqAOuWomQ+AnxIr1mQUC9H324/Mw==}
+  /lichess-pgn-viewer@1.5.6:
+    resolution: {integrity: sha512-5y7W7oOWQikJkPZv7Cv0bLOw5t6qEz6hs8xJZcc7q97RbNdTPVprMAenxzEoFRU2UaEJaJ3FbDs/DbRmwNQk4A==}
     dependencies:
-      '@types/node': 18.11.18
-      chessground: 8.3.9
+      '@types/node': 18.16.17
+      chessground: 8.3.10
+      chessops: 0.12.7
+      snabbdom: 3.5.1
+    dev: false
+
+  /lichess-pgn-viewer@1.5.7:
+    resolution: {integrity: sha512-NGrMwA6h4SMS/amtDRSXQHrgiqeNmll15WGq4cl+4uZe5MR0wsJxpZUImCb0oJ47NXkZdl3zz4ahX2whENC7Mg==}
+    dependencies:
+      '@types/node': 18.16.17
+      chessground: 8.3.10
       chessops: 0.12.7
       snabbdom: 3.5.1
     dev: false

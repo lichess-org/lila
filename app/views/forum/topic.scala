@@ -91,7 +91,7 @@ object topic:
         .OpenGraph(
           title = topic.name,
           url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
-          description = shorten(posts.currentPageResults.headOption.??(_.post.text), 152)
+          description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
         )
         .some,
       csp = defaultCsp.withInlineIconFont.withTwitter.some
@@ -197,7 +197,7 @@ object topic:
               a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
               (isGranted(_.PublicMod) || isGranted(_.SeeReport)) option
                 form3.submit(
-                  frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).?? { "(anonymously)" }}"),
+                  frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).so("(anonymously)")}"),
                   nameValue = (form("modIcon").name, "true").some,
                   icon = licon.Agent.some
                 ),

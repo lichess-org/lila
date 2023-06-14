@@ -18,7 +18,7 @@ final class EmailChange(
   import Mailer.html.*
 
   def send(user: User, email: EmailAddress): Funit =
-    !email.looksLikeFakeEmail ?? {
+    !email.looksLikeFakeEmail so {
       tokener make TokenPayload(user.id, email).some flatMap { token =>
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
@@ -63,14 +63,14 @@ ${trans.common_orPaste.txt()}
         case Array(id, email) => EmailAddress from email map { TokenPayload(UserId(id), _) }
         case _                => none
     val to = a =>
-      a ?? { case TokenPayload(userId, email) =>
+      a so { case TokenPayload(userId, email) =>
         s"$userId$sep$email"
       }
 
   private val tokener = new StringToken[Option[TokenPayload]](
     secret = tokenerSecret,
     getCurrentValue = p =>
-      p ?? { case TokenPayload(userId, _) =>
-        userRepo email userId dmap (_.??(_.value))
+      p so { case TokenPayload(userId, _) =>
+        userRepo email userId dmap (_.so(_.value))
       }
   )

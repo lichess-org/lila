@@ -5,7 +5,7 @@ import { VoiceModule } from '../interfaces';
 
 export interface RootCtrl {
   chessground: CgApi;
-  sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
+  auxMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
   redraw: () => void;
   flipNow: () => void;
   offerDraw?: (v: boolean, immediately?: boolean) => void;
@@ -20,7 +20,7 @@ export interface RootCtrl {
 export interface VoiceMove extends VoiceModule {
   update: (fen: string, yourMove?: boolean) => void;
   promotionHook: () => (ctrl: PromotionCtrl, roles: cg.Role[] | false) => void;
-  opponentRequest: (request: string, callback: (v: boolean) => void) => void;
+  confirm: (request: string, callback: (v: boolean) => void) => void;
 }
 
 export interface Match {

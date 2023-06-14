@@ -97,6 +97,7 @@
   <string name="openingExplorer">オープニング探索</string>
   <string name="openingEndgameExplorer">序盤／終盤エクスプローラー</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
+  <string name="playFirstOpeningEndgameExplorerMove">序盤／終盤エクスプローラーの最初の手を指す</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
   <string name="winOr50MovesByPriorMistake">勝ち、または以前の悪手のため50手ドロー</string>
@@ -322,6 +323,9 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="other">%s 研究</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s 同時対局</item>
   </plurals>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
@@ -646,6 +650,11 @@
   <string name="keyGoToStartOrEnd">最初/最後に戻る</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
   <string name="keyEnterOrExitVariation">変化に入る/出る</string>
+  <string name="keyRequestComputerAnalysis">コンピュータ解析の要請、自分の悪手に学ぶ</string>
+  <string name="keyNextLearnFromYourMistakes">次（自分の悪手に学ぶ）</string>
+  <string name="keyNextBlunder">次の大悪手</string>
+  <string name="keyNextMistake">次の悪手</string>
+  <string name="keyNextInaccuracy">次のやや悪手</string>
   <string name="newTournament">新しいトーナメント</string>
   <string name="tournamentHomeTitle">さまざまな持時間とルールのチェストーナメント</string>
   <string name="tournamentHomeDescription">早指しのチェストーナメントに参加しよう！　定時のトーナメントに参加するほか、自分で作ることもできます。ブレット、ブリッツ、クラシック、チェス960、キングオブザヒル、3チェックなどチェスの無限の楽しみを。</string>
@@ -741,6 +750,7 @@
   <string name="invalidFen">無効な FEN</string>
   <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
+  <string name="notificationsX">通知：%1$s</string>
   <string name="perfRatingX">レーティング: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>

@@ -48,10 +48,12 @@ trait AnyContext:
   val userContext: UserContext
   export userContext.{ req, me, impersonatedBy, lang, userId, is, kid, noKid, troll }
   export me.{ isDefined as isAuth, isEmpty as isAnon }
-  def isBot        = me.exists(_.isBot)
-  def noBot        = !isBot
-  def isAppealUser = me.exists(_.enabled.no)
-  def ip           = HTTPRequest ipAddress userContext.req
+  def isBot               = me.exists(_.isBot)
+  def noBot               = !isBot
+  def isAppealUser        = me.exists(_.enabled.no)
+  def ip                  = HTTPRequest ipAddress userContext.req
+  val scopes: OAuthScopes = OAuthScopes(Nil)
+  def isMobile            = scopes.has(_.Web.Mobile)
 
 trait BodyContext[A] extends AnyContext:
   def body: Request[A]
@@ -107,7 +109,7 @@ sealed trait OAuthAnyContext extends AnyContext:
 
 class OAuthContext(
     val userContext: UserContext,
-    val scopes: OAuthScopes
+    override val scopes: OAuthScopes
 ) extends OAuthAnyContext:
   def withLang(l: Lang) = OAuthContext(userContext withLang l, scopes)
 

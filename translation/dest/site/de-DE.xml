@@ -63,7 +63,7 @@
   <string name="engineFailed">Fehler beim Laden der Engine</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
-  <string name="showThreat">Drohungen anzeigen</string>
+  <string name="showThreat">Bedrohungen anzeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="promoteVariation">Variante aufwerten</string>
@@ -347,6 +347,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s Studie</item>
     <item quantity="other">%s Studien</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s Simultan-Partie</item>
+    <item quantity="other">%s Simultan-Partien</item>
   </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
@@ -683,11 +687,11 @@
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
-  <string name="keyRequestComputerAnalysis">Fordere eine Computer-Analyse an, lerne aus deinen Fehlern</string>
+  <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
   <string name="keyNextLearnFromYourMistakes">Als Nächstes (Lerne aus deinen Fehlern)</string>
-  <string name="keyNextBlunder">Nächster grober Patzer</string>
-  <string name="keyNextMistake">Nächster Fehler</string>
-  <string name="keyNextInaccuracy">Nächste Ungenauigkeit</string>
+  <string name="keyNextBlunder">Der nächste grobe Patzer</string>
+  <string name="keyNextMistake">Der nächste Fehler</string>
+  <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>
@@ -900,7 +904,7 @@
   <string name="resVsX">%1$s gegen %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil bewertet.</string>
   <string name="newPendingReview">Neue, ausstehende Rezension</string>
-  <string name="lostAgainstTOSViolator">Du hast Wertungspunkte an jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
+  <string name="lostAgainstTOSViolator">Du hast Elo an jemanden verloren, der gegen die Lichess-AGB verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>

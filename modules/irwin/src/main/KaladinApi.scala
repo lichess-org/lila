@@ -58,9 +58,9 @@ final class KaladinApi(
   def modRequest(user: Suspect, by: Holder) =
     request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, by.id into ModId)
 
-  def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot ??
+  def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot so
     sequence(user) { prev =>
-      prev.fold(KaladinUser.make(user, requester).some)(_.queueAgain(requester)) ?? { req =>
+      prev.fold(KaladinUser.make(user, requester).some)(_.queueAgain(requester)) so { req =>
         hasEnoughRecentMoves(user) flatMap {
           if _ then
             lila.mon.mod.kaladin.request(requester.name).increment()
@@ -84,15 +84,14 @@ final class KaladinApi(
         .cursor[KaladinUser]()
         .list(50)
         .flatMap { docs =>
-          docs.nonEmpty ?? {
+          docs.nonEmpty.so:
             coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
               docs.traverse_(readResponse)
-          }
         }
         .void
     }
 
-  private def readResponse(user: KaladinUser): Funit = user.response ?? { res =>
+  private def readResponse(user: KaladinUser): Funit = user.response.so: res =>
     res.pred match
       case Some(pred) =>
         markOrReport(user, pred) >>- {
@@ -100,12 +99,9 @@ final class KaladinApi(
           lila.mon.mod.kaladin.activation.record(pred.percent).unit
         }
       case None =>
-        fuccess {
-          res.err foreach { err =>
+        fuccess:
+          res.err.foreach: err =>
             lila.mon.mod.kaladin.error(err).increment().unit
-          }
-        }
-  }
 
   private def markOrReport(user: KaladinUser, pred: KaladinUser.Pred): Funit =
 
@@ -141,7 +137,7 @@ final class KaladinApi(
       subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
 
     private[KaladinApi] def apply(user: KaladinUser): Funit =
-      subs.get(user.suspectId) ?? { modIds =>
+      subs.get(user.suspectId) so { modIds =>
         subs = subs - user.suspectId
         modIds
           .map { modId =>

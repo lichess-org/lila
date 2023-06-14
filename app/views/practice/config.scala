@@ -10,7 +10,7 @@ import controllers.routes
 
 object config:
 
-  def apply(structure: lila.practice.PracticeStructure, form: Form[?])(implicit ctx: WebContext) =
+  def apply(structure: lila.practice.PracticeStructure, form: Form[?])(using WebContext) =
     views.html.base.layout(
       title = "Practice structure",
       moreCss = cssTag("mod.misc")
@@ -29,7 +29,7 @@ object config:
               ol(
                 structure.sections.map { section =>
                   li(
-                    h2(section.name, "#", section.id, section.hide ?? " [hidden]"),
+                    h2(section.name, "#", section.id, section.hide so " [hidden]"),
                     ol(
                       section.studies.map { stud =>
                         li(
@@ -39,7 +39,7 @@ object config:
                                 stud.name,
                                 "#",
                                 stud.id,
-                                stud.hide ?? " [hidden]"
+                                stud.hide so " [hidden]"
                               )
                             ),
                             em(stud.desc),

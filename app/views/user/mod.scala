@@ -208,11 +208,11 @@ object mod:
           )
         )
       },
-      isGranted(_.SetEmail) ?? frag(
+      isGranted(_.SetEmail) so frag(
         postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
           st.input(
             tpe         := "email",
-            value       := emails.current.??(_.value),
+            value       := emails.current.so(_.value),
             name        := "email",
             placeholder := "Email address"
           ),
@@ -339,7 +339,7 @@ object mod:
           "Moderation history",
           history.isEmpty option ": nothing to show"
         ),
-        history.nonEmpty ?? frag(
+        history.nonEmpty so frag(
           ul:
             history.map: e =>
               li(
@@ -348,7 +348,7 @@ object mod:
                 b(e.showAction),
                 " ",
                 e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
-                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${e.user.??(_.value)}")(
+                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${e.user.so(_.value)}")(
                     e.details.orZero: String
                   )
                 },
@@ -429,7 +429,7 @@ object mod:
           " , ",
           blursYes._3,
           "]",
-          pag.pag.sfAvgNoBlurs ?? { blursNo =>
+          pag.pag.sfAvgNoBlurs.so: blursNo =>
             frag(
               " against ",
               strong(blursNo._1),
@@ -439,7 +439,6 @@ object mod:
               blursNo._3,
               "] in games without blurs."
             )
-          }
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
@@ -451,7 +450,7 @@ object mod:
           ", ",
           lowVar._3,
           "]",
-          pag.pag.sfAvgHighVar ?? { highVar =>
+          pag.pag.sfAvgHighVar.so: highVar =>
             frag(
               " against ",
               strong(highVar._1),
@@ -461,7 +460,6 @@ object mod:
               highVar._3,
               "] in games with random move times."
             )
-          }
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
@@ -473,7 +471,7 @@ object mod:
           ", ",
           holdYes._3,
           "]",
-          pag.pag.sfAvgNoHold ?? { holdNo =>
+          pag.pag.sfAvgNoHold.so: holdNo =>
             frag(
               " against ",
               strong(holdNo._1),
@@ -483,7 +481,6 @@ object mod:
               holdNo._3,
               "]  in games without bot signature."
             )
-          }
         )
       },
       table(cls := "slist")(
@@ -530,7 +527,7 @@ object mod:
                 td(
                   span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := licon.DiscBig),
                   s" ${result.basics.moveTimes / 10}",
-                  result.basics.mtStreak ?? frag(br, "streak")
+                  result.basics.mtStreak so frag(br, "streak")
                 ),
                 td(
                   span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := licon.DiscBig),
@@ -626,7 +623,7 @@ object mod:
               isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
               td(
                 // show prints and ips separately
-                dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
+                dataSort := other.score + (other.ips.nonEmpty so 1000000) + (other.fps.nonEmpty so 3000000)
               )(
                 List(other.ips.size -> "IP", other.fps.size -> "Print")
                   .collect {
@@ -636,12 +633,12 @@ object mod:
               ),
               td(dataSort := o.count.game)(o.count.game.localize),
               markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id): Int)),
-              markTd(o.marks.alt ?? 1, alt, log.dateOf(_.alt)),
-              markTd(o.marks.troll ?? 1, shadowban, log.dateOf(_.troll)),
-              markTd(o.marks.boost ?? 1, boosting, log.dateOf(_.booster)),
-              markTd(o.marks.engine ?? 1, engine, log.dateOf(_.engine)),
-              markTd(o.enabled.no ?? 1, closed, log.dateOf(_.closeAccount)),
-              markTd(o.marks.reportban ?? 1, reportban, log.dateOf(_.reportban)),
+              markTd(o.marks.alt so 1, alt, log.dateOf(_.alt)),
+              markTd(o.marks.troll so 1, shadowban, log.dateOf(_.troll)),
+              markTd(o.marks.boost so 1, boosting, log.dateOf(_.booster)),
+              markTd(o.marks.engine so 1, engine, log.dateOf(_.engine)),
+              markTd(o.enabled.no so 1, closed, log.dateOf(_.closeAccount)),
+              markTd(o.marks.reportban so 1, reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty option {
                 td(dataSort := userNotes.size)(
                   a(href := s"${routes.User.show(o.username)}?notes")(
@@ -664,7 +661,7 @@ object mod:
                         "appeal-muted" -> appeal.isMuted
                       ),
                       dataIcon := licon.InkQuill,
-                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted ?? " [MUTED]"}"
+                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted so " [MUTED]"}"
                     )(appeal.msgs.size)
                   )
               },

@@ -12,7 +12,7 @@ object layout:
       title: String,
       control: lila.video.UserControl,
       openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Modifier*)(implicit ctx: WebContext) =
+  )(body: Modifier*)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("video"),

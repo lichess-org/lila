@@ -60,10 +60,16 @@ Wij denken dat deze voorwaarden binnen een team waarschijnlijk eerder zullen wor
   <string name="numberOfByesQ">Hoeveel byes kan een speler krijgen?</string>
   <string name="numberOfByesA">Een speler krijgt één punt voor elke keer dat er geen paring tot stand kan komen.
 Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat deelnemen als het toernooi al begonnen is.</string>
+  <string name="earlyDrawsQ">Wat gebeurt er bij vroegtijdige remises?</string>
+  <string name="earlyDrawsA">Een speler krijgt één punt voor elke keer dat er geen paring tot stand kan komen.
+Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat deelnemen als het toernooi al begonnen is.</string>
   <string name="whatIfOneDoesntPlayQ">Wat gebeurt er als een speler geen partij speelt?</string>
   <string name="whatIfOneDoesntPlayA">Hun klok loopt, ze gaan door de vlag en verliezen de partij.
 Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partijen verliest.
  Op elk moment kan de speler opnieuw deelnemen aan het toernooi.</string>
+  <string name="protectionAgainstNoShowQ">Wat gebeurt er als iemand niet komt opdagen?</string>
+  <string name="protectionAgainstNoShowA">Spelers die zich aanmelden voor een Zwitsers toernooi, maar vervolgens niet spelen kunnen een probleem zijn.
+Om dit probleem te verhelpen verbiedt Lichess spelers die niet komen opdagen bij een partij om een nieuw Zwitsers evenement te starten, voor een bepaalde periode. De maker van een Zwitser evenement kan er voor kiezen om deze spelers alsnog te laten spelen.</string>
   <string name="lateJoinQ">Kunnen spelers nog meedoen als het toernooi al begonnen is?</string>
   <string name="lateJoinA">Ja, tot meer dan de helft van de rondes is begonnen; in een Zwitsers toernooi van 11 rondes bijvoorbeeld, kunnen spelers meedoen voordat ronde 6 begint en in een toernooi van 12 rondes voordat ronde 7 begint.
 Late deelnemers krijgen een enkele bye, ook als ze meerdere rondes gemist hebben.</string>

@@ -60,7 +60,7 @@ private object StudyFlatTree:
         .get(UciPath.root) | Branches.empty
 
     private def traverseN(xs: List[FlatNode]): Option[NewTree] =
-      xs.nonEmpty ??
+      xs.nonEmpty so
         xs.foldLeft(Map.empty[UciPath, NewTree]) { (roots, flat) =>
           flat.toNodeWithChildren1(roots.get(flat.path)).fold(roots) { node =>
             roots.removed(flat.path).updatedWith(flat.path.parent) {
@@ -78,7 +78,7 @@ private object StudyFlatTree:
 
     def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write):
-        root.tree ?? {
+        root.tree so {
           _.foldLeft(List.empty)((acc, branch) => acc :+ writeBranch_(branch))
         }
 
@@ -88,7 +88,7 @@ private object StudyFlatTree:
       UciPathDb.encodeDbKey(branch.path) -> writeNewBranch(branch, order)
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
-      (parentPath.depth < Node.MAX_PLIES) ?? {
+      (parentPath.depth < Node.MAX_PLIES) so {
         val path = parentPath + node.id
         node.children.nodes.flatMap {
           traverse(_, path)

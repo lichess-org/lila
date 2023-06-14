@@ -8,8 +8,8 @@ import controllers.routes
 
 object bookmark:
 
-  def toggle(g: lila.game.Game, bookmarked: Boolean)(implicit ctx: WebContext) =
-    if (ctx.isAuth)
+  def toggle(g: lila.game.Game, bookmarked: Boolean)(using ctx: WebContext) =
+    if ctx.isAuth then
       a(
         cls := List(
           "bookmark"   -> true,
@@ -22,7 +22,7 @@ object bookmark:
         iconTag(licon.StarOutline)(cls := "off is3"),
         span(g.showBookmarks)
       )
-    else if (g.hasBookmarks)
+    else if g.hasBookmarks then
       span(cls := "bookmark")(
         span(dataIcon := licon.StarOutline, cls := "is3")(g.showBookmarks)
       )

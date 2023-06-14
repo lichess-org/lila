@@ -14,7 +14,7 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
   // for streaming, streamerId is the user UserId of the streamer being subscribed to
   def subscribersOnlineSince(streamerId: UserId, daysAgo: Int): Fu[List[UserId]] =
     coll
-      .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateOne(readPreference = ReadPreference.secondaryPreferred): framework =>
         import framework._
         Match($doc("s" -> streamerId)) -> List(
           PipelineOperator(
@@ -34,7 +34,6 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
             "ids" -> PushField("u")
           )
         )
-      }
       .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
 
   def subscribe(userId: UserId, streamerId: UserId): Funit =

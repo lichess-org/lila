@@ -109,7 +109,7 @@ case class StripeCustomer(
 ):
 
   def firstSubscription = subscriptions.data.headOption
-  def renew             = firstSubscription.??(_.renew)
+  def renew             = firstSubscription.so(_.renew)
 
 case class StripeCharge(
     id: StripeChargeId,
@@ -175,13 +175,13 @@ case class PayPalOrder(
     purchase_units: List[PayPalPurchaseUnit],
     payer: PayPalPayer
 ):
-  val (userId, giftTo) = purchase_units.headOption.flatMap(_.custom_id).??(_.trim) match
+  val (userId, giftTo) = purchase_units.headOption.flatMap(_.custom_id).so(_.trim) match
     case s"$userId $giftTo" => (UserId(userId).some, UserId(giftTo).some)
     case s"$userId"         => (UserId(userId).some, none)
     case _                  => (none, none)
   def isCompleted        = status == "COMPLETED"
   def isCompletedCapture = isCompleted && intent == "CAPTURE"
-  def capturedMoney      = isCompletedCapture ?? purchase_units.headOption.map(_.amount.money)
+  def capturedMoney      = isCompletedCapture so purchase_units.headOption.map(_.amount.money)
   def country            = payer.address.flatMap(_.country_code)
 case class PayPalPayment(amount: PayPalAmount)
 case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: Instant)

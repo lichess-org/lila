@@ -23,7 +23,7 @@ object form:
         h1(cls := "box__top")(trans.reportAUser()),
         postForm(
           cls    := "form3",
-          action := s"${reportRoutes.create}${reqUser.??(u => "?username=" + u.username)}"
+          action := s"${reportRoutes.create}${reqUser.so(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(
             p(

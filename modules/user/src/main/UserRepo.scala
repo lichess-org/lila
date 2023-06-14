@@ -22,20 +22,20 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
 
   def byId[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[User]] =
-    User.noGhost(idOf(u)) ?? coll.byId[User](idOf(u)).recover {
+    User.noGhost(idOf(u)) so coll.byId[User](idOf(u)).recover {
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
   def byIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
     val ids = us.map(idOf.apply).filter(User.noGhost)
-    ids.nonEmpty ?? coll.byIds[User, UserId](ids)
+    ids.nonEmpty so coll.byIds[User, UserId](ids)
   }
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, ReadPreference.secondaryPreferred)
 
   def enabledById[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[User]] =
-    User.noGhost(idOf(u)) ?? coll.one[User](enabledSelect ++ $id(u))
+    User.noGhost(idOf(u)) so coll.one[User](enabledSelect ++ $id(u))
 
   def enabledByIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
     val ids = us.map(idOf.apply).filter(User.noGhost)
@@ -64,8 +64,8 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def pair(x: Option[UserId], y: Option[UserId]): Fu[(Option[User], Option[User])] =
     coll.byIds[User, UserId](List(x, y).flatten) map { users =>
-      x.??(xx => users.find(_.id == xx)) ->
-        y.??(yy => users.find(_.id == yy))
+      x.so(xx => users.find(_.id == xx)) ->
+        y.so(yy => users.find(_.id == yy))
     }
 
   def pair(x: UserId, y: UserId): Fu[Option[(User, User)]] =
@@ -90,10 +90,10 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.optionsByOrderedIds[User, UserId](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
   def isEnabled(id: UserId): Fu[Boolean] =
-    User.noGhost(id) ?? coll.exists(enabledSelect ++ $id(id))
+    User.noGhost(id) so coll.exists(enabledSelect ++ $id(id))
 
   def disabledById(id: UserId): Fu[Option[User]] =
-    User.noGhost(id) ?? coll.one[User](disabledSelect ++ $id(id))
+    User.noGhost(id) so coll.one[User](disabledSelect ++ $id(id))
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User]] =
@@ -182,7 +182,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       if perfs(pt).nb != prev(pt).nb
       bson <- wr.writeOpt(perfs(pt))
     } yield BSONElement(s"${F.perfs}.${pt.key}", bson)
-    diff.nonEmpty ?? coll.update
+    diff.nonEmpty so coll.update
       .one(
         $id(user.id),
         $doc("$set" -> $doc(diff*))
@@ -317,7 +317,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     userIdsLikeFilter(text, $doc(F.roles -> role), max)
 
   private[user] def userIdsLikeFilter(text: UserStr, filter: Bdoc, max: Int): Fu[List[UserId]] =
-    User.validateId(text) ?? { id =>
+    User.validateId(text) so { id =>
       coll
         .find(
           $doc(F.id $startsWith id.value) ++ enabledSelect ++ filter,
@@ -611,7 +611,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setEmailConfirmed(id: UserId): Fu[Option[EmailAddress]] =
     coll.update.one($id(id) ++ $doc(F.mustConfirmEmail $exists true), $unset(F.mustConfirmEmail)) flatMap {
       res =>
-        (res.nModified == 1) ?? email(id)
+        (res.nModified == 1) so email(id)
     }
 
   private val speakerProjection = $doc(
@@ -635,7 +635,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     }
 
   def isErased(user: User): Fu[User.Erased] = User.Erased from {
-    user.enabled.no ?? {
+    user.enabled.no so {
       coll.exists($id(user.id) ++ $doc(F.erasedAt $exists true))
     }
   }
@@ -679,7 +679,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       F.playTime              -> User.PlayTime(0, 0),
       F.lang                  -> lang
     ) ++ {
-      (email.value != normalizedEmail.value) ?? $doc(F.verbatimEmail -> email)
+      (email.value != normalizedEmail.value) so $doc(F.verbatimEmail -> email)
     } ++ {
-      blind ?? $doc(F.blind -> true)
+      blind so $doc(F.blind -> true)
     }

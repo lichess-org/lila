@@ -16,7 +16,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
       annotateOpening(game.opening) {
         annotateTurns(
           annotateDrawOffers(p, game.drawOffers),
-          analysis.??(_.advices)
+          analysis.so(_.advices)
         )
       }.copy(
         tags = p.tags + Tag(_.Annotator, netDomain)

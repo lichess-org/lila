@@ -55,7 +55,7 @@ final class TournamentLilaHttp(
   private def arenaFullJson(tour: Tournament): Fu[JsObject] = for {
     data  <- jsonView.cachableData get tour.id
     stats <- statsApi(tour)
-    teamStanding <- tour.isTeamBattle ?? jsonView
+    teamStanding <- tour.isTeamBattle so jsonView
       .fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
       .dmap(some)
     fullStanding <- playerRepo
@@ -82,7 +82,7 @@ final class TournamentLilaHttp(
       "ongoingUserGames" -> {
         duelStore
           .get(tour.id)
-          .?? { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") }: String
+          .so { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") }: String
       },
       "standing" -> fullStanding
     )
@@ -108,6 +108,6 @@ final class TournamentLilaHttp(
         .add("team" -> p.team)
         .add("fire" -> p.fire)
         .add("pause" -> {
-          p.withdraw ?? pause.remainingDelay(p.userId, tour)
+          p.withdraw so pause.remainingDelay(p.userId, tour)
         })
     }

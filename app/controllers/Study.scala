@@ -131,7 +131,7 @@ final class Study(
       case None => notFound
       case Some(topic) =>
         env.study.pager.byTopic(topic, ctx.me, order, page) zip
-          ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) flatMap { (pag, topics) =>
+          ctx.me.so(u => env.study.topicApi.userTopics(u.id) dmap some) flatMap { (pag, topics) =>
             preloadMembers(pag) inject Ok(html.study.topic.show(topic, pag, order, topics))
           }
 
@@ -174,19 +174,17 @@ final class Study(
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enableSharedArrayBuffer,
             api = _ =>
-              chatOf(sc.study).map { chatOpt =>
-                Ok(
+              chatOf(sc.study).map: chatOpt =>
+                Ok:
                   Json.obj(
                     "study" -> data.study.add("chat" -> chatOpt.map { c =>
                       lila.chat.JsonView.mobile(
                         chat = c.chat,
-                        writeable = ctx.userId.??(sc.study.canChat)
+                        writeable = ctx.userId.so(sc.study.canChat)
                       )
                     }),
                     "analysis" -> data.analysis
                   )
-                )
-              }
           )
         yield res
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
@@ -199,7 +197,7 @@ final class Study(
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-      analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id into Analysis.Id)
+      analysis <- chapter.serverEval.exists(_.done) so env.analyse.analyser.byId(chapter.id into Analysis.Id)
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData <- env.api.roundApi.withExternalEngines(
         ctx.me,
@@ -231,11 +229,20 @@ final class Study(
   def chapter(id: StudyId, chapterId: StudyChapterId) =
     Open:
       orRelay(id, chapterId.some):
-        showQuery(env.study.api.byIdWithChapter(id, chapterId))
+        env.study.api
+          .byIdWithChapter(id, chapterId)
+          .flatMap:
+            case None =>
+              env.study.studyRepo
+                .exists(id)
+                .flatMap:
+                  if _ then Redirect(routes.Study.show(id)).toFuccess
+                  else showQuery(fuccess(none))
+            case sc => showQuery(fuccess(sc))
 
   def chapterMeta(id: StudyId, chapterId: StudyChapterId) = Open:
     env.study.chapterRepo.byId(chapterId).map {
-      _.filter(_.studyId == id) ?? { chapter =>
+      _.filter(_.studyId == id) so { chapter =>
         Ok(env.study.jsonView.chapterConfig(chapter))
       }
     }
@@ -245,7 +252,7 @@ final class Study(
     ctx.me.fold(true) {       // anon can see public chats
       env.chat.panic.allowed
     }
-  } ?? env.chat.api.userChat
+  } so env.chat.api.userChat
     .findMine(study.id into ChatId, ctx.me)
     .dmap(some)
     .mon(_.chat.fetch("study"))
@@ -300,7 +307,7 @@ final class Study(
   }
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me =>
-    get("sri") ?? { sri =>
+    get("sri") so { sri =>
       StudyForm.importPgn.form
         .bindFromRequest()
         .fold(
@@ -326,7 +333,7 @@ final class Study(
   def embed(id: StudyId, chapterId: StudyChapterId) = Anon:
     val studyWithChapter =
       if (chapterId.value == "autochap") env.study.api.byIdWithChapter(id)
-      else env.study.api.byIdWithChapter(id, chapterId)
+      else env.study.api.byIdWithChapterOrFallback(id, chapterId)
     studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
       _.fold(embedNotFound) { case WithChapter(study, chapter) =>
         for
@@ -409,7 +416,7 @@ final class Study(
     PgnRateLimitPerIp(ctx.ip, rateLimitedFu, msg = id):
       OptionFuResult(env.study.api byId id): study =>
         CanView(study, ctx.me) {
-          doPgn(study, ctx.req).toFuccess
+          doPgn(study).toFuccess
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { ctx ?=> me =>
@@ -419,13 +426,13 @@ final class Study(
         else
           PgnRateLimitPerIp(req.ipAddress, rateLimited, msg = id):
             CanView(study, me) {
-              doPgn(study, req)
+              doPgn(study)
             }(privateUnauthorizedText, privateForbiddenText)
     }
   }
 
-  private def doPgn(study: StudyModel, req: RequestHeader) =
-    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags(req)).throttle(16, 1.second))
+  private def doPgn(study: StudyModel)(using RequestHeader) =
+    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
       .withDateHeaders(studyLastModified(study))
@@ -455,7 +462,7 @@ final class Study(
     env.study.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(studyNotFound) { case WithChapter(study, chapter) =>
         CanView(study, ctx.me) {
-          env.study.pgnDump.ofChapter(study, requestPgnFlags(req))(chapter) map { pgn =>
+          env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter) map { pgn =>
             Ok(pgn.toString)
               .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
               .as(pgnContentType)
@@ -467,17 +474,15 @@ final class Study(
   def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read) { me =>
     val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
     val userId = name.id
-    val flags  = requestPgnFlags(req)
     val isMe   = me.exists(_ is userId)
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
         env.study.studyRepo
           .sourceByOwner(userId, isMe)
-          .flatMapConcat(env.study.pgnDump.chaptersOf(_, flags))
+          .flatMapConcat(env.study.pgnDump.chaptersOf(_, requestPgnFlags))
           .throttle(16, 1.second)
-          .withAttributes(
+          .withAttributes:
             akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
-          )
       } { source =>
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
@@ -497,13 +502,13 @@ final class Study(
       .toFuccess
   }
 
-  private def requestPgnFlags(req: RequestHeader) =
+  private def requestPgnFlags(using RequestHeader) =
     lila.study.PgnDump.WithFlags(
-      comments = getBoolOpt("comments", req) | true,
-      variations = getBoolOpt("variations", req) | true,
-      clocks = getBoolOpt("clocks", req) | true,
-      source = getBool("source", req),
-      orientation = getBool("orientation", req)
+      comments = getBoolOpt("comments") | true,
+      variations = getBoolOpt("variations") | true,
+      clocks = getBoolOpt("clocks") | true,
+      source = getBool("source"),
+      orientation = getBool("orientation")
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:
@@ -528,15 +533,15 @@ final class Study(
       }(privateUnauthorizedJson.toFuccess, privateForbiddenJson.toFuccess)
 
   def topicAutocomplete = Anon:
-    get("term", req).filter(_.nonEmpty) match
+    get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided").toFuccess
       case Some(term) =>
         import lila.common.Json.given
-        env.study.topicApi.findLike(term, getUserStr("user", req).map(_.id)) map { JsonOk(_) }
+        env.study.topicApi.findLike(term, getUserStr("user").map(_.id)) map { JsonOk(_) }
 
   def topics = Open:
     env.study.topicApi.popular(50) zip
-      ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map { (popular, mine) =>
+      ctx.me.so(u => env.study.topicApi.userTopics(u.id) dmap some) map { (popular, mine) =>
         val form = mine map StudyForm.topicsForm
         Ok(html.study.topic.index(popular, mine, form))
       }
@@ -594,7 +599,7 @@ final class Study(
         .maximumSize(512)
         .buildAsyncFuture { studyId =>
           env.study.studyRepo.membersById(studyId) flatMap {
-            _.map(_.members).filter(_.nonEmpty) ?? { members =>
+            _.map(_.members).filter(_.nonEmpty) so { members =>
               env.streamer.liveStreamApi.all.flatMap {
                 _.streams
                   .filter { s =>
@@ -614,7 +619,7 @@ final class Study(
     }
 
   def glyphs(lang: String) = Anon:
-    play.api.i18n.Lang.get(lang) ?? { lang =>
+    play.api.i18n.Lang.get(lang) so { lang =>
       JsonOk:
         lila.study.JsonView.glyphs(lang)
       .withHeaders(CACHE_CONTROL -> "max-age=3600")

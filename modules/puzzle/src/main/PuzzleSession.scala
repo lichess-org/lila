@@ -41,7 +41,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
   import BsonHandlers.*
 
   def onComplete(round: PuzzleRound, angle: PuzzleAngle): Funit =
-    sessions.getIfPresent(round.userId) ?? {
+    sessions.getIfPresent(round.userId) so {
       _ map { session =>
         // yes, even if the completed puzzle was not the current session puzzle
         // in that case we just skip a puzzle on the path, which doesn't matter
@@ -79,18 +79,13 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
     sessions
       .getIfPresent(user.id)
       .fold(fuccess(none[PuzzleSession]))(_ dmap some)
-      .flatMap { prev =>
-        f(prev) match
-          case Some(nextFu) =>
-            nextFu map { next =>
-              !prev.exists(next.similarTo) ?? sessions.put(user.id, fuccess(next))
-            }
-          case _ => funit
-      }
+      .flatMap: prev =>
+        f(prev).fold(funit):
+          _.map: next =>
+            !prev.exists(next.similarTo) so sessions.put(user.id, fuccess(next))
 
-  private val sessions = cacheApi.notLoading[UserId, PuzzleSession](32768, "puzzle.session")(
+  private val sessions = cacheApi.notLoading[UserId, PuzzleSession](32768, "puzzle.session"):
     _.expireAfterWrite(1 hour).buildAsync()
-  )
 
   private[puzzle] def continueOrCreateSessionFor(
       user: User,

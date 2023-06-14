@@ -37,7 +37,7 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
           resultsDiff(a, b)(_.worstLosses).map { set =>
             "worstLosses" -> set
           },
-          (a.worstLosses != b.worstLosses).??(resultsHandler.writeOpt(b.worstLosses)) map { worstLosses =>
+          (a.worstLosses != b.worstLosses).so(resultsHandler.writeOpt(b.worstLosses)) map { worstLosses =>
             "worstLosses" -> worstLosses
           },
           streakDiff(a, b)(_.resultStreak.win.cur).map { set =>
@@ -82,14 +82,14 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
   }
 
   private def resultsDiff(a: PerfStat, b: PerfStat)(getter: PerfStat => Results): Option[Bdoc] =
-    (getter(a) != getter(b)) ?? resultsHandler.writeOpt(getter(b))
+    (getter(a) != getter(b)) so resultsHandler.writeOpt(getter(b))
 
   private def streakDiff(a: PerfStat, b: PerfStat)(getter: PerfStat => Streak): Option[Bdoc] =
-    (getter(a) != getter(b)) ?? streakHandler.writeOpt(getter(b))
+    (getter(a) != getter(b)) so streakHandler.writeOpt(getter(b))
 
   private def ratingAtDiff(a: PerfStat, b: PerfStat)(getter: PerfStat => Option[RatingAt]): Option[Bdoc] =
-    getter(b) ?? { r =>
-      getter(a).fold(true)(_ != r) ?? ratingAtHandler.writeOpt(r)
+    getter(b) so { r =>
+      getter(a).fold(true)(_ != r) so ratingAtHandler.writeOpt(r)
     }
 
   private def docDiff[T: BSONDocumentWriter](a: T, b: T): Map[String, BSONValue] =
@@ -98,5 +98,5 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
       case (field, v) if am.get(field).fold(true)(_ != v) => field -> v
     }
 
-  private def docMap[T](a: T)(implicit writer: BSONDocumentWriter[T]) =
+  private def docMap[T](a: T)(using writer: BSONDocumentWriter[T]) =
     writer.writeTry(a).get.toMap

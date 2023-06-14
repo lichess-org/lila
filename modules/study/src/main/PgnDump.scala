@@ -26,7 +26,7 @@ final class PgnDump(
       .mapAsync(1)(ofChapter(study, flags))
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id into Analysis.Id) map { analysis =>
+    chapter.serverEval.exists(_.done) so analyser.byId(chapter.id into Analysis.Id) map { analysis =>
       ofChapter(study, flags)(chapter, analysis)
     }
 
@@ -68,14 +68,14 @@ final class PgnDump(
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*"), // required for SCID to import
         annotatorTag(study)
-      ) ::: (!chapter.root.fen.isInitial).??(
+      ) ::: (!chapter.root.fen.isInitial).so(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
         )
       ) :::
-        flags.source.??(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
-        flags.orientation.??(List(Tag("Orientation", chapter.setup.orientation.name)))
+        flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
+        flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name)))
       genTags
         .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
           if (tags.exists(t => tag.name == t.name)) tags
@@ -99,6 +99,7 @@ object PgnDump:
       source: Boolean,
       orientation: Boolean
   )
+  val fullFlags = WithFlags(true, true, true, true, true)
 
   private type Variations = List[Branch]
   private val noVariations: Variations = Nil
@@ -128,12 +129,12 @@ object PgnDump:
       node.ply,
       san = node.move.san,
       glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
-      comments = flags.comments ?? {
+      comments = flags.comments so {
         node.comments.value.map(_.text into Comment) ::: shapeComment(node.shapes).toList
       },
       opening = none,
       result = none,
-      secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
+      secondsLeft = flags.clocks so node.clock.map(_.roundSeconds)
     )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]

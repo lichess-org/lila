@@ -99,7 +99,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   def countRequestsOfLeader(userId: UserId, requestColl: Coll): Fu[Int] =
     coll
-      .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateOne(readPreference = ReadPreference.secondaryPreferred): framework =>
         import framework.*
         Match($doc("leaders" -> userId)) -> List(
           Group(BSONNull)("ids" -> PushField("_id")),
@@ -126,18 +126,17 @@ final class TeamRepo(val coll: Coll)(using Executor):
             "nb" -> Sum($doc("$size" -> "$requests"))
           )
         )
-      }
       .map(~_.flatMap(_.int("nb")))
 
   def forumAccess(id: TeamId): Fu[Option[Team.Access]] =
     coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty ?? coll.secondaryPreferred
+    ids.nonEmpty so coll.secondaryPreferred
       .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty ?? coll.secondaryPreferred
+    ids.nonEmpty so coll.secondaryPreferred
       .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum" $ne Team.Access.EVERYONE))
 
   private[team] val enabledSelect = $doc("enabled" -> true)

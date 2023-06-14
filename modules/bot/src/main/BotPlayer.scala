@@ -19,7 +19,7 @@ final class BotPlayer(
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
-    lila.common.LilaFuture.delay((pov.game.hasAi ?? 500) millis) {
+    lila.common.LilaFuture.delay((pov.game.hasAi so 500) millis) {
       Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")) { uci =>
         lila.mon.bot.moves(me.username.value).increment()
         if (!pov.isMyTurn) clientError("Not your turn, or game already over")
@@ -35,7 +35,7 @@ final class BotPlayer(
     }
 
   def chat(gameId: GameId, me: User, d: BotForm.ChatData) =
-    !spam.detect(d.text) ??
+    !spam.detect(d.text) so
       fuccess {
         lila.mon.bot.chats(me.username.value).increment()
         val chatId = ChatId(if (d.room == "player") gameId.value else s"$gameId/w")
@@ -50,8 +50,8 @@ final class BotPlayer(
   def rematchDecline(id: GameId, me: User): Fu[Boolean] = rematch(id, me, accept = false)
 
   private def rematch(challengeId: GameId, me: User, accept: Boolean): Fu[Boolean] =
-    rematches.prevGameIdOffering(challengeId) ?? gameRepo.game map {
-      _.flatMap(Pov(_, me)) ?? { pov =>
+    rematches.prevGameIdOffering(challengeId) so gameRepo.game map {
+      _.flatMap(Pov(_, me)) so { pov =>
         // delay so it feels more natural
         lila.common.LilaFuture.delay(if (accept) 100.millis else 1.second) {
           fuccess {
@@ -97,7 +97,7 @@ final class BotPlayer(
       tellRound(pov.gameId, if v then TakebackYes(pov.playerId) else TakebackNo(pov.playerId))
 
   def claimVictory(pov: Pov): Funit =
-    pov.mightClaimWin ?? {
+    pov.mightClaimWin so {
       tellRound(pov.gameId, ResignForce(pov.playerId))
       lila.common.LilaFuture.delay(500 millis) {
         gameRepo.finished(pov.gameId) map {
@@ -110,7 +110,7 @@ final class BotPlayer(
     }
 
   def berserk(game: Game, me: User): Boolean =
-    game.berserkable ?? {
+    game.berserkable so {
       Bus.publish(Berserk(game.id, me.id), "berserk")
       true
     }

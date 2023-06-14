@@ -75,13 +75,13 @@ final class RacerApi(
   def join(id: RacerRace.Id, playerId: RacerPlayer.Id): Option[RacerRace] = {
     val player = makePlayer(playerId)
     get(id).flatMap(_ join player) map { r =>
-      val race = (r.isLobby ?? doStart(r)) | r
+      val race = (r.isLobby so doStart(r)) | r
       saveAndPublish(race)
       race
     }
   }
 
-  private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby ?? {
+  private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby so {
     doStart(race) foreach saveAndPublish
   }
 

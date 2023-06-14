@@ -194,7 +194,6 @@ object Permission:
           PuzzleCurator,
           OpeningWiki,
           Presets,
-          DisapproveCoachReview,
           Relay,
           Streamers,
           DisableTwoFactor,
@@ -229,8 +228,7 @@ object Permission:
       ModerateForum,
       ModerateBlog,
       ReportBan,
-      ModMessage,
-      DisapproveCoachReview
+      ModMessage
     ),
     "Play mod" -> List(
       SeeInsight,
@@ -320,7 +318,7 @@ object Permission:
   def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
-    !perms(perm) ?? perms.find(_ is perm)
+    !perms(perm) so perms.find(_ is perm)
 
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)

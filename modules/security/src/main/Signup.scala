@@ -107,7 +107,7 @@ final class Signup(
       mustConfirm: MustConfirmEmail,
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion]
-  )(user: User)(implicit req: RequestHeader, lang: Lang): Fu[Signup.Result] =
+  )(user: User)(using RequestHeader, Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
       if (mustConfirm.value)
         emailConfirm.send(user, email) >> {
@@ -121,7 +121,7 @@ final class Signup(
 
   def mobile(
       apiVersion: ApiVersion
-  )(implicit req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+  )(using req: Request[?])(using Lang, FormBinding): Fu[Signup.Result] =
     val ip = HTTPRequest ipAddress req
     forms.signup.mobile
       .bindFromRequest()
@@ -193,7 +193,7 @@ final class Signup(
       user.username into UserStr,
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
-          .??(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
+          .so(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
     )
 
   private def signupErrLog(err: Form[?]) =

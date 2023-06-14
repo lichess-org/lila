@@ -95,7 +95,7 @@ button#microphone-button {
 #voice-settings {
   @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
   position: absolute;
-  backdrop-filter: blur(6px);
+  @include back-blur();
   border-top: 2px solid $c-primary;
   z-index: z(mz-menu);
   width: 100%;

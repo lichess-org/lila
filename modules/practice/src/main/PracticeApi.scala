@@ -27,7 +27,7 @@ final class PracticeApi(
     chapters <- studyApi.chapterMetadatas(studyId)
     chapter = up.progress firstOngoingIn chapters
     studyOption <- chapter.fold(studyApi byIdWithFirstChapter studyId) { chapter =>
-      studyApi.byIdWithChapter(studyId, chapter.id)
+      studyApi.byIdWithChapterOrFallback(studyId, chapter.id)
     }
   yield makeUserStudy(studyOption, up, chapters)
 
@@ -38,7 +38,7 @@ final class PracticeApi(
   ): Fu[Option[UserStudy]] = for
     up          <- get(user)
     chapters    <- studyApi.chapterMetadatas(studyId)
-    studyOption <- studyApi.byIdWithChapter(studyId, chapterId)
+    studyOption <- studyApi.byIdWithChapterOrFallback(studyId, chapterId)
   yield makeUserStudy(studyOption, up, chapters)
 
   private def makeUserStudy(
@@ -98,7 +98,7 @@ final class PracticeApi(
       get(user).flatMap { prog =>
         save(prog.withNbMoves(chapterId, score))
       } >>- studyApi.studyIdOf(chapterId).foreach {
-        _ ?? { studyId =>
+        _ so { studyId =>
           Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), "finishPractice")
         }
       }

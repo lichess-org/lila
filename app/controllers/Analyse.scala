@@ -42,10 +42,10 @@ final class Analyse(
       env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
         gameC.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
           (env.analyse.analyser get pov.game) zip
-            (!pov.game.metadata.analysed ?? env.fishnet.api.userAnalysisExists(pov.gameId)) zip
-            (pov.game.simulId ?? env.simul.repo.find) zip
+            (!pov.game.metadata.analysed so env.fishnet.api.userAnalysisExists(pov.gameId)) zip
+            (pov.game.simulId so env.simul.repo.find) zip
             roundC.getWatcherChat(pov.game) zip
-            (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
+            (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
             env.bookmark.api.exists(pov.game, ctx.me) zip
             env.api.pgnDump(
               pov.game,
@@ -129,7 +129,7 @@ final class Analyse(
     for
       initialFen <- env.game.gameRepo initialFen pov.gameId
       analysis   <- env.analyse.analyser get pov.game
-      simul      <- pov.game.simulId ?? env.simul.repo.find
+      simul      <- pov.game.simulId so env.simul.repo.find
       crosstable <- env.game.crosstableApi.withMatchup(pov.game)
       pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
     yield Ok(
@@ -157,7 +157,7 @@ final class Analyse(
   }
 
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me =>
-    HTTPRequest.bearer(ctx.req) ?? { bearer =>
+    HTTPRequest.bearer(ctx.req) so { bearer =>
       val tokenId = AccessToken.Id from bearer
       lila.analyse.ExternalEngine.form
         .bindFromRequest()

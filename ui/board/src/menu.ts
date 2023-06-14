@@ -1,8 +1,9 @@
 import { h } from 'snabbdom';
 import { ToggleWithUsed, toggleWithUsed } from 'common/storage';
 import { Toggle, toggle as baseToggle, onClickAway } from 'common/common';
+import { bindMobileMousedown } from 'common/mobile';
 import * as licon from 'common/licon';
-import { MaybeVNode, MaybeVNodes, bind, dataIcon, onInsert } from 'common/snabbdom';
+import { MaybeVNode, MaybeVNodes, dataIcon, onInsert } from 'common/snabbdom';
 import { Redraw } from 'chessground/types';
 import * as controls from 'common/controls';
 
@@ -18,7 +19,7 @@ export const toggleButton = (toggle: ToggleWithUsed, title: string) =>
         title,
         'data-icon': licon.Hamburger,
       },
-      hook: bind('click', () => toggle.toggle()),
+      hook: onInsert(bindMobileMousedown(toggle.toggle)),
     },
     toggle.used() ? undefined : h('div.board-menu-toggle__new')
   );
@@ -51,7 +52,7 @@ export class BoardMenu {
           title: 'Hotkey: f',
           ...dataIcon(licon.ChasingArrows),
         },
-        hook: bind('click', onChange),
+        hook: onInsert(bindMobileMousedown(onChange)),
       },
       name
     );

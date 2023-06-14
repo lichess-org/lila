@@ -57,4 +57,4 @@ object IrwinReport:
 
     def lastSeenAt = recent.headOption.map(_.date)
 
-    def seenRecently = lastSeenAt.??(nowInstant.minusMinutes(15).isBefore)
+    def seenRecently = lastSeenAt.so(nowInstant.minusMinutes(15).isBefore)

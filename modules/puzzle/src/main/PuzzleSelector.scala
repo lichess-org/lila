@@ -56,88 +56,78 @@ final class PuzzleSelector(
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment().unit
           puzzle
 
-        nextPuzzleResult(user, session)
-          .flatMap {
-            case PathMissing | PathEnded if retries < 10 => switchPath(retries)(session.path.tier)
-            case PathMissing => fufail(s"Puzzle path missing for ${user.id} $session")
-            case PathEnded   => fufail(s"Puzzle path ended for ${user.id} $session")
-            case PuzzleMissing(id) =>
-              logger.warn(s"Puzzle missing: $id")
-              sessionApi.set(user, session.next)
-              findNextPuzzleFor(user, angle, retries + 1)
-            case PuzzleAlreadyPlayed(_) if retries < 5 =>
-              sessionApi.set(user, session.next)
-              findNextPuzzleFor(user, angle, retries = retries + 1)
-            case PuzzleAlreadyPlayed(puzzle) =>
-              session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries))
-            case WrongColor(_) if retries < 10 =>
-              sessionApi.set(user, session.next)
-              findNextPuzzleFor(user, angle, retries = retries + 1)
-            case WrongColor(puzzle) =>
-              session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries - 5))
-            case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
-          }
+        nextPuzzleResult(user, session).flatMap:
+          case PathMissing | PathEnded if retries < 10 => switchPath(retries)(session.path.tier)
+          case PathMissing => fufail(s"Puzzle path missing for ${user.id} $session")
+          case PathEnded   => fufail(s"Puzzle path ended for ${user.id} $session")
+          case PuzzleMissing(id) =>
+            logger.warn(s"Puzzle missing: $id")
+            sessionApi.set(user, session.next)
+            findNextPuzzleFor(user, angle, retries + 1)
+          case PuzzleAlreadyPlayed(_) if retries < 5 =>
+            sessionApi.set(user, session.next)
+            findNextPuzzleFor(user, angle, retries = retries + 1)
+          case PuzzleAlreadyPlayed(puzzle) =>
+            session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries))
+          case WrongColor(_) if retries < 10 =>
+            sessionApi.set(user, session.next)
+            findNextPuzzleFor(user, angle, retries = retries + 1)
+          case WrongColor(puzzle) =>
+            session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries - 5))
+          case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
       }
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls
-      .path {
-        _.aggregateOne() { framework =>
+      .path:
+        _.aggregateOne(): framework =>
           import framework.*
           Match($id(session.path)) -> List(
             // get the puzzle ID from session position
             Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath)))),
-            Project(
+            Project:
               $doc(
                 "puzzleId" -> true,
                 "roundId"  -> $doc("$concat" -> $arr(s"${user.id}${PuzzleRound.idSep}", "$puzzleId"))
               )
-            ),
+            ,
             // fetch the puzzle
-            PipelineOperator(
-              $doc(
+            PipelineOperator:
+              $doc:
                 "$lookup" -> $doc(
                   "from"         -> colls.puzzle.name.value,
                   "localField"   -> "puzzleId",
                   "foreignField" -> "_id",
                   "as"           -> "puzzle"
                 )
-              )
-            ),
+            ,
             // look for existing round
-            PipelineOperator(
-              $doc(
+            PipelineOperator:
+              $doc:
                 "$lookup" -> $doc(
                   "from"         -> colls.round.name.value,
                   "localField"   -> "roundId",
                   "foreignField" -> "_id",
                   "as"           -> "round"
                 )
-              )
-            )
           )
-        }
-      }
-      .map { docOpt =>
+      .map: docOpt =>
         import NextPuzzleResult.*
-        docOpt.fold[NextPuzzleResult](PathMissing) { doc =>
-          doc.getAsOpt[PuzzleId]("puzzleId").fold[NextPuzzleResult](PathEnded) { puzzleId =>
-            doc
-              .getAsOpt[List[Puzzle]]("puzzle")
-              .flatMap(_.headOption)
-              .fold[NextPuzzleResult](PuzzleMissing(puzzleId)) { puzzle =>
-                if (session.settings.color.exists(puzzle.color !=)) WrongColor(puzzle)
-                else if (doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty)) PuzzleAlreadyPlayed(puzzle)
-                else PuzzleFound(puzzle)
-              }
-          }
-        }
-      }
-      .monValue { result =>
+        docOpt.fold[NextPuzzleResult](PathMissing): doc =>
+          doc
+            .getAsOpt[PuzzleId]("puzzleId")
+            .fold[NextPuzzleResult](PathEnded): puzzleId =>
+              doc
+                .getAsOpt[List[Puzzle]]("puzzle")
+                .flatMap(_.headOption)
+                .fold[NextPuzzleResult](PuzzleMissing(puzzleId)): puzzle =>
+                  if (session.settings.color.exists(puzzle.color !=)) WrongColor(puzzle)
+                  else if (doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty)) PuzzleAlreadyPlayed(puzzle)
+                  else PuzzleFound(puzzle)
+      .monValue: result =>
         _.puzzle.selector.nextPuzzleResult(
           theme = session.path.angle.key,
           difficulty = session.settings.difficulty.key,
           color = session.settings.color.fold("random")(_.name),
           result = result.name
         )
-      }

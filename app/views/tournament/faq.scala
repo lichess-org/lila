@@ -11,7 +11,7 @@ object faq:
 
   import trans.arena.*
 
-  def page(implicit ctx: WebContext) =
+  def page(using WebContext) =
     views.html.base.layout(
       title = trans.tournamentFAQ.txt(),
       moreCss = cssTag("page")
@@ -27,7 +27,7 @@ object faq:
       )
     }
 
-  def apply(rated: Option[Boolean] = None, privateId: Option[String] = None)(implicit ctx: WebContext) =
+  def apply(rated: Option[Boolean] = None, privateId: Option[String] = None)(using WebContext) =
     frag(
       privateId.map { id =>
         frag(

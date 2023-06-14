@@ -13,7 +13,7 @@ object login:
 
   import trans.tfa.*
 
-  def apply(form: Form[?], referrer: Option[String])(implicit ctx: WebContext) =
+  def apply(form: Form[?], referrer: Option[String])(using WebContext) =
     views.html.base.layout(
       title = trans.signIn.txt(),
       moreJs = frag(

@@ -175,7 +175,7 @@ object NewTree:
 
   // given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
   // def minimalNodeJsonWriter: Writes[NewTree]   = makeNodeJsonWriter(alwaysChildren = false)
-  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ???
+  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ?so
   // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
 
@@ -257,16 +257,14 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def lastMainlineMetas        = lastMainlineNode.map(_.value.metas)
   def lastMainlineMetasOrRoots = lastMainlineMetas | metas
   def modifyLastMainlineOrRoot(f: Metas => Metas): NewRoot =
-    tree.fold(copy(metas = f(metas)))(tree =>
+    tree.fold(copy(metas = f(metas))): tree =>
       copy(tree = tree.modifyLastMainlineNode(_.withValue(_.focus(_.metas).modify(f))).some)
-    )
 
   override def toString = s"$tree"
 
 object NewRoot:
   def default(variant: Variant)                        = NewRoot(Metas.default(variant), None)
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
-  extension (path: UciPath) def ids                    = path.computeIds.toList
 
   given defaultNodeJsonWriter: Writes[NewRoot] = makeNodeJsonWriter(alwaysChildren = true)
   def minimalNodeJsonWriter                    = makeNodeJsonWriter(alwaysChildren = false)

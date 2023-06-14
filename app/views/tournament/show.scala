@@ -37,7 +37,8 @@ object show:
                   timeout = c.timeout,
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
-                  localMod = ctx.userId has tour.createdBy
+                  localMod = ctx.userId has tour.createdBy,
+                  writeable = !c.locked
                 )
               },
               "showRatings" -> ctx.pref.showRatings
@@ -64,7 +65,7 @@ object show:
       csp = defaultCsp.withLilaHttp.some
     )(
       main(cls := s"tour${tour.schedule
-          .?? { sched =>
+          .so { sched =>
             s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
           }}")(
         st.aside(cls := "tour__side")(

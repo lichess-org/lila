@@ -26,7 +26,7 @@ final private class Cleaner(
       .cursor[Work.Analysis]()
       .documentSource()
       .filter { ana =>
-        ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
+        ana.acquiredAt.so(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
       }
       .take(200)
       .mapAsyncUnordered(4) { ana =>

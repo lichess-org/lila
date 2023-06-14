@@ -35,19 +35,17 @@ abstract private[controllers] class LilaController(val env: Env)
   protected given Conversion[Frag, Result] = Ok(_)
   protected given FormBinding              = parse.formBinding(parse.DefaultMaxTextLength)
 
-  protected val keyPages                   = KeyPages(env)
-  protected val renderNotFound             = keyPages.notFound
+  protected val keyPages = KeyPages(env)
+  export keyPages.{ notFound as renderNotFound }
+
   protected val rateLimitedMsg             = "Too many requests. Try again later."
   protected val rateLimited                = Results.TooManyRequests(rateLimitedMsg)
   protected val rateLimitedJson            = Results.TooManyRequests(jsonError(rateLimitedMsg))
   protected val rateLimitedFu              = rateLimited.toFuccess
   protected def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
 
-  implicit protected def LilaFunitToResult(funit: Funit)(using req: RequestHeader): Fu[Result] =
-    negotiate(
-      html = fuccess(Ok("ok")),
-      api = _ => fuccess(jsonOkResult)
-    )
+  protected given (using RequestHeader): Conversion[Funit, Fu[Result]] =
+    _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
 
   given lila.common.config.NetDomain = env.net.domain
 
@@ -388,7 +386,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def NoPlayban(a: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     ctx.userId
-      .??(env.playban.api.currentBan)
+      .so(env.playban.api.currentBan)
       .flatMap:
         _.fold(a): ban =>
           negotiate(
@@ -397,7 +395,7 @@ abstract private[controllers] class LilaController(val env: Env)
           )
 
   protected def NoPlayban(userId: Option[UserId])(a: => Fu[Result]): Fu[Result] = userId
-    .??(env.playban.api.currentBan)
+    .so(env.playban.api.currentBan)
     .flatMap:
       _.fold(a)(playbanJsonError)
 
@@ -409,7 +407,7 @@ abstract private[controllers] class LilaController(val env: Env)
     ) as JSON
 
   protected def NoCurrentGame(a: => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    ctx.me.??(env.preloader.currentGameMyTurn) flatMap {
+    ctx.me.so(env.preloader.currentGameMyTurn) flatMap {
       _.fold(a): current =>
         negotiate(
           html = keyPages.home(Results.Forbidden),
@@ -417,7 +415,7 @@ abstract private[controllers] class LilaController(val env: Env)
         )
     }
   protected def NoCurrentGame(me: Option[User])(a: => Fu[Result]): Fu[Result] = me
-    .??(env.preloader.currentGameMyTurn)
+    .so(env.preloader.currentGameMyTurn)
     .flatMap:
       _.fold(a)(currentGameJsonError)
 
@@ -491,7 +489,7 @@ abstract private[controllers] class LilaController(val env: Env)
     negotiate(
       html =
         if HTTPRequest.isSynchronousHttp(ctx.req)
-        then fuccess(renderNotFound(ctx))
+        then fuccess(renderNotFound)
         else fuccess(Results.NotFound("Resource not found")),
       api = _ => notFoundJson("Resource not found")
     )
@@ -517,7 +515,7 @@ abstract private[controllers] class LilaController(val env: Env)
     isGranted(permission(Permission))
 
   protected def isGranted(permission: Permission)(using ctx: AnyContext): Boolean =
-    ctx.me ?? Granter(permission)
+    ctx.me so Granter(permission)
 
   protected def authenticationFailed(using ctx: WebContext): Fu[Result] =
     negotiate(
@@ -585,9 +583,9 @@ abstract private[controllers] class LilaController(val env: Env)
         if (isPage)
           env.user.lightUserApi preloadUser me
           val enabledId = me.enabled.yes option me.id
-          enabledId.??(env.team.api.nbRequests) zip
-            enabledId.??(env.challenge.api.countInFor.get) zip
-            enabledId.??(env.notifyM.api.unreadCount) zip
+          enabledId.so(env.team.api.nbRequests) zip
+            enabledId.so(env.challenge.api.countInFor.get) zip
+            enabledId.so(env.notifyM.api.unreadCount) zip
             env.mod.inquiryApi.forMod(me)
         else
           fuccess:
@@ -608,7 +606,7 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   private def blindMode(using ctx: UserContext) =
-    ctx.req.cookies.get(env.api.config.accessibility.blindCookieName) ?? { c =>
+    ctx.req.cookies.get(env.api.config.accessibility.blindCookieName) so { c =>
       c.value.nonEmpty && c.value == env.api.config.accessibility.hash
     }
 
@@ -662,7 +660,7 @@ abstract private[controllers] class LilaController(val env: Env)
     if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
 
   protected def NotManaged(result: => Fu[Result])(using ctx: WebContext) =
-    ctx.me.??(env.clas.api.student.isManaged) flatMap {
+    ctx.me.so(env.clas.api.student.isManaged) flatMap {
       if _ then notFound else result
     }
 

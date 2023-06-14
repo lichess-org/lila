@@ -10,7 +10,7 @@ import controllers.routes
 
 object permissions:
 
-  def apply(u: User, me: Holder)(implicit ctx: WebContext) =
+  def apply(u: User, me: Holder)(using WebContext) =
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
@@ -36,7 +36,7 @@ object permissions:
                       val id = s"permission-${perm.dbKey}"
                       div(
                         cls := isGranted(perm, u) option "granted",
-                        title := isGranted(perm, u).?? {
+                        title := isGranted(perm, u).so {
                           Permission.findGranterPackage(userPerms, perm).map { p =>
                             s"Granted by package: $p"
                           }

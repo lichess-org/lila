@@ -28,7 +28,7 @@ object dashboard:
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
-      moreJs = dashOpt ?? { dash =>
+      moreJs = dashOpt so { dash =>
         val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
           PuzzleTheme(key).name.txt()
         }
@@ -62,7 +62,7 @@ object dashboard:
         )
     }
 
-  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: WebContext) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -76,7 +76,7 @@ object dashboard:
       dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
     }
 
-  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: WebContext) =
+  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -100,7 +100,7 @@ object dashboard:
       moreJs: Frag = emptyFrag
   )(
       body: PuzzleDashboard => Option[Frag]
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
@@ -156,7 +156,7 @@ object dashboard:
         trans.puzzle.nbPlayed.plural(results.nb, strong(results.nb.localize))
       ),
       ctx.pref.showRatings option div(cls := s"$metricClass $metricClass--perf")(
-        strong(results.performance, results.unclear ?? "?"),
+        strong(results.performance, results.unclear so "?"),
         span(trans.performance())
       ),
       div(

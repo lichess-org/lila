@@ -25,7 +25,7 @@ final class Racer(env: Env) extends LilaController(env):
     }
 
   def apiCreate = Scoped(_.Racer.Write) { _ ?=> me =>
-    me.noBot ?? {
+    me.noBot.so:
       env.racer.api.createAndJoin(RacerPlayer.Id.User(me.id)) map { raceId =>
         JsonOk:
           Json.obj(
@@ -33,7 +33,6 @@ final class Racer(env: Env) extends LilaController(env):
             "url" -> s"${env.net.baseUrl}${routes.Racer.show(raceId.value)}"
           )
       }
-    }
   }
 
   def show(id: String) =
@@ -41,7 +40,7 @@ final class Racer(env: Env) extends LilaController(env):
       env.racer.api.get(RacerRace.Id(id)) match
         case None => Redirect(routes.Racer.home).toFuccess
         case Some(r) =>
-          val race   = r.isLobby.??(env.racer.api.join(r.id, playerId)) | r
+          val race   = r.isLobby.so(env.racer.api.join(r.id, playerId)) | r
           val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
           Ok(html.racer.show(env.racer.json.data(race, player, ctx.pref))).noCache.toFuccess
     }

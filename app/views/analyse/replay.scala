@@ -15,7 +15,7 @@ import lila.game.Pov
 
 object replay:
 
-  private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
+  private[analyse] def titleOf(pov: Pov)(using Lang) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
         .fold(trans.analysis.txt())(_.opening.name)}"
 
@@ -31,7 +31,7 @@ object replay:
       userTv: Option[lila.user.User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
 
     import pov.*
 
@@ -175,7 +175,7 @@ object replay:
                   if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
                   else
                     postForm(
-                      cls    := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
+                      cls    := s"future-game-analysis${ctx.isAnon so " must-login"}",
                       action := routes.Analyse.requestAnalysis(gameId)
                     )(
                       submitButton(cls := "button text")(

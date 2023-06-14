@@ -11,7 +11,7 @@ final class UserGameSearch(
     paginator: lila.search.PaginatorBuilder[Game, Query]
 ):
 
-  def apply(user: lila.user.User, page: Int)(implicit req: Request[?], formBinding: FormBinding, lang: Lang) =
+  def apply(user: lila.user.User, page: Int)(using Request[?], FormBinding, Lang) =
     paginator(
       query = forms.search
         .bindFromRequest()
@@ -26,7 +26,7 @@ final class UserGameSearch(
       page = page
     )
 
-  def requestForm(implicit req: Request[?], formBinding: FormBinding, lang: Lang) =
+  def requestForm(using Request[?], FormBinding, Lang) =
     forms.search.bindFromRequest()
 
-  def defaultForm(using lang: Lang) = forms.search
+  def defaultForm(using Lang) = forms.search

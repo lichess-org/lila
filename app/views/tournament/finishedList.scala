@@ -9,10 +9,10 @@ import controllers.routes
 
 object finishedList:
 
-  def apply(finished: List[Tournament])(implicit ctx: WebContext): Tag =
+  def apply(finished: List[Tournament])(using WebContext): Tag =
     tbody(finished map apply)
 
-  def apply(t: Tournament)(implicit ctx: WebContext): Tag =
+  def apply(t: Tournament)(using WebContext): Tag =
     tr(cls := "paginated")(
       td(cls := "icon")(iconTag(tournamentIcon(t))),
       header(t),
@@ -26,7 +26,7 @@ object finishedList:
       )
     )
 
-  def header(t: Tournament)(implicit ctx: WebContext) =
+  def header(t: Tournament)(using WebContext) =
     td(cls := "header")(
       a(href := routes.Tournament.show(t.id))(
         span(cls := "name")(t.name()),

@@ -28,25 +28,22 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
       "move"        -> text
     )(UblogPostData.apply)(unapply)
 
-  val create = Form(
+  val create = Form:
     base.verifying(captchaFailMessage, validateCaptcha)
-  )
 
-  def edit(post: UblogPost) =
-    Form(base).fill(
-      UblogPostData(
-        title = post.title,
-        intro = post.intro,
-        markdown = removeLatex(post.markdown),
-        imageAlt = post.image.flatMap(_.alt),
-        imageCredit = post.image.flatMap(_.credit),
-        language = post.language.code.some,
-        topics = post.topics.mkString(", ").some,
-        live = post.live,
-        discuss = ~post.discuss,
-        gameId = GameId(""),
-        move = ""
-      )
+  def edit(post: UblogPost) = Form(base).fill:
+    UblogPostData(
+      title = post.title,
+      intro = post.intro,
+      markdown = removeLatex(post.markdown),
+      imageAlt = post.image.flatMap(_.alt),
+      imageCredit = post.image.flatMap(_.credit),
+      language = post.language.code.some,
+      topics = post.topics.mkString(", ").some,
+      live = post.live,
+      discuss = ~post.discuss,
+      gameId = GameId(""),
+      move = ""
     )
 
   // $$something$$ breaks the TUI editor WYSIWYG
@@ -79,7 +76,7 @@ object UblogForm:
         intro = intro,
         markdown = markdown,
         language = LangList.removeRegion(realLanguage.orElse(user.realLang) | defaultLang),
-        topics = topics ?? UblogTopic.fromStrList,
+        topics = topics so UblogTopic.fromStrList,
         image = none,
         live = false,
         discuss = Option(false),
@@ -99,16 +96,14 @@ object UblogForm:
           i.copy(alt = imageAlt, credit = imageCredit)
         },
         language = LangList.removeRegion(realLanguage | prev.language),
-        topics = topics ?? UblogTopic.fromStrList,
+        topics = topics so UblogTopic.fromStrList,
         live = live,
         discuss = Option(discuss),
         updated = UblogPost.Recorded(user.id, nowInstant).some,
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
       )
 
-  val tier = Form(
-    single(
+  val tier = Form:
+    single:
       "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
         .into[UblogBlog.Tier]
-    )
-  )

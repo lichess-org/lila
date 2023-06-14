@@ -109,8 +109,6 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
     trans.congratsYouWon,
     trans.gameVsX,
     trans.resVsX,
-    trans.newPendingReview,
-    trans.someoneReviewedYourCoachProfile,
     trans.lostAgainstTOSViolator,
     trans.refundXpointsTimeControlY,
     trans.timeAlmostUp

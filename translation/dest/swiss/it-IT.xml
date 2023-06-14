@@ -60,10 +60,17 @@ Si sommano i punti fatti dagli avversari battuti con la metà dei punti fatti da
 Pensiamo che queste condizioni siano preferibilmente da soddisfare in una squadra piuttosto che nei tornei globali.</string>
   <string name="numberOfByesQ">Quanti bye può ottenere un giocatore?</string>
   <string name="numberOfByesA">Un giocatore ottiene un bye di un punto ogni volta che il sistema di abbinamento non trova un abbinamento. Inoltre, un singolo bye di mezzo punto è attribuito quando un giocatore si unisce in ritardo a un torneo.</string>
+  <string name="earlyDrawsQ">Che conseguenze ci sono per partite che finiscono rapidamente in parità?</string>
+  <string name="earlyDrawsA">Ogni volta che il sistema non riesce a trovare un avversario per un giocatore, questo riceve un bye da un punto.
+Un bye del valore di mezzo punto è assegnato una tantum se un giocatore si unisce ad un torneo già iniziato.</string>
   <string name="whatIfOneDoesntPlayQ">Cosa succede se un giocatore non gioca una partita?</string>
   <string name="whatIfOneDoesntPlayA">Il suo orologio verrà fatto partire e la partita verrà persa per tempo.
 Il giocatore sarà squalificato dal torneo, così da non perdere altre partite.
 Potrà riprendere a giocare nel torneo in qualsiasi momento.</string>
+  <string name="protectionAgainstNoShowQ">Cosa succede nel caso non ci si presenti?</string>
+  <string name="protectionAgainstNoShowA">Può essere problematico se un giocatore si iscrive ad un torneo svizzero ma non partecipa alle proprie partite.
+Per contrastare questo problema, Lichess impedisce, ai giocatori che non sono riusciti a giocare una partita, di partecipare ad un nuovo torneo svizzero per un certo periodo di tempo.
+L\'organizzatore di un dato torneo svizzero può decidere di ammetterli comunque all\'evento.</string>
   <string name="lateJoinQ">I giocatori possono entrare in ritardo?</string>
   <string name="lateJoinA">Sì, finché sono stati giocati meno della metà dei turni; ad esempio in un torneo svizzero a 11 turni i giocatori possono entrare prima che inizi il turno 6 e in un torneo a 12 turni prima dell\'inizio del turno 7.
 I partecipanti tardivi ottengono un singolo bye, anche se si sono persi più turni.</string>

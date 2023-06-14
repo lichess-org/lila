@@ -123,11 +123,11 @@ object GameMod:
   def toDbSelect(user: lila.user.User, filter: Filter): Bdoc =
     import lila.game.Query
     Query.notSimul ++
-      filter.perf.?? { perf =>
+      filter.perf.so { perf =>
         Query.clock(perf != PerfType.Correspondence.key)
-      } ++ filter.arena.?? { id =>
+      } ++ filter.arena.so { id =>
         $doc(lila.game.Game.BSONFields.tournamentId -> id)
-      } ++ filter.swiss.?? { id =>
+      } ++ filter.swiss.so { id =>
         $doc(lila.game.Game.BSONFields.swissId -> id)
       } ++ $and(
         Query.user(user),

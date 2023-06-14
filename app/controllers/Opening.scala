@@ -19,7 +19,7 @@ final class Opening(env: Env) extends LilaController(env):
       }.toFuccess
     else
       env.opening.api.index flatMapz { page =>
-        isGranted(_.OpeningWiki).??(env.opening.wiki.popularOpeningsWithShortWiki) map { wikiMissing =>
+        isGranted(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki) map { wikiMissing =>
           Ok(html.opening.index(page, wikiMissing))
         }
       }
@@ -40,7 +40,7 @@ final class Opening(env: Env) extends LilaController(env):
               s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
             }.toFuccess
           else
-            page.query.exactOpening.??(env.puzzle.opening.getClosestTo) map { puzzle =>
+            page.query.exactOpening.so(env.puzzle.opening.getClosestTo) map { puzzle =>
               val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
               Ok(html.opening.show(page, puzzleKey))
             }

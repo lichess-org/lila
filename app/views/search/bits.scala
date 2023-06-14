@@ -18,7 +18,7 @@ private object bits:
   private def dateMinMax: List[Modifier] =
     List(min := dateMin, max := dateFormatter.print(nowInstant.plusDays(1)))
 
-  final class SearchForm(form: Form[?])(implicit lang: Lang):
+  final class SearchForm(form: Form[?])(using Lang):
 
     def dataReqs =
       List("winner", "loser", "white", "black").map { f =>
@@ -213,5 +213,4 @@ private object bits:
         )
       )
 
-  def of(form: Form[?])(implicit lang: Lang) =
-    new SearchForm(form)
+  def of(form: Form[?])(using Lang) = SearchForm(form)

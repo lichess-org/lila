@@ -37,18 +37,18 @@ final private class StudyTopicRepo(val coll: AsyncColl)
 final private class StudyUserTopicRepo(val coll: AsyncColl)
 
 final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTopicRepo, studyRepo: StudyRepo)(
-    implicit
-    ec: Executor,
-    scheduler: Scheduler
+    using
+    Executor,
+    Scheduler
 ):
 
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll(_.byId[Bdoc](str)) dmap { _ flatMap docTopic }
 
   def findLike(str: String, myId: Option[UserId], nb: Int = 10): Fu[StudyTopics] = StudyTopics from {
-    (str.lengthIs >= 2) ?? {
+    (str.lengthIs >= 2) so {
       val favsFu: Fu[List[StudyTopic]] =
-        myId.?? { userId =>
+        myId.so { userId =>
           userTopics(userId).map {
             _.value.filter(_.value startsWith str) take nb
           }
@@ -92,9 +92,9 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     }.void
 
   def userTopicsAdd(userId: UserId, topics: StudyTopics): Funit =
-    topics.value.nonEmpty ?? userTopics(userId).flatMap { prev =>
+    topics.value.nonEmpty so userTopics(userId).flatMap { prev =>
       val newTopics = prev ++ topics
-      (newTopics != prev) ??
+      (newTopics != prev) so
         userTopicRepo.coll {
           _.update.one($id(userId), $set("topics" -> newTopics), upsert = true)
         }.void

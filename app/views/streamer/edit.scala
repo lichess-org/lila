@@ -16,7 +16,7 @@ object edit:
       s: lila.streamer.Streamer.WithUserAndStream,
       form: Form[?],
       modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[lila.streamer.Streamer])]
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
       moreCss = cssTag("streamer.form")
@@ -52,7 +52,7 @@ object edit:
             val granted = s.streamer.approval.granted
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(
-                cls      := s"status is${granted ?? "-green"}",
+                cls      := s"status is${granted so "-green"}",
                 dataIcon := (if (granted) licon.Checkmark else licon.InfoCircle)
               )(
                 if (granted)
@@ -144,7 +144,7 @@ object edit:
               },
               postForm(
                 cls    := "form3",
-                action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
+                action := s"${routes.Streamer.edit}${!ctx.is(s.user) so s"?u=${s.user.id}"}"
               )(
                 isGranted(_.Streamers) option div(cls := "mod")(
                   form3.split(

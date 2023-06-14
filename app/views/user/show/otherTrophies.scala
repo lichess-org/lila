@@ -9,7 +9,7 @@ import controllers.routes
 
 object otherTrophies:
 
-  def apply(info: lila.app.mashup.UserInfo)(implicit ctx: WebContext) =
+  def apply(info: lila.app.mashup.UserInfo)(using ctx: WebContext) =
     frag(
       info.trophies.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
         div(cls := "stacked")(

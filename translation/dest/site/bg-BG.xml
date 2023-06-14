@@ -346,6 +346,10 @@
     <item quantity="one">%s казус</item>
     <item quantity="other">%s казуси</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s сеанс</item>
+    <item quantity="other">%s сеанса</item>
+  </plurals>
   <string name="viewTournament">Виж турнира</string>
   <string name="backToTournament">Продължи турнира</string>
   <string name="noDrawBeforeSwissLimit">Не можете да предложите реми при по-малко от 30 хода в швейцарски турнир.</string>

@@ -20,7 +20,7 @@ final class Analyser(
     lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, "fishnetAnalyser")
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
-    (game.metadata.analysed ?? analysisRepo.exists(game.id.value)) flatMap {
+    (game.metadata.analysed so analysisRepo.exists(game.id.value)) flatMap {
       if _ then fuccess(Analyser.Result.AlreadyAnalysed)
       else if !game.analysable then fuccess(Analyser.Result.NotAnalysable)
       else
@@ -29,7 +29,7 @@ final class Analyser(
           ignoreConcurrentCheck = ignoreConcurrentCheck,
           ownGame = game.userIds contains sender.userId
         ) flatMap { result =>
-          result.ok ?? {
+          result.ok so {
             makeWork(game, sender) flatMap { work =>
               workQueue {
                 repo getSimilarAnalysis work flatMap {
@@ -68,7 +68,7 @@ final class Analyser(
         (if (req.unlimited) fuccess(Analyser.Result.Ok)
          else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)) flatMap { result =>
           if (!result.ok) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
-          result.ok ?? {
+          result.ok so {
             val work = makeWork(
               game = Work.Game(
                 id = chapterId.value,
@@ -78,12 +78,12 @@ final class Analyser(
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
               // if black moves first, use 1 as startPly so the analysis doesn't get reversed
-              startPly = Ply(initialFen.map(_.color).??(_.fold(0, 1))),
+              startPly = Ply(initialFen.map(_.color).so(_.fold(0, 1))),
               sender = sender
             )
             workQueue {
               repo getSimilarAnalysis work flatMap {
-                _.isEmpty ?? {
+                _.isEmpty so {
                   lila.mon.fishnet.analysis.requestCount("study").increment()
                   evalCache skipPositions work.game flatMap { skipPositions =>
                     lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)

@@ -27,26 +27,23 @@ export default (window as any).LichessVoiceMove = function (
   initialFen: string
 ): VoiceMove {
   const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
-
   const cg: CgApi = root.chessground;
-  const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
-  const byTok: Map<string, Entry> = new Map(); // map token chars to lexicon entries
-  const byWord: Map<string, Entry> = new Map(); // map input words to lexicon entries
-  const moves: SparseMap<Uci> = new Map(); // map valid xvals to all full legal movesmmmmmmmmmh
-  const squares: SparseMap<Uci> = new Map(); // map of xvals to selectable or reachable square(s)
-  const sans: SparseMap<string> = new Map(); // map xvals to ucis of valid sans
-  const confirm: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
-  const clarityPref = prop.storedIntProp('voice.clarity', 0);
-  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
-  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
-
   let entries: Entry[] = [];
   let partials = { commands: [], colors: [], numbers: [] };
   let board: cs.Board;
   let ucis: Uci[]; // every legal move in uci
-
-  let choices: Map<string, Uci> | undefined; // map choice (blue, red, 1, 2, etc) to action
+  const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
+  const byTok: Map<string, Entry> = new Map(); // map token chars to lexicon entries
+  const byWord: Map<string, Entry> = new Map(); // map input words to lexicon entries
+  const moves: SparseMap<Uci> = new Map(); // map values to all full legal moves
+  const squares: SparseMap<Uci> = new Map(); // map values to selectable or reachable squares
+  const sans: SparseMap<Uci> = new Map(); // map values to ucis of valid sans
+  const confirmations: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
+  let choices: Map<string, Uci> | undefined; // map choice arrows (yes, blue, red, 1, 2, etc) to moves
   let choiceTimeout: number | undefined; // timeout for ambiguity choices
+  const clarityPref = prop.storedIntProp('voice.clarity', 0);
+  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
+  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
 
   const commands: { [_: string]: () => void } = {
     no: () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress()),
@@ -76,7 +73,7 @@ export default (window as any).LichessVoiceMove = function (
     allPhrases,
     update,
     promotionHook,
-    opponentRequest,
+    confirm,
   };
 
   function prefNodes() {
@@ -132,8 +129,8 @@ export default (window as any).LichessVoiceMove = function (
         if (DEBUG.collapse) console.groupCollapsed(`listen '${text}'`);
         else console.info(`listen '${text}'`);
         if (handleCommand(text) || handleAmbiguity(text) || handleMove(text)) {
-          confirm.forEach((cb, _) => cb(false));
-          confirm.clear();
+          confirmations.forEach((cb, _) => cb(false));
+          confirmations.clear();
         }
       } finally {
         if (DEBUG.collapse) console.groupEnd();
@@ -167,9 +164,9 @@ export default (window as any).LichessVoiceMove = function (
     const c = matchOneTags(msgText, ['command', 'choice'])?.[0];
     if (!c) return false;
 
-    for (const [action, callback] of confirm) {
+    for (const [action, callback] of confirmations) {
       if (c === 'yes' || c === 'no' || c === action) {
-        confirm.delete(action);
+        confirmations.delete(action);
         callback(c !== 'no');
         return true;
       }
@@ -307,7 +304,7 @@ export default (window as any).LichessVoiceMove = function (
     }
 
     choices = new Map<string, Uci>();
-    const preferred = options.length === 1 || options[0][1] < options[1][1];
+    const preferred = options.length === 1 || options[0][1].cost < options[1][1].cost;
     if (preferred) choices.set('yes', options[0][0]);
     if (colorsPref()) {
       const colorNames = [...brushes.keys()];
@@ -329,9 +326,9 @@ export default (window as any).LichessVoiceMove = function (
     return true;
   }
 
-  function opponentRequest(request: string, callback?: (granted: boolean) => void) {
-    if (callback) confirm.set(request, callback);
-    else confirm.delete(request);
+  function confirm(request: string, callback?: (granted: boolean) => void) {
+    if (callback) confirmations.set(request, callback);
+    else confirmations.delete(request);
   }
 
   function submit(uci: Uci) {
@@ -346,13 +343,8 @@ export default (window as any).LichessVoiceMove = function (
     }
     const role = cs.promo(uci) as cs.Role;
     cg.cancelMove();
-    if (role) {
-      promote(cg, dest(uci), role);
-      root.sendMove(src(uci), dest(uci), role, { premove: false });
-    } else {
-      cg.selectSquare(src(uci), true);
-      cg.selectSquare(dest(uci), false);
-    }
+    if (role) promote(cg, dest(uci), role);
+    root.auxMove(src(uci), dest(uci), role);
     return true;
   }
 

@@ -57,7 +57,7 @@ final class AccountClosure(
       if (selfClose) modLogApi.selfCloseAccount(u.id, reports)
       else modLogApi.closeAccount(by.id into ModId, u.id)
     _ <- appealApi.onAccountClose(u)
-    _ <- u.marks.troll ?? relationApi.fetchFollowing(u.id).flatMap {
+    _ <- u.marks.troll so relationApi.fetchFollowing(u.id).flatMap {
       activityWrite.unfollowAll(u, _)
     }
   yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
@@ -78,5 +78,5 @@ final class AccountClosure(
   def closeThenErase(username: UserStr, by: Holder): Fu[Either[String, String]] =
     userRepo byId username flatMap {
       case None    => fuccess(Left("No such user."))
-      case Some(u) => (u.enabled.yes ?? close(u, by)) >> eraseClosed(u.id)
+      case Some(u) => (u.enabled.yes so close(u, by)) >> eraseClosed(u.id)
     }

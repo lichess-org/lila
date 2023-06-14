@@ -77,7 +77,7 @@ final class MsgApi(
     val before = beforeMillis flatMap { millis =>
       Try(millisToInstant(millis)).toOption
     }
-    (userId != me.id) ?? lightUserApi.async(userId).flatMapz { contact =>
+    (userId != me.id) so lightUserApi.async(userId).flatMapz { contact =>
       for
         _         <- setReadBy(threadId, me, userId)
         msgs      <- threadMsgsFor(threadId, me, before)
@@ -181,7 +181,7 @@ final class MsgApi(
         true
       )
       .flatMap { res =>
-        (res.nModified > 0) ?? notifier.onRead(threadId, userId, contactId)
+        (res.nModified > 0) so notifier.onRead(threadId, userId, contactId)
       }
 
   def postPreset(destId: UserId, preset: MsgPreset): Fu[PostResult] =
@@ -260,7 +260,7 @@ final class MsgApi(
   private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[Instant]): Fu[List[Msg]] =
     colls.msg
       .find(
-        $doc("tid" -> threadId) ++ before.?? { b =>
+        $doc("tid" -> threadId) ++ before.so { b =>
           $doc("date" $lt b)
         },
         msgProjection.some
@@ -270,7 +270,7 @@ final class MsgApi(
       .list(msgsPerPage.value)
       .map {
         _.flatMap { doc =>
-          doc.getAsOpt[List[UserId]]("del").fold(true)(!_.has(me.id)) ?? doc.asOpt[Msg]
+          doc.getAsOpt[List[UserId]]("del").fold(true)(!_.has(me.id)) so doc.asOpt[Msg]
         }
       }
 
@@ -283,7 +283,7 @@ final class MsgApi(
       "lastMsg.read",
       true
     ) flatMap { res =>
-      (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
+      (res.nModified > 0) so notifier.onRead(threadId, me.id, contactId)
     }
 
   def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] = colls.thread.secondaryPreferred.exists(

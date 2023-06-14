@@ -25,7 +25,7 @@ object bits:
   def mini(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None)(tag: Tag): Tag =
     tag(
       cls       := "mini-board mini-board--init cg-wrap is2d",
-      dataState := s"${fen.value},${color.name},${lastMove.??(_.uci)}"
+      dataState := s"${fen.value},${color.name},${lastMove.so(_.uci)}"
     )(cgWrapContent)
 
   def miniSpan(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None) =

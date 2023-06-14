@@ -11,7 +11,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
     NotForKids:
       pageHit
       for
-        allTeamIds <- ctx.userId ?? teamCache.teamIdsList
+        allTeamIds <- ctx.userId so teamCache.teamIdsList
         teamIds <- lila.common.LilaFuture.filter(allTeamIds) {
           teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
         }
@@ -29,7 +29,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
             for
               canRead     <- access.isGrantedRead(categ.id)
               canWrite    <- access.isGrantedWrite(categ.id)
-              stickyPosts <- (page == 1) ?? env.forum.topicApi.getSticky(categ, ctx.me)
+              stickyPosts <- (page == 1) so env.forum.topicApi.getSticky(categ, ctx.me)
               _ <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
               res <-
                 if (canRead) Ok(html.forum.categ.show(categ, topics, canWrite, stickyPosts)).toFuccess

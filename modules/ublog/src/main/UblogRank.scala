@@ -95,7 +95,7 @@ final class UblogRank(
             doc.getAsOpt[UblogPost.Likes]("likes"),
             doc.getAsOpt[UblogPost.Recorded]("lived"),
             doc.getAsOpt[Lang]("language")
-          ).tupled ?? { case (id, topics, likes, lived, language) =>
+          ).tupled so { (id, topics, likes, lived, language) =>
             colls.post
               .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
               .void
@@ -138,7 +138,7 @@ final class UblogRank(
 
         val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
 
-        val topicsBonus = if (topics.exists(t => UblogTopic.chessExists(t.value))) 0 else -24 * 5
+        val topicsBonus = if (topics.exists(UblogTopic.chessExists)) 0 else -24 * 5
 
         val langBonus = if (language.language == lila.i18n.defaultLang.language) 0 else -24 * 10
 

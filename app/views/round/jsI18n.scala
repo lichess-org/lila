@@ -7,17 +7,17 @@ import lila.i18n.{ I18nKeys as trans }
 
 object jsI18n:
 
-  def apply(g: lila.game.Game)(implicit lang: Lang) =
+  def apply(g: lila.game.Game)(using Lang) =
     i18nJsObject {
       baseTranslations ++ {
         if (g.isCorrespondence) correspondenceTranslations
         else realtimeTranslations
       } ++ {
-        g.variant.exotic ?? variantTranslations
+        g.variant.exotic so variantTranslations
       } ++ {
-        g.isTournament ?? tournamentTranslations
+        g.isTournament so tournamentTranslations
       } ++ {
-        g.isSwiss ?? swissTranslations
+        g.isSwiss so swissTranslations
       }
     }
 

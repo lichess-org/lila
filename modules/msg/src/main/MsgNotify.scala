@@ -25,23 +25,21 @@ final private class MsgNotify(
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
   def onRead(threadId: MsgThread.Id, userId: UserId, contactId: UserId): Funit =
-    !cancel(threadId) ??
-      notifyApi
-        .markRead(
-          userId,
-          $doc(
-            "content.type" -> "privateMessage",
-            "content.user" -> contactId
-          )
+    !cancel(threadId) so notifyApi
+      .markRead(
+        userId,
+        $doc(
+          "content.type" -> "privateMessage",
+          "content.user" -> contactId
         )
-        .void
+      )
+      .void
 
   def deleteAllBy(threads: List[MsgThread], user: User): Funit =
     threads
-      .map { thread =>
+      .map: thread =>
         cancel(thread.id)
         notifyApi.remove(thread other user, $doc("content.user" -> user.id)).void
-      }
       .parallel
       .void
 
@@ -49,13 +47,11 @@ final private class MsgNotify(
     delayed
       .compute(
         threadId,
-        (id, canc) => {
+        (id, canc) =>
           Option(canc).foreach(_.cancel())
-          scheduler.scheduleOnce(delay) {
+          scheduler.scheduleOnce(delay):
             delayed remove id
             doNotify(threadId).unit
-          }
-        }
       )
       .unit
 
@@ -65,7 +61,6 @@ final private class MsgNotify(
   private def doNotify(threadId: MsgThread.Id): Funit =
     colls.thread.byId[MsgThread](threadId.value) flatMapz { thread =>
       val msg = thread.lastMsg
-      !thread.delBy(thread other msg.user) ?? {
+      !thread.delBy(thread other msg.user) so
         notifyApi.notifyOne(thread other msg.user, PrivateMessage(msg.user, text = shorten(msg.text, 40)))
-      }
     }

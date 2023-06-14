@@ -47,7 +47,7 @@ final class StudyMultiBoard(
   final private class ChapterPreviewAdapter(studyId: StudyId, playing: Boolean)
       extends AdapterLike[ChapterPreview]:
 
-    private val selector = $doc("studyId" -> studyId) ++ playing.??(playingSelector)
+    private val selector = $doc("studyId" -> studyId) ++ playing.so(playingSelector)
 
     def nbResults: Fu[Int] = chapterRepo.coll(_.countSel(selector))
 

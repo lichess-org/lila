@@ -51,7 +51,7 @@ final class PerfStatIndexer(
       .void
 
   private def addPov(pov: Pov, userId: UserId): Funit =
-    pov.game.perfType ?? { perfType =>
+    pov.game.perfType so { perfType =>
       storage.find(userId, perfType) flatMapz { perfStat =>
         storage.update(perfStat, perfStat agg pov)
       }

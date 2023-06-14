@@ -203,7 +203,7 @@ private[tournament] case class TournamentSetup(
         variant = newVariant,
         startsAt = startDate | old.startsAt,
         password = password,
-        position = newVariant.standard ?? {
+        position = newVariant.standard so {
           if (old.isCreated || old.position.isDefined) realPosition
           else old.position
         },
@@ -227,7 +227,7 @@ private[tournament] case class TournamentSetup(
         variant = newVariant,
         startsAt = startDate | old.startsAt,
         password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
-        position = newVariant.standard ?? {
+        position = newVariant.standard so {
           if (position.isDefined && (old.isCreated || old.position.isDefined)) realPosition
           else old.position
         },

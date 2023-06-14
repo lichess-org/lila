@@ -54,7 +54,7 @@ final class JsonView:
       ),
       Categ(
         "Move",
-        asMod.?? {
+        asMod.so {
           List(
             dimWrites.writes(D.Blur),
             dimWrites.writes(D.TimeVariance),
@@ -89,7 +89,7 @@ final class JsonView:
       ),
       Categ(
         "Move",
-        asMod.?? {
+        asMod.so {
           List(
             Json.toJson(M.Blurs: InsightMetric),
             Json.toJson(M.TimeVariance: InsightMetric)

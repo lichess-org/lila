@@ -19,7 +19,7 @@ trait Stream:
 
   lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
 
-  lazy val lang: String = (language.length == 2) ?? language.toLowerCase
+  lazy val lang: String = (language.length == 2) so language.toLowerCase
 
 object Stream:
 

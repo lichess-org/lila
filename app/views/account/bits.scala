@@ -10,7 +10,7 @@ import controllers.routes
 
 object bits:
 
-  def data(u: User)(implicit ctx: WebContext) =
+  def data(u: User)(using WebContext) =
     account.layout(title = s"${u.username} - personal data", active = "security") {
       div(cls := "account security personal-data box box-pad")(
         h1(cls := "box__top")("My personal data"),
@@ -23,7 +23,7 @@ object bits:
       )
     }
 
-  def categName(categ: lila.pref.PrefCateg)(implicit ctx: WebContext): String =
+  def categName(categ: lila.pref.PrefCateg)(using WebContext): String =
     categ match
       case PrefCateg.Display      => trans.preferences.display.txt()
       case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()

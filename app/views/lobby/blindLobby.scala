@@ -7,14 +7,14 @@ import lila.game.Pov
 
 object blindLobby:
 
-  def apply(games: List[Pov])(implicit ctx: WebContext) =
+  def apply(games: List[Pov])(using WebContext) =
     div(
       h2(games.size, " ongoing games"),
       games.nonEmpty option ongoingGames(games),
       div(cls := "lobby__app")
     )
 
-  private def ongoingGames(games: List[Pov])(implicit ctx: WebContext) =
+  private def ongoingGames(games: List[Pov])(using WebContext) =
     games.partition(_.isMyTurn) match
       case (myTurn, opTurn) =>
         frag(
@@ -24,11 +24,11 @@ object blindLobby:
           ul(opTurn map renderGame)
         )
 
-  private def renderGame(pov: Pov)(implicit ctx: WebContext) =
+  private def renderGame(pov: Pov)(using WebContext) =
     li(
       a(href := gameLink(pov))(
         playerText(pov.opponent),
         " ",
-        pov.isMyTurn ?? pov.remainingSeconds map { secondsFromNow(_, alwaysRelative = true) }
+        pov.isMyTurn so pov.remainingSeconds map { secondsFromNow(_, alwaysRelative = true) }
       )
     )

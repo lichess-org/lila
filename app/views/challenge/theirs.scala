@@ -15,7 +15,7 @@ object theirs:
       json: play.api.libs.json.JsObject,
       user: Option[lila.user.User],
       color: Option[chess.Color]
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
@@ -53,7 +53,7 @@ object theirs:
               else if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
                 badTag(
                   // very rare message, don't translate
-                  s"You have the wrong color link for this open challenge. The ${color.??(_.name)} player has already joined."
+                  s"You have the wrong color link for this open challenge. The ${color.so(_.name)} player has already joined."
                 )
               else if (!c.mode.rated || ctx.isAuth) {
                 frag(

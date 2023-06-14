@@ -39,7 +39,7 @@ object reopen:
       )
     }
 
-  def sent(implicit ctx: WebContext) =
+  def sent(using WebContext) =
     views.html.base.layout(
       title = trans.reopenYourAccount.txt()
     ) {

@@ -13,7 +13,7 @@ object layout:
       active: String,
       evenMoreCss: Frag = emptyFrag,
       evenMoreJs: Frag = emptyFrag
-  )(body: Frag)(implicit ctx: WebContext): Frag =
+  )(body: Frag)(using ctx: WebContext): Frag =
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("account"), evenMoreCss),

@@ -21,9 +21,9 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   private def renderActions(username: UserName, mini: Boolean)(using ctx: WebContext) =
     env.user.lightUserApi.asyncFallbackName(username) flatMap { user =>
-      (ctx.userId ?? { api.fetchRelation(_, user.id) }) zip
-        (ctx.isAuth ?? { env.pref.api followable user.id }) zip
-        (ctx.userId ?? { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
+      (ctx.userId so { api.fetchRelation(_, user.id) }) zip
+        (ctx.isAuth so { env.pref.api followable user.id }) zip
+        (ctx.userId so { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
           negotiate(
             html = fuccess(Ok:
               if mini then
@@ -170,9 +170,9 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   private def followship(userIds: Seq[UserId])(using ctx: WebContext): Fu[List[Related]] =
     env.user.repo usersFromSecondary userIds flatMap { users =>
-      (ctx.isAuth ?? { env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
+      (ctx.isAuth so { env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
-          ctx.userId ?? { api.fetchRelation(_, u.id) } map { rel =>
+          ctx.userId so { api.fetchRelation(_, u.id) } map { rel =>
             lila.relation.Related(u, none, followables(u.id), rel)
           }
         }.parallel

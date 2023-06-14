@@ -23,7 +23,7 @@ final class RequestRepo(val coll: Coll)(using Executor):
     coll.list[Request](teamDeclinedQuery(teamId), nb)
 
   def findActiveByTeams(teamIds: List[TeamId]): Fu[List[Request]] =
-    teamIds.nonEmpty ?? coll.list[Request](teamsActiveQuery(teamIds))
+    teamIds.nonEmpty so coll.list[Request](teamsActiveQuery(teamIds))
 
   def selectId(teamId: TeamId, userId: UserId) = $id(Request.makeId(teamId, userId))
   def teamQuery(teamId: TeamId)                = $doc("team" -> teamId)

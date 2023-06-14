@@ -76,7 +76,7 @@ final class GameRepo(val coll: Coll)(using Executor):
     }
 
   def pov(gameId: GameId, color: String): Fu[Option[Pov]] =
-    Color.fromName(color) ?? (pov(gameId, _))
+    Color.fromName(color) so (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
     game(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
@@ -376,7 +376,7 @@ final class GameRepo(val coll: Coll)(using Executor):
         "$unset" -> finishUnsets.++ {
           // keep the checkAt field when game is aborted,
           // so it gets deleted in 24h
-          (status >= Status.Mate) ?? $doc(F.checkAt -> true)
+          (status >= Status.Mate) so $doc(F.checkAt -> true)
         }
       )
     )
@@ -519,7 +519,7 @@ final class GameRepo(val coll: Coll)(using Executor):
     )
 
   def lastGamesBetween(u1: User, u2: User, since: Instant, nb: Int): Fu[List[Game]] =
-    List(u1, u2).forall(_.count.game > 0) ??
+    List(u1, u2).forall(_.count.game > 0) so
       coll.secondaryPreferred.list[Game](
         $doc(
           F.playerUids $all List(u1.id, u2.id),
@@ -530,9 +530,8 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])] =
     coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) dmap {
-      _.fold(none[Source] -> List.empty[UserId]) { doc =>
+      _.fold(none[Source] -> List.empty[UserId]): doc =>
         (doc.int(F.source) flatMap Source.apply, ~doc.getAsOpt[List[UserId]](F.playerUids))
-      }
     }
 
   def recentAnalysableGamesByUserId(userId: UserId, nb: Int) =
@@ -549,6 +548,5 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   // only for student games, for aggregation
   def denormalizePerfType(game: Game): Unit =
-    game.perfType ?? { pt =>
+    game.perfType.so: pt =>
       coll.updateFieldUnchecked($id(game.id), F.perfType, pt.id)
-    }

@@ -34,7 +34,7 @@ final class Simul(env: Env) extends LilaController(env):
     }
 
   private def fetchSimuls(me: Option[lila.user.User]) =
-    me.?? { u =>
+    me.so { u =>
       env.simul.repo.findPending(u.id)
     } zip
       env.simul.allCreatedFeaturable.get {} zip
@@ -49,8 +49,8 @@ final class Simul(env: Env) extends LilaController(env):
           version  <- env.simul.version(sim.id)
           json     <- env.simul.jsonView(sim, verdicts)
           chat <-
-            canHaveChat(sim) ?? env.chat.api.userChat.cached.findMine(sim.id into ChatId, ctx.me).map(some)
-          _ <- chat ?? { c =>
+            canHaveChat(sim) so env.chat.api.userChat.cached.findMine(sim.id into ChatId, ctx.me).map(some)
+          _ <- chat so { c =>
             env.user.lightUserApi.preloadMany(c.chat.userIds)
           }
           stream <- env.streamer.liveStreamApi one sim.hostId
@@ -169,6 +169,15 @@ final class Simul(env: Env) extends LilaController(env):
               data => env.simul.api.update(simul, data, me, teams) inject Redirect(routes.Simul.show(id))
             )
   }
+
+  def byUser(username: UserStr, page: Int) = Open:
+    Reasonable(page):
+      val userOption =
+        env.user.repo.byId(username).map { _.filter(_.enabled.yes || isGranted(_.SeeReport)) }
+      OptionFuResult(userOption): user =>
+        env.simul.api.hostedByUser(user.id, page).map { entries =>
+          Ok(html.simul.hosted(user, entries))
+        }
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: WebContext): Fu[Result] =
     env.simul.repo.find(simulId).flatMap {

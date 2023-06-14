@@ -17,7 +17,7 @@ final private[round] class Titivate(
     gameRepo: GameRepo,
     bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi
-)(implicit mat: akka.stream.Materializer)
+)(using akka.stream.Materializer)
     extends Actor:
 
   private type GameOrFail = Either[(GameId, Throwable), Game]

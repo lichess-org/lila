@@ -121,10 +121,9 @@ final private class Player(
       )
 
   private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
-    game.playableByAi ?? {
+    game.playableByAi.so:
       if (game.ply <= fishnetPlayer.maxPlies) fishnetPlayer(game)
       else fuccess(round ! actorApi.round.ResignAi)
-    }
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(0).some)

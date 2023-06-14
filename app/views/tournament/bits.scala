@@ -53,7 +53,7 @@ object bits:
   def scheduleJsI18n(using WebContext) = i18nJsObject(schedulei18nKeys)
 
   def jsI18n(tour: Tournament)(using WebContext) = i18nJsObject(
-    i18nKeys ++ (tour.isTeamBattle ?? teamBattleI18nKeys)
+    i18nKeys ++ (tour.isTeamBattle so teamBattleI18nKeys)
   )
 
   private val i18nKeys = List(

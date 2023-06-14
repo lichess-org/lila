@@ -71,7 +71,7 @@ final class SecurityApi(
   def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] = {
     EmailAddress.from(str.value) match
       case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-      case None        => User.validateId(str into UserStr) ?? authenticator.loginCandidateById
+      case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
   } map loadedLoginForm
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
@@ -110,7 +110,7 @@ final class SecurityApi(
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
-    firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
+    firewall.accepts(req) so reqSessionId(req) so { sessionId =>
       appeal.authenticate(sessionId) match {
         case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
         case None =>
@@ -147,10 +147,10 @@ final class SecurityApi(
     }
 
   def dedup(userId: UserId, req: RequestHeader): Funit =
-    reqSessionId(req) ?? { store.dedup(userId, _) }
+    reqSessionId(req) so { store.dedup(userId, _) }
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
-    reqSessionId(req) ?? { store.setFingerPrint(_, fp) map some }
+    reqSessionId(req) so { store.setFingerPrint(_, fp) map some }
 
   val sessionIdKey = "sessionId"
 
@@ -191,7 +191,7 @@ final class SecurityApi(
     )
 
     def authenticate(sessionId: SessionId): Option[UserId] =
-      sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
+      sessionId.startsWith(prefix) so store.getIfPresent(sessionId)
 
     def saveAuthentication(userId: UserId): Fu[SessionId] =
       val sessionId = s"$prefix${SecureRandom nextString 22}"

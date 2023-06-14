@@ -13,7 +13,7 @@ object show:
   def apply(
       us: lila.practice.UserStudy,
       data: lila.practice.JsonView.JsData
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     views.html.base.layout(
       title = us.practiceStudy.name,
       moreCss = cssTag("analyse.practice"),

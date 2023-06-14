@@ -36,7 +36,7 @@ final private class LeaderboardIndexer(
       generateTourEntries(tour) flatMap saveEntries
 
   private def saveEntries(entries: Seq[Entry]): Funit =
-    entries.nonEmpty ?? leaderboardRepo.coll.insert.many(entries).void
+    entries.nonEmpty so leaderboardRepo.coll.insert.many(entries).void
 
   private def generateTourEntries(tour: Tournament): Fu[List[Entry]] =
     for {

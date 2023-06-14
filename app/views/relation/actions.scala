@@ -16,7 +16,7 @@ object actions:
       followable: Boolean,
       blocked: Boolean,
       signup: Boolean = false
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     div(cls := "relation-actions btn-rack")(
       (!ctx.is(user) && !blocked) option a(
         titleOrText(trans.challenge.challengeToPlay.txt()),
@@ -25,7 +25,7 @@ object actions:
         dataIcon := licon.Swords
       ),
       ctx.userId map { myId =>
-        !user.is(myId) ?? frag(
+        !user.is(myId) so frag(
           (!blocked && !user.isBot) option a(
             titleOrText(trans.composeMessage.txt()),
             href     := routes.Msg.convo(user.name),

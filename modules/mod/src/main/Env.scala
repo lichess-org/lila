@@ -83,7 +83,7 @@ final class Env(
         if (game.status == chess.Status.Cheat)
           game.loserUserId foreach { userId =>
             logApi.cheatDetectedAndCount(userId, game.id) flatMap { count =>
-              (count >= 3) ?? {
+              (count >= 3) so {
                 if (game.hasClock)
                   api.autoMark(
                     SuspectId(userId),

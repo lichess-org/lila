@@ -42,7 +42,7 @@ object MatchMaking:
         ratingRangeConflict(b, a) ||
         blockList(a, b) ||
         blockList(b, a)
-      } ?? {
+      } so {
         a.ratingDiff(b).value
           - missBonus(a).atMost(missBonus(b))
           - rangeBonus(a, b)

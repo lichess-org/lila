@@ -39,30 +39,26 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing = f
 function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
-  const goNext = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
+  const notOnLastMove = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
   return h(
     'div.puzzle__controls.analyse-controls',
     {
-      hook: onInsert(el => {
-        bindMobileMousedown(
-          el,
-          e => {
-            const action = dataAct(e);
-            if (action === 'prev') control.prev(ctrl);
-            else if (action === 'next') control.next(ctrl);
-            else if (action === 'first') control.first(ctrl);
-            else if (action === 'last') control.last(ctrl);
-          },
-          ctrl.redraw
-        );
-      }),
+      hook: onInsert(
+        bindMobileMousedown(e => {
+          const action = dataAct(e);
+          if (action === 'prev') control.prev(ctrl);
+          else if (action === 'next') control.next(ctrl);
+          else if (action === 'first') control.first(ctrl);
+          else if (action === 'last') control.last(ctrl);
+        }, ctrl.redraw)
+      ),
     },
     [
       h('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', !node.ply),
         jumpButton(licon.JumpPrev, 'prev', !node.ply),
-        jumpButton(licon.JumpNext, 'next', !nextNode, goNext),
-        jumpButton(licon.JumpLast, 'last', !nextNode, goNext),
+        jumpButton(licon.JumpNext, 'next', !nextNode),
+        jumpButton(licon.JumpLast, 'last', !nextNode, notOnLastMove),
         boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
       ]),
       boardMenu(ctrl),

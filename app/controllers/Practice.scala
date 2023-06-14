@@ -45,9 +45,8 @@ final class Practice(
       struct.sections
         .find(_.id == sectionId)
         .fold(notFound): section =>
-          select(section) ?? { study =>
+          select(section).so: study =>
             Redirect(routes.Practice.show(section.id, study.slug, study.id)).toFuccess
-          }
 
   private def showUserPractice(us: lila.practice.UserStudy)(using WebContext) =
     analysisJson(us) map { (analysisJson, studyJson) =>

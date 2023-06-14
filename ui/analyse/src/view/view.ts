@@ -162,27 +162,23 @@ function controls(ctrl: AnalyseCtrl) {
   return h(
     'div.analyse__controls.analyse-controls',
     {
-      hook: onInsert(el => {
-        bindMobileMousedown(
-          el,
-          e => {
-            const action = dataAct(e);
-            if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
-            else if (action === 'first') control.first(ctrl);
-            else if (action === 'last') control.last(ctrl);
-            else if (action === 'explorer') ctrl.toggleExplorer();
-            else if (action === 'practice') ctrl.togglePractice();
-            else if (action === 'menu') ctrl.actionMenu.toggle();
-            else if (action === 'analysis' && ctrl.studyPractice)
-              window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
-            else if (action === 'persistence') {
-              ctrl.persistence?.autoOpen(false);
-              ctrl.togglePersistence();
-            }
-          },
-          ctrl.redraw
-        );
-      }),
+      hook: onInsert(
+        bindMobileMousedown(e => {
+          const action = dataAct(e);
+          if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
+          else if (action === 'first') control.first(ctrl);
+          else if (action === 'last') control.last(ctrl);
+          else if (action === 'explorer') ctrl.toggleExplorer();
+          else if (action === 'practice') ctrl.togglePractice();
+          else if (action === 'menu') ctrl.actionMenu.toggle();
+          else if (action === 'analysis' && ctrl.studyPractice)
+            window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
+          else if (action === 'persistence') {
+            ctrl.persistence?.autoOpen(false);
+            ctrl.togglePersistence();
+          }
+        }, ctrl.redraw)
+      ),
     },
     [
       ctrl.embed

@@ -52,8 +52,8 @@ final class BotJsonView(
           "moves"  -> uciMoves.mkString(" "),
           "wtime"  -> game.whitePov.millisRemaining,
           "btime"  -> game.blackPov.millisRemaining,
-          "winc"   -> (game.clock.??(_.config.increment.millis): Long),
-          "binc"   -> (game.clock.??(_.config.increment.millis): Long),
+          "winc"   -> (game.clock.so(_.config.increment.millis): Long),
+          "binc"   -> (game.clock.so(_.config.increment.millis): Long),
           "status" -> game.status.name
         )
         .add("wdraw" -> game.whitePlayer.isOfferingDraw)
@@ -93,9 +93,8 @@ final class BotJsonView(
       .add("rating" -> pov.player.rating)
       .add("provisional" -> pov.player.provisional)
 
-  implicit private val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
+  private given OWrites[chess.Clock.Config] = OWrites: c =>
     Json.obj(
       "initial"   -> c.limit.millis,
       "increment" -> c.increment.millis
     )
-  }

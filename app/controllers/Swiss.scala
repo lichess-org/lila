@@ -27,7 +27,7 @@ final class Swiss(
   def homeLang = LangPage(routes.Swiss.home)(serveHome)
 
   private def serveHome(using WebContext) = NoBot {
-    ctx.userId.??(env.team.cached.teamIdsList) flatMap
+    ctx.userId.so(env.team.cached.teamIdsList) flatMap
       env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
   }
 
@@ -39,7 +39,7 @@ final class Swiss(
           for {
             verdicts <- env.swiss.api.verdicts(swiss, ctx.me)
             version  <- env.swiss.version(swiss.id)
-            isInTeam <- ctx.me ?? isUserInTheTeam(swiss.teamId)
+            isInTeam <- ctx.me so isUserInTheTeam(swiss.teamId)
             json <- env.swiss.json(
               swiss = swiss,
               me = ctx.me,
@@ -49,28 +49,26 @@ final class Swiss(
               playerInfo = none,
               isInTeam = isInTeam
             )
-            canChat <- canHaveChat(swiss)
+            canChat <- canHaveChat(swiss.roundInfo)
             chat <-
-              canChat ?? env.chat.api.userChat.cached
+              canChat so env.chat.api.userChat.cached
                 .findMine(swiss.id into ChatId, ctx.me)
-                .dmap(some)
-            _ <- chat ?? { c =>
-              env.user.lightUserApi.preloadMany(c.chat.userIds)
-            }
+                .flatMap: c =>
+                  env.user.lightUserApi.preloadMany(c.chat.userIds) inject
+                    c.copy(locked = !env.api.chatFreshness.of(swiss)).some
             streamers  <- streamerCache get swiss.id
-            isLocalMod <- canChat ?? ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
+            isLocalMod <- canChat so ctx.userId so { env.team.cached.isLeader(swiss.teamId, _) }
           } yield Ok(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
         },
         api = _ =>
           swissOption.fold(notFoundJson("No such swiss tournament")) { swiss =>
             for {
-              isInTeam      <- ctx.me.??(isUserInTheTeam(swiss.teamId))
+              isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId))
               verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
-              socketVersion <- getBool("socketVersion", ctx.req).??(env.swiss version swiss.id dmap some)
-              playerInfo <- getUserStr("playerInfo", ctx.req).map(_.id).?? {
-                env.swiss.api.playerInfo(swiss, _)
-              }
-              page = getInt("page", ctx.req).filter(0.<)
+              socketVersion <- getBool("socketVersion").so(env.swiss version swiss.id dmap some)
+              playerInfo <- getUserStr("playerInfo").so: u =>
+                env.swiss.api.playerInfo(swiss, u.id)
+              page = getInt("page").filter(0.<)
               json <- env.swiss.json(
                 swiss = swiss,
                 me = ctx.me,
@@ -96,7 +94,7 @@ final class Swiss(
 
   def round(id: SwissId, round: Int) = Open:
     OptionFuResult(env.swiss.cache.swissCache byId id): swiss =>
-      (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRoundNumber(round)) ?? { r =>
+      (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRoundNumber(round)) so { r =>
         val page = getInt("page").filter(0.<)
         env.swiss.roundPager(swiss, r, page | 0) map { pager =>
           Ok(html.swiss.show.round(swiss, r, pager))
@@ -104,7 +102,7 @@ final class Swiss(
       }
 
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMapz f
+    ctx.userId so { env.team.cached.isLeader(teamId, _) } flatMapz f
 
   def form(teamId: TeamId) = Auth { ctx ?=> me =>
     NoLameOrBot {
@@ -283,7 +281,7 @@ final class Swiss(
     apiC.jsonDownload {
       env.swiss.api
         .byTeamCursor(id)
-        .documentSource(getInt("max", req) | 100)
+        .documentSource(getInt("max") | 100)
         .mapAsync(4)(env.swiss.json.api)
         .throttle(20, 1.second)
     }.toFuccess
@@ -304,16 +302,13 @@ final class Swiss(
       else fallback(swiss)
     }
 
-  private def canHaveChat(swiss: SwissModel)(using WebContext): Fu[Boolean] =
-    env.api.chatFreshness.of(swiss) ?? canHaveChat(swiss.roundInfo)
-
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: WebContext): Fu[Boolean] =
-    (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
+    (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) so {
       swiss.chatFor match
         case ChatFor.NONE                  => fuFalse
         case _ if isGranted(_.ChatTimeout) => fuTrue
-        case ChatFor.LEADERS               => ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
-        case ChatFor.MEMBERS               => ctx.userId ?? { env.team.api.belongsTo(swiss.teamId, _) }
+        case ChatFor.LEADERS               => ctx.userId so { env.team.cached.isLeader(swiss.teamId, _) }
+        case ChatFor.MEMBERS               => ctx.userId so { env.team.api.belongsTo(swiss.teamId, _) }
         case _                             => fuTrue
     }
 

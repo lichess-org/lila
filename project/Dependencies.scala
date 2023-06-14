@@ -14,10 +14,10 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.4.2"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.5.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.5"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "15.2.10"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "15.2.11"
   val compression = "org.lichess"                  %% "compression"                     % "1.8"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.1"
@@ -29,7 +29,7 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.4.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.93.Final" classifier s"$os-$arch"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M7" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M8" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.15.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.10.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"

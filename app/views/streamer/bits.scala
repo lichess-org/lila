@@ -85,7 +85,7 @@ object bits:
       xIsStreaming(strong(titleNameOrId(userId)))
     )
 
-  def rules(implicit lang: Lang) =
+  def rules(using Lang) =
     ul(cls := "streamer-rules")(
       h2(trans.streamer.rules()),
       ul(

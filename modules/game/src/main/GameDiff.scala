@@ -70,7 +70,7 @@ object GameDiff:
         dOpt(
           checkCount,
           _.history.checkCount,
-          (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
+          (o: CheckCount) => o.nonEmpty so { BSONHandlers.checkCountWriter writeOpt o }
         )
       if (a.variant.crazyhouse)
         dOpt(

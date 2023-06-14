@@ -20,7 +20,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def initial          = sans.isEmpty
   def query = openingAndExtraMoves match
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnString.some)
-  def prev = (sans.sizeIs > 1) ?? OpeningQuery(
+  def prev = (sans.sizeIs > 1) so OpeningQuery(
     OpeningQuery.Query("", PgnMovesStr(sans.init.mkString(" ")).some),
     config
   )

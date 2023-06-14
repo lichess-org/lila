@@ -5,7 +5,7 @@ import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Tag }
 
 import lila.chat.ChatApi
 import lila.common.Bus
@@ -34,6 +34,7 @@ final class StudyApi(
   import sequencer.*
 
   export studyRepo.{ byId, byOrderedIds as byIds, publicIdNames }
+  export chapterRepo.{ orderedMetadataByStudy as chapterMetadatas }
 
   def publicByIds(ids: Seq[StudyId]) = byIds(ids) map { _.filter(_.isPublic) }
 
@@ -66,8 +67,16 @@ final class StudyApi(
   def byIdWithChapter(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
     studyRepo.byIdWithChapter(chapterRepo.coll)(id, chapterId)
 
+  def byIdWithChapterOrFallback(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
+    byIdWithChapter(id, chapterId) orElse byIdWithChapter(id)
+
   def byIdWithFirstChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo firstByStudy id)
+
+  def byChapterId(chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
+    chapterRepo.byId(chapterId).flatMapz { chapter =>
+      studyRepo.byId(chapter.studyId).mapz { Study.WithChapter(_, chapter).some }
+    }
 
   private[study] def byIdWithLastChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo lastByStudy id)
@@ -95,7 +104,7 @@ final class StudyApi(
       }
     } >> byIdWithFirstChapter(study.id)
 
-  def recentByOwnerWithChapterCount = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
+  def recentByOwnerWithChapterCount       = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
   def recentByContributorWithChapterCount = studyRepo.recentByContributorWithChapterCount(chapterRepo.coll)
 
   export chapterRepo.studyIdOf
@@ -109,7 +118,7 @@ final class StudyApi(
   ): Fu[Option[Study.WithChapter]] = data.form.as match
     case StudyForm.importGame.As.NewStudy =>
       create(data, user, withRatings) addEffect {
-        _ ?? { sc =>
+        _ so { sc =>
           Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
         }
       }
@@ -140,7 +149,7 @@ final class StudyApi(
     }
 
   def clone(me: User, prev: Study): Fu[Option[Study]] =
-    Settings.UserSelection.allows(prev.settings.cloneable, prev, me.id.some) ?? {
+    Settings.UserSelection.allows(prev.settings.cloneable, prev, me.id.some) so {
       val study1 = prev.cloneFor(me)
       chapterRepo
         .orderedByStudySource(prev.id)
@@ -172,7 +181,7 @@ final class StudyApi(
   def talk(userId: UserId, studyId: StudyId, text: String) =
     byId(studyId).foreach:
       _.foreach: study =>
-        (study canChat userId) ?? {
+        (study canChat userId) so {
           chatApi.userChat.write(
             study.id into ChatId,
             userId = userId,
@@ -230,12 +239,12 @@ final class StudyApi(
           failReload()
           fufail(s"Invalid addNode ${study.id} ${position.ref} $singleNode")
         case Some(chapter) =>
-          chapter.root.nodeAt(position.path) ?? { parent =>
-            parent.children.get(singleNode.id) ?? { node =>
+          chapter.root.nodeAt(position.path) so { parent =>
+            parent.children.get(singleNode.id) so { node =>
               val newPosition = position.ref + node
               for
                 _ <- chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter)
-                _ <- relay ?? { chapterRepo.setRelay(chapter.id, _) }
+                _ <- relay so { chapterRepo.setRelay(chapter.id, _) }
                 _ <-
                   if opts.sticky
                   then studyRepo.setPosition(study.id, newPosition)
@@ -250,8 +259,8 @@ final class StudyApi(
           }
 
   private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
-    chapter.conceal ?? { conceal =>
-      chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal) ?? { newConceal =>
+    chapter.conceal so { conceal =>
+      chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal) so { newConceal =>
         if (newConceal >= chapter.root.lastMainlinePly)
           chapterRepo.removeConceal(chapter.id) >>-
             sendTo(study.id)(_.setConceal(position, none))
@@ -364,7 +373,7 @@ final class StudyApi(
           val allowed = study.isMember(userId) && {
             (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
           }
-          allowed ?? {
+          allowed so {
             studyRepo.removeMember(study, userId) >>-
               onMembersChange(study, (study.members - userId), study.members.ids)
           }
@@ -425,9 +434,9 @@ final class StudyApi(
 
   private def doSetTags(study: Study, oldChapter: Chapter, tags: Tags, who: Who): Funit =
     val chapter = oldChapter.copy(tags = tags)
-    (chapter.tags != oldChapter.tags) ?? {
+    (chapter.tags != oldChapter.tags) so {
       chapterRepo.setTagsFor(chapter) >> {
-        PgnTags.setRootClockFromTags(chapter) ?? { c =>
+        PgnTags.setRootClockFromTags(chapter) so { c =>
           doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, c.root.clock)(who)
         }
       } >>-
@@ -452,8 +461,8 @@ final class StudyApi(
     position.chapter.setComment(comment, position.path) match
       case Some(newChapter) =>
         studyRepo.updateNow(study)
-        newChapter.root.nodeAt(position.path) ?? { node =>
-          node.comments.findBy(comment.by) ?? { c =>
+        newChapter.root.nodeAt(position.path) so { node =>
+          node.comments.findBy(comment.by) so { c =>
             chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path) >>- {
               sendTo(study.id)(_.setComment(position.ref, c, who))
               indexStudy(study)
@@ -484,7 +493,7 @@ final class StudyApi(
           chapter.toggleGlyph(glyph, position.path) match
             case Some(newChapter) =>
               studyRepo.updateNow(study)
-              newChapter.root.nodeAt(position.path) ?? { node =>
+              newChapter.root.nodeAt(position.path) so { node =>
                 chapterRepo.setGlyphs(node.glyphs)(newChapter, position.path) >>-
                   newChapter.root.nodeAt(position.path).foreach { node =>
                     sendTo(study.id)(_.setGlyphs(position, node.glyphs, who))
@@ -518,7 +527,7 @@ final class StudyApi(
                   reloadSriBecauseOf(study, who.sri, chapter.id)
               case Some((chapter, path)) =>
                 studyRepo.updateNow(study)
-                chapter.root.nodeAt(path) ?? { parent =>
+                chapter.root.nodeAt(path) so { parent =>
                   chapterRepo.setChildren(parent.children)(chapter, path) >>-
                     sendTo(study.id)(_.reloadAll)
                 }
@@ -542,9 +551,9 @@ final class StudyApi(
               .flatMap: count =>
                 if (count >= Study.maxChapters) funit
                 else
-                  data.initial ?? {
+                  data.initial so {
                     chapterRepo.firstByStudy(study.id) flatMap {
-                      _.filter(_.isEmptyInitial) ?? chapterRepo.delete
+                      _.filter(_.isEmptyInitial) so chapterRepo.delete
                     }
                   } >>
                     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
@@ -569,7 +578,7 @@ final class StudyApi(
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who) =
     chapterRepo.insert(chapter) >> {
       val newStudy = study withChapter chapter
-      (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
+      (sticky so studyRepo.updateSomeFields(newStudy)) >>-
         sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
     } >>
       studyRepo.updateNow(study) >>-
@@ -577,10 +586,10 @@ final class StudyApi(
 
   def setChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudy(studyId): study =>
-      study.canContribute(who.u) ?? doSetChapter(study, chapterId, who)
+      study.canContribute(who.u) so doSetChapter(study, chapterId, who)
 
   private def doSetChapter(study: Study, chapterId: StudyChapterId, who: Who) =
-    (study.position.chapterId != chapterId) ?? {
+    (study.position.chapterId != chapterId) so {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMapz { chapter =>
         val newStudy = study withChapter chapter
         studyRepo.updateSomeFields(newStudy) >>-
@@ -616,7 +625,7 @@ final class StudyApi(
           else
             chapterRepo.update(newChapter) >> {
               if (chapter.conceal != newChapter.conceal)
-                (newChapter.conceal.isDefined && study.position.chapterId == chapter.id).?? {
+                (newChapter.conceal.isDefined && study.position.chapterId == chapter.id).so {
                   val newPosition = study.position.withPath(UciPath.root)
                   studyRepo.setPosition(study.id, newPosition)
                 } >>-
@@ -640,7 +649,7 @@ final class StudyApi(
           val newChapter = chapter.copy(
             description = data.clean.nonEmpty option data.clean
           )
-          (chapter != newChapter) ?? {
+          (chapter != newChapter) so {
             chapterRepo.update(newChapter) >>- {
               sendTo(study.id)(_.descChapter(newChapter.id, newChapter.description, who))
               indexStudy(study)
@@ -666,8 +675,8 @@ final class StudyApi(
               }
             // deleting the current chapter? Automatically move to another one
             else
-              (study.position.chapterId == chapterId).?? {
-                chaps.find(_.id != chapterId) ?? { newChap =>
+              (study.position.chapterId == chapterId).so {
+                chaps.find(_.id != chapterId) so { newChap =>
                   doSetChapter(study, newChap.id, who)
                 }
               }
@@ -683,7 +692,7 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
         val newStudy = study.copy(description = desc.nonEmpty option desc)
-        (study != newStudy) ?? {
+        (study != newStudy) so {
           studyRepo.updateSomeFields(newStudy) >>-
             sendTo(study.id)(_.descStudy(newStudy.description, who)) >>-
             indexStudy(study)
@@ -695,7 +704,7 @@ final class StudyApi(
         val topics    = StudyTopics.fromStrs(topicStrs, StudyTopics.studyMax)
         val newStudy  = study.copy(topics = topics.some)
         val newTopics = study.topics.fold(topics)(topics.diff)
-        (study != newStudy) ?? {
+        (study != newStudy) so {
           studyRepo.updateTopics(newStudy) >>
             topicApi.userTopicsAdd(who.u, newTopics) >>- {
               sendTo(study.id)(_.setTopics(topics, who))
@@ -711,7 +720,7 @@ final class StudyApi(
   def editStudy(studyId: StudyId, data: Study.Data)(who: Who) =
     sequenceStudy(studyId): study =>
       canActAsOwner(study, who.u) flatMap { asOwner =>
-        asOwner.option(data.settings) ?? { settings =>
+        asOwner.option(data.settings) so { settings =>
           val newStudy = study.copy(
             name = Study toName data.name,
             settings = settings,
@@ -720,7 +729,7 @@ final class StudyApi(
               study.description.filter(_.nonEmpty) | "-"
             }
           )
-          (newStudy != study) ?? {
+          (newStudy != study) so {
             studyRepo.updateSomeFields(newStudy) >>-
               sendTo(study.id)(_.reloadAll) >>-
               indexStudy(study)
@@ -743,15 +752,11 @@ final class StudyApi(
       }
     }
 
-  def resetAllRanks = studyRepo.resetAllRanks
-
   def chapterIdNames(studyIds: List[StudyId]): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
     chapterRepo.idNamesByStudyIds(studyIds, Study.maxChapters)
 
-  def chapterMetadatas = chapterRepo.orderedMetadataByStudy
-
   def withLiked(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithLiked]] =
-    me.?? { u =>
+    me.so { u =>
       studyRepo.filterLiked(u, studies.map(_.id))
     } map { liked =>
       studies.map: study =>

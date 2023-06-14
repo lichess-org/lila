@@ -20,7 +20,7 @@ final class FishnetPlayer(
 ):
 
   def apply(game: Game): Funit =
-    game.aiLevel ?? { level =>
+    game.aiLevel so { level =>
       LilaFuture.delay(delayFor(game) | 0.millis) {
         openingBook(game, level) flatMap {
           case Some(move) =>

@@ -18,7 +18,7 @@ final private class Takebacker(
 
   def yes(
       situation: TakebackSituation
-  )(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
+  )(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     IfAllowed(pov.game) {
       pov match
         case Pov(game, color) if pov.opponent.isProposingTakeback =>
@@ -46,7 +46,7 @@ final private class Takebacker(
         case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
     }
 
-  def no(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
+  def no(situation: TakebackSituation)(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     pov match
       case Pov(game, color) if pov.player.isProposingTakeback =>
         messenger.volatile(game, trans.takebackPropositionCanceled.txt())
@@ -67,7 +67,7 @@ final private class Takebacker(
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
 
   def isAllowedIn(game: Game): Fu[Boolean] =
-    game.canTakebackOrAddTime ?? isAllowedByPrefs(game)
+    game.canTakebackOrAddTime so isAllowedByPrefs(game)
 
   private def isAllowedByPrefs(game: Game): Fu[Boolean] =
     if (game.hasAi) fuTrue
@@ -89,7 +89,7 @@ final private class Takebacker(
         else fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
       }
 
-  private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+  private def single(game: Game)(using GameProxy): Fu[Events] =
     for {
       fen      <- gameRepo initialFen game
       progress <- Rewind(game, fen).toFuture
@@ -97,7 +97,7 @@ final private class Takebacker(
       events   <- saveAndNotify(progress)
     } yield events
 
-  private def double(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+  private def double(game: Game)(using GameProxy): Fu[Events] =
     for {
       fen   <- gameRepo initialFen game
       prog1 <- Rewind(game, fen).toFuture
@@ -108,7 +108,7 @@ final private class Takebacker(
       events <- saveAndNotify(prog2)
     } yield events
 
-  private def saveAndNotify(p1: Progress)(implicit proxy: GameProxy): Fu[Events] =
+  private def saveAndNotify(p1: Progress)(using proxy: GameProxy): Fu[Events] =
     val p2 = p1 + Event.Reload
     messenger.system(p2.game, trans.takebackPropositionAccepted.txt())
     proxy.save(p2) inject p2.events
@@ -120,7 +120,7 @@ final private class Takebacker(
         lila.game.actorApi.BoardTakebackOffer makeChan game.id
       )
 
-  private def publishTakeback(prevPov: Pov)(implicit proxy: GameProxy): Unit =
+  private def publishTakeback(prevPov: Pov)(using proxy: GameProxy): Unit =
     if (lila.game.Game.isBoardOrBotCompatible(prevPov.game))
       proxy
         .withPov(prevPov.color) { p =>

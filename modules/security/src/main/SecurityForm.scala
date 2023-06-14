@@ -108,7 +108,7 @@ final class SecurityForm(
         .verifying(PasswordCheck.errorSame, x => mode != Mode.Prod || x.password != x.username.value)
     )
 
-  def passwordReset(implicit req: RequestHeader) = hcaptcha.form(
+  def passwordReset(using RequestHeader) = hcaptcha.form(
     Form(
       mapping(
         "email" -> sendableEmail // allow unacceptable emails for BC
@@ -189,7 +189,7 @@ final class SecurityForm(
       Form(
         tuple(
           "passwd" -> passwordMapping(candidate),
-          "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
+          "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.so(_.verify(TotpToken(t))))
         )
       )
     }
@@ -212,7 +212,7 @@ final class SecurityForm(
 
   def toggleKid = passwordProtected
 
-  def reopen(implicit req: RequestHeader) = hcaptcha.form(
+  def reopen(using RequestHeader) = hcaptcha.form(
     Form(
       mapping(
         "username" -> LilaForm.cleanNonEmptyText.into[UserStr],

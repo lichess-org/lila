@@ -13,7 +13,7 @@ object features:
 
   val engineFullName = "Stockfish 15.1 NNUE"
 
-  def apply()(implicit ctx: WebContext) =
+  def apply()(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("feature"),
@@ -197,7 +197,7 @@ object features:
       )
     }
 
-  private def header(name: Frag)(implicit lang: Lang) =
+  private def header(name: Frag)(using Lang) =
     thead(
       st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lichessPatron()))
     )

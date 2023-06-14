@@ -49,7 +49,7 @@ final class StreamerApi(
 
   def withUsers(live: LiveStreams, me: Option[UserId]): Fu[List[Streamer.WithUserAndStream]] = for {
     users <- userRepo.byIdsSecondary(live.streams.map(_.streamer.userId))
-    subs  <- me.??(subsRepo.filterSubscribed(_, users.map(_.id)))
+    subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
   } yield live.streams.flatMap { s =>
     users.find(_ is s.streamer) map {
       Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
@@ -60,7 +60,7 @@ final class StreamerApi(
 
   def setSeenAt(user: User): Funit =
     cache.listedIds.getUnit flatMap { ids =>
-      ids.contains(user.id into Streamer.Id) ??
+      ids.contains(user.id into Streamer.Id) so
         coll.update.one($id(user.id), $set("seenAt" -> nowInstant)).void
     }
 
@@ -76,7 +76,7 @@ final class StreamerApi(
           )
         )
       }.parallel
-      _            <- elements.nonEmpty ?? update.many(elements).void
+      _            <- elements.nonEmpty so update.many(elements).void
       candidateIds <- cache.candidateIds.getUnit
     } yield if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
 
@@ -89,7 +89,7 @@ final class StreamerApi(
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
     val list = prev.approval.granted != current.approval.granted option current.approval.granted
-    ~list ?? notifyApi.notifyOne(
+    ~list so notifyApi.notifyOne(
       current,
       lila.notify.GenericLink(
         url = "/streamer/edit",
@@ -166,7 +166,7 @@ final class StreamerApi(
 
     def request(user: User) =
       find(user) flatMap {
-        _.filter(!_.streamer.approval.granted) ?? { s =>
+        _.filter(!_.streamer.approval.granted) so { s =>
           coll.updateField($id(s.streamer.id), "approval.requested", true).void
         }
       }

@@ -72,5 +72,5 @@ export const scrollTo = (el: HTMLElement, target: HTMLElement | null) => {
 
 export const onClickAway = (f: () => void) => (el: HTMLElement) => {
   const listen: () => void = () => $(document).one('click', e => (el.contains(e.target) ? listen() : f()));
-  setTimeout(listen, 100);
+  setTimeout(listen, 300);
 };

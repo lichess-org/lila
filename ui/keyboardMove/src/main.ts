@@ -58,7 +58,7 @@ export interface RootController {
   data: RootData;
   offerDraw?: (v: boolean, immediately?: boolean) => void;
   resign?: (v: boolean, immediately?: boolean) => void;
-  sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
+  auxMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   submitMove?: (v: boolean) => void;
   userJumpPlyDelta?: (plyDelta: Ply) => void;
@@ -108,7 +108,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
       if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
       root.chessground.cancelMove();
       promote(root.chessground, dest, role);
-      root.sendMove(orig, dest, role, { premove: false });
+      root.auxMove(orig, dest, role);
     },
     update(step, yourMove = false) {
       if (handler) handler(step.fen, cgState.movable.dests, yourMove);

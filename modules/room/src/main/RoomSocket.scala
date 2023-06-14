@@ -64,7 +64,7 @@ object RoomSocket:
           .unit
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
-          localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
+          localTimeout.so { _(roomId, modId, suspect) } foreach { local =>
             val scope = if (local) ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
             chat.userChat.timeout(
               roomId into ChatId,

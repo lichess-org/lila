@@ -30,9 +30,9 @@ final private class StudyInvite(
       getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] =
     for {
-      _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
+      _       <- (study.nbMembers >= maxMembers) so fufail[Unit](s"Max study members reached: $maxMembers")
       inviter <- userRepo byId byUserId orFail "No such inviter"
-      _ <- (!study.isOwner(inviter.id) && !Granter(_.StudyAdmin)(inviter)) ?? fufail[Unit](
+      _ <- (!study.isOwner(inviter.id) && !Granter(_.StudyAdmin)(inviter)) so fufail[Unit](
         "Only the study owner can invite"
       )
       invited <-
@@ -41,9 +41,9 @@ final private class StudyInvite(
           .map(
             _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
           ) orFail "No such invited"
-      _         <- study.members.contains(invited) ?? fufail[Unit]("Already a member")
+      _         <- study.members.contains(invited) so fufail[Unit]("Already a member")
       relation  <- relationApi.fetchRelation(invited.id, byUserId)
-      _         <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")
+      _         <- relation.has(Block) so fufail[Unit]("This user does not want to join")
       isPresent <- getIsPresent(invited.id)
       _ <-
         if (isPresent || Granter(_.StudyAdmin)(inviter)) funit
@@ -64,7 +64,7 @@ final private class StudyInvite(
         else if (inviter.hasTitle) 20
         else if (inviter.perfs.bestRating >= 2000) 50
         else 100
-      _ <- shouldNotify ?? notifyRateLimit.zero(inviter.id, rateLimitCost):
+      _ <- shouldNotify so notifyRateLimit.zero(inviter.id, rateLimitCost):
         notifyApi
           .notifyOne(
             invited,

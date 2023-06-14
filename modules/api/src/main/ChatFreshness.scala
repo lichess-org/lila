@@ -15,8 +15,8 @@ final class ChatFreshness(tourCache: TournamentCache, swissCache: SwissCache)(us
 
   def of(tour: Tournament) =
     tour.finishedSinceSeconds.fold(true):
-      _ < tour.nbPlayers * 30
+      _ < (tour.nbPlayers + 120) * 30
 
   def of(swiss: Swiss) =
     swiss.finishedSinceSeconds.fold(true):
-      _ < swiss.nbPlayers * 60
+      _ < (swiss.nbPlayers + 60) * 60

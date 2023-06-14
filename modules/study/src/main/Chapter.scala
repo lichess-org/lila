@@ -62,7 +62,7 @@ case class Chapter(
     updateRoot(_.forceVariationAt(force, path))
 
   def opening: Option[Opening] =
-    Variant.list.openingSensibleVariants(setup.variant) ??
+    Variant.list.openingSensibleVariants(setup.variant) so
       OpeningDb.searchInFens(root.mainline.map(_.fen.opening))
 
   def isEmptyInitial = order == 1 && root.children.isEmpty

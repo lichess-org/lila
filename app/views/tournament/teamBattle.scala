@@ -13,7 +13,7 @@ import lila.tournament.Tournament
 
 object teamBattle:
 
-  def edit(tour: Tournament, form: Form[?])(implicit ctx: WebContext) =
+  def edit(tour: Tournament, form: Form[?])(using WebContext) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -56,7 +56,7 @@ object teamBattle:
 
   private val scoreTag = tag("score")
 
-  def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(implicit ctx: WebContext) =
+  def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(using WebContext) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.show.team-battle")
@@ -126,7 +126,7 @@ object teamBattle:
               tr(
                 td(index + 1),
                 td(
-                  (index < tour.teamBattle.??(_.nbLeaders)) option iconTag(licon.Crown),
+                  (index < tour.teamBattle.so(_.nbLeaders)) option iconTag(licon.Crown),
                   userIdLink(player.userId.some)
                 ),
                 td(player.score),

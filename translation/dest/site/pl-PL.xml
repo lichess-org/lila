@@ -49,8 +49,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która przejdzie pod ten adres, dołączy do Twojej partii.</string>
   <string name="whiteResigned">Białe poddały się</string>
   <string name="blackResigned">Czarne poddały się</string>
-  <string name="whiteLeftTheGame">Białe porzuciły partię</string>
-  <string name="blackLeftTheGame">Czarne porzuciły partię</string>
+  <string name="whiteLeftTheGame">Białe opuściły grę</string>
+  <string name="blackLeftTheGame">Czarne opuściły grę</string>
   <string name="whiteDidntMove">Białe nie ruszyły się</string>
   <string name="blackDidntMove">Czarne nie ruszyły się</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
@@ -302,7 +302,7 @@
   <string name="finished">Zakończone</string>
   <string name="finishesX">kończy się %s</string>
   <string name="abortGame">Przerwij partię</string>
-  <string name="gameAborted">Gra została przerwana</string>
+  <string name="gameAborted">Partia została przerwana</string>
   <string name="standard">Standard</string>
   <string name="unlimited">Bez limitu</string>
   <string name="mode">Rodzaj</string>
@@ -393,6 +393,12 @@
     <item quantity="few">%s opracowania</item>
     <item quantity="many">%s opracowań</item>
     <item quantity="other">%s opracowań</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s symultana</item>
+    <item quantity="few">%s symultany</item>
+    <item quantity="many">%s symultan</item>
+    <item quantity="other">%s symultan</item>
   </plurals>
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
@@ -976,7 +982,7 @@
   <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Należysz teraz do klubu.</string>
   <string name="youHaveJoinedTeamX">Dołączono do \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Ktoś kogo zgłosiłeś został zbanowany</string>
+  <string name="someoneYouReportedWasBanned">Konto kogoś, kogo zgłosiłeś/aś, zostało zablokowane</string>
   <string name="congratsYouWon">Gratulacje, wygrałeś/aś!</string>
   <string name="gameVsX">Partia przeciwko %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -1040,7 +1046,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="hangOn">Zaczekaj!</string>
   <string name="gameInProgress">Rozgrywasz partię z %s.</string>
   <string name="abortTheGame">Przerwij partię</string>
-  <string name="resignTheGame">Przerwij partię</string>
+  <string name="resignTheGame">Poddaj się</string>
   <string name="youCantStartNewGame">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
