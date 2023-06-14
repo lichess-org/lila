@@ -109,4 +109,5 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
   <string name="predefinedUsers">Tillat berre førehandsbestemde brukarar å delta</string>
   <string name="forbiddedUsers">Så sant denne lista ikkje er tom vil brukarar som ikkje er oppførde bli nekta å vera med. Eit brukarnamn per linje.</string>
+  <string name="playYourGames">Spel partia dine</string>
 </resources>

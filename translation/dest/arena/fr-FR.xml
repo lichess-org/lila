@@ -57,4 +57,5 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="noArenaStreaks">Pas de streak dans le tournoi Arène</string>
   <string name="averagePerformance">Performance moyenne</string>
   <string name="averageScore">Score moyen</string>
+  <string name="myTournaments">Mes tournois</string>
 </resources>

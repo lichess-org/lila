@@ -73,10 +73,15 @@ Sudėkite visų oponentų, kuriuos žaidėjas nugalėjo, taškus ir pusę visų 
   <string name="numberOfByesQ">Kiek \"bye\" gali gauti vienas žaidėjas?</string>
   <string name="numberOfByesA">Žaidėjas gauna vieno taško vertės \"bye\" kiekvieną kartą kai poravimo sistema jam negali surasti partnerio.
 Taip pat, vienas pusės taško vertės \"bye\" suteikiamas, kai žaidėjas pavėluotai prisijungia prie turnyro.</string>
+  <string name="earlyDrawsQ">Kas vyksta kai pasiekiamos ankstyvos lygiosios?</string>
   <string name="whatIfOneDoesntPlayQ">Kas vyksta, jei žaidėjas nesužaidžia žaidimo?</string>
   <string name="whatIfOneDoesntPlayA">Jų laikrodis toliau eis, jiems pasibaigs laikas ir jie pralaimės partiją.
 Tada sistema pašalins žaidėją iš turnyro tam, kad jie nepralaimėtų daugiau partijų.
 Žaidėjai bet kada gali grįžti į turnyrą.</string>
+  <string name="protectionAgainstNoShowQ">Kas daroma žaidėjui nepasirodžius?</string>
+  <string name="protectionAgainstNoShowA">Žaidėjai, kurie užsiregistruoja šveicariškiems turnyrams bet nedalyvauja partijose, gali būti problematiški.
+Norint išspręsti šią problemą žaidėjams, kurie neatvyko į šveicarišką turnyrą, kurį laiką neleidžiama dalyvauti naujuose šveicariškuose turnyruose.
+Turnyro organizatorius pasilieka galimybę vis tiek įleisti dalyvį.</string>
   <string name="lateJoinQ">Ar žaidėjai gali prisijungti pavėlavę?</string>
   <string name="lateJoinA">Taip, kol neprasidėjo daugiau nei pusė raundų. Pavyzdžiui: 11 raundų šveicariškame turnyre žaidėjai gali prisijungti iki 6 raundo, 12 raundų turnyre iki 7 raundo pradžios.
 Vėlyvi žaidėjai gauna vieną \"bye\", net jei jie praleido daugiau negu vieną raundą.</string>
@@ -119,4 +124,5 @@ Artimiausias Round Robin dalykas tinkle - šveicariškas turnyras su dideliu ska
   <string name="unlimitedAndFree">Neribojama ir nemokama</string>
   <string name="predefinedUsers">Leisti prisijungti tik iš anksto nurodytiems vartotojams</string>
   <string name="forbiddedUsers">Jei šis sąrašas nėra tuščias žaidėjai nesantys jame negalės prisijungti. Kiekvienas vartotojo vardas turi būti atskiroje eilutėje.</string>
+  <string name="playYourGames">Žaisti savo partijas</string>
 </resources>

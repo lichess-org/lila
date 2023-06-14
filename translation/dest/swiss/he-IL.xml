@@ -114,4 +114,5 @@
   <string name="unlimitedAndFree">לא מוגבל וחינמי</string>
   <string name="predefinedUsers">אפשרו רק לשחקנים מוגדרים מראש להצטרף</string>
   <string name="forbiddedUsers">אם תמלא/י את הרשימה הזאת, משתמשים שלא יופיעו בה לא יורשו להצטרף. כתבו שם משתמש אחד בכל שורה.</string>
+  <string name="playYourGames">שחקו את כל המשחקים שלכם</string>
 </resources>

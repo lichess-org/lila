@@ -347,6 +347,10 @@
     <item quantity="one">%s studim</item>
     <item quantity="other">%s studime</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultane</item>
+    <item quantity="other">%s simultane</item>
+  </plurals>
   <string name="viewTournament">Shihni turneun</string>
   <string name="backToTournament">Kthehu në turne</string>
   <string name="noDrawBeforeSwissLimit">Në një turne zviceran, s’mund të dilni barazim para se të jenë luajtur 30 lëvizje.</string>
@@ -899,8 +903,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="congratsYouWon">Urime, fituat!</string>
   <string name="gameVsX">Lojë kundër %1$s</string>
   <string name="resVsX">%1$s kundër %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Dikush shqyrtoi profilin tuaj prej trajneri.</string>
-  <string name="newPendingReview">Të reja në pritje të shqyrtimit</string>
   <string name="lostAgainstTOSViolator">Humbët ndaj dikujt që shkeli Kushtet e Shërbimit të Lichess-it</string>
   <string name="refundXpointsTimeControlY">Kompensim: %1$s pikë %2$s.</string>
   <string name="timeAlmostUp">Koha gati mbaroi!</string>

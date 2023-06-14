@@ -924,8 +924,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="congratsYouWon">Čestitamo na pobjedi!</string>
   <string name="gameVsX">Partija protiv %1$s</string>
   <string name="resVsX">%1$s protiv %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Netko je pregledao vaš trenerski profil.</string>
-  <string name="newPendingReview">Nova recenzija za pregled</string>
   <string name="lostAgainstTOSViolator">Izgubio si od nekoga tko je prekršio Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Povrat: %1$s %2$s rejting bodova.</string>
   <string name="timeAlmostUp">Vrijeme uskoro ističe!</string>

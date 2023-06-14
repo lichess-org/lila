@@ -394,6 +394,12 @@
     <item quantity="many">%s studijų</item>
     <item quantity="other">%s studijų</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanas</item>
+    <item quantity="few">%s simultanai</item>
+    <item quantity="many">%s simultano</item>
+    <item quantity="other">%s simultanų</item>
+  </plurals>
   <string name="viewTournament">Stebėti turnyrą</string>
   <string name="backToTournament">Grįžti į turnyrą</string>
   <string name="noDrawBeforeSwissLimit">Šveicariškame turnyre negalite skelbti lygiųjų neatlikę bent 30 ėjimų.</string>
@@ -981,8 +987,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="congratsYouWon">Sveikiname, jūs laimėjote!</string>
   <string name="gameVsX">Žaidimas prieš %1$s</string>
   <string name="resVsX">%1$s prieš %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Kažkas peržvelgė jūsų trenerio profilį.</string>
-  <string name="newPendingReview">Nauja laukianti peržvalga</string>
   <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė Lichess taisykles</string>
   <string name="refundXpointsTimeControlY">Grąžinimas: %1$s %2$s reitingo taškų.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>

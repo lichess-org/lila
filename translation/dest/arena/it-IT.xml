@@ -65,4 +65,5 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="noArenaStreaks">Arena senza Streak (punti per serie di vittorie)</string>
   <string name="averagePerformance">Prestazione media</string>
   <string name="averageScore">Punteggio medio</string>
+  <string name="myTournaments">I miei tornei</string>
 </resources>

@@ -892,8 +892,6 @@
   <string name="congratsYouWon">¡Enhorabuena, has ganado!</string>
   <string name="gameVsX">Partida contra %1$s</string>
   <string name="resVsX">%1$s contra %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Alguien ha revisado tu perfil de entrenador.</string>
-  <string name="newPendingReview">Nueva revisión pendiente</string>
   <string name="lostAgainstTOSViolator">Perdiste contra un usuario que incumplió las Condiciones del Servicio de Lichess</string>
   <string name="refundXpointsTimeControlY">Has recuperado %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>

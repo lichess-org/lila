@@ -824,8 +824,6 @@
   <string name="congratsYouWon">ยินดีด้วย คุณชนะแล้ว</string>
   <string name="gameVsX">เกม vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">บางคนได้วิพากษ์โปรไฟล์ผู้ฝึกสอนของคุณ</string>
-  <string name="newPendingReview">การวิพากษ์ที่รออยู่ใหม่</string>
   <string name="lostAgainstTOSViolator">คุณได้แพ้ต่อบางคนที่ฝ่าฝืนข้อตกลงในบริการของ Lichess</string>
   <string name="refundXpointsTimeControlY">ชดใช้คืน: %1$s แต้มของระดับคะแนน %2$s</string>
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
