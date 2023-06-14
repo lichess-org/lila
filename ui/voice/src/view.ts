@@ -53,7 +53,7 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
     classes.map(([clz, has]) => (has ? voiceBtn.addClass(clz) : voiceBtn.removeClass(clz)));
     voiceBtn.attr('data-icon', lichess.mic.isBusy ? licon.Cancel : licon.Voice);
 
-    if (tpe !== 'partial' && tpe !== 'start') el.innerText = txt;
+    if (tpe !== 'partial') el.innerText = txt;
   };
 }
 
