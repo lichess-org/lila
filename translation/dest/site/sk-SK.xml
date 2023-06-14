@@ -985,8 +985,6 @@
   <string name="congratsYouWon">Gratulujeme, vyhrali ste!</string>
   <string name="gameVsX">v partii proti %1$s</string>
   <string name="resVsX">%1$s proti %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Niekto napísal recenziu Vášho profilu trénera.</string>
-  <string name="newPendingReview">Nová čakajúca recenzia</string>
   <string name="lostAgainstTOSViolator">Prehrali ste s niekým kto porušil pravidlá stránky Lichess</string>
   <string name="refundXpointsTimeControlY">Náhrada: %1$s %2$s ratingových bodov.</string>
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
