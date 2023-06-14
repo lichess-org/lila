@@ -20,7 +20,7 @@ final class JsonView(rematches: Rematches):
         "speed"     -> game.speed.key,
         "perf"      -> PerfPicker.key(game),
         "rated"     -> game.rated,
-        "fen"       -> (Fen write game.chess),
+        "fen"       -> Fen.write(game.chess),
         "player"    -> game.turnColor,
         "turns"     -> game.ply,
         "source"    -> game.source,
