@@ -30,7 +30,10 @@ final class AccessTokenApi(
           userId = me.id,
           description = setup.description.some,
           createdAt = nowInstant.some,
-          scopes = setup.scopes.flatMap(OAuthScope.byKey.get).filterNot(_ == OAuthScope.Bot.Play && noBot),
+          scopes = setup.scopes
+            .flatMap(OAuthScope.byKey.get)
+            .filterNot(_ == OAuthScope.Bot.Play && noBot)
+            .filterNot(_ == OAuthScope.Web.Mobile),
           clientOrigin = None,
           expires = None
         )
