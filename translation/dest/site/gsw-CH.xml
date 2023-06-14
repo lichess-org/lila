@@ -911,8 +911,6 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="congratsYouWon">Gratuliere, du häsch gunne!</string>
   <string name="gameVsX">Partie gäge %1$s</string>
   <string name="resVsX">%1$s gäge %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Öpper hät dis Trainerprofil überprüeft.</string>
-  <string name="newPendingReview">Neui usstehendi Überprüefig</string>
   <string name="lostAgainstTOSViolator">Du häsch gäge öpper verlore, wo d\'Lichess-Nutzigsbedingige verletzt hät</string>
   <string name="refundXpointsTimeControlY">Rückerschtattig: %1$s %2$s Wertigspünkt.</string>
   <string name="timeAlmostUp">D\'Zit isch fascht abgloffe!</string>
