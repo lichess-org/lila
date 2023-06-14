@@ -57,4 +57,5 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="noArenaStreaks">Sem sequências de vitória em arena</string>
   <string name="averagePerformance">Desempenho médio</string>
   <string name="averageScore">Pontuação média</string>
+  <string name="myTournaments">Meus torneios</string>
 </resources>
