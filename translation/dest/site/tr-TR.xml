@@ -893,8 +893,6 @@
   <string name="congratsYouWon">Tebrikler, kazandınız!</string>
   <string name="gameVsX">%1$s ile oyun</string>
   <string name="resVsX">%1$s ile %2$s karşı karşıya</string>
-  <string name="someoneReviewedYourCoachProfile">Birisi antrenör profilinizi inceledi.</string>
-  <string name="newPendingReview">Yeni bekleyen inceleme</string>
   <string name="lostAgainstTOSViolator">Lichess Kulanım Şartları\'nı ihlal eden birine kaybettiniz</string>
   <string name="refundXpointsTimeControlY">%1$s %2$s puanı iade edildi.</string>
   <string name="timeAlmostUp">Zaman dolmak üzere!</string>
