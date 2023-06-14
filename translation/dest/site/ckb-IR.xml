@@ -876,8 +876,6 @@
   <string name="congratsYouWon">پیرۆزە، تۆ بوویت بە براوە!</string>
   <string name="gameVsX">یاری لە دژی %1$s</string>
   <string name="resVsX">%1$s دژی %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">کەسێک سەیری پڕۆفایلی ڕاهێنەرەکەتی کرد.</string>
-  <string name="newPendingReview">لە چاودێرید</string>
   <string name="lostAgainstTOSViolator">تۆ دۆڕاویت بە کەسێک کە پێشێلی Lichess TOS ی کردووە</string>
   <string name="refundXpointsTimeControlY">گەڕاندنەوەی: %1$s %2$s خاڵی هەڵسەنگاندن.</string>
   <string name="timeAlmostUp">خەریکە کاتت تەواودەبێت!</string>
