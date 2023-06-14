@@ -126,6 +126,7 @@ object pref:
               frag(
                 bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
                 div(cls := "help text shy", dataIcon := licon.InfoCircle)(
+                  "Multiple choices. ",
                   explainCanThenBeTemporarilyDisabled()
                 )
               )
