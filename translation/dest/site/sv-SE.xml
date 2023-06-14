@@ -882,8 +882,6 @@ https://lichess. org/study</string>
   <string name="congratsYouWon">Grattis, du vann!</string>
   <string name="gameVsX">Parti mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Någon har recenserat din coachprofil.</string>
-  <string name="newPendingReview">Ny i väntan på översyn</string>
   <string name="lostAgainstTOSViolator">Du förlorade mot någon som bröt mot Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Ersättning: %1$s %2$s rankingpoäng.</string>
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
