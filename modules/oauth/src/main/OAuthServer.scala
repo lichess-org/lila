@@ -26,7 +26,7 @@ final class OAuthServer(
     }
 
   def auth(tokenId: Bearer, required: OAuthScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
-    getAndCleanToken(tokenId) orFailWith NoSuchToken flatMap {
+    getTokenFromSignedBearer(tokenId) orFailWith NoSuchToken flatMap {
       case at if !required.isEmpty && !required.intersects(at.scopes) =>
         fufail(MissingScope(at.scopes))
       case at =>
@@ -63,16 +63,17 @@ final class OAuthServer(
   yield result
 
   private val bearerSigner = Algo hmac mobileSecret.value
-  private def getAndCleanToken(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
-    val (bearer, mobileReady) = full.value.split(':') match
+  private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
+    val (bearer, signed) = full.value.split(':') match
       case Array(bearer, signed) if bearerSigner.sha1(bearer) hash_= signed => (Bearer(bearer), true)
       case _                                                                => (full, false)
     tokenApi
       .get(full)
       .mapz: token =>
-        token
-          .copy(scopes = token.scopes.map(_.filter(_ != OAuthScope.Web.Mobile || mobileReady)))
-          .some
+        if token.scopes.has(_.Web.Mobile) && !signed then
+          logger.warn(s"Web:Mobile token requested but not signed: $token")
+          none
+        else token.some
 
 object OAuthServer:
 
