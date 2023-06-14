@@ -14,7 +14,7 @@ object SwissCondition:
   type GetBannedUntil = UserId => Fu[Option[Instant]]
 
   case object PlayYourGames extends Condition:
-    def name(perf: PerfType)(using Lang) = trans.playYourGames.txt()
+    def name(perf: PerfType)(using Lang) = trans.swiss.playYourGames.txt()
     def withBan(bannedUntil: Option[Instant]) = withVerdict:
       bannedUntil.fold[Verdict](Accepted)(RefusedUntil.apply)
 
