@@ -58,4 +58,5 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="noArenaStreaks">Ei areenaputkia</string>
   <string name="averagePerformance">Keskimääräinen suoritus</string>
   <string name="averageScore">Keskimääräinen pistemäärä</string>
+  <string name="myTournaments">Omat turnaukset</string>
 </resources>
