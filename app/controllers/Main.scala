@@ -24,20 +24,19 @@ final class Main(
   )
 
   def toggleBlindMode = OpenBody:
-    fuccess:
-      blindForm
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest,
-          { case (enable, redirect) =>
-            Redirect(redirect) withCookies env.lilaCookie.cookie(
-              env.api.config.accessibility.blindCookieName,
-              if (enable == "0") "" else env.api.config.accessibility.hash,
-              maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
-              httpOnly = true.some
-            )
-          }
-        )
+    blindForm
+      .bindFromRequest()
+      .fold(
+        _ => BadRequest,
+        { case (enable, redirect) =>
+          Redirect(redirect) withCookies env.lilaCookie.cookie(
+            env.api.config.accessibility.blindCookieName,
+            if (enable == "0") "" else env.api.config.accessibility.hash,
+            maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
+            httpOnly = true.some
+          )
+        }
+      )
 
   def handlerNotFound(req: RequestHeader) = webContext(req) map { renderNotFound(using _) }
 
@@ -49,13 +48,11 @@ final class Main(
 
   def webmasters = Open:
     pageHit
-    fuccess:
-      html.site.page.webmasters
+    html.site.page.webmasters
 
   def lag = Open:
     pageHit
-    fuccess:
-      html.site.lag()
+    html.site.lag()
 
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)

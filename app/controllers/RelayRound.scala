@@ -20,11 +20,9 @@ final class RelayRound(
 ) extends LilaController(env):
 
   def form(tourId: String) = Auth { ctx ?=> _ =>
-    NoLameOrBot {
-      WithTourAndRoundsCanUpdate(tourId) { trs =>
-        Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).toFuccess
-      }
-    }
+    NoLameOrBot:
+      WithTourAndRoundsCanUpdate(tourId): trs =>
+        html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
   }
 
   def create(tourId: String) =

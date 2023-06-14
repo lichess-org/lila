@@ -67,13 +67,13 @@ final class Fishnet(env: Env) extends LilaController(env):
       body
         .validate[A]
         .fold(
-          err => {
+          err =>
             logger.warn(s"Malformed request: $err\n${body}")
-            BadRequest(jsonError(JsError toJson err)).toFuccess
-          },
+            BadRequest(jsonError(JsError toJson err))
+          ,
           data =>
             api.authenticateClient(data, req.ipAddress) flatMap {
-              case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).toFuccess
+              case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
               case Success(client) =>
                 f(data)(client).map {
                   case Right(Some(work)) => Accepted(Json toJson work)

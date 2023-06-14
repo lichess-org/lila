@@ -95,20 +95,22 @@ final class Report(
       }
     def process() = !processed so api.process(me, inquiry)
     thenGoTo match
-      case Some(url) => process() >> Redirect(url).toFuccess
+      case Some(url) => process() inject Redirect(url)
       case _ =>
         def redirectToList = Redirect(routes.Report.listWithFilter(inquiry.room.key))
-        if inquiry.isAppeal then process() >> Redirect(appeal.routes.Appeal.queue).toFuccess
+        if inquiry.isAppeal then process() >> Redirect(appeal.routes.Appeal.queue)
         else if dataOpt.flatMap(_ get "next").exists(_.headOption contains "1") then
           process() >> {
-            if inquiry.isSpontaneous then Redirect(modC.userUrl(inquiry.user, mod = true)).toFuccess
+            if inquiry.isSpontaneous
+            then Redirect(modC.userUrl(inquiry.user, mod = true))
             else
-              api.inquiries.toggleNext(me, inquiry.room) map {
-                _.fold(redirectToList)(onInquiryStart)
-              }
+              api.inquiries
+                .toggleNext(me, inquiry.room)
+                .map:
+                  _.fold(redirectToList)(onInquiryStart)
           }
         else if processed then userC.modZoneOrRedirect(me, inquiry.user)
-        else onInquiryStart(inquiry).toFuccess
+        else onInquiryStart(inquiry)
 
   def process(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> me =>
     api byId id flatMap {
@@ -139,7 +141,7 @@ final class Report(
 
   def form = Auth { _ ?=> _ =>
     getUserStr("username") so env.user.repo.byId flatMap { user =>
-      if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
+      if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact)
       else
         env.report.forms.createWithCaptcha map { (form, captcha) =>
           val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
@@ -176,10 +178,10 @@ final class Report(
     env.report.forms.flag
       .bindFromRequest()
       .fold(
-        _ => BadRequest.toFuccess,
+        _ => BadRequest,
         data =>
           env.user.repo byId data.username flatMapz { user =>
-            if (user == me) BadRequest.toFuccess
+            if (user == me) BadRequest
             else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
           }
       )

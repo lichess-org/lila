@@ -38,9 +38,8 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     }
 
   def form = Auth { ctx ?=> _ =>
-    NoLameOrBot {
-      Ok(html.relay.tourForm.create(env.relay.tourForm.create)).toFuccess
-    }
+    NoLameOrBot:
+      html.relay.tourForm.create(env.relay.tourForm.create)
   }
 
   def create =
@@ -77,9 +76,8 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     )
 
   def edit(id: TourModel.Id) = Auth { ctx ?=> _ =>
-    WithTourCanUpdate(id) { tour =>
-      Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).toFuccess
-    }
+    WithTourCanUpdate(id): tour =>
+      html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))
   }
 
   def update(id: TourModel.Id) =
@@ -139,15 +137,14 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         env.relay.api
           .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
           .map(env.relay.jsonView.apply(_, withUrls = true))
-      .toFuccess
 
   private def redirectToTour(tour: TourModel)(using ctx: WebContext): Fu[Result] =
     env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
       case None =>
-        ctx.me.so { env.relay.api.canUpdate(_, tour) } flatMapz {
-          Redirect(routes.RelayRound.form(tour.id.value)).toFuccess
+        ctx.me.so { env.relay.api.canUpdate(_, tour) } mapz {
+          Redirect(routes.RelayRound.form(tour.id.value))
         }
-      case Some(round) => Redirect(round.withTour(tour).path).toFuccess
+      case Some(round) => Redirect(round.withTour(tour).path)
     }
 
   private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using WebContext): Fu[Result] =
@@ -175,12 +172,12 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   private[controllers] def rateLimitCreation(
       me: UserModel,
       req: RequestHeader,
-      fail: => Result
+      fail: => Fu[Result]
   )(create: => Fu[Result]): Fu[Result] =
     val cost =
       if isGranted(_.Relay, me) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost):
+    CreateLimitPerUser(me.id, fail, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail, cost = cost):
         create

@@ -17,7 +17,9 @@ trait ResponseBuilder(using Executor)
   val keyPages = KeyPages(env)
   export keyPages.{ notFound as renderNotFound }
 
-  given Conversion[scalatags.Text.Frag, Result] = Ok(_)
+  given Conversion[scalatags.Text.Frag, Result]     = Ok(_)
+  given Conversion[Result, Fu[Result]]              = fuccess(_)
+  given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
   given (using RequestHeader): Conversion[Funit, Fu[Result]] =
     _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
   given alleycats.Zero[Result] = alleycats.Zero(Results.NotFound)
