@@ -39,7 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
-  <string name="explainCanThenBeTemporarilyDisabled">Pode ser desativado durante o jogo no menu do tabuleiro</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Pode ser desativado durante a partida no menu do tabuleiro</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono e oferta de empate</string>
