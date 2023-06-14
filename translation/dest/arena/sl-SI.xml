@@ -62,4 +62,5 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="noArenaStreaks">Arena brez prog</string>
   <string name="averagePerformance">Povprečna zmogljivost</string>
   <string name="averageScore">Povprečen rezultat</string>
+  <string name="myTournaments">Moji turnirji</string>
 </resources>
