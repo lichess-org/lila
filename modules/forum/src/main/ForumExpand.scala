@@ -9,11 +9,11 @@ final class ForumTextExpand(using Executor, Scheduler):
 
   private def one(text: String)(using config.NetDomain): Fu[Frag] =
     lila.common.Bus.ask("lpv")(lila.hub.actorApi.lpv.LpvLinkRenderFromText(text, _)) map { linkRender =>
-      raw {
-        RawHtml.nl2br {
-          RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some).value
-        }.value
-      }
+      raw:
+        RawHtml
+          .nl2br:
+            RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some).value
+          .value
     }
 
   private def many(texts: Seq[String])(using config.NetDomain): Fu[Seq[Frag]] =
@@ -21,7 +21,7 @@ final class ForumTextExpand(using Executor, Scheduler):
 
   def manyPosts(posts: Seq[ForumPost])(using config.NetDomain): Fu[Seq[ForumPost.WithFrag]] =
     many(posts.map(_.text)) map {
-      _ zip posts map { case (body, post) =>
+      _ zip posts map { (body, post) =>
         ForumPost.WithFrag(post, body)
       }
     }

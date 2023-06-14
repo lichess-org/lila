@@ -71,7 +71,7 @@ object RawHtml:
 
       if (!m.find) escapeHtmlRaw(expanded) // preserve fast case!
       else
-        val sb            = new jStringBuilder(expanded.length + 200)
+        val sb            = jStringBuilder(expanded.length + 200)
         val sArr          = expanded.toCharArray
         var lastAppendIdx = 0
 
@@ -89,15 +89,14 @@ object RawHtml:
 
           val domain = expanded.substring(
             domainS,
-            pathS match {
+            pathS match
               case -1 => end
               case _  => pathS
-            }
           )
 
           val isTldInternal = netDomain.value == domain
 
-          val csb = new jStringBuilder()
+          val csb = jStringBuilder()
           if (!isTldInternal) csb.append(domain)
           if (pathS >= 0)
             if (sArr(pathS) != '/') csb.append('/')

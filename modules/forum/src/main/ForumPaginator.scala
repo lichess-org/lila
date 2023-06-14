@@ -19,7 +19,7 @@ final class ForumPaginator(
       netDomain: lila.common.config.NetDomain
   ): Fu[Paginator[ForumPost.WithFrag]] =
     Paginator(
-      new Adapter[ForumPost](
+      Adapter[ForumPost](
         collection = postRepo.coll,
         selector = postRepo.forUser(me) selectTopic topic.id,
         projection = none,
