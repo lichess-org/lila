@@ -22,12 +22,12 @@ object SwissCsv:
 
   def apply(p: SwissPlayer.WithUserAndRank): String = toCsv(
     p.rank.toString,
-    p.user.title.??(_.toString),
+    p.user.title.so(_.toString),
     p.user.name.value,
     p.player.rating.toString,
     p.player.points.value.toString,
     p.player.tieBreak.value.toString,
-    p.player.performance.??(_.value.toString)
+    p.player.performance.so(_.value.toString)
   )
 
   private def toCsv(values: String*) = values mkString ","

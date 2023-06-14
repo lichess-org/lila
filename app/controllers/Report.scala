@@ -57,7 +57,7 @@ final class Report(
     api.inquiries
       .toggle(me, reportOrAppealId)
       .flatMap: (prev, next) =>
-        prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.setUnreadById) inject
+        prev.filter(_.isAppeal).map(_.user).so(env.appeal.api.setUnreadById) inject
           next.fold(
             Redirect:
               if prev.exists(_.isAppeal)
@@ -93,7 +93,7 @@ final class Report(
         case "profile" => modC.userUrl(inquiry.user, mod = true).some
         case url       => url.some
       }
-    def process() = !processed ?? api.process(me, inquiry)
+    def process() = !processed so api.process(me, inquiry)
     thenGoTo match
       case Some(url) => process() >> Redirect(url).toFuccess
       case _ =>
@@ -113,7 +113,7 @@ final class Report(
   def process(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> me =>
     api byId id flatMap {
       _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
-        inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
+        inquiry.isAppeal.so(env.appeal.api.setReadById(inquiry.user)) >>
           api.process(me, inquiry) >>
           onInquiryAction(inquiry, me, processed = true)
     }
@@ -138,7 +138,7 @@ final class Report(
   }
 
   def form = Auth { _ ?=> _ =>
-    getUserStr("username") ?? env.user.repo.byId flatMap { user =>
+    getUserStr("username") so env.user.repo.byId flatMap { user =>
       if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
       else
         env.report.forms.createWithCaptcha map { (form, captcha) =>
@@ -159,7 +159,7 @@ final class Report(
       .bindFromRequest()
       .fold(
         err =>
-          getUserStr("username") ?? env.user.repo.byId flatMap { user =>
+          getUserStr("username") so env.user.repo.byId flatMap { user =>
             env.report.forms.anyCaptcha map { captcha =>
               BadRequest(html.report.form(err, user, captcha))
             }

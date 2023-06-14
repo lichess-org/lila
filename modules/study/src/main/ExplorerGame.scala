@@ -25,13 +25,13 @@ final private class ExplorerGame(
       fuccess(none)
     else
       importer(gameId) mapz { game =>
-        position.node ?? { fromNode =>
+        position.node so { fromNode =>
           GameToRoot(game, none, withClocks = false).pipe { root =>
             root.setCommentAt(
               comment = gameComment(game),
               path = UciPath.fromIds(root.mainline.map(_.id))
             )
-          } ?? { gameRoot =>
+          } so { gameRoot =>
             merge(fromNode, position.path, gameRoot) flatMap { case (newNode, path) =>
               position.chapter.addNode(newNode, path) map (_ -> path)
             }

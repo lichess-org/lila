@@ -190,10 +190,10 @@ object list:
       withHrefLangs = withHrefLangs
     ) {
       main(cls := "page-menu")(
-        menu(active, order, topics.??(_.value)),
+        menu(active, order, topics.so(_.value)),
         main(cls := "page-menu__content study-index box")(
           div(cls := "box__top")(
-            searchForm(title, s"$searchFilter${searchFilter.nonEmpty ?? " "}"),
+            searchForm(title, s"$searchFilter${searchFilter.nonEmpty so " "}"),
             bits.orderSelect(order, active, url),
             bits.newForm()
           ),

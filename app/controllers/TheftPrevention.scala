@@ -24,19 +24,17 @@ private[controllers] trait TheftPrevention { self: LilaController =>
   protected def isMyPov(pov: Pov)(using WebContext) = !isTheft(pov)
 
   protected def playablePovForReq(game: GameModel)(using WebContext) =
-    (!game.isPgnImport && game.playable) ?? {
+    (!game.isPgnImport && game.playable).so:
       ctx.userId
         .flatMap(game.playerByUserId)
-        .orElse {
+        .orElse:
           ctx.req.cookies
             .get(AnonCookie.name)
             .map(c => GamePlayerId(c.value))
             .flatMap(game.player)
             .filterNot(_.hasUser)
-        }
         .filterNot(_.isAi)
         .map { Pov(game, _) }
-    }
 
   protected lazy val theftResponse = Unauthorized(
     jsonError(

@@ -12,18 +12,16 @@ sealed trait Advice:
   export info.{ ply, prevPly, prevMoveNumber, color, cp, mate }
 
   def makeComment(withEval: Boolean, withBestMove: Boolean): Comment = Comment {
-    withEval.??(evalComment ?? { c =>
+    withEval.so(evalComment so { c =>
       s"($c) "
     }) +
       this.match {
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
       } + "." + {
-        withBestMove ?? {
-          info.variation.headOption ?? { move =>
+        withBestMove.so:
+          info.variation.headOption.so: move =>
             s" $move was best."
-          }
-        }
       }
   }
 
@@ -102,8 +100,8 @@ private[analyse] object MateAdvice:
   def apply(prev: Info, info: Info): Option[MateAdvice] =
     def invertCp(cp: Cp)       = cp invertIf info.color.black
     def invertMate(mate: Mate) = mate invertIf info.color.black
-    def prevCp                 = prev.cp.map(invertCp).??(_.centipawns)
-    def nextCp                 = info.cp.map(invertCp).??(_.centipawns)
+    def prevCp                 = prev.cp.map(invertCp).so(_.centipawns)
+    def nextCp                 = info.cp.map(invertCp).so(_.centipawns)
     MateSequence(prev.mate map invertMate, info.mate map invertMate) flatMap { sequence =>
       import Advice.Judgement.*
       val judgment: Option[Advice.Judgement] = sequence match

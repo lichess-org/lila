@@ -14,7 +14,7 @@ object bots:
 
     val title = s"${users.size} Online bots"
 
-    val sorted = users.sortBy { -_.playTime.??(_.total) }
+    val sorted = users.sortBy { -_.playTime.so(_.total) }
 
     views.html.base.layout(
       title = title,

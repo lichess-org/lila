@@ -19,11 +19,11 @@ final class Flood(duration: FiniteDuration):
     val msg  = Message(text, Instant.now)
     val msgs = ~cache.getIfPresent(source)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
-      _ ?? cache.put(source, msg :: msgs)
+      _ so cache.put(source, msg :: msgs)
     }
 
   private def quickPost(msg: Message, msgs: Messages): Boolean =
-    msgs.lift(floodNumber) ?? (_.date isAfter msg.date.minusSeconds(10))
+    msgs.lift(floodNumber) so (_.date isAfter msg.date.minusSeconds(10))
 
 object Flood:
 
@@ -48,8 +48,8 @@ object Flood:
   private type Messages = List[Message]
 
   private[security] def duplicateMessage(msg: Message, msgs: Messages): Boolean =
-    !passList.contains(msg.text) && msgs.headOption.?? { m =>
-      similar(m.text, msg.text) || msgs.tail.headOption.?? { m2 =>
+    !passList.contains(msg.text) && msgs.headOption.so { m =>
+      similar(m.text, msg.text) || msgs.tail.headOption.so { m2 =>
         similar(m2.text, msg.text)
       }
     }

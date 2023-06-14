@@ -32,7 +32,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def update(userId: UserId, prev: StormHigh, score: Int): Option[NewHigh] =
     val high = prev update score
-    (high != prev) ?? {
+    (high != prev) so {
       cache.put(userId, fuccess(high))
       import NewHigh.*
       if (high.allTime > prev.allTime) AllTime(prev.allTime).some

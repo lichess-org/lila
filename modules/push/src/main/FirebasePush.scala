@@ -26,7 +26,7 @@ final private class FirebasePush(
     lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
 
   def apply(userId: UserId, data: => PushApi.Data): Funit =
-    credentialsOpt ?? { creds =>
+    credentialsOpt so { creds =>
       deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap {
         case Nil => funit
         // access token has 1h lifetime and is requested only if expired

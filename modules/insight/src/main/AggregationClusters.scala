@@ -33,7 +33,7 @@ object AggregationClusters:
       x     <- getId[X](doc)(question.dimension.bson)
       stack <- doc.getAsOpt[List[StackEntry]]("stack")
       points = metricValues.map { case InsightMetric.MetricValue(id, name) =>
-        name -> Point(stack.find(_.metric == id).??(_.v.toDouble.get))
+        name -> Point(stack.find(_.metric == id).so(_.v.toDouble.get))
       }
       total = stack.map(_.v.toInt.get).sum
       percents =

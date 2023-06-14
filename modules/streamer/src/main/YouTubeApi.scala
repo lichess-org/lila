@@ -32,7 +32,7 @@ final private class YouTubeApi(
       .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
-    cfg.googleApiKey.value.nonEmpty ?? Future
+    cfg.googleApiKey.value.nonEmpty so Future
       .sequence {
         idPages.map { idPage =>
           ws.url("https://youtube.googleapis.com/youtube/v3/videos")
@@ -139,7 +139,7 @@ final private class YouTubeApi(
       .parallel
       .map(bulk many _)
 
-  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty ?? {
+  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty so {
     import akka.stream.scaladsl.*
     import reactivemongo.akkastream.cursorProducer
     coll

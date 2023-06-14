@@ -86,7 +86,7 @@ object indexStripe:
                       },
                       name := "amount",
                       value := {
-                        (info.subscription.item.price.currency == pricing.currency) ??
+                        (info.subscription.item.price.currency == pricing.currency) so
                           info.subscription.item.price.money.amount.toString
                       }
                     ),

@@ -24,7 +24,7 @@ final private class FishnetOpeningBook(
   private val outOfBook = lila.memo.ExpireSetMemo[GameId](10 minutes)
 
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
-    (game.ply < depth.get() && !outOfBook.get(game.id)) ?? {
+    (game.ply < depth.get() && !outOfBook.get(game.id)) so {
       ws.url(s"${config.explorerEndpoint}/lichess")
         .withRequestTimeout(800.millis)
         .withQueryStringParameters(

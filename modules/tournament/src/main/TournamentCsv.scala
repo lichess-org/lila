@@ -25,13 +25,13 @@ object TournamentCsv:
     case Player.Result(player, user, rank, sheet) =>
       toCsv(
         rank.toString,
-        user.title.??(_.toString),
+        user.title.so(_.toString),
         user.name.value,
         player.rating.toString,
         player.score.toString,
-        player.performanceOption.??(_.toString),
+        player.performanceOption.so(_.toString),
         ~player.team.map(_.value),
-        sheet.??(_.scoresToString)
+        sheet.so(_.scoresToString)
       )
 
   private def toCsv(values: String*) = values mkString ","

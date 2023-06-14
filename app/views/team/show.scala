@@ -36,7 +36,7 @@ object show:
         .OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = t.intro ?? { shorten(_, 152) }
+          description = t.intro so { shorten(_, 152) }
         )
         .some,
       moreJs = frag(

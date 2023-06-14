@@ -61,7 +61,7 @@ final class Msg(env: Env) extends LilaController(env):
   }
 
   def compatCreate = AuthBody { ctx ?=> me =>
-    ctx.noKid ?? ctx.noBot ?? env.msg.compat
+    ctx.noKid so ctx.noBot so env.msg.compat
       .create(me)
       .fold(
         jsonFormError,
@@ -85,7 +85,7 @@ final class Msg(env: Env) extends LilaController(env):
       // new API: create/reply
       scoped = ctx ?=>
         me =>
-          (!me.kid && !me.is(userId)) ?? {
+          (!me.kid && !me.is(userId)) so {
             import play.api.data.*
             import play.api.data.Forms.*
             Form(single("text" -> nonEmptyText))

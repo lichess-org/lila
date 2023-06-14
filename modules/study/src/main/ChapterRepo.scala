@@ -137,14 +137,14 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   // and sets the parent order field
   def addSubTree(subTree: Branch, newParent: lila.tree.Node, parentPath: UciPath)(chapter: Chapter): Funit =
     val set = $doc(subTreeToBsonElements(parentPath, subTree)) ++ {
-      (newParent.children.nodes.sizeIs > 1) ?? $doc(
+      (newParent.children.nodes.sizeIs > 1) so $doc(
         pathToField(parentPath, F.order) -> newParent.children.nodes.map(_.id)
       )
     }
     coll(_.update.one($id(chapter.id), $set(set))).void
 
   private def subTreeToBsonElements(parentPath: UciPath, subTree: Branch): List[(String, Bdoc)] =
-    (parentPath.depth < Node.MAX_PLIES) ?? {
+    (parentPath.depth < Node.MAX_PLIES) so {
       val path = parentPath + subTree.id
       subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)) appended {
         path.toDbField -> writeBranch(subTree)
@@ -154,7 +154,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
   def setChildren(children: Branches)(chapter: Chapter, path: UciPath): Funit =
     val set: Bdoc = {
-      (children.nodes.sizeIs > 1) ?? $doc(
+      (children.nodes.sizeIs > 1) so $doc(
         pathToField(path, F.order) -> children.nodes.map(_.id)
       )
     } ++ $doc(childrenTreeToBsonElements(path, children))
@@ -165,7 +165,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       parentPath: UciPath,
       children: Branches
   ): List[(String, Bdoc)] =
-    (parentPath.depth < Node.MAX_PLIES) ??
+    (parentPath.depth < Node.MAX_PLIES) so
       children.nodes.flatMap { node =>
         val path = parentPath + node.id
         childrenTreeToBsonElements(path, node.children) appended (path.toDbField -> writeBranch(node))
@@ -208,7 +208,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       studyIds: Seq[StudyId],
       nbChaptersPerStudy: Int
   ): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
-    studyIds.nonEmpty ?? coll {
+    studyIds.nonEmpty so coll {
       _.find(
         $doc("studyId" $in studyIds),
         $doc("studyId" -> true, "_id" -> true, "name" -> true).some
@@ -244,7 +244,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     yield Chapter.IdName(id, name)
 
   def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
-    studyIds.nonEmpty ?? coll { _.primitive[Tags]("studyId" $in studyIds, "tags") }
+    studyIds.nonEmpty so coll { _.primitive[Tags]("studyId" $in studyIds, "tags") }
 
   def startServerEval(chapter: Chapter) =
     coll:

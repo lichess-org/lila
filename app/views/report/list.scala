@@ -110,7 +110,7 @@ object list:
                 "All",
                 scoreTag(scores.highest)
               ),
-              ctx.me ?? { me =>
+              ctx.me so { me =>
                 lila.report.Room.values
                   .filter(lila.report.Room.isGrantedFor(Holder(me)))
                   .map { room =>

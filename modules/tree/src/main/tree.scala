@@ -43,8 +43,8 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   // select all nodes on that path
   def nodesOn(path: UciPath): Vector[(Branch, UciPath)] =
     path.split
-      .?? { (head, tail) =>
-        get(head).?? { first =>
+      .so { (head, tail) =>
+        get(head).so { first =>
           (first, UciPath.fromId(head)) +: first.children.nodesOn(tail).map { (n, p) =>
             (n, p prepend head)
           }
@@ -266,7 +266,7 @@ case class Root(
 
   // NOT `Branches` as it does not represent one mainline move and variations
   // but only mainline moves
-  lazy val mainline: List[Branch] = children.first.??(_.mainline)
+  lazy val mainline: List[Branch] = children.first.so(_.mainline)
 
   def lastMainlinePly = mainline.lastOption.fold(Ply.initial)(_.ply)
 
@@ -335,7 +335,7 @@ case class Branch(
 
   // NOT `Branches` as it does not represent one mainline move and variations
   // but only mainline moves
-  def mainline: List[Branch] = this :: children.first.??(_.mainline)
+  def mainline: List[Branch] = this :: children.first.so(_.mainline)
 
   def withChildren(f: Branches => Option[Branches]) =
     f(children) map { newChildren =>

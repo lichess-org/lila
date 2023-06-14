@@ -46,7 +46,8 @@ object show:
                     timeout = c.timeout,
                     public = true,
                     resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
-                    localMod = isLocalMod
+                    localMod = isLocalMod,
+                    writeable = !c.locked
                   )
                 },
                 "showRatings" -> ctx.pref.showRatings

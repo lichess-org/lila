@@ -50,7 +50,7 @@ final class AppealApi(
   def reply(text: String, prev: Appeal, mod: Holder, preset: Option[String]) =
     val appeal = prev.post(text, mod.user)
     coll.update.one($id(appeal.id), appeal) >> {
-      preset ?? { note =>
+      preset so { note =>
         userRepo.byId(appeal.id) flatMapz {
           noteApi.write(_, s"Appeal reply: $note", mod.user, modOnly = true, dox = false)
         }
@@ -64,7 +64,7 @@ final class AppealApi(
   private def bothQueues(exceptIds: Iterable[UserId]): Fu[List[Appeal.WithUser]] =
     fetchQueue(
       selector = $doc("status" -> Appeal.Status.Unread.key) ++ {
-        exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
+        exceptIds.nonEmpty so $doc("_id" $nin exceptIds)
       },
       ascending = true,
       nb = 50

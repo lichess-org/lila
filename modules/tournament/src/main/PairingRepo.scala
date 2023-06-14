@@ -31,7 +31,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       userIds: Set[UserId],
       max: Int
   ): Fu[Pairing.LastOpponents] =
-    userIds.nonEmpty.?? {
+    userIds.nonEmpty.so {
       val nbUsers = userIds.size
       coll
         .find(
@@ -187,7 +187,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     if (pairing.user1 == userId) "b1".some
     else if (pairing.user2 == userId) "b2".some
     else none
-  } ?? { field =>
+  } so { field =>
     coll.update
       .one(
         $id(pairing.id),
@@ -203,7 +203,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       readPreference: ReadPreference = temporarilyPrimary
   ): AkkaStreamCursor[Pairing] =
     coll
-      .find(selectTour(tournamentId) ++ userId.??(selectUser))
+      .find(selectTour(tournamentId) ++ userId.so(selectUser))
       .sort(recentSort)
       .batchSize(batchSize)
       .cursor[Pairing](readPreference)

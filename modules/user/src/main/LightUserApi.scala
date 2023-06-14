@@ -32,7 +32,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
     ids.map(asyncFallback).parallel
 
   def asyncManyOptions(ids: Seq[Option[UserId]]): Fu[Seq[Option[LightUser]]] =
-    ids.map(_ ?? async).parallel
+    ids.map(_ so async).parallel
 
   val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 

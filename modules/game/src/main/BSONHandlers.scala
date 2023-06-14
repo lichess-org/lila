@@ -196,7 +196,7 @@ object BSONHandlers:
         F.playerUids -> ((o.whitePlayer.userId, o.blackPlayer.userId) match
           case (None, None)    => None
           case (Some(w), None) => Some(List(w.value))
-          case (wo, Some(b))   => Some(List(wo.??(_.value), b.value))
+          case (wo, Some(b))   => Some(List(wo.so(_.value), b.value))
         ),
         F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
         F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),

@@ -23,14 +23,14 @@ final class CoachApi(
     userRepo byId username flatMapz find
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
-    Granter(_.Coach)(user) ?? {
+    Granter(_.Coach)(user) so {
       byId(user.id) dmap {
         _ map withUser(user)
       }
     }
 
   def findOrInit(coach: Holder): Fu[Option[Coach.WithUser]] =
-    Granter.is(_.Coach)(coach) ?? {
+    Granter.is(_.Coach)(coach) so {
       find(coach.user) orElse {
         val c = Coach.WithUser(Coach make coach.user, coach.user)
         coachColl.insert.one(c.coach) inject c.some
@@ -38,15 +38,15 @@ final class CoachApi(
     }
 
   def isListedCoach(user: User): Fu[Boolean] =
-    Granter(_.Coach)(user) ?? user.enabled.yes ?? user.marks.clean ?? coachColl.exists(
+    Granter(_.Coach)(user) so user.enabled.yes so user.marks.clean so coachColl.exists(
       $id(user.id) ++ $doc("listed" -> true)
     )
 
   def setSeenAt(user: User): Funit =
-    Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
+    Granter(_.Coach)(user) so coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
 
   def setRating(userPre: User): Funit =
-    Granter(_.Coach)(userPre) ?? {
+    Granter(_.Coach)(userPre) so {
       userRepo.byId(userPre.id) flatMapz { user =>
         coachColl.update.one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
       }

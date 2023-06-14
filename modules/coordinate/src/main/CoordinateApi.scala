@@ -19,7 +19,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
         $id(userId),
         $push(
           $doc(
-            s"${color.name}${(mode == CoordMode.NameSquare) ?? "NameSquare"}" -> $doc(
+            s"${color.name}${(mode == CoordMode.NameSquare) so "NameSquare"}" -> $doc(
               "$each"  -> $arr(hits),
               "$slice" -> -20
             )

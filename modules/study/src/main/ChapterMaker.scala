@@ -20,9 +20,9 @@ final private class ChapterMaker(
   import ChapterMaker.*
 
   def apply(study: Study, data: Data, order: Int, userId: UserId, withRatings: Boolean): Fu[Chapter] =
-    data.game.??(parseGame) flatMap {
+    data.game.so(parseGame) flatMap {
       case None =>
-        data.game ?? pgnFetch.fromUrl flatMap {
+        data.game so pgnFetch.fromUrl flatMap {
           case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
           case _         => fromFenOrPgnOrBlank(study, data, order, userId)
         }
@@ -224,7 +224,7 @@ private[study] object ChapterMaker:
 
     def manyGames =
       game
-        .??(_.linesIterator.take(Study.maxChapters).toList)
+        .so(_.linesIterator.take(Study.maxChapters).toList)
         .map(_.trim)
         .filter(_.nonEmpty)
         .map { g => copy(game = g.some) }

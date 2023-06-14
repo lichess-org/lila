@@ -70,7 +70,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       oauth: Boolean
   )(using req: RequestHeader) =
     env.user.repo byId username flatMap {
-      _.filter(u => u.enabled.yes || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
+      _.filter(u => u.enabled.yes || me.exists(_ is u) || me.so(isGranted(_.GamesModView, _))) so { user =>
         val format = GameApiV2.Format byRequest req
         import lila.rating.{ Perf, PerfType }
         WithVs(req) { vs =>

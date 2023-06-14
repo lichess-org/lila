@@ -28,7 +28,7 @@ final class CoachPager(
       country: Option[Country],
       page: Int
   ): Fu[Paginator[Coach.WithUser]] =
-    def selector = listableSelector ++ lang.?? { l => $doc("languages" -> l.code) }
+    def selector = listableSelector ++ lang.so { l => $doc("languages" -> l.code) }
 
     val adapter =
       new AdapterLike[Coach.WithUser]:
@@ -67,7 +67,7 @@ final class CoachPager(
                       UserMark.Boost.key,
                       UserMark.Troll.key
                     )
-                  ) ++ country.?? { c =>
+                  ) ++ country.so { c =>
                     $doc("_user.profile.country" -> c.code)
                   }
                 ),

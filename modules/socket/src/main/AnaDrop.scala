@@ -31,7 +31,7 @@ case class AnaDrop(
           move = Uci.WithSan(uci, san),
           fen = fen,
           check = game.situation.check,
-          dests = Some(movable ?? game.situation.destinations),
+          dests = Some(movable so game.situation.destinations),
           opening = OpeningDb findByEpdFen fen,
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData

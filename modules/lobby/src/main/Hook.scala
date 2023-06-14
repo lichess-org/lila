@@ -44,16 +44,16 @@ case class Hook(
 
   private def ratingRangeCompatibleWith(h: Hook) =
     realRatingRange.fold(true) { range =>
-      h.rating ?? range.contains
+      h.rating so range.contains
     }
 
-  lazy val realRatingRange: Option[RatingRange] = isAuth ?? {
+  lazy val realRatingRange: Option[RatingRange] = isAuth so {
     RatingRange noneIfDefault ratingRange
   }
 
   def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
-  def lame     = user ?? (_.lame)
+  def lame     = user so (_.lame)
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
@@ -95,8 +95,8 @@ case class Hook(
         sri = sri,
         rating = rating | lila.rating.Glicko.default.intRating,
         ratingRange = realRatingRange,
-        lame = user.??(_.lame),
-        blocking = user.??(_.blocking),
+        lame = user.so(_.lame),
+        blocking = user.so(_.blocking),
         rageSitCounter = 0
       )
     )

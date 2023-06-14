@@ -54,12 +54,11 @@ final private class Finisher(
         }
 
   def noStart(game: Game)(using GameProxy): Fu[Events] =
-    game.playerWhoDidNotMove ?? { culprit =>
+    game.playerWhoDidNotMove.so: culprit =>
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
       if (game.isMandatory || game.metadata.hasRule(_.NoAbort)) apply(game, _.NoStart, Some(!culprit.color))
       else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
-    }
 
   def other(
       game: Game,
@@ -144,18 +143,17 @@ final private class Finisher(
         }
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
-    (!finish.isVsSelf && !finish.game.aborted) ?? {
+    (!finish.isVsSelf && !finish.game.aborted).so:
       import cats.syntax.all.*
-      (finish.white, finish.black).mapN((_, _)) ?? { (white, black) =>
+      (finish.white, finish.black).mapN((_, _)) so { (white, black) =>
         crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
       } zip
-        (finish.white ?? incNbGames(finish.game)) zip
-        (finish.black ?? incNbGames(finish.game)) dmap (_._1._1)
-    }
+        (finish.white so incNbGames(finish.game)) zip
+        (finish.black so incNbGames(finish.game)) dmap (_._1._1)
 
   private def incNbGames(game: Game)(user: User): Funit =
-    game.finished ?? { user.noBot || game.nonAi } ?? {
-      val totalTime = (game.hasClock && user.playTime.isDefined) ?? game.durationSeconds
+    game.finished so { user.noBot || game.nonAi } so {
+      val totalTime = (game.hasClock && user.playTime.isDefined) so game.durationSeconds
       val tvTime    = totalTime ifTrue recentTvGames.get(game.id)
       val result =
         if (game.winnerUserId has user.id) 1

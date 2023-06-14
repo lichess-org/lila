@@ -31,7 +31,7 @@ object PerfPicker:
 
   def mainOrDefault(speed: Speed, variant: chess.variant.Variant, daysPerTurn: Option[Days]): Perfs => Perf =
     main(speed, variant, daysPerTurn) orElse {
-      (variant == chess.variant.FromPosition) ?? main(speed, chess.variant.Standard, daysPerTurn)
+      (variant == chess.variant.FromPosition) so main(speed, chess.variant.Standard, daysPerTurn)
     } getOrElse default
 
   def mainOrDefault(game: Game): Perfs => Perf =

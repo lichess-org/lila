@@ -11,13 +11,13 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(using Executor):
       if (vote == round.win.value) -2 else 2
     }
     // distrust provisional ratings and distant ratings
-    (w > 0) ?? {
+    (w > 0) so {
       user.perfs.puzzle.glicko.establishedIntRating.fold(fuccess(-2)) { userRating =>
         colls
           .puzzle(_.primitiveOne[Float]($id(round.id.puzzleId), s"${Puzzle.BSONFields.glicko}.r"))
           .map {
             _.fold(-2) { puzzleRating =>
-              (math.abs(puzzleRating - userRating.value) > 300) ?? -4
+              (math.abs(puzzleRating - userRating.value) > 300) so -4
             }
           }
       }
@@ -44,13 +44,13 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(using Executor):
   private def seniorityBonus(user: User) =
     math.sqrt(daysBetween(user.createdAt, nowInstant).toDouble / 30) atMost 5
 
-  private def titleBonus(user: User) = user.hasTitle ?? 20
+  private def titleBonus(user: User) = user.hasTitle so 20
 
   // 1000 = 0
   // 1500 = 0
   // 1800 = 1
   // 3000 = 5
-  private def ratingBonus(user: User) = user.perfs.standard.glicko.establishedIntRating.?? { rating =>
+  private def ratingBonus(user: User) = user.perfs.standard.glicko.establishedIntRating.so { rating =>
     (rating.value - 1500) / 300
   } atLeast 0
 

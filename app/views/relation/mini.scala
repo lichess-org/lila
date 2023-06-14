@@ -19,7 +19,7 @@ object mini:
         val name   = trans.follow.txt()
         val isLong = name.sizeIs > 8
         a(
-          cls      := s"btn-rack__btn relation-button${!isLong ?? " text"}",
+          cls      := s"btn-rack__btn relation-button${!isLong so " text"}",
           dataIcon := licon.ThumbsUp,
           href     := s"${routes.Relation.follow(userId)}?mini=1",
           title    := isLong option name

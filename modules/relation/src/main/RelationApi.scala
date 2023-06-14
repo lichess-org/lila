@@ -27,7 +27,7 @@ final class RelationApi(
   val coll = repo.coll
 
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =
-    (u1 != u2) ?? {
+    (u1 != u2) so {
       coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r")
     }
   def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
@@ -63,12 +63,12 @@ final class RelationApi(
       }
 
   def fetchFollows(u1: UserId, u2: UserId): Fu[Boolean] =
-    (u1 != u2) ?? {
+    (u1 != u2) so {
       coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
     }
 
   def fetchBlocks(u1: UserId, u2: UserId): Fu[Boolean] =
-    (u1 != u2) ?? {
+    (u1 != u2) so {
       coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Block))
     }
 
@@ -126,7 +126,7 @@ final class RelationApi(
     ).map(_.userId)
 
   def follow(u1: UserId, u2: UserId): Funit =
-    (u1 != u2) ?? prefApi.followable(u2).flatMapz {
+    (u1 != u2) so prefApi.followable(u2).flatMapz {
       userRepo.isEnabled(u2) flatMapz {
         fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
           case (Some(Follow), _) => funit
@@ -151,7 +151,7 @@ final class RelationApi(
 
   private def limitFollow(u: UserId) =
     countFollowing(u).flatMap: nb =>
-      (nb > config.maxFollow.value) ?? {
+      (nb > config.maxFollow.value) so {
         limitFollowRateLimiter(u, fuccess(Nil)):
           fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(nowInstant.minusDays(90))
         .flatMap:
@@ -163,11 +163,11 @@ final class RelationApi(
 
   private def limitBlock(u: UserId) =
     countBlocking(u) flatMap { nb =>
-      (nb > config.maxBlock.value) ?? repo.drop(u, false, nb - config.maxBlock.value)
+      (nb > config.maxBlock.value) so repo.drop(u, false, nb - config.maxBlock.value)
     }
 
   def block(u1: UserId, u2: UserId): Funit =
-    (u1 != u2 && u2 != User.lichessId) ?? {
+    (u1 != u2 && u2 != User.lichessId) so {
       fetchBlocks(u1, u2) flatMap {
         if _ then funit
         else
@@ -183,7 +183,7 @@ final class RelationApi(
     }
 
   def unfollow(u1: UserId, u2: UserId): Funit =
-    (u1 != u2) ?? {
+    (u1 != u2) so {
       fetchFollows(u1, u2) flatMapz {
         repo.unfollow(u1, u2) >>- {
           countFollowersCache.update(u2, _ - 1)
@@ -197,7 +197,7 @@ final class RelationApi(
   def unfollowAll(u1: UserId): Funit = repo.unfollowAll(u1)
 
   def unblock(u1: UserId, u2: UserId): Funit =
-    (u1 != u2) ?? {
+    (u1 != u2) so {
       fetchBlocks(u1, u2) flatMap {
         if _ then
           repo.unblock(u1, u2) >>- {

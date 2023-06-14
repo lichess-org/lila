@@ -32,7 +32,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
         import InsightEntry.{ BSONFields as F }
 
         val limitGames     = Limit(nbGames.value)
-        val sortDate       = target.isLeft ?? List(Sort(Descending(F.date)))
+        val sortDate       = target.isLeft so List(Sort(Descending(F.date)))
         val limitMoves     = Limit((200_000 / maxGames.value.toDouble * nbGames.value).toInt).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some
@@ -219,7 +219,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
         val fieldExistsMatcher: Bdoc = dimension.some
           .filter(InsightDimension.optionalDimensions.contains)
           .filter(dim => !question.filters.exists(_.dimension == dim))
-          .?? { dim => $doc(dim.dbKey $exists true) }
+          .so { dim => $doc(dim.dbKey $exists true) }
 
         def matchMoves(extraMatcher: Bdoc = $empty): Option[PipelineOperator] =
           combineDocs(
@@ -254,9 +254,9 @@ final private class AggregationPipeline(store: InsightStorage)(using
             gameMatcher(question.filters) ++
             fieldExistsMatcher ++
             (InsightMetric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
-              .??($doc(F.analysed -> true)) ++
+              .so($doc(F.analysed -> true)) ++
             (InsightMetric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension))
-              .?? {
+              .so {
                 $doc(F.provisional $ne true)
               }
         ) -> {

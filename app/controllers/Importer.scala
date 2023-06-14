@@ -38,7 +38,7 @@ final class Importer(env: Env) extends LilaController(env):
           ImportRateLimitPerIP(ctx.ip, rateLimitedFu, cost = 1):
             doImport(data, ctx.me) flatMap {
               case Right(game) =>
-                ctx.me.filter(_ => data.analyse.isDefined && game.analysable) ?? { me =>
+                ctx.me.filter(_ => data.analyse.isDefined && game.analysable) so { me =>
                   env.fishnet
                     .analyser(
                       game,
@@ -79,7 +79,7 @@ final class Importer(env: Env) extends LilaController(env):
       me: Option[lila.user.User]
   ): Fu[Either[String, lila.game.Game]] =
     env.importer.importer(data, me.map(_.id)) flatMap { game =>
-      me.map(_.id).??(env.game.cached.clearNbImportedByCache) inject Right(game)
+      me.map(_.id).so(env.game.cached.clearNbImportedByCache) inject Right(game)
     } recover { case _: Exception =>
       Left("The PGN contains illegal and/or ambiguous moves.")
     }
@@ -87,6 +87,6 @@ final class Importer(env: Env) extends LilaController(env):
   def masterGame(id: GameId, orientation: String) = Open:
     env.explorer.importer(id) mapz { game =>
       val url      = routes.Round.watcher(game.id, orientation).url
-      val fenParam = get("fen").??(f => s"?fen=$f")
+      val fenParam = get("fen").so(f => s"?fen=$f")
       Redirect(s"$url$fenParam")
     }

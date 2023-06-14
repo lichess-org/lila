@@ -28,7 +28,7 @@ final class Tv(
     trouper.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for {
-          game <- gameId ?? roundProxyGame
+          game <- gameId so roundProxyGame
           games <-
             historyIds
               .map { id =>

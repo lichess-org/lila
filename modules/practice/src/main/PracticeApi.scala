@@ -98,7 +98,7 @@ final class PracticeApi(
       get(user).flatMap { prog =>
         save(prog.withNbMoves(chapterId, score))
       } >>- studyApi.studyIdOf(chapterId).foreach {
-        _ ?? { studyId =>
+        _ so { studyId =>
           Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), "finishPractice")
         }
       }

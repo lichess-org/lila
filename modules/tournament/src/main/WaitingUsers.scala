@@ -42,7 +42,7 @@ private case class WaitingUsers(
 
   def update(fromWebSocket: Set[UserId]) =
     val newDate      = nowInstant
-    val withApiUsers = fromWebSocket ++ apiUsers.??(_.keySet)
+    val withApiUsers = fromWebSocket ++ apiUsers.so(_.keySet)
     copy(
       date = newDate,
       hash = {

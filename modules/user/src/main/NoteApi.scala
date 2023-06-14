@@ -80,8 +80,8 @@ final class NoteApi(
         "userNote"
       )
   } >> {
-    modOnly ?? Title.fromUrl(text) flatMap {
-      _ ?? { userRepo.addTitle(to.id, _) }
+    modOnly so Title.fromUrl(text) flatMap {
+      _ so { userRepo.addTitle(to.id, _) }
     }
   }
 

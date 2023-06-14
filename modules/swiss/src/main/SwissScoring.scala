@@ -23,7 +23,7 @@ final private class SwissScoring(mongo: SwissMongo)(using
 
   private def recompute(id: SwissId): Fu[Option[SwissScoring.Result]] =
     mongo.swiss.byId[Swiss](id) flatMap {
-      _.?? { swiss =>
+      _.so { swiss =>
         for {
           (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
           pairingMap = SwissPairing.toMap(pairings)
@@ -37,10 +37,10 @@ final private class SwissScoring(mongo: SwissMongo)(using
             val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f) {
               case ((tieBreak, perfSum), pairing) =>
                 val opponent       = playerMap.get(pairing opponentOf p.userId)
-                val opponentPoints = opponent.??(_.points.value)
+                val opponentPoints = opponent.so(_.points.value)
                 val result         = pairing.resultFor(p.userId)
-                val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ ?? opponentPoints }
-                val newPerf = perfSum + opponent.??(_.rating.value) + result.?? { win =>
+                val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ so opponentPoints }
+                val newPerf = perfSum + opponent.so(_.rating.value) + result.so { win =>
                   if (win) 500 else -500
                 }
                 newTieBreak -> newPerf
@@ -93,7 +93,7 @@ final private class SwissScoring(mongo: SwissMongo)(using
     }
 
   private def fetchPairings(swiss: Swiss) =
-    !swiss.isCreated ?? SwissPairing.fields { f =>
+    !swiss.isCreated so SwissPairing.fields { f =>
       mongo.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id))
     }
 

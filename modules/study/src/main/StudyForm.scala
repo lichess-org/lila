@@ -91,7 +91,7 @@ object StudyForm:
         pgns.mapWithIndex: (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
-            name = StudyChapterName((index == 0) ?? name),
+            name = StudyChapterName((index == 0) so name),
             variant = variant,
             pgn = onePgn.some,
             orientation = orientation | ChapterMaker.Orientation.Auto,

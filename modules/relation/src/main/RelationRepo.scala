@@ -41,7 +41,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
       .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
 
   def followingLike(userId: UserId, term: UserStr): Fu[List[UserId]] =
-    User.validateId(term) ?? { valid =>
+    User.validateId(term) so { valid =>
       coll.secondaryPreferred.distinctEasy[UserId, List](
         "u2",
         $doc(

@@ -24,7 +24,7 @@ final class Ublog(env: Env) extends LilaController(env):
         env.ublog.api
           .getUserBlog(user)
           .flatMap: blog =>
-            (canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
+            (canViewBlogOf(user, blog) so env.ublog.paginator.byUser(user, true, page)) map { posts =>
               Ok(html.ublog.blog(user, blog, posts))
             }
 
@@ -48,8 +48,8 @@ final class Ublog(env: Env) extends LilaController(env):
                 if (slug != post.slug) Redirect(urlOfPost(post)).toFuccess
                 else
                   env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
-                    ctx.me.??(env.ublog.rank.liked(post)) zip
-                    ctx.userId.??(env.relation.api.fetchFollows(_, user.id)) zip
+                    ctx.me.so(env.ublog.rank.liked(post)) zip
+                    ctx.userId.so(env.relation.api.fetchFollows(_, user.id)) zip
                     env.ublog.markup(post) map { case (((others, liked), followed), markup) =>
                       val viewedPost = env.ublog.viewCounter(post, ctx.ip)
                       Ok(html.ublog.post(user, blog, viewedPost, markup, others, liked, followed))
@@ -145,8 +145,8 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   private def logModAction(post: UblogPost, action: String)(using ctx: WebContext): Funit =
-    isGranted(_.ModerateBlog) ?? ctx.me ?? { me =>
-      !me.is(post.created.by) ?? {
+    isGranted(_.ModerateBlog) so ctx.me so { me =>
+      !me.is(post.created.by) so {
         env.user.repo.byId(post.created.by) flatMapz { user =>
           env.mod.logApi.blogPostEdit(lila.report.Mod(me), Suspect(user), post.id, post.title, action)
         }
@@ -169,7 +169,7 @@ final class Ublog(env: Env) extends LilaController(env):
           Redirect(urlOfPost(post)).toFuccess
 
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me =>
-    UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMapz { blog =>
+    UblogBlog.Id(blogId).so(env.ublog.api.getBlog) flatMapz { blog =>
       lila.ublog.UblogForm.tier
         .bindFromRequest()
         .fold(
@@ -256,7 +256,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def liked(page: Int) = Auth { ctx ?=> _ =>
     NotForKids:
       Reasonable(page, config.Max(100)):
-        ctx.me ?? { me =>
+        ctx.me so { me =>
           env.ublog.paginator.liveByLiked(me, page) map { posts =>
             Ok(html.ublog.index.liked(posts))
           }
@@ -271,7 +271,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def topic(str: String, page: Int) = Open:
     NotForKids:
       Reasonable(page, config.Max(100)):
-        lila.ublog.UblogTopic.fromUrl(str) ?? { top =>
+        lila.ublog.UblogTopic.fromUrl(str) so { top =>
           env.ublog.paginator.liveByTopic(top, page) map { posts =>
             Ok(html.ublog.index.topic(top, posts))
           }
@@ -287,7 +287,7 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.api
             .getUserBlog(user)
             .flatMap: blog =>
-              (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
+              (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map { posts =>
                 Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
               }
 

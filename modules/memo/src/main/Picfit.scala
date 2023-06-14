@@ -70,7 +70,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   def deleteByRel(rel: String): Funit =
     coll
       .findAndRemove($doc("rel" -> rel))
-      .flatMap { _.result[PicfitImage] ?? picfitServer.delete }
+      .flatMap { _.result[PicfitImage] so picfitServer.delete }
       .void
 
   object bodyImage:

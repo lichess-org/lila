@@ -193,7 +193,7 @@ final class Signup(
       user.username into UserStr,
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
-          .??(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
+          .so(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
     )
 
   private def signupErrLog(err: Form[?]) =

@@ -265,7 +265,7 @@ object activity:
                     userIdLink(s.hostId.some)
                   ),
                   if (isHost) scoreFrag(Score(s.wins, s.losses, s.draws, none))
-                  else scoreFrag(Score(win.has(true) ?? 1, win.has(false) ?? 1, win.isEmpty ?? 1, none))
+                  else scoreFrag(Score(win.has(true) so 1, win.has(false) so 1, win.isEmpty so 1, none))
                 )
               }
             )

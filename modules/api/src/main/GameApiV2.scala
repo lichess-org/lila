@@ -41,7 +41,7 @@ final class GameApiV2(
       case Some(imported) => fuccess(imported.pgn.value)
       case None =>
         for
-          realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
+          realPlayers                  <- config.playerFile.so(realPlayerApi.apply)
           (game, initialFen, analysis) <- enrich(config.flags)(game)
           formatted <- config.format match
             case Format.JSON =>
@@ -101,7 +101,7 @@ final class GameApiV2(
 
   def exportByUser(config: ByUserConfig): Source[String, ?] =
     Source.futureSource:
-      config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
+      config.playerFile.so(realPlayerApi.apply) map { realPlayers =>
         val playerSelect =
           if (config.finished)
             config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) }
@@ -112,7 +112,7 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             playerSelect ++
-              Query.createdBetween(config.since, config.until) ++ (!config.ongoing ?? Query.finished),
+              Query.createdBetween(config.since, config.until) ++ (!config.ongoing so Query.finished),
             config.sort.bson,
             batchSize = config.perSecond.value
           )
@@ -128,7 +128,7 @@ final class GameApiV2(
 
   def exportByIds(config: ByIdsConfig): Source[String, ?] =
     Source.futureSource:
-      config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
+      config.playerFile.so(realPlayerApi.apply) map { realPlayers =>
         gameRepo
           .sortedCursor(
             $inIds(config.ids),
@@ -151,7 +151,7 @@ final class GameApiV2(
       .documentSource()
       .grouped(30)
       .mapAsync(1): pairings =>
-        config.tour.isTeamBattle.?? {
+        config.tour.isTeamBattle.so {
           playerRepo.teamsOfPlayers(config.tour.id, pairings.flatMap(_.users).distinct).dmap(_.toMap)
         } flatMap { playerTeams =>
           gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
@@ -226,7 +226,7 @@ final class GameApiV2(
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
-      (flags.requiresAnalysis ?? analysisRepo.byGame(game)) dmap {
+      (flags.requiresAnalysis so analysisRepo.byGame(game)) dmap {
         (game, initialFen, _)
       }
     }
@@ -262,7 +262,7 @@ final class GameApiV2(
   ): Fu[JsObject] = for
     lightUsers <- gameLightUsers(g) dmap { (wu, bu) => List(wu, bu) }
     pgn <-
-      withFlags.pgnInJson ?? pgnDump
+      withFlags.pgnInJson so pgnDump
         .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
         .dmap(annotator.toPgnString)
         .dmap(some)
@@ -296,7 +296,7 @@ final class GameApiV2(
     .add("moves" -> withFlags.moves.option {
       withFlags keepDelayIf g.playable applyDelay g.sans mkString " "
     })
-    .add("clocks" -> withFlags.clocks.??(g.bothClockStates).map { clocks =>
+    .add("clocks" -> withFlags.clocks.so(g.bothClockStates).map { clocks =>
       withFlags keepDelayIf g.playable applyDelay clocks
     })
     .add("pgn" -> pgn)
@@ -313,7 +313,7 @@ final class GameApiV2(
     .add("lastFen" -> withFlags.lastFen.option(Fen.write(g.chess.situation)))
 
   private def gameLightUsers(game: Game): Fu[PairOf[Option[LightUser]]] =
-    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
+    (game.whitePlayer.userId so getLightUser) zip (game.blackPlayer.userId so getLightUser)
 
 object GameApiV2:
 

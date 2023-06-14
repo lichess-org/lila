@@ -111,7 +111,7 @@ final class JsonView(
         .add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
         .add("provisional" -> ~player.provisional)
-        .add("patron" -> light.??(_.isPatron))
+        .add("patron" -> light.so(_.isPatron))
     }
 
   private def applicantJson(app: SimulApplicant): Fu[JsObject] =
@@ -143,7 +143,7 @@ final class JsonView(
       .add("winner" -> g.winnerColor.map(_.name))
 
   private def pairingJson(games: List[Game], hostId: UserId)(p: SimulPairing): Fu[Option[JsObject]] =
-    games.find(_.id == p.gameId) ?? { game =>
+    games.find(_.id == p.gameId) so { game =>
       playerJson(p.player) map { player =>
         Json
           .obj(

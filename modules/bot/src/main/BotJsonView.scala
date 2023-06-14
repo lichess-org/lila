@@ -52,8 +52,8 @@ final class BotJsonView(
           "moves"  -> uciMoves.mkString(" "),
           "wtime"  -> game.whitePov.millisRemaining,
           "btime"  -> game.blackPov.millisRemaining,
-          "winc"   -> (game.clock.??(_.config.increment.millis): Long),
-          "binc"   -> (game.clock.??(_.config.increment.millis): Long),
+          "winc"   -> (game.clock.so(_.config.increment.millis): Long),
+          "binc"   -> (game.clock.so(_.config.increment.millis): Long),
           "status" -> game.status.name
         )
         .add("wdraw" -> game.whitePlayer.isOfferingDraw)

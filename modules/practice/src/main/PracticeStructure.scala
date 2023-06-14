@@ -73,7 +73,7 @@ object PracticeStructure:
               desc = stu.desc,
               chapters = chapters
                 .get(id)
-                .??(_.filterNot { c =>
+                .so(_.filterNot { c =>
                   isChapterNameCommented(c.name)
                 }.toList)
             )

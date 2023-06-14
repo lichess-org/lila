@@ -291,7 +291,7 @@ object inquiry:
       allReports: List[Report],
       reportee: User
   ): Option[NonEmptyList[UserId]] =
-    (report.reason == Reason.Boost || reportee.marks.boost) ?? {
+    (report.reason == Reason.Boost || reportee.marks.boost) so {
       allReports
         .filter(_.reason == Reason.Boost)
         .flatMap(_.atoms.toList)

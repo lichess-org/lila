@@ -23,15 +23,14 @@ final class BookmarkApi(
     else fuFalse
 
   def exists(game: Game, user: Option[User]): Fu[Boolean] =
-    user.?? { exists(game, _) }
+    user.so { exists(game, _) }
 
   def filterGameIdsBookmarkedBy(games: Seq[Game], user: Option[User]): Fu[Set[GameId]] =
-    user ?? { u =>
+    user.so: u =>
       val candidateIds = games collect { case g if g.bookmarks > 0 => g.id }
-      candidateIds.nonEmpty ??
+      candidateIds.nonEmpty so
         coll.secondaryPreferred
           .distinctEasy[GameId, Set]("g", userIdQuery(u.id) ++ $doc("g" $in candidateIds))
-    }
 
   def removeByGameId(gameId: GameId): Funit =
     coll.delete.one($doc("g" -> gameId)).void

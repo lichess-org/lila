@@ -35,5 +35,5 @@ final class IpRender:
   private val cache: LoadingCache[IpAddress, Rendered] = CacheApi.scaffeineNoScheduler
     .expireAfterAccess(30 minutes)
     .build((_: IpAddress) =>
-      s"NoIP:${CuteNameGenerator.make(maxSize = 30).??(_.value)}-${ThreadLocalRandom.nextString(3)}"
+      s"NoIP:${CuteNameGenerator.make(maxSize = 30).so(_.value)}-${ThreadLocalRandom.nextString(3)}"
     )

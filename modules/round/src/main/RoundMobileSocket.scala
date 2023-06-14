@@ -24,8 +24,8 @@ final private class RoundMobileSocket(
 
   def json(game: Game, socket: SocketStatus): Fu[JsObject] = for
     initialFen <- gameRepo.initialFen(game)
-    whiteUser  <- game.whitePlayer.userId.??(lightUserGet)
-    blackUser  <- game.blackPlayer.userId.??(lightUserGet)
+    whiteUser  <- game.whitePlayer.userId.so(lightUserGet)
+    blackUser  <- game.blackPlayer.userId.so(lightUserGet)
     users = ByColor(whiteUser, blackUser)
   yield
     def playerJson(color: Color) =

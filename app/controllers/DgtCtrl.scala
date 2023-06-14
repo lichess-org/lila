@@ -17,7 +17,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
 
   def generateToken = Auth { _ ?=> me =>
     findToken(me).flatMap: t =>
-      t.isEmpty.?? {
+      t.isEmpty.so {
         env.oAuth.tokenApi.create(
           lila.oauth.OAuthTokenForm.Data(
             description = "DGT board automatic token",

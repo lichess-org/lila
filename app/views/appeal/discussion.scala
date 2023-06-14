@@ -134,7 +134,7 @@ object discussion:
     )
 
   private def renderMark(suspect: User)(using ctx: WebContext) =
-    val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
+    val query = isGranted(_.Appeals) so ctx.req.queryString.toMap
     if (suspect.enabled.no || query.contains("alt")) tree.closedByModerators
     else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
     else if (suspect.marks.boost || query.contains("boost")) tree.boosterMarked
@@ -143,7 +143,7 @@ object discussion:
     else tree.cleanAllGood
 
   private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using WebContext) =
-    if (appeal isAbout userId) userIdLink(userId.some, params = asMod ?? "?mod")
+    if (appeal isAbout userId) userIdLink(userId.some, params = asMod so "?mod")
     else
       span(
         userIdLink(User.lichessId.some),

@@ -74,7 +74,7 @@ object studentDashboard:
         )
       ),
       tbody(
-        students.sortBy(-_.user.seenAt.??(_.toMillis)).map { case Student.WithUser(student, user) =>
+        students.sortBy(-_.user.seenAt.so(_.toMillis)).map { case Student.WithUser(student, user) =>
           tr(
             td(
               userLink(

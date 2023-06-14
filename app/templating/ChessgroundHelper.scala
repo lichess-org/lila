@@ -22,7 +22,7 @@ trait ChessgroundHelper:
           else
             def top(p: Square)  = orient.fold(7 - p.rank.index, p.rank.index) * 12.5
             def left(p: Square) = orient.fold(p.file.index, 7 - p.file.index) * 12.5
-            val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
+            val highlights = ctx.pref.highlight so lastMove.distinct.map { pos =>
               s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
             } mkString ""
             val pieces =
@@ -41,9 +41,10 @@ trait ChessgroundHelper:
     chessground(
       board = pov.game.board,
       orient = pov.color,
-      lastMove = pov.game.history.lastMove.map(_.origDest) ?? { case (orig, dest) =>
-        List(orig, dest)
-      }
+      lastMove = pov.game.history.lastMove
+        .map(_.origDest)
+        .so: (orig, dest) =>
+          List(orig, dest)
     )
 
   private def wrap(content: Frag): Frag =

@@ -59,7 +59,7 @@ It is now visible on your profile page: $baseUrl/@/${user.username}.
 
 $regards
 """
-      _ <- emailOption ?? { email =>
+      _ <- emailOption so { email =>
         given Lang = userLang(user)
         mailer send Mailer.Message(
           to = email,
@@ -176,36 +176,37 @@ To make a new donation, head to $baseUrl/patron"""
   ): Funit =
     userRepo withEmails userId flatMapz { userWithEmail =>
       lightUser.preloadMany(opponents.flatMap(_.opponentId)) >>
-        userWithEmail.emails.current.filterNot(_.isNoReply) ?? { email =>
-          given Lang = userLang(userWithEmail.user)
-          val hello =
-            "Hello and thank you for playing correspondence chess on Lichess!"
-          val disableSettingNotice =
-            "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
-          val disableLink = s"$baseUrl/account/preferences/game-behavior#correspondence-email-notif"
-          mailer send Mailer.Message(
-            to = email,
-            subject = "Daily correspondence notice",
-            text = Mailer.txt.addServiceNote {
-              s"""$hello
+        userWithEmail.emails.current
+          .filterNot(_.isNoReply)
+          .so: email =>
+            given Lang = userLang(userWithEmail.user)
+            val hello =
+              "Hello and thank you for playing correspondence chess on Lichess!"
+            val disableSettingNotice =
+              "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
+            val disableLink = s"$baseUrl/account/preferences/game-behavior#correspondence-email-notif"
+            mailer send Mailer.Message(
+              to = email,
+              subject = "Daily correspondence notice",
+              text = Mailer.txt.addServiceNote {
+                s"""$hello
 
 ${opponents map { opponent => s"${showGame(opponent)} $baseUrl/${opponent.gameId}" } mkString "\n\n"}
 
 $disableSettingNotice $disableLink"""
-            },
-            htmlBody = emailMessage(
-              p(hello),
-              opponents.map: opponent =>
-                li(
-                  showGame(opponent),
-                  Mailer.html.url(s"$baseUrl/${opponent.gameId}", clickOrPaste = false)
-                ),
-              disableSettingNotice,
-              Mailer.html.url(disableLink),
-              serviceNote
-            ).some
-          )
-        }
+              },
+              htmlBody = emailMessage(
+                p(hello),
+                opponents.map: opponent =>
+                  li(
+                    showGame(opponent),
+                    Mailer.html.url(s"$baseUrl/${opponent.gameId}", clickOrPaste = false)
+                  ),
+                disableSettingNotice,
+                Mailer.html.url(disableLink),
+                serviceNote
+              ).some
+            )
     }
 
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =

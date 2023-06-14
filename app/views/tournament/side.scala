@@ -31,7 +31,7 @@ object side:
                 tour.perfType.some,
                 shortName = true
               ),
-              tour.position.isDefined ?? s"$separator${trans.thematic.txt()}",
+              tour.position.isDefined so s"$separator${trans.thematic.txt()}",
               separator,
               tour.durationString
             ),

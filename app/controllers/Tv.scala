@@ -21,10 +21,10 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def onChannel(chanKey: String) = Open(serveChannel(chanKey))
 
   private def serveChannel(chanKey: String)(using WebContext) =
-    Channel.byKey.get(chanKey) ?? lichessTv
+    Channel.byKey.get(chanKey) so lichessTv
 
   def sides(gameId: GameId, color: String) = Open:
-    OptionFuResult(chess.Color.fromName(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
+    OptionFuResult(chess.Color.fromName(color) so { env.round.proxyRepo.pov(gameId, _) }) { pov =>
       env.game.crosstableApi.withMatchup(pov.game) map { ct =>
         Ok(html.tv.side.sides(pov, ct))
       }
@@ -57,14 +57,14 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def games = gamesChannel(Channel.Best.key)
 
   def gamesChannel(chanKey: String) = Open:
-    Channel.byKey.get(chanKey) ?? { channel =>
+    Channel.byKey.get(chanKey).so { channel =>
       env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map { (champs, games) =>
         Ok(html.tv.games(channel, games map Pov.naturalOrientation, champs)).noCache
       }
     }
 
   def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[String]) = Open:
-    val gameFu = Channel.byKey.get(chanKey) ?? { channel =>
+    val gameFu = Channel.byKey.get(chanKey) so { channel =>
       env.tv.tv.getReplacementGame(channel, gameId, exclude map { GameId(_) })
     }
     OptionResult(gameFu): game =>
@@ -75,7 +75,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
         )
 
   def apiGamesChannel(chanKey: String) = Anon:
-    Channel.byKey.get(chanKey) ?? { channel =>
+    Channel.byKey.get(chanKey) so { channel =>
       env.tv.tv.getGameIds(channel, getInt("nb", req).fold(10)(_ atMost 30 atLeast 1)) map { gameIds =>
         val config =
           lila.api.GameApiV2.ByIdsConfig(

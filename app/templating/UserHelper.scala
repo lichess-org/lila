@@ -113,7 +113,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
         userId = user.id,
         username = user.name,
         isPatron = user.isPatron,
-        title = withTitle ?? user.title,
+        title = withTitle so user.title,
         cssClass = cssClass,
         withOnline = withOnline,
         truncate = truncate,
@@ -134,7 +134,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       userId = user.id,
       username = user.name,
       isPatron = user.isPatron,
-      title = withTitle ?? user.title,
+      title = withTitle so user.title,
       cssClass = cssClass,
       withOnline = withOnline,
       truncate = truncate,
@@ -163,7 +163,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       cls  := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
     )(
-      withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron)),
+      withOnline so (if (modIcon) moderatorIcon else lineIcon(isPatron)),
       titleTag(title),
       truncate.fold(username.value)(username.value.take)
     )
@@ -183,7 +183,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       cls  := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
     )(
-      withOnline ?? lineIcon(user),
+      withOnline so lineIcon(user),
       withTitle option titleTag(user.title),
       name | user.username,
       userRating(user, withPerfRating, withBestRating)
@@ -203,7 +203,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
     )(
-      withOnline ?? lineIcon(user),
+      withOnline so lineIcon(user),
       withTitle option titleTag(user.title),
       name | user.username,
       userRating(user, withPerfRating, withBestRating)
@@ -216,7 +216,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       cls      := userClass(userId, none, withOnline),
       dataHref := userUrl(name)
     )(
-      withOnline ?? lineIcon(user),
+      withOnline so lineIcon(user),
       user.map(titleTag),
       name
     )
@@ -233,7 +233,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     withPerfRating match
       case Some(perfType) => renderRating(user.perfs(perfType))
       case _ if withBestRating =>
-        user.perfs.bestPerf ?? { case (_, perf) =>
+        user.perfs.bestPerf so { case (_, perf) =>
           renderRating(perf)
         }
       case _ => ""
@@ -249,7 +249,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   ): List[(String, Boolean)] =
     if (User isGhost userId) List("user-link" -> true, ~cssClass -> cssClass.isDefined)
     else
-      (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
+      (withOnline so List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
         "user-link" -> true,
         ~cssClass   -> cssClass.isDefined,
         "ulpt"      -> withPowerTip
@@ -269,7 +269,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   ): String =
     filter match
       case GameFilter.All      => transLocalize(trans.nbGames, u.count.game)
-      case GameFilter.Me       => nbs.withMe ?? { transLocalize(trans.nbGamesWithYou, _) }
+      case GameFilter.Me       => nbs.withMe so { transLocalize(trans.nbGamesWithYou, _) }
       case GameFilter.Rated    => transLocalize(trans.nbRated, u.count.rated)
       case GameFilter.Win      => transLocalize(trans.nbWins, u.count.win)
       case GameFilter.Loss     => transLocalize(trans.nbLosses, u.count.loss)
@@ -283,9 +283,8 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     val name      = user.titleUsername
     val nbGames   = user.count.game
     val createdAt = showEnglishDate(user.createdAt)
-    val currentRating = user.perfs.bestPerf ?? { (pt, perf) =>
+    val currentRating = user.perfs.bestPerf.so: (pt, perf) =>
       s" Current ${pt.trans} rating: ${perf.intRating}."
-    }
     s"$name played $nbGames games since $createdAt.$currentRating"
 
   val patronIconChar = licon.Wings
@@ -296,7 +295,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
   private def lineIcon(patron: Boolean)(using lang: Lang): Frag         = if (patron) patronIcon else lineIcon
-  private def lineIcon(user: Option[LightUser])(using lang: Lang): Frag = lineIcon(user.??(_.isPatron))
+  private def lineIcon(user: Option[LightUser])(using lang: Lang): Frag = lineIcon(user.so(_.isPatron))
   def lineIcon(user: LightUser)(using lang: Lang): Frag                 = lineIcon(user.isPatron)
   def lineIcon(user: User)(using lang: Lang): Frag                      = lineIcon(user.isPatron)
   def lineIconChar(user: User): Frag = if (user.isPatron) patronIconChar else lineIconChar

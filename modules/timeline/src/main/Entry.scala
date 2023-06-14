@@ -21,9 +21,9 @@ case class Entry(
 
   lazy val decode: Option[Atom] = atomBsonHandlers.handlers.get(typ).flatMap(_ readOpt data)
 
-  def userIds = decode.??(_.userIds)
+  def userIds = decode.so(_.userIds)
 
-  def okForKid = decode.??(_.okForKid)
+  def okForKid = decode.so(_.okForKid)
 
 object Entry:
 

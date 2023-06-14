@@ -276,7 +276,7 @@ object tree:
 
   def apply(me: User, playban: Boolean)(using ctx: WebContext) =
     bits.layout("Appeal a moderation decision") {
-      val query    = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
+      val query    = isGranted(_.Appeals) so ctx.req.queryString.toMap
       val isMarked = playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban
       main(cls := "page page-small box box-pad appeal force-ltr")(
         h1(cls := "box__top")("Appeal"),

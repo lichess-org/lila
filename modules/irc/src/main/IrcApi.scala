@@ -69,11 +69,10 @@ final class IrcApi(
     )
 
   def userModNote(modName: UserName, username: UserName, note: String): Funit =
-    !User.isLichess(modName) ??
-      zulip(_.mod.adminLog, "notes")(
+    (!User.isLichess(modName)).so:
+      zulip(_.mod.adminLog, "notes"):
         s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
           markdown.linkifyUsers(note take 2000)
-      )
 
   def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
     zulip(_.mod.adminLog, "self report")(
@@ -188,7 +187,7 @@ final class IrcApi(
 
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
-      buffer.head.date.isBefore(nowInstant.minusHours(12)) ?? {
+      buffer.head.date.isBefore(nowInstant.minusHours(12)) so {
         val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.cents).sum
         val patrons =

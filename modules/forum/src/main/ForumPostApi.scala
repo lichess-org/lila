@@ -52,7 +52,7 @@ final class ForumPostApi(
           postRepo.coll.insert.one(post) >>
             topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
             categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-              !categ.quiet ?? (indexer ! InsertPost(post))
+              !categ.quiet so (indexer ! InsertPost(post))
               promotion.save(me, post.text)
               shutup ! {
                 if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
@@ -79,8 +79,8 @@ final class ForumPostApi(
           fufail("Post can no longer be edited")
         case (_, post) =>
           val newPost = post.editPost(nowInstant, spam replace newText)
-          (newPost.text != post.text).?? {
-            postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
+          (newPost.text != post.text).so {
+            postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
               logAnonPost(user.id, newPost, edit = true)
             } >>- promotion.save(user, newPost.text)
           } inject newPost
@@ -113,7 +113,7 @@ final class ForumPostApi(
       reactionStr: String,
       v: Boolean
   ): Fu[Option[ForumPost]] =
-    ForumPost.Reaction(reactionStr) ?? { reaction =>
+    ForumPost.Reaction(reactionStr) so { reaction =>
       if (v) lila.mon.forum.reaction(reaction.key).increment()
       postRepo.coll
         .findAndUpdateSimplified[ForumPost](

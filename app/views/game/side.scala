@@ -98,7 +98,7 @@ object side:
             }
           )
         },
-        game.variant.chess960.?? {
+        game.variant.chess960.so {
           chess.variant.Chess960
             .positionNumber(initialFen | chess.format.Fen.initial)
             .map { number =>

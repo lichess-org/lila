@@ -61,7 +61,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
       mobile: Boolean
   ): Fu[Option[StormHigh.NewHigh]] =
     lila.mon.storm.run.score(user.isDefined).record(data.score).unit
-    user ?? { u =>
+    user so { u =>
       if (mobile || sign.check(u, ~data.signed))
         Bus.publish(lila.hub.actorApi.puzzle.StormRun(u.id, data.score), "stormRun")
         highApi get u.id flatMap { prevHigh =>

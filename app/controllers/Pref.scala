@@ -70,20 +70,21 @@ final class Pref(env: Env) extends LilaController(env):
     if name == "zoom"
     then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
     else if name == "agreement" then
-      ctx.me ?? api.agree inject {
+      ctx.me so api.agree inject {
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
       }
     else
-      setters.get(name) ?? { (form, fn) =>
-        form
-          .bindFromRequest()
-          .fold(
-            form => fuccess(BadRequest(form.errors mkString "\n")),
-            v =>
-              fn(v, ctx).map: cookie =>
-                Ok(()).withCookies(cookie)
-          )
-      }
+      setters
+        .get(name)
+        .so: (form, fn) =>
+          form
+            .bindFromRequest()
+            .fold(
+              form => fuccess(BadRequest(form.errors mkString "\n")),
+              v =>
+                fn(v, ctx).map: cookie =>
+                  Ok(()).withCookies(cookie)
+            )
 
   private lazy val setters = Map(
     "theme"        -> (forms.theme        -> save("theme")),
@@ -100,6 +101,6 @@ final class Pref(env: Env) extends LilaController(env):
   )
 
   private def save(name: String)(value: String, ctx: WebContext): Fu[Cookie] =
-    ctx.me ?? {
+    ctx.me so {
       api.setPrefString(_, name, value)
     } inject env.lilaCookie.session(name, value)(using ctx.req)

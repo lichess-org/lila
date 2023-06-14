@@ -133,7 +133,7 @@ final private class RelayFetch(
   )
 
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
-    rt.round.sync.upstream ?? {
+    rt.round.sync.upstream so {
       case UpstreamIds(ids) =>
         gameRepo.gamesFromSecondary(ids) flatMap
           gameProxy.upgradeIfPresent flatMap

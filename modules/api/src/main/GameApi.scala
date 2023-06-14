@@ -216,7 +216,9 @@ final private[api] class GameApi(
             )
             .add("name", p.name)
             .add("provisional" -> p.provisional)
-            .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
+            .add("moveCentis" -> withFlags.moveTimes.so:
+              g.moveTimes(p.color).map(_.map(_.centis))
+            )
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
             .add(
               "analysis" -> analysisOption
@@ -225,8 +227,8 @@ final private[api] class GameApi(
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.sans mkString " "),
-        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.Opening.AtPly]),
-        "fens" -> ((withFlags.fens && g.finished).?? {
+        "opening"  -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
+        "fens" -> ((withFlags.fens && g.finished).so {
           chess.Replay
             .boards(
               sans = g.sans,

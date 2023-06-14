@@ -95,7 +95,7 @@ final class UblogRank(
             doc.getAsOpt[UblogPost.Likes]("likes"),
             doc.getAsOpt[UblogPost.Recorded]("lived"),
             doc.getAsOpt[Lang]("language")
-          ).tupled ?? { case (id, topics, likes, lived, language) =>
+          ).tupled so { (id, topics, likes, lived, language) =>
             colls.post
               .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
               .void

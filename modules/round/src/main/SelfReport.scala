@@ -25,9 +25,9 @@ final class SelfReport(
       fullId: GameFullId,
       name: String
   ): Funit =
-    userId ?? userRepo.byId map { user =>
+    userId so userRepo.byId map { user =>
       val known = user.exists(_.marks.engine)
-      // user.ifTrue(!known && name != "ceval") ?? { u =>
+      // user.ifTrue(!known && name != "ceval") so { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
       def doLog(): Unit =
@@ -39,31 +39,30 @@ final class SelfReport(
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
       if (fullId.value == "____________") doLog()
       else
-        proxyRepo.pov(fullId) foreach {
-          _ ?? { pov =>
-            if (!known) doLog()
-            user foreach { u =>
-              if (
-                endGameSetting.get().matches(name) ||
-                (name.startsWith("soc") && (
-                  name.contains("stockfish") || name.contains("userscript") ||
-                    name.contains("__puppeteer_evaluation_script__")
-                ))
-              ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
-              if (markUserSetting.get().matches(name))
-                val rating = u.perfs.bestRating
-                val hours =
-                  if rating > 2500 then 0
-                  else if rating > 2300 then 1
-                  else if rating > 2000 then 6
-                  else if rating > 1800 then 12
-                  else 24
-                scheduler.scheduleOnce(
-                  (2 + hours + ThreadLocalRandom.nextInt(hours * 60)).minutes
-                ) {
-                  lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
-                }
-            }
-          }
-        }
+        proxyRepo
+          .pov(fullId)
+          .foreach:
+            _.so: pov =>
+              if (!known) doLog()
+              user.foreach: u =>
+                if (
+                  endGameSetting.get().matches(name) ||
+                  (name.startsWith("soc") && (
+                    name.contains("stockfish") || name.contains("userscript") ||
+                      name.contains("__puppeteer_evaluation_script__")
+                  ))
+                ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
+                if (markUserSetting.get().matches(name))
+                  val rating = u.perfs.bestRating
+                  val hours =
+                    if rating > 2500 then 0
+                    else if rating > 2300 then 1
+                    else if rating > 2000 then 6
+                    else if rating > 1800 then 12
+                    else 24
+                  scheduler.scheduleOnce(
+                    (2 + hours + ThreadLocalRandom.nextInt(hours * 60)).minutes
+                  ):
+                    lila.common.Bus
+                      .publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
     }

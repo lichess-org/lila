@@ -28,7 +28,7 @@ object dashboard:
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
-      moreJs = dashOpt ?? { dash =>
+      moreJs = dashOpt so { dash =>
         val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
           PuzzleTheme(key).name.txt()
         }
@@ -156,7 +156,7 @@ object dashboard:
         trans.puzzle.nbPlayed.plural(results.nb, strong(results.nb.localize))
       ),
       ctx.pref.showRatings option div(cls := s"$metricClass $metricClass--perf")(
-        strong(results.performance, results.unclear ?? "?"),
+        strong(results.performance, results.unclear so "?"),
         span(trans.performance())
       ),
       div(

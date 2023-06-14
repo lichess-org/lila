@@ -38,7 +38,7 @@ final class Account(
             .exists(env.security.spam.detect)
             .option("profile.links" -> ~profile.links)
         }
-        .?? { case (resource, text) =>
+        .so { case (resource, text) =>
           env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
         } >> env.user.repo.setProfile(me.id, profile) inject
         Redirect(routes.User show me.username).flashSuccess
@@ -193,7 +193,7 @@ final class Account(
 
   def emailConfirm(token: String) = Open:
     env.security.emailChange.confirm(token) flatMapz { (user, prevEmail) =>
-      (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
+      (prevEmail.exists(_.isNoReply) so env.clas.api.student.release(user)) >>
         auth.authenticateUser(
           user,
           remember = true,

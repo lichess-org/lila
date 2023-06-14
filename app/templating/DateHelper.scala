@@ -62,7 +62,7 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     if (!alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis) absClientInstant(instant)
-    else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
+    else timeTag(cls := s"timeago${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
 
   def momentFromNowWithPreload(
       instant: Instant,

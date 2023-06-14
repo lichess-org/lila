@@ -19,7 +19,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
       page: Int,
       pagination: Option[Twitch.Pagination]
   ): Fu[List[Twitch.TwitchStream]] =
-    (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10) ?? {
+    (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10) so {
       val query = List(
         "game_id" -> "743", // chess
         "first"   -> "100"  // max results per page

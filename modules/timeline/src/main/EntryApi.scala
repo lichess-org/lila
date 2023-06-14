@@ -25,7 +25,7 @@ final class EntryApi(
     userEntries(userId, nb) flatMap broadcast.interleave
 
   private def userEntries(userId: UserId, max: Max): Fu[Vector[Entry]] =
-    (max.value > 0) ?? coll
+    (max.value > 0) so coll
       .find(
         $doc(
           "users" -> userId,

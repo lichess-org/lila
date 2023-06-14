@@ -87,12 +87,8 @@ trait dsl:
   def $inc(item: ElementProducer, items: ElementProducer*): Bdoc = $doc("$inc" -> $doc((Seq(item) ++ items)*))
   def $inc(doc: Bdoc): Bdoc                                      = $doc("$inc" -> doc)
 
-  def $mul(item: ElementProducer): Bdoc   = $doc("$mul" -> $doc(item))
-  def $set(items: ElementProducer*): Bdoc = $doc("$set" -> items.nonEmpty ?? $doc(items*))
-  def $unset(fields: Iterable[String]): Bdoc = $doc:
-    "$unset" -> fields.nonEmpty ?? $doc(fields.map(k => (k, BSONString(""))))
-  def $unset(field: String, fields: String*): Bdoc = $doc:
-    "$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString(""))))
+  def $mul(item: ElementProducer): Bdoc =
+    $doc("$mul" -> $doc(item))
 
   def $setBoolOrUnset(field: String, value: Boolean): Bdoc = if (value) $set(field -> true) else $unset(field)
   def $min(item: ElementProducer): Bdoc                    = $doc("$min" -> $doc(item))
@@ -369,7 +365,7 @@ object dsl extends dsl with Handlers:
           // because of reactivemongo given tuple2Writer
           // so we need to check if the ID writes to an array,
           // then the second value is probably a projection.
-          summon[BSONWriter[I]].writeOpt(id) ?? {
+          summon[BSONWriter[I]].writeOpt(id) so {
             case BSONArray(Seq(id, proj: Bdoc)) => byIdProj[D](id, proj)
             case id                             => one[D]($id(id))
         }
@@ -416,11 +412,10 @@ object dsl extends dsl with Handlers:
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[Map[I, D]] = ids.nonEmpty ??
+    )(docId: D => I): Fu[Map[I, D]] = ids.nonEmpty.so:
       projection
-        .fold(coll find $inIds(ids)) { proj =>
+        .fold(coll find $inIds(ids)): proj =>
           coll.find($inIds(ids), proj.some)
-        }
         .cursor[D](readPreference)
         .collect[List](Int.MaxValue)
         .map(_.mapBy(docId))
@@ -429,28 +424,25 @@ object dsl extends dsl with Handlers:
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[List[D]] = ids.nonEmpty ??
-      idsMap[D, I](ids, projection, readPreference)(docId) map { m =>
+    )(docId: D => I): Fu[List[D]] = ids.nonEmpty.so:
+      idsMap[D, I](ids, projection, readPreference)(docId).map: m =>
         ids.view.flatMap(m.get).toList
-      }
 
     def optionsByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[List[Option[D]]] = ids.nonEmpty ??
-      idsMap[D, I](ids, projection, readPreference)(docId) map { m =>
+    )(docId: D => I): Fu[List[Option[D]]] = ids.nonEmpty.so:
+      idsMap[D, I](ids, projection, readPreference)(docId).map: m =>
         ids.view.map(m.get).toList
-      }
 
     def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =
       coll
         .find(selector, $doc(field -> true).some)
         .cursor[Bdoc]()
         .list(Int.MaxValue)
-        .dmap {
+        .dmap:
           _ flatMap { _.getAsOpt[V](field) }
-        }
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
       coll
@@ -458,36 +450,32 @@ object dsl extends dsl with Handlers:
         .sort(sort)
         .cursor[Bdoc]()
         .list(Int.MaxValue)
-        .dmap {
+        .dmap:
           _ flatMap { _.getAsOpt[V](field) }
-        }
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
-      (nb > 0) ?? coll
+      (nb > 0) so coll
         .find(selector, $doc(field -> true).some)
         .sort(sort)
         .cursor[Bdoc]()
         .list(nb)
-        .dmap {
+        .dmap:
           _ flatMap { _.getAsOpt[V](field) }
-        }
 
     def primitiveOne[V: BSONReader](selector: Bdoc, field: String): Fu[Option[V]] =
       coll
         .find(selector, $doc(field -> true).some)
         .one[Bdoc]
-        .dmap {
+        .dmap:
           _ flatMap { _.getAsOpt[V](field) }
-        }
 
     def primitiveOne[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
       coll
         .find(selector, $doc(field -> true).some)
         .sort(sort)
         .one[Bdoc]
-        .dmap {
+        .dmap:
           _ flatMap { _.getAsOpt[V](field) }
-        }
 
     def primitiveMap[I: BSONReader: BSONWriter, V](
         ids: Iterable[I],
@@ -498,13 +486,13 @@ object dsl extends dsl with Handlers:
         .find($inIds(ids), $doc(field -> true).some)
         .cursor[Bdoc]()
         .list(Int.MaxValue)
-        .dmap {
-          _.flatMap { obj =>
-            obj.getAsOpt[I]("_id") flatMap { id =>
-              fieldExtractor(obj) map { id -> _ }
-            }
-          }.toMap
-        }
+        .dmap:
+          _.flatMap: obj =>
+            obj
+              .getAsOpt[I]("_id")
+              .flatMap: id =>
+                fieldExtractor(obj) map { id -> _ }
+          .toMap
 
     def updateField[V: BSONWriter](selector: Bdoc, field: String, value: V) =
       coll.update.one(selector, $set(field -> value))
@@ -533,9 +521,8 @@ object dsl extends dsl with Handlers:
         case Some(v) => updateField(selector, field, v).dmap(_.n)
 
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
-      one[D](selector) flatMapz { doc =>
+      one[D](selector).flatMapz: doc =>
         coll.update.one(selector, update(doc)).void
-      }
 
     def aggregateList(
         maxDocs: Int, // can actually return more documents (?)
@@ -548,10 +535,9 @@ object dsl extends dsl with Handlers:
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
           readPreference = readPreference
-        )(agg => {
+        ): agg =>
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
-        })
         .collect[List](maxDocs = maxDocs)
 
     def aggregateOne(
@@ -564,10 +550,9 @@ object dsl extends dsl with Handlers:
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
           readPreference = readPreference
-        )(agg => {
+        ): agg =>
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
-        })
         .collect[List](maxDocs = 1)
         .dmap(_.headOption) // .one[Bdoc] ?
 
@@ -581,10 +566,9 @@ object dsl extends dsl with Handlers:
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
           readPreference = readPreference
-        )(agg => {
+        ): agg =>
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
-        })
         .headOption
         .dmap(_.isDefined)
 
@@ -607,21 +591,22 @@ object dsl extends dsl with Handlers:
         fields: Option[coll.pack.Document] = None,
         writeConcern: CWC = CWC.Acknowledged
     ): Fu[Option[D]] =
-      coll.findAndUpdate(
-        selector = selector,
-        update = update,
-        fetchNewObject = fetchNewObject,
-        upsert = upsert,
-        sort = sort,
-        fields = fields,
-        bypassDocumentValidation = false,
-        writeConcern = writeConcern,
-        maxTime = none,
-        collation = none,
-        arrayFilters = Seq.empty
-      ) map {
-        _.value flatMap summon[BSONDocumentReader[D]].readOpt
-      }
+      coll
+        .findAndUpdate(
+          selector = selector,
+          update = update,
+          fetchNewObject = fetchNewObject,
+          upsert = upsert,
+          sort = sort,
+          fields = fields,
+          bypassDocumentValidation = false,
+          writeConcern = writeConcern,
+          maxTime = none,
+          collation = none,
+          arrayFilters = Seq.empty
+        )
+        .map:
+          _.value flatMap summon[BSONDocumentReader[D]].readOpt
 
     def findAndRemove[D: BSONDocumentReader](
         selector: coll.pack.Document,
@@ -629,14 +614,15 @@ object dsl extends dsl with Handlers:
         fields: Option[coll.pack.Document] = None,
         writeConcern: CWC = CWC.Acknowledged
     ): Fu[Option[D]] =
-      coll.findAndRemove(
-        selector = selector,
-        sort = sort,
-        fields = fields,
-        writeConcern = writeConcern,
-        maxTime = none,
-        collation = none,
-        arrayFilters = Seq.empty
-      ) map {
-        _.value flatMap summon[BSONDocumentReader[D]].readOpt
-      }
+      coll
+        .findAndRemove(
+          selector = selector,
+          sort = sort,
+          fields = fields,
+          writeConcern = writeConcern,
+          maxTime = none,
+          collation = none,
+          arrayFilters = Seq.empty
+        )
+        .map:
+          _.value flatMap summon[BSONDocumentReader[D]].readOpt

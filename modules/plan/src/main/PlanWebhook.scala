@@ -12,7 +12,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
   // then fetch the event from the stripe API.
   def stripe(js: JsValue): Funit =
     def log = logger branch "stripe.webhook"
-    js.str("id") ?? api.stripe.getEvent flatMap {
+    js.str("id") so api.stripe.getEvent flatMap {
       case None =>
         log.warn(s"Forged $js")
         funit
@@ -37,7 +37,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
 
   def payPal(js: JsValue): Funit =
     def log = logger branch "payPal.webhook"
-    js.get[PayPalEventId]("id") ?? api.payPal.getEvent flatMap {
+    js.get[PayPalEventId]("id") so api.payPal.getEvent flatMap {
       case None =>
         log.warn(s"Forged event ${js str "id"} ${Json stringify js take 2000}")
         funit
@@ -77,7 +77,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
           case "BILLING.SUBSCRIPTION.CANCELLED" =>
             event.resourceId.map(
               PayPalSubscriptionId.apply
-            ) ?? api.payPal.subscriptionUser flatMapz api.cancel
+            ) so api.payPal.subscriptionUser flatMapz api.cancel
 
           case _ => funit
     }

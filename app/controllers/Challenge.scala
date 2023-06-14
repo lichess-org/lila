@@ -68,7 +68,7 @@ final class Challenge(
             }
           }
           else
-            (c.challengerUserId ?? env.user.repo.byId) map { user =>
+            (c.challengerUserId so env.user.repo.byId) map { user =>
               Ok(html.challenge.theirs(c, json, user, color))
             }
         },
@@ -84,12 +84,12 @@ final class Challenge(
 
   private def isForMe(challenge: ChallengeModel, me: Option[UserModel]) =
     challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
-      !challenge.challengerUserId.??(orig => me.exists(_ is orig))
+      !challenge.challengerUserId.so(orig => me.exists(_ is orig))
 
   def accept(id: ChallengeId, color: Option[String]) = Open:
     OptionFuResult(api byId id): c =>
       val cc = color flatMap chess.Color.fromName
-      isForMe(c, ctx.me) ?? api
+      isForMe(c, ctx.me) so api
         .accept(c, ctx.me, ctx.req.sid, cc)
         .flatMap {
           case Validated.Valid(Some(pov)) =>
@@ -129,7 +129,7 @@ final class Challenge(
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
       res: Result
   )(using WebContext): Fu[Result] =
-    cond ?? {
+    cond so {
       env.game.gameRepo.game(c.id into GameId).map {
         _ map { game =>
           env.lilaCookie.cookie(
@@ -146,7 +146,7 @@ final class Challenge(
 
   def decline(id: ChallengeId) = AuthBody { ctx ?=> _ =>
     OptionFuResult(api byId id) { c =>
-      isForMe(c, ctx.me) ??
+      isForMe(c, ctx.me) so
         api.decline(
           c,
           env.challenge.forms.decline
@@ -222,7 +222,7 @@ final class Challenge(
     val scopes = OAuthScope.select(_.Challenge.Write)
     (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
       env.oAuth.server.authBoth(scopes, req)
-    } ?? {
+    } so {
       _ flatMap {
         case Left(e) => handleScopedFail(scopes, e)
         case Right((u1, u2)) =>
@@ -281,7 +281,7 @@ final class Challenge(
   }
 
   def apiCreate(username: UserStr) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
-    !me.is(username) ?? env.setup.forms.api
+    !me.is(username) so env.setup.forms.api
       .user(me)
       .bindFromRequest()
       .fold(
@@ -401,7 +401,7 @@ final class Challenge(
   def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me =>
     NoBot:
       OptionFuResult(env.game.gameRepo game gameId): g =>
-        Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.repo.byId flatMapz { opponent =>
+        Pov.opponentOfUserId(g, me.id).flatMap(_.userId) so env.user.repo.byId flatMapz { opponent =>
           env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d)).toFuccess
             case _ =>

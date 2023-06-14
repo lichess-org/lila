@@ -55,7 +55,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
       }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
-    pov.forecastable ?? coll.byId[Forecast](pov.fullId) flatMap {
+    pov.forecastable so coll.byId[Forecast](pov.fullId) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.ply + 1)) clearPov(pov) inject none
@@ -63,7 +63,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
     }
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
-    pov.game.forecastable ?? coll.byId[Forecast](pov.fullId) flatMap {
+    pov.game.forecastable so coll.byId[Forecast](pov.fullId) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.ply)) clearPov(pov) inject none
@@ -71,8 +71,8 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
     }
 
   def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] =
-    g.forecastable ?? {
-      loadForPlay(Pov player g) flatMap {
+    g.forecastable.so:
+      loadForPlay(Pov player g).flatMap:
         case None => fuccess(none)
         case Some(fc) =>
           fc(g, last) match
@@ -80,8 +80,6 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
               coll.update.one($id(fc._id), newFc) inject uciMove.some
             case Some((_, uciMove)) => clearPov(Pov player g) inject uciMove.some
             case _                  => clearPov(Pov player g) inject none
-      }
-    }
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 

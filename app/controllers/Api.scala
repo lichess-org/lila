@@ -71,7 +71,7 @@ final class Api(
       } map toApiResult map toHttp
 
   def usersStatus = ApiRequest:
-    val ids = get("ids", req).??(_.split(',').take(100).toList flatMap UserStr.read).map(_.id)
+    val ids = get("ids", req).so(_.split(',').take(100).toList flatMap UserStr.read).map(_.id)
     env.user.lightUserApi asyncMany ids dmap (_.flatten) flatMap { users =>
       val streamingIds = env.streamer.liveStreamApi.userIds
       def toJson(u: LightUser) =
@@ -83,7 +83,7 @@ final class Api(
       if getBool("withGameIds", req)
       then
         users.map { u =>
-          (env.round.playing(u.id) ?? env.game.cached.lastPlayedPlayingId(u.id)) map { gameId =>
+          (env.round.playing(u.id) so env.game.cached.lastPlayedPlayingId(u.id)) map { gameId =>
             toJson(u).add("playingId", gameId)
           }
         }.parallel map toApiResult
@@ -159,7 +159,7 @@ final class Api(
     CrosstableRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       val (u1, u2) = (name1.id, name2.id)
       env.game.crosstableApi(u1, u2) flatMap { ct =>
-        (ct.results.nonEmpty && getBool("matchup", req)).?? {
+        (ct.results.nonEmpty && getBool("matchup", req)).so {
           env.game.crosstableApi.getMatchup(u1, u2)
         } map { matchup =>
           toApiResult:
@@ -241,7 +241,7 @@ final class Api(
     }
 
   def tournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
-    (name.id != lila.user.User.lichessId) ?? env.user.repo.byId(name) flatMapz { user =>
+    (name.id != lila.user.User.lichessId) so env.user.repo.byId(name) flatMapz { user =>
       val nb = getInt("nb", req) | Int.MaxValue
       jsonDownload:
         given Lang = reqLang
@@ -272,7 +272,7 @@ final class Api(
   }
 
   private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond(
-    30 + me.isDefined.??(20) + me.exists(_.isVerified).??(40)
+    30 + me.isDefined.so(20) + me.exists(_.isVerified).so(40)
   )
 
   def swissResults(id: SwissId) = Anon:
@@ -433,7 +433,7 @@ final class Api(
   def sourceToNdJsonOption(source: Source[Option[JsValue], ?]): Result =
     sourceToNdJsonString:
       source.map:
-        _ ?? Json.stringify + "\n"
+        _.so(Json.stringify) + "\n"
 
   private def sourceToNdJsonString(source: Source[String, ?]): Result =
     Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer

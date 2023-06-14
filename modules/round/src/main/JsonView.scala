@@ -52,7 +52,7 @@ final class JsonView(
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
+      .add("blurs" -> (withFlags.blurs so blurs(g, p)))
 
   def playerJson(
       pov: Pov,
@@ -63,7 +63,7 @@ final class JsonView(
       flags: WithFlags
   ): Fu[JsObject] =
     getSocketStatus(pov.game) zip
-      (pov.opponent.userId ?? userRepo.byIdOrGhost) zip
+      (pov.opponent.userId so userRepo.byIdOrGhost) zip
       takebacker.isAllowedIn(pov.game) zip
       moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
         import pov.*
@@ -154,7 +154,7 @@ final class JsonView(
       .add("provisional" -> (p.provisional.yes && withFlags.rating))
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
+      .add("blurs" -> (withFlags.blurs so blurs(g, p)))
 
   def watcherJson(
       pov: Pov,
@@ -172,7 +172,7 @@ final class JsonView(
           .obj(
             "game" -> gameJsonView
               .base(game, initialFen)
-              .add("moveCentis" -> (flags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
+              .add("moveCentis" -> (flags.movetimes so game.moveTimes.map(_.map(_.centis))))
               .add("division" -> flags.division.option(divider(game, initialFen)))
               .add("opening" -> game.opening)
               .add("importedBy" -> game.pgnImport.flatMap(_.user)),
@@ -184,7 +184,7 @@ final class JsonView(
                   "version"   -> socket.version,
                   "spectator" -> true
                 )
-                .add("id" -> (apiVersion < 10).??(me.flatMap(game.player).map(_.id)))
+                .add("id" -> (apiVersion < 10).so(me.flatMap(game.player).map(_.id)))
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, flags).add(
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
@@ -219,7 +219,7 @@ final class JsonView(
       }
 
   def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Epd]) =
-    pov.game.whitePlayer.userId.??(lightUserGet) zip pov.game.blackPlayer.userId.??(lightUserGet) map {
+    pov.game.whitePlayer.userId.so(lightUserGet) zip pov.game.blackPlayer.userId.so(lightUserGet) map {
       case (white, black) =>
         import pov.*
         import LightUser.lightUserWrites
@@ -306,11 +306,9 @@ final class JsonView(
       lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
-    (pov.game playableBy pov.player) ?? {
-      pov.game.situation.drops map { drops =>
+    (pov.game playableBy pov.player).so:
+      pov.game.situation.drops.map: drops =>
         JsString(drops.map(_.key).mkString)
-      }
-    }
 
   private def animationMillis(pov: Pov, pref: Pref) =
     pref.animationMillis * {

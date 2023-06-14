@@ -55,7 +55,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
       move  <- puzzle.line.tail.headOption
       first <- init.move(move).toOption.map(_.situationAfter)
     yield first.check
-  }.exists(_.yes) ?? {
+  }.exists(_.yes) so {
     colls.round {
       _.update
         .one(

@@ -29,7 +29,7 @@ case class UserChat(
   val loginRequired = true
 
   def forUser(u: Option[User]): UserChat =
-    if (u.??(_.marks.troll)) this
+    if (u.so(_.marks.troll)) this
     else copy(lines = lines filterNot (_.troll))
 
   def markDeleted(u: User) =
@@ -52,7 +52,7 @@ case class UserChat(
   def hasRecentLine(u: User): Boolean = lines.reverse.take(12).exists(_.userId == u.id)
 
 object UserChat:
-  case class Mine(chat: UserChat, timeout: Boolean):
+  case class Mine(chat: UserChat, timeout: Boolean, locked: Boolean = false):
     def truncate(max: Int) = copy(chat = chat truncate max)
 
 case class MixedChat(
@@ -63,7 +63,7 @@ case class MixedChat(
   val loginRequired = false
 
   def forUser(u: Option[User]): MixedChat =
-    if (u.??(_.marks.troll)) this
+    if (u.so(_.marks.troll)) this
     else
       copy(lines = lines filter {
         case l: UserLine   => !l.troll

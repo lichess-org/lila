@@ -67,7 +67,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
       html = notFound,
       api = _ =>
         ctx.me
-          .??(env.streamer.api.isPotentialStreamer)
+          .so(env.streamer.api.isPotentialStreamer)
           .zip(galleryJson.get({}))
           .map: (isStreamer, gallery) =>
             Ok:

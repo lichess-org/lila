@@ -15,7 +15,7 @@ case class OpeningPage(
   export query.{ closestOpening, exactOpening, name, openingAndExtraMoves }
 
   def nameParts: NamePart.NamePartList = openingAndExtraMoves match
-    case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
+    case (op, moves) => (op so NamePart.from) ::: NamePart.from(moves)
 
 case object NamePart:
   type NamePartList = List[Either[SanStr, (NameSection, Option[OpeningKey])]]

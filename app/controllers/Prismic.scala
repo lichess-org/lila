@@ -15,7 +15,7 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
       routes.Blog.show(link.id, link.slug, ref).url
 
   private def getDocument(id: String): Fu[Option[Document]] =
-    lila.blog.BlogApi.looksLikePrismicId(id) ??
+    lila.blog.BlogApi.looksLikePrismicId(id) so
       prismicApi.flatMap: api =>
         api
           .forms("everything")
@@ -28,7 +28,7 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
   def getBookmark(name: String) =
     prismicApi
       .flatMap: api =>
-        api.bookmarks.get(name) ?? getDocument map2 { doc =>
+        api.bookmarks.get(name) so getDocument map2 { doc =>
           doc -> makeLinkResolver(api, none)
         }
       .recover { case e: Exception =>

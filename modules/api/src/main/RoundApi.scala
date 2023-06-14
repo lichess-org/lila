@@ -49,9 +49,9 @@ final private[api] class RoundApi(
           flags = ctxFlags,
           initialFen = initialFen
         ) zip
-          (pov.game.simulId ?? simulApi.find) zip
+          (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.userId.ifTrue(ctx.isMobileApi) ?? (noteApi.get(pov.gameId, _))) zip
+          (ctx.userId.ifTrue(ctx.isMobileApi) so (noteApi.get(pov.gameId, _))) zip
           forecastApi.loadForDisplay(pov) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
             case (((((json, simul), swiss), note), forecast), bookmarked) =>
@@ -88,9 +88,9 @@ final private[api] class RoundApi(
           initialFen = initialFen,
           flags = ctxFlags
         ) zip
-          (pov.game.simulId ?? simulApi.find) zip
+          (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
+          (ctx.me.ifTrue(ctx.isMobileApi) so (me => noteApi.get(pov.gameId, me.id))) zip
           bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
             (
               withTournament(pov, tour) compose
@@ -105,7 +105,7 @@ final private[api] class RoundApi(
       .mon(_.round.api.watcher)
 
   private def ctxFlags(using ctx: WebContext) =
-    WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
+    WithFlags(blurs = ctx.me so Granter(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
 
   def review(
       pov: Pov,
@@ -124,16 +124,16 @@ final private[api] class RoundApi(
       ctx.userId,
       tv,
       initialFen = initialFen,
-      flags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
+      flags = withFlags.copy(blurs = ctx.me so Granter(_.ViewBlurs))
     ) zip
       tourApi.gameView.analysis(pov.game) zip
-      (pov.game.simulId ?? simulApi.find) zip
+      (pov.game.simulId so simulApi.find) zip
       swissApi.gameView(pov) zip
-      ctx.userId.ifTrue(ctx.isMobileApi).?? {
+      ctx.userId.ifTrue(ctx.isMobileApi).so {
         noteApi.get(pov.gameId, _)
       } zip
-      owner.??(forecastApi loadForDisplay pov) zip
-      withFlags.puzzles.??(pov.game.opening.map(_.opening)).??(puzzleOpeningApi.getClosestTo) zip
+      owner.so(forecastApi loadForDisplay pov) zip
+      withFlags.puzzles.so(pov.game.opening.map(_.opening)).so(puzzleOpeningApi.getClosestTo) zip
       bookmarkApi.exists(pov.game, ctx.me) map {
         case (((((((json, tour), simul), swiss), note), fco), puzzleOpening), bookmarked) =>
           (
@@ -160,7 +160,7 @@ final private[api] class RoundApi(
       me: Option[User]
   ) =
     withExternalEngines(me) {
-      owner.??(forecastApi loadForDisplay pov).map { fco =>
+      owner.so(forecastApi loadForDisplay pov).map { fco =>
         withForecast(pov, owner, fco) {
           withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
             jsonView.userAnalysisJson(
@@ -243,7 +243,7 @@ final private[api] class RoundApi(
     jsonFu flatMap { withExternalEngines(me, _) }
 
   def withExternalEngines(me: Option[User], json: JsObject): Fu[JsObject] =
-    (me ?? externalEngineApi.list) map { engines =>
+    (me so externalEngineApi.list) map { engines =>
       json.add("externalEngines", engines.nonEmpty.option(engines))
     }
 

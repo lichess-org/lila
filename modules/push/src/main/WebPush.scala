@@ -16,12 +16,12 @@ final private class WebPush(
 
   def apply(userId: UserId, data: => PushApi.Data): Funit =
     webSubscriptionApi.getSubscriptions(5)(userId) flatMap { subscriptions =>
-      subscriptions.toNel ?? send(data)
+      subscriptions.toNel so send(data)
     }
 
   def apply(userIds: Iterable[UserId], data: => PushApi.Data): Funit =
     webSubscriptionApi.getSubscriptions(userIds, 5) flatMap { subs =>
-      subs.toNel ?? send(data)
+      subs.toNel so send(data)
     }
 
   private def send(data: => PushApi.Data)(subscriptions: NonEmptyList[WebSubscription]): Funit =

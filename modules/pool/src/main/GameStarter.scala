@@ -18,7 +18,7 @@ final private class GameStarter(
     lila.hub.AsyncActorSequencer(maxSize = Max(32), timeout = 10 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
-    couples.nonEmpty ?? {
+    couples.nonEmpty so {
       workQueue {
         val userIds = couples.flatMap(_.userIds)
         userRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size) flatMap {
@@ -36,7 +36,7 @@ final private class GameStarter(
   ): Fu[Option[Pairing]] =
     import couple.*
     import cats.syntax.all.*
-    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? { (perf1, perf2) =>
+    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) so { (perf1, perf2) =>
       for {
         p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
         (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1

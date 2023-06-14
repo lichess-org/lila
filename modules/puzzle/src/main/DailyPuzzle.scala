@@ -49,7 +49,7 @@ final private[puzzle] class DailyPuzzle(
     }
 
   private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] =
-    def tryAgainMaybe = (tries < 7) ?? findNewBiased(tries + 1)
+    def tryAgainMaybe = (tries < 7) so findNewBiased(tries + 1)
     import PuzzleTheme.*
     findNew flatMap {
       case None => tryAgainMaybe
@@ -64,7 +64,7 @@ final private[puzzle] class DailyPuzzle(
         _.aggregateOne() { framework =>
           import framework.*
           val forbiddenThemes = List(PuzzleTheme.oneMove) :::
-            odds(2).??(List(PuzzleTheme.checkFirst))
+            odds(2).so(List(PuzzleTheme.checkFirst))
           Match(pathApi.select(PuzzleAngle.mix, PuzzleTier.top, 2150 to 2300)) -> List(
             Sample(3),
             Project($doc("ids" -> true, "_id" -> false)),
@@ -96,7 +96,7 @@ final private[puzzle] class DailyPuzzle(
         }
       }
       .flatMap { docOpt =>
-        docOpt.flatMap(puzzleReader.readOpt) ?? { puzzle =>
+        docOpt.flatMap(puzzleReader.readOpt) so { puzzle =>
           colls.puzzle {
             _.updateField($id(puzzle.id), F.day, nowInstant)
           } inject puzzle.some

@@ -13,7 +13,7 @@ final class Moretimer(
   // pov of the player giving more time
   def apply(pov: Pov, duration: FiniteDuration): Fu[Option[Progress]] =
     IfAllowed(pov.game) {
-      (pov.game moretimeable !pov.color) ?? {
+      (pov.game moretimeable !pov.color).so:
         if (pov.game.hasClock) give(pov.game, List(!pov.color), duration).some
         else
           pov.game.hasCorrespondenceClock option {
@@ -21,11 +21,10 @@ final class Moretimer(
             val p = pov.game.correspondenceGiveTime
             p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
           }
-      }
     }
 
   def isAllowedIn(game: Game): Fu[Boolean] =
-    (game.canTakebackOrAddTime && game.playable && !game.metadata.hasRule(_.NoGiveTime)) ??
+    (game.canTakebackOrAddTime && game.playable && !game.metadata.hasRule(_.NoGiveTime)) so
       isAllowedByPrefs(game)
 
   private[round] def give(game: Game, colors: List[Color], duration: FiniteDuration): Progress =

@@ -175,7 +175,7 @@ object replay:
                   if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
                   else
                     postForm(
-                      cls    := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
+                      cls    := s"future-game-analysis${ctx.isAnon so " must-login"}",
                       action := routes.Analyse.requestAnalysis(gameId)
                     )(
                       submitButton(cls := "button text")(

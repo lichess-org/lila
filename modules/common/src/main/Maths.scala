@@ -27,7 +27,7 @@ object Maths:
     }
 
   def weightedMean(a: Iterable[(Double, Double)]): Option[Double] =
-    a.nonEmpty ?? {
+    a.nonEmpty so {
       a.foldLeft(0d -> 0d) { case ((av, aw), (v, w)) => (av + v * w, aw + w) } match
         case (v, w) => w != 0 option v / w
     }

@@ -134,7 +134,7 @@ final class IrwinApi(
         .flatMap(analysisRepo.associateToGames)
 
     private def getMoreGames(suspect: Suspect, nb: Int): Fu[List[Game]] =
-      (nb > 0) ??
+      (nb > 0) so
         gameRepo.coll
           .find(baseQuery(suspect) ++ Query.analysed(false))
           .sort(Query.sortCreated)
@@ -149,7 +149,7 @@ final class IrwinApi(
       subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
 
     private[IrwinApi] def apply(report: IrwinReport): Funit =
-      subs.get(report.suspectId) ?? { modIds =>
+      subs.get(report.suspectId) so { modIds =>
         subs = subs - report.suspectId
         modIds
           .map { modId =>
