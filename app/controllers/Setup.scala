@@ -241,7 +241,7 @@ final class Setup(
             jsonFormError,
             config =>
               processor.apiAi(config, me) map { pov =>
-                Created(env.game.jsonView.base(pov.game, config.fen)) as JSON
+                Created(env.game.jsonView.baseWithChessDenorm(pov.game, config.fen)) as JSON
               }
           )
   }
