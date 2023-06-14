@@ -20,6 +20,7 @@ import alleycats.Zero
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import scala.collection.Factory
+import scala.language.implicitConversions
 
 trait dsl:
 
@@ -175,75 +176,9 @@ trait dsl:
     *  "age" $gte 50 $lte 60
     * }}}
     */
-  case class CompositeExpression(field: String, value: Bdoc)
-      extends Expression[Bdoc]
-      with ComparisonOperators:
+  case class CompositeExpression(field: String, value: Bdoc) extends Expression[Bdoc]:
     override def append(value: Bdoc): Bdoc =
       this.value ++ value
-
-  /** MongoDB comparison operators. */
-  trait ComparisonOperators { self: ElementBuilder =>
-
-    def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] =
-      SimpleExpression(field, summon[BSONWriter[T]].writeTry(value).get)
-
-    /** Matches values that are greater than the value specified in the query. */
-    def $gt[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, append($doc("$gt" -> value)))
-
-    /** Matches values that are greater than or equal to the value specified in the query. */
-    def $gte[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, append($doc("$gte" -> value)))
-
-    /** Matches any of the values that exist in an array specified in the query. */
-    def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$in" -> values))
-
-    /** Matches values that are less than the value specified in the query. */
-    def $lt[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, append($doc("$lt" -> value)))
-
-    /** Matches values that are less than or equal to the value specified in the query. */
-    def $lte[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, append($doc("$lte" -> value)))
-
-    def $inRange(range: Range): CompositeExpression =
-      CompositeExpression(field, append($doc("$gte" -> range.min, "$lte" -> range.max)))
-
-    /** Matches all values that are not equal to the value specified in the query. */
-    def $ne[T: BSONWriter](value: T): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$ne" -> value))
-
-    /** Matches values that do not exist in an array specified to the query. */
-    def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$nin" -> values))
-
-  }
-
-  trait ElementOperators { self: ElementBuilder =>
-    def $exists(v: Boolean): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$exists" -> v))
-  }
-
-  trait EvaluationOperators { self: ElementBuilder =>
-    def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
-
-    def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
-      SimpleExpression(field, BSONRegex(value, options))
-
-    def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
-      $regex(s"^$value", options)
-  }
-
-  trait ArrayOperators { self: ElementBuilder =>
-    def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$all" -> values))
-
-    def $elemMatch(query: ElementProducer*): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$elemMatch" -> $doc(query*)))
-
-    def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
-  }
 
   object $sort:
 
@@ -291,14 +226,62 @@ trait dsl:
     def pipeline(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       pipeline(from.name.value, as, local, foreign, pipe)
 
-  implicit class ElementBuilderLike(val field: String)
-      extends ElementBuilder
-      with ComparisonOperators
-      with ElementOperators
-      with EvaluationOperators
-      with ArrayOperators
+  extension (field: String)
+    def append(value: Bdoc): Bdoc = value
 
-  import scala.language.implicitConversions
+    def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] =
+      SimpleExpression(field, summon[BSONWriter[T]].writeTry(value).get)
+
+    /** Matches values that are greater than the value specified in the query. */
+    def $gt[T: BSONWriter](value: T): CompositeExpression =
+      CompositeExpression(field, append($doc("$gt" -> value)))
+
+    /** Matches values that are greater than or equal to the value specified in the query. */
+    def $gte[T: BSONWriter](value: T): CompositeExpression =
+      CompositeExpression(field, append($doc("$gte" -> value)))
+
+    /** Matches any of the values that exist in an array specified in the query. */
+    def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$in" -> values))
+
+    /** Matches values that are less than the value specified in the query. */
+    def $lt[T: BSONWriter](value: T): CompositeExpression =
+      CompositeExpression(field, append($doc("$lt" -> value)))
+
+    /** Matches values that are less than or equal to the value specified in the query. */
+    def $lte[T: BSONWriter](value: T): CompositeExpression =
+      CompositeExpression(field, append($doc("$lte" -> value)))
+
+    def $inRange(range: Range): CompositeExpression =
+      CompositeExpression(field, append($doc("$gte" -> range.min, "$lte" -> range.max)))
+
+    /** Matches all values that are not equal to the value specified in the query. */
+    def $ne[T: BSONWriter](value: T): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$ne" -> value))
+
+    /** Matches values that do not exist in an array specified to the query. */
+    def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$nin" -> values))
+
+    def $exists(v: Boolean): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$exists" -> v))
+
+    def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
+
+    def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
+      SimpleExpression(field, BSONRegex(value, options))
+
+    def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
+      $regex(s"^$value", options)
+
+    def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$all" -> values))
+
+    def $elemMatch(query: ElementProducer*): SimpleExpression[Bdoc] =
+      SimpleExpression(field, $doc("$elemMatch" -> $doc(query*)))
+
+    def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
+
   given toBSONDocument[V](using BSONWriter[V]): Conversion[Expression[V], Bdoc] =
     expression => $doc(expression.field -> expression.value)
 
