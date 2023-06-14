@@ -187,7 +187,7 @@ final class AccessTokenApi(
     val id = AccessToken.Id from bearer
     coll.delete.one($id(id)) >>- onRevoke(id)
 
-  def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
+  private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 
   def test(bearers: List[Bearer]): Fu[Map[Bearer, Option[AccessToken]]] =
     coll
@@ -203,8 +203,7 @@ final class AccessTokenApi(
 
   private val accessTokenCache =
     cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token"):
-      _.expireAfterWrite(5 minutes)
-        .buildAsyncFuture(fetchAccessToken)
+      _.expireAfterWrite(5 minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     coll.findAndUpdateSimplified[AccessToken.ForAuth](

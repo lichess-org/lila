@@ -1,29 +1,33 @@
 package lila.oauth
 
+import com.softwaremill.tagging.*
 import play.api.mvc.{ RequestHeader, Result }
+import com.roundeights.hasher.Algo
 
 import lila.common.{ Bearer, HTTPRequest, Strings }
 import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
+import lila.common.config.Secret
 
 final class OAuthServer(
     tokenApi: AccessTokenApi,
     userRepo: UserRepo,
-    originBlocklist: SettingStore[Strings]
+    originBlocklist: SettingStore[Strings] @@ OriginBlocklist,
+    mobileSecret: Secret @@ MobileSecret
 )(using Executor):
 
   import OAuthServer.*
 
-  def auth(req: RequestHeader, scopes: OAuthScopes): Fu[AuthResult] =
+  def auth(req: RequestHeader, required: OAuthScopes): Fu[AuthResult] =
     HTTPRequest.bearer(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
-      auth(_, scopes, req.some)
+      auth(_, required, req.some)
     } recover { case e: AuthError =>
       Left(e)
     }
 
-  def auth(tokenId: Bearer, scopes: OAuthScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
-    tokenApi.get(tokenId) orFailWith NoSuchToken flatMap {
-      case at if scopes.value.nonEmpty && !scopes.intersects(at.scopes) =>
+  def auth(tokenId: Bearer, required: OAuthScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
+    getAndCleanToken(tokenId) orFailWith NoSuchToken flatMap {
+      case at if !required.isEmpty && !required.intersects(at.scopes) =>
         fufail(MissingScope(at.scopes))
       case at =>
         userRepo enabledById at.userId flatMap {
@@ -57,6 +61,18 @@ final class OAuthServer(
     user2  <- auth2
     result <- if (user1.user is user2.user) Left(OneUserWithTwoTokens) else Right(user1.user -> user2.user)
   yield result
+
+  private val bearerSigner = Algo hmac mobileSecret.value
+  private def getAndCleanToken(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
+    val (bearer, mobileReady) = full.value.split(':') match
+      case Array(bearer, signed) if bearerSigner.sha1(bearer) hash_= signed => (Bearer(bearer), true)
+      case _                                                                => (full, false)
+    tokenApi
+      .get(full)
+      .mapz: token =>
+        token
+          .copy(scopes = token.scopes.map(_.filter(_ != OAuthScope.Web.Mobile || mobileReady)))
+          .some
 
 object OAuthServer:
 
