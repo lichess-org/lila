@@ -74,10 +74,10 @@ object UblogPost:
     if (s.isEmpty) "-" else s
 
   object thumbnail:
-    sealed abstract class Size(val width: Int):
+    enum Size(val width: Int):
       def height = width * 10 / 16
-    case object Large extends Size(880)
-    case object Small extends Size(400)
+      case Large extends Size(880)
+      case Small extends Size(400)
     type SizeSelector = thumbnail.type => Size
 
     def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =

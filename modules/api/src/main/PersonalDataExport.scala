@@ -182,7 +182,7 @@ final class PersonalDataExport(
               "title"  -> post.title,
               "intro"  -> post.intro,
               "body"   -> post.markdown,
-              "image"  -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
+              "image"  -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Size.Large)),
               "topics" -> post.topics.mkString(", ")
             ).map: (k, v) =>
               s"$k: $v"

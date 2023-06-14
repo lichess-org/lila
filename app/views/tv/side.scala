@@ -13,8 +13,8 @@ object side:
       champions: lila.tv.Tv.Champions,
       baseUrl: String
   ): Frag =
-    div(cls := "tv-channels subnav")(
-      lila.tv.Tv.Channel.all.map { c =>
+    div(cls := "tv-channels subnav"):
+      lila.tv.Tv.Channel.list.map: c =>
         a(
           href := s"$baseUrl/${c.key}",
           cls := List(
@@ -22,8 +22,8 @@ object side:
             c.key        -> true,
             "active"     -> (c == channel)
           )
-        )(
-          span(dataIcon := c.icon)(
+        ):
+          span(dataIcon := c.icon):
             span(
               strong(c.name),
               span(cls := "champion")(
@@ -38,10 +38,6 @@ object side:
                 }
               )
             )
-          )
-        )
-      }
-    )
 
   private val separator = " • "
 

@@ -21,7 +21,7 @@ final private[tv] class TvSyncActor(
 
   Bus.subscribe(this, "startGame")
 
-  private val channelTroupers: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.all.map { c =>
+  private val channelTroupers: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.values.map { c =>
     c -> ChannelSyncActor(
       c,
       onSelect = this.!,

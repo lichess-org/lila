@@ -31,7 +31,7 @@ object post:
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
-          image = post.image.isDefined option thumbnail.url(post, _.Large),
+          image = post.image.isDefined option thumbnail.url(post, _.Size.Large),
           title = post.title,
           url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
           description = post.intro
@@ -49,7 +49,7 @@ object post:
         div(cls := "page-menu__content box box-pad ublog-post")(
           post.image.map { image =>
             frag(
-              thumbnail(post, _.Large)(cls := "ublog-post__image"),
+              thumbnail(post, _.Size.Large)(cls := "ublog-post__image"),
               image.credit.map { p(cls := "ublog-post__image-credit")(_) }
             )
           },
@@ -184,7 +184,7 @@ object post:
       showIntro: Boolean = true
   )(using WebContext) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
-      thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
+      thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
         showIntro option span(cls := "ublog-post-card__intro")(shorten(post.intro, 100)),
@@ -195,7 +195,7 @@ object post:
 
   def miniCard(post: UblogPost.BasePost) =
     span(cls := "ublog-post-card ublog-post-card--mini")(
-      thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
+      thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
       h3(cls := "ublog-post-card__title")(post.title)
     )
 
@@ -205,14 +205,13 @@ object post:
 
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
-  private[ublog] def newPostLink(using ctx: WebContext) = ctx.me map { u =>
+  private[ublog] def newPostLink(using ctx: WebContext) = ctx.me.map: u =>
     a(
       href     := routes.Ublog.form(u.username),
       cls      := "button button-green",
       dataIcon := licon.PlusButton,
       title    := trans.ublog.newPost.txt()
     )
-  }
 
   object thumbnail:
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =

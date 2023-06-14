@@ -33,11 +33,10 @@ case class UserInfo(
 
 object UserInfo:
 
-  sealed abstract class Angle(val key: String)
-  object Angle:
-    case object Activity                          extends Angle("activity")
-    case class Games(searchForm: Option[Form[?]]) extends Angle("games")
-    case object Other                             extends Angle("other")
+  enum Angle(val key: String):
+    case Activity                           extends Angle("activity")
+    case Games(searchForm: Option[Form[?]]) extends Angle("games")
+    case Other                              extends Angle("other")
 
   case class Social(
       relation: Option[lila.relation.Relation],
@@ -69,9 +68,8 @@ object UserInfo:
 
     def fetchNotes(u: User, me: User) =
       noteApi.get(u, me, Granter(_.ModNote)(me)) dmap {
-        _.filter { n =>
+        _.filter: n =>
           (!n.dox || Granter(_.Admin)(me))
-        }
       }
 
   case class NbGames(

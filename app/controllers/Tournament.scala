@@ -446,10 +446,9 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     yield html.tournament.shields(history)
 
   def categShields(k: String) = Open:
-    OptionFuOk(env.tournament.shieldApi.byCategKey(k)) { (categ, awards) =>
+    OptionFuOk(env.tournament.shieldApi.byCategKey(k)): (categ, awards) =>
       env.user.lightUserApi preloadMany awards.map(_.owner) inject
         html.tournament.shields.byCateg(categ, awards)
-    }
 
   def calendar = Open:
     api.calendar map { tours =>
@@ -457,7 +456,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
 
   def history(freq: String, page: Int) = Open:
-    lila.tournament.Schedule.Freq(freq) so { fr =>
+    lila.tournament.Schedule.Freq.byName.get(freq) so { fr =>
       api.history(fr, page) flatMap { pager =>
         env.user.lightUserApi preloadMany pager.currentPageResults.flatMap(_.winnerId) inject
           Ok(html.tournament.history(fr, pager))
@@ -465,12 +464,11 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
 
   def edit(id: TourId) = Auth { ctx ?=> me =>
-    WithEditableTournament(id, me) { tour =>
+    WithEditableTournament(id, me): tour =>
       env.team.api.lightsByLeader(me.id) map { teams =>
         val form = forms.edit(me, teams, tour)
         Ok(html.tournament.form.edit(tour, form, teams))
       }
-    }
   }
 
   def update(id: TourId) = AuthBody { ctx ?=> me =>

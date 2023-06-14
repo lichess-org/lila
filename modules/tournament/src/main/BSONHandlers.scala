@@ -18,7 +18,7 @@ object BSONHandlers:
   )
 
   private[tournament] given BSONHandler[Schedule.Freq] = tryHandler(
-    { case BSONString(v) => Schedule.Freq(v) toTry s"No such freq: $v" },
+    { case BSONString(v) => Schedule.Freq.byName.get(v) toTry s"No such freq: $v" },
     x => BSONString(x.name)
   )
 
@@ -27,12 +27,11 @@ object BSONHandlers:
     x => BSONString(x.key)
   )
 
-  given BSONWriter[Schedule] = BSONWriter(s =>
+  given BSONWriter[Schedule] = BSONWriter: s =>
     $doc(
       "freq"  -> s.freq,
       "speed" -> s.speed
     )
-  )
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
@@ -183,8 +182,8 @@ object BSONHandlers:
         score = r int "s",
         rank = r.get("r"),
         rankRatio = r.get("w"),
-        freq = r intO "f" flatMap Schedule.Freq.byId,
-        speed = r intO "p" flatMap Schedule.Speed.byId,
+        freq = r intO "f" flatMap Schedule.Freq.byId.get,
+        speed = r intO "p" flatMap Schedule.Speed.byId.get,
         perf = PerfType.byId get r.get("v") err "Invalid leaderboard perf",
         date = r date "d"
       )

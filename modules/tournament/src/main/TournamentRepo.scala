@@ -107,13 +107,15 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .dmap { new lila.db.paginator.StaticAdapter(_) }
 
   def finishedByFreqAdapter(freq: Schedule.Freq) =
-    new lila.db.paginator.Adapter[Tournament](
-      collection = coll,
-      selector = $doc("schedule.freq" -> freq, "status" -> Status.Finished.id),
-      projection = none,
-      sort = $sort desc "startsAt",
-      readPreference = ReadPreference.secondaryPreferred
-    ).withNbResults(fuccess(Int.MaxValue))
+    lila.db.paginator
+      .Adapter[Tournament](
+        collection = coll,
+        selector = $doc("schedule.freq" -> freq, "status" -> Status.Finished.id),
+        projection = none,
+        sort = $sort desc "startsAt",
+        readPreference = ReadPreference.secondaryPreferred
+      )
+      .withNbResults(fuccess(Int.MaxValue))
 
   def isUnfinished(tourId: TourId): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
@@ -343,12 +345,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   def calendar(from: Instant, to: Instant): Fu[List[Tournament]] =
     coll
-      .find(
+      .find:
         $doc(
           "startsAt" $gte from $lte to,
-          "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter)
+          "schedule.freq" $in Schedule.Freq.list.filter(_.isWeeklyOrBetter)
         )
-      )
       .sort($sort asc "startsAt")
       .cursor[Tournament](ReadPreference.secondaryPreferred)
       .list(500)

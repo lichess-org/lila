@@ -204,10 +204,10 @@ private[study] object ChapterMaker:
     def isGamebook = mode == Mode.Gamebook
     def isConceal  = mode == Mode.Conceal
 
-  sealed abstract class Orientation(val key: String, val resolve: Option[Color])
+  enum Orientation(val key: String, val resolve: Option[Color]):
+    case Fixed(color: Color) extends Orientation(color.name, color.some)
+    case Auto                extends Orientation("automatic", none)
   object Orientation:
-    case class Fixed(color: Color) extends Orientation(color.name, color.some)
-    case object Auto               extends Orientation("automatic", none)
     def apply(str: String) = Color.fromName(str).fold[Orientation](Auto)(Fixed.apply)
 
   case class Data(
