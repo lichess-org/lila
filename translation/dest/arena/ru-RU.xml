@@ -56,4 +56,5 @@
   <string name="noArenaStreaks">Без серий на Арене</string>
   <string name="averagePerformance">Средний перформанс</string>
   <string name="averageScore">Среднее количество очков</string>
+  <string name="myTournaments">Мои турниры</string>
 </resources>
