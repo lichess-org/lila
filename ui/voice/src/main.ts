@@ -53,8 +53,7 @@ export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
         if (enabled()) lichess.mic.start(!pushTalk());
       });
   });
-
-  const showHelp = propWithEffect(false, opts.redraw);
+  const showHelp = propWithEffect<boolean | 'list'>(false, opts.redraw);
 
   let keyupTimeout: number;
   document.addEventListener('keydown', (e: KeyboardEvent) => {

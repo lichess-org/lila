@@ -6,7 +6,7 @@ export interface VoiceCtrl {
   micId: (deviceId?: string) => string;
   enabled: (enabled?: boolean) => boolean;
   toggle: () => void;
-  showHelp: (v?: boolean) => boolean;
+  showHelp: (v?: boolean | 'list') => boolean | 'list';
   pushTalk: (v?: boolean) => boolean;
   showPrefs: Toggle;
   module: () => VoiceModule | undefined;
