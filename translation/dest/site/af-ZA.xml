@@ -891,8 +891,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="congratsYouWon">Baie geluk, jy het gewen!</string>
   <string name="gameVsX">Spel teen %1$s</string>
   <string name="resVsX">%1$s teen %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Iemand het jou afrigtersprofiel resenseer.</string>
-  <string name="newPendingReview">Nuwe hangende resensie</string>
   <string name="lostAgainstTOSViolator">Jy het teen iemand verloor wat nie die Lichess bepalings nagekom het nie</string>
   <string name="refundXpointsTimeControlY">Terugbetaling:%1$s %2$s graderingspunte.</string>
   <string name="timeAlmostUp">Tyd is byna op!</string>
