@@ -642,7 +642,10 @@ object Game {
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
   val blindModeVariants: Set[Variant] = Set(
-    shogi.variant.Standard
+    shogi.variant.Standard,
+    shogi.variant.Minishogi,
+    shogi.variant.Annanshogi,
+    shogi.variant.Kyotoshogi
   )
 
   def allowRated(initialSfen: Option[Sfen], clock: Option[Clock.Config], variant: Variant) =
