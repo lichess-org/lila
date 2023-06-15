@@ -33,6 +33,8 @@ case class Team(
 
 object Team {
 
+  case class Mini(id: Team.ID, name: String)
+
   val maxJoin = 100
 
   type ID = String

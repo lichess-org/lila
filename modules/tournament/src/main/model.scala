@@ -2,6 +2,9 @@ package lila.tournament
 
 import play.api.i18n.Lang
 
+import lila.hub.LightTeam.TeamID
+import lila.user.User
+
 final class LeaderboardRepo(val coll: lila.db.dsl.Coll)
 
 case class TournamentTop(value: List[Player]) extends AnyVal
@@ -25,7 +28,7 @@ case class GameView(
   def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
 }
 
-case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID]) {
+case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID], teamId: Option[TeamID]) {
   def page = {
     math.floor((rank - 1) / 10) + 1
   }.toInt
@@ -49,7 +52,7 @@ case class VisibleTournaments(
 }
 
 case class PlayerInfoExt(
-    user: lila.user.User,
+    userId: User.ID,
     player: Player,
     recentPovs: List[lila.game.LightPov]
 )

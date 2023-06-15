@@ -46,7 +46,6 @@ case class AllWinners(
 
   lazy val top: List[Winner] = List(
     List(bullet, superblitz, blitz, hyperrapid, rapid, classical).flatMap(_.top),
-    // List(elite.headOption, marathon.headOption).flatten,
     List(elite.headOption).flatten,
     WinnersApi.variants.flatMap { v =>
       variants get v.key flatMap (_.top)

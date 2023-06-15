@@ -1,7 +1,7 @@
-import { bind, onInsert } from 'common/snabbdom';
+import { MaybeVNode, bind, onInsert } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
-import { RankedTeam, TeamBattle } from '../interfaces';
+import { TeamBattle, RankedTeam } from '../interfaces';
 import { playerName } from './util';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
@@ -71,19 +71,49 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
   const battle = ctrl.data.teamBattle,
-    standing = ctrl.data.teamStanding;
+    standing = ctrl.data.teamStanding,
+    bigBattle = battle && Object.keys(battle.teams).length > 10;
   return battle && standing
     ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
-        h(
-          'tbody',
-          standing.map(rt => teamTr(ctrl, battle, rt))
-        ),
+        h('tbody', [
+          ...standing.map(rt => teamTr(ctrl, battle, rt)),
+          ...(bigBattle ? [extraTeams(ctrl), myTeam(ctrl, battle)] : []),
+        ]),
       ])
     : null;
 }
 
+function extraTeams(ctrl: TournamentController): VNode {
+  return h(
+    'tr',
+    h(
+      'td.more-teams',
+      {
+        attrs: { colspan: 4 },
+      },
+      h(
+        'a',
+        {
+          attrs: {
+            href: `/tournament/${ctrl.data.tour.id}/teams`,
+          },
+        },
+        ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length)
+      )
+    )
+  );
+}
+
+function myTeam(ctrl: TournamentController, battle: TeamBattle): MaybeVNode {
+  const team = ctrl.data.myTeam;
+  return team && team.rank > 10 ? teamTr(ctrl, battle, team) : undefined;
+}
+
 export function teamName(battle: TeamBattle, teamId: string): VNode {
-  return h('team.ttc-' + Object.keys(battle.teams).indexOf(teamId), battle.teams[teamId]);
+  return h(
+    battle.hasMoreThanTenTeams ? 'team' : 'team.ttc-' + Object.keys(battle.teams).indexOf(teamId),
+    battle.teams[teamId]
+  );
 }
 
 function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam) {
@@ -98,11 +128,9 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
           class: { top: i === 0 },
           attrs: {
             'data-href': '/@/' + p.user.name,
-            'data-name': p.user.name,
           },
           hook: {
             destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
-            ...bind('click', _ => ctrl.jumpToPageOf(p.user.name), ctrl.redraw),
           },
         },
         [...(i === 0 ? [h('username', playerName(p.user)), ' '] : []), '' + p.score]
@@ -121,14 +149,26 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
     [
       h('td.rank', '' + team.rank),
       h('td.team', [teamName(battle, team.id)]),
-      h('td.players', players),
+      h(
+        'td.players',
+        {
+          hook: bind('click', e => {
+            const href = (e.target as HTMLElement).getAttribute('data-href');
+            if (href) {
+              ctrl.jumpToPageOf(href.slice(3));
+              ctrl.redraw;
+            }
+          }),
+        },
+        players
+      ),
       h('td.total', [h('strong', '' + team.score)]),
     ]
   );
 }
 
 /* Randomize array element order in-place. Using Durstenfeld shuffle algorithm. */
-function shuffleArray(array) {
+function shuffleArray<A>(array: A[]) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];

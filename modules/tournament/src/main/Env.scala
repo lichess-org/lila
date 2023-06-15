@@ -31,6 +31,7 @@ final class Env(
     renderer: lila.hub.actors.Renderer,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
+    roundSocket: lila.round.RoundSocket,
     lightUserApi: lila.user.LightUserApi,
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,

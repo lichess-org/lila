@@ -33,12 +33,7 @@ final private class CreatedOrganizer(
     case Tick =>
       tournamentRepo.shouldStartCursor
         .documentSource()
-        .mapAsync(1) { tour =>
-          playerRepo count tour.id flatMap {
-            case 0 => api destroy tour
-            case _ => api start tour
-          }
-        }
+        .mapAsync(1)(api.start)
         .log(getClass.getName)
         .toMat(Sink.ignore)(Keep.right)
         .run()

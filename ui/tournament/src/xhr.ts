@@ -8,7 +8,7 @@ const headers = {
 // when the tournament no longer exists
 function onFail(_1, _2, errorMessage) {
   if (errorMessage === 'Forbidden') location.href = '/';
-  else window.lishogi.reload();
+  else setTimeout(window.lishogi.reload, Math.floor(Math.random() * 9000));
 }
 
 function join(ctrl: TournamentController, password?: string, team?: string) {
@@ -61,6 +61,8 @@ function reload(ctrl: TournamentController) {
   }).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
+    const extraDelay = Math.floor(ctrl.nbWatchers / 2) * (data.me ? 1 : 3);
+    return new Promise(resolve => setTimeout(resolve, extraDelay));
   }, onFail);
 }
 

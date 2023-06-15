@@ -11,16 +11,16 @@ $team-colors: (
   9: hsl(32, 75%, 47%),
 );
 
-@each $index, $color in $team-colors {
-  team.ttc-#{$index} {
-    color: #{$color};
-  }
-}
-
 team {
   padding: 1px 5px;
   font-size: 0.8em;
   font-weight: bold;
+  color: $c-brag;
+}
+@each $index, $color in $team-colors {
+  team.ttc-#{$index} {
+    color: #{$color};
+  }
 }
 .tour__player-info team {
   margin: 1rem auto 0 auto;
@@ -35,11 +35,13 @@ team {
 }
 
 .tour__team-standing {
-  tbody tr:nth-child(odd) {
-    background: $c-bg-zebra;
-  }
-  tbody tr:nth-child(even) {
-    background: $c-bg-box;
+  tbody tr {
+    &:nth-child(odd) {
+      background: $c-bg-zebra;
+    }
+    &:nth-child(even) {
+      background: $c-bg-box;
+    }
   }
   .team {
     cursor: pointer;
@@ -47,6 +49,7 @@ team {
       color: $c-link;
     }
     team {
+      @extend %break-word;
       font-size: 1rem;
     }
   }
@@ -82,14 +85,35 @@ team {
       rgba(0, 0, 0, 0) 100%
     );
   }
-  tr:hover {
+  .tour__main & tr:hover {
     background: mix($c-primary, $c-bg-box, 30%) !important;
+  }
+  td {
+    padding: 1rem 0.5rem;
+  }
+  .more-teams {
+    padding: 0 !important;
+
+    a {
+      padding: 1rem 0;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  &--full {
+    td {
+      padding: 2rem 1rem;
+
+      &.team {
+        color: $c-brag;
+        font-weight: bold;
+      }
+    }
   }
 }
 
 .team-battle {
-  &__title {
-  }
   &__list {
     a {
       display: block;

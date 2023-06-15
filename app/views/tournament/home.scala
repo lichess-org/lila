@@ -29,7 +29,7 @@ object home {
           s"""var app=LishogiTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
               Json.obj(
                 "data" -> json,
-                "i18n" -> bits.jsI18n
+                "i18n" -> bits.scheduleJsI18n
               )
             )});
 var d=lishogi.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;"""

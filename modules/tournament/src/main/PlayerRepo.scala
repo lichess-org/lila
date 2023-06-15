@@ -56,7 +56,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   ): Fu[List[TeamBattle.RankedTeam]] = {
     import TeamBattle.{ RankedTeam, TeamLeader }
     coll
-      .aggregateList(maxDocs = 10) { framework =>
+      .aggregateList(maxDocs = TeamBattle.maxTeams) { framework =>
         import framework._
         Match(selectTour(tourId)) -> List(
           Sort(Descending("m")),
@@ -89,9 +89,9 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
                 magic <- p.int("m")
               } yield TeamLeader(id, magic)
             }
-          } yield RankedTeam(0, teamId, leaders)
-        }.sortBy(-_.magicScore).zipWithIndex map { case (rt, pos) =>
-          rt.copy(rank = pos + 1)
+          } yield new RankedTeam(0, teamId, leaders)
+        }.sorted.zipWithIndex map { case (rt, pos) =>
+          rt.updateRank(pos + 1)
         }
       } map { ranked =>
       if (ranked.sizeIs == battle.teams.size) ranked
@@ -99,7 +99,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
         ranked ::: battle.teams
           .foldLeft(List.empty[RankedTeam]) {
             case (missing, team) if !ranked.exists(_.teamId == team) =>
-              RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil) :: missing
+              new RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil) :: missing
             case (acc, _) => acc
           }
           .reverse
@@ -123,7 +123,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
                 Group(BSONNull)(
                   "nb"     -> SumAll,
                   "rating" -> AvgField("r"),
-                  "perf"   -> AvgField("e"),
+                  "perf"   -> Avg($doc("$cond" -> $arr("$e", "$e", "$r"))),
                   "score"  -> AvgField("s")
                 )
               ),

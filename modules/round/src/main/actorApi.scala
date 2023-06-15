@@ -54,7 +54,7 @@ package round {
   case class ForecastPlay(lastMove: Usi)
   case class Cheat(color: Color)
   case class HoldAlert(playerId: PlayerId, mean: Int, sd: Int, ip: IpAddress)
-  case class GoBerserk(color: Color)
+  case class GoBerserk(color: Color, promise: Promise[Boolean])
   case object NoStart
   case object TooManyPlies
 }

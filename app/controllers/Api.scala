@@ -244,7 +244,7 @@ final class Api(
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
             env.tournament.api
-              .resultStream(tour, MaxPerSecond(50), nb)
+              .resultStream(tour, MaxPerSecond(40), nb)
               .map(playerResultWrites.writes)
           }.fuccess
         }
@@ -255,7 +255,7 @@ final class Api(
     Action.async {
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
-          env.tournament.jsonView.getTeamStanding(tour) map { arr =>
+          env.tournament.jsonView.apiTeamStanding(tour) map { arr =>
             JsonOk(
               Json.obj(
                 "id"    -> tour.id,
