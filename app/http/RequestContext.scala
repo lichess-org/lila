@@ -44,9 +44,9 @@ trait RequestContext(using Executor):
   private def pageDataBuilder(hasFingerPrint: Boolean)(using ctx: UserContext): Fu[PageData] =
     val isPage = HTTPRequest isSynchronousHttp ctx.req
     val nonce  = isPage option Nonce.random
-    ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, isBlindMode))) { me =>
+    ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, isBlindMode))): me =>
       env.pref.api.getPref(me, ctx.req) zip {
-        if (isPage)
+        if isPage then
           env.user.lightUserApi preloadUser me
           val enabledId = me.enabled.yes option me.id
           enabledId.so(env.team.api.nbRequests) zip
@@ -69,7 +69,6 @@ trait RequestContext(using Executor):
           nonce = nonce
         )
       }
-    }
 
   private def isBlindMode(using ctx: UserContext) =
     ctx.req.cookies.get(env.api.config.accessibility.blindCookieName) so { c =>
@@ -77,7 +76,8 @@ trait RequestContext(using Executor):
     }
 
   // user, impersonatedBy
-  type RestoredUser = (Option[FingerPrintedUser], Option[User])
+  private type RestoredUser = (Option[FingerPrintedUser], Option[User])
+
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     env.security.api restoreUser req dmap {
       case Some(Left(AppealUser(user))) if HTTPRequest.isClosedLoginPath(req) =>

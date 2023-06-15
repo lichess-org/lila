@@ -39,14 +39,14 @@ final class User(
       currentlyPlaying(user) orElse lastPlayed(user) flatMap {
         _.fold(fuccess(Redirect(routes.User.show(username.value)))): pov =>
           ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
-            case Some(mine) => Redirect(routes.Round.player(mine.fullId)).toFuccess
+            case Some(mine) => Redirect(routes.Round.player(mine.fullId))
             case _          => roundC.watch(pov, userTv = user.some)
       }
 
   def tvExport(username: UserStr) = Anon:
     env.game.cached.lastPlayedPlayingId(username.id) orElse
       env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
-        case None         => NotFound("No ongoing game").toFuccess
+        case None         => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
       }
 
@@ -96,8 +96,8 @@ final class User(
         if filter == "search" && ctx.isAnon
         then
           negotiate(
-            html = Unauthorized(html.search.login(u.count.game)).toFuccess,
-            api = _ => Unauthorized(jsonError("Login required")).toFuccess
+            html = Unauthorized(html.search.login(u.count.game)),
+            api = _ => Unauthorized(jsonError("Login required"))
           )
         else
           negotiate(
@@ -115,9 +115,8 @@ final class User(
               _ <- env.tournament.cached.nameCache preloadMany {
                 pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
               }
-              notes <- ctx.me so { me =>
+              notes <- ctx.me.so: me =>
                 env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me.id)
-              }
               res <-
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
@@ -134,9 +133,10 @@ final class User(
           )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    if (UserModel.isGhost(username.id))
+    if UserModel.isGhost(username.id)
+    then
       negotiate(
-        html = Ok(html.site.bits.ghost).toFuccess,
+        html = Ok(html.site.bits.ghost),
         api = _ => notFoundJson("Deleted user")
       )
     else
@@ -148,10 +148,10 @@ final class User(
         case Some(u) =>
           negotiate(
             html = env.user.repo isErased u flatMap { erased =>
-              if (erased.value) notFound
-              else NotFound(html.user.show.page.disabled(u)).toFuccess
+              if erased.value then notFound
+              else NotFound(html.user.show.page.disabled(u))
             },
-            api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
+            api = _ => NotFound(jsonError("No such user, or account closed"))
           )
       }
   def showMini(username: UserStr) = Open:
@@ -282,12 +282,11 @@ final class User(
     }
 
   def topNb(nb: Int, perfKey: Perf.Key) = Open:
-    topNbUsers(nb, perfKey) flatMapz { (users, perfType) =>
+    topNbUsers(nb, perfKey).flatMapz: (users, perfType) =>
       negotiate(
-        html = (nb == 200) so Ok(html.user.top(perfType, users)).toFuccess,
-        api = _ => fuccess(topNbJson(users))
+        html = (nb == 200) so Ok(html.user.top(perfType, users)),
+        api = _ => topNbJson(users)
       )
-    }
 
   def topNbApi(nb: Int, perfKey: Perf.Key) = Anon:
     if nb == 1 && perfKey == Perf.Key("standard") then
@@ -463,7 +462,7 @@ final class User(
         err => BadRequest(err.errors.toString).toFuccess,
         data =>
           doWriteNote(username, me, data)(user =>
-            if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+            if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id).map { notes =>
               Ok(views.html.mod.inquiry.noteZone(user, notes))
             }
             else
@@ -487,7 +486,7 @@ final class User(
       .bindFromRequest()
       .fold(
         jsonFormErrorDefaultLang,
-        data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
+        data => doWriteNote(username, me, data)(_ => jsonOkResult)
       )
   }
 
@@ -557,7 +556,7 @@ final class User(
 
   def autocomplete = OpenOrScoped(): me =>
     getUserStr("term").flatMap(UserModel.validateId) match
-      case None                          => BadRequest("No search term provided").toFuccess
+      case None                          => BadRequest("No search term provided")
       case Some(id) if getBool("exists") => env.user.repo exists id map JsonOk
       case Some(term) =>
         {

@@ -188,9 +188,11 @@ final class Report(
   }
 
   def thanks = Auth { ctx ?=> me =>
-    ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>
-      env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
-        html.report.thanks(reported.id, blocked)
-      }
-    }
+    ctx.req.flash
+      .get("reported")
+      .flatMap(UserStr.read)
+      .fold(Redirect("/").toFuccess): reported =>
+        env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
+          html.report.thanks(reported.id, blocked)
+        }
   }

@@ -25,20 +25,20 @@ final class TournamentCrud(env: Env) extends LilaController(env):
         .editForm(tour)
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.tournament.crud.edit(tour, err)).toFuccess,
+          err => BadRequest(html.tournament.crud.edit(tour, err)),
           data => crud.update(tour, data) inject Redirect(routes.TournamentCrud.edit(id)).flashSuccess
         )
   }
 
   def form = Secure(_.ManageTournament) { ctx ?=> _ =>
-    Ok(html.tournament.crud.create(crud.createForm)).toFuccess
+    html.tournament.crud.create(crud.createForm)
   }
 
   def create = SecureBody(_.ManageTournament) { ctx ?=> me =>
     crud.createForm
       .bindFromRequest()
       .fold(
-        err => BadRequest(html.tournament.crud.create(err)).toFuccess,
+        err => BadRequest(html.tournament.crud.create(err)),
         data =>
           crud.create(data, me.user) map { tour =>
             Redirect {
@@ -52,5 +52,5 @@ final class TournamentCrud(env: Env) extends LilaController(env):
   def cloneT(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ =>
     OptionFuResult(crud one id): old =>
       val tour = crud clone old
-      Ok(html.tournament.crud.create(crud editForm tour)).toFuccess
+      html.tournament.crud.create(crud editForm tour)
   }

@@ -58,7 +58,7 @@ final class Dev(env: Env) extends LilaController(env):
   private val commandForm = Form(single("command" -> nonEmptyText))
 
   def cli = Secure(_.Cli) { ctx ?=> _ =>
-    Ok(html.dev.cli(commandForm, none)).toFuccess
+    html.dev.cli(commandForm, none)
   }
 
   def cliPost = SecureBody(_.Cli) { ctx ?=> me =>

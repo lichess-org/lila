@@ -33,7 +33,7 @@ final class Page(
     negotiate(
       html = OptionOk(prismicC getBookmark "variant"): (doc, resolver) =>
         views.html.site.variant.home(doc, resolver),
-      api = _ => Ok(lila.api.StaticContent.variantsJson).toFuccess
+      api = _ => Ok(lila.api.StaticContent.variantsJson)
     )
 
   def variant(key: Variant.LilaKey) = Open:

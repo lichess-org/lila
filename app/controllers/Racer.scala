@@ -15,7 +15,7 @@ final class Racer(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Racer.home)(serveHome)
 
   private def serveHome(using WebContext) = NoBot:
-    Ok(html.racer.home).toFuccess
+    html.racer.home
 
   def create =
     WithPlayerId { _ ?=> playerId =>
@@ -38,17 +38,17 @@ final class Racer(env: Env) extends LilaController(env):
   def show(id: String) =
     WithPlayerId { ctx ?=> playerId =>
       env.racer.api.get(RacerRace.Id(id)) match
-        case None => Redirect(routes.Racer.home).toFuccess
+        case None => Redirect(routes.Racer.home)
         case Some(r) =>
           val race   = r.isLobby.so(env.racer.api.join(r.id, playerId)) | r
           val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
-          Ok(html.racer.show(env.racer.json.data(race, player, ctx.pref))).noCache.toFuccess
+          Ok(html.racer.show(env.racer.json.data(race, player, ctx.pref))).noCache
     }
 
   def rematch(id: String) =
     WithPlayerId { _ ?=> playerId =>
       env.racer.api.get(RacerRace.Id(id)) match
-        case None => Redirect(routes.Racer.home).toFuccess
+        case None => Redirect(routes.Racer.home)
         case Some(race) =>
           env.racer.api.rematch(race, playerId) map { rematchId =>
             Redirect(routes.Racer.show(rematchId.value))

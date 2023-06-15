@@ -21,7 +21,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
 
   def show(slug: ForumCategId, page: Int) = Open:
     if slug == lila.forum.ForumCateg.ublogId
-    then Redirect(routes.Ublog.communityAll()).toFuccess
+    then Redirect(routes.Ublog.communityAll())
     else
       NotForKids:
         Reasonable(page, config.Max(50), notFound):

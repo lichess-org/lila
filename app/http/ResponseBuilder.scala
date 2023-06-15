@@ -27,6 +27,7 @@ trait ResponseBuilder(using Executor)
   val rateLimitedMsg             = "Too many requests. Try again later."
   val rateLimited                = Results.TooManyRequests(rateLimitedMsg)
   val rateLimitedJson            = Results.TooManyRequests(jsonError(rateLimitedMsg))
+  val rateLimitedJsonFu          = rateLimitedJson.toFuccess
   val rateLimitedFu              = rateLimited.toFuccess
   def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
 
@@ -84,7 +85,6 @@ trait ResponseBuilder(using Executor)
         env.lilaCookie
           .ensure(ctx.req):
             Unauthorized(jsonError("Login required"))
-          .toFuccess
     )
 
   private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
@@ -93,8 +93,8 @@ trait ResponseBuilder(using Executor)
     negotiate(
       html =
         if HTTPRequest.isSynchronousHttp(ctx.req)
-        then Forbidden(views.html.site.message.authFailed).toFuccess
-        else Results.Forbidden("Authorization failed").toFuccess,
+        then Forbidden(views.html.site.message.authFailed)
+        else Results.Forbidden("Authorization failed"),
       api = _ => fuccess(forbiddenJsonResult)
     )
   def authorizationFailed(req: RequestHeader): Fu[Result] =
@@ -127,4 +127,4 @@ trait ResponseBuilder(using Executor)
     "donate"  -> "/patron"
   )
   def staticRedirect(key: String): Option[Fu[Result]] =
-    movedMap get key map { MovedPermanently(_).toFuccess }
+    movedMap get key map { MovedPermanently(_) }

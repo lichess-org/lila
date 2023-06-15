@@ -52,7 +52,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def show(categId: ForumCategId, slug: String, page: Int) = Open:
     NotForKids:
-      OptionFuResult(topicApi.show(categId, slug, page, ctx.me)) { case (categ, topic, posts) =>
+      OptionFuResult(topicApi.show(categId, slug, page, ctx.me)): (categ, topic, posts) =>
         for
           unsub       <- ctx.userId so env.timeline.status(s"forum:${topic.id}")
           canRead     <- access.isGrantedRead(categ.slug)
@@ -66,13 +66,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           }
           _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
           res <-
-            if (canRead)
+            if canRead then
               Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg))
                 .withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page))
                 .toFuccess
             else notFound
         yield res
-      }
 
   def close(categId: ForumCategId, slug: String) = Auth { _ ?=> me =>
     TopicGrantModBySlug(categId, me, slug):

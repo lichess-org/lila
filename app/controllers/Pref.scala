@@ -38,7 +38,7 @@ final class Pref(env: Env) extends LilaController(env):
                 Ok(html.account.notification(form))
               }
             case None        => notFound
-            case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).toFuccess
+            case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ))
         }
 
   def formApply = AuthBody { ctx ?=> _ =>
@@ -68,7 +68,7 @@ final class Pref(env: Env) extends LilaController(env):
 
   def set(name: String) = OpenBody:
     if name == "zoom"
-    then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
+    then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString))
     else if name == "agreement" then
       ctx.me so api.agree inject {
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)

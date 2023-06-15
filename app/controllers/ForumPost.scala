@@ -20,15 +20,14 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     OpenBody:
       NotForKids:
         if text.trim.isEmpty
-        then Redirect(routes.ForumCateg.index).toFuccess
+        then Redirect(routes.ForumCateg.index)
         else
           for
             paginator <- env.forumSearch(text, page, ctx.troll)
-            posts <- paginator.mapFutureResults(post =>
+            posts <- paginator.mapFutureResults: post =>
               access.isGrantedRead(post.categ.id) map { canRead =>
                 lila.forum.PostView.WithReadPerm(post, canRead)
               }
-            )
           yield html.forum.search(text, posts)
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me =>

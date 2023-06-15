@@ -24,7 +24,7 @@ final class Irwin(env: Env) extends LilaController(env):
 
   def eventStream = Scoped() { _ ?=> me =>
     IfGranted(_.Admin):
-      noProxyBuffer(Ok.chunked(env.irwin.irwinStream())).toFuccess
+      noProxyBuffer(Ok.chunked(env.irwin.irwinStream()))
   }
 
   def kaladin = Secure(_.MarkEngine) { ctx ?=> _ =>

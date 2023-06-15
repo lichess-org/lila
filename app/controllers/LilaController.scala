@@ -266,10 +266,10 @@ abstract private[controllers] class LilaController(val env: Env)
       OAuthServer
         .responseHeaders(scopes, available):
           Forbidden(jsonError(e.message))
-        .toFuccess
     case e =>
       lila.mon.user.oauth.request(false).increment()
-      OAuthServer.responseHeaders(scopes, OAuthScopes(Nil)) { Unauthorized(jsonError(e.message)) }.toFuccess
+      OAuthServer.responseHeaders(scopes, OAuthScopes(Nil)):
+        Unauthorized(jsonError(e.message))
 
   /* Authenticated and OAuth requests requiring certain permissions */
   def SecureOrScoped(perm: Permission.Selector)(
@@ -384,14 +384,14 @@ abstract private[controllers] class LilaController(val env: Env)
     LangPage(call.url)(f)(langCode)
   def LangPage(path: String)(f: WebContext ?=> Fu[Result])(langCode: String): Action[Unit] = Open:
     if ctx.isAuth
-    then redirectWithQueryString(path).toFuccess
+    then redirectWithQueryString(path)
     else
       import I18nLangPicker.ByHref
       I18nLangPicker.byHref(langCode, ctx.req) match
         case ByHref.NotFound => notFound(using ctx)
         case ByHref.Redir(code) =>
-          redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}").toFuccess
-        case ByHref.Refused(_) => redirectWithQueryString(path).toFuccess
+          redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
+        case ByHref.Refused(_) => redirectWithQueryString(path)
         case ByHref.Found(lang) =>
           pageHit
           f(using ctx.withLang(lang))

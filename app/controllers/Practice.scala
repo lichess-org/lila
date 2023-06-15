@@ -20,7 +20,7 @@ final class Practice(
   def index = Open:
     pageHit
     api.get(ctx.me) flatMap { up =>
-      Ok(html.practice.index(up)).noCache.toFuccess
+      Ok(html.practice.index(up)).noCache
     }
 
   def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
@@ -46,7 +46,7 @@ final class Practice(
         .find(_.id == sectionId)
         .fold(notFound): section =>
           select(section).so: study =>
-            Redirect(routes.Practice.show(section.id, study.slug, study.id)).toFuccess
+            Redirect(routes.Practice.show(section.id, study.slug, study.id))
 
   private def showUserPractice(us: lila.practice.UserStudy)(using WebContext) =
     analysisJson(us) map { (analysisJson, studyJson) =>

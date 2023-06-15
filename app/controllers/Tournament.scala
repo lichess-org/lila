@@ -53,18 +53,18 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           pageHit
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson)).noCache
         },
-        api = _ => Ok(scheduleJson).toFuccess
+        api = _ => Ok(scheduleJson)
       )
     yield response
 
   def help = Open:
-    Ok(html.tournament.faq.page).toFuccess
+    html.tournament.faq.page
 
   def leaderboard = Open:
     for
       winners <- env.tournament.winners.all
       _       <- env.user.lightUserApi preloadMany winners.userIds
-    yield Ok(html.tournament.leaderboard(winners))
+    yield html.tournament.leaderboard(winners)
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: WebContext): Boolean =
     tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
@@ -106,9 +106,8 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                 myInfo = Preload[Option[MyInfo]](myInfo)
               ).map(jsonView.addReloadEndpoint(_, tour, env.tournament.lilaHttp.handles))
               chat <- loadChat(tour, json)
-              _ <- tour.teamBattle so { b =>
+              _ <- tour.teamBattle.so: b =>
                 env.team.cached.preloadSet(b.teams)
-              }
               streamers   <- streamerCache get tour.id
               shieldOwner <- env.tournament.shieldApi currentOwner tour
             yield
@@ -180,7 +179,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me =>
     NoLameOrBot:
       NoPlayban:
-        JoinLimitPerUser(me.id, rateLimitedJson.toFuccess):
+        JoinLimitPerUser(me.id, rateLimitedJsonFu):
           val data = TournamentForm.TournamentJoin(
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[TeamId]
@@ -193,10 +192,10 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.lame || me.isBot
-    then Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
+    then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
     else
       NoPlayban(me.id.some):
-        JoinLimitPerUser(me.id, rateLimitedJson.toFuccess):
+        JoinLimitPerUser(me.id, rateLimitedJsonFu):
           val data = TournamentForm.joinForm
             .bindFromRequest()
             .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
@@ -257,19 +256,18 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       me: UserModel,
       isPrivate: Boolean,
       req: RequestHeader,
-      fail: => Result
+      fail: => Fu[Result]
   )(create: => Fu[Result]): Fu[Result] =
     val cost =
-      if (isGranted(_.ManageTournament, me)) 2
-      else if (
-        me.hasTitle ||
+      if isGranted(_.ManageTournament, me) then 2
+      else if me.hasTitle ||
         env.streamer.liveStreamApi.isStreaming(me.id) ||
         me.isVerified ||
         isPrivate
-      ) 5
+      then 5
       else 20
-    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost, msg = me.username):
+    CreateLimitPerUser(me.id, fail, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail, cost = cost, msg = me.username):
         create
 
   def create = AuthBody { ctx ?=> me =>
@@ -282,7 +280,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               .create(me, teams)
               .bindFromRequest()
               .fold(
-                err => BadRequest(html.tournament.form.create(err, teams)).toFuccess,
+                err => BadRequest(html.tournament.form.create(err, teams)),
                 setup =>
                   rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)):
                     api
@@ -362,7 +360,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     cachedTour(id) flatMapz {
       case tour if tour.createdBy == me.id || isGranted(_.ManageTournament, me) =>
         api.kill(tour).inject(jsonOkResult)
-      case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
+      case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied"))
     }
   }
 
@@ -380,11 +378,11 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                 },
                 battle.nbLeaders
               )
-              Ok(html.tournament.teamBattle.edit(tour, form)).toFuccess
+              Ok(html.tournament.teamBattle.edit(tour, form))
             }
           }
         }
-      case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
+      case tour => Redirect(routes.Tournament.show(tour.id))
     }
   }
 
@@ -395,12 +393,12 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.tournament.teamBattle.edit(tour, err)).toFuccess,
+            err => BadRequest(html.tournament.teamBattle.edit(tour, err)),
             res =>
               api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
                 Redirect(routes.Tournament.show(tour.id))
           )
-      case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
+      case tour => Redirect(routes.Tournament.show(tour.id))
   }
 
   def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
@@ -426,7 +424,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                 } map { Ok(_) }
               }
           )
-      case _ => BadRequest(jsonError("Can't update that tournament.")).toFuccess
+      case _ => BadRequest(jsonError("Can't update that tournament."))
     }
   }
 
@@ -478,7 +476,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           .edit(me, teams, tour)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.tournament.form.edit(tour, err, teams)).toFuccess,
+            err => BadRequest(html.tournament.form.edit(tour, err, teams)),
             data => api.update(tour, data) inject Redirect(routes.Tournament.show(id)).flashSuccess
           )
       }
@@ -502,7 +500,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           .documentSource(getInt("max") | 100)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           .throttle(20, 1.second)
-      .toFuccess
 
   def battleTeams(id: TourId) = Open:
     cachedTour(id).flatMap:
@@ -518,7 +515,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     cachedTour(id) flatMap {
       case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)
-      case Some(t) => Redirect(routes.Tournament.show(t.id)).toFuccess
+      case Some(t) => Redirect(routes.Tournament.show(t.id))
       case _       => notFound
     }
 

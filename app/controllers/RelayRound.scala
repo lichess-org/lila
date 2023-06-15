@@ -36,17 +36,16 @@ final class RelayRound(
                 .create(trs)
                 .bindFromRequest()
                 .fold(
-                  err => BadRequest(html.relay.roundForm.create(err, tour)).toFuccess,
+                  err => BadRequest(html.relay.roundForm.create(err, tour)),
                   setup =>
                     rateLimitCreation(
                       me,
                       ctx.req,
                       Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-                    ) {
+                    ):
                       env.relay.api.create(setup, me, tour) map { round =>
                         Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
                       }
-                    }
                 )
       ,
       scoped = ctx ?=>
@@ -58,7 +57,7 @@ final class RelayRound(
                   .create(trs)
                   .bindFromRequest()
                   .fold(
-                    err => BadRequest(apiFormError(err)).toFuccess,
+                    err => BadRequest(apiFormError(err)),
                     setup =>
                       rateLimitCreation(me, ctx.req, rateLimited):
                         JsonOk:
@@ -71,9 +70,8 @@ final class RelayRound(
     )
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me =>
-    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-      Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).toFuccess
-    }
+    OptionFuResult(env.relay.api.byIdAndContributor(id, me)): rt =>
+      html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
   def update(id: RelayRoundId) =
@@ -151,11 +149,9 @@ final class RelayRound(
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
       studyC.CanView(rt.study, me) {
         apiC.GlobalConcurrencyLimitPerIP
-          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)) { source =>
+          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)): source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
-          }
-          .toFuccess
-      }(Unauthorized.toFuccess, Forbidden.toFuccess)
+      }(Unauthorized, Forbidden)
     }
   }
 
@@ -174,10 +170,9 @@ final class RelayRound(
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: WebContext): Fu[Result] =
-    OptionFuResult(env.relay.api byIdWithTour id) { rt =>
-      if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).toFuccess
+    OptionFuResult(env.relay.api byIdWithTour id): rt =>
+      if !ctx.req.path.startsWith(rt.path) then Redirect(rt.path)
       else f(rt)
-    }
 
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
