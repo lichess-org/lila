@@ -273,7 +273,7 @@ object layout {
           favicons,
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
-          openGraph.map(_.frags),
+          openGraph.map(_.frags(ctx.lang)),
           link(
             href     := routes.Blog.atom,
             `type`   := "application/atom+xml",
