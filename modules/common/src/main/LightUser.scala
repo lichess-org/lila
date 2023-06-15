@@ -22,9 +22,8 @@ object LightUser:
 
   given UserIdOf[LightUser] = _.id
 
-  given lightUserWrites: OWrites[LightUser] = OWrites { u =>
+  given lightUserWrites: OWrites[LightUser] = OWrites: u =>
     writeNoId(u) + ("id" -> JsString(u.id.value))
-  }
 
   def writeNoId(u: LightUser): JsObject =
     Json
