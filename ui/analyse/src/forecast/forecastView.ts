@@ -67,33 +67,31 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               'button.entry.text',
               {
                 attrs: dataIcon(licon.PlayTriangle),
-                on: {
-                  click: () => {
-                    let path = findCurrentPath(ctrl) || '';
-                    for (const node of nodes) {
-                      const moveId = scalachessCharPair(parseUci(node.uci)!);
+                hook: bind('click', _ => {
+                  let path = findCurrentPath(ctrl) || '';
+                  for (const node of nodes) {
+                    const moveId = scalachessCharPair(parseUci(node.uci)!);
 
-                      // this handles the case where the move isn't in the tree yet
-                      // if it is, it just returns
-                      ctrl.tree.addNode(
-                        {
-                          ply: node.ply,
-                          fen: node.fen,
-                          uci: node.uci,
-                          san: node.san,
-                          id: moveId,
-                          children: [],
-                        },
-                        path // the path before this is its parent
-                      );
+                    // this handles the case where the move isn't in the tree yet
+                    // if it is, it just returns
+                    ctrl.tree.addNode(
+                      {
+                        ply: node.ply,
+                        fen: node.fen,
+                        uci: node.uci,
+                        san: node.san,
+                        id: moveId,
+                        children: [],
+                      },
+                      path // the path before this is its parent
+                    );
 
-                      path += moveId;
-                    }
+                    path += moveId;
+                  }
 
-                    ctrl.userJump(path);
-                    ctrl.redraw();
-                  },
-                },
+                  ctrl.userJump(path);
+                  ctrl.redraw();
+                }),
               },
               [
                 h('button.del', {

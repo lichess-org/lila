@@ -1,8 +1,8 @@
 import { fixCrazySan } from 'chess';
-import { attributesModule, classModule, init, h, eventListenersModule } from 'snabbdom';
+import { attributesModule, classModule, init, h } from 'snabbdom';
 import { plyToTurn } from '../util';
 
-export const patch = init([classModule, attributesModule, eventListenersModule]);
+export const patch = init([classModule, attributesModule]);
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
