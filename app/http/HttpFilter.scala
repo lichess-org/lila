@@ -26,7 +26,10 @@ final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
       redirectWrongDomain(req) map fuccess getOrElse {
         nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
           monitoring(req, startTime, result)
-          if lila.common.HTTPRequest.UaMatcherRegex(env.credentiallessUaRegex.get())(req) then
+          if HTTPRequest.actionName(req) != "Plan.index" && lila.common.HTTPRequest.UaMatcherRegex(
+              env.credentiallessUaRegex.get()
+            )(req)
+          then
             result.withHeaders(
               "Cross-Origin-Opener-Policy"   -> "same-origin",
               "Cross-Origin-Embedder-Policy" -> "credentialless"
