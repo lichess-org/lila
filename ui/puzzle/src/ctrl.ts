@@ -93,7 +93,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       },
       chessground: cg,
       sendMove: playUserMove,
-      auxMove: playUserMove,
+      auxMove: auxMove,
       redraw: this.redraw,
       flipNow: flip,
       userJumpPlyDelta,
@@ -196,6 +196,18 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function showGround(g: CgApi): void {
     g.set(makeCgOpts());
+  }
+
+  function auxMove(orig: Key, dest: Key, role?: Role) {
+    withGround(g => {
+      if (!role) {
+        g.move(orig, dest);
+        g.state.movable.dests = undefined;
+        g.state.turnColor = opposite(g.state.turnColor);
+        if (promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.promotionHook() })) return;
+      }
+      playUserMove(orig, dest, role);
+    });
   }
 
   function userMove(orig: Key, dest: Key): void {
