@@ -4,7 +4,7 @@ package swiss
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -25,7 +25,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],
       isLocalMod: Boolean
-  )(implicit ctx: Context): Frag =
+  )(using ctx: WebContext): Frag =
     val isDirector       = ctx.userId.has(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
@@ -46,7 +46,8 @@ object show:
                     timeout = c.timeout,
                     public = true,
                     resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
-                    localMod = isLocalMod
+                    localMod = isLocalMod,
+                    writeable = !c.locked
                   )
                 },
                 "showRatings" -> ctx.pref.showRatings
@@ -80,7 +81,7 @@ object show:
       )
     )
 
-  def round(s: Swiss, r: SwissRoundNumber, pairings: Paginator[SwissPairing])(implicit ctx: Context) =
+  def round(s: Swiss, r: SwissRoundNumber, pairings: Paginator[SwissPairing])(using WebContext) =
     views.html.base.layout(
       title = s"${fullName(s)} • Round $r/${s.round}",
       moreCss = cssTag("swiss.show")

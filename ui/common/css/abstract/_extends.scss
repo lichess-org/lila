@@ -93,6 +93,14 @@
   font-weight: bold;
 }
 
+%active-primary {
+  @extend %active-inset-shadow;
+
+  background: $c-primary;
+  color: #fff;
+  text-shadow: 0 1px 1px black !important;
+}
+
 %dropdown-shadow {
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }

@@ -8,7 +8,7 @@ enum Source(val id: Int):
   case Friend     extends Source(id = 2)
   case Ai         extends Source(id = 3)
   case Api        extends Source(id = 4)
-  case Tournament extends Source(id = 5)
+  case Arena      extends Source(id = 5)
   case Position   extends Source(id = 6)
   case Import     extends Source(id = 7)
   case ImportLive extends Source(id = 9)
@@ -21,7 +21,7 @@ object Source:
 
   val byId = values.mapBy(_.id)
 
-  val searchable = List(Lobby, Friend, Ai, Position, Import, Tournament, Simul, Pool, Swiss)
-  val expirable  = Set(Lobby, Tournament, Pool, Swiss)
+  val searchable = List(Lobby, Friend, Ai, Position, Import, Arena, Simul, Pool, Swiss)
+  val expirable  = Set(Lobby, Arena, Pool, Swiss)
 
   def apply(id: Int): Option[Source] = byId get id

@@ -2,7 +2,7 @@ import { h, VNode, VNodes } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import CoordinateTrainerCtrl from './ctrl';
 import { ColorChoice, TimeControl, Mode } from './interfaces';
-import { toggle } from 'common/toggle';
+import { toggle } from 'common/controls';
 
 const colors: [ColorChoice, string][] = [
   ['black', 'asBlack'],
@@ -109,6 +109,11 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               change: e => {
                 const target = e.target as HTMLInputElement;
                 ctrl.mode(target.value as Mode);
+                if (target.value === 'nameSquare') {
+                  if (ctrl.voice.enabled()) lichess.mic.start();
+                } else {
+                  lichess.mic.stop();
+                }
               },
               keyup: ctrl.onRadioInputKeyUp,
             },

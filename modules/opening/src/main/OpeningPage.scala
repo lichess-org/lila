@@ -1,5 +1,6 @@
 package lila.opening
 
+import cats.syntax.all.*
 import chess.format.pgn.{ Pgn, SanStr }
 import chess.format.{ Fen, OpeningFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
@@ -14,20 +15,19 @@ case class OpeningPage(
   export query.{ closestOpening, exactOpening, name, openingAndExtraMoves }
 
   def nameParts: NamePart.NamePartList = openingAndExtraMoves match
-    case (op, moves) => (op ?? NamePart.from) ::: NamePart.from(moves)
+    case (op, moves) => (op so NamePart.from) ::: NamePart.from(moves)
 
 case object NamePart:
   type NamePartList = List[Either[SanStr, (NameSection, Option[OpeningKey])]]
   def from(op: Opening): NamePartList =
     val sections = NameSection.sectionsOf(op.name)
-    sections.toList.zipWithIndex map { case (name, i) =>
+    sections.toList.mapWithIndex: (name, i) =>
       Right(
         name ->
           OpeningDb.shortestLines
             .get(OpeningKey.fromName(OpeningName(sections.take(i + 1).mkString("_"))))
             .map(_.key)
       )
-    }
   def from(moves: List[SanStr]): NamePartList = moves.map(Left.apply)
 
 case class ResultCounts(

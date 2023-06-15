@@ -10,7 +10,7 @@ case class StormPuzzle(
     rating: IntRating
 ):
   // ply after "initial move" when we start solving
-  def initialPly = Fen.readPly(fen) | chess.Ply(0)
+  def initialPly = Fen.readPly(fen) | chess.Ply.initial
 
   lazy val fenAfterInitialMove: Fen.Epd = {
     for

@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import TournamentController from './ctrl';
 
@@ -6,7 +7,7 @@ export function button(ctrl: TournamentController): VNode {
   return h('button.fbt', {
     class: { active: ctrl.searching },
     attrs: {
-      'data-icon': ctrl.searching ? '' : '',
+      'data-icon': ctrl.searching ? licon.X : licon.Search,
       title: 'Search tournament players',
     },
     hook: bind('click', ctrl.toggleSearch, ctrl.redraw),

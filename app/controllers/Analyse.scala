@@ -5,7 +5,7 @@ import play.api.libs.json.JsArray
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
@@ -36,16 +36,16 @@ final class Analyse(
     }
   }
 
-  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
-    if (HTTPRequest.isCrawler(ctx.req).yes) replayBot(pov)
+  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: WebContext) =
+    if HTTPRequest.isCrawler(ctx.req).yes then replayBot(pov)
     else
       env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
         gameC.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
           (env.analyse.analyser get pov.game) zip
-            (!pov.game.metadata.analysed ?? env.fishnet.api.userAnalysisExists(pov.gameId)) zip
-            (pov.game.simulId ?? env.simul.repo.find) zip
+            (!pov.game.metadata.analysed so env.fishnet.api.userAnalysisExists(pov.gameId)) zip
+            (pov.game.simulId so env.simul.repo.find) zip
             roundC.getWatcherChat(pov.game) zip
-            (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
+            (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
             env.bookmark.api.exists(pov.game, ctx.me) zip
             env.api.pgnDump(
               pov.game,
@@ -95,107 +95,98 @@ final class Analyse(
 
   val AcceptsPgn = Accepting("application/x-chess-pgn")
 
-  def embedReplayGame(gameId: GameId, color: String) =
-    Action.async { implicit req =>
-      env.api.textLpvExpand.getPgn(gameId) map {
-        case Some(pgn) =>
-          render {
-            case AcceptsPgn() => Ok(pgn)
-            case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
-          }.enableSharedArrayBuffer
-        case _ =>
-          render {
-            case AcceptsPgn() => NotFound("*")
-            case _            => NotFound(html.analyse.embed.notFound)
-          }
-      }
-    }
-
-  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(implicit ctx: Context) =
-    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or) { atFen =>
-      val url = routes.Round.watcher(pov.gameId, pov.color.name)
-      fuccess {
-        chess.Replay
-          .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
-          .fold(
-            err => {
-              lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
-              Redirect(url)
-            },
-            ply => Redirect(s"$url#$ply")
-          )
-      }
-    }
-
-  private def replayBot(pov: Pov)(implicit ctx: Context) =
-    for {
-      initialFen <- env.game.gameRepo initialFen pov.gameId
-      analysis   <- env.analyse.analyser get pov.game
-      simul      <- pov.game.simulId ?? env.simul.repo.find
-      crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-      pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
-    } yield Ok(
-      html.analyse.replayBot(
-        pov,
-        initialFen,
-        env.analyse.annotator(pgn, pov.game, analysis).toString,
-        simul,
-        crosstable
-      )
-    )
-
-  def externalEngineList =
-    ScopedBody(_.Engine.Read) { _ => me =>
-      env.analyse.externalEngine.list(me) map { list =>
-        JsonOk(JsArray(list map lila.analyse.ExternalEngine.jsonWrites.writes))
-      }
-    }
-
-  def externalEngineShow(id: String) =
-    ScopedBody(_.Engine.Read) { _ => me =>
-      env.analyse.externalEngine.find(me, id) map {
-        _.fold(notFoundJsonSync()) { engine =>
-          JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+  def embedReplayGame(gameId: GameId, color: String) = Anon:
+    env.api.textLpvExpand.getPgn(gameId) map {
+      case Some(pgn) =>
+        render {
+          case AcceptsPgn() => Ok(pgn)
+          case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
+        }.enableSharedArrayBuffer
+      case _ =>
+        render {
+          case AcceptsPgn() => NotFound("*")
+          case _            => NotFound(html.analyse.embed.notFound)
         }
-      }
     }
 
-  def externalEngineCreate =
-    ScopedBody(_.Engine.Write) { implicit req => me =>
-      HTTPRequest.bearer(req) ?? { bearer =>
-        val tokenId = AccessToken.Id from bearer
+  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using
+      WebContext
+  ): Fu[Result] =
+    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or): atFen =>
+      val url = routes.Round.watcher(pov.gameId, pov.color.name)
+      chess.Replay
+        .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
+        .fold(
+          err =>
+            lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
+            Redirect(url)
+          ,
+          ply => Redirect(s"$url#$ply")
+        )
+
+  private def replayBot(pov: Pov)(using WebContext) = for
+    initialFen <- env.game.gameRepo initialFen pov.gameId
+    analysis   <- env.analyse.analyser get pov.game
+    simul      <- pov.game.simulId so env.simul.repo.find
+    crosstable <- env.game.crosstableApi.withMatchup(pov.game)
+    pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
+  yield Ok(
+    html.analyse.replayBot(
+      pov,
+      initialFen,
+      env.analyse.annotator(pgn, pov.game, analysis).toString,
+      simul,
+      crosstable
+    )
+  )
+
+  def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me =>
+    env.analyse.externalEngine.list(me) map { list =>
+      JsonOk(JsArray(list map lila.analyse.ExternalEngine.jsonWrites.writes))
+    }
+  }
+
+  def externalEngineShow(id: String) = ScopedBody(_.Engine.Read) { _ ?=> me =>
+    env.analyse.externalEngine.find(me, id) map {
+      _.fold(notFoundJsonSync()) { engine =>
+        JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+      }
+    }
+  }
+
+  def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me =>
+    HTTPRequest.bearer(ctx.req) so { bearer =>
+      val tokenId = AccessToken.Id from bearer
+      lila.analyse.ExternalEngine.form
+        .bindFromRequest()
+        .fold(
+          err => newJsonFormError(err),
+          data =>
+            env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
+              Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+            }
+        )
+    }
+  }
+
+  def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me =>
+    env.analyse.externalEngine.find(me, id) flatMap {
+      _.fold(notFoundJson()) { engine =>
         lila.analyse.ExternalEngine.form
           .bindFromRequest()
           .fold(
-            err => newJsonFormError(err)(using me.realLang | reqLang),
+            err => newJsonFormError(err),
             data =>
-              env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
-                Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+              env.analyse.externalEngine.update(engine, data) map { engine =>
+                JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
               }
           )
       }
     }
+  }
 
-  def externalEngineUpdate(id: String) =
-    ScopedBody(_.Engine.Write) { implicit req => me =>
-      env.analyse.externalEngine.find(me, id) flatMap {
-        _.fold(notFoundJson()) { engine =>
-          lila.analyse.ExternalEngine.form
-            .bindFromRequest()
-            .fold(
-              err => newJsonFormError(err)(using me.realLang | reqLang),
-              data =>
-                env.analyse.externalEngine.update(engine, data) map { engine =>
-                  JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-                }
-            )
-        }
-      }
+  def externalEngineDelete(id: String) = ScopedBody(_.Engine.Write) { _ ?=> me =>
+    env.analyse.externalEngine.delete(me, id) map {
+      if _ then jsonOkResult else notFoundJsonSync()
     }
-
-  def externalEngineDelete(id: String) =
-    ScopedBody(_.Engine.Write) { _ => me =>
-      env.analyse.externalEngine.delete(me, id) map { res =>
-        if (res) jsonOkResult else notFoundJsonSync()
-      }
-    }
+  }

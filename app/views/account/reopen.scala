@@ -1,7 +1,7 @@
 package views.html
 package account
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -10,7 +10,7 @@ import controllers.routes
 object reopen:
 
   def form(form: lila.security.HcaptchaForm[?], error: Option[String] = None)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     views.html.base.layout(
       title = trans.reopenYourAccount.txt(),
@@ -39,12 +39,12 @@ object reopen:
       )
     }
 
-  def sent(implicit ctx: Context) =
+  def sent(using WebContext) =
     views.html.base.layout(
       title = trans.reopenYourAccount.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := ""))(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark))(trans.checkYourEmail()),
         p(trans.sentEmailWithLink()),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

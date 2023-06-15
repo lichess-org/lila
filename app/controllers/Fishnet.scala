@@ -25,7 +25,7 @@ final class Fishnet(env: Env) extends LilaController(env):
     ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
       import lila.fishnet.FishnetApi.*
       def onComplete =
-        if (stop) fuccess(Left(NoContent))
+        if stop then fuccess(Left(NoContent))
         else api.acquire(client, slow) map Right.apply
       api
         .postAnalysis(Work.Id(workId), client, data)
@@ -38,7 +38,7 @@ final class Fishnet(env: Env) extends LilaController(env):
           },
           {
             case PostAnalysisResult.Complete(analysis) =>
-              env.round.proxyRepo.updateIfPresent(GameId(analysis.id))(_.setAnalysed)
+              env.round.proxyRepo.updateIfPresent(analysis.id into GameId)(_.setAnalysed)
               onComplete
             case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
             case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
@@ -51,32 +51,29 @@ final class Fishnet(env: Env) extends LilaController(env):
       api.abort(Work.Id(workId), client) inject Right(none)
     }
 
-  def keyExists(key: String) =
-    Action.async { _ =>
-      api keyExists lila.fishnet.Client.Key(key) map {
-        case true  => Ok
-        case false => NotFound
-      }
+  def keyExists(key: String) = Anon:
+    api keyExists lila.fishnet.Client.Key(key) map {
+      if _ then Ok
+      else NotFound
     }
 
-  val status = Action.async {
+  val status = Anon:
     api.status map { JsonStrOk(_) }
-  }
 
   private def ClientAction[A <: JsonApi.Request](
       f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]]
   )(using Reads[A]) =
-    Action.async(parse.tolerantJson) { req =>
-      req.body
+    AnonBodyOf(parse.tolerantJson): body =>
+      body
         .validate[A]
         .fold(
-          err => {
-            logger.warn(s"Malformed request: $err\n${req.body}")
-            BadRequest(jsonError(JsError toJson err)).toFuccess
-          },
+          err =>
+            logger.warn(s"Malformed request: $err\n${body}")
+            BadRequest(jsonError(JsError toJson err))
+          ,
           data =>
             api.authenticateClient(data, req.ipAddress) flatMap {
-              case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).toFuccess
+              case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
               case Success(client) =>
                 f(data)(client).map {
                   case Right(Some(work)) => Accepted(Json toJson work)
@@ -85,4 +82,3 @@ final class Fishnet(env: Env) extends LilaController(env):
                 }
             }
         )
-    }

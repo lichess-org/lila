@@ -309,7 +309,6 @@ object mon:
   object tv:
     object streamer:
       def present(n: String) = gauge("tv.streamer.present").withTag("name", n)
-      def youTube            = future("tv.streamer.youtube")
       def twitch             = future("tv.streamer.twitch")
   object playTime:
     val create         = future("playTime.create.time")
@@ -603,7 +602,6 @@ object mon:
   object api:
     val userGames = counter("api.cost").withTag("endpoint", "userGames")
     val users     = counter("api.cost").withTag("endpoint", "users")
-    val game      = counter("api.cost").withTag("endpoint", "game")
     val activity  = counter("api.cost").withTag("endpoint", "activity")
     object challenge:
       object bulk:

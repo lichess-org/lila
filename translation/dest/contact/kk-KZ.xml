@@ -51,10 +51,13 @@
   <string name="fideMate">FIDE Шахмат Заңының §6.9 сәйкес, егер ережеге сай кез-келген жүрістермен матқа жету мүмкінкіндігі бар болса, онда ойын қорытындысы тепе-тең деп саналмайды</string>
   <string name="knightMate">Егер қарсыласта патшадан басқа тағы тас болса, оған матты жалғыз ат немесе пілмен ғана қоюға болады.</string>
   <string name="noRatingPoints">Ешбір рейтинг ұпайы қосылмады</string>
-  <string name="ratedGame">Бағаланатын ойын екенін тексеріңіз. Жай ойындар ойыншының рейтингіне әсер етпейді.</string>
-  <string name="botRatingAbuse">Кейде роботқа қарсы бағаланатын ойындарда ұпай берілмеуі мүмкін. Мысалы, ойыншы өз ұпайларын өсіру мақсатында роботты зорлап пайдаланғанда.</string>
+  <string name="ratedGame">Ойын бағалы екенін тексеріңіз. Жай ойындар ойыншының рейтингіне әсер етпейді.</string>
+  <string name="botRatingAbuse">Кейде роботқа қарсы бағалы ойындарда ұпай берілмеуі мүмкін. Мысалы, ойыншы өз ұпайларын өсіру мақсатында роботты асыра пайдаланғанда.</string>
   <string name="errorPage">Ақаулық парақшасы</string>
   <string name="reportErrorPage">Ақаулық парақшасына тап болсаңыз, осында хабарлауыңызға болады:</string>
+  <string name="wantBroadcastTournament">Мен жарысты таратқым келеді</string>
+  <string name="learnHowToMakeBroadcasts">Личестегі өз көрсетіліміңізді қалай таратуға болатынын меңгеріп алыңыз</string>
+  <string name="contactAboutOfficialBroadcasts">Сонымен қатар ресми тарату мәселесін тарату тобымен талқыласаңыз болады.</string>
   <string name="banAppeal">Шектеуге не IP шектеуге қарсылық шағымы</string>
   <string name="engineAppeal">Есептеуіш не чит қолданды</string>
   <string name="sendAppealTo">Сіз өтінішті %s жібере аласыз.</string>

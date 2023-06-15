@@ -1,5 +1,6 @@
 package lila.video
 
+import cats.syntax.all.*
 import play.api.libs.ws.StandaloneWSClient
 
 final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoApi)(using Executor):
@@ -7,9 +8,9 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
   import VideoSheet.*
 
   def fetchAll: Fu[Int] =
-    fetch flatMap { entries =>
-      lila.common.LilaFuture
-        .linear(entries) { entry =>
+    fetch.flatMap: entries =>
+      entries
+        .traverse: entry =>
           api.video
             .find(entry.youtubeId)
             .flatMap {
@@ -23,7 +24,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
                   ads = entry.ads,
                   startTime = entry.startTime
                 )
-                (video != updated) ?? {
+                (video != updated) so {
                   logger.info(s"sheet update $updated")
                   api.video.save(updated)
                 }
@@ -46,15 +47,13 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
             .recover { case e: Exception =>
               logger.warn("sheet update", e)
             }
-        }
         .map(_.size)
-        .flatMap { processed =>
-          api.video.removeNotIn(entries.map(_.youtubeId)).map { n =>
-            if (n > 0) logger.info(s"$n videos removed")
-            processed
-          }
-        }
-    }
+        .flatMap: processed =>
+          api.video
+            .removeNotIn(entries.map(_.youtubeId))
+            .map: n =>
+              if (n > 0) logger.info(s"$n videos removed")
+              processed
 
   private def fetch: Fu[List[Entry]] =
     ws.url(url).get() flatMap {

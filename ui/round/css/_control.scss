@@ -162,7 +162,8 @@
     }
   }
 
-  .analysis {
+  .analysis,
+  .board-menu-toggle {
     display: none;
 
     @include breakpoint($mq-col1) {

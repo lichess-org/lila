@@ -6,9 +6,9 @@ import play.api.data.Forms.*
 
 import chess.variant.Variant
 import chess.format.Fen
-import chess.Clock.{ LimitSeconds, IncrementSeconds }
+import chess.Clock.IncrementSeconds
 import lila.common.Form.{ given, * }
-import lila.gathering.{ Condition, GatheringClock }
+import lila.gathering.GatheringClock
 
 final class CrudForm(repo: TournamentRepo):
 

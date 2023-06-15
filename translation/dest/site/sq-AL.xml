@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' me rrumbullakim, bazuar në numrin e gjysmë-lëvizjeve deri në kapjen ose lëvizjen tjetër të pengut</string>
   <string name="noGameFound">S’u gjet lojë</string>
+  <string name="maxDepthReached">U mbërrit në thellësinë maksimum!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ndoshta të përfshihen më tepër lojëra nga menuja e parapëlqimeve?</string>
   <string name="openings">Hapje</string>
   <string name="openingExplorer">Eksplorues hapjesh</string>
   <string name="openingEndgameExplorer">Eksplorues hapjesh/mbylljesh loje</string>
   <string name="xOpeningExplorer">Eksploruesi i hapjeve %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Luaj lëvizjen e parë të eksploruesit të hapjeve/mbylljeve të lojës</string>
   <string name="winPreventedBy50MoveRule">Fitore e parandaluar nga rregulli i 50 lëvizjeve</string>
   <string name="lossSavedBy50MoveRule">Humbje e parandaluar nga rregulli i 50 lëvizjeve</string>
   <string name="winOr50MovesByPriorMistake">Fitore ose 50 lëvizje me gabim të mëparshëm</string>
@@ -150,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s lojë</item>
     <item quantity="other">%s lojëra</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Vlerësuar me %1$s për %2$s lojë</item>
+    <item quantity="other">Vlerësuar me %1$s për %2$s lojëra</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s faqerojtës</item>
@@ -282,6 +288,7 @@
   <string name="cancelRematchOffer">Anulo ofertën për lojë rishtas</string>
   <string name="viewRematch">Shihni lojën rishtas</string>
   <string name="confirmMove">Konfirmo lëvizjen</string>
+  <string name="enableConfirmationForThisGame">Aktivizo ripohim për këtë lojë</string>
   <string name="play">Luaj</string>
   <string name="inbox">Mesazhet</string>
   <string name="chatRoom">Dhomë bisedash</string>
@@ -340,8 +347,13 @@
     <item quantity="one">%s studim</item>
     <item quantity="other">%s studime</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultane</item>
+    <item quantity="other">%s simultane</item>
+  </plurals>
   <string name="viewTournament">Shihni turneun</string>
   <string name="backToTournament">Kthehu në turne</string>
+  <string name="noDrawBeforeSwissLimit">Në një turne zviceran, s’mund të dilni barazim para se të jenë luajtur 30 lëvizje.</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">Lojë e vlerësuar me ≥ %s</item>
@@ -676,6 +688,11 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyGoToStartOrEnd">shko në fillim/fund</string>
   <string name="keyShowOrHideComments">shfaq/fshih komentet</string>
   <string name="keyEnterOrExitVariation">hyr/dil nga varianti</string>
+  <string name="keyRequestComputerAnalysis">Kërkoni analizim nga kompjuteri, Mësoni nga gabimet tuaja</string>
+  <string name="keyNextLearnFromYourMistakes">Pasuesi (Mësoni nga gabimet tuaja)</string>
+  <string name="keyNextBlunder">Gafa pasuese</string>
+  <string name="keyNextMistake">Gabimi pasues</string>
+  <string name="keyNextInaccuracy">Pasaktësia pasuese</string>
   <string name="newTournament">Turne i ri</string>
   <string name="tournamentHomeTitle">Turne shahu me kontrolle kohore dhe variante të ndryshme</string>
   <string name="tournamentHomeDescription">Luani turne shahu me ritëm të shpejtë! Merrni pjesë në një turne zyrtar të planifikuar, ose krijoni tuajin. Plumb, Blic, Klasik, Shah960, Mbreti i Kodrës, Treshah dhe më tepër mundësi të gatshme, për argëtim të pafund në shah.</string>
@@ -773,6 +790,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="invalidFen">FEN e pavlefshme</string>
   <string name="custom">Vetjake</string>
   <string name="notifications">Njoftime</string>
+  <string name="notificationsX">Njoftime: %1$s</string>
   <string name="perfRatingX">Vlerësimi: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekondë për kryerjen e lëvizjes së parë</item>
@@ -867,6 +885,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="useTheReportForm">përdorni formularin e raportimeve</string>
   <string name="toRequestSupport">Për të kërkuar asistencë, %1$s</string>
   <string name="tryTheContactPage">provoni faqen e kontaktit</string>
+  <string name="makeSureToRead">Mos harroni të lexoni %1$s</string>
+  <string name="theForumEtiquette">rregullat e etiketës në forum</string>
   <string name="thisTopicIsArchived">Kjo temë është arkivuar dhe në të s’mund të përgjigjen më.</string>
   <string name="joinTheTeamXToPost">Që të postoni në këtë forum, bëhuni pjesë e %1$s</string>
   <string name="teamNamedX">Ekipi %1$s</string>
@@ -883,8 +903,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="congratsYouWon">Urime, fituat!</string>
   <string name="gameVsX">Lojë kundër %1$s</string>
   <string name="resVsX">%1$s kundër %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Dikush shqyrtoi profilin tuaj prej trajneri.</string>
-  <string name="newPendingReview">Të reja në pritje të shqyrtimit</string>
   <string name="lostAgainstTOSViolator">Humbët ndaj dikujt që shkeli Kushtet e Shërbimit të Lichess-it</string>
   <string name="refundXpointsTimeControlY">Kompensim: %1$s pikë %2$s.</string>
   <string name="timeAlmostUp">Koha gati mbaroi!</string>

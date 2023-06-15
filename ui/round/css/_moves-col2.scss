@@ -2,6 +2,12 @@
 @include breakpoint($mq-col2) {
   background: $c-bg-box;
 
+  .fbt,
+  .noop {
+    height: $buttons-height;
+    line-height: calc($buttons-height - 0.1rem);
+  }
+
   #{$moves-tag} {
     display: flex;
     flex-flow: row wrap;
@@ -76,5 +82,11 @@
   .status {
     font-style: italic;
     margin-bottom: 0.5em;
+  }
+
+  .board-menu {
+    border-radius: 0 0 $box-radius-size $box-radius-size;
+    top: $buttons-height;
+    border-top: 2px solid $c-secondary;
   }
 }

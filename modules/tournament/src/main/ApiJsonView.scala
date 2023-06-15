@@ -77,7 +77,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
       )
 
   def fullJson(tour: Tournament)(using Lang): Fu[JsObject] =
-    (tour.winnerId ?? lightUserApi.async) map { winner =>
+    (tour.winnerId so lightUserApi.async) map { winner =>
       baseJson(tour).add("winner" -> winner.map(userJson))
     }
 

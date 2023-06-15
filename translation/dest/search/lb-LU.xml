@@ -35,4 +35,5 @@
     <item quantity="one">%s Partie fonnt</item>
     <item quantity="other">%s Partien fonnt</item>
   </plurals>
+  <string name="ratingExplanation">Déi duerchschnëttlech Wäertung vun béiden Spiller</string>
 </resources>

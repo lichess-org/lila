@@ -1,7 +1,7 @@
 package views.html.clas
 
 import controllers.routes
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
@@ -15,11 +15,11 @@ object studentDashboard:
       wall: Html,
       teachers: List[User],
       students: List[Student.WithUser]
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "clas-show dashboard dashboard-student",
       div(cls := "clas-show__top")(
-        h1(dataIcon := "", cls := "text")(c.name),
+        h1(dataIcon := licon.Group, cls := "text")(c.name),
         c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc))
       ),
       c.archived map { archived =>
@@ -62,7 +62,7 @@ object studentDashboard:
       div(cls := "students")(studentList(students))
     )
 
-  def studentList(students: List[Student.WithUser])(implicit ctx: Context) =
+  def studentList(students: List[Student.WithUser])(using WebContext) =
     table(cls := "slist slist-pad sortable")(
       thead(
         tr(
@@ -74,7 +74,7 @@ object studentDashboard:
         )
       ),
       tbody(
-        students.sortBy(-_.user.seenAt.??(_.toMillis)).map { case Student.WithUser(student, user) =>
+        students.sortBy(-_.user.seenAt.so(_.toMillis)).map { case Student.WithUser(student, user) =>
           tr(
             td(
               userLink(
@@ -97,13 +97,13 @@ object studentDashboard:
       )
     )
 
-  private def challengeTd(user: lila.user.User)(implicit ctx: Context) =
+  private def challengeTd(user: lila.user.User)(using ctx: WebContext) =
     if (ctx is user) td
     else
       val online = isOnline(user.id)
       td(
         a(
-          dataIcon := "",
+          dataIcon := licon.Swords,
           cls      := List("button button-empty text" -> true, "disabled" -> !online),
           title    := trans.challenge.challengeToPlay.txt(),
           href     := online option s"${routes.Lobby.home}?user=${user.username}#friend"

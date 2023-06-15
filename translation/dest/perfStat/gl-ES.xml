@@ -10,7 +10,7 @@
   <string name="totalGames">Partidas totais</string>
   <string name="ratedGames">Partidas por puntos</string>
   <string name="tournamentGames">Partidas de torneo</string>
-  <string name="berserkedGames">Partidas Berserked</string>
+  <string name="berserkedGames">Partidas no modo Berserk</string>
   <string name="timeSpentPlaying">Tempo xogado</string>
   <string name="averageOpponent">Puntuación media dos opoñentes</string>
   <string name="victories">Vitorias</string>

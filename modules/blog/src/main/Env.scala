@@ -11,7 +11,6 @@ private class BlogConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     timelineApi: lila.timeline.EntryApi,

@@ -2,7 +2,7 @@ package views.html.study
 
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -13,7 +13,7 @@ import controllers.routes
 
 object topic:
 
-  def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(implicit ctx: Context) =
+  def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using WebContext) =
     views.html.base.layout(
       title = trans.study.topics.txt(),
       moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
@@ -21,7 +21,7 @@ object topic:
       wrapClass = "full-screen-force"
     ) {
       main(cls := "page-menu")(
-        views.html.study.list.menu("topic", Order.Mine, mine.??(_.value)),
+        views.html.study.list.menu("topic", Order.Mine, mine.so(_.value)),
         main(cls := "page-menu__content study-topics box box-pad")(
           h1(cls := "box__top")(trans.study.topics()),
           myForm.map { form =>
@@ -44,7 +44,7 @@ object topic:
       pag: Paginator[WithChaptersAndLiked],
       order: Order,
       myTopics: Option[StudyTopics]
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = topic.value,
       moreCss = cssTag("study.index"),
@@ -54,7 +54,7 @@ object topic:
       val active = s"topic:$topic"
       val url    = (o: String) => routes.Study.byTopic(topic.value, o)
       main(cls := "page-menu")(
-        views.html.study.list.menu(active, order, myTopics.??(_.value)),
+        views.html.study.list.menu(active, order, myTopics.so(_.value)),
         main(cls := "page-menu__content study-index box")(
           boxTop(
             h1(topic.value),

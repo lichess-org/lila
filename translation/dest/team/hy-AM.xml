@@ -55,4 +55,5 @@
   <string name="completedTourns">Ավարտված մրցաշարեր</string>
   <string name="declinedRequests">Մերժված հայտեր</string>
   <string name="joinLichessVariantTeam">Անդամագրվեք %s ակումբին՝ նորություններին և իրադարձություններին տեղեկացված լինելու համար</string>
+  <string name="teamPage">Թիմի էջ</string>
 </resources>

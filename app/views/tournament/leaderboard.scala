@@ -2,7 +2,7 @@ package views.html.tournament
 
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
@@ -11,7 +11,7 @@ import controllers.routes
 
 object leaderboard:
 
-  private def freqWinner(w: lila.tournament.Winner, freq: String)(implicit lang: Lang) =
+  private def freqWinner(w: lila.tournament.Winner, freq: String)(using Lang) =
     li(
       userIdLink(w.userId.some),
       a(title := w.tourName, href := routes.Tournament.show(w.tourId))(freq)
@@ -23,7 +23,7 @@ object leaderboard:
       lang: Lang
   ) =
     section(
-      h2(cls := "text", dataIcon := perfType.iconChar)(name),
+      h2(cls := "text", dataIcon := perfType.icon)(name),
       ul(
         fws.yearly.map { w =>
           freqWinner(w, "Yearly")
@@ -40,7 +40,7 @@ object leaderboard:
       )
     )
 
-  def apply(winners: lila.tournament.AllWinners)(implicit ctx: Context) =
+  def apply(winners: lila.tournament.AllWinners)(using WebContext) =
     views.html.base.layout(
       title = "Tournament leaderboard",
       moreCss = cssTag("tournament.leaderboard"),
@@ -48,7 +48,7 @@ object leaderboard:
     ) {
       def eliteWinners =
         section(
-          h2(cls := "text", dataIcon := "")("Elite Arena"),
+          h2(cls := "text", dataIcon := licon.CrownElite)("Elite Arena"),
           ul(
             winners.elite.map { w =>
               li(
@@ -61,7 +61,7 @@ object leaderboard:
 
       def marathonWinners =
         section(
-          h2(cls := "text", dataIcon := "")("Marathon"),
+          h2(cls := "text", dataIcon := licon.Globe)("Marathon"),
           ul(
             winners.marathon.map { w =>
               li(

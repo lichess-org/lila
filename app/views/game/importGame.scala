@@ -1,7 +1,7 @@
 package views.html
 package game
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import chess.format.pgn.PgnStr
@@ -10,10 +10,10 @@ import controllers.routes
 
 object importGame:
 
-  private def analyseHelp(using ctx: Context) =
+  private def analyseHelp(using ctx: WebContext) =
     ctx.isAnon option a(cls := "blue", href := routes.Auth.signup)(trans.youNeedAnAccountToDoThat())
 
-  def apply(form: play.api.data.Form[?])(using ctx: Context) =
+  def apply(form: play.api.data.Form[?])(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.importGame.txt(),
       moreCss = cssTag("importer"),
@@ -30,7 +30,7 @@ object importGame:
         h1(cls := "box__top")(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
         p(
-          a(cls := "text", dataIcon := "", href := routes.Study.allDefault(1))(
+          a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault(1))(
             trans.importGameCaveat()
           )
         ),
@@ -60,7 +60,7 @@ object importGame:
             help = Some(analyseHelp),
             disabled = ctx.isAnon
           ),
-          form3.action(form3.submit(trans.importGame(), "".some))
+          form3.action(form3.submit(trans.importGame(), licon.UploadCloud.some))
         )
       )
     }

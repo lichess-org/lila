@@ -87,21 +87,19 @@ final class UblogRank(
         $doc("topics" -> true, "likes" -> true, "lived" -> true, "language" -> true).some
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list(500) flatMap { docs =>
-      lila.common.LilaFuture.applySequentially(docs) { doc =>
-        (
-          doc.string("_id"),
-          doc.getAsOpt[List[UblogTopic]]("topics"),
-          doc.getAsOpt[UblogPost.Likes]("likes"),
-          doc.getAsOpt[UblogPost.Recorded]("lived"),
-          doc.getAsOpt[Lang]("language")
-        ).tupled ?? { case (id, topics, likes, lived, language) =>
-          colls.post
-            .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
-            .void
-        }
-      }
-    }
+      .list(500) flatMap:
+        _.traverse_ : doc =>
+          (
+            doc.string("_id"),
+            doc.getAsOpt[List[UblogTopic]]("topics"),
+            doc.getAsOpt[UblogPost.Likes]("likes"),
+            doc.getAsOpt[UblogPost.Recorded]("lived"),
+            doc.getAsOpt[Lang]("language")
+          ).tupled so { (id, topics, likes, lived, language) =>
+            colls.post
+              .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
+              .void
+          }
 
   def recomputeRankOfAllPosts: Funit =
     colls.blog
@@ -140,7 +138,7 @@ final class UblogRank(
 
         val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
 
-        val topicsBonus = if (topics.exists(t => UblogTopic.chessExists(t.value))) 0 else -24 * 5
+        val topicsBonus = if (topics.exists(UblogTopic.chessExists)) 0 else -24 * 5
 
         val langBonus = if (language.language == lila.i18n.defaultLang.language) 0 else -24 * 10
 

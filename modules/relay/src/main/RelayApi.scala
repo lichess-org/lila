@@ -254,13 +254,13 @@ final class RelayApi(
       if (round == from) fuccess(round)
       else
         roundRepo.coll.update.one($id(round.id), round).void >> {
-          (round.sync.playing != from.sync.playing) ?? sendToContributors(
+          (round.sync.playing != from.sync.playing) so sendToContributors(
             round.id,
             "relaySync",
             jsonView sync round
           )
         } >> {
-          (round.finished != from.finished) ?? denormalizeTourActive(round.tourId)
+          (round.finished != from.finished) so denormalizeTourActive(round.tourId)
         } >>- {
           round.sync.log.events.lastOption.ifTrue(round.sync.log != from.sync.log).foreach { event =>
             sendToContributors(round.id, "relayLog", Json.toJsObject(event))
@@ -271,7 +271,7 @@ final class RelayApi(
   def reset(old: RelayRound, by: User): Funit =
     WithRelay(old.id) { relay =>
       studyApi.deleteAllChapters(relay.studyId, by) >> {
-        old.hasStartedEarly ?? roundRepo.coll.update
+        old.hasStartedEarly so roundRepo.coll.update
           .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
           .void
       } >>- {

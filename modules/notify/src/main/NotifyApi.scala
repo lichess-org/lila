@@ -118,7 +118,7 @@ final class NotifyApi(
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
-    NotificationPref.Event.byKey.get(content.key) ?? { event =>
+    NotificationPref.Event.byKey.get(content.key) so { event =>
       prefs.getAllows(userIds, event) flatMap { recips =>
         pushMany(recips.filter(_.allows.push), content)
         bellMany(recips, content)

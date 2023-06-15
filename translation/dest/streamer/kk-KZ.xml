@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Личес стример парақшаңыз белгілі бір тілді көрерменге арналған. Бұл тіл стрим жасайтын платформаның тіліне негізделген. Шахмат стримді бастар бұрын лайықты тілді көрсетілім жасайтын қызметте я қолданбада орнатып алыңыз.</string>
   <string name="twitchUsername">Twitch тіркеулі атыңыз немесе URL</string>
   <string name="optionalOrEmpty">Міндетті емес. Жоқ болса, бос қалдырыңыз</string>
+  <string name="youTubeChannelId">Сіздің YouTube арнаңыздың ID</string>
   <string name="streamerName">Личестегі стример атыңыз</string>
   <plurals name="keepItShort">
     <item quantity="one">Қысқа болсын: ең көбі %s таңба</item>

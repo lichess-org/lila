@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import chess.{ Board, Color, Square }
-import lila.api.Context
+import lila.api.WebContext
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov
@@ -14,7 +14,7 @@ trait ChessgroundHelper:
   private val cgBoard     = tag("cg-board")
   val cgWrapContent       = cgContainer(cgBoard)
 
-  def chessground(board: Board, orient: Color, lastMove: List[Square] = Nil)(using ctx: Context): Frag =
+  def chessground(board: Board, orient: Color, lastMove: List[Square] = Nil)(using ctx: WebContext): Frag =
     wrap {
       cgBoard {
         raw {
@@ -22,7 +22,7 @@ trait ChessgroundHelper:
           else
             def top(p: Square)  = orient.fold(7 - p.rank.index, p.rank.index) * 12.5
             def left(p: Square) = orient.fold(p.file.index, 7 - p.file.index) * 12.5
-            val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
+            val highlights = ctx.pref.highlight so lastMove.distinct.map { pos =>
               s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
             } mkString ""
             val pieces =
@@ -37,13 +37,14 @@ trait ChessgroundHelper:
       }
     }
 
-  def chessground(pov: Pov)(using ctx: Context): Frag =
+  def chessground(pov: Pov)(using ctx: WebContext): Frag =
     chessground(
       board = pov.game.board,
       orient = pov.color,
-      lastMove = pov.game.history.lastMove.map(_.origDest) ?? { case (orig, dest) =>
-        List(orig, dest)
-      }
+      lastMove = pov.game.history.lastMove
+        .map(_.origDest)
+        .so: (orig, dest) =>
+          List(orig, dest)
     )
 
   private def wrap(content: Frag): Frag =

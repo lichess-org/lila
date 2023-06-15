@@ -106,7 +106,7 @@ object BsonHandlers:
         "c"  -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
         "i"  -> s.roundInterval.toSeconds.toInt,
         "p"  -> s.password,
-        "o"  -> s.conditions.nonEmpty.option(s.conditions),
+        "o"  -> s.conditions,
         "fp" -> s.forbiddenPairings.some.filter(_.nonEmpty),
         "mp" -> s.manualPairings.some.filter(_.nonEmpty)
       )
@@ -116,7 +116,7 @@ object BsonHandlers:
   // "featurable" mostly means that the tournament isn't over yet
   def addFeaturable(s: Swiss): Bdoc =
     bsonWriteObjTry[Swiss](s).get ++ {
-      s.isNotFinished ?? $doc(
+      s.isNotFinished so $doc(
         "featurable" -> true,
         "garbage"    -> s.unrealisticSettings.option(true)
       )

@@ -3,8 +3,8 @@ package views.html.tutor
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.api.Context
-import lila.app.templating.Environment.given
+import lila.api.WebContext
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Heapsort.topN
 import lila.tutor.TutorCompare.given
@@ -14,12 +14,12 @@ import lila.rating.PerfType
 
 object perf:
 
-  def apply(report: TutorPerfReport, user: User)(using ctx: Context) =
+  def apply(report: TutorPerfReport, user: User)(using ctx: WebContext) =
     bits.layout(menu = menu(user, report, "perf"))(
       cls := "tutor__perf box",
       boxTop(
         h1(
-          a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
+          a(href := routes.Tutor.user(user.username), dataIcon := licon.LessThan, cls := "text"),
           bits.otherUser(user),
           "Tutor: ",
           report.perf.trans
@@ -73,7 +73,7 @@ object perf:
       user: User,
       report: TutorPerfReport,
       active: String
-  )(using Context) = frag(
+  )(using WebContext) = frag(
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
       report.perf.trans
     ),

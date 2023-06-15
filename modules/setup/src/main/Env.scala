@@ -3,7 +3,6 @@ package lila.setup
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
 import lila.oauth.OAuthServer
 
 @Module

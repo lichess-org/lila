@@ -5,14 +5,14 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 object topic:
 
-  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(using Context) =
+  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(using WebContext) =
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
@@ -24,12 +24,12 @@ object topic:
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
+            a(href := routes.ForumCateg.show(categ.slug), dataIcon := licon.LessThan, cls := "text"),
             categ.name
           )
         ),
         st.section(cls := "warning")(
-          h2(dataIcon := "", cls := "text")(trans.important()),
+          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.important()),
           p(
             trans.yourQuestionMayHaveBeenAnswered(
               strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
@@ -46,8 +46,9 @@ object topic:
             )
           ),
           p(
-            "Make sure to read ",
-            strong(a(href := routes.Page.loneBookmark("forum-etiquette"))("the forum etiquette"))
+            trans.makeSureToRead(
+              strong(a(href := routes.Page.loneBookmark("forum-etiquette"))(trans.theForumEtiquette()))
+            )
           )
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
@@ -62,7 +63,7 @@ object topic:
               form3.submit(
                 frag("Create as a mod"),
                 nameValue = (form("post")("modIcon").name, "true").some,
-                icon = "".some
+                icon = licon.Agent.some
               ),
             form3.submit(trans.createTheTopic())
           )
@@ -77,7 +78,7 @@ object topic:
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
@@ -90,7 +91,7 @@ object topic:
         .OpenGraph(
           title = topic.name,
           url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
-          description = shorten(posts.currentPageResults.headOption.??(_.post.text), 152)
+          description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
         )
         .some,
       csp = defaultCsp.withInlineIconFont.withTwitter.some
@@ -105,7 +106,7 @@ object topic:
               href := topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}") { id =>
                 routes.Ublog.redirect(id).url
               },
-              dataIcon := "",
+              dataIcon := licon.LessThan,
               cls      := "text"
             ),
             topic.name
@@ -149,10 +150,10 @@ object topic:
                 cls    := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
-                button(cls := "button button-empty text on", dataIcon := "", bits.dataUnsub := "off")(
+                button(cls := "button button-empty text on", dataIcon := licon.Eye, bits.dataUnsub := "off")(
                   trans.subscribe()
                 ),
-                button(cls := "button button-empty text off", dataIcon := "", bits.dataUnsub := "on")(
+                button(cls := "button button-empty text off", dataIcon := licon.Eye, bits.dataUnsub := "on")(
                   trans.unsubscribe()
                 )
               )
@@ -181,7 +182,11 @@ object topic:
             form3.group(
               form("text"),
               trans.message(),
-              help = a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("forum-etiquette"))(
+              help = a(
+                dataIcon := licon.InfoCircle,
+                cls      := "text",
+                href     := routes.Page.loneBookmark("forum-etiquette")
+              )(
                 "Forum etiquette"
               ).some
             ) { f =>
@@ -192,9 +197,9 @@ object topic:
               a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
               (isGranted(_.PublicMod) || isGranted(_.SeeReport)) option
                 form3.submit(
-                  frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).?? { "(anonymously)" }}"),
+                  frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).so("(anonymously)")}"),
                   nameValue = (form("modIcon").name, "true").some,
-                  icon = "".some
+                  icon = licon.Agent.some
                 ),
               form3.submit(trans.reply())
             )

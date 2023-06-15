@@ -4,7 +4,7 @@ package coach
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -25,7 +25,7 @@ object index:
       countryCodes: Set[String],
       country: Option[Country]
   )(using
-      ctx: Context
+      ctx: WebContext
   ) =
     views.html.base.layout(
       title = lichessCoaches.txt(),
@@ -82,14 +82,11 @@ object index:
               views.html.base.bits.mselect(
                 "coach-sort",
                 order.name,
-                lila.coach.CoachPager.Order.all map { o =>
+                lila.coach.CoachPager.Order.list.map: o =>
                   a(
                     href := routes.Coach.search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
                     cls  := (order == o).option("current")
-                  )(
-                    o.name
-                  )
-                }
+                  )(o.name)
               )
             )
           ),

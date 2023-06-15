@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import { h, VNode } from 'snabbdom';
@@ -113,7 +114,7 @@ const soundView = (ctrl: SoundCtrl, current: Key) => (s: Sound) =>
     {
       hook: bind('click', () => ctrl.set(s[0])),
       class: { active: current === s[0] },
-      attrs: { 'data-icon': '', type: 'button' },
+      attrs: { 'data-icon': licon.Checkmark, type: 'button' },
     },
     s[1]
   );

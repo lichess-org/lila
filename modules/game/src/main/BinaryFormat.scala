@@ -1,5 +1,6 @@
 package lila.game
 
+import cats.syntax.all.*
 import chess.*
 import chess.format.Uci
 import chess.format.pgn.SanStr
@@ -57,7 +58,7 @@ object BinaryFormat:
       (i1 + i2) / 2
     } toVector
 
-    private val decodeMap: Map[Int, MT] = buckets.view.zipWithIndex.map(x => x._2 -> x._1).toMap
+    private val decodeMap: Map[Int, MT] = buckets.mapWithIndex((x, i) => i -> x).toMap
 
     def write(mts: Vector[Centis]): ByteArray = ByteArray {
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint

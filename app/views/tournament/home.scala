@@ -3,7 +3,7 @@ package views.html.tournament
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -18,7 +18,7 @@ object home:
       finished: List[Tournament],
       winners: lila.tournament.AllWinners,
       json: play.api.libs.json.JsObject
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.tournaments.txt(),
       moreCss = cssTag("tournament.home"),
@@ -60,7 +60,7 @@ object home:
           p(cls := "tour__links")(
             ctx.me map { me =>
               frag(
-                a(href := routes.UserTournament.path(me.username, "created"))("My tournaments"),
+                a(href := routes.UserTournament.path(me.username, "created"))(trans.arena.myTournaments()),
                 br
               )
             },
@@ -74,7 +74,7 @@ object home:
           div(cls := "scheduled")(
             scheduled.map { tour =>
               tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>
-                a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
+                a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIcon(tour))(
                   strong(tour.name(full = false)),
                   momentFromNow(s.at.instant)
                 )
@@ -89,7 +89,7 @@ object home:
               a(
                 href     := routes.Tournament.form,
                 cls      := "button button-green text",
-                dataIcon := ""
+                dataIcon := licon.PlusButton
               )(trans.createANewTournament())
             )
           ),

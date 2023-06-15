@@ -3,7 +3,7 @@ package views.html.team
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -28,7 +28,7 @@ object show:
       requestedModView: Boolean = false,
       log: List[Modlog] = Nil
   )(using
-      ctx: Context
+      ctx: WebContext
   ) =
     bits.layout(
       title = t.name,
@@ -36,7 +36,7 @@ object show:
         .OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = t.intro ?? { shorten(_, 152) }
+          description = t.intro so { shorten(_, 152) }
         )
         .some,
       moreJs = frag(
@@ -68,7 +68,7 @@ object show:
         }
       )(
         boxTop(
-          h1(cls := "text", dataIcon := "")(t.name),
+          h1(cls := "text", dataIcon := licon.Group)(t.name),
           div(
             if (t.disabled) span(cls := "staff")("CLOSED")
             else
@@ -88,7 +88,7 @@ object show:
                 })
               ),
               info.ledByMe option a(
-                dataIcon := "",
+                dataIcon := licon.InfoCircle,
                 href     := routes.Page.loneBookmark("team-etiquette"),
                 cls      := "text"
               )("Team Etiquette")
@@ -131,7 +131,7 @@ object show:
                 a(
                   href     := routes.Tournament.teamBattleForm(t.id),
                   cls      := "button button-empty text",
-                  dataIcon := ""
+                  dataIcon := licon.Trophy
                 )(
                   span(
                     strong(teamBattle()),
@@ -141,7 +141,7 @@ object show:
                 a(
                   href     := s"${routes.Tournament.form}?team=${t.id}",
                   cls      := "button button-empty text",
-                  dataIcon := ""
+                  dataIcon := licon.Trophy
                 )(
                   span(
                     strong(teamTournament()),
@@ -151,7 +151,7 @@ object show:
                 a(
                   href     := s"${routes.Swiss.form(t.id)}",
                   cls      := "button button-empty text",
-                  dataIcon := ""
+                  dataIcon := licon.Trophy
                 )(
                   span(
                     strong(trans.swiss.swissTournaments()),
@@ -161,7 +161,7 @@ object show:
                 a(
                   href     := routes.Team.pmAll(t.id),
                   cls      := "button button-empty text",
-                  dataIcon := ""
+                  dataIcon := licon.Envelope
                 )(
                   span(
                     strong(messageAllMembers()),
@@ -170,7 +170,7 @@ object show:
                 )
               ),
               ((t.enabled && info.ledByMe) || manageTeamEnabled) option
-                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
+                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := licon.Gear)(
                   trans.settings.settings()
                 ),
               ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !requestedModView) option a(
@@ -252,7 +252,7 @@ object show:
     }
 
   // handle special teams here
-  private def joinButton(t: Team)(implicit ctx: Context) =
+  private def joinButton(t: Team)(using WebContext) =
     t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
       case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
@@ -261,10 +261,10 @@ object show:
           submitButton(cls := "button button-green")(joinTeam())
         )
 
-  private def joinAt(url: String)(implicit ctx: Context) =
+  private def joinAt(url: String)(using WebContext) =
     a(cls := "button button-green", href := url)(joinTeam())
 
-  private def renderLog(entries: List[Modlog])(implicit ctx: Context) = div(cls := "team-show__log")(
+  private def renderLog(entries: List[Modlog])(using WebContext) = div(cls := "team-show__log")(
     h2("Mod log"),
     ul(
       entries.map { e =>

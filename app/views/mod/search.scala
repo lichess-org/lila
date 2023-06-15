@@ -4,7 +4,7 @@ import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
@@ -19,7 +19,7 @@ object search:
   private val email = tag("email")
   private val mark  = tag("marked")
 
-  def apply(mod: Holder, form: Form[?], users: List[User.WithEmails])(using Context) =
+  def apply(mod: Holder, form: Form[?], users: List[User.WithEmails])(using WebContext) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
@@ -48,7 +48,7 @@ object search:
       users: List[User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(using Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
@@ -90,7 +90,7 @@ object search:
       users: List[lila.user.User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(using ctx: Context, renderIp: RenderIp) =
+  )(using ctx: WebContext, renderIp: RenderIp) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
@@ -126,7 +126,7 @@ object search:
       )
     }
 
-  def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(using Context) =
+  def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(using WebContext) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
@@ -146,7 +146,7 @@ object search:
       )
     }
 
-  def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(using Context) =
+  def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(using WebContext) =
     views.html.base.layout(
       title = "Classes",
       moreCss = cssTag("mod.misc")
@@ -189,7 +189,7 @@ object search:
       )
     }
 
-  private def teacherLink(userId: UserId)(using Context) =
+  private def teacherLink(userId: UserId)(using WebContext) =
     lightUser(userId).map { user =>
       a(
         href     := clasRoutes.teacher(user.name),
@@ -208,7 +208,7 @@ object search:
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
   )(using
-      Context
+      WebContext
   ) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(

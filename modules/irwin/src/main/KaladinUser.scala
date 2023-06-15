@@ -72,4 +72,4 @@ object KaladinUser:
       response.at
     }
 
-    def seenRecently = lastSeenAt.??(nowInstant.minusMinutes(30).isBefore)
+    def seenRecently = lastSeenAt.so(nowInstant.minusMinutes(30).isBefore)

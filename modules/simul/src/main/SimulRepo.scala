@@ -6,6 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import reactivemongo.api.ReadPreference
 
 final private[simul] class SimulRepo(val coll: Coll)(using Executor):
 
@@ -28,7 +29,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
         wins = r boolO "wins",
         hostColor = r.strO("hostColor").flatMap(chess.Color.fromName) | chess.White
       )
-    def writes(@annotation.nowarn w: BSON.Writer, o: SimulPairing) =
+    def writes(w: BSON.Writer, o: SimulPairing) =
       $doc(
         "player"    -> o.player,
         "gameId"    -> o.gameId,
@@ -71,8 +72,19 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .cursor[Simul]()
       .listAll()
 
+  def byHostAdapter(hostId: UserId) =
+    lila.db.paginator.Adapter[Simul](
+      collection = coll,
+      selector = finishedSelect ++ $doc("hostId" -> hostId),
+      projection = none,
+      sort = createdSort,
+      readPreference = ReadPreference.secondaryPreferred
+    )
+
   def hostId(id: SimulId): Fu[Option[UserId]] =
     coll.primitiveOne[UserId]($id(id), "hostId")
+
+  def countByHost(hostId: UserId) = coll.countSel($doc("hostId" -> hostId))
 
   private val featurableSelect = $doc("featurable" -> true)
 
@@ -120,7 +132,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .one(
         $id(simul.id),
         $set(bsonWriteObjTry[Simul](simul).get) ++
-          simul.estimatedStartAt.isEmpty ?? ($unset("estimatedStartAt"))
+          simul.estimatedStartAt.isEmpty.so($unset("estimatedStartAt"))
       )
       .void
 

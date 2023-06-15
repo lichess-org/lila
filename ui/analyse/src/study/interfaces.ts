@@ -158,7 +158,7 @@ export interface StudyChapterMeta {
   id: string;
   name: string;
   ongoing?: boolean;
-  res?: string;
+  res?: '1-0' | '0-1' | '½-½' | '*';
 }
 
 export interface StudyChapterConfig extends StudyChapterMeta {
@@ -234,14 +234,16 @@ export interface ChapterPreview {
   orientation: Color;
   fen: string;
   lastMove?: string;
+  lastMoveAt?: number;
   playing: boolean;
-  outcome?: '1-0' | '0-1' | '1/2-1/2';
+  outcome?: '1-0' | '0-1' | '½-½';
 }
 
 export interface ChapterPreviewPlayer {
   name: string;
   title?: string;
   rating?: number;
+  clock?: number;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';

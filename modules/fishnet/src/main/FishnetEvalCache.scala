@@ -1,11 +1,17 @@
 package lila.fishnet
 
+import cats.syntax.all.*
 import chess.format.Fen
 import JsonApi.Request.Evaluation
 
+trait IFishnetEvalCache:
+  def skipPositions(game: Work.Game): Fu[List[Int]]
+  def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]]
+
 final private class FishnetEvalCache(
     evalCacheApi: lila.evalCache.EvalCacheApi
-)(using Executor):
+)(using Executor)
+    extends IFishnetEvalCache:
 
   val maxPlies = 15
 
@@ -42,10 +48,13 @@ final private class FishnetEvalCache(
       )
       .fold(
         _ => fuccess(Nil),
-        _.zipWithIndex
-          .map { (sit, index) =>
-            evalCacheApi.getSinglePvEval(game.variant, Fen write sit) dmap2 { index -> _ }
-          }
-          .parallel
+        _.mapWithIndex: (sit, index) =>
+          evalCacheApi.getSinglePvEval(game.variant, Fen write sit) dmap2 { index -> _ }
+        .parallel
           .map(_.flatten)
       )
+
+object FishnetEvalCache:
+  val mock: IFishnetEvalCache = new:
+    def skipPositions(game: Work.Game): Fu[List[Int]]        = fuccess(Nil)
+    def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] = fuccess(Map.empty)

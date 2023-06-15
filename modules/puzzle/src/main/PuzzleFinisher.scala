@@ -85,7 +85,7 @@ final private[puzzle] class PuzzleFinisher(
                   none
                 )
                 updateRatings(userRating, puzzleRating, win)
-                val newPuzzleGlicko = !user.perfs.dubiousPuzzle ?? ponder
+                val newPuzzleGlicko = !user.perfs.dubiousPuzzle so ponder
                   .puzzle(
                     angle,
                     win,
@@ -121,13 +121,13 @@ final private[puzzle] class PuzzleFinisher(
                 _.update
                   .one(
                     $id(puzzle.id),
-                    $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.?? { glicko =>
+                    $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
                       $set(Puzzle.BSONFields.glicko -> glicko)
                     }
                   )
                   .void
               } zip
-              (userPerf != user.perfs.puzzle).?? {
+              (userPerf != user.perfs.puzzle).so {
                 userRepo.setPerf(user.id, PerfType.Puzzle, userPerf.clearRecent) zip
                   historyApi.addPuzzle(user = user, completedAt = now, perf = userPerf) void
               } >>- {
@@ -182,7 +182,7 @@ final private[puzzle] class PuzzleFinisher(
       }
 
     def player(angle: PuzzleAngle, win: PuzzleWin, glicko: (Glicko, Glicko), puzzle: Glicko) =
-      val provisionalPuzzle = puzzle.provisional.yes ?? {
+      val provisionalPuzzle = puzzle.provisional.yes so {
         if (win.yes) -0.2f else -0.7f
       }
       glicko._1.average(glicko._2, (weightOf(angle, win) + provisionalPuzzle) atLeast 0.1f)

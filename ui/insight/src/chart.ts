@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import Ctrl from './ctrl';
 import { Chart } from './interfaces';
 import type * as Highcharts from 'highcharts';
@@ -254,7 +255,7 @@ function makeChart(el: HTMLElement, data: Chart) {
 function empty(txt: string) {
   return h('div.chart.empty', [
     h('i', {
-      attrs: { 'data-icon': '' },
+      attrs: { 'data-icon': licon.Target },
     }),
     txt,
   ]);

@@ -1,5 +1,6 @@
 package lila.simul
 
+import cats.syntax.all.*
 import akka.actor.*
 import chess.variant.Variant
 import play.api.libs.json.Json
@@ -17,6 +18,8 @@ import lila.hub.LeaderTeam
 import lila.gathering.Condition
 import lila.gathering.Condition.GetUserTeamIds
 import lila.rating.PerfType
+import lila.common.paginator.Paginator
+import lila.common.config.MaxPerPage
 
 final class SimulApi(
     userRepo: UserRepo,
@@ -91,10 +94,10 @@ final class SimulApi(
     repo.findCreated(simulId) flatMapz { simul =>
       Variant(variantKey)
         .filter(simul.variants.contains)
-        .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime) ?? { variant =>
+        .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime) so { variant =>
         val perfType = PerfType(variant, chess.Speed.Rapid)
         verify(simul, user, perfType).map:
-          _.accepted ?? {
+          _.accepted so {
             timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
             val newSimul = simul addApplicant SimulApplicant.make(
               SimulPlayer.make(
@@ -123,10 +126,10 @@ final class SimulApi(
   def start(simulId: SimulId): Funit =
     workQueue(simulId) {
       repo.findCreated(simulId) flatMapz { simul =>
-        simul.start ?? { started =>
+        simul.start so { started =>
           userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
-            started.pairings.zipWithIndex.map(makeGame(started, host)).parallel map { games =>
-              games.headOption foreach { case (game, _) =>
+            started.pairings.mapWithIndex(makeGame(started, host)).parallel map { games =>
+              games.headOption foreach { (game, _) =>
                 socket.startSimul(simul, game)
               }
               games.foldLeft(started) { case (s, (g, hostColor)) =>
@@ -161,7 +164,7 @@ final class SimulApi(
     }
 
   def finishGame(game: Game): Funit =
-    game.simulId ?? { simulId =>
+    game.simulId so { simulId =>
       workQueue(simulId) {
         repo.findStarted(simulId) flatMapz { simul =>
           val simul2 = simul.updatePairing(
@@ -196,7 +199,7 @@ final class SimulApi(
       _ foreach { oldSimul =>
         workQueue(oldSimul.id) {
           repo.findCreated(oldSimul.id) flatMapz { simul =>
-            (simul ejectCheater userId) ?? { simul2 =>
+            (simul ejectCheater userId) so { simul2 =>
               update(simul2).void
             }
           }
@@ -205,12 +208,12 @@ final class SimulApi(
     }
 
   def hostPing(simul: Simul): Funit =
-    simul.isCreated ?? {
+    simul.isCreated so {
       repo.setHostSeenNow(simul) >> {
         val applicantIds = simul.applicants.view.map(_.player.user).toSet
         socket.filterPresent(simul, applicantIds) flatMap { online =>
           val leaving = applicantIds diff online.toSet
-          leaving.nonEmpty ??
+          leaving.nonEmpty so
             WithSimul(repo.findCreated, simul.id) {
               _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user)))
             }
@@ -224,45 +227,56 @@ final class SimulApi(
   def teamOf(id: SimulId): Fu[Option[TeamId]] =
     repo.coll.primitiveOne[TeamId]($id(id), "team")
 
+  def hostedByUser(userId: UserId, page: Int): Fu[Paginator[Simul]] =
+    Paginator(
+      adapter = repo.byHostAdapter(userId),
+      currentPage = page,
+      maxPerPage = MaxPerPage(20)
+    )
+
+  object countHostedByUser:
+    private val cache = cacheApi[UserId, Int](1024, "simul.nb.hosted"):
+      _.expireAfterWrite(10 minutes).buildAsyncFuture(repo.countByHost)
+    export cache.get
+
   private def makeGame(simul: Simul, host: User)(
-      pairingAndNumber: (SimulPairing, Int)
+      pairing: SimulPairing,
+      number: Int
   ): Fu[(Game, chess.Color)] =
-    pairingAndNumber match
-      case (pairing, number) =>
-        for {
-          user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
-          hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
-          whiteUser = hostColor.fold(host, user)
-          blackUser = hostColor.fold(user, host)
-          clock     = simul.clock.chessClockOf(hostColor)
-          perfPicker =
-            lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
-          game1 = Game.make(
-            chess = chess
-              .Game(
-                variantOption = Some {
-                  if (simul.position.isEmpty) pairing.player.variant
-                  else chess.variant.FromPosition
-                },
-                fen = simul.position
-              )
-              .copy(clock = clock.start.some),
-            whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
-            blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
-            mode = chess.Mode.Casual,
-            source = lila.game.Source.Simul,
-            pgnImport = None
+    for {
+      user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
+      hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
+      whiteUser = hostColor.fold(host, user)
+      blackUser = hostColor.fold(user, host)
+      clock     = simul.clock.chessClockOf(hostColor)
+      perfPicker =
+        lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
+      game1 = Game.make(
+        chess = chess
+          .Game(
+            variantOption = Some {
+              if (simul.position.isEmpty) pairing.player.variant
+              else chess.variant.FromPosition
+            },
+            fen = simul.position
           )
-          game2 =
-            game1
-              .withId(pairing.gameId)
-              .withSimulId(simul.id)
-              .start
-          _ <-
-            (gameRepo insertDenormalized game2) >>-
-              onGameStart(game2.id) >>-
-              socket.startGame(simul, game2)
-        } yield game2 -> hostColor
+          .copy(clock = clock.start.some),
+        whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
+        blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
+        mode = chess.Mode.Casual,
+        source = lila.game.Source.Simul,
+        pgnImport = None
+      )
+      game2 =
+        game1
+          .withId(pairing.gameId)
+          .withSimulId(simul.id)
+          .start
+      _ <-
+        (gameRepo insertDenormalized game2) >>-
+          onGameStart(game2.id) >>-
+          socket.startGame(simul, game2)
+    } yield game2 -> hostColor
 
   private def update(simul: Simul): Funit =
     repo.update(simul) >>- socket.reload(simul.id) >>- publish()

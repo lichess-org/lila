@@ -47,14 +47,14 @@ final private[api] class GameApi(
               G.playerUids -> user.id,
               G.status $gte chess.Status.Mate.id,
               G.analysed -> analysed.map[BSONValue] {
-                case true => BSONBoolean(true)
-                case _    => $doc("$exists" -> false)
+                if _ then BSONBoolean(true)
+                else $doc("$exists" -> false)
               }
             )
         } ++ $doc(
           G.rated -> rated.map[BSONValue] {
-            case true => BSONBoolean(true)
-            case _    => $doc("$exists" -> false)
+            if _ then BSONBoolean(true)
+            else $doc("$exists" -> false)
           }
         ),
         projection = none,
@@ -63,20 +63,16 @@ final private[api] class GameApi(
       ).withNbResults(
         if (~playing) gameCache.nbPlaying(user.id)
         else
-          fuccess {
-            rated.fold(user.count.game) {
-              case true => user.count.rated
-              case _    => user.count.casual
-            }
-          }
+          fuccess:
+            rated.fold(user.count.game):
+              if _ then user.count.rated
+              else user.count.casual
       ),
       currentPage = page,
       maxPerPage = nb
-    ) flatMap { pag =>
-      gamesJson(withFlags = withFlags)(pag.currentPageResults) map { games =>
+    ).flatMap: pag =>
+      gamesJson(withFlags = withFlags)(pag.currentPageResults).map: games =>
         PaginatorJson(pag withCurrentPageResults games)
-      }
-    }
 
   def one(id: GameId, withFlags: WithFlags): Fu[Option[JsObject]] =
     gameRepo game id flatMapz { g =>
@@ -101,14 +97,14 @@ final private[api] class GameApi(
             lila.game.Query.opponents(users._1, users._2) ++ $doc(
               G.status $gte chess.Status.Mate.id,
               G.analysed -> analysed.map[BSONValue] {
-                case true => BSONBoolean(true)
-                case _    => $doc("$exists" -> false)
+                if _ then BSONBoolean(true)
+                else $doc("$exists" -> false)
               }
             )
         } ++ $doc(
           G.rated -> rated.map[BSONValue] {
-            case true => BSONBoolean(true)
-            case _    => $doc("$exists" -> false)
+            if _ then BSONBoolean(true)
+            else $doc("$exists" -> false)
           }
         ),
         projection = none,
@@ -145,14 +141,14 @@ final private[api] class GameApi(
             lila.game.Query.opponents(userIds) ++ $doc(
               G.status $gte chess.Status.Mate.id,
               G.analysed -> analysed.map[BSONValue] {
-                case true => BSONBoolean(true)
-                case _    => $doc("$exists" -> false)
+                if _ then BSONBoolean(true)
+                else $doc("$exists" -> false)
               }
             )
         } ++ $doc(
           G.rated -> rated.map[BSONValue] {
-            case true => BSONBoolean(true)
-            case _    => $doc("$exists" -> false)
+            if _ then BSONBoolean(true)
+            else $doc("$exists" -> false)
           },
           G.createdAt $gte since
         ),
@@ -172,7 +168,7 @@ final private[api] class GameApi(
 
   private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] =
     val allAnalysis =
-      if (withFlags.analysis) analysisRepo byIds games.map(_.id.value)
+      if (withFlags.analysis) analysisRepo byIds games.map(_.id into Analysis.Id)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map gameRepo.initialFen).parallel map { initialFens =>
@@ -220,7 +216,9 @@ final private[api] class GameApi(
             )
             .add("name", p.name)
             .add("provisional" -> p.provisional)
-            .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
+            .add("moveCentis" -> withFlags.moveTimes.so:
+              g.moveTimes(p.color).map(_.map(_.centis))
+            )
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
             .add(
               "analysis" -> analysisOption
@@ -229,8 +227,8 @@ final private[api] class GameApi(
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.sans mkString " "),
-        "opening"  -> (withFlags.opening.??(g.opening): Option[chess.opening.Opening.AtPly]),
-        "fens" -> ((withFlags.fens && g.finished).?? {
+        "opening"  -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
+        "fens" -> ((withFlags.fens && g.finished).so {
           chess.Replay
             .boards(
               sans = g.sans,

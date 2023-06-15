@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' arrondi, basé sur le nombre de demi-coups jusqu\'à la prochaine capture ou le prochain coup de pion</string>
   <string name="noGameFound">Aucune partie trouvée</string>
+  <string name="maxDepthReached">Profondeur maximale atteinte!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openings">Ouvertures</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
   <string name="openingEndgameExplorer">Explorateur d\'ouvertures/de finales</string>
   <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Jouer le premier coup dans l\'explorateur d\'ouverture/de finale</string>
   <string name="winPreventedBy50MoveRule">Gain empêché par la règle des 50 coups</string>
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
   <string name="winOr50MovesByPriorMistake">Victoire ou 50 coups par suite d\'une erreur</string>
@@ -119,6 +121,7 @@
   <string name="memory">Mémoire</string>
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
+  <string name="engineManager">Gestionnaire de moteur d\'analyse</string>
   <string name="blunder">Gaffe</string>
   <string name="mistake">Erreur</string>
   <string name="inaccuracy">Imprécision</string>
@@ -150,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
     <item quantity="other">%s parties</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Classement %1$s après %2$s partie</item>
+    <item quantity="other">Classement %1$s après %2$s parties</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s favori</item>
@@ -282,6 +289,7 @@
   <string name="cancelRematchOffer">Annuler la proposition de revanche</string>
   <string name="viewRematch">Voir la revanche</string>
   <string name="confirmMove">Confirmer le coup</string>
+  <string name="enableConfirmationForThisGame">Activer la confirmation pour cette partie</string>
   <string name="play">Jouer</string>
   <string name="inbox">Boîte de réception</string>
   <string name="chatRoom">Salon de discussion</string>
@@ -342,6 +350,7 @@
   </plurals>
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
+  <string name="noDrawBeforeSwissLimit">Vous ne pouvez pas faire de nulle avant 30 coups dans un tournoi suisse.</string>
   <string name="thematic">Thématique</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partie classée</item>
@@ -674,6 +683,11 @@
   <string name="keyGoToStartOrEnd">aller au début/à la fin</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
+  <string name="keyRequestComputerAnalysis">Demandez une analyse informatique, apprenez de vos erreurs</string>
+  <string name="keyNextLearnFromYourMistakes">Suivant (apprenez de vos erreurs)</string>
+  <string name="keyNextBlunder">Gaffe suivante</string>
+  <string name="keyNextMistake">Erreur suivante</string>
+  <string name="keyNextInaccuracy">Imprécision suivante</string>
   <string name="newTournament">Nouveau tournoi</string>
   <string name="tournamentHomeTitle">Tournoi réunissant plusieurs variantes et cadences</string>
   <string name="tournamentHomeDescription">Jouez des tournois d\'échecs palpitants ! Rejoignez un tournoi officiel programmé ou créez le vôtre. Bullet, Blitz, Classique, Chess960, King of the Hill, Threecheck et d\'autres options sont disponibles pour s\'amuser sans fin.</string>
@@ -771,6 +785,7 @@
   <string name="invalidFen">FEN non valide</string>
   <string name="custom">Personnalisée</string>
   <string name="notifications">Notifications</string>
+  <string name="notificationsX">Notifications : %1$s</string>
   <string name="perfRatingX">Classement : %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde pour jouer le premier coup</item>
@@ -865,6 +880,8 @@
   <string name="useTheReportForm">utilisez le formulaire de signalement</string>
   <string name="toRequestSupport">Pour demander de l\'aide, %1$s</string>
   <string name="tryTheContactPage">essayez la page de contact</string>
+  <string name="makeSureToRead">Veillez à lire %1$s</string>
+  <string name="theForumEtiquette">le règlement du forum</string>
   <string name="thisTopicIsArchived">Ce sujet a été archivé et il n\'est plus possible d\'y répondre.</string>
   <string name="joinTheTeamXToPost">Pour poster sur ce forum, rejoignez %1$s</string>
   <string name="teamNamedX">Équipe %1$s</string>
@@ -881,8 +898,6 @@
   <string name="congratsYouWon">Bravo, vous avez gagné !</string>
   <string name="gameVsX">Partie contre %1$s</string>
   <string name="resVsX">%1$s contre %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Quelqu\'un a examiné votre profil de coach.</string>
-  <string name="newPendingReview">Nouvelle évaluation en attente</string>
   <string name="lostAgainstTOSViolator">Vous avez perdu contre quelqu\'un qui a violé les conditions d’usage de Lichess</string>
   <string name="refundXpointsTimeControlY">Remboursement : %1$s point(s) de cote – %2$s.</string>
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>

@@ -1,6 +1,6 @@
 package controllers
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.video.{ Filter, UserControl, View }
@@ -10,8 +10,8 @@ final class Video(env: Env) extends LilaController(env):
 
   private def api = env.video.api
 
-  private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] =
-    val reqTags = get("tags") ?? (_.split('/').toList.map(_.trim.toLowerCase))
+  private def WithUserControl[A](f: UserControl => Fu[A])(using WebContext): Fu[A] =
+    val reqTags = get("tags") so (_.split('/').toList.map(_.trim.toLowerCase))
     api.tag.paths(reqTags) map { tags =>
       UserControl(
         filter = Filter(reqTags),
@@ -31,19 +31,19 @@ final class Video(env: Env) extends LilaController(env):
           }
         case None =>
           api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1) zip
-            api.video.count.apply map { case (videos, count) =>
+            api.video.count.apply map { (videos, count) =>
               Ok(html.video.index(videos, count, control))
             }
 
   def show(id: String) = Open:
     WithUserControl: control =>
       api.video.find(id) flatMap {
-        case None => fuccess(NotFound(html.video.bits.notFound(control)))
+        case None => NotFound(html.video.bits.notFound(control))
         case Some(video) =>
           api.video.similar(ctx.me, video, 9) zip
-            ctx.userId.?? { userId =>
+            ctx.userId.so { userId =>
               api.view.add(View.make(videoId = video.id, userId = userId))
-            } map { case (similar, _) =>
+            } map { (similar, _) =>
               Ok(html.video.show(video, similar, control))
             }
       }

@@ -1,4 +1,4 @@
-type Board = { pieces: { [key: number]: string }; turn: boolean };
+export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: string]: Uci };
 
 function fixCrazySan(san: string) {
@@ -9,11 +9,11 @@ function decomposeUci(uci: string) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
 }
 
-function square(name: string) {
+export function square(name: string) {
   return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 8;
 }
 
-function squareDist(a: number, b: number) {
+export function squareDist(a: number, b: number) {
   const x1 = a & 7,
     x2 = b & 7;
   const y1 = a >> 3,
@@ -25,7 +25,7 @@ function isBlack(p: string) {
   return p === p.toLowerCase();
 }
 
-function readFen(fen: string) {
+export function readFen(fen: string) {
   const parts = fen.split(' '),
     board: Board = {
       pieces: {},

@@ -91,11 +91,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
+  <string name="maxDepthReached">最大深度に到達！</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openings">オープニング</string>
   <string name="openingExplorer">オープニング探索</string>
   <string name="openingEndgameExplorer">序盤／終盤エクスプローラー</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
+  <string name="playFirstOpeningEndgameExplorerMove">序盤／終盤エクスプローラーの最初の手を指す</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
   <string name="winOr50MovesByPriorMistake">勝ち、または以前の悪手のため50手ドロー</string>
@@ -117,6 +119,7 @@
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
+  <string name="engineManager">解析エンジンの管理</string>
   <string name="blunder">大悪手</string>
   <string name="mistake">悪手</string>
   <string name="inaccuracy">疑問手</string>
@@ -143,6 +146,9 @@
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%1$s レーティング（%2$s 局で）</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s個の ブックマーク</item>
@@ -318,8 +324,12 @@
   <plurals name="nbStudies">
     <item quantity="other">%s 研究</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s 同時対局</item>
+  </plurals>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
+  <string name="noDrawBeforeSwissLimit">スイス式トーナメントでは 30 手指すまでドローは認められません。</string>
   <string name="thematic">局面指定</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">レート戦 %s 局以上</item>
@@ -640,6 +650,11 @@
   <string name="keyGoToStartOrEnd">最初/最後に戻る</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
   <string name="keyEnterOrExitVariation">変化に入る/出る</string>
+  <string name="keyRequestComputerAnalysis">コンピュータ解析の要請、自分の悪手に学ぶ</string>
+  <string name="keyNextLearnFromYourMistakes">次（自分の悪手に学ぶ）</string>
+  <string name="keyNextBlunder">次の大悪手</string>
+  <string name="keyNextMistake">次の悪手</string>
+  <string name="keyNextInaccuracy">次のやや悪手</string>
   <string name="newTournament">新しいトーナメント</string>
   <string name="tournamentHomeTitle">さまざまな持時間とルールのチェストーナメント</string>
   <string name="tournamentHomeDescription">早指しのチェストーナメントに参加しよう！　定時のトーナメントに参加するほか、自分で作ることもできます。ブレット、ブリッツ、クラシック、チェス960、キングオブザヒル、3チェックなどチェスの無限の楽しみを。</string>
@@ -735,6 +750,7 @@
   <string name="invalidFen">無効な FEN</string>
   <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
+  <string name="notificationsX">通知：%1$s</string>
   <string name="perfRatingX">レーティング: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>
@@ -826,6 +842,8 @@
   <string name="useTheReportForm">通報フォームをお使いください</string>
   <string name="toRequestSupport">サポートを求める時には%1$s</string>
   <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
+  <string name="makeSureToRead">%1$s を必ずお読みください</string>
+  <string name="theForumEtiquette">フォーラムでのマナー</string>
   <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
   <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
   <string name="teamNamedX">%1$s チーム</string>
@@ -842,8 +860,6 @@
   <string name="congratsYouWon">おめでとう、あなたの勝ちです！</string>
   <string name="gameVsX">%1$s との対局</string>
   <string name="resVsX">%1$s 対 %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">誰かがあなたのコーチ・プロフィールを審査しました。</string>
-  <string name="newPendingReview">現在審査中</string>
   <string name="lostAgainstTOSViolator">あなたは利用規約違反の人に負けていました</string>
   <string name="refundXpointsTimeControlY">レーティングの復活：%1$s %2$s 点。</string>
   <string name="timeAlmostUp">残り時間わずか！</string>

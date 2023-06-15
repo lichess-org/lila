@@ -18,9 +18,9 @@ final private class ChallengeJoiner(
 
   def apply(c: Challenge, destUser: Option[User]): Fu[Validated[String, Pov]] =
     gameRepo exists c.id.into(GameId) flatMap {
-      case true => fuccess(Invalid("The challenge has already been accepted"))
-      case _ =>
-        c.challengerUserId.??(userRepo.byId) flatMap { origUser =>
+      if _ then fuccess(Invalid("The challenge has already been accepted"))
+      else
+        c.challengerUserId.so(userRepo.byId) flatMap { origUser =>
           val game = ChallengeJoiner.createGame(c, origUser, destUser)
           (gameRepo insertDenormalized game) >>- onStart(game.id) inject
             Valid(Pov(game, !c.finalColor))

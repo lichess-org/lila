@@ -38,8 +38,8 @@ case class AnaMove(
           move = Uci.WithSan(uci, san),
           fen = fen,
           check = game.situation.check,
-          dests = Some(movable ?? game.situation.destinations),
-          opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)) ??
+          dests = Some(movable so game.situation.destinations),
+          opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)) so
             OpeningDb.findByEpdFen(fen),
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData

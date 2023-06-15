@@ -1,16 +1,19 @@
 package lila.game
 
+import cats.syntax.all.*
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr }
+import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
 import chess.format.{ pgn as chessPgn }
-import chess.{ Centis, Color, ByColor, Outcome }
+import chess.{ Centis, Color, ByColor, Outcome, Ply, FullMoveNumber }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
+import chess.format.pgn.Initial
+import chess.Tree
 
 final class PgnDump(
     baseUrl: BaseUrl,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.ILightUserApi
 )(using Executor):
 
   import PgnDump.*
@@ -36,25 +39,25 @@ final class PgnDump(
         )
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
-      val turns = flags.moves ?? {
+      val tree = flags.moves so {
         val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
-        makeTurns(
+        makeTree(
           flags keepDelayIf game.playable applyDelay {
-            if (fenSituation.exists(_.situation.color.black)) SanStr("..") +: game.sans
+            if fenSituation.exists(_.situation.color.black) then SanStr("..") +: game.sans
             else game.sans
           },
-          fenSituation.fold(1)(_.fullMoveNumber.value),
-          flags.clocks ?? ~game.bothClockStates,
+          fenSituation.fold(Ply.initial)(_.ply),
+          flags.clocks so ~game.bothClockStates,
           game.startColor
         )
       }
-      Pgn(ts, turns)
+      Pgn(ts, Initial.empty, tree)
     }
 
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
-    (game.whitePlayer.userId ?? lightUserApi.async) zip (game.blackPlayer.userId ?? lightUserApi.async)
+    (game.whitePlayer.userId so lightUserApi.async) zip (game.blackPlayer.userId so lightUserApi.async)
 
   private def rating(p: Player) = p.rating.orElse(p.nameSplit.flatMap(_._2)).fold("?")(_.toString)
 
@@ -89,8 +92,8 @@ final class PgnDump(
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] =
-    gameLightUsers(game) map { case (wu, bu) =>
-      Tags {
+    gameLightUsers(game).map: (wu, bu) =>
+      Tags:
         val importedDate = imported.flatMap(_.tags(_.Date))
         List[Option[Tag]](
           Tag(
@@ -113,8 +116,8 @@ final class PgnDump(
           ),
           withRating option Tag(_.WhiteElo, rating(game.whitePlayer)),
           withRating option Tag(_.BlackElo, rating(game.blackPlayer)),
-          withRating ?? ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
-          withRating ?? ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
+          withRating so ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
+          withRating so ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
           wu.flatMap(_.title).map { t =>
             Tag(_.WhiteTitle, t)
           },
@@ -130,56 +133,42 @@ final class PgnDump(
           Tag(
             _.Termination, {
               import chess.Status.*
-              game.status match {
+              game.status match
                 case Created | Started                             => "Unterminated"
                 case Aborted | NoStart                             => "Abandoned"
                 case Timeout | Outoftime                           => "Time forfeit"
                 case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
                 case Cheat                                         => "Rules infraction"
                 case UnknownFinish                                 => "Unknown"
-              }
             }
           ).some
-        ).flatten ::: customStartPosition(game.variant).??(
-          initialFen.??(fen =>
+        ).flatten ::: customStartPosition(game.variant).so(
+          initialFen.so(fen =>
             List(
               Tag(_.FEN, fen.value),
               Tag("SetUp", "1")
             )
           )
         )
-      }
-    }
-
-  private def makeTurns(
-      moves: Seq[SanStr],
-      from: Int,
-      clocks: Vector[Centis],
-      startColor: Color
-  ): List[chessPgn.Turn] =
-    (moves grouped 2).zipWithIndex.toList map { case (moves, index) =>
-      val clockOffset = startColor.fold(0, 1)
-      chessPgn.Turn(
-        number = index + from,
-        white = moves.headOption.filter(SanStr("..") != _) map { san =>
-          chessPgn.Move(
-            san = san,
-            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
-          )
-        },
-        black = moves lift 1 map { san =>
-          chessPgn.Move(
-            san = san,
-            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
-          )
-        }
-      )
-    } filterNot (_.isEmpty)
 
 object PgnDump:
 
   private val delayMovesBy         = 3
   private val delayKeepsFirstMoves = 5
+
+  def makeTree(
+      moves: Seq[SanStr],
+      from: Ply,
+      clocks: Vector[Centis],
+      startColor: Color
+  ): Option[PgnTree] =
+    val clockOffset = startColor.fold(0, 1)
+    def f(san: SanStr, index: Int) = chessPgn.Move(
+      ply = from + index + 1,
+      san = san,
+      secondsLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)
+    )
+    Tree.build(moves.zipWithIndex, f)
 
   case class WithFlags(
       clocks: Boolean = true,

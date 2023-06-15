@@ -4,7 +4,7 @@ import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
@@ -22,7 +22,7 @@ object mini:
       ownerLink: Boolean = false,
       tv: Boolean = false,
       withLink: Boolean = true
-  )(using ctx: Context): Tag =
+  )(using ctx: WebContext): Tag =
     renderMini(
       pov,
       withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
@@ -31,9 +31,7 @@ object mini:
 
   def noCtx(pov: Pov, tv: Boolean = false): Tag =
     val link = if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
-    renderMini(pov, link.url.some)(using
-      defaultLang
-    )
+    renderMini(pov, link.url.some)(using defaultLang)
 
   private def renderMini(
       pov: Pov,

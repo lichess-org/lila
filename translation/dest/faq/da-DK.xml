@@ -29,7 +29,7 @@
   <string name="isCorrespondenceDifferent">Er korrespondance anderledes end normal skak?</string>
   <string name="pleaseReadFairPlayPage">For yderligere oplysninger kan du læse vores %s</string>
   <string name="fairPlayPage">side om fair play</string>
-  <string name="youCanUseOpeningBookNoEngine">På Lichess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af computeranalyse er stadig forbudt og vil resultere i en anmærkning for computer-assistance. Selvom ICCF tillader computeranalyse i korrespondance, er dette ikke tilfælder på Lichess.</string>
+  <string name="youCanUseOpeningBookNoEngine">På Lichess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af skakprogrammer er stadig forbudt og vil resultere i en anmærkning for skakprogram-assistance. Selvom ICCF tillader skakprogrammer i korrespondance, er dette ikke tilfælder på Lichess.</string>
   <string name="gameplay">Spilforløb</string>
   <string name="howBulletBlitzEtcDecided">Hvordan afgøres forskellen mellem Bullet, Blitz og andre tidskontroller?</string>
   <string name="basedOnGameDuration">Tidskontroller på Lichess er baseret på en estimeret varighed af partiet = %1$s

@@ -2,7 +2,7 @@ package lila.timeline
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 
 final class UnsubApi(coll: Coll)(using Executor):
 
@@ -23,7 +23,7 @@ final class UnsubApi(coll: Coll)(using Executor):
   private def canUnsub(channel: String) = channel startsWith "forum:"
 
   def filterUnsub(channel: String, userIds: List[UserId]): Fu[List[UserId]] =
-    canUnsub(channel) ?? coll.distinctEasy[String, List](
+    canUnsub(channel) so coll.distinctEasy[String, List](
       "_id",
       $inIds(userIds.map { makeId(channel, _) })
     ) dmap { unsubs =>

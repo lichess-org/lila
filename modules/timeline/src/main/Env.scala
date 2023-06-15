@@ -16,7 +16,6 @@ private class TimelineConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -45,11 +44,11 @@ final class Env(
 
   def status(channel: String)(userId: UserId): Fu[Option[Boolean]] =
     unsubApi.get(channel, userId) flatMap {
-      case true => fuccess(Some(true)) // unsubed
-      case false =>
+      if _ then fuccess(Some(true)) // unsubbed
+      else
         entryApi.channelUserIdRecentExists(channel, userId) map {
-          case true  => Some(false) // subed
-          case false => None        // not applicable
+          if _ then Some(false) // subbed
+          else None             // not applicable
         }
     }
 

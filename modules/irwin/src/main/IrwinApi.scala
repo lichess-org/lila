@@ -1,5 +1,6 @@
 package lila.irwin
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
@@ -109,10 +110,10 @@ final class IrwinApi(
       )
 
     private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
-      lila.common.LilaFuture.applySequentially(suspects) { insert(_, _.Tournament) }
+      suspects.traverse_(insert(_, _.Tournament))
 
     private[irwin] def topOnline(leaders: List[Suspect]): Funit =
-      lila.common.LilaFuture.applySequentially(leaders) { insert(_, _.Leaderboard) }
+      leaders.traverse_(insert(_, _.Leaderboard))
 
     import lila.game.BSONHandlers.given
 
@@ -133,7 +134,7 @@ final class IrwinApi(
         .flatMap(analysisRepo.associateToGames)
 
     private def getMoreGames(suspect: Suspect, nb: Int): Fu[List[Game]] =
-      (nb > 0) ??
+      (nb > 0) so
         gameRepo.coll
           .find(baseQuery(suspect) ++ Query.analysed(false))
           .sort(Query.sortCreated)
@@ -148,7 +149,7 @@ final class IrwinApi(
       subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
 
     private[IrwinApi] def apply(report: IrwinReport): Funit =
-      subs.get(report.suspectId) ?? { modIds =>
+      subs.get(report.suspectId) so { modIds =>
         subs = subs - report.suspectId
         modIds
           .map { modId =>

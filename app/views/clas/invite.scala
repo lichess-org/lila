@@ -2,7 +2,7 @@ package views.html.clas
 
 import controllers.clas.routes.{ Clas as clasRoutes }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite }
@@ -12,7 +12,7 @@ object invite:
   def show(
       c: Clas,
       invite: ClasInvite
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("clas"),
       title = c.name
@@ -26,8 +26,8 @@ object invite:
         br,
         br,
         invite.accepted.map {
-          case true  => flashMessage("success")(trans.clas.youAcceptedThisInvitation())
-          case false => flashMessage("warning")(trans.clas.youDeclinedThisInvitation())
+          if _ then flashMessage("success")(trans.clas.youAcceptedThisInvitation())
+          else flashMessage("warning")(trans.clas.youDeclinedThisInvitation())
         },
         invite.accepted.fold(true)(false.==) option
           postForm(cls := "form3", action := clasRoutes.invitationAccept(invite._id.value))(
@@ -36,7 +36,7 @@ object invite:
                 form3.submit(
                   trans.decline(),
                   nameValue = ("v" -> false.toString).some,
-                  icon = "".some
+                  icon = licon.X.some
                 )(cls := "button-red button-fat")
               else p,
               form3.submit(

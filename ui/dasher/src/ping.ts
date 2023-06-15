@@ -2,39 +2,37 @@ import { h, VNode } from 'snabbdom';
 
 import { Redraw, defined } from './util';
 
-export interface PingData {
+export class PingCtrl {
   ping: number | undefined;
   server: number | undefined;
-}
 
-export interface PingCtrl {
-  data: PingData;
-  trans: Trans;
-}
+  constructor(readonly trans: Trans, readonly redraw: Redraw) {
+    lichess.pubsub.on('dasher.toggle', v => (v ? this.connect() : this.disconnect()));
+  }
 
-export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
-  const data: PingData = {
-    ping: undefined,
-    server: undefined,
+  onLag = (lag: number) => {
+    this.ping = Math.round(lag);
+    this.redraw();
+  };
+  onMlat = (lat: number) => {
+    this.server = lat as number;
+    this.redraw();
   };
 
-  const hub = lichess.pubsub;
+  connect = () => {
+    lichess.pubsub.emit('socket.send', 'moveLat', true);
+    lichess.pubsub.on('socket.lag', this.onLag);
+    lichess.pubsub.on('socket.in.mlat', this.onMlat);
+  };
 
-  hub.emit('socket.send', 'moveLat', true);
-  hub.on('socket.lag', lag => {
-    data.ping = Math.round(lag);
-    redraw();
-  });
-  hub.on('socket.in.mlat', lat => {
-    data.server = lat as number;
-    redraw();
-  });
-
-  return { data, trans };
+  disconnect = () => {
+    lichess.pubsub.off('socket.lag', this.onLag);
+    lichess.pubsub.off('socket.in.mlat', this.onMlat);
+  };
 }
 
-function signalBars(d: PingData) {
-  const lagRating = !d.ping ? 0 : d.ping < 150 ? 4 : d.ping < 300 ? 3 : d.ping < 500 ? 2 : 1;
+function signalBars(ctrl: PingCtrl) {
+  const lagRating = !ctrl.ping ? 0 : ctrl.ping < 150 ? 4 : ctrl.ping < 300 ? 3 : ctrl.ping < 500 ? 2 : 1;
   const bars = [];
   for (let i = 1; i <= 4; i++) bars.push(h(i <= lagRating ? 'i' : 'i.off'));
   return h('signal.q' + lagRating, bars);
@@ -43,20 +41,27 @@ function signalBars(d: PingData) {
 const showMillis = (name: string, m?: number) => [h('em', name), h('strong', defined(m) ? m : '?'), h('em', 'ms')];
 
 export const view = (ctrl: PingCtrl): VNode =>
-  h('a.status', { attrs: { href: '/lag' } }, [
-    signalBars(ctrl.data),
-    h(
-      'span.ping',
-      {
-        attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') },
-      },
-      showMillis('PING', ctrl.data.ping)
-    ),
-    h(
-      'span.server',
-      {
-        attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') },
-      },
-      showMillis('SERVER', ctrl.data.server)
-    ),
-  ]);
+  h(
+    'a.status',
+    {
+      attrs: { href: '/lag' },
+      hook: { insert: ctrl.connect, destroy: ctrl.disconnect },
+    },
+    [
+      signalBars(ctrl),
+      h(
+        'span.ping',
+        {
+          attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') },
+        },
+        showMillis('PING', ctrl.ping)
+      ),
+      h(
+        'span.server',
+        {
+          attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') },
+        },
+        showMillis('SERVER', ctrl.server)
+      ),
+    ]
+  );

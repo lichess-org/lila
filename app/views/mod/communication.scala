@@ -2,7 +2,7 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -27,7 +27,7 @@ object communication:
       logins: lila.security.UserLogins.TableData[UserWithModlog],
       appeals: List[lila.appeal.Appeal],
       priv: Boolean
-  )(implicit ctx: Context, renderIp: RenderIp) =
+  )(using ctx: WebContext, renderIp: RenderIp) =
     views.html.base.layout(
       title = u.username + " communications",
       moreCss = frag(
@@ -47,7 +47,7 @@ object communication:
                 cls  := "button button-empty mod-zone-toggle",
                 href := routes.User.mod(u.username),
                 titleOrText("Mod zone (Hotkey: m)"),
-                dataIcon := ""
+                dataIcon := licon.Agent
               ),
               isGranted(_.ViewPrivateComms) option {
                 if (priv)
@@ -199,4 +199,5 @@ object communication:
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
 
-  private def showSbMark(u: User) = u.marks.troll option span(cls := "user_marks")(iconTag(""))
+  private def showSbMark(u: User) =
+    u.marks.troll option span(cls := "user_marks")(iconTag(licon.BubbleSpeech))

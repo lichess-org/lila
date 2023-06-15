@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import GamebookPlayCtrl from './gamebookPlayCtrl';
+import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
 // eslint-disable-next-line no-duplicate-imports
@@ -69,7 +70,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
         attrs: { type: 'button' },
         hook: bind('click', ctrl.retry),
       },
-      [iconTag(''), h('span', ctrl.trans.noarg('retry'))]
+      [iconTag(licon.Reload), h('span', ctrl.trans.noarg('retry'))]
     );
   if (fb === 'good' && state.comment)
     return h(
@@ -78,7 +79,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
         attrs: { type: 'button' },
         hook: bind('click', ctrl.next),
       },
-      [h('span.text', { attrs: dataIcon('') }, ctrl.trans.noarg('next')), h('kbd', '<space>')]
+      [h('span.text', { attrs: dataIcon(licon.PlayTriangle) }, ctrl.trans.noarg('next')), h('kbd', '<space>')]
     );
   if (fb === 'end') return renderEnd(ctrl);
   return h(
@@ -106,7 +107,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
           'button.next.text',
           {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.PlayTriangle,
               type: 'button',
             },
             hook: bind('click', study.goToNextChapter),
@@ -118,7 +119,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       'button.retry',
       {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.Reload,
           type: 'button',
         },
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
@@ -129,7 +130,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       'button.analyse',
       {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.Microscope,
           type: 'button',
         },
         hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),

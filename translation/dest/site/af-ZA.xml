@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" met afronding, gebaseer op die hoeveelheid half-skuiwe tot die volgende vat of pionskuif</string>
   <string name="noGameFound">Geen spel gevind</string>
+  <string name="maxDepthReached">Maksimum diepte is bereik!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openings">Openinge</string>
   <string name="openingExplorer">Opening ontdekker</string>
@@ -119,6 +120,7 @@
   <string name="memory">Geheue</string>
   <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="removesTheDepthLimit">Verwyder dieptelimiet, en hou jou rekenaar warm</string>
+  <string name="engineManager">Enjinbestuurder</string>
   <string name="blunder">Flater</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onakkuraatheid</string>
@@ -282,6 +284,7 @@
   <string name="cancelRematchOffer">Wys herwedstryd aanbod af</string>
   <string name="viewRematch">Sien heruitdagingsaanbod</string>
   <string name="confirmMove">Bevestig skuif</string>
+  <string name="enableConfirmationForThisGame">Aktiveer bevestiging vir hierdie spel</string>
   <string name="play">Speel</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Kletskamer</string>
@@ -342,6 +345,7 @@
   </plurals>
   <string name="viewTournament">Sien toernooi</string>
   <string name="backToTournament">Terug na toernooi</string>
+  <string name="noDrawBeforeSwissLimit">Geen gelykop voor 30 skuiwe tydens \'n Switserse toernooi nie.</string>
   <string name="thematic">Tematies</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gegradeerde spel</item>
@@ -675,6 +679,10 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="keyGoToStartOrEnd">gaan na begin/einde</string>
   <string name="keyShowOrHideComments">vertoon/versteek kommentaar</string>
   <string name="keyEnterOrExitVariation">betree/verlaat variasie</string>
+  <string name="keyRequestComputerAnalysis">Vra rekenaaranalise aan, Leer uit jou foute</string>
+  <string name="keyNextLearnFromYourMistakes">Volgende (Leer uit jou foute)</string>
+  <string name="keyNextMistake">Volgende fout</string>
+  <string name="keyNextInaccuracy">Volgende onakkuraatheid</string>
   <string name="newTournament">Nuwe toernooi</string>
   <string name="tournamentHomeTitle">Skaaktoernooie met verskeie tydkontroles en variante</string>
   <string name="tournamentHomeDescription">Speel hoë-tempo skaak toernooie! Sluit aan by \'n amptelik geskeduleerde toernooi, of skep jou eie. Bullet, Blitz, klassiek, Skaak960, Heuwel Heerser, Trippelskaak, en meer beskikbare opsies vir oneindige skaak pret.</string>
@@ -772,6 +780,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="invalidFen">Ongeldige FEN</string>
   <string name="custom">Pasmaak</string>
   <string name="notifications">Kennisgewings</string>
+  <string name="notificationsX">Kennisgewings: %1$s</string>
   <string name="perfRatingX">Gradering: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekonde om die eerste skuif te speel</item>
@@ -882,8 +891,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="congratsYouWon">Baie geluk, jy het gewen!</string>
   <string name="gameVsX">Spel teen %1$s</string>
   <string name="resVsX">%1$s teen %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Iemand het jou afrigtersprofiel resenseer.</string>
-  <string name="newPendingReview">Nuwe hangende resensie</string>
   <string name="lostAgainstTOSViolator">Jy het teen iemand verloor wat nie die Lichess bepalings nagekom het nie</string>
   <string name="refundXpointsTimeControlY">Terugbetaling:%1$s %2$s graderingspunte.</string>
   <string name="timeAlmostUp">Tyd is byna op!</string>

@@ -15,7 +15,9 @@ interface DasherCtrl {
 export const loadDasher = (): Promise<DasherCtrl> => {
   if (!lichess.dasher) {
     const $el = $('#dasher_app').html(`<div class="initiating">${lichess.spinnerHtml}</div>`);
-    lichess.dasher = lichess.loadModule('dasher').then(() => window.LichessDasher($el.empty()[0]));
+    const element = $el.empty()[0] as HTMLElement;
+    const toggle = $('#top .dasher')[0] as HTMLElement;
+    lichess.dasher = lichess.loadModule('dasher').then(() => window.LichessDasher(element, toggle));
   }
   return lichess.dasher;
 };

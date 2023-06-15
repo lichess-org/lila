@@ -1,4 +1,5 @@
 import { h, VNode, VNodeChildren } from 'snabbdom';
+import * as licon from 'common/licon';
 import { numberFormat } from 'common/number';
 import { dataIcon } from 'common/snabbdom';
 import { SimplePlayer } from '../interfaces';
@@ -20,7 +21,7 @@ export const player = (p: SimplePlayer, asLink: boolean, withRating: boolean, de
     [
       h(
         'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
-        defender ? { attrs: dataIcon('') } : leader ? { attrs: dataIcon('') } : {},
+        defender ? { attrs: dataIcon(licon.Shield) } : leader ? { attrs: dataIcon(licon.Crown) } : {},
         playerName(p)
       ),
       withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,

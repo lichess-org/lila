@@ -19,7 +19,6 @@ final class Gamify(
 )(using Executor):
 
   import Gamify.*
-  import lila.report.BSONHandlers.given
 
   private given BSONDocumentHandler[ModMixed]     = Macros.handler
   private given BSONDocumentHandler[HistoryMonth] = Macros.handler
@@ -90,13 +89,13 @@ final class Gamify(
     yield actions.map(_.modId) intersect modList.map(_.id) diff hidden map { modId =>
       ModMixed(
         modId,
-        action = actions.find(_.modId == modId) ?? (_.count),
-        report = reports.find(_.modId == modId) ?? (_.count)
+        action = actions.find(_.modId == modId) so (_.count),
+        report = reports.find(_.modId == modId) so (_.count)
       )
     } sortBy (-_.score)
 
   private def dateRange(from: Instant, toOption: Option[Instant]) =
-    $doc("$gte" -> from) ++ toOption.?? { to =>
+    $doc("$gte" -> from) ++ toOption.so { to =>
       $doc("$lt" -> to)
     }
 

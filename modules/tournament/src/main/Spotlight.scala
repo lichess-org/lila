@@ -2,12 +2,13 @@ package lila.tournament
 
 import lila.common.Heapsort.topN
 import lila.user.User
+import lila.common.licon
 
 case class Spotlight(
     headline: String,
     description: String,
     homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
-    iconFont: Option[String] = None,
+    iconFont: Option[licon.Icon] = None,
     iconImg: Option[String] = None
 )
 
@@ -15,7 +16,7 @@ object Spotlight:
 
   import Schedule.Freq.*
 
-  private given Ordering[Tournament] = Ordering.by[Tournament, Int](_.schedule.??(_.freq.importance))
+  private given Ordering[Tournament] = Ordering.by[Tournament, Int](_.schedule.so(_.freq.importance))
 
   def select(tours: List[Tournament], user: Option[User], max: Int): List[Tournament] =
     user.fold(select(tours, max)) { select(tours, _, max) }
@@ -36,9 +37,9 @@ object Spotlight:
     }
 
   private def automatically(tour: Tournament, user: User): Boolean =
-    tour.schedule ?? { sched =>
+    tour.schedule so { sched =>
       def playedSinceWeeks(weeks: Int) =
-        user.perfs(tour.perfType).latest ?? {
+        user.perfs(tour.perfType).latest so {
           _.plusWeeks(weeks).isAfterNow
         }
       sched.freq match

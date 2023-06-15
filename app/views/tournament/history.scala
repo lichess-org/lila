@@ -2,7 +2,7 @@ package views.html.tournament
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -11,7 +11,7 @@ import lila.tournament.Tournament
 
 object history:
 
-  def apply(freq: Freq, pager: Paginator[Tournament])(implicit ctx: Context) =
+  def apply(freq: Freq, pager: Paginator[Tournament])(using WebContext) =
     views.html.base.layout(
       title = "Tournament history",
       moreJs = infiniteScrollTag,

@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.notify.NotificationPref
@@ -13,16 +13,14 @@ final class Pref(env: Env) extends LilaController(env):
   private def api   = env.pref.api
   private def forms = lila.pref.PrefForm
 
-  def apiGet =
-    Scoped(_.Preference.Read) { _ => me =>
-      env.pref.api.getPref(me) map { prefs =>
-        JsonOk {
-          import play.api.libs.json.*
-          import lila.pref.JsonView.given
-          Json.obj("prefs" -> prefs).add("language" -> me.lang)
-        }
-      }
+  def apiGet = Scoped(_.Preference.Read) { _ ?=> me =>
+    env.pref.api.getPref(me) map { prefs =>
+      JsonOk:
+        import play.api.libs.json.*
+        import lila.pref.JsonView.given
+        Json.obj("prefs" -> prefs).add("language" -> me.lang)
     }
+  }
 
   private val redirects = Map(
     "game-display" -> "display",
@@ -40,7 +38,7 @@ final class Pref(env: Env) extends LilaController(env):
                 Ok(html.account.notification(form))
               }
             case None        => notFound
-            case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).toFuccess
+            case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ))
         }
 
   def formApply = AuthBody { ctx ?=> _ =>
@@ -70,36 +68,39 @@ final class Pref(env: Env) extends LilaController(env):
 
   def set(name: String) = OpenBody:
     if name == "zoom"
-    then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
+    then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString))
     else if name == "agreement" then
-      ctx.me ?? api.agree inject {
+      ctx.me so api.agree inject {
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
       }
     else
-      setters.get(name) ?? { (form, fn) =>
-        form
-          .bindFromRequest()
-          .fold(
-            form => fuccess(BadRequest(form.errors mkString "\n")),
-            v =>
-              fn(v, ctx).map: cookie =>
-                Ok(()).withCookies(cookie)
-          )
-      }
+      setters
+        .get(name)
+        .so: (form, fn) =>
+          form
+            .bindFromRequest()
+            .fold(
+              form => fuccess(BadRequest(form.errors mkString "\n")),
+              v =>
+                fn(v, ctx).map: cookie =>
+                  Ok(()).withCookies(cookie)
+            )
 
   private lazy val setters = Map(
-    "theme"      -> (forms.theme      -> save("theme")),
-    "pieceSet"   -> (forms.pieceSet   -> save("pieceSet")),
-    "theme3d"    -> (forms.theme3d    -> save("theme3d")),
-    "pieceSet3d" -> (forms.pieceSet3d -> save("pieceSet3d")),
-    "soundSet"   -> (forms.soundSet   -> save("soundSet")),
-    "bg"         -> (forms.bg         -> save("bg")),
-    "bgImg"      -> (forms.bgImg      -> save("bgImg")),
-    "is3d"       -> (forms.is3d       -> save("is3d")),
-    "zen"        -> (forms.zen        -> save("zen"))
+    "theme"        -> (forms.theme        -> save("theme")),
+    "pieceSet"     -> (forms.pieceSet     -> save("pieceSet")),
+    "theme3d"      -> (forms.theme3d      -> save("theme3d")),
+    "pieceSet3d"   -> (forms.pieceSet3d   -> save("pieceSet3d")),
+    "soundSet"     -> (forms.soundSet     -> save("soundSet")),
+    "bg"           -> (forms.bg           -> save("bg")),
+    "bgImg"        -> (forms.bgImg        -> save("bgImg")),
+    "is3d"         -> (forms.is3d         -> save("is3d")),
+    "zen"          -> (forms.zen          -> save("zen")),
+    "voice"        -> (forms.voice        -> save("voice")),
+    "keyboardMove" -> (forms.keyboardMove -> save("keyboardMove"))
   )
 
-  private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
-    ctx.me ?? {
+  private def save(name: String)(value: String, ctx: WebContext): Fu[Cookie] =
+    ctx.me so {
       api.setPrefString(_, name, value)
     } inject env.lilaCookie.session(name, value)(using ctx.req)

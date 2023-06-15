@@ -3,7 +3,7 @@ package mashup
 
 import play.api.data.Form
 
-import lila.api.{ Context, UserApi }
+import lila.api.{ WebContext, UserApi }
 import lila.bookmark.BookmarkApi
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
@@ -22,6 +22,7 @@ case class UserInfo(
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
+    nbSimuls: Int,
     teamIds: List[lila.team.TeamId],
     isStreamer: Boolean,
     isCoach: Boolean,
@@ -32,11 +33,10 @@ case class UserInfo(
 
 object UserInfo:
 
-  sealed abstract class Angle(val key: String)
-  object Angle:
-    case object Activity                          extends Angle("activity")
-    case class Games(searchForm: Option[Form[?]]) extends Angle("games")
-    case object Other                             extends Angle("other")
+  enum Angle(val key: String):
+    case Activity                           extends Angle("activity")
+    case Games(searchForm: Option[Form[?]]) extends Angle("games")
+    case Other                              extends Angle("other")
 
   case class Social(
       relation: Option[lila.relation.Relation],
@@ -50,17 +50,17 @@ object UserInfo:
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
   ):
-    def apply(u: User, ctx: Context): Fu[Social] =
-      ctx.userId.?? {
+    def apply(u: User, ctx: WebContext): Fu[Social] =
+      ctx.userId.so {
         relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
       } zip
-        ctx.me.?? { me =>
+        ctx.me.so { me =>
           fetchNotes(u, me).mon(_.user segment "notes")
         } zip
-        ctx.isAuth.?? {
+        ctx.isAuth.so {
           prefApi.followable(u.id).mon(_.user segment "followable")
         } zip
-        ctx.userId.?? { myId =>
+        ctx.userId.so { myId =>
           relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks")
         } dmap { case (((relation, notes), followable), blocked) =>
           Social(relation, notes, followable, blocked)
@@ -68,9 +68,8 @@ object UserInfo:
 
     def fetchNotes(u: User, me: User) =
       noteApi.get(u, me, Granter(_.ModNote)(me)) dmap {
-        _.filter { n =>
+        _.filter: n =>
           (!n.dox || Granter(_.Admin)(me))
-        }
       }
 
   case class NbGames(
@@ -86,8 +85,8 @@ object UserInfo:
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
   ):
-    def apply(u: User, ctx: Context, withCrosstable: Boolean): Fu[NbGames] =
-      (withCrosstable ?? ctx.me.filter(u.!=) ?? { me =>
+    def apply(u: User, ctx: WebContext, withCrosstable: Boolean): Fu[NbGames] =
+      (withCrosstable so ctx.me.filter(u.!=) so { me =>
         crosstableApi.withMatchup(me.id, u.id) dmap some
       }).mon(_.user segment "crosstable") zip
         gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
@@ -107,6 +106,7 @@ object UserInfo:
       postApi: ForumPostApi,
       ublogApi: UblogApi,
       studyRepo: lila.study.StudyRepo,
+      simulApi: lila.simul.SimulApi,
       ratingChartApi: lila.history.RatingChartApi,
       userApi: lila.api.UserApi,
       isHostingSimul: lila.round.IsSimulHost,
@@ -116,21 +116,23 @@ object UserInfo:
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share
   )(using Executor):
-    def apply(user: User, nbs: NbGames, ctx: Context, withUblog: Boolean = true): Fu[UserInfo] =
-      ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
+    def apply(user: User, nbs: NbGames, ctx: WebContext, withUblog: Boolean = true): Fu[UserInfo] =
+      ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
-        !(user.is(User.lichessId) || user.isBot) ??
-        postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts") zip
-        (withUblog ?? ublogApi.userBlogPreviewFor(user, 3, ctx.me)) zip
+        (!user.is(User.lichessId) && !user.isBot).so {
+          postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts")
+        } zip
+        (withUblog so ublogApi.userBlogPreviewFor(user, 3, ctx.me)) zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
+        simulApi.countHostedByUser.get(user.id).mon(_.user segment "nbSimuls") zip
         userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies") zip
         teamApi.joinedTeamIdsOfUserAsSeenBy(user, ctx.me).mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
-        (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") map {
+        (user.count.rated >= 10).so(insightShare.grant(user, ctx.me)) zip
+        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")) map {
           // format: off
-          case ((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
+          case (((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), nbSimuls), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
           // format: on
             new UserInfo(
               user = user,
@@ -141,6 +143,7 @@ object UserInfo:
               nbForumPosts = nbForumPosts,
               ublog = ublog,
               nbStudies = nbStudies,
+              nbSimuls = nbSimuls,
               trophies = trophiesAndAwards,
               teamIds = teamIds,
               isStreamer = isStreamer,

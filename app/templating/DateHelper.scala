@@ -4,18 +4,14 @@ package templating
 import java.util.concurrent.ConcurrentHashMap
 import play.api.i18n.Lang
 import java.time.format.{ FormatStyle, DateTimeFormatter }
-import java.time.{ Duration, Period, LocalDate }
+import java.time.{ Duration, LocalDate }
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.PeriodLocales
-import chess.format.pgn.Tag.Date
 
 trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   export PeriodLocales.showDuration
-
-  private val dateTimeStyle = "MS"
-  private val dateStyle     = "M-"
 
   private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
   private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
@@ -66,7 +62,7 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     if (!alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis) absClientInstant(instant)
-    else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
+    else timeTag(cls := s"timeago${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
 
   def momentFromNowWithPreload(
       instant: Instant,

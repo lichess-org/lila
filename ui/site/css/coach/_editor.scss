@@ -1,5 +1,4 @@
 @import 'layout';
-@import 'rate';
 
 .coach-edit,
 .coach-picture {
@@ -123,62 +122,5 @@
   .status.saved {
     opacity: 1;
     margin-bottom: 2em;
-  }
-
-  .reviews {
-    .help {
-      text-align: center;
-    }
-
-    .review {
-      @extend %flex-center;
-
-      justify-content: space-between;
-      padding-top: 40px;
-      border-top: $border;
-      margin-top: 40px;
-
-      .br-readonly a {
-        font-size: 1.5em;
-      }
-    }
-
-    .modded {
-      background: $c-bad;
-      color: $c-bad-over;
-      padding: 8px 10px;
-      margin-bottom: 1em;
-    }
-
-    .content {
-      @extend %break-word;
-
-      margin: 0 20px;
-    }
-
-    .actions {
-      font-size: 1.4em;
-
-      a {
-        padding: 0.5em 0.7em;
-      }
-
-      .yes {
-        color: $c-good;
-      }
-
-      .no {
-        color: $c-bad;
-      }
-
-      a:hover {
-        color: $c-good-over;
-        background: $c-good;
-      }
-
-      a.no:hover {
-        background: $c-bad;
-      }
-    }
   }
 }

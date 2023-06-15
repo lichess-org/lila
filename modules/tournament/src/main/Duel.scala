@@ -43,7 +43,7 @@ final private class DuelStore:
   def get(tourId: TourId): Option[TreeSet[Duel]] = Option(byTourId get tourId)
 
   def bestRated(tourId: TourId, nb: Int): List[Duel] =
-    get(tourId) ?? {
+    get(tourId) so {
       lila.common.Heapsort.topNToList(_, nb)(using ratingOrdering)
     }
 

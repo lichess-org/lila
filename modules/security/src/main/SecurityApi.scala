@@ -71,7 +71,7 @@ final class SecurityApi(
   def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] = {
     EmailAddress.from(str.value) match
       case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-      case None        => User.validateId(str into UserStr) ?? authenticator.loginCandidateById
+      case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
   } map loadedLoginForm
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
@@ -95,8 +95,8 @@ final class SecurityApi(
       req: RequestHeader
   ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
-      case true => fufail(SecurityApi MustConfirmEmail userId)
-      case false =>
+      if _ then fufail(SecurityApi MustConfirmEmail userId)
+      else
         val sessionId = SecureRandom nextString 22
         if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"Tor login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
@@ -110,7 +110,7 @@ final class SecurityApi(
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
-    firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
+    firewall.accepts(req) so reqSessionId(req) so { sessionId =>
       appeal.authenticate(sessionId) match {
         case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
         case None =>
@@ -124,34 +124,33 @@ final class SecurityApi(
 
   def oauthScoped(
       req: RequestHeader,
-      scopes: List[lila.oauth.OAuthScope]
+      scopes: lila.oauth.OAuthScopes
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
     oAuthServer.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
-    if (scoped.scopes has OAuthScope.Web.Mod) scoped
+    if scoped.scopes.has(OAuthScope.Web.Mod) then scoped
     else scoped.copy(user = stripRolesOfUser(scoped.user))
 
   private def stripRolesOfCookieUser(user: User) =
-    if (mode == Mode.Prod && user.totpSecret.isEmpty) stripRolesOfUser(user)
+    if mode == Mode.Prod && user.totpSecret.isEmpty then stripRolesOfUser(user)
     else user
 
   private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {
-      _.map { session =>
+      _.map: session =>
         LocatedSession(session, geoIP(session.ip))
-      }
     }
 
   def dedup(userId: UserId, req: RequestHeader): Funit =
-    reqSessionId(req) ?? { store.dedup(userId, _) }
+    reqSessionId(req) so { store.dedup(userId, _) }
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
-    reqSessionId(req) ?? { store.setFingerPrint(_, fp) map some }
+    reqSessionId(req) so { store.setFingerPrint(_, fp) map some }
 
   val sessionIdKey = "sessionId"
 
@@ -192,7 +191,7 @@ final class SecurityApi(
     )
 
     def authenticate(sessionId: SessionId): Option[UserId] =
-      sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
+      sessionId.startsWith(prefix) so store.getIfPresent(sessionId)
 
     def saveAuthentication(userId: UserId): Fu[SessionId] =
       val sessionId = s"$prefix${SecureRandom nextString 22}"

@@ -2,7 +2,7 @@ package views.html.team
 
 import controllers.routes
 import play.api.data.Form
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -10,7 +10,7 @@ object request:
 
   import trans.team.*
 
-  def requestForm(t: lila.team.Team, form: Form[?])(implicit ctx: Context) =
+  def requestForm(t: lila.team.Team, form: Form[?])(using WebContext) =
 
     val title = s"${joinTeam.txt()} ${t.name}"
 
@@ -24,11 +24,11 @@ object request:
           h1(cls := "box__top")(title),
           div(cls := "team-show__desc")(bits.markdown(t, t.description)),
           postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
-            !t.open ?? frag(
+            !t.open so frag(
               form3.group(form("message"), trans.message())(form3.textarea(_)()),
               p(willBeReviewed())
             ),
-            t.password.nonEmpty ?? form3.passwordModified(form("password"), entryCode())(
+            t.password.nonEmpty so form3.passwordModified(form("password"), entryCode())(
               autocomplete := "new-password"
             ),
             form3.globalError(form),
@@ -41,7 +41,7 @@ object request:
       )
     }
 
-  def all(requests: List[lila.team.RequestWithUser])(implicit ctx: Context) =
+  def all(requests: List[lila.team.RequestWithUser])(using WebContext) =
     val title = xJoinRequests.pluralSameTxt(requests.size)
     bits.layout(title = title) {
       main(cls := "page-menu")(
@@ -54,7 +54,7 @@ object request:
     }
 
   private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     table(cls := "slist requests @if(t.isEmpty){all}else{for-team} datatable")(
       tbody(

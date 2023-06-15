@@ -1,12 +1,9 @@
 package lila.tournament
 package arena
 
-import lila.user.{ User, UserRepo }
-
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
-    userRepo: UserRepo,
     colorHistoryApi: ColorHistoryApi
 )(using
     ec: Executor,
@@ -91,7 +88,7 @@ final private[tournament] class PairingSystem(
     } toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
-    (players.sizeIs > 1) ?? AntmaPairing(data, addColorHistory(players))
+    (players.sizeIs > 1) so AntmaPairing(data, addColorHistory(players))
 
   private def addColorHistory(players: RankedPlayers) = players.map(_ withColorHistory colorHistoryApi.get)
 

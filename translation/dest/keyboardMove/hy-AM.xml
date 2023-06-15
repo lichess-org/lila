@@ -14,4 +14,9 @@
   <string name="otherCommands">Այլ հրահանգներ</string>
   <string name="tips">Խորհուրդներ</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Եթե վերը թվարկված քայլերն անհասկանալի են, դրանք ուսումնասիրեք այստեղ.</string>
+  <string name="includingAXToIndicateACapture">Վերցնելը նշելու համար \"x\" ավելացնելը պարտադիր չէ</string>
+  <string name="bothTheLetterOAndTheDigitZero">Եվ \"o\" տառը, և \"0\" թիվը կարող են օգտագործվել փոխարկման համար</string>
+  <string name="ifItIsLegalToCastleBothWays">Եթե առկա են երկու փոխատեղումները, օգտագործեք\"ENTER\" կարճ փոխատեղման համար</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Ռեգիստրը կարևոր է միայն այն դեպքերում, երբ անհրաժեշտ է տարբերակել փիղը (B) զինվորից b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Նախորդի համար պարզապես մուտքագրեք նոր հրաման, նախքան ձեր հերթը գա</string>
 </resources>

@@ -35,6 +35,7 @@ case class Pref(
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
+    voice: Option[Int],
     zen: Int,
     ratings: Int,
     rookCastle: Int,
@@ -89,8 +90,10 @@ case class Pref(
         SoundSet.allByKey get value map { s =>
           copy(soundSet = s.key)
         }
-      case "zen" => copy(zen = if (value == "1") 1 else 0).some
-      case _     => none
+      case "zen"          => copy(zen = if (value == "1") 1 else 0).some
+      case "voice"        => copy(voice = if (value == "1") 1.some else 0.some).some
+      case "keyboardMove" => copy(keyboardMove = if (value == "1") 1 else 0).some
+      case _              => none
 
   def animationMillis: Int =
     animation match
@@ -124,6 +127,8 @@ case class Pref(
   def agree = copy(agreement = Agreement.current)
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
+
+  def hasVoice = voice.contains(Voice.YES)
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -197,16 +202,18 @@ object Pref:
     )
 
   object SubmitMove:
-    val NEVER                    = 0
-    val CORRESPONDENCE_ONLY      = 4
-    val CORRESPONDENCE_UNLIMITED = 1
-    val ALWAYS                   = 2
+    val UNLIMITED      = 1
+    val CORRESPONDENCE = 2
+    val CLASSICAL      = 4
+    val RAPID          = 8
+    val BLITZ          = 16
 
     val choices = Seq(
-      NEVER                    -> "Never",
-      CORRESPONDENCE_ONLY      -> "Correspondence games only",
-      CORRESPONDENCE_UNLIMITED -> "Correspondence and unlimited",
-      ALWAYS                   -> "Always"
+      UNLIMITED      -> "Unlimited",
+      CORRESPONDENCE -> "Correspondence",
+      CLASSICAL      -> "Classical",
+      RAPID          -> "Rapid",
+      BLITZ          -> "Blitz"
     )
 
   object ConfirmResign extends BooleanPref
@@ -223,6 +230,7 @@ object Pref:
     )
 
   object KeyboardMove extends BooleanPref
+  object Voice        extends BooleanPref
 
   object RookCastle:
     val NO  = 0
@@ -445,10 +453,11 @@ object Pref:
     challenge = Challenge.REGISTERED,
     message = Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,
-    submitMove = SubmitMove.CORRESPONDENCE_ONLY,
+    submitMove = SubmitMove.CORRESPONDENCE,
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
+    voice = None,
     zen = Zen.NO,
     ratings = Ratings.YES,
     rookCastle = RookCastle.YES,

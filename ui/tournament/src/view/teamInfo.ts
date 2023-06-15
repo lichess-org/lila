@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon } from 'common/snabbdom';
 import TournamentController from '../ctrl';
@@ -30,7 +31,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
     },
     [
       h('a.close', {
-        attrs: dataIcon(''),
+        attrs: dataIcon(licon.X),
         hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
       }),
       h('div.stats', [
@@ -78,7 +79,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
                 h('td', renderPlayer(p, false, ctrl.opts.showRatings, false, i < nbLeaders)),
                 h('td.total', [
                   p.fire && !ctrl.data.isFinished
-                    ? h('strong.is-gold', { attrs: dataIcon('') }, '' + p.score)
+                    ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, '' + p.score)
                     : h('strong', '' + p.score),
                 ]),
               ]

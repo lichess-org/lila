@@ -25,7 +25,6 @@ private class FishnetConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     uciMemo: lila.game.UciMemo,
@@ -51,14 +50,14 @@ final class Env(
 
   private lazy val analysisColl = db(config.analysisColl)
 
-  private lazy val redis = new FishnetRedis(
+  private lazy val redis = FishnetRedis(
     RedisClient create RedisURI.create(config.redisUri),
     "fishnet-in",
     "fishnet-out",
     shutdown
   )
 
-  private lazy val clientVersion = new Client.ClientVersion(config.clientMinVersion)
+  private lazy val clientVersion = Client.ClientVersion(config.clientMinVersion)
 
   private lazy val repo = new FishnetRepo(
     analysisColl = analysisColl,
@@ -124,12 +123,12 @@ final class Env(
     def process =
       case "fishnet" :: "client" :: "create" :: name :: Nil =>
         userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)) flatMap {
-          case false => fuccess("User missing, closed, or banned")
-          case true =>
+          if _ then
             api.createClient(UserStr(name).id) map { client =>
               Bus.publish(lila.hub.actorApi.fishnet.NewKey(client.userId, client.key.value), "fishnet")
               s"Created key: ${client.key.value} for: $name"
             }
+          else fuccess("User missing, closed, or banned")
         }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
         repo toKey key flatMap repo.deleteClient inject "done!"

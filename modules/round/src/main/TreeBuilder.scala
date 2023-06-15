@@ -1,7 +1,7 @@
 package lila.round
 
 import chess.{ Centis, Color, Ply }
-import chess.format.pgn.Glyphs
+import chess.format.pgn.{ Comment, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
@@ -21,7 +21,7 @@ object TreeBuilder:
       initialFen: Fen.Epd,
       withFlags: WithFlags
   ): Root =
-    val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
+    val withClocks: Option[Vector[Centis]] = withFlags.clocks so game.bothClockStates
     val drawOfferPlies                     = game.drawOffers.normalizedPlies
     chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
       case (init, games, error) =>
@@ -30,14 +30,14 @@ object TreeBuilder:
           if (withFlags.opening && Variant.list.openingSensibleVariants(game.variant)) OpeningDb.findByEpdFen
           else _ => None
         val fen                       = Fen write init
-        val infos: Vector[Info]       = analysis.??(_.infos.toVector)
-        val advices: Map[Ply, Advice] = analysis.??(_.advices.mapBy(_.ply))
+        val infos: Vector[Info]       = analysis.so(_.infos.toVector)
+        val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
         val root = Root(
           ply = init.ply,
           fen = fen,
           check = init.situation.check,
           opening = openingOf(fen),
-          clock = withFlags.clocks ?? game.clock.map { c =>
+          clock = withFlags.clocks so game.clock.map { c =>
             Centis.ofSeconds(c.limitSeconds.value)
           },
           crazyData = init.situation.board.crazyData,
@@ -60,7 +60,7 @@ object TreeBuilder:
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
               drawOfferPlies(g.ply)
-                .option(makeLichessComment(s"${!g.ply.color} offers draw"))
+                .option(makeLichessComment(Comment(s"${!g.ply.turn} offers draw")))
                 .toList :::
                 advice
                   .map(_.makeComment(withEval = false, withBestMove = true))
@@ -80,10 +80,10 @@ object TreeBuilder:
               makeBranch(i + 1, g, m) prependChild node
             }
 
-  private def makeLichessComment(text: String) =
+  private def makeLichessComment(c: Comment) =
     Node.Comment(
       Node.Comment.Id.make,
-      Node.Comment.Text(text),
+      c into Node.Comment.Text,
       Node.Comment.Author.Lichess
     )
 

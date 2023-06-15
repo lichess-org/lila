@@ -49,13 +49,13 @@ final class ShutupApi(
       toUserId: Option[UserId] = None
   ): Funit =
     userRepo isTroll userId flatMap {
-      case true => funit
-      case false =>
-        toUserId ?? { relationApi.fetchFollows(_, userId) } flatMap {
-          case true => funit
-          case false =>
+      if _ then funit
+      else
+        toUserId so { relationApi.fetchFollows(_, userId) } flatMap {
+          if _ then funit
+          else
             val analysed = Analyser(text)
-            val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty) ?? { source =>
+            val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty) so { source =>
               $doc(
                 "pub" -> $doc(
                   "$each"  -> List(PublicLine.make(text, source)),
@@ -84,8 +84,8 @@ final class ShutupApi(
     }
 
   private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
-    (analysed.critical || userRecord.reports.exists(_.unacceptable)) ?? {
-      val text = (analysed.critical ?? "Critical comm alert\n") ++ {
+    (analysed.critical || userRecord.reports.exists(_.unacceptable)) so {
+      val text = (analysed.critical so "Critical comm alert\n") ++ {
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }

@@ -3,7 +3,7 @@ package views.html.relay
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTourForm.Data
@@ -13,7 +13,7 @@ object tourForm:
 
   import trans.broadcast.*
 
-  def create(form: Form[Data])(implicit ctx: Context) =
+  def create(form: Form[Data])(using WebContext) =
     layout(newBroadcast.txt(), menu = "new".some)(
       boxTop(h1(newBroadcast())),
       postForm(cls := "form3", action := routes.RelayTour.create)(
@@ -25,7 +25,7 @@ object tourForm:
       )
     )
 
-  def edit(t: RelayTour, form: Form[Data])(implicit ctx: Context) =
+  def edit(t: RelayTour, form: Form[Data])(using WebContext) =
     layout(t.name, menu = none)(
       boxTop(h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(t.name))),
       postForm(cls := "form3", action := routes.RelayTour.update(t.id.value))(
@@ -37,7 +37,7 @@ object tourForm:
       )
     )
 
-  private def layout(title: String, menu: Option[String])(body: Modifier*)(implicit ctx: Context) =
+  private def layout(title: String, menu: Option[String])(body: Modifier*)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form")
@@ -50,7 +50,7 @@ object tourForm:
       case None => main(cls := "page-small box box-pad")(body)
     })
 
-  private def inner(form: Form[Data])(implicit ctx: Context) = frag(
+  private def inner(form: Form[Data])(using WebContext) = frag(
     div(cls := "form-group")(bits.howToUse),
     form3.globalError(form),
     form3.group(form("name"), tournamentName())(form3.input(_)(autofocus)),

@@ -55,7 +55,7 @@ case class Glicko(
         volatility = volatility * (1 - weight) + other.volatility * weight
       )
 
-  def display = s"$intRating${provisional.yes ?? "?"}"
+  def display = s"$intRating${provisional.yes so "?"}"
 
   override def toString = f"$intRating/$intDeviation/${volatility}%.3f"
 
@@ -116,18 +116,13 @@ case object Glicko:
   import play.api.libs.json.{ OWrites, Json }
   given OWrites[Glicko] =
     import lila.common.Maths.roundDownAt
-    OWrites { p =>
+    OWrites: p =>
       Json
         .obj(
           "rating"    -> roundDownAt(p.rating, 2),
           "deviation" -> roundDownAt(p.deviation, 2)
         )
         .add("provisional" -> p.provisional)
-    }
 
-  sealed abstract class Result:
-    def negate: Result
-  object Result:
-    case object Win  extends Result { def negate = Loss }
-    case object Loss extends Result { def negate = Win  }
-    case object Draw extends Result { def negate = Draw }
+  enum Result:
+    case Win, Loss, Draw

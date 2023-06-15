@@ -4,7 +4,7 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 
 import lila.common.LilaStream
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.game.{ Game, GameRepo, Query }
 import lila.round.actorApi.round.{ Abandon, QuietFlag }
 
@@ -17,7 +17,7 @@ final private[round] class Titivate(
     gameRepo: GameRepo,
     bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi
-)(implicit mat: akka.stream.Materializer)
+)(using akka.stream.Materializer)
     extends Actor:
 
   private type GameOrFail = Either[(GameId, Throwable), Game]

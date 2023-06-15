@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import { bind, onInsert, dataIcon } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { LogEvent } from './interfaces';
@@ -12,11 +13,11 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
         },
         [
           h('h2', [
-            h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),
+            h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
             h('a', {
               attrs: {
                 href: `/broadcast/round/${ctrl.id}/edit`,
-                'data-icon': '',
+                'data-icon': licon.Gear,
               },
             }),
           ]),
@@ -58,7 +59,7 @@ function renderLog(ctrl: RelayCtrl) {
         'div' + (err ? '.err' : ''),
         {
           key: e.at,
-          attrs: dataIcon(err ? '' : ''),
+          attrs: dataIcon(err ? licon.CautionCircle : licon.Checkmark),
         },
         [h('div', [...(err ? [err] : logSuccess(e)), h('time', dateFormatter(new Date(e.at)))])]
       );
@@ -75,7 +76,7 @@ function stateOn(ctrl: RelayCtrl) {
     'div.state.on.clickable',
     {
       hook: bind('click', _ => ctrl.setSync(false)),
-      attrs: dataIcon(''),
+      attrs: dataIcon(licon.ChasingArrows),
     },
     [
       h(
@@ -99,7 +100,7 @@ const stateOff = (ctrl: RelayCtrl) =>
     'div.state.off.clickable',
     {
       hook: bind('click', _ => ctrl.setSync(true)),
-      attrs: dataIcon(''),
+      attrs: dataIcon(licon.PlayTriangle),
     },
     [h('div.fat', 'Click to connect')]
   );

@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { Ctrl, Tab } from './interfaces';
 import discussionView from './discussion';
@@ -32,7 +33,7 @@ function renderPalantir(ctrl: Ctrl) {
     ? p.instance.render(h)
     : h('div.mchat__tab.palantir.palantir-slot', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.Handset,
           title: 'Voice chat',
         },
         hook: bind('click', () => {

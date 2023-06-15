@@ -2,7 +2,6 @@ package lila.tournament
 package arena
 
 import chess.variant.Variant
-import lila.user.User
 
 // most recent first
 case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):

@@ -1,6 +1,6 @@
 package views.html.challenge
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
@@ -15,7 +15,7 @@ object theirs:
       json: play.api.libs.json.JsObject,
       user: Option[lila.user.User],
       color: Option[chess.Color]
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
@@ -53,14 +53,16 @@ object theirs:
               else if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
                 badTag(
                   // very rare message, don't translate
-                  s"You have the wrong color link for this open challenge. The ${color.??(_.name)} player has already joined."
+                  s"You have the wrong color link for this open challenge. The ${color.so(_.name)} player has already joined."
                 )
               else if (!c.mode.rated || ctx.isAuth) {
                 frag(
                   (c.mode.rated && c.unlimited) option
                     badTag(trans.bewareTheGameIsRatedButHasNoClock()),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
-                    submitButton(cls := "text button button-fat", dataIcon := "")(trans.joinTheGame())
+                    submitButton(cls := "text button button-fat", dataIcon := licon.PlayTriangle)(
+                      trans.joinTheGame()
+                    )
                   )
                 )
               } else

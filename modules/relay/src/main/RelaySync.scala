@@ -1,9 +1,11 @@
 package lila.relay
 
+import cats.syntax.traverse.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
 import lila.socket.Socket.Sri
 import lila.study.*
+import lila.tree.Branch
 
 final private class RelaySync(
     studyApi: StudyApi,
@@ -14,33 +16,37 @@ final private class RelaySync(
 )(using Executor):
 
   def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
-    studyApi byId rt.round.studyId orFail "Missing relay study!" flatMap { study =>
-      chapterRepo orderedByStudy study.id flatMap { chapters =>
-        RelayInputSanity(chapters, games) match
-          case Left(fail) => fufail(fail.msg)
-          case Right(games) =>
-            lila.common.LilaFuture.linear(games) { game =>
-              findCorrespondingChapter(game, chapters, games.size) match
-                case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
-                case None =>
-                  chapterRepo.countByStudyId(study.id) flatMap {
-                    case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
-                    case _ =>
-                      createChapter(study, game) flatMap { chapter =>
-                        chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                          studyApi.deleteChapter(study.id, initial.id) {
-                            actorApi.Who(study.ownerId, sri)
+    studyApi
+      .byId(rt.round.studyId)
+      .orFail("Missing relay study!")
+      .flatMap: study =>
+        chapterRepo
+          .orderedByStudy(study.id)
+          .flatMap: chapters =>
+            RelayInputSanity(chapters, games) match
+              case Left(fail) => fufail(fail.msg)
+              case Right(games) =>
+                games.traverse: game =>
+                  findCorrespondingChapter(game, chapters, games.size) match
+                    case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
+                    case None =>
+                      chapterRepo.countByStudyId(study.id) flatMap {
+                        case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
+                        case _ =>
+                          createChapter(study, game) flatMap { chapter =>
+                            chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
+                              studyApi.deleteChapter(study.id, initial.id) {
+                                actorApi.Who(study.ownerId, sri)
+                              }
+                            } inject SyncResult
+                              .ChapterResult(chapter.id, true, chapter.root.mainline.size)
+                              .some
                           }
-                        } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
                       }
-                  }
-            } flatMap { chapterUpdates =>
-              val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
-              lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
-              tourRepo.setSyncedNow(rt.tour) inject result
-            }
-      }
-    }
+          .flatMap: chapterUpdates =>
+            val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
+            lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
+            tourRepo.setSyncedNow(rt.tour) inject result
 
   /*
    * If the source contains several games, use their index to match them with the study chapter.
@@ -70,13 +76,13 @@ final private class RelaySync(
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     val who = actorApi.Who(chapter.ownerId, sri)
-    game.root.mainline.foldLeft(UciPath.root -> none[Node]) {
+    game.root.mainline.foldLeft(UciPath.root -> none[Branch]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode.id
         chapter.root.nodeAt(path) match
           case None => parentPath -> gameNode.some
           case Some(existing) =>
-            gameNode.clock.filter(c => !existing.clock.has(c)) ?? { c =>
+            gameNode.clock.filter(c => !existing.clock.has(c)) so { c =>
               studyApi.setClock(
                 studyId = study.id,
                 position = Position(chapter, path).ref,
@@ -87,14 +93,14 @@ final private class RelaySync(
       case (found, _) => found
     } match
       case (path, newNode) =>
-        !path.isMainline(chapter.root) ?? {
+        (!path.isMainline(chapter.root)).so {
           logger.info(s"Change mainline ${showSC(study, chapter)} $path")
           studyApi.promote(
             studyId = study.id,
             position = Position(chapter, path).ref,
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
-        } >> newNode.?? { node =>
+        } >> newNode.so { node =>
           lila.common.LilaFuture.fold(node.mainline.toList)(Position(chapter, path).ref) {
             case (position, n) =>
               studyApi.addNode(
@@ -129,13 +135,13 @@ final private class RelaySync(
     }
     val newEndTag = game.end
       .ifFalse(gameTags(_.Result).isDefined)
-      .filterNot(end => chapter.tags(_.Result).??(end.resultText ==))
+      .filterNot(end => chapter.tags(_.Result).so(end.resultText ==))
       .map(end => Tag(_.Result, end.resultText))
     val tags = newEndTag.fold(gameTags)(gameTags + _)
     val chapterNewTags = tags.value.foldLeft(chapter.tags) { (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
     }
-    (chapterNewTags != chapter.tags) ?? {
+    (chapterNewTags != chapter.tags) so {
       if (vs(chapterNewTags) != vs(chapter.tags))
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
       studyApi.setTags(
@@ -144,13 +150,13 @@ final private class RelaySync(
         tags = chapterNewTags
       )(actorApi.Who(chapter.ownerId, sri)) >> {
         val newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
-        newEnd ?? onChapterEnd(tour, study, chapter)
+        newEnd so onChapterEnd(tour, study, chapter)
       } inject true
     }
 
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
     chapterRepo.setRelayPath(chapter.id, UciPath.root) >> {
-      (tour.official && chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
+      (tour.official && chapter.root.mainline.sizeIs > 10) so studyApi.analysisRequest(
         studyId = study.id,
         chapterId = chapter.id,
         userId = study.ownerId,

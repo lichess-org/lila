@@ -1,10 +1,13 @@
 import debounce from 'common/debounce';
+import * as licon from 'common/licon';
+import { renderClock, fenColor } from 'common/mini-game';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { opposite } from 'chessground/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
+import { opposite as CgOpposite } from 'chessground/util';
+import { opposite as oppositeColor } from 'chessops/util';
+import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -19,8 +22,26 @@ export class MultiBoardCtrl {
     if (cp?.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
+      const playerWhoMoved = cp.players && cp.players[oppositeColor(fenColor(cp.fen))];
+      playerWhoMoved && (playerWhoMoved.clock = node.clock);
+      // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
+      // to mitigate bad usage, setting it as `undefined`
+      cp.lastMoveAt = undefined;
       this.redraw();
     }
+  };
+
+  addResult = (metas: StudyChapterMeta[]) => {
+    let changed = false;
+    for (const meta of metas) {
+      const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == meta.id);
+      if (cp?.playing) {
+        const oldOutcome = cp.outcome;
+        cp.outcome = meta.res !== '*' ? meta.res : undefined;
+        changed = changed || cp.outcome !== oldOutcome;
+      }
+    }
+    if (changed) this.redraw();
   };
 
   reload = (onInsert?: boolean) => {
@@ -108,14 +129,14 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
     to = Math.min(pager.nbResults, page * pager.maxPerPage);
   return h('div.pager', [
-    pagerButton(ctrl.trans.noarg('first'), '', () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton(ctrl.trans.noarg('previous'), '', ctrl.prevPage, page > 1, ctrl),
+    pagerButton(ctrl.trans.noarg('first'), licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(ctrl.trans.noarg('previous'), licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton(ctrl.trans.noarg('next'), '', ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton(ctrl.trans.noarg('last'), '', ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton(ctrl.trans.noarg('next'), licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(ctrl.trans.noarg('last'), licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     h('button.fbt', {
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.Search,
         title: 'Search',
       },
       hook: bind('click', () => lichess.pubsub.emit('study.search.open')),
@@ -153,16 +174,29 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
         },
         postpatch(old, vnode) {
           if (old.data!.fen !== preview.fen) {
-            lichess.miniGame.update(vnode.elm as HTMLElement, {
-              lm: preview.lastMove!,
-              fen: preview.fen,
-            });
+            if (preview.outcome) {
+              lichess.miniGame.finish(
+                vnode.elm as HTMLElement,
+                preview.outcome === '1-0' ? 'white' : preview.outcome === '0-1' ? 'black' : undefined
+              );
+            } else {
+              lichess.miniGame.update(vnode.elm as HTMLElement, {
+                lm: preview.lastMove!,
+                fen: preview.fen,
+                wc: computeTimeLeft(preview, 'white'),
+                bc: computeTimeLeft(preview, 'black'),
+              });
+            }
           }
           vnode.data!.fen = preview.fen;
         },
       },
     },
-    [boardPlayer(preview, opposite(preview.orientation)), h('span.cg-wrap'), boardPlayer(preview, preview.orientation)]
+    [
+      boardPlayer(preview, CgOpposite(preview.orientation)),
+      h('span.cg-wrap'),
+      boardPlayer(preview, preview.orientation),
+    ]
   );
 
 const userName = (u: ChapterPreviewPlayer) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
@@ -179,11 +213,25 @@ function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefin
   );
 }
 
+const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
+  const player = preview.players && preview.players[color];
+  if (player && player.clock) {
+    if (preview.lastMoveAt && fenColor(preview.fen) == color) {
+      const spent = (Date.now() - preview.lastMoveAt) / 1000;
+      return Math.max(0, player.clock / 100 - spent);
+    } else {
+      return player.clock / 100;
+    }
+  } else {
+    return;
+  }
+};
+
 const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const player = preview.players && preview.players[color];
   const result = preview.outcome?.split('-')[color === 'white' ? 0 : 1];
-  return h('span.mini-game__player', [
-    h('span.mini-game__user', [renderPlayer(player)]),
-    result && h('span.mini-game__result', result.replace('1/2', '½')),
-  ]);
+  const resultNode = result && h('span.mini-game__result', result);
+  const timeleft = computeTimeLeft(preview, color);
+  const clock = timeleft && renderClock(color, timeleft);
+  return h('span.mini-game__player', [h('span.mini-game__user', [renderPlayer(player)]), resultNode ?? clock]);
 };

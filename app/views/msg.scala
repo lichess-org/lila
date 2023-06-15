@@ -2,14 +2,14 @@ package views.html
 
 import play.api.libs.json.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
 object msg:
 
-  def home(json: JsObject)(using Context) =
+  def home(json: JsObject)(using WebContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       moreJs = frag(

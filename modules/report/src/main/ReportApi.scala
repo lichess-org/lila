@@ -34,21 +34,19 @@ final class ReportApi(
   private lazy val scorer = wire[ReportScore]
 
   def create(data: ReportSetup, reporter: Reporter): Funit =
-    Reason(data.reason) ?? { reason =>
-      getSuspect(data.user.id) flatMapz { suspect =>
-        create(
+    Reason(data.reason) so { reason =>
+      getSuspect(data.user.id).flatMapz: suspect =>
+        create:
           Report.Candidate(
             reporter,
             suspect,
             reason,
             data.text take 1000
           )
-        )
-      }
     }
 
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
-    (!c.reporter.user.marks.reportban && !isAlreadySlain(c)) ?? {
+    (!c.reporter.user.marks.reportban && !isAlreadySlain(c)) so {
       scorer(c) map (_ withScore score) flatMap { case scored @ Candidate.Scored(candidate, _) =>
         coll
           .one[Report](
@@ -122,8 +120,8 @@ final class ReportApi(
         "reason" -> Reason.AltPrint.key
       )
     ) flatMap {
-      case true => funit // only report once
-      case _ =>
+      if _ then funit // only report once
+      else
         getSuspect(userId) zip getLichessReporter flatMap {
           case (Some(suspect), reporter) =>
             create(
@@ -185,7 +183,7 @@ final class ReportApi(
     }
 
   def maybeAutoPlaybanReport(userId: UserId, minutes: Int): Funit =
-    (minutes > 60 * 24) ?? userLoginsApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
+    (minutes > 60 * 24) so userLoginsApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
       playbanApi
         .bans(userId :: ids.toList)
         .map {
@@ -193,7 +191,7 @@ final class ReportApi(
         }
         .flatMap { bans =>
           val topSum = Heapsort.topNToList(bans.values, 10).sum
-          (topSum >= 80) ?? {
+          (topSum >= 80) so {
             userRepo.byId(userId) zip
               getLichessReporter zip
               findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
@@ -301,7 +299,7 @@ final class ReportApi(
         $set(
           "open" -> false,
           "done" -> Report.Done(by, nowInstant)
-        ) ++ (unsetInquiry ?? $unset("inquiry")),
+        ) ++ (unsetInquiry so $unset("inquiry")),
         multi = true
       )
       .void
@@ -339,7 +337,7 @@ final class ReportApi(
 
   private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[Report.Id]) =
     $doc("open" -> true) ++ roomSelect(room) ++ {
-      exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
+      exceptIds.nonEmpty so $doc("_id" $nin exceptIds)
     }
 
   private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[Report.Id]) =
@@ -361,7 +359,7 @@ final class ReportApi(
           .parallel
           .dmap { scores =>
             Room.Scores(scores.map { (room, s) =>
-              room -> s.??(_.toInt)
+              room -> s.so(_.toInt)
             }.toMap)
           }
           .addEffect { scores =>
@@ -495,7 +493,7 @@ final class ReportApi(
       cache get reporter
 
     def apply(candidate: Candidate): Fu[Option[Accuracy]] =
-      candidate.isCheat ?? of(candidate.reporter.id)
+      candidate.isCheat so of(candidate.reporter.id)
 
     def invalidate(selector: Bdoc): Funit =
       coll
@@ -504,10 +502,10 @@ final class ReportApi(
         .void
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0) ?? coll.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
+    (nb > 0) so coll.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
 
   private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0) ?? coll.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
+    (nb > 0) so coll.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
@@ -573,10 +571,10 @@ final class ReportApi(
           case Right(userId)  => findByUser(userId)
           case anyId: String  => coll.byId[Report](anyId) orElse findByUser(UserId(anyId))
         current <- ofModId(mod.user.id)
-        _       <- current ?? cancel(mod)
+        _       <- current so cancel(mod)
         _ <-
-          report ?? { r =>
-            r.inquiry.isEmpty ?? coll
+          report so { r =>
+            r.inquiry.isEmpty so coll
               .updateField(
                 $id(r.id),
                 "inquiry",
@@ -612,7 +610,7 @@ final class ReportApi(
 
     private def openOther(mod: Mod, sus: Suspect, name: String): Fu[Report] =
       ofModId(mod.user.id) flatMap { current =>
-        current.??(cancel(mod)) >> {
+        current.so(cancel(mod)) >> {
           val report = Report
             .make(
               Candidate(

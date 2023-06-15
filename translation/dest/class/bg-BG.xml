@@ -91,6 +91,7 @@
   <string name="na">Неналично</string>
   <string name="overview">Преглед</string>
   <string name="news">Новини</string>
+  <string name="classNews">Новини за класа</string>
   <string name="editNews">Редактирай новини</string>
   <string name="notifyAllStudents">Извести всички ученици</string>
   <string name="nothingHere">Нищо тук, засега.</string>
@@ -98,8 +99,17 @@
   <string name="newsEdit2">Добавете последните новини в горната част. Не изтривайте предишни новини.</string>
   <string name="newsEdit3">Отделни новини с ---
 Ще покаже хоризонтална линия.</string>
+  <string name="invite">Покани</string>
+  <string name="youHaveBeenInvitedByX">Поканени сте от %s.</string>
+  <string name="youAcceptedThisInvitation">Вие приехте тази покана.</string>
   <string name="youDeclinedThisInvitation">Вие отказахте тази покана.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">или</string>
+  <string name="createMultipleAccounts">Създайте няколко Lichess акаунта наведнъж</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Можете също %s да създадете множество Lichess акаунти от списък с имена на ученици.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">използвайте този формуляр</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Имайте предвид, че един клас може да има до %1$s ученици. За да управлявате повече ученици, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">създайте повече класове</string>
+  <string name="studentsRealNamesOnePerLine">Истински имена на учениците, по едно на ред</string>
   <string name="xisNowAStudentOfTheClass">%s вече е ученик в класа</string>
   <string name="anInvitationHasBeenSentToX">Изпратена е покана до %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s вече има чакаща покана</string>

@@ -6,10 +6,8 @@ import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
-import lila.db.dsl.Coll
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
@@ -76,7 +74,7 @@ final class Env(
     },
     "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {
-        _ ?? api.requestPlay(id into RelayRoundId, v)
+        _ so api.requestPlay(id into RelayRoundId, v)
       }
     },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>

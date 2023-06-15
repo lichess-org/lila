@@ -1,6 +1,6 @@
 package views.html.tv
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -13,8 +13,8 @@ object side:
       champions: lila.tv.Tv.Champions,
       baseUrl: String
   ): Frag =
-    div(cls := "tv-channels subnav")(
-      lila.tv.Tv.Channel.all.map { c =>
+    div(cls := "tv-channels subnav"):
+      lila.tv.Tv.Channel.list.map: c =>
         a(
           href := s"$baseUrl/${c.key}",
           cls := List(
@@ -22,8 +22,8 @@ object side:
             c.key        -> true,
             "active"     -> (c == channel)
           )
-        )(
-          span(dataIcon := c.icon)(
+        ):
+          span(dataIcon := c.icon):
             span(
               strong(c.name),
               span(cls := "champion")(
@@ -38,14 +38,10 @@ object side:
                 }
               )
             )
-          )
-        )
-      }
-    )
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(implicit ctx: Context): Frag =
+  def meta(pov: lila.game.Pov)(using WebContext): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(
@@ -70,7 +66,7 @@ object side:
       ),
       game.tournamentId map { tourId =>
         st.section(cls := "game__tournament-link")(
-          a(href := routes.Tournament.show(tourId), dataIcon := "", cls := "text")(
+          a(href := routes.Tournament.show(tourId), dataIcon := licon.Trophy, cls := "text")(
             tournamentIdToName(tourId)
           )
         )
@@ -80,7 +76,7 @@ object side:
   def sides(
       pov: lila.game.Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     div(cls := "sides")(
       cross.map {
         views.html.game.crosstable(_, pov.gameId.some)

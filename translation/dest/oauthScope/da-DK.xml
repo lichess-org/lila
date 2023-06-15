@@ -27,8 +27,8 @@
   <string name="msgWrite">Send privat besked til andre spillere</string>
   <string name="boardPlay">Spil partier med bræt-api</string>
   <string name="botPlay">Spil partier med bot-api</string>
-  <string name="engineRead">Se og brug din eksterne skakmotor</string>
-  <string name="engineWrite">Opret og opdater ekstern skakmotor</string>
+  <string name="engineRead">Se og brug dit eksterne skakprogram</string>
+  <string name="engineWrite">Opret og opdater eksternt skakprogram</string>
   <string name="webLogin">Opret godkendte hjemmesidesessioner (giver fuld adgang!)</string>
   <string name="webMod">Brug moderatorværktøjer (inden for rammerne af din tilladelse)</string>
 </resources>

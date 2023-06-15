@@ -15,4 +15,8 @@
 یہ رہا آپ کا پروفائل صفحہ: %1$s۔ آپ اسے %2$s پر ذاتی بنا سکتے ہیں۔
 
 مزہ لیں، اور آپ کے مہرے ہمیشہ آپ کے مخالف بادشاہ کے لئے اپنا راستہ تلاش کریں!</string>
+  <string name="logInToLichess">lichess.org میں داخل ہوئیں، %s</string>
+  <string name="common_orPaste">(کلک کرنا کام نہیں کر رہا؟ اسے مرورگر میں چپکانے کی کوشش کریں!)</string>
+  <string name="common_note">یہ ایک سروس ای میل ہے جو آپ کے %s کے استعمال سے متعلق ہے۔</string>
+  <string name="common_contact">ہم سے رابطہ کرنے کیلئے، براہ کرم %s استعمال کریں۔</string>
 </resources>

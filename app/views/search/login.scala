@@ -2,13 +2,13 @@ package views.html.search
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object login:
 
-  def apply(nbGames: Long)(implicit ctx: Context) =
+  def apply(nbGames: Long)(using WebContext) =
     views.html.base.layout(
       title = trans.search.searchInXGames.txt(nbGames.localize, nbGames),
       moreCss = cssTag("search")

@@ -27,13 +27,13 @@ final private class ReportScore(
     val baseScore = 20
 
     def accuracyScore(a: Option[Accuracy]): Double =
-      a ?? { accuracy =>
+      a so { accuracy =>
         (accuracy.value - 50) * 0.8d
       }
 
-    def reporterScore(r: Reporter) = r.user.lameOrTroll ?? -30d
+    def reporterScore(r: Reporter) = r.user.lameOrTroll so -30d
 
-    def autoScore(candidate: Report.Candidate) = candidate.isAutomatic ?? 25d
+    def autoScore(candidate: Report.Candidate) = candidate.isAutomatic so 25d
 
     // https://github.com/lichess-org/lila/issues/4587
     def fixedAutoScore(c: Report.Candidate)(score: Double): Double =
@@ -51,7 +51,7 @@ final private class ReportScore(
         val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(m => GameId(m.group(1)))
         def isUsable(gameId: GameId) = gameRepo analysed gameId map { _.exists(_.ply > 30) }
         lila.common.LilaFuture.exists(gameIds)(isUsable) map {
-          case true  => c
-          case false => c.withScore(_.map(_ / 3))
+          if _ then c
+          else c.withScore(_.map(_ / 3))
         }
       else fuccess(c)

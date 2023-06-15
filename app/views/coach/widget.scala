@@ -1,7 +1,7 @@
 package views.html
 package coach
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
@@ -20,7 +20,7 @@ object widget:
       c.user.realNameOrUsername
     )
 
-  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(implicit ctx: Context) =
+  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(using WebContext) =
     val profile = c.user.profileOrDefault
     frag(
       link option a(cls := "overlay", href := routes.Coach.show(c.user.username)),
@@ -78,8 +78,8 @@ object widget:
             !link option tr(cls := "available")(
               th(availability()),
               td(
-                if (c.coach.available.value) span(cls := "text", dataIcon := "")(accepting())
-                else span(cls := "text", dataIcon := "")(notAccepting())
+                if (c.coach.available.value) span(cls := "text", dataIcon := licon.Checkmark)(accepting())
+                else span(cls := "text", dataIcon := licon.X)(notAccepting())
               )
             ),
             c.user.seenAt.map { seen =>

@@ -7,8 +7,9 @@ import scalatags.text.Builder
 import scalatags.Text.GenericAttr
 import scalatags.Text.{ Aggregate, Cap }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.user.Title
+import lila.common.licon.Icon
 
 // collection of lila attrs
 trait ScalatagsAttrs:
@@ -34,6 +35,7 @@ trait ScalatagsAttrs:
   object frame:
     val scrolling       = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
+    val credentialless  = attr("credentialless").empty
 
   val dataSortNumberTh = th(attr("data-sort-method") := "number")
   val dataSort         = attr("data-sort")
@@ -45,26 +47,24 @@ trait ScalatagsSnippets:
 
   import scalatags.Text.all.*
 
-  val nbsp: Frag                             = raw("&nbsp;")
-  val amp: Frag                              = raw("&amp;")
-  def iconTag(icon: Char): Tag               = iconTag(icon.toString)
-  def iconTag(icon: String): Tag             = i(dataIcon := icon)
-  def iconTag(icon: Char, text: Frag): Tag   = iconTag(icon.toString, text)
-  def iconTag(icon: String, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
-  val styleTag                               = tag("style")
-  val ratingTag                              = tag("rating")
-  val countTag                               = tag("count")
-  val goodTag                                = tag("good")
-  val badTag                                 = tag("bad")
-  val timeTag                                = tag("time")
-  val dialog                                 = tag("dialog")
-  val svgTag                                 = tag("svg")
-  val svgGroupTag                            = tag("g")
-  val svgTextTag                             = tag("text")
-  val details                                = tag("details")
-  val summary                                = tag("summary")
-  val abbr                                   = tag("abbr")
-  val boxTop                                 = div(cls := "box__top")
+  val nbsp: Frag                           = raw("&nbsp;")
+  val amp: Frag                            = raw("&amp;")
+  def iconTag(icon: Icon): Tag             = i(dataIcon := icon)
+  def iconTag(icon: Icon, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
+  val styleTag                             = tag("style")
+  val ratingTag                            = tag("rating")
+  val countTag                             = tag("count")
+  val goodTag                              = tag("good")
+  val badTag                               = tag("bad")
+  val timeTag                              = tag("time")
+  val dialog                               = tag("dialog")
+  val svgTag                               = tag("svg")
+  val svgGroupTag                          = tag("g")
+  val svgTextTag                           = tag("text")
+  val details                              = tag("details")
+  val summary                              = tag("summary")
+  val abbr                                 = tag("abbr")
+  val boxTop                               = div(cls := "box__top")
 
   def rawHtml(html: Html) = raw(html.value)
 
@@ -123,8 +123,8 @@ trait ScalatagsExtensions:
 
   given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
 
-  implicit def opaqueStringFrag[A](a: A)(using r: StringRuntime[A]): Frag = stringFrag(r(a))
-  implicit def opaqueIntFrag[A](a: A)(using r: IntRuntime[A]): Frag       = intFrag(r(a))
+  given opaqueStringFrag[A](using r: StringRuntime[A]): Conversion[A, Frag] = a => stringFrag(r(a))
+  given opaqueIntFrag[A](using r: IntRuntime[A]): Conversion[A, Frag]       = a => intFrag(r(a))
 
   given opaqueStringAttr[A](using bts: StringRuntime[A]): AttrValue[A] with
     def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, bts(v))
@@ -148,30 +148,28 @@ trait ScalatagsExtensions:
       val cls = m collect { case (s, true) => s } mkString " "
       if (cls.nonEmpty) t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
 
-  val emptyFrag: Frag = new RawFrag("")
+  val emptyFrag: Frag = RawFrag("")
   given Zero[Frag]    = Zero(emptyFrag)
 
-  val targetBlank: Modifier = (t: Builder) => {
+  val targetBlank: Modifier = (t: Builder) =>
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted
     // links, because there can be a small performance advantage and lila does
     // not use window.opener anywhere. Will not be overwritten by additional
     // rels.
     t.setAttr("rel", Builder.GenericAttrValueSource("noopener"))
     t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
-  }
 
   val noFollow = rel := "nofollow"
 
-  def ariaTitle(v: String): Modifier = (t: Builder) => {
+  def ariaTitle(v: String): Modifier = (t: Builder) =>
     val value = Builder.GenericAttrValueSource(v)
     t.setAttr("title", value)
     t.setAttr("aria-label", value)
-  }
 
   def titleOrText(blind: Boolean, v: String): Modifier = (t: Builder) =>
-    if (blind) t.addChild(StringFrag(v))
+    if blind then t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-  def titleOrText(v: String)(using ctx: Context): Modifier = titleOrText(ctx.blind, v)
+  def titleOrText(v: String)(using ctx: WebContext): Modifier = titleOrText(ctx.blind, v)
 
 object ScalatagsExtensions extends ScalatagsExtensions

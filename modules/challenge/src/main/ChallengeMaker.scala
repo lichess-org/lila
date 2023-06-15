@@ -23,16 +23,16 @@ final class ChallengeMaker(
 
   private def collectDataFor(gameId: GameId, dest: User): Future[Option[(Game, Player, Option[User])]] =
     gameRepo.game(gameId) flatMapz { game =>
-      game.opponentByUserId(dest.id) ?? { challenger =>
-        (challenger.userId ?? userRepo.byId) map {
-          (game, challenger, _).some
-        }
-      }
+      game
+        .opponentByUserId(dest.id)
+        .so: challenger =>
+          (challenger.userId so userRepo.byId).map:
+            (game, challenger, _).some
     }
 
   private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
-    Pov.ofUserId(game, challenger.id) ?? { pov =>
-      pov.opponent.userId ?? userRepo.byId flatMapz { dest =>
+    Pov.ofUserId(game, challenger.id).so { pov =>
+      pov.opponent.userId so userRepo.byId flatMapz { dest =>
         makeRematch(pov, challenger.some, dest) dmap some
       }
     }

@@ -1,6 +1,6 @@
 package lila.lobby
 
-/* Immutable map where each value has 2 independant keys.
+/* Immutable map where each value has 2 independent keys.
  * Kind of like a DB entry with 2 *unique* indexes.
  * loosely inspired from https://github.com/joshlemer/MultiIndex
  */

@@ -4,7 +4,7 @@ import controllers.clas.routes.{ Clas as clasRoutes }
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
@@ -12,7 +12,7 @@ import lila.clas.ClasForm.ClasData
 
 object clas:
 
-  def home(using Context) =
+  def home(using WebContext) =
     views.html.base.layout(
       moreCss = frag(
         cssTag("page"),
@@ -40,7 +40,7 @@ object clas:
       )
     }
 
-  def teacherIndex(classes: List[Clas], closed: Boolean)(using Context) =
+  def teacherIndex(classes: List[Clas], closed: Boolean)(using WebContext) =
     val (active, archived) = classes.partition(_.isActive)
     val (current, others)  = if (closed) (archived, active) else (active, archived)
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
@@ -51,7 +51,7 @@ object clas:
           href     := clasRoutes.form,
           cls      := "new button button-empty",
           title    := trans.clas.newClass.txt(),
-          dataIcon := ""
+          dataIcon := licon.PlusButton
         )
       ),
       if (current.isEmpty)
@@ -69,7 +69,7 @@ object clas:
       )
     )
 
-  def studentIndex(classes: List[Clas])(using Context) =
+  def studentIndex(classes: List[Clas])(using WebContext) =
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       boxTop(h1(trans.clas.lichessClasses())),
@@ -81,7 +81,7 @@ object clas:
       classes.map { clas =>
         div(
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
-          dataIcon := ""
+          dataIcon := licon.Group
         )(
           a(cls := "overlay", href := clasRoutes.show(clas.id.value)),
           div(
@@ -92,21 +92,21 @@ object clas:
       }
     )
 
-  def teachers(clas: Clas)(implicit lang: Lang) =
+  def teachers(clas: Clas)(using Lang) =
     div(cls := "clas-teachers")(
       trans.clas.teachersX(
         fragList(clas.teachers.toList.map(t => userIdLink(t.some)))
       )
     )
 
-  def create(form: Form[ClasData])(using Context) =
+  def create(form: Form[ClasData])(using WebContext) =
     bits.layout(trans.clas.newClass.txt(), Right("newClass"))(
       cls := "box-pad",
       h1(cls := "box__top")(trans.clas.newClass()),
       innerForm(form, none)
     )
 
-  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(using Context) =
+  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(using WebContext) =
     teacherDashboard.layout(c, students, "edit")(
       div(cls := "box-pad")(
         innerForm(form, c.some),
@@ -122,7 +122,7 @@ object clas:
       )
     )
 
-  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(using Context) =
+  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(using WebContext) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
@@ -144,7 +144,7 @@ object clas:
       )
     )
 
-  private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: Context) =
+  private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: WebContext) =
     postForm(cls := "form3", action := clas.fold(clasRoutes.create)(c => clasRoutes.update(c.id.value)))(
       form3.globalError(form),
       form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),

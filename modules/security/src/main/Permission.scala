@@ -59,6 +59,7 @@ object Permission:
   case object ModNote          extends Permission("MOD_NOTE", "Mod notes")
   case object RemoveRanking    extends Permission("REMOVE_RANKING", "Remove from ranking")
   case object ReportBan        extends Permission("REPORT_BAN", "Report ban")
+  case object PrizeBan         extends Permission("PRIZE_BAN", "Ban from prized tournaments")
   case object ModMessage       extends Permission("MOD_MESSAGE", "Send mod messages")
   case object Impersonate      extends Permission("IMPERSONATE", "Impersonate")
   case object DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
@@ -174,6 +175,7 @@ object Permission:
       extends Permission(
         "ADMIN",
         List(
+          PrizeBan,
           RemoveRanking,
           BoostHunter,
           CheatHunter,
@@ -192,7 +194,6 @@ object Permission:
           PuzzleCurator,
           OpeningWiki,
           Presets,
-          DisapproveCoachReview,
           Relay,
           Streamers,
           DisableTwoFactor,
@@ -227,8 +228,7 @@ object Permission:
       ModerateForum,
       ModerateBlog,
       ReportBan,
-      ModMessage,
-      DisapproveCoachReview
+      ModMessage
     ),
     "Play mod" -> List(
       SeeInsight,
@@ -318,7 +318,7 @@ object Permission:
   def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
-    !perms(perm) ?? perms.find(_ is perm)
+    !perms(perm) so perms.find(_ is perm)
 
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)

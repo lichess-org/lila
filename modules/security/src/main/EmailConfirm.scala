@@ -3,7 +3,6 @@ package lila.security
 import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all.*
-import scala.annotation.nowarn
 
 import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
@@ -15,7 +14,7 @@ trait EmailConfirm:
 
   def effective: Boolean
 
-  def send(user: User, email: EmailAddress)(using lang: Lang): Funit
+  def send(user: User, email: EmailAddress)(using Lang): Funit
 
   def confirm(token: String): Fu[EmailConfirm.Result]
 
@@ -23,10 +22,10 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
-  def send(user: User, @nowarn email: EmailAddress)(using @nowarn lang: Lang) =
+  def send(user: User, email: EmailAddress)(using Lang) =
     userRepo setEmailConfirmed user.id void
 
-  def confirm(@nowarn token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
+  def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 
 final class EmailConfirmMailer(
     userRepo: UserRepo,
@@ -42,8 +41,8 @@ final class EmailConfirmMailer(
 
   val maxTries = 3
 
-  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
-    !email.looksLikeFakeEmail ?? {
+  def send(user: User, email: EmailAddress)(using Lang): Funit =
+    !email.looksLikeFakeEmail so {
       tokener make user.id flatMap { token =>
         lila.mon.email.send.confirmation.increment()
         val url = s"$baseUrl/signup/confirm/$token"
@@ -76,15 +75,15 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
     tokener read token flatMapz userRepo.enabledById flatMap {
       _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
         userRepo.mustConfirmEmail(user.id) flatMap {
-          case true  => (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
-          case false => fuccess(Result.AlreadyConfirmed(user))
+          if _ then (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
+          else fuccess(Result.AlreadyConfirmed(user))
         }
       }
     }
 
   private val tokener = new StringToken[UserId](
     secret = tokenerSecret,
-    getCurrentValue = id => userRepo email id dmap (_.??(_.value))
+    getCurrentValue = id => userRepo email id dmap (_.so(_.value))
   )
 
 object EmailConfirm:
@@ -136,14 +135,11 @@ object EmailConfirm:
     key = "email.confirms.email"
   )
 
-  def rateLimit[A](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
-    rateLimitPerUser(userEmail.username.id, cost = 1) {
-      rateLimitPerEmail(userEmail.email.value, cost = 1) {
-        rateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
+  def rateLimit[A](userEmail: UserEmail, req: RequestHeader, default: => Fu[A])(run: => Fu[A]): Fu[A] =
+    rateLimitPerUser(userEmail.username.id, default):
+      rateLimitPerEmail(userEmail.email.value, default):
+        rateLimitPerIP(HTTPRequest ipAddress req, default):
           run
-        }(default)
-      }(default)
-    }(default)
 
   object Help:
 
@@ -170,10 +166,10 @@ object EmailConfirm:
           if (user.enabled.no) fuccess(Closed(user.username))
           else
             userRepo mustConfirmEmail user.id dmap {
-              case true =>
+              if _ then
                 emails.current match
                   case None        => NoEmail(user.username)
                   case Some(email) => EmailSent(user.username, email)
-              case false => Confirmed(user.username)
+              else Confirmed(user.username)
             }
       }

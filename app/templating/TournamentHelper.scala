@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate.*
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
+import lila.common.licon
 import lila.common.Json.given
 
 trait TournamentHelper extends HasEnv:
@@ -30,14 +31,14 @@ trait TournamentHelper extends HasEnv:
 
   def tournamentLink(tour: Tournament)(using Lang): Frag =
     a(
-      dataIcon := "",
+      dataIcon := licon.Trophy.value,
       cls      := (if (tour.isScheduled) "text is-gold" else "text"),
       href     := routes.Tournament.show(tour.id.value).url
     )(tour.name())
 
   def tournamentLink(tourId: TourId)(using Lang): Frag =
     a(
-      dataIcon := "",
+      dataIcon := licon.Trophy.value,
       cls      := "text",
       href     := routes.Tournament.show(tourId.value).url
     )(tournamentIdToName(tourId))
@@ -46,24 +47,21 @@ trait TournamentHelper extends HasEnv:
     env.tournament.getTourName sync id getOrElse "Tournament"
 
   object scheduledTournamentNameShortHtml:
-    private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
+    private def icon(c: licon.Icon) = s"""<span data-icon="$c"></span>"""
     private val replacements = List(
       "Lichess "    -> "",
-      "Marathon"    -> icon(''),
-      "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
-      "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"
+      "Marathon"    -> icon(licon.Globe),
+      "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
+      "SuperBlitz"  -> s"S${icon(PerfType.Blitz.icon)}"
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
-      pt.trans(using lila.i18n.defaultLang) -> icon(pt.iconChar)
+      pt.trans(using lila.i18n.defaultLang) -> icon(pt.icon)
     }
-
-    def apply(name: String): Frag =
-      raw {
-        replacements.foldLeft(name) { case (n, (from, to)) =>
-          n.replace(from, to)
-        }
+    def apply(name: String): Frag = raw:
+      replacements.foldLeft(name) { case (n, (from, to)) =>
+        n.replace(from, to)
       }
 
-  def tournamentIconChar(tour: Tournament): String =
+  def tournamentIcon(tour: Tournament): licon.Icon =
     tour.schedule.map(_.freq) match
-      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => ""
-      case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.iconChar.toString
+      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => licon.Globe
+      case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.icon

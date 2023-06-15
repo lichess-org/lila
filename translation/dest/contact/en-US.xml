@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">In certain circumstances when playing against a bot account, a rated game may not award points if it is determined that the player is abusing the bot for rating points.</string>
   <string name="errorPage">Error page</string>
   <string name="reportErrorPage">If you faced an error page, you may report it:</string>
+  <string name="wantBroadcastTournament">I want to broadcast a tournament</string>
+  <string name="learnHowToMakeBroadcasts">Learn how to make your own broadcasts on Lichess</string>
+  <string name="contactAboutOfficialBroadcasts">You can also contact the broadcast team about official broadcasts.</string>
   <string name="banAppeal">Appeal for a ban or IP restriction</string>
   <string name="engineAppeal">Engine or cheat mark</string>
   <string name="sendAppealTo">You may send an appeal to %s.</string>

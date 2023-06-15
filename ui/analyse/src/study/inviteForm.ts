@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { titleNameToId } from '../view/util';
 import { h, VNode } from 'snabbdom';
@@ -66,7 +67,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     },
     content: [
       h('h2', ctrl.trans.noarg('inviteToTheStudy')),
-      h('p.info', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow')),
+      h('p.info', { attrs: { 'data-icon': licon.InfoCircle } }, ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow')),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {

@@ -732,6 +732,8 @@
   <string name="simulClockHint">Nastavení Fisherových hodin. Čím víc hráčů přijmete, tím víc času budete potřebovat.</string>
   <string name="simulAddExtraTime">Můžete si přidat více času, abyste  tu simultánku lépe zvládli.</string>
   <string name="simulHostExtraTime">Hostův bonusový čas</string>
+  <string name="simulAddExtraTimePerPlayer">Přidat extra čas za každého hráče který se přidá do simultánky.</string>
+  <string name="simulHostExtraTimePerPlayer">Extra čas pro hostitele za každého hráče</string>
   <string name="lichessTournaments">Lichess turnaje</string>
   <string name="tournamentFAQ">Arena turnaj - často kladené otázky</string>
   <string name="timeBeforeTournamentStarts">Čas do začátku turnaje</string>
@@ -959,8 +961,6 @@
   <string name="congratsYouWon">Gratulujeme, zvítězili jste!</string>
   <string name="gameVsX">Partie proti %1$s</string>
   <string name="resVsX">%1$s vs. %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Někdo přidal recenzi na váš profil trenéra.</string>
-  <string name="newPendingReview">Nový, čeká na kontrolu</string>
   <string name="lostAgainstTOSViolator">Prohráli jste proti hráči, jež porušil Podmínky použití Lichess</string>
   <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
   <string name="timeAlmostUp">Čas vám běží!</string>
@@ -1025,4 +1025,5 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="lichessDbExplanation">Hodnocené hry od všech Lichess hráčů</string>
   <string name="switchSides">Prohodit strany</string>
   <string name="closingAccountWithdrawAppeal">Uzavřením vašeho účtu stáhnete vaše odvolání</string>
+  <string name="ourEventTips">Naše tipy pro organizování akcí</string>
 </resources>

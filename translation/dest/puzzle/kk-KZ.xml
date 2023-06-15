@@ -28,6 +28,11 @@
   <string name="keepGoing">Ары қарай…</string>
   <string name="puzzleSuccess">Бәрі дұрыс!</string>
   <string name="puzzleComplete">Жұмбақ шешілді!</string>
+  <string name="byOpenings">Бастамасына қарай</string>
+  <string name="puzzlesByOpenings">Жұмбақтың бастамасы</string>
+  <string name="openingsYouPlayedTheMost">Сіздің бағалы ойындарыңызда ең жиі келетін бастама</string>
+  <string name="useFindInPage">Браузер мәзірінде \"Осы бетте іздеуді\" қолдана қалаулы бастаманы тауып алыңыз!</string>
+  <string name="useCtrlF">Қалаулы бастаманы табу үшін Ctrl+f басыңыз</string>
   <string name="notTheMove">Ол жүріс емес!</string>
   <string name="trySomethingElse">Басқаша жүріп көріңіз.</string>
   <string name="ratingX">Рейтинг: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Қалыпты</string>
   <string name="easier">Жеңілдеу</string>
   <string name="easiest">Ең жеңілі</string>
-  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
+  <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">Жұмбақ рейтингіңізден төмен бір ұпай</item>
     <item quantity="other">Жұмбақ рейтингіңізден төмен %s ұпай</item>
   </plurals>
   <string name="harder">Қиындау</string>
   <string name="hardest">Ең қиыны</string>
-  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
+  <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Жұмбақ рейтингіңізден жоғары бір ұпай</item>
     <item quantity="other">Жұмбақ рейтингіңізден жоғары %s ұпай</item>
   </plurals>

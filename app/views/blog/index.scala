@@ -1,6 +1,6 @@
 package views.html.blog
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.MiniPost
@@ -12,9 +12,9 @@ object index:
 
   def apply(
       pager: Paginator[io.prismic.Document]
-  )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
+  )(using ctx: WebContext, prismic: lila.blog.BlogApi.Context) =
 
-    val primaryPost = (pager.currentPage == 1).??(pager.currentPageResults.headOption)
+    val primaryPost = (pager.currentPage == 1).so(pager.currentPageResults.headOption)
 
     views.html.base.layout(
       title = "Blog",
@@ -27,7 +27,7 @@ object index:
         div(cls := "blog index page-menu__content page-small box force-ltr")(
           boxTop(
             h1("Lichess Official Blog"),
-            a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := "")
+            a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := licon.RssFeed)
           ),
           primaryPost map { post =>
             frag(
@@ -45,7 +45,7 @@ object index:
       )
     )
 
-  def byYear(year: Int, posts: List[MiniPost])(implicit ctx: Context) =
+  def byYear(year: Int, posts: List[MiniPost])(using WebContext) =
     views.html.base.layout(
       title = s"Lichess blog posts from $year",
       moreCss = cssTag("blog"),
@@ -64,7 +64,7 @@ object index:
 
   private def latestPost(
       doc: io.prismic.Document
-  )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
+  )(using ctx: WebContext, prismic: lila.blog.BlogApi.Context) =
     st.article(
       doc.getText("blog.title").map { title =>
         h2(a(href := routes.Blog.show(doc.id, doc.slug, prismic.maybeRef))(title))
@@ -84,7 +84,7 @@ object index:
             a(
               cls      := "button",
               href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
-              dataIcon := ""
+              dataIcon := licon.PlayTriangle
             )(
               " Continue reading this post"
             )

@@ -28,6 +28,6 @@ final class Env(
 
   lazy val json = wire[RacerJson]
 
-  private val socket = wire[RacerSocket] // requires eager eval
+  wire[RacerSocket] // requires eager eval
 
 final private class RacerColls(val puzzle: AsyncColl)

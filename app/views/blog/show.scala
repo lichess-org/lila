@@ -1,6 +1,6 @@
 package views.html.blog
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -8,7 +8,7 @@ import controllers.routes
 
 object show:
 
-  def apply(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
+  def apply(doc: io.prismic.Document)(using ctx: WebContext, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
       title = s"${~doc.getText("blog.title")} | Blog",
       moreJs = jsModule("expandText"),
@@ -49,7 +49,11 @@ object show:
                   .exists(
                     _.value.atStartOfDay.instant isAfter nowInstant.minusWeeks(2)
                   )) option
-                  a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
+                  a(
+                    href     := routes.Blog.discuss(doc.id),
+                    cls      := "button text discuss",
+                    dataIcon := licon.BubbleConvo
+                  )(
                     "Discuss this blog post in the forum"
                   )
               } else p("This is a preview."),

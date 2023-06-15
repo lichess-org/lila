@@ -69,11 +69,10 @@ final class IrcApi(
     )
 
   def userModNote(modName: UserName, username: UserName, note: String): Funit =
-    !User.isLichess(modName) ??
-      zulip(_.mod.adminLog, "notes")(
+    (!User.isLichess(modName)).so:
+      zulip(_.mod.adminLog, "notes"):
         s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
           markdown.linkifyUsers(note take 2000)
-      )
 
   def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
     zulip(_.mod.adminLog, "self report")(
@@ -126,7 +125,7 @@ final class IrcApi(
   def garbageCollector(msg: String): Funit =
     zulip(_.mod.adminLog, "garbage collector")(markdown linkifyUsers msg)
 
-  def broadcastError(id: String, name: String, error: String): Funit =
+  def broadcastError(id: RelayRoundId, name: String, error: String): Funit =
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
   def ublogPost(
@@ -136,21 +135,22 @@ final class IrcApi(
       title: String,
       intro: String
   ): Funit =
-    zulip(_.blog, "non-tiered new posts")(
+    zulip(_.blog, "non-tiered new posts"):
       s":note: ${markdown
           .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} $intro - by ${markdown
           .userLink(user)}"
-    )
+
+  def broadcastStart(id: RelayRoundId, fullName: String): Funit =
+    zulip(_.broadcast, "non-tiered broadcasts"):
+      s":note: ${markdown.broadcastLink(id, fullName)}"
 
   def userAppeal(user: User, mod: Holder): Funit =
     zulip
-      .sendAndGetLink(_.mod.adminAppeal, "/" + user.username)(
+      .sendAndGetLink(_.mod.adminAppeal, "/" + user.username):
         s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
             .lichessLink(s"/appeal/${user.username}", user.username)}**"
-      )
-      .flatMapz { zulipAppealConv =>
+      .flatMapz: zulipAppealConv =>
         noteApi.write(user, s"Appeal discussion: $zulipAppealConv", mod.user, modOnly = true, dox = true)
-      }
 
   def nameClosePreset(username: UserName): Funit =
     zulip(_.mod.usernames, s"/$username")("@**remind** here in 48h to close this account")
@@ -187,7 +187,7 @@ final class IrcApi(
 
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
-      buffer.head.date.isBefore(nowInstant.minusHours(12)) ?? {
+      buffer.head.date.isBefore(nowInstant.minusHours(12)) so {
         val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.cents).sum
         val patrons =
@@ -225,13 +225,13 @@ object IrcApi:
     def userLinkNoNotes(name: UserName): String     = lichessLink(s"/@/$name?mod", name.value)
     def userIdLinks(ids: List[UserId]): String =
       UserName.from[List, UserId](ids) map markdown.userLink mkString ", "
-    def modLink(name: UserName): String         = lichessLink(s"/@/$name", name.value)
-    def modLink(user: User): String             = modLink(user.username)
-    def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
-    def printLink(print: String)                = lichessLink(s"/mod/print/$print", print)
-    def ipLink(ip: String)                      = lichessLink(s"/mod/ip/$ip", ip)
-    def userNotesLink(name: UserName)           = lichessLink(s"/@/$name?notes", "notes")
-    def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
+    def modLink(name: UserName): String               = lichessLink(s"/@/$name", name.value)
+    def modLink(user: User): String                   = modLink(user.username)
+    def gameLink(id: String)                          = lichessLink(s"/$id", s"#$id")
+    def printLink(print: String)                      = lichessLink(s"/mod/print/$print", print)
+    def ipLink(ip: String)                            = lichessLink(s"/mod/ip/$ip", ip)
+    def userNotesLink(name: UserName)                 = lichessLink(s"/@/$name?notes", "notes")
+    def broadcastLink(id: RelayRoundId, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
     def linkifyUsers(msg: String) = userRegex matcher msg replaceAll (m => userLink(UserName(m.group(1))))
     val postReplace               = lichessLink("/forum/$1", "$1")
     def linkifyPosts(msg: String) = postRegex matcher msg replaceAll postReplace

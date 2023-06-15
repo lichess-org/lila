@@ -2,7 +2,7 @@ package views.html.lobby
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost
@@ -19,11 +19,11 @@ object bits:
       simuls: List[lila.simul.Simul],
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     frag(
       ctx.pref.showRatings option div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := "")(trans.leaderboard()),
+          h2(cls := "title text", dataIcon := licon.CrownElite)(trans.leaderboard()),
           a(cls := "more", href := routes.User.list)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
@@ -33,7 +33,7 @@ object bits:
                 tr(
                   td(lightUserLink(l.user)),
                   lila.rating.PerfType(l.perfKey) map { pt =>
-                    td(cls := "text", dataIcon := pt.iconChar)(l.rating)
+                    td(cls := "text", dataIcon := pt.icon)(l.rating)
                   },
                   td(ratingProgress(l.progress))
                 )
@@ -44,7 +44,7 @@ object bits:
       ),
       div(cls := s"lobby__box ${if (ctx.pref.showRatings) "lobby__winners" else "lobby__wide-winners"}")(
         div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := "")(trans.tournamentWinners()),
+          h2(cls := "title text", dataIcon := licon.Trophy)(trans.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
@@ -67,7 +67,7 @@ object bits:
       div(cls := "lobby__tournaments-simuls")(
         div(cls := "lobby__tournaments lobby__box")(
           a(cls := "lobby__box__top", href := routes.Tournament.home)(
-            h2(cls := "title text", dataIcon := "")(trans.openTournaments()),
+            h2(cls := "title text", dataIcon := licon.Trophy)(trans.openTournaments()),
             span(cls := "more")(trans.more(), " »")
           ),
           div(cls := "enterable_list lobby__box__content")(
@@ -76,7 +76,7 @@ object bits:
         ),
         simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
           a(cls := "lobby__box__top", href := routes.Simul.home)(
-            h2(cls := "title text", dataIcon := "")(trans.simultaneousExhibitions()),
+            h2(cls := "title text", dataIcon := licon.Group)(trans.simultaneousExhibitions()),
             span(cls := "more")(trans.more(), " »")
           ),
           div(cls := "enterable_list lobby__box__content")(
@@ -87,23 +87,24 @@ object bits:
     )
 
   def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(using
-      ctx: Context
+      ctx: WebContext
   ): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
-      lichess map { post =>
+      lichess.map: post =>
+        val imgSize = UblogPost.thumbnail.Size.Small
         a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
           img(
             src     := post.image,
             cls     := "ublog-post-card__image",
-            widthA  := UblogPost.thumbnail.Small.width,
-            heightA := UblogPost.thumbnail.Small.height
+            widthA  := imgSize.width,
+            heightA := imgSize.height
           ),
           span(cls := "ublog-post-card__content")(
             h2(cls := "ublog-post-card__title")(post.title),
             semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
           )
         )
-      },
+      ,
       ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
     )
 
@@ -118,7 +119,7 @@ object bits:
       )
     )
 
-  def playbanInfo(ban: lila.playban.TempBan)(using Context) =
+  def playbanInfo(ban: lila.playban.TempBan)(using WebContext) =
     nopeInfo(
       h1(trans.sorry()),
       p(trans.weHadToTimeYouOutForAWhile()),
@@ -146,13 +147,17 @@ object bits:
       )
     )
 
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(using Context) =
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(using WebContext) =
     nopeInfo(
       h1(trans.hangOn()),
       p(trans.gameInProgress(strong(current.opponent))),
       br,
       br,
-      a(cls := "text button button-fat", dataIcon := "", href := routes.Round.player(current.pov.fullId))(
+      a(
+        cls      := "text button button-fat",
+        dataIcon := licon.PlayTriangle,
+        href     := routes.Round.player(current.pov.fullId)
+      )(
         trans.joinTheGame()
       ),
       br,
@@ -161,7 +166,7 @@ object bits:
       br,
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
-        button(cls := "text button button-red", dataIcon := "")(
+        button(cls := "text button button-red", dataIcon := licon.X)(
           if (current.pov.game.abortableByUser) trans.abortTheGame() else trans.resignTheGame()
         )
       ),
@@ -177,7 +182,7 @@ object bits:
       )
     )
 
-  def spotlight(e: lila.event.Event)(using Context) =
+  def spotlight(e: lila.event.Event)(using WebContext) =
     a(
       href := (if (e.isNow || !e.countdown) e.url else routes.Event.show(e.id).url),
       cls := List(

@@ -3,7 +3,7 @@ package views.html.user.show
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.mashup.UserInfo
 import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment.{ given, * }
@@ -22,7 +22,7 @@ object page:
       activities: Vector[lila.activity.ActivityView],
       info: UserInfo,
       social: UserInfo.Social
-  )(using Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
       openGraph = lila.app.ui
@@ -58,9 +58,9 @@ object page:
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
       notes: Map[GameId, String]
-  )(using Context) =
+  )(using WebContext) =
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
-    val pageName   = (games.currentPage > 1) ?? s" - page ${games.currentPage}"
+    val pageName   = (games.currentPage > 1) so s" - page ${games.currentPage}"
     views.html.base.layout(
       title = s"${u.username} $filterName$pageName",
       moreJs = moreJs(info, filters.current.name == "search"),
@@ -80,7 +80,7 @@ object page:
       )
     }
 
-  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using Context) =
+  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using WebContext) =
     frag(
       infiniteScrollTag,
       jsModule("user"),
@@ -99,7 +99,7 @@ object page:
       )
     )
 
-  def disabled(u: User)(using Context) =
+  def disabled(u: User)(using WebContext) =
     views.html.base.layout(title = u.username, robots = false) {
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),

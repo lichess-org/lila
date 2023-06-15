@@ -5,7 +5,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.api.Context
+import lila.api.WebContext
 import lila.common.Json.given
 
 final class Lobby(env: Env) extends LilaController(env):
@@ -25,12 +25,11 @@ final class Lobby(env: Env) extends LilaController(env):
     negotiate(
       html = serveHtmlHome,
       api = _ =>
-        fuccess:
-          val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
-          Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
+        val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
+        Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
     )
 
-  private def serveHtmlHome(using ctx: Context) =
+  private def serveHtmlHome(using ctx: WebContext) =
     env.pageCache { () =>
       keyPages.homeHtml.map { html =>
         Ok(html).withCanonical("").noCache
@@ -42,13 +41,13 @@ final class Lobby(env: Env) extends LilaController(env):
       LangPage("/")(serveHtmlHome)(lang)
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
-    reqToCtx(req) flatMap { ctx =>
+    webContext(req) flatMap { ctx =>
       keyPages.home(status)(using ctx)
     }
 
   def seeks = Open:
     negotiate(
-      html = fuccess(NotFound),
+      html = NotFound,
       api = _ =>
         ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
           Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")

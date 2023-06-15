@@ -3,16 +3,15 @@ package views.html.swiss
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ Swiss, SwissForm }
-import lila.tournament.TournamentForm
 import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
 
-  def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using Context) =
+  def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using WebContext) =
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
@@ -24,7 +23,7 @@ object form:
           h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             div(cls := "form-group")(
-              a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("event-tips"))(
                 trans.ourEventTips()
               )
             ),
@@ -42,14 +41,14 @@ object form:
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = "".some)
+              form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
             )
           )
         )
       )
     }
 
-  def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using Context) =
+  def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using WebContext) =
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
@@ -74,11 +73,11 @@ object form:
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id))(trans.cancel()),
-              form3.submit(trans.save(), icon = "".some)
+              form3.submit(trans.save(), icon = licon.Trophy.some)
             )
           ),
           postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-            submitButton(dataIcon := "", cls := "text button button-red confirm")(
+            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
               trans.cancelTournament()
             )
           )
@@ -89,13 +88,13 @@ object form:
   private def advancedSettings(settings: Frag*) =
     details(summary("Advanced settings"), settings)
 
-  private def condition(form: Form[SwissForm.SwissData])(using ctx: Context) =
+  private def condition(form: Form[SwissForm.SwissData])(using ctx: WebContext) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
           form3.select(_, ConditionForm.nbRatedGameChoices)
         ),
-        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
+        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) so {
           form3.checkbox(
             form("conditions.titled"),
             trans.onlyTitled(),
@@ -114,7 +113,7 @@ object form:
       )
     )
 
-final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[Swiss])(using Context):
+final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[Swiss])(using WebContext):
 
   private def disabledAfterStart = swiss.exists(!_.isCreated)
 
@@ -149,7 +148,7 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
         help = trans.ratedFormHelp().some,
         half = true
       ),
-      st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
+      form3.hidden(form("rated"), "false".some) // hack allow disabling rated
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
@@ -263,5 +262,5 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
       ).some,
       half = true
     ),
-    form3.hidden(form("conditions.playYourGames"), "false".some) // hack to allow disabling berserk
+    form3.hiddenFalse(form("conditions.playYourGames"))
   )

@@ -15,7 +15,6 @@ final class PuzzleApi(
     openingApi: PuzzleOpeningApi
 )(using ec: Executor, scheduler: Scheduler):
 
-  import Puzzle.{ BSONFields as F }
   import BsonHandlers.given
 
   object puzzle:
@@ -100,7 +99,7 @@ final class PuzzleApi(
               ) ++ {
                 (newVote <= -100 && doc
                   .getAsOpt[Instant](F.day)
-                  .exists(_ isAfter nowInstant.minusDays(1))) ??
+                  .exists(_ isAfter nowInstant.minusDays(1))) so
                   $unset(F.day)
               }
             )
@@ -126,7 +125,7 @@ final class PuzzleApi(
 
     def vote(user: User, id: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
       round.find(user, id) flatMapz { round =>
-        round.themeVote(theme, vote) ?? { newThemes =>
+        round.themeVote(theme, vote) so { newThemes =>
           import PuzzleRound.{ BSONFields as F }
           val update =
             if (newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes))

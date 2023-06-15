@@ -68,10 +68,17 @@ Considerăm că este mai probabil ca aceste condiții să fie îndeplinite în c
   <string name="numberOfByesQ">Câte \"bye\" poate primi un jucător?</string>
   <string name="numberOfByesA">Un jucător primește un \"bye\" de un punct de fiecare dată când sistemul de asociere nu ii găsește un adversar.
 În plus, un singur \"bye\" de jumătate de punct este atribuit atunci când un jucător se alătură unui turneu mai târziu.</string>
+  <string name="earlyDrawsQ">Ce se întâmplă cu remizele timpurii?</string>
+  <string name="earlyDrawsA">Un jucător primește un \"bye\" de un punct de fiecare dată când sistemul de asociere nu îi găsește un adversar.
+În plus, un singur \"bye\" de jumătate de punct este atribuit atunci când un jucător se alătură unui turneu mai târziu.</string>
   <string name="whatIfOneDoesntPlayQ">Ce se întâmplă dacă un jucător nu joacă un joc?</string>
   <string name="whatIfOneDoesntPlayA">Ceasul va porni si va pierde jocul din cauza timpului.
 Apoi sistemul va retrage jucătorul din turneu, astfel încât să nu piardă mai multe partide.
  Se pot alătura din nou turneului în orice moment.</string>
+  <string name="protectionAgainstNoShowQ">Ce se face cu privire la ne-prezentări?</string>
+  <string name="protectionAgainstNoShowA">Jucătorii care se înscriu pentru evenimente elvețiene dar nu își joacă jocurile pot fi problematici.
+Pentru a atenua această problemă, Lichess îi împiedică pe jucătorii care nu au reușit să joace un joc să se alăture unui nou eveniment elvețian pentru o anumită perioadă de timp.
+Creatorul unui eveniment elvețian poate decide oricum să se alăture evenimentului.</string>
   <string name="lateJoinQ">Pot jucătorii să se alăture cu întârziere?</string>
   <string name="lateJoinA">Da, până la începerea a mai mult de jumătate din runde; De exemplu, într-un turneu elvețian cu 11 runde jucătorii se pot alătura înainte ca runda 6 să înceapă, iar într-un turneu cu 12 runde jucătorii se pot alătura înainte de a începe runda 7.
 Cei care s-au alăturat cu întârziere primesc o singură pauză, chiar dacă au ratat mai multe runde.</string>

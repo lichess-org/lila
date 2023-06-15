@@ -33,7 +33,7 @@ final private class CorresAlarm(
   Bus.subscribeFun("moveEventCorres") { case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, true, _) =>
     proxyGame(move.gameId) foreach {
       _ foreach { game =>
-        game.playableCorrespondenceClock.ifTrue(game.bothPlayersHaveMoved) ?? { clock =>
+        game.playableCorrespondenceClock.ifTrue(game.bothPlayersHaveMoved) so { clock =>
           val remainingSeconds = clock remainingTime game.turnColor
           val ringsAt          = nowInstant.plusSeconds(remainingSeconds.toInt * 8 / 10)
           coll.update
@@ -64,8 +64,8 @@ final private class CorresAlarm(
           val pov = Pov.ofCurrentTurn(game)
           deleteAlarm(game.id) zip
             pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
-              case true  => // already looking at the game
-              case false => Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
+              if _ then () // already looking at the game
+              else Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
             }
         case (alarm, None) => deleteAlarm(alarm._id)
       }

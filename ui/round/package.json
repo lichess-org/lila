@@ -19,7 +19,9 @@
     "common": "workspace:*",
     "game": "workspace:*",
     "keyboardMove": "workspace:*",
+    "voice": "workspace:*",
     "nvui": "workspace:*",
+    "board": "workspace:*",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

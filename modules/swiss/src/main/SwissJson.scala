@@ -14,7 +14,6 @@ import lila.gathering.GreatPlayer
 
 final class SwissJson(
     mongo: SwissMongo,
-    pairingSystem: PairingSystem,
     standingApi: SwissStandingApi,
     rankingApi: SwissRankingApi,
     boardApi: SwissBoardApi,
@@ -43,7 +42,7 @@ final class SwissJson(
       playerInfo: Option[SwissPlayer.ViewExt] = None
   )(using lang: Lang): Fu[JsObject] = {
     for {
-      myInfo <- me.?? { fetchMyInfo(swiss, _) }
+      myInfo <- me.so { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
       standing <- standingApi(swiss, page)
       podium   <- podiumJson(swiss)
@@ -77,7 +76,7 @@ final class SwissJson(
       updatePlayerRating(swiss, player, me) >>
         SwissPairing.fields { f =>
           (swiss.nbOngoing > 0)
-            .?? {
+            .so {
               mongo.pairing
                 .find(
                   $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
@@ -98,7 +97,7 @@ final class SwissJson(
     swiss.settings.rated
       .option(user perfs swiss.perfType)
       .filter(_.intRating != player.rating)
-      .?? { perf =>
+      .so { perf =>
         SwissPlayer.fields { f =>
           mongo.player.update
             .one(
@@ -110,7 +109,7 @@ final class SwissJson(
       }
 
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
-    swiss.isFinished ?? {
+    swiss.isFinished so {
       SwissPlayer.fields { f =>
         mongo.player
           .find($doc(f.swissId -> swiss.id))
@@ -231,7 +230,7 @@ object SwissJson:
         "points"   -> p.points,
         "tieBreak" -> p.tieBreak
       )
-      .add("performance" -> (performance ?? p.performance))
+      .add("performance" -> (performance so p.performance))
       .add("provisional" -> p.provisional)
       .add("absent" -> p.absent)
 

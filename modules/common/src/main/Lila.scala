@@ -42,7 +42,8 @@ trait Lila
     with lila.base.LilaUserId
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax
-    with lila.base.LilaLibraryExtensions:
+    with lila.base.LilaLibraryExtensions
+    with lila.base.JsonExtensions:
 
   trait StringValue extends Any:
     def value: String
@@ -51,9 +52,3 @@ trait Lila
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
     Some(Tuple.fromProductTyped(p))
-
-  import play.api.libs.json.{ JsObject, JsValue }
-  import lila.base.{ LilaJsObject, LilaJsValue }
-  // can't use extensions because of method name shadowing :(
-  implicit def toLilaJsObject(jo: JsObject): LilaJsObject = LilaJsObject(jo)
-  implicit def toLilaJsValue(jv: JsValue): LilaJsValue    = LilaJsValue(jv)

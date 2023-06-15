@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
 import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
@@ -20,7 +21,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   return h(
     'button.on-my-turn.button.text',
     {
-      attrs: dataIcon(''),
+      attrs: dataIcon(licon.Checkmark),
       hook: bind('click', _ => fctrl.playAndSave(firstNode)),
     },
     [
@@ -65,7 +66,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
             return h(
               'button.entry.text',
               {
-                attrs: dataIcon(''),
+                attrs: dataIcon(licon.PlayTriangle),
                 on: {
                   click: () => {
                     let path = findCurrentPath(ctrl) || '';
@@ -97,7 +98,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               [
                 h('button.del', {
                   hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
-                  attrs: { 'data-icon': '', type: 'button' },
+                  attrs: { 'data-icon': licon.X, type: 'button' },
                 }),
                 h('sans', renderNodesHtml(nodes)),
               ]
@@ -108,7 +109,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           'button.add.text',
           {
             class: { enabled: isCandidate },
-            attrs: dataIcon(isCandidate ? '' : ''),
+            attrs: dataIcon(isCandidate ? licon.PlusButton : licon.InfoCircle),
             hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
           },
           [

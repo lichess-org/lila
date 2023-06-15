@@ -1,13 +1,9 @@
 package lila.simul
 
-import play.api.i18n.Lang
-
-import lila.i18n.I18nKeys as trans
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ Title, User }
+import lila.rating.PerfType
+import lila.user.User
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
-import alleycats.Zero
 import lila.hub.LeaderTeam
 
 object SimulCondition:
@@ -32,7 +28,6 @@ object SimulCondition:
 
   object form:
     import play.api.data.Forms.*
-    import lila.common.Form.{ *, given }
     import lila.gathering.ConditionForm.*
     def all(leaderTeams: List[LeaderTeam]) =
       mapping(

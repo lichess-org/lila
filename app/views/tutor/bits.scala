@@ -1,6 +1,6 @@
 package views.html.tutor
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorNumber
@@ -20,17 +20,17 @@ object bits:
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
-  def percentNumber[A](v: A)(implicit number: TutorNumber[A]) = f"${number double v}%1.1f"
-  def percentFrag[A](v: A)(implicit number: TutorNumber[A])   = frag(strong(percentNumber(v)), "%")
+  def percentNumber[A](v: A)(using number: TutorNumber[A]) = f"${number double v}%1.1f"
+  def percentFrag[A](v: A)(using TutorNumber[A])           = frag(strong(percentNumber(v)), "%")
 
-  private[tutor] def otherUser(user: lila.user.User)(using ctx: Context) =
+  private[tutor] def otherUser(user: lila.user.User)(using ctx: WebContext) =
     !ctx.is(user) option userSpan(user, withOnline = false)
 
   private[tutor] def layout(
       menu: Frag,
       title: String = "Lichess Tutor",
       pageSmall: Boolean = false
-  )(content: Modifier*)(using Context) =
+  )(content: Modifier*)(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("tutor"),
       moreJs = jsModule("tutor"),

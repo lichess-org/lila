@@ -3,7 +3,7 @@ package relay
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
@@ -19,7 +19,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
       streamers: List[UserId]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = rt.fullName,
       moreCss = cssTag("analyse.relay"),
@@ -39,10 +39,10 @@ object show:
                   c.chat,
                   name = trans.chatRoom.txt(),
                   timeout = c.timeout,
-                  writeable = ctx.userId.??(rt.study.canChat),
+                  writeable = ctx.userId.so(rt.study.canChat),
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
-                  localMod = rt.tour.tier.isEmpty && ctx.userId.??(rt.study.canContribute),
+                  localMod = rt.tour.tier.isEmpty && ctx.userId.so(rt.study.canContribute),
                   broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout)
                 )
               ),

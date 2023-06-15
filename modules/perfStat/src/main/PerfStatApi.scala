@@ -22,15 +22,15 @@ final class PerfStatApi(
 )(using Executor):
 
   def data(name: UserStr, perfKey: Perf.Key, by: Option[User]): Fu[Option[PerfStatData]] =
-    PerfType(perfKey) ?? { perfType =>
+    PerfType(perfKey) so { perfType =>
       userRepo byId name flatMap {
         _.filter { u =>
-          (u.enabled.yes && (!u.lame || by.exists(_ is u))) || by.??(Granter(_.UserModView))
-        } ?? { u =>
+          (u.enabled.yes && (!u.lame || by.exists(_ is u))) || by.so(Granter(_.UserModView))
+        } so { u =>
           for {
             oldPerfStat <- get(u, perfType)
             perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-            distribution <- u.perfs(perfType).established ?? {
+            distribution <- u.perfs(perfType).established so {
               rankingApi.weeklyRatingDistribution(perfType) dmap some
             }
             percentile = distribution.map { distrib =>

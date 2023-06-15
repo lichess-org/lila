@@ -2,9 +2,9 @@ package views.html.video
 
 import lila.common.String.html.richText
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
@@ -14,7 +14,7 @@ object show:
       video: lila.video.Video,
       similar: Seq[lila.video.VideoView],
       control: lila.video.UserControl
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     layout(
       title = s"${video.title} • Free Chess Videos",
       control = control,
@@ -35,11 +35,16 @@ object show:
             tpe := "text/html",
             src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
             st.frameborder := "0",
-            frame.allowfullscreen
+            frame.allowfullscreen,
+            frame.credentialless
           )
         ),
         h1(cls := "box__pad")(
-          a(cls := "is4 text", dataIcon := "", href := s"${routes.Video.index}?${control.queryString}"),
+          a(
+            cls      := "is4 text",
+            dataIcon := licon.Back,
+            href     := s"${routes.Video.index}?${control.queryString}"
+          ),
           video.title
         ),
         div(cls := "meta box__pad")(
@@ -50,7 +55,7 @@ object show:
           video.tags.map { tag =>
             a(
               cls      := "tag",
-              dataIcon := "",
+              dataIcon := licon.Tag,
               href     := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
             )(
               tag.capitalize

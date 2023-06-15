@@ -21,12 +21,18 @@
   <string name="toGetPersonalizedPuzzles">Fir personaliséiert Aufgaben ze kréien:</string>
   <string name="puzzleId">Aufgab %s</string>
   <string name="puzzleOfTheDay">Aufgab vum Dag</string>
+  <string name="dailyPuzzle">Aufgab vum Dag</string>
   <string name="clickToSolve">Klick fir ze léisen</string>
   <string name="goodMove">Gudden Zuch</string>
   <string name="bestMove">Beschten Zuch!</string>
   <string name="keepGoing">Maach weider…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Aufgab ofgeschloss!</string>
+  <string name="byOpenings">No Eröffnungen</string>
+  <string name="puzzlesByOpenings">Aufgaben no Eröffnungen</string>
+  <string name="openingsYouPlayedTheMost">Eröffnungen déi du am meeschten an gewäerteten Partien gespillt hues</string>
+  <string name="useFindInPage">Benotz \"Suche in Seite\" an dengem Browser fir deng Lieblingseröffnung ze fannen!</string>
+  <string name="useCtrlF">Benotz Strg + F fir deng Lieblingseröffnung ze fannen!</string>
   <string name="notTheMove">Dat ass net den Zuch!</string>
   <string name="trySomethingElse">Probéier eppes aneres.</string>
   <string name="ratingX">Bewärtung: %s</string>
@@ -41,13 +47,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Méi einfach</string>
   <string name="easiest">Einfachst</string>
-  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
+  <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">Ee Punkt ënner denger Aufgabebewärtung</item>
     <item quantity="other">%s Punkten ënner denger Aufgabebewärtung</item>
   </plurals>
   <string name="harder">Méi schwéier</string>
   <string name="hardest">Schwéierst</string>
-  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
+  <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Ee Punkt iwwer denger Aufgabebewärtung</item>
     <item quantity="other">%s Punkten iwwer denger Aufgabebewärtung</item>
   </plurals>

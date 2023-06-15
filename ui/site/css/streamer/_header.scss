@@ -126,7 +126,12 @@
   @extend %flex-center-nowrap;
   gap: 1em;
   align-self: flex-start;
-  z-index: 2;
+  font-weight: bold;
+  z-index: z('link-overlay');
+}
+
+.streamer-profile {
+  z-index: z('link-overlay');
 }
 
 .live .streamer-lang {
@@ -135,4 +140,10 @@
   @include breakpoint($mq-not-xx-small) {
     margin-right: 50px;
   }
+}
+
+.streamer-footer {
+  @extend %flex-wrap;
+  align-items: center;
+  gap: 3em;
 }

@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con arrotondamento, in base al numero di mezze mosse fino alla prossima cattura o mossa del pedone</string>
   <string name="noGameFound">Nessun partita trovata</string>
+  <string name="maxDepthReached">Massima profondità raggiunta!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openings">Aperture</string>
   <string name="openingExplorer">Esplora aperture</string>
@@ -119,6 +120,7 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
   <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi, ma può surriscaldare il tuo computer</string>
+  <string name="engineManager">Gestore del motore</string>
   <string name="blunder">Errore grave</string>
   <string name="mistake">Errore</string>
   <string name="inaccuracy">Imprecisione</string>
@@ -150,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
     <item quantity="other">%s partite</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s punti in %2$s partite</item>
+    <item quantity="other">%1$s punti in %2$s partite</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s preferito</item>
@@ -342,6 +348,7 @@
   </plurals>
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
+  <string name="noDrawBeforeSwissLimit">Non puoi offrire una patta prima della trentesima mossa in un torneo a sistema Svizzero.</string>
   <string name="thematic">A tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partita classificata</item>
@@ -675,6 +682,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="keyGoToStartOrEnd">vai all\'inizio/fine</string>
   <string name="keyShowOrHideComments">mostra/nascondi i commenti</string>
   <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
+  <string name="keyNextLearnFromYourMistakes">Prossimo (Impara dai tuoi errori)</string>
+  <string name="keyNextBlunder">Prossimo grave errore</string>
+  <string name="keyNextMistake">Prossimo errore</string>
+  <string name="keyNextInaccuracy">Prossima imprecisione</string>
   <string name="newTournament">Nuovo torneo</string>
   <string name="tournamentHomeTitle">Torneo con diversi controlli del tempo e varianti</string>
   <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check e altre opzioni per un divertimento scacchistico senza fine.</string>
@@ -772,6 +783,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="invalidFen">FEN non valido</string>
   <string name="custom">Personalizza</string>
   <string name="notifications">Notifiche</string>
+  <string name="notificationsX">Notifiche: %1$s</string>
   <string name="perfRatingX">Punteggio: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secondi per giocare la prima mossa</item>
@@ -866,6 +878,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="useTheReportForm">usa il modulo di rapporto</string>
   <string name="toRequestSupport">Per richiedere supporto, %1$s</string>
   <string name="tryTheContactPage">prova la pagina dei contatti</string>
+  <string name="makeSureToRead">Assicurati di leggere %1$s</string>
+  <string name="theForumEtiquette">le regole del forum</string>
   <string name="thisTopicIsArchived">Questo argomento è stato archiviato e non è più possibile rispondervi.</string>
   <string name="joinTheTeamXToPost">Iscriviti al team %1$s, per postare in questo forum</string>
   <string name="teamNamedX">Squadra %1$s</string>
@@ -882,8 +896,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="congratsYouWon">Complimenti, hai vinto!</string>
   <string name="gameVsX">Partita contro %1$s</string>
   <string name="resVsX">%1$s contro %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Qualcuno ha esaminato il tuo profilo di allenatore.</string>
-  <string name="newPendingReview">In attesa di verifica</string>
   <string name="lostAgainstTOSViolator">Hai perso con qualcuno che ha violato i termini di servizio lichess</string>
   <string name="refundXpointsTimeControlY">Rimborso: %1$s %2$s punti di valutazione.</string>
   <string name="timeAlmostUp">Il tempo è quasi finito!</string>

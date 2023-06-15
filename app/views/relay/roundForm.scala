@@ -3,7 +3,7 @@ package views.html.relay
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayRound.Sync.UpstreamUrl.LccRegex
@@ -14,14 +14,14 @@ object roundForm:
 
   import trans.broadcast.*
 
-  def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
+  def create(form: Form[Data], tour: RelayTour)(using WebContext) =
     layout(newBroadcast.txt())(
       boxTop(h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound())),
       standardFlash,
       inner(form, routes.RelayRound.create(tour.id.value), tour, create = true)
     )
 
-  def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: Context) =
+  def edit(rt: RelayRound.WithTour, form: Form[Data])(using WebContext) =
     layout(rt.fullName)(
       boxTop(
         h1(
@@ -51,7 +51,7 @@ object roundForm:
       )
     )
 
-  private def layout(title: String)(body: Modifier*)(implicit ctx: Context) =
+  private def layout(title: String)(body: Modifier*)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
@@ -61,13 +61,13 @@ object roundForm:
     )
 
   private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     val isLcc = form("syncUrl").value.exists(LccRegex.matches)
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
         bits.howToUse,
-        create option p(dataIcon := "", cls := "text")(
+        create option p(dataIcon := licon.InfoCircle, cls := "text")(
           "The new round will have the same members and contributors as the previous one."
         )
       ),

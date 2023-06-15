@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
@@ -18,7 +18,7 @@ object student:
       students: List[Student],
       s: Student.WithUserAndManagingClas,
       activities: Vector[lila.activity.ActivityView]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show",
       top(clas, s.withUser),
@@ -70,10 +70,10 @@ object student:
       )
     )
 
-  private def top(clas: Clas, s: Student.WithUser)(using Context) =
+  private def top(clas: Clas, s: Student.WithUser)(using WebContext) =
     div(cls := "student-show__top")(
       boxTop(
-        h1(dataIcon := "")(
+        h1(dataIcon := licon.User)(
           span(
             strong(s.user.username),
             em(s.student.realName)
@@ -116,7 +116,7 @@ object student:
       )
     )
 
-  private def realNameField(form: Form[?], fieldName: String = "realName")(using Context) =
+  private def realNameField(form: Form[?], fieldName: String = "realName")(using WebContext) =
     form3.group(
       form(fieldName),
       trans.clas.realName(),
@@ -130,7 +130,7 @@ object student:
       create: Form[?],
       nbStudents: Int,
       created: Option[lila.clas.Student.WithPassword] = none
-  )(using Context) =
+  )(using WebContext) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add",
       boxTop(
@@ -222,7 +222,7 @@ object student:
       form: Form[?],
       nbStudents: Int,
       created: Seq[lila.clas.Student.WithPassword] = Nil
-  )(using Context) =
+  )(using WebContext) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add-many",
       h1(cls := "box__top")(trans.clas.createMultipleAccounts()),
@@ -271,14 +271,14 @@ object student:
     )
 
   private def maxStudentsWarning(using Lang) =
-    p(dataIcon := "", cls := "text")(
+    p(dataIcon := licon.InfoCircle, cls := "text")(
       trans.clas.maxStudentsNote(
         lila.clas.Clas.maxStudents,
         a(href := clasRoutes.form)(trans.clas.createMoreClasses())
       )
     )
 
-  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
+  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using WebContext) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -314,7 +314,7 @@ object student:
       )
     )
 
-  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using WebContext) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -340,7 +340,7 @@ object student:
       )
     )
 
-  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using Context) =
+  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using WebContext) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -353,7 +353,9 @@ object student:
         postForm(cls := "form3", action := clasRoutes.studentClosePost(clas.id.value, s.user.username))(
           form3.actions(
             a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
-            form3.submit(trans.clas.closeTheAccount(), icon = "".some)(cls := "button-red confirm")
+            form3.submit(trans.clas.closeTheAccount(), icon = licon.CautionCircle.some)(
+              cls := "button-red confirm"
+            )
           )
         )
       )

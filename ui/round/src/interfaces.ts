@@ -7,11 +7,6 @@ import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
 
-export type MaybeVNode = VNode | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
-
-export type Redraw = () => void;
-
 export interface Untyped {
   [key: string]: any;
 }
@@ -177,6 +172,7 @@ export interface Pref {
   highlight: boolean;
   is3d: boolean;
   keyboardMove: boolean;
+  voiceMove: boolean;
   moveEvent: Prefs.MoveEvent;
   ratings: boolean;
   replay: Prefs.Replay;

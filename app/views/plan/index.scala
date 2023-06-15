@@ -4,7 +4,7 @@ import controllers.routes
 import java.util.Currency
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -25,8 +25,8 @@ object index:
       recentIds: List[UserId],
       bestIds: List[UserId],
       pricing: lila.plan.PlanPricing
-  )(implicit ctx: Context) =
-    val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
+  )(using ctx: WebContext) =
+    val localeParam = lila.plan.PayPalClient.locale(ctx.lang) so { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
@@ -68,7 +68,7 @@ object index:
           )
         ),
         div(cls := "page-menu__content box")(
-          patron.ifTrue(ctx.me.??(_.isPatron)).map { p =>
+          patron.ifTrue(ctx.me.so(_.isPatron)).map { p =>
             div(cls := "banner one_time_active")(
               iconTag(patronIconChar),
               div(
@@ -102,7 +102,7 @@ object index:
               div(cls := "content")(
                 div(
                   cls                          := "plan_checkout",
-                  attr("data-email")           := email.??(_.value),
+                  attr("data-email")           := email.so(_.value),
                   attr("data-lifetime-amount") := pricing.lifetime.amount
                 )(
                   ctx.me map { me =>
@@ -258,10 +258,10 @@ object index:
       )
     }
 
-  private def showCurrency(cur: Currency)(implicit ctx: Context) =
+  private def showCurrency(cur: Currency)(using ctx: WebContext) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
-  private def faq(implicit lang: Lang) =
+  private def faq(using Lang) =
     div(cls := "faq")(
       dl(
         dt(whereMoneyGoes()),

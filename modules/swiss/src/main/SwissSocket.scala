@@ -13,8 +13,7 @@ final private class SwissSocket(
 )(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: Scheduler,
-    mode: play.api.Mode
+    scheduler: Scheduler
 ):
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = none, logger = logger)

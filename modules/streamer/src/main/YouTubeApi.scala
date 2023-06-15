@@ -5,6 +5,7 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
+import reactivemongo.api.bson.*
 
 import lila.common.{ given, * }
 import lila.common.config.NetConfig
@@ -16,7 +17,8 @@ final private class YouTubeApi(
     coll: lila.db.dsl.Coll,
     keyword: Stream.Keyword,
     cfg: StreamerConfig,
-    net: NetConfig
+    net: NetConfig,
+    isOnline: lila.socket.IsOnline
 )(using Executor, akka.stream.Materializer):
 
   private var lastResults: List[YouTube.Stream] = List()
@@ -30,8 +32,7 @@ final private class YouTubeApi(
       .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
-
-    cfg.googleApiKey.value.nonEmpty ?? Future
+    cfg.googleApiKey.value.nonEmpty so Future
       .sequence {
         idPages.map { idPage =>
           ws.url("https://youtube.googleapis.com/youtube/v3/videos")
@@ -55,17 +56,45 @@ final private class YouTubeApi(
       .map(_.flatten)
       .addEffect { streams =>
         if streams != lastResults then
+          val newStreams  = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
+          val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
+          if newStreams.nonEmpty then
+            logger.info(s"fetchStreams NEW ${newStreams.map(_.channelId).mkString(" ")}")
+          if goneStreams.nonEmpty then
+            logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
           syncDb(tubers, streams)
           lastResults = streams
       }
 
-  def onVideo(channelId: String, videoId: String): Funit = coll.update
-    .one(
-      $doc("youTube.channelId"     -> channelId, "approval.granted" -> true),
-      $set("youTube.pubsubVideoId" -> videoId),
-      multi = true // ?
-    )
-    .void
+  def onVideoXml(xml: scala.xml.NodeSeq): Funit =
+    val channel = (xml \ "entry" \ "channelId").text
+    val video   = (xml \ "entry" \ "videoId").text
+    if channel.nonEmpty && video.nonEmpty
+    then
+      logger.info(s"onYouTubeVideo $video on channel $channel")
+      onVideo(channel, video)
+    else
+      val deleted = (xml \ "deleted-entry" \@ "ref")
+      if deleted.nonEmpty
+      then logger.warn(s"onYouTubeVideo deleted-entry $deleted")
+      funit
+
+  private def onVideo(channelId: String, videoId: String): Funit =
+    import BsonHandlers.given
+    coll
+      .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
+      .sort($sort desc "seenAt")
+      .cursor[Streamer]()
+      .list(1)
+      .map(_.headOption)
+      .map:
+        case Some(s) =>
+          if isOnline(UserId(s._id.value)) then
+            logger.info(s"LIVE and ONLINE ${s._id} on YouTube channel $channelId")
+          else logger.warn(s"LIVE but OFFLINE ${s._id} on YouTube channel $channelId")
+          coll.update.one($doc("_id" -> s._id), $set("youTube.pubsubVideoId" -> videoId))
+        case None =>
+          logger.info(s"LIVE but UNAPPROVED $videoId on unapproved channel $channelId")
 
   def channelSubscribe(channelId: String, subscribe: Boolean): Funit = ws
     .url("https://pubsubhubbub.appspot.com/subscribe")
@@ -80,9 +109,14 @@ final private class YouTubeApi(
       )
     )
     .flatMap {
-      case res if res.status / 100 != 2 =>
-        fufail(s"YouTubeApi.channelSubscribe status: ${res.status} ${res.body[String].take(200)}")
-      case _ => funit
+      case res if res.status / 100 == 2 =>
+        logger.info(s"WebSub: REQUESTED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId")
+        funit
+      case res =>
+        logger.info(
+          s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
+        )
+        fufail(s"YouTubeApi.channelSubscribe $channelId failed ${res.status} ${res.body[String].take(200)}")
     }
 
   private def asFormBody(params: (String, String)*): String =
@@ -105,7 +139,7 @@ final private class YouTubeApi(
       .parallel
       .map(bulk many _)
 
-  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty ?? {
+  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty so {
     import akka.stream.scaladsl.*
     import reactivemongo.akkastream.cursorProducer
     coll

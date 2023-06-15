@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import m from '../mithrilFix';
 import * as util from '../util';
 import * as scoring from '../score';
@@ -10,7 +11,7 @@ function makeStars(nb: number) {
   for (let i = 0; i < 4 - nb; i++)
     stars.push(
       m('i', {
-        'data-icon': '',
+        'data-icon': licon.Star,
       })
     );
   return stars;

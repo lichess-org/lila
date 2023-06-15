@@ -15,7 +15,7 @@
   <string name="pgnLetter">Буква фигуры (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Режим Дзен</string>
   <string name="showPlayerRatings">Показывать рейтинг игрока</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Позволяет скрыть все рейтинги на сайте, чтобы помочь сосредоточиться на игре. Сами партии останутся рейтинговыми, просто вы не будете это видеть.</string>
+  <string name="explainShowPlayerRatings">Позволяет скрыть все рейтинги на сайте, чтобы помочь сосредоточиться на игре. Сами партии останутся рейтинговыми, просто вы не будете это видеть.</string>
   <string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
   <string name="onlyOnInitialPosition">Только в начальном положении</string>
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
   <string name="moveConfirmation">Подтверждение хода</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Может быть отключено во время игры вместе с меню доски</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
   <string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
@@ -60,8 +61,8 @@
   <string name="notifyTournamentSoon">Турнир скоро начнётся</string>
   <string name="notifyTimeAlarm">В игре по переписке скоро упадёт флажок</string>
   <string name="notifyBell">Звуковое оповещение на Личесс</string>
-  <string name="notifyPush">Оповещение на устройстве когда Вы не находитесь на сайте Личесс</string>
+  <string name="notifyPush">Оповещение на устройстве, когда Вы не находитесь на сайте Личесс</string>
   <string name="notifyWeb">Браузер</string>
   <string name="notifyDevice">Устройство</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Звук колокольчика уведомлений</string>
+  <string name="bellNotificationSound">Звук колокольчика уведомлений</string>
 </resources>

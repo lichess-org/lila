@@ -28,7 +28,7 @@ final class ESClientHttp(
     extends ESClient:
 
   def store(id: Id, doc: JsObject) =
-    config.writeable ?? monitor("store") {
+    config.writeable so monitor("store") {
       HTTP(s"store/$index/${id.value}", doc)
     }
 
@@ -45,10 +45,10 @@ final class ESClientHttp(
     }
 
   def deleteById(id: lila.search.Id) =
-    config.writeable ?? HTTP(s"delete/id/$index/${id.value}", Json.obj())
+    config.writeable so HTTP(s"delete/id/$index/${id.value}", Json.obj())
 
   def deleteByIds(ids: List[lila.search.Id]) =
-    config.writeable ?? HTTP(s"delete/ids/$index", Json.obj("ids" -> ids))
+    config.writeable so HTTP(s"delete/ids/$index", Json.obj("ids" -> ids))
 
   def putMapping =
     HTTP(s"mapping/$index", Json.obj())

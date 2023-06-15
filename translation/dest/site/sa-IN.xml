@@ -9,6 +9,7 @@
   <string name="yourTurn">भवतो वारः</string>
   <string name="aiNameLevelAiLevel">%1$s अवस्था %2$s</string>
   <string name="level">अवस्था</string>
+  <string name="strength">बल</string>
   <string name="toggleTheChat">संभाषणम् परिवर्तयस्व</string>
   <string name="chat">संलपति</string>
   <string name="resign">विजहातु</string>
@@ -16,6 +17,7 @@
   <string name="stalemate">स्तंभनः</string>
   <string name="white">श्वेतः</string>
   <string name="black">कृष्ण</string>
+  <string name="asWhite">श्वेतेव</string>
   <string name="randomColor">यादृच्छिको वर्ण​:</string>
   <string name="createAGame">द्यूतम् कल्पयस्व</string>
   <string name="whiteIsVictorious">श्वेतो विजितवान्</string>

@@ -50,4 +50,11 @@
   <string name="skipExplanation">Lewati gerakan ini untuk mempertahankan kombo Anda! Hanya bekerja sekali per pertandingan.</string>
   <string name="failedPuzzles">Teka-teki yang gagal</string>
   <string name="slowPuzzles">Teka-teki yang memakan waktu</string>
+  <string name="skippedPuzzle">Puzzle yang dilewati</string>
+  <string name="thisWeek">Minggu ini</string>
+  <string name="thisMonth">Bulan ini</string>
+  <string name="allTime">Sepanjang waktu</string>
+  <string name="clickToReload">Klik untuk memuat ulang</string>
+  <string name="thisRunHasExpired">Sesi ini telah kedaluwarsa!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Sesi ini dibuka di tab lain!</string>
 </resources>

@@ -39,7 +39,7 @@ case class Seek(
 
   private def ratingRangeCompatibleWith(s: Seek) =
     realRatingRange.fold(true) { range =>
-      s.rating ?? range.contains
+      s.rating so range.contains
     }
 
   private def compatibilityProperties = (variant, mode, daysPerTurn)
@@ -58,7 +58,7 @@ case class Seek(
         "rating"   -> rating,
         "variant"  -> Json.obj("key" -> realVariant.key),
         "mode"     -> realMode.id,
-        "color"    -> (chess.Color.fromName(color).??(_.name): String)
+        "color"    -> (chess.Color.fromName(color).so(_.name): String)
       )
       .add("days" -> daysPerTurn)
       .add("perf" -> perfType.map { pt =>

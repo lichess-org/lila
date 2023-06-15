@@ -5,20 +5,18 @@ import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
 import { Outcome, Move } from 'chessops/types';
 import { Prop } from 'common';
-import { StoredProp } from 'common/storage';
+import { StoredProp, ToggleWithUsed } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
 import { KeyboardMove } from 'keyboardMove';
+import { VoiceMove } from 'voice';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
+import { Redraw } from 'common/snabbdom';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 export type PuzzleId = string;
-
-export type Redraw = () => void;
 
 export interface KeyboardController {
   vm: Vm;
@@ -76,6 +74,7 @@ export interface Controller extends KeyboardController {
   allThemes?: AllThemes;
   showRatings: boolean;
   keyboardMove?: KeyboardMove;
+  voiceMove?: VoiceMove;
 
   streak?: PuzzleStreak;
   skip(): void;
@@ -84,6 +83,7 @@ export interface Controller extends KeyboardController {
   autoScrollRequested?: boolean;
 
   nvui?: NvuiPlugin;
+  menu: ToggleWithUsed;
 }
 
 export interface NvuiPlugin {
@@ -147,6 +147,7 @@ export interface PuzzlePrefs {
   };
   blindfold: boolean;
   keyboardMove: boolean;
+  voiceMove: boolean;
 }
 
 export interface Angle {

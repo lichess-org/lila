@@ -58,9 +58,9 @@
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
-  <string name="loadingEngine">Indlæser skakmotor ...</string>
+  <string name="loadingEngine">Indlæser skakprogram...</string>
   <string name="calculatingMoves">Beregner træk...</string>
-  <string name="engineFailed">Fejl under indlæsning af beregningsmotor</string>
+  <string name="engineFailed">Fejl under indlæsning af skakprogram</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med afrunding, baseret på antallet af halv-træk indtil næste fangst eller bondetræk</string>
   <string name="noGameFound">Intet parti fundet</string>
+  <string name="maxDepthReached">Maks dybde nået!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prøv eventuelt at inkludere flere partier fra præferencemenuen?</string>
   <string name="openings">Åbninger</string>
   <string name="openingExplorer">Åbningsbog</string>
   <string name="openingEndgameExplorer">Åbning/slutspilsbog</string>
   <string name="xOpeningExplorer">%s åbningsbog</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spil det første træk fra åbnings- og slutspilsbog</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
   <string name="winOr50MovesByPriorMistake">Sejr eller 50 træk efter tidligere fejl</string>
@@ -119,6 +121,7 @@
   <string name="memory">Hukommelse</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdegrænsen, og holder din computer varm</string>
+  <string name="engineManager">Administration af skakprogram</string>
   <string name="blunder">Brøler</string>
   <string name="mistake">Fejl</string>
   <string name="inaccuracy">Unøjagtighed</string>
@@ -151,6 +154,10 @@
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating over %2$s parti</item>
+    <item quantity="other">%1$s rating over %2$s partier</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bogmærke</item>
     <item quantity="other">%s bogmærker</item>
@@ -161,7 +168,7 @@
   <string name="rememberMe">Husk mig</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
-  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
+  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakprogrammer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
@@ -282,6 +289,7 @@
   <string name="cancelRematchOffer">Træk revanchetilbud tilbage</string>
   <string name="viewRematch">Se revanchekamp</string>
   <string name="confirmMove">Bekræft træk</string>
+  <string name="enableConfirmationForThisGame">Aktivér bekræftelse for dette parti</string>
   <string name="play">Spil</string>
   <string name="inbox">Indbakke</string>
   <string name="chatRoom">Chatrum</string>
@@ -340,8 +348,13 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studier</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultan</item>
+    <item quantity="other">%s simultaner</item>
+  </plurals>
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
+  <string name="noDrawBeforeSwissLimit">Du kan ikke spille remis i en schweizerturnering, før der er lavet 30 træk.</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s ratet parti</item>
@@ -674,6 +687,11 @@
   <string name="keyGoToStartOrEnd">gå til start/slut</string>
   <string name="keyShowOrHideComments">vis/skjul kommentar</string>
   <string name="keyEnterOrExitVariation">Start/slut variation</string>
+  <string name="keyRequestComputerAnalysis">Anmod om computeranalyse, Lær af dine fejl</string>
+  <string name="keyNextLearnFromYourMistakes">Næste (Lær af dine fejl)</string>
+  <string name="keyNextBlunder">Næste brøler</string>
+  <string name="keyNextMistake">Næste fejl</string>
+  <string name="keyNextInaccuracy">Næste unøjagtighed</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Skakturnering med forskellige tidskontroller og varianter</string>
   <string name="tournamentHomeDescription">Spil tempofyldte skakturneringer! Meld dig til en officielt organiseret turnering eller opret din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Tre-check og andre muligheder for ubegrænset skaksjov.</string>
@@ -706,7 +724,7 @@
   <string name="downloadImported">Download importeret</string>
   <string name="crosstable">Krydstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computervariationer for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="letOtherPlayersMessageYou">Lad andre spillere sende en besked til dig</string>
   <string name="receiveForumNotifications">Modtag notifikationer, når du bliver nævnt i forummet</string>
@@ -771,6 +789,7 @@
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Notifikationer</string>
+  <string name="notificationsX">Notifikationer: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>
@@ -865,6 +884,8 @@
   <string name="useTheReportForm">brug anmeldelsesformularen</string>
   <string name="toRequestSupport">For at få support, %1$s</string>
   <string name="tryTheContactPage">prøv kontakt-siden</string>
+  <string name="makeSureToRead">Sørg for at læse %1$s</string>
+  <string name="theForumEtiquette">forummets etikette</string>
   <string name="thisTopicIsArchived">Dette emne er arkiveret og kan ikke længere besvares.</string>
   <string name="joinTheTeamXToPost">Meld dig til %1$s, for at lave opslag i dette forum</string>
   <string name="teamNamedX">%1$s hold</string>
@@ -881,8 +902,6 @@
   <string name="congratsYouWon">Tillykke, du vandt!</string>
   <string name="gameVsX">Parti mod %1$s</string>
   <string name="resVsX">%1$s mod %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Nogen har gennemgået din trænerprofil.</string>
-  <string name="newPendingReview">Ny afventende gennemgang</string>
   <string name="lostAgainstTOSViolator">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
   <string name="refundXpointsTimeControlY">Refunderet: %1$s %2$s ratingpoint.</string>
   <string name="timeAlmostUp">Tiden er næsten udløbet!</string>

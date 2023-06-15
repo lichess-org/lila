@@ -1,8 +1,9 @@
 package views.html.opening
 
+import cats.syntax.all.*
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningPage
@@ -11,7 +12,7 @@ object show:
 
   import bits.*
 
-  def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: Context) =
+  def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: WebContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),
@@ -20,7 +21,7 @@ object show:
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${queryUrl(page.query)}",
@@ -34,11 +35,11 @@ object show:
         search.resultsList(Nil),
         h1(cls := "opening__title")(
           page.query.prev match
-            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := "")
-            case None       => a(href := routes.Opening.index(), dataIcon := "")
+            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := licon.LessThan)
+            case None       => a(href := routes.Opening.index(), dataIcon := licon.LessThan)
           ,
           span(cls := "opening__name")(
-            page.nameParts.zipWithIndex map { (part, i) =>
+            page.nameParts.mapWithIndex: (part, i) =>
               frag(
                 part match
                   case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)
@@ -50,8 +51,7 @@ object show:
                         a(href := keyUrl(k))(cls := className)(name)
                       }
                     )
-              )
-            },
+              ),
             beta
           )
         ),
@@ -73,17 +73,17 @@ object show:
                 cls := "opening__actions"
               )(
                 puzzleKey.map { key =>
-                  a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(key))(
+                  a(cls := "button text", dataIcon := licon.ArcheryTarget, href := routes.Puzzle.show(key))(
                     "Train with puzzles"
                   )
                 },
                 a(
                   cls      := "button text",
-                  dataIcon := "",
+                  dataIcon := licon.Book,
                   href     := s"${routes.UserAnalysis.pgn(page.query.sans mkString "_")}#explorer"
                 )(trans.openingExplorer())
               ),
-              if (page.explored.??(_.history).nonEmpty)
+              if (page.explored.so(_.history).nonEmpty)
                 div(cls := "opening__popularity opening__popularity--chart")(
                   canvas(cls := "opening__popularity__chart")
                 )
@@ -108,7 +108,7 @@ object show:
     }
 
   private def exampleGames(page: OpeningPage) =
-    div(cls := "opening__games")(page.explored.??(_.games).map { game =>
+    div(cls := "opening__games")(page.explored.so(_.games).map { game =>
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom is2d",
         st.data("pgn")   := game.pgn.toString,

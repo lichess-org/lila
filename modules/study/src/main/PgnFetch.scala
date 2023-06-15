@@ -14,7 +14,7 @@ final private class PgnFetch(ws: StandaloneWSClient):
 
   def fromUrl(url: String): Fu[Option[PgnStr]] =
     url match
-      case ChessbaseRegex(id) => id.toIntOption ?? downloadChessbase
+      case ChessbaseRegex(id) => id.toIntOption so downloadChessbase
       case _                  => fuccess(none)
 
   private def downloadChessbase(id: Int): Fu[Option[PgnStr]] =

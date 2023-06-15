@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind, MaybeVNode } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Applicant } from '../interfaces';
@@ -44,7 +45,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                   {
                     attrs: {
                       disabled: !canJoin,
-                      'data-icon': '',
+                      'data-icon': licon.PlayTriangle,
                     },
                     hook: canJoin
                       ? bind('click', () => {
@@ -69,7 +70,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                 'a.button.text',
                 {
                   attrs: {
-                    'data-icon': '',
+                    'data-icon': licon.PlayTriangle,
                     href: '/login?referrer=' + window.location.pathname,
                   },
                 },
@@ -130,7 +131,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                           ? [
                               h('a.button', {
                                 attrs: {
-                                  'data-icon': '',
+                                  'data-icon': licon.Checkmark,
                                   title: 'Accept',
                                 },
                                 hook: bind('click', () => xhr.accept(applicant.player.id)(ctrl.data.id)),
@@ -182,7 +183,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                           ? [
                               h('a.button.button-red', {
                                 attrs: {
-                                  'data-icon': '',
+                                  'data-icon': licon.X,
                                 },
                                 hook: bind('click', () => xhr.reject(applicant.player.id)(ctrl.data.id)),
                               }),
@@ -226,7 +227,7 @@ const randomButton = (ctrl: SimulCtrl) =>
         'a.button.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.Checkmark,
           },
           hook: bind('click', () => {
             const candidates = ctrl.candidates();
@@ -244,7 +245,7 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
         'a.button.button-green.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.PlayTriangle,
           },
           hook: bind('click', () => xhr.start(ctrl.data.id)),
         },
@@ -254,7 +255,7 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
         'a.button.button-red.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.X,
           },
           hook: bind('click', () => {
             if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);

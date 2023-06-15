@@ -2,7 +2,7 @@ package views
 package html.site
 
 import controllers.routes
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -21,7 +21,7 @@ object faq:
       div(cls := "answer")(answer)
     )
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using WebContext) =
     page.layout(
       title = "Frequently Asked Questions",
       active = "faq",

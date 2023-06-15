@@ -4,19 +4,19 @@ package tournament
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
-import lila.tournament.{ Tournament, TournamentForm }
+import lila.tournament.Tournament
 import lila.gathering.GatheringClock
 
 object crud:
 
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
       body: Frag
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
@@ -31,7 +31,7 @@ object crud:
       )
     }
 
-  def create(form: Form[?])(implicit ctx: Context) =
+  def create(form: Form[?])(using WebContext) =
     layout(
       title = "New tournament",
       css = "mod.form"
@@ -42,7 +42,7 @@ object crud:
       )
     }
 
-  def edit(tour: Tournament, form: Form[?])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?])(using WebContext) =
     layout(
       title = tour.name(),
       css = "mod.form"
@@ -58,14 +58,14 @@ object crud:
             cls    := "box__top__actions",
             action := routes.TournamentCrud.cloneT(tour.id),
             method := "get"
-          )(form3.submit("Clone", "".some)(cls := "button-green button-empty"))
+          )(form3.submit("Clone", licon.Trophy.some)(cls := "button-green button-empty"))
         ),
         standardFlash,
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form, tour.some))
       )
     }
 
-  private def inForm(form: Form[?], tour: Option[Tournament])(implicit ctx: Context) =
+  private def inForm(form: Form[?], tour: Option[Tournament])(using WebContext) =
     frag(
       form3.split(
         form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
@@ -139,7 +139,7 @@ object crud:
       form3.action(form3.submit(trans.apply()))
     )
 
-  def index(tours: Paginator[Tournament])(implicit ctx: Context) =
+  def index(tours: Paginator[Tournament])(using WebContext) =
     layout(
       title = "Tournament manager",
       evenMoreJs = infiniteScrollTag
@@ -148,7 +148,7 @@ object crud:
         boxTop(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "")
+            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := licon.PlusButton)
           )
         ),
         table(cls := "slist slist-pad")(
@@ -176,7 +176,7 @@ object crud:
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
                 td(showInstantUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
-                td(a(href := routes.Tournament.show(tour.id), dataIcon := "", title := "View on site"))
+                td(a(href := routes.Tournament.show(tour.id), dataIcon := licon.Eye, title := "View on site"))
               )
             },
             pagerNextTable(tours, np => routes.TournamentCrud.index(np).url)

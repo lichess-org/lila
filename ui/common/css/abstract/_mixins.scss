@@ -84,3 +84,8 @@
   margin-#{$end-direction}: $amount;
   margin-inline: 0 $amount; // this doesn't have perfect browser support so keep the other margin as fallback
 }
+
+@mixin back-blur($size: 6px) {
+  backdrop-filter: blur($size);
+  -webkit-backdrop-filter: blur($size);
+}

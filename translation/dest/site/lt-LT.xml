@@ -97,11 +97,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" su apvalinimu remiantis pusėjimių iki kito kirtimo ar pėstininko ėjimo skaičiumi</string>
   <string name="noGameFound">Partijų nerasta</string>
+  <string name="maxDepthReached">Pasiektas didžiausias gylis!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openings">Debiutai</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
   <string name="openingEndgameExplorer">Debiutų/endšpilių naršyklė</string>
   <string name="xOpeningExplorer">%s debiutų naršyklė</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Žaisti pirmą debiuto/endšpilių naršyklės ėjimą</string>
   <string name="winPreventedBy50MoveRule">Pergalei sukliudė 50-ies ėjimų taisyklė</string>
   <string name="lossSavedBy50MoveRule">Pralaimėjimo išvengta dėl 50-ies ėjimų taisyklės</string>
   <string name="winOr50MovesByPriorMistake">Pergalė arba 50 ėjimų pagal ankstesnę klaidą</string>
@@ -123,6 +125,7 @@
   <string name="memory">Atmintinė</string>
   <string name="infiniteAnalysis">Neribota analizė</string>
   <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
+  <string name="engineManager">Variklių valdymas</string>
   <string name="blunder">Šiurkšti klaida</string>
   <string name="mistake">Klaida</string>
   <string name="inaccuracy">Netikslumas</string>
@@ -164,6 +167,12 @@
     <item quantity="few">%s partijos</item>
     <item quantity="many">%s partijų</item>
     <item quantity="other">%s partijų</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s reitingas per %2$s partiją</item>
+    <item quantity="few">%1$s reitingas per %2$s partijas</item>
+    <item quantity="many">%1$s reitingas per %2$s partijos</item>
+    <item quantity="other">%1$s reitingas per %2$s partijų</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s įrašas</item>
@@ -310,6 +319,7 @@
   <string name="cancelRematchOffer">Atšaukti revanšo pasiūlymą</string>
   <string name="viewRematch">Peržiūrėti revanšą</string>
   <string name="confirmMove">Patvirtinkite ėjimą</string>
+  <string name="enableConfirmationForThisGame">Įjungti patvirtinimą šiai partijai</string>
   <string name="play">Žaisk</string>
   <string name="inbox">Žinutės</string>
   <string name="chatRoom">Pokalbis</string>
@@ -384,8 +394,15 @@
     <item quantity="many">%s studijų</item>
     <item quantity="other">%s studijų</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanas</item>
+    <item quantity="few">%s simultanai</item>
+    <item quantity="many">%s simultano</item>
+    <item quantity="other">%s simultanų</item>
+  </plurals>
   <string name="viewTournament">Stebėti turnyrą</string>
   <string name="backToTournament">Grįžti į turnyrą</string>
+  <string name="noDrawBeforeSwissLimit">Šveicariškame turnyre negalite skelbti lygiųjų neatlikę bent 30 ėjimų.</string>
   <string name="thematic">Tematinis</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s vertinama partija</item>
@@ -745,6 +762,11 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keyGoToStartOrEnd">eiti į pradžią/pabaigą</string>
   <string name="keyShowOrHideComments">rodyti/slėpti komentarus</string>
   <string name="keyEnterOrExitVariation">įeiti/išeiti iš variacijos</string>
+  <string name="keyRequestComputerAnalysis">Paprašyti kompiuterio analizės, pasimokykite iš savo klaidų</string>
+  <string name="keyNextLearnFromYourMistakes">Toliau (pasimokyti iš savo klaidų)</string>
+  <string name="keyNextBlunder">Kita šiurkšti klaida</string>
+  <string name="keyNextMistake">Kita klaida</string>
+  <string name="keyNextInaccuracy">Kitas netiklsumas</string>
   <string name="newTournament">Naujas turnyras</string>
   <string name="tournamentHomeTitle">Šachmatų turnyras su įvairiomis laiko kontrolėmis ir variantais</string>
   <string name="tournamentHomeDescription">Žaiskite aukšto tempo šachmatų turnyruose! Prisijunkite prie oficialaus suplanuoto turnyro arba sukurkite savo.</string>
@@ -846,6 +868,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="invalidFen">Netinkamas FEN</string>
   <string name="custom">Kitoks</string>
   <string name="notifications">Pranešimai</string>
+  <string name="notificationsX">Pranešimai: %1$s</string>
   <string name="perfRatingX">Reitingas: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>
@@ -946,6 +969,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="useTheReportForm">naudokitės skundų forma</string>
   <string name="toRequestSupport">Norėdami gauti pagalbos, %1$s</string>
   <string name="tryTheContactPage">aplankykite kontaktų skiltį</string>
+  <string name="makeSureToRead">Įsitikinkite, kad perskaitėte %1$s</string>
+  <string name="theForumEtiquette">forumo etiketą</string>
   <string name="thisTopicIsArchived">Ši tema yra suarchyvuota, tad nauji atsakymai negalimi.</string>
   <string name="joinTheTeamXToPost">Norėdami rašyti šiame forume, prisijunkite prie „%1$s“</string>
   <string name="teamNamedX">%1$s komanda</string>
@@ -962,8 +987,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="congratsYouWon">Sveikiname, jūs laimėjote!</string>
   <string name="gameVsX">Žaidimas prieš %1$s</string>
   <string name="resVsX">%1$s prieš %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Kažkas peržvelgė jūsų trenerio profilį.</string>
-  <string name="newPendingReview">Nauja laukianti peržvalga</string>
   <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė Lichess taisykles</string>
   <string name="refundXpointsTimeControlY">Grąžinimas: %1$s %2$s reitingo taškų.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>

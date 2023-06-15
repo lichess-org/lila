@@ -2,18 +2,17 @@ package views.html.tournament
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object homepageSpotlight:
 
-  def apply(tour: lila.tournament.Tournament)(implicit ctx: Context) =
-    val schedClass = tour.schedule ?? { sched =>
-      val invert  = (sched.freq.isWeeklyOrBetter && tour.isNowOrSoon) ?? " invert"
-      val distant = tour.isDistant ?? " distant little"
+  def apply(tour: lila.tournament.Tournament)(using WebContext) =
+    val schedClass = tour.schedule.so: sched =>
+      val invert  = (sched.freq.isWeeklyOrBetter && tour.isNowOrSoon) so " invert"
+      val distant = tour.isDistant so " distant little"
       s"${sched.freq} ${sched.speed} ${sched.variant.key}$invert$distant"
-    }
     val tourClass = s"tour-spotlight id_${tour.id} $schedClass"
     tour.spotlight map { spot =>
       a(href := routes.Tournament.show(tour.id), cls := tourClass)(
@@ -21,9 +20,9 @@ object homepageSpotlight:
           spot.iconImg map { i =>
             img(cls := "img", src := assetUrl(s"images/$i"))
           } getOrElse {
-            spot.iconFont.fold[Frag](iconTag("")(cls := "img")) {
-              case "" => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
-              case i   => iconTag(i)(cls := "img")
+            spot.iconFont.fold[Frag](iconTag(licon.Trophy)(cls := "img")) {
+              case licon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
+              case i           => iconTag(i)(cls := "img")
             }
           },
           span(cls := "content")(
@@ -43,7 +42,7 @@ object homepageSpotlight:
         )
       )
     } getOrElse a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
-      iconTag(tour.perfType.iconChar)(cls := "img"),
+      iconTag(tour.perfType.icon)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tour.name()),
         span(cls := "more")(

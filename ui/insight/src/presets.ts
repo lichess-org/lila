@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import Ctrl from './ctrl';
@@ -11,7 +12,7 @@ export default function (ctrl: Ctrl) {
         'a.preset.text',
         {
           class: { active: ctrl.makeUrl(p.dimension, p.metric, p.filters) === ctrl.makeCurrentUrl() },
-          attrs: { 'data-icon': '' },
+          attrs: { 'data-icon': licon.Target },
           hook: bind('click', () => ctrl.setQuestion(p)),
         },
         p.name

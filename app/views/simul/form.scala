@@ -3,18 +3,17 @@ package views.html.simul
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
 import lila.simul.Simul
 import lila.simul.SimulForm
-import lila.simul.SimulCondition
 import lila.gathering.ConditionForm
 
 object form:
 
-  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using Context) =
+  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using WebContext) =
     views.html.base.layout(
       title = trans.hostANewSimul.txt(),
       moreCss = cssTag("simul.form"),
@@ -30,13 +29,13 @@ object form:
           formContent(form, teams, none),
           form3.actions(
             a(href := routes.Simul.home)(trans.cancel()),
-            form3.submit(trans.hostANewSimul(), icon = "".some)
+            form3.submit(trans.hostANewSimul(), icon = licon.Trophy.some)
           )
         )
       )
     }
 
-  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(using Context) =
+  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(using WebContext) =
     views.html.base.layout(
       title = s"Edit ${simul.fullName}",
       moreCss = cssTag("simul.form"),
@@ -48,11 +47,11 @@ object form:
           formContent(form, teams, simul.some),
           form3.actions(
             a(href := routes.Simul.show(simul.id))(trans.cancel()),
-            form3.submit(trans.save(), icon = "".some)
+            form3.submit(trans.save(), icon = licon.Trophy.some)
           )
         ),
         postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-          submitButton(dataIcon := "", cls := "text button button-red confirm")(
+          submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
             trans.cancelSimul()
           )
         )
@@ -60,7 +59,7 @@ object form:
     }
 
   private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     import lila.simul.SimulForm.*
     frag(
@@ -83,7 +82,7 @@ object form:
                 translatedVariantChoicesWithVariants,
                 checks = form.value
                   .map(_.variants.map(_.toString))
-                  .getOrElse(simul.??(_.variants.map(_.id.toString)))
+                  .getOrElse(simul.so(_.variants.map(_.id.toString)))
                   .toSet
               )
             ),

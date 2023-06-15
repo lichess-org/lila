@@ -8,7 +8,7 @@ object embed:
 
   private val dataStreamUrl = attr("data-stream-url") := "/tv/feed?bc=1"
 
-  def apply(pov: lila.game.Pov)(implicit config: EmbedConfig) =
+  def apply(pov: lila.game.Pov)(using EmbedConfig) =
     views.html.base.embed(
       title = "lichess.org chess TV",
       cssModule = "tv.embed"

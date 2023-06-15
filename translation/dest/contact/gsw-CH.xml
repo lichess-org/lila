@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">Under beschtimmte Umschtänd - wänn gäge es \"Bot Konto\" gschpillt wird - chas si, dass kei Pünkt vergeh werded, wänn feschtgschtellt wird, dass de \"Bot\" für d\'Wertig missbrucht wird.</string>
   <string name="errorPage">Fählersite</string>
   <string name="reportErrorPage">Wänn du e Fählersite entdeckt häsch, chasch sie mälde:</string>
+  <string name="wantBroadcastTournament">Ich wott es Turnier überträge</string>
+  <string name="learnHowToMakeBroadcasts">Lern wie du - uf Lichess - dini eigeni Sändig machsch</string>
+  <string name="contactAboutOfficialBroadcasts">Du chasch - für offizielli Sändige - au s\'broadcast-team kontaktiere.</string>
   <string name="banAppeal">Ischpruch gäge en Usschluss oder IP-Beschränkig</string>
   <string name="engineAppeal">Markierig vu Computer Underschtützig oder Betrug</string>
   <string name="sendAppealTo">Du chasch en Ischpruch a %s sände.</string>

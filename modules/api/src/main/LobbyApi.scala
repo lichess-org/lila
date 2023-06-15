@@ -16,9 +16,9 @@ final class LobbyApi(
     lobbySocket: LobbySocket
 )(using Executor):
 
-  def apply(using ctx: Context): Fu[(JsObject, List[Pov])] =
+  def apply(using ctx: WebContext): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
-      (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
+      (ctx.me so gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
           Json

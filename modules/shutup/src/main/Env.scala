@@ -13,7 +13,6 @@ private class ShutupConfig(
     @ConfigName("actor.name") val actorName: String
 )
 
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     reporter: lila.hub.actors.Report,

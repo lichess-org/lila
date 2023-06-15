@@ -1,3 +1,5 @@
+$buttons-height: 2.5rem;
+
 #{$moves-tag} > :not(.result-wrap) {
   @extend %zen;
 }
@@ -12,11 +14,12 @@
 
 #{$rmoves-tag} {
   @extend %flex-column, %double-tap;
+  position: relative;
 
   .buttons {
     @extend %box-shadow;
 
-    flex: 0 0 auto;
+    flex: 0 0 $buttons-height;
     display: flex;
     justify-content: stretch;
     background: $c-bg-zebra;
@@ -30,7 +33,6 @@
 
   .fbt,
   .noop {
-    padding: 5px 0;
     flex: 0 0 calc(100% / 6);
     text-align: center;
   }

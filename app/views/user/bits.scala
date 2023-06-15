@@ -2,7 +2,7 @@ package views.html.user
 
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -11,7 +11,7 @@ import controllers.routes
 
 object bits:
 
-  def communityMenu(active: String)(implicit ctx: Context) =
+  def communityMenu(active: String)(using WebContext) =
     st.nav(cls := "page-menu__menu subnav")(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
       a(
@@ -27,7 +27,7 @@ object bits:
       a(cls := active.active("bots"), href := routes.PlayApi.botOnline)("Online bots")
     )
 
-  def miniClosed(u: User)(implicit ctx: Context) =
+  def miniClosed(u: User)(using WebContext) =
     frag(
       div(cls := "title")(userLink(u, withPowerTip = false)),
       div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed())
@@ -46,8 +46,8 @@ object bits:
       s"""<signal title="$title" class="q$v">$bars</signal>"""
     }
 
-  def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(implicit lang: Lang) =
-    !u.lame ??
+  def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Lang) =
+    !u.lame so
       rankMap.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1 =>
           span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(

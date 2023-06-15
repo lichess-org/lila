@@ -51,7 +51,7 @@ object AccessTokenRequest:
 
   case class Granted(
       userId: UserId,
-      scopes: List[OAuthScope],
+      scopes: OAuthScopes,
       redirectUri: RedirectUri
   )
 

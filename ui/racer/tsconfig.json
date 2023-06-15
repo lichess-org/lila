@@ -8,6 +8,7 @@
   "references": [
     { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },
+    { "path": "../chess/tsconfig.json" },
     { "path": "../puz/tsconfig.json" }
   ]
 }

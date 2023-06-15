@@ -6,10 +6,9 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
-import scala.annotation.nowarn
 
 final class Main(
     env: Env,
@@ -25,22 +24,21 @@ final class Main(
   )
 
   def toggleBlindMode = OpenBody:
-    fuccess:
-      blindForm
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest,
-          { case (enable, redirect) =>
-            Redirect(redirect) withCookies env.lilaCookie.cookie(
-              env.api.config.accessibility.blindCookieName,
-              if (enable == "0") "" else env.api.config.accessibility.hash,
-              maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
-              httpOnly = true.some
-            )
-          }
-        )
+    blindForm
+      .bindFromRequest()
+      .fold(
+        _ => BadRequest,
+        { case (enable, redirect) =>
+          Redirect(redirect) withCookies env.lilaCookie.cookie(
+            env.api.config.accessibility.blindCookieName,
+            if (enable == "0") "" else env.api.config.accessibility.hash,
+            maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
+            httpOnly = true.some
+          )
+        }
+      )
 
-  def handlerNotFound(req: RequestHeader) = reqToCtx(req) map renderNotFound
+  def handlerNotFound(req: RequestHeader) = webContext(req) map { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.large
@@ -50,128 +48,91 @@ final class Main(
 
   def webmasters = Open:
     pageHit
-    fuccess:
-      html.site.page.webmasters
+    html.site.page.webmasters
 
   def lag = Open:
     pageHit
-    fuccess:
-      html.site.lag()
+    html.site.lag()
 
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
-  private def serveMobile(using Context) =
+  private def serveMobile(using WebContext) =
     pageHit
     OptionOk(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
       html.mobile(doc, resolver)
 
   def dailyPuzzleSlackApp = Open:
     pageHit
-    fuccess:
-      html.site.dailyPuzzleSlackApp()
+    html.site.dailyPuzzleSlackApp()
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
       userId = ctx.userId,
       ip = ctx.ip,
       fullId = id,
-      name = get("n", ctx.req) | "?"
+      name = get("n") | "?"
     )
-    NoContent.toFuccess
+    NoContent
 
-  val robots = Action: (req: RequestHeader) =>
+  val robots = Anon:
     Ok:
       if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-      then """User-agent: *
-Allow: /
-Disallow: /game/export/
-Disallow: /games/export/
-Disallow: /api/
-Disallow: /opening/config/
-Allow: /game/export/gif/thumbnail/
-
-User-agent: Twitterbot
-Allow: /
-"""
+      then lila.api.StaticContent.robotsTxt
       else "User-agent: *\nDisallow: /"
 
-  def manifest = Action:
-    import lila.common.Json.given
+  def manifest = Anon:
     JsonOk:
-      Json.obj(
-        "name"             -> env.net.domain,
-        "short_name"       -> "Lichess",
-        "start_url"        -> "/",
-        "display"          -> "standalone",
-        "background_color" -> "#161512",
-        "theme_color"      -> "#161512",
-        "description"      -> "The (really) free, no-ads, open source chess server.",
-        "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
-          Json.obj(
-            "src"   -> s"//${env.net.assetDomain}/assets/logo/lichess-favicon-$size.png",
-            "sizes" -> s"${size}x$size",
-            "type"  -> "image/png"
-          )
-        },
-        "related_applications" -> Json.arr(
-          Json.obj(
-            "platform" -> "play",
-            "url"      -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-          ),
-          Json.obj(
-            "platform" -> "itunes",
-            "url"      -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
-          )
-        )
-      )
+      lila.api.StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit
-    Ok(html.site.bits.getFishnet()).toFuccess
+    html.site.bits.getFishnet()
 
-  def costs = Action: (req: RequestHeader) =>
-    pageHit(req)
-    Redirect("https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview")
+  def costs = Anon:
+    pageHit
+    Redirect:
+      "https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview"
 
-  def verifyTitle = Action: (req: RequestHeader) =>
-    pageHit(req)
-    Redirect(
+  def verifyTitle = Anon:
+    pageHit
+    Redirect:
       "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
-    )
 
   def contact = Open:
     pageHit
-    Ok(html.site.contact()).toFuccess
+    html.site.contact()
 
   def faq = Open:
     pageHit
-    Ok(html.site.faq()).toFuccess
+    html.site.faq()
 
   def temporarilyDisabled = Open:
     pageHit
-    NotImplemented(html.site.message.temporarilyDisabled).toFuccess
+    NotImplemented(html.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    Ok(html.site.keyboardHelpModal.keyboardMove).toFuccess
+    html.site.helpModal.keyboardMove
 
-  def movedPermanently(to: String) = Action:
+  def voiceHelp(module: String) = Open:
+    module match
+      case "move"   => html.site.helpModal.voiceMove
+      case "coords" => html.site.helpModal.voiceCoords
+      case _        => NotFound(s"Unknown voice help module: $module")
+
+  def movedPermanently(to: String) = Anon:
     MovedPermanently(to)
 
   def instantChess = Open:
     pageHit
-    if ctx.isAuth
-    then fuccess(Redirect(routes.Lobby.home))
+    if ctx.isAuth then Redirect(routes.Lobby.home)
     else
-      fuccess:
-        Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
-          env.lilaCookie.withSession(remember = true) { s =>
-            s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
-          }
-        )
+      Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies:
+        env.lilaCookie.withSession(remember = true): s =>
+          s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
-  def legacyQaQuestion(id: Int, @nowarn slug: String) = Open:
-    MovedPermanently {
+  def legacyQaQuestion(id: Int, slug: String) = Open:
+    MovedPermanently:
       val faq = routes.Main.faq.url
       id match
         case 103  => s"$faq#acpl"
@@ -192,6 +153,21 @@ Allow: /
         case 46   => s"$faq#name"
         case 122  => s"$faq#marks"
         case _    => faq
-    }.toFuccess
 
-  def devAsset(@nowarn v: String, path: String, file: String) = assetsC.at(path, file)
+  def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
+
+  private val ImageUploadRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "image.upload.ip"
+  )(
+    ("fast", 10, 2.minutes),
+    ("slow", 60, 1.day)
+  )
+
+  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+    ctx.body.body.file("image") match
+      case Some(image) =>
+        env.memo.picfitApi.bodyImage
+          .upload(rel = rel, image = image, me = me.id, ip = ctx.ip)
+          .map(url => JsonOk(Json.obj("imageUrl" -> url)))
+      case None => JsonBadRequest(jsonError("Image content only"))
+  }

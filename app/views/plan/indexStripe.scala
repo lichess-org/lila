@@ -2,7 +2,7 @@ package views.html.plan
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.plan.CurrencyApi.zeroDecimalCurrencies
@@ -20,7 +20,7 @@ object indexStripe:
       stripePublicKey: String,
       pricing: lila.plan.PlanPricing,
       gifts: List[lila.plan.Charge.Gift]
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
@@ -86,7 +86,7 @@ object indexStripe:
                       },
                       name := "amount",
                       value := {
-                        (info.subscription.item.price.currency == pricing.currency) ??
+                        (info.subscription.item.price.currency == pricing.currency) so
                           info.subscription.item.price.money.amount.toString
                       }
                     ),

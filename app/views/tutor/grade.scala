@@ -3,7 +3,7 @@ package views.html.tutor
 import play.api.i18n.Lang
 import scalatags.Text
 
-import lila.app.templating.Environment.given
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
 import lila.tutor.{ TutorBothValueOptions, TutorBothValuesAvailable, TutorNumber }
@@ -46,7 +46,7 @@ object grade:
           position.short,
           !metric.mine.reliableEnough option frag(
             " (",
-            em(cls := "text", dataIcon := "")("small sample!"),
+            em(cls := "text", dataIcon := licon.CautionTriangle)("small sample!"),
             ")"
           )
         )

@@ -29,9 +29,9 @@ final class PgnDump(
   ): Fu[Pgn] =
     dumper(game, initialFen, flags, teams) flatMap { pgn =>
       if (flags.tags)
-        (game.simulId ?? simulApi.idToName)
-          .orElse(game.tournamentId ?? getTournamentName.async)
-          .orElse(game.swissId ?? getSwissName.async) map {
+        (game.simulId so simulApi.idToName)
+          .orElse(game.tournamentId so getTournamentName.async)
+          .orElse(game.swissId so getSwissName.async) map {
           _.fold(pgn)(pgn.withEvent)
         }
       else fuccess(pgn)

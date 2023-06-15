@@ -70,7 +70,7 @@ object activities:
   case class Corres(moves: Int, movesIn: List[GameId], end: List[GameId]):
     def add(gameId: GameId, moved: Boolean, ended: Boolean) =
       Corres(
-        moves = moves + (moved ?? 1),
+        moves = moves + (moved so 1),
         movesIn = if (moved) (gameId :: movesIn).distinct.take(maxSubEntries) else movesIn,
         end = if (ended) (gameId :: end).take(maxSubEntries) else end
       )
@@ -96,7 +96,7 @@ object activities:
     def addIn(id: UserId)  = copy(in = Some(~in + id))
     def addOut(id: UserId) = copy(out = Some(~out + id))
     def isEmpty            = in.fold(true)(_.isEmpty) && out.fold(true)(_.isEmpty)
-    def allUserIds         = in.??(_.ids) ::: out.??(_.ids)
+    def allUserIds         = in.so(_.ids) ::: out.so(_.ids)
 
   opaque type Studies = List[StudyId]
   object Studies extends TotalWrapper[Studies, List[StudyId]]:

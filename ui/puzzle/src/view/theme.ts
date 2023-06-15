@@ -1,6 +1,7 @@
+import * as licon from 'common/licon';
 import * as router from 'common/router';
-import { bind, dataIcon } from 'common/snabbdom';
-import { Controller, MaybeVNode } from '../interfaces';
+import { MaybeVNode, bind, dataIcon } from 'common/snabbdom';
+import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { renderColorForm } from './side';
 
@@ -105,7 +106,7 @@ const editor = (ctrl: Controller): VNode[] => {
                         h(
                           'div.puzzle__themes__lock',
                           h('i', {
-                            attrs: dataIcon(''),
+                            attrs: dataIcon(licon.Padlock),
                           })
                         ),
                       ]
@@ -165,7 +166,7 @@ const editor = (ctrl: Controller): VNode[] => {
             'a.puzzle__themes__study.text',
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.InfoCircle,
                 href: studyUrl,
                 target: '_blank',
                 rel: 'noopener',

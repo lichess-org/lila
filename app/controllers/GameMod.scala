@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.{ list as formList, * }
 import scala.util.chaining.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.api.GameApiV2
 import lila.app.{ given, * }
 import lila.common.config
@@ -13,7 +13,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.Holder
 
-final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
+final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
   import GameMod.*
 
@@ -35,10 +35,10 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   }
 
   private def fetchGames(user: lila.user.User, filter: Filter) =
-    val select = toDbSelect(filter) ++ lila.game.Query.finished
+    val select = toDbSelect(user, filter) ++ lila.game.Query.finished
     import akka.stream.scaladsl.*
     env.game.gameRepo
-      .recentGamesByUserFromSecondaryCursor(user, select)
+      .recentGamesFromSecondaryCursor(select)
       .documentSource(10_000)
       .filter { game =>
         filter.perf.fold(true)(game.perfKey ==)
@@ -54,9 +54,9 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       actionForm
         .bindFromRequest()
         .fold(
-          err => BadRequest(err.toString).toFuccess,
+          err => BadRequest(err.toString),
           {
-            case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).toFuccess
+            case (gameIds, Some("pgn")) => downloadPgn(user, gameIds)
             case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
               multipleAnalysis(me, gameIds)
             case _ => notFound
@@ -64,7 +64,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
         )
   }
 
-  private def multipleAnalysis(me: Holder, gameIds: Seq[GameId])(implicit ctx: Context) =
+  private def multipleAnalysis(me: Holder, gameIds: Seq[GameId])(using WebContext) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
         env.fishnet
@@ -120,35 +120,34 @@ object GameMod:
 
   val emptyFilter = Filter(none, none, none, none, none)
 
-  def toDbSelect(filter: Filter): Bdoc =
-    lila.game.Query.notSimul ++
-      filter.perf.?? { perf =>
-        lila.game.Query.clock(perf != PerfType.Correspondence.key)
-      } ++ filter.arena.?? { id =>
+  def toDbSelect(user: lila.user.User, filter: Filter): Bdoc =
+    import lila.game.Query
+    Query.notSimul ++
+      filter.perf.so { perf =>
+        Query.clock(perf != PerfType.Correspondence.key)
+      } ++ filter.arena.so { id =>
         $doc(lila.game.Game.BSONFields.tournamentId -> id)
-      } ++ filter.swiss.?? { id =>
+      } ++ filter.swiss.so { id =>
         $doc(lila.game.Game.BSONFields.swissId -> id)
-      } ++ (filter.opponentIds match {
-        case Nil      => $empty
-        case List(id) => $and(lila.game.Game.BSONFields.playerUids $eq id)
-        case ids      => $and(lila.game.Game.BSONFields.playerUids $in ids)
-      })
-
-  val filterForm =
-    Form(
-      mapping(
-        "arena"      -> optional(nonEmptyText),
-        "swiss"      -> optional(nonEmptyText),
-        "perf"       -> optional(of[Perf.Key]),
-        "opponents"  -> optional(nonEmptyText),
-        "nbGamesOpt" -> optional(number(min = 1, max = 500))
-      )(Filter.apply)(unapply)
-    )
-
-  val actionForm =
-    Form(
-      tuple(
-        "game"   -> formList(of[GameId]),
-        "action" -> optional(stringIn(Set("pgn", "analyse")))
+      } ++ $and(
+        Query.user(user),
+        filter.opponentIds.match
+          case Nil      => Query.noAnon
+          case List(id) => Query.user(id)
+          case ids      => Query.users(ids)
       )
+
+  val filterForm = Form:
+    mapping(
+      "arena"      -> optional(nonEmptyText),
+      "swiss"      -> optional(nonEmptyText),
+      "perf"       -> optional(of[Perf.Key]),
+      "opponents"  -> optional(nonEmptyText),
+      "nbGamesOpt" -> optional(number(min = 1, max = 500))
+    )(Filter.apply)(unapply)
+
+  val actionForm = Form:
+    tuple(
+      "game"   -> formList(of[GameId]),
+      "action" -> optional(stringIn(Set("pgn", "analyse")))
     )

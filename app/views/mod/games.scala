@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 import scala.util.chaining.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
@@ -26,7 +26,7 @@ object games:
       arenas: Seq[TourEntry],
       swisses: Seq[(Swiss.IdName, Rank)]
   )(using
-      ctx: Context
+      ctx: WebContext
   ) =
     views.html.base.layout(
       title = s"${user.username} games",
@@ -94,7 +94,7 @@ object games:
                 ),
                 dataSortNumberTh("Opponent"),
                 dataSortNumberTh("Speed"),
-                th(iconTag('')),
+                th(iconTag(licon.Trophy)),
                 dataSortNumberTh("Moves"),
                 dataSortNumberTh("Result"),
                 dataSortNumberTh("ACPL", br, "(Avg ± SD)"),
@@ -123,21 +123,21 @@ object games:
                       )(_.config.estimateTotalSeconds)
                     )(
                       pov.game.perfType.map { pt =>
-                        iconTag(pt.iconChar)(cls := "text")
+                        iconTag(pt.icon)(cls := "text")
                       },
                       shortClockName(pov.game)
                     ),
-                    td(dataSort := pov.game.tournamentId.??(_.value))(
+                    td(dataSort := pov.game.tournamentId.so(_.value))(
                       pov.game.tournamentId map { tourId =>
                         a(
-                          dataIcon := "",
+                          dataIcon := licon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
                           title    := tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId map { swissId =>
                         a(
-                          dataIcon := "",
+                          dataIcon := licon.Trophy,
                           href     := routes.Swiss.show(swissId).url,
                           title    := s"Swiss #${swissId}"
                         )
@@ -166,7 +166,7 @@ object games:
                           frag(
                             td(dataSort := basics.moveTimes.sd)(
                               s"${basics.moveTimes / 10}",
-                              basics.mtStreak ?? frag(br, "streak")
+                              basics.mtStreak so frag(br, "streak")
                             ),
                             td(dataSort := basics.blurs)(
                               s"${basics.blurs}%",

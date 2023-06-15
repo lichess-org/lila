@@ -61,6 +61,7 @@ GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(u
 
 # User subpages
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username, path, page: Int ?= 1)
+GET   /@/:username/simuls/hosted       controllers.Simul.byUser(username, page: Int ?= 1)
 
 # User blog
 GET   /@/:username/blog                controllers.Ublog.index(username, page: Int ?= 1)
@@ -146,7 +147,6 @@ GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, p
 GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path, u: Option[String])
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme)
 GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[String])
-GET   /training/mobile/history         controllers.Puzzle.mobileHistory(page: Int ?= 1)
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
@@ -231,6 +231,7 @@ GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang)
 GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
+GET   /api/study/by/:user              controllers.Study.apiListByOwner(user)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
@@ -543,6 +544,7 @@ POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(userna
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username)
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username, v: Boolean)
+POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username)
 GET   /mod/:username/games             controllers.GameMod.index(username)
@@ -619,10 +621,7 @@ GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 GET   /coach/picture/edit              controllers.Coach.picture
 POST  /upload/image/coach              controllers.Coach.pictureApply
-POST  /coach/approve-review/:id        controllers.Coach.approveReview(id)
-POST  /coach/mod-review/:id            controllers.Coach.modReview(id)
 GET   /coach/:username                 controllers.Coach.show(username)
-POST  /coach/:username/review          controllers.Coach.review(username)
 GET   /coach/:lang/:country/:order     controllers.Coach.search(lang, order, country, page: Int ?= 1)
 GET   /$lang<\w\w\w?>/coach            controllers.Coach.homeLang(lang)
 
@@ -646,7 +645,6 @@ GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf,
 # API
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
-GET   /api/user/puzzle-activity        controllers.Puzzle.activity
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
@@ -816,6 +814,7 @@ GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
+POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli
@@ -831,7 +830,7 @@ POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /terms-of-service                controllers.Page.tos
-GET   /$bookmark<privacy|thanks|about|ads|changelog|nft> controllers.Page.menuBookmark(bookmark)
+GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.Page.menuBookmark(bookmark)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
@@ -847,7 +846,7 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.help
 GET   /help/master                     controllers.Page.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
-
+GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT
 GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play

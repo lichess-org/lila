@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">V določenih okoliščinah pri igranju proti robotskemu računu rejtingirana igra ne sme dodeliti točk, če se ugotovi, da igralec zlorablja robota za rejtingiranje.</string>
   <string name="errorPage">Stran z napako</string>
   <string name="reportErrorPage">Če ste soočeni s stranjo z napako, jo lahko prijavite:</string>
+  <string name="wantBroadcastTournament">Želim prenašati turnir</string>
+  <string name="learnHowToMakeBroadcasts">Naučite se narediti lastne oddaje na Lichessu</string>
+  <string name="contactAboutOfficialBroadcasts">Glede uradnih oddaj se lahko obrnete tudi na ekipo oddaje.</string>
   <string name="banAppeal">Pritožba na prepoved ali omejitev IP</string>
   <string name="engineAppeal">Oznaka za goljufa oziroma uporabnika računalniške pomoči</string>
   <string name="sendAppealTo">Pritožbo lahko pošljete na %s.</string>

@@ -135,12 +135,11 @@ object ModActivity:
       case Period.Month => nowInstant.minusMonths(1)
       case Period.Year  => nowInstant.minusYears(1)
 
-  sealed abstract class Who(val key: String)
+  enum Who(val key: String):
+    case Me(userId: UserId) extends Who("me")
+    case Team               extends Who("team")
   object Who:
-    case class Me(userId: UserId) extends Who("me")
-    case object Team              extends Who("team")
-    def apply(who: String, me: User) =
-      if (who == "me") Me(me.id) else Team
+    def apply(who: String, me: User) = if who == "me" then Me(me.id) else Team
 
   enum Action:
     case Message

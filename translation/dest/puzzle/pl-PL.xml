@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
   <string name="upVote">Daj plusa zadaniu</string>
   <string name="downVote">Daj minusa zadaniu</string>
-  <string name="yourPuzzleRatingWillNotChange">Twój ranking w rozwiązywaniu zadań nie ulegnie zmianie. Pamiętaj, że ranking jest używany jedynie do wybierania zadań odpowiednich dla Twojego poziomu.</string>
+  <string name="yourPuzzleRatingWillNotChange">Twój ranking w rozwiązywaniu zadań nie ulegnie zmianie. Pamiętaj, że zadania nie są rywalizacją. Twój ranking pomaga wybrać najlepsze zadania dla Twoich aktualnych umiejętności.</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
   <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zadania:</string>
@@ -49,16 +49,16 @@
   <string name="normal">Normalny</string>
   <string name="easier">Łatwy</string>
   <string name="easiest">Bardzo łatwy</string>
-  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
-    <item quantity="one">Jeden punkt poniżej Twojej oceny łamigłówki</item>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Jeden punkt poniżej Twojego rankingu w rozwiązywaniu zadań</item>
     <item quantity="few">%s punkty poniżej Twojego rankingu w rozwiązywaniu zadań</item>
     <item quantity="many">%s punktów poniżej Twojego rankingu w rozwiązywaniu zadań</item>
     <item quantity="other">%s punktów poniżej Twojego rankingu w rozwiązywaniu zadań</item>
   </plurals>
   <string name="harder">Trudny</string>
   <string name="hardest">Bardzo trudny</string>
-  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
-    <item quantity="one">Jeden punkt powyżej Twojej oceny łamigłówki</item>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Jeden punkt powyżej Twojego rankingu w rozwiązywaniu zadań</item>
     <item quantity="few">%s punkty powyżej Twojego rankingu w rozwiązywaniu zadań</item>
     <item quantity="many">%s punktów powyżej Twojego rankingu w rozwiązywaniu zadań</item>
     <item quantity="other">%s punktów powyżej Twojego rankingu w rozwiązywaniu zadań</item>
@@ -67,13 +67,13 @@
   <string name="addAnotherTheme">Dodaj inny motyw</string>
   <string name="nextPuzzle">Następne zadanie</string>
   <string name="jumpToNextPuzzleImmediately">Natychmiast przejdź do następnego zadania</string>
-  <string name="puzzleDashboard">Tablica z zadaniami</string>
+  <string name="puzzleDashboard">Panel zadań</string>
   <string name="improvementAreas">Obszary rozwoju</string>
   <string name="strengths">Siła</string>
   <string name="history">Historia zadań</string>
   <string name="solved">rozwiązane</string>
   <string name="failed">nie udało się</string>
-  <string name="streakDescription">Stopniowo rozwiązuj coraz trudniejsze zadania i utwórz serię poprawnych rozwiązań. Czas nie jest odliczany więc nie musisz się spieszyć. Jednak do przegranej wystarczy tylko jeden zły ruch! Możesz pominąć ruch w danej sesji.</string>
+  <string name="streakDescription">Stopniowo rozwiązuj coraz trudniejsze zadania i utwórz serię poprawnych rozwiązań. Czas nie jest odliczany, więc nie musisz się spieszyć. Jednak do przegranej wystarczy tylko jeden zły ruch! Możesz pominąć jeden ruch na sesję.</string>
   <string name="yourStreakX">Twoja seria: %s</string>
   <string name="streakSkipExplanation">Pomiń ruch, jeśli chcesz zachować swoją serię. Możesz użyć tylko raz w sesji.</string>
   <string name="continueTheStreak">Kontynuuj serię</string>
@@ -101,5 +101,5 @@ Graj partie szybkie i klasyczne, aby zwiększyć swoje szanse na dodanie zadania
   <string name="percentSolved">%s rozwiązanych</string>
   <string name="noPuzzlesToShow">Nic do pokazania, najpierw rozwiąż kilka zadań!</string>
   <string name="improvementAreasDescription">Trenuj, aby zoptymalizować swoje postępy!</string>
-  <string name="strengthDescription">Jesteś najlepszy w tych motywach</string>
+  <string name="strengthDescription">Najlepiej sobie radzisz z tymi motywami</string>
 </resources>

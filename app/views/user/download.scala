@@ -1,6 +1,6 @@
 package views.html.user
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -8,7 +8,7 @@ import controllers.routes
 import lila.user.User
 
 object download:
-  def apply(user: lila.user.User)(implicit ctx: Context): Frag =
+  def apply(user: lila.user.User)(using WebContext): Frag =
     views.html.base.layout(
       title = s"${user.username} • ${trans.exportGames.txt()}",
       moreCss = cssTag("search"),
@@ -64,7 +64,7 @@ object download:
       )
     }
 
-  private def color(implicit ctx: Context): Frag = tr(
+  private def color(using WebContext): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),
     td(cls := "single")(
       select(id := "dl-color", name := "color")(
@@ -75,7 +75,7 @@ object download:
     )
   )
 
-  private def date(implicit ctx: Context): Frag = tr(
+  private def date(using WebContext): Frag = tr(
     th(label(trans.search.date())),
     td(cls := "two-columns")(
       div(
@@ -93,12 +93,12 @@ object download:
     )
   )
 
-  private def opponent(implicit ctx: Context): Frag = tr(
+  private def opponent(using WebContext): Frag = tr(
     th(label(`for` := "dl-opponent")(trans.search.opponentName())),
     td(input(tpe := "text", id := "dl-opponent", name := "vs"))
   )
 
-  private def mode(implicit ctx: Context): Frag = tr(
+  private def mode(using WebContext): Frag = tr(
     th(label(`for` := "dl-rated")(trans.mode())),
     td(cls := "single")(
       select(id := "dl-rated", name := "rated")(
@@ -109,7 +109,7 @@ object download:
     )
   )
 
-  private def analysis(implicit ctx: Context): Frag = tr(
+  private def analysis(using WebContext): Frag = tr(
     th(
       label(`for` := "dl-analysis")(
         trans.search.analysis(),
@@ -126,7 +126,7 @@ object download:
     )
   )
 
-  private def perfToggles(implicit ctx: Context): Frag =
+  private def perfToggles(using WebContext): Frag =
     val perfTypes = lila.rating.PerfType.nonPuzzle
     tr(
       th(cls := "top")(label(`for` := "dl-perfs")(trans.variants())),
@@ -137,7 +137,7 @@ object download:
       )
     )
 
-  private def perfToggle(perfType: lila.rating.PerfType)(implicit ctx: Context): Frag = div(
+  private def perfToggle(perfType: lila.rating.PerfType)(using WebContext): Frag = div(
     form3.cmnToggle(
       s"dl-perf-${perfType.key}",
       "",
@@ -147,7 +147,7 @@ object download:
     label(`for` := s"dl-perf-${perfType.key}")(perfType.trans)
   )
 
-  private def includeToggles(implicit ctx: Context): Frag = tr(
+  private def includeToggles(using WebContext): Frag = tr(
     th(cls := "top")(
       label(`for` := "dl-includes")(trans.search.include())
     ),
@@ -164,7 +164,7 @@ object download:
     )
   )
 
-  private def amount(implicit ctx: Context): Frag = tr(
+  private def amount(using WebContext): Frag = tr(
     th(
       label(`for` := "dl-amount")(
         trans.search.maxNumber(),

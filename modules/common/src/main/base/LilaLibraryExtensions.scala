@@ -219,15 +219,15 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def thenPp(using Executor): Fu[A] =
       effectFold(
-        e => println("[failure] " + e),
-        a => println("[success] " + a)
+        e => pprint.pprintln("[failure] " + e),
+        a => pprint.pprintln("[success] " + a)
       )
       fua
 
     def thenPp(msg: String)(using Executor): Fu[A] =
       effectFold(
-        e => println(s"[$msg] [failure] $e"),
-        a => println(s"[$msg] [success] $a")
+        e => pprint.pprintln(s"[$msg] [failure] $e"),
+        a => pprint.pprintln(s"[$msg] [success] $a")
       )
       fua
 
@@ -342,5 +342,5 @@ trait LilaLibraryExtensions extends LilaTypes:
         case Some(scala.util.Success(v)) => v
         case _                           => None
 
-    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]          = fua.map { _ ?? fb }
-    def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _ ?? fub }
+    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]          = fua.map { _ so fb }
+    def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _ so fub }

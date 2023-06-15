@@ -39,9 +39,9 @@ final class PersonalDataExport(
               "All dates are UTC",
               bigSep,
               s"Signup date: ${textDate(user.createdAt)}",
-              s"Last seen: ${user.seenAt ?? textDate}",
-              s"Public profile: ${user.profile.??(_.toString)}",
-              s"Email: ${email.??(_.value)}"
+              s"Last seen: ${user.seenAt so textDate}",
+              s"Public profile: ${user.profile.so(_.toString)}",
+              s"Email: ${email.so(_.value)}"
             )
           )
         }
@@ -50,7 +50,7 @@ final class PersonalDataExport(
     val connections =
       Source(List(textTitle("Connections"))) concat
         securityEnv.store.allSessions(user.id).documentSource().throttle(lightPerSecond, 1 second).map { s =>
-          s"${s.date.??(textDate)} ${s.ip} ${s.ua}"
+          s"${s.date.so(textDate)} ${s.ip} ${s.ua}"
         }
 
     val followedUsers =
@@ -62,19 +62,19 @@ final class PersonalDataExport(
 
     val streamer = Source.futureSource {
       streamerApi.find(user) map {
-        _.map(_.streamer).?? { s =>
+        _.map(_.streamer).so { s =>
           List(textTitle("Streamer profile")) :::
             List(
               "name"     -> s.name,
-              "image"    -> s.picture.??(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
-              "headline" -> s.headline.??(_.value),
-              "description" -> s.description.??(_.value),
-              "twitch"      -> s.twitch.??(_.fullUrl),
-              "youTube"     -> s.youTube.??(_.fullUrl),
+              "image"    -> s.picture.so(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
+              "headline" -> s.headline.so(_.value),
+              "description" -> s.description.so(_.value),
+              "twitch"      -> s.twitch.so(_.fullUrl),
+              "youTube"     -> s.youTube.so(_.fullUrl),
               "createdAt"   -> textDate(s.createdAt),
               "updatedAt"   -> textDate(s.updatedAt),
               "seenAt"      -> textDate(s.seenAt),
-              "liveAt"      -> s.liveAt.??(textDate)
+              "liveAt"      -> s.liveAt.so(textDate)
             ).map { case (k, v) =>
               s"$k: $v"
             }
@@ -84,11 +84,11 @@ final class PersonalDataExport(
 
     val coach = Source.futureSource {
       coachApi.find(user) map {
-        _.map(_.coach).?? { c =>
+        _.map(_.coach).so { c =>
           List(textTitle("Coach profile")) :::
             c.profile.textLines :::
             List(
-              "image"     -> c.picture.??(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
+              "image"     -> c.picture.so(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
               "languages" -> c.languages.mkString(", "),
               "createdAt" -> textDate(c.createdAt),
               "updatedAt" -> textDate(c.updatedAt)
@@ -98,15 +98,6 @@ final class PersonalDataExport(
         }
       } map Source.apply
     }
-
-    val coachReviews =
-      Source.futureSource {
-        coachApi.reviews.allByPoster(user) map { reviews =>
-          Source(List(textTitle("Coach reviews")) ::: reviews.list.map { r =>
-            s"${r.coachId}: ${r.text}\n"
-          })
-        }
-      }
 
     val forumPosts =
       Source(List(textTitle("Forum posts"))) concat
@@ -139,19 +130,8 @@ final class PersonalDataExport(
           )
         }
         .documentSource()
-        .map { doc => doc.string("l").??(_.drop(user.id.value.size + 1)) }
+        .map { doc => doc.string("l").so(_.drop(user.id.value.size + 1)) }
         .throttle(heavyPerSecond, 1 second)
-
-    val privateGameChats =
-      Source(List(textTitle("Private game chat messages"))) concat
-        gameChatsLookup(
-          $lookup.simple(
-            from = chatEnv.coll,
-            as = "chat",
-            local = "_id",
-            foreign = "_id"
-          )
-        )
 
     val spectatorGameChats =
       Source(List(textTitle("Spectator game chat messages"))) concat
@@ -196,18 +176,17 @@ final class PersonalDataExport(
         ublogApi
           .postCursor(user)
           .documentSource()
-          .map { post =>
+          .map: post =>
             List(
               "date"   -> textDate(post.created.at),
               "title"  -> post.title,
               "intro"  -> post.intro,
               "body"   -> post.markdown,
-              "image"  -> post.image.??(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
+              "image"  -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Size.Large)),
               "topics" -> post.topics.mkString(", ")
-            ).map { case (k, v) =>
+            ).map: (k, v) =>
               s"$k: $v"
-            }.mkString("\n") + bigSep
-          }
+            .mkString("\n") + bigSep
           .throttle(heavyPerSecond, 1 second)
 
     val outro = Source(List(textTitle("End of data export.")))
@@ -218,11 +197,9 @@ final class PersonalDataExport(
       followedUsers,
       streamer,
       coach,
-      coachReviews,
       ublogPosts,
       forumPosts,
       privateMessages,
-      // privateGameChats,
       spectatorGameChats,
       gameNotes,
       outro

@@ -1,7 +1,7 @@
 package views.html
 package base
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -9,7 +9,7 @@ import controllers.routes
 
 object notFound:
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using WebContext) =
     layout(
       title = "Page not found",
       moreJs = prismicJs,
@@ -33,7 +33,8 @@ object notFound:
             src            := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
             st.frameborder := 0,
             widthA         := 400,
-            heightA        := 500
+            heightA        := 500,
+            frame.credentialless
           ),
           p(cls := "credits")(
             a(href := "https://github.com/Saturnyn/ChessPursuit")("ChessPursuit"),

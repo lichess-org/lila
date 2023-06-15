@@ -1,5 +1,6 @@
-import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
-import { dataIcon, onInsert, bind } from 'common/snabbdom';
+import { Controller, Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
+import * as licon from 'common/licon';
+import { dataIcon, onInsert, MaybeVNode } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
@@ -15,7 +16,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
   h(
     'div.infos.puzzle',
     {
-      attrs: dataIcon(''),
+      attrs: dataIcon(licon.ArcheryTarget),
     },
     [
       h('div', [
@@ -102,7 +103,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
           h(
             'h1.text',
             {
-              attrs: dataIcon(''),
+              attrs: dataIcon(licon.ArrowThruApple),
             },
             'Puzzle Streak'
           ),
@@ -111,7 +112,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
       : h(
           'div.puzzle__side__streak__score.text',
           {
-            attrs: dataIcon(''),
+            attrs: dataIcon(licon.ArrowThruApple),
           },
           streak.data.index
         )
@@ -227,29 +228,6 @@ export function config(ctrl: Controller): MaybeVNode {
       h('label', { attrs: { for: autoNextId } }, noarg('jumpToNextPuzzleImmediately')),
     ]),
     !data.user || data.replay || ctrl.streak ? null : renderDifficultyForm(ctrl),
-    h('div.puzzle__side__config__toggles', [
-      h(
-        'a.puzzle__side__config__zen.button.button-empty',
-        {
-          hook: bind('click', () => lichess.pubsub.emit('zen')),
-          attrs: {
-            title: 'Keyboard: z',
-          },
-        },
-        noarg('zenMode')
-      ),
-      h(
-        'a.puzzle__side__config__flip.button',
-        {
-          class: { active: ctrl.flipped(), 'button-empty': !ctrl.flipped() },
-          hook: bind('click', ctrl.flip),
-          attrs: {
-            title: 'Keyboard: f',
-          },
-        },
-        noarg('flipBoard')
-      ),
-    ]),
   ]);
 }
 

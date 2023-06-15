@@ -4,7 +4,7 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -12,7 +12,7 @@ import lila.user.User
 object form:
 
   def apply(form: Form[?], reqUser: Option[User] = None, captcha: lila.common.Captcha)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     views.html.base.layout(
       title = trans.reportAUser.txt(),
@@ -23,11 +23,11 @@ object form:
         h1(cls := "box__top")(trans.reportAUser()),
         postForm(
           cls    := "form3",
-          action := s"${reportRoutes.create}${reqUser.??(u => "?username=" + u.username)}"
+          action := s"${reportRoutes.create}${reqUser.so(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(
             p(
-              a(href := routes.Page.loneBookmark("report-faq"), dataIcon := "", cls := "text")(
+              a(href := routes.Page.loneBookmark("report-faq"), dataIcon := licon.InfoCircle, cls := "text")(
                 "Read more about Lichess reports"
               )
             ),

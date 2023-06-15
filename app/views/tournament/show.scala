@@ -3,7 +3,7 @@ package tournament
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
@@ -20,7 +20,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],
       shieldOwner: Option[UserId]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(
@@ -37,7 +37,8 @@ object show:
                   timeout = c.timeout,
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
-                  localMod = ctx.userId has tour.createdBy
+                  localMod = ctx.userId has tour.createdBy,
+                  writeable = !c.locked
                 )
               },
               "showRatings" -> ctx.pref.showRatings
@@ -64,7 +65,7 @@ object show:
       csp = defaultCsp.withLilaHttp.some
     )(
       main(cls := s"tour${tour.schedule
-          .?? { sched =>
+          .so { sched =>
             s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
           }}")(
         st.aside(cls := "tour__side")(

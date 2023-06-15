@@ -63,7 +63,7 @@ private object AuthorizationApi:
       userId: UserId,
       redirectUri: Protocol.RedirectUri,
       challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
-      scopes: List[OAuthScope],
+      scopes: OAuthScopes,
       expires: Instant
   )
 
@@ -71,22 +71,22 @@ private object AuthorizationApi:
   import lila.db.dsl.{ *, given }
   import AuthorizationApi.{ BSONFields as F }
 
-  implicit object PendingAuthorizationBSONHandler extends BSON[PendingAuthorization]:
+  given PendingAuthorizationBSONHandler: BSON[PendingAuthorization] = new:
     def reads(r: BSON.Reader): PendingAuthorization =
       PendingAuthorization(
         hashedCode = r.str(F.hashedCode),
         clientId = Protocol.ClientId(r.str(F.clientId)),
         userId = r.get[UserId](F.userId),
         redirectUri = Protocol.RedirectUri.unchecked(r.str(F.redirectUri)),
-        challenge = r.strO(F.hashedClientSecret) match {
+        challenge = r.strO(F.hashedClientSecret) match
           case Some(hashedClientSecret) => Left(LegacyClientApi.HashedClientSecret(hashedClientSecret))
           case None                     => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
-        },
-        scopes = r.get[List[OAuthScope]](F.scopes),
+        ,
+        scopes = r.get[OAuthScopes](F.scopes),
         expires = r.get[Instant](F.expires)
       )
 
-    def writes(@annotation.nowarn w: BSON.Writer, o: PendingAuthorization) =
+    def writes(w: BSON.Writer, o: PendingAuthorization) =
       $doc(
         F.hashedCode         -> o.hashedCode,
         F.clientId           -> o.clientId.value,

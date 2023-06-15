@@ -120,4 +120,5 @@
   <string name="unlimitedAndFree">Без обмежень та безкоштовно</string>
   <string name="predefinedUsers">Брати участь можуть лише попередньо визначені користувачі</string>
   <string name="forbiddedUsers">Якщо цей список не порожній, то користувачам, відсутнім у цьому списку, буде заборонено приєднуватися. Одне ім\'я користувача на рядок.</string>
+  <string name="playYourGames">Продивитися свої ігри</string>
 </resources>

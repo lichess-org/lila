@@ -1,5 +1,6 @@
 package lila.simul
 
+import cats.syntax.all.*
 import play.api.libs.json.*
 
 import lila.common.LightUser
@@ -49,7 +50,7 @@ final class JsonView(
     }
 
   def api(simuls: List[Simul]): Fu[JsArray] =
-    lila.common.LilaFuture.linear(simuls)(apiJson) map JsArray.apply
+    simuls.traverse(apiJson).map(JsArray.apply)
 
   def apiAll(
       pending: List[Simul],
@@ -96,7 +97,7 @@ final class JsonView(
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) =
     Json.obj(
       "key"  -> v.key,
-      "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
+      "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.icon.toString),
       "name" -> v.name
     )
 
@@ -110,7 +111,7 @@ final class JsonView(
         .add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
         .add("provisional" -> ~player.provisional)
-        .add("patron" -> light.??(_.isPatron))
+        .add("patron" -> light.so(_.isPatron))
     }
 
   private def applicantJson(app: SimulApplicant): Fu[JsObject] =
@@ -142,7 +143,7 @@ final class JsonView(
       .add("winner" -> g.winnerColor.map(_.name))
 
   private def pairingJson(games: List[Game], hostId: UserId)(p: SimulPairing): Fu[Option[JsObject]] =
-    games.find(_.id == p.gameId) ?? { game =>
+    games.find(_.id == p.gameId) so { game =>
       playerJson(p.player) map { player =>
         Json
           .obj(

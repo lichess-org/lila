@@ -1,6 +1,6 @@
 package views.html
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -15,7 +15,7 @@ object irwin:
       case p if p < 80 => "orange"
       case _           => "red"
 
-  def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(implicit ctx: Context) =
+  def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(using WebContext) =
     views.html.base.layout(
       title = "Irwin dashboard",
       moreCss = cssTag("mod.misc")
@@ -72,7 +72,7 @@ object irwin:
       )
     }
 
-  def report(report: lila.irwin.IrwinReport.WithPovs)(implicit ctx: Context): Frag =
+  def report(report: lila.irwin.IrwinReport.WithPovs)(using WebContext): Frag =
     div(cls := "mz-section mz-section--irwin", dataRel := "irwin")(
       header(
         a(cls := "title", href := routes.Irwin.dashboard)(
@@ -115,9 +115,9 @@ object irwin:
                       link = false
                     ),
                     br,
-                    pov.game.isTournament ?? frag(iconTag(""), " "),
+                    pov.game.isTournament so frag(iconTag(licon.Trophy), " "),
                     pov.game.perfType.map { pt =>
-                      iconTag(pt.iconChar)
+                      iconTag(pt.icon)
                     },
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",

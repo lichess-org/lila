@@ -2,24 +2,24 @@ package views.html.coordinate
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 
 object bits:
 
-  def coordinateConfig(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) = Json.obj(
+  def coordinateConfig(scoreOption: Option[lila.coordinate.Score])(using ctx: WebContext) = Json.obj(
     "i18n"       -> i18nJsObject(i18nKeys),
     "resizePref" -> ctx.pref.resizeHandle,
     "is3d"       -> ctx.pref.is3d,
     "scores" -> Json.obj(
       "findSquare" -> Json.obj(
-        "white" -> (scoreOption.??(_.white): List[Int]),
-        "black" -> (scoreOption.??(_.black): List[Int])
+        "white" -> (scoreOption.so(_.white): List[Int]),
+        "black" -> (scoreOption.so(_.black): List[Int])
       ),
       "nameSquare" -> Json.obj(
-        "white" -> (scoreOption.??(_.whiteNameSquare): List[Int]),
-        "black" -> (scoreOption.??(_.blackNameSquare): List[Int])
+        "white" -> (scoreOption.so(_.whiteNameSquare): List[Int]),
+        "black" -> (scoreOption.so(_.blackNameSquare): List[Int])
       )
     )
   )

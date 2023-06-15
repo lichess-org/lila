@@ -33,7 +33,7 @@ final class MemberRepo(val coll: Coll)(using Executor):
     coll.countSel(teamQuery(teamId))
 
   def filterUserIdsInTeam(teamId: TeamId, userIds: Iterable[UserId]): Fu[Set[UserId]] =
-    userIds.nonEmpty ??
+    userIds.nonEmpty so
       coll.distinctEasy[UserId, Set]("user", $inIds(userIds.map { TeamMember.makeId(teamId, _) }))
 
   def isSubscribed(team: Team, user: User): Fu[Boolean] =

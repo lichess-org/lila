@@ -3,9 +3,9 @@ package round
 
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
@@ -20,7 +20,7 @@ object watcher:
       userTv: Option[lila.user.User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
 
     val chatJson = chatOption map { c =>
       chat.json(
@@ -63,7 +63,7 @@ object watcher:
     )
 
   def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Epd], pgn: chess.format.pgn.Pgn)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     bits.layout(
       variant = pov.game.variant,

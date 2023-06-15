@@ -15,7 +15,6 @@ private class ReportConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     domain: lila.common.config.NetDomain,

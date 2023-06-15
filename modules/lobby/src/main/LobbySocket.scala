@@ -147,8 +147,8 @@ final class LobbySocket(
     key = "lobby.hook_pool.member"
   )
 
-  private def HookPoolLimit(member: Member, cost: Int, msg: => String)(op: => Unit) =
-    poolLimitPerSri(k = member.sri.value, cost = cost, msg = msg)(op) {}
+  private def HookPoolLimit(member: Member, cost: Int, msg: => String) =
+    poolLimitPerSri.zero[Unit](k = member.sri.value, cost = cost, msg = msg)
 
   def controller(member: Member): SocketController =
     case ("join", o) if !member.bot =>
@@ -222,8 +222,8 @@ final class LobbySocket(
 
   private def getOrConnect(sri: Sri, userOpt: Option[UserId]): Fu[Member] =
     actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
-      userOpt ?? userRepo.enabledById flatMap { user =>
-        (user ?? { u =>
+      userOpt so userRepo.enabledById flatMap { user =>
+        (user so { u =>
           remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
           relationApi.fetchBlocking(u.id)
         }) map { blocks =>

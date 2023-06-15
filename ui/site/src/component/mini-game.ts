@@ -1,9 +1,8 @@
 import { uciToMove } from 'chessground/util';
+import { fenColor } from 'common/mini-game';
 import * as domData from 'common/data';
 import clockWidget from './clock-widget';
 import StrongSocket from './socket';
-
-const fenColor = (fen: string) => (fen.indexOf(' b') > 0 ? 'black' : 'white');
 
 export const init = (node: HTMLElement) => {
   if (!window.Chessground) setTimeout(() => init(node), 200);
@@ -55,21 +54,21 @@ export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
       lastMove: uciToMove(lm),
     });
   const turnColor = fenColor(data.fen);
-  const renderClock = (time: number | undefined, color: Color) => {
+  const updateClock = (time: number | undefined, color: Color) => {
     if (!isNaN(time!))
       clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
         time: time!,
         pause: color != turnColor || !clockIsRunning(data.fen, color),
       });
   };
-  renderClock(data.wc, 'white');
-  renderClock(data.bc, 'black');
+  updateClock(data.wc, 'white');
+  updateClock(data.bc, 'black');
 };
 
-export const finish = (node: HTMLElement, win?: string) =>
+export const finish = (node: HTMLElement, win?: 'black' | 'white') =>
   ['white', 'black'].forEach(color => {
     const $clock = $(node).find('.mini-game__clock--' + color);
     // don't interfere with snabbdom clocks
     if (!$clock.data('managed'))
-      $clock.replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`);
+      $clock.replaceWith(`<span class="mini-game__result">${win ? (win === color[0] ? 1 : 0) : '½'}</span>`);
   });

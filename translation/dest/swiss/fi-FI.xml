@@ -60,10 +60,17 @@ Niissä on laskettu yhteen pelaajan voittamien vastustajien kaikki pisteet sekä
   <string name="numberOfByesQ">Kuinka monta kierrosta pelaaja voi huilata?</string>
   <string name="numberOfByesA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
 Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
+  <string name="earlyDrawsQ">Mitä tehdään nopeille tasapeleille?</string>
+  <string name="earlyDrawsA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
+Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
   <string name="whatIfOneDoesntPlayQ">Mitä tapahtuu, jos pelaaja jättää pelin pelaamatta?</string>
   <string name="whatIfOneDoesntPlayA">Aika kuluu pelaajan kellossa, lippu putoaa ja hän häviää pelin.
 Sitten järjestelmä poistaa pelaajan turnauksesta, jotta tämä ei häviäisi lisää pelejä.
 Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
+  <string name="protectionAgainstNoShowQ">Mitä tehdään, jos osallistuja jättää tulematta peliin?</string>
+  <string name="protectionAgainstNoShowA">Voi syntyä ongelmia, jos sveitsiläiseen turnaukseen ilmoittautuneet pelaajat eivät pelaakaan turnauspelejään.
+Ongelmien lievittämiseksi ne pelaajat, jotka jättävät tulematta peliin, eivät tietyn aikaa saa osallistua Lichessissä uusiin sveitsiläisiin turnauksiin.
+Sveitsiläisen turnauksen luonut pelaaja voi kuitenkin sallia tällaisten pelaajien osallistumisen turnaukseen.</string>
   <string name="lateJoinQ">Voiko turnaukseen liittyä myöhässä?</string>
   <string name="lateJoinA">Voi siihen asti, kunnes yli puolet kierroksista on alkanut. Esimerkiksi 11 kierroksen sveitsiläiseen voi vielä liittyä ennen 6. kierroksen alkua ja 12-kierroksiseen ennen 7. kierroksen alkua.
 Myöhään liittyville merkitään yksi huilaus, vaikka heiltä olisi jäänyt väliin useita kierroksia.</string>

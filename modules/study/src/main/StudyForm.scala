@@ -1,5 +1,6 @@
 package lila.study
 
+import cats.syntax.all.*
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 import chess.variant.Variant
@@ -87,10 +88,10 @@ object StudyForm:
 
       def toChapterDatas =
         val pgns = MultiPgn.split(pgn, max = 32).value
-        pgns.zipWithIndex map { (onePgn, index) =>
+        pgns.mapWithIndex: (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
-            name = StudyChapterName((index == 0) ?? name),
+            name = StudyChapterName((index == 0) so name),
             variant = variant,
             pgn = onePgn.some,
             orientation = orientation | ChapterMaker.Orientation.Auto,
@@ -98,7 +99,6 @@ object StudyForm:
             initial = initial && index == 0,
             isDefaultName = index > 0 || isDefaultName
           )
-        }
 
   def topicsForm = Form(single("topics" -> text))
 

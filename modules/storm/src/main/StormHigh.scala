@@ -15,13 +15,12 @@ case class StormHigh(day: Int, week: Int, month: Int, allTime: Int):
 object StormHigh:
   val default = StormHigh(0, 0, 0, 0)
 
-  sealed abstract class NewHigh(val key: String):
+  enum NewHigh(val key: String):
     val previous: Int
-  object NewHigh:
-    case class Day(previous: Int)     extends NewHigh("day")
-    case class Week(previous: Int)    extends NewHigh("week")
-    case class Month(previous: Int)   extends NewHigh("month")
-    case class AllTime(previous: Int) extends NewHigh("allTime")
+    case Day(previous: Int)     extends NewHigh("day")
+    case Week(previous: Int)    extends NewHigh("week")
+    case Month(previous: Int)   extends NewHigh("month")
+    case AllTime(previous: Int) extends NewHigh("allTime")
 
 final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
@@ -32,7 +31,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def update(userId: UserId, prev: StormHigh, score: Int): Option[NewHigh] =
     val high = prev update score
-    (high != prev) ?? {
+    (high != prev) so {
       cache.put(userId, fuccess(high))
       import NewHigh.*
       if (high.allTime > prev.allTime) AllTime(prev.allTime).some

@@ -58,4 +58,5 @@
   <string name="noArenaStreaks">Без поредици в Арената</string>
   <string name="averagePerformance">Средна производителност</string>
   <string name="averageScore">Average score</string>
+  <string name="myTournaments">Мои турнири</string>
 </resources>

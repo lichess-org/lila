@@ -85,7 +85,7 @@ final class MsgCompat(
 
   def create(
       me: User
-  )(implicit req: play.api.mvc.Request[?], formBinding: FormBinding): Either[Form[?], Fu[UserId]] =
+  )(using play.api.mvc.Request[?], FormBinding): Either[Form[?], Fu[UserId]] =
     Form(
       mapping(
         "username" -> lila.user.UserForm.historicalUsernameField

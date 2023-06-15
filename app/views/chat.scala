@@ -2,7 +2,7 @@ package views.html
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.I18nKeys
@@ -27,7 +27,7 @@ object chat:
       writeable: Boolean = true,
       localMod: Boolean = false,
       palantir: Boolean = false
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     json(
       chat.chat,
       name = name,
@@ -53,7 +53,7 @@ object chat:
       localMod: Boolean = false,
       broadcastMod: Boolean = false,
       palantir: Boolean = false
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
     Json
       .obj(
         "data" -> Json
@@ -86,7 +86,7 @@ object chat:
           .option(lila.chat.JsonView.timeoutReasons)
       )
 
-  def i18n(withNote: Boolean)(implicit ctx: Context) =
+  def i18n(withNote: Boolean)(using WebContext) =
     i18nOptionJsObject(
       I18nKeys.talkInChat.some,
       I18nKeys.toggleTheChat.some,

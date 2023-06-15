@@ -1,9 +1,8 @@
 package controllers
 
 import play.api.libs.json.*
-import scala.annotation.nowarn
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
@@ -21,15 +20,15 @@ final class Practice(
   def index = Open:
     pageHit
     api.get(ctx.me) flatMap { up =>
-      Ok(html.practice.index(up)).noCache.toFuccess
+      Ok(html.practice.index(up)).noCache
     }
 
-  def show(@nowarn sectionId: String, @nowarn studySlug: String, studyId: StudyId) = Open:
+  def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
     OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
 
   def showChapter(
-      @nowarn sectionId: String,
-      @nowarn studySlug: String,
+      sectionId: String,
+      studySlug: String,
       studyId: StudyId,
       chapterId: StudyChapterId
   ) = Open:
@@ -46,11 +45,10 @@ final class Practice(
       struct.sections
         .find(_.id == sectionId)
         .fold(notFound): section =>
-          select(section) ?? { study =>
-            Redirect(routes.Practice.show(section.id, study.slug, study.id)).toFuccess
-          }
+          select(section).so: study =>
+            Redirect(routes.Practice.show(section.id, study.slug, study.id))
 
-  private def showUserPractice(us: lila.practice.UserStudy)(using Context) =
+  private def showUserPractice(us: lila.practice.UserStudy)(using WebContext) =
     analysisJson(us) map { (analysisJson, studyJson) =>
       Ok(
         html.practice
@@ -78,7 +76,7 @@ final class Practice(
       }
     }
 
-  private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] =
+  private def analysisJson(us: UserStudy)(using WebContext): Fu[(JsObject, JsObject)] =
     us match
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
         env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>

@@ -36,13 +36,11 @@ final class Editor(env: Env) extends LilaController(env):
       .decodeUriPath(urlFen)
       .filter(_.nonEmpty)
       .map(Fen.Epd.clean)
-    Ok(
+    Ok:
       html.board.editor(fen, positionsJson, endgamePositionsJson)
-    ).toFuccess
 
   def data = Open:
-    fuccess:
-      JsonOk(html.board.editor.jsData())
+    JsonOk(html.board.editor.jsData())
 
   def game(id: GameId) = Open:
     OptionResult(env.game.gameRepo game id): game =>
@@ -54,5 +52,5 @@ final class Editor(env: Env) extends LilaController(env):
   private[controllers] def editorUrl(fen: Fen.Epd, variant: Variant): String =
     if (fen == Fen.initial && variant.standard) routes.Editor.index.url
     else
-      val params = variant.exotic ?? s"?variant=${variant.key}"
+      val params = variant.exotic so s"?variant=${variant.key}"
       routes.Editor.load(lila.common.String.underscoreFen(fen)).url + params

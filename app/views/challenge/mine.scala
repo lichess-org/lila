@@ -1,6 +1,6 @@
 package views.html.challenge
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge.Status
@@ -14,11 +14,11 @@ object mine:
       json: play.api.libs.json.JsObject,
       error: Option[String],
       color: Option[chess.Color]
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
-        submitButton(cls := "button button-red text", dataIcon := "")(trans.cancel())
+        submitButton(cls := "button button-red text", dataIcon := licon.X)(trans.cancel())
       )
 
     views.html.base.layout(
@@ -66,7 +66,7 @@ object mine:
                           title    := "Copy URL",
                           cls      := "copy button",
                           dataRel  := "challenge-id",
-                          dataIcon := ""
+                          dataIcon := licon.Link
                         )
                       ),
                       p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())

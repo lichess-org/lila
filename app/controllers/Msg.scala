@@ -21,12 +21,13 @@ final class Msg(env: Env) extends LilaController(env):
   }
 
   def convo(username: UserStr, before: Option[Long] = None) = Auth { _ ?=> me =>
-    if (username.value == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).toFuccess
+    if username.value == "new"
+    then Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
       env.msg.api.convoWith(me, username, before).flatMap {
         case None =>
           negotiate(
-            html = Redirect(routes.Msg.home).toFuccess,
+            html = Redirect(routes.Msg.home),
             api = _ => notFoundJson()
           )
         case Some(c) =>
@@ -61,16 +62,13 @@ final class Msg(env: Env) extends LilaController(env):
   }
 
   def compatCreate = AuthBody { ctx ?=> me =>
-    ctx.noKid ?? ctx.noBot ?? {
-      env.msg.compat
-        .create(me)(ctx.body, formBinding)
-        .fold(
-          jsonFormError,
-          _ map { id =>
-            Ok(Json.obj("ok" -> true, "id" -> id))
-          }
-        )
-    }
+    ctx.noKid so ctx.noBot so env.msg.compat
+      .create(me)
+      .fold(
+        jsonFormError,
+        _.map: id =>
+          Ok(Json.obj("ok" -> true, "id" -> id))
+      )
   }
 
   def apiPost(username: UserStr) =
@@ -80,21 +78,21 @@ final class Msg(env: Env) extends LilaController(env):
       auth = ctx ?=>
         me =>
           env.msg.compat
-            .reply(me, userId)(using ctx.body, formBinding)
+            .reply(me, userId)
             .fold(
               jsonFormError,
               _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
             ),
       // new API: create/reply
-      scoped = implicit req =>
+      scoped = ctx ?=>
         me =>
-          (!me.kid && !me.is(userId)) ?? {
+          (!me.kid && !me.is(userId)) so {
             import play.api.data.*
             import play.api.data.Forms.*
             Form(single("text" -> nonEmptyText))
               .bindFromRequest()
               .fold(
-                err => jsonFormErrorFor(err, req, me.some),
+                jsonFormError,
                 text =>
                   env.msg.api.post(me.id, userId, text) map {
                     case lila.msg.MsgApi.PostResult.Success => jsonOkResult

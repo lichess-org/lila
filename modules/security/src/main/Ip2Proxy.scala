@@ -6,7 +6,6 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.IpAddress
-import scala.annotation.nowarn
 
 trait Ip2Proxy:
 
@@ -21,9 +20,9 @@ object IsProxy extends TotalWrapper[IsProxy, Option[String]]:
 
 final class Ip2ProxySkip extends Ip2Proxy:
 
-  def apply(@nowarn ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy(none))
+  def apply(ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy(none))
 
-  def keepProxies(@nowarn ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
+  def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
 
 final class Ip2ProxyServer(
     ws: StandaloneWSClient,
@@ -64,7 +63,7 @@ final class Ip2ProxyServer(
               .get()
               .withTimeout(3 seconds, "Ip2Proxy.batch")
               .map {
-                _.body[JsValue].asOpt[Seq[JsObject]] ?? {
+                _.body[JsValue].asOpt[Seq[JsObject]] so {
                   _.map(readProxyName)
                 }
               }

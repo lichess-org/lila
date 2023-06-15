@@ -16,7 +16,8 @@ final class ErrorHandler(
     mainC: => controllers.Main,
     lobbyC: => controllers.Lobby
 )(using Executor)
-    extends DefaultHttpErrorHandler(environment, config, router.some):
+    extends DefaultHttpErrorHandler(environment, config, router.some)
+    with ResponseWriter:
 
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {
@@ -25,7 +26,7 @@ final class ErrorHandler(
       lila.mon.http.error(actionName, client, req.method, 500).increment()
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
-        val errorCtx = lila.api.Context.error(
+        val errorCtx = lila.api.WebContext.error(
           req,
           lila.i18n.defaultLang,
           HTTPRequest.isSynchronousHttp(req) option lila.api.Nonce.random
@@ -45,9 +46,8 @@ final class ErrorHandler(
       case _ if req.attrs.contains(request.RequestAttrKey.Session) =>
         lobbyC.handleStatus(req, Results.BadRequest)
       case _ =>
-        fuccess {
+        fuccess:
           Results.BadRequest("Sorry, the request could not be processed")
-        }
 
   private def canShowErrorPage(req: RequestHeader): Boolean =
     HTTPRequest.isSynchronousHttp(req) && !HTTPRequest.hasFileExtension(req)

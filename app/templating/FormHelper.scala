@@ -6,6 +6,7 @@ import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
+import lila.common.licon
 
 trait FormHelper { self: I18nHelper =>
 
@@ -198,7 +199,7 @@ trait FormHelper { self: I18nHelper =>
 
     def submit(
         content: Frag,
-        icon: Option[String] = Some(""),
+        icon: Option[licon.Icon] = Some(licon.Checkmark),
         nameValue: Option[(String, String)] = None,
         confirm: Option[String] = None
     ): Tag =
@@ -223,6 +224,9 @@ trait FormHelper { self: I18nHelper =>
         st.value := value,
         tpe      := "hidden"
       )
+
+    // allows disabling of a field that defaults to true
+    def hiddenFalse(field: Field): Tag = form3.hidden(field, "false".some)
 
     def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using Lang): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))

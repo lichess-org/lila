@@ -2,7 +2,7 @@ package lila.mod
 
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
 import lila.perfStat.PerfStat
@@ -27,8 +27,8 @@ final private class RatingRefund(
 
   private def apply(sus: Suspect): Funit =
     logApi.wasUnengined(sus) flatMap {
-      case true => funit
-      case false =>
+      if _ then funit
+      else
         def lastGames =
           gameRepo.coll
             .find(
@@ -72,7 +72,7 @@ final private class RatingRefund(
                 curRating = user.perfs(ref.perf).intRating,
                 perfs = perfs
               )
-              (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
+              (points > 0) so refundPoints(Victim(user), ref.perf, points)
             }
           }
 

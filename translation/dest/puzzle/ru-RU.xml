@@ -49,7 +49,7 @@
   <string name="normal">Средний</string>
   <string name="easier">Лёгкий</string>
   <string name="easiest">Легчайший</string>
-  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
+  <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">Один балл ниже вашего рейтинга в задачах</item>
     <item quantity="few">%s баллов ниже вашего рейтинга в задачах</item>
     <item quantity="many">%s баллов ниже вашего рейтинга в задачах</item>
@@ -57,7 +57,7 @@
   </plurals>
   <string name="harder">Сложный</string>
   <string name="hardest">Сложнейший</string>
-  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
+  <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Один балл выше вашего рейтинга в пазлах</item>
     <item quantity="few">%s баллов выше вашего рейтинга в задачах</item>
     <item quantity="many">%s баллов выше вашего рейтинга в задачах</item>

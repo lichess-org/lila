@@ -97,11 +97,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' עם עיגול, בהתבסס על מספר חצאי-המסעים עד ההכאה הבאה או מסע עם חייל</string>
   <string name="noGameFound">אין משחק זמין</string>
+  <string name="maxDepthReached">הגעתם לעומק המירבי!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">להוסיף עוד משחקים מתפריט ההגדרות?</string>
   <string name="openings">פתיחות</string>
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="openingEndgameExplorer">סייר פתיחות/סיומים</string>
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">שחקו את המהלך הראשון על פי סייר הפתיחות והסיומים</string>
   <string name="winPreventedBy50MoveRule">ניצחון נמנע מפאת כלל 50 המהלכים</string>
   <string name="lossSavedBy50MoveRule">הפסד נמנע מפאת כלל 50 המהלכים</string>
   <string name="winOr50MovesByPriorMistake">ניצחון או כלל 50 המסעים בגלל טעות קודמת</string>
@@ -123,6 +125,7 @@
   <string name="memory">זיכרון</string>
   <string name="infiniteAnalysis">ניתוח אינסופי</string>
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
+  <string name="engineManager">מנהל המנועים</string>
   <string name="blunder">טעות גסה</string>
   <string name="mistake">שגיאה</string>
   <string name="inaccuracy">אי־דיוק</string>
@@ -164,6 +167,12 @@
     <item quantity="two">%s משחקים</item>
     <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">דירוג של %1$s לאורך משחק %2$s</item>
+    <item quantity="two">דירוג של %1$s לאורך %2$s משחקים</item>
+    <item quantity="many">דירוג של %1$s לאורך %2$s משחקים</item>
+    <item quantity="other">דירוג של %1$s לאורך %2$s משחקים</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s מועדפים</item>
@@ -310,6 +319,7 @@
   <string name="cancelRematchOffer">ביטול ההצעה למשחק חוזר</string>
   <string name="viewRematch">צפייה במשחק החוזר</string>
   <string name="confirmMove">אישור המהלך</string>
+  <string name="enableConfirmationForThisGame">הפעל אישור מהלכים מראש למשחק הזה</string>
   <string name="play">שחקו</string>
   <string name="inbox">תיבת דואר</string>
   <string name="chatRoom">חדר צ\'אט</string>
@@ -384,8 +394,15 @@
     <item quantity="many">%s לוחות למידה</item>
     <item quantity="other">%s לוחות למידה</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">משחק סימולטני %s</item>
+    <item quantity="two">%s משחקים סימולטניים</item>
+    <item quantity="many">%s משחקים סימולטניים</item>
+    <item quantity="other">%s משחקים סימולטניים</item>
+  </plurals>
   <string name="viewTournament">צפייה בטורניר</string>
   <string name="backToTournament">חזרה לטורניר</string>
+  <string name="noDrawBeforeSwissLimit">אין אפשרות לסיים את המשחק בתיקו בטורניר שוויצרי לפני ששוחקו 30 מהלכים.</string>
   <string name="thematic">נושאי</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">משחק מדורג %s ≥</item>
@@ -744,6 +761,11 @@
   <string name="keyGoToStartOrEnd">מעבר להתחלה/לסיום</string>
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה או צא ממנה</string>
+  <string name="keyRequestComputerAnalysis">בקשו ניתוח ממוחשב, למדו מטעויותיכם</string>
+  <string name="keyNextLearnFromYourMistakes">הבא (למדו מטעויותיכם)</string>
+  <string name="keyNextBlunder">הטעות הגסה הבאה</string>
+  <string name="keyNextMistake">הטעות הבאה</string>
+  <string name="keyNextInaccuracy">אי־הדיוק הבא</string>
   <string name="newTournament">טורניר חדש</string>
   <string name="tournamentHomeTitle">טורנירי שחמט הכוללים משחקים עם מגבלות זמן וסוגי שחמט מגוונים</string>
   <string name="tournamentHomeDescription">שחק בטורנירי שחמט מהירים! הצטרף לטורניר רשמי ומתוכנן, או צור אחד משלך. Bullet, Blitz, Threecheck, Chess960, King of the Hill, Classical, ואפשרויות נוספות של משחקי שחמט מהנים.</string>
@@ -845,6 +867,7 @@
   <string name="invalidFen">FEN לא חוקי</string>
   <string name="custom">התאמה אישית</string>
   <string name="notifications">התראות</string>
+  <string name="notificationsX">התראות: %1$s</string>
   <string name="perfRatingX">דירוג: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">שנייה %s לשחק את המסע הראשון</item>
@@ -945,6 +968,8 @@
   <string name="useTheReportForm">השתמשו בטופס הדיווח</string>
   <string name="toRequestSupport">לבקשת תמיכה, %1$s</string>
   <string name="tryTheContactPage">נסו את העמוד ״צרו קשר״</string>
+  <string name="makeSureToRead">קראו את %1$s</string>
+  <string name="theForumEtiquette">כללי ההשתתפות בפורומים</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
   <string name="joinTheTeamXToPost">הצטרף ל %1$s כדי לפרסם בפורום הזה</string>
   <string name="teamNamedX">הקבוצה %1$s</string>
@@ -961,8 +986,6 @@
   <string name="congratsYouWon">כל הכבוד, ניצחתם!</string>
   <string name="gameVsX">המשחק נגד %1$s</string>
   <string name="resVsX">%1$s נגד %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">מישהו כתב ביקורת על פרופיל המאמן שלך.</string>
-  <string name="newPendingReview">ביקורת ממתינה חדשה</string>
   <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תנאי השימוש בליצ\'ס</string>
   <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>

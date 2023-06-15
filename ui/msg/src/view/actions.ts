@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { Convo } from '../interfaces';
 import MsgCtrl from '../ctrl';
@@ -11,7 +12,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
     h(`a.${cls}.play`, {
       key: 'play',
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.Swords,
         href: `/?user=${convo.user.name}#friend`,
         title: ctrl.trans.noarg('challengeToPlay'),
       },
@@ -23,7 +24,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.text.hover-text`, {
         key: 'unblock',
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.NotAllowed,
           title: ctrl.trans.noarg('blocked'),
           type: 'button',
           'data-hover-text': ctrl.trans.noarg('unblock'),
@@ -36,7 +37,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.bad`, {
         key: 'block',
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.NotAllowed,
           type: 'button',
           title: ctrl.trans.noarg('block'),
         },
@@ -47,7 +48,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
     h(`button.${cls}.bad`, {
       key: 'delete',
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.Trash,
         type: 'button',
         title: ctrl.trans.noarg('delete'),
       },
@@ -59,7 +60,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.bad`, {
         key: 'report',
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.CautionTriangle,
           type: 'button',
           title: ctrl.trans('reportXToModerators', convo.user.name),
         },

@@ -1,7 +1,7 @@
 package views.html
 package game
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }
@@ -15,7 +15,7 @@ object widgets:
       notes: Map[GameId, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
-  )(implicit ctx: Context): Frag =
+  )(using WebContext): Frag =
     games map { g =>
       val fromPlayer  = user flatMap g.player
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
@@ -60,7 +60,7 @@ object widgets:
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", dataIcon := ""),
+            div(cls := "swords", dataIcon := licon.Swords),
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(
@@ -81,11 +81,11 @@ object widgets:
           ),
           if (g.playedTurns > 0) {
             div(cls := "opening")(
-              (!g.fromPosition ?? g.opening) map { opening =>
+              (!g.fromPosition so g.opening) map { opening =>
                 strong(opening.opening.name)
               },
               div(cls := "pgn")(
-                g.sans.take(6).grouped(2).zipWithIndex map {
+                g.sans.take(6).grouped(2).zipWithIndex.map {
                   case (Vector(w, b), i) => s"${i + 1}. $w $b"
                   case (Vector(w), i)    => s"${i + 1}. $w"
                   case _                 => ""
@@ -98,7 +98,7 @@ object widgets:
             div(cls := "notes")(strong("Notes: "), note)
           },
           g.metadata.analysed option
-            div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
+            div(cls := "metadata text", dataIcon := licon.BarChart)(trans.computerAnalysisAvailable()),
           g.pgnImport.flatMap(_.user).map { user =>
             div(cls := "metadata")("PGN import by ", userIdLink(user.some))
           }
@@ -106,7 +106,7 @@ object widgets:
       )
     }
 
-  def showClock(game: Game)(implicit ctx: Context) =
+  def showClock(game: Game)(using WebContext) =
     game.clock.map { clock =>
       frag(clock.config.show)
     } getOrElse {
@@ -124,7 +124,7 @@ object widgets:
 
   private lazy val anonSpan = span(cls := "anon")(lila.user.User.anonymous)
 
-  private def gamePlayer(player: Player)(implicit ctx: Context) =
+  private def gamePlayer(player: Player)(using ctx: WebContext) =
     div(cls := s"player ${player.color.name}")(
       player.playerUser map { playerUser =>
         frag(

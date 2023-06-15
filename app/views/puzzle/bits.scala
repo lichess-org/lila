@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, Json }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
@@ -17,7 +17,7 @@ object bits:
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
     views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
 
-  def jsI18n(streak: Boolean)(implicit lang: Lang) =
+  def jsI18n(streak: Boolean)(using Lang) =
     if (streak) i18nJsObject(streakI18nKeys)
     else
       i18nJsObject(trainingI18nKeys) + {
@@ -33,7 +33,7 @@ object bits:
         "static"  -> static.mkString(" ")
       )
 
-  def pageMenu(active: String, user: Option[User], days: Int = 30)(implicit ctx: Context) =
+  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: WebContext) =
     val u = user.filterNot(ctx.is).map(_.username)
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.Puzzle.home)(

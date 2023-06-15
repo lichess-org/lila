@@ -1,6 +1,6 @@
 package views.html.report
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -8,7 +8,7 @@ import controllers.routes
 
 object thanks:
 
-  def apply(userId: UserId, blocked: Boolean)(implicit ctx: Context) =
+  def apply(userId: UserId, blocked: Boolean)(using WebContext) =
 
     val title = "Thanks for the report"
 
@@ -33,7 +33,7 @@ fetch($button.data('action'), {method:'post'})
             attr("data-action") := routes.Relation.block(userId),
             cls                 := "report-block button",
             st.title            := trans.block.txt()
-          )(span(cls := "text", dataIcon := "")("Block ", titleNameOrId(userId)))
+          )(span(cls := "text", dataIcon := licon.NotAllowed)("Block ", titleNameOrId(userId)))
         ),
         br,
         br,

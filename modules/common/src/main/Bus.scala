@@ -6,13 +6,14 @@ import akka.actor.{ ActorRef, Scheduler }
 
 object Bus:
 
-  case class Event(payload: Matchable, channel: String)
   type Channel    = String
   type Subscriber = Tellable
 
+  case class Event(payload: Matchable, channel: Channel)
+
   def publish(payload: Matchable, channel: Channel): Unit = bus.publish(payload, channel)
 
-  def subscribe = bus.subscribe
+  export bus.{ subscribe, unsubscribe }
 
   def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable.Actor(ref), to)
 
@@ -26,11 +27,10 @@ object Bus:
     t
 
   def subscribeFuns(subscriptions: (Channel, PartialFunction[Matchable, Unit])*): Unit =
-    subscriptions foreach { case (channel, subscriber) =>
+    subscriptions foreach { (channel, subscriber) =>
       subscribeFun(channel)(subscriber)
     }
 
-  def unsubscribe                               = bus.unsubscribe
   def unsubscribe(ref: ActorRef, from: Channel) = bus.unsubscribe(Tellable.Actor(ref), from)
 
   def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) =

@@ -50,16 +50,16 @@ final class UserApi(
     if (u.enabled.no) fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
-        as.filter(u !=).?? { me => crosstableApi.nbGames(me.id, u.id) } zip
-        withFollows.??(relationApi.countFollowing(u.id) dmap some) zip
-        withFollows.??(relationApi.countFollowers(u.id) dmap some) zip
-        as.isDefined.?? { prefApi followable u.id } zip
-        as.map(_.id).?? { relationApi.fetchRelation(_, u.id) } zip
-        as.map(_.id).?? { relationApi.fetchFollows(u.id, _) } zip
+        as.filter(u !=).so { me => crosstableApi.nbGames(me.id, u.id) } zip
+        withFollows.so(relationApi.countFollowing(u.id) dmap some) zip
+        withFollows.so(relationApi.countFollowers(u.id) dmap some) zip
+        as.isDefined.so { prefApi followable u.id } zip
+        as.map(_.id).so { relationApi.fetchRelation(_, u.id) } zip
+        as.map(_.id).so { relationApi.fetchFollows(u.id, _) } zip
         bookmarkApi.countByUser(u) zip
         gameCache.nbPlaying(u.id) zip
         gameCache.nbImportedBy(u.id) zip
-        withTrophies ?? getTrophiesAndAwards(u).dmap(some) map {
+        withTrophies.so(getTrophiesAndAwards(u).dmap(some)) map {
           // format: off
             case ((((((((((gameOption,nbGamesWithMe),following),followers),followable),
               relation),isFollowed),nbBookmarks),nbPlaying),nbImported),trophiesAndAwards)=>
@@ -89,7 +89,7 @@ final class UserApi(
                 .add("nbFollowing", following)
                 .add("nbFollowers", followers)
                 .add("trophies", trophiesAndAwards ifFalse u.lame map trophiesJson) ++
-                as.isDefined.??(
+                as.isDefined.so(
                   Json.obj(
                     "followable" -> followable,
                     "following"  -> relation.has(true),

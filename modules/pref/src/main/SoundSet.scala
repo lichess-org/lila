@@ -19,6 +19,7 @@ object SoundSet:
     new SoundSet("sfx", "SFX"),
     new SoundSet("futuristic", "Futuristic"),
     new SoundSet("lisp", "Lisp"),
+    new SoundSet("woodland", "WoodLand"),
     new SoundSet("robot", "Robot"),
     new SoundSet("music", "Pentatonic"),
     new SoundSet("speech", "Speech")

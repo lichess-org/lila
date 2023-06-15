@@ -1,5 +1,6 @@
+import * as licon from 'common/licon';
 import { h } from 'snabbdom';
-import { Position, MaybeVNodes } from '../interfaces';
+import { Position } from '../interfaces';
 import * as game from 'game';
 import * as status from 'game/status';
 import { renderClock } from '../clock/clockView';
@@ -9,6 +10,8 @@ import renderExpiration from './expiration';
 import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
+import { MaybeVNodes } from 'common/snabbdom';
+import { toggleButton as boardMenuToggleButton } from 'board/menu';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
@@ -47,17 +50,45 @@ export const renderTablePlay = (ctrl: RoundController) => {
         ? []
         : [
             game.abortable(d)
-              ? button.standard(ctrl, undefined, '', 'abortGame', 'abort')
-              : button.standard(ctrl, game.takebackable, '', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
+              ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
+              : button.standard(
+                  ctrl,
+                  d => ({ enabled: game.takebackable(d) }),
+                  licon.Back,
+                  'proposeATakeback',
+                  'takeback-yes',
+                  ctrl.takebackYes
+                ),
             ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
               : ctrl.data.game.threefold
-              ? button.claimThreefold(ctrl)
-              : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
+              ? button.claimThreefold(ctrl, d => {
+                  const threefoldable = game.drawableSwiss(d);
+                  return { enabled: threefoldable, overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit' };
+                })
+              : button.standard(
+                  ctrl,
+                  d => ({
+                    enabled: ctrl.canOfferDraw(),
+                    overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
+                  }),
+                  '2',
+                  'offerDraw',
+                  'draw-yes',
+                  () => ctrl.offerDraw(true)
+                ),
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
-              : button.standard(ctrl, game.resignable, '', 'resign', 'resign', () => ctrl.resign(true)),
+              : button.standard(
+                  ctrl,
+                  d => ({ enabled: game.resignable(d) }),
+                  licon.FlagOutline,
+                  'resign',
+                  'resign',
+                  () => ctrl.resign(true)
+                ),
             replay.analysisButton(ctrl),
+            boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
           ],
     buttons: MaybeVNodes = loading
       ? [loader()]

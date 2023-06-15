@@ -84,7 +84,6 @@ final class Env(
     case lila.hub.actorApi.mod.Shadowban(userId, true)   => api.demote(userId).unit
   }
 
-  scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
+  scheduler.scheduleWithFixedDelay(1 hour, 1 day): () =>
     api.autoDemoteFakes.unit
-  }
   scheduler.scheduleWithFixedDelay(21 minutes, 8 days)(() => ytApi.subscribeAll.unit)

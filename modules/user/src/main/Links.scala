@@ -30,34 +30,33 @@ case class Link(site: Link.Site, url: String)
 
 object Link:
 
-  sealed abstract class Site(val name: String, val domains: List[String]):
+  enum Site(val name: String, val domains: List[String]):
 
     def matches(domain: String) =
-      domains.exists { d =>
+      domains.exists: d =>
         domain == d || domain.endsWith(s".$d")
-      }
 
-  object Site:
-    case object Mastodon
+    case Mastodon
         extends Site(
           "Mastodon",
           "mstdn.social fosstodon.org gensokyo.social ravenation.club mastodon.art mastodon.lol mastodon.green mas.to mindly.social mastodon.world masthead.social techhub.social"
             .split(' ')
             .toList
         )
-    case object Twitter              extends Site("Twitter", List("twitter.com"))
-    case object Facebook             extends Site("Facebook", List("facebook.com"))
-    case object Instagram            extends Site("Instagram", List("instagram.com"))
-    case object YouTube              extends Site("YouTube", List("youtube.com"))
-    case object Twitch               extends Site("Twitch", List("twitch.tv"))
-    case object GitHub               extends Site("GitHub", List("github.com"))
-    case object VKontakte            extends Site("VKontakte", List("vk.com"))
-    case object ChessCom             extends Site("Chess.com", List("chess.com"))
-    case object Chess24              extends Site("Chess24", List("chess24.com"))
-    case object ChessMonitor         extends Site("ChessMonitor", List("chessmonitor.com"))
-    case object ChessTempo           extends Site("ChessTempo", List("chesstempo.com"))
-    case class Other(domain: String) extends Site(domain, List(domain))
+    case Twitter               extends Site("Twitter", List("twitter.com"))
+    case Facebook              extends Site("Facebook", List("facebook.com"))
+    case Instagram             extends Site("Instagram", List("instagram.com"))
+    case YouTube               extends Site("YouTube", List("youtube.com"))
+    case Twitch                extends Site("Twitch", List("twitch.tv"))
+    case GitHub                extends Site("GitHub", List("github.com"))
+    case VKontakte             extends Site("VKontakte", List("vk.com"))
+    case ChessCom              extends Site("Chess.com", List("chess.com"))
+    case Chess24               extends Site("Chess24", List("chess24.com"))
+    case ChessMonitor          extends Site("ChessMonitor", List("chessmonitor.com"))
+    case ChessTempo            extends Site("ChessTempo", List("chesstempo.com"))
+    case Other(domain: String) extends Site(domain, List(domain))
 
+  object Site:
     val allKnown: List[Site] = List(
       Mastodon,
       Twitter,

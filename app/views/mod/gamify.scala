@@ -1,8 +1,9 @@
 package views.html.mod
 
+import cats.syntax.all.*
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
@@ -12,7 +13,7 @@ import controllers.routes
 object gamify:
 
   def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
@@ -61,7 +62,7 @@ object gamify:
     }
 
   def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     val title = s"Moderators of the ${period.name}"
     views.html.base.layout(
@@ -73,7 +74,7 @@ object gamify:
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(
-              a(href := routes.Mod.gamify, dataIcon := ""),
+              a(href := routes.Mod.gamify, dataIcon := licon.LessThan),
               title
             )
           ),
@@ -88,7 +89,7 @@ object gamify:
                 )
               ),
               tbody(
-                leaderboards(period).zipWithIndex.map { case (m, i) =>
+                leaderboards(period).mapWithIndex: (m, i) =>
                   tr(
                     th(i + 1),
                     th(userIdLink(m.modId.some, withOnline = false)),
@@ -96,7 +97,6 @@ object gamify:
                     td(m.report.localize),
                     td(cls := "score")(m.score.localize)
                   )
-                }
               )
             )
           )

@@ -6,6 +6,7 @@ import getMinutes from 'date-fns/getMinutes';
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
 import format from 'date-fns/format';
 import { Tournament, Lanes, Ctrl } from './interfaces';
+import * as licon from 'common/licon';
 import perfIcons from 'common/perfIcons';
 
 function tournamentClass(tour: Tournament, day: Date): Classes {
@@ -19,7 +20,7 @@ function tournamentClass(tour: Tournament, day: Date): Classes {
   return classes;
 }
 
-const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? '' : perfIcons[tour.perf.key]);
+const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key]);
 
 const startDirection = () => (document.dir == 'rtl' ? 'right' : 'left');
 

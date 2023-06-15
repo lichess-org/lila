@@ -3,13 +3,13 @@ package views.html.mod
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object menu:
 
-  def apply(active: String)(implicit ctx: Context) =
+  def apply(active: String)(using WebContext) =
     st.nav(cls := "page-menu__menu subnav")(
       isGranted(_.SeeReport) option
         a(cls := active.active("report"), href := reportRoutes.list)("Reports"),

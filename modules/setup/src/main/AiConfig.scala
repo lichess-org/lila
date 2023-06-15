@@ -25,7 +25,7 @@ case class AiConfig(
 
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
-  private def game(user: Option[User])(implicit idGenerator: IdGenerator): Fu[Game] =
+  private def game(user: Option[User])(using IdGenerator): Fu[Game] =
     fenGame { chessGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         chess.Speed(chessGame.clock.map(_.config)),
@@ -51,7 +51,7 @@ case class AiConfig(
         .withUniqueId
     }.dmap(_.start)
 
-  def pov(user: Option[User])(implicit idGenerator: IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
+  def pov(user: Option[User])(using IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def timeControlFromPosition =
     timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1
@@ -112,7 +112,7 @@ object AiConfig extends BaseConfig:
         fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
       )
 
-    def writes(@annotation.nowarn w: BSON.Writer, o: AiConfig) =
+    def writes(w: BSON.Writer, o: AiConfig) =
       $doc(
         "v"  -> o.variant.id,
         "tm" -> o.timeMode.id,

@@ -16,13 +16,10 @@ final private class CheckMail(
     ws: StandaloneWSClient,
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Api
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, Scheduler):
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
-    if (config.key.value.isEmpty) fuccess(true)
+    if config.key.value.isEmpty then fuccess(true)
     else
       cache
         .get(domain)
@@ -58,6 +55,8 @@ final private class CheckMail(
     _.maximumSize(512)
       .buildAsyncFuture(loader(fetch))
   }
+
+  export cache.invalidate
 
   private def fetch(domain: Domain.Lower): Fu[Boolean] =
     ws.url(config.url)

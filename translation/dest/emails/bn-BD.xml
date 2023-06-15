@@ -14,8 +14,8 @@
 
 আপনার প্রোফাইল পেজে যেতে হলে এখানে ক্লিক করুন:%1$s। প্রোফাইল নিজের মনোমত বদল করতে এখানে ক্লিক করুন: %2$s.
 খেলা উপভোগ করুন। আপনার চাল যেন বিপক্ষের রাজাকে খুঁজে নিতে পারে!</string>
-  <string name="logInToLichess">লগিন করুন lichess.org, %s</string>
+  <string name="logInToLichess">lichess.org এ লগ ইন করুন, %s</string>
   <string name="common_orPaste">(ক্লিক কাজ করছেনা? আপনার ব্রাউজার দিয়ে এটা চেষ্টা করুন!)</string>
   <string name="common_note">এটা হয় একটি সার্ভিস ই-মেইল সম্পর্কিত আপনার ব্যবহারের জন্য %s.</string>
-  <string name="common_contact">আমাদের সঙ্গে যোগাযোগের জন্য, ব্যাবহার করুন %s.</string>
+  <string name="common_contact">আমাদের সঙ্গে যোগাযোগের জন্য, ব্যবহার করুন %s.</string>
 </resources>

@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins a la propera captura o moviment de peó</string>
   <string name="noGameFound">No s\'ha trobat cap partida</string>
+  <string name="maxDepthReached">S\'ha arribat a la màxima profunditat!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vols incloure més partides des del menú de preferències?</string>
   <string name="openings">Obertures</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="openingEndgameExplorer">Explorador d\'obertures i finals</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Juga el primer moviment de l\'explorador d\'obertures/finals</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
   <string name="lossSavedBy50MoveRule">Derrota no permesa per la regla dels 50 moviments</string>
   <string name="winOr50MovesByPriorMistake">Victòria o taules per 50 moviments a causa d\'un error anterior</string>
@@ -119,6 +121,7 @@
   <string name="memory">Memòria</string>
   <string name="infiniteAnalysis">Anàlisi il·limitada</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i escalfa el teu ordinador</string>
+  <string name="engineManager">Gestió del mòdul</string>
   <string name="blunder">Errada greu</string>
   <string name="mistake">Errada</string>
   <string name="inaccuracy">Imprecisió</string>
@@ -150,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partides</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s puntuació en %2$s partida</item>
+    <item quantity="other">%1$s puntuació en %2$s partides</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s preferida</item>
@@ -282,6 +289,7 @@
   <string name="cancelRematchOffer">Anul·lar la petició de revenja</string>
   <string name="viewRematch">Mirar la partida de revenja</string>
   <string name="confirmMove">Confirmar la jugada</string>
+  <string name="enableConfirmationForThisGame">Activa la confirmació per aquesta partida</string>
   <string name="play">Jugar</string>
   <string name="inbox">Bústia d\'entrada</string>
   <string name="chatRoom">Sala de xat</string>
@@ -340,8 +348,13 @@
     <item quantity="one">%s estudi</item>
     <item quantity="other">%s estudis</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultània</item>
+    <item quantity="other">%s simultànies</item>
+  </plurals>
   <string name="viewTournament">Mirar el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
+  <string name="noDrawBeforeSwissLimit">No es pot fer taules abans dels 30 moviments en un torneig suís.</string>
   <string name="thematic">Temàtics</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida per punts</item>
@@ -674,6 +687,11 @@
   <string name="keyGoToStartOrEnd">anar a l\'inici/anar al final</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentaris</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variació</string>
+  <string name="keyRequestComputerAnalysis">Demana una anàlisi computeritzada, aprèn dels teus errors</string>
+  <string name="keyNextLearnFromYourMistakes">Següent (apren dels teus errors)</string>
+  <string name="keyNextBlunder">Següent errada</string>
+  <string name="keyNextMistake">Següent errada greu</string>
+  <string name="keyNextInaccuracy">Següent imprecisió</string>
   <string name="newTournament">Nou torneig</string>
   <string name="tournamentHomeTitle">Torneig d\'escacs amb diversos controls de temps i variants</string>
   <string name="tournamentHomeDescription">Juga tornejos d\'escacs ràpids! Uneix-te a un torneig programat o crea\'n un de propi. Bullet, Blitz, Classic, Chess960, King of the Hill, Threecheck i moltes més opcions perquè no s\'acabi la diversió dels escacs.</string>
@@ -771,6 +789,7 @@
   <string name="invalidFen">FEN no vàlid</string>
   <string name="custom">Personalitzat</string>
   <string name="notifications">Avisos</string>
+  <string name="notificationsX">Notificacions: %1$s</string>
   <string name="perfRatingX">Classificació: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segon per jugar el primer moviment</item>
@@ -865,6 +884,8 @@
   <string name="useTheReportForm">utilitza el formulari</string>
   <string name="toRequestSupport">Per demanar suport, %1$s</string>
   <string name="tryTheContactPage">prova la plana de contacte</string>
+  <string name="makeSureToRead">Assegureu-vos de llegir %1$s</string>
+  <string name="theForumEtiquette">l\'etiqueta del fòrum</string>
   <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
   <string name="joinTheTeamXToPost">Uneix-te a %1$s, per poder publicar</string>
   <string name="teamNamedX">%1$s equip</string>
@@ -881,8 +902,6 @@
   <string name="congratsYouWon">Felicitats, has guanyat!</string>
   <string name="gameVsX">Partida vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Algú ha ressenyat el teu perfil d\'entrenador.</string>
-  <string name="newPendingReview">Nova ressenya pendent</string>
   <string name="lostAgainstTOSViolator">Has perdut contra algú que ha violat les CDS de Lichess</string>
   <string name="refundXpointsTimeControlY">Reemborsament: %1$s %2$s punts.</string>
   <string name="timeAlmostUp">El temps quasi s\'ha exhaurit!</string>

@@ -41,6 +41,19 @@
   background-clip: padding-box;
 }
 
+.form-control-with-clipboard {
+  display: inline-flex;
+  width: 100%;
+}
+
+.form-control-with-clipboard > .form-control {
+  width: 95%;
+}
+
+.clipboard {
+  float: right;
+}
+
 textarea.form-control {
   height: auto;
 }

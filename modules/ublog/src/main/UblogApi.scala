@@ -30,12 +30,12 @@ final class UblogApi(
     getUserBlog(user, insertMissing = true) flatMap { blog =>
       val post = data.update(user, prev)
       colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty) ?? onFirstPublish(user, blog, post)
+        (post.live && prev.lived.isEmpty) so onFirstPublish(user, blog, post)
       } inject post
     }
 
   private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
-    rank.computeRank(blog, post).?? { rank =>
+    rank.computeRank(blog, post).so { rank =>
       colls.post.updateField($id(post.id), "rank", rank).void
     } >>- {
       lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
@@ -49,7 +49,7 @@ final class UblogApi(
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)) getOrElse {
       val blog = UblogBlog make user
-      (insertMissing ?? colls.blog.insert.one(blog).void) inject blog
+      (insertMissing so colls.blog.insert.one(blog).void) inject blog
     }
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
@@ -104,18 +104,18 @@ final class UblogApi(
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
 
   def uploadImage(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] =
-    for {
+    for
       pic <- picfitApi.uploadFile(imageRel(post), picture, userId = user.id)
       image = post.image.fold(UblogImage(pic.id))(_.copy(id = pic.id))
       _ <- colls.post.updateField($id(post.id), "image", image)
-    } yield post.copy(image = image.some)
+    yield post.copy(image = image.some)
 
   def deleteImage(post: UblogPost): Fu[UblogPost] =
     picfitApi.deleteByRel(imageRel(post)) >>
       colls.post.unsetField($id(post.id), "image") inject post.copy(image = none)
 
   private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
-    (post.markdown.value.sizeIs > 1000) ??
+    (post.markdown.value.sizeIs > 1000) so
       irc.ublogPost(
         user,
         id = post.id,

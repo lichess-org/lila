@@ -10,7 +10,7 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
-import lila.gathering.{ GreatPlayer, Condition }
+import lila.gathering.GreatPlayer
 
 case class Tournament(
     id: TourId,
@@ -228,4 +228,5 @@ object Tournament:
     case Paused         extends JoinResult("Your pause is not over yet".some)
     case Verdicts       extends JoinResult("Tournament restrictions".some)
     case MissingTeam    extends JoinResult("Missing team".some)
+    case PrizeBanned    extends JoinResult("You are not allowed to play in prized tournaments".some)
     case Nope           extends JoinResult("Couldn't join for some reason?".some)

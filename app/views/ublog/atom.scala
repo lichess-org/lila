@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
@@ -56,11 +56,11 @@ object atom:
         )
       },
       tag("content")(tpe := "html")(
-        thumbnail(post, _.Large),
+        thumbnail(post, _.Size.Large),
         "<br>", // yes, scalatags encodes it.
         post.intro
       ),
-      tag("tag")("media:thumbnail")(attr("url") := thumbnail.url(post, _.Large)),
+      tag("tag")("media:thumbnail")(attr("url") := thumbnail.url(post, _.Size.Large)),
       tag("author")(tag("name")(authorName))
     )
 

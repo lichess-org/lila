@@ -28,6 +28,7 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
+    "common": "workspace:*",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

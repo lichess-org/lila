@@ -3,18 +3,18 @@ package views.html.opening
 import chess.opening.Opening
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningPage, OpeningWiki }
 
 object wiki:
 
-  def apply(page: OpeningPage)(using Context) =
+  def apply(page: OpeningPage)(using WebContext) =
     div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
       div(cls := "opening__wiki__markup")(
         page.wiki
-          .flatMap(_ markupForMove page.query.sans.lastOption.??(_.value))
+          .flatMap(_ markupForMove page.query.sans.lastOption.so(_.value))
           .fold(
             div(cls := "opening__wiki__markup__placeholder")(
               "No description of the opening, yet. We're working on it!"
@@ -36,7 +36,7 @@ object wiki:
                 ),
                 details(cls := "opening__wiki__editor__revisions")(
                   summary("Revision history"),
-                  page.wiki.??(_.revisions).map { rev =>
+                  page.wiki.so(_.revisions).map { rev =>
                     div(cls := "opening__wiki__editor__revision")(
                       div(momentFromNowOnce(rev.at), userIdLink(rev.by.some)),
                       textarea(disabled := true)(rev.text)

@@ -18,7 +18,7 @@ final class Push(env: Env) extends LilaController(env):
     ctx.body.body
       .validate[WebSubscription]
       .fold(
-        err => BadRequest(err.toString).toFuccess,
+        err => BadRequest(err.toString),
         data => env.push.webSubscriptionApi.subscribe(me, data, currentSessionId) inject NoContent
       )
   }

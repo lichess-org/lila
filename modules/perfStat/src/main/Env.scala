@@ -6,7 +6,6 @@ import com.softwaremill.tagging.*
 import lila.common.config.*
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     lightUser: lila.common.LightUser.GetterSync,
     lightUserApi: lila.user.LightUserApi,

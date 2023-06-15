@@ -28,7 +28,7 @@ final class ForumDelete(
           else
             fuccess {
               logger.info(
-                s"${mod.username} deletes post by ${post.userId.??(_.value)} \"${post.text take 200}\""
+                s"${mod.username} deletes post by ${post.userId.so(_.value)} \"${post.text take 200}\""
               )
             }
         }
@@ -40,7 +40,7 @@ final class ForumDelete(
       .allByUserCursor(user)
       .documentSource()
       .mapAsyncUnordered(4) { post =>
-        postApi.viewOf(post) flatMap { _ ?? doDelete }
+        postApi.viewOf(post) flatMap { _ so doDelete }
       }
       .toMat(Sink.ignore)(Keep.left)
       .run()
@@ -48,13 +48,13 @@ final class ForumDelete(
 
   private def doDelete(view: PostView) =
     postRepo.isFirstPost(view.topic.id, view.post.id).flatMap {
-      case true =>
+      if _ then
         postRepo.idsByTopicId(view.topic.id) flatMap { postIds =>
           (postRepo removeByTopic view.topic.id zip topicRepo.remove(view.topic)) >>
             (categApi denormalize view.categ) >>-
             (indexer ! RemovePosts(postIds))
         }
-      case false =>
+      else
         postRepo.remove(view.post) >>
           (topicApi denormalize view.topic) >>
           (categApi denormalize view.categ) >>-

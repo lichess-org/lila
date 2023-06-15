@@ -1,6 +1,6 @@
 package views.html.mod
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.{ Holder, User }
@@ -10,7 +10,7 @@ import controllers.routes
 
 object permissions:
 
-  def apply(u: User, me: Holder)(implicit ctx: Context) =
+  def apply(u: User, me: Holder)(using WebContext) =
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
@@ -36,7 +36,7 @@ object permissions:
                       val id = s"permission-${perm.dbKey}"
                       div(
                         cls := isGranted(perm, u) option "granted",
-                        title := isGranted(perm, u).?? {
+                        title := isGranted(perm, u).so {
                           Permission.findGranterPackage(userPerms, perm).map { p =>
                             s"Granted by package: $p"
                           }

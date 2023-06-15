@@ -143,14 +143,14 @@ final class StudyPager(
   ): Fu[Seq[Study.WithChapters]] =
     chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy) map { chapters =>
       studies.map { study =>
-        Study.WithChapters(study, (chapters get study.id) ?? (_ map (_.name)))
+        Study.WithChapters(study, (chapters get study.id) so (_ map (_.name)))
       }
     }
 
   private def withLiking(
       me: Option[User]
   )(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    me.?? { u =>
+    me.so { u =>
       studyRepo.filterLiked(u, studies.map(_.study.id))
     } map { liked =>
       studies.map { case Study.WithChapters(study, chapters) =>

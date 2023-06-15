@@ -4,7 +4,7 @@ import { option } from './option';
 
 export const levelButtons = (ctrl: LobbyController) => {
   const { trans, setupCtrl } = ctrl;
-  return ctrl.opts.blindMode
+  return lichess.blindMode
     ? [
         h('label', { attrs: { for: 'sf_level' } }, trans('strength')),
         h(

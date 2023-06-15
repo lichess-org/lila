@@ -1,13 +1,13 @@
 package views.html.site
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import controllers.routes
 
 object bits:
 
-  def getFishnet()(using Context) =
+  def getFishnet()(using WebContext) =
     views.html.base.layout(
       title = "fishnet API key request",
       csp = defaultCsp.withGoogleForm.some
@@ -16,7 +16,8 @@ object bits:
         iframe(
           src := "https://docs.google.com/forms/d/e/1FAIpQLSeGgDHgWGP0uobQknF92eCMXqebyNBTyzJoJqbeGjRezlbWOw/viewform?embedded=true",
           style          := "width:100%;height:1400px",
-          st.frameborder := 0
+          st.frameborder := 0,
+          frame.credentialless
         )(spinner)
       )
     }
@@ -37,7 +38,7 @@ object bits:
   </body>
 </html>"""
 
-  def errorPage(using Context) =
+  def errorPage(using WebContext) =
     views.html.base.layout(
       title = "Internal server error"
     ) {
@@ -51,7 +52,7 @@ object bits:
       )
     }
 
-  def ghost(using Context) =
+  def ghost(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("ghost"),
       title = "Deleted user"

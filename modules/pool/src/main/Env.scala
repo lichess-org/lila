@@ -6,7 +6,6 @@ import lila.common.Bus
 import lila.game.Game
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,

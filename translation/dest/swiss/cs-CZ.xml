@@ -117,4 +117,5 @@ Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je mo�
   <string name="similarToOTB">Podobné OTB turnajům</string>
   <string name="unlimitedAndFree">Neomezené a zdarma</string>
   <string name="predefinedUsers">Povolit připojení pouze předem definovaným uživatelům</string>
+  <string name="forbiddedUsers">Pokud nebude tento seznam prázdný. Uživatelé uvedení v tomto seznamu se nebudou moct připojit. Pište jedno uživatelské jméno na řádek.</string>
 </resources>

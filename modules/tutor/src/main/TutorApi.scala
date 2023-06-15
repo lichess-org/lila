@@ -1,5 +1,6 @@
 package lila.tutor
 
+import cats.syntax.all.*
 import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -36,18 +37,15 @@ final class TutorApi(
 
   LilaScheduler("TutorApi", _.Every(1 second), _.AtMost(10 seconds), _.Delay(3 seconds))(pollQueue)
 
-  private def pollQueue = queue.next flatMap { items =>
+  private def pollQueue = queue.next.flatMap: items =>
     lila.mon.tutor.parallelism.update(items.size)
-    LilaFuture
-      .applySequentially(items) { next =>
-        next.startedAt.fold(buildThenRemoveFromQueue(next.userId)) { started =>
-          val expired =
-            started.isBefore(nowInstant minusSeconds builder.maxTime.toSeconds.toInt) ||
-              started.isBefore(Uptime.startedAt)
-          expired ?? queue.remove(next.userId) >>- lila.mon.tutor.buildTimeout.increment().unit
-        }
+    items.traverse_ : next =>
+      next.startedAt.fold(buildThenRemoveFromQueue(next.userId)) { started =>
+        val expired =
+          started.isBefore(nowInstant minusSeconds builder.maxTime.toSeconds.toInt) ||
+            started.isBefore(Uptime.startedAt)
+        expired so queue.remove(next.userId) >>- lila.mon.tutor.buildTimeout.increment().unit
       }
-  }
 
   // we only wait for queue.start
   // NOT for builder

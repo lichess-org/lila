@@ -1,27 +1,26 @@
 package controllers
 
 import lila.app.{ given, * }
-import lila.oauth.OAuthScope
 
 final class DgtCtrl(env: Env) extends LilaController(env):
 
   def index = Auth { _ ?=> _ =>
-    Ok(views.html.dgt.index).toFuccess
+    views.html.dgt.index
   }
 
   def config = Auth { _ ?=> me =>
-    findToken(me) map { token =>
-      Ok(views.html.dgt.config(token))
+    findToken(me) map {
+      views.html.dgt.config
     }
   }
 
   def generateToken = Auth { _ ?=> me =>
     findToken(me).flatMap: t =>
-      t.isEmpty.?? {
+      t.isEmpty.so {
         env.oAuth.tokenApi.create(
           lila.oauth.OAuthTokenForm.Data(
             description = "DGT board automatic token",
-            scopes = dgtScopes.toList.map(_.key)
+            scopes = dgtScopes.value.map(_.key)
           ),
           me,
           isStudent = false
@@ -38,14 +37,13 @@ final class DgtCtrl(env: Env) extends LilaController(env):
         Ok(views.html.dgt.play(t))
   }
 
-  private val dgtScopes: Set[OAuthScope] =
-    Set(
-      OAuthScope.Challenge.Read,
-      OAuthScope.Challenge.Write,
-      OAuthScope.Preference.Read,
-      OAuthScope.Msg.Write,
-      OAuthScope.Board.Play
-    )
+  private val dgtScopes = lila.oauth.OAuthScope.select(
+    _.Challenge.Read,
+    _.Challenge.Write,
+    _.Preference.Read,
+    _.Msg.Write,
+    _.Board.Play
+  )
 
   private def findToken(me: lila.user.User) =
     env.oAuth.tokenApi.findCompatiblePersonal(me, dgtScopes)

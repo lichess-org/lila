@@ -126,7 +126,7 @@ Right next to his queen.</string>
 Make any move to continue.</string>
   <string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
   <string name="castling">قلعه رفتن</string>
-  <string name="theSpecialKingMove">پادشاه ویژه حرکت می کند</string>
+  <string name="theSpecialKingMove">حرکت ویژه پادشاه</string>
   <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
   <string name="castleKingSide">Move your king two squares
 to castle king-side!</string>
@@ -167,9 +167,9 @@ if your pawn is on the 5th rank.</string>
 - Black cannot move anywhere
 - There is no check.</string>
   <string name="stalemateComplete">Congratulations! Better be stalemated than checkmated!</string>
-  <string name="advanced">Advanced</string>
-  <string name="pieceValue">Piece value</string>
-  <string name="evaluatePieceStrength">Evaluate piece strength</string>
+  <string name="advanced">پیشرفته</string>
+  <string name="pieceValue">ارزش مهره</string>
+  <string name="evaluatePieceStrength">ارزش مهره را بسنجید</string>
   <string name="pieceValueIntro">Pieces with high mobility have a higher value!
 Queen = 9
 Rook = 5
@@ -189,8 +189,8 @@ Rook = 5
 Bishop = 3
 Knight = 3
 Pawn = 1</string>
-  <string name="checkInTwo">کیس در دو حرکت</string>
-  <string name="twoMovesToGiveCheck">Two moves to give a check</string>
+  <string name="checkInTwo">کیش در دو حرکت</string>
+  <string name="twoMovesToGiveCheck">دو حرکت برای دادن کیش</string>
   <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent\'s king!</string>
   <string name="checkInTwoGoal">به شاه حریف در دو حرکت حمله کنید!</string>
   <string name="checkInTwoComplete">تبریک! شما به شاه حریف کیش دادید و حریف را مجبور به دفاع از شاه خود کردید!</string>
@@ -201,13 +201,13 @@ Pawn = 1</string>
   <string name="practice">تمرین</string>
   <string name="learnCommonChessPositions">وضعیت های متداول شطرنج را یاد بگیرید</string>
   <string name="puzzles">معما</string>
-  <string name="exerciseYourTacticalSkills">Exercise your tactical skills</string>
+  <string name="exerciseYourTacticalSkills">مهارت های تاکتیکی تان را تمرین کنید</string>
   <string name="videos">ویدیو ها</string>
-  <string name="watchInstructiveChessVideos">Watch instructive chess videos</string>
+  <string name="watchInstructiveChessVideos">فیلم های آموزنده شطرنج را ببینید</string>
   <string name="playPeople">با مردم بازی کنید</string>
-  <string name="opponentsFromAroundTheWorld">Opponents from around the world</string>
-  <string name="playMachine">Play machine</string>
-  <string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
+  <string name="opponentsFromAroundTheWorld">حریف هایی از سراسر دنیا</string>
+  <string name="playMachine">با ماشین بازی کنید</string>
+  <string name="testYourSkillsWithTheComputer">مهارت هایتان را با کامپیوتر بیازمایید</string>
   <string name="letsGo">Let\'s go!</string>
   <string name="stageX">Stage %s</string>
   <string name="awesome">Awesome!</string>

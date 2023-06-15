@@ -47,7 +47,6 @@ object TournamentCondition:
 
   object form:
     import play.api.data.Forms.*
-    import lila.common.Form.{ *, given }
     import lila.gathering.ConditionForm.*
     def all(leaderTeams: List[LeaderTeam]) =
       mapping(

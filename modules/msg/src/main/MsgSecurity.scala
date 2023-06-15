@@ -23,7 +23,6 @@ final private class MsgSecurity(
     scheduler: Scheduler
 ):
 
-  import BsonHandlers.given
   import MsgSecurity.*
 
   private object limitCost:
@@ -110,28 +109,28 @@ final private class MsgSecurity(
         val cost = limitCost(contacts.orig) * {
           if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
         }
-        limiter(contacts.orig.id, cost)(none)(Limit.some)
+        limiter(contacts.orig.id, Limit.some, cost)(none)
       if (unlimited) fuccess(none)
       else if (isNew) {
         isLeaderOf(contacts) >>| isTeacherOf(contacts)
       } map {
-        case true => none
-        case _    => limitWith(CreateLimitPerUser)
+        if _ then none
+        else limitWith(CreateLimitPerUser)
       }
       else fuccess(limitWith(ReplyLimitPerUser))
 
     private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
-      (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) ??
+      (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) so
         fuccess(FakeTeamMessage.some)
 
     private def isSpam(text: String): Fu[Option[Verdict]] =
-      spam.detect(text) ?? fuccess(Spam.some)
+      spam.detect(text) so fuccess(Spam.some)
 
     private def isTroll(contacts: User.Contacts): Fu[Option[Verdict]] =
-      contacts.orig.isTroll ?? fuccess(Troll.some)
+      contacts.orig.isTroll so fuccess(Troll.some)
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
-      (isNew && Analyser(text).dirty) ??
+      (isNew && Analyser(text).dirty) so
         !userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)) dmap { _ option Dirt }
 
   object may:

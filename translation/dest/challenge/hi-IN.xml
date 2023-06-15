@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">चुनौतियों</string>
   <string name="challengeToPlay">एक खेल के लिए चुनौती</string>
   <string name="challengeDeclined">चुनौती इंकार कर दिया</string>
   <string name="challengeAccepted">चुनौती स्वीकार की गई!</string>

@@ -8,6 +8,7 @@ import { makeCgOpts, povMessage } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { getNow } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
+import * as licon from 'common/licon';
 import { onInsert } from 'common/snabbdom';
 
 export default function (ctrl: StormCtrl): VNode {
@@ -70,7 +71,7 @@ const renderControls = (ctrl: StormCtrl): VNode =>
         'button-empty': !ctrl.flipped,
       },
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.ChasingArrows,
         title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
       },
       hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
@@ -78,13 +79,13 @@ const renderControls = (ctrl: StormCtrl): VNode =>
     h('a.puz-side__control__reload.button.button-empty', {
       attrs: {
         href: '/storm',
-        'data-icon': '',
+        'data-icon': licon.Trash,
         title: ctrl.trans('newRun'),
       },
     }),
     h('a.puz-side__control__end.button.button-empty', {
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.FlagOutline,
         title: ctrl.trans('endRun'),
       },
       hook: onInsert(el => el.addEventListener('click', ctrl.endNow)),
@@ -98,7 +99,7 @@ const renderStart = (ctrl: StormCtrl) =>
 
 const renderReload = (ctrl: StormCtrl, msgKey: string) =>
   h('div.storm.storm--reload.box.box-pad', [
-    h('i', { attrs: { 'data-icon': '' } }),
+    h('i', { attrs: { 'data-icon': licon.Storm } }),
     h('p', ctrl.trans.noarg(msgKey)),
     h(
       'a.storm--dup__reload.button',

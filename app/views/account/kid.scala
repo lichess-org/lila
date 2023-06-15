@@ -1,7 +1,7 @@
 package views.html
 package account
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -9,7 +9,7 @@ import controllers.routes
 
 object kid:
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(using WebContext) =
     account.layout(
       title = s"${u.username} - ${trans.kidMode.txt()}",
       active = "kid"

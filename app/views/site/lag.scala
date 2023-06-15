@@ -1,6 +1,6 @@
 package views.html.site
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 
@@ -8,7 +8,7 @@ object lag:
 
   import trans.lag.*
 
-  def apply()(using Context) =
+  def apply()(using WebContext) =
     page.layout(
       title = "Is Lichess lagging?",
       active = "lag",

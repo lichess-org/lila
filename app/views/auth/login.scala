@@ -3,7 +3,7 @@ package auth
 
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -13,7 +13,7 @@ object login:
 
   import trans.tfa.*
 
-  def apply(form: Form[?], referrer: Option[String])(implicit ctx: Context) =
+  def apply(form: Form[?], referrer: Option[String])(using WebContext) =
     views.html.base.layout(
       title = trans.signIn.txt(),
       moreJs = frag(
@@ -50,7 +50,7 @@ object login:
             form3.group(
               form("token"),
               authenticationCode(),
-              help = Some(span(dataIcon := "")(openTwoFactorApp()))
+              help = Some(span(dataIcon := licon.PhoneMobile)(openTwoFactorApp()))
             )(
               form3.input(_)(autocomplete := "one-time-code", pattern := "[0-9]{6}")
             ),

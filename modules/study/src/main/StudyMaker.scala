@@ -3,6 +3,7 @@ package lila.study
 import chess.format.Fen
 import lila.game.{ Game, Namer, Pov }
 import lila.user.User
+import lila.tree.{ Branch, Branches, Root }
 
 final private class StudyMaker(
     lightUserApi: lila.user.LightUserApi,
@@ -12,7 +13,7 @@ final private class StudyMaker(
 )(using Executor):
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
-    (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {
+    (data.form.gameId so gameRepo.gameWithInitialFen).flatMap {
       case Some(Game.WithInitialFen(game, initialFen)) =>
         createFromPov(
           data,
@@ -55,7 +56,7 @@ final private class StudyMaker(
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {
     for {
-      root <- chapterMaker.getBestRoot(pov.game, data.form.pgnStr, initialFen)
+      root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
       tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
       name <- StudyChapterName from Namer.gameVsText(pov.game, withRatings)(using lightUserApi.async)
       study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)

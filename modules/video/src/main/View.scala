@@ -43,7 +43,7 @@ object View:
         date = r.get[Instant](date)
       )
 
-    def writes(@annotation.nowarn w: BSON.Writer, o: View) =
+    def writes(w: BSON.Writer, o: View) =
       BSONDocument(
         id      -> o.id,
         videoId -> o.videoId,

@@ -1,14 +1,14 @@
 package views.html
 package userTournament
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.user.User
 
 object chart:
 
-  def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using Context) =
+  def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using WebContext) =
     bits.layout(
       u,
       title = s"${u.username} tournaments",
@@ -40,7 +40,7 @@ object chart:
           tbody(
             data.perfResults.map { case (pt, res) =>
               tr(
-                th(iconTag(pt.iconChar, pt.trans)),
+                th(iconTag(pt.icon, pt.trans)),
                 td(res.nb.localize),
                 td(res.points.median.map(_.toInt)),
                 td(res.points.sum.localize),

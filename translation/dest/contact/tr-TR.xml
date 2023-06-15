@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">Bot hesaplar ile oynanan bazı puanlı oyunlarda, bir oyuncunun puan kazanmak için botu kötüye kullandığı tespit edilirse bu oyuncu oyundan puan alamayabilir.</string>
   <string name="errorPage">Hata sayfası</string>
   <string name="reportErrorPage">Bir hata mesajı alırsanız lütfen bize bildirin:</string>
+  <string name="wantBroadcastTournament">Bir turnuva yayını yapmak istiyorum</string>
+  <string name="learnHowToMakeBroadcasts">Lichess üzerinde kendi yayınlarınızı nasıl yapacağınızı öğrenin</string>
+  <string name="contactAboutOfficialBroadcasts">Ayrıca resmi yayınlar hakkında yayın ekibiyle iletişime geçebilirsiniz.</string>
   <string name="banAppeal">Yasaklamaya itiraz et</string>
   <string name="engineAppeal">Satranç motoru ya da hile tespit edildi</string>
   <string name="sendAppealTo">Başvurunuzu bu adrese gönderebilirsiniz: %s .</string>

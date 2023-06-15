@@ -3,7 +3,7 @@ package lila.round
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.game.Game
 
 final class NoteApi(coll: Coll)(using Executor):

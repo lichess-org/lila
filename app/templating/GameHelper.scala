@@ -4,7 +4,7 @@ package templating
 import chess.{ Black, Clock, Color, Mode, Outcome, Ply, White, Status as S }
 import controllers.routes
 import play.api.i18n.Lang
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Namer, Player, LightPlayer, Pov }
 import lila.i18n.{ defaultLang, I18nKeys as trans }
@@ -32,7 +32,7 @@ trait GameHelper:
 
   def titleGame(g: Game) =
     val speed   = chess.Speed(g.clock.map(_.config)).name
-    val variant = g.variant.exotic ?? s" ${g.variant.name}"
+    val variant = g.variant.exotic so s" ${g.variant.name}"
     s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
 
   def describePov(pov: Pov) =
@@ -110,7 +110,7 @@ trait GameHelper:
   def gameVsText(game: Game, withRatings: Boolean = false): String =
     Namer.gameVsTextBlocking(game, withRatings)(using lightUser)
 
-  val berserkIconSpan = iconTag("")
+  val berserkIconSpan = iconTag(lila.common.licon.Berserk)
 
   def playerLink(
       player: Player,
@@ -122,12 +122,12 @@ trait GameHelper:
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(using ctx: Context): Frag =
+  )(using ctx: WebContext): Frag =
     given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
       case None =>
-        val klass = cssClass.??(" " + _)
+        val klass = cssClass.so(" " + _)
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match {
             case (Some(level), _) => aiNameFrag(level)
@@ -166,12 +166,12 @@ trait GameHelper:
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(using ctx: Context): Frag =
+  )(using ctx: WebContext): Frag =
     given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
       case None =>
-        val klass = cssClass.??(" " + _)
+        val klass = cssClass.so(" " + _)
         span(cls := s"user-link$klass")(
           player.aiLevel.fold(trans.anonymous())(aiNameFrag),
           player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
@@ -239,10 +239,9 @@ trait GameHelper:
   def gameTitle(game: Game, color: Color): String =
     val u1 = playerText(game player color, withRating = true)
     val u2 = playerText(game opponent color, withRating = true)
-    val clock = game.clock ?? { c =>
+    val clock = game.clock.so: c =>
       " • " + c.config.show
-    }
-    val variant = game.variant.exotic ?? s" • ${game.variant.name}"
+    val variant = game.variant.exotic so s" • ${game.variant.name}"
     s"$u1 vs $u2$clock$variant"
 
   def gameResult(game: Game) =
@@ -253,8 +252,8 @@ trait GameHelper:
       color: Color,
       ownerLink: Boolean = false,
       tv: Boolean = false
-  )(using ctx: Context): String = {
-    val owner = ownerLink ?? ctx.me.flatMap(game.player)
+  )(using ctx: WebContext): String = {
+    val owner = ownerLink so ctx.me.flatMap(game.player)
     if (tv) routes.Tv.index
     else
       owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
@@ -262,25 +261,25 @@ trait GameHelper:
       }
   }.toString
 
-  def gameLink(pov: Pov)(using Context): String = gameLink(pov.game, pov.color)
+  def gameLink(pov: Pov)(using WebContext): String = gameLink(pov.game, pov.color)
 
-  def challengeTitle(c: lila.challenge.Challenge)(using ctx: Context) =
+  def challengeTitle(c: lila.challenge.Challenge)(using ctx: WebContext) =
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
-    val variant = c.variant.exotic ?? s" ${c.variant.name}"
+    val variant = c.variant.exotic so s" ${c.variant.name}"
     val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)) { reg =>
-      s"${titleNameOrId(reg.id)}${ctx.pref.showRatings ?? s" (${reg.rating.show})"}"
+      s"${titleNameOrId(reg.id)}${ctx.pref.showRatings so s" (${reg.rating.show})"}"
     }
     val players =
       if (c.isOpen) "Open challenge"
       else
         c.destUser.fold(s"Challenge from $challenger") { dest =>
-          s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings ?? s" (${dest.rating.show})"}"
+          s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings so s" (${dest.rating.show})"}"
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(using WebContext) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

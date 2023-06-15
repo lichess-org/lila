@@ -6,7 +6,7 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
@@ -38,7 +38,7 @@ object mod:
       emails: User.Emails,
       erased: User.Erased,
       pmPresets: ModPresets
-  )(using Context): Frag =
+  )(using WebContext): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(
         isGranted(_.ModMessage) option {
@@ -134,6 +134,15 @@ object mod:
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban))("Rankban")
           )
         },
+        isGranted(_.PrizeBan) option {
+          postForm(
+            action := routes.Mod.prizeban(u.username, !u.marks.prizeban),
+            title  := "Enable/disable this user from joining prized tournaments.",
+            cls    := "xhr"
+          )(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.prizeban))("Prizeban")
+          )
+        },
         isGranted(_.ReportBan) option {
           postForm(
             action := routes.Mod.reportban(u.username, !u.marks.reportban),
@@ -199,15 +208,15 @@ object mod:
           )
         )
       },
-      isGranted(_.SetEmail) ?? frag(
+      isGranted(_.SetEmail) so frag(
         postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
           st.input(
             tpe         := "email",
-            value       := emails.current.??(_.value),
+            value       := emails.current.so(_.value),
             name        := "email",
             placeholder := "Email address"
           ),
-          submitButton(cls := "button", dataIcon := "")
+          submitButton(cls := "button", dataIcon := licon.Checkmark)
         ),
         emails.previous.map { email =>
           s"Previously $email"
@@ -215,13 +224,13 @@ object mod:
       )
     )
 
-  private def gdprEraseForm(u: User)(using Context) =
+  private def gdprEraseForm(u: User)(using WebContext) =
     postForm(
       action := routes.Mod.gdprErase(u.username),
       cls    := "gdpr-erasure"
     )(gdprEraseButton(u)(cls := "btn-rack__btn confirm"))
 
-  def gdprEraseButton(u: User)(using Context) =
+  def gdprEraseButton(u: User)(using WebContext) =
     val allowed = u.marks.clean || isGranted(_.Admin)
     submitButton(
       cls := !allowed option "disabled",
@@ -233,7 +242,7 @@ object mod:
       !allowed option disabled
     )("GDPR erasure")
 
-  def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
+  def prefs(u: User)(pref: lila.pref.Pref)(using WebContext) =
     frag(
       canViewRoles(u) option mzSection("roles")(
         (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span) (
@@ -242,14 +251,14 @@ object mod:
         )
       ),
       mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := "")("Notable preferences"),
+        strong(cls := "text inline", dataIcon := licon.Gear)("Notable preferences"),
         ul(
           pref.hasKeyboardMove option li("keyboard moves"),
           pref.botCompatible option li(
             strong(
               a(
                 cls      := "text",
-                dataIcon := "",
+                dataIcon := licon.CautionCircle,
                 href := lila.common.String.base64
                   .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
               )("BOT-COMPATIBLE SETTINGS")
@@ -265,7 +274,7 @@ object mod:
       strong(cls := "fat")(rageSit.counterView, " / ", playbans)
     )
 
-  def plan(u: User)(charges: List[lila.plan.Charge])(using Context): Option[Frag] =
+  def plan(u: User)(charges: List[lila.plan.Charge])(using WebContext): Option[Frag] =
     charges.nonEmpty option
       mzSection("plan")(
         strong(cls := "text inline", dataIcon := patronIconChar)(
@@ -301,7 +310,7 @@ object mod:
         br
       )
 
-  def student(managed: lila.clas.Student.ManagedInfo)(using Context): Frag =
+  def student(managed: lila.clas.Student.ManagedInfo)(using WebContext): Frag =
     mzSection("student")(
       "Created by ",
       userLink(managed.createdBy),
@@ -309,61 +318,69 @@ object mod:
       a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
     )
 
+  def boardTokens(tokens: List[lila.oauth.AccessToken])(using WebContext): Frag =
+    if tokens.isEmpty then emptyFrag
+    else
+      mzSection("boardTokens")(
+        strong(cls := "inline")(pluralize("Board token", tokens.size)),
+        ul:
+          tokens.map: token =>
+            li(
+              List(token.description, token.clientOrigin).flatten.mkString(" "),
+              ", last used ",
+              token.usedAt map momentFromNowOnce
+            )
+      )
+
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Lang) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(
-        strong(cls := "text", dataIcon := "")(
+        strong(cls := "text", dataIcon := licon.CautionTriangle)(
           "Moderation history",
           history.isEmpty option ": nothing to show"
         ),
-        history.nonEmpty ?? frag(
-          ul(
-            history.map { e =>
+        history.nonEmpty so frag(
+          ul:
+            history.map: e =>
               li(
                 userIdLink(e.mod.userId.some, withTitle = false),
                 " ",
                 b(e.showAction),
                 " ",
                 e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
-                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${e.user.??(_.value)}")(
+                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${e.user.so(_.value)}")(
                     e.details.orZero: String
                   )
                 },
                 " ",
                 momentFromNowServer(e.date)
               )
-            }
-          ),
+          ,
           br
         )
       ),
-      appeal map { a =>
+      appeal.map: a =>
         frag(
           div(cls := "mod_log mod_log--appeal")(
-            st.a(href := appealRoutes.Appeal.show(a.id))(
-              strong(cls := "text", dataIcon := "")(
-                "Appeal status: ",
-                a.status.toString
-              )
-            ),
+            st.a(href := appealRoutes.Appeal.show(a.id)):
+              strong(cls := "text", dataIcon := licon.CautionTriangle)("Appeal status: ", a.status.toString)
+            ,
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            a.msgs.size > 1 option st.a(href := appealRoutes.Appeal.show(a.id))(
+            a.msgs.size > 1 option st.a(href := appealRoutes.Appeal.show(a.id)):
               frag("and ", pluralize("more message", a.msgs.size - 1))
-            )
           )
         )
-      }
     )
 
   def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Lang): Frag =
     mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
-        strong(cls := "text", dataIcon := "")(
+        strong(cls := "text", dataIcon := licon.CautionTriangle)(
           s"Reports sent by ${u.username}",
           reports.by.isEmpty option ": nothing to show."
         ),
-        reports.by.map { r =>
+        reports.by.map: r =>
           r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
             postForm(action := reportRoutes.inquiry(r.id))(
               reportSubmitButton(r),
@@ -375,14 +392,13 @@ object mod:
               shorten(atom.text, 200)
             )
           }
-        }
       ),
       div(cls := "mz_reports mz_reports--in")(
-        strong(cls := "text", dataIcon := "")(
+        strong(cls := "text", dataIcon := licon.CautionTriangle)(
           s"Reports concerning ${u.username}",
           reports.about.isEmpty option ": nothing to show."
         ),
-        reports.about.map { r =>
+        reports.about.map: r =>
           postForm(action := reportRoutes.inquiry(r.id))(
             reportSubmitButton(r),
             div(cls := "atoms")(
@@ -399,14 +415,13 @@ object mod:
               (r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
             )
           )
-        }
       )
     )
 
-  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using Context): Frag =
+  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using WebContext): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
-        p(cls := "text", dataIcon := "")(
+        p(cls := "text", dataIcon := licon.CautionCircle)(
           "ACPL in games with blurs is ",
           strong(blursYes._1),
           " [",
@@ -414,7 +429,7 @@ object mod:
           " , ",
           blursYes._3,
           "]",
-          pag.pag.sfAvgNoBlurs ?? { blursNo =>
+          pag.pag.sfAvgNoBlurs.so: blursNo =>
             frag(
               " against ",
               strong(blursNo._1),
@@ -424,11 +439,10 @@ object mod:
               blursNo._3,
               "] in games without blurs."
             )
-          }
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
-        p(cls := "text", dataIcon := "")(
+        p(cls := "text", dataIcon := licon.CautionCircle)(
           "ACPL in games with consistent move times is ",
           strong(lowVar._1),
           " [",
@@ -436,7 +450,7 @@ object mod:
           ", ",
           lowVar._3,
           "]",
-          pag.pag.sfAvgHighVar ?? { highVar =>
+          pag.pag.sfAvgHighVar.so: highVar =>
             frag(
               " against ",
               strong(highVar._1),
@@ -446,11 +460,10 @@ object mod:
               highVar._3,
               "] in games with random move times."
             )
-          }
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
-        p(cls := "text", dataIcon := "")(
+        p(cls := "text", dataIcon := licon.CautionCircle)(
           "ACPL in games with bot signature ",
           strong(holdYes._1),
           " [",
@@ -458,7 +471,7 @@ object mod:
           ", ",
           holdYes._3,
           "]",
-          pag.pag.sfAvgNoHold ?? { holdNo =>
+          pag.pag.sfAvgNoHold.so: holdNo =>
             frag(
               " against ",
               strong(holdNo._1),
@@ -468,7 +481,6 @@ object mod:
               holdNo._3,
               "]  in games without bot signature."
             )
-          }
         )
       },
       table(cls := "slist")(
@@ -500,32 +512,32 @@ object mod:
                 td(
                   pag.pov(result).map { p =>
                     a(href := routes.Round.watcher(p.gameId, p.color.name))(
-                      p.game.isTournament option iconTag(""),
+                      p.game.isTournament option iconTag(licon.Trophy),
                       p.game.perfType.map { pt =>
-                        iconTag(pt.iconChar)(cls := "text")
+                        iconTag(pt.icon)(cls := "text")
                       },
                       shortClockName(p.game.clock.map(_.config))
                     )
                   }
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := ""),
+                  span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := licon.DiscBig),
                   s" ${result.analysis}"
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := ""),
+                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := licon.DiscBig),
                   s" ${result.basics.moveTimes / 10}",
-                  result.basics.mtStreak ?? frag(br, "streak")
+                  result.basics.mtStreak so frag(br, "streak")
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := ""),
+                  span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := licon.DiscBig),
                   s" ${result.basics.blurs}%",
                   result.basics.blurStreak.filter(8.<=) map { s =>
                     frag(br, s"streak $s/12")
                   }
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := ""),
+                  span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := licon.DiscBig),
                   if (result.basics.hold) "Yes" else "No"
                 ),
                 td(
@@ -549,22 +561,22 @@ object mod:
   private val sortNumberTh    = th(attr("data-sort-method") := "number")
   private val dataSort        = attr("data-sort")
   private val dataTags        = attr("data-tags")
-  private val playban         = iconTag("")
+  private val playban         = iconTag(licon.Clock)
   private val alt: Frag       = i("A")
-  private val shadowban: Frag = iconTag("")
-  private val boosting: Frag  = iconTag("")
-  private val engine: Frag    = iconTag("")
-  private val closed: Frag    = iconTag("")
-  private val clean: Frag     = iconTag("")
-  private val reportban       = iconTag("")
-  private val notesText       = iconTag("")
-  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
+  private val shadowban: Frag = iconTag(licon.BubbleSpeech)
+  private val boosting: Frag  = iconTag(licon.LineGraph)
+  private val engine: Frag    = iconTag(licon.Cogs)
+  private val closed: Frag    = iconTag(licon.NotAllowed)
+  private val clean: Frag     = iconTag(licon.User)
+  private val reportban       = iconTag(licon.CautionTriangle)
+  private val notesText       = iconTag(licon.Pencil)
+  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: WebContext) =
     if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
 
   def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(
       using
-      ctx: Context,
+      ctx: WebContext,
       renderIp: RenderIp
   ): Tag =
     import data.*
@@ -582,15 +594,15 @@ object mod:
             isGranted(_.Admin) option th("Email"),
             sortNumberTh(dataSortDefault)("Same"),
             th("Games"),
-            sortNumberTh(playban)(cls      := "i", title := "Playban"),
-            sortNumberTh(alt)(cls          := "i", title := "Alt"),
-            sortNumberTh(shadowban)(cls    := "i", title := "Shadowban"),
-            sortNumberTh(boosting)(cls     := "i", title := "Boosting"),
-            sortNumberTh(engine)(cls       := "i", title := "Engine"),
-            sortNumberTh(closed)(cls       := "i", title := "Closed"),
-            sortNumberTh(reportban)(cls    := "i", title := "Reportban"),
-            sortNumberTh(notesText)(cls    := "i", title := "Notes"),
-            sortNumberTh(iconTag(""))(cls := "i", title := "Appeals"),
+            sortNumberTh(playban)(cls                 := "i", title := "Playban"),
+            sortNumberTh(alt)(cls                     := "i", title := "Alt"),
+            sortNumberTh(shadowban)(cls               := "i", title := "Shadowban"),
+            sortNumberTh(boosting)(cls                := "i", title := "Boosting"),
+            sortNumberTh(engine)(cls                  := "i", title := "Engine"),
+            sortNumberTh(closed)(cls                  := "i", title := "Closed"),
+            sortNumberTh(reportban)(cls               := "i", title := "Reportban"),
+            sortNumberTh(notesText)(cls               := "i", title := "Notes"),
+            sortNumberTh(iconTag(licon.InkQuill))(cls := "i", title := "Appeals"),
             sortNumberTh("Created"),
             sortNumberTh("Active"),
             isGranted(_.CloseAccount) option th
@@ -611,7 +623,7 @@ object mod:
               isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
               td(
                 // show prints and ips separately
-                dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
+                dataSort := other.score + (other.ips.nonEmpty so 1000000) + (other.fps.nonEmpty so 3000000)
               )(
                 List(other.ips.size -> "IP", other.fps.size -> "Print")
                   .collect {
@@ -621,12 +633,12 @@ object mod:
               ),
               td(dataSort := o.count.game)(o.count.game.localize),
               markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id): Int)),
-              markTd(o.marks.alt ?? 1, alt, log.dateOf(_.alt)),
-              markTd(o.marks.troll ?? 1, shadowban, log.dateOf(_.troll)),
-              markTd(o.marks.boost ?? 1, boosting, log.dateOf(_.booster)),
-              markTd(o.marks.engine ?? 1, engine, log.dateOf(_.engine)),
-              markTd(o.enabled.no ?? 1, closed, log.dateOf(_.closeAccount)),
-              markTd(o.marks.reportban ?? 1, reportban, log.dateOf(_.reportban)),
+              markTd(o.marks.alt so 1, alt, log.dateOf(_.alt)),
+              markTd(o.marks.troll so 1, shadowban, log.dateOf(_.troll)),
+              markTd(o.marks.boost so 1, boosting, log.dateOf(_.booster)),
+              markTd(o.marks.engine so 1, engine, log.dateOf(_.engine)),
+              markTd(o.enabled.no so 1, closed, log.dateOf(_.closeAccount)),
+              markTd(o.marks.reportban so 1, reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty option {
                 td(dataSort := userNotes.size)(
                   a(href := s"${routes.User.show(o.username)}?notes")(
@@ -648,8 +660,8 @@ object mod:
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted
                       ),
-                      dataIcon := "",
-                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted ?? " [MUTED]"}"
+                      dataIcon := licon.InkQuill,
+                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted so " [MUTED]"}"
                     )(appeal.msgs.size)
                   )
               },
@@ -673,7 +685,7 @@ object mod:
       case email                        => frag(email)
     }
 
-  def identification(logins: UserLogins)(using ctx: Context, renderIp: RenderIp): Frag =
+  def identification(logins: UserLogins)(using ctx: WebContext, renderIp: RenderIp): Frag =
     val canIpBan  = isGranted(_.IpBan)
     val canFpBan  = isGranted(_.PrintBan)
     val canLocate = isGranted(_.Admin)

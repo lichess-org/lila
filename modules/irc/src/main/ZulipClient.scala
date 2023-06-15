@@ -39,7 +39,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
       }
     }
 
-  private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] = dedupMsg(msg) ?? {
+  private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] = dedupMsg(msg) so {
     if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString)) inject None
     else
       ws

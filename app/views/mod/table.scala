@@ -2,7 +2,7 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -10,7 +10,7 @@ object table:
 
   private val dataSort = attr("data-sort")
 
-  def apply(users: List[lila.user.User])(using Context) =
+  def apply(users: List[lila.user.User])(using WebContext) =
 
     val title = "All mods"
 

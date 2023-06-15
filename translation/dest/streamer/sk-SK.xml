@@ -35,6 +35,12 @@
   <string name="optionalOrEmpty">Voliteľné. Vynechajte, ak nemáte žiadne</string>
   <string name="youTubeChannelId">ID Vášho YouTube kanála</string>
   <string name="streamerName">Vaše streamerské meno na Lichessi</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Buďte struční: maximálne %s znak</item>
+    <item quantity="few">Buďte struční: maximálne %s znaky</item>
+    <item quantity="many">Buďte struční: maximálne %s znakov</item>
+    <item quantity="other">Buďte struční: maximálne %s znakov</item>
+  </plurals>
   <string name="visibility">Viditeľnosť na streamerskej stránke</string>
   <string name="whenApproved">Ak budete schválený moderátormi</string>
   <string name="headline">Titulok</string>

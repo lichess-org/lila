@@ -2,19 +2,16 @@ package lila.tournament
 
 import cats.syntax.all.*
 import chess.format.Fen
-import chess.{ Clock, Mode, StartingPosition }
+import chess.{ Clock, Mode }
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.data.validation
-import play.api.data.validation.Constraint
 import scala.util.chaining.*
 
 import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
-import lila.hub.LightTeam.*
 import lila.user.User
-import lila.gathering.{ Condition, GatheringClock }
+import lila.gathering.GatheringClock
 
 final class TournamentForm:
 
@@ -62,8 +59,6 @@ final class TournamentForm:
       description = tour.description,
       hasChat = tour.hasChat.some
     )
-
-  private val blockList = List("lichess", "liсhess")
 
   private def form(user: User, leaderTeams: List[LeaderTeam], prev: Option[Tournament]) =
     Form {
@@ -208,7 +203,7 @@ private[tournament] case class TournamentSetup(
         variant = newVariant,
         startsAt = startDate | old.startsAt,
         password = password,
-        position = newVariant.standard ?? {
+        position = newVariant.standard so {
           if (old.isCreated || old.position.isDefined) realPosition
           else old.position
         },
@@ -232,7 +227,7 @@ private[tournament] case class TournamentSetup(
         variant = newVariant,
         startsAt = startDate | old.startsAt,
         password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
-        position = newVariant.standard ?? {
+        position = newVariant.standard so {
           if (position.isDefined && (old.isCreated || old.position.isDefined)) realPosition
           else old.position
         },

@@ -1,5 +1,6 @@
 package lila.tournament
 
+import cats.syntax.all.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -28,9 +29,10 @@ final class PlayerRepo(coll: Coll)(using Executor):
       page: Int
   ): Fu[RankedPlayers] =
     coll.find($inIds(playerIds)).cursor[Player]().listAll() map { players =>
-      playerIds.flatMap(id => players.find(_._id == id)).zipWithIndex.map { case (player, index) =>
-        RankedPlayer(Rank((page - 1) * 10 + index + 1), player)
-      }
+      playerIds
+        .flatMap(id => players.find(_._id == id))
+        .mapWithIndex: (player, index) =>
+          RankedPlayer(Rank((page - 1) * 10 + index + 1), player)
     }
 
   private[tournament] def bestByTour(tourId: TourId, nb: Int, skip: Int = 0): Fu[List[Player]] =
@@ -86,20 +88,18 @@ final class PlayerRepo(coll: Coll)(using Executor):
         )
       }
       .map {
-        _.flatMap { doc =>
-          for {
+        _.flatMap: doc =>
+          for
             teamId      <- doc.getAsOpt[TeamId]("_id")
             leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
-            leaders = leadersBson.flatMap { p =>
-              for {
+            leaders = leadersBson.flatMap: p =>
+              for
                 id    <- p.getAsOpt[UserId]("u")
                 magic <- p.int("m")
-              } yield TeamLeader(id, magic)
-            }
-          } yield new RankedTeam(0, teamId, leaders)
-        }.sorted.zipWithIndex map { case (rt, pos) =>
+              yield TeamLeader(id, magic)
+          yield new RankedTeam(0, teamId, leaders)
+        .sorted.mapWithIndex: (rt, pos) =>
           rt.updateRank(pos + 1)
-        }
       } map { ranked =>
       if (ranked.sizeIs == battle.teams.size) ranked
       else
@@ -143,9 +143,9 @@ final class PlayerRepo(coll: Coll)(using Executor):
           aggs      <- doc.getAsOpt[List[Bdoc]]("agg")
           agg       <- aggs.headOption
           nbPlayers <- agg.int("nb")
-          rating = agg.double("rating").??(math.round)
-          perf   = agg.double("perf").??(math.round)
-          score  = agg.double("score").??(math.round)
+          rating = agg.double("rating").so(math.round)
+          perf   = agg.double("perf").so(math.round)
+          score  = agg.double("score").so(math.round)
           topPlayers <- doc.getAsOpt[List[Player]]("topPlayers")
         } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
       }
@@ -171,10 +171,10 @@ final class PlayerRepo(coll: Coll)(using Executor):
       }
 
   def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
-    game.twoUserIds ?? { case (w, b) =>
+    game.twoUserIds so { case (w, b) =>
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
         import cats.syntax.all.*
-        (m.get(w), m.get(b)).mapN((_, _)) ?? { case (wt, bt) =>
+        (m.get(w), m.get(b)).mapN((_, _)) so { case (wt, bt) =>
           TeamBattle.TeamVs(chess.ByColor(wt, bt)).some
         }
       }
@@ -331,7 +331,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       .result
 
   def searchPlayers(tourId: TourId, term: UserStr, nb: Int): Fu[List[UserId]] =
-    User.validateId(term) ?? { valid =>
+    User.validateId(term) so { valid =>
       coll.primitive[UserId](
         selector = $doc(
           "tid" -> tourId,

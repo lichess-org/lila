@@ -2,7 +2,7 @@ package views.html.simul
 
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -15,7 +15,7 @@ object bits:
 
   def jsI18n()(using Lang) = i18nJsObject(baseTranslations)
 
-  def notFound()(using Context) =
+  def notFound()(using WebContext) =
     views.html.base.layout(
       title = trans.noSimulFound.txt()
     ) {
@@ -26,7 +26,7 @@ object bits:
       )
     }
 
-  def homepageSpotlight(s: lila.simul.Simul)(using Context) =
+  def homepageSpotlight(s: lila.simul.Simul)(using WebContext) =
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little")(
       img(cls := "img icon", src := assetUrl("images/fire-silhouette.svg")),
       span(cls := "content")(
@@ -45,8 +45,8 @@ object bits:
         tr(
           td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
           td(userIdLink(simul.hostId.some)),
-          td(cls := "text", dataIcon := "")(simul.clock.config.show),
-          td(cls := "text", dataIcon := "")(simul.applicants.size)
+          td(cls := "text", dataIcon := licon.Clock)(simul.clock.config.show),
+          td(cls := "text", dataIcon := licon.User)(simul.applicants.size)
         )
       }
     )

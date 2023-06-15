@@ -107,7 +107,7 @@ final class Signup(
       mustConfirm: MustConfirmEmail,
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion]
-  )(user: User)(implicit req: RequestHeader, lang: Lang): Fu[Signup.Result] =
+  )(user: User)(using RequestHeader, Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
       if (mustConfirm.value)
         emailConfirm.send(user, email) >> {
@@ -121,7 +121,7 @@ final class Signup(
 
   def mobile(
       apiVersion: ApiVersion
-  )(implicit req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+  )(using req: Request[?])(using Lang, FormBinding): Fu[Signup.Result] =
     val ip = HTTPRequest ipAddress req
     forms.signup.mobile
       .bindFromRequest()
@@ -172,12 +172,13 @@ final class Signup(
   )(using req: RequestHeader): Fu[Signup.Result] =
     val ipCost = (if suspIp then 2 else 1) * (if captched then 1 else 2)
     PasswordHasher
-      .rateLimit[Signup.Result](enforce = netConfig.rateLimit, userCost = 1, ipCost = ipCost)(
-        id into UserIdOrEmail,
-        req
-      ) { _ =>
-        signupRateLimitPerIP(HTTPRequest ipAddress req, cost = ipCost)(f)(rateLimitDefault)
-      }(rateLimitDefault)
+      .rateLimit[Signup.Result](
+        rateLimitDefault,
+        enforce = netConfig.rateLimit,
+        userCost = 1,
+        ipCost = ipCost
+      )(id into UserIdOrEmail, req): _ =>
+        signupRateLimitPerIP(HTTPRequest ipAddress req, rateLimitDefault, cost = ipCost)(f)
 
   private def logSignup(
       req: RequestHeader,
@@ -192,19 +193,17 @@ final class Signup(
       user.username into UserStr,
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
-          .??(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
+          .so(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
     )
 
   private def signupErrLog(err: Form[?]) =
-    for {
+    for
       username <- err("username").value
       email    <- err("email").value
-    }
-      if (
-        err.errors.exists(_.messages.contains("error.email_acceptable")) &&
+    yield
+      if err.errors.exists(_.messages.contains("error.email_acceptable")) &&
         err("email").value.exists(EmailAddress.isValid)
-      )
-        authLog(UserStr(username), email, "Signup with unacceptable email")
+      then authLog(UserStr(username), email, "Signup with unacceptable email")
 
   private def authLog(user: UserStr, email: String, msg: String) =
     lila.log("auth").info(s"$user $email $msg")

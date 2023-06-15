@@ -1,6 +1,6 @@
 package lila.tutor
 
-import chess.{ ByColor, Color }
+import chess.ByColor
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -10,7 +10,6 @@ private object TutorBsonHandlers:
 
   import lila.insight.BSONHandlers.given
   import lila.rating.BSONHandlers.perfTypeIdHandler
-  import lila.analyse.AnalyseBsonHandlers.given
 
   given BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
   given BSONHandler[GoodPercent]    = percentAsIntHandler[GoodPercent]
