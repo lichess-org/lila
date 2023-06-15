@@ -23,8 +23,11 @@ export type I18nKey =
 'perpetualCheck'|
 'royalsLost'|
 'bareKing'|
+'xPlayedY'|
+'xIsPlayingY'|
 'xWon'|
 'xLost'|
+'gameWasDraw'|
 'winnerIsNotYetDecided'|
 'gote'|
 'white'|

@@ -135,9 +135,9 @@
   <string name="siteTag" comment="Tags for kif and csa">Site</string>
   <string name="eventTag" comment="Tags for kif and csa">Event</string>
   <string name="timeControlTag" comment="Tags for kif and csa">Time control</string>
-  <string name="xEloTag" comment="Tags for kif and csa">%s Elo</string>
-  <string name="xTitleTag" comment="Tags for kif and csa">%s title</string>
-  <string name="xTeamTag" comment="Tags for kif and csa">%s team</string>
+  <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">%s Elo</string>
+  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">%s title</string>
+  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">%s team</string>
   <string name="openingTag" comment="Tags for kif and csa">Opening</string>
   <string name="resultTag" comment="Tags for kif and csa">Result</string>
   <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>

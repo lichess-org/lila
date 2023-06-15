@@ -23,8 +23,11 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="xWon" comment="Example: Player won">%s won</string>
-	<string name="xLost" comment="Example: Player lost">%s lost</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
 	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">White</string>
@@ -360,7 +363,7 @@
 	<string name="continueFromHere">Continue from here</string>
 	<string name="toStudy">Study</string>
 	<string name="importGame">Import game</string>
-	<string name="importedGame">Imported game</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
