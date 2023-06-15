@@ -1,6 +1,3 @@
-import { Prop } from 'common';
-import { TreeWrapper } from 'tree';
-
 export interface ForecastData {
   onMyTurn?: boolean;
   steps?: ForecastStep[][];
@@ -12,18 +9,4 @@ export interface ForecastStep {
   san: San;
   fen: Fen;
   check?: Key;
-}
-
-export interface ForecastCtrl {
-  reloadToLastPly(): void;
-  truncate(fc: ForecastStep[]): ForecastStep[];
-  playAndSave(node: ForecastStep): void;
-  findStartingWithNode(node: ForecastStep): ForecastStep[][];
-  isCandidate(fc: ForecastStep[]): boolean;
-  addNodes(fc: ForecastStep[]): void;
-  removeIndex(index: number): void;
-  list(): ForecastStep[][];
-  loading: Prop<boolean>;
-  onMyTurn: boolean;
-  showForecast(path: string, tree: TreeWrapper, nodes: ForecastStep[]): string;
 }
