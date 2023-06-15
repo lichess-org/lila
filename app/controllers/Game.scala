@@ -36,7 +36,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private[controllers] def exportGame(gameId: GameId)(using req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
-      case None => NotFound.toFuccess
+      case None => NotFound
       case Some(game) =>
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
@@ -102,7 +102,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
             Ok.chunked(env.api.gameApiV2.exportByUser(config))
               .pipe(noProxyBuffer)
               .as(gameContentType(config))
-              .toFuccess
           else
             apiC
               .GlobalConcurrencyLimitPerIpAndUserOption(req, me, user.some)(
@@ -113,7 +112,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                     asAttachmentStream:
                       s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
                   .as(gameContentType(config))
-              .toFuccess
 
       }
     }
@@ -142,10 +140,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       playerFile = get("players")
     )
     apiC.GlobalConcurrencyLimitPerIP
-      .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)) { source =>
+      .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
         noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
-      }
-      .toFuccess
 
   private def WithVs(f: Option[lila.user.User] => Fu[Result])(using RequestHeader): Fu[Result] =
     getUserStr("vs") match

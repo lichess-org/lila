@@ -71,9 +71,8 @@ final class RelayRound(
     )
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me =>
-    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-      Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).toFuccess
-    }
+    OptionFuResult(env.relay.api.byIdAndContributor(id, me)): rt =>
+      html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
   def update(id: RelayRoundId) =
@@ -151,11 +150,9 @@ final class RelayRound(
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
       studyC.CanView(rt.study, me) {
         apiC.GlobalConcurrencyLimitPerIP
-          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)) { source =>
+          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)): source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
-          }
-          .toFuccess
-      }(Unauthorized.toFuccess, Forbidden.toFuccess)
+      }(Unauthorized, Forbidden)
     }
   }
 
@@ -174,10 +171,10 @@ final class RelayRound(
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: WebContext): Fu[Result] =
-    OptionFuResult(env.relay.api byIdWithTour id) { rt =>
-      if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).toFuccess
+    OptionFuResult(env.relay.api byIdWithTour id): rt =>
+      if !ctx.req.path.startsWith(rt.path)
+      then Redirect(rt.path)
       else f(rt)
-    }
 
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
@@ -229,12 +226,12 @@ final class RelayRound(
   private[controllers] def rateLimitCreation(
       me: UserModel,
       req: RequestHeader,
-      fail: => Result
+      fail: => Fu[Result]
   )(create: => Fu[Result]): Fu[Result] =
     val cost =
       if isGranted(_.Relay, me) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost):
+    CreateLimitPerUser(me.id, fail, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail, cost = cost):
         create

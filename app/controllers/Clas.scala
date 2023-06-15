@@ -50,7 +50,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     }
 
   def form = Secure(_.Teacher) { ctx ?=> _ =>
-    Ok(html.clas.clas.create(env.clas.forms.clas.create)).toFuccess
+    html.clas.clas.create(env.clas.forms.clas.create)
   }
 
   def create = SecureBody(_.Teacher) { ctx ?=> me =>
@@ -114,7 +114,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         env.clas.api.student.allWithUsers(clas) map { students =>
           views.html.clas.wall.show(clas, env.clas.markup(clas), students)
         },
-      forStudent = (clas, _) => redirectTo(clas).toFuccess
+      forStudent = (clas, _) => redirectTo(clas)
     )
   }
 
@@ -143,9 +143,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def notifyStudents(id: ClasId) = Secure(_.Teacher) { ctx ?=> me =>
     WithClass(me, id): clas =>
       env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-        Reasonable(clas, students, "notify") {
-          Ok(html.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText)).toFuccess
-        }
+        Reasonable(clas, students, "notify"):
+          html.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText)
       }
   }
 
