@@ -40,30 +40,30 @@ function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
   const notOnLastMove = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
-  return h(
-    'div.puzzle__controls.analyse-controls',
-    {
-      hook: onInsert(
-        bindMobileMousedown(e => {
-          const action = dataAct(e);
-          if (action === 'prev') control.prev(ctrl);
-          else if (action === 'next') control.next(ctrl);
-          else if (action === 'first') control.first(ctrl);
-          else if (action === 'last') control.last(ctrl);
-        }, ctrl.redraw)
-      ),
-    },
-    [
-      h('div.jumps', [
+  return h('div.puzzle__controls.analyse-controls', [
+    h(
+      'div.jumps',
+      {
+        hook: onInsert(
+          bindMobileMousedown(e => {
+            const action = dataAct(e);
+            if (action === 'prev') control.prev(ctrl);
+            else if (action === 'next') control.next(ctrl);
+            else if (action === 'first') control.first(ctrl);
+            else if (action === 'last') control.last(ctrl);
+          }, ctrl.redraw)
+        ),
+      },
+      [
         jumpButton(licon.JumpFirst, 'first', !node.ply),
         jumpButton(licon.JumpPrev, 'prev', !node.ply),
         jumpButton(licon.JumpNext, 'next', !nextNode),
         jumpButton(licon.JumpLast, 'last', !nextNode, notOnLastMove),
         boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
-      ]),
-      boardMenu(ctrl),
-    ]
-  );
+      ]
+    ),
+    boardMenu(ctrl),
+  ]);
 }
 
 let cevalShown = false;
