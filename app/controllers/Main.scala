@@ -41,7 +41,7 @@ final class Main(
   def handlerNotFound(req: RequestHeader) = webContext(req) map { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
-    import makeTimeout.large
+    import makeTimeout.long
     env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
       Ok(if (valid) 1 else 0)
     }

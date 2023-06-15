@@ -8,7 +8,7 @@ import lila.common.Captcha
 
 trait CaptchedForm:
 
-  import makeTimeout.large
+  import makeTimeout.long
 
   type CaptchedData = {
     def gameId: GameId
