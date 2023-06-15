@@ -1,10 +1,11 @@
 package lila.gameSearch
 
-import chess.{ Mode, Status }
+import chess.Status
 
 import lila.common.Json.given
 import lila.rating.RatingRange
 import lila.search.Range
+import java.time.LocalDate
 
 case class Query(
     user1: Option[UserId] = None,
@@ -20,7 +21,7 @@ case class Query(
     hasAi: Option[Boolean] = None,
     aiLevel: Range[Int] = Range.none,
     rated: Option[Boolean] = None,
-    date: Range[DateTime] = Range.none,
+    date: Range[LocalDate] = Range.none,
     duration: Range[Int] = Range.none,
     clock: Clocking = Clocking(),
     sorting: Sorting = Sorting.default,

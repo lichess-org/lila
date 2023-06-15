@@ -8,13 +8,13 @@ import lila.hub.actorApi.shutup.{ PublicSource as Source }
 case class PublicLine(
     text: String,
     from: Option[Source],
-    date: Option[DateTime]
+    date: Option[Instant]
 )
 
 object PublicLine:
 
   def make(text: String, from: Source): PublicLine =
-    PublicLine(text, from.some, nowDate.some)
+    PublicLine(text, from.some, nowInstant.some)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

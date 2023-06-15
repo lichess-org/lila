@@ -6,10 +6,7 @@ import io.lettuce.core.*
 import play.api.Configuration
 
 @Module
-final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using Executor, Scheduler):
   private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
 
   val remoteSocket: RemoteSocket = wire[RemoteSocket]

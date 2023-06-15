@@ -1,21 +1,18 @@
 package lila.common
-import org.specs2.mutable.Specification
 
-class MathsTest extends Specification {
+class MathsTest extends munit.FunSuite {
 
-  import lila.common.Maths._
+  import lila.common.Maths.*
 
-  "standard deviation" >> {
-    "empty collection" >> {
-      standardDeviation(Nil) must beNone
-    }
-    "single value" >> {
-      standardDeviation(List(3)) must beSome(0)
-    }
-    "list" >> {
-      // https://www.scribbr.com/statistics/standard-deviation/
-      // ~standardDeviation(List(46, 69, 32, 60, 52, 41)) must beCloseTo(13.31, 0.01) // sample
-      ~standardDeviation(List(46, 69, 32, 60, 52, 41)) must beCloseTo(12.15, 0.01) // population
-    }
+  test("standard deviation empty collection") {
+    assertEquals(standardDeviation(Nil), None)
+  }
+  test("standard deviation single value") {
+    assertEquals(standardDeviation(List(3)), Some(0d))
+  }
+  test("standard deviation list") {
+    // https://www.scribbr.com/statistics/standard-deviation/
+    // ~standardDeviation(List(46, 69, 32, 60, 52, 41)) must beCloseTo(13.31, 0.01) // sample
+    assert(isCloseTo(~standardDeviation(List(46, 69, 32, 60, 52, 41)), 12.15, 0.01)) // population
   }
 }

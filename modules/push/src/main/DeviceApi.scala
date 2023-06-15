@@ -36,7 +36,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
           _id = deviceId,
           platform = platform,
           userId = user.id,
-          seenAt = nowDate
+          seenAt = nowInstant
         ),
         upsert = true
       )

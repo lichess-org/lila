@@ -2,7 +2,7 @@ package lila.evalCache
 
 import chess.variant.Variant
 import cats.data.NonEmptyList
-import lila.tree.Eval.Score
+import lila.tree.Score
 
 case class EvalCacheEntry(
     nbMoves: Int, // multipv cannot be greater than number of legal moves

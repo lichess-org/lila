@@ -106,7 +106,7 @@
   <string name="skewer">Spid</string>
   <string name="skewerDescription">En manøvre hvor en brik af høj værdi angribes og må flyttes, hvorved en brik af lavere værdi bagved kan tages eller trues. Det omvendte af en binding.</string>
   <string name="smotheredMate">Kvalt mat</string>
-  <string name="smotheredMateDescription">En skakmat leveret af en ridder, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
+  <string name="smotheredMateDescription">En skakmat leveret af en springer, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
   <string name="superGM">Superstormester-partier</string>
   <string name="superGMDescription">Opgaver fra partier spillet af verdens bedste spillere.</string>
   <string name="trappedPiece">Fastlåste brikker</string>
@@ -120,8 +120,8 @@
   <string name="zugzwang">Træktvang</string>
   <string name="zugzwangDescription">Modstanderen har begrænsede muligheder for træk, og ethvert træk vil forværre positionen.</string>
   <string name="healthyMix">Sund blanding</string>
-  <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du skal forvente. Så du skal være klar til hvad som helst! Ligesom i rigtige spil.</string>
-  <string name="playerGames">Spiller partier</string>
+  <string name="healthyMixDescription">Lidt af hvert. Du kan ikke vide, hvad du skal forvente, så du skal være klar til alt! Præcis som i rigtige spil.</string>
+  <string name="playerGames">Spiller-partier</string>
   <string name="playerGamesDescription">Find opgaver lavet ud fra dine egne partier eller fra en anden spillers partier.</string>
   <string name="puzzleDownloadInformation">Disse opgaver er i offentligt domæne og kan downloades fra %s.</string>
 </resources>

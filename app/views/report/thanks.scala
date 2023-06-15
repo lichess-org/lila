@@ -1,8 +1,6 @@
 package views.html.report
 
-import scala.annotation.nowarn
-
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -10,11 +8,10 @@ import controllers.routes
 
 object thanks:
 
-  def apply(userId: UserId, blocked: Boolean)(implicit ctx: Context) =
+  def apply(userId: UserId, blocked: Boolean)(using WebContext) =
 
     val title = "Thanks for the report"
 
-    @nowarn("msg=possible missing interpolator")
     val moreJs = embedJsUnsafeLoadThen("""
 $('button.report-block').one('click', function() {
 const $button = $(this);
@@ -36,7 +33,7 @@ fetch($button.data('action'), {method:'post'})
             attr("data-action") := routes.Relation.block(userId),
             cls                 := "report-block button",
             st.title            := trans.block.txt()
-          )(span(cls := "text", dataIcon := "")("Block ", titleNameOrId(userId)))
+          )(span(cls := "text", dataIcon := licon.NotAllowed)("Block ", titleNameOrId(userId)))
         ),
         br,
         br,

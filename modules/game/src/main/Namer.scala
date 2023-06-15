@@ -10,11 +10,11 @@ object Namer:
     playerTextUser(player, player.userId flatMap lightUser, withRating)
 
   def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String] =
-    player.userId.??(lightUser) dmap {
+    player.userId.so(lightUser) dmap {
       playerTextUser(player, _, withRating)
     }
 
-  private def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
+  def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
     player.aiLevel.fold(
       user.fold(player.name | "Anon.") { u =>
         player.rating.ifTrue(withRating).fold(u.titleName) { r =>
@@ -30,13 +30,13 @@ object Namer:
   ): String =
     s"${playerTextBlocking(game.whitePlayer, withRatings)} - ${playerTextBlocking(game.blackPlayer, withRatings)}"
 
-  def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.Getter): Fu[String] =
-    game.whitePlayer.userId.??(lightUser) zip
-      game.blackPlayer.userId.??(lightUser) dmap { case (wu, bu) =>
+  def gameVsText(game: Game, withRatings: Boolean = false)(using lightUser: LightUser.Getter): Fu[String] =
+    game.whitePlayer.userId.so(lightUser) zip
+      game.blackPlayer.userId.so(lightUser) dmap { (wu, bu) =>
         s"${playerTextUser(game.whitePlayer, wu, withRatings)} - ${playerTextUser(game.blackPlayer, bu, withRatings)}"
       }
 
   def ratingString(p: Player): Option[String] =
     p.rating.map { rating =>
-      s"$rating${p.provisional.yes ?? "?"}"
+      s"$rating${p.provisional.yes so "?"}"
     }

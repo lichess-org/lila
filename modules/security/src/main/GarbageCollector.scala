@@ -15,7 +15,7 @@ final class GarbageCollector(
     isArmed: () => Boolean
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private val logger = lila.security.logger.branch("GarbageCollector")
@@ -27,7 +27,7 @@ final class GarbageCollector(
 
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
-    if (user.createdAt.isAfter(nowDate minusDays 3))
+    if (user.createdAt.isAfter(nowInstant minusDays 3))
       val ip = HTTPRequest ipAddress req
       scheduler
         .scheduleOnce(6 seconds) {
@@ -67,44 +67,41 @@ final class GarbageCollector(
             printOpt.filter(_.banned).map(_.fp.value) match
               case Some(print) => collect(user, email, msg = s"Print ban: `${print.value}`")
               case _ =>
-                badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+                badOtherAccounts(spy.otherUsers.map(_.user)).so: others =>
                   logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
                   lila.common.LilaFuture
                     .exists(spy.ips)(ipTrust.isSuspicious)
-                    .map {
-                      _ ?? collect(
+                    .map:
+                      _ so collect(
                         user,
                         email,
                         msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
                       )
-                    }
-                }
         yield ()
 
   private def badOtherAccounts(accounts: List[User]): Option[List[User]] =
     val others = accounts
-      .sortBy(-_.createdAt.getSeconds)
-      .takeWhile(_.createdAt.isAfter(nowDate minusDays 10))
+      .sortBy(-_.createdAt.toMillis)
+      .takeWhile(_.createdAt.isAfter(nowInstant minusDays 10))
       .take(4)
     (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.enabled.no)) option others
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
-  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(user.id) ?? {
+  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(user.id).so:
     hasBeenCollectedBefore(user) flatMap {
-      case true => funit
-      case _ =>
+      if _ then funit
+      else
         val armed = isArmed()
         val wait  = (30 + ThreadLocalRandom.nextInt(300)).seconds
         val message =
-          s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
+          s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed so " [SIMULATION]"}"
         logger.info(message)
         noteApi.lichessWrite(user, s"Garbage collected because of $msg")
         irc.garbageCollector(message) >>- {
           if (armed) scheduler.scheduleOnce(wait) { doCollect(user) }.unit
         }
     }
-  }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
     noteApi.byUserForMod(user.id).map(_.exists(_.text startsWith "Garbage collected"))

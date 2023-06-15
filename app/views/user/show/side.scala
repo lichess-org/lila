@@ -3,7 +3,7 @@ package views.html.user.show
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
@@ -15,7 +15,7 @@ object side:
       u: User,
       rankMap: lila.rating.UserRankMap,
       active: Option[lila.rating.PerfType]
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
       perf.nonEmpty option showPerf(perf, perfType)
@@ -23,16 +23,16 @@ object side:
     def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
       val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
-        dataIcon := perfType.iconChar,
+        dataIcon := perfType.icon,
         title    := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
           "active" -> active.has(perfType)
         ),
-        href := ctx.pref.showRatings.?? {
+        href := ctx.pref.showRatings.so:
           if (isPuzzle) routes.Puzzle.dashboard(30, "home", u.username.some).url
           else routes.User.perfStat(u.username, perfType.key).url
-        },
+        ,
         span(
           h3(perfType.trans),
           if (isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u) && ctx.pref.showRatings) st.rating(strong("?"))
@@ -60,7 +60,7 @@ object side:
             )
           }
         ),
-        ctx.pref.showRatings option iconTag("")
+        ctx.pref.showRatings option iconTag(licon.PlayTriangle)
       )
 
     div(cls := "side sub-ratings")(
@@ -84,15 +84,15 @@ object side:
           hr,
           showPerf(u.perfs.puzzle, PerfType.Puzzle),
           showStorm(u.perfs.storm, u),
-          showRacer(u.perfs.racer, u),
-          showStreak(u.perfs.streak, u)
+          showRacer(u.perfs.racer),
+          showStreak(u.perfs.streak)
         )
       )
     )
 
-  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
+  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Lang) =
     a(
-      dataIcon := '',
+      dataIcon := licon.Storm,
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
@@ -107,12 +107,12 @@ object side:
           )
         )
       ),
-      iconTag("")
+      iconTag(licon.PlayTriangle)
     )
 
-  private def showRacer(racer: lila.rating.Perf.Racer, user: User)(implicit lang: Lang) =
+  private def showRacer(racer: lila.rating.Perf.Racer)(using Lang) =
     a(
-      dataIcon := '',
+      dataIcon := licon.FlagChessboard,
       cls := List(
         "empty" -> !racer.nonEmpty
       ),
@@ -127,12 +127,12 @@ object side:
           )
         )
       ),
-      iconTag("")
+      iconTag(licon.PlayTriangle)
     )
 
-  private def showStreak(streak: lila.rating.Perf.Streak, user: User)(implicit lang: Lang) =
+  private def showStreak(streak: lila.rating.Perf.Streak)(using Lang) =
     a(
-      dataIcon := '',
+      dataIcon := licon.ArrowThruApple,
       cls := List(
         "empty" -> !streak.nonEmpty
       ),
@@ -147,5 +147,5 @@ object side:
           )
         )
       ),
-      iconTag("")
+      iconTag(licon.PlayTriangle)
     )

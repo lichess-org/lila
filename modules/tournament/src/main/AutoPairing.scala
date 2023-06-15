@@ -1,17 +1,14 @@
 package lila.tournament
 
 import chess.{ Black, Color, White }
-import scala.util.chaining.*
 
 import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
-import lila.user.User
-import alleycats.Zero
 
 final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
-    onStart: GameId => Unit
+    onStart: lila.round.OnStart
 )(using Executor):
 
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
@@ -31,7 +28,7 @@ final class AutoPairing(
         whitePlayer = makePlayer(White, pairing.player1),
         blackPlayer = makePlayer(Black, pairing.player2),
         mode = tour.mode,
-        source = Source.Tournament,
+        source = Source.Arena,
         pgnImport = None
       )
       .withId(pairing.pairing.gameId)

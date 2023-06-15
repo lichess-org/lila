@@ -55,4 +55,5 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="completedTourns">Torneios concluídos</string>
   <string name="declinedRequests">Pedidos recusados</string>
   <string name="joinLichessVariantTeam">Junte-se à equipe oficial do %s e fique por dentro das novidades e eventos</string>
+  <string name="teamPage">Página da equipe</string>
 </resources>

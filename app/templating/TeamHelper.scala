@@ -4,17 +4,16 @@ package templating
 
 import scalatags.Text.all.Tag
 import controllers.routes
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.team.Team.nameToId
 import lila.hub.LightTeam.TeamName
 
 trait TeamHelper { self: HasEnv with RouterHelper =>
 
-  def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
-    ctx.userId.?? { env.team.api.syncBelongsTo(teamId, _) }
+  def isMyTeamSync(teamId: TeamId)(using ctx: WebContext): Boolean =
+    ctx.userId.so { env.team.api.syncBelongsTo(teamId, _) }
 
-  def teamIdToName(id: TeamId): TeamName = env.team.getTeamName.value(id).getOrElse(id.value)
+  def teamIdToName(id: TeamId): TeamName = env.team.getTeamName(id).getOrElse(id.value)
 
   def teamLink(id: TeamId, withIcon: Boolean = true): Tag =
     teamLink(id, teamIdToName(id), withIcon)
@@ -22,7 +21,7 @@ trait TeamHelper { self: HasEnv with RouterHelper =>
   def teamLink(id: TeamId, name: Frag, withIcon: Boolean): Tag =
     a(
       href     := routes.Team.show(id),
-      dataIcon := withIcon.option(""),
+      dataIcon := withIcon.option(lila.common.licon.Group),
       cls      := withIcon option "text"
     )(name)
 

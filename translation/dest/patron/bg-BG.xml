@@ -43,7 +43,9 @@
 Или можете да се %s.</string>
   <string name="contactSupport">свържете с Lichess поддръжка</string>
   <string name="otherMethods">Други начини за дарение?</string>
+  <string name="lichessIsRegisteredWith">Lichess е регистриран на %s.</string>
   <string name="bankTransfers">Приемаме също и банкови преводи</string>
+  <string name="onlyDonationFromAbove">Моля обърнете внимание, че само дарение направено чрез горната форма ще Ви даде статус на Дарител.</string>
   <string name="patronFeatures">Има ли функционалности, които са запазени само за Дарители?</string>
   <string name="noPatronFeatures">Не, защото Lichess е напълно безплатен, завинаги и за всички. Обещано.
 Все пак, Дарителите могат да се похвалят с готина нова профилна иконка.</string>

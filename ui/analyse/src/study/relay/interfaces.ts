@@ -35,6 +35,7 @@ export interface RelaySync {
   url?: string;
   ids?: string;
   log: LogEvent[];
+  delay?: number;
 }
 
 export interface RelayTourShow {

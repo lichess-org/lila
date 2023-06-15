@@ -1,17 +1,13 @@
 package lila.tutor
 
-import chess.Color
+import chess.{ ByColor, Color }
 
 import lila.analyse.AccuracyPercent
-import lila.common.{ Heapsort, LilaOpeningFamily }
+import lila.common.LilaOpeningFamily
 import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
-import lila.rating.PerfType
-import lila.tutor.TutorCompare.compOrder
 import lila.common.config.Max
 
-case class TutorColorOpenings(
-    families: List[TutorOpeningFamily]
-):
+case class TutorColorOpenings(families: List[TutorOpeningFamily]):
   lazy val accuracyCompare = TutorCompare[LilaOpeningFamily, AccuracyPercent](
     InsightDimension.OpeningFamily,
     TutorMetric.Accuracy,
@@ -47,10 +43,10 @@ private case object TutorOpening:
 
   val nbOpeningsPerColor = 8
 
-  def compute(user: TutorUser)(using InsightApi, Executor): Fu[Color.Map[TutorColorOpenings]] = for
+  def compute(user: TutorUser)(using InsightApi, Executor): Fu[ByColor[TutorColorOpenings]] = for
     whiteOpenings <- computeOpenings(user, Color.White)
     blackOpenings <- computeOpenings(user, Color.Black)
-  yield Color.Map(whiteOpenings, blackOpenings)
+  yield ByColor(whiteOpenings, blackOpenings)
 
   def computeOpenings(user: TutorUser, color: Color)(using
       InsightApi,

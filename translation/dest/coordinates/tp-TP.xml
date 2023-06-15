@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="coordinates">lon pi poki pi jan utala</string>
+  <string name="coordinates">nimi ma</string>
   <string name="coordinateTraining">o sona e nimi pi ma musi</string>
   <string name="averageScoreAsWhiteX">nanpa insa kepeken kule walo li %s</string>
   <string name="averageScoreAsBlackX">nanpa insa kepeken kule neko li %s</string>
@@ -9,4 +9,6 @@
   <string name="talkToYourChessFriends">sina sona e \"toki pi musi pi lawa mije moli\" la, sina ken toki pona e musi tawa jan pona sina.</string>
   <string name="youCanAnalyseAGameMoreEffectively">sina sona e nimi ma la, sina ken lukin sona e musi kepeken wawa suli.</string>
   <string name="startTraining">o open kama sona</string>
+  <string name="findSquare">o alasa e ma ni</string>
+  <string name="nameSquare">ma ni la o pana e nimi ma</string>
 </resources>

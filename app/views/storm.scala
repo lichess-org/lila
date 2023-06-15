@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
@@ -15,18 +15,14 @@ import lila.user.User
 
 object storm:
 
-  def home(data: JsObject, pref: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
+  def home(data: JsObject, high: Option[StormHigh])(using WebContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
       moreJs = frag(
         jsModule("storm"),
         embedJsUnsafeLoadThen(
           s"""LichessStorm.start(${safeJsonValue(
-              Json.obj(
-                "data" -> data,
-                "pref" -> pref,
-                "i18n" -> i18nJsObject(i18nKeys)
-              )
+              data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))
             )})"""
         )
       ),
@@ -58,7 +54,7 @@ object storm:
       )
     }
 
-  private def renderHigh(high: StormHigh)(implicit lang: Lang) =
+  private def renderHigh(high: StormHigh)(using Lang) =
     frag(
       List(
         (high.allTime, trans.storm.allTime),
@@ -75,7 +71,7 @@ object storm:
 
   private val numberTag = tag("number")
 
-  def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(implicit ctx: Context) =
+  def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(using ctx: WebContext) =
     views.html.base.layout(
       title = s"${user.username} Puzzle Storm",
       moreCss = frag(cssTag("storm.dashboard")),

@@ -4,4 +4,4 @@ files:
     translate_attributes: 0
     update_option: update_without_changes
 commit_message: 'New translations: %original_file_name% (%language%)'
-append_commit_message: false
+append_commit_message:

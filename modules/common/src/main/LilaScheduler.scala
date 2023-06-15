@@ -11,7 +11,7 @@ object LilaScheduler:
       every: config.type => config.Every,
       timeout: config.type => config.AtMost,
       initialDelay: config.type => config.Delay
-  )(f: => Funit)(using ec: Executor, scheduler: akka.actor.Scheduler): Unit =
+  )(f: => Funit)(using ec: Executor, scheduler: Scheduler): Unit =
 
     val run = () => f
 

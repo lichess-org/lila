@@ -33,7 +33,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
 
   def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     if (u.enabled.no) disabled(u.light)
-    else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline.value(u.id))
+    else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline(u.id))
 
   private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     Json
@@ -49,7 +49,9 @@ final class JsonView(isOnline: lila.socket.IsOnline):
       .add("verified" -> u.isVerified)
 
   def lightPerfIsOnline(lp: LightPerf) =
-    lightPerfWrites.writes(lp).add("online" -> isOnline.value(lp.user.id))
+    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
+
+  given lightPerfIsOnlineWrites: OWrites[User.LightPerf] = OWrites(lightPerfIsOnline)
 
   def disabled(u: LightUser) = Json.obj(
     "id"       -> u.id,
@@ -59,8 +61,6 @@ final class JsonView(isOnline: lila.socket.IsOnline):
   def ghost = disabled(LightUser.ghost)
 
 object JsonView:
-
-  import Title.given
 
   val nameWrites: Writes[User] = writeAs(_.username)
 
@@ -134,11 +134,6 @@ object JsonView:
       perfType.key.value -> perfWrites.writes(u.perfs(perfType))
     })
 
-  def ratingMap(u: User): JsObject =
-    Writes
-      .keyMapWrites[Perf.Key, Int, Map]
-      .writes(u.perfs.perfsMap.view.mapValues(_.intRating.value).toMap)
-
   def notes(ns: List[Note])(using lightUser: LightUserApi) =
     lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray(
       ns.map { note =>
@@ -170,5 +165,16 @@ object JsonView:
         "atomic"        -> leaderboards.atomic,
         "horde"         -> leaderboards.horde,
         "racingKings"   -> leaderboards.racingKings
+      )
+    }
+
+  given leaderboardStandardTopOneWrites(using OWrites[User.LightPerf]): OWrites[Perfs.Leaderboards] =
+    OWrites { leaderboards =>
+      Json.obj(
+        "bullet"      -> leaderboards.bullet.headOption,
+        "blitz"       -> leaderboards.blitz.headOption,
+        "rapid"       -> leaderboards.rapid.headOption,
+        "classical"   -> leaderboards.classical.headOption,
+        "ultraBullet" -> leaderboards.ultraBullet.headOption
       )
     }

@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">muitakin tapoja auttaa</string>
   <string name="areThereWebsitesBasedOnLichess">Onko olemassa Lichessiin perustuvia nettisivuja?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">On. Lichess on tosiaankin inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$samme, %2$s:amme, tai %3$samme.</string>
+  <string name="keyboardShortcuts">Mitä pikanäppäimiä voi käyttää?</string>
+  <string name="keyboardShortcutsExplanation">Joillakin Lichess-sivuilla voit käyttää pikanäppäimiä. Painamalla \"?\"-näppäintä tutkielma-, analyysi-, tehtävä- tai pelisivulla saat näkyviin käytettävissä olevien pikanäppäinten listan.</string>
   <string name="fairPlay">Reilu peli</string>
   <string name="whenAmIEligibleRatinRefund">Milloin voin saada huijaajilta automaattisen vahvuusluvun hyvityksen?</string>
   <string name="ratingRefundExplanation">Minuutti siitä, kun pelaaja on merkitty, hänen viimeiset 40 pisteytettyä peliään viimeiseltä 3 päivältä otetaan käsittelyyn. Jos olit hänen vastustajansa noissa peleissä, vahvuuslukusi heikkeni (tappion tai tasapelin takia) eikä se ole väliaikainen, saat vahvuuslukuusi hyvityksen. Hyvityksen yläraja määräytyy huippuvahvuuslukusi sekä pelin jälkeisen vahvuuslukusi kehittymisen perusteella. 
@@ -63,7 +65,7 @@ Siirto on kuvattu %2$s kohdassa 3.7 (d):
 Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="goodIntroduction">hyvä johdanto</string>
   <string name="lichessTraining">Lichess-harjoittelu</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Katso, kuinka kansainvälinen mestari Eric Rosen tekee matin %s.</string>
+  <string name="watchIMRosenCheckmate">Katso, kuinka kansainvälinen mestari Eric Rosen tekee matin %s.</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
   <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lichess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>

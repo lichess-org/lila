@@ -30,17 +30,16 @@ final class Env(
 
   private lazy val client = makeClient(Index(config.indexName))
 
-  private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(api, maxPerPage)
+  private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, maxPerPage)
 
   lazy val api: TeamSearchApi = wire[TeamSearchApi]
 
   def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
 
-  def cli =
-    new lila.common.Cli:
-      def process = { case "team" :: "search" :: "reset" :: Nil =>
-        api.reset inject "done"
-      }
+  def cli: lila.common.Cli = new:
+    def process = { case "team" :: "search" :: "reset" :: Nil =>
+      api.reset inject "done"
+    }
 
   system.actorOf(
     Props(new Actor {

@@ -3,7 +3,6 @@ package lila.practice
 import play.api.libs.json.*
 
 import lila.common.Json.{ given, * }
-import lila.study.JsonView.given
 
 object JsonView:
 

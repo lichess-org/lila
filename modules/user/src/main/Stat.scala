@@ -2,8 +2,8 @@ package lila.user
 
 object Stat:
 
-  val minRating = lila.rating.Glicko.minRating
-  val group     = 25
+  export lila.rating.Glicko.minRating
+  val group = 25
 
   def percentile(ratings: List[Int], rating: IntRating): (Int, Int) =
     ratings.zipWithIndex.foldLeft(0 -> 0) { case ((under, sum), (nb, i)) =>

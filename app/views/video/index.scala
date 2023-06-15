@@ -1,6 +1,6 @@
 package views.html.video
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -10,7 +10,7 @@ import controllers.routes
 object index:
 
   def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(using
-      ctx: Context
+      ctx: WebContext
   ) =
 
     val tagString =
@@ -52,7 +52,7 @@ object index:
           if (videos.currentPageResults.isEmpty) "No videos for these tags:"
           else "That's all we got for these tags:",
           control.filter.tags.map { tag =>
-            a(cls := "tag", dataIcon := "", href := s"${routes.Video.index}?tags=$tag")(tag.capitalize)
+            a(cls := "tag", dataIcon := licon.Tag, href := s"${routes.Video.index}?tags=$tag")(tag.capitalize)
           },
           br,
           br,

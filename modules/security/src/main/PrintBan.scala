@@ -16,7 +16,7 @@ final class PrintBan(coll: Coll)(using Executor):
       coll.update
         .one(
           $id(hash.value),
-          $doc("_id" -> hash.value, "date" -> nowDate),
+          $doc("_id" -> hash.value, "date" -> nowInstant),
           upsert = true
         )
         .void

@@ -17,6 +17,7 @@
 /ui/common/**/*.d.ts
 /ui/game/**/*.js
 /ui/game/**/*.d.ts
+/ui/voice/@build/**/*.json
 /ui/nvui/**/*.js
 /ui/nvui/**/*.d.ts
 /ui/puz/**/*.js

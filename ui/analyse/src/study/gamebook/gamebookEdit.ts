@@ -1,5 +1,6 @@
 import * as control from '../../control';
 import AnalyseCtrl from '../../ctrl';
+import * as licon from 'common/licon';
 import throttle from 'common/throttle';
 import { iconTag, bind, MaybeVNodes } from 'common/snabbdom';
 import { h, Hooks, VNode } from 'snabbdom';
@@ -46,7 +47,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
             hook: commentHook,
             class: { done: isCommented },
           },
-          [iconTag(''), h('p', 'Help the player find the initial move, with a comment.')]
+          [iconTag(licon.BubbleSpeech), h('p', 'Help the player find the initial move, with a comment.')]
         ),
         renderHint(ctrl),
       ];
@@ -57,10 +58,10 @@ export function render(ctrl: AnalyseCtrl): VNode {
           {
             hook: commentHook,
           },
-          [iconTag(''), h('p', 'Introduce the gamebook with a comment')]
+          [iconTag(licon.BubbleSpeech), h('p', 'Introduce the gamebook with a comment')]
         ),
         h('div.legend.todo', { class: { done: !!ctrl.node.children[0] } }, [
-          iconTag(''),
+          iconTag(licon.PlayTriangle),
           h('p', "Put the opponent's first move on the board."),
         ]),
       ];
@@ -73,7 +74,10 @@ export function render(ctrl: AnalyseCtrl): VNode {
             hook: commentHook,
             class: { done: isCommented },
           },
-          [iconTag(''), h('p', 'Explain the opponent move, and help the player find the next move, with a comment.')]
+          [
+            iconTag(licon.BubbleSpeech),
+            h('p', 'Explain the opponent move, and help the player find the next move, with a comment.'),
+          ]
         ),
         renderHint(ctrl),
       ];
@@ -85,7 +89,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
             hook: commentHook,
           },
           [
-            iconTag(''),
+            iconTag(licon.BubbleSpeech),
             h(
               'p',
               "You may reflect on the player's correct move, with a comment; or leave empty to jump immediately to the next move."
@@ -99,7 +103,10 @@ export function render(ctrl: AnalyseCtrl): VNode {
               {
                 hook: bind('click', () => control.prev(ctrl), ctrl.redraw),
               },
-              [iconTag(''), h('p', 'Add variation moves to explain why specific other moves are wrong.')]
+              [
+                iconTag(licon.PlayTriangle),
+                h('p', 'Add variation moves to explain why specific other moves are wrong.'),
+              ]
             ),
         renderDeviation(ctrl),
       ];
@@ -111,7 +118,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           hook: commentHook,
           class: { done: isCommented },
         },
-        [iconTag(''), h('p', 'Explain why this move is wrong in a comment')]
+        [iconTag(licon.BubbleSpeech), h('p', 'Explain why this move is wrong in a comment')]
       ),
       h('div.legend', [h('p', 'Or promote it as the mainline if it is the right move.')]),
     ];
@@ -129,7 +136,7 @@ function renderDeviation(ctrl: AnalyseCtrl): VNode {
   const field = 'deviation';
   return h('div.deviation', [
     h('div.legend.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
-      iconTag(''),
+      iconTag(licon.BubbleSpeech),
       h('p', 'When any other wrong move is played:'),
     ]),
     h('textarea', {
@@ -142,7 +149,7 @@ function renderDeviation(ctrl: AnalyseCtrl): VNode {
 function renderHint(ctrl: AnalyseCtrl): VNode {
   const field = 'hint';
   return h('div.hint', [
-    h('div.legend', [iconTag(''), h('p', 'Optional, on-demand hint for the player:')]),
+    h('div.legend', [iconTag(licon.InfoCircle), h('p', 'Optional, on-demand hint for the player:')]),
     h('textarea', {
       attrs: { placeholder: 'Give the player a tip so they can find the right move' },
       hook: textareaHook(ctrl, field),

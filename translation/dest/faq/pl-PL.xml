@@ -19,18 +19,20 @@
   <string name="otherWaysToHelp">Inne sposoby pomocy</string>
   <string name="areThereWebsitesBasedOnLichess">Czy istnieją inne strony internetowe oparte na rozwiązaniach Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony typu open source, które wykorzystują nasz %1$s, %2$s lub %3$s.</string>
+  <string name="keyboardShortcuts">Jakie są skróty klawiaturowe?</string>
+  <string name="keyboardShortcutsExplanation">Na niektórych stronach Lichess możesz używać skrótów klawiaturowych. Naciśnij klawisz \'?\' będąc na stronie opracowania, analizy, zadania szachowego lub na stronie gry, aby wyświetlić dostępne skróty klawiaturowe.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">W jakich przypadkach mogę liczyć na automatyczny zwrot punktów rankingowych utraconych w grze z oszustami?</string>
-  <string name="ratingRefundExplanation">Jedną minutę po oznaczeniu gracza, jego 40 ostatnich gier rankingowych z ostatnich 3 dni zostanie pobranych. Jeśli jesteś przeciwnikiem w tych grach, straciłeś punkty rankingowe (ze względu na porażkę lub remis), a Twój ranking nie był tymczasowy, otrzymujesz zwrot punktów. Zwrot jest ograniczony na podstawie Twojej maksymalnego rankingu i postępów w nim po grze.
-  (Na przykład, jeśli Twój ranking znacznie się zwiększył po tych grach, możesz nie otrzymać zwrotu lub otrzymać tylko częściowy.) Zwrot nigdy nie przekroczy 150 punktów.</string>
-  <string name="preventLeavingGameWithoutResigning">Co się dzieje z graczami opuszczającymi swoje partie?</string>
-  <string name="leavingGameWithoutResigningExplanation">Jeśli przeciwnik często przerywa/opuszcza partie, otrzymuje \"bana\", co oznacza, że tymczasowo nie może grać. Nie jest to podawane do wiadomości publicznej na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania tego zakazu wydłuży się - a w przypadku takiego notorycznego zachowania może prowadzić do zamknięcia konta.</string>
+  <string name="ratingRefundExplanation">Już po minucie od wykrycia oszusta pobierzemy jego 40 ostatnich partii rankingowych z ostatnich 3 dni. Jeśli byłeś jego przeciwnikiem w tych partiach i straciłeś punkty rankingowe (ze względu na porażkę lub remis), a Twój ranking nie był tymczasowy, to otrzymasz zwrot punktów. Zwrot jest uzależniony od Twojego maksymalnego rankingu i jego wzrostu od czasu gry z oszustem.
+(Na przykład, jeśli Twój ranking znacznie się zwiększył po tych partiach, możesz nie otrzymać zwrotu lub otrzymać tylko częściowy zwrot.) Zwrot nigdy nie przekracza 150 punktów.</string>
+  <string name="preventLeavingGameWithoutResigning">Co się dzieje z graczami opuszczającymi partie bez poddania się?</string>
+  <string name="leavingGameWithoutResigningExplanation">Przeciwnik który często przerywa/opuszcza partie otrzyma \"wykluczenie\", co oznacza, że tymczasowo nie będzie mógł grać. Nie jest to publicznie widoczne na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania wykluczenia wydłuży się - a długotrwałe zachowanie tego rodzaju może prowadzić do zamknięcia konta.</string>
   <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
   <string name="youCannotApply">Nie można zgłosić się do pełnienia funkcji moderatora. Jeśli zauważymy kogoś, kto naszym zdaniem byłby dobrym moderatorem, skontaktujemy się z nim bezpośrednio.</string>
   <string name="isCorrespondenceDifferent">Czym różnią się szachy korespondencyjne od zwykłych szachów?</string>
   <string name="pleaseReadFairPlayPage">By dowiedzieć się więcej, przeczytaj %s</string>
   <string name="fairPlayPage">stronę o fair play</string>
-  <string name="youCanUseOpeningBookNoEngine">Na Lichess, główną różnicą w zasadach szachów korespondencyjnych polega na tym że jest dozwolony \"opening book\". Używanie silników nadal jest niedozwolone i będzie skutkowało flagging\'iem twojego konta. Chociaż ICCF pozwala używanie silników w szachach korespondencyjnych, Lichess nie.</string>
+  <string name="youCanUseOpeningBookNoEngine">Główna różnica w zasadach szachów korespondencyjnych na Lichess polega na tym, że dozwolone jest korzystanie z biblioteki otwarć. Używanie silników szachowych jest niedozwolone i będzie skutkowało zamknięciem konta. Chociaż ICCF pozwala na używanie silników w szachach korespondencyjnych, na Lichess nie możesz tego robić.</string>
   <string name="gameplay">Rozgrywka</string>
   <string name="howBulletBlitzEtcDecided">W jaki sposób system decyduje czy partia jest typu Bullet, Blitz itd.?</string>
   <string name="basedOnGameDuration">Kontrole czasu na Lichess oparte są na szacowanym czasie trwania gry = %1$s
@@ -41,14 +43,14 @@ Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund
   <string name="whatVariantsCanIplay">W jakie warianty szachów mogę zagrać na Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess umożliwia grę w standardowe szachy oraz %1$s.</string>
   <string name="eightVariants">8 wariantów szachów</string>
-  <string name="whatIsACPL">Czym jest średnia strata setnej części piona (ACPL - average centipawn loss)?</string>
-  <string name="acplExplanation">Średnia strata setnej części piona (ACPL - average centipawn loss) jest jednostką miary stosowaną w szachach do przedstawienia straty wynikającej z wykonania danego posunięcia. Wartość ta nie odgrywa żadnej formalnej roli podczas rozgrywania partii, ale jest użyteczna dla graczy podczas jej analizy. Silniki szachowe wykorzystują ją natomiast do oceny pozycji podczas samej rozgrywki.
+  <string name="whatIsACPL">Czym jest średnia strata centypiona (ŚSCP, z ang. ACPL)?</string>
+  <string name="acplExplanation">Centypion to jednostka miary używana w szachach jako reprezentacja przewagi. Centypion jest równy 1/100 piona. Zatem 100 centypionów = 1 pion. Wartość ta nie odgrywa żadnej formalnej roli podczas rozgrywania partii, ale jest użyteczna dla graczy podczas jej analizy. Silniki szachowe wykorzystują ją natomiast do oceny pozycji.
 
-Najlepszy znaleziony podczas analizy komputerowej ruch to brak straty, ale gorsze ruchy powodują pogorszenie się pozycji, które właśnie mierzymy w setnych częściach wartości piona.
+Najlepszy znaleziony podczas analizy komputerowej ruch spowoduje brak straty, ale gorsze ruchy powodują pogorszenie się pozycji, co właśnie mierzymy w centypionach.
 
-Ta wartość może być użyta jako wskaźnik siły gry. Im mniej setnych części piona traconych jest średnio w jednym ruchu, tym siła gry jest większa.
+Wartość ta może być używana jako wskaźnik jakości gry. Im mniej centypionów traci się na ruch, tym silniejsza jest gra.
 
-Analiza komputerowa dostępna na Lichess wspierana jest przez silnik szachowy Stockfish.</string>
+Analiza komputerowa dostępna na Lichess jest zasilana przez Stockfish.</string>
   <string name="insufficientMaterial">Przegrana z powodu upłynięcia czasu gry, remis i niewystarczający materiał aby zamatować przeciwnika</string>
   <string name="lichessFollowFIDErules">W przypadku gdy jednemu z graczy skończy się czas, gracz ten zazwyczaj przegrywa. Jednakże w przypadku gdy pozycja na szachownicy uniemożliwia przeciwnikowi doprowadzenie do zamatowania króla gracza żadną możliwą sekwencją ruchów (%1$s), gra jest remisowana.
 

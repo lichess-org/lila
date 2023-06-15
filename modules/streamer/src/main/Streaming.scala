@@ -1,31 +1,20 @@
 package lila.streamer
 
-import play.api.libs.json.*
-import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.ws.DefaultBodyReadables.*
-import play.api.libs.ws.StandaloneWSClient
 import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
-import lila.common.config.Secret
-import lila.user.User
 
 final private class Streaming(
-    ws: StandaloneWSClient,
     api: StreamerApi,
     isOnline: lila.socket.IsOnline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
     twitchApi: TwitchApi,
     ytApi: YouTubeApi
-)(using
-    ec: Executor,
-    scheduler: akka.actor.Scheduler
-):
+)(using Executor, Scheduler):
 
   import Stream.*
-  import YouTube.given
 
   private var liveStreams = LiveStreams(Nil)
 
@@ -35,7 +24,7 @@ final private class Streaming(
     for {
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
-        liveStreams.has(id) || isOnline.value(id.userId)
+        liveStreams.has(id) || isOnline(id.userId)
       }
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-

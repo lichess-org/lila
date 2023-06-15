@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 import scala.util.Try
 
 import chess.Centis
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.given
 import lila.db.ByteArray
 import lila.db.ByteArray.byteArrayHandler
 
@@ -70,7 +70,7 @@ object GameDiff:
         dOpt(
           checkCount,
           _.history.checkCount,
-          (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
+          (o: CheckCount) => o.nonEmpty so { BSONHandlers.checkCountWriter writeOpt o }
         )
       if (a.variant.crazyhouse)
         dOpt(
@@ -98,7 +98,7 @@ object GameDiff:
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, ply => w.intO(ply.value))
       dTry(s"$name$blursBits", player(_).blurs, Blurs.blursHandler.writeTry)
-    dTry(movedAt, _.movedAt, dateTimeHandler.writeTry)
+    dTry(movedAt, _.movedAt, instantHandler.writeTry)
 
     (setBuilder.toList, unsetBuilder.toList)
 

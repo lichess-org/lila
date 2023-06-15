@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Shumica e kurseve dhe ushtrimeve të shahut përdorin gjerësisht shënimet algjebrike.</string>
   <string name="talkToYourChessFriends">E bën më të lehtë të bisedoni me shokët tuaj të shahut, ngaqë të dy kuptoni “gjuhën e shahut”.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Një lojë mund ta analizoni më me efikasitet, nëse kuptoni shpejt koordinatat.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Te fusha shfaqet një koordinatë dhe duhet të klikoni katrorin përkatës.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Te fusha theksohet një katror dhe duhet të jepni koordinatën e tij (p.sh. “e4”).</string>
+  <string name="aCoordinateAppears">Te fusha shfaqet një koordinatë dhe duhet të klikoni katrorin përkatës.</string>
+  <string name="aSquareIsHighlightedExplanation">Te fusha theksohet një katror dhe duhet të jepni koordinatën e tij (p.sh. “e4”).</string>
   <string name="youHaveThirtySeconds">Keni 30 sekonda për të përshoqëruar saktësisht sa më tepër kuti që mundet!</string>
   <string name="goAsLongAsYouWant">Vazhdoni për sa kohë doni, s’ka kufi kohor!</string>
   <string name="showCoordinates">Shfaq koordinata</string>

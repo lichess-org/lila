@@ -1,6 +1,6 @@
 package views.html.tournament
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKeys as trans }
@@ -10,7 +10,7 @@ import controllers.routes
 
 object bits:
 
-  def notFound()(using Context) =
+  def notFound()(using WebContext) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
@@ -24,20 +24,20 @@ object bits:
       )
     }
 
-  def enterable(tours: List[Tournament])(using Context) =
+  def enterable(tours: List[Tournament])(using WebContext) =
     table(cls := "tournaments")(
       tours map { tour =>
         tr(
           td(cls := "name")(
-            a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(
+            a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id))(
               tour.name(full = false)
             )
           ),
           tour.schedule.fold(td) { s =>
-            td(momentFromNow(s.at))
+            td(momentFromNow(s.at.instant))
           },
           td(tour.durationString),
-          td(dataIcon := "", cls := "text")(tour.nbPlayers)
+          td(dataIcon := licon.User, cls := "text")(tour.nbPlayers)
         )
       }
     )
@@ -50,7 +50,11 @@ object bits:
         "If it has prizes, Lichess is not responsible for paying them."
       )
 
-  def jsI18n(using Context) = i18nJsObject(i18nKeys)
+  def scheduleJsI18n(using WebContext) = i18nJsObject(schedulei18nKeys)
+
+  def jsI18n(tour: Tournament)(using WebContext) = i18nJsObject(
+    i18nKeys ++ (tour.isTeamBattle so teamBattleI18nKeys)
+  )
 
   private val i18nKeys = List(
     trans.standing,
@@ -76,8 +80,17 @@ object bits:
     trans.draws,
     trans.nextXTournament,
     trans.averageOpponent,
+    trans.tournamentEntryCode
+  )
+
+  private val teamBattleI18nKeys = List(
+    trans.arena.viewAllXTeams,
+    trans.arena.averagePerformance,
+    trans.arena.averageScore,
+    trans.team.teamPage
+  )
+
+  private val schedulei18nKeys = List(
     trans.ratedTournament,
-    trans.casualTournament,
-    trans.tournamentEntryCode,
-    trans.arena.viewAllXTeams
+    trans.casualTournament
   )

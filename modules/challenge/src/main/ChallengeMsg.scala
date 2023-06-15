@@ -8,7 +8,7 @@ final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(us
   def onApiPair(challenge: Challenge)(managedBy: User, template: Option[Template]): Funit =
     challenge.userIds.map(lightUserApi.async).parallel.flatMap {
       _.flatten match
-        case List(u1, u2) => onApiPair(GameId(challenge.id), u1, u2)(managedBy.id, template)
+        case List(u1, u2) => onApiPair(challenge.id into GameId, u1, u2)(managedBy.id, template)
         case _            => funit
     }
 

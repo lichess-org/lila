@@ -20,7 +20,6 @@ import lila.hub.actorApi.round.{
 import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.{ Socket, SocketVersion, SocketSend, GetVersion, UserLagCache }
-import lila.user.User
 
 final private[round] class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
@@ -41,7 +40,7 @@ final private[round] class RoundAsyncActor(
   final private class Player(color: Color):
 
     private var offlineSince: Option[Long] = nowMillis.some
-    // wether the player closed the window intentionally
+    // whether the player closed the window intentionally
     private var bye: Boolean        = false
     private var botConnections: Int = 0
 
@@ -53,13 +52,13 @@ final private[round] class RoundAsyncActor(
     def isOnline = offlineSince.isEmpty || botConnected
 
     def setOnline(on: Boolean): Unit =
-      isLongGone foreach { _ ?? notifyGone(color, gone = false) }
+      isLongGone foreach { _ so notifyGone(color, gone = false) }
       offlineSince = if (on) None else offlineSince orElse nowMillis.some
       bye = bye && !on
     def setBye(): Unit =
       bye = true
 
-    private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? isSimulHost
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul so userId so isSimulHost.apply
 
     private def timeoutMillis: Long = {
       val base = {
@@ -74,102 +73,90 @@ final private[round] class RoundAsyncActor(
 
     def isLongGone: Fu[Boolean] = {
       !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
-    } ?? !isHostingSimul
+    } so !isHostingSimul
 
     def showMillisToGone: Fu[Option[Long]] =
       if (botConnected) fuccess(none)
       else
         val now = nowMillis
-        offlineSince.filter { since =>
-          bye || (now - since) > 5000
-        } ?? { since =>
-          isHostingSimul map {
-            !_ option (timeoutMillis + since - now)
-          }
-        }
+        offlineSince
+          .filter: since =>
+            bye || (now - since) > 5000
+          .so: since =>
+            isHostingSimul.map:
+              !_ option (timeoutMillis + since - now)
 
     def setBotConnected(v: Boolean) =
       botConnections = Math.max(0, botConnections + (if (v) 1 else -1))
+  end Player
 
-  private val whitePlayer = new Player(White)
-  private val blackPlayer = new Player(Black)
+  private val whitePlayer = Player(White)
+  private val blackPlayer = Player(Black)
 
-  def getGame: Fu[Option[Game]]          = proxy.game
-  def updateGame(f: Game => Game): Funit = proxy update f
+  export proxy.{ game => getGame, update => updateGame }
 
   val process: AsyncActor.ReceiveAsync =
 
     case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) =>
-      fuccess {
+      fuccess:
         whitePlayer.userId = game.player(White).userId
         blackPlayer.userId = game.player(Black).userId
         mightBeSimul = game.isSimul
         whitePlayer.goneWeight = whiteGoneWeight
         blackPlayer.goneWeight = blackGoneWeight
         if (game.playableByAi) player.requestFishnet(game, this)
-      }
 
     // socket stuff
 
     case ByePlayer(playerId) =>
-      proxy.withPov(playerId) {
-        _ ?? { pov =>
+      proxy.withPov(playerId):
+        _.so: pov =>
           fuccess(getPlayer(pov.color).setBye())
-        }
-      }
 
     case GetVersion(promise) =>
-      fuccess {
+      fuccess:
         promise success version
-      }
     case SetVersion(v) =>
-      fuccess {
+      fuccess:
         version = v
-      }
 
     case RoomCrowd(white, black) =>
-      fuccess {
+      fuccess:
         whitePlayer setOnline white
         blackPlayer setOnline black
-      }
 
     case IsOnGame(color, promise) =>
-      fuccess {
+      fuccess:
         promise success getPlayer(color).isOnline
-      }
 
     case GetSocketStatus(promise) =>
-      whitePlayer.isLongGone zip blackPlayer.isLongGone map { case (whiteIsGone, blackIsGone) =>
-        promise success SocketStatus(
-          version = version,
-          whiteOnGame = whitePlayer.isOnline,
-          whiteIsGone = whiteIsGone,
-          blackOnGame = blackPlayer.isOnline,
-          blackIsGone = blackIsGone
-        )
-      }
+      getSocketStatus tap promise.completeWith
+
+    case GetGameAndSocketStatus(promise) =>
+      getSocketStatus
+        .zip(getGame)
+        .map: (socket, game) =>
+          GameAndSocketStatus(game err s"Game $gameId not found", socket)
+        .tap(promise.completeWith)
 
     case HasUserId(userId, promise) =>
-      fuccess {
-        promise success {
+      fuccess:
+        promise.success:
           (whitePlayer.userId.has(userId) && whitePlayer.isOnline) ||
-          (blackPlayer.userId.has(userId) && blackPlayer.isOnline)
-        }
-      }
+            (blackPlayer.userId.has(userId) && blackPlayer.isOnline)
 
     case lila.chat.RoundLine(line, watcher) =>
-      fuccess {
-        publish(List(line match {
+      fuccess:
+        publish(List(line match
           case l: lila.chat.UserLine   => Event.UserMessage(l, watcher)
           case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
-        }))
-      }
+        ))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
-      handle(Game takePlayerId fullId) { pov =>
+      handle(Game takePlayerId fullId): pov =>
         gameRepo hasHoldAlert pov flatMap {
-          case true => funit
-          case false =>
+          if _ then funit
+          else
             lila
               .log("cheat")
               .info(
@@ -178,294 +165,253 @@ final private[round] class RoundAsyncActor(
             lila.mon.cheat.holdAlert.increment()
             gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
         } inject Nil
-      }
 
     case a: lila.analyse.actorApi.AnalysisProgress =>
-      fuccess {
-        socketSend.value(
+      fuccess:
+        socketSend:
           RP.Out.tellRoom(
             roomId,
             Socket.makeMessage(
               "analysisProgress",
               Json.obj(
                 "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
-                "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
-                  TreeBuilder(
-                    a.game,
-                    a.analysis.some,
-                    a.initialFen,
-                    JsonView.WithFlags()
-                  )
-                }
+                "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
+                  TreeBuilder(a.game, a.analysis.some, a.initialFen, JsonView.WithFlags())
               )
             )
           )
-        )
-      }
 
     // round stuff
 
     case p: HumanPlay =>
-      handle(p.playerId) { pov =>
+      handle(p.playerId): pov =>
         if (pov.player.isAi) fufail(s"player $pov can't play AI")
         else if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else
           recordLag(pov)
           player.human(p, this)(pov)
-      }.chronometer.lap.addEffects(
-        err => {
+      .chronometer.lap.addEffects(
+        err =>
           p.promise.foreach(_ failure err)
-          socketSend.value(Protocol.Out.resyncPlayer(Game.fullId(gameId, p.playerId)))
-        },
-        lap => {
+          socketSend(Protocol.Out.resyncPlayer(Game.fullId(gameId, p.playerId)))
+        ,
+        lap =>
           p.promise.foreach(_ success {})
           lila.mon.round.move.time.record(lap.nanos)
           MoveLatMonitor recordMicros lap.micros
-        }
       )
 
     case p: BotPlay =>
       val res = proxy.withPov(p.playerId) {
-        _ ?? { pov =>
+        _.so: pov =>
           if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
           else player.bot(p.uci, this)(pov)
-        }
       } dmap publish
       p.promise.foreach(_ completeWith res)
       res
 
     case FishnetPlay(uci, hash) =>
-      handle { game =>
+      handle: game =>
         player.fishnet(game, hash, uci)
-      }.mon(_.round.move.time)
+      .mon(_.round.move.time)
 
     case Abort(playerId) =>
-      handle(playerId) { pov =>
-        pov.game.abortableByUser ?? finisher.abort(pov)
-      }
+      handle(playerId): pov =>
+        pov.game.abortableByUser so finisher.abort(pov)
 
     case Resign(playerId) =>
-      handle(playerId) { pov =>
-        pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
-      }
+      handle(playerId): pov =>
+        pov.game.resignable so finisher.other(pov.game, _.Resign, Some(!pov.color))
 
     case ResignAi =>
-      handleAi { pov =>
-        pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
-      }
+      handleAi: pov =>
+        pov.game.resignable so finisher.other(pov.game, _.Resign, Some(!pov.color))
 
     case GoBerserk(color, promise) =>
-      handle(color) { pov =>
+      handle(color): pov =>
         val berserked = pov.game.goBerserk(color)
-        berserked.?? { progress =>
+        berserked.so { progress =>
           proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
         } >>- promise.success(berserked.isDefined)
-      }
 
     case ResignForce(playerId) =>
-      handle(playerId) { pov =>
-        pov.mightClaimWin ?? {
+      handle(playerId): pov =>
+        pov.mightClaimWin.so:
           getPlayer(!pov.color).isLongGone flatMap {
-            case true =>
+            if _ then
               finisher.rageQuit(
                 pov.game,
                 Some(pov.color) ifFalse pov.game.situation.opponentHasInsufficientMaterial
               )
-            case _ => fuccess(List(Event.Reload))
+            else fuccess(List(Event.Reload))
           }
-        }
-      }
 
     case DrawForce(playerId) =>
-      handle(playerId) { pov =>
-        (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn) ?? {
+      handle(playerId): pov =>
+        (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn).so:
           getPlayer(!pov.color).isLongGone flatMap {
-            case true => finisher.rageQuit(pov.game, None)
-            case _    => fuccess(List(Event.Reload))
+            if _ then finisher.rageQuit(pov.game, None)
+            else fuccess(List(Event.Reload))
           }
-        }
-      }
 
     case AbortForce =>
-      handle { game =>
-        game.playable ?? finisher.abortForce(game)
-      }
+      handle: game =>
+        game.playable so finisher.abortForce(game)
 
     // checks if any player can safely (grace) be flagged
     case QuietFlag =>
-      handle { game =>
-        game.outoftime(withGrace = true) ?? finisher.outOfTime(game)
-      }
+      handle: game =>
+        game.outoftime(withGrace = true) so finisher.outOfTime(game)
 
     // flags a specific player, possibly without grace if self
     case ClientFlag(color, from) =>
-      handle { game =>
-        (game.turnColor == color) ?? {
+      handle: game =>
+        (game.turnColor == color).so:
           val toSelf = from has game.player(color).id
-          game.outoftime(withGrace = !toSelf) ?? finisher.outOfTime(game)
-        }
-      }
+          game.outoftime(withGrace = !toSelf) so finisher.outOfTime(game)
 
     // exceptionally we don't publish events
     // if the game is abandoned, then nobody is around to see it
     case Abandon =>
-      proxy withGame { game =>
-        game.abandoned ?? {
+      proxy.withGame: game =>
+        game.abandoned.so:
           if (game.abortable) finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
-        }
-      }
 
     case DrawYes(playerId)   => handle(playerId)(drawer.yes)
     case DrawNo(playerId)    => handle(playerId)(drawer.no)
     case DrawClaim(playerId) => handle(playerId)(drawer.claim)
     case Cheat(color) =>
-      handle { game =>
-        (game.playable && !game.imported) ?? {
+      handle: game =>
+        (game.playable && !game.imported).so:
           finisher.other(game, _.Cheat, Some(!color))
-        }
-      }
     case TooManyPlies => handle(drawer force _)
 
     case Threefold =>
-      proxy withGame { game =>
+      proxy.withGame: game =>
         drawer autoThreefold game map {
-          _ foreach { pov =>
+          _.foreach: pov =>
             this ! DrawClaim(pov.player.id)
-          }
         }
-      }
 
     case RematchYes(playerId) => handle(playerId)(rematcher.yes)
     case RematchNo(playerId)  => handle(playerId)(rematcher.no)
 
     case TakebackYes(playerId) =>
-      handle(playerId) { pov =>
-        takebacker.yes(~takebackSituation)(pov) map { case (events, situation) =>
+      handle(playerId): pov =>
+        takebacker.yes(~takebackSituation)(pov) map { (events, situation) =>
           takebackSituation = situation.some
           events
         }
-      }
     case TakebackNo(playerId) =>
-      handle(playerId) { pov =>
-        takebacker.no(~takebackSituation)(pov) map { case (events, situation) =>
+      handle(playerId): pov =>
+        takebacker.no(~takebackSituation)(pov) map { (events, situation) =>
           takebackSituation = situation.some
           events
         }
-      }
 
     case Moretime(playerId, duration) =>
-      handle(playerId) { pov =>
+      handle(playerId): pov =>
         moretimer(pov, duration) flatMapz { progress =>
           proxy save progress inject progress.events
         }
-      }
 
     case ForecastPlay(lastMove) =>
-      handle { game =>
+      handle: game =>
         forecastApi.nextMove(game, lastMove) map { mOpt =>
-          mOpt foreach { move =>
+          mOpt.foreach: move =>
             this ! HumanPlay(game.player.id, move, blur = false)
-          }
           Nil
         }
-      }
 
     case LilaStop(promise) =>
-      proxy.withGame { g =>
-        g.playable ?? {
-          proxy saveAndFlush {
-            g.clock.fold(Progress(g)) { clock =>
-              g.withClock {
-                clock
-                  .giveTime(g.turnColor, Centis(2000))
-                  .giveTime(!g.turnColor, Centis(1000))
-              }
-            }
-          }
-        }
-      } tap promise.completeWith
+      proxy
+        .withGame: g =>
+          g.playable.so:
+            proxy saveAndFlush:
+              g.clock.fold(Progress(g)): clock =>
+                g.withClock:
+                  clock
+                    .giveTime(g.turnColor, Centis(2000))
+                    .giveTime(!g.turnColor, Centis(1000))
+        .tap(promise.completeWith)
 
     case WsBoot =>
-      handle { game =>
-        game.playable ?? {
+      handle: game =>
+        game.playable.so:
           messenger.volatile(game, "Lichess has been updated! Sorry for the inconvenience.")
           val progress = moretimer.give(game, Color.all, 20 seconds)
           proxy save progress inject progress.events
-        }
-      }
 
     case BotConnected(color, v) =>
-      fuccess {
+      fuccess:
         getPlayer(color) setBotConnected v
-      }
 
     case NoStart =>
-      handle { game =>
-        game.timeBeforeExpiration.exists(_.centis == 0) ?? {
-          if (game.isSwiss) game.startClock ?? { g =>
+      handle: game =>
+        game.timeBeforeExpiration.exists(_.centis == 0) so {
+          if (game.isSwiss) game.startClock.so: g =>
             proxy save g inject List(Event.Reload)
-          }
           else finisher.noStart(game)
         }
-      }
 
     case StartClock =>
-      handle { game =>
-        game.startClock ?? { g =>
+      handle: game =>
+        game.startClock.so: g =>
           proxy save g inject List(Event.Reload)
-        }
-      }
 
     case FishnetStart =>
-      proxy.withGame { g =>
-        g.playableByAi ?? player.requestFishnet(g, this)
-      }
+      proxy.withGame: g =>
+        g.playableByAi so player.requestFishnet(g, this)
 
     case Tick =>
       proxy.withGameOptionSync { g =>
-        (g.forceResignable && g.bothPlayersHaveMoved) ?? fuccess {
-          Color.all.foreach { c =>
+        (g.forceResignable && g.bothPlayersHaveMoved) so fuccess:
+          Color.all.foreach: c =>
             if (!getPlayer(c).isOnline && getPlayer(!c).isOnline)
               getPlayer(c).showMillisToGone foreach {
-                _ ?? { millis =>
+                _.so: millis =>
                   if (millis <= 0) notifyGone(c, gone = true)
-                  else g.clock.exists(_.remainingTime(c).millis > millis + 3000) ?? notifyGoneIn(c, millis)
-                }
+                  else g.clock.exists(_.remainingTime(c).millis > millis + 3000) so notifyGoneIn(c, millis)
               }
-          }
-        }
       } | funit
 
-    case Stop => proxy.terminate() >>- socketSend.value(RP.Out.stop(roomId))
+    case Stop => proxy.terminate() >>- socketSend(RP.Out.stop(roomId))
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
+
+  private def getSocketStatus: Future[SocketStatus] =
+    whitePlayer.isLongGone zip blackPlayer.isLongGone map { (whiteIsGone, blackIsGone) =>
+      SocketStatus(
+        version = version,
+        whiteOnGame = whitePlayer.isOnline,
+        whiteIsGone = whiteIsGone,
+        blackOnGame = blackPlayer.isOnline,
+        blackIsGone = blackIsGone
+      )
+    }
 
   private def recordLag(pov: Pov): Unit =
     if ((pov.game.playedTurns.value & 30) == 10)
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
-      for {
+      for
         user  <- pov.player.userId
         clock <- pov.game.clock
         lag   <- clock.lag(pov.color).lagMean
-      } UserLagCache.put(user, lag)
+      do UserLagCache.put(user, lag)
 
   private def notifyGone(color: Color, gone: Boolean): Funit =
-    proxy.withPov(color) { pov =>
-      fuccess {
-        socketSend.value(Protocol.Out.gone(pov.fullId, gone))
+    proxy.withPov(color): pov =>
+      fuccess:
+        socketSend(Protocol.Out.gone(pov.fullId, gone))
         publishBoardBotGone(pov, gone option 0L)
-      }
-    }
 
   private def notifyGoneIn(color: Color, millis: Long): Funit =
-    proxy.withPov(color) { pov =>
-      fuccess {
-        socketSend.value(Protocol.Out.goneIn(pov.fullId, millis))
+    proxy.withPov(color): pov =>
+      fuccess:
+        socketSend(Protocol.Out.goneIn(pov.fullId, millis))
         publishBoardBotGone(pov, millis.some)
-      }
-    }
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
     if (lila.game.Game.isBoardOrBotCompatible(pov.game))
@@ -475,46 +421,36 @@ final private[round] class RoundAsyncActor(
       )
 
   private def handle(op: Game => Fu[Events]): Funit =
-    proxy.withGame { g =>
+    proxy.withGame: g =>
       handleAndPublish(op(g))
-    }
 
   private def handle(playerId: GamePlayerId)(op: Pov => Fu[Events]): Funit =
-    proxy.withPov(playerId) {
-      _ ?? { pov =>
+    proxy.withPov(playerId):
+      _.so: pov =>
         handleAndPublish(op(pov))
-      }
-    }
 
   private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
-    proxy.withPov(color) { pov =>
+    proxy.withPov(color): pov =>
       handleAndPublish(op(pov))
-    }
 
   private def handleAndPublish(events: Fu[Events]): Funit =
     events dmap publish recover errorHandler("handle")
 
   private def handleAi(op: Pov => Fu[Events]): Funit =
-    proxy.withGame {
-      _.aiPov ?? { p =>
+    proxy.withGame:
+      _.aiPov.so: p =>
         handleAndPublish(op(p))
-      }
-    }
 
   private def publish[A](events: Events): Unit =
-    if (events.nonEmpty)
-      events foreach { e =>
+    if events.nonEmpty then
+      events.foreach: e =>
         version = version.incVersion
-        socketSend.value {
+        socketSend:
           Protocol.Out.tellVersion(roomId, version, e)
-        }
-      }
-      if (
-        events exists {
+      if events.exists:
           case e: Event.Move => e.threefold
           case _             => false
-        }
-      ) this ! Threefold
+      then this ! Threefold
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] =
     case e: FishnetError =>
@@ -538,17 +474,17 @@ object RoundAsyncActor:
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
 
-  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]):
+  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[Instant]):
 
-    def decline = TakebackSituation(nbDeclined + 1, nowDate.some)
+    def decline = TakebackSituation(nbDeclined + 1, nowInstant.some)
 
     def delaySeconds = (math.pow(nbDeclined min 10, 2) * 10).toInt
 
-    def offerable = lastDeclined.fold(true) { _ isBefore nowDate.minusSeconds(delaySeconds) }
+    def offerable = lastDeclined.fold(true) { _ isBefore nowInstant.minusSeconds(delaySeconds) }
 
     def reset = takebackSituationZero.zero
 
-  implicit private[round] val takebackSituationZero: Zero[TakebackSituation] =
+  private[round] given takebackSituationZero: Zero[TakebackSituation] =
     Zero(TakebackSituation(0, none))
 
   private[round] class Dependencies(
@@ -561,5 +497,6 @@ object RoundAsyncActor:
       val player: Player,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
-      val isSimulHost: IsSimulHost
+      val isSimulHost: IsSimulHost,
+      val jsonView: JsonView
   )

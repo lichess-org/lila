@@ -1,6 +1,6 @@
 package lila.plan
 
-import cats.implicits.*
+import cats.syntax.all.*
 import play.api.data.*
 import play.api.data.Forms.*
 import lila.common.Form.into
@@ -46,7 +46,7 @@ object PlanForm:
       Money(gross, _)
     }
 
-    val (userId, giftTo) = custom.??(_.trim) match
+    val (userId, giftTo) = custom.so(_.trim) match
       case s"$userId $giftTo" => (UserId(userId).some, UserId(giftTo).some)
       case s"$userId"         => (UserId(userId).some, none)
       case _                  => (none, none)

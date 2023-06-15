@@ -1,12 +1,14 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
+import cats.syntax.all.*
+import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
 import chess.format.{ pgn as chessPgn }
-import org.joda.time.format.DateTimeFormat
 
 import lila.common.String.slugify
+import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
 import lila.tree.Node.{ Shape, Shapes }
+import lila.analyse.Analysis
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -18,37 +20,30 @@ final class PgnDump(
 
   import PgnDump.*
 
-  def apply(study: Study, flags: WithFlags): Source[PgnStr, ?] =
+  def chaptersOf(study: Study, flags: WithFlags): Source[PgnStr, ?] =
     chapterRepo
       .orderedByStudySource(study.id)
-      .throttle(16, 1 second)
       .mapAsync(1)(ofChapter(study, flags))
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
-      val pgn = Pgn(
-        tags = makeTags(study, chapter)(using flags),
-        turns = toTurns(chapter.root)(using flags).toList,
-        initial = Initial(
-          chapter.root.comments.value.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
-        )
-      )
-      annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
+    chapter.serverEval.exists(_.done) so analyser.byId(chapter.id into Analysis.Id) map { analysis =>
+      ofChapter(study, flags)(chapter, analysis)
     }
 
-  private val fileR = """[\s,]""".r
+  private val fileR         = """[\s,]""".r
+  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy.MM.dd"
 
   def ownerName(study: Study) = lightUserApi.sync(study.ownerId).fold(study.ownerId)(_.name)
 
   def filename(study: Study): String =
-    val date = dateFormat.print(study.createdAt)
+    val date = dateFormatter.print(study.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
 
   def filename(study: Study, chapter: Chapter): String =
-    val date = dateFormat.print(chapter.createdAt)
+    val date = dateFormatter.print(chapter.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_$date",
       ""
@@ -56,8 +51,6 @@ final class PgnDump(
 
   private def chapterUrl(studyId: StudyId, chapterId: StudyChapterId) =
     s"${net.baseUrl}/study/$studyId/$chapterId"
-
-  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
 
   private def annotatorTag(study: Study) =
     Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
@@ -75,14 +68,14 @@ final class PgnDump(
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*"), // required for SCID to import
         annotatorTag(study)
-      ) ::: (!chapter.root.fen.isInitial).??(
+      ) ::: (!chapter.root.fen.isInitial).so(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
         )
       ) :::
-        flags.source.??(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
-        flags.orientation.??(List(Tag("Orientation", chapter.setup.orientation.name)))
+        flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
+        flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name)))
       genTags
         .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
           if (tags.exists(t => tag.name == t.name)) tags
@@ -90,6 +83,12 @@ final class PgnDump(
         }
         .reverse
     }
+
+  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
+    val root = chapter.root
+    val tags = makeTags(study, chapter)(using flags)
+    val pgn  = rootToPgn(root, tags)(using flags)
+    annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
 
 object PgnDump:
 
@@ -100,29 +99,39 @@ object PgnDump:
       source: Boolean,
       orientation: Boolean
   )
+  val fullFlags = WithFlags(true, true, true, true, true)
 
-  private type Variations = Vector[Node]
-  private val noVariations: Variations = Vector.empty
+  private type Variations = List[Branch]
+  private val noVariations: Variations = Nil
 
-  private def node2move(node: Node, variations: Variations)(using flags: WithFlags) =
+  def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
+    Pgn(
+      tags,
+      Initial(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
+      rootToTree(root)(using flags)
+    )
+
+  def rootToTree(root: Root)(using flags: WithFlags): Option[PgnTree] =
+    NewTree(root).map(treeToTree(_)(using flags))
+
+  def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
+    if flags.variations then tree.map(branch2move) else tree.mapMainline(branch2move)
+
+  private def branch2move(node: NewBranch)(using flags: WithFlags) =
     chessPgn.Move(
+      node.ply,
       san = node.move.san,
-      glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
-      comments = flags.comments ?? {
-        node.comments.value.map(_.text.value) ::: shapeComment(node.shapes).toList
+      glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
+      comments = flags.comments so {
+        node.comments.value.map(_.text into Comment) ::: shapeComment(node.shapes).toList
       },
       opening = none,
       result = none,
-      variations = flags.variations ?? {
-        variations.view.map { child =>
-          toTurns(child.mainline, noVariations).toList
-        }.toList
-      },
-      secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
+      secondsLeft = flags.clocks so node.clock.map(_.roundSeconds)
     )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
-  private def shapeComment(shapes: Shapes): Option[String] =
+  private def shapeComment(shapes: Shapes): Option[Comment] =
     def render(as: String)(shapes: List[String]) =
       shapes match
         case Nil    => ""
@@ -137,46 +146,4 @@ object PgnDump:
         s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
     }
-    s"$circles$arrows".some.filter(_.nonEmpty)
-
-  def toTurn(first: Node, second: Option[Node], variations: Variations)(using flags: WithFlags) =
-    chessPgn.Turn(
-      number = first.fullMoveNumber.value,
-      white = node2move(first, variations).some,
-      black = second map { node2move(_, first.children.variations) }
-    )
-
-  def toTurns(root: Node.Root)(using flags: WithFlags): Vector[chessPgn.Turn] =
-    toTurns(root.mainline, root.children.variations)
-
-  def toTurns(
-      line: Vector[Node],
-      variations: Variations
-  )(using flags: WithFlags): Vector[chessPgn.Turn] = {
-    line match
-      case Vector() => Vector()
-      case first +: rest if first.ply.isEven =>
-        chessPgn.Turn(
-          number = 1 + (first.ply.value - 1) / 2,
-          white = none,
-          black = node2move(first, variations).some
-        ) +: toTurnsFromWhite(rest, first.children.variations)
-      case l => toTurnsFromWhite(l, variations)
-  }.filterNot(_.isEmpty)
-
-  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(using
-      flags: WithFlags
-  ): Vector[chessPgn.Turn] =
-    line
-      .grouped(2)
-      .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case ((variations, turns), pair) =>
-        pair.headOption.fold(variations -> turns) { first =>
-          pair
-            .lift(1)
-            .getOrElse(first)
-            .children
-            .variations -> (toTurn(first, pair lift 1, variations) +: turns)
-        }
-      }
-      ._2
-      .reverse
+    Comment from s"$circles$arrows".some.filter(_.nonEmpty)

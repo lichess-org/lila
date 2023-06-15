@@ -1,6 +1,6 @@
 package views.html.mod
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -9,7 +9,7 @@ import controllers.routes
 object emailConfirm:
 
   def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     views.html.base.layout(
       title = "Email confirmation",
@@ -60,8 +60,8 @@ this.setSelectionRange(this.value.length, this.value.length);
                   td(momentFromNow(u.createdAt)),
                   td(u.seenAt.map(momentFromNow(_))),
                   td(style := "font-size:2em")(
-                    if (!u.everLoggedIn) iconTag("")(cls := "is-green")
-                    else iconTag("")(cls                 := "is-red")
+                    if (!u.everLoggedIn) iconTag(licon.Checkmark)(cls := "is-green")
+                    else iconTag(licon.X)(cls                         := "is-red")
                   )
                 )
               )

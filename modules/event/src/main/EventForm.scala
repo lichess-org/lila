@@ -4,8 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
 
-import lila.common.Form.UTCDate.*
-import lila.common.Form.{ stringIn, into }
+import lila.common.Form.{ stringIn, into, PrettyDateTime }
 import lila.i18n.LangList
 import lila.user.User
 
@@ -31,8 +30,8 @@ object EventForm:
       "url"           -> nonEmptyText,
       "lang"          -> text.verifying(l => LangList.allChoices.exists(_._1 == l)),
       "enabled"       -> boolean,
-      "startsAt"      -> utcDate,
-      "finishesAt"    -> utcDate,
+      "startsAt"      -> PrettyDateTime.mapping,
+      "finishesAt"    -> PrettyDateTime.mapping,
       "hostedBy"      -> optional(lila.user.UserForm.historicalUsernameField),
       "icon"          -> stringIn(icon.choices),
       "countdown"     -> boolean
@@ -45,8 +44,8 @@ object EventForm:
     url = "",
     lang = lila.i18n.enLang.code,
     enabled = true,
-    startsAt = nowDate,
-    finishesAt = nowDate,
+    startsAt = nowDateTime,
+    finishesAt = nowDateTime,
     countdown = true
   )
 
@@ -58,8 +57,8 @@ object EventForm:
       url: String,
       lang: String,
       enabled: Boolean,
-      startsAt: DateTime,
-      finishesAt: DateTime,
+      startsAt: LocalDateTime,
+      finishesAt: LocalDateTime,
       hostedBy: Option[UserStr] = None,
       icon: String = "",
       countdown: Boolean
@@ -74,12 +73,12 @@ object EventForm:
         url = url,
         lang = Lang(lang),
         enabled = enabled,
-        startsAt = startsAt,
-        finishesAt = finishesAt,
+        startsAt = startsAt.instant,
+        finishesAt = finishesAt.instant,
         hostedBy = hostedBy.map(_.id),
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown,
-        updatedAt = nowDate.some,
+        updatedAt = nowInstant.some,
         updatedBy = by.id.some
       )
 
@@ -93,10 +92,10 @@ object EventForm:
         url = url,
         lang = Lang(lang),
         enabled = enabled,
-        startsAt = startsAt,
-        finishesAt = finishesAt,
+        startsAt = startsAt.instant,
+        finishesAt = finishesAt.instant,
         createdBy = userId,
-        createdAt = nowDate,
+        createdAt = nowInstant,
         updatedAt = none,
         updatedBy = none,
         hostedBy = hostedBy.map(_.id),
@@ -115,8 +114,8 @@ object EventForm:
         url = event.url,
         lang = event.lang.code,
         enabled = event.enabled,
-        startsAt = event.startsAt,
-        finishesAt = event.finishesAt,
+        startsAt = event.startsAt.dateTime,
+        finishesAt = event.finishesAt.dateTime,
         hostedBy = event.hostedBy.map(_ into UserStr),
         icon = ~event.icon,
         countdown = event.countdown

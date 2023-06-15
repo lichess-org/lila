@@ -1,6 +1,5 @@
 package lila.round
 
-import lila.user.User
 import lila.common.Bus
 
 final class PlayingUsers:

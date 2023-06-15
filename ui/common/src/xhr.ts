@@ -20,6 +20,15 @@ export const ensureOk = (res: Response): Response => {
   throw new Error(`Error ${res.status}`);
 };
 
+/* fetch a static JSON asset without headers that trigger CORS preflight */
+export const jsonSimple = (url: string, init: RequestInit = {}): Promise<any> =>
+  fetch(url, {
+    headers: {
+      ...jsonHeader,
+    },
+    ...init,
+  }).then(res => ensureOk(res).json());
+
 /* fetch a JSON value */
 export const json = (url: string, init: RequestInit = {}): Promise<any> =>
   jsonAnyResponse(url, init).then(res => ensureOk(res).json());

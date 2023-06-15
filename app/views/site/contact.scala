@@ -6,7 +6,7 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import scala.util.chaining.*
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -18,10 +18,10 @@ object contact:
 
   def contactEmailLinkEmpty(email: String = contactEmailInClear) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
-  def contactEmailLink(email: String = contactEmailInClear)(using Context) =
+  def contactEmailLink(email: String = contactEmailInClear)(using WebContext) =
     contactEmailLinkEmpty(email)(trans.clickToRevealEmailAddress())
 
-  private def reopenLeaf(prefix: String)(using Context) =
+  private def reopenLeaf(prefix: String)(using WebContext) =
     Leaf(
       s"$prefix-reopen",
       wantReopen(),
@@ -31,7 +31,7 @@ object contact:
       )
     )
 
-  private def howToReportBugs(using Context): Frag =
+  private def howToReportBugs(using WebContext): Frag =
     frag(
       ul(
         li(
@@ -50,7 +50,7 @@ object contact:
       p(howToReportBug())
     )
 
-  private def menu(using Context): Branch =
+  private def menu(using WebContext): Branch =
     Branch(
       "root",
       whatCanWeHelpYouWith(),
@@ -140,7 +140,9 @@ object contact:
               "."
             ),
             p(
-              youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := ""))
+              youCanAlsoReachReportPage(
+                button(cls := "thin button button-empty", dataIcon := licon.CautionTriangle)
+              )
             ),
             p(
               doNotMessageModerators(),
@@ -202,28 +204,10 @@ object contact:
             Leaf(
               "security",
               "Security vulnerability",
-              frag(
-                p("Please report security issues to ", contactEmailLink()),
-                p(
-                  "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
-                  "Note that we do not currently pay cash bounties."
-                ),
-                p(
-                  "Vulnerabilities are relevant even when they are not directly exploitable, ",
-                  "for example XSS mitigated by CSP."
-                ),
-                p(
-                  "When doing your research, please minimize negative impact for other users. ",
-                  "As long as you keep this in mind, testing should not require prior coordination. ",
-                  "Avoid spamming, DDoS and volumetric attacks."
-                ),
-                p(
-                  "We believe transport encryption will probably be sufficient for all reports. ",
-                  "If you insist on using PGP, please clarify the nature of the message ",
-                  "in the plain-text subject and encrypt for ",
-                  a(href := "/.well-known/gpg.asc")("multiple recipients"),
-                  "."
-                )
+              p(
+                "Please refer to our ",
+                a(href := "https://github.com/lichess-org/lila/security/policy")("Security policy"),
+                "."
               )
             ),
             Leaf(
@@ -238,11 +222,12 @@ object contact:
         ),
         Leaf(
           "broadcast",
-          "I want to broadcast a tournament",
+          wantBroadcastTournament(),
           frag(
-            p(a(href := routes.RelayTour.help)("Learn how to make your own broadcasts on Lichess"), "."),
+            p(a(href := routes.RelayTour.help)(learnHowToMakeBroadcasts()), "."),
             p(
-              "You can also contact the broadcast team about official broadcasts. ",
+              contactAboutOfficialBroadcasts(),
+              " ",
               sendEmailAt(contactEmailLink("broadcast@lichess.org"))
             )
           )
@@ -355,7 +340,7 @@ object contact:
 
   val dmcaUrl = "/dmca"
 
-  def apply()(using Context) =
+  def apply()(using WebContext) =
     page.layout(
       title = trans.contact.contact.txt(),
       active = "contact",

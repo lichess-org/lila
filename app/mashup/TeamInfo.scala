@@ -23,7 +23,7 @@ case class TeamInfo(
 
   def hasRequests = requests.nonEmpty
 
-  def userIds = forum.??(_.flatMap(_.userId))
+  def userIds = forum.so(_.flatMap(_.userId))
 
 object TeamInfo:
   val pmAllCost    = 5
@@ -59,18 +59,18 @@ final class TeamInfoApi(
     credits = pmAllCredits * pmAllCost,
     duration = pmAllDays.days
   )
-  def pmAllStatus(id: TeamId): Fu[(Int, DateTime)] =
+  def pmAllStatus(id: TeamId): Fu[(Int, Instant)] =
     pmAllLimiter.getSpent(id) map { entry =>
       (pmAllCredits - entry.v / pmAllCost, entry.until)
     }
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
     for {
-      requests   <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
-      mine       <- me.??(m => api.belongsTo(team.id, m.id))
-      myRequest  <- !mine ?? me.??(m => requestRepo.find(team.id, m.id))
-      subscribed <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
-      forumPosts <- withForum(mine) ?? forumRecent(team.id).dmap(some)
+      requests   <- (team.enabled && me.exists(m => team.leaders(m.id))) so api.requestsWithUsers(team)
+      mine       <- me.so(m => api.belongsTo(team.id, m.id))
+      myRequest  <- !mine so me.so(m => requestRepo.find(team.id, m.id))
+      subscribed <- me.ifTrue(mine) so { api.isSubscribed(team, _) }
+      forumPosts <- withForum(mine) so forumRecent(team.id).dmap(some)
       tours      <- tournaments(team, 5, 5)
       simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
     } yield TeamInfo(
@@ -90,9 +90,9 @@ final class TeamInfoApi(
         PastAndNext(
           past = {
             tours.past.map(AnyTour(_)) ::: swisses.past.map(AnyTour(_))
-          }.sortBy(-_.startsAt.getSeconds),
+          }.sortBy(-_.startsAt.toSeconds),
           next = {
             tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
-          }.sortBy(_.startsAt.getSeconds)
+          }.sortBy(_.startsAt.toSeconds)
         )
     }

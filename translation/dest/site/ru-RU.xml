@@ -97,11 +97,13 @@
   </plurals>
   <string name="dtzWithRounding">Правило 50 ходов: объявляется ничья, если на протяжении последних 50 ходов ни одна фигура не была взята и ни одна пешка не сделала хода</string>
   <string name="noGameFound">Партий не найдено</string>
+  <string name="maxDepthReached">Достигнута максимальная глубина!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
   <string name="openings">Дебюты</string>
   <string name="openingExplorer">База дебютов</string>
   <string name="openingEndgameExplorer">База дебютов/окончаний</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Играть первый ход изучателя дебютов/эндшпилей</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
   <string name="winOr50MovesByPriorMistake">Победа или правило 50 ходов</string>
@@ -123,6 +125,7 @@
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
+  <string name="engineManager">Менеджер движка</string>
   <string name="blunder">Зевок</string>
   <string name="mistake">Ошибка</string>
   <string name="inaccuracy">Неточность</string>
@@ -164,6 +167,12 @@
     <item quantity="few">%s игры</item>
     <item quantity="many">%s игр</item>
     <item quantity="other">%s игр</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Рейтинг %1$s за %2$s партию</item>
+    <item quantity="few">Рейтинг %1$s за %2$s партии</item>
+    <item quantity="many">Рейтинг %1$s за %2$s партий</item>
+    <item quantity="other">Рейтинг %1$s за %2$s партий</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s отмеченная</item>
@@ -231,8 +240,10 @@
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="error.weakPassword">Этот пароль очень распространён, и его слишком легко угадать.</string>
   <string name="error.namePassword">Пожалуйста, не используйте свой логин в качестве пароля.</string>
+  <string name="blankedPassword">Вы использовали такой же пароль на другом сайте, а тот сайт был скомпрометирован. Теперь для безопасности вашей учётной записи на Lichess необходимо установить новый пароль. Спасибо за ваше понимание.</string>
   <string name="youAreLeavingLichess">Вы покидаете Lichess</string>
   <string name="neverTypeYourPassword">Никогда не вводите свой пароль Lichess на другом сайте!</string>
+  <string name="proceedToX">Перейти на %s</string>
   <string name="passwordSuggestion">Не устанавливайте пароль, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
   <string name="emailSuggestion">Не устанавливайте адрес электронной почты, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
   <string name="emailConfirmHelp">Помощь с подтверждением электронной почты</string>
@@ -308,6 +319,7 @@
   <string name="cancelRematchOffer">Отказаться от реванша</string>
   <string name="viewRematch">Посмотреть матч-реванш</string>
   <string name="confirmMove">Подтвердить ход</string>
+  <string name="enableConfirmationForThisGame">Включить подтверждение для этой партии</string>
   <string name="play">Игра</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
@@ -384,6 +396,7 @@
   </plurals>
   <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
+  <string name="noDrawBeforeSwissLimit">Вы не можете предлагать ничью до 30-го хода в турнире по швейцарской системе.</string>
   <string name="thematic">Тематический</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">Рейтинговых игр ≥ %s</item>
@@ -440,6 +453,7 @@
   <string name="toStudy">Студия</string>
   <string name="importGame">Импортировать партию</string>
   <string name="importGameExplanation">Вставьте запись партии в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
+  <string name="importGameCaveat">Варианты будут удалены. Чтобы их сохранить, импортируйте PGN в студии.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
     <item quantity="few">%s импортированные</item>
@@ -729,6 +743,8 @@
   <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
   <string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
   <string name="simulHostExtraTime">Дополнительное время сеансёра</string>
+  <string name="simulAddExtraTimePerPlayer">Добавьте начальное время на ваших часах для каждого игрока, вошедшего в ваш сеанс одновременной игры.</string>
+  <string name="simulHostExtraTimePerPlayer">Добавка времени сеансёра для каждого игрока</string>
   <string name="lichessTournaments">Турниры Lichess</string>
   <string name="tournamentFAQ">Вопросы и ответы про Арену</string>
   <string name="timeBeforeTournamentStarts">Время до начала турнира</string>
@@ -739,6 +755,10 @@
   <string name="keyGoToStartOrEnd">в начало/конец</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
+  <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь на своих ошибках</string>
+  <string name="keyNextBlunder">Следующий зевок</string>
+  <string name="keyNextMistake">Следующая ошибка</string>
+  <string name="keyNextInaccuracy">Следующая неточность</string>
   <string name="newTournament">Новый турнир</string>
   <string name="tournamentHomeTitle">Шахматный турнир по различным вариантам шахмат и контролем времени</string>
   <string name="tournamentHomeDescription">Играйте в быстрые шахматы на турнире! Выбирайте любой из официальных турниров Lichess или создайте свой собственный. Пуля, блиц, классика, шахматы Фишера, король в центре, три шаха и другие варианты игры обеспечат вам бесконечное шахматное удовольствие!</string>
@@ -840,6 +860,7 @@
   <string name="invalidFen">Некорректный FEN</string>
   <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
+  <string name="notificationsX">Уведомлений: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на первый ход</item>
@@ -940,6 +961,8 @@
   <string name="useTheReportForm">заполните форму обращения</string>
   <string name="toRequestSupport">Чтобы получить поддержку, %1$s</string>
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
+  <string name="makeSureToRead">Не забудьте прочитать %1$s</string>
+  <string name="theForumEtiquette">форумный этикет</string>
   <string name="thisTopicIsArchived">Эта тема была помещена в архив и добавить комментарий уже нельзя.</string>
   <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>
@@ -956,8 +979,6 @@
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
   <string name="gameVsX">Игра против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
-  <string name="newPendingReview">Новый соискатель</string>
   <string name="lostAgainstTOSViolator">Вы проиграли тому, кто нарушил пользовательское соглашение Lichess</string>
   <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти истекло!</string>
@@ -998,7 +1019,7 @@
   <string name="noChat">Без чата</string>
   <string name="onlyTeamLeaders">Только организаторы клуба</string>
   <string name="onlyTeamMembers">Только члены клуба</string>
-  <string name="navigateMoveTree">Навигация по нотации</string>
+  <string name="navigateMoveTree">Переход по ходам</string>
   <string name="mouseTricks">Движения мышкой</string>
   <string name="toggleLocalAnalysis">Включить компьютерный анализ</string>
   <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>
@@ -1023,4 +1044,5 @@
   <string name="lichessDbExplanation">Рейтинговые игры по всем игрокам Lichess</string>
   <string name="switchSides">Сменить сторону</string>
   <string name="closingAccountWithdrawAppeal">Закрытие вашей учётной записи отменит ваше обращение</string>
+  <string name="ourEventTips">Наши советы по организации мероприятий</string>
 </resources>

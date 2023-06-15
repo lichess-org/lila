@@ -6,13 +6,13 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.base.LilaException
 import lila.common.Domain
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.given
 
 final private class DnsApi(
     ws: StandaloneWSClient,
     config: SecurityConfig.DnsApi,
     mongoCache: lila.memo.MongoCache.Api
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   // only valid email domains that are not whitelisted should make it here
   def mx(lower: Domain.Lower): Fu[List[Domain]] =

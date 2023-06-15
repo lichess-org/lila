@@ -19,7 +19,7 @@ final class Env(
 )(using
     ec: Executor,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer
 ):
 

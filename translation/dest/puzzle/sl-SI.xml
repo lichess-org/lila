@@ -27,6 +27,11 @@
   <string name="keepGoing">Nadaljuj…</string>
   <string name="puzzleSuccess">Prenos uspešen!</string>
   <string name="puzzleComplete">Uganka rešena!</string>
+  <string name="byOpenings">Po otvoritvah</string>
+  <string name="puzzlesByOpenings">Uganke po otvoritvah</string>
+  <string name="openingsYouPlayedTheMost">Otvoritve, ki ste jih največ igrali v rangiranih igrah</string>
+  <string name="useFindInPage">Uporabite \"Poišči na strani\" v meniju brskalnika, da poiščete svoje najljubšo otvoritev!</string>
+  <string name="useCtrlF">Uporabite Ctrl+f, da najdete vašo najljubšo otvoritev!</string>
   <string name="notTheMove">To ni pravilna poteza!</string>
   <string name="trySomethingElse">Poskusite kakšno drugo potezo.</string>
   <string name="ratingX">Uvrstitev: %s</string>

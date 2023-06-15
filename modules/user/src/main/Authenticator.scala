@@ -32,7 +32,7 @@ final class Authenticator(
     loginCandidateByEmail(email) map { _ flatMap { _ option passwordAndToken } }
 
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
-    loginCandidateById(u.id) dmap { _ | User.LoginCandidate(u, _ => false) }
+    loginCandidateById(u.id) dmap { _ | User.LoginCandidate(u, _ => false, false) }
 
   def loginCandidateById(id: UserId): Fu[Option[User.LoginCandidate]] =
     loginCandidate($id(id))
@@ -57,8 +57,9 @@ final class Authenticator(
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] = {
     userRepo.coll.one[AuthData](select, authProjection) zip
       userRepo.coll.one[User](select) map {
-        case (Some(authData), Some(user)) => User.LoginCandidate(user, authWithBenefits(authData)).some
-        case _                            => none
+        case (Some(authData), Some(user)) =>
+          User.LoginCandidate(user, authWithBenefits(authData), authData.isBlanked).some
+        case _ => none
       }
   } recover {
     case _: reactivemongo.api.bson.exceptions.HandlerException           => none
@@ -73,6 +74,7 @@ object Authenticator:
       salt: Option[String] = None,
       sha512: Option[Boolean] = None
   ):
+    export bpass.isBlanked
 
     def hashToken: String = bpass.bytes.sha512.hex
 

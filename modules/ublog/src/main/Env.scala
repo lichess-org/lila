@@ -1,8 +1,9 @@
 package lila.ublog
 
+import cats.syntax.all.*
+
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
-import com.softwaremill.tagging.*
 
 import lila.common.config.*
 import lila.db.dsl.Coll
@@ -17,16 +18,15 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
-    settingStore: lila.memo.SettingStore.Builder,
     net: NetConfig
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
 ):
 
-  export net.{ assetBaseUrl, baseUrl, domain }
+  export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
@@ -45,9 +45,19 @@ final class Env(
   val viewCounter = wire[UblogViewCounter]
 
   val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
-    cacheApi.unit[List[UblogPost.PreviewPost]](_.refreshAfterWrite(10 seconds).buildAsyncFuture { _ =>
-      api.latestPosts(2)
-    })
+    cacheApi.unit[List[UblogPost.PreviewPost]]:
+      _.refreshAfterWrite(10 seconds).buildAsyncFuture: _ =>
+        import ornicar.scalalib.ThreadLocalRandom
+        val lookInto = 5
+        val keep     = 2
+        api
+          .latestPosts(lookInto)
+          .map:
+            _.mapWithIndex: (post, i) =>
+              (post, ThreadLocalRandom.nextInt(10 * (lookInto - i)))
+            .sortBy(_._2)
+              .take(keep)
+              .map(_._1)
 
   lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, v) =>
     api.setShadowban(userId, v) >>

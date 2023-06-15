@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">andere manieren om te helpen</string>
   <string name="areThereWebsitesBasedOnLichess">Zijn er websites gebaseerd op Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess heeft inderdaad andere open-source sites geïnspireerd die onze %1$s, %2$s of %3$s gebruiken.</string>
+  <string name="keyboardShortcuts">Welke sneltoetsen zijn er?</string>
+  <string name="keyboardShortcutsExplanation">Op sommige Lichess-pagina\'s kunt u sneltoetsen gebruiken. Druk op de \'?\' toets op een studie-, analyse-, puzzel- of partijpagina om beschikbare sneltoetsen te tonen.</string>
   <string name="fairPlay">Eerlijk spel</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
   <string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
@@ -63,7 +65,7 @@ Het wordt beschreven in sectie 3. (d) van de %2$s:
 Zie de %3$s over deze zet om er wat mee te oefenen.</string>
   <string name="goodIntroduction">goede inleiding</string>
   <string name="lichessTraining">Lichess-training</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Bekijk hoe Internationaal Meester Eric Rosen %s schaakmat zet.</string>
+  <string name="watchIMRosenCheckmate">Bekijk hoe Internationaal Meester Eric Rosen %s schaakmat zet.</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lichess volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">driemaal dezelfde stelling</string>

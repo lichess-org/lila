@@ -4,14 +4,12 @@ import play.api.data.*
 import play.api.data.Forms.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, into, given }
+import lila.common.Form.{ cleanNonEmptyText, stringIn, into, given }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
 
-final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
-    Executor
-) extends lila.hub.CaptchedForm:
+final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.CaptchedForm:
 
   import UblogForm.*
 
@@ -30,29 +28,26 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       "move"        -> text
     )(UblogPostData.apply)(unapply)
 
-  val create = Form(
+  val create = Form:
     base.verifying(captchaFailMessage, validateCaptcha)
-  )
 
-  def edit(post: UblogPost) =
-    Form(base).fill(
-      UblogPostData(
-        title = post.title,
-        intro = post.intro,
-        markdown = removeLatex(post.markdown),
-        imageAlt = post.image.flatMap(_.alt),
-        imageCredit = post.image.flatMap(_.credit),
-        language = post.language.code.some,
-        topics = post.topics.mkString(", ").some,
-        live = post.live,
-        discuss = ~post.discuss,
-        gameId = GameId(""),
-        move = ""
-      )
+  def edit(post: UblogPost) = Form(base).fill:
+    UblogPostData(
+      title = post.title,
+      intro = post.intro,
+      markdown = removeLatex(post.markdown),
+      imageAlt = post.image.flatMap(_.alt),
+      imageCredit = post.image.flatMap(_.credit),
+      language = post.language.code.some,
+      topics = post.topics.mkString(", ").some,
+      live = post.live,
+      discuss = ~post.discuss,
+      gameId = GameId(""),
+      move = ""
     )
 
   // $$something$$ breaks the TUI editor WYSIWYG
-  private val latexRegex                      = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
+  private val latexRegex                      = """\${2,}+([^\$]++)\${2,}+""".r
   private def removeLatex(markdown: Markdown) = markdown.map(latexRegex.replaceAllIn(_, """\$\$ $1 \$\$"""))
 
 object UblogForm:
@@ -81,11 +76,11 @@ object UblogForm:
         intro = intro,
         markdown = markdown,
         language = LangList.removeRegion(realLanguage.orElse(user.realLang) | defaultLang),
-        topics = topics ?? UblogTopic.fromStrList,
+        topics = topics so UblogTopic.fromStrList,
         image = none,
         live = false,
         discuss = Option(false),
-        created = UblogPost.Recorded(user.id, nowDate),
+        created = UblogPost.Recorded(user.id, nowInstant),
         updated = none,
         lived = none,
         likes = UblogPost.Likes(1),
@@ -101,16 +96,14 @@ object UblogForm:
           i.copy(alt = imageAlt, credit = imageCredit)
         },
         language = LangList.removeRegion(realLanguage | prev.language),
-        topics = topics ?? UblogTopic.fromStrList,
+        topics = topics so UblogTopic.fromStrList,
         live = live,
         discuss = Option(discuss),
-        updated = UblogPost.Recorded(user.id, nowDate).some,
-        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowDate))
+        updated = UblogPost.Recorded(user.id, nowInstant).some,
+        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
       )
 
-  val tier = Form(
-    single(
+  val tier = Form:
+    single:
       "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
         .into[UblogBlog.Tier]
-    )
-  )

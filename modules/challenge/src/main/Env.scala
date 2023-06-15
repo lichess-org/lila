@@ -7,6 +7,7 @@ import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
@@ -27,15 +28,15 @@ final class Env(
 )(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     materializer: akka.stream.Materializer,
     mode: play.api.Mode
 ):
 
   private val colls = wire[ChallengeColls]
 
-  def version(challengeId: Challenge.ID): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](RoomId(challengeId))(GetVersion.apply)
+  def version(challengeId: Challenge.Id): Fu[SocketVersion] =
+    socket.rooms.ask[SocketVersion](challengeId into RoomId)(GetVersion.apply)
 
   private lazy val joiner = wire[ChallengeJoiner]
 

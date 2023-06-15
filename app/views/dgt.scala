@@ -3,7 +3,7 @@ package views.html
 import controllers.routes
 import scala.util.chaining.*
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.oauth.AccessToken
@@ -12,7 +12,7 @@ object dgt:
 
   private val liveChessVersion = "2.2.5+"
 
-  def index(implicit ctx: Context) =
+  def index(using WebContext) =
     layout("index")(
       h1(cls := "box__top")("Lichess & DGT"),
       p(
@@ -68,11 +68,11 @@ object dgt:
       )
     )
 
-  def play(token: AccessToken)(implicit ctx: Context) =
+  def play(token: AccessToken)(using WebContext) =
     layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.plain.value}")"""))(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
-        h2(iconTag("", "If a move is not detected")),
+        h2(iconTag(licon.InfoCircle, "If a move is not detected")),
         p(
           "Check that you have made your opponent's move on the DGT board first. ",
           "Revert your move. Play again. "
@@ -84,7 +84,7 @@ object dgt:
       )
     )
 
-  def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =
+  def config(token: Option[lila.oauth.AccessToken])(using WebContext) =
     layout("config", embedJsUnsafeLoadThen("LichessDgt.configPage()"))(
       div(cls := "account")(
         h1(cls := "box__top")("DGT - configure"),
@@ -92,7 +92,7 @@ object dgt:
           st.section(
             h2("Lichess connectivity"),
             if (token.isDefined)
-              p(cls := "text", dataIcon := "")(
+              p(cls := "text", dataIcon := licon.Checkmark)(
                 "You have an OAuth token suitable for DGT play.",
                 br,
                 br,
@@ -212,7 +212,7 @@ object dgt:
       }.toList
     )
 
-  private def layout(path: String, jsCall: Frag = emptyFrag)(body: Modifier*)(implicit ctx: Context) =
+  private def layout(path: String, jsCall: Frag = emptyFrag)(body: Modifier*)(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("dgt"),
       moreJs = frag(jsModule("dgt"), jsCall),

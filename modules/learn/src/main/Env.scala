@@ -9,6 +9,6 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db
 )(using Executor):
-  lazy val api = new LearnApi(
+  lazy val api = LearnApi(
     coll = db(appConfig.get[CollName]("learn.collection.progress"))
   )

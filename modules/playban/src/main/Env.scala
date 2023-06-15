@@ -6,6 +6,7 @@ import play.api.Configuration
 import lila.common.config.CollName
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     messenger: lila.msg.MsgApi,
@@ -16,7 +17,7 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi
-)(using ec: Executor, mode: play.api.Mode):
+)(using Executor, play.api.Mode):
 
   private lazy val playbanColl = db(
     CollName(appConfig.get[String]("playban.collection.playban"))

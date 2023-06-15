@@ -80,6 +80,7 @@
   <string name="delete">Qaw\'</string>
   <string name="enable">chu\'</string>
   <string name="bestMoveArrow">tonSaw\' nIvqu\' SIqwI\'</string>
+  <string name="cpus">loHjanmey</string>
   <string name="memory">De\'wI\' qaw</string>
   <string name="blunder">Qagh</string>
   <string name="mistake">Qagh</string>
@@ -88,6 +89,7 @@
   <string name="logOut">ngaQmoH</string>
   <string name="signIn">ngaQHa\'moH</string>
   <string name="signUp">qI\'</string>
+  <string name="games">Qujmey</string>
   <string name="players">QujwI\'pu\'</string>
   <string name="friends">juppu\'</string>
   <string name="today">jajvam</string>

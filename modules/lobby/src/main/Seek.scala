@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Mode, Speed }
 import chess.variant.Variant
-import play.api.i18n.Lang
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -21,7 +20,7 @@ case class Seek(
     color: String,
     user: LobbyUser,
     ratingRange: String,
-    createdAt: DateTime
+    createdAt: Instant
 ):
 
   inline def id = _id
@@ -40,7 +39,7 @@ case class Seek(
 
   private def ratingRangeCompatibleWith(s: Seek) =
     realRatingRange.fold(true) { range =>
-      s.rating ?? range.contains
+      s.rating so range.contains
     }
 
   private def compatibilityProperties = (variant, mode, daysPerTurn)
@@ -59,7 +58,7 @@ case class Seek(
         "rating"   -> rating,
         "variant"  -> Json.obj("key" -> realVariant.key),
         "mode"     -> realMode.id,
-        "color"    -> (chess.Color.fromName(color).??(_.name): String)
+        "color"    -> (chess.Color.fromName(color).so(_.name): String)
       )
       .add("days" -> daysPerTurn)
       .add("perf" -> perfType.map { pt =>
@@ -89,7 +88,7 @@ object Seek:
     color = color,
     user = LobbyUser.make(user, blocking),
     ratingRange = ratingRange.toString,
-    createdAt = nowDate
+    createdAt = nowInstant
   )
 
   def renew(seek: Seek) = Seek(
@@ -100,7 +99,7 @@ object Seek:
     color = seek.color,
     user = seek.user,
     ratingRange = seek.ratingRange,
-    createdAt = nowDate
+    createdAt = nowInstant
   )
 
   import reactivemongo.api.bson.*

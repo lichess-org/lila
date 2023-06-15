@@ -5,13 +5,7 @@ import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
-import lila.security.Permission
-
-@Module
-final private class CoachConfig(
-    @ConfigName("collection.coach") val coachColl: CollName,
-    @ConfigName("collection.review") val reviewColl: CollName
-)
+import akka.actor.ActorSystem
 
 @Module
 final class Env(
@@ -21,39 +15,18 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi
-)(using ec: Executor, system: akka.actor.ActorSystem):
+)(using Executor, ActorSystem):
 
-  private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
+  private lazy val coachColl = db(CollName("coach"))
 
-  private lazy val coachColl = db(config.coachColl)
-
-  lazy val api = new CoachApi(
-    coachColl = coachColl,
-    userRepo = userRepo,
-    reviewColl = db(config.reviewColl),
-    picfitApi = picfitApi,
-    notifyApi = notifyApi,
-    cacheApi = cacheApi
-  )
+  lazy val api = wire[CoachApi]
 
   lazy val pager = wire[CoachPager]
 
-  lila.common.Bus.subscribeFun(
-    "adjustCheater",
-    "adjustBooster",
-    "finishGame",
-    "shadowban",
-    "setPermissions"
-  ) {
-    case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-      api.reviews.deleteAllBy(userId).unit
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      api.reviews.deleteAllBy(userId).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId) =>
-      api.reviews.deleteAllBy(userId).unit
+  lila.common.Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
       if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
-        white ?? api.setRating
-        black ?? api.setRating
+        white so api.setRating
+        black so api.setRating
       }.unit
   }

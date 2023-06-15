@@ -19,13 +19,13 @@ object ResponseHeaders:
           "If-Modified-Since",
           "Cache-Control",
           "Content-Type"
-        ) ::: appOrigin.isDefined.??(List("X-Requested-With", "sessionId"))
+        ) ::: appOrigin.isDefined.so(List("X-Requested-With", "sessionId"))
       }.mkString(", "),
       "Vary" -> "Origin"
-    ) ::: appOrigin.isDefined.??(
+    ) ::: appOrigin.isDefined.so(
       List(
         "Access-Control-Allow-Credentials" -> "true"
       )
     )
 
-  val allowMethods = List("OPTIONS", "GET", "POST", "DELETE") mkString ", "
+  val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE") mkString ", "

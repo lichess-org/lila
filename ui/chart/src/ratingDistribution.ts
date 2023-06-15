@@ -7,7 +7,7 @@ export default (window as any).LichessChartRatingDistribution = async function (
   const disabled = { enabled: false };
   $('#rating_distribution_chart').each(function (this: HTMLElement) {
     const colors = Highcharts.getOptions().colors;
-    const ratingAt = (i: number) => 600 + i * 25;
+    const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const sum = arraySum(data.freq);
     const cumul = [];

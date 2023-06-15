@@ -51,7 +51,7 @@
       @extend %box-radius;
 
       color: $c-font;
-      padding: 0.4em;
+      padding: 0.5em;
 
       @include transition(background);
 
@@ -76,24 +76,6 @@
       cg-board {
         box-shadow: none;
       }
-    }
-
-    .player {
-      @extend %flex-between-nowrap;
-
-      height: 1.5em;
-      white-space: nowrap;
-
-      span {
-        margin-#{$start-direction}: 0.5em;
-      }
-    }
-
-    .name {
-      @extend %flex-center;
-
-      justify-content: center;
-      height: 3em;
     }
   }
 }

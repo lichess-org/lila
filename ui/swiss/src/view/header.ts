@@ -1,4 +1,5 @@
 import { h, Hooks, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { dataIcon } from 'common/snabbdom';
 import SwissCtrl from '../ctrl';
 
@@ -42,7 +43,7 @@ function ongoing(ctrl: SwissCtrl): VNode | undefined {
 export default function (ctrl: SwissCtrl): VNode {
   const greatPlayer = ctrl.data.greatPlayer;
   return h('div.swiss__main__header', [
-    h('i.img', dataIcon('')),
+    h('i.img', dataIcon(licon.Trophy)),
     h(
       'h1',
       greatPlayer

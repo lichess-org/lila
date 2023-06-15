@@ -2,14 +2,18 @@ package lila.common
 
 import play.api.libs.json.{ Json as PlayJson, * }
 import chess.format.{ Uci }
+import scala.util.NotGiven
+import chess.variant.Crazyhouse
 
 object Json:
+
+  trait NoJsonHandler[A] // don't create default JSON handlers for this type
 
   given opaqueFormat[A, T](using
       bts: SameRuntime[A, T],
       stb: SameRuntime[T, A],
       format: Format[A]
-  ): Format[T] =
+  )(using NotGiven[NoJsonHandler[T]]): Format[T] =
     format.bimap(bts.apply, stb.apply)
 
   // given yesnoFormat[T](using
@@ -77,7 +81,7 @@ object Json:
     JsResult.fromTry(UserStr.read(str) toTry s"Invalid username: $str")
   }
 
-  given Writes[DateTime] = writeAs(_.getMillis)
+  given Writes[Instant] = writeAs(_.toMillis)
 
   given Writes[chess.Color] = writeAs(_.name)
 
@@ -91,3 +95,14 @@ object Json:
       .flatMap(LilaOpeningFamily.find)
       .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))
   }
+
+  given NoJsonHandler[chess.Square] with {}
+
+  given OWrites[Crazyhouse.Pocket] = OWrites: v =>
+    JsObject(
+      v.values.collect:
+        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
+    )
+
+  given OWrites[chess.variant.Crazyhouse.Data] = OWrites: v =>
+    PlayJson.obj("pockets" -> List(v.pockets.white, v.pockets.black))

@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 
 lichess.load.then(() => {
@@ -19,6 +20,7 @@ lichess.load.then(() => {
       $form = $(form),
       showSaved = () => $form.find('.saved').removeClass('none');
     $form.find('input').on('change', function (this: HTMLInputElement) {
+      if (this.name == 'behavior.submitMove') submitMoveChoices(this);
       localPrefs.forEach(([categ, name, storeKey]) => {
         if (this.name == `${categ}.${name}`) {
           lichess.storage.boolean(storeKey).set(this.value == '1');
@@ -43,7 +45,7 @@ lichess.load.then(() => {
     const checkDanger = () => {
       isDanger = !!form.find('.danger input:checked').length;
       submit.toggleClass('button-red confirm', isDanger);
-      submit.attr('data-icon', isDanger ? '' : '');
+      submit.attr('data-icon', isDanger ? licon.CautionTriangle : licon.Checkmark);
       submit.attr('title', isDanger ? submit.data('danger-title') : '');
     };
     checkDanger();
@@ -53,3 +55,11 @@ lichess.load.then(() => {
     });
   });
 });
+
+function submitMoveChoices(input: HTMLInputElement) {
+  let sum = 0;
+  $(`input[type="checkbox"][name="${input.name}"]:checked`).each(function (this: HTMLInputElement) {
+    sum |= parseInt(this.value);
+  });
+  $(`input[type="hidden"][name="${input.name}"]`).val(sum.toString());
+}

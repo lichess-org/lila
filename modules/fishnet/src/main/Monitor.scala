@@ -5,7 +5,7 @@ import ornicar.scalalib.ThreadLocalRandom
 final private class Monitor(
     repo: FishnetRepo,
     cacheApi: lila.memo.CacheApi
-)(using ec: Executor, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: Scheduler):
 
   val statusCache = cacheApi.unit[Monitor.Status] {
     _.refreshAfterWrite(1 minute)
@@ -124,7 +124,7 @@ object Monitor:
 
     work.acquiredAt foreach { acquiredAt =>
       lila.mon.fishnet.queueTime(if (work.sender.system) "system" else "user").record {
-        acquiredAt.getMillis - work.createdAt.getMillis
+        acquiredAt.toMillis - work.createdAt.toMillis
       }
     }
 

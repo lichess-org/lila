@@ -8,8 +8,8 @@
   <string name="mostChessCourses">ज्यादातर शतरंज पाठ्यक्रम और अभ्यास बड़े पैमाने पर बीजगणित संकेतन का उपयोग करते हैं।</string>
   <string name="talkToYourChessFriends">यह आपके शतरंज मित्रों से बात करना आसान बनाता है, क्योंकि आप दोनों \"शतरंज की भाषा\" को समझते हैं।</string>
   <string name="youCanAnalyseAGameMoreEffectively">यदि आप वर्ग के नामों की खोज करने की आवश्यकता नहीं है, तो आप एक गेम को और अधिक प्रभावी ढंग से विश्लेषण कर सकते हैं।</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">बोर्ड पर एक निर्देशांक दिखाई देता है और आपको संबंधित वर्ग पर क्लिक करना होगा।</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">बोर्ड पर एक दृश्य दिखाई देगा और आप देखेंगे कि यह दिखाई देगा (जैसे e4)</string>
+  <string name="aCoordinateAppears">बोर्ड पर एक निर्देशांक दिखाई देता है और आपको संबंधित वर्ग पर क्लिक करना होगा।</string>
+  <string name="aSquareIsHighlightedExplanation">बोर्ड पर एक दृश्य दिखाई देगा और आप देखेंगे कि यह दिखाई देगा (जैसे e4)</string>
   <string name="youHaveThirtySeconds">आपके पास यथासंभव अधिक से अधिक वर्गों को सही ढंग से मैप करने के लिए 30 सेकंड का समय है!</string>
   <string name="goAsLongAsYouWant">आप जितना चाहें उतना समय लें, कोई समय सीमा नहीं है!</string>
   <string name="showCoordinates">निर्देशांक दिखाएं</string>

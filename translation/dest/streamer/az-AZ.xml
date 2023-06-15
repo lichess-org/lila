@@ -30,7 +30,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatorun nəzərdən keçirməsini istəyin</string>
   <string name="twitchUsername">Twitch istifadəçi adınız və ya URL-niz</string>
   <string name="optionalOrEmpty">İstəyə bağlı. Yoxdursa boş buraxın</string>
-  <string name="youtubeChannel">YouTube kanal kimliyiniz və ya URL-niz</string>
   <string name="streamerName">Lichess yayımçı adınız</string>
   <plurals name="keepItShort">
     <item quantity="one">Qısa saxlayın: ən çox %s simvol</item>

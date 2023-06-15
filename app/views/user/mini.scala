@@ -1,6 +1,6 @@
 package views.html.user
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -17,7 +17,7 @@ object mini:
       rel: Option[lila.relation.Relation],
       ping: Option[Int],
       crosstable: Option[lila.game.Crosstable]
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(
@@ -47,20 +47,20 @@ object mini:
         frag(
           (myId != u.id && u.enabled.yes) option div(cls := "upt__actions btn-rack")(
             a(
-              dataIcon := "",
+              dataIcon := licon.AnalogTv,
               cls      := "btn-rack__btn",
               title    := trans.watchGames.txt(),
               href     := routes.User.tv(u.username)
             ),
             !blocked option frag(
               a(
-                dataIcon := "",
+                dataIcon := licon.BubbleSpeech,
                 cls      := "btn-rack__btn",
                 title    := trans.chat.txt(),
                 href     := routes.Msg.convo(u.username)
               ),
               a(
-                dataIcon := "",
+                dataIcon := licon.Swords,
                 cls      := "btn-rack__btn",
                 title    := trans.challenge.challengeToPlay.txt(),
                 href     := s"${routes.Lobby.home}?user=${u.username}#friend"

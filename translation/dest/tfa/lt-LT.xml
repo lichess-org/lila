@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">Norint išjungti dviejų lygių tapatumo nustatymą, reikalingas slaptažodis ir kodas iš tam skirtos programos.
 Jeigu nebeturite priėjimo prie savo kodų, galite pasikeisti slaptažodį el. paštu.</string>
   <string name="openTwoFactorApp">Norėdami pamatyti autentikacijos kodą ir patvirtinti savo tapatybę, savo įrenginyje atverkite dviejų-faktorių autentikacijos programėlę.</string>
+  <string name="setupReminder">Prašome įjungti paskyros apsaugojimą prisijungimu dviem būdais https://lichess.org/account/twofactor.
+Jūs gavote šią žinutę, nes jūsų paskyra turi ypatingas pareigas: esate komandos kapitonas, treneris, mokytojas arba transliuotojas</string>
 </resources>

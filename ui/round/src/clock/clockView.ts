@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as button from '../view/button';
 import * as game from 'game';
 import RoundController from '../ctrl';
@@ -134,7 +135,7 @@ const showBerserk = (ctrl: RoundController, color: Color): boolean =>
   !!ctrl.goneBerserk[color] && ctrl.data.game.turns <= 1 && game.playable(ctrl.data);
 
 const renderBerserk = (ctrl: RoundController, color: Color, position: Position) =>
-  showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon('')) : null;
+  showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon(licon.Berserk)) : null;
 
 const goBerserk = (ctrl: RoundController) => {
   if (!game.berserkableBy(ctrl.data)) return;
@@ -142,7 +143,7 @@ const goBerserk = (ctrl: RoundController) => {
   return h('button.fbt.go-berserk', {
     attrs: {
       title: 'GO BERSERK! Half the time, no increment, bonus point',
-      'data-icon': '',
+      'data-icon': licon.Berserk,
     },
     hook: bind('click', ctrl.goBerserk),
   });

@@ -3,17 +3,16 @@ package views.html.opening
 import chess.opening.Opening
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.opening.OpeningQuery.Query
 import lila.opening.{ OpeningConfig, OpeningPage }
 
 object index:
 
   import bits.*
 
-  def apply(page: OpeningPage, wikiMissing: List[Opening])(using ctx: Context) =
+  def apply(page: OpeningPage, wikiMissing: List[Opening])(using ctx: WebContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),
@@ -47,7 +46,7 @@ object index:
     }
 
   def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(using
-      Context
+      WebContext
   ) =
     div(cls := "opening__search-config")(
       search.form(q, searchFocus),

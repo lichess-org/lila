@@ -1,9 +1,10 @@
 import { h, VNode } from 'snabbdom';
-import { bind, dataIcon } from 'common/snabbdom';
+import * as licon from 'common/licon';
+import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent, playerName } from './util';
 import { teamName } from './battle';
-import { MaybeVNodes, Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
+import { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
 
@@ -48,7 +49,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
         player.withdraw
           ? h('i', {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Pause,
                 title: ctrl.trans.noarg('pause'),
               },
             })
@@ -61,7 +62,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       h('td.sheet', renderScoreString(player.sheet.scores, !ctrl.data.noStreak)),
       h('td.total', [
         player.sheet.fire && !ctrl.data.isFinished
-          ? h('strong.is-gold', { attrs: dataIcon('') }, player.score)
+          ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, player.score)
           : h('strong', player.score),
       ]),
     ]

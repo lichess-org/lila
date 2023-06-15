@@ -24,15 +24,4 @@
   <string name="teachingMethod">Modheolaíocht teagaisc</string>
   <string name="publicStudies">Staidéar poiblí</string>
   <string name="youtubeVideos">Físeáin YouTube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Athbhreithniú dalta amháin</item>
-    <item quantity="two">Athbhreithniú %s dalta</item>
-    <item quantity="few">Athbhreithniú %s dalta</item>
-    <item quantity="many">Athbhreithniú %s dalta</item>
-    <item quantity="other">Athbhreithniú %s dalta</item>
-  </plurals>
-  <string name="thankYouForReview">Go raibh maith agat as an léirmheas!</string>
-  <string name="xWillApproveIt">Formheasfaidh %s é go han-luath, nó féachfaidh modhnóir air.</string>
-  <string name="reviewCoach">Déan athbhreithniú ar an oiliúnóir seo</string>
-  <string name="describeExperienceWith">Déan cur síos ar do thaithí oiliúna le %s</string>
 </resources>

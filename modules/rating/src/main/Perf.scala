@@ -10,7 +10,7 @@ case class Perf(
     glicko: Glicko,
     nb: Int,
     recent: List[IntRating],
-    latest: Option[DateTime]
+    latest: Option[Instant]
 ):
 
   export glicko.{ intRating, intDeviation, rankable, clueless, provisional, established }
@@ -22,7 +22,7 @@ case class Perf(
     yield IntRatingDiff(head.value - last.value)
   } | IntRatingDiff(0)
 
-  def add(g: Glicko, date: DateTime): Perf =
+  def add(g: Glicko, date: Instant): Perf =
     val capped = g.cap
     copy(
       glicko = capped,
@@ -31,7 +31,7 @@ case class Perf(
       latest = date.some
     )
 
-  def add(r: glicko2.Rating, date: DateTime): Option[Perf] =
+  def add(r: glicko2.Rating, date: Instant): Option[Perf] =
     val newGlicko = Glicko(
       rating = r.rating
         .atMost(glicko.rating + Glicko.maxRatingDelta)
@@ -41,7 +41,10 @@ case class Perf(
     )
     newGlicko.sanityCheck option add(newGlicko, date)
 
-  def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: glicko2.Rating, date: DateTime): Perf =
+  def addOrReset(
+      monitor: lila.mon.CounterPath,
+      msg: => String
+  )(r: glicko2.Rating, date: Instant): Perf =
     add(r, date) | {
       lila.log("rating").error(s"Crazy Glicko2 $msg")
       monitor(lila.mon).increment()
@@ -88,9 +91,9 @@ case object Perf:
   val default = Perf(Glicko.default, 0, Nil, None)
 
   /* Set a latest date as a hack so that these are written to the db even though there are no games */
-  val defaultManaged       = Perf(Glicko.defaultManaged, 0, Nil, nowDate.some)
-  val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, nowDate.some)
-  val defaultBot           = Perf(Glicko.defaultBot, 0, Nil, nowDate.some)
+  val defaultManaged       = Perf(Glicko.defaultManaged, 0, Nil, nowInstant.some)
+  val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, nowInstant.some)
+  val defaultBot           = Perf(Glicko.defaultBot, 0, Nil, nowInstant.some)
 
   val recentMaxSize = 12
 

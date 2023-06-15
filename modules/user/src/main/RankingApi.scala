@@ -1,5 +1,6 @@
 package lila.user
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 import scala.util.Success
 
@@ -9,23 +10,22 @@ import lila.memo.CacheApi.*
 import lila.rating.{ Glicko, Perf, PerfType }
 
 final class RankingApi(
-    userRepo: UserRepo,
     coll: AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
-)(using ec: Executor, scheduler: akka.actor.Scheduler):
+)(using Executor):
 
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
   def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
-    perfType ?? { pt =>
+    perfType so { pt =>
       save(user, pt, perfs(pt))
     }
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)) ?? coll {
+    (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)) so coll {
       _.update
         .one(
           $id(makeId(user.id, perfType)),
@@ -34,7 +34,7 @@ final class RankingApi(
             "rating"    -> perf.intRating,
             "prog"      -> perf.progress,
             "stable"    -> perf.rankable(PerfType variantOf perfType),
-            "expiresAt" -> nowDate.plusDays(7)
+            "expiresAt" -> nowInstant.plusDays(7)
           ),
           upsert = true
         )
@@ -50,7 +50,7 @@ final class RankingApi(
     s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.Id, nb: Int): Fu[List[User.LightPerf]] =
-    PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)) ?? { perfKey =>
+    PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)) so { perfKey =>
       coll {
         _.find($doc("perf" -> perfId, "stable" -> true))
           .sort($doc("rating" -> -1))
@@ -119,10 +119,9 @@ final class RankingApi(
     private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]] {
       _.refreshAfterWrite(15 minutes)
         .buildAsyncFuture { _ =>
-          lila.common.LilaFuture
-            .linear(PerfType.leaderboardable) { pt =>
+          PerfType.leaderboardable
+            .traverse: pt =>
               compute(pt).dmap(pt -> _)
-            }
             .map(_.toMap)
             .chronometer
             .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
@@ -167,7 +166,7 @@ final class RankingApi(
 
     // from 600 to 2800 by Stat.group
     private def compute(perfId: Perf.Id): Fu[List[NbUsers]] =
-      lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? coll {
+      lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) so coll {
         _.aggregateList(maxDocs = Int.MaxValue) { framework =>
           import framework.*
           Match($doc("perf" -> perfId)) -> List(

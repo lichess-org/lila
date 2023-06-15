@@ -1,6 +1,5 @@
 package lila.security
 
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson.*
 
 import lila.common.{ EmailAddress, IpAddress }
@@ -98,8 +97,8 @@ final class UserLoginsApi(
       fpSet: Set[FingerHash],
       max: Int
   ): Fu[List[OtherUser[User]]] =
-    ipSet.nonEmpty ?? store.coll
-      .aggregateList(max, readPreference = temporarilyPrimary) { implicit framework =>
+    ipSet.nonEmpty so store.coll
+      .aggregateList(max, readPreference = temporarilyPrimary): framework =>
         import framework.*
         import FingerHash.given
         Match(
@@ -109,7 +108,7 @@ final class UserLoginsApi(
               "fp" $in fpSet
             ),
             "user" $ne user.id,
-            "date" $gt nowDate.minusYears(1)
+            "date" $gt nowInstant.minusYears(1)
           )
         ) -> List(
           GroupField("user")(
@@ -143,22 +142,20 @@ final class UserLoginsApi(
           ),
           UnwindField("user")
         )
-      }
-      .map { docs =>
+      .map: docs =>
         import lila.user.User.given
         import FingerHash.given
-        for {
+        for
           doc  <- docs
           user <- doc.getAsOpt[User]("user")
           ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(collectionReader)
           fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(collectionReader)
-        } yield OtherUser(user, ips intersect ipSet, fps intersect fpSet)
-      }
+        yield OtherUser(user, ips intersect ipSet, fps intersect fpSet)
 
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]] =
-    for {
+    for
       (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
-      users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[UserId, Set](
+      users <- (ips.nonEmpty && fps.nonEmpty) so store.coll.secondaryPreferred.distinctEasy[UserId, Set](
         "user",
         $doc(
           "ip" $in ips,
@@ -166,7 +163,7 @@ final class UserLoginsApi(
           "user" $ne userId
         )
       )
-    } yield users
+    yield users
 
   private def nextValues(field: String, userId: UserId): Fu[Set[String]] =
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
@@ -183,7 +180,7 @@ object UserLogins:
   // assumes all is sorted by most recent first
   def distinctRecent[V](all: List[Dated[V]]): scala.collection.View[Dated[V]] =
     all
-      .foldLeft(Map.empty[V, DateTime]) {
+      .foldLeft(Map.empty[V, Instant]) {
         case (acc, Dated(v, _)) if acc.contains(v) => acc
         case (acc, Dated(v, date))                 => acc + (v -> date)
       }
@@ -240,7 +237,7 @@ object UserLogins:
       )
     }
 
-  case class TableData[U: UserIdOf](
+  case class TableData[U](
       userLogins: UserLogins,
       othersWithEmail: UserLogins.WithMeSortedWithEmails[U],
       notes: List[lila.user.Note],

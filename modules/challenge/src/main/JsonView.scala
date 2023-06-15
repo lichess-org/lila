@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.common.licon
 import lila.game.JsonView.given
 import lila.i18n.{ I18nKeys as trans }
 import lila.socket.{ SocketVersion, UserLagCache }
@@ -14,7 +15,7 @@ final class JsonView(
     isOnline: lila.socket.IsOnline
 ):
 
-  import Challenge.{ *, given }
+  import Challenge.*
 
   private given OWrites[Challenger.Registered] = OWrites { r =>
     val light = getLightUser(r.id)
@@ -26,8 +27,8 @@ final class JsonView(
         "rating" -> r.rating.int
       )
       .add("provisional" -> r.rating.provisional)
-      .add("patron" -> light.??(_.isPatron))
-      .add("online" -> isOnline.value(r.id))
+      .add("patron" -> light.so(_.isPatron))
+      .add("online" -> isOnline(r.id))
       .add("lag" -> UserLagCache.getLagRating(r.id))
   }
 
@@ -60,7 +61,7 @@ final class JsonView(
         "variant"    -> c.variant,
         "rated"      -> c.mode.rated,
         "speed"      -> c.speed.key,
-        "timeControl" -> (c.timeControl match {
+        "timeControl" -> c.timeControl.match
           case TimeControl.Clock(clock) =>
             Json.obj(
               "type"      -> "clock",
@@ -74,11 +75,11 @@ final class JsonView(
               "daysPerTurn" -> d
             )
           case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
-        }),
+        ,
         "color"      -> c.colorChoice.toString.toLowerCase,
         "finalColor" -> c.finalColor.toString.toLowerCase,
         "perf" -> Json.obj(
-          "icon" -> iconChar(c).toString,
+          "icon" -> iconOf(c),
           "name" -> c.perfType.trans
         )
       )
@@ -86,12 +87,14 @@ final class JsonView(
       .add("direction" -> direction.map(_.name))
       .add("initialFen" -> c.initialFen)
       .add("declineReason" -> c.declineReason.map(_.trans.txt()))
+      .add("declineReasonKey" -> c.declineReason.map(_.key))
       .add("open" -> c.open)
       .add("rules" -> c.nonEmptyRules)
 
-  private def iconChar(c: Challenge) =
-    if (c.variant == chess.variant.FromPosition) ''
-    else c.perfType.iconChar
+  private def iconOf(c: Challenge): licon.Icon =
+    if c.variant == chess.variant.FromPosition
+    then licon.Feather
+    else c.perfType.icon
 
   private val i18nKeys = List(
     trans.rated,

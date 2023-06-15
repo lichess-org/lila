@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { snabModal } from 'common/modal';
 import { prop, Prop } from 'common';
 import { bindSubmit, bindNonPassive } from 'common/snabbdom';
@@ -233,14 +234,14 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 h(
                   'a.text',
                   {
-                    attrs: { 'data-icon': '', href: `/broadcast/${ctrl.relay.data.tour.id}/edit` },
+                    attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/${ctrl.relay.data.tour.id}/edit` },
                   },
                   'Tournament settings'
                 ),
                 h(
                   'a.text',
                   {
-                    attrs: { 'data-icon': '', href: `/broadcast/round/${data.id}/edit` },
+                    attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` },
                   },
                   'Round settings'
                 ),

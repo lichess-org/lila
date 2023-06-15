@@ -4,12 +4,11 @@ import lila.common.Bus
 import lila.hub.actorApi.socket.ApiUserIsOnline
 import lila.memo.ExpireCallbackMemo
 import lila.socket.IsOnline
-import lila.user.User
 
 final class OnlineApiUsers(
     isOnline: IsOnline,
-    scheduler: akka.actor.Scheduler
-)(using Executor, play.api.Mode):
+    scheduler: Scheduler
+)(using Executor):
 
   private val cache = ExpireCallbackMemo[UserId](
     scheduler,
@@ -18,7 +17,7 @@ final class OnlineApiUsers(
   )
 
   def setOnline(userId: UserId): Unit =
-    val wasOffline = !isOnline.value(userId) && !cache.get(userId)
+    val wasOffline = !isOnline(userId) && !cache.get(userId)
     cache.put(userId)
     if (wasOffline) publish(userId, isOnline = true)
 

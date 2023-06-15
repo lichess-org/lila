@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antal halvtrekk fram til neste brikketaking eller bondetrekk</string>
   <string name="noGameFound">Fann ikkje noko parti</string>
+  <string name="maxDepthReached">Maksimal djupn er nådd!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
   <string name="openings">Opningar</string>
   <string name="openingExplorer">Opningsbok</string>
   <string name="openingEndgameExplorer">Opnings-/sluttspelbok</string>
   <string name="xOpeningExplorer">%s opningsutforskar</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spel det første trekket frå opning- og sluttspelbok</string>
   <string name="winPreventedBy50MoveRule">Vinst forhindra av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindra av 50-trekkregelen</string>
   <string name="winOr50MovesByPriorMistake">Vinst eller 50 trekk etter tidlegare feil</string>
@@ -119,6 +121,7 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
+  <string name="engineManager">Innstillingar for sjakkprogram</string>
   <string name="blunder">Bukk</string>
   <string name="mistake">Mistak</string>
   <string name="inaccuracy">Småfeil</string>
@@ -150,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating over %2$s parti</item>
+    <item quantity="other">%1$s rating over %2$s parti</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bokmerke</item>
@@ -209,8 +216,12 @@
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="error.weakPassword">Passordet er svært vanleg og for lett å gjette.</string>
   <string name="error.namePassword">Ikkje bruk namnet ditt som passord.</string>
+  <string name="blankedPassword">Du har brukt det same passordet på ei nettside som er vorte kompromittert. For å ta i vare tryggleiken på Lichess-kontoen din, er det naudynt at du lagar eit nytt passord. Takk for di forståing.</string>
   <string name="youAreLeavingLichess">Du forlèt Lichess</string>
   <string name="neverTypeYourPassword">Skriv aldri Lichess-passordet på ei anna webside!</string>
+  <string name="proceedToX">Fortsett til %s</string>
+  <string name="passwordSuggestion">Ikkje bruk passord føreslått av andre. Dei kan bruka det til å stela kontoen din.</string>
+  <string name="emailSuggestion">Ikkje bruk ein e-postadresse føreslått av andre. Dei kan bruka det til å stela kontoen din.</string>
   <string name="emailConfirmHelp">Hjelp med å stadfesta e-posten</string>
   <string name="emailConfirmNotReceived">Mottok du ikkje stadfesting på e-post etter at du registrerte deg?</string>
   <string name="whatSignupUsername">Kva var brukarnamnet du registrerte deg med?</string>
@@ -278,6 +289,7 @@
   <string name="cancelRematchOffer">Avbryt førespurnad om omkamp</string>
   <string name="viewRematch">Vis omkampen</string>
   <string name="confirmMove">Stadfest trekk</string>
+  <string name="enableConfirmationForThisGame">Aktivér stadfesting for dette partiet</string>
   <string name="play">Spel</string>
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Praterom</string>
@@ -336,8 +348,13 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studiar</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultant parti</item>
+    <item quantity="other">%s simultane parti</item>
+  </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Attende til turneringa</string>
+  <string name="noDrawBeforeSwissLimit">I sveitsarturneringer må det spelast minst 30 trekk før det er lov å tilby remis.</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rangert parti</item>
@@ -387,6 +404,7 @@
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele ein URL.</string>
+  <string name="importGameCaveat">Variantar vert sletta. Vil du behalde dei kan du importere PGN-fila via ein studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte parti</item>
@@ -658,6 +676,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="simulClockHint">Fischer klokkesett. Jo fleire spelarar du tar med, jo meir tid kan du trengje.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på di eiga klokka for å makte simultanframsyninga.</string>
   <string name="simulHostExtraTime">Ekstra tid for simultanoppvisaren</string>
+  <string name="simulAddExtraTimePerPlayer">Legg ekstra tenketid til klokka di for kvar spelar som melder seg på simultanspelet.</string>
+  <string name="simulHostExtraTimePerPlayer">Ekstra tenketid som simultanverten får for kvar spelar</string>
   <string name="lichessTournaments">Lichess-turnering</string>
   <string name="tournamentFAQ">Spørsmål og svar knytta til arenaturnering</string>
   <string name="timeBeforeTournamentStarts">Tid til turneringa startar</string>
@@ -668,6 +688,11 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyGoToStartOrEnd">gå til byrjinga/slutten</string>
   <string name="keyShowOrHideComments">syn/gøym kommentarar</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
+  <string name="keyRequestComputerAnalysis">Be om maskinanalyse. Lær av feila dine</string>
+  <string name="keyNextLearnFromYourMistakes">Neste (lær av feila dine)</string>
+  <string name="keyNextBlunder">Neste store mistak (\"bukk\")</string>
+  <string name="keyNextMistake">Neste mistak</string>
+  <string name="keyNextInaccuracy">Neste upresise trekk</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
   <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lyn-, snøgg-, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
@@ -765,6 +790,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpassa</string>
   <string name="notifications">Meldingar</string>
+  <string name="notificationsX">Varsel: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
@@ -859,6 +885,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="useTheReportForm">bruk rapportskjemaet</string>
   <string name="toRequestSupport">For å få hjelp, %1$s</string>
   <string name="tryTheContactPage">prøv kontaktsida</string>
+  <string name="makeSureToRead">Sørg for at du les %1$s</string>
+  <string name="theForumEtiquette">skikk og bruk i forumet</string>
   <string name="thisTopicIsArchived">Dette emnet er flytta til arkivet og kan ikkje lengre svarast på.</string>
   <string name="joinTheTeamXToPost">Meld deg på %1$s, for å poste meldingar i dette forumet</string>
   <string name="teamNamedX">%1$s lag</string>
@@ -875,8 +903,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="congratsYouWon">Gratulerer, du vann!</string>
   <string name="gameVsX">Spel mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Nokon har sett på trenarprofilen din.</string>
-  <string name="newPendingReview">Ventar på ny gjennomgang</string>
   <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
@@ -942,4 +968,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="lichessDbExplanation">Rangerte parti samla inn frå alle Lichess-spelarar</string>
   <string name="switchSides">Byt side</string>
   <string name="closingAccountWithdrawAppeal">Dersom du stenger kontoen din vil protesten din bli trekt attende</string>
+  <string name="ourEventTips">Tips for å organisere arrangement</string>
 </resources>

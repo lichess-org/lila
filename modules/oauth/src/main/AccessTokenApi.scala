@@ -1,5 +1,6 @@
 package lila.oauth
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.common.Bearer
@@ -22,131 +23,143 @@ final class AccessTokenApi(
   def create(setup: OAuthTokenForm.Data, me: User, isStudent: Boolean): Fu[AccessToken] =
     (fuccess(isStudent) >>| userRepo.isManaged(me.id)) flatMap { noBot =>
       val plain = Bearer.randomPersonal()
-      create(
+      create:
         AccessToken(
           id = AccessToken.Id.from(plain),
           plain = plain,
           userId = me.id,
           description = setup.description.some,
-          createdAt = nowDate.some,
-          scopes = setup.scopes.flatMap(OAuthScope.byKey.get).filterNot(_ == OAuthScope.Bot.Play && noBot),
+          createdAt = nowInstant.some,
+          scopes = OAuthScopes:
+            setup.scopes
+              .flatMap(OAuthScope.byKey.get)
+              .filterNot(_ == OAuthScope.Bot.Play && noBot)
+              .filterNot(_ == OAuthScope.Web.Mobile)
+              .toList
+          ,
           clientOrigin = None,
           expires = None
         )
-      )
     }
 
   def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] =
     val plain = Bearer.random()
-    create(
+    create:
       AccessToken(
         id = AccessToken.Id.from(plain),
         plain = plain,
         userId = granted.userId,
         description = None,
-        createdAt = nowDate.some,
+        createdAt = nowInstant.some,
         scopes = granted.scopes,
         clientOrigin = granted.redirectUri.clientOrigin.some,
-        expires = nowDate.plusMonths(12).some
+        expires = nowInstant.plusMonths(12).some
       )
-    )
 
   def adminChallengeTokens(
       setup: OAuthTokenForm.AdminChallengeTokensData,
       admin: User
   ): Fu[Map[UserId, AccessToken]] =
-    userRepo.enabledByIds(setup.usernames) flatMap { users =>
-      val scope = OAuthScope.Challenge.Write
-      lila.common.LilaFuture
-        .linear(users) { user =>
-          coll.one[AccessToken](
-            $doc(
-              F.userId       -> user.id,
-              F.clientOrigin -> setup.description,
-              F.scopes       -> scope.key
-            )
-          ) getOrElse {
-            val plain = Bearer.randomPersonal()
-            create(
-              AccessToken(
-                id = AccessToken.Id.from(plain),
-                plain = plain,
-                userId = user.id,
-                description = s"Challenge admin: ${admin.username}".some,
-                createdAt = nowDate.some,
-                scopes = List(scope),
-                clientOrigin = setup.description.some,
-                expires = Some(nowDate plusMonths 6)
-              )
-            )
-          } map { user.id -> _ }
-        }
-        .map(_.toMap)
-    }
+    userRepo
+      .enabledByIds(setup.usernames)
+      .flatMap: users =>
+        val scope = OAuthScope.Challenge.Write
+        users
+          .traverse: user =>
+            coll
+              .one[AccessToken]:
+                $doc(
+                  F.userId       -> user.id,
+                  F.clientOrigin -> setup.description,
+                  F.scopes       -> scope.key
+                )
+              .getOrElse:
+                val plain = Bearer.randomPersonal()
+                create:
+                  AccessToken(
+                    id = AccessToken.Id.from(plain),
+                    plain = plain,
+                    userId = user.id,
+                    description = s"Challenge admin: ${admin.username}".some,
+                    createdAt = nowInstant.some,
+                    scopes = OAuthScopes(List(scope)),
+                    clientOrigin = setup.description.some,
+                    expires = Some(nowInstant plusMonths 6)
+                  )
+              .map(user.id -> _)
+          .map(_.toMap)
 
   def listPersonal(user: User): Fu[List[AccessToken]] =
     coll
-      .find(
+      .find:
         $doc(
           F.userId       -> user.id,
           F.clientOrigin -> $exists(false)
         )
-      )
       .sort($sort desc F.createdAt) // c.f. isBrandNew
       .cursor[AccessToken]()
       .list(100)
 
+  def usedBoardApi(user: User): Fu[List[AccessToken]] =
+    coll
+      .find:
+        $doc(
+          F.scopes -> OAuthScope.Board.Play.key,
+          F.usedAt $exists true,
+          F.userId -> user.id
+        )
+      .sort($sort desc F.createdAt)
+      .cursor[AccessToken]()
+      .list(30)
+
   def countPersonal(user: User): Fu[Int] =
-    coll.countSel(
+    coll.countSel:
       $doc(
         F.userId       -> user.id,
         F.clientOrigin -> $exists(false)
       )
-    )
 
-  def findCompatiblePersonal(user: User, scopes: Set[OAuthScope]): Fu[Option[AccessToken]] =
-    coll.one[AccessToken](
+  def findCompatiblePersonal(user: User, scopes: OAuthScopes): Fu[Option[AccessToken]] =
+    coll.one[AccessToken]:
       $doc(
         F.userId       -> user.id,
         F.clientOrigin -> $exists(false),
-        F.scopes $all scopes.toSeq
+        F.scopes $all scopes.value
       )
-    )
 
   def listClients(user: User, limit: Int): Fu[List[AccessTokenApi.Client]] =
-    coll.aggregateList(limit) { framework =>
-      import framework.*
-      Match(
-        $doc(
-          F.userId       -> user.id,
-          F.clientOrigin -> $exists(true)
+    coll
+      .aggregateList(limit): framework =>
+        import framework.*
+        Match(
+          $doc(
+            F.userId       -> user.id,
+            F.clientOrigin -> $exists(true)
+          )
+        ) -> List(
+          Unwind(path = F.scopes, includeArrayIndex = None, preserveNullAndEmptyArrays = Some(true)),
+          GroupField(F.clientOrigin)(
+            F.usedAt -> MaxField(F.usedAt),
+            F.scopes -> AddFieldToSet(F.scopes)
+          ),
+          Sort(Descending(F.usedAt)),
+          Limit(limit)
         )
-      ) -> List(
-        Unwind(path = F.scopes, includeArrayIndex = None, preserveNullAndEmptyArrays = Some(true)),
-        GroupField(F.clientOrigin)(
-          F.usedAt -> MaxField(F.usedAt),
-          F.scopes -> AddFieldToSet(F.scopes)
-        ),
-        Sort(Descending(F.usedAt)),
-        Limit(limit)
-      )
-    } map { docs =>
-      for {
-        doc    <- docs
-        origin <- doc.getAsOpt[String]("_id")
-        usedAt = doc.getAsOpt[DateTime](F.usedAt)
-        scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)(using collectionReader)
-      } yield AccessTokenApi.Client(origin, usedAt, scopes)
-    }
+      .map: docs =>
+        for
+          doc    <- docs
+          origin <- doc.getAsOpt[String]("_id")
+          usedAt = doc.getAsOpt[Instant](F.usedAt)
+          scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)(using collectionReader)
+        yield AccessTokenApi.Client(origin, usedAt, scopes)
 
   def revokeById(id: AccessToken.Id, user: User): Funit =
     coll.delete
-      .one(
+      .one:
         $doc(
           F.id     -> id,
           F.userId -> user.id
         )
-      )
       .void >>- onRevoke(id)
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
@@ -161,44 +174,41 @@ final class AccessTokenApi(
       .sort($sort desc F.usedAt)
       .cursor[Bdoc]()
       .list(100)
-      .flatMap { invalidate =>
+      .flatMap: invalidate =>
         coll.delete
-          .one(
+          .one:
             $doc(
               F.userId       -> user.id,
               F.clientOrigin -> clientOrigin
             )
-          )
           .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(onRevoke))
-      }
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.Id from bearer
     coll.delete.one($id(id)) >>- onRevoke(id)
 
-  def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
+  private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 
   def test(bearers: List[Bearer]): Fu[Map[Bearer, Option[AccessToken]]] =
-    coll.optionsByOrderedIds[AccessToken, AccessToken.Id](
-      bearers map AccessToken.Id.from,
-      readPreference = ReadPreference.secondaryPreferred
-    )(_.id) flatMap { tokens =>
-      userRepo.filterDisabled(tokens.flatten.map(_.userId)) map { closedUserIds =>
-        val openTokens = tokens.map(_.filter(token => !closedUserIds(token.userId)))
-        bearers.zip(openTokens).toMap
-      }
-    }
+    coll
+      .optionsByOrderedIds[AccessToken, AccessToken.Id](
+        bearers map AccessToken.Id.from,
+        readPreference = ReadPreference.secondaryPreferred
+      )(_.id)
+      .flatMap: tokens =>
+        userRepo.filterDisabled(tokens.flatten.map(_.userId)) map { closedUserIds =>
+          val openTokens = tokens.map(_.filter(token => !closedUserIds(token.userId)))
+          bearers.zip(openTokens).toMap
+        }
 
   private val accessTokenCache =
-    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token") {
-      _.expireAfterWrite(5 minutes)
-        .buildAsyncFuture(fetchAccessToken)
-    }
+    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token"):
+      _.expireAfterWrite(5 minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     coll.findAndUpdateSimplified[AccessToken.ForAuth](
       selector = $id(id),
-      update = $set(F.usedAt -> nowDate),
+      update = $set(F.usedAt -> nowInstant),
       fields = AccessToken.forAuthProjection.some
     )
 
@@ -207,4 +217,4 @@ final class AccessTokenApi(
     lila.common.Bus.publish(TokenRevoke(id.value), "oauth")
 
 object AccessTokenApi:
-  case class Client(origin: String, usedAt: Option[DateTime], scopes: List[OAuthScope])
+  case class Client(origin: String, usedAt: Option[Instant], scopes: List[OAuthScope])

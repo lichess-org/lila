@@ -1,7 +1,5 @@
 package lila.security
 
-import lila.common.Iso
-
 opaque type FingerPrint = String
 object FingerPrint extends OpaqueString[FingerPrint]:
   extension (a: FingerPrint) def hash: Option[FingerHash] = FingerHash from a

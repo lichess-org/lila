@@ -76,21 +76,45 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.toggleExplorer();
       ctrl.redraw();
     });
+
+  const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
+    kbd.bind(key, () =>
+      $(selector).each(function (this: HTMLElement) {
+        this.dispatchEvent(new MouseEvent(eventName));
+      })
+    );
   if (ctrl.study) {
-    const keyToMousedown = (key: string, selector: string) => {
-      kbd.bind(key, () => {
-        $(selector).each(function (this: HTMLElement) {
-          this.dispatchEvent(new Event('mousedown'));
-        });
-      });
-    };
-    keyToMousedown('d', '.study__buttons .comments');
-    keyToMousedown('g', '.study__buttons .glyphs');
+    keyToMouseEvent('d', 'mousedown', '.study__buttons .comments');
+    keyToMouseEvent('g', 'mousedown', '.study__buttons .glyphs');
 
     // navigation for next and prev chapters
     kbd.bind('p', ctrl.study.goToPrevChapter);
     kbd.bind('n', ctrl.study.goToNextChapter);
     for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
+  } else {
+    //not study
+    //'Request computer analysis' & 'Learn From Your Mistakes' (mutually exclusive)
+    keyToMouseEvent(
+      'r',
+      'click',
+      '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button'
+    );
+    //'Next' button ("in Learn From Your Mistake")
+    keyToMouseEvent('enter', 'click', '.analyse__tools .training-box a.continue');
+
+    //First explorer move
+    kbd.bind('shift+space', () => {
+      const move = document
+        .querySelector('.explorer-box:not(.loading) .moves tbody tr')
+        ?.attributes.getNamedItem('data-uci')?.value;
+      if (move) ctrl.explorerMove(move);
+    });
+
+    [
+      ['b', '??'],
+      ['m', '?'],
+      ['i', '?!'],
+    ].forEach(([key, symbol]) => kbd.bind(key, () => ctrl.jumpToGlyphSymbol(ctrl.bottomColor(), symbol)));
   }
 };
 

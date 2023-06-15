@@ -1,13 +1,12 @@
 package views.html
 package user
 
-import play.api.i18n.Lang
-
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.user.User
+import lila.common.licon
 
 import controllers.routes
 
@@ -18,7 +17,7 @@ object list:
       online: List[User],
       leaderboards: lila.user.Perfs.Leaderboards,
       nbAllTime: List[User.LightCount]
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.players.txt(),
       moreCss = cssTag("user.list"),
@@ -52,7 +51,7 @@ object list:
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
-              userTopActive(nbAllTime, trans.activePlayers(), icon = ''.some),
+              userTopActive(nbAllTime, trans.activePlayers(), icon = licon.Swords.some),
               tournamentWinners(tourneyWinners),
               userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse),
               userTopPerf(leaderboards.chess960, PerfType.Chess960),
@@ -68,9 +67,9 @@ object list:
       )
     }
 
-  private def tournamentWinners(winners: List[lila.tournament.Winner])(implicit ctx: Context) =
+  private def tournamentWinners(winners: List[lila.tournament.Winner])(using WebContext) =
     st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := "")(
+      h2(cls := "text", dataIcon := licon.Trophy)(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
       ol(winners take 10 map { w =>
@@ -83,9 +82,9 @@ object list:
       })
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit ctx: Context) =
+  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: WebContext) =
     st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := perfType.iconChar)(
+      h2(cls := "text", dataIcon := perfType.icon)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
       ),
       ol(users map { l =>
@@ -96,8 +95,8 @@ object list:
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(using
-      ctx: Context
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[licon.Icon])(using
+      WebContext
   ) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),

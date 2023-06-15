@@ -63,7 +63,7 @@ Den beskrivs i avsnitt 3. (d) av %2$s:
 Se %3$s för detta drag för lite övning med det.</string>
   <string name="goodIntroduction">bra introduktion</string>
   <string name="lichessTraining">Lichess träning</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Se International Master Eric Rosen göra schackmatt %s.</string>
+  <string name="watchIMRosenCheckmate">Se International Master Eric Rosen göra schackmatt %s.</string>
   <string name="threefoldRepetition">Dragupprepning</string>
   <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">dragupprepning</string>

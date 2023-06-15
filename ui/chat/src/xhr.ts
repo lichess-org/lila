@@ -17,3 +17,22 @@ export const setNote = (id: string, text: string) =>
   });
 
 const noteUrl = (id: string) => `/${id}/note`;
+
+export const timeout = (
+  resourceId: string,
+  body: {
+    userId: string;
+    reason: string;
+    text: string;
+  }
+) => {
+  const [chan, roomId] = resourceId.split('/');
+  return text(`/mod/public-chat/timeout`, {
+    method: 'post',
+    body: form({
+      ...body,
+      chan,
+      roomId,
+    }),
+  });
+};

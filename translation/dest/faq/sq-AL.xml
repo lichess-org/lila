@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">mënyra të tjera për të ndihmuar</string>
   <string name="areThereWebsitesBasedOnLichess">A ka sajte të bazuara në Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Po. Lichess-i në fakt ka frymëzuar sajte me burim të hapur që përdorin %1$s, %2$s, ose %3$s.</string>
+  <string name="keyboardShortcuts">Çfarë shkurtore tastiere ka?</string>
+  <string name="keyboardShortcutsExplanation">Disa faqe Lichess-i kanë shkurtore që mund të përdorni. Provoni të shtypni tastin “?” në një faqe ushtrimesh, analizash, puzzle-esh apo lojërësh, që të shfaqen shkurtoret e gatshme të tastierës.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kur kualifikohem për kthim pikësh të humbura nga lojtarë hileqarë?</string>
   <string name="ratingRefundExplanation">Një minutë pasi një lojtar cilësohet si i tillë, i merren 40 lojëra të vlerësuara të 3 ditët e fundit. Nëse jeni kundërshtar i tij në këto lojëra, humbet vlerësim (për shkak të një humbjeje ose barazimi) dhe vlerësimi për ju nuk qe i përkohshëm, përfitoni kthim pikësh. Kthimi i pikëve bazohen në vlerësimin tuaj kulmor dhe në ecurinë e vlerësimeve tuaja pas lojës.
@@ -63,7 +65,7 @@ Përshkruhet në ndarjen 3.7 (d) të %2$s:
 See the %3$s on this move for some practice with it.</string>
   <string name="goodIntroduction">hyrje të mirë</string>
   <string name="lichessTraining">Trajnim Lichess</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Shihni shah-matin %s e Mjeshtrit Ndërkombëtar Eric Rosen.</string>
+  <string name="watchIMRosenCheckmate">Shihni shah-matin %s e Mjeshtrit Ndërkombëtar Eric Rosen.</string>
   <string name="threefoldRepetition">Përsëritje e trefishtë</string>
   <string name="threefoldRepetitionExplanation">Nëse një pozicion ndodh tre herë, lojtarët mund të kërkojnë barazim përmes %1$s. Lichess-i aplikon rregullat zyrtare të FIDE-s, siç përshkruhen në nenin 9.2 (d) të %2$s.</string>
   <string name="threefoldRepetitionLowerCase">përsëritje e trefishtë</string>

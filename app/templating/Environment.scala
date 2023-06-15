@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.user.UserContext
 
 object Environment
@@ -21,10 +21,10 @@ object Environment
     with TeamHelper
     with TournamentHelper
     with FlashHelper
-    with ChessgroundHelper
-    with UserContext.ToLang:
+    with ChessgroundHelper:
 
   export lila.Lila.{ id as _, *, given }
+  export lila.common.licon
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = { envVar = Some(e) }

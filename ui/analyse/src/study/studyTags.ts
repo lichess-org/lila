@@ -114,7 +114,7 @@ export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types: s
     root.study!.makeChange('setTag', {
       chapterId: getChapter().id,
       name,
-      value: value.substr(0, 140),
+      value: value.slice(0, 140),
     });
   });
 

@@ -24,12 +24,4 @@
   <string name="teachingMethod">Жаттықтыру әдістемем</string>
   <string name="publicStudies">Жалпыға ашық зерттеулер</string>
   <string name="youtubeVideos">YouTube видеолар</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Бір шәкірттің пікірі</item>
-    <item quantity="other">%s шәкірттің пікірі</item>
-  </plurals>
-  <string name="thankYouForReview">Пікіріңіз үшін рахмет!</string>
-  <string name="xWillApproveIt">%s жақын арада тексереді немесе модератор қарайтын болады.</string>
-  <string name="reviewCoach">Осы бапкер туралы пікір қалдыру</string>
-  <string name="describeExperienceWith">Сізді жаттықтырған %s бапкердің жұмысын сипаттап беріңіз</string>
 </resources>

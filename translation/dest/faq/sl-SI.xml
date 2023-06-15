@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">drugi načini pomoči</string>
   <string name="areThereWebsitesBasedOnLichess">Ali obstajajo spletna mesta, ki temeljijo na Lichess-u?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je resnično navdihnil druga mesta z odprto kodo, ki uporabljajo našo %1$s, %2$s ali %3$s.</string>
+  <string name="keyboardShortcuts">Katere bližnjice na tipkovnici obstajajo?</string>
+  <string name="keyboardShortcutsExplanation">Nekatere strani Lichess imajo bližnjice na tipkovnici, ki jih lahko uporabite. Poskusite pritisniti \'?\' tipko na strani študije, analize, uganke ali igre za seznam razpoložljivih bližnjic na tipkovnici.</string>
   <string name="fairPlay">Poštena igra</string>
   <string name="whenAmIEligibleRatinRefund">Kdaj sem upravičen do samodejnega povračila ratinga od goljufov?</string>
   <string name="ratingRefundExplanation">Minuto po tem, ko je igralec zaznamovan, se začne njegovih 40 zadnjih rangiranih iger v zadnjih 3 dneh. Če ste bili njegov nasprotnik na teh igrah, ste izgubili rejting (zaradi poraza ali remija) in vaš rejting ni bil začasen, prejmete povračilo za rejting. Nadomestilo se omeji na podlagi vašega najvišjega rejtinga in vašega napredka po igri. 
@@ -33,7 +35,7 @@
   <string name="basedOnGameDuration">Nadzor časa na lichessu temelji na ocenjenem trajanju igre = %1$s
 Na primer, predvideno trajanje igre 5 + 3 je 5 × 60 + 40 × 3 = 420 sekund.</string>
   <string name="durationFormula">(začetni čas ure) + 40 × (prirastek ure)</string>
-  <string name="inferiorThanXsEqualYtimeControl">> %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&gt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">&amp;gt %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Katere različice lahko igram na Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess podpira standardni šah in %1$s.</string>

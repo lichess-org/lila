@@ -123,6 +123,7 @@
   &-correspondence .time {
     font-size: 1.6em;
     letter-spacing: inherit;
+    direction: $direction;
 
     @include breakpoint($mq-col2) {
       line-height: 1.5em;
@@ -189,7 +190,7 @@
 
     display: none;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint(420px) {
       order: -1;
       display: flex;
       flex: 0 1 auto;

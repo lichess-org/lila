@@ -2,24 +2,21 @@ package views.html.tournament
 
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.api.WebContext
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
 object calendar:
 
-  def apply(json: play.api.libs.json.JsObject)(implicit ctx: Context) =
+  def apply(json: play.api.libs.json.JsObject)(using WebContext) =
     views.html.base.layout(
       title = "Tournament calendar",
       moreJs = frag(
         jsModule("tournament.calendar"),
         embedJsUnsafeLoadThen(
           s"""LichessTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
-              Json.obj(
-                "data" -> json,
-                "i18n" -> bits.jsI18n
-              )
+              Json.obj("data" -> json)
             )})"""
         )
       ),

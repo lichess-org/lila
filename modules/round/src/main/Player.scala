@@ -3,13 +3,13 @@ package lila.round
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import cats.data.Validated
 import chess.format.{ Fen, Uci }
-import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status }
+import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status, ErrorStr }
+import chess.MoveOrDrop.*
 import java.util.concurrent.TimeUnit
 
 import lila.common.Bus
 import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, Pov, Progress, UciMemo }
-import lila.user.User
 
 final private class Player(
     fishnetPlayer: lila.fishnet.FishnetPlayer,
@@ -57,7 +57,7 @@ final private class Player(
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
         applyUci(game, uci, blur = false, botLag)
-          .fold(errs => fufail(ClientError(errs)), fuccess)
+          .fold(errs => fufail(ClientError(ErrorStr raw errs)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop, _) =>
@@ -81,10 +81,10 @@ final private class Player(
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
       if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-      if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
+      if (progress.game.forecastable) moveOrDrop.move.foreach { move =>
         round ! ForecastPlay(move)
       }
-      scheduleExpiration.value(progress.game)
+      scheduleExpiration(progress.game)
       fuccess(progress.events)
     }
 
@@ -93,7 +93,7 @@ final private class Player(
       uciMemo sign game flatMap { expectedSign =>
         if (expectedSign == sign)
           applyUci(game, uci, blur = false, metrics = fishnetLag)
-            .fold(errs => fufail(ClientError(errs)), fuccess)
+            .fold(errs => fufail(ClientError(ErrorStr raw errs)), fuccess)
             .flatMap {
               case Flagged => finisher.outOfTime(game)
               case MoveApplied(progress, moveOrDrop, _) =>
@@ -121,10 +121,9 @@ final private class Player(
       )
 
   private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
-    game.playableByAi ?? {
+    game.playableByAi.so:
       if (game.ply <= fishnetPlayer.maxPlies) fishnetPlayer(game)
       else fuccess(round ! actorApi.round.ResignAi)
-    }
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(0).some)
@@ -134,19 +133,19 @@ final private class Player(
       uci: Uci,
       blur: Boolean,
       metrics: MoveMetrics
-  ): Validated[String, MoveResult] =
-    (uci match {
+  ): Validated[ErrorStr, MoveResult] =
+    (uci match
       case Uci.Move(orig, dest, prom) =>
         game.chess.moveWithCompensated(orig, dest, prom, metrics) map { (ncg, move) =>
-          ncg -> Left(move)
+          ncg -> move
         }
       case Uci.Drop(role, pos) =>
         game.chess.drop(role, pos, metrics) map { (ncg, drop) =>
-          Clock.WithCompensatedLag(ncg, None) -> Right(drop)
+          Clock.WithCompensatedLag(ncg, None) -> drop
         }
-    }).map {
+    ).map {
       case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
-      case (ncg, moveOrDrop) =>
+      case (ncg, moveOrDrop: MoveOrDrop) =>
         MoveApplied(
           game.update(ncg.value, moveOrDrop, blur),
           moveOrDrop,
@@ -159,7 +158,7 @@ final private class Player(
     val color = moveOrDrop.fold(_.color, _.color)
     val moveEvent = MoveEvent(
       gameId = game.id,
-      fen = Fen writeBoard game.board,
+      fen = Fen write game.chess,
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
     )
 

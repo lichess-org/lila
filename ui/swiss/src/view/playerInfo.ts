@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon } from 'common/snabbdom';
 import { userName, player as renderPlayer, numberRow } from './util';
@@ -29,7 +30,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
     },
     [
       h('a.close', {
-        attrs: dataIcon(''),
+        attrs: dataIcon(licon.X),
         hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
       }),
       h('div.stats', [

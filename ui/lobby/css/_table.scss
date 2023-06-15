@@ -10,16 +10,15 @@
 
     justify-content: stretch;
     flex: 1 1 auto;
-    margin: 0 1em 0 1em;
+    gap: 0.5em;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint($mq-col3) {
       margin: 2em 0 0 0;
     }
 
     button {
       font-size: 1.1em;
       text-align: center;
-      margin: 0.2em 0;
       padding: 0.5em;
 
       &.disabled {
@@ -40,12 +39,10 @@
   &__counters {
     @extend %flex-between, %page-text;
 
-    background: $c-bg-zebra;
-    padding: $block-gap #{$block-gap * 2};
+    display: none;
 
     @include breakpoint($mq-col3) {
-      background: none;
-      padding: 0;
+      display: flex;
     }
 
     @include breakpoint($mq-col4) {

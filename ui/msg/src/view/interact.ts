@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bindSubmit } from 'common/snabbdom';
 import { User } from '../interfaces';
 import MsgCtrl from '../ctrl';
@@ -23,7 +24,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
         class: { connected },
         attrs: {
           type: 'submit',
-          'data-icon': '',
+          'data-icon': licon.PlayTriangle,
           disabled: !connected,
         },
       }),

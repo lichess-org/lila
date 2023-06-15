@@ -9,7 +9,7 @@
     <item quantity="one">%s айналым</item>
     <item quantity="other">%s айналым</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">Швейцарлық ойынның %s кезеңі</item>
     <item quantity="other">Швейцарлық ойынның %s кезеңі</item>
   </plurals>
@@ -103,8 +103,4 @@
   <string name="unlimitedAndFree">Шектеусіз әрі тегін</string>
   <string name="predefinedUsers">Тек алдын-ала бекітілген ойыншылар ғана қосыла алады</string>
   <string name="forbiddedUsers">Егер де осы тізімде біреу көрсетілсе, тізімде жоқ ойыншылардың қосылуға руқсаты болмайды. Әр жолға – бір ойыншының аты.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">Швейцарлық ойынның %1$s / %2$s кезеңі</item>
-    <item quantity="other">Швейцарлық ойынның %1$s / %2$s кезеңі</item>
-  </plurals>
 </resources>

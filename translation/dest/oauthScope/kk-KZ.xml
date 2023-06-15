@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newAccessToken">Жаңа жеке API токен</string>
-  <string name="tokenGrantsPermission">Токен басқа адамдарға сіздің тіркелгіңізді қолдануды рұқсат береді.</string>
+  <string name="tokenGrantsPermission">Токен деген сіздің тіркелгіңізді басқа адамдарға ашып беретін рұқсат, кілт.</string>
   <string name="carefullySelect">Осы әрекеттерді сіздің атыңыздан жасайды. Мұқият таңдаңыз.</string>
   <string name="tokenDescription">Токен сипаттамасы</string>
   <string name="rememberTokenUse">Бұл токен-нің не үшін қолданатынын есіңізде сақтайсыз</string>
   <string name="whatTheTokenCanDo">Сіздің атыңыздан токен-нің жасайтыны:</string>
-  <string name="doNotShareIt">Токен сіздің тіркелгіңізге рұқсат ашады. Оны кез-келгенмен бөлісе бермеңіз!</string>
+  <string name="doNotShareIt">Токен тіркелгіңізді басқа біреуге ашып беретін рұқсат. Оны кез-келгенмен бөлісе бермеңіз!</string>
   <string name="copyTokenNow">Жаңа жеке токен-іңізді қазір көшіріп алыңыз. Оны қайта көруге рұқсат болмайды!</string>
   <string name="preferenceRead">Баптауларды оқу</string>
   <string name="preferenceWrite">Баптауларды өзгерту</string>
@@ -14,7 +14,7 @@
   <string name="challengeRead">Келген шақыруларды оқу</string>
   <string name="challengeWrite">Шақыруларды жіберу, қабылдау мен бас тарту</string>
   <string name="challengeBulk">Басқа ойыншыларға бірден бірнеше ойын құру</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Жеке зерттеу мен көрсетілімдерді оқу</string>
+  <string name="studyRead">Жеке зерттеу мен көрсетілімдерді оқу</string>
   <string name="studyWrite">Зерттеу мен көрсетілімдерді құру, жаңарту, жою</string>
   <string name="tournamentWrite">Алаңды құру, жаңарту, қосылу</string>
   <string name="racerWrite">Жұмбақ бәйгесін құру, қосылу</string>

@@ -1,18 +1,15 @@
 package lila.tournament
 
 import akka.stream.scaladsl.*
-import com.softwaremill.tagging.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
 
 import lila.common.{ LilaScheduler, LilaStream }
 import lila.common.Json.given
-import lila.memo.SettingStore
 import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
 
 final class TournamentLilaHttp(
-    api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     cached: TournamentCache,
@@ -22,7 +19,7 @@ final class TournamentLilaHttp(
     pause: Pause,
     lightUserApi: lila.user.LightUserApi,
     redisClient: RedisClient
-)(using akka.stream.Materializer, akka.actor.Scheduler, Executor):
+)(using akka.stream.Materializer, Scheduler, Executor):
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
   def handledIds                = isOnLilaHttp.keys
@@ -58,7 +55,7 @@ final class TournamentLilaHttp(
   private def arenaFullJson(tour: Tournament): Fu[JsObject] = for {
     data  <- jsonView.cachableData get tour.id
     stats <- statsApi(tour)
-    teamStanding <- tour.isTeamBattle ?? jsonView
+    teamStanding <- tour.isTeamBattle so jsonView
       .fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
       .dmap(some)
     fullStanding <- playerRepo
@@ -71,8 +68,7 @@ final class TournamentLilaHttp(
           json <- playerJson(
             tour,
             sheet,
-            RankedPlayer(Rank(index.toInt + 1), player),
-            streakable = tour.streakable
+            RankedPlayer(Rank(index.toInt + 1), player)
           )
         } yield json
       }
@@ -86,7 +82,7 @@ final class TournamentLilaHttp(
       "ongoingUserGames" -> {
         duelStore
           .get(tour.id)
-          .?? { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") }: String
+          .so { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") }: String
       },
       "standing" -> fullStanding
     )
@@ -95,8 +91,7 @@ final class TournamentLilaHttp(
   private def playerJson(
       tour: Tournament,
       sheet: arena.Sheet,
-      rankedPlayer: RankedPlayer,
-      streakable: Boolean
+      rankedPlayer: RankedPlayer
   )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
     lightUserApi asyncFallback p.userId map { light =>
@@ -113,6 +108,6 @@ final class TournamentLilaHttp(
         .add("team" -> p.team)
         .add("fire" -> p.fire)
         .add("pause" -> {
-          p.withdraw ?? pause.remainingDelay(p.userId, tour)
+          p.withdraw so pause.remainingDelay(p.userId, tour)
         })
     }

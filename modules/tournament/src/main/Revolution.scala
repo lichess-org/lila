@@ -26,7 +26,7 @@ final class RevolutionApi(
           .find(
             $doc(
               "schedule.freq" -> (Schedule.Freq.Unique: Schedule.Freq),
-              "startsAt" $lt nowDate $gt nowDate.minusYears(1).minusDays(1),
+              "startsAt" $lt nowInstant $gt nowInstant.minusYears(1).minusDays(1),
               "name" $regex Revolution.namePattern,
               "status" -> (Status.Finished: Status)
             ),

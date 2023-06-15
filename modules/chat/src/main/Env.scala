@@ -26,7 +26,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)

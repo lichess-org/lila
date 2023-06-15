@@ -2,25 +2,23 @@ package lila.oauth
 
 import reactivemongo.api.bson.*
 import com.roundeights.hasher.Algo
-import ornicar.scalalib.SecureRandom
 
 import lila.common.Bearer
-import lila.user.User
 
 case class AccessToken(
     id: AccessToken.Id,
     plain: Bearer,
     userId: UserId,
-    createdAt: Option[DateTime],
+    createdAt: Option[Instant],
     description: Option[String], // for personal access tokens
-    usedAt: Option[DateTime] = None,
-    scopes: List[OAuthScope],
+    usedAt: Option[Instant] = None,
+    scopes: OAuthScopes,
     clientOrigin: Option[String],
-    expires: Option[DateTime]
+    expires: Option[Instant]
 ):
-  def isBrandNew = createdAt.exists(nowDate.minusSeconds(5).isBefore)
+  def isBrandNew = createdAt.exists(nowInstant.minusSeconds(5).isBefore)
 
-  def isDangerous = scopes.exists(OAuthScope.dangerList.contains)
+  def isDangerous = scopes.intersects(OAuthScope.dangerList)
 
 object AccessToken:
 
@@ -28,7 +26,7 @@ object AccessToken:
   object Id extends OpaqueString[Id]:
     def from(bearer: Bearer) = Id(Algo.sha256(bearer.value).hex)
 
-  case class ForAuth(userId: UserId, scopes: List[OAuthScope], clientOrigin: Option[String])
+  case class ForAuth(userId: UserId, scopes: OAuthScopes, clientOrigin: Option[String])
 
   object BSONFields:
     val id           = "_id"
@@ -51,13 +49,13 @@ object AccessToken:
     BSONFields.clientOrigin -> true
   )
 
-  given BSONDocumentReader[ForAuth] = new BSONDocumentReader[ForAuth]:
+  given BSONDocumentReader[ForAuth] = new:
     def readDocument(doc: BSONDocument) =
-      for {
+      for
         userId <- doc.getAsTry[UserId](BSONFields.userId)
-        scopes <- doc.getAsTry[List[OAuthScope]](BSONFields.scopes)
+        scopes <- doc.getAsTry[OAuthScopes](BSONFields.scopes)
         origin = doc.getAsOpt[String](BSONFields.clientOrigin)
-      } yield ForAuth(userId, scopes, origin)
+      yield ForAuth(userId, scopes, origin)
 
   given BSONDocumentHandler[AccessToken] = new BSON[AccessToken]:
 
@@ -68,12 +66,12 @@ object AccessToken:
         id = r.get[Id](id),
         plain = r.get[Bearer](plain),
         userId = r.get[UserId](userId),
-        createdAt = r.getO[DateTime](createdAt),
+        createdAt = r.getO[Instant](createdAt),
         description = r strO description,
-        usedAt = r.getO[DateTime](usedAt),
-        scopes = r.get[List[OAuthScope]](scopes),
+        usedAt = r.getO[Instant](usedAt),
+        scopes = r.get[OAuthScopes](scopes),
         clientOrigin = r strO clientOrigin,
-        expires = r.getO[DateTime](expires)
+        expires = r.getO[Instant](expires)
       )
 
     def writes(w: BSON.Writer, o: AccessToken) =

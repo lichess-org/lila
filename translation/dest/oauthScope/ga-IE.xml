@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Ceadchomhartha rochtana API pearsanta nua</string>
+  <string name="newAccessToken">Ceadchomhartha rochtana API pearsanta nua</string>
   <string name="tokenGrantsPermission">Tugann ceadchomhartha cead do dhaoine eile do chuntas a úsáid.</string>
   <string name="carefullySelect">Roghnaigh go cúramach cad a cheadaítear dó a dhéanamh ar do shon.</string>
   <string name="tokenDescription">Cur síos ar ceadchomhartha</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Cad is féidir leis an comhartha a dhéanamh ar do shon:</string>
   <string name="doNotShareIt">Tabharfaidh an comhartha rochtain ar do chuntas. NÍ é a roinnt le duine ar bith!</string>
   <string name="copyTokenNow">Déan cinnte do chomhartha rochtana pearsanta nua a chóipeáil anois. Ní bheidh tú in ann é a fheiceáil arís!</string>
-  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Léigh roghanna</string>
-  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Scríobh rogha</string>
+  <string name="preferenceRead">Léigh roghanna</string>
+  <string name="preferenceWrite">Scríobh rogha</string>
   <string name="emailRead">Léigh seoladh ríomhphoist</string>
   <string name="challengeRead">Léigh dúshláin ag teacht isteach</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Dúshláin a sheoladh, a ghlacadh agus a dhiúltú</string>
+  <string name="challengeWrite">Dúshláin a sheoladh, a ghlacadh agus a dhiúltú</string>
   <string name="challengeBulk">Cruthaigh roinnt cluichí ag an am céanna do imreoirí eile</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Léigh staidéir phríobháideacha agus craoltaí</string>
+  <string name="studyRead">Léigh staidéir phríobháideacha agus craoltaí</string>
   <string name="studyWrite">Cruthaigh, nuashonraigh, scrios staidéir agus craoltaí</string>
   <string name="tournamentWrite">Cruthaigh, nuashonraigh agus glac páirt i gcomórtais</string>
   <string name="racerWrite">Cruthaigh agus páirt a ghlacadh i rásaí bhfadhbhanna</string>
-  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Léigh gníomhaíocht fadhbanna</string>
+  <string name="puzzleRead">Léigh gníomhaíocht fadhbanna</string>
   <string name="teamRead">Léigh faisnéis foirne príobháideacha</string>
   <string name="teamWrite">Glac páirt agus fág foirne</string>
   <string name="teamLead">Bainistigh na foirne atá i gceannas ort: seol teachtaireachtaí príobháideacha, ciceáil baill</string>

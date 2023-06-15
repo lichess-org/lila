@@ -2,25 +2,24 @@ package views.html.team
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.paginator.Paginator
 import lila.team.{ Team, TeamMember }
-import lila.relation.Relation
 
 object members:
 
   import trans.team.*
 
-  def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(implicit ctx: Context) =
+  def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(using WebContext) =
     bits.layout(
       title = t.name,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${t.name} • ${trans.team.teamRecentMembers.txt()}",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = t.intro ?? { shorten(_, 152) }
+          description = t.intro so { shorten(_, 152) }
         )
         .some
     ) {

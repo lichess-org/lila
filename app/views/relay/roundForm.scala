@@ -3,7 +3,7 @@ package views.html.relay
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayRound.Sync.UpstreamUrl.LccRegex
@@ -14,14 +14,14 @@ object roundForm:
 
   import trans.broadcast.*
 
-  def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
+  def create(form: Form[Data], tour: RelayTour)(using WebContext) =
     layout(newBroadcast.txt())(
       boxTop(h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound())),
       standardFlash,
       inner(form, routes.RelayRound.create(tour.id.value), tour, create = true)
     )
 
-  def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: Context) =
+  def edit(rt: RelayRound.WithTour, form: Form[Data])(using WebContext) =
     layout(rt.fullName)(
       boxTop(
         h1(
@@ -51,7 +51,7 @@ object roundForm:
       )
     )
 
-  private def layout(title: String)(body: Modifier*)(implicit ctx: Context) =
+  private def layout(title: String)(body: Modifier*)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
@@ -61,18 +61,23 @@ object roundForm:
     )
 
   private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     val isLcc = form("syncUrl").value.exists(LccRegex.matches)
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
         bits.howToUse,
-        create option p(dataIcon := "", cls := "text")(
+        create option p(dataIcon := licon.InfoCircle, cls := "text")(
           "The new round will have the same members and contributors as the previous one."
         )
       ),
       form3.globalError(form),
-      form3.group(form("name"), roundName())(form3.input(_)(autofocus)),
+      form3.split(
+        form3.group(form("name"), roundName(), half = true)(form3.input(_)(autofocus)),
+        t.official option form3.group(form("caption"), "Homepage caption", half = true)(
+          form3.input(_)
+        )
+      ),
       form3.group(
         form("syncUrl"),
         sourceUrlOrGameIds(),
@@ -93,11 +98,23 @@ object roundForm:
           help = startDateHelp().some,
           half = true
         )(form3.flatpickr(_, minDate = None)),
+        form3.group(
+          form("delay"),
+          raw("Delay in seconds"),
+          help = frag(
+            "Optional, how long to delay moves coming from the source.",
+            br,
+            "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
+          ).some,
+          half = true
+        )(form3.input(_, typ = "number")),
         isGranted(_.Relay) option
           form3.group(
-            form("throttle"),
-            raw("Throttle in seconds"),
-            help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some,
+            form("period"),
+            raw("Period in seconds"),
+            help = raw(
+              "Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers."
+            ).some,
             half = true
           )(form3.input(_, typ = "number"))
       ),

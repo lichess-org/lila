@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mueve pa empecipiar</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Chugas con blancas en totz es problemas</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Chugas con negras en totz es problemas</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Chugas con blancas en toz es problemas</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Chugas con negras en toz es problemas</string>
   <string name="puzzlesSolved">exercicios resueltos</string>
   <string name="newDailyHighscore">Nuevo record diario!</string>
   <string name="newWeeklyHighscore">Nuevo record semanal!</string>
   <string name="newMonthlyHighscore">Nuevo record mensual!</string>
-  <string name="newAllTimeHighscore">Nuevo record de totz es tiempos!</string>
+  <string name="newAllTimeHighscore">Nuevo record de toz es tiempos!</string>
   <string name="previousHighscoreWasX">Lo record anterior yera %s</string>
   <string name="playAgain">Chugar atra vegada</string>
   <plurals name="xRuns">
@@ -48,6 +48,15 @@
   <string name="joinPublicRace">Une-te a una nueva corrida</string>
   <string name="raceYourFriends">Fe una corrida con os tuyos amigos</string>
   <string name="skip">blincar</string>
-  <string name="skipHelp">Puetz blincar un movimiento per corrida:</string>
+  <string name="skipHelp">Puez blincar un movimiento per corrida:</string>
   <string name="skipExplanation">Blinca este movimiento pa preservar lo tuyo combo! Nomás funcoina una vegada per corrida.</string>
+  <string name="failedPuzzles">Problemas fallaus</string>
+  <string name="slowPuzzles">Problemas lentos</string>
+  <string name="skippedPuzzle">Problemas omesos</string>
+  <string name="thisWeek">Esta semana</string>
+  <string name="thisMonth">Este mes</string>
+  <string name="allTime">Dende siempre</string>
+  <string name="clickToReload">Fe clic pa recargar</string>
+  <string name="thisRunHasExpired">Esta ronda ha caducau!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Esta ronda s\'ha ubierto en unatra pestanya!</string>
 </resources>

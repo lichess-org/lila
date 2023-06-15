@@ -32,7 +32,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">ζητήστε αξιολόγηση από κάποιον διαχειριστή</string>
   <string name="twitchUsername">Το όνομα χρήστη σας στο Twitch ή το URL του προφίλ σας</string>
   <string name="optionalOrEmpty">Προαιρετικό. Αφήστε το κενό αν δεν υπάρχει</string>
-  <string name="youtubeChannel">Το ID ή η διεύθυνση του καναλιού σας στο YouTube</string>
   <string name="streamerName">Το όνομα σας ως streamer στο Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Σύντομη περιγραφή: %s χαρακτήρας το πολύ</item>

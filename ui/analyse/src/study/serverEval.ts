@@ -1,4 +1,5 @@
 import { AcplChart } from 'chart/dist/interface';
+import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { spinnerVdom } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
@@ -61,7 +62,7 @@ function requestButton(ctrl: ServerEval) {
             'a.button.text',
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.BarChart,
                 disabled: root.mainline.length < 5,
               },
               hook: bind('click', ctrl.request, root.redraw),

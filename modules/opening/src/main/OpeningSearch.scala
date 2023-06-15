@@ -1,9 +1,9 @@
 package lila.opening
 
+import cats.syntax.all.*
 import chess.opening.{ Opening, OpeningDb }
 import java.text.Normalizer
 
-import lila.common.base.StringUtils.levenshtein
 import lila.common.Chronometer
 import lila.common.Heapsort.topN
 import lila.memo.CacheApi
@@ -13,7 +13,7 @@ case class OpeningSearchResult(opening: Opening):
   def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
   def query = OpeningQuery.Query(opening.key.value, pgn.some)
 
-final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
+final class OpeningSearch(cacheApi: CacheApi):
 
   val max = 32
 
@@ -70,8 +70,8 @@ private object OpeningSearch:
   private def makeQuery(userInput: String) =
     val clean = userInput.trim.toLowerCase
     val numberedPgn = // try to produce numbered PGN "1. e4 e5 2. f4" from a query like "e4 e5 f4"
-      clean.split(' ').toList.map(_.trim).filter(_.nonEmpty).grouped(2).toList.zipWithIndex.map {
-        case (moves, index) => s"${index + 1}. ${moves mkString " "}"
+      clean.split(' ').toList.map(_.trim).filter(_.nonEmpty).grouped(2).toList.mapWithIndex {
+        (moves, index) => s"${index + 1}. ${moves mkString " "}"
       } mkString " "
     Query(clean, numberedPgn, tokenize(clean))
   private case class Entry(opening: Opening, tokens: Set[Token])

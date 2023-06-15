@@ -5,16 +5,15 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import lila.common.autoconfig.{ *, given }
-import play.api.{ ConfigLoader, Configuration }
+import play.api.Configuration
 
 import lila.common.config.*
-import lila.common.{ Bus, Strings, Uptime }
+import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
 import lila.memo.SettingStore
-import lila.user.User
 import scala.util.matching.Regex
 
 @Module
@@ -46,17 +45,16 @@ final class Env(
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
-    evalCache: lila.evalCache.EvalCacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     lightUserApi: lila.user.LightUserApi,
-    ircApi: lila.irc.IrcApi,
     settingStore: lila.memo.SettingStore.Builder,
     ratingFactors: () => lila.rating.RatingFactors,
+    notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
 )(using
     ec: Executor,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     materializer: akka.stream.Materializer
 ):
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
@@ -65,7 +63,7 @@ final class Env(
 
   private val defaultGoneWeight                     = fuccess(1f)
   private def goneWeight(userId: UserId): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
-  private val goneWeightsFor = (game: Game) =>
+  private val goneWeightsFor: Game => Fu[(Float, Float)] = (game: Game) =>
     if (!game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1))
       fuccess(1f -> 1f)
     else
@@ -75,15 +73,12 @@ final class Env(
   private val isSimulHost =
     IsSimulHost(userId => Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId))
 
-  private val scheduleExpiration = ScheduleExpiration { game =>
-    game.timeBeforeExpiration foreach { centis =>
-      scheduler.scheduleOnce((centis.millis + 1000).millis) {
+  private val scheduleExpiration = ScheduleExpiration: game =>
+    game.timeBeforeExpiration.foreach: centis =>
+      scheduler.scheduleOnce((centis.millis + 1000).millis):
         tellRound(game.id, actorApi.round.NoStart)
-      }
-    }
-  }
 
-  private lazy val proxyDependencies = GameProxy.Dependencies(gameRepo, scheduler)
+  private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
@@ -111,19 +106,16 @@ final class Env(
   lazy val tellRound: TellRound =
     TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
-  lazy val onStart: OnStart = OnStart((gameId: GameId) =>
+  lazy val onStart: OnStart = OnStart: gameId =>
     proxyRepo game gameId foreach {
-      _ foreach { game =>
+      _.foreach: game =>
         lightUserApi.preloadMany(game.userIds) >>- {
           val sg = lila.game.actorApi.StartGame(game)
           Bus.publish(sg, "startGame")
-          game.userIds foreach { userId =>
+          game.userIds.foreach: userId =>
             Bus.publish(sg, s"userStartGame:$userId")
-          }
         }
-      }
     }
-  )
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
@@ -175,7 +167,7 @@ final class Env(
 
   lazy val messenger = wire[Messenger]
 
-  lazy val getSocketStatus = (game: Game) =>
+  lazy val getSocketStatus: Game => Future[SocketStatus] = (game: Game) =>
     roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus.apply)
 
   private def isUserPresent(game: Game, userId: UserId): Fu[Boolean] =
@@ -184,6 +176,8 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   lazy val noteApi = NoteApi(db(config.noteColl))
+
+  private lazy val mobileSocket = wire[RoundMobileSocket]
 
   MoveLatMonitor.start(scheduler)
 

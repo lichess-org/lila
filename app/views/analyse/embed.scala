@@ -1,7 +1,6 @@
 package views.html.analyse
 
-import controllers.routes
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig

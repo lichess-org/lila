@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon } from 'common/snabbdom';
 import { numberRow, playerName, player as renderPlayer } from './util';
@@ -49,7 +50,7 @@ export default function (ctrl: TournamentController): VNode {
     },
     [
       h('a.close', {
-        attrs: dataIcon(''),
+        attrs: dataIcon(licon.X),
         hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw),
       }),
       h('div.stats', [

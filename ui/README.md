@@ -42,6 +42,7 @@ The Jest extension is your friend. You will want to configure the following in y
 
 The structure of a CSS module is as follows:
 
+```
 - css/
   - forum/
     - \_forum.scss # imports the files below
@@ -53,7 +54,4 @@ The structure of a CSS module is as follows:
     - forum.light.scss # generated
     - forum.dark.scss # generated
     - forum.transp.scss # generated
-
-```
-
 ```

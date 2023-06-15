@@ -10,4 +10,4 @@ final class Env(
     db: lila.db.Db
 )(using Executor):
 
-  val api = new PrefApi(db(CollName("pref")), cacheApi)
+  val api = PrefApi(db(CollName("pref")), cacheApi)

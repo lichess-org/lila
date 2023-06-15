@@ -10,7 +10,7 @@ object JsQuantity:
         """o=>o<=1?"one":"other""""
       case "cs" | "sk" => // czech
         """o=>1==o?"one":o>=2&&o<=4?"few":"other""""
-      case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => // balkan
+      case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" | "ry" => // balkan
         """o=>{const e=o%100,t=o%10;return 1==t&&11!=e?"one":t>=2&&t<=4&&!(e>=12&&e<=14)?"few":0==t||t>=5&&t<=9||e>=11&&e<=14?"many":"other"}"""
       case "lv" => // latvian
         """o=>0==o?"zero":o%10==1&&o%100!=11?"one":"other""""

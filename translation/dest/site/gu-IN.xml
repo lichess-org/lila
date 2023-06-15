@@ -62,6 +62,9 @@
   <string name="usingServerAnalysis">સર્વર નું વિશ્લેષણ વપરાય છે</string>
   <string name="loadingEngine">રાહ જુઓ...</string>
   <string name="calculatingMoves">ગણતરી ચાલુ...</string>
+  <string name="engineFailed">કી: એન્જિન નિષ્ફળ
+એન્જિન નિષ્ફળ
+જો સ્થાનિક ઉપકરણ પર ચેસ એન્જિન લોડ થવામાં નિષ્ફળ થયું હોય તો દેખાય છે</string>
   <string name="cloudAnalysis">ક્લાઉડ વિશ્લેષણ</string>
   <string name="goDeeper">વધુ ઉંડાણપૂર્વક</string>
   <string name="showThreat">થ્રેટ જુઓ</string>

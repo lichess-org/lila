@@ -2,10 +2,9 @@ package views
 package html.puzzle
 
 import controllers.routes
-import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -15,12 +14,11 @@ import lila.user.User
 
 object dashboard:
 
-  private val baseClass      = "puzzle-dashboard"
-  private val metricClass    = s"${baseClass}__metric"
-  private val themeClass     = s"${baseClass}__theme"
-  private val dataWinPercent = attr("data-win-percent")
+  private val baseClass   = "puzzle-dashboard"
+  private val metricClass = s"${baseClass}__metric"
+  private val themeClass  = s"${baseClass}__theme"
 
-  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -30,7 +28,7 @@ object dashboard:
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
-      moreJs = dashOpt ?? { dash =>
+      moreJs = dashOpt so { dash =>
         val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
           PuzzleTheme(key).name.txt()
         }
@@ -64,7 +62,7 @@ object dashboard:
         )
     }
 
-  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -78,7 +76,7 @@ object dashboard:
       dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
     }
 
-  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -102,7 +100,7 @@ object dashboard:
       moreJs: Frag = emptyFrag
   )(
       body: PuzzleDashboard => Option[Frag]
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
@@ -136,7 +134,7 @@ object dashboard:
     )
 
   private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     themes.map { case (key, results) =>
       div(cls := themeClass)(
@@ -151,14 +149,14 @@ object dashboard:
     }
 
   private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(
         trans.puzzle.nbPlayed.plural(results.nb, strong(results.nb.localize))
       ),
       ctx.pref.showRatings option div(cls := s"$metricClass $metricClass--perf")(
-        strong(results.performance, results.unclear ?? "?"),
+        strong(results.performance, results.unclear so "?"),
         span(trans.performance())
       ),
       div(
@@ -174,6 +172,6 @@ object dashboard:
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
         ),
-        iconTag(if (results.canReplay) '' else '')
+        iconTag(if (results.canReplay) licon.PlayTriangle else licon.Checkmark)
       )
     )

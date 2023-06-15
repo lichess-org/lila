@@ -7,14 +7,14 @@
   <string name="rememberTokenUse">Pamiętaj więc do czego służy ten token</string>
   <string name="whatTheTokenCanDo">Co token może zrobić w Twoim imieniu:</string>
   <string name="doNotShareIt">Token zapewni dostęp do Twojego konta. NIE udostępniaj go nikomu!</string>
-  <string name="copyTokenNow">Upewnij się, że zapisałeś swój nowy osobisty token dostępu. Nie będziesz mógł go zobaczyć ponownie!</string>
+  <string name="copyTokenNow">Skopiuj swój nowy osobisty token dostępu. Nie można go zobaczyć ponownie!</string>
   <string name="preferenceRead">Odczyt ustawień</string>
   <string name="preferenceWrite">Zapis ustawień</string>
   <string name="emailRead">Odczyt adresu email</string>
   <string name="challengeRead">Odczyt nadchodzących wydarzeń</string>
   <string name="challengeWrite">Tworzenie przyszłych wydarzeń</string>
   <string name="challengeBulk">Tworzenie wielu partii na raz dla innych graczy</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Odczyt prywatnych opracowań i transmisji</string>
+  <string name="studyRead">Odczyt prywatnych opracowań i transmisji</string>
   <string name="studyWrite">Tworzenie, edycja i usuwanie opracowań oraz transmisji</string>
   <string name="tournamentWrite">Tworzenie, edycja i dołączanie do turniejów</string>
   <string name="racerWrite">Tworzenie i dołączanie do wyścigów w rozwiązywaniu zadań</string>

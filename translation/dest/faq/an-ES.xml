@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Preguntas freqüents</string>
-  <string name="frequentlyAskedQuestions">Preguntas freqüents</string>
+  <string name="faqAbbreviation">Preguntas frecuents</string>
+  <string name="frequentlyAskedQuestions">Preguntas frecuents</string>
   <string name="whyIsLichessCalledLichess">Per qué Lichess se diz asinas?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess ye una combinación de live/light/libre (en directo, liuchero y libre, en anglés) y chess (escaques, en anglés). Se pronuncia %1$s.</string>
   <string name="leechess">liches</string>
@@ -10,12 +10,14 @@
   <string name="whyIsLilaCalledLila">D\'a mesma manera, lo codigo fuent de Lichess, %1$s, significa li[chess en sca]la, dau que la mayor parte de Lichess ye escrito en %2$s, un intuitivo luengache de programación.</string>
   <string name="howCanIContributeToLichess">Cómo puedo contribuyir a Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess se mantiene per medio de donacions de patrocinadores y los esfuerzos d\'un equipo de voluntarios.</string>
-  <string name="findMoreAndSeeHowHelp">Puetz saber mas sobre %1$s (incluyindo un %2$s). Si quiers aduyar a Lichess voluntariament con o tuyo tiempo y habilidatz, i hai muitas %3$s.</string>
+  <string name="findMoreAndSeeHowHelp">Puez saber mas sobre %1$s (incluyindo un %2$s). Si quiers aduyar a Lichess voluntariament con o tuyo tiempo y habilidaz, i hai muitas %3$s.</string>
   <string name="beingAPatron">estar patrón</string>
   <string name="breakdownOfOurCosts">desglose d\'os nuestros gastos</string>
   <string name="otherWaysToHelp">atras formas d\'aduyar</string>
   <string name="areThereWebsitesBasedOnLichess">I hai pachinas web basadas en Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirau atras pachinas de codigo ubierto que emplegan lo nuestro %1$s, %2$s, u %3$s.</string>
+  <string name="keyboardShortcuts">Qué alcorces de teclau i hai?</string>
+  <string name="keyboardShortcutsExplanation">Bellas pachinas de Lichess tiene alcorces de teclau que puez fer servir. Preba de pretar la tecla \'?\' en una pachina d\'estudio, analisi, problema u partida pa veyer un listau d\'alcorces de teclau.</string>
   <string name="fairPlay">Chuego limpio</string>
   <string name="whenAmIEligibleRatinRefund">En qué casos se me tornan automaticament los puntos perdius contra un trapacero?</string>
   <string name="ratingRefundExplanation">Un minuto dimpués de marcar a un chugador como trapacero, se prenen las suyas zagueras 40 partidas per puntos d\'os tres zaguers días. Si tu has estau lo suyo oponent en ixas partidas, has perdiu puntos en ellas (i has perdiu u empazau), y la tuya puntuación no yera provisional, alavez se te tornará puntos. Esta torna ye limitada per la tuya puntuación maxima y per cómo i haiga progresau la tuya puntuación dimpués d\'aquella partida.
@@ -23,8 +25,10 @@
   <string name="preventLeavingGameWithoutResigning">Qué se fa con os chugadors que abandonan las partidas sin rendirse?</string>
   <string name="leavingGameWithoutResigningExplanation">Si lo tuyo oponent abandona habitualment partidas se le marca como \"prohibiu chugar\", lo que significa que ye temporalment suspendiu pa chugar. Esto no s\'indica publicament en o suyo perfil. Si persiste en este comportamiento, la duración d\'a suspensión aumenta y puede comportar que se zarre la suya cuenta.</string>
   <string name="howCanIBecomeModerator">Cómo puedo fer-me moderador?</string>
-  <string name="youCannotApply">No se puede solicitar estar moderador. Si veyemos a belún que pensamos que sería un buen moderador, nos metemos en contacto con ell u ella dreitament.</string>
+  <string name="youCannotApply">No se puede solicitar estar moderador. Si veyemos a belún que pensamos que sería un buen moderador, nos metemos en contacto con él u ella dreitament.</string>
   <string name="isCorrespondenceDifferent">Los escaques per correspondencia son diferents d\'os escaques normals?</string>
+  <string name="pleaseReadFairPlayPage">Pa mas información, leye la nuestra %s</string>
+  <string name="fairPlayPage">pachina de chuego limpio</string>
   <string name="youCanUseOpeningBookNoEngine">En Lichess, la prencipal diferencia en as reglas d\'os escaques per correspondencia ye que se permite un libro d\'obriduras. L\'uso de motors sigue estando prohibiu y fará que s\'etiquete a l\'usuario como trapacero. Encara que la ICCF permite l\'uso d\'o motor en partidas per correspondencia, Lichess no lo permite.</string>
   <string name="gameplay">Mecanica de chuego</string>
   <string name="howBulletBlitzEtcDecided">Cómo se deciden los controls de tiempo en bala, lampado y atros?</string>
@@ -41,26 +45,27 @@
 
 Lo millor movimiento de l\'ordinador perderá zero centipeons, pero los movimientos mas floixos darán como resultau una posición desfavorable, medida en centipeons.
 
-Esta valura puede emplegar-se como un indicador d\'a calidat d\'o chuego. Quantos menos centipeons se pierda per movimiento, mas fuerte ye lo chuego.
+Esta valura puede emplegar-se como un indicador d\'a calidat d\'o chuego. Cuantos menos centipeons se pierda per movimiento, mas fuerte ye lo chuego.
 
 L\'analisi informatica en Lichess ye proporcionada per Stockfish.</string>
   <string name="insufficientMaterial">Perdendo per tiempo, empate y material insuficient</string>
-  <string name="lichessFollowFIDErules">Quan un chugador se queda sin tiempo, ixe chugador normalment perderá la partida. Manimenos, lo chuego se considera empate si la posición ye tal que l\'oponent no puede dar mate a lo rei d\'o chugador per qualsequier posible serie de movimientos legals (%1$s).
+  <string name="lichessFollowFIDErules">Cuan un chugador se queda sin tiempo, ixe chugador normalment perderá la partida. Manimenos, lo chuego se considera empate si la posición ye tal que l\'oponent no puede dar mate a lo rei d\'o chugador per cualsequier posible serie de movimientos legals (%1$s).
 
 En raras ocasions esto puede estar de mal decidir automaticament (linias forzadas, fuerzas). Per defecto, siempre somos de parte d\'o chugador que no se quedó sin tiempo.
 
 Considera que ye posible dar mate con un nomás caballo u alfil, siempre que l\'oponent tienga una pieza que pueda blocar a lo rei.</string>
   <string name="fideHandbookX">Manual de la FIDE %s</string>
-  <string name="discoveringEnPassant">Per qué un peón puede capturar unatro peón quan ya ye pasau? (en passant)</string>
+  <string name="discoveringEnPassant">Per qué un peón puede capturar unatro peón cuan ya ye pasau? (en passant)</string>
   <string name="explainingEnPassant">Este movimiento ye legal, y se diz \"captura a lo paso\". L\'articlo de Wikipedia fa una %1$s a este movimiento.
 
  Se describe en a sección 3.7 (d) d\'as %2$s:
 
-\"Un peón que ocupa un quadret en a mesma ringlera y en una columna adchacent a lo peón d\'un oponent que acaba d\'abanzar dos quadretz en un movimiento d\'o suyo quadrau orichinal puede capturar lo peón d\'este oponent como si este solo s\'hese moviu un quadret. Esta captura nomás ye legal en o movimiento immediatament posterior a este abance y se denomina captura “a lo paso”.
+\"Un peón que ocupa un cuadret en a mesma ringlera y en una columna adchacent a lo peón d\'un oponent que acaba d\'abanzar dos cuadrez en un movimiento d\'o suyo cuadrau orichinal puede capturar lo peón d\'este oponent como si este solo s\'hese moviu un cuadret. Esta captura nomás ye legal en o movimiento immediatament posterior a este abance y se denomina captura “a lo paso”.
 
- Mira lo capitol d\'o %3$s sobre este movimiento pa practicar un poquet con ell.</string>
+ Mira lo capitol d\'o %3$s sobre este movimiento pa practicar un poquet con él.</string>
   <string name="goodIntroduction">buena introducción</string>
   <string name="lichessTraining">Entrenamiento en Lichess</string>
+  <string name="watchIMRosenCheckmate">Mira a lo Mayestro Internacional Eric Rosen dar mate a %s.</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="threefoldRepetitionExplanation">Si una mesma posición ocurre tres vegadas, los chugadors pueden reclamar un empate per %1$s. Lichess implementa las reglas oficials d\'a FIDE, d\'alcuerdo con l\'Articlo 9.2 (d) d\'o %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetición</string>
@@ -68,12 +73,12 @@ Considera que ye posible dar mate con un nomás caballo u alfil, siempre que l\'
   <string name="repeatedPositionsThatMatters">La triple repetición se da per repetición de %1$s, no de movimientos. La repetición no tiene ocurrir consecutivament.</string>
   <string name="positions">posiciones</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Hemos repetiu una posición tres vegadas. Per qué la partida no se declara taulas?</string>
-  <string name="threeFoldHasToBeClaimed">Las taulas per triple repetición han d\'estar reclamadas per un d\'os chugadors. Puetz fer-lo pretando lo botón que s\'amuestra, u ofrindo taulas antes de fer lo movimiento que cause la tercera repetición, no importará que lo tuyo oponent refuse la ofierta de taulas, las taulas per triple repetición serán reclamadas de totas trazas. Tamién puetz %1$s Lichess pa que reclame automaticament las repeticions per tu. Amás, la quinta repetición siempre remata la partida immediatament.</string>
+  <string name="threeFoldHasToBeClaimed">Las taulas per triple repetición han d\'estar reclamadas per un d\'os chugadors. Puez fer-lo pretando lo botón que s\'amuestra, u ofrindo taulas antes de fer lo movimiento que cause la tercera repetición, no importará que lo tuyo oponent refuse la ofierta de taulas, las taulas per triple repetición serán reclamadas de totas trazas. Tamién puez %1$s Lichess pa que reclame automaticament las repeticions per tu. Amás, la quinta repetición siempre remata la partida immediatament.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Cuentas</string>
   <string name="titlesAvailableOnLichess">Qué titols i hai en Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess reconoix totz los titols FIDE obtenius OTB (sobre lo escaquero), como %1$s. Aquí i hai una lista de titols FIDE:</string>
-  <string name="showYourTitle">Si tiens un titol \"sobre lo escaquero\", puetz solicitar que s\'amuestre en a tuya cuenta completando lo %1$s, incluyindo una imachen clara d\'un documento u tarcheta d\'identificación y una foto tuya amostrando dito documento u tarcheta.
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconoix toz los titols FIDE obtenius OTB (sobre lo escaquero), como %1$s. Aquí i hai una lista de titols FIDE:</string>
+  <string name="showYourTitle">Si tiens un titol \"sobre lo escaquero\", puez solicitar que s\'amuestre en a tuya cuenta completando lo %1$s, incluyindo una imachen clara d\'un documento u tarcheta d\'identificación y una foto tuya amostrando dito documento u tarcheta.
 
 La verificación como chugador titulau en Lichess da acceso a chugar en os eventos Arena pa Titulaus.
 
@@ -88,30 +93,30 @@ L\'atorgamos rarament a chugadors muito destacaus que son buens ciudadans de Lic
 
 No demandes d\'obtener lo titol de LM.</string>
   <string name="whatUsernameCanIchoose">Quál puede estar lo mío nombre d\'usuario?</string>
-  <string name="usernamesNotOffensive">En cheneral, los nombres d\'usuario no han de: estar ofensivos, suplantar a belún u fer publicidat. Puetz leyer mas sobre las %1$s.</string>
+  <string name="usernamesNotOffensive">En cheneral, los nombres d\'usuario no han de: estar ofensivos, suplantar a belún u fer publicidat. Puez leyer mas sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
   <string name="canIChangeMyUsername">Puedo cambiar lo mío nombre d\'usuario?</string>
-  <string name="usernamesCannotBeChanged">No, los nombres d\'usuario no se pueden cambiar per razons practicas. Los nombres d\'usuario se materializan en masiaus puestos: bases de datos, exportacions, rechistros y en as ments d\'as personas. Puetz cambiar las mayusclas y minusclas una vegada.</string>
+  <string name="usernamesCannotBeChanged">No, los nombres d\'usuario no se pueden cambiar per razons practicas. Los nombres d\'usuario se materializan en masiaus puestos: bases de datos, exportacions, rechistros y en as ments d\'as personas. Puez cambiar las mayusclas y minusclas una vegada.</string>
   <string name="uniqueTrophies">Trofeyos unicos</string>
   <string name="ownerUniqueTrophies">Ixe trofeyo ye unico en a historia de Lichess, nomás %1$s lo tendrá.</string>
-  <string name="wayOfBerserkExplanation">Pa obtener-lo, hiimgosu se desafió a ell mesmo a berserk y ganó 100%% partidas de %s.</string>
+  <string name="wayOfBerserkExplanation">Pa obtener-lo, hiimgosu se desafió a él mesmo a berserk y ganó 100%% partidas de %s.</string>
   <string name="aHourlyBulletTournament">un torneyo bala per hora</string>
   <string name="goldenZeeExplanation">ZugAddict yera emitindo y entre las dos zagueras horas heba estau tractando de redotar a la I.A. libel 8 en una partida 1+0, sin exito. Thibault le dició que si lo feba con exito mientres la emisión, obtendría un trofeyo unico. Una hora dimpués, venció a Stockfish y se cumplió la promesa.</string>
   <string name="lichessRatings">Puntuacions de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qué sistema de puntuación utiliza Lichess?</string>
   <string name="ratingSystemUsedByLichess">Las puntuacions se calculan emplegando lo metodo de clasificación Glicko-2 desenvuelto per Mark Glickman. Este ye un metodo de puntuación muito popular y utilizau per un numero significativo d\'organizacions d\'escaques (FIDE en ye un contraeixemplo notable, ya que fa servir encara lo sistema de puntuación Elo).
 
-En resumen, las puntuacions de Glicko fan servir \"intervalos de confianza\" pa calcular y representar la tuya puntuación. Quan prencipias a chugar aquí per primer vegada, la tuya valoración prencipia en 1500 ± 700. Lo 1500 representa la tuya puntuación, y lo 700, l\'intervalo de confianza.
+En resumen, las puntuacions de Glicko fan servir \"intervalos de confianza\" pa calcular y representar la tuya puntuación. Cuan prencipias a chugar aquí per primer vegada, la tuya valoración prencipia en 1500 ± 700. Lo 1500 representa la tuya puntuación, y lo 700, l\'intervalo de confianza.
 
-Basicament, lo sistema tiene un 90% de seguridat que la tuya puntuación ye entre 800 y 2200. Ye masiau incierto. A causa d\'esto, quan un chugador acaba d\'empecipiar, la suya puntuación cambiará de forma muito espectacular, mesmo bells cientos de puntos en una sola partida. Pero dimpués de qualques partidas contra chugadors establius, l\'intervalo de confianza se reducirá, y la cantidat de puntos ganaus/perdius dimpués de cada partida disminuyirá.
+Basicament, lo sistema tiene un 90% de seguridat que la tuya puntuación ye entre 800 y 2200. Ye masiau incierto. A causa d\'esto, cuan un chugador acaba d\'empecipiar, la suya puntuación cambiará de forma muito espectacular, mesmo bels cientos de puntos en una sola partida. Pero dimpués de cualques partidas contra chugadors establius, l\'intervalo de confianza se reducirá, y la cantidat de puntos ganaus/perdius dimpués de cada partida disminuyirá.
 
-Unatro punto que cal sinyalar ye que, con o paso d\'o tiempo, l\'intervalo de confianza aumentará. Esto te permite ganar u perder puntos mas rapidament pa igualar qualsequier cambio en o tuyo libel de chuego en ixe tiempo.</string>
+Unatro punto que cal sinyalar ye que, con o paso d\'o tiempo, l\'intervalo de confianza aumentará. Esto te permite ganar u perder puntos mas rapidament pa igualar cualsequier cambio en o tuyo libel de chuego en ixe tiempo.</string>
   <string name="whatIsProvisionalRating">Per qué i hai un signo d\'interrogación (?) chunto a una puntuación?</string>
   <string name="provisionalRatingExplanation">Lo signo d\'interrogación significa que la puntuación ye provisional. Las razons son:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Lo chugador encara no ha finalizau suficients partidas per puntos contra %1$s en a categoría de puntuación.</string>
   <string name="similarOpponents">oponents de fuerza semellant</string>
   <string name="notPlayedRecently">Lo chugador no ha chugau suficients partidas recients. Dependendo d\'a cantidat de partidas que haigas chugau, puede tardar arredol d\'un anyo d\'inactividat pa que la tuya puntuación torne a estar provisional.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Concretament, significa que la desviación Glicko-2 ye mayor que 110. La desviación ye lo libel de confianza que tiene lo sistema en a clasificación. Quanto mas baixa sía la desviación, mas estable será una puntuación.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concretament, significa que la desviación Glicko-2 ye mayor que 110. La desviación ye lo libel de confianza que tiene lo sistema en a clasificación. Cuanto mas baixa sía la desviación, mas estable será una puntuación.</string>
   <string name="howDoLeaderoardsWork">Cómo funcionan las posicions y clasificacions?</string>
   <string name="inOrderToAppearsYouMust">Pa plegar a lo %1$s habrías de:</string>
   <string name="ratingLeaderboards">clasificación per puntuación</string>
@@ -123,7 +128,7 @@ Unatro punto que cal sinyalar ye que, con o paso d\'o tiempo, l\'intervalo de co
   <string name="whyAreRatingHigher">Per qué son mas altas las puntuacions en comparanza con atros puestos y organizacions como FIDE, USCF y lo CIC?</string>
   <string name="whyAreRatingHigherExplanation">Lo millor ye no considerar las puntuacions como cifras absolutas ni comparar-las con atras organizacions. Diferents organizacions tienen diferents libels de chugadors, diferents sistemas de puntuación (Elo, Glicko, Glicko-2 u una versión modificada d\'os primers). Estes factors pueden afectar drasticament los numeros absolutos (puntuacions).
 
-Ye millor pensar en as puntuacions como cifras \"relativas\" (a diferencia de las \"cifras absolutas\"): dentro d\'un conchunto de chugadors, las suyas diferencias relativas en as puntuacions t\'aduyarán a estimar quí gana/empata/pierde, y con qué freqüencia. Decir \"tiengo puntuación X\" no significa cosa de no estar que i haiga atros chugadors a los quals comparar ixa puntuación.</string>
+Ye millor pensar en as puntuacions como cifras \"relativas\" (a diferencia de las \"cifras absolutas\"): dentro d\'un conchunto de chugadors, las suyas diferencias relativas en as puntuacions t\'aduyarán a estimar quí gana/empata/pierde, y con qué frecuencia. Decir \"tiengo puntuación X\" no significa cosa de no estar que i haiga atros chugadors a los cuals comparar ixa puntuación.</string>
   <string name="howToHideRatingWhilePlaying">Cómo amagar las puntuacions mientres chugo?</string>
   <string name="enableZenMode">Habilita lo modo Zen en %1$s u pretando %2$s en una partida.</string>
   <string name="displayPreferences">preferencias de visualización</string>
@@ -132,7 +137,7 @@ Ye millor pensar en as puntuacions como cifras \"relativas\" (a diferencia de la
   <string name="howToThreeDots">Cómo...</string>
   <string name="enableDisableNotificationPopUps">Activar u desactivar finestras emerchents de notificación?</string>
   <string name="viewSiteInformationPopUp">Veyer finestra emerchent d\'información d\'o puesto</string>
-  <string name="lichessCanOptionnalySendPopUps">Opcionalment, Lichess puede ninviar notificacions emerchents, per eixemplo quan sía lo tuyo redolín u haigas recibiu un mensache privau.
+  <string name="lichessCanOptionnalySendPopUps">Opcionalment, Lichess puede ninviar notificacions emerchents, per eixemplo cuan sía lo tuyo redolín u haigas recibiu un mensache privau.
 
 Fe clic en l\'icono de bloqueyo chunto a l\'adreza de lichess.org, en a barra d\'URL d\'o tuyo navegador.
 

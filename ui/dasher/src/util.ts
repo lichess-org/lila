@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 
 export type Redraw = () => void;
 export type Close = () => void;
@@ -39,7 +40,7 @@ export function header(name: string, close: Close) {
   return h(
     'button.head.text',
     {
-      attrs: { 'data-icon': '', type: 'button' },
+      attrs: { 'data-icon': licon.LessThan, type: 'button' },
       hook: bind('click', close),
     },
     name

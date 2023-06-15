@@ -2,24 +2,23 @@ package lila.round
 
 import actorApi.*
 import actorApi.round.*
-import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
+import akka.actor.{ Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*
 
-import lila.chat.{ BusChan, Chat }
+import lila.chat.BusChan
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.common.Json.given
 import lila.game.{ Event, Game, Pov }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
-import lila.hub.actorApi.socket.remote.TellSriIn
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.{ Socket, SocketVersion, SocketSend }
-import lila.user.User
 import reactivemongo.api.Cursor
 
 final class RoundSocket(
@@ -29,12 +28,9 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
+    mobileSocket: RoundMobileSocket,
     shutdown: CoordinatedShutdown
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: akka.actor.Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
 
   import RoundSocket.*
 
@@ -43,7 +39,7 @@ final class RoundSocket(
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket") { () =>
     stopping = true
     rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map { nb =>
-      Lilakka.logger.info(s"$nb round asyncActors have stopped")
+      Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
     }
   }
 
@@ -56,7 +52,7 @@ final class RoundSocket(
       rounds.getOrMake(id).getGame dmap { id -> _ }
     }.parallel
 
-  def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
+  def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
 
   // get the proxied version of the game
   def upgradeIfPresent(game: Game): Fu[Game] =
@@ -64,9 +60,7 @@ final class RoundSocket(
 
   // update the proxied game
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
-    rounds.getIfPresent(gameId) ?? {
-      _ updateGame f
-    }
+    rounds.getIfPresent(gameId).so(_ updateGame f)
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
@@ -83,44 +77,38 @@ final class RoundSocket(
       version = version
     )(using ec, proxy)
     terminationDelay schedule id
-    gameFu dforeach {
-      _ foreach { game =>
-        scheduleExpiration.value(game)
-        goneWeightsFor(game) dforeach { w =>
+    gameFu.dforeach:
+      _.foreach: game =>
+        scheduleExpiration(game)
+        goneWeightsFor(game).dforeach: w =>
           roundActor ! RoundAsyncActor.SetGameInfo(game, w)
-        }
-      }
-    }
     roundActor
-
-  private def tellRound(gameId: GameId, msg: Any): Unit = rounds.tell(gameId, msg)
 
   private val roundHandler: Handler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
-      tellRound(Game fullToId fullId, HumanPlay(Game takePlayerId fullId, uci, blur, lag, none))
+      rounds.tell(Game fullToId fullId, HumanPlay(Game takePlayerId fullId, uci, blur, lag, none))
     case Protocol.In.PlayerDo(fullId, tpe) if !stopping =>
+      def forward(f: GamePlayerId => Any) = rounds.tell(Game fullToId fullId, f(Game takePlayerId fullId))
       tpe match
-        case "moretime"     => tellRound(Game fullToId fullId, Moretime(Game takePlayerId fullId))
-        case "rematch-yes"  => tellRound(Game fullToId fullId, RematchYes(Game takePlayerId fullId))
-        case "rematch-no"   => tellRound(Game fullToId fullId, RematchNo(Game takePlayerId fullId))
-        case "takeback-yes" => tellRound(Game fullToId fullId, TakebackYes(Game takePlayerId fullId))
-        case "takeback-no"  => tellRound(Game fullToId fullId, TakebackNo(Game takePlayerId fullId))
-        case "draw-yes"     => tellRound(Game fullToId fullId, DrawYes(Game takePlayerId fullId))
-        case "draw-no"      => tellRound(Game fullToId fullId, DrawNo(Game takePlayerId fullId))
-        case "draw-claim"   => tellRound(Game fullToId fullId, DrawClaim(Game takePlayerId fullId))
-        case "resign"       => tellRound(Game fullToId fullId, Resign(Game takePlayerId fullId))
-        case "resign-force" => tellRound(Game fullToId fullId, ResignForce(Game takePlayerId fullId))
-        case "draw-force"   => tellRound(Game fullToId fullId, DrawForce(Game takePlayerId fullId))
-        case "abort"        => tellRound(Game fullToId fullId, Abort(Game takePlayerId fullId))
-        case "outoftime"    => tellRound(Game fullToId fullId, QuietFlag) // mobile app BC
+        case "moretime"     => forward(Moretime(_))
+        case "rematch-yes"  => forward(RematchYes(_))
+        case "rematch-no"   => forward(RematchNo(_))
+        case "takeback-yes" => forward(TakebackYes(_))
+        case "takeback-no"  => forward(TakebackNo(_))
+        case "draw-yes"     => forward(DrawYes(_))
+        case "draw-no"      => forward(DrawNo(_))
+        case "draw-claim"   => forward(DrawClaim(_))
+        case "resign"       => forward(Resign(_))
+        case "resign-force" => forward(ResignForce(_))
+        case "draw-force"   => forward(DrawForce(_))
+        case "abort"        => forward(Abort(_))
+        case "outoftime"    => forward(_ => QuietFlag) // mobile app BC
         case t              => logger.warn(s"Unhandled round socket message: $t")
-    case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
+    case Protocol.In.Flag(gameId, color, fromPlayerId) => rounds.tell(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
-      gameIfPresent(id) foreach {
-        _ foreach {
+      gameIfPresent(id).foreach:
+        _.foreach:
           messenger.owner(_, color, msg).unit
-        }
-      }
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
       messenger.owner(id, userId, msg).unit
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
@@ -131,22 +119,28 @@ final class RoundSocket(
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {
         case (gameId, Some(on)) =>
-          tellRound(gameId, on)
+          rounds.tell(gameId, on)
           terminationDelay cancel gameId
         case (gameId, _) =>
           if (rounds exists gameId) terminationDelay schedule gameId
       }
-    case Protocol.In.Bye(fullId) => tellRound(Game fullToId fullId, ByePlayer(Game takePlayerId fullId))
+    case Protocol.In.Bye(fullId) => rounds.tell(Game fullToId fullId, ByePlayer(Game takePlayerId fullId))
     case RP.In.TellRoomSri(_, P.In.TellSri(_, _, tpe, _)) =>
       logger.warn(s"Unhandled round socket message: $tpe")
-    case hold: Protocol.In.HoldAlert => tellRound(Game fullToId hold.fullId, hold)
+    case hold: Protocol.In.HoldAlert => rounds.tell(Game fullToId hold.fullId, hold)
     case r: Protocol.In.SelfReport   => Bus.publish(r, "selfReport")
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")
     case RP.In.SetVersions(versions) =>
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
-    case P.In.Ping(id)                 => send(P.Out.pong(id))
+    case P.In.Ping(id) => send(P.Out.pong(id))
+    case Protocol.In.GetGame(reqId, gameId) =>
+      for
+        game <- rounds.ask[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
+        data <- mobileSocket.json(game.game, game.socket)
+      yield sendForGameId(gameId)(Protocol.Out.respond(reqId, data))
+
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -163,17 +157,17 @@ final class RoundSocket(
   private val sendForGameId: GameId => SocketSend = gameId =>
     SocketSend(msg => send.sticky(gameId.value, msg))
 
-  remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 8)(
+  remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 16)(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
   Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame") {
     case TvSelect(gameId, speed, json) =>
-      sendForGameId(gameId).value(Protocol.Out.tvSelect(gameId, speed, json))
+      sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
       val gameId = GameId(id)
       rounds.tell(gameId, e)
-      sendForGameId(gameId).value(Protocol.Out.botConnected(gameId, color, v))
+      sendForGameId(gameId)(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)          => rounds.tell(GameId(gameId), msg)
     case TellIfExists(gameId, msg)  => rounds.tellIfPresent(GameId(gameId), msg)
     case TellMany(gameIds, msg)     => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
@@ -182,11 +176,11 @@ final class RoundSocket(
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        sendForGameId(game.id).value(Protocol.Out.startGame(usersPlaying))
+        sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
       }
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        sendForGameId(game.id).value(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+        sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
       }
   }
 
@@ -207,12 +201,11 @@ final class RoundSocket(
     }
   }
 
-  scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
+  scheduler.scheduleWithFixedDelay(25 seconds, tickInterval): () =>
     rounds.tellAll(RoundAsyncActor.Tick)
-  }
-  scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
+
+  scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds): () =>
     lila.mon.round.asyncActorCount.update(rounds.size).unit
-  }
 
   private val terminationDelay = TerminationDelay(scheduler, 1 minute, finishRound)
 
@@ -312,12 +305,13 @@ object RoundSocket:
       case class Berserk(gameId: GameId, userId: UserId)                                          extends P.In
       case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
-      case class WsLatency(millis: Int) extends P.In
+      case class WsLatency(millis: Int)          extends P.In
+      case class GetGame(reqId: Int, id: GameId) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match
           case "r/ons" =>
-            PlayerOnlines {
+            PlayerOnlines:
               P.In.commas(raw.args) map {
                 _ splitAt Game.gameIdSize match
                   case (gameId, cs) =>
@@ -326,24 +320,23 @@ object RoundSocket:
                       if (cs.isEmpty) None else Some(RoomCrowd(cs(0) == '+', cs(1) == '+'))
                     )
               }
-            }.some
+            .some
           case "r/do" =>
             raw.get(2) { case Array(fullId, payload) =>
-              for {
+              for
                 obj <- Json.parse(payload).asOpt[JsObject]
                 tpe <- obj str "t"
-              } yield PlayerDo(GameFullId(fullId), tpe)
+              yield PlayerDo(GameFullId(fullId), tpe)
             }
           case "r/move" =>
             raw.get(6) { case Array(fullId, uciS, blurS, lagS, mtS, fraS) =>
-              Uci(uciS) map { uci =>
+              Uci(uciS).map: uci =>
                 PlayerMove(
                   GameFullId(fullId),
                   uci,
                   P.In.boolean(blurS),
                   MoveMetrics(centis(lagS), centis(mtS), centis(fraS))
                 )
-              }
             }
           case "chat/say" =>
             raw.get(3) { case Array(roomId, author, msg) =>
@@ -360,23 +353,27 @@ object RoundSocket:
           case "r/bye" => Bye(GameFullId(raw.args)).some
           case "r/hold" =>
             raw.get(4) { case Array(fullId, ip, meanS, sdS) =>
-              for {
+              for
                 mean <- meanS.toIntOption
                 sd   <- sdS.toIntOption
                 ip   <- IpAddress.from(ip)
-              } yield HoldAlert(GameFullId(fullId), ip, mean, sd)
+              yield HoldAlert(GameFullId(fullId), ip, mean, sd)
             }
           case "r/report" =>
             raw.get(4) { case Array(fullId, ip, user, name) =>
-              IpAddress.from(ip) map { ip =>
+              IpAddress.from(ip).map { ip =>
                 SelfReport(GameFullId(fullId), ip, UserId from P.In.optional(user), name)
               }
             }
           case "r/flag" =>
             raw.get(3) { case Array(gameId, color, playerId) =>
-              readColor(color) map {
+              readColor(color).map:
                 Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
-              }
+            }
+          case "r/get" =>
+            raw.get(2) { case Array(reqId, gameId) =>
+              reqId.toIntOption.map:
+                GetGame(_, GameId(gameId))
             }
           case "r/latency" => raw.args.toIntOption map WsLatency.apply
           case _           => RP.In.reader(raw)
@@ -423,6 +420,8 @@ object RoundSocket:
       def finishGame(gameId: GameId, winner: Option[Color], users: List[UserId]) =
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
 
+      def respond(reqId: Int, data: JsObject) = s"req/response $reqId ${Json stringify data}"
+
       def versioningReady = "r/versioning-ready"
 
   final private class TerminationDelay(
@@ -438,13 +437,12 @@ object RoundSocket:
       terminations
         .compute(
           gameId,
-          (id, canc) => {
+          (id, canc) =>
             Option(canc).foreach(_.cancel())
             scheduler.scheduleOnce(duration) {
               terminations remove id
               terminate(id)
             }
-          }
         )
         .unit
 

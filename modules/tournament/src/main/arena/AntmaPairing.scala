@@ -2,7 +2,6 @@ package lila.tournament
 package arena
 
 import lila.common.{ Chronometer, WMMatching }
-import lila.user.User
 import PairingSystem.Data
 
 private object AntmaPairing:
@@ -12,7 +11,7 @@ private object AntmaPairing:
   private type RPlayer = RankedPlayerWithColorHistory
 
   def apply(data: Data, players: List[RPlayer]): List[Pairing.Prep] =
-    players.nonEmpty ?? {
+    players.nonEmpty so {
       import data.*
 
       def rankFactor = PairingSystem.rankFactorFor(players)
@@ -33,7 +32,7 @@ private object AntmaPairing:
           }
 
       def battleScore(a: RPlayer, b: RPlayer): Option[Int] =
-        (a.player.team != b.player.team) ?? pairScore(a, b)
+        (a.player.team != b.player.team) so pairScore(a, b)
 
       def duelScore: (RPlayer, RPlayer) => Option[Int] = (_, _) => Some(1)
 

@@ -19,7 +19,4 @@
   <string name="teachingMethod">начин на тренирање</string>
   <string name="publicStudies">Јавни студии</string>
   <string name="youtubeVideos">Youtube видеа</string>
-  <string name="thankYouForReview">Ви благодариме за прегледот</string>
-  <string name="reviewCoach">Оцени го овој тренер</string>
-  <string name="describeExperienceWith">Опиши го твоето искуство со %s името на тренерот</string>
 </resources>

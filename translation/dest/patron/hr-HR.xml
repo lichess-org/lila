@@ -44,9 +44,9 @@ Zatim, plaćamo programera s punim radnim vremenom: %s, osnivača Lichess-a.</st
 Ili možete %s.</string>
   <string name="contactSupport">kontaktirati Lichess podršku</string>
   <string name="otherMethods">Da li postoje neke druge metode doniranja?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess je registriran kod %s.</string>
+  <string name="lichessIsRegisteredWith">Lichess je registriran kod %s.</string>
   <string name="bankTransfers">Mi takođe prihvaćamo i bankovne transfere</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Napominjemo da će samo gornji obrazac za donaciju dodijeliti status pokrovitelja.</string>
+  <string name="onlyDonationFromAbove">Napominjemo da će samo gornji obrazac za donaciju dodijeliti status pokrovitelja.</string>
   <string name="patronFeatures">Da li su neke značajke rezervirane samo za pokrovitelje?</string>
   <string name="noPatronFeatures">Ne, jer je Lichess u potpunosti besplatan, zauvijek i za sve. To je naše obećanje.
 Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom profilu.</string>

@@ -8,10 +8,7 @@ final private class RacerSocket(
     api: RacerApi,
     json: RacerJson,
     remoteSocketApi: lila.socket.RemoteSocket
-)(using
-    ec: Executor,
-    mode: play.api.Mode
-):
+)(using Executor):
 
   import RacerSocket.*
 

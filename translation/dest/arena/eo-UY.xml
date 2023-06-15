@@ -37,6 +37,7 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
   </plurals>
   <string name="thisIsPrivate">Tio estas privata turniro</string>
   <string name="shareUrl">Kunhavigu ĉi tiun URLon por lasi homojn aliĝi: %s</string>
+  <string name="variant">Variaĵo</string>
   <string name="history">Historia Areno</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Rigardi la teamon</item>

@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import reactivemongo.api.ReadPreference
 
 final private[simul] class SimulRepo(val coll: Coll)(using Executor):
 
@@ -37,6 +37,8 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
         "wins"      -> o.wins,
         "hostColor" -> o.hostColor.name
       )
+
+  import SimulCondition.bsonHandler
 
   private given BSONDocumentHandler[Simul] = Macros.handler
 
@@ -70,8 +72,19 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .cursor[Simul]()
       .listAll()
 
+  def byHostAdapter(hostId: UserId) =
+    lila.db.paginator.Adapter[Simul](
+      collection = coll,
+      selector = finishedSelect ++ $doc("hostId" -> hostId),
+      projection = none,
+      sort = createdSort,
+      readPreference = ReadPreference.secondaryPreferred
+    )
+
   def hostId(id: SimulId): Fu[Option[UserId]] =
     coll.primitiveOne[UserId]($id(id), "hostId")
+
+  def countByHost(hostId: UserId) = coll.countSel($doc("hostId" -> hostId))
 
   private val featurableSelect = $doc("featurable" -> true)
 
@@ -80,8 +93,8 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .find(
         // hits partial index hostSeenAt_-1
         createdSelect ++ featurableSelect ++ $doc(
-          "hostSeenAt" $gte nowDate.minusSeconds(12),
-          "createdAt" $gte nowDate.minusHours(1)
+          "hostSeenAt" $gte nowInstant.minusSeconds(12),
+          "createdAt" $gte nowInstant.minusHours(1)
         )
       )
       .sort(createdSort)
@@ -119,7 +132,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .one(
         $id(simul.id),
         $set(bsonWriteObjTry[Simul](simul).get) ++
-          simul.estimatedStartAt.isEmpty ?? ($unset("estimatedStartAt"))
+          simul.estimatedStartAt.isEmpty.so($unset("estimatedStartAt"))
       )
       .void
 
@@ -138,7 +151,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
     coll.update
       .one(
         $id(simul.id),
-        $set("hostSeenAt" -> nowDate)
+        $set("hostSeenAt" -> nowInstant)
       )
       .void
 
@@ -153,6 +166,6 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
   def cleanup =
     coll.delete.one(
       createdSelect ++ $doc(
-        "createdAt" -> $doc("$lt" -> (nowDate minusMinutes 60))
+        "createdAt" -> $doc("$lt" -> (nowInstant minusMinutes 60))
       )
     )

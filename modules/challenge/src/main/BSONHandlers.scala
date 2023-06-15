@@ -2,13 +2,11 @@ package lila.challenge
 
 import chess.variant.Variant
 import reactivemongo.api.bson.*
-import scala.util.Success
 
 import lila.common.Days
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 private object BSONHandlers:
 
@@ -28,7 +26,7 @@ private object BSONHandlers:
     }
   )
   given BSON[TimeControl] with
-    import cats.implicits.*
+    import cats.syntax.all.*
     import chess.Clock
     def reads(r: Reader) =
       (r.getO[Clock.LimitSeconds]("l"), r.getO[Clock.IncrementSeconds]("i")) mapN { (limit, inc) =>

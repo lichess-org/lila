@@ -1,23 +1,21 @@
 package lila.tutor
 
-import lila.common.Heapsort.given
 import lila.rating.PerfType
-import lila.user.User
 import lila.tutor.TutorCompare.AnyComparison
 
 case class TutorFullReport(
     user: UserId,
-    at: DateTime,
+    at: Instant,
     perfs: List[TutorPerfReport]
 ):
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
-  def isFresh = at isAfter nowDate.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
+  def isFresh = at isAfter nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
 
   lazy val nbGames = perfs.toList.map(_.stats.totalNbGames).sum
   lazy val totalTime: FiniteDuration =
     perfs.toList.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
 
-  def favouritePerfs: List[TutorPerfReport] = perfs.headOption ?? {
+  def favouritePerfs: List[TutorPerfReport] = perfs.headOption so {
     _ :: perfs.tailSafe.takeWhile { perf =>
       perf.estimateTotalTime.exists(_ > totalTime * 0.25)
     }

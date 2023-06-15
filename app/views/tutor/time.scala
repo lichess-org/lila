@@ -1,24 +1,25 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json.*
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
+import lila.api.WebContext
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
-import lila.tutor.{ TutorFullReport, TutorPerfReport }
+import lila.tutor.TutorPerfReport
 
 object time:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
-      ctx: Context
-  ) =
-    bits.layout(full, menu = perf.menu(full, user, report, "time"))(
+  def apply(report: TutorPerfReport, user: lila.user.User)(using WebContext) =
+    bits.layout(menu = perf.menu(user, report, "time"))(
       cls := "tutor__time box",
       boxTop(
         h1(
-          a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          a(
+            href     := routes.Tutor.perf(user.username, report.perf.key),
+            dataIcon := licon.LessThan,
+            cls      := "text"
+          ),
           bits.otherUser(user),
           report.perf.trans,
           " time management"

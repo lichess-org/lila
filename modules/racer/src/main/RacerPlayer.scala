@@ -4,7 +4,7 @@ import lila.common.CuteNameGenerator
 import lila.user.User
 import lila.common.LightUser
 
-case class RacerPlayer(id: RacerPlayer.Id, user: Option[LightUser], createdAt: DateTime, score: Int):
+case class RacerPlayer(id: RacerPlayer.Id, user: Option[LightUser], createdAt: Instant, score: Int):
 
   import RacerPlayer.Id
 
@@ -27,4 +27,4 @@ object RacerPlayer:
   val lichess = Id.User(User.lichessId)
 
   def make(id: Id, user: Option[LightUser]) =
-    RacerPlayer(id = id, user = user, score = 0, createdAt = nowDate)
+    RacerPlayer(id = id, user = user, score = 0, createdAt = nowInstant)

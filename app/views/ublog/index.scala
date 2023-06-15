@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -16,7 +16,7 @@ object index:
 
   import views.html.ublog.{ post as postView }
 
-  def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
+  def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using WebContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
       moreJs = posts.hasNextPage option infiniteScrollTag,
@@ -45,7 +45,7 @@ object index:
       )
     }
 
-  def friends(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
+  def friends(posts: Paginator[UblogPost.PreviewPost])(using WebContext) = list(
     title = "Friends blogs",
     posts = posts,
     menuItem = "friends",
@@ -53,7 +53,7 @@ object index:
     onEmpty = "Nothing to show. Follow some authors!"
   )
 
-  def liked(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
+  def liked(posts: Paginator[UblogPost.PreviewPost])(using WebContext) = list(
     title = "Liked blog posts",
     posts = posts,
     menuItem = "liked",
@@ -61,7 +61,7 @@ object index:
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
+  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost])(using WebContext) = list(
     title = s"Blog posts about $top",
     posts = posts,
     menuItem = "topics",
@@ -69,7 +69,7 @@ object index:
     onEmpty = "Nothing to show."
   )
 
-  def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
+  def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(using ctx: WebContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
@@ -109,7 +109,7 @@ object index:
                 cls      := "atom",
                 st.title := "Atom RSS feed",
                 href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
-                dataIcon := ""
+                dataIcon := licon.RssFeed
               )
             )
           ),
@@ -130,7 +130,7 @@ object index:
       )
     }
 
-  def topics(tops: List[UblogTopic.WithPosts])(implicit ctx: Context) =
+  def topics(tops: List[UblogTopic.WithPosts])(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       title = "All blog topics"
@@ -162,7 +162,7 @@ object index:
       menuItem: String,
       route: Int => Call,
       onEmpty: => Frag
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,

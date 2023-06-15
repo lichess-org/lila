@@ -14,7 +14,7 @@
   <string name="challengeRead">Lese innkommende utfordringer</string>
   <string name="challengeWrite">Sende, godta og avslå utfordringer</string>
   <string name="challengeBulk">Opprette mange partier på én gang for andre spillere</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lese private studier og overføringer</string>
+  <string name="studyRead">Lese private studier og overføringer</string>
   <string name="studyWrite">Opprette, oppdatere og slette studier og overføringer</string>
   <string name="tournamentWrite">Opprette, oppdatere og delta i turneringer</string>
   <string name="racerWrite">Opprette og delta i sjakknøttløp</string>

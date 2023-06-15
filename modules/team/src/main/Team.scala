@@ -6,7 +6,6 @@ import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
-import org.joda.time.Days
 import lila.hub.LightTeam.TeamName
 
 case class Team(
@@ -19,7 +18,7 @@ case class Team(
     nbMembers: Int,
     enabled: Boolean,
     open: Boolean,
-    createdAt: DateTime,
+    createdAt: Instant,
     createdBy: UserId,
     leaders: Set[UserId],
     chat: Team.Access,
@@ -61,7 +60,7 @@ object Team:
     if (u.isVerified) maxJoinCeiling * 2
     else
       {
-        15 + Days.daysBetween(u.createdAt, nowDate).getDays / 7
+        15 + daysBetween(u.createdAt, nowInstant) / 7
       } atMost maxJoinCeiling
 
   type Access = Int
@@ -84,8 +83,8 @@ object Team:
         value.contains(s"$separator$teamId$separator")
 
     def toArray: Array[TeamId] = TeamId.from(value split IdsStr.separator)
-    def toList                 = value.nonEmpty ?? toArray.toList
-    def toSet                  = value.nonEmpty ?? toArray.toSet
+    def toList                 = value.nonEmpty so toArray.toList
+    def toSet                  = value.nonEmpty so toArray.toSet
 
   object IdsStr:
 
@@ -114,7 +113,7 @@ object Team:
     nbMembers = 1,
     enabled = true,
     open = open,
-    createdAt = nowDate,
+    createdAt = nowInstant,
     createdBy = createdBy.id,
     leaders = Set(createdBy.id),
     chat = Access.MEMBERS,

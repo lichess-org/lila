@@ -3,54 +3,50 @@ package views.html.opening
 import cats.data.NonEmptyList
 import chess.opening.{ OpeningKey, Opening }
 import controllers.routes
-import play.api.libs.json.{ JsArray, Json, JsObject }
+import play.api.libs.json.Json
 import play.api.mvc.Call
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.opening.OpeningQuery.Query
-import lila.opening.{ NameSection, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }
+import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
 object bits:
 
   def beta = span(cls := "opening__beta")("BETA")
 
-  def whatsNext(page: OpeningPage)(using Context): Option[Tag] =
-    page.explored.map { explored =>
+  def whatsNext(page: OpeningPage): Option[Tag] =
+    page.explored.map: explored =>
       div(cls := "opening__nexts")(
-        explored.next.map { next =>
+        explored.next.map: next =>
           val canFollow = page.query.uci.isEmpty || page.wiki.exists(_.hasMarkup)
           a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
-            span(cls := "opening__next__popularity")(
-              span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity")(
+            span(cls := "opening__next__popularity"):
+              span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity"):
                 s"${Math.round(next.percent)}%"
-              )
-            ),
+            ,
             span(cls := "opening__next__title")(
               span(cls := "opening__next__name")(next.shortName.fold(nbsp)(frag(_))),
               span(cls := "opening__next__san")(next.san)
             ),
             span(cls := "opening__next__result-board")(
-              span(cls := "opening__next__result result-bar") {
+              span(cls := "opening__next__result result-bar"):
                 resultSegments(next.result)
-              },
-              span(cls := "opening__next__board")(
+              ,
+              span(cls := "opening__next__board"):
                 views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
-              )
             )
           )
-        }
       )
-    }
 
-  def configForm(config: OpeningConfig, thenTo: String)(using Context) =
+  def configForm(config: OpeningConfig, thenTo: String)(using WebContext) =
     import OpeningConfig.*
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         div(cls := "opening__config__summary__short")(
-          iconTag('')
+          iconTag(licon.Gear)
         ),
         div(cls := "opening__config__summary__large")(
           "Speed: ",
@@ -73,19 +69,17 @@ object bits:
       )
     )
 
-  def moreJs(page: Option[OpeningPage])(using Context) = frag(
+  def moreJs(page: Option[OpeningPage])(using WebContext) = frag(
     jsModule("opening"),
-    embedJsUnsafeLoadThen {
-      page match {
+    embedJsUnsafeLoadThen:
+      page match
         case Some(p) =>
           import lila.common.Json.given
           s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> p.explored.??[List[Float]](_.history), "sans" -> p.query.sans)
+              Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
             )})"""
         case None =>
           s"""LichessOpening.search()"""
-      }
-    }
   )
 
   def splitName(op: Opening) =
@@ -95,16 +89,15 @@ object bits:
           span(cls := "opening-name__family")(family),
           variations.nonEmpty option ": ",
           fragList(
-            variations.map { variation =>
-              span(cls := "opening-name__variation")(variation)
-            },
+            variations.map: variation =>
+              span(cls := "opening-name__variation")(variation),
             ", "
           )
         )
 
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
-    routes.Opening.byKeyAndMoves(q.key, q.moves.??(_.value.replace(" ", "_")))
+    routes.Opening.byKeyAndMoves(q.key, q.moves.so(_.value.replace(" ", "_")))
   def openingUrl(o: Opening)  = keyUrl(o.key)
   def keyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
 

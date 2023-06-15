@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">andre måtar å hjelpe</string>
   <string name="areThereWebsitesBasedOnLichess">Finst det nettstader basert på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har inspirert andre nettstader med open kjeldekode som brukar vår %1$s, %2$s, eller %3$s.</string>
+  <string name="keyboardShortcuts">Kva tastatursnarvegar finst?</string>
+  <string name="keyboardShortcutsExplanation">Nokre Lichess-sider har tastatursnarvegar. Trykk \'?\'-nøkkelen på sider med studie, analyse, oppgåve eller parti for å sjå ei liste med tilgjengelege tastatursnarvegar.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Når er eg kvalifisert til den automatiske refunderinga av rating-tap frå fuskarar?</string>
   <string name="ratingRefundExplanation">Eit minutt etter at ein spelar er markert ser systemet over spelaren sine 40 siste rangerte sigrar. Du får refusjon dersom du har vore motspelar i nokre av desse spela og ratinga di ikkje var mellombels. Refusjonen vert avgrensa av den høgaste ratinga di og av framgangen i rating etter spelet.
@@ -63,7 +65,7 @@ Trekket er omtala under avsnitt 3. (d) av %2$s:
 Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
   <string name="goodIntroduction">god innføring</string>
   <string name="lichessTraining">Lichess-øving</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Sjå internasjonal meister (IM) Eric Rosen setta sjakk matt i %s.</string>
+  <string name="watchIMRosenCheckmate">Sjå internasjonal meister (IM) Eric Rosen setta sjakk matt i %s.</string>
   <string name="threefoldRepetition">Trekkgjentaking (tre tilfelle av identisk stilling)</string>
   <string name="threefoldRepetitionExplanation">Dersom same stilling førekjem tre gonger kan spelarane krevje remis av %1$s. Lichess implementerar dei offisielle FIDE-reglane, som omtala i artikkel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trekkgjentaking (tre tilfelle av identisk stilling)</string>

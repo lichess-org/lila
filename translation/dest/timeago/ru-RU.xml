@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">только что</string>
-  <plurals name="inNbSeconds" comment="inNbSeconds [one] [other]&#10;&#10;The variable %s is a number. So this string could be, for example, &quot;in 5 seconds&quot;. This simply indicates a time in the future and is meant to be used in a sentence.">
+  <plurals name="inNbSeconds">
     <item quantity="one">через %s секунду</item>
     <item quantity="few">через %s секунды</item>
     <item quantity="many">через %s секунд</item>

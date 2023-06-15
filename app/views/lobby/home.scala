@@ -3,7 +3,7 @@ package views.html.lobby
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -13,7 +13,7 @@ import lila.game.Pov
 
 object home:
 
-  def apply(homepage: Homepage)(using ctx: Context) =
+  def apply(homepage: Homepage)(using ctx: WebContext) =
     import homepage.*
     views.html.base.layout(
       title = "",
@@ -56,8 +56,7 @@ object home:
       main(
         cls := List(
           "lobby"      -> true,
-          "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
-          "lobby--no-simuls" -> simuls.isEmpty
+          "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
         )
       )(
         div(cls := "lobby__table")(
@@ -133,8 +132,8 @@ object home:
         puzzle map { p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle")
         },
-        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         bits.lastPosts(lastPost, ublogPosts),
+        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
@@ -144,7 +143,7 @@ object home:
             )
           ),
           a(href := "https://shop.spreadshirt.com/lichess-org")(
-            iconTag(""),
+            iconTag(licon.Tshirt),
             span(cls := "lobby__support__text")(
               strong("Swag Store"),
               span(trans.playChessInStyle())

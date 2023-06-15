@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Dauguma šachmatų kursų ir pratimų plačiai naudoja algebrinį žymėjimą.</string>
   <string name="talkToYourChessFriends">Tai leidžia paprasčiau kalbėti su jūsų šachmatų draugais, kadangi abu suprantate „šachmatų kalbą“.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Galite efektyviau analizuoti partijas, kadangi nereikia ieškoti langelių pavadinimų.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Ant lentos pateikiama koordinatė ir jums reikia spustelti ant atitinkamo langelio.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Ant lentos paryškinamas langelis ir jums reikia spustelti ant atitinkamos koordinatės (pvz. \"e4\").</string>
+  <string name="aCoordinateAppears">Ant lentos pateikiama koordinatė ir jums reikia spustelti ant atitinkamo langelio.</string>
+  <string name="aSquareIsHighlightedExplanation">Ant lentos paryškinamas langelis ir jums reikia spustelti ant atitinkamos koordinatės (pvz. \"e4\").</string>
   <string name="youHaveThirtySeconds">Turite 30 sekundžių pažymėti kiek galima daugiau langelių!</string>
   <string name="goAsLongAsYouWant">Žymėkite kiek tik norite, laiko limito nėra!</string>
   <string name="showCoordinates">Rodyti koordinates</string>

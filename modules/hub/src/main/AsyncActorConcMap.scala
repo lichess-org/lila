@@ -8,8 +8,7 @@ import scala.jdk.CollectionConverters.*
 final class AsyncActorConcMap[Id, D <: AsyncActor](
     mkAsyncActor: Id => D,
     initialCapacity: Int
-)(using SameRuntime[Id, String])
-    extends TellMap[Id]:
+) extends TellMap[Id]:
 
   def tell(id: Id, msg: Matchable): Unit = getOrMake(id) ! msg
 
@@ -26,12 +25,11 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
   def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 
   def askIfPresent[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[Option[A]] =
-    getIfPresent(id) ?? {
+    getIfPresent(id).so:
       _ ask makeMsg dmap some
-    }
 
   def askIfPresentOrZero[A: Zero](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] =
-    askIfPresent(id)(makeMsg) dmap (~_)
+    askIfPresent(id)(makeMsg).dmap(~_)
 
   def exists(id: Id): Boolean = asyncActors.get(id) != null
 

@@ -1,6 +1,7 @@
+import * as licon from 'common/licon';
 import * as router from 'common/router';
-import { bind, dataIcon } from 'common/snabbdom';
-import { Controller, MaybeVNode } from '../interfaces';
+import { MaybeVNode, bind, dataIcon } from 'common/snabbdom';
+import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { renderColorForm } from './side';
 
@@ -11,14 +12,14 @@ export default function theme(ctrl: Controller): MaybeVNode {
     angle = data.angle;
   const showEditor = ctrl.vm.mode == 'view' && !ctrl.autoNexting();
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
+  const puzzleMenu = (v: VNode): VNode =>
+    h('a', { attrs: { href: router.withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
   return ctrl.streak
     ? null
     : ctrl.vm.isDaily
-    ? h('div.puzzle__side__theme.puzzle__side__theme--daily', h('h2', 'Daily Puzzle'))
+    ? h('div.puzzle__side__theme.puzzle__side__theme--daily', puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle'))))
     : h('div.puzzle__side__theme', [
-        h(
-          'a',
-          { attrs: { href: router.withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } },
+        puzzleMenu(
           h(
             'h2',
             {
@@ -105,7 +106,7 @@ const editor = (ctrl: Controller): VNode[] => {
                         h(
                           'div.puzzle__themes__lock',
                           h('i', {
-                            attrs: dataIcon(''),
+                            attrs: dataIcon(licon.Padlock),
                           })
                         ),
                       ]
@@ -165,7 +166,7 @@ const editor = (ctrl: Controller): VNode[] => {
             'a.puzzle__themes__study.text',
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.InfoCircle,
                 href: studyUrl,
                 target: '_blank',
                 rel: 'noopener',

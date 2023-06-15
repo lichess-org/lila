@@ -1,6 +1,5 @@
 package lila.forum
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 
@@ -23,7 +22,7 @@ final class ForumPostApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage
-)(using Executor):
+)(using Executor)(using scheduler: Scheduler):
 
   import BSONHandlers.given
 
@@ -53,14 +52,14 @@ final class ForumPostApi(
           postRepo.coll.insert.one(post) >>
             topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
             categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-              !categ.quiet ?? (indexer ! InsertPost(post))
+              !categ.quiet so (indexer ! InsertPost(post))
               promotion.save(me, post.text)
               shutup ! {
                 if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
               }
               if (anonMod) logAnonPost(me.id, post, edit = false)
-              else if (!post.troll && !categ.quiet && !topic.isTooBig)
+              else if (!post.troll && !categ.quiet)
                 timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
                 }
@@ -79,9 +78,9 @@ final class ForumPostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost = post.editPost(nowDate, spam replace newText)
-          (newPost.text != post.text).?? {
-            postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
+          val newPost = post.editPost(nowInstant, spam replace newText)
+          (newPost.text != post.text).so {
+            postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
               logAnonPost(user.id, newPost, edit = true)
             } >>- promotion.save(user, newPost.text)
           } inject newPost
@@ -111,11 +110,11 @@ final class ForumPostApi(
       categSlug: String,
       postId: ForumPostId,
       me: User,
-      reaction: String,
+      reactionStr: String,
       v: Boolean
   ): Fu[Option[ForumPost]] =
-    ForumPost.Reaction.set(reaction) ?? {
-      if (v) lila.mon.forum.reaction(reaction).increment()
+    ForumPost.Reaction(reactionStr) so { reaction =>
+      if (v) lila.mon.forum.reaction(reaction.key).increment()
       postRepo.coll
         .findAndUpdateSimplified[ForumPost](
           selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
@@ -124,19 +123,22 @@ final class ForumPostApi(
             else $pull(s"reactions.$reaction"       -> me.id)
           },
           fetchNewObject = true
-        )
+        ) >>- {
+        if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
+          scheduler.scheduleOnce(5 minutes):
+            react(categSlug, postId, me, reaction.key, false)
+      }
     }
 
   def views(posts: List[ForumPost]): Fu[List[PostView]] =
     for
       topics <- topicRepo.coll.byIds[ForumTopic, ForumTopicId](posts.map(_.topicId).distinct)
       categs <- categRepo.coll.byIds[ForumCateg, ForumCategId](topics.map(_.categId).distinct)
-    yield posts flatMap { post =>
+    yield posts.flatMap: post =>
       for
         topic <- topics.find(_.id == post.topicId)
         categ <- categs.find(_.id == topic.categId)
       yield PostView(post, topic, categ)
-    }
 
   def viewsFromIds(postIds: Seq[ForumPostId]): Fu[List[PostView]] =
     postRepo.coll.byOrderedIds[ForumPost, ForumPostId](postIds)(_.id) flatMap views
@@ -146,9 +148,8 @@ final class ForumPostApi(
 
   def liteViews(posts: Seq[ForumPost]): Fu[Seq[PostLiteView]] =
     topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId.value).distinct) map { topics =>
-      posts.flatMap { post =>
+      posts.flatMap: post =>
         topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
-      }
     }
   def liteViewsByIds(postIds: Seq[ForumPostId]): Fu[Seq[PostLiteView]] =
     postRepo.byIds(postIds) flatMap liteViews
@@ -198,8 +199,7 @@ final class ForumPostApi(
         "userId",
         $doc(
           "topicId" -> topic.id,
-          "number" $gt (newPostNumber - 10),
-          "createdAt" $gt nowDate.minusDays(5)
+          "number" $gt (newPostNumber - 20)
         ),
         ReadPreference.secondaryPreferred
       )

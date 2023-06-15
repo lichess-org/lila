@@ -4,9 +4,8 @@ import cats.data.NonEmptyList
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
-import scala.util.matching.Regex
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -40,7 +39,7 @@ object inquiry:
       )
     }
 
-  def apply(in: lila.mod.Inquiry)(implicit ctx: Context) =
+  def apply(in: lila.mod.Inquiry)(using ctx: WebContext) =
     def renderReport(r: Report) =
       div(cls := "doc report")(
         r.bestAtoms(10).map { atom =>
@@ -107,21 +106,37 @@ object inquiry:
       ),
       div(cls := "links")(
         isGranted(_.MarkBooster) option {
-          boostOpponents(in.report, in.allReports, in.user) map { opponents =>
-            a(href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}")(
-              "View",
-              br,
-              "Games"
+          val searchUrl = routes.User.games(in.user.username, "search")
+          div(cls := "dropper view-games")(
+            a(href := routes.GameMod.index(in.user.username))("View", br, "Games"),
+            div(cls := "view-games-dropdown")(
+              a(
+                cls := "fbt",
+                href := s"$searchUrl?turnsMax=5&mode=1&players.loser=${in.user.id}&sort.field=d&sort.order=desc"
+              )("Quick rated losses"),
+              a(
+                cls := "fbt",
+                href := s"$searchUrl?turnsMax=5&mode=1&players.winner=${in.user.id}&sort.field=d&sort.order=desc"
+              )("Quick rated wins"),
+              boostOpponents(in.report, in.allReports, in.user) map { opponents =>
+                a(
+                  cls  := "fbt",
+                  href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}"
+                )("With these opponents")
+              }
             )
-          }
+          )
         },
-        isGranted(_.Shadowban) option
-          a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms"),
+        isGranted(_.Shadowban) option a(href := routes.Mod.communicationPublic(in.user.id))(
+          "View",
+          br,
+          "Comms"
+        ),
         in.report.isAppeal option a(href := appealRoutes.show(in.user.id))("View", br, "Appeal")
       ),
       div(cls := "actions")(
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
-          iconTag(""),
+          iconTag(licon.Envelope),
           div(
             env.mod.presets.getPmPresets(ctx.me).value.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
@@ -135,7 +150,7 @@ object inquiry:
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
             postForm(action := url, cls := "main", title := "Mark as cheat")(
-              markButton(in.user.marks.engine)(dataIcon := ""),
+              markButton(in.user.marks.engine)(dataIcon := licon.Cogs),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -145,7 +160,7 @@ object inquiry:
           val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-              markButton(in.user.marks.boost)(dataIcon := ""),
+              markButton(in.user.marks.boost)(dataIcon := licon.LineGraph),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -159,7 +174,7 @@ object inquiry:
               title  := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
               cls    := "main"
             )(
-              markButton(in.user.marks.troll)(dataIcon := ""),
+              markButton(in.user.marks.troll)(dataIcon := licon.BubbleSpeech),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -176,7 +191,7 @@ object inquiry:
           )
         },
         div(cls := "dropper more buttons")(
-          iconTag(""),
+          iconTag(licon.MoreTriangle),
           div(
             isGranted(_.SendToZulip) option {
               val url =
@@ -223,7 +238,7 @@ object inquiry:
           title  := "Dismiss this report as processed. (Hotkey: d)",
           cls    := "process"
         )(
-          submitButton(dataIcon := "", cls := "fbt"),
+          submitButton(dataIcon := licon.Checkmark, cls := "fbt"),
           autoNextInput
         ),
         postForm(
@@ -231,12 +246,12 @@ object inquiry:
           title  := "Cancel the inquiry, re-instore the report",
           cls    := "cancel"
         )(
-          submitButton(dataIcon := "", cls := "fbt")(in.alreadyMarked option disabled)
+          submitButton(dataIcon := licon.X, cls := "fbt")(in.alreadyMarked option disabled)
         )
       )
     )
 
-  def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(
+  def noteZone(u: User, notes: List[lila.user.Note])(using WebContext) = div(
     cls := List(
       "dropper counter notes" -> true,
       "empty"                 -> notes.isEmpty
@@ -276,7 +291,7 @@ object inquiry:
       allReports: List[Report],
       reportee: User
   ): Option[NonEmptyList[UserId]] =
-    (report.reason == Reason.Boost || reportee.marks.boost) ?? {
+    (report.reason == Reason.Boost || reportee.marks.boost) so {
       allReports
         .filter(_.reason == Reason.Boost)
         .flatMap(_.atoms.toList)

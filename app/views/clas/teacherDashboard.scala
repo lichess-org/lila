@@ -3,13 +3,12 @@ package views.html.clas
 import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
 import lila.common.String.html.richText
 import lila.rating.PerfType
-import lila.user.User
 
 object teacherDashboard:
 
@@ -17,11 +16,11 @@ object teacherDashboard:
       c: Clas,
       students: List[Student.WithUser],
       active: String
-  )(modifiers: Modifier*)(implicit ctx: Context) =
+  )(modifiers: Modifier*)(using WebContext) =
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
-        h1(dataIcon := "", cls := "text")(c.name),
+        h1(dataIcon := licon.Group, cls := "text")(c.name),
         st.nav(cls := "dashboard-nav")(
           a(cls := active.active("overview"), href := clasRoutes.show(c.id.value))(trans.clas.overview()),
           a(cls := active.active("wall"), href := clasRoutes.wall(c.id.value))(trans.clas.news()),
@@ -50,7 +49,7 @@ object teacherDashboard:
   def overview(
       c: Clas,
       students: List[Student.WithUser]
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
         c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc)),
@@ -59,7 +58,7 @@ object teacherDashboard:
           a(
             href     := clasRoutes.studentForm(c.id.value),
             cls      := "button button-clas text",
-            dataIcon := ""
+            dataIcon := licon.PlusButton
           )(trans.clas.addStudent())
         )
       ),
@@ -73,7 +72,7 @@ object teacherDashboard:
       c: Clas,
       all: List[Student.WithUser],
       invites: List[ClasInvite]
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     layout(c, all.filter(_.student.isActive), "students") {
       val archived = all.filter(_.student.isArchived)
       val inviteBox =
@@ -113,7 +112,7 @@ object teacherDashboard:
       frag(inviteBox, archivedBox)
     }
 
-  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(implicit ctx: Context) =
+  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using WebContext) =
     layout(c, students, active)(
       div(cls := "box__pad students__empty")(
         p(
@@ -133,7 +132,7 @@ object teacherDashboard:
       c: Clas,
       students: List[Student.WithUser],
       progress: ClasProgress
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     layout(c, students, "progress")(
       progressHeader(c, progress.some),
       div(cls := "students")(
@@ -163,7 +162,7 @@ object teacherDashboard:
                   ),
                   td(prog.nb),
                   if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
-                  else td(dataSort := prog.millis)(showPeriod(prog.period)),
+                  else td(dataSort := prog.millis)(showDuration(prog.duration)),
                   td(
                     if (progress.isPuzzle)
                       a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
@@ -187,8 +186,8 @@ object teacherDashboard:
       students: List[Student.WithUser],
       basicCompletion: Map[UserId, Int],
       practiceCompletion: Map[UserId, Int],
-      coordScores: Map[UserId, chess.Color.Map[Int]]
-  )(implicit ctx: Context) =
+      coordScores: Map[UserId, chess.ByColor[Int]]
+  )(using WebContext) =
     layout(c, students, "progress")(
       progressHeader(c, none),
       div(cls := "students")(
@@ -204,7 +203,7 @@ object teacherDashboard:
             ),
             tbody(
               students.sortBy(_.user.username.value).map { case s @ Student.WithUser(_, user) =>
-                val coord = coordScores.getOrElse(user.id, chess.Color.Map(0, 0))
+                val coord = coordScores.getOrElse(user.id, chess.ByColor(0, 0))
                 tr(
                   studentTd(c, s),
                   td(dataSort := basicCompletion.getOrElse(user.id, 0))(
@@ -227,7 +226,7 @@ object teacherDashboard:
       )
     )
 
-  private def progressHeader(c: Clas, progress: Option[ClasProgress])(implicit ctx: Context) =
+  private def progressHeader(c: Clas, progress: Option[ClasProgress])(using WebContext) =
     div(cls := "progress")(
       div(cls := "progress-perf")(
         label(trans.variant()),
@@ -265,7 +264,7 @@ object teacherDashboard:
       }
     )
 
-  private def studentList(c: Clas, students: List[Student.WithUser])(implicit ctx: Context) =
+  private def studentList(c: Clas, students: List[Student.WithUser])(using WebContext) =
     div(cls := "students")(
       table(cls := "slist slist-pad sortable")(
         thead(
@@ -275,7 +274,7 @@ object teacherDashboard:
             dataSortNumberTh(trans.games()),
             dataSortNumberTh(trans.puzzles()),
             dataSortNumberTh(trans.clas.lastActiveDate()),
-            th(iconTag("")(title := trans.clas.managed.txt()))
+            th(iconTag(licon.Shield)(title := trans.clas.managed.txt()))
           )
         ),
         tbody(
@@ -287,10 +286,10 @@ object teacherDashboard:
               }),
               td(user.count.game.localize),
               td(user.perfs.puzzle.nb),
-              td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
+              td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce)),
               td(
                 dataSort := (if (student.managed) 1 else 0),
-                student.managed option iconTag("")(title := trans.clas.managed.txt())
+                student.managed option iconTag(licon.Shield)(title := trans.clas.managed.txt())
               )
             )
           }
@@ -298,7 +297,7 @@ object teacherDashboard:
       )
     )
 
-  private def studentTd(c: Clas, s: Student.WithUser)(implicit ctx: Context) =
+  private def studentTd(c: Clas, s: Student.WithUser)(using WebContext) =
     td(
       a(href := clasRoutes.studentShow(c.id.value, s.user.username))(
         userSpan(

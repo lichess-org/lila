@@ -18,14 +18,14 @@ const pathAttrs = [
   },
 ];
 
-export const spinnerVdom = (): VNode =>
+export const spinnerVdom = (box = '-2 -2 54 54'): VNode =>
   h(
     'div.spinner',
     {
       'aria-label': 'loading',
     },
     [
-      h('svg', { attrs: { viewBox: '-2 -2 54 54' } }, [
+      h('svg', { attrs: { viewBox: box } }, [
         h(
           'g',
           {

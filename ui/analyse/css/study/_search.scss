@@ -1,0 +1,31 @@
+.study-search {
+  @include breakpoint($mq-xx-small) {
+    width: 500px;
+  }
+  input {
+    width: 100%;
+  }
+  &__results {
+    @extend %study-list, %study-list-ongoing;
+    box-shadow: none !important;
+    height: 20em;
+    margin-top: 1em;
+    text-align: $start-direction;
+    div {
+      cursor: pointer;
+      padding: 0.5em 1em;
+    }
+    h3 {
+      @extend %nowrap-ellipsis;
+      flex: 0 1 auto;
+    }
+    res {
+      flex: 0 0 auto;
+    }
+    high {
+      background-color: mix(yellow, $c-bg-box, 30%);
+      color: $c-font-clearer;
+      padding: 0 0.1ch;
+    }
+  }
+}

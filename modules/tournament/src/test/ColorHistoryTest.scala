@@ -1,5 +1,4 @@
 package lila.tournament
-import org.specs2.mutable.*
 
 object ColorHistoryTest {
   def apply(s: String): ColorHistory = {
@@ -20,36 +19,34 @@ object ColorHistoryTest {
     }
 }
 
-class ColorHistoryTest extends Specification {
+class ColorHistoryTest extends munit.FunSuite {
   import ColorHistoryTest.{ apply, couldPlay, firstGetsWhite, sameColors, unpack }
-  "arena tournament color history" >> {
-    "hand tests" >> {
-      unpack("WWW") must ===((3, 3))
-      unpack("WWWB") === ((-1, 2))
-      unpack("BBB") === ((-3, -3))
-      unpack("BBBW") === ((1, -2))
-      unpack("WWWBBB") === ((-3, 0))
-    }
-    "couldPlay" >> {
-      couldPlay("WWW", "WWW", 3) must beFalse
-      couldPlay("BBB", "BBB", 3) must beFalse
-      couldPlay("BB", "BB", 3) must beTrue
-    }
-    "sameColors" >> {
-      sameColors("WWW", "W") must beTrue
-      sameColors("BBB", "B") must beTrue
-    }
-    "firstGetsWhite" >> {
-      firstGetsWhite("WWW", "WW") must beFalse
-      firstGetsWhite("WW", "WWW") must beTrue
-      firstGetsWhite("BB", "B") must beTrue
-      firstGetsWhite("B", "BB") must beFalse
-      firstGetsWhite("WW", "BWW") must beFalse
-      firstGetsWhite("BB", "WBB") must beTrue
-    }
-    "equals" >> {
-      apply("") === apply("")
-      apply("WBW") === apply("W")
-    }
+  test("hand tests") {
+    assertEquals(unpack("WWW"), ((3, 3)))
+    assertEquals(unpack("WWWB"), ((-1, 2)))
+    assertEquals(unpack("BBB"), ((-3, -3)))
+    assertEquals(unpack("BBBW"), ((1, -2)))
+    assertEquals(unpack("WWWBBB"), ((-3, 0)))
+  }
+  test("couldPlay") {
+    assert(!couldPlay("WWW", "WWW", 3))
+    assert(!couldPlay("BBB", "BBB", 3))
+    assert(couldPlay("BB", "BB", 3))
+  }
+  test("sameColors") {
+    assert(sameColors("WWW", "W"))
+    assert(sameColors("BBB", "B"))
+  }
+  test("firstGetsWhite") {
+    assert(!firstGetsWhite("WWW", "WW"))
+    assert(firstGetsWhite("WW", "WWW"))
+    assert(firstGetsWhite("BB", "B"))
+    assert(!firstGetsWhite("B", "BB"))
+    assert(!firstGetsWhite("WW", "BWW"))
+    assert(firstGetsWhite("BB", "WBB"))
+  }
+  test("equals") {
+    assertEquals(apply(""), apply(""))
+    assertEquals(apply("WBW"), apply("W"))
   }
 }

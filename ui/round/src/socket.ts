@@ -1,7 +1,6 @@
 import * as game from 'game';
 import throttle from 'common/throttle';
 import modal from 'common/modal';
-import notify from 'common/notification';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
@@ -68,10 +67,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
 
   const handlers: SocketHandlers = {
     takebackOffers(o: { white?: boolean; black?: boolean }) {
-      ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       const fromOp = (ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color]);
-      if (fromOp) notify(ctrl.noarg('yourOpponentProposesATakeback'));
+      if (fromOp) ctrl.opponentRequest('takeback', 'yourOpponentProposesATakeback');
       ctrl.redraw();
     },
     move: ctrl.apiMove,
@@ -102,7 +100,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
       if ((ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color))
-        notify(ctrl.noarg('yourOpponentWantsToPlayANewGameWithYou'));
+        ctrl.opponentRequest('rematch', 'yourOpponentWantsToPlayANewGameWithYou');
       ctrl.redraw();
     },
     rematchTaken(nextId: string) {
@@ -114,7 +112,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       if (ctrl.isPlaying()) {
         ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
         const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
-        if (fromOp) notify(ctrl.noarg('yourOpponentOffersADraw'));
+        if (fromOp) ctrl.opponentRequest('draw', 'yourOpponentOffersADraw');
       }
       if (by) {
         let ply = ctrl.lastPly();

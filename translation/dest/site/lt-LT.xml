@@ -97,11 +97,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" su apvalinimu remiantis pusėjimių iki kito kirtimo ar pėstininko ėjimo skaičiumi</string>
   <string name="noGameFound">Partijų nerasta</string>
+  <string name="maxDepthReached">Pasiektas didžiausias gylis!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openings">Debiutai</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
   <string name="openingEndgameExplorer">Debiutų/endšpilių naršyklė</string>
   <string name="xOpeningExplorer">%s debiutų naršyklė</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Žaisti pirmą debiuto/endšpilių naršyklės ėjimą</string>
   <string name="winPreventedBy50MoveRule">Pergalei sukliudė 50-ies ėjimų taisyklė</string>
   <string name="lossSavedBy50MoveRule">Pralaimėjimo išvengta dėl 50-ies ėjimų taisyklės</string>
   <string name="winOr50MovesByPriorMistake">Pergalė arba 50 ėjimų pagal ankstesnę klaidą</string>
@@ -123,6 +125,7 @@
   <string name="memory">Atmintinė</string>
   <string name="infiniteAnalysis">Neribota analizė</string>
   <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
+  <string name="engineManager">Variklių valdymas</string>
   <string name="blunder">Šiurkšti klaida</string>
   <string name="mistake">Klaida</string>
   <string name="inaccuracy">Netikslumas</string>
@@ -164,6 +167,12 @@
     <item quantity="few">%s partijos</item>
     <item quantity="many">%s partijų</item>
     <item quantity="other">%s partijų</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s reitingas per %2$s partiją</item>
+    <item quantity="few">%1$s reitingas per %2$s partijas</item>
+    <item quantity="many">%1$s reitingas per %2$s partijos</item>
+    <item quantity="other">%1$s reitingas per %2$s partijų</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s įrašas</item>
@@ -229,6 +238,14 @@
   <string name="email">El. pašto adresas</string>
   <string name="passwordReset">Slaptažodžio atkūrimas</string>
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
+  <string name="error.weakPassword">Šis slaptažodis itin dažnas ir jį pernelyg lengva atspėti.</string>
+  <string name="error.namePassword">Prašome nenaudoti savo vartotojo vardo kaip slaptažodžio.</string>
+  <string name="blankedPassword">Jūs jau panaudojote šį slaptažodį kitoje svetainėje, kurios saugumas buvo pažeistas. Norėdami užtikrinti jūsų Lichess paskyros saugumą turime paprašyti nustatyti naują slaptažodį. Dėkojame už supratingumą.</string>
+  <string name="youAreLeavingLichess">Jūs paliekate Lichess</string>
+  <string name="neverTypeYourPassword">Niekada netalpinkite savo Lichess slaptažodžio kitoje svetainėje!</string>
+  <string name="proceedToX">Eiti į %s</string>
+  <string name="passwordSuggestion">Nenaudokite slaptažodžio, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
+  <string name="emailSuggestion">Nenaudokite el. pašto adreso, kurį jums pasiūlė kas nors kitas. Tuo galima pasinaudoti pavogiant jūsų paskyrą.</string>
   <string name="emailConfirmHelp">Pagalba dėl el. pašto adreso patvirtinimo</string>
   <string name="emailConfirmNotReceived">Prisijungę negavote savo patvirtinimo el. laiško?</string>
   <string name="whatSignupUsername">Kokiu vartotojo vardu registravotės?</string>
@@ -302,6 +319,7 @@
   <string name="cancelRematchOffer">Atšaukti revanšo pasiūlymą</string>
   <string name="viewRematch">Peržiūrėti revanšą</string>
   <string name="confirmMove">Patvirtinkite ėjimą</string>
+  <string name="enableConfirmationForThisGame">Įjungti patvirtinimą šiai partijai</string>
   <string name="play">Žaisk</string>
   <string name="inbox">Žinutės</string>
   <string name="chatRoom">Pokalbis</string>
@@ -376,8 +394,15 @@
     <item quantity="many">%s studijų</item>
     <item quantity="other">%s studijų</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanas</item>
+    <item quantity="few">%s simultanai</item>
+    <item quantity="many">%s simultano</item>
+    <item quantity="other">%s simultanų</item>
+  </plurals>
   <string name="viewTournament">Stebėti turnyrą</string>
   <string name="backToTournament">Grįžti į turnyrą</string>
+  <string name="noDrawBeforeSwissLimit">Šveicariškame turnyre negalite skelbti lygiųjų neatlikę bent 30 ėjimų.</string>
   <string name="thematic">Tematinis</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s vertinama partija</item>
@@ -435,6 +460,7 @@
   <string name="importGame">Importuoti partiją</string>
   <string name="importGameExplanation">Įkeldami partijos PGN gausite naršomą peržiūrą,
 kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
+  <string name="importGameCaveat">Variacijos bus ištrintos. Norėdami jas pasilikti importuokite PGN per studiją.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importuotas žaidimas</item>
     <item quantity="few">%s importuoti žaidimai</item>
@@ -705,25 +731,27 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="contribute">Prisidėkite</string>
   <string name="termsOfService">Naudojimosi sąlygos</string>
   <string name="sourceCode">Pirminis kodas</string>
-  <string name="simultaneousExhibitions">Simulai</string>
+  <string name="simultaneousExhibitions">Simultanai</string>
   <string name="host">Šeimininkas</string>
   <string name="hostColorX">Šeimininko spalva: %s</string>
-  <string name="createdSimuls">Naujai sukurti simulai</string>
-  <string name="hostANewSimul">Kurti nauji simulą</string>
-  <string name="noSimulFound">Simulas nerastas</string>
-  <string name="noSimulExplanation">Šis simulas neegzistuoja.</string>
-  <string name="returnToSimulHomepage">Grįžti į simulų pradžią</string>
-  <string name="aboutSimul">Simulai yra vieno žaidėjo partijos prieš keletą kitų žaidėjų vienu metu.</string>
-  <string name="aboutSimulImage">Iš 50 varžovų, Fišeris laimėjo 47 partijas, lygiosiom baigė 2 ir pralaimėjo 1.</string>
-  <string name="aboutSimulRealLife">Idėja yra paimta iš tikro pasaulio įvykių. Tikrame gyvenime, simulo šeiminkas vaikšto nuo stalo prie stalo atlikdamas po ėjimą.</string>
-  <string name="aboutSimulRules">Prasidėjus simului, kiekvienas žaidėjas pradeda partiją su šeimininku, kuris gauna baltuosius. Simulas baigiasi kai užbaigiamos visos partijos.</string>
+  <string name="createdSimuls">Naujai sukurti simultanai</string>
+  <string name="hostANewSimul">Kurti nauji simultaną</string>
+  <string name="noSimulFound">Simultanas nerastas</string>
+  <string name="noSimulExplanation">Šis simultanas neegzistuoja.</string>
+  <string name="returnToSimulHomepage">Grįžti į simultanų pradžią</string>
+  <string name="aboutSimul">Simultanai yra vieno žaidėjo partijos prieš keletą kitų žaidėjų vienu metu.</string>
+  <string name="aboutSimulImage">Iš 50 varžovų, Fišeris laimėjo 47 partijas, lygiosiomis baigė 2 ir pralaimėjo 1.</string>
+  <string name="aboutSimulRealLife">Idėja yra paimta iš tikro pasaulio įvykių. Tikrame gyvenime, simultano šeiminkas vaikščioja nuo stalo prie stalo atlikdamas po vieną ėjimą.</string>
+  <string name="aboutSimulRules">Prasidėjus simultanui, kiekvienas žaidėjas pradeda partiją su šeimininku, kuris gauna baltuosius. Simultanas baigiasi kai užbaigiamos visos partijos.</string>
   <string name="aboutSimulSettings">Simulai visada yra nevertinami. Revanšai, ėjimų atšaukimai ir „daugiau laiko“ yra negalimi.</string>
   <string name="create">Sukurti</string>
-  <string name="whenCreateSimul">Sukūrę simulą, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
+  <string name="whenCreateSimul">Sukūrę simultaną, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
   <string name="simulVariantsHint">Jei pasirinksite keletą variantų, kiekvienas žaidėjas galės nuspręsti kurį norės žaisti.</string>
   <string name="simulClockHint">Fišerio laikrodžio nustatymas. Prieš kuo daugiau žaidėjų rungsitės, tuo daugiau laiko jums gali prireikti.</string>
-  <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simule.</string>
+  <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simultane.</string>
   <string name="simulHostExtraTime">Papildomas laikas šeimininkui</string>
+  <string name="simulAddExtraTimePerPlayer">Pridėti pradinio laiko prie jūsų laikrodžio už kiekvieną prie simultano prisijungiantį žaidėją.</string>
+  <string name="simulHostExtraTimePerPlayer">Papildomas laikas šeimininkui už kiekvieną žaidėją</string>
   <string name="lichessTournaments">„lichess“ turnyrai</string>
   <string name="tournamentFAQ">Arenos turnyrų DUK</string>
   <string name="timeBeforeTournamentStarts">Laikas iki turnyro pradžios</string>
@@ -734,6 +762,11 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keyGoToStartOrEnd">eiti į pradžią/pabaigą</string>
   <string name="keyShowOrHideComments">rodyti/slėpti komentarus</string>
   <string name="keyEnterOrExitVariation">įeiti/išeiti iš variacijos</string>
+  <string name="keyRequestComputerAnalysis">Paprašyti kompiuterio analizės, pasimokykite iš savo klaidų</string>
+  <string name="keyNextLearnFromYourMistakes">Toliau (pasimokyti iš savo klaidų)</string>
+  <string name="keyNextBlunder">Kita šiurkšti klaida</string>
+  <string name="keyNextMistake">Kita klaida</string>
+  <string name="keyNextInaccuracy">Kitas netiklsumas</string>
   <string name="newTournament">Naujas turnyras</string>
   <string name="tournamentHomeTitle">Šachmatų turnyras su įvairiomis laiko kontrolėmis ir variantais</string>
   <string name="tournamentHomeDescription">Žaiskite aukšto tempo šachmatų turnyruose! Prisijunkite prie oficialaus suplanuoto turnyro arba sukurkite savo.</string>
@@ -835,6 +868,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="invalidFen">Netinkamas FEN</string>
   <string name="custom">Kitoks</string>
   <string name="notifications">Pranešimai</string>
+  <string name="notificationsX">Pranešimai: %1$s</string>
   <string name="perfRatingX">Reitingas: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>
@@ -935,6 +969,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="useTheReportForm">naudokitės skundų forma</string>
   <string name="toRequestSupport">Norėdami gauti pagalbos, %1$s</string>
   <string name="tryTheContactPage">aplankykite kontaktų skiltį</string>
+  <string name="makeSureToRead">Įsitikinkite, kad perskaitėte %1$s</string>
+  <string name="theForumEtiquette">forumo etiketą</string>
   <string name="thisTopicIsArchived">Ši tema yra suarchyvuota, tad nauji atsakymai negalimi.</string>
   <string name="joinTheTeamXToPost">Norėdami rašyti šiame forume, prisijunkite prie „%1$s“</string>
   <string name="teamNamedX">%1$s komanda</string>
@@ -951,8 +987,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="congratsYouWon">Sveikiname, jūs laimėjote!</string>
   <string name="gameVsX">Žaidimas prieš %1$s</string>
   <string name="resVsX">%1$s prieš %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Kažkas peržvelgė jūsų trenerio profilį.</string>
-  <string name="newPendingReview">Nauja laukianti peržvalga</string>
   <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė Lichess taisykles</string>
   <string name="refundXpointsTimeControlY">Grąžinimas: %1$s %2$s reitingo taškų.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>
@@ -979,19 +1013,19 @@ ir daro įtaką žaidėjų reitingams</string>
 Veikia tik standartiniams žaidimams, ne variantams.
 Norėdami sugeneruoti FEN poziciją galite naudotis %s, tada ją įklijuokite čia.
 Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijos.</string>
-  <string name="cancelSimul">Atšaukti simulą</string>
+  <string name="cancelSimul">Atšaukti simultaną</string>
   <string name="simulHostcolor">Šeimininko spalva kiekvienam žaidimui</string>
   <string name="estimatedStart">Numatytas pradžios laikas</string>
   <string name="simulFeatured">Rodyti %s</string>
-  <string name="simulFeaturedHelp">Rodyti simulą visiems %s. Neįjungta privatiems simulams.</string>
-  <string name="simulDescription">Simulo aprašymas</string>
+  <string name="simulFeaturedHelp">Rodyti simultaną visiems %s. Neįjungta privatiems simultanams.</string>
+  <string name="simulDescription">Simultano aprašymas</string>
   <string name="simulDescriptionHelp">Ar norite ką nors pranešti dalyviams?</string>
   <string name="markdownAvailable">%s prieinama norint naudoti sudėtingesnę sintaksę.</string>
   <string name="embedsAvailable">Įklijuokite partijos adresą arba studijos skyriaus adresą norėdami juos įterpti.</string>
   <string name="inYourLocalTimezone">Jūsų laiko zonoje</string>
   <string name="tournChat">Turnyro pokalbis</string>
   <string name="noChat">Jokio pokalbio</string>
-  <string name="onlyTeamLeaders">Tik komandų vadovams</string>
+  <string name="onlyTeamLeaders">Tik komandų kapitonams</string>
   <string name="onlyTeamMembers">Tik komandos nariams</string>
   <string name="navigateMoveTree">Keliauti per ėjimų medį</string>
   <string name="mouseTricks">Triukai pele</string>
@@ -1018,4 +1052,5 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="lichessDbExplanation">Reitinguoti žaidimai paimti iš visų Lichess žaidėjų</string>
   <string name="switchSides">Pakeisti puses</string>
   <string name="closingAccountWithdrawAppeal">paskyras</string>
+  <string name="ourEventTips">Mūsų patarimai organizuojant renginius</string>
 </resources>

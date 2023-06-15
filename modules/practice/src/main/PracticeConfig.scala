@@ -3,9 +3,6 @@ package lila.practice
 import lila.common.autoconfig.{ *, given }
 import play.api.ConfigLoader
 
-import lila.common.config.*
-import lila.study.Study
-
 final class PracticeConfig(val sections: List[PracticeConfigSection]):
 
   def studyIds = sections.flatMap(_.studies.map(_.id)) map { StudyId(_) }

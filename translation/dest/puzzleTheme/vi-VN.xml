@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Tốt thông xa</string>
-  <string name="advancedPawnDescription">Một quân tốt phong cấp hay đe dọa phong cấp là chìa khóa của chiến thuật.</string>
+  <string name="advancedPawnDescription">Một quân tốt của bạn đang nằm sâu bên trong thế cờ của đối thủ, có thể đe dọa phong cấp.</string>
   <string name="advantage">Lợi thế</string>
   <string name="advantageDescription">Sử dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
   <string name="anastasiaMate">Chiếu hết kiểu Anastasia</string>
@@ -45,8 +45,8 @@
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
   <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một con tốt có thể ăn một con tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
-  <string name="exposedKing">Vua sơ hở</string>
-  <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít sự bảo vệ quanh nó, thường dẫn tới hết cờ.</string>
+  <string name="exposedKing">Vua bị hở</string>
+  <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít quân bảo vệ quanh quân vua đó, thường dẫn tới chiếu hết.</string>
   <string name="fork">Bắt đôi</string>
   <string name="forkDescription">Một nước đi mà một quân cờ tấn công hai quân cờ của đối phương cùng lúc.</string>
   <string name="hangingPiece">Quân treo</string>

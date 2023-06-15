@@ -16,7 +16,7 @@ object Allows extends OpaqueInt[Allows]:
   given Zero[Allows] = Zero(Allows(0))
 
   def fromForm(bell: Boolean, push: Boolean): Allows =
-    Allows((bell ?? BELL) | (push ?? PUSH))
+    Allows((bell so BELL) | (push so PUSH))
 
   def toForm(allows: Allows): Some[(Boolean, Boolean)] =
     Some((allows.bell, allows.push))
@@ -36,7 +36,7 @@ case class NotificationPref(
     correspondenceEmail: Boolean
 ):
   // def allows(key: String): Allows =
-  //   NotificationPref.Event.byKey.get(key) ?? allows
+  //   NotificationPref.Event.byKey.get(key) so allows
   def allows(event: Event): Allows = event match
     case PrivateMessage => privateMessage
     case Challenge      => challenge

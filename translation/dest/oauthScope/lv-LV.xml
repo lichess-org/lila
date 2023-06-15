@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Jauna personīgās API pieejas atslēga</string>
+  <string name="newAccessToken">Jauna personīgās API pieejas atslēga</string>
   <string name="tokenGrantsPermission">Atslēga nodrošina citiem cilvēkiem iespēju izmantot jūsu kontu.</string>
   <string name="carefullySelect">Uzmanīgi atlasiet, kādas darbības atļauts darīt jūsu vārdā.</string>
   <string name="tokenDescription">Atslēgas apraksts</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Kādas darbības atslēga ļauj darīt jūsu vārdā:</string>
   <string name="doNotShareIt">Atslēga nodrošinās piekļuvi jūsu kontam. Nedalieties ar to!</string>
   <string name="copyTokenNow">Tūlīt nokopējiet vai pierakstiet savu jauno piekļuves atslēgu. Nevarēsiet to atkārtoti skatīt!</string>
-  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Skatīt iestatījumus</string>
-  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Mainīt iestatījumus</string>
+  <string name="preferenceRead">Skatīt iestatījumus</string>
+  <string name="preferenceWrite">Mainīt iestatījumus</string>
   <string name="emailRead">Skatīt e-pasta adresi</string>
   <string name="challengeRead">Skatīt ienākošos izaicinājumus</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Sūtīt, pieņemt un noraidīt izaicinājumus</string>
+  <string name="challengeWrite">Sūtīt, pieņemt un noraidīt izaicinājumus</string>
   <string name="challengeBulk">Izveidot vairākas spēles reizē ar citiem spēlētājiem</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Skatīt privātas izpētes un tiešraides</string>
+  <string name="studyRead">Skatīt privātas izpētes un tiešraides</string>
   <string name="studyWrite">Izveidot, mainīt un dzēst izpētes un tiešraides</string>
   <string name="tournamentWrite">Izveidot, mainīt turnīrus, vai tiem pievienoties</string>
   <string name="racerWrite">Izveidot uzdevumu sacīkstes vai tām pievienoties</string>
-  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Skatīt uzdevumu aktivitāti</string>
+  <string name="puzzleRead">Skatīt uzdevumu aktivitāti</string>
   <string name="teamRead">Skatīt privāto komandu informāciju</string>
   <string name="teamWrite">Pievienoties komandām un tās pamest</string>
   <string name="teamLead">Pārvaldīt komandas, ko vadat: sūtīt ziņas, izmest dalībniekus</string>

@@ -6,6 +6,7 @@ import play.api.Configuration
 import lila.common.config.*
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -21,7 +22,7 @@ final class Env(
 )(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     idGenerator: lila.game.IdGenerator
 ):
 
@@ -39,9 +40,8 @@ final class Env(
   private lazy val lobbySyncActor = LobbySyncActor.start(
     broomPeriod = 2 seconds,
     resyncIdsPeriod = 25 seconds
-  ) { () =>
+  ): () =>
     wire[LobbySyncActor]
-  }
 
   private lazy val abortListener = wire[AbortListener]
 

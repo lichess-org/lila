@@ -1,7 +1,7 @@
 package lila.learn
 
 import reactivemongo.api.ReadPreference
-import cats.implicits.*
+import cats.syntax.all.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User

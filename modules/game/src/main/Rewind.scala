@@ -1,6 +1,7 @@
 package lila.game
 
 import cats.data.Validated
+import chess.ErrorStr
 import chess.format.{ pgn as chessPgn, Fen }
 
 object Rewind:
@@ -8,10 +9,9 @@ object Rewind:
   private def createTags(fen: Option[Fen.Epd], game: Game) =
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))
     val fenTag     = fen.map(f => chessPgn.Tag(_.FEN, f.value))
-
     chessPgn.Tags(List(variantTag, fenTag).flatten)
 
-  def apply(game: Game, initialFen: Option[Fen.Epd]): Validated[String, Progress] =
+  def apply(game: Game, initialFen: Option[Fen.Epd]): Validated[ErrorStr, Progress] =
     chessPgn.Reader
       .movesWithSans(
         sans = game.sans,
@@ -35,7 +35,7 @@ object Rewind:
           BinaryFormat.moveTime.write(moveTimes.dropRight(1))
         },
         loadClockHistory = _ => game.clockHistory.map(_.update(!color, _.dropRight(1))),
-        movedAt = nowDate
+        movedAt = nowInstant
       )
       Progress(game, newGame)
     }

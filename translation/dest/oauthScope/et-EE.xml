@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Uus isiklik rakendusliidese tooken</string>
+  <string name="newAccessToken">Uus isiklik rakendusliidese tooken</string>
   <string name="tokenGrantsPermission">Tooken annab teistele inimestele loa sinu kontot kasutada.</string>
   <string name="carefullySelect">Vali hoolikalt mille jaoks sa loa annad oma nimel.</string>
   <string name="tokenDescription">Tookeni kirjeldus</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Kõik, mida tooken sinu nimel teha saab:</string>
   <string name="doNotShareIt">See tooken võimaldab juurdepääsu sinu kontole. Ära anna seda KELLELEGI!</string>
   <string name="copyTokenNow">Tee otsekohe uuest tookenist koopia. Seda hiljem enam ei näidata!</string>
-  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Sätete lugemine</string>
-  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Sätete kirjutamine</string>
+  <string name="preferenceRead">Sätete lugemine</string>
+  <string name="preferenceWrite">Sätete kirjutamine</string>
   <string name="emailRead">Meiliaadressi lugemine</string>
   <string name="challengeRead">Väljakutsete lugemine</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Väljakutsete saatmine, kinnitamine ja keeldumine</string>
+  <string name="challengeWrite">Väljakutsete saatmine, kinnitamine ja keeldumine</string>
   <string name="challengeBulk">Korraga mitme mängu loomine teistele mängijatele</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Privaatsete uuringute ja otseülekannete lugemine</string>
+  <string name="studyRead">Privaatsete uuringute ja otseülekannete lugemine</string>
   <string name="studyWrite">Loo, uuenda ja kustuta uuringuid ning otseülekandeid</string>
   <string name="tournamentWrite">Loo, uuenda ja liitu turniiridega</string>
   <string name="racerWrite">Loo ja liitu puslerallidega</string>
-  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Puslede aktiivsuse lugemine</string>
+  <string name="puzzleRead">Puslede aktiivsuse lugemine</string>
   <string name="teamRead">Meeskonna privaatse informatsiooni lugemine</string>
   <string name="teamWrite">Meeskondadest liitumine ja lahkumine</string>
   <string name="teamLead">Meeskonna haldamine juhina: privaatsõnumite saatmine, liikmete välja viskamine</string>

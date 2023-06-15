@@ -12,8 +12,8 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor):
   def game: Fu[GameId] =
     val id = uncheckedGame
     gameRepo.exists(id).flatMap {
-      case true  => game
-      case false => fuccess(id)
+      if _ then game
+      else fuccess(id)
     }
 
   def games(nb: Int): Fu[Set[GameId]] =

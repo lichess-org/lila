@@ -13,16 +13,14 @@ case class Question[X](
 
 object Question:
 
-  private val peerDistribution = {
+  private val peerDistribution =
     // > db.insight.estimatedDocumentCount()
     // 277226337
     // > db.insight.aggregate([{$sample:{size:10000000}},{$project:{_id:0,mr:1}},{$match:{mr:{$exists:1}}},{$group:{_id:null,ratings:{$avg:'$mr'}}}])
     // { "_id" : null, "ratings" : 1878.1484907826184 }
     // > db.insight.aggregate([{$sample:{size:10000000}},{$project:{_id:0,mr:1}},{$match:{mr:{$exists:1}}},{$group:{_id:null,ratings:{$stdDevSamp:'$mr'}}}])
     // { "_id" : null, "ratings" : 357.42969844387625 }
-    import breeze.stats.distributions.*
-    Gaussian(1878d, 357d)(using Rand)
-  }
+    Gaussian(1878d, 357d)
 
   case class Peers(rating: MeanRating):
     lazy val ratingRange: Range =

@@ -4,8 +4,6 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import chess.Color
 import chess.variant.*
-import lila.game.Game
-import lila.user.User
 
 case class Pairing(
     id: GameId,
@@ -19,7 +17,7 @@ case class Pairing(
     berserk2: Boolean
 ):
 
-  def gameId = id
+  inline def gameId = id
 
   def users                                     = List(user1, user2)
   def usersPair                                 = user1 -> user2
@@ -39,10 +37,9 @@ case class Pairing(
   def quickDraw        = draw && turns.exists(20 >)
   def notSoQuickFinish = finished && turns.exists(14 <=)
   def longGame(variant: Variant) = turns.exists(_ >= (variant match {
-    case Standard | Chess960 | Horde => 60
-    case Crazyhouse | KingOfTheHill  => 50
-    case Antichess | RacingKings     => 40
-    case ThreeCheck | Atomic         => 20
+    case Standard | Chess960 | Horde            => 60
+    case Antichess | Crazyhouse | KingOfTheHill => 40
+    case ThreeCheck | Atomic | RacingKings      => 20
   }))
 
   def wonBy(user: UserId): Boolean     = winner.has(user)

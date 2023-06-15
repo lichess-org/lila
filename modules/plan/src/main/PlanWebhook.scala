@@ -4,7 +4,6 @@ import play.api.libs.json.*
 
 final class PlanWebhook(api: PlanApi)(using Executor):
 
-  import JsonHandlers.given
   import JsonHandlers.stripe.given
   import JsonHandlers.payPal.given
 
@@ -13,20 +12,19 @@ final class PlanWebhook(api: PlanApi)(using Executor):
   // then fetch the event from the stripe API.
   def stripe(js: JsValue): Funit =
     def log = logger branch "stripe.webhook"
-    js.str("id") ?? api.stripe.getEvent flatMap {
+    js.str("id") so api.stripe.getEvent flatMap {
       case None =>
         log.warn(s"Forged $js")
         funit
       case Some(event) =>
-        import JsonHandlers.stripe.*
-        ~(for {
+        ~(for
           id   <- event str "id"
           name <- event str "type"
           data <- (event \ "data" \ "object").asOpt[JsObject]
-        } yield {
+        yield
           lila.mon.plan.webhook("stripe", name).increment()
           log.debug(s"$name $id ${Json.stringify(data).take(100)}")
-          name match {
+          name match
             case "customer.subscription.deleted" =>
               val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
               api.stripe onSubscriptionDeleted sub
@@ -34,14 +32,12 @@ final class PlanWebhook(api: PlanApi)(using Executor):
               val charge = data.asOpt[StripeCharge] err s"Invalid charge $data"
               api.stripe onCharge charge
             case _ => funit
-          }
-        })
+        )
     }
 
   def payPal(js: JsValue): Funit =
     def log = logger branch "payPal.webhook"
-    import JsonHandlers.payPal.*
-    js.get[PayPalEventId]("id") ?? api.payPal.getEvent flatMap {
+    js.get[PayPalEventId]("id") so api.payPal.getEvent flatMap {
       case None =>
         log.warn(s"Forged event ${js str "id"} ${Json stringify js take 2000}")
         funit
@@ -55,7 +51,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
             Json
               .fromJson[PayPalCapture](event.resource)
               .fold(
-                err => {
+                _ => {
                   log.error(s"Unreadable PayPalCapture ${Json stringify event.resource take 2000}")
                   funit
                 },
@@ -68,7 +64,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
             Json
               .fromJson[PayPalSale](event.resource)
               .fold(
-                err => {
+                _ => {
                   log.error(s"Unreadable PayPalSale ${Json stringify event.resource take 2000}")
                   funit
                 },
@@ -81,7 +77,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
           case "BILLING.SUBSCRIPTION.CANCELLED" =>
             event.resourceId.map(
               PayPalSubscriptionId.apply
-            ) ?? api.payPal.subscriptionUser flatMapz api.cancel
+            ) so api.payPal.subscriptionUser flatMapz api.cancel
 
           case _ => funit
     }

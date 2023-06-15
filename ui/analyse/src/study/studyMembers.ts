@@ -1,5 +1,6 @@
 import { AnalyseSocketSend } from '../socket';
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { iconTag, bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
 import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';
@@ -194,14 +195,14 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         attrs: { title: ctrl.trans.noarg(contrib ? 'contributor' : 'spectator') },
       },
-      [iconTag(contrib ? '' : '')]
+      [iconTag(contrib ? licon.User : licon.Eye)]
     );
   }
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
       return h('i.act', {
-        attrs: dataIcon(''),
+        attrs: dataIcon(licon.Gear),
         hook: bind(
           'click',
           _ => members.confing(members.confing() == member.user.id ? null : member.user.id),
@@ -211,7 +212,7 @@ export function view(ctrl: StudyCtrl): VNode {
     if (!isOwner && member.user.id === members.myId)
       return h('i.act.leave', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.InternalArrow,
           title: ctrl.trans.noarg('leaveTheStudy'),
         },
         hook: bind('click', members.leave, ctrl.redraw),
@@ -253,7 +254,7 @@ export function view(ctrl: StudyCtrl): VNode {
           h(
             'a.button.button-red.button-empty.text',
             {
-              attrs: dataIcon(''),
+              attrs: dataIcon(licon.X),
               hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw),
             },
             ctrl.trans.noarg('kick')
@@ -294,7 +295,12 @@ export function view(ctrl: StudyCtrl): VNode {
               key: 'add',
               hook: bind('click', members.inviteForm.toggle),
             },
-            [h('div.left', [h('span.status', iconTag('')), h('div.user-link', ctrl.trans.noarg('addMembers'))])]
+            [
+              h('div.left', [
+                h('span.status', iconTag(licon.PlusButton)),
+                h('div.user-link', ctrl.trans.noarg('addMembers')),
+              ]),
+            ]
           )
         : null,
       !members.canContribute() && ctrl.data.admin

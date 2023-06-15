@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-
+import * as licon from 'common/licon';
 import { DasherCtrl, Mode } from './dasher';
 import { view as pingView } from './ping';
 import { bind } from './util';
@@ -14,25 +14,25 @@ export default function (ctrl: DasherCtrl): VNode {
       ? h('div.links', [
           h(
             'a.user-link.online.text.is-green',
-            linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
+            linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
             noarg('profile')
           ),
 
-          h('a.text', linkCfg('/inbox', ''), noarg('inbox')),
+          h('a.text', linkCfg('/inbox', licon.Envelope), noarg('inbox')),
 
           h(
             'a.text',
             linkCfg(
               '/account/preferences/display',
-              '',
+              licon.Gear,
               ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined
             ),
             noarg('preferences')
           ),
 
-          !d.coach ? null : h('a.text', linkCfg('/coach/edit', ''), noarg('coachManager')),
+          !d.coach ? null : h('a.text', linkCfg('/coach/edit', licon.GraduateCap), noarg('coachManager')),
 
-          !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', ''), noarg('streamerManager')),
+          !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', licon.Mic), noarg('streamerManager')),
 
           h(
             'form.logout',
@@ -45,7 +45,7 @@ export default function (ctrl: DasherCtrl): VNode {
                 {
                   attrs: {
                     type: 'submit',
-                    'data-icon': '',
+                    'data-icon': licon.Power,
                   },
                 },
                 noarg('logOut')
@@ -74,7 +74,7 @@ export default function (ctrl: DasherCtrl): VNode {
           'button.text',
           {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.DiscBigOutline,
               title: 'Keyboard: z',
               type: 'button',
             },
@@ -103,6 +103,6 @@ const linkCfg = (href: string, icon: string, more?: Record<string, string>) => (
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
   return {
     hook: bind('click', () => ctrl.setMode(m)),
-    attrs: { 'data-icon': '', type: 'button' },
+    attrs: { 'data-icon': licon.GreaterThan, type: 'button' },
   };
 }

@@ -1,14 +1,12 @@
 package lila.lobby
 
 import actorApi.*
-import cats.implicits.*
+import cats.syntax.all.*
 
-import lila.common.config.Max
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
 import lila.hub.SyncActor
 import lila.socket.Socket.{ Sri, Sris }
-import lila.user.User
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
@@ -24,7 +22,7 @@ final private class LobbySyncActor(
 
   private val hookRepo = new HookRepo
 
-  private var remoteDisconnectAllAt = nowDate
+  private var remoteDisconnectAllAt = nowInstant
 
   private var socket: SyncActor = SyncActor.stub
 
@@ -36,10 +34,10 @@ final private class LobbySyncActor(
     case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create.increment()
       hookRepo bySri hook.sri foreach remove
-      hook.sid ?? { sid =>
+      hook.sid so { sid =>
         hookRepo bySid sid foreach remove
       }
-      !hook.compatibleWithPools ?? findCompatible(hook) match
+      !hook.compatibleWithPools so findCompatible(hook) match
         case Some(h) => biteHook(h.id, hook.sri, hook.user)
         case None =>
           hookRepo save msg.hook
@@ -92,7 +90,7 @@ final private class LobbySyncActor(
       socket ! msg
       socket ! RemoveSeek(seek.id)
 
-    case LeaveAll => remoteDisconnectAllAt = nowDate
+    case LeaveAll => remoteDisconnectAllAt = nowInstant
 
     case Tick(promise) =>
       hookRepo.truncateIfNeeded()
@@ -109,7 +107,7 @@ final private class LobbySyncActor(
 
     case WithPromise(Sris(sris), promise) =>
       poolApi socketIds Sris(sris)
-      val fewSecondsAgo = nowDate minusSeconds 5
+      val fewSecondsAgo = nowInstant minusSeconds 5
       if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks {
         hookRepo
           .notInSris(sris)
@@ -137,7 +135,7 @@ final private class LobbySyncActor(
       hookRepo byIds ids.toSet foreach remove
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
-    user.?? { u =>
+    user.so { u =>
       playbanApi.currentBan(u.id)
     } foreach {
       case None => f
@@ -154,7 +152,7 @@ final private class LobbySyncActor(
   private def findCompatible(hook: Hook): Option[Hook] =
     hookRepo.filter(_ compatibleWith hook).find { existing =>
       biter.canJoin(existing, hook.user) && !(
-        (existing.user, hook.user).mapN((_, _)) ?? { case (u1, u2) =>
+        (existing.user, hook.user).mapN((_, _)) so { case (u1, u2) =>
           recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
         }
       )
@@ -198,7 +196,7 @@ private object LobbySyncActor:
       resyncIdsPeriod: FiniteDuration
   )(
       makeTrouper: () => LobbySyncActor
-  )(using ec: Executor, scheduler: akka.actor.Scheduler) =
+  )(using ec: Executor, scheduler: Scheduler) =
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyActor")
     scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)

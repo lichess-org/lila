@@ -53,7 +53,7 @@ final class GameStateStream(
       }
     }
 
-  private def uniqChan(pov: Pov)(implicit req: RequestHeader) =
+  private def uniqChan(pov: Pov)(using req: RequestHeader) =
     s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
 
   private def mkActor(
@@ -97,9 +97,8 @@ final class GameStateStream(
       Bus.unsubscribe(self, classifiers)
       // hang around if game is over
       // so the opponent has a chance to rematch
-      context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
+      context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second):
         Bus.publish(Tell(init.game.id.value, BotConnected(as, v = false)), "roundSocket")
-      }
       queue.complete()
       lila.mon.bot.gameStream("stop").increment().unit
 
@@ -116,12 +115,11 @@ final class GameStateStream(
       case SetOnline =>
         onlineApiUsers.setOnline(user.id)
         context.system.scheduler
-          .scheduleOnce(6 second) {
+          .scheduleOnce(6 second):
             // gotta send a message to check if the client has disconnected
             queue offer None
             self ! SetOnline
             Bus.publish(Tell(id.value, QuietFlag), "roundSocket")
-          }
           .unit
 
     def pushState(g: Game): Funit =
@@ -135,7 +133,7 @@ final class GameStateStream(
     }
 
     def onGameOver(g: Option[Game]) =
-      g ?? pushState >>- {
+      g.so(pushState) >>- {
         gameOver = true
         self ! PoisonPill
       }

@@ -2,10 +2,8 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGame, History, Situation }
+import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGame, Situation }
 import ChessColor.{ Black, White }
-import com.github.blemale.scaffeine.Cache
-import lila.memo.CacheApi
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
@@ -16,11 +14,10 @@ import lila.i18n.{ defaultLang, I18nKeys as trans }
 final private class Rematcher(
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    idGenerator: lila.game.IdGenerator,
     messenger: Messenger,
     onStart: OnStart,
     rematches: Rematches
-)(using Executor):
+)(using Executor, lila.game.IdGenerator):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -42,18 +39,18 @@ final private class Rematcher(
       case Pov(game, color) if game.playerCouldRematch =>
         if (isOffering(!pov) || game.opponent(color).isAi)
           rematches.getAcceptedId(game.id).fold(rematchJoin(pov))(rematchExists(pov))
-        else if (!declined.get(pov.flip.fullId) && rateLimit(pov.fullId)(true)(false))
+        else if (!declined.get(pov.flip.fullId) && rateLimit.zero(pov.fullId)(true))
           rematchCreate(pov)
         else fuccess(List(Event.RematchOffer(by = none)))
       case _ => fuccess(List(Event.ReloadOwner))
 
   def no(pov: Pov): Fu[Events] =
-    if (isOffering(pov))
+    if isOffering(pov) then
       pov.opponent.userId foreach { forId =>
         Bus.publish(lila.hub.actorApi.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
       }
       messenger.volatile(pov.game, trans.rematchOfferCanceled.txt())
-    else if (isOffering(!pov))
+    else if isOffering(!pov) then
       declined put pov.fullId
       messenger.volatile(pov.game, trans.rematchOfferDeclined.txt())
     rematches.drop(pov.gameId)
@@ -93,7 +90,7 @@ final private class Rematcher(
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
     for {
       initialFen <- gameRepo initialFen pov.game
-      situation = initialFen flatMap Fen.readWithMoveNumber
+      situation = initialFen.flatMap(Fen.readWithMoveNumber(pov.game.variant, _))
       pieces = pov.game.variant match
         case Chess960 =>
           if (chess960 get pov.gameId) Chess960.pieces
@@ -107,7 +104,7 @@ final private class Rematcher(
           castles = situation.fold(Castles.init)(_.situation.board.history.castles)
         )
       )
-      ply = situation.fold(Ply(0))(_.ply)
+      ply = situation.fold(Ply.initial)(_.ply)
       sloppy = Game.make(
         chess = ChessGame(
           situation = Situation(
@@ -127,7 +124,7 @@ final private class Rematcher(
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
       )
-      game <- withId.fold(sloppy withUniqueId idGenerator) { id => fuccess(sloppy withId id) }
+      game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy withId id) }
     } yield game
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =

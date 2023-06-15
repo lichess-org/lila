@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import cats.implicits.*
+import cats.syntax.all.*
 
 import lila.common.paginator.Paginator
 import lila.common.config.{ Max, MaxPerPage }
@@ -13,9 +13,8 @@ final class PuzzleApi(
     trustApi: PuzzleTrustApi,
     countApi: PuzzleCountApi,
     openingApi: PuzzleOpeningApi
-)(using ec: Executor, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: Scheduler):
 
-  import Puzzle.{ BSONFields as F }
   import BsonHandlers.given
 
   object puzzle:
@@ -88,8 +87,8 @@ final class PuzzleApi(
         ) flatMapz { doc =>
           val prevUp   = ~doc.int(F.voteUp)
           val prevDown = ~doc.int(F.voteDown)
-          val up       = prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)
-          val down     = prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)
+          val up       = (prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)) atLeast newVote
+          val down     = (prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)) atLeast -newVote
           coll.update
             .one(
               $id(puzzleId),
@@ -99,8 +98,8 @@ final class PuzzleApi(
                 F.vote     -> ((up - down).toFloat / (up + down))
               ) ++ {
                 (newVote <= -100 && doc
-                  .getAsOpt[DateTime](F.day)
-                  .exists(_ isAfter nowDate.minusDays(1))) ??
+                  .getAsOpt[Instant](F.day)
+                  .exists(_ isAfter nowInstant.minusDays(1))) so
                   $unset(F.day)
               }
             )
@@ -126,21 +125,16 @@ final class PuzzleApi(
 
     def vote(user: User, id: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
       round.find(user, id) flatMapz { round =>
-        round.themeVote(theme, vote) ?? { newThemes =>
+        round.themeVote(theme, vote) so { newThemes =>
           import PuzzleRound.{ BSONFields as F }
           val update =
             if (newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes))
               fuccess($unset(F.themes, F.puzzle).some)
             else
               vote match
-                case None =>
-                  fuccess(
-                    $set(
-                      F.themes -> newThemes
-                    ).some
-                  )
+                case None => fuccess($set(F.themes -> newThemes).some)
                 case Some(v) =>
-                  trustApi.theme(user, round, theme, v) map2 { weight =>
+                  trustApi.theme(user) map2 { weight =>
                     $set(
                       F.themes -> newThemes,
                       F.puzzle -> id,

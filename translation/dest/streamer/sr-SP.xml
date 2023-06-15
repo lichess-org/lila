@@ -24,7 +24,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">затражите проверу од стране модератора</string>
   <string name="twitchUsername">Твоје Твич корисничко име или УРЛ</string>
   <string name="optionalOrEmpty">Није обавезно. Оставити празно ако нема</string>
-  <string name="youtubeChannel">Твој Јутјуб канал ИД или УРЛ</string>
   <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
   <string name="longDescription">Дужи опис</string>

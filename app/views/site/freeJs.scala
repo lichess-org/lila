@@ -1,12 +1,12 @@
 package views
 package html.site
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.*
 
 object freeJs:
 
-  private lazy val agpl = a(href := "https://www.gnu.org/licenses/agpl-3.0.en.html")("AGPL-3.0+")
+  private val agpl = a(href := "https://www.gnu.org/licenses/agpl-3.0.en.html")("AGPL-3.0+")
 
   private def github(path: String) = a(href := s"https://github.com/lichess-org/lila/tree/master/$path")(path)
 

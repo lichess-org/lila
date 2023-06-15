@@ -7,17 +7,17 @@ import lila.i18n.{ I18nKeys as trans }
 
 object jsI18n:
 
-  def apply(g: lila.game.Game)(implicit lang: Lang) =
+  def apply(g: lila.game.Game)(using Lang) =
     i18nJsObject {
       baseTranslations ++ {
         if (g.isCorrespondence) correspondenceTranslations
         else realtimeTranslations
       } ++ {
-        g.variant.exotic ?? variantTranslations
+        g.variant.exotic so variantTranslations
       } ++ {
-        g.isTournament ?? tournamentTranslations
+        g.isTournament so tournamentTranslations
       } ++ {
-        g.isSwiss ?? swissTranslations
+        g.isSwiss so swissTranslations
       }
     }
 
@@ -43,7 +43,8 @@ object jsI18n:
 
   private val swissTranslations = Vector(
     trans.backToTournament,
-    trans.viewTournament
+    trans.viewTournament,
+    trans.noDrawBeforeSwissLimit
   )
 
   private val baseTranslations = Vector(
@@ -95,6 +96,7 @@ object jsI18n:
     trans.cancelRematchOffer,
     trans.newOpponent,
     trans.confirmMove,
+    trans.enableConfirmationForThisGame,
     trans.viewRematch,
     trans.whitePlays,
     trans.blackPlays,

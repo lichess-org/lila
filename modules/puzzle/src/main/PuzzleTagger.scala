@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import chess.format.{ Fen, Uci }
 import chess.{ Divider, Division }
 import reactivemongo.akkastream.cursorProducer
 
@@ -56,7 +55,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
       move  <- puzzle.line.tail.headOption
       first <- init.move(move).toOption.map(_.situationAfter)
     yield first.check
-  }.exists(_.yes) ?? {
+  }.exists(_.yes) so {
     colls.round {
       _.update
         .one(

@@ -109,7 +109,7 @@ case class StripeCustomer(
 ):
 
   def firstSubscription = subscriptions.data.headOption
-  def renew             = firstSubscription.??(_.renew)
+  def renew             = firstSubscription.so(_.renew)
 
 case class StripeCharge(
     id: StripeChargeId,
@@ -135,7 +135,7 @@ case class StripeInvoice(
     paid: Boolean
 ):
   def money    = amount_due toMoney currency
-  def dateTime = new DateTime(created * 1000)
+  def dateTime = millisToInstant(created * 1000)
 
 case class StripePaymentMethod(card: Option[StripeCard])
 
@@ -175,16 +175,16 @@ case class PayPalOrder(
     purchase_units: List[PayPalPurchaseUnit],
     payer: PayPalPayer
 ):
-  val (userId, giftTo) = purchase_units.headOption.flatMap(_.custom_id).??(_.trim) match
+  val (userId, giftTo) = purchase_units.headOption.flatMap(_.custom_id).so(_.trim) match
     case s"$userId $giftTo" => (UserId(userId).some, UserId(giftTo).some)
     case s"$userId"         => (UserId(userId).some, none)
     case _                  => (none, none)
   def isCompleted        = status == "COMPLETED"
   def isCompletedCapture = isCompleted && intent == "CAPTURE"
-  def capturedMoney      = isCompletedCapture ?? purchase_units.headOption.map(_.amount.money)
+  def capturedMoney      = isCompletedCapture so purchase_units.headOption.map(_.amount.money)
   def country            = payer.address.flatMap(_.country_code)
 case class PayPalPayment(amount: PayPalAmount)
-case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: DateTime)
+case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: Instant)
 case class PayPalSubscription(
     id: PayPalSubscriptionId,
     status: String,
@@ -230,16 +230,20 @@ case class PayPalCapture(
     id: PayPalTransactionId,
     amount: PayPalAmount,
     custom_id: String,
-    status: String
+    status: String,
+    billing_agreement_id: Option[PayPalSubscriptionId]
 ):
-  def isCompleted   = status == "COMPLETED"
-  def capturedMoney = isCompleted option amount.money
+  def isCompleted    = status.toUpperCase == "COMPLETED"
+  def capturedMoney  = isCompleted option amount.money
+  def userId         = UserId(custom_id)
+  def subscriptionId = billing_agreement_id
 case class PayPalSaleAmount(total: BigDecimal, currency: Currency):
   def amount = PayPalAmount(total, currency)
 case class PayPalSale(
     id: PayPalTransactionId,
     amount: PayPalSaleAmount,
     custom: String,
-    state: String
+    state: String,
+    billing_agreement_id: Option[PayPalSubscriptionId]
 ):
-  def toCapture = PayPalCapture(id, amount.amount, custom_id = custom, status = state)
+  def toCapture = PayPalCapture(id, amount.amount, custom_id = custom, status = state, billing_agreement_id)

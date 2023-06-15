@@ -207,6 +207,12 @@
   <string name="email">ئیمێڵ</string>
   <string name="passwordReset">نوێکردنەوەی وشەی نهێنی</string>
   <string name="forgotPassword">وشەی نهێنیت لەبیر کردووە?</string>
+  <string name="error.weakPassword">ئەم وشەی نهێنییە لەڕادەبەدەر باو و ئاساییە، و زۆر ئاسانە بۆ پێشبینیکردن.</string>
+  <string name="error.namePassword">تکایە ناوی بەکارهێنەرەکەت وەک وشەی نهێنی بەکارمەهێنە.</string>
+  <string name="youAreLeavingLichess">تۆ دەردەچیت لە لیچێس</string>
+  <string name="neverTypeYourPassword">هەرگیز وشەی نهێنی لیچێسەکەت لە سایتێکی تردا مەنووسە!</string>
+  <string name="passwordSuggestion">وشەیەکی نهێنی دامەنێ کە کەسێکی تر پێشنیاری کردبێت. بۆ دزینی ئەکاونتەکەت بەکاری دەهێنن.</string>
+  <string name="emailSuggestion">ناونیشانی ئیمەیڵێک دامەنێ کە کەسێکی تر پێشنیاری کردبێت. بۆ دزینی ئەکاونتەکەت بەکاری دەهێنن.</string>
   <string name="emailConfirmHelp">یارمەتی بۆ پشتراستکردنەوەی ئیمێڵ</string>
   <string name="emailConfirmNotReceived">دوای ناو تۆمارکردن تا ئێستا ئیمێڵی پشتراستکردنەوەت بەدەست نەگەیشتووە?</string>
   <string name="whatSignupUsername">بۆ خۆ تۆمارکردن چ ناوێکت بەکارهێناوە؟</string>
@@ -759,6 +765,7 @@
   <string name="invalidFen">FEB ـەکەت هەڵەیە</string>
   <string name="custom">تەرخانکراو</string>
   <string name="notifications">ئاگادارکردنەوەکان</string>
+  <string name="notificationsX">ئاگادارکردنەوەکان: %1$s</string>
   <string name="perfRatingX">هەڵسەنگاندن: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s چرکە ماوە بۆ یەکەم جوڵە</item>
@@ -869,8 +876,6 @@
   <string name="congratsYouWon">پیرۆزە، تۆ بوویت بە براوە!</string>
   <string name="gameVsX">یاری لە دژی %1$s</string>
   <string name="resVsX">%1$s دژی %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">کەسێک سەیری پڕۆفایلی ڕاهێنەرەکەتی کرد.</string>
-  <string name="newPendingReview">لە چاودێرید</string>
   <string name="lostAgainstTOSViolator">تۆ دۆڕاویت بە کەسێک کە پێشێلی Lichess TOS ی کردووە</string>
   <string name="refundXpointsTimeControlY">گەڕاندنەوەی: %1$s %2$s خاڵی هەڵسەنگاندن.</string>
   <string name="timeAlmostUp">خەریکە کاتت تەواودەبێت!</string>

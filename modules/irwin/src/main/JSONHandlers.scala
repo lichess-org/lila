@@ -23,5 +23,5 @@ object JSONHandlers:
       (__ \ "activation").read[Int] and
       (__ \ "games").read[List[GameReport]] and
       (__ \ "owner").read[String] and
-      Reads(_ => JsSuccess(nowDate))
+      Reads(_ => JsSuccess(nowInstant))
   )(IrwinReport.apply)

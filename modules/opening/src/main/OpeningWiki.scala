@@ -28,7 +28,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for
     wiki <- cache get op.key
-    revisions <- withRevisions ?? {
+    revisions <- withRevisions so {
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
     }
   yield wiki.copy(revisions = (~revisions) take 25)
@@ -40,7 +40,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         $doc(
           "$push" -> $doc(
             "revisions" -> $doc(
-              "$each"     -> List(Revision(Markdown(text), by.id, nowDate)),
+              "$each"     -> List(Revision(Markdown(text), by.id, nowInstant)),
               "$position" -> 0,
               "$slice"    -> 30
             )
@@ -99,15 +99,15 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   yield OpeningWiki(text map markdown.render(key), Nil, popularity)
 
   private def updatePopularity(key: OpeningKey): Fu[Long] =
-    OpeningDb.shortestLines.get(key) ?? { op =>
+    OpeningDb.shortestLines.get(key) so { op =>
       explorer.simplePopularity(op) flatMap {
-        _.?? { popularity =>
+        _.so { popularity =>
           coll.update
             .one(
               $id(key),
               $set(
                 "popularity"   -> popularity,
-                "popularityAt" -> nowDate
+                "popularityAt" -> nowInstant
               ),
               upsert = true
             )
@@ -118,7 +118,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
 object OpeningWiki:
 
-  case class Revision(text: Markdown, by: UserId, at: DateTime)
+  case class Revision(text: Markdown, by: UserId, at: Instant)
 
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 

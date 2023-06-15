@@ -1,7 +1,7 @@
 package views.html
 package game
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -20,7 +20,7 @@ object side:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(implicit ctx: Context): Option[Frag] =
+  )(using ctx: WebContext): Option[Frag] =
     ctx.noBlind option frag(
       meta(pov, initialFen, tour, simul, userTv, bookmarked),
       pov.game.userIds.filter(isStreaming) map views.html.streamer.bits.contextual
@@ -33,7 +33,7 @@ object side:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(implicit ctx: Context): Option[Frag] =
+  )(using ctx: WebContext): Option[Frag] =
     ctx.noBlind option {
       import pov.*
       div(cls := "game__meta")(
@@ -60,11 +60,18 @@ object side:
                 ),
                 game.pgnImport.flatMap(_.date).map(frag(_)) | momentFromNowWithPreload(game.createdAt)
               ),
-              game.pgnImport.flatMap(_.user).map { user =>
-                small(
-                  trans.importedByX(userIdLink(user.some, None, withOnline = false))
-                )
-              }
+              game.pgnImport
+                .flatMap(_.user)
+                .map: importedBy =>
+                  small(
+                    trans.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
+                    ctx.is(importedBy) option
+                      form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
+                        submitButton(
+                          cls   := "button-link confirm",
+                          title := trans.deleteThisImportedGame.txt()
+                        )(trans.delete.txt())
+                  )
             )
           ),
           div(cls := "game__meta__players")(
@@ -91,7 +98,7 @@ object side:
             }
           )
         },
-        game.variant.chess960.?? {
+        game.variant.chess960.so {
           chess.variant.Chess960
             .positionNumber(initialFen | chess.format.Fen.initial)
             .map { number =>
@@ -107,12 +114,14 @@ object side:
         }: Frag,
         userTv.map { u =>
           st.section(cls := "game__tv")(
-            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := "")(u.titleUsername)
+            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := licon.AnalogTv)(u.titleUsername)
           )
         },
         tour.map { t =>
           st.section(cls := "game__tournament")(
-            a(cls := "text", dataIcon := "", href := routes.Tournament.show(t.tour.id))(t.tour.name()),
+            a(cls := "text", dataIcon := licon.Trophy, href := routes.Tournament.show(t.tour.id))(
+              t.tour.name()
+            ),
             div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)
           )
         } orElse game.tournamentId.map { tourId =>

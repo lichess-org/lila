@@ -3,7 +3,6 @@ package lila.oauth
 import cats.data.Validated
 import reactivemongo.api.bson.*
 import lila.db.dsl.*
-import lila.user.User
 
 final class AuthorizationApi(val coll: Coll)(using Executor):
   import AuthorizationApi.{ BSONFields as F, PendingAuthorization, PendingAuthorizationBSONHandler }
@@ -18,7 +17,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
         request.redirectUri,
         request.challenge,
         request.scopes,
-        nowDate.plusSeconds(120)
+        nowInstant.plusSeconds(120)
       )
     ) inject code
 
@@ -30,7 +29,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
         pending <- doc
           .result[PendingAuthorization]
           .toValid(Protocol.Error.AuthorizationCodeInvalid)
-          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowDate))
+          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowInstant))
           .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
           .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
         _ <- pending.challenge match
@@ -64,27 +63,27 @@ private object AuthorizationApi:
       userId: UserId,
       redirectUri: Protocol.RedirectUri,
       challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
-      scopes: List[OAuthScope],
-      expires: DateTime
+      scopes: OAuthScopes,
+      expires: Instant
   )
 
   import lila.db.BSON
   import lila.db.dsl.{ *, given }
   import AuthorizationApi.{ BSONFields as F }
 
-  implicit object PendingAuthorizationBSONHandler extends BSON[PendingAuthorization]:
+  given PendingAuthorizationBSONHandler: BSON[PendingAuthorization] = new:
     def reads(r: BSON.Reader): PendingAuthorization =
       PendingAuthorization(
         hashedCode = r.str(F.hashedCode),
         clientId = Protocol.ClientId(r.str(F.clientId)),
         userId = r.get[UserId](F.userId),
         redirectUri = Protocol.RedirectUri.unchecked(r.str(F.redirectUri)),
-        challenge = r.strO(F.hashedClientSecret) match {
+        challenge = r.strO(F.hashedClientSecret) match
           case Some(hashedClientSecret) => Left(LegacyClientApi.HashedClientSecret(hashedClientSecret))
           case None                     => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
-        },
-        scopes = r.get[List[OAuthScope]](F.scopes),
-        expires = r.get[DateTime](F.expires)
+        ,
+        scopes = r.get[OAuthScopes](F.scopes),
+        expires = r.get[Instant](F.expires)
       )
 
     def writes(w: BSON.Writer, o: PendingAuthorization) =

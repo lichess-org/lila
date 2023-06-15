@@ -4,7 +4,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    "types": ["lichess", "web"],
+    "types": ["lichess", "web", "cash"],
     "declaration": true,
     "composite": true
   },

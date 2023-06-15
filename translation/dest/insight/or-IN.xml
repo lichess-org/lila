@@ -7,5 +7,5 @@
   <string name="generateInsights">%sଙ୍କ ଚେସ୍ ଅନ୍ତର୍ଦୃଷ୍ଟି ସୃଷ୍ଟି କରନ୍ତୁ।</string>
   <string name="crunchingData">ଏବେ କେବଳ ଆପଣଙ୍କ ପାଇଁ ଡାଟା କ୍ରଞ୍ଚ କରୁଛି!</string>
   <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">ଥରେ ସେମାନଙ୍କୁ ସେମାନଙ୍କର %s ପରିବର୍ତ୍ତନ କରିବାକୁ କହିଦେଖନ୍ତୁ?</string>
-  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ଅନ୍ତର୍ଦୃଷ୍ଟି ସେଟିଂସ୍</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ଅନ୍ତର୍ଦୃଷ୍ଟି ସେଟିଂ</string>
 </resources>

@@ -9,6 +9,7 @@ import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.memo.CacheApi
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
@@ -22,7 +23,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mode: play.api.Mode,
     mat: akka.stream.Materializer
 ):

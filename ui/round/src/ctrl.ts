@@ -3,8 +3,10 @@
 import * as ab from 'ab';
 import * as round from './round';
 import * as game from 'game';
+import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
 import * as ground from './ground';
+import * as licon from 'common/licon';
 import notify from 'common/notification';
 import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
@@ -23,20 +25,21 @@ import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
+import { makeVoiceMove, VoiceMove } from 'voice';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
-import { uciToMove } from 'chessground/util';
+import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
+import { toggle as boardMenuToggle } from 'board/menu';
 
 import {
   RoundOpts,
   RoundData,
   ApiMove,
   ApiEnd,
-  Redraw,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -44,6 +47,9 @@ import {
   Position,
   NvuiPlugin,
 } from './interfaces';
+import { Toggle, toggle } from 'common';
+import { ToggleWithUsed } from 'common/storage';
+import { Redraw } from 'common/snabbdom';
 
 interface GoneBerserk {
   white?: boolean;
@@ -61,12 +67,15 @@ export default class RoundController {
   trans: Trans;
   noarg: TransNoArg;
   keyboardMove?: KeyboardMove;
+  voiceMove?: VoiceMove;
   moveOn: MoveOn;
   promotion: PromotionCtrl;
 
   ply: number;
   firstSeconds = true;
   flip = false;
+  menu: ToggleWithUsed;
+  confirmMoveEnabled: Toggle = toggle(true);
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -86,7 +95,6 @@ export default class RoundController {
   nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
-
   private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
@@ -133,6 +141,8 @@ export default class RoundController {
     this.moveOn = new MoveOn(this, 'move-on');
     this.transientMove = new TransientMove(this.socket);
 
+    this.menu = boardMenuToggle(redraw);
+
     this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
@@ -172,18 +182,8 @@ export default class RoundController {
   };
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.keyboardMove || !this.keyboardMove.usedSan) ab.move(this, meta);
-    if (
-      !this.promotion.start(
-        orig,
-        dest,
-        (orig, dest, role) => this.sendMove(orig, dest, role, meta),
-        meta,
-        this.keyboardMove?.justSelected()
-      )
-    ) {
-      this.sendMove(orig, dest, undefined, meta);
-    }
+    if (!this.keyboardMove?.usedSan) ab.move(this, meta);
+    if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
@@ -201,19 +201,21 @@ export default class RoundController {
     } else sound.move();
   };
 
-  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
+  private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
     this.promotion.start(
       orig,
       dest,
-      (orig, dest, role) => this.sendMove(orig, dest, role, meta),
+      {
+        submit: (orig, dest, role) => this.sendMove(orig, dest, role, meta),
+        show: this.voiceMove?.promotionHook(),
+      },
       meta,
       this.keyboardMove?.justSelected()
     );
-  };
 
-  private onCancelPremove = () => {
-    this.promotion.cancelPrePromotion();
-  };
+  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => this.startPromotion(orig, dest, meta);
+
+  private onCancelPremove = () => this.promotion.cancelPrePromotion();
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
@@ -225,9 +227,7 @@ export default class RoundController {
     this.redraw();
   };
 
-  private isSimulHost = () => {
-    return this.data.simul && this.data.simul.hostId === this.opts.userId;
-  };
+  private isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
   private enpassant = (orig: cg.Key, dest: cg.Key): boolean => {
     if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
@@ -287,7 +287,8 @@ export default class RoundController {
       if (/[+#]/.test(s.san)) sound.check();
     }
     this.autoScroll();
-    if (this.keyboardMove) this.keyboardMove.update(s);
+    this.voiceMove?.update(s.fen);
+    this.keyboardMove?.update(s);
     lichess.pubsub.emit('ply', ply);
     return true;
   };
@@ -342,6 +343,18 @@ export default class RoundController {
     this.redraw();
   };
 
+  auxMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
+    if (!role) {
+      this.chessground.move(orig, dest);
+      // TODO look into possibility of making cg.Api.move function update player turn itself.
+      this.chessground.state.movable.dests = undefined;
+      this.chessground.state.turnColor = opposite(this.chessground.state.turnColor);
+
+      if (this.startPromotion(orig, dest, { premove: false })) return;
+    }
+    this.sendMove(orig, dest, role, { premove: false });
+  };
+
   sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
     const move: SocketMove = {
       u: orig + dest,
@@ -349,8 +362,9 @@ export default class RoundController {
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && !meta.premove) {
+    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
       this.moveToSubmit = move;
+      this.voiceMove?.confirm('submitMove', this.submitMove);
       this.redraw();
     } else {
       this.actualSendMove('move', move, {
@@ -361,14 +375,12 @@ export default class RoundController {
   };
 
   sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
-    const drop: SocketDrop = {
-      role: role,
-      pos: key,
-    };
+    const drop: SocketDrop = { role, pos: key };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && !isPredrop) {
+    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
       this.dropToSubmit = drop;
+      this.voiceMove?.confirm('submitMove', this.submitMove);
       this.redraw();
     } else {
       this.actualSendMove('drop', drop, {
@@ -495,7 +507,8 @@ export default class RoundController {
     }
     this.autoScroll();
     this.onChange();
-    if (this.keyboardMove) this.keyboardMove.update(step, playedColor != d.player.color);
+    this.keyboardMove?.update(step, playedColor != d.player.color);
+    this.voiceMove?.update(step.fen /*, playedColor != d.player.color*/);
     if (this.music) this.music.jump(o);
     speech.step(step);
     return true; // prevents default socket pubsub
@@ -531,7 +544,8 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    if (this.keyboardMove) this.keyboardMove.update(d.steps[d.steps.length - 1]);
+    this.keyboardMove?.update(d.steps[d.steps.length - 1]);
+    this.voiceMove?.update(d.steps[d.steps.length - 1].fen);
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -627,6 +641,11 @@ export default class RoundController {
     }
   };
 
+  opponentRequest(req: string, i18nKey: string) {
+    this.voiceMove?.confirm(req, (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`));
+    notify(this.noarg(i18nKey));
+  }
+
   takebackYes = () => {
     this.socket.sendLoading('takeback-yes');
     this.chessground.cancelPremove();
@@ -659,7 +678,7 @@ export default class RoundController {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) lichess.sound.play('berserk');
     this.redraw();
-    $('<i data-icon="">').appendTo($(`.game__meta .player.${color} .user-link`));
+    $(`<i data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
   setLoading = (v: boolean, duration = 1500) => {
@@ -724,6 +743,22 @@ export default class RoundController {
     return d.opponent.gone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.gone;
   };
 
+  rematch(accept?: boolean): boolean {
+    if (accept === undefined)
+      return this.data.opponent.offeringRematch === true || this.data.player.offeringRematch === true;
+    else if (accept) {
+      if (this.data.game.rematch) location.href = gameRoute(this.data.game.rematch, this.data.opponent.color);
+      if (!game.rematchable(this.data)) return false;
+      if (!this.data.opponent.offeringRematch) this.data.player.offeringRematch = true;
+      this.socket.send('rematch-yes');
+    } else {
+      if (!this.data.opponent.offeringRematch) return false;
+      this.socket.send('rematch-no');
+    }
+    this.redraw();
+    return true;
+  }
+
   canOfferDraw = (): boolean => game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < this.ply - 20;
 
   offerDraw = (v: boolean, immediately?: boolean): void => {
@@ -750,10 +785,9 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
-      requestAnimationFrame(() => this.redraw());
-    }
+    if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
+    if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
+    if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
   };
 
   stepAt = (ply: Ply) => round.plyStep(this.data, ply);

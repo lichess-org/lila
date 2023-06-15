@@ -14,7 +14,7 @@ import chess.format.pgn.PgnStr
 final class BlogApi(
     config: BlogConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor, akka.actor.Scheduler, StandaloneWSClient):
+)(using Executor, Scheduler, StandaloneWSClient):
 
   import BlogApi.looksLikePrismicId
 
@@ -47,7 +47,7 @@ final class BlogApi(
     recent(prismic.api, page, maxPerPage, prismic.ref.some)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
-    looksLikePrismicId(id) ?? api
+    looksLikePrismicId(id) so api
       .forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(ref | api.master.ref)
@@ -56,13 +56,12 @@ final class BlogApi(
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] =
     one(prismic.api, prismic.ref.some, id).flatMapz { doc =>
-      doc.getHtml("blog.body", prismic.linkResolver) match {
+      doc.getHtml("blog.body", prismic.linkResolver) match
         case Some(html) =>
           Bus
             .ask("lpv")(GamePgnsFromText(html, _))
             .map(pgnCache.putAll) inject doc.some
         case _ => fuccess(doc.some)
-      }
     }
 
   def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] =
@@ -77,7 +76,7 @@ final class BlogApi(
 
   def context(
       req: RequestHeader
-  )(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
+  )(using linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
     prismicApi map { api =>
       val ref = resolveRef(api) {
         req.cookies
@@ -95,10 +94,10 @@ final class BlogApi(
       BlogApi.Context(api, api.master.ref, linkResolver(api, none))
     }
 
-  def all(page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
+  def all(page: Int = 1)(using prismic: BlogApi.Context): Fu[List[Document]] =
     recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
-      val docs = res.??(_.currentPageResults).toList
-      (docs.nonEmpty ?? all(page + 1)) map (docs ::: _)
+      val docs = res.so(_.currentPageResults).toList
+      (docs.nonEmpty so all(page + 1)) map (docs ::: _)
     }
 
   def expand(html: Html) = Html(
@@ -116,7 +115,7 @@ final class BlogApi(
 
   // match the entire <a.../> tag with scheme & domain.  href value should be identical to inner text
   private val expandGameRegex =
-    """<a href="https://lichess\.org/(\w{8})(?:/(white|black)|\w{4}|)(?:#(last|\d+))?">https://lichess\.org/[^<]{8,19}</a>""".r
+    """<a href="https://lichess\.org/(\w{8})(?:/(white|black)|\w{4}|)(?:#(last|\d+))?">https://lichess\.org/[^<]{8,19}+</a>""".r
 
   private val pgnCache = cacheApi.notLoadingSync[GameId, PgnStr](256, "prisblog.markup.pgn") {
     _.expireAfterWrite(1 second).build()

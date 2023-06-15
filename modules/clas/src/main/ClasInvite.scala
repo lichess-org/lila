@@ -24,7 +24,7 @@ object ClasInvite:
       userId = user.id,
       realName = realName,
       clasId = clas.id,
-      created = Clas.Recorded(by = teacher.id, at = nowDate)
+      created = Clas.Recorded(by = teacher.id, at = nowInstant)
     )
 
   enum Feedback:

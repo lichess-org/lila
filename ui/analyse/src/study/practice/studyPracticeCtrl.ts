@@ -12,7 +12,7 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     nbMoves = prop(0),
     // null = ongoing, true = win, false = fail
     success = prop<boolean | null>(null),
-    autoNext = storedBooleanProp('practice-auto-next', true);
+    autoNext = storedBooleanProp('analyse.practice-auto-next', true);
 
   lichess.sound.loadOggOrMp3('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`, true);
   lichess.sound.loadOggOrMp3('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`, true);

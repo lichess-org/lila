@@ -3,15 +3,15 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
-import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
+import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
 
 object theme:
 
-  def list(all: PuzzleAngle.All)(using ctx: Context) =
+  def list(all: PuzzleAngle.All)(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
       moreCss = cssTag("puzzle.page"),
@@ -37,14 +37,14 @@ object theme:
       )
     )
 
-  private[puzzle] def info(using Context) =
-    p(cls := "puzzle-themes__db text", dataIcon := "")(
+  private[puzzle] def info(using WebContext) =
+    p(cls := "puzzle-themes__db text", dataIcon := licon.Heart)(
       trans.puzzleTheme.puzzleDownloadInformation(
         a(href := "https://database.lichess.org/")("database.lichess.org")
       )
     )
 
-  private def themeCategory(cat: I18nKey, themes: List[PuzzleTheme.WithCount])(using Context) =
+  private def themeCategory(cat: I18nKey, themes: List[PuzzleTheme.WithCount])(using WebContext) =
     frag(
       h2(id := cat.value)(cat()),
       div(cls := s"puzzle-themes__list ${cat.value.replace(":", "-")}")(

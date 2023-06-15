@@ -14,7 +14,6 @@
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
     "chat": "workspace:*",
-    "chessground": "^8.3.7",
     "common": "workspace:*",
     "game": "workspace:*",
     "snabbdom": "^3.5.1"

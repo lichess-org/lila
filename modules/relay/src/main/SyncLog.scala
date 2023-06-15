@@ -27,7 +27,7 @@ object SyncLog:
   case class Event(
       moves: Int,
       error: Option[String],
-      at: DateTime
+      at: Instant
   ):
     def isOk      = error.isEmpty
     def isKo      = error.nonEmpty
@@ -40,5 +40,5 @@ object SyncLog:
         case _: java.util.concurrent.TimeoutException => "Request timeout"
         case e: Exception                             => e.getMessage take 100
       },
-      at = nowDate
+      at = nowInstant
     )

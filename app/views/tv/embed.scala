@@ -1,14 +1,14 @@
 package views.html.tv
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.*
 import lila.app.ui.EmbedConfig
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 
 object embed:
 
   private val dataStreamUrl = attr("data-stream-url") := "/tv/feed?bc=1"
 
-  def apply(pov: lila.game.Pov)(implicit config: EmbedConfig) =
+  def apply(pov: lila.game.Pov)(using EmbedConfig) =
     views.html.base.embed(
       title = "lichess.org chess TV",
       cssModule = "tv.embed"

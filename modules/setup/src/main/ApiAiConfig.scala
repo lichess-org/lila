@@ -22,14 +22,14 @@ final case class ApiAiConfig(
   val strictFen = false
 
   val days      = daysO | Days(2)
-  val time      = clock.??(_.limit.roundSeconds / 60)
+  val time      = clock.so(_.limit.roundSeconds / 60)
   val increment = clock.fold(Clock.IncrementSeconds(0))(_.incrementSeconds)
   val timeMode =
     if (clock.isDefined) TimeMode.RealTime
     else if (daysO.isDefined) TimeMode.Correspondence
     else TimeMode.Unlimited
 
-  private def game(user: Option[User])(implicit idGenerator: IdGenerator): Fu[Game] =
+  private def game(user: Option[User])(using IdGenerator): Fu[Game] =
     fenGame { chessGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         chess.Speed(chessGame.clock.map(_.config)),
@@ -55,7 +55,7 @@ final case class ApiAiConfig(
         .withUniqueId
     }.dmap(_.start)
 
-  def pov(user: Option[User])(implicit idGenerator: IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
+  def pov(user: Option[User])(using IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def autoVariant =
     if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)

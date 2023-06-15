@@ -1,5 +1,6 @@
 package lila.challenge
 
+import cats.syntax.all.*
 import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
 
@@ -9,7 +10,6 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi.*
-import lila.memo.ExpireSetMemo
 import lila.user.{ LightUserApi, User, UserRepo }
 
 final class ChallengeApi(
@@ -24,7 +24,7 @@ final class ChallengeApi(
 )(using
     ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   import Challenge.*
@@ -35,18 +35,38 @@ final class ChallengeApi(
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] =
     isLimitedByMaxPlaying(c) flatMap {
-      case true => fuFalse
-      case false =>
-        repo.insertIfMissing(c) >>- {
-          uncacheAndNotify(c)
-          Bus.publish(Event.Create(c), "challenge")
-        } inject true
+      if _ then fuFalse else doCreate(c) inject true
     }
+
+  def createOpen(c: Challenge, by: Option[User]): Fu[Boolean] =
+    doCreate(c) >>- by.foreach(u => openCreatedBy.put(c.id, u.id)) inject true
+
+  private val openCreatedBy =
+    cacheApi.notLoadingSync[Id, UserId](512, "challenge.open.by") {
+      _.expireAfterWrite(1 hour).build()
+    }
+
+  private def doCreate(c: Challenge) =
+    repo.insertIfMissing(c) >>- {
+      uncacheAndNotify(c)
+      Bus.publish(Event.Create(c), "challenge")
+    }
+
+  def isOpenBy(id: Id, maker: User) = openCreatedBy.getIfPresent(id).contains(maker.id)
 
   export repo.byId
 
-  def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
-  def activeByIdBy(id: Challenge.ID, orig: User)  = repo.byIdBy(id, orig).dmap(_.filter(_.active))
+  def activeByIdFor(id: Id, dest: User): Future[Option[Challenge]] =
+    repo.byIdFor(id, dest).dmap(_.filter(_.active))
+  def activeByIdBy(id: Id, maker: User): Future[Option[Challenge]] =
+    repo
+      .byId(id)
+      .dmap(_.filter { c =>
+        c.active && c.challenger.match
+          case Challenger.Registered(orig, _) if maker is orig => true
+          case Challenger.Open if isOpenBy(id, maker)          => true
+          case _                                               => false
+      })
 
   val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor") {
     _.expireAfterAccess(15 minutes)
@@ -66,12 +86,12 @@ final class ChallengeApi(
       Bus.publish(Event.Cancel(c.cancel), "challenge")
     }
 
-  private def offline(c: Challenge) = (repo offline c) >>- uncacheAndNotify(c)
+  private def offline(c: Challenge) = repo.offline(c) >>- uncacheAndNotify(c)
 
-  private[challenge] def ping(id: Challenge.ID): Funit =
+  private[challenge] def ping(id: Id): Funit =
     repo statusById id flatMap {
       case Some(Status.Created) => repo setSeen id
-      case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
+      case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _ foreach uncacheAndNotify }
       case _                    => fuccess(socketReload(id))
     }
 
@@ -133,42 +153,37 @@ final class ChallengeApi(
       Bus.publish(Event.Create(challenge), "challenge")
     }
 
-  def removeByUserId(userId: UserId) =
-    repo allWithUserId userId flatMap { cs =>
-      lila.common.LilaFuture.applySequentially(cs)(remove).void
-    }
+  def removeByUserId(userId: UserId): Funit =
+    repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void
 
   def oauthAccept(dest: User, challenge: Challenge): Fu[Validated[String, Game]] =
     joiner(challenge, dest.some).map(_.map(_.game))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
-    if (c.hasClock) fuFalse
+    if c.hasClock then fuFalse
     else
       c.userIds
-        .map { userId =>
+        .map: userId =>
           gameCache.nbPlaying(userId) dmap (lila.game.Game.maxPlaying <=)
-        }
         .parallel
         .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =
-    repo.realTimeUnseenSince(nowDate minusSeconds 20, max = 50).flatMap { cs =>
-      lila.common.LilaFuture.applySequentially(cs)(offline).void
-    } >>
-      repo.expired(50).flatMap { cs =>
-        lila.common.LilaFuture.applySequentially(cs)(remove).void
-      }
+    repo
+      .realTimeUnseenSince(nowInstant minusSeconds 20, max = 50)
+      .flatMap(_.traverse_(offline)) >>
+      repo.expired(50).flatMap(_.traverse_(remove))
 
   private def remove(c: Challenge) =
     repo.remove(c.id) >>- uncacheAndNotify(c)
 
   private def uncacheAndNotify(c: Challenge): Unit =
-    c.destUserId ?? countInFor.invalidate
-    c.destUserId ?? notifyUser.apply
-    c.challengerUserId ?? notifyUser.apply
+    c.destUserId so countInFor.invalidate
+    c.destUserId so notifyUser.apply
+    c.challengerUserId so notifyUser.apply
     socketReload(c.id)
 
-  private def socketReload(id: Challenge.ID): Unit =
+  private def socketReload(id: Id): Unit =
     socket.foreach(_ reload id)
 
   private object notifyUser:

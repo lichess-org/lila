@@ -23,6 +23,7 @@ interface Lichess {
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
   contentLoaded(parent?: HTMLElement): void;
+  blindMode: boolean;
   unload: {
     expected: boolean;
   };
@@ -40,6 +41,8 @@ interface Lichess {
 
   socket: any;
   sound: SoundI;
+  mic: Voice.Microphone;
+
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
@@ -47,7 +50,7 @@ interface Lichess {
   miniGame: {
     init(node: HTMLElement): string | null;
     initAll(parent?: HTMLElement): void;
-    update(node: HTMLElement, data: GameUpdate): void;
+    update(node: HTMLElement, data: MiniGameUpdateData): void;
     finish(node: HTMLElement, win?: Color): void;
   };
   ab?: any;
@@ -194,6 +197,53 @@ interface LichessEditor {
   setOrientation(o: Color): void;
 }
 
+declare namespace Voice {
+  export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
+  export type ListenMode = 'full' | 'partial';
+  export type Listener = (msgText: string, msgType: MsgType) => void;
+
+  export interface Microphone {
+    setLang: (language: string) => void;
+
+    getMics: () => Promise<MediaDeviceInfo[]>;
+    setMic: (micId: string) => void;
+
+    initRecognizer: (
+      words: string[],
+      also?: {
+        recId?: string; // = 'default' if not provided
+        partial?: boolean; // = false
+        listener?: Listener; // = undefined
+        listenerId?: string; // = recId (needed to disambiguate multiple listeners on the same recId)
+      }
+    ) => void;
+    setRecognizer: (recId: string) => void;
+
+    addListener: (
+      listener: Listener,
+      also?: {
+        recId?: string; // = 'default'
+        listenerId?: string; // = recId
+      }
+    ) => void;
+    removeListener: (listenerId: string) => void;
+    setController: (listener: Listener) => void; // for status display, indicators, etc
+    stopPropagation: () => void; // interrupt broadcast propagation on current rec (for modal interactions)
+
+    start: (listen?: boolean) => Promise<void>; // listen = true if not provided, if false just initialize
+    stop: () => void; // stop listening/downloading/whatever
+    pause: () => void;
+    resume: () => void;
+
+    readonly isListening: boolean;
+    readonly isBusy: boolean; // are we downloading, extracting, or loading?
+    readonly status: string; // status display for setController listener
+    readonly recId: string; // get/set current recognizer
+    readonly micId: string;
+    readonly lang: string; // defaults to 'en'
+  }
+}
+
 declare namespace Editor {
   export interface Config {
     baseUrl: string;
@@ -251,7 +301,7 @@ interface Window {
   readonly LichessFlatpickr: (element: Element, opts: any) => any;
   readonly LichessNotify: (element: any, opts: any) => any;
   readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: any) => any;
+  readonly LichessDasher: (element: HTMLElement, toggle: HTMLElement) => any;
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
@@ -262,6 +312,8 @@ interface Window {
   };
   readonly LichessChartRatingHistory?: any;
   readonly LichessKeyboardMove?: any;
+  readonly LichessVoiceMove?: any;
+  readonly LichessVoicePlugin: { mic: Voice.Microphone; vosk: any };
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;
@@ -378,8 +430,8 @@ declare namespace Tree {
   }
   export interface CloudEval extends ClientEvalBase {
     cloud: true;
-    maxDepth: undefined;
-    millis: undefined;
+    maxDepth?: undefined;
+    millis?: undefined;
   }
   export interface LocalEval extends ClientEvalBase {
     cloud?: false;
@@ -482,8 +534,7 @@ declare namespace Tree {
   export interface Shape {}
 }
 
-interface GameUpdate {
-  id: string;
+interface MiniGameUpdateData {
   fen: Fen;
   lm: Uci;
   wc?: number;

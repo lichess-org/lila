@@ -4,8 +4,6 @@ import chess.format.pgn.{ Pgn, Tag, Tags }
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 
-import lila.user.User
-
 final class RealPlayerApi(
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
@@ -25,7 +23,7 @@ final class RealPlayerApi(
                 res.headers
                   .get("Content-Type")
                   .exists(_.exists(_ startsWith "text/plain"))
-            valid ?? {
+            valid so {
               res
                 .body[String]
                 .linesIterator
@@ -58,7 +56,7 @@ case class RealPlayers(players: Map[UserId, RealPlayer]):
     pgn.copy(
       tags = pgn.tags ++ Tags {
         game.players.flatMap { player =>
-          player.userId.flatMap(players.get) ?? { rp =>
+          player.userId.flatMap(players.get) so { rp =>
             List(
               rp.name.map { name => Tag(player.color.fold(Tag.White, Tag.Black), name.value) },
               rp.rating.map { rating => Tag(player.color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) }

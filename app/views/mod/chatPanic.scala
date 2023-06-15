@@ -1,14 +1,14 @@
 package views.html.mod
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.api.WebContext
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.{ given, * }
 
 import controllers.routes
 
 object chatPanic:
 
-  def apply(state: Option[DateTime])(using Context) =
+  def apply(state: Option[Instant])(using WebContext) =
     val title = "Chat Panic"
     views.html.base.layout(
       title = title,
@@ -27,27 +27,27 @@ object chatPanic:
             "Current state: ",
             state.map { s =>
               frag(
-                goodTag(cls := "text", dataIcon := "")(strong("ENABLED")),
+                goodTag(cls := "text", dataIcon := licon.Checkmark)(strong("ENABLED")),
                 ". Expires ",
                 momentFromNow(s)
               )
-            } getOrElse badTag(cls := "text", dataIcon := "")(strong("DISABLED"))
+            } getOrElse badTag(cls := "text", dataIcon := licon.X)(strong("DISABLED"))
           ),
           div(cls := "forms")(
             if (state.isDefined)
               frag(
                 postForm(action := s"${routes.Mod.chatPanicPost}?v=0")(
-                  submitButton(cls := "button button-fat button-red text", dataIcon := "")("Disable")
+                  submitButton(cls := "button button-fat button-red text", dataIcon := licon.X)("Disable")
                 ),
                 postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
-                  submitButton(cls := "button button-fat button-green text", dataIcon := "")(
+                  submitButton(cls := "button button-fat button-green text", dataIcon := licon.Checkmark)(
                     "Renew for two hours"
                   )
                 )
               )
             else
               postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
-                submitButton(cls := "button button-fat text", dataIcon := "")("Enable")
+                submitButton(cls := "button button-fat text", dataIcon := licon.Checkmark)("Enable")
               )
           )
         )

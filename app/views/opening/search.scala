@@ -1,9 +1,8 @@
 package views.html.opening
 
-import chess.format.Fen
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningSearchResult }
@@ -12,7 +11,7 @@ object search:
 
   import bits.*
 
-  def form(q: String, focus: Boolean = false)(using Context) =
+  def form(q: String, focus: Boolean = false) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls            := "opening__search-form__input",
@@ -23,10 +22,10 @@ object search:
         autocomplete   := "off",
         spellcheck     := "false"
       ),
-      submitButton(cls := "button", dataIcon := "")
+      submitButton(cls := "button", dataIcon := licon.Search)
     )
 
-  def resultsList(results: List[OpeningSearchResult])(using Context) =
+  def resultsList(results: List[OpeningSearchResult]) =
     div(cls := List("opening__search__results" -> true, "none" -> results.isEmpty))(
       results map { r =>
         a(cls := "opening__search__result", href := bits.queryUrl(r.query))(
@@ -38,7 +37,7 @@ object search:
       }
     )
 
-  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using Context) =
+  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(none),

@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Hầu hết các khóa học và bài tập cờ vua dùng ký hiệu đại số rộng rãi.</string>
   <string name="talkToYourChessFriends">Nó giúp bạn cờ dễ nói chuyện với nhau hơn, vì cả hai đều hiểu \"ngôn ngữ cờ vua\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Bạn sẽ phân tích ván cờ hiệu quả hơn nếu bạn có thể tìm ra ngay ô cờ từ tọa độ.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Một tọa độ sẽ xuất hiện trên bàn cờ và bạn phải nhấp chuột vào ô tương ứng.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Một ô trên bàn cờ sẽ được làm nổi bật và bạn phải nhập đúng tên ô đó (vd: \"e4\").</string>
+  <string name="aCoordinateAppears">Một tọa độ sẽ xuất hiện trên bàn cờ và bạn phải nhấp chuột vào ô tương ứng.</string>
+  <string name="aSquareIsHighlightedExplanation">Một ô trên bàn cờ sẽ được làm nổi bật và bạn phải nhập đúng tên ô đó (vd: \"e4\").</string>
   <string name="youHaveThirtySeconds">Cố gắng tìm đúng nhiều ô nhất có thể trong vòng 30 giây!</string>
   <string name="goAsLongAsYouWant">Luyện tập vô tận, không có giới hạn thời gian!</string>
   <string name="showCoordinates">Hiện tọa độ</string>

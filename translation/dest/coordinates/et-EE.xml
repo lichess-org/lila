@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Enamik malekursustest ja -ülesannetest kasutavad ulatuslikult algebralisi märke.</string>
   <string name="talkToYourChessFriends">See teeb oma malesõpradega rääkimise kergemaks, sest Te mõlemad mõistate \"male keelt\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Saate mänge efektiivsemalt analüüsida, kui ei pea ruutude nimetusi taga otsima.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Koordinaat ilmub lauale ja seab pead vajutama vastavat ruutu.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Ruut on märgistatud laual ja sa pead kirjutama selle koordinaadi (nt. \"e4\").</string>
+  <string name="aCoordinateAppears">Koordinaat ilmub lauale ja seab pead vajutama vastavat ruutu.</string>
+  <string name="aSquareIsHighlightedExplanation">Ruut on märgistatud laual ja sa pead kirjutama selle koordinaadi (nt. \"e4\").</string>
   <string name="youHaveThirtySeconds">Sul on 30 sekundit aega märgistada nii mitu ruutu kui võimalik!</string>
   <string name="goAsLongAsYouWant">Tee nii pikalt kui tahad, ajalimiiti ei ole!</string>
   <string name="showCoordinates">Näita koordinaate</string>

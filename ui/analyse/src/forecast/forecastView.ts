@@ -1,10 +1,13 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
-import { ForecastCtrl, ForecastStep } from './interfaces';
+import { ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { fixCrazySan } from 'chess';
+import { findCurrentPath } from '../treeView/common';
+import ForecastCtrl from './forecastCtrl';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];
@@ -17,7 +20,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   return h(
     'button.on-my-turn.button.text',
     {
-      attrs: dataIcon(''),
+      attrs: dataIcon(licon.Checkmark),
       hook: bind('click', _ => fctrl.playAndSave(firstNode)),
     },
     [
@@ -58,27 +61,35 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         h('div.top', ctrl.trans.noarg('conditionalPremoves')),
         h(
           'div.list',
-          fctrl.list().map(function (nodes, i) {
-            return h(
-              'div.entry.text',
+          fctrl.forecasts().map((nodes, i) =>
+            h(
+              'button.entry.text',
               {
-                attrs: dataIcon(''),
+                attrs: dataIcon(licon.PlayTriangle),
+                hook: bind(
+                  'click',
+                  _ => {
+                    const path = fctrl.showForecast(findCurrentPath(ctrl) || '', ctrl.tree, nodes);
+                    ctrl.userJump(path);
+                  },
+                  ctrl.redraw
+                ),
               },
               [
                 h('button.del', {
                   hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
-                  attrs: { 'data-icon': '', type: 'button' },
+                  attrs: { 'data-icon': licon.X, type: 'button' },
                 }),
                 h('sans', renderNodesHtml(nodes)),
               ]
-            );
-          })
+            )
+          )
         ),
         h(
           'button.add.text',
           {
             class: { enabled: isCandidate },
-            attrs: dataIcon(isCandidate ? '' : ''),
+            attrs: dataIcon(isCandidate ? licon.PlusButton : licon.InfoCircle),
             hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
           },
           [
@@ -88,7 +99,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           ]
         ),
       ]),
-      fctrl.onMyTurn ? onMyTurn(ctrl, fctrl, cNodes) : null,
+      fctrl.onMyTurn() ? onMyTurn(ctrl, fctrl, cNodes) : null,
     ]
   );
 }

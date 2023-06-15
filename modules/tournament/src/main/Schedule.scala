@@ -7,17 +7,18 @@ import play.api.i18n.Lang
 
 import lila.i18n.I18nKeys
 import lila.rating.PerfType
+import lila.gathering.Condition
 
 case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
     position: Option[Fen.Opening],
-    at: DateTime,
-    conditions: Condition.All = Condition.All.empty
+    at: LocalDateTime,
+    conditions: TournamentCondition.All = TournamentCondition.All.empty
 ):
 
-  def name(full: Boolean = true)(using lang: Lang): String =
+  def name(full: Boolean = true)(using Lang): String =
     import Schedule.Freq.*
     import Schedule.Speed.*
     import lila.i18n.I18nKeys.tourname.*
@@ -126,7 +127,7 @@ case class Schedule(
   def plan                                  = Schedule.Plan(this, None)
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
-  override def toString = s"$freq $variant $speed $conditions $at"
+  override def toString = s"$freq ${variant.key} ${speed.key} $conditions ${at.instant}"
 
 object Schedule:
 
@@ -136,7 +137,7 @@ object Schedule:
       speed = Speed fromClock tour.clock,
       variant = tour.variant,
       position = tour.position,
-      at = tour.startsAt
+      at = tour.startsAt.dateTime
     )
 
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]):
@@ -150,48 +151,36 @@ object Schedule:
         buildFunc = buildFunc.fold(f)(f.compose).some
       )
 
-  sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq]:
+  enum Freq(val id: Int, val importance: Int) extends Ordered[Freq]:
+    case Hourly               extends Freq(10, 10)
+    case Daily                extends Freq(20, 20)
+    case Eastern              extends Freq(30, 15)
+    case Weekly               extends Freq(40, 40)
+    case Weekend              extends Freq(41, 41)
+    case Monthly              extends Freq(50, 50)
+    case Shield               extends Freq(51, 51)
+    case Marathon             extends Freq(60, 60)
+    case ExperimentalMarathon extends Freq(61, 55) // for DB BC
+    case Yearly               extends Freq(70, 70)
+    case Unique               extends Freq(90, 59)
 
     val name = Freq.this.toString.toLowerCase
 
     def compare(other: Freq) = Integer.compare(importance, other.importance)
 
-    def isDaily          = this == Schedule.Freq.Daily
-    def isDailyOrBetter  = this >= Schedule.Freq.Daily
-    def isWeeklyOrBetter = this >= Schedule.Freq.Weekly
+    def isDaily          = this == Freq.Daily
+    def isDailyOrBetter  = this >= Freq.Daily
+    def isWeeklyOrBetter = this >= Freq.Weekly
+
   object Freq:
-    case object Hourly   extends Freq(10, 10)
-    case object Daily    extends Freq(20, 20)
-    case object Eastern  extends Freq(30, 15)
-    case object Weekly   extends Freq(40, 40)
-    case object Weekend  extends Freq(41, 41)
-    case object Monthly  extends Freq(50, 50)
-    case object Shield   extends Freq(51, 51)
-    case object Marathon extends Freq(60, 60)
-    case object ExperimentalMarathon extends Freq(61, 55): // for DB BC
-      override val name = "Experimental Marathon"
-    case object Yearly extends Freq(70, 70)
-    case object Unique extends Freq(90, 59)
-    val all: List[Freq] = List(
-      Hourly,
-      Daily,
-      Eastern,
-      Weekly,
-      Weekend,
-      Monthly,
-      Shield,
-      Marathon,
-      ExperimentalMarathon,
-      Yearly,
-      Unique
-    )
-    def apply(name: String) = all.find(_.name == name)
-    def byId(id: Int)       = all.find(_.id == id)
+    val list: List[Freq] = values.toList
+    val byName           = values.mapBy(_.name)
+    val byId             = values.mapBy(_.id)
 
   enum Speed(val id: Int):
     val name = Speed.this.toString
     val key  = lila.common.String lcfirst name
-    def trans(using lang: Lang): String = this match
+    def trans(using Lang): String = this match
       case Speed.Rapid     => I18nKeys.rapid.txt()
       case Speed.Classical => I18nKeys.classical.txt()
       case _               => name
@@ -206,8 +195,8 @@ object Schedule:
   object Speed:
     val all                      = values.toList
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
+    val byId                     = values.mapBy(_.id)
     def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
-    def byId(id: Int)      = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match
         case (a, b) if a == b                                        => true
@@ -289,8 +278,8 @@ object Schedule:
       case (Unique, _, _) => 60 * 6
 
   private val standardIncHours         = Set(1, 7, 13, 19)
-  private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
-  private def zhInc(s: Schedule)       = s.at.getHourOfDay % 2 == 0
+  private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
+  private def zhInc(s: Schedule)       = s.at.getHour % 2 == 0
 
   private given Conversion[Int, LimitSeconds]     = LimitSeconds(_)
   private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)
@@ -331,7 +320,7 @@ object Schedule:
     s.copy(conditions = conditionFor(s))
 
   private[tournament] def conditionFor(s: Schedule) =
-    if (s.conditions.relevant) s.conditions
+    if s.conditions.nonEmpty then s.conditions
     else
       import Freq.*, Speed.*
 
@@ -350,18 +339,15 @@ object Schedule:
 
         case _ => 0
 
-      val minRating = (s.freq, s.variant) match
-        case (Weekend, chess.variant.Crazyhouse) => 2100
-        case (Weekend, _)                        => 2200
-        case _                                   => 0
+      val minRating = IntRating:
+        (s.freq, s.variant) match
+          case (Weekend, chess.variant.Crazyhouse) => 2100
+          case (Weekend, _)                        => 2200
+          case _                                   => 0
 
-      Condition.All(
-        nbRatedGame = nbRatedGame.some.filter(0 <).map {
-          Condition.NbRatedGame(s.perfType.some, _)
-        },
-        minRating = minRating.some.filter(0 <).map {
-          Condition.MinRating(s.perfType, _)
-        },
+      TournamentCondition.All(
+        nbRatedGame = nbRatedGame.some.filter(0 <) map Condition.NbRatedGame.apply,
+        minRating = minRating.some.filter(_ > 0) map Condition.MinRating.apply,
         maxRating = none,
         titled = none,
         teamMember = none,

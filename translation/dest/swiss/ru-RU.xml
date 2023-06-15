@@ -13,7 +13,7 @@
     <item quantity="many">%s туров</item>
     <item quantity="other">%s туров</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s раунд по Швейцарской системе</item>
     <item quantity="few">%s раунда по Швейцарской системе</item>
     <item quantity="many">%s раундов по Швейцарской системе</item>
@@ -75,10 +75,15 @@
   <string name="numberOfByesQ">Сколько автопобед может получить игрок?</string>
   <string name="numberOfByesA">Игрок получает одно очко автопобеды за несыгранную партию в том случае, когда не удаётся найти для него соперника в этом туре.
 Также пол-очка присуждается за позднее присоединение к турниру.</string>
+  <string name="earlyDrawsQ">Что происходит при ранних ничьих?</string>
+  <string name="earlyDrawsA">Партии в Швейцарских турнирах не могут кончиться вничью, пока не сделано 30 ходов. Если это не предотвратит ничью, на которую договорились заранее, то по меньшей мере это не будет так просто.</string>
   <string name="whatIfOneDoesntPlayQ">Что произойдёт, если игрок не играет партию?</string>
   <string name="whatIfOneDoesntPlayA">Его часы будут запущены, в итоге он просрочит время и проиграет партию.
 Затем система снимет игрока с турнира, чтобы избежать для него дальнейших поражений.
  Игрок может вернуться в турнир в любое время.</string>
+  <string name="protectionAgainstNoShowQ">Что будет в случае неактивности в турнире?</string>
+  <string name="protectionAgainstNoShowA">Игроки, участвующие в турнирах, но не играющие свои начавшиеся партии, могут стать проблемой. Для её разрешения, если игрок так и не сделал хотя бы ход, Lichess на определённое время запрещает ему участие в новых Швейцарских турнирах.
+Создатель турнира, однако, может позволить им участвовать в турнире.</string>
   <string name="lateJoinQ">Могут ли игроки присоединиться к турниру после его начала?</string>
   <string name="lateJoinA">Да, может, пока не сыграны половина раундов. Например, в 11-раундовом Швейцарском турнире игрок может начать играть, если ещё не начался 6-й раунд. В 12-раундовом — если 7-й соответственно. Позднее вступление даёт половину автопобеды только один раз, даже если пропущено несколько раундов.</string>
   <string name="willSwissReplaceArenasQ">Заменят ли турниры по Швейцарской системе турниры «Арены»?</string>
@@ -119,10 +124,5 @@
   <string name="unlimitedAndFree">Неограниченно и бесплатно</string>
   <string name="predefinedUsers">Разрешить участие только перечисленным игрокам</string>
   <string name="forbiddedUsers">Если список не пустой, тогда только игроки из списка смогут участвовать. По одному игроку в строке.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s раунд по Швейцарской системе</item>
-    <item quantity="few">%1$s / %2$s раунда по Швейцарской системе</item>
-    <item quantity="many">%1$s / %2$s раундов по Швейцарской системе</item>
-    <item quantity="other">%1$s / %2$s раундов по Швейцарской системе</item>
-  </plurals>
+  <string name="playYourGames">Играйте ваши партии</string>
 </resources>

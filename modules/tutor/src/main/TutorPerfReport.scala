@@ -1,16 +1,13 @@
 package lila.tutor
 
 import cats.data.NonEmptyList
-import chess.Color
+import chess.{ ByColor, Color }
 
 import lila.analyse.AccuracyPercent
-import lila.common.Heapsort.given
 import lila.common.LilaOpeningFamily
 import lila.insight.*
 import lila.rating.PerfType
-import lila.tutor.TutorCompare.{ compOrder, AnyComparison }
-import lila.insight.Result
-import lila.common.config
+import lila.tutor.TutorCompare.AnyComparison
 
 // for simplicity, all metrics should be positive: higher is better
 case class TutorPerfReport(
@@ -22,7 +19,7 @@ case class TutorPerfReport(
     conversion: TutorBothValueOptions[GoodPercent],
     globalClock: TutorBothValueOptions[ClockPercent],
     clockUsage: TutorBothValueOptions[ClockPercent],
-    openings: Color.Map[TutorColorOpenings],
+    openings: ByColor[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
 ):
@@ -124,13 +121,13 @@ private object TutorPerfReport:
       resourcefulness <- TutorResourcefulness compute users
       conversion      <- TutorConversion compute users
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
-      globalClock <- clockUsers.?? { answerManyPerfs(globalClockQuestion, _).dmap(some) }
-      clockUsage  <- clockUsers.?? { TutorClockUsage.compute(_).dmap(some) }
+      globalClock <- clockUsers.so { answerManyPerfs(globalClockQuestion, _).dmap(some) }
+      clockUsage  <- clockUsers.so { TutorClockUsage.compute(_).dmap(some) }
       perfReports <- Future sequence users.toList.map { user =>
         for
           openings <- TutorOpening compute user
           phases   <- TutorPhases compute user
-          flagging <- hasClock(user.perfType) ?? TutorFlagging.compute(user)
+          flagging <- hasClock(user.perfType) so TutorFlagging.compute(user)
         yield TutorPerfReport(
           user.perfType,
           user.perfStats,
@@ -138,8 +135,8 @@ private object TutorPerfReport:
           awareness = GoodPercent.from(awareness valueMetric user.perfType),
           resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
           conversion = GoodPercent.from(conversion valueMetric user.perfType),
-          globalClock = ClockPercent.from(globalClock.??(_ valueMetric user.perfType)),
-          clockUsage = ClockPercent.from(clockUsage.??(_ valueMetric user.perfType)),
+          globalClock = ClockPercent.from(globalClock.so(_ valueMetric user.perfType)),
+          clockUsage = ClockPercent.from(clockUsage.so(_ valueMetric user.perfType)),
           openings,
           phases,
           flagging

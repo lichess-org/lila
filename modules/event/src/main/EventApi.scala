@@ -30,7 +30,7 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       .find(
         $doc(
           "enabled" -> true,
-          "startsAt" $gt nowDate.minusDays(1) $lt nowDate.plusDays(1)
+          "startsAt" $gt nowInstant.minusDays(1) $lt nowInstant.plusDays(1)
         )
       )
       .sort($sort asc "startsAt")
@@ -63,5 +63,5 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
   def clone(old: Event) =
     old.copy(
       title = s"${old.title} (clone)",
-      startsAt = nowDate plusDays 7
+      startsAt = nowInstant plusDays 7
     )

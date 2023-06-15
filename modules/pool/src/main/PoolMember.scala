@@ -1,7 +1,6 @@
 package lila.pool
 
 import lila.rating.RatingRange
-import lila.user.User
 import lila.playban.RageSit
 
 case class PoolMember(
@@ -27,7 +26,7 @@ case class PoolMember(
 
 object PoolMember:
 
-  def apply(joiner: PoolApi.Joiner, config: PoolConfig, rageSit: RageSit): PoolMember =
+  def apply(joiner: PoolApi.Joiner, rageSit: RageSit): PoolMember =
     PoolMember(
       userId = joiner.userId,
       sri = joiner.sri,

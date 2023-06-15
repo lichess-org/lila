@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="other">ပွဲစဉ် %s ခုဖြင့် ပတ်လည်စနစ်</item>
   </plurals>
   <string name="tournStartDate">ပြိုင်ပွဲစရက်</string>
@@ -10,7 +10,4 @@
   <string name="newSwiss">ဆွစ်စနစ် ပြိုင်ပွဲ အသစ် ပြုလုပ်ရန်</string>
   <string name="pairingWaitTimeArena">အမြန် - ကစားသမားကို မစောင့်ပါ</string>
   <string name="pairingWaitTimeSwiss">အနှေး - ကစားသမား အားလုံးကို စောင့်သည်</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="other">ပွဲစဉ် %2$s ခုပါ sပတ်လည်စနစ်မှ ပွဲစဉ်အမှတ် %1$s</item>
-  </plurals>
 </resources>

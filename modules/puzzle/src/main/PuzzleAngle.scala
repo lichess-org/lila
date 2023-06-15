@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import play.api.i18n.Lang
-
 import lila.common.{ Iso, LilaOpeningFamily, SimpleOpening }
 import lila.i18n.I18nKey
 import chess.opening.{ Opening, OpeningDb, OpeningKey }

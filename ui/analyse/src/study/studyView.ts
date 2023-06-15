@@ -3,6 +3,7 @@ import * as glyphForm from './studyGlyph';
 import * as practiceView from './practice/studyPracticeView';
 import AnalyseCtrl from '../ctrl';
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { richHTML } from 'common/richText';
@@ -21,6 +22,7 @@ import { view as studyFormView } from './studyForm';
 import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
+import { view as searchView } from './studySearch';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -84,13 +86,13 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'tags',
         hint: noarg('pgnTags'),
-        icon: iconTag(''),
+        icon: iconTag(licon.Tag),
       }),
       toolButton({
         ctrl,
         tab: 'comments',
         hint: noarg('commentThisPosition'),
-        icon: iconTag(''),
+        icon: iconTag(licon.BubbleSpeech),
         onClick() {
           ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
         },
@@ -109,24 +111,24 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'serverEval',
         hint: noarg('computerAnalysis'),
-        icon: iconTag(''),
+        icon: iconTag(licon.BarChart),
         count: root.data.analysis && '✓',
       }),
       toolButton({
         ctrl,
         tab: 'multiBoard',
         hint: 'Multiboard',
-        icon: iconTag(''),
+        icon: iconTag(licon.Multiboard),
       }),
       toolButton({
         ctrl,
         tab: 'share',
         hint: noarg('shareAndExport'),
-        icon: iconTag(''),
+        icon: iconTag(licon.NodeBranching),
       }),
       !ctrl.relay
         ? h('span.help', {
-            attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
+            attrs: { title: 'Need help? Get the tour!', 'data-icon': licon.InfoCircle },
             hook: bind('click', ctrl.startTour),
           })
         : null,
@@ -150,7 +152,7 @@ function metadata(ctrl: StudyCtrl): VNode {
         {
           class: { liked: d.liked },
           attrs: {
-            'data-icon': d.liked ? '' : '',
+            'data-icon': d.liked ? licon.Heart : licon.HeartOutline,
             title: ctrl.trans.noarg(d.liked ? 'unlike' : 'like'),
           },
           hook: bind('click', ctrl.toggleLike),
@@ -169,18 +171,11 @@ export function side(ctrl: StudyCtrl): VNode {
 
   const makeTab = (key: Tab, name: string) =>
     h(
-      'span.' + key,
+      `span.${key}`,
       {
         class: { active: !tourShow?.active && activeTab === key },
         attrs: { role: 'tab' },
-        hook: bind(
-          'mousedown',
-          () => {
-            tourShow?.disable();
-            ctrl.vm.tab(key);
-          },
-          ctrl.redraw
-        ),
+        hook: bind('mousedown', () => ctrl.setTab(key)),
       },
       name
     );
@@ -199,7 +194,7 @@ export function side(ctrl: StudyCtrl): VNode {
           ctrl.redraw
         ),
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.RadioTower,
           role: 'tab',
         },
       },
@@ -209,7 +204,7 @@ export function side(ctrl: StudyCtrl): VNode {
   const chaptersTab =
     tourShow && ctrl.looksNew() && !ctrl.members.canContribute()
       ? null
-      : makeTab('chapters', ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
+      : makeTab('chapters', ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length));
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     tourTab,
@@ -217,15 +212,18 @@ export function side(ctrl: StudyCtrl): VNode {
     !tourTab || ctrl.members.canContribute() || ctrl.data.admin
       ? makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size()))
       : null,
+    h('span.search.narrow', {
+      attrs: {
+        'data-icon': licon.Search,
+        title: 'Search',
+      },
+      hook: bind('click', () => ctrl.search.open(true)),
+    }),
     ctrl.members.isOwner()
-      ? h(
-          'span.more',
-          {
-            attrs: { role: 'tab' },
-            hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
-          },
-          [iconTag('')]
-        )
+      ? h('span.more.narrow', {
+          attrs: { 'data-icon': licon.Hamburger },
+          hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
+        })
       : null,
   ]);
 
@@ -240,7 +238,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
         h(
           'a',
           {
-            attrs: dataIcon(''),
+            attrs: dataIcon(licon.BubbleSpeech),
             hook: bind('click', () => {
               ctrl.vm.toolTab('comments');
               ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);
@@ -262,14 +260,20 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
     : [];
 }
 
-export function overboard(ctrl: StudyCtrl) {
-  if (ctrl.chapters.newForm.vm.open) return chapterNewFormView(ctrl.chapters.newForm);
-  if (ctrl.chapters.editForm.current()) return chapterEditFormView(ctrl.chapters.editForm);
-  if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
-  if (ctrl.topics.open()) return topicsFormView(ctrl.topics, ctrl.members.myId);
-  if (ctrl.form.open()) return studyFormView(ctrl.form);
-  return undefined;
-}
+export const overboard = (ctrl: StudyCtrl) =>
+  ctrl.chapters.newForm.vm.open
+    ? chapterNewFormView(ctrl.chapters.newForm)
+    : ctrl.chapters.editForm.current()
+    ? chapterEditFormView(ctrl.chapters.editForm)
+    : ctrl.members.inviteForm.open()
+    ? inviteFormView(ctrl.members.inviteForm)
+    : ctrl.topics.open()
+    ? topicsFormView(ctrl.topics, ctrl.members.myId)
+    : ctrl.form.open()
+    ? studyFormView(ctrl.form)
+    : ctrl.search.open()
+    ? searchView(ctrl.search)
+    : undefined;
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.embed) return [];

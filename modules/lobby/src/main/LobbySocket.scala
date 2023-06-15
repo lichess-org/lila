@@ -6,12 +6,10 @@ import play.api.libs.json.*
 import lila.game.Pov
 import lila.hub.actorApi.timeline.*
 import lila.hub.SyncActor
-import lila.i18n.defaultLang
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
-import lila.user.User
 import lila.round.ChangeFeatured
 import lila.common.Json.given
 
@@ -25,7 +23,7 @@ final class LobbySocket(
     relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
     cacheApi: lila.memo.CacheApi
-)(using ec: Executor, scheduler: akka.actor.Scheduler):
+)(using ec: Executor, scheduler: Scheduler):
 
   import LobbySocket.*
   import Protocol.*
@@ -149,8 +147,8 @@ final class LobbySocket(
     key = "lobby.hook_pool.member"
   )
 
-  private def HookPoolLimit(member: Member, cost: Int, msg: => String)(op: => Unit) =
-    poolLimitPerSri(k = member.sri.value, cost = cost, msg = msg)(op) {}
+  private def HookPoolLimit(member: Member, cost: Int, msg: => String) =
+    poolLimitPerSri.zero[Unit](k = member.sri.value, cost = cost, msg = msg)
 
   def controller(member: Member): SocketController =
     case ("join", o) if !member.bot =>
@@ -224,8 +222,8 @@ final class LobbySocket(
 
   private def getOrConnect(sri: Sri, userOpt: Option[UserId]): Fu[Member] =
     actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
-      userOpt ?? userRepo.enabledById flatMap { user =>
-        (user ?? { u =>
+      userOpt so userRepo.enabledById flatMap { user =>
+        (user so { u =>
           remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
           relationApi.fetchBlocking(u.id)
         }) map { blocks =>
@@ -285,7 +283,7 @@ private object LobbySocket:
       val reader: P.In.Reader = raw =>
         raw.path match
           case "counters" =>
-            import cats.implicits.*
+            import cats.syntax.all.*
             raw.get(2) { case Array(m, r) =>
               (m.toIntOption, r.toIntOption).mapN(Counters.apply)
             }

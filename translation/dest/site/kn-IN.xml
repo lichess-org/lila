@@ -835,8 +835,6 @@
   <string name="congratsYouWon">ಅಭಿನಂದನೆಗಳು, ನೀವು ಗೆದ್ದಿದ್ದೀರಿ!</string>
   <string name="gameVsX">%1$s ಅವರ ವಿರುದ್ಧ</string>
   <string name="resVsX">%1$s ವಿರುದ್ಧ %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">ನಿಮ್ಮ ಕೋಚ್ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಯಾರೋ ವಿಶ್ಲೇಷಿಸಿದ್ದಾರೆ.</string>
-  <string name="newPendingReview">ಹೊಸದಾಗಿ ಬಾಕಿ ಇರುವ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="lostAgainstTOSViolator">ಲೀಚೆಸ್ ನಿಯಮಾವಳಿಗಳನ್ನು ಉಲ್ಲಂಘಿಸಿದ ಯಾರೋ ಒಬ್ಬರ ವಿರುದ್ಧ ನೀವು ಸೋತಿದ್ದೀರಿ</string>
   <string name="refundXpointsTimeControlY">ಮರುಪಾವತಿ: %1$s %2$s ಧಾರಣೆ ಅಂಕಗಳು.</string>
   <string name="timeAlmostUp">ಸಮಯ ಮುಗಿಯುತ್ತಾ ಬರುತ್ತಿದೆ!</string>

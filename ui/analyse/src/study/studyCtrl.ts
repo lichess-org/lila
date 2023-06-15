@@ -5,13 +5,12 @@ import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
-import { ctrl as chapterCtrl } from './studyChapters';
 import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
 import { ctrl as glyphFormCtrl, GlyphCtrl } from './studyGlyph';
 import { ctrl as studyFormCtrl } from './studyForm';
-import { ctrl as topicsCtrl, TopicsCtrl } from './topics';
+import TopicsCtrl from './topics';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
@@ -45,6 +44,8 @@ import { StudySocketSendParams } from '../socket';
 import { Opening } from '../explorer/interfaces';
 import { storedMap, storedBooleanProp } from 'common/storage';
 import { opposite } from 'chessops/util';
+import StudyChaptersCtrl from './studyChapters';
+import { SearchCtrl } from './studySearch';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -85,7 +86,7 @@ export default function (
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
-  const relayRecProp = storedBooleanProp('relay.rec', true);
+  const relayRecProp = storedBooleanProp('analyse.relay.rec', true);
   const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   const chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
 
@@ -114,6 +115,12 @@ export default function (
 
   const startTour = () => tours.study(ctrl);
 
+  const setTab = (tab: Tab) => {
+    relay?.tourShow.disable();
+    vm.tab(tab);
+    redraw();
+  };
+
   const members = memberCtrl({
     initDict: data.members,
     myId: practiceData ? undefined : ctrl.opts.userId,
@@ -130,10 +137,10 @@ export default function (
     trans: ctrl.trans,
   });
 
-  const chapters = chapterCtrl(
+  const chapters = new StudyChaptersCtrl(
     data.chapters,
     send,
-    () => vm.tab('chapters'),
+    () => setTab('chapters'),
     chapterId => xhr.chapterConfig(data.id, chapterId),
     ctrl
   );
@@ -196,7 +203,9 @@ export default function (
 
   const serverEval = new ServerEval(ctrl, () => vm.chapterId);
 
-  const topics: TopicsCtrl = topicsCtrl(
+  const search = new SearchCtrl(relay?.fullRoundName() || data.name, chapters.list, setChapter, redraw);
+
+  const topics: TopicsCtrl = new TopicsCtrl(
     topics => send('setTopics', topics),
     () => data.topics || [],
     ctrl.trans,
@@ -469,6 +478,7 @@ export default function (
       if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
       ctrl.tree.promoteAt(position.path, d.toMainline);
       if (vm.mode.sticky) ctrl.jump(ctrl.path);
+      ctrl.treeVersion++;
       redraw();
     },
     reload: xhrReload,
@@ -521,6 +531,7 @@ export default function (
     },
     chapters(d) {
       chapters.list(d);
+      if (vm.toolTab() == 'multiBoard' || (relay && relay.tourShow.active)) multiBoard.addResult(d);
       if (!currentChapter()) {
         vm.chapterId = d[0].id;
         if (!vm.mode.sticky) xhrReload();
@@ -605,6 +616,7 @@ export default function (
   return {
     data,
     form,
+    setTab,
     members,
     chapters,
     notif,
@@ -616,6 +628,7 @@ export default function (
     studyDesc,
     chapterDesc,
     topics,
+    search,
     vm,
     relay,
     multiBoard,

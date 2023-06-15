@@ -14,7 +14,7 @@
   <string name="challengeRead">Se inkommande utmaningar</string>
   <string name="challengeWrite">Skicka, acceptera och avvisa utmaningar</string>
   <string name="challengeBulk">Skapa många partier samtidigt för andra spelare</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Se privata studier och sändningar</string>
+  <string name="studyRead">Se privata studier och sändningar</string>
   <string name="studyWrite">Skapa, uppdatera, radera studier och sändningar</string>
   <string name="tournamentWrite">Skapa, uppdatera och gå med i turneringar</string>
   <string name="racerWrite">Skapa och gå med i pussellopp</string>

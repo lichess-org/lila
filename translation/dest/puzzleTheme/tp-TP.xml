@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">jan utala li kama ijo musi ante. anu la, ona li wile kama ijo musi ante.</string>
   <string name="advantage">o wawa e nasin pi ijo musi sina</string>
   <string name="advantageDescription">ijo musi sina li ken kama lon nasin pona. ona li wawa tawa ijo musi ante.</string>
+  <string name="attackingF2F7">o utala e f2 e f7</string>
+  <string name="attackingF2F7Description">o utala tawa jan utala lon f2 anu f7.</string>
   <string name="castling">tawa pi \"tomo awen\"</string>
   <string name="castlingDescription">o awen e lawa mije sina. o tawa e tomo utala sina tawa ni: ona li ken utala e ijo ante.</string>
   <string name="capturingDefender">o anpa e ijo pi awen ijo</string>
@@ -49,6 +51,7 @@
   <string name="opening">open musi</string>
   <string name="pawnEndgame">pini pi jan utala</string>
   <string name="pawnEndgameDescription">pini musi li kama. jan utala taso li lon.</string>
+  <string name="pin">ken tawa ala</string>
   <string name="pinDescription">ijo musi li tawa la, ijo musi suli pi kule sama li ken anpa.</string>
   <string name="promotion">kama wawa pi jan utala</string>
   <string name="promotionDescription">o wawa e jan utala sina.</string>

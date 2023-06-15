@@ -79,7 +79,7 @@ suite. I nodaireacht fichille scríobhtar “ep”.
 Féach ar %3$s ar an mbeart seo le haghaidh cleachtadh leis.</string>
   <string name="goodIntroduction">réamhrá maith</string>
   <string name="lichessTraining">Traenáil Lichess</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Féach ar marbhsháinn an Máistir Idirnáisiúnta Eric Rosen %s.</string>
+  <string name="watchIMRosenCheckmate">Féach ar marbhsháinn an Máistir Idirnáisiúnta Eric Rosen %s.</string>
   <string name="threefoldRepetition">Athshuíomh faoi thrí</string>
   <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 (d) de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">athshuíomh faoi thrí</string>

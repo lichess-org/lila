@@ -3,7 +3,7 @@ package views.html.ublog
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Captcha
@@ -16,9 +16,9 @@ object form:
 
   import views.html.ublog.{ post as postView }
 
-  private def moreCss(implicit ctx: Context) = frag(cssTag("ublog.form"), cssTag("tagify"))
+  private def moreCss(using WebContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
-  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(implicit ctx: Context) =
+  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using WebContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
@@ -35,7 +35,7 @@ object form:
       )
     }
 
-  def edit(post: UblogPost, f: Form[UblogPostData])(implicit ctx: Context) =
+  def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: WebContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
@@ -47,10 +47,10 @@ object form:
           standardFlash,
           boxTop(
             h1(
-              if (ctx isUserId post.created.by) trans.ublog.editYourBlogPost()
+              if ctx is post.created.by then trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
             ),
-            a(href := postView.urlOfPost(post), dataIcon := "", cls := "text", targetBlank)("Preview")
+            a(href := postView.urlOfPost(post), dataIcon := licon.Eye, cls := "text", targetBlank)("Preview")
           ),
           imageForm(post),
           inner(f, Right(post), none),
@@ -69,7 +69,7 @@ object form:
       )
     }
 
-  private def imageForm(post: UblogPost)(implicit ctx: Context) =
+  private def imageForm(post: UblogPost)(using ctx: WebContext) =
     postForm(
       cls     := "ublog-post-form__image",
       action  := routes.Ublog.image(post.id),
@@ -78,7 +78,7 @@ object form:
       form3.split(
         div(cls := "form-group form-half")(formImage(post)),
         div(cls := "form-group form-half")(
-          if (ctx isUserId post.created.by)
+          if ctx is post.created.by then
             frag(
               p(trans.ublog.uploadAnImageForYourPost()),
               p(
@@ -103,18 +103,17 @@ object form:
               form3.file.image("image")
             )
           else
-            post.image.isDefined option submitButton(cls := "button button-red confirm")(
+            post.image.isDefined option submitButton(cls := "button button-red confirm"):
               trans.ublog.deleteImage()
-            )
         )
       )
     )
 
   def formImage(post: UblogPost) =
-    postView.thumbnail(post, _.Small)(cls := post.image.isDefined.option("user-image"))
+    postView.thumbnail(post, _.Size.Small)(cls := post.image.isDefined.option("user-image"))
 
-  private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(
-      implicit ctx: Context
+  private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(using
+      WebContext
   ) =
     postForm(
       cls    := "form3 ublog-post-form__main",
@@ -126,7 +125,7 @@ object form:
           form3.split(
             form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
             form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
-          )(cls := s"ublog-post-form__image-text ${p.image.isDefined ?? "visible"}")
+          )(cls := s"ublog-post-form__image-text ${p.image.isDefined so "visible"}")
         )
       },
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
@@ -142,7 +141,7 @@ object form:
       ) { field =>
         frag(
           form3.textarea(field)(),
-          div(id := "markdown-editor")
+          div(id := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
         )
       },
       post.toOption match {
@@ -195,12 +194,12 @@ object form:
       )
     )
 
-  private def etiquette(implicit ctx: Context) = div(cls := "ublog-post-form__etiquette")(
+  private def etiquette(using WebContext) = div(cls := "ublog-post-form__etiquette")(
     p(trans.ublog.safeAndRespectfulContent()),
     p(trans.ublog.inappropriateContentAccountClosed()),
     p(
       a(
-        dataIcon := "",
+        dataIcon := licon.InfoCircle,
         href     := routes.Page.loneBookmark("blog-etiquette"),
         cls      := "text",
         targetBlank
@@ -209,8 +208,8 @@ object form:
     p(tips)
   )
 
-  def tips(implicit ctx: Context) = a(
-    dataIcon := "",
+  def tips(using WebContext) = a(
+    dataIcon := licon.InfoCircle,
     href     := routes.Page.loneBookmark("blog-tips"),
     cls      := "text",
     targetBlank

@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' met afronding, gebaseerd op het aantal halfzetten tot de volgende stukwinst of pionzet</string>
   <string name="noGameFound">Geen partij gevonden</string>
+  <string name="maxDepthReached">Maximale diepte bereikt!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
   <string name="openings">Openingen</string>
   <string name="openingExplorer">Openingverkenner</string>
@@ -119,6 +120,7 @@
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="removesTheDepthLimit">Verwijdert de dieptelimiet, en houdt je computer warm</string>
+  <string name="engineManager">Engine-beheer</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onnauwkeurigheid</string>
@@ -150,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s partij</item>
     <item quantity="other">%s partijen</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating na %2$s partij</item>
+    <item quantity="other">%1$s rating na %2$s partijen</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s favoriet</item>
@@ -209,8 +215,10 @@
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="error.weakPassword">Dit wachtwoord komt heel vaak voor en is te gemakkelijk te raden.</string>
   <string name="error.namePassword">Gebruik uw gebruikersnaam niet als wachtwoord.</string>
+  <string name="blankedPassword">Je hebt hetzelfde wachtwoord gebruikt op een andere site en die site heeft een datalek gehad. Om de veiligheid van je Lichess-account te garanderen, dien je een nieuw wachtwoord in te stellen. Bedankt voor je begrip.</string>
   <string name="youAreLeavingLichess">Je verlaat Lichess</string>
-  <string name="neverTypeYourPassword">Voer uw Lichess wachtwoord nooit in op een andere website!</string>
+  <string name="neverTypeYourPassword">Voer je Lichess-wachtwoord nooit in op een andere website!</string>
+  <string name="proceedToX">Ga naar %s</string>
   <string name="passwordSuggestion">Stel geen wachtwoord in dat iemand anders voorstelt. Ze kunnen het gebruiken om je account te stelen.</string>
   <string name="emailSuggestion">Stel geen e-mailadres in dat iemand anders voorstelt. Ze kunnen het gebruiken om je account te stelen.</string>
   <string name="emailConfirmHelp">Hulp met e-mailbevestiging</string>
@@ -280,6 +288,7 @@
   <string name="cancelRematchOffer">Uitnodiging voor nieuwe partij annuleren</string>
   <string name="viewRematch">Herkansingspartij bekijken</string>
   <string name="confirmMove">Bevestig zet</string>
+  <string name="enableConfirmationForThisGame">Bevestiging voor deze partij inschakelen</string>
   <string name="play">Spelen</string>
   <string name="inbox">Postvak IN</string>
   <string name="chatRoom">Chatruimte</string>
@@ -340,6 +349,7 @@
   </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
+  <string name="noDrawBeforeSwissLimit">In een Zwitsers toernooi kun je pas na 30 zetten remise aanbieden.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partij met rating</item>
@@ -388,6 +398,7 @@
   <string name="toStudy">Studie</string>
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Als je een PGN in het venster plakt, krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
+  <string name="importGameCaveat">Variaties worden gewist. Om ze te behouden, importeer de PGN via een studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
@@ -496,7 +507,7 @@
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="savingMoves">Tijdelijke zettenopslag</string>
   <string name="savingMovesHelp">We slaan je varianten op in de browser-cache.</string>
-  <string name="makeAStudy">Om ze te bewaren en te delen, overweeg een studie aan te maken.</string>
+  <string name="makeAStudy">Maak een studie aan om ze te bewaren en/of te delen.</string>
   <string name="clearSavedMoves">Zetten wissen</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
@@ -659,6 +670,8 @@
   <string name="simulClockHint">Fischer-speeltempo. Hoe meer tegenstanders er zijn, hoe meer tijd je nodig hebt.</string>
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
+  <string name="simulAddExtraTimePerPlayer">Voeg extra tijd toe aan de klok voor elke speler die meedoet aan de simultaan.</string>
+  <string name="simulHostExtraTimePerPlayer">Extra tijd voor de simultaangever per deelnemer</string>
   <string name="lichessTournaments">Lichess toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
@@ -669,6 +682,10 @@
   <string name="keyGoToStartOrEnd">ga naar het begin/eind</string>
   <string name="keyShowOrHideComments">toon/verberg opmerkingen</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
+  <string name="keyRequestComputerAnalysis">Verzoek om computeranalyse, Leer van je fouten</string>
+  <string name="keyNextLearnFromYourMistakes">Volgende (leer van je fouten)</string>
+  <string name="keyNextMistake">Volgende fout</string>
+  <string name="keyNextInaccuracy">Volgende onnauwkeurigheid</string>
   <string name="newTournament">Nieuw toernooi</string>
   <string name="tournamentHomeTitle">Schaaktoernooi met verschillende speelduur en varianten</string>
   <string name="tournamentHomeDescription">Speel snelle schaaktoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, en meer opties verkrijgbaar voor eindeloos schaakplezier.</string>
@@ -766,6 +783,7 @@
   <string name="invalidFen">Ongeldige FEN</string>
   <string name="custom">Aangepast</string>
   <string name="notifications">Meldingen</string>
+  <string name="notificationsX">Meldingen: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde om de eerste zet te spelen</item>
@@ -860,6 +878,8 @@
   <string name="useTheReportForm">gebruik het meldingsformulier</string>
   <string name="toRequestSupport">Om ondersteuning aan te vragen, %1$s</string>
   <string name="tryTheContactPage">probeer de contactpagina</string>
+  <string name="makeSureToRead">Lees zeker %1$s</string>
+  <string name="theForumEtiquette">de regels van het forum</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
   <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>
@@ -876,8 +896,6 @@
   <string name="congratsYouWon">Gefeliciteerd, je hebt gewonnen!</string>
   <string name="gameVsX">Partij tegen %1$s</string>
   <string name="resVsX">%1$s tegen %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Iemand heeft je coachprofiel een beoordeling gegeven.</string>
-  <string name="newPendingReview">In afwachting van beoordeling</string>
   <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
   <string name="refundXpointsTimeControlY">Teruggekregen: %1$s %2$s ratingpunten.</string>
   <string name="timeAlmostUp">De tijd is bijna om!</string>
@@ -943,4 +961,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
   <string name="switchSides">Van kleur wisselen</string>
   <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
+  <string name="ourEventTips">Onze tips voor het organiseren van evenementen</string>
 </resources>

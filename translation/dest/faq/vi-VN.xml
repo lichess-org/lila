@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">nhiều cách khác để giúp đỡ chúng tôi</string>
   <string name="areThereWebsitesBasedOnLichess">Có trang web nào tương tự, dựa trên cấu trúc của Lichess không?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Đúng vậy, Lichess thực sự đã truyền cảm hứng cho các trang web mã nguồn mở khác sử dụng %1$s, %2$s, hay là %3$s của chúng tôi.</string>
+  <string name="keyboardShortcuts">Có những phím tắt nào?</string>
+  <string name="keyboardShortcutsExplanation">Một số trang trên Lichess có phím tắt mà bạn có thể sử dụng. Hãy thử nhấn \'?\' ở trang nghiên cứu, phân tích, cờ thế hoặc trang ván đấu để hiển thị các phím tắt khả dụng.</string>
   <string name="fairPlay">Chơi Công Bằng</string>
   <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được bồi thường xếp hạng tự động từ những kẻ gian lận?</string>
   <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu được xếp hạng mới nhất của họ trong vòng 3 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất xếp hạng (vì thua hoặc hòa) và xếp hạng của bạn không phải là tạm thời, bạn sẽ được hoàn lại xếp hạng. Điểm hoàn lại được giới hạn dựa trên xếp hạng cao nhất của bạn và tiến độ xếp hạng của bạn sau ván đấu.
@@ -63,7 +65,7 @@ Nó được mô tả trong phần 3.7 (d) của %2$s:
 Xem%3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="goodIntroduction">thông tin hữu ích</string>
   <string name="lichessTraining">huấn luyện của Lichess</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Xem Kiện tướng Quốc tế (IM) Eric Rosen chiếu hết %s.</string>
+  <string name="watchIMRosenCheckmate">Xem Kiện tướng Quốc tế (IM) Eric Rosen chiếu hết %s.</string>
   <string name="threefoldRepetition">Lặp cờ ba lần</string>
   <string name="threefoldRepetitionExplanation">Nếu thế cờ được lặp lại 3 lần, hai người chơi có thể được xử hòa bởi %1$s. Lichess áp dụng các quy tắc chính thức của FIDE, như được mô tả trong Điều 9.2 (d) của %2$s.</string>
   <string name="threefoldRepetitionLowerCase">luật lặp cờ ba lần</string>

@@ -9,7 +9,7 @@ import lila.search.*
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo
-)(using Executor, akka.actor.Scheduler)
+)(using Executor, Scheduler)
     extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size) =
@@ -24,7 +24,7 @@ final class GameSearchApi(
     client.search(query, From(0), Size(max)).map(_.ids)
 
   def store(game: Game) =
-    storable(game) ?? {
+    storable(game) so {
       gameRepo isAnalysed game.id flatMap { analysed =>
         lila.common.LilaFuture
           .retry(
@@ -55,7 +55,7 @@ final class GameSearchApi(
         Fields.winnerColor   -> game.winner.fold(3)(_.color.fold(1, 2)),
         Fields.averageRating -> game.averageUsersRating,
         Fields.ai            -> game.aiLevel,
-        Fields.date          -> (lila.search.Date.formatter print game.movedAt),
+        Fields.date          -> lila.search.Date.formatter.print(game.movedAt),
         Fields.duration      -> game.durationSeconds, // for realtime games only
         Fields.clockInit     -> game.clock.map(_.limitSeconds),
         Fields.clockInc      -> game.clock.map(_.incrementSeconds),

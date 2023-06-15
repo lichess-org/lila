@@ -3,6 +3,7 @@ package lila.common
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
+import scala.util.matching.Regex
 
 object HTTPRequest:
 
@@ -47,19 +48,19 @@ object HTTPRequest:
   }
 
   val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isFirefox108Plus = UaMatcher("""Firefox/(?:10[8-9]|1[1-9]\d)""")
-
-  val isMobile = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  val isChrome113Plus  = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
+  val isFirefox114Plus = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
+  val isMobile         = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  val isLichessMobile  = UaMatcher("""Lichess Mobile/""")
 
   def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
   def ipAddress(req: RequestHeader) =
-    IpAddress.unchecked {
+    IpAddress.unchecked:
       // chain of trusted proxies, strip scope id
       req.remoteAddress.split(", ").last.split("%").head
-    }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
 
@@ -72,7 +73,10 @@ object HTTPRequest:
   }
 
   final class UaMatcher(rStr: String):
-    private val regex                      = rStr.r
+    private val regex: Regex               = rStr.r
+    def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(ua => regex.find(ua.value))
+
+  case class UaMatcherRegex(regex: Regex):
     def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(ua => regex.find(ua.value))
 
   def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
@@ -90,7 +94,7 @@ object HTTPRequest:
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).??(_.value)}"
+    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).so(_.value)}"
 
   def bearer(req: RequestHeader): Option[Bearer] =
     req.headers.get(HeaderNames.AUTHORIZATION).flatMap { authorization =>
@@ -120,10 +124,11 @@ object HTTPRequest:
   private def isGameExport(req: RequestHeader) =
     "^/@/[\\w-]{2,30}/download$".r.matches(req.path) ||
       "^/(api/games/user|games/export)/[\\w-]{2,30}($|/.+)".r.matches(req.path)
-  private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r matches req.path
+  private def isStudyExport(req: RequestHeader)  = "^/study/by/[\\w-]{2,30}/export.pgn$".r matches req.path
+  private def isAccountClose(req: RequestHeader) = req.path == "/account/close"
 
   def isClosedLoginPath(req: RequestHeader) =
-    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req)
+    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccountClose(req)
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers

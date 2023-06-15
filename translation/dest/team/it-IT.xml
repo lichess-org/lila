@@ -55,4 +55,5 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="completedTourns">Tornei completati</string>
   <string name="declinedRequests">Richieste Rifiutate</string>
   <string name="joinLichessVariantTeam">Unisciti al team ufficiale di %s per novità ed eventi</string>
+  <string name="teamPage">Pagina della squadra</string>
 </resources>

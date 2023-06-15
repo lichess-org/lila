@@ -1,9 +1,10 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import userLink from 'common/userLink';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
 import { numberFormat } from 'common/number';
-import { userModInfo, flag } from './xhr';
+import { userModInfo, flag, timeout } from './xhr';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -42,13 +43,18 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     opts,
     open,
     close,
-    timeout(reason: ModerationReason, text: string) {
-      data &&
-        lichess.pubsub.emit('socket.send', 'timeout', {
+    async timeout(reason: ModerationReason, text: string) {
+      if (data) {
+        const body = {
           userId: data.id,
           reason: reason.key,
           text,
-        });
+        };
+        if (new URLSearchParams(window.location.search).get('mod') === 'true') {
+          await timeout(opts.resourceId, body);
+          window.location.reload(); // to load new state since it won't be sent over the socket
+        } else lichess.pubsub.emit('socket.send', 'timeout', body);
+      }
       close();
       opts.redraw();
     },
@@ -64,7 +70,7 @@ function reportUserText(resourceId: string, username: string, text: string) {
   if (confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = () => h('i.mod', { attrs: { 'data-icon': '' } });
+export const lineAction = () => h('i.mod', { attrs: { 'data-icon': licon.Agent } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
@@ -115,7 +121,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             h(
               'a.text',
               {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => ctrl.timeout(r, data.text)),
               },
               r.name
@@ -128,7 +134,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             h(
               'a.text',
               {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
               },
               'Timeout 15 minutes'
@@ -136,7 +142,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             h(
               'a.text',
               {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => {
                   reportUserText(ctrl.opts.resourceId, data.username, data.text);
                   ctrl.timeout(ctrl.opts.reasons[0], data.text);
@@ -183,12 +189,12 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       h(
         'span.text',
         {
-          attrs: { 'data-icon': '' },
+          attrs: { 'data-icon': licon.Agent },
         },
         [userLink(data.username)]
       ),
       h('a', {
-        attrs: { 'data-icon': '' },
+        attrs: { 'data-icon': licon.X },
         hook: bind('click', ctrl.close),
       }),
     ]),

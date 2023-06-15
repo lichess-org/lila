@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">andre sett å hjelpe til på</string>
   <string name="areThereWebsitesBasedOnLichess">Finnes det nettsteder som er basert på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har så visst inspirert andre nettsteder med åpen kildekode som bruker vår %1$s, vårt %2$s eller vår %3$s.</string>
+  <string name="keyboardShortcuts">Hvilke hurtigtaster finnes?</string>
+  <string name="keyboardShortcutsExplanation">Noen sider hos Lichess har hurtigtaster. Trykk «?» for en oversikt når du er på en side med studier, analyser, sjakknøtter eller partier.</string>
   <string name="fairPlay">Sportslig opptreden</string>
   <string name="whenAmIEligibleRatinRefund">Når er jeg kvalifisert til automatisk ratingrefusjon fra juksemakere?</string>
   <string name="ratingRefundExplanation">Ett minutt etter at en spiller er markert, blir de 40 siste ratede partiene de siste 3 dagene betraktet. Hvis du var motstander i disse partiene, du mistet rating (på grunn av tap eller remis) og ratingen din ikke var provisorisk, får du refusjon. Refusjonen er begrenset oppad basert på toppratingen din og ratingprogresjonen din etter partiet.
@@ -63,7 +65,7 @@ Trekket står omtalt i %2$s:
 Se mer om dette trekket i %3$s for å få litt øvelse med det.</string>
   <string name="goodIntroduction">god innføring</string>
   <string name="lichessTraining">Lichess-øvelsene</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Se Internasjonal mester Eric Rosen matte %s.</string>
+  <string name="watchIMRosenCheckmate">Se Internasjonal mester Eric Rosen matte %s.</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
   <string name="threefoldRepetitionExplanation">Hvis en stilling oppstår tre ganger, kan spillerne kreve remis ved %1$s. Lichess implementerer de offisielle FIDE-reglene, som står omtalt i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trekkgjentakelse</string>

@@ -4,9 +4,9 @@ import play.api.libs.json.Json
 import controllers.routes
 
 import chess.format.Fen
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 
@@ -16,7 +16,7 @@ object editor:
       fen: Option[Fen.Epd],
       positionsJson: String,
       endgamePositionsJson: String
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(
@@ -33,7 +33,7 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
         .OpenGraph(
           title = "Chess board editor",
           url = s"$netBaseUrl${routes.Editor.index.url}",
-          description = "Load opening positions or create your own chess position on a chess board editor"
+          description = "Load opening positions or create your own chess.Position on a chess board editor"
         )
         .some
     )(
@@ -46,7 +46,7 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
       )
     )
 
-  def jsData(fen: Option[Fen.Epd] = None)(using ctx: Context) =
+  def jsData(fen: Option[Fen.Epd] = None)(using ctx: WebContext) =
     Json
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",

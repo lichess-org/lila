@@ -1,8 +1,8 @@
 package views.html
 package base
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
+import lila.api.WebContext
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object navTree:
@@ -13,7 +13,7 @@ object navTree:
     case Branch(id: String, name: Frag, children: List[Node], content: Option[Frag] = None)
     case Leaf(id: String, name: Frag, content: Frag)
 
-  def renderNode(node: Node, parent: Option[Node], forceLtr: Boolean = false)(implicit ctx: Context): Frag =
+  def renderNode(node: Node, parent: Option[Node], forceLtr: Boolean = false)(using WebContext): Frag =
     node match
       case Node.Leaf(id, name, content) =>
         List(
@@ -44,6 +44,6 @@ object navTree:
     a(
       makeLink(parent.id),
       cls      := List("back" -> true, "no-mirror" -> forceLtr),
-      dataIcon := "",
+      dataIcon := licon.LessThan,
       title    := "Go back"
     )

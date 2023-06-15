@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, Json }
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
@@ -14,12 +14,10 @@ import lila.user.User
 
 object bits:
 
-  private val dataLastmove = attr("data-lastmove")
-
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
     views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
 
-  def jsI18n(streak: Boolean)(implicit lang: Lang) =
+  def jsI18n(streak: Boolean)(using Lang) =
     if (streak) i18nJsObject(streakI18nKeys)
     else
       i18nJsObject(trainingI18nKeys) + {
@@ -35,7 +33,7 @@ object bits:
         "static"  -> static.mkString(" ")
       )
 
-  def pageMenu(active: String, user: Option[User], days: Int = 30)(implicit ctx: Context) =
+  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: WebContext) =
     val u = user.filterNot(ctx.is).map(_.username)
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.Puzzle.home)(
@@ -45,7 +43,7 @@ object bits:
         trans.puzzle.puzzleThemes()
       ),
       a(cls := active.active("openings"), href := routes.Puzzle.openings())(
-        "By openings"
+        trans.puzzle.byOpenings()
       ),
       a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard", u))(
         trans.puzzle.puzzleDashboard()
@@ -110,6 +108,7 @@ object bits:
 
   private val trainingI18nKeys = baseI18nKeys ::: List(
     trans.puzzle.example,
+    trans.puzzle.dailyPuzzle,
     trans.puzzle.addAnotherTheme,
     trans.puzzle.difficultyLevel,
     trans.rated,

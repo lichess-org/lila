@@ -4,7 +4,6 @@ import com.github.blemale.scaffeine.LoadingCache
 
 import lila.db.dsl.*
 import lila.memo.{ CacheApi, MongoCache }
-import lila.user.User
 
 final class Cached(
     gameRepo: GameRepo,

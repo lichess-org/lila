@@ -3,7 +3,6 @@ package lila.security
 import java.security.MessageDigest
 import java.nio.charset.StandardCharsets.UTF_8
 import com.roundeights.hasher.Algo
-import org.mindrot.BCrypt
 
 import lila.common.String.base64
 import lila.common.Iso
@@ -32,21 +31,22 @@ final class StringToken[A](
     }
 
   def read(token: String): Fu[Option[A]] =
-    (base64 decode token) ?? {
+    (base64 decode token).so:
       _ split separator match
         case Array(payloadStr, hashed, checksum) =>
-          MessageDigest.isEqual(
-            makeHash(signPayload(payloadStr, hashed)).getBytes(UTF_8),
-            checksum.getBytes(UTF_8)
-          ) ?? {
-            val payload = iso from payloadStr
-            (valueChecker match {
-              case ValueChecker.Same      => hashCurrentValue(payload) map (hashed ==)
-              case ValueChecker.Custom(f) => f(hashed)
-            }) map { _ option payload }
-          }
+          MessageDigest
+            .isEqual(
+              makeHash(signPayload(payloadStr, hashed)).getBytes(UTF_8),
+              checksum.getBytes(UTF_8)
+            )
+            .so:
+              val payload = iso from payloadStr
+              valueChecker
+                .match
+                  case ValueChecker.Same      => hashCurrentValue(payload) map (hashed ==)
+                  case ValueChecker.Custom(f) => f(hashed)
+                .map { _ option payload }
         case _ => fuccess(none)
-    }
 
   private def makeHash(msg: String) = Algo.hmac(secret.value).sha256(msg).hex take fullHashSize
 
@@ -64,5 +64,5 @@ object StringToken:
     case Custom(f: String => Fu[Boolean])
 
   object DateStr:
-    def toStr(date: DateTime) = date.getMillis.toString
-    def toDate(str: String)   = str.toLongOption map { new DateTime(_) }
+    def toStr(date: Instant)   = date.toMillis.toString
+    def toInstant(str: String) = str.toLongOption map millisToInstant

@@ -2,7 +2,7 @@ package views.html.team
 
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.app.mashup.TeamInfo
@@ -11,7 +11,7 @@ import controllers.routes
 
 object tournaments:
 
-  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(implicit ctx: Context) =
+  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using WebContext) =
     views.html.base.layout(
       title = s"${t.name} • ${trans.tournaments.txt()}",
       openGraph = lila.app.ui
@@ -51,7 +51,7 @@ object tournaments:
       )
     }
 
-  def renderList(tours: List[TeamInfo.AnyTour])(implicit ctx: Context) =
+  def renderList(tours: List[TeamInfo.AnyTour])(using WebContext) =
     tbody(
       tours map { any =>
         tr(
@@ -60,7 +60,7 @@ object tournaments:
             "soon"      -> any.isNowOrSoon
           )
         )(
-          td(cls := "icon")(iconTag(any.value.fold(tournamentIconChar, views.html.swiss.bits.iconChar))),
+          td(cls := "icon")(iconTag(any.value.fold(tournamentIcon, _.perfType.icon))),
           td(cls := "header")(
             any.value.fold(
               t =>
@@ -109,11 +109,11 @@ object tournaments:
                 )
             )
           ),
-          td(cls := "text", dataIcon := "")(any.nbPlayers.localize)
+          td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
         )
       }
     )
 
-  private def renderStartsAt(any: TeamInfo.AnyTour)(implicit lang: Lang): Frag =
+  private def renderStartsAt(any: TeamInfo.AnyTour)(using Lang): Frag =
     if (any.isEnterable && any.startsAt.isBeforeNow) trans.playingRightNow()
     else momentFromNowOnce(any.startsAt)

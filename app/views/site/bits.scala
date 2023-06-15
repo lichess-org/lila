@@ -1,13 +1,13 @@
 package views.html.site
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import controllers.routes
 
 object bits:
 
-  def getFishnet()(implicit ctx: Context) =
+  def getFishnet()(using WebContext) =
     views.html.base.layout(
       title = "fishnet API key request",
       csp = defaultCsp.withGoogleForm.some
@@ -16,14 +16,14 @@ object bits:
         iframe(
           src := "https://docs.google.com/forms/d/e/1FAIpQLSeGgDHgWGP0uobQknF92eCMXqebyNBTyzJoJqbeGjRezlbWOw/viewform?embedded=true",
           style          := "width:100%;height:1400px",
-          st.frameborder := 0
+          st.frameborder := 0,
+          frame.credentialless
         )(spinner)
       )
     }
 
-  def api =
-    raw(
-      """<!DOCTYPE html>
+  def api = raw:
+    """<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -37,9 +37,8 @@ object bits:
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
   </body>
 </html>"""
-    )
 
-  def errorPage(implicit ctx: Context) =
+  def errorPage(using WebContext) =
     views.html.base.layout(
       title = "Internal server error"
     ) {
@@ -53,7 +52,7 @@ object bits:
       )
     }
 
-  def ghost(implicit ctx: Context) =
+  def ghost(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("ghost"),
       title = "Deleted user"

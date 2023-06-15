@@ -2,8 +2,6 @@ package lila.mod
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
-import play.api.Configuration
 
 import lila.common.config.*
 import lila.user.User
@@ -11,7 +9,6 @@ import lila.report.{ ModId, SuspectId }
 
 @Module
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
@@ -35,7 +32,6 @@ final class Env(
     msgApi: lila.msg.MsgApi
 )(using
     ec: Executor,
-    system: ActorSystem,
     scheduler: Scheduler
 ):
   private lazy val logRepo        = new ModlogRepo(db(CollName("modlog")))
@@ -78,7 +74,7 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
-        import cats.implicits.*
+        import cats.syntax.all.*
         (whiteUserOption.filter(_.enabled.yes), blackUserOption.filter(_.enabled.yes)) mapN {
           (whiteUser, blackUser) =>
             sandbagWatch(game)
@@ -87,7 +83,7 @@ final class Env(
         if (game.status == chess.Status.Cheat)
           game.loserUserId foreach { userId =>
             logApi.cheatDetectedAndCount(userId, game.id) flatMap { count =>
-              (count >= 3) ?? {
+              (count >= 3) so {
                 if (game.hasClock)
                   api.autoMark(
                     SuspectId(userId),
@@ -115,5 +111,7 @@ final class Env(
     },
     "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(mod into ModId, user, reason, text).unit
-    }
+    },
+    "loginWithWeakPassword"    -> { case u: lila.user.User => logApi.loginWithWeakPassword(u.id) },
+    "loginWithBlankedPassword" -> { case u: lila.user.User => logApi.loginWithBlankedPassword(u.id) }
   )

@@ -21,8 +21,8 @@
   <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
   <string name="createAGame">새 게임 만들기</string>
-  <string name="whiteIsVictorious">백색 승리</string>
-  <string name="blackIsVictorious">흑색 승리</string>
+  <string name="whiteIsVictorious">백 승리</string>
+  <string name="blackIsVictorious">흑 승리</string>
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
   <string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
@@ -196,6 +196,14 @@
   <string name="email">메일</string>
   <string name="passwordReset">비밀번호 초기화</string>
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
+  <string name="error.weakPassword">이 비밀번호는 매우 일반적이고 추측하기 쉽습니다.</string>
+  <string name="error.namePassword">사용자 아이디를 비밀번호로 사용하지 마세요.</string>
+  <string name="blankedPassword">다른 사이트에서 동일한 비밀번호를 사용했으며 해당 사이트가 유출된 경우. 라이선스 계정의 안전을 위해 새 비밀번호를 설정해 주셔야 합니다. 양해해 주셔서 감사합니다.</string>
+  <string name="youAreLeavingLichess">리체스에서 나갑니다</string>
+  <string name="neverTypeYourPassword">다른 사이트에서는 절대로 리체스 비밀번호를 입력하지 마세요!</string>
+  <string name="proceedToX">%s 진행</string>
+  <string name="passwordSuggestion">다른 사람이 제안한 비밀번호를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
+  <string name="emailSuggestion">다른 사람이 추천한 이메일 주소를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
   <string name="emailConfirmHelp">이메일 확인 도움말</string>
   <string name="emailConfirmNotReceived">가입 후 확인 이메일을 받지 못하셨나요?</string>
   <string name="whatSignupUsername">가입할 때 어떤 사용자 이름을 사용하셨나요?</string>
@@ -337,6 +345,7 @@
   <string name="siteDescription">회원가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 구성의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.</string>
   <string name="xJoinedTeamY">%1$s(이)가 팀 %2$s에 가입했습니다.</string>
   <string name="xCreatedTeamY">%1$s(이)가 팀 %2$s(을)를 만들었습니다.</string>
+  <string name="startedStreaming">스트리밍 시작</string>
   <string name="xStartedStreaming">%s 님이 스트리밍을 시작했습니다</string>
   <string name="averageElo">평균 레이팅</string>
   <string name="location">주소</string>
@@ -355,6 +364,7 @@
   <string name="toStudy">연구</string>
   <string name="importGame">게임 불러오기</string>
   <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
+  <string name="importGameCaveat">변형은 지워집니다. 변형을 유지하려면 스터디를 통해 PGN을 가져오세요.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">불러온 게임 %s개</item>
   </plurals>
@@ -456,6 +466,10 @@
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="oneUrlPerLine">한 줄에 1개 URL</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
+  <string name="savingMoves">임시 이동 저장</string>
+  <string name="savingMovesHelp">변동 사항들은 항상 당신의 브라우저 캐시에 저장됩니다.</string>
+  <string name="makeAStudy">안전하게 보관하고 공유하려면 스터디를 만들어 보세요.</string>
+  <string name="clearSavedMoves">저장된 움직임 삭제</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
@@ -502,6 +516,8 @@
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
   <string name="typePrivateNotesHere">여기에 비밀 노트를 쓰세요</string>
+  <string name="writeAPrivateNoteAboutThisUser">이 사용자에 대한 비공개 메모를 작성하세요</string>
+  <string name="noNoteYet">아직 메모가 없습니다.</string>
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
   <string name="invalidAuthenticationCode">무효한 인증코드</string>
@@ -611,6 +627,7 @@
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">동시대국을 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
   <string name="simulHostExtraTime">호스트 연장 시간</string>
+  <string name="simulAddExtraTimePerPlayer">다면기에 참여하는 각 플레이어에게 기본 시간을 추가합니다.</string>
   <string name="lichessTournaments">Lichess 토너먼트</string>
   <string name="tournamentFAQ">아레나 토너먼트 FAQ</string>
   <string name="timeBeforeTournamentStarts">토너먼트 시작까지 시간</string>
@@ -807,6 +824,8 @@
   <string name="useTheReportForm">사용자 신고</string>
   <string name="toRequestSupport">%1$s에서 리체스에 문의하실 수 있습니다.</string>
   <string name="tryTheContactPage">연락처</string>
+  <string name="makeSureToRead">%1$s를 꼭 읽으세요</string>
+  <string name="theForumEtiquette">포럼 에티켓</string>
   <string name="thisTopicIsArchived">이 주제는 보존되어서 댓글을 남기실 수 없습니다.</string>
   <string name="joinTheTeamXToPost">이 포럼에 글을 올리시려면 %1$s에 가입하셔야 합니다.</string>
   <string name="teamNamedX">팀 %1$s</string>
@@ -823,8 +842,6 @@
   <string name="congratsYouWon">축하합니다. 승리하셨습니다!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
-  <string name="newPendingReview">새 대기중 리뷰</string>
   <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
   <string name="refundXpointsTimeControlY">환불: %2$s 레이팅 포인트 %1$s점</string>
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
@@ -890,4 +907,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
   <string name="switchSides">색 바꾸기</string>
   <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
+  <string name="ourEventTips">이벤트 준비를 위한 팁</string>
 </resources>

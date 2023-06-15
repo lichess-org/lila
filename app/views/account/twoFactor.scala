@@ -1,7 +1,7 @@
 package views.html
 package account
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -15,7 +15,7 @@ object twoFactor:
     """<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>"""
   )
 
-  def setup(u: lila.user.User, form: play.api.data.Form[?])(implicit ctx: Context) =
+  def setup(u: lila.user.User, form: play.api.data.Form[?])(using WebContext) =
     account.layout(
       title = s"${u.username} - ${twoFactorAuth.txt()}",
       active = "twofactor",
@@ -60,7 +60,7 @@ object twoFactor:
       )
     }
 
-  def disable(u: lila.user.User, form: play.api.data.Form[?])(implicit ctx: Context) =
+  def disable(u: lila.user.User, form: play.api.data.Form[?])(using WebContext) =
     account.layout(
       title = s"${u.username} - ${twoFactorAuth.txt()}",
       active = "twofactor"
@@ -68,7 +68,7 @@ object twoFactor:
       div(cls := "account twofactor box box-pad")(
         boxTop(
           h1(
-            i(cls := "is-green text", dataIcon := ""),
+            i(cls := "is-green text", dataIcon := licon.Checkmark),
             twoFactorEnabled()
           )
         ),

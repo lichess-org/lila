@@ -1,7 +1,8 @@
 package views.html
 package user
 
-import lila.api.{ Context, given }
+import cats.syntax.all.*
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -10,7 +11,7 @@ import controllers.routes
 
 object top:
 
-  def apply(perfType: lila.rating.PerfType, users: List[User.LightPerf])(implicit ctx: Context) =
+  def apply(perfType: lila.rating.PerfType, users: List[User.LightPerf])(using ctx: WebContext) =
 
     val title = s"${perfType.trans} top 200"
 
@@ -26,10 +27,10 @@ object top:
         .some
     )(
       main(cls := "page-small box")(
-        boxTop(h1(a(href := routes.User.list, dataIcon := ""), title)),
+        boxTop(h1(a(href := routes.User.list, dataIcon := licon.LessThan), title)),
         table(cls := "slist slist-pad")(
           tbody(
-            users.zipWithIndex.map { case (u, i) =>
+            users.mapWithIndex: (u, i) =>
               tr(
                 td(i + 1),
                 td(lightUserLink(u.user)),
@@ -38,7 +39,6 @@ object top:
                   td(ratingProgress(u.progress))
                 )
               )
-            }
           )
         )
       )

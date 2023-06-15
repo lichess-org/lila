@@ -147,7 +147,7 @@ export function pieceSetting(): Setting<PieceStyle> {
   return makeSetting<PieceStyle>({
     choices: [
       ['letter', 'Letter: p, p'],
-      ['white uppercase letter', 'White uppecase letter: P, p'],
+      ['white uppercase letter', 'White uppercase letter: P, p'],
       ['name', 'Name: pawn, pawn'],
       ['white uppercase name', 'White uppercase name: Pawn, pawn'],
     ],
@@ -500,7 +500,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
 
     // if no move in box yet
     if ($moveBox.val() === '') {
-      // if user selects anothers' piece first
+      // if user selects another's piece first
       if ($evBtn.attr('color') === opponentColor) return false;
       // as long as the user is selecting a piece and not a blank tile
       if ($evBtn.text().match(/^[^\-+]+/g)) {

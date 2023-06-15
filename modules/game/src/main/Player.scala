@@ -1,8 +1,7 @@
 package lila.game
 
-import cats.implicits.*
-import chess.{ Ply, Color }
-import scala.util.chaining.*
+import cats.syntax.all.*
+import chess.{ Ply, Color, ByColor }
 
 import lila.user.User
 
@@ -14,7 +13,7 @@ case class Player(
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
-    proposeTakebackAt: Ply = Ply(0), // ply when takeback was proposed
+    proposeTakebackAt: Ply = Ply.initial, // ply when takeback was proposed
     userId: Option[UserId] = None,
     rating: Option[IntRating] = None,
     ratingDiff: Option[IntRatingDiff] = None,
@@ -35,14 +34,14 @@ case class Player(
 
   def hasUser = userId.isDefined
 
-  def isUser(u: User) = userId.fold(false)(_ == u.id)
+  def isUser[U: UserIdOf](u: U) = userId.fold(false)(_ is u)
 
   def userInfos: Option[Player.UserInfo] =
     (userId, rating) mapN { (id, ra) =>
       Player.UserInfo(id, ra, provisional)
     }
 
-  def wins = isWinner getOrElse false
+  def wins = ~isWinner
 
   def goBerserk = copy(berserk = true)
 
@@ -54,15 +53,14 @@ case class Player(
 
   def proposeTakeback(ply: Ply) = copy(proposeTakebackAt = ply)
 
-  def removeTakebackProposition = copy(proposeTakebackAt = Ply(0))
+  def removeTakebackProposition = copy(proposeTakebackAt = Ply.initial)
 
   def isProposingTakeback = proposeTakebackAt > 0
 
   def nameSplit: Option[(String, Option[Int])] =
-    name map {
+    name map:
       case Player.nameSplitRegex(n, r) => n.trim -> r.toIntOption
       case n                           => n      -> none
-    }
 
   def before(other: Player) =
     ((rating, id), (other.rating, other.id)) match
@@ -71,11 +69,13 @@ case class Player(
       case ((None, _), (Some(_), _))              => false
       case ((_, a), (_, b))                       => a.value < b.value
 
-  def ratingAfter = rating map (_ + ~ratingDiff)
+  def ratingAfter = rating.map(_ + ~ratingDiff)
 
   def stableRating = rating ifFalse provisional.value
 
-  def stableRatingAfter = stableRating map (_ + ~ratingDiff)
+  def stableRatingAfter = stableRating.map(_ + ~ratingDiff)
+
+  def light = LightPlayer(color, aiLevel, userId, rating, ratingDiff, provisional, berserk)
 
 object Player:
 
@@ -134,16 +134,15 @@ object Player:
   case class HoldAlert(ply: Ply, mean: Int, sd: Int):
     def suspicious = HoldAlert.suspicious(ply)
   object HoldAlert:
-    type Map = Color.Map[Option[HoldAlert]]
-    val emptyMap: Map                 = Color.Map(none, none)
+    type Map = ByColor[Option[HoldAlert]]
+    val emptyMap: Map                 = ByColor(none, none)
     def suspicious(ply: Ply): Boolean = ply >= 16 && ply <= 40
     def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
 
   case class UserInfo(id: UserId, rating: IntRating, provisional: RatingProvisional)
 
   import reactivemongo.api.bson.*
-  import lila.db.BSON
-  import lila.db.dsl.given
+  import lila.db.dsl.{ *, given }
 
   given BSONDocumentHandler[HoldAlert] = Macros.handler
 
@@ -160,42 +159,26 @@ object Player:
     val berserk           = "be"
     val name              = "na"
 
-  type Win                   = Option[Boolean]
-  private[game] type Builder = Color => GamePlayerId => Option[UserId] => Win => Player
+  def from(light: LightGame, color: Color, ids: String, doc: Bdoc): Player =
+    import BSONFields.*
+    val p = light.player(color)
+    Player(
+      id = GamePlayerId(color.fold(ids take 4, ids drop 4)),
+      color = p.color,
+      aiLevel = p.aiLevel,
+      isWinner = light.win.map(_ == color),
+      isOfferingDraw = doc booleanLike isOfferingDraw getOrElse false,
+      proposeTakebackAt = Ply(doc int proposeTakebackAt getOrElse 0),
+      userId = p.userId,
+      rating = p.rating,
+      ratingDiff = p.ratingDiff,
+      provisional = p.provisional,
+      blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
+      berserk = p.berserk,
+      name = doc string name
+    )
 
-  private def safeRange[A](range: Range)(a: A)(using ir: IntRuntime[A]): Option[A] =
-    range.contains(ir(a)) option a
-  private val ratingRange     = safeRange[IntRating](0 to 4000)
-  private val ratingDiffRange = safeRange[IntRatingDiff](-1000 to 1000)
-
-  import lila.db.dsl.{ *, given }
-
-  given playerReader: BSONDocumentReader[Builder] with
-    import scala.util.{ Try, Success }
-    def readDocument(doc: Bdoc): Try[Builder] = Success(builderRead(doc))
-
-  def builderRead(doc: Bdoc): Builder = color =>
-    id =>
-      userId =>
-        win =>
-          import BSONFields.*
-          Player(
-            id = id,
-            color = color,
-            aiLevel = doc int aiLevel,
-            isWinner = win,
-            isOfferingDraw = doc booleanLike isOfferingDraw getOrElse false,
-            proposeTakebackAt = Ply(doc.int(proposeTakebackAt) | 0),
-            userId = userId,
-            rating = doc.getAsOpt[IntRating](rating) flatMap ratingRange,
-            ratingDiff = doc.getAsOpt[IntRatingDiff](ratingDiff) flatMap ratingDiffRange,
-            provisional = ~doc.getAsOpt[RatingProvisional](provisional),
-            blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
-            berserk = doc booleanLike berserk getOrElse false,
-            name = doc string name
-          )
-
-  def playerWrite(p: Player) = {
+  def playerWrite(p: Player) =
     import BSONFields.*
     import Blurs.*
     $doc(
@@ -205,7 +188,6 @@ object Player:
       rating            -> p.rating,
       ratingDiff        -> p.ratingDiff,
       provisional       -> p.provisional.yes.option(true),
-      blursBits         -> p.blurs.nonEmpty.??(p.blurs),
+      blursBits         -> p.blurs.nonEmpty.so(p.blurs),
       name              -> p.name
     )
-  }

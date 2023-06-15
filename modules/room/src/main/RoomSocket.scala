@@ -1,13 +1,12 @@
 package lila.room
 
-import lila.chat.{ BusChan, Chat, ChatApi, ChatTimeout, UserLine }
+import lila.chat.{ BusChan, ChatApi, ChatTimeout, UserLine }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ SyncActor, SyncActorMap }
 import lila.log.Logger
 import lila.socket.{ SocketVersion, GetVersion }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage }
-import lila.user.User
 import lila.common.Json.given
 
 import play.api.libs.json.*
@@ -38,9 +37,9 @@ object RoomSocket:
       super.stop()
       send(Protocol.Out.stop(roomId))
 
-  def makeRoomMap(send: Send)(using Executor, play.api.Mode) =
+  def makeRoomMap(send: Send)(using Executor) =
     SyncActorMap[RoomId, RoomState](
-      mkActor = roomId => new RoomState(roomId, send),
+      mkActor = roomId => RoomState(roomId, send),
       accessTimeout = 5 minutes
     )
 
@@ -65,7 +64,7 @@ object RoomSocket:
           .unit
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
-          localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
+          localTimeout.so { _(roomId, modId, suspect) } foreach { local =>
             val scope = if (local) ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
             chat.userChat.timeout(
               roomId into ChatId,

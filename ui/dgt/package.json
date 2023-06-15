@@ -8,7 +8,7 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
-    "chessops": "^0.12.5"
+    "chessops": "^0.12.7"
   },
   "scripts": {
     "compile": "tsc",

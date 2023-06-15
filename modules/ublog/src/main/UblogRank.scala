@@ -1,15 +1,13 @@
 package lila.ublog
 
 import akka.stream.scaladsl.*
-import cats.implicits.*
-import com.softwaremill.tagging.*
+import cats.syntax.all.*
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
-import lila.memo.SettingStore
 import lila.user.User
 
 final class UblogRank(
@@ -53,7 +51,7 @@ final class UblogRank(
             id       <- doc.getAsOpt[UblogPostId]("_id")
             likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
             topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
-            liveAt   <- doc.getAsOpt[DateTime]("at")
+            liveAt   <- doc.getAsOpt[Instant]("at")
             tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
             language <- doc.getAsOpt[Lang]("language")
             title    <- doc string "title"
@@ -89,21 +87,19 @@ final class UblogRank(
         $doc("topics" -> true, "likes" -> true, "lived" -> true, "language" -> true).some
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list(500) flatMap { docs =>
-      lila.common.LilaFuture.applySequentially(docs) { doc =>
-        (
-          doc.string("_id"),
-          doc.getAsOpt[List[UblogTopic]]("topics"),
-          doc.getAsOpt[UblogPost.Likes]("likes"),
-          doc.getAsOpt[UblogPost.Recorded]("lived"),
-          doc.getAsOpt[Lang]("language")
-        ).tupled ?? { case (id, topics, likes, lived, language) =>
-          colls.post
-            .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
-            .void
-        }
-      }
-    }
+      .list(500) flatMap:
+        _.traverse_ : doc =>
+          (
+            doc.string("_id"),
+            doc.getAsOpt[List[UblogTopic]]("topics"),
+            doc.getAsOpt[UblogPost.Likes]("likes"),
+            doc.getAsOpt[UblogPost.Recorded]("lived"),
+            doc.getAsOpt[Lang]("language")
+          ).tupled so { (id, topics, likes, lived, language) =>
+            colls.post
+              .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
+              .void
+          }
 
   def recomputeRankOfAllPosts: Funit =
     colls.blog
@@ -124,7 +120,7 @@ final class UblogRank(
   private def computeRank(
       topics: List[UblogTopic],
       likes: UblogPost.Likes,
-      liveAt: DateTime,
+      liveAt: Instant,
       language: Lang,
       tier: UblogBlog.Tier
   ) = UblogPost.RankDate {
@@ -142,7 +138,7 @@ final class UblogRank(
 
         val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
 
-        val topicsBonus = if (topics.exists(t => UblogTopic.chessExists(t.value))) 0 else -24 * 5
+        val topicsBonus = if (topics.exists(UblogTopic.chessExists)) 0 else -24 * 5
 
         val langBonus = if (language.language == lila.i18n.defaultLang.language) 0 else -24 * 10
 

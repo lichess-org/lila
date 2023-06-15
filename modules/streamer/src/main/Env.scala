@@ -18,6 +18,7 @@ private class StreamerConfig(
 private class TwitchConfig(@ConfigName("client_id") val clientId: String, val secret: Secret)
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: play.api.libs.ws.StandaloneWSClient,
@@ -33,7 +34,7 @@ final class Env(
     net: lila.common.config.NetConfig
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer
 ):
 
@@ -67,7 +68,6 @@ final class Env(
   private lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
   private val streaming = Streaming(
-    ws = ws,
     api = api,
     isOnline = isOnline,
     keyword = config.keyword,
@@ -84,7 +84,6 @@ final class Env(
     case lila.hub.actorApi.mod.Shadowban(userId, true)   => api.demote(userId).unit
   }
 
-  scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
+  scheduler.scheduleWithFixedDelay(1 hour, 1 day): () =>
     api.autoDemoteFakes.unit
-  }
   scheduler.scheduleWithFixedDelay(21 minutes, 8 days)(() => ytApi.subscribeAll.unit)

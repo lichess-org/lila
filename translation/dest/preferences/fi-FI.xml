@@ -63,4 +63,5 @@
   <string name="notifyPush">Laitteen ilmoitus, kun et ole Lichessissä</string>
   <string name="notifyWeb">Selain</string>
   <string name="notifyDevice">Laite</string>
+  <string name="bellNotificationSound">Ilmoitusten kilahdusääni</string>
 </resources>

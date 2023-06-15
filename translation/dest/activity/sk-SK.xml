@@ -93,10 +93,10 @@
     <item quantity="other">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Zúčastnil sa v %s turnaji</item>
-    <item quantity="few">Zúčastnil/a sa v %s turnajoch</item>
-    <item quantity="many">Zúčastnil/a sa v %s turnajoch</item>
-    <item quantity="other">Účast v %s turnajoch</item>
+    <item quantity="one">Odohraný %s turnaj švajčiarskym systémom</item>
+    <item quantity="few">Odohrané %s turnaje švajčiarskym systémom</item>
+    <item quantity="many">Odohraných %s turnajov švajčiarskym systémom</item>
+    <item quantity="other">Odohraných %s turnajov švajčiarskym systémom</item>
   </plurals>
   <string name="rankedInSwissTournament">Umiestnený ako #%1$s v %2$s</string>
   <string name="signedUp">Registrácia na lichess.org</string>

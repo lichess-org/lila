@@ -45,6 +45,7 @@ lichess.load.then(() => {
     studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})(#\\d+)?\\b');
 
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
+    if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return;
     const tw = toTwitterEmbedUrl(a.href);
     if (tw)
       return {
@@ -58,13 +59,13 @@ lichess.load.then(() => {
         src: yt,
       };
     let matches = a.href.match(chapterRegex);
-    if (matches && matches[2] && a.text.match(chapterRegex))
+    if (matches && matches[2])
       return {
         type: 'study',
         src: `/study/embed/${matches[1]}/${matches[2]}${matches[3] || ''}`,
       };
     matches = a.href.match(studyRegex);
-    if (matches && matches[1] && a.text.match(studyRegex))
+    if (matches && matches[1])
       return {
         type: 'study',
         src: `/study/embed/${matches[1]}/autochap${matches[2] || ''}`,
@@ -72,7 +73,7 @@ lichess.load.then(() => {
   }
 
   function expandYoutube(a: Candidate) {
-    const $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
+    const $iframe = $('<div class="embed"><iframe src="' + a.src + '" credentialless></iframe></div>');
     $(a.element).replaceWith($iframe);
     return $iframe;
   }
@@ -97,6 +98,17 @@ lichess.load.then(() => {
     );
     if (!twitterLoaded) {
       twitterLoaded = true;
+
+      // polyfill document.createElement so that iframes created by twitter get the `credentialless` attribute
+      const originalCreateElement = document.createElement;
+      document.createElement = function () {
+        const element = originalCreateElement.apply(this, arguments as any);
+        if (element instanceof HTMLIFrameElement) {
+          (element as any).credentialless = true;
+        }
+        return element;
+      };
+
       xhr.script('https://platform.twitter.com/widgets.js');
     }
   }

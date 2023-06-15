@@ -1,6 +1,5 @@
 package lila.plan
 
-import java.util.Currency
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
@@ -8,18 +7,13 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
 import lila.common.config.Secret
-import lila.common.WebService
 import lila.user.User
 import lila.common.EmailAddress
 import play.api.ConfigLoader
 
-final private class StripeClient(
-    ws: StandaloneWSClient,
-    config: StripeClient.Config
-)(using Executor):
+final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using Executor):
 
   import StripeClient.*
-  import JsonHandlers.given
   import JsonHandlers.stripe.given
   import WebService.*
 
@@ -34,7 +28,7 @@ final private class StripeClient(
       "metadata[ipAddress]" -> data.ipOption.fold("?")(_.value)
     ) ::: {
       // https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_method_types
-      (mode == StripeMode.setup) ?? List("payment_method_types[]" -> "card")
+      (mode == StripeMode.setup) so List("payment_method_types[]" -> "card")
     }
 
   def createOneTimeSession(data: CreateStripeSession)(using Lang): Fu[StripeSession] =
@@ -47,12 +41,12 @@ final private class StripeClient(
         "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
         "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).value,
         "line_items[0][quantity]"                -> 1
-      ) ::: data.isLifetime.?? {
+      ) ::: data.isLifetime.so {
         List(
           "line_items[0][description]" ->
             lila.i18n.I18nKeys.patron.payLifetimeOnce.txt(data.checkout.money.display)
         )
-      } ::: data.giftTo.?? { giftTo =>
+      } ::: data.giftTo.so { giftTo =>
         List(
           "metadata[giftTo]" -> giftTo.id.value,
           "payment_intent_data[metadata][giftTo]" -> giftTo.id.value, // so we can get it from charge.metadata.giftTo
@@ -110,7 +104,7 @@ final private class StripeClient(
     getOne[StripeInvoice]("invoices/upcoming", "customer" -> customerId.value)
 
   def getPaymentMethod(sub: StripeSubscription): Fu[Option[StripePaymentMethod]] =
-    sub.default_payment_method ?? { id =>
+    sub.default_payment_method so { id =>
       getOne[StripePaymentMethod](s"payment_methods/$id")
     }
 
@@ -145,8 +139,8 @@ final private class StripeClient(
         None
     }
 
-  private def getList[A: Reads](url: String, queryString: (String, Matchable)*): Fu[List[A]] =
-    get[List[A]](url, queryString)(using listReader[A])
+  // private def getList[A: Reads](url: String, queryString: (String, Matchable)*): Fu[List[A]] =
+  //   get[List[A]](url, queryString)(using listReader[A])
 
   private def postOne[A: Reads](url: String, data: (String, Matchable)*): Fu[A] = post[A](url, data)
 
@@ -195,8 +189,6 @@ final private class StripeClient(
     js.asOpt[JsObject] flatMap { o =>
       (o \ "deleted").asOpt[Boolean]
     } contains true
-
-  private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]
 
 object StripeClient:
 

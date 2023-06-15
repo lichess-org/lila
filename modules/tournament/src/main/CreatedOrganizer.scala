@@ -6,9 +6,8 @@ import lila.common.LilaScheduler
 
 final private class CreatedOrganizer(
     api: TournamentApi,
-    tournamentRepo: TournamentRepo,
-    playerRepo: PlayerRepo
-)(using Executor, akka.actor.Scheduler, akka.stream.Materializer):
+    tournamentRepo: TournamentRepo
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   LilaScheduler(
     "Tournament.CreatedOrganizer",

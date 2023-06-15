@@ -17,7 +17,6 @@
     "@types/cash": "workspace:*",
     "@types/debounce-promise": "^3.1.6",
     "@types/lichess": "workspace:*",
-    "chessground": "^8.3.7",
     "common": "workspace:*",
     "debounce-promise": "^3.1.2",
     "snabbdom": "^3.5.1"

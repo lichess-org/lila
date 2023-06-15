@@ -5,7 +5,6 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import reactivemongo.api.bson.BSONDocumentHandler.apply
 
 /** To avoid recomputing very expensive values after deploy
   */
@@ -17,7 +16,7 @@ final class MongoCache[K, V: BSONHandler] private (
     val coll: Coll
 )(using Executor):
 
-  private case class Entry(_id: String, v: V, e: DateTime)
+  private case class Entry(_id: String, v: V, e: Instant)
 
   private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
@@ -30,7 +29,7 @@ final class MongoCache[K, V: BSONHandler] private (
           .flatMap { v =>
             coll.update.one(
               $id(dbKey),
-              Entry(dbKey, v, nowDate.plusSeconds(dbTtl.toSeconds.toInt)),
+              Entry(dbKey, v, nowInstant.plus(dbTtl)),
               upsert = true
             ) inject v
           }
@@ -57,8 +56,7 @@ object MongoCache:
   final class Api(
       db: lila.db.Db,
       config: MemoConfig,
-      cacheApi: CacheApi,
-      mode: play.api.Mode
+      cacheApi: CacheApi
   )(using Executor):
 
     private val coll = db(config.cacheColl)

@@ -23,23 +23,23 @@ case class UblogPost(
     views: UblogPost.Views
 ) extends UblogPost.BasePost:
 
-  def isBy(u: User) = created.by == u.id
+  def isBy(u: User) = created.by is u
 
-  def indexable = live && topics.exists(t => UblogTopic.chessExists(t.value))
+  def indexable = live && topics.exists(UblogTopic.chessExists)
 
 case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
 
 object UblogPost:
 
-  case class Recorded(by: UserId, at: DateTime)
+  case class Recorded(by: UserId, at: Instant)
 
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]
   opaque type Views = Int
   object Views extends OpaqueInt[Views]
 
-  opaque type RankDate = DateTime
-  object RankDate extends OpaqueDate[RankDate]
+  opaque type RankDate = Instant
+  object RankDate extends OpaqueInstant[RankDate]
 
   case class Create(post: UblogPost) extends AnyVal
 
@@ -74,10 +74,10 @@ object UblogPost:
     if (s.isEmpty) "-" else s
 
   object thumbnail:
-    sealed abstract class Size(val width: Int):
+    enum Size(val width: Int):
       def height = width * 10 / 16
-    case object Large extends Size(880)
-    case object Small extends Size(400)
+      case Large extends Size(880)
+      case Small extends Size(400)
     type SizeSelector = thumbnail.type => Size
 
     def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =

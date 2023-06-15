@@ -44,9 +44,9 @@ Mēs maksājam arī pilnslodzes izstrādātājam: Lichess dibinātājam %s.</str
 Varat arī %s.</string>
   <string name="contactSupport">sazināties ar Lichess atbalsta dienestu</string>
   <string name="otherMethods">Citi ziedojumu veidi?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess ir reģistrēts ar %s.</string>
+  <string name="lichessIsRegisteredWith">Lichess ir reģistrēts ar %s.</string>
   <string name="bankTransfers">Mēs pieņemam arī bankas pārskaitījumus</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Lūdzu ievērojiet, ka tikai augšup esošā ziedošanas veidlapa jums piešķirs Sponsora statusu.</string>
+  <string name="onlyDonationFromAbove">Lūdzu ievērojiet, ka tikai augšup esošā ziedošanas veidlapa jums piešķirs Sponsora statusu.</string>
   <string name="patronFeatures">Vai dažas iespējas ir rezervētas Sponsoriem?</string>
   <string name="noPatronFeatures">Nē, jo Lichess ir pilnīgi bezmaksas visiem mūžīgi. Tas ir solījums.
 Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</string>

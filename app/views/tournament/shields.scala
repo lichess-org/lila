@@ -1,6 +1,6 @@
 package views.html.tournament
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TournamentShield
@@ -11,7 +11,7 @@ object shields:
 
   private val section = st.section(cls := "tournament-shields__item")
 
-  def apply(history: TournamentShield.History)(implicit ctx: Context) =
+  def apply(history: TournamentShield.History)(using WebContext) =
     views.html.base.layout(
       title = "Tournament shields",
       moreCss = cssTag("tournament.leaderboard"),
@@ -26,7 +26,7 @@ object shields:
               section(
                 h2(
                   a(href := routes.Tournament.categShields(categ.key))(
-                    span(cls := "shield-trophy")(categ.iconChar.toString),
+                    span(cls := "shield-trophy")(categ.icon),
                     categ.name
                   )
                 ),
@@ -43,7 +43,7 @@ object shields:
       )
     }
 
-  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit ctx: Context) =
+  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using WebContext) =
     views.html.base.layout(
       title = "Tournament shields",
       moreCss = frag(cssTag("tournament.leaderboard"), cssTag("slist"))
@@ -53,14 +53,14 @@ object shields:
         div(cls := "page-menu__content box")(
           boxTop(
             h1(
-              a(href := routes.Tournament.shields, dataIcon := "", cls := "text"),
+              a(href := routes.Tournament.shields, dataIcon := licon.LessThan, cls := "text"),
               categ.name,
               " shields"
             )
           ),
           ol(awards.map { aw =>
             li(
-              span(cls := "shield-trophy")(categ.iconChar.toString),
+              span(cls := "shield-trophy")(categ.icon),
               userIdLink(aw.owner.some),
               a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
             )

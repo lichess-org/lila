@@ -3,9 +3,8 @@ package lila.coordinate
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.user.User
 import lila.db.dsl.{ given, * }
-import chess.Color
+import chess.{ Color, ByColor }
 
 final class CoordinateApi(scoreColl: Coll)(using Executor):
 
@@ -20,7 +19,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
         $id(userId),
         $push(
           $doc(
-            s"${color.name}${(mode == CoordMode.NameSquare) ?? "NameSquare"}" -> $doc(
+            s"${color.name}${(mode == CoordMode.nameSquare) so "NameSquare"}" -> $doc(
               "$each"  -> $arr(hits),
               "$slice" -> -20
             )
@@ -30,7 +29,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
       )
       .void
 
-  def bestScores(userIds: List[UserId]): Fu[Map[UserId, Color.Map[Int]]] =
+  def bestScores(userIds: List[UserId]): Fu[Map[UserId, ByColor[Int]]] =
     scoreColl
       .aggregateList(
         maxDocs = Int.MaxValue,
@@ -49,7 +48,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
       .map {
         _.flatMap { doc =>
           doc.getAsOpt[UserId]("_id") map {
-            _ -> Color.Map(
+            _ -> ByColor(
               ~doc.int("white"),
               ~doc.int("black")
             )

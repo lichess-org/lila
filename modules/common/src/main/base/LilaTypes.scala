@@ -3,7 +3,7 @@ package lila.base
 import ornicar.scalalib.newtypes.*
 
 import alleycats.Zero
-import play.api.libs.json.{ JsError, JsObject, JsResult }
+import play.api.libs.json.JsObject
 
 trait LilaTypes:
 
@@ -13,7 +13,8 @@ trait LilaTypes:
 
   export scala.concurrent.{ ExecutionContext as Executor, Future, Promise }
   export scala.concurrent.duration.{ DurationInt, DurationLong, IntMult, Duration, FiniteDuration }
-  export org.joda.time.DateTime
+  export akka.actor.Scheduler
+  export java.time.{ Instant, LocalDateTime }
 
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)

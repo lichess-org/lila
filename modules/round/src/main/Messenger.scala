@@ -1,9 +1,8 @@
 package lila.round
 
-import lila.chat.{ Chat, ChatApi, ChatTimeout }
+import lila.chat.{ ChatApi, ChatTimeout }
 import lila.game.Game
 import lila.hub.actorApi.shutup.PublicSource
-import lila.user.User
 
 final class Messenger(api: ChatApi):
 
@@ -34,18 +33,19 @@ final class Messenger(api: ChatApi):
         val source = PublicSource.Watcher(gameId)
         api.userChat.write(gameWatcherId(gameId), userId, text drop command.length, source.some, _.Round)
     } getOrElse {
-      !text.startsWith("/") ?? // mistyped command?
+      !text.startsWith("/") so // mistyped command?
         api.userChat.write(gameId into ChatId, userId, text, publicSource = none, _.Round)
     }
 
   def owner(game: Game, anonColor: chess.Color, text: String): Funit =
-    (game.fromFriend || presets.contains(text)) ??
+    (game.fromFriend || presets.contains(text)) so
       api.playerChat.write(game.id into ChatId, anonColor, text, _.Round)
 
   def timeout(chatId: ChatId, modId: UserId, suspect: UserId, reason: String, text: String): Funit =
-    ChatTimeout.Reason(reason) ?? { r =>
-      api.userChat.timeout(chatId, modId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
-    }
+    ChatTimeout
+      .Reason(reason)
+      .so: r =>
+        api.userChat.timeout(chatId, modId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
 
   private val presets = Set(
     "Hello",

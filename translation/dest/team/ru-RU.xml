@@ -61,4 +61,5 @@
   <string name="completedTourns">Завершённые турниры</string>
   <string name="declinedRequests">Отклонённые запросы</string>
   <string name="joinLichessVariantTeam">Вступайте в официальный клуб %s, чтобы узнавать его новости и события</string>
+  <string name="teamPage">Страница клуба</string>
 </resources>

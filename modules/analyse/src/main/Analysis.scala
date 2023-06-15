@@ -2,21 +2,19 @@ package lila.analyse
 
 import chess.{ Ply, Color }
 
-import lila.user.User
-
 case class Analysis(
-    id: Analysis.ID, // game ID, or chapter ID if studyId is set
+    id: Analysis.Id, // game ID, or chapter ID if studyId is set
     studyId: Option[StudyId],
     infos: List[Info],
     startPly: Ply,
-    date: DateTime,
+    date: Instant,
     fk: Option[Analysis.FishnetKey]
 ):
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect { case List(prev, info) =>
       info -> {
-        info.hasVariation ?? Advice(prev, info)
+        info.hasVariation so Advice(prev, info)
       }
     }
   }.toList
@@ -39,7 +37,9 @@ case class Analysis(
 
 object Analysis:
 
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
+
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
-  type ID         = String
   type FishnetKey = String

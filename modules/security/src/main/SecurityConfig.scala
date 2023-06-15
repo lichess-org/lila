@@ -23,7 +23,8 @@ final private class SecurityConfig(
     @ConfigName("check_mail_api") val checkMail: CheckMail,
     val hcaptcha: Hcaptcha.Config,
     @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
-    @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
+    @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck,
+    @ConfigName("pwned.url") val pwnedUrl: String
 )
 
 private object SecurityConfig:

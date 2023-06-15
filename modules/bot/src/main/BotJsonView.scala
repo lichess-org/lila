@@ -4,7 +4,6 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.Json.given
 import lila.game.JsonView.given
 import lila.game.{ Game, GameRepo, Pov }
 
@@ -14,9 +13,9 @@ final class BotJsonView(
     rematches: lila.game.Rematches
 )(using Executor):
 
-  def gameFull(game: Game)(using lang: Lang): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
+  def gameFull(game: Game)(using Lang): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
 
-  def gameFull(wf: Game.WithInitialFen)(using lang: Lang): Fu[JsObject] =
+  def gameFull(wf: Game.WithInitialFen)(using Lang): Fu[JsObject] =
     gameState(wf) map { state =>
       gameImmutable(wf) ++ Json.obj(
         "type"  -> "gameFull",
@@ -24,13 +23,12 @@ final class BotJsonView(
       )
     }
 
-  def gameImmutable(wf: Game.WithInitialFen)(using lang: Lang): JsObject =
+  def gameImmutable(wf: Game.WithInitialFen)(using Lang): JsObject =
     import wf.*
     Json
       .obj(
         "id"      -> game.id,
         "variant" -> game.variant,
-        "clock"   -> game.clock.map(_.config),
         "speed"   -> game.speed.key,
         "perf" -> game.perfType.map { p =>
           Json.obj("name" -> p.trans)
@@ -41,6 +39,8 @@ final class BotJsonView(
         "black"      -> playerJson(game.blackPov),
         "initialFen" -> fen.fold("startpos")(_.value)
       )
+      .add("clock" -> game.clock.map(_.config))
+      .add("daysPerTurn" -> game.daysPerTurn)
       .add("tournamentId" -> game.tournamentId)
 
   def gameState(wf: Game.WithInitialFen): Fu[JsObject] =
@@ -50,10 +50,10 @@ final class BotJsonView(
         .obj(
           "type"   -> "gameState",
           "moves"  -> uciMoves.mkString(" "),
-          "wtime"  -> millisOf(game.whitePov),
-          "btime"  -> millisOf(game.blackPov),
-          "winc"   -> (game.clock.??(_.config.increment.millis): Long),
-          "binc"   -> (game.clock.??(_.config.increment.millis): Long),
+          "wtime"  -> game.whitePov.millisRemaining,
+          "btime"  -> game.blackPov.millisRemaining,
+          "winc"   -> (game.clock.so(_.config.increment.millis): Long),
+          "binc"   -> (game.clock.so(_.config.increment.millis): Long),
           "status" -> game.status.name
         )
         .add("wdraw" -> game.whitePlayer.isOfferingDraw)
@@ -93,15 +93,8 @@ final class BotJsonView(
       .add("rating" -> pov.player.rating)
       .add("provisional" -> pov.player.provisional)
 
-  private def millisOf(pov: Pov): Int =
-    pov.game.clock
-      .map(_.remainingTime(pov.color).millis.toInt)
-      .orElse(pov.game.correspondenceClock.map(_.remainingTime(pov.color).toInt * 1000))
-      .getOrElse(Int.MaxValue)
-
-  implicit private val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
+  private given OWrites[chess.Clock.Config] = OWrites: c =>
     Json.obj(
       "initial"   -> c.limit.millis,
       "increment" -> c.increment.millis
     )
-  }

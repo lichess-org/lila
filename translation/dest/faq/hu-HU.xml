@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">még így segíthetsz</string>
   <string name="areThereWebsitesBasedOnLichess">Vannak Lichess-en alapuló weboldalak?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Igen. Lichess valóban inspirált más nyílt forrású oldalakat amik használják a %1$s, %2$s vagy %3$s-t.</string>
+  <string name="keyboardShortcuts">Melyek az elérhető gyorsbilllentyűk?</string>
+  <string name="keyboardShortcutsExplanation">A Lichess oldalain gyorsbillentyűket is használhatsz. Nyomd meg a \'?\' billentyűt a tanulmány, elemzés, feladvány és játszma oldalakon az elérhető gyorsbillentyűk listájához.</string>
   <string name="fairPlay">Sportszerűség</string>
   <string name="whenAmIEligibleRatinRefund">Mikor vagyok jogosult értékszám kompenzációra a csalók miatt?</string>
   <string name="ratingRefundExplanation">Egy percel azután, hogy a játékost jelentik, megvizsgáljuk az utolsó 40 értékelt játszmáit az elmúlt 3 napból. Ha egyike vagy a játékos ellenfeleinek, a pontszámod csökkent (mert vesztettél vagy döntetlent játszottál) és a pontszámod nem becsült, visszajár az elvesztett pontokból. A pontos érték változhat az eddigi legmagasabb pontszámod és annak alakulása alapján.
@@ -63,7 +65,7 @@ A %2$s a 3.7 (d) pontban tárgyalja:
 Lásd még az erről készült %3$s-t.</string>
   <string name="goodIntroduction">jó bevezetés</string>
   <string name="lichessTraining">Lichess gyakorlás</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Tekintsd meg Eric Rosen Nemzetközi Mester %s mattját.</string>
+  <string name="watchIMRosenCheckmate">Tekintsd meg Eric Rosen Nemzetközi Mester %s mattját.</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>
   <string name="threefoldRepetitionLowerCase">állásismétlés szabályai</string>

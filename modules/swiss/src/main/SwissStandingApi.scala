@@ -2,7 +2,6 @@ package lila.swiss
 
 import play.api.libs.json.*
 
-import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 
 /*
@@ -13,7 +12,6 @@ import lila.db.dsl.{ *, given }
  */
 final class SwissStandingApi(
     mongo: SwissMongo,
-    pairingSystem: PairingSystem,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
@@ -77,7 +75,7 @@ final class SwissStandingApi(
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
     for {
       rankedPlayers <- bestWithRankByPage(swiss.id, perPage, page atLeast 1)
-      pairings <- !swiss.isCreated ?? SwissPairing.fields { f =>
+      pairings <- !swiss.isCreated so SwissPairing.fields { f =>
         mongo.pairing
           .find($doc(f.swissId -> swiss.id, f.players $in rankedPlayers.map(_.player.userId)))
           .sort($sort asc f.round)

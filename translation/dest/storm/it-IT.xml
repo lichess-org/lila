@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Fai una mossa per iniziare</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Giochi da bianco in tutte le tattiche</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Giochi da nero in tutte le tattiche</string>
-  <string name="puzzlesSolved">tattiche risolte</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Muove il bianco in ogni problema</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Muove il nero in ogni problema</string>
+  <string name="puzzlesSolved">problemi risolti</string>
   <string name="newDailyHighscore">Nuovo record di oggi!</string>
   <string name="newWeeklyHighscore">Nuovo record della settimana!</string>
   <string name="newMonthlyHighscore">Nuovo record del mese!</string>
@@ -26,7 +26,7 @@
   <string name="time">Tempo</string>
   <string name="timePerMove">Tempo per mossa</string>
   <string name="highestSolved">Più difficile risolto</string>
-  <string name="puzzlesPlayed">Tattiche giocate</string>
+  <string name="puzzlesPlayed">Problemi tentati</string>
   <string name="newRun">Nuovo tentativo (scorciatoia da tastiera: Spazio)</string>
   <string name="endRun">Termina tentativo (scorciatoia da tastiera: Invio)</string>
   <string name="highscores">Record</string>
@@ -50,9 +50,9 @@
   <string name="skip">salta</string>
   <string name="skipHelp">Puoi saltare una mossa per gara:</string>
   <string name="skipExplanation">Salta questa mossa per mantenere la combo! È possibile farlo solo una volta per gara.</string>
-  <string name="failedPuzzles">Tattiche fallite</string>
-  <string name="slowPuzzles">Rompicapi lenti</string>
-  <string name="skippedPuzzle">Puzzle saltato</string>
+  <string name="failedPuzzles">Problemi non risolti</string>
+  <string name="slowPuzzles">Problemi lenti</string>
+  <string name="skippedPuzzle">Problema saltato</string>
   <string name="thisWeek">Questa settimana</string>
   <string name="thisMonth">Questo mese</string>
   <string name="allTime">Sempre</string>

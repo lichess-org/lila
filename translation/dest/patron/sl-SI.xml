@@ -31,6 +31,7 @@
   <string name="otherAmount">Drugo</string>
   <string name="pleaseEnterAmountInX">Prosimo, vnesite znesek v %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
+  <string name="logInToDonate">Za donacije se prijavite</string>
   <string name="weAreSmallTeam">Smo majhna ekipa, tako, da vaša podpora naredi veliko razliko!</string>
   <string name="celebratedPatrons">Slavni pokrovitelji, ki so naredili Lichess možen</string>
   <string name="whereMoneyGoes">Kam gre denar?</string>
@@ -44,7 +45,9 @@ Nato za polno zaposlenega razvijalca: %s, ustanovitelja Lichessa.</string>
 Ali pa %s.</string>
   <string name="contactSupport">kontaktirajte Lichess podporo</string>
   <string name="otherMethods">Druge metode donacije?</string>
+  <string name="lichessIsRegisteredWith">Lichess je registriran s %s.</string>
   <string name="bankTransfers">Sprejemamo tudi bančne transferje</string>
+  <string name="onlyDonationFromAbove">Upoštevajte, da bo status pokrovitelja podeljen le z zgoraj navedenim obrazcem za donacijo.</string>
   <string name="patronFeatures">Ali je kaj značilnosti rezerviranih za pokrovitelje?</string>
   <string name="noPatronFeatures">Ne, ker je Lichess popolnoma zastonj, za vedno in za vsakogar. To je obljuba. Kakorkoli, pokrovitelji dobijo pravice hvalisanja s kul novo ikono profila.</string>
   <string name="featuresComparison">Poglejte podrobno primerjavo lastnosti</string>

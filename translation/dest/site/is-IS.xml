@@ -59,6 +59,7 @@
   <string name="depthX">Dýpt %s</string>
   <string name="usingServerAnalysis">Greining frá vefþjóni</string>
   <string name="loadingEngine">Hleð inn vél...</string>
+  <string name="calculatingMoves">Reikna leiki...</string>
   <string name="cloudAnalysis">Greining í skýi</string>
   <string name="goDeeper">Fara dýpra</string>
   <string name="showThreat">Sýna ógn</string>
@@ -339,6 +340,7 @@
   <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
   <string name="xJoinedTeamY">%1$s gengu í liðið %2$s</string>
   <string name="xCreatedTeamY">%1$s lið búin til %2$s</string>
+  <string name="startedStreaming">byrjaði að streyma</string>
   <string name="xStartedStreaming">%s byrjaði streymi</string>
   <string name="averageElo">Meðal Elo</string>
   <string name="location">Staðsetning</string>
@@ -351,6 +353,7 @@
   <string name="gameAsGIF">Leikur sem GIF</string>
   <string name="pasteTheFenStringHere">Límdu FEN strengnum hér</string>
   <string name="pasteThePgnStringHere">Límdu PGN strengnum hér</string>
+  <string name="orUploadPgnFile">Eða hlaða upp PGN skrá</string>
   <string name="fromPosition">Frá staðsetningu</string>
   <string name="continueFromHere">Halda áfram héðan</string>
   <string name="toStudy">Greina</string>

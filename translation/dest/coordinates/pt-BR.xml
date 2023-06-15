@@ -8,8 +8,8 @@
   <string name="mostChessCourses">A maioria dos cursos e exercícios de xadrez utilizam a notação algébrica extensivamente.</string>
   <string name="talkToYourChessFriends">Isso torna mais fácil conversar com seus amigos de xadrez, desde que ambos entendam a \"linguagem do xadrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Você pode analisar um jogo mais eficientemente se não precisar ficar procurando os nomes das casas.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Uma coordenada aparece no tabuleiro e você deve clicar na casa correspondente.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Uma casa é destacada no tabuleiro e você deve inserir sua coordenada (ex: \"e4\").</string>
+  <string name="aCoordinateAppears">Uma coordenada aparece no tabuleiro e você deve clicar na casa correspondente.</string>
+  <string name="aSquareIsHighlightedExplanation">Uma casa é destacada no tabuleiro e você deve inserir sua coordenada (ex: \"e4\").</string>
   <string name="youHaveThirtySeconds">Você tem 30 segundos para localizar corretamente o máximo de casas possível!</string>
   <string name="goAsLongAsYouWant">Vá até quando quiser, não há limite de tempo!</string>
   <string name="showCoordinates">Mostrar coordenadas</string>

@@ -3,14 +3,14 @@ package views.html.oAuth.token
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKeys.{ oauthScope as ot }
 
 object create:
 
-  def apply(form: Form[lila.oauth.OAuthTokenForm.Data], me: lila.user.User)(implicit ctx: Context) =
+  def apply(form: Form[lila.oauth.OAuthTokenForm.Data], me: lila.user.User)(using WebContext) =
 
     val title = ot.newAccessToken
 
@@ -31,7 +31,7 @@ object create:
           br,
           h2(ot.whatTheTokenCanDo()),
           div(cls := "scopes")(
-            lila.oauth.OAuthScope.classified.map { case (categ, scopes) =>
+            lila.oauth.OAuthScope.classified.map { (categ, scopes) =>
               fieldset(
                 legend(categ()),
                 scopes.map { scope =>
@@ -45,7 +45,7 @@ object create:
                       isGranted(_.Shusher) || isGranted(_.BoostHunter) || isGranted(_.CheatHunter)
                     )
                   val id = s"oauth-scope-${scope.key.replace(":", "_")}"
-                  !hidden option div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList(scope)))(
+                  !hidden option div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList.has(scope)))(
                     span(
                       form3.cmnToggle(
                         id,

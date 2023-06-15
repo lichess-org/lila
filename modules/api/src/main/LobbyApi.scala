@@ -1,10 +1,12 @@
 package lila.api
 
-import play.api.libs.json.{ JsArray, JsObject, Json }
+import play.api.libs.json.{ JsObject, Json, Writes }
 
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
 import lila.common.Json.given
+import lila.user.User
+import lila.rating.Perf
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -14,9 +16,9 @@ final class LobbyApi(
     lobbySocket: LobbySocket
 )(using Executor):
 
-  def apply(using ctx: Context): Fu[(JsObject, List[Pov])] =
+  def apply(using ctx: WebContext): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
-      (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
+      (ctx.me so gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
           Json
@@ -29,7 +31,7 @@ final class LobbyApi(
                 "rounds"  -> lobbySocket.counters.rounds
               )
             )
-            .add("ratingMap", ctx.me.map(lila.user.JsonView.ratingMap))
+            .add("ratingMap", ctx.me.map(ratingMap))
             .add(
               "me",
               ctx.me.map { u =>
@@ -39,4 +41,17 @@ final class LobbyApi(
         }
       }
 
-  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(lightUserApi.sync)
+  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(using lightUserApi.sync)
+
+  private def ratingMap(u: User): JsObject =
+    Writes
+      .keyMapWrites[Perf.Key, JsObject, Map]
+      .writes(
+        u.perfs.perfsMap.view.mapValues { perf =>
+          Json
+            .obj(
+              "rating" -> perf.intRating.value
+            )
+            .add("prov" -> perf.glicko.provisional)
+        }.toMap
+      )

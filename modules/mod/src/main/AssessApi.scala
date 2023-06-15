@@ -2,7 +2,6 @@ package lila.mod
 
 import chess.{ Black, Color, White }
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.analyse.{ Analysis, AnalysisRepo }
@@ -23,7 +22,7 @@ final class AssessApi(
     analysisRepo: AnalysisRepo
 )(using Executor):
 
-  private def bottomDate = nowDate.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
+  private def bottomDate = nowInstant.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
   import lila.evaluation.EvaluationBsonHandlers.given
   import lila.analyse.AnalyseBsonHandlers.given
@@ -46,7 +45,7 @@ final class AssessApi(
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment]] =
     userRepo byId userId flatMap {
-      _.filter(_.noBot) ?? { user =>
+      _.filter(_.noBot) so { user =>
         getPlayerAssessmentsByUserId(userId, nb) map { games =>
           games.nonEmpty option PlayerAggregateAssessment(user, games)
         }
@@ -65,9 +64,9 @@ final class AssessApi(
         val missing = povs collect {
           case pov if pov.game.metadata.analysed && !existingIds.contains(pov.gameId) => pov.gameId
         }
-        missing.nonEmpty ??
+        missing.nonEmpty so
           analysisRepo.coll
-            .idsMap[Analysis, GameId](missing)(x => GameId(x.id))
+            .idsMap[Analysis, GameId](missing)(_.id into GameId)
             .flatMap { ans =>
               povs
                 .flatMap { pov =>
@@ -114,7 +113,7 @@ final class AssessApi(
     }
 
   def refreshAssessOf(user: User): Funit =
-    !user.isBot ??
+    !user.isBot so
       (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
         gs.map { g =>
           analysisRepo.byGame(g) flatMapz {
@@ -137,12 +136,12 @@ final class AssessApi(
         else if (game.players exists consistentMoveTimes(game)) true
         else if (game.createdAt isBefore bottomDate) false
         else true
-      shouldAssess.?? {
+      shouldAssess.so {
         createPlayerAssessment(PlayerAssessment.make(game pov White, analysis, holdAlerts.white)) >>
           createPlayerAssessment(PlayerAssessment.make(game pov Black, analysis, holdAlerts.black))
       } >> {
-        (shouldAssess && thenAssessUser) ?? {
-          game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
+        (shouldAssess && thenAssessUser) so {
+          game.whitePlayer.userId.so(assessUser) >> game.blackPlayer.userId.so(assessUser)
         }
       }
     }
@@ -174,7 +173,7 @@ final class AssessApi(
     }
 
   private val assessableSources: Set[Source] =
-    Set(Source.Lobby, Source.Pool, Source.Tournament, Source.Swiss, Source.Simul)
+    Set(Source.Lobby, Source.Pool, Source.Arena, Source.Swiss, Source.Simul)
 
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent
@@ -187,20 +186,17 @@ final class AssessApi(
       game.playerBlurPercent(player.color) >= 70
 
     def winnerGreatProgress(player: Player): Boolean =
-      game.winner.has(player) && game.perfType ?? { perfType =>
+      game.winner.has(player) && game.perfType.so: perfType =>
         player.color.fold(white, black).perfs(perfType).progress >= 90
-      }
 
     def noFastCoefVariation(player: Player): Option[Float] =
-      Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
+      Statistics.noFastMoves(Pov(game, player)) so Statistics.moveTimeCoefVariation(Pov(game, player))
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
-    def loserUserOption  = game.winnerColor.map(_.fold(black, white))
-    def winnerNbGames =
-      for {
-        user     <- winnerUserOption
-        perfType <- game.perfType
-      } yield user.perfs(perfType).nb
+    def winnerNbGames = for
+      user     <- winnerUserOption
+      perfType <- game.perfType
+    yield user.perfs(perfType).nb
 
     def suspCoefVariation(c: Color) =
       val x = noFastCoefVariation(game player c)
@@ -208,12 +204,12 @@ final class AssessApi(
     lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
-    def isUpset = ~(for {
+    def isUpset = ~(for
       winner <- game.winner
       loser  <- game.loser
       wR     <- winner.stableRating
       lR     <- loser.stableRating
-    } yield wR <= lR - 300)
+    yield wR <= lR - 300)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if (!game.analysable) fuccess(none)
@@ -248,11 +244,10 @@ final class AssessApi(
           // analyse some tourney games
           // else if (game.isTournament) randomPercent(20) option "Tourney random"
           /// analyse new player games
-          else if (winnerNbGames.??(40 >) && randomPercent(75)) NewPlayerWin.some
+          else if (winnerNbGames.so(40 >) && randomPercent(75)) NewPlayerWin.some
           else none
         }
 
-    shouldAnalyse mapz { reason =>
+    shouldAnalyse.mapz: reason =>
       lila.mon.cheat.autoAnalysis(reason.toString).increment()
       fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
-    }

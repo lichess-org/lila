@@ -2,19 +2,16 @@ package views.html.tutor
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Heapsort.given
-import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
-import lila.tutor.TutorCompare.given
+import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.user.User
-import lila.insight.Phase
 
 object home:
 
-  def apply(full: TutorFullReport.Available, user: User)(using Context) =
-    bits.layout(full, menu = menu(full, user, none))(
+  def apply(full: TutorFullReport.Available, user: User)(using WebContext) =
+    bits.layout(menu = menu(full, user, none))(
       cls := "tutor__home box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
@@ -40,26 +37,26 @@ object home:
     )
 
   private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(using
-      Context
+      WebContext
   ) = frag(
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map { p =>
       a(
-        cls  := p.perf.key.value.active(report.??(_.perf.key.value)),
+        cls  := p.perf.key.value.active(report.so(_.perf.key.value)),
         href := routes.Tutor.perf(user.username, p.perf.key)
       )(p.perf.trans)
     }
   )
 
   private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(using
-      Context
+      WebContext
   ) =
     st.article(
       cls      := "tutor__perfs__perf tutor-card tutor-card--link",
       dataHref := routes.Tutor.perf(user.username, perfReport.perf.key)
     )(
       div(cls := "tutor-card__top")(
-        iconTag(perfReport.perf.iconChar),
+        iconTag(perfReport.perf.icon),
         div(cls := "tutor-card__top__title")(
           h3(cls := "tutor-card__top__title__text")(
             perfReport.stats.totalNbGames.localize,

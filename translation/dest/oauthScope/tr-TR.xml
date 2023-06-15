@@ -14,7 +14,7 @@
   <string name="challengeRead">Gelen oyun tekliflerini oku</string>
   <string name="challengeWrite">Maç teklifleri gönder, kabul et veya reddet</string>
   <string name="challengeBulk">Diğer oyuncular için aynı anda birçok oyun oluştur</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Özel çalışmaları ve yayınları okuyun</string>
+  <string name="studyRead">Özel çalışmaları ve yayınları okuyun</string>
   <string name="studyWrite">Çalışmaları ve yayınları oluşturun, güncelleyin, silin</string>
   <string name="tournamentWrite">Turnuvalar oluşturun, güncelleyin ve katılın</string>
   <string name="racerWrite">Bulmaca yarışları oluşturun ve katılın</string>

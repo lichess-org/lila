@@ -5,7 +5,6 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
-import lila.user.User
 import lila.hub.LightTeam.TeamName
 
 final class Cached(
@@ -69,7 +68,7 @@ final class Cached(
       .maximumSize(131072)
       .buildAsyncFuture[UserId, Int] { userId =>
         teamIds(userId) flatMap { ids =>
-          ids.value.nonEmpty ?? teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
+          ids.value.nonEmpty so teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
         }
       }
   }

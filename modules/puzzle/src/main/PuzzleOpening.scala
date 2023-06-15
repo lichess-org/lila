@@ -1,7 +1,6 @@
 package lila.puzzle
 
-import akka.stream.scaladsl.*
-import chess.opening.{ Opening, OpeningDb, OpeningFamily, OpeningVariation }
+import chess.opening.{ Opening, OpeningDb, OpeningFamily }
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
@@ -25,8 +24,8 @@ case class PuzzleOpeningCollection(
     tree.updatedWith(op.opening.family) {
       case None =>
         (
-          families.find(_.family.key == op.opening.family.key).??(_.count),
-          op.opening.ref.variation.isDefined ?? Set(op)
+          families.find(_.family.key == op.opening.family.key).so(_.count),
+          op.opening.ref.variation.isDefined so Set(op)
         ).some
       case Some((famCount, ops)) =>
         (famCount, if (op.opening.ref.variation.isDefined) ops incl op else ops).some
@@ -57,11 +56,7 @@ final class PuzzleOpeningApi(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    mat: akka.stream.Materializer
-):
+)(using Executor, akka.stream.Materializer):
   import BsonHandlers.given
   import SimpleOpening.*
   import PuzzleOpening.*
@@ -107,7 +102,7 @@ final class PuzzleOpeningApi(
   def getClosestTo(
       opening: Opening
   ): Fu[Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]] =
-    SimpleOpening(opening) ?? { lilaOp =>
+    SimpleOpening(opening) so { lilaOp =>
       collection map { coll =>
         coll.openingMap.get(lilaOp.key).map(Right.apply) orElse {
           coll.familyMap.get(lilaOp.family.key).map(Left.apply)
@@ -126,7 +121,7 @@ final class PuzzleOpeningApi(
 
   def count(key: Either[LilaOpeningFamily.Key, SimpleOpening.Key]): Fu[Int] =
     collection dmap { coll =>
-      key.fold(f => coll.familyMap.get(f).??(_.count), o => coll.openingMap.get(o).??(_.count))
+      key.fold(f => coll.familyMap.get(f).so(_.count), o => coll.openingMap.get(o).so(_.count))
     }
 
   def recomputeAll: Funit = colls.puzzle {
@@ -142,7 +137,7 @@ final class PuzzleOpeningApi(
   }
 
   private[puzzle] def updateOpening(puzzle: Puzzle): Funit =
-    (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) ?? {
+    (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) so {
       gameRepo gameFromSecondary puzzle.gameId flatMapz { game =>
         OpeningDb.search(game.sans).map(_.opening).flatMap(SimpleOpening.apply) match
           case None =>

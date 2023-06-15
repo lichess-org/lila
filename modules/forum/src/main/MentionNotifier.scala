@@ -1,11 +1,7 @@
 package lila.forum
 
 import lila.common.LilaFuture
-import lila.notify.NotifyApi
-import lila.notify.{ MentionedInThread, Notification }
-import lila.relation.RelationApi
-import lila.pref.PrefApi
-import lila.user.{ User, UserRepo }
+import lila.notify.MentionedInThread
 
 /** Notifier to inform users if they have been mentioned in a post
   *
@@ -13,14 +9,14 @@ import lila.user.{ User, UserRepo }
   *   Api for sending inbox messages
   */
 final class MentionNotifier(
-    userRepo: UserRepo,
-    notifyApi: NotifyApi,
-    relationApi: RelationApi,
-    prefApi: PrefApi
+    userRepo: lila.user.UserRepo,
+    notifyApi: lila.notify.NotifyApi,
+    relationApi: lila.relation.RelationApi,
+    prefApi: lila.pref.PrefApi
 )(using Executor):
 
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
-    post.userId.ifFalse(post.troll) ?? { author =>
+    post.userId.ifFalse(post.troll) so { author =>
       filterValidUsers(extractMentionedUsers(post), author) flatMap { mentionedUsers =>
         mentionedUsers
           .map { user =>
@@ -57,7 +53,7 @@ final class MentionNotifier(
     } yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =
-    post.text.contains('@') ?? {
+    post.text.contains('@') so {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
       (post.userId foldLeft m.map(_ group 1).map(u => UserStr(u).id).toSet) { _ - _ }
     }

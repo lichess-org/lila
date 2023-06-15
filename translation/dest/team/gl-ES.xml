@@ -55,4 +55,5 @@ Os xogadores/as aos que non lles guste recibir as túas mensaxes poden abandoar 
   <string name="completedTourns">Torneos completos</string>
   <string name="declinedRequests">Solicitudes rexeitadas</string>
   <string name="joinLichessVariantTeam">Únete ó equipo oficial de %s para novidades e eventos</string>
+  <string name="teamPage">Páxina do equipo</string>
 </resources>

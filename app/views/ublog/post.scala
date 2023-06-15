@@ -4,10 +4,9 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
@@ -21,7 +20,7 @@ object post:
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followed: Boolean
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
@@ -32,7 +31,7 @@ object post:
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
-          image = post.image.isDefined option thumbnail.url(post, _.Large),
+          image = post.image.isDefined option thumbnail.url(post, _.Size.Large),
           title = post.title,
           url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
           description = post.intro
@@ -50,7 +49,7 @@ object post:
         div(cls := "page-menu__content box box-pad ublog-post")(
           post.image.map { image =>
             frag(
-              thumbnail(post, _.Large)(cls := "ublog-post__image"),
+              thumbnail(post, _.Size.Large)(cls := "ublog-post__image"),
               image.credit.map { p(cls := "ublog-post__image-credit")(_) }
             )
           },
@@ -70,7 +69,7 @@ object post:
                   cls := "ublog-post__tier"
                 )(UblogBlog.Tier.name(blog.tier))
             ),
-            iconTag("")(
+            iconTag(licon.InfoCircle)(
               cls      := "ublog-post__meta__disclaimer",
               st.title := "Opinions expressed by Lichess contributors are their own."
             ),
@@ -102,7 +101,7 @@ object post:
                     "reason"   -> "comm"
                   )
                 ),
-                dataIcon := ""
+                dataIcon := licon.CautionTriangle
               )
           ),
           div(cls := "ublog-post__topics")(
@@ -116,12 +115,12 @@ object post:
             post.live && ~post.discuss option a(
               href     := routes.Ublog.discuss(post.id),
               cls      := "button text ublog-post__discuss",
-              dataIcon := ""
+              dataIcon := licon.BubbleConvo
             )("Discuss this blog post in the forum"),
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
-                followButton(user, post, followed)
+                followButton(user, followed)
               ),
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
             others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
@@ -130,13 +129,13 @@ object post:
       )
     }
 
-  private def editButton(post: UblogPost)(using Context) = a(
+  private def editButton(post: UblogPost)(using WebContext) = a(
     href     := editUrlOfPost(post),
     cls      := "button button-empty text",
-    dataIcon := ""
+    dataIcon := licon.Pencil
   )(trans.edit())
 
-  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
+  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using WebContext) =
     val text = if (liked) trans.study.unlike.txt() else trans.study.like.txt()
     button(
       tpe := "button",
@@ -157,7 +156,7 @@ object post:
       )(text)
     )
 
-  private def followButton(user: User, post: UblogPost, followed: Boolean)(using Context) =
+  private def followButton(user: User, followed: Boolean)(using WebContext) =
     div(
       cls := List(
         "ublog-post__follow" -> true,
@@ -165,8 +164,8 @@ object post:
       )
     )(
       List(
-        ("yes", trans.unfollowX, routes.Relation.unfollow, ""),
-        ("no", trans.followX, routes.Relation.follow, "")
+        ("yes", trans.unfollowX, routes.Relation.unfollow, licon.Checkmark),
+        ("no", trans.followX, routes.Relation.follow, licon.ThumbsUp)
       ).map { case (role, text, route, icon) =>
         button(
           cls      := s"ublog-post__follow__$role button button-big",
@@ -183,9 +182,9 @@ object post:
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: Boolean = false,
       showIntro: Boolean = true
-  )(using Context) =
+  )(using WebContext) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
-      thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
+      thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
         showIntro option span(cls := "ublog-post-card__intro")(shorten(post.intro, 100)),
@@ -194,9 +193,9 @@ object post:
       )
     )
 
-  def miniCard(post: UblogPost.BasePost)(using Context) =
+  def miniCard(post: UblogPost.BasePost) =
     span(cls := "ublog-post-card ublog-post-card--mini")(
-      thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
+      thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
       h3(cls := "ublog-post-card__title")(post.title)
     )
 
@@ -206,14 +205,13 @@ object post:
 
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
-  private[ublog] def newPostLink(using ctx: Context) = ctx.me map { u =>
+  private[ublog] def newPostLink(using ctx: WebContext) = ctx.me.map: u =>
     a(
       href     := routes.Ublog.form(u.username),
       cls      := "button button-green",
-      dataIcon := "",
+      dataIcon := licon.PlusButton,
       title    := trans.ublog.newPost.txt()
     )
-  }
 
   object thumbnail:
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =

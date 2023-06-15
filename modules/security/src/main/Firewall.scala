@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 
 final class Firewall(
     coll: Coll,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 )(using Executor):
 
   private var current: Set[String] = Set.empty
@@ -31,7 +31,7 @@ final class Firewall(
       coll.update
         .one(
           $id(ip),
-          $doc("_id" -> ip, "date" -> nowDate),
+          $doc("_id" -> ip, "date" -> nowInstant),
           upsert = true
         )
         .void

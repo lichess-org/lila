@@ -1,6 +1,4 @@
 .lobby__app-pools {
-  height: 300px;
-
   @include breakpoint($mq-col2) {
     height: 400px;
   }

@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
 import { StudyCtrl } from './interfaces';
@@ -37,7 +38,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
             ? null
             : h('a', {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.Pencil,
                   title: 'Edit',
                 },
                 hook: bind(
@@ -50,7 +51,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
               }),
           h('a', {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.Trash,
               title: 'Delete',
             },
             hook: bind('click', () => {
@@ -83,7 +84,7 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
       descTitle(chapter),
       h('button.button.button-empty.button-red', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.X,
           title: 'Close',
         },
         hook: bind(

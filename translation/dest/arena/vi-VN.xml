@@ -40,7 +40,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="drawStreakStandard">Chuỗi hòa: Khi một người chơi hòa liên tục ở một đấu trường, chỉ có ván hòa đầu tiên mang lại điểm, hoặc các ván tiêu chuẩn hòa mà có nhiều hơn %s nước đi. Chuỗi hòa chỉ có thể bị phá vỡ bởi một ván thắng, chứ không phải một ván thua hay hòa khác.</string>
   <string name="drawStreakVariants">Độ dài ván đấu tối thiểu cho các ván hòa để vẫn có điểm là khác nhau theo từng biến thể. Bảng dưới đây liệt kê ngưỡng cho từng biến thể.</string>
   <string name="variant">Biến thể</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Độ dài ván đấu tối thiểu</string>
+  <string name="minimumGameLength">Độ dài ván đấu tối thiểu</string>
   <string name="history">Lịch sử đấu trường</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Xem đội
@@ -54,4 +54,8 @@ Xem tất cả %s đội</item>
   <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng chat</string>
   <string name="arenaStreaks">Chuỗi đấu trường</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
+  <string name="noBerserkAllowed">Không cho phép Berserk</string>
+  <string name="noArenaStreaks">Không có chuỗi Giải đấu</string>
+  <string name="averagePerformance">Hiệu suất trung bình</string>
+  <string name="averageScore">Điểm trung bình</string>
 </resources>

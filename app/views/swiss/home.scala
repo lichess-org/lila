@@ -3,26 +3,26 @@ package views.html.swiss
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
 
 object home:
 
-  def apply(featured: FeaturedSwisses)(implicit ctx: Context) =
+  def apply(featured: FeaturedSwisses)(using WebContext) =
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
       withHrefLangs = lila.common.LangPath(routes.Swiss.home).some
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
-        h1(cls := "box__top")("Swiss tournaments"),
+        h1(cls := "box__top")(trans.swiss.swissTournaments()),
         renderList(trans.swiss.nowPlaying.txt())(featured.started),
         renderList(trans.swiss.startingSoon.txt())(featured.created),
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
-            iconTag(""),
+            iconTag(licon.InfoCircle),
             p(
               trans.swiss.swissDescription(
                 a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
@@ -30,7 +30,7 @@ object home:
             )
           ),
           div(cls := "team")(
-            iconTag(""),
+            iconTag(licon.Group),
             p(
               trans.swiss.teamOnly(
                 a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
@@ -43,13 +43,13 @@ object home:
       )
     }
 
-  private def renderList(name: String)(swisses: List[Swiss])(implicit ctx: Context) =
+  private def renderList(name: String)(swisses: List[Swiss])(using WebContext) =
     table(cls := "slist swisses")(
       thead(tr(th(colspan := 4)(name))),
       tbody(
         swisses map { s =>
           tr(
-            td(cls := "icon")(iconTag(bits.iconChar(s))),
+            td(cls := "icon")(iconTag(s.perfType.icon)),
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
@@ -58,11 +58,9 @@ object home:
             ),
             td(cls := "infos")(
               span(cls := "rounds")(
-                if (s.isStarted)
-                  trans.swiss.xOutOfYRoundsSwiss
-                    .plural(s.settings.nbRounds, s.round.value, s.settings.nbRounds)
-                else
-                  trans.swiss.xRoundsSwiss.pluralSame(s.settings.nbRounds)
+                if s.isStarted then
+                  trans.swiss.nbRounds.plural(s.settings.nbRounds, s"${s.round}/${s.settings.nbRounds}")
+                else trans.swiss.nbRounds.pluralSame(s.settings.nbRounds)
               ),
               span(cls := "setup")(
                 s.clock.show,
@@ -75,14 +73,14 @@ object home:
             td(
               momentFromNow(s.startsAt),
               br,
-              span(cls := "players text", dataIcon := "")(s.nbPlayers.localize)
+              span(cls := "players text", dataIcon := licon.User)(s.nbPlayers.localize)
             )
           )
         }
       )
     )
 
-  private def comparison(implicit lang: Lang) = table(cls := "comparison slist")(
+  private def comparison(using Lang) = table(cls := "comparison slist")(
     thead(
       tr(
         th(trans.swiss.comparison()),
@@ -144,7 +142,7 @@ object home:
     )
   )
 
-  private def faqEntry(title: Frag, content: Frag)(using Lang) =
+  private def faqEntry(title: Frag, content: Frag) =
     div(cls := "faq")(
       i("?"),
       p(strong(title), content)
@@ -190,18 +188,16 @@ object home:
       trans.swiss.numberOfByesA()
     ),
     faqEntry(
-      frag("Early draws"),
-      frag(
-        "In swiss games, players cannot draw before 30 moves are played. While this measure cannot prevent pre-arranged draws, it at least makes it harder to agree to a draw on the fly."
-      )
+      trans.swiss.earlyDrawsQ(),
+      trans.swiss.earlyDrawsA()
     ),
     faqEntry(
       trans.swiss.whatIfOneDoesntPlayQ(),
       trans.swiss.whatIfOneDoesntPlayA()
     ),
     faqEntry(
-      "Protection against no-show",
-      "Players who sign up for swiss events but don't play their games can be problematic. To alleviate this issue, Lichess prevents players who failed to play a game from joining a new Swiss event for a given amount of time. The creator of a Swiss event can decide to let them join the event anyway."
+      trans.swiss.protectionAgainstNoShowQ(),
+      trans.swiss.protectionAgainstNoShowA()
     ),
     faqEntry(
       trans.swiss.lateJoinQ(),

@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">Bạn cần mật khẩu và mã xác thực từ ứng dụng xác thực để tắt xác thực 2 bước.
 Nếu bạn mất quyền truy cập vào mã xác thực, bạn có thể đặt lại mật khẩu qua email.</string>
   <string name="openTwoFactorApp">Mở ứng dụng xác minh 2 bước trên thiết bị của bạn để xem mã xác minh của bạn và xác nhận danh tính.</string>
+  <string name="setupReminder">Vui lòng bật xác thực hai yếu tố để bảo mật tài khoản của bạn tại https://lichess.org/account/twofactor.
+Bạn nhận được thông báo này vì tài khoản của bạn có các trách nhiệm đặc biệt như đội trưởng, huấn luyện viên, giáo viên hoặc streamer</string>
 </resources>

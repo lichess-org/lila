@@ -34,28 +34,28 @@ function insufficientMaterial(variant: VariantKey, fullFen: Fen): boolean {
 
 export default function status(ctrl: Ctrl): string {
   const noarg = ctrl.trans.noarg,
-    d = ctrl.data;
+    d = ctrl.data,
+    winnerSuffix = d.game.winner ? ' • ' + noarg(d.game.winner + 'IsVictorious') : '';
   switch (d.game.status.name) {
     case 'started':
       return noarg('playingRightNow');
     case 'aborted':
-      return noarg('gameAborted');
+      return noarg('gameAborted') + winnerSuffix;
     case 'mate':
-      return noarg('checkmate');
+      return noarg('checkmate') + winnerSuffix;
     case 'resign':
-      return noarg(d.game.winner == 'white' ? 'blackResigned' : 'whiteResigned');
+      return noarg(d.game.winner == 'white' ? 'blackResigned' : 'whiteResigned') + winnerSuffix;
     case 'stalemate':
-      return noarg('stalemate');
+      return noarg('stalemate') + winnerSuffix;
     case 'timeout':
       switch (d.game.winner) {
         case 'white':
-          return noarg('blackLeftTheGame');
+          return noarg('blackLeftTheGame') + winnerSuffix;
         case 'black':
-          return noarg('whiteLeftTheGame');
+          return noarg('whiteLeftTheGame') + winnerSuffix;
+        default:
+          return `${d.game.turns % 2 === 0 ? noarg('whiteLeftTheGame') : noarg('blackLeftTheGame')} • ${noarg('draw')}`;
       }
-      return `${d.game.turns % 2 === 0 ? noarg('whiteLeftTheGame') : noarg('blackLeftTheGame')}${
-        d.game.winner ? '' : ` • ${noarg('draw')}`
-      }`;
     case 'draw': {
       if (insufficientMaterial(d.game.variant.key, d.game.fen))
         return `${noarg('insufficientMaterial')} • ${noarg('draw')}`;
@@ -66,23 +66,23 @@ export default function status(ctrl: Ctrl): string {
     }
     case 'outoftime':
       return `${d.game.turns % 2 === 0 ? noarg('whiteTimeOut') : noarg('blackTimeOut')}${
-        d.game.winner ? '' : ` • ${noarg('draw')}`
+        winnerSuffix || ` • ${noarg('draw')}`
       }`;
     case 'noStart':
-      return d.game.winner == 'white' ? noarg('blackDidntMove') : noarg('whiteDidntMove');
+      return (d.game.winner == 'white' ? noarg('blackDidntMove') : noarg('whiteDidntMove')) + winnerSuffix;
     case 'cheat':
-      return noarg('cheatDetected');
+      return noarg('cheatDetected') + winnerSuffix;
     case 'variantEnd':
       switch (d.game.variant.key) {
         case 'kingOfTheHill':
-          return noarg('kingInTheCenter');
+          return noarg('kingInTheCenter') + winnerSuffix;
         case 'threeCheck':
-          return noarg('threeChecks');
+          return noarg('threeChecks') + winnerSuffix;
       }
-      return noarg('variantEnding');
+      return noarg('variantEnding') + winnerSuffix;
     case 'unknownFinish':
-      return 'Finished';
+      return d.game.winner ? noarg(d.game.winner + 'IsVictorious') : 'Finished';
     default:
-      return d.game.status.name;
+      return d.game.status.name + winnerSuffix;
   }
 }

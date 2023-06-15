@@ -54,7 +54,7 @@ Inutile d\'effectuer des promotions.</string>
   <string name="aPawnOnTheSecondRank">Un Pion sur sa case de départ peut se déplacer de 2 cases d\'un coup !</string>
   <string name="grabAllTheStarsNoNeedToPromote">Collecter toutes les étoiles ! Inutile d\'effectuer des promotions.</string>
   <string name="pawnComplete">Félicitations ! Les pions n\'ont plus de secret pour vous.</string>
-  <string name="pawnPromotion">La promotion du Pion</string>
+  <string name="pawnPromotion">La promotion du pion</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Votre Pion a atteint le bord opposé!</string>
   <string name="itNowPromotesToAStrongerPiece">Il est promu en une pièce plus puissante.</string>
   <string name="selectThePieceYouWant">Sélectionnez la pièce de promotion !</string>

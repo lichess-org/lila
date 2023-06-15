@@ -1,8 +1,8 @@
 package lila.app
 
-import akka.actor.{ ActorSystem, CoordinatedShutdown }
+import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import play.api.{ Environment, Configuration, Application, BuiltInComponents }
+import play.api.{ Environment, Configuration, BuiltInComponents }
 import play.api.http.HttpRequestHandler
 import play.api.libs.crypto.CookieSignerProvider
 import play.api.libs.ws.StandaloneWSClient
@@ -72,20 +72,19 @@ final class LilaComponents(
 
   given ActorSystem = actorSystem
 
-  implicit lazy val httpClient: StandaloneWSClient =
+  given StandaloneWSClient =
     import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
     import play.api.libs.ws.WSConfigParser
     import play.api.libs.ws.ahc.{ AhcConfigBuilder, AhcWSClientConfigParser, StandaloneAhcWSClient }
     new StandaloneAhcWSClient(
-      new DefaultAsyncHttpClient(
-        new AhcConfigBuilder(
-          new AhcWSClientConfigParser(
-            new WSConfigParser(configuration.underlying, environment.classLoader).parse(),
+      DefaultAsyncHttpClient:
+        AhcConfigBuilder(
+          AhcWSClientConfigParser(
+            WSConfigParser(configuration.underlying, environment.classLoader).parse(),
             configuration.underlying,
             environment.classLoader
           ).parse()
         ).modifyUnderlying(_.setIoThreadsCount(8)).build()
-      )
     )
 
   // dev assets

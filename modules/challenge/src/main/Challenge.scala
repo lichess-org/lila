@@ -12,7 +12,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Challenge(
-    _id: String,
+    _id: Challenge.Id,
     status: Challenge.Status,
     variant: Variant,
     initialFen: Option[Fen.Epd],
@@ -23,9 +23,9 @@ case class Challenge(
     challenger: Challenge.Challenger,
     destUser: Option[Challenge.Challenger.Registered],
     rematchOf: Option[GameId],
-    createdAt: DateTime,
-    seenAt: Option[DateTime], // None for open challenges, so they don't sweep
-    expiresAt: DateTime,
+    createdAt: Instant,
+    seenAt: Option[Instant], // None for open challenges, so they don't sweep
+    expiresAt: Instant,
     open: Option[Challenge.Open] = None,
     name: Option[String] = None,
     declineReason: Option[Challenge.DeclineReason] = None,
@@ -110,7 +110,8 @@ case class Challenge(
 
 object Challenge:
 
-  type ID = String
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   enum Status(val id: Int):
     val name = Status.this.toString.toLowerCase
@@ -179,16 +180,15 @@ object Challenge:
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
   case class Open(userIds: Option[(UserId, UserId)]):
-    def userIdList                = userIds map { case (u1, u2) => List(u1, u2) }
+    def userIdList                = userIds.map { (u1, u2) => List(u1, u2) }
     def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
     def colorFor(me: Option[User], requestedColor: Option[Color]): Option[ColorChoice] =
-      userIds.fold(requestedColor.fold[ColorChoice](ColorChoice.Random)(ColorChoice.apply).some) {
-        case (u1, u2) =>
-          me flatMap { m =>
-            if (m is u1) ColorChoice.White.some
-            else if (m is u2) ColorChoice.Black.some
-            else none
-          }
+      userIds.fold(requestedColor.fold(ColorChoice.Random)(ColorChoice.apply).some) { (u1, u2) =>
+        me flatMap { m =>
+          if m is u1 then ColorChoice.White.some
+          else if m is u2 then ColorChoice.Black.some
+          else none
+        }
       }
 
   private def speedOf(timeControl: TimeControl) =
@@ -259,9 +259,9 @@ object Challenge:
       challenger = challenger,
       destUser = destUser map toRegistered(variant, timeControl),
       rematchOf = rematchOf,
-      createdAt = nowDate,
-      seenAt = !isOpen option nowDate,
-      expiresAt = if (isOpen) nowDate.plusDays(1) else inTwoWeeks,
+      createdAt = nowInstant,
+      seenAt = !isOpen option nowInstant,
+      expiresAt = if (isOpen) nowInstant.plusDays(1) else inTwoWeeks,
       open = isOpen option Open(openToUserIds),
       name = name,
       rules = rules

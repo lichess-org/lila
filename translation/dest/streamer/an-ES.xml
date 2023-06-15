@@ -30,7 +30,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicitar una revisión de moderador</string>
   <string name="twitchUsername">Lo tuyo nombre d\'usuario u URL de Twitch</string>
   <string name="optionalOrEmpty">Opcional. Deixa-lo vuedo si no i hai garra</string>
-  <string name="youtubeChannel">La tuya ITZ de canal de YouTube u URL</string>
   <string name="streamerName">Lo tuyo nombre de presentador en Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Sía breu: maximo %s caracters</item>

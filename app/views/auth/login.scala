@@ -3,7 +3,7 @@ package auth
 
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -13,7 +13,7 @@ object login:
 
   import trans.tfa.*
 
-  def apply(form: Form[?], referrer: Option[String])(implicit ctx: Context) =
+  def apply(form: Form[?], referrer: Option[String])(using WebContext) =
     views.html.base.layout(
       title = trans.signIn.txt(),
       moreJs = frag(
@@ -33,7 +33,12 @@ object login:
           action := addReferrer(routes.Auth.authenticate.url)
         )(
           div(cls := "one-factor")(
-            form3.globalError(form),
+            if form.globalError.exists(_.messages.contains("blankedPassword")) then
+              div(cls := "auth-login__blanked")(
+                p(trans.blankedPassword()),
+                a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(trans.passwordReset())
+              )
+            else form3.globalError(form),
             auth.bits.formFields(form("username"), form("password"), none, register = false),
             form3.submit(trans.signIn(), icon = none),
             label(cls := "login-remember")(
@@ -45,7 +50,7 @@ object login:
             form3.group(
               form("token"),
               authenticationCode(),
-              help = Some(span(dataIcon := "")(openTwoFactorApp()))
+              help = Some(span(dataIcon := licon.PhoneMobile)(openTwoFactorApp()))
             )(
               form3.input(_)(autocomplete := "one-time-code", pattern := "[0-9]{6}")
             ),

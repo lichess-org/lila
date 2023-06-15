@@ -26,6 +26,14 @@ export interface ReqPosition {
   path: string;
 }
 
+interface GameUpdate {
+  id: string;
+  fen: Fen;
+  lm: Uci;
+  wc?: number;
+  bc?: number;
+}
+
 export type StudySocketSendParams =
   | [t: 'setPath', d: ReqPosition]
   | [t: 'deleteNode', d: ReqPosition & { jumpTo: string }]

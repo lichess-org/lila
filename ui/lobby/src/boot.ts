@@ -20,7 +20,6 @@ export default function LichessLobby(opts: LobbyOpts) {
     { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
     { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
   ];
-  opts.blindMode = document.body.classList.contains('blind-mode');
   opts.trans = lichess.trans(opts.i18n);
 
   lichess.socket = new lichess.StrongSocket('/lobby/socket/v5', false, {
@@ -54,8 +53,7 @@ export default function LichessLobby(opts: LobbyOpts) {
     },
   });
   lichess.StrongSocket.firstConnect.then(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const gameId = urlParams.get('hook_like');
+    const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();
     xhr.text(xhr.url(`/setup/hook/${lichess.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }), {

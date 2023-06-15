@@ -34,7 +34,7 @@
 การเสมอต่อเนื่อง จะสามารถจบลงได้ด้วยการชนะเท่านั้น การแพ้หรือเสมอจะไม่ทำให้จบการเสมอต่อเนื่อง</string>
   <string name="drawStreakVariants">ความยาวเกมอย่างต่ำเพี่อที่จะให้เกมที่เสมอนั้นนับคะแนนจะต่างกันไปในแต่ละตัวแปรกติกา ตารางข้างล่างนี้แสดงจุดเริ่มต้นคิดคะแนนสำหรับแต่ละตัวแปรกติกา</string>
   <string name="variant">ตัวแปรกติกา</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">ความยาวเกมขั้นต่ำ</string>
+  <string name="minimumGameLength">ความยาวเกมขั้นต่ำ</string>
   <string name="history">ประวัติการเล่นสังเวียน</string>
   <string name="customStartDate">กำหนดเวลาแข่งเอง</string>
   <string name="allowBerserk">อนุญาตให้เบอร์เซิร์ก</string>

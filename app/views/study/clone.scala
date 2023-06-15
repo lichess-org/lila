@@ -1,6 +1,6 @@
 package views.html.study
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -8,10 +8,10 @@ import controllers.routes
 
 object clone:
 
-  def apply(s: lila.study.Study)(implicit ctx: Context) =
+  def apply(s: lila.study.Study)(using WebContext) =
     views.html.site.message(
       title = s"Clone ${s.name}",
-      icon = Some("")
+      icon = licon.StudyBoard.some
     ) {
       postForm(action := routes.Study.cloneApply(s.id))(
         p("This will create a new private study with the same chapters."),
@@ -21,12 +21,12 @@ object clone:
         p(
           submitButton(
             cls      := "submit button large text",
-            dataIcon := "",
+            dataIcon := licon.StudyBoard,
             style    := "margin: 30px auto; display: block; font-size: 2em;"
           )("Clone the study")
         ),
         p(
-          a(href := routes.Study.show(s.id), cls := "text", dataIcon := "")(trans.cancel())
+          a(href := routes.Study.show(s.id), cls := "text", dataIcon := licon.LessThan)(trans.cancel())
         )
       )
     }

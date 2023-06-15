@@ -2,7 +2,7 @@
 <resources>
   <string name="settings">Configurações</string>
   <string name="closeAccount">Encerrar conta</string>
-  <string name="managedAccountCannotBeClosed">Sua conta é gerenciada, e não pode ser encerrada.</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Sua conta é gerenciada, e não pode ser encerrada.</string>
   <string name="closingIsDefinitive">Encerramento é definitivo. Não há como desfazer. Tem certeza?</string>
   <string name="cantOpenSimilarAccount">Você não poderá abrir uma nova conta com o mesmo nome, mesmo que alterne entre maiúsculas e minúsculas.</string>
   <string name="changedMindDoNotCloseAccount">Eu mudei de ideia, não encerre minha conta</string>

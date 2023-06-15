@@ -151,7 +151,7 @@ case class Perfs(
     copy(
       standard = {
         val subs = List(bullet, blitz, rapid, classical, correspondence).filter(_.provisional.no)
-        subs.maxByOption(_.latest.fold(0L)(_.getMillis)).flatMap(_.latest).fold(standard) { date =>
+        subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(standard) { date =>
           val nb = subs.map(_.nb).sum
           val glicko = Glicko(
             rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
@@ -168,8 +168,8 @@ case class Perfs(
       }
     )
 
-  def latest: Option[DateTime] =
-    perfsMap.values.flatMap(_.latest).foldLeft(none[DateTime]) {
+  def latest: Option[Instant] =
+    perfsMap.values.flatMap(_.latest).foldLeft(none[Instant]) {
       case (None, date)                          => date.some
       case (Some(acc), date) if date isAfter acc => date.some
       case (acc, _)                              => acc

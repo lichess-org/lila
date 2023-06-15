@@ -1,21 +1,19 @@
 package lila.forum
 
 import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 
 import lila.security.{ Granter as MasterGranter }
-import lila.user.{ Holder, User }
+import lila.user.User
 
 final class ForumDelete(
     postRepo: ForumPostRepo,
     topicRepo: ForumTopicRepo,
-    categRepo: ForumCategRepo,
     indexer: lila.hub.actors.ForumSearch,
     postApi: ForumPostApi,
     topicApi: ForumTopicApi,
     categApi: ForumCategApi,
     modLog: lila.mod.ModlogApi
-)(using ec: Executor, mat: akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer):
 
   def post(categId: ForumCategId, postId: ForumPostId, mod: User): Funit =
     postRepo.unsafe.byCategAndId(categId, postId) flatMapz { post =>
@@ -30,7 +28,7 @@ final class ForumDelete(
           else
             fuccess {
               logger.info(
-                s"${mod.username} deletes post by ${post.userId.??(_.value)} \"${post.text take 200}\""
+                s"${mod.username} deletes post by ${post.userId.so(_.value)} \"${post.text take 200}\""
               )
             }
         }
@@ -42,7 +40,7 @@ final class ForumDelete(
       .allByUserCursor(user)
       .documentSource()
       .mapAsyncUnordered(4) { post =>
-        postApi.viewOf(post) flatMap { _ ?? doDelete }
+        postApi.viewOf(post) flatMap { _ so doDelete }
       }
       .toMat(Sink.ignore)(Keep.left)
       .run()
@@ -50,13 +48,13 @@ final class ForumDelete(
 
   private def doDelete(view: PostView) =
     postRepo.isFirstPost(view.topic.id, view.post.id).flatMap {
-      case true =>
+      if _ then
         postRepo.idsByTopicId(view.topic.id) flatMap { postIds =>
           (postRepo removeByTopic view.topic.id zip topicRepo.remove(view.topic)) >>
             (categApi denormalize view.categ) >>-
             (indexer ! RemovePosts(postIds))
         }
-      case false =>
+      else
         postRepo.remove(view.post) >>
           (topicApi denormalize view.topic) >>
           (categApi denormalize view.categ) >>-

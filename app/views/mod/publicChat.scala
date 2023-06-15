@@ -1,11 +1,10 @@
 package views.html.mod
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
-import play.api.mvc.Call
 import lila.chat.UserChat
 import lila.chat.ChatTimeout
 
@@ -14,7 +13,7 @@ object publicChat:
   def apply(
       tourChats: List[(lila.tournament.Tournament, UserChat)],
       swissChats: List[(lila.swiss.Swiss, UserChat)]
-  )(implicit ctx: Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = "Public Chats",
       moreCss = cssTag("mod.publicChats"),
@@ -59,7 +58,7 @@ object publicChat:
   private val dataRoom = attr("data-room")
   private val dataChan = attr("data-chan")
 
-  private def chatOf(titleFragment: Frag, chat: UserChat)(implicit ctx: Context) =
+  private def chatOf(titleFragment: Frag, chat: UserChat)(using WebContext) =
     frag(
       titleFragment,
       div(cls := "chat")(

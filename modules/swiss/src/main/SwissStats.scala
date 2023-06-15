@@ -27,7 +27,7 @@ final class SwissStatsApi(
   import BsonHandlers.given
 
   def apply(swiss: Swiss): Fu[Option[SwissStats]] =
-    swiss.isFinished ?? cache.get(swiss.id).dmap(some).dmap(_.filter(_.games > 0))
+    swiss.isFinished so cache.get(swiss.id).dmap(some).dmap(_.filter(_.games > 0))
 
   private given BSONDocumentHandler[SwissStats] = Macros.handler
 
@@ -46,16 +46,16 @@ final class SwissStatsApi(
             pairings.values.foldLeft((0, 0, 0, 0)) { case ((games, whiteWins, blackWins, draws), pairing) =>
               (
                 games + 1,
-                whiteWins + pairing.whiteWins.??(1),
-                blackWins + pairing.blackWins.??(1),
-                draws + pairing.isDraw.??(1)
+                whiteWins + pairing.whiteWins.so(1),
+                blackWins + pairing.blackWins.so(1),
+                draws + pairing.isDraw.so(1)
               )
             } match {
               case (games, whiteWins, blackWins, draws) =>
                 sheet.outcomes.foldLeft((0, 0)) { case ((byes, absences), outcome) =>
                   (
-                    byes + (outcome == SwissSheet.Outcome.Bye).??(1),
-                    absences + (outcome == SwissSheet.Outcome.Absent).??(1)
+                    byes + (outcome == SwissSheet.Outcome.Bye).so(1),
+                    absences + (outcome == SwissSheet.Outcome.Absent).so(1)
                   )
                 } match {
                   case (byes, absences) =>

@@ -1,12 +1,12 @@
 package lila.hub
 package actorApi
 
-import chess.format.{ BoardFen, Uci, Fen }
-import org.joda.time.Period
+import chess.format.{ Uci, Fen }
+import java.time.Duration
 import play.api.libs.json.*
 
 // announce something to all clients
-case class Announce(msg: String, date: DateTime, json: JsObject)
+case class Announce(msg: String, date: Instant, json: JsObject)
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
@@ -46,7 +46,7 @@ package clas:
 package report:
   case class Cheater(userId: UserId, text: String)
   case class Shutup(userId: UserId, text: String, critical: Boolean)
-  case class AutoFlag(suspectId: UserId, resource: String, text: String)
+  case class AutoFlag(suspectId: UserId, resource: String, text: String, critical: Boolean)
   case class CheatReportCreated(userId: UserId)
 
 package security:
@@ -98,6 +98,7 @@ package captcha:
 
 package lpv:
   case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, chess.format.pgn.PgnStr]])
+  case class AllPgnsFromText(text: String, promise: Promise[Map[String, chess.format.pgn.PgnStr]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
 
 package simul:
@@ -105,7 +106,11 @@ package simul:
   case class PlayerMove(gameId: GameId)
 
 package mailer:
-  case class CorrespondenceOpponent(opponentId: Option[UserId], remainingTime: Option[Period], gameId: GameId)
+  case class CorrespondenceOpponent(
+      opponentId: Option[UserId],
+      remainingTime: Option[Duration],
+      gameId: GameId
+  )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
 
 package irc:
@@ -214,7 +219,7 @@ package round:
 
   case class MoveEvent(
       gameId: GameId,
-      fen: BoardFen,
+      fen: Fen.Epd,
       move: String
   )
   case class CorresMoveEvent(
@@ -261,7 +266,7 @@ package study:
   case class RemoveStudy(studyId: StudyId, contributors: Set[UserId])
 
 package plan:
-  case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: DateTime)
+  case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)
   case class MonthInc(userId: UserId, months: Int)
   case class PlanStart(userId: UserId)
   case class PlanGift(from: UserId, to: UserId, lifetime: Boolean)

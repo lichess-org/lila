@@ -23,15 +23,14 @@ final class BookmarkApi(
     else fuFalse
 
   def exists(game: Game, user: Option[User]): Fu[Boolean] =
-    user.?? { exists(game, _) }
+    user.so { exists(game, _) }
 
   def filterGameIdsBookmarkedBy(games: Seq[Game], user: Option[User]): Fu[Set[GameId]] =
-    user ?? { u =>
+    user.so: u =>
       val candidateIds = games collect { case g if g.bookmarks > 0 => g.id }
-      candidateIds.nonEmpty ??
+      candidateIds.nonEmpty so
         coll.secondaryPreferred
           .distinctEasy[GameId, Set]("g", userIdQuery(u.id) ++ $doc("g" $in candidateIds))
-    }
 
   def removeByGameId(gameId: GameId): Funit =
     coll.delete.one($doc("g" -> gameId)).void
@@ -43,7 +42,7 @@ final class BookmarkApi(
 
   def toggle(gameId: GameId, userId: UserId): Funit =
     exists(gameId, userId) flatMap { e =>
-      (if (e) remove(gameId, userId) else add(gameId, userId, nowDate)) inject !e
+      (if (e) remove(gameId, userId) else add(gameId, userId, nowInstant)) inject !e
     } flatMap { bookmarked =>
       val inc = if (bookmarked) 1 else -1
       gameRepo.incBookmarks(gameId, inc) >> gameProxyRepo.updateIfPresent(gameId)(
@@ -55,7 +54,7 @@ final class BookmarkApi(
 
   def gamePaginatorByUser(user: User, page: Int) = paginator.byUser(user, page)
 
-  private def add(gameId: GameId, userId: UserId, date: DateTime): Funit =
+  private def add(gameId: GameId, userId: UserId, date: Instant): Funit =
     coll.insert
       .one(
         $doc(

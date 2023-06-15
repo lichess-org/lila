@@ -1,16 +1,15 @@
 package views.html.forum
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
-import lila.team.Team
 
 object search:
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using Context) =
+  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using WebContext) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
@@ -20,7 +19,7 @@ object search:
       main(cls := "box search")(
         boxTop(
           h1(
-            a(href := routes.ForumCateg.index, dataIcon := "", cls := "text"),
+            a(href := routes.ForumCateg.index, dataIcon := licon.LessThan, cls := "text"),
             title
           ),
           bits.searchForm(text)

@@ -7,7 +7,7 @@ import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 
 import lila.common.config.*
-import lila.common.{ Bus, Strings, UserIds }
+import lila.common.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
 
@@ -87,7 +87,7 @@ final class Env(
     val controllerComponents: ControllerComponents
 )(using
     val system: ActorSystem,
-    val scheduler: akka.actor.Scheduler,
+    val scheduler: Scheduler,
     val executor: Executor,
     val mode: play.api.Mode
 ):
@@ -136,6 +136,13 @@ final class Env(
     "firefoxOriginTrial",
     default = "",
     text = "Firefox COEP:credentialless origin trial token. Empty to disable.".some
+  )
+  import lila.memo.SettingStore.Regex.given
+  import scala.util.matching.Regex
+  val credentiallessUaRegex = memo.settingStore[Regex](
+    "credentiallessUaRegex ",
+    default = """Chrome/(?:11[3-9]|1[2-9]\d)""".r,
+    text = "UA regex for credentialless (see #13030)".some
   )
 
   lazy val preloader     = wire[mashup.Preload]

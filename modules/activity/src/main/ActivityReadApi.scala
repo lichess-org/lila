@@ -1,17 +1,14 @@
 package lila.activity
 
-import org.joda.time.Interval
 import play.api.i18n.Lang
 
 import lila.common.Heapsort
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl.{ *, given }
-import lila.forum.ForumCateg
+import lila.db.dsl.*
 import lila.game.LightPov
 import lila.practice.PracticeStructure
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi
-import lila.ublog.UblogPost
 import lila.user.User
 
 final class ActivityReadApi(
@@ -44,39 +41,38 @@ final class ActivityReadApi(
             .vector(Activity.recentNb)
         ).dmap(_.filterNot(_.isEmpty))
           .mon(_.user segment "activity.raws")
-      practiceStructure <- activities.exists(_.practice.isDefined) ?? {
-        practiceApi.structure.get dmap some
-      }
+      practiceStructure <- activities
+        .exists(_.practice.isDefined)
+        .so:
+          practiceApi.structure.get dmap some
       views <- activities.map { a =>
         one(practiceStructure, a).mon(_.user segment "activity.view")
       }.parallel
       _ <- preloadAll(views)
     } yield addSignup(u.createdAt, views)
 
-  private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for {
-    _ <- lightUserApi.preloadMany(views.flatMap(_.follows.??(_.allUserIds)))
-    _ <- getTourName.preload(views.flatMap(_.tours.??(_.best.map(_.tourId))))
-  } yield ()
+  private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for
+    _ <- lightUserApi.preloadMany(views.flatMap(_.follows.so(_.allUserIds)))
+    _ <- getTourName.preload(views.flatMap(_.tours.so(_.best.map(_.tourId))))
+  yield ()
 
   private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
-    for {
-      allForumPosts <- a.forumPosts ?? { p =>
+    for
+      allForumPosts <- a.forumPosts.so: p =>
         forumPostApi
           .liteViewsByIds(p.value)
           .mon(_.user segment "activity.posts") dmap some
-      }
       hiddenForumTeamIds <- teamRepo.filterHideForum(
         (~allForumPosts).flatMap(_.topic.possibleTeamId).distinct
       )
       forumPosts = allForumPosts.map(
         _.filterNot(_.topic.possibleTeamId.exists(hiddenForumTeamIds.contains))
       )
-      ublogPosts <- a.ublogPosts ?? { p =>
+      ublogPosts <- a.ublogPosts.so: p =>
         ublogApi
           .liveLightsByIds(p.value)
           .mon(_.user segment "activity.ublogs")
           .dmap(_.some.filter(_.nonEmpty))
-      }
       practice = (for {
         p      <- a.practice
         struct <- practiceStructure
@@ -91,51 +87,41 @@ final class ActivityReadApi(
           }
           .toMap
       } filter (_.nonEmpty)
-      corresMoves <- a.corres ?? { corres =>
-        getLightPovs(a.id.userId, corres.movesIn) dmap {
+      corresMoves <- a.corres.so: corres =>
+        getLightPovs(a.id.userId, corres.movesIn).dmap:
           _.map(corres.moves -> _)
-        }
-      }
-      corresEnds <- a.corres ?? { corres =>
-        getLightPovs(a.id.userId, corres.end) dmap {
-          _.map { povs =>
+      corresEnds <- a.corres.so: corres =>
+        getLightPovs(a.id.userId, corres.end).dmap:
+          _.map: povs =>
             Score.make(povs) -> povs
-          }
-        }
-      }
       simuls <-
         a.simuls
-          .?? { simuls =>
+          .so: simuls =>
             simulApi byIds simuls.value dmap some
-          }
           .dmap(_.filter(_.nonEmpty))
       studies <-
         a.studies
-          .?? { studies =>
+          .so: studies =>
             studyApi publicIdNames studies.value dmap some
-          }
           .dmap(_.filter(_.nonEmpty))
-      tours <- a.games.exists(_.hasNonCorres) ?? {
-        val dateRange = a.date -> a.date.plusDays(1)
-        tourLeaderApi
-          .timeRange(a.id.userId, dateRange)
-          .dmap { entries =>
-            entries.nonEmpty option ActivityView.Tours(
-              nb = entries.size,
-              best = Heapsort.topN(entries, activities.maxSubEntries)(using
-                Ordering.by[LeaderboardApi.Entry, Double](-_.rankRatio.value)
+      tours <- a.games
+        .exists(_.hasNonCorres)
+        .so:
+          val dateRange = TimeInterval(a.date, a.date.plusDays(1))
+          tourLeaderApi
+            .timeRange(a.id.userId, dateRange)
+            .dmap: entries =>
+              entries.nonEmpty option ActivityView.Tours(
+                nb = entries.size,
+                best = Heapsort.topN(entries, activities.maxSubEntries)(using
+                  Ordering.by[LeaderboardApi.Entry, Double](-_.rankRatio.value)
+                )
               )
-            )
-          }
-          .mon(_.user segment "activity.tours")
-      }
+            .mon(_.user segment "activity.tours")
       swisses <-
-        a.swisses
-          .?? { swisses =>
-            toSwissesView(swisses.value).dmap(_.some.filter(_.nonEmpty))
-          }
-
-    } yield ActivityView(
+        a.swisses.so: swisses =>
+          toSwissesView(swisses.value).dmap(_.some.filter(_.nonEmpty))
+    yield ActivityView(
       interval = a.interval,
       games = a.games,
       puzzles = a.puzzles,
@@ -164,7 +150,7 @@ final class ActivityReadApi(
         .cursor[Activity]()
         .list(10)
     ).flatMap { activities =>
-      toSwissesView(activities.flatMap(_.swisses.??(_.value)))
+      toSwissesView(activities.flatMap(_.swisses.so(_.value)))
     }
 
   private def toSwissesView(swisses: List[activities.SwissRank]): Fu[List[(Swiss.IdName, Rank)]] =
@@ -178,21 +164,21 @@ final class ActivityReadApi(
         }
       }
 
-  private def addSignup(at: DateTime, recent: Vector[ActivityView]) =
+  private def addSignup(at: Instant, recent: Vector[ActivityView]) =
     val (found, views) = recent.foldLeft(false -> Vector.empty[ActivityView]) {
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.sizeIs < Activity.recentNb && nowDate.minusDays(8).isBefore(at))
+    if (!found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at))
       views :+ ActivityView(
-        interval = Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
+        interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true
       )
     else views
 
   private def getLightPovs(userId: UserId, gameIds: List[GameId]): Fu[Option[List[LightPov]]] =
-    gameIds.nonEmpty ?? {
-      gameRepo.light.gamesFromSecondary(gameIds).dmap {
-        _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
-      }
-    }
+    gameIds.nonEmpty.so:
+      gameRepo.light
+        .gamesFromSecondary(gameIds)
+        .dmap:
+          _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)

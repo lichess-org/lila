@@ -1,6 +1,7 @@
 package lila.security
 
 import lila.user.User.ClearPassword
+import play.api.Mode
 import play.api.data.validation.{ Valid, Invalid, ValidationError, Constraint }
 
 object PasswordCheck:
@@ -11,13 +12,13 @@ object PasswordCheck:
   def isWeak(p: ClearPassword, login: String) =
     login == p.value || commonPasswords(p.value)
 
-  val newConstraint = Constraint[String] { (pass: String) =>
-    if commonPasswords(pass) then Invalid(ValidationError(errorWeak))
+  def newConstraint(using mode: Mode) = Constraint[String] { (pass: String) =>
+    if mode == Mode.Prod && commonPasswords(pass) then Invalid(ValidationError(errorWeak))
     else Valid
   }
 
-  def sameConstraint(user: UserStr) = Constraint[String] { (pass: String) =>
-    if pass == user.value then Invalid(ValidationError(errorSame))
+  def sameConstraint(user: UserStr)(using mode: Mode) = Constraint[String] { (pass: String) =>
+    if mode == Mode.Prod && pass == user.value then Invalid(ValidationError(errorSame))
     else Valid
   }
 

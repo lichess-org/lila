@@ -14,7 +14,7 @@
   <string name="challengeRead">قراءة التحديات الواردة</string>
   <string name="challengeWrite">إرسال وقبول ورفض التحديات</string>
   <string name="challengeBulk">إنشاء العديد من الألعاب مرة واحدة للاعبين الآخرين</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">قراءة الدراسات والبث الخاص</string>
+  <string name="studyRead">قراءة الدراسات والبث الخاص</string>
   <string name="studyWrite">إنشاء، تحديث، حذف الدراسات والبث</string>
   <string name="tournamentWrite">إنشاء وتحديث والالتحاق بالبطولات</string>
   <string name="racerWrite">إنشاء سباقات الألغاز والانضمام إليها</string>

@@ -1,6 +1,5 @@
 package lila.security
 
-import lila.common.autoconfig.*
 import play.api.data.Forms.*
 import play.api.data.{ Form, FormBinding }
 import play.api.libs.json.*
@@ -9,18 +8,18 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
 
+import lila.common.autoconfig.*
 import lila.common.config.*
-import lila.common.HTTPRequest
-import lila.common.IpAddress
+import lila.common.{ HTTPRequest, IpAddress }
 import play.api.ConfigLoader
 
 trait Hcaptcha:
 
-  def form[A](form: Form[A])(implicit req: RequestHeader): Fu[HcaptchaForm[A]]
+  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
 
-  def verify(response: String)(implicit req: RequestHeader): Fu[Hcaptcha.Result]
+  def verify(response: String)(using req: RequestHeader): Fu[Hcaptcha.Result]
 
-  def verify()(implicit req: play.api.mvc.Request[?], formBinding: FormBinding): Fu[Hcaptcha.Result] =
+  def verify()(using play.api.mvc.Request[?], FormBinding): Fu[Hcaptcha.Result] =
     verify(~Hcaptcha.form.bindFromRequest().value.flatten)
 
 object Hcaptcha:
@@ -45,11 +44,11 @@ object Hcaptcha:
 
 final class HcaptchaSkip(config: HcaptchaPublicConfig) extends Hcaptcha:
 
-  def form[A](form: Form[A])(implicit req: RequestHeader): Fu[HcaptchaForm[A]] = fuccess {
+  def form[A](form: Form[A])(using RequestHeader): Fu[HcaptchaForm[A]] = fuccess {
     HcaptchaForm(form, config, skip = true)
   }
 
-  def verify(response: String)(implicit req: RequestHeader) = fuccess(Hcaptcha.Result.Valid)
+  def verify(response: String)(using RequestHeader) = fuccess(Hcaptcha.Result.Valid)
 
 final class HcaptchaReal(
     ws: StandaloneWSClient,
@@ -73,18 +72,18 @@ final class HcaptchaReal(
   private object skip:
     private val memo = new lila.memo.HashCodeExpireSetMemo[IpAddress](24 hours)
 
-    def get(implicit req: RequestHeader): Boolean       = !memo.get(HTTPRequest ipAddress req)
-    def getFu(implicit req: RequestHeader): Fu[Boolean] = fuccess { get }
+    def get(using req: RequestHeader): Boolean  = !memo.get(HTTPRequest ipAddress req)
+    def getFu(using RequestHeader): Fu[Boolean] = fuccess { get }
 
-    def record(implicit req: RequestHeader) = memo.put(HTTPRequest ipAddress req)
+    def record(using req: RequestHeader) = memo.put(HTTPRequest ipAddress req)
 
-  def form[A](form: Form[A])(implicit req: RequestHeader): Fu[HcaptchaForm[A]] =
+  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]] =
     skip.getFu map { skip =>
       lila.mon.security.hCaptcha.form(HTTPRequest clientName req, if (skip) "skip" else "show").increment()
       HcaptchaForm(form, config.public, skip)
     }
 
-  def verify(response: String)(implicit req: RequestHeader): Fu[Result] =
+  def verify(response: String)(using req: RequestHeader): Fu[Result] =
     val client = HTTPRequest clientName req
     ws.url(config.endpoint)
       .post(

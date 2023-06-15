@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Saa personaalseid puslesid:</string>
   <string name="puzzleId">%s ülesanne</string>
   <string name="puzzleOfTheDay">Päevaülesanne</string>
+  <string name="dailyPuzzle">Päeva pusle</string>
   <string name="clickToSolve">Lahendamiseks vajuta</string>
   <string name="goodMove">Hea käik</string>
   <string name="bestMove">Parim käik!</string>

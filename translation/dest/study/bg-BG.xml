@@ -63,6 +63,7 @@
   <string name="downloadAllGames">Изтегли всички партии</string>
   <string name="chapterPgn">PGN на главата</string>
   <string name="copyChapterPgn">Копирай PGN</string>
+  <string name="copyChapterPgnDescription">Копирай PGN на главата.</string>
   <string name="downloadGame">Изтегли партия</string>
   <string name="studyUrl">URL на казуса</string>
   <string name="currentChapterUrl">URL на настоящата глава</string>

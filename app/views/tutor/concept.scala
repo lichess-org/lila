@@ -1,10 +1,7 @@
 package views.html.tutor
 
-import scalatags.Text.tags2.abbr
-
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.insight.{ InsightDimension, InsightMetric, Phase }
+import lila.app.ui.ScalatagsTemplate.*
+import lila.insight.{ InsightMetric, Phase }
 import lila.tutor.TutorNumber
 
 sealed class TutorConcept(val name: String, val description: String, val unit: TutorUnit)
@@ -44,9 +41,9 @@ sealed trait TutorUnit:
 object TutorUnit:
 
   val rating: TutorUnit = new:
-    def html[V: TutorNumber](v: V)                     = strong(text(v))
-    def text[V](v: V)(implicit number: TutorNumber[V]) = f"${number double v}%1.0f"
+    def html[V: TutorNumber](v: V)                  = strong(text(v))
+    def text[V](v: V)(using number: TutorNumber[V]) = f"${number double v}%1.0f"
   val percent: TutorUnit = new:
-    def html[V: TutorNumber](v: V)                          = frag(strong(number(v)), "%")
-    def text[V: TutorNumber](v: V)                          = s"${number(v)}%"
-    private def number[V](v: V)(implicit n: TutorNumber[V]) = f"${n double v}%1.1f"
+    def html[V: TutorNumber](v: V)                       = frag(strong(number(v)), "%")
+    def text[V: TutorNumber](v: V)                       = s"${number(v)}%"
+    private def number[V](v: V)(using n: TutorNumber[V]) = f"${n double v}%1.1f"

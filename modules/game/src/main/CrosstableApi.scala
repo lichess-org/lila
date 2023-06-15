@@ -2,7 +2,6 @@ package lila.game
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class CrosstableApi(
     coll: Coll,
@@ -13,12 +12,12 @@ final class CrosstableApi(
   import Crosstable.{ BSONFields as F }
 
   def apply(game: Game): Fu[Option[Crosstable]] =
-    game.twoUserIds ?? { case (u1, u2) =>
+    game.twoUserIds so { case (u1, u2) =>
       apply(u1, u2) dmap some
     }
 
   def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] =
-    game.twoUserIds ?? { case (u1, u2) =>
+    game.twoUserIds so { case (u1, u2) =>
       withMatchup(u1, u2) dmap some
     }
 
@@ -80,7 +79,7 @@ final class CrosstableApi(
                 F.score1 -> inc1,
                 F.score2 -> inc2
               ) ++ $set(
-                F.lastPlayed -> nowDate
+                F.lastPlayed -> nowInstant
               ),
               upsert = true
             )

@@ -55,7 +55,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
                 )
               )
               Facet(
-                ratingBuckets.map { case (rating, nbPuzzles) =>
+                ratingBuckets.map { (rating, nbPuzzles) =>
                   rating.toString -> List(
                     Match(
                       $doc(

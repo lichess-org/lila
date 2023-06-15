@@ -1,9 +1,5 @@
 package lila.common
 
-import chess.Centis
-import chess.format.{ Fen, Uci }
-import play.api.i18n.Lang
-
 trait Iso[A, B]:
   val from: A => B
   val to: B => A
@@ -52,4 +48,5 @@ object Iso:
 
   given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)
 
+  import play.api.i18n.Lang
   given StringIso[Lang] = string[Lang](Lang.apply, _.toString)

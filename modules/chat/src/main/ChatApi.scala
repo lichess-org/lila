@@ -6,7 +6,7 @@ import reactivemongo.api.ReadPreference
 import lila.common.Bus
 import lila.common.config.NetDomain
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.security.Flood
+import lila.security.{ Flood, Granter }
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi.*
@@ -21,7 +21,7 @@ final class ChatApi(
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   import Chat.given
 
@@ -32,9 +32,8 @@ final class ChatApi(
     // only use for public, multi-user chats - tournaments, simuls
     object cached:
 
-      private val cache = cacheApi[ChatId, UserChat](1024, "chat.user") {
+      private val cache = cacheApi[ChatId, UserChat](1024, "chat.user"):
         _.expireAfterWrite(1 minute).buildAsyncFuture(find)
-      }
 
       def invalidate = cache.invalidate
 
@@ -45,7 +44,7 @@ final class ChatApi(
 
       private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] =
         cache get chatId flatMap { chat =>
-          (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+          (!chat.isEmpty so chatTimeout.isActive(chatId, me.id)) dmap {
             UserChat.Mine(chat forUser me.some, _)
           }
         }
@@ -54,7 +53,7 @@ final class ChatApi(
       coll.byId[UserChat](chatId.value)
 
     def find(chatId: ChatId): Fu[UserChat] =
-      findOption(chatId) dmap (_ | Chat.makeUser(chatId))
+      findOption(chatId).dmap(_ | Chat.makeUser(chatId))
 
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
       coll.byStringIds[UserChat](ChatId raw chatIds, ReadPreference.secondaryPreferred)
@@ -70,7 +69,7 @@ final class ChatApi(
 
     private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] =
       find(chatId) flatMap { chat =>
-        (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+        (!chat.isEmpty so chatTimeout.isActive(chatId, me.id)) dmap {
           UserChat.Mine(chat forUser me.some, _)
         }
       }
@@ -84,32 +83,44 @@ final class ChatApi(
         persist: Boolean = true
     ): Funit =
       makeLine(chatId, userId, text) flatMapz { line =>
-        linkCheck(line, publicSource) flatMap {
-          case false =>
-            logger.info(s"Link check rejected $line in $publicSource")
-            funit
-          case true =>
-            (persist ?? persistLine(chatId, line)) >>- {
-              if (persist)
-                if (publicSource.isDefined) cached invalidate chatId
-                shutup ! {
-                  publicSource match
-                    case Some(source) => RecordPublicChat(userId, text, source)
-                    case _            => RecordPrivateChat(chatId.value, userId, text)
+        isChatFresh(publicSource) flatMap {
+          if _ then
+            linkCheck(line, publicSource) flatMap {
+              if _ then
+                (persist so persistLine(chatId, line)) >>- {
+                  if (persist)
+                    if (publicSource.isDefined) cached invalidate chatId
+                    shutup ! {
+                      publicSource match
+                        case Some(source) => RecordPublicChat(userId, text, source)
+                        case _            => RecordPrivateChat(chatId.value, userId, text)
+                    }
+                    lila.mon.chat
+                      .message(publicSource.fold("player")(_.parentName), line.troll)
+                      .increment()
+                      .unit
+                  publish(chatId, ChatLine(chatId, line), busChan)
                 }
-                lila.mon.chat
-                  .message(publicSource.fold("player")(_.parentName), line.troll)
-                  .increment()
-                  .unit
-              publish(chatId, ChatLine(chatId, line), busChan)
+              else
+                logger.info(s"Link check rejected $line in $publicSource")
+                funit
             }
+          else
+            logger.info(s"Can't post $line in $publicSource: chat is closed")
+            funit
         }
       }
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
-      source.fold(fuccess(true)) { s =>
+      source.fold(fuccess(true)): s =>
         Bus.ask("chatLinkCheck") { GetLinkCheck(line, s, _) }
-      }
+
+    private object isChatFresh:
+      private val cache = cacheApi[PublicSource, Boolean](512, "chat.fresh"):
+        _.expireAfterWrite(1 minute).buildAsyncFuture: source =>
+          Bus.ask("chatFreshness") { IsChatFresh(source, _) }
+      def apply(source: Option[PublicSource]) =
+        source.fold(fuccess(true))(cache.get)
 
     def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
@@ -147,7 +158,7 @@ final class ChatApi(
       }
 
     def publicTimeout(data: ChatTimeout.TimeoutFormData, me: Holder): Funit =
-      ChatTimeout.Reason(data.reason) ?? { reason =>
+      ChatTimeout.Reason(data.reason) so { reason =>
         timeout(
           chatId = data.roomId into ChatId,
           modId = me.id,
@@ -158,6 +169,7 @@ final class ChatApi(
           busChan = data.chan match {
             case "tournament" => _.Tournament
             case "swiss"      => _.Swiss
+            case "team"       => _.Team
             case _            => _.Study
           }
         )
@@ -197,7 +209,7 @@ final class ChatApi(
           line foreach { l =>
             publish(chat.id, ChatLine(chat.id, l), busChan)
           }
-          if (scope == ChatTimeout.Scope.Global)
+          if (isMod(mod) || isRelayMod(mod))
             lila.common.Bus.publish(
               lila.hub.actorApi.mod.ChatTimeout(
                 mod = mod.id,
@@ -217,15 +229,15 @@ final class ChatApi(
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
       val chat   = c.markDeleted(user)
       val change = chat != c
-      change.?? {
+      change.so {
         coll.update.one($id(chat.id), chat).void >>- {
           cached invalidate chat.id
           publish(chat.id, OnTimeout(chat.id, user.id), busChan)
         }
       } inject change
 
-    private def isMod(user: User)      = lila.security.Granter(_.ChatTimeout)(user)
-    private def isRelayMod(user: User) = lila.security.Granter(_.BroadcastTimeout)(user)
+    private def isMod(user: User)      = Granter(_.ChatTimeout)(user)
+    private def isRelayMod(user: User) = Granter(_.BroadcastTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach { r =>
@@ -239,16 +251,14 @@ final class ChatApi(
             val allow =
               if (user.isBot) !lila.common.String.hasLinks(t2)
               else flood.allowMessage(userId into Flood.Source, t2)
-            allow option {
-              UserLine(
-                user.username,
-                user.title,
-                user.isPatron,
-                t2,
-                troll = user.isTroll,
-                deleted = false
-              )
-            }
+            allow option UserLine(
+              user.username,
+              user.title,
+              user.isPatron,
+              t2,
+              troll = user.isTroll,
+              deleted = false
+            )
           }
         case _ => none
       }
@@ -272,7 +282,7 @@ final class ChatApi(
       coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
 
     def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
-      makeLine(chatId, color, text) ?? { line =>
+      makeLine(chatId, color, text) so { line =>
         persistLine(chatId, line) >>- {
           publish(chatId, ChatLine(chatId, line), busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment().unit
@@ -314,9 +324,8 @@ final class ChatApi(
     import java.util.regex.{ Matcher, Pattern }
 
     def preprocessUserInput(in: String, username: Option[UserName]): Option[String] =
-      val out1 = multiline(
+      val out1 = multiline:
         spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
-      )
       val out2 = username.fold(out1) { removeSelfMention(out1, _) }
       out2.take(Line.textMaxSize).some.filter(_.nonEmpty)
 

@@ -1,15 +1,9 @@
 package views.html.tutor
 
-import controllers.routes
-import play.api.i18n.Lang
-import play.api.libs.json.*
-import scalatags.Text
-
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.insight.InsightPosition
-import lila.tutor.{ Rating, TutorBothValueOptions, TutorFullReport, TutorNumber, ValueCount }
+import lila.tutor.TutorNumber
 
 object bits:
 
@@ -26,22 +20,21 @@ object bits:
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
-  def percentNumber[A](v: A)(implicit number: TutorNumber[A]) = f"${number double v}%1.1f"
-  def percentFrag[A](v: A)(implicit number: TutorNumber[A])   = frag(strong(percentNumber(v)), "%")
+  def percentNumber[A](v: A)(using number: TutorNumber[A]) = f"${number double v}%1.1f"
+  def percentFrag[A](v: A)(using TutorNumber[A])           = frag(strong(percentNumber(v)), "%")
 
-  private[tutor] def otherUser(user: lila.user.User)(using ctx: Context) =
+  private[tutor] def otherUser(user: lila.user.User)(using ctx: WebContext) =
     !ctx.is(user) option userSpan(user, withOnline = false)
 
   private[tutor] def layout(
-      availability: TutorFullReport.Availability,
       menu: Frag,
       title: String = "Lichess Tutor",
       pageSmall: Boolean = false
-  )(content: Modifier*)(using Context) =
+  )(content: Modifier*)(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("tutor"),
       moreJs = jsModule("tutor"),
-      title = "Lichess Tutor",
+      title = title,
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(

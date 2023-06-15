@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">ကစားခုံပေါ်တွင် အညွှန်းသင်္ကေတ တစ်ခု ပေါ်လာမည် ဖြစ်ပြီး သင်က သက်ဆိုင်ရာ ကစားခုံကွက်ကို ကလစ် လုပ်ရမည်။</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">ကစားခုံပေါ်တွင် အကွက် တစ်ကွက်ကို မီးမောင်းထိုးပြမည် ဖြစ်ပြီး သင်က သက်ဆိုင်ရာ အညွှန်းသင်္ကေတကို ရိုက်ထည့်ရမည်။</string>
+  <string name="aCoordinateAppears">ကစားခုံပေါ်တွင် အညွှန်းသင်္ကေတ တစ်ခု ပေါ်လာမည် ဖြစ်ပြီး သင်က သက်ဆိုင်ရာ ကစားခုံကွက်ကို ကလစ် လုပ်ရမည်။</string>
+  <string name="aSquareIsHighlightedExplanation">ကစားခုံပေါ်တွင် အကွက် တစ်ကွက်ကို မီးမောင်းထိုးပြမည် ဖြစ်ပြီး သင်က သက်ဆိုင်ရာ အညွှန်းသင်္ကေတကို ရိုက်ထည့်ရမည်။</string>
   <string name="youHaveThirtySeconds">ကစားခုံကွက် တတ်နိုင်သမျှ အများဆုံး ရှာဖို့ အတွက် စက္ကန့် ၃၀ ရပါမည်။</string>
   <string name="goAsLongAsYouWant">သွားချင်သလောက် ကြာကြာ သွားပါ၊ အချိန် ကန့်သတ် မထားပါ။</string>
   <string name="showCoordinates">ကစားခုံကွက် အညွှန်းများ ပြပါ</string>

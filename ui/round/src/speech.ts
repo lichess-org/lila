@@ -14,12 +14,7 @@ const onSpeechChange = (ctrl: RoundController) => (enabled: boolean) => {
 
 export const status = (ctrl: RoundController) => {
   if (ctrl.data.game.status.name === 'started') window.LichessSpeech!.step(ctrl.stepAt(ctrl.ply), false);
-  else {
-    const s = viewStatus(ctrl);
-    lichess.sound.say(s, false, false, true);
-    const w = ctrl.data.game.winner;
-    if (w) lichess.sound.say(ctrl.noarg(w + 'IsVictorious'), false, false, true);
-  }
+  else lichess.sound.say(viewStatus(ctrl), false, false, true);
 };
 
 export const userJump = (ctrl: RoundController, ply: Ply) => withSpeech(s => s.step(ctrl.stepAt(ply), true));

@@ -37,6 +37,11 @@ $c-slider: $c-setup;
     border-bottom: $border;
   }
 
+  .optional-config.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   .optional-config,
   .ratings {
     background: $c-bg-zebra;

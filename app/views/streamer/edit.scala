@@ -3,7 +3,7 @@ package views.html.streamer
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -16,7 +16,7 @@ object edit:
       s: lila.streamer.Streamer.WithUserAndStream,
       form: Form[?],
       modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[lila.streamer.Streamer])]
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
       moreCss = cssTag("streamer.form")
@@ -52,8 +52,8 @@ object edit:
             val granted = s.streamer.approval.granted
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(
-                cls      := s"status is${granted ?? "-green"}",
-                dataIcon := (if (granted) "" else "")
+                cls      := s"status is${granted so "-green"}",
+                dataIcon := (if (granted) licon.Checkmark else licon.InfoCircle)
               )(
                 if (granted)
                   frag(
@@ -89,7 +89,7 @@ object edit:
               ),
               modData.map { case ((log, notes), same) =>
                 div(cls := "mod_log status")(
-                  strong(cls := "text", dataIcon := "")(
+                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
                     "Moderation history",
                     log.isEmpty option ": nothing to show."
                   ),
@@ -107,7 +107,7 @@ object edit:
                     }
                   ),
                   br,
-                  strong(cls := "text", dataIcon := "")(
+                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
                     "Moderator notes",
                     notes.isEmpty option ": nothing to show."
                   ),
@@ -121,7 +121,7 @@ object edit:
                     }
                   ),
                   br,
-                  strong(cls := "text", dataIcon := "")(
+                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
                     "Streamers with same Twitch or YouTube",
                     same.isEmpty option ": nothing to show."
                   ),
@@ -144,7 +144,7 @@ object edit:
               },
               postForm(
                 cls    := "form3",
-                action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
+                action := s"${routes.Streamer.edit}${!ctx.is(s.user) so s"?u=${s.user.id}"}"
               )(
                 isGranted(_.Streamers) option div(cls := "mod")(
                   form3.split(
@@ -187,7 +187,7 @@ object edit:
                         name  := "approval.quick",
                         value := "approve"
                       ),
-                    form3.submit("Decline and next", icon = "".some)(
+                    form3.submit("Decline and next", icon = licon.X.some)(
                       cls   := "button-red",
                       name  := "approval.quick",
                       value := "decline"
@@ -205,7 +205,7 @@ object edit:
                   )(form3.input(_)),
                   form3.group(
                     form("youTube"),
-                    youtubeChannel(),
+                    youTubeChannelId(),
                     help = optionalOrEmpty().some,
                     half = true
                   )(form3.input(_))

@@ -91,7 +91,7 @@
   <string name="noStudents">В классе пока нет учеников.</string>
   <string name="noRemovedStudents">Нет удалённых учеников.</string>
   <string name="overDays">За несколько дней</string>
-  <string name="timePlaying">Время в игре</string>
+  <string name="timePlaying">Время за игрой</string>
   <string name="variantXOverLastY">%1$s за последние %2$s</string>
   <string name="winrate">Процент побед</string>
   <string name="na">Не применимо</string>

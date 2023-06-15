@@ -8,8 +8,8 @@
   <string name="mostChessCourses">La maggior parte dei corsi e degli esercizi utilizzano ampiamente la notazione algebrica.</string>
   <string name="talkToYourChessFriends">Rende più facile parlare di scacchi con i tuoi amici, dato che così entrambi ne conoscete il \"linguaggio\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Puoi analizzare le partite con più efficacia se non hai bisogno di cercare di volta in volta le coordinate di ogni casa.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Una coordinata comparirà sulla scacchiera. Clicca sulla casella corrispondente.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Una casella sarà evidenziata sulla scacchiera e tu dovrai digitare le sue coordinate (es. \"e4\").</string>
+  <string name="aCoordinateAppears">Una coordinata comparirà sulla scacchiera. Clicca sulla casella corrispondente.</string>
+  <string name="aSquareIsHighlightedExplanation">Una casella sarà evidenziata sulla scacchiera e tu dovrai digitare le sue coordinate (es. \"e4\").</string>
   <string name="youHaveThirtySeconds">Hai 30 secondi per identificare correttamente più coordinate possibili!</string>
   <string name="goAsLongAsYouWant">Continua fin quando vuoi, non c\'è alcun limite di tempo!</string>
   <string name="showCoordinates">Mostra le coordinate</string>

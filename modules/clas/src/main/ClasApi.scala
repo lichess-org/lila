@@ -1,5 +1,6 @@
 package lila.clas
 
+import cats.syntax.all.*
 import reactivemongo.api.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -7,7 +8,6 @@ import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
-import lila.security.Permission
 import lila.user.{ Authenticator, User, UserRepo }
 import lila.user.Holder
 
@@ -29,7 +29,7 @@ final class ClasApi(
 
     def byId(id: Clas.Id) = coll.byId[Clas](id.value)
 
-    def of(teacher: User, closed: Boolean = false): Fu[List[Clas]] =
+    def of(teacher: User): Fu[List[Clas]] =
       coll
         .find($doc("teachers" -> teacher.id))
         .sort($doc("archived" -> 1, "viewedAt" -> -1))
@@ -63,7 +63,7 @@ final class ClasApi(
       coll
         .findAndUpdateSimplified[Clas](
           selector = $id(id) ++ $doc("teachers" -> teacher.id),
-          update = $set("viewedAt" -> nowDate),
+          update = $set("viewedAt" -> nowInstant),
           fetchNewObject = true
         )
 
@@ -75,19 +75,17 @@ final class ClasApi(
 
     def areKidsInSameClass(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
-        colls.student.aggregateExists(readPreference = ReadPreference.secondaryPreferred) {
-          implicit framework =>
-            import framework.*
-            Match($doc("userId" $in List(kid1.id, kid2.id))) -> List(
-              GroupField("clasId")("nb" -> SumAll),
-              Match($doc("nb" -> 2)),
-              Limit(1)
-            )
-        }
+        colls.student.aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
+          import framework.*
+          Match($doc("userId" $in List(kid1.id, kid2.id))) -> List(
+            GroupField("clasId")("nb" -> SumAll),
+            Match($doc("nb" -> 2)),
+            Limit(1)
+          )
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      studentCache.isStudent(student) ?? colls.student
-        .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      studentCache.isStudent(student) so colls.student
+        .aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
           import framework.*
           Match($doc("userId" -> student)) -> List(
             Project($doc("clasId" -> true)),
@@ -108,13 +106,12 @@ final class ClasApi(
             Limit(1),
             Project($id(true))
           )
-        }
 
     def archive(c: Clas, t: User, v: Boolean): Funit =
       coll.update
         .one(
           $id(c.id),
-          if (v) $set("archived" -> Clas.Recorded(t.id, nowDate))
+          if (v) $set("archived" -> Clas.Recorded(t.id, nowInstant))
           else $unset("archived")
         )
         .void
@@ -248,17 +245,16 @@ final class ClasApi(
         data: ClasForm.ManyNewStudent,
         teacher: User
     ): Fu[List[Student.WithPassword]] =
-      count(clas.id) flatMap { nbCurrentStudents =>
-        lila.common.LilaFuture.linear(data.realNames.take(Clas.maxStudents - nbCurrentStudents)) { realName =>
-          nameGenerator() flatMap { username =>
-            val data = ClasForm.CreateStudent(
-              username = username | UserName(ThreadLocalRandom.nextString(10)),
-              realName = realName
-            )
-            create(clas, data, teacher)
-          }
-        }
-      }
+      count(clas.id).flatMap: nbCurrentStudents =>
+        data.realNames
+          .take(Clas.maxStudents - nbCurrentStudents)
+          .traverse: realName =>
+            nameGenerator().flatMap: username =>
+              val data = ClasForm.CreateStudent(
+                username = username | UserName(ThreadLocalRandom.nextString(10)),
+                realName = realName
+              )
+              create(clas, data, teacher)
 
     def resetPassword(s: Student): Fu[ClearPassword] =
       val password = Student.password.generate
@@ -269,7 +265,7 @@ final class ClasApi(
         .findAndUpdateSimplified[Student](
           selector = $id(sId),
           update =
-            if (v) $set("archived" -> Clas.Recorded(by.id, nowDate))
+            if (v) $set("archived" -> Clas.Recorded(by.id, nowInstant))
             else $unset("archived"),
           fetchNewObject = true
         )

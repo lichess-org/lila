@@ -296,6 +296,7 @@ export class ExternalWorker implements CevalWorker {
       this.state = CevalState.Initial;
     } catch (err: unknown) {
       if ((err as Error).name !== 'AbortError') {
+        console.error(err);
         this.state = CevalState.Failed;
       } else {
         this.state = CevalState.Initial;

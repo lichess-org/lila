@@ -32,7 +32,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">請由版主複審</string>
   <string name="twitchUsername">您的Twitch用戶名或是網址</string>
   <string name="optionalOrEmpty">可選，如果沒有，請留空</string>
-  <string name="youtubeChannel">你的YouTube頻道名稱或網址</string>
   <string name="streamerName">您在Lichess上的直播名稱</string>
   <plurals name="keepItShort">
     <item quantity="other">請保持簡短: 最多%s個字</item>

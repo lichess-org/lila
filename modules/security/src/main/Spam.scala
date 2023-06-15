@@ -47,6 +47,7 @@ final class Spam(spamKeywords: () => lila.common.Strings):
     """go.chess.com/[\w-]+""".r               -> "chess.com",
     """vvv.cash/?\?ref=[\w-]+""".r            -> "vvv.cash",
     """aimchess.com/try\?ref=[\w-]+""".r      -> "aimchess.com",
+    """aimchess.com/i/[\w-]+""".r             -> "aimchess.com",
     """\bchess-bot(\.com)?[^\s]*""".r         -> "[redacted]"
   ) ::: bannedYoutubeIds.map { id =>
     id.r -> "7orFjhLkcxA"

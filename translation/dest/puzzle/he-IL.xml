@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">פאזלים</string>
-  <string name="puzzleThemes">נושאי החידות</string>
+  <string name="puzzleThemes">חידות נושאיות</string>
   <string name="recommended">מומלץ</string>
   <string name="phases">שלבים</string>
   <string name="motifs">מוטיבים</string>
@@ -21,12 +21,18 @@
   <string name="toGetPersonalizedPuzzles">לקבלת חידות מותאמות אישית:</string>
   <string name="puzzleId">חידה %s</string>
   <string name="puzzleOfTheDay">החידה היומית</string>
+  <string name="dailyPuzzle">החידה היומית</string>
   <string name="clickToSolve">לחץ/י כדי לפתור</string>
   <string name="goodMove">מהלך טוב</string>
   <string name="bestMove">המהלך הטוב ביותר!</string>
   <string name="keepGoing">המשיכו…</string>
   <string name="puzzleSuccess">כל הכבוד!</string>
   <string name="puzzleComplete">החידה הושלמה!</string>
+  <string name="byOpenings">לפי פתיחות</string>
+  <string name="puzzlesByOpenings">חידות לפי פתיחות</string>
+  <string name="openingsYouPlayedTheMost">הפתיחות הנפוצות שלך במשחקים מדורגים</string>
+  <string name="useFindInPage">השתמשו ב״חיפוש בעמוד״ בדפדפן כדי למצוא את הפתיחה המועדפת עליכם!</string>
+  <string name="useCtrlF">השתמשו ב-ctrl+F כדי למצוא את הפתיחה המועדפת עליכם!</string>
   <string name="notTheMove">זה לא המהלך!</string>
   <string name="trySomethingElse">נסו משהו אחר.</string>
   <string name="ratingX">דירוג: %s</string>

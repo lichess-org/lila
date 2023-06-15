@@ -76,8 +76,8 @@ final class Env(
 
   lila.common.Bus.subscribeFun("playban", "autoFlag") {
     case lila.hub.actorApi.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins).unit
-    case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text) =>
-      api.autoCommFlag(SuspectId(suspectId), resource, text).unit
+    case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text, critical) =>
+      api.autoCommFlag(SuspectId(suspectId), resource, text, critical).unit
   }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>

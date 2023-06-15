@@ -55,6 +55,10 @@ Mblidhni pikët e çdo kundërshtari që lojtari mund dhe gjysmën e pikëve të
 Mendojmë se këto kushte ka më shumë gjasa të plotësohen brenda një ekipi, se sa në turne globalë.</string>
   <string name="numberOfByesQ">Sa mirupafshim mund të marrë një lojtar?</string>
   <string name="whatIfOneDoesntPlayQ">Ç’ndodh nëse një lojtar s’luan një lojë?</string>
+  <string name="protectionAgainstNoShowQ">Çfarë bëhet lidhur me mosparaqitjet?</string>
+  <string name="protectionAgainstNoShowA">Lojëtarët që regjistrohen për turne zvicerane, por nuk luajnë lojërat përkatëse, mund të jenë problematikë.
+Për ta zbutur këtë problem, Lichess-i u pengon për një farë kohe lojëtarëve që s’arritën të luanin një lojë, të marrin pjesë në një turne të ri zviceran.
+Sidoqoftë, krijuesi i një turneu zviceran mund të vendosë t’i lërë të vijnë në turne ose jo.</string>
   <string name="lateJoinQ">A mund të vijnë vonë lojtarët?</string>
   <string name="lateJoinA">Po, deri sa të kenë filluar më shumë se gjysma e raundeve; për shembull, në një turne zviceran me 11 lojtarët mund të vijnë para se të fillojë raundi i 6-të ose, në një tur me 12 raunde, para se të nisë raundi i 7-të.
 Late joiners get a single bye, even if they missed several rounds.</string>
@@ -94,4 +98,5 @@ Gjëja më e afërt e një Round Robin-i në internet është të luhet një tur
   <string name="streaksAndBerserk">Vijimësi dhe Berserk</string>
   <string name="similarToOTB">I ngjashëm me turne OTB</string>
   <string name="unlimitedAndFree">I pakufizuar dhe i lirë</string>
+  <string name="playYourGames">Luani lojërat tuaja</string>
 </resources>

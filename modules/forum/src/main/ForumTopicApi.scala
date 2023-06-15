@@ -33,16 +33,14 @@ final private class ForumTopicApi(
       slug: String,
       page: Int,
       forUser: Option[User]
-  )(implicit
-      netDomain: lila.common.config.NetDomain
-  ): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
+  )(using lila.common.config.NetDomain): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for {
       data <- categRepo byId categId flatMapz { categ =>
         topicRepo.forUser(forUser).byTree(categId, slug) dmap {
           _ map (categ -> _)
         }
       }
-      res <- data ?? { case (categ, topic) =>
+      res <- data so { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
         paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
       }
@@ -53,9 +51,9 @@ final private class ForumTopicApi(
       cacheApi.notLoadingSync[(UserId, String), ForumTopicId](64, "forum.topic.duplicate") {
         _.expireAfterWrite(1 hour).build()
       }
-    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId ?? { uid =>
+    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId so { uid =>
       val key = (uid, topic.name)
-      cache.getIfPresent(key) ?? { topicRepo.coll.byId[ForumTopic](_) } orElse {
+      cache.getIfPresent(key) so { topicRepo.coll.byId[ForumTopic](_) } orElse {
         cache.put(key, topic.id)
         fuccess(none)
       }
@@ -90,7 +88,7 @@ final private class ForumTopicApi(
           postRepo.coll.insert.one(post) >>
             topicRepo.coll.insert.one(topic withPost post) >>
             categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-              !categ.quiet ?? (indexer ! InsertPost(post))
+              !categ.quiet so (indexer ! InsertPost(post))
               promotion.save(me, post.text)
               shutup ! {
                 val text = s"${topic.name} ${post.text}"
@@ -174,14 +172,14 @@ final private class ForumTopicApi(
 
   def toggleClose(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
     topicRepo.close(topic.id, topic.open) >> {
-      (MasterGranter.is(_.ModerateForum)(mod) || topic.isAuthor(mod.user)) ?? {
+      (MasterGranter.is(_.ModerateForum)(mod) || topic.isAuthor(mod.user)) so {
         modLog.toggleCloseTopic(mod.id into ModId, categ.id, topic.slug, topic.open)
       }
     }
 
   def toggleSticky(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
     topicRepo.sticky(topic.id, !topic.isSticky) >> {
-      MasterGranter.is(_.ModerateForum)(mod) ??
+      MasterGranter.is(_.ModerateForum)(mod) so
         modLog.toggleStickyTopic(mod.id into ModId, categ.id, topic.slug, !topic.isSticky)
     }
 

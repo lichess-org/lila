@@ -63,4 +63,5 @@
   <string name="notifyPush">התראה למכשיר גם כשאינך מחובר/ת לליצ׳ס</string>
   <string name="notifyWeb">דפדפן</string>
   <string name="notifyDevice">מכשיר</string>
+  <string name="bellNotificationSound">השמע צליל עבור התראות פעמון</string>
 </resources>

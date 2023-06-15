@@ -5,6 +5,7 @@ import renderMsgs from './msgs';
 import { Convo } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { userName } from './util';
+import * as licon from 'common/licon';
 import { hookMobileMousedown } from 'common/mobile';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
@@ -18,7 +19,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
       h('div.msg-app__convo__head', [
         h('div.msg-app__convo__head__left', [
           h('span.msg-app__convo__head__back', {
-            attrs: { 'data-icon': '' },
+            attrs: { 'data-icon': licon.LessThan },
             hook: hookMobileMousedown(ctrl.showSide),
           }),
           h(
@@ -56,7 +57,7 @@ const blocked = (msg: string) =>
   h(
     'div.msg-app__convo__reply__block.text',
     {
-      attrs: { 'data-icon': '' },
+      attrs: { 'data-icon': licon.NotAllowed },
     },
     msg
   );

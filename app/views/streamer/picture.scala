@@ -2,7 +2,7 @@ package views.html.streamer
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.streamer.Streamer
@@ -12,7 +12,7 @@ object picture:
 
   import trans.streamer.*
 
-  def apply(s: Streamer.WithContext, error: Option[String] = None)(implicit ctx: Context) =
+  def apply(s: Streamer.WithContext, error: Option[String] = None)(using WebContext) =
     views.html.base.layout(
       title = xStreamerPicture.txt(s.user.username),
       moreJs = embedJsUnsafeLoadThen("""
@@ -37,7 +37,7 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
             submitButton(cls := "button")(uploadPicture())
           ),
           div(cls := "cancel")(
-            a(href := routes.Streamer.edit, cls := "text", dataIcon := "")(trans.cancel())
+            a(href := routes.Streamer.edit, cls := "text", dataIcon := licon.LessThan)(trans.cancel())
           )
         )
       )

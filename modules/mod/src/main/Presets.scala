@@ -9,9 +9,7 @@ import lila.security.{ Granter, Permission }
 import reactivemongo.api.bson.BSONHandler
 import lila.common.Iso
 
-final class ModPresetsApi(
-    settingStore: lila.memo.SettingStore.Builder
-)(using Executor):
+final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 
   import ModPresets.setting.given
 

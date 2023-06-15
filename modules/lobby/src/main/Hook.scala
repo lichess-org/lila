@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Clock, Mode, Speed }
 import chess.variant.Variant
-import play.api.i18n.Lang
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -22,7 +21,7 @@ case class Hook(
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
-    createdAt: DateTime,
+    createdAt: Instant,
     boardApi: Boolean
 ):
 
@@ -45,16 +44,16 @@ case class Hook(
 
   private def ratingRangeCompatibleWith(h: Hook) =
     realRatingRange.fold(true) { range =>
-      h.rating ?? range.contains
+      h.rating so range.contains
     }
 
-  lazy val realRatingRange: Option[RatingRange] = isAuth ?? {
+  lazy val realRatingRange: Option[RatingRange] = isAuth so {
     RatingRange noneIfDefault ratingRange
   }
 
   def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
-  def lame     = user ?? (_.lame)
+  def lame     = user so (_.lame)
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
@@ -96,8 +95,8 @@ case class Hook(
         sri = sri,
         rating = rating | lila.rating.Glicko.default.intRating,
         ratingRange = realRatingRange,
-        lame = user.??(_.lame),
-        blocking = user.??(_.blocking),
+        lame = user.so(_.lame),
+        blocking = user.so(_.blocking),
         rageSitCounter = 0
       )
     )
@@ -131,6 +130,6 @@ object Hook:
       user = user map { LobbyUser.make(_, blocking) },
       sid = sid,
       ratingRange = ratingRange.toString,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       boardApi = boardApi
     )

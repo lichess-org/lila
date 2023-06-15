@@ -6,7 +6,6 @@ import akka.actor.*
 import akka.pattern.pipe
 
 import lila.socket.Socket.Sris
-import lila.user.User
 
 final private class PoolActor(
     config: PoolConfig,
@@ -41,7 +40,7 @@ final private class PoolActor(
     case Join(joiner, rageSit) =>
       members.find(joiner.is) match
         case None =>
-          members = members :+ PoolMember(joiner, config, rageSit)
+          members = members :+ PoolMember(joiner, rageSit)
           if (members.sizeIs >= config.wave.players.value) self ! FullWave
         case Some(member) if member.ratingRange != joiner.ratingRange =>
           members = members.map {

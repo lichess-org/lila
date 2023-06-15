@@ -2,20 +2,19 @@ package views.html.streamer
 
 import controllers.routes
 import play.api.i18n.Lang
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
-import lila.user.User
 
 object bits:
 
   import trans.streamer.*
 
-  def create(implicit ctx: Context) =
+  def create(using WebContext) =
     views.html.site.message(
       title = becomeStreamer.txt(),
-      icon = Some(""),
+      icon = Some(licon.Mic),
       moreCss = cssTag("streamer.form").some
     )(
       postForm(cls := "streamer-new", action := routes.Streamer.create)(
@@ -26,12 +25,12 @@ object bits:
         br,
         br,
         p(style := "text-align: center")(
-          submitButton(cls := "button button-fat text", dataIcon := "")(hereWeGo())
+          submitButton(cls := "button button-fat text", dataIcon := licon.Mic)(hereWeGo())
         )
       )
     )
 
-  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(implicit ctx: Context) =
+  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(using ctx: WebContext) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
       s.map { st =>
@@ -49,7 +48,11 @@ object bits:
         cls  := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
       )("Approval requests"),
-      a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")(
+      a(
+        dataIcon := licon.InfoCircle,
+        cls      := "text",
+        href     := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community"
+      )(
         "Streamer community"
       ),
       a(href := "/about")(downloadKit())
@@ -66,18 +69,23 @@ object bits:
         cls   := "stream highlight",
         title := s.status
       )(
-        strong(cls := "text", dataIcon := "")(l titleName s),
+        strong(cls := "text", dataIcon := licon.Mic)(l titleName s),
         " ",
         s.cleanStatus
       )
     }
 
-  def contextual(userId: UserId)(implicit lang: Lang): Frag =
-    redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
-      xIsStreaming(titleNameOrId(userId))
+  def contextual(streamers: List[UserId])(using Lang): Option[Tag] =
+    streamers.nonEmpty option div(cls := "context-streamers")(
+      streamers map contextual
     )
 
-  def rules(implicit lang: Lang) =
+  def contextual(userId: UserId)(using Lang): Tag =
+    redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic)(
+      xIsStreaming(strong(titleNameOrId(userId)))
+    )
+
+  def rules(using Lang) =
     ul(cls := "streamer-rules")(
       h2(trans.streamer.rules()),
       ul(
@@ -95,18 +103,18 @@ object bits:
       )
     )
 
-  def streamerTitle(s: lila.streamer.Streamer.WithContext)(implicit lang: Lang) =
+  def streamerTitle(s: lila.streamer.Streamer.WithContext) =
     span(cls := "streamer-title")(
-      h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
+      h1(dataIcon := licon.Mic)(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang map { language =>
         span(cls := "streamer-lang")(LangList nameByStr language)
       }
     )
 
-  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang): Option[Tag] =
-    ctx.isAuth option {
+  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: WebContext): Option[Tag] =
+    ctx.isAuth && !ctx.is(s.user) option {
       val id = s"streamer-subscribe-${s.streamer.userId}"
-      label(cls := "streamer-subscribe button button-metal")(
+      label(cls := "streamer-subscribe")(
         `for`          := id,
         data("action") := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}"
       )(
@@ -120,3 +128,7 @@ object bits:
         trans.subscribe()
       )
     }
+  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using lang: Lang) =
+    span(cls := "streamer-profile")(
+      userLink(s.user)
+    )

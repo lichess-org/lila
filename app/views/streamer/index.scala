@@ -2,11 +2,10 @@ package views.html.streamer
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-import lila.i18n.LangList
 
 object index:
 
@@ -18,7 +17,7 @@ object index:
       live: List[lila.streamer.Streamer.WithUserAndStream],
       pager: Paginator[lila.streamer.Streamer.WithContext],
       requests: Boolean
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
 
     val title = if (requests) "Streamer approval requests" else lichessStreamers.txt()
 
@@ -55,7 +54,10 @@ object index:
               }
             )
           ),
-          !requests option bits.subscribeButtonFor(s)
+          div(cls := "streamer-footer")(
+            !requests option bits.subscribeButtonFor(s),
+            bits.streamerProfile(s)
+          )
         )
       )
 
@@ -65,15 +67,15 @@ object index:
       moreJs = frag(infiniteScrollTag, jsModule("streamer"))
     ) {
       main(cls := "page-menu")(
-        bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
+        bits.menu(if (requests) "requests" else "index", none)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
-          boxTop(h1(dataIcon := "", cls := "text")(title)),
-          !requests option div(cls := "list live")(
+          boxTop(h1(dataIcon := licon.Mic, cls := "text")(title)),
+          !requests option div(cls := "list force-ltr live")(
             live.map { s =>
               st.article(cls := "streamer")(widget(s, s.stream))
             }
           ),
-          div(cls := "list infinite-scroll")(
+          div(cls := "list force-ltr infinite-scroll")(
             (live.size % 2 == 1) option div(cls := "none"),
             pager.currentPageResults.map { s =>
               st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))

@@ -63,6 +63,7 @@
 Вижте %3$s на този ход за малко практика с него.</string>
   <string name="goodIntroduction">добро въведение</string>
   <string name="lichessTraining">Обучение по шах от Lichess</string>
+  <string name="watchIMRosenCheckmate">Вижте как Международният Майстор Ерик Росен матира %s.</string>
   <string name="threefoldRepetition">Трикратно повторение</string>
   <string name="threefoldRepetitionExplanation">Ако дадена позиция се появи три пъти, играчите могат да поискат равенство с %1$s. Lichess прилага официалните правила на FIDE, както е описано в член 9.2 (d) от %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трикратно повторение</string>

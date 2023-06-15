@@ -14,7 +14,7 @@
   <string name="challengeRead">Đọc các lời thách đấu được gửi đến</string>
   <string name="challengeWrite">Gửi, chấp nhận và từ chối thách đấu</string>
   <string name="challengeBulk">Tạo nhiều ván đấu cùng lúc với nhiều người chơi</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Đọc các bài học riêng và các chương trình phát sóng</string>
+  <string name="studyRead">Đọc các bài học riêng và các chương trình phát sóng</string>
   <string name="studyWrite">Tạo, cập nhật, xóa các bài học và các chương trình phát sóng</string>
   <string name="tournamentWrite">Tạo, cập nhật, và tham gia các giải đấu</string>
   <string name="racerWrite">Tạo và tham gia đua câu đố</string>

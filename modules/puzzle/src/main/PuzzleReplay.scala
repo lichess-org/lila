@@ -41,15 +41,15 @@ final class PuzzleReplayApi(
         if (current.days == days && current.theme == theme && current.remaining.nonEmpty) fuccess(current)
         else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
       } flatMap { replay =>
-        replay.remaining.headOption ?? { id =>
+        replay.remaining.headOption so { id =>
           colls.puzzle(_.byId[Puzzle](id)) map2 (_ -> replay)
         }
       }
     } getOrElse fuccess(None)
 
   def onComplete(round: PuzzleRound, days: PuzzleDashboard.Days, angle: PuzzleAngle): Funit =
-    angle.asTheme ?? { theme =>
-      replays.getIfPresent(round.userId) ?? {
+    angle.asTheme so { theme =>
+      replays.getIfPresent(round.userId) so {
         _ map { replay =>
           if (replay.days == days && replay.theme == theme)
             replays.put(round.userId, fuccess(replay.step))
@@ -69,7 +69,7 @@ final class PuzzleReplayApi(
           Match(
             $doc(
               "u" -> user.id,
-              "d" $gt nowDate.minusDays(days),
+              "d" $gt nowInstant.minusDays(days),
               "w" $ne true
             )
           ) -> List(
@@ -109,14 +109,3 @@ final class PuzzleReplayApi(
       } map { ids =>
       PuzzleReplay(days, theme, ids.size, ids)
     }
-
-  private val puzzleLookup =
-    $lookup.pipelineFull(
-      from = colls.puzzle.name.value,
-      as = "puzzle",
-      let = $doc("pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))),
-      pipe = List(
-        $doc("$match"   -> $expr($doc("$eq" -> $arr("$_id", "$$pid")))),
-        $doc("$project" -> $doc("_id" -> true))
-      )
-    )

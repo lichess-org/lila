@@ -4,11 +4,11 @@ case class Trophy(
     _id: String, // random
     user: UserId,
     kind: TrophyKind,
-    date: DateTime,
+    date: Instant,
     url: Option[String]
 ) extends Ordered[Trophy]:
 
-  def timestamp = date.getMillis
+  def timestamp = date.toMillis
 
   def compare(other: Trophy) =
     if (kind.order == other.kind.order) date compareTo other.date

@@ -7,7 +7,7 @@ private[team] case class TeamMember(
     _id: String,
     team: TeamId,
     user: UserId,
-    date: DateTime
+    date: Instant
 ):
   inline def id = _id
 
@@ -16,7 +16,7 @@ private[team] case class TeamMember(
 
 object TeamMember:
 
-  case class UserAndDate(user: LightUser, date: DateTime)
+  case class UserAndDate(user: LightUser, date: Instant)
 
   private[team] def makeId(team: TeamId, user: UserId) = s"$user@$team"
 
@@ -24,5 +24,5 @@ object TeamMember:
     _id = makeId(team, user),
     user = user,
     team = team,
-    date = nowDate
+    date = nowInstant
   )

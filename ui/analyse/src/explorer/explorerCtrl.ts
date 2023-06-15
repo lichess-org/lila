@@ -1,15 +1,18 @@
 import { Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
+import { fenColor } from 'common/mini-game';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';
-import { winnerOf, colorOf } from './explorerUtil';
+import { winnerOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
+
+export const MAX_DEPTH = 50;
 
 function pieceCount(fen: Fen) {
   const parts = fen.split(/\s/);
@@ -50,7 +53,7 @@ export default class ExplorerCtrl {
 
   constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, previous?: ExplorerCtrl) {
     this.allowed = prop(previous ? previous.allowed() : !root.embed);
-    this.enabled = root.embed ? prop(false) : storedBooleanProp('explorer.enabled', false);
+    this.enabled = root.embed ? prop(false) : storedBooleanProp('analyse.explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
     this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload, previous?.config);
@@ -148,7 +151,7 @@ export default class ExplorerCtrl {
     if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
-    if (node.ply >= 50 && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
+    if (node.ply >= MAX_DEPTH && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
       this.cache[node.fen] = this.empty;
     }
     const cached = this.cache[node.fen];
@@ -217,7 +220,7 @@ export default class ExplorerCtrl {
     return {
       fen,
       best: move && move.uci,
-      winner: res.checkmate ? opposite(colorOf(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
+      winner: res.checkmate ? opposite(fenColor(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
     } as SimpleTablebaseHit;
   };
 }

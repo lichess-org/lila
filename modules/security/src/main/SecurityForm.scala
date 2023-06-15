@@ -1,12 +1,13 @@
 package lila.security
 
+import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 import play.api.mvc.RequestHeader
 
 import lila.common.{ EmailAddress, Form as LilaForm, LameName }
-import lila.common.Form.{ *, given }
+import lila.common.Form.*
 import lila.user.User.{ ClearPassword, TotpToken }
 import lila.user.{ TotpSecret, User, UserRepo }
 
@@ -16,7 +17,7 @@ final class SecurityForm(
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
     hcaptcha: Hcaptcha
-)(using Executor):
+)(using ec: Executor, mode: play.api.Mode):
 
   import SecurityForm.*
 
@@ -94,7 +95,7 @@ final class SecurityForm(
           "agreement" -> agreement,
           "fp"        -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
-          .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
+          .verifying(PasswordCheck.errorSame, x => mode != Mode.Prod || x.password != x.username.value)
       )
     )
 
@@ -104,20 +105,14 @@ final class SecurityForm(
         "password" -> newPasswordField,
         "email"    -> emailField
       )(MobileSignupData.apply)(_ => None)
-        .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
+        .verifying(PasswordCheck.errorSame, x => mode != Mode.Prod || x.password != x.username.value)
     )
 
-  def passwordReset(implicit req: RequestHeader) = hcaptcha.form(
+  def passwordReset(using RequestHeader) = hcaptcha.form(
     Form(
       mapping(
         "email" -> sendableEmail // allow unacceptable emails for BC
       )(PasswordReset.apply)(_ => None)
-    )
-  )
-
-  def newPasswordFor(user: User) = Form(
-    single(
-      "password" -> newPasswordFieldFor(user)
     )
   )
 
@@ -194,7 +189,7 @@ final class SecurityForm(
       Form(
         tuple(
           "passwd" -> passwordMapping(candidate),
-          "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
+          "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.so(_.verify(TotpToken(t))))
         )
       )
     }
@@ -217,7 +212,7 @@ final class SecurityForm(
 
   def toggleKid = passwordProtected
 
-  def reopen(implicit req: RequestHeader) = hcaptcha.form(
+  def reopen(using RequestHeader) = hcaptcha.form(
     Form(
       mapping(
         "username" -> LilaForm.cleanNonEmptyText.into[UserStr],

@@ -8,5 +8,7 @@
   <string name="mostChessCourses">Küşt kurslarynyň we türgenleşikleriniň aglabasy algebrik notasiýany ulanýar.</string>
   <string name="talkToYourChessFriends">Ikiňiziň hem \"küşt dilini\" bilýändigiňiz sebäpli küştçi dostlaryň bilen gürleşmegi amatlylaşdyrýar.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Öýjük atlaryny agtarmaly bolmasaňyz oýunlary has täsirli ýagdaýda derňäp bilersiňiz.</string>
+  <string name="showCoordinates">Kordinatlary görkez</string>
+  <string name="showPieces">Çöpleri görkez</string>
   <string name="startTraining">Türgenleşige başla</string>
 </resources>

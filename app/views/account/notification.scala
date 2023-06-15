@@ -1,7 +1,7 @@
 package views.html
 package account
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
@@ -10,7 +10,7 @@ object notification {
   import bits.*
   import trans.preferences.*
 
-  def apply(form: play.api.data.Form[?])(using Context) =
+  def apply(form: play.api.data.Form[?])(using WebContext) =
     account.layout(
       title = s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
       active = "notification"
@@ -23,8 +23,8 @@ object notification {
               thead(
                 tr(
                   th,
-                  th(notifyBell(), iconTag("")),
-                  th(notifyPush(), iconTag(""))
+                  th(notifyBell(), iconTag(licon.BellOutline)),
+                  th(notifyPush(), iconTag(licon.PhoneMobile))
                 )
               ),
               tbody(
@@ -44,11 +44,11 @@ object notification {
               radios(form("correspondenceEmail"), translatedBooleanChoices)
             ),
             setting(
-              "Bell notification sound",
+              bellNotificationSound(),
               radios(form("notification.playBellSound"), translatedBooleanIntChoices)
             )
           ),
-          p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())
         )
       )
     }
@@ -63,16 +63,15 @@ object notification {
           if (!hiddenFields(s"$filterName.$allow"))
             div(cls := "toggle", form3.cmnToggle(name, name, checked))
           else if (!checked)
-            div(iconTag('\ue03f'))
+            div(iconTag(licon.X))
           else
             div(
               cls := "always-on",
               form3.hidden(name, "true"),
-              filterName match {
-                case "challenge"      => iconTag('\ue048')
-                case "privateMessage" => iconTag('\ue00f')
+              filterName match
+                case "challenge"      => iconTag(licon.Swords)
+                case "privateMessage" => iconTag(licon.BellOutline)
                 case _                => emptyFrag
-              }
             )
         )
       }

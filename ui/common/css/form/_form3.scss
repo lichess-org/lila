@@ -41,6 +41,19 @@
   background-clip: padding-box;
 }
 
+.form-control-with-clipboard {
+  display: inline-flex;
+  width: 100%;
+}
+
+.form-control-with-clipboard > .form-control {
+  width: 95%;
+}
+
+.clipboard {
+  float: right;
+}
+
 textarea.form-control {
   height: auto;
 }
@@ -118,5 +131,17 @@ textarea.form-control {
   > * {
     background-color: gray;
     width: 25%;
+  }
+}
+
+.form-fieldset {
+  @extend %box-radius;
+  margin: 1.5em 0;
+  border-color: rgba(128, 128, 128, 0.3);
+
+  legend {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2em;
   }
 }

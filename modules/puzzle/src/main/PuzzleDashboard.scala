@@ -106,7 +106,7 @@ final class PuzzleDashboardApi(
           "fixes"  -> Sum(countField("f")),
           "rating" -> AvgField("puzzle.rating")
         )
-        Match($doc("u" -> userId, "d" $gt nowDate.minusDays(days))) -> List(
+        Match($doc("u" -> userId, "d" $gt nowInstant.minusDays(days))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
           PipelineOperator(
@@ -129,19 +129,19 @@ final class PuzzleDashboardApi(
         )
       }
         .map { r =>
-          for {
+          for
             result     <- r
             globalDocs <- result.getAsOpt[List[Bdoc]]("global")
             globalDoc  <- globalDocs.headOption
             global     <- readResults(globalDoc)
             themeDocs  <- result.getAsOpt[List[Bdoc]]("byTheme")
-            byTheme = for {
+            byTheme = for
               doc      <- themeDocs
               themeStr <- doc.string("_id")
               theme    <- PuzzleTheme find themeStr
               results  <- readResults(doc)
-            } yield theme.key -> results
-          } yield PuzzleDashboard(
+            yield theme.key -> results
+          yield PuzzleDashboard(
             global = global,
             byTheme = byTheme.toMap
           )
@@ -151,12 +151,11 @@ final class PuzzleDashboardApi(
 
   private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))
 
-  private def readResults(doc: Bdoc) = for {
+  private def readResults(doc: Bdoc) = for
     nb     <- doc.int("nb")
     wins   <- doc.int("wins")
     fixes  <- doc.int("fixes")
     rating <- doc.double("rating")
-  } yield Results(nb, wins, fixes, rating.toInt)
+  yield Results(nb, wins, fixes, rating.toInt)
 
-  import BsonHandlers.given
   val relevantThemesSelect = $doc("puzzle.themes" $nin irrelevantThemes)

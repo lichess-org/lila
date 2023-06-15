@@ -6,6 +6,7 @@
   <string name="saveDraft">Uložit koncept</string>
   <string name="postTitle">Nadpis příspěvku</string>
   <string name="postIntro">Úvod příspěvku</string>
+  <string name="postBody">Obsah příspěvku</string>
   <string name="drafts">Koncepty</string>
   <string name="published">Publikováno</string>
   <string name="createBlogDiscussion">Povolit komentáře</string>
@@ -31,4 +32,9 @@
   <string name="deleteBlog">Definitivně smazat tento blogový příspěvek</string>
   <string name="deleteImage">Smazat obrázek</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Je bezpečné používat obrázky z těchto stránek: </string>
+  <string name="selectPostTopics">Zvolte témata vašeho příspěvku</string>
+  <string name="useImagesYouMadeYourself">Můžete také přidat obrázky, vytvořené vámi, screenshoty... cokoliv na co se nevztahují autorská práva.</string>
+  <string name="safeAndRespectfulContent">Publikuje prosím jenom svůj vlastní a bezpečný obsah. Nekopírujte obsah někoho jiného.</string>
+  <string name="inappropriateContentAccountClosed">Cokoliv nevhodného může způsobit smazání vašeho účtu.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Naše jednoduché rady, jak psát skvělé příspěvky do blogu</string>
 </resources>

@@ -52,4 +52,5 @@
   <string name="completedTourns">完了したトーナメント</string>
   <string name="declinedRequests">却下した申請</string>
   <string name="joinLichessVariantTeam">公式チーム %s にはニュースやイベント情報が</string>
+  <string name="teamPage">チームのページ</string>
 </resources>

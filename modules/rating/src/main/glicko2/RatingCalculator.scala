@@ -1,8 +1,6 @@
 package lila.rating
 package glicko2
 
-import org.joda.time.Duration
-
 // rewrite from java https://github.com/goochjs/glicko2
 object RatingCalculator:
 
@@ -22,7 +20,6 @@ object RatingCalculator:
     (ratingDeviation / MULTIPLIER)
 
 final class RatingCalculator(
-    defaultVolatility: Double = 0.06d,
     tau: Double = 0.75d,
     ratingPeriodsPerDay: Double = 0
 ):
@@ -71,11 +68,11 @@ final class RatingCalculator(
     * @return
     *   new rating deviation
     */
-  def previewDeviation(player: Rating, ratingPeriodEndDate: DateTime, reverse: Boolean): Double =
+  def previewDeviation(player: Rating, ratingPeriodEndDate: Instant, reverse: Boolean): Double =
     var elapsedRatingPeriods = 0d
     player.lastRatingPeriodEnd.ifTrue(ratingPeriodsPerMilli > 0) foreach { periodEnd =>
-      val interval = Duration(periodEnd, ratingPeriodEndDate)
-      elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli
+      val interval = java.time.Duration.between(periodEnd, ratingPeriodEndDate)
+      elapsedRatingPeriods = interval.toMillis * ratingPeriodsPerMilli
     }
     if (reverse) {
       elapsedRatingPeriods = -elapsedRatingPeriods

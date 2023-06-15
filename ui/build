@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-UI_DIR=$(dirname $(readlink -f  "${BASH_SOURCE:-$0}"))
+UI_DIR=$(dirname "${BASH_SOURCE:-$0}")
 
 if [ `expr "$*" : '.*--no-install'` -eq 0 ]; then
-  cd "$UI_DIR/.."
+  pushd "$UI_DIR/.." > /dev/null
   pnpm i
 fi
 
+popd > /dev/null
 cd "$UI_DIR/@build"
 pnpm -s dev "$@"

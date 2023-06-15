@@ -1,6 +1,5 @@
 package lila.swiss
 
-import lila.user.User
 export lila.Lila.{ *, given }
 
 val lichessTeamId = TeamId("lichess-swiss")

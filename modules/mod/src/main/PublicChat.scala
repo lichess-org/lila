@@ -1,10 +1,10 @@
 package lila.mod
 
-import lila.chat.{ Chat, UserChat }
+import lila.chat.UserChat
 import lila.report.Suspect
 import lila.swiss.Swiss
 import lila.tournament.Tournament
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 final class PublicChat(
     chatApi: lila.chat.ChatApi,

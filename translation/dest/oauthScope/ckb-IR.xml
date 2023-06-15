@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">نیشانەی نوێ کەسی تایبەت بە API</string>
+  <string name="newAccessToken">نیشانەی نوێ کەسی تایبەت بە API</string>
   <string name="tokenGrantsPermission">ئەو نیشانە تایبەتە مۆڵەت بە کەسانی تر دەدات کە ئەکاونتەکەت بەکاربهێنن.</string>
   <string name="carefullySelect">بە وریاییەوە ئەو شتانە هەڵبژێرە کە ڕێگەی پێدەدەیت ئەنجامی بدات.</string>
   <string name="tokenDescription">باسێکی نیشانەکە بکە</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">نیشانە تەیبەتەکەت دەتوانێت بە ناوی تۆوە چی بکات:</string>
   <string name="doNotShareIt">ئەو نیشانە ڕێگە بە چونەژوورەوەی هەژمارەکەت دەدا. مەیدە ڤە هیچ کەسێک!</string>
   <string name="copyTokenNow">دڵنیا ببەوە لەوەی کە ئێستا نیشانەکەت کۆپی کردووە. جارێکی دیکە ناتوانیت بیبینیەوە!</string>
-  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">هەڵبژاردەکان بخوێنەرەوە</string>
-  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">هەڵبژاردەکان بنووسەوە</string>
+  <string name="preferenceRead">هەڵبژاردەکان بخوێنەرەوە</string>
+  <string name="preferenceWrite">هەڵبژاردەکان بنووسەوە</string>
   <string name="emailRead">ئیمێڵەکە بخوێنەوە</string>
   <string name="challengeRead">چالێنجەکانی داهاتوو بخوێنەرەوە</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">ناردن و قبوڵکردن و ڕەتکردنەوەی چاڵێنجەکان</string>
+  <string name="challengeWrite">ناردن و قبوڵکردن و ڕەتکردنەوەی چاڵێنجەکان</string>
   <string name="challengeBulk">دروستکردنی چەندین یاری بە یەکجار بۆ یاریزانانی تر</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">خوێندن و پەخشی تایبەت فێربوون</string>
+  <string name="studyRead">خوێندن و پەخشی تایبەت فێربوون</string>
   <string name="studyWrite">دروستکردن و نوێکردنەوە و سڕینەوەی فێرکاری و پەخشەکان</string>
   <string name="tournamentWrite">دروستکردن و نوێکردنەوە و بەشداریکردن لە پاڵەوانێتییەکان</string>
   <string name="racerWrite">دروستکردن و بەشداریکردن لە پێشبڕکێکانی مەتەڵ</string>
-  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">چالاکیی مەتەڵ بخوێنەرەوە</string>
+  <string name="puzzleRead">چالاکیی مەتەڵ بخوێنەرەوە</string>
   <string name="teamRead">زانیارییەکانی تیمی تایبەت بخوێنەرەوە</string>
   <string name="teamWrite">بەشداریکردن و جێهێشتنی تیمەکان</string>
   <string name="teamLead">بەڕێوەبردنی ئەو تیمانەی کە سەرکردایەتی دەکەیت: نامەی تایبەت بنێرە، یان ئەندامەکان دەربکە</string>

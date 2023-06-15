@@ -3,7 +3,6 @@ package lila.api
 import play.api.libs.json.*
 
 import lila.common.config.*
-import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.user.{ Trophy, User }
 import lila.rating.{ PerfType, UserRankMap }
 import play.api.i18n.Lang
@@ -15,7 +14,6 @@ final class UserApi(
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
-    playBanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
@@ -28,7 +26,7 @@ final class UserApi(
     net: NetConfig
 )(using Executor):
 
-  def one(u: User, joinedAt: Option[DateTime] = None): JsObject = {
+  def one(u: User, joinedAt: Option[Instant] = None): JsObject = {
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
@@ -52,16 +50,16 @@ final class UserApi(
     if (u.enabled.no) fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
-        as.filter(u !=).?? { me => crosstableApi.nbGames(me.id, u.id) } zip
-        withFollows.??(relationApi.countFollowing(u.id) dmap some) zip
-        withFollows.??(relationApi.countFollowers(u.id) dmap some) zip
-        as.isDefined.?? { prefApi followable u.id } zip
-        as.map(_.id).?? { relationApi.fetchRelation(_, u.id) } zip
-        as.map(_.id).?? { relationApi.fetchFollows(u.id, _) } zip
+        as.filter(u !=).so { me => crosstableApi.nbGames(me.id, u.id) } zip
+        withFollows.so(relationApi.countFollowing(u.id) dmap some) zip
+        withFollows.so(relationApi.countFollowers(u.id) dmap some) zip
+        as.isDefined.so { prefApi followable u.id } zip
+        as.map(_.id).so { relationApi.fetchRelation(_, u.id) } zip
+        as.map(_.id).so { relationApi.fetchFollows(u.id, _) } zip
         bookmarkApi.countByUser(u) zip
         gameCache.nbPlaying(u.id) zip
         gameCache.nbImportedBy(u.id) zip
-        withTrophies ?? getTrophiesAndAwards(u).dmap(some) map {
+        withTrophies.so(getTrophiesAndAwards(u).dmap(some)) map {
           // format: off
             case ((((((((((gameOption,nbGamesWithMe),following),followers),followable),
               relation),isFollowed),nbBookmarks),nbPlaying),nbImported),trophiesAndAwards)=>
@@ -91,7 +89,7 @@ final class UserApi(
                 .add("nbFollowing", following)
                 .add("nbFollowers", followers)
                 .add("trophies", trophiesAndAwards ifFalse u.lame map trophiesJson) ++
-                as.isDefined.??(
+                as.isDefined.so(
                   Json.obj(
                     "followable" -> followable,
                     "following"  -> relation.has(true),

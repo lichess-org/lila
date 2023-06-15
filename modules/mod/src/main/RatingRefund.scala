@@ -2,18 +2,18 @@ package lila.mod
 
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
 import lila.perfStat.PerfStat
 import lila.rating.PerfType
 import lila.report.{ Suspect, Victim }
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 final private class RatingRefund(
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     notifier: ModNotifier,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
@@ -27,13 +27,13 @@ final private class RatingRefund(
 
   private def apply(sus: Suspect): Funit =
     logApi.wasUnengined(sus) flatMap {
-      case true => funit
-      case false =>
+      if _ then funit
+      else
         def lastGames =
           gameRepo.coll
             .find(
               Query.user(sus.user.id) ++ Query.rated ++ Query
-                .createdSince(nowDate minusDays 3) ++ Query.finished
+                .createdSince(nowInstant minusDays 3) ++ Query.finished
             )
             .sort(Query.sortCreated)
             .cursor[Game](ReadPreference.secondaryPreferred)
@@ -72,7 +72,7 @@ final private class RatingRefund(
                 curRating = user.perfs(ref.perf).intRating,
                 perfs = perfs
               )
-              (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
+              (points > 0) so refundPoints(Victim(user), ref.perf, points)
             }
           }
 

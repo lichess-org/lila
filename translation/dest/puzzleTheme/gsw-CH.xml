@@ -23,7 +23,7 @@
   <string name="capturingDefender">Schlag de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass die Ungschützti im nächschte Zug gschlage werde chann.</string>
   <string name="crushing">Vernichtend</string>
-  <string name="crushingDescription">Find de gegnerisch Patzer und chumm zu vernichtendem Vorteil. (Bewertig ≥ 600 Hundertschtel-Pure)</string>
+  <string name="crushingDescription">Find de gägnerisch Patzer und chumm zume vernichtende Vorteil. (Bewertig ≥ 600 Hundertschtel-Pure)</string>
   <string name="doubleBishopMate">Läuferpaar Matt</string>
   <string name="doubleBishopMateDescription">Zwei Läufer, uf näbenand ligende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="dovetailMate">Schwalbeschwanz Matt</string>
@@ -116,7 +116,7 @@
   <string name="veryLong">Sehr langi Ufgab</string>
   <string name="veryLongDescription">4 oder meh Züg bis zum Sieg.</string>
   <string name="xRayAttack">Röntge Agriff</string>
-  <string name="xRayAttackDescription">E Figur attackiert oder verteidigt es Fäld dur e gegnerischi Figur.</string>
+  <string name="xRayAttackDescription">E Figur attackiert oder verteidigt es Fäld dur e gägnerischi Figur.</string>
   <string name="zugzwang">Zugszwang</string>
   <string name="zugzwangDescription">De Gägner hät nur e limitierti Azahl Züg und Jede verschlächteret sini Schtellig.</string>
   <string name="healthyMix">En gsunde Mix</string>

@@ -4,14 +4,19 @@ import * as side from './side';
 import theme from './theme';
 import chessground from './chessground';
 import feedbackView from './feedback';
-import stepwiseScroll from 'common/wheel';
+import * as licon from 'common/licon';
+import { stepwiseScroll } from 'common/scroll';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { onInsert, bindNonPassive } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
+import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
+import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import boardMenu from './boardMenu';
+
 import * as Prefs from 'common/prefs';
 
 const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -34,33 +39,31 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing = f
 function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
-  const goNext = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
-  return h(
-    'div.puzzle__controls.analyse-controls',
-    {
-      hook: onInsert(el => {
-        bindMobileMousedown(
-          el,
-          e => {
+  const notOnLastMove = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
+  return h('div.puzzle__controls.analyse-controls', [
+    h(
+      'div.jumps',
+      {
+        hook: onInsert(
+          bindMobileMousedown(e => {
             const action = dataAct(e);
             if (action === 'prev') control.prev(ctrl);
             else if (action === 'next') control.next(ctrl);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-          },
-          ctrl.redraw
-        );
-      }),
-    },
-    [
-      h('div.jumps', [
-        jumpButton('', 'first', !node.ply),
-        jumpButton('', 'prev', !node.ply),
-        jumpButton('', 'next', !nextNode, goNext),
-        jumpButton('', 'last', !nextNode, goNext),
-      ]),
-    ]
-  );
+          }, ctrl.redraw)
+        ),
+      },
+      [
+        jumpButton(licon.JumpFirst, 'first', !node.ply),
+        jumpButton(licon.JumpPrev, 'prev', !node.ply),
+        jumpButton(licon.JumpNext, 'next', !nextNode),
+        jumpButton(licon.JumpLast, 'last', !nextNode, notOnLastMove),
+        boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
+      ]
+    ),
+    boardMenu(ctrl),
+  ]);
 }
 
 let cevalShown = false;
@@ -120,6 +123,7 @@ export default function (ctrl: Controller): VNode {
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
+        ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw, 'puz') : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         h(

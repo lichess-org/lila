@@ -5,14 +5,11 @@ import chess.format.pgn.{ SanStr, PgnMovesStr, PgnStr }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Replay
 import chess.variant.Standard
-import chess.{ Situation, Speed }
-import org.joda.time.format.DateTimeFormat
-
-import lila.common.LilaOpeningFamily
+import chess.MoveOrDrop.*
 
 case class OpeningQuery(replay: Replay, config: OpeningConfig):
   export replay.state.sans
-  val uci: Vector[Uci] = replay.moves.view.map(_.fold(_.toUci, _.toUci)).reverse.toVector
+  val uci: Vector[Uci] = replay.moves.view.map(_.toUci).reverse.toVector
   def position         = replay.state.situation
   def variant          = chess.variant.Standard
   val fen              = Fen writeOpening replay.state.situation
@@ -23,7 +20,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def initial          = sans.isEmpty
   def query = openingAndExtraMoves match
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnString.some)
-  def prev = (sans.sizeIs > 1) ?? OpeningQuery(
+  def prev = (sans.sizeIs > 1) so OpeningQuery(
     OpeningQuery.Query("", PgnMovesStr(sans.init.mkString(" ")).some),
     config
   )

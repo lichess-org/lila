@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as game from 'game';
 import * as round from '../round';
 import * as status from 'game/status';
@@ -8,7 +9,10 @@ import throttle from 'common/throttle';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
-import { Step, MaybeVNodes } from '../interfaces';
+import { Step } from '../interfaces';
+import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import { MaybeVNodes } from 'common/snabbdom';
+import boardMenu from './boardMenu';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -78,7 +82,6 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         result = '½-½';
     }
   if (result || status.aborted(ctrl.data)) {
-    const winner = ctrl.data.game.winner;
     return h('div.result-wrap', [
       h('p.result', result || ''),
       h(
@@ -89,7 +92,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
             else setTimeout(() => ctrl.autoScroll(), 200);
           }),
         },
-        [viewStatus(ctrl), winner ? ' • ' + ctrl.noarg(winner + 'IsVictorious') : '']
+        viewStatus(ctrl)
       ),
     ]);
   }
@@ -137,7 +140,7 @@ export function analysisButton(ctrl: RoundController): VNode | undefined {
           attrs: {
             title: ctrl.noarg('analysis'),
             href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-            'data-icon': '',
+            'data-icon': licon.Microscope,
           },
         },
         forecastCount ? ['' + forecastCount] : []
@@ -159,35 +162,19 @@ function renderButtons(ctrl: RoundController) {
           const target = e.target as HTMLElement;
           const ply = parseInt(target.getAttribute('data-ply') || '');
           if (!isNaN(ply)) ctrl.userJump(ply);
-          else {
-            const action =
-              target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-            if (action === 'flip') {
-              if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-              else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
-              else ctrl.flipNow();
-            }
-          }
         },
         ctrl.redraw
       ),
     },
     [
-      h('button.fbt.flip', {
-        class: { active: ctrl.flip },
-        attrs: {
-          title: ctrl.noarg('flipBoard'),
-          'data-act': 'flip',
-          'data-icon': '',
-        },
-      }),
+      analysisButton(ctrl) || h('div.noop'),
       ...[
-        ['', firstPly],
-        ['', ctrl.ply - 1],
-        ['', ctrl.ply + 1],
-        ['', lastPly],
-      ].map((b, i) => {
-        const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+        [licon.JumpFirst, firstPly],
+        [licon.JumpPrev, ctrl.ply - 1],
+        [licon.JumpNext, ctrl.ply + 1],
+        [licon.JumpLast, lastPly],
+      ].map((b: [string, number], i) => {
+        const enabled = ctrl.ply !== b[1] && (b[1] as number) >= firstPly && (b[1] as number) <= lastPly;
         return h('button.fbt', {
           class: { glowing: i === 3 && ctrl.isLate() },
           attrs: {
@@ -197,7 +184,7 @@ function renderButtons(ctrl: RoundController) {
           },
         });
       }),
-      analysisButton(ctrl) || h('div.noop'),
+      boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
     ]
   );
 }
@@ -205,7 +192,7 @@ function renderButtons(ctrl: RoundController) {
 function initMessage(ctrl: RoundController) {
   const d = ctrl.data;
   return (ctrl.replayEnabledByPref() || !isCol1()) && game.playable(d) && d.game.turns === 0 && !d.player.spectator
-    ? h('div.message', util.justIcon(''), [
+    ? h('div.message', util.justIcon(licon.InfoCircle), [
         h('div', [
           ctrl.trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
           ...(d.player.color === 'white' ? [h('br'), h('strong', ctrl.trans('itsYourTurn'))] : []),
@@ -260,12 +247,13 @@ export function render(ctrl: RoundController): VNode | undefined {
     ? undefined
     : h(rmovesTag, [
         renderButtons(ctrl),
+        boardMenu(ctrl),
         initMessage(ctrl) ||
           (isCol1()
             ? h('div.col1-moves', [
-                col1Button(ctrl, -1, '', ctrl.ply == round.firstPly(d)),
+                col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == round.firstPly(d)),
                 renderMovesOrResult,
-                col1Button(ctrl, 1, '', ctrl.ply == round.lastPly(d)),
+                col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == round.lastPly(d)),
               ])
             : renderMovesOrResult),
       ]);

@@ -17,8 +17,8 @@ case class Study(
     likes: Study.Likes,
     description: Option[String] = None,
     topics: Option[StudyTopics] = None,
-    createdAt: DateTime,
-    updatedAt: DateTime
+    createdAt: Instant,
+    updatedAt: Instant
 ):
 
   import Study.*
@@ -47,9 +47,9 @@ case class Study(
   def isUnlisted = visibility == Study.Visibility.Unlisted
   def isPrivate  = visibility == Study.Visibility.Private
 
-  def isNew = (nowSeconds - createdAt.getSeconds) < 4
+  def isNew = (nowSeconds - createdAt.toSeconds) < 4
 
-  def isOld = (nowSeconds - updatedAt.getSeconds) > 20 * 60
+  def isOld = (nowSeconds - updatedAt.toSeconds) > 20 * 60
 
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
@@ -60,8 +60,8 @@ case class Study(
       visibility = Study.Visibility.Private,
       from = Study.From.Study(id),
       likes = Likes(1),
-      createdAt = nowDate,
-      updatedAt = nowDate
+      createdAt = nowInstant,
+      updatedAt = nowInstant
     )
 
   def nbMembers = members.members.size
@@ -101,9 +101,9 @@ object Study:
   case class Liking(likes: Likes, me: Boolean)
   val emptyLiking = Liking(Likes(0), me = false)
 
-  opaque type Rank = DateTime
-  object Rank extends OpaqueDate[Rank]:
-    def compute(likes: Likes, createdAt: DateTime) =
+  opaque type Rank = Instant
+  object Rank extends OpaqueInstant[Rank]:
+    def compute(likes: Likes, createdAt: Instant) =
       Rank(createdAt plusHours likesToHours(likes))
     private def likesToHours(likes: Likes): Int =
       if (likes < 1) 0
@@ -162,6 +162,6 @@ object Study:
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),
-      createdAt = nowDate,
-      updatedAt = nowDate
+      createdAt = nowInstant,
+      updatedAt = nowInstant
     )

@@ -19,7 +19,7 @@
   <string name="notEnoughGames">אין מספיק משחקים</string>
   <string name="highestRating">דירוג שיא: %s</string>
   <string name="lowestRating">דירוג שפל: %s</string>
-  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">מ - %1$s עד %2$s</string>
+  <string name="fromXToY">מ - %1$s עד %2$s</string>
   <string name="winningStreak">רצף ניצחונות</string>
   <string name="losingStreak">רצף הפסדים</string>
   <string name="longestStreak">הרצף הארוך ביותר: %s</string>

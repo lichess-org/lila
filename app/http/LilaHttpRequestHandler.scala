@@ -1,11 +1,9 @@
 package lila.app
 package http
 
-import play.api.http.{ DefaultHttpRequestHandler, HttpConfiguration, HttpErrorHandler, HttpRequestHandler }
+import play.api.http.{ DefaultHttpRequestHandler, HttpConfiguration, HttpErrorHandler }
 import play.api.mvc.{ ControllerComponents, EssentialFilter, Handler, RequestHeader, Results }
 import play.api.routing.Router
-
-import lila.common.Chronometer
 
 final class LilaHttpRequestHandler(
     router: Router,
@@ -16,16 +14,17 @@ final class LilaHttpRequestHandler(
 ) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters):
 
   override def routeRequest(request: RequestHeader): Option[Handler] =
-    if (request.method == "OPTIONS") optionsHandler.some
+    if request.method == "OPTIONS"
+    then optionsHandler.some
     else router handlerFor request
 
   // should be handled by nginx in production
   private val optionsHandler =
-    controllerComponents.actionBuilder { (req: RequestHeader) =>
-      if (lila.common.HTTPRequest.isApiOrApp(req))
+    controllerComponents.actionBuilder: (req: RequestHeader) =>
+      if lila.common.HTTPRequest.isApiOrApp(req)
+      then
         Results.NoContent.withHeaders(
           "Allow"                  -> ResponseHeaders.allowMethods,
           "Access-Control-Max-Age" -> "86400"
         )
       else Results.NotFound
-    }

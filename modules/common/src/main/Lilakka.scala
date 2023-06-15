@@ -4,7 +4,7 @@ import akka.actor.*
 
 object Lilakka:
 
-  val logger = lila.log("shutdown")
+  val shutdownLogger = lila.log("shutdown")
 
   def shutdown(cs: CoordinatedShutdown, makePhase: CoordinatedShutdown.type => String, name: String)(
       f: () => Funit
@@ -12,8 +12,8 @@ object Lilakka:
     val phase = makePhase(CoordinatedShutdown)
     val msg   = s"$phase $name"
     cs.addTask(phase, name) { () =>
-      logger.info(msg)
+      shutdownLogger.info(msg)
       Chronometer(f())
-        .log(logger)(_ => msg)
+        .log(shutdownLogger)(_ => msg)
         .result inject akka.Done
     }

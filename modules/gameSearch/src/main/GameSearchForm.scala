@@ -8,6 +8,7 @@ import play.api.i18n.Lang
 import lila.common.Form.*
 import lila.search.Range
 import lila.user.UserForm.historicalUsernameField
+import java.time.LocalDate
 
 final private[gameSearch] class GameSearchForm:
 
@@ -54,7 +55,7 @@ final private[gameSearch] class GameSearchForm:
   ) fill SearchData()
 
 private[gameSearch] object GameSearchForm:
-  val dateField = optional(ISODateOrTimestamp.isoDateOrTimestamp)
+  val dateField = optional(ISODateOrTimestamp.mapping)
 
 private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
@@ -72,8 +73,8 @@ private[gameSearch] case class SearchData(
     durationMin: Option[Int] = None,
     durationMax: Option[Int] = None,
     clock: SearchClock = SearchClock(),
-    dateMin: Option[DateTime] = None,
-    dateMax: Option[DateTime] = None,
+    dateMin: Option[LocalDate] = None,
+    dateMax: Option[LocalDate] = None,
     status: Option[Int] = None,
     analysed: Option[Int] = None,
     sort: Option[SearchSort] = None

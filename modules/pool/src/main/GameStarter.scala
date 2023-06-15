@@ -2,7 +2,7 @@ package lila.pool
 
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 import lila.common.config.Max
 
 final private class GameStarter(
@@ -10,7 +10,7 @@ final private class GameStarter(
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
-)(using Executor, akka.actor.Scheduler):
+)(using Executor, Scheduler):
 
   import PoolApi.*
 
@@ -18,7 +18,7 @@ final private class GameStarter(
     lila.hub.AsyncActorSequencer(maxSize = Max(32), timeout = 10 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
-    couples.nonEmpty ?? {
+    couples.nonEmpty so {
       workQueue {
         val userIds = couples.flatMap(_.userIds)
         userRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size) flatMap {
@@ -35,8 +35,8 @@ final private class GameStarter(
       id: GameId
   ): Fu[Option[Pairing]] =
     import couple.*
-    import cats.implicits.*
-    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? { (perf1, perf2) =>
+    import cats.syntax.all.*
+    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) so { (perf1, perf2) =>
       for {
         p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
         (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1

@@ -2,7 +2,6 @@ package lila.streamer
 
 import play.api.libs.json.*
 
-import lila.user.User
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
 import lila.common.Json.given
@@ -20,7 +19,7 @@ trait Stream:
 
   lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
 
-  lazy val lang: String = (language.length == 2) ?? language.toLowerCase
+  lazy val lang: String = (language.length == 2) so language.toLowerCase
 
 object Stream:
 

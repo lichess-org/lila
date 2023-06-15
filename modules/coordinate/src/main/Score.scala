@@ -1,7 +1,5 @@
 package lila.coordinate
 
-import lila.user.User
-
 case class Score(
     _id: UserId,
     white: List[Int] = Nil,

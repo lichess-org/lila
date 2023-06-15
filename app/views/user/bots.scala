@@ -3,18 +3,18 @@ package user
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
 object bots:
 
-  def apply(users: List[User])(implicit ctx: Context) =
+  def apply(users: List[User])(using WebContext) =
 
     val title = s"${users.size} Online bots"
 
-    val sorted = users.sortBy { -_.playTime.??(_.total) }
+    val sorted = users.sortBy { -_.playTime.so(_.total) }
 
     views.html.base.layout(
       title = title,
@@ -47,7 +47,7 @@ object bots:
       )
     )
 
-  private def botTable(users: List[User])(implicit ctx: Context) = div(cls := "bots__list")(
+  private def botTable(users: List[User])(using ctx: WebContext) = div(cls := "bots__list")(
     users map { u =>
       div(cls := "bots__list__entry")(
         div(cls := "bots__list__entry__desc")(
@@ -64,7 +64,7 @@ object bots:
             .map { bio => td(shorten(bio, 400)) }
         ),
         a(
-          dataIcon := "",
+          dataIcon := licon.Swords,
           cls      := List("bots__list__entry__play button button-empty text" -> true),
           st.title := trans.challenge.challengeToPlay.txt(),
           href     := s"${routes.Lobby.home}?user=${u.username}#friend"

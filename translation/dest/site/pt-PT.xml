@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' com arredondamento, baseado no número de meios-movimentos até à próxima captura ou movimento de peão</string>
   <string name="noGameFound">Nenhum jogo encontrado</string>
+  <string name="maxDepthReached">Nível máximo alcançado!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openings">Aberturas</string>
   <string name="openingExplorer">Explorador de aberturas</string>
@@ -119,6 +120,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o teu computador quente</string>
+  <string name="engineManager">Gestão do motor</string>
   <string name="blunder">Erro grave</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
@@ -207,7 +209,14 @@
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
+  <string name="error.weakPassword">Esta senha é extremamente comum, e muito fácil de adivinhar.</string>
+  <string name="error.namePassword">Por favor, não usa o teu nome de utilizador como senha.</string>
+  <string name="blankedPassword">Utilizou a mesma palavra-passe noutro site, e esse site foi comprometido. Para garantir a segurança da sua conta Lichess, precisamos que redefina a palavra-passe. Obrigado pela compreensão.</string>
   <string name="youAreLeavingLichess">Você está a sair do Lichess</string>
+  <string name="neverTypeYourPassword">Nunca escrevas a tua senha Lichess em outro site!</string>
+  <string name="proceedToX">Continuar para %s</string>
+  <string name="passwordSuggestion">Não uses uma senha sugerida por outra pessoa. Eles vão utilizar-la para roubar a tua conta.</string>
+  <string name="emailSuggestion">Não uses um email sugerida por outra pessoa. Eles vão utilizar-la para roubar a tua conta.</string>
   <string name="emailConfirmHelp">Ajuda com a confirmação do endereço eletrónico</string>
   <string name="emailConfirmNotReceived">Não recebeu no seu correio eletrónico uma mensagem de confirmação após o registo?</string>
   <string name="whatSignupUsername">Que nome de utilizador usou para se registar?</string>
@@ -335,6 +344,7 @@
   </plurals>
   <string name="viewTournament">Ver o torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
+  <string name="noDrawBeforeSwissLimit">Num torneio suíço não pode empatar antes de 30 jogadas.</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida a valer pontos</item>
@@ -364,6 +374,7 @@
   <string name="siteDescription">Xadrez online gratuito. Joga xadrez numa interface simples. Sem registos, sem anúncios, sem plugins. Joga xadrez com o computador, amigos ou adversários aleatórios.</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipa %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipa %2$s</string>
+  <string name="startedStreaming">começou uma stream</string>
   <string name="xStartedStreaming">%s começou uma stream</string>
   <string name="averageElo">Pontuação média</string>
   <string name="location">Localização</string>
@@ -383,6 +394,7 @@
   <string name="importGame">Importar uma partida</string>
   <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição,
 análise de computador, sala de chat do jogo e link de partilha.</string>
+  <string name="importGameCaveat">As variações serão apagadas. Para mantê-las, importe o PGN através de um estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -654,6 +666,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="simulClockHint">Configuração de incrementos no relógio. Quanto mais jogadores admitires, mais tempo poderás necessitar.</string>
   <string name="simulAddExtraTime">Podes acrescentar tempo adicional ao teu relógio, para te ajudar a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do anfitrião</string>
+  <string name="simulAddExtraTimePerPlayer">Adicione tempo inicial ao seu relógio para cada jogador que entra na simulação.</string>
+  <string name="simulHostExtraTimePerPlayer">Tempo extra de relógio por jogador</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
   <string name="tournamentFAQ">Perguntas frequentes sobre torneios em arena</string>
   <string name="timeBeforeTournamentStarts">Contagem decrescente para o início do torneio</string>
@@ -761,6 +775,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="invalidFen">FEN inválido</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
+  <string name="notificationsX">Notificações: %1$s</string>
   <string name="perfRatingX">Pontuação: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
@@ -855,6 +870,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="useTheReportForm">usa a ficha própria para o fazeres</string>
   <string name="toRequestSupport">Para solicitares suporte, %1$s.</string>
   <string name="tryTheContactPage">tenta a página de contacto</string>
+  <string name="makeSureToRead">Certifique-se que lê %1$s</string>
+  <string name="theForumEtiquette">a etiqueta do fórum</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e já não pode ser respondido.</string>
   <string name="joinTheTeamXToPost">Junta-te a %1$s, para publicares neste fórum</string>
   <string name="teamNamedX">equipa %1$s</string>
@@ -871,8 +888,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="congratsYouWon">Parabéns! Ganhaste!</string>
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Alguém avaliou o teu perfil de treinador.</string>
-  <string name="newPendingReview">Nova revisão pendente</string>
   <string name="lostAgainstTOSViolator">Perdes-te contra alguém que violou as regras do Lichess</string>
   <string name="refundXpointsTimeControlY">Devolução: %1$s %2$s pontos de Elo.</string>
   <string name="timeAlmostUp">O tempo está quase a terminar!</string>
@@ -938,4 +953,5 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="lichessDbExplanation">Jogos avaliados por amostragem de todos os jogadores Lichess</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar a sua conta anulará o seu apelo</string>
+  <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
 </resources>

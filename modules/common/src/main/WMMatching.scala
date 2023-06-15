@@ -32,7 +32,7 @@ object WMMatching:
       }
     }
 
-  // founds minimum-weighted matching amoung maximum-cardinality matchings
+  // founds minimum-weighted matching among maximum-cardinality matchings
   private[this] def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] =
     val (endpoint, weights) = fullGraph(nvertex, pairScore)
     if (endpoint.isEmpty) Nil

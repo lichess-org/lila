@@ -4,43 +4,40 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ AnnounceStore, Context }
+import lila.api.{ Nonce, AnnounceStore, WebContext }
 import lila.app.templating.Environment.{ given, * }
+import lila.app.ContentSecurityPolicy
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.base.StringUtils.escapeHtmlRaw
-import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
-import lila.common.{ ContentSecurityPolicy, Nonce }
+import lila.common.LangPath
 
 object layout:
 
   object bits:
-    val doctype                      = raw("<!DOCTYPE html>")
-    def htmlTag(implicit lang: Lang) = html(st.lang := lang.code, dir := isRTL.option("rtl"))
-    val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
-    val charset    = raw("""<meta charset="utf-8">""")
-    val viewport = raw(
+    val doctype                   = raw("<!DOCTYPE html>")
+    def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL.option("rtl"))
+    val topComment                = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
+    val charset                   = raw("""<meta charset="utf-8">""")
+    val viewport = raw:
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
-    )
-    def metaCsp(csp: ContentSecurityPolicy): Frag =
-      raw {
-        s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
-      }
-    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag =
+    def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
+      s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
+    def metaCsp(csp: Option[ContentSecurityPolicy])(using ctx: WebContext): Frag =
       metaCsp(csp getOrElse defaultCsp)
-    def metaThemeColor(using ctx: Context): Frag = if (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) raw {
-      s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
-        s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
-    }
-    else
-      raw {
-        s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
-      }
-    def pieceSprite(using ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
+    def metaThemeColor(using ctx: WebContext): Frag =
+      if ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM then
+        raw:
+          s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
+            s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
+      else
+        raw:
+          s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+    def pieceSprite(using ctx: WebContext): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() ?? "external."}css"),
+        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() so "external."}css"),
         rel  := "stylesheet"
       )
   import bits.*
@@ -48,11 +45,11 @@ object layout:
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
-    raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t =>
-        s"""type="$t" """
-      )}${crossorigin ?? "crossorigin"}>""")
+    val linkType = tpe.so(t => s"""type="$t" """)
+    raw:
+      s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin so "crossorigin"}>"""
 
-  private def fontPreload(implicit ctx: Context) = frag(
+  private def fontPreload(using ctx: WebContext) = frag(
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(
       assetUrl("font/noto-sans-v14-latin-regular.woff2"),
@@ -63,33 +60,30 @@ object layout:
     !ctx.pref.pieceNotationIsLetter option
       preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
   )
-  private def boardPreload(implicit ctx: Context) = frag(
+  private def boardPreload(using ctx: WebContext) = frag(
     preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d option
       preload(assetUrl(s"images/staunton/board/${ctx.currentTheme3d.file}"), "image", crossorigin = false)
   )
-  private def piecesPreload(implicit ctx: Context) =
-    env.pieceImageExternal.get() option raw {
+  private def piecesPreload(using ctx: WebContext) =
+    env.pieceImageExternal.get() option raw:
       (for {
         c <- List('w', 'b')
         p <- List('K', 'Q', 'R', 'B', 'N', 'P')
         href = staticAssetUrl(s"piece/${ctx.currentPieceSet.name}/$c$p.svg")
       } yield s"""<link rel="preload" href="$href" as="image">""").mkString
-    }
 
-  private val manifests = raw(
+  private val manifests = raw:
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
-  )
 
   private val jsLicense = raw("""<link rel="jslicense" href="/source">""")
 
-  private val favicons = raw {
+  private val favicons = raw:
     List(512, 256, 192, 128, 64)
-      .map { px =>
+      .map: px =>
         s"""<link rel="icon" type="image/png" href="${assetUrl(
             s"logo/lichess-favicon-$px.png"
           )}" sizes="${px}x$px">"""
-      }
       .mkString(
         "",
         "",
@@ -97,25 +91,20 @@ object layout:
             "logo/lichess-favicon-32.png"
           )}" sizes="32x32">"""
       )
-  }
-  private def blindModeForm(implicit ctx: Context) =
-    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
-        if (ctx.blind)
-          0
-        else
-          1
+  private def blindModeForm(using ctx: WebContext) = raw:
+    s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
+        if ctx.blind then 0 else 1
       }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${
-        if (ctx.blind)
-          "Disable"
-        else "Enable"
-      } blind mode</button></form>""")
+        if ctx.blind then "Disable" else "Enable"
+      } blind mode</button></form>"""
 
-  private def zenZone(implicit ctx: Context) =
-    spaceless(s"""
+  private def zenZone(using Lang) = spaceless:
+    s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
-  <a data-icon="" id="zentog" class="text fbt active">${trans.preferences.zenMode.txt()}</a>
-</div>""")
+  <a data-icon="${licon.Checkmark}"" id="zentog" class="text fbt active">${trans.preferences.zenMode
+        .txt()}</a>
+</div>"""
 
   private def dasher(me: lila.user.User) =
     div(cls := "dasher")(
@@ -123,38 +112,37 @@ object layout:
       div(id := "dasher_app", cls := "dropdown")
     )
 
-  private def allNotifications(implicit ctx: Context) =
-    spaceless(s"""<div>
-  <a id="challenge-toggle" class="toggle link">
-    <span title="${trans.challenge.challenges
-        .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
-  </a>
+  private def allNotifications(using ctx: WebContext) =
+    val challengeTitle = trans.challenge.challengesX.txt(ctx.nbChallenges)
+    val notifTitle     = trans.notificationsX.txt(ctx.nbNotifications.value)
+    spaceless:
+      s"""<div>
+  <button id="challenge-toggle" class="toggle link">
+    <span title="$challengeTitle" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
+  </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
-  <a id="notify-toggle" class="toggle link">
-    <span title="${trans.notifications
-        .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
-  </a>
+  <button id="notify-toggle" class="toggle link">
+    <span title="$notifTitle" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
+  </button>
   <div id="notify-app" class="dropdown"></div>
-</div>""")
+</div>"""
 
-  private def anonDasher(implicit ctx: Context) =
-    spaceless {
+  private def anonDasher(using ctx: WebContext) =
+    val preferences = trans.preferences.preferences.txt()
+    spaceless:
       s"""<div class="dasher">
-  <a class="toggle link anon">
-    <span title="${trans.preferences.preferences.txt()}" data-icon=""></span>
-  </a>
+  <button class="toggle link anon">
+    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}""></span>
+  </button>
   <div id="dasher_app" class="dropdown"></div>
 </div>
-<a href="${langHref(
-          routes.Auth.login
-        )}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
-    }
+<a href="/login?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
 
-  private val clinputLink = a(cls := "link")(span(dataIcon := ""))
+  private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
 
-  private def clinput(implicit ctx: Context) =
+  private def clinput(using ctx: WebContext) =
     div(id := "clinput")(
       clinputLink,
       input(
@@ -166,30 +154,24 @@ object layout:
       )
     )
 
-  private def current2dTheme(implicit ctx: Context) =
-    if (ctx.pref.is3d && ctx.pref.theme == "horsey") lila.pref.Theme.default
+  private def current2dTheme(using ctx: WebContext) =
+    if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.currentTheme
 
   private def botImage =
     img(
       src   := assetUrl("images/icons/bot.png"),
       title := "Robot chess",
-      style :=
-        "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
+      style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
+  private def loadScripts(moreJs: Frag, chessground: Boolean)(using ctx: WebContext) =
     frag(
       chessground option chessgroundTag,
       ctx.requiresFingerprint option fingerprintTag,
       ctx.nonce map inlineJs.apply,
-      if (netConfig.minifiedAssets)
-        jsModule("lichess")
-      else
-        frag(
-          depsTag,
-          jsModule("site")
-        ),
+      if netConfig.minifiedAssets then jsModule("lichess")
+      else frag(depsTag, jsModule("site")),
       moreJs,
       ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry"),
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
@@ -198,17 +180,16 @@ object layout:
   private def hrefLang(lang: String, path: String) =
     s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
 
-  private def hrefLangs(path: LangPath)(implicit ctx: Context) = raw {
-    val pathEnd = if (path.value == "/") "" else path.value
+  private def hrefLangs(path: LangPath) = raw {
+    val pathEnd = if path.value == "/" then "" else path.value
     hrefLang("x-default", path.value) + hrefLang("en", path.value) +
       lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
         hrefLang(lang, s"/$lang$pathEnd")
       }.mkString
   }
 
-  private val spinnerMask = raw(
+  private val spinnerMask = raw:
     """<svg width="0" height="0"><mask id="mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
-  )
 
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
@@ -242,17 +223,21 @@ object layout:
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
       withHrefLangs: Option[LangPath] = None
-  )(body: Frag)(implicit ctx: Context): Frag =
+  )(body: Frag)(using ctx: WebContext): Frag =
     frag(
       doctype,
-      htmlTag(ctx.lang)(
+      htmlTag(
         topComment,
         head(
           charset,
           viewport,
           metaCsp(csp),
           metaThemeColor,
-          st.headTitle(fullTitle | s"$title • $siteName"),
+          st.headTitle {
+            val prodTitle = fullTitle | s"$title • $siteName"
+            if netConfig.isProd then prodTitle
+            else s"${ctx.me.so(_.username + " ")} $prodTitle"
+          },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),
           ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
@@ -277,10 +262,9 @@ object layout:
             rel := "alternate"
           ),
           ctx.pref.bg == lila.pref.Pref.Bg.TRANSPARENT option ctx.pref.bgImgOrDefault map { img =>
-            raw(
+            raw:
               s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
                   .replace("&amp;", "&")}");}</style>"""
-            )
           },
           fontPreload,
           boardPreload,
@@ -339,7 +323,7 @@ object layout:
             )
           )(body),
           ctx.me.exists(_.enabled.yes) option div(id := "friend_box")(
-            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
+            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))),
             div(cls := "content_wrap none")(
               div(cls := "content list")
             )
@@ -347,9 +331,9 @@ object layout:
           netConfig.socketDomains.nonEmpty option a(
             id       := "reconnecting",
             cls      := "link text",
-            dataIcon := ""
+            dataIcon := licon.ChasingArrows
           )(trans.reconnecting()),
-          ctx.pref.agreementNeededSince map { date =>
+          ctx.pref.agreementNeededSince.map: date =>
             div(id := "agreement")(
               div(
                 "Lichess has updated the ",
@@ -358,11 +342,9 @@ object layout:
                 showDate(date),
                 "."
               ),
-              postForm(action := routes.Pref.set("agreement"))(
+              postForm(action := routes.Pref.set("agreement")):
                 button(cls := "button")("OK")
-              )
-            )
-          },
+            ),
           spinnerMask,
           loadScripts(moreJs, chessground)
         )
@@ -371,54 +353,50 @@ object layout:
 
   object siteHeader:
 
-    private val topnavToggle = spaceless(
+    private val topnavToggle = spaceless:
       """
 <input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" autocomplete="off" aria-label="Navigation">
 <label for="tn-tg" class="fullscreen-mask"></label>
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>"""
-    )
 
-    private def reports(implicit ctx: Context) =
-      if (isGranted(_.SeeReport)) {
-        blockingReportScores match
-          case (score, mid, high) =>
-            a(
-              cls := List(
-                "link data-count report-score link-center" -> true,
-                "report-score--high"                       -> (score > high),
-                "report-score--low"                        -> (score <= mid)
-              ),
-              title     := "Moderation",
-              href      := reportRoutes.list,
-              dataCount := score,
-              dataIcon  := ""
-            )
-      }.some
+    private def reports(using WebContext) =
+      if isGranted(_.SeeReport) then
+        val (score, mid, high) = blockingReportScores
+        a(
+          cls := List(
+            "link data-count report-score link-center" -> true,
+            "report-score--high"                       -> (score > high),
+            "report-score--low"                        -> (score <= mid)
+          ),
+          title     := "Moderation",
+          href      := reportRoutes.list,
+          dataCount := score,
+          dataIcon  := licon.Agent
+        ).some
       else
-        (isGranted(_.PublicChatView)) option
-          a(
-            cls      := "link",
-            title    := "Moderation",
-            href     := routes.Mod.publicChat,
-            dataIcon := ""
-          )
+        isGranted(_.PublicChatView) option a(
+          cls      := "link",
+          title    := "Moderation",
+          href     := routes.Mod.publicChat,
+          dataIcon := licon.Agent
+        )
 
-    private def teamRequests(implicit ctx: Context) =
+    private def teamRequests(using ctx: WebContext) =
       ctx.teamNbRequests > 0 option
         a(
           cls       := "link data-count link-center",
           href      := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon  := "",
+          dataIcon  := licon.Group,
           title     := trans.team.teams.txt()
         )
 
-    def apply(zenable: Boolean)(using ctx: Context) =
+    def apply(zenable: Boolean)(using ctx: WebContext) =
       header(id := "top")(
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
           h1(cls := "site-title")(
-            if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
+            if ctx.kid then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
             a(href := langHref("/"))(siteNameFrag)
           ),
@@ -434,10 +412,9 @@ object layout:
           !ctx.isAppealUser option clinput,
           reports,
           teamRequests,
-          if (ctx.isAppealUser)
-            postForm(action := routes.Auth.logout)(
+          if ctx.isAppealUser then
+            postForm(action := routes.Auth.logout):
               submitButton(cls := "button button-red link")(trans.logOut())
-            )
           else
             ctx.me map { me =>
               frag(allNotifications, dasher(me))

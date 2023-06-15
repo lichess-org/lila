@@ -17,15 +17,15 @@ private object BsonHandlers:
 
   object PatronHandlers:
     import Patron.*
-    given BSONDocumentHandler[PayPalLegacy]   = Macros.handler
-    given BSONDocumentHandler[PayPalCheckout] = Macros.handler
-    given BSONDocumentHandler[Stripe]         = Macros.handler
-    given BSONDocumentHandler[Free]           = Macros.handler
-    given BSONDocumentHandler[Patron]         = Macros.handler
+    given BSONDocumentHandler[PayPalLegacy]                   = Macros.handler
+    given payPalCheckout: BSONDocumentHandler[PayPalCheckout] = Macros.handler
+    given BSONDocumentHandler[Stripe]                         = Macros.handler
+    given BSONDocumentHandler[Free]                           = Macros.handler
+    given BSONDocumentHandler[Patron]                         = Macros.handler
 
   object ChargeHandlers:
     import Charge.*
-    given BSONDocumentHandler[Stripe]         = Macros.handler
-    given BSONDocumentHandler[PayPalLegacy]   = Macros.handler
-    given BSONDocumentHandler[PayPalCheckout] = Macros.handler
-    given BSONDocumentHandler[Charge]         = Macros.handler
+    import PatronHandlers.payPalCheckout
+    given BSONDocumentHandler[Stripe]       = Macros.handler
+    given BSONDocumentHandler[PayPalLegacy] = Macros.handler
+    given BSONDocumentHandler[Charge]       = Macros.handler

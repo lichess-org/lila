@@ -1,19 +1,19 @@
 package lila.swiss
 
-import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.{ GreatPlayer, LightUser }
+import lila.common.LightUser
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.quote.Quote.given
 import lila.socket.{ SocketVersion, given }
 import lila.user.{ User, UserRepo }
+import lila.gathering.Condition.WithVerdicts
+import lila.gathering.GreatPlayer
 
 final class SwissJson(
     mongo: SwissMongo,
-    pairingSystem: PairingSystem,
     standingApi: SwissStandingApi,
     rankingApi: SwissRankingApi,
     boardApi: SwissBoardApi,
@@ -36,13 +36,13 @@ final class SwissJson(
       swiss: Swiss,
       me: Option[User],
       isInTeam: Boolean,
-      verdicts: SwissCondition.All.WithVerdicts,
+      verdicts: WithVerdicts,
       reqPage: Option[Int] = None, // None = focus on me
       socketVersion: Option[SocketVersion] = None,
       playerInfo: Option[SwissPlayer.ViewExt] = None
   )(using lang: Lang): Fu[JsObject] = {
     for {
-      myInfo <- me.?? { fetchMyInfo(swiss, _) }
+      myInfo <- me.so { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
       standing <- standingApi(swiss, page)
       podium   <- podiumJson(swiss)
@@ -76,7 +76,7 @@ final class SwissJson(
       updatePlayerRating(swiss, player, me) >>
         SwissPairing.fields { f =>
           (swiss.nbOngoing > 0)
-            .?? {
+            .so {
               mongo.pairing
                 .find(
                   $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
@@ -97,7 +97,7 @@ final class SwissJson(
     swiss.settings.rated
       .option(user perfs swiss.perfType)
       .filter(_.intRating != player.rating)
-      .?? { perf =>
+      .so { perf =>
         SwissPlayer.fields { f =>
           mongo.player.update
             .one(
@@ -109,7 +109,7 @@ final class SwissJson(
       }
 
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
-    swiss.isFinished ?? {
+    swiss.isFinished so {
       SwissPlayer.fields { f =>
         mongo.player
           .find($doc(f.swissId -> swiss.id))
@@ -155,14 +155,12 @@ final class SwissJson(
 
 object SwissJson:
 
-  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
-
   private def swissJsonBase(swiss: Swiss) =
     Json
       .obj(
         "id"        -> swiss.id,
         "createdBy" -> swiss.createdBy,
-        "startsAt"  -> formatDate(swiss.startsAt),
+        "startsAt"  -> isoDateTimeFormatter.print(swiss.startsAt),
         "name"      -> swiss.name,
         "clock"     -> swiss.clock,
         "variant"   -> swiss.variant.key,
@@ -178,8 +176,8 @@ object SwissJson:
       )
       .add("nextRound" -> swiss.nextRoundAt.map { next =>
         Json.obj(
-          "at" -> formatDate(next),
-          "in" -> (next.getSeconds - nowSeconds).toInt.atLeast(0)
+          "at" -> isoDateTimeFormatter.print(next),
+          "in" -> (next.toSeconds - nowSeconds).toInt.atLeast(0)
         )
       })
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
@@ -232,7 +230,7 @@ object SwissJson:
         "points"   -> p.points,
         "tieBreak" -> p.tieBreak
       )
-      .add("performance" -> (performance ?? p.performance))
+      .add("performance" -> (performance so p.performance))
       .add("provisional" -> p.provisional)
       .add("absent" -> p.absent)
 

@@ -1,7 +1,7 @@
 package lila.socket
 
 import chess.format.{ Fen, Uci }
-import chess.{ Check, Ply, Pos }
+import chess.{ Check, Ply, Square }
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
 
@@ -11,31 +11,18 @@ case class Step(
     fen: Fen.Epd,
     check: Check,
     // None when not computed yet
-    dests: Option[Map[Pos, List[Pos]]],
-    drops: Option[List[Pos]],
+    dests: Option[Map[Square, List[Square]]],
+    drops: Option[List[Square]],
     crazyData: Option[Crazyhouse.Data]
 ):
   // who's color plays next
-  def color = ply.color
+  def color = ply.turn
 
   def toJson = Json toJson this
 
 object Step:
 
-  // TODO copied from lila.game
-  // put all that shit somewhere else
-  given OWrites[Crazyhouse.Pocket] = OWrites { v =>
-    JsObject(
-      Crazyhouse.storableRoles.flatMap { role =>
-        Some(v.roles.count(role ==)).filter(0 <).map { count =>
-          role.name -> JsNumber(count)
-        }
-      }
-    )
-  }
-  given OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
-  }
+  import lila.common.Json.given
 
   given Writes[Step] = Writes { step =>
     import lila.common.Json.given

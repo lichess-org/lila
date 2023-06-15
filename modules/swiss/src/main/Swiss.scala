@@ -6,7 +6,6 @@ import chess.Speed
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
-import lila.user.User
 
 case class Swiss(
     _id: SwissId,
@@ -16,23 +15,24 @@ case class Swiss(
     round: SwissRoundNumber, // ongoing round
     nbPlayers: Int,
     nbOngoing: Int,
-    createdAt: DateTime,
+    createdAt: Instant,
     createdBy: UserId,
     teamId: TeamId,
-    startsAt: DateTime,
+    startsAt: Instant,
     settings: Swiss.Settings,
-    nextRoundAt: Option[DateTime],
-    finishedAt: Option[DateTime],
+    nextRoundAt: Option[Instant],
+    finishedAt: Option[Instant],
     winnerId: Option[UserId] = None
 ):
   inline def id = _id
 
-  def isCreated          = round.value == 0
-  def isStarted          = !isCreated && !isFinished
-  def isFinished         = finishedAt.isDefined
-  def isNotFinished      = !isFinished
-  def isNowOrSoon        = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
-  def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
+  def isCreated            = round.value == 0
+  def isStarted            = !isCreated && !isFinished
+  def isFinished           = finishedAt.isDefined
+  def isNotFinished        = !isFinished
+  def isNowOrSoon          = startsAt.isBefore(nowInstant plusMinutes 15) && !isFinished
+  def finishedSinceSeconds = finishedAt.map(nowSeconds - _.toSeconds)
+  def isRecentlyFinished   = finishedSinceSeconds.exists(_ < 30 * 60)
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 

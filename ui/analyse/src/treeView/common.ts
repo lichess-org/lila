@@ -100,19 +100,43 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
   );
 }
 
-export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
+export const truncatedComment = (path: string, ctx: Ctx): Hooks => ({
+  insert(vnode: VNode) {
+    (vnode.elm as HTMLElement).addEventListener('click', () => {
+      ctx.ctrl.userJumpIfCan(path);
+      // Select the comments tab in the underboard
+      ctx.ctrl.study?.vm.toolTab('comments');
+      //Redraw everything
+      ctx.ctrl.redraw();
+      // Scroll down to the comments tab
+      $('.analyse__underboard')[0]?.scrollIntoView();
+    });
+  },
+});
+
+export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, path: string): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
   return node
-    .comments!.map(comment => {
-      if (comment.by === 'lichess' && !ctx.showComputer) return;
-      const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
-        truncated = truncateComment(comment.text, 300, ctx);
-      return h('comment', {
-        hook: innerHTML(truncated, text => by + enrichText(text)),
-      });
-    })
+    .comments!.map(comment => renderComment(comment, node.comments!, 'comment', ctx, path, 300))
     .filter(nonEmpty);
 }
+
+export const renderComment = (
+  comment: Tree.Comment,
+  others: Tree.Comment[],
+  sel: string,
+  ctx: Ctx,
+  path: string,
+  maxLength: number
+) => {
+  if (comment.by === 'lichess' && !ctx.showComputer) return;
+  const by = !others[1] ? '' : `<span class="by">${commentAuthorText(comment.by)}</span>`,
+    truncated = truncateComment(comment.text, maxLength, ctx),
+    htmlHook = innerHTML(truncated, text => by + enrichText(text));
+  return truncated.length < comment.text.length
+    ? h(`${sel}.truncated`, { hook: truncatedComment(path, ctx) }, [h('span', { hook: htmlHook })])
+    : h(sel, { hook: htmlHook });
+};
 
 export function truncateComment(text: string, len: number, ctx: Ctx) {
   return ctx.truncateComments && text.length > len ? text.slice(0, len - 10) + ' [...]' : text;

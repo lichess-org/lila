@@ -5,6 +5,7 @@ import com.softwaremill.macwire.*
 import lila.common.config.*
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
@@ -19,7 +20,7 @@ final class Env(
     baseUrl: BaseUrl
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
 ):

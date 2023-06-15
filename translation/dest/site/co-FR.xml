@@ -23,8 +23,8 @@
   <string name="createAGame">Creà una partita</string>
   <string name="whiteIsVictorious">I bianchi anu vintu</string>
   <string name="blackIsVictorious">I neri anu vintu</string>
-  <string name="youPlayTheWhitePieces">Ghjucate cù i pezzi bianchi</string>
-  <string name="youPlayTheBlackPieces">Ghjucate cù i pezzi neri</string>
+  <string name="youPlayTheWhitePieces">Ghjucate cù e pezze bianche</string>
+  <string name="youPlayTheBlackPieces">Ghjucate cù e pezze nere</string>
   <string name="itsYourTurn">Tocca à voi!</string>
   <string name="cheatDetected">Arrubera Scuperta</string>
   <string name="kingInTheCenter">Rè in u centru</string>
@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\" attundulatu, basatu nantu à u numeru di mezzicolpi sin\' à a prossima cattura o u prossimu muvimentu di pedinu</string>
   <string name="noGameFound">Ùn ci hè partita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seria megliu d\' include d\' altre partite in u listinu di e preferenze?</string>
+  <string name="openings">Aperture</string>
   <string name="openingExplorer">Espluratore d\' apertura</string>
   <string name="openingEndgameExplorer">Apre u spluradore di i finali</string>
   <string name="xOpeningExplorer">%s espluratore d\' apertura</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Vede in taglia massima</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
+  <string name="rememberMe">Tene mi cunnessu</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
   <string name="signUp">Arrigistrà si</string>
   <string name="computersAreNotAllowedToPlay">L\' urdinatori è i ghjocadori chì adopranu un urdinatore ùn anu u drittu di ghjucà. Pè piace, ùn aiutate vi nè d\' un urdinatore, nè d\' una databasa, nè di i cunsigli d\' un altru ghjucadore duranti e vostre partite. Eppò, annutate ch\' avè parechji conti hè assai malvistu. I ghjucadori chì anu troppu conti seranu messi fora.</string>
@@ -314,7 +316,7 @@
     <item quantity="other">%s studii</item>
   </plurals>
   <string name="viewTournament">Vede a ghjustra</string>
-  <string name="backToTournament">Vultà si ne in a ghjustra</string>
+  <string name="backToTournament">Turnà in a ghjustra</string>
   <string name="thematic">Tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partita classificata</item>
@@ -340,7 +342,7 @@
   <string name="ratedLessThanInPerf">Ci vole à avè una classifica ≤ %1$s in %2$s sta settimana</string>
   <string name="mustBeInTeam">Ci vole à esse membru di a squadra %s</string>
   <string name="youAreNotInTeam">Ùn site membru di a squadra %s</string>
-  <string name="backToGame">Vultà si ne in a partita</string>
+  <string name="backToGame">Turnà in a partita</string>
   <string name="siteDescription">Hè un situ di scacchi in a reta di rigalu. Ghjucate à i scacchi in un interfaccia chjara. Ùn ci hè nè arregistramentu nè publicità, nè plugin dumandati. Ghjucate à i scacchi contru à l\' urdinatore, amichi, o aversariu di u mondu sanu.</string>
   <string name="xJoinedTeamY">%1$s hà ghjuntu a squadra %2$s</string>
   <string name="xCreatedTeamY">%1$s hà criatu a squadra %2$s</string>
@@ -619,7 +621,7 @@
   <string name="hostANewSimul">Accoglie una simultanea nova</string>
   <string name="noSimulFound">A simulatanea ùn hè truvata</string>
   <string name="noSimulExplanation">Issa esibizione simultanea ùn esista.</string>
-  <string name="returnToSimulHomepage">Vultà si ne in a pagina d\' accoglie di e simultanee</string>
+  <string name="returnToSimulHomepage">Turnà in a pagina d\' accoglie di e simultanee</string>
   <string name="aboutSimul">A simultanea oppone un ghjucadore solu contru à parechji ghjucadori.</string>
   <string name="aboutSimulImage">Oppostu à 50 avversarii, Fischer hà vintu 47 partite, hà fattu 2 partite patte, è ne hà persu 1.</string>
   <string name="aboutSimulRealLife">U cuncettu hè apparsu durante parechji eventi mundiali. In a realità, l\' ostu si tramuta da tola in tola pè ghjucà un colpu ogni volta.</string>
@@ -647,7 +649,7 @@
   <string name="tournamentNotFound">Ùn avemu micca trovu u turneu</string>
   <string name="tournamentDoesNotExist">Issu turneu ùn esiste micca.</string>
   <string name="tournamentMayHaveBeenCanceled">U turneu pò esse annullatu s\'è i ghjucadori si ritiranu nanzu à u principiu.</string>
-  <string name="returnToTournamentsHomepage">Vultà si ne in a pagina d\' accolta di u turneu</string>
+  <string name="returnToTournamentsHomepage">Turnà in a pagina d\' accolta di u turneu</string>
   <string name="weeklyPerfTypeRatingDistribution">%s ripartizione di e valutazione di a settimana</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s ghjucadore issa settimana.</item>
@@ -718,6 +720,7 @@
   <string name="light">Lume</string>
   <string name="dark">Bughju</string>
   <string name="transparent">Diafanu</string>
+  <string name="deviceTheme">Tema dispusitivu</string>
   <string name="backgroundImageUrl">URL di a fiura di u fondu:</string>
   <string name="boardGeometry">Geumetria di a scacchera</string>
   <string name="boardTheme">Aspettu di a scacchera</string>
@@ -845,8 +848,6 @@
   <string name="congratsYouWon">Felicitazioni, ai vintu!</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' allinadore.</string>
-  <string name="newPendingReview">Un utilzatore cerca un allinadore</string>
   <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Vi avemu resu: %1$s %2$s punti di classifica.</string>
   <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>

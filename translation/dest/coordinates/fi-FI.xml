@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Shakkikursseilla ja -harjoituksissa käytetään useimmiten algebrallista merkintätapaa.</string>
   <string name="talkToYourChessFriends">On helpompaa puhua shakkikavereidesi kanssa, kun ymmärrätte puolin ja toisin \"shakin kieltä\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Peliä voi analysoida tehokkaammin, kun ei tarvitse haeskella ruutujen nimiä.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Laudalle tulee näkyviin koordinaatit, ja sinun on klikattava niitä vastaavaa ruutua.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Laudalla valitaan vuorotellen eri ruutuja, ja tehtävänäsi on kirjoittaa kunkin koordinaatit (esim. \"e4\").</string>
+  <string name="aCoordinateAppears">Laudalle tulee näkyviin koordinaatit, ja sinun on klikattava niitä vastaavaa ruutua.</string>
+  <string name="aSquareIsHighlightedExplanation">Laudalla valitaan vuorotellen eri ruutuja, ja tehtävänäsi on kirjoittaa kunkin koordinaatit (esim. \"e4\").</string>
   <string name="youHaveThirtySeconds">Sinulla on 30 sekuntia aikaa paikantaa niin monta ruutua kuin ehdit!</string>
   <string name="goAsLongAsYouWant">Tee sitä kaikessa rauhassa, aikarajaa ei ole!</string>
   <string name="showCoordinates">Näytä koordinaatit</string>

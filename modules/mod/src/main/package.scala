@@ -1,6 +1,5 @@
 package lila.mod
 
-import lila.security.UserLogins
 import lila.user.User
 
 export lila.Lila.{ *, given }
@@ -14,7 +13,7 @@ final class ModQueueStatsRepo(val coll: lila.db.dsl.Coll)
 
 case class UserWithModlog(user: User, log: List[Modlog.UserEntry]):
   export user.*
-  def dateOf(action: Modlog.type => String): Option[DateTime] =
+  def dateOf(action: Modlog.type => String): Option[Instant] =
     log.find(_.action == action(Modlog)).map(_.date)
 
 object UserWithModlog:

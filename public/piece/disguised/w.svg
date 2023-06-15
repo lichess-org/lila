@@ -1,3 +1,1 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="256" cy="256" r="170" stroke="black" stroke-width="20" fill="white" />
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" fill="none"><circle cx="256" cy="256" r="170" fill="#fff" stroke="#000" stroke-width="20"/></svg>

@@ -2,7 +2,7 @@ package views.html.user.show
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -18,12 +18,12 @@ object gamesContent:
       filters: lila.app.mashup.GameFilterMenu,
       filterName: String,
       notes: Map[GameId, String]
-  )(implicit ctx: Context) =
+  )(using ctx: WebContext) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map { f =>
           a(
-            cls  := s"nm-item to-${f.name}${(filters.current == f) ?? " active"}",
+            cls  := s"nm-item to-${f.name}${(filters.current == f) so " active"}",
             href := routes.User.games(u.username, f.name)
           )(userGameFilterTitle(u, nbs, f))
         }
@@ -54,7 +54,7 @@ object gamesContent:
           )(
             if (filterName == "playing" && pager.nbResults > 2)
               pager.currentPageResults.flatMap { Pov(_, u) }.map { pov =>
-                views.html.game.mini(pov)(ctx)(cls := "paginated")
+                views.html.game.mini(pov)(cls := "paginated")
               }
             else
               views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),

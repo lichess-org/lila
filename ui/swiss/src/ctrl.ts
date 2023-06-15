@@ -154,7 +154,7 @@ export default class SwissCtrl {
 
   private redrawNbRounds = () =>
     $('.swiss__meta__round').text(
-      this.trans.plural('xOutOfYRoundsSwiss', this.data.nbRounds, this.data.round, this.data.nbRounds)
+      this.trans.plural('nbRounds', this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`)
     );
 
   private readData = (data: SwissData) => ({

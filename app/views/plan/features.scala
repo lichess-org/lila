@@ -3,7 +3,7 @@ package html.plan
 
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -13,7 +13,7 @@ object features:
 
   val engineFullName = "Stockfish 15.1 NNUE"
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("feature"),
@@ -27,7 +27,7 @@ object features:
     ) {
       main(cls := "box box-pad features")(
         table(
-          header(h1(dataIcon := "")("Website")),
+          header(h1(dataIcon := licon.ScreenDesktop)("Website")),
           tbody(
             tr(check)(
               strong("Zero ads")
@@ -130,7 +130,7 @@ object features:
               strong("All features to come, forever")
             )
           ),
-          header(h1(dataIcon := "")("Mobile")),
+          header(h1(dataIcon := licon.PhoneMobile)("Mobile")),
           tbody(
             tr(check)(
               strong("Zero ads, no tracking")
@@ -197,16 +197,16 @@ object features:
       )
     }
 
-  private def header(name: Frag)(implicit lang: Lang) =
+  private def header(name: Frag)(using Lang) =
     thead(
       st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lichessPatron()))
     )
 
-  private val unlimited = span(dataIcon := "", cls := "is is-green text unlimited")("Unlimited")
+  private val unlimited = span(dataIcon := licon.Checkmark, cls := "is is-green text unlimited")("Unlimited")
 
-  private val check = span(dataIcon := "", cls := "is is-green text check")("Yes")
+  private val check = span(dataIcon := licon.Checkmark, cls := "is is-green text check")("Yes")
 
-  private def custom(str: String) = span(dataIcon := "", cls := "is is-green text check")(str)
+  private def custom(str: String) = span(dataIcon := licon.Checkmark, cls := "is is-green text check")(str)
 
   private def all(content: Frag) = frag(td(content), td(content))
 

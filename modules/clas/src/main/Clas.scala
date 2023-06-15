@@ -12,7 +12,7 @@ case class Clas(
     wall: Markdown = Markdown(""),
     teachers: NonEmptyList[UserId], // first is owner
     created: Clas.Recorded,
-    viewedAt: DateTime,
+    viewedAt: Instant,
     archived: Option[Clas.Recorded]
 ):
 
@@ -33,14 +33,14 @@ object Clas:
       name = name,
       desc = desc,
       teachers = NonEmptyList.one(teacher.id),
-      created = Recorded(teacher.id, nowDate),
-      viewedAt = nowDate,
+      created = Recorded(teacher.id, nowInstant),
+      viewedAt = nowInstant,
       archived = none
     )
 
   opaque type Id = String
   object Id extends OpaqueString[Id]
 
-  case class Recorded(by: UserId, at: DateTime)
+  case class Recorded(by: UserId, at: Instant)
 
   case class WithStudents(clas: Clas, students: List[Student])

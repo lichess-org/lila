@@ -14,7 +14,7 @@
   <string name="challengeRead">Citește provocările primite</string>
   <string name="challengeWrite">Trimite, acceptă și respinge provocările</string>
   <string name="challengeBulk">Creează multe jocuri simultan pentru alți jucători</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Citește studii și difuzări private</string>
+  <string name="studyRead">Citește studii și difuzări private</string>
   <string name="studyWrite">Creează, actualizează, șterge studii și difuzări</string>
   <string name="tournamentWrite">Creează, actualizează și alătură-te turneelor</string>
   <string name="racerWrite">Creează și alătură-te curselor de probleme</string>

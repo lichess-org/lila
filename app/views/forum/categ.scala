@@ -1,7 +1,7 @@
 package views.html
 package forum
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -10,7 +10,7 @@ import controllers.routes
 
 object categ:
 
-  def index(categs: List[lila.forum.CategView])(using Context) =
+  def index(categs: List[lila.forum.CategView])(using WebContext) =
     views.html.base.layout(
       title = trans.forum.txt(),
       moreCss = cssTag("forum"),
@@ -24,7 +24,7 @@ object categ:
     ) {
       main(cls := "forum index box")(
         boxTop(
-          h1(dataIcon := "", cls := "text")("Lichess Forum"),
+          h1(dataIcon := licon.BubbleConvo, cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
@@ -42,13 +42,13 @@ object categ:
       topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
       stickyPosts: List[lila.forum.TopicView]
-  )(using Context) =
+  )(using WebContext) =
 
     val newTopicButton = canWrite option
       a(
         href     := routes.ForumTopic.form(categ.slug),
         cls      := "button button-empty button-green text",
-        dataIcon := ""
+        dataIcon := licon.Pencil
       )(
         trans.createANewTopic()
       )
@@ -88,7 +88,7 @@ object categ:
           h1(
             a(
               href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-              dataIcon := "",
+              dataIcon := licon.LessThan,
               cls      := "text"
             ),
             categ.team.fold(frag(categ.name))(teamIdToName)
@@ -115,7 +115,7 @@ object categ:
       )
     }
 
-  private def showCategs(categs: List[lila.forum.CategView])(using Context) =
+  private def showCategs(categs: List[lila.forum.CategView])(using WebContext) =
     table(cls := "categs slist slist-pad")(
       thead(
         tr(

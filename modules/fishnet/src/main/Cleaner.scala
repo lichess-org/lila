@@ -10,17 +10,14 @@ final private class Cleaner(
     repo: FishnetRepo,
     analysisColl: Coll,
     system: akka.actor.ActorSystem
-)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
-):
+)(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.given
 
   private def analysisTimeout(plies: Int) = plies * Cleaner.timeoutPerPly + 3.seconds
   private def analysisTimeoutBase         = analysisTimeout(20)
 
-  private def durationAgo(d: FiniteDuration) = nowDate.minusSeconds(d.toSeconds.toInt)
+  private def durationAgo(d: FiniteDuration) = nowInstant.minusSeconds(d.toSeconds.toInt)
 
   private def cleanAnalysis: Funit =
     analysisColl
@@ -29,7 +26,7 @@ final private class Cleaner(
       .cursor[Work.Analysis]()
       .documentSource()
       .filter { ana =>
-        ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
+        ana.acquiredAt.so(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
       }
       .take(200)
       .mapAsyncUnordered(4) { ana =>

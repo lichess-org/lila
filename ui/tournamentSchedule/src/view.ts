@@ -1,5 +1,5 @@
 import { Classes, h, VNode } from 'snabbdom';
-
+import * as licon from 'common/licon';
 import perfIcons from 'common/perfIcons';
 import { Clock, Ctrl, Lane, Tournament } from './interfaces';
 
@@ -125,7 +125,7 @@ function tournamentClass(tour: Tournament): Classes {
   return classes;
 }
 
-const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? '' : perfIcons[tour.perf.key]);
+const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key]);
 
 let mousedownAt: number[] | undefined;
 
@@ -191,7 +191,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
             ? h(
                 'span.nb-players',
                 {
-                  attrs: { 'data-icon': '' },
+                  attrs: { 'data-icon': licon.User },
                 },
                 tour.nbPlayers
               )

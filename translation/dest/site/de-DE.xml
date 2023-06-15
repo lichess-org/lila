@@ -63,7 +63,7 @@
   <string name="engineFailed">Fehler beim Laden der Engine</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
-  <string name="showThreat">Drohungen anzeigen</string>
+  <string name="showThreat">Bedrohungen anzeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="promoteVariation">Variante aufwerten</string>
@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' mit Rundung, basierend auf der Anzahl der Halbzüge bis zum nächsten Schlag- oder Bauernzug</string>
   <string name="noGameFound">Kein Spiel gefunden</string>
+  <string name="maxDepthReached">Maximale Tiefe erreicht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Partien über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openings">Eröffnungen</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="openingEndgameExplorer">Eröffnungs-/Endspiel Explorer</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spiele den ersten Eröffnungs/Endspiel-Explorer Zug</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
   <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
   <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züge durch vorherigen Fehler</string>
@@ -119,6 +121,7 @@
   <string name="memory">Arbeitsspeicher</string>
   <string name="infiniteAnalysis">Endlose Analyse</string>
   <string name="removesTheDepthLimit">Entfernt die Tiefenbegrenzung und hält deinen Computer warm</string>
+  <string name="engineManager">Engineverwaltung</string>
   <string name="blunder">Grober Patzer</string>
   <string name="mistake">Fehler</string>
   <string name="inaccuracy">Ungenauigkeit</string>
@@ -150,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partien</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s-Wertung aus %2$s Partien</item>
+    <item quantity="other">%1$s-Wertung aus %2$s Partien</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Lesezeichen</item>
@@ -209,8 +216,10 @@
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="error.weakPassword">Dieses Passwort wird extrem oft verwendet und ist zu einfach zu erraten.</string>
   <string name="error.namePassword">Verwende bitte nicht deinen Benutzernamen als Passwort.</string>
+  <string name="blankedPassword">Du hast das gleiche Passwort auf einer anderen Seite verwendet und diese Seite wurde kompromittiert. Um die Sicherheit deines Lichess-Kontos zu gewährleisten, musst du ein neues Passwort setzen. Danke für dein Verständnis.</string>
   <string name="youAreLeavingLichess">Du verlässt Lichess</string>
-  <string name="neverTypeYourPassword">Gib dein Lichess-Passwort niemals auf einer anderen Seite an!</string>
+  <string name="neverTypeYourPassword">Gib dein Lichess-Passwort niemals auf einer anderen Seite ein!</string>
+  <string name="proceedToX">Weiter zu %s</string>
   <string name="passwordSuggestion">Benutze kein Passwort, welches jemand anderes vorgeschlagen hat. Man wird versuchen dein Konto zu stehlen.</string>
   <string name="emailSuggestion">Benutze keine E-Mail Adresse, welche jemand anderes vorgeschlagen hat. Man wird versuchen dein Konto zu stehlen.</string>
   <string name="emailConfirmHelp">Hilfe bei der E-Mail-Bestätigung</string>
@@ -280,6 +289,7 @@
   <string name="cancelRematchOffer">Angebot zur Revanche zurückziehen</string>
   <string name="viewRematch">Revanche ansehen</string>
   <string name="confirmMove">Zug bestätigen</string>
+  <string name="enableConfirmationForThisGame">Bestätigung für diese Partie aktivieren</string>
   <string name="play">Spielen</string>
   <string name="inbox">Posteingang</string>
   <string name="chatRoom">Chatraum</string>
@@ -338,8 +348,13 @@
     <item quantity="one">%s Studie</item>
     <item quantity="other">%s Studien</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s Simultan-Partie</item>
+    <item quantity="other">%s Simultan-Partien</item>
+  </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
+  <string name="noDrawBeforeSwissLimit">Du kannst in einem Turnier nach Schweizer System nicht vor dem Erreichen des 30. Zugs Remis anbieten.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gewertetes Spiel</item>
@@ -388,6 +403,7 @@
   <string name="toStudy">Studie</string>
   <string name="importGame">Partie importieren</string>
   <string name="importGameExplanation">Wenn du ein PGN einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
+  <string name="importGameCaveat">Varianten werden gelöscht. Importiere die PGN mittels einer Studie, um sie zu behalten.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -659,6 +675,8 @@
   <string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
   <string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
   <string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
+  <string name="simulAddExtraTimePerPlayer">Füge deiner Uhr für jeden Spieler, der deinem Simultan beitritt, zu Beginn zusätzliche Bedenkzeit hinzu.</string>
+  <string name="simulHostExtraTimePerPlayer">Teile jedem Spieler zusätzliche Bedenkzeit zu</string>
   <string name="lichessTournaments">Lichess Turniere</string>
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
@@ -669,6 +687,11 @@
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
+  <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
+  <string name="keyNextLearnFromYourMistakes">Als Nächstes (Lerne aus deinen Fehlern)</string>
+  <string name="keyNextBlunder">Der nächste grobe Patzer</string>
+  <string name="keyNextMistake">Der nächste Fehler</string>
+  <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>
@@ -766,6 +789,7 @@
   <string name="invalidFen">FEN ungültig</string>
   <string name="custom">Andere Spielzeit</string>
   <string name="notifications">Benachrichtigungen</string>
+  <string name="notificationsX">Benachrichtigungen: %1$s</string>
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
@@ -860,6 +884,8 @@
   <string name="useTheReportForm">nutze das Meldeformular</string>
   <string name="toRequestSupport">Um Hilfe zu erhalten, %1$s</string>
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
+  <string name="makeSureToRead">Bitte lies unbedingt: %1$s</string>
+  <string name="theForumEtiquette">die Forumsetikette</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bei, um in diesem Forum schreiben zu können</string>
   <string name="teamNamedX">%1$s Team</string>
@@ -876,9 +902,7 @@
   <string name="congratsYouWon">Glückwunsch, du hast gewonnen!</string>
   <string name="gameVsX">Partie gegen %1$s</string>
   <string name="resVsX">%1$s gegen %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil bewertet.</string>
-  <string name="newPendingReview">Neue, ausstehende Rezension</string>
-  <string name="lostAgainstTOSViolator">Du hast Wertungspunkte an jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
+  <string name="lostAgainstTOSViolator">Du hast Elo an jemanden verloren, der gegen die Lichess-AGB verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
@@ -943,4 +967,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="lichessDbExplanation">Aus gewerteten Partien aller Lichess-Spieler</string>
   <string name="switchSides">andere Farbe</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
+  <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
 </resources>

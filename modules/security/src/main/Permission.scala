@@ -33,8 +33,9 @@ object Permission:
   case object ViewPrintNoIP    extends Permission("VIEW_PRINT_NOIP", "View Print & NoIP")
   case object DisableTwoFactor extends Permission("DISABLE_2FA", "Disable 2FA")
   case object CloseAccount     extends Permission("CLOSE_ACCOUNT", List(UserModView), "Close/reopen account")
+  case object GdprErase        extends Permission("GDPR_ERASE", List(CloseAccount), "GDPR erase account")
   case object SetTitle         extends Permission("SET_TITLE", List(UserModView), "Set/unset title")
-  case object SetEmail         extends Permission("SET_EMAIL", List(UserModView), "Set email address")
+  case object SetEmail         extends Permission("SET_EMAIL", "Set email address")
   case object SeeReport        extends Permission("SEE_REPORT", "See reports")
   case object Appeals          extends Permission("APPEAL", "Handle appeals")
   case object Presets          extends Permission("PRESET", "Edit mod presets")
@@ -58,6 +59,7 @@ object Permission:
   case object ModNote          extends Permission("MOD_NOTE", "Mod notes")
   case object RemoveRanking    extends Permission("REMOVE_RANKING", "Remove from ranking")
   case object ReportBan        extends Permission("REPORT_BAN", "Report ban")
+  case object PrizeBan         extends Permission("PRIZE_BAN", "Ban from prized tournaments")
   case object ModMessage       extends Permission("MOD_MESSAGE", "Send mod messages")
   case object Impersonate      extends Permission("IMPERSONATE", "Impersonate")
   case object DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
@@ -155,10 +157,25 @@ object Permission:
         "Shusher"
       )
 
+  case object EmailAnswerer
+      extends Permission(
+        "EMAIL_ANSWERER",
+        List(
+          LichessTeam,
+          UserSearch,
+          CloseAccount,
+          GdprErase,
+          SetEmail,
+          DisableTwoFactor
+        ),
+        "Email answerer"
+      )
+
   case object Admin
       extends Permission(
         "ADMIN",
         List(
+          PrizeBan,
           RemoveRanking,
           BoostHunter,
           CheatHunter,
@@ -177,7 +194,6 @@ object Permission:
           PuzzleCurator,
           OpeningWiki,
           Presets,
-          DisapproveCoachReview,
           Relay,
           Streamers,
           DisableTwoFactor,
@@ -193,6 +209,7 @@ object Permission:
         "SUPER_ADMIN",
         List(
           Admin,
+          GdprErase,
           Impersonate,
           PayPal,
           Cli,
@@ -211,8 +228,7 @@ object Permission:
       ModerateForum,
       ModerateBlog,
       ReportBan,
-      ModMessage,
-      DisapproveCoachReview
+      ModMessage
     ),
     "Play mod" -> List(
       SeeInsight,
@@ -228,6 +244,7 @@ object Permission:
       PrintBan,
       DisableTwoFactor,
       CloseAccount,
+      GdprErase,
       SetTitle,
       SetEmail
     ),
@@ -281,6 +298,7 @@ object Permission:
       BoostHunter,
       CheatHunter,
       Shusher,
+      EmailAnswerer,
       Admin,
       SuperAdmin
     )
@@ -300,7 +318,7 @@ object Permission:
   def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
-    !perms(perm) ?? perms.find(_ is perm)
+    !perms(perm) so perms.find(_ is perm)
 
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)

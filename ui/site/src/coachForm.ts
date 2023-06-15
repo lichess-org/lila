@@ -94,17 +94,6 @@ lichess.load.then(() => {
     });
   }, 1000);
 
-  if ($editor.find('.reviews .review').length) $editor.find('.tabs div[data-tab=reviews]').trigger('click');
-
-  const $reviews = $editor.find('.reviews');
-  $reviews.find('.actions a').on('click', function (this: HTMLAnchorElement) {
-    const $review = $(this).parents('.review');
-    xhr.text($review.data('action') + '?v=' + $(this).data('value'), { method: 'post' });
-    $review.hide();
-    $editor.find('.tabs div[data-tab=reviews]').data('count', $reviews.find('.review').length - 1);
-    return false;
-  });
-
   $('.coach_picture form.upload input[type=file]').on('change', function (this: HTMLInputElement) {
     $('.picture_wrap').html(lichess.spinnerHtml);
     ($(this).parents('form')[0] as HTMLFormElement).submit();

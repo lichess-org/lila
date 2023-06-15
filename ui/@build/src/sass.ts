@@ -37,7 +37,6 @@ export async function sass(): Promise<void> {
     }
   }
   if (builder.sources.size) {
-    env.log('Building css', { ctx: 'sass' });
     compile([...builder.sources], false);
   } else env.done(0, 'sass');
 }
@@ -110,6 +109,8 @@ function compile(sources: string[], tellTheWorld = true) {
     for (const srcFile of sources) {
       env.log(`Building '${c.cyan(srcFile)}'`, { ctx: 'sass' });
     }
+  } else {
+    env.log(`Building css with ${ps.platform}-${ps.arch}/sass`, { ctx: 'sass' });
   }
 
   const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');

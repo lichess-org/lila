@@ -1,5 +1,6 @@
 package lila.irwin
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
@@ -9,7 +10,6 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
-import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ Holder, User, UserRepo }
 
 final class IrwinApi(
@@ -110,10 +110,10 @@ final class IrwinApi(
       )
 
     private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
-      lila.common.LilaFuture.applySequentially(suspects) { insert(_, _.Tournament) }
+      suspects.traverse_(insert(_, _.Tournament))
 
     private[irwin] def topOnline(leaders: List[Suspect]): Funit =
-      lila.common.LilaFuture.applySequentially(leaders) { insert(_, _.Leaderboard) }
+      leaders.traverse_(insert(_, _.Leaderboard))
 
     import lila.game.BSONHandlers.given
 
@@ -123,7 +123,7 @@ final class IrwinApi(
         Query.rated ++
         Query.user(suspect.id.value) ++
         Query.turnsGt(20) ++
-        Query.createdSince(nowDate minusMonths 6)
+        Query.createdSince(nowInstant minusMonths 6)
 
     private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[(Game, Analysis)]] =
       gameRepo.coll
@@ -134,7 +134,7 @@ final class IrwinApi(
         .flatMap(analysisRepo.associateToGames)
 
     private def getMoreGames(suspect: Suspect, nb: Int): Fu[List[Game]] =
-      (nb > 0) ??
+      (nb > 0) so
         gameRepo.coll
           .find(baseQuery(suspect) ++ Query.analysed(false))
           .sort(Query.sortCreated)
@@ -149,9 +149,8 @@ final class IrwinApi(
       subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
 
     private[IrwinApi] def apply(report: IrwinReport): Funit =
-      subs.get(report.suspectId) ?? { modIds =>
+      subs.get(report.suspectId) so { modIds =>
         subs = subs - report.suspectId
-        import lila.notify.{ IrwinDone, Notification }
         modIds
           .map { modId =>
             notifyApi.notifyOne(modId, lila.notify.IrwinDone(report.suspectId.value))

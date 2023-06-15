@@ -18,7 +18,6 @@ export function app(element: HTMLElement, opts: Opts) {
 
   const ctrl: Ctrl = {
     data: opts.data,
-    trans: lichess.trans(opts.i18n),
   };
 
   let vnode: VNode;

@@ -36,10 +36,10 @@ final class CSRFRequestHandler(net: NetConfig):
            * These old browsers cannot load Lichess because Lichess only support modern TLS.
            * All the browsers that can run Lichess nowadays set the origin header properly.
            * The absence of the origin header usually indicates a programmatic call (API or scrapping),
-           * so we let these requests through.
+           * which shouldn't be using non API POST endpoints.
            */
           monitor("missingOrigin", req)
-          true
+          false
         case Some(o) if isSubdomain(o) =>
           /* The origin header is set to the lichess domain, or a subdomain of it.
            * Since the request comes from Lichess, we accept it.

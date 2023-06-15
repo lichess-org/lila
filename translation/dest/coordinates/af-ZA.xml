@@ -8,8 +8,8 @@
   <string name="mostChessCourses">Meeste skaak kursusse en oefeninge gebruik algebraïese notasie.</string>
   <string name="talkToYourChessFriends">Dit maak dit makliker om met jou skaak vriende te praat omdat julle albei die \'taal van skaak\' verstaan.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Jy kan \'n spel meer effektief analiseer as jy vinnig koördinate kan herken.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">\'n Koördinaat verskyn op die bord en jy moet dan op die ooreenstemmende blokkie klik.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">\'n Blokkie op die bord word gemerk en jy moet dan die ooreenstemmende koördinate verskaf (bv. \"e4\").</string>
+  <string name="aCoordinateAppears">\'n Koördinaat verskyn op die bord en jy moet dan op die ooreenstemmende blokkie klik.</string>
+  <string name="aSquareIsHighlightedExplanation">\'n Blokkie op die bord word gemerk en jy moet dan die ooreenstemmende koördinate verskaf (bv. \"e4\").</string>
   <string name="youHaveThirtySeconds">Jy het 30 sekondes om soveel blokkies moontlik te merk!</string>
   <string name="goAsLongAsYouWant">Neem so lank as wat jy wil, daar is geen tydsbeperking nie!</string>
   <string name="showCoordinates">Vertoon koördinate</string>

@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as enhance from 'common/richText';
 import userLink from 'common/userLink';
 import * as spam from './spam';
@@ -105,7 +106,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
         pub = ctrl.opts.public;
 
       if (txt === '')
-        $('.keyboard-move input').each(function (this: HTMLInputElement) {
+        $('.input-move input').each(function (this: HTMLInputElement) {
           this.focus();
         });
       else {
@@ -223,7 +224,7 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
           myUserId && line.u && myUserId != line.u
             ? h('i.flag', {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.CautionTriangle,
                   title: 'Report',
                 },
               })

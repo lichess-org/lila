@@ -3,8 +3,6 @@ $c-study-button: $c-accent;
 .study__buttons {
   @extend %flex-between;
 
-  border-bottom: 2px solid $c-border;
-
   span {
     font-size: 1.15em;
     min-width: 0;

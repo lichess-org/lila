@@ -36,4 +36,4 @@ case class UserControl(
       }
     ).flatten mkString "&"
 
-  def queryStringUnlessBot = crawler.no ?? queryString
+  def queryStringUnlessBot = crawler.no so queryString

@@ -52,8 +52,11 @@
   <string name="skipExplanation">Anashkalojeni këtë lëvizje që të ruani kombinimin tuaj! Mund të kryet një herë për garë.</string>
   <string name="failedPuzzles">Ushtrime të dështuara</string>
   <string name="slowPuzzles">Ushtrime të ngadalta</string>
+  <string name="skippedPuzzle">Ushtrimi i kapërcyer</string>
   <string name="thisWeek">Këtë javë</string>
   <string name="thisMonth">Këtë muaj</string>
   <string name="allTime">Për krejt kohën</string>
   <string name="clickToReload">Klikoni të ringarkohet</string>
+  <string name="thisRunHasExpired">Ky raund ka skaduar!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Ky raund qe hapur në një tjetër skedë!</string>
 </resources>

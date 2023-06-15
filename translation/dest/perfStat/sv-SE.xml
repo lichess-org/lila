@@ -19,7 +19,7 @@
   <string name="notEnoughGames">Inte tillräckligt med spelade partier</string>
   <string name="highestRating">Högsta rating: %s</string>
   <string name="lowestRating">Lägsta rating: %s</string>
-  <string name="fromXToY" comment="fromXToY&#10;&#10;In a section displaying playing statistics, this string specifies a time range. Both variables are dates.">från %1$s till %2$s</string>
+  <string name="fromXToY">från %1$s till %2$s</string>
   <string name="winningStreak">Vinster i rad</string>
   <string name="losingStreak">Förluster i rad</string>
   <string name="longestStreak">Längsta serie: %s</string>

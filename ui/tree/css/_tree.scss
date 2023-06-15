@@ -82,6 +82,10 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%);
     vertical-align: top;
   }
 
+  comment.truncated {
+    cursor: pointer;
+  }
+
   move.current {
     border: 1px solid $c-accent;
   }

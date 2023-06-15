@@ -8,7 +8,7 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, Position, Redraw, NvuiPlugin } from '../interfaces';
+import { Step, Position, NvuiPlugin } from '../interfaces';
 import * as game from 'game';
 import {
   renderSan,
@@ -35,6 +35,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import { throttled } from '../sound';
+import { Redraw } from 'common/snabbdom';
 
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');

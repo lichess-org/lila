@@ -40,6 +40,7 @@ ASSETS_FILES = [
     "ui",
     "package.json",
     "pnpm-lock.yaml",
+    "bin/download-lifat",
 ]
 
 SERVER_FILES = [
@@ -60,6 +61,8 @@ ASSETS_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workfl
 SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/server.yml/runs?per_page=100"
 
 ARTIFACT_DIR = "/home/lichess-artifacts"
+
+LIFAT_DIR = "/home/lifat"
 
 
 def curl_cli(command, *, url="https://lichess.org/cli"):
@@ -263,6 +266,9 @@ def deploy_script(profile, session, run, url):
         f"mkdir -p {artifact_unzipped}/d",
         f"tar -xf {artifact_unzipped}/*.tar.xz -C {artifact_unzipped}/d",
         f"cat {artifact_unzipped}/d/commit.txt",
+        "echo",
+        "echo \\# Preparing lifat ...",
+        f"(cd {artifact_unzipped} && if [ -x .bin/download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./bin/download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
         f"chown -R lichess:lichess {ARTIFACT_DIR}",
         "echo",
         "echo \\# Installing ...",

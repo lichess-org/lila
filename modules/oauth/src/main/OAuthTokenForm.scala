@@ -2,9 +2,7 @@ package lila.oauth
 
 import play.api.data.*
 import play.api.data.Forms.*
-import reactivemongo.api.bson.BSONObjectID
 
-import lila.common.Bearer
 import lila.common.Form.cleanText
 import lila.user.User
 

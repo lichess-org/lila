@@ -43,20 +43,20 @@ private object PgnStorage:
               logger.error(s"Can't decode game $id PGN", e)
               throw e
           }
-        val unmovedRooks = decoded.unmovedRooks.asScala.view.map(Pos(_)).toSet
+        val unmovedRooks = decoded.unmovedRooks.asScala.view.map(Square(_)).toSet
         Decoded(
           sans = SanStr from decoded.pgnMoves.toVector,
           pieces = decoded.pieces.asScala.view.map { (k, v) =>
-            Pos(k) -> chessPiece(v)
+            Square(k) -> chessPiece(v)
           }.toMap,
           positionHashes = PositionHash(decoded.positionHashes),
           unmovedRooks = UnmovedRooks(unmovedRooks),
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,
           castles = Castles(
-            whiteKingSide = unmovedRooks(Pos.H1),
-            whiteQueenSide = unmovedRooks(Pos.A1),
-            blackKingSide = unmovedRooks(Pos.H8),
-            blackQueenSide = unmovedRooks(Pos.A8)
+            whiteKingSide = unmovedRooks(Square.H1),
+            whiteQueenSide = unmovedRooks(Square.A1),
+            blackKingSide = unmovedRooks(Square.H8),
+            blackQueenSide = unmovedRooks(Square.A8)
           ),
           halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )

@@ -21,7 +21,7 @@ object PuzzlePath:
 final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
 
   import BsonHandlers.given
-  import PuzzlePath.{ *, given }
+  import PuzzlePath.*
 
   def nextFor(
       user: User,
@@ -42,7 +42,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
           val ratingFlex = (100 + math.abs(1500 - rating.value) / 4) * compromise.atMost(4)
           Match(
             select(angle, actualTier, (rating - ratingFlex).value to (rating + ratingFlex).value) ++
-              ((compromise != 5 && previousPaths.nonEmpty) ?? $doc("_id" $nin previousPaths))
+              ((compromise != 5 && previousPaths.nonEmpty) so $doc("_id" $nin previousPaths))
           ) -> List(
             Sample(1),
             Project($id(true))
@@ -67,5 +67,5 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
   )
 
   def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
-    _.fold(true)(_ < nowDate.minusDays(1).getMillis)
+    _.fold(true)(_ < nowInstant.minusDays(1).toMillis)
   }

@@ -1,30 +1,16 @@
 package lila.i18n
 
-import java.util.Locale
-import java.util.concurrent.ConcurrentHashMap
-import org.joda.time.format.{ PeriodFormat, PeriodFormatter }
-import org.joda.time.{ DurationFieldType, Period, PeriodType }
 import play.api.i18n.Lang
-import scala.collection.mutable
+import java.time.Duration
 
 object PeriodLocales:
 
-  private val periodFormatters = new ConcurrentHashMap[String, PeriodFormatter]
-
-  private val periodType = PeriodType forFields Array(
-    DurationFieldType.days,
-    DurationFieldType.hours,
-    DurationFieldType.minutes
-  )
-
-  private def periodFormatter(using lang: Lang): PeriodFormatter =
-    periodFormatters.computeIfAbsent(
-      lang.code,
-      _ => {
-        Locale setDefault Locale.ENGLISH
-        PeriodFormat wordBased lang.toLocale
-      }
+  def showDuration(duration: Duration)(using Lang): String =
+    List(
+      (I18nKeys.nbDays, true, duration.toDays),
+      (I18nKeys.nbHours, true, duration.toHours      % 24),
+      (I18nKeys.nbMinutes, false, duration.toMinutes % 60)
     )
-
-  def showPeriod(period: Period)(using Lang): String =
-    periodFormatter print period.normalizedStandard(periodType)
+      .dropWhile { case (_, dropZero, nb) => dropZero && nb == 0 }
+      .map { case (key, _, nb) => key.pluralSameTxt(nb) }
+      .mkString(" ")

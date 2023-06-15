@@ -6,7 +6,6 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import cats.data.NonEmptyList
 
-import lila.user.User
 import play.api.ConfigLoader
 
 final private class WebPush(
@@ -17,12 +16,12 @@ final private class WebPush(
 
   def apply(userId: UserId, data: => PushApi.Data): Funit =
     webSubscriptionApi.getSubscriptions(5)(userId) flatMap { subscriptions =>
-      subscriptions.toNel ?? send(data)
+      subscriptions.toNel so send(data)
     }
 
   def apply(userIds: Iterable[UserId], data: => PushApi.Data): Funit =
     webSubscriptionApi.getSubscriptions(userIds, 5) flatMap { subs =>
-      subs.toNel ?? send(data)
+      subs.toNel so send(data)
     }
 
   private def send(data: => PushApi.Data)(subscriptions: NonEmptyList[WebSubscription]): Funit =
@@ -47,7 +46,9 @@ final private class WebPush(
               "payload" -> data.payload
             )
             .toString,
-          "ttl" -> 43200
+          "topic"   -> data.stacking.key,
+          "urgency" -> data.urgency.key,
+          "ttl"     -> 43200
         )
       ) flatMap {
       case res if res.status == 200 => funit

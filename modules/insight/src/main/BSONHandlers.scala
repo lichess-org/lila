@@ -3,9 +3,8 @@ package lila.insight
 import chess.{ Color, Role }
 import reactivemongo.api.bson.*
 
-import lila.analyse.AnalyseBsonHandlers.given
 import lila.analyse.{ AccuracyPercent, WinPercent }
-import lila.common.{ LilaOpeningFamily, SimpleOpening }
+import lila.common.SimpleOpening
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler

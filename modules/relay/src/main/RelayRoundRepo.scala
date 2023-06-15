@@ -1,8 +1,7 @@
 package lila.relay
 
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.ReadPreference
+import reactivemongo.akkastream.cursorProducer
 
 import lila.db.dsl.{ *, given }
 

@@ -38,7 +38,8 @@ private object Aes:
   def iv(bytes: Array[Byte]): InitVector = new IvParameterSpec(bytes)
 
 case class HashedPassword(bytes: Array[Byte]) extends AnyVal:
-  def parse = bytes.lengthIs == 39 option bytes.splitAt(16)
+  def parse     = bytes.lengthIs == 39 option bytes.splitAt(16)
+  def isBlanked = bytes.isEmpty
 
 final private class PasswordHasher(
     secret: Secret,
@@ -57,7 +58,7 @@ final private class PasswordHasher(
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
 
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
-    bytes.parse ?? { case (salt, encHash) =>
+    bytes.parse so { case (salt, encHash) =>
       val hash = aes.decrypt(Aes.iv(salt), encHash)
       MessageDigest.isEqual(hash, bHash(salt, p))
     }
@@ -69,12 +70,12 @@ object PasswordHasher:
   import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
-    credits = 150 * 2, // double cost in case of hash check failure
+    credits = 200,
     duration = 10 minutes,
     key = "password.hashes.ip"
   )
 
-  private lazy val rateLimitPerUser = RateLimit[UserId](
+  private lazy val rateLimitPerUser = RateLimit[UserIdOrEmail](
     credits = 10,
     duration = 10 minutes,
     key = "password.hashes.user"
@@ -87,16 +88,17 @@ object PasswordHasher:
   )
 
   def rateLimit[A](
+      default: => Fu[A],
       enforce: lila.common.config.RateLimit,
-      ipCost: Int
-  )(id: UserId, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
-    if (enforce.value)
+      ipCost: Int,
+      userCost: Int = 1
+  )(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] =
+    if enforce.yes then
       val ip = HTTPRequest ipAddress req
-      rateLimitPerUser(id, cost = 1) {
-        rateLimitPerIP.chargeable(ip, cost = ipCost) { charge =>
-          rateLimitGlobal("-", cost = 1, msg = ip.value) {
-            run(charge)
-          }(default)
-        }(default)
-      }(default)
-    else run(_ => ())
+      rateLimitPerUser.chargeable(id, default, cost = userCost, msg = s"IP: $ip"): chargeUser =>
+        rateLimitPerIP.chargeable(ip, default, cost = ipCost): chargeIp =>
+          rateLimitGlobal("-", default, msg = s"IP: $ip"):
+            run: () =>
+              chargeIp(ipCost)
+              chargeUser(userCost)
+    else run(() => ())

@@ -93,15 +93,18 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' կլորացումով` կախված կիսաքայլերի քանակից մինչև հաջորդ վերցնելը կամ զինվորի քայլը</string>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
+  <string name="maxDepthReached">Արձանագրված է առավելագույն խորություն։</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Փորձեք կարգավորումներում միացնել ավելի շատ խաղեր։</string>
   <string name="openings">Սկզբնախաղեր</string>
   <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
   <string name="openingEndgameExplorer">Սկզբնախաղերի/վերջնախաղերի տեղեկատու</string>
   <string name="xOpeningExplorer">%s սկզբնախաղերի դիտարկիչ</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Խաղալ սկզբնախաղեր­/վերջնախաղեր սովորողի առաջին քայլը</string>
   <string name="winPreventedBy50MoveRule">Հաղթանակը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="lossSavedBy50MoveRule">Պարտությունը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="winOr50MovesByPriorMistake">Հաղթանակ կամ 50 քայլ վերջին սխալից հետո</string>
   <string name="lossOr50MovesByPriorMistake">Պարտություն կամ 50 քայլ վերջին սխալից հետո</string>
+  <string name="unknownDueToRounding">Հաղթանակը երաշխավորված է միայն այն դեպքում, եթե առաջարկվող քայլերի հաջորդականությունը կատարվել է վերջին անգամ խաղաքարը վերցնելուց կամ զինվորական քայլից՝ Syzygy-ի բազաներում DTZ արժեքների հնարավոր կլորացման պատճառով:</string>
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
@@ -118,6 +121,7 @@
   <string name="memory">Հիշողություն</string>
   <string name="infiniteAnalysis">Անվերջ վերլուծություն</string>
   <string name="removesTheDepthLimit">Վերացնում է խորության սահմանափակումը և տաք պահում ձեր համակարգիչը</string>
+  <string name="engineManager">Շարժիչի մենեջեր</string>
   <string name="blunder">Վրիպում</string>
   <string name="mistake">Սխալ</string>
   <string name="inaccuracy">Անճշտություն</string>
@@ -149,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">Տեսնել բոլոր %s խաղերը</item>
     <item quantity="other">Տեսնել բոլոր %s խաղերը</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s վարկանիշ %2$s պարտիայի համար</item>
+    <item quantity="other">%1$s վարկանիշ %2$s պարտիայի համար</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Էջանիշեր</item>
@@ -206,8 +214,14 @@
   <string name="email">Էլ. փոստ</string>
   <string name="passwordReset">Վերականգնել գաղտնաբառը</string>
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
+  <string name="error.weakPassword">Այդ գաղտնաբառը շատ տարածված է, և այն չափազանց հեշտ է գուշակել։</string>
+  <string name="error.namePassword">Խնդրում ենք՝ Ձեր մասնակցային անունը մի՛ օգտագործեք որպես գաղտնաբառ։</string>
+  <string name="blankedPassword">Նույն գաղտնաբառը Դուք օգտագործել եք այլ կայքում, իսկ այդ կայքը վարկաբեկվել է։ Այժմ Lichess-ի Ձեր մասնակցային հաշվի անվտանգության համար անհրաժեշտ է սահմանել նոր գաղտնաբառ։ Շնորհակալություն ըմբռնումով մոտենալու համար։</string>
   <string name="youAreLeavingLichess">Դուք լքում եք Lichess-ը</string>
   <string name="neverTypeYourPassword">Երբեք մի՛ մուտքագրեք Lichess-ի գաղտնաբառը այլ կայքերում։</string>
+  <string name="proceedToX">Անցնել %s</string>
+  <string name="passwordSuggestion">Մի՛ ընտրեք այլ անձանց առաջարկած գաղտնաբառը։ Նրանք դրա օգնությամբ կգողանան Ձեր մասնակցային հաշիվը։</string>
+  <string name="emailSuggestion">Մի՛ ընտրեք այլ անձանց առաջարկած էլեկտրոնային փոստի հասցեն։ Նրանք դրա օգնությամբ կգողանան Ձեր մասնակցային հաշիվը։</string>
   <string name="emailConfirmHelp">Օգնություն էլեկտրոնային փոստի հաստատման հարցում</string>
   <string name="emailConfirmNotReceived">Գրանցվելուց հետո էլփոստին չե՞ք ստացել հաստատման նամակը:</string>
   <string name="whatSignupUsername">Ի՞նչ օգտանուն եք ընտրել գրանցվելու համար:</string>
@@ -275,6 +289,7 @@
   <string name="cancelRematchOffer">Կասեցնել ռևանշի առաջարկը</string>
   <string name="viewRematch">Ցույց տալ ռեւանշը</string>
   <string name="confirmMove">Հաստատել քայլը</string>
+  <string name="enableConfirmationForThisGame">Միացնել հաստատում այս պարտիայի համար</string>
   <string name="play">Խաղալ</string>
   <string name="inbox">Փոստարկղ</string>
   <string name="chatRoom">Զրուցարանի պատուհան</string>
@@ -335,6 +350,7 @@
   </plurals>
   <string name="viewTournament">Դիտել մրցաշարը</string>
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
+  <string name="noDrawBeforeSwissLimit">Դուք չեք կարող ոչ-ոքի առաջարկել մինչև 30-րդ քայլը շվեյցարական համակարգով մրցաշարում։</string>
   <string name="thematic">Թեմատիկա</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">Վարկանիշային խաղերը՝ ≥ %s</item>
@@ -364,6 +380,7 @@
   <string name="siteDescription">Անվճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
   <string name="xCreatedTeamY">%1$s ստեղծած թիմ %2$s</string>
+  <string name="startedStreaming">սկսել է հեռարձակումը</string>
   <string name="xStartedStreaming">%s-ն ուղիղ եթերում է</string>
   <string name="averageElo">Միջին ELO</string>
   <string name="location">Տեղակայումը</string>
@@ -382,6 +399,7 @@
   <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>
   <string name="importGameExplanation">Տեղադրեք պարտիայի գրառումը PGN ձևաչափով, և հնարավորություն կստանաք վերախաղարկելու պարտիան, կատարելու համակարգչային վերլուծություն, շփվելու զրուցարանում և կիսվելու այդ պարտիայի հղումով։</string>
+  <string name="importGameCaveat">Տարբերակները կհեռացվեն։ Դրանք պահպանելու համար, PGN-ը տեղափոխեք ստուդիա։</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ներմուծված խաղեր</item>
     <item quantity="other">%s ներմուծված խաղեր</item>
@@ -531,13 +549,19 @@
   <string name="troll">Թրոլինգ</string>
   <string name="ratingManipulation">Կեղծարարություններ վարկանիշի հետ</string>
   <string name="other">այլ</string>
+  <string name="reportDescriptionHelp">Կիսվեք մեզ հետ Այն խաղերի հղումներով, որտեղ կարծում եք, որ կանոնները խախտվել են և նկարագրեք, թե ինչն է սխալ: Բավական չէ պարզապես գրել \"Նա խարդախում է\", խնդրում ենք նկարագրել, թե ինչպես եք եկել այս եզրակացության: Մենք ավելի արագ կաշխատենք, եթե գրեք անգլերեն:</string>
+  <string name="error.provideOneCheatedGameLink">Խնդրում ենք ավելացնել առնվազն մեկ խաղի հղում, որտեղ ձեր կարծիքով խախտվել են կանոնները:</string>
   <string name="by">ըստ %s</string>
+  <string name="importedByX">Ներմուծվել է %s-ի կողմից</string>
   <string name="thisTopicIsNowClosed">Այս թեման այժմ փակ է։</string>
   <string name="blog">Բլոգ</string>
   <string name="notes">Նշումներ</string>
   <string name="typePrivateNotesHere">Մասնավոր նշումները մուտքագրեք այստեղ</string>
+  <string name="writeAPrivateNoteAboutThisUser">Գրել գաղտնի նշում այդ օգտվողի մասին</string>
+  <string name="noNoteYet">Դեռ մի նշում չկա</string>
   <string name="invalidUsernameOrPassword">Սխալ օգտանուն կամ գաղտնաբառ</string>
   <string name="incorrectPassword">Գաղտնաբառը սխալ է</string>
+  <string name="invalidAuthenticationCode">Վավերացման սխալ կոդը</string>
   <string name="emailMeALink">Էլեկտրոնային փոստով ուղարկել ինձ  հղումը</string>
   <string name="currentPassword">Ընթացիկ գաղտնաբառը</string>
   <string name="newPassword">նոր գաղտնաբառը</string>
@@ -594,6 +618,11 @@
   <string name="error.unknown">Սխալ արժեք</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Էլ. փոստի այս հասցեն սխալ է:</string>
+  <string name="error.email_acceptable">Այս էլ. փոստի հասցեն վավեր չէ։ Ստուգեք այն և նորից փորձեք:</string>
+  <string name="error.email_unique">Էլ. փոստի հասցեն անվավեր է կամ արդեն զբաղված է</string>
+  <string name="error.email_different">Սա առանց այդ էլ Ձեր էլ. փոստի հասցեն է</string>
+  <string name="error.minLength">Տեքստի նվազագույն երկարությունը — %s</string>
+  <string name="error.maxLength">Տեքստի առավելագույն երկարությունը — %s</string>
   <string name="error.min">Արժեքը պետք է լինի մեծ կամ հավասար %s</string>
   <string name="error.max">Արժեքը պետք է լինի փոքր կամ հավասար %s</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
@@ -642,6 +671,8 @@
   <string name="simulClockHint">Ֆիշերի ժամացույցի կարգավորումներ։ Որքան շատ մրցակից ունենաք, այնքան շատ ժամանակ ձեզ պետք կգա։</string>
   <string name="simulAddExtraTime">Պարտիաներում մտորելու համար դուք կարող եք ստանալ լրացուցիչ ժամանակ։</string>
   <string name="simulHostExtraTime">Խաղաշար անցկացնողի լրացուցիչ ժամանակը</string>
+  <string name="simulAddExtraTimePerPlayer">Ձեր ժամացույցի վրա ավելացրեք մեկնարկային ժամանակը յուրաքանչյուր խաղացողի համար, ով մուտք է գործել Ձեր միաժամանակյա խաղի նստաշրջան:</string>
+  <string name="simulHostExtraTimePerPlayer">Յուրաքանչյուր խաղացողի համար նստաշրջանի ժամանակի լրացում</string>
   <string name="lichessTournaments">Lichess մրցաշարեր</string>
   <string name="tournamentFAQ">Հարցեր «Արենա» մրցաշարերի վերաբերյալ</string>
   <string name="timeBeforeTournamentStarts">Ժամանակ մինչև մրցաշարի սկսվելը</string>
@@ -652,6 +683,10 @@
   <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>
   <string name="keyShowOrHideComments">ցույց տալ/թաքցնել մեկնաբանությունները</string>
   <string name="keyEnterOrExitVariation">բացել/փակել տարբերակը</string>
+  <string name="keyRequestComputerAnalysis">Պատվիրեք համակարգչային վերլուծություն, սովորեք սեփական սխալներից</string>
+  <string name="keyNextBlunder">Հաջորդ վրիպումը</string>
+  <string name="keyNextMistake">Հաջորդ սխալը</string>
+  <string name="keyNextInaccuracy">Հաջորդ անճշտությունը</string>
   <string name="newTournament">Նոր մրցաշար</string>
   <string name="tournamentHomeTitle">Շախմատի զանազան տարբերակներով և ժամակարգերով մրցաշարեր</string>
   <string name="tournamentHomeDescription">Մրցաշարում խաղացե՜ք արագ շախմատ։ Ընտրեք Lichess-ի պաշտոնական մրցաշարերից ցանկացածը կամ ստեղծեք ձերը։ Գնդակ (Bullet), կայծակնային (Blitz), դասական, շախմատ-960 (Ֆիշերի շախմատ, Chess960), արքան կենտրոնում (King of the Hill), երեք շախ (Threecheck) և խաղի այլ տարբերակներ. դրանք կապահովեն ձեր շախմատային հաճույքը։</string>
@@ -673,6 +708,11 @@
   <string name="glicko2Rating">Glicko-2 վարկանիշ</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ձեզ նամակ ենք ուղարկել։ Մասնակցային հաշիվն ակտիվացնելու համար սեղմեք նամակում եղած հղումը։</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Եթե նամակը չկա, ստուգեք սպամի և այլ պանակները, որտեղ այն կարող էր հասնել:</string>
+  <string name="weHaveSentYouAnEmailTo">Մենք նամակ ենք ուղարկել %s։ Կտտացրեք դրա մեջ գտնվող հղմանը՝ ձեր գաղտնաբառը վերականգնելու համար։</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Գրանցվելով՝ Դուք ստանձնում եք մեր %s հետևելու պարտականությունը:</string>
+  <string name="readAboutOur">Ծանոթացեք մեր %s։</string>
+  <string name="networkLagBetweenYouAndLichess">Ձեր և Lichess-ի սերվերների միջև տվյալների փոխանցման հետաձգում:</string>
   <string name="timeToProcessAMoveOnLichessServer">Քայլի մշակման ժամանակը Lichess-ի սերվերում</string>
   <string name="downloadAnnotated">Ներբեռնել անոտացիաներով</string>
   <string name="downloadRaw">Ներբեռնել նախնական տեսքով</string>
@@ -690,6 +730,7 @@
   <string name="kidMode">Մանկական ռեժիմ</string>
   <string name="kidModeExplanation">Սա անվտանգության համար է։ Մանկական ռեժիմում անջատված են կայքի հաղորդակցության բոլոր միջոցները։ Միացրեք այս ռեժիմը ձեր երեխաների և աշակերտների համար` նրանց այլ օգտատերերից պաշտպանելու համար։</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Մանկական ռեժիմում Lichess-ի պատկերանշանին ավելանում է %s տեսքով նշան, որպեսզի Դուք իմանաք, որ Ձեր երեխաներն անվտանգության մեջ են։</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ձեր հաշիվը կառավարվում է: Հարցրեք ձեր շախմատի ուսուցիչին երեխաների ռեժիմը հեռացնելու մասին:</string>
   <string name="enableKidMode">Միացնել մանկական ռեժիմը</string>
   <string name="disableKidMode">Անջատել մանկական ռեժիմը</string>
   <string name="security">Անվտանգություն</string>
@@ -724,6 +765,7 @@
   <string name="light">Բաց</string>
   <string name="dark">Մուգ</string>
   <string name="transparent">Թափանցիկ</string>
+  <string name="deviceTheme">Սարքի թեման</string>
   <string name="backgroundImageUrl">Հետնաշերտի պատկերի հղում`</string>
   <string name="boardGeometry">Խաղատախտակի տեսքն ու չափսը</string>
   <string name="boardTheme">Խաղատախտակի ձևավորումը</string>
@@ -742,6 +784,7 @@
   <string name="invalidFen">Ոչ կոռեկտ PGN</string>
   <string name="custom">Սեփական խաղ</string>
   <string name="notifications">Ծանուցումներ</string>
+  <string name="notificationsX">Ծանուցումներ: %1$s</string>
   <string name="perfRatingX">Վարկանիշ՝ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s վայրկյան առաջին քայլի համար</item>
@@ -836,6 +879,8 @@
   <string name="useTheReportForm">օգտագործեք հաղորդման ձևը</string>
   <string name="toRequestSupport">Աջակցություն ստանալու համար %1$s</string>
   <string name="tryTheContactPage">դիտեք կոնտակտային տվյալները</string>
+  <string name="makeSureToRead">Մի մոռացեք կարդալ %1$s</string>
+  <string name="theForumEtiquette">ֆորումի վարվելակարգը</string>
   <string name="thisTopicIsArchived">Այս թեման տեղափոխվել է արխիվ, և այն այլևս հնարավոր չէ մեկնաբանել։</string>
   <string name="joinTheTeamXToPost">Մուտք գործեք %1$s, այս ֆորումում գրելու համար</string>
   <string name="teamNamedX">%1$s թիմ</string>
@@ -852,8 +897,6 @@
   <string name="congratsYouWon">Շնորհավորո՜ւմ ենք, Դուք հաղթեցիք։</string>
   <string name="gameVsX">Խաղ ընդդեմ %1$s-ի</string>
   <string name="resVsX">%1$s-ն ընդդեմ %2$s-ի</string>
-  <string name="someoneReviewedYourCoachProfile">Ինչ-որ մեկը դիտել է Ձեր մարզչական պրոֆիլը։</string>
-  <string name="newPendingReview">Նոր հավակնորդ</string>
   <string name="lostAgainstTOSViolator">Դուք պարտվել եք նրան, ով խախտել է Lichess-ի օգտվողի համաձայնագիրը</string>
   <string name="refundXpointsTimeControlY">Վերադարձ. %1$s %2$s վարկանիշային միավոր</string>
   <string name="timeAlmostUp">Ժամանակը գրեթե սպառվել է</string>
@@ -866,6 +909,7 @@
   <string name="streamerManager">Սթրիմերների համար</string>
   <string name="cancelTournament">Չեղարկել մրցաշարը</string>
   <string name="tournDescription">Մրցաշարի նկարագրությունը</string>
+  <string name="tournDescriptionHelp">Անկանու՞մ եք ինչ-որ բան ասել օգտվողներին: Փորձեք լինել հակիրճ. Markdown ձևաչափով հղումները [name](https://url) մատչելի են: </string>
   <string name="ratedFormHelp">Խաղերն ընթանում են վարկանիշի հաշվարկով և ազդում են խաղացողների վարկանիշի վրա</string>
   <string name="onlyMembersOfTeam">Միայն ակումբի անդամների համար</string>
   <string name="noRestriction">Առանց սահմանափակումների</string>
@@ -874,6 +918,10 @@
   <string name="maximumWeeklyRating">Առավելագույն ամենշաբաթյա վարկանիշ</string>
   <string name="onlyTitled">Միայն տիտղոսավոր խաղացողներ</string>
   <string name="onlyTitledHelp">Պահանջում է պաշտոնական տիտղոս մրցաշարին մասնակցելու համար</string>
+  <string name="positionInputHelp">Տեղադրեք FEN-ի ճիշտ տողը, որպեսզի յուրաքանչյուր խաղ սկսվի տվյալ դիրքից:
+Սա աշխատում է միայն ստանդարտ խաղերի համար, բայց ոչ տարբերակների հետ:
+Դուք կարող եք օգտագործել %s՝ FEN դիրքը ստեղծելու համար, այնուհետև տեղադրեք այն այստեղ:
+Դաշտը թողեք դատարկ, որպեսզի խաղերը սկսվեն սովորական մեկնարկային դիրքից:</string>
   <string name="cancelSimul">Չեղարկել խաղաշարը</string>
   <string name="simulHostcolor">Խաղաշար անցկացնողի գույնը յուրաքանչյուր պարտիայում</string>
   <string name="estimatedStart">Խաղաշարը սկսելու նախատեսվող ժամը</string>
@@ -888,8 +936,10 @@
   <string name="noChat">Առանց զրուցարանի</string>
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
+  <string name="navigateMoveTree">Անցում ըստ քայլերի</string>
   <string name="mouseTricks">Շարժումներ մկնիկով</string>
   <string name="toggleLocalAnalysis">Միացնել համակարգչային վերլուծությունը</string>
+  <string name="toggleAllAnalysis">Փոխել համակարգչային վերլուծության բոլոր եղանակները</string>
   <string name="playComputerMove">Անել լավագույն համակարգչային քայլը</string>
   <string name="analysisOptions">Վերլուծության պարամետրերը</string>
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
@@ -911,4 +961,5 @@
   <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
   <string name="switchSides">Փոխել կողմը</string>
   <string name="closingAccountWithdrawAppeal">Ձեր մասնակցային հաշվի փակումը կչեղարկի Ձեր դիմումը</string>
+  <string name="ourEventTips">Մեր խորհուրդները միջոցառումներ կազմակերպելու հարցում</string>
 </resources>

@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Ficar una torre en b4 (nomás en a variant Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Ofrir u acceptar taulas</string>
   <string name="readOutClocks">Leyer los reloches</string>
+  <string name="readOutOpponentName">Leyer lo nombre de l\'oponent</string>
   <string name="otherCommands">Atros comandos</string>
   <string name="tips">Consellos</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Si no conoixes la notación anterior, aprende mas aquí:</string>

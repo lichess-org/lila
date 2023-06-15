@@ -56,5 +56,5 @@ object CoachProfileForm:
           case JsSuccess(langs, _) => langs.take(10).map(_.code).flatMap(Lang.get).map(_.code).distinct
           case _                   => Nil
         },
-        updatedAt = nowDate
+        updatedAt = nowInstant
       )

@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import chess.format.Uci
 import chess.{ Black, Clock, White }
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -17,11 +16,11 @@ final class FishnetPlayer(
     val maxPlies: Int
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   def apply(game: Game): Funit =
-    game.aiLevel ?? { level =>
+    game.aiLevel so { level =>
       LilaFuture.delay(delayFor(game) | 0.millis) {
         openingBook(game, level) flatMap {
           case Some(move) =>

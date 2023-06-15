@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">いろんな方法</string>
   <string name="areThereWebsitesBasedOnLichess">Lichess を基に生まれたサイトは他にありますか？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">はい。Lichess の%1$s、%2$s、%3$sを使ったオープンソースのサイトが生まれています。</string>
+  <string name="keyboardShortcuts">操作のショートカットキーはありますか？</string>
+  <string name="keyboardShortcutsExplanation">Lichess にはショートカットキーが使えるページがあります。研究、解析、問題、対局のページで 「?」キーを押すと、使えるショートカットキーの一覧が表示されます。</string>
   <string name="fairPlay">フェアプレイについて</string>
   <string name="whenAmIEligibleRatinRefund">不正な相手に奪われたレーティングが回復するのはいつですか？</string>
   <string name="ratingRefundExplanation">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 3 日間の最新のレート戦 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります。

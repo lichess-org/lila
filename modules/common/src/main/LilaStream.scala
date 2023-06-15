@@ -2,7 +2,6 @@ package lila.common
 
 import akka.NotUsed
 import akka.stream.scaladsl.*
-import scala.annotation.nowarn
 
 object LilaStream:
 
@@ -11,7 +10,7 @@ object LilaStream:
       outputDelay: FiniteDuration = 1.second
   ): Flow[T, Double, NotUsed] =
     Flow[T]
-      .conflateWithSeed(metric(_)) { case (acc, x) => acc + metric(x) }
+      .conflateWithSeed(metric(_)) { (acc, x) => acc + metric(x) }
       .zip(Source.tick(outputDelay, outputDelay, NotUsed))
       .map(_._1.toDouble / outputDelay.toUnit(concurrent.duration.SECONDS))
 
@@ -26,11 +25,11 @@ object LilaStream:
           .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}")))
       )
 
-  val sinkCount = Sink.fold[Int, Any](0) { case (total, _) =>
+  val sinkCount = Sink.fold[Int, Any](0) { (total, _) =>
     total + 1
   }
 
   def collect[A] =
-    Flow[Option[A]] collect { case Some(a) =>
+    Flow[Option[A]].collect { case Some(a) =>
       a
     }

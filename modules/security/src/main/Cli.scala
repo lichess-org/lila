@@ -4,9 +4,12 @@ import lila.user.{ User, UserRepo }
 import lila.common.EmailAddress
 import lila.common.Domain
 
-final private[security] class Cli(userRepo: UserRepo, emailValidator: EmailAddressValidator)(using
-    ec: Executor
-) extends lila.common.Cli:
+final private[security] class Cli(
+    userRepo: UserRepo,
+    emailValidator: EmailAddressValidator,
+    checkMail: CheckMail
+)(using ec: Executor)
+    extends lila.common.Cli:
 
   def process =
 
@@ -18,16 +21,26 @@ final private[security] class Cli(userRepo: UserRepo, emailValidator: EmailAddre
     case "security" :: "grant" :: uid :: roles =>
       perform(UserStr(uid), user => userRepo.setRoles(user.id, roles map (_.toUpperCase)).void)
 
-    case "disposable" :: "test" :: emailOrDomain :: Nil =>
-      EmailAddress
-        .from(emailOrDomain)
-        .flatMap(_.domain)
-        .orElse(Domain.from(emailOrDomain))
-        .fold(fuccess("Invalid email or domain")) { dom =>
-          emailValidator.validateDomain(dom.lower) map { r =>
-            s"$r ${r.error | ""}"
+    case "disposable" :: "reload" :: emailOrDomain :: Nil =>
+      WithDomain(emailOrDomain): dom =>
+        checkMail.invalidate(dom) >>
+          emailValidator.validateDomain(dom) map { r =>
+            s"reloaded: $r ${r.error | ""}"
           }
+
+    case "disposable" :: "test" :: emailOrDomain :: Nil =>
+      WithDomain(emailOrDomain): dom =>
+        emailValidator.validateDomain(dom) map { r =>
+          s"$r ${r.error | ""}"
         }
+
+  private def WithDomain(e: String)(f: Domain.Lower => Fu[String]) =
+    EmailAddress
+      .from(e)
+      .flatMap(_.domain)
+      .orElse(Domain.from(e))
+      .map(_.lower)
+      .fold(fuccess("Invalid email or domain"))(f)
 
   private def perform(u: UserStr, op: User => Funit): Fu[String] =
     userRepo byId u flatMap { userOption =>

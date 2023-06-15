@@ -6,7 +6,6 @@ import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 
 final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using
     mat: akka.stream.Materializer,

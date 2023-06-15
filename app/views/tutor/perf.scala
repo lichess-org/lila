@@ -1,28 +1,25 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json.*
 import play.api.mvc.Call
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
+import lila.api.WebContext
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Heapsort.topN
 import lila.tutor.TutorCompare.given
-import lila.tutor.{ TutorFullReport, TutorPerfReport }
+import lila.tutor.TutorPerfReport
 import lila.user.User
 import lila.rating.PerfType
 
 object perf:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(using
-      ctx: Context
-  ) =
-    bits.layout(full, menu = menu(full, user, report, "perf"))(
+  def apply(report: TutorPerfReport, user: User)(using ctx: WebContext) =
+    bits.layout(menu = menu(user, report, "perf"))(
       cls := "tutor__perf box",
       boxTop(
         h1(
-          a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
+          a(href := routes.Tutor.user(user.username), dataIcon := licon.LessThan, cls := "text"),
           bits.otherUser(user),
           "Tutor: ",
           report.perf.trans
@@ -73,11 +70,10 @@ object perf:
     )
 
   private[tutor] def menu(
-      full: TutorFullReport.Available,
       user: User,
       report: TutorPerfReport,
       active: String
-  )(using Context) = frag(
+  )(using WebContext) = frag(
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
       report.perf.trans
     ),
@@ -95,7 +91,7 @@ object perf:
     )
   )
 
-  private def angleCard(title: Frag, url: Option[Call])(content: Modifier*)(using Context) =
+  private def angleCard(title: Frag, url: Option[Call])(content: Modifier*) =
     st.article(
       cls      := List("tutor__perf__angle tutor-card" -> true, "tutor-card--link" -> url.isDefined),
       dataHref := url

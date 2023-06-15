@@ -93,7 +93,7 @@ function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
     $('body').removeClass(list.join(' ')).addClass(t);
   } else {
     const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-    sprite.href = sprite.href.replace(/\w+(\.external|)\.css/, t + '$1.css');
+    sprite.href = sprite.href.replace(/[\w-]+(\.external|)\.css/, t + '$1.css');
     document.body.dataset.pieceSet = t;
   }
   lichess.pubsub.emit('theme.change');

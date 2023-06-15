@@ -124,6 +124,7 @@
   <string name="goodMove">Bona movo</string>
   <string name="mistake">Eraro</string>
   <string name="brilliantMove">Brilianta movo</string>
+  <string name="blunder">Erarego</string>
   <string name="interestingMove">Interesa movo</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nura movo</string>
   <string name="equalPosition">Egala aranĝo</string>
@@ -134,7 +135,10 @@
   <string name="blackIsBetter">Nigro estas pli bona</string>
   <string name="whiteIsWinning">Blanko estas gajnanta</string>
   <string name="blackIsWinning">Nigro estas gajnanta</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Kun la ideo</string>
   <string name="topics">Temoj</string>
   <string name="myTopics">Miaj temoj</string>
   <string name="popularTopics">Popularaj temoj</string>
+  <string name="playAgain">Reludi</string>
+  <string name="youCompletedThisLesson">Gratulon! Vi kompletigis la lecionon.</string>
 </resources>

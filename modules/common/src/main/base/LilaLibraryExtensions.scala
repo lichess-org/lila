@@ -10,9 +10,7 @@ import scala.util.matching.Regex
 import scala.util.Try
 
 import java.util.Base64
-import akka.actor.Scheduler
 import lila.common.Chronometer
-import scala.collection.BuildFrom
 import ornicar.scalalib.extensions.*
 import scala.annotation.targetName
 
@@ -78,13 +76,6 @@ trait LilaLibraryExtensions extends LilaTypes:
     def millis(name: String): Int              = config.getDuration(name, TimeUnit.MILLISECONDS).toInt
     def seconds(name: String): Int             = config.getDuration(name, TimeUnit.SECONDS).toInt
     def duration(name: String): FiniteDuration = millis(name).millis
-
-  extension (date: DateTime)
-    def getSeconds: Long                   = date.getMillis / 1000
-    def getCentis: Long                    = date.getMillis / 10
-    def toNow                              = org.joda.time.Duration(date, org.joda.time.DateTime.now)
-    def atMost(other: DateTime): DateTime  = if other.isBefore(date) then other else date
-    def atLeast(other: DateTime): DateTime = if other.isAfter(date) then other else date
 
   extension [A](v: Try[A])
 
@@ -228,15 +219,15 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def thenPp(using Executor): Fu[A] =
       effectFold(
-        e => println("[failure] " + e),
-        a => println("[success] " + a)
+        e => pprint.pprintln("[failure] " + e),
+        a => pprint.pprintln("[success] " + a)
       )
       fua
 
     def thenPp(msg: String)(using Executor): Fu[A] =
       effectFold(
-        e => println(s"[$msg] [failure] $e"),
-        a => println(s"[$msg] [success] $a")
+        e => pprint.pprintln(s"[$msg] [failure] $e"),
+        a => pprint.pprintln(s"[$msg] [success] $a")
       )
       fua
 
@@ -351,5 +342,5 @@ trait LilaLibraryExtensions extends LilaTypes:
         case Some(scala.util.Success(v)) => v
         case _                           => None
 
-    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]          = fua.map { _ ?? fb }
-    def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _ ?? fub }
+    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]          = fua.map { _ so fb }
+    def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _ so fub }

@@ -1,5 +1,5 @@
 import { Dests, files } from 'chessground/types';
-import { sanWriter, SanToUci } from 'chess';
+import { sanWriter, SanToUci, destsToUcis } from 'chess';
 import { KeyboardMove } from '../main';
 
 const keyRegex = /^[a-h][1-8]$/;
@@ -195,16 +195,6 @@ function sanCandidates(san: string, legalSans: SanToUci): San[] {
   return Object.keys(legalSans).filter(function (s) {
     return s.toLowerCase().startsWith(lowered);
   });
-}
-
-function destsToUcis(dests: Dests): Uci[] {
-  const ucis: string[] = [];
-  for (const [orig, d] of dests) {
-    d.forEach(function (dest) {
-      ucis.push(orig + dest);
-    });
-  }
-  return ucis;
 }
 
 function focusChat() {

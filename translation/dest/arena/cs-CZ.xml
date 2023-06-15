@@ -41,7 +41,7 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="drawStreakStandard">Série remíz: když hráč několikrát po sobě skončí hru remízou v aréně, pouze první remíza mu dá bod, nebo pokud k remíze dojde po více než %s tazích. Série může být ukončena pouze výhrou, ne prohrou nebo další remízou.</string>
   <string name="drawStreakVariants">Minimální délka hry pro bodovanou remízu se liší podle varianty. Níže uvedená tabulka uvádí hotnotu pro danou variantu.</string>
   <string name="variant">Varianta</string>
-  <string name="minimumGameLength" comment="minimumGameLength &#10;Referring to the number of moves played in each game within an arena tournament.">Minimální délka hry</string>
+  <string name="minimumGameLength">Minimální délka hry</string>
   <string name="history">Historie arény</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Zobrazit tým</item>
@@ -57,4 +57,8 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="allowChatHelp">Nechat hráče diskutovat v chatu</string>
   <string name="arenaStreaks">Série v aréně</string>
   <string name="arenaStreaksHelp">Po dvou výhrách, další po sobě jdoucí výhry udělují 4 body místo 2.</string>
+  <string name="noBerserkAllowed">Berserk mód není povolen</string>
+  <string name="noArenaStreaks">Žádné arénové série</string>
+  <string name="averagePerformance">Průměrný výkon</string>
+  <string name="averageScore">Průměrné skóre</string>
 </resources>

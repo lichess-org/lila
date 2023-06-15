@@ -1,127 +1,105 @@
 package lila.analyse
-import org.specs2.mutable.Specification
 
-import chess.Color
-import lila.tree.Eval.{ Cp, Mate }
+import chess.{ ByColor, Color }
+import lila.tree.Eval.Cp
+import lila.common.Maths.isCloseTo
 
-class AccuracyPercentTest extends Specification {
+class AccuracyPercentTest extends munit.FunSuite {
 
   import AccuracyPercent._
-  type AccMap = Color.Map[AccuracyPercent]
+  type AccMap = ByColor[AccuracyPercent]
 
-  "game accuracy" >> {
+  def compute(cps: List[Int]): Option[AccMap] =
+    gameAccuracy(Color.white, cps.map(Cp(_)))
 
-    def compute(cps: List[Int]): Option[AccMap] =
-      gameAccuracy(Color.white, cps.map(Cp(_)))
-
-    "empty game" >> {
-      compute(Nil) must beNone
-    }
-    "single move" >> {
-      compute(List(15)) must beNone
-    }
-    "two good moves" >> {
-      compute(List(15, 15)) must beSome.like { (a: AccMap) =>
-        a.white.value must beCloseTo(100d, 1d)
-        a.black.value must beCloseTo(100d, 1d)
-      }
-    }
-    "white blunders on first move" >> {
-      compute(List(-900, -900)) must beSome.like { a =>
-        a.white.value must beCloseTo(10d, 5d)
-        a.black.value must beCloseTo(100d, 1d)
-      }
-    }
-    "black blunders on first move" >> {
-      compute(List(15, 900)) must beSome.like { a =>
-        a.white.value must beCloseTo(100d, 1d)
-        a.black.value must beCloseTo(10d, 5d)
-      }
-    }
-    "both blunder on first move" >> {
-      compute(List(-900, 0)) must beSome.like { a =>
-        a.white.value must beCloseTo(10d, 5d)
-        a.black.value must beCloseTo(10d, 5d)
-      }
-    }
-    "20 perfect moves" >> {
-      compute(List.fill(20)(15)) must beSome.like { a =>
-        a.white.value must beCloseTo(100d, 1d)
-        a.black.value must beCloseTo(100d, 1d)
-      }
-    }
-    "20 perfect moves and a white blunder" >> {
-      compute(List.fill(20)(15) :+ -900) must beSome.like { a =>
-        a.white.value must beCloseTo(50d, 5d)
-        a.black.value must beCloseTo(100d, 1d)
-      }
-    }
-    "21 perfect moves and a black blunder" >> {
-      compute(List.fill(21)(15) :+ 900) must beSome.like { a =>
-        a.white.value must beCloseTo(100d, 1d)
-        a.black.value must beCloseTo(50d, 5d)
-      }
-    }
-    "5 average moves (65 cpl) on each side" >> {
-      compute(List.fill(5)(List(-50, 15)).flatten) must beSome.like { a =>
-        a.white.value must beCloseTo(76d, 8d)
-        a.black.value must beCloseTo(76d, 8d)
-      }
-    }
-    "50 average moves (65 cpl) on each side" >> {
-      compute(List.fill(50)(List(-50, 15)).flatten) must beSome.like { a =>
-        a.white.value must beCloseTo(76d, 8d)
-        a.black.value must beCloseTo(76d, 8d)
-      }
-    }
-    "50 mediocre moves (150 cpl) on each side" >> {
-      compute(List.fill(50)(List(-135, 15)).flatten) must beSome.like { a =>
-        a.white.value must beCloseTo(54d, 8d)
-        a.black.value must beCloseTo(54d, 8d)
-      }
-    }
-    "50 terrible moves (500 cpl) on each side" >> {
-      compute(List.fill(50)(List(-435, 15)).flatten) must beSome.like { a =>
-        a.white.value must beCloseTo(20d, 8d)
-        a.black.value must beCloseTo(20d, 8d)
-      }
-    }
+  test("empty game") {
+    assertEquals(compute(Nil), None)
+  }
+  test("single move") {
+    assertEquals(compute(List(15)), None)
+  }
+  test("two good moves") {
+    val a = compute(List(15, 15)).get
+    assert(isCloseTo(a.white.value, 100d, 1))
+    assert(isCloseTo(a.black.value, 100d, 1))
+  }
+  test("white blunders on first move") {
+    val a = compute(List(-900, -900)).get
+    assert(isCloseTo(a.white.value, 10d, 5d))
+    assert(isCloseTo(a.black.value, 100d, 1d))
+  }
+  test("black blunders on first move") {
+    val a = compute(List(15, 900)).get
+    assert(isCloseTo(a.white.value, 100d, 1d))
+    assert(isCloseTo(a.black.value, 10d, 5d))
+  }
+  test("both blunder on first move") {
+    val a = compute(List(-900, 0)).get
+    assert(isCloseTo(a.white.value, 10d, 5d))
+    assert(isCloseTo(a.black.value, 10d, 5d))
+  }
+  test("20 perfect moves") {
+    val a = compute(List.fill(20)(15)).get
+    assert(isCloseTo(a.white.value, 100d, 1d))
+    assert(isCloseTo(a.black.value, 100d, 1d))
+  }
+  test("20 perfect moves and a white blunder") {
+    val a = compute(List.fill(20)(15) :+ -900).get
+    assert(isCloseTo(a.white.value, 50d, 5d))
+    assert(isCloseTo(a.black.value, 100d, 1d))
+  }
+  test("21 perfect moves and a black blunder") {
+    val a = compute(List.fill(21)(15) :+ 900).get
+    assert(isCloseTo(a.white.value, 100d, 1d))
+    assert(isCloseTo(a.black.value, 50d, 5d))
+  }
+  test("5 average moves (65 cpl) on each side") {
+    val a = compute(List.fill(5)(List(-50, 15)).flatten).get
+    assert(isCloseTo(a.white.value, 76d, 8d))
+    assert(isCloseTo(a.black.value, 76d, 8d))
+  }
+  test("50 average moves (65 cpl) on each side") {
+    val a = compute(List.fill(50)(List(-50, 15)).flatten).get
+    assert(isCloseTo(a.white.value, 76d, 8d))
+    assert(isCloseTo(a.black.value, 76d, 8d))
+  }
+  test("50 mediocre moves (150 cpl) on each side") {
+    val a = compute(List.fill(50)(List(-135, 15)).flatten).get
+    assert(isCloseTo(a.white.value, 54d, 8d))
+    assert(isCloseTo(a.black.value, 54d, 8d))
+  }
+  test("50 terrible moves (500 cpl) on each side") {
+    val a = compute(List.fill(50)(List(-435, 15)).flatten).get
+    assert(isCloseTo(a.white.value, 20d, 8d))
+    assert(isCloseTo(a.black.value, 20d, 8d))
   }
 
-  "game accuracy, black moves first" >> {
+  def computeBlack(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp(_)))
 
-    def compute(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp(_)))
-
-    "empty game" >> {
-      compute(Nil) must beNone
-    }
-    "single move" >> {
-      compute(List(15)) must beNone
-    }
-    "two good moves" >> {
-      compute(List(15, 15)) must beSome.like { a =>
-        a.black.value must beCloseTo(100d, 1d)
-        a.white.value must beCloseTo(100d, 1d)
-      }
-    }
-    "black blunders on first move" >> {
-      compute(List(900, 900)) must beSome.like { a =>
-        a.black.value must beCloseTo(10d, 5d)
-        a.white.value must beCloseTo(100d, 1d)
-      }
-    }
-    "white blunders on first move" >> {
-      compute(List(15, -900)) must beSome.like { a =>
-        a.black.value must beCloseTo(100d, 1d)
-        a.white.value must beCloseTo(10d, 5d)
-      }
-    }
-    "both blunder on first move" >> {
-      compute(List(900, 0)) must beSome.like { a =>
-        a.black.value must beCloseTo(10d, 5d)
-        a.white.value must beCloseTo(10d, 5d)
-      }
-    }
+  test("black moves first, empty game") {
+    assertEquals(computeBlack(Nil), None)
   }
-
+  test("black moves first, single move") {
+    assertEquals(computeBlack(List(15)), None)
+  }
+  test("black moves first, two good moves") {
+    val a = computeBlack(List(15, 15)).get
+    assert(isCloseTo(a.black.value, 100d, 1d))
+    assert(isCloseTo(a.white.value, 100d, 1d))
+  }
+  test("black moves first, black blunders on first move") {
+    val a = computeBlack(List(900, 900)).get
+    assert(isCloseTo(a.black.value, 10d, 5d))
+    assert(isCloseTo(a.white.value, 100d, 1d))
+  }
+  test("black moves first, white blunders on first move") {
+    val a = computeBlack(List(15, -900)).get
+    assert(isCloseTo(a.black.value, 100d, 1d))
+    assert(isCloseTo(a.white.value, 10d, 5d))
+  }
+  test("black moves first, both blunder on first move") {
+    val a = computeBlack(List(900, 0)).get
+    assert(isCloseTo(a.black.value, 10d, 5d))
+    assert(isCloseTo(a.white.value, 10d, 5d))
+  }
 }

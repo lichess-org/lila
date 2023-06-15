@@ -1,6 +1,5 @@
 package lila.studySearch
 
-import lila.user.User
 import play.api.libs.json.*
 import lila.common.Json.given
 

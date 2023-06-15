@@ -1,18 +1,13 @@
 package lila.clas
 
-import akka.actor.Scheduler
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
-import bloomfilter.CanGenerateHashFrom
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
-import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi
-import lila.user.User
+import lila.db.dsl.*
 
-final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(using
+final class ClasStudentCache(colls: ClasColls)(using
     ec: Executor,
     scheduler: Scheduler,
     mat: Materializer

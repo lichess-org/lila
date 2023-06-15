@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Dátum pridania (najstaršie)</string>
   <string name="recentlyUpdated">Nedávno aktualizované</string>
   <string name="mostPopular">Najpopulárnejšie</string>
+  <string name="alphabetical">Abecedne</string>
   <string name="addNewChapter">Pridať novú kapitolu</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitola</item>
@@ -138,6 +139,7 @@
   <string name="clearChat">Vymazať čet</string>
   <string name="deleteTheStudyChatHistory">Chcete vymazať históriu četu k tomuto učivu? Táto akcia sa nedá vrátit späť!</string>
   <string name="deleteStudy">Vymazať učivo</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Vymazať štúdiu? Už nieje cesta späť! Napíšte meno štúdie pre potvrdenie: %s</string>
   <string name="whereDoYouWantToStudyThat">Kde to chcete študovať?</string>
   <string name="goodMove">Dobrý ťah</string>
   <string name="mistake">Chyba</string>

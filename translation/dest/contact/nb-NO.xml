@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">Dersom det blir slått fast at en spiller misbruker en botkonto for å manipulere ratingpoengene, kan det hende det ikke blir gitt poeng for partiet.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Hvis du støtte på en feilside, kan du rapportere det:</string>
+  <string name="wantBroadcastTournament">Jeg vil overføre en turnering</string>
+  <string name="learnHowToMakeBroadcasts">Lær hvordan du lager overføringer hos Lichess</string>
+  <string name="contactAboutOfficialBroadcasts">Du kan ellers kontakte overføringsgruppen angående offisielle overføringer.</string>
   <string name="banAppeal">Klage ved utestenging eller IP-restriksjon</string>
   <string name="engineAppeal">Anmerkning om juks eller maskinbruk</string>
   <string name="sendAppealTo">Du kan klage til %s.</string>

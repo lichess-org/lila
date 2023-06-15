@@ -14,7 +14,7 @@
   <string name="challengeRead">خواندن چالش های پیش رو</string>
   <string name="challengeWrite">ارسال، پذیرش و رد چالش ها</string>
   <string name="challengeBulk">ایجاد یکباره بازی های زیاد برای دیگر بازیکنان</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">درس های خصوصی و پخش ها را بخوانید</string>
+  <string name="studyRead">درس های خصوصی و پخش ها را بخوانید</string>
   <string name="studyWrite">ایجاد، به روز رسانی، حذف درس ها و پخش</string>
   <string name="tournamentWrite">ایجاد، به روز رسانی، و پیوستن به مسابقات</string>
   <string name="racerWrite">مسابقات پازل را ایجاد کنید و به آن بپیوندید</string>

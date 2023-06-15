@@ -39,7 +39,7 @@ object EmailAddress extends OpaqueString[EmailAddress]:
         e.username.count('.' == _) >= 4
 
   private val regex =
-    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
+    """(?i)^[a-z0-9.!#$%&'*+/=?^_`{|}~\-]+@[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?(?:\.[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?)*$""".r
 
   val maxLength = 320
 

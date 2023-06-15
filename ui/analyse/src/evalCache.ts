@@ -49,8 +49,7 @@ function toPutData(variant: VariantKey, ev: Tree.ClientEval): EvalPutData {
 
 // from server eval to client eval
 function toCeval(e: Tree.ServerEval): Tree.ClientEval {
-  // TODO: this type is not quite right
-  const res: any = {
+  const res: Tree.ClientEval = {
     fen: e.fen,
     nodes: e.knodes * 1000,
     depth: e.depth,

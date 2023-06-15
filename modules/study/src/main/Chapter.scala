@@ -7,6 +7,7 @@ import chess.variant.Variant
 import chess.{ Ply, Centis, Color, Outcome }
 import ornicar.scalalib.ThreadLocalRandom
 
+import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 
 case class Chapter(
@@ -14,7 +15,7 @@ case class Chapter(
     studyId: StudyId,
     name: StudyChapterName,
     setup: Chapter.Setup,
-    root: Node.Root,
+    root: Root,
     tags: Tags,
     order: Int,
     ownerId: UserId,
@@ -24,15 +25,15 @@ case class Chapter(
     description: Option[String] = None,
     relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
-    createdAt: DateTime
+    createdAt: Instant
 ) extends Chapter.Like:
 
-  def updateRoot(f: Node.Root => Option[Node.Root]) =
+  def updateRoot(f: Root => Option[Root]) =
     f(root) map { newRoot =>
       copy(root = newRoot)
     }
 
-  def addNode(node: Node, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
+  def addNode(node: Branch, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
     updateRoot {
       _.withChildren(_.addNodeAt(node, path))
     } map {
@@ -61,17 +62,17 @@ case class Chapter(
     updateRoot(_.forceVariationAt(force, path))
 
   def opening: Option[Opening] =
-    Variant.list.openingSensibleVariants(setup.variant) ??
+    Variant.list.openingSensibleVariants(setup.variant) so
       OpeningDb.searchInFens(root.mainline.map(_.fen.opening))
 
-  def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
+  def isEmptyInitial = order == 1 && root.children.isEmpty
 
   def cloneFor(study: Study) =
     copy(
       _id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
-      createdAt = nowDate
+      createdAt = nowInstant
     )
 
   def metadata = Chapter.Metadata(
@@ -100,7 +101,7 @@ object Chapter:
   // It works but could be used for DoS.
   val maxNodes = 3000
 
-  sealed trait Like:
+  trait Like:
     val _id: StudyChapterId
     val name: StudyChapterName
     val setup: Chapter.Setup
@@ -119,9 +120,9 @@ object Chapter:
   case class Relay(
       index: Int, // game index in the source URL
       path: UciPath,
-      lastMoveAt: DateTime
+      lastMoveAt: Instant
   ):
-    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
+    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.toSeconds).toInt
 
   case class ServerEval(path: UciPath, done: Boolean)
 
@@ -130,7 +131,7 @@ object Chapter:
     def looksAlive =
       tags.outcome.isEmpty &&
         relay.lastMoveAt.isAfter {
-          nowDate.minusMinutes {
+          nowInstant.minusMinutes {
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
           }
         }
@@ -158,14 +159,13 @@ object Chapter:
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value) take 80)
 
-  val idSize = 8
-  def makeId = StudyChapterId(ThreadLocalRandom nextString idSize)
+  def makeId = StudyChapterId(ThreadLocalRandom nextString 8)
 
   def make(
       studyId: StudyId,
       name: StudyChapterName,
       setup: Setup,
-      root: Node.Root,
+      root: Root,
       tags: Tags,
       order: Int,
       ownerId: UserId,
@@ -187,5 +187,5 @@ object Chapter:
       gamebook = gamebook option true,
       conceal = conceal,
       relay = relay,
-      createdAt = nowDate
+      createdAt = nowInstant
     )

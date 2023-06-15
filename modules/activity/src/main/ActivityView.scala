@@ -2,7 +2,6 @@ package lila.activity
 
 import activities.*
 import model.*
-import org.joda.time.Interval
 
 import lila.game.LightPov
 import lila.practice.PracticeStudy
@@ -13,7 +12,7 @@ import lila.tournament.LeaderboardApi.{ Entry as TourEntry }
 import lila.ublog.UblogPost
 
 case class ActivityView(
-    interval: Interval,
+    interval: TimeInterval,
     games: Option[Games] = None,
     puzzles: Option[Puzzles] = None,
     storm: Option[Storm] = None,

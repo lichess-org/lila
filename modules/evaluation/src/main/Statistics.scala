@@ -50,7 +50,7 @@ object Statistics:
   private val instantaneous = Centis(0)
 
   def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
-    moveTimes(pov) ?? {
+    moveTimes(pov) so {
       _.iterator
         .sliding(14)
         .map(_.toList.sorted(intOrdering).drop(1).dropRight(1))
@@ -60,7 +60,7 @@ object Statistics:
     }
 
   def moderatelyConsistentMoveTimes(pov: lila.game.Pov): Boolean =
-    moveTimeCoefVariation(pov) ?? { cvIndicatesModeratelyFlatTimes(_) }
+    moveTimeCoefVariation(pov) so { cvIndicatesModeratelyFlatTimes(_) }
 
   private val fastMove = Centis(50)
   def noFastMoves(pov: lila.game.Pov): Boolean =

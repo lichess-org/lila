@@ -2,15 +2,12 @@ package lila.ublog
 
 import play.api.i18n.Lang
 import reactivemongo.api.bson.*
-import scala.util.{ Success, Try }
 
-import lila.common.Iso
 import lila.db.dsl.{ *, given }
 
 private object UblogBsonHandlers:
 
-  import lila.memo.PicfitImage.*
-  import UblogPost.{ LightPost, Likes, PreviewPost, Recorded, Views }
+  import UblogPost.{ LightPost, PreviewPost, Recorded }
 
   given BSONHandler[UblogBlog.Id] = tryHandler(
     { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },

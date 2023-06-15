@@ -5,7 +5,7 @@ import play.api.data.Field
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -13,7 +13,7 @@ object admin:
 
   import trans.team.*
 
-  def leaders(t: lila.team.Team, form: Form[?])(implicit ctx: Context) =
+  def leaders(t: lila.team.Team, form: Form[?])(using WebContext) =
     views.html.base.layout(
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -37,7 +37,7 @@ object admin:
       )
     }
 
-  def kick(t: lila.team.Team, form: Form[?])(implicit ctx: Context) =
+  def kick(t: lila.team.Team, form: Form[?])(using WebContext) =
     views.html.base.layout(
       title = s"${t.name} • ${kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -66,8 +66,8 @@ object admin:
       form: Form[?],
       tours: List[lila.tournament.Tournament],
       unsubs: Int,
-      limiter: (Int, DateTime)
-  )(using ctx: Context) =
+      limiter: (Int, Instant)
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = s"${t.name} • ${messageAllMembers.txt()}",
       moreCss = cssTag("team"),
@@ -92,7 +92,7 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
                     momentFromNow(t.startsAt),
                     " ",
                     a(
-                      dataIcon     := "",
+                      dataIcon     := licon.Forward,
                       cls          := "text copy-url-button",
                       data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
                     )

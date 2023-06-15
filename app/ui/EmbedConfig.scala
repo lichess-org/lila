@@ -4,7 +4,7 @@ package ui
 import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 
-import lila.common.Nonce
+import lila.api.Nonce
 
 case class EmbedConfig(
     bg: String,

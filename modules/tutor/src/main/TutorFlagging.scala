@@ -1,10 +1,7 @@
 package lila.tutor
 
-import cats.data.NonEmptyList
-
 import lila.common.config
 import lila.insight.*
-import lila.rating.PerfType
 import alleycats.Zero
 
 case class TutorFlagging(win: TutorBothValueOptions[GoodPercent], loss: TutorBothValueOptions[GoodPercent])

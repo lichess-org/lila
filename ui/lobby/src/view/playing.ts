@@ -30,7 +30,7 @@ export default function (ctrl: LobbyController) {
         [
           h('span.mini-board.cg-wrap.is2d', {
             attrs: {
-              'data-state': `${pov.fen},${pov.color},${pov.lastMove}`,
+              'data-state': `${pov.fen},${pov.orientation || pov.color},${pov.lastMove}`,
             },
             hook: {
               insert(vnode) {

@@ -9,7 +9,6 @@ import scala.concurrent.blocking
 
 import lila.common.Chronometer
 import lila.memo.FrequencyThreshold
-import lila.user.User
 import play.api.ConfigLoader
 import lila.common.config.Max
 
@@ -20,14 +19,14 @@ final private class FirebasePush(
     config: FirebasePush.Config
 )(using
     ec: Executor,
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   private val workQueue =
     lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
 
   def apply(userId: UserId, data: => PushApi.Data): Funit =
-    credentialsOpt ?? { creds =>
+    credentialsOpt so { creds =>
       deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap {
         case Nil => funit
         // access token has 1h lifetime and is requested only if expired

@@ -1,6 +1,8 @@
 package views.html.game
 
-import lila.api.{ Context, given }
+import cats.syntax.all.*
+
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Crosstable
@@ -9,11 +11,11 @@ import controllers.routes
 
 object crosstable:
 
-  def apply(ct: Crosstable.WithMatchup, currentId: Option[GameId])(using Context): Frag =
+  def apply(ct: Crosstable.WithMatchup, currentId: Option[GameId])(using WebContext): Frag =
     apply(ct.crosstable, ct.matchup, currentId)
 
   def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[GameId])(using
-      Context
+      WebContext
   ): Frag =
     val matchup = trueMatchup.filter(_.users != ct.users)
     val matchupSepAt: Option[Int] = matchup map { m =>
@@ -21,7 +23,7 @@ object crosstable:
     }
     div(cls := "crosstable")(
       ct.fillSize > 0 option raw { s"""<fill style="flex:${ct.fillSize * 0.75} 1 auto"></fill>""" },
-      ct.results.zipWithIndex.map { case (r, i) =>
+      ct.results.mapWithIndex: (r, i) =>
         tag("povs")(
           cls := List(
             "sep"     -> matchupSepAt.has(i),
@@ -34,8 +36,7 @@ object crosstable:
             case _                    => "glpt loss" -> "0"
           }
           a(href := s"""${routes.Round.watcher(r.gameId, "white")}?pov=${u.id}""", cls := linkClass)(text)
-        })
-      },
+        }),
       matchup map { m =>
         div(cls := "crosstable__matchup force-ltr", title := trans.currentMatchScore.txt())(
           ct.users.toList.map { u =>

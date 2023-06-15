@@ -18,7 +18,6 @@ export interface Tournament {
 }
 
 export interface Ctrl {
-  trans: Trans;
   data: Data;
 }
 
