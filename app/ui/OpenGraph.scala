@@ -10,7 +10,6 @@ case class OpenGraph(
     `type`: String = "website",
     image: Option[String] = None,
     twitterImage: Option[String] = None,
-    siteName: String = "lishogi.org",
     more: List[(String, String)] = Nil
 ) {
 
@@ -34,7 +33,7 @@ case class OpenGraph(
         "description" -> description,
         "url"         -> url,
         "type"        -> `type`,
-        "site_name"   -> siteName
+        "site_name"   -> "lishogi.org"
       ).map(tupledTag) :::
         image.map { tag("image", _) }.toList :::
         more.map(tupledTag)

@@ -104,6 +104,8 @@ object bits {
       trans.signUp,
       trans.analysis,
       trans.playWithTheMachine,
+      trans.pressXtoFocus,
+      trans.pressXtoSubmit,
       // ceval
       trans.depthX,
       trans.usingServerAnalysis,

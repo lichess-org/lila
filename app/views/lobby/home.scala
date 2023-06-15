@@ -43,7 +43,7 @@ object home {
         .OpenGraph(
           image = staticUrl("logo/lishogi-tile-wide.png").some,
           twitterImage = staticUrl("logo/lishogi-tile.png").some,
-          title = "The best free, adless Shogi server",
+          title = trans.freeOnlineShogi.txt(),
           url = netBaseUrl,
           description = trans.siteDescription.txt()
         )
@@ -145,9 +145,7 @@ object home {
               trans.xIsAFreeYLibreOpenSourceShogiServer(
                 "Lishogi",
                 a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
-              ),
-              " ",
-              a(href := "/about")(trans.aboutX("Lishogi"), "...")
+              )
             )
         ),
         featured map { g =>
@@ -191,7 +189,6 @@ object home {
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := routes.Page.privacy)(trans.privacy()),
           a(href := routes.Page.source)(trans.sourceCode()),
-          a(href := routes.Page.ads)("Ads"),
           views.html.base.bits.connectLinks
         )
       )

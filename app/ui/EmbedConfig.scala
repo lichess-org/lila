@@ -30,7 +30,7 @@ object EmbedConfig {
       board = lila.pref.Theme(~get("theme", req)).cssClass,
       pieceSet = lila.pref.PieceSet(~pieceSet),
       chuPieceSet = lila.pref.ChuPieceSet(get("chuPieceSet", req) | ~pieceSet),
-      lang = lila.i18n.I18nLangPicker(req, none),
+      lang = get("lang", req).flatMap(lila.i18n.I18nLangPicker.byQuery) | lila.i18n.I18nLangPicker(req, none),
       req = req,
       nonce = Nonce.random
     )

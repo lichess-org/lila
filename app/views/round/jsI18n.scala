@@ -113,6 +113,8 @@ object jsI18n {
     trans.enteringKing,
     trans.invadingPieces,
     trans.totalImpasseValue,
-    trans.fromPosition
+    trans.fromPosition,
+    trans.pressXtoFocus,
+    trans.pressXtoSubmit
   ).map(_.key)
 }

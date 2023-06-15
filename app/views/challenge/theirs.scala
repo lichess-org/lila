@@ -27,7 +27,7 @@ object theirs {
           case Status.Created | Status.Offline =>
             frag(
               h1(
-                if (c.isOpen) "Open Challenge"
+                if (c.isOpen) trans.openChallenge.txt()
                 else
                   user.fold[Frag]("Anonymous")(u =>
                     frag(

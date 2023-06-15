@@ -109,7 +109,7 @@ object bits {
         span(cls := "more")(trans.more(), " »")
       ),
       div(id := "variants_list", cls := "lobby__box__content")(
-        Variant.all.filterNot(_.standard).map { v =>
+        Variant.all.withFilter(!_.standard).map { v =>
           a(cls := "variants_item", href := routes.Page.variant(v.key))(variantNameTag(v))
         }
       )

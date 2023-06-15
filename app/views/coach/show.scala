@@ -50,7 +50,8 @@ $('.coach-review-form form').show();
           `type` = "profile",
           image = c.coach.picturePath.map(p => dbImageUrl(p.value))
         )
-        .some
+        .some,
+      withHrefLangs = none
     ) {
       main(cls := "coach-show coach-full-page")(
         st.aside(cls := "coach-show__side coach-side")(

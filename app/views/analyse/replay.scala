@@ -56,7 +56,7 @@ object replay {
           target   := "_blank",
           href     := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
         )(
-          "Share as a GIF"
+          "GIF"
         ),
         a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(
           trans.embedInYourWebsite()

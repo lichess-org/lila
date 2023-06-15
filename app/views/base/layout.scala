@@ -284,8 +284,8 @@ object layout {
           boardPreload,
           manifests,
           jsLicense,
-          canonicalPath.map(canonical),
-          withHrefLangs.filter(_ => ctx.req.queryString.removed("lang").isEmpty).map(hrefLangs)
+          canonicalPath.filter(_ => robots).map(canonical),
+          withHrefLangs.filter(_ => ctx.req.queryString.removed("lang").isEmpty && robots).map(hrefLangs)
         ),
         st.body(
           cls := List(

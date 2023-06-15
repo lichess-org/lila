@@ -139,6 +139,6 @@ export function render(ctrl: KeyboardMove) {
           })
       ),
     }),
-    ctrl.hasFocus() ? h('em', 'Press <enter> submit your command') : h('strong', 'Press <enter> to focus'),
+    ctrl.hasFocus() ? h('em', 'Press <enter> to submit your command') : h('strong', 'Press <enter> to focus'),
   ]);
 }
