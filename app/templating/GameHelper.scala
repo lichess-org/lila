@@ -47,11 +47,13 @@ trait GameHelper {
     s"$perf$variant - ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
   }
 
-  // Beethoven (1500) vs Handel (1600) - Rated Blitz Shogi (5+3). Handel won. Click to replay, analyse, and discuss the game!
+  // Beethoven played Handel - Rated Blitz Shogi (5+3) - Handel won! Click to replay, analyse, and discuss the game!
   def describePov(pov: Pov)(implicit lang: Lang) = {
     import pov._
-    val p1 = playerText(player, withRating = true)
-    val p2 = playerText(opponent, withRating = true)
+    val sentePlayer = playerText(game.player(shogi.Sente), withRating = false)
+    val gotePlayer = playerText(game.player(shogi.Gote), withRating = false)
+    val players = if (game.finishedOrAborted) trans.xPlayedY.txt(sentePlayer, gotePlayer)
+      else trans.xIsPlayingY.txt(sentePlayer, gotePlayer)
     val gameDesc =
       if (game.imported) trans.importedGame.txt()
       else
@@ -61,8 +63,8 @@ trait GameHelper {
           game.variant.standard ?? trans.shogi.txt(),
           game.clock.map(_.config) ?? { clock => s"(${clock.show})" }
         ).filter(_.nonEmpty).mkString(" ")
-    val result = game.winner.map(w => trans.xWon.txt(playerText(w))).getOrElse(trans.draw.txt())
-    s"$p1 vs $p2 - $gameDesc. $result. ${trans.clickGame.txt()}"
+    val result = game.winner.map(w => trans.xWon.txt(playerText(w))).getOrElse(trans.gameWasDraw.txt())
+    s"$players - $gameDesc - $result ${trans.clickGame.txt()}"
   }
 
   def shortClockName(clock: Option[Clock.Config])(implicit lang: Lang): Frag =
