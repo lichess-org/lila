@@ -13,13 +13,13 @@ object features {
 
   def apply()(implicit ctx: Context) =
     views.html.base.layout(
-      title = title,
+      title = trans.features.txt(),
       moreCss = cssTag("feature"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = title,
+          title = trans.features.txt(),
           url = s"$netBaseUrl${routes.Plan.features.url}",
-          description = "All of Lishogi features are free for all and forever. We do it for the shogi!"
+          description = trans.everybodyGetsAllFeaturesForFree.txt()
         )
         .some,
       withHrefLangs = none
@@ -29,79 +29,60 @@ object features {
           header(h1(dataIcon := "")("Website")),
           tbody(
             tr(unlimited)(
-              "Play and create ",
-              a(href := routes.Tournament.home)("tournaments")
+              a(href := routes.Tournament.home)(trans.tournaments())
             ),
             tr(unlimited)(
-              "Play and create ",
-              a(href := routes.Simul.home)("simultaneous exhibitions")
-            ),
-            tr(unlimited)(
-              "Correspondence shogi with conditional premoves"
+              a(href := routes.Simul.home)(trans.simultaneousExhibitions())
             ),
             tr(check)(
-              "Standard shogi and ",
-              a(href := routes.Page.variantHome)("shogi variants - WIP")
+              trans.correspondenceShogi()
+            ),
+            tr(check)(
+              a(href := routes.Page.variantHome)(trans.variants())
             ),
             tr(unlimited)(
-              s"Instant local $engineName analysis"
+              s"${trans.localAnalysis.txt()} (YaneuraOu, Fairy-Stockfish)"
             ),
             tr(unlimited)(
-              "Cloud engine analysis"
+              trans.cloudAnalysis()
             ),
-            // tr(unlimited)(
-            //   a(href := "https://lishogi.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes")(
-            //     "Learn from your mistakes"
-            //   )
-            // ),
             tr(unlimited)(
               a(href := "https://lishogi.org/study")(
-                "Studies (shared and persistent analysis)"
+                trans.studyMenu()
+              )
+            ),
+            tr(unlimited)(
+              a(href := "https://lishogi.org/blog/post/ZBxnNBAAACIA599h")(
+                trans.postGameStudies()
               )
             ),
             tr(check)(
-              a(href := routes.Learn.index)("All shogi basics lessons")
+              a(href := routes.Learn.index)(trans.shogiBasics())
             ),
             tr(unlimited)(
-              a(href := routes.Puzzle.home)("Tactical puzzles from user games")
+              a(href := routes.Puzzle.home)(trans.puzzles())
             ),
-            // tr(unlimited)(
-            //  a(href := s"${routes.UserAnalysis.index}#explorer")("Opening explorer"),
-            //  " (62 million games!)"
-            // ),
-            // tr(unlimited)(
-            //  a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
-            //    "7-piece endgame tablebase"
-            //  )
-            // ),
             tr(check)(
-              "Download/Upload any game as KIF or CSA"
+              trans.importKif(),
+              " & ",
+              trans.importCsa()
             ),
             tr(unlimited)(
-              a(href := routes.Search.index(1))("Advanced search"),
-              " through more than 1 million Lishogi games"
-            ),
-            tr(unlimited)(
-              a(href := routes.Video.index)("Shogi video library")
+              a(href := routes.Search.index(1))(trans.search.advancedSearch()),
+              " - ",
+              trans.search.searchInXGames.pluralSameTxt(2_000_000)
             ),
             tr(check)(
-              "Forum, teams, messaging, friends, challenges"
+              a(href := routes.ForumCateg.index)(trans.forum())
             ),
             tr(check)(
-              "Available in ",
-              a(href := "https://crowdin.com/project/lishogi")("many languages")
+              a(href := routes.Team.all())(trans.team.teams())
             ),
             tr(check)(
-              "Light/dark theme, custom boards, pieces and background"
+              trans.availableInNbLanguages.plural(38, a(href := "https://crowdin.com/project/lishogi")("38"))
             ),
             tr(check)(
-              strong("Zero ads")
-            ),
-            tr(check)(
-              strong("No tracking")
-            ),
-            tr(check)(
-              strong("All features to come, forever")
+              strong(trans.patron.noAdsNoSubs())
             )
           ),
           // header(h1(dataIcon := "")("Mobile")),
@@ -146,17 +127,16 @@ object features {
           )
         ),
         p(cls := "explanation")(
-          strong("Yes, both accounts have the same features!"),
+          strong(trans.everybodyGetsAllFeaturesForFree()),
           br,
-          "That is because Lishogi is built for the love of shogi.",
-          br,
-          "We believe every shogi player deserves the best, and so:",
+          trans.builtForTheLoveOfShogiNotMoney(),
           br,
           br,
-          strong("all features are free for everybody, forever!"),
+          strong(trans.patron.freeShogi()),
           br,
-          "If you love Lishogi, ",
-          a(cls := "button", href := routes.Plan.index)("Support us with a Patron account!")
+          if (ctx.isAuth) trans.patron.weRelyOnSupport()
+          else trans.patron.donationSupport(),
+          a(cls := "button", href := routes.Plan.index)(trans.directlySupportLishogi())
         )
       )
     }
@@ -182,7 +162,4 @@ object features {
 
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
-  private val title = "Lishogi features"
-
-  private val engineName = "Engine"
 }
