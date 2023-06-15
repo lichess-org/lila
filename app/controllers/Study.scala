@@ -370,7 +370,7 @@ final class Study(
     } dmap (_.noCache)
 
   private def embedNotFound(using RequestHeader): Fu[Result] =
-    fuccess(NotFound(html.study.embed.notFound))
+    NotFound(html.study.embed.notFound)
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ =>
     OptionFuResult(env.study.api.byId(id)) { study =>
@@ -560,16 +560,16 @@ final class Study(
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using WebContext) =
     negotiate(
-      html = fuccess(Unauthorized(html.site.message.privateStudy(study))),
-      api = _ => fuccess(privateUnauthorizedJson)
+      html = Unauthorized(html.site.message.privateStudy(study)),
+      api = _ => privateUnauthorizedJson
     )
 
   def privateForbiddenText = Forbidden("This study is now private")
   def privateForbiddenJson = Forbidden(jsonError("This study is now private"))
   def privateForbiddenFu(study: StudyModel)(using WebContext) =
     negotiate(
-      html = fuccess(Forbidden(html.site.message.privateStudy(study))),
-      api = _ => fuccess(privateForbiddenJson)
+      html = Forbidden(html.site.message.privateStudy(study)),
+      api = _ => privateForbiddenJson
     )
 
   def studyNotFoundText = NotFound("Study or chapter not found")

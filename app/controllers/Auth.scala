@@ -47,9 +47,7 @@ final class Auth(
   ): Fu[Result] =
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
-        html = fuccess {
-          result.fold(Redirect(getReferrer))(_(getReferrer))
-        },
+        html = result.fold(Redirect(getReferrer))(_(getReferrer)),
         api = _ => mobileUserOk(u, sessionId)
       ) map authenticateCookie(sessionId, remember)
     } recoverWith authRecovery
@@ -77,10 +75,9 @@ final class Auth(
 
   private def authRecovery(using ctx: WebContext): PartialFunction[Throwable, Fu[Result]] =
     case lila.security.SecurityApi.MustConfirmEmail(_) =>
-      fuccess {
-        if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail}")
-        else BadRequest(accountC.renderCheckYourEmail)
-      }
+      if HTTPRequest isXhr ctx.req
+      then Ok(s"ok:${routes.Auth.checkYourEmail}")
+      else BadRequest(accountC.renderCheckYourEmail)
 
   def login     = Open(serveLogin)
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
@@ -208,7 +205,7 @@ final class Auth(
               .mobile(apiVersion)
               .flatMap {
                 case Signup.Result.RateLimited        => limitedDefault.zero
-                case Signup.Result.MissingCaptcha     => fuccess(BadRequest(jsonError("Missing captcha?!")))
+                case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
                 case Signup.Result.Bad(err)           => jsonFormError(err)
                 case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
                 case Signup.Result.AllSet(user, email) =>
@@ -346,8 +343,7 @@ final class Auth(
           else renderPasswordReset(none, fail = true) map { BadRequest(_) }
 
   def passwordResetSent(email: String) = Open:
-    fuccess:
-      Ok(html.auth.bits.passwordResetSent(email))
+    html.auth.bits.passwordResetSent(email)
 
   def passwordResetConfirm(token: String) = Open:
     env.security.passwordReset confirm token flatMap {
@@ -357,7 +353,7 @@ final class Auth(
       case Some(user) =>
         authLog(user.username, none, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
-        fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdResetFor(user), none))
+        html.auth.bits.passwordResetConfirm(user, token, forms.passwdResetFor(user), none)
     }
 
   def passwordResetConfirmApply(token: String) = OpenBody:
@@ -369,7 +365,7 @@ final class Auth(
         FormFuResult(forms.passwdResetFor(user)) { err =>
           fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
         } { data =>
-          HasherRateLimit(user.id, ctx.req) {
+          HasherRateLimit(user.id, ctx.req):
             env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
               env.user.repo.setEmailConfirmed(user.id).flatMapz {
                 welcome(user, _, sendWelcomeEmail = false)
@@ -380,7 +376,6 @@ final class Auth(
               env.push.unregisterDevices(user) >>
               authenticateUser(user, remember = true) >>-
               lila.mon.user.auth.passwordResetConfirm("success").increment().unit
-          }
         }
     }
 
@@ -422,8 +417,7 @@ final class Auth(
       }
 
   def magicLinkSent = Open:
-    fuccess:
-      Ok(html.auth.bits.magicLinkSent)
+    html.auth.bits.magicLinkSent
 
   private lazy val magicLinkLoginRateLimitPerToken = RateLimit[String](
     credits = 3,

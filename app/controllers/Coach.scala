@@ -58,7 +58,7 @@ final class Coach(env: Env) extends LilaController(env):
         .edit(c.coach)
         .bindFromRequest()
         .fold(
-          _ => fuccess(BadRequest),
+          _ => BadRequest,
           data => api.update(c, data) inject Ok
         )
   }
@@ -75,5 +75,5 @@ final class Coach(env: Env) extends LilaController(env):
           api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
             BadRequest(html.coach.picture(c, e.message.some))
           } inject Redirect(routes.Coach.edit)
-        case None => fuccess(Redirect(routes.Coach.edit))
+        case None => Redirect(routes.Coach.edit)
   }

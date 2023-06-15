@@ -58,7 +58,7 @@ final class Setup(
             config =>
               processor.ai(config) flatMap { pov =>
                 negotiate(
-                  html = fuccess(redirectPov(pov)),
+                  html = redirectPov(pov),
                   api = apiVersion =>
                     env.api.roundApi.player(pov, none, apiVersion) map { data =>
                       Created(data) as JSON
@@ -104,13 +104,13 @@ final class Setup(
                     env.challenge.api create challenge flatMap {
                       if _ then
                         negotiate(
-                          html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                          html = Redirect(routes.Round.watcher(challenge.id, "white")),
                           api = _ => challengeC.showChallenge(challenge, justCreated = true)
                         )
                       else
                         negotiate(
-                          html = fuccess(Redirect(routes.Lobby.home)),
-                          api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
+                          html = Redirect(routes.Lobby.home),
+                          api = _ => BadRequest(jsonError("Challenge not created"))
                         )
                     }
                 }
@@ -225,7 +225,7 @@ final class Setup(
   }
 
   def filterForm = Open:
-    fuccess(html.setup.filter(forms.filter))
+    html.setup.filter(forms.filter)
 
   def validateFen = Open:
     (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]) flatMap ValidFen(getBool("strict")) match

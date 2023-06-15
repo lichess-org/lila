@@ -60,12 +60,10 @@ final class Challenge(
       negotiate(
         html = {
           val color = get("color") flatMap chess.Color.fromName
-          if (mine) fuccess {
-            error match {
+          if mine then
+            error match
               case Some(e) => BadRequest(html.challenge.mine(c, json, e.some, color))
               case None    => Ok(html.challenge.mine(c, json, none, color))
-            }
-          }
           else
             (c.challengerUserId so env.user.repo.byId) map { user =>
               Ok(html.challenge.theirs(c, json, user, color))

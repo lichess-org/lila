@@ -5,12 +5,12 @@ import lila.app.{ given, * }
 final class DgtCtrl(env: Env) extends LilaController(env):
 
   def index = Auth { _ ?=> _ =>
-    Ok(views.html.dgt.index).toFuccess
+    views.html.dgt.index
   }
 
   def config = Auth { _ ?=> me =>
-    findToken(me) map { token =>
-      Ok(views.html.dgt.config(token))
+    findToken(me) map {
+      views.html.dgt.config
     }
   }
 

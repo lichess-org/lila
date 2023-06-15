@@ -109,38 +109,36 @@ final class Analyse(
         }
     }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using WebContext) =
-    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or) { atFen =>
+  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using
+      WebContext
+  ): Fu[Result] =
+    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or): atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
-      fuccess {
-        chess.Replay
-          .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
-          .fold(
-            err => {
-              lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
-              Redirect(url)
-            },
-            ply => Redirect(s"$url#$ply")
-          )
-      }
-    }
+      chess.Replay
+        .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
+        .fold(
+          err =>
+            lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
+            Redirect(url)
+          ,
+          ply => Redirect(s"$url#$ply")
+        )
 
-  private def replayBot(pov: Pov)(using WebContext) =
-    for
-      initialFen <- env.game.gameRepo initialFen pov.gameId
-      analysis   <- env.analyse.analyser get pov.game
-      simul      <- pov.game.simulId so env.simul.repo.find
-      crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-      pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
-    yield Ok(
-      html.analyse.replayBot(
-        pov,
-        initialFen,
-        env.analyse.annotator(pgn, pov.game, analysis).toString,
-        simul,
-        crosstable
-      )
+  private def replayBot(pov: Pov)(using WebContext) = for
+    initialFen <- env.game.gameRepo initialFen pov.gameId
+    analysis   <- env.analyse.analyser get pov.game
+    simul      <- pov.game.simulId so env.simul.repo.find
+    crosstable <- env.game.crosstableApi.withMatchup(pov.game)
+    pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
+  yield Ok(
+    html.analyse.replayBot(
+      pov,
+      initialFen,
+      env.analyse.annotator(pgn, pov.game, analysis).toString,
+      simul,
+      crosstable
     )
+  )
 
   def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me =>
     env.analyse.externalEngine.list(me) map { list =>

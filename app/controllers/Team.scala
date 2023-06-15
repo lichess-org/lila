@@ -334,8 +334,8 @@ final class Team(
   }
 
   def requestForm(id: TeamId) = Auth { ctx ?=> me =>
-    OptionFuOk(api.requestable(id, me)): team =>
-      fuccess(html.team.request.requestForm(team, forms.request(team)))
+    OptionOk(api.requestable(id, me)): team =>
+      html.team.request.requestForm(team, forms.request(team))
   }
 
   def requestCreate(id: TeamId) = AuthBody { ctx ?=> me =>
@@ -373,7 +373,7 @@ final class Team(
         .bindFromRequest()
         .fold(
           _ => fuccess(routes.Team.show(team.id).toString),
-          { (decision, url) => api.processRequest(team, request, decision) inject url }
+          (decision, url) => api.processRequest(team, request, decision) inject url
         )
     }
   }

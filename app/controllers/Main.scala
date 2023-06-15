@@ -64,8 +64,7 @@ final class Main(
 
   def dailyPuzzleSlackApp = Open:
     pageHit
-    fuccess:
-      html.site.dailyPuzzleSlackApp()
+    html.site.dailyPuzzleSlackApp()
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -77,16 +76,14 @@ final class Main(
     NoContent
 
   val robots = Anon:
-    fuccess:
-      Ok:
-        if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-        then lila.api.StaticContent.robotsTxt
-        else "User-agent: *\nDisallow: /"
+    Ok:
+      if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
+      then lila.api.StaticContent.robotsTxt
+      else "User-agent: *\nDisallow: /"
 
   def manifest = Anon:
-    fuccess:
-      JsonOk:
-        lila.api.StaticContent.manifest(env.net)
+    JsonOk:
+      lila.api.StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit
@@ -94,15 +91,13 @@ final class Main(
 
   def costs = Anon:
     pageHit
-    fuccess:
-      Redirect:
-        "https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview"
+    Redirect:
+      "https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview"
 
   def verifyTitle = Anon:
     pageHit
-    fuccess:
-      Redirect:
-        "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
+    Redirect:
+      "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
 
   def contact = Open:
     pageHit
@@ -130,8 +125,7 @@ final class Main(
 
   def instantChess = Open:
     pageHit
-    if ctx.isAuth
-    then fuccess(Redirect(routes.Lobby.home))
+    if ctx.isAuth then Redirect(routes.Lobby.home)
     else
       Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies:
         env.lilaCookie.withSession(remember = true): s =>

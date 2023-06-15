@@ -53,7 +53,7 @@ final class Mod(
       lila.chat.ChatTimeout.form
         .bindFromRequest()
         .fold(
-          form => fuccess(BadRequest(form.errors mkString "\n")),
+          form => BadRequest(form.errors mkString "\n"),
           data => env.chat.api.userChat.publicTimeout(data, me)
         )
     SecureOrScopedBody(_.ChatTimeout)(
@@ -124,10 +124,10 @@ final class Mod(
   }(actionResult(username))
 
   def impersonate(username: UserStr) = Auth { _ ?=> me =>
-    if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess:
+    if username == UserName("-") && env.mod.impersonate.isImpersonated(me) then
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
-    else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId))
+    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId) then
       OptionFuRedirect(env.user.repo byId username): user =>
         env.mod.impersonate.start(me, user)
         fuccess(routes.User.show(user.username))
@@ -138,7 +138,7 @@ final class Mod(
     lila.user.UserForm.title
       .bindFromRequest()
       .fold(
-        _ => fuccess(redirect(username, mod = true)),
+        _ => redirect(username, mod = true),
         title =>
           modApi.setTitle(me.id into ModId, username, title) >>
             env.mailer.automaticEmail.onTitleSet(username) >>-
@@ -538,12 +538,12 @@ final class Mod(
       scoped = _ ?=>
         me =>
           f(me).flatMap:
-            _.isDefined so fuccess(jsonOkResult)
+            _.isDefined so jsonOkResult
     )
 
   private def actionResult(
       username: UserStr
-  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: WebContext) =
+  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: WebContext): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
-    then fuccess(redirect(username))
+    then redirect(username)
     else userC.renderModZoneActions(username)

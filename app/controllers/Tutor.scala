@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.mvc.Result
+import play.api.mvc.*
 import views.*
 
 import lila.api.WebContext
@@ -55,12 +55,12 @@ final class Tutor(env: Env) extends LilaController(env):
   }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>
-    env.tutor.api.request(user, availability) >> redirHome(user)
+    env.tutor.api.request(user, availability) inject redirHome(user)
   }
 
   private def TutorPageAvailability(
       username: UserStr
-  )(f: WebContext ?=> UserModel => TutorFullReport.Availability => Fu[Result]) =
+  )(f: WebContext ?=> UserModel => TutorFullReport.Availability => Fu[Result]): Action[AnyContent] =
     Secure(_.Beta) { ctx ?=> holder =>
       def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(user)
       if holder.user is username then proceed(holder.user)
@@ -77,7 +77,7 @@ final class Tutor(env: Env) extends LilaController(env):
 
   private def TutorPage(
       username: UserStr
-  )(f: WebContext ?=> UserModel => TutorFullReport.Available => Fu[Result]) =
+  )(f: WebContext ?=> UserModel => TutorFullReport.Available => Fu[Result]): Action[AnyContent] =
     TutorPageAvailability(username) { ctx ?=> user => availability =>
       availability match
         case TutorFullReport.InsufficientGames =>
@@ -92,14 +92,13 @@ final class Tutor(env: Env) extends LilaController(env):
 
   private def TutorPerfPage(username: UserStr, perf: Perf.Key)(
       f: WebContext ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
-  ) =
+  ): Action[AnyContent] =
     TutorPage(username) { ctx ?=> me => availability =>
-      PerfType(perf).fold(redirHome(me)): perf =>
+      PerfType(perf).fold(redirHome(me).toFuccess): perf =>
         availability match
           case full @ TutorFullReport.Available(report, _) =>
-            report(perf).fold(redirHome(me)):
+            report(perf).fold(redirHome(me).toFuccess):
               f(me)(full)
     }
 
-  private def redirHome(user: UserModel) =
-    Redirect(routes.Tutor.user(user.username)).toFuccess
+  private def redirHome(user: UserModel) = Redirect(routes.Tutor.user(user.username))

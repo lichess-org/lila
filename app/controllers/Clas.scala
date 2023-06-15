@@ -44,10 +44,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   private def renderHome(using WebContext) =
-    fuccess {
-      pageHit
-      Ok(views.html.clas.clas.home)
-    }
+    pageHit
+    views.html.clas.clas.home
 
   def form = Secure(_.Teacher) { ctx ?=> _ =>
     html.clas.clas.create(env.clas.forms.clas.create)

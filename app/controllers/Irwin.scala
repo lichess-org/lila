@@ -17,7 +17,7 @@ final class Irwin(env: Env) extends LilaController(env):
       ctx.body.body
         .validate[lila.irwin.IrwinReport]
         .fold(
-          err => fuccess(BadRequest(err.toString)),
+          err => BadRequest(err.toString).toFuccess,
           report => env.irwin.irwinApi.reports.insert(report) inject Ok
         ) map (_ as TEXT)
   }

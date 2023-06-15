@@ -24,7 +24,7 @@ final class Report(
 
   def list = Secure(_.SeeReport) { _ ?=> me =>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
-    then fuccess(Forbidden(html.site.message.streamingMod))
+    then Forbidden(html.site.message.streamingMod)
     else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
   }
 

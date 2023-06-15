@@ -55,8 +55,8 @@ final class Round(
                 }
             }
           },
-      api = apiVersion => {
-        if (isTheft(pov)) fuccess(theftResponse)
+      api = apiVersion =>
+        if isTheft(pov) then theftResponse
         else
           env.tournament.api.gameView.mobile(pov.game) flatMap { tour =>
             pov.game.playableByAi so env.fishnet.player(pov.game)
@@ -66,7 +66,6 @@ final class Round(
                 Ok(data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))).noCache
               }
           }
-      }
     )
 
   def player(fullId: GameFullId) = Open:
@@ -99,18 +98,17 @@ final class Round(
         }
 
   def next(gameId: GameId) = Auth { ctx ?=> me =>
-    OptionFuResult(env.round.proxyRepo game gameId) { currentGame =>
+    OptionFuResult(env.round.proxyRepo game gameId): currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
       } flatMap {
         case Some(next) => renderPlayer(next)
         case None =>
-          fuccess(Redirect(currentGame.simulId match {
+          Redirect(currentGame.simulId match
             case Some(simulId) => routes.Simul.show(simulId)
             case None          => routes.Round.watcher(gameId, "white")
-          }))
+          )
       }
-    }
   }
 
   def watcher(gameId: GameId, color: String) = Open:
@@ -277,7 +275,7 @@ final class Round(
     Form(single("text" -> text))
       .bindFromRequest()
       .fold(
-        _ => fuccess(BadRequest),
+        _ => BadRequest,
         text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
       )
   }
@@ -298,12 +296,13 @@ final class Round(
 
   def resign(fullId: GameFullId) = Open:
     OptionFuRedirect(env.round.proxyRepo.pov(fullId)): pov =>
+      val redirection = fuccess(routes.Lobby.home)
       if isTheft(pov) then
         lila.log("round").warn(s"theft resign $fullId ${ctx.ip}")
-        fuccess(routes.Lobby.home)
+        redirection
       else
         env.round resign pov
-        akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
+        akka.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: String) = Open:
     OptionOk(
@@ -333,4 +332,4 @@ final class Round(
   }
 
   def help = Open:
-    Ok(html.site.helpModal.round).toFuccess
+    html.site.helpModal.round

@@ -79,12 +79,10 @@ final class RelayRound(
       auth = ctx ?=>
         me =>
           doUpdate(id, me).flatMapz: res =>
-            fuccess:
-              res.fold(
-                (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
-                rt => Redirect(rt.path)
-              )
-      ,
+            res.fold(
+              (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
+              rt => Redirect(rt.path)
+            ),
       scoped = ctx ?=>
         me =>
           doUpdate(id, me) map {

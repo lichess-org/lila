@@ -158,12 +158,12 @@ final class Api(
     CrosstableRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       val (u1, u2) = (name1.id, name2.id)
       env.game.crosstableApi(u1, u2) flatMap { ct =>
-        (ct.results.nonEmpty && getBool("matchup")).so {
-          env.game.crosstableApi.getMatchup(u1, u2)
-        } map { matchup =>
-          toApiResult:
-            lila.game.JsonView.crosstable(ct, matchup).some
-        }
+        (ct.results.nonEmpty && getBool("matchup"))
+          .so:
+            env.game.crosstableApi.getMatchup(u1, u2)
+          .map: matchup =>
+            toApiResult:
+              lila.game.JsonView.crosstable(ct, matchup).some
       }
 
   def currentTournaments = ApiRequest:
@@ -393,7 +393,7 @@ final class Api(
   def MobileApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:
     if lila.api.Mobile.Api.requested(req)
     then js map toHttp
-    else fuccess(NotFound)
+    else NotFound
 
   def toApiResult(json: Option[JsValue]): ApiResult =
     json.fold[ApiResult](ApiResult.NoData)(ApiResult.Data.apply)

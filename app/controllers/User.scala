@@ -82,11 +82,9 @@ final class User(
       }
 
   def download(username: UserStr) = OpenBody:
-    val userOption = if (username.value == "me") fuccess(ctx.me) else env.user.repo byId username
-    OptionOk(userOption.dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGranted(_.GamesModView)))) {
-      user =>
-        html.user.download(user)
-    }
+    val userOption = if username.value == "me" then fuccess(ctx.me) else env.user.repo byId username
+    OptionOk(userOption.dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGranted(_.GamesModView)))): user =>
+      html.user.download(user)
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.All.name, page)
 
@@ -169,20 +167,16 @@ final class User(
                   Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                     .withHeaders(CACHE_CONTROL -> "max-age=5")
                 },
-                api = _ => {
+                api = _ =>
                   import lila.game.JsonView.given
-                  fuccess(
-                    Ok(
-                      Json.obj(
-                        "crosstable" -> crosstable,
-                        "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
-                      )
+                  Ok:
+                    Json.obj(
+                      "crosstable" -> crosstable,
+                      "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
                     )
-                  )
-                }
               )
           }
-      else fuccess(Ok(html.user.bits.miniClosed(user)))
+      else Ok(html.user.bits.miniClosed(user))
 
   def online = Anon:
     val max = 50
@@ -267,10 +261,9 @@ final class User(
             )
           ),
         api = _ =>
-          fuccess:
-            given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
-            import lila.user.JsonView.leaderboardsWrites
-            JsonOk(leaderboards)
+          given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+          import lila.user.JsonView.leaderboardsWrites
+          JsonOk(leaderboards)
       )
     }
 
@@ -325,7 +318,7 @@ final class User(
       ctx: WebContext
   ): Fu[Result] =
     if HTTPRequest isEventSource ctx.req then renderModZone(holder, username)
-    else fuccess(modC.redirect(username))
+    else modC.redirect(username)
 
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, ?] =
     Source.futureSource:
@@ -461,7 +454,7 @@ final class User(
       .fold(
         err => BadRequest(err.errors.toString).toFuccess,
         data =>
-          doWriteNote(username, me, data)(user =>
+          doWriteNote(username, me, data): user =>
             if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id).map { notes =>
               Ok(views.html.mod.inquiry.noteZone(user, notes))
             }
@@ -469,7 +462,6 @@ final class User(
               env.socialInfo.fetchNotes(user, me) map { notes =>
                 Ok(views.html.user.show.header.noteZone(user, notes))
               }
-          )
       )
   }
 
@@ -599,15 +591,14 @@ final class User(
         env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap { data =>
           username match
             case Some(name) =>
-              EnabledUser(name) { u =>
-                fuccess(html.stat.ratingDistribution(perfType, data, Some(u)))
-              }
-            case _ => fuccess(html.stat.ratingDistribution(perfType, data, None))
+              EnabledUser(name): u =>
+                html.stat.ratingDistribution(perfType, data, Some(u))
+            case _ => html.stat.ratingDistribution(perfType, data, None)
         }
       case _ => notFound
 
   def myself = Auth { _ ?=> me =>
-    fuccess(Redirect(routes.User.show(me.username)))
+    Redirect(routes.User.show(me.username))
   }
 
   def redirect(username: UserStr) = Open:

@@ -78,7 +78,7 @@ final class Insight(env: Env) extends LilaController(env):
       _.fold(notFound): u =>
         env.insight.share.grant(u, ctx.me) flatMap {
           if _ then f(u)
-          else fuccess(Forbidden(html.insight.forbidden(u)))
+          else Forbidden(html.insight.forbidden(u))
         }
     }
 
@@ -86,6 +86,6 @@ final class Insight(env: Env) extends LilaController(env):
     env.user.repo byId username flatMapz { u =>
       env.insight.share.grant(u, me) flatMap {
         if _ then f(u)
-        else fuccess(Forbidden)
+        else Forbidden
       }
     }

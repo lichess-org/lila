@@ -160,22 +160,22 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                     for {
                       _ <- env.puzzle.session.onComplete(round, angle)
                       json <-
-                        if (mobileBc) fuccess {
-                          env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
-                            "round" -> Json.obj(
-                              "ratingDiff" -> 0,
-                              "win"        -> data.win
-                            ),
-                            "voted" -> round.vote
-                          )
-                        }
+                        if mobileBc then
+                          fuccess:
+                            env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
+                              "round" -> Json.obj(
+                                "ratingDiff" -> 0,
+                                "win"        -> data.win
+                              ),
+                              "voted" -> round.vote
+                            )
                         else
                           (data.replayDays, angle.asTheme) match {
                             case (Some(replayDays), Some(theme)) =>
                               for
                                 _    <- env.puzzle.replay.onComplete(round, replayDays, angle)
                                 next <- env.puzzle.replay(me, replayDays.some, theme)
-                                json <- next match {
+                                json <- next match
                                   case None => fuccess(Json.obj("replayComplete" -> true))
                                   case Some((puzzle, replay)) =>
                                     renderJson(puzzle, angle, replay.some) map { nextJson =>
@@ -184,7 +184,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                         "next"  -> nextJson
                                       )
                                     }
-                                }
                               yield json
                             case _ =>
                               for

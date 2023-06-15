@@ -140,7 +140,7 @@ final class UserAnalysis(
   def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ =>
     import lila.round.Forecast
     OptionFuResult(env.round.proxyRepo pov fullId): pov =>
-      if (isTheft(pov)) fuccess(theftResponse)
+      if isTheft(pov) then theftResponse
       else
         ctx.body.body
           .validate[Forecast.Steps]
@@ -160,21 +160,19 @@ final class UserAnalysis(
   def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
     AuthBody(parse.json) { ctx ?=> _ =>
       import lila.round.Forecast
-      OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
-        if (isTheft(pov)) fuccess(theftResponse)
+      OptionFuResult(env.round.proxyRepo pov fullId): pov =>
+        if isTheft(pov) then theftResponse
         else
           ctx.body.body
             .validate[Forecast.Steps]
             .fold(
               err => BadRequest(err.toString),
-              forecasts => {
+              forecasts =>
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
                 env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
                   lila.common.LilaFuture.sleep(wait.millis) inject
                   forecastReload
-              }
             )
-      }
     }
 
   def help = Open:

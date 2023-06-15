@@ -25,22 +25,19 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         (ctx.isAuth so { env.pref.api followable user.id }) zip
         (ctx.userId so { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
           negotiate(
-            html = fuccess(Ok:
+            html = Ok:
               if mini then
                 html.relation.mini(user.id, blocked = blocked, followable = followable, relation = relation)
               else
                 html.relation.actions(user, relation = relation, blocked = blocked, followable = followable)
-            ),
+            ,
             api = _ =>
-              fuccess(
-                Ok(
-                  Json.obj(
-                    "followable" -> followable,
-                    "following"  -> relation.contains(true),
-                    "blocking"   -> relation.contains(false)
-                  )
+              Ok:
+                Json.obj(
+                  "followable" -> followable,
+                  "following"  -> relation.contains(true),
+                  "blocking"   -> relation.contains(false)
                 )
-              )
           )
         }
     }
@@ -78,9 +75,8 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .flatMap:
           if _ then
             fuccess:
-              ApiResult.ClientError(
+              ApiResult.ClientError:
                 lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value).text
-              )
           else api.follow(me.id, userId.id).recoverDefault inject ApiResult.Done
     .map(apiC.toHttp)
   }

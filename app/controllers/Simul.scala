@@ -181,7 +181,7 @@ final class Simul(env: Env) extends LilaController(env):
     env.simul.repo.find(simulId).flatMap {
       case None                                                                    => notFound
       case Some(simul) if ctx.userId.has(simul.hostId) || isGranted(_.ManageSimul) => f(simul)
-      case _                                                                       => fuccess(Unauthorized)
+      case _                                                                       => Unauthorized
     }
 
   private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using WebContext): Fu[Result] =

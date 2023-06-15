@@ -17,6 +17,7 @@ import lila.i18n.{ I18nKey, I18nLangPicker }
 import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 import lila.user.{ Holder, User, UserContext, UserBodyContext }
+import play.api.libs.json.Reads
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -328,26 +329,26 @@ abstract private[controllers] class LilaController(val env: Env)
   )(op: A => Fu[B])(using ctx: WebContext) =
     fua flatMap { _.fold(notFound(using ctx))(a => op(a) dmap { Ok(_) }) }
 
-  def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using WebContext) =
+  def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using WebContext): Fu[Result] =
     fua.flatMap:
       _.fold(notFound): a =>
         op(a).map:
           Redirect(_)
 
-  def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A => Fu[String])(using WebContext) =
+  def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A => Fu[String])(using WebContext): Fu[Result] =
     fua.flatMap:
       _.fold(notFound): a =>
         op(a).map:
           Redirect(_)
 
-  def OptionResult[A](fua: Fu[Option[A]])(op: A => Result)(using WebContext) =
+  def OptionResult[A](fua: Fu[Option[A]])(op: A => Result)(using WebContext): Fu[Result] =
     OptionFuResult(fua): a =>
       fuccess(op(a))
 
-  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using WebContext) =
+  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using WebContext): Fu[Result] =
     fua flatMap { _.fold(notFound)(op) }
 
-  private val jsonGlobalErrorRenamer =
+  private val jsonGlobalErrorRenamer: Reads[JsObject] =
     import play.api.libs.json.*
     __.json update (
       (__ \ "global").json copyFrom (__ \ "").json.pick
@@ -368,14 +369,14 @@ abstract private[controllers] class LilaController(val env: Env)
   def apiFormError(form: Form[?]): JsObject =
     Json.obj("error" -> errorsAsJson(form)(using lila.i18n.defaultLang))
 
-  def jsonFormError(err: Form[?])(using Lang) =
-    fuccess(BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))))
+  def jsonFormError(err: Form[?])(using Lang) = fuccess:
+    BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
 
   def jsonFormErrorDefaultLang(err: Form[?]) =
     jsonFormError(err)(using lila.i18n.defaultLang)
 
-  def newJsonFormError(err: Form[?])(using Lang) =
-    fuccess(BadRequest(errorsAsJson(err)))
+  def newJsonFormError(err: Form[?])(using Lang) = fuccess:
+    BadRequest(errorsAsJson(err))
 
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment().unit

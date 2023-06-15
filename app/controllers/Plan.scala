@@ -109,8 +109,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def features = Open:
     pageHit
-    fuccess:
-      html.plan.features()
+    html.plan.features()
 
   def switch = AuthBody { ctx ?=> me =>
     env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
@@ -300,10 +299,10 @@ final class Plan(env: Env) extends LilaController(env):
         err =>
           if err.errors("txn_type").nonEmpty then
             logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
-            fuccess(Ok)
+            Ok
           else
             logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
-            fuccess(BadRequest)
+            BadRequest
         ,
         ipn =>
           env.plan.api.payPal.onLegacyCharge(

@@ -19,16 +19,13 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def delete(gameId: GameId) = Auth { _ ?=> me =>
     OptionFuResult(env.game.gameRepo game gameId): game =>
-      if game.pgnImport.flatMap(_.user).has(me.id)
-      then
+      if game.pgnImport.flatMap(_.user).has(me.id) then
         env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
         (env.game.gameRepo remove game.id) >>
           (env.analyse.analysisRepo remove game.id) >>
           env.game.cached.clearNbImportedByCache(me.id) inject
           Redirect(routes.User.show(me.username))
-      else
-        fuccess:
-          Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
+      else Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
   }
 
   def exportOne(id: GameAnyId) = Anon:
@@ -118,8 +115,9 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
   def apiExportByUserImportedGames(username: UserStr) =
-    def doExport(username: UserStr)(me: lila.user.User)(using ctx: AnyContext) = fuccess:
-      if !me.is(username) then Forbidden("Imported games of other players cannot be downloaded")
+    def doExport(username: UserStr)(me: lila.user.User)(using ctx: AnyContext) =
+      if !me.is(username)
+      then Forbidden("Imported games of other players cannot be downloaded")
       else
         apiC
           .GlobalConcurrencyLimitPerIpAndUserOption(ctx.req, me.some, me.some)(

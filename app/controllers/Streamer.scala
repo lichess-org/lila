@@ -152,25 +152,22 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def subscribe(streamer: UserStr, set: Boolean) = AuthBody { _ ?=> me =>
-    if (set) env.relation.subs.subscribe(me.id, streamer.id)
+    if set then env.relation.subs.subscribe(me.id, streamer.id)
     else env.relation.subs.unsubscribe(me.id, streamer.id)
-    fuccess(Ok)
+    Ok
   }
 
   def onYouTubeVideo = AnonBodyOf(parse.tolerantXml):
     env.streamer.ytApi.onVideoXml
 
   def youTubePubSubChallenge = Anon:
-    fuccess:
-      get("hub.challenge").fold(BadRequest): challenge =>
-        val days      = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
-        val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
-        lila
-          .log("streamer")
-          .info(
-            s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}"
-          )
-        Ok(challenge)
+    get("hub.challenge").fold(BadRequest): challenge =>
+      val days      = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
+      val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
+      lila
+        .log("streamer")
+        .info(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
+      Ok(challenge)
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext): Fu[Result] =
     ctx.me.fold(notFound): me =>

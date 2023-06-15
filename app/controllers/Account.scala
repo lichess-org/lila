@@ -33,12 +33,11 @@ final class Account(
       profile.bio
         .exists(env.security.spam.detect)
         .option("profile.bio" -> ~profile.bio)
-        .orElse {
+        .orElse:
           profile.links
             .exists(env.security.spam.detect)
             .option("profile.links" -> ~profile.links)
-        }
-        .so { case (resource, text) =>
+        .so { (resource, text) =>
           env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
         } >> env.user.repo.setProfile(me.id, profile) inject
         Redirect(routes.User show me.username).flashSuccess
@@ -382,8 +381,7 @@ final class Account(
     }
 
   def reopenSent = Open:
-    fuccess:
-      Ok(html.account.reopen.sent)
+    html.account.reopen.sent
 
   def reopenLogin(token: String) = Open:
     env.security.reopen confirm token flatMap {

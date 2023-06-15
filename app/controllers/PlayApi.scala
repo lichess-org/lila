@@ -130,7 +130,6 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         BadRequest:
           jsonError:
             "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
-        .toFuccess
       else if !lila.game.Game.isBotCompatible(pov.game) then
         BadRequest(jsonError("This game cannot be played with the Bot API."))
       else f(pov)

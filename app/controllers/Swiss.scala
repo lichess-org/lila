@@ -259,7 +259,7 @@ final class Swiss(
     WithSwiss(id): swiss =>
       env.swiss.api.playerInfo(swiss, userId.id) flatMap {
         _.fold(notFoundJson()): player =>
-          JsonOk(fuccess(lila.swiss.SwissJson.playerJsonExt(swiss, player)))
+          JsonOk(lila.swiss.SwissJson.playerJsonExt(swiss, player))
       }
 
   def exportTrf(id: SwissId) = Anon:
