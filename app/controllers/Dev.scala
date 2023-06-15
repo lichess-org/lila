@@ -32,7 +32,8 @@ final class Dev(env: Env) extends LilaController(env):
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
-    env.firefoxOriginTrial
+    env.firefoxOriginTrial,
+    env.credentiallessUaRegex
   )
 
   def settings = Secure(_.Settings) { ctx ?=> _ =>
