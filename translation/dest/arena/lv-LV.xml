@@ -63,4 +63,5 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="noArenaStreaks">Arēnas uzvaru sērijas atspējotas</string>
   <string name="averagePerformance">Vidējais sniegums</string>
   <string name="averageScore">Vidējais rezultāts</string>
+  <string name="myTournaments">Mani turnīri</string>
 </resources>
