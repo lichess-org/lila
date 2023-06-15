@@ -23,6 +23,9 @@ export type I18nKey =
 'perpetualCheck'|
 'royalsLost'|
 'bareKing'|
+'xWon'|
+'xLost'|
+'winnerIsNotYetDecided'|
 'gote'|
 'white'|
 'sente'|
@@ -56,10 +59,12 @@ export type I18nKey =
 'computerAnalysis'|
 'computerAnalysisAvailable'|
 'analysis'|
+'analysisDescription'|
 'depthX'|
 'usingServerAnalysis'|
 'loadingEngine'|
 'cloudAnalysis'|
+'localAnalysis'|
 'goDeeper'|
 'showThreat'|
 'inLocalBrowser'|
@@ -124,6 +129,7 @@ export type I18nKey =
 'computersAreNotAllowedToPlay'|
 'games'|
 'forum'|
+'forumDescription'|
 'xPostedInForumY'|
 'latestForumPosts'|
 'players'|
@@ -255,6 +261,9 @@ export type I18nKey =
 'apply'|
 'save'|
 'leaderboard'|
+'leaderboards'|
+'bestPlayersInVariousCategories'|
+'topXPlayersInY'|
 'selectHandicap'|
 'pasteTheSfenStringHere'|
 'pasteTheKifCsaStringHere'|
@@ -263,6 +272,7 @@ export type I18nKey =
 'continueFromHere'|
 'toStudy'|
 'importGame'|
+'importedGame'|
 'importGameKifCsaExplanation'|
 'thisIsAShogiCaptcha'|
 'clickOnTheBoardToMakeYourMove'|
@@ -328,6 +338,7 @@ export type I18nKey =
 'averageOpponent'|
 'membersOnly'|
 'boardEditor'|
+'editorDescription'|
 'setTheBoard'|
 'popularOpenings'|
 'handicaps'|
@@ -353,6 +364,7 @@ export type I18nKey =
 'socialMediaLinks'|
 'inlineNotation'|
 'watchLishogiTV'|
+'watchLishogiTVDescription'|
 'previouslyOnLishogiTV'|
 'onlinePlayers'|
 'onlineBots'|
@@ -378,6 +390,7 @@ export type I18nKey =
 'yes'|
 'help'|
 'createANewTopic'|
+'yourTeamBoards'|
 'topics'|
 'posts'|
 'lastPost'|
@@ -582,6 +595,7 @@ export type I18nKey =
 'sessions'|
 'revokeAllSessions'|
 'playShogiEverywhere'|
+'features'|
 'asFreeAsLishogi'|
 'builtForTheLoveOfShogiNotMoney'|
 'everybodyGetsAllFeaturesForFree'|
@@ -758,8 +772,13 @@ export type I18nKey =
 'challengeDeclined'|
 'challengeAccepted'|
 'challengeCanceled'|
+'openChallenge'|
+'challengeDescription'|
+'challengeFromX'|
+'xChallengesY'|
 'pressXtoFocus'|
 'pressXtoSubmit'|
+'clickGame'|
 'opponentLeftCounter'|
 'nbMoves'|
 'nbPlayers'|
@@ -818,7 +837,12 @@ export type I18nKey =
 'thisIsPrivate'|
 'shareUrl'|
 'drawStreak'|
+'noBerserkAllowed'|
+'noArenaStreaks'|
+'averagePerformance'|
+'averageScore'|
 'drawingWithinNbMoves'|
+'viewAllXTeams'|
 'emailConfirm_subject'|
 'emailConfirm_click'|
 'emailConfirm_ignore'|
@@ -1085,6 +1109,7 @@ export type I18nKey =
 'whatAreStudies'|
 'allStudies'|
 'studiesCreatedByX'|
+'studyByX'|
 'noneYet'|
 'hot'|
 'dateAddedNewest'|
@@ -1625,6 +1650,7 @@ export type I18nKey =
 'leadersChat'|
 'upcomingTourns'|
 'completedTourns'|
+'teamPage'|
 'nbMembers'|
 'teamLeaders'|
 'xJoinRequests'|
