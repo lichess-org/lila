@@ -350,8 +350,7 @@ export default (window as any).LichessVoiceMove = function (
   }
 
   function promotionHook() {
-    return (ctrl: PromotionCtrl, roles: cs.Role[] | false) => {
-      console.log('promotionHook: adding listener', ctrl, roles);
+    return (ctrl: PromotionCtrl, roles: cs.Role[] | false) =>
       roles
         ? lichess.mic.addListener(
             (text: string) => {
@@ -363,7 +362,6 @@ export default (window as any).LichessVoiceMove = function (
             { listenerId: 'promotion' }
           )
         : lichess.mic.removeListener('promotion');
-    };
   }
 
   // given each uci, build every possible move phrase for it, and keep clues
