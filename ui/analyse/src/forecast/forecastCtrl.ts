@@ -2,11 +2,14 @@ import { prop, notEmpty } from 'common';
 import * as xhr from 'common/xhr';
 import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
 import { AnalyseData } from '../interfaces';
+import { scalachessCharPair } from 'chessops/compat';
+import { parseUci } from 'chessops';
+import { TreeWrapper } from 'tree';
 
 export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): ForecastCtrl {
   const saveUrl = `/${data.game.id}${data.player.id}/forecasts`;
 
-  let forecasts = cfg.steps || [];
+  let forecasts: ForecastStep[][] = cfg.steps || [];
   const loading = prop(false);
 
   function keyOf(fc: ForecastStep[]): string {
@@ -121,6 +124,28 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
       });
   }
 
+  function showForecast(path: string, tree: TreeWrapper, nodes: ForecastStep[]) {
+    nodes.forEach(node => {
+      const moveId = scalachessCharPair(parseUci(node.uci)!);
+
+      // this handles the case where the move isn't in the tree yet
+      // if it is, it just returns
+      tree.addNode(
+        {
+          ply: node.ply,
+          fen: node.fen,
+          uci: node.uci,
+          san: node.san,
+          id: moveId,
+          children: [],
+        },
+        path // the path before this is its parent
+      );
+      path += moveId;
+    });
+    return path;
+  }
+
   return {
     addNodes(fc: ForecastStep[]): void {
       fc = truncate(fc);
@@ -141,5 +166,6 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     findStartingWithNode,
     playAndSave,
     reloadToLastPly,
+    showForecast,
   };
 }
