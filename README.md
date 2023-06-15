@@ -2,6 +2,7 @@
 
 [![Build server](https://github.com/WandererXII/lishogi/workflows/Build%20server/badge.svg)](https://github.com/WandererXII/lishogi/actions?query=workflow%3A%22Build+server%22)
 [![Build assets](https://github.com/WandererXII/lishogi/workflows/Build%20assets/badge.svg)](https://github.com/WandererXII/lishogi/actions?query=workflow%3A%22Build+assets%22)
+[![Crowdin](https://badges.crowdin.net/lishogi/localized.svg)](https://crowdin.com/project/lishogi)
 [![Twitter](https://img.shields.io/badge/Twitter-%40lishogi-blue.svg?style=flat)](https://twitter.com/lishogi)
 [![](https://dcbadge.vercel.app/api/server/YFtpMGg3rR?style=flat)](https://discord.gg/YFtpMGg3rR)
 
