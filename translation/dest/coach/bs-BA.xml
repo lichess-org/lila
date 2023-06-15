@@ -24,13 +24,4 @@
   <string name="teachingMethod">Metodologija predavanja</string>
   <string name="publicStudies">Javni učenici</string>
   <string name="youtubeVideos">Youtube videozapisi</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Recenzija jednog studenta</item>
-    <item quantity="few">Recenzija %s studenta</item>
-    <item quantity="other">Recenzija %s studenata</item>
-  </plurals>
-  <string name="thankYouForReview">Hvala Vam na recenziji!</string>
-  <string name="xWillApproveIt">%s će vrlo brzo odobriti ili će moderator pogledati.</string>
-  <string name="reviewCoach">Napišite recenziju o ovom treneru</string>
-  <string name="describeExperienceWith">Opišite kako je Vaše iskustvo bilo sa %s</string>
 </resources>

@@ -54,9 +54,9 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       actionForm
         .bindFromRequest()
         .fold(
-          err => BadRequest(err.toString).toFuccess,
+          err => BadRequest(err.toString),
           {
-            case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).toFuccess
+            case (gameIds, Some("pgn")) => downloadPgn(user, gameIds)
             case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
               multipleAnalysis(me, gameIds)
             case _ => notFound

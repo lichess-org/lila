@@ -17,6 +17,7 @@ import lila.i18n.{ I18nKey, I18nLangPicker }
 import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 import lila.user.{ Holder, User, UserContext, UserBodyContext }
+import play.api.libs.json.Reads
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -266,10 +267,10 @@ abstract private[controllers] class LilaController(val env: Env)
       OAuthServer
         .responseHeaders(scopes, available):
           Forbidden(jsonError(e.message))
-        .toFuccess
     case e =>
       lila.mon.user.oauth.request(false).increment()
-      OAuthServer.responseHeaders(scopes, OAuthScopes(Nil)) { Unauthorized(jsonError(e.message)) }.toFuccess
+      OAuthServer.responseHeaders(scopes, OAuthScopes(Nil)):
+        Unauthorized(jsonError(e.message))
 
   /* Authenticated and OAuth requests requiring certain permissions */
   def SecureOrScoped(perm: Permission.Selector)(
@@ -328,26 +329,26 @@ abstract private[controllers] class LilaController(val env: Env)
   )(op: A => Fu[B])(using ctx: WebContext) =
     fua flatMap { _.fold(notFound(using ctx))(a => op(a) dmap { Ok(_) }) }
 
-  def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using WebContext) =
+  def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using WebContext): Fu[Result] =
     fua.flatMap:
       _.fold(notFound): a =>
         op(a).map:
           Redirect(_)
 
-  def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A => Fu[String])(using WebContext) =
+  def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A => Fu[String])(using WebContext): Fu[Result] =
     fua.flatMap:
       _.fold(notFound): a =>
         op(a).map:
           Redirect(_)
 
-  def OptionResult[A](fua: Fu[Option[A]])(op: A => Result)(using WebContext) =
+  def OptionResult[A](fua: Fu[Option[A]])(op: A => Result)(using WebContext): Fu[Result] =
     OptionFuResult(fua): a =>
       fuccess(op(a))
 
-  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using WebContext) =
+  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using WebContext): Fu[Result] =
     fua flatMap { _.fold(notFound)(op) }
 
-  private val jsonGlobalErrorRenamer =
+  private val jsonGlobalErrorRenamer: Reads[JsObject] =
     import play.api.libs.json.*
     __.json update (
       (__ \ "global").json copyFrom (__ \ "").json.pick
@@ -368,14 +369,14 @@ abstract private[controllers] class LilaController(val env: Env)
   def apiFormError(form: Form[?]): JsObject =
     Json.obj("error" -> errorsAsJson(form)(using lila.i18n.defaultLang))
 
-  def jsonFormError(err: Form[?])(using Lang) =
-    fuccess(BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))))
+  def jsonFormError(err: Form[?])(using Lang) = fuccess:
+    BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
 
   def jsonFormErrorDefaultLang(err: Form[?]) =
     jsonFormError(err)(using lila.i18n.defaultLang)
 
-  def newJsonFormError(err: Form[?])(using Lang) =
-    fuccess(BadRequest(errorsAsJson(err)))
+  def newJsonFormError(err: Form[?])(using Lang) = fuccess:
+    BadRequest(errorsAsJson(err))
 
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment().unit
@@ -384,14 +385,14 @@ abstract private[controllers] class LilaController(val env: Env)
     LangPage(call.url)(f)(langCode)
   def LangPage(path: String)(f: WebContext ?=> Fu[Result])(langCode: String): Action[Unit] = Open:
     if ctx.isAuth
-    then redirectWithQueryString(path).toFuccess
+    then redirectWithQueryString(path)
     else
       import I18nLangPicker.ByHref
       I18nLangPicker.byHref(langCode, ctx.req) match
         case ByHref.NotFound => notFound(using ctx)
         case ByHref.Redir(code) =>
-          redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}").toFuccess
-        case ByHref.Refused(_) => redirectWithQueryString(path).toFuccess
+          redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
+        case ByHref.Refused(_) => redirectWithQueryString(path)
         case ByHref.Found(lang) =>
           pageHit
           f(using ctx.withLang(lang))

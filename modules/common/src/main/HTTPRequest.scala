@@ -3,6 +3,7 @@ package lila.common
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
+import scala.util.matching.Regex
 
 object HTTPRequest:
 
@@ -72,8 +73,11 @@ object HTTPRequest:
   }
 
   final class UaMatcher(rStr: String):
-    private val regex                      = rStr.r
+    private val regex: Regex               = rStr.r
     def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(ua => regex.find(ua.value))
+
+  def uaMatches(req: RequestHeader, regex: Regex): Boolean =
+    userAgent(req).fold(false)(ua => regex.find(ua.value))
 
   def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
 

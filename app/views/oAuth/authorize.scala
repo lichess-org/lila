@@ -19,24 +19,26 @@ object authorize:
   )
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using WebContext) =
-    val isDanger           = prompt.scopes.intersects(OAuthScope.dangerList)
+    import prompt.{ isDanger, looksLikeLichessMobile as mobile }
     val buttonClass        = s"button${isDanger so " button-red confirm text"}"
-    val buttonDelay        = if (isDanger) 5000 else 2000
+    val buttonDelay        = if isDanger then 5000 else 2000
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     views.html.base.layout(
       title = "Authorization",
       moreCss = cssTag("oauth"),
-      moreJs = embedJsUnsafe(
+      moreJs = embedJsUnsafe:
         // ensure maximum browser compatibility
         s"""setTimeout(function(){var el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.setAttribute('class','$buttonClass')}, $buttonDelay);"""
-      ),
+      ,
       csp = defaultCsp.withLegacyCompatibility.some
-    ) {
+    ):
       main(cls := "oauth box box-pad force-ltr")(
         div(cls := "oauth__top")(
           ringsImage,
           h1("Authorize"),
-          strong(code(prompt.redirectUri.clientOrigin))
+          if mobile
+          then h2("Lichess Mobile")
+          else strong(code(prompt.redirectUri.clientOrigin))
         ),
         prompt.redirectUri.insecure option flashMessage("warning")("Does not use a secure connection"),
         postForm(action := authorizeUrl)(
@@ -45,12 +47,13 @@ object authorize:
             strong(otherUserRequested.fold(me.username)(_.name)),
             " account:"
           ),
-          if (prompt.scopes.isEmpty) ul(li("Only public data"))
+          if mobile then emptyFrag
+          else if prompt.scopes.isEmpty then ul(li("Only public data"))
           else
-            ul(cls := "oauth__scopes")(
+            ul(cls := "oauth__scopes"):
               prompt.scopes.value.map: scope =>
                 li(cls := List("danger" -> OAuthScope.dangerList.has(scope)))(scope.name())
-            ),
+          ,
           form3.actions(
             a(href := prompt.cancelUrl)("Cancel"),
             otherUserRequested match
@@ -65,17 +68,18 @@ object authorize:
                   title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                 )("Authorize")
           ),
-          footer(prompt.redirectUri.withoutQuery, isDanger, otherUserRequested)
+          footer(prompt, isDanger, otherUserRequested)
         )
       )
-    }
 
   private def switchLoginUrl(to: Option[UserName])(using ctx: WebContext) =
     addQueryParams(routes.Auth.login.url, Map("switch" -> to.fold("1")(_.value), "referrer" -> ctx.req.uri))
 
-  private def footer(redirectUrl: String, isDanger: Boolean, otherUserRequested: Option[LightUser])(using
-      ctx: WebContext
-  ) =
+  private def footer(
+      prompt: AuthorizationRequest.Prompt,
+      isDanger: Boolean,
+      otherUserRequested: Option[LightUser]
+  )(using ctx: WebContext) =
     div(cls := "oauth__footer")(
       ctx.me ifTrue otherUserRequested.isEmpty map { me =>
         p(
@@ -85,9 +89,11 @@ object authorize:
           a(href := switchLoginUrl(none))(trans.signIn())
         )
       },
-      p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org"),
-      p(cls := "oauth__redirect")(
-        "Will redirect to ",
-        redirectUrl
-      )
+      if prompt.looksLikeLichessMobile
+      then p("Not using Lichess Mobile? ", a(href := prompt.cancelUrl)("Cancel"))
+      else
+        frag(
+          p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org"),
+          p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
+        )
     )

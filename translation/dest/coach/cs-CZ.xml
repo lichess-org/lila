@@ -24,14 +24,4 @@
   <string name="teachingMethod">Metodika výuky</string>
   <string name="publicStudies">Veřejné studie</string>
   <string name="youtubeVideos">YouTube videa</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Jedno hodnocení studenta</item>
-    <item quantity="few">%s hodnocení studentů</item>
-    <item quantity="many">%s hodnocení studentů</item>
-    <item quantity="other">%s hodnocení studentů</item>
-  </plurals>
-  <string name="thankYouForReview">Děkujeme za recenzi!</string>
-  <string name="xWillApproveIt">%s ji schválí velmi brzy, nebo se na to podívá moderátor.</string>
-  <string name="reviewCoach">Napsat recenzi</string>
-  <string name="describeExperienceWith">Popište svůj zážitek z trénování s %s</string>
 </resources>

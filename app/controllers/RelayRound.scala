@@ -36,13 +36,13 @@ final class RelayRound(
                 .create(trs)
                 .bindFromRequest()
                 .fold(
-                  err => BadRequest(html.relay.roundForm.create(err, tour)).toFuccess,
+                  err => BadRequest(html.relay.roundForm.create(err, tour)),
                   setup =>
                     rateLimitCreation(
                       me,
                       ctx.req,
                       Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-                    ) {
+                    ):
                       env.relay.api.create(setup, me, tour) map { round =>
                         Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
                       }
@@ -58,7 +58,7 @@ final class RelayRound(
                   .create(trs)
                   .bindFromRequest()
                   .fold(
-                    err => BadRequest(apiFormError(err)).toFuccess,
+                    err => BadRequest(apiFormError(err)),
                     setup =>
                       rateLimitCreation(me, ctx.req, rateLimited):
                         JsonOk:
@@ -80,12 +80,10 @@ final class RelayRound(
       auth = ctx ?=>
         me =>
           doUpdate(id, me).flatMapz: res =>
-            fuccess:
-              res.fold(
-                (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
-                rt => Redirect(rt.path)
-              )
-      ,
+            res.fold(
+              (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
+              rt => Redirect(rt.path)
+            ),
       scoped = ctx ?=>
         me =>
           doUpdate(id, me) map {

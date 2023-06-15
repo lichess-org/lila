@@ -101,6 +101,7 @@
   <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="openingEndgameExplorer">Atklātņu un beigu spēļu pārlūks</string>
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Izdarīt pirmo atklātņu/galotņu pārlūka gājienu</string>
   <string name="winPreventedBy50MoveRule">50 gājienu noteikums novērsa uzvaru</string>
   <string name="lossSavedBy50MoveRule">50 gājienu likums novērš zaudējumu</string>
   <string name="winOr50MovesByPriorMistake">Uzvara vai 50-gājienu neizšķirts iepriekšējas kļūdas dēļ</string>
@@ -159,6 +160,11 @@
     <item quantity="zero">%s spēles</item>
     <item quantity="one">%s spēles</item>
     <item quantity="other">%s spēles</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="zero">%1$s reitings, ņemot vērā %2$s spēles</item>
+    <item quantity="one">%1$s reitings, ņemot vērā %2$s spēli</item>
+    <item quantity="other">%1$s reitings, ņemot vērā %2$s spēles</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="zero">%s grāmatzīmes</item>
@@ -298,6 +304,7 @@
   <string name="cancelRematchOffer">Atcelt revanša piedāvājumu</string>
   <string name="viewRematch">Skatīties revanšu</string>
   <string name="confirmMove">Apstiprināt gājienu</string>
+  <string name="enableConfirmationForThisGame">Ieslēgt gājienu apstiprināšanu šai spēlei</string>
   <string name="play">Spēlēt</string>
   <string name="inbox">Iesūtne</string>
   <string name="chatRoom">Sarunu istaba</string>
@@ -364,8 +371,14 @@
     <item quantity="one">%s izpēte</item>
     <item quantity="other">%s izpētes</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="zero">%s simultānspēles</item>
+    <item quantity="one">%s simultānspēle</item>
+    <item quantity="other">%s simultānspēles</item>
+  </plurals>
   <string name="viewTournament">Skatīt turnīru</string>
   <string name="backToTournament">Atgriezties turnīrā</string>
+  <string name="noDrawBeforeSwissLimit">Šveices turnīrā neizšķirts nav iespējams pirms izdarīti 30 gājieni.</string>
   <string name="thematic">Tematisks</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="zero">≥ %s vērtētas spēles</item>
@@ -711,6 +724,11 @@
   <string name="keyGoToStartOrEnd">iet uz sākumu/beigām</string>
   <string name="keyShowOrHideComments">slēpt/rādīt komentārus</string>
   <string name="keyEnterOrExitVariation">ieiet/iziet variācijā</string>
+  <string name="keyRequestComputerAnalysis">Pieprasi datora analīzi, Mācies no savām kļūdām</string>
+  <string name="keyNextLearnFromYourMistakes">Nākamais (Mācies no savām kļūdām)</string>
+  <string name="keyNextBlunder">Nākamā rupjā kļūda</string>
+  <string name="keyNextMistake">Nākamā kļūda</string>
+  <string name="keyNextInaccuracy">Nākamā neprecizitāte</string>
   <string name="newTournament">Jauns turnīrs</string>
   <string name="tournamentHomeTitle">Šaha turnīri ar dažādām laika kontrolēm un variantiem</string>
   <string name="tournamentHomeDescription">Piedalieties ātra tempa šaha turnīros! Pievienojieties oficiāli organizētā turnīrā, vai izveidojiet savu turnīru. Pieejamas Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck un citas iespējas nebeidzamiem šaha priekiem.</string>
@@ -810,6 +828,7 @@
   <string name="invalidFen">Nepareizs FEN</string>
   <string name="custom">Pielāgota</string>
   <string name="notifications">Paziņojumi</string>
+  <string name="notificationsX">Paziņojumi: %1$s</string>
   <string name="perfRatingX">Reitings: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s sekundes, lai izdarītu pirmo gājienu</item>
@@ -907,6 +926,8 @@
   <string name="useTheReportForm">izmantojiet ziņošanas veidni</string>
   <string name="toRequestSupport">Lai lūgtu atbalstu, %1$s</string>
   <string name="tryTheContactPage">izmēģiniet kontaktu sadaļu</string>
+  <string name="makeSureToRead">Pārliecinies, ka izlasīji %1$s</string>
+  <string name="theForumEtiquette">foruma etiķeti</string>
   <string name="thisTopicIsArchived">Šis temats ir arhivēts un šeit vairs nevar atbildēt.</string>
   <string name="joinTheTeamXToPost">Pievienojieties %1$s, lai rakstītu šajā forumā</string>
   <string name="teamNamedX">komanda \"%1$s\"</string>

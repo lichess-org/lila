@@ -24,15 +24,4 @@
   <string name="teachingMethod">Kelenn ar vetodologiezh</string>
   <string name="publicStudies">Studiadennoù foran</string>
   <string name="youtubeVideos">Videoioù YouTube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Ur studier en/he deus roet e/he soñj</item>
-    <item quantity="two">%s studier o deus roet o soñj</item>
-    <item quantity="few">%s studier o deus roet o soñj</item>
-    <item quantity="many">%s studier o deus roet o soñj</item>
-    <item quantity="other">%s studier o deus roet o soñj</item>
-  </plurals>
-  <string name="thankYouForReview">Mersi bras da vezañ roet ho soñj deomp!</string>
-  <string name="xWillApproveIt">Degemeret e veoc\'h gant %s buan a--walc\'h pe e vo taolet ur sell gant un habaskaer.</string>
-  <string name="reviewCoach">Reiñ e soñj diwar-benn ar gourdoner-mañ</string>
-  <string name="describeExperienceWith">Displegit penaos e oa ar c\'hentelioù gant %s</string>
 </resources>

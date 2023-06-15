@@ -21,7 +21,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
 
   def show(slug: ForumCategId, page: Int) = Open:
     if slug == lila.forum.ForumCateg.ublogId
-    then Redirect(routes.Ublog.communityAll()).toFuccess
+    then Redirect(routes.Ublog.communityAll())
     else
       NotForKids:
         Reasonable(page, config.Max(50), notFound):
@@ -32,6 +32,6 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
               stickyPosts <- (page == 1) so env.forum.topicApi.getSticky(categ, ctx.me)
               _ <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
               res <-
-                if (canRead) Ok(html.forum.categ.show(categ, topics, canWrite, stickyPosts)).toFuccess
+                if canRead then Ok(html.forum.categ.show(categ, topics, canWrite, stickyPosts)).toFuccess
                 else notFound
             yield res

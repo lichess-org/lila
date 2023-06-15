@@ -104,8 +104,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           env.puzzle.selector.nextPuzzleFor(me, angle)
       case None => env.puzzle.anon.getOneFor(angle, difficulty, ~color)
 
-  private def redirectNoPuzzle =
-    Redirect(routes.Puzzle.themes).flashFailure("No more puzzles available! Try another theme.").toFuccess
+  private def redirectNoPuzzle: Fu[Result] =
+    Redirect(routes.Puzzle.themes).flashFailure("No more puzzles available! Try another theme.")
 
   def complete(angleStr: String, id: PuzzleId) = OpenBody:
     NoBot:
@@ -160,22 +160,22 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                     for {
                       _ <- env.puzzle.session.onComplete(round, angle)
                       json <-
-                        if (mobileBc) fuccess {
-                          env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
-                            "round" -> Json.obj(
-                              "ratingDiff" -> 0,
-                              "win"        -> data.win
-                            ),
-                            "voted" -> round.vote
-                          )
-                        }
+                        if mobileBc then
+                          fuccess:
+                            env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
+                              "round" -> Json.obj(
+                                "ratingDiff" -> 0,
+                                "win"        -> data.win
+                              ),
+                              "voted" -> round.vote
+                            )
                         else
                           (data.replayDays, angle.asTheme) match {
                             case (Some(replayDays), Some(theme)) =>
                               for
                                 _    <- env.puzzle.replay.onComplete(round, replayDays, angle)
                                 next <- env.puzzle.replay(me, replayDays.some, theme)
-                                json <- next match {
+                                json <- next match
                                   case None => fuccess(Json.obj("replayComplete" -> true))
                                   case Some((puzzle, replay)) =>
                                     renderJson(puzzle, angle, replay.some) map { nextJson =>
@@ -184,7 +184,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                         "next"  -> nextJson
                                       )
                                     }
-                                }
                               yield json
                             case _ =>
                               for
@@ -245,8 +244,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
       lila.mon.streak.run.score("mobile").record(score)
       setStreakResult(me.id, score)
-      NoContent.toFuccess
-    else BadRequest.toFuccess
+      NoContent
+    else BadRequest
   }
 
   def vote(id: PuzzleId) = AuthBody { _ ?=> me =>
@@ -334,7 +333,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       val angle = PuzzleAngle.findOrMix(angleKey)
       OptionFuResult(env.puzzle.api.puzzle find id): puzzle =>
         if angle.asTheme.exists(theme => !puzzle.themes.contains(theme))
-        then Redirect(routes.Puzzle.show(puzzle.id)).toFuccess
+        then Redirect(routes.Puzzle.show(puzzle.id))
         else
           ctx.me.so { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
             renderShow(puzzle, angle)
@@ -362,7 +361,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)):
         source => Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
-      .toFuccess
   }
 
   def apiDashboard(days: Int) =
@@ -386,8 +384,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val theme         = PuzzleTheme.findOrMix(themeKey)
     val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
     env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
-      case None =>
-        Redirect(routes.Puzzle.dashboard(days, "home", none)).toFuccess
+      case None                   => Redirect(routes.Puzzle.dashboard(days, "home", none))
       case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
     }
   }
@@ -414,7 +411,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       ctx.body.body
         .validate[lila.puzzle.PuzzleForm.batch.SolveData]
         .fold(
-          err => BadRequest(err.toString).toFuccess,
+          err => BadRequest(err.toString),
           data =>
             val angle = PuzzleAngle findOrMix angleStr
             for
@@ -476,7 +473,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         ctx.body.body
           .validate[SolveDataBc]
           .fold(
-            err => BadRequest(err.toString).toFuccess,
+            err => BadRequest(err.toString),
             data =>
               data.solutions.lastOption
                 .flatMap: solution =>
@@ -512,7 +509,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok(html.site.helpModal.puzzle).toFuccess
+    html.site.helpModal.puzzle
 
   private def DashboardPage(username: Option[UserStr])(f: WebContext ?=> UserModel => Fu[Result]) =
     Auth { ctx ?=> me =>

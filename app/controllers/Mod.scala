@@ -53,7 +53,7 @@ final class Mod(
       lila.chat.ChatTimeout.form
         .bindFromRequest()
         .fold(
-          form => fuccess(BadRequest(form.errors mkString "\n")),
+          form => BadRequest(form.errors mkString "\n"),
           data => env.chat.api.userChat.publicTimeout(data, me)
         )
     SecureOrScopedBody(_.ChatTimeout)(
@@ -124,10 +124,10 @@ final class Mod(
   }(actionResult(username))
 
   def impersonate(username: UserStr) = Auth { _ ?=> me =>
-    if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess:
+    if username == UserName("-") && env.mod.impersonate.isImpersonated(me) then
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
-    else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId))
+    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId) then
       OptionFuRedirect(env.user.repo byId username): user =>
         env.mod.impersonate.start(me, user)
         fuccess(routes.User.show(user.username))
@@ -138,7 +138,7 @@ final class Mod(
     lila.user.UserForm.title
       .bindFromRequest()
       .fold(
-        _ => fuccess(redirect(username, mod = true)),
+        _ => redirect(username, mod = true),
         title =>
           modApi.setTitle(me.id into ModId, username, title) >>
             env.mailer.automaticEmail.onTitleSet(username) >>-
@@ -153,7 +153,7 @@ final class Mod(
         .modEmail(user)
         .bindFromRequest()
         .fold(
-          err => BadRequest(err.toString).toFuccess,
+          err => BadRequest(err.toString),
           email =>
             modApi.setEmail(me.id into ModId, user.id, email) inject
               redirect(user.username, mod = true)
@@ -162,7 +162,7 @@ final class Mod(
 
   def inquiryToZulip = Secure(_.SendToZulip) { _ ?=> me =>
     env.report.api.inquiries ofModId me.id flatMap {
-      case None => Redirect(report.routes.Report.list).toFuccess
+      case None => Redirect(report.routes.Report.list)
       case Some(report) =>
         env.user.repo byId report.user flatMapz { user =>
           import lila.report.Room
@@ -342,7 +342,7 @@ final class Mod(
     UserSearch.form
       .bindFromRequest()
       .fold(
-        err => BadRequest(html.mod.search(me, err, Nil)).toFuccess,
+        err => BadRequest(html.mod.search(me, err, Nil)),
         query => env.mod.search(query) map { html.mod.search(me, UserSearch.form.fill(query), _) }
       )
   }
@@ -425,7 +425,7 @@ final class Mod(
         single("permissions" -> list(text.verifying(Permission.allByDbKey.contains)))
       ).bindFromRequest()
         .fold(
-          _ => BadRequest(html.mod.permissions(user, me)).toFuccess,
+          _ => BadRequest(html.mod.permissions(user, me)),
           permissions =>
             val newPermissions = Permission(permissions) diff Permission(user.roles)
             modApi.setPermissions(me, user.username, Permission(permissions)) >> {
@@ -439,7 +439,7 @@ final class Mod(
 
   def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me =>
     get("q") match
-      case None => Ok(html.mod.emailConfirm("", none, none)).toFuccess
+      case None => Ok(html.mod.emailConfirm("", none, none))
       case Some(rawQuery) =>
         val query    = rawQuery.trim.split(' ').toList
         val email    = query.headOption.flatMap(EmailAddress.from)
@@ -460,11 +460,11 @@ final class Mod(
           tryWith(em, em.value) orElse {
             username so { tryWith(em, _) }
           } recover lila.db.recoverDuplicateKey(_ => none)
-        } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).toFuccess
+        } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none))
   }
 
   def chatPanic = Secure(_.Shadowban) { ctx ?=> _ =>
-    Ok(html.mod.chatPanic(env.chat.panic.get)).toFuccess
+    html.mod.chatPanic(env.chat.panic.get)
   }
 
   def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me =>
@@ -472,13 +472,13 @@ final class Mod(
     env.chat.panic.set(v)
     env.irc.api.chatPanic(me, v)
     fuccess(().some)
-  }(_ ?=> _ => _ => Redirect(routes.Mod.chatPanic).toFuccess)
+  }(_ ?=> _ => _ => Redirect(routes.Mod.chatPanic))
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ =>
     env.mod.presets
       .get(group)
       .fold(notFound): setting =>
-        Ok(html.mod.presets(group, setting.form)).toFuccess
+        html.mod.presets(group, setting.form)
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ =>
@@ -488,13 +488,13 @@ final class Mod(
         setting.form
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.mod.presets(group, err)).toFuccess,
+            err => BadRequest(html.mod.presets(group, err)),
             v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
           )
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ =>
-    noProxyBuffer(Ok.chunked(env.mod.stream())).toFuccess
+    noProxyBuffer(Ok.chunked(env.mod.stream()))
   }
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me =>
@@ -538,12 +538,12 @@ final class Mod(
       scoped = _ ?=>
         me =>
           f(me).flatMap:
-            _.isDefined so fuccess(jsonOkResult)
+            _.isDefined so jsonOkResult
     )
 
   private def actionResult(
       username: UserStr
-  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: WebContext) =
+  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: WebContext): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
-    then fuccess(redirect(username))
+    then redirect(username)
     else userC.renderModZoneActions(username)

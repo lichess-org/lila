@@ -39,14 +39,14 @@ final class User(
       currentlyPlaying(user) orElse lastPlayed(user) flatMap {
         _.fold(fuccess(Redirect(routes.User.show(username.value)))): pov =>
           ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
-            case Some(mine) => Redirect(routes.Round.player(mine.fullId)).toFuccess
+            case Some(mine) => Redirect(routes.Round.player(mine.fullId))
             case _          => roundC.watch(pov, userTv = user.some)
       }
 
   def tvExport(username: UserStr) = Anon:
     env.game.cached.lastPlayedPlayingId(username.id) orElse
       env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
-        case None         => NotFound("No ongoing game").toFuccess
+        case None         => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
       }
 
@@ -82,11 +82,9 @@ final class User(
       }
 
   def download(username: UserStr) = OpenBody:
-    val userOption = if (username.value == "me") fuccess(ctx.me) else env.user.repo byId username
-    OptionOk(userOption.dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGranted(_.GamesModView)))) {
-      user =>
-        html.user.download(user)
-    }
+    val userOption = if username.value == "me" then fuccess(ctx.me) else env.user.repo byId username
+    OptionOk(userOption.dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGranted(_.GamesModView)))): user =>
+      html.user.download(user)
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.All.name, page)
 
@@ -96,8 +94,8 @@ final class User(
         if filter == "search" && ctx.isAnon
         then
           negotiate(
-            html = Unauthorized(html.search.login(u.count.game)).toFuccess,
-            api = _ => Unauthorized(jsonError("Login required")).toFuccess
+            html = Unauthorized(html.search.login(u.count.game)),
+            api = _ => Unauthorized(jsonError("Login required"))
           )
         else
           negotiate(
@@ -115,9 +113,8 @@ final class User(
               _ <- env.tournament.cached.nameCache preloadMany {
                 pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
               }
-              notes <- ctx.me so { me =>
+              notes <- ctx.me.so: me =>
                 env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me.id)
-              }
               res <-
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
@@ -134,9 +131,10 @@ final class User(
           )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    if (UserModel.isGhost(username.id))
+    if UserModel.isGhost(username.id)
+    then
       negotiate(
-        html = Ok(html.site.bits.ghost).toFuccess,
+        html = Ok(html.site.bits.ghost),
         api = _ => notFoundJson("Deleted user")
       )
     else
@@ -148,10 +146,10 @@ final class User(
         case Some(u) =>
           negotiate(
             html = env.user.repo isErased u flatMap { erased =>
-              if (erased.value) notFound
-              else NotFound(html.user.show.page.disabled(u)).toFuccess
+              if erased.value then notFound
+              else NotFound(html.user.show.page.disabled(u))
             },
-            api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
+            api = _ => NotFound(jsonError("No such user, or account closed"))
           )
       }
   def showMini(username: UserStr) = Open:
@@ -169,20 +167,16 @@ final class User(
                   Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                     .withHeaders(CACHE_CONTROL -> "max-age=5")
                 },
-                api = _ => {
+                api = _ =>
                   import lila.game.JsonView.given
-                  fuccess(
-                    Ok(
-                      Json.obj(
-                        "crosstable" -> crosstable,
-                        "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
-                      )
+                  Ok:
+                    Json.obj(
+                      "crosstable" -> crosstable,
+                      "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
                     )
-                  )
-                }
               )
           }
-      else fuccess(Ok(html.user.bits.miniClosed(user)))
+      else Ok(html.user.bits.miniClosed(user))
 
   def online = Anon:
     val max = 50
@@ -267,10 +261,9 @@ final class User(
             )
           ),
         api = _ =>
-          fuccess:
-            given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
-            import lila.user.JsonView.leaderboardsWrites
-            JsonOk(leaderboards)
+          given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+          import lila.user.JsonView.leaderboardsWrites
+          JsonOk(leaderboards)
       )
     }
 
@@ -282,12 +275,11 @@ final class User(
     }
 
   def topNb(nb: Int, perfKey: Perf.Key) = Open:
-    topNbUsers(nb, perfKey) flatMapz { (users, perfType) =>
+    topNbUsers(nb, perfKey).flatMapz: (users, perfType) =>
       negotiate(
-        html = (nb == 200) so Ok(html.user.top(perfType, users)).toFuccess,
-        api = _ => fuccess(topNbJson(users))
+        html = (nb == 200) so Ok(html.user.top(perfType, users)),
+        api = _ => topNbJson(users)
       )
-    }
 
   def topNbApi(nb: Int, perfKey: Perf.Key) = Anon:
     if nb == 1 && perfKey == Perf.Key("standard") then
@@ -326,7 +318,7 @@ final class User(
       ctx: WebContext
   ): Fu[Result] =
     if HTTPRequest isEventSource ctx.req then renderModZone(holder, username)
-    else fuccess(modC.redirect(username))
+    else modC.redirect(username)
 
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, ?] =
     Source.futureSource:
@@ -462,15 +454,14 @@ final class User(
       .fold(
         err => BadRequest(err.errors.toString).toFuccess,
         data =>
-          doWriteNote(username, me, data)(user =>
-            if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+          doWriteNote(username, me, data): user =>
+            if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id).map { notes =>
               Ok(views.html.mod.inquiry.noteZone(user, notes))
             }
             else
               env.socialInfo.fetchNotes(user, me) map { notes =>
                 Ok(views.html.user.show.header.noteZone(user, notes))
               }
-          )
       )
   }
 
@@ -487,7 +478,7 @@ final class User(
       .bindFromRequest()
       .fold(
         jsonFormErrorDefaultLang,
-        data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
+        data => doWriteNote(username, me, data)(_ => jsonOkResult)
       )
   }
 
@@ -557,7 +548,7 @@ final class User(
 
   def autocomplete = OpenOrScoped(): me =>
     getUserStr("term").flatMap(UserModel.validateId) match
-      case None                          => BadRequest("No search term provided").toFuccess
+      case None                          => BadRequest("No search term provided")
       case Some(id) if getBool("exists") => env.user.repo exists id map JsonOk
       case Some(term) =>
         {
@@ -600,15 +591,14 @@ final class User(
         env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap { data =>
           username match
             case Some(name) =>
-              EnabledUser(name) { u =>
-                fuccess(html.stat.ratingDistribution(perfType, data, Some(u)))
-              }
-            case _ => fuccess(html.stat.ratingDistribution(perfType, data, None))
+              EnabledUser(name): u =>
+                html.stat.ratingDistribution(perfType, data, Some(u))
+            case _ => html.stat.ratingDistribution(perfType, data, None)
         }
       case _ => notFound
 
   def myself = Auth { _ ?=> me =>
-    fuccess(Redirect(routes.User.show(me.username)))
+    Redirect(routes.User.show(me.username))
   }
 
   def redirect(username: UserStr) = Open:

@@ -132,15 +132,14 @@ final class Team(
         .edit(team)
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.team.form.edit(team, err)).toFuccess,
+          err => BadRequest(html.team.form.edit(team, err)),
           data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
         )
   }
 
   def kickForm(id: TeamId) = Auth { ctx ?=> _ =>
-    WithOwnedTeamEnabled(id) { team =>
-      Ok(html.team.admin.kick(team, forms.members)).toFuccess
-    }
+    WithOwnedTeamEnabled(id): team =>
+      html.team.admin.kick(team, forms.members)
   }
 
   def kick(id: TeamId) = AuthBody { ctx ?=> me =>
@@ -170,9 +169,8 @@ final class Team(
   }
 
   def leadersForm(id: TeamId) = Auth { ctx ?=> _ =>
-    WithOwnedTeamEnabled(id) { team =>
-      Ok(html.team.admin.leaders(team, forms leaders team)).toFuccess
-    }
+    WithOwnedTeamEnabled(id): team =>
+      html.team.admin.leaders(team, forms leaders team)
   }
 
   def leaders(id: TeamId) = AuthBody { ctx ?=> me =>
@@ -275,7 +273,7 @@ final class Team(
                 JoinLimit(me)(
                   negotiate(
                     html = tooManyTeamsHtml(me),
-                    api = _ => tooManyTeamsJson.toFuccess
+                    api = _ => tooManyTeamsJson
                   )
                 ):
                   negotiate(
@@ -288,11 +286,11 @@ final class Team(
                           newJsonFormError,
                           setup =>
                             api.join(team, me, setup.message, setup.password) flatMap {
-                              case Requesting.Joined => jsonOkResult.toFuccess
+                              case Requesting.Joined => jsonOkResult
                               case Requesting.NeedRequest =>
-                                BadRequest(jsonError("This team requires confirmation.")).toFuccess
+                                BadRequest(jsonError("This team requires confirmation."))
                               case Requesting.NeedPassword =>
-                                BadRequest(jsonError("This team requires a password.")).toFuccess
+                                BadRequest(jsonError("This team requires a password."))
                             }
                         )
                   )
@@ -307,16 +305,15 @@ final class Team(
                 newJsonFormError,
                 setup =>
                   OneAtATime(me.id, rateLimitedFu):
-                    JoinLimit(me)(tooManyTeamsJson.toFuccess):
+                    JoinLimit(me)(tooManyTeamsJson):
                       api.join(team, me, setup.message, setup.password) flatMap {
-                        case Requesting.Joined => jsonOkResult.toFuccess
+                        case Requesting.Joined => jsonOkResult
                         case Requesting.NeedPassword =>
-                          Forbidden(jsonError("This team requires a password.")).toFuccess
+                          Forbidden(jsonError("This team requires a password."))
                         case Requesting.NeedRequest =>
                           Forbidden:
                             jsonError:
                               "This team requires confirmation, and is not owned by the oAuth app owner."
-                          .toFuccess
                       }
               )
           }
@@ -337,8 +334,8 @@ final class Team(
   }
 
   def requestForm(id: TeamId) = Auth { ctx ?=> me =>
-    OptionFuOk(api.requestable(id, me)): team =>
-      fuccess(html.team.request.requestForm(team, forms.request(team)))
+    OptionOk(api.requestable(id, me)): team =>
+      html.team.request.requestForm(team, forms.request(team))
   }
 
   def requestCreate(id: TeamId) = AuthBody { ctx ?=> me =>
@@ -349,7 +346,7 @@ final class Team(
             .request(team)
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.team.request.requestForm(team, err)).toFuccess,
+              err => BadRequest(html.team.request.requestForm(team, err)),
               setup =>
                 if (team.open) webJoin(team, me, request = none, password = setup.password)
                 else
@@ -361,9 +358,9 @@ final class Team(
 
   private def webJoin(team: TeamModel, me: UserModel, request: Option[String], password: Option[String]) =
     api.join(team, me, request = request, password = password) flatMap {
-      case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess.toFuccess
+      case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess
       case Requesting.NeedRequest | Requesting.NeedPassword =>
-        Redirect(routes.Team.requestForm(team.id)).flashSuccess.toFuccess
+        Redirect(routes.Team.requestForm(team.id)).flashSuccess
     }
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me =>
@@ -376,7 +373,7 @@ final class Team(
         .bindFromRequest()
         .fold(
           _ => fuccess(routes.Team.show(team.id).toString),
-          { (decision, url) => api.processRequest(team, request, decision) inject url }
+          (decision, url) => api.processRequest(team, request, decision) inject url
         )
     }
   }
@@ -397,15 +394,14 @@ final class Team(
             if team isOnlyLeader me.id then
               negotiate(
                 html = Redirect(routes.Team.edit(team.id))
-                  .flashFailure(lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt())
-                  .toFuccess,
-                api = _ => jsonOkResult.toFuccess
+                  .flashFailure(lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()),
+                api = _ => jsonOkResult
               )
             else
               api.cancelRequestOrQuit(team, me) >>
                 negotiate(
-                  html = Redirect(routes.Team.mine).flashSuccess.toFuccess,
-                  api = _ => jsonOkResult.toFuccess
+                  html = Redirect(routes.Team.mine).flashSuccess,
+                  api = _ => jsonOkResult
                 )
       ,
       scoped = _ ?=>
@@ -418,7 +414,7 @@ final class Team(
 
   def autocomplete = Anon:
     get("term").filter(_.nonEmpty) match
-      case None => BadRequest("No search term provided").toFuccess
+      case None => BadRequest("No search term provided")
       case Some(term) =>
         for
           teams <- api.autocomplete(term, 10)
@@ -463,7 +459,7 @@ final class Team(
           api teamEnabled id flatMap {
             _.filter(_ leaders me.id) so { team =>
               doPmAll(team, me).fold(
-                err => BadRequest(errorsAsJson(err)).toFuccess,
+                err => BadRequest(errorsAsJson(err)),
                 _.map:
                   case RateLimit.Result.Through => jsonOkResult
                   case RateLimit.Result.Limited => rateLimitedJson
@@ -514,13 +510,13 @@ final class Team(
   }
 
   def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me =>
-    WithOwnedTeamEnabledApi(teamId, me) { team =>
+    WithOwnedTeamEnabledApi(teamId, me): team =>
       import env.team.jsonView.requestWithUserWrites
       val reqs =
         if getBool("declined") then api.declinedRequestsWithUsers(team)
         else api.requestsWithUsers(team)
       reqs map Json.toJson map ApiResult.Data.apply
-    }
+
   }
 
   def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me =>
@@ -571,22 +567,20 @@ You received this because you are subscribed to messages of the team $url."""
           (isGranted(_.Teacher) && count < 10) ||
           count < 3
       if (allow) a
-      else Forbidden(views.html.site.message.teamCreateLimit).toFuccess
+      else Forbidden(views.html.site.message.teamCreateLimit)
     }
 
   private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(using WebContext): Fu[Result] =
-    OptionFuResult(api team teamId) { team =>
+    OptionFuResult(api team teamId): team =>
       if (ctx.userId.exists(team.leaders.contains) || isGranted(_.ManageTeam)) f(team)
-      else Redirect(routes.Team.show(team.id)).toFuccess
-    }
+      else Redirect(routes.Team.show(team.id))
 
   private def WithOwnedTeamEnabled(
       teamId: TeamId
   )(f: TeamModel => Fu[Result])(using WebContext): Fu[Result] =
-    WithOwnedTeam(teamId) { team =>
+    WithOwnedTeam(teamId): team =>
       if (team.enabled || isGranted(_.ManageTeam)) f(team)
       else notFound
-    }
 
   private def WithOwnedTeamEnabledApi(teamId: TeamId, me: UserModel)(
       f: TeamModel => Fu[ApiResult]

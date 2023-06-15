@@ -38,13 +38,13 @@ final class Insight(env: Env) extends LilaController(env):
   ) =
     import lila.insight.InsightApi.UserStatus.*
     env.insight.api userStatus user flatMap {
-      case NoGame => Ok(html.site.message.insightNoGames(user)).toFuccess
-      case Empty  => Ok(html.insight.empty(user)).toFuccess
+      case NoGame => Ok(html.site.message.insightNoGames(user))
+      case Empty  => Ok(html.insight.empty(user))
       case s =>
-        for {
+        for
           insightUser <- env.insight.api insightUser user
           prefId      <- env.insight.share getPrefId user
-        } yield Ok(
+        yield Ok(
           html.insight.index(
             u = user,
             insightUser = insightUser,
@@ -67,27 +67,25 @@ final class Insight(env: Env) extends LilaController(env):
       .validate[lila.insight.JsonQuestion]
       .fold(
         err => BadRequest(jsonError(err.toString)).toFuccess,
-        _.question.fold(BadRequest.toFuccess) { q =>
+        _.question.fold(BadRequest.toFuccess): q =>
           env.insight.api.ask(q, user) flatMap
             lila.insight.Chart.fromAnswer(env.user.lightUser) map
             env.insight.jsonView.chartWrites.writes map { Ok(_) }
-        }
       )
 
   private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(using ctx: WebContext) =
     env.user.repo byId username flatMap {
-      _.fold(notFound) { u =>
+      _.fold(notFound): u =>
         env.insight.share.grant(u, ctx.me) flatMap {
           if _ then f(u)
-          else fuccess(Forbidden(html.insight.forbidden(u)))
+          else Forbidden(html.insight.forbidden(u))
         }
-      }
     }
 
   private def AccessibleApi(username: UserStr)(me: Option[lila.user.User])(f: lila.user.User => Fu[Result]) =
     env.user.repo byId username flatMapz { u =>
       env.insight.share.grant(u, me) flatMap {
         if _ then f(u)
-        else fuccess(Forbidden)
+        else Forbidden
       }
     }

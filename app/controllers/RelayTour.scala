@@ -52,11 +52,10 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               .fold(
                 err => BadRequest(html.relay.tourForm.create(err)).toFuccess,
                 setup =>
-                  rateLimitCreation(me, ctx.req, Redirect(routes.RelayTour.index())) {
+                  rateLimitCreation(me, ctx.req, Redirect(routes.RelayTour.index())):
                     env.relay.api.tourCreate(setup, me) map { tour =>
                       Redirect(routes.RelayRound.form(tour.id.value)).flashSuccess
                     }
-                  }
               )
       ,
       scoped = ctx ?=>
@@ -89,7 +88,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               .edit(tour)
               .bindFromRequest()
               .fold(
-                err => BadRequest(html.relay.tourForm.edit(tour, err)).toFuccess,
+                err => BadRequest(html.relay.tourForm.edit(tour, err)),
                 setup =>
                   env.relay.api.tourUpdate(tour, setup, me) inject
                     Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))

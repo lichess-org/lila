@@ -36,13 +36,11 @@ final class Editor(env: Env) extends LilaController(env):
       .decodeUriPath(urlFen)
       .filter(_.nonEmpty)
       .map(Fen.Epd.clean)
-    Ok(
+    Ok:
       html.board.editor(fen, positionsJson, endgamePositionsJson)
-    ).toFuccess
 
   def data = Open:
-    fuccess:
-      JsonOk(html.board.editor.jsData())
+    JsonOk(html.board.editor.jsData())
 
   def game(id: GameId) = Open:
     OptionResult(env.game.gameRepo game id): game =>

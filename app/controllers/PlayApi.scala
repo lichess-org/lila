@@ -130,21 +130,20 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         BadRequest:
           jsonError:
             "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
-        .toFuccess
       else if !lila.game.Game.isBotCompatible(pov.game) then
-        BadRequest(jsonError("This game cannot be played with the Bot API.")).toFuccess
+        BadRequest(jsonError("This game cannot be played with the Bot API."))
       else f(pov)
 
   private def WithPovAsBoard(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
     WithPov(anyId, me): pov =>
-      if me.isBot then notForBotAccounts.toFuccess
+      if me.isBot then notForBotAccounts
       else if !lila.game.Game.isBoardCompatible(pov.game) then
-        BadRequest(jsonError("This game cannot be played with the Board API.")).toFuccess
+        BadRequest(jsonError("This game cannot be played with the Board API."))
       else f(pov)
 
   private def WithPov(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
-    env.round.proxyRepo.game(lila.game.Game strToId anyId) flatMap {
-      case None       => NotFound(jsonError("No such game")).toFuccess
+    env.round.proxyRepo.game(anyId.gameId) flatMap {
+      case None       => NotFound(jsonError("No such game"))
       case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
     }
 
@@ -162,4 +161,3 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
           .documentSource(getInt("nb") | Int.MaxValue)
           .throttle(50, 1 second)
           .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
-      .toFuccess

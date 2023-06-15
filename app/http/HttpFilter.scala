@@ -24,14 +24,9 @@ final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
     else
       val startTime = nowMillis
       redirectWrongDomain(req) map fuccess getOrElse {
-        nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
+        nextFilter(req) dmap addApiResponseHeaders(req) dmap addCrendentialless(req) dmap { result =>
           monitoring(req, startTime, result)
-          if HTTPRequest.isChrome113Plus(req) then
-            result.withHeaders(
-              "Cross-Origin-Opener-Policy"   -> "same-origin",
-              "Cross-Origin-Embedder-Policy" -> "credentialless"
-            )
-          else result
+          result
         }
       }
 
@@ -53,7 +48,16 @@ final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
     ) option Results.MovedPermanently(s"http${if (req.secure) "s" else ""}://${net.domain}${req.uri}")
 
   private def addApiResponseHeaders(req: RequestHeader)(result: Result) =
-    if (HTTPRequest.isApiOrApp(req))
-      result.withHeaders(ResponseHeaders.headersForApiOrApp(req)*)
-    else
-      result
+    if HTTPRequest.isApiOrApp(req)
+    then result.withHeaders(ResponseHeaders.headersForApiOrApp(req)*)
+    else result
+
+  private def addCrendentialless(req: RequestHeader)(result: Result): Result =
+    if HTTPRequest.actionName(req) != "Plan.index" &&
+      HTTPRequest.uaMatches(req, env.credentiallessUaRegex.get())
+    then
+      result.withHeaders(
+        "Cross-Origin-Opener-Policy"   -> "same-origin",
+        "Cross-Origin-Embedder-Policy" -> "credentialless"
+      )
+    else result

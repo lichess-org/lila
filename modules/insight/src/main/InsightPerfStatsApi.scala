@@ -30,8 +30,8 @@ final class InsightPerfStatsApi(
       perfTypes: List[PerfType],
       gameIdsPerPerf: config.Max
   ): Fu[Map[PerfType, InsightPerfStats.WithGameIds]] =
-    storage.coll {
-      _.aggregateList(perfTypes.size) { framework =>
+    storage.coll:
+      _.aggregateList(perfTypes.size): framework =>
         import framework.*
         import InsightEntry.{ BSONFields as F }
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
@@ -61,8 +61,8 @@ final class InsightPerfStatsApi(
           ),
           Match($doc("total" $gte 5))
         )
-      }.map { docs =>
-        for {
+      .map: docs =>
+        for
           doc <- docs
           id  <- doc.getAsOpt[Perf.Id]("_id")
           pt  <- PerfType(id)
@@ -71,10 +71,10 @@ final class InsightPerfStatsApi(
           nb = ~doc.int("nb")
           t   <- doc.getAsOpt[Centis]("t")
           ids <- doc.getAsOpt[List[String]]("ids")
-          gameIds = ids map { Game.strToId(_) }
-        } yield pt -> InsightPerfStats.WithGameIds(
-          InsightPerfStats(MeanRating(ra.toInt), ByColor(nw, nb), t.toDuration),
-          gameIds
-        )
-      }.map(_.toMap)
-    }
+          gameIds = ids map GameId.take
+        yield pt -> InsightPerfStats
+          .WithGameIds(
+            InsightPerfStats(MeanRating(ra.toInt), ByColor(nw, nb), t.toDuration),
+            gameIds
+          )
+      .map(_.toMap)

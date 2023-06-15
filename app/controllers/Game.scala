@@ -9,7 +9,6 @@ import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
-import lila.game.{ Game as GameModel }
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -19,20 +18,17 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def delete(gameId: GameId) = Auth { _ ?=> me =>
     OptionFuResult(env.game.gameRepo game gameId): game =>
-      if game.pgnImport.flatMap(_.user).has(me.id)
-      then
+      if game.pgnImport.flatMap(_.user).has(me.id) then
         env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
         (env.game.gameRepo remove game.id) >>
           (env.analyse.analysisRepo remove game.id) >>
           env.game.cached.clearNbImportedByCache(me.id) inject
           Redirect(routes.User.show(me.username))
-      else
-        fuccess:
-          Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
+      else Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
   }
 
   def exportOne(id: GameAnyId) = Anon:
-    exportGame(GameModel anyToId id)
+    exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
@@ -48,9 +44,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           env.api.gameApiV2.filename(game, config.format) map { filename =>
             Ok(content)
               .pipe(asAttachment(filename))
-              .withHeaders(
-                lila.app.http.ResponseHeaders.headersForApiOrApp(req)*
-              ) as gameContentType(config)
+              .withHeaders(lila.app.http.ResponseHeaders.headersForApiOrApp(req)*)
+              .as(gameContentType(config))
           }
         }
     }
@@ -98,7 +93,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
             ongoing = getBool("ongoing") || !finished,
             finished = finished
           )
-          if (me.exists(_ is lila.user.User.explorerId))
+          if me.exists(_ is lila.user.User.explorerId) then
             Ok.chunked(env.api.gameApiV2.exportByUser(config))
               .pipe(noProxyBuffer)
               .as(gameContentType(config))
@@ -119,8 +114,9 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
   def apiExportByUserImportedGames(username: UserStr) =
-    def doExport(username: UserStr)(me: lila.user.User)(using ctx: AnyContext) = fuccess:
-      if !me.is(username) then Forbidden("Imported games of other players cannot be downloaded")
+    def doExport(username: UserStr)(me: lila.user.User)(using ctx: AnyContext) =
+      if !me.is(username)
+      then Forbidden("Imported games of other players cannot be downloaded")
       else
         apiC
           .GlobalConcurrencyLimitPerIpAndUserOption(ctx.req, me.some, me.some)(
@@ -177,5 +173,5 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           case _: GameApiV2.OneConfig => JSON
           case _                      => ndJsonContentType
 
-  private[controllers] def preloadUsers(game: GameModel): Funit =
+  private[controllers] def preloadUsers(game: lila.game.Game): Funit =
     env.user.lightUserApi preloadMany game.userIds

@@ -30,7 +30,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me =>
     NotForKids:
-      if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).toFuccess
+      if !me.is(username) then Redirect(routes.Ublog.drafts(me.username))
       else
         env.ublog.paginator.byUser(me, false, page) map { posts =>
           Ok(html.ublog.index.drafts(me, posts))
@@ -44,8 +44,8 @@ final class Ublog(env: Env) extends LilaController(env):
           .getUserBlog(user)
           .flatMap: blog =>
             env.ublog.api.findByIdAndBlog(id, blog.id) flatMap {
-              _.filter(canViewPost(user, blog)).fold(notFound) { post =>
-                if (slug != post.slug) Redirect(urlOfPost(post)).toFuccess
+              _.filter(canViewPost(user, blog)).fold(notFound): post =>
+                if slug != post.slug then Redirect(urlOfPost(post))
                 else
                   env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
                     ctx.me.so(env.ublog.rank.liked(post)) zip
@@ -54,16 +54,14 @@ final class Ublog(env: Env) extends LilaController(env):
                       val viewedPost = env.ublog.viewCounter(post, ctx.ip)
                       Ok(html.ublog.post(user, blog, viewedPost, markup, others, liked, followed))
                     }
-              }
             }
 
   def discuss(id: UblogPostId) = Open:
     NotForKids:
       import lila.forum.ForumCateg.ublogId
       val topicSlug = s"ublog-${id}"
-      val redirect  = Redirect(routes.ForumTopic.show(ublogId.value, topicSlug))
       env.forum.topicRepo.existsByTree(ublogId, topicSlug) flatMap {
-        if _ then fuccess(redirect)
+        if _ then Redirect(routes.ForumTopic.show(ublogId.value, topicSlug))
         else
           env.ublog.api.getPost(id) flatMapz { post =>
             env.forum.topicApi.makeUblogDiscuss(
@@ -78,8 +76,9 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def form(username: UserStr) = Auth { ctx ?=> me =>
     NotForKids:
-      if (env.ublog.api.canBlog(me))
-        if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).toFuccess
+      if env.ublog.api.canBlog(me) then
+        if !me.is(username)
+        then Redirect(routes.Ublog.form(me.username))
         else
           env.ublog.form.anyCaptcha.map: captcha =>
             Ok(html.ublog.form.create(me, env.ublog.form.create, captcha))
@@ -87,7 +86,6 @@ final class Ublog(env: Env) extends LilaController(env):
         Unauthorized:
           html.site.message.notYet:
             "Please play a few games and wait 2 days before you can create blog posts."
-        .toFuccess
   }
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
@@ -126,7 +124,7 @@ final class Ublog(env: Env) extends LilaController(env):
           .edit(prev)
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.ublog.form.edit(prev, err)).toFuccess,
+            err => BadRequest(html.ublog.form.edit(prev, err)),
             data =>
               env.ublog.api.update(data, prev, me) flatMap { post =>
                 logModAction(post, "edit") inject
@@ -166,14 +164,14 @@ final class Ublog(env: Env) extends LilaController(env):
       .postPreview(id)
       .flatMap:
         _.fold(notFound): post =>
-          Redirect(urlOfPost(post)).toFuccess
+          Redirect(urlOfPost(post))
 
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me =>
     UblogBlog.Id(blogId).so(env.ublog.api.getBlog) flatMapz { blog =>
       lila.ublog.UblogForm.tier
         .bindFromRequest()
         .fold(
-          _ => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
+          _ => Redirect(urlOfBlog(blog)).flashFailure,
           tier =>
             for
               user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect.apply
@@ -222,8 +220,8 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityLang(language: String, page: Int = 1) = Open:
     import I18nLangPicker.ByHref
     I18nLangPicker.byHref(language, ctx.req) match
-      case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
-      case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
+      case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page))
+      case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page))
       case ByHref.Refused(lang) => communityIndex(lang.some, page)
       case ByHref.Found(lang) =>
         if (ctx.isAuth) communityIndex(lang.some, page)
@@ -241,10 +239,9 @@ final class Ublog(env: Env) extends LilaController(env):
         }
 
   def communityLangBC(code: String) = Anon:
-    val l = LangList.popularNoRegion.find(l => l.code == code)
+    val l = LangList.popularNoRegion.find(_.code == code)
     Redirect:
       l.fold(routes.Ublog.communityAll())(l => routes.Ublog.communityLang(l.language))
-    .toFuccess
 
   def communityAtom(language: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
@@ -281,14 +278,13 @@ final class Ublog(env: Env) extends LilaController(env):
     env.user.repo
       .enabledById(username)
       .flatMap:
-        case None => NotFound.toFuccess
+        case None => NotFound
         case Some(user) =>
-          given Lang = reqLang
           env.ublog.api
             .getUserBlog(user)
             .flatMap: blog =>
               (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map { posts =>
-                Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
+                Ok(html.ublog.atom.user(user, posts.currentPageResults)(using reqLang)) as XML
               }
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible

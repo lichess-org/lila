@@ -58,21 +58,21 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def Firewall[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if env.security.firewall.accepts(ctx.req) then a
-    else keyPages.blacklisted.toFuccess
+    else keyPages.blacklisted
 
-  def NoTor(res: => Fu[Result])(using ctx: WebContext) =
+  def NoTor(res: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if env.security.tor.isExitNode(ctx.ip)
-    then Unauthorized(views.html.auth.bits.tor()).toFuccess
+    then Unauthorized(views.html.auth.bits.tor())
     else res
 
   def NoEngine[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if ctx.me.exists(_.marks.engine)
-    then Forbidden(views.html.site.message.noEngine).toFuccess
+    then Forbidden(views.html.site.message.noEngine)
     else a
 
   def NoBooster[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if ctx.me.exists(_.marks.boost)
-    then Forbidden(views.html.site.message.noBooster).toFuccess
+    then Forbidden(views.html.site.message.noBooster)
     else a
 
   def NoLame[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
@@ -80,19 +80,17 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def NoBot[A <: Result](a: => Fu[A])(using ctx: AnyContext): Fu[Result] =
     if ctx.isBot then
-      ctx
-        .match
-          case web: WebContext => Forbidden(views.html.site.message.noBot(using web))
-          case _               => Forbidden(jsonError("no bots allowed"))
-        .toFuccess
+      ctx match
+        case web: WebContext => Forbidden(views.html.site.message.noBot(using web))
+        case _               => Forbidden(jsonError("no bots allowed"))
     else a
 
   def NoLameOrBot[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
     NoLame(NoBot(a))
 
   def NoLameOrBot[A <: Result](me: User)(a: => Fu[A]): Fu[Result] =
-    if (me.isBot) notForBotAccounts.toFuccess
-    else if (me.lame) Forbidden.toFuccess
+    if me.isBot then notForBotAccounts
+    else if me.lame then Forbidden
     else a
 
   def NoShadowban[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
@@ -114,32 +112,32 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
       _.fold(a)(playbanJsonError)
 
   import env.security.csrfRequestHandler.check as csrfCheck
-  val csrfForbiddenResult = Forbidden("Cross origin request forbidden").toFuccess
+  val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 
   def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
     if csrfCheck(req) then f else csrfForbiddenResult
 
-  def XhrOnly(res: => Fu[Result])(using ctx: WebContext) =
+  def XhrOnly(res: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then res else notFound
 
-  def XhrOrRedirectHome(res: => Fu[Result])(using ctx: WebContext) =
+  def XhrOrRedirectHome(res: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then res
-    else Redirect(controllers.routes.Lobby.home).toFuccess
+    else Redirect(controllers.routes.Lobby.home)
 
   def Reasonable(
       page: Int,
       max: config.Max = config.Max(40),
-      errorPage: => Fu[Result] = BadRequest("resource too old").toFuccess
+      errorPage: => Fu[Result] = BadRequest("resource too old")
   )(result: => Fu[Result]): Fu[Result] =
     if page < max.value && page > 0 then result else errorPage
 
-  def NotForKids(f: => Fu[Result])(using ctx: WebContext) =
+  def NotForKids(f: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if ctx.kid then notFound else f
 
-  def NoCrawlers(result: => Fu[Result])(using ctx: WebContext) =
+  def NoCrawlers(result: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
 
-  def NotManaged(result: => Fu[Result])(using ctx: WebContext)(using Executor) =
+  def NotManaged(result: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
     ctx.me.so(env.clas.api.student.isManaged) flatMap {
       if _ then notFound else result
     }

@@ -1553,11 +1553,6 @@ object I18nKeys:
     val `teachingMethod` = I18nKey("coach:teachingMethod")
     val `publicStudies` = I18nKey("coach:publicStudies")
     val `youtubeVideos` = I18nKey("coach:youtubeVideos")
-    val `thankYouForReview` = I18nKey("coach:thankYouForReview")
-    val `xWillApproveIt` = I18nKey("coach:xWillApproveIt")
-    val `reviewCoach` = I18nKey("coach:reviewCoach")
-    val `describeExperienceWith` = I18nKey("coach:describeExperienceWith")
-    val `studentReviews` = I18nKey("coach:studentReviews")
 
   object broadcast:
     val `broadcasts` = I18nKey("broadcast:broadcasts")

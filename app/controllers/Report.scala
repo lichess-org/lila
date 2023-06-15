@@ -24,7 +24,7 @@ final class Report(
 
   def list = Secure(_.SeeReport) { _ ?=> me =>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
-    then fuccess(Forbidden(html.site.message.streamingMod))
+    then Forbidden(html.site.message.streamingMod)
     else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
   }
 
@@ -188,9 +188,11 @@ final class Report(
   }
 
   def thanks = Auth { ctx ?=> me =>
-    ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>
-      env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
-        html.report.thanks(reported.id, blocked)
-      }
-    }
+    ctx.req.flash
+      .get("reported")
+      .flatMap(UserStr.read)
+      .fold(Redirect("/").toFuccess): reported =>
+        env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
+          html.report.thanks(reported.id, blocked)
+        }
   }

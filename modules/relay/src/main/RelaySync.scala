@@ -35,9 +35,8 @@ final private class RelaySync(
                         case _ =>
                           createChapter(study, game) flatMap { chapter =>
                             chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
-                              studyApi.deleteChapter(study.id, initial.id) {
+                              studyApi.deleteChapter(study.id, initial.id):
                                 actorApi.Who(study.ownerId, sri)
-                              }
                             } inject SyncResult
                               .ChapterResult(chapter.id, true, chapter.root.mainline.size)
                               .some
@@ -135,12 +134,11 @@ final private class RelaySync(
     }
     val newEndTag = game.end
       .ifFalse(gameTags(_.Result).isDefined)
-      .filterNot(end => chapter.tags(_.Result).so(end.resultText ==))
+      .filterNot(end => chapter.tags(_.Result).has(end.resultText))
       .map(end => Tag(_.Result, end.resultText))
     val tags = newEndTag.fold(gameTags)(gameTags + _)
-    val chapterNewTags = tags.value.foldLeft(chapter.tags) { (chapterTags, tag) =>
+    val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
-    }
     (chapterNewTags != chapter.tags) so {
       if (vs(chapterNewTags) != vs(chapter.tags))
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")

@@ -58,7 +58,7 @@ final class Setup(
             config =>
               processor.ai(config) flatMap { pov =>
                 negotiate(
-                  html = fuccess(redirectPov(pov)),
+                  html = redirectPov(pov),
                   api = apiVersion =>
                     env.api.roundApi.player(pov, none, apiVersion) map { data =>
                       Created(data) as JSON
@@ -80,9 +80,9 @@ final class Setup(
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
-                      html = Forbidden(jsonError(message)).toFuccess,
+                      html = Forbidden(jsonError(message)),
                       // 403 tells setupCtrl.ts to close the setup modal
-                      api = _ => BadRequest(jsonError(message)).toFuccess
+                      api = _ => BadRequest(jsonError(message))
                     )
                   case None =>
                     import lila.challenge.Challenge.*
@@ -93,24 +93,24 @@ final class Setup(
                       timeControl = timeControl,
                       mode = config.mode,
                       color = config.color.name,
-                      challenger = (ctx.me, ctx.req.sid) match {
+                      challenger = (ctx.me, ctx.req.sid) match
                         case (Some(user), _) => toRegistered(config.variant, timeControl)(user)
                         case (_, Some(sid))  => Challenger.Anonymous(sid)
                         case _               => Challenger.Open
-                      },
+                      ,
                       destUser = destUser,
                       rematchOf = none
                     )
                     env.challenge.api create challenge flatMap {
                       if _ then
                         negotiate(
-                          html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                          html = Redirect(routes.Round.watcher(challenge.id, "white")),
                           api = _ => challengeC.showChallenge(challenge, justCreated = true)
                         )
                       else
                         negotiate(
-                          html = fuccess(Redirect(routes.Lobby.home)),
-                          api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
+                          html = Redirect(routes.Lobby.home),
+                          api = _ => BadRequest(jsonError("Challenge not created"))
                         )
                     }
                 }
@@ -208,10 +208,10 @@ final class Setup(
                     PostRateLimit(req.ipAddress, rateLimitedFu):
                       BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
                         env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                      )(apiC.sourceToNdJsonOption).toFuccess
+                      )(apiC.sourceToNdJsonOption)
                   case Right(Some(seek)) =>
                     author match
-                      case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks")).toFuccess
+                      case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks"))
                       case Right(u) =>
                         env.setup.processor.createSeekIfAllowed(seek, u.id) map {
                           case HookResult.Refused =>
@@ -225,12 +225,12 @@ final class Setup(
   }
 
   def filterForm = Open:
-    fuccess(html.setup.filter(forms.filter))
+    html.setup.filter(forms.filter)
 
   def validateFen = Open:
     (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]) flatMap ValidFen(getBool("strict")) match
-      case None    => BadRequest.toFuccess
-      case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
+      case None    => BadRequest
+      case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot so 1):

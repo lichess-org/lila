@@ -20,23 +20,22 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     OpenBody:
       NotForKids:
         if text.trim.isEmpty
-        then Redirect(routes.ForumCateg.index).toFuccess
+        then Redirect(routes.ForumCateg.index)
         else
           for
             paginator <- env.forumSearch(text, page, ctx.troll)
-            posts <- paginator.mapFutureResults(post =>
+            posts <- paginator.mapFutureResults: post =>
               access.isGrantedRead(post.categ.id) map { canRead =>
                 lila.forum.PostView.WithReadPerm(post, canRead)
               }
-            )
           yield html.forum.search(text, posts)
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me =>
     NoBot:
       given play.api.mvc.Request[?] = ctx.body
-      OptionFuResult(topicApi.show(categId, slug, page, ctx.me)) { case (categ, topic, posts) =>
-        if (topic.closed) fuccess(BadRequest("This topic is closed"))
-        else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
+      OptionFuResult(topicApi.show(categId, slug, page, ctx.me)): (categ, topic, posts) =>
+        if topic.closed then BadRequest("This topic is closed")
+        else if topic.isOld then BadRequest("This topic is archived")
         else
           categ.team.so { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
             forms
@@ -49,10 +48,9 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       captcha     <- forms.anyCaptcha
                       unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
                       canModCateg <- access.isGrantedMod(categ.slug)
-                    yield BadRequest(
+                    yield BadRequest:
                       html.forum.topic
                         .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
-                    )
                 ,
                 data =>
                   CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
@@ -62,7 +60,6 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       }
               )
           }
-      }
   }
 
   def edit(postId: ForumPostId) = AuthBody { ctx ?=> me =>
@@ -73,7 +70,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             .postEdit(me, inOwnTeam, post.text)
             .bindFromRequest()
             .fold(
-              _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
+              _ => Redirect(routes.ForumPost.redirect(postId)),
               data =>
                 CreateRateLimit(ctx.ip, rateLimitedFu):
                   postApi.editPost(postId, data.changes, me).map { post =>

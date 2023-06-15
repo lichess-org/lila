@@ -25,22 +25,19 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         (ctx.isAuth so { env.pref.api followable user.id }) zip
         (ctx.userId so { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
           negotiate(
-            html = fuccess(Ok:
+            html = Ok:
               if mini then
                 html.relation.mini(user.id, blocked = blocked, followable = followable, relation = relation)
               else
                 html.relation.actions(user, relation = relation, blocked = blocked, followable = followable)
-            ),
+            ,
             api = _ =>
-              fuccess(
-                Ok(
-                  Json.obj(
-                    "followable" -> followable,
-                    "following"  -> relation.contains(true),
-                    "blocking"   -> relation.contains(false)
-                  )
+              Ok:
+                Json.obj(
+                  "followable" -> followable,
+                  "following"  -> relation.contains(true),
+                  "blocking"   -> relation.contains(false)
                 )
-              )
           )
         }
     }
@@ -78,9 +75,8 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .flatMap:
           if _ then
             fuccess:
-              ApiResult.ClientError(
+              ApiResult.ClientError:
                 lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value).text
-              )
           else api.follow(me.id, userId.id).recoverDefault inject ApiResult.Done
     .map(apiC.toHttp)
   }
@@ -115,9 +111,9 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           negotiate(
             html =
               if ctx.is(user) || isGranted(_.CloseAccount)
-              then Ok(html.relation.bits.friends(user, pag)).toFuccess
-              else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).toFuccess),
-            api = _ => Ok(jsonRelatedPaginator(pag)).toFuccess
+              then Ok(html.relation.bits.friends(user, pag))
+              else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username))),
+            api = _ => Ok(jsonRelatedPaginator(pag))
           )
         }
 
@@ -127,17 +123,16 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       api = _ =>
         Reasonable(page, config.Max(20)) {
           RelatedPager(api.followersPaginatorAdapter(username.id), page) flatMap { pag =>
-            Ok(jsonRelatedPaginator(pag)).toFuccess
+            Ok(jsonRelatedPaginator(pag))
           }
         }
     )
 
   def apiFollowing = Scoped(_.Follow.Read) { ctx ?=> me =>
-    apiC.jsonDownload {
+    apiC.jsonDownload:
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
         .map(env.api.userApi.one(_, None))
-    }.toFuccess
   }
 
   private def jsonRelatedPaginator(pag: Paginator[Related]) =

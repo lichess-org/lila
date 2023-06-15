@@ -31,21 +31,22 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       username = UserStr from get("username")
     )
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: WebContext) =
+  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: WebContext): Fu[Result] =
     reqToAuthorizationRequest.prompt match
-      case Validated.Valid(prompt) => f(prompt)
+      case Validated.Valid(prompt) =>
+        AuthorizationRequest.logPrompt(prompt, ctx.me)
+        f(prompt)
       case Validated.Invalid(error) =>
-        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).toFuccess
+        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description)))
 
   def authorize = Open:
     withPrompt: prompt =>
-      fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
+      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri)))): me =>
         Ok:
-          html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")
-      })
+          html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
 
   def legacyAuthorize = Anon:
-    MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}").toFuccess
+    MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
 
   def authorizeApply = Auth { _ ?=> me =>
     withPrompt: prompt =>
@@ -54,7 +55,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           env.oAuth.authorizationApi.create(authorized) map { code =>
             SeeOther(authorized.redirectUrl(code))
           }
-        case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
+        case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state))
       }
   }
 
@@ -87,9 +88,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                   .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
               )
             }
-          case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
+          case Validated.Invalid(err) => BadRequest(err.toJson)
         }
-      case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
+      case Validated.Invalid(err) => BadRequest(err.toJson)
 
   def legacyTokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
     _.prepareLegacy(AccessTokenRequest.BasicAuth from req) match
@@ -107,9 +108,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                   .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
               )
             }
-          case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
+          case Validated.Invalid(err) => BadRequest(err.toJson)
         }
-      case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
+      case Validated.Invalid(err) => BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ =>
     HTTPRequest.bearer(ctx.req) so { token =>
@@ -123,7 +124,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     revokeClientForm
       .bindFromRequest()
       .fold(
-        _ => BadRequest.toFuccess,
+        _ => BadRequest,
         origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
       )
   }
@@ -133,13 +134,13 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()
         .fold(
-          err => BadRequest(apiFormError(err)).toFuccess,
+          err => BadRequest(apiFormError(err)),
           data =>
             env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
               JsonOk(tokens.view.mapValues(_.plain).toMap)
             }
         )
-    else Unauthorized(jsonError("Missing permission")).toFuccess
+    else Unauthorized(jsonError("Missing permission"))
   }
 
   private val testTokenRateLimit = lila.memo.RateLimit[IpAddress](

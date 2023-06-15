@@ -24,12 +24,4 @@
   <string name="teachingMethod">Opetusmetodit</string>
   <string name="publicStudies">Julkiset tutkielmat</string>
   <string name="youtubeVideos">YouTube-videot</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Yksi oppilasarvio</item>
-    <item quantity="other">%s oppilasarviota</item>
-  </plurals>
-  <string name="thankYouForReview">Kiitos arviostasi!</string>
-  <string name="xWillApproveIt">%s hyväksyy sen pian, tai moderaattori tarkastaa sen.</string>
-  <string name="reviewCoach">Arvioi tämä valmentaja</string>
-  <string name="describeExperienceWith">Kuvaile valmennuskokemustasi %s kanssa</string>
 </resources>

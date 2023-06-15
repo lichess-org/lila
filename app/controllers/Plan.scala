@@ -32,7 +32,7 @@ final class Plan(env: Env) extends LilaController(env):
     ctx.me.fold(indexAnon): me =>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me) flatMap {
-        case ReloadUser => Redirect(routes.Plan.index).toFuccess
+        case ReloadUser => Redirect(routes.Plan.index)
         case Synced(Some(patron), None, None) =>
           env.user.repo email me.id flatMap { email =>
             renderIndex(email, patron.some)
@@ -46,9 +46,9 @@ final class Plan(env: Env) extends LilaController(env):
     ctx.me.fold(Redirect(routes.Plan.index).toFuccess): me =>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me) flatMap {
-        case ReloadUser            => Redirect(routes.Plan.list).toFuccess
+        case ReloadUser            => Redirect(routes.Plan.list)
         case Synced(Some(_), _, _) => indexFreeUser(me)
-        case _                     => Redirect(routes.Plan.index).toFuccess
+        case _                     => Redirect(routes.Plan.index)
       }
 
   private def indexAnon(using WebContext) = renderIndex(email = none, patron = none)
@@ -88,8 +88,8 @@ final class Plan(env: Env) extends LilaController(env):
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email map { EmailAddress(_) }, patron.some)
       case None =>
-        env.user.repo email me.id flatMap { email =>
-          renderIndex(email, patron.some)
+        env.user.repo email me.id flatMap {
+          renderIndex(_, patron.some)
         }
   } yield res
 
@@ -109,8 +109,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def features = Open:
     pageHit
-    fuccess:
-      html.plan.features()
+    html.plan.features()
 
   def switch = AuthBody { ctx ?=> me =>
     env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
@@ -204,14 +203,14 @@ final class Plan(env: Env) extends LilaController(env):
             .fold(
               err =>
                 logger.info(s"Plan.stripeCheckout 400: $err")
-                BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).toFuccess
+                BadRequest(jsonError(err.errors.map(_.message) mkString ", "))
               ,
               data =>
                 val checkout = data.fixFreq
                 for
                   gifted   <- checkout.giftTo.filterNot(ctx.userId.has).so(env.user.repo.enabledById)
                   customer <- env.plan.api.stripe.userCustomer(me)
-                  session <- customer match {
+                  session <- customer match
                     case Some(customer) if checkout.freq == Freq.Onetime =>
                       createStripeSession(me, checkout, customer.id, gifted)
                     case Some(customer) if customer.firstSubscription.isDefined =>
@@ -220,7 +219,6 @@ final class Plan(env: Env) extends LilaController(env):
                       env.plan.api.stripe
                         .makeCustomer(me, checkout)
                         .flatMap(customer => createStripeSession(me, checkout, customer.id, gifted))
-                  }
                 yield session
             )
   }
@@ -263,7 +261,7 @@ final class Plan(env: Env) extends LilaController(env):
           .fold(
             err =>
               logger.info(s"Plan.payPalCheckout 400: $err")
-              BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).toFuccess
+              BadRequest(jsonError(err.errors.map(_.message) mkString ", "))
             ,
             data =>
               val checkout = data.fixFreq
@@ -301,10 +299,10 @@ final class Plan(env: Env) extends LilaController(env):
         err =>
           if err.errors("txn_type").nonEmpty then
             logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
-            fuccess(Ok)
+            Ok
           else
             logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
-            fuccess(BadRequest)
+            BadRequest
         ,
         ipn =>
           env.plan.api.payPal.onLegacyCharge(

@@ -68,7 +68,7 @@ final class OAuthServer(
       case Array(bearer, signed) if bearerSigner.sha1(bearer) hash_= signed => (Bearer(bearer), true)
       case _                                                                => (full, false)
     tokenApi
-      .get(full)
+      .get(bearer)
       .mapz: token =>
         if token.scopes.has(_.Web.Mobile) && !signed then
           logger.warn(s"Web:Mobile token requested but not signed: $token")

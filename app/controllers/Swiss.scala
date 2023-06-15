@@ -35,8 +35,8 @@ final class Swiss(
     env.swiss.cache.swissCache.byId(id) flatMap { swissOption =>
       val page = getInt("page").filter(0.<)
       negotiate(
-        html = swissOption.fold(swissNotFound.toFuccess) { swiss =>
-          for {
+        html = swissOption.fold(swissNotFound.toFuccess): swiss =>
+          for
             verdicts <- env.swiss.api.verdicts(swiss, ctx.me)
             version  <- env.swiss.version(swiss.id)
             isInTeam <- ctx.me so isUserInTheTeam(swiss.teamId)
@@ -58,11 +58,10 @@ final class Swiss(
                     c.copy(locked = !env.api.chatFreshness.of(swiss)).some
             streamers  <- streamerCache get swiss.id
             isLocalMod <- canChat so ctx.userId so { env.team.cached.isLeader(swiss.teamId, _) }
-          } yield Ok(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
-        },
+          yield Ok(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod)),
         api = _ =>
-          swissOption.fold(notFoundJson("No such swiss tournament")) { swiss =>
-            for {
+          swissOption.fold(notFoundJson("No such swiss tournament")): swiss =>
+            for
               isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId))
               verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
               socketVersion <- getBool("socketVersion").so(env.swiss version swiss.id dmap some)
@@ -78,8 +77,7 @@ final class Swiss(
                 playerInfo = playerInfo,
                 isInTeam = isInTeam
               )
-            } yield JsonOk(json)
-          }
+            yield JsonOk(json)
       )
     }
 
@@ -105,11 +103,9 @@ final class Swiss(
     ctx.userId so { env.team.cached.isLeader(teamId, _) } flatMapz f
 
   def form(teamId: TeamId) = Auth { ctx ?=> me =>
-    NoLameOrBot {
-      CheckTeamLeader(teamId) {
-        Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).toFuccess
-      }
-    }
+    NoLameOrBot:
+      CheckTeamLeader(teamId):
+        Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId))
   }
 
   def create(teamId: TeamId) = AuthBody { ctx ?=> me =>
@@ -153,7 +149,7 @@ final class Swiss(
         env.swiss.api
           .kill(swiss)
           .map(_ => jsonOkResult)
-      case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
+      case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied"))
     }
   }
 
@@ -164,7 +160,7 @@ final class Swiss(
 
   def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.lame || me.isBot
-    then Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
+    then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
     else doJoin(me, id, bodyPassword)
   }
 
@@ -174,18 +170,16 @@ final class Swiss(
   private def doJoin(me: UserModel, id: SwissId, password: Option[String]) =
     env.team.cached.teamIds(me.id) flatMap { teamIds =>
       env.swiss.api.join(id, me, teamIds.contains, password) flatMap { result =>
-        fuccess {
-          if (result) jsonOkResult
-          else BadRequest(Json.obj("error" -> "Could not join the tournament"))
-        }
+        if result then jsonOkResult
+        else JsonBadRequest(jsonError("Could not join the tournament"))
       }
     }
 
   def withdraw(id: SwissId) = Auth { ctx ?=> me =>
     env.swiss.api.withdraw(id, me.id) >>
       negotiate(
-        html = Redirect(routes.Swiss.show(id)).toFuccess,
-        api = _ => fuccess(jsonOkResult)
+        html = Redirect(routes.Swiss.show(id)),
+        api = _ => jsonOkResult
       )
   }
 
@@ -194,9 +188,8 @@ final class Swiss(
   }
 
   def edit(id: SwissId) = Auth { ctx ?=> me =>
-    WithEditableSwiss(id, me) { swiss =>
-      Ok(html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss))).toFuccess
-    }
+    WithEditableSwiss(id, me): swiss =>
+      html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss))
   }
 
   def update(id: SwissId) = AuthBody { ctx ?=> me =>
@@ -205,7 +198,7 @@ final class Swiss(
         .edit(me, swiss)
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.swiss.form.edit(swiss, err)).toFuccess,
+          err => BadRequest(html.swiss.form.edit(swiss, err)),
           data => env.swiss.api.update(swiss.id, data) inject Redirect(routes.Swiss.show(id))
         )
   }
@@ -214,7 +207,7 @@ final class Swiss(
     WithEditableSwiss(
       id,
       me,
-      _ => Unauthorized(Json.obj("error" -> "This user cannot edit this swiss")).toFuccess
+      _ => Unauthorized(jsonError("This user cannot edit this swiss"))
     ): swiss =>
       env.swiss.forms
         .edit(me, swiss)
@@ -236,7 +229,7 @@ final class Swiss(
           err =>
             render.async:
               case Accepts.Json() => newJsonFormError(err)
-              case _              => Redirect(routes.Swiss.show(id)).toFuccess
+              case _              => Redirect(routes.Swiss.show(id))
           ,
           date =>
             env.swiss.api.scheduleNextRound(swiss, date) inject render:
@@ -266,7 +259,7 @@ final class Swiss(
     WithSwiss(id): swiss =>
       env.swiss.api.playerInfo(swiss, userId.id) flatMap {
         _.fold(notFoundJson()): player =>
-          JsonOk(fuccess(lila.swiss.SwissJson.playerJsonExt(swiss, player)))
+          JsonOk(lila.swiss.SwissJson.playerJsonExt(swiss, player))
       }
 
   def exportTrf(id: SwissId) = Anon:
@@ -278,13 +271,12 @@ final class Swiss(
     }
 
   def byTeam(id: TeamId) = Anon:
-    apiC.jsonDownload {
+    apiC.jsonDownload:
       env.swiss.api
         .byTeamCursor(id)
         .documentSource(getInt("max") | 100)
         .mapAsync(4)(env.swiss.json.api)
         .throttle(20, 1.second)
-    }.toFuccess
 
   private def WithSwiss(id: SwissId)(f: SwissModel => Fu[Result]): Fu[Result] =
     env.swiss.cache.swissCache byId id flatMapz f
@@ -292,25 +284,21 @@ final class Swiss(
   private def WithEditableSwiss(
       id: SwissId,
       me: UserModel,
-      fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id)).toFuccess
-  )(
-      f: SwissModel => Fu[Result]
-  ): Fu[Result] =
-    WithSwiss(id) { swiss =>
-      if (swiss.createdBy == me.id && !swiss.isFinished) f(swiss)
-      else if (isGranted(_.ManageTournament, me)) f(swiss)
+      fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id))
+  )(f: SwissModel => Fu[Result]): Fu[Result] =
+    WithSwiss(id): swiss =>
+      if swiss.createdBy == me.id && !swiss.isFinished then f(swiss)
+      else if isGranted(_.ManageTournament, me) then f(swiss)
       else fallback(swiss)
-    }
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: WebContext): Fu[Boolean] =
-    (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) so {
+    (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)).so:
       swiss.chatFor match
         case ChatFor.NONE                  => fuFalse
         case _ if isGranted(_.ChatTimeout) => fuTrue
         case ChatFor.LEADERS               => ctx.userId so { env.team.cached.isLeader(swiss.teamId, _) }
         case ChatFor.MEMBERS               => ctx.userId so { env.team.api.belongsTo(swiss.teamId, _) }
         case _                             => fuTrue
-    }
 
   private val streamerCache =
     env.memo.cacheApi[SwissId, List[UserId]](64, "swiss.streamers") {
