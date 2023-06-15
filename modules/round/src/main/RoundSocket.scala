@@ -138,7 +138,7 @@ final class RoundSocket(
     case Protocol.In.GetGame(reqId, anyId) =>
       for
         game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
-        data <- mobileSocket.json(game.game, game.socket)
+        data <- mobileSocket.json(game.game, game.socket, anyId)
       yield sendForGameId(anyId.gameId)(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)

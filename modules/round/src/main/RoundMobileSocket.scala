@@ -22,7 +22,7 @@ final private class RoundMobileSocket(
 
   private given play.api.i18n.Lang = lila.i18n.defaultLang
 
-  def json(game: Game, socket: SocketStatus): Fu[JsObject] = for
+  def json(game: Game, socket: SocketStatus, id: GameAnyId): Fu[JsObject] = for
     initialFen <- gameRepo.initialFen(game)
     whiteUser  <- game.whitePlayer.userId.so(lightUserGet)
     blackUser  <- game.blackPlayer.userId.so(lightUserGet)
@@ -47,3 +47,4 @@ final private class RoundMobileSocket(
       )
       .add("clock", game.clock.map(roundJson.clockJson))
       .add("correspondence", game.correspondenceClock)
+      .add("youAre", id.playerId.flatMap(game.player(_)).map(_.color))

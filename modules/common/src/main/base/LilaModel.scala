@@ -37,8 +37,9 @@ trait LilaModel:
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]:
     extension (e: GameAnyId)
-      def gameId: GameId             = GameId.take(e)
-      def fullId: Option[GameFullId] = if (e.length == GameFullId.size) Some(e) else None
+      def gameId: GameId                 = GameId.take(e)
+      def fullId: Option[GameFullId]     = if e.length == GameFullId.size then Some(e) else None
+      def playerId: Option[GamePlayerId] = fullId.map(GameFullId.playerId)
 
   opaque type GamePlayerId = String
   object GamePlayerId extends OpaqueString[GamePlayerId]:
