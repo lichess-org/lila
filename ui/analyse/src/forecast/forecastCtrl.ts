@@ -1,31 +1,31 @@
-import { prop, notEmpty } from 'common';
+import { prop, notEmpty, Prop } from 'common';
 import * as xhr from 'common/xhr';
-import { ForecastData, ForecastStep } from './interfaces';
+import { ForecastData, ForecastList, ForecastStep } from './interfaces';
 import { AnalyseData } from '../interfaces';
 import { scalachessCharPair } from 'chessops/compat';
 import { parseUci } from 'chessops';
 import { TreeWrapper } from 'tree';
 
 export default class ForecastCtrl {
-  forecasts: ForecastStep[][];
+  forecasts: Prop<ForecastList> = prop<ForecastList>([]);
   loading = prop(false);
 
   constructor(readonly cfg: ForecastData, readonly data: AnalyseData, readonly redraw: () => void) {
-    this.forecasts = cfg.steps || [];
+    this.forecasts(cfg.steps || []);
     this.fixAll();
   }
-
-  list = () => this.forecasts;
 
   private saveUrl = () => `/${this.data.game.id}${this.data.player.id}/forecasts`;
 
   private keyOf = (fc: ForecastStep[]): string => fc.map(node => node.ply + ':' + node.uci).join(',');
 
+  private update = (f: (fc: ForecastList) => ForecastList) => this.forecasts(f(this.forecasts()));
+
   contains = (fc1: ForecastStep[], fc2: ForecastStep[]): boolean =>
     fc1.length >= fc2.length && this.keyOf(fc1).startsWith(this.keyOf(fc2));
 
   findStartingWithNode = (node: ForecastStep): ForecastStep[][] =>
-    this.forecasts.filter(fc => this.contains(fc, [node]));
+    this.update(fc => fc.filter(fc => this.contains(fc, [node])));
 
   collides = (fc1: ForecastStep[], fc2: ForecastStep[]): boolean => {
     for (let i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
@@ -46,13 +46,9 @@ export default class ForecastCtrl {
 
   fixAll = () => {
     // remove contained forecasts
-    this.forecasts = this.forecasts.filter(
-      (fc, i) => this.forecasts.filter((f, j) => i !== j && this.contains(f, fc)).length === 0
-    );
+    this.update(fcs => fcs.filter((fc, i) => fcs.filter((f, j) => i !== j && this.contains(f, fc)).length === 0));
     // remove colliding forecasts
-    this.forecasts = this.forecasts.filter(
-      (fc, i) => this.forecasts.filter((f, j) => i < j && this.collides(f, fc)).length === 0
-    );
+    this.update(fcs => fcs.filter((fc, i) => fcs.filter((f, j) => i < j && this.collides(f, fc)).length === 0));
   };
 
   reloadToLastPly = () => {
@@ -65,8 +61,7 @@ export default class ForecastCtrl {
   isCandidate = (fc: ForecastStep[]): boolean => {
     fc = this.truncate(fc);
     if (!this.isLongEnough(fc)) return false;
-    const collisions = this.forecasts.filter(f => this.contains(f, fc));
-    return !collisions.length;
+    return !this.forecasts().find(f => this.contains(f, fc));
   };
 
   save = () => {
@@ -76,14 +71,14 @@ export default class ForecastCtrl {
     xhr
       .json(this.saveUrl(), {
         method: 'POST',
-        body: JSON.stringify(this.forecasts),
+        body: JSON.stringify(this.forecasts()),
         headers: { 'Content-Type': 'application/json' },
       })
       .then(data => {
         if (data.reload) this.reloadToLastPly();
         else {
           this.loading(false);
-          this.forecasts = data.steps || [];
+          this.forecasts(data.steps || []);
         }
         this.redraw();
       });
@@ -107,7 +102,7 @@ export default class ForecastCtrl {
         if (data.reload) this.reloadToLastPly();
         else {
           this.loading(false);
-          this.forecasts = data.steps || [];
+          this.forecasts(data.steps || []);
         }
         this.redraw();
       });
@@ -138,12 +133,12 @@ export default class ForecastCtrl {
   addNodes = (fc: ForecastStep[]): void => {
     fc = this.truncate(fc);
     if (!this.isCandidate(fc)) return;
-    this.forecasts.push(fc);
+    this.update(fcs => [...fcs, fc]);
     this.fixAll();
     this.save();
   };
   removeIndex = (index: number) => {
-    this.forecasts = this.forecasts.filter((_, i) => i !== index);
+    this.update(fcs => fcs.filter((_, i) => i !== index));
     this.save();
   };
   onMyTurn = () => !!this.cfg.onMyTurn;

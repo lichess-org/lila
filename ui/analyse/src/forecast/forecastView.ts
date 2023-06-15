@@ -61,7 +61,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         h('div.top', ctrl.trans.noarg('conditionalPremoves')),
         h(
           'div.list',
-          fctrl.list().map((nodes, i) =>
+          fctrl.forecasts().map((nodes, i) =>
             h(
               'button.entry.text',
               {

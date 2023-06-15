@@ -10,3 +10,5 @@ export interface ForecastStep {
   fen: Fen;
   check?: Key;
 }
+
+export type ForecastList = ForecastStep[][];
