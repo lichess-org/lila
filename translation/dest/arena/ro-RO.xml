@@ -39,4 +39,13 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe meciuri și pentr
   <string name="thisIsPrivate">Acesta este o competiție privată</string>
   <string name="shareUrl">Pentru a distribui, folosiți acest URL: %s</string>
   <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="few">View all %s teams</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

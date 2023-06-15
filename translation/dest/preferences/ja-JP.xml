@@ -43,6 +43,6 @@
 	<string name="westernNotation">西洋表記</string>
 	<string name="japaneseNotation">日本表記</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki 形式</string>
-	<string name="kifNotation">Kif notation</string>
+	<string name="kifNotation">KIF(柿木) 形式</string>
 	<string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
 </resources>

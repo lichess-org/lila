@@ -37,4 +37,14 @@
   <string name="thisIsPrivate">זהו טורניר פרטי</string>
   <string name="shareUrl">פרסם אתר זה למציאת חברים נוספים: %s</string>
   <string name="drawStreak">רצף תיקו: כאשר לשחקן יש תיקו ברציפות בארנה, רק התיקו הראשון יביא לנקודה, או תיקו שהתמשך מעל %s מהלכים. רצף התיקו יכול להישבר רק ע\"י ניצחון, לא ע\"י הפסד או תיקו.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="two">View all %s teams</item>
+    <item quantity="many">View all %s teams</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

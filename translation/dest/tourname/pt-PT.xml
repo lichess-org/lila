@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Arena Horária de Semi-rápidas</string>
   <string name="hourlyRapid">Semi-rápida Horária</string>
   <string name="hourlyXArena">Arena Horária de %s</string>
-  <string name="hourlyX">%s Horário</string>
+  <string name="hourlyX" comment="adjective">%s Horário</string>
   <string name="dailyRapidArena">Arena Diária de Semi-rápidas</string>
   <string name="dailyRapid">Semi-rápida Diária</string>
   <string name="dailyClassicalArena">Arena Diária de Clássicas</string>
   <string name="dailyClassical">Clássica Diária</string>
   <string name="dailyXArena">Arena Diária de %s</string>
-  <string name="dailyX">%s Diário</string>
+  <string name="dailyX" comment="adjective">%s Diário</string>
   <string name="easternRapidArena">Arena Oriental de Semi-rápidas</string>
   <string name="easternRapid">Semi-rápida Oriental</string>
   <string name="easternClassicalArena">Arena Oriental de Clássicas</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Arena Semanal de Clássicas</string>
   <string name="weeklyClassical">Clássica Semanal</string>
   <string name="weeklyXArena">Arena Semanal de %s</string>
-  <string name="weeklyX">%s Semanal</string>
+  <string name="weeklyX" comment="adjective">%s Semanal</string>
   <string name="monthlyRapidArena">Arena Mensal de Semi-rápidas</string>
   <string name="monthlyRapid">Semi-rápida Mensal</string>
   <string name="monthlyClassicalArena">Arena Mensal de Clássicas</string>
   <string name="monthlyClassical">Clássica Mensal</string>
   <string name="monthlyXArena">Arena Mensal de %s</string>
-  <string name="monthlyX">%s Mensal</string>
+  <string name="monthlyX" comment="adjective">%s Mensal</string>
   <string name="yearlyRapidArena">Arena Anual de Semi-rápidas</string>
   <string name="yearlyRapid">Semi-rápida Anual</string>
   <string name="yearlyClassicalArena">Arena Anual de Clássicas</string>
   <string name="yearlyClassical">Clássica Anual</string>
   <string name="yearlyXArena">Arena Anual de %s</string>
-  <string name="yearlyX">%s Anual</string>
+  <string name="yearlyX" comment="adjective">%s Anual</string>
   <string name="rapidShieldArena">Arena Escudo de Semi-rápidas</string>
   <string name="rapidShield">Escudo de Semi-rápidas</string>
   <string name="classicalShieldArena">Arena Escudo de Clássicas</string>

@@ -42,4 +42,7 @@ Ang mga manlalaro na ayaw tumanggap ng mga mensahe mo ay maaaring lumisan sa iyo
   <string name="youWayWantToLinkOneOfTheseTournaments">Baka ibig mong i-link ang isa mga darating na mga paligsahan?</string>
   <string name="usersWhoCanManageThisTeam">Ang mga user na maaaring mamahala sa koponang ito</string>
   <string name="leadersChat">Chat ng mga pinuno</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

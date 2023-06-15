@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Saatlik Rapid Arena</string>
   <string name="hourlyRapid">Saatlik Rapid</string>
   <string name="hourlyXArena">Saatlik %s Arena</string>
-  <string name="hourlyX">Saatlik %s</string>
+  <string name="hourlyX" comment="adjective">Saatlik %s</string>
   <string name="dailyRapidArena">Günlük Rapid Arena</string>
   <string name="dailyRapid">Günlük Rapid</string>
   <string name="dailyClassicalArena">Günlük Klasik Arenası</string>
   <string name="dailyClassical">Günlük Klasik</string>
   <string name="dailyXArena">Günlük %s Arena</string>
-  <string name="dailyX">Günlük %s</string>
+  <string name="dailyX" comment="adjective">Günlük %s</string>
   <string name="easternRapidArena">Uzak Doğu Rapid Arena</string>
   <string name="easternRapid">Uzak Doğu Rapid</string>
   <string name="easternClassicalArena">Uzak Doğu Klasik Arena</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Haftalık Klasik Arenası</string>
   <string name="weeklyClassical">Haftalık Klasik</string>
   <string name="weeklyXArena">Haftalık %s Arena</string>
-  <string name="weeklyX">Haftalık %s</string>
+  <string name="weeklyX" comment="adjective">Haftalık %s</string>
   <string name="monthlyRapidArena">Aylık Rapid Arena</string>
   <string name="monthlyRapid">Aylık Rapid</string>
   <string name="monthlyClassicalArena">Aylık Klasik Arenası</string>
   <string name="monthlyClassical">Aylık Klasik</string>
   <string name="monthlyXArena">Aylık %s Arena</string>
-  <string name="monthlyX">Aylık %s</string>
+  <string name="monthlyX" comment="adjective">Aylık %s</string>
   <string name="yearlyRapidArena">Yıllık Rapid Arena</string>
   <string name="yearlyRapid">Yıllık Rapid</string>
   <string name="yearlyClassicalArena">Yıllık Klasik Arenası</string>
   <string name="yearlyClassical">Yıllık Klasik</string>
   <string name="yearlyXArena">Yıllık %s Arena</string>
-  <string name="yearlyX">Yıllık %s</string>
+  <string name="yearlyX" comment="adjective">Yıllık %s</string>
   <string name="rapidShieldArena">Rapid Kalkanı Arenası</string>
   <string name="rapidShield">Rapid Kalkanı</string>
   <string name="classicalShieldArena">Klasik Kalkanı Arenası</string>

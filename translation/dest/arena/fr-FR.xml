@@ -37,4 +37,12 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="thisIsPrivate">Ce tournoi est privé</string>
   <string name="shareUrl">Partagez cette URL pour permettre aux personnes de rejoindre : %s</string>
   <string name="drawStreak">Séries de parties nulles : lorsqu\'un joueur fait des nulles consécutives dans une arène, seul la première nulle donnera un point, ou des nulles durant plus de %s coups. La série de nulles ne peut être interrompue que par une victoire, pas par une défaite ou une nulle.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

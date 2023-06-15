@@ -2,7 +2,7 @@
 <resources>
 	<string name="shogi">Сёгі</string>
 	<string name="playWithAFriend">Гуляць з сябрам</string>
-	<string name="playWithTheMachine">Гуляць з камп\'ютарам</string>
+	<string name="playWithTheMachine">Гуляць з кампутарам</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Каб запрасіць каго-небудзь гуляць, падзяліцеся гэтым URL</string>
 	<string name="gameOver">Канец Гульні</string>
 	<string name="waitingForOpponent">Чаканне ворага</string>
@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">Пераключыць чат</string>
 	<string name="toggleSound">Пераключыць гук</string>
 	<string name="chat">Чат</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">Здацца</string>
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Зарэз</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">Бестэрміновы шах</string>
 	<string name="royalsLost" comment="Used in chushogi">Усе каралеўскія фігуры згублены</string>
 	<string name="bareKing" comment="Used in chushogi">Голы кароль</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Белы</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Сэнтэ</string>
@@ -56,15 +63,17 @@
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s не пахадзіў</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Падзяліцеся гэтай спасылкай, каб дазволіць назіральнікам глядзець гульню</string>
 	<string name="theComputerAnalysisHasFailed">Камп\'ютарны аналіз не ўдаўся</string>
-	<string name="viewTheComputerAnalysis">Прагледзець камп\'ютарны аналіз</string>
-	<string name="requestAComputerAnalysis">Запытаць камп\'ютарны аналіз</string>
-	<string name="computerAnalysis">Камп’ютарны аналіз</string>
-	<string name="computerAnalysisAvailable">Камп’ютарны аналіз даступны</string>
+	<string name="viewTheComputerAnalysis">Прагледзець кампутарны аналіз</string>
+	<string name="requestAComputerAnalysis">Запытаць кампутарны аналіз</string>
+	<string name="computerAnalysis">Кампутарны аналіз</string>
+	<string name="computerAnalysisAvailable">Кампутарны аналіз даступны</string>
 	<string name="analysis">Аналізаваць дошку</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">Глыбіня %s</string>
 	<string name="usingServerAnalysis">Выкарыстоўваецца серверны аналіз</string>
 	<string name="loadingEngine">Загрузка рухавічка...</string>
 	<string name="cloudAnalysis">Воблачны аналіз</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">Перайсці глыбей</string>
 	<string name="showThreat">Паказваць пагрозы</string>
 	<string name="inLocalBrowser">у лакальным браўзеры</string>
@@ -153,6 +162,7 @@
 	<string name="computersAreNotAllowedToPlay">Кампутары і гульцы, якія карыстаюцца дапамогай кампутара, не дапускаюцца да гульні. Калі ласка, не карыстайцеся шахматнымі рухавікамі, базамі, або гульнямі іншых гульцоў. Таксама майце на ўвазе, што ствараць два і болей акаўнта не рэкамендавана і надта вялікая іх колькасць прывядзе да блакіроўкі</string>
 	<string name="games">Гульні</string>
 	<string name="forum">Форум</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s апублікавана на форуме %2$s</string>
 	<string name="latestForumPosts">Апошнія допісы на форуме</string>
 	<string name="players">Гульцы</string>
@@ -193,6 +203,7 @@
 	<string name="changeEmail">Змяніць адрас электроннай пошты</string>
 	<string name="email">Электронная пошта</string>
 	<string name="passwordReset">Скінуць пароль</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">Забылі пароль?</string>
 	<string name="rank">Ранг</string>
 	<string name="rankX">Ранг: %s</string>
@@ -256,6 +267,7 @@
 	<string name="play">Гуляць</string>
 	<string name="inbox">Уваходныя</string>
 	<string name="streamerManager">Менеджар стрэмаў</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">Чат</string>
 	<string name="loginToChat">Увайдзіце, каб скарыстаць чат</string>
 	<string name="youHaveBeenTimedOut">Вы былі адключаны.</string>
@@ -320,6 +332,7 @@
 	<string name="yourOpponentProposesATakeback">Супраціўнік просіць вярнуць ход</string>
 	<string name="bookmarkThisGame">Адзначыць гэтую гульню</string>
 	<string name="tournament">Турнір</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">Турніры</string>
 	<string name="tournamentPoints">Турнірныя балы</string>
 	<plurals name="nbTournamentPoints">
@@ -371,7 +384,7 @@
 	<string name="youAreNotInTeam">Вы не ўдзельнік каманды %s</string>
 	<string name="backToGame">Вярнуцца да гульні</string>
 	<string name="siteDescription">Бясплатныя анлайн сёгі. Зручны інтэрфейс. Без рэгістрацыі, без рэкламы, без дадатковых плагінаў. Гуляйце ў сёгі з кампутарам, сябрамі ці выпадковымі супраціўнікамі.</string>
-	<string name="shogiDescription">Сёгі, таксама вядомая як \"将棋\" на японскай мове, — гэта стратэгічная настольная гульня для двух гульцоў, якая ўзнікла ў Японіі шмат стагоддзяў таму. Яе часта называюць «японскімі шахматамі» з-за яе падабенства з заходняй гульнёй у шахматы, але яна мае ўнікальныя асаблівасці, якія робяць яе самастойнай гульнёй.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Сёгі, таксама вядомая як \"将棋\" на японскай мове, — гэта стратэгічная настольная гульня для двух гульцоў, якая ўзнікла ў Японіі шмат стагоддзяў таму. Яе часта называюць «японскімі шахматамі» з-за яе падабенства з заходняй гульнёй у шахматы, але яна мае ўнікальныя асаблівасці, якія робяць яе самастойнай гульнёй.</string>
 	<string name="learnShogiHereX">Калі вы не ведаеце правіла сёгі, праверце - %s.</string>
 	<string name="xJoinedTeamY">%1$s далучыўся да каманды %2$s</string>
 	<string name="xCreatedTeamY">%1$s стварыў каманду %2$s</string>
@@ -383,6 +396,9 @@
 	<string name="apply">Даслаць</string>
 	<string name="save">Захаваць</string>
 	<string name="leaderboard">Лепшыя гульцы</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">Выберыце фору</string>
 	<string name="pasteTheSfenStringHere">Устаўце сюды тэкст у фармаце SFEN</string>
 	<string name="pasteTheKifCsaStringHere">Устаўце сюды тэкст у фармаце KIF або CSA</string>
@@ -391,6 +407,7 @@
 	<string name="continueFromHere">Працягнуць адсюль</string>
 	<string name="toStudy">Навучанне</string>
 	<string name="importGame">Імпартаваць гульню</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">Імпартуйце гульню ў фармаце KIF або CSA , каб атрымаць паўтор у браўзеры, камп\'ютарны аналіз, чат гульні і спасылку на гульню.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s imported game</item>
@@ -486,6 +503,7 @@
 	<string name="averageOpponent">Сярэдні рэйтынг супраціўніка</string>
 	<string name="membersOnly">Патрабуецца рэгістрацыя</string>
 	<string name="boardEditor">Рэдактар дошкі</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">Усталяваць пазіцыю</string>
 	<string name="popularOpenings">Папулярныя дэбюты</string>
 	<string name="handicaps">Форы</string>
@@ -498,6 +516,7 @@
 	<string name="isPrivate">Закрыты</string>
 	<string name="reportXToModerators">Паведаміць пра %s мадэратару</string>
 	<string name="profileCompletion">Запоўненасць профілю: %s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">Рэйтынг %s</string>
 	<string name="ifNoneLeaveEmpty">Калі няма, пакіньце пустым</string>
 	<string name="gameCompletionRate">Скончаных гульняў: %s</string>
@@ -510,25 +529,17 @@
 	<string name="socialMediaLinks">Спасылкі на сацсеткі</string>
 	<string name="inlineNotation">Строчная натацыя</string>
 	<string name="watchLishogiTV">Глядзець Lishogi TV</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Раней на Lishogi TV</string>
 	<string name="onlinePlayers">Гульцы анлайн</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">Гулялі сёння</string>
 	<string name="activePlayers">Актыўныя гульцы</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта гульня на рэйтынг, але без абмежавання часу!</string>
-	<string name="yourPuzzleRatingX">Ваш рэйтынг у вырашэнні задач: %s</string>
 	<string name="toTrackYourProgress">Каб адсочваць твой прагрэс</string>
-	<string name="puzzleId">Галаваломка %s</string>
-	<string name="puzzleOfTheDay">Галаваломка дня</string>
-	<string name="clickToSolve">Націсніце, каб вырашыць</string>
 	<string name="goodMove">Добры ход</string>
-	<string name="butYouCanDoBetter">Але ты можаш зрабіць лепшы.</string>
 	<string name="bestMove">Лепшы ход!</string>
-	<string name="keepGoing">Працягвайце…</string>
-	<string name="puzzleFailed">Няправільны ход</string>
-	<string name="butYouCanKeepTrying">Паспрабуйце яшчэ раз.</string>
 	<string name="success">Поспех</string>
-	<string name="wasThisPuzzleAnyGood">Галаваломка была добрай?</string>
-	<string name="pleaseVotePuzzle">Пакіньце свой голас, каб дапамагчы Lishogi прапаноўваць гульцам найлепшыя галаваломкі!</string>
 	<string name="thankYou">Дзякуй!</string>
 	<string name="ratingX">Рэйтынг: %s</string>
 	<string name="hidden">схаваны</string>
@@ -539,10 +550,6 @@
 		<item quantity="other">Згуляна %s разы</item>
 	</plurals>
 	<string name="fromGameLink">З гульні %s</string>
-	<string name="continueTraining">Працягнуць трэніроўку</string>
-	<string name="retryThisPuzzle">Паспрабаваць яшчэ раз</string>
-	<string name="thisPuzzleIsCorrect">Гэтая галаваломка правільная і цікавая</string>
-	<string name="thisPuzzleIsWrong">Гэтая галаваломка няправільная або нудная</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="one">%s game in play</item>
 		<item quantity="few">%s games in play</item>
@@ -560,6 +567,7 @@
 	<string name="yes">Так</string>
 	<string name="help">Дапамога:</string>
 	<string name="createANewTopic">Стварыць новую тэму</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">Тэмы</string>
 	<string name="posts">Паведамленні</string>
 	<string name="lastPost">Апошняе паведамленне</string>
@@ -586,6 +594,8 @@
 	<string name="questionsAndAnswers">Пытанні &amp; Адказы</string>
 	<string name="notes">Нататкі</string>
 	<string name="typePrivateNotesHere">Тут можна зрабіць асабістыя нататкі аб гульні</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">Няправільнае імя карыстальніка або пароль</string>
 	<string name="incorrectPassword">Няправільны пароль</string>
 	<string name="invalidAuthenticationCode">Няправільны код пацверджання</string>
@@ -643,6 +653,7 @@
 	</plurals>
 	<string name="listBlockedPlayers">Спіс заблакаваных вамі гульцоў</string>
 	<string name="human">Чалавек</string>
+	<string name="bots">Bots</string>
 	<string name="computer">Камп’ютар</string>
 	<string name="side">Бок</string>
 	<string name="clock">Гадзіннік</string>
@@ -718,9 +729,12 @@
 	<string name="numberOfByoyomiPeriods">Колькасць перыядаў бёёмі</string>
 	<string name="hostColorForEachGame">Колер арганізатара ў кожнай гульне</string>
 	<string name="onlyMembersOfTeam">Толькі члены каманды</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">Апісанне сеансу</string>
 	<string name="anythingTellParticipants">Жадаеце штосьці сказаць удзельнікам?</string>
 	<string name="lishogiTournaments">Турніры Lishogi</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">FAQ турніру</string>
 	<string name="tournamentOfficial">Афіцыйны</string>
 	<string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
@@ -782,6 +796,7 @@
 	<string name="sessions">Сесіі</string>
 	<string name="revokeAllSessions">скасаваць усе сесіі</string>
 	<string name="playShogiEverywhere">Гуляйце ў сёгі дзе-угодна</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">Бясплатна, як і Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Створана дзеля сёгі, а не дзеля грошай</string>
 	<string name="everybodyGetsAllFeaturesForFree">Кожны атрымлівае ўсе магчымасці бясплатна</string>
@@ -972,4 +987,21 @@
 	<string name="studyWith">Аналізуй з:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Змяняльны</string>
 	<string name="standardStudy">Звычайная студыя</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">Keskustelu päälle / pois</string>
 	<string name="toggleSound">Ääni päälle / pois</string>
 	<string name="chat">Keskustelu</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">Luovuta</string>
 	<string name="checkmate">Shakkimatti</string>
 	<string name="stalemate">Patti</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Valkea</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
@@ -59,10 +66,12 @@
 	<string name="computerAnalysis">Tietokoneanalyysi</string>
 	<string name="computerAnalysisAvailable">Tietokoneanalyysi käytettävissä</string>
 	<string name="analysis">Analyysilauta</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">Syvyys %s</string>
 	<string name="usingServerAnalysis">Palvelimen analyysi</string>
 	<string name="loadingEngine">Tietokonetta ladataan ...</string>
 	<string name="cloudAnalysis">Pilvianalyysi</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">Syvennä analyysiä</string>
 	<string name="showThreat">Näytä uhka</string>
 	<string name="inLocalBrowser">paikallisesta selaimesta</string>
@@ -143,6 +152,7 @@
 	<string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät ole tervetulleita. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien vinkkejä. Ota myös huomioon, että useamman tilin luomista ei katsota yhtään hyvällä ja johtaa ääritapauksissa porttikieltoon.</string>
 	<string name="games">Pelit</string>
 	<string name="forum">Foorumi</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
 	<string name="latestForumPosts">Uusimmat foorumiviestit</string>
 	<string name="players">Pelaajat</string>
@@ -179,6 +189,7 @@
 	<string name="changeEmail">Vaihda sähköpostiosoitetta</string>
 	<string name="email">Sähköpostiosoite</string>
 	<string name="passwordReset">Salasanan uusiminen</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">Unohditko salasanasi?</string>
 	<string name="rank">Sijoitus</string>
 	<string name="rankX">Sijoitus: %s</string>
@@ -236,6 +247,7 @@
 	<string name="play">Pelaa</string>
 	<string name="inbox">Postilaatikko</string>
 	<string name="streamerManager">Streamer manager</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">Keskusteluhuone</string>
 	<string name="loginToChat">Kirjaudu chattiin</string>
 	<string name="youHaveBeenTimedOut">Olet jäähyllä.</string>
@@ -288,6 +300,7 @@
 	<string name="yourOpponentProposesATakeback">Vastustajasi ehdottaa siirron peruutusta</string>
 	<string name="bookmarkThisGame">Jätä kirjanmerkki tähän peliin</string>
 	<string name="tournament">Turnaus</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">Turnaukset</string>
 	<string name="tournamentPoints">Turnauspisteet</string>
 	<plurals name="nbTournamentPoints">
@@ -327,7 +340,7 @@
 	<string name="youAreNotInTeam">Et ole joukkueessa %s</string>
 	<string name="backToGame">Takaisin peliin</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
 	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s liittyi joukkueeseen %2$s</string>
 	<string name="xCreatedTeamY">%1$s loi joukkueen %2$s</string>
@@ -339,6 +352,9 @@
 	<string name="apply">Ota käyttöön</string>
 	<string name="save">Tallenna</string>
 	<string name="leaderboard">Pistetaulukko</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
@@ -347,6 +363,7 @@
 	<string name="continueFromHere">Jatka tästä</string>
 	<string name="toStudy">Tutki</string>
 	<string name="importGame">Tuo peli</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
@@ -433,6 +450,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="averageOpponent">Keskimääräinen vastustaja</string>
 	<string name="membersOnly">Vain jäsenet</string>
 	<string name="boardEditor">Lautaeditori</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">Asettele lauta</string>
 	<string name="popularOpenings">Suosittuja avauksia</string>
 	<string name="handicaps">Handicaps</string>
@@ -445,6 +463,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="isPrivate">Yksityinen</string>
 	<string name="reportXToModerators">Ilmianna %s moderaattoreille</string>
 	<string name="profileCompletion">Profiilia täytetty: %s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">%s-vahvuusluku</string>
 	<string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
 	<string name="gameCompletionRate">Pelien loppuunvientiprosentti: %s</string>
@@ -457,25 +476,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="socialMediaLinks">Sosiaalisen median linkit</string>
 	<string name="inlineNotation">Rivinsisäinen kommentointi</string>
 	<string name="watchLishogiTV">Watch Lishogi TV</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
 	<string name="onlinePlayers">Paikalla olevat pelaajat</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">Aktiivisena tänään</string>
 	<string name="activePlayers">Aktiiviset pelaajat</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
-	<string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
 	<string name="toTrackYourProgress">Seurataksesi edistymistäsi:</string>
-	<string name="puzzleId">Tehtävä %s</string>
-	<string name="puzzleOfTheDay">Päivän tehtävä</string>
-	<string name="clickToSolve">Klikkaa ratkaistaksesi</string>
 	<string name="goodMove">Hyvä siirto</string>
-	<string name="butYouCanDoBetter">Mutta parempikin löytyy.</string>
 	<string name="bestMove">Paras siirto!</string>
-	<string name="keepGoing">Jatka...</string>
-	<string name="puzzleFailed">Tehtävä epäonnistui</string>
-	<string name="butYouCanKeepTrying">Mutta voit jatkaa yrittämistä.</string>
 	<string name="success">Onnistuit</string>
-	<string name="wasThisPuzzleAnyGood">Piditkö tästä tehtävästä?</string>
-	<string name="pleaseVotePuzzle">Auta lishogiiä parantamaan tehtäviä äänestämällä nuolilla:</string>
 	<string name="thankYou">Kiitos!</string>
 	<string name="ratingX">Vahvuusluku: %s</string>
 	<string name="hidden">piilotettu</string>
@@ -484,10 +495,6 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="other">Pelattu %s kertaa</item>
 	</plurals>
 	<string name="fromGameLink">Pelistä %s</string>
-	<string name="continueTraining">Jatka harjoittelua</string>
-	<string name="retryThisPuzzle">Yritä uudestaan</string>
-	<string name="thisPuzzleIsCorrect">Tämä tehtävä toimii ja on mielenkiintoinen</string>
-	<string name="thisPuzzleIsWrong">Tämä tehtävä on tylsä tai virheellinen</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="one">%s peliä meneillään</item>
 		<item quantity="other">%s peliä meneillään</item>
@@ -503,6 +510,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="yes">Kyllä</string>
 	<string name="help">Apu:</string>
 	<string name="createANewTopic">Luo uusi aihe</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">Aiheet</string>
 	<string name="posts">Viestit</string>
 	<string name="lastPost">Viimeisin viesti</string>
@@ -529,6 +537,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="questionsAndAnswers">Kysymykset ja vastaukset</string>
 	<string name="notes">Muistiinpanot</string>
 	<string name="typePrivateNotesHere">Kirjoita yksityisiä muistiinpanoja tähän</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
 	<string name="incorrectPassword">Salasana ei kelpaa</string>
 	<string name="invalidAuthenticationCode">Todennuskoodi ei kelpaa</string>
@@ -582,6 +592,7 @@ computer analysis, game chat and shareable URL.</string>
 	</plurals>
 	<string name="listBlockedPlayers">Torjutut pelaajat</string>
 	<string name="human">Ihminen</string>
+	<string name="bots">Bots</string>
 	<string name="computer">Tietokone</string>
 	<string name="side">Puoli</string>
 	<string name="clock">Kello</string>
@@ -655,9 +666,12 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
 	<string name="hostColorForEachGame">Host color for each game</string>
 	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">Areenaturnausten UKK</string>
 	<string name="tournamentOfficial">Virallinen</string>
 	<string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
@@ -717,6 +731,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">katkaista kaikki sessiot</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Jokainen saa kaikki ominaisuudet ilmaiseksi</string>
@@ -899,4 +914,21 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

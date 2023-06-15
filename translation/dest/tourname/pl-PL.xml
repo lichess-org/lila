@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Cogodzinny turniej Rapid Arena</string>
   <string name="hourlyRapid">Cogodzinny turniej Rapid</string>
   <string name="hourlyXArena">Cogodzinny turniej %s Arena</string>
-  <string name="hourlyX">Cogodzinny turniej %s</string>
+  <string name="hourlyX" comment="adjective">Cogodzinny turniej %s</string>
   <string name="dailyRapidArena">Codzienny turniej Rapid Arena</string>
   <string name="dailyRapid">Codzienny turniej Rapid</string>
   <string name="dailyClassicalArena">Codzienny turniej Classical Arena</string>
   <string name="dailyClassical">Codzienny turniej Classical</string>
   <string name="dailyXArena">Codzienny turniej %s Arena</string>
-  <string name="dailyX">Codzienny turniej %s</string>
+  <string name="dailyX" comment="adjective">Codzienny turniej %s</string>
   <string name="easternRapidArena">Afro-eurazjatycki turniej Rapid Arena</string>
   <string name="easternRapid">Afro-eurazjatycki turniej Rapid</string>
   <string name="easternClassicalArena">Afro-eurazjatycki turniej Classical Arena</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Cotygodniowy turniej Classical Arena</string>
   <string name="weeklyClassical">Cotygodniowy turniej Classical</string>
   <string name="weeklyXArena">Cotygodniowy turniej %s Arena</string>
-  <string name="weeklyX">Cotygodniowy turniej %s</string>
+  <string name="weeklyX" comment="adjective">Cotygodniowy turniej %s</string>
   <string name="monthlyRapidArena">Comiesięczny turniej Rapid Arena</string>
   <string name="monthlyRapid">Comiesięczny turniej Rapid</string>
   <string name="monthlyClassicalArena">Comiesięczny turniej Classical Arena</string>
   <string name="monthlyClassical">Comiesięczny turniej Classical</string>
   <string name="monthlyXArena">Comiesięczny turniej %s Arena</string>
-  <string name="monthlyX">Comiesięczny turniej %s</string>
+  <string name="monthlyX" comment="adjective">Comiesięczny turniej %s</string>
   <string name="yearlyRapidArena">Doroczny turniej Rapid Arena</string>
   <string name="yearlyRapid">Doroczny turniej Rapid</string>
   <string name="yearlyClassicalArena">Doroczny turniej Classical Arena</string>
   <string name="yearlyClassical">Doroczny turniej Classical</string>
   <string name="yearlyXArena">Doroczny turniej %s Arena</string>
-  <string name="yearlyX">Doroczny turniej %s</string>
+  <string name="yearlyX" comment="adjective">Doroczny turniej %s</string>
   <string name="rapidShieldArena">Rapid Shield Arena</string>
   <string name="rapidShield">Rapid Shield</string>
   <string name="classicalShieldArena">Classical Shield Arena</string>

@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Óránkénti Rapid Aréna</string>
   <string name="hourlyRapid">Óránkénti Rapid</string>
   <string name="hourlyXArena">Óránkénti %s Aréna</string>
-  <string name="hourlyX">Óránkénti %s</string>
+  <string name="hourlyX" comment="adjective">Óránkénti %s</string>
   <string name="dailyRapidArena">Napi Rapid Aréna</string>
   <string name="dailyRapid">Napi Rapid</string>
   <string name="dailyClassicalArena">Napi Klasszikus Aréna</string>
   <string name="dailyClassical">Napi Klasszikus</string>
   <string name="dailyXArena">Napi %s Aréna</string>
-  <string name="dailyX">Napi %s</string>
+  <string name="dailyX" comment="adjective">Napi %s</string>
   <string name="easternRapidArena">Keleti Rapid Aréna</string>
   <string name="easternRapid">Keleti Rapid</string>
   <string name="easternClassicalArena">Keleti Klasszikus Aréna</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Heti Klasszikus Aréna</string>
   <string name="weeklyClassical">Heti Klasszikus</string>
   <string name="weeklyXArena">Heti %s Aréna</string>
-  <string name="weeklyX">Heti %s</string>
+  <string name="weeklyX" comment="adjective">Heti %s</string>
   <string name="monthlyRapidArena">Havi Rapid Aréna</string>
   <string name="monthlyRapid">Havi Rapid</string>
   <string name="monthlyClassicalArena">Havi Klasszikus Aréna</string>
   <string name="monthlyClassical">Havi Klasszikus</string>
   <string name="monthlyXArena">Havi %s Aréna</string>
-  <string name="monthlyX">Havi %s</string>
+  <string name="monthlyX" comment="adjective">Havi %s</string>
   <string name="yearlyRapidArena">Éves Rapid Aréna</string>
   <string name="yearlyRapid">Éves Rapid</string>
   <string name="yearlyClassicalArena">Éves Klasszikus Aréna</string>
   <string name="yearlyClassical">Éves Klassikus</string>
   <string name="yearlyXArena">Éves %s Aréna</string>
-  <string name="yearlyX">Éves %s</string>
+  <string name="yearlyX" comment="adjective">Éves %s</string>
   <string name="rapidShieldArena">Rapid Vándorkupa Aréna</string>
   <string name="rapidShield">Rapid Vándorkupa</string>
   <string name="classicalShieldArena">Klasszikus Vándorkupa Aréna</string>

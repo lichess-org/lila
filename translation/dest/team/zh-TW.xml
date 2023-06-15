@@ -39,4 +39,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">您可能想要鏈接一個即將到來的錦標賽？</string>
   <string name="usersWhoCanManageThisTeam">可以管理這個團隊的使用者</string>
   <string name="leadersChat">隊長聊天</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

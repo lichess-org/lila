@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">Ganti tampilan obrolan</string>
 	<string name="toggleSound">Ubah suara</string>
 	<string name="chat">Obrolan</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">Menyerah</string>
 	<string name="checkmate">Skakmat</string>
 	<string name="stalemate">Langkah buntu</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Putih</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
@@ -58,10 +65,12 @@
 	<string name="computerAnalysis">Analisa komputer</string>
 	<string name="computerAnalysisAvailable">Analisa komputer tersedia</string>
 	<string name="analysis">Papan analisa</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">Detil %s</string>
 	<string name="usingServerAnalysis">Menggunakan server analisa</string>
 	<string name="loadingEngine">Memuat...</string>
 	<string name="cloudAnalysis">Analisis Cloud</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">Lihat lebih detail</string>
 	<string name="showThreat">Tunjukkan ancaman</string>
 	<string name="inLocalBrowser">di browser lokal</string>
@@ -138,6 +147,7 @@
 	<string name="computersAreNotAllowedToPlay">Komputer maupun pemain yang menggunakan bantuan komputer dilarang bermain. Mohon untuk tidak menggunakan bantuan dari program komputer, database, maupun pemain lain ketika bermain. Juga menggunakan beberapa akun bersamaan sangat dilarang dan akan mengakibatkan akun anda di-BANNED!</string>
 	<string name="games">Permainan</string>
 	<string name="forum">Forum</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s postingan dalam topik %2$s</string>
 	<string name="latestForumPosts">Pesan forum terbaru</string>
 	<string name="players">Pemain</string>
@@ -172,6 +182,7 @@
 	<string name="changeEmail">Ubah email</string>
 	<string name="email">Email</string>
 	<string name="passwordReset">Reset kata sandi</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">Lupa kata sandi?</string>
 	<string name="rank">Peringkat</string>
 	<string name="rankX">Rating: %s</string>
@@ -226,6 +237,7 @@
 	<string name="play">Mainkan</string>
 	<string name="inbox">Kotak Masuk</string>
 	<string name="streamerManager">Manajer stream</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">Ruang Ngobrol</string>
 	<string name="loginToChat">Masuk untuk mengobrol</string>
 	<string name="youHaveBeenTimedOut">Waktu Anda telah habis.</string>
@@ -272,6 +284,7 @@
 	<string name="yourOpponentProposesATakeback">Musuh anda menawarkan langkah batal</string>
 	<string name="bookmarkThisGame">Tandai permainan ini</string>
 	<string name="tournament">Turnamen</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">Turnamen</string>
 	<string name="tournamentPoints">Poin Turnamen</string>
 	<plurals name="nbTournamentPoints">
@@ -305,7 +318,7 @@
 	<string name="youAreNotInTeam">Anda tidak masuk dalam tim %s</string>
 	<string name="backToGame">Kembali ke permainan</string>
 	<string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
 	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s bergabung tim %2$s</string>
 	<string name="xCreatedTeamY">%1$s membuat tim %2$s</string>
@@ -317,6 +330,9 @@
 	<string name="apply">Terapkan</string>
 	<string name="save">Simpan</string>
 	<string name="leaderboard">Peringkat Terbaik</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
@@ -325,6 +341,7 @@
 	<string name="continueFromHere">Lanjutkan dari sini</string>
 	<string name="toStudy">Studi</string>
 	<string name="importGame">Masukkan permainan</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
@@ -406,6 +423,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="averageOpponent">Rata-rata rating lawan</string>
 	<string name="membersOnly">Members only</string>
 	<string name="boardEditor">Edit Papan</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">Atur papan</string>
 	<string name="popularOpenings">Pembuka populer</string>
 	<string name="handicaps">Handicaps</string>
@@ -418,6 +436,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="isPrivate">Pribadi</string>
 	<string name="reportXToModerators">Lapor %s ke moderator</string>
 	<string name="profileCompletion">Kelengkapan profil %s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">peringkat %s</string>
 	<string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
 	<string name="gameCompletionRate">Game completion rate: %s</string>
@@ -430,25 +449,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="socialMediaLinks">Tautan sosial media</string>
 	<string name="inlineNotation">Notasi inline</string>
 	<string name="watchLishogiTV">Nonton Lishogi TV</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Sebelumnya di Lishogi TV</string>
 	<string name="onlinePlayers">Pemain online</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">Active today</string>
 	<string name="activePlayers">Pemain aktif</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
-	<string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
 	<string name="toTrackYourProgress">To track your progress:</string>
-	<string name="puzzleId">Puzzle %s</string>
-	<string name="puzzleOfTheDay">Puzzle of the day</string>
-	<string name="clickToSolve">Click to solve</string>
 	<string name="goodMove">Good move</string>
-	<string name="butYouCanDoBetter">But you can do better.</string>
 	<string name="bestMove">Best move!</string>
-	<string name="keepGoing">Keep going…</string>
-	<string name="puzzleFailed">Puzzle failed</string>
-	<string name="butYouCanKeepTrying">But you can keep trying.</string>
 	<string name="success">Berhasil</string>
-	<string name="wasThisPuzzleAnyGood">Was this puzzle any good?</string>
-	<string name="pleaseVotePuzzle">Bantu Lishogi berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
 	<string name="thankYou">Terima Kasih!</string>
 	<string name="ratingX">Rating: %s</string>
 	<string name="hidden">hidden</string>
@@ -456,10 +467,6 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="other">Played %s times</item>
 	</plurals>
 	<string name="fromGameLink">From game %s</string>
-	<string name="continueTraining">Continue training</string>
-	<string name="retryThisPuzzle">Retry this puzzle</string>
-	<string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
-	<string name="thisPuzzleIsWrong">This puzzle is wrong or boring</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="other">%s pertandingan sedang berlangsung</item>
 	</plurals>
@@ -474,6 +481,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="yes">Ya</string>
 	<string name="help">Bantuan:</string>
 	<string name="createANewTopic">Buat topik baru</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">Topik</string>
 	<string name="posts">Posting</string>
 	<string name="lastPost">Posting terbaru</string>
@@ -500,6 +508,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="questionsAndAnswers">Questions &amp; Answers</string>
 	<string name="notes">Catatan</string>
 	<string name="typePrivateNotesHere">Ketik pesan pribadi di sini</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">Username dan atau password salah</string>
 	<string name="incorrectPassword">Kata sandi salah</string>
 	<string name="invalidAuthenticationCode">Kode autentikasi salah</string>
@@ -551,6 +561,7 @@ computer analysis, game chat and shareable URL.</string>
 	</plurals>
 	<string name="listBlockedPlayers">Daftar pengguna yang anda blokir</string>
 	<string name="human">Manusia</string>
+	<string name="bots">Bots</string>
 	<string name="computer">Komputer</string>
 	<string name="side">Pihak</string>
 	<string name="clock">Jam</string>
@@ -623,9 +634,12 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
 	<string name="hostColorForEachGame">Host color for each game</string>
 	<string name="onlyMembersOfTeam">Hanya anggota dari tim</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">Deskripsi simulasi</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">Arena Turnamen FAQ</string>
 	<string name="tournamentOfficial">Official</string>
 	<string name="timeBeforeTournamentStarts">Waktu sebelum turnamen dimulai</string>
@@ -684,6 +698,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="sessions">Sesi</string>
 	<string name="revokeAllSessions">mencabut semua sesi</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">Gratis seperti Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Semua pengguna mendapatkan seluruh fitur dengan gratis</string>
@@ -862,4 +877,21 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

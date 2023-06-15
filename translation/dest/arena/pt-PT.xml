@@ -39,4 +39,12 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Partilha este link para que as pessoas possam entrar: %s</string>
   <string name="drawStreak">Sequência de empates: Quando um jogador tem empates consecutivos numa arena, apenas o primeiro resultará em um ponto, ou empates que duraram mais de %s movimentos. A sequência de empates só pode ser quebrada por uma vitória, não por uma derrota ou empate.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

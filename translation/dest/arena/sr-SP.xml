@@ -39,4 +39,13 @@
   <string name="thisIsPrivate">Ово је приватан турнир</string>
   <string name="shareUrl">Делите линк да се играчи прикључе: %s</string>
   <string name="drawStreak">Узастопни реми: Када играч има неколико узастопних ремија у арени, само први реми ће му донети поен или ремији који су дужи од %s потеза. Серија ремија може бити прекинута само победом, не поразом или новим ремијем.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="few">View all %s teams</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

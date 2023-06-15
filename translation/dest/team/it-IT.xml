@@ -42,4 +42,7 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="youWayWantToLinkOneOfTheseTournaments">Potresti voler collegare uno di questi prossimi tornei?</string>
   <string name="usersWhoCanManageThisTeam">Utenti che possono gestire questo team</string>
   <string name="leadersChat">Chat dei leader</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

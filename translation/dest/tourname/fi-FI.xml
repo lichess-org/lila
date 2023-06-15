@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Tunnittainen nopea areena</string>
   <string name="hourlyRapid">Tunnittainen nopea</string>
   <string name="hourlyXArena">Tunnittainen %s-areena</string>
-  <string name="hourlyX">Tunnittainen ­%s</string>
+  <string name="hourlyX" comment="adjective">Tunnittainen ­%s</string>
   <string name="dailyRapidArena">Päivittäinen nopea areena</string>
   <string name="dailyRapid">Päivittäinen nopea</string>
   <string name="dailyClassicalArena">Päivittäinen klassinen areena</string>
   <string name="dailyClassical">Päivittäinen klassinen</string>
   <string name="dailyXArena">Päivittäinen ­­%s-areena</string>
-  <string name="dailyX">Päivittäinen ­%s</string>
+  <string name="dailyX" comment="adjective">Päivittäinen ­%s</string>
   <string name="easternRapidArena">Idän nopea areena</string>
   <string name="easternRapid">Idän nopea</string>
   <string name="easternClassicalArena">Idän klassinen areena</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Viikoittainen klassinen areena</string>
   <string name="weeklyClassical">Viikoittainen klassinen</string>
   <string name="weeklyXArena">Viikoittainen %s-areena</string>
-  <string name="weeklyX">Viikoittainen %s</string>
+  <string name="weeklyX" comment="adjective">Viikoittainen %s</string>
   <string name="monthlyRapidArena">Kuukausittainen nopea areena</string>
   <string name="monthlyRapid">Kuukausittainen nopea</string>
   <string name="monthlyClassicalArena">Kuukausittainen klassinen areena</string>
   <string name="monthlyClassical">Kuukausittainen klassinen</string>
   <string name="monthlyXArena">Kuukausittainen %s-areena</string>
-  <string name="monthlyX">Kuukausittainen %s</string>
+  <string name="monthlyX" comment="adjective">Kuukausittainen %s</string>
   <string name="yearlyRapidArena">Vuosittainen nopea areena</string>
   <string name="yearlyRapid">Vuosittainen nopea</string>
   <string name="yearlyClassicalArena">Vuosittainen klassinen areena</string>
   <string name="yearlyClassical">Vuosittainen klassinen</string>
   <string name="yearlyXArena">Vuosittainen ­%s-areena</string>
-  <string name="yearlyX">Vuosittainen %s</string>
+  <string name="yearlyX" comment="adjective">Vuosittainen %s</string>
   <string name="rapidShieldArena">Nopea Kilpi-areena</string>
   <string name="rapidShield">Nopea Kilpi</string>
   <string name="classicalShieldArena">Klassinen Kilpi-areena</string>

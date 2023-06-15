@@ -42,4 +42,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Μήπως θα θέλατε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
   <string name="usersWhoCanManageThisTeam">Χρήστες που μπορούν να διαχειριστούν αυτή την ομάδα</string>
   <string name="leadersChat">Chat αρχηγών</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

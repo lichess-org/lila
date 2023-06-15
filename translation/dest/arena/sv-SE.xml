@@ -32,4 +32,12 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="thisIsPrivate">Detta är en privat turnering</string>
   <string name="shareUrl">Dela denna länk för att låta spelare delta: %s</string>
   <string name="drawStreak">Remi-streaks: När en spelare har efterföljande remier i en arena, kommer bara den första remin att resultera i en poäng, eller om remin varat fler än %s drag. Remi-streaken kan bara avbrytas av en vinst, inte av förlust eller remi.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

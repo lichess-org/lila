@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">聊天开关</string>
 	<string name="toggleSound">声音开关</string>
 	<string name="chat">聊天</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">认输</string>
 	<string name="checkmate">将死</string>
 	<string name="stalemate">逼和</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">白方</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
@@ -58,10 +65,12 @@
 	<string name="computerAnalysis">电脑分析</string>
 	<string name="computerAnalysisAvailable">电脑分析可用</string>
 	<string name="analysis">分析面板</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">深度 %s</string>
 	<string name="usingServerAnalysis">正在使用服务器分析</string>
 	<string name="loadingEngine">引擎载入中...</string>
 	<string name="cloudAnalysis">云分析</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">深入分析</string>
 	<string name="showThreat">显示威胁</string>
 	<string name="inLocalBrowser">在本地浏览器</string>
@@ -138,6 +147,7 @@
 	<string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对弈。下棋时，请不要从国际象棋引擎、数据库或其他棋手得到帮助。另外，强烈建议您不要创建备用账号。过度使用多余的账号会导致账号被封禁。</string>
 	<string name="games">棋局</string>
 	<string name="forum">论坛</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s发文：%2$s</string>
 	<string name="latestForumPosts">最新论坛帖子</string>
 	<string name="players">棋手</string>
@@ -172,6 +182,7 @@
 	<string name="changeEmail">更改电子邮件地址</string>
 	<string name="email">电子邮箱</string>
 	<string name="passwordReset">密码重置</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">忘记密码？</string>
 	<string name="rank">排名</string>
 	<string name="rankX">排名：%s</string>
@@ -226,6 +237,7 @@
 	<string name="play">下棋</string>
 	<string name="inbox">收件箱</string>
 	<string name="streamerManager">Streamer 管理</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">聊天室</string>
 	<string name="loginToChat">聊天请登录</string>
 	<string name="youHaveBeenTimedOut">您暂时被禁言。</string>
@@ -238,7 +250,7 @@
 	<string name="incrementInSeconds">步时</string>
 	<string name="byoyomiInSeconds">读秒秒数</string>
 	<string name="numberOfPeriods">读秒次数</string>
-	<string name="freeOnlineShogi">Free Online Shogi</string>
+	<string name="freeOnlineShogi">免费在线象棋</string>
 	<string name="spectators">观众：</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s排位赛</item>
@@ -272,6 +284,7 @@
 	<string name="yourOpponentProposesATakeback">对手请求悔棋</string>
 	<string name="bookmarkThisGame">收藏此棋局</string>
 	<string name="tournament">锦标赛</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">锦标赛</string>
 	<string name="tournamentPoints">锦标赛积分</string>
 	<plurals name="nbTournamentPoints">
@@ -305,8 +318,8 @@
 	<string name="youAreNotInTeam">您不属于 %s 队</string>
 	<string name="backToGame">返回棋局</string>
 	<string name="siteDescription">免费在线将棋平台。简洁界面上下棋。免注册，无广告，无需插件。与电脑，朋友或随机对一局。</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
-	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">将军棋是一种双人战略棋盘游戏，在日本已经有几个世纪的历史。它通常被称为 \"日本象棋\"。</string>
+	<string name="learnShogiHereX">如果你不熟悉象棋的规则，请查看 - %s。</string>
 	<string name="xJoinedTeamY">%1$s加入%2$s队</string>
 	<string name="xCreatedTeamY">%1$s组建%2$s队</string>
 	<string name="xStartedStreaming">%s 开始直播</string>
@@ -317,6 +330,9 @@
 	<string name="apply">应用</string>
 	<string name="save">保存</string>
 	<string name="leaderboard">排行榜</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">让子选项</string>
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">在此处粘贴KIF或CSA字串</string>
@@ -325,6 +341,7 @@
 	<string name="continueFromHere">从此处继续下棋</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">导入棋局</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">粘贴KIF或者CSA棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s盘导入的棋局</item>
@@ -405,6 +422,7 @@
 	<string name="averageOpponent">对手平均积分</string>
 	<string name="membersOnly">仅限注册用户</string>
 	<string name="boardEditor">棋盘编辑器</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">摆棋</string>
 	<string name="popularOpenings">常见开局</string>
 	<string name="handicaps">让子</string>
@@ -417,6 +435,7 @@
 	<string name="isPrivate">私人锦标赛</string>
 	<string name="reportXToModerators">举报%s</string>
 	<string name="profileCompletion">资料完成度：%s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">%s等级分</string>
 	<string name="ifNoneLeaveEmpty">如果没有，请留空</string>
 	<string name="gameCompletionRate">棋局完成率：%s</string>
@@ -429,25 +448,17 @@
 	<string name="socialMediaLinks">社交媒体链接</string>
 	<string name="inlineNotation">棋谱上的步数代号</string>
 	<string name="watchLishogiTV">观看 Lishogi 直播</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">过去的 Lishogi 直播</string>
 	<string name="onlinePlayers">在线棋手</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">本日活跃棋手</string>
 	<string name="activePlayers">活跃棋手</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">注意，此棋局是积分赛，但是不计时！</string>
-	<string name="yourPuzzleRatingX">你的解题积分：%s</string>
 	<string name="toTrackYourProgress">注册以跟踪你的进度：</string>
-	<string name="puzzleId">%s号题</string>
-	<string name="puzzleOfTheDay">每日一题</string>
-	<string name="clickToSolve">点击解题</string>
 	<string name="goodMove">好棋</string>
-	<string name="butYouCanDoBetter">你还可以做得更好。</string>
 	<string name="bestMove">最佳着！</string>
-	<string name="keepGoing">请继续……</string>
-	<string name="puzzleFailed">解题失败</string>
-	<string name="butYouCanKeepTrying">但你可以继续尝试。</string>
 	<string name="success">解题成功</string>
-	<string name="wasThisPuzzleAnyGood">这道题目好不好？</string>
-	<string name="pleaseVotePuzzle">按上箭头键或下箭头键投票来帮助Lishogi提高训练题质量：</string>
 	<string name="thankYou">谢谢！</string>
 	<string name="ratingX">积分：%s</string>
 	<string name="hidden">隐藏</string>
@@ -455,10 +466,6 @@
 		<item quantity="other">已被尝试%s次</item>
 	</plurals>
 	<string name="fromGameLink">来自对局%s</string>
-	<string name="continueTraining">继续训练</string>
-	<string name="retryThisPuzzle">重试本题</string>
-	<string name="thisPuzzleIsCorrect">本题正确并有趣</string>
-	<string name="thisPuzzleIsWrong">本题错误或无聊</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="other">%s场对局进行中</item>
 	</plurals>
@@ -473,6 +480,7 @@
 	<string name="yes">是</string>
 	<string name="help">帮助：</string>
 	<string name="createANewTopic">创建一个新主题</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">主题</string>
 	<string name="posts">帖子</string>
 	<string name="lastPost">最后一帖</string>
@@ -499,6 +507,8 @@
 	<string name="questionsAndAnswers">问答</string>
 	<string name="notes">备注</string>
 	<string name="typePrivateNotesHere">输入关于该用户的个人备注</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">用户名或密码错误</string>
 	<string name="incorrectPassword">密码错误</string>
 	<string name="invalidAuthenticationCode">无效的验证码</string>
@@ -550,6 +560,7 @@
 	</plurals>
 	<string name="listBlockedPlayers">显示黑名单</string>
 	<string name="human">人类</string>
+	<string name="bots">Bots</string>
 	<string name="computer">电脑</string>
 	<string name="side">方</string>
 	<string name="clock">时钟</string>
@@ -595,7 +606,7 @@
 	<string name="webmasters">网站管理员</string>
 	<string name="about">关于</string>
 	<string name="aboutX">关于 %s</string>
-	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceShogiServer">%1$s 是一个免费 (%2$s)，自由，无广告的开源将棋服务器。</string>
 	<string name="really">不信？</string>
 	<string name="contribute">协助我们</string>
 	<string name="termsOfService">服务条款</string>
@@ -622,9 +633,12 @@
 	<string name="numberOfByoyomiPeriods">读秒次数</string>
 	<string name="hostColorForEachGame">主持所执方</string>
 	<string name="onlyMembersOfTeam">仅限团队队员</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">车轮战描述</string>
 	<string name="anythingTellParticipants">您有什么想告诉参赛者吗?</string>
 	<string name="lishogiTournaments">Lishogi 锦标赛</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">锦标赛常见问题</string>
 	<string name="tournamentOfficial">官方比赛</string>
 	<string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
@@ -683,6 +697,7 @@
 	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">注销所有会话</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">永远免费 Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">每个人都可以免费使用所有功能</string>
@@ -861,4 +876,21 @@
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

@@ -42,4 +42,7 @@ Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.
   <string name="youWayWantToLinkOneOfTheseTournaments">Du kanske vill länka en av dessa kommande turneringar?</string>
   <string name="usersWhoCanManageThisTeam">Användare som kan managera detta team</string>
   <string name="leadersChat">Lagledarchatt</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

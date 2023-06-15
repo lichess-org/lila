@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">小時制快速模式錦標賽賽區</string>
   <string name="hourlyRapid">小時制快速模式錦標賽</string>
   <string name="hourlyXArena">小時制%s模式錦標賽賽區</string>
-  <string name="hourlyX">小時制%s錦標賽</string>
+  <string name="hourlyX" comment="adjective">小時制%s錦標賽</string>
   <string name="dailyRapidArena">日常快速模式錦標賽賽區</string>
   <string name="dailyRapid">日常快速模式錦標賽</string>
   <string name="dailyClassicalArena">日常經典模式錦標賽賽區</string>
   <string name="dailyClassical">日常經典模式錦標賽</string>
   <string name="dailyXArena">日常%s模式錦標賽賽區</string>
-  <string name="dailyX">日常%s模式錦標賽</string>
+  <string name="dailyX" comment="adjective">日常%s模式錦標賽</string>
   <string name="easternRapidArena">東方時間制快速模式錦標賽賽區</string>
   <string name="easternRapid">東方時間制快速模式錦標賽</string>
   <string name="easternClassicalArena">東方時間制經典模式錦標賽賽區</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">每周經典模式錦標賽賽區</string>
   <string name="weeklyClassical">每周經典模式錦標賽</string>
   <string name="weeklyXArena">每周%s模式錦標賽賽區</string>
-  <string name="weeklyX">每周%s模式錦標賽</string>
+  <string name="weeklyX" comment="adjective">每周%s模式錦標賽</string>
   <string name="monthlyRapidArena">每月快速模式錦標賽賽區</string>
   <string name="monthlyRapid">每月快速模式錦標賽</string>
   <string name="monthlyClassicalArena">每月經典模式錦標賽賽區</string>
   <string name="monthlyClassical">每月經典模式錦標賽</string>
   <string name="monthlyXArena">每月%s模式錦標賽賽區</string>
-  <string name="monthlyX">每月%s模式錦標賽</string>
+  <string name="monthlyX" comment="adjective">每月%s模式錦標賽</string>
   <string name="yearlyRapidArena">年度快速模式錦標賽賽區</string>
   <string name="yearlyRapid">年度快速模式錦標賽</string>
   <string name="yearlyClassicalArena">年度經典模式錦標賽賽區</string>
   <string name="yearlyClassical">年度經典模式錦標賽</string>
   <string name="yearlyXArena">年度%s模式錦標賽賽區</string>
-  <string name="yearlyX">年度%s模式錦標賽</string>
+  <string name="yearlyX" comment="adjective">年度%s模式錦標賽</string>
   <string name="rapidShieldArena">快速模式獎牌錦標賽賽區</string>
   <string name="rapidShield">快速模式獎牌錦標賽</string>
   <string name="classicalShieldArena">經典模式獎牌錦標賽賽區</string>

@@ -13,7 +13,7 @@
   <string name="specialMoves">Ypatingi ėjimai</string>
   <string name="didYouLikeThisPuzzle">Ar jums patiko ši užduotis?</string>
   <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
-  <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
+  <string name="yourPuzzleRatingX">Jūsų užduočių sprendimo reitingas: %s</string>
   <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Find the best move for %s.</string>
   <string name="toGetPersonalizedPuzzles">Norėdami gauti suasmenintas užduotis:</string>
   <string name="puzzleId">Užduotis %s</string>
@@ -53,9 +53,17 @@
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
   <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą užduotį</string>
   <string name="puzzleDashboard">Užduočių centras</string>
+  <string name="puzzleDashboardSubtitle">Train, analyse, improve</string>
   <string name="improvementAreas">Vietos tobulėjimui</string>
+  <string name="improvementAreasSubtitle">Train these to optimize your progress!</string>
   <string name="strengths">Striprybės</string>
+  <string name="strengthsSubtitle">You perform the best in these themes</string>
   <string name="history">Užduočių istorija</string>
   <string name="solved">išspręsta</string>
   <string name="failed">nepavyko</string>
+  <string name="fromMyGames">From my games</string>
+  <string name="lookupOfPlayer">Lookup puzzles from a player\'s games</string>
+  <string name="fromXGames">Puzzles from %s\' games</string>
+  <string name="searchPuzzles">Search puzzles</string>
+  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
 </resources>

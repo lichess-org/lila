@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">ארנת רפיד שעתית</string>
   <string name="hourlyRapid">רפיד שעתי</string>
   <string name="hourlyXArena">ארנת %s שעתית</string>
-  <string name="hourlyX">%s שעתית</string>
+  <string name="hourlyX" comment="adjective">%s שעתית</string>
   <string name="dailyRapidArena">ארנת הרפיד היומית</string>
   <string name="dailyRapid">רפיד יומי</string>
   <string name="dailyClassicalArena">ארנת קלאסי יומית</string>
   <string name="dailyClassical">קלאסי יומי</string>
   <string name="dailyXArena">ארנת %s יומית</string>
-  <string name="dailyX">%s יומי</string>
+  <string name="dailyX" comment="adjective">%s יומי</string>
   <string name="easternRapidArena">מזרח רפיד ארנה</string>
   <string name="easternRapid">רפיד מזרחי</string>
   <string name="easternClassicalArena">ארנת קלאסי מזרח</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">ארנת הקלאסי השבועית</string>
   <string name="weeklyClassical">קלאסי שבועי</string>
   <string name="weeklyXArena">ארנת %s שבועית</string>
-  <string name="weeklyX">שבועי %s</string>
+  <string name="weeklyX" comment="adjective">שבועי %s</string>
   <string name="monthlyRapidArena">ארנת הרפיד החודשית</string>
   <string name="monthlyRapid">רפיד חודשי</string>
   <string name="monthlyClassicalArena">ארנת הקלאסי החודשית</string>
   <string name="monthlyClassical">קלאסי חודשי</string>
   <string name="monthlyXArena">ארנת %s חודשית</string>
-  <string name="monthlyX">%s חודשי</string>
+  <string name="monthlyX" comment="adjective">%s חודשי</string>
   <string name="yearlyRapidArena">ארנת הרפיד השנתית</string>
   <string name="yearlyRapid">רפיד שנתי</string>
   <string name="yearlyClassicalArena">ארנת הקלאסי השנתית</string>
   <string name="yearlyClassical">קלאסי שנתי</string>
   <string name="yearlyXArena">ארנת %s שנתית</string>
-  <string name="yearlyX">%s שנתית</string>
+  <string name="yearlyX" comment="adjective">%s שנתית</string>
   <string name="rapidShieldArena">ארנת המגן של הרפיד</string>
   <string name="rapidShield">מגן הרפיד</string>
   <string name="classicalShieldArena">ארנת המגן קלאסי</string>

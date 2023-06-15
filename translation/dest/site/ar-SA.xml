@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
 	<string name="toggleSound">تعطيل/تشغيل الصوت</string>
 	<string name="chat">دردشة</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">استسلام</string>
 	<string name="checkmate">كش مات</string>
 	<string name="stalemate">مات مخنوق</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">أبيض</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
@@ -63,10 +70,12 @@
 	<string name="computerAnalysis">تحليل الحاسوب</string>
 	<string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
 	<string name="analysis">لوحة التحليل</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">عمق التحليل %s</string>
 	<string name="usingServerAnalysis">استخدام تحليل الخادم</string>
 	<string name="loadingEngine">تحميل المحرك...</string>
 	<string name="cloudAnalysis">تحليل سحابي</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">لتحليل أعمق</string>
 	<string name="showThreat">إظهار التهديد</string>
 	<string name="inLocalBrowser">في متصفحك</string>
@@ -163,6 +172,7 @@
 	<string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب لأن ذلك قد يؤدي إلى الحظر من الموقع.</string>
 	<string name="games">المباريات</string>
 	<string name="forum">منتدى</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s منشور في الموضوع %2$s</string>
 	<string name="latestForumPosts">آخر منشورات المنتدى</string>
 	<string name="players">لاعبين</string>
@@ -207,6 +217,7 @@
 	<string name="changeEmail">غير البريد الإلكتروني</string>
 	<string name="email">البريد الإلكتروني</string>
 	<string name="passwordReset">إعادة تعيين كلمة المرور</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">هل نسيت كلمة المرور؟</string>
 	<string name="rank">المرتبة</string>
 	<string name="rankX">الترتيب: %s</string>
@@ -276,6 +287,7 @@
 	<string name="play">العب</string>
 	<string name="inbox">صندوق الرسائل</string>
 	<string name="streamerManager">Streamer manager</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">غرفة الدردشة</string>
 	<string name="loginToChat">تسجيل الدخول للدردشة</string>
 	<string name="youHaveBeenTimedOut">تم حظرك مؤقتًا.</string>
@@ -352,6 +364,7 @@
 	<string name="yourOpponentProposesATakeback">خصمك يطلب تراجعا عن النقلة الأخيرة</string>
 	<string name="bookmarkThisGame">أضف هذه المباراة للمفضلة</string>
 	<string name="tournament">مسابقة</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">مسابقات</string>
 	<string name="tournamentPoints">نقاط المسابقة</string>
 	<plurals name="nbTournamentPoints">
@@ -415,7 +428,7 @@
 	<string name="youAreNotInTeam">عذراََ, أنت لست عضو في فريق %s</string>
 	<string name="backToGame">العودة للمباراة</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
 	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s انضم لفريق %2$s</string>
 	<string name="xCreatedTeamY">%1$s أنشأ فريق %2$s</string>
@@ -427,6 +440,9 @@
 	<string name="apply">قبول</string>
 	<string name="save">حفظ</string>
 	<string name="leaderboard">أفضل اللاعبين</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
@@ -435,6 +451,7 @@
 	<string name="continueFromHere">تابع من هنا</string>
 	<string name="toStudy">دراسة</string>
 	<string name="importGame">استورد مباراة</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
@@ -541,6 +558,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="averageOpponent">معدل الخصم</string>
 	<string name="membersOnly">للأعضاء فقط</string>
 	<string name="boardEditor">محرر الرقعة</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">إعداد الرقعة</string>
 	<string name="popularOpenings">إفتتاحيات شائعة</string>
 	<string name="handicaps">Handicaps</string>
@@ -553,6 +571,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="isPrivate">خاص</string>
 	<string name="reportXToModerators">بلغ الإدارة عن %s</string>
 	<string name="profileCompletion">اكتمال الملف الشخصي: %s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">تقييم %s</string>
 	<string name="ifNoneLeaveEmpty">إذا لم يوجد، أتركه فارغًا</string>
 	<string name="gameCompletionRate">معدل إكمال المباراة: %s</string>
@@ -565,25 +584,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
 	<string name="inlineNotation">تنسيق التدوين</string>
 	<string name="watchLishogiTV">Watch Lishogi TV</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
 	<string name="onlinePlayers">لاعبين متصلين</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">نشيط اليوم</string>
 	<string name="activePlayers">لاعبين نشطين</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مقيمة وبدون توقيت!</string>
-	<string name="yourPuzzleRatingX">تقييمك في حل الألغاز:  %s</string>
 	<string name="toTrackYourProgress">لمتابعة تقدمك:</string>
-	<string name="puzzleId">%s لغز</string>
-	<string name="puzzleOfTheDay">لغز اليوم</string>
-	<string name="clickToSolve">اضغط للحل</string>
 	<string name="goodMove">نقلة جيدة</string>
-	<string name="butYouCanDoBetter">لكن توجد نقلة أفضل</string>
 	<string name="bestMove">أفضل نقلة</string>
-	<string name="keepGoing">تابع ...</string>
-	<string name="puzzleFailed">لقد خسرت اللغز</string>
-	<string name="butYouCanKeepTrying">لكن حاول مرة أخرى</string>
 	<string name="success">تم بنجاح</string>
-	<string name="wasThisPuzzleAnyGood">هل استفدت من هذا اللغز؟</string>
-	<string name="pleaseVotePuzzle">ساعد الموقع على تحسين الألغاز بتقييمها من خلال الأسهم لأعلى وأسفل:</string>
 	<string name="thankYou">شكرًا لك!</string>
 	<string name="ratingX">التقييم: %s</string>
 	<string name="hidden">مخفي</string>
@@ -596,10 +607,6 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="other">لُعِبَ %s مرة</item>
 	</plurals>
 	<string name="fromGameLink">من مباراة %s</string>
-	<string name="continueTraining">مواصلة التدريب</string>
-	<string name="retryThisPuzzle">إعادة محاولة هذا اللغز</string>
-	<string name="thisPuzzleIsCorrect">هذا اللغز صحيح ومثير للإهتمام</string>
-	<string name="thisPuzzleIsWrong">هذا اللغز خطأ أوممل</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="zero">%s مباراة جارية</item>
 		<item quantity="one">%s مباراة جارية</item>
@@ -619,6 +626,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="yes">نعم</string>
 	<string name="help">مساعدة:</string>
 	<string name="createANewTopic">إنشاء موضوع جديد</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">المواضيع</string>
 	<string name="posts">المنشورات</string>
 	<string name="lastPost">آخر منشور</string>
@@ -645,6 +653,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="questionsAndAnswers">الأسئلة &amp; والأجوبة</string>
 	<string name="notes">ملاحظات</string>
 	<string name="typePrivateNotesHere">اكتب الملاحظات الخاصة هنا</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">اسم المستخدم خطأ أو كلمة المرور غير صحيحة</string>
 	<string name="incorrectPassword">كلمة المرور غير صحيحة</string>
 	<string name="invalidAuthenticationCode">رمز مصادقة غير صحيح</string>
@@ -706,6 +716,7 @@ computer analysis, game chat and shareable URL.</string>
 	</plurals>
 	<string name="listBlockedPlayers">اعرض من حظرت من اللاعبين</string>
 	<string name="human">إنسان</string>
+	<string name="bots">Bots</string>
 	<string name="computer">حاسب</string>
 	<string name="side">الجهة</string>
 	<string name="clock">الوقت</string>
@@ -783,9 +794,12 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
 	<string name="hostColorForEachGame">Host color for each game</string>
 	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
 	<string name="tournamentOfficial">رسمية</string>
 	<string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
@@ -849,6 +863,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">كل المميزات لكل الأعضاء مجاناً</string>
@@ -1047,4 +1062,21 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

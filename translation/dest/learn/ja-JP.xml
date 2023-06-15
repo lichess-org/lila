@@ -125,7 +125,7 @@
 	<string name="outOfCheck">王手を防ぐ</string>
 	<string name="defendYourKing">王将/玉将を守る</string>
 	<string name="outOfCheckIntro">王手されました！逃げるか合駒で防がなければなりません。</string>
-	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
+	<string name="ifYourKingIsAttacked">自玉に王手がかけられると、手抜きは出来ません</string>
 	<string name="escapeWithTheKing">王将/玉将を逃がして！</string>
 	<string name="theKingCannotEscapeButBlock">逃げ道はないが、
 途中に合駒はできる！</string>
@@ -201,7 +201,7 @@ Take the most valuable piece.</string>
 狙ってください！</string>
 	<string name="checkInTwoComplete">おめでとうございます！相手の王将/玉将を王手して、防ぐ手を指させました！</string>
 	<string name="whatNext">その次は？</string>
-	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">おめでとう！あなたは将棋のルールを覚えました。もっと強くなりたいですか？</string>
 	<string name="register">登録</string>
 	<string name="getAFreeLishogiAccount">Lishogi の無料アカウントを作る</string>
 	<string name="practice">練習</string>

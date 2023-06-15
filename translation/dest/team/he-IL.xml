@@ -48,4 +48,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">אולי תרצה לקשר אחד מהטורנירים הבאים הקרובים?</string>
   <string name="usersWhoCanManageThisTeam">משתמשים אשר יכולים לנהל קבוצה זו</string>
   <string name="leadersChat">צ\'אט המנהלים</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

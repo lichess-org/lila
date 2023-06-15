@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">घंटे के रैपिड एरिना</string>
   <string name="hourlyRapid">हर घंटे होने वाला रैपिड</string>
   <string name="hourlyXArena">घंटे %s एरिना</string>
-  <string name="hourlyX">हर घंटे होने वाला %s</string>
+  <string name="hourlyX" comment="adjective">हर घंटे होने वाला %s</string>
   <string name="dailyRapidArena">दिन के रैपिड एरिना</string>
   <string name="dailyRapid">रोज़ होने वाला रैपिड</string>
   <string name="dailyClassicalArena">दिन के क्लासिकल एरिना</string>
   <string name="dailyClassical">रोज़ होने वाला क्लासिकल</string>
   <string name="dailyXArena">दिन के %s एरिना</string>
-  <string name="dailyX">रोज़ होने वाला %s</string>
+  <string name="dailyX" comment="adjective">रोज़ होने वाला %s</string>
   <string name="easternRapidArena">पूर्वी रैपिड एरिना</string>
   <string name="easternRapid">पूर्वी रैपिड</string>
   <string name="easternClassicalArena">पूर्वी क्लासिकल एरिना</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">हफ़्तेवार क्लासिकल एरिना</string>
   <string name="weeklyClassical">हफ़्तेवार क्लासिकल</string>
   <string name="weeklyXArena">हफ़्तेवार %s एरिना</string>
-  <string name="weeklyX">हफ़्तेवार %s</string>
+  <string name="weeklyX" comment="adjective">हफ़्तेवार %s</string>
   <string name="monthlyRapidArena">मासिक रैपिड एरिना</string>
   <string name="monthlyRapid">मासिक रैपिड</string>
   <string name="monthlyClassicalArena">मासिक क्लासिकल एरिना</string>
   <string name="monthlyClassical">मासिक क्लासिकल</string>
   <string name="monthlyXArena">मासिक %s एरिना</string>
-  <string name="monthlyX">मासिक %s</string>
+  <string name="monthlyX" comment="adjective">मासिक %s</string>
   <string name="yearlyRapidArena">सालाना रैपिड एरिना</string>
   <string name="yearlyRapid">सालाना रैपिड</string>
   <string name="yearlyClassicalArena">सालाना क्लासिकल एरिना</string>
   <string name="yearlyClassical">सालाना क्लासिकल</string>
   <string name="yearlyXArena">सालाना %s एरिना</string>
-  <string name="yearlyX">सालाना %s</string>
+  <string name="yearlyX" comment="adjective">सालाना %s</string>
   <string name="rapidShieldArena">रैपिड शील्ड एरिना</string>
   <string name="rapidShield">रैपिड शील्ड</string>
   <string name="classicalShieldArena">क्लासिकल शील्ड एरीना</string>

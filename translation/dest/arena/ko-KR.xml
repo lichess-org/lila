@@ -39,4 +39,11 @@
   <string name="thisIsPrivate">이 토너먼트는 사설 토너먼트 입니다.</string>
   <string name="shareUrl">모두가 참여할 수 있게 이 URL을 공유해 주세요: %s</string>
   <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

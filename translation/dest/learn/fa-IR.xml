@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="learnShogi">Learn shogi</string>
+	<string name="learnShogi">فراگیری شوگی</string>
 	<string name="byPlaying">با بازی کردن!</string>
 	<string name="menu">منو</string>
 	<string name="progressX">پیشرفت: %s</string>
 	<string name="resetMyProgress">تنظیم مجدد پیشرفت من</string>
 	<string name="youWillLoseAllYourProgress">شما همه پیشرفت خود را از دست خواهید داد!</string>
 	<string name="play">بازی کن!</string>
-	<string name="shogiPieces">Shogi pieces</string>
-	<string name="theIntroduction">Introduction</string>
-	<string name="introBasics">Let\'s learn some basics.</string>
-	<string name="introIntro">Your journey begins here.</string>
-	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
-	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.
-To do that click on the cog wheel or your username(top right corner) and then click on \'piece set\'.</string>
-	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
-	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
-	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
+	<string name="shogiPieces">مهره های شوگی</string>
+	<string name="theIntroduction">مقدمه ای بر شوگی</string>
+	<string name="introBasics">یادگیری برخی اصول پایه</string>
+	<string name="introIntro">سفر شما از اینجا آغاز میشود.</string>
+	<string name="clickHereAfterYouveChosen">پس از انتخاب مهره مورد نظر خود،اینجا کلیک کنید.</string>
+	<string name="choosePieceDesign">مهم است بتوانید مهره های خود را از هم تشخیص دهید، پس با دقت ست مهره را انتخاب کنید.
+برای انجام این کار، روی چرخ دنده یا نام کاربری خود (گوشه سمت راست بالا) کلیک کنید و سپس بر روی \"ست مهرها\" کلیک کنید.</string>
+	<string name="promotionZone">هنگامی که یکی از مهره های شما به سه رتبه اول در قلمرو حریف خود می رسند یا به انجا رسیده و آنجا را ترک میکنند، می توانید انتخاب کنید که مهره خود را ارتقا دهید و آن را قوی تر کنید.</string>
+	<string name="senteGoesFirst">در شوگی بازیکنی که اولین حرکت را انجام می‌دهد سنتِ(sente) می‌گویند و بازیکنی که بعد از سنتِ بازی میکند گُتِ(gote) میگویند. بازیکن اول به رنگ سیاه و بازیکن دوم به رنگ سفید نمایش داده میشوند.برای ادامه حرکتی با مهره sente انجام دهید.</string>
+	<string name="introComplete">کنون مقداری از اصول را فراگرفتید، اما این قسمت آموزشی همچنان نیازمند توسعه بیشتری است.لطفاً به فراگیری حرکات مهره ها بپردازید.</string>
 	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
 	<string name="theRook">رخ</string>
 	<string name="itMovesInStraightLines">در خط های مستقیم حرکت میکند</string>

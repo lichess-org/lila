@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Ràpides Horari Arena</string>
   <string name="hourlyRapid">Ràpides Horari</string>
   <string name="hourlyXArena">%s Horari Arena</string>
-  <string name="hourlyX">%s Horari</string>
+  <string name="hourlyX" comment="adjective">%s Horari</string>
   <string name="dailyRapidArena">Ràpides Diari Arena</string>
   <string name="dailyRapid">Ràpides Diari</string>
   <string name="dailyClassicalArena">Ritme Clàssic Diari Arena</string>
   <string name="dailyClassical">Ritme Clàssic Diari</string>
   <string name="dailyXArena">%s Diari Arena</string>
-  <string name="dailyX">%s Diari</string>
+  <string name="dailyX" comment="adjective">%s Diari</string>
   <string name="easternRapidArena">Ràpides Oriental Arena</string>
   <string name="easternRapid">Ràpides Oriental</string>
   <string name="easternClassicalArena">Clàssic Oriental Arena</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Ritme Clàssic Setmanal Arena</string>
   <string name="weeklyClassical">Ritme Clàssic Setmanal</string>
   <string name="weeklyXArena">%s Setmanal Arena</string>
-  <string name="weeklyX">%s Setmanal</string>
+  <string name="weeklyX" comment="adjective">%s Setmanal</string>
   <string name="monthlyRapidArena">Ràpides Mensual Arena</string>
   <string name="monthlyRapid">Ràpides Mensual</string>
   <string name="monthlyClassicalArena">Ritme Clàssic Mensual Arena</string>
   <string name="monthlyClassical">Ritme Clàssic Mensual</string>
   <string name="monthlyXArena">%s Mensual Arena</string>
-  <string name="monthlyX">%s Mensual</string>
+  <string name="monthlyX" comment="adjective">%s Mensual</string>
   <string name="yearlyRapidArena">Ràpides Anual Arena</string>
   <string name="yearlyRapid">Ràpides Anual</string>
   <string name="yearlyClassicalArena">Ritme Clàssic Anual Arena</string>
   <string name="yearlyClassical">Ritme Clàssic Anual</string>
   <string name="yearlyXArena">%s Anual Arena</string>
-  <string name="yearlyX">%s Anual</string>
+  <string name="yearlyX" comment="adjective">%s Anual</string>
   <string name="rapidShieldArena">Ràpides Insígnia Arena</string>
   <string name="rapidShield">Ràpides Insígnia</string>
   <string name="classicalShieldArena">Ritme Clàssic Insígnia Arena</string>

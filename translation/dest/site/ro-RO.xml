@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">Arată/Ascunde discuţia</string>
 	<string name="toggleSound">Cu/Fără sunet</string>
 	<string name="chat">Discuţie</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">Abandonează</string>
 	<string name="checkmate">Şah mat</string>
 	<string name="stalemate">Pat</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Alb</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
@@ -60,10 +67,12 @@
 	<string name="computerAnalysis">Analiza computer-ului</string>
 	<string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
 	<string name="analysis">Analiza</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">Profunzime %s</string>
 	<string name="usingServerAnalysis">Utilizează analiză pe server</string>
 	<string name="loadingEngine">Se încarcă motorul de analiză...</string>
 	<string name="cloudAnalysis">Analiză online</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">Mergi mai în profunzime</string>
 	<string name="showThreat">Afișează amenințarea</string>
 	<string name="inLocalBrowser">în browserul local</string>
@@ -148,6 +157,7 @@
 	<string name="computersAreNotAllowedToPlay">Computerele și jucătorii asistați de computer nu au voie să joace. Vă rugăm ca în timpul partidei să nu primiți asistență de la motoare de șah, baze de date, sau de la alți jucători. Rețineți totodată că acțiunea de creare a mai multor conturi este descurajată și că un număr mare de conturi vor conduce la blocarea accesului pe site (ban).</string>
 	<string name="games">Partide</string>
 	<string name="forum">Forum</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s a comentat la subiectul %2$s</string>
 	<string name="latestForumPosts">Ultimele postări pe forum</string>
 	<string name="players">Jucători</string>
@@ -186,6 +196,7 @@
 	<string name="changeEmail">Schimbă e-mailul</string>
 	<string name="email">E-mail</string>
 	<string name="passwordReset">Resetează parola</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">Ți-ai pierdut parola?</string>
 	<string name="rank">Clasificare</string>
 	<string name="rankX">Loc în clasament: %s</string>
@@ -246,6 +257,7 @@
 	<string name="play">Joacă</string>
 	<string name="inbox">Căsuță poștală</string>
 	<string name="streamerManager">Streamer manager</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">Zona de chat</string>
 	<string name="loginToChat">Conectare la chat</string>
 	<string name="youHaveBeenTimedOut">Timpul alocat v-a fost suprimat.</string>
@@ -304,6 +316,7 @@
 	<string name="yourOpponentProposesATakeback">Adversarul dvs. propune revocarea unei mutări</string>
 	<string name="bookmarkThisGame">Marcați această partidă</string>
 	<string name="tournament">Turneu</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">Turnee</string>
 	<string name="tournamentPoints">Puncte de turneu</string>
 	<plurals name="nbTournamentPoints">
@@ -349,7 +362,7 @@
 	<string name="youAreNotInTeam">Nu sunteți în echipa %s</string>
 	<string name="backToGame">Înapoi la joc</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
 	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s a intrat în echipa %2$s</string>
 	<string name="xCreatedTeamY">%1$s a creat echipa %2$s</string>
@@ -361,6 +374,9 @@
 	<string name="apply">Aplicați</string>
 	<string name="save">Salvează</string>
 	<string name="leaderboard">Clasament</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheSfenStringHere">Paste the SFEN text here</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
@@ -369,6 +385,7 @@
 	<string name="continueFromHere">Continuați de aici</string>
 	<string name="toStudy">Studiază</string>
 	<string name="importGame">Importați partida</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
@@ -460,6 +477,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="averageOpponent">Cota medie a adversarilor</string>
 	<string name="membersOnly">Doar pentru membri</string>
 	<string name="boardEditor">Editorul de tablă</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">Aşează tabla</string>
 	<string name="popularOpenings">Deschideri populare</string>
 	<string name="handicaps">Handicaps</string>
@@ -472,6 +490,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="isPrivate">Privat</string>
 	<string name="reportXToModerators">Raportează %s moderatorilor</string>
 	<string name="profileCompletion">Completarea profilului: %s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">%s rating</string>
 	<string name="ifNoneLeaveEmpty">Dacă nu există, nu completați</string>
 	<string name="gameCompletionRate">Procent jocuri încheiate: %s</string>
@@ -484,25 +503,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="socialMediaLinks">Legături pentru rețele de socializare</string>
 	<string name="inlineNotation">Notație integrată</string>
 	<string name="watchLishogiTV">Watch Lishogi TV</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
 	<string name="onlinePlayers">Jucători online</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">Activ azi</string>
 	<string name="activePlayers">Jucători activi</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Atenție, partida este oficială, dar se joaca fară ceas!</string>
-	<string name="yourPuzzleRatingX">Rating probleme:  %s</string>
 	<string name="toTrackYourProgress">Pentru urmărirea progresului</string>
-	<string name="puzzleId">Problema %s</string>
-	<string name="puzzleOfTheDay">Problema zilei</string>
-	<string name="clickToSolve">Apăsați pentru a rezolva</string>
 	<string name="goodMove">Mutare bună.</string>
-	<string name="butYouCanDoBetter">Dar se poate și mai bine.</string>
 	<string name="bestMove">Cea mai buna mutare!</string>
-	<string name="keepGoing">Continuați...</string>
-	<string name="puzzleFailed">Problemă nerezolvată</string>
-	<string name="butYouCanKeepTrying">Dar puteți să mai încercați.</string>
 	<string name="success">Succes</string>
-	<string name="wasThisPuzzleAnyGood">Considerați utilă această problemă?</string>
-	<string name="pleaseVotePuzzle">Ajutați la îmbunătățirea lishogi votând cu ajutorul săgeților:</string>
 	<string name="thankYou">Mulţumesc!</string>
 	<string name="ratingX">Rating: %s</string>
 	<string name="hidden">ascuns</string>
@@ -512,10 +523,6 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="other">Jucat de %s ori</item>
 	</plurals>
 	<string name="fromGameLink">Din partida %s</string>
-	<string name="continueTraining">Continuați antrenamentul</string>
-	<string name="retryThisPuzzle">Reîncercați această problemă</string>
-	<string name="thisPuzzleIsCorrect">Această problemă este corectă și interesantă</string>
-	<string name="thisPuzzleIsWrong">Această problemă este incorectă sau plictisitoare</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="one">%s partidă în desfășurare</item>
 		<item quantity="few">%s partide în desfășurare</item>
@@ -532,6 +539,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="yes">Da</string>
 	<string name="help">Ajutor:</string>
 	<string name="createANewTopic">Creează un nou topic</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">Subiecte</string>
 	<string name="posts">Postări</string>
 	<string name="lastPost">Ultima postare</string>
@@ -558,6 +566,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="questionsAndAnswers">Întrebări și Răspunsuri</string>
 	<string name="notes">Note</string>
 	<string name="typePrivateNotesHere">Scrie în privat aici</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">Nume sau parolă invalidă</string>
 	<string name="incorrectPassword">Parolă greșită</string>
 	<string name="invalidAuthenticationCode">Cod de autentificare incorect</string>
@@ -613,6 +623,7 @@ computer analysis, game chat and shareable URL.</string>
 	</plurals>
 	<string name="listBlockedPlayers">Afișează jucătorii pe care i-ai blocat</string>
 	<string name="human">Om</string>
+	<string name="bots">Bots</string>
 	<string name="computer">Computer</string>
 	<string name="side">Culoare</string>
 	<string name="clock">Ceas</string>
@@ -687,9 +698,12 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
 	<string name="hostColorForEachGame">Host color for each game</string>
 	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">Intrebări și răspunsuri pentru turneu</string>
 	<string name="tournamentOfficial">Oficial</string>
 	<string name="timeBeforeTournamentStarts">Timp până la începerea turneului</string>
@@ -750,6 +764,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">revocați toate sesiunile</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Toata lumea are access la toate opțiunile, gratis</string>
@@ -936,4 +951,21 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

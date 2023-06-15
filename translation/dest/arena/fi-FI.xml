@@ -38,4 +38,12 @@ Pelaa nopeasti ja palaa aulaan niin voit pelata lisää pelejä ja ansaita lisä
   <string name="thisIsPrivate">Turnaus on yksityinen</string>
   <string name="shareUrl">Jaa tämä URL ihmisille, jotta he voivat liittyä: %s</string>
   <string name="drawStreak">Tasapeliputket: Kun pelaaja pelaa areenassa peräkkäisiä tasapelejä, vain ensimmäisestä tasapelistä saa pisteen, tai yli %s siirtoa kestäneistä tasapeleistä. Tasapeliputken voi rikkoa vain voitto – ei häviö eikä tasapeli.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

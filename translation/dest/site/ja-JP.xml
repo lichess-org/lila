@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">チャットのオン・オフ</string>
 	<string name="toggleSound">音声のオン・オフ</string>
 	<string name="chat">チャット</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">ページ</string>
 	<string name="resign">投了</string>
 	<string name="checkmate">詰み</string>
 	<string name="stalemate">ステイルメイト</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">連続王手の千日手</string>
 	<string name="royalsLost" comment="Used in chushogi">すべてのroyal駒を失う</string>
 	<string name="bareKing" comment="Used in chushogi">裸の王</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">後手</string>
 	<string name="white" comment="Alternative to gote">白</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">先手</string>
@@ -29,7 +36,7 @@
 	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">下手</string>
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">上手</string>
 	<string name="randomColor" comment="Side - sente/gote">ランダム</string>
-	<string name="createAGame">対局を作成する</string>
+	<string name="createAGame">対局する</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%sの勝ちです</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">あなたは%sです</string>
 	<string name="itsYourTurn">あなたの手番です！</string>
@@ -58,10 +65,12 @@
 	<string name="computerAnalysis">コンピューター解析</string>
 	<string name="computerAnalysisAvailable">コンピューター解析がされています</string>
 	<string name="analysis">棋譜解析</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">深度 %s</string>
 	<string name="usingServerAnalysis">サーバー解析を使用</string>
 	<string name="loadingEngine">エンジン読み込み中…</string>
 	<string name="cloudAnalysis">クラウド解析</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">もっと深く</string>
 	<string name="showThreat">狙いを表示</string>
 	<string name="inLocalBrowser">ローカル ブラウザ内での解析</string>
@@ -138,6 +147,7 @@
 	<string name="computersAreNotAllowedToPlay">コンピューターの力を借りての対局は禁止されています。対局中に将棋ソフト、データベース、他のプレイヤーの助言を利用しないでください。また複数アカウントの使用もしないでください。ひどい場合は追放されます。</string>
 	<string name="games">対局</string>
 	<string name="forum">フォーラム</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s が %2$s に投稿しました</string>
 	<string name="latestForumPosts">最新のフォーラム記事</string>
 	<string name="players">プレイヤー</string>
@@ -172,6 +182,7 @@
 	<string name="changeEmail">メールアドレスの変更</string>
 	<string name="email">メールアドレス</string>
 	<string name="passwordReset">パスワードをリセットする</string>
+	<string name="loginByEmail">メールでログインする</string>
 	<string name="forgotPassword">パスワードを忘れた方はこちら</string>
 	<string name="rank">ランク</string>
 	<string name="rankX">ランク: %s</string>
@@ -226,6 +237,7 @@
 	<string name="play">対局</string>
 	<string name="inbox">受信箱</string>
 	<string name="streamerManager">配信者用マネージャー</string>
+	<string name="coachManager">コーチ用設定</string>
 	<string name="chatRoom">チャットルーム</string>
 	<string name="loginToChat">（ログインが必要）</string>
 	<string name="youHaveBeenTimedOut">（チャットは一時禁止中）</string>
@@ -239,7 +251,7 @@
 	<string name="byoyomiInSeconds">秒読み</string>
 	<string name="numberOfPeriods">考慮時間</string>
 	<string name="freeOnlineShogi">無料オンライン将棋</string>
-	<string name="spectators">観覧者:</string>
+	<string name="spectators">観戦者:</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s 局レート戦</item>
 	</plurals>
@@ -272,6 +284,7 @@
 	<string name="yourOpponentProposesATakeback">対局相手が待ったをしていいか聞いています</string>
 	<string name="bookmarkThisGame">この対局をブックマークする</string>
 	<string name="tournament">トーナメント</string>
+	<string name="tournamentLeaderboard">トーナメント優勝者</string>
 	<string name="tournaments">トーナメント</string>
 	<string name="tournamentPoints">トーナメントポイント</string>
 	<plurals name="nbTournamentPoints">
@@ -305,7 +318,7 @@
 	<string name="youAreNotInTeam">チーム %s に入っていません</string>
 	<string name="backToGame">対局に戻る</string>
 	<string name="siteDescription">無料オンライン将棋。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。コンピューターと、友達と、知らない相手とも対局できます。</string>
-	<string name="shogiDescription">日本語で「将棋」は、何世紀にもわたって日本で行われてきた二人の対局者による戦略ボードゲームです。チェスとの類似性から\"Japanese chess\"ともしばしば呼ばれますが、独特の特徴をもち、それ自体で別のゲームとして成立しています。</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">将棋（しょうぎ）は、何世紀にもわたって日本で行われてきた二人の対局者による戦略ボードゲームです。チェスとの類似性から\"Japanese chess\"ともしばしば呼ばれますが、独特の特徴をもち、それ自体で別のゲームとして成立しています。</string>
 	<string name="learnShogiHereX">もしあなたが将棋のルールについて詳しくないなら、 %s を確認してください。</string>
 	<string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
 	<string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
@@ -317,6 +330,9 @@
 	<string name="apply">適用</string>
 	<string name="save">保存</string>
 	<string name="leaderboard">ランキング</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">手合割を選択</string>
 	<string name="pasteTheSfenStringHere">ここにSFEN形式の局面をペースト</string>
 	<string name="pasteTheKifCsaStringHere">KIFあるいはCSAをここに貼り付けてください</string>
@@ -325,6 +341,7 @@
 	<string name="continueFromHere">中断した所から再開</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">棋譜をインポート</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">対局のKIFあるいはCSAを貼り付けて、ブラウザ上での再現
 サーバー解析、対局チャット、共有可能なURLを取得</string>
 	<plurals name="nbImportedGames">
@@ -406,6 +423,7 @@
 	<string name="averageOpponent">対局相手の平均</string>
 	<string name="membersOnly">会員限定</string>
 	<string name="boardEditor">盤面入力</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">盤面を指定</string>
 	<string name="popularOpenings">人気のオープニング</string>
 	<string name="handicaps">手合割</string>
@@ -418,6 +436,7 @@
 	<string name="isPrivate">プライベート</string>
 	<string name="reportXToModerators">モデレーターに%sを通報する。</string>
 	<string name="profileCompletion">プロフィール記入率：%s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">%s レーティング</string>
 	<string name="ifNoneLeaveEmpty">ない場合は空白のままで</string>
 	<string name="gameCompletionRate">対局完了率：%s</string>
@@ -430,25 +449,17 @@
 	<string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
 	<string name="inlineNotation">棋譜を行書き</string>
 	<string name="watchLishogiTV">Lishogi TVを観戦</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">過去のLishogi TV対局</string>
 	<string name="onlinePlayers">接続中のプレイヤー</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">今日の対局数上位</string>
 	<string name="activePlayers">総対局数上位</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">注意！レーティング対象ですが時間無制限です</string>
-	<string name="yourPuzzleRatingX">タクティクス レーティング: %s</string>
 	<string name="toTrackYourProgress">履歴を保存するには:</string>
-	<string name="puzzleId">問題番号 %s</string>
-	<string name="puzzleOfTheDay">本日の問題</string>
-	<string name="clickToSolve">問題を解く</string>
 	<string name="goodMove">好手</string>
-	<string name="butYouCanDoBetter">もっといい手があります。</string>
 	<string name="bestMove">最善手！</string>
-	<string name="keepGoing">続ける…</string>
-	<string name="puzzleFailed">不正解</string>
-	<string name="butYouCanKeepTrying">別の手をどうぞ。</string>
 	<string name="success">成功</string>
-	<string name="wasThisPuzzleAnyGood">この問題はよかったですか？</string>
-	<string name="pleaseVotePuzzle">今後の改善のため、上下の矢印で投票をお願いします:</string>
 	<string name="thankYou">ありがとう！</string>
 	<string name="ratingX">レーティング: %s</string>
 	<string name="hidden">非表示</string>
@@ -456,16 +467,12 @@
 		<item quantity="other">解答数のべ %s 回</item>
 	</plurals>
 	<string name="fromGameLink">ゲーム %s から</string>
-	<string name="continueTraining">トレーニングを続ける</string>
-	<string name="retryThisPuzzle">この問題に再挑戦する</string>
-	<string name="thisPuzzleIsCorrect">この問題は正しくておもしろい。</string>
-	<string name="thisPuzzleIsWrong">この問題はおかしい／つまらない</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="other">%s 局対局中</item>
 	</plurals>
 	<string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次の対局に進む</string>
 	<string name="autoSwitch">自動切り替え</string>
-	<string name="puzzles">タクティクス問題</string>
+	<string name="puzzles">次の一手</string>
 	<string name="latestUpdates">最新情報</string>
 	<string name="tournamentWinners">トーナメント優勝者</string>
 	<string name="name">名称</string>
@@ -474,6 +481,7 @@
 	<string name="yes">はい</string>
 	<string name="help">ヘルプ：</string>
 	<string name="createANewTopic">新しいトピックを作成</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">トピック</string>
 	<string name="posts">投稿数</string>
 	<string name="lastPost">最終投稿</string>
@@ -500,6 +508,8 @@
 	<string name="questionsAndAnswers">Q&amp;A</string>
 	<string name="notes">メモ</string>
 	<string name="typePrivateNotesHere">自分用のメモ欄</string>
+	<string name="writeAPrivateNoteAboutThisUser">このユーザーについて自分用のメモを書く</string>
+	<string name="noNoteYet">メモはまだありません</string>
 	<string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
 	<string name="incorrectPassword">パスワードが違います</string>
 	<string name="invalidAuthenticationCode">無効な認証コード</string>
@@ -551,6 +561,7 @@
 	</plurals>
 	<string name="listBlockedPlayers">ブロックしたプレイヤーリスト</string>
 	<string name="human">人間</string>
+	<string name="bots">ボット</string>
 	<string name="computer">コンピューター</string>
 	<string name="side">先手後手</string>
 	<string name="clock">対局時計</string>
@@ -623,9 +634,12 @@
 	<string name="numberOfByoyomiPeriods">考慮時間</string>
 	<string name="hostColorForEachGame">ホストの手番</string>
 	<string name="onlyMembersOfTeam">チームメンバーのみ</string>
+	<string name="noRestriction">制限なし</string>
+	<string name="estimatedStart">開始予定時刻</string>
 	<string name="simulDescription">多面指しの詳細</string>
 	<string name="anythingTellParticipants">参加者に伝えたいことはありますか?</string>
 	<string name="lishogiTournaments">Lishogiトーナメント</string>
+	<string name="tournamentShields">トーナメント表彰楯</string>
 	<string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
 	<string name="tournamentOfficial">公式</string>
 	<string name="timeBeforeTournamentStarts">開始までの時間</string>
@@ -684,6 +698,7 @@
 	<string name="sessions">セッション</string>
 	<string name="revokeAllSessions">すべてのセッションを取り消す</string>
 	<string name="playShogiEverywhere">どこでも将棋を対局</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">Lishogi は常に無料</string>
 	<string name="builtForTheLoveOfShogiNotMoney">お金のためではなく将棋愛のために作られた</string>
 	<string name="everybodyGetsAllFeaturesForFree">誰でもすべての機能が無料です</string>
@@ -830,7 +845,7 @@
 	<string name="rapidDesc">ラピッド：8 分から 25 分</string>
 	<string name="classicalDesc">クラシカル：25 分以上</string>
 	<string name="correspondenceDesc">通信戦：1 手につき 1 日から数日</string>
-	<string name="puzzleDesc">タクティクス問題</string>
+	<string name="puzzleDesc">次の一手</string>
 	<string name="important">重要</string>
 	<string name="yourQuestionMayHaveBeenAnswered">ご質問の答えはすでに %1$s にあるかもしれません</string>
 	<string name="inTheFAQ">FAQ 内</string>
@@ -862,4 +877,21 @@
 	<string name="studyWith">一緒に研究する：</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">オプション</string>
 	<string name="standardStudy">通常の研究</string>
+	<string name="welcomeToX">%s へようこそ！</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">この対局が終わるまで、別の対局は開始できません。</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

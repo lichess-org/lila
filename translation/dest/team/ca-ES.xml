@@ -42,4 +42,7 @@ Els jugadors als que no els agradi rebre els teus missatges poden abandonar l\'e
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers tornejos?</string>
   <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
   <string name="leadersChat">Xat de líders</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

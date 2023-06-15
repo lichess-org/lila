@@ -37,4 +37,12 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Compartilhe este endereço para permitir que outras pessoas entrem: %s</string>
   <string name="drawStreak">Sequências de empates: Quando um jogador empata consecutivos jogos em uma arena, apenas o primeiro empate será pontuado, ou empates que durarem mais que %s movimentos. A sequência de empates pode ser quebrada somente por uma vitória, não por uma derrota ou outro empate.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

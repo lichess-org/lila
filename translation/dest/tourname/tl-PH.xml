@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Pang-oras-oras na Rapid Arena</string>
   <string name="hourlyRapid">Hourly Rapid</string>
   <string name="hourlyXArena">Pang-oras-oras na %s Arena</string>
-  <string name="hourlyX">Hourly %s</string>
+  <string name="hourlyX" comment="adjective">Hourly %s</string>
   <string name="dailyRapidArena">Arawang Rapid Arena</string>
   <string name="dailyRapid">Daily Rapid</string>
   <string name="dailyClassicalArena">Arawang Classical Arena</string>
   <string name="dailyClassical">Daily Classical</string>
   <string name="dailyXArena">Arawang %s Arena</string>
-  <string name="dailyX">Daily %s</string>
+  <string name="dailyX" comment="adjective">Daily %s</string>
   <string name="easternRapidArena">Pansilangang Rapid Arena</string>
   <string name="easternRapid">Eastern Rapid</string>
   <string name="easternClassicalArena">Pansilangang Classical Arena</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Lingguhang Classical Arena</string>
   <string name="weeklyClassical">Weekly Classical</string>
   <string name="weeklyXArena">Lingguhang %s Arena</string>
-  <string name="weeklyX">Weekly %s</string>
+  <string name="weeklyX" comment="adjective">Weekly %s</string>
   <string name="monthlyRapidArena">Buwanang Rapid Arena</string>
   <string name="monthlyRapid">Monthly Rapid</string>
   <string name="monthlyClassicalArena">Buwanang Classical Arena</string>
   <string name="monthlyClassical">Monthly Classical</string>
   <string name="monthlyXArena">Buwanang %s Arena</string>
-  <string name="monthlyX">Monthly %s</string>
+  <string name="monthlyX" comment="adjective">Monthly %s</string>
   <string name="yearlyRapidArena">Taunang Rapid Arena</string>
   <string name="yearlyRapid">Yearly Rapid</string>
   <string name="yearlyClassicalArena">Taunang Classical Arena</string>
   <string name="yearlyClassical">Yearly Classical</string>
   <string name="yearlyXArena">Taunang %s Arena</string>
-  <string name="yearlyX">Yearly %s</string>
+  <string name="yearlyX" comment="adjective">Yearly %s</string>
   <string name="rapidShieldArena">Arenang Pang-Rapid na Kalasag</string>
   <string name="rapidShield">Rapid Shield</string>
   <string name="classicalShieldArena">Arenang Pang-Classic na Kalasag</string>

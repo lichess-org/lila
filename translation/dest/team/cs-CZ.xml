@@ -48,4 +48,7 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="youWayWantToLinkOneOfTheseTournaments">Možná budete chtít připojit jeden z těchto nadcházejících turnajů?</string>
   <string name="usersWhoCanManageThisTeam">Uživatelé, kteří mohou spravovat tento tým</string>
   <string name="leadersChat">Chat vedoucích</string>
+  <string name="upcomingTourns">Nadcházející turnaje</string>
+  <string name="completedTourns">Proběhlé turnaje</string>
+  <string name="teamPage">Týmová stránka</string>
 </resources>

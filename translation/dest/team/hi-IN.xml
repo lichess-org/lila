@@ -42,4 +42,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">आप इन आगामी टूर्नामेंटों में से किसी एक को जोड़ना चाह सकते हैं ?</string>
   <string name="usersWhoCanManageThisTeam">जो उपयोगकर्ता इस टीम का प्रबंधन कर सकते हैं</string>
   <string name="leadersChat">नेताओं के चैट</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

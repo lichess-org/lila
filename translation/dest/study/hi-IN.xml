@@ -9,6 +9,7 @@
   <string name="whatAreStudies">अध्ययन सामग्री क्या है ?</string>
   <string name="allStudies">सभी अध्ययन</string>
   <string name="studiesCreatedByX">%s द्वारा बनाए गए अध्ययन</string>
+  <string name="studyByX" comment="By username">A shogi study by %s</string>
   <string name="noneYet">अभी तक नहीं।</string>
   <string name="hot">होट (Hot)</string>
   <string name="dateAddedNewest">जोड़ा गया (नवीनतम)</string>
@@ -125,15 +126,19 @@
   <string name="deleteStudy">अध्याय को मिटा दे</string>
   <string name="deleteTheEntireStudy">इस अध्याय को हटाएं ? हटाने के पश्चात वापसी नहीं होगी !</string>
   <string name="whereDoYouWantToStudyThat">आप यह कहां से अध्ययन करना चाहते हैं?</string>
+  <string name="studyTopics">Study topics</string>
+  <string name="topicsDescription">Topics to organize your studies with</string>
+  <string name="myTopics">My topics</string>
+  <string name="popularTopics">Popular topics</string>
   <string name="startTag" comment="Tags for kif and csa">Start</string>
   <string name="endTag" comment="Tags for kif and csa">End</string>
   <string name="siteTag" comment="Tags for kif and csa">Site</string>
   <string name="eventTag" comment="Tags for kif and csa">Event</string>
   <string name="timeControlTag" comment="Tags for kif and csa">Time control</string>
-  <string name="xEloTag" comment="Tags for kif and csa">%s Elo</string>
-  <string name="xTitleTag" comment="Tags for kif and csa">%s title</string>
-  <string name="xTeamTag" comment="Tags for kif and csa">%s team</string>
-  <string name="openingTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">%s Elo</string>
+  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">%s title</string>
+  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">%s team</string>
+  <string name="openingTag" comment="Tags for kif and csa">Opening</string>
   <string name="resultTag" comment="Tags for kif and csa">Result</string>
   <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>
   <string name="problemIdTag" comment="Tags for kif and csa">Problem Id</string>

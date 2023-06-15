@@ -36,4 +36,12 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="thisIsPrivate">Ito ay isang pribadong torneo</string>
   <string name="shareUrl">Ibahagi ang URL para makasali ang mga tao:%s</string>
   <string name="drawStreak">Sunod-sunod na mga tabla: Kapag ang isang manlalaro ay mayroong sunod-sunod na mga tabla sa isang arena, ang unang tabla lamang ang magreresulta sa puntos, o kaya naman ang isang tabla na tumagal ng %s na galaw. Ang sunod-sunod na tabla ay matatapos lamang sa isang panalo, hindi sa isang talo o tabla.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

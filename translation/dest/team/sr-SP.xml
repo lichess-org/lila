@@ -45,4 +45,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових надолазеђих турнира?</string>
   <string name="usersWhoCanManageThisTeam">Корисници који могу управљати овим тимом</string>
   <string name="leadersChat">Чет за вође</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

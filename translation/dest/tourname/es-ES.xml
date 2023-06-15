@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Torneo Rápido por Hora</string>
   <string name="hourlyRapid">Rápido por Hora</string>
   <string name="hourlyXArena">Torneo %s por Hora</string>
-  <string name="hourlyX">%s por Hora</string>
+  <string name="hourlyX" comment="adjective">%s por Hora</string>
   <string name="dailyRapidArena">Torneo Rápido Diario</string>
   <string name="dailyRapid">Rápido Diario</string>
   <string name="dailyClassicalArena">Torneo Clásico Diario</string>
   <string name="dailyClassical">Clásico Diario</string>
   <string name="dailyXArena">Torneo %s Diario</string>
-  <string name="dailyX">%s Diario</string>
+  <string name="dailyX" comment="adjective">%s Diario</string>
   <string name="easternRapidArena">Torneo Rápido Oriental</string>
   <string name="easternRapid">Rápido Oriental</string>
   <string name="easternClassicalArena">Torneo Clásico Oriental</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Torneo Clásico Semanal</string>
   <string name="weeklyClassical">Clásico Semanal</string>
   <string name="weeklyXArena">Torneo %s Semanal</string>
-  <string name="weeklyX">%s Semanal</string>
+  <string name="weeklyX" comment="adjective">%s Semanal</string>
   <string name="monthlyRapidArena">Torneo Rápido Mensual</string>
   <string name="monthlyRapid">Rápido Mensual</string>
   <string name="monthlyClassicalArena">Torneo Clásico Mensual</string>
   <string name="monthlyClassical">Clásico Mensual</string>
   <string name="monthlyXArena">Torneo %s Mensual</string>
-  <string name="monthlyX">%s Mensual</string>
+  <string name="monthlyX" comment="adjective">%s Mensual</string>
   <string name="yearlyRapidArena">Torneo Rápido Anual</string>
   <string name="yearlyRapid">Rápido Anual</string>
   <string name="yearlyClassicalArena">Torneo Clásico Anual</string>
   <string name="yearlyClassical">Clásico Anual</string>
   <string name="yearlyXArena">Torneo %s Anual</string>
-  <string name="yearlyX">%s Anual</string>
+  <string name="yearlyX" comment="adjective">%s Anual</string>
   <string name="rapidShieldArena">Torneo de Escudo Rápido</string>
   <string name="rapidShield">Escudo Rápido</string>
   <string name="classicalShieldArena">Torneo de Escudo Clásico</string>

@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Щогодинна Рапід Арена</string>
   <string name="hourlyRapid">Щогодинна Рапід</string>
   <string name="hourlyXArena">Щогодинна %s Арена</string>
-  <string name="hourlyX">Щогодинно %s</string>
+  <string name="hourlyX" comment="adjective">Щогодинно %s</string>
   <string name="dailyRapidArena">Щоденна Рапід Арена</string>
   <string name="dailyRapid">Щоденний Рапід</string>
   <string name="dailyClassicalArena">Щоденна Класична Арена</string>
   <string name="dailyClassical">Щоденна Класика</string>
   <string name="dailyXArena">Щоденна %s Арена</string>
-  <string name="dailyX">Щоденна %s</string>
+  <string name="dailyX" comment="adjective">Щоденна %s</string>
   <string name="easternRapidArena">Східна Рапід Арена</string>
   <string name="easternRapid">Східна Рапід Арена</string>
   <string name="easternClassicalArena">Східна Класична Арена</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Щотижнева Класична Арена</string>
   <string name="weeklyClassical">Щотижнева Класична</string>
   <string name="weeklyXArena">Щотижнева %s Арена</string>
-  <string name="weeklyX">Щотижня %s</string>
+  <string name="weeklyX" comment="adjective">Щотижня %s</string>
   <string name="monthlyRapidArena">Щомісячна Рапід Арена</string>
   <string name="monthlyRapid">Щомісячний Рапід</string>
   <string name="monthlyClassicalArena">Щомісячна Класична Арена</string>
   <string name="monthlyClassical">Щомісячна Класична</string>
   <string name="monthlyXArena">Щомісячна %s Арена</string>
-  <string name="monthlyX">Щомісячна %s</string>
+  <string name="monthlyX" comment="adjective">Щомісячна %s</string>
   <string name="yearlyRapidArena">Щорічна Рапід Арена</string>
   <string name="yearlyRapid">Щорічна Рапід Арена</string>
   <string name="yearlyClassicalArena">Щорічна Класична Арена</string>
   <string name="yearlyClassical">Щорічна Класика</string>
   <string name="yearlyXArena">Щорічна %s Арена</string>
-  <string name="yearlyX">Щорічна %s</string>
+  <string name="yearlyX" comment="adjective">Щорічна %s</string>
   <string name="rapidShieldArena">Арена за Щит з Рапіду</string>
   <string name="rapidShield">Щит з Рапіду</string>
   <string name="classicalShieldArena">Класична Арена за Щит</string>

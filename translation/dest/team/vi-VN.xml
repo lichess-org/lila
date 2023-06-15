@@ -39,4 +39,7 @@ Những người chơi không thích nhận tin nhắn chủa bạn có thể r�
   <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn dẫn tới những giải đấu sắp tới?</string>
   <string name="usersWhoCanManageThisTeam">Người dùng có thể quản lý đội này</string>
   <string name="leadersChat">Trò chuyện của đội trưởng</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

@@ -9,6 +9,7 @@
   <string name="whatAreStudies">Што такое навучанні?</string>
   <string name="allStudies">Усе навучанні</string>
   <string name="studiesCreatedByX">Навучанні, створаныя %s</string>
+  <string name="studyByX" comment="By username">A shogi study by %s</string>
   <string name="noneYet">Пакуль нічога няма.</string>
   <string name="hot">Гарачыя</string>
   <string name="dateAddedNewest">Дата дадання (навейшыя)</string>
@@ -131,14 +132,18 @@
   <string name="deleteStudy">Выдаліць навучанне</string>
   <string name="deleteTheEntireStudy">Выдаліць навучанне цалкам? Гэта нельга будзе адмяніць!</string>
   <string name="whereDoYouWantToStudyThat">Дзе вы жадаеце навучацца?</string>
+  <string name="studyTopics">Study topics</string>
+  <string name="topicsDescription">Topics to organize your studies with</string>
+  <string name="myTopics">My topics</string>
+  <string name="popularTopics">Popular topics</string>
   <string name="startTag" comment="Tags for kif and csa">Пачаць</string>
   <string name="endTag" comment="Tags for kif and csa">Скончыць</string>
   <string name="siteTag" comment="Tags for kif and csa">Site</string>
   <string name="eventTag" comment="Tags for kif and csa">Падзея</string>
   <string name="timeControlTag" comment="Tags for kif and csa">Абмежаванне часу</string>
-  <string name="xEloTag" comment="Tags for kif and csa">%s Elo</string>
-  <string name="xTitleTag" comment="Tags for kif and csa">%s title</string>
-  <string name="xTeamTag" comment="Tags for kif and csa">%s team</string>
+  <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">%s Elo</string>
+  <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">%s title</string>
+  <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">%s team</string>
   <string name="openingTag" comment="Tags for kif and csa">%s Ела</string>
   <string name="resultTag" comment="Tags for kif and csa">Вынік</string>
   <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>

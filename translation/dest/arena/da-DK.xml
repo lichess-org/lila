@@ -37,4 +37,12 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="thisIsPrivate">Dette er en privat turnering</string>
   <string name="shareUrl">Del denne URL for at lade folk deltage: %s</string>
   <string name="drawStreak">Remis på stribe: Spiller man en ubrudt række remis\'er i en arena, gives der kun point for den første remis eller ved remis\'er efter mere end %s træk. En remis-stribe kan kun brydes af en sejr, ikke et nederlag eller en remis.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

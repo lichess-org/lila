@@ -48,4 +48,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Можливо, ви захочете приєднати посилання на один з цих турнірів?</string>
   <string name="usersWhoCanManageThisTeam">Користувачі, які можуть керувати цією командою</string>
   <string name="leadersChat">Чат лідерів</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

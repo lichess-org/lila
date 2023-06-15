@@ -37,4 +37,12 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
   <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
   <string name="drawStreak">Beraberlik serisi: Bir oyuncu turnuvada üst üste berabere kaldığında yalnızca ilk beraberlikten veya %s hamleden uzun süren maçın sonunda elde edilen beraberlikten puan kazanır. Beraberlik serisi sadece oyuncu bir maç kazandığı vakit sona erer; mağlubiyet veya beraberlik ile sonuçlanan maçlarda bu seri devam eder.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

@@ -42,4 +42,7 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
   <string name="youWayWantToLinkOneOfTheseTournaments">Souhaitez-vous rejoindre l\'un de ces prochains tournois ?</string>
   <string name="usersWhoCanManageThisTeam">Utilisateurs qui peuvent administrer cette équipe</string>
   <string name="leadersChat">Chat des chefs de l\'équipe</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

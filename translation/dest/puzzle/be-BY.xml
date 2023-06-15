@@ -53,9 +53,17 @@
   <string name="addAnotherTheme">Дадаць іншую тэму</string>
   <string name="jumpToNextPuzzleImmediately">Адразу перайсці да наступнай задачы</string>
   <string name="puzzleDashboard">Панэль задач</string>
+  <string name="puzzleDashboardSubtitle">Train, analyse, improve</string>
   <string name="improvementAreas">Напрамкі паляпшэння</string>
+  <string name="improvementAreasSubtitle">Train these to optimize your progress!</string>
   <string name="strengths">Моцныя бакі</string>
+  <string name="strengthsSubtitle">You perform the best in these themes</string>
   <string name="history">Гісторыя задач</string>
   <string name="solved">вырашана правільна</string>
   <string name="failed">памылка</string>
+  <string name="fromMyGames">From my games</string>
+  <string name="lookupOfPlayer">Lookup puzzles from a player\'s games</string>
+  <string name="fromXGames">Puzzles from %s\' games</string>
+  <string name="searchPuzzles">Search puzzles</string>
+  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
 </resources>

@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Ежечасная Арена по Рапиду</string>
   <string name="hourlyRapid">Ежечасный Рапид</string>
   <string name="hourlyXArena">Ежечасная %s Арена</string>
-  <string name="hourlyX">Ежечасный %s</string>
+  <string name="hourlyX" comment="adjective">Ежечасный %s</string>
   <string name="dailyRapidArena">Ежедневная Арена по Рапиду</string>
   <string name="dailyRapid">Ежедневный Рапид</string>
   <string name="dailyClassicalArena">Ежедневная Арена по Классике</string>
   <string name="dailyClassical">Ежедневная Классика</string>
   <string name="dailyXArena">Ежедневная %s Арена</string>
-  <string name="dailyX">Ежедневный %s</string>
+  <string name="dailyX" comment="adjective">Ежедневный %s</string>
   <string name="easternRapidArena">Восточная Арена по Рапиду</string>
   <string name="easternRapid">Восточный Рапид</string>
   <string name="easternClassicalArena">Восточная Арена по Классике</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Еженедельная Арена по Классике</string>
   <string name="weeklyClassical">Еженедельная Классика</string>
   <string name="weeklyXArena">Еженедельная %s Арена</string>
-  <string name="weeklyX">Еженедельный %s</string>
+  <string name="weeklyX" comment="adjective">Еженедельный %s</string>
   <string name="monthlyRapidArena">Ежемесячная Арена по Рапиду</string>
   <string name="monthlyRapid">Ежемесячный Рапид</string>
   <string name="monthlyClassicalArena">Ежемесячная Арена по Классике</string>
   <string name="monthlyClassical">Ежемесячная Классика</string>
   <string name="monthlyXArena">Ежемесячная %s Арена</string>
-  <string name="monthlyX">Ежемесячный %s</string>
+  <string name="monthlyX" comment="adjective">Ежемесячный %s</string>
   <string name="yearlyRapidArena">Ежегодная Арена по Рапиду</string>
   <string name="yearlyRapid">Ежегодный Рапид</string>
   <string name="yearlyClassicalArena">Ежегодная Арена по Классике</string>
   <string name="yearlyClassical">Ежегодная Классика</string>
   <string name="yearlyXArena">Ежегодная %s Арена</string>
-  <string name="yearlyX">Ежегодный %s</string>
+  <string name="yearlyX" comment="adjective">Ежегодный %s</string>
   <string name="rapidShieldArena">Арена за Щит по Рапиду</string>
   <string name="rapidShield">Щит по Рапиду</string>
   <string name="classicalShieldArena">Арена за Щит по Классике</string>

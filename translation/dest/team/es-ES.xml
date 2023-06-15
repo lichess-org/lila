@@ -42,4 +42,7 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="youWayWantToLinkOneOfTheseTournaments">¿Tal vez quieras vincular uno de estos próximos torneos?</string>
   <string name="usersWhoCanManageThisTeam">Usuarios que pueden administrar este equipo</string>
   <string name="leadersChat">Chat de líderes</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

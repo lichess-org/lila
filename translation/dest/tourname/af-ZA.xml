@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Uurlikse Rapid Arena</string>
   <string name="hourlyRapid">Uurlikse Rapid</string>
   <string name="hourlyXArena">Uurlikse %s Arena</string>
-  <string name="hourlyX">Uurlikse %s</string>
+  <string name="hourlyX" comment="adjective">Uurlikse %s</string>
   <string name="dailyRapidArena">Daaglikse Rapid Arena</string>
   <string name="dailyRapid">Daaglikse Rapid</string>
   <string name="dailyClassicalArena">Daaglikse Klassieke Arena</string>
   <string name="dailyClassical">Daaglikse Klassiek</string>
   <string name="dailyXArena">Daaglikse %s Arena</string>
-  <string name="dailyX">Daaglikse %s</string>
+  <string name="dailyX" comment="adjective">Daaglikse %s</string>
   <string name="easternRapidArena">Oostelike Rapid Arena</string>
   <string name="easternRapid">Oostelike Rapid</string>
   <string name="easternClassicalArena">Oostelike Klassieke Arena</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Weeklikse Klassieke Arena</string>
   <string name="weeklyClassical">Weeklikse Klassiek</string>
   <string name="weeklyXArena">Weeklikse %s Arena</string>
-  <string name="weeklyX">Weeklikse %s</string>
+  <string name="weeklyX" comment="adjective">Weeklikse %s</string>
   <string name="monthlyRapidArena">Maandelikse Rapid Arena</string>
   <string name="monthlyRapid">Maandelikse Rapid</string>
   <string name="monthlyClassicalArena">Maandelikse Klassieke Arena</string>
   <string name="monthlyClassical">Maandelikse Klassiek</string>
   <string name="monthlyXArena">Maandelikse %s Arena</string>
-  <string name="monthlyX">Maandelikse %s</string>
+  <string name="monthlyX" comment="adjective">Maandelikse %s</string>
   <string name="yearlyRapidArena">Jaarlikse rapid Arena</string>
   <string name="yearlyRapid">Jaarlikse rapid</string>
   <string name="yearlyClassicalArena">Jaarlikse Klassieke Arena</string>
   <string name="yearlyClassical">Jaarlikse Klassiek</string>
   <string name="yearlyXArena">Jaarlikse %s Arena</string>
-  <string name="yearlyX">Jaarlikse %s</string>
+  <string name="yearlyX" comment="adjective">Jaarlikse %s</string>
   <string name="rapidShieldArena">Rapid Skild Arena</string>
   <string name="rapidShield">Rapid Shield</string>
   <string name="classicalShieldArena">Klassieke Skild Arena</string>

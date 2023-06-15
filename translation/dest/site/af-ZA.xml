@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">Wissel klets</string>
 	<string name="toggleSound">Wissel klank</string>
 	<string name="chat">Klets</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">Gee oor</string>
 	<string name="checkmate">Skaakmat</string>
 	<string name="stalemate">Dooiepunt</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Wit</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
@@ -59,10 +66,12 @@
 	<string name="computerAnalysis">Rekenaar analise</string>
 	<string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
 	<string name="analysis">Ontledingsbord</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">Diepte %s</string>
 	<string name="usingServerAnalysis">Die gebruik van bediener analise</string>
 	<string name="loadingEngine">Enjin is besig om the laai ...</string>
 	<string name="cloudAnalysis">Wolkanalise</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">Gaan dieper</string>
 	<string name="showThreat">Toon bedreiging</string>
 	<string name="inLocalBrowser">in plaaslike blaaier</string>
@@ -143,6 +152,7 @@
 	<string name="computersAreNotAllowedToPlay">Rekenaars en rekenaargesteunde spelers word nie toegelaat om te speel. Moet asseblief nie die hulp van skaak enjins, databasisse, of uit ander spelers te kry, terwyl die speel van. Let ook daarop dat die maak van verskeie rekeninge is ten sterkste ontmoedig en oormatige multi-rekeningkunde sal lei tot verban.</string>
 	<string name="games">Spelle</string>
 	<string name="forum">Forum</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s het \'n boodskap gepos in forum %2$s</string>
 	<string name="latestForumPosts">Jongste forumplasings</string>
 	<string name="players">Spelers</string>
@@ -179,6 +189,7 @@
 	<string name="changeEmail">Verander e-pos</string>
 	<string name="email">E-pos</string>
 	<string name="passwordReset">Wagwoord herstel</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">Wagwoord vergeet?</string>
 	<string name="rank">Rang</string>
 	<string name="rankX">Rang: %s</string>
@@ -236,6 +247,7 @@
 	<string name="play">Speel</string>
 	<string name="inbox">Inbox</string>
 	<string name="streamerManager">Streamer manager</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">Kletskamer</string>
 	<string name="loginToChat">Teken in om te klets</string>
 	<string name="youHaveBeenTimedOut">Jy het nie nou toegang tot die kletskamer nie.</string>
@@ -288,6 +300,7 @@
 	<string name="yourOpponentProposesATakeback">Jou teenstander stel \'n terug-vat voor</string>
 	<string name="bookmarkThisGame">Boekmerk die spel</string>
 	<string name="tournament">Toernooi</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">Toernooie</string>
 	<string name="tournamentPoints">Toernooi punte</string>
 	<plurals name="nbTournamentPoints">
@@ -327,7 +340,7 @@
 	<string name="youAreNotInTeam">Jy is nie in %s span nie</string>
 	<string name="backToGame">Terug na spel</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
 	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s het aangesluit by span %2$s</string>
 	<string name="xCreatedTeamY">%1$s het span %2$s geskep</string>
@@ -339,6 +352,9 @@
 	<string name="apply">Pas toe</string>
 	<string name="save">Stoor</string>
 	<string name="leaderboard">Leierbord</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheSfenStringHere">Plak die SFEN string hier</string>
 	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
@@ -347,6 +363,7 @@
 	<string name="continueFromHere">Gaan voort van hier af</string>
 	<string name="toStudy">Bestudeer</string>
 	<string name="importGame">Voer spel in</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
@@ -433,6 +450,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="averageOpponent">Gemmidelde opponent</string>
 	<string name="membersOnly">Slegs lede</string>
 	<string name="boardEditor">Bord redigeerder</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">Pak die bord</string>
 	<string name="popularOpenings">Gewilde openinge</string>
 	<string name="handicaps">Handicaps</string>
@@ -445,6 +463,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="isPrivate">Privaat</string>
 	<string name="reportXToModerators">Raporteer %s aan moderators</string>
 	<string name="profileCompletion">Profiel voltooiing: %s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">%s gradering</string>
 	<string name="ifNoneLeaveEmpty">As geen, los oop</string>
 	<string name="gameCompletionRate">Spel voltooings koers: %s</string>
@@ -457,25 +476,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="socialMediaLinks">Sosiale media skakels</string>
 	<string name="inlineNotation">Binnelyn notasie</string>
 	<string name="watchLishogiTV">Watch Lishogi TV</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
 	<string name="onlinePlayers">Aanlyn spelers</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">Aktief vandag</string>
 	<string name="activePlayers">Aktiewe spelers</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Pasop, dié spel is gegradeer, maar sonder \'n klok!</string>
-	<string name="yourPuzzleRatingX">Jou kopkrapper gradering: %s</string>
 	<string name="toTrackYourProgress">Om jou vordering na te spoor:</string>
-	<string name="puzzleId">Kopkrapper %s</string>
-	<string name="puzzleOfTheDay">Kopkrapper van die dag</string>
-	<string name="clickToSolve">Kliek om op te los</string>
 	<string name="goodMove">Goeie skuif</string>
-	<string name="butYouCanDoBetter">Maar jy kan daarop verbeter.</string>
 	<string name="bestMove">Beste skuif!</string>
-	<string name="keepGoing">Hou aan...</string>
-	<string name="puzzleFailed">Kopkrapper mislukking</string>
-	<string name="butYouCanKeepTrying">Maar jy kan aanhou probeer.</string>
 	<string name="success">Sukses</string>
-	<string name="wasThisPuzzleAnyGood">Was dit \'n goeie kopkrapper?</string>
-	<string name="pleaseVotePuzzle">Verbeter lishogi deur te stem met die op of af pyltjie:</string>
 	<string name="thankYou">Dankie!</string>
 	<string name="ratingX">Gradering: %s</string>
 	<string name="hidden">versteek</string>
@@ -484,10 +495,6 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="other">%s keer gespeel</item>
 	</plurals>
 	<string name="fromGameLink">Van spel %s</string>
-	<string name="continueTraining">Hou aan oefen</string>
-	<string name="retryThisPuzzle">Probeer kopkrapper weer</string>
-	<string name="thisPuzzleIsCorrect">Hierdie kopkrapper is korrek en interessant</string>
-	<string name="thisPuzzleIsWrong">Hierdie kopkrapper is foutief of vervelig</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="one">%s spel aan die gang</item>
 		<item quantity="other">%s spelle aan die gang</item>
@@ -503,6 +510,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="yes">Ja</string>
 	<string name="help">Help:</string>
 	<string name="createANewTopic">Skep \'n nuwe onderwerp</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">Onderwerpe</string>
 	<string name="posts">Plasings</string>
 	<string name="lastPost">Nuutste plasing</string>
@@ -530,6 +538,8 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="questionsAndAnswers">Vrae &amp; Antwoorde</string>
 	<string name="notes">Notas</string>
 	<string name="typePrivateNotesHere">Tik private notas hier in</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wagwoord</string>
 	<string name="incorrectPassword">Verkeerde wagwoord</string>
 	<string name="invalidAuthenticationCode">Ongeldige verifikasiekode</string>
@@ -583,6 +593,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	</plurals>
 	<string name="listBlockedPlayers">Lys geweierde spelers</string>
 	<string name="human">Mens</string>
+	<string name="bots">Bots</string>
 	<string name="computer">Rekenaar</string>
 	<string name="side">Kant</string>
 	<string name="clock">Klok</string>
@@ -656,9 +667,12 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
 	<string name="hostColorForEachGame">Host color for each game</string>
 	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">Arena toernooi Vrae</string>
 	<string name="tournamentOfficial">Amptelik</string>
 	<string name="timeBeforeTournamentStarts">Tydsduur tot aanvang van toernooi</string>
@@ -718,6 +732,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="sessions">Sessions</string>
 	<string name="revokeAllSessions">alle sessies herroep</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">Almal kry al die funksies gratis</string>
@@ -900,4 +915,21 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

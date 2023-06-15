@@ -42,4 +42,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">شما می‌خواهید آدرس اینترنتی یکی از مسابقات آتی را قرار دهید؟</string>
   <string name="usersWhoCanManageThisTeam">کاربرانی که می توانند این تیم را مدیریت کنند</string>
   <string name="leadersChat">چت رهبران</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>

@@ -39,4 +39,12 @@ Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet me
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
   <string name="drawStreak">Remise-serie: als een speler in een arena of een teamcompetitie achtereenvolgende partijen remise speelt, resulteert alleen de eerste remise in een punt, of remise-partijen die meer dan %s zetten duren. De remise-serie kan alleen onderbroken worden door een overwinning, niet door verlies of remise.</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noArenaStreaks">No Arena streaks</string>
+  <string name="averagePerformance">Average performance</string>
+  <string name="averageScore">Average score</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

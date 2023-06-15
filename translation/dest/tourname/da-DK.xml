@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Hurtigskak-arena hver time</string>
   <string name="hourlyRapid">Hurtigskak hver time</string>
   <string name="hourlyXArena">%s Arena hver time</string>
-  <string name="hourlyX">%s hver time</string>
+  <string name="hourlyX" comment="adjective">%s hver time</string>
   <string name="dailyRapidArena">Daglig Hurtigskak-arena</string>
   <string name="dailyRapid">Daglig Hurtigskak</string>
   <string name="dailyClassicalArena">Daglig Klassisk-arena</string>
   <string name="dailyClassical">Daglig Klassisk</string>
   <string name="dailyXArena">Daglig %s Arena</string>
-  <string name="dailyX">Daglig %s</string>
+  <string name="dailyX" comment="adjective">Daglig %s</string>
   <string name="easternRapidArena">Østlig Hurtigskak-arena</string>
   <string name="easternRapid">Østlig Hurtigskak</string>
   <string name="easternClassicalArena">Østlig Klassisk-arena</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Ugentlig Klassisk-arena</string>
   <string name="weeklyClassical">Ugentlig Klassisk</string>
   <string name="weeklyXArena">Ugentlig %s Arena</string>
-  <string name="weeklyX">Ugentlig %s</string>
+  <string name="weeklyX" comment="adjective">Ugentlig %s</string>
   <string name="monthlyRapidArena">Månedlig Hurtigskak-arena</string>
   <string name="monthlyRapid">Månedlig Hurtigskak</string>
   <string name="monthlyClassicalArena">Månedlig Klassisk-arena</string>
   <string name="monthlyClassical">Månedlig Klassisk</string>
   <string name="monthlyXArena">Månedlig %s Arena</string>
-  <string name="monthlyX">Månedlig %s</string>
+  <string name="monthlyX" comment="adjective">Månedlig %s</string>
   <string name="yearlyRapidArena">Årlig Hurtigskak-arena</string>
   <string name="yearlyRapid">Årlig Hurtigskak</string>
   <string name="yearlyClassicalArena">Årlig Klassisk-arena</string>
   <string name="yearlyClassical">Årlig Klassisk</string>
   <string name="yearlyXArena">Årlig %s Arena</string>
-  <string name="yearlyX">Årlig %s</string>
+  <string name="yearlyX" comment="adjective">Årlig %s</string>
   <string name="rapidShieldArena">Hurtigskak skjoldarena</string>
   <string name="rapidShield">Hurtigskak Skjold</string>
   <string name="classicalShieldArena">Klassisk Skjold-arena</string>

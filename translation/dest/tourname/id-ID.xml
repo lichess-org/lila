@@ -3,13 +3,13 @@
   <string name="hourlyRapidArena">Sejam Arena Rapid</string>
   <string name="hourlyRapid">Rapid Sejam</string>
   <string name="hourlyXArena">Arena %s setiap jam</string>
-  <string name="hourlyX">%s Sejam</string>
+  <string name="hourlyX" comment="adjective">%s Sejam</string>
   <string name="dailyRapidArena">Arena Rapid Harian</string>
   <string name="dailyRapid">Rapid Harian</string>
   <string name="dailyClassicalArena">Arena Klasikal Harian</string>
   <string name="dailyClassical">Klasikal Harian</string>
   <string name="dailyXArena">Arena %s Harian</string>
-  <string name="dailyX">%s Harian</string>
+  <string name="dailyX" comment="adjective">%s Harian</string>
   <string name="easternRapidArena">Arena Rapid Ketimuran</string>
   <string name="easternRapid">Rapid Ketimuran</string>
   <string name="easternClassicalArena">Arena Klasikal Ketimuran</string>
@@ -21,19 +21,19 @@
   <string name="weeklyClassicalArena">Arena Klasikal Mingguan</string>
   <string name="weeklyClassical">Klasikal Mingguan</string>
   <string name="weeklyXArena">Arena %s Mingguan</string>
-  <string name="weeklyX">%s Mingguan</string>
+  <string name="weeklyX" comment="adjective">%s Mingguan</string>
   <string name="monthlyRapidArena">Arena Rapid Bulanan</string>
   <string name="monthlyRapid">Rapid Bulanan</string>
   <string name="monthlyClassicalArena">Arena Klasikal Bulanan</string>
   <string name="monthlyClassical">Klasikal Bulanan</string>
   <string name="monthlyXArena">Arena %s Bulanan</string>
-  <string name="monthlyX">%s Bulanan</string>
+  <string name="monthlyX" comment="adjective">%s Bulanan</string>
   <string name="yearlyRapidArena">Arena Rapid Tahunan</string>
   <string name="yearlyRapid">Rapid Tahunan</string>
   <string name="yearlyClassicalArena">Arena Klasikal Tahunan</string>
   <string name="yearlyClassical">Klasikal Tahunan</string>
   <string name="yearlyXArena">Arena %s Tahunan</string>
-  <string name="yearlyX">%s Tahunan</string>
+  <string name="yearlyX" comment="adjective">%s Tahunan</string>
   <string name="rapidShieldArena">Arena Perisai Rapid</string>
   <string name="rapidShield">Perisai Rapid</string>
   <string name="classicalShieldArena">Arena Perisai Klasikal</string>

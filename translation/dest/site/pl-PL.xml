@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">Pokaż/ukryj rozmowy</string>
 	<string name="toggleSound">Włącz/wyłącz dźwięk</string>
 	<string name="chat">Czat</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">Poddaj się</string>
 	<string name="checkmate">Mat</string>
 	<string name="stalemate">Pat</string>
@@ -22,6 +23,12 @@
 	<string name="perpetualCheck">Wieczny szach</string>
 	<string name="royalsLost" comment="Used in chushogi">Wszystkie królewskie bierki stracone</string>
 	<string name="bareKing" comment="Used in chushogi">Ogołocony król</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xWon" comment="Example: Player won!">%s won!</string>
+	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
+	<string name="gameWasDraw">Game was a draw!</string>
+	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Białe</string>
 	<string name="white" comment="Alternative to gote">Białe</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Czarne</string>
@@ -61,10 +68,12 @@
 	<string name="computerAnalysis">Analiza komputerowa</string>
 	<string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
 	<string name="analysis">Analiza partii</string>
+	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">Głębokość %s</string>
 	<string name="usingServerAnalysis">Analiza zdalna</string>
 	<string name="loadingEngine">Wczytywanie silnika...</string>
 	<string name="cloudAnalysis">Analiza w chmurze</string>
+	<string name="localAnalysis">Local analysis</string>
 	<string name="goDeeper" comment="Engine depth">Analizuj głębiej</string>
 	<string name="showThreat">Pokaż zagrożenia</string>
 	<string name="inLocalBrowser">w przeglądarce</string>
@@ -153,6 +162,7 @@
 	<string name="computersAreNotAllowedToPlay">Komputerom i graczom wspomagającym się komputerami zabrania się grać. Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz innych graczy. Odradzamy zakładanie wielu kont, a utrata umiaru w tym zakresie skutkować będzie zablokowaniem.</string>
 	<string name="games">Partie</string>
 	<string name="forum">Forum</string>
+	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
 	<string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
 	<string name="latestForumPosts">Najnowsze wpisy</string>
 	<string name="players">Gracze</string>
@@ -193,6 +203,7 @@
 	<string name="changeEmail">Zmień adres e-mail</string>
 	<string name="email">E-mail</string>
 	<string name="passwordReset">Resetuj hasło</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">Zapomniałeś hasła?</string>
 	<string name="rank">Miejsce</string>
 	<string name="rankX">Miejsce: %s</string>
@@ -256,6 +267,7 @@
 	<string name="play">Zagraj</string>
 	<string name="inbox">Wiadomości</string>
 	<string name="streamerManager">Menedżer streamera</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">Czat</string>
 	<string name="loginToChat">Zaloguj się, aby rozmawiać</string>
 	<string name="youHaveBeenTimedOut">Zostałeś czasowo wyciszony.</string>
@@ -320,6 +332,7 @@
 	<string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
 	<string name="bookmarkThisGame">Dodaj do ulubionych</string>
 	<string name="tournament">Turniej</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">Turnieje</string>
 	<string name="tournamentPoints">Punkty turniejowe</string>
 	<plurals name="nbTournamentPoints">
@@ -371,7 +384,7 @@
 	<string name="youAreNotInTeam">Nie należysz do klubu %s</string>
 	<string name="backToGame">Wróć do partii</string>
 	<string name="siteDescription">Darmowe shogi online. Zagraj teraz w shogi o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez wtyczek. Zagraj w shogi z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
-	<string name="shogiDescription">Shogi, zwane po japońsku 将棋, jest dwuosobową strategiczną grą planszową, w którą od wieków gra się w Japonii. Jest ono często nazywane „japońskimi szachami” ze względu na podobieństwa do zachodnich szachów, ale posiada unikalne cechy, które sprawiają, że jest to zupełnie inna gra o indywidualnym, niepowtarzalnym stylu.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Shogi, zwane po japońsku 将棋, jest dwuosobową strategiczną grą planszową, w którą od wieków gra się w Japonii. Jest ono często nazywane „japońskimi szachami” ze względu na podobieństwa do zachodnich szachów, ale posiada unikalne cechy, które sprawiają, że jest to zupełnie inna gra o indywidualnym, niepowtarzalnym stylu.</string>
 	<string name="learnShogiHereX">Jeśli nie znasz zasad gry w shogi, sprawdź – %s.</string>
 	<string name="xJoinedTeamY">%1$s dołączył do klubu %2$s</string>
 	<string name="xCreatedTeamY">%1$s założył klub %2$s</string>
@@ -383,6 +396,9 @@
 	<string name="apply">Zastosuj</string>
 	<string name="save">Zapisz</string>
 	<string name="leaderboard">Najlepsi gracze</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
 	<string name="selectHandicap">Wybierz fory</string>
 	<string name="pasteTheSfenStringHere">Wklej tutaj pozycję w formacie SFEN</string>
 	<string name="pasteTheKifCsaStringHere">Wklej KIF lub CSA tutaj</string>
@@ -391,6 +407,7 @@
 	<string name="continueFromHere">Kontynuuj z tej pozycji</string>
 	<string name="toStudy">Opracowanie</string>
 	<string name="importGame">Importuj partię</string>
+	<string name="importedGame">Game was imported.</string>
 	<string name="importGameKifCsaExplanation">Wklejenie zapisu partii w formacie KIF lub CSA daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępniania.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s zaimportowana partia</item>
@@ -486,6 +503,7 @@
 	<string name="averageOpponent">Średni ranking przeciwnika</string>
 	<string name="membersOnly">Tylko dla zarejestrowanych</string>
 	<string name="boardEditor">Edytor pozycji</string>
+	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
 	<string name="setTheBoard">Ustaw szachownicę</string>
 	<string name="popularOpenings">Popularne otwarcia</string>
 	<string name="handicaps">Fory</string>
@@ -498,6 +516,7 @@
 	<string name="isPrivate">Prywatny</string>
 	<string name="reportXToModerators">Zgłoś %s do moderatora</string>
 	<string name="profileCompletion">Kompletność profilu: %s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">ranking %s</string>
 	<string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
 	<string name="gameCompletionRate">Ukończonych partii: %s</string>
@@ -510,25 +529,17 @@
 	<string name="socialMediaLinks">Linki do mediów społecznościowych</string>
 	<string name="inlineNotation">Notacja ciągła</string>
 	<string name="watchLishogiTV">Oglądaj Lishogi TV</string>
+	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Poprzednio w Lishogi TV</string>
 	<string name="onlinePlayers">Gracze online</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">Aktywni dzisiaj</string>
 	<string name="activePlayers">Aktywni gracze</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Miej na uwadze, że partia jest rankingowa, ale nie ma limitu czasu!</string>
-	<string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
 	<string name="toTrackYourProgress">Śledź swoje postępy:</string>
-	<string name="puzzleId">Zadanie %s</string>
-	<string name="puzzleOfTheDay">Zadanie dnia</string>
-	<string name="clickToSolve">Naciśnij, aby rozwiązać</string>
 	<string name="goodMove">Dobry ruch</string>
-	<string name="butYouCanDoBetter">Ale możesz zrobić to lepiej.</string>
 	<string name="bestMove">Najlepszy ruch!</string>
-	<string name="keepGoing">Kontynuuj…</string>
-	<string name="puzzleFailed">To zły ruch</string>
-	<string name="butYouCanKeepTrying">Ale nadal możesz próbować.</string>
 	<string name="success">Sukces</string>
-	<string name="wasThisPuzzleAnyGood">Co sądzisz o tym zadaniu?</string>
-	<string name="pleaseVotePuzzle">Pomóż nam podnieść jakość zadań! Oceń zadanie, naciskając strzałkę w górę lub w dół:</string>
 	<string name="thankYou">Dziękujemy!</string>
 	<string name="ratingX">Ranking: %s</string>
 	<string name="hidden">ukryty</string>
@@ -539,10 +550,6 @@
 		<item quantity="other">Rozwiązano %s razy</item>
 	</plurals>
 	<string name="fromGameLink">Z partii %s</string>
-	<string name="continueTraining">Kontynuuj trening</string>
-	<string name="retryThisPuzzle">Powtórz to zadanie</string>
-	<string name="thisPuzzleIsCorrect">To poprawne i ciekawe zadanie</string>
-	<string name="thisPuzzleIsWrong">To niepoprawne lub nudne zadanie</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="one">%s partia w toku</item>
 		<item quantity="few">%s partie w toku</item>
@@ -560,6 +567,7 @@
 	<string name="yes">Tak</string>
 	<string name="help">Porada:</string>
 	<string name="createANewTopic">Załóż nowy temat</string>
+	<string name="yourTeamBoards" comment="In forum, listing team discussions">Your team boards</string>
 	<string name="topics">Liczba tematów</string>
 	<string name="posts">Liczba wpisów</string>
 	<string name="lastPost">Ostatni wpis</string>
@@ -586,6 +594,8 @@
 	<string name="questionsAndAnswers">Pytania i odpowiedzi</string>
 	<string name="notes">Notatki</string>
 	<string name="typePrivateNotesHere">Pisz tutaj notatki prywatne</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">Niepoprawne nazwa użytkownika lub hasło</string>
 	<string name="incorrectPassword">Nieprawidłowe hasło</string>
 	<string name="invalidAuthenticationCode">Nieprawidłowy kod uwierzytelniający</string>
@@ -643,6 +653,7 @@
 	</plurals>
 	<string name="listBlockedPlayers">Lista zablokowanych przez Ciebie graczy</string>
 	<string name="human">Człowiek</string>
+	<string name="bots">Bots</string>
 	<string name="computer">Komputer</string>
 	<string name="side">Z boku</string>
 	<string name="clock">Zegar</string>
@@ -718,9 +729,12 @@
 	<string name="numberOfByoyomiPeriods">Liczba okresów byoyomi</string>
 	<string name="hostColorForEachGame">Kolor prowadzącego w każdej partii</string>
 	<string name="onlyMembersOfTeam">Tylko członkowie klubu</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">Opis symultany</string>
 	<string name="anythingTellParticipants">Wiadomość do przekazania uczestnikom?</string>
 	<string name="lishogiTournaments">Turnieje Lishogi</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
 	<string name="tournamentOfficial">Oficjalny</string>
 	<string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
@@ -782,6 +796,7 @@
 	<string name="sessions">Sesje</string>
 	<string name="revokeAllSessions">unieważnić wszystkie sesje</string>
 	<string name="playShogiEverywhere">Graj w shogi wszędzie</string>
+	<string name="features">Features</string>
 	<string name="asFreeAsLishogi">Darmowa jak całe Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Stworzona z miłości do shogi, nie dla pieniędzy</string>
 	<string name="everybodyGetsAllFeaturesForFree">Wszystkie funkcje za darmo dla każdego</string>
@@ -972,4 +987,21 @@
 	<string name="studyWith">Analizuj z:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Opcjonalne</string>
 	<string name="standardStudy">Zwykłe opracowanie</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
+	<string name="challengeDescription">Join the challenge or watch the game</string>
+	<string name="challengeFromX" comment="From username">Challenge from %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
 </resources>

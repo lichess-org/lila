@@ -48,4 +48,7 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="youWayWantToLinkOneOfTheseTournaments">Galbūt norite prisegti nuorodą į šiuos ateinančius turnyrus?</string>
   <string name="usersWhoCanManageThisTeam">Vartotojai, kurie gali valdyti šią komandą</string>
   <string name="leadersChat">Kapitonų pokalbis</string>
+  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="completedTourns">Completed tournaments</string>
+  <string name="teamPage">Team page</string>
 </resources>
