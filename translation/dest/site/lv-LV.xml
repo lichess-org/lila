@@ -101,6 +101,7 @@
   <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="openingEndgameExplorer">Atklātņu un beigu spēļu pārlūks</string>
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Izdarīt pirmo atklātņu/galotņu pārlūka gājienu</string>
   <string name="winPreventedBy50MoveRule">50 gājienu noteikums novērsa uzvaru</string>
   <string name="lossSavedBy50MoveRule">50 gājienu likums novērš zaudējumu</string>
   <string name="winOr50MovesByPriorMistake">Uzvara vai 50-gājienu neizšķirts iepriekšējas kļūdas dēļ</string>
@@ -159,6 +160,11 @@
     <item quantity="zero">%s spēles</item>
     <item quantity="one">%s spēles</item>
     <item quantity="other">%s spēles</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="zero">%1$s reitings, ņemot vērā %2$s spēles</item>
+    <item quantity="one">%1$s reitings, ņemot vērā %2$s spēli</item>
+    <item quantity="other">%1$s reitings, ņemot vērā %2$s spēles</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="zero">%s grāmatzīmes</item>
@@ -298,6 +304,7 @@
   <string name="cancelRematchOffer">Atcelt revanša piedāvājumu</string>
   <string name="viewRematch">Skatīties revanšu</string>
   <string name="confirmMove">Apstiprināt gājienu</string>
+  <string name="enableConfirmationForThisGame">Ieslēgt gājienu apstiprināšanu šai spēlei</string>
   <string name="play">Spēlēt</string>
   <string name="inbox">Iesūtne</string>
   <string name="chatRoom">Sarunu istaba</string>
