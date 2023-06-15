@@ -66,10 +66,16 @@ Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu preti
 Mūsuprāt ir lielāka varbūtība, ka komanda būs piemērota šiem nosacījumiem nekā neierobežotu turnīru dalībnieki.</string>
   <string name="numberOfByesQ">Cik reižu var saņemt tehnisko uzvaru?</string>
   <string name="numberOfByesA">Spēlētājs saņem punktu par tehnisko uzvaru ik reizi kad sistēma nevar piemeklēt pretinieku. Papildus tiek piešķirts tehniskais puspunkts ja spēlētājs nokavē turnīra sākumu.</string>
+  <string name="earlyDrawsQ">Kas notiek ar ātriem neizšķirtiem?</string>
+  <string name="earlyDrawsA">Spēlētājs saņem punktu par tehnisko uzvaru ik reizi kad sistēma nevar piemeklēt pretinieku. Papildus tiek piešķirts tehniskais puspunkts ja spēlētājs nokavē turnīra sākumu.</string>
   <string name="whatIfOneDoesntPlayQ">Kas notiek, ja spēlētājs nespēlē kādu spēli?</string>
   <string name="whatIfOneDoesntPlayA">Pulkstenis iztecēs un spēlētājs zaudēs spēli.
 Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.
 Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
+  <string name="protectionAgainstNoShowQ">Kas tiek darīts neierašanās gadījumā?</string>
+  <string name="protectionAgainstNoShowA">Spēlētāji, kuri reģistrējas Šveices turnīriem taču nespēlē rada problēmas.
+Lai ar to cīnītos, Lichess spēlētājiem, kuri neaizvada ne spēles, uz noteiktu laiku aizliedz spēlēt jaunos Šveices turnīros.
+Turnīra organizētājs var nolemt atļaut tiem piedalīties tik un tā.</string>
   <string name="lateJoinQ">Vai spēlētāji var pievienoties ar aizkavēšanos?</string>
   <string name="lateJoinA">Jā, līdz kamēr aizvadīti vairāk nekā puse kārtu. Piemēram, 11 kārtu turnīrā spēlētāji var pievienoties pirms 6. kārtas un 12 kārtu turnīrā pirms 7. kārtas.
 Tie kur pievienojas vēlāk tiek kompensēti pat tad ja ir izlaistas vairākas kārtas.</string>
@@ -112,4 +118,5 @@ Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojo
   <string name="unlimitedAndFree">Neierobežots un bezmaksas</string>
   <string name="predefinedUsers">Atļaut pievienoties tikai noteiktiem spēlētājiem</string>
   <string name="forbiddedUsers">Ja šis saraksts nav tukšs, spēlētājiem kas tajā nav pieminēti nebūs atļauts pievienoties. Katrā rindiņā savs lietotājvārds.</string>
+  <string name="playYourGames">Spēlē savas spēles</string>
 </resources>

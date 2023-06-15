@@ -24,12 +24,4 @@
   <string name="teachingMethod">Metodologji mësimdhenieje</string>
   <string name="publicStudies">Studime publike</string>
   <string name="youtubeVideos">Video YouTube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Një koment nxënësi</item>
-    <item quantity="other">%s komente nxënësish</item>
-  </plurals>
-  <string name="thankYouForReview">Faleminderit për komentin!</string>
-  <string name="xWillApproveIt">%s do ta miratojë shumë shpejt, ose do t’i hedhë një sy një moderator.</string>
-  <string name="reviewCoach">Komentoni këtë trajner</string>
-  <string name="describeExperienceWith">Përshkruani përvojën tuaj të trajnimit me %s</string>
 </resources>

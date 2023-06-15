@@ -23,12 +23,4 @@
   <string name="teachingMethod">Методологија учења</string>
   <string name="publicStudies">Јавне студије</string>
   <string name="youtubeVideos">Јутјуб снимци</string>
-  <plurals name="studentReviews">
-    <item quantity="one">%s рецензија ученика</item>
-    <item quantity="few">%s рецензије ученика</item>
-    <item quantity="other">%s рецензија ученика</item>
-  </plurals>
-  <string name="thankYouForReview">Хвала вам на рецензији!</string>
-  <string name="reviewCoach">Оцени овог тренера</string>
-  <string name="describeExperienceWith">Опиши своје тренерско искуство са %s</string>
 </resources>

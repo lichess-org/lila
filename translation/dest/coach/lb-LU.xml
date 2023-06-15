@@ -24,12 +24,4 @@
   <string name="teachingMethod">Trainermethoden</string>
   <string name="publicStudies">Ëffentlech Etüd</string>
   <string name="youtubeVideos">Youtube Videoen</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Eng Schülerrezensioun</item>
-    <item quantity="other">%s Schülerrezensiounen</item>
-  </plurals>
-  <string name="thankYouForReview">Merci fir deng Rezensioun!</string>
-  <string name="xWillApproveIt">%s wäert et geschwënn accordéieren, oder een Moderator kuckt et sech un.</string>
-  <string name="reviewCoach">Dësen Trainer bewäerten</string>
-  <string name="describeExperienceWith">Beschreif deng Trainingsexperienz mam %s</string>
 </resources>

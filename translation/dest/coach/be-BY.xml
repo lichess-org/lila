@@ -24,14 +24,4 @@
   <string name="teachingMethod">Методыка выкладання</string>
   <string name="publicStudies">Даступныя ўсім уроки</string>
   <string name="youtubeVideos">Відэа YouTube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Водгук ад студэнта</item>
-    <item quantity="few">%s водгукаў ад студэнтаў</item>
-    <item quantity="many">%s водгукаў ад студэнтаў</item>
-    <item quantity="other">%s водгукаў ад студэнтаў</item>
-  </plurals>
-  <string name="thankYouForReview">Дзякуй за водгук!</string>
-  <string name="xWillApproveIt">%s зацвердзіць яго хутка, або мадэратар праглядзіць яго.</string>
-  <string name="reviewCoach">Пакінуць водгук на трэнера</string>
-  <string name="describeExperienceWith">Апішыце ваш трэнерскі досвед з %s</string>
 </resources>

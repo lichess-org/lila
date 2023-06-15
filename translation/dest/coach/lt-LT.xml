@@ -24,14 +24,4 @@
   <string name="teachingMethod">Mokymo metodologija</string>
   <string name="publicStudies">Viešos studijos</string>
   <string name="youtubeVideos">YouTube vaizdo įrašai</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Vieno mokinio apžvalga</item>
-    <item quantity="few">%s mokinių apžvalga</item>
-    <item quantity="many">%s mokinio apžvalga</item>
-    <item quantity="other">%s mokinių apžvalga</item>
-  </plurals>
-  <string name="thankYouForReview">Dėkojame už apžvalgą!</string>
-  <string name="xWillApproveIt">%s ją jau greitai patvirtins, arba ją peržiūrės moderatorius.</string>
-  <string name="reviewCoach">Apžvelgti šį trenerį</string>
-  <string name="describeExperienceWith">Apibūdinkite savo mokymosi su %s patirtį</string>
 </resources>

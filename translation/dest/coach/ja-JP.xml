@@ -24,11 +24,4 @@
   <string name="teachingMethod">指導方法</string>
   <string name="publicStudies">公開研究</string>
   <string name="youtubeVideos">YouTube 動画</string>
-  <plurals name="studentReviews">
-    <item quantity="other">%s 生徒によるレビュー</item>
-  </plurals>
-  <string name="thankYouForReview">レビュー投稿ありがとう！</string>
-  <string name="xWillApproveIt">間もなく %s が承認するか、モデレーターが審査します。</string>
-  <string name="reviewCoach">このコーチをレビューする</string>
-  <string name="describeExperienceWith">%s の指導を受けた感想をどうぞ</string>
 </resources>

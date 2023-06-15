@@ -24,12 +24,4 @@
   <string name="teachingMethod">Methodologia de inseniamento</string>
   <string name="publicStudies">Studios public</string>
   <string name="youtubeVideos">Videos in YouTube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Un recension de studente</item>
-    <item quantity="other">%s recensiones de studentes</item>
-  </plurals>
-  <string name="thankYouForReview">Gratias pro le recension!</string>
-  <string name="xWillApproveIt">%s approbara lo tosto, o un moderator reguardara lo.</string>
-  <string name="reviewCoach">Recense iste tutor</string>
-  <string name="describeExperienceWith">Describe tu experientia de tutoria con %s</string>
 </resources>
