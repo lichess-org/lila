@@ -17,7 +17,7 @@ object index {
       s"${if (control.filter.tags.nonEmpty) control.filter.tags.mkString(" + ") + " - " else ""}"
 
     layout(
-      title = s"${tagString}Free Shogi Videos",
+      title = s"${tagString}${trans.videoLibrary()}",
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${tagString}free, carefully curated shogi videos",

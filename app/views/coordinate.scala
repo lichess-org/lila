@@ -22,10 +22,9 @@ object coordinate {
       ),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Shogi board coordinates trainer",
+          title = trans.coordinates.coordinateTraining.txt(),
           url = s"$netBaseUrl${routes.Coordinate.home.url}",
-          description =
-            "Knowing the shogi board coordinates is a very important shogi skill. A square name appears on the board and you must click on the correct square."
+          description = trans.coordinates.aSquareNameAppears.txt()
         )
         .some,
       zoomable = true

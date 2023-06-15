@@ -50,14 +50,15 @@ object show {
       shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
+          title =
+            s"${tour.name()}: ${variantName(tour.variant)} ${tour.clock.show} ${modeName(tour.mode)} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-          description =
-            s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
-              s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
-              tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
-                s"${usernameOrId(winnerId)} takes the prize home!"
-              }
+          description = s"${trans.nbPlayers
+              .pluralSameTxt(tour.nbPlayers)} compete in the ${showDate(tour.startsAt)} ${tour.name()}. " +
+            s"${tour.clock.show} ${modeName(tour.mode).toLowerCase} games are played during ${tour.minutes} minutes. " +
+            tour.winnerId.fold(trans.winnerIsNotYetDecided.txt()) { winnerId =>
+              trans.xWon.txt(usernameOrId(winnerId))
+            } // todo
         )
         .some
     )(

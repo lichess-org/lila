@@ -25,9 +25,9 @@ object list {
       wrapClass = "full-screen-force",
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Shogi players and leaderboards",
+          title = s"${trans.players.txt()} - ${trans.leaderboards()}",
           url = s"$netBaseUrl${routes.User.list.url}",
-          description = "Best Shogi players in bullet, blitz, rapid and classical"
+          description = trans.bestPlayersInVariousCategories.txt()
         )
         .some
     ) {

@@ -39,8 +39,7 @@ object bits {
       robots = robots,
       deferJs = true,
       zoomable = true,
-      csp = defaultCsp.withPeer.some,
-      withHrefLangs = robots option lila.i18n.LangList.All
+      csp = defaultCsp.withPeer.some
     )(body)
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: Context) =

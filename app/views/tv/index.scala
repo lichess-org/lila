@@ -38,9 +38,8 @@ object index {
       shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"Watch the best ${channel.name.toLowerCase} games of lishogi.org",
-          description =
-            s"Sit back, relax, and watch the best ${channel.name.toLowerCase} Lishogi players compete on Lishogi TV",
+          title = trans.watchLishogiTV.txt(),
+          description = trans.watchLishogiTVDescription.txt(),
           url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
         )
         .some,

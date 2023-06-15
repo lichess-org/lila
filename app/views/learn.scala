@@ -38,8 +38,8 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
       moreCss = cssTag("learn"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Learn shogi by playing",
-          description = "You don't know much about shogi? Excellent! Let's have fun and learn to play shogi!",
+          title = s"${learnShogi.txt()} - ${byPlaying.txt()}",
+          description = s"${trans.learn.introBasics.txt()} ${trans.learn.introIntro.txt()}",
           url = s"$netBaseUrl${routes.Learn.index}"
         )
         .some,

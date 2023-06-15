@@ -60,10 +60,9 @@ object show {
         .OpenGraph(
           title = sc.study.name.value,
           url = s"$netBaseUrl${routes.Study.show(sc.study.id.value).url}",
-          description = s"A shogi study by ${usernameOrId(sc.study.ownerId)}"
+          description = trans.study.studyByX.txt(usernameOrId(sc.study.ownerId))
         )
         .some,
-      withHrefLangs = none,
       canonicalPath =
         lila.common.CanonicalPath(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).some
     )(

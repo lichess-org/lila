@@ -28,11 +28,12 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
       zoomable = true,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Shogi board editor",
+          title = trans.boardEditor.txt(),
           url = s"$netBaseUrl${routes.Editor.index.url}",
-          description = "Load opening positions or create your own shogi position on a shogi board editor"
+          description = trans.editorDescription.txt()
         )
-        .some
+        .some,
+      canonicalPath = lila.common.CanonicalPath(routes.Editor.index).some
     )(
       main(id := "board-editor")(
         div(cls   := s"board-editor variant-${sit.variant.key}")(

@@ -19,7 +19,7 @@ object importGame {
       moreJs = jsTag("importer.js"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Paste KIF or CSA shogi game",
+          title = trans.importGame.txt(),
           url = s"$netBaseUrl${routes.Importer.importGame.url}",
           description = trans.importGameKifCsaExplanation.txt()
         )

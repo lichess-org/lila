@@ -29,7 +29,7 @@ object show {
       title = t.name,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${t.name} team",
+          title = trans.teamNamedX.txt(t.name),
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
           description = shorten(t.description, 152)
         )

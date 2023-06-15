@@ -19,9 +19,9 @@ object top {
       moreCss = cssTag("slist"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"Leaderboard of ${perfType.trans}",
+          title = s"${trans.leaderboard.txt()} - ${perfType.trans}",
           url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
-          description = s"The 200 best shogi players in ${perfType.trans}, sorted by rating"
+          description = trans.topXPlayersInY.txt("200", perfType.trans)
         )
         .some
     )(

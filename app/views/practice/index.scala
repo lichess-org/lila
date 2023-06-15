@@ -18,11 +18,14 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Practice your shogi",
+          title = trans.practice.txt(),
           description = "Learn how to master the most common shogi positions",
-          url = s"$netBaseUrl${routes.Practice.index}"
+          url = s"$netBaseUrl${routes.Practice.index.url}"
         )
-        .some
+        .some,
+      robots = false,
+      canonicalPath = lila.common.CanonicalPath(routes.Practice.index).some,
+      withHrefLangs = none
     ) {
       main(cls := "page-menu")(
         st.aside(cls := "page-menu__menu practice-side")(

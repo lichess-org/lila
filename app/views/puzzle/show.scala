@@ -41,11 +41,11 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
-          title = s"Shogi tactic #${puzzle.id}",
+          title = s"${trans.puzzleDesc.txt()} #${puzzle.id}",
           url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
-          description = s"Lishogi tactic trainer: " +
+          description = s"${trans.puzzleDesc.txt()}: " +
             transWithColorName(trans.puzzle.findTheBestMoveForX, puzzle.color, false)
-            + s" Played by ${puzzle.plays} players."
+            + trans.puzzle.playedXTimes.pluralSameTxt(puzzle.plays)
         )
         .some,
       robots = robots,

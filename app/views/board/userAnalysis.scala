@@ -40,9 +40,9 @@ object userAnalysis {
       shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Shogi analysis board",
+          title = trans.analysis.txt(),
           url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
-          description = "Analyse shogi positions and variations on an interactive shogi board"
+          description = trans.analysisDescription.txt()
         )
         .some,
       zoomable = true,

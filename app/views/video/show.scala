@@ -16,11 +16,11 @@ object show {
       control: lila.video.UserControl
   )(implicit ctx: Context) =
     layout(
-      title = s"${video.title} - Free Shogi Videos",
+      title = s"${video.title} - ${trans.videoLibrary.txt()}",
       control = control,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${video.title} by ${video.author}",
+          title = s"${video.title} - ${video.author}",
           description = shorten(~video.metadata.description, 152),
           url = s"$netBaseUrl${routes.Video.show(video.id)}",
           `type` = "video",

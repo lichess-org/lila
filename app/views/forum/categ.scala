@@ -16,9 +16,9 @@ object categ {
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Lishogi community forum",
+          title = trans.forum.txt(),
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
-          description = "Shogi discussions and feedback about Lishogi development"
+          description = trans.forumDescription.txt()
         )
         .some,
       withHrefLangs = none
@@ -31,7 +31,7 @@ object categ {
         showCategs(categs.filterNot(_.categ.isTeam)),
         if (categs.exists(_.categ.isTeam))
           frag(
-            h1("Your teams boards"),
+            h1(trans.yourTeamBoards()),
             showCategs(categs.filter(_.categ.isTeam))
           )
       )
@@ -81,7 +81,7 @@ object categ {
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"Forum: ${categ.name}",
+          title = s"${trans.forum.txt()}: ${categ.name}",
           url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
           description = categ.desc
         )
