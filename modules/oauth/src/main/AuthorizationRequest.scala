@@ -19,20 +19,19 @@ object AuthorizationRequest:
   ):
     // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
-    def prompt: Validated[Error, Prompt] =
-      for {
-        redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
-        clientId    <- clientId.toValid(Error.ClientIdRequired)
-      } yield Prompt(
-        redirectUri,
-        state,
-        clientId = clientId,
-        responseType = responseType,
-        codeChallengeMethod = codeChallengeMethod,
-        codeChallenge = codeChallenge,
-        scope = scope,
-        userId = username.map(_.id)
-      )
+    def prompt: Validated[Error, Prompt] = for
+      redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
+      clientId    <- clientId.toValid(Error.ClientIdRequired)
+    yield Prompt(
+      redirectUri,
+      state,
+      clientId = clientId,
+      responseType = responseType,
+      codeChallengeMethod = codeChallengeMethod,
+      codeChallenge = codeChallenge,
+      scope = scope,
+      userId = username.map(_.id)
+    )
 
   case class Prompt(
       redirectUri: RedirectUri,
@@ -62,35 +61,43 @@ object AuthorizationRequest:
 
     def maybeLegacy: Boolean = codeChallengeMethod.isEmpty && codeChallenge.isEmpty
 
+    lazy val maybeLichessMobile =
+      clientId == ClientId("lichess_mobile") &&
+        redirectUri.value.toString.pp == "org.lichess.mobile://login-callback" &&
+        scope.has(OAuthScope.Web.Mobile.key)
+
+    lazy val isDanger = scopes.intersects(OAuthScope.dangerList) && !maybeLichessMobile
+
     def authorize(
         user: User,
         legacy: (ClientId, RedirectUri) => Fu[Option[LegacyClientApi.HashedClientSecret]]
     ): Fu[Validated[Error, Authorized]] =
-      (codeChallengeMethod match {
-        case None =>
-          legacy(clientId, redirectUri).dmap(
-            _.toValid[Error](Error.CodeChallengeMethodRequired).map(Left.apply)
+      codeChallengeMethod
+        .match {
+          case None =>
+            legacy(clientId, redirectUri).dmap(
+              _.toValid[Error](Error.CodeChallengeMethodRequired).map(Left.apply)
+            )
+          case Some(method) =>
+            fuccess(CodeChallengeMethod.from(method).andThen { _ =>
+              codeChallenge
+                .toValid[Error](Error.CodeChallengeRequired)
+                .map(Right.apply)
+            })
+        }
+        .dmap: challenge =>
+          for
+            challenge <- challenge
+            scopes    <- validScopes
+            _         <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+          yield Authorized(
+            clientId,
+            redirectUri,
+            state,
+            user.id,
+            scopes,
+            challenge
           )
-        case Some(method) =>
-          fuccess(CodeChallengeMethod.from(method).andThen { _ =>
-            codeChallenge
-              .toValid[Error](Error.CodeChallengeRequired)
-              .map(Right.apply)
-          })
-      }) dmap { challenge =>
-        for
-          challenge <- challenge
-          scopes    <- validScopes
-          _         <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
-        yield Authorized(
-          clientId,
-          redirectUri,
-          state,
-          user.id,
-          scopes,
-          challenge
-        )
-      }
 
   case class Authorized(
       clientId: ClientId,
