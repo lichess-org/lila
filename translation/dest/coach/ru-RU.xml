@@ -24,14 +24,4 @@
   <string name="teachingMethod">Методика преподавания</string>
   <string name="publicStudies">Открытые уроки</string>
   <string name="youtubeVideos">Видео на YouTube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Отзыв ученика</item>
-    <item quantity="few">%s отзыва учеников</item>
-    <item quantity="many">%s отзывов учеников</item>
-    <item quantity="other">%s отзывов учеников</item>
-  </plurals>
-  <string name="thankYouForReview">Спасибо за ваш отзыв!</string>
-  <string name="xWillApproveIt">%s утвердит его довольно скоро, или модератор взглянет на него.</string>
-  <string name="reviewCoach">Оставить отзыв об этом тренере</string>
-  <string name="describeExperienceWith">Опишите ваш опыт преподавания в %s</string>
 </resources>
