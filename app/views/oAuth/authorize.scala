@@ -19,7 +19,7 @@ object authorize:
   )
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using WebContext) =
-    import prompt.{ isDanger, maybeLichessMobile as mobile }
+    import prompt.{ isDanger, looksLikeLichessMobile as mobile }
     val buttonClass        = s"button${isDanger so " button-red confirm text"}"
     val buttonDelay        = if isDanger then 5000 else 2000
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
@@ -89,7 +89,7 @@ object authorize:
           a(href := switchLoginUrl(none))(trans.signIn())
         )
       },
-      if prompt.maybeLichessMobile
+      if prompt.looksLikeLichessMobile
       then p("Not using Lichess Mobile? ", a(href := prompt.cancelUrl)("Cancel"))
       else
         frag(

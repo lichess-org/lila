@@ -31,9 +31,11 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       username = UserStr from get("username")
     )
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using WebContext): Fu[Result] =
+  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: WebContext): Fu[Result] =
     reqToAuthorizationRequest.prompt match
-      case Validated.Valid(prompt) => f(prompt)
+      case Validated.Valid(prompt) =>
+        AuthorizationRequest.logPrompt(prompt, ctx.me)
+        f(prompt)
       case Validated.Invalid(error) =>
         BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description)))
 

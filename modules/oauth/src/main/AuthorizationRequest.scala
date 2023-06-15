@@ -61,19 +61,22 @@ object AuthorizationRequest:
 
     def maybeLegacy: Boolean = codeChallengeMethod.isEmpty && codeChallenge.isEmpty
 
-    lazy val maybeLichessMobile =
-      clientId == ClientId("lichess_mobile") &&
-        redirectUri.value.toString.pp == "org.lichess.mobile://login-callback" &&
-        scope.has(OAuthScope.Web.Mobile.key)
+    lazy val lichessMobileAttributes = List(
+      clientId == ClientId("lichess_mobile"),
+      redirectUri.value.toString == "org.lichess.mobile://login-callback",
+      scope.has(OAuthScope.Web.Mobile.key)
+    )
 
-    lazy val isDanger = scopes.intersects(OAuthScope.dangerList) && !maybeLichessMobile
+    lazy val looksLikeLichessMobile = lichessMobileAttributes.forall(identity)
+    lazy val isDanger               = scopes.intersects(OAuthScope.dangerList) && !looksLikeLichessMobile
+    lazy val mimicsLichessMobile    = !looksLikeLichessMobile && lichessMobileAttributes.exists(identity)
 
     def authorize(
         user: User,
         legacy: (ClientId, RedirectUri) => Fu[Option[LegacyClientApi.HashedClientSecret]]
     ): Fu[Validated[Error, Authorized]] =
       codeChallengeMethod
-        .match {
+        .match
           case None =>
             legacy(clientId, redirectUri).dmap(
               _.toValid[Error](Error.CodeChallengeMethodRequired).map(Left.apply)
@@ -84,7 +87,6 @@ object AuthorizationRequest:
                 .toValid[Error](Error.CodeChallengeRequired)
                 .map(Right.apply)
             })
-        }
         .dmap: challenge =>
           for
             challenge <- challenge
@@ -108,3 +110,9 @@ object AuthorizationRequest:
       challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
   ):
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
+
+  def logPrompt(prompt: Prompt, me: Option[User])(using req: play.api.mvc.RequestHeader) =
+    if prompt.mimicsLichessMobile
+    then
+      val reqInfo = lila.common.HTTPRequest.print(req)
+      logger.warn(s"OAuth prompt looks like lichess mobile: ${me.fold("anon")(_.username)} $reqInfo")
