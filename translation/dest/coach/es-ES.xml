@@ -24,12 +24,4 @@
   <string name="teachingMethod">Metodología de enseñanza</string>
   <string name="publicStudies">Estudios públicos</string>
   <string name="youtubeVideos">Vídeos de Youtube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">%s reseña de estudiante</item>
-    <item quantity="other">%s reseñas de estudiantes</item>
-  </plurals>
-  <string name="thankYouForReview">¡Gracias por tu reseña!</string>
-  <string name="xWillApproveIt">%s lo aprobará muy pronto, o un moderador lo revisará.</string>
-  <string name="reviewCoach">Valorar a este entrenador</string>
-  <string name="describeExperienceWith">Describe tu experiencia de entrenamiento con %s</string>
 </resources>
