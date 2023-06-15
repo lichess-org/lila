@@ -153,7 +153,7 @@ final private[round] class RoundAsyncActor(
         ))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
-      handle(Game takePlayerId fullId): pov =>
+      handle(fullId.playerId): pov =>
         gameRepo hasHoldAlert pov flatMap {
           if _ then funit
           else
@@ -193,7 +193,7 @@ final private[round] class RoundAsyncActor(
       .chronometer.lap.addEffects(
         err =>
           p.promise.foreach(_ failure err)
-          socketSend(Protocol.Out.resyncPlayer(Game.fullId(gameId, p.playerId)))
+          socketSend(Protocol.Out.resyncPlayer(GameFullId(gameId, p.playerId)))
         ,
         lap =>
           p.promise.foreach(_ success {})

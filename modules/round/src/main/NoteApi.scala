@@ -3,7 +3,7 @@ package lila.round
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.db.dsl.*
+import lila.db.dsl.{ *, given }
 import lila.game.Game
 
 final class NoteApi(coll: Coll)(using Executor):
@@ -26,11 +26,11 @@ final class NoteApi(coll: Coll)(using Executor):
 
   def byGameIds(gameIds: Seq[GameId], userId: UserId): Fu[Map[GameId, String]] =
     coll.byIds(gameIds.map(makeId(_, userId)), ReadPreference.secondaryPreferred) map { docs =>
-      (for {
+      (for
         doc    <- docs
-        noteId <- doc.string("_id")
+        gameId <- doc.getAsOpt[GameId]("_id")
         note   <- doc.string(noteField)
-      } yield (Game strToId noteId, note)).toMap
+      yield (gameId, note)).toMap
     }
 
   private def makeId(gameId: GameId, userId: UserId) = s"$gameId$userId"

@@ -86,9 +86,9 @@ final class RoundSocket(
 
   private val roundHandler: Handler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
-      rounds.tell(Game fullToId fullId, HumanPlay(Game takePlayerId fullId, uci, blur, lag, none))
+      rounds.tell(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, none))
     case Protocol.In.PlayerDo(fullId, tpe) if !stopping =>
-      def forward(f: GamePlayerId => Any) = rounds.tell(Game fullToId fullId, f(Game takePlayerId fullId))
+      def forward(f: GamePlayerId => Any) = rounds.tell(fullId.gameId, f(fullId.playerId))
       tpe match
         case "moretime"     => forward(Moretime(_))
         case "rematch-yes"  => forward(RematchYes(_))
@@ -124,10 +124,10 @@ final class RoundSocket(
         case (gameId, _) =>
           if (rounds exists gameId) terminationDelay schedule gameId
       }
-    case Protocol.In.Bye(fullId) => rounds.tell(Game fullToId fullId, ByePlayer(Game takePlayerId fullId))
+    case Protocol.In.Bye(fullId) => rounds.tell(fullId.gameId, ByePlayer(fullId.playerId))
     case RP.In.TellRoomSri(_, P.In.TellSri(_, _, tpe, _)) =>
       logger.warn(s"Unhandled round socket message: $tpe")
-    case hold: Protocol.In.HoldAlert => rounds.tell(Game fullToId hold.fullId, hold)
+    case hold: Protocol.In.HoldAlert => rounds.tell(hold.fullId.gameId, hold)
     case r: Protocol.In.SelfReport   => Bus.publish(r, "selfReport")
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")
@@ -135,11 +135,11 @@ final class RoundSocket(
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
     case P.In.Ping(id) => send(P.Out.pong(id))
-    case Protocol.In.GetGame(reqId, gameId) =>
+    case Protocol.In.GetGame(reqId, anyId) =>
       for
-        game <- rounds.ask[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
+        game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
         data <- mobileSocket.json(game.game, game.socket)
-      yield sendForGameId(gameId)(Protocol.Out.respond(reqId, data))
+      yield sendForGameId(anyId.gameId)(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
@@ -188,16 +188,14 @@ final class RoundSocket(
     Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan) {
       case lila.chat.ChatLine(id, l) =>
         val line = lila.chat.RoundLine(l, id.value endsWith "/w")
-        rounds.tellIfPresent(if (line.watcher) Game.strToId(id.value) else GameId(id.value), line)
+        rounds.tellIfPresent(GameId.take(id.value), line)
       case lila.chat.OnTimeout(id, userId) =>
-        send(
-          RP.Out.tellRoom(Game strToId id.value into RoomId, Socket.makeMessage("chat_timeout", userId))
-        )
+        send:
+          RP.Out.tellRoom(GameId take id.value into RoomId, Socket.makeMessage("chat_timeout", userId))
       case lila.chat.OnReinstate(id, userId) =>
-        send(
+        send:
           RP.Out
-            .tellRoom(Game strToId id.value into RoomId, Socket.makeMessage("chat_reinstate", userId))
-        )
+            .tellRoom(GameId take id.value into RoomId, Socket.makeMessage("chat_reinstate", userId))
     }
   }
 
@@ -305,19 +303,19 @@ object RoundSocket:
       case class Berserk(gameId: GameId, userId: UserId)                                          extends P.In
       case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
-      case class WsLatency(millis: Int)          extends P.In
-      case class GetGame(reqId: Int, id: GameId) extends P.In
+      case class WsLatency(millis: Int)             extends P.In
+      case class GetGame(reqId: Int, id: GameAnyId) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match
           case "r/ons" =>
             PlayerOnlines:
               P.In.commas(raw.args) map {
-                _ splitAt Game.gameIdSize match
+                _ splitAt GameId.size match
                   case (gameId, cs) =>
                     (
                       GameId(gameId),
-                      if (cs.isEmpty) None else Some(RoomCrowd(cs(0) == '+', cs(1) == '+'))
+                      cs.nonEmpty option RoomCrowd(cs(0) == '+', cs(1) == '+')
                     )
               }
             .some
@@ -371,9 +369,9 @@ object RoundSocket:
                 Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
             }
           case "r/get" =>
-            raw.get(2) { case Array(reqId, gameId) =>
+            raw.get(2) { case Array(reqId, anyId) =>
               reqId.toIntOption.map:
-                GetGame(_, GameId(gameId))
+                GetGame(_, GameAnyId(anyId))
             }
           case "r/latency" => raw.args.toIntOption map WsLatency.apply
           case _           => RP.In.reader(raw)

@@ -142,7 +142,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
       else f(pov)
 
   private def WithPov(anyId: GameAnyId, me: UserModel)(f: Pov => Fu[Result]) =
-    env.round.proxyRepo.game(lila.game.Game strToId anyId) flatMap {
+    env.round.proxyRepo.game(anyId.gameId) flatMap {
       case None       => NotFound(jsonError("No such game"))
       case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
     }
