@@ -288,6 +288,7 @@
   <string name="cancelRematchOffer">Откажи предложението</string>
   <string name="viewRematch">Виж продължението</string>
   <string name="confirmMove">Потвърди ход</string>
+  <string name="enableConfirmationForThisGame">Активирай потвърждавания за тази игра</string>
   <string name="play">Играй</string>
   <string name="inbox">Входящи</string>
   <string name="chatRoom">Чат на играчите</string>

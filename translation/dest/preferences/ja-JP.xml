@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">同形三復を自動的にドローにする</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">持時間が残り30秒以下の場合</string>
   <string name="moveConfirmation">着手を確定</string>
+  <string name="explainCanThenBeTemporarilyDisabled">ボードのメニューからゲーム中に無効にできます</string>
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="correspondenceAndUnlimited">通信戦と持時間無制限</string>
   <string name="confirmResignationAndDrawOffers">投了とドロー提案を確認する</string>

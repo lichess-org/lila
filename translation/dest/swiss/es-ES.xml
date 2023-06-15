@@ -63,14 +63,14 @@ Creemos que es más probable que estas condiciones se cumplan en un equipo que e
 Además, se concede un único bye de medio punto cuando un jugador se une a un torneo cuando éste ya ha empezado.</string>
   <string name="earlyDrawsQ">¿Qué sucede con las tablas tempranas?</string>
   <string name="earlyDrawsA">Un jugador recibe un bye de un punto cada vez que el sistema de emparejamiento no es capaz de asignarle un oponente.
-Además, se concede un único bye de medio punto cuando un jugador se une a un torneo cuando éste ya ha empezado.</string>
+Además, se concede un único bye de medio punto cuando un jugador se une a un torneo cuando este ya ha empezado.</string>
   <string name="whatIfOneDoesntPlayQ">¿Qué pasa si un jugador no juega una partida?</string>
   <string name="whatIfOneDoesntPlayA">Su reloj se pondrá en marcha, hasta que pierda la partida por tiempo.
 A continuación, el sistema retirará al jugador del torneo para que no pierda más partidas.
 Podrá volver a unirse al torneo en cualquier momento.</string>
-  <string name="protectionAgainstNoShowQ">¿Qué se hace cuando un jugador no se presenta?</string>
-  <string name="protectionAgainstNoShowA">Los jugadores que se registran en eventos suizos pero que no juegan pueden ser problemáticos.
-Para mitigar este inconveniente, Lichess evita que los jugadores que no pudieron jugar una partida se unan a un nuevo evento suizo por un tiempo determinado.
+  <string name="protectionAgainstNoShowQ">¿Qué ocurre cuando un jugador no se presenta?</string>
+  <string name="protectionAgainstNoShowA">Los jugadores que se registran en eventos suizos pero que no juegan pueden suponer un problema.
+Para mitigar este inconveniente, Lichess evita que los jugadores que no pudieron jugar una partida se unan a un nuevo evento suizo durante un periodo de tiempo determinado.
 El creador de un evento suizo puede decidir dejar que se unan al evento de todos modos.</string>
   <string name="lateJoinQ">¿Pueden unirse jugadores a un torneo empezado?</string>
   <string name="lateJoinA">Sí, hasta que se hayan iniciado más de la mitad de las rondas; por ejemplo, en un torneo suizo de 11 rondas, los jugadores pueden unirse antes de que empiece la ronda 6; en un torneo de 12 rondas, podrán unirse antes de que empiece la ronda 7.

@@ -104,7 +104,7 @@
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
   <string name="winOr50MovesByPriorMistake">Victoria ou 50 movementos a causa dun erro anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota ou 50 movementos a causa dun erro anterior</string>
-  <string name="unknownDueToRounding">A victoria ou derrota só está garantida se a liña recomendada seguiuse desde a última captura ou mevemento de peón, debido a un posible redondeo.</string>
+  <string name="unknownDueToRounding">A vitoria ou derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón, debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy.</string>
   <string name="allSet">Todo listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -122,7 +122,7 @@
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
   <string name="engineManager">Administrador do módulo</string>
-  <string name="blunder">Pifia</string>
+  <string name="blunder">Metida de zoca</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisión</string>
   <plurals name="nbBlunders">
@@ -347,6 +347,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s estudo</item>
     <item quantity="other">%s estudos</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultánea</item>
+    <item quantity="other">%s simultáneas</item>
   </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Voltar ó torneo</string>

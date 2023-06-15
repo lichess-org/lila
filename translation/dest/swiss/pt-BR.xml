@@ -61,14 +61,14 @@ Pensamos que é mais provável encontrar essas condições em uma equipe, do que
   <string name="numberOfByesQ">Quantos byes um jogador pode ganhar?</string>
   <string name="numberOfByesA">Um jogador ganha um bye valendo um ponto, toda vez que o sistema de pareamento não conseguir achar um adversário.
 Além disso, um bye valendo meio ponto é dado ao jogador, se ele entrar atrasado no torneio.</string>
-  <string name="earlyDrawsQ">O que acontece nos empates rápidos?</string>
+  <string name="earlyDrawsQ">O que acontece com empates rápidos?</string>
   <string name="earlyDrawsA">O jogador ganha um ponto de bye sempre que o sistema de emparceiramento não encontra um adversário.
 Além disso, apenas um meio ponto de bye é dado quando um jogador chega atrasado no torneio.</string>
   <string name="whatIfOneDoesntPlayQ">O que acontece se um jogador não comparecer a uma partida?</string>
   <string name="whatIfOneDoesntPlayA">O relógio vai começar, ele será reportado e perderá a partida.
 Então, o sistema irá retirar o jogador do torneio, para evitar que ele perca mais jogos.
  O jogador pode retornar ao torneio a qualquer momento.</string>
-  <string name="protectionAgainstNoShowQ">O que é feito quando o adversário se ausenta?</string>
+  <string name="protectionAgainstNoShowQ">O que acontece quando o adversário não aparece?</string>
   <string name="protectionAgainstNoShowA">Jogadores que se inscrevem em torneios suíços, mas se ausentam, pode ser problemático.
 Para aliviar a questão, o Lichess impede jogadores que não jogaram uma partida de entrarem em outro torneio suíço durante um dado período de tempo.
 O criador de um torneio suíço poderá deixá-lo entrar mesmo assim.</string>
@@ -114,4 +114,5 @@ O mais próximo que se pode ter de um round robin online, é jogar um torneio su
   <string name="unlimitedAndFree">Ilimitado e gratuito</string>
   <string name="predefinedUsers">Permitir apenas usuários predefinidos</string>
   <string name="forbiddedUsers">Se a lista não estiver vazia, usuários não listados não poderão entrar no torneio. Um usuário por linha.</string>
+  <string name="playYourGames">Jogue seus jogos</string>
 </resources>

@@ -61,4 +61,5 @@
   <string name="noArenaStreaks">Немає серій Арени</string>
   <string name="averagePerformance">Середня продуктивність</string>
   <string name="averageScore">Середній результат</string>
+  <string name="myTournaments">Мої турніри</string>
 </resources>

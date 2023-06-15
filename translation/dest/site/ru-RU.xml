@@ -319,7 +319,7 @@
   <string name="cancelRematchOffer">Отказаться от реванша</string>
   <string name="viewRematch">Посмотреть матч-реванш</string>
   <string name="confirmMove">Подтвердить ход</string>
-  <string name="enableConfirmationForThisGame">Включить подтверждение для этой игры</string>
+  <string name="enableConfirmationForThisGame">Включить подтверждение для этой партии</string>
   <string name="play">Игра</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
@@ -860,7 +860,7 @@
   <string name="invalidFen">Некорректный FEN</string>
   <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
-  <string name="notificationsX">Оповещения: %1$s</string>
+  <string name="notificationsX">Уведомлений: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на первый ход</item>
