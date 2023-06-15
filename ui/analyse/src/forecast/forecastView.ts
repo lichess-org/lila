@@ -6,8 +6,6 @@ import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { fixCrazySan } from 'chess';
-import { scalachessCharPair } from 'chessops/compat';
-import { parseUci } from 'chessops';
 import { findCurrentPath } from '../treeView/common';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
@@ -62,36 +60,19 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         h('div.top', ctrl.trans.noarg('conditionalPremoves')),
         h(
           'div.list',
-          fctrl.list().map(function (nodes, i) {
-            return h(
+          fctrl.list().map((nodes, i) =>
+            h(
               'button.entry.text',
               {
                 attrs: dataIcon(licon.PlayTriangle),
-                hook: bind('click', _ => {
-                  let path = findCurrentPath(ctrl) || '';
-                  for (const node of nodes) {
-                    const moveId = scalachessCharPair(parseUci(node.uci)!);
-
-                    // this handles the case where the move isn't in the tree yet
-                    // if it is, it just returns
-                    ctrl.tree.addNode(
-                      {
-                        ply: node.ply,
-                        fen: node.fen,
-                        uci: node.uci,
-                        san: node.san,
-                        id: moveId,
-                        children: [],
-                      },
-                      path // the path before this is its parent
-                    );
-
-                    path += moveId;
-                  }
-
-                  ctrl.userJump(path);
-                  ctrl.redraw();
-                }),
+                hook: bind(
+                  'click',
+                  _ => {
+                    const path = fctrl.showForecast(findCurrentPath(ctrl) || '', ctrl.tree, nodes);
+                    ctrl.userJump(path);
+                  },
+                  ctrl.redraw
+                ),
               },
               [
                 h('button.del', {
@@ -100,8 +81,8 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 }),
                 h('sans', renderNodesHtml(nodes)),
               ]
-            );
-          })
+            )
+          )
         ),
         h(
           'button.add.text',

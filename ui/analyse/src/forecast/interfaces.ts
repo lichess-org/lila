@@ -1,4 +1,5 @@
 import { Prop } from 'common';
+import { TreeWrapper } from 'tree';
 
 export interface ForecastData {
   onMyTurn?: boolean;
@@ -24,4 +25,5 @@ export interface ForecastCtrl {
   list(): ForecastStep[][];
   loading: Prop<boolean>;
   onMyTurn: boolean;
+  showForecast(path: string, tree: TreeWrapper, nodes: ForecastStep[]): string;
 }
