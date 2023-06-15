@@ -28,7 +28,7 @@ trait GameHelper {
   def netBaseUrl: String
   def cdnUrl(path: String): String
 
-  def povOpenGraph(pov: Pov) =
+  def povOpenGraph(pov: Pov)(implicit lang: Lang) =
     lila.app.ui.OpenGraph(
       image = gameThumbnail(pov),
       title = titleGame(pov.game),
@@ -39,47 +39,30 @@ trait GameHelper {
   def gameThumbnail(p: Pov) =
     p.game.variant.standard option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
 
-  def titleGame(g: Game) = {
-    val speed   = shogi.Speed(g.clock.map(_.config)).name
-    val variant = !g.variant.standard ?? s" ${g.variant.name}"
-    s"$speed$variant Shogi - ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
+  // Rapid Shogi - Dalliard vs Smith
+  // Chushogi - PeterFile vs FilePeter
+  def titleGame(g: Game)(implicit lang: Lang) = {
+    val perf    = g.perfType ?? (_.trans)
+    val variant = g.variant.standard ?? s" ${trans.shogi.txt()}"
+    s"$perf$variant - ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
   }
 
-  def describePov(pov: Pov) = {
+  // Beethoven (1500) vs Handel (1600) - Rated Blitz Shogi (5+3). Handel won. Click to replay, analyse, and discuss the game!
+  def describePov(pov: Pov)(implicit lang: Lang) = {
     import pov._
     val p1 = playerText(player, withRating = true)
     val p2 = playerText(opponent, withRating = true)
-    val speedAndClock =
-      if (game.imported) "imported"
+    val gameDesc =
+      if (game.imported) trans.importedGame.txt()
       else
-        game.clock.fold(shogi.Speed.Correspondence.name) { c =>
-          s"${shogi.Speed(c.config).name} (${c.config.show})"
-        }
-    val mode = game.mode.name
-    val variant =
-      if (game.initialSfen.isDefined) "position setup shogi"
-      else if (!game.variant.standard) game.variant.name
-      else "shogi"
-    import shogi.Status._
-    val result = (game.winner, game.loser, game.status) match {
-      case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
-      case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
-      case (_, Some(l), Outoftime)                          => s"${playerText(l)} forfeits by time"
-      case (Some(w), _, UnknownFinish)                      => s"${playerText(w)} won"
-      case (Some(w), _, Stalemate)                          => s"${playerText(w)} won by stalemate"
-      case (Some(w), _, TryRule)                            => s"${playerText(w)} won by try rule"
-      case (Some(w), _, Impasse27)                          => s"${playerText(w)} won by impasse"
-      case (_, Some(l), PerpetualCheck)                     => s"${playerText(l)} lost due to perpetual check"
-      case (Some(w), _, RoyalsLost)     => s"${playerText(w)} won by capturing all royal pieces"
-      case (Some(w), _, BareKing)       => s"${playerText(w)} won due to bare king rule"
-      case (Some(w), _, Repetition)     => s"${playerText(w)} won due to repetition" // minishogi
-      case (_, _, Repetition)           => "Game is a draw due to repetition"
-      case (_, _, Draw | UnknownFinish) => "Game is a draw"
-      case (_, _, Aborted)              => "Game has been aborted"
-      case _                            => "Game is still being played"
-    }
-    val moves = s"${game.shogi.plies} moves"
-    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
+        List(
+          modeName(game.mode),
+          game.perfType ?? (_.trans),
+          game.variant.standard ?? trans.shogi.txt(),
+          game.clock.map(_.config) ?? { clock => s"(${clock.show})" }
+        ).filter(_.nonEmpty).mkString(" ")
+    val result = game.winner.map(w => trans.xWon.txt(playerText(w))).getOrElse(trans.draw.txt())
+    s"$p1 vs $p2 - $gameDesc. $result. ${trans.clickGame.txt()}"
   }
 
   def shortClockName(clock: Option[Clock.Config])(implicit lang: Lang): Frag =
@@ -93,7 +76,27 @@ trait GameHelper {
       case Mode.Rated  => trans.rated.txt()
     }
 
-  def modeNameNoCtx(mode: Mode): String = modeName(mode)(defaultLang)
+  def variantName(v: shogi.variant.Variant)(implicit lang: Lang): String =
+    v match {
+      case shogi.variant.Minishogi  => trans.minishogi.txt()
+      case shogi.variant.Chushogi   => trans.chushogi.txt()
+      case shogi.variant.Annanshogi => trans.annanshogi.txt()
+      case shogi.variant.Kyotoshogi => trans.kyotoshogi.txt()
+      case _                        => trans.standard.txt()
+    }
+
+  private def variantNameOrShogi(v: shogi.variant.Variant)(implicit lang: Lang): String =
+    if (v.standard) trans.shogi.txt()
+    else variantName(v)
+
+  def variantIcon(v: shogi.variant.Variant): String =
+    v match {
+      case shogi.variant.Minishogi  => ","
+      case shogi.variant.Chushogi   => "("
+      case shogi.variant.Annanshogi => ""
+      case shogi.variant.Kyotoshogi => ""
+      case _                        => "C"
+    }
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true): Frag =
     player.aiLevel.fold[Frag](
@@ -204,25 +207,15 @@ trait GameHelper {
       case _       => ""
     }
 
-  private def gameTitle(game: Game, color: Color): String = {
+  private def gameTitle(game: Game, color: Color)(implicit lang: Lang): String = {
     val u1 = playerText(game player color, withRating = true)
     val u2 = playerText(game opponent color, withRating = true)
     val clock = game.clock ?? { c =>
       " - " + c.config.show
     }
-    val variant = !game.variant.standard ?? s" - ${game.variant.name}"
+    val variant = !game.variant.standard ?? s" - ${variantName(game.variant)}"
     s"$u1 vs $u2$clock$variant"
   }
-
-  // senteUsername 1-0 goteUsername
-  def gameSummary(senteUserId: String, goteUserId: String, finished: Boolean, result: Option[Boolean]) = {
-    val res = if (finished) shogi.Color.showResult(result map Color.fromSente) else "*"
-    s"${usernameOrId(senteUserId)} $res ${usernameOrId(goteUserId)}"
-  }
-
-  def gameResult(game: Game) =
-    if (game.finished) shogi.Color.showResult(game.winnerColor)
-    else "*"
 
   def gameLink(
       game: Game,
@@ -271,7 +264,7 @@ trait GameHelper {
     val variant = pov.game.variant
     a(
       href  := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
-      title := gameTitle(pov.game, pov.color),
+      title := gameTitle(pov.game, pov.color)(defaultLang),
       cls := List(
         s"mini-board mini-board-${pov.gameId} sg-wrap parse-sfen d-${variant.numberOfFiles}x${variant.numberOfRanks}" -> true,
         s"live mini-board-${pov.gameId}" -> isLive
@@ -285,27 +278,28 @@ trait GameHelper {
     )(sgWrapContent)
   }
 
-  def challengeTitle(c: lila.challenge.Challenge) = {
-    val speed = c.clock.map(_.config).fold(shogi.Speed.Correspondence.name) { clock =>
-      s"${shogi.Speed(clock).name} (${clock.show})"
-    }
-    val variant = !c.variant.standard ?? s" ${c.variant.name}"
-    val challenger = c.challengerUser.fold(User.anonymous) { reg =>
-      s"${usernameOrId(reg.id)} (${reg.rating.show})"
-    }
+  // Casual Rapid Shogi (10|0) - Challenge from Wanderer (1500)
+  def challengeTitle(c: lila.challenge.Challenge)(implicit lang: Lang) = {
+    val perf    = c.perfType.trans
+    val variant = c.variant.standard ?? s" ${trans.shogi.txt()}"
+    val clock   = c.clock.map(_.config) ?? { clock => s" ${clock.show}" }
     val players =
-      if (c.isOpen) "Open challenge"
-      else
-        c.destUser.fold(s"Challenge from $challenger") { dest =>
-          s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
+      if (c.isOpen) trans.openChallenge.txt()
+      else {
+        val challenger = c.challengerUser.fold(trans.anonymous.txt()) { reg =>
+          s"${usernameOrId(reg.id)} (${reg.rating.show})"
         }
-    s"$speed$variant ${c.mode.name} Shogi - $players"
+        c.destUser.fold(trans.challengeFromX.txt(challenger)) { dest =>
+          trans.xChallengesY.txt(challenger, s"${usernameOrId(dest.id)} (${dest.rating.show})")
+        }
+      }
+    s"${modeName(c.mode)} ${perf}${variant}$clock - $players"
   }
 
-  def challengeOpenGraph(c: lila.challenge.Challenge) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit lang: Lang) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, shogi.Sente.name).url}",
-      description = "Join the challenge or watch the game here."
+      description = trans.challengeDescription.txt()
     )
 }

@@ -14,6 +14,9 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
   def transKey(key: MessageKey, args: Seq[Any] = Nil)(implicit lang: Lang): Frag =
     Translator.frag.literal(key, args, lang)
 
+  def transKeyTxt(key: MessageKey, args: Seq[Any] = Nil)(implicit lang: Lang): String =
+    Translator.txt.literal(key, args, lang)
+
   def i18nJsObject(keys: Seq[MessageKey])(implicit lang: Lang): JsObject =
     JsDump.keysToObject(keys, lang)
 

@@ -122,28 +122,10 @@ trait SetupHelper { self: I18nHelper =>
       (Mode.Rated.id.toString, trans.ratedTournament.txt(), none)
     )
 
-  def variantIcon(v: shogi.variant.Variant): String =
-    v match {
-      case shogi.variant.Minishogi  => ","
-      case shogi.variant.Chushogi   => "("
-      case shogi.variant.Annanshogi => ""
-      case shogi.variant.Kyotoshogi => ""
-      case _                        => "C"
-    }
-
-  def variantName(v: shogi.variant.Variant)(implicit lang: Lang): String =
-    v match {
-      case shogi.variant.Minishogi  => trans.minishogi.txt()
-      case shogi.variant.Chushogi   => trans.chushogi.txt()
-      case shogi.variant.Annanshogi => trans.annanshogi.txt()
-      case shogi.variant.Kyotoshogi => trans.kyotoshogi.txt()
-      case _                        => trans.standard.txt()
-    }
-
   private val encodeId = (v: Variant) => v.id.toString
 
   private def variantTuple(encode: Variant => String)(variant: Variant)(implicit lang: Lang) =
-    (encode(variant), variantName(variant), variant.title.some)
+    (encode(variant), transKeyTxt(variant.key), variant.title.some)
 
   def standardChoice(implicit lang: Lang): SelectChoice =
     standardChoice(encodeId)
