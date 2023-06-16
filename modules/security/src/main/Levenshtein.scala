@@ -1,7 +1,8 @@
-package lila.common.base
+package lila.security
 
-object Levenshtein:
-  final def isLevenshteinDistanceLessThan(a: String, b: String, threshold: Int): Boolean =
+private object Levenshtein:
+
+  final def isDistanceLessThan(a: String, b: String, threshold: Int): Boolean =
     val inf = Int.MaxValue - 1
     def f(a: String, b: String): Boolean =
       /* dd : destination diagonal */
