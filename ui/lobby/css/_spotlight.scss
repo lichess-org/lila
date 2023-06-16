@@ -12,10 +12,8 @@
   &.invert,
   &.event-spotlight,
   &:hover {
-    text-shadow: none;
-  }
-  &:hover {
     @extend %metal-hover;
+    text-shadow: none;
     color: $c-link;
   }
   .img {

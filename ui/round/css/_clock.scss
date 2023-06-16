@@ -132,7 +132,8 @@
   }
   .board-layout-1 &.over {
     display: flex;
-    .time, .byoyomi {
+    .time,
+    .byoyomi {
       color: $c-font-dimmer;
     }
   }

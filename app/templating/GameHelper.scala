@@ -51,8 +51,9 @@ trait GameHelper {
   def describePov(pov: Pov)(implicit lang: Lang) = {
     import pov._
     val sentePlayer = playerText(game.player(shogi.Sente), withRating = false)
-    val gotePlayer = playerText(game.player(shogi.Gote), withRating = false)
-    val players = if (game.finishedOrAborted) trans.xPlayedY.txt(sentePlayer, gotePlayer)
+    val gotePlayer  = playerText(game.player(shogi.Gote), withRating = false)
+    val players =
+      if (game.finishedOrAborted) trans.xPlayedY.txt(sentePlayer, gotePlayer)
       else trans.xIsPlayingY.txt(sentePlayer, gotePlayer)
     val gameDesc =
       if (game.imported) trans.importedGame.txt()

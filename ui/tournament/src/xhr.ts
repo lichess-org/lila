@@ -61,7 +61,7 @@ function reload(ctrl: TournamentController) {
   }).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
-    const extraDelay = Math.floor(ctrl.nbWatchers / 2) * (data.me ? 1 : 3);
+    const extraDelay = Math.floor(ctrl.nbWatchers) * (data.me ? 1 : 3);
     return new Promise(resolve => setTimeout(resolve, extraDelay));
   }, onFail);
 }
