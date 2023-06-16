@@ -23,22 +23,24 @@
   .first .trophy {
     height: 150px;
     width: 195px;
-    background: img-url('icons/trophy-1.svg') no-repeat;
+    background-image: img-url('icons/trophy_gold.svg');
     background-size: cover;
   }
   .second .trophy {
     height: 85px;
     width: calc(1.1056 * 85px);
-    background: img-url('icons/trophy-2.min.svg') no-repeat;
+    background-image: img-url('icons/trophy_silver.svg');
   }
   .third .trophy {
     height: 65px;
     width: calc(1.1056 * 65px);
-    background: img-url('icons/trophy-3.min.svg') no-repeat;
+    background-image: img-url('icons/trophy_bronze.svg');
   }
   .trophy {
     margin: 0 auto 8px auto;
     background-size: contain !important;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   @include breakpoint($mq-not-xx-small) {
     .trophy {
