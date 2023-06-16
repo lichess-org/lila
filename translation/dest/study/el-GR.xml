@@ -107,7 +107,6 @@
   <string name="urlOfTheGame">URL παρτίδων, ένα ανά γραμμή</string>
   <string name="loadAGameFromXOrY">Φόρτωση παρτίδων από %1$s ή %2$s</string>
   <string name="createChapter">Δημιουργία κεφαλαίου</string>
-  <string name="configureLiveBroadcast">Ρύθμιση αναμετάδοσης</string>
   <string name="createStudy">Δημιουργία μελέτης</string>
   <string name="editStudy">Επεξεργασία μελέτης</string>
   <string name="visibility">Ορατότητα</string>
