@@ -137,6 +137,7 @@ object jsI18n {
       trans.chushogi,
       trans.annanshogi,
       trans.kyotoshogi,
+      manageTopics,
       startTag,
       endTag,
       siteTag,
@@ -154,7 +155,27 @@ object jsI18n {
       publicationTag,
       collectionTag,
       lengthTag,
-      prizeTag
+      prizeTag,
+      // gamebook - separate it somehow...
+      initHelp,
+      introGamebook,
+      putFirstMove,
+      explainMove,
+      reflectOnMove,
+      variationMoves,
+      explainWrongMove,
+      orPromote,
+      hintOnDemand,
+      otherMove,
+      explainAllWrong,
+      playQuestion,
+      trans.analyse,
+      trans.back,
+      trans.preview,
+      trans.getAHint,
+      trans.retry,
+      trans.goodMove,
+      trans.storm.playAgain
     ).map(_.key)
   }
 }
