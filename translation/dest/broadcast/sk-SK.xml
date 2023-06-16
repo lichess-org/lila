@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Vysielanie</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s vysielanie</item>
+    <item quantity="few">%s vysielania</item>
+    <item quantity="many">%s vysielaní</item>
+    <item quantity="other">%s vysielaní</item>
+  </plurals>
   <string name="liveBroadcasts">Živé vysielanie turnaja</string>
   <string name="newBroadcast">Nové živé vysielanie</string>
   <string name="addRound">Pridať kolo</string>
