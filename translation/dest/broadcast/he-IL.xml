@@ -33,4 +33,5 @@
   <string name="downloadAllRounds">הורדת כל הסבבים</string>
   <string name="definitivelyDeleteRound">מחיקת הסבב הזה והמשחקים שבו לצמיתות</string>
   <string name="deleteAllGamesOfThisRound">מחיקת כל המשחקים בסבב הזה. כדי ליצור אותם מחדש, קישור המקור צריך להיות פעיל.</string>
+  <string name="editRoundStudy">עריכת לוח הלמידה של הסבב</string>
 </resources>
