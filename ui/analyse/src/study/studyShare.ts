@@ -10,6 +10,7 @@ interface StudyShareCtrl {
   chapter: () => StudyChapterMeta;
   isPrivate(): boolean;
   currentNode: () => Tree.Node;
+  onMainline: () => boolean;
   withPly: Prop<boolean>;
   relay: boolean;
   cloneable: boolean;
@@ -31,21 +32,23 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
   );
   return h(
     'div.ply-wrap',
-    h('label.ply', [
-      h('input', {
-        attrs: { type: 'checkbox' },
-        hook: bind(
-          'change',
-          e => {
-            ctrl.withPly((e.target as HTMLInputElement).checked);
-          },
-          ctrl.redraw
-        ),
-      }),
-      ...(renderedMove
-        ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
-        : [ctrl.trans.noarg('startAtInitialPosition')]),
-    ])
+    ctrl.onMainline()
+      ? h('label.ply', [
+          h('input', {
+            attrs: { type: 'checkbox' },
+            hook: bind(
+              'change',
+              e => {
+                ctrl.withPly((e.target as HTMLInputElement).checked);
+              },
+              ctrl.redraw
+            ),
+          }),
+          ...(renderedMove
+            ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
+            : [ctrl.trans.noarg('startAtInitialPosition')]),
+        ])
+      : null
   );
 }
 
@@ -53,6 +56,7 @@ export function ctrl(
   data: StudyData,
   currentChapter: () => StudyChapterMeta,
   currentNode: () => Tree.Node,
+  onMainline: () => boolean,
   relay: boolean,
   redraw: () => void,
   offset: number,
@@ -66,6 +70,7 @@ export function ctrl(
       return data.visibility === 'private';
     },
     currentNode,
+    onMainline,
     withPly,
     relay,
     cloneable: data.features.cloneable,
@@ -83,7 +88,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
     embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
   const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly()) {
-    const p = ctrl.currentNode().ply;
+    const p = ctrl.onMainline() ? ctrl.currentNode().ply.toString() : '';
     fullUrl += '#' + p;
     embedUrl += '#' + p;
   }

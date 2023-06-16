@@ -271,11 +271,10 @@ export default function (
 
   if (members.canContribute()) form.openIfNew();
 
-  function currentNode() {
-    return ctrl.node;
-  }
+  const currentNode = () => ctrl.node;
+  const onMainline = () => ctrl.tree.pathIsMainline(ctrl.path);
 
-  const share = shareCtrl(data, currentChapter, currentNode, !!relay, redraw, ctrl.plyOffset(), ctrl.trans);
+  const share = shareCtrl(data, currentChapter, currentNode, onMainline, !!relay, redraw, ctrl.plyOffset(), ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
