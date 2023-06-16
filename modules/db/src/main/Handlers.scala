@@ -67,12 +67,6 @@ trait Handlers:
   def floatAnyValHandler[A](to: A => Float, from: Float => A): BSONHandler[A] =
     floatIsoHandler(using Iso(from, to))
 
-  def bigDecimalIsoHandler[A](using iso: BigDecimalIso[A]): BSONHandler[A] =
-    BSONDecimalHandler.as[A](iso.from, iso.to)
-
-  def bigDecimalAnyValHandler[A](to: A => BigDecimal, from: BigDecimal => A): BSONHandler[A] =
-    bigDecimalIsoHandler(using Iso(from, to))
-
   def instantIsoHandler[A](using iso: Iso[Instant, A]): BSONHandler[A] =
     instantHandler.as[A](iso.from, iso.to)
 

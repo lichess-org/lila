@@ -20,12 +20,11 @@ final class RankingApi(
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
   def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
-    perfType so { pt =>
+    perfType.so: pt =>
       save(user, pt, perfs(pt))
-    }
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)) so coll {
+    (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)) so coll:
       _.update
         .one(
           $id(makeId(user.id, perfType)),
@@ -39,42 +38,35 @@ final class RankingApi(
           upsert = true
         )
         .void
-    }
 
   def remove(userId: UserId): Funit =
-    coll {
+    coll:
       _.delete.one($doc("_id" $startsWith s"$userId:")).void
-    }
 
   private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.Id, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)) so { perfKey =>
-      coll {
+      coll:
         _.find($doc("perf" -> perfId, "stable" -> true))
           .sort($doc("rating" -> -1))
           .cursor[Ranking]()
           .list(nb)
-          .flatMap {
-            _.map { r =>
-              lightUser(r.user).map {
-                _ map { light =>
-                  User.LightPerf(
-                    user = light,
-                    perfKey = perfKey,
-                    rating = r.rating,
-                    progress = ~r.prog
-                  )
-                }
-              }
-            }.parallel.dmap(_.flatten)
-          }
-      }
+          .flatMap:
+            _.map: r =>
+              lightUser(r.user).map2: light =>
+                User.LightPerf(
+                  user = light,
+                  perfKey = perfKey,
+                  rating = r.rating,
+                  progress = ~r.prog
+                )
+            .parallel.dmap(_.flatten)
     }
 
   private[user] def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] =
-    for {
+    for
       ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)
       bullet        <- topPerf(PerfType.Bullet.id, nb)
       blitz         <- topPerf(PerfType.Blitz.id, nb)
@@ -88,7 +80,7 @@ final class RankingApi(
       horde         <- topPerf(PerfType.Horde.id, nb)
       racingKings   <- topPerf(PerfType.RacingKings.id, nb)
       crazyhouse    <- topPerf(PerfType.Crazyhouse.id, nb)
-    } yield Perfs.Leaderboards(
+    yield Perfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,
       blitz = blitz,
@@ -111,25 +103,21 @@ final class RankingApi(
     def of(userId: UserId): Map[PerfType, Rank] =
       cache.getUnit.value match
         case Some(Success(all)) =>
-          all.flatMap { case (pt, ranking) =>
+          all.flatMap: (pt, ranking) =>
             ranking get userId map (pt -> _)
-          }
         case _ => Map.empty
 
-    private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]] {
-      _.refreshAfterWrite(15 minutes)
-        .buildAsyncFuture { _ =>
-          PerfType.leaderboardable
-            .traverse: pt =>
-              compute(pt).dmap(pt -> _)
-            .map(_.toMap)
-            .chronometer
-            .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
-            .result
-        }
-    }
+    private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]]:
+      _.refreshAfterWrite(15 minutes).buildAsyncFuture: _ =>
+        PerfType.leaderboardable
+          .traverse: pt =>
+            compute(pt).dmap(pt -> _)
+          .map(_.toMap)
+          .chronometer
+          .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
+          .result
 
-    private def compute(pt: PerfType): Fu[Map[UserId, Rank]] = coll {
+    private def compute(pt: PerfType): Fu[Map[UserId, Rank]] = coll:
       _.find(
         $doc("perf" -> pt.id, "stable" -> true),
         $doc("_id" -> true).some
@@ -137,14 +125,14 @@ final class RankingApi(
         .sort($doc("rating" -> -1))
         .cursor[Bdoc]()
         .fold(1 -> Map.newBuilder[UserId, Rank]) { case (state @ (rank, b), doc) =>
-          doc.string("_id").fold(state) { id =>
-            val user = UserId(id.takeWhile(':' !=))
-            b += (user -> rank)
-            (rank + 1) -> b
-          }
+          doc
+            .string("_id")
+            .fold(state): id =>
+              val user = UserId(id.takeWhile(':' !=))
+              b += (user -> rank)
+              (rank + 1) -> b
         }
         .map(_._2.result())
-    }
 
   object weeklyRatingDistribution:
 
@@ -157,17 +145,14 @@ final class RankingApi(
       "user:rating:distribution",
       179 minutes,
       _.toString
-    ) { loader =>
-      _.refreshAfterWrite(180 minutes)
-        .buildAsyncFuture {
-          loader(compute)
-        }
-    }
+    ): loader =>
+      _.refreshAfterWrite(180 minutes).buildAsyncFuture:
+        loader(compute)
 
     // from 600 to 2800 by Stat.group
     private def compute(perfId: Perf.Id): Fu[List[NbUsers]] =
-      lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) so coll {
-        _.aggregateList(maxDocs = Int.MaxValue) { framework =>
+      lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) so coll:
+        _.aggregateList(maxDocs = Int.MaxValue): framework =>
           import framework.*
           Match($doc("perf" -> perfId)) -> List(
             Project(
@@ -183,21 +168,18 @@ final class RankingApi(
             ),
             GroupField("r")("nb" -> SumAll)
           )
-        }
-          .map { res =>
-            val hash: Map[Int, NbUsers] = res.view
-              .flatMap { obj =>
-                for {
-                  rating <- obj.int("_id")
-                  nb     <- obj.getAsOpt[NbUsers]("nb")
-                } yield rating -> nb
-              }
-              .to(Map)
-            (Glicko.minRating.value to 2800 by Stat.group).map { r =>
-              hash.getOrElse(r, 0)
-            }.toList
-          } addEffect monitorRatingDistribution(perfId)
-      }
+        .map: res =>
+          val hash: Map[Int, NbUsers] = res.view
+            .flatMap: obj =>
+              for
+                rating <- obj.int("_id")
+                nb     <- obj.getAsOpt[NbUsers]("nb")
+              yield rating -> nb
+            .to(Map)
+          (Glicko.minRating.value to 2800 by Stat.group)
+            .map(hash.getOrElse(_, 0))
+            .toList
+      .addEffect(monitorRatingDistribution(perfId))
 
     /* monitors cumulated ratio of players in each rating group, for a perf
      *
@@ -216,9 +198,8 @@ final class RankingApi(
         .zip(nbUsersList)
         .foldLeft(0) { case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
-          PerfType(perfId) foreach { pt =>
+          PerfType(perfId).foreach: pt =>
             lila.mon.rating.distribution(pt.key.value, rating).update(prev.toDouble / total)
-          }
           acc
         }
         .unit

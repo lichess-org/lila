@@ -10,12 +10,11 @@ trait Iso[A, B]:
 
 object Iso:
 
-  type StringIso[B]     = Iso[String, B]
-  type IntIso[B]        = Iso[Int, B]
-  type BooleanIso[B]    = Iso[Boolean, B]
-  type DoubleIso[B]     = Iso[Double, B]
-  type FloatIso[B]      = Iso[Float, B]
-  type BigDecimalIso[B] = Iso[BigDecimal, B]
+  type StringIso[B]  = Iso[String, B]
+  type IntIso[B]     = Iso[Int, B]
+  type BooleanIso[B] = Iso[Boolean, B]
+  type DoubleIso[B]  = Iso[Double, B]
+  type FloatIso[B]   = Iso[Float, B]
 
   given [A, B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Iso[A, B] with
     val from = sr.apply

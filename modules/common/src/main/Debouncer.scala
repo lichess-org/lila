@@ -19,13 +19,12 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     .compute(
       id,
       (_, prev) =>
-        Option(prev) match {
+        Option(prev) match
           case None =>
             f(id)
             scheduler.scheduleOnce(duration) { runScheduled(id) }
             Queued.Empty
           case _ => Queued.Another
-        }
     )
     .unit
 
@@ -33,11 +32,11 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     .computeIfPresent(
       id,
       (_, queued) =>
-        if (queued == Queued.Another) {
+        if queued == Queued.Another then
           f(id)
           scheduler.scheduleOnce(duration) { runScheduled(id) }
           Queued.Empty
-        } else nullToRemove
+        else nullToRemove
     )
     .unit
 
