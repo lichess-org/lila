@@ -44,7 +44,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           env.api.gameApiV2.filename(game, config.format) map { filename =>
             Ok(content)
               .pipe(asAttachment(filename))
-              .withHeaders(lila.app.http.ResponseHeaders.headersForApiOrApp(req)*)
+              .withHeaders(headersForApiOrApp*)
               .as(gameContentType(config))
           }
         }

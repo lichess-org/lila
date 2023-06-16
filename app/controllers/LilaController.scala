@@ -22,6 +22,7 @@ abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
     with lila.app.http.RequestGetter
     with lila.app.http.ResponseBuilder(using env.executor)
+    with lila.app.http.ResponseHeaders
     with lila.app.http.ResponseWriter
     with lila.app.http.CtrlExtensions
     with lila.app.http.CtrlConversions

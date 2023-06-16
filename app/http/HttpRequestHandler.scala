@@ -11,7 +11,8 @@ final class HttpRequestHandler(
     configuration: HttpConfiguration,
     filters: Seq[EssentialFilter],
     controllerComponents: ControllerComponents
-) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters):
+) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters)
+    with ResponseHeaders:
 
   override def routeRequest(request: RequestHeader): Option[Handler] =
     if request.method == "OPTIONS"
@@ -22,9 +23,7 @@ final class HttpRequestHandler(
   private val optionsHandler =
     controllerComponents.actionBuilder: (req: RequestHeader) =>
       if lila.common.HTTPRequest.isApiOrApp(req)
-      then
-        Results.NoContent.withHeaders(
-          "Allow"                  -> ResponseHeaders.allowMethods,
-          "Access-Control-Max-Age" -> "86400"
-        )
+      then Results.NoContent.withHeaders(optionsHeaders*)
       else Results.NotFound
+
+  private val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE") mkString ", "

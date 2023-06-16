@@ -8,7 +8,7 @@ import play.api.mvc.{ Result, Codec }
 import scalatags.Text.Frag
 import chess.format.pgn.PgnStr
 
-trait ResponseWriter extends ContentTypes with HeaderNames:
+trait ResponseWriter extends ContentTypes:
 
   private val textContentType = ContentTypeOf(Some(ContentTypes.TEXT))
 
@@ -41,9 +41,3 @@ trait ResponseWriter extends ContentTypes with HeaderNames:
 
   val ndJsonContentType = "application/x-ndjson"
   val csvContentType    = "text/csv"
-
-  val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
-  val noProxyBuffer       = (res: Result) => res.withHeaders(noProxyBufferHeader)
-  def asAttachment(name: String) = (res: Result) =>
-    res.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$name")
-  def asAttachmentStream(name: String) = (res: Result) => noProxyBuffer(asAttachment(name)(res))

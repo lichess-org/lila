@@ -6,7 +6,9 @@ import play.api.mvc.*
 
 import lila.common.HTTPRequest
 
-final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor) extends Filter:
+final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
+    extends Filter
+    with ResponseHeaders:
 
   private val logger      = lila.log("http")
   private val logRequests = env.config.get[Boolean]("net.http.log")
@@ -34,10 +36,7 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor) ex
 
   private def serveAssets(req: RequestHeader, res: Fu[Result]) =
     res.dmap:
-      _.withHeaders(
-        "Service-Worker-Allowed"       -> "/",
-        "Cross-Origin-Embedder-Policy" -> "require-corp" // for Stockfish worker
-      )
+      _.withHeaders(assetsHeaders*)
 
   private def redirectWrongDomain(req: RequestHeader): Option[Result] = {
     req.host != env.net.domain.value &&
@@ -49,15 +48,11 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor) ex
 
   private def addApiResponseHeaders(req: RequestHeader)(result: Result) =
     if HTTPRequest.isApiOrApp(req)
-    then result.withHeaders(ResponseHeaders.headersForApiOrApp(req)*)
+    then result.withHeaders(headersForApiOrApp(using req)*)
     else result
 
   private def addCrendentialless(req: RequestHeader)(result: Result): Result =
     if HTTPRequest.actionName(req) != "Plan.index" &&
       HTTPRequest.uaMatches(req, env.credentiallessUaRegex.get())
-    then
-      result.withHeaders(
-        "Cross-Origin-Opener-Policy"   -> "same-origin",
-        "Cross-Origin-Embedder-Policy" -> "credentialless"
-      )
+    then result.withHeaders(credentiallessHeaders*)
     else result
