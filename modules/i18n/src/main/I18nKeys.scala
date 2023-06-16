@@ -1582,6 +1582,7 @@ object I18nKeys:
     val `downloadAllRounds` = I18nKey("broadcast:downloadAllRounds")
     val `definitivelyDeleteRound` = I18nKey("broadcast:definitivelyDeleteRound")
     val `deleteAllGamesOfThisRound` = I18nKey("broadcast:deleteAllGamesOfThisRound")
+    val `nbBroadcasts` = I18nKey("broadcast:nbBroadcasts")
 
   object streamer:
     val `lichessStreamers` = I18nKey("streamer:lichessStreamers")

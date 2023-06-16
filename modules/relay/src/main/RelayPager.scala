@@ -15,7 +15,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
 
   def byOwner(owner: UserId, page: Int): Fu[Paginator[WithLastRound]] = Paginator(
     adapter = new:
-      def nbResults: Fu[Int] = tourRepo.coll.countSel(tourRepo.selectors.ownerId(owner.id))
+      def nbResults: Fu[Int] = tourRepo.countByOwner(owner)
       def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
         tourRepo.coll
           .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>

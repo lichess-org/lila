@@ -12,6 +12,9 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
 
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
 
+  def countByOwner(owner: UserId): Fu[Int] =
+    coll.countSel(selectors.ownerId(owner))
+
   private[relay] object selectors:
     val official           = $doc("tier" $exists true)
     val active             = $doc("active" -> true)

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="broadcasts">Broadcasts</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s broadcast</item>
+    <item quantity="other">%s broadcasts</item>
+  </plurals>
   <string name="liveBroadcasts">Live tournament broadcasts</string>
   <string name="newBroadcast">New live broadcast</string>
   <string name="addRound">Add a round</string>

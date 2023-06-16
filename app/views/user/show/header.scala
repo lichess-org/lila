@@ -46,16 +46,22 @@ object header:
         div(cls := "number-menu")(
           u.noBot option a(
             href       := routes.UserTournament.path(u.username, "recent"),
-            cls        := "nm-item tournament_stats",
+            cls        := "nm-item",
             dataToints := u.toints
           )(
             splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
           ),
           info.nbSimuls > 0 option a(
             href := routes.Simul.byUser(u.username),
-            cls  := "nm-item simul_stats"
+            cls  := "nm-item"
           )(
             splitNumber(trans.nbSimuls.pluralSame(info.nbSimuls))
+          ),
+          info.nbRelays > 0 option a(
+            href := routes.RelayTour.by(u.username),
+            cls  := "nm-item"
+          )(
+            splitNumber(trans.broadcast.nbBroadcasts.pluralSame(info.nbRelays))
           ),
           a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
             splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
