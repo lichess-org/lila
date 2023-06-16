@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Überträgige</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s Überträgige</item>
+    <item quantity="other">%s Überträgige</item>
+  </plurals>
   <string name="liveBroadcasts">Live Turnier Überträgige</string>
   <string name="newBroadcast">Neui Live Überträgige</string>
   <string name="addRound">E Rundi zuefüege</string>
@@ -27,4 +31,5 @@
   <string name="downloadAllRounds">Alli Runde abelade</string>
   <string name="definitivelyDeleteRound">Die Rundi und ihri Spiel definitiv lösche.</string>
   <string name="deleteAllGamesOfThisRound">Lösch alli Spiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
+  <string name="editRoundStudy">Studie Rundi bearbeite</string>
 </resources>
