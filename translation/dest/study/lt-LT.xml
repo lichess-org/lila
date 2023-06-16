@@ -117,7 +117,6 @@
   <string name="urlOfTheGame">Partijų adresai, vienas per eilutę</string>
   <string name="loadAGameFromXOrY">Pakrauti partijas iš %1$s arba %2$s</string>
   <string name="createChapter">Sukurti skyrių</string>
-  <string name="configureLiveBroadcast">Tinkinti gyvą transliaciją</string>
   <string name="createStudy">Sukurti studiją</string>
   <string name="editStudy">Redaguoti studiją</string>
   <string name="visibility">Matomumas</string>
