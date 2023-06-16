@@ -103,7 +103,6 @@
   <string name="urlOfTheGame">O\'yin URL i</string>
   <string name="loadAGameFromXOrY">%1$s yoki %2$s dan o\'yinni yuklash</string>
   <string name="createChapter">Bo\'lim yaratish</string>
-  <string name="configureLiveBroadcast">Jonli efirni sozlash</string>
   <string name="createStudy">Ta\'lim yaratish</string>
   <string name="editStudy">Ta\'limni tahrirlash</string>
   <string name="visibility">Ko\'rinishi</string>
