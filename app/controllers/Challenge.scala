@@ -322,18 +322,17 @@ final class Challenge(
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
     import lila.challenge.Challenge.*
     val timeControl = TimeControl.make(config.clock, config.days)
-    lila.challenge.Challenge
-      .make(
-        variant = config.variant,
-        initialFen = config.position,
-        timeControl = timeControl,
-        mode = config.mode,
-        color = config.color.name,
-        challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
-        destUser = dest.some,
-        rematchOf = none,
-        rules = config.rules
-      )
+    lila.challenge.Challenge.make(
+      variant = config.variant,
+      initialFen = config.position,
+      timeControl = timeControl,
+      mode = config.mode,
+      color = config.color.name,
+      challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
+      destUser = dest.some,
+      rematchOf = none,
+      rules = config.rules
+    )
 
   private def apiChallengeAccept(
       dest: UserModel,
@@ -368,29 +367,14 @@ final class Challenge(
         config =>
           ChallengeIpRateLimit(req.ipAddress, rateLimitedFu):
             import lila.challenge.Challenge.*
-            val challenge = lila.challenge.Challenge.make(
-              variant = config.variant,
-              initialFen = config.position,
-              timeControl = TimeControl.make(config.clock, config.days),
-              mode = chess.Mode(config.rated),
-              color = "random",
-              challenger = Challenger.Open,
-              destUser = none,
-              rematchOf = none,
-              name = config.name,
-              openToUserIds = config.userIds,
-              rules = config.rules
-            )
             env.challenge.api
-              .createOpen(challenge, me)
-              .map:
-                if _ then
-                  JsonOk:
-                    env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
-                      "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
-                      "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
-                    )
-                else BadRequest(jsonError("Challenge not created"))
+              .createOpen(config, me)
+              .map: challenge =>
+                JsonOk:
+                  env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
+                    "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
+                    "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
+                  )
           .dmap(_ as JSON)
       )
   }

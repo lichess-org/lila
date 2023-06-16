@@ -73,12 +73,11 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       )
     ))
 
-  private[challenge] def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
+  private[challenge] def insertIfMissing(c: Challenge) = sameOrigAndDest(c).flatMap:
     case Some(prev) if prev.rematchOf.exists(c.rematchOf.has) => funit
     case Some(prev) if prev.id == c.id                        => funit
     case Some(prev)                                           => cancel(prev) >> insert(c)
     case None                                                 => insert(c)
-  }
 
   private[challenge] def countCreatedByDestId(userId: UserId): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))

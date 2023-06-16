@@ -38,13 +38,26 @@ final class ChallengeApi(
       if _ then fuFalse else doCreate(c) inject true
     }
 
-  def createOpen(c: Challenge, by: Option[User]): Fu[Boolean] =
-    doCreate(c) >>- by.foreach(u => openCreatedBy.put(c.id, u.id)) inject true
+  def createOpen(config: lila.setup.OpenConfig, by: Option[User]): Fu[Challenge] =
+    val c = Challenge.make(
+      variant = config.variant,
+      initialFen = config.position,
+      timeControl = TimeControl.make(config.clock, config.days),
+      mode = chess.Mode(config.rated),
+      color = "random",
+      challenger = Challenger.Open,
+      destUser = none,
+      rematchOf = none,
+      name = config.name,
+      openToUserIds = config.userIds,
+      rules = config.rules,
+      expiresAt = config.expiresAt
+    )
+    doCreate(c) >>- by.foreach(u => openCreatedBy.put(c.id, u.id)) inject c
 
   private val openCreatedBy =
-    cacheApi.notLoadingSync[Id, UserId](512, "challenge.open.by") {
+    cacheApi.notLoadingSync[Id, UserId](512, "challenge.open.by"):
       _.expireAfterWrite(1 hour).build()
-    }
 
   private def doCreate(c: Challenge) =
     repo.insertIfMissing(c) >>- {

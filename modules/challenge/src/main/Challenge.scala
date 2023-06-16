@@ -36,33 +36,28 @@ case class Challenge(
 
   inline def id = _id
 
-  def challengerUser =
-    challenger match
-      case u: Challenger.Registered => u.some
-      case _                        => none
+  def challengerUser = challenger match
+    case u: Challenger.Registered => u.some
+    case _                        => none
   def challengerUserId = challengerUser.map(_.id)
-  def challengerIsAnon =
-    challenger match
-      case _: Challenger.Anonymous => true
-      case _                       => false
-  def challengerIsOpen =
-    challenger match
-      case Challenger.Open => true
-      case _               => false
+  def challengerIsAnon = challenger match
+    case _: Challenger.Anonymous => true
+    case _                       => false
+  def challengerIsOpen = challenger match
+    case Challenger.Open => true
+    case _               => false
   def destUserId = destUser.map(_.id)
 
   def userIds = List(challengerUserId, destUserId).flatten
 
-  def daysPerTurn =
-    timeControl match
-      case TimeControl.Correspondence(d) => d.some
-      case _                             => none
+  def daysPerTurn = timeControl match
+    case TimeControl.Correspondence(d) => d.some
+    case _                             => none
   def unlimited = timeControl == TimeControl.Unlimited
 
-  def clock =
-    timeControl match
-      case c: TimeControl.Clock => c.some
-      case _                    => none
+  def clock = timeControl match
+    case c: TimeControl.Clock => c.some
+    case _                    => none
 
   def hasClock = clock.isDefined
 
@@ -79,16 +74,13 @@ case class Challenge(
         secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open
     )
   def setDestUser(u: User) =
-    copy(
-      destUser = toRegistered(variant, timeControl)(u).some
-    )
+    copy(destUser = toRegistered(variant, timeControl)(u).some)
 
   def speed = speedOf(timeControl)
 
-  def notableInitialFen: Option[Fen.Epd] =
-    variant match
-      case FromPosition | Horde | RacingKings | Chess960 => initialFen
-      case _                                             => none
+  def notableInitialFen: Option[Fen.Epd] = variant match
+    case FromPosition | Horde | RacingKings | Chess960 => initialFen
+    case _                                             => none
 
   def isOpen = open.isDefined
 
@@ -232,7 +224,8 @@ object Challenge:
       name: Option[String] = None,
       id: Option[GameId] = None,
       openToUserIds: Option[(UserId, UserId)] = None,
-      rules: Set[GameRule] = Set.empty
+      rules: Set[GameRule] = Set.empty,
+      expiresAt: Option[Instant] = None
   ): Challenge =
     val (colorChoice, finalColor) = color match
       case "white" => ColorChoice.White  -> chess.White
@@ -247,10 +240,10 @@ object Challenge:
       status = Status.Created,
       variant = variant,
       initialFen =
-        if (variant == FromPosition) initialFen
-        else if (variant == Chess960) initialFen filter { fen =>
-          Chess960.positionNumber(fen).isDefined
-        }
+        if variant == FromPosition then initialFen
+        else if variant == Chess960 then
+          initialFen.filter: fen =>
+            Chess960.positionNumber(fen).isDefined
         else !variant.standardInitialPosition option variant.initialFen,
       timeControl = timeControl,
       mode = finalMode,
@@ -261,7 +254,9 @@ object Challenge:
       rematchOf = rematchOf,
       createdAt = nowInstant,
       seenAt = !isOpen option nowInstant,
-      expiresAt = if (isOpen) nowInstant.plusDays(1) else inTwoWeeks,
+      expiresAt = expiresAt | {
+        if isOpen then nowInstant.plusDays(1) else inTwoWeeks
+      },
       open = isOpen option Open(openToUserIds),
       name = name,
       rules = rules
