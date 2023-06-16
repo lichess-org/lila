@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">URL der Partie</string>
   <string name="loadAGameFromXOrY">Partie von %1$s oder %2$s laden</string>
   <string name="createChapter">Kapitel erstellen</string>
-  <string name="configureLiveBroadcast">Live-Übertragung konfigurieren</string>
   <string name="createStudy">Studie erstellen</string>
   <string name="editStudy">Studie bearbeiten</string>
   <string name="visibility">Sichtbarkeit</string>
