@@ -96,7 +96,6 @@ object jsI18n:
     trans.cancelRematchOffer,
     trans.newOpponent,
     trans.confirmMove,
-    trans.enableConfirmationForThisGame,
     trans.viewRematch,
     trans.whitePlays,
     trans.blackPlays,
