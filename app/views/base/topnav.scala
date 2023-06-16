@@ -69,9 +69,9 @@ object topnav {
           div(role := "group")(
             a(href := tvUrl)("Lishogi TV"),
             a(href := langHref(routes.Tv.games))(trans.currentGames()),
-            ctx.noKid option a(href := langHref(routes.Streamer.index()))(trans.streamersMenu()),
+            ctx.noKid option a(href := langHref(routes.Streamer.index()))(trans.streamersMenu())
             // a(href := langHref(routes.Relay.index))(trans.broadcast.broadcasts()),
-            ctx.noBot option a(href := langHref(routes.Video.index))(trans.videoLibrary())
+            // ctx.noBot option a(href := langHref(routes.Video.index))(trans.videoLibrary())
           )
         )
       },
