@@ -289,7 +289,6 @@
   <string name="cancelRematchOffer">Anul·lar la petició de revenja</string>
   <string name="viewRematch">Mirar la partida de revenja</string>
   <string name="confirmMove">Confirmar la jugada</string>
-  <string name="enableConfirmationForThisGame">Activa la confirmació per aquesta partida</string>
   <string name="play">Jugar</string>
   <string name="inbox">Bústia d\'entrada</string>
   <string name="chatRoom">Sala de xat</string>
