@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">URL della partita</string>
   <string name="loadAGameFromXOrY">Carica una partita da %1$s o %2$s</string>
   <string name="createChapter">Crea capitolo</string>
-  <string name="configureLiveBroadcast">Configura diretta</string>
   <string name="createStudy">Crea studio</string>
   <string name="editStudy">Modifica studio</string>
   <string name="visibility">Visibilità</string>
