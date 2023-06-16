@@ -140,6 +140,8 @@ final class Study(
       }
     }
 
+  def postGameStudiesOfDefault(gameId: String, page: Int) = postGameStudiesOf(gameId, Order.default.key, page)
+
   def postGameStudiesOf(gameId: String, order: String, page: Int) =
     Open { implicit ctx =>
       env.study.pager.postGameStudiesOf(gameId.take(8), ctx.me, Order(order), page) flatMap { pag =>

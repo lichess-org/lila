@@ -22,7 +22,8 @@ object list {
       order = order,
       pag = pag,
       searchFilter = "",
-      url = o => routes.Study.all(o)
+      url = o => routes.Study.all(o),
+      canonicalPath = lila.common.CanonicalPath(routes.Study.allDefault()).some
     )
 
   def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) =
@@ -32,7 +33,8 @@ object list {
       order = order,
       pag = pag,
       searchFilter = s"owner:${owner.username}",
-      url = o => routes.Study.byOwner(owner.username, o)
+      url = o => routes.Study.byOwner(owner.username, o),
+      canonicalPath = lila.common.CanonicalPath(routes.Study.byOwnerDefault(owner.username)).some
     )
 
   def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
@@ -85,7 +87,8 @@ object list {
       order = order,
       pag = pag,
       searchFilter = "",
-      url = o => routes.Study.postGameStudiesOf(gameId, o)
+      url = o => routes.Study.postGameStudiesOf(gameId, o),
+      canonicalPath = lila.common.CanonicalPath(routes.Study.postGameStudiesOfDefault(gameId)).some
     )
 
   def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
@@ -186,13 +189,15 @@ object list {
       pag: Paginator[WithChaptersAndLiked],
       url: String => Call,
       searchFilter: String,
-      topics: Option[StudyTopics] = None
+      topics: Option[StudyTopics] = None,
+      canonicalPath: Option[lila.common.CanonicalPath] = None
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
+      canonicalPath = canonicalPath
     ) {
       main(cls := "page-menu")(
         menu(active, order, topics.??(_.value)),

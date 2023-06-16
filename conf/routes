@@ -130,6 +130,7 @@ GET   /study/member/:order             controllers.Study.mineMember(order: Strin
 GET   /study/public/:order             controllers.Study.minePublic(order: String, page: Int ?= 1)
 GET   /study/private/:order            controllers.Study.minePrivate(order: String, page: Int ?= 1)
 GET   /study/likes/:order              controllers.Study.mineLikes(order: String, page: Int ?= 1)
+GET   /study/post-game-study/:gameId   controllers.Study.postGameStudiesOfDefault(gameId: String, page: Int ?= 1)
 GET   /study/post-game-study/:gameId/:order  controllers.Study.postGameStudiesOf(gameId: String, order: String, page: Int ?= 1)
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: String, page: Int ?= 1)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: String, order: String, page: Int ?= 1)
