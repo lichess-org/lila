@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Излъчване</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s излъчване</item>
+    <item quantity="other">%s излъчвания</item>
+  </plurals>
   <string name="liveBroadcasts">Излъчвания на турнир на живо</string>
   <string name="newBroadcast">Нови предавания на живо</string>
   <string name="addRound">Добави рунд</string>
