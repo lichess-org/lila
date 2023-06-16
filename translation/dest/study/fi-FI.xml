@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">URL peliin</string>
   <string name="loadAGameFromXOrY">Lataa peli lähteestä %1$s tai %2$s</string>
   <string name="createChapter">Aloita luku</string>
-  <string name="configureLiveBroadcast">Määritä livelähetys</string>
   <string name="createStudy">Luo tutkielma</string>
   <string name="editStudy">Muokkaa tutkielmaa</string>
   <string name="visibility">Näkyvyys</string>
