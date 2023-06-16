@@ -4,6 +4,7 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
   position: relative;
   user-select: none;
   flex: 1 1 auto;
+  grid-area: voice;
 }
 
 #voice-status-row {

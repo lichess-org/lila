@@ -39,10 +39,6 @@
   grid-area: moves;
 }
 
-#voice-control {
-  grid-area: voice;
-}
-
 .keyboard-move {
   grid-area: kb-move;
 }
@@ -103,7 +99,6 @@
       background: none;
     }
 
-    .voice,
     .keyboard-move {
       margin-top: $block-gap;
     }
