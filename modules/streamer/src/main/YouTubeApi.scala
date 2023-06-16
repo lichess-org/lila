@@ -6,6 +6,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
+import cats.syntax.all.*
 
 import lila.common.{ given, * }
 import lila.common.config.NetConfig
@@ -32,9 +33,9 @@ final private class YouTubeApi(
       .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
-    cfg.googleApiKey.value.nonEmpty so Future
-      .sequence {
-        idPages.map { idPage =>
+    cfg.googleApiKey.value.nonEmpty
+      .so:
+        idPages.toList.traverse: idPage =>
           ws.url("https://youtube.googleapis.com/youtube/v3/videos")
             .withQueryStringParameters(
               "part"       -> "snippet",
@@ -43,18 +44,15 @@ final private class YouTubeApi(
               "key"        -> cfg.googleApiKey.value
             )
             .get()
-            .map { rsp =>
+            .map: rsp =>
               rsp.body[JsValue].validate[YouTube.Result] match
                 case JsSuccess(data, _) =>
                   data.streams(keyword, tubers.map(_.streamer))
                 case JsError(err) =>
                   logger.warn(s"youtube ${rsp.status} $err ${rsp.body[String].take(200)}")
                   Nil
-            }
-        }.toList
-      }
       .map(_.flatten)
-      .addEffect { streams =>
+      .addEffect: streams =>
         if streams != lastResults then
           val newStreams  = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
           val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
@@ -64,7 +62,6 @@ final private class YouTubeApi(
             logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
           syncDb(tubers, streams)
           lastResults = streams
-      }
 
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
@@ -88,12 +85,11 @@ final private class YouTubeApi(
       .map:
         case Some(s) =>
           isLiveStream(videoId).map: isLive =>
-            if (isLive && isOnline(UserId(s._id.value))) then
-              logger.info(s"YouTube: LIVE and ONLINE ${s._id} vid:$videoId ch:$channelId")
-              coll.update.one($doc("_id" -> s._id), $set("youTube.pubsubVideoId" -> videoId))
-            else if (isLive) then
-              logger.warn(s"YouTube: LIVE but OFFLINE ${s._id} vid:$videoId ch:$channelId")
-            else logger.warn(s"YouTube: IGNORED ${s._id} vid:$videoId ch:$channelId")
+            if isLive && isOnline(s.id.userId) then
+              logger.info(s"YouTube: LIVE and ONLINE ${s.id} vid:$videoId ch:$channelId")
+              coll.update.one($doc("_id" -> s.id), $set("youTube.pubsubVideoId" -> videoId))
+            else if isLive then logger.warn(s"YouTube: LIVE but OFFLINE ${s.id} vid:$videoId ch:$channelId")
+            else logger.warn(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
           logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
 
