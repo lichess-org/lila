@@ -1211,7 +1211,6 @@ object I18nKeys:
     val `urlOfTheGame` = I18nKey("study:urlOfTheGame")
     val `loadAGameFromXOrY` = I18nKey("study:loadAGameFromXOrY")
     val `createChapter` = I18nKey("study:createChapter")
-    val `configureLiveBroadcast` = I18nKey("study:configureLiveBroadcast")
     val `createStudy` = I18nKey("study:createStudy")
     val `editStudy` = I18nKey("study:editStudy")
     val `visibility` = I18nKey("study:visibility")
@@ -1582,6 +1581,7 @@ object I18nKeys:
     val `downloadAllRounds` = I18nKey("broadcast:downloadAllRounds")
     val `definitivelyDeleteRound` = I18nKey("broadcast:definitivelyDeleteRound")
     val `deleteAllGamesOfThisRound` = I18nKey("broadcast:deleteAllGamesOfThisRound")
+    val `editRoundStudy` = I18nKey("broadcast:editRoundStudy")
     val `nbBroadcasts` = I18nKey("broadcast:nbBroadcasts")
 
   object streamer:
