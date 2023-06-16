@@ -32,7 +32,6 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me =>
     NoBot:
-      given play.api.mvc.Request[?] = ctx.body
       OptionFuResult(topicApi.show(categId, slug, page, ctx.me)): (categ, topic, posts) =>
         if topic.closed then BadRequest("This topic is closed")
         else if topic.isOld then BadRequest("This topic is archived")

@@ -47,7 +47,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       langPath: Option[LangPath] = None
   )(using ctx: WebContext) =
     renderJson(puzzle, angle, replay) zip
-      ctx.me.so(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
+      ctx.me.so(u => env.puzzle.session.getSettings(u) dmap some) map { (json, settings) =>
         Ok(
           views.html.puzzle
             .show(
@@ -129,7 +129,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   private def onComplete[A](form: Form[RoundData])(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
       ctx: WebBodyContext[A]
   ) =
-    given play.api.mvc.Request[?] = ctx.body
     form
       .bindFromRequest()
       .fold(
@@ -153,11 +152,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               }
             case None =>
               lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated).increment()
-              ctx.me match {
+              ctx.me match
                 case Some(me) =>
                   env.puzzle.finisher(id, angle, me, data.win, data.mode) flatMapz { (round, perf) =>
                     val newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
-                    for {
+                    for
                       _ <- env.puzzle.session.onComplete(round, angle)
                       json <-
                         if mobileBc then
@@ -194,7 +193,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                 "next"  -> nextJson
                               )
                           }
-                    } yield json
+                    yield json
                   }
                 case None =>
                   env.puzzle.finisher.incPuzzlePlays(id)
@@ -205,7 +204,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                         _ so { renderJson(_, angle) dmap some }
                       .map: json =>
                         Json.obj("next" -> json)
-              }
           } dmap JsonOk
       )
 
@@ -258,7 +256,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         )
   }
 
-  def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { ctx ?=> me =>
+  def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { _ ?=> me =>
     NoBot:
       PuzzleTheme.findDynamic(themeStr) so { theme =>
         env.puzzle.forms.themeVote
@@ -389,7 +387,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { ctx ?=> user =>
+  def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { _ ?=> user =>
     Reasonable(page):
       env.puzzle
         .history(user, page)

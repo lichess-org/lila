@@ -389,7 +389,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def teamBattleUpdate(id: TourId) = AuthBody { ctx ?=> me =>
     cachedTour(id).flatMapz:
       case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
-        given play.api.mvc.Request[?] = ctx.body
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
           .fold(
