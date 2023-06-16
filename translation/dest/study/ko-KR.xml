@@ -105,7 +105,6 @@
   <string name="urlOfTheGame">한 줄에 하나씩, 게임의 URL</string>
   <string name="loadAGameFromXOrY">%1$s 또는 %2$s에서 게임 로드</string>
   <string name="createChapter">챕터 만들기</string>
-  <string name="configureLiveBroadcast">라이브 방송 설정</string>
   <string name="createStudy">연구 만들기</string>
   <string name="editStudy">연구 편집하기</string>
   <string name="visibility">공개 설정</string>
