@@ -41,10 +41,10 @@ object features {
               a(href := routes.Page.variantHome)(trans.variants())
             ),
             tr(unlimited)(
-              s"${trans.localAnalysis.txt()} (YaneuraOu, Fairy-Stockfish)"
+              s"${trans.localAnalysis.txt()} - YaneuraOu/Fairy-Stockfish"
             ),
             tr(unlimited)(
-              trans.cloudAnalysis()
+              s"${trans.cloudAnalysis()} - YaneuraOu/Fairy-Stockfish"
             ),
             tr(unlimited)(
               a(href := "https://lishogi.org/study")(
@@ -63,9 +63,11 @@ object features {
               a(href := routes.Puzzle.home)(trans.puzzles())
             ),
             tr(check)(
-              trans.importKif(),
-              " & ",
-              trans.importCsa()
+              a(href := routes.Importer.importGame)(
+                trans.importKif(),
+                " & ",
+                trans.importCsa()
+              )
             ),
             tr(unlimited)(
               a(href := routes.Search.index(1))(trans.search.advancedSearch()),
@@ -152,9 +154,11 @@ object features {
       )
     )
 
-  private val unlimited = span(dataIcon := "E", cls := "is is-green text unlimited")("Unlimited")
+  private def unlimited(implicit lang: Lang) =
+    span(dataIcon := "E", cls := "is is-green text unlimited")(trans.unlimited())
 
-  private val check = span(dataIcon := "E", cls := "is is-green text check")("Yes")
+  private def check(implicit lang: Lang) =
+    span(dataIcon := "E", cls := "is is-green text check")(trans.yes())
 
   private def custom(str: String) = span(dataIcon := "E", cls := "is is-green text check")(str)
 
