@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">URL vun den Partien, eng pro Zeil</string>
   <string name="loadAGameFromXOrY">Partien vun %1$s oder %2$s lueden</string>
   <string name="createChapter">Kapitel kréieren</string>
-  <string name="configureLiveBroadcast">Live Iwwerdroung konfiguréieren</string>
   <string name="createStudy">Etüd kreéieren</string>
   <string name="editStudy">Etüd änneren</string>
   <string name="visibility">Visibilitéit</string>
