@@ -72,7 +72,7 @@ export default class StrongSocket {
     pingDelay: 2500, // time between pong and ping
     autoReconnectDelay: 3500,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    isAuth: document.body.hasAttribute('user'),
+    isAuth: document.body.hasAttribute('data-user'),
   };
   static defaultParams: Params = {
     sri: sri,
