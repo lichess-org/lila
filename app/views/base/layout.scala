@@ -284,8 +284,14 @@ object layout {
           boardPreload,
           manifests,
           jsLicense,
-          canonicalPath.filter(_ => robots).map(canonical),
-          withHrefLangs.filter(_ => ctx.req.queryString.removed("lang").isEmpty && robots).map(hrefLangs)
+          canonicalPath.ifTrue(robots).map(canonical),
+          withHrefLangs
+            .ifTrue {
+              robots &&
+              ctx.req.queryString.removed("lang").isEmpty &&
+              canonicalPath.fold(true)(_.value == ctx.req.path)
+            }
+            .map(hrefLangs)
         ),
         st.body(
           cls := List(
