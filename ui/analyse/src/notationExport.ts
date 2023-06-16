@@ -66,7 +66,7 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
 
   return res;
 }
-const toKanji = {
+export const tagToKanji = {
   Start: '開始日時',
   End: '終了日時',
   Event: '棋戦',
@@ -103,7 +103,7 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
     colorTags = [handicap ? '下手' : '先手', handicap ? '上手' : '後手'];
   // We either don't want to display these or we display them through other means
   const unwatedTagNames = ['Sente', 'Shitate', 'Gote', 'Uwate', 'Handicap', 'Termination', 'Sfen', 'Result', 'Variant'],
-    otherTags = tags.filter(t => !unwatedTagNames.includes(t[0])).map(t => (toKanji[t[0]] || t[0]) + '：' + t[1]);
+    otherTags = tags.filter(t => !unwatedTagNames.includes(t[0])).map(t => (tagToKanji[t[0]] || t[0]) + '：' + t[1]);
 
   // We want these even empty
   const sente = tags.find(t => t[0] === 'Sente' || t[0] === 'Shitate')?.[1] ?? '',

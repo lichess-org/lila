@@ -6,6 +6,7 @@ import { VNode, h, thunk } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { option } from '../util';
 import { StudyChapter, StudyCtrl } from './interfaces';
+import { tagToKanji } from '../notationExport';
 
 const unwantedTags = ['Result', 'SenteElo', 'SenteTitle', 'GoteElo', 'GoteTitle', 'Variant'];
 
@@ -89,12 +90,13 @@ function renderTags(chapter: StudyChapter, submit, types: string[], trans: Trans
     h(
       'tbody',
       rows.map(function (r) {
+        const tag = r[0];
         return h(
           'tr',
           {
             key: '' + r[0],
           },
-          [h('th', [r[0]]), h('td', [r[1]])]
+          [h('th', { attrs: { title: typeof tag === 'string' ? tagToKanji[tag] : undefined } }, tag), h('td', r[1])]
         );
       })
     )
