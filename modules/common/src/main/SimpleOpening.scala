@@ -38,13 +38,11 @@ object SimpleOpening:
   def nameOf(ref: Opening): Name = Name(s"${ref.family.name}: ${ref.variation | otherVariations}")
 
   lazy val openings: Map[Key, SimpleOpening] = OpeningDb.all
-    .foldLeft(Map.empty[Key, SimpleOpening]) { case (acc, ref) =>
-      LilaOpeningFamily(ref.family.key into LilaOpeningFamily.Key).fold(acc) { fam =>
+    .foldLeft(Map.empty[Key, SimpleOpening]): (acc, ref) =>
+      LilaOpeningFamily(ref.family.key into LilaOpeningFamily.Key).fold(acc): fam =>
         val op   = SimpleOpening(ref, nameOf(ref), fam)
         val prev = acc get op.key
         if (prev.fold(true)(_.nbMoves > op.nbMoves)) acc.updated(op.key, op)
         else acc
-      }
-    }
 
   lazy val openingList = openings.values.toList.sortBy(_.name.value)

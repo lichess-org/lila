@@ -33,10 +33,10 @@ trait TutorNumber[V]:
 object TutorNumber:
 
   given TutorNumber[GoodPercent] with
-    val iso                                   = Iso.double[GoodPercent](GoodPercent.apply(_), _.value)
+    val iso                                   = Iso.sameRuntime
     def grade(a: GoodPercent, b: GoodPercent) = Grade.percent(a, b)
   given TutorNumber[AccuracyPercent] with
-    val iso = Iso.double[AccuracyPercent](AccuracyPercent.apply(_), _.value)
+    val iso                                           = Iso.sameRuntime
     def grade(a: AccuracyPercent, b: AccuracyPercent) = Grade.percent(a, b)
   given TutorNumber[IntRating] with
     val iso = Iso.double[IntRating](d => IntRating(roundToInt(d)), _.value.toDouble)
