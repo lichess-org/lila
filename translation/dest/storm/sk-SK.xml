@@ -17,10 +17,10 @@
     <item quantity="other">%s pokusov</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Odohraný jeden cyklus %2$s</item>
-    <item quantity="few">Odohrané %1$s cykly %2$s</item>
-    <item quantity="many">Odohraných %1$s cyklov %2$s</item>
-    <item quantity="other">Odohraných %1$s cyklov %2$s</item>
+    <item quantity="one">Odohraný jeden pokus %2$s</item>
+    <item quantity="few">Obohrané %1$s pokusy %2$s</item>
+    <item quantity="many">Odohraných %1$s pokusov %2$s</item>
+    <item quantity="other">Odohraných %1$s pokusov %2$s</item>
   </plurals>
   <string name="highscoreX">Najvyššie skóre: %s</string>
   <string name="score">Skóre</string>
@@ -61,6 +61,6 @@
   <string name="thisMonth">Tento mesiac</string>
   <string name="allTime">Celkovo</string>
   <string name="clickToReload">Kliknite pre opätovné načítanie</string>
-  <string name="thisRunHasExpired">Tento cyklus vypršal!</string>
-  <string name="thisRunWasOpenedInAnotherTab">Tento cyklus ste otvorili v inej záložke!</string>
+  <string name="thisRunHasExpired">Tento pokus vypršal!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Tento pokus ste otvorili v inej záložke!</string>
 </resources>
