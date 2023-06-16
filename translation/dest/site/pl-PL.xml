@@ -319,7 +319,6 @@
   <string name="cancelRematchOffer">Wycofaj propozycję rewanżu</string>
   <string name="viewRematch">Zobacz rewanż</string>
   <string name="confirmMove">Potwierdź ruch</string>
-  <string name="enableConfirmationForThisGame">Włącz potwierdzenie dla tej partii</string>
   <string name="play">Zagraj</string>
   <string name="inbox">Wiadomości</string>
   <string name="chatRoom">Czat</string>
