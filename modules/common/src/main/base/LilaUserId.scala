@@ -31,10 +31,9 @@ trait LilaUserId:
   opaque type UserStr = String
   object UserStr extends OpaqueString[UserStr]:
     given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
-    def read(str: String): Option[UserStr] = {
+    def read(str: String): Option[UserStr] =
       val clean = str.trim.takeWhile(' ' !=)
       if clean.lengthIs > 1 then Some(UserStr(clean)) else None
-    }
 
   opaque type UserStrOrEmail = String
   object UserStrOrEmail extends OpaqueString[UserStrOrEmail]:

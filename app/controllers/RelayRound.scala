@@ -169,7 +169,8 @@ final class RelayRound(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: WebContext): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id): rt =>
-      if !ctx.req.path.startsWith(rt.path) then Redirect(rt.path)
+      if !ctx.req.path.startsWith(rt.path)
+      then Redirect(rt.path)
       else f(rt)
 
   private def WithTour(id: String)(
@@ -222,12 +223,12 @@ final class RelayRound(
   private[controllers] def rateLimitCreation(
       me: UserModel,
       req: RequestHeader,
-      fail: => Result
+      fail: => Fu[Result]
   )(create: => Fu[Result]): Fu[Result] =
     val cost =
       if isGranted(_.Relay, me) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost):
+    CreateLimitPerUser(me.id, fail, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail, cost = cost):
         create

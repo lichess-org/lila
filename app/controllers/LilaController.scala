@@ -17,7 +17,6 @@ import lila.i18n.{ I18nKey, I18nLangPicker }
 import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 import lila.user.{ Holder, User, UserContext, UserBodyContext }
-import play.api.libs.json.Reads
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -27,7 +26,8 @@ abstract private[controllers] class LilaController(val env: Env)
     with lila.app.http.CtrlExtensions
     with lila.app.http.CtrlConversions
     with lila.app.http.CtrlFilters
-    with lila.app.http.RequestContext(using env.executor):
+    with lila.app.http.RequestContext(using env.executor)
+    with lila.app.http.CtrlErrors:
 
   def controllerComponents = env.controllerComponents
   given Executor           = env.executor
@@ -347,36 +347,6 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using WebContext): Fu[Result] =
     fua flatMap { _.fold(notFound)(op) }
-
-  private val jsonGlobalErrorRenamer: Reads[JsObject] =
-    import play.api.libs.json.*
-    __.json update (
-      (__ \ "global").json copyFrom (__ \ "").json.pick
-    ) andThen (__ \ "").json.prune
-
-  def errorsAsJson(form: Form[?])(using lang: Lang): JsObject =
-    val json = JsObject:
-      form.errors
-        .groupBy(_.key)
-        .view
-        .mapValues: errors =>
-          JsArray:
-            errors.map: e =>
-              JsString(lila.i18n.Translator.txt.literal(I18nKey(e.message), e.args, lang))
-        .toMap
-    json validate jsonGlobalErrorRenamer getOrElse json
-
-  def apiFormError(form: Form[?]): JsObject =
-    Json.obj("error" -> errorsAsJson(form)(using lila.i18n.defaultLang))
-
-  def jsonFormError(err: Form[?])(using Lang) = fuccess:
-    BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
-
-  def jsonFormErrorDefaultLang(err: Form[?]) =
-    jsonFormError(err)(using lila.i18n.defaultLang)
-
-  def newJsonFormError(err: Form[?])(using Lang) = fuccess:
-    BadRequest(errorsAsJson(err))
 
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment().unit

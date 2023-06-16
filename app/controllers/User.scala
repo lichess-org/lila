@@ -477,7 +477,7 @@ final class User(
     lila.user.UserForm.apiNote
       .bindFromRequest()
       .fold(
-        jsonFormErrorDefaultLang,
+        jsonFormError(_)(using reqLang),
         data => doWriteNote(username, me, data)(_ => jsonOkResult)
       )
   }
@@ -493,11 +493,10 @@ final class User(
     }
 
   def deleteNote(id: String) = Auth { ctx ?=> me =>
-    OptionFuResult(env.user.noteApi.byId(id)) { note =>
+    OptionFuResult(env.user.noteApi.byId(id)): note =>
       (note.isFrom(me) && !note.mod) so {
         env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
       }
-    }
   }
 
   def setDoxNote(id: String, dox: Boolean) = Secure(_.Admin) { ctx ?=> _ =>
@@ -512,8 +511,8 @@ final class User(
       .ifTrue(isGranted(_.BoostHunter))
       .so(env.user.repo.byId)
       .map(_ | me)
-      .flatMap { user =>
-        for {
+      .flatMap: user =>
+        for
           ops         <- env.game.favoriteOpponents(user.id)
           followables <- env.pref.api.followables(ops map (_._1.id))
           relateds <-
@@ -525,8 +524,7 @@ final class User(
                 }
               }
               .parallel
-        } yield html.relation.bits.opponents(user, relateds)
-      }
+        yield html.relation.bits.opponents(user, relateds)
   }
 
   def perfStat(username: UserStr, perfKey: Perf.Key) = Open:

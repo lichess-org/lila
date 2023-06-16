@@ -616,10 +616,6 @@ case class Game(
 
 object Game:
 
-  def gameId(fullId: GameFullId)                     = GameId(fullId.value take gameIdSize)
-  def playerId(fullId: GameFullId)                   = GamePlayerId(fullId.value drop gameIdSize)
-  def fullId(gameId: GameId, playerId: GamePlayerId) = GameFullId(s"$gameId$playerId")
-
   case class OnStart(id: GameId)
   case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
 
@@ -682,25 +678,13 @@ object Game:
       }
     }
 
-  val gameIdSize   = 8
-  val playerIdSize = 4
-  val fullIdSize   = 12
-  val tokenSize    = 4
+  val tokenSize = 4
 
   val unplayedHours = 24
   def unplayedDate  = nowInstant minusHours unplayedHours
 
   val abandonedDays = Days(21)
   def abandonedDate = nowInstant minusDays abandonedDays.value
-
-  def strToIdOpt(str: String): Option[GameId]        = strToId(str).some.filter(validId)
-  inline def strToId(str: String): GameId            = GameId(str take gameIdSize)
-  inline def anyToId(anyId: GameAnyId): GameId       = strToId(anyId.value)
-  inline def fullToId(fullId: GameFullId): GameId    = strToId(fullId.value)
-  def takePlayerId(fullId: GameFullId): GamePlayerId = GamePlayerId(fullId.value drop gameIdSize)
-
-  private val idRegex     = """[\w-]{8}""".r
-  def validId(id: GameId) = idRegex matches id.value
 
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>

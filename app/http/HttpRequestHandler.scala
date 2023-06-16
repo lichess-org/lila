@@ -5,7 +5,7 @@ import play.api.http.{ DefaultHttpRequestHandler, HttpConfiguration, HttpErrorHa
 import play.api.mvc.{ ControllerComponents, EssentialFilter, Handler, RequestHeader, Results }
 import play.api.routing.Router
 
-final class LilaHttpRequestHandler(
+final class HttpRequestHandler(
     router: Router,
     errorHandler: HttpErrorHandler,
     configuration: HttpConfiguration,

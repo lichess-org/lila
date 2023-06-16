@@ -18,7 +18,7 @@ final class LilaComponents(
     val configuration: Configuration
 ) extends BuiltInComponents:
 
-  lazy val controllerComponents: ControllerComponents = DefaultControllerComponents(
+  val controllerComponents: ControllerComponents = DefaultControllerComponents(
     defaultActionBuilder,
     playBodyParsers,
     fileMimeTypes,
@@ -62,7 +62,7 @@ final class LilaComponents(
     )
 
   override lazy val httpRequestHandler: HttpRequestHandler =
-    lila.app.http.LilaHttpRequestHandler(
+    lila.app.http.HttpRequestHandler(
       router,
       httpErrorHandler,
       httpConfiguration,
@@ -169,6 +169,6 @@ final class LilaComponents(
   private val clasRouter: _root_.router.clas.Routes     = wire[_root_.router.clas.Routes]
   val router: Router                                    = wire[_root_.router.router.Routes]
 
-  if (configuration.get[Boolean]("kamon.enabled"))
+  if configuration.get[Boolean]("kamon.enabled") then
     lila.log("boot").info("Kamon is enabled")
     kamon.Kamon.init()

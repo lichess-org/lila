@@ -12,7 +12,7 @@ import lila.socket.Socket.Sri
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
-given gameId: Conversion[String, GameId]                                 = lila.game.Game.strToId(_)
+given gameId: Conversion[String, GameId]                                 = GameId.take(_)
 given gameFull: Conversion[String, GameFullId]                           = GameFullId(_)
 given gameAny: Conversion[String, GameAnyId]                             = GameAnyId(_)
 given Conversion[String, StudyId]                                        = StudyId(_)

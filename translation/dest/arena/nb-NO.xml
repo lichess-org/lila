@@ -52,4 +52,5 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="noArenaStreaks">Ingen arenarekker</string>
   <string name="averagePerformance">Gjennomsnittlig prestasjon</string>
   <string name="averageScore">Gjennomsnittlig poengsum</string>
+  <string name="myTournaments">Mine turneringer</string>
 </resources>

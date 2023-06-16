@@ -9,7 +9,6 @@ import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
-import lila.game.{ Game as GameModel }
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -29,7 +28,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def exportOne(id: GameAnyId) = Anon:
-    exportGame(GameModel anyToId id)
+    exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
@@ -174,5 +173,5 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           case _: GameApiV2.OneConfig => JSON
           case _                      => ndJsonContentType
 
-  private[controllers] def preloadUsers(game: GameModel): Funit =
+  private[controllers] def preloadUsers(game: lila.game.Game): Funit =
     env.user.lightUserApi preloadMany game.userIds

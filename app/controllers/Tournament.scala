@@ -307,7 +307,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         .create(me, teams)
         .bindFromRequest()
         .fold(
-          jsonFormErrorDefaultLang,
+          jsonFormError(_)(using reqLang),
           setup =>
             rateLimitCreation(me, setup.isPrivate, ctx.req, rateLimited) {
               env.team.api.lightsByLeader(me.id) flatMap { teams =>

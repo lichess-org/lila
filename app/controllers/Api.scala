@@ -293,7 +293,7 @@ final class Api(
   }
 
   def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)() { ctx ?=> me =>
-    withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax(me), lila.game.Game.strToIdOpt): ids =>
+    withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax(me), GameId.from): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         addKeepAlive:
           env.game.gamesByIdsStream(
@@ -305,7 +305,7 @@ final class Api(
   }
 
   def gamesByIdsStreamAddIds(streamId: String) = AnonOrScopedBody(parse.tolerantText)() { ctx ?=> me =>
-    withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax(me), lila.game.Game.strToIdOpt): ids =>
+    withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax(me), GameId.from): ids =>
       env.game.gamesByIdsStream.addGameIds(streamId, ids)
       jsonOkResult
   }
