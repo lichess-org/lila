@@ -372,9 +372,6 @@ abstract private[controllers] class LilaController(val env: Env)
   def jsonFormError(err: Form[?])(using Lang) = fuccess:
     BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
 
-  def jsonFormErrorDefaultLang(err: Form[?]) =
-    jsonFormError(err)(using lila.i18n.defaultLang)
-
   def newJsonFormError(err: Form[?])(using Lang) = fuccess:
     BadRequest(errorsAsJson(err))
 

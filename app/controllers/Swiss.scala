@@ -133,7 +133,7 @@ final class Swiss(
             .create(me)
             .bindFromRequest()
             .fold(
-              jsonFormErrorDefaultLang,
+              jsonFormError(_)(using reqLang),
               data =>
                 tourC.rateLimitCreation(me, isPrivate = true, ctx.req, rateLimited):
                   env.swiss.api.create(data, me, teamId) flatMap env.swiss.json.api map JsonOk
