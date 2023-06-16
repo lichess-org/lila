@@ -394,6 +394,12 @@
     <item quantity="many">%s студий</item>
     <item quantity="other">%s студий</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s сеанс</item>
+    <item quantity="few">%s сеанса</item>
+    <item quantity="many">%s сеансов</item>
+    <item quantity="other">%s сеансов</item>
+  </plurals>
   <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
   <string name="noDrawBeforeSwissLimit">Вы не можете предлагать ничью до 30-го хода в турнире по швейцарской системе.</string>
@@ -756,6 +762,7 @@
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
   <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь на своих ошибках</string>
+  <string name="keyNextLearnFromYourMistakes">Далее (Разобрать свои ошибки)</string>
   <string name="keyNextBlunder">Следующий зевок</string>
   <string name="keyNextMistake">Следующая ошибка</string>
   <string name="keyNextInaccuracy">Следующая неточность</string>
