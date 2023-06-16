@@ -105,7 +105,6 @@
   <string name="urlOfTheGame">棋譜の URL</string>
   <string name="loadAGameFromXOrY">%1$s か %2$s から棋譜を読み込み</string>
   <string name="createChapter">章を作成</string>
-  <string name="configureLiveBroadcast">ライブ放送の設定</string>
   <string name="createStudy">研究を作成</string>
   <string name="editStudy">研究を編集</string>
   <string name="visibility">公開範囲</string>
