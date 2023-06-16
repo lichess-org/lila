@@ -28,6 +28,7 @@ export interface FormData {
   chat: string;
   sticky: 'true' | 'false';
   description: 'true' | 'false';
+  tags: 'true' | 'false';
 }
 
 interface Select {

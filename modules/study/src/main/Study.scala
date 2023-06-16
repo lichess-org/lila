@@ -18,7 +18,8 @@ case class Study(
     description: Option[String] = None,
     topics: Option[StudyTopics] = None,
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
+    tags: Option[String] = None
 ):
 
   import Study.*
@@ -124,11 +125,12 @@ object Study:
       shareable: Settings.UserSelection,
       chat: Settings.UserSelection,
       sticky: String,
-      description: String
+      description: String,
+      tags: String
   ):
     def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
     def settings =
-      Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
+      Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true", tags)
 
   case class WithChapter(study: Study, chapter: Chapter)
 
@@ -156,12 +158,13 @@ object Study:
       _id = id | makeId,
       name = name | StudyName(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
-      position = Position.Ref(StudyChapterId(""), UciPath.root),
+      position = Position.Ref(StudyChapterId(""), UciPath.root),12
       ownerId = user.id,
       visibility = Visibility.Public,
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),
       createdAt = nowDate,
-      updatedAt = nowDate
+      updatedAt = nowDate,
+      tags = tags
     )
