@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmisje</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s transmisja</item>
+    <item quantity="few">%s transmisje</item>
+    <item quantity="many">%s transmisji</item>
+    <item quantity="other">%s transmisji</item>
+  </plurals>
   <string name="liveBroadcasts">Transmisje turniejów na żywo</string>
   <string name="newBroadcast">Nowa transmisja na żywo</string>
   <string name="addRound">Dodaj rundę</string>
@@ -27,4 +33,5 @@
   <string name="downloadAllRounds">Pobierz wszystkie rundy</string>
   <string name="definitivelyDeleteRound">Ostatecznie usuń rundę i jej wszystkie partie.</string>
   <string name="deleteAllGamesOfThisRound">Usuń wszystkie partie w tej rundzie. Źródło będzie musiało być aktywne, aby je odtworzyć.</string>
+  <string name="editRoundStudy">Edytuj opracowanie rundy</string>
 </resources>
