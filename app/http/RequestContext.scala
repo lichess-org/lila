@@ -18,9 +18,11 @@ trait RequestContext(using Executor):
   val env: Env
 
   def anonContext(request: RequestHeader): AnyContext = new:
+    def isWeb       = false
     val userContext = UserContext(request, none, none, getAndSaveLang(request, none))
 
   def anonBodyContext[A](request: Request[A]): BodyContext[A] = new:
+    def isWeb       = false
     val userContext = UserContext(request, none, none, getAndSaveLang(request, none))
     def body        = request
 
