@@ -16,6 +16,7 @@ export function running(ctrl: AnalyseCtrl): boolean {
 
 export function render(ctrl: AnalyseCtrl): VNode {
   const study = ctrl.study!,
+    noarg = ctrl.trans.noarg,
     isMyMove = ctrl.turnColor() === ctrl.data.orientation,
     isCommented = !!(ctrl.node.comments || []).find(c => c.text.length > 2),
     hasVariation = ctrl.tree.parentNode(ctrl.path).children.length > 1;
@@ -41,7 +42,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
             hook: commentHook,
             class: { done: isCommented },
           },
-          [iconTag('c'), h('p', 'Help the player find the initial move, with a comment.')]
+          [iconTag('c'), h('p', noarg('initHelp'))]
         ),
         renderHint(ctrl),
       ];
@@ -52,11 +53,11 @@ export function render(ctrl: AnalyseCtrl): VNode {
           {
             hook: commentHook,
           },
-          [iconTag('c'), h('p', 'Introduce the gamebook with a comment')]
+          [iconTag('c'), h('p', noarg('introGamebook'))]
         ),
         h('div.legend.todo', { class: { done: !!ctrl.node.children[0] } }, [
           iconTag('G'),
-          h('p', "Put the opponent's first move on the board."),
+          h('p', noarg('putFirstMove')),
         ]),
       ];
   } else if (ctrl.onMainline) {
@@ -68,7 +69,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
             hook: commentHook,
             class: { done: isCommented },
           },
-          [iconTag('c'), h('p', 'Explain the opponent move, and help the player find the next move, with a comment.')]
+          [iconTag('c'), h('p', noarg('explainMove'))]
         ),
         renderHint(ctrl),
       ];
@@ -79,13 +80,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           {
             hook: commentHook,
           },
-          [
-            iconTag('c'),
-            h(
-              'p',
-              "You may reflect on the player's correct move, with a comment; or leave empty to jump immediately to the next move."
-            ),
-          ]
+          [iconTag('c'), h('p', noarg('reflectOnMove'))]
         ),
         hasVariation
           ? null
@@ -94,7 +89,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
               {
                 hook: bind('click', () => control.prev(ctrl), ctrl.redraw),
               },
-              [iconTag('G'), h('p', 'Add variation moves to explain why specific other moves are wrong.')]
+              [iconTag('G'), h('p', noarg('variationMoves'))]
             ),
         renderDeviation(ctrl),
       ];
@@ -106,9 +101,9 @@ export function render(ctrl: AnalyseCtrl): VNode {
           hook: commentHook,
           class: { done: isCommented },
         },
-        [iconTag('c'), h('p', 'Explain why this move is wrong in a comment')]
+        [iconTag('c'), h('p', noarg('explainWrongMove'))]
       ),
-      h('div.legend', [h('p', 'Or promote it as the mainline if it is the right move.')]),
+      h('div.legend', [h('p', noarg('orPromote'))]),
     ];
 
   return h(
@@ -123,26 +118,28 @@ export function render(ctrl: AnalyseCtrl): VNode {
 }
 
 function renderDeviation(ctrl: AnalyseCtrl): VNode {
-  const field = 'deviation';
+  const field = 'deviation',
+    noarg = ctrl.trans.noarg;
   return h('div.deviation', [
     h('div.legend.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
       iconTag('c'),
-      h('p', 'When any other wrong move is played:'),
+      h('p', noarg('otherMove')),
     ]),
     h('textarea', {
-      attrs: { placeholder: 'Explain why all other moves are wrong' },
+      attrs: { placeholder: noarg('explainAllWrong') },
       hook: textareaHook(ctrl, field),
     }),
   ]);
 }
 
 function renderHint(ctrl: AnalyseCtrl): VNode {
-  const field = 'hint';
+  const field = 'hint',
+    noarg = ctrl.trans.noarg;
   return h('div.hint', [
-    h('div.legend', [iconTag(''), h('p', 'Optional, on-demand hint for the player:')]),
+    h('div.legend', [iconTag(''), h('p', noarg('hintOnDemand'))]),
     h('textarea', {
       attrs: {
-        placeholder: 'Give the player a tip so they can find the right move',
+        placeholder: noarg('playerTip'),
       },
       hook: textareaHook(ctrl, field),
     }),

@@ -165,15 +165,17 @@ object jsI18n {
       variationMoves,
       explainWrongMove,
       orPromote,
-      hintOnDemand,
       otherMove,
       explainAllWrong,
+      hintOnDemand,
+      playerTip,
       playQuestion,
       trans.analyse,
       trans.back,
       trans.preview,
       trans.getAHint,
       trans.retry,
+      trans.mistake,
       trans.goodMove,
       trans.storm.playAgain
     ).map(_.key)

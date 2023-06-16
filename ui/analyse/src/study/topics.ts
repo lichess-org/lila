@@ -45,7 +45,7 @@ export function view(ctrl: StudyCtrl): VNode {
           {
             hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw),
           },
-          ['Manage topics']
+          [ctrl.trans.noarg('manageTopics')]
         )
       : null,
   ]);

@@ -2,7 +2,7 @@ import { ops as treeOps, path as treePath } from 'tree';
 import { makeShapesFromUsi } from '../../autoShape';
 import AnalyseCtrl from '../../ctrl';
 
-type Feedback = 'play' | 'good' | 'bad' | 'end';
+export type Feedback = 'play' | 'good' | 'bad' | 'end';
 
 export interface State {
   feedback: Feedback;

@@ -157,8 +157,9 @@
   <string name="variationMoves" comment="Interactive study lesson">Add variation moves to explain why specific other moves are wrong.</string>
   <string name="explainWrongMove" comment="Interactive study lesson">Explain why this move is wrong in a comment</string>
   <string name="orPromote" comment="Interactive study lesson">Or promote it as the mainline if it is the right move.</string>
-  <string name="hintOnDemand" comment="Interactive study lesson">Optional, on-demand hint for the player:</string>
   <string name="otherMove" comment="Interactive study lesson">When any other wrong move is played:</string>
   <string name="explainAllWrong" comment="Interactive study lesson">Explain why all other moves are wrong</string>
+  <string name="hintOnDemand" comment="Interactive study lesson">Optional, on-demand hint for the player:</string>
+  <string name="playerTip" comment="Interactive study lesson">Give the player a tip so they can find the right move</string>
   <string name="playQuestion" comment="Interactive study lesson">What would you play in this position?</string>
 </resources>

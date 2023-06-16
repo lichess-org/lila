@@ -1251,9 +1251,10 @@ export type I18nKey =
 'variationMoves'|
 'explainWrongMove'|
 'orPromote'|
-'hintOnDemand'|
 'otherMove'|
 'explainAllWrong'|
+'hintOnDemand'|
+'playerTip'|
 'playQuestion'|
 'nbChapters'|
 'nbGames'|
