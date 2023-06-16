@@ -10,7 +10,7 @@
     <item quantity="other">om %s minuter</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">om %s timma</item>
+    <item quantity="one">om %s timme</item>
     <item quantity="other">om %s timmar</item>
   </plurals>
   <plurals name="inNbDays">
