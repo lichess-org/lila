@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">آدرس اینترنتی بازی، یکی در هر خط</string>
   <string name="loadAGameFromXOrY">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
   <string name="createChapter">ساخت فصل</string>
-  <string name="configureLiveBroadcast">پخش زنده را تنظیم و پیکربندی نمایید</string>
   <string name="createStudy">مطالعه ایجاد کنید</string>
   <string name="editStudy">مطالعه را ویرایش نمایید</string>
   <string name="visibility">وضعیت نمایش</string>
