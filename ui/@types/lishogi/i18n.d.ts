@@ -782,6 +782,9 @@ export type I18nKey =
 'pressXtoFocus'|
 'pressXtoSubmit'|
 'clickGame'|
+'analyse'|
+'back'|
+'preview'|
 'opponentLeftCounter'|
 'nbMoves'|
 'nbPlayers'|
@@ -1221,6 +1224,7 @@ export type I18nKey =
 'topicsDescription'|
 'myTopics'|
 'popularTopics'|
+'manageTopics'|
 'startTag'|
 'endTag'|
 'siteTag'|
@@ -1239,6 +1243,18 @@ export type I18nKey =
 'collectionTag'|
 'lengthTag'|
 'prizeTag'|
+'initHelp'|
+'introGamebook'|
+'putFirstMove'|
+'explainMove'|
+'reflectOnMove'|
+'variationMoves'|
+'explainWrongMove'|
+'orPromote'|
+'hintOnDemand'|
+'otherMove'|
+'explainAllWrong'|
+'playQuestion'|
 'nbChapters'|
 'nbGames'|
 'nbMembers'|
