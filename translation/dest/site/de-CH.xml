@@ -157,7 +157,7 @@
   <string name="signIn">Iilogge</string>
   <string name="youNeedAnAccountToDoThat">Für das bruchsch du es Benutzerkonto</string>
   <string name="signUp">Regischtriere</string>
-  <string name="computersAreNotAllowedToPlay">Computer und Computer-Understützig isch nöd erlaubt. Bitte lass dir bim Schpille nöd vu Schachengines, Datebanke oder andere Schpiller hälfe. 
+  <string name="computersAreNotAllowedToPlay">Computer und Computer-Understützig isch nöd erlaubt. Bitte lass dir bim Schpille nöd vu Schachengines, Datebanke oder andere Schpiller hälfe.
 Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multikonteverhalte chann zume Usschluss fühere.</string>
   <string name="games">Partie</string>
   <string name="forum">Forum</string>
@@ -836,8 +836,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="congratsYouWon">Gratuliere, du häsch gunne!</string>
   <string name="gameVsX">Partie gäge %1$s</string>
   <string name="resVsX">%1$s gäge %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Öpper hät dis Trainerprofil überprüeft.</string>
-  <string name="newPendingReview">Neui usstehendi Überprüefig</string>
   <string name="lostAgainstTOSViolator">Du häsch gäge öpper verlore, wo d\'Lichess-Nutzigsbedingige verletzt hät</string>
   <string name="refundXpointsTimeControlY">Rückerschtattig: %1$s %2$s Wertigspünkt.</string>
   <string name="timeAlmostUp">D\'Ziit isch fascht abgloffe!</string>
@@ -860,9 +858,9 @@ und beiiflussed dini Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
   <string name="onlyTitled">Nur für Schpiller mit Titel</string>
   <string name="onlyTitledHelp">Für das Turnier muesch en offizielle Titel haa</string>
-  <string name="positionInputHelp">E gültigi FEN startet jedes Schpiil ab ere beschtimmte Schtellig. 
+  <string name="positionInputHelp">E gültigi FEN startet jedes Schpiil ab ere beschtimmte Schtellig.
 Das funktioniert nur für Standardschpiil und nöd für Variante!
-Chasch mit %s so e FEN-Schtelliig generiere und sie dänn im Fäld 
+Chasch mit %s so e FEN-Schtelliig generiere und sie dänn im Fäld
 iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="cancelSimul">Simultanschach abbräche</string>
   <string name="simulHostcolor">Farb vom Simultanschpiller, für jedi Partie</string>
