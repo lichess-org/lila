@@ -4,8 +4,8 @@ import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
 import { Outcome, Move } from 'chessops/types';
-import { Prop } from 'common';
-import { StoredProp, ToggleWithUsed } from 'common/storage';
+import { Prop, Toggle } from 'common';
+import { StoredProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
@@ -83,7 +83,7 @@ export interface Controller extends KeyboardController {
   autoScrollRequested?: boolean;
 
   nvui?: NvuiPlugin;
-  menu: ToggleWithUsed;
+  menu: Toggle;
 }
 
 export interface NvuiPlugin {
