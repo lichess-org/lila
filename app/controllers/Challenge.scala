@@ -277,46 +277,47 @@ final class Challenge(
       else notFound
   }
 
-  def apiCreate(username: UserStr) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
-    !me.is(username) so env.setup.forms.api
-      .user(me)
-      .bindFromRequest()
-      .fold(
-        newJsonFormError,
-        config =>
-          ChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isApiHog then 0 else 1):
-            env.user.repo enabledById username flatMap {
-              case None => JsonBadRequest(jsonError(s"No such user: $username"))
-              case Some(destUser) =>
-                val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
-                BotChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isBot then 1 else 0):
-                  ChallengeUserRateLimit(me.id, rateLimitedFu, cost = cost):
-                    val challenge = makeOauthChallenge(config, me, destUser)
-                    config.acceptByToken match
-                      case Some(strToken) =>
-                        apiChallengeAccept(destUser, challenge, strToken)(me, config.message)
-                      case _ =>
-                        env.challenge.granter
-                          .isDenied(me.some, destUser, config.perfType)
-                          .flatMap:
-                            case Some(denied) =>
-                              JsonBadRequest:
-                                jsonError(lila.challenge.ChallengeDenied.translated(denied))
-                            case _ =>
-                              env.challenge.api create challenge map {
-                                if _ then
-                                  val json = env.challenge.jsonView
-                                    .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                                  if (config.keepAliveStream)
-                                    apiC.sourceToNdJsonOption(
-                                      apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
-                                    )
-                                  else JsonOk(json)
-                                else JsonBadRequest(jsonError("Challenge not created"))
-                              }
-            }
-      )
-  }
+  def apiCreate(username: UserStr) =
+    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me =>
+      !me.is(username) so env.setup.forms.api
+        .user(me)
+        .bindFromRequest()
+        .fold(
+          newJsonFormError,
+          config =>
+            ChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isApiHog then 0 else 1):
+              env.user.repo enabledById username flatMap {
+                case None => JsonBadRequest(jsonError(s"No such user: $username"))
+                case Some(destUser) =>
+                  val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
+                  BotChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isBot then 1 else 0):
+                    ChallengeUserRateLimit(me.id, rateLimitedFu, cost = cost):
+                      val challenge = makeOauthChallenge(config, me, destUser)
+                      config.acceptByToken match
+                        case Some(strToken) =>
+                          apiChallengeAccept(destUser, challenge, strToken)(me, config.message)
+                        case _ =>
+                          env.challenge.granter
+                            .isDenied(me.some, destUser, config.perfType)
+                            .flatMap:
+                              case Some(denied) =>
+                                JsonBadRequest:
+                                  jsonError(lila.challenge.ChallengeDenied.translated(denied))
+                              case _ =>
+                                env.challenge.api create challenge map {
+                                  if _ then
+                                    val json = env.challenge.jsonView
+                                      .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
+                                    if (config.keepAliveStream)
+                                      apiC.sourceToNdJsonOption(
+                                        apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
+                                      )
+                                    else JsonOk(json)
+                                  else JsonBadRequest(jsonError("Challenge not created"))
+                                }
+              }
+        )
+    }
 
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
     import lila.challenge.Challenge.*
