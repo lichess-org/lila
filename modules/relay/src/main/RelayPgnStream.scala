@@ -5,6 +5,7 @@ import akka.stream.scaladsl.*
 import lila.study.{ ChapterRepo, PgnDump, StudyRepo }
 import lila.common.Bus
 import chess.format.pgn.PgnStr
+import lila.user.User
 
 final class RelayPgnStream(
     roundRepo: RelayRoundRepo,
@@ -13,12 +14,13 @@ final class RelayPgnStream(
     studyPgnDump: PgnDump
 )(using Executor):
 
-  def exportFullTour(tour: RelayTour): Source[PgnStr, ?] = Source.futureSource:
+  def exportFullTourAs(tour: RelayTour, me: Option[User]): Source[PgnStr, ?] = Source.futureSource:
     roundRepo
       .idsByTourOrdered(tour)
       .flatMap: ids =>
         studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)) map { studies =>
-          Source(studies).flatMapConcat { studyPgnDump.chaptersOf(_, flags) }.throttle(16, 1.second)
+          val visible = studies.filter(_.canView(me.map(_.id)))
+          Source(visible).flatMapConcat { studyPgnDump.chaptersOf(_, flags) }.throttle(16, 1.second)
         }
 
   private val flags = PgnDump.WithFlags(

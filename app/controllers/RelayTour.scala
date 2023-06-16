@@ -120,23 +120,23 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     env.relay.api tourById id flatMapz { tour =>
       render.async:
         case Accepts.Json() =>
-          JsonOk {
+          JsonOk:
             env.relay.api.withRounds(tour) map { trs =>
               env.relay.jsonView(trs, withUrls = true)
             }
-          }
         case _ => redirectToTour(tour)
     }
 
-  def pgn(id: TourModel.Id) = Anon:
+  def pgn(id: TourModel.Id) = OpenOrScoped() { ctx ?=> me =>
     env.relay.api tourById id mapz { tour =>
+      val canViewPrivate = ctx.isWeb || ctx.scopes.has(_.Study.Read)
       apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
-        env.relay.pgnStream.exportFullTour(tour)
-      ) { source =>
+        env.relay.pgnStream.exportFullTourAs(tour, me ifTrue canViewPrivate)
+      ): source =>
         asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn"):
           Ok chunked source as pgnContentType
-      }
     }
+  }
 
   def apiIndex = Anon:
     apiC

@@ -54,6 +54,7 @@ trait AnyContext:
   def ip                  = HTTPRequest ipAddress userContext.req
   val scopes: OAuthScopes = OAuthScopes(Nil)
   def isMobile            = scopes.has(_.Web.Mobile)
+  def isWeb: Boolean
 
 trait BodyContext[A] extends AnyContext:
   def body: Request[A]
@@ -64,6 +65,7 @@ class WebContext(
 ) extends AnyContext:
 
   export pageData.{ teamNbRequests, nbChallenges, nbNotifications, pref, blindMode as blind, nonce, hasClas }
+  def isWeb   = true
   def noBlind = !blind
 
   def currentTheme      = lila.pref.Theme(pref.theme)
@@ -111,6 +113,7 @@ class OAuthContext(
     val userContext: UserContext,
     override val scopes: OAuthScopes
 ) extends OAuthAnyContext:
+  def isWeb             = false
   def withLang(l: Lang) = OAuthContext(userContext withLang l, scopes)
 
 final class OAuthBodyContext[A](
