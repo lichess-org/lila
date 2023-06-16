@@ -12,13 +12,16 @@ object show {
 
   def apply(
       puzzle: lila.puzzle.Puzzle,
+      theme: lila.puzzle.PuzzleTheme,
       data: JsObject,
       pref: JsObject,
-      difficulty: Option[lila.puzzle.PuzzleDifficulty] = None,
-      robots: Boolean = true
+      themeView: Boolean,
+      difficulty: Option[lila.puzzle.PuzzleDifficulty] = None
   )(implicit
       ctx: Context
-  ) =
+  ) = {
+    val defaultTheme = theme == lila.puzzle.PuzzleTheme.mix
+    val urlPath      = if (defaultTheme) routes.Puzzle.home.url else routes.Puzzle.show(theme.key.value).url
     views.html.base.layout(
       title = trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
@@ -38,20 +41,29 @@ object show {
       ),
       csp = defaultCsp.withWebAssembly.some,
       shogiground = false,
-      openGraph = lila.app.ui
-        .OpenGraph(
-          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
-          title = s"${trans.puzzleDesc.txt()} #${puzzle.id}",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
-          description = s"${trans.puzzleDesc.txt()}: " +
-            transWithColorName(trans.puzzle.findTheBestMoveForX, puzzle.color, false)
-            + trans.puzzle.playedXTimes.pluralSameTxt(puzzle.plays)
-        )
-        .some,
-      robots = robots,
+      openGraph =
+        if (themeView)
+          lila.app.ui
+            .OpenGraph(
+              title = trans.puzzleDesc.txt() + (!defaultTheme ?? s" - ${theme.name.txt()}"),
+              url = s"$netBaseUrl$urlPath",
+              description = s"${trans.puzzleDesc.txt()}: ${theme.description.txt()}"
+            )
+            .some
+        else
+          lila.app.ui
+            .OpenGraph(
+              image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
+              title = s"${trans.puzzleDesc.txt()} #${puzzle.id}",
+              url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
+              description = s"${trans.puzzleDesc.txt()}: " +
+                transWithColorName(trans.puzzle.findTheBestMoveForX, puzzle.color, false) +
+                s" ${trans.puzzle.playedXTimes.pluralSameTxt(puzzle.plays)}"
+            )
+            .some,
       zoomable = true,
       playing = true,
-      withHrefLangs = robots option lila.i18n.LangList.All
+      canonicalPath = lila.common.CanonicalPath(urlPath).some
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(
@@ -64,4 +76,5 @@ object show {
         div(cls := "puzzle__controls")
       )
     }
+  }
 }

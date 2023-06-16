@@ -36,8 +36,8 @@ final class Puzzle(
   private def renderShow(
       puzzle: Puz,
       theme: PuzzleTheme,
-      replay: Option[PuzzleReplay] = None,
-      robots: Boolean = true
+      themeView: Boolean = true, // not tied to a single puzzle
+      replay: Option[PuzzleReplay] = None
   )(implicit
       ctx: Context
   ) =
@@ -45,7 +45,7 @@ final class Puzzle(
       ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
         Ok(
           views.html.puzzle
-            .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty, robots = robots)
+            .show(puzzle, theme, json, env.puzzle.jsonView.pref(ctx.pref), themeView, difficulty)
         ).enableSharedArrayBuffer
       }
 
@@ -246,7 +246,7 @@ final class Puzzle(
                 _ ?? env.puzzle.api.casual.set(me, puz.id)
               }
             } >>
-              renderShow(puz, PuzzleTheme.mix, robots = false)
+              renderShow(puz, PuzzleTheme.mix, themeView = false)
           }
         case None =>
           themeOrId.toLongOption
@@ -263,7 +263,7 @@ final class Puzzle(
     NoBot {
       val theme = PuzzleTheme.findOrAny(themeKey)
       OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
-        if (puzzle.themes contains theme.key) renderShow(puzzle, theme, robots = false)
+        if (puzzle.themes contains theme.key) renderShow(puzzle, theme, themeView = false)
         else Redirect(routes.Puzzle.show(puzzle.id.value)).fuccess
       }
     }
@@ -325,7 +325,7 @@ final class Puzzle(
       val checkedDayOpt = PuzzleDashboard.getClosestDay(days)
       env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
         case None                   => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
-        case Some((puzzle, replay)) => renderShow(puzzle, theme, replay.some)
+        case Some((puzzle, replay)) => renderShow(puzzle, theme, themeView = true, replay.some)
       }
     }
 
