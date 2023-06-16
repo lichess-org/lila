@@ -264,7 +264,12 @@ final class Study(
   def show(id: String) =
     Open { implicit ctx =>
       orRelay(id) {
-        showQuery(env.study.api byIdWithChapter id)
+        showQuery {
+          if (HTTPRequest isCrawler ctx.req)
+            env.study.api byIdWithFirstChapter id
+          else
+            env.study.api byIdWithChapter id
+        }
       }
     }
 
