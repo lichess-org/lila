@@ -78,7 +78,7 @@ export interface Vm {
   round?: PuzzleRound;
   next: Deferred<PuzzleData>;
   resultSent: boolean;
-  lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
+  lastFeedback: 'init' | 'fail' | 'win' | 'good';
   initialPath: Tree.Path;
   initialNode: Tree.Node;
   canViewSolution: boolean;

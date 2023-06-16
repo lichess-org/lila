@@ -79,6 +79,7 @@ object bits {
       trans.uwate,
       trans.puzzle.yourPuzzleRatingX,
       trans.puzzle.bestMove,
+      trans.mistake,
       trans.puzzle.keepGoing,
       trans.puzzle.notTheMove,
       trans.puzzle.trySomethingElse,

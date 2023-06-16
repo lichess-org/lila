@@ -10,7 +10,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
     ? null
     : h('div.puzzle__side__theme', [
         h('a', { attrs: { href: '/training/themes' } }, h('h2', ['« ', t.name])),
-        h('p', [
+        h('h3', [
           t.desc,
           //t.chapter &&
           //  h(

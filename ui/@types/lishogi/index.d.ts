@@ -321,7 +321,7 @@ declare namespace Tree {
     comp?: boolean;
     fourfold?: boolean;
     fail?: boolean;
-    puzzle?: 'win' | 'fail' | 'good' | 'retry';
+    puzzle?: 'win' | 'fail' | 'good';
   }
 
   export interface Comment {
