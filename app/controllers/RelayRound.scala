@@ -46,7 +46,6 @@ final class RelayRound(
                       env.relay.api.create(setup, me, tour) map { round =>
                         Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
                       }
-                    }
                 )
       ,
       scoped = ctx ?=>
