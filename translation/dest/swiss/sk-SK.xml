@@ -126,5 +126,5 @@ Víťaz je súťažiaci s najvyšším počtom bodov, ktoré získal vo všetký
   <string name="unlimitedAndFree">Bez obmedzení a zadarmo</string>
   <string name="predefinedUsers">Povoľte pripojenie len vopred zadaným používateľom</string>
   <string name="forbiddedUsers">Ak tento zoznam nie je prázdny, používatelia, ktorí v ňom nie sú, sa nesmú pripojiť. Jedno meno používateľa na riadok.</string>
-  <string name="playYourGames">Prehrajte si svoje partie</string>
+  <string name="playYourGames">Odohrajte viac partií!</string>
 </resources>
