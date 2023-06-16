@@ -14,7 +14,7 @@ import lila.common.config
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
   def index(page: Int, q: String) = Open:
-    Reasonable(page, config.Max(20)) {
+    Reasonable(page, config.Max(20)):
       q.trim.take(100).some.filter(_.nonEmpty) match
         case Some(query) =>
           env.relay.pager
@@ -26,16 +26,24 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
             active <- (page == 1).so(env.relay.api.officialActive.get({}))
             pager  <- env.relay.pager.inactive(page)
           yield Ok(html.relay.tour.index(active, pager))
-    }
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
 
+  def by(owner: UserStr, page: Int) = Open:
+    env.user
+      .lightUser(owner.id)
+      .flatMapz: owner =>
+        Reasonable(page, config.Max(20)):
+          env.relay.pager
+            .byOwner(owner.id, page)
+            .map: pager =>
+              Ok(html.relay.tour.byOwner(pager, owner))
+
   private def page(bookmark: String, menu: String) = Open:
     pageHit
-    OptionOk(prismicC getBookmark bookmark) { (doc, resolver) =>
+    OptionOk(prismicC getBookmark bookmark): (doc, resolver) =>
       html.relay.tour.page(doc, resolver, menu)
-    }
 
   def form = Auth { ctx ?=> _ =>
     NoLameOrBot:

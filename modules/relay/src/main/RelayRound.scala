@@ -47,10 +47,9 @@ case class RelayRound(
   def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore nowInstant)
 
   def shouldGiveUp =
-    !hasStarted && (startsAt match {
+    !hasStarted && startsAt.match
       case Some(at) => at.isBefore(nowInstant minusHours 3)
       case None     => createdAt.isBefore(nowInstant minusDays 1)
-    })
 
   def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
 
