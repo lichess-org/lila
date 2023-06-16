@@ -319,7 +319,6 @@
   <string name="cancelRematchOffer">Отказаться от реванша</string>
   <string name="viewRematch">Посмотреть матч-реванш</string>
   <string name="confirmMove">Подтвердить ход</string>
-  <string name="enableConfirmationForThisGame">Включить подтверждение для этой партии</string>
   <string name="play">Игра</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
