@@ -62,7 +62,7 @@ final class LilaComponents(
     )
 
   override lazy val httpRequestHandler: HttpRequestHandler =
-    lila.app.http.LilaHttpRequestHandler(
+    lila.app.http.HttpRequestHandler(
       router,
       httpErrorHandler,
       httpConfiguration,

@@ -25,11 +25,11 @@ trait ResponseBuilder(using Executor)
   given alleycats.Zero[Result] = alleycats.Zero(Results.NotFound)
 
   val rateLimitedMsg             = "Too many requests. Try again later."
-  val rateLimited                = Results.TooManyRequests(rateLimitedMsg)
-  val rateLimitedJson            = Results.TooManyRequests(jsonError(rateLimitedMsg))
+  val rateLimited                = TooManyRequests(rateLimitedMsg)
+  val rateLimitedJson            = TooManyRequests(jsonError(rateLimitedMsg))
   val rateLimitedJsonFu          = rateLimitedJson.toFuccess
   val rateLimitedFu              = rateLimited.toFuccess
-  def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
+  def rateLimitedFu(msg: String) = TooManyRequests(jsonError(msg)).toFuccess
 
   val jsonOkBody   = Json.obj("ok" -> true)
   val jsonOkResult = JsonOk(jsonOkBody)
@@ -59,9 +59,6 @@ trait ResponseBuilder(using Executor)
   def notFoundJson(msg: String = "Not found"): Fu[Result] = fuccess(notFoundJsonSync(msg))
 
   def notForBotAccounts = JsonBadRequest(jsonError("This API endpoint is not for Bot accounts."))
-
-  def ridiculousBackwardCompatibleJsonError(err: JsObject): JsObject =
-    err ++ Json.obj("error" -> err)
 
   def notFound(using ctx: WebContext): Fu[Result] =
     negotiate(
