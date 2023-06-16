@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Трансляции</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s трансляция</item>
+    <item quantity="few">%s трансляции</item>
+    <item quantity="many">%s трансляций</item>
+    <item quantity="other">%s трансляций</item>
+  </plurals>
   <string name="liveBroadcasts">Прямые трансляции турнира</string>
   <string name="newBroadcast">Новая прямая трансляция</string>
   <string name="addRound">Добавить тур</string>
@@ -27,4 +33,5 @@
   <string name="downloadAllRounds">Скачать все туры</string>
   <string name="definitivelyDeleteRound">Определенно удалить тур и его партии.</string>
   <string name="deleteAllGamesOfThisRound">Удалить все партии этого тура. Для их пересоздания потребуется активный источник.</string>
+  <string name="editRoundStudy">Редактировать студию тура</string>
 </resources>
