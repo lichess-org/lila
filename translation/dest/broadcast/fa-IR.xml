@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">پخش می شود</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s پخش زنده‌</item>
+    <item quantity="other">%s پخش زنده‌</item>
+  </plurals>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
   <string name="newBroadcast">پخش مستقیم جدید</string>
   <string name="addRound">یک دور بازی ایجاد کنید</string>
