@@ -207,7 +207,7 @@ export default class StrongSocket {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     const pingData =
-      this.options.isAuth && this.pongCount % 8 == 2
+      this.options.isAuth && this.pongCount % 10 == 2
         ? JSON.stringify({
             t: 'p',
             l: Math.round(0.1 * this.averageLag),
