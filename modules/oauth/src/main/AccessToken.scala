@@ -12,7 +12,7 @@ case class AccessToken(
     createdAt: Option[Instant],
     description: Option[String], // for personal access tokens
     usedAt: Option[Instant] = None,
-    scopes: OAuthScopes,
+    scopes: TokenScopes,
     clientOrigin: Option[String],
     expires: Option[Instant]
 ):
@@ -26,7 +26,7 @@ object AccessToken:
   object Id extends OpaqueString[Id]:
     def from(bearer: Bearer) = Id(Algo.sha256(bearer.value).hex)
 
-  case class ForAuth(userId: UserId, scopes: OAuthScopes, clientOrigin: Option[String])
+  case class ForAuth(userId: UserId, scopes: TokenScopes, clientOrigin: Option[String])
 
   object BSONFields:
     val id           = "_id"
@@ -50,12 +50,11 @@ object AccessToken:
   )
 
   given BSONDocumentReader[ForAuth] = new:
-    def readDocument(doc: BSONDocument) =
-      for
-        userId <- doc.getAsTry[UserId](BSONFields.userId)
-        scopes <- doc.getAsTry[OAuthScopes](BSONFields.scopes)
-        origin = doc.getAsOpt[String](BSONFields.clientOrigin)
-      yield ForAuth(userId, scopes, origin)
+    def readDocument(doc: BSONDocument) = for
+      userId <- doc.getAsTry[UserId](BSONFields.userId)
+      scopes <- doc.getAsTry[TokenScopes](BSONFields.scopes)
+      origin = doc.getAsOpt[String](BSONFields.clientOrigin)
+    yield ForAuth(userId, scopes, origin)
 
   given BSONDocumentHandler[AccessToken] = new BSON[AccessToken]:
 
@@ -69,7 +68,7 @@ object AccessToken:
         createdAt = r.getO[Instant](createdAt),
         description = r strO description,
         usedAt = r.getO[Instant](usedAt),
-        scopes = r.get[OAuthScopes](scopes),
+        scopes = r.get[TokenScopes](scopes),
         clientOrigin = r strO clientOrigin,
         expires = r.getO[Instant](expires)
       )

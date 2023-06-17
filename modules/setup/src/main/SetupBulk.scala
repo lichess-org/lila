@@ -11,7 +11,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bearer, Days, Template }
 import lila.game.{ GameRule, IdGenerator }
-import lila.oauth.{ OAuthScope, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthServer, EndpointScopes }
 import lila.user.User
 
 object SetupBulk:
@@ -198,7 +198,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
         List(whiteToken, blackToken) // flatten now, re-pair later!
       }
       .mapAsync(8): token =>
-        oauthServer.auth(token, OAuthScope.select(_.Challenge.Write), none) map {
+        oauthServer.auth(token, OAuthScope.select(_.Challenge.Write) into EndpointScopes, none) map {
           _.left.map { BadToken(token, _) }
         }
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)) {

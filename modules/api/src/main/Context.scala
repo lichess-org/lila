@@ -7,7 +7,7 @@ import lila.common.HTTPRequest
 import lila.pref.Pref
 import lila.user.UserContext
 import lila.notify.Notification.UnreadCount
-import lila.oauth.{ OAuthScope, OAuthScopes }
+import lila.oauth.{ OAuthScope, TokenScopes }
 
 object context:
   export lila.api.{ AnyContext, BodyContext }
@@ -56,7 +56,7 @@ trait AnyContext:
   def noBot               = !isBot
   def isAppealUser        = me.exists(_.enabled.no)
   def ip                  = HTTPRequest ipAddress req
-  val scopes: OAuthScopes = OAuthScopes(Nil)
+  val scopes: TokenScopes = TokenScopes(Nil)
   def isMobile            = scopes.has(_.Web.Mobile)
   def isWebAuth: Boolean
 
@@ -120,7 +120,7 @@ class OAuthContext(
     val req: RequestHeader,
     val lang: Lang,
     val userContext: UserContext,
-    override val scopes: OAuthScopes
+    override val scopes: TokenScopes
 ) extends AnyContext:
   def isWebAuth = false
 
@@ -128,7 +128,7 @@ final class OAuthBodyContext[A](
     val body: Request[A],
     lang: Lang,
     userContext: UserContext,
-    override val scopes: OAuthScopes
+    override val scopes: TokenScopes
 ) extends OAuthContext(body, lang, userContext, scopes)
     with BodyContext[A]:
   def scoped = me.map(OAuthScope.Scoped(_, scopes))

@@ -14,7 +14,7 @@ import lila.api.{ PageData, Nonce }
 import lila.app.{ *, given }
 import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
-import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer, EndpointScopes, TokenScopes }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 import lila.user.{ Holder, User, UserContext }
 
@@ -251,22 +251,22 @@ abstract private[controllers] class LilaController(val env: Env)
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using req: RequestHeader)(
       f: OAuthScope.Scoped => Fu[Result]
   ) =
-    val required = OAuthScope select selectors
-    env.security.api.oauthScoped(req, required).flatMap {
+    val accepted = OAuthScope.select(selectors) into EndpointScopes
+    env.security.api.oauthScoped(req, accepted).flatMap {
       case Left(e) =>
         monitorOauth(false)
-        handleScopedFail(required, e)
+        handleScopedFail(accepted, e)
       case Right(scoped) =>
         monitorOauth(true)
-        f(scoped) map OAuthServer.responseHeaders(required, scoped.scopes)
+        f(scoped) map OAuthServer.responseHeaders(accepted, scoped.scopes)
     }
 
-  def handleScopedFail(required: OAuthScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
+  def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
     case e @ lila.oauth.OAuthServer.MissingScope(available) =>
-      OAuthServer.responseHeaders(required, available):
+      OAuthServer.responseHeaders(accepted, available):
         Forbidden(jsonError(e.message))
     case e =>
-      OAuthServer.responseHeaders(required, OAuthScopes(Nil)):
+      OAuthServer.responseHeaders(accepted, TokenScopes(Nil)):
         Unauthorized(jsonError(e.message))
 
   private def monitorOauth(success: Boolean)(using req: RequestHeader) =

@@ -25,7 +25,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
       request: AccessTokenRequest.Prepared
   ): Fu[Validated[Protocol.Error, AccessTokenRequest.Granted]] =
     coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier) map { doc =>
-      for {
+      for
         pending <- doc
           .result[PendingAuthorization]
           .toValid(Protocol.Error.AuthorizationCodeInvalid)
@@ -43,7 +43,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
               .toValid(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
               .map(_.unit)
-      } yield AccessTokenRequest.Granted(pending.userId, pending.scopes, pending.redirectUri)
+      yield AccessTokenRequest.Granted(pending.userId, pending.scopes into TokenScopes, pending.redirectUri)
     }
 
 private object AuthorizationApi:
