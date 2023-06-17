@@ -105,7 +105,6 @@
   <string name="urlOfTheGame">游戏的 URL</string>
   <string name="loadAGameFromXOrY">从 %1$s 或 %2$s 加载游戏</string>
   <string name="createChapter">创建章节</string>
-  <string name="configureLiveBroadcast">设置直播配置</string>
   <string name="createStudy">创建课程</string>
   <string name="editStudy">编辑课程</string>
   <string name="visibility">权限</string>

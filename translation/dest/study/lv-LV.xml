@@ -113,7 +113,6 @@
   <string name="urlOfTheGame">Spēles URL</string>
   <string name="loadAGameFromXOrY">Ielādēt spēli no %1$s vai %2$s</string>
   <string name="createChapter">Izveidot nodaļu</string>
-  <string name="configureLiveBroadcast">Konfigurēt tiešraidi</string>
   <string name="createStudy">Izveidot izpēti</string>
   <string name="editStudy">Rediģēt izpēti</string>
   <string name="visibility">Redzamība</string>

@@ -97,7 +97,6 @@
   <string name="urlOfTheGame">खेलको URL</string>
   <string name="loadAGameFromXOrY">%1$s वा %2$s बाट खेल लोड गरौं</string>
   <string name="createChapter">अध्याय श्रीजना</string>
-  <string name="configureLiveBroadcast">प्रत्यक्ष प्रशारणको तयारी गरौँ</string>
   <string name="createStudy">पाठ रचना गरौँ</string>
   <string name="editStudy">पाठ संशोधन गरौँ</string>
   <string name="visibility">पाठको दृश्यता</string>

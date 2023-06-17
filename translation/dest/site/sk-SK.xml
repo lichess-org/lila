@@ -279,10 +279,10 @@
   </plurals>
   <string name="gamesPlayed">Odohraných partií</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s hra s Vami</item>
-    <item quantity="few">%s hry s Vami</item>
-    <item quantity="many">%s hier s Vami</item>
-    <item quantity="other">%s hier s Vami</item>
+    <item quantity="one">%s partia s Vami</item>
+    <item quantity="few">%s partie s Vami</item>
+    <item quantity="many">%s partií s Vami</item>
+    <item quantity="other">%s partií s Vami</item>
   </plurals>
   <string name="cancel">Zrušiť</string>
   <string name="whiteTimeOut">Bielemu došiel čas</string>
@@ -404,16 +404,16 @@
   <string name="noDrawBeforeSwissLimit">V turnaji švajčiarskeho systému nie je možné remizovať pokiaľ sa neodohralo 30 ťahov.</string>
   <string name="thematic">Tematický</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s hodnotená hra</item>
-    <item quantity="few">≥ %s hodnotené hry</item>
-    <item quantity="many">≥ %s hodnotených hier</item>
-    <item quantity="other">≥ %s hodnotených hier</item>
+    <item quantity="one">≥ %s hodnotená partia</item>
+    <item quantity="few">≥ %s hodnotené partie</item>
+    <item quantity="many">≥ %s hodnotených partií</item>
+    <item quantity="other">≥ %s hodnotených partií</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s hodnotená hra</item>
-    <item quantity="few">≥ %1$s %2$s hodnotené hry</item>
-    <item quantity="many">≥ %1$s %2$s hodnotených hier</item>
-    <item quantity="other">≥ %1$s %2$s hodnotených hier</item>
+    <item quantity="one">≥ %1$s %2$s hodnotená partia</item>
+    <item quantity="few">≥ %1$s %2$s hodnotené partie</item>
+    <item quantity="many">≥ %1$s %2$s hodnotených partií</item>
+    <item quantity="other">≥ %1$s %2$s hodnotených partií</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Potrebujete odohrať ešte %1$s %2$s hodnotenú partiu</item>
@@ -582,7 +582,7 @@
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
   <string name="onlinePlayers">Pripojení hráči</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je bodovaná, ale bez času!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Pozor, partia je hodnotená, ale bez časového limitu!</string>
   <string name="success">Úspešne vyriešené</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozohraná partia</item>
@@ -685,8 +685,8 @@
   <string name="clock">Tempo</string>
   <string name="opponent">Protihráč</string>
   <string name="learnMenu">Učiť sa</string>
-  <string name="studyMenu">Študuj</string>
-  <string name="practice">Precvičuj</string>
+  <string name="studyMenu">Štúdie</string>
+  <string name="practice">Tréning</string>
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
@@ -1001,7 +1001,7 @@
 a ovplyvnia rating hráčov</string>
   <string name="onlyMembersOfTeam">Iba členovia tímu</string>
   <string name="noRestriction">Bez obmedzenia</string>
-  <string name="minimumRatedGames">Minimum hodnotených hier</string>
+  <string name="minimumRatedGames">Minimum hodnotených partií</string>
   <string name="minimumRating">Minimálny rating</string>
   <string name="maximumWeeklyRating">Maximálny týždenný rating</string>
   <string name="onlyTitled">Iba hráči s titulom</string>

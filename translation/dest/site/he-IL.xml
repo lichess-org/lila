@@ -319,7 +319,6 @@
   <string name="cancelRematchOffer">ביטול ההצעה למשחק חוזר</string>
   <string name="viewRematch">צפייה במשחק החוזר</string>
   <string name="confirmMove">אישור המהלך</string>
-  <string name="enableConfirmationForThisGame">הפעל אישור מהלכים מראש למשחק הזה</string>
   <string name="play">שחקו</string>
   <string name="inbox">תיבת דואר</string>
   <string name="chatRoom">חדר צ\'אט</string>

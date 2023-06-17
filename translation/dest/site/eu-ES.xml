@@ -289,7 +289,6 @@
   <string name="cancelRematchOffer">Errebantxa-eskaintza bertan behera utzi</string>
   <string name="viewRematch">Errebantxa ikusi</string>
   <string name="confirmMove">Jokaldia baieztatu</string>
-  <string name="enableConfirmationForThisGame">Aktibatu partida honetarako konfirmazioa</string>
   <string name="play">Jokatu</string>
   <string name="inbox">Mezu-sarrera</string>
   <string name="chatRoom">Txateatzeko aretoa</string>

@@ -105,7 +105,6 @@
   <string name="urlOfTheGame">URL permainan</string>
   <string name="loadAGameFromXOrY">Muat permainan dari %1$s atau %2$s</string>
   <string name="createChapter">Buat bab</string>
-  <string name="configureLiveBroadcast">Konfigurasi siaran langsung</string>
   <string name="createStudy">Buat studi</string>
   <string name="editStudy">Ubah studi</string>
   <string name="visibility">Visibilitas</string>

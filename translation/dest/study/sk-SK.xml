@@ -117,8 +117,7 @@
   <string name="urlOfTheGame">URL hry</string>
   <string name="loadAGameFromXOrY">Načítať hru z %1$s alebo z %2$s</string>
   <string name="createChapter">Vytvoriť kapitolu</string>
-  <string name="configureLiveBroadcast">Konfigurovať živý prenos</string>
-  <string name="createStudy">Vytvoriť učivo</string>
+  <string name="createStudy">Vytvoriť štúdiu</string>
   <string name="editStudy">Upraviť učivo</string>
   <string name="visibility">Viditeľnosť</string>
   <string name="public">Verejné</string>
@@ -137,9 +136,9 @@
   <string name="start">Štart</string>
   <string name="save">Uložiť</string>
   <string name="clearChat">Vymazať čet</string>
-  <string name="deleteTheStudyChatHistory">Chcete vymazať históriu četu k tomuto učivu? Táto akcia sa nedá vrátit späť!</string>
-  <string name="deleteStudy">Vymazať učivo</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Vymazať štúdiu? Už nieje cesta späť! Napíšte meno štúdie pre potvrdenie: %s</string>
+  <string name="deleteTheStudyChatHistory">Definitívne vymazať históriu četu k tejto štúdii? Táto akcia sa nedá vrátit späť!</string>
+  <string name="deleteStudy">Vymazať štúdiu</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Definitívne vymazať štúdiu? Táto akcia sa nedá vrátit späť! Napíšte názov štúdie pre potvrdenie: %s</string>
   <string name="whereDoYouWantToStudyThat">Kde to chcete študovať?</string>
   <string name="goodMove">Dobrý ťah</string>
   <string name="mistake">Chyba</string>

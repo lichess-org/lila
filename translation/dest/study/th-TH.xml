@@ -99,7 +99,6 @@
   <string name="urlOfTheGame">URL ของเกม</string>
   <string name="loadAGameFromXOrY">โหลดเกมจาก %1$s หรือ %2$s</string>
   <string name="createChapter">สร้างบท</string>
-  <string name="configureLiveBroadcast">สร้างการออกอากาศสด</string>
   <string name="createStudy">สร้างกรณีศึกษา</string>
   <string name="editStudy">แก้ไขกรณีศึกษา</string>
   <string name="visibility">การมองเห็นได้</string>

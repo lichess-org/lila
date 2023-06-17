@@ -319,7 +319,6 @@
   <string name="cancelRematchOffer">Отказаться от реванша</string>
   <string name="viewRematch">Посмотреть матч-реванш</string>
   <string name="confirmMove">Подтвердить ход</string>
-  <string name="enableConfirmationForThisGame">Включить подтверждение для этой партии</string>
   <string name="play">Игра</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
@@ -393,6 +392,12 @@
     <item quantity="few">%s студии</item>
     <item quantity="many">%s студий</item>
     <item quantity="other">%s студий</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s сеанс</item>
+    <item quantity="few">%s сеанса</item>
+    <item quantity="many">%s сеансов</item>
+    <item quantity="other">%s сеансов</item>
   </plurals>
   <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
@@ -756,6 +761,7 @@
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
   <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь на своих ошибках</string>
+  <string name="keyNextLearnFromYourMistakes">Далее (Разобрать свои ошибки)</string>
   <string name="keyNextBlunder">Следующий зевок</string>
   <string name="keyNextMistake">Следующая ошибка</string>
   <string name="keyNextInaccuracy">Следующая неточность</string>

@@ -289,7 +289,6 @@
   <string name="cancelRematchOffer">Avbryt tilbud om omkamp</string>
   <string name="viewRematch">Se omkamp</string>
   <string name="confirmMove">Bekreft trekk</string>
-  <string name="enableConfirmationForThisGame">Skru på bekreftelser for dette partiet</string>
   <string name="play">Spill</string>
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Chatterom</string>

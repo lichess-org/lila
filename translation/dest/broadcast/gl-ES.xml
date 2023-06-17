@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Emisión</string>
+  <string name="broadcasts">Emisións</string>
   <string name="liveBroadcasts">Emisións de torneos en directo</string>
   <string name="newBroadcast">Nova emisión en directo</string>
   <string name="addRound">Engadir unha ronda</string>
   <string name="ongoing">En curso</string>
   <string name="upcoming">Proximamente</string>
   <string name="completed">Completadas</string>
-  <string name="roundName">Número de ronda</string>
+  <string name="roundName">Nome da ronda</string>
   <string name="roundNumber">Número de ronda</string>
   <string name="tournamentName">Nome do torneo</string>
   <string name="tournamentDescription">Nome curto do torneo</string>
   <string name="fullDescription">Descrición completa do evento</string>
-  <string name="fullDescriptionHelp">Descrición longa opcional da retrasmisión. %1$s está dispoñibél. A lonxitude debe ser menor de %2$s caracteres.</string>
-  <string name="sourceUrlOrGameIds">Enlace de orixe ou identificador da partida</string>
-  <string name="sourceUrlHelp">Enlace que Lichess comprobará para obter actualizacións PGN. Debe ser públicamente accesiíbel desde Internet.</string>
+  <string name="fullDescriptionHelp">Descrición longa opcional da retransmisión. %1$s está dispoñíbel. A lonxitude debe ser menor de %2$s caracteres.</string>
+  <string name="sourceUrlOrGameIds">Ligazón de orixe ou identificador da partida</string>
+  <string name="sourceUrlHelp">Ligazón que Lichess comprobará para obter actualizacións dos PGN. Debe ser publicamente accesíbel desde a Internet.</string>
   <string name="gameIdsHelp">Alternativamente, podes introducir ata 64 identificadores de partida, separados por espacios.</string>
   <string name="startDate">Data de inicio na túa zona horaria</string>
   <string name="startDateHelp">Opcional, se sabes cando comeza o evento</string>
@@ -25,6 +25,6 @@
   <string name="currentRoundUrl">Ligazón da ronda actual</string>
   <string name="currentGameUrl">Ligazón da partida actual</string>
   <string name="downloadAllRounds">Descargar todas as partidas</string>
-  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Eliminar definitivamente a ronda e as súas partidas.</string>
-  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round. &quot;Source&quot; refers to the broadcasting source, usually an URL pointing to a PGN file which is continuously updated by the tournament organizers and polled by Lichess to get new moves. The button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source the next time it is polled by Lichess.">Eliminar todas as partidas desta ronda. A emisión terá que estar activa para volver a crealas.</string>
+  <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e as súas partidas.</string>
+  <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta ronda. A emisión terá que estar activa para volver a crealas.</string>
 </resources>

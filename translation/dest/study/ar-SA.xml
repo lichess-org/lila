@@ -125,7 +125,6 @@
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="loadAGameFromXOrY">استيراد لعبة من %1$s او %2$s</string>
   <string name="createChapter">أنشئ الفصل</string>
-  <string name="configureLiveBroadcast">تهيئة بث مباشر</string>
   <string name="createStudy">أنشى الدراسة</string>
   <string name="editStudy">حرر الدراسة</string>
   <string name="visibility">الظهور</string>

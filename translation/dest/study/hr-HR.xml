@@ -113,7 +113,6 @@
   <string name="urlOfTheGame">URL igre</string>
   <string name="loadAGameFromXOrY">Učitaj igru sa %1$s ili %2$s</string>
   <string name="createChapter">Stvori poglavlje</string>
-  <string name="configureLiveBroadcast">Podesi prijenos uživo</string>
   <string name="createStudy">Stvori studiju</string>
   <string name="editStudy">Uredi studiju</string>
   <string name="visibility">Vidljivost</string>

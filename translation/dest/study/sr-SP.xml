@@ -107,7 +107,6 @@
   <string name="urlOfTheGame">Линкови партија, једна по реду</string>
   <string name="loadAGameFromXOrY">Учитајте партије са %1$s или %2$s</string>
   <string name="createChapter">Направи поглавље</string>
-  <string name="configureLiveBroadcast">Подеси пренос уживо</string>
   <string name="createStudy">Направи студију</string>
   <string name="editStudy">Измени студију</string>
   <string name="visibility">Видљивост</string>

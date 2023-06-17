@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">URL a játszmákhoz, soronként egy</string>
   <string name="loadAGameFromXOrY">Játszmák betöltése %1$s vagy %2$s-ról</string>
   <string name="createChapter">Fejezet létrehozása</string>
-  <string name="configureLiveBroadcast">Élő közvetítés beállítása</string>
   <string name="createStudy">Tanulmány létrehozása</string>
   <string name="editStudy">Tanulmány szerkesztése</string>
   <string name="visibility">Láthatóság</string>
