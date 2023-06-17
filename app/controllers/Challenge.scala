@@ -360,7 +360,7 @@ final class Challenge(
             else BadRequest(jsonError("dest and accept user don't match"))
         )
 
-  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { ctx ?=> me =>
+  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write): ctx ?=>
     env.setup.forms.api.open
       .bindFromRequest()
       .fold(
@@ -369,7 +369,7 @@ final class Challenge(
           ChallengeIpRateLimit(req.ipAddress, rateLimitedFu):
             import lila.challenge.Challenge.*
             env.challenge.api
-              .createOpen(config, me)
+              .createOpen(config, ctx.me)
               .map: challenge =>
                 JsonOk:
                   env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
@@ -378,7 +378,6 @@ final class Challenge(
                   )
           .dmap(_ as JSON)
       )
-  }
 
   def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me =>
     NoBot:

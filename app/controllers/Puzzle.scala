@@ -402,28 +402,26 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.batch.nextFor(me, angle, difficulty, nb atMost 50) flatMap
       env.puzzle.jsonView.batch(me)
 
-  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile) {
-    ctx ?=> me =>
-      ctx.body.body
-        .validate[lila.puzzle.PuzzleForm.batch.SolveData]
-        .fold(
-          err => BadRequest(err.toString),
-          data =>
-            val angle = PuzzleAngle findOrMix angleStr
-            for
-              rounds <- me match
-                case Some(me) =>
-                  env.puzzle.finisher.batch(me, angle, data.solutions).map {
-                    _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
-                  }
-                case None =>
-                  data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
-              newMe       <- me.so(env.user.repo.byId)
-              nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb"))
-              result = nextPuzzles ++ Json.obj("rounds" -> rounds)
-            yield Ok(result)
-        )
-  }
+  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
+    ctx.body.body
+      .validate[lila.puzzle.PuzzleForm.batch.SolveData]
+      .fold(
+        err => BadRequest(err.toString),
+        data =>
+          val angle = PuzzleAngle findOrMix angleStr
+          for
+            rounds <- ctx.me match
+              case Some(me) =>
+                env.puzzle.finisher.batch(me, angle, data.solutions).map {
+                  _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
+                }
+              case None =>
+                data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
+            newMe       <- ctx.me.so(env.user.repo.byId)
+            nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb"))
+            result = nextPuzzles ++ Json.obj("rounds" -> rounds)
+          yield Ok(result)
+      )
 
   def mobileBcLoad(nid: Long) = Open:
     negotiate(

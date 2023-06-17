@@ -275,35 +275,33 @@ final class Api(
       result.pipe(asAttachment(env.api.gameApiV2.filename(swiss, if csv then "csv" else "ndjson")))
     }
 
-  def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)() { ctx ?=> me =>
-    val max = me.fold(300) { u => if u is lila.user.User.lichess4545Id then 900 else 500 }
+  def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
+    val max = ctx.me.fold(300) { u => if u is lila.user.User.lichess4545Id then 900 else 500 }
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         addKeepAlive:
           env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames"))
       )(sourceToNdJsonOption)
-  }
 
-  def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)() { ctx ?=> me =>
-    withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax(me), GameId.from): ids =>
+  def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
+    withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         addKeepAlive:
           env.game.gamesByIdsStream(
             streamId,
             initialIds = ids,
-            maxGames = if me.isDefined then 5_000 else 1_000
+            maxGames = if ctx.me.isDefined then 5_000 else 1_000
           )
       )(sourceToNdJsonOption)
-  }
 
-  def gamesByIdsStreamAddIds(streamId: String) = AnonOrScopedBody(parse.tolerantText)() { ctx ?=> me =>
-    withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax(me), GameId.from): ids =>
+  def gamesByIdsStreamAddIds(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
+    withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
       env.game.gamesByIdsStream.addGameIds(streamId, ids)
       jsonOkResult
-  }
 
-  private def gamesByIdsMax(me: Option[lila.user.User]) =
-    me.fold(500) { u => if (u == lila.user.User.challengermodeId) 10_000 else 1000 }
+  private def gamesByIdsMax(using ctx: AnyContext) =
+    ctx.me.fold(500): u =>
+      if u == lila.user.User.challengermodeId then 10_000 else 1000
 
   private def withIdsFromReqBody[Id](
       req: Request[String],

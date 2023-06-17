@@ -182,9 +182,9 @@ final class Setup(
     ttl = 10.minutes,
     maxConcurrency = 1
   )
-  def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile) { ctx ?=> me =>
+  def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile): ctx ?=>
     val reqSri = getAs[Sri]("sri")
-    val author: Either[Result, Either[Sri, lila.user.User]] = me match
+    val author: Either[Result, Either[Sri, lila.user.User]] = ctx.me match
       case Some(u) if u.isBot => Left(notForBotAccounts)
       case Some(u)            => Right(Right(u))
       case None =>
@@ -200,10 +200,10 @@ final class Setup(
           .fold(
             newJsonFormError,
             config =>
-              me.map(_.id).so(env.relation.api.fetchBlocking) flatMap { blocking =>
+              ctx.me.map(_.id).so(env.relation.api.fetchBlocking) flatMap { blocking =>
                 val uniqId = author.fold(_.value, u => s"sri:${u.id}")
                 config.fixColor
-                  .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
+                  .hook(reqSri | Sri(uniqId), ctx.me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
                   case Left(hook) =>
                     PostRateLimit(req.ipAddress, rateLimitedFu):
                       BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
@@ -222,7 +222,6 @@ final class Setup(
 
               }
           )
-  }
 
   def filterForm = Open:
     html.setup.filter(forms.filter)

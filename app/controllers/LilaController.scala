@@ -68,10 +68,12 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous and authenticated requests, with a body */
   def OpenBodyOf[A](parser: BodyParser[A])(f: WebBodyContext[A] ?=> Fu[Result]): Action[A] =
-    Action.async(parser): req =>
-      CSRF(req):
-        webBodyContext(req).flatMap:
-          f(using _)
+    Action.async(parser)(handleOpenBody(f)(using _))
+
+  private def handleOpenBody[A](f: WebBodyContext[A] ?=> Fu[Result])(using req: Request[A]): Fu[Result] =
+    CSRF(req):
+      webBodyContext(req).flatMap:
+        f(using _)
 
   /* Anonymous, authenticated, and oauth requests */
   def OpenOrScoped(selectors: OAuthScope.Selector*)(
@@ -94,19 +96,14 @@ abstract private[controllers] class LilaController(val env: Env)
       webContext(req).flatMap:
         f(using _)
 
-  // def OpenOrScopedBody(selectors: OAuthScope.Selector*)(
-  //     open: BodyContext[_] => Fu[Result],
-  //     scoped: Request[_] => User => Fu[Result]
-  // ): Action[AnyContent] = OpenOrScopedBody(parse.anyContent)(selectors)(auth, scoped)
-
   /* Anonymous, authenticated, and oauth requests with a body */
   def OpenOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
       f: BodyContext[A] ?=> Fu[Result]
   ): Action[A] =
     Action.async(parser): req =>
       if HTTPRequest.isOAuth(req)
-      then ScopedBody(parser)(selectors)(ctx ?=> _ => f(using ctx))(req)
-      else OpenBodyOf(parser)(f)(req)
+      then handleScopedBody[A](selectors)(ctx ?=> _ => f(using ctx))(using req)
+      else handleOpenBody(f)(using req)
 
   /* Anonymous and oauth requests */
   def AnonOrScoped(selectors: OAuthScope.Selector*)(
@@ -114,17 +111,17 @@ abstract private[controllers] class LilaController(val env: Env)
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(ctx ?=> _ => f(using ctx))(using req)
+      then handleScoped(selectors)(_ ?=> _ => f)(using req)
       else f(using minimalContext(req))
 
   /* Anonymous and oauth requests with a body */
   def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
-      f: BodyContext[A] ?=> Option[User] => Fu[Result]
+      f: BodyContext[A] ?=> Fu[Result]
   ): Action[A] =
     Action.async(parser): req =>
       if HTTPRequest.isOAuth(req)
-      then ScopedBody(parser)(selectors)(ctx ?=> user => f(using ctx)(user.some))(req)
-      else f(using minimalBodyContext(req))(none)
+      then handleScopedBody[A](selectors)(_ ?=> _ => f)(using req)
+      else f(using minimalBodyContext(req))
 
   /* Authenticated and oauth requests */
   def AuthOrScoped(selectors: OAuthScope.Selector*)(
@@ -145,17 +142,11 @@ abstract private[controllers] class LilaController(val env: Env)
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
       auth: WebBodyContext[?] ?=> User => Fu[Result],
       scoped: OAuthBodyContext[?] ?=> User => Fu[Result]
-  ): Action[AnyContent] = AuthOrScopedBody(parse.anyContent)(selectors)(auth, scoped)
-
-  /* Authenticated and oauth requests with a body */
-  def AuthOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
-      auth: WebBodyContext[A] ?=> User => Fu[Result],
-      scoped: OAuthBodyContext[A] ?=> User => Fu[Result]
-  ): Action[A] =
-    Action.async(parser): req =>
+  ): Action[AnyContent] =
+    Action.async(parse.anyContent): req =>
       if HTTPRequest.isOAuth(req)
-      then ScopedBody(parser)(selectors)(scoped)(req)
-      else AuthBody(parser)(auth)(req)
+      then handleScopedBody(selectors)(scoped)(using req)
+      else handleAuthBody(auth)(using req)
 
   /* Authenticated requests */
   def Auth(f: WebContext ?=> User => Fu[Result]): Action[Unit] =
@@ -178,10 +169,14 @@ abstract private[controllers] class LilaController(val env: Env)
   def AuthBody[A](
       parser: BodyParser[A]
   )(f: WebBodyContext[A] ?=> User => Fu[Result]): Action[A] =
-    Action.async(parser): req =>
-      CSRF(req):
-        webBodyContext(req).flatMap: ctx =>
-          ctx.me.fold(authenticationFailed(using ctx))(f(using ctx))
+    Action.async(parser)(handleAuthBody(f)(using _))
+
+  private def handleAuthBody[A](f: WebBodyContext[A] ?=> User => Fu[Result])(using
+      req: Request[A]
+  ): Fu[Result] =
+    CSRF(req):
+      webBodyContext(req).flatMap: ctx =>
+        ctx.me.fold(authenticationFailed(using ctx))(f(using ctx))
 
   /* Authenticated requests requiring certain permissions */
   def Secure(perm: Permission.Selector)(
