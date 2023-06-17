@@ -124,9 +124,9 @@ final class SecurityApi(
 
   def oauthScoped(
       req: RequestHeader,
-      scopes: lila.oauth.OAuthScopes
+      required: lila.oauth.OAuthScopes
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    oAuthServer.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
+    oAuthServer.auth(req, required) map { _ map stripRolesOfOAuthUser }
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 

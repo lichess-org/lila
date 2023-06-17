@@ -16,7 +16,7 @@ import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
 import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
-import lila.user.{ Holder, User, UserContext, UserBodyContext }
+import lila.user.{ Holder, User, UserContext }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -80,7 +80,7 @@ abstract private[controllers] class LilaController(val env: Env)
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(scoped)(req)
+      then handleScoped(selectors)(scoped)(using req)
       else handleOpen(open, req)
 
   /* Anonymous, authenticated, and oauth requests */
@@ -117,7 +117,7 @@ abstract private[controllers] class LilaController(val env: Env)
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(ctx ?=> user => f(using ctx)(user.some))(req)
+      then handleScoped(selectors)(ctx ?=> user => f(using ctx)(user.some))(using req)
       else f(using minimalContext(req))(none)
 
   /* Anonymous and oauth requests with a body */
@@ -136,7 +136,7 @@ abstract private[controllers] class LilaController(val env: Env)
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(scoped)(req)
+      then handleScoped(selectors)(scoped)(using req)
       else handleAuth(auth, req)
 
   /* Authenticated and oauth requests with a body */
@@ -216,7 +216,7 @@ abstract private[controllers] class LilaController(val env: Env)
   def Scoped[A](
       parser: BodyParser[A]
   )(selectors: Seq[OAuthScope.Selector])(f: OAuthContext ?=> User => Fu[Result]): Action[A] =
-    Action.async(parser)(handleScoped(selectors)(f))
+    Action.async(parser)(handleScoped(selectors)(f)(using _))
 
   /* OAuth requests */
   def Scoped(
@@ -228,7 +228,7 @@ abstract private[controllers] class LilaController(val env: Env)
   def ScopedBody[A](
       parser: BodyParser[A]
   )(selectors: Seq[OAuthScope.Selector])(f: OAuthBodyContext[A] ?=> User => Fu[Result]): Action[A] =
-    Action.async(parser)(handleScopedBody(selectors)(f))
+    Action.async(parser)(handleScopedBody(selectors)(f)(using _))
 
   /* OAuth requests with a body */
   def ScopedBody(
@@ -238,40 +238,39 @@ abstract private[controllers] class LilaController(val env: Env)
 
   private def handleScoped(
       selectors: Seq[OAuthScope.Selector]
-  )(f: OAuthContext ?=> User => Fu[Result])(req: RequestHeader): Fu[Result] =
-    handleScopedCommon(selectors, req): (scoped, lang) =>
-      val ctx = UserContext(req, scoped.user.some, none, lang)
-      f(using OAuthContext(ctx, scoped.scopes))(scoped.user)
+  )(f: OAuthContext ?=> User => Fu[Result])(using req: RequestHeader): Fu[Result] =
+    handleScopedCommon(selectors): scoped =>
+      f(using oauthContext(scoped))(scoped.user)
 
   private def handleScopedBody[A](
       selectors: Seq[OAuthScope.Selector]
-  )(f: OAuthBodyContext[A] ?=> User => Fu[Result])(req: Request[A]): Fu[Result] =
-    handleScopedCommon(selectors, req): (scoped, lang) =>
-      val ctx = UserBodyContext(req, scoped.user.some, none, lang)
-      f(using OAuthBodyContext(ctx, scoped.scopes))(scoped.user)
+  )(f: OAuthBodyContext[A] ?=> User => Fu[Result])(using req: Request[A]): Fu[Result] =
+    handleScopedCommon(selectors): scoped =>
+      f(using oauthBodyContext(scoped))(scoped.user)
 
-  private def handleScopedCommon(selectors: Seq[OAuthScope.Selector], req: RequestHeader)(
-      f: (OAuthScope.Scoped, Lang) => Fu[Result]
+  private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using req: RequestHeader)(
+      f: OAuthScope.Scoped => Fu[Result]
   ) =
-    val scopes = OAuthScope select selectors
-    env.security.api.oauthScoped(req, scopes).flatMap {
-      case Left(e) => handleScopedFail(scopes, e)
+    val required = OAuthScope select selectors
+    env.security.api.oauthScoped(req, required).flatMap {
+      case Left(e) =>
+        monitorOauth(false)
+        handleScopedFail(required, e)
       case Right(scoped) =>
-        lila.mon.user.oauth.request(true).increment()
-        val lang = getAndSaveLang(req, scoped.user.some)
-        f(scoped, lang) map OAuthServer.responseHeaders(scopes, scoped.scopes)
+        monitorOauth(true)
+        f(scoped) map OAuthServer.responseHeaders(required, scoped.scopes)
     }
 
-  def handleScopedFail(scopes: OAuthScopes, e: OAuthServer.AuthError) = e match
+  def handleScopedFail(required: OAuthScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
     case e @ lila.oauth.OAuthServer.MissingScope(available) =>
-      lila.mon.user.oauth.request(false).increment()
-      OAuthServer
-        .responseHeaders(scopes, available):
-          Forbidden(jsonError(e.message))
+      OAuthServer.responseHeaders(required, available):
+        Forbidden(jsonError(e.message))
     case e =>
-      lila.mon.user.oauth.request(false).increment()
-      OAuthServer.responseHeaders(scopes, OAuthScopes(Nil)):
+      OAuthServer.responseHeaders(required, OAuthScopes(Nil)):
         Unauthorized(jsonError(e.message))
+
+  private def monitorOauth(success: Boolean)(using req: RequestHeader) =
+    lila.mon.user.oauth.request(HTTPRequest.userAgent(req).fold("none")(_.value), success).increment()
 
   /* Authenticated and OAuth requests requiring certain permissions */
   def SecureOrScoped(perm: Permission.Selector)(
