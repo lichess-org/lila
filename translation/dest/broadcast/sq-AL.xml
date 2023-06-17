@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmetime</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s transmetim</item>
+    <item quantity="other">%s transmetime</item>
+  </plurals>
   <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
   <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
   <string name="addRound">Shtoni një raund</string>
@@ -26,4 +30,5 @@
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
   <string name="definitivelyDeleteRound">Fshije përfundimisht raundin dhe lojërat e tij.</string>
   <string name="deleteAllGamesOfThisRound">Fshi krejt lojërat e këtij raundi. Burimi do të duhet të jetë aktiv, që të mund të rikrijohen ato.</string>
+  <string name="editRoundStudy">Përpunoni analizë raundi</string>
 </resources>
