@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.memo.CacheApi
 import lila.security.{ Granter as MasterGranter }
-import lila.user.{ Holder, User }
+import lila.user.{ Me, User }
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,
@@ -61,20 +61,19 @@ final private class ForumTopicApi(
 
   def makeTopic(
       categ: ForumCateg,
-      data: ForumForm.TopicData,
-      me: User
-  ): Fu[ForumTopic] =
+      data: ForumForm.TopicData
+  )(using me: Me): Fu[ForumTopic] =
     topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
       val topic = ForumTopic.make(
         categId = categ.slug,
         slug = slug,
         name = noShouting(data.name),
-        userId = me.id,
+        userId = me.userId,
         troll = me.marks.troll
       )
       val post = ForumPost.make(
         topicId = topic.id,
-        userId = me.id.some,
+        userId = me.userId.some,
         troll = me.marks.troll,
         text = spam.replace(data.post.text),
         lang = lang map (_.language),
@@ -92,12 +91,12 @@ final private class ForumTopicApi(
               promotion.save(me, post.text)
               shutup ! {
                 val text = s"${topic.name} ${post.text}"
-                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
+                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.userId, text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.userId, text)
               }
               if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id))
-                  .toFollowersOf(me.id)
+                timeline ! Propagate(TimelinePost(me.userId, topic.id, topic.name, post.id))
+                  .toFollowersOf(me.userId)
                   .withTeam(categ.team)
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
@@ -170,21 +169,21 @@ final private class ForumTopicApi(
       }.parallel
     }
 
-  def toggleClose(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
+  def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.close(topic.id, topic.open) >> {
-      (MasterGranter.is(_.ModerateForum)(mod) || topic.isAuthor(mod.user)) so {
-        modLog.toggleCloseTopic(mod.id into ModId, categ.id, topic.slug, topic.open)
+      (MasterGranter(_.ModerateForum)(me) || topic.isAuthor(me.user)) so {
+        modLog.toggleCloseTopic(me.user.id into ModId, categ.id, topic.slug, topic.open)
       }
     }
 
-  def toggleSticky(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
+  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.sticky(topic.id, !topic.isSticky) >> {
-      MasterGranter.is(_.ModerateForum)(mod) so
-        modLog.toggleStickyTopic(mod.id into ModId, categ.id, topic.slug, !topic.isSticky)
+      MasterGranter(_.ModerateForum)(me) so
+        modLog.toggleStickyTopic(me.user.id into ModId, categ.id, topic.slug, !topic.isSticky)
     }
 
   def denormalize(topic: ForumTopic): Funit =
-    for {
+    for
       nbPosts       <- postRepo countByTopic topic
       lastPost      <- postRepo lastByTopic topic
       nbPostsTroll  <- postRepo.unsafe countByTopic topic
@@ -203,4 +202,4 @@ final private class ForumTopicApi(
             )
           )
           .void
-    } yield ()
+    yield ()

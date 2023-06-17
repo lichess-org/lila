@@ -28,54 +28,52 @@ final private class StudyInvite(
       study: Study,
       invitedUsername: UserStr,
       getIsPresent: UserId => Fu[Boolean]
-  ): Fu[User] =
-    for {
-      _       <- (study.nbMembers >= maxMembers) so fufail[Unit](s"Max study members reached: $maxMembers")
-      inviter <- userRepo byId byUserId orFail "No such inviter"
-      _ <- (!study.isOwner(inviter.id) && !Granter(_.StudyAdmin)(inviter)) so fufail[Unit](
-        "Only the study owner can invite"
-      )
-      invited <-
-        userRepo
-          .byId(invitedUsername)
-          .map(
-            _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
-          ) orFail "No such invited"
-      _         <- study.members.contains(invited) so fufail[Unit]("Already a member")
-      relation  <- relationApi.fetchRelation(invited.id, byUserId)
-      _         <- relation.has(Block) so fufail[Unit]("This user does not want to join")
-      isPresent <- getIsPresent(invited.id)
-      _ <-
-        if (isPresent || Granter(_.StudyAdmin)(inviter)) funit
-        else
-          prefApi.getPref(invited).map(_.studyInvite).flatMap {
-            case Pref.StudyInvite.ALWAYS => funit
-            case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
-            case Pref.StudyInvite.FRIEND =>
-              if (relation.has(Follow)) funit
-              else fufail("This user only accept study invitations from friends")
-          }
-      _ <- studyRepo.addMember(study, StudyMember make invited)
-      shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
-      rateLimitCost =
-        if (Granter(_.StudyAdmin)(inviter)) 1
-        else if (relation has Follow) 10
-        else if (inviter.roles has "ROLE_COACH") 20
-        else if (inviter.hasTitle) 20
-        else if (inviter.perfs.bestRating >= 2000) 50
-        else 100
-      _ <- shouldNotify so notifyRateLimit.zero(inviter.id, rateLimitCost):
-        notifyApi
-          .notifyOne(
-            invited,
-            lila.notify.InvitedToStudy(
-              invitedBy = inviter.id,
-              studyName = study.name,
-              studyId = study.id
-            )
+  ): Fu[User] = for
+    _       <- (study.nbMembers >= maxMembers) so fufail[Unit](s"Max study members reached: $maxMembers")
+    inviter <- userRepo me byUserId orFail "No such inviter"
+    _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)(inviter)).so:
+      fufail[Unit]("Only the study owner can invite")
+    invited <-
+      userRepo
+        .byId(invitedUsername)
+        .map(
+          _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
+        ) orFail "No such invited"
+    _         <- study.members.contains(invited) so fufail[Unit]("Already a member")
+    relation  <- relationApi.fetchRelation(invited.id, byUserId)
+    _         <- relation.has(Block) so fufail[Unit]("This user does not want to join")
+    isPresent <- getIsPresent(invited.id)
+    _ <-
+      if (isPresent || Granter(_.StudyAdmin)(inviter)) funit
+      else
+        prefApi.getPref(invited).map(_.studyInvite).flatMap {
+          case Pref.StudyInvite.ALWAYS => funit
+          case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
+          case Pref.StudyInvite.FRIEND =>
+            if (relation.has(Follow)) funit
+            else fufail("This user only accept study invitations from friends")
+        }
+    _ <- studyRepo.addMember(study, StudyMember make invited)
+    shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
+    rateLimitCost =
+      if (Granter(_.StudyAdmin)(inviter)) 1
+      else if (relation has Follow) 10
+      else if (inviter.roles has "ROLE_COACH") 20
+      else if (inviter.hasTitle) 20
+      else if (inviter.perfs.bestRating >= 2000) 50
+      else 100
+    _ <- shouldNotify so notifyRateLimit.zero(inviter.userId, rateLimitCost):
+      notifyApi
+        .notifyOne(
+          invited,
+          lila.notify.InvitedToStudy(
+            invitedBy = inviter.userId,
+            studyName = study.name,
+            studyId = study.id
           )
-          .void
-    } yield invited
+        )
+        .void
+  yield invited
 
   def admin(study: Study, user: Holder): Funit =
     studyRepo.coll {

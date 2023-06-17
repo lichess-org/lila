@@ -13,7 +13,7 @@ import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LeaderTeam
 import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, Me }
 import lila.security.Granter
 import java.time.Period
 
@@ -90,22 +90,22 @@ final class TeamApi(
             indexer ! InsertTeam(team)
           }
 
-  def mine(me: User): Fu[List[Team]] =
-    cached teamIdsList me.id flatMap teamRepo.byIdsSortPopular
+  def mine(me: Me): Fu[List[Team]] =
+    cached teamIdsList me.userId flatMap teamRepo.byIdsSortPopular
 
   def isSubscribed = memberRepo.isSubscribed
 
   def subscribe = memberRepo.subscribe
 
-  def countTeamsOf(me: User) =
-    cached teamIdsList me.id dmap (_.size)
+  def countTeamsOf(me: Me) =
+    cached teamIdsList me.userId dmap (_.size)
 
-  def hasJoinedTooManyTeams(me: User) =
+  def hasJoinedTooManyTeams(me: Me) =
     countTeamsOf(me).dmap(_ > Team.maxJoin(me))
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
-  def joinedTeamIdsOfUserAsSeenBy[U](member: U, viewer: Option[User])(using
+  def joinedTeamIdsOfUserAsSeenBy[U](member: U, viewer: Option[Me])(using
       userIdOf: UserIdOf[U]
   ): Fu[List[TeamId]] =
     cached
@@ -113,17 +113,15 @@ final class TeamApi(
       .map(_.take(lila.team.Team.maxJoinCeiling)) flatMap { allIds =>
       if (viewer.exists(_ is member) || viewer.exists(Granter(_.UserModView))) fuccess(allIds)
       else
-        allIds.nonEmpty so {
+        allIds.nonEmpty.so:
           teamRepo.filterHideMembers(allIds) flatMap { hiddenIds =>
-            if (hiddenIds.isEmpty) fuccess(allIds)
+            if hiddenIds.isEmpty then fuccess(allIds)
             else
-              viewer.map(_.id).fold(fuccess(Team.IdsStr.empty))(cached.teamIds) map { viewerTeamIds =>
-                allIds.filter { id =>
+              viewer.map(_.userId).fold(fuccess(Team.IdsStr.empty))(cached.teamIds) map { viewerTeamIds =>
+                allIds.filter: id =>
                   !hiddenIds(id) || viewerTeamIds.contains(id)
-                }
               }
           }
-        }
     }
 
   def countCreatedRecently(me: User): Fu[Int] =
@@ -155,21 +153,20 @@ final class TeamApi(
     else motivateOrJoin(team, me, request)
 
   private def motivateOrJoin(team: Team, me: User, msg: Option[String]) =
-    msg.fold(fuccess[Requesting](Requesting.NeedRequest)) { txt =>
+    msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
       createRequest(team, me, txt) inject Requesting.Joined
-    }
 
   def requestable(teamId: TeamId, user: User): Fu[Option[Team]] =
-    for {
+    for
       teamOption <- teamEnabled(teamId)
       able       <- teamOption.so(requestable(_, user))
-    } yield teamOption ifTrue able
+    yield teamOption ifTrue able
 
   def requestable(team: Team, user: User): Fu[Boolean] =
-    for {
-      belongs   <- belongsTo(team.id, user.id)
+    for
+      belongs   <- belongsTo(team.id, user)
       requested <- requestRepo.exists(team.id, user.id)
-    } yield !belongs && !requested
+    yield !belongs && !requested
 
   def createRequest(team: Team, user: User, msg: String): Funit =
     requestable(team, user) flatMapz {
@@ -317,12 +314,12 @@ final class TeamApi(
       teamIds.nonEmpty so teamRepo.coll.exists($inIds(teamIds) ++ $doc("leaders" -> leader))
     }
 
-  def toggleEnabled(team: Team, by: User, explain: String): Funit =
+  def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     if (
-      lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id ||
-      (team.leaders(by.id) && !team.leaders(team.createdBy))
+      Granter(_.ManageTeam)(me) || me.is(team.createdBy) ||
+      (team.leaders(me.userId) && !team.leaders(team.createdBy))
     )
-      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}: $explain")
+      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me.userId}: $explain")
       if (team.enabled)
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
@@ -330,7 +327,7 @@ final class TeamApi(
           (indexer ! RemoveTeam(team.id))
       else
         teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
-    else teamRepo.setLeaders(team.id, team.leaders - by.id)
+    else teamRepo.setLeaders(team.id, team.leaders - me.userId)
 
   // delete for ever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit =
@@ -343,8 +340,8 @@ final class TeamApi(
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId) contains teamId
 
-  def belongsTo(teamId: TeamId, userId: UserId): Fu[Boolean] =
-    cached.teamIds(userId).dmap(_ contains teamId)
+  def belongsTo[U](teamId: TeamId, u: U)(using idOf: UserIdOf[U]): Fu[Boolean] =
+    cached.teamIds(idOf(u)).dmap(_ contains teamId)
 
   def leads(teamId: TeamId, userId: UserId): Fu[Boolean] =
     teamRepo.leads(teamId, userId)

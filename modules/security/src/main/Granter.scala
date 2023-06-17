@@ -1,20 +1,26 @@
 package lila.security
 
-import lila.user.{ Holder, User }
+import lila.user.{ Holder, User, Me }
 
 object Granter:
 
-  def apply(permission: Permission)(user: User): Boolean =
-    user.enabled.yes && apply(permission, user.roles)
+  def apply(permission: Permission)(me: Me): Boolean =
+    me.enabled.yes && apply(permission, me.roles)
 
-  def apply(f: Permission.Selector)(user: User): Boolean =
-    user.enabled.yes && apply(f(Permission), user.roles)
+  def apply(f: Permission.Selector)(me: Me): Boolean =
+    me.enabled.yes && apply(f(Permission), me.roles)
 
   def is(permission: Permission)(holder: Holder): Boolean =
-    apply(permission)(holder.user)
+    of(permission)(holder.user)
 
   def is(f: Permission.Selector)(holder: Holder): Boolean =
-    apply(f)(holder.user)
+    of(f)(holder.user)
+
+  def of(permission: Permission)(user: User): Boolean =
+    user.enabled.yes && apply(permission, user.roles)
+
+  def of(f: Permission.Selector)(user: User): Boolean =
+    user.enabled.yes && apply(f(Permission), user.roles)
 
   def apply(permission: Permission, roles: Seq[String]): Boolean =
     Permission(roles).exists(_ is permission)
@@ -41,4 +47,4 @@ object Granter:
       (is(_.Shusher)(mod) && user.marks.troll)
     }
 
-  def canCloseAlt(mod: Holder) = apply(_.CloseAccount)(mod.user) && apply(_.ViewPrintNoIP)(mod.user)
+  def canCloseAlt(me: Me) = apply(_.CloseAccount)(me) && apply(_.ViewPrintNoIP)(me)

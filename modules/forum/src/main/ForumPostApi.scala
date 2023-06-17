@@ -7,7 +7,7 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.{ Granter as MasterGranter }
-import lila.user.User
+import lila.user.{ Me, User }
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -29,16 +29,15 @@ final class ForumPostApi(
   def makePost(
       categ: ForumCateg,
       topic: ForumTopic,
-      data: ForumForm.PostData,
-      me: User
-  ): Fu[ForumPost] =
-    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { case (lang, topicUserIds) =>
+      data: ForumForm.PostData
+  )(using me: Me): Fu[ForumPost] =
+    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { (lang, topicUserIds) =>
       val publicMod = MasterGranter(_.PublicMod)(me)
       val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
-        userId = !anonMod option me.id,
+        userId = !anonMod option me.userId,
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
@@ -55,13 +54,13 @@ final class ForumPostApi(
               !categ.quiet so (indexer ! InsertPost(post))
               promotion.save(me, post.text)
               shutup ! {
-                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
+                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.userId, post.text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.userId, post.text)
               }
-              if (anonMod) logAnonPost(me.id, post, edit = false)
-              else if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id)).pipe {
-                  _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
+              if (anonMod) logAnonPost(me.userId, post, edit = false)
+              else if !post.troll && !categ.quiet then
+                timeline ! Propagate(TimelinePost(me.userId, topic.id, topic.name, post.id)).pipe {
+                  _ toFollowersOf me.userId toUsers topicUserIds exceptUser me.userId withTeam categ.team
                 }
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
@@ -70,10 +69,10 @@ final class ForumPostApi(
       }
     }
 
-  def editPost(postId: ForumPostId, newText: String, user: User): Fu[ForumPost] =
+  def editPost(postId: ForumPostId, newText: String)(using me: Me): Fu[ForumPost] =
     get(postId) flatMap { post =>
       post.fold[Fu[ForumPost]](fufail("Post no longer exists.")) {
-        case (_, post) if !post.canBeEditedBy(user) =>
+        case (_, post) if !post.canBeEditedBy(me) =>
           fufail("You are not authorized to modify this post.")
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
@@ -81,8 +80,8 @@ final class ForumPostApi(
           val newPost = post.editPost(nowInstant, spam replace newText)
           (newPost.text != post.text).so {
             postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
-              logAnonPost(user.id, newPost, edit = true)
-            } >>- promotion.save(user, newPost.text)
+              logAnonPost(me.userId, newPost, edit = true)
+            } >>- promotion.save(me, newPost.text)
           } inject newPost
       }
     }

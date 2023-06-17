@@ -130,8 +130,7 @@ case class User(
 
 object User:
 
-  given UserIdOf[User]       = _.id
-  given Conversion[Me, User] = _.value
+  given UserIdOf[User] = _.id
 
   export lila.user.{ Me, UserEnabled as Enabled }
 

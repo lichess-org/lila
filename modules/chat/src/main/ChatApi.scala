@@ -148,12 +148,11 @@ final class ChatApi(
         text: String,
         busChan: BusChan.Select
     ): Funit =
-      coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case ((Some(chat), Some(mod)), Some(user))
-            if isMod(mod) || (busChan(BusChan) == BusChan.Study && isRelayMod(
-              mod
-            )) || scope == ChatTimeout.Scope.Local =>
-          doTimeout(chat, mod, user, reason, scope, text, busChan)
+      coll.byId[UserChat](chatId.value) zip userRepo.me(modId) zip userRepo.byId(userId) flatMap {
+        case ((Some(chat), Some(me)), Some(user))
+            if isMod(me) || (busChan(BusChan) == BusChan.Study && isRelayMod(me)) ||
+              scope == ChatTimeout.Scope.Local =>
+          doTimeout(chat, me, user, reason, scope, text, busChan)
         case _ => funit
       }
 
@@ -182,7 +181,7 @@ final class ChatApi(
 
     private def doTimeout(
         c: UserChat,
-        mod: User,
+        mod: User.Me,
         user: User,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
@@ -212,7 +211,7 @@ final class ChatApi(
           if (isMod(mod) || isRelayMod(mod))
             lila.common.Bus.publish(
               lila.hub.actorApi.mod.ChatTimeout(
-                mod = mod.id,
+                mod = mod.user.id,
                 user = user.id,
                 reason = reason.key,
                 text = text
@@ -236,20 +235,19 @@ final class ChatApi(
         }
       } inject change
 
-    private def isMod(user: User)      = Granter(_.ChatTimeout)(user)
-    private def isRelayMod(user: User) = Granter(_.BroadcastTimeout)(user)
+    private def isMod(me: User.Me)      = Granter(_.ChatTimeout)(me)
+    private def isRelayMod(me: User.Me) = Granter(_.BroadcastTimeout)(me)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
-      list.foreach { r =>
+      list.foreach: r =>
         Bus.publish(OnReinstate(r.chat, r.user), BusChan.Global.chan)
-      }
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled =>
           Writer.preprocessUserInput(t1, user.username.some) flatMap { t2 =>
             val allow =
-              if (user.isBot) !lila.common.String.hasLinks(t2)
+              if user.isBot then !lila.common.String.hasLinks(t2)
               else flood.allowMessage(userId into Flood.Source, t2)
             allow option UserLine(
               user.username,

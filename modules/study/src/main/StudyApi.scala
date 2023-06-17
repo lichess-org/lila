@@ -46,7 +46,7 @@ final class StudyApi(
 
   def byIdAndOwnerOrAdmin(id: StudyId, owner: User) =
     byId(id).map:
-      _.filter(_.isOwner(owner.id) || Granter(_.StudyAdmin)(owner))
+      _.filter(_.isOwner(owner.id) || Granter.of(_.StudyAdmin)(owner))
 
   def isOwnerOrAdmin(id: StudyId, owner: User) = byIdAndOwnerOrAdmin(id, owner).map(_.isDefined)
 

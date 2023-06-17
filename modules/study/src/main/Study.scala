@@ -27,14 +27,14 @@ case class Study(
 
   def owner = members get ownerId
 
-  def isOwner(id: UserId) = ownerId == id
+  def isOwner[U: UserIdOf](u: U) = ownerId is u
 
-  def isMember(id: UserId) = members contains id
+  def isMember[U: UserIdOf](u: U) = members contains u.id
 
   def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
-  def canContribute(id: UserId) =
-    isOwner(id) || members.get(id).exists(_.canContribute) || id == User.lichessId
+  def canContribute[U: UserIdOf](u: U) =
+    isOwner(u) || members.get(u.id).exists(_.canContribute) || u.is(User.lichessId)
 
   def canView(id: Option[UserId]) = !isPrivate || id.exists(members.contains)
 

@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
 import lila.memo.PicfitApi
 import lila.security.Granter
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, Me }
 
 final class UblogApi(
     colls: UblogColls,
@@ -56,9 +56,9 @@ final class UblogApi(
 
   def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
-  def findByUserBlogOrAdmin(id: UblogPostId, user: User): Fu[Option[UblogPost]] =
+  def findByUserBlogOrAdmin(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
     colls.post.byId[UblogPost](id) dmap {
-      _.filter(_.blog == UblogBlog.Id.User(user.id) || Granter(_.ModerateBlog)(user))
+      _.filter(_.blog == UblogBlog.Id.User(me.userId) || Granter(_.ModerateBlog)(me))
     }
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
@@ -71,9 +71,9 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def userBlogPreviewFor(user: User, nb: Int, forUser: Option[User]): Fu[Option[UblogPost.BlogPreview]] =
+  def userBlogPreviewFor(user: User, nb: Int)(me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
-    val canView = fuccess(forUser exists { user.is(_) }) >>|
+    val canView = fuccess(me.exists(_ is user)) >>|
       colls.blog
         .primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier")
         .dmap(_.exists(_ >= UblogBlog.Tier.VISIBLE))

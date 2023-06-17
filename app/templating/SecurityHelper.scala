@@ -7,6 +7,8 @@ import lila.user.{ User, UserContext, Holder }
 
 trait SecurityHelper:
 
+  export Granter.canGrant
+
   given (using ctx: lila.api.AnyContext): UserContext = ctx.userContext
 
   def isGranted(permission: Permission.Selector)(using UserContext): Boolean =
@@ -21,12 +23,10 @@ trait SecurityHelper:
   def isGranted(permission: Permission, user: User): Boolean =
     Granter(permission)(user)
 
-  def canGrant = Granter.canGrant
-
   def canViewRoles(user: User)(using UserContext): Boolean =
     isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
 
   def reportScore(score: lila.report.Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
 
-  def canCloseAlt(using ctx: UserContext): Boolean = ctx.me.map(Holder.apply) so Granter.canCloseAlt
+  def canCloseAlt(using ctx: UserContext): Boolean = ctx.me so Granter.canCloseAlt

@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanText, formatter, into }
 import lila.security.Granter
-import lila.user.User
+import lila.user.Me
 
 final class RelayTourForm:
 
@@ -37,26 +37,26 @@ object RelayTourForm:
       players: Option[RelayPlayers]
   ):
 
-    def update(tour: RelayTour, user: User) =
+    def update(tour: RelayTour, me: Me) =
       tour
         .copy(
           name = name,
           description = description,
           markup = markup,
-          tier = tier ifTrue Granter(_.Relay)(user),
+          tier = tier ifTrue Granter(_.Relay)(me),
           autoLeaderboard = autoLeaderboard,
           players = players
         )
         .reAssignIfOfficial
 
-    def make(user: User) =
+    def make(me: Me) =
       RelayTour(
         _id = RelayTour.makeId,
         name = name,
         description = description,
         markup = markup,
-        ownerId = user.id,
-        tier = tier ifTrue Granter(_.Relay)(user),
+        ownerId = me.userId,
+        tier = tier ifTrue Granter(_.Relay)(me),
         active = false,
         createdAt = nowInstant,
         syncedAt = none,

@@ -20,4 +20,4 @@ final class UserContext(val me: Option[Me], val impersonatedBy: Option[User]):
   def noKid: Boolean = !kid
 
 object UserContext:
-  val anon = new UserContext(none, none)
+  val anon = UserContext(none, none)

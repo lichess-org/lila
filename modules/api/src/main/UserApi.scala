@@ -105,10 +105,10 @@ final class UserApi(
       case ((trophies, shields), revols) =>
         val roleTrophies = trophyApi.roleBasedTrophies(
           u,
-          Granter(_.PublicMod)(u),
-          Granter(_.Developer)(u),
-          Granter(_.Verified)(u),
-          Granter(_.ContentTeam)(u)
+          Granter.of(_.PublicMod)(u),
+          Granter.of(_.Developer)(u),
+          Granter.of(_.Verified)(u),
+          Granter.of(_.ContentTeam)(u)
         )
         UserApi.TrophiesAndAwards(userCache.rankingsOf(u.id), trophies ::: roleTrophies, shields, revols)
     }

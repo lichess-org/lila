@@ -29,7 +29,7 @@ object ServerEval:
         val unlimitedFu =
           fuccess(unlimited) >>|
             fuccess(userId == User.lichessId) >>| userRepo
-              .byId(userId)
+              .me(userId)
               .map(_.exists(Granter(_.Relay)))
         unlimitedFu flatMap { unlimited =>
           chapterRepo.startServerEval(chapter) >>- {

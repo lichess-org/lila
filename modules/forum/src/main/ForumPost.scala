@@ -41,17 +41,15 @@ case class ForumPost(
   def canStillBeEdited =
     updatedOrCreatedAt.plus(ForumPost.permitEditsFor).isAfterNow
 
-  def canBeEditedBy(editingUser: User): Boolean =
+  def canBeEditedBy(me: User.Me): Boolean =
     userId match
-      case Some(userId) if userId == editingUser.id => true
-      case None
-          if (Granter(_.PublicMod)(editingUser) || Granter(_.SeeReport)(editingUser)) && isAnonModPost =>
+      case Some(userId) if me.user is userId => true
+      case None if (Granter(_.PublicMod)(me) || Granter(_.SeeReport)(me)) && isAnonModPost =>
         true
       case _ => false
 
-  def shouldShowEditForm(editingUser: User) =
-    canBeEditedBy(editingUser) &&
-      updatedOrCreatedAt.plus(ForumPost.showEditFormFor).isAfterNow
+  def shouldShowEditForm(me: User.Me) =
+    canBeEditedBy(me) && updatedOrCreatedAt.plus(ForumPost.showEditFormFor).isAfterNow
 
   def editPost(updated: Instant, newText: String): ForumPost =
     val oldVersion = OldVersion(text, updatedOrCreatedAt)

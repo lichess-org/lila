@@ -26,6 +26,9 @@ final class UserRepo(val coll: Coll)(using Executor):
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
+  def me[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Me]] =
+    byId(u).dmap(Me.from(_))
+
   def byIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
     val ids = us.map(idOf.apply).filter(User.noGhost)
     ids.nonEmpty so coll.byIds[User, UserId](ids)
@@ -76,9 +79,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       } yield xx -> yy
     }
 
-  def lichessAnd(id: UserId) = pair(User.lichessId, id) map2 { case (lichess, user) =>
-    Holder(lichess) -> user
-  }
+  def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(User.lichessId, id)
 
   def byOrderedIds(ids: Seq[UserId], readPreference: ReadPreference): Fu[List[User]] =
     coll.byOrderedIds[User, UserId](ids, readPreference = readPreference)(_.id)

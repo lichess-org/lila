@@ -5,7 +5,6 @@ import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Seek
 import lila.user.User
-import lila.user.User.given
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,

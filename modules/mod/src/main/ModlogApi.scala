@@ -8,7 +8,7 @@ import lila.irc.IrcApi
 import lila.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, Me }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using Executor):
 
@@ -16,6 +16,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
+  private given Conversion[Me, ModId]                 = _.userId into ModId
 
   private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
 
@@ -61,8 +62,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def disableTwoFactor(mod: ModId, user: UserId) = add:
     Modlog(mod, user.some, Modlog.disableTwoFactor)
 
-  def closeAccount(mod: ModId, user: UserId) = add:
-    Modlog(mod, user.some, Modlog.closeAccount)
+  def closeAccount(user: UserId)(using me: Me) = add:
+    Modlog(me, user.some, Modlog.closeAccount)
 
   def selfCloseAccount(user: UserId, openReports: List[Report]) = add:
     Modlog(
@@ -87,9 +88,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def setEmail(mod: ModId, user: UserId) = add:
     Modlog(mod, user.some, Modlog.setEmail)
 
-  def deletePost(mod: ModId, user: Option[UserId], text: String) = add:
+  def deletePost(user: Option[UserId], text: String)(using me: Me) = add:
     Modlog(
-      mod,
+      me,
       user,
       Modlog.deletePost,
       details = Some(text.take(400))
