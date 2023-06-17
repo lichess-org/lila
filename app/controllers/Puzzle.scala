@@ -356,12 +356,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       max = getInt("max").map(_ atLeast 1),
       before = getTimestamp("before")
     )
-    apiC
-      .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)):
-        source => Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
+    apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(env.puzzle.activity.stream(config)): source =>
+      Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
   }
 
-  def apiDashboard(days: Int) = AuthOrScopedUnified(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me =>
+  def apiDashboard(days: Int) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me =>
     JsonOptionOk:
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
   }
@@ -395,9 +394,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           Ok(views.html.puzzle.history(user, history))
   }
 
-  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me =>
-    batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
-  }
+  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
+    batchSelect(ctx.me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
 
   private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty"))
   private def batchSelect(me: Option[UserModel], angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int) =

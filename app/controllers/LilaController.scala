@@ -76,21 +76,18 @@ abstract private[controllers] class LilaController(val env: Env)
   /* Anonymous, authenticated, and oauth requests */
   def OpenOrScoped(selectors: OAuthScope.Selector*)(
       open: WebContext ?=> Fu[Result],
-      scoped: OAuthContext ?=> User => Fu[Result]
+      scoped: OAuthContext ?=> Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(scoped)(using req)
+      then handleScoped(selectors)(_ ?=> _ => scoped)(using req)
       else handleOpen(open, req)
 
   /* Anonymous, authenticated, and oauth requests */
   def OpenOrScoped(selectors: OAuthScope.Selector*)(
-      f: AnyContext ?=> Option[User] => Fu[Result]
+      f: AnyContext ?=> Fu[Result]
   ): Action[Unit] =
-    OpenOrScoped(selectors*)(
-      open = ctx ?=> f(ctx.me),
-      scoped = ctx ?=> user => f(user.some)
-    )
+    OpenOrScoped(selectors*)(f, f)
 
   private def handleOpen(f: WebContext ?=> Fu[Result], req: RequestHeader): Fu[Result] =
     CSRF(req):
@@ -113,12 +110,12 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous and oauth requests */
   def AnonOrScoped(selectors: OAuthScope.Selector*)(
-      f: AnyContext ?=> Option[User] => Fu[Result]
+      f: AnyContext ?=> Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(ctx ?=> user => f(using ctx)(user.some))(using req)
-      else f(using minimalContext(req))(none)
+      then handleScoped(selectors)(ctx ?=> _ => f(using ctx))(using req)
+      else f(using minimalContext(req))
 
   /* Anonymous and oauth requests with a body */
   def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
@@ -139,7 +136,7 @@ abstract private[controllers] class LilaController(val env: Env)
       then handleScoped(selectors)(scoped)(using req)
       else handleAuth(auth, req)
 
-  def AuthOrScopedUnified(
+  def AuthOrScoped(
       selectors: OAuthScope.Selector*
   )(f: AnyContext ?=> User => Fu[Result]): Action[Unit] =
     AuthOrScoped(selectors*)(auth = f, scoped = f)

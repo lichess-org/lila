@@ -36,19 +36,14 @@ final class Api(
     views.html.site.bits.api
 
   private val userRateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.api.ip")
-  def user(name: UserStr) =
-    def get(me: Option[lila.user.User])(using AnyContext) =
-      userRateLimit(req.ipAddress, rateLimitedFu):
-        userApi.extended(
-          name,
-          me,
-          withFollows = userWithFollows,
-          withTrophies = getBool("trophies")
-        ) map toApiResult map toHttp
-    OpenOrScoped()(
-      ctx ?=> get(ctx.me),
-      ctx ?=> me => get(me.some)
-    )
+  def user(name: UserStr) = OpenOrScoped(): ctx ?=>
+    userRateLimit(ctx.ip, rateLimitedFu):
+      userApi.extended(
+        name,
+        ctx.me,
+        withFollows = userWithFollows,
+        withTrophies = getBool("trophies")
+      ) map toApiResult map toHttp
 
   private[controllers] def userWithFollows(using req: RequestHeader) =
     HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows")
@@ -187,14 +182,14 @@ final class Api(
     } map toApiResult
 
   def tournamentGames(id: TourId) =
-    AnonOrScoped() { ctx ?=> me =>
+    AnonOrScoped(): ctx ?=>
       env.tournament.tournamentRepo byId id flatMapz { tour =>
         val onlyUserId = getUserStr("player").map(_.id)
         val config = GameApiV2.ByTournamentConfig(
           tour = tour,
           format = GameApiV2.Format byRequest ctx.req,
           flags = gameC.requestPgnFlags(extended = false),
-          perSecond = gamesPerSecond(me)
+          perSecond = gamesPerSecond(ctx.me)
         )
         GlobalConcurrencyLimitPerIP
           .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
@@ -202,7 +197,6 @@ final class Api(
               .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
               .as(gameC gameContentType config)
       }
-    }
 
   def tournamentResults(id: TourId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
@@ -247,13 +241,13 @@ final class Api(
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
     }
 
-  def swissGames(id: SwissId) = AnonOrScoped() { ctx ?=> me =>
+  def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
     env.swiss.cache.swissCache byId id flatMapz { swiss =>
       val config = GameApiV2.BySwissConfig(
         swissId = swiss.id,
         format = GameApiV2.Format byRequest req,
         flags = gameC.requestPgnFlags(extended = false),
-        perSecond = gamesPerSecond(me),
+        perSecond = gamesPerSecond(ctx.me),
         player = getUserStr("player").map(_.id)
       )
       GlobalConcurrencyLimitPerIP
@@ -263,11 +257,9 @@ final class Api(
             .pipe(asAttachmentStream(filename))
             .as(gameC gameContentType config)
     }
-  }
 
-  private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond(
+  private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond:
     30 + me.isDefined.so(20) + me.exists(_.isVerified).so(40)
-  )
 
   def swissResults(id: SwissId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
@@ -464,20 +456,18 @@ final class Api(
   private[controllers] def GlobalConcurrencyLimitPerUserOption[T](
       user: Option[lila.user.User]
   ): Option[SourceIdentity[T]] =
-    user.fold(some[SourceIdentity[T]](identity)) { u =>
+    user.fold(some[SourceIdentity[T]](identity)): u =>
       GlobalConcurrencyLimitUser.compose[T](u.id)
-    }
 
   private[controllers] def GlobalConcurrencyLimitPerIpAndUserOption[T, U: UserIdOf](
-      req: RequestHeader,
-      me: Option[lila.user.User],
       about: Option[U]
-  )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result): Result =
+  )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result)(using ctx: AnyContext): Result =
     val ipLimiter =
-      if me.exists(u => about.exists(u.is(_))) then GlobalConcurrencyGenerousLimitPerIP
+      if ctx.me.exists(u => about.exists(u.is(_)))
+      then GlobalConcurrencyGenerousLimitPerIP
       else GlobalConcurrencyLimitPerIP.download
     ipLimiter.compose[T](req.ipAddress) flatMap { limitIp =>
-      GlobalConcurrencyLimitPerUserOption[T](me) map { limitUser =>
+      GlobalConcurrencyLimitPerUserOption[T](ctx.me) map { limitUser =>
         makeResult(limitIp(limitUser(makeSource)))
       }
     } getOrElse lila.memo.ConcurrencyLimit.limitedDefault(1)

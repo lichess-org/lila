@@ -95,11 +95,11 @@ final class Team(
       (isGranted(_.ModerateForum) && requestModView)
     }
 
-  def users(teamId: TeamId) = AnonOrScoped(_.Team.Read) { ctx ?=> me =>
+  def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
     api teamEnabled teamId flatMapz { team =>
       val canView: Fu[Boolean] =
         if team.publicMembers then fuccess(true)
-        else me.so(u => api.belongsTo(team.id, u.id))
+        else ctx.me.so(u => api.belongsTo(team.id, u.id))
       canView.map:
         if _ then
           apiC.jsonDownload(
@@ -110,7 +110,6 @@ final class Team(
           )
         else Unauthorized
     }
-  }
 
   def tournaments(teamId: TeamId) = Open:
     api teamEnabled teamId flatMapz { team =>
@@ -501,13 +500,12 @@ final class Team(
       then paginator popularTeams page
       else env.teamSearch(text, page)
 
-  def apiTeamsOf(username: UserStr) = AnonOrScoped() { _ ?=> me =>
+  def apiTeamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
     import env.team.jsonView.given
     JsonOk:
-      api.joinedTeamIdsOfUserAsSeenBy(username, me) flatMap api.teamsByIds flatMap { teams =>
+      api.joinedTeamIdsOfUserAsSeenBy(username, ctx.me) flatMap api.teamsByIds flatMap { teams =>
         env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
       }
-  }
 
   def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me =>
     WithOwnedTeamEnabledApi(teamId, me): team =>

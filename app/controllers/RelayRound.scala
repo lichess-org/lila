@@ -132,26 +132,24 @@ final class RelayRound(
           sc flatMapz { doShow(rt, _) }
       ,
       scoped = _ ?=>
-        _ =>
-          env.relay.api.byIdWithTour(id) flatMapz { rt =>
-            env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
-              JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
-            }
+        env.relay.api.byIdWithTour(id) flatMapz { rt =>
+          env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
+            JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
           }
+        }
     )
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
   def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
-  def stream(id: RelayRoundId) = AnonOrScoped() { ctx ?=> me =>
+  def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
-      studyC.CanView(rt.study, me) {
+      studyC.CanView(rt.study, ctx.me) {
         apiC.GlobalConcurrencyLimitPerIP
           .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)): source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
       }(Unauthorized, Forbidden)
     }
-  }
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) = Open:
     WithRoundAndTour(ts, rs, id): rt =>

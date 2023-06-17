@@ -52,13 +52,14 @@ trait AnyContext:
   def lang: Lang
   export userContext.{ me, impersonatedBy, userId, is, kid, noKid, troll }
   export me.{ isDefined as isAuth, isEmpty as isAnon }
-  def isBot               = me.exists(_.isBot)
-  def noBot               = !isBot
-  def isAppealUser        = me.exists(_.enabled.no)
-  def ip                  = HTTPRequest ipAddress req
-  val scopes: TokenScopes = TokenScopes(Nil)
-  def isMobile            = scopes.has(_.Web.Mobile)
-  def isWebAuth: Boolean
+  def isBot                = me.exists(_.isBot)
+  def noBot                = !isBot
+  def isAppealUser         = me.exists(_.enabled.no)
+  def ip                   = HTTPRequest ipAddress req
+  val scopes: TokenScopes  = TokenScopes(Nil)
+  def isMobile             = scopes.has(_.Web.Mobile)
+  def isWebAuth: Boolean   = false
+  def isOauthAuth: Boolean = false
 
 trait BodyContext[A] extends AnyContext:
   val body: Request[A]
@@ -72,8 +73,8 @@ class WebContext(
 ) extends AnyContext:
 
   export pageData.{ teamNbRequests, nbChallenges, nbNotifications, pref, blindMode as blind, nonce, hasClas }
-  def isWebAuth = isAuth
-  def noBlind   = !blind
+  override def isWebAuth = isAuth
+  def noBlind            = !blind
 
   def currentTheme      = lila.pref.Theme(pref.theme)
   def currentTheme3d    = lila.pref.Theme3d(pref.theme3d)
@@ -112,7 +113,6 @@ final class WebBodyContext[A](
     data: PageData
 ) extends WebContext(body, lang, userContext, data)
     with BodyContext[A]:
-
   override def withLang(l: Lang) = WebBodyContext(body, l, userContext, data)
 
 /* Cannot render a lichess page. Might be authenticated oauth and have scopes */
@@ -122,7 +122,7 @@ class OAuthContext(
     val userContext: UserContext,
     override val scopes: TokenScopes
 ) extends AnyContext:
-  def isWebAuth = false
+  override def isOauthAuth: Boolean = me.isDefined
 
 final class OAuthBodyContext[A](
     val body: Request[A],
@@ -139,7 +139,6 @@ class MinimalContext(
     val userContext: UserContext
 ) extends AnyContext:
   lazy val lang = lila.i18n.I18nLangPicker(req)
-  def isWebAuth = false
 
 final class MinimalBodyContext[A](
     val body: Request[A],

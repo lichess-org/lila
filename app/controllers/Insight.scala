@@ -11,8 +11,8 @@ import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env):
 
-  def refresh(username: UserStr) = OpenOrScoped(): me =>
-    AccessibleApi(username)(me): user =>
+  def refresh(username: UserStr) = OpenOrScoped(): ctx ?=>
+    AccessibleApi(username)(ctx.me): user =>
       env.insight.api indexAll user inject Ok
 
   def index(username: UserStr) =
@@ -27,7 +27,7 @@ final class Insight(env: Env) extends LilaController(env):
             case Accepts.Html() => doPath(user, InsightMetric.MeanCpl.key, InsightDimension.Perf.key, "")
             case Accepts.Json() => jsonStatus(user)
       ,
-      scoped = _ ?=> me => AccessibleApi(username)(me.some)(jsonStatus)
+      scoped = ctx ?=> AccessibleApi(username)(ctx.me)(jsonStatus)
     )
 
   def path(username: UserStr, metric: String, dimension: String, filters: String) = Open:

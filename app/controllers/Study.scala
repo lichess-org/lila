@@ -418,17 +418,16 @@ final class Study(
           doPgn(study)
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
-  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { ctx ?=> me =>
+  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
         if ctx.req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
         else
           PgnRateLimitPerIp[Fu[Result]](req.ipAddress, rateLimited, msg = id):
-            CanView(study, me) {
+            CanView(study, ctx.me) {
               doPgn(study)
             }(privateUnauthorizedText, privateForbiddenText)
     }
-  }
 
   private def doPgn(study: StudyModel)(using RequestHeader) =
     Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
@@ -441,7 +440,7 @@ final class Study(
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)
 
-  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) = AnonOrScoped(_.Study.Read) { ctx ?=> _ =>
+  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) = AnonOrScoped(_.Study.Read): ctx ?=>
     doChapterPgn(
       id,
       chapterId,
@@ -449,7 +448,6 @@ final class Study(
       _ => fuccess(privateUnauthorizedText),
       _ => fuccess(privateForbiddenText)
     )
-  }
 
   private def doChapterPgn(
       id: StudyId,
@@ -470,30 +468,31 @@ final class Study(
       }
     }
 
-  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read) { me =>
-    val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
+  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read): ctx ?=>
+    val name =
+      if username.value == "me"
+      then ctx.me.fold(UserName("me"))(_.username)
+      else username.into(UserName)
     val userId = name.id
-    val isMe   = me.exists(_ is userId)
+    val isMe   = ctx.me.exists(_ is userId)
     val makeStream = env.study.studyRepo
       .sourceByOwner(userId, isMe)
       .flatMapConcat(env.study.pgnDump.chaptersOf(_, requestPgnFlags))
       .throttle(16, 1.second)
       .withAttributes:
         akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
-    apiC.GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some)(makeStream): source =>
+    apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
         .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
         .as(pgnContentType)
-  }
 
-  def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read) { me =>
-    val isMe = me.exists(_ is username)
+  def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read): ctx ?=>
+    val isMe = ctx is username
     apiC.jsonDownload:
       env.study.studyRepo
         .sourceByOwner(username.id, isMe)
         .throttle(if isMe then 50 else 20, 1.second)
         .map(lila.study.JsonView.metadata)
-  }
 
   private def requestPgnFlags(using RequestHeader) =
     lila.study.PgnDump.WithFlags(

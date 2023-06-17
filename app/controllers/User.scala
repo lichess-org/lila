@@ -544,7 +544,7 @@ final class User(
               }
         )
 
-  def autocomplete = OpenOrScoped(): me =>
+  def autocomplete = OpenOrScoped(): ctx ?=>
     getUserStr("term").flatMap(UserModel.validateId) match
       case None                          => BadRequest("No search term provided")
       case Some(id) if getBool("exists") => env.user.repo exists id map JsonOk
@@ -554,9 +554,9 @@ final class User(
             case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
             case (_, Some(swissId), _) =>
               env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-            case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, me, 10)
+            case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, ctx.me, 10)
             case _ =>
-              me.ifTrue(getBool("friend")) match
+              ctx.me.ifTrue(getBool("friend")) match
                 case Some(follower) =>
                   env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
                     case Nil     => env.user.cached userIdsLike term

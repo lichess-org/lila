@@ -115,7 +115,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def delete(id: TourModel.Id) = AuthOrScopedUnified(_.Study.Write) { _ ?=> me =>
+  def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me =>
     ???
   }
 
@@ -130,23 +130,21 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         case _ => redirectToTour(tour)
     }
 
-  def pgn(id: TourModel.Id) = OpenOrScoped() { ctx ?=> me =>
+  def pgn(id: TourModel.Id) = OpenOrScoped(): ctx ?=>
     env.relay.api tourById id mapz { tour =>
       val canViewPrivate = ctx.isWebAuth || ctx.scopes.has(_.Study.Read)
       apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
-        env.relay.pgnStream.exportFullTourAs(tour, me ifTrue canViewPrivate)
+        env.relay.pgnStream.exportFullTourAs(tour, ctx.me ifTrue canViewPrivate)
       ): source =>
         asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn"):
           Ok chunked source as pgnContentType
     }
-  }
 
   def apiIndex = Anon:
-    apiC
-      .jsonDownload:
-        env.relay.api
-          .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
-          .map(env.relay.jsonView.apply(_, withUrls = true))
+    apiC.jsonDownload:
+      env.relay.api
+        .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
+        .map(env.relay.jsonView.apply(_, withUrls = true))
 
   private def redirectToTour(tour: TourModel)(using ctx: WebContext): Fu[Result] =
     env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
