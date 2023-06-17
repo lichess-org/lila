@@ -163,13 +163,16 @@ object SetupForm:
         optionalDays,
         "rated" -> boolean,
         "fen"   -> fenField,
-        "users" -> optional(
+        "users" -> optional:
           LilaForm.strings
             .separator(",")
             .verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
             .transform[List[UserStr]](UserStr.from(_), UserStr.raw(_))
-        ),
-        "rules" -> optional(gameRules)
+        ,
+        "rules" -> optional(gameRules),
+        "expiresAt" -> optional:
+          inTheFuture(ISOInstantOrTimestamp.mapping)
+            .verifying("Open challenges must expire within 2 weeks", _.isBefore(nowInstant.plusWeeks(2)))
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)

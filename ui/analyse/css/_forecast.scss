@@ -26,7 +26,14 @@
   }
 
   .entry {
-    @extend %flex-center-nowrap;
+    @extend %button-none, %flex-center-nowrap;
+    width: 100%;
+
+    cursor: pointer;
+    &:hover {
+      background: $c-primary;
+      color: $c-primary-over;
+    }
 
     @include padding-direction(0.7em, 0.1em, 0.7em, 0.6em);
 

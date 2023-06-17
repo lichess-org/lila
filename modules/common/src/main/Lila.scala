@@ -25,14 +25,10 @@ object Lila extends Lila:
     import akka.util.Timeout
     import scala.concurrent.duration.*
 
-    given short: Timeout  = seconds(1)
-    given large: Timeout  = seconds(5)
-    given larger: Timeout = seconds(30)
+    given short: Timeout = apply(1.second)
+    given long: Timeout  = apply(5.seconds)
 
-    def apply(duration: FiniteDuration) = Timeout(duration)
-    def millis(s: Int): Timeout         = Timeout(s.millis)
-    def seconds(s: Int): Timeout        = Timeout(s.seconds)
-    def minutes(m: Int): Timeout        = Timeout(m.minutes)
+    def apply(duration: FiniteDuration) = akka.util.Timeout(duration)
 
   def some[A](a: A): Option[A] = Some(a)
 

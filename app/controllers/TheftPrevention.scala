@@ -8,7 +8,7 @@ import play.api.mvc.*
 private[controllers] trait TheftPrevention { self: LilaController =>
 
   protected def PreventTheft(pov: Pov)(ok: => Fu[Result])(using WebContext): Fu[Result] =
-    if (isTheft(pov)) fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name)))
+    if isTheft(pov) then Redirect(routes.Round.watcher(pov.gameId, pov.color.name))
     else ok
 
   protected def isTheft(pov: Pov)(using WebContext) =
@@ -37,8 +37,6 @@ private[controllers] trait TheftPrevention { self: LilaController =>
         .map { Pov(game, _) }
 
   protected lazy val theftResponse = Unauthorized(
-    jsonError(
-      "This game requires authentication"
-    )
+    jsonError("This game requires authentication")
   ) as JSON
 }

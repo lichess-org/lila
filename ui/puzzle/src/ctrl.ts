@@ -17,7 +17,7 @@ import { CevalCtrl } from 'ceval';
 import { makeVoiceMove, VoiceMove, RootCtrl as VoiceRoot } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, RootController as KeyboardRoot } from 'keyboardMove';
 import { defer } from 'common/defer';
-import { defined, prop, Prop, propWithEffect } from 'common';
+import { defined, prop, Prop, propWithEffect, toggle } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
@@ -28,7 +28,6 @@ import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
-import { toggle as boardMenuToggle } from 'board/menu';
 import { Redraw } from 'common/snabbdom';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
@@ -52,7 +51,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
   const session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
 
-  const menu = boardMenuToggle(redraw);
+  const menu = toggle(false, redraw);
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -93,7 +92,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       },
       chessground: cg,
       sendMove: playUserMove,
-      auxMove: playUserMove,
+      auxMove: auxMove,
       redraw: this.redraw,
       flipNow: flip,
       userJumpPlyDelta,
@@ -196,6 +195,18 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function showGround(g: CgApi): void {
     g.set(makeCgOpts());
+  }
+
+  function auxMove(orig: Key, dest: Key, role?: Role) {
+    withGround(g => {
+      if (!role) {
+        g.move(orig, dest);
+        g.state.movable.dests = undefined;
+        g.state.turnColor = opposite(g.state.turnColor);
+        if (promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.promotionHook() })) return;
+      }
+      playUserMove(orig, dest, role);
+    });
   }
 
   function userMove(orig: Key, dest: Key): void {

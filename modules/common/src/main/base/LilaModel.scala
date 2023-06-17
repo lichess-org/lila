@@ -17,17 +17,33 @@ trait LilaModel:
       def value(a: A): Double = w.value(a)
     def toInt[A](a: A)(using p: Percent[A]): Int = Math.round(p.value(a)).toInt // round to closest
 
-  opaque type GameAnyId = String
-  object GameAnyId extends OpaqueString[GameAnyId]
-
   opaque type GameId = String
-  object GameId extends OpaqueString[GameId]
+  object GameId extends OpaqueString[GameId]:
+    def size                              = 8
+    private val idRegex                   = """[\w-]{8}""".r
+    def validate(id: GameId)              = idRegex matches id.value
+    def take(str: String): GameId         = GameId(str take size)
+    def from(str: String): Option[GameId] = Some(take(str)).filter(validate)
 
   opaque type GameFullId = String
-  object GameFullId extends OpaqueString[GameFullId]
+  object GameFullId extends OpaqueString[GameFullId]:
+    val size                                                      = 12
+    def apply(gameId: GameId, playerId: GamePlayerId): GameFullId = s"$gameId$playerId"
+    extension (e: GameFullId)
+      def gameId: GameId         = GameId.take(e)
+      def playerId: GamePlayerId = GamePlayerId(e drop GameId.size)
+
+  // Either a GameId or a GameFullId
+  opaque type GameAnyId = String
+  object GameAnyId extends OpaqueString[GameAnyId]:
+    extension (e: GameAnyId)
+      def gameId: GameId                 = GameId.take(e)
+      def fullId: Option[GameFullId]     = if e.length == GameFullId.size then Some(e) else None
+      def playerId: Option[GamePlayerId] = fullId.map(GameFullId.playerId)
 
   opaque type GamePlayerId = String
-  object GamePlayerId extends OpaqueString[GamePlayerId]
+  object GamePlayerId extends OpaqueString[GamePlayerId]:
+    val size = 4
 
   opaque type Win = Boolean
   object Win extends YesNo[Win]

@@ -148,6 +148,25 @@ function voiceDisable() {
 }
 
 function renderHelpModal(ctrl: VoiceCtrl) {
+  const showMoveList = (el: Cash) => {
+    let html = '<table id="big-table"><tbody>';
+    const all =
+      ctrl
+        .module()
+        ?.allPhrases()
+        ?.sort((a, b) => a[0].localeCompare(b[0])) ?? [];
+    const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
+    const rows = Math.ceil(all.length / cols);
+    for (let row = 0; row < rows; row++) {
+      html += '<tr>';
+      for (let i = row; i < all.length; i += rows) {
+        html += `<td>${all[i][0]}</td><td>${all[i][1]}</td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    el.find('.scrollable').html(html);
+  };
   return snabModal({
     class: `voice-move-help`,
     content: [h('div.scrollable', spinner())],
@@ -160,6 +179,11 @@ function renderHelpModal(ctrl: VoiceCtrl) {
           : Promise.resolve({ entries: [] }),
         xhr.text(xhr.url(`/help/voice/${ctrl.moduleId}`, {})),
       ]);
+
+      if (ctrl.showHelp() === 'list') {
+        showMoveList(el);
+        return;
+      }
       // using lexicon instead of crowdin translations for moves/commands
       el.find('.scrollable').html(html);
       const valToWord = (val: string, phonetic: boolean) =>
@@ -172,25 +196,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
           .map(v => tryPhonetic(v))
           .join(' ');
       });
-      el.find('#all-phrases-button').on('click', () => {
-        let html = '<table id="big-table"><tbody>';
-        const all =
-          ctrl
-            .module()
-            ?.allPhrases()
-            ?.sort((a, b) => a[0].localeCompare(b[0])) ?? [];
-        const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
-        const rows = Math.ceil(all.length / cols);
-        for (let row = 0; row < rows; row++) {
-          html += '<tr>';
-          for (let i = row; i < all.length; i += rows) {
-            html += `<td>${all[i][0]}</td><td>${all[i][1]}</td>`;
-          }
-          html += '</tr>';
-        }
-        html += '</tbody></table>';
-        el.find('.scrollable').html(html);
-      });
+      el.find('#all-phrases-button').on('click', () => showMoveList(el));
     },
   });
 }

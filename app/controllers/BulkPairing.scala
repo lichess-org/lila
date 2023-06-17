@@ -15,13 +15,13 @@ final class BulkPairing(env: Env) extends LilaController(env):
 
   def delete(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me =>
     env.challenge.bulk.deleteBy(id, me) flatMap {
-      if _ then jsonOkResult.toFuccess else notFoundJson()
+      if _ then jsonOkResult else notFoundJson()
     }
   }
 
   def startClocks(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me =>
     env.challenge.bulk.startClocks(id, me) flatMap {
-      if _ then jsonOkResult.toFuccess else notFoundJson()
+      if _ then jsonOkResult else notFoundJson()
     }
   }
 
@@ -34,23 +34,20 @@ final class BulkPairing(env: Env) extends LilaController(env):
         data =>
           env.setup.bulk(data, me) flatMap {
             case Left(SetupBulk.ScheduleError.RateLimited) =>
-              TooManyRequests(
+              TooManyRequests:
                 jsonError(s"Ratelimited! Max games per 10 minutes: ${SetupBulk.maxGames}")
-              ).toFuccess
             case Left(SetupBulk.ScheduleError.BadTokens(tokens)) =>
               import lila.setup.SetupBulk.BadToken
               import play.api.libs.json.*
-              BadRequest(
+              BadRequest:
                 Json.obj(
-                  "tokens" -> JsObject {
+                  "tokens" -> JsObject:
                     tokens.map { case BadToken(token, error) =>
                       token.value -> JsString(error.message)
                     }
-                  }
                 )
-              ).toFuccess
             case Left(SetupBulk.ScheduleError.DuplicateUsers(users)) =>
-              BadRequest(Json.obj("duplicateUsers" -> users)).toFuccess
+              BadRequest(Json.obj("duplicateUsers" -> users))
             case Right(bulk) =>
               env.challenge.bulk.schedule(bulk) map {
                 case Left(error) => BadRequest(jsonError(error))

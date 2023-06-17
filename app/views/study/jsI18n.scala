@@ -107,7 +107,6 @@ object jsI18n:
       urlOfTheGame,
       loadAGameFromXOrY,
       createChapter,
-      configureLiveBroadcast,
       createStudy,
       editStudy,
       visibility,

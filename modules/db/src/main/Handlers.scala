@@ -59,20 +59,6 @@ trait Handlers:
   def percentAsIntHandler[A](using p: Percent[A]): BSONHandler[A] =
     doubleAsIntHandler(p.value, p.apply, percentBsonMultiplier)
 
-  // def ratioAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
-  //   doubleAsIntHandler(to, from, ratioBsonMultiplier)
-
-  def floatIsoHandler[A](using iso: FloatIso[A]): BSONHandler[A] =
-    BSONFloatHandler.as[A](iso.from, iso.to)
-  def floatAnyValHandler[A](to: A => Float, from: Float => A): BSONHandler[A] =
-    floatIsoHandler(using Iso(from, to))
-
-  def bigDecimalIsoHandler[A](using iso: BigDecimalIso[A]): BSONHandler[A] =
-    BSONDecimalHandler.as[A](iso.from, iso.to)
-
-  def bigDecimalAnyValHandler[A](to: A => BigDecimal, from: BigDecimal => A): BSONHandler[A] =
-    bigDecimalIsoHandler(using Iso(from, to))
-
   def instantIsoHandler[A](using iso: Iso[Instant, A]): BSONHandler[A] =
     instantHandler.as[A](iso.from, iso.to)
 

@@ -24,38 +24,35 @@ final class Main(
   )
 
   def toggleBlindMode = OpenBody:
-    fuccess:
-      blindForm
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest,
-          { case (enable, redirect) =>
-            Redirect(redirect) withCookies env.lilaCookie.cookie(
-              env.api.config.accessibility.blindCookieName,
-              if (enable == "0") "" else env.api.config.accessibility.hash,
-              maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
-              httpOnly = true.some
-            )
-          }
-        )
+    blindForm
+      .bindFromRequest()
+      .fold(
+        _ => BadRequest,
+        { case (enable, redirect) =>
+          Redirect(redirect) withCookies env.lilaCookie.cookie(
+            env.api.config.accessibility.blindCookieName,
+            if (enable == "0") "" else env.api.config.accessibility.hash,
+            maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
+            httpOnly = true.some
+          )
+        }
+      )
 
-  def handlerNotFound(req: RequestHeader) = reqToCtx(req) map { renderNotFound(using _) }
+  def handlerNotFound(req: RequestHeader) = webContext(req) map { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
-    import makeTimeout.large
+    import makeTimeout.long
     env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
       Ok(if (valid) 1 else 0)
     }
 
   def webmasters = Open:
     pageHit
-    fuccess:
-      html.site.page.webmasters
+    html.site.page.webmasters
 
   def lag = Open:
     pageHit
-    fuccess:
-      html.site.lag()
+    html.site.lag()
 
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
@@ -67,8 +64,7 @@ final class Main(
 
   def dailyPuzzleSlackApp = Open:
     pageHit
-    fuccess:
-      html.site.dailyPuzzleSlackApp()
+    html.site.dailyPuzzleSlackApp()
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -77,71 +73,63 @@ final class Main(
       fullId = id,
       name = get("n") | "?"
     )
-    NoContent.toFuccess
+    NoContent
 
   val robots = Anon:
-    fuccess:
-      Ok:
-        if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-        then lila.api.StaticContent.robotsTxt
-        else "User-agent: *\nDisallow: /"
+    Ok:
+      if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
+      then lila.api.StaticContent.robotsTxt
+      else "User-agent: *\nDisallow: /"
 
   def manifest = Anon:
-    fuccess:
-      JsonOk:
-        lila.api.StaticContent.manifest(env.net)
+    JsonOk:
+      lila.api.StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit
-    Ok(html.site.bits.getFishnet()).toFuccess
+    html.site.bits.getFishnet()
 
   def costs = Anon:
-    pageHit(req)
-    fuccess:
-      Redirect:
-        "https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview"
+    pageHit
+    Redirect:
+      "https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview"
 
   def verifyTitle = Anon:
-    pageHit(req)
-    fuccess:
-      Redirect:
-        "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
+    pageHit
+    Redirect:
+      "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
 
   def contact = Open:
     pageHit
-    Ok(html.site.contact()).toFuccess
+    html.site.contact()
 
   def faq = Open:
     pageHit
-    Ok(html.site.faq()).toFuccess
+    html.site.faq()
 
   def temporarilyDisabled = Open:
     pageHit
-    NotImplemented(html.site.message.temporarilyDisabled).toFuccess
+    NotImplemented(html.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    Ok(html.site.helpModal.keyboardMove).toFuccess
+    html.site.helpModal.keyboardMove
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move"   => Ok(html.site.helpModal.voiceMove).toFuccess
-      case "coords" => Ok(html.site.helpModal.voiceCoords).toFuccess
-      case _        => NotFound(s"Unknown voice help module: $module").toFuccess
+      case "move"   => html.site.helpModal.voiceMove
+      case "coords" => html.site.helpModal.voiceCoords
+      case _        => NotFound(s"Unknown voice help module: $module")
 
   def movedPermanently(to: String) = Anon:
-    MovedPermanently(to).toFuccess
+    MovedPermanently(to)
 
   def instantChess = Open:
     pageHit
-    if ctx.isAuth
-    then fuccess(Redirect(routes.Lobby.home))
+    if ctx.isAuth then Redirect(routes.Lobby.home)
     else
-      fuccess:
-        Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
-          env.lilaCookie.withSession(remember = true) { s =>
-            s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
-          }
-        )
+      Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies:
+        env.lilaCookie.withSession(remember = true): s =>
+          s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
   def legacyQaQuestion(id: Int, slug: String) = Open:
     MovedPermanently:
@@ -165,7 +153,6 @@ final class Main(
         case 46   => s"$faq#name"
         case 122  => s"$faq#marks"
         case _    => faq
-    .toFuccess
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
@@ -182,5 +169,5 @@ final class Main(
         env.memo.picfitApi.bodyImage
           .upload(rel = rel, image = image, me = me.id, ip = ctx.ip)
           .map(url => JsonOk(Json.obj("imageUrl" -> url)))
-      case None => fuccess(JsonBadRequest(jsonError("Image content only")))
+      case None => JsonBadRequest(jsonError("Image content only"))
   }

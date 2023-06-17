@@ -25,18 +25,17 @@ final class Search(env: Env) extends LilaController(env):
 
   def index(p: Int) = OpenBody:
     env.game.cached.nbTotal flatMap { nbGames =>
-      if ctx.isAnon
-      then
+      if ctx.isAnon then
         negotiate(
-          html = Unauthorized(html.search.login(nbGames)).toFuccess,
-          api = _ => Unauthorized(jsonError("Login required")).toFuccess
+          html = Unauthorized(html.search.login(nbGames)),
+          api = _ => Unauthorized(jsonError("Login required"))
         )
       else
         NoCrawlers:
           val page = p atLeast 1
           Reasonable(page, config.Max(100)):
             val cost = scala.math.sqrt(page.toDouble).toInt
-            def limited = fuccess:
+            def limited =
               val form = searchForm
                 .bindFromRequest()
                 .withError(
@@ -50,7 +49,7 @@ final class Search(env: Env) extends LilaController(env):
                   html = searchForm
                     .bindFromRequest()
                     .fold(
-                      failure => BadRequest(html.search.index(failure, none, nbGames)).toFuccess,
+                      failure => BadRequest(html.search.index(failure, none, nbGames)),
                       data =>
                         data.nonEmptyQuery
                           .so: query =>
@@ -65,9 +64,9 @@ final class Search(env: Env) extends LilaController(env):
                       .bindFromRequest()
                       .fold(
                         _ =>
-                          BadRequest {
+                          BadRequest:
                             jsonError("Could not process search query")
-                          }.toFuccess,
+                        ,
                         data =>
                           data.nonEmptyQuery so { query =>
                             env.gameSearch.paginator(query, page) dmap some
@@ -77,11 +76,10 @@ final class Search(env: Env) extends LilaController(env):
                                 Ok(_)
                               }
                             case None =>
-                              BadRequest(jsonError("Could not process search query")).toFuccess
+                              BadRequest(jsonError("Could not process search query"))
                           } recover { _ =>
-                            InternalServerError(
+                            InternalServerError:
                               jsonError("Sorry, we can't process that query at the moment")
-                            )
                           }
                       )
                 )

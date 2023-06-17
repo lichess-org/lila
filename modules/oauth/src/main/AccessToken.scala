@@ -12,13 +12,13 @@ case class AccessToken(
     createdAt: Option[Instant],
     description: Option[String], // for personal access tokens
     usedAt: Option[Instant] = None,
-    scopes: List[OAuthScope],
+    scopes: OAuthScopes,
     clientOrigin: Option[String],
     expires: Option[Instant]
 ):
   def isBrandNew = createdAt.exists(nowInstant.minusSeconds(5).isBefore)
 
-  def isDangerous = scopes.exists(OAuthScope.dangerList.contains)
+  def isDangerous = scopes.intersects(OAuthScope.dangerList)
 
 object AccessToken:
 
@@ -69,7 +69,7 @@ object AccessToken:
         createdAt = r.getO[Instant](createdAt),
         description = r strO description,
         usedAt = r.getO[Instant](usedAt),
-        scopes = r.get[List[OAuthScope]](scopes),
+        scopes = r.get[OAuthScopes](scopes),
         clientOrigin = r strO clientOrigin,
         expires = r.getO[Instant](expires)
       )

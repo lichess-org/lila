@@ -68,7 +68,7 @@ final private class ChapterMaker(
       .ifFalse(data.isDefaultName)
       .orElse:
         StudyChapterName.from:
-          parsed.tags("Event").orElse(vsFromPgnTags).filter(_.nonEmpty)
+          vsFromPgnTags.orElse(parsed.tags("Event")).filter(_.nonEmpty)
       .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, tags: Tags = Tags.empty): Color =
@@ -182,8 +182,8 @@ final private class ChapterMaker(
   @scala.annotation.tailrec
   private def parseGame(str: String): Fu[Option[Game]] =
     str match
-      case s if s.lengthIs == Game.gameIdSize => gameRepo game GameId(s)
-      case s if s.lengthIs == Game.fullIdSize => gameRepo game Game.strToId(s)
+      case s if s.lengthIs == GameId.size     => gameRepo game GameId(s)
+      case s if s.lengthIs == GameFullId.size => gameRepo game GameId.take(s)
       case UrlRegex(id)                       => parseGame(id)
       case _                                  => fuccess(none)
 
@@ -204,10 +204,10 @@ private[study] object ChapterMaker:
     def isGamebook = mode == Mode.Gamebook
     def isConceal  = mode == Mode.Conceal
 
-  sealed abstract class Orientation(val key: String, val resolve: Option[Color])
+  enum Orientation(val key: String, val resolve: Option[Color]):
+    case Fixed(color: Color) extends Orientation(color.name, color.some)
+    case Auto                extends Orientation("automatic", none)
   object Orientation:
-    case class Fixed(color: Color) extends Orientation(color.name, color.some)
-    case object Auto               extends Orientation("automatic", none)
     def apply(str: String) = Color.fromName(str).fold[Orientation](Auto)(Fixed.apply)
 
   case class Data(

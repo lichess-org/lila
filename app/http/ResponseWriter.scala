@@ -1,12 +1,14 @@
-package controllers
+package lila.app
+package http
 
 import lila.api.*
 
 import play.api.http.*
-import play.api.mvc.Codec
+import play.api.mvc.{ Result, Codec }
+import scalatags.Text.Frag
 import chess.format.pgn.PgnStr
 
-trait ResponseWriter:
+trait ResponseWriter extends ContentTypes:
 
   private val textContentType = ContentTypeOf(Some(ContentTypes.TEXT))
 
@@ -33,3 +35,9 @@ trait ResponseWriter:
   given intRuntimeWriteable[A](using codec: Codec, sr: IntRuntime[A]): Writeable[A] =
     Writeable(a => codec encode sr(a).toString)
   given intRuntimeContentType[A: IntRuntime]: ContentTypeOf[A] = textContentType
+
+  given (using codec: Codec): ContentTypeOf[Frag] = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): Writeable[Frag]     = Writeable(frag => codec.encode(frag.render))
+
+  val ndJsonContentType = "application/x-ndjson"
+  val csvContentType    = "text/csv"

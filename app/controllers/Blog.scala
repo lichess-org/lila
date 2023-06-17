@@ -23,7 +23,7 @@ final class Blog(
     WithPrismic { _ ?=> prismic ?=>
       pageHit
       blogApi.recent(prismic, page, MaxPerPage(12)) flatMap {
-        case Some(response) => fuccess(Ok(views.html.blog.index(response)))
+        case Some(response) => Ok(views.html.blog.index(response))
         case _              => notFound
       }
     }
@@ -109,7 +109,7 @@ final class Blog(
       val topicSlug = s"blog-$id"
       val redirect  = Redirect(routes.ForumTopic.show(categId.value, topicSlug))
       env.forum.topicRepo.existsByTree(categId, topicSlug) flatMap {
-        if _ then fuccess(redirect)
+        if _ then redirect
         else
           blogApi.one(prismic.api, none, id) flatMapz { doc =>
             env.forum.categRepo.byId(categId) flatMapz { categ =>
@@ -130,11 +130,13 @@ final class Blog(
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[Document], slug: String)(
       callback: Either[String, Document] => Result
-  )(using lila.api.WebContext) =
-    document.collect {
-      case document if document.slug == slug => fuccess(callback(Right(document)))
-      case document
-          if document.slugs
-            .exists(s => StringUtils.stripEnd(s, ".") == slug || s == StringUtils.stripEnd(slug, ".")) =>
-        fuccess(callback(Left(document.slug)))
-    } getOrElse notFound
+  )(using WebContext): Fu[Result] =
+    document
+      .collect {
+        case document if document.slug == slug => callback(Right(document))
+        case document
+            if document.slugs
+              .exists(s => StringUtils.stripEnd(s, ".") == slug || s == StringUtils.stripEnd(slug, ".")) =>
+          callback(Left(document.slug))
+      }
+      .fold(notFound)(_.toFuccess)

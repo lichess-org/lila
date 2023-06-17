@@ -71,7 +71,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       NoLameOrBot:
         api find me flatMap {
           case None => api.create(me) inject Redirect(routes.Streamer.edit)
-          case _    => Redirect(routes.Streamer.edit).toFuccess
+          case _    => Redirect(routes.Streamer.edit)
         }
   }
 
@@ -117,22 +117,20 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
                   }
                 else
                   val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
-                  Redirect(s"${routes.Streamer.edit.url}$next").toFuccess
+                  Redirect(s"${routes.Streamer.edit.url}$next")
               }
           )
       }
   }
 
   def approvalRequest = AuthBody { _ ?=> me =>
-    NoBot {
+    NoBot:
       api.approval.request(me) inject Redirect(routes.Streamer.edit)
-    }
   }
 
   def picture = Auth { ctx ?=> _ =>
-    AsStreamer { s =>
-      Ok(html.streamer.picture(s)).noCache.toFuccess
-    }
+    AsStreamer: s =>
+      Ok(html.streamer.picture(s)).noCache
   }
 
   private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
@@ -150,31 +148,28 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
             api.uploadPicture(s.streamer, pic, me) recover { case e: Exception =>
               BadRequest(html.streamer.picture(s, e.getMessage.some))
             } inject Redirect(routes.Streamer.edit)
-        case None => Redirect(routes.Streamer.edit).flashFailure.toFuccess
+        case None => Redirect(routes.Streamer.edit).flashFailure
   }
 
   def subscribe(streamer: UserStr, set: Boolean) = AuthBody { _ ?=> me =>
-    if (set) env.relation.subs.subscribe(me.id, streamer.id)
+    if set then env.relation.subs.subscribe(me.id, streamer.id)
     else env.relation.subs.unsubscribe(me.id, streamer.id)
-    fuccess(Ok)
+    Ok
   }
 
   def onYouTubeVideo = AnonBodyOf(parse.tolerantXml):
     env.streamer.ytApi.onVideoXml
 
   def youTubePubSubChallenge = Anon:
-    fuccess:
-      get("hub.challenge").fold(BadRequest): challenge =>
-        val days      = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
-        val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
-        lila
-          .log("streamer")
-          .info(
-            s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}"
-          )
-        Ok(challenge)
+    get("hub.challenge").fold(BadRequest): challenge =>
+      val days      = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
+      val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
+      lila
+        .log("streamer")
+        .info(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
+      Ok(challenge)
 
-  private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext) =
+  private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext): Fu[Result] =
     ctx.me.fold(notFound): me =>
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.id) flatMap {
@@ -184,7 +179,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         Ok:
           html.site.message("Too soon"):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
-        .toFuccess
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: WebContext) =
     ctx.noKid.so:

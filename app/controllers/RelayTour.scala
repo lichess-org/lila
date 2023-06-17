@@ -3,18 +3,17 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
-import lila.common.IpAddress
+import lila.common.{ config, IpAddress }
 import lila.relay.{ RelayTour as TourModel }
 import lila.user.{ User as UserModel }
-import lila.common.config
 
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
   def index(page: Int, q: String) = Open:
-    Reasonable(page, config.Max(20)) {
+    Reasonable(page, config.Max(20)):
       q.trim.take(100).some.filter(_.nonEmpty) match
         case Some(query) =>
           env.relay.pager
@@ -26,21 +25,28 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
             active <- (page == 1).so(env.relay.api.officialActive.get({}))
             pager  <- env.relay.pager.inactive(page)
           yield Ok(html.relay.tour.index(active, pager))
-    }
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
 
+  def by(owner: UserStr, page: Int) = Open:
+    env.user
+      .lightUser(owner.id)
+      .flatMapz: owner =>
+        Reasonable(page, config.Max(20)):
+          env.relay.pager
+            .byOwner(owner.id, page)
+            .map: pager =>
+              Ok(html.relay.tour.byOwner(pager, owner))
+
   private def page(bookmark: String, menu: String) = Open:
     pageHit
-    OptionOk(prismicC getBookmark bookmark) { (doc, resolver) =>
+    OptionOk(prismicC getBookmark bookmark): (doc, resolver) =>
       html.relay.tour.page(doc, resolver, menu)
-    }
 
   def form = Auth { ctx ?=> _ =>
-    NoLameOrBot {
-      Ok(html.relay.tourForm.create(env.relay.tourForm.create)).toFuccess
-    }
+    NoLameOrBot:
+      html.relay.tourForm.create(env.relay.tourForm.create)
   }
 
   def create =
@@ -53,11 +59,10 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               .fold(
                 err => BadRequest(html.relay.tourForm.create(err)).toFuccess,
                 setup =>
-                  rateLimitCreation(me, ctx.req, Redirect(routes.RelayTour.index())) {
+                  rateLimitCreation(me, ctx.req, Redirect(routes.RelayTour.index())):
                     env.relay.api.tourCreate(setup, me) map { tour =>
                       Redirect(routes.RelayRound.form(tour.id.value)).flashSuccess
                     }
-                  }
               )
       ,
       scoped = ctx ?=>
@@ -77,9 +82,8 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     )
 
   def edit(id: TourModel.Id) = Auth { ctx ?=> _ =>
-    WithTourCanUpdate(id) { tour =>
-      Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).toFuccess
-    }
+    WithTourCanUpdate(id): tour =>
+      html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))
   }
 
   def update(id: TourModel.Id) =
@@ -91,7 +95,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               .edit(tour)
               .bindFromRequest()
               .fold(
-                err => BadRequest(html.relay.tourForm.edit(tour, err)).toFuccess,
+                err => BadRequest(html.relay.tourForm.edit(tour, err)),
                 setup =>
                   env.relay.api.tourUpdate(tour, setup, me) inject
                     Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
@@ -111,27 +115,33 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
+  def delete(id: TourModel.Id) =
+    AuthOrScoped(_.Study.Write)(
+      _ ?=> me => ???,
+      _ ?=> me => ???
+    )
+
   def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:
     env.relay.api tourById id flatMapz { tour =>
       render.async:
         case Accepts.Json() =>
-          JsonOk {
+          JsonOk:
             env.relay.api.withRounds(tour) map { trs =>
               env.relay.jsonView(trs, withUrls = true)
             }
-          }
         case _ => redirectToTour(tour)
     }
 
-  def pgn(id: TourModel.Id) = Anon:
+  def pgn(id: TourModel.Id) = OpenOrScoped() { ctx ?=> me =>
     env.relay.api tourById id mapz { tour =>
+      val canViewPrivate = ctx.isWebAuth || ctx.scopes.has(_.Study.Read)
       apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
-        env.relay.pgnStream.exportFullTour(tour)
-      ) { source =>
+        env.relay.pgnStream.exportFullTourAs(tour, me ifTrue canViewPrivate)
+      ): source =>
         asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn"):
           Ok chunked source as pgnContentType
-      }
     }
+  }
 
   def apiIndex = Anon:
     apiC
@@ -139,26 +149,24 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         env.relay.api
           .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
           .map(env.relay.jsonView.apply(_, withUrls = true))
-      .toFuccess
 
   private def redirectToTour(tour: TourModel)(using ctx: WebContext): Fu[Result] =
     env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
       case None =>
-        ctx.me.so { env.relay.api.canUpdate(_, tour) } flatMapz {
-          Redirect(routes.RelayRound.form(tour.id.value)).toFuccess
+        ctx.me.so { env.relay.api.canUpdate(_, tour) } mapz {
+          Redirect(routes.RelayRound.form(tour.id.value))
         }
-      case Some(round) => Redirect(round.withTour(tour).path).toFuccess
+      case Some(round) => Redirect(round.withTour(tour).path)
     }
 
-  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using WebContext): Fu[Result] =
+  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using AnyContext): Fu[Result] =
     OptionFuResult(env.relay.api tourById id)(f)
 
   private def WithTourCanUpdate(
       id: TourModel.Id
-  )(f: TourModel => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    WithTour(id) { tour =>
+  )(f: TourModel => Fu[Result])(using ctx: AnyContext): Fu[Result] =
+    WithTour(id): tour =>
       ctx.me.so { env.relay.api.canUpdate(_, tour) } flatMapz f(tour)
-    }
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 10,
@@ -175,12 +183,12 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   private[controllers] def rateLimitCreation(
       me: UserModel,
       req: RequestHeader,
-      fail: => Result
+      fail: => Fu[Result]
   )(create: => Fu[Result]): Fu[Result] =
     val cost =
       if isGranted(_.Relay, me) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost):
+    CreateLimitPerUser(me.id, fail, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail, cost = cost):
         create

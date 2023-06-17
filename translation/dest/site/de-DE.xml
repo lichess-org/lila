@@ -289,7 +289,6 @@
   <string name="cancelRematchOffer">Angebot zur Revanche zurückziehen</string>
   <string name="viewRematch">Revanche ansehen</string>
   <string name="confirmMove">Zug bestätigen</string>
-  <string name="enableConfirmationForThisGame">Bestätigung für diese Partie aktivieren</string>
   <string name="play">Spielen</string>
   <string name="inbox">Posteingang</string>
   <string name="chatRoom">Chatraum</string>
@@ -349,7 +348,7 @@
     <item quantity="other">%s Studien</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s Simultan-Partie</item>
+    <item quantity="one">%s Simultanschach</item>
     <item quantity="other">%s Simultan-Partien</item>
   </plurals>
   <string name="viewTournament">Turnier anschauen</string>
@@ -902,8 +901,6 @@
   <string name="congratsYouWon">Glückwunsch, du hast gewonnen!</string>
   <string name="gameVsX">Partie gegen %1$s</string>
   <string name="resVsX">%1$s gegen %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil bewertet.</string>
-  <string name="newPendingReview">Neue, ausstehende Rezension</string>
   <string name="lostAgainstTOSViolator">Du hast Elo an jemanden verloren, der gegen die Lichess-AGB verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>

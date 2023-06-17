@@ -64,6 +64,9 @@
     { "in": "stop", "val": "stop", "tags": [ "command" ] },
     { "in": "stop listening", "val": "mic-off", "tags": [ "command" ] },
     { "in": "stop recording", "val": "mic-off", "tags": [ "command" ] },
+    { "in": "list", "val": "list", "tags": [ "command" ] },
+    { "in": "list moves", "val": "list", "tags": [ "command" ] },
+    { "in": "show moves", "val": "list", "tags": [ "command" ] },
 
     { "in": "yes", "val": "yes", "tags": [ "choice" ] },
     { "in": "confirm", "val": "yes", "tags": [ "choice" ] },

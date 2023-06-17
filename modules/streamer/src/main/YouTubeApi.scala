@@ -6,6 +6,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
+import cats.syntax.all.*
 
 import lila.common.{ given, * }
 import lila.common.config.NetConfig
@@ -32,9 +33,9 @@ final private class YouTubeApi(
       .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
-    cfg.googleApiKey.value.nonEmpty so Future
-      .sequence {
-        idPages.map { idPage =>
+    cfg.googleApiKey.value.nonEmpty
+      .so:
+        idPages.toList.traverse: idPage =>
           ws.url("https://youtube.googleapis.com/youtube/v3/videos")
             .withQueryStringParameters(
               "part"       -> "snippet",
@@ -43,18 +44,15 @@ final private class YouTubeApi(
               "key"        -> cfg.googleApiKey.value
             )
             .get()
-            .map { rsp =>
+            .map: rsp =>
               rsp.body[JsValue].validate[YouTube.Result] match
                 case JsSuccess(data, _) =>
                   data.streams(keyword, tubers.map(_.streamer))
                 case JsError(err) =>
                   logger.warn(s"youtube ${rsp.status} $err ${rsp.body[String].take(200)}")
                   Nil
-            }
-        }.toList
-      }
       .map(_.flatten)
-      .addEffect { streams =>
+      .addEffect: streams =>
         if streams != lastResults then
           val newStreams  = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
           val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
@@ -64,15 +62,12 @@ final private class YouTubeApi(
             logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
           syncDb(tubers, streams)
           lastResults = streams
-      }
 
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
     val video   = (xml \ "entry" \ "videoId").text
     if channel.nonEmpty && video.nonEmpty
-    then
-      logger.info(s"onYouTubeVideo $video on channel $channel")
-      onVideo(channel, video)
+    then onVideo(channel, video)
     else
       val deleted = (xml \ "deleted-entry" \@ "ref")
       if deleted.nonEmpty
@@ -89,12 +84,34 @@ final private class YouTubeApi(
       .map(_.headOption)
       .map:
         case Some(s) =>
-          if isOnline(UserId(s._id.value)) then
-            logger.info(s"LIVE and ONLINE ${s._id} on YouTube channel $channelId")
-          else logger.warn(s"LIVE but OFFLINE ${s._id} on YouTube channel $channelId")
-          coll.update.one($doc("_id" -> s._id), $set("youTube.pubsubVideoId" -> videoId))
+          isLiveStream(videoId).map: isLive =>
+            if isLive && isOnline(s.id.userId) then
+              logger.info(s"YouTube: LIVE and ONLINE ${s.id} vid:$videoId ch:$channelId")
+              coll.update.one($doc("_id" -> s.id), $set("youTube.pubsubVideoId" -> videoId))
+            else if isLive then logger.warn(s"YouTube: LIVE but OFFLINE ${s.id} vid:$videoId ch:$channelId")
+            else logger.warn(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
-          logger.info(s"LIVE but UNAPPROVED $videoId on unapproved channel $channelId")
+          logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
+
+  private def isLiveStream(videoId: String): Fu[Boolean] =
+    cfg.googleApiKey.value.nonEmpty so ws
+      .url("https://youtube.googleapis.com/youtube/v3/videos")
+      .withQueryStringParameters(
+        "part" -> "snippet",
+        "id"   -> videoId,
+        "key"  -> cfg.googleApiKey.value
+      )
+      .get()
+      .map { rsp =>
+        rsp.body[JsValue].validate[YouTube.Result] match
+          case JsSuccess(data, _) =>
+            data.items.headOption.fold(false): item =>
+              item.snippet.liveBroadcastContent == "live" && item.snippet.title.value.toLowerCase
+                .contains(keyword.toLowerCase)
+          case JsError(err) =>
+            logger.warn(s"YouTube ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
+            false
+      }
 
   def channelSubscribe(channelId: String, subscribe: Boolean): Funit = ws
     .url("https://pubsubhubbub.appspot.com/subscribe")

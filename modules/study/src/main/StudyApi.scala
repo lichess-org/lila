@@ -549,22 +549,22 @@ final class StudyApi(
             chapterRepo
               .countByStudyId(study.id)
               .flatMap: count =>
-                if (count >= Study.maxChapters) funit
+                if count >= Study.maxChapters then funit
                 else
-                  data.initial so {
-                    chapterRepo.firstByStudy(study.id) flatMap {
-                      _.filter(_.isEmptyInitial) so chapterRepo.delete
-                    }
-                  } >>
-                    chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-                      chapterMaker(study, data, order, who.u, withRatings) flatMap { chapter =>
-                        doAddChapter(study, chapter, sticky, who)
-                      } addFailureEffect {
-                        case ChapterMaker.ValidationException(error) =>
-                          sendTo(study.id)(_.validationError(error, who.sri))
-                        case u => logger.error(s"StudyApi.addChapter to $studyId", u)
+                  for
+                    _ <- data.initial.so:
+                      chapterRepo.firstByStudy(study.id) flatMap {
+                        _.filter(_.isEmptyInitial) so chapterRepo.delete
                       }
-                    }
+                    order   <- chapterRepo.nextOrderByStudy(study.id)
+                    chapter <- chapterMaker(study, data, order, who.u, withRatings)
+                    _       <- doAddChapter(study, chapter, sticky, who)
+                  yield ()
+              .addFailureEffect {
+                case ChapterMaker.ValidationException(error) =>
+                  sendTo(study.id)(_.validationError(error, who.sri))
+                case u => logger.error(s"StudyApi.addChapter to $studyId", u)
+              }
 
   def rename(studyId: StudyId, name: StudyName): Funit =
     sequenceStudy(studyId): old =>
@@ -575,7 +575,7 @@ final class StudyApi(
       who: Who
   ) = datas.traverse_(addChapter(studyId, _, sticky, withRatings)(who))
 
-  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who) =
+  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit =
     chapterRepo.insert(chapter) >> {
       val newStudy = study withChapter chapter
       (sticky so studyRepo.updateSomeFields(newStudy)) >>-
@@ -756,12 +756,11 @@ final class StudyApi(
     chapterRepo.idNamesByStudyIds(studyIds, Study.maxChapters)
 
   def withLiked(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithLiked]] =
-    me.so { u =>
+    me.so: u =>
       studyRepo.filterLiked(u, studies.map(_.id))
-    } map { liked =>
-      studies.map: study =>
-        Study.WithLiked(study, liked(study.id))
-    }
+    .map: liked =>
+        studies.map: study =>
+          Study.WithLiked(study, liked(study.id))
 
   def analysisRequest(
       studyId: StudyId,

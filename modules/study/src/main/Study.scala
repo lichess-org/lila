@@ -36,6 +36,8 @@ case class Study(
   def canContribute(id: UserId) =
     isOwner(id) || members.get(id).exists(_.canContribute) || id == User.lichessId
 
+  def canView(id: Option[UserId]) = !isPrivate || id.exists(members.contains)
+
   def isCurrent(c: Chapter.Like) = c.id == position.chapterId
 
   def withChapter(c: Chapter.Like): Study = if (isCurrent(c)) this else rewindTo(c)

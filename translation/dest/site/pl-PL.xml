@@ -319,7 +319,6 @@
   <string name="cancelRematchOffer">Wycofaj propozycję rewanżu</string>
   <string name="viewRematch">Zobacz rewanż</string>
   <string name="confirmMove">Potwierdź ruch</string>
-  <string name="enableConfirmationForThisGame">Włącz potwierdzenie dla tej partii</string>
   <string name="play">Zagraj</string>
   <string name="inbox">Wiadomości</string>
   <string name="chatRoom">Czat</string>
@@ -986,8 +985,6 @@
   <string name="congratsYouWon">Gratulacje, wygrałeś/aś!</string>
   <string name="gameVsX">Partia przeciwko %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał Twój profil trenera.</string>
-  <string name="newPendingReview">Nowa oczekująca recenzja</string>
   <string name="lostAgainstTOSViolator">Przegrałeś/aś z kimś, kto naruszył warunki użytkowania Lichess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
   <string name="timeAlmostUp">Czas prawie minął!</string>

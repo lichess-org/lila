@@ -288,7 +288,6 @@
   <string name="cancelRematchOffer">لغو کردن پیشنهاد بازی دوباره</string>
   <string name="viewRematch">مشاهده بازی دوباره</string>
   <string name="confirmMove">تایید حرکت</string>
-  <string name="enableConfirmationForThisGame">«تایید حرکت» را برای این بازی فعال کن</string>
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">گپ</string>
@@ -894,8 +893,6 @@
   <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
   <string name="gameVsX">بازی در برابر %1$s</string>
   <string name="resVsX">%1$s در برابر %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">شخصی در پروفایل مربیگری شما نظری گذاشت.</string>
-  <string name="newPendingReview">در انتظار بررسی</string>
   <string name="lostAgainstTOSViolator">شما از شخصی که قوانین لایچس را نقض کرده است، شکست خوردید</string>
   <string name="refundXpointsTimeControlY">جبران: %1$s امتیاز از نوع %2$s.</string>
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>

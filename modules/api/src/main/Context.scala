@@ -13,7 +13,9 @@ object context:
   export lila.api.{ AnyContext, BodyContext }
   export lila.api.{ WebContext, WebBodyContext }
   export lila.api.{ OAuthContext, OAuthBodyContext }
+  export lila.api.{ MinimalContext, MinimalBodyContext }
 
+/* data necessary to render the lichess website layout */
 case class PageData(
     teamNbRequests: Int,
     nbChallenges: Int,
@@ -54,17 +56,20 @@ trait AnyContext:
   def ip                  = HTTPRequest ipAddress userContext.req
   val scopes: OAuthScopes = OAuthScopes(Nil)
   def isMobile            = scopes.has(_.Web.Mobile)
+  def isWebAuth: Boolean
 
 trait BodyContext[A] extends AnyContext:
   def body: Request[A]
 
+/* Able to render a lichess page with a layout. Might be authenticated with cookie session */
 class WebContext(
     val userContext: UserContext,
     val pageData: PageData
 ) extends AnyContext:
 
   export pageData.{ teamNbRequests, nbChallenges, nbNotifications, pref, blindMode as blind, nonce, hasClas }
-  def noBlind = !blind
+  def isWebAuth = isAuth
+  def noBlind   = !blind
 
   def currentTheme      = lila.pref.Theme(pref.theme)
   def currentTheme3d    = lila.pref.Theme3d(pref.theme3d)
@@ -73,9 +78,9 @@ class WebContext(
   def currentSoundSet   = lila.pref.SoundSet(pref.soundSet)
 
   lazy val currentBg =
-    if (pref.bg == Pref.Bg.TRANSPARENT) "transp"
-    else if (pref.bg == Pref.Bg.LIGHT) "light"
-    else if (pref.bg == Pref.Bg.SYSTEM) "system"
+    if pref.bg == Pref.Bg.TRANSPARENT then "transp"
+    else if pref.bg == Pref.Bg.LIGHT then "light"
+    else if pref.bg == Pref.Bg.SYSTEM then "system"
     else "dark" // dark && dark board
 
   lazy val mobileApiVersion = Mobile.Api requestVersion req
@@ -95,6 +100,7 @@ class WebContext(
 
   def withLang(l: Lang) = new WebContext(userContext withLang l, pageData)
 
+/* Able to render a lichess page with a layout. Might be authenticated with cookie session */
 final class WebBodyContext[A](
     bodyContext: UserBodyContext[A],
     data: PageData
@@ -104,13 +110,12 @@ final class WebBodyContext[A](
   export bodyContext.body
   override def withLang(l: Lang) = WebBodyContext(bodyContext withLang l, data)
 
-sealed trait OAuthAnyContext extends AnyContext:
-  val scopes: OAuthScopes
-
+/* Cannot render a lichess page. Might be authenticated oauth and have scopes */
 class OAuthContext(
     val userContext: UserContext,
     override val scopes: OAuthScopes
-) extends OAuthAnyContext:
+) extends AnyContext:
+  def isWebAuth         = false
   def withLang(l: Lang) = OAuthContext(userContext withLang l, scopes)
 
 final class OAuthBodyContext[A](
@@ -121,6 +126,18 @@ final class OAuthBodyContext[A](
   export bodyContext.body
   def scoped                     = me.map(OAuthScope.Scoped(_, scopes))
   override def withLang(l: Lang) = OAuthBodyContext(bodyContext withLang l, scopes)
+
+/* Cannot render a lichess page. Cannot be authenticated. */
+class MinimalContext(
+    val userContext: UserContext
+) extends AnyContext:
+  def isWebAuth = false
+
+final class MinimalBodyContext[A](
+    val userContext: UserContext,
+    val body: Request[A]
+) extends BodyContext[A]:
+  def isWebAuth = false
 
 object WebContext:
 

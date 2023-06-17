@@ -102,7 +102,7 @@ case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
 object PlayerRef:
 
   def apply(fullId: GameFullId): PlayerRef =
-    PlayerRef(Game fullToId fullId, Game takePlayerId fullId)
+    PlayerRef(fullId.gameId, fullId.playerId)
 
 case class LightPov(game: LightGame, color: Color):
   def gameId   = game.id

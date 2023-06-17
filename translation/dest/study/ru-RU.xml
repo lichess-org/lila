@@ -117,7 +117,6 @@
   <string name="urlOfTheGame">URL игры</string>
   <string name="loadAGameFromXOrY">Загрузить игру из %1$s или %2$s</string>
   <string name="createChapter">Создать главу</string>
-  <string name="configureLiveBroadcast">Настроить живую трансляцию</string>
   <string name="createStudy">Создать студию</string>
   <string name="editStudy">Изменить студию</string>
   <string name="visibility">Доступно к просмотру</string>

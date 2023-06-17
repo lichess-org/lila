@@ -23,6 +23,7 @@ case class UserInfo(
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
     nbSimuls: Int,
+    nbRelays: Int,
     teamIds: List[lila.team.TeamId],
     isStreamer: Boolean,
     isCoach: Boolean,
@@ -33,11 +34,10 @@ case class UserInfo(
 
 object UserInfo:
 
-  sealed abstract class Angle(val key: String)
-  object Angle:
-    case object Activity                          extends Angle("activity")
-    case class Games(searchForm: Option[Form[?]]) extends Angle("games")
-    case object Other                             extends Angle("other")
+  enum Angle(val key: String):
+    case Activity                           extends Angle("activity")
+    case Games(searchForm: Option[Form[?]]) extends Angle("games")
+    case Other                              extends Angle("other")
 
   case class Social(
       relation: Option[lila.relation.Relation],
@@ -69,9 +69,8 @@ object UserInfo:
 
     def fetchNotes(u: User, me: User) =
       noteApi.get(u, me, Granter(_.ModNote)(me)) dmap {
-        _.filter { n =>
+        _.filter: n =>
           (!n.dox || Granter(_.Admin)(me))
-        }
       }
 
   case class NbGames(
@@ -109,6 +108,7 @@ object UserInfo:
       ublogApi: UblogApi,
       studyRepo: lila.study.StudyRepo,
       simulApi: lila.simul.SimulApi,
+      relayApi: lila.relay.RelayApi,
       ratingChartApi: lila.history.RatingChartApi,
       userApi: lila.api.UserApi,
       isHostingSimul: lila.round.IsSimulHost,
@@ -127,6 +127,7 @@ object UserInfo:
         (withUblog so ublogApi.userBlogPreviewFor(user, 3, ctx.me)) zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
         simulApi.countHostedByUser.get(user.id).mon(_.user segment "nbSimuls") zip
+        relayApi.countOwnedByUser.get(user.id).mon(_.user segment "nbBroadcasts") zip
         userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies") zip
         teamApi.joinedTeamIdsOfUserAsSeenBy(user, ctx.me).mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
@@ -134,7 +135,7 @@ object UserInfo:
         (user.count.rated >= 10).so(insightShare.grant(user, ctx.me)) zip
         (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")) map {
           // format: off
-          case (((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), nbSimuls), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
+          case ((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
           // format: on
             new UserInfo(
               user = user,
@@ -146,6 +147,7 @@ object UserInfo:
               ublog = ublog,
               nbStudies = nbStudies,
               nbSimuls = nbSimuls,
+              nbRelays = nbRelays,
               trophies = trophiesAndAwards,
               teamIds = teamIds,
               isStreamer = isStreamer,

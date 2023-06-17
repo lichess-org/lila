@@ -1,4 +1,5 @@
 .sbtopts
+.jvmopts
 .bsp
 .bloop/
 .metals/

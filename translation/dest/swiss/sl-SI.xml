@@ -77,4 +77,5 @@ Ustvarjalec švicarskega dogodka se lahko vseeno odloči, da mu dovoli, da se do
   <string name="pauseSwiss">Da, vendar se lahko zmanjša število krogov</string>
   <string name="predefinedUsers">Dovoli pridružitev samo vnaprej določenim uporabnikom</string>
   <string name="forbiddedUsers">Če ta seznam ni prazen, se bo uporabniškim imenom, ki niso na tem seznamu, prepovedano pridružiti. Eno uporabniško ime na vrstico.</string>
+  <string name="playYourGames">Igraj svoje igre</string>
 </resources>

@@ -50,4 +50,5 @@
   <string name="noArenaStreaks">連勝ボーナスなし</string>
   <string name="averagePerformance">平均パフォーマンス</string>
   <string name="averageScore">平均スコア</string>
+  <string name="myTournaments">作成したトーナメント</string>
 </resources>

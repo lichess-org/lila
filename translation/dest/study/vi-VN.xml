@@ -105,7 +105,6 @@
   <string name="urlOfTheGame">Đường dẫn của các ván, một đường dẫn mỗi dòng</string>
   <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s hoặc %2$s</string>
   <string name="createChapter">Tạo chương</string>
-  <string name="configureLiveBroadcast">Cấu hình truyền hình trực tiếp</string>
   <string name="createStudy">Tạo nghiên cứu</string>
   <string name="editStudy">Chỉnh sửa nghiên cứu</string>
   <string name="visibility">Khả năng hiển thị</string>

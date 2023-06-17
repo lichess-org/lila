@@ -38,4 +38,4 @@ object bits:
 
   val i18nKeys =
     import trans.broadcast.*
-    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl, downloadAllRounds)
+    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl, downloadAllRounds, editRoundStudy)

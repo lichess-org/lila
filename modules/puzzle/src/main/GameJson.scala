@@ -24,30 +24,24 @@ final private class GameJson(
     lightUserApi preloadMany game.userIds inject generateBc(game, plies)
 
   private def readKey(k: String): (GameId, Ply) =
-    k.drop(Game.gameIdSize).toIntOption match
-      case Some(ply) => (Game strToId k, Ply(ply))
+    k.drop(GameId.size).toIntOption match
+      case Some(ply) => (GameId take k, Ply(ply))
       case _         => sys error s"puzzle.GameJson invalid key: $k"
   private def writeKey(id: GameId, ply: Ply) = s"$id$ply"
 
-  private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
+  private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson"):
     _.expireAfterAccess(5 minutes)
       .maximumSize(4096)
-      .buildAsyncFuture(key =>
-        readKey(key) match {
-          case (id, plies) => generate(id, plies, false)
-        }
-      )
-  }
+      .buildAsyncFuture: key =>
+        val (id, plies) = readKey(key)
+        generate(id, plies, false)
 
-  private val bcCache = cacheApi[String, JsObject](64, "puzzle.bc.gameJson") {
+  private val bcCache = cacheApi[String, JsObject](64, "puzzle.bc.gameJson"):
     _.expireAfterAccess(5 minutes)
       .maximumSize(1024)
-      .buildAsyncFuture(key =>
-        readKey(key) match {
-          case (id, plies) => generate(id, plies, true)
-        }
-      )
-  }
+      .buildAsyncFuture: key =>
+        val (id, plies) = readKey(key)
+        generate(id, plies, true)
 
   private def generate(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     gameRepo gameFromSecondary gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>

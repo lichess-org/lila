@@ -60,17 +60,16 @@ final class ChatTimeout(
 
 object ChatTimeout:
 
-  sealed abstract class Reason(val key: String, val name: String):
+  enum Reason(val key: String, val name: String):
     lazy val shortName = name.split(';').lift(0) | name
-
+    case PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
+    case Insult extends Reason("insult", "disrespecting other players; see lichess.org/page/chat-etiquette")
+    case Spam   extends Reason("spam", "spamming the chat; see lichess.org/page/chat-etiquette")
+    case Other  extends Reason("other", "inappropriate behavior; see lichess.org/page/chat-etiquette")
   object Reason:
-    case object PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
-    case object Insult
-        extends Reason("insult", "disrespecting other players; see lichess.org/page/chat-etiquette")
-    case object Spam  extends Reason("spam", "spamming the chat; see lichess.org/page/chat-etiquette")
-    case object Other extends Reason("other", "inappropriate behavior; see lichess.org/page/chat-etiquette")
-    val all: List[Reason]  = List(PublicShaming, Insult, Spam, Other)
+    val all                = values.toList
     def apply(key: String) = all.find(_.key == key)
+
   given BSONHandler[Reason] = tryHandler(
     { case BSONString(value) => Reason(value) toTry s"Invalid reason $value" },
     x => BSONString(x.key)

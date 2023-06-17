@@ -1,9 +1,6 @@
 package lila.security
 
 import com.github.blemale.scaffeine.Cache
-import java.time.Instant
-
-import lila.common.base.Levenshtein.isLevenshteinDistanceLessThan
 
 final class Flood(duration: FiniteDuration):
 
@@ -16,7 +13,7 @@ final class Flood(duration: FiniteDuration):
     .build[Source, Messages]()
 
   def allowMessage(source: Source, text: String): Boolean =
-    val msg  = Message(text, Instant.now)
+    val msg  = Message(text, nowInstant)
     val msgs = ~cache.getIfPresent(source)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
       _ so cache.put(source, msg :: msgs)
@@ -55,4 +52,4 @@ object Flood:
     }
 
   private def similar(s1: String, s2: String): Boolean =
-    isLevenshteinDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3) atLeast 2)
+    Levenshtein.isDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3) atLeast 2)

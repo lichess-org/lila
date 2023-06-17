@@ -289,7 +289,6 @@
   <string name="cancelRematchOffer">Anul·lar la petició de revenja</string>
   <string name="viewRematch">Mirar la partida de revenja</string>
   <string name="confirmMove">Confirmar la jugada</string>
-  <string name="enableConfirmationForThisGame">Activa la confirmació per aquesta partida</string>
   <string name="play">Jugar</string>
   <string name="inbox">Bústia d\'entrada</string>
   <string name="chatRoom">Sala de xat</string>
@@ -902,8 +901,6 @@
   <string name="congratsYouWon">Felicitats, has guanyat!</string>
   <string name="gameVsX">Partida vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Algú ha ressenyat el teu perfil d\'entrenador.</string>
-  <string name="newPendingReview">Nova ressenya pendent</string>
   <string name="lostAgainstTOSViolator">Has perdut contra algú que ha violat les CDS de Lichess</string>
   <string name="refundXpointsTimeControlY">Reemborsament: %1$s %2$s punts.</string>
   <string name="timeAlmostUp">El temps quasi s\'ha exhaurit!</string>

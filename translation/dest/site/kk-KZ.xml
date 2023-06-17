@@ -891,8 +891,6 @@
   <string name="congratsYouWon">Құтты болсын, сіз жеңдіңіз!</string>
   <string name="gameVsX">%1$s қарсы ойын</string>
   <string name="resVsX">%1$s қарсы %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Сіздің бапкер куәлігіңізді біреу қарастырды.</string>
-  <string name="newPendingReview">Жаңа қарастыруды күтуде</string>
   <string name="lostAgainstTOSViolator">Сіз Личестің Ережесін бұзған біреуге жеңілдіңіз</string>
   <string name="refundXpointsTimeControlY">Қайтару: %1$s %2$s рейтинг ұпайы.</string>
   <string name="timeAlmostUp">Уақыт таусылғалы тұр!</string>

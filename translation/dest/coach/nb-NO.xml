@@ -24,12 +24,4 @@
   <string name="teachingMethod">Læringsmetode</string>
   <string name="publicStudies">Offentlige studier</string>
   <string name="youtubeVideos">YouTube-videoer</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Én elevkommentar</item>
-    <item quantity="other">%s elevkommentarer</item>
-  </plurals>
-  <string name="thankYouForReview">Takk for kommentaren!</string>
-  <string name="xWillApproveIt">%s godkjenner den straks, eller så vil en moderator ta en kikk.</string>
-  <string name="reviewCoach">Kommenter denne treneren</string>
-  <string name="describeExperienceWith">Beskriv hvordan det er å ha %s som trener</string>
 </resources>

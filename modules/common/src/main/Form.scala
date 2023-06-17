@@ -21,29 +21,24 @@ object Form:
   }
 
   def options(it: Iterable[Int], pattern: String): Options[Int] =
-    it map { d =>
+    it.map: d =>
       d -> (pluralize(pattern, d) format d)
-    }
 
   def options(it: Iterable[Int], transformer: Int => Int, pattern: String): Options[Int] =
-    it map { d =>
+    it.map: d =>
       d -> (pluralize(pattern, transformer(d)) format transformer(d))
-    }
 
   def options(it: Iterable[Int], code: String, pattern: String): Options[String] =
-    it map { d =>
+    it.map: d =>
       s"$d$code" -> (pluralize(pattern, d) format d)
-    }
 
   def options(it: Iterable[Int], format: Int => String): Options[Int] =
-    it map { d =>
+    it.map: d =>
       d -> format(d)
-    }
 
   def optionsDouble(it: Iterable[Double], format: Double => String): Options[Double] =
-    it map { d =>
+    it.map: d =>
       d -> format(d)
-    }
 
   def mustBeOneOf[A](choices: Iterable[A]) = s"Must be one of: ${choices mkString ", "}"
 
@@ -78,7 +73,7 @@ object Form:
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)
-        .map(if (keepSymbols) String.softCleanUp else String.fullCleanUp)
+        .map(if keepSymbols then String.softCleanUp else String.fullCleanUp)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   val cleanTextFormatter: Formatter[String]            = makeCleanTextFormatter(keepSymbols = false)

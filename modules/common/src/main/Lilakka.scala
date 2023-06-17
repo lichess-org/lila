@@ -11,9 +11,8 @@ object Lilakka:
   ): Unit =
     val phase = makePhase(CoordinatedShutdown)
     val msg   = s"$phase $name"
-    cs.addTask(phase, name) { () =>
+    cs.addTask(phase, name): () =>
       shutdownLogger.info(msg)
       Chronometer(f())
         .log(shutdownLogger)(_ => msg)
         .result inject akka.Done
-    }

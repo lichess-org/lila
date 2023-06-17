@@ -1053,8 +1053,6 @@ https://lichess. org/study</string>
   <string name="congratsYouWon">تهانينا، لقد فزت!</string>
   <string name="gameVsX">مباراة ضد %1$s</string>
   <string name="resVsX">%1$s ضد %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">قام شخص ما بمراجعة ملفك للتدريب.</string>
-  <string name="newPendingReview">قيد الإطلاع</string>
   <string name="lostAgainstTOSViolator">لقد خسرت أمام شخص قد انتهك شروط خدمة Lichess</string>
   <string name="refundXpointsTimeControlY">استعادة: %1$s نقطة تقييم، تصنيف %2$s.</string>
   <string name="timeAlmostUp">أوشك الوقت على الإنتهاء!</string>

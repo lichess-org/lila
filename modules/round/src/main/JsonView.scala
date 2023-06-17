@@ -69,7 +69,7 @@ final class JsonView(
         import pov.*
         Json
           .obj(
-            "game" -> gameJsonView.base(game, initialFen),
+            "game" -> gameJsonView.baseWithChessDenorm(game, initialFen),
             "player" -> {
               commonPlayerJson(game, player, playerUser, flags) ++ Json.obj(
                 "id"      -> playerId,
@@ -171,7 +171,7 @@ final class JsonView(
         Json
           .obj(
             "game" -> gameJsonView
-              .base(game, initialFen)
+              .baseWithChessDenorm(game, initialFen)
               .add("moveCentis" -> (flags.movetimes so game.moveTimes.map(_.map(_.centis))))
               .add("division" -> flags.division.option(divider(game, initialFen)))
               .add("opening" -> game.opening)
@@ -226,7 +226,7 @@ final class JsonView(
         Json
           .obj(
             "game" -> {
-              gameJsonView.base(game, initialFen) ++ Json.obj(
+              gameJsonView.baseWithChessDenorm(game, initialFen) ++ Json.obj(
                 "pgn" -> pov.game.sans.mkString(" ")
               )
             },

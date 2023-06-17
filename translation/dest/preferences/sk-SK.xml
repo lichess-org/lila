@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd</string>
   <string name="moveConfirmation">Potvrdenie ťahu</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Dá sa zrušiť počas partie cez \"hamburgerové menu\" pri šachovnici</string>
   <string name="inCorrespondenceGames">Korešpondenčné partie</string>
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>
   <string name="confirmResignationAndDrawOffers">Potvrdzovať vzdanie partie a ponuku remízy</string>

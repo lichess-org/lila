@@ -24,9 +24,9 @@ final class I18n(env: Env) extends LilaController(env):
           ctx.me.filterNot(_.lang contains lang.code).so {
             env.user.repo.setLang(_, lang)
           } >> negotiate(
-            html = {
+            html =
               val redir = Redirect:
-                ctx.req.referer.fold(routes.Lobby.home.url) { str =>
+                ctx.req.referer.fold(routes.Lobby.home.url): str =>
                   try
                     val pageUrl = new java.net.URI(str).parseServerAuthority().toURL()
                     val path    = pageUrl.getPath
@@ -34,10 +34,10 @@ final class I18n(env: Env) extends LilaController(env):
                     if (query == null) path
                     else path + "?" + query
                   catch case _: Exception => routes.Lobby.home.url
-                }
-              if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
+              if ctx.isAnon
+              then redir.withCookies(env.lilaCookie.session("lang", lang.code))
               else redir
-            }.toFuccess,
-            api = _ => Ok(Json.obj("lang" -> lang.code)).toFuccess
+            ,
+            api = _ => Ok(Json.obj("lang" -> lang.code))
           )
       )

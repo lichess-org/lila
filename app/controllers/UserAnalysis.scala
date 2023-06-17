@@ -85,15 +85,15 @@ final class UserAnalysis(
         val pov = Pov(game, chess.Color.fromName(color) | White)
         negotiate(
           html =
-            if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).toFuccess
-            else {
+            if game.replayable then Redirect(routes.Round.watcher(game.id, color))
+            else
               val owner = isMyPov(pov)
-              for {
+              for
                 initialFen <- env.game.gameRepo initialFen game.id
                 data <-
                   env.api.roundApi
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner, me = ctx.me)
-              } yield Ok(
+              yield Ok(
                 html.board
                   .userAnalysis(
                     data,
@@ -101,7 +101,7 @@ final class UserAnalysis(
                     withForecast = owner && !pov.game.synthetic && pov.game.playable
                   )
               ).noCache
-            },
+          ,
           api = apiVersion => mobileAnalysis(pov, apiVersion)
         )
       }
@@ -140,12 +140,12 @@ final class UserAnalysis(
   def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ =>
     import lila.round.Forecast
     OptionFuResult(env.round.proxyRepo pov fullId): pov =>
-      if (isTheft(pov)) fuccess(theftResponse)
+      if isTheft(pov) then theftResponse
       else
         ctx.body.body
           .validate[Forecast.Steps]
           .fold(
-            err => BadRequest(err.toString).toFuccess,
+            err => BadRequest(err.toString),
             forecasts =>
               env.round.forecastApi.save(pov, forecasts) >>
                 env.round.forecastApi.loadForDisplay(pov) map {
@@ -160,22 +160,20 @@ final class UserAnalysis(
   def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
     AuthBody(parse.json) { ctx ?=> _ =>
       import lila.round.Forecast
-      OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
-        if (isTheft(pov)) fuccess(theftResponse)
+      OptionFuResult(env.round.proxyRepo pov fullId): pov =>
+        if isTheft(pov) then theftResponse
         else
           ctx.body.body
             .validate[Forecast.Steps]
             .fold(
-              err => BadRequest(err.toString).toFuccess,
-              forecasts => {
+              err => BadRequest(err.toString),
+              forecasts =>
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
                 env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
                   lila.common.LilaFuture.sleep(wait.millis) inject
                   forecastReload
-              }
             )
-      }
     }
 
   def help = Open:
-    Ok(html.site.helpModal.analyse(getBool("study"))).toFuccess
+    html.site.helpModal.analyse(getBool("study"))

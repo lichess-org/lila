@@ -19,17 +19,12 @@ object LilaStream:
       metric: T => Int = (_: T) => 1,
       outputDelay: FiniteDuration = 1.second
   )(logger: play.api.LoggerLike): Flow[T, T, NotUsed] =
-    Flow[T]
-      .alsoTo(
-        flowRate[T](metric, outputDelay)
-          .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}")))
-      )
+    Flow[T].alsoTo:
+      flowRate[T](metric, outputDelay)
+        .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}")))
 
-  val sinkCount = Sink.fold[Int, Any](0) { (total, _) =>
+  val sinkCount = Sink.fold[Int, Any](0): (total, _) =>
     total + 1
-  }
 
-  def collect[A] =
-    Flow[Option[A]].collect { case Some(a) =>
-      a
-    }
+  def collect[A] = Flow[Option[A]].collect:
+    case Some(a) => a

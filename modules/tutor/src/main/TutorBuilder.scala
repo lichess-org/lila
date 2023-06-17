@@ -161,12 +161,10 @@ private object TutorBuilder:
         (dimension, ValueCount(point.value, nbGames))
       }.toList
 
-    lazy val map: Map[Dim, Pair] = list.toMap
+    final lazy val map: Map[Dim, Pair] = list.toMap
+    export map.get
 
-    def get = map.get
-
-    def dimensions = list.map(_._1)
-
+    def dimensions      = list.map(_._1)
     def alignedQuestion = answer.question filter Filter(answer.question.dimension, dimensions)
 
   case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)

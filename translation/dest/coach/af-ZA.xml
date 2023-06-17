@@ -24,12 +24,4 @@
   <string name="teachingMethod">Leer metodes</string>
   <string name="publicStudies">Publieke studies</string>
   <string name="youtubeVideos">YouTube videos</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Een resesent as student</item>
-    <item quantity="other">%s resesente as studente</item>
-  </plurals>
-  <string name="thankYouForReview">Dankie vir die resensie!</string>
-  <string name="xWillApproveIt">%s sal dit in \'n kort rukkie goedkeur, of \'n moderator sal daarna kyk.</string>
-  <string name="reviewCoach">Skryf \'n resensie oor die afrigter</string>
-  <string name="describeExperienceWith">Beskryf jou afrigting ervaring met %s</string>
 </resources>

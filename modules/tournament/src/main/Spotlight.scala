@@ -19,25 +19,24 @@ object Spotlight:
   private given Ordering[Tournament] = Ordering.by[Tournament, Int](_.schedule.so(_.freq.importance))
 
   def select(tours: List[Tournament], user: Option[User], max: Int): List[Tournament] =
-    user.fold(select(tours, max)) { select(tours, _, max) }
+    user.fold(select(tours)) { select(tours, _) } topN max
 
-  def select(tours: List[Tournament], max: Int): List[Tournament] =
-    tours filter { tour => tour.spotlight.fold(true) { manually(tour, _) } } topN max
+  private def select(tours: List[Tournament]): List[Tournament] =
+    tours filter { tour => tour.spotlight.fold(true) { manually(tour, _) } }
 
-  def select(tours: List[Tournament], user: User, max: Int): List[Tournament] =
-    tours.filter { select(_, user) } topN max
+  private def select(tours: List[Tournament], user: User): List[Tournament] =
+    tours.filter { select(_, user) }
 
   private def select(tour: Tournament, user: User): Boolean =
     !tour.isFinished &&
       tour.spotlight.fold(automatically(tour, user)) { manually(tour, _) }
 
   private def manually(tour: Tournament, spotlight: Spotlight): Boolean =
-    spotlight.homepageHours.exists { hours =>
+    spotlight.homepageHours.exists: hours =>
       tour.startsAt.minusHours(hours).isBeforeNow
-    }
 
   private def automatically(tour: Tournament, user: User): Boolean =
-    tour.schedule so { sched =>
+    tour.schedule.so: sched =>
       def playedSinceWeeks(weeks: Int) =
         user.perfs(tour.perfType).latest so {
           _.plusWeeks(weeks).isAfterNow
@@ -49,7 +48,6 @@ object Spotlight:
         case Unique                               => playedSinceWeeks(4)
         case Monthly | Shield | Marathon | Yearly => true
         case ExperimentalMarathon                 => false
-    }
 
   private def canMaybeJoinLimited(tour: Tournament, user: User): Boolean =
     tour.conditions.isRatingLimited &&

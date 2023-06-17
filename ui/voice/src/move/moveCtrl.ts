@@ -48,6 +48,7 @@ export default (window as any).LichessVoiceMove = function (
   const commands: { [_: string]: () => void } = {
     no: () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress()),
     help: () => ui.showHelp(true),
+    list: () => ui.showHelp('list'),
     'mic-off': () => lichess.mic.stop(),
     flip: () => root.flipNow(),
     rematch: () => root.rematch?.(true),

@@ -289,7 +289,6 @@
   <string name="cancelRematchOffer">Træk revanchetilbud tilbage</string>
   <string name="viewRematch">Se revanchekamp</string>
   <string name="confirmMove">Bekræft træk</string>
-  <string name="enableConfirmationForThisGame">Aktivér bekræftelse for dette parti</string>
   <string name="play">Spil</string>
   <string name="inbox">Indbakke</string>
   <string name="chatRoom">Chatrum</string>
@@ -902,8 +901,6 @@
   <string name="congratsYouWon">Tillykke, du vandt!</string>
   <string name="gameVsX">Parti mod %1$s</string>
   <string name="resVsX">%1$s mod %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Nogen har gennemgået din trænerprofil.</string>
-  <string name="newPendingReview">Ny afventende gennemgang</string>
   <string name="lostAgainstTOSViolator">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
   <string name="refundXpointsTimeControlY">Refunderet: %1$s %2$s ratingpoint.</string>
   <string name="timeAlmostUp">Tiden er næsten udløbet!</string>

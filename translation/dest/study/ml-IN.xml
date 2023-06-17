@@ -99,7 +99,6 @@
   <string name="urlOfTheGame">കളിയുടെ URL</string>
   <string name="loadAGameFromXOrY">%1$s-ൽ നിന്നോ %2$s-ൽ നിന്നോ കളി ലോഡ് ചെയ്യുക</string>
   <string name="createChapter">അദ്ധ്യായം നിർമിക്കുക</string>
-  <string name="configureLiveBroadcast">തത്സമയ വിക്ഷേപണം കോൺഫിഗർ ചെയ്യുക</string>
   <string name="createStudy">പാഠം നിർമിക്കുക</string>
   <string name="editStudy">പാഠം തിരുത്തുക</string>
   <string name="visibility">ദൃശ്യത</string>

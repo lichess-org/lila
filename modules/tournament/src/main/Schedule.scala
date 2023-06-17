@@ -151,43 +151,31 @@ object Schedule:
         buildFunc = buildFunc.fold(f)(f.compose).some
       )
 
-  sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq]:
+  enum Freq(val id: Int, val importance: Int) extends Ordered[Freq]:
+    case Hourly               extends Freq(10, 10)
+    case Daily                extends Freq(20, 20)
+    case Eastern              extends Freq(30, 15)
+    case Weekly               extends Freq(40, 40)
+    case Weekend              extends Freq(41, 41)
+    case Monthly              extends Freq(50, 50)
+    case Shield               extends Freq(51, 51)
+    case Marathon             extends Freq(60, 60)
+    case ExperimentalMarathon extends Freq(61, 55) // for DB BC
+    case Yearly               extends Freq(70, 70)
+    case Unique               extends Freq(90, 59)
 
     val name = Freq.this.toString.toLowerCase
 
     def compare(other: Freq) = Integer.compare(importance, other.importance)
 
-    def isDaily          = this == Schedule.Freq.Daily
-    def isDailyOrBetter  = this >= Schedule.Freq.Daily
-    def isWeeklyOrBetter = this >= Schedule.Freq.Weekly
+    def isDaily          = this == Freq.Daily
+    def isDailyOrBetter  = this >= Freq.Daily
+    def isWeeklyOrBetter = this >= Freq.Weekly
+
   object Freq:
-    case object Hourly   extends Freq(10, 10)
-    case object Daily    extends Freq(20, 20)
-    case object Eastern  extends Freq(30, 15)
-    case object Weekly   extends Freq(40, 40)
-    case object Weekend  extends Freq(41, 41)
-    case object Monthly  extends Freq(50, 50)
-    case object Shield   extends Freq(51, 51)
-    case object Marathon extends Freq(60, 60)
-    case object ExperimentalMarathon extends Freq(61, 55): // for DB BC
-      override val name = "Experimental Marathon"
-    case object Yearly extends Freq(70, 70)
-    case object Unique extends Freq(90, 59)
-    val all: List[Freq] = List(
-      Hourly,
-      Daily,
-      Eastern,
-      Weekly,
-      Weekend,
-      Monthly,
-      Shield,
-      Marathon,
-      ExperimentalMarathon,
-      Yearly,
-      Unique
-    )
-    def apply(name: String) = all.find(_.name == name)
-    def byId(id: Int)       = all.find(_.id == id)
+    val list: List[Freq] = values.toList
+    val byName           = values.mapBy(_.name)
+    val byId             = values.mapBy(_.id)
 
   enum Speed(val id: Int):
     val name = Speed.this.toString
@@ -207,8 +195,8 @@ object Schedule:
   object Speed:
     val all                      = values.toList
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
+    val byId                     = values.mapBy(_.id)
     def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
-    def byId(id: Int)      = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match
         case (a, b) if a == b                                        => true

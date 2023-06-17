@@ -11,18 +11,15 @@ object EmailAddress extends OpaqueString[EmailAddress]:
       case Array(name, domain) => s"${name take 3}*****@$domain"
       case _                   => e
 
-    def normalize =
-      NormalizedEmailAddress {
-        // changing normalization requires database migration!
-        val lower = e.toLowerCase
-        lower.split('@') match
-          case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
-            val normalizedName = name
-              .replace(".", "")    // remove all dots
-              .takeWhile('+' != _) // skip everything after the first '+'
-            if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
-          case _ => lower
-      }
+    def normalize = NormalizedEmailAddress: // changing normalization requires database migration!
+      val lower = e.toLowerCase
+      lower.split('@') match
+        case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
+          val normalizedName = name
+            .replace(".", "")    // remove all dots
+            .takeWhile('+' != _) // skip everything after the first '+'
+          if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
+        case _ => lower
 
     def domain: Option[Domain] =
       e split '@' match

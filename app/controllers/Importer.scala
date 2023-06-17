@@ -20,10 +20,9 @@ final class Importer(env: Env) extends LilaController(env):
   )
 
   def importGame = OpenBody:
-    fuccess:
-      val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
-      val data = lila.importer.ImportData(PgnStr(pgn), None)
-      Ok(html.game.importGame(env.importer.forms.importForm.fill(data)))
+    val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
+    val data = lila.importer.ImportData(PgnStr(pgn), None)
+    html.game.importGame(env.importer.forms.importForm.fill(data))
 
   def sendGame = OpenBody:
     env.importer.forms.importForm
@@ -31,8 +30,8 @@ final class Importer(env: Env) extends LilaController(env):
       .fold(
         failure =>
           negotiate( // used by mobile app
-            html = Ok(html.game.importGame(failure)).toFuccess,
-            api = _ => BadRequest(jsonError("Invalid PGN")).toFuccess
+            html = Ok(html.game.importGame(failure)),
+            api = _ => BadRequest(jsonError("Invalid PGN"))
           ),
         data =>
           ImportRateLimitPerIP(ctx.ip, rateLimitedFu, cost = 1):
@@ -51,7 +50,7 @@ final class Importer(env: Env) extends LilaController(env):
                     )
                     .void
                 } inject Redirect(routes.Round.watcher(game.id, "white"))
-              case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error).toFuccess
+              case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error)
             }
       )
 
@@ -61,7 +60,7 @@ final class Importer(env: Env) extends LilaController(env):
         env.importer.forms.importForm
           .bindFromRequest()
           .fold(
-            err => BadRequest(apiFormError(err)).toFuccess,
+            err => BadRequest(apiFormError(err)),
             data =>
               doImport(data, me).map:
                 case Left(error) => BadRequest(jsonError(error))

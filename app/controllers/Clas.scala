@@ -44,13 +44,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   private def renderHome(using WebContext) =
-    fuccess {
-      pageHit
-      Ok(views.html.clas.clas.home)
-    }
+    pageHit
+    views.html.clas.clas.home
 
   def form = Secure(_.Teacher) { ctx ?=> _ =>
-    Ok(html.clas.clas.create(env.clas.forms.clas.create)).toFuccess
+    html.clas.clas.create(env.clas.forms.clas.create)
   }
 
   def create = SecureBody(_.Teacher) { ctx ?=> me =>
@@ -114,7 +112,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         env.clas.api.student.allWithUsers(clas) map { students =>
           views.html.clas.wall.show(clas, env.clas.markup(clas), students)
         },
-      forStudent = (clas, _) => redirectTo(clas).toFuccess
+      forStudent = (clas, _) => redirectTo(clas)
     )
   }
 
@@ -143,9 +141,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def notifyStudents(id: ClasId) = Secure(_.Teacher) { ctx ?=> me =>
     WithClass(me, id): clas =>
       env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-        Reasonable(clas, students, "notify") {
-          Ok(html.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText)).toFuccess
-        }
+        Reasonable(clas, students, "notify"):
+          html.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText)
       }
   }
 
@@ -331,9 +328,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                         Redirect(routes.Clas.studentManyForm(clas.id.value))
                           .flashing(
                             "created" -> many
-                              .map { s =>
+                              .map: s =>
                                 s"${s.student.userId} ${s.password.value}"
-                              }
                               .mkString("/")
                           )
                     }
@@ -390,7 +386,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def studentEdit(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me =>
     WithClassAndStudents(me, id): (clas, students) =>
       WithStudent(clas, username): s =>
-        Ok(views.html.clas.student.edit(clas, students, s, env.clas.forms.student edit s.student)).toFuccess
+        views.html.clas.student.edit(clas, students, s, env.clas.forms.student edit s.student)
   }
 
   def studentUpdate(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { ctx ?=> me =>
@@ -430,8 +426,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAndStudents(me, id): (clas, students) =>
       WithStudent(clas, username): s =>
         if s.student.managed
-        then Ok(views.html.clas.student.release(clas, students, s, env.clas.forms.student.release)).toFuccess
-        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).toFuccess
+        then Ok(views.html.clas.student.release(clas, students, s, env.clas.forms.student.release))
+        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username))
   }
 
   def studentReleasePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { ctx ?=> me =>
@@ -451,15 +447,15 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                       Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess:
                         s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account."
               )
-        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).toFuccess
+        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username))
   }
 
   def studentClose(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me =>
     WithClassAndStudents(me, id): (clas, students) =>
       WithStudent(clas, username): s =>
         if s.student.managed
-        then Ok(views.html.clas.student.close(clas, students, s)).toFuccess
-        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).toFuccess
+        then Ok(views.html.clas.student.close(clas, students, s))
+        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username))
   }
 
   def studentClosePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { _ ?=> me =>
@@ -468,7 +464,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         if s.student.managed then
           env.clas.api.student.closeAccount(s) >>
             env.api.accountClosure.close(s.user, me) inject redirectTo(clas).flashSuccess
-        else redirectTo(clas).toFuccess
+        else redirectTo(clas)
   }
 
   def becomeTeacher = AuthBody { ctx ?=> me =>
@@ -516,20 +512,17 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
       f: => Fu[Result]
   )(using WebContext): Fu[Result] =
-    if (students.sizeIs <= lila.clas.Clas.maxStudents) f
-    else Unauthorized(views.html.clas.teacherDashboard.unreasonable(clas, students, active)).toFuccess
+    if students.sizeIs <= lila.clas.Clas.maxStudents then f
+    else Unauthorized(views.html.clas.teacherDashboard.unreasonable(clas, students, active))
 
-  private def WithClass(me: Holder, clasId: ClasId)(
-      f: lila.clas.Clas => Fu[Result]
-  ): Fu[Result] =
+  private def WithClass(me: Holder, clasId: ClasId)(f: lila.clas.Clas => Fu[Result]): Fu[Result] =
     env.clas.api.clas.getAndView(clasId, me.user) flatMapz f
 
   private def WithClassAndStudents(me: Holder, clasId: ClasId)(
       f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
   ): Fu[Result] =
-    WithClass(me, clasId) { c =>
+    WithClass(me, clasId): c =>
       env.clas.api.student.activeOf(c) flatMap { f(c, _) }
-    }
 
   private def WithStudent(clas: lila.clas.Clas, username: UserStr)(
       f: lila.clas.Student.WithUser => Fu[Result]
@@ -539,8 +532,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     }
 
   private def SafeTeacher(f: => Fu[Result])(using WebContext): Fu[Result] =
-    if (ctx.me.exists(!_.lameOrTroll)) f
-    else Redirect(routes.Clas.index).toFuccess
+    if ctx.me.exists(!_.lameOrTroll) then f
+    else Redirect(routes.Clas.index)
 
   private def redirectTo(c: lila.clas.Clas): Result = redirectTo(c.id)
   private def redirectTo(c: ClasId): Result         = Redirect(routes.Clas show c.value)

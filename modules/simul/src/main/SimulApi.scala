@@ -43,12 +43,9 @@ final class SimulApi(
 
   export repo.{ find, byIds, byTeamLeaders }
 
-  private val currentHostIdsCache = cacheApi.unit[Set[UserId]] {
-    _.refreshAfterWrite(5 minutes)
-      .buildAsyncFuture { _ =>
-        repo.allStarted dmap (_.view.map(_.hostId).toSet)
-      }
-  }
+  private val currentHostIdsCache = cacheApi.unit[Set[UserId]]:
+    _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
+      repo.allStarted dmap (_.view.map(_.hostId).toSet)
 
   def create(setup: SimulForm.Setup, me: User, teams: Seq[LeaderTeam]): Fu[Simul] =
     val simul = Simul.make(
@@ -235,8 +232,8 @@ final class SimulApi(
     )
 
   object countHostedByUser:
-    private val cache = cacheApi[UserId, Int](1024, "simul.nb.hosted"):
-      _.expireAfterWrite(10 minutes).buildAsyncFuture(repo.countByHost)
+    private val cache = cacheApi[UserId, Int](32_768, "simul.nb.hosted"):
+      _.expireAfterWrite(5.minutes).buildAsyncFuture(repo.countByHost)
     export cache.get
 
   private def makeGame(simul: Simul, host: User)(

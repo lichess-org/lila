@@ -43,7 +43,7 @@ final class Export(env: Env) extends LilaController(env):
     }
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
-    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url).toFuccess
+    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
 
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo game id) { game =>

@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import lila.common.licon
 import lila.i18n.I18nKeys
 
-sealed abstract class PerfType(
+enum PerfType(
     val id: Perf.Id,
     val key: Perf.Key,
     private val name: String,
@@ -15,15 +15,11 @@ sealed abstract class PerfType(
     val icon: licon.Icon
 ):
 
-  def iconString = icon.toString
-
+  def iconString                = icon.toString
   def trans(using Lang): String = PerfType.trans(this)
+  def desc(using Lang): String  = PerfType.desc(this)
 
-  def desc(using Lang): String = PerfType.desc(this)
-
-object PerfType:
-
-  case object UltraBullet
+  case UltraBullet
       extends PerfType(
         Perf.Id(0),
         key = Perf.Key("ultraBullet"),
@@ -32,7 +28,7 @@ object PerfType:
         icon = licon.UltraBullet
       )
 
-  case object Bullet
+  case Bullet
       extends PerfType(
         Perf.Id(1),
         key = Perf.Key("bullet"),
@@ -41,7 +37,7 @@ object PerfType:
         icon = licon.Bullet
       )
 
-  case object Blitz
+  case Blitz
       extends PerfType(
         Perf.Id(2),
         key = Perf.Key("blitz"),
@@ -50,7 +46,7 @@ object PerfType:
         icon = licon.FlameBlitz
       )
 
-  case object Rapid
+  case Rapid
       extends PerfType(
         Perf.Id(6),
         key = Perf.Key("rapid"),
@@ -59,7 +55,7 @@ object PerfType:
         icon = licon.Rabbit
       )
 
-  case object Classical
+  case Classical
       extends PerfType(
         Perf.Id(3),
         key = Perf.Key("classical"),
@@ -68,7 +64,7 @@ object PerfType:
         icon = licon.Turtle
       )
 
-  case object Correspondence
+  case Correspondence
       extends PerfType(
         Perf.Id(4),
         key = Perf.Key("correspondence"),
@@ -77,7 +73,7 @@ object PerfType:
         icon = licon.PaperAirplane
       )
 
-  case object Standard
+  case Standard
       extends PerfType(
         Perf.Id(5),
         key = Perf.Key("standard"),
@@ -86,7 +82,7 @@ object PerfType:
         icon = licon.Crown
       )
 
-  case object Chess960
+  case Chess960
       extends PerfType(
         Perf.Id(11),
         key = Perf.Key("chess960"),
@@ -95,7 +91,7 @@ object PerfType:
         icon = licon.DieSix
       )
 
-  case object KingOfTheHill
+  case KingOfTheHill
       extends PerfType(
         Perf.Id(12),
         key = Perf.Key("kingOfTheHill"),
@@ -104,7 +100,7 @@ object PerfType:
         icon = licon.FlagKingHill
       )
 
-  case object Antichess
+  case Antichess
       extends PerfType(
         Perf.Id(13),
         key = Perf.Key("antichess"),
@@ -113,7 +109,7 @@ object PerfType:
         icon = licon.Antichess
       )
 
-  case object Atomic
+  case Atomic
       extends PerfType(
         Perf.Id(14),
         key = Perf.Key("atomic"),
@@ -122,7 +118,7 @@ object PerfType:
         icon = licon.Atom
       )
 
-  case object ThreeCheck
+  case ThreeCheck
       extends PerfType(
         Perf.Id(15),
         key = Perf.Key("threeCheck"),
@@ -131,7 +127,7 @@ object PerfType:
         icon = licon.ThreeCheckStack
       )
 
-  case object Horde
+  case Horde
       extends PerfType(
         Perf.Id(16),
         key = Perf.Key("horde"),
@@ -140,7 +136,7 @@ object PerfType:
         icon = licon.Keypad
       )
 
-  case object RacingKings
+  case RacingKings
       extends PerfType(
         Perf.Id(17),
         key = Perf.Key("racingKings"),
@@ -149,7 +145,7 @@ object PerfType:
         icon = licon.FlagRacingKings
       )
 
-  case object Crazyhouse
+  case Crazyhouse
       extends PerfType(
         Perf.Id(18),
         key = Perf.Key("crazyhouse"),
@@ -158,7 +154,7 @@ object PerfType:
         icon = licon.Crazyhouse
       )
 
-  case object Puzzle
+  case Puzzle
       extends PerfType(
         Perf.Id(20),
         key = Perf.Key("puzzle"),
@@ -167,26 +163,10 @@ object PerfType:
         icon = licon.ArcheryTarget
       )
 
-  val all: List[PerfType] = List(
-    UltraBullet,
-    Bullet,
-    Blitz,
-    Rapid,
-    Classical,
-    Correspondence,
-    Standard,
-    Crazyhouse,
-    Chess960,
-    KingOfTheHill,
-    ThreeCheck,
-    Antichess,
-    Atomic,
-    Horde,
-    RacingKings,
-    Puzzle
-  )
-  val byKey = all.mapBy(_.key)
-  val byId  = all.mapBy(_.id)
+object PerfType:
+  val all: List[PerfType] = values.toList
+  val byKey               = all.mapBy(_.key)
+  val byId                = all.mapBy(_.id)
 
   val default = Standard
 
@@ -197,22 +177,8 @@ object PerfType:
 
   def id2key(id: Perf.Id): Option[Perf.Key] = byId get id map (_.key)
 
-  val nonPuzzle: List[PerfType] = List(
-    UltraBullet,
-    Bullet,
-    Blitz,
-    Rapid,
-    Classical,
-    Correspondence,
-    Crazyhouse,
-    Chess960,
-    KingOfTheHill,
-    ThreeCheck,
-    Antichess,
-    Atomic,
-    Horde,
-    RacingKings
-  )
+  val nonPuzzle: List[PerfType] = all.filter(_ != Puzzle)
+
   val leaderboardable: List[PerfType] = List(
     Bullet,
     Blitz,
@@ -234,30 +200,28 @@ object PerfType:
   val standard: List[PerfType]          = List(Bullet, Blitz, Rapid, Classical, Correspondence)
   val standardWithUltra: List[PerfType] = UltraBullet :: standard
 
-  def variantOf(pt: PerfType): chess.variant.Variant =
-    pt match
-      case Crazyhouse    => chess.variant.Crazyhouse
-      case Chess960      => chess.variant.Chess960
-      case KingOfTheHill => chess.variant.KingOfTheHill
-      case ThreeCheck    => chess.variant.ThreeCheck
-      case Antichess     => chess.variant.Antichess
-      case Atomic        => chess.variant.Atomic
-      case Horde         => chess.variant.Horde
-      case RacingKings   => chess.variant.RacingKings
-      case _             => chess.variant.Standard
+  def variantOf(pt: PerfType): chess.variant.Variant = pt match
+    case Crazyhouse    => chess.variant.Crazyhouse
+    case Chess960      => chess.variant.Chess960
+    case KingOfTheHill => chess.variant.KingOfTheHill
+    case ThreeCheck    => chess.variant.ThreeCheck
+    case Antichess     => chess.variant.Antichess
+    case Atomic        => chess.variant.Atomic
+    case Horde         => chess.variant.Horde
+    case RacingKings   => chess.variant.RacingKings
+    case _             => chess.variant.Standard
 
-  def byVariant(variant: chess.variant.Variant): Option[PerfType] =
-    variant match
-      case chess.variant.Standard      => none
-      case chess.variant.FromPosition  => none
-      case chess.variant.Crazyhouse    => Crazyhouse.some
-      case chess.variant.Chess960      => Chess960.some
-      case chess.variant.KingOfTheHill => KingOfTheHill.some
-      case chess.variant.ThreeCheck    => ThreeCheck.some
-      case chess.variant.Antichess     => Antichess.some
-      case chess.variant.Atomic        => Atomic.some
-      case chess.variant.Horde         => Horde.some
-      case chess.variant.RacingKings   => RacingKings.some
+  def byVariant(variant: chess.variant.Variant): Option[PerfType] = variant match
+    case chess.variant.Standard      => none
+    case chess.variant.FromPosition  => none
+    case chess.variant.Crazyhouse    => Crazyhouse.some
+    case chess.variant.Chess960      => Chess960.some
+    case chess.variant.KingOfTheHill => KingOfTheHill.some
+    case chess.variant.ThreeCheck    => ThreeCheck.some
+    case chess.variant.Antichess     => Antichess.some
+    case chess.variant.Atomic        => Atomic.some
+    case chess.variant.Horde         => Horde.some
+    case chess.variant.RacingKings   => RacingKings.some
 
   def standardBySpeed(speed: Speed): PerfType = speed match
     case Speed.UltraBullet    => UltraBullet
@@ -270,40 +234,38 @@ object PerfType:
   def apply(variant: chess.variant.Variant, speed: Speed): PerfType =
     byVariant(variant) getOrElse standardBySpeed(speed)
 
-  lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view
-    .map { pt =>
-      pt -> Centis(pt match {
-        case UltraBullet    => 25 * 100
-        case Bullet         => 90 * 100
-        case Blitz          => 7 * 60 * 100
-        case Rapid          => 12 * 60 * 100
-        case Classical      => 30 * 60 * 100
-        case Correspondence => 60 * 60 * 100
-        case _              => 7 * 60 * 100
-      })
-    }
-    .to(Map)
+  lazy val totalTimeRoughEstimation: Map[PerfType, Centis] =
+    nonPuzzle.view
+      .map: pt =>
+        pt -> Centis:
+          pt.match
+            case UltraBullet    => 25 * 100
+            case Bullet         => 90 * 100
+            case Blitz          => 7 * 60 * 100
+            case Rapid          => 12 * 60 * 100
+            case Classical      => 30 * 60 * 100
+            case Correspondence => 60 * 60 * 100
+            case _              => 7 * 60 * 100
+      .to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): licon.Icon =
     byVariant(variant).fold(licon.CrownElite)(_.icon)
 
-  def trans(pt: PerfType)(using Lang): String =
-    pt match
-      case Rapid          => I18nKeys.rapid.txt()
-      case Classical      => I18nKeys.classical.txt()
-      case Correspondence => I18nKeys.correspondence.txt()
-      case Puzzle         => I18nKeys.puzzles.txt()
-      case pt             => pt.name
+  def trans(pt: PerfType)(using Lang): String = pt match
+    case Rapid          => I18nKeys.rapid.txt()
+    case Classical      => I18nKeys.classical.txt()
+    case Correspondence => I18nKeys.correspondence.txt()
+    case Puzzle         => I18nKeys.puzzles.txt()
+    case pt             => pt.name
 
   val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle)
 
-  def desc(pt: PerfType)(using Lang): String =
-    pt match
-      case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
-      case Bullet         => I18nKeys.bulletDesc.txt()
-      case Blitz          => I18nKeys.blitzDesc.txt()
-      case Rapid          => I18nKeys.rapidDesc.txt()
-      case Classical      => I18nKeys.classicalDesc.txt()
-      case Correspondence => I18nKeys.correspondenceDesc.txt()
-      case Puzzle         => I18nKeys.puzzleDesc.txt()
-      case pt             => pt.title
+  def desc(pt: PerfType)(using Lang): String = pt match
+    case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
+    case Bullet         => I18nKeys.bulletDesc.txt()
+    case Blitz          => I18nKeys.blitzDesc.txt()
+    case Rapid          => I18nKeys.rapidDesc.txt()
+    case Classical      => I18nKeys.classicalDesc.txt()
+    case Correspondence => I18nKeys.correspondenceDesc.txt()
+    case Puzzle         => I18nKeys.puzzleDesc.txt()
+    case pt             => pt.title

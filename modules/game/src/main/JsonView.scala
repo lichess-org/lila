@@ -20,8 +20,7 @@ final class JsonView(rematches: Rematches):
         "speed"     -> game.speed.key,
         "perf"      -> PerfPicker.key(game),
         "rated"     -> game.rated,
-        "fen"       -> (Fen write game.chess),
-        "player"    -> game.turnColor,
+        "fen"       -> Fen.write(game.chess),
         "turns"     -> game.ply,
         "source"    -> game.source,
         "status"    -> game.status,
@@ -34,11 +33,19 @@ final class JsonView(rematches: Rematches):
       .add("tournamentId" -> game.tournamentId)
       .add("swissId" -> game.swissId)
       .add("winner" -> game.winnerColor)
-      .add("lastMove" -> game.lastMoveKeys)
-      .add("check" -> game.situation.checkSquare.map(_.key))
       .add("rematch" -> rematches.getAcceptedId(game.id))
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
       .add("rules" -> game.metadata.nonEmptyRules)
+
+    // adds fields that could be computed by the client instead
+  def baseWithChessDenorm(game: Game, initialFen: Option[Fen.Epd]) =
+    base(game, initialFen) ++ Json
+      .obj(
+        "player" -> game.turnColor,
+        "fen"    -> Fen.write(game.chess)
+      )
+      .add("check" -> game.situation.checkSquare.map(_.key))
+      .add("lastMove" -> game.lastMoveKeys)
 
   def ownerPreview(pov: Pov)(using LightUser.GetterSync) =
     Json

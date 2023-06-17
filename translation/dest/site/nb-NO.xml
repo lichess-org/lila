@@ -289,7 +289,6 @@
   <string name="cancelRematchOffer">Avbryt tilbud om omkamp</string>
   <string name="viewRematch">Se omkamp</string>
   <string name="confirmMove">Bekreft trekk</string>
-  <string name="enableConfirmationForThisGame">Skru på bekreftelser for dette partiet</string>
   <string name="play">Spill</string>
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Chatterom</string>
@@ -902,8 +901,6 @@
   <string name="congratsYouWon">Gratulerer, du vant!</string>
   <string name="gameVsX">Parti mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Noen har skrevet en elevanmeldelse for trenerprofilen din.</string>
-  <string name="newPendingReview">Ny elevanmeldelse klar for gjennomgang</string>
   <string name="lostAgainstTOSViolator">Du tapte ratingpoeng mot noen som brøt vilkårene våre</string>
   <string name="refundXpointsTimeControlY">Refusjon: %1$s ratingpoeng i %2$s.</string>
   <string name="timeAlmostUp">Tiden er nesten ute!</string>

@@ -65,7 +65,7 @@ object Tv:
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
 
-  sealed abstract class Channel(
+  enum Channel(
       val name: String,
       val icon: licon.Icon,
       val secondsSinceLastMove: Int,
@@ -74,138 +74,122 @@ object Tv:
     def isFresh(g: Game): Boolean     = fresh(secondsSinceLastMove, g)
     def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
     val key                           = s"${toString.head.toLower}${toString.drop(1)}"
-  object Channel:
-    case object Best
+    case Best
         extends Channel(
           name = "Top Rated",
           icon = licon.CrownElite,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(rated(2150), standard, noBot)
         )
-    case object Bullet
+    case Bullet
         extends Channel(
           name = S.Bullet.name,
           icon = P.Bullet.icon,
           secondsSinceLastMove = 35,
           filters = Seq(speed(S.Bullet), rated(2000), standard, noBot)
         )
-    case object Blitz
+    case Blitz
         extends Channel(
           name = S.Blitz.name,
           icon = P.Blitz.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(speed(S.Blitz), rated(2000), standard, noBot)
         )
-    case object Rapid
+    case Rapid
         extends Channel(
           name = S.Rapid.name,
           icon = P.Rapid.icon,
           secondsSinceLastMove = 60 * 5,
           filters = Seq(speed(S.Rapid), rated(1800), standard, noBot)
         )
-    case object Classical
+    case Classical
         extends Channel(
           name = S.Classical.name,
           icon = P.Classical.icon,
           secondsSinceLastMove = 60 * 8,
           filters = Seq(speed(S.Classical), rated(1650), standard, noBot)
         )
-    case object Chess960
+    case Chess960
         extends Channel(
           name = V.Chess960.name,
           icon = P.Chess960.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Chess960), noBot)
         )
-    case object KingOfTheHill
+    case KingOfTheHill
         extends Channel(
           name = V.KingOfTheHill.name,
           icon = P.KingOfTheHill.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.KingOfTheHill), noBot)
         )
-    case object ThreeCheck
+    case ThreeCheck
         extends Channel(
           name = V.ThreeCheck.name,
           icon = P.ThreeCheck.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.ThreeCheck), noBot)
         )
-    case object Antichess
+    case Antichess
         extends Channel(
           name = V.Antichess.name,
           icon = P.Antichess.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Antichess), noBot)
         )
-    case object Atomic
+    case Atomic
         extends Channel(
           name = V.Atomic.name,
           icon = P.Atomic.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Atomic), noBot)
         )
-    case object Horde
+    case Horde
         extends Channel(
           name = V.Horde.name,
           icon = P.Horde.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Horde), noBot)
         )
-    case object RacingKings
+    case RacingKings
         extends Channel(
           name = V.RacingKings.name,
           icon = P.RacingKings.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.RacingKings), noBot)
         )
-    case object Crazyhouse
+    case Crazyhouse
         extends Channel(
           name = V.Crazyhouse.name,
           icon = P.Crazyhouse.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Crazyhouse), noBot)
         )
-    case object UltraBullet
+    case UltraBullet
         extends Channel(
           name = S.UltraBullet.name,
           icon = P.UltraBullet.icon,
           secondsSinceLastMove = 20,
           filters = Seq(speed(S.UltraBullet), rated(1600), standard, noBot)
         )
-    case object Bot
+    case Bot
         extends Channel(
           name = "Bot",
           icon = licon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(standard, hasBot)
         )
-    case object Computer
+    case Computer
         extends Channel(
           name = "Computer",
           icon = licon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(computerFromInitialPosition)
         )
-    val all = List(
-      Best,
-      Bullet,
-      Blitz,
-      Rapid,
-      Classical,
-      Crazyhouse,
-      Chess960,
-      KingOfTheHill,
-      ThreeCheck,
-      Antichess,
-      Atomic,
-      Horde,
-      RacingKings,
-      UltraBullet,
-      Bot,
-      Computer
-    )
-    val byKey = all.mapBy(_.key)
+
+  object Channel:
+    val list  = values.toList
+    val byKey = values.mapBy(_.key)
 
   private def rated(min: Int)           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
   private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed

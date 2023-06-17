@@ -35,7 +35,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     case In.NotifiedBatch(userIds) =>
       Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
-      lags foreach (UserLagCache.put).tupled
+      lags.foreach: (userId, centis) =>
+        UserLagCache.put(userId, centis)
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys).unit
     case In.TellSri(sri, userId, typ, msg) =>

@@ -46,17 +46,15 @@ object Json:
   def intIsoFormat[O](using iso: Iso[Int, O]): Format[O] =
     Format[O](
       Reads.of[Int] map iso.from,
-      Writes { o =>
+      Writes: o =>
         JsNumber(iso to o)
-      }
     )
 
   def stringIsoFormat[O](using iso: Iso[String, O]): Format[O] =
     Format[O](
       Reads.of[String] map iso.from,
-      Writes { o =>
+      Writes: o =>
         JsString(iso to o)
-      }
     )
 
   def stringRead[O](from: String => O): Reads[O] = Reads.of[String] map from
@@ -90,19 +88,17 @@ object Json:
   }
   given Writes[Uci] = writeAs(_.uci)
 
-  given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily] { f =>
+  given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily]: f =>
     f.get[String]("key")
       .flatMap(LilaOpeningFamily.find)
       .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))
-  }
 
   given NoJsonHandler[chess.Square] with {}
 
   given OWrites[Crazyhouse.Pocket] = OWrites: v =>
-    JsObject(
+    JsObject:
       v.values.collect:
         case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
-    )
 
   given OWrites[chess.variant.Crazyhouse.Data] = OWrites: v =>
     PlayJson.obj("pockets" -> List(v.pockets.white, v.pockets.black))

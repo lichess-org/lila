@@ -21,17 +21,17 @@ private[controllers] trait ForumController { self: LilaController =>
       categId: ForumCategId,
       tryingToPostAsMod: Boolean = false
   )(a: => Fu[A])(using WebContext): Fu[Result] =
-    access.isGrantedWrite(categId, tryingToPostAsMod) flatMap { granted =>
-      if (granted) a
-      else fuccess(Forbidden("You cannot post to this category"))
+    access.isGrantedWrite(categId, tryingToPostAsMod) flatMap {
+      if _ then a
+      else Forbidden("You cannot post to this category")
     }
 
   protected def CategGrantMod[A <: Result](
       categId: ForumCategId
   )(a: => Fu[A])(using WebContext): Fu[Result] =
     access.isGrantedMod(categId) flatMap { granted =>
-      if (granted | isGranted(_.ModerateForum)) a
-      else fuccess(Forbidden("You cannot post to this category"))
+      if granted | isGranted(_.ModerateForum) then a
+      else Forbidden("You cannot post to this category")
     }
 
   protected def TopicGrantModBySlug[A <: Result](
@@ -50,11 +50,11 @@ private[controllers] trait ForumController { self: LilaController =>
       getTopic: => Fu[Option[ForumTopic]]
   )(a: => Fu[A])(using WebContext): Fu[Result] =
     access.isGrantedMod(categId) flatMap { granted =>
-      if (granted | isGranted(_.ModerateForum)) a
+      if granted | isGranted(_.ModerateForum) then a
       else
         getTopic flatMap { topic =>
-          if (topic.exists(_ isUblogAuthor me)) a
-          else fuccess(Forbidden("You cannot moderate this forum"))
+          if topic.exists(_ isUblogAuthor me) then a
+          else Forbidden("You cannot moderate this forum")
         }
     }
 }

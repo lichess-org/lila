@@ -8,6 +8,7 @@ import lila.common.paginator.Paginator
 import controllers.routes
 import lila.relay.{ RelayRound, RelayTour }
 import lila.relay.RelayTour.WithLastRound
+import lila.common.LightUser
 
 object tour:
 
@@ -22,7 +23,7 @@ object tour:
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
       moreJs = infiniteScrollTag
-    ) {
+    ):
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
         div(cls := "page-menu__content box")(
@@ -30,13 +31,28 @@ object tour:
             h1(liveBroadcasts()),
             searchForm(query)
           ),
-          st.section(
+          st.section:
             active.map { renderWidget(_, ongoing = _.ongoing) }
-          ),
+          ,
           renderPager(pager, query)
         )
       )
-    }
+
+  def byOwner(pager: Paginator[RelayTour.WithLastRound], owner: LightUser)(using WebContext) =
+    views.html.base.layout(
+      title = liveBroadcasts.txt(),
+      moreCss = cssTag("relay.index"),
+      moreJs = infiniteScrollTag
+    ):
+      main(cls := "relay-index page-menu")(
+        pageMenu("by", owner.some),
+        div(cls := "page-menu__content box")(
+          boxTop:
+            h1(lightUserLink(owner), " ", liveBroadcasts())
+          ,
+          renderPager(pager, owner = owner.some)
+        )
+      )
 
   def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(using
       WebContext
@@ -45,7 +61,7 @@ object tour:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("page")
-    ) {
+    ):
       main(cls := "page-small page-menu")(
         pageMenu(active),
         div(cls := "page-menu__content box box-pad page")(
@@ -53,13 +69,23 @@ object tour:
           div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
         )
       )
-    }
 
-  def pageMenu(menu: String)(using WebContext) =
+  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: WebContext) =
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
-      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
+      ctx.me.map: me =>
+        a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_ is me).option("active"))(
+          "My broadcasts"
+        ),
+      by.filterNot(ctx.is)
+        .map: user =>
+          a(href := routes.RelayTour.by(user.name, 1), cls := "active")(
+            user.name,
+            " ",
+            trans.broadcast.broadcasts()
+          ),
       a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
+      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))("About broadcasts")
     )
 
@@ -80,7 +106,9 @@ object tour:
           p(tr.tour.description),
           p(cls := "relay-widget__info__meta")(
             tr.tour.active option frag(strong(tr.display.name), br),
-            if ongoing(tr) then trans.playingRightNow() else tr.display.startsAt.map(momentFromNow(_))
+            if ongoing(tr)
+            then trans.playingRightNow()
+            else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           )
         )
       )
@@ -92,10 +120,16 @@ object tour:
     )
   )
 
-  private def renderPager(pager: Paginator[WithLastRound], query: String)(using WebContext) =
+  private def renderPager(
+      pager: Paginator[WithLastRound],
+      query: String = "",
+      owner: Option[LightUser] = None
+  )(using WebContext) =
+    def next(page: Int) = owner match
+      case None    => routes.RelayTour.index(page, query)
+      case Some(u) => routes.RelayTour.by(u.name, page)
     st.section(cls := "infinite-scroll")(
-      pager.currentPageResults map { tr =>
-        renderWidget(tr, ongoing = _ => false)(cls := "paginated")
-      },
-      pagerNext(pager, routes.RelayTour.index(_, query).url)
+      pager.currentPageResults.map: tr =>
+        renderWidget(tr, ongoing = _ => false)(cls := "paginated"),
+      pagerNext(pager, next(_).url)
     )

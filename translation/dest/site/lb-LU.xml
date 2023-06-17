@@ -892,8 +892,6 @@
   <string name="congratsYouWon">Felicitatioun, du hues gewonn!</string>
   <string name="gameVsX">Partie géint %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Et huet een däin Trainerprofil bewäert.</string>
-  <string name="newPendingReview">Nei ausstoend Bewäertungen</string>
   <string name="lostAgainstTOSViolator">Du hues géint een verluer deen géint Lichess-Richtlinnen vertouss huet</string>
   <string name="refundXpointsTimeControlY">Réckerstattung: %1$s %2$s Wäertungspunkten.</string>
   <string name="timeAlmostUp">Deng Zäit ass baal ofgelaf!</string>

@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">URL на партиите, по една на линия</string>
   <string name="loadAGameFromXOrY">Зареди партии от %1$s или %2$s</string>
   <string name="createChapter">Създай</string>
-  <string name="configureLiveBroadcast">Настройка на живо предаване</string>
   <string name="createStudy">Създай казус</string>
   <string name="editStudy">Редактирай казус</string>
   <string name="visibility">Видимост</string>

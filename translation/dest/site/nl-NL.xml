@@ -288,7 +288,6 @@
   <string name="cancelRematchOffer">Uitnodiging voor nieuwe partij annuleren</string>
   <string name="viewRematch">Herkansingspartij bekijken</string>
   <string name="confirmMove">Bevestig zet</string>
-  <string name="enableConfirmationForThisGame">Bevestiging voor deze partij inschakelen</string>
   <string name="play">Spelen</string>
   <string name="inbox">Postvak IN</string>
   <string name="chatRoom">Chatruimte</string>
@@ -896,8 +895,6 @@
   <string name="congratsYouWon">Gefeliciteerd, je hebt gewonnen!</string>
   <string name="gameVsX">Partij tegen %1$s</string>
   <string name="resVsX">%1$s tegen %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Iemand heeft je coachprofiel een beoordeling gegeven.</string>
-  <string name="newPendingReview">In afwachting van beoordeling</string>
   <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
   <string name="refundXpointsTimeControlY">Teruggekregen: %1$s %2$s ratingpunten.</string>
   <string name="timeAlmostUp">De tijd is bijna om!</string>

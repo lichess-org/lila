@@ -26,7 +26,7 @@ final class ApiMoveStream(
       yield
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
         def makeGameJson(g: Game) =
-          gameJsonView.base(g, initialFen) ++ Json.obj(
+          gameJsonView.baseWithChessDenorm(g, initialFen) ++ Json.obj(
             "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
               p.color.name -> gameJsonView.player(p, user)
             })

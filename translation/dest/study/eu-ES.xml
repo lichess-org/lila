@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">Partidaren URLa</string>
   <string name="loadAGameFromXOrY">Hemendik kargatu partida bat: %1$s edo %2$s</string>
   <string name="createChapter">Kapitulua sortu</string>
-  <string name="configureLiveBroadcast">Zuzeneko emanaldia konfiguratu</string>
   <string name="createStudy">Azterlana sortu</string>
   <string name="editStudy">Azterlana aldatu</string>
   <string name="visibility">Ikusgaitasuna</string>

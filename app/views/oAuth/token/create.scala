@@ -31,7 +31,7 @@ object create:
           br,
           h2(ot.whatTheTokenCanDo()),
           div(cls := "scopes")(
-            lila.oauth.OAuthScope.classified.map { case (categ, scopes) =>
+            lila.oauth.OAuthScope.classified.map { (categ, scopes) =>
               fieldset(
                 legend(categ()),
                 scopes.map { scope =>
@@ -45,7 +45,7 @@ object create:
                       isGranted(_.Shusher) || isGranted(_.BoostHunter) || isGranted(_.CheatHunter)
                     )
                   val id = s"oauth-scope-${scope.key.replace(":", "_")}"
-                  !hidden option div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList(scope)))(
+                  !hidden option div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList.has(scope)))(
                     span(
                       form3.cmnToggle(
                         id,

@@ -6,10 +6,10 @@ import chess.format.Fen
 /* Try to detect variant ways for the input to be wrong */
 private object RelayInputSanity:
 
-  sealed abstract class Fail(val msg: String)
-  case class Missing(pos: Int) extends Fail(s"Missing game for Chapter ${pos + 1}")
-  case class Misplaced(gamePos: Int, chapterPos: Int)
-      extends Fail(s"Game ${gamePos + 1} matches with Chapter ${chapterPos + 1}")
+  enum Fail(val msg: String):
+    case Missing(pos: Int) extends Fail(s"Missing game for Chapter ${pos + 1}")
+    case Misplaced(gamePos: Int, chapterPos: Int)
+        extends Fail(s"Game ${gamePos + 1} matches with Chapter ${chapterPos + 1}")
 
   def apply(chapters: List[Chapter], games: RelayGames): Either[Fail, RelayGames] = {
     if (chapters.isEmpty) Right(games)
@@ -26,11 +26,11 @@ private object RelayInputSanity:
   private def detectMissingOrMisplaced(chapters: List[RelayChapter], games: Vector[RelayGame]): Option[Fail] =
     chapters flatMap { (chapter, relay) =>
       games.lift(relay.index) match
-        case None => Missing(relay.index).some
+        case None => Fail.Missing(relay.index).some
         case Some(game) if !game.staticTagsMatch(chapter) =>
           games.zipWithIndex collectFirst {
             case (otherGame, otherPos) if otherGame staticTagsMatch chapter =>
-              Misplaced(otherPos, relay.index)
+              Fail.Misplaced(otherPos, relay.index)
           }
         case _ => None
     } headOption

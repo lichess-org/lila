@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Udsendelser</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s udsendelse</item>
+    <item quantity="other">%s udsendelser</item>
+  </plurals>
   <string name="liveBroadcasts">Live turnerings-udsendelser</string>
   <string name="newBroadcast">Ny live-udsendelse</string>
   <string name="addRound">Tilføj en runde</string>
@@ -25,6 +29,7 @@
   <string name="currentRoundUrl">Nuværende runde URL</string>
   <string name="currentGameUrl">Nuværende parti URL</string>
   <string name="downloadAllRounds">Download alle runder</string>
-  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Slet runden og dens partier endegyldigt.</string>
-  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round. &quot;Source&quot; refers to the broadcasting source, usually an URL pointing to a PGN file which is continuously updated by the tournament organizers and polled by Lichess to get new moves. The button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source the next time it is polled by Lichess.">Slet alle partier i denne runde. Kilden skal være aktiv for at genskabe dem.</string>
+  <string name="definitivelyDeleteRound">Slet runden og dens partier endegyldigt.</string>
+  <string name="deleteAllGamesOfThisRound">Slet alle partier i denne runde. Kilden skal være aktiv for at genskabe dem.</string>
+  <string name="editRoundStudy">Rediger rundestudie</string>
 </resources>

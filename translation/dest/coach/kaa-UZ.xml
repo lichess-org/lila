@@ -18,12 +18,4 @@
   <string name="teachingMethod">Oqıtıw metodologiyası</string>
   <string name="publicStudies">Ashıq sabaqlar</string>
   <string name="youtubeVideos">YouTube videoları</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Úyreniwshi pikiri</item>
-    <item quantity="other">%s úyreniwshi pikirleri</item>
-  </plurals>
-  <string name="thankYouForReview">Pikirińiz ushın raxmet!</string>
-  <string name="xWillApproveIt">%s jaqın arada bunı tastıyıqlaydı yamasa moderator kórip shıǵadı.</string>
-  <string name="reviewCoach">Bul trener haqqında pikir qaldırıw</string>
-  <string name="describeExperienceWith">%s menen trenerlik tájiriybeńizdi táriyiplep beriń</string>
 </resources>

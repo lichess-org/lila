@@ -58,7 +58,7 @@ final class Setup(
             config =>
               processor.ai(config) flatMap { pov =>
                 negotiate(
-                  html = fuccess(redirectPov(pov)),
+                  html = redirectPov(pov),
                   api = apiVersion =>
                     env.api.roundApi.player(pov, none, apiVersion) map { data =>
                       Created(data) as JSON
@@ -80,9 +80,9 @@ final class Setup(
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
-                      html = Forbidden(jsonError(message)).toFuccess,
+                      html = Forbidden(jsonError(message)),
                       // 403 tells setupCtrl.ts to close the setup modal
-                      api = _ => BadRequest(jsonError(message)).toFuccess
+                      api = _ => BadRequest(jsonError(message))
                     )
                   case None =>
                     import lila.challenge.Challenge.*
@@ -93,24 +93,24 @@ final class Setup(
                       timeControl = timeControl,
                       mode = config.mode,
                       color = config.color.name,
-                      challenger = (ctx.me, ctx.req.sid) match {
+                      challenger = (ctx.me, ctx.req.sid) match
                         case (Some(user), _) => toRegistered(config.variant, timeControl)(user)
                         case (_, Some(sid))  => Challenger.Anonymous(sid)
                         case _               => Challenger.Open
-                      },
+                      ,
                       destUser = destUser,
                       rematchOf = none
                     )
                     env.challenge.api create challenge flatMap {
                       if _ then
                         negotiate(
-                          html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                          html = Redirect(routes.Round.watcher(challenge.id, "white")),
                           api = _ => challengeC.showChallenge(challenge, justCreated = true)
                         )
                       else
                         negotiate(
-                          html = fuccess(Redirect(routes.Lobby.home)),
-                          api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
+                          html = Redirect(routes.Lobby.home),
+                          api = _ => BadRequest(jsonError("Challenge not created"))
                         )
                     }
                 }
@@ -183,11 +183,12 @@ final class Setup(
     maxConcurrency = 1
   )
   def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile) { ctx ?=> me =>
+    val reqSri = getAs[Sri]("sri")
     val author: Either[Result, Either[Sri, lila.user.User]] = me match
       case Some(u) if u.isBot => Left(notForBotAccounts)
       case Some(u)            => Right(Right(u))
       case None =>
-        getAs[Sri]("sri") match
+        reqSri match
           case Some(sri) => Right(Left(sri))
           case None      => Left(BadRequest(jsonError("Authentication required")))
     author match
@@ -202,15 +203,15 @@ final class Setup(
               me.map(_.id).so(env.relation.api.fetchBlocking) flatMap { blocking =>
                 val uniqId = author.fold(_.value, u => s"sri:${u.id}")
                 config.fixColor
-                  .hook(Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
+                  .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
                   case Left(hook) =>
                     PostRateLimit(req.ipAddress, rateLimitedFu):
                       BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
                         env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                      )(apiC.sourceToNdJsonOption).toFuccess
+                      )(apiC.sourceToNdJsonOption)
                   case Right(Some(seek)) =>
                     author match
-                      case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks")).toFuccess
+                      case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks"))
                       case Right(u) =>
                         env.setup.processor.createSeekIfAllowed(seek, u.id) map {
                           case HookResult.Refused =>
@@ -224,14 +225,14 @@ final class Setup(
   }
 
   def filterForm = Open:
-    fuccess(html.setup.filter(forms.filter))
+    html.setup.filter(forms.filter)
 
   def validateFen = Open:
     (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]) flatMap ValidFen(getBool("strict")) match
-      case None    => BadRequest.toFuccess
-      case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
+      case None    => BadRequest
+      case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color))
 
-  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
+  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me =>
     BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot so 1):
       PostRateLimit(req.ipAddress, rateLimitedFu):
         forms.api.ai
@@ -239,8 +240,8 @@ final class Setup(
           .fold(
             jsonFormError,
             config =>
-              processor.apiAi(config, me) map { pov =>
-                Created(env.game.jsonView.base(pov.game, config.fen)) as JSON
+              processor.apiAi(config, me).map { pov =>
+                Created(env.game.jsonView.baseWithChessDenorm(pov.game, config.fen)) as JSON
               }
           )
   }

@@ -1,11 +1,13 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
-import { ForecastCtrl, ForecastStep } from './interfaces';
+import { ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { fixCrazySan } from 'chess';
+import { findCurrentPath } from '../treeView/common';
+import ForecastCtrl from './forecastCtrl';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];
@@ -59,11 +61,19 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         h('div.top', ctrl.trans.noarg('conditionalPremoves')),
         h(
           'div.list',
-          fctrl.list().map(function (nodes, i) {
-            return h(
-              'div.entry.text',
+          fctrl.forecasts().map((nodes, i) =>
+            h(
+              'button.entry.text',
               {
                 attrs: dataIcon(licon.PlayTriangle),
+                hook: bind(
+                  'click',
+                  _ => {
+                    const path = fctrl.showForecast(findCurrentPath(ctrl) || '', ctrl.tree, nodes);
+                    ctrl.userJump(path);
+                  },
+                  ctrl.redraw
+                ),
               },
               [
                 h('button.del', {
@@ -72,8 +82,8 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 }),
                 h('sans', renderNodesHtml(nodes)),
               ]
-            );
-          })
+            )
+          )
         ),
         h(
           'button.add.text',
@@ -89,7 +99,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           ]
         ),
       ]),
-      fctrl.onMyTurn ? onMyTurn(ctrl, fctrl, cNodes) : null,
+      fctrl.onMyTurn() ? onMyTurn(ctrl, fctrl, cNodes) : null,
     ]
   );
 }

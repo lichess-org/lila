@@ -19,11 +19,11 @@ final class Account(
 ) extends LilaController(env):
 
   def profile = Auth { _ ?=> me =>
-    Ok(html.account.profile(me, env.user.forms profileOf me)).toFuccess
+    html.account.profile(me, env.user.forms profileOf me)
   }
 
   def username = Auth { _ ?=> me =>
-    Ok(html.account.username(me, env.user.forms usernameOf me)).toFuccess
+    html.account.username(me, env.user.forms usernameOf me)
   }
 
   def profileApply = AuthBody { _ ?=> me =>
@@ -33,12 +33,11 @@ final class Account(
       profile.bio
         .exists(env.security.spam.detect)
         .option("profile.bio" -> ~profile.bio)
-        .orElse {
+        .orElse:
           profile.links
             .exists(env.security.spam.detect)
             .option("profile.links" -> ~profile.links)
-        }
-        .so { case (resource, text) =>
+        .so { (resource, text) =>
           env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
         } >> env.user.repo.setProfile(me.id, profile) inject
         Redirect(routes.User show me.username).flashSuccess
@@ -161,10 +160,8 @@ final class Account(
 
   def email = Auth { _ ?=> me =>
     if getBool("check")
-    then Ok(renderCheckYourEmail).toFuccess
-    else
-      emailForm(me).map: form =>
-        Ok(html.account.email(form))
+    then renderCheckYourEmail
+    else emailForm(me).map(html.account.email(_))
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me =>
@@ -209,18 +206,17 @@ final class Account(
     import lila.security.EmailConfirm.Help.*
     ctx.me match
       case Some(me) =>
-        Redirect(routes.User.show(me.username)).toFuccess
+        Redirect(routes.User.show(me.username))
       case None if get("username").isEmpty =>
-        Ok(html.account.emailConfirmHelp(helpForm, none)).toFuccess
+        html.account.emailConfirmHelp(helpForm, none)
       case None =>
         helpForm
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.account.emailConfirmHelp(err, none)).toFuccess,
+            err => BadRequest(html.account.emailConfirmHelp(err, none)),
             username =>
-              getStatus(env.user.repo, username) map { status =>
+              getStatus(env.user.repo, username).map: status =>
                 Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
-              }
           )
 
   def twoFactor = Auth { _ ?=> me =>
@@ -289,7 +285,7 @@ final class Account(
     }
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me =>
-    JsonOk(Json.obj("kid" -> me.kid)).toFuccess
+    JsonOk(Json.obj("kid" -> me.kid))
   }
 
   def kidPost = AuthBody { ctx ?=> me =>
@@ -300,14 +296,14 @@ final class Account(
           .fold(
             err =>
               negotiate(
-                html = BadRequest(html.account.kid(me, err, managed = false)).toFuccess,
-                api = _ => BadRequest(errorsAsJson(err)).toFuccess
+                html = BadRequest(html.account.kid(me, err, managed = false)),
+                api = _ => BadRequest(errorsAsJson(err))
               ),
             _ =>
               env.user.repo.setKid(me, getBool("v")) >>
                 negotiate(
-                  html = Redirect(routes.Account.kid).flashSuccess.toFuccess,
-                  api = _ => jsonOkResult.toFuccess
+                  html = Redirect(routes.Account.kid).flashSuccess,
+                  api = _ => jsonOkResult
                 )
           )
       }
@@ -315,7 +311,7 @@ final class Account(
 
   def apiKidPost = Scoped(_.Preference.Write) { ctx ?=> me =>
     getBoolOpt("v") match
-      case None    => BadRequest(jsonError("Missing v parameter")).toFuccess
+      case None    => BadRequest(jsonError("Missing v parameter"))
       case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
   }
 
@@ -385,8 +381,7 @@ final class Account(
     }
 
   def reopenSent = Open:
-    fuccess:
-      Ok(html.account.reopen.sent)
+    html.account.reopen.sent
 
   def reopenLogin(token: String) = Open:
     env.security.reopen confirm token flatMap {

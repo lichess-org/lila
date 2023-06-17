@@ -13,6 +13,7 @@ object OAuthScopes extends TotalWrapper[OAuthScopes, List[OAuthScope]]:
     def has(s: OAuthScope.Selector): Boolean    = has(s(OAuthScope))
     def keyList: String                         = e.map(_.key) mkString ", "
     def intersects(other: OAuthScopes): Boolean = e.exists(other.has)
+    def isEmpty                                 = e.isEmpty
 
 object OAuthScope:
 
@@ -112,11 +113,12 @@ object OAuthScope:
     I18nKey("External engine") -> List(Engine.Read, Engine.Write)
   )
 
-  val dangerList: Set[OAuthScope] = Set(
-    Team.Lead,
-    Web.Login,
-    Web.Mod,
-    Msg.Write
+  val dangerList: OAuthScopes = OAuthScope.select(
+    _.Team.Lead,
+    _.Web.Login,
+    _.Web.Mod,
+    _.Web.Mobile,
+    _.Msg.Write
   )
 
   val byKey: Map[String, OAuthScope] = all.mapBy(_.key)

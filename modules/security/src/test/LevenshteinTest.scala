@@ -1,11 +1,12 @@
-package lila.common.base
+package lila.security
 import scala.util.Random
+import lila.common.base.StringUtils
 
 object LevenshteinTest {
   def check0(a: String, b: String): Boolean = {
     val d = StringUtils.levenshtein(a, b)
-    !Levenshtein.isLevenshteinDistanceLessThan(a, b, d) &&
-    Levenshtein.isLevenshteinDistanceLessThan(a, b, d + 1)
+    !Levenshtein.isDistanceLessThan(a, b, d) &&
+    Levenshtein.isDistanceLessThan(a, b, d + 1)
   }
   def check(a: String, b: String) = check0(a, b) && check0(b, a)
   def rndStr(r: Random, l: Int, sigma: Int): String = {
@@ -35,12 +36,12 @@ class LevenshteinTest extends munit.FunSuite {
     assertEquals(mt(4, 10, 1000, 3), true)
   }
   test("Levenshtein empty") {
-    assertEquals(Levenshtein.isLevenshteinDistanceLessThan("", "", 0), false)
-    assertEquals(Levenshtein.isLevenshteinDistanceLessThan("", "", 1), true)
-    assertEquals(Levenshtein.isLevenshteinDistanceLessThan("a", "", 1), false)
-    assertEquals(Levenshtein.isLevenshteinDistanceLessThan("", "a", 1), false)
-    assertEquals(Levenshtein.isLevenshteinDistanceLessThan("a", "", 2), true)
-    assertEquals(Levenshtein.isLevenshteinDistanceLessThan("", "a", 2), true)
+    assertEquals(Levenshtein.isDistanceLessThan("", "", 0), false)
+    assertEquals(Levenshtein.isDistanceLessThan("", "", 1), true)
+    assertEquals(Levenshtein.isDistanceLessThan("a", "", 1), false)
+    assertEquals(Levenshtein.isDistanceLessThan("", "a", 1), false)
+    assertEquals(Levenshtein.isDistanceLessThan("a", "", 2), true)
+    assertEquals(Levenshtein.isDistanceLessThan("", "a", 2), true)
   }
   test("Levenshtein hand") {
     assertEquals(check("aba", "a"), true)
@@ -56,15 +57,15 @@ class LevenshteinTest extends munit.FunSuite {
     assertEquals(check("kitten", "mittens"), true)
     assertEquals(check("a quick brown fox jump over the lazy dog", "a slow green turtle"), true)
     assertEquals(check("I'll be back", "not today"), true)
-    assertEquals(Levenshtein.isLevenshteinDistanceLessThan("cab", "abc", 3), true)
+    assertEquals(Levenshtein.isDistanceLessThan("cab", "abc", 3), true)
     assertEquals(
       Levenshtein
-        .isLevenshteinDistanceLessThan("a quick brown fox jump over the lazy dog", "a slow green turtle", 0),
+        .isDistanceLessThan("a quick brown fox jump over the lazy dog", "a slow green turtle", 0),
       false
     )
     assertEquals(
       Levenshtein
-        .isLevenshteinDistanceLessThan("a quick brown fox jump over the lazy dog", "a slow green turtle", 1),
+        .isDistanceLessThan("a quick brown fox jump over the lazy dog", "a slow green turtle", 1),
       false
     )
   }

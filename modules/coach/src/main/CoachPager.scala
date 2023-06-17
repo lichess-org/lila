@@ -93,17 +93,12 @@ final class CoachPager(
 
 object CoachPager:
 
-  // TODO enum
-  sealed abstract class Order(
-      val key: String,
-      val name: String
-  )
+  enum Order(val key: String, val name: String):
+    case Login         extends Order("login", "Last login")
+    case LichessRating extends Order("rating", "Lichess rating")
+    case Alphabetical  extends Order("alphabetical", "Alphabetical")
 
   object Order:
-    case object Login         extends Order("login", "Last login")
-    case object LichessRating extends Order("rating", "Lichess rating")
-    case object Alphabetical  extends Order("alphabetical", "Alphabetical")
-
     val default                   = Login
-    val all                       = List(Login, LichessRating, Alphabetical)
-    def apply(key: String): Order = all.find(_.key == key) | default
+    val list                      = values.toList
+    def apply(key: String): Order = list.find(_.key == key) | default

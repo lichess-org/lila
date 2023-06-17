@@ -24,12 +24,4 @@
   <string name="teachingMethod">Õpetusmeetodid</string>
   <string name="publicStudies">Avalikud uuringud</string>
   <string name="youtubeVideos">YouTube videod</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Üks õpilase tagasiside</item>
-    <item quantity="other">%s õpilase tagasisidet</item>
-  </plurals>
-  <string name="thankYouForReview">Aitäh tagasiside eest!</string>
-  <string name="xWillApproveIt">%s kinnitab selle kohe ära, või moderaator vaatab selle üle.</string>
-  <string name="reviewCoach">Hinda treenerit</string>
-  <string name="describeExperienceWith">Kirjelda oma treenikogemust treenerile %s</string>
 </resources>

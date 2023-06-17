@@ -12,7 +12,7 @@ final private class RoundNotifier(
 
   def gameEnd(game: Game)(color: chess.Color) =
     if (!game.aborted) game.player(color).userId foreach { userId =>
-      game.perfType foreach { perfType =>
+      game.perfType.foreach: perfType =>
         timeline ! (Propagate(
           TLGameEnd(
             fullId = game fullIdOf color,
@@ -21,8 +21,7 @@ final private class RoundNotifier(
             perf = perfType.key.value
           )
         ) toUser userId)
-      }
-      isUserPresent(game, userId) foreach {
+      isUserPresent(game, userId).foreach:
         case false =>
           notifyApi.notifyOne(
             userId,
@@ -33,5 +32,4 @@ final private class RoundNotifier(
             )
           )
         case _ =>
-      }
     }

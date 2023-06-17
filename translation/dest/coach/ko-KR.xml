@@ -24,11 +24,4 @@
   <string name="teachingMethod">교육 방법론</string>
   <string name="publicStudies">공개 학생</string>
   <string name="youtubeVideos">YouTube 동영상</string>
-  <plurals name="studentReviews">
-    <item quantity="other">학생 %s명의 리뷰</item>
-  </plurals>
-  <string name="thankYouForReview">평가해 주셔서 감사합니다.</string>
-  <string name="xWillApproveIt">%s가 곧 승인하거나, 중재자가 검토할 것입니다.</string>
-  <string name="reviewCoach">코치 리뷰하기</string>
-  <string name="describeExperienceWith">%s와의 코칭 경험을 작성해주세요.</string>
 </resources>

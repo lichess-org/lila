@@ -110,7 +110,7 @@ object form:
     )
 
   def formImage(post: UblogPost) =
-    postView.thumbnail(post, _.Small)(cls := post.image.isDefined.option("user-image"))
+    postView.thumbnail(post, _.Size.Small)(cls := post.image.isDefined.option("user-image"))
 
   private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(using
       WebContext

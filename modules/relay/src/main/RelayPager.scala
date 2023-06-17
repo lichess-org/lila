@@ -13,15 +13,32 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
 
   private val maxPerPage = MaxPerPage(20)
 
+  def byOwner(owner: UserId, page: Int): Fu[Paginator[WithLastRound]] = Paginator(
+    adapter = new:
+      def nbResults: Fu[Int] = tourRepo.countByOwner(owner)
+      def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
+        tourRepo.coll
+          .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
+            import framework.*
+            Match(tourRepo.selectors.ownerId(owner.id)) -> {
+              List(Sort(Descending("createdAt"))) ::: aggregateRound(framework) ::: List(
+                Skip(offset),
+                Limit(length)
+              )
+            }
+          .map(readToursWithRounds)
+    ,
+    currentPage = page,
+    maxPerPage = maxPerPage
+  )
+
   def inactive(page: Int): Fu[Paginator[WithLastRound]] =
     Paginator(
-      adapter = new AdapterLike[WithLastRound] {
-
+      adapter = new:
         def nbResults: Fu[Int] = fuccess(9999)
-
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
               import framework.*
               Match(tourRepo.selectors.officialInactive) -> {
                 List(Sort(Descending("syncedAt"))) ::: aggregateRound(framework) ::: List(
@@ -29,33 +46,28 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
                   Limit(length)
                 )
               }
-            }
             .map(readToursWithRounds)
-      },
+      ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
     Paginator(
-      adapter = new AdapterLike[WithLastRound] {
-
-        private val selector = $doc("tier" $exists true, "$text" -> $doc("$search" -> query))
-
+      adapter = new:
+        private val selector   = $doc("tier" $exists true, "$text" -> $doc("$search" -> query))
         def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
-
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
               import framework.*
               Match(selector) -> {
                 List(Sort(Descending("tier"), Descending("syncedAt"), Descending("createdAt"))) :::
                   aggregateRound(framework) :::
                   List(Skip(offset), Limit(length))
               }
-            }
             .map(readToursWithRounds)
-      },
+      ,
       currentPage = page,
       maxPerPage = maxPerPage
     )

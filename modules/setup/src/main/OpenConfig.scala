@@ -16,7 +16,8 @@ final case class OpenConfig(
     rated: Boolean,
     position: Option[Fen.Epd],
     userIds: Option[(UserId, UserId)],
-    rules: Set[GameRule] = Set.empty
+    rules: Set[GameRule] = Set.empty,
+    expiresAt: Option[Instant]
 ):
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
@@ -37,9 +38,10 @@ object OpenConfig:
       rated: Boolean,
       pos: Option[Fen.Epd],
       usernames: Option[List[UserStr]],
-      rules: Option[Set[GameRule]]
+      rules: Option[Set[GameRule]],
+      expiresAt: Option[Instant]
   ) =
-    new OpenConfig(
+    OpenConfig(
       name = n.map(_.trim).filter(_.nonEmpty),
       variant = Variant.orDefault(v),
       clock = cl,
@@ -49,5 +51,6 @@ object OpenConfig:
       userIds = usernames.map(_.map(_.id)) collect { case List(w, b) =>
         (w, b)
       },
-      rules = ~rules
+      rules = ~rules,
+      expiresAt = expiresAt
     ).autoVariant

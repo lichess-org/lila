@@ -7,7 +7,7 @@ final class GameProxyRepo(
     roundSocket: RoundSocket
 )(using Executor):
 
-  def game(gameId: GameId): Fu[Option[Game]] = Game.validId(gameId) so roundSocket.getGame(gameId)
+  def game(gameId: GameId): Fu[Option[Game]] = GameId.validate(gameId) so roundSocket.getGame(gameId)
 
   def pov(gameId: GameId, user: lila.user.User): Fu[Option[Pov]] =
     game(gameId) dmap { _ flatMap { Pov(_, user) } }

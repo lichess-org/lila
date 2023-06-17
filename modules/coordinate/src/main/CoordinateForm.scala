@@ -16,8 +16,8 @@ object CoordinateForm:
     mapping(
       "mode" -> lila.common.Form
         .trim(text)
-        .verifying(CoordMode.all.map(_.key).contains)
-        .transform[CoordMode](m => CoordMode.all.find(_.key == m).get, _.key),
+        .verifying(m => CoordMode.find(m).isDefined)
+        .transform[CoordMode](m => CoordMode.find(m).get, _.toString),
       "color" -> lila.common.Form.color.mapping,
       "score" -> number(min = 0, max = 100)
     )(ScoreData.apply)(unapply)

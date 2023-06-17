@@ -30,7 +30,13 @@ final class AccessTokenApi(
           userId = me.id,
           description = setup.description.some,
           createdAt = nowInstant.some,
-          scopes = setup.scopes.flatMap(OAuthScope.byKey.get).filterNot(_ == OAuthScope.Bot.Play && noBot),
+          scopes = OAuthScopes:
+            setup.scopes
+              .flatMap(OAuthScope.byKey.get)
+              .filterNot(_ == OAuthScope.Bot.Play && noBot)
+              .filterNot(_ == OAuthScope.Web.Mobile)
+              .toList
+          ,
           clientOrigin = None,
           expires = None
         )
@@ -76,7 +82,7 @@ final class AccessTokenApi(
                     userId = user.id,
                     description = s"Challenge admin: ${admin.username}".some,
                     createdAt = nowInstant.some,
-                    scopes = List(scope),
+                    scopes = OAuthScopes(List(scope)),
                     clientOrigin = setup.description.some,
                     expires = Some(nowInstant plusMonths 6)
                   )
@@ -113,12 +119,12 @@ final class AccessTokenApi(
         F.clientOrigin -> $exists(false)
       )
 
-  def findCompatiblePersonal(user: User, scopes: Set[OAuthScope]): Fu[Option[AccessToken]] =
+  def findCompatiblePersonal(user: User, scopes: OAuthScopes): Fu[Option[AccessToken]] =
     coll.one[AccessToken]:
       $doc(
         F.userId       -> user.id,
         F.clientOrigin -> $exists(false),
-        F.scopes $all scopes.toSeq
+        F.scopes $all scopes.value
       )
 
   def listClients(user: User, limit: Int): Fu[List[AccessTokenApi.Client]] =
@@ -181,7 +187,7 @@ final class AccessTokenApi(
     val id = AccessToken.Id from bearer
     coll.delete.one($id(id)) >>- onRevoke(id)
 
-  def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
+  private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 
   def test(bearers: List[Bearer]): Fu[Map[Bearer, Option[AccessToken]]] =
     coll
@@ -197,8 +203,7 @@ final class AccessTokenApi(
 
   private val accessTokenCache =
     cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token"):
-      _.expireAfterWrite(5 minutes)
-        .buildAsyncFuture(fetchAccessToken)
+      _.expireAfterWrite(5 minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     coll.findAndUpdateSimplified[AccessToken.ForAuth](

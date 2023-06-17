@@ -58,4 +58,5 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="noArenaStreaks">Geen Arena-streaks</string>
   <string name="averagePerformance">Gemiddelde prestatie</string>
   <string name="averageScore">Gemiddelde score</string>
+  <string name="myTournaments">Mijn toernooien</string>
 </resources>

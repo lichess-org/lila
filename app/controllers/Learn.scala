@@ -36,12 +36,11 @@ final class Learn(env: Env) extends LilaController(env):
     scoreForm
       .bindFromRequest()
       .fold(
-        _ => BadRequest.toFuccess,
-        { case (stage, level, s) =>
+        _ => BadRequest,
+        (stage, level, s) =>
           val score = lila.learn.StageProgress.Score(s)
           env.learn.api.setScore(me, stage, level, score) >>
             env.activity.write.learn(me.id, stage) inject Ok(Json.obj("ok" -> true))
-        }
       )
   }
 

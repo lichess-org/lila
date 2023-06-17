@@ -57,4 +57,5 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="noArenaStreaks">Ingen arena-stimer</string>
   <string name="averagePerformance">Gennemsnitlig præstation</string>
   <string name="averageScore">Gennemsnitlig score</string>
+  <string name="myTournaments">Mine turneringer</string>
 </resources>

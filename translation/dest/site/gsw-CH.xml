@@ -290,7 +290,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="cancelRematchOffer">Revanche-Agebot zruggneh</string>
   <string name="viewRematch">Revanche aluege</string>
   <string name="confirmMove">Zug beschtätige</string>
-  <string name="enableConfirmationForThisGame">Beschtätigung für das Schpil aktiviere</string>
   <string name="play">Schpille</string>
   <string name="inbox">Poschtigang</string>
   <string name="chatRoom">Chatruum</string>
@@ -911,8 +910,6 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="congratsYouWon">Gratuliere, du häsch gunne!</string>
   <string name="gameVsX">Partie gäge %1$s</string>
   <string name="resVsX">%1$s gäge %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Öpper hät dis Trainerprofil überprüeft.</string>
-  <string name="newPendingReview">Neui usstehendi Überprüefig</string>
   <string name="lostAgainstTOSViolator">Du häsch gäge öpper verlore, wo d\'Lichess-Nutzigsbedingige verletzt hät</string>
   <string name="refundXpointsTimeControlY">Rückerschtattig: %1$s %2$s Wertigspünkt.</string>
   <string name="timeAlmostUp">D\'Zit isch fascht abgloffe!</string>

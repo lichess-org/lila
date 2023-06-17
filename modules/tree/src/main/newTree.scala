@@ -100,19 +100,21 @@ case class NewBranch(
     .focus(_.metas)
     .modify(_.copy(shapes = Shapes.empty, glyphs = Glyphs.empty, comments = Comments.empty))
   def setComp = copy(comp = true)
-  def merge(n: NewBranch): NewBranch =
-    copy(
-      metas = metas.copy(
-        shapes = metas.shapes ++ n.metas.shapes,
-        comments = metas.comments ++ n.metas.comments,
-        gamebook = n.metas.gamebook orElse metas.gamebook,
-        glyphs = metas.glyphs merge n.metas.glyphs,
-        eval = n.metas.eval orElse metas.eval,
-        clock = n.metas.clock orElse metas.clock,
-        crazyData = n.metas.crazyData orElse metas.crazyData
-      ),
-      forceVariation = n.forceVariation || forceVariation
-    )
+  def merge(n: NewBranch): Option[NewBranch] =
+    if this.sameId(n) then
+      copy(
+        metas = metas.copy(
+          shapes = metas.shapes ++ n.metas.shapes,
+          comments = metas.comments ++ n.metas.comments,
+          gamebook = n.metas.gamebook orElse metas.gamebook,
+          glyphs = metas.glyphs merge n.metas.glyphs,
+          eval = n.metas.eval orElse metas.eval,
+          clock = n.metas.clock orElse metas.clock,
+          crazyData = n.metas.crazyData orElse metas.crazyData
+        ),
+        forceVariation = n.forceVariation || forceVariation
+      ).some
+    else none
 
 object NewBranch:
   given HasId[NewBranch, UciCharPair] = _.id
@@ -205,18 +207,6 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def pathExists(path: UciPath): Boolean =
     path.isEmpty || tree.exists(_.pathExists(path.ids))
 
-  def addNodeAt(path: UciPath, node: NewTree): Option[NewRoot] =
-    if tree.isEmpty && path.isEmpty then copy(tree = node.some).some
-    else tree.flatMap(_.addNodeAt(path.ids)(node)).map(x => copy(tree = x.some))
-
-  def deleteNodeAt(path: UciPath): Option[NewRoot] =
-    if tree.isEmpty && path.isEmpty then copy(tree = none).some
-    else tree.flatMap(_.deleteAt(path.ids)).flatten.map(x => copy(tree = x.some))
-
-  def addBranchAt(path: UciPath, branch: NewBranch): Option[NewRoot] =
-    if tree.isEmpty && path.isEmpty then copy(tree = ChessNode(branch).some).some
-    else tree.flatMap(_.addValueAsChildOrVariationAt(path.ids, branch)).map(x => copy(tree = x.some))
-
   def modifyWithParentPathMetas(path: UciPath, f: Metas => Metas): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
     else
@@ -258,7 +248,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def lastMainlineMetasOrRoots = lastMainlineMetas | metas
   def modifyLastMainlineOrRoot(f: Metas => Metas): NewRoot =
     tree.fold(copy(metas = f(metas))): tree =>
-      copy(tree = tree.modifyLastMainlineNode(_.withValue(_.focus(_.metas).modify(f))).some)
+      copy(tree = tree.modifyLastMainlineNode(_.updateValue(_.focus(_.metas).modify(f))).some)
 
   override def toString = s"$tree"
 

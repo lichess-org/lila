@@ -18,13 +18,11 @@ object LilaScheduler:
     def runAndScheduleNext(): Unit =
       run()
         .withTimeout(timeout(config).value, s"LilaScheduler $name")
-        .addEffectAnyway {
+        .addEffectAnyway:
           scheduler.scheduleOnce(every(config).value) { runAndScheduleNext() }.unit
-        }
         .unit
 
     scheduler
-      .scheduleOnce(initialDelay(config).value) {
+      .scheduleOnce(initialDelay(config).value):
         runAndScheduleNext()
-      }
       .unit

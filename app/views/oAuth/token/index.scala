@@ -54,29 +54,26 @@ object index:
             if (token.isDangerous) iconTag(licon.CautionTriangle)(cls := "is-red")
             else iconTag(licon.Checkmark)(cls                         := "is-green"),
             div(
-              if (token.isDangerous)
-                p(strong(trans.oauthScope.doNotShareIt()))
-              else
-                p(trans.oauthScope.copyTokenNow()),
+              if token.isDangerous
+              then p(strong(trans.oauthScope.doNotShareIt()))
+              else p(trans.oauthScope.copyTokenNow()),
               code(token.plain.value)
             )
           )
         },
         table(cls := "slist slist-pad")(
-          tokens.map { t =>
+          tokens.map: t =>
             tr(
               td(
                 strong(t.description | "Unnamed"),
                 br,
-                em(t.scopes.map(_.name.txt()).mkString(", "))
+                em(t.scopes.value.map(_.name.txt()).mkString(", "))
               ),
               td(cls := "date")(
-                t.createdAt.map { created =>
-                  frag("Created ", momentFromNow(created), br)
-                },
-                t.usedAt.map { used =>
+                t.createdAt.map: created =>
+                  frag("Created ", momentFromNow(created), br),
+                t.usedAt.map: used =>
                   frag("Last used ", momentFromNow(used))
-                }
               ),
               td(cls := "action")(
                 postForm(action := routes.OAuthToken.delete(t.id.value))(
@@ -87,7 +84,6 @@ object index:
                 )
               )
             )
-          }
         )
       )
     )

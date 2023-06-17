@@ -109,7 +109,6 @@
   <string name="urlOfTheGame">URL for partiet</string>
   <string name="loadAGameFromXOrY">Last opp eit parti frå %1$s eller %2$s</string>
   <string name="createChapter">Opprett kapittel</string>
-  <string name="configureLiveBroadcast">Konfigurer live-sending</string>
   <string name="createStudy">Opprett ein studie</string>
   <string name="editStudy">Rediger studie</string>
   <string name="visibility">Synlegheit</string>

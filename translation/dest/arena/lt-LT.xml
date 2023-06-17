@@ -62,4 +62,5 @@ Kai tik baigiate partiją, grįžkite į turnyro laukiamąjį: tuomet būsite su
   <string name="noArenaStreaks">Negalimos Arenos sekos</string>
   <string name="averagePerformance">Vidutinis pasirodymas</string>
   <string name="averageScore">Vidutiniškai taškų</string>
+  <string name="myTournaments">Mano turnyrai</string>
 </resources>

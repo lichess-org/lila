@@ -289,7 +289,6 @@
   <string name="cancelRematchOffer">Կասեցնել ռևանշի առաջարկը</string>
   <string name="viewRematch">Ցույց տալ ռեւանշը</string>
   <string name="confirmMove">Հաստատել քայլը</string>
-  <string name="enableConfirmationForThisGame">Միացնել հաստատում այս պարտիայի համար</string>
   <string name="play">Խաղալ</string>
   <string name="inbox">Փոստարկղ</string>
   <string name="chatRoom">Զրուցարանի պատուհան</string>
@@ -897,8 +896,6 @@
   <string name="congratsYouWon">Շնորհավորո՜ւմ ենք, Դուք հաղթեցիք։</string>
   <string name="gameVsX">Խաղ ընդդեմ %1$s-ի</string>
   <string name="resVsX">%1$s-ն ընդդեմ %2$s-ի</string>
-  <string name="someoneReviewedYourCoachProfile">Ինչ-որ մեկը դիտել է Ձեր մարզչական պրոֆիլը։</string>
-  <string name="newPendingReview">Նոր հավակնորդ</string>
   <string name="lostAgainstTOSViolator">Դուք պարտվել եք նրան, ով խախտել է Lichess-ի օգտվողի համաձայնագիրը</string>
   <string name="refundXpointsTimeControlY">Վերադարձ. %1$s %2$s վարկանիշային միավոր</string>
   <string name="timeAlmostUp">Ժամանակը գրեթե սպառվել է</string>
