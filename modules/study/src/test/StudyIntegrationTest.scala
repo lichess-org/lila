@@ -255,7 +255,7 @@ object StudyAction:
 
     def clearAnnotations(chapter: NewChapter) =
       chapter.updateRoot: root =>
-        root.mapChildrent(_.clearAnnotations).some
+        root.mapChildren(_.clearAnnotations).some
 
     def clearVariations(chapter: NewChapter) =
       import NewTree.*

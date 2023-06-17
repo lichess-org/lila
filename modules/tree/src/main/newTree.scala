@@ -3,24 +3,15 @@ package lila.tree
 import alleycats.Zero
 import cats.syntax.all.*
 import monocle.syntax.all.*
-import chess.{ Centis, HasId }
-import chess.{ Node as ChessNode, Variation }
-import chess.Node.*
-import chess.format.pgn.{ Glyph, Glyphs }
+
+import chess.{ Centis, HasId, Situation, Node as ChessNode, Variation, Ply, Square, Check, Mergeable, Tree }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.format.pgn.{ Glyph, Glyphs }
 import chess.opening.Opening
-import chess.{ Ply, Square, Check }
 import chess.variant.{ Variant, Crazyhouse }
-import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.{ given, * }
-
 import Node.{ Comments, Comment, Gamebook, Shapes }
-import chess.Mergeable
-import chess.Tree
-import scala.annotation.targetName
-import chess.Situation
 
 case class Metas(
     ply: Ply,
@@ -201,11 +192,23 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   }
   def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
 
-  def mapChildrent(f: NewBranch => NewBranch): NewRoot =
+  def mapChildren(f: NewBranch => NewBranch): NewRoot =
     copy(tree = tree.map(_.map(f)))
 
   def pathExists(path: UciPath): Boolean =
     path.isEmpty || tree.exists(_.pathExists(path.ids))
+
+  def deleteNodeAt(path: UciPath): Option[NewRoot] =
+    if tree.isEmpty && path.isEmpty then copy(tree = none).some
+    else tree.flatMap(_.deleteAt(path.ids)).flatten.map(x => copy(tree = x.some))
+
+  def addNodeAt(path: UciPath, node: NewTree): Option[NewRoot] =
+    if tree.isEmpty && path.isEmpty then copy(tree = node.some).some
+    else tree.flatMap(_.addChildAt(path.ids, node)).map(x => copy(tree = x.some))
+
+  def addBranchAt(path: UciPath, branch: NewBranch): Option[NewRoot] =
+    if tree.isEmpty && path.isEmpty then copy(tree = ChessNode(branch).some).some
+    else tree.flatMap(_.addValueAsChildAt(path.ids, branch)).map(x => copy(tree = x.some))
 
   def modifyWithParentPathMetas(path: UciPath, f: Metas => Metas): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
@@ -256,6 +259,72 @@ object NewRoot:
   def default(variant: Variant)                        = NewRoot(Metas.default(variant), None)
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
 
+  import play.api.libs.json.*
+  import lila.common.Json.given
+  import JsonHandlers.given
+  import Node.given
+
   given defaultNodeJsonWriter: Writes[NewRoot] = makeNodeJsonWriter(alwaysChildren = true)
   def minimalNodeJsonWriter                    = makeNodeJsonWriter(alwaysChildren = false)
-  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] = ???
+
+  given metasWriter: OWrites[Metas] = OWrites: metas =>
+    import metas.*
+    val comments = metas.comments.value.flatMap(_.removeMeta)
+    Json
+      .obj(
+        "ply" -> ply,
+        "fen" -> fen
+      )
+      .add("check", check)
+      .add("eval", eval.filterNot(_.isEmpty))
+      .add("comments", if comments.nonEmpty then Some(comments) else None)
+      .add("gamebook", gamebook)
+      .add("glyphs", glyphs.nonEmpty)
+      .add("shapes", if shapes.value.nonEmpty then Some(shapes.value) else None)
+      .add("opening", opening)
+      .add("dests", dests)
+      .add("drops", drops.map(drops => JsString(drops.map(_.key).mkString)))
+      .add("clock", clock)
+      .add("crazy", crazyData)
+
+  given branchWriter: OWrites[NewBranch] = OWrites: nb =>
+    metasWriter
+      .writes(nb.metas)
+      .add("id", nb.id.toString.some)
+      .add("uci", nb.move.uci.uci.some)
+      .add("san", nb.move.san.some)
+      .add("comp", nb.comp)
+      .add("forceVariation", nb.forceVariation)
+
+  def makeTreeWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
+    wa.writes(tree.value)
+      .add(
+        "children",
+        if alwaysChildren || tree.childAndVariations.nonEmpty then
+          nodeListJsonWriter(alwaysChildren).writes(tree.childAndVariations).some
+        else None
+      )
+
+  def nodeListJsonWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[List[Tree[A]]] =
+    Writes: list =>
+      val writer = makeTreeWriter(alwaysChildren)
+      JsArray(list.map(writer.writes))
+
+  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] =
+    Writes: root =>
+      metasWriter
+        .writes(root.metas)
+        .add("id", none[String])
+        .add("uci", none[String])
+        .add("san", none[String])
+        .add("comp", none[Int])
+        .add("forceVariation", none[Boolean])
+        .add(
+          "children",
+          if alwaysChildren then root.tree.map(makeTreeWriter(alwaysChildren).writes)
+          else None
+        )
+
+  val partitionTreeJsonWriter: Writes[NewRoot] = Writes: root =>
+    JsArray:
+      metasWriter.writes(root.metas) +: root.mainlineValues.map(branchWriter.writes)

@@ -7,10 +7,8 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.{ Ply, Square, Check }
 import chess.variant.{ Variant, Crazyhouse }
-import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.given
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
 //opaque type not working due to cyclic ref try again later
@@ -468,6 +466,10 @@ object Node:
       )
     def nonEmpty = deviation.nonEmpty || hint.nonEmpty
 
+  import play.api.libs.json.*
+  import lila.common.Json.given
+  import JsonHandlers.given
+
   given OWrites[chess.opening.Opening] = OWrites { o =>
     Json.obj(
       "eco"  -> o.eco,
@@ -475,7 +477,7 @@ object Node:
     )
   }
 
-  private given Writes[Square] = Writes[Square] { p =>
+  given Writes[Square] = Writes[Square] { p =>
     JsString(p.key)
   }
   private val shapeCircleWrites = Json.writes[Shape.Circle]
@@ -509,9 +511,6 @@ object Node:
   }
   given Writes[Node.Comment]  = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
-
-  import lila.common.Json.given
-  import JsonHandlers.given
 
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
 

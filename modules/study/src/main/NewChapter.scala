@@ -1,5 +1,6 @@
 package lila.study
 
+import monocle.syntax.all.*
 import chess.format.pgn.{ Glyph, Tags }
 import chess.format.UciPath
 import chess.opening.{ Opening, OpeningDb }
@@ -31,9 +32,17 @@ case class NewChapter(
 ) extends Chapter.Like:
 
   def updateRoot(f: NewRoot => Option[NewRoot]) =
-    f(root) map { newRoot =>
-      copy(root = newRoot)
-    }
+    this.focus(_.root).modifyF(f)
+
+  def addBranch(node: NewBranch, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[NewChapter] =
+    updateRoot: root =>
+      root.addBranchAt(path, node)
+    .map(_.copy(relay = newRelay orElse relay))
+
+  def addNode(node: NewTree, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[NewChapter] =
+    updateRoot:
+      _.addNodeAt(path, node)
+    .map(_.copy(relay = newRelay orElse relay))
 
   def setShapes(shapes: Shapes, path: UciPath): Option[NewChapter] =
     updateRoot(_.modifyAt(path, _.copy(shapes = shapes)))
