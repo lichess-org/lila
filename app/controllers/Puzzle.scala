@@ -361,10 +361,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         source => Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
   }
 
-  def apiDashboard(days: Int) =
-    def render(me: UserModel)(using AnyContext) = JsonOptionOk:
+  def apiDashboard(days: Int) = AuthOrScopedUnified(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me =>
+    JsonOptionOk:
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
-    AuthOrScoped(_.Puzzle.Read, _.Web.Mobile)(render, render)
+  }
 
   def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =
     DashboardPage(u) { ctx ?=> user =>

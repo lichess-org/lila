@@ -113,19 +113,17 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
-  def apiExportByUserImportedGames(username: UserStr) =
-    def doExport(username: UserStr)(me: lila.user.User)(using ctx: AnyContext) =
-      if !me.is(username)
-      then Forbidden("Imported games of other players cannot be downloaded")
-      else
-        apiC
-          .GlobalConcurrencyLimitPerIpAndUserOption(ctx.req, me.some, me.some)(
-            env.api.gameApiV2.exportUserImportedGames(me)
-          ): source =>
-            Ok.chunked(source)
-              .pipe(asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn"))
-              .as(pgnContentType)
-    AuthOrScoped()(doExport(username), doExport(username))
+  def apiExportByUserImportedGames(username: UserStr) = AuthOrScopedUnified() { ctx ?=> me =>
+    if !me.is(username)
+    then Forbidden("Imported games of other players cannot be downloaded")
+    else
+      apiC.GlobalConcurrencyLimitPerIpAndUserOption(ctx.req, me.some, me.some)(
+        env.api.gameApiV2.exportUserImportedGames(me)
+      ): source =>
+        Ok.chunked(source)
+          .pipe(asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn"))
+          .as(pgnContentType)
+  }
 
   def exportByIds = AnonBodyOf(parse.tolerantText): body =>
     val config = GameApiV2.ByIdsConfig(

@@ -139,6 +139,11 @@ abstract private[controllers] class LilaController(val env: Env)
       then handleScoped(selectors)(scoped)(using req)
       else handleAuth(auth, req)
 
+  def AuthOrScopedUnified(
+      selectors: OAuthScope.Selector*
+  )(f: AnyContext ?=> User => Fu[Result]): Action[Unit] =
+    AuthOrScoped(selectors*)(auth = f, scoped = f)
+
   /* Authenticated and oauth requests with a body */
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
       auth: WebBodyContext[?] ?=> User => Fu[Result],

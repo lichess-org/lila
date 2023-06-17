@@ -115,11 +115,9 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def delete(id: TourModel.Id) =
-    AuthOrScoped(_.Study.Write)(
-      _ ?=> me => ???,
-      _ ?=> me => ???
-    )
+  def delete(id: TourModel.Id) = AuthOrScopedUnified(_.Study.Write) { _ ?=> me =>
+    ???
+  }
 
   def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:
     env.relay.api tourById id flatMapz { tour =>
