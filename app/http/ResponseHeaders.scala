@@ -46,8 +46,8 @@ trait ResponseHeaders extends HeaderNames:
   )
 
   val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
-  val attachmentHeader    = CONTENT_DISPOSITION -> "attachment"
 
-  def noProxyBuffer(res: Result)                    = res.withHeaders(noProxyBufferHeader)
-  def asAttachment(name: String)(res: Result)       = res.withHeaders(attachmentHeader)
+  def noProxyBuffer(res: Result) = res.withHeaders(noProxyBufferHeader)
+  def asAttachment(name: String)(res: Result) =
+    res.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$name")
   def asAttachmentStream(name: String)(res: Result) = noProxyBuffer(asAttachment(name)(res))
