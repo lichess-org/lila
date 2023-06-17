@@ -152,7 +152,7 @@ final class RoundSocket(
   private def finishRound(gameId: GameId): Unit =
     rounds.terminate(gameId, _ ! RoundAsyncActor.Stop)
 
-  private val send: Sender = remoteSocketApi.makeSender("r-out", parallelism = 8)
+  private val send: Sender = remoteSocketApi.makeSender("r-out", parallelism = 16)
 
   private val sendForGameId: GameId => SocketSend = gameId =>
     SocketSend(msg => send.sticky(gameId.value, msg))
