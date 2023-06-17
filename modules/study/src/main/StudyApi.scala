@@ -756,12 +756,11 @@ final class StudyApi(
     chapterRepo.idNamesByStudyIds(studyIds, Study.maxChapters)
 
   def withLiked(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithLiked]] =
-    me.so { u =>
+    me.so: u =>
       studyRepo.filterLiked(u, studies.map(_.id))
-    } map { liked =>
-      studies.map: study =>
-        Study.WithLiked(study, liked(study.id))
-    }
+    .map: liked =>
+        studies.map: study =>
+          Study.WithLiked(study, liked(study.id))
 
   def analysisRequest(
       studyId: StudyId,
