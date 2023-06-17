@@ -11,6 +11,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
   const clock = ctrl.clock!,
     millis = clock.millisOf(player.color),
     isPlayer = ctrl.data.player.color === player.color,
+    usingByo = clock.isUsingByo(player.color),
     isRunning = player.color === clock.times.activeColor,
     isOver = ctrl.data.game.status.id > 20;
 
@@ -33,9 +34,8 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
         outoftime: millis <= 0,
         running: isRunning,
         over: isOver,
-        emerg:
-          (millis < clock.emergMs && clock.byoyomi === 0) ||
-          (clock.isUsingByo(player.color) && millis < clock.byoEmergeS * 1000),
+        byo: usingByo,
+        emerg: (millis < clock.emergMs && clock.byoyomi === 0) || (usingByo && millis < clock.byoEmergeS * 1000),
       },
     },
     clock.opts.nvui
@@ -114,7 +114,6 @@ function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, 
 
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis, color: Color) {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis, color), true, clock.opts.nvui);
-  if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock && els.clock.parentElement) {
     const cl = els.clock.parentElement.classList;
     if (

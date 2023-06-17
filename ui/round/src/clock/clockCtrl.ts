@@ -43,8 +43,6 @@ type ColorMap<T> = { [C in Color]: T };
 export interface ClockElements {
   time?: HTMLElement;
   clock?: HTMLElement;
-  bar?: HTMLElement;
-  barAnim?: Animation;
 }
 
 interface EmergSound {

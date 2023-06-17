@@ -119,7 +119,7 @@
     background: mix($c-secondary, $c-bg-box, 30%);
     color: $c-font-clearer;
   }
-  &.emerg .time,
+  &.emerg:not(.byo) .time,
   &.outoftime .time {
     background-color: mix($c-bad, $c-bg-box, 25%);
   }
