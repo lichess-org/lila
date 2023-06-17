@@ -200,7 +200,7 @@ final class GameRepo(val coll: Coll)(using Executor):
     )
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
-  def urgentPovsUnsorted(user: User): Fu[List[Pov]] =
+  def urgentPovsUnsorted[U: UserIdOf](user: U): Fu[List[Pov]] =
     coll.list[Game](Query nowPlaying user.id, Game.maxPlaying + 5) dmap {
       _ flatMap { Pov(_, user) }
     }
@@ -235,10 +235,10 @@ final class GameRepo(val coll: Coll)(using Executor):
       .one[Bdoc](readPreference = ReadPreference.primary)
       .dmap { _.flatMap(_.getAsOpt[GameId](F.id)) }
 
-  def allPlaying(userId: UserId): Fu[List[Pov]] =
+  def allPlaying[U: UserIdOf](user: U): Fu[List[Pov]] =
     coll
-      .list[Game](Query nowPlaying userId)
-      .dmap { _ flatMap { Pov.ofUserId(_, userId) } }
+      .list[Game](Query nowPlaying user)
+      .dmap { _ flatMap { Pov(_, user) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll

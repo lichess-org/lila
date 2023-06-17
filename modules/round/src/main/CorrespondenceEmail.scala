@@ -71,7 +71,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           userId <- doc.getAsOpt[UserId]("_id")
           games  <- doc.getAsOpt[List[Game]]("games")
           povs = games
-            .flatMap(Pov.ofUserId(_, userId))
+            .flatMap(Pov(_, userId))
             .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)
             .sortBy(_.remainingSeconds getOrElse Int.MaxValue)
           if !povs.isEmpty

@@ -20,9 +20,9 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
           // when the team forum is open to everyone, you still need to belong to the team in order to post
           op match
             case Operation.Read  => fuTrue
-            case Operation.Write => me exists { teamApi.belongsTo(teamId, _) }
-        case Team.Access.MEMBERS => me exists { teamApi.belongsTo(teamId, _) }
-        case Team.Access.LEADERS => me exists { teamApi.leads(teamId, _) }
+            case Operation.Write => me so { teamApi.belongsTo(teamId, _) }
+        case Team.Access.MEMBERS => me so { teamApi.belongsTo(teamId, _) }
+        case Team.Access.LEADERS => me so { teamApi.leads(teamId, _) }
       }
     }
 
@@ -44,6 +44,6 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
   def isGrantedMod(categId: ForumCategId)(using me: Me): Fu[Boolean] =
     if Granter(Permission.ModerateForum)(me) then fuTrue
     else
-      ForumCateg.toTeamId(categId) exists {
-        teamApi.leads(_, me.userId)
+      ForumCateg.toTeamId(categId) so {
+        teamApi.leads(_, me)
       }

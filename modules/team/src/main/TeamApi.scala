@@ -340,11 +340,11 @@ final class TeamApi(
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId) contains teamId
 
-  def belongsTo[U](teamId: TeamId, u: U)(using idOf: UserIdOf[U]): Fu[Boolean] =
-    cached.teamIds(idOf(u)).dmap(_ contains teamId)
+  def belongsTo[U: UserIdOf](teamId: TeamId, u: U): Fu[Boolean] =
+    cached.teamIds(u.id).dmap(_ contains teamId)
 
-  def leads(teamId: TeamId, userId: UserId): Fu[Boolean] =
-    teamRepo.leads(teamId, userId)
+  def leads[U: UserIdOf](teamId: TeamId, u: U): Fu[Boolean] =
+    teamRepo.leads(teamId, u.id)
 
   def filterExistingIds(ids: Set[TeamId]): Fu[Set[TeamId]] =
     teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids), ReadPreference.secondaryPreferred)

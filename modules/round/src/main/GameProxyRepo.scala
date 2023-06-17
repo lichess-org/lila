@@ -44,7 +44,7 @@ final class GameProxyRepo(
   def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
     gameIfPresent(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
 
-  def urgentGames(user: lila.user.User): Fu[List[Pov]] =
+  def urgentGames[U: UserIdOf](user: U): Fu[List[Pov]] =
     gameRepo urgentPovsUnsorted user flatMap {
       _.map { pov =>
         gameIfPresent(pov.gameId) dmap { _.fold(pov)(pov.withGame) }

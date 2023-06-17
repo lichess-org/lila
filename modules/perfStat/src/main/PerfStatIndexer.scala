@@ -29,24 +29,20 @@ final class PerfStatIndexer(
           Query.sortChronological,
           readPreference = ReadPreference.secondaryPreferred
         )
-        .fold(PerfStat.init(user.id, perfType)) {
+        .fold(PerfStat.init(user.id, perfType)):
           case (perfStat, game) if game.perfType.contains(perfType) =>
-            Pov.ofUserId(game, user.id).fold(perfStat)(perfStat.agg)
+            Pov(game, user.id).fold(perfStat)(perfStat.agg)
           case (perfStat, _) => perfStat
-        }
-        .flatMap { ps =>
+        .flatMap: ps =>
           storage insert ps recover lila.db.ignoreDuplicateKey inject ps
-        }
         .mon(_.perfStat.indexTime)
     }
 
   def addGame(game: Game): Funit =
     game.players
-      .flatMap { player =>
-        player.userId.map { userId =>
+      .flatMap: player =>
+        player.userId.map: userId =>
           addPov(Pov(game, player), userId)
-        }
-      }
       .parallel
       .void
 

@@ -61,7 +61,7 @@ object Query:
     "p1.ai" $exists false
   )
 
-  def nowPlaying(u: UserId) = $doc(F.playingUids -> u)
+  def nowPlaying[U: UserIdOf](u: U) = $doc(F.playingUids -> u)
 
   def recentlyPlaying(u: UserId) =
     nowPlaying(u) ++ $doc(F.movedAt $gt nowInstant.minusMinutes(5))
