@@ -206,7 +206,8 @@ object mon:
       def reopenRequest(s: String) = counter("user.auth.reopenRequest").withTag("type", s)
       def reopenConfirm(s: String) = counter("user.auth.reopenConfirm").withTag("type", s)
     object oauth:
-      def request(success: Boolean) = counter("user.oauth.request").withTag("success", successTag(success))
+      def request(by: String, success: Boolean) = counter("user.oauth.request").withTags:
+        tags("success" -> successTag(success), "by" -> by)
     private val userSegment  = timer("user.segment")
     def segment(seg: String) = userSegment.withTag("segment", seg)
     def leaderboardCompute   = future("user.leaderboard.compute")

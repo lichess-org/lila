@@ -30,7 +30,7 @@ final class AccessTokenApi(
           userId = me.id,
           description = setup.description.some,
           createdAt = nowInstant.some,
-          scopes = OAuthScopes:
+          scopes = TokenScopes:
             setup.scopes
               .flatMap(OAuthScope.byKey.get)
               .filterNot(_ == OAuthScope.Bot.Play && noBot)
@@ -82,7 +82,7 @@ final class AccessTokenApi(
                     userId = user.id,
                     description = s"Challenge admin: ${admin.username}".some,
                     createdAt = nowInstant.some,
-                    scopes = OAuthScopes(List(scope)),
+                    scopes = TokenScopes(List(scope)),
                     clientOrigin = setup.description.some,
                     expires = Some(nowInstant plusMonths 6)
                   )

@@ -13,7 +13,7 @@ import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress, Bearer }
 import lila.common.Json.given
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest }
+import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
 import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
@@ -157,7 +157,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           bearer.value -> token.fold[JsValue](JsNull): t =>
             Json.obj(
               "userId"  -> t.userId,
-              "scopes"  -> t.scopes.keyList,
+              "scopes"  -> t.scopes.into(OAuthScopes).keyList,
               "expires" -> t.expires
             )
         }))

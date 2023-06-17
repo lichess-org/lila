@@ -5,49 +5,59 @@ import play.api.mvc.*
 import play.api.i18n.Lang
 
 import lila.api.context.*
-import lila.user.{ User, UserContext, UserBodyContext }
+import lila.user.{ User, UserContext }
 import lila.api.{ Nonce, PageData }
 import lila.i18n.I18nLangPicker
 import lila.common.{ HTTPRequest }
-import lila.security.Granter
-import lila.security.FingerPrintedUser
-import lila.security.AppealUser
+import lila.security.{ Granter, FingerPrintedUser, AppealUser }
+import lila.oauth.OAuthScope
 
 trait RequestContext(using Executor):
 
   val env: Env
 
-  def anonContext(request: RequestHeader): AnyContext = new:
-    def isWeb       = false
-    val userContext = UserContext(request, none, none, getAndSaveLang(request, none))
+  def minimalContext(req: RequestHeader): MinimalContext =
+    MinimalContext(req, UserContext.anon)
 
-  def anonBodyContext[A](request: Request[A]): BodyContext[A] = new:
-    def isWeb       = false
-    val userContext = UserContext(request, none, none, getAndSaveLang(request, none))
-    def body        = request
+  def minimalBodyContext[A](req: Request[A]): MinimalBodyContext[A] =
+    MinimalBodyContext(req, UserContext.anon)
 
   def webContext(req: RequestHeader): Fu[WebContext] =
     restoreUser(req).flatMap: (d, impersonatedBy) =>
-      val lang = getAndSaveLang(req, d.map(_.user))
-      val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
-      pageDataBuilder(d.exists(_.hasFingerPrint))(using ctx) dmap { WebContext(ctx, _) }
+      val lang    = getAndSaveLang(req, d.map(_.user))
+      val userCtx = UserContext(d.map(_.user), impersonatedBy)
+      pageDataBuilder(d.exists(_.hasFingerPrint))(using req, userCtx).dmap:
+        WebContext(req, lang, userCtx, _)
 
   def webBodyContext[A](req: Request[A]): Fu[WebBodyContext[A]] =
     restoreUser(req).flatMap: (d, impersonatedBy) =>
-      val lang = getAndSaveLang(req, d.map(_.user))
-      val ctx  = UserBodyContext(req, d.map(_.user), impersonatedBy, lang)
-      pageDataBuilder(d.exists(_.hasFingerPrint))(using ctx) dmap { WebBodyContext(ctx, _) }
+      val lang    = getAndSaveLang(req, d.map(_.user))
+      val userCtx = UserContext(d.map(_.user), impersonatedBy)
+      pageDataBuilder(d.exists(_.hasFingerPrint))(using req, userCtx).dmap:
+        WebBodyContext(req, lang, userCtx, _)
 
-  def getAndSaveLang(req: RequestHeader, user: Option[User]): Lang =
+  def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): OAuthContext =
+    val lang    = getAndSaveLang(req, scoped.user.some)
+    val userCtx = UserContext(scoped.user.some, none)
+    OAuthContext(req, lang, userCtx, scoped.scopes)
+
+  def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): OAuthBodyContext[A] =
+    val lang    = getAndSaveLang(req, scoped.user.some)
+    val userCtx = UserContext(scoped.user.some, none)
+    OAuthBodyContext(req, lang, userCtx, scoped.scopes)
+
+  private def getAndSaveLang(req: RequestHeader, user: Option[User]): Lang =
     val lang = I18nLangPicker(req, user.flatMap(_.lang))
     user.filter(_.lang.fold(true)(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
     lang
 
-  private def pageDataBuilder(hasFingerPrint: Boolean)(using ctx: UserContext): Fu[PageData] =
-    val isPage = HTTPRequest isSynchronousHttp ctx.req
+  private def pageDataBuilder(
+      hasFingerPrint: Boolean
+  )(using req: RequestHeader, userCtx: UserContext): Fu[PageData] =
+    val isPage = HTTPRequest isSynchronousHttp req
     val nonce  = isPage option Nonce.random
-    ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, isBlindMode))): me =>
-      env.pref.api.getPref(me, ctx.req) zip {
+    userCtx.me.fold(fuccess(PageData.anon(req, nonce, isBlindMode))): me =>
+      env.pref.api.getPref(me, req) zip {
         if isPage then
           env.user.lightUserApi preloadUser me
           val enabledId = me.enabled.yes option me.id
@@ -72,8 +82,8 @@ trait RequestContext(using Executor):
         )
       }
 
-  private def isBlindMode(using ctx: UserContext) =
-    ctx.req.cookies.get(env.api.config.accessibility.blindCookieName) so { c =>
+  private def isBlindMode(using req: RequestHeader)(using UserContext) =
+    req.cookies.get(env.api.config.accessibility.blindCookieName) so { c =>
       c.value.nonEmpty && c.value == env.api.config.accessibility.hash
     }
 

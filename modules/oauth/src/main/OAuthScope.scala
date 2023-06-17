@@ -15,6 +15,18 @@ object OAuthScopes extends TotalWrapper[OAuthScopes, List[OAuthScope]]:
     def intersects(other: OAuthScopes): Boolean = e.exists(other.has)
     def isEmpty                                 = e.isEmpty
 
+opaque type TokenScopes = List[OAuthScope]
+object TokenScopes extends TotalWrapper[TokenScopes, List[OAuthScope]]:
+  extension (e: TokenScopes)
+    def intersects(other: OAuthScopes): Boolean = e.exists(other.contains)
+    def has(s: OAuthScope.Selector): Boolean    = e.contains(s(OAuthScope))
+
+opaque type EndpointScopes = List[OAuthScope]
+object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
+  extension (e: EndpointScopes)
+    def isEmpty                                 = e.isEmpty
+    def compatible(token: TokenScopes): Boolean = e.exists(token.has)
+
 object OAuthScope:
 
   object Preference:
@@ -70,7 +82,7 @@ object OAuthScope:
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
     case object Mod    extends OAuthScope("web:mod", trans.webMod)
 
-  case class Scoped(user: lila.user.User, scopes: OAuthScopes)
+  case class Scoped(user: lila.user.User, scopes: TokenScopes)
 
   type Selector = OAuthScope.type => OAuthScope
 

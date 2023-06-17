@@ -5,9 +5,9 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.HTTPRequest
 import lila.pref.Pref
-import lila.user.{ UserBodyContext, UserContext }
+import lila.user.UserContext
 import lila.notify.Notification.UnreadCount
-import lila.oauth.{ OAuthScope, OAuthScopes }
+import lila.oauth.{ OAuthScope, TokenScopes }
 
 object context:
   export lila.api.{ AnyContext, BodyContext }
@@ -47,22 +47,26 @@ object PageData:
   def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
 
 trait AnyContext:
+  val req: RequestHeader
   val userContext: UserContext
-  export userContext.{ req, me, impersonatedBy, lang, userId, is, kid, noKid, troll }
+  def lang: Lang
+  export userContext.{ me, impersonatedBy, userId, is, kid, noKid, troll }
   export me.{ isDefined as isAuth, isEmpty as isAnon }
   def isBot               = me.exists(_.isBot)
   def noBot               = !isBot
   def isAppealUser        = me.exists(_.enabled.no)
-  def ip                  = HTTPRequest ipAddress userContext.req
-  val scopes: OAuthScopes = OAuthScopes(Nil)
+  def ip                  = HTTPRequest ipAddress req
+  val scopes: TokenScopes = TokenScopes(Nil)
   def isMobile            = scopes.has(_.Web.Mobile)
   def isWebAuth: Boolean
 
 trait BodyContext[A] extends AnyContext:
-  def body: Request[A]
+  val body: Request[A]
 
 /* Able to render a lichess page with a layout. Might be authenticated with cookie session */
 class WebContext(
+    val req: RequestHeader,
+    val lang: Lang,
     val userContext: UserContext,
     val pageData: PageData
 ) extends AnyContext:
@@ -98,48 +102,47 @@ class WebContext(
 
   def flash(name: String): Option[String] = req.flash get name
 
-  def withLang(l: Lang) = new WebContext(userContext withLang l, pageData)
+  def withLang(l: Lang) = new WebContext(req, l, userContext, pageData)
 
 /* Able to render a lichess page with a layout. Might be authenticated with cookie session */
 final class WebBodyContext[A](
-    bodyContext: UserBodyContext[A],
+    val body: Request[A],
+    lang: Lang,
+    userContext: UserContext,
     data: PageData
-) extends WebContext(bodyContext, data)
+) extends WebContext(body, lang, userContext, data)
     with BodyContext[A]:
 
-  export bodyContext.body
-  override def withLang(l: Lang) = WebBodyContext(bodyContext withLang l, data)
+  override def withLang(l: Lang) = WebBodyContext(body, l, userContext, data)
 
 /* Cannot render a lichess page. Might be authenticated oauth and have scopes */
 class OAuthContext(
+    val req: RequestHeader,
+    val lang: Lang,
     val userContext: UserContext,
-    override val scopes: OAuthScopes
+    override val scopes: TokenScopes
 ) extends AnyContext:
-  def isWebAuth         = false
-  def withLang(l: Lang) = OAuthContext(userContext withLang l, scopes)
+  def isWebAuth = false
 
 final class OAuthBodyContext[A](
-    val bodyContext: UserBodyContext[A],
-    override val scopes: OAuthScopes
-) extends OAuthContext(bodyContext, scopes)
+    val body: Request[A],
+    lang: Lang,
+    userContext: UserContext,
+    override val scopes: TokenScopes
+) extends OAuthContext(body, lang, userContext, scopes)
     with BodyContext[A]:
-  export bodyContext.body
-  def scoped                     = me.map(OAuthScope.Scoped(_, scopes))
-  override def withLang(l: Lang) = OAuthBodyContext(bodyContext withLang l, scopes)
+  def scoped = me.map(OAuthScope.Scoped(_, scopes))
 
 /* Cannot render a lichess page. Cannot be authenticated. */
 class MinimalContext(
+    val req: RequestHeader,
     val userContext: UserContext
 ) extends AnyContext:
+  lazy val lang = lila.i18n.I18nLangPicker(req)
   def isWebAuth = false
 
 final class MinimalBodyContext[A](
-    val userContext: UserContext,
-    val body: Request[A]
-) extends BodyContext[A]:
-  def isWebAuth = false
-
-object WebContext:
-
-  def error(req: RequestHeader, lang: Lang, nonce: Option[Nonce]): WebContext =
-    WebContext(UserContext(req, none, none, lang), PageData.error(req, nonce))
+    val body: Request[A],
+    userContext: UserContext
+) extends MinimalContext(body, userContext)
+    with BodyContext[A]

@@ -11,7 +11,7 @@ import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.{ Id as ChallengeId }
 import lila.common.{ Bearer, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
-import lila.oauth.OAuthScope
+import lila.oauth.{ OAuthScope, EndpointScopes }
 import lila.setup.ApiConfig
 import lila.socket.SocketVersion
 import lila.user.{ User as UserModel }
@@ -195,7 +195,8 @@ final class Challenge(
               case Some(pov) if pov.game.playable =>
                 Bearer.from(get("opponentToken")) match
                   case Some(bearer) =>
-                    env.oAuth.server.auth(bearer, OAuthScope.select(_.Challenge.Write), ctx.req.some) map {
+                    val required = OAuthScope.select(_.Challenge.Write) into EndpointScopes
+                    env.oAuth.server.auth(bearer, required, ctx.req.some) map {
                       case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
                         lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                         jsonOkResult
@@ -216,22 +217,21 @@ final class Challenge(
 
   def apiStartClocks(id: GameId) = Anon:
     import cats.syntax.all.*
-    val scopes = OAuthScope.select(_.Challenge.Write)
-    (Bearer from get("token1"), Bearer from get("token2")).mapN {
-      env.oAuth.server.authBoth(scopes, req)
-    } so {
-      _ flatMap {
-        case Left(e) => handleScopedFail(scopes, e)
-        case Right((u1, u2)) =>
-          env.game.gameRepo game id flatMapz { g =>
-            env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
-              (_.filter(_.hasUserIds(u1.id, u2.id)))
-          } mapz { game =>
-            env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
-            jsonOkResult
-          }
-      }
-    }
+    val accepted = OAuthScope.select(_.Challenge.Write) into EndpointScopes
+    (Bearer from get("token1"), Bearer from get("token2"))
+      .mapN:
+        env.oAuth.server.authBoth(accepted, req)
+      .so:
+        _.flatMap:
+          case Left(e) => handleScopedFail(accepted, e)
+          case Right((u1, u2)) =>
+            env.game.gameRepo game id flatMapz { g =>
+              env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
+                (_.filter(_.hasUserIds(u1.id, u2.id)))
+            } mapz { game =>
+              env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
+              jsonOkResult
+            }
 
   private val ChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](
     500,
@@ -339,8 +339,9 @@ final class Challenge(
       challenge: lila.challenge.Challenge,
       strToken: String
   )(managedBy: lila.user.User, message: Option[Template])(using req: RequestHeader): Fu[Result] =
+    val accepted = OAuthScope.select(_.Challenge.Write) into EndpointScopes
     env.oAuth.server
-      .auth(Bearer(strToken), OAuthScope.select(_.Challenge.Write), req.some)
+      .auth(Bearer(strToken), accepted, req.some)
       .flatMap:
         _.fold(
           err => BadRequest(jsonError(err.message)),

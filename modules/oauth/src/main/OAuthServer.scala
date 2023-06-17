@@ -18,16 +18,16 @@ final class OAuthServer(
 
   import OAuthServer.*
 
-  def auth(req: RequestHeader, required: OAuthScopes): Fu[AuthResult] =
+  def auth(req: RequestHeader, accepted: EndpointScopes): Fu[AuthResult] =
     HTTPRequest.bearer(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
-      auth(_, required, req.some)
+      auth(_, accepted, req.some)
     } recover { case e: AuthError =>
       Left(e)
     }
 
-  def auth(tokenId: Bearer, required: OAuthScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
+  def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
     getTokenFromSignedBearer(tokenId) orFailWith NoSuchToken flatMap {
-      case at if !required.isEmpty && !required.intersects(at.scopes) =>
+      case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
         fufail(MissingScope(at.scopes))
       case at =>
         userRepo enabledById at.userId flatMap {
@@ -50,16 +50,19 @@ final class OAuthServer(
       Left(e)
     }
 
-  def authBoth(scopes: OAuthScopes, req: RequestHeader)(
+  def authBoth(scopes: EndpointScopes, req: RequestHeader)(
       token1: Bearer,
       token2: Bearer
   ): Fu[Either[AuthError, (User, User)]] = for
     auth1 <- auth(token1, scopes, req.some)
     auth2 <- auth(token2, scopes, req.some)
   yield for
-    user1  <- auth1
-    user2  <- auth2
-    result <- if (user1.user is user2.user) Left(OneUserWithTwoTokens) else Right(user1.user -> user2.user)
+    user1 <- auth1
+    user2 <- auth2
+    result <-
+      if user1.user is user2.user
+      then Left(OneUserWithTwoTokens)
+      else Right(user1.user -> user2.user)
   yield result
 
   private val bearerSigner = Algo hmac mobileSecret.value
@@ -82,15 +85,13 @@ object OAuthServer:
   sealed abstract class AuthError(val message: String) extends lila.base.LilaException
   case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
   case object NoSuchToken                              extends AuthError("No such token")
-  case class MissingScope(scopes: OAuthScopes)         extends AuthError("Missing scope")
+  case class MissingScope(scopes: TokenScopes)         extends AuthError("Missing scope")
   case object NoSuchUser                               extends AuthError("No such user")
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
   case object OriginBlocked        extends AuthError("Origin blocked")
 
-  def responseHeaders(acceptedScopes: OAuthScopes, availableScopes: OAuthScopes)(
-      res: Result
-  ): Result =
+  def responseHeaders(accepted: EndpointScopes, tokenScopes: TokenScopes)(res: Result): Result =
     res.withHeaders(
-      "X-OAuth-Scopes"          -> availableScopes.keyList,
-      "X-Accepted-OAuth-Scopes" -> acceptedScopes.keyList
+      "X-OAuth-Scopes"          -> tokenScopes.into(OAuthScopes).keyList,
+      "X-Accepted-OAuth-Scopes" -> accepted.into(OAuthScopes).keyList
     )

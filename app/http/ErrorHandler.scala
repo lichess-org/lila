@@ -27,7 +27,9 @@ final class ErrorHandler(
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
         val errorCtx = lila.api.WebContext(
-          lila.user.UserContext(req, none, none, lila.i18n.defaultLang),
+          req,
+          lila.i18n.defaultLang,
+          lila.user.UserContext.anon,
           lila.api.PageData.error(req, HTTPRequest.isSynchronousHttp(req) option lila.api.Nonce.random)
         )
         InternalServerError(views.html.site.bits.errorPage(using errorCtx))
