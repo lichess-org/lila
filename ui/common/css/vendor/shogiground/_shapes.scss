@@ -16,8 +16,10 @@ $shape-themes: (
   'yellow': #e68f00,
   'blue': #003088,
   // keyboard moves
-  'suggest': #3f51b5,
-  'confirm': #00ff00
+  'suggest': #14551e,
+  'pre-suggest': #141e55,
+  'confirm': #14551e,
+  'pre-confirm': #141e55
 );
 
 .sg-shapes {
@@ -81,10 +83,12 @@ $shape-themes: (
     opacity: 0.35;
   }
 
-  g.confirm {
-    opacity: 1;
+  g.suggest,
+  g.pre-suggest {
+    opacity: 0.4;
   }
-  g.suggest {
-    opacity: 1;
+  g.confirm,
+  g.pre-confirm {
+    opacity: 0.9;
   }
 }

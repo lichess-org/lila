@@ -122,7 +122,6 @@ export default class RoundController {
       setInterval(this.corresClockTick, 1000);
     }
 
-    this.setKeyboardMove();
     this.setQuietMode();
 
     this.moveOn = new MoveOn(this, 'move-on');
@@ -130,6 +129,8 @@ export default class RoundController {
 
     this.trans = li.trans(opts.i18n);
     this.noarg = this.trans.noarg;
+
+    this.setKeyboardMove();
 
     setTimeout(this.delayedInit, 200);
 
@@ -516,10 +517,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     if (this.keyboardMove)
-      this.keyboardMove.update(
-        { sfen: step.sfen, lastSquare: lastStep?.usi ? parseUsi(lastStep.usi)?.to : undefined },
-        playedColor != d.player.color
-      );
+      this.keyboardMove.update({ sfen: step.sfen, lastSquare: lastStep?.usi ? parseUsi(lastStep.usi)?.to : undefined });
     if (this.music) this.music.jump(o);
     speech.notation(step.notation);
   };
@@ -640,9 +638,9 @@ export default class RoundController {
     this.shogiground.cancelPremove();
   };
 
-  resign = (v: boolean): void => {
+  resign = (v: boolean, force = false): void => {
     if (v) {
-      if (this.resignConfirm || !this.data.pref.confirmResign) {
+      if (this.resignConfirm || !this.data.pref.confirmResign || force) {
         this.socket.sendLoading('resign');
         clearTimeout(this.resignConfirm);
       } else {

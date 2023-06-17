@@ -30,21 +30,22 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     next: defer<PuzzleData>(),
   } as Vm;
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
-  const autoNext = storedProp('puzzle.autoNext', false);
-  const shogiground = Shogiground();
-  const threatMode = prop(false);
-  const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id);
+  const autoNext = storedProp('puzzle.autoNext', false),
+    shogiground = Shogiground(),
+    threatMode = prop(false),
+    session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id),
+    trans = window.lishogi.trans(opts.i18n);
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
 
-  const throttleSound = (name: string) => throttle(100, () => window.lishogi.sound[name]());
-  const sound = {
-    move: throttleSound('move'),
-    capture: throttleSound('capture'),
-    check: throttleSound('check'),
-  };
+  const throttleSound = (name: string) => throttle(100, () => window.lishogi.sound[name]()),
+    sound = {
+      move: throttleSound('move'),
+      capture: throttleSound('capture'),
+      check: throttleSound('check'),
+    };
 
   function setPath(path: Tree.Path): void {
     vm.path = path;
@@ -298,6 +299,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           userJumpPlyDelta,
           next: nextPuzzle,
           vote,
+          trans,
         },
         { sfen: vm.node.sfen, lastSquare: lastMove?.to }
       );
@@ -533,7 +535,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     getCeval,
     pref: opts.pref,
     difficulty: opts.difficulty,
-    trans: window.lishogi.trans(opts.i18n),
+    trans,
     autoNext,
     autoNexting: () => vm.lastFeedback == 'win' && autoNext(),
     outcome,

@@ -2,7 +2,7 @@ import { Role, Square } from 'shogiops/types';
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { Api as SgApi } from 'shogiground/api';
-import { makeUsi, parseSquareName } from 'shogiops';
+import { userMove, userDrop } from 'shogiground/board';
 
 export type KeyboardMoveHandler = (
   variant: VariantKey,
@@ -18,7 +18,7 @@ export interface KeyboardMove {
   move(orig: Key, dest: Key, promotion: boolean): void;
   drop(key: Key, role: Role): void;
   sg: SgApi;
-  update(step: Step, yourMove?: boolean): void;
+  update(step: Step): void;
   registerHandler(h: KeyboardMoveHandler): void;
   hasFocus(): boolean;
   setFocus(v: boolean): void;
@@ -32,7 +32,8 @@ export interface KeyboardMove {
   draw(): void;
   next(): void;
   vote(v: boolean): void;
-  resign(v: boolean, immediately?: boolean): void;
+  resign(v: boolean): void;
+  trans: Trans;
 }
 
 export interface RootData {
@@ -43,14 +44,14 @@ export interface RootController {
   shogiground: SgApi;
   clock?: ClockController;
   data: RootData;
-  sendUsi?: (usi: string, meta: {}) => void;
   offerDraw?: (v: boolean, immediately?: boolean) => void;
-  resign?: (v: boolean, immediately?: boolean) => void;
+  resign?: (v: boolean, force?: boolean) => void;
   submitUsi?: (v: boolean) => void;
   userJumpPlyDelta?: (plyDelta: Ply) => void;
   redraw: Redraw;
   next?: () => void;
   vote?: (v: boolean) => void;
+  trans: Trans;
 }
 interface Step {
   sfen: Sfen;
@@ -76,26 +77,33 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     move(orig, dest, prom) {
       usedMove = true;
       root.shogiground.cancelMove();
-      root.shogiground.move(orig, dest, prom);
-      const usi = orig + dest + (prom ? '+' : '');
-      root.sendUsi && root.sendUsi(usi, {});
+      userMove(root.shogiground.state, orig, dest, prom);
     },
     drop(key, role) {
       const color = root.data.player.color;
       root.shogiground.cancelMove();
-      root.shogiground.drop({ role, color }, key);
-      const usi = makeUsi({ role: role, to: parseSquareName(key) });
-      root.sendUsi && root.sendUsi(usi, {});
+      userDrop(root.shogiground.state, { role, color }, key);
     },
     sg: root.shogiground,
-    update(step, yourMove: boolean = false) {
-      if (handler) handler(root.data.game.variant.key, step.sfen, step.lastSquare, yourMove);
+    update(step) {
+      if (handler)
+        handler(
+          root.data.game.variant.key,
+          step.sfen,
+          step.lastSquare,
+          root.shogiground.state.activeColor === root.shogiground.state.turnColor
+        );
       else preHandlerBuffer = step;
     },
     registerHandler(h: KeyboardMoveHandler) {
       handler = h;
       if (preHandlerBuffer)
-        handler(root.data.game.variant.key, preHandlerBuffer.sfen, preHandlerBuffer.lastSquare, false);
+        handler(
+          root.data.game.variant.key,
+          preHandlerBuffer.sfen,
+          preHandlerBuffer.lastSquare,
+          root.shogiground.state.activeColor === root.shogiground.state.turnColor
+        );
     },
     hasFocus: () => focus,
     setFocus(v) {
@@ -113,9 +121,10 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     justSelected: () => performance.now() - lastSelect < 500,
     clock: () => root.clock,
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
-    resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
+    resign: v => (root.resign ? root.resign(v, true) : null),
     next: () => root.next?.(),
     vote: (v: boolean) => root.vote?.(v),
+    trans: root.trans,
   };
 }
 
@@ -139,6 +148,8 @@ export function render(ctrl: KeyboardMove) {
           })
       ),
     }),
-    ctrl.hasFocus() ? h('em', 'Press <enter> to submit your command') : h('strong', 'Press <enter> to focus'),
+    ctrl.hasFocus()
+      ? h('em', ctrl.trans('pressXtoSubmit', '<enter>'))
+      : h('strong', ctrl.trans('pressXtoFocus', '<enter>')),
   ]);
 }

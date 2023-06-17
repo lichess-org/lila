@@ -2,8 +2,8 @@ import { Position } from 'shogiops/variant/position';
 import { forsythToRole, parseSfen } from 'shogiops/sfen';
 import { KeyboardMove } from '../main';
 import { aimingAt, csaToRole, fromKanjiDigit, kanjiToRole } from 'shogiops/notation/util';
-import { makeSquareName, parseSquareName } from 'shogiops/util';
-import { Move, Role, Square, SquareSet, isDrop } from 'shogiops';
+import { makeSquareName, opposite, parseSquareName } from 'shogiops/util';
+import { Board, Move, Role, RoleMap, Square, SquareSet, isDrop } from 'shogiops';
 import { makeJapaneseMove } from 'shogiops/notation/japanese';
 import { DrawShape } from 'shogiground/draw';
 import { pieceCanPromote, unpromote } from 'shogiops/variant/util';
@@ -37,7 +37,6 @@ const fileR = new RegExp('(?:[１２３４５６７８９]|[一二三四五六�
 interface SubmitOpts {
   submitCommand: boolean;
   isTrusted?: boolean;
-  yourMove?: boolean;
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
@@ -45,11 +44,21 @@ window.lishogi.keyboardMove = function (opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let pos: Position | null = null,
-    lastKey: Key | null | undefined;
+    lastKey: Key | null | undefined,
+    canPlay: boolean | undefined;
 
   const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
+    opts.input.classList.remove('wrong');
+
     if (!submitOpts.isTrusted) return;
     v = v.toLowerCase().replace(/\s/g, '');
+
+    if (v === '' && submitOpts.submitCommand) {
+      if (canPlay) opts.ctrl.confirmMove();
+      else opts.ctrl.sg.cancelMove();
+      return;
+    }
+
     if (lastKey) {
       if (KKlastDestR.test(v)) v = v + lastKey;
       else if (v.includes('同')) v = v.replace('同', lastKey);
@@ -65,32 +74,32 @@ window.lishogi.keyboardMove = function (opts: Opts) {
           shapes.push({
             orig: makeSquareName(move.from),
             dest: makeSquareName(move.to),
-            brush: 'confirm',
+            brush: `${!canPlay ? 'pre-' : ''}confirm`,
             description: move.promotion ? '+' : undefined,
           });
       } else if (pos) {
         const sqs = regexMatchAllSquares(v),
           m = v.match(allRolesR)?.[0] || '',
-          forceDrop = v.includes('*') || v.includes('打');
-
-        const role = toRole(pos.rules, m);
+          forceDrop = v.includes('*') || v.includes('打'),
+          role = toRole(pos.rules, m),
+          brush = `${!canPlay ? 'pre-' : ''}suggest`;
 
         if (sqs.length === 1) {
           if (role && !forceDrop) {
             for (const sq of allCandidates(sqs[0], role, pos))
-              shapes.push({ orig: makeSquareName(sq), dest: makeSquareName(sqs[0]), brush: 'suggest' });
-          } else shapes.push({ orig: makeSquareName(sqs[0]), dest: makeSquareName(sqs[0]), brush: 'suggest' });
+              shapes.push({ orig: makeSquareName(sq), dest: makeSquareName(sqs[0]), brush });
+          } else shapes.push({ orig: makeSquareName(sqs[0]), dest: makeSquareName(sqs[0]), brush });
         } else if (role && Math.abs(m.length - v.length) <= 1) {
           if (!forceDrop) {
             const pieces = Array.from(pos.board.pieces(pos.turn, role));
             for (const piece of pieces)
-              shapes.push({ orig: makeSquareName(piece), dest: makeSquareName(piece), brush: 'suggest' });
+              shapes.push({ orig: makeSquareName(piece), dest: makeSquareName(piece), brush });
           }
           if (
             pos.hands.color(pos.turn).get(role) > 0 ||
             pos.hands.color(pos.turn).get(unpromote(pos.rules)(role) || role) > 0
           )
-            shapes.push({ orig: { color: pos.turn, role }, dest: { color: pos.turn, role }, brush: 'suggest' });
+            shapes.push({ orig: { color: pos.turn, role }, dest: { color: pos.turn, role }, brush });
         }
       }
       if (!v.length) opts.input.classList.toggle('wrong', false);
@@ -101,7 +110,7 @@ window.lishogi.keyboardMove = function (opts: Opts) {
         clear();
       } else if (v.length > 1 && 'resign'.startsWith(v)) {
         if (v === 'resign') {
-          opts.ctrl.resign(true, true);
+          opts.ctrl.resign(true);
           clear();
         }
       } else if (v.length > 0 && 'clock'.startsWith(v)) {
@@ -134,16 +143,13 @@ window.lishogi.keyboardMove = function (opts: Opts) {
           opts.ctrl.vote?.(false);
           clear();
         }
-      } else if (submitOpts.yourMove && v.length > 1) {
-        setTimeout(window.lishogi.sound.error, 500);
-        opts.input.value = '';
       } else {
         const wrong = !!v.length;
         if (wrong && !opts.input.classList.contains('wrong')) window.lishogi.sound.error();
         opts.input.classList.toggle('wrong', wrong);
       }
     }
-    opts.ctrl.sg.setAutoShapes(shapes);
+    if (!opts.input.classList.contains('wrong')) opts.ctrl.sg.setAutoShapes(shapes);
   };
   const clear = () => {
     opts.input.value = '';
@@ -153,11 +159,23 @@ window.lishogi.keyboardMove = function (opts: Opts) {
   return (variant: VariantKey, sfen: string, lastSquare: Square | undefined, yourMove: boolean) => {
     pos = parseSfen(variant, sfen).unwrap();
     lastKey = lastSquare !== undefined ? makeSquareName(lastSquare) : undefined;
+    canPlay = yourMove;
+    // premove/predrop
+    if (!canPlay) {
+      pos.turn = opposite(pos.turn);
+      const myOccupied = pos.board.color(pos.turn),
+        roleMap: RoleMap = new Map();
+
+      for (const r of pos.board.presentRoles()) {
+        roleMap.set(r, pos.board.role(r).intersect(myOccupied));
+      }
+
+      pos.board = Board.from(myOccupied, [[pos.turn, myOccupied]], roleMap);
+    }
 
     submit(opts.input.value, {
       submitCommand: false,
       isTrusted: true,
-      yourMove: yourMove,
     });
   };
 };
@@ -173,8 +191,7 @@ function makeBindings(opts: any, submit: Submit, clear: () => void) {
     if (v.includes('/')) {
       focusChat();
       clear();
-    } else if (v === '' && submitCommand) opts.ctrl.confirmMove();
-    else
+    } else
       submit(v, {
         submitCommand: submitCommand,
         isTrusted: e.isTrusted,
