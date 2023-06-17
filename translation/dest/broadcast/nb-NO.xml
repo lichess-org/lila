@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Overføringer</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s overføring</item>
+    <item quantity="other">%s overføringer</item>
+  </plurals>
   <string name="liveBroadcasts">Direkteoverføringer av turneringer</string>
   <string name="newBroadcast">Ny direkteoverføring</string>
   <string name="addRound">Legg til runde</string>
@@ -27,4 +31,5 @@
   <string name="downloadAllRounds">Last ned alle rundene</string>
   <string name="definitivelyDeleteRound">Slett runden og tilhørende partier ugjenkallelig.</string>
   <string name="deleteAllGamesOfThisRound">Slett alle partiene i denne runden. Kilden må være aktiv for å gjenopprette dem.</string>
+  <string name="editRoundStudy">Rediger rundestudie</string>
 </resources>
