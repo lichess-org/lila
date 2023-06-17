@@ -60,7 +60,7 @@ final class Tutor(env: Env) extends LilaController(env):
 
   private def TutorPageAvailability(
       username: UserStr
-  )(f: WebContext ?=> UserModel => TutorFullReport.Availability => Fu[Result]): Action[AnyContent] =
+  )(f: WebContext ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> holder =>
       def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(user)
       if holder.user is username then proceed(holder.user)
@@ -77,23 +77,23 @@ final class Tutor(env: Env) extends LilaController(env):
 
   private def TutorPage(
       username: UserStr
-  )(f: WebContext ?=> UserModel => TutorFullReport.Available => Fu[Result]): Action[AnyContent] =
-    TutorPageAvailability(username) { ctx ?=> user => availability =>
+  )(f: WebContext ?=> UserModel => TutorFullReport.Available => Fu[Result]): EssentialAction =
+    TutorPageAvailability(username) { _ ?=> me => availability =>
       availability match
         case TutorFullReport.InsufficientGames =>
-          BadRequest(views.html.tutor.empty.insufficientGames(user))
+          BadRequest(views.html.tutor.empty.insufficientGames(me))
         case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
-          env.tutor.queue.waitingGames(user) map { waitGames =>
-            Accepted(views.html.tutor.empty.queued(in, user, waitGames))
+          env.tutor.queue.waitingGames(me) map { waitGames =>
+            Accepted(views.html.tutor.empty.queued(in, me, waitGames))
           }
-        case TutorFullReport.Empty(_)             => Accepted(views.html.tutor.empty.start(user))
-        case available: TutorFullReport.Available => f(user)(available)
+        case TutorFullReport.Empty(_)             => Accepted(views.html.tutor.empty.start(me))
+        case available: TutorFullReport.Available => f(me)(available)
     }
 
   private def TutorPerfPage(username: UserStr, perf: Perf.Key)(
       f: WebContext ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
-  ): Action[AnyContent] =
-    TutorPage(username) { ctx ?=> me => availability =>
+  ): EssentialAction =
+    TutorPage(username) { _ ?=> me => availability =>
       PerfType(perf).fold(redirHome(me).toFuccess): perf =>
         availability match
           case full @ TutorFullReport.Available(report, _) =>

@@ -31,19 +31,17 @@ final class Lobby(env: Env) extends LilaController(env):
 
   private def serveHtmlHome(using ctx: WebContext) =
     env.pageCache { () =>
-      keyPages.homeHtml.map { html =>
+      keyPages.homeHtml.map: html =>
         Ok(html).withCanonical("").noCache
-      }
     } map env.lilaCookie.ensure(ctx.req)
 
   def homeLang(lang: String) =
     staticRedirect(lang).map(Action.async(_)) getOrElse
       LangPage("/")(serveHtmlHome)(lang)
 
-  def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
-    webContext(req) flatMap { ctx =>
+  def handleStatus(status: Results.Status)(using RequestHeader): Fu[Result] =
+    webContext.flatMap: ctx =>
       keyPages.home(status)(using ctx)
-    }
 
   def seeks = Open:
     negotiate(

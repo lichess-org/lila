@@ -48,18 +48,14 @@ final class Mod(
       Ok(html.mod.publicChat(tournamentsAndChats, swissesAndChats))
   }
 
-  def publicChatTimeout =
-    def doTimeout(me: Holder)(using BodyContext[?]): Fu[Result] =
-      lila.chat.ChatTimeout.form
-        .bindFromRequest()
-        .fold(
-          form => BadRequest(form.errors mkString "\n"),
-          data => env.chat.api.userChat.publicTimeout(data, me)
-        )
-    SecureOrScopedBody(_.ChatTimeout)(
-      secure = _ ?=> doTimeout,
-      scoped = _ ?=> doTimeout
-    )
+  def publicChatTimeout = SecureOrScopedBody(_.ChatTimeout) { _ ?=> me =>
+    lila.chat.ChatTimeout.form
+      .bindFromRequest()
+      .fold(
+        form => BadRequest(form.errors mkString "\n"),
+        data => env.chat.api.userChat.publicTimeout(data, me)
+      )
+  }
 
   def booster(username: UserStr, v: Boolean) = OAuthModBody(_.MarkBooster) { me =>
     withSuspect(username): prev =>
@@ -522,24 +518,22 @@ final class Mod(
 
   private def OAuthMod[A](perm: Permission.Selector)(f: AnyContext ?=> Holder => Fu[Option[A]])(
       thenWhat: WebContext ?=> Holder => A => Fu[Result]
-  ): Action[Unit] =
-    SecureOrScoped(perm)(
-      secure = ctx ?=> holder => f(using ctx)(holder) flatMapz thenWhat(holder),
-      scoped = ctx ?=>
-        holder =>
-          f(using ctx)(holder).flatMap:
-            _.isDefined so fuccess(jsonOkResult)
-    )
+  ): EssentialAction =
+    SecureOrScoped(perm) { ctx ?=> holder =>
+      f(holder).flatMapz: res =>
+        ctx match
+          case web: WebContext => thenWhat(using web)(holder)(res)
+          case _               => fuccess(jsonOkResult)
+    }
   private def OAuthModBody[A](perm: Permission.Selector)(f: Holder => Fu[Option[A]])(
       thenWhat: WebBodyContext[?] ?=> Holder => A => Fu[Result]
-  ): Action[AnyContent] =
-    SecureOrScopedBody(perm)(
-      secure = ctx ?=> me => f(me) flatMapz thenWhat(me),
-      scoped = _ ?=>
-        me =>
-          f(me).flatMap:
-            _.isDefined so jsonOkResult
-    )
+  ): EssentialAction =
+    SecureOrScopedBody(perm) { ctx ?=> holder =>
+      f(holder).flatMapz: res =>
+        ctx match
+          case web: WebBodyContext[?] => thenWhat(using web)(holder)(res)
+          case _                      => fuccess(jsonOkResult)
+    }
 
   private def actionResult(
       username: UserStr

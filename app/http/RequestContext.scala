@@ -16,20 +16,20 @@ trait RequestContext(using Executor):
 
   val env: Env
 
-  def minimalContext(req: RequestHeader): MinimalContext =
+  def minimalContext(using req: RequestHeader): MinimalContext =
     MinimalContext(req, UserContext.anon)
 
-  def minimalBodyContext[A](req: Request[A]): MinimalBodyContext[A] =
+  def minimalBodyContext[A](using req: Request[A]): MinimalBodyContext[A] =
     MinimalBodyContext(req, UserContext.anon)
 
-  def webContext(req: RequestHeader): Fu[WebContext] =
+  def webContext(using req: RequestHeader): Fu[WebContext] =
     restoreUser(req).flatMap: (d, impersonatedBy) =>
       val lang    = getAndSaveLang(req, d.map(_.user))
       val userCtx = UserContext(d.map(_.user), impersonatedBy)
       pageDataBuilder(d.exists(_.hasFingerPrint))(using req, userCtx).dmap:
         WebContext(req, lang, userCtx, _)
 
-  def webBodyContext[A](req: Request[A]): Fu[WebBodyContext[A]] =
+  def webBodyContext[A](using req: Request[A]): Fu[WebBodyContext[A]] =
     restoreUser(req).flatMap: (d, impersonatedBy) =>
       val lang    = getAndSaveLang(req, d.map(_.user))
       val userCtx = UserContext(d.map(_.user), impersonatedBy)

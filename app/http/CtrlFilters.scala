@@ -114,7 +114,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   import env.security.csrfRequestHandler.check as csrfCheck
   val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 
-  def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
+  def CSRF(f: => Fu[Result])(using req: RequestHeader): Fu[Result] =
     if csrfCheck(req) then f else csrfForbiddenResult
 
   def XhrOnly(res: => Fu[Result])(using ctx: WebContext): Fu[Result] =

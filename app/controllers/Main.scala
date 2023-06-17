@@ -38,7 +38,7 @@ final class Main(
         }
       )
 
-  def handlerNotFound(req: RequestHeader) = webContext(req) map { renderNotFound(using _) }
+  def handlerNotFound(using RequestHeader) = webContext map { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.long

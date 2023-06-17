@@ -44,204 +44,204 @@ abstract private[controllers] class LilaController(val env: Env)
   def reqLang(using req: RequestHeader): Lang = I18nLangPicker(req)
 
   /* Anonymous requests */
-  def Anon(f: MinimalContext ?=> Fu[Result]): Action[Unit] =
-    Action.async(parse.empty)(req => f(using minimalContext(req)))
+  def Anon(f: MinimalContext ?=> Fu[Result]): EssentialAction =
+    action(parse.empty)(f(using minimalContext))
 
   /* Anonymous requests, with a body */
-  def AnonBody(f: MinimalBodyContext[?] ?=> Fu[Result]): Action[AnyContent] =
-    Action.async(parse.anyContent)(req => f(using minimalBodyContext(req)))
+  def AnonBody(f: MinimalBodyContext[?] ?=> Fu[Result]): EssentialAction =
+    action(parse.anyContent)(f(using minimalBodyContext))
 
   /* Anonymous requests, with a body */
-  def AnonBodyOf[A](parser: BodyParser[A])(f: MinimalBodyContext[A] ?=> A => Fu[Result]): Action[A] =
-    Action.async(parser)(req => f(using minimalBodyContext(req))(req.body))
+  def AnonBodyOf[A](parser: BodyParser[A])(f: MinimalBodyContext[A] ?=> A => Fu[Result]): EssentialAction =
+    action(parser)(req ?=> f(using minimalBodyContext)(req.body))
 
   /* Anonymous and authenticated requests */
-  def Open(f: WebContext ?=> Fu[Result]): Action[Unit] =
+  def Open(f: WebContext ?=> Fu[Result]): EssentialAction =
     OpenOf(parse.empty)(f)
 
-  def OpenOf[A](parser: BodyParser[A])(f: WebContext ?=> Fu[Result]): Action[A] =
-    Action.async(parser)(handleOpen(f, _))
+  def OpenOf[A](parser: BodyParser[A])(f: WebContext ?=> Fu[Result]): EssentialAction =
+    action(parser)(handleOpen(f))
 
   /* Anonymous and authenticated requests, with a body */
-  def OpenBody(f: WebBodyContext[?] ?=> Fu[Result]): Action[AnyContent] =
+  def OpenBody(f: WebBodyContext[?] ?=> Fu[Result]): EssentialAction =
     OpenBodyOf(parse.anyContent)(f)
 
   /* Anonymous and authenticated requests, with a body */
-  def OpenBodyOf[A](parser: BodyParser[A])(f: WebBodyContext[A] ?=> Fu[Result]): Action[A] =
-    Action.async(parser)(handleOpenBody(f)(using _))
+  def OpenBodyOf[A](parser: BodyParser[A])(f: WebBodyContext[A] ?=> Fu[Result]): EssentialAction =
+    action(parser)(handleOpenBody(f))
 
-  private def handleOpenBody[A](f: WebBodyContext[A] ?=> Fu[Result])(using req: Request[A]): Fu[Result] =
-    CSRF(req):
-      webBodyContext(req).flatMap:
+  private def handleOpenBody[A](f: WebBodyContext[A] ?=> Fu[Result])(using Request[A]): Fu[Result] =
+    CSRF:
+      webBodyContext.flatMap:
         f(using _)
 
   /* Anonymous, authenticated, and oauth requests */
   def OpenOrScoped(selectors: OAuthScope.Selector*)(
       open: WebContext ?=> Fu[Result],
       scoped: OAuthContext ?=> Fu[Result]
-  ): Action[Unit] =
-    Action.async(parse.empty): req =>
+  ): EssentialAction =
+    action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(_ ?=> _ => scoped)(using req)
-      else handleOpen(open, req)
+      then handleScoped(selectors)(_ ?=> _ => scoped)
+      else handleOpen(open)
 
   /* Anonymous, authenticated, and oauth requests */
   def OpenOrScoped(selectors: OAuthScope.Selector*)(
       f: AnyContext ?=> Fu[Result]
-  ): Action[Unit] =
+  ): EssentialAction =
     OpenOrScoped(selectors*)(f, f)
 
-  private def handleOpen(f: WebContext ?=> Fu[Result], req: RequestHeader): Fu[Result] =
-    CSRF(req):
-      webContext(req).flatMap:
+  private def handleOpen(f: WebContext ?=> Fu[Result])(using RequestHeader): Fu[Result] =
+    CSRF:
+      webContext.flatMap:
         f(using _)
 
   /* Anonymous, authenticated, and oauth requests with a body */
   def OpenOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
       f: BodyContext[A] ?=> Fu[Result]
-  ): Action[A] =
-    Action.async(parser): req =>
+  ): EssentialAction =
+    action(parser): req ?=>
       if HTTPRequest.isOAuth(req)
-      then handleScopedBody[A](selectors)(ctx ?=> _ => f(using ctx))(using req)
-      else handleOpenBody(f)(using req)
+      then handleScopedBody[A](selectors)(ctx ?=> _ => f(using ctx))
+      else handleOpenBody(f)
 
   /* Anonymous and oauth requests */
   def AnonOrScoped(selectors: OAuthScope.Selector*)(
       f: AnyContext ?=> Fu[Result]
-  ): Action[Unit] =
-    Action.async(parse.empty): req =>
+  ): EssentialAction =
+    action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(_ ?=> _ => f)(using req)
-      else f(using minimalContext(req))
+      then handleScoped(selectors)(_ ?=> _ => f)
+      else f(using minimalContext)
 
   /* Anonymous and oauth requests with a body */
   def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
       f: BodyContext[A] ?=> Fu[Result]
-  ): Action[A] =
-    Action.async(parser): req =>
+  ): EssentialAction =
+    action(parser): req ?=>
       if HTTPRequest.isOAuth(req)
-      then handleScopedBody[A](selectors)(_ ?=> _ => f)(using req)
-      else f(using minimalBodyContext(req))
+      then handleScopedBody[A](selectors)(_ ?=> _ => f)
+      else f(using minimalBodyContext)
 
   /* Authenticated and oauth requests */
   def AuthOrScoped(selectors: OAuthScope.Selector*)(
       auth: WebContext ?=> User => Fu[Result],
       scoped: OAuthContext ?=> User => Fu[Result]
-  ): Action[Unit] =
-    Action.async(parse.empty): req =>
+  ): EssentialAction =
+    action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(scoped)(using req)
-      else handleAuth(auth, req)
+      then handleScoped(selectors)(scoped)
+      else handleAuth(auth)
 
   def AuthOrScoped(
       selectors: OAuthScope.Selector*
-  )(f: AnyContext ?=> User => Fu[Result]): Action[Unit] =
+  )(f: AnyContext ?=> User => Fu[Result]): EssentialAction =
     AuthOrScoped(selectors*)(auth = f, scoped = f)
 
   /* Authenticated and oauth requests with a body */
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
       auth: WebBodyContext[?] ?=> User => Fu[Result],
       scoped: OAuthBodyContext[?] ?=> User => Fu[Result]
-  ): Action[AnyContent] =
-    Action.async(parse.anyContent): req =>
+  ): EssentialAction =
+    action(parse.anyContent): req ?=>
       if HTTPRequest.isOAuth(req)
-      then handleScopedBody(selectors)(scoped)(using req)
-      else handleAuthBody(auth)(using req)
+      then handleScopedBody(selectors)(scoped)
+      else handleAuthBody(auth)
 
   /* Authenticated requests */
-  def Auth(f: WebContext ?=> User => Fu[Result]): Action[Unit] =
+  def Auth(f: WebContext ?=> User => Fu[Result]): EssentialAction =
     Auth(parse.empty)(f)
 
   /* Authenticated requests */
-  def Auth[A](parser: BodyParser[A])(f: WebContext ?=> User => Fu[Result]): Action[A] =
-    Action.async(parser) { handleAuth(f, _) }
+  def Auth[A](parser: BodyParser[A])(f: WebContext ?=> User => Fu[Result]): EssentialAction =
+    action(parser)(handleAuth(f))
 
-  private def handleAuth(f: WebContext ?=> User => Fu[Result], req: RequestHeader): Fu[Result] =
-    CSRF(req):
-      webContext(req).flatMap: ctx =>
+  private def handleAuth(f: WebContext ?=> User => Fu[Result])(using RequestHeader): Fu[Result] =
+    CSRF:
+      webContext.flatMap: ctx =>
         ctx.me.fold(authenticationFailed(using ctx))(f(using ctx))
 
   /* Authenticated requests with a body */
-  def AuthBody(f: WebBodyContext[?] ?=> User => Fu[Result]): Action[AnyContent] =
+  def AuthBody(f: WebBodyContext[?] ?=> User => Fu[Result]): EssentialAction =
     AuthBody(parse.anyContent)(f)
 
   /* Authenticated requests with a body */
   def AuthBody[A](
       parser: BodyParser[A]
-  )(f: WebBodyContext[A] ?=> User => Fu[Result]): Action[A] =
-    Action.async(parser)(handleAuthBody(f)(using _))
+  )(f: WebBodyContext[A] ?=> User => Fu[Result]): EssentialAction =
+    action(parser)(handleAuthBody(f))
 
-  private def handleAuthBody[A](f: WebBodyContext[A] ?=> User => Fu[Result])(using
-      req: Request[A]
-  ): Fu[Result] =
-    CSRF(req):
-      webBodyContext(req).flatMap: ctx =>
+  private def handleAuthBody[A](f: WebBodyContext[A] ?=> User => Fu[Result])(using Request[A]): Fu[Result] =
+    CSRF:
+      webBodyContext.flatMap: ctx =>
         ctx.me.fold(authenticationFailed(using ctx))(f(using ctx))
 
   /* Authenticated requests requiring certain permissions */
   def Secure(perm: Permission.Selector)(
       f: WebContext ?=> Holder => Fu[Result]
-  ): Action[AnyContent] =
-    Secure(parse.anyContent)(perm(Permission))(f)
+  ): EssentialAction =
+    Secure(parse.anyContent)(perm)(f)
 
   /* Authenticated requests requiring certain permissions */
   def Secure[A](
       parser: BodyParser[A]
-  )(perm: Permission)(f: WebContext ?=> Holder => Fu[Result]): Action[A] =
+  )(perm: Permission.Selector)(f: WebContext ?=> Holder => Fu[Result]): EssentialAction =
     Auth(parser): me =>
-      if isGranted(perm)
-      then f(Holder(me))
-      else authorizationFailed
+      withSecure(me, perm)(f)
 
   /* Authenticated requests requiring certain permissions, with a body */
   def SecureBody[A](
       parser: BodyParser[A]
-  )(perm: Permission)(f: WebBodyContext[A] ?=> Holder => Fu[Result]): Action[A] =
-    AuthBody(parser) { ctx ?=> me =>
-      if isGranted(perm)
-      then f(Holder(me))
-      else authorizationFailed
-    }
+  )(perm: Permission.Selector)(f: WebBodyContext[A] ?=> Holder => Fu[Result]): EssentialAction =
+    AuthBody(parser): me =>
+      withSecure(me, perm)(f)
 
   /* Authenticated requests requiring certain permissions, with a body */
   def SecureBody(
       perm: Permission.Selector
-  )(f: WebBodyContext[?] ?=> Holder => Fu[Result]): Action[AnyContent] =
-    SecureBody(parse.anyContent)(perm(Permission))(f)
+  )(f: WebBodyContext[?] ?=> Holder => Fu[Result]): EssentialAction =
+    SecureBody(parse.anyContent)(perm)(f)
+
+  private def withSecure[C <: WebContext](me: User, perm: Permission.Selector)(
+      f: C ?=> Holder => Fu[Result]
+  )(using C) =
+    if isGranted(perm, me)
+    then f(Holder(me))
+    else authorizationFailed
 
   /* OAuth requests */
   def Scoped[A](
       parser: BodyParser[A]
-  )(selectors: Seq[OAuthScope.Selector])(f: OAuthContext ?=> User => Fu[Result]): Action[A] =
-    Action.async(parser)(handleScoped(selectors)(f)(using _))
+  )(selectors: Seq[OAuthScope.Selector])(f: OAuthContext ?=> User => Fu[Result]): EssentialAction =
+    action(parser)(handleScoped(selectors)(f))
 
   /* OAuth requests */
   def Scoped(
       selectors: OAuthScope.Selector*
-  )(f: OAuthContext ?=> User => Fu[Result]): Action[Unit] =
+  )(f: OAuthContext ?=> User => Fu[Result]): EssentialAction =
     Scoped(parse.empty)(selectors)(f)
 
   /* OAuth requests with a body */
   def ScopedBody[A](
       parser: BodyParser[A]
-  )(selectors: Seq[OAuthScope.Selector])(f: OAuthBodyContext[A] ?=> User => Fu[Result]): Action[A] =
-    Action.async(parser)(handleScopedBody(selectors)(f)(using _))
+  )(selectors: Seq[OAuthScope.Selector])(f: OAuthBodyContext[A] ?=> User => Fu[Result]): EssentialAction =
+    action(parser)(handleScopedBody(selectors)(f))
 
   /* OAuth requests with a body */
   def ScopedBody(
       selectors: OAuthScope.Selector*
-  )(f: OAuthBodyContext[?] ?=> User => Fu[Result]): Action[AnyContent] =
+  )(f: OAuthBodyContext[?] ?=> User => Fu[Result]): EssentialAction =
     ScopedBody(parse.anyContent)(selectors)(f)
 
   private def handleScoped(
       selectors: Seq[OAuthScope.Selector]
-  )(f: OAuthContext ?=> User => Fu[Result])(using req: RequestHeader): Fu[Result] =
+  )(f: OAuthContext ?=> User => Fu[Result])(using RequestHeader): Fu[Result] =
     handleScopedCommon(selectors): scoped =>
       f(using oauthContext(scoped))(scoped.user)
 
   private def handleScopedBody[A](
       selectors: Seq[OAuthScope.Selector]
-  )(f: OAuthBodyContext[A] ?=> User => Fu[Result])(using req: Request[A]): Fu[Result] =
+  )(f: OAuthBodyContext[A] ?=> User => Fu[Result])(using Request[A]): Fu[Result] =
     handleScopedCommon(selectors): scoped =>
       f(using oauthBodyContext(scoped))(scoped.user)
 
@@ -270,40 +270,50 @@ abstract private[controllers] class LilaController(val env: Env)
     lila.mon.user.oauth.request(HTTPRequest.userAgent(req).fold("none")(_.value), success).increment()
 
   /* Authenticated and OAuth requests requiring certain permissions */
-  def SecureOrScoped(perm: Permission.Selector)(
-      secure: WebContext ?=> Holder => Fu[Result],
-      scoped: OAuthContext ?=> Holder => Fu[Result]
-  ): Action[Unit] =
-    Action.async(parse.empty): req =>
-      if HTTPRequest.isOAuth(req)
-      then SecuredScoped(perm)(scoped)(req)
-      else Secure(parse.empty)(perm(Permission))(secure)(req)
-
-  /* Authenticated and OAuth requests requiring certain permissions */
-  def SecuredScoped(perm: Permission.Selector)(
+  def SecuredScoped(perms: Permission.Selector)(
       f: OAuthContext ?=> Holder => Fu[Result]
-  ) =
-    Scoped() { ctx ?=> me =>
-      IfGranted(perm, me)(f(Holder(me)))
+  ): EssentialAction =
+    Scoped() { _ ?=> me =>
+      IfGranted(perms, me)(f(Holder(me)))
     }
-
-  /* Authenticated and OAuth requests requiring certain permissions, with a body */
-  def SecureOrScopedBody(perm: Permission.Selector)(
-      secure: WebBodyContext[?] ?=> Holder => Fu[Result],
-      scoped: OAuthBodyContext[?] ?=> Holder => Fu[Result]
-  ): Action[AnyContent] =
-    Action.async(parse.anyContent): req =>
-      if HTTPRequest.isOAuth(req)
-      then SecuredScopedBody(perm)(scoped)(req)
-      else SecureBody(parse.anyContent)(perm(Permission))(secure)(req)
 
   /* OAuth requests requiring certain permissions, with a body */
   def SecuredScopedBody(perm: Permission.Selector)(
       f: OAuthBodyContext[?] ?=> Holder => Fu[Result]
   ) =
-    ScopedBody() { ctx ?=> user =>
+    ScopedBody() { _ ?=> user =>
       IfGranted(perm)(f(Holder(user)))
     }
+
+  /* Authenticated and OAuth requests requiring certain permissions */
+  def SecureOrScoped(perm: Permission.Selector)(
+      f: AnyContext ?=> Holder => Fu[Result]
+  ): EssentialAction =
+    action(parse.empty): req ?=>
+      if HTTPRequest.isOAuth(req)
+      then
+        handleScoped(Seq.empty) { _ ?=> me =>
+          IfGranted(perm, me)(f(Holder(me)))
+        }
+      else
+        handleAuth { _ ?=> me =>
+          withSecure(me, perm)(f)
+        }
+
+  /* Authenticated and OAuth requests requiring certain permissions, with a body */
+  def SecureOrScopedBody(perm: Permission.Selector)(
+      f: BodyContext[?] ?=> Holder => Fu[Result]
+  ): EssentialAction =
+    action(parse.anyContent): req ?=>
+      if HTTPRequest.isOAuth(req)
+      then
+        handleScopedBody(Seq.empty) { _ ?=> me =>
+          IfGranted(perm, me)(f(Holder(me)))
+        }
+      else
+        handleAuthBody { _ ?=> me =>
+          withSecure(me, perm)(f)
+        }
 
   def FormFuResult[A, B: Writeable](
       form: Form[A]
@@ -323,8 +333,8 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def OptionFuOk[A, B: Writeable](
       fua: Fu[Option[A]]
-  )(op: A => Fu[B])(using ctx: WebContext) =
-    fua flatMap { _.fold(notFound(using ctx))(a => op(a) dmap { Ok(_) }) }
+  )(op: A => Fu[B])(using WebContext) =
+    fua flatMap { _.fold(notFound)(a => op(a) dmap { Ok(_) }) }
 
   def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using WebContext): Fu[Result] =
     fua.flatMap:
@@ -348,9 +358,9 @@ abstract private[controllers] class LilaController(val env: Env)
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment().unit
 
-  def LangPage(call: Call)(f: WebContext ?=> Fu[Result])(langCode: String): Action[Unit] =
+  def LangPage(call: Call)(f: WebContext ?=> Fu[Result])(langCode: String): EssentialAction =
     LangPage(call.url)(f)(langCode)
-  def LangPage(path: String)(f: WebContext ?=> Fu[Result])(langCode: String): Action[Unit] = Open:
+  def LangPage(path: String)(f: WebContext ?=> Fu[Result])(langCode: String): EssentialAction = Open:
     if ctx.isAuth
     then redirectWithQueryString(path)
     else
@@ -363,3 +373,12 @@ abstract private[controllers] class LilaController(val env: Env)
         case ByHref.Found(lang) =>
           pageHit
           f(using ctx.withLang(lang))
+
+  /* We roll our own action, as we don't want to compose play Actions. */
+  private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
+    import play.api.libs.streams.Accumulator
+    import akka.util.ByteString
+    def apply(rh: RequestHeader): Accumulator[ByteString, Result] =
+      parser(rh).mapFuture:
+        case Left(r)  => fuccess(r)
+        case Right(a) => handler(using Request(rh, a))

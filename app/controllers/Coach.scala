@@ -68,7 +68,7 @@ final class Coach(env: Env) extends LilaController(env):
       Ok(html.coach.picture(c)).noCache
   }
 
-  def pictureApply = SecureBody(parse.multipartFormData)(lila.security.Permission.Coach) { ctx ?=> me =>
+  def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me =>
     OptionFuResult(api findOrInit me): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
