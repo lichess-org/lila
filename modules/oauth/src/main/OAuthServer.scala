@@ -18,16 +18,16 @@ final class OAuthServer(
 
   import OAuthServer.*
 
-  def auth(req: RequestHeader, required: EndpointScopes): Fu[AuthResult] =
+  def auth(req: RequestHeader, accepted: EndpointScopes): Fu[AuthResult] =
     HTTPRequest.bearer(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
-      auth(_, required, req.some)
+      auth(_, accepted, req.some)
     } recover { case e: AuthError =>
       Left(e)
     }
 
-  def auth(tokenId: Bearer, required: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
+  def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
     getTokenFromSignedBearer(tokenId) orFailWith NoSuchToken flatMap {
-      case at if !required.isEmpty && !required.compatible(at.scopes) =>
+      case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
         fufail(MissingScope(at.scopes))
       case at =>
         userRepo enabledById at.userId flatMap {
