@@ -50,7 +50,7 @@ object tour:
           boxTop:
             h1(lightUserLink(owner), " ", liveBroadcasts())
           ,
-          renderPager(pager, query = "")
+          renderPager(pager, owner = owner.some)
         )
       )
 
@@ -120,9 +120,16 @@ object tour:
     )
   )
 
-  private def renderPager(pager: Paginator[WithLastRound], query: String)(using WebContext) =
+  private def renderPager(
+      pager: Paginator[WithLastRound],
+      query: String = "",
+      owner: Option[LightUser] = None
+  )(using WebContext) =
+    def next(page: Int) = owner match
+      case None    => routes.RelayTour.index(page, query)
+      case Some(u) => routes.RelayTour.by(u.name, page)
     st.section(cls := "infinite-scroll")(
       pager.currentPageResults.map: tr =>
         renderWidget(tr, ongoing = _ => false)(cls := "paginated"),
-      pagerNext(pager, routes.RelayTour.index(_, query).url)
+      pagerNext(pager, next(_).url)
     )
