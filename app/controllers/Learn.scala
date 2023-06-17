@@ -18,7 +18,7 @@ final class Learn(env: Env) extends LilaController(env):
   private def serveIndex(using ctx: WebContext) = NoBot:
     pageHit
     ctx.me
-      .so { me =>
+      .so { me ?=>
         env.learn.api.get(me) map { Json.toJson(_) } map some
       }
       .map { progress =>
@@ -32,7 +32,7 @@ final class Learn(env: Env) extends LilaController(env):
       "score" -> number
     )(Tuple3.apply)(unapply)
 
-  def score = AuthBody { ctx ?=> me =>
+  def score = AuthBody { ctx ?=> me ?=>
     scoreForm
       .bindFromRequest()
       .fold(
@@ -44,6 +44,6 @@ final class Learn(env: Env) extends LilaController(env):
       )
   }
 
-  def reset = AuthBody { _ ?=> me =>
+  def reset = AuthBody { _ ?=> me ?=>
     env.learn.api.reset(me) inject Ok(Json.obj("ok" -> true))
   }

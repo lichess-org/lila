@@ -163,7 +163,7 @@ final class Main(
     ("slow", 60, 1.day)
   )
 
-  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     ctx.body.body.file("image") match
       case Some(image) =>
         env.memo.picfitApi.bodyImage

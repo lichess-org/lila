@@ -13,7 +13,7 @@ final class Pref(env: Env) extends LilaController(env):
   private def api   = env.pref.api
   private def forms = lila.pref.PrefForm
 
-  def apiGet = Scoped(_.Preference.Read) { _ ?=> me =>
+  def apiGet = Scoped(_.Preference.Read) { _ ?=> me ?=>
     env.pref.api.getPref(me) map { prefs =>
       JsonOk:
         import play.api.libs.json.*
@@ -31,7 +31,7 @@ final class Pref(env: Env) extends LilaController(env):
     redirects get categSlug match
       case Some(redir) => Action(Redirect(routes.Pref.form(redir)))
       case None =>
-        Auth { ctx ?=> me =>
+        Auth { ctx ?=> me ?=>
           lila.pref.PrefCateg(categSlug) match
             case None if categSlug == "notification" =>
               env.notifyM.api.prefs.form(me) map { form =>
@@ -41,7 +41,7 @@ final class Pref(env: Env) extends LilaController(env):
             case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ))
         }
 
-  def formApply = AuthBody { ctx ?=> _ =>
+  def formApply = AuthBody { ctx ?=> _ ?=>
     def onSuccess(data: lila.pref.PrefForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     forms.pref
       .bindFromRequest()
@@ -57,7 +57,7 @@ final class Pref(env: Env) extends LilaController(env):
       )
   }
 
-  def notifyFormApply = AuthBody { ctx ?=> me =>
+  def notifyFormApply = AuthBody { ctx ?=> me ?=>
     NotificationPref.form.form
       .bindFromRequest()
       .fold(

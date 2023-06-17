@@ -4,11 +4,14 @@ import lila.user.{ Holder, User, Me }
 
 object Granter:
 
-  def apply(permission: Permission)(me: Me): Boolean =
+  def apply(permission: Permission)(using me: Me): Boolean =
     me.enabled.yes && apply(permission, me.roles)
 
-  def apply(f: Permission.Selector)(me: Me): Boolean =
+  def apply(f: Permission.Selector)(using me: Me): Boolean =
     me.enabled.yes && apply(f(Permission), me.roles)
+
+  def opt(f: Permission.Selector)(using me: Option[Me]): Boolean =
+    me.fold(false)(apply(f)(using _))
 
   def is(permission: Permission)(holder: Holder): Boolean =
     of(permission)(holder.user)
@@ -47,4 +50,4 @@ object Granter:
       (is(_.Shusher)(mod) && user.marks.troll)
     }
 
-  def canCloseAlt(me: Me) = apply(_.CloseAccount)(me) && apply(_.ViewPrintNoIP)(me)
+  def canCloseAlt(using me: Me) = apply(_.CloseAccount) && apply(_.ViewPrintNoIP)

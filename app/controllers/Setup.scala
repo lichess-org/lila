@@ -231,7 +231,7 @@ final class Setup(
       case None    => BadRequest
       case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color))
 
-  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me =>
+  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
     BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot so 1):
       PostRateLimit(req.ipAddress, rateLimitedFu):
         forms.api.ai

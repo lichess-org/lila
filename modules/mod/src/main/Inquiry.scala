@@ -28,7 +28,7 @@ final class InquiryApi(
 ):
 
   def forMod(using mod: Me)(using Executor): Fu[Option[Inquiry]] =
-    lila.security.Granter(_.SeeReport)(mod).so {
+    lila.security.Granter(_.SeeReport).so {
       reportApi.inquiries.ofModId(mod).flatMapz { report =>
         reportApi.moreLike(report, 10) zip
           userRepo.byId(report.user) zip

@@ -7,7 +7,7 @@ import lila.common.LightUser.lightUserWrites
 
 final class Msg(env: Env) extends LilaController(env):
 
-  def home = Auth { _ ?=> me =>
+  def home = Auth { _ ?=> me ?=>
     negotiate(
       html = inboxJson(me) map { json =>
         Ok(views.html.msg.home(json))
@@ -20,7 +20,7 @@ final class Msg(env: Env) extends LilaController(env):
     )
   }
 
-  def convo(username: UserStr, before: Option[Long] = None) = Auth { _ ?=> me =>
+  def convo(username: UserStr, before: Option[Long] = None) = Auth { _ ?=> me ?=>
     if username.value == "new"
     then Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
@@ -45,23 +45,23 @@ final class Msg(env: Env) extends LilaController(env):
       }
   }
 
-  def search(q: String) = Auth { _ ?=> me =>
+  def search(q: String) = Auth { _ ?=> me ?=>
     q.trim.some.filter(_.nonEmpty) match
       case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
       case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
   }
 
-  def unreadCount = Auth { _ ?=> me =>
+  def unreadCount = Auth { _ ?=> me ?=>
     JsonOk:
       env.msg.compat unreadCount me
   }
 
-  def convoDelete(username: UserStr) = Auth { _ ?=> me =>
+  def convoDelete(username: UserStr) = Auth { _ ?=> me ?=>
     env.msg.api.delete(me, username) >>
       inboxJson(me) map { Ok(_) }
   }
 
-  def compatCreate = AuthBody { ctx ?=> me =>
+  def compatCreate = AuthBody { ctx ?=> me ?=>
     ctx.noKid so ctx.noBot so env.msg.compat
       .create(me)
       .fold(
@@ -76,7 +76,7 @@ final class Msg(env: Env) extends LilaController(env):
     AuthOrScopedBody(_.Msg.Write)(
       // compat: reply
       auth = ctx ?=>
-        me =>
+        me ?=>
           env.msg.compat
             .reply(me, userId)
             .fold(
@@ -85,7 +85,7 @@ final class Msg(env: Env) extends LilaController(env):
             ),
       // new API: create/reply
       scoped = ctx ?=>
-        me =>
+        me ?=>
           (!me.kid && !me.is(userId)) so {
             import play.api.data.*
             import play.api.data.Forms.*

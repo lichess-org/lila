@@ -30,7 +30,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               }
           yield html.forum.search(text, posts)
 
-  def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me =>
+  def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>
     NoBot:
       OptionFuResult(topicApi.show(categId, slug, page, ctx.me)): (categ, topic, posts) =>
         if topic.closed then BadRequest("This topic is closed")
@@ -61,7 +61,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
           }
   }
 
-  def edit(postId: ForumPostId) = AuthBody { ctx ?=> me =>
+  def edit(postId: ForumPostId) = AuthBody { ctx ?=> me ?=>
     env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
       teamId.so { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
         postApi getPost postId flatMapz { post =>
@@ -81,7 +81,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     }
   }
 
-  def delete(categId: ForumCategId, id: ForumPostId) = AuthBody { ctx ?=> me =>
+  def delete(categId: ForumCategId, id: ForumPostId) = AuthBody { ctx ?=> me ?=>
     postApi getPost id flatMapz { post =>
       if (post.userId.exists(_ is me) && !post.erased)
         postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
@@ -105,7 +105,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     }
   }
 
-  def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me =>
+  def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
       postApi.react(categId, id, me, reaction, v) mapz { post =>
         Ok(views.html.forum.post.reactions(post, canReact = true))

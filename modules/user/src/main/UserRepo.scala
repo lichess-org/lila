@@ -26,9 +26,6 @@ final class UserRepo(val coll: Coll)(using Executor):
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
-  def me[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Me]] =
-    byId(u).dmap(Me.from(_))
-
   def byIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
     val ids = us.map(idOf.apply).filter(User.noGhost)
     ids.nonEmpty so coll.byIds[User, UserId](ids)
@@ -51,6 +48,9 @@ final class UserRepo(val coll: Coll)(using Executor):
       coll.byId[User](id).map2(Right.apply) recover { case _: exceptions.BSONValueNotFoundException =>
         Left(LightUser.ghost).some
       }
+
+  def me[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Me]] =
+    enabledById(u).dmap(Me.from(_))
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(

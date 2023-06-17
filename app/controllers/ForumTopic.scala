@@ -18,7 +18,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       enforce = env.net.rateLimit.value
     )
 
-  def form(categId: ForumCategId) = Auth { _ ?=> me =>
+  def form(categId: ForumCategId) = Auth { _ ?=> me ?=>
     NoBot:
       NotForKids:
         OptionFuOk(env.forum.categRepo byId categId): categ =>
@@ -27,7 +27,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           }
   }
 
-  def create(categId: ForumCategId) = AuthBody { ctx ?=> me =>
+  def create(categId: ForumCategId) = AuthBody { ctx ?=> me ?=>
     NoBot:
       CategGrantWrite(categId):
         OptionFuResult(env.forum.categRepo byId categId) { categ =>
@@ -61,7 +61,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
             env.team.cached.isLeader(teamId, me.id)
           }
-          form <- ctx.me.filter(_ => canWrite && topic.open && !topic.isOld) so { me =>
+          form <- ctx.me.filter(_ => canWrite && topic.open && !topic.isOld) so { me ?=>
             forms.postWithCaptcha(me, inOwnTeam) map some
           }
           _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
@@ -73,14 +73,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             else notFound
         yield res
 
-  def close(categId: ForumCategId, slug: String) = Auth { _ ?=> me =>
+  def close(categId: ForumCategId, slug: String) = Auth { _ ?=> me ?=>
     TopicGrantModBySlug(categId, me, slug):
       OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)): (categ, topic, pag) =>
         topicApi.toggleClose(categ, topic, Holder(me)) inject
           routes.ForumTopic.show(categId, slug, pag.nbPages)
   }
 
-  def sticky(categId: ForumCategId, slug: String) = Auth { _ ?=> me =>
+  def sticky(categId: ForumCategId, slug: String) = Auth { _ ?=> me ?=>
     CategGrantMod(categId):
       OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)): (categ, topic, pag) =>
         topicApi.toggleSticky(categ, topic, Holder(me)) inject
@@ -89,7 +89,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   /** Returns a list of the usernames of people participating in a forum topic conversation
     */
-  def participants(topicId: ForumTopicId) = Auth { _ ?=> _ =>
+  def participants(topicId: ForumTopicId) = Auth { _ ?=> _ ?=>
     for
       userIds   <- postApi allUserIds topicId
       usernames <- env.user.repo usernamesByIds userIds

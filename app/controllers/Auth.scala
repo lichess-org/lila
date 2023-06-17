@@ -13,7 +13,7 @@ import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
-import lila.user.{ PasswordHasher, User as UserModel }
+import lila.user.{ Me, PasswordHasher, User as UserModel }
 
 final class Auth(
     env: Env,
@@ -161,7 +161,7 @@ final class Auth(
       ).dmap(_.withCookies(env.lilaCookie.newSession))
 
   // mobile app BC logout with GET
-  def logoutGet = Auth { ctx ?=> _ =>
+  def logoutGet = Auth { ctx ?=> _ ?=>
     negotiate(
       html = Ok(html.auth.bits.logout()),
       api = _ =>
@@ -290,15 +290,15 @@ final class Auth(
       ) map authenticateCookie(sessionId, remember = true)
     } recoverWith authRecovery
 
-  def setFingerPrint(fp: String, ms: Int) = Auth { ctx ?=> me =>
+  def setFingerPrint(fp: String, ms: Int) = Auth { ctx ?=> me ?=>
     lila.mon.http.fingerPrint.record(ms)
     api
       .setFingerPrint(ctx.req, FingerPrint(fp))
       .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMapz { hash =>
       !me.lame so (for
-        otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
+        otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filterNot(_ is me))
         _ <- (otherIds.sizeIs >= 2) so env.user.repo.countLameOrTroll(otherIds).flatMap {
-          case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.id)
+          case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.userId)
           case _                                        => funit
         }
       yield ())
@@ -350,10 +350,11 @@ final class Auth(
       case None =>
         lila.mon.user.auth.passwordResetConfirm("tokenFail").increment()
         notFound
-      case Some(user) =>
-        authLog(user.username, none, "Reset password")
+      case Some(me) =>
+        given Me = me
+        authLog(me.username, none, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
-        html.auth.bits.passwordResetConfirm(user, token, forms.passwdResetFor(user), none)
+        html.auth.bits.passwordResetConfirm(token, forms.passwdResetForMe, none)
     }
 
   def passwordResetConfirmApply(token: String) = OpenBody:
@@ -361,11 +362,13 @@ final class Auth(
       case None =>
         lila.mon.user.auth.passwordResetConfirm("tokenPostFail").increment()
         notFound
-      case Some(user) =>
-        FormFuResult(forms.passwdResetFor(user)) { err =>
-          fuccess(html.auth.bits.passwordResetConfirm(user, token, err, false.some))
+      case Some(me) =>
+        given Me = me
+        val user = me.user
+        FormFuResult(forms.passwdResetForMe) { err =>
+          fuccess(html.auth.bits.passwordResetConfirm(token, err, false.some))
         } { data =>
-          HasherRateLimit(user.id, ctx.req):
+          HasherRateLimit:
             env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
               env.user.repo.setEmailConfirmed(user.id).flatMapz {
                 welcome(user, _, sendWelcomeEmail = false)
@@ -441,21 +444,18 @@ final class Auth(
                 lila.mon.user.auth.magicLinkConfirm("success").increment().unit
           }
 
-  def makeLoginToken =
-    def loginTokenFor(me: UserModel) = JsonOk:
-      env.security.loginToken generate me map { token =>
-        Json.obj(
-          "userId" -> me.id,
-          "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
-        )
-      }
-    AuthOrScoped(_.Web.Login)(
-      _ ?=> loginTokenFor,
-      ctx ?=>
-        user =>
-          lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient ctx.req}")
-          loginTokenFor(user)
-    )
+  def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>
+    if ctx.isOAuthAuth
+    then lila.log("oauth").info(s"api makeLoginToken ${me.username} ${HTTPRequest printClient ctx.req}")
+    JsonOk:
+      env.security.loginToken
+        .generate(me.user)
+        .map: token =>
+          Json.obj(
+            "userId" -> me.userId,
+            "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
+          )
+  }
 
   def loginWithToken(token: String) = Open:
     if ctx.isAuth
@@ -503,7 +503,7 @@ final class Auth(
             userCost = 1 + multipleIps.so(4)
           )(id, req)(run)
 
-  private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(run: => Fu[Result]): Fu[Result] =
+  private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, req: RequestHeader): Fu[Result] =
     env.security
       .ip2proxy(req.ipAddress)
       .flatMap: proxy =>
@@ -511,7 +511,7 @@ final class Auth(
           rateLimitedFu,
           enforce = env.net.rateLimit,
           ipCost = if proxy.is then 10 else 1
-        )(id into UserIdOrEmail, req)(_ => run)
+        )(me.userId into UserIdOrEmail, req)(_ => run)
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]
 

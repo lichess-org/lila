@@ -4,17 +4,17 @@ import lila.app.{ given, * }
 
 final class DgtCtrl(env: Env) extends LilaController(env):
 
-  def index = Auth { _ ?=> _ =>
+  def index = Auth { _ ?=> _ ?=>
     views.html.dgt.index
   }
 
-  def config = Auth { _ ?=> me =>
+  def config = Auth { _ ?=> me ?=>
     findToken(me) map {
       views.html.dgt.config
     }
   }
 
-  def generateToken = Auth { _ ?=> me =>
+  def generateToken = Auth { _ ?=> me ?=>
     findToken(me).flatMap: t =>
       t.isEmpty.so {
         env.oAuth.tokenApi.create(
@@ -29,7 +29,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
       } inject Redirect(routes.DgtCtrl.config)
   }
 
-  def play = Auth { _ ?=> me =>
+  def play = Auth { _ ?=> me ?=>
     findToken(me).map:
       case None => Redirect(routes.DgtCtrl.config)
       case Some(t) =>

@@ -69,7 +69,7 @@ object Pov:
   def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
     game playerByUserId user.id map { apply(game, _) }
 
-  def opponentOfUserId[U: UserIdOf](game: Game, user: U): Option[Player] =
+  def opponentOf[U: UserIdOf](game: Game, user: U): Option[Player] =
     apply(game, user.id).map(_.opponent)
 
   def ofCurrentTurn(game: Game) = Pov(game, game.turnColor)
@@ -111,5 +111,5 @@ object LightPov:
 
   def apply(game: LightGame, player: LightPlayer): LightPov = LightPov(game, player.color)
 
-  def ofUserId(game: LightGame, userId: UserId): Option[LightPov] =
+  def apply(game: LightGame, userId: UserId): Option[LightPov] =
     game playerByUserId userId map { apply(game, _) }

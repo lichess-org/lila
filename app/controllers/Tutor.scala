@@ -16,20 +16,20 @@ final class Tutor(env: Env) extends LilaController(env):
     Redirect(routes.Tutor.user(holder.user.username))
   }
 
-  def user(username: UserStr) = TutorPage(username) { _ ?=> me => av =>
+  def user(username: UserStr) = TutorPage(username) { _ ?=> me ?=> av =>
     views.html.tutor.home(av, me)
   }
 
-  def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+  def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me ?=> _ ?=> perf =>
     views.html.tutor.perf(perf, me)
   }
 
-  def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+  def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me ?=> _ ?=> perf =>
     views.html.tutor.openings(perf, me)
   }
 
   def opening(username: UserStr, perf: Perf.Key, colName: String, opName: String) =
-    TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+    TutorPerfPage(username, perf) { _ ?=> me ?=> _ ?=> perf =>
       chess.Color
         .fromName(colName)
         .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).toFuccess): color =>
@@ -42,15 +42,15 @@ final class Tutor(env: Env) extends LilaController(env):
               }
     }
 
-  def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+  def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me ?=> _ ?=> perf =>
     views.html.tutor.skills(perf, me)
   }
 
-  def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+  def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me ?=> _ ?=> perf =>
     views.html.tutor.phases(perf, me)
   }
 
-  def time(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+  def time(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me ?=> _ ?=> perf =>
     views.html.tutor.time(perf, me)
   }
 
@@ -78,7 +78,7 @@ final class Tutor(env: Env) extends LilaController(env):
   private def TutorPage(
       username: UserStr
   )(f: WebContext ?=> UserModel => TutorFullReport.Available => Fu[Result]): EssentialAction =
-    TutorPageAvailability(username) { _ ?=> me => availability =>
+    TutorPageAvailability(username) { _ ?=> me ?=> availability =>
       availability match
         case TutorFullReport.InsufficientGames =>
           BadRequest(views.html.tutor.empty.insufficientGames(me))
@@ -93,7 +93,7 @@ final class Tutor(env: Env) extends LilaController(env):
   private def TutorPerfPage(username: UserStr, perf: Perf.Key)(
       f: WebContext ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
   ): EssentialAction =
-    TutorPage(username) { _ ?=> me => availability =>
+    TutorPage(username) { _ ?=> me ?=> availability =>
       PerfType(perf).fold(redirHome(me).toFuccess): perf =>
         availability match
           case full @ TutorFullReport.Available(report, _) =>

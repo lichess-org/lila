@@ -181,4 +181,4 @@ final class ActivityReadApi(
       gameRepo.light
         .gamesFromSecondary(gameIds)
         .dmap:
-          _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
+          _.flatMap { LightPov(_, userId) }.some.filter(_.nonEmpty)

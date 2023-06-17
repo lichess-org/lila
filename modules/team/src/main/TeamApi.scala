@@ -105,13 +105,13 @@ final class TeamApi(
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
-  def joinedTeamIdsOfUserAsSeenBy[U](member: U, viewer: Option[Me])(using
+  def joinedTeamIdsOfUserAsSeenBy[U](member: U)(using viewer: Option[Me])(using
       userIdOf: UserIdOf[U]
   ): Fu[List[TeamId]] =
     cached
       .teamIdsList(userIdOf(member))
       .map(_.take(lila.team.Team.maxJoinCeiling)) flatMap { allIds =>
-      if (viewer.exists(_ is member) || viewer.exists(Granter(_.UserModView))) fuccess(allIds)
+      if (viewer.exists(_ is member) || Granter.opt(_.UserModView)) fuccess(allIds)
       else
         allIds.nonEmpty.so:
           teamRepo.filterHideMembers(allIds) flatMap { hiddenIds =>
@@ -316,7 +316,7 @@ final class TeamApi(
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     if (
-      Granter(_.ManageTeam)(me) || me.is(team.createdBy) ||
+      Granter(_.ManageTeam) || me.is(team.createdBy) ||
       (team.leaders(me.userId) && !team.leaders(team.createdBy))
     )
       logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me.userId}: $explain")

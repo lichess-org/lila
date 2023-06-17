@@ -11,15 +11,14 @@ import lila.common.IpAddress
 import lila.mod.IpRender.RenderIp
 import lila.security.FingerHash
 import lila.security.Granter
-import lila.user.Holder
-import lila.user.User
+import lila.user.{ Me, User }
 
 object search:
 
   private val email = tag("email")
   private val mark  = tag("marked")
 
-  def apply(mod: Holder, form: Form[?], users: List[User.WithEmails])(using WebContext) =
+  def apply(form: Form[?], users: List[User.WithEmails])(using WebContext, Me) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
@@ -43,12 +42,11 @@ object search:
     }
 
   def print(
-      mod: Holder,
       fh: FingerHash,
       users: List[User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(using WebContext) =
+  )(using WebContext, Me) =
     views.html.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
@@ -85,12 +83,11 @@ object search:
     }
 
   def ip(
-      mod: Holder,
       address: IpAddress,
       users: List[lila.user.User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(using ctx: WebContext, renderIp: RenderIp) =
+  )(using ctx: WebContext, renderIp: RenderIp, mod: Me) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
@@ -121,12 +118,12 @@ object search:
           ),
           br,
           br,
-          userTable(mod, users)
+          userTable(users)
         )
       )
     }
 
-  def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(using WebContext) =
+  def clas(c: lila.clas.Clas, users: List[User.WithEmails])(using WebContext, Me) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
@@ -141,7 +138,7 @@ object search:
           ),
           br,
           br,
-          userTable(mod, users)
+          userTable(users)
         )
       )
     }
@@ -203,13 +200,10 @@ object search:
     }
 
   private def userTable(
-      mod: Holder,
       users: List[User.WithEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
-  )(using
-      WebContext
-  ) =
+  )(using WebContext, Me) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(

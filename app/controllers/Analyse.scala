@@ -18,12 +18,12 @@ final class Analyse(
     roundC: => Round
 ) extends LilaController(env):
 
-  def requestAnalysis(id: GameId) = Auth { ctx ?=> me =>
+  def requestAnalysis(id: GameId) = Auth { ctx ?=> me ?=>
     OptionFuResult(env.game.gameRepo game id) { game =>
       env.fishnet.analyser(
         game,
         lila.fishnet.Work.Sender(
-          userId = me.id,
+          userId = me.userId,
           ip = ctx.ip.some,
           mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
           system = false
@@ -140,13 +140,13 @@ final class Analyse(
     )
   )
 
-  def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me =>
+  def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     env.analyse.externalEngine.list(me) map { list =>
       JsonOk(JsArray(list map lila.analyse.ExternalEngine.jsonWrites.writes))
     }
   }
 
-  def externalEngineShow(id: String) = ScopedBody(_.Engine.Read) { _ ?=> me =>
+  def externalEngineShow(id: String) = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     env.analyse.externalEngine.find(me, id) map {
       _.fold(notFoundJsonSync()) { engine =>
         JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -154,7 +154,7 @@ final class Analyse(
     }
   }
 
-  def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me =>
+  def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
     HTTPRequest.bearer(ctx.req) so { bearer =>
       val tokenId = AccessToken.Id from bearer
       lila.analyse.ExternalEngine.form
@@ -169,7 +169,7 @@ final class Analyse(
     }
   }
 
-  def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me =>
+  def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
     env.analyse.externalEngine.find(me, id) flatMap {
       _.fold(notFoundJson()) { engine =>
         lila.analyse.ExternalEngine.form
@@ -185,7 +185,7 @@ final class Analyse(
     }
   }
 
-  def externalEngineDelete(id: String) = ScopedBody(_.Engine.Write) { _ ?=> me =>
+  def externalEngineDelete(id: String) = ScopedBody(_.Engine.Write) { _ ?=> me ?=>
     env.analyse.externalEngine.delete(me, id) map {
       if _ then jsonOkResult else notFoundJsonSync()
     }

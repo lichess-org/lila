@@ -15,7 +15,7 @@ import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.ublog.UblogPost
 import lila.user.LightUserApi
-import lila.user.User
+import lila.user.{ User, Me }
 
 final class Preload(
     tv: lila.tv.Tv,
@@ -96,19 +96,19 @@ final class Preload(
             }
       }
 
-  def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
-    gameRepo.playingRealtimeNoAi(user).flatMap {
-      _.map { roundProxy.pov(_, user) }.parallel.dmap(_.flatten)
+  def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
+    gameRepo.playingRealtimeNoAi(me).flatMap {
+      _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
     } flatMap {
-      currentGameMyTurn(_, lightUserApi.sync)(user)
+      currentGameMyTurn(_, lightUserApi.sync)
     }
 
-  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(
-      user: User
+  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(using
+      me: Me
   ): Fu[Option[CurrentGame]] =
     ~povs.collectFirst {
       case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
-        roundProxy.pov(p1.gameId, user) dmap (_ | p1) map { pov =>
+        roundProxy.pov(p1.gameId, me) dmap (_ | p1) map { pov =>
           val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(using lightUser)
           CurrentGame(pov = pov, opponent = opponent).some
         }

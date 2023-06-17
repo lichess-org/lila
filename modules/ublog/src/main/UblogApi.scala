@@ -58,7 +58,7 @@ final class UblogApi(
 
   def findByUserBlogOrAdmin(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
     colls.post.byId[UblogPost](id) dmap {
-      _.filter(_.blog == UblogBlog.Id.User(me.userId) || Granter(_.ModerateBlog)(me))
+      _.filter(_.isBy(me) || Granter(_.ModerateBlog))
     }
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =

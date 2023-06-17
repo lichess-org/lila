@@ -41,14 +41,14 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def authorize = Open:
     withPrompt: prompt =>
-      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri)))): me =>
+      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri)))): me ?=>
         Ok:
           html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
 
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
 
-  def authorizeApply = Auth { _ ?=> me =>
+  def authorizeApply = Auth { _ ?=> me ?=>
     withPrompt: prompt =>
       prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
         case Validated.Valid(authorized) =>
@@ -112,7 +112,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         }
       case Validated.Invalid(err) => BadRequest(err.toJson)
 
-  def tokenRevoke = Scoped() { ctx ?=> _ =>
+  def tokenRevoke = Scoped() { ctx ?=> _ ?=>
     HTTPRequest.bearer(ctx.req) so { token =>
       env.oAuth.tokenApi.revoke(token) inject NoContent
     }
@@ -120,7 +120,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   private val revokeClientForm = Form(single("origin" -> text))
 
-  def revokeClient = AuthBody { ctx ?=> me =>
+  def revokeClient = AuthBody { ctx ?=> me ?=>
     revokeClientForm
       .bindFromRequest()
       .fold(
@@ -129,7 +129,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def challengeTokens = ScopedBody(_.Web.Mod) { ctx ?=> me =>
+  def challengeTokens = ScopedBody(_.Web.Mod) { ctx ?=> me ?=>
     if isGranted(_.ApiChallengeAdmin, me) then
       lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()

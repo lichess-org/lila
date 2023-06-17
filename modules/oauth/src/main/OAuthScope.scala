@@ -82,7 +82,7 @@ object OAuthScope:
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
     case object Mod    extends OAuthScope("web:mod", trans.webMod)
 
-  case class Scoped(user: lila.user.User, scopes: TokenScopes)
+  case class Scoped(me: lila.user.Me, scopes: TokenScopes)
 
   type Selector = OAuthScope.type => OAuthScope
 

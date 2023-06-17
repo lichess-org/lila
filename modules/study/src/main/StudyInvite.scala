@@ -31,20 +31,21 @@ final private class StudyInvite(
   ): Fu[User] = for
     _       <- (study.nbMembers >= maxMembers) so fufail[Unit](s"Max study members reached: $maxMembers")
     inviter <- userRepo me byUserId orFail "No such inviter"
-    _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)(inviter)).so:
+    given User.Me = inviter
+    _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)).so:
       fufail[Unit]("Only the study owner can invite")
     invited <-
       userRepo
         .byId(invitedUsername)
         .map(
-          _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
+          _.filterNot(u => User.lichessId.is(u) && !Granter(_.StudyAdmin))
         ) orFail "No such invited"
     _         <- study.members.contains(invited) so fufail[Unit]("Already a member")
     relation  <- relationApi.fetchRelation(invited.id, byUserId)
     _         <- relation.has(Block) so fufail[Unit]("This user does not want to join")
     isPresent <- getIsPresent(invited.id)
     _ <-
-      if (isPresent || Granter(_.StudyAdmin)(inviter)) funit
+      if (isPresent || Granter(_.StudyAdmin)) funit
       else
         prefApi.getPref(invited).map(_.studyInvite).flatMap {
           case Pref.StudyInvite.ALWAYS => funit
@@ -56,7 +57,7 @@ final private class StudyInvite(
     _ <- studyRepo.addMember(study, StudyMember make invited)
     shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
-      if (Granter(_.StudyAdmin)(inviter)) 1
+      if (Granter(_.StudyAdmin)) 1
       else if (relation has Follow) 10
       else if (inviter.roles has "ROLE_COACH") 20
       else if (inviter.hasTitle) 20
@@ -76,11 +77,11 @@ final private class StudyInvite(
   yield invited
 
   def admin(study: Study, user: Holder): Funit =
-    studyRepo.coll {
+    studyRepo.coll:
       _.update
         .one(
           $id(study.id),
           $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
             $addToSet("uids" -> user.id)
         )
-    }.void
+        .void

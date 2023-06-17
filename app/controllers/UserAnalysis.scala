@@ -137,7 +137,7 @@ final class UserAnalysis(
 
   private def forecastReload = JsonOk(Json.obj("reload" -> true))
 
-  def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ =>
+  def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ ?=>
     import lila.round.Forecast
     OptionFuResult(env.round.proxyRepo pov fullId): pov =>
       if isTheft(pov) then theftResponse
@@ -158,7 +158,7 @@ final class UserAnalysis(
   }
 
   def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
-    AuthBody(parse.json) { ctx ?=> _ =>
+    AuthBody(parse.json) { ctx ?=> _ ?=>
       import lila.round.Forecast
       OptionFuResult(env.round.proxyRepo pov fullId): pov =>
         if isTheft(pov) then theftResponse

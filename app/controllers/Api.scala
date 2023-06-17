@@ -327,12 +327,12 @@ final class Api(
 
   val eventStream =
     val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.stream.event.user")
-    Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me =>
+    Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimitedFu:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
-      rateLimit(me.id, limited):
+      rateLimit(me.userId, limited):
         env.round.proxyRepo.urgentGames(me) flatMap { povs =>
-          env.challenge.api.createdByDestId(me.id) map { challenges =>
+          env.challenge.api.createdByDestId(me.userId) map { challenges =>
             sourceToNdJsonOption(env.api.eventStream(me, povs.map(_.game), challenges))
           }
         }

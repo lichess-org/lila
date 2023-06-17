@@ -28,7 +28,7 @@ final class Ublog(env: Env) extends LilaController(env):
               Ok(html.ublog.blog(user, blog, posts))
             }
 
-  def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me =>
+  def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
       if !me.is(username) then Redirect(routes.Ublog.drafts(me.username))
       else
@@ -74,7 +74,7 @@ final class Ublog(env: Env) extends LilaController(env):
           }
       }
 
-  def form(username: UserStr) = Auth { ctx ?=> me =>
+  def form(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
       if env.ublog.api.canBlog(me) then
         if !me.is(username)
@@ -94,7 +94,7 @@ final class Ublog(env: Env) extends LilaController(env):
     key = "ublog.create.user"
   )
 
-  def create = AuthBody { ctx ?=> me =>
+  def create = AuthBody { ctx ?=> me ?=>
     NotForKids:
       env.ublog.form.create
         .bindFromRequest()
@@ -111,13 +111,13 @@ final class Ublog(env: Env) extends LilaController(env):
         )
   }
 
-  def edit(id: UblogPostId) = AuthBody { ctx ?=> me =>
+  def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       OptionOk(env.ublog.api.findByUserBlogOrAdmin(id, me)): post =>
         html.ublog.form.edit(post, env.ublog.form.edit(post))
   }
 
-  def update(id: UblogPostId) = AuthBody { ctx ?=> me =>
+  def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { prev =>
         env.ublog.form
@@ -134,7 +134,7 @@ final class Ublog(env: Env) extends LilaController(env):
       }
   }
 
-  def delete(id: UblogPostId) = AuthBody { ctx ?=> me =>
+  def delete(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
       env.ublog.api.delete(post) >>
         logModAction(post, "delete") inject
@@ -143,7 +143,7 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   private def logModAction(post: UblogPost, action: String)(using ctx: WebContext): Funit =
-    isGranted(_.ModerateBlog) so ctx.me so { me =>
+    isGranted(_.ModerateBlog) so ctx.me so { me ?=>
       !me.is(post.created.by) so {
         env.user.repo.byId(post.created.by) flatMapz { user =>
           env.mod.logApi.blogPostEdit(lila.report.Mod(me), Suspect(user), post.id, post.title, action)
@@ -151,7 +151,7 @@ final class Ublog(env: Env) extends LilaController(env):
       }
     }
 
-  def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> me =>
+  def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> me ?=>
     NoBot:
       NotForKids:
         env.ublog.rank.like(id, me, v) map { likes =>
@@ -166,7 +166,7 @@ final class Ublog(env: Env) extends LilaController(env):
         _.fold(notFound): post =>
           Redirect(urlOfPost(post))
 
-  def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me =>
+  def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
     UblogBlog.Id(blogId).so(env.ublog.api.getBlog) flatMapz { blog =>
       lila.ublog.UblogForm.tier
         .bindFromRequest()
@@ -191,7 +191,7 @@ final class Ublog(env: Env) extends LilaController(env):
     ("slow", 60, 1.day)
   )
 
-  def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+  def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
       ctx.body.body.file("image") match
         case Some(image) =>
@@ -209,7 +209,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def friends(page: Int) = Auth { _ ?=> me =>
+  def friends(page: Int) = Auth { _ ?=> me ?=>
     NotForKids:
       Reasonable(page, config.Max(100)):
         env.ublog.paginator.liveByFollowed(me, page) map { posts =>
@@ -250,10 +250,10 @@ final class Ublog(env: Env) extends LilaController(env):
       .map: posts =>
         Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
 
-  def liked(page: Int) = Auth { ctx ?=> _ =>
+  def liked(page: Int) = Auth { ctx ?=> _ ?=>
     NotForKids:
       Reasonable(page, config.Max(100)):
-        ctx.me so { me =>
+        ctx.me so { me ?=>
           env.ublog.paginator.liveByLiked(me, page) map { posts =>
             Ok(html.ublog.index.liked(posts))
           }

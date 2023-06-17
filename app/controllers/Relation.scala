@@ -54,7 +54,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         f(user)
     }
 
-  def follow(username: UserStr) = Auth { ctx ?=> me =>
+  def follow(username: UserStr) = Auth { ctx ?=> me ?=>
     FollowingUser(me, username) { user =>
       api.reachedMaxFollowing(me.id) flatMap {
         if _ then
@@ -68,7 +68,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def apiFollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me =>
+  def apiFollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me ?=>
     FollowLimitPerUser(me.id, fuccess(ApiResult.Limited)):
       api
         .reachedMaxFollowing(me.id)
@@ -81,24 +81,24 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     .map(apiC.toHttp)
   }
 
-  def unfollow(username: UserStr) = Auth { ctx ?=> me =>
+  def unfollow(username: UserStr) = Auth { ctx ?=> me ?=>
     FollowingUser(me, username): user =>
       api.unfollow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
   }
 
-  def apiUnfollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me =>
+  def apiUnfollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me ?=>
     FollowLimitPerUser(me.id, fuccess(ApiResult.Limited)):
       api.unfollow(me.id, userId.id) inject ApiResult.Done
     .map(apiC.toHttp)
   }
 
-  def block(username: UserStr) = Auth { ctx ?=> me =>
+  def block(username: UserStr) = Auth { ctx ?=> me ?=>
     FollowingUser(me, username) { user =>
       api.block(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
     }
   }
 
-  def unblock(username: UserStr) = Auth { ctx ?=> me =>
+  def unblock(username: UserStr) = Auth { ctx ?=> me ?=>
     FollowingUser(me, username) { user =>
       api.unblock(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
     }
@@ -128,7 +128,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         }
     )
 
-  def apiFollowing = Scoped(_.Follow.Read) { ctx ?=> me =>
+  def apiFollowing = Scoped(_.Follow.Read) { ctx ?=> me ?=>
     apiC.jsonDownload:
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
@@ -148,7 +148,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .add("online" -> env.socket.isOnline(r.user.id))
     }))
 
-  def blocks(page: Int) = Auth { ctx ?=> me =>
+  def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, config.Max(20)) {
       RelatedPager(api.blockingPaginatorAdapter(me.id), page) map { pag =>
         html.relation.bits.blocks(me, pag)

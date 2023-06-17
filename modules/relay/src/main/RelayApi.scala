@@ -187,12 +187,12 @@ final class RelayApi(
         )
       .map(_ flatMap readRoundWithTour)
 
-  def tourCreate(data: RelayTourForm.Data)(using me: Me): Fu[RelayTour] =
-    val tour = data.make(me)
+  def tourCreate(data: RelayTourForm.Data)(using Me): Fu[RelayTour] =
+    val tour = data.make
     tourRepo.coll.insert.one(tour) inject tour
 
-  def tourUpdate(tour: RelayTour, data: RelayTourForm.Data)(using me: Me): Funit =
-    tourRepo.coll.update.one($id(tour.id), data.update(tour, me)).void >>-
+  def tourUpdate(tour: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
+    tourRepo.coll.update.one($id(tour.id), data.update(tour)).void >>-
       leaderboard.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
@@ -281,7 +281,7 @@ final class RelayApi(
     }
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    fuccess(Granter(_.Relay)(me) || me.is(tour.ownerId)) >>|
+    fuccess(Granter(_.Relay) || me.is(tour.ownerId)) >>|
       roundRepo.coll.distinctEasy[StudyId, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
         studyRepo.membersByIds(ids) map {
           _.exists(_ contributorIds me.userId)

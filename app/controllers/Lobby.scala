@@ -52,7 +52,7 @@ final class Lobby(env: Env) extends LilaController(env):
         }
     )
 
-  def timeline = Auth { _ ?=> me =>
+  def timeline = Auth { _ ?=> me ?=>
     env.timeline.entryApi
       .userEntries(me.id)
       .map: entries =>

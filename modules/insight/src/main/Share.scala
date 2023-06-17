@@ -12,7 +12,7 @@ final class Share(
   def getPrefId(insighted: User) = prefApi.getPref(insighted.id, _.insightShare)
 
   def grant(insighted: User, to: Option[User.Me]): Fu[Boolean] =
-    if (to exists Granter(_.SeeInsight)) fuTrue
+    if to.exists(Granter(_.SeeInsight)(using _)) then fuTrue
     else
       getPrefId(insighted) flatMap {
         case _ if to.contains(insighted) => fuTrue

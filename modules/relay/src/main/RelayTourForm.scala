@@ -37,26 +37,26 @@ object RelayTourForm:
       players: Option[RelayPlayers]
   ):
 
-    def update(tour: RelayTour, me: Me) =
+    def update(tour: RelayTour)(using Me) =
       tour
         .copy(
           name = name,
           description = description,
           markup = markup,
-          tier = tier ifTrue Granter(_.Relay)(me),
+          tier = tier ifTrue Granter(_.Relay),
           autoLeaderboard = autoLeaderboard,
           players = players
         )
         .reAssignIfOfficial
 
-    def make(me: Me) =
+    def make(using me: Me) =
       RelayTour(
         _id = RelayTour.makeId,
         name = name,
         description = description,
         markup = markup,
         ownerId = me.userId,
-        tier = tier ifTrue Granter(_.Relay)(me),
+        tier = tier ifTrue Granter(_.Relay),
         active = false,
         createdAt = nowInstant,
         syncedAt = none,

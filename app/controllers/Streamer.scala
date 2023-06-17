@@ -66,7 +66,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)
         }
 
-  def create = AuthBody { _ ?=> me =>
+  def create = AuthBody { _ ?=> me ?=>
     ctx.noKid.so:
       NoLameOrBot:
         api find me flatMap {
@@ -81,7 +81,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         env.user.noteApi.byUserForMod(streamer.userId) zip
         env.streamer.api.sameChannels(streamer) map some
 
-  def edit = Auth { ctx ?=> _ =>
+  def edit = Auth { ctx ?=> _ ?=>
     AsStreamer { s =>
       env.msg.twoFactorReminder(s.user.id) >>
         env.streamer.liveStreamApi.of(s).flatMap { sws =>
@@ -92,7 +92,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def editApply = AuthBody { _ ?=> me =>
+  def editApply = AuthBody { _ ?=> me ?=>
     AsStreamer: s =>
       env.streamer.liveStreamApi of s flatMap { sws =>
         StreamerForm
@@ -123,12 +123,12 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       }
   }
 
-  def approvalRequest = AuthBody { _ ?=> me =>
+  def approvalRequest = AuthBody { _ ?=> me ?=>
     NoBot:
       api.approval.request(me) inject Redirect(routes.Streamer.edit)
   }
 
-  def picture = Auth { ctx ?=> _ =>
+  def picture = Auth { ctx ?=> _ ?=>
     AsStreamer: s =>
       Ok(html.streamer.picture(s)).noCache
   }
@@ -140,7 +140,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     ("slow", 30, 1.day)
   )
 
-  def pictureApply = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+  def pictureApply = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     AsStreamer: s =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
@@ -151,7 +151,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         case None => Redirect(routes.Streamer.edit).flashFailure
   }
 
-  def subscribe(streamer: UserStr, set: Boolean) = AuthBody { _ ?=> me =>
+  def subscribe(streamer: UserStr, set: Boolean) = AuthBody { _ ?=> me ?=>
     if set then env.relation.subs.subscribe(me.id, streamer.id)
     else env.relation.subs.unsubscribe(me.id, streamer.id)
     Ok
@@ -170,7 +170,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       Ok(challenge)
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    ctx.me.fold(notFound): me =>
+    ctx.me.fold(notFound): me ?=>
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.id) flatMap {
           _.fold(Ok(html.streamer.bits.create).toFuccess)(f)

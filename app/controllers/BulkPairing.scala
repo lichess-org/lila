@@ -7,25 +7,25 @@ import lila.setup.SetupBulk
 
 final class BulkPairing(env: Env) extends LilaController(env):
 
-  def list = ScopedBody(_.Challenge.Bulk) { _ ?=> me =>
+  def list = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
     env.challenge.bulk.scheduledBy(me) map { list =>
       JsonOk(Json.obj("bulks" -> list.map(SetupBulk.toJson)))
     }
   }
 
-  def delete(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me =>
+  def delete(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
     env.challenge.bulk.deleteBy(id, me) flatMap {
       if _ then jsonOkResult else notFoundJson()
     }
   }
 
-  def startClocks(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me =>
+  def startClocks(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
     env.challenge.bulk.startClocks(id, me) flatMap {
       if _ then jsonOkResult else notFoundJson()
     }
   }
 
-  def create = ScopedBody(_.Challenge.Bulk) { ctx ?=> me =>
+  def create = ScopedBody(_.Challenge.Bulk) { ctx ?=> me ?=>
     import lila.setup.SetupBulk
     lila.setup.SetupBulk.form
       .bindFromRequest()

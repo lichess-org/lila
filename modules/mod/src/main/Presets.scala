@@ -19,8 +19,8 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
       case "appeal" => appealPresets.some
       case _        => none
 
-  def getPmPresets(using mod: Me): ModPresets =
-    ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_)(mod))))
+  def getPmPresets(using Me): ModPresets =
+    ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_))))
 
   def getPmPresets(using mod: Option[Me]): ModPresets =
     mod.map(getPmPresets(using _)).getOrElse(ModPresets(Nil))

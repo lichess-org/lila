@@ -19,7 +19,7 @@ final class RelayRound(
     apiC: => Api
 ) extends LilaController(env):
 
-  def form(tourId: String) = Auth { ctx ?=> _ =>
+  def form(tourId: String) = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
@@ -28,7 +28,7 @@ final class RelayRound(
   def create(tourId: String) =
     AuthOrScopedBody(_.Study.Write)(
       auth = ctx ?=>
-        me =>
+        me ?=>
           NoLameOrBot:
             WithTourAndRoundsCanUpdate(tourId): trs =>
               val tour = trs.tour
@@ -49,7 +49,7 @@ final class RelayRound(
                 )
       ,
       scoped = ctx ?=>
-        me =>
+        me ?=>
           NoLameOrBot(me):
             env.relay.api tourById TourModel.Id(tourId) flatMapz { tour =>
               env.relay.api.withRounds(tour) flatMap { trs =>
@@ -69,7 +69,7 @@ final class RelayRound(
             }
     )
 
-  def edit(id: RelayRoundId) = Auth { ctx ?=> me =>
+  def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)): rt =>
       html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
@@ -77,14 +77,14 @@ final class RelayRound(
   def update(id: RelayRoundId) =
     AuthOrScopedBody(_.Study.Write)(
       auth = ctx ?=>
-        me =>
+        me ?=>
           doUpdate(id, me).flatMapz: res =>
             res.fold(
               (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
               rt => Redirect(rt.path)
             ),
       scoped = ctx ?=>
-        me =>
+        me ?=>
           doUpdate(id, me) map {
             case None => NotFound(jsonError("No such broadcast"))
             case Some(res) =>
@@ -109,7 +109,7 @@ final class RelayRound(
         ) dmap some
     }
 
-  def reset(id: RelayRoundId) = Auth { ctx ?=> me =>
+  def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
       env.relay.api.reset(rt.round, me) inject Redirect(rt.path)
     }
@@ -155,7 +155,7 @@ final class RelayRound(
     WithRoundAndTour(ts, rs, id): rt =>
       env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
 
-  def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me =>
+  def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     env.relay.api
       .byIdAndContributor(id, me)
       .flatMap:

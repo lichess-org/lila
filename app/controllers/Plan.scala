@@ -29,7 +29,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def index = Open:
     pageHit
-    ctx.me.fold(indexAnon): me =>
+    ctx.me.fold(indexAnon): me ?=>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me) flatMap {
         case ReloadUser => Redirect(routes.Plan.index)
@@ -43,7 +43,7 @@ final class Plan(env: Env) extends LilaController(env):
       }
 
   def list = Open:
-    ctx.me.fold(Redirect(routes.Plan.index).toFuccess): me =>
+    ctx.me.fold(Redirect(routes.Plan.index).toFuccess): me ?=>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me) flatMap {
         case ReloadUser            => Redirect(routes.Plan.list)
@@ -111,7 +111,7 @@ final class Plan(env: Env) extends LilaController(env):
     pageHit
     html.plan.features()
 
-  def switch = AuthBody { ctx ?=> me =>
+  def switch = AuthBody { ctx ?=> me ?=>
     env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
       lila.plan.Switch
         .form(pricing)
@@ -123,7 +123,7 @@ final class Plan(env: Env) extends LilaController(env):
     }
   }
 
-  def cancel = AuthBody { _ ?=> me =>
+  def cancel = AuthBody { _ ?=> me ?=>
     env.plan.api.cancel(me) inject Redirect(routes.Plan.index)
   }
 
@@ -192,7 +192,7 @@ final class Plan(env: Env) extends LilaController(env):
     ("slow", 40, 1.day)
   )
 
-  def stripeCheckout = AuthBody { ctx ?=> me =>
+  def stripeCheckout = AuthBody { ctx ?=> me ?=>
     CheckoutRateLimit(ctx.ip, rateLimitedFu):
       env.plan.priceApi
         .pricingOrDefault(myCurrency)
@@ -223,7 +223,7 @@ final class Plan(env: Env) extends LilaController(env):
             )
   }
 
-  def updatePayment = AuthBody { ctx ?=> me =>
+  def updatePayment = AuthBody { ctx ?=> me ?=>
     CaptureRateLimit(ctx.ip, rateLimitedFu):
       env.plan.api.stripe.userCustomer(me) flatMap {
         _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)) so { sub =>
@@ -242,7 +242,7 @@ final class Plan(env: Env) extends LilaController(env):
       }
   }
 
-  def updatePaymentCallback = AuthBody { ctx ?=> me =>
+  def updatePaymentCallback = AuthBody { ctx ?=> me ?=>
     get("session") so { session =>
       env.plan.api.stripe.userCustomer(me) flatMap {
         _.flatMap(_.firstSubscription) so { sub =>
@@ -252,7 +252,7 @@ final class Plan(env: Env) extends LilaController(env):
     }
   }
 
-  def payPalCheckout = AuthBody { ctx ?=> me =>
+  def payPalCheckout = AuthBody { ctx ?=> me ?=>
     CheckoutRateLimit(ctx.ip, rateLimitedFu):
       env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
         env.plan.checkoutForm
@@ -280,7 +280,7 @@ final class Plan(env: Env) extends LilaController(env):
       }
   }
 
-  def payPalCapture(orderId: String) = Auth { ctx ?=> me =>
+  def payPalCapture(orderId: String) = Auth { ctx ?=> me ?=>
     CaptureRateLimit(ctx.ip, rateLimitedFu):
       get("sub")
         .map(PayPalSubscriptionId.apply)

@@ -726,7 +726,7 @@ final class TournamentApi(
   private def playerPovs(tour: Tournament, userId: UserId, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
       gameRepo.light.gamesFromPrimary map {
-        _ flatMap { LightPov.ofUserId(_, userId) }
+        _ flatMap { LightPov(_, userId) }
       }
 
   private def Parallel(tourId: TourId, action: String)(

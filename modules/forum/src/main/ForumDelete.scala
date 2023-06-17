@@ -19,7 +19,7 @@ final class ForumDelete(
     postRepo.unsafe.byCategAndId(categId, postId) flatMapz { post =>
       postApi.viewOf(post) flatMapz { view =>
         doDelete(view) >> {
-          if MasterGranter(_.ModerateForum)(mod)
+          if MasterGranter(_.ModerateForum)
           then
             modLog.deletePost(
               post.userId,

@@ -76,7 +76,7 @@ final class Study(
               api = _ => apiStudies(pag)
             )
 
-  def mine(order: Order, page: Int) = Auth { ctx ?=> me =>
+  def mine(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mine(me, order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
         html = env.study.topicApi.userTopics(me.id) map { topics =>
@@ -87,7 +87,7 @@ final class Study(
     }
   }
 
-  def minePublic(order: Order, page: Int) = Auth { ctx ?=> me =>
+  def minePublic(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.minePublic(me, order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
         html = Ok(html.study.list.minePublic(pag, order, me)),
@@ -96,7 +96,7 @@ final class Study(
     }
   }
 
-  def minePrivate(order: Order, page: Int) = Auth { ctx ?=> me =>
+  def minePrivate(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.minePrivate(me, order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
         html = Ok(html.study.list.minePrivate(pag, order, me)),
@@ -105,7 +105,7 @@ final class Study(
     }
   }
 
-  def mineMember(order: Order, page: Int) = Auth { ctx ?=> me =>
+  def mineMember(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mineMember(me, order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
         html = env.study.topicApi.userTopics(me.id) map { topics =>
@@ -116,7 +116,7 @@ final class Study(
     }
   }
 
-  def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me =>
+  def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mineLikes(me, order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
         html = Ok(html.study.list.mineLikes(pag, order)),
@@ -256,7 +256,7 @@ final class Study(
     .dmap(some)
     .mon(_.chat.fetch("study"))
 
-  def createAs = AuthBody { ctx ?=> me =>
+  def createAs = AuthBody { ctx ?=> me ?=>
     StudyForm.importGame.form
       .bindFromRequest()
       .fold(
@@ -275,7 +275,7 @@ final class Study(
       )
   }
 
-  def create = AuthBody { ctx ?=> me =>
+  def create = AuthBody { ctx ?=> me ?=>
     StudyForm.importGame.form
       .bindFromRequest()
       .fold(
@@ -290,7 +290,7 @@ final class Study(
         Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
     }
 
-  def delete(id: StudyId) = Auth { _ ?=> me =>
+  def delete(id: StudyId) = Auth { _ ?=> me ?=>
     env.study.api.byIdAndOwnerOrAdmin(id, me) flatMapz { study =>
       env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
         case None       => Redirect(routes.Study.mine("hot"))
@@ -299,13 +299,13 @@ final class Study(
     }
   }
 
-  def clearChat(id: StudyId) = Auth { _ ?=> me =>
+  def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
     env.study.api.isOwnerOrAdmin(id, me) flatMapz {
       env.chat.api.userChat.clear(id into ChatId)
     } inject Redirect(routes.Study.show(id))
   }
 
-  def importPgn(id: StudyId) = AuthBody { ctx ?=> me =>
+  def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
     get("sri") so { sri =>
       StudyForm.importPgn.form
         .bindFromRequest()
@@ -322,7 +322,7 @@ final class Study(
     }
   }
 
-  def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me =>
+  def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
     env.study.api
       .adminInvite(id, me)
       .inject:
@@ -372,7 +372,7 @@ final class Study(
   private def embedNotFound(using RequestHeader): Fu[Result] =
     NotFound(html.study.embed.notFound)
 
-  def cloneStudy(id: StudyId) = Auth { ctx ?=> _ =>
+  def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     OptionFuResult(env.study.api.byId(id)) { study =>
       CanView(study, ctx.me) {
         Ok(html.study.clone(study))
@@ -392,7 +392,7 @@ final class Study(
     key = "study.clone.ip"
   )
 
-  def cloneApply(id: StudyId) = Auth { ctx ?=> me =>
+  def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
     val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
     CloneLimitPerUser(me.id, rateLimitedFu, cost = cost):
       CloneLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
@@ -538,7 +538,7 @@ final class Study(
         Ok(html.study.topic.index(popular, mine, form))
       }
 
-  def setTopics = AuthBody { ctx ?=> me =>
+  def setTopics = AuthBody { ctx ?=> me ?=>
     StudyForm.topicsForm
       .bindFromRequest()
       .fold(

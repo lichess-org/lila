@@ -113,7 +113,7 @@ final class User(
               _ <- env.tournament.cached.nameCache preloadMany {
                 pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
               }
-              notes <- ctx.me.so: me =>
+              notes <- ctx.me.so: me ?=>
                 env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me.id)
               res <-
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
@@ -448,7 +448,7 @@ final class User(
         }
     }
 
-  def writeNote(username: UserStr) = AuthBody { ctx ?=> me =>
+  def writeNote(username: UserStr) = AuthBody { ctx ?=> me ?=>
     lila.user.UserForm.note
       .bindFromRequest()
       .fold(
@@ -465,7 +465,7 @@ final class User(
       )
   }
 
-  def apiReadNote(username: UserStr) = Scoped() { _ ?=> me =>
+  def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
     env.user.repo byId username flatMapz {
       env.socialInfo.fetchNotes(_, me) flatMap {
         lila.user.JsonView.notes(_)(using lightUserApi)
@@ -473,7 +473,7 @@ final class User(
     }
   }
 
-  def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me =>
+  def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me ?=>
     lila.user.UserForm.apiNote
       .bindFromRequest()
       .fold(
@@ -492,21 +492,21 @@ final class User(
       env.user.noteApi.write(user, data.text, me, isMod, isMod && data.dox) >> f(user)
     }
 
-  def deleteNote(id: String) = Auth { ctx ?=> me =>
+  def deleteNote(id: String) = Auth { ctx ?=> me ?=>
     OptionFuResult(env.user.noteApi.byId(id)): note =>
       (note.isFrom(me) && !note.mod) so {
         env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
       }
   }
 
-  def setDoxNote(id: String, dox: Boolean) = Secure(_.Admin) { ctx ?=> _ =>
+  def setDoxNote(id: String, dox: Boolean) = Secure(_.Admin) { ctx ?=> _ ?=>
     OptionFuResult(env.user.noteApi.byId(id)): note =>
       note.mod so {
         env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
       }
   }
 
-  def opponents = Auth { ctx ?=> me =>
+  def opponents = Auth { ctx ?=> me ?=>
     getUserStr("u")
       .ifTrue(isGranted(_.BoostHunter))
       .so(env.user.repo.byId)
@@ -595,7 +595,7 @@ final class User(
         }
       case _ => notFound
 
-  def myself = Auth { _ ?=> me =>
+  def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))
   }
 

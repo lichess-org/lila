@@ -4,7 +4,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.notify.NotifyApi
 import lila.security.Granter
-import lila.user.{ Holder, User, UserRepo }
+import lila.user.{ Me, User, UserRepo }
 
 final class CoachApi(
     coachColl: Coll,
@@ -28,10 +28,10 @@ final class CoachApi(
       byId(user.id).dmap:
         _ map withUser(user)
 
-  def findOrInit(coach: Holder): Fu[Option[Coach.WithUser]] =
-    canCoach(coach.user).so:
-      find(coach.user) orElse {
-        val c = Coach.WithUser(Coach make coach.user, coach.user)
+  def findOrInit(using me: Me): Fu[Option[Coach.WithUser]] =
+    canCoach(me.user).so:
+      find(me.user) orElse {
+        val c = Coach.WithUser(Coach make me.user, me.user)
         coachColl.insert.one(c.coach) inject c.some
       }
 

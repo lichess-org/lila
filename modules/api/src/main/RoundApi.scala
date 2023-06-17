@@ -105,7 +105,7 @@ final private[api] class RoundApi(
       .mon(_.round.api.watcher)
 
   private def ctxFlags(using ctx: WebContext) =
-    WithFlags(blurs = ctx.me so Granter(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
+    WithFlags(blurs = Granter.opt(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
 
   def review(
       pov: Pov,
@@ -124,7 +124,7 @@ final private[api] class RoundApi(
       ctx.userId,
       tv,
       initialFen = initialFen,
-      flags = withFlags.copy(blurs = ctx.me so Granter(_.ViewBlurs))
+      flags = withFlags.copy(blurs = Granter.opt(_.ViewBlurs))
     ) zip
       tourApi.gameView.analysis(pov.game) zip
       (pov.game.simulId so simulApi.find) zip

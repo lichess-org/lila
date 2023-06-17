@@ -38,7 +38,7 @@ final class Storm(env: Env) extends LilaController(env):
             data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
           ) map env.storm.json.newHigh map JsonOk
 
-  def dashboard(page: Int) = Auth { ctx ?=> me =>
+  def dashboard(page: Int) = Auth { ctx ?=> me ?=>
     renderDashboardOf(me, page)
   }
 

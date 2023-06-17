@@ -22,13 +22,13 @@ final class Report(
 
   private given Conversion[Holder, AsMod] = holder => AsMod(holder.user)
 
-  def list = Secure(_.SeeReport) { _ ?=> me =>
+  def list = Secure(_.SeeReport) { _ ?=> me ?=>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
     then Forbidden(html.site.message.streamingMod)
     else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
   }
 
-  def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me =>
+  def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     env.report.modFilters.set(me, Room(room))
     if Room(room).fold(true)(Room.isGrantedFor(me))
     then renderList(me, room)
@@ -53,7 +53,7 @@ final class Report(
               )
     }
 
-  def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me =>
+  def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     api.inquiries
       .toggle(me, reportOrAppealId)
       .flatMap: (prev, next) =>
@@ -112,7 +112,7 @@ final class Report(
         else if processed then userC.modZoneOrRedirect(me, inquiry.user)
         else onInquiryStart(inquiry)
 
-  def process(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> me =>
+  def process(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> me ?=>
     api byId id flatMap {
       _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
         inquiry.isAppeal.so(env.appeal.api.setReadById(inquiry.user)) >>
@@ -121,25 +121,25 @@ final class Report(
     }
   }
 
-  def xfiles(id: UserStr) = Secure(_.SeeReport) { _ ?=> _ =>
+  def xfiles(id: UserStr) = Secure(_.SeeReport) { _ ?=> _ ?=>
     api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
   }
 
-  def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> me =>
+  def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> me ?=>
     api
       .snooze(me, id, dur)
       .map:
         _.fold(Redirect(routes.Report.list))(onInquiryStart)
   }
 
-  def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { _ ?=> me =>
+  def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { _ ?=> me ?=>
     OptionFuResult(env.user.repo byId username): user =>
       api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
         api.inquiries.toggle(me, Left(report.id)).void
       }
   }
 
-  def form = Auth { _ ?=> _ =>
+  def form = Auth { _ ?=> _ ?=>
     getUserStr("username") so env.user.repo.byId flatMap { user =>
       if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact)
       else
@@ -156,7 +156,7 @@ final class Report(
     }
   }
 
-  def create = AuthBody { _ ?=> me =>
+  def create = AuthBody { _ ?=> me ?=>
     env.report.forms.create
       .bindFromRequest()
       .fold(
@@ -174,7 +174,7 @@ final class Report(
       )
   }
 
-  def flag = AuthBody { _ ?=> me =>
+  def flag = AuthBody { _ ?=> me ?=>
     env.report.forms.flag
       .bindFromRequest()
       .fold(
@@ -187,7 +187,7 @@ final class Report(
       )
   }
 
-  def thanks = Auth { ctx ?=> me =>
+  def thanks = Auth { ctx ?=> me ?=>
     ctx.req.flash
       .get("reported")
       .flatMap(UserStr.read)

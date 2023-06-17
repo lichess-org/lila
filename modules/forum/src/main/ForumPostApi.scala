@@ -32,8 +32,8 @@ final class ForumPostApi(
       data: ForumForm.PostData
   )(using me: Me): Fu[ForumPost] =
     detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { (lang, topicUserIds) =>
-      val publicMod = MasterGranter(_.PublicMod)(me)
-      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
+      val publicMod = MasterGranter(_.PublicMod)
+      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
@@ -72,7 +72,7 @@ final class ForumPostApi(
   def editPost(postId: ForumPostId, newText: String)(using me: Me): Fu[ForumPost] =
     get(postId) flatMap { post =>
       post.fold[Fu[ForumPost]](fufail("Post no longer exists.")) {
-        case (_, post) if !post.canBeEditedBy(me) =>
+        case (_, post) if !post.canBeEditedByMe =>
           fufail("You are not authorized to modify this post.")
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")

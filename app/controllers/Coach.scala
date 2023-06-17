@@ -43,16 +43,16 @@ final class Coach(env: Env) extends LilaController(env):
           Ok(html.coach.show(c, studies, posts))
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: WebContext) =
-    if c.isListed || ctx.me.exists(_ is c.coach) || isGranted(_.Admin) then f
+    if c.isListed || ctx.me.exists(_ is c.coach) || isGrantedOpt(_.Admin) then f
     else notFound
 
-  def edit = Secure(_.Coach) { ctx ?=> me =>
+  def edit = Secure(_.Coach) { ctx ?=> me ?=>
     OptionFuResult(api findOrInit me): c =>
       env.msg.twoFactorReminder(me.id) inject
         Ok(html.coach.edit(c, CoachProfileForm edit c.coach)).noCache
   }
 
-  def editApply = SecureBody(_.Coach) { ctx ?=> me =>
+  def editApply = SecureBody(_.Coach) { ctx ?=> me ?=>
     OptionFuResult(api findOrInit me): c =>
       CoachProfileForm
         .edit(c.coach)
@@ -63,12 +63,12 @@ final class Coach(env: Env) extends LilaController(env):
         )
   }
 
-  def picture = Secure(_.Coach) { ctx ?=> me =>
+  def picture = Secure(_.Coach) { ctx ?=> me ?=>
     OptionResult(api findOrInit me): c =>
       Ok(html.coach.picture(c)).noCache
   }
 
-  def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me =>
+  def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>
     OptionFuResult(api findOrInit me): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>

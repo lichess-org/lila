@@ -238,7 +238,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     streakJsonAndPuzzle(using reqLang).mapz: (json, _) =>
       JsonOk(json)
 
-  def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> me =>
+  def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> me ?=>
     if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
       lila.mon.streak.run.score("mobile").record(score)
       setStreakResult(me.id, score)
@@ -246,7 +246,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     else BadRequest
   }
 
-  def vote(id: PuzzleId) = AuthBody { _ ?=> me =>
+  def vote(id: PuzzleId) = AuthBody { _ ?=> me ?=>
     NoBot:
       env.puzzle.forms.vote
         .bindFromRequest()
@@ -256,7 +256,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         )
   }
 
-  def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { _ ?=> me =>
+  def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { _ ?=> me ?=>
     NoBot:
       PuzzleTheme.findDynamic(themeStr) so { theme =>
         env.puzzle.forms.themeVote
@@ -268,7 +268,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
   }
 
-  def setDifficulty(theme: String) = AuthBody { _ ?=> me =>
+  def setDifficulty(theme: String) = AuthBody { _ ?=> me ?=>
     NoBot:
       env.puzzle.forms.difficulty
         .bindFromRequest()
@@ -291,7 +291,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def openings(order: String) = Open:
     env.puzzle.opening.collection flatMap { collection =>
       ctx.me
-        .so: me =>
+        .so: me ?=>
           env.insight.api.insightUser(me) map {
             _.some.filterNot(_.isEmpty) so { insightUser =>
               collection.makeMine(insightUser.families, insightUser.openings).some
@@ -350,7 +350,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.daily.get.map:
       _.fold(NotFound)(html.puzzle.embed(_))
 
-  def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me =>
+  def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
       max = getInt("max").map(_ atLeast 1),
@@ -360,7 +360,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
   }
 
-  def apiDashboard(days: Int) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me =>
+  def apiDashboard(days: Int) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me ?=>
     JsonOptionOk:
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
   }
@@ -377,7 +377,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def replay(days: Int, themeKey: PuzzleTheme.Key) = Auth { ctx ?=> me =>
+  def replay(days: Int, themeKey: PuzzleTheme.Key) = Auth { ctx ?=> me ?=>
     val theme         = PuzzleTheme.findOrMix(themeKey)
     val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
     env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
@@ -446,7 +446,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
 
   /* Mobile API: select a bunch of puzzles for offline use */
-  def mobileBcBatchSelect = Auth { ctx ?=> _ =>
+  def mobileBcBatchSelect = Auth { ctx ?=> _ ?=>
     negotiate(
       html = notFound,
       api = _ =>
@@ -458,7 +458,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   /* Mobile API: tell the server about puzzles solved while offline */
-  def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me =>
+  def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me ?=>
     negotiate(
       html = notFound,
       api = _ => {
@@ -486,7 +486,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     )
   }
 
-  def mobileBcVote(nid: Long) = AuthBody { ctx ?=> me =>
+  def mobileBcVote(nid: Long) = AuthBody { ctx ?=> me ?=>
     negotiate(
       html = notFound,
       api = _ =>
@@ -506,7 +506,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     html.site.helpModal.puzzle
 
   private def DashboardPage(username: Option[UserStr])(f: WebContext ?=> UserModel => Fu[Result]) =
-    Auth { ctx ?=> me =>
+    Auth { ctx ?=> me ?=>
       username
         .so(env.user.repo.byId)
         .flatMapz: user =>

@@ -5,7 +5,7 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.HTTPRequest
 import lila.pref.Pref
-import lila.user.{ UserContext }
+import lila.user.UserContext
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 
@@ -59,7 +59,7 @@ trait AnyContext:
   val scopes: TokenScopes  = TokenScopes(Nil)
   def isMobile             = scopes.has(_.Web.Mobile)
   def isWebAuth: Boolean   = false
-  def isOauthAuth: Boolean = false
+  def isOAuthAuth: Boolean = false
 
 trait BodyContext[A] extends AnyContext:
   val body: Request[A]
@@ -122,7 +122,7 @@ class OAuthContext(
     val userContext: UserContext,
     override val scopes: TokenScopes
 ) extends AnyContext:
-  override def isOauthAuth: Boolean = me.isDefined
+  override def isOAuthAuth: Boolean = me.isDefined
 
 final class OAuthBodyContext[A](
     val body: Request[A],

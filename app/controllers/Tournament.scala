@@ -176,7 +176,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     key = "tournament.user.join"
   )
 
-  def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me =>
+  def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me ?=>
     NoLameOrBot:
       NoPlayban:
         JoinLimitPerUser(me.id, rateLimitedJsonFu):
@@ -190,7 +190,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           }
   }
 
-  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
+  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
     else
@@ -211,27 +211,27 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       .flatMap: isLeader =>
         api.joinWithResult(tourId, me, data = data, isLeader)
 
-  def pause(id: TourId) = Auth { ctx ?=> me =>
+  def pause(id: TourId) = Auth { ctx ?=> me ?=>
     OptionResult(cachedTour(id)): tour =>
       api.selfPause(tour.id, me.id)
       if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Tournament.show(tour.id))
   }
 
-  def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me =>
+  def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
     cachedTour(id) flatMapz { tour =>
       api.selfPause(tour.id, me.id) inject jsonOkResult
     }
   }
 
-  def form = Auth { ctx ?=> me =>
+  def form = Auth { ctx ?=> me ?=>
     NoBot:
       env.team.api.lightsByLeader(me.id) map { teams =>
         Ok(html.tournament.form.create(forms.create(me, teams), teams))
       }
   }
 
-  def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me =>
+  def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoBot:
       env.team.api.lightsByLeader(me.id) flatMap { teams =>
         env.team.api.leads(teamId, me.id) mapz {
@@ -270,7 +270,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       CreateLimitPerIP(req.ipAddress, fail, cost = cost, msg = me.username):
         create
 
-  def create = AuthBody { ctx ?=> me =>
+  def create = AuthBody { ctx ?=> me ?=>
     NoBot:
       env.team.api
         .lightsByLeader(me.id)
@@ -295,7 +295,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           )
   }
 
-  def apiCreate = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
+  def apiCreate = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     if me.isBot || me.lame
     then notFoundJson("This account cannot create tournaments")
     else doApiCreate(me)
@@ -328,7 +328,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         )
     }
 
-  def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
+  def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     cachedTour(id) flatMap {
       _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) so { tour =>
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
@@ -356,7 +356,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
   }
 
-  def apiTerminate(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me =>
+  def apiTerminate(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
     cachedTour(id) flatMapz {
       case tour if tour.createdBy == me.id || isGranted(_.ManageTournament, me) =>
         api.kill(tour).inject(jsonOkResult)
@@ -364,7 +364,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
   }
 
-  def teamBattleEdit(id: TourId) = Auth { ctx ?=> me =>
+  def teamBattleEdit(id: TourId) = Auth { ctx ?=> me ?=>
     cachedTour(id) flatMapz {
       case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
         tour.teamBattle so { battle =>
@@ -386,7 +386,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
   }
 
-  def teamBattleUpdate(id: TourId) = AuthBody { ctx ?=> me =>
+  def teamBattleUpdate(id: TourId) = AuthBody { ctx ?=> me ?=>
     cachedTour(id).flatMapz:
       case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
         lila.tournament.TeamBattle.DataForm.empty
@@ -400,7 +400,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       case tour => Redirect(routes.Tournament.show(tour.id))
   }
 
-  def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
+  def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     cachedTour(id) flatMapz {
       case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
         lila.tournament.TeamBattle.DataForm.empty
@@ -460,7 +460,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def edit(id: TourId) = Auth { ctx ?=> me =>
+  def edit(id: TourId) = Auth { ctx ?=> me ?=>
     WithEditableTournament(id, me): tour =>
       env.team.api.lightsByLeader(me.id) map { teams =>
         val form = forms.edit(me, teams, tour)
@@ -468,7 +468,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
   }
 
-  def update(id: TourId) = AuthBody { ctx ?=> me =>
+  def update(id: TourId) = AuthBody { ctx ?=> me ?=>
     WithEditableTournament(id, me): tour =>
       env.team.api.lightsByLeader(me.id) flatMap { teams =>
         forms
@@ -481,7 +481,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
   }
 
-  def terminate(id: TourId) = Auth { ctx ?=> me =>
+  def terminate(id: TourId) = Auth { ctx ?=> me ?=>
     WithEditableTournament(id, me) { tour =>
       api kill tour inject {
         env.mod.logApi.terminateTournament(me.id into ModId, tour.name())

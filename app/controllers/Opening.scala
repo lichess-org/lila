@@ -56,7 +56,7 @@ final class Opening(env: Env) extends LilaController(env):
         .bindFromRequest()
         .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
 
-  def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { ctx ?=> me =>
+  def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { ctx ?=> me ?=>
     env.opening.api
       .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), Crawler.No)
       .map(_.flatMap(_.query.exactOpening))

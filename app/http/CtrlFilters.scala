@@ -7,20 +7,20 @@ import play.api.libs.json.JsNumber
 
 import lila.api.context.*
 import lila.security.{ Permission, Granter }
-import lila.user.User
+import lila.user.Me
 import lila.common.HTTPRequest
 import lila.common.config
 
 trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConversions:
 
-  def isGranted(permission: Permission.Selector, user: User): Boolean =
-    Granter(permission(Permission))(user)
+  def isGranted(permission: Permission.Selector)(using Me): Boolean =
+    Granter(permission(Permission))
 
-  def isGranted(permission: Permission.Selector)(using AnyContext): Boolean =
+  def isGrantedOpt(permission: Permission.Selector)(using Option[Me]): Boolean =
     isGranted(permission(Permission))
 
-  def isGranted(permission: Permission)(using ctx: AnyContext): Boolean =
-    ctx.me so Granter(permission)
+  def isGranted(permission: Permission)(using me: Option[Me]): Boolean =
+    me.exists(Granter(permission)(using _))
 
   def NoCurrentGame(a: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
     ctx.me.so(env.preloader.currentGameMyTurn) flatMap {
@@ -30,10 +30,11 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
           api = _ => currentGameJsonError(current)
         )
     }
-  def NoCurrentGame(me: Option[User])(a: => Fu[Result])(using Executor): Fu[Result] = me
-    .so(env.preloader.currentGameMyTurn)
-    .flatMap:
-      _.fold(a)(currentGameJsonError)
+  def NoCurrentGame(a: => Fu[Result])(using Executor)(using me: Option[Me]): Fu[Result] =
+    me
+      .so(env.preloader.currentGameMyTurn)
+      .flatMap:
+        _.fold(a)(currentGameJsonError)
 
   private def currentGameJsonError(current: lila.app.mashup.Preload.CurrentGame) = fuccess:
     Forbidden(

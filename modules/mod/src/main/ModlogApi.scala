@@ -173,21 +173,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def wasUnteachered(user: UserId): Fu[Boolean] =
     coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
 
-  def wasMarkedBy(mod: ModId, user: UserId): Fu[Boolean] =
+  def wasMarkedBy(user: UserId)(using me: Me): Fu[Boolean] =
     coll.secondaryPreferred.exists(
       $doc(
         "user" -> user,
-        "mod"  -> mod,
+        "mod"  -> me.userId,
         "action" $in markActions
       )
     )
 
-  def wereMarkedBy(mod: ModId, users: List[UserId]): Fu[Set[UserId]] =
+  def wereMarkedBy(users: List[UserId])(using me: Me): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](
       "user",
       $doc(
         "user" $in users,
-        "mod" -> mod,
+        "mod" -> me.userId,
         "action" $in markActions
       ),
       readPreference = ReadPreference.secondaryPreferred
@@ -228,8 +228,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def teamEdit(mod: ModId, teamOwner: UserId, teamName: String) = add:
     Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
 
-  def appealPost(mod: ModId, user: UserId) = add:
-    Modlog(mod, user.some, Modlog.appealPost, details = none)
+  def appealPost(user: UserId)(using me: Me) = add:
+    Modlog(me, user.some, Modlog.appealPost, details = none)
 
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(

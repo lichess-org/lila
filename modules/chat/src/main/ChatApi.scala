@@ -235,8 +235,8 @@ final class ChatApi(
         }
       } inject change
 
-    private def isMod(me: User.Me)      = Granter(_.ChatTimeout)(me)
-    private def isRelayMod(me: User.Me) = Granter(_.BroadcastTimeout)(me)
+    private def isMod(me: User.Me)      = Granter(_.ChatTimeout)(using me)
+    private def isRelayMod(me: User.Me) = Granter(_.BroadcastTimeout)(using me)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach: r =>

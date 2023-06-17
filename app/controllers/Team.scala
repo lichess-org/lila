@@ -118,14 +118,14 @@ final class Team(
       }
     }
 
-  def edit(id: TeamId) = Auth { ctx ?=> me =>
+  def edit(id: TeamId) = Auth { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id) { team =>
       env.msg.twoFactorReminder(me.id) inject
         html.team.form.edit(team, forms edit team)
     }
   }
 
-  def update(id: TeamId) = AuthBody { ctx ?=> me =>
+  def update(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id): team =>
       forms
         .edit(team)
@@ -136,12 +136,12 @@ final class Team(
         )
   }
 
-  def kickForm(id: TeamId) = Auth { ctx ?=> _ =>
+  def kickForm(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id): team =>
       html.team.admin.kick(team, forms.members)
   }
 
-  def kick(id: TeamId) = AuthBody { ctx ?=> me =>
+  def kick(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id): team =>
       forms.members.bindFromRequest().value so { api.kickMembers(team, _, me).parallel } inject Redirect(
         routes.Team.show(team.id)
@@ -157,7 +157,7 @@ final class Team(
   )
   private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
 
-  def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { ctx ?=> me =>
+  def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabledApi(teamId, me): team =>
       def limited =
         if kickLimitReportOnce(username.id) then
@@ -167,12 +167,12 @@ final class Team(
         api.kick(team, username.id, me) inject ApiResult.Done
   }
 
-  def leadersForm(id: TeamId) = Auth { ctx ?=> _ =>
+  def leadersForm(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id): team =>
       html.team.admin.leaders(team, forms leaders team)
   }
 
-  def leaders(id: TeamId) = AuthBody { ctx ?=> me =>
+  def leaders(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id): team =>
       forms.leaders(team).bindFromRequest().value so {
         api.setLeaders(team, _, me, isGranted(_.ManageTeam))
@@ -181,7 +181,7 @@ final class Team(
       ).flashSuccess
   }
 
-  def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me =>
+  def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
     OptionFuResult(api team id): team =>
       forms.explain
         .bindFromRequest()
@@ -193,7 +193,7 @@ final class Team(
         ) inject Redirect(routes.Team all 1).flashSuccess
   }
 
-  def disable(id: TeamId) = AuthBody { ctx ?=> me =>
+  def disable(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id) { team =>
       forms.explain
         .bindFromRequest()
@@ -207,7 +207,7 @@ final class Team(
     } inject Redirect(routes.Team show id).flashSuccess
   }
 
-  def form = Auth { ctx ?=> me =>
+  def form = Auth { ctx ?=> me ?=>
     LimitPerWeek(me) {
       forms.anyCaptcha map { captcha =>
         Ok(html.team.form.create(forms.create, captcha))
@@ -220,7 +220,7 @@ final class Team(
     ttl = 10.minutes,
     maxConcurrency = 1
   )
-  def create = AuthBody { ctx ?=> me =>
+  def create = AuthBody { ctx ?=> me ?=>
     OneAtATime(me.id, rateLimitedFu):
       LimitPerWeek(me):
         JoinLimit(me)(tooManyTeamsHtml(me)):
@@ -238,7 +238,7 @@ final class Team(
             )
   }
 
-  def mine = Auth { ctx ?=> me =>
+  def mine = Auth { ctx ?=> me ?=>
     api mine me map {
       html.team.list.mine(_)
     }
@@ -247,7 +247,7 @@ final class Team(
   private def tooManyTeamsHtml(me: UserModel)(using WebContext): Fu[Result] =
     api mine me map html.team.list.mine map { BadRequest(_) }
 
-  def leader = Auth { ctx ?=> me =>
+  def leader = Auth { ctx ?=> me ?=>
     env.team.teamRepo enabledTeamsByLeader me.id map {
       html.team.list.ledByMe(_)
     }
@@ -264,7 +264,7 @@ final class Team(
   def join(id: TeamId) =
     AuthOrScopedBody(_.Team.Write)(
       auth = ctx ?=>
-        me =>
+        me ?=>
           api
             .teamEnabled(id)
             .flatMapz: team =>
@@ -295,7 +295,7 @@ final class Team(
                   )
       ,
       scoped = ctx ?=>
-        me =>
+        me ?=>
           api.team(id) flatMapz { team =>
             forms
               .apiRequest(team)
@@ -326,18 +326,18 @@ final class Team(
         .inject(jsonOkResult)
     AuthOrScopedBody(_.Team.Write)(doSub, doSub)
 
-  def requests = Auth { ctx ?=> me =>
+  def requests = Auth { ctx ?=> me ?=>
     import lila.memo.CacheApi.*
     env.team.cached.nbRequests invalidate me.id
     api requestsWithUsers me map { html.team.request.all(_) }
   }
 
-  def requestForm(id: TeamId) = Auth { ctx ?=> me =>
+  def requestForm(id: TeamId) = Auth { ctx ?=> me ?=>
     OptionOk(api.requestable(id, me)): team =>
       html.team.request.requestForm(team, forms.request(team))
   }
 
-  def requestCreate(id: TeamId) = AuthBody { ctx ?=> me =>
+  def requestCreate(id: TeamId) = AuthBody { ctx ?=> me ?=>
     OptionFuResult(api.requestable(id, me)): team =>
       OneAtATime(me.id, rateLimitedFu):
         JoinLimit(me)(tooManyTeamsHtml(me)):
@@ -362,7 +362,7 @@ final class Team(
         Redirect(routes.Team.requestForm(team.id)).flashSuccess
     }
 
-  def requestProcess(requestId: String) = AuthBody { ctx ?=> me =>
+  def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
     import cats.syntax.all.*
     OptionFuRedirectUrl(for
       requestOption <- api request requestId
@@ -377,7 +377,7 @@ final class Team(
     }
   }
 
-  def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ =>
+  def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id) { team =>
       paginator.declinedRequests(team, page) map { requests =>
         Ok(html.team.declinedRequest.all(team, requests))
@@ -388,7 +388,7 @@ final class Team(
   def quit(id: TeamId) =
     AuthOrScoped(_.Team.Write)(
       auth = ctx ?=>
-        me =>
+        me ?=>
           OptionFuResult(api team id): team =>
             if team isOnlyLeader me.id then
               negotiate(
@@ -404,7 +404,7 @@ final class Team(
                 )
       ,
       scoped = _ ?=>
-        me =>
+        me ?=>
           api team id flatMap {
             _.fold(notFoundJson()): team =>
               api.cancelRequestOrQuit(team, me) inject jsonOkResult
@@ -428,7 +428,7 @@ final class Team(
             )
           })
 
-  def pmAll(id: TeamId) = Auth { ctx ?=> _ =>
+  def pmAll(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id): team =>
       renderPmAll(team, forms.pmAll)
   }
@@ -442,7 +442,7 @@ final class Team(
   def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(
       auth = ctx ?=>
-        me =>
+        me ?=>
           WithOwnedTeamEnabled(id): team =>
             doPmAll(team, me).fold(
               err => renderPmAll(team, err),
@@ -454,7 +454,7 @@ final class Team(
                   )
             ),
       scoped = ctx ?=>
-        me =>
+        me ?=>
           api teamEnabled id flatMap {
             _.filter(_ leaders me.id) so { team =>
               doPmAll(team, me).fold(
@@ -507,7 +507,7 @@ final class Team(
         env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
       }
 
-  def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me =>
+  def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me ?=>
     WithOwnedTeamEnabledApi(teamId, me): team =>
       import env.team.jsonView.requestWithUserWrites
       val reqs =
@@ -517,7 +517,7 @@ final class Team(
 
   }
 
-  def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me =>
+  def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me ?=>
     WithOwnedTeamEnabledApi(teamId, me): team =>
       api request lila.team.Request.makeId(team.id, userId.id) flatMap {
         case None      => fuccess(ApiResult.ClientError("No such team join request"))

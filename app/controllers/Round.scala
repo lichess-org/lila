@@ -97,7 +97,7 @@ final class Round(
           Ok(Json.obj("next" -> next.map(_.fullId)))
         }
 
-  def next(gameId: GameId) = Auth { ctx ?=> me =>
+  def next(gameId: GameId) = Auth { ctx ?=> me ?=>
     OptionFuResult(env.round.proxyRepo game gameId): currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
@@ -269,7 +269,7 @@ final class Round(
             Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
         }
 
-  def writeNote(gameId: GameId) = AuthBody { ctx ?=> me =>
+  def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
     import play.api.data.Forms.*
     import play.api.data.*
     Form(single("text" -> text))
@@ -280,7 +280,7 @@ final class Round(
       )
   }
 
-  def readNote(gameId: GameId) = Auth { _ ?=> me =>
+  def readNote(gameId: GameId) = Auth { _ ?=> me ?=>
     env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
   }
 
@@ -315,7 +315,7 @@ final class Round(
       html.game.mini(_)
     )
 
-  def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me =>
+  def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.round.actorApi.round.Moretime
     if (seconds < 1 || seconds > 86400) BadRequest
     else

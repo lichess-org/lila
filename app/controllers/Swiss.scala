@@ -102,13 +102,13 @@ final class Swiss(
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     ctx.userId so { env.team.cached.isLeader(teamId, _) } flatMapz f
 
-  def form(teamId: TeamId) = Auth { ctx ?=> me =>
+  def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
         Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId))
   }
 
-  def create(teamId: TeamId) = AuthBody { ctx ?=> me =>
+  def create(teamId: TeamId) = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
         env.swiss.forms
@@ -124,7 +124,7 @@ final class Swiss(
           )
   }
 
-  def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
+  def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     if me.isBot || me.lame then notFoundJson("This account cannot create tournaments")
     else
       env.team.cached.isLeader(teamId, me.id) flatMap {
@@ -143,7 +143,7 @@ final class Swiss(
       }
   }
 
-  def apiTerminate(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me =>
+  def apiTerminate(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
     env.swiss.cache.swissCache byId id flatMapz {
       case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
         env.swiss.api
@@ -153,12 +153,12 @@ final class Swiss(
     }
   }
 
-  def join(id: SwissId) = AuthBody { ctx ?=> me =>
+  def join(id: SwissId) = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       doJoin(me, id, bodyPassword)
   }
 
-  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
+  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
     else doJoin(me, id, bodyPassword)
@@ -175,7 +175,7 @@ final class Swiss(
       }
     }
 
-  def withdraw(id: SwissId) = Auth { ctx ?=> me =>
+  def withdraw(id: SwissId) = Auth { ctx ?=> me ?=>
     env.swiss.api.withdraw(id, me.id) >>
       negotiate(
         html = Redirect(routes.Swiss.show(id)),
@@ -183,16 +183,16 @@ final class Swiss(
       )
   }
 
-  def apiWithdraw(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me =>
+  def apiWithdraw(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
     env.swiss.api.withdraw(id, me.id) inject jsonOkResult
   }
 
-  def edit(id: SwissId) = Auth { ctx ?=> me =>
+  def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id, me): swiss =>
       html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss))
   }
 
-  def update(id: SwissId) = AuthBody { ctx ?=> me =>
+  def update(id: SwissId) = AuthBody { ctx ?=> me ?=>
     WithEditableSwiss(id, me): swiss =>
       env.swiss.forms
         .edit(me, swiss)
@@ -203,7 +203,7 @@ final class Swiss(
         )
   }
 
-  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
+  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     WithEditableSwiss(
       id,
       me,
@@ -238,7 +238,7 @@ final class Swiss(
         )
     AuthOrScopedBody(_.Tournament.Write)(doSchedule, doSchedule)
 
-  def terminate(id: SwissId) = Auth { _ ?=> me =>
+  def terminate(id: SwissId) = Auth { _ ?=> me ?=>
     WithEditableSwiss(id, me): swiss =>
       env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
   }

@@ -11,7 +11,7 @@ import lila.timeline.Entry.given
 
 final class Timeline(env: Env) extends LilaController(env):
 
-  def home = Auth { ctx ?=> me =>
+  def home = Auth { ctx ?=> me ?=>
     negotiate(
       html =
         if (HTTPRequest isXhr ctx.req) for {
@@ -36,6 +36,6 @@ final class Timeline(env: Env) extends LilaController(env):
     )
   }
 
-  def unsub(channel: String) = Auth { ctx ?=> me =>
+  def unsub(channel: String) = Auth { ctx ?=> me ?=>
     env.timeline.unsubApi.set(channel, me.id, ~get("unsub") == "on")
   }

@@ -14,12 +14,12 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
-import lila.user.{ Holder, User }
+import lila.user.{ Me, User }
 
 object discussion:
 
   case class ModData(
-      mod: Holder,
+      mod: Me,
       suspect: Suspect,
       presets: ModPresets,
       logins: lila.security.UserLogins.TableData[UserWithModlog],
@@ -154,7 +154,9 @@ object discussion:
         )
       )
 
-  def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using WebContext) =
+  def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using
+      WebContext
+  ) =
     postForm(st.action := action)(
       form3.globalError(form),
       form3.group(

@@ -9,10 +9,13 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.HcaptchaForm
 import lila.user.User
+import lila.user.Me
 
 object bits:
 
-  def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using WebContext) =
+  def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using
+      WebContext
+  ) =
     frag(
       form3.group(
         username,
@@ -70,9 +73,11 @@ object bits:
       )
     }
 
-  def passwordResetConfirm(u: User, token: String, form: Form[?], ok: Option[Boolean] = None)(using WebContext) =
+  def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using WebContext)(using
+      me: Me
+  ) =
     views.html.base.layout(
-      title = s"${u.username} - ${trans.changePassword.txt()}",
+      title = s"${me.username} - ${trans.changePassword.txt()}",
       moreCss = cssTag("form3"),
       moreJs = frag(
         embedJsUnsafeLoadThen("""
@@ -88,7 +93,7 @@ object bits:
             case Some(false) => h1(cls := "is-red text", dataIcon := licon.X)
             case _           => h1
           })(
-            userLink(u, withOnline = false),
+            userLink(me.user, withOnline = false),
             " - ",
             trans.changePassword()
           )

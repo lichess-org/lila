@@ -36,11 +36,11 @@ final class Dev(env: Env) extends LilaController(env):
     env.credentiallessUaRegex
   )
 
-  def settings = Secure(_.Settings) { _ ?=> _ =>
+  def settings = Secure(_.Settings) { _ ?=> _ ?=>
     html.dev.settings(settingsList)
   }
 
-  def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me =>
+  def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
     settingsList.find(_.id == id) so { setting =>
       setting.form
         .bindFromRequest()
@@ -57,11 +57,11 @@ final class Dev(env: Env) extends LilaController(env):
 
   private val commandForm = Form(single("command" -> nonEmptyText))
 
-  def cli = Secure(_.Cli) { _ ?=> _ =>
+  def cli = Secure(_.Cli) { _ ?=> _ ?=>
     html.dev.cli(commandForm, none)
   }
 
-  def cliPost = SecureBody(_.Cli) { _ ?=> me =>
+  def cliPost = SecureBody(_.Cli) { _ ?=> me ?=>
     commandForm
       .bindFromRequest()
       .fold(
@@ -73,7 +73,7 @@ final class Dev(env: Env) extends LilaController(env):
       )
   }
 
-  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me =>
+  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me ?=>
     lila.security.Granter(_.Cli)(me) so {
       runAs(me.id, ctx.body.body) map { Ok(_) }
     }

@@ -44,7 +44,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     OptionOk(prismicC getBookmark bookmark): (doc, resolver) =>
       html.relay.tour.page(doc, resolver, menu)
 
-  def form = Auth { ctx ?=> _ =>
+  def form = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
       html.relay.tourForm.create(env.relay.tourForm.create)
   }
@@ -52,7 +52,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def create =
     AuthOrScopedBody(_.Study.Write)(
       auth = ctx ?=>
-        me =>
+        me ?=>
           NoLameOrBot:
             env.relay.tourForm.create
               .bindFromRequest()
@@ -66,7 +66,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               )
       ,
       scoped = ctx ?=>
-        me =>
+        me ?=>
           NoLameOrBot(me):
             env.relay.tourForm.create
               .bindFromRequest()
@@ -81,7 +81,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               )
     )
 
-  def edit(id: TourModel.Id) = Auth { ctx ?=> _ =>
+  def edit(id: TourModel.Id) = Auth { ctx ?=> _ ?=>
     WithTourCanUpdate(id): tour =>
       html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))
   }
@@ -89,7 +89,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def update(id: TourModel.Id) =
     AuthOrScopedBody(_.Study.Write)(
       auth = ctx ?=>
-        me =>
+        me ?=>
           WithTourCanUpdate(id): tour =>
             env.relay.tourForm
               .edit(tour)
@@ -101,7 +101,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                     Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
               ),
       scoped = _ ?=>
-        me =>
+        me ?=>
           env.relay.api tourById id flatMapz { tour =>
             env.relay.api.canUpdate(me, tour) flatMapz {
               env.relay.tourForm
@@ -115,7 +115,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me =>
+  def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     ???
   }
 

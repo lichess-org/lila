@@ -6,6 +6,7 @@ import lila.user.Holder
 import lila.user.User
 import cats.Show
 import cats.syntax.show.*
+import lila.user.Me
 
 final class IrcApi(
     zulip: ZulipClient,
@@ -144,7 +145,7 @@ final class IrcApi(
     zulip(_.broadcast, "non-tiered broadcasts"):
       s":note: ${markdown.broadcastLink(id, fullName)}"
 
-  def userAppeal(user: User, mod: Holder): Funit =
+  def userAppeal(user: User)(using mod: Me): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.username):
         s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown

@@ -17,7 +17,7 @@ final class Coordinate(env: Env) extends LilaController(env):
       views.html.coordinate.show(score)
     }
 
-  def score = AuthBody { ctx ?=> me =>
+  def score = AuthBody { ctx ?=> me ?=>
     env.coordinate.forms.score
       .bindFromRequest()
       .fold(

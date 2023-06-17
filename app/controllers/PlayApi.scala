@@ -13,15 +13,15 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   // bot endpoints
 
-  def botGameStream(id: GameAnyId) = Scoped(_.Bot.Play) { ctx ?=> me =>
+  def botGameStream(id: GameAnyId) = Scoped(_.Bot.Play) { ctx ?=> me ?=>
     WithPovAsBot(id, me) { impl.gameStream(me, _) }
   }
 
-  def botMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ ?=> me =>
+  def botMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ ?=> me ?=>
     WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
   }
 
-  def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { ctx ?=> me =>
+  def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { ctx ?=> me ?=>
     if cmd == "account/upgrade" then
       env.user.repo
         .isManaged(me.id)
@@ -42,17 +42,17 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   // board endpoints
 
-  def boardGameStream(id: GameAnyId) = Scoped(_.Board.Play) { ctx ?=> me =>
+  def boardGameStream(id: GameAnyId) = Scoped(_.Board.Play) { ctx ?=> me ?=>
     WithPovAsBoard(id, me) { impl.gameStream(me, _) }
   }
 
   def boardMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) =
-    Scoped(_.Board.Play) { _ ?=> me =>
+    Scoped(_.Board.Play) { _ ?=> me ?=>
       WithPovAsBoard(id, me):
         impl.move(me, _, uci, offeringDraw)
     }
 
-  def boardCommandPost(cmd: String) = ScopedBody(_.Board.Play) { ctx ?=> me =>
+  def boardCommandPost(cmd: String) = ScopedBody(_.Board.Play) { ctx ?=> me ?=>
     impl.command(me, cmd)(WithPovAsBoard)
   }
 
@@ -101,13 +101,13 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
               else JsonBadRequest(jsonError("Cannot berserk"))
         case _ => notFoundJson("No such command")
 
-  def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me =>
+  def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me ?=>
     cmd.split('/') match
       case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id), me)(getChat)
       case _                         => notFoundJson("No such command")
   }
 
-  def botCommandGet(cmd: String) = ScopedBody(_.Bot.Play) { _ ?=> me =>
+  def botCommandGet(cmd: String) = ScopedBody(_.Bot.Play) { _ ?=> me ?=>
     cmd.split('/') match
       case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id), me)(getChat)
       case _                         => notFoundJson("No such command")

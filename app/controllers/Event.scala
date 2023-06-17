@@ -11,16 +11,16 @@ final class Event(env: Env) extends LilaController(env):
     OptionOk(api oneEnabled id):
       html.event.show
 
-  def manager = Secure(_.ManageEvent) { ctx ?=> _ =>
+  def manager = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     api.list map html.event.manager
   }
 
-  def edit(id: String) = Secure(_.ManageEvent) { ctx ?=> _ =>
+  def edit(id: String) = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     OptionOk(api one id): event =>
       html.event.edit(event, api editForm event)
   }
 
-  def update(id: String) = SecureBody(_.ManageEvent) { ctx ?=> me =>
+  def update(id: String) = SecureBody(_.ManageEvent) { ctx ?=> me ?=>
     OptionFuResult(api one id): event =>
       api
         .editForm(event)
@@ -31,11 +31,11 @@ final class Event(env: Env) extends LilaController(env):
         )
   }
 
-  def form = Secure(_.ManageEvent) { ctx ?=> _ =>
+  def form = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     html.event.create(api.createForm)
   }
 
-  def create = SecureBody(_.ManageEvent) { ctx ?=> me =>
+  def create = SecureBody(_.ManageEvent) { ctx ?=> me ?=>
     api.createForm
       .bindFromRequest()
       .fold(
@@ -47,7 +47,7 @@ final class Event(env: Env) extends LilaController(env):
       )
   }
 
-  def cloneE(id: String) = Secure(_.ManageEvent) { ctx ?=> _ =>
+  def cloneE(id: String) = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     OptionFuResult(api one id): old =>
       val event = api clone old
       Ok(html.event.create(api editForm event))

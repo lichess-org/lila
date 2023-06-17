@@ -12,11 +12,11 @@ import lila.common.HTTPRequest
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
-  def bookmark(gameId: GameId) = Auth { _ ?=> me =>
+  def bookmark(gameId: GameId) = Auth { _ ?=> me ?=>
     env.bookmark.api.toggle(gameId, me.id)
   }
 
-  def delete(gameId: GameId) = Auth { _ ?=> me =>
+  def delete(gameId: GameId) = Auth { _ ?=> me ?=>
     OptionFuResult(env.game.gameRepo game gameId): game =>
       if game.pgnImport.flatMap(_.user).has(me.id) then
         env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
@@ -105,7 +105,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
-  def apiExportByUserImportedGames(username: UserStr) = AuthOrScoped() { ctx ?=> me =>
+  def apiExportByUserImportedGames(username: UserStr) = AuthOrScoped() { ctx ?=> me ?=>
     if !me.is(username)
     then Forbidden("Imported games of other players cannot be downloaded")
     else

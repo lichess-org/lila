@@ -75,7 +75,7 @@ final class Simul(env: Env) extends LilaController(env):
     AsHost(simulId): simul =>
       env.simul.api start simul.id inject jsonOkResult
 
-  def abort(simulId: SimulId) = Auth { ctx ?=> me =>
+  def abort(simulId: SimulId) = Auth { ctx ?=> me ?=>
     AsHost(simulId) { simul =>
       env.simul.api abort simul.id inject {
         if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id into ModId, simul.fullName)
@@ -102,14 +102,14 @@ final class Simul(env: Env) extends LilaController(env):
           text => env.simul.api.setText(simul.id, text) inject jsonOkResult
         )
 
-  def form = Auth { ctx ?=> me =>
+  def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       env.team.api.lightsByLeader(me.id) map { teams =>
         Ok(html.simul.form.create(forms.create(me, teams), teams))
       }
   }
 
-  def create = AuthBody { ctx ?=> me =>
+  def create = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       env.team.api
         .lightsByLeader(me.id)
@@ -129,7 +129,7 @@ final class Simul(env: Env) extends LilaController(env):
             )
   }
 
-  def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> me =>
+  def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       env.simul.api
         .addApplicant(id, me, variant)
@@ -139,14 +139,14 @@ final class Simul(env: Env) extends LilaController(env):
           else Redirect(routes.Simul.show(id))
   }
 
-  def withdraw(id: SimulId) = Auth { ctx ?=> me =>
+  def withdraw(id: SimulId) = Auth { ctx ?=> me ?=>
     env.simul.api.removeApplicant(id, me) inject {
       if (HTTPRequest isXhr ctx.req) jsonOkResult
       else Redirect(routes.Simul.show(id))
     }
   }
 
-  def edit(id: SimulId) = Auth { ctx ?=> me =>
+  def edit(id: SimulId) = Auth { ctx ?=> me ?=>
     WithEditableSimul(id) { simul =>
       env.team.api.lightsByLeader(me.id) map { teams =>
         Ok(html.simul.form.edit(forms.edit(me, teams, simul), teams, simul))
@@ -154,7 +154,7 @@ final class Simul(env: Env) extends LilaController(env):
     }
   }
 
-  def update(id: SimulId) = AuthBody { ctx ?=> me =>
+  def update(id: SimulId) = AuthBody { ctx ?=> me ?=>
     WithEditableSimul(id): simul =>
       env.team.api
         .lightsByLeader(me.id)

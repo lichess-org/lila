@@ -23,13 +23,13 @@ final class Challenge(
 
   def api = env.challenge.api
 
-  def all = Auth { ctx ?=> me =>
+  def all = Auth { ctx ?=> me ?=>
     XhrOrRedirectHome:
-      api allFor me.id map env.challenge.jsonView.apply map JsonOk
+      api allFor me.userId map env.challenge.jsonView.apply map JsonOk
   }
 
-  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me =>
-    api.allFor(me.id, 300) map { all =>
+  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me ?=>
+    api.allFor(me.userId, 300).map { all =>
       JsonOk:
         Json.obj(
           "in"  -> all.in.map(env.challenge.jsonView.apply(lila.challenge.Direction.In.some)),
@@ -106,7 +106,7 @@ final class Challenge(
         }
 
   def apiAccept(id: ChallengeId) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me =>
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me ?=>
       def tryRematch =
         env.bot.player.rematchAccept(id into GameId, me) flatMap {
           if _ then jsonOkResult
@@ -138,10 +138,10 @@ final class Challenge(
         }
       }
     } map { cookieOption =>
-      cookieOption.fold(res) { res.withCookies(_) }
+      cookieOption.foldLeft(res)(_ withCookies _)
     }
 
-  def decline(id: ChallengeId) = AuthBody { ctx ?=> _ =>
+  def decline(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     OptionFuResult(api byId id) { c =>
       isForMe(c, ctx.me) so
         api.decline(
@@ -152,7 +152,7 @@ final class Challenge(
         )
     }
   }
-  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
+  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
     api.activeByIdFor(id, me) flatMap {
       case None =>
         env.bot.player.rematchDecline(id into GameId, me) flatMap {
@@ -174,7 +174,7 @@ final class Challenge(
       OptionFuResult(api byId id): c =>
         if isMine(c) then api cancel c else notFound
 
-  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
+  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
     api.activeByIdBy(id, me) flatMap {
       case Some(c) => api.cancel(c) inject jsonOkResult
       case None =>
@@ -185,7 +185,7 @@ final class Challenge(
             import lila.hub.actorApi.round.Abort
             import lila.round.actorApi.round.AbortForce
             env.game.gameRepo game id.into(GameId) dmap {
-              _ flatMap { Pov.ofUserId(_, me.id) }
+              _ flatMap { Pov(_, me) }
             } flatMapz { p =>
               env.round.proxyRepo.upgradeIfPresent(p) dmap some
             } flatMap {
@@ -252,7 +252,7 @@ final class Challenge(
     ("slow", 40 * 5, 1.day)
   )
 
-  def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ =>
+  def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     import play.api.data.*
     import play.api.data.Forms.*
     OptionFuResult(api byId id): c =>
@@ -278,7 +278,7 @@ final class Challenge(
   }
 
   def apiCreate(username: UserStr) =
-    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me =>
+    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
       !me.is(username) so env.setup.forms.api
         .user(me)
         .bindFromRequest()
@@ -291,7 +291,7 @@ final class Challenge(
                 case Some(destUser) =>
                   val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
                   BotChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isBot then 1 else 0):
-                    ChallengeUserRateLimit(me.id, rateLimitedFu, cost = cost):
+                    ChallengeUserRateLimit(me.userId, rateLimitedFu, cost = cost):
                       val challenge = makeOauthChallenge(config, me, destUser)
                       config.acceptByToken match
                         case Some(strToken) =>
@@ -346,17 +346,19 @@ final class Challenge(
         _.fold(
           err => BadRequest(jsonError(err.message)),
           scoped =>
-            if (scoped.user is dest) env.challenge.api.oauthAccept(dest, challenge) flatMap {
-              case Validated.Valid(g) =>
-                env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok:
-                  Json.obj:
-                    "game" -> {
-                      env.game.jsonView.baseWithChessDenorm(g, challenge.initialFen) ++ Json.obj(
-                        "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
-                      )
-                    }
-              case Validated.Invalid(err) => BadRequest(jsonError(err))
-            }
+            if scoped.me is dest
+            then
+              env.challenge.api.oauthAccept(dest, challenge) flatMap {
+                case Validated.Valid(g) =>
+                  env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok:
+                    Json.obj:
+                      "game" -> {
+                        env.game.jsonView.baseWithChessDenorm(g, challenge.initialFen) ++ Json.obj(
+                          "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
+                        )
+                      }
+                case Validated.Invalid(err) => BadRequest(jsonError(err))
+              }
             else BadRequest(jsonError("dest and accept user don't match"))
         )
 
@@ -379,10 +381,10 @@ final class Challenge(
           .dmap(_ as JSON)
       )
 
-  def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me =>
+  def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me ?=>
     NoBot:
       OptionFuResult(env.game.gameRepo game gameId): g =>
-        Pov.opponentOfUserId(g, me.id).flatMap(_.userId) so env.user.repo.byId flatMapz { opponent =>
+        Pov.opponentOf(g, me).flatMap(_.userId) so env.user.repo.byId flatMapz { opponent =>
           env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d))
             case _ =>
