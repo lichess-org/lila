@@ -35,16 +35,6 @@ case class NewChapter(
       copy(root = newRoot)
     }
 
-  def addBranch(node: NewBranch, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[NewChapter] =
-    updateRoot(_.addBranchAt(path, node)) map {
-      _.copy(relay = newRelay orElse relay)
-    }
-
-  def addNode(node: NewTree, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[NewChapter] =
-    updateRoot(_.addNodeAt(path, node)) map {
-      _.copy(relay = newRelay orElse relay)
-    }
-
   def setShapes(shapes: Shapes, path: UciPath): Option[NewChapter] =
     updateRoot(_.modifyAt(path, _.copy(shapes = shapes)))
 
