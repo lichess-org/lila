@@ -3,13 +3,12 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
-import lila.common.IpAddress
+import lila.common.{ config, IpAddress }
 import lila.relay.{ RelayTour as TourModel }
 import lila.user.{ User as UserModel }
-import lila.common.config
 
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
@@ -116,6 +115,12 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
+  def delete(id: TourModel.Id) =
+    AuthOrScoped(_.Study.Write)(
+      _ ?=> me => ???,
+      _ ?=> me => ???
+    )
+
   def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:
     env.relay.api tourById id flatMapz { tour =>
       render.async:
@@ -129,7 +134,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def pgn(id: TourModel.Id) = OpenOrScoped() { ctx ?=> me =>
     env.relay.api tourById id mapz { tour =>
-      val canViewPrivate = ctx.isWeb || ctx.scopes.has(_.Study.Read)
+      val canViewPrivate = ctx.isWebAuth || ctx.scopes.has(_.Study.Read)
       apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
         env.relay.pgnStream.exportFullTourAs(tour, me ifTrue canViewPrivate)
       ): source =>
@@ -154,15 +159,14 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       case Some(round) => Redirect(round.withTour(tour).path)
     }
 
-  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using WebContext): Fu[Result] =
+  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using AnyContext): Fu[Result] =
     OptionFuResult(env.relay.api tourById id)(f)
 
   private def WithTourCanUpdate(
       id: TourModel.Id
-  )(f: TourModel => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    WithTour(id) { tour =>
+  )(f: TourModel => Fu[Result])(using ctx: AnyContext): Fu[Result] =
+    WithTour(id): tour =>
       ctx.me.so { env.relay.api.canUpdate(_, tour) } flatMapz f(tour)
-    }
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 10,

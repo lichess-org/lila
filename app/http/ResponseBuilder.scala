@@ -20,7 +20,7 @@ trait ResponseBuilder(using Executor)
   given Conversion[scalatags.Text.Frag, Result]     = Ok(_)
   given Conversion[Result, Fu[Result]]              = fuccess(_)
   given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
-  given (using RequestHeader): Conversion[Funit, Fu[Result]] =
+  given (using AnyContext): Conversion[Funit, Fu[Result]] =
     _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
   given alleycats.Zero[Result] = alleycats.Zero(Results.NotFound)
 
@@ -44,13 +44,13 @@ trait ResponseBuilder(using Executor)
   def JsonBadRequest(body: JsValue): Result = BadRequest(body) as JSON
 
   def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using
-      req: RequestHeader
+      ctx: AnyContext
   ): Fu[Result] =
     lila.api.Mobile.Api
-      .requestVersion(req)
+      .requestVersion(ctx.req)
       .fold(html): v =>
         api(v).dmap(_ as JSON)
-      .dmap(_.withHeaders("Vary" -> "Accept"))
+      .dmap(_.withHeaders(VARY -> "Accept"))
 
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
 
@@ -60,12 +60,12 @@ trait ResponseBuilder(using Executor)
 
   def notForBotAccounts = JsonBadRequest(jsonError("This API endpoint is not for Bot accounts."))
 
-  def notFound(using ctx: WebContext): Fu[Result] =
+  def notFound(using ctx: AnyContext): Fu[Result] =
     negotiate(
-      html =
-        if HTTPRequest.isSynchronousHttp(ctx.req)
-        then fuccess(renderNotFound)
-        else fuccess(Results.NotFound("Resource not found")),
+      html = ctx match
+        case web: WebContext if HTTPRequest.isSynchronousHttp(ctx.req) => renderNotFound(using web)
+        case _ => fuccess(Results.NotFound("Resource not found"))
+      ,
       api = _ => notFoundJson("Resource not found")
     )
 
@@ -79,9 +79,8 @@ trait ResponseBuilder(using Executor)
         ) withCookies env.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)
       ,
       api = _ =>
-        env.lilaCookie
-          .ensure(ctx.req):
-            Unauthorized(jsonError("Login required"))
+        env.lilaCookie.ensure(ctx.req):
+          Unauthorized(jsonError("Login required"))
     )
 
   private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
@@ -94,11 +93,11 @@ trait ResponseBuilder(using Executor)
         else Results.Forbidden("Authorization failed"),
       api = _ => fuccess(forbiddenJsonResult)
     )
-  def authorizationFailed(req: RequestHeader): Fu[Result] =
+  def authorizationFailed(using AnyContext): Fu[Result] =
     negotiate(
       html = fuccess(Results.Forbidden("Authorization failed")),
       api = _ => fuccess(forbiddenJsonResult)
-    )(using req)
+    )
 
   def playbanJsonError(ban: lila.playban.TempBan) = fuccess:
     Forbidden(

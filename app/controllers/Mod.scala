@@ -49,7 +49,7 @@ final class Mod(
   }
 
   def publicChatTimeout =
-    def doTimeout(me: Holder)(using Request[?]): Fu[Result] =
+    def doTimeout(me: Holder)(using BodyContext[?]): Fu[Result] =
       lila.chat.ChatTimeout.form
         .bindFromRequest()
         .fold(

@@ -44,16 +44,16 @@ abstract private[controllers] class LilaController(val env: Env)
   def reqLang(using req: RequestHeader): Lang = I18nLangPicker(req)
 
   /* Anonymous requests */
-  def Anon(f: RequestHeader ?=> Fu[Result]): Action[Unit] =
-    Action.async(parse.empty)(f(using _))
+  def Anon(f: MinimalContext ?=> Fu[Result]): Action[Unit] =
+    Action.async(parse.empty)(req => f(using minimalContext(req)))
 
   /* Anonymous requests, with a body */
-  def AnonBody(f: Request[?] ?=> Fu[Result]): Action[AnyContent] =
-    Action.async(parse.anyContent)(f(using _))
+  def AnonBody(f: MinimalBodyContext[?] ?=> Fu[Result]): Action[AnyContent] =
+    Action.async(parse.anyContent)(req => f(using minimalBodyContext(req)))
 
   /* Anonymous requests, with a body */
-  def AnonBodyOf[A](parser: BodyParser[A])(f: Request[A] ?=> A => Fu[Result]): Action[A] =
-    Action.async(parser)(req => f(using req)(req.body))
+  def AnonBodyOf[A](parser: BodyParser[A])(f: MinimalBodyContext[A] ?=> A => Fu[Result]): Action[A] =
+    Action.async(parser)(req => f(using minimalBodyContext(req))(req.body))
 
   /* Anonymous and authenticated requests */
   def Open(f: WebContext ?=> Fu[Result]): Action[Unit] =
@@ -118,7 +118,7 @@ abstract private[controllers] class LilaController(val env: Env)
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
       then handleScoped(selectors)(ctx ?=> user => f(using ctx)(user.some))(req)
-      else f(using anonContext(req))(none)
+      else f(using minimalContext(req))(none)
 
   /* Anonymous and oauth requests with a body */
   def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
@@ -127,7 +127,7 @@ abstract private[controllers] class LilaController(val env: Env)
     Action.async(parser): req =>
       if HTTPRequest.isOAuth(req)
       then ScopedBody(parser)(selectors)(ctx ?=> user => f(using ctx)(user.some))(req)
-      else f(using anonBodyContext(req))(none)
+      else f(using minimalBodyContext(req))(none)
 
   /* Authenticated and oauth requests */
   def AuthOrScoped(selectors: OAuthScope.Selector*)(
@@ -288,7 +288,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f: OAuthContext ?=> Holder => Fu[Result]
   ) =
     Scoped() { ctx ?=> me =>
-      IfGranted(perm, ctx.req, me)(f(Holder(me)))
+      IfGranted(perm, me)(f(Holder(me)))
     }
 
   /* Authenticated and OAuth requests requiring certain permissions, with a body */
@@ -346,7 +346,7 @@ abstract private[controllers] class LilaController(val env: Env)
     OptionFuResult(fua): a =>
       fuccess(op(a))
 
-  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using WebContext): Fu[Result] =
+  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using AnyContext): Fu[Result] =
     fua flatMap { _.fold(notFound)(op) }
 
   def pageHit(using req: RequestHeader): Unit =
