@@ -17,10 +17,10 @@ trait RequestContext(using Executor):
   val env: Env
 
   def minimalContext(req: RequestHeader): MinimalContext =
-    MinimalContext(req, I18nLangPicker(req), UserContext.anon)
+    MinimalContext(req, UserContext.anon)
 
   def minimalBodyContext[A](req: Request[A]): MinimalBodyContext[A] =
-    MinimalBodyContext(req, I18nLangPicker(req), UserContext.anon)
+    MinimalBodyContext(req, UserContext.anon)
 
   def webContext(req: RequestHeader): Fu[WebContext] =
     restoreUser(req).flatMap: (d, impersonatedBy) =>
@@ -46,7 +46,7 @@ trait RequestContext(using Executor):
     val userCtx = UserContext(scoped.user.some, none)
     OAuthBodyContext(req, lang, userCtx, scoped.scopes)
 
-  def getAndSaveLang(req: RequestHeader, user: Option[User]): Lang =
+  private def getAndSaveLang(req: RequestHeader, user: Option[User]): Lang =
     val lang = I18nLangPicker(req, user.flatMap(_.lang))
     user.filter(_.lang.fold(true)(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
     lang

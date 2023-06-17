@@ -14,14 +14,14 @@ object I18nLangPicker:
       .getOrElse(defaultLang)
 
   def bestFromRequestHeaders(req: RequestHeader): Option[Lang] =
-    req.acceptLanguages.foldLeft(none[Lang]) {
+    req.acceptLanguages.foldLeft(none[Lang]):
       case (None, lang) => findCloser(lang)
       case (found, _)   => found
-    }
 
-  def allFromRequestHeaders(req: RequestHeader): List[Lang] =
-    (req.acceptLanguages.flatMap(findCloser) ++
-      req.acceptLanguages.flatMap(lang => ~byCountry.get(lang.country))).distinct.toList
+  def allFromRequestHeaders(req: RequestHeader): List[Lang] = {
+    req.acceptLanguages.flatMap(findCloser) ++
+      req.acceptLanguages.flatMap(lang => ~byCountry.get(lang.country))
+  }.distinct.toList
 
   def byStr(str: String): Option[Lang] =
     Lang get str flatMap findCloser
@@ -34,15 +34,16 @@ object I18nLangPicker:
     langs.sortBy { mine.getOrElse(_, Int.MaxValue) }
 
   private val defaultByLanguage: Map[String, Lang] =
-    LangList.all.keys.foldLeft(Map.empty[String, Lang]) { case (acc, lang) =>
-      acc + (lang.language -> lang)
-    } ++ LangList.defaultRegions
+    LangList.all.keys
+      .foldLeft(Map.empty[String, Lang]): (acc, lang) =>
+        acc + (lang.language -> lang)
+      .++(LangList.defaultRegions)
 
   private val byCountry: Map[String, List[Lang]] =
     LangList.all.keys.toList.groupBy(_.country)
 
   def findCloser(to: Lang): Option[Lang] =
-    if (LangList.all.keySet contains to) Some(to)
+    if LangList.all.keySet contains to then Some(to)
     else
       defaultByLanguage.get(to.language) orElse
         lichessCodes.get(to.language)
@@ -50,8 +51,8 @@ object I18nLangPicker:
   def byHref(code: String, req: RequestHeader): ByHref =
     Lang get code flatMap findCloser match
       case Some(lang) if fixJavaLanguageCode(lang) == code =>
-        if (req.acceptLanguages.isEmpty || req.acceptLanguages.exists(_.language == lang.language))
-          ByHref.Found(lang)
+        if req.acceptLanguages.isEmpty || req.acceptLanguages.exists(_.language == lang.language)
+        then ByHref.Found(lang)
         else ByHref.Refused(lang)
       case Some(lang) => ByHref.Redir(fixJavaLanguageCode(lang))
       case None       => ByHref.NotFound

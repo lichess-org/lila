@@ -48,8 +48,8 @@ object PageData:
 
 trait AnyContext:
   val req: RequestHeader
-  val lang: Lang
   val userContext: UserContext
+  def lang: Lang
   export userContext.{ me, impersonatedBy, userId, is, kid, noKid, troll }
   export me.{ isDefined as isAuth, isEmpty as isAnon }
   def isBot               = me.exists(_.isBot)
@@ -136,15 +136,13 @@ final class OAuthBodyContext[A](
 /* Cannot render a lichess page. Cannot be authenticated. */
 class MinimalContext(
     val req: RequestHeader,
-    val lang: Lang,
     val userContext: UserContext
 ) extends AnyContext:
+  lazy val lang = lila.i18n.I18nLangPicker(req)
   def isWebAuth = false
 
 final class MinimalBodyContext[A](
     val body: Request[A],
-    val lang: Lang,
-    val userContext: UserContext
-) extends BodyContext[A]:
-  val req       = body
-  def isWebAuth = false
+    userContext: UserContext
+) extends MinimalContext(body, userContext)
+    with BodyContext[A]
