@@ -1,21 +1,23 @@
 package lila.user
 
-final class UserContext(val me: Option[User], val impersonatedBy: Option[User]):
+final class UserContext(val me: Option[Me], val impersonatedBy: Option[User]):
 
   export me.{ isDefined as isAuth, isEmpty as isAnon }
 
   def is[U: UserIdOf](u: U): Boolean = me.exists(_ is u)
 
-  def userId = me.map(_.id)
+  inline def user: Option[User] = Me raw me
 
-  def username = me.map(_.username)
+  def userId: Option[UserId] = user.map(_.id)
 
-  def usernameOrAnon = username | "Anonymous"
+  def username: Option[UserName] = user.map(_.username)
 
-  def troll = me.exists(_.marks.troll)
+  def usernameOrAnon: String = username.fold("Anonymous")(_.value)
 
-  def kid   = me.exists(_.kid)
-  def noKid = !kid
+  def troll: Boolean = user.exists(_.marks.troll)
+
+  def kid: Boolean   = user.exists(_.kid)
+  def noKid: Boolean = !kid
 
 object UserContext:
   val anon = new UserContext(none, none)

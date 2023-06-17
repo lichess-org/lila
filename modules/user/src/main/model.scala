@@ -10,5 +10,11 @@ final class RankingsOf(f: UserId => lila.rating.UserRankMap) extends (UserId => 
 case class Holder(user: User) extends AnyVal:
   def id = user.id
 
+opaque type Me = User
+object Me extends TotalWrapper[Me, User]:
+  given UserIdOf[Me]                = _.id
+  given Conversion[Me, User]        = identity
+  extension (e: Me) inline def user = e
+
 opaque type UserEnabled = Boolean
 object UserEnabled extends YesNo[UserEnabled]

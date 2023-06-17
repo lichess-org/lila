@@ -111,11 +111,10 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     .flatMap:
       _.fold(a)(playbanJsonError)
 
-  import env.security.csrfRequestHandler.check as csrfCheck
-  val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
+  private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 
   def CSRF(f: => Fu[Result])(using req: RequestHeader): Fu[Result] =
-    if csrfCheck(req) then f else csrfForbiddenResult
+    if env.security.csrfRequestHandler.check(req) then f else csrfForbiddenResult
 
   def XhrOnly(res: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then res else notFound
