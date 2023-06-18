@@ -68,12 +68,12 @@ final private class ForumTopicApi(
         categId = categ.slug,
         slug = slug,
         name = noShouting(data.name),
-        userId = me.userId,
+        userId = me,
         troll = me.marks.troll
       )
       val post = ForumPost.make(
         topicId = topic.id,
-        userId = me.userId.some,
+        userId = me.some,
         troll = me.marks.troll,
         text = spam.replace(data.post.text),
         lang = lang map (_.language),
@@ -91,12 +91,12 @@ final private class ForumTopicApi(
               promotion.save(post.text)
               shutup ! {
                 val text = s"${topic.name} ${post.text}"
-                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.userId, text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.userId, text)
+                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, text)
               }
               if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.userId, topic.id, topic.name, post.id))
-                  .toFollowersOf(me.userId)
+                timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toFollowersOf(me)
                   .withTeam(categ.team)
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
@@ -172,34 +172,33 @@ final private class ForumTopicApi(
   def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.close(topic.id, topic.open) >> {
       (MasterGranter(_.ModerateForum) || topic.isAuthor(me.user)) so {
-        modLog.toggleCloseTopic(me.user.id into ModId, categ.id, topic.slug, topic.open)
+        modLog.toggleCloseTopic(categ.id, topic.slug, topic.open)
       }
     }
 
   def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.sticky(topic.id, !topic.isSticky) >> {
       MasterGranter(_.ModerateForum) so
-        modLog.toggleStickyTopic(me.user.id into ModId, categ.id, topic.slug, !topic.isSticky)
+        modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky)
     }
 
-  def denormalize(topic: ForumTopic): Funit =
-    for
-      nbPosts       <- postRepo countByTopic topic
-      lastPost      <- postRepo lastByTopic topic
-      nbPostsTroll  <- postRepo.unsafe countByTopic topic
-      lastPostTroll <- postRepo.unsafe lastByTopic topic
-      _ <-
-        topicRepo.coll.update
-          .one(
-            $id(topic.id),
-            topic.copy(
-              nbPosts = nbPosts,
-              lastPostId = lastPost.fold(topic.lastPostId)(_.id),
-              updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
-              nbPostsTroll = nbPostsTroll,
-              lastPostIdTroll = lastPostTroll.fold(topic.lastPostIdTroll)(_.id),
-              updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
-            )
+  def denormalize(topic: ForumTopic): Funit = for
+    nbPosts       <- postRepo countByTopic topic
+    lastPost      <- postRepo lastByTopic topic
+    nbPostsTroll  <- postRepo.unsafe countByTopic topic
+    lastPostTroll <- postRepo.unsafe lastByTopic topic
+    _ <-
+      topicRepo.coll.update
+        .one(
+          $id(topic.id),
+          topic.copy(
+            nbPosts = nbPosts,
+            lastPostId = lastPost.fold(topic.lastPostId)(_.id),
+            updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
+            nbPostsTroll = nbPostsTroll,
+            lastPostIdTroll = lastPostTroll.fold(topic.lastPostIdTroll)(_.id),
+            updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
           )
-          .void
-    yield ()
+        )
+        .void
+  yield ()

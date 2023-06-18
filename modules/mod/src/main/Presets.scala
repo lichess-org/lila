@@ -22,7 +22,7 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
   def getPmPresets(using Me): ModPresets =
     ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_))))
 
-  def getPmPresets(using mod: Option[Me]): ModPresets =
+  def getPmPresetsOpt(using mod: Option[Me]): ModPresets =
     mod.map(getPmPresets(using _)).getOrElse(ModPresets(Nil))
 
   private lazy val pmPresets = settingStore[ModPresets](

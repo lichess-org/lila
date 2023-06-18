@@ -18,12 +18,10 @@ final class Learn(env: Env) extends LilaController(env):
   private def serveIndex(using ctx: WebContext) = NoBot:
     pageHit
     ctx.me
-      .so { me ?=>
+      .so: me =>
         env.learn.api.get(me) map { Json.toJson(_) } map some
-      }
-      .map { progress =>
+      .map: progress =>
         Ok(html.learn.index(progress))
-      }
 
   private val scoreForm = Form:
     mapping(
@@ -40,7 +38,7 @@ final class Learn(env: Env) extends LilaController(env):
         (stage, level, s) =>
           val score = lila.learn.StageProgress.Score(s)
           env.learn.api.setScore(me, stage, level, score) >>
-            env.activity.write.learn(me.id, stage) inject Ok(Json.obj("ok" -> true))
+            env.activity.write.learn(me, stage) inject Ok(Json.obj("ok" -> true))
       )
   }
 

@@ -50,28 +50,27 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   private def FollowingUser(me: UserModel, str: UserStr)(f: LightUser => Fu[Result]): Fu[Result] =
     env.user.lightUserApi.async(str.id) flatMapz { user =>
-      FollowLimitPerUser(me.id, rateLimitedFu):
+      FollowLimitPerUser(me, rateLimitedFu):
         f(user)
     }
 
   def follow(username: UserStr) = Auth { ctx ?=> me ?=>
-    FollowingUser(me, username) { user =>
-      api.reachedMaxFollowing(me.id) flatMap {
+    FollowingUser(me, username): user =>
+      api.reachedMaxFollowing(me) flatMap {
         if _ then
           env.msg.api
             .postPreset(
-              me.id,
+              me,
               lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
             ) inject Ok
         else api.follow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
       }
-    }
   }
 
   def apiFollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me ?=>
-    FollowLimitPerUser(me.id, fuccess(ApiResult.Limited)):
+    FollowLimitPerUser(me, fuccess(ApiResult.Limited)):
       api
-        .reachedMaxFollowing(me.id)
+        .reachedMaxFollowing(me)
         .flatMap:
           if _ then
             fuccess:
@@ -93,15 +92,13 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def block(username: UserStr) = Auth { ctx ?=> me ?=>
-    FollowingUser(me, username) { user =>
-      api.block(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
-    }
+    FollowingUser(me, username): user =>
+      api.block(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
   }
 
   def unblock(username: UserStr) = Auth { ctx ?=> me ?=>
-    FollowingUser(me, username) { user =>
-      api.unblock(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
-    }
+    FollowingUser(me, username): user =>
+      api.unblock(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
   }
 
   def following(username: UserStr, page: Int) = Open:

@@ -8,12 +8,11 @@ final private class ModNotifier(
     reportApi: lila.report.ReportApi
 )(using Executor):
 
-  def reporters(mod: Mod, sus: Suspect): Funit =
+  def reporters(mod: ModId, sus: Suspect): Funit =
     reportApi.recentReportersOf(sus) flatMap {
-      _.filterNot(mod.user is _)
-        .map { reporterId =>
+      _.filterNot(_ is mod)
+        .map: reporterId =>
           notifyApi.notifyOne(reporterId, lila.notify.ReportedBanned)
-        }
         .parallel
         .void
     }

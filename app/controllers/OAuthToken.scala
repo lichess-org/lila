@@ -29,7 +29,7 @@ final class OAuthToken(env: Env) extends LilaController(env):
       .fold(
         err => BadRequest(html.oAuth.token.create(err, me)).toFuccess,
         setup =>
-          tokenApi.create(setup, me, env.clas.studentCache.isStudent(me.id)) inject
+          tokenApi.create(setup, me, env.clas.studentCache.isStudent(me)) inject
             Redirect(routes.OAuthToken.index).flashSuccess
       )
   }

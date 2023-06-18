@@ -265,7 +265,7 @@ final class ClasApi(
         .findAndUpdateSimplified[Student](
           selector = $id(sId),
           update =
-            if v then $set("archived" -> Clas.Recorded(me.userId, nowInstant))
+            if v then $set("archived" -> Clas.Recorded(me, nowInstant))
             else $unset("archived"),
           fetchNewObject = true
         )

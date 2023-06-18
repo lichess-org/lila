@@ -104,6 +104,7 @@ final class ReportApi(
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
       (candidate.isComm && candidate.suspect.user.marks.troll)
 
+  def getMyMod(using me: Me.Id): Fu[Option[Mod]]         = userRepo byId me dmap2 Mod.apply
   def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userRepo byId u dmap2 Mod.apply
   def getSuspect[U: UserIdOf](u: U): Fu[Option[Suspect]] = userRepo byId u dmap2 Suspect.apply
 
@@ -212,15 +213,14 @@ final class ReportApi(
     }
 
   def processAndGetBySuspect(suspect: Suspect): Fu[List[Report]] =
-    for {
+    for
       all <- recent(suspect, 10)
       open = all.filter(_.open)
       _ <- doProcessReport(
         $inIds(all.filter(_.open).map(_.id)),
-        User.lichessId into ModId,
         unsetInquiry = false
-      )
-    } yield open
+      )(using User.lichessIdAsMe)
+    yield open
 
   def reopenReports(suspect: Suspect): Funit =
     for {
@@ -275,30 +275,30 @@ final class ReportApi(
 
   def byId(id: Report.Id) = coll.byId[Report](id)
 
-  def process(mod: Mod, report: Report): Funit =
+  def process(report: Report)(using Me): Funit =
     accuracy.invalidate($id(report.id)) >>
-      doProcessReport($id(report.id), mod.id, unsetInquiry = true).void >>-
+      doProcessReport($id(report.id), unsetInquiry = true).void >>-
       maxScoreCache.invalidateUnit() >>-
       lila.mon.mod.report.close.increment().unit
 
-  def autoProcess(mod: ModId, sus: Suspect, rooms: Set[Room]): Funit = {
+  def autoProcess(sus: Suspect, rooms: Set[Room])(using Me.Id): Funit = {
     val selector = $doc(
       "user" -> sus.user.id,
       "room" $in rooms,
       "open" -> true
     )
-    doProcessReport(selector, mod, unsetInquiry = true).void >>-
+    doProcessReport(selector, unsetInquiry = true).void >>-
       maxScoreCache.invalidateUnit() >>-
       lila.mon.mod.report.close.increment().unit
   }
 
-  private def doProcessReport(selector: Bdoc, by: ModId, unsetInquiry: Boolean): Funit =
+  private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: Me.Id): Funit =
     coll.update
       .one(
         selector,
         $set(
           "open" -> false,
-          "done" -> Report.Done(by, nowInstant)
+          "done" -> Report.Done(me.modId, nowInstant)
         ) ++ (unsetInquiry so $unset("inquiry")),
         multi = true
       )

@@ -70,7 +70,7 @@ final class Pref(env: Env) extends LilaController(env):
     if name == "zoom"
     then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString))
     else if name == "agreement" then
-      ctx.me so api.agree inject {
+      ctx.me.so(api.agree(_)) inject {
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
       }
     else

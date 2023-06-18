@@ -79,7 +79,7 @@ object EventForm:
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown,
         updatedAt = nowInstant.some,
-        updatedBy = me.userId.some
+        updatedBy = me.some
       )
 
     def make(using me: Me.Id) =

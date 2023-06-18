@@ -69,7 +69,7 @@ final class TeamApi(
         } inject team
     }
 
-  def update(team: Team, edit: TeamEdit, me: User): Funit =
+  def update(team: Team, edit: TeamEdit)(using me: Me): Funit =
     team
       .copy(
         password = edit.password,
@@ -83,22 +83,22 @@ final class TeamApi(
       )
       .pipe: team =>
         teamRepo.coll.update.one($id(team.id), team).void >>
-          (!team.leaders(me.id)).so {
-            modLog.teamEdit(me.id into ModId, team.createdBy, team.name)
+          (!team.leaders(me)).so {
+            modLog.teamEdit(team.createdBy, team.name)
           } >>- {
             cached.forumAccess.invalidate(team.id)
             indexer ! InsertTeam(team)
           }
 
   def mine(me: Me): Fu[List[Team]] =
-    cached teamIdsList me.userId flatMap teamRepo.byIdsSortPopular
+    cached teamIdsList me flatMap teamRepo.byIdsSortPopular
 
   def isSubscribed = memberRepo.isSubscribed
 
   def subscribe = memberRepo.subscribe
 
   def countTeamsOf(me: Me) =
-    cached teamIdsList me.userId dmap (_.size)
+    cached teamIdsList me dmap (_.size)
 
   def hasJoinedTooManyTeams(me: Me) =
     countTeamsOf(me).dmap(_ > Team.maxJoin(me))
@@ -261,17 +261,17 @@ final class TeamApi(
           )
     }
 
-  def kick(team: Team, userId: UserId, me: User): Funit =
+  def kick(team: Team, userId: UserId)(using me: Me): Funit =
     (userId != team.createdBy) so {
       quit(team, userId) >>
-        (!team.leaders(me.id)).so {
-          modLog.teamKick(me.id into ModId, userId, team.name)
+        (!team.leaders(me)).so {
+          modLog.teamKick(userId, team.name)
         } >>-
         Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
     }
 
-  def kickMembers(team: Team, json: String, me: User) =
-    parseTagifyInput(json).map(kick(team, _, me))
+  def kickMembers(team: Team, json: String)(using me: Me) =
+    parseTagifyInput(json).map(kick(team, _))
 
   private case class TagifyUser(value: String)
   private given Reads[TagifyUser] = Json.reads
@@ -317,9 +317,9 @@ final class TeamApi(
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     if (
       Granter(_.ManageTeam) || me.is(team.createdBy) ||
-      (team.leaders(me.userId) && !team.leaders(team.createdBy))
+      (team.leaders(me) && !team.leaders(team.createdBy))
     )
-      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me.userId}: $explain")
+      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me}: $explain")
       if (team.enabled)
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
@@ -327,7 +327,7 @@ final class TeamApi(
           (indexer ! RemoveTeam(team.id))
       else
         teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
-    else teamRepo.setLeaders(team.id, team.leaders - me.userId)
+    else teamRepo.setLeaders(team.id, team.leaders - me)
 
   // delete for ever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit =

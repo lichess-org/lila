@@ -68,7 +68,7 @@ final class IrwinApi(
     private def markOrReport(report: IrwinReport): Funit =
       userRepo.getTitle(report.suspectId.value) flatMap { title =>
         if (report.activation >= thresholds.get().mark && title.isEmpty)
-          modApi.autoMark(report.suspectId, User.irwinId into ModId, report.note) >>-
+          modApi.autoMark(report.suspectId, report.note)(using User.irwinId.into(Me.Id)) >>-
             lila.mon.mod.irwin.mark.increment().unit
         else if (report.activation >= thresholds.get().report) for {
           suspect <- getSuspect(report.suspectId.value)

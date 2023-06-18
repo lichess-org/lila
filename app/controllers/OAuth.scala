@@ -130,7 +130,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def challengeTokens = ScopedBody(_.Web.Mod) { ctx ?=> me ?=>
-    if isGranted(_.ApiChallengeAdmin, me) then
+    if isGranted(_.ApiChallengeAdmin) then
       lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()
         .fold(

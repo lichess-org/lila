@@ -58,7 +58,8 @@ final class ForumPostApi(
                 then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, post.text)
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, post.text)
               }
-              if (anonMod) logAnonPost(post, edit = false)
+              if anonMod
+              then logAnonPost(post, edit = false)
               else if !post.troll && !categ.quiet then
                 timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
                   _ toFollowersOf me toUsers topicUserIds exceptUser me withTeam categ.team

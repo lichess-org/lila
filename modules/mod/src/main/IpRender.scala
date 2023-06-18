@@ -22,9 +22,9 @@ final class IpRender:
 
   def apply(using Me): RenderIp = if Granter(_.Admin) then visible else encrypted
 
-  val visible = (ip: IpAddress) => ip.value
+  private val visible = (ip: IpAddress) => ip.value
 
-  val encrypted = (ip: IpAddress) => cache get ip
+  private val encrypted = (ip: IpAddress) => cache get ip
 
   def decrypt(str: String): Option[IpAddress] = IpAddress.from(str) orElse
     cache.underlying.asMap.asScala.collectFirst:

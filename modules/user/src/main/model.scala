@@ -12,10 +12,11 @@ final class RankingsOf(f: UserId => lila.rating.UserRankMap) extends (UserId => 
 opaque type Me = User
 object Me extends TotalWrapper[Me, User]:
   export lila.user.MeId as Id
-  given UserIdOf[Me]                       = _.id
-  given meToUser: Conversion[Me, User]     = identity
-  given meToUserId: Conversion[Me, UserId] = _.id
-  given [M[_]]: Conversion[M[Me], M[User]] = Me.raw(_)
+  given UserIdOf[Me]                           = _.id
+  given Conversion[Me, User]                   = identity
+  given Conversion[Me, UserId]                 = _.id
+  given Conversion[Option[Me], Option[UserId]] = _.map(_.id)
+  given [M[_]]: Conversion[M[Me], M[User]]     = Me.raw(_)
   extension (me: Me)
     inline def userId: UserId = me.id
     inline def user: User     = me
@@ -25,10 +26,11 @@ object Me extends TotalWrapper[Me, User]:
 
 opaque type MeId = String
 object MeId extends TotalWrapper[MeId, String]:
-  given UserIdOf[MeId]           = u => u
-  given Conversion[MeId, UserId] = identity
-  given Conversion[Me, MeId]     = _.id into MeId
-  given (using me: Me): MeId     = Me.meId(me)
+  given UserIdOf[MeId]                         = u => u
+  given Conversion[MeId, UserId]               = identity
+  given [M[_]]: Conversion[M[MeId], M[UserId]] = MeId.raw(_)
+  given Conversion[Me, MeId]                   = _.id into MeId
+  given (using me: Me): MeId                   = Me.meId(me)
   extension (me: Me.Id)
     inline def modId: ModId   = me into ModId
     inline def userId: UserId = me into UserId

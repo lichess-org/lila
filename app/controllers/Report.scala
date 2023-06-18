@@ -71,9 +71,7 @@ final class Report(
     else if (inquiry.isComm) Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
-  protected[controllers] def onModAction(
-      me: Me
-  )(goTo: Suspect)(using ctx: WebBodyContext[?]): Fu[Result] =
+  protected[controllers] def onModAction(goTo: Suspect)(using ctx: WebBodyContext[?], me: Me): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then userC.renderModZoneActions(goTo.user.username)
     else
       api.inquiries

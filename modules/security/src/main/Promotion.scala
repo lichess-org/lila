@@ -11,7 +11,7 @@ final class PromotionApi(domain: NetDomain):
       val promotions = extract(text)
       promotions.isEmpty || {
         val prevTextPromotion = prevText so extract
-        val prev              = ~cache.getIfPresent(me.userId) -- prevTextPromotion
+        val prev              = ~cache.getIfPresent(me) -- prevTextPromotion
         val accept            = prev.sizeIs < 3 && !prev.exists(promotions.contains)
         if (!accept) logger.info(s"Promotion @${me.username} ${identify(text) mkString ", "}")
         accept
@@ -21,7 +21,7 @@ final class PromotionApi(domain: NetDomain):
   def save(text: String)(using me: Me): Unit =
     val promotions = extract(text)
     if promotions.nonEmpty
-    then cache.put(me.userId, ~cache.getIfPresent(me.userId) ++ promotions)
+    then cache.put(me, ~cache.getIfPresent(me) ++ promotions)
 
   private type Id = String
 

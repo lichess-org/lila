@@ -55,7 +55,7 @@ object RelayTourForm:
         name = name,
         description = description,
         markup = markup,
-        ownerId = me.userId,
+        ownerId = me,
         tier = tier ifTrue Granter(_.Relay),
         active = false,
         createdAt = nowInstant,

@@ -16,7 +16,7 @@ import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
 import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer, EndpointScopes, TokenScopes }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
-import lila.user.{ Me, Me, UserContext }
+import lila.user.Me
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -271,7 +271,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and OAuth requests requiring certain permissions */
   def SecuredScoped(perms: Permission.Selector)(
-      f: OAuthContext ?=> Me => Fu[Result]
+      f: OAuthContext ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     Scoped() { _ ?=> _ ?=>
       IfGranted(perms)(f)
@@ -279,7 +279,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* OAuth requests requiring certain permissions, with a body */
   def SecuredScopedBody(perm: Permission.Selector)(
-      f: OAuthBodyContext[?] ?=> Me => Fu[Result]
+      f: OAuthBodyContext[?] ?=> Me ?=> Fu[Result]
   ) =
     ScopedBody() { _ ?=> _ ?=>
       IfGranted(perm)(f)
@@ -287,32 +287,32 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and OAuth requests requiring certain permissions */
   def SecureOrScoped(perm: Permission.Selector)(
-      f: AnyContext ?=> Me => Fu[Result]
+      f: AnyContext ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
       then
         handleScoped(Seq.empty) { _ ?=> me ?=>
-          IfGranted(perm, me)(f(Me(me)))
+          IfGranted(perm, me)(f)
         }
       else
-        handleAuth { _ ?=> me ?=>
-          withSecure(me, perm)(f)
+        handleAuth { _ ?=> _ ?=>
+          withSecure(perm)(f)
         }
 
   /* Authenticated and OAuth requests requiring certain permissions, with a body */
   def SecureOrScopedBody(perm: Permission.Selector)(
-      f: BodyContext[?] ?=> Me => Fu[Result]
+      f: BodyContext[?] ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.anyContent): req ?=>
       if HTTPRequest.isOAuth(req)
       then
         handleScopedBody(Seq.empty) { _ ?=> me ?=>
-          IfGranted(perm, me)(f(Me(me)))
+          IfGranted(perm, me)(f)
         }
       else
-        handleAuthBody { _ ?=> me ?=>
-          withSecure(me, perm)(f)
+        handleAuthBody { _ ?=> _ ?=>
+          withSecure(perm)(f)
         }
 
   def FormFuResult[A, B: Writeable](

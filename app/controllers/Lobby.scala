@@ -47,14 +47,14 @@ final class Lobby(env: Env) extends LilaController(env):
     negotiate(
       html = NotFound,
       api = _ =>
-        ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
+        ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser(_)) map { seeks =>
           Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
         }
     )
 
   def timeline = Auth { _ ?=> me ?=>
     env.timeline.entryApi
-      .userEntries(me.id)
+      .userEntries(me)
       .map: entries =>
         Ok(html.timeline.entries(entries)).withHeaders(CACHE_CONTROL -> s"max-age=20")
   }

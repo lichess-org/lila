@@ -31,23 +31,23 @@ object Granter:
   def byRoles(f: Permission.Selector)(roles: Seq[String]): Boolean =
     apply(f(Permission), roles)
 
-  def canGrant(user: Me, permission: Permission): Boolean =
-    is(_.SuperAdmin)(user) || {
-      is(_.ChangePermission)(user) && Permission.nonModPermissions(permission)
+  def canGrant(permission: Permission)(using Me): Boolean =
+    apply(_.SuperAdmin) || {
+      apply(_.ChangePermission) && Permission.nonModPermissions(permission)
     } || {
-      is(_.Admin)(user) && {
-        is(permission)(user) || Set[Permission](
+      apply(_.Admin) && {
+        apply(permission) || Set[Permission](
           Permission.MonitoredMod,
           Permission.PublicMod
         )(permission)
       }
     }
 
-  def canViewAltUsername(mod: Me, user: User): Boolean =
-    is(_.Admin)(mod) || {
-      (is(_.CheatHunter)(mod) && user.marks.engine) ||
-      (is(_.BoostHunter)(mod) && user.marks.boost) ||
-      (is(_.Shusher)(mod) && user.marks.troll)
+  def canViewAltUsername(user: User)(using Me): Boolean =
+    apply(_.Admin) || {
+      (apply(_.CheatHunter) && user.marks.engine) ||
+      (apply(_.BoostHunter) && user.marks.boost) ||
+      (apply(_.Shusher) && user.marks.troll)
     }
 
-  def canCloseAlt(using me: Me) = apply(_.CloseAccount) && apply(_.ViewPrintNoIP)
+  def canCloseAlt(using Me) = apply(_.CloseAccount) && apply(_.ViewPrintNoIP)

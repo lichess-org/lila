@@ -167,7 +167,7 @@ final class Main(
     ctx.body.body.file("image") match
       case Some(image) =>
         env.memo.picfitApi.bodyImage
-          .upload(rel = rel, image = image, me = me.id, ip = ctx.ip)
+          .upload(rel = rel, image = image, me = me, ip = ctx.ip)
           .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }

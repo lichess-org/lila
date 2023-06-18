@@ -29,12 +29,12 @@ final class Plan(env: Env) extends LilaController(env):
 
   def index = Open:
     pageHit
-    ctx.me.fold(indexAnon): me ?=>
+    ctx.me.fold(indexAnon): me =>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me) flatMap {
         case ReloadUser => Redirect(routes.Plan.index)
         case Synced(Some(patron), None, None) =>
-          env.user.repo email me.id flatMap { email =>
+          env.user.repo email me flatMap { email =>
             renderIndex(email, patron.some)
           }
         case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(me, patron, stripeCus)
@@ -43,7 +43,7 @@ final class Plan(env: Env) extends LilaController(env):
       }
 
   def list = Open:
-    ctx.me.fold(Redirect(routes.Plan.index).toFuccess): me ?=>
+    ctx.me.fold(Redirect(routes.Plan.index).toFuccess): me =>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me) flatMap {
         case ReloadUser            => Redirect(routes.Plan.list)
@@ -131,9 +131,9 @@ final class Plan(env: Env) extends LilaController(env):
     // wait for the payment data from stripe or paypal
     lila.common.LilaFuture.delay(2.seconds):
       for
-        patron   <- ctx.me so env.plan.api.userPatron
+        patron   <- ctx.me so { env.plan.api.userPatron(_) }
         customer <- patron so env.plan.api.stripe.patronCustomer
-        gift     <- ctx.me so env.plan.api.recentGiftFrom
+        gift     <- ctx.me so { env.plan.api.recentGiftFrom(_) }
       yield Ok(html.plan.thanks(patron, customer, gift))
 
   def webhook = AnonBodyOf(parse.json): body =>

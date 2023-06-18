@@ -90,7 +90,7 @@ final private[api] class RoundApi(
         ) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.me.ifTrue(ctx.isMobileApi) so (me => noteApi.get(pov.gameId, me.userId))) zip
+          (ctx.me.ifTrue(ctx.isMobileApi) so (me => noteApi.get(pov.gameId, me))) zip
           bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
             (
               withTournament(pov, tour) compose

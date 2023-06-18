@@ -24,16 +24,16 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { ctx ?=> me ?=>
     if cmd == "account/upgrade" then
       env.user.repo
-        .isManaged(me.id)
+        .isManaged(me)
         .flatMap:
           if _ then notFoundJson()
           else
             env.tournament.api.withdrawAll(me) >>
-              env.team.cached.teamIdsList(me.id).flatMap { env.swiss.api.withdrawAll(me, _) } >>
+              env.team.cached.teamIdsList(me).flatMap { env.swiss.api.withdrawAll(me, _) } >>
               env.user.repo.setBot(me) >>
               env.pref.api.setBot(me) >>
               env.streamer.api.delete(me) >>-
-              env.user.lightUserApi.invalidate(me.id) pipe
+              env.user.lightUserApi.invalidate(me) pipe
               toResult recover { case lila.base.LilaInvalid(msg) =>
                 BadRequest(jsonError(msg))
               }

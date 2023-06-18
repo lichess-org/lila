@@ -18,14 +18,14 @@ object ApiConfig:
       blindCookieSalt: Secret
   ):
     val blindCookieMaxAge = 365 days
-    def hash(using ctx: lila.user.UserContext) =
+    def hash(using me: Option[lila.user.Me]) =
       import com.roundeights.hasher.Implicits.*
-      ctx.userId.fold("anon")(_.value).salt(blindCookieSalt.value).md5.hex
+      me.fold("anon")(_.userId.value).salt(blindCookieSalt.value).md5.hex
 
   final class PagerDuty(val serviceId: String, val apiKey: Secret)
 
   def loadFrom(c: play.api.Configuration) =
-    new ApiConfig(
+    ApiConfig(
       c.get[Secret]("api.token"),
       c.get[String]("api.influx_event.endpoint"),
       c.get[String]("api.influx_event.env"),
