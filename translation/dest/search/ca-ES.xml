@@ -26,8 +26,8 @@
   <string name="onlyAnalysed">Només partides on hi ha disponible l\'anàlisi computeritzat</string>
   <string name="color">Color</string>
   <string name="evaluation">Avaluació</string>
-  <string name="maxNumber">Número màxim</string>
-  <string name="maxNumberExplanation">Número màxim de partides per mostrar als resultats</string>
+  <string name="maxNumber">Nombre màxim</string>
+  <string name="maxNumberExplanation">Nombre màxim de partides per mostrar als resultats</string>
   <string name="include">Incloure</string>
   <string name="descending">Descendent</string>
   <string name="ascending">Ascendent</string>
