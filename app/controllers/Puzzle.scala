@@ -120,7 +120,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def ofPlayer(name: Option[UserStr], page: Int) = Open:
     val userId = name flatMap lila.user.User.validateId
-    userId.so(env.user.repo.enabledById) orElse fuccess(ctx.me.user) flatMap { user =>
+    userId.so(env.user.repo.enabledById) orElse fuccess(ctx.me.map(_.user)) flatMap { user =>
       user.so { env.puzzle.api.puzzle.of(_, page) dmap some } map { puzzles =>
         Ok(views.html.puzzle.ofPlayer(name.so(_.value), user, puzzles))
       }
@@ -241,7 +241,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> me ?=>
     if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
       lila.mon.streak.run.score("mobile").record(score)
-      setStreakResult(me.id, score)
+      setStreakResult(me, score)
       NoContent
     else BadRequest
   }
@@ -291,7 +291,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def openings(order: String) = Open:
     env.puzzle.opening.collection flatMap { collection =>
       ctx.me
-        .so: me ?=>
+        .so: me =>
           env.insight.api.insightUser(me) map {
             _.some.filterNot(_.isEmpty) so { insightUser =>
               collection.makeMine(insightUser.families, insightUser.openings).some

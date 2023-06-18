@@ -8,7 +8,7 @@ import lila.app.{ given, * }
 
 // import lila.common.config.MaxPerSecond
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
-import lila.user.{ User as UserModel }
+import lila.user.Me
 import views.*
 import chess.format.pgn.PgnStr
 import scala.annotation.nowarn
@@ -59,7 +59,7 @@ final class RelayRound(
                   .fold(
                     err => BadRequest(apiFormError(err)),
                     setup =>
-                      rateLimitCreation(me, ctx.req, rateLimited):
+                      rateLimitCreation(ctx.req, rateLimited):
                         JsonOk:
                           env.relay.api.create(setup, me, tour) map { round =>
                             env.relay.jsonView.withUrl(round withTour tour)
@@ -78,27 +78,27 @@ final class RelayRound(
     AuthOrScopedBody(_.Study.Write)(
       auth = ctx ?=>
         me ?=>
-          doUpdate(id, me).flatMapz: res =>
+          doUpdate(id).flatMapz: res =>
             res.fold(
               (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
               rt => Redirect(rt.path)
             ),
       scoped = ctx ?=>
         me ?=>
-          doUpdate(id, me) map {
+          doUpdate(id).map:
             case None => NotFound(jsonError("No such broadcast"))
             case Some(res) =>
               res.fold(
                 (_, err) => BadRequest(apiFormError(err)),
                 rt => JsonOk(env.relay.jsonView.withUrl(rt))
               )
-          }
     )
 
-  private def doUpdate(id: RelayRoundId, me: UserModel)(using
-      req: Request[?]
+  private def doUpdate(id: RelayRoundId)(using
+      req: Request[?],
+      me: Me
   ): Fu[Option[Either[(RoundModel.WithTour, Form[RelayRoundForm.Data]), RoundModel.WithTour]]] =
-    env.relay.api.byIdAndContributor(id, me) flatMapz { rt =>
+    env.relay.api.byIdAndContributor(id) flatMapz { rt =>
       env.relay.roundForm
         .edit(rt.round)
         .bindFromRequest()
@@ -110,9 +110,8 @@ final class RelayRound(
     }
 
   def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
-    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-      env.relay.api.reset(rt.round, me) inject Redirect(rt.path)
-    }
+    OptionFuResult(env.relay.api.byIdAndContributor(id)): rt =>
+      env.relay.api.reset(rt.round) inject Redirect(rt.path)
   }
 
   def show(ts: String, rs: String, id: RelayRoundId) =
@@ -179,16 +178,15 @@ final class RelayRound(
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
   )(using ctx: WebContext): Fu[Result] =
-    WithTour(id) { tour =>
-      ctx.me.so { env.relay.api.canUpdate(_, tour) } flatMapz {
+    WithTour(id): tour =>
+      ctx.me.soUsing { env.relay.api.canUpdate(tour) } flatMapz {
         env.relay.api withRounds tour flatMap f
       }
-    }
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
       ctx: WebContext
   ): Fu[Result] =
-    studyC.CanView(oldSc.study, ctx.me) {
+    studyC.CanView(oldSc.study, ctx.me):
       for
         (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
@@ -203,8 +201,10 @@ final class RelayRound(
         streamers <- studyC.streamersOf(sc.study)
       yield Ok(
         html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers)
-      ).enableSharedArrayBuffer
-    }(studyC.privateUnauthorizedFu(oldSc.study), studyC.privateForbiddenFu(oldSc.study))
+      ).enableSharedArrayBuffer(
+        studyC.privateUnauthorizedFu(oldSc.study),
+        studyC.privateForbiddenFu(oldSc.study)
+      )
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 100 * 10,
@@ -218,15 +218,13 @@ final class RelayRound(
     key = "broadcast.round.ip"
   )
 
-  private[controllers] def rateLimitCreation(
-      me: UserModel,
-      req: RequestHeader,
-      fail: => Fu[Result]
-  )(create: => Fu[Result]): Fu[Result] =
+  private[controllers] def rateLimitCreation(fail: => Fu[Result])(
+      create: => Fu[Result]
+  )(using me: Me, req: RequestHeader): Fu[Result] =
     val cost =
-      if isGranted(_.Relay, me) then 2
+      if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me.id, fail, cost = cost):
+    CreateLimitPerUser(me, fail, cost = cost):
       CreateLimitPerIP(req.ipAddress, fail, cost = cost):
         create

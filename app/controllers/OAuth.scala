@@ -41,7 +41,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def authorize = Open:
     withPrompt: prompt =>
-      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri)))): me ?=>
+      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri)))): me =>
         Ok:
           html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
 

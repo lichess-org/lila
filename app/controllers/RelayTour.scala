@@ -75,7 +75,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                 setup =>
                   rateLimitCreation(me, ctx.req, rateLimited):
                     JsonOk:
-                      env.relay.api.tourCreate(setup, me) map { tour =>
+                      env.relay.api.tourCreate(setup) map { tour =>
                         env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
                       }
               )
