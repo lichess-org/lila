@@ -8,7 +8,7 @@ import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.relation.Relations
-import lila.user.Holder
+import lila.user.Me
 import lila.user.{ User, UserRepo }
 
 final class MsgApi(
@@ -190,20 +190,21 @@ final class MsgApi(
   def systemPost(destId: UserId, text: String) =
     post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
 
-  def multiPost(orig: Holder, destSource: Source[UserId, ?], text: String): Fu[Int] =
+  def multiPost(destSource: Source[UserId, ?], text: String)(using me: Me): Fu[Int] =
     val now = nowInstant // same timestamp on all
     destSource
-      .filter(orig.id !=)
-      .mapAsync(4) {
-        post(orig.id, _, text, multi = true, date = now).logFailure(logger).recoverDefault(PostResult.Invalid)
-      }
+      .filterNot(_ is me)
+      .mapAsync(4):
+        post(me.userId, _, text, multi = true, date = now)
+          .logFailure(logger)
+          .recoverDefault(PostResult.Invalid)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
-    userRepo byId orig flatMap {
-      case None         => fuccess(s"Unknown sender $orig")
-      case Some(sender) => multiPost(Holder(sender), Source(dests), text) inject "done"
+    userRepo me orig flatMap {
+      case None     => fuccess(s"Unknown sender $orig")
+      case Some(me) => multiPost(Source(dests), text)(using me) inject "done"
     }
 
   def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =

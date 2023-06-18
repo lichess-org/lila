@@ -161,10 +161,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 val url  = routes.Clas.show(clas.id.value).url
                 val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
                 env.msg.api
-                  .multiPost(me, Source(students.map(_.user.id)), full)
-                  .addEffect { nb =>
+                  .multiPost(Source(students.map(_.user.id)), full)
+                  .addEffect: nb =>
                     lila.mon.msg.clasBulk(clas.id.value).record(nb).unit
-                  }
                   .inject(redirectTo(clas).flashSuccess)
             }
         )
@@ -315,7 +314,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     NoTor:
       Firewall:
         SafeTeacher:
-          WithClassAndStudents(me, id): (clas, students) =>
+          WithClassAndStudents(id): (clas, students) =>
             env.clas.api.student.count(clas.id) flatMap { nbStudents =>
               env.clas.forms.student
                 .manyCreate(lila.clas.Clas.maxStudents - nbStudents)
@@ -359,7 +358,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             env.user.repo enabledById data.username flatMapz { user =>
               import lila.clas.ClasInvite.{ Feedback as F }
               import lila.i18n.{ I18nKeys as trans }
-              env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
+              env.clas.api.invite.create(clas, user, data.realName) map { feedback =>
                 Redirect(routes.Clas.studentForm(clas.id.value)).flashing:
                   feedback match
                     case F.Already => "success" -> trans.clas.xisNowAStudentOfTheClass.txt(user.username)
