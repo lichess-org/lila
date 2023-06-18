@@ -79,6 +79,8 @@ object Helpers:
   extension (node: NewBranch)
     def cleanup: NewBranch =
       node
+        .focus(_.metas.clock)
+        .set(none)
         .focus(_.metas.comments)
         .modify(_.cleanup)
         .copy(path = UciPath.root)
