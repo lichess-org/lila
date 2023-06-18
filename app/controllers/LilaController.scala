@@ -292,8 +292,8 @@ abstract private[controllers] class LilaController(val env: Env)
     action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
       then
-        handleScoped(Seq.empty) { _ ?=> me ?=>
-          IfGranted(perm, me)(f)
+        handleScoped(Seq.empty) { _ ?=> _ ?=>
+          IfGranted(perm)(f)
         }
       else
         handleAuth { _ ?=> _ ?=>
@@ -307,8 +307,8 @@ abstract private[controllers] class LilaController(val env: Env)
     action(parse.anyContent): req ?=>
       if HTTPRequest.isOAuth(req)
       then
-        handleScopedBody(Seq.empty) { _ ?=> me ?=>
-          IfGranted(perm, me)(f)
+        handleScopedBody(Seq.empty) { _ ?=> _ ?=>
+          IfGranted(perm)(f)
         }
       else
         handleAuthBody { _ ?=> _ ?=>

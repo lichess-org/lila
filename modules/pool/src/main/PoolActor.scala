@@ -34,7 +34,7 @@ final private class PoolActor(
 
   def receive =
 
-    case Join(joiner, _) if lastPairedUserIds(joiner.userId) =>
+    case Join(joiner, _) if lastPairedUserIds(joiner.me) =>
     // don't pair someone twice in a row, it's probably a client error
 
     case Join(joiner, rageSit) =>

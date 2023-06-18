@@ -23,16 +23,15 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     me.exists(Granter(permission)(using _))
 
   def NoCurrentGame(a: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
-    ctx.me.so(env.preloader.currentGameMyTurn) flatMap {
+    env.preloader.currentGameMyTurn.flatMap:
       _.fold(a): current =>
         negotiate(
           html = keyPages.home(Results.Forbidden),
           api = _ => currentGameJsonError(current)
         )
-    }
-  def NoCurrentGame(a: => Fu[Result])(using Executor)(using me: Option[Me]): Fu[Result] =
-    me
-      .so(env.preloader.currentGameMyTurn)
+  def NoCurrentGameOpt(me: Option[Me])(a: => Fu[Result])(using Executor): Fu[Result] =
+    env.preloader
+      .currentGameMyTurn(using me)
       .flatMap:
         _.fold(a)(currentGameJsonError)
 
@@ -44,18 +43,19 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def NoPlaybanOrCurrent(a: => Fu[Result])(using WebContext, Executor): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
-  def NoPlaybanOrCurrent(me: Option[User])(a: => Fu[Result])(using Executor): Fu[Result] =
-    NoPlayban(me.map(_.id))(NoCurrentGame(me)(a))
+
+  def NoPlaybanOrCurrentOpt(me: Option[Me])(a: => Fu[Result])(using Executor): Fu[Result] =
+    NoPlayban(me)(NoCurrentGameOpt(me)(a))
 
   def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using ctx: AnyContext): Fu[Result] =
-    if isGranted(perm) then f
+    if isGrantedOpt(perm) then f
     else
       ctx match
         case web: WebContext => authorizationFailed(using web)
         case _               => authorizationFailed(using ctx)
 
-  def IfGranted(perm: Permission.Selector, me: User)(f: => Fu[Result])(using ctx: AnyContext): Fu[Result] =
-    if isGranted(perm, me) then f else authorizationFailed(using ctx)
+  // def IfGranted(perm: Permission.Selector, me: User)(f: => Fu[Result])(using ctx: AnyContext): Fu[Result] =
+  //   if isGranted(perm, me) then f else authorizationFailed(using ctx)
 
   def Firewall[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if env.security.firewall.accepts(ctx.req) then a
@@ -86,10 +86,10 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
         case _               => Forbidden(jsonError("no bots allowed"))
     else a
 
-  def NoLameOrBot[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
+  def NoLameOrBotOpt[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
     NoLame(NoBot(a))
 
-  def NoLameOrBot[A <: Result](me: User)(a: => Fu[A]): Fu[Result] =
+  def NoLameOrBot[A <: Result](a: => Fu[A])(using me: Me): Fu[Result] =
     if me.isBot then notForBotAccounts
     else if me.lame then Forbidden
     else a
@@ -107,7 +107,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
             api = _ => playbanJsonError(ban)
           )
 
-  def NoPlayban(userId: Option[UserId])(a: => Fu[Result])(using Executor): Fu[Result] = userId
+  def NoPlayban(me: Option[Me.Id])(a: => Fu[Result])(using Executor): Fu[Result] = userId
     .so(env.playban.api.currentBan)
     .flatMap:
       _.fold(a)(playbanJsonError)
@@ -138,6 +138,6 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
 
   def NotManaged(result: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
-    ctx.me.so(env.clas.api.student.isManaged) flatMap {
+    ctx.me.so(env.clas.api.student.isManaged(_)) flatMap {
       if _ then notFound else result
     }

@@ -35,7 +35,7 @@ final class AccountClosure(
   )
 
   def close(u: User)(using me: Me): Funit = for
-    playbanned <- playbanApi.hasCurrentBan(u.id)
+    playbanned <- playbanApi.hasCurrentBan(u)
     selfClose = me is u
     modClose  = !selfClose && Granter(_.CloseAccount)
     badApple  = u.lameOrTrollOrAlt || modClose

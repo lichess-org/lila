@@ -14,7 +14,7 @@ import lila.common.Json.given
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme, PuzzleDifficulty }
-import lila.user.{ User as UserModel }
+import lila.user.{ Me, User }
 import lila.common.LangPath
 import play.api.i18n.Lang
 
@@ -26,18 +26,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       puzzle: Puz,
       angle: PuzzleAngle,
       replay: Option[lila.puzzle.PuzzleReplay] = None,
-      newUser: Option[UserModel] = None,
+      newMe: Option[Me] = None,
       apiVersion: Option[ApiVersion] = None
   )(using ctx: AnyContext): Fu[JsObject] =
-    if (apiVersion.exists(v => !ApiVersion.puzzleV2(v)))
-      env.puzzle.jsonView.bc(puzzle = puzzle, user = newUser orElse ctx.me)
-    else
-      env.puzzle.jsonView(
-        puzzle = puzzle,
-        angle = angle.some,
-        replay = replay,
-        user = newUser orElse ctx.me
-      )
+    given Option[Me] = newMe orElse ctx.me
+    if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
+    then env.puzzle.jsonView.bc(puzzle)
+    else env.puzzle.jsonView(puzzle, angle.some, replay)
 
   private def renderShow(
       puzzle: Puz,
@@ -69,14 +64,16 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         ) dmap (_.noCache)
 
   def apiDaily = Anon:
+    given Lang = reqLang
     env.puzzle.daily.get.flatMap:
       _.fold(notFoundJson()): daily =>
-        JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(using reqLang))
+        JsonOk(env.puzzle.jsonView(daily.puzzle, none, none))
 
   def apiShow(id: PuzzleId) = Anon:
+    given Lang = reqLang
     env.puzzle.api.puzzle find id flatMap {
       _.fold(notFoundJson()): puzzle =>
-        JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(using reqLang))
+        JsonOk(env.puzzle.jsonView(puzzle, none, none))
     }
 
   def home = Open(serveHome)
@@ -155,7 +152,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               ctx.me match
                 case Some(me) =>
                   env.puzzle.finisher(id, angle, me, data.win, data.mode) flatMapz { (round, perf) =>
-                    val newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
+                    val newMe = me.map(_.copy(perfs = me.perfs.copy(puzzle = perf)))
                     for
                       _ <- env.puzzle.session.onComplete(round, angle)
                       json <-
@@ -179,7 +176,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                   case Some((puzzle, replay)) =>
                                     renderJson(puzzle, angle, replay.some) map { nextJson =>
                                       Json.obj(
-                                        "round" -> env.puzzle.jsonView.roundJson.web(me, round, perf),
+                                        "round" -> env.puzzle.jsonView.roundJson.web(round, perf)(using me),
                                         "next"  -> nextJson
                                       )
                                     }
@@ -187,9 +184,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                             case _ =>
                               for
                                 next     <- nextPuzzleForMe(angle, none)
-                                nextJson <- next.so { renderJson(_, angle, none, newUser.some) dmap some }
+                                nextJson <- next.so { renderJson(_, angle, none, newMe.some) dmap some }
                               yield Json.obj(
-                                "round" -> env.puzzle.jsonView.roundJson.web(me, round, perf),
+                                "round" -> env.puzzle.jsonView.roundJson.web(round, perf)(using me),
                                 "next"  -> nextJson
                               )
                           }
@@ -224,8 +221,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       ).noCache.enableSharedArrayBuffer
 
   private def streakJsonAndPuzzle(using Lang) =
-    env.puzzle.streak.apply flatMapz { case PuzzleStreak(ids, puzzle) =>
-      env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = none) map { puzzleJson =>
+    given Option[Me] = none
+    env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
+      env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none) map { puzzleJson =>
         (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
       }
     }
@@ -395,12 +393,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
-    batchSelect(ctx.me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
+    batchSelect(PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
 
   private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty"))
-  private def batchSelect(me: Option[UserModel], angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int) =
-    env.puzzle.batch.nextFor(me, angle, difficulty, nb atMost 50) flatMap
-      env.puzzle.jsonView.batch(me)
+  private def batchSelect(angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int)(using me: Option[Me]) =
+    env.puzzle.batch.nextForMe(angle, difficulty, nb atMost 50) flatMap
+      env.puzzle.jsonView.batch
 
   def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
     ctx.body.body
@@ -417,8 +415,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 }
               case None =>
                 data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
-            newMe       <- ctx.me.so(env.user.repo.byId)
-            nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb"))
+            given Option[Me] <- ctx.me.so(env.user.repo.me)
+            nextPuzzles      <- batchSelect(angle, reqDifficulty, ~getInt("nb"))
             result = nextPuzzles ++ Json.obj("rounds" -> rounds)
           yield Ok(result)
       )
@@ -427,9 +425,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     negotiate(
       html = notFound,
       _ =>
-        OptionFuOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find) { puz =>
-          env.puzzle.jsonView.bc(puzzle = puz, user = ctx.me)
-        }.dmap(_ as JSON)
+        OptionFuOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
+          env.puzzle.jsonView.bc(puz)
+        .dmap(_ as JSON)
     )
 
   // XHR load next play puzzle
@@ -451,8 +449,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       html = notFound,
       api = _ =>
         val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
-        env.puzzle.batch.nextFor(ctx.me, PuzzleDifficulty.default, nb) flatMap { puzzles =>
-          env.puzzle.jsonView.bc.batch(puzzles, ctx.me)
+        env.puzzle.batch.nextForMe(PuzzleDifficulty.default, nb) flatMap { puzzles =>
+          env.puzzle.jsonView.bc.batch(puzzles)
         } dmap { Ok(_) }
     )
   }
@@ -505,7 +503,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def help = Open:
     html.site.helpModal.puzzle
 
-  private def DashboardPage(username: Option[UserStr])(f: WebContext ?=> UserModel => Fu[Result]) =
+  private def DashboardPage(username: Option[UserStr])(f: WebContext ?=> User => Fu[Result]) =
     Auth { ctx ?=> me ?=>
       username
         .so(env.user.repo.byId)
@@ -514,6 +512,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             (user.enabled.yes so env.clas.api.clas.isTeacherOf(me, user.id))) map {
             _ option user
           }
-        .dmap(_ | me)
-        .flatMap(f)
+        .dmap(_ | me.user)
+        .flatMap(f(_))
     }

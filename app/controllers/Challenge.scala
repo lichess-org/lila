@@ -279,8 +279,7 @@ final class Challenge(
 
   def apiCreate(username: UserStr) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-      !me.is(username) so env.setup.forms.api
-        .user(me)
+      !me.is(username) so env.setup.forms.api.user
         .bindFromRequest()
         .fold(
           newJsonFormError,

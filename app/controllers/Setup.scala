@@ -128,9 +128,8 @@ final class Setup(
 
   def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile)): ctx ?=>
     NoBot:
-      NoPlaybanOrCurrent(ctx.me):
-        forms
-          .hook(ctx.me)
+      NoPlaybanOrCurrentOpt(ctx.me):
+        forms.hook
           .bindFromRequest()
           .fold(
             jsonFormError,
@@ -200,7 +199,7 @@ final class Setup(
           .fold(
             newJsonFormError,
             config =>
-              ctx.me.map(_.id).so(env.relation.api.fetchBlocking) flatMap { blocking =>
+              ctx.me.so(env.relation.api.fetchBlocking(_)).flatMap { blocking =>
                 val uniqId = author.fold(_.value, u => s"sri:${u.id}")
                 config.fixColor
                   .hook(reqSri | Sri(uniqId), ctx.me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
@@ -232,7 +231,7 @@ final class Setup(
       case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-    BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot so 1):
+    BotAiRateLimit(me, rateLimitedFu, cost = me.isBot so 1):
       PostRateLimit(req.ipAddress, rateLimitedFu):
         forms.api.ai
           .bindFromRequest()

@@ -15,6 +15,7 @@ import lila.study.{ Order, StudyForm, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 import lila.analyse.Analysis
+import lila.user.Me
 
 final class Study(
     env: Env,
@@ -79,7 +80,7 @@ final class Study(
   def mine(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mine(me, order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = env.study.topicApi.userTopics(me.id) map { topics =>
+        html = env.study.topicApi.userTopics(me) map { topics =>
           Ok(html.study.list.mine(pag, order, me, topics))
         },
         api = _ => apiStudies(pag)
@@ -108,7 +109,7 @@ final class Study(
   def mineMember(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mineMember(me, order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = env.study.topicApi.userTopics(me.id) map { topics =>
+        html = env.study.topicApi.userTopics(me) map { topics =>
           Ok(html.study.list.mineMember(pag, order, me, topics))
         },
         api = _ => apiStudies(pag)
@@ -130,7 +131,7 @@ final class Study(
       case None => notFound
       case Some(topic) =>
         env.study.pager.byTopic(topic, ctx.me, order, page) zip
-          ctx.me.so(u => env.study.topicApi.userTopics(u.id) dmap some) flatMap { (pag, topics) =>
+          ctx.me.so(u => env.study.topicApi.userTopics(u) dmap some) flatMap { (pag, topics) =>
             preloadMembers(pag) inject Ok(html.study.topic.show(topic, pag, order, topics))
           }
 
@@ -160,7 +161,7 @@ final class Study(
 
   private def showQuery(query: Fu[Option[WithChapter]])(using ctx: WebContext): Fu[Result] =
     OptionFuResult(query): oldSc =>
-      CanView(oldSc.study, ctx.me) {
+      CanView(oldSc.study) {
         for
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
@@ -247,10 +248,8 @@ final class Study(
     }
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: WebContext) = {
-    ctx.noKid && ctx.noBot && // no public chats for kids and bots
-    ctx.me.fold(true) {       // anon can see public chats
-      env.chat.panic.allowed
-    }
+    ctx.noKid && ctx.noBot &&                    // no public chats for kids and bots
+    ctx.me.fold(true)(env.chat.panic.allowed(_)) // anon can see public chats
   } so env.chat.api.userChat
     .findMine(study.id into ChatId, ctx.me)
     .dmap(some)
@@ -263,8 +262,8 @@ final class Study(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)),
         data =>
           for
-            owner   <- env.study.api.recentByOwnerWithChapterCount(me.id, 50)
-            contrib <- env.study.api.recentByContributorWithChapterCount(me.id, 50)
+            owner   <- env.study.api.recentByOwnerWithChapterCount(me, 50)
+            contrib <- env.study.api.recentByContributorWithChapterCount(me, 50)
             res <-
               if owner.isEmpty && contrib.isEmpty then createStudy(data, me)
               else
@@ -317,14 +316,14 @@ final class Study(
               data.toChapterDatas,
               sticky = data.sticky,
               ctx.pref.showRatings
-            )(Who(me.id, lila.socket.Socket.Sri(sri)))
+            )(Who(me, lila.socket.Socket.Sri(sri)))
         )
     }
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
     env.study.api
-      .adminInvite(id, me)
+      .adminInvite(id)
       .inject:
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
   }
@@ -374,7 +373,7 @@ final class Study(
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     OptionFuResult(env.study.api.byId(id)) { study =>
-      CanView(study, ctx.me) {
+      CanView(study) {
         Ok(html.study.clone(study))
       }(privateUnauthorizedFu(study), privateForbiddenFu(study))
     }
@@ -394,10 +393,10 @@ final class Study(
 
   def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
     val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
-    CloneLimitPerUser(me.id, rateLimitedFu, cost = cost):
+    CloneLimitPerUser(me, rateLimitedFu, cost = cost):
       CloneLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
         OptionFuResult(env.study.api.byId(id)) { prev =>
-          CanView(prev, me.some) {
+          CanView(prev) {
             env.study.api.clone(me, prev) map { study =>
               Redirect(routes.Study.show((study | prev).id))
             }
@@ -414,7 +413,7 @@ final class Study(
   def pgn(id: StudyId) = Open:
     PgnRateLimitPerIp(ctx.ip, rateLimitedFu, msg = id):
       OptionFuResult(env.study.api byId id): study =>
-        CanView(study, ctx.me) {
+        CanView(study) {
           doPgn(study)
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
@@ -424,7 +423,7 @@ final class Study(
         if ctx.req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
         else
           PgnRateLimitPerIp[Fu[Result]](req.ipAddress, rateLimited, msg = id):
-            CanView(study, ctx.me) {
+            CanView(study) {
               doPgn(study)
             }(privateUnauthorizedText, privateForbiddenText)
     }
@@ -458,7 +457,7 @@ final class Study(
   )(using ctx: AnyContext) =
     env.study.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(studyNotFound) { case WithChapter(study, chapter) =>
-        CanView(study, ctx.me) {
+        CanView(study) {
           env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter) map { pgn =>
             Ok(pgn.toString)
               .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
@@ -506,7 +505,7 @@ final class Study(
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:
     env.study.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(notFound) { case WithChapter(study, chapter) =>
-        CanView(study, ctx.me) {
+        CanView(study) {
           env.study.gifExport.ofChapter(chapter, theme, piece) map { stream =>
             Ok.chunked(stream)
               .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
@@ -520,7 +519,7 @@ final class Study(
 
   def multiBoard(id: StudyId, page: Int) = Open:
     OptionFuResult(env.study.api byId id): study =>
-      CanView(study, ctx.me) {
+      CanView(study) {
         env.study.multiBoard.json(study.id, page, getBool("playing")) map JsonOk
       }(privateUnauthorizedJson, privateForbiddenJson)
 
@@ -533,7 +532,7 @@ final class Study(
 
   def topics = Open:
     env.study.topicApi.popular(50) zip
-      ctx.me.so(u => env.study.topicApi.userTopics(u.id) dmap some) map { (popular, mine) =>
+      ctx.me.so(me => env.study.topicApi.userTopics(me) dmap some) map { (popular, mine) =>
         val form = mine map StudyForm.topicsForm
         Ok(html.study.topic.index(popular, mine, form))
       }
@@ -574,41 +573,36 @@ final class Study(
   def studyNotFoundText = NotFound("Study or chapter not found")
   def studyNotFoundJson = NotFound(jsonError("Study or chapter not found"))
 
-  def CanView(study: StudyModel, me: Option[lila.user.User])(
+  def CanView(study: StudyModel)(
       f: => Fu[Result]
-  )(unauthorized: => Fu[Result], forbidden: => Fu[Result]): Fu[Result] =
+  )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
     me match
-      case _ if !study.isPrivate                     => f
-      case None                                      => unauthorized
-      case Some(me) if study.members.contains(me.id) => f
-      case _                                         => forbidden
+      case _ if !study.isPrivate                       => f
+      case None                                        => unauthorized
+      case Some(me) if study.members.contains(me.user) => f
+      case _                                           => forbidden
 
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
 
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers") {
+    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
       _.refreshAfterWrite(15.seconds)
         .maximumSize(512)
-        .buildAsyncFuture { studyId =>
+        .buildAsyncFuture: studyId =>
           env.study.studyRepo.membersById(studyId) flatMap {
             _.map(_.members).filter(_.nonEmpty) so { members =>
-              env.streamer.liveStreamApi.all.flatMap {
+              env.streamer.liveStreamApi.all.flatMap:
                 _.streams
-                  .filter { s =>
+                  .filter: s =>
                     members.exists(m => s is m._2.id)
-                  }
-                  .map { stream =>
+                  .map: stream =>
                     env.study.isConnected(studyId, stream.streamer.userId) map {
                       _ option stream.streamer.userId
                     }
-                  }
                   .parallel
                   .dmap(_.flatten)
-              }
             }
           }
-        }
-    }
 
   def glyphs(lang: String) = Anon:
     play.api.i18n.Lang.get(lang) so { lang =>

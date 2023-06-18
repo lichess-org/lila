@@ -96,7 +96,7 @@ final class Preload(
             }
       }
 
-  def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
+  def currentGameMyTurn(using me: Option[Me]): Fu[Option[CurrentGame]] = me.so: me =>
     gameRepo.playingRealtimeNoAi(me).flatMap {
       _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
     } flatMap {

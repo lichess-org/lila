@@ -60,12 +60,12 @@ final class Simul(env: Env) extends LilaController(env):
   private[controllers] def canHaveChat(simul: Sim)(using ctx: WebContext): Boolean =
     ctx.noKid && ctx.noBot &&                     // no public chats for kids or bots
       ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
-        env.chat.panic.allowed
-      } && simul.conditions.teamMember.map(_.teamId).fold(true) { teamId =>
-        ctx.userId exists {
-          env.team.api.syncBelongsTo(teamId, _) || isGranted(_.ChatTimeout)
-        }
-      }
+        env.chat.panic.allowed(_)
+      } && simul.conditions.teamMember
+        .map(_.teamId)
+        .fold(true): teamId =>
+          ctx.userId.exists:
+            env.team.api.syncBelongsTo(teamId, _) || isGrantedOpt(_.ChatTimeout)
 
   def hostPing(simulId: SimulId) = Open:
     AsHost(simulId): simul =>
@@ -76,13 +76,13 @@ final class Simul(env: Env) extends LilaController(env):
       env.simul.api start simul.id inject jsonOkResult
 
   def abort(simulId: SimulId) = Auth { ctx ?=> me ?=>
-    AsHost(simulId) { simul =>
+    AsHost(simulId): simul =>
       env.simul.api abort simul.id inject {
-        if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id into ModId, simul.fullName)
-        if (HTTPRequest isXhr ctx.req) jsonOkResult
+        if !simul.isHost(me) then env.mod.logApi.terminateTournament(simul.fullName)
+        if HTTPRequest isXhr ctx.req
+        then jsonOkResult
         else Redirect(routes.Simul.home)
       }
-    }
   }
 
   def accept(simulId: SimulId, userId: UserStr) = Open:
@@ -104,22 +104,22 @@ final class Simul(env: Env) extends LilaController(env):
 
   def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:
-      env.team.api.lightsByLeader(me.id) map { teams =>
-        Ok(html.simul.form.create(forms.create(me, teams), teams))
+      env.team.api.lightsByLeader(me) map { teams =>
+        Ok(html.simul.form.create(forms.create(teams), teams))
       }
   }
 
   def create = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       env.team.api
-        .lightsByLeader(me.id)
+        .lightsByLeader(me)
         .flatMap: teams =>
           forms
-            .create(me, teams)
+            .create(teams)
             .bindFromRequest()
             .fold(
               err =>
-                env.team.api.lightsByLeader(me.id) map { teams =>
+                env.team.api.lightsByLeader(me) map { teams =>
                   BadRequest(html.simul.form.create(err, teams))
                 },
               setup =>
@@ -148,8 +148,8 @@ final class Simul(env: Env) extends LilaController(env):
 
   def edit(id: SimulId) = Auth { ctx ?=> me ?=>
     WithEditableSimul(id) { simul =>
-      env.team.api.lightsByLeader(me.id) map { teams =>
-        Ok(html.simul.form.edit(forms.edit(me, teams, simul), teams, simul))
+      env.team.api.lightsByLeader(me) map { teams =>
+        Ok(html.simul.form.edit(forms.edit(teams, simul), teams, simul))
       }
     }
   }
@@ -157,10 +157,10 @@ final class Simul(env: Env) extends LilaController(env):
   def update(id: SimulId) = AuthBody { ctx ?=> me ?=>
     WithEditableSimul(id): simul =>
       env.team.api
-        .lightsByLeader(me.id)
+        .lightsByLeader(me)
         .flatMap: teams =>
           forms
-            .edit(me, teams, simul)
+            .edit(teams, simul)
             .bindFromRequest()
             .fold(
               err => BadRequest(html.simul.form.edit(err, teams, simul)),
@@ -171,7 +171,7 @@ final class Simul(env: Env) extends LilaController(env):
   def byUser(username: UserStr, page: Int) = Open:
     Reasonable(page):
       val userOption =
-        env.user.repo.byId(username).map { _.filter(_.enabled.yes || isGranted(_.SeeReport)) }
+        env.user.repo.byId(username).map { _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)) }
       OptionFuResult(userOption): user =>
         env.simul.api.hostedByUser(user.id, page).map { entries =>
           Ok(html.simul.hosted(user, entries))
@@ -179,14 +179,15 @@ final class Simul(env: Env) extends LilaController(env):
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: WebContext): Fu[Result] =
     env.simul.repo.find(simulId).flatMap {
-      case None                                                                    => notFound
-      case Some(simul) if ctx.userId.has(simul.hostId) || isGranted(_.ManageSimul) => f(simul)
-      case _                                                                       => Unauthorized
+      case None                                                               => notFound
+      case Some(simul) if ctx.is(simul.hostId) || isGrantedOpt(_.ManageSimul) => f(simul)
+      case _                                                                  => Unauthorized
     }
 
   private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using WebContext): Fu[Result] =
     AsHost(id): sim =>
-      if (sim.isStarted) then Redirect(routes.Simul.show(sim.id))
+      if sim.isStarted
+      then Redirect(routes.Simul.show(sim.id))
       else f(sim)
 
   private given lila.gathering.Condition.GetUserTeamIds = user => env.team.cached.teamIdsList(user.id)

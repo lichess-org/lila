@@ -198,7 +198,7 @@ final class Round(
   )(using ctx: WebContext): Fu[Option[lila.chat.UserChat.Mine]] = {
     ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.contains)) && ctx.me.fold(
       HTTPRequest isHuman ctx.req
-    )(env.chat.panic.allowed) && {
+    )(env.chat.panic.allowed(_)) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
     }
   } so {
@@ -276,12 +276,12 @@ final class Round(
       .bindFromRequest()
       .fold(
         _ => BadRequest,
-        text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
+        text => env.round.noteApi.set(gameId, me, text.trim take 10000)
       )
   }
 
   def readNote(gameId: GameId) = Auth { _ ?=> me ?=>
-    env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
+    env.round.noteApi.get(gameId, me) dmap { Ok(_) }
   }
 
   def continue(id: GameId, mode: String) = Open:

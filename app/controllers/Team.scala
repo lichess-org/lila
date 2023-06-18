@@ -30,7 +30,7 @@ final class Team(
       }
 
   def home(page: Int) = Open:
-    ctx.me.so(api.hasTeams) map {
+    ctx.me.so(api.hasTeams(_)) map {
       if _ then Redirect(routes.Team.mine)
       else Redirect(routes.Team.all(page))
     }
@@ -92,14 +92,14 @@ final class Team(
       team.isForumFor(_.EVERYONE) ||
       (team.isForumFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isForumFor(_.MEMBERS) && isMember) ||
-      (isGranted(_.ModerateForum) && requestModView)
+      (isGrantedOpt(_.ModerateForum) && requestModView)
     }
 
   def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
     api teamEnabled teamId flatMapz { team =>
       val canView: Fu[Boolean] =
         if team.publicMembers then fuccess(true)
-        else ctx.me.so(u => api.belongsTo(team.id, u.id))
+        else ctx.me.so(api.belongsTo(team.id, _))
       canView.map:
         if _ then
           apiC.jsonDownload(
@@ -132,7 +132,7 @@ final class Team(
         .bindFromRequest()
         .fold(
           err => BadRequest(html.team.form.edit(team, err)),
-          data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
+          data => api.update(team, data) inject Redirect(routes.Team.show(team.id)).flashSuccess
         )
   }
 
@@ -143,7 +143,7 @@ final class Team(
 
   def kick(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id): team =>
-      forms.members.bindFromRequest().value so { api.kickMembers(team, _, me).parallel } inject Redirect(
+      forms.members.bindFromRequest().value so { api.kickMembers(team, _).parallel } inject Redirect(
         routes.Team.show(team.id)
       ).flashSuccess
   }
@@ -164,7 +164,7 @@ final class Team(
           lila.log("security").warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
         fuccess(ApiResult.Limited)
       ApiKickRateLimitPerIP(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
-        api.kick(team, username.id, me) inject ApiResult.Done
+        api.kick(team, username.id) inject ApiResult.Done
   }
 
   def leadersForm(id: TeamId) = Auth { ctx ?=> _ ?=>
@@ -189,7 +189,7 @@ final class Team(
           _ => funit,
           explain =>
             api.delete(team, me.user, explain) >>
-              env.mod.logApi.deleteTeam(me.id into ModId, team.id, explain)
+              env.mod.logApi.deleteTeam(team.id, explain)
         ) inject Redirect(routes.Team all 1).flashSuccess
   }
 
@@ -200,8 +200,8 @@ final class Team(
         .fold(
           _ => funit,
           explain =>
-            api.toggleEnabled(team, me, explain) >> {
-              env.mod.logApi.toggleTeam(me.id into ModId, team.id, team.enabled, explain)
+            api.toggleEnabled(team, explain) >> {
+              env.mod.logApi.toggleTeam(team.id, team.enabled, explain)
             }
         )
     } inject Redirect(routes.Team show id).flashSuccess
@@ -517,12 +517,13 @@ final class Team(
 
   }
 
-  def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me ?=>
-    WithOwnedTeamEnabledApi(teamId, me): team =>
-      api request lila.team.Request.makeId(team.id, userId.id) flatMap {
-        case None      => fuccess(ApiResult.ClientError("No such team join request"))
-        case Some(req) => api.processRequest(team, req, decision) inject ApiResult.Done
-      }
+  def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) {
+    _ ?=> me ?=>
+      WithOwnedTeamEnabledApi(teamId, me): team =>
+        api request lila.team.Request.makeId(team.id, userId.id) flatMap {
+          case None      => fuccess(ApiResult.ClientError("No such team join request"))
+          case Some(req) => api.processRequest(team, req, decision) inject ApiResult.Done
+        }
   }
 
   private def doPmAll(team: TeamModel, me: UserModel)(using

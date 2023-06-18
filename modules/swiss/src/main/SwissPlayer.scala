@@ -39,7 +39,7 @@ object SwissPlayer:
       user: User,
       perf: PerfType
   ): SwissPlayer =
-    new SwissPlayer(
+    SwissPlayer(
       id = makeId(swissId, user.id),
       swissId = swissId,
       userId = user.id,

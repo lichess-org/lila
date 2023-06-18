@@ -8,21 +8,22 @@ import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
 import lila.common.Json.given
+import lila.user.Me
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   import env.streamer.api
   import env.mod.logApi
 
-  def index(page: Int) = Open:
+  def index(page: Int) = Open: ctx ?=>
     NoBot:
       ctx.noKid.so:
         pageHit
-        val requests = getBool("requests") && isGranted(_.Streamers)
+        val requests = getBool("requests") && isGrantedOpt(_.Streamers)
         for
           liveStreams <- env.streamer.liveStreamApi.all
-          live        <- api.withUsers(liveStreams, ctx.me.map(_.id))
-          pager       <- env.streamer.pager.get(page, liveStreams, ctx.me.map(_.id), requests)
+          live        <- api.withUsers(liveStreams)
+          pager       <- env.streamer.pager.get(page, liveStreams, requests)
         yield Ok(html.streamer.index(live, pager, requests))
 
   def featured = Anon:
@@ -52,7 +53,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
 
   def show(username: UserStr) = Open:
-    OptionFuResult(api.forSubscriber(username, ctx.me)): s =>
+    OptionFuResult(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
         for
           sws      <- env.streamer.liveStreamApi of s
@@ -60,7 +61,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         yield Ok(html.streamer.show(sws, activity))
 
   def redirect(username: UserStr) = Open:
-    OptionFuResult(api.forSubscriber(username, ctx.me)): s =>
+    OptionFuResult(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
         env.streamer.liveStreamApi of s map { sws =>
           Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)
@@ -76,7 +77,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   private def modData(streamer: StreamerModel)(using WebContext) =
-    isGranted(_.ModLog).so:
+    isGrantedOpt(_.ModLog).so:
       logApi.userHistory(streamer.userId) zip
         env.user.noteApi.byUserForMod(streamer.userId) zip
         env.streamer.api.sameChannels(streamer) map some
@@ -105,16 +106,15 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
               },
             data =>
               api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
-                if (change.decline) logApi.streamerDecline(lila.report.Mod(me), s.user.id)
-                change.list foreach { logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
-                change.tier foreach { logApi.streamerTier(lila.report.Mod(me), s.user.id, _) }
-                if (data.approval.flatMap(_.quick).isDefined)
-                  env.streamer.pager.nextRequestId map { nextId =>
+                if (change.decline) logApi.streamerDecline(s.user.id)
+                change.list foreach { logApi.streamerList(s.user.id, _) }
+                change.tier foreach { logApi.streamerTier(s.user.id, _) }
+                if data.approval.flatMap(_.quick).isDefined
+                then
+                  env.streamer.pager.nextRequestId.map: nextId =>
                     Redirect:
-                      nextId.fold(s"${routes.Streamer.index()}?requests=1") { id =>
+                      nextId.fold(s"${routes.Streamer.index()}?requests=1"): id =>
                         s"${routes.Streamer.edit.url}?u=$id"
-                      }
-                  }
                 else
                   val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
                   Redirect(s"${routes.Streamer.edit.url}$next")
@@ -152,8 +152,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def subscribe(streamer: UserStr, set: Boolean) = AuthBody { _ ?=> me ?=>
-    if set then env.relation.subs.subscribe(me.id, streamer.id)
-    else env.relation.subs.unsubscribe(me.id, streamer.id)
+    if set
+    then env.relation.subs.subscribe(me, streamer.id)
+    else env.relation.subs.unsubscribe(me, streamer.id)
     Ok
   }
 
@@ -170,9 +171,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       Ok(challenge)
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    ctx.me.fold(notFound): me ?=>
+    ctx.me.fold(notFound): me =>
+      given Me = me
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))
-        api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.id) flatMap {
+        api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.userId) flatMap {
           _.fold(Ok(html.streamer.bits.create).toFuccess)(f)
         }
       else
@@ -182,5 +184,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: WebContext) =
     ctx.noKid.so:
-      if (s.streamer.isListed || ctx.me.exists(_ is s.streamer) || isGranted(_.Admin)) f
+      if s.streamer.isListed || ctx.me.exists(_ is s.streamer) || isGrantedOpt(_.Admin)
+      then f
       else notFound

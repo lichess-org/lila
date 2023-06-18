@@ -76,13 +76,12 @@ final class Report(
     else
       api.inquiries
         .ofModId(me.id)
-        .flatMap(_.fold(userC.modZoneOrRedirect(me, goTo.user.username))(onInquiryAction(_, me)))
+        .flatMap(_.fold(userC.modZoneOrRedirect(me, goTo.user.username))(onInquiryAction(_)))
 
   protected[controllers] def onInquiryAction(
       inquiry: ReportModel,
-      me: Me,
       processed: Boolean = false
-  )(using ctx: WebBodyContext[?]): Fu[Result] =
+  )(using ctx: WebBodyContext[?], me: Me): Fu[Result] =
     val dataOpt = ctx.body.body match
       case AnyContentAsFormUrlEncoded(data) => data.some
       case _                                => none
@@ -91,7 +90,7 @@ final class Report(
         case "profile" => modC.userUrl(inquiry.user, mod = true).some
         case url       => url.some
       }
-    def process() = !processed so api.process(me, inquiry)
+    def process() = !processed so api.process(inquiry)
     thenGoTo match
       case Some(url) => process() inject Redirect(url)
       case _ =>
@@ -114,8 +113,8 @@ final class Report(
     api byId id flatMap {
       _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
         inquiry.isAppeal.so(env.appeal.api.setReadById(inquiry.user)) >>
-          api.process(me, inquiry) >>
-          onInquiryAction(inquiry, me, processed = true)
+          api.process(inquiry) >>
+          onInquiryAction(inquiry, processed = true)
     }
   }
 
@@ -190,7 +189,7 @@ final class Report(
       .get("reported")
       .flatMap(UserStr.read)
       .fold(Redirect("/").toFuccess): reported =>
-        env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
+        env.relation.api.fetchBlocks(me, reported.id) map { blocked =>
           html.report.thanks(reported.id, blocked)
         }
   }

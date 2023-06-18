@@ -38,11 +38,7 @@ final class RelayRound(
                 .fold(
                   err => BadRequest(html.relay.roundForm.create(err, tour)),
                   setup =>
-                    rateLimitCreation(
-                      me,
-                      ctx.req,
-                      Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-                    ):
+                    rateLimitCreation(Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))):
                       env.relay.api.create(setup, me, tour) map { round =>
                         Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
                       }
@@ -50,7 +46,7 @@ final class RelayRound(
       ,
       scoped = ctx ?=>
         me ?=>
-          NoLameOrBot(me):
+          NoLameOrBot:
             env.relay.api tourById TourModel.Id(tourId) flatMapz { tour =>
               env.relay.api.withRounds(tour) flatMap { trs =>
                 env.relay.roundForm
@@ -59,7 +55,7 @@ final class RelayRound(
                   .fold(
                     err => BadRequest(apiFormError(err)),
                     setup =>
-                      rateLimitCreation(ctx.req, rateLimited):
+                      rateLimitCreation(rateLimited):
                         JsonOk:
                           env.relay.api.create(setup, me, tour) map { round =>
                             env.relay.jsonView.withUrl(round withTour tour)
@@ -70,7 +66,7 @@ final class RelayRound(
     )
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
-    OptionFuResult(env.relay.api.byIdAndContributor(id, me)): rt =>
+    OptionFuResult(env.relay.api.byIdAndContributor(id)): rt =>
       html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
@@ -143,7 +139,7 @@ final class RelayRound(
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
-      studyC.CanView(rt.study, ctx.me) {
+      studyC.CanView(rt.study) {
         apiC.GlobalConcurrencyLimitPerIP
           .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)): source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
@@ -156,7 +152,7 @@ final class RelayRound(
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     env.relay.api
-      .byIdAndContributor(id, me)
+      .byIdAndContributor(id)
       .flatMap:
         case None     => notFoundJson()
         case Some(rt) => env.relay.push(rt, PgnStr(ctx.body.body)) inject jsonOkResult
@@ -186,22 +182,24 @@ final class RelayRound(
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
       ctx: WebContext
   ): Fu[Result] =
-    studyC.CanView(oldSc.study, ctx.me):
-      for
-        (sc, studyData) <- studyC.getJsonData(oldSc)
-        rounds          <- env.relay.api.byTourOrdered(rt.tour)
-        data <- env.relay.jsonView.makeData(
-          rt.tour withRounds rounds.map(_.round),
-          rt.round.id,
-          studyData,
-          ctx.userId exists sc.study.canContribute
-        )
-        chat      <- studyC.chatOf(sc.study)
-        sVersion  <- env.study.version(sc.study.id)
-        streamers <- studyC.streamersOf(sc.study)
-      yield Ok(
-        html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers)
-      ).enableSharedArrayBuffer(
+    studyC
+      .CanView(oldSc.study)(
+        for
+          (sc, studyData) <- studyC.getJsonData(oldSc)
+          rounds          <- env.relay.api.byTourOrdered(rt.tour)
+          data <- env.relay.jsonView.makeData(
+            rt.tour withRounds rounds.map(_.round),
+            rt.round.id,
+            studyData,
+            ctx.userId exists sc.study.canContribute
+          )
+          chat      <- studyC.chatOf(sc.study)
+          sVersion  <- env.study.version(sc.study.id)
+          streamers <- studyC.streamersOf(sc.study)
+        yield Ok:
+          html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers)
+        .enableSharedArrayBuffer
+      )(
         studyC.privateUnauthorizedFu(oldSc.study),
         studyC.privateForbiddenFu(oldSc.study)
       )

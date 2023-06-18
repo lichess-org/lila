@@ -26,9 +26,11 @@ case class PoolMember(
 
 object PoolMember:
 
+  given UserIdOf[PoolMember] = _.userId
+
   def apply(joiner: PoolApi.Joiner, rageSit: RageSit): PoolMember =
     PoolMember(
-      userId = joiner.userId,
+      userId = joiner.me,
       sri = joiner.sri,
       lame = joiner.lame,
       rating = joiner.rating,

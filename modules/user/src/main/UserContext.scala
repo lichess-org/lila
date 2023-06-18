@@ -8,14 +8,12 @@ final class UserContext(val me: Option[Me], val impersonatedBy: Option[User]):
 
   inline def user: Option[User] = Me raw me
 
-  def userId: Option[UserId] = user.map(_.id)
-
+  def meId: Option[MeId]         = me.map(_.meId)
+  def userId: Option[UserId]     = user.map(_.id)
   def username: Option[UserName] = user.map(_.username)
-
-  def usernameOrAnon: String = username.fold("Anonymous")(_.value)
+  def usernameOrAnon: String     = username.fold("Anonymous")(_.value)
 
   def troll: Boolean = user.exists(_.marks.troll)
-
   def kid: Boolean   = user.exists(_.kid)
   def noKid: Boolean = !kid
 

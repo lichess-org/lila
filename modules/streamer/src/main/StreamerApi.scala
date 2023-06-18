@@ -8,6 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
 import lila.user.{ User, UserRepo }
+import lila.user.Me
 
 final class StreamerApi(
     coll: Coll,
@@ -40,14 +41,14 @@ final class StreamerApi(
       coll.insert.one(s.streamer) inject s.some
     }
 
-  def forSubscriber(streamerName: UserStr, me: Option[User]): Fu[Option[Streamer.WithContext]] =
+  def forSubscriber(streamerName: UserStr)(using me: Option[Me.Id]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)) { (streamerFu, me) =>
       streamerFu flatMapz { s =>
         subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
       }
     }
 
-  def withUsers(live: LiveStreams, me: Option[UserId]): Fu[List[Streamer.WithUserAndStream]] = for {
+  def withUsers(live: LiveStreams)(using me: Option[Me.Id]): Fu[List[Streamer.WithUserAndStream]] = for {
     users <- userRepo.byIdsSecondary(live.streams.map(_.streamer.userId))
     subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
   } yield live.streams.flatMap { s =>

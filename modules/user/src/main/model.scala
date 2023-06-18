@@ -17,6 +17,7 @@ object Me extends TotalWrapper[Me, User]:
   given Conversion[Me, UserId]                 = _.id
   given Conversion[Option[Me], Option[UserId]] = _.map(_.id)
   given [M[_]]: Conversion[M[Me], M[User]]     = Me.raw(_)
+  given (using me: Me): Option[Me]             = Some(me)
   extension (me: Me)
     inline def userId: UserId = me.id
     inline def user: User     = me
@@ -31,6 +32,7 @@ object MeId extends TotalWrapper[MeId, String]:
   given [M[_]]: Conversion[M[MeId], M[UserId]] = MeId.raw(_)
   given Conversion[Me, MeId]                   = _.id into MeId
   given (using me: Me): MeId                   = Me.meId(me)
+  given (using me: MeId): Option[MeId]         = Some(me)
   extension (me: Me.Id)
     inline def modId: ModId   = me into ModId
     inline def userId: UserId = me into UserId
