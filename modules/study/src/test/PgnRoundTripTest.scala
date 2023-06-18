@@ -19,6 +19,8 @@ import BSONHandlers.given
 import lila.db.BSON.Writer
 import lila.db.BSON.Reader
 import lila.db.dsl.Bdoc
+import Helpers.*
+import lila.tree.NewRoot
 
 class PgnRoundTripTest extends munit.FunSuite:
 
@@ -26,10 +28,6 @@ class PgnRoundTripTest extends munit.FunSuite:
   given Conversion[PgnStr, String] = _.value
 
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, false)
-
-  def rootToPgn(root: Root) = PgnDump
-    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
-    .render
 
   import PgnImport.*
 
@@ -40,8 +38,16 @@ class PgnRoundTripTest extends munit.FunSuite:
         val dumped   = rootToPgn(imported.root)
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
+  test("NewTree roundtrip"):
+    PgnFixtures.roundTrip
+      .foreach: pgn =>
+        val imported = NewPgnImport(pgn, List(user)).toOption.get
+        val dumped   = rootToPgn(imported.root)
+        assertEquals(dumped.value.cleanTags, pgn.cleanTags)
+
   given Conversion[Bdoc, Reader] = Reader(_)
   val treeBson                   = summon[BSON[Root]]
+  val newTreeBson                   = summon[BSON[NewRoot]]
   val w                          = new Writer
 
   test("roundtrip with BSONHandlers"):
@@ -49,6 +55,14 @@ class PgnRoundTripTest extends munit.FunSuite:
       .foreach: pgn =>
         val imported  = PgnImport(pgn, List(user)).toOption.get
         val afterBson = treeBson.reads(treeBson.writes(w, imported.root))
+        val dumped    = rootToPgn(afterBson)
+        assertEquals(dumped.value.cleanTags, pgn.cleanTags)
+
+  test("NewTree roundtrip with BSONHandlers"):
+    PgnFixtures.roundTrip
+      .foreach: pgn =>
+        val imported  = NewPgnImport(pgn, List(user)).toOption.get
+        val afterBson = newTreeBson.reads(newTreeBson.writes(w, imported.root))
         val dumped    = rootToPgn(afterBson)
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
