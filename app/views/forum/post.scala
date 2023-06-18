@@ -63,7 +63,7 @@ object post:
                 "Edit"
               ),
             ctx.me flatMap { me =>
-              if (!post.erased && post.canBeEditedBy(me))
+              if (!post.erased && post.canBeEditedByMe)
                 postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
                   submitButton(
                     cls      := "mod delete button button-empty confirm",

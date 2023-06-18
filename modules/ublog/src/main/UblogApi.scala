@@ -20,17 +20,17 @@ final class UblogApi(
 
   import UblogBsonHandlers.{ *, given }
 
-  def create(data: UblogForm.UblogPostData, user: User): Fu[UblogPost] =
-    val post = data.create(user)
+  def create(data: UblogForm.UblogPostData)(using me: Me): Fu[UblogPost] =
+    val post = data.create(me.user)
     colls.post.insert.one(
-      bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(user.id))
+      bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(me.userId))
     ) inject post
 
-  def update(data: UblogForm.UblogPostData, prev: UblogPost, user: User): Fu[UblogPost] =
-    getUserBlog(user, insertMissing = true) flatMap { blog =>
-      val post = data.update(user, prev)
+  def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
+    getUserBlog(me.user, insertMissing = true) flatMap { blog =>
+      val post = data.update(me.user, prev)
       colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty) so onFirstPublish(user, blog, post)
+        (post.live && prev.lived.isEmpty) so onFirstPublish(me.user, blog, post)
       } inject post
     }
 
@@ -71,7 +71,7 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def userBlogPreviewFor(user: User, nb: Int)(me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
+  def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(me.exists(_ is user)) >>|
       colls.blog

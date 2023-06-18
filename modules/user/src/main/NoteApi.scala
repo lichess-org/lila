@@ -26,17 +26,17 @@ final class NoteApi(
   import reactivemongo.api.bson.*
   private given BSONDocumentHandler[Note] = Macros.handler[Note]
 
-  def get(user: User, me: User, isMod: Boolean): Fu[List[Note]] =
+  def get(user: User, isMod: Boolean)(using me: Me.Id): Fu[List[Note]] =
     coll
       .find(
         $doc("to" -> user.id) ++ {
           if (isMod)
             $or(
-              $doc("from" -> me.id),
+              $doc("from" -> me),
               $doc("mod"  -> true)
             )
           else
-            $doc("from" -> me.id, "mod" -> false)
+            $doc("from" -> me, "mod" -> false)
         }
       )
       .sort($sort desc "date")
@@ -57,11 +57,11 @@ final class NoteApi(
       .cursor[Note]()
       .list(100)
 
-  def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
+  def write(to: User, text: String, modOnly: Boolean, dox: Boolean)(using me: Me) = {
 
     val note = Note(
       _id = ThreadLocalRandom nextString 8,
-      from = from.id,
+      from = me,
       to = to.id,
       text = text,
       mod = modOnly,
@@ -72,7 +72,7 @@ final class NoteApi(
     coll.insert.one(note) >>-
       lila.common.Bus.publish(
         lila.hub.actorApi.user.Note(
-          from = from.username,
+          from = me.username,
           to = to.username,
           text = note.text,
           mod = modOnly
@@ -86,9 +86,8 @@ final class NoteApi(
   }
 
   def lichessWrite(to: User, text: String) =
-    userRepo.lichess flatMapz {
-      write(to, text, _, modOnly = true, dox = false)
-    }
+    userRepo.lichess.flatMapz: lichess =>
+      write(to, text, modOnly = true, dox = false)(using Me(lichess))
 
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 

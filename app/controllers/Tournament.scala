@@ -10,9 +10,9 @@ import lila.common.{ HTTPRequest, Preload }
 import lila.common.Json.given
 import lila.memo.CacheApi.*
 import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
-import lila.user.{ User as UserModel }
 import lila.gathering.Condition.GetUserTeamIds
 import play.api.i18n.Lang
+import lila.user.Me
 
 final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
     extends LilaController(env):
@@ -70,10 +70,9 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
-          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) || isGranted(
-            _.ChatTimeout
-          )) && // private tournament that I joined or has ChatTimeout
-          (env.chat.panic.allowed(u) || isGranted(_.ChatTimeout))
+          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) ||
+            isGrantedOpt(_.ChatTimeout)) && // private tournament that I joined or has ChatTimeout
+          (env.chat.panic.allowed(u) || isGrantedOpt(_.ChatTimeout))
       }
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
@@ -92,7 +91,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           .fold(tournamentNotFound.toFuccess): tour =>
             for
               myInfo   <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
-              verdicts <- api.getVerdicts(tour, ctx.me, myInfo.isDefined)
+              verdicts <- api.getVerdicts(tour, myInfo.isDefined)
               version  <- env.tournament.version(tour.id)
               json <- jsonView(
                 tour = tour,
@@ -179,12 +178,12 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me ?=>
     NoLameOrBot:
       NoPlayban:
-        JoinLimitPerUser(me.id, rateLimitedJsonFu):
+        JoinLimitPerUser(me, rateLimitedJsonFu):
           val data = TournamentForm.TournamentJoin(
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[TeamId]
           )
-          doJoin(id, data, me).dmap(_.error) map {
+          doJoin(id, data).dmap(_.error) map {
             case None        => jsonOkResult
             case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
           }
@@ -194,48 +193,48 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
     else
-      NoPlayban(me.id.some):
-        JoinLimitPerUser(me.id, rateLimitedJsonFu):
+      NoPlayban(me.meId.some):
+        JoinLimitPerUser(me, rateLimitedJsonFu):
           val data = TournamentForm.joinForm
             .bindFromRequest()
             .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
-          doJoin(id, data, me) map {
+          doJoin(id, data) map {
             _.error.fold(jsonOkResult): error =>
               BadRequest(Json.obj("error" -> error))
           }
   }
 
-  private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin, me: UserModel) =
+  private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
     data.team
-      .so { env.team.cached.isLeader(_, me.id) }
+      .so { env.team.cached.isLeader(_, me) }
       .flatMap: isLeader =>
-        api.joinWithResult(tourId, me, data = data, isLeader)
+        api.joinWithResult(tourId, data = data, isLeader)
 
   def pause(id: TourId) = Auth { ctx ?=> me ?=>
     OptionResult(cachedTour(id)): tour =>
-      api.selfPause(tour.id, me.id)
+      api.selfPause(tour.id, me)
       if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Tournament.show(tour.id))
   }
 
   def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
     cachedTour(id) flatMapz { tour =>
-      api.selfPause(tour.id, me.id) inject jsonOkResult
+      api.selfPause(tour.id, me) inject jsonOkResult
     }
   }
 
   def form = Auth { ctx ?=> me ?=>
     NoBot:
-      env.team.api.lightsByLeader(me.id) map { teams =>
-        Ok(html.tournament.form.create(forms.create(me, teams), teams))
+      env.team.api.lightsByLeader(me) map { teams =>
+        Ok(html.tournament.form.create(forms.create(teams), teams))
       }
   }
 
   def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoBot:
-      env.team.api.lightsByLeader(me.id) flatMap { teams =>
-        env.team.api.leads(teamId, me.id) mapz {
-          Ok(html.tournament.form.create(forms.create(me, teams, teamId.some), Nil))
+      env.team.api.lightsByLeader(me) flatMap { teams =>
+        env.team.api.leads(teamId, me) mapz {
+          Ok(html.tournament.form.create(forms.create(teams, teamId.some), Nil))
         }
       }
   }
@@ -253,65 +252,63 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   )
 
   private[controllers] def rateLimitCreation(
-      me: UserModel,
       isPrivate: Boolean,
-      req: RequestHeader,
       fail: => Fu[Result]
-  )(create: => Fu[Result]): Fu[Result] =
+  )(create: => Fu[Result])(using me: Me, req: RequestHeader): Fu[Result] =
     val cost =
-      if isGranted(_.ManageTournament, me) then 2
+      if isGranted(_.ManageTournament) then 2
       else if me.hasTitle ||
-        env.streamer.liveStreamApi.isStreaming(me.id) ||
+        env.streamer.liveStreamApi.isStreaming(me) ||
         me.isVerified ||
         isPrivate
       then 5
       else 20
-    CreateLimitPerUser(me.id, fail, cost = cost):
+    CreateLimitPerUser(me, fail, cost = cost):
       CreateLimitPerIP(req.ipAddress, fail, cost = cost, msg = me.username):
         create
 
   def create = AuthBody { ctx ?=> me ?=>
     NoBot:
       env.team.api
-        .lightsByLeader(me.id)
+        .lightsByLeader(me)
         .flatMap: teams =>
           negotiate(
             html = forms
-              .create(me, teams)
+              .create(teams)
               .bindFromRequest()
               .fold(
                 err => BadRequest(html.tournament.form.create(err, teams)),
                 setup =>
-                  rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)):
+                  rateLimitCreation(setup.isPrivate, Redirect(routes.Tournament.home)):
                     api
-                      .createTournament(setup, me, teams)
+                      .createTournament(setup, teams)
                       .map: tour =>
                         Redirect {
                           if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
                           else routes.Tournament.show(tour.id)
                         }.flashSuccess
               ),
-            api = _ => doApiCreate(me)
+            api = _ => doApiCreate
           )
   }
 
   def apiCreate = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     if me.isBot || me.lame
     then notFoundJson("This account cannot create tournaments")
-    else doApiCreate(me)
+    else doApiCreate
   }
 
-  private def doApiCreate(me: UserModel)(using ctx: BodyContext[?]): Fu[Result] =
-    env.team.api.lightsByLeader(me.id) flatMap { teams =>
+  private def doApiCreate(using ctx: BodyContext[?], me: Me): Fu[Result] =
+    env.team.api.lightsByLeader(me) flatMap { teams =>
       forms
-        .create(me, teams)
+        .create(teams)
         .bindFromRequest()
         .fold(
-          jsonFormError(_)(using reqLang),
+          jsonFormError(_),
           setup =>
-            rateLimitCreation(me, setup.isPrivate, ctx.req, rateLimited) {
-              env.team.api.lightsByLeader(me.id) flatMap { teams =>
-                api.createTournament(setup, me, teams, andJoin = false) flatMap { tour =>
+            rateLimitCreation(setup.isPrivate, rateLimited):
+              env.team.api.lightsByLeader(me) flatMap { teams =>
+                api.createTournament(setup, teams, andJoin = false) flatMap { tour =>
                   jsonView(
                     tour,
                     none,
@@ -324,16 +321,15 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                   )(using ctx.lang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
                 }
               }
-            }
         )
     }
 
   def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     cachedTour(id) flatMap {
-      _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) so { tour =>
-        env.team.api.lightsByLeader(me.id) flatMap { teams =>
+      _.filter(_.createdBy.is(me) || isGranted(_.ManageTournament)) so { tour =>
+        env.team.api.lightsByLeader(me) flatMap { teams =>
           forms
-            .edit(me, teams, tour)
+            .edit(teams, tour)
             .bindFromRequest()
             .fold(
               newJsonFormError,
@@ -358,7 +354,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   def apiTerminate(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
     cachedTour(id) flatMapz {
-      case tour if tour.createdBy == me.id || isGranted(_.ManageTournament, me) =>
+      case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) =>
         api.kill(tour).inject(jsonOkResult)
       case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied"))
     }
@@ -366,29 +362,27 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   def teamBattleEdit(id: TourId) = Auth { ctx ?=> me ?=>
     cachedTour(id) flatMapz {
-      case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
-        tour.teamBattle so { battle =>
+      case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) =>
+        tour.teamBattle.so: battle =>
           env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
             env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
               val form = lila.tournament.TeamBattle.DataForm.edit(
-                teams.map { t =>
+                teams.map: t =>
                   s"""${t.id} "${t.name}" by ${env.user.lightUserApi
                       .sync(t.createdBy)
-                      .fold(t.createdBy)(_.name)}"""
-                },
+                      .fold(t.createdBy)(_.name)}""",
                 battle.nbLeaders
               )
               Ok(html.tournament.teamBattle.edit(tour, form))
             }
           }
-        }
       case tour => Redirect(routes.Tournament.show(tour.id))
     }
   }
 
   def teamBattleUpdate(id: TourId) = AuthBody { ctx ?=> me ?=>
     cachedTour(id).flatMapz:
-      case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
+      case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) && !tour.isFinished =>
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
           .fold(
@@ -402,7 +396,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     cachedTour(id) flatMapz {
-      case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
+      case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) && !tour.isFinished =>
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
           .fold(
@@ -461,18 +455,18 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
 
   def edit(id: TourId) = Auth { ctx ?=> me ?=>
-    WithEditableTournament(id, me): tour =>
-      env.team.api.lightsByLeader(me.id) map { teams =>
-        val form = forms.edit(me, teams, tour)
+    WithEditableTournament(id): tour =>
+      env.team.api.lightsByLeader(me) map { teams =>
+        val form = forms.edit(teams, tour)
         Ok(html.tournament.form.edit(tour, form, teams))
       }
   }
 
   def update(id: TourId) = AuthBody { ctx ?=> me ?=>
-    WithEditableTournament(id, me): tour =>
-      env.team.api.lightsByLeader(me.id) flatMap { teams =>
+    WithEditableTournament(id): tour =>
+      env.team.api.lightsByLeader(me) flatMap { teams =>
         forms
-          .edit(me, teams, tour)
+          .edit(teams, tour)
           .bindFromRequest()
           .fold(
             err => BadRequest(html.tournament.form.edit(tour, err, teams)),
@@ -482,16 +476,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def terminate(id: TourId) = Auth { ctx ?=> me ?=>
-    WithEditableTournament(id, me) { tour =>
+    WithEditableTournament(id): tour =>
       api kill tour inject {
-        env.mod.logApi.terminateTournament(me.id into ModId, tour.name())
+        env.mod.logApi.terminateTournament(tour.name())
         Redirect(routes.Tournament.home)
       }
-    }
   }
 
   def byTeam(id: TeamId) = Anon:
-    given Lang = reqLang
     apiC
       .jsonDownload:
         repo
@@ -508,11 +500,11 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         }
       }
 
-  private def WithEditableTournament(id: TourId, me: UserModel)(
+  private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
-  )(using WebContext): Fu[Result] =
+  )(using ctx: WebContext, me: Me): Fu[Result] =
     cachedTour(id) flatMap {
-      case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
+      case Some(t) if (t.createdBy.is(me) && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)
       case Some(t) => Redirect(routes.Tournament.show(t.id))
       case _       => notFound

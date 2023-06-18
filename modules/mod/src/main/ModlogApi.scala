@@ -111,31 +111,27 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
 
   // Not to be confused with the eponymous lichess account.
   def postOrEditAsAnonMod(
-      mod: ModId,
       categ: ForumCategId,
       topic: String,
       postId: ForumPostId,
       text: String,
       edit: Boolean
-  ) = add:
+  )(using Me.Id) = add:
     Modlog(
-      mod,
       none,
       if (edit) Modlog.editAsAnonMod else Modlog.postAsAnonMod,
       details = s"$categ/$topic id: $postId ${text.take(400)}".some
     )
 
-  def deleteTeam(mod: ModId, id: String, explain: String) = add:
+  def deleteTeam(id: String, explain: String)(using Me.Id) = add:
     Modlog(
-      mod,
       none,
       Modlog.deleteTeam,
       details = s"$id: ${explain take 200}".some
     ) indexAs "team"
 
-  def toggleTeam(mod: ModId, id: String, closing: Boolean, explain: String) = add:
+  def toggleTeam(id: String, closing: Boolean, explain: String)(using Me.Id) = add:
     Modlog(
-      mod,
       none,
       if (closing) Modlog.disableTeam else Modlog.enableTeam,
       details = s"$id: ${explain take 200}".some

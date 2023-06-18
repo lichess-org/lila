@@ -53,7 +53,7 @@ final class AppealApi(
     coll.update.one($id(appeal.id), appeal) >> {
       preset so { note =>
         userRepo.byId(appeal.id) flatMapz {
-          noteApi.write(_, s"Appeal reply: $note", me.user, modOnly = true, dox = false)
+          noteApi.write(_, s"Appeal reply: $note", modOnly = true, dox = false)
         }
       }
     } inject appeal

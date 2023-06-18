@@ -50,7 +50,7 @@ trait AnyContext:
   val req: RequestHeader
   val userContext: UserContext
   def lang: Lang
-  export userContext.{ me, impersonatedBy, meId, userId, is, kid, noKid, troll }
+  export userContext.{ me, impersonatedBy, meId, user, userId, is, kid, noKid, troll }
   export me.{ isDefined as isAuth, isEmpty as isAnon }
   def isBot                = me.exists(_.isBot)
   def noBot                = !isBot

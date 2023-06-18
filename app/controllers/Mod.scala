@@ -164,7 +164,6 @@ final class Mod(
           import lila.irc.IrcApi.ModDomain
           env.irc.api.inquiry(
             user = user,
-            mod = me,
             domain = report.room match
               case Room.Cheat => ModDomain.Cheat
               case Room.Boost => ModDomain.Boost
@@ -185,9 +184,9 @@ final class Mod(
   def createNameCloseVote(username: UserStr) = SendToZulip(username, env.irc.api.nameCloseVote)
   def askUsertableCheck(username: UserStr)   = SendToZulip(username, env.irc.api.usertableCheck)
 
-  private def SendToZulip(username: UserStr, method: (UserModel, Me) => Funit) =
-    Secure(_.SendToZulip) { _ ?=> me ?=>
-      env.user.repo byId username flatMapz { method(_, me) inject NoContent }
+  private def SendToZulip(username: UserStr, method: UserModel => Me ?=> Funit) =
+    Secure(_.SendToZulip) { _ ?=> _ ?=>
+      env.user.repo byId username flatMapz { method(_) inject NoContent }
     }
 
   def table = Secure(_.ModLog) { ctx ?=> _ ?=>
@@ -350,7 +349,7 @@ final class Mod(
         case Left(err)  => res flashFailure err
   }
 
-  protected[controllers] def searchTerm(me: Me, q: String)(using WebContext, Me) =
+  protected[controllers] def searchTerm(q: String)(using WebContext, Me) =
     env.mod
       .search(q)
       .map: users =>
@@ -496,7 +495,7 @@ final class Mod(
     env.user.repo byId username flatMapz { user =>
       for
         logs      <- env.mod.logApi.userHistory(user.id)
-        notes     <- env.socialInfo.fetchNotes(user, me.user)
+        notes     <- env.socialInfo.fetchNotes(user)
         notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
       yield JsonOk(
         Json.obj(

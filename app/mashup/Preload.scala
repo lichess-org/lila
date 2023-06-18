@@ -45,6 +45,7 @@ final class Preload(
       simuls: Fu[List[Simul]],
       streamerSpots: Int
   )(using ctx: WebContext): Fu[Homepage] =
+    given Option[Me] = ctx.me
     lobbyApi.apply.mon(_.lobby segment "lobbyApi") zip
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip
@@ -67,11 +68,11 @@ final class Preload(
         // format: off
         case ((((((((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
         // format: on
-          (ctx.me so currentGameMyTurn(povs, lightUserApi.sync))
+          (ctx.me soUsing currentGameMyTurn(povs, lightUserApi.sync))
             .mon(_.lobby segment "currentGame") zip
             lightUserApi
               .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
-              .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
+              .mon(_.lobby segment "lightUsers") map { (currentGame, _) =>
               Homepage(
                 data,
                 entries,
@@ -96,7 +97,7 @@ final class Preload(
             }
       }
 
-  def currentGameMyTurn(using me: Option[Me]): Fu[Option[CurrentGame]] = me.so: me =>
+  def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
     gameRepo.playingRealtimeNoAi(me).flatMap {
       _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
     } flatMap {

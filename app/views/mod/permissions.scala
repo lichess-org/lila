@@ -10,7 +10,7 @@ import controllers.routes
 
 object permissions:
 
-  def apply(u: User, me: Me)(using WebContext) =
+  def apply(u: User)(using ctx: WebContext, me: Me) =
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
@@ -26,7 +26,7 @@ object permissions:
           p(cls := "granted")("In green, permissions enabled manually or by a package."),
           div(cls := "permission-list")(
             lila.security.Permission.categorized
-              .filter { case (_, ps) => ps.exists(canGrant(me, _)) }
+              .filter { (_, ps) => ps.exists(canGrant(_)) }
               .map { case (categ, perms) =>
                 st.section(
                   h2(categ),

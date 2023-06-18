@@ -23,15 +23,16 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     me.exists(Granter(permission)(using _))
 
   def NoCurrentGame(a: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
-    env.preloader.currentGameMyTurn.flatMap:
-      _.fold(a): current =>
-        negotiate(
-          html = keyPages.home(Results.Forbidden),
-          api = _ => currentGameJsonError(current)
-        )
+    ctx.me
+      .soUsing(env.preloader.currentGameMyTurn)
+      .flatMap:
+        _.fold(a): current =>
+          negotiate(
+            html = keyPages.home(Results.Forbidden),
+            api = _ => currentGameJsonError(current)
+          )
   def NoCurrentGameOpt(me: Option[Me])(a: => Fu[Result])(using Executor): Fu[Result] =
-    env.preloader
-      .currentGameMyTurn(using me)
+    me.soUsing(env.preloader.currentGameMyTurn)
       .flatMap:
         _.fold(a)(currentGameJsonError)
 
@@ -45,7 +46,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     NoPlayban(NoCurrentGame(a))
 
   def NoPlaybanOrCurrentOpt(me: Option[Me])(a: => Fu[Result])(using Executor): Fu[Result] =
-    NoPlayban(me)(NoCurrentGameOpt(me)(a))
+    NoPlayban(me.map(_.meId))(NoCurrentGameOpt(me)(a))
 
   def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using ctx: AnyContext): Fu[Result] =
     if isGrantedOpt(perm) then f
@@ -107,8 +108,8 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
             api = _ => playbanJsonError(ban)
           )
 
-  def NoPlayban(me: Option[Me.Id])(a: => Fu[Result])(using Executor): Fu[Result] = userId
-    .so(env.playban.api.currentBan)
+  def NoPlayban(me: Option[Me.Id])(a: => Fu[Result])(using Executor): Fu[Result] = me
+    .so(env.playban.api.currentBan(_))
     .flatMap:
       _.fold(a)(playbanJsonError)
 

@@ -76,7 +76,7 @@ final class Report(
     else
       api.inquiries
         .ofModId(me.id)
-        .flatMap(_.fold(userC.modZoneOrRedirect(me, goTo.user.username))(onInquiryAction(_)))
+        .flatMap(_.fold(userC.modZoneOrRedirect(goTo.user.username))(onInquiryAction(_)))
 
   protected[controllers] def onInquiryAction(
       inquiry: ReportModel,
@@ -106,7 +106,7 @@ final class Report(
                 .map:
                   _.fold(redirectToList)(onInquiryStart)
           }
-        else if processed then userC.modZoneOrRedirect(me, inquiry.user)
+        else if processed then userC.modZoneOrRedirect(inquiry.user)
         else onInquiryStart(inquiry)
 
   def process(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> me ?=>

@@ -54,7 +54,7 @@ final class SwissApi(
 
   def fetchByIdNoCache(id: SwissId) = mongo.swiss.byId[Swiss](id)
 
-  def create(data: SwissForm.SwissData, me: User, teamId: TeamId): Fu[Swiss] =
+  def create(data: SwissForm.SwissData, teamId: TeamId)(using me: Me): Fu[Swiss] =
     val swiss = Swiss(
       _id = Swiss.makeId,
       name = data.name | GreatPlayer.randomName,
@@ -64,7 +64,7 @@ final class SwissApi(
       nbPlayers = 0,
       nbOngoing = 0,
       createdAt = nowInstant,
-      createdBy = me.id,
+      createdBy = me,
       teamId = teamId,
       nextRoundAt = data.realStartsAt.some,
       startsAt = data.realStartsAt,

@@ -80,7 +80,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
-  def prismicJs(using ctx: WebContext): Frag =
+  def prismicJs(using WebContext): Frag =
     raw:
       isGranted(_.Prismic).so:
         embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++

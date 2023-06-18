@@ -24,11 +24,11 @@ object bits:
     )
 
   def authorLink(post: ForumPost, cssClass: Option[String] = None, withOnline: Boolean = true)(using
-      ctx: WebContext
+      WebContext
   ): Frag =
-    if (!(ctx.me so Granter(Permission.ModerateForum)) && post.erased) span(cls := "author")("<erased>")
-    else
-      userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = ~post.modIcon)
+    if !Granter.opt(_.ModerateForum) && post.erased
+    then span(cls := "author")("<erased>")
+    else userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = ~post.modIcon)
 
   private[forum] val dataTopic = attr("data-topic")
   private[forum] val dataUnsub = attr("data-unsub")

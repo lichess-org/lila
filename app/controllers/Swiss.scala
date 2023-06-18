@@ -37,7 +37,7 @@ final class Swiss(
       negotiate(
         html = swissOption.fold(swissNotFound.toFuccess): swiss =>
           for
-            verdicts <- env.swiss.api.verdicts(swiss, ctx.me)
+            verdicts <- env.swiss.api.verdicts(swiss)
             version  <- env.swiss.version(swiss.id)
             isInTeam <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
             json <- env.swiss.json(
@@ -63,7 +63,7 @@ final class Swiss(
           swissOption.fold(notFoundJson("No such swiss tournament")): swiss =>
             for
               isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
-              verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
+              verdicts      <- env.swiss.api.verdicts(swiss)
               socketVersion <- getBool("socketVersion").so(env.swiss version swiss.id dmap some)
               playerInfo <- getUserStr("playerInfo").so: u =>
                 env.swiss.api.playerInfo(swiss, u.id)
@@ -117,8 +117,8 @@ final class Swiss(
           .fold(
             err => BadRequest(html.swiss.form.create(err, teamId)).toFuccess,
             data =>
-              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))):
-                env.swiss.api.create(data, me, teamId) map { swiss =>
+              tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
+                env.swiss.api.create(data, teamId) map { swiss =>
                   Redirect(routes.Swiss.show(swiss.id))
                 }
           )
@@ -135,8 +135,8 @@ final class Swiss(
             .fold(
               jsonFormError(_)(using reqLang),
               data =>
-                tourC.rateLimitCreation(me, isPrivate = true, ctx.req, rateLimited):
-                  env.swiss.api.create(data, me, teamId) flatMap env.swiss.json.api map JsonOk
+                tourC.rateLimitCreation(isPrivate = true, rateLimited):
+                  env.swiss.api.create(data, teamId) flatMap env.swiss.json.api map JsonOk
             )
         else notFoundJson("You're not a leader of that team")
 
@@ -153,15 +153,15 @@ final class Swiss(
     }
   }
 
-  def join(id: SwissId) = AuthBody { ctx ?=> me ?=>
+  def join(id: SwissId) = AuthBody { _ ?=> _ ?=>
     NoLameOrBot:
-      doJoin(me, id, bodyPassword)
+      doJoin(id, bodyPassword)
   }
 
-  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
+  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
-    else doJoin(me, id, bodyPassword)
+    else doJoin(id, bodyPassword)
   }
 
   private def bodyPassword(using Request[?]) =
@@ -235,7 +235,7 @@ final class Swiss(
     AuthOrScopedBody(_.Tournament.Write)(doSchedule, doSchedule)
 
   def terminate(id: SwissId) = Auth { _ ?=> me ?=>
-    WithEditableSwiss(id, me): swiss =>
+    WithEditableSwiss(id): swiss =>
       env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
   }
 

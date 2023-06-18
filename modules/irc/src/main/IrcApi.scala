@@ -19,7 +19,7 @@ final class IrcApi(
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.username}")
     zulip(_.mod.commsPrivate, "burst")(md)
 
-  def inquiry(user: User, mod: Me, domain: ModDomain, room: String): Funit =
+  def inquiry(user: User, domain: ModDomain, room: String)(using mod: Me): Funit =
     val stream = domain match
       case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
       case ModDomain.Cheat => ZulipClient.stream.mod.hunterCheat
@@ -45,28 +45,26 @@ final class IrcApi(
         noteApi.write(
           user,
           s"$domain discussion: $zulipLink",
-          mod.user,
           modOnly = true,
           dox = domain == ModDomain.Admin
         )
       }
 
-  def nameCloseVote(user: User, mod: Me): Funit =
+  def nameCloseVote(user: User)(using mod: Me): Funit =
     zulip
       .sendAndGetLink(_.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
       .flatMapz { zulipLink =>
         noteApi.write(
           user,
           s"username discussion: $zulipLink",
-          mod.user,
           modOnly = true,
           dox = false
         )
       }
 
-  def usertableCheck(user: User, mod: Me): Funit =
+  def usertableCheck(user: User)(using mod: Me): Funit =
     zulip(_.mod.cafeteria, "reports")(
-      s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.user.username)})"
+      s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.username)})"
     )
 
   def userModNote(modName: UserName, username: UserName, note: String): Funit =
@@ -151,7 +149,7 @@ final class IrcApi(
         s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
             .lichessLink(s"/appeal/${user.username}", user.username)}**"
       .flatMapz: zulipAppealConv =>
-        noteApi.write(user, s"Appeal discussion: $zulipAppealConv", mod.user, modOnly = true, dox = true)
+        noteApi.write(user, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
 
   def nameClosePreset(username: UserName): Funit =
     zulip(_.mod.usernames, s"/$username")("@**remind** here in 48h to close this account")

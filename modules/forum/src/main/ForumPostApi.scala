@@ -218,10 +218,9 @@ final class ForumPostApi(
       categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
     }
 
-  private def logAnonPost(post: ForumPost, edit: Boolean)(using me: Me): Funit =
+  private def logAnonPost(post: ForumPost, edit: Boolean)(using Me): Funit =
     topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
       modLog.postOrEditAsAnonMod(
-        me.modId,
         post.categId,
         topic.slug,
         post.id,

@@ -90,7 +90,7 @@ final class TeamApi(
             indexer ! InsertTeam(team)
           }
 
-  def mine(me: Me): Fu[List[Team]] =
+  def mine(using me: Me): Fu[List[Team]] =
     cached teamIdsList me flatMap teamRepo.byIdsSortPopular
 
   def isSubscribed = memberRepo.isSubscribed
@@ -100,7 +100,7 @@ final class TeamApi(
   def countTeamsOf(me: Me) =
     cached teamIdsList me dmap (_.size)
 
-  def hasJoinedTooManyTeams(me: Me) =
+  def hasJoinedTooManyTeams(using me: Me) =
     countTeamsOf(me).dmap(_ > Team.maxJoin(me))
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
@@ -146,52 +146,55 @@ final class TeamApi(
       }
     }
 
-  def join(team: Team, me: User, request: Option[String], password: Option[String]): Fu[Requesting] =
-    if (team.open)
-      if (team.passwordMatches(~password)) doJoin(team, me) inject Requesting.Joined
+  def join(team: Team, request: Option[String], password: Option[String])(using Me): Fu[Requesting] =
+    if team.open then
+      if team.passwordMatches(~password)
+      then doJoin(team) inject Requesting.Joined
       else fuccess(Requesting.NeedPassword)
-    else motivateOrJoin(team, me, request)
+    else motivateOrJoin(team, request)
 
-  private def motivateOrJoin(team: Team, me: User, msg: Option[String]) =
+  private def motivateOrJoin(team: Team, msg: Option[String])(using Me) =
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
-      createRequest(team, me, txt) inject Requesting.Joined
+      createRequest(team, txt) inject Requesting.Joined
 
-  def requestable(teamId: TeamId, user: User): Fu[Option[Team]] =
+  def requestable(teamId: TeamId)(using Me): Fu[Option[Team]] =
     for
       teamOption <- teamEnabled(teamId)
-      able       <- teamOption.so(requestable(_, user))
+      able       <- teamOption.so(requestable)
     yield teamOption ifTrue able
 
-  def requestable(team: Team, user: User): Fu[Boolean] =
+  def requestable(team: Team)(using me: Me): Fu[Boolean] =
     for
-      belongs   <- belongsTo(team.id, user)
-      requested <- requestRepo.exists(team.id, user.id)
+      belongs   <- belongsTo(team.id, me)
+      requested <- requestRepo.exists(team.id, me)
     yield !belongs && !requested
 
-  def createRequest(team: Team, user: User, msg: String): Funit =
-    requestable(team, user) flatMapz {
+  def createRequest(team: Team, msg: String)(using me: Me): Funit =
+    requestable(team).flatMapz {
       val request = Request.make(
         team = team.id,
-        user = user.id,
-        message = if (user.marks.troll) Request.defaultMessage else msg
+        user = me,
+        message = if me.marks.troll then Request.defaultMessage else msg
       )
       requestRepo.coll.insert.one(request).void >>- (cached.nbRequests invalidate team.createdBy)
     }
 
-  def cancelRequestOrQuit(team: Team, user: User): Funit =
-    requestRepo.cancel(team.id, user) flatMap {
+  def cancelRequestOrQuit(team: Team)(using me: Me): Funit =
+    requestRepo.cancel(team.id, me) flatMap {
       if _ then funit
-      else quit(team, user.id)
+      else quit(team, me)
     }
 
   def processRequest(team: Team, request: Request, decision: String): Funit = {
-    if (decision == "decline") requestRepo.coll.updateField($id(request.id), "declined", true).void
-    else if (decision == "accept") for
-      _          <- requestRepo.remove(request.id)
-      userOption <- userRepo byId request.user
-      _ <-
-        userOption.so(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
-    yield ()
+    if decision == "decline"
+    then requestRepo.coll.updateField($id(request.id), "declined", true).void
+    else if decision == "accept"
+    then
+      for
+        _          <- requestRepo.remove(request.id)
+        userOption <- userRepo byId request.user
+        _ <- userOption.so(user => doJoin(team)(using Me(user)) >> notifier.acceptRequest(team, request))
+      yield ()
     else funit
   }.addEffect: _ =>
     cached.nbRequests invalidate team.createdBy
@@ -208,13 +211,13 @@ final class TeamApi(
                 _ foreach cached.nbRequests.invalidate
         .parallel
 
-  def doJoin(team: Team, user: User): Funit = {
-    !belongsTo(team.id, user.id) flatMapz {
-      memberRepo.add(team.id, user.id) >>
+  def doJoin(team: Team)(using me: Me): Funit = {
+    !belongsTo(team.id, me) flatMapz {
+      memberRepo.add(team.id, me) >>
         teamRepo.incMembers(team.id, +1) >>- {
-          cached invalidateTeamIds user.id
-          timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
-          Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
+          cached invalidateTeamIds me
+          timeline ! Propagate(TeamJoin(me, team.id)).toFollowersOf(me)
+          Bus.publish(JoinTeam(id = team.id, userId = me.userId), "team")
         }
     }
   } recover lila.db.ignoreDuplicateKey

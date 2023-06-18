@@ -36,7 +36,7 @@ object search:
               value       := form("q").value
             )
           ),
-          userTable(mod, users, showUsernames = true, eraseButton = isGranted(_.GdprErase))
+          userTable(users, showUsernames = true, eraseButton = isGranted(_.GdprErase))
         )
       )
     }

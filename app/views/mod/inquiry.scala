@@ -137,14 +137,12 @@ object inquiry:
       div(cls := "actions")(
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
           iconTag(licon.Envelope),
-          div(
-            env.mod.presets.getPmPresets(ctx.me).value.map { preset =>
+          div:
+            env.mod.presets.getPmPresetsOpt.value.map: preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
                 submitButton(cls := "fbt", title := preset.text)(preset.name),
                 autoNextInput
               )
-            }
-          )
         ),
         isGranted(_.MarkEngine) option {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
