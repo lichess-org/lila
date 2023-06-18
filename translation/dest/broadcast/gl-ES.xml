@@ -31,4 +31,5 @@
   <string name="downloadAllRounds">Descargar todas as partidas</string>
   <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e as súas partidas.</string>
   <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta ronda. A emisión terá que estar activa para volver a crealas.</string>
+  <string name="editRoundStudy">Editar ronda de estudo</string>
 </resources>
