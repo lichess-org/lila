@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmissões</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s transmissão</item>
+    <item quantity="other">%s transmissões</item>
+  </plurals>
   <string name="liveBroadcasts">Transmissões ao vivo do torneio</string>
   <string name="newBroadcast">Nova transmissão ao vivo</string>
   <string name="addRound">Adicionar uma rodada</string>
