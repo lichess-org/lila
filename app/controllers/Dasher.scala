@@ -67,7 +67,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
       html = notFound,
       api = _ =>
         ctx.me
-          .so(env.streamer.api.isPotentialStreamer)
+          .so(env.streamer.api.isPotentialStreamer(_))
           .zip(galleryJson.get({}))
           .map: (isStreamer, gallery) =>
             Ok:
@@ -112,7 +112,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
                     "list"    -> lila.pref.PieceSet3d.all.map(_.name)
                   )
                 ),
-                "coach"    -> isGranted(_.Coach),
+                "coach"    -> isGrantedOpt(_.Coach),
                 "streamer" -> isStreamer,
                 "i18n"     -> translations
               )

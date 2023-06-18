@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.user.Holder
+import lila.user.Me
 import lila.common.Iso
 
 sealed trait Reason:
@@ -40,7 +40,7 @@ object Reason:
     def isBoost    = reason == Boost
     def isPlaybans = reason == Playbans
 
-  def isGrantedFor(mod: Holder)(reason: Reason) =
+  def isGrantedFor(mod: Me)(reason: Reason) =
     import lila.security.Granter
     reason match
       case Cheat                                    => Granter.is(_.MarkEngine)(mod)

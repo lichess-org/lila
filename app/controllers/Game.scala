@@ -13,16 +13,16 @@ import lila.common.HTTPRequest
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def bookmark(gameId: GameId) = Auth { _ ?=> me ?=>
-    env.bookmark.api.toggle(gameId, me.id)
+    env.bookmark.api.toggle(gameId, me.userId)
   }
 
   def delete(gameId: GameId) = Auth { _ ?=> me ?=>
     OptionFuResult(env.game.gameRepo game gameId): game =>
-      if game.pgnImport.flatMap(_.user).has(me.id) then
+      if game.pgnImport.flatMap(_.user).has(me.userId) then
         env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
         (env.game.gameRepo remove game.id) >>
           (env.analyse.analysisRepo remove game.id) >>
-          env.game.cached.clearNbImportedByCache(me.id) inject
+          env.game.cached.clearNbImportedByCache(me) inject
           Redirect(routes.User.show(me.username))
       else Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
   }
@@ -55,50 +55,48 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private def handleExport(username: UserStr)(using ctx: AnyContext) =
     env.user.repo byId username flatMap {
-      _.filter(u => u.enabled.yes || ctx.me.exists(_ is u) || ctx.me.so(isGranted(_.GamesModView, _))) so {
-        user =>
-          val format = GameApiV2.Format byRequest req
-          import lila.rating.{ Perf, PerfType }
-          WithVs: vs =>
-            val finished = getBoolOpt("finished") | true
-            val config = GameApiV2.ByUserConfig(
-              user = user,
-              format = format,
-              vs = vs,
-              since = getTimestamp("since"),
-              until = getTimestamp("until"),
-              max = getInt("max").map(_ atLeast 1),
-              rated = getBoolOpt("rated"),
-              perfType = (~get("perfType") split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
-              color = get("color") flatMap chess.Color.fromName,
-              analysed = getBoolOpt("analysed"),
-              flags = requestPgnFlags(extended = false),
-              sort =
-                if (get("sort") has "dateAsc") GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
-              perSecond = MaxPerSecond(ctx.me match
-                case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
-                case Some(m) if m is user.id                   => 60
-                case Some(_) if ctx.isOauthAuth => 30 // bonus for oauth logged in only (not for CSRF)
-                case _                          => 20
-              ),
-              playerFile = get("players"),
-              ongoing = getBool("ongoing") || !finished,
-              finished = finished
-            )
-            if ctx.me.exists(_ is lila.user.User.explorerId) then
-              Ok.chunked(env.api.gameApiV2.exportByUser(config))
-                .pipe(noProxyBuffer)
-                .as(gameContentType(config))
-            else
-              apiC
-                .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
-                  env.api.gameApiV2.exportByUser(config)
-                ): source =>
-                  Ok.chunked(source)
-                    .pipe:
-                      asAttachmentStream:
-                        s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
-                    .as(gameContentType(config))
+      _.filter(u => u.enabled.yes || ctx.me.exists(_ is u) || isGrantedOpt(_.GamesModView)) so { user =>
+        val format = GameApiV2.Format byRequest req
+        import lila.rating.{ Perf, PerfType }
+        WithVs: vs =>
+          val finished = getBoolOpt("finished") | true
+          val config = GameApiV2.ByUserConfig(
+            user = user,
+            format = format,
+            vs = vs,
+            since = getTimestamp("since"),
+            until = getTimestamp("until"),
+            max = getInt("max").map(_ atLeast 1),
+            rated = getBoolOpt("rated"),
+            perfType = (~get("perfType") split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
+            color = get("color") flatMap chess.Color.fromName,
+            analysed = getBoolOpt("analysed"),
+            flags = requestPgnFlags(extended = false),
+            sort = if (get("sort") has "dateAsc") GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
+            perSecond = MaxPerSecond(ctx.me match
+              case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
+              case Some(m) if m is user.id                   => 60
+              case Some(_) if ctx.isOAuthAuth => 30 // bonus for oauth logged in only (not for CSRF)
+              case _                          => 20
+            ),
+            playerFile = get("players"),
+            ongoing = getBool("ongoing") || !finished,
+            finished = finished
+          )
+          if ctx.me.exists(_ is lila.user.User.explorerId) then
+            Ok.chunked(env.api.gameApiV2.exportByUser(config))
+              .pipe(noProxyBuffer)
+              .as(gameContentType(config))
+          else
+            apiC
+              .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
+                env.api.gameApiV2.exportByUser(config)
+              ): source =>
+                Ok.chunked(source)
+                  .pipe:
+                    asAttachmentStream:
+                      s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
+                  .as(gameContentType(config))
 
       }
     }

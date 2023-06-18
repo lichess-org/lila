@@ -12,8 +12,8 @@ import lila.common.LilaOpeningFamily
 
 final class Tutor(env: Env) extends LilaController(env):
 
-  def home = Secure(_.Beta) { _ ?=> holder =>
-    Redirect(routes.Tutor.user(holder.user.username))
+  def home = Secure(_.Beta) { _ ?=> me =>
+    Redirect(routes.Tutor.user(me.user.username))
   }
 
   def user(username: UserStr) = TutorPage(username) { _ ?=> me ?=> av =>
@@ -61,15 +61,15 @@ final class Tutor(env: Env) extends LilaController(env):
   private def TutorPageAvailability(
       username: UserStr
   )(f: WebContext ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
-    Secure(_.Beta) { ctx ?=> holder =>
+    Secure(_.Beta) { ctx ?=> me =>
       def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(user)
-      if holder.user is username then proceed(holder.user)
+      if me.user is username then proceed(me.user)
       else
         env.user.repo.byId(username) flatMap {
           _.fold(notFound): user =>
             if isGranted(_.SeeInsight) then proceed(user)
             else
-              (user.enabled.yes so env.clas.api.clas.isTeacherOf(holder.id, user.id)) flatMap {
+              (user.enabled.yes so env.clas.api.clas.isTeacherOf(me.id, user.id)) flatMap {
                 if _ then proceed(user) else notFound
               }
         }

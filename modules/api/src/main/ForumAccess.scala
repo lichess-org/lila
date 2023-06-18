@@ -34,16 +34,13 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
       me: Option[Me]
   ): Fu[Boolean] =
     if tryingToPostAsMod && Granter.opt(_.Shusher) then fuTrue
-    else me.exists(canWriteInAnyForum) so isGranted(categId, Operation.Write)
+    else canWriteInAnyForum so isGranted(categId, Operation.Write)
 
-  private def canWriteInAnyForum(me: Me) =
+  private def canWriteInAnyForum(using me: Option[Me]) = me.exists: me =>
     !me.isBot && {
       (me.count.game > 0 && me.createdSinceDays(2)) || me.hasTitle || me.isVerified || me.isPatron
     }
 
-  def isGrantedMod(categId: ForumCategId)(using me: Me): Fu[Boolean] =
-    if Granter(_.ModerateForum) then fuTrue
-    else
-      ForumCateg.toTeamId(categId) so {
-        teamApi.leads(_, me)
-      }
+  def isGrantedMod(categId: ForumCategId)(using me: Option[Me]): Fu[Boolean] = me.so: me =>
+    if Granter.opt(_.ModerateForum) then fuTrue
+    else ForumCateg.toTeamId(categId).so(teamApi.leads(_, me))

@@ -406,7 +406,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def studentArchive(id: ClasId, username: UserStr, v: Boolean) = Secure(_.Teacher) { _ ?=> me ?=>
     WithClass(id): clas =>
       WithStudent(clas, username): s =>
-        env.clas.api.student.archive(s.student.id, me, v) inject
+        env.clas.api.student.archive(s.student.id, v) inject
           Redirect(routes.Clas.studentShow(clas.id.value, s.user.username.value)).flashSuccess
   }
 
@@ -462,14 +462,14 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         if s.student.managed then
           env.clas.api.student.closeAccount(s) >>
-            env.api.accountClosure.close(s.user, me) inject redirectTo(clas).flashSuccess
+            env.api.accountClosure.close(s.user) inject redirectTo(clas).flashSuccess
         else redirectTo(clas)
   }
 
   def becomeTeacher = AuthBody { ctx ?=> me ?=>
     couldBeTeacher.flatMapz:
       val perm = lila.security.Permission.Teacher.dbKey
-      (!me.roles.has(perm) so env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
+      (!me.roles.has(perm) so env.user.repo.setRoles(me.userId, perm :: me.roles).void) inject
         Redirect(routes.Clas.index)
   }
 

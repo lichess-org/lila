@@ -18,7 +18,7 @@ import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Game as GameModel, Pov }
 import lila.rating.{ Perf, PerfType }
 import lila.socket.UserLagCache
-import lila.user.{ Holder, User as UserModel }
+import lila.user.{ Me, User as UserModel }
 import lila.security.{ Granter, UserLogins }
 import lila.mod.UserWithModlog
 import play.api.i18n.Lang
@@ -140,7 +140,7 @@ final class User(
     else
       env.user.repo byId username flatMap {
         case None if isGranted(_.UserModView) =>
-          ctx.me.map(Holder.apply) so { modC.searchTerm(_, username.value) }
+          ctx.me.map(Me.apply) so { modC.searchTerm(_, username.value) }
         case None                                                 => notFound
         case Some(u) if u.enabled.yes || isGranted(_.UserModView) => f(u)
         case Some(u) =>
@@ -310,14 +310,14 @@ final class User(
         }
     )
 
-  def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> holder =>
-    modZoneOrRedirect(holder, username)
+  def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> me =>
+    modZoneOrRedirect(me, username)
   }
 
-  protected[controllers] def modZoneOrRedirect(holder: Holder, username: UserStr)(using
+  protected[controllers] def modZoneOrRedirect(me: Me, username: UserStr)(using
       ctx: WebContext
   ): Fu[Result] =
-    if HTTPRequest isEventSource ctx.req then renderModZone(holder, username)
+    if HTTPRequest isEventSource ctx.req then renderModZone(me, username)
     else modC.redirect(username)
 
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, ?] =
@@ -344,14 +344,14 @@ final class User(
           }
       }
 
-  protected[controllers] def renderModZone(holder: Holder, username: UserStr)(using
+  protected[controllers] def renderModZone(me: Me, username: UserStr)(using
       ctx: WebContext
   ): Fu[Result] =
     env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
         import html.user.{ mod as view }
         import lila.app.ui.ScalatagsExtensions.{ emptyFrag, given }
-        given lila.mod.IpRender.RenderIp = env.mod.ipRender(holder)
+        given lila.mod.IpRender.RenderIp = env.mod.ipRender(me)
 
         val nbOthers = getInt("nbOthers") | 100
 
@@ -369,7 +369,7 @@ final class User(
         val student = env.clas.api.student.findManaged(user).map2(view.student).dmap(~_)
 
         val reportLog = isGranted(_.SeeReport) so env.report.api
-          .byAndAbout(user, 20, holder)
+          .byAndAbout(user, 20, me)
           .flatMap: rs =>
             lightUserApi.preloadMany(rs.userIds) inject rs
           .map(view.reportLog(user))
@@ -386,7 +386,7 @@ final class User(
             user,
             emails,
             erased,
-            env.mod.presets.getPmPresets(holder.user)
+            env.mod.presets.getPmPresets(me.user)
           )
         }
 
@@ -395,10 +395,10 @@ final class User(
           userLogins <- userLoginsFu
           appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
           data       <- loginsTableData(user, userLogins, nbOthers)
-        yield html.user.mod.otherUsers(holder, user, data, appeals)
+        yield html.user.mod.otherUsers(me, user, data, appeals)
 
         val identification = userLoginsFu map { logins =>
-          Granter.is(_.ViewPrintNoIP)(holder) so html.user.mod.identification(logins)
+          Granter.is(_.ViewPrintNoIP)(me) so html.user.mod.identification(logins)
         }
 
         val kaladin = isGranted(_.MarkEngine) so env.irwin.kaladinApi.get(user).map {

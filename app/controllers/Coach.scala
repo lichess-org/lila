@@ -47,13 +47,13 @@ final class Coach(env: Env) extends LilaController(env):
     else notFound
 
   def edit = Secure(_.Coach) { ctx ?=> me ?=>
-    OptionFuResult(api findOrInit me): c =>
-      env.msg.twoFactorReminder(me.id) inject
+    OptionFuResult(api.findOrInit): c =>
+      env.msg.twoFactorReminder(me.userId) inject
         Ok(html.coach.edit(c, CoachProfileForm edit c.coach)).noCache
   }
 
   def editApply = SecureBody(_.Coach) { ctx ?=> me ?=>
-    OptionFuResult(api findOrInit me): c =>
+    OptionFuResult(api.findOrInit): c =>
       CoachProfileForm
         .edit(c.coach)
         .bindFromRequest()
@@ -64,12 +64,12 @@ final class Coach(env: Env) extends LilaController(env):
   }
 
   def picture = Secure(_.Coach) { ctx ?=> me ?=>
-    OptionResult(api findOrInit me): c =>
+    OptionResult(api.findOrInit): c =>
       Ok(html.coach.picture(c)).noCache
   }
 
   def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>
-    OptionFuResult(api findOrInit me): c =>
+    OptionFuResult(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
           api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>

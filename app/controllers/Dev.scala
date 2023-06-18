@@ -4,6 +4,7 @@ import play.api.data.*, Forms.*
 import views.*
 
 import lila.app.{ given, * }
+import lila.user.Me
 
 final class Dev(env: Env) extends LilaController(env):
 
@@ -67,18 +68,18 @@ final class Dev(env: Env) extends LilaController(env):
       .fold(
         err => BadRequest(html.dev.cli(err, "Invalid command".some)),
         command =>
-          runAs(me.id, command) map { res =>
+          runCommand(command) map { res =>
             Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
           }
       )
   }
 
   def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me ?=>
-    lila.security.Granter(_.Cli)(me) so {
-      runAs(me.id, ctx.body.body) map { Ok(_) }
+    lila.security.Granter(_.Cli).so {
+      runCommand(ctx.body.body) map { Ok(_) }
     }
   }
 
-  private def runAs(user: UserId, command: String): Fu[String] =
-    env.mod.logApi.cli(user into ModId, command) >>
+  private def runCommand(command: String)(using me: Me.Id): Fu[String] =
+    env.mod.logApi.cli(me.modId, command) >>
       env.api.cli(command.split(" ").toList)

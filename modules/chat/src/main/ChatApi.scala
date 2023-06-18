@@ -10,7 +10,7 @@ import lila.security.{ Flood, Granter }
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi.*
-import lila.user.{ Holder, User, UserRepo }
+import lila.user.{ Me, User, UserRepo }
 
 final class ChatApi(
     coll: Coll,
@@ -141,14 +141,13 @@ final class ChatApi(
 
     def timeout(
         chatId: ChatId,
-        modId: UserId,
         userId: UserId,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    ): Funit =
-      coll.byId[UserChat](chatId.value) zip userRepo.me(modId) zip userRepo.byId(userId) flatMap {
+    )(using mod: Me.Id): Funit =
+      coll.byId[UserChat](chatId.value) zip userRepo.me(mod) zip userRepo.byId(userId) flatMap {
         case ((Some(chat), Some(me)), Some(user))
             if isMod(me) || (busChan(BusChan) == BusChan.Study && isRelayMod(me)) ||
               scope == ChatTimeout.Scope.Local =>
@@ -156,11 +155,10 @@ final class ChatApi(
         case _ => funit
       }
 
-    def publicTimeout(data: ChatTimeout.TimeoutFormData, me: Holder): Funit =
+    def publicTimeout(data: ChatTimeout.TimeoutFormData)(using Me): Funit =
       ChatTimeout.Reason(data.reason) so { reason =>
         timeout(
           chatId = data.roomId into ChatId,
-          modId = me.id,
           userId = data.userId.id,
           reason = reason,
           scope = ChatTimeout.Scope.Global,

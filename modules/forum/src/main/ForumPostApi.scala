@@ -37,7 +37,7 @@ final class ForumPostApi(
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
-        userId = !anonMod option me.userId,
+        userId = !anonMod option me,
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
@@ -52,15 +52,16 @@ final class ForumPostApi(
             topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
             categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
               !categ.quiet so (indexer ! InsertPost(post))
-              promotion.save(me, post.text)
+              promotion.save(post.text)
               shutup ! {
-                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.userId, post.text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.userId, post.text)
+                if post.isTeam
+                then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, post.text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, post.text)
               }
-              if (anonMod) logAnonPost(me.userId, post, edit = false)
+              if (anonMod) logAnonPost(post, edit = false)
               else if !post.troll && !categ.quiet then
-                timeline ! Propagate(TimelinePost(me.userId, topic.id, topic.name, post.id)).pipe {
-                  _ toFollowersOf me.userId toUsers topicUserIds exceptUser me.userId withTeam categ.team
+                timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
+                  _ toFollowersOf me toUsers topicUserIds exceptUser me withTeam categ.team
                 }
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
@@ -70,7 +71,7 @@ final class ForumPostApi(
     }
 
   def editPost(postId: ForumPostId, newText: String)(using me: Me): Fu[ForumPost] =
-    get(postId) flatMap { post =>
+    get(postId).flatMap: post =>
       post.fold[Fu[ForumPost]](fufail("Post no longer exists.")) {
         case (_, post) if !post.canBeEditedByMe =>
           fufail("You are not authorized to modify this post.")
@@ -80,14 +81,13 @@ final class ForumPostApi(
           val newPost = post.editPost(nowInstant, spam replace newText)
           (newPost.text != post.text).so {
             postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
-              logAnonPost(me.userId, newPost, edit = true)
-            } >>- promotion.save(me, newPost.text)
+              logAnonPost(newPost, edit = true)
+            } >>- promotion.save(newPost.text)
           } inject newPost
       }
-    }
 
   def urlData(postId: ForumPostId, forUser: Option[User]): Fu[Option[PostUrlData]] =
-    get(postId) flatMap {
+    get(postId).flatMap:
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
         postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
@@ -95,12 +95,10 @@ final class ForumPostApi(
           PostUrlData(topic.categId, topic.slug, page, post.number).some
         }
       case _ => fuccess(none)
-    }
 
   def get(postId: ForumPostId): Fu[Option[(ForumTopic, ForumPost)]] =
-    getPost(postId) flatMapz { post =>
-      topicRepo.byId(post.topicId) dmap2 { _ -> post }
-    }
+    getPost(postId).flatMapz: post =>
+      topicRepo.byId(post.topicId).dmap2(_ -> post)
 
   def getPost(postId: ForumPostId): Fu[Option[ForumPost]] =
     postRepo.coll.byId[ForumPost](postId)
@@ -219,10 +217,10 @@ final class ForumPostApi(
       categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
     }
 
-  private def logAnonPost(userId: UserId, post: ForumPost, edit: Boolean): Funit =
+  private def logAnonPost(post: ForumPost, edit: Boolean)(using me: Me): Funit =
     topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
       modLog.postOrEditAsAnonMod(
-        userId into ModId,
+        me.modId,
         post.categId,
         topic.slug,
         post.id,

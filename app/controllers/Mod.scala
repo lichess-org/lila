@@ -13,7 +13,7 @@ import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
-import lila.user.{ Holder, User as UserModel }
+import lila.user.{ Me, User as UserModel }
 import scala.annotation.nowarn
 
 final class Mod(
@@ -25,7 +25,7 @@ final class Mod(
   private def modApi    = env.mod.api
   private def assessApi = env.mod.assessApi
 
-  private given Conversion[Holder, AsMod] = holder => AsMod(holder.user)
+  private given Conversion[Me, AsMod] = me => AsMod(me.user)
 
   def alt(username: UserStr, v: Boolean) =
     OAuthModBody(_.CloseAccount) { me ?=>
@@ -186,7 +186,7 @@ final class Mod(
   def createNameCloseVote(username: UserStr) = SendToZulip(username, env.irc.api.nameCloseVote)
   def askUsertableCheck(username: UserStr)   = SendToZulip(username, env.irc.api.usertableCheck)
 
-  private def SendToZulip(username: UserStr, method: (UserModel, Holder) => Funit) =
+  private def SendToZulip(username: UserStr, method: (UserModel, Me) => Funit) =
     Secure(_.SendToZulip) { _ ?=> me ?=>
       env.user.repo byId username flatMapz { method(_, me) inject NoContent }
     }
@@ -352,7 +352,7 @@ final class Mod(
         case Left(err)  => res flashFailure err
   }
 
-  protected[controllers] def searchTerm(me: Holder, q: String)(using WebContext) =
+  protected[controllers] def searchTerm(me: Me, q: String)(using WebContext) =
     env.mod
       .search(q)
       .map: users =>
@@ -516,28 +516,28 @@ final class Mod(
   private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
-  private def OAuthMod[A](perm: Permission.Selector)(f: AnyContext ?=> Holder => Fu[Option[A]])(
-      thenWhat: WebContext ?=> Holder => A => Fu[Result]
+  private def OAuthMod[A](perm: Permission.Selector)(f: AnyContext ?=> Me => Fu[Option[A]])(
+      thenWhat: WebContext ?=> Me => A => Fu[Result]
   ): EssentialAction =
-    SecureOrScoped(perm) { ctx ?=> holder =>
-      f(holder).flatMapz: res =>
+    SecureOrScoped(perm) { ctx ?=> me =>
+      f(me).flatMapz: res =>
         ctx match
-          case web: WebContext => thenWhat(using web)(holder)(res)
+          case web: WebContext => thenWhat(using web)(me)(res)
           case _               => fuccess(jsonOkResult)
     }
-  private def OAuthModBody[A](perm: Permission.Selector)(f: Holder => Fu[Option[A]])(
-      thenWhat: WebBodyContext[?] ?=> Holder => A => Fu[Result]
+  private def OAuthModBody[A](perm: Permission.Selector)(f: Me => Fu[Option[A]])(
+      thenWhat: WebBodyContext[?] ?=> Me => A => Fu[Result]
   ): EssentialAction =
-    SecureOrScopedBody(perm) { ctx ?=> holder =>
-      f(holder).flatMapz: res =>
+    SecureOrScopedBody(perm) { ctx ?=> me =>
+      f(me).flatMapz: res =>
         ctx match
-          case web: WebBodyContext[?] => thenWhat(using web)(holder)(res)
+          case web: WebBodyContext[?] => thenWhat(using web)(me)(res)
           case _                      => fuccess(jsonOkResult)
     }
 
   private def actionResult(
       username: UserStr
-  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: WebContext): Fu[Result] =
+  )(@nowarn user: Me)(@nowarn res: Any)(using ctx: WebContext): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then redirect(username)
     else userC.renderModZoneActions(username)

@@ -10,7 +10,7 @@ import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
 import lila.report.Report.{ Id as ReportId }
-import lila.user.{ Holder, User as UserModel }
+import lila.user.{ Me, User as UserModel }
 
 final class Report(
     env: Env,
@@ -20,7 +20,7 @@ final class Report(
 
   import env.report.api
 
-  private given Conversion[Holder, AsMod] = holder => AsMod(holder.user)
+  private given Conversion[Me, AsMod] = me => AsMod(me.user)
 
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
@@ -38,7 +38,7 @@ final class Report(
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(me: Holder, room: String)(using WebContext) =
+  private def renderList(me: Me, room: String)(using WebContext) =
     api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) inject
@@ -72,7 +72,7 @@ final class Report(
     else modC.redirect(inquiry.user)
 
   protected[controllers] def onModAction(
-      me: Holder
+      me: Me
   )(goTo: Suspect)(using ctx: WebBodyContext[?]): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then userC.renderModZoneActions(goTo.user.username)
     else
@@ -82,7 +82,7 @@ final class Report(
 
   protected[controllers] def onInquiryAction(
       inquiry: ReportModel,
-      me: Holder,
+      me: Me,
       processed: Boolean = false
   )(using ctx: WebBodyContext[?]): Fu[Result] =
     val dataOpt = ctx.body.body match

@@ -16,7 +16,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
-  private given Conversion[Me, ModId]                 = _.userId into ModId
+  private given Conversion[Me, ModId]                 = _.modId
 
   private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
 
@@ -312,6 +312,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
 
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.{ Modlog as M }
+    given Me.Id = m.mod into Me.Id
     val icon = m.action match
       case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
       case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
@@ -333,8 +334,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
             M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
           Some(IrcApi.ModDomain.Comm)
         case _ => Some(IrcApi.ModDomain.Other)
-      monitorType so {
-        ircApi.monitorMod(m.mod.id, icon = icon, text = text, _)
-      }
+      monitorType.so:
+        ircApi.monitorMod(icon = icon, text = text, _)
     }
-    ircApi.logMod(m.mod.id, icon = icon, text = text)
+    ircApi.logMod(icon = icon, text = text)

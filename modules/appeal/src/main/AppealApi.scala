@@ -1,7 +1,7 @@
 package lila.appeal
 
 import lila.db.dsl.{ given, * }
-import lila.user.{ Holder, NoteApi, User, UserRepo }
+import lila.user.{ Me, NoteApi, User, UserRepo }
 import reactivemongo.api.ReadPreference
 import lila.user.Me
 

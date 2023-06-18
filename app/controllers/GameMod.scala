@@ -11,7 +11,7 @@ import lila.common.config
 import lila.common.Form.{ stringIn, given }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
-import lila.user.Holder
+import lila.user.Me
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
@@ -64,14 +64,14 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
         )
   }
 
-  private def multipleAnalysis(me: Holder, gameIds: Seq[GameId])(using WebContext) =
+  private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using WebContext) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
         env.fishnet
           .analyser(
             game,
             lila.fishnet.Work.Sender(
-              userId = me.id,
+              userId = me.userId,
               ip = ctx.ip.some,
               mod = true,
               system = false

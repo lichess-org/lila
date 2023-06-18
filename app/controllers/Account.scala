@@ -9,7 +9,7 @@ import lila.api.AnnounceStore
 import lila.api.context.*
 import lila.app.{ given, * }
 import lila.security.SecurityForm.Reopen
-import lila.user.{ Holder, TotpSecret, Me, User as UserModel }
+import lila.user.{ Me, TotpSecret, User as UserModel }
 import lila.i18n.I18nLangPicker
 
 final class Account(

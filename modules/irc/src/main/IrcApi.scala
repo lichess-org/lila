@@ -2,7 +2,7 @@ package lila.irc
 
 import lila.common.{ EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*
-import lila.user.Holder
+import lila.user.Me
 import lila.user.User
 import cats.Show
 import cats.syntax.show.*
@@ -19,7 +19,7 @@ final class IrcApi(
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.username}")
     zulip(_.mod.commsPrivate, "burst")(md)
 
-  def inquiry(user: User, mod: Holder, domain: ModDomain, room: String): Funit =
+  def inquiry(user: User, mod: Me, domain: ModDomain, room: String): Funit =
     val stream = domain match
       case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
       case ModDomain.Cheat => ZulipClient.stream.mod.hunterCheat
@@ -51,7 +51,7 @@ final class IrcApi(
         )
       }
 
-  def nameCloseVote(user: User, mod: Holder): Funit =
+  def nameCloseVote(user: User, mod: Me): Funit =
     zulip
       .sendAndGetLink(_.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
       .flatMapz { zulipLink =>
@@ -64,7 +64,7 @@ final class IrcApi(
         )
       }
 
-  def usertableCheck(user: User, mod: Holder): Funit =
+  def usertableCheck(user: User, mod: Me): Funit =
     zulip(_.mod.cafeteria, "reports")(
       s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.user.username)})"
     )
@@ -80,45 +80,45 @@ final class IrcApi(
       s"[**$typ**] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
     )
 
-  def commlog(mod: Holder, user: User, reportBy: Option[UserId]): Funit =
+  def commlog(user: User, reportBy: Option[UserId])(using mod: Me): Funit =
     zulip(_.mod.adminLog, "private comms checks")({
-      val finalS = if (user.username.value endsWith "s") "" else "s"
-      s"**${markdown modLink mod.user}** checked out **${markdown userLink user.username}**'$finalS communications "
-    } + reportBy.filter(mod.id !=).fold("spontaneously") { by =>
-      s"while investigating a report created by ${markdown.userLink(by into UserName)}"
-    })
+        val finalS = if (user.username.value endsWith "s") "" else "s"
+        s"**${markdown modLink mod.user}** checked out **${markdown userLink user.username}**'$finalS communications "
+      } + reportBy
+        .filterNot(_ is mod)
+        .fold("spontaneously"): by =>
+          s"while investigating a report created by ${markdown.userLink(by into UserName)}"
+    )
 
-  def monitorMod(modId: UserId, icon: String, text: String, tpe: ModDomain): Funit =
+  def monitorMod(icon: String, text: String, tpe: ModDomain)(using modId: Me.Id): Funit =
     lightUser(modId) flatMapz { mod =>
       zulip(_.mod.adminMonitor(tpe), mod.name.value)(
         s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
       )
     }
 
-  def logMod(modId: UserId, icon: String, text: String): Funit =
+  def logMod(icon: String, text: String)(using modId: Me.Id): Funit =
     lightUser(modId) flatMapz { mod =>
       zulip(_.mod.log, "actions")(
         s"${markdown.modLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
       )
     }
 
-  def printBan(mod: Holder, print: String, v: Boolean, userIds: List[UserId]): Funit =
+  def printBan(print: String, v: Boolean, userIds: List[UserId])(using Me.Id): Funit =
     logMod(
-      mod.id,
       "paw_prints",
       s"${if (v) "Banned" else "Unbanned"} print ${markdown
           .printLink(print)} of ${userIds.length} user(s): ${markdown userIdLinks userIds}"
     )
 
-  def ipBan(mod: Holder, ip: String, v: Boolean, userIds: List[UserId]): Funit =
+  def ipBan(ip: String, v: Boolean, userIds: List[UserId])(using Me): Funit =
     logMod(
-      mod.id,
       "1234",
       s"${if (v) "Banned" else "Unbanned"} IP ${markdown
           .ipLink(ip)} of ${userIds.length} user(s): ${markdown userIdLinks userIds}"
     )
 
-  def chatPanic(mod: Holder, v: Boolean): Funit =
+  def chatPanic(mod: Me, v: Boolean): Funit =
     val msg =
       s":stop: ${markdown.modLink(mod.user)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)

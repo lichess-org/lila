@@ -5,6 +5,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import lila.user.User
 import lila.common.Form.given
+import lila.user.Me
 
 final private[forum] class ForumForm(
     promotion: lila.security.PromotionApi,
@@ -14,43 +15,40 @@ final private[forum] class ForumForm(
 
   import ForumForm.*
 
-  def postMapping(user: User, inOwnTeam: Boolean) =
+  def postMapping(inOwnTeam: Boolean)(using Me) =
     mapping(
-      "text"    -> userTextMapping(user, inOwnTeam),
+      "text"    -> userTextMapping(inOwnTeam),
       "gameId"  -> of[GameId],
       "move"    -> text,
       "modIcon" -> optional(boolean)
     )(PostData.apply)(unapply)
       .verifying(captchaFailMessage, validateCaptcha)
 
-  def post(user: User, inOwnTeam: Boolean) = Form(postMapping(user, inOwnTeam))
+  def post(inOwnTeam: Boolean)(using Me) = Form(postMapping(inOwnTeam))
 
-  def postEdit(user: User, inOwnTeam: Boolean, previousText: String) =
-    Form(
+  def postEdit(inOwnTeam: Boolean, previousText: String)(using Me) =
+    Form:
       mapping(
-        "changes" -> userTextMapping(user, inOwnTeam, previousText.some)
+        "changes" -> userTextMapping(inOwnTeam, previousText.some)
       )(PostEdit.apply)(_.changes.some)
-    )
 
-  def postWithCaptcha(user: User, inOwnTeam: Boolean) = withCaptcha(post(user, inOwnTeam))
+  def postWithCaptcha(inOwnTeam: Boolean)(using Me) = withCaptcha(post(inOwnTeam))
 
-  def topic(user: User, inOwnTeam: Boolean) =
-    Form(
+  def topic(inOwnTeam: Boolean)(using Me) =
+    Form:
       mapping(
         "name" -> cleanText(minLength = 3, maxLength = 100),
-        "post" -> postMapping(user, inOwnTeam)
+        "post" -> postMapping(inOwnTeam)
       )(TopicData.apply)(unapply)
-    )
 
-  val deleteWithReason = Form(
+  val deleteWithReason = Form:
     single("reason" -> optional(nonEmptyText))
-  )
 
-  private def userTextMapping(user: User, inOwnTeam: Boolean, previousText: Option[String] = None) =
+  private def userTextMapping(inOwnTeam: Boolean, previousText: Option[String] = None)(using Me) =
     cleanText(minLength = 3)
       .verifying(
         "You have reached the daily maximum for links in forum posts.",
-        t => inOwnTeam || promotion.test(user)(t, previousText)
+        t => inOwnTeam || promotion.test(t, previousText)
       )
 
 object ForumForm:

@@ -10,6 +10,7 @@ import lila.socket.Socket.{ makeMessage }
 import lila.common.Json.given
 
 import play.api.libs.json.*
+import lila.user.Me
 
 object RoomSocket:
 
@@ -68,13 +69,12 @@ object RoomSocket:
             val scope = if (local) ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
             chat.userChat.timeout(
               roomId into ChatId,
-              modId,
               suspect,
               r,
               text = text,
               scope = scope,
               busChan = chatBusChan
-            )
+            )(using modId)
           }
         }
     }: Handler) orElse minRoomHandler(rooms, logger)
@@ -106,7 +106,7 @@ object RoomSocket:
     object In:
 
       case class ChatSay(roomId: RoomId, userId: UserId, msg: String) extends P.In
-      case class ChatTimeout(roomId: RoomId, userId: UserId, suspect: UserId, reason: String, text: String)
+      case class ChatTimeout(roomId: RoomId, mod: Me.Id, suspect: UserId, reason: String, text: String)
           extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId])                    extends P.In
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
@@ -121,7 +121,7 @@ object RoomSocket:
             }
           case "chat/timeout" =>
             raw.get(5) { case Array(roomId, userId, suspect, reason, text) =>
-              ChatTimeout(RoomId(roomId), UserId(userId), UserId(suspect), reason, text).some
+              ChatTimeout(RoomId(roomId), Me.Id(userId), UserId(suspect), reason, text).some
             }
           case "tell/room/sri" =>
             raw.get(4) { case arr @ Array(roomId, _, _, _) =>
@@ -131,9 +131,8 @@ object RoomSocket:
             }
           case "room/versions" =>
             SetVersions(P.In.commas(raw.args) map {
-              _.split(':') match {
+              _.split(':') match
                 case Array(roomId, v) => (roomId, SocketVersion(java.lang.Integer.parseInt(v)))
-              }
             }).some
           case _ => P.In.baseReader(raw)
 

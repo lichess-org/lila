@@ -88,7 +88,7 @@ final private class ForumTopicApi(
             topicRepo.coll.insert.one(topic withPost post) >>
             categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
               !categ.quiet so (indexer ! InsertPost(post))
-              promotion.save(me, post.text)
+              promotion.save(post.text)
               shutup ! {
                 val text = s"${topic.name} ${post.text}"
                 if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.userId, text)

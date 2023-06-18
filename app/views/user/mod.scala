@@ -16,7 +16,7 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
 import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, userAgentParser }
-import lila.user.{ Holder, User }
+import lila.user.{ Me, User }
 
 object mod:
   private def mzSection(key: String) =
@@ -574,7 +574,7 @@ object mod:
     if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
 
-  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(
+  def otherUsers(mod: Me, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(
       using
       ctx: WebContext,
       renderIp: RenderIp

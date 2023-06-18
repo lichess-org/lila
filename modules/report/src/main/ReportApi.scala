@@ -7,7 +7,7 @@ import lila.common.{ Bus, Heapsort }
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
-import lila.user.{ Holder, User, UserRepo }
+import lila.user.{ Me, User, UserRepo }
 import lila.common.config.Max
 
 final class ReportApi(
@@ -388,7 +388,7 @@ final class ReportApi(
       .cursor[Report]()
       .list(nb)
 
-  def byAndAbout(user: User, nb: Int, mod: Holder): Fu[Report.ByAndAbout] =
+  def byAndAbout(user: User, nb: Int, mod: Me): Fu[Report.ByAndAbout] =
     for {
       by <-
         coll

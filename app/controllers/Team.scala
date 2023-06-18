@@ -11,7 +11,7 @@ import lila.app.{ given, * }
 import lila.common.{ config, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.team.{ Requesting, Team as TeamModel }
-import lila.user.{ Holder, User as UserModel }
+import lila.user.{ Me, User as UserModel }
 import Api.ApiResult
 
 final class Team(
@@ -544,7 +544,7 @@ final class Team(
 You received this because you are subscribed to messages of the team $url."""
               env.msg.api
                 .multiPost(
-                  Holder(me),
+                  Me(me),
                   env.team.memberStream.subscribedIds(team, config.MaxPerSecond(50)),
                   full
                 )
