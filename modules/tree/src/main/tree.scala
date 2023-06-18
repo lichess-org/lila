@@ -176,6 +176,7 @@ sealed trait Node:
   // who's color plays next
   def color = ply.turn
 
+  // return nodes without child
   def mainlineNodeList: List[Node] =
     dropFirstChild :: children.first.fold(List.empty[Node])(_.mainlineNodeList)
 
@@ -521,7 +522,7 @@ object Node:
       val writer = if alwaysChildren then defaultNodeJsonWriter else minimalNodeJsonWriter
       JsArray(list map writer.writes)
 
-  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] =
+  private def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] =
     Writes: node =>
       import node.*
       try

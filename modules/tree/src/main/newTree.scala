@@ -166,14 +166,9 @@ object NewTree:
       node.crazyData
     )
 
-  // given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
-  // def minimalNodeJsonWriter: Writes[NewTree]   = makeNodeJsonWriter(alwaysChildren = false)
-  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ?so
-  // Optional for the first node with the given id
-  // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
-
 case class NewRoot(metas: Metas, tree: Option[NewTree]):
   import NewRoot.*
+  import NewTree.*
 
   export metas.{
     ply,
@@ -190,7 +185,9 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
     clock,
     crazyData
   }
+
   def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
+  def mainline: List[NewTree]         = tree.fold(List.empty[NewTree])(_.mainline)
 
   def mapChildren(f: NewBranch => NewBranch): NewRoot =
     copy(tree = tree.map(_.map(f)))
@@ -259,13 +256,17 @@ object NewRoot:
   def default(variant: Variant)                        = NewRoot(Metas.default(variant), None)
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
 
+  import NewTree.*
   import play.api.libs.json.*
   import lila.common.Json.given
   import JsonHandlers.given
   import Node.given
 
-  given defaultNodeJsonWriter: Writes[NewRoot] = makeNodeJsonWriter(alwaysChildren = true)
-  def minimalNodeJsonWriter                    = makeNodeJsonWriter(alwaysChildren = false)
+  given defaultNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(alwaysChildren = true)
+  def minimalNodeJsonWriter: Writes[NewRoot]   = makeRootJsonWriter(alwaysChildren = false)
+  given defaultTreeJsonWriter: Writes[Tree[NewBranch]] = makeTreeWriter(alwaysChildren = true)(branchWriter)
+  val minimalTreeJsonWriter: Writes[Tree[NewBranch]]   = makeTreeWriter(alwaysChildren = false)(branchWriter)
+
 
   given metasWriter: OWrites[Metas] = OWrites: metas =>
     import metas.*
@@ -296,21 +297,31 @@ object NewRoot:
       .add("comp", nb.comp)
       .add("forceVariation", nb.forceVariation)
 
-  def makeTreeWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
+  def makeTreeWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
     wa.writes(tree.value)
       .add(
         "children",
-        if alwaysChildren || tree.childAndVariations.nonEmpty then
-          nodeListJsonWriter(alwaysChildren).writes(tree.childAndVariations).some
+        if alwaysChildren || tree.childAndItsVariations.nonEmpty then
+          nodeListJsonWriter(true)(wa).writes(tree.childAndItsVariations).some
         else None
       )
 
-  def nodeListJsonWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[List[Tree[A]]] =
+  def makeMainlineWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
+    wa.writes(tree.value)
+      .add(
+        "children",
+        if alwaysChildren || tree.childVariations.nonEmpty then
+          nodeListJsonWriter(true)(wa).writes(tree.childVariations).some
+        else None
+      )
+
+
+  def nodeListJsonWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[List[Tree[A]]] =
     Writes: list =>
-      val writer = makeTreeWriter(alwaysChildren)
+      val writer = makeTreeWriter(alwaysChildren)(wa)
       JsArray(list.map(writer.writes))
 
-  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] =
+  def makeRootJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] =
     Writes: root =>
       metasWriter
         .writes(root.metas)
@@ -321,10 +332,13 @@ object NewRoot:
         .add("forceVariation", none[Boolean])
         .add(
           "children",
-          if alwaysChildren then root.tree.map(makeTreeWriter(alwaysChildren).writes)
+          if alwaysChildren || root.tree.map(_.childAndVariations).exists(_.nonEmpty) then
+            root.tree.map(_.childAndVariations).map(nodeListJsonWriter(true)(branchWriter).writes)
           else None
         )
 
   val partitionTreeJsonWriter: Writes[NewRoot] = Writes: root =>
+    val rootWithoutChild = root.updateTree(_.withoutChild.some)
+    val mainlineWriter = makeMainlineWriter(alwaysChildren = false)(branchWriter)
     JsArray:
-      metasWriter.writes(root.metas) +: root.mainlineValues.map(branchWriter.writes)
+      makeRootJsonWriter(false).writes(rootWithoutChild) +: root.mainline.map(mainlineWriter.writes)
