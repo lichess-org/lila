@@ -19,12 +19,12 @@
   <string name="startDate">Datum početka u vlastitoj vremenskoj zoni</string>
   <string name="startDateHelp">Neobavezno, ako znaš kada događaj počinje</string>
   <string name="credits">Naglasi izvor</string>
-  <string name="resetRound">Resetiraj ovu rundu</string>
-  <string name="deleteRound">Izbriši ovu rundu</string>
   <string name="broadcastUrl">Emitiraj URL</string>
   <string name="currentRoundUrl">URL trenutne runde</string>
   <string name="currentGameUrl">URL trenutne igre</string>
   <string name="downloadAllRounds">Preuzmite sve igre</string>
+  <string name="resetRound">Resetiraj ovu rundu</string>
+  <string name="deleteRound">Izbriši ovu rundu</string>
   <string name="definitivelyDeleteRound">Definitivno izbrišite rundu i njezine igre.</string>
   <string name="deleteAllGamesOfThisRound">Izbriši sve igre ovog kola. Izvor mora biti aktivan kako bi ih se ponovno stvorilo.</string>
 </resources>
