@@ -20,7 +20,11 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
           colors(ctrl.trans).map(color => option(color, ctrl.setupCtrl.blindModeColor()))
         ),
       ]),
-  h('button', { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } }, 'Create the game'),
+  h(
+    'button',
+    { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } },
+    'Create the game'
+  ),
 ];
 
 export const colorButtons = (ctrl: LobbyController) => {

@@ -23,7 +23,11 @@ export default function (ctrl: RoundController) {
         !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,
       ]),
       h('section.board-menu__links', [
-        h('a', { attrs: { target: '_blank', href: '/account/preferences/display' } }, 'Game display preferences'),
+        h(
+          'a',
+          { attrs: { target: '_blank', href: '/account/preferences/display' } },
+          'Game display preferences'
+        ),
         h(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/game-behavior ' } },

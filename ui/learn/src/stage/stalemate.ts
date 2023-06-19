@@ -61,7 +61,12 @@ export default {
       scenario: [
         {
           move: 'f4g6',
-          shapes: [arrow('c4f7', 'blue'), arrow('d1d8', 'blue'), arrow('g6e7', 'blue'), arrow('g6f8', 'blue')],
+          shapes: [
+            arrow('c4f7', 'blue'),
+            arrow('d1d8', 'blue'),
+            arrow('g6e7', 'blue'),
+            arrow('g6f8', 'blue'),
+          ],
         },
       ],
     },

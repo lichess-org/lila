@@ -204,7 +204,10 @@ export function side(ctrl: StudyCtrl): VNode {
   const chaptersTab =
     tourShow && ctrl.looksNew() && !ctrl.members.canContribute()
       ? null
-      : makeTab('chapters', ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length));
+      : makeTab(
+          'chapters',
+          ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length)
+        );
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     tourTab,
@@ -227,7 +230,9 @@ export function side(ctrl: StudyCtrl): VNode {
       : null,
   ]);
 
-  const content = tourShow?.active ? relayTourRounds(ctrl) : (activeTab === 'members' ? memberView : chapterView)(ctrl);
+  const content = tourShow?.active
+    ? relayTourRounds(ctrl)
+    : (activeTab === 'members' ? memberView : chapterView)(ctrl);
 
   return h('div.study__side', [tabs, content]);
 }
@@ -292,7 +297,9 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
         ? commentForm.view(ctrl)
         : commentForm.viewDisabled(
             ctrl,
-            study.members.canContribute() ? 'Press REC to comment moves' : 'Only the study members can comment on moves'
+            study.members.canContribute()
+              ? 'Press REC to comment moves'
+              : 'Only the study members can comment on moves'
           );
       break;
     case 'glyphs':

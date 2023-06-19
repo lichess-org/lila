@@ -5,7 +5,8 @@ import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'common/ric
 export { isMoreThanText } from 'common/richText';
 
 const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
-const giphyRegex = /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
+const giphyRegex =
+  /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
 const teamMessageRegex =
   /You received this because you are subscribed to messages of the team <a(?:[^>]+)>(?:[^\/]+)(.+)<\/a>\.$/;
 
@@ -14,7 +15,9 @@ const img = (src: string) => `<img src="${src}"/>`;
 const aImg = (src: string) => linkReplace(src, img(src));
 
 const expandImgur = (url: string) =>
-  imgurRegex.test(url) ? url.replace(imgurRegex, (_, id) => aImg(`https://i.imgur.com/${id}.jpg`)) : undefined;
+  imgurRegex.test(url)
+    ? url.replace(imgurRegex, (_, id) => aImg(`https://i.imgur.com/${id}.jpg`))
+    : undefined;
 
 const expandGiphy = (url: string) =>
   giphyRegex.test(url)
@@ -25,7 +28,8 @@ const expandImage = (url: string) => (/\.(jpg|jpeg|png|gif)$/.test(url) ? aImg(u
 
 const expandLink = (url: string) => linkReplace(url, url.replace(/^https?:\/\//, ''));
 
-const expandUrl = (url: string) => expandImgur(url) || expandGiphy(url) || expandImage(url) || expandLink(url);
+const expandUrl = (url: string) =>
+  expandImgur(url) || expandGiphy(url) || expandImage(url) || expandLink(url);
 
 const expandUrls = (html: string) =>
   html.replace(linkRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
@@ -46,7 +50,10 @@ const expandTeamMessage = (html: string) =>
   );
 
 export const enhance = (str: string) =>
-  expandTeamMessage(expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str))))).replace(newLineRegex, '<br>');
+  expandTeamMessage(expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str))))).replace(
+    newLineRegex,
+    '<br>'
+  );
 
 interface Expandable {
   element: HTMLElement;
@@ -63,7 +70,16 @@ const domain = window.location.host;
 const gameRegex = new RegExp(
   `(?:https?://)${domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:(?:#)(\\d+))?$`
 );
-const notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer', 'timeline'];
+const notGames = [
+  'training',
+  'analysis',
+  'insights',
+  'practice',
+  'features',
+  'password',
+  'streamer',
+  'timeline',
+];
 
 export function expandLpvs(el: HTMLElement) {
   const expandables: Expandable[] = [];

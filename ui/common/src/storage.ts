@@ -65,8 +65,11 @@ export const storedIntProp = (k: string, defaultValue: number): StoredProp<numbe
     v => v + ''
   );
 
-export const storedIntPropWithEffect = (k: string, defaultValue: number, effect: (v: number) => void): Prop<number> =>
-  withEffect(storedIntProp(k, defaultValue), effect);
+export const storedIntPropWithEffect = (
+  k: string,
+  defaultValue: number,
+  effect: (v: number) => void
+): Prop<number> => withEffect(storedIntProp(k, defaultValue), effect);
 
 export type StoredJsonProp<V> = Prop<V>;
 

@@ -12,7 +12,8 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
   const data = ctrl.data.playerInfo;
   const noarg = ctrl.trans.noarg;
   const tag = 'div.swiss__player-info.swiss__table';
-  if (data?.user.id !== ctrl.playerInfoId) return h(tag, [h('div.stats', [h('h2', ctrl.playerInfoId), spinner()])]);
+  if (data?.user.id !== ctrl.playerInfoId)
+    return h(tag, [h('div.stats', [h('h2', ctrl.playerInfoId), spinner()])]);
   const games = data.sheet.filter((p: any) => p.g).length;
   const wins = data.sheet.filter((p: any) => p.w).length;
   const avgOp: number | undefined = games

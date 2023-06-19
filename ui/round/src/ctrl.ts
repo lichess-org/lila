@@ -211,7 +211,8 @@ export default class RoundController {
       this.keyboardMove?.justSelected()
     );
 
-  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => this.startPromotion(orig, dest, meta);
+  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
+    this.startPromotion(orig, dest, meta);
 
   private onCancelPremove = () => this.promotion.cancelPrePromotion();
 
@@ -635,7 +636,10 @@ export default class RoundController {
     const is = this.isPlaying();
     if (was !== is) {
       lichess.quietMode = is;
-      $('body').toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+      $('body').toggleClass(
+        'no-select',
+        is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5
+      );
     }
   };
 

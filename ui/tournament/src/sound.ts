@@ -15,7 +15,10 @@ function doCountDown(targetTime: number) {
 
     if (bestTick > 0) {
       const nextTick = Math.min(10, bestTick - 1);
-      countDownTimeout = setTimeout(curCounter, 1000 * Math.min(1.1, Math.max(0.8, secondsToStart - nextTick)));
+      countDownTimeout = setTimeout(
+        curCounter,
+        1000 * Math.min(1.1, Math.max(0.8, secondsToStart - nextTick))
+      );
     }
 
     if (!started && bestTick <= 10) {
@@ -45,7 +48,10 @@ export function countDown(data: TournamentData) {
   if (countDownTimeout) return;
   if (data.secondsToStart > 60 * 60 * 24) return;
 
-  countDownTimeout = setTimeout(doCountDown(window.performance.now() + 1000 * data.secondsToStart - 100), 900); // wait 900ms before starting countdown.
+  countDownTimeout = setTimeout(
+    doCountDown(window.performance.now() + 1000 * data.secondsToStart - 100),
+    900
+  ); // wait 900ms before starting countdown.
 
   // Preload countdown sounds.
   for (let i = 10; i >= 0; i--) {

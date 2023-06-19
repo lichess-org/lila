@@ -13,12 +13,19 @@ interface Opts {
   threatMode: boolean;
 }
 
-function makeAutoShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: DrawModifiers): DrawShape[] {
+function makeAutoShapesFromUci(
+  color: Color,
+  uci: Uci,
+  brush: string,
+  modifiers?: DrawModifiers
+): DrawShape[] {
   const move = parseUci(uci)! as NormalMove; // no crazyhouse
   const to = makeSquare(move.to);
   return [
     { orig: makeSquare(move.from), dest: to, brush, modifiers },
-    ...(move.promotion ? [{ orig: to, piece: { color, role: move.promotion, scale: 0.8 }, brush: 'green' }] : []),
+    ...(move.promotion
+      ? [{ orig: to, piece: { color, role: move.promotion, scale: 0.8 }, brush: 'green' }]
+      : []),
   ];
 }
 

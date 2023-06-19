@@ -37,7 +37,8 @@ export default (window as any).UserComplete = function userComplete(opts: Opts):
 
   complete<LightUserOnline>({
     input: opts.input,
-    fetch: t => debounced(t).then(({ term, result }) => (t == term ? result : Promise.reject('Debounced ' + t))),
+    fetch: t =>
+      debounced(t).then(({ term, result }) => (t == term ? result : Promise.reject('Debounced ' + t))),
     render(o: LightUserOnline) {
       const tag = opts.tag || 'a';
       return (
@@ -54,7 +55,11 @@ export default (window as any).UserComplete = function userComplete(opts: Opts):
         (o.patron ? ' patron' : '') +
         '"></i>' +
         (o.title
-          ? '<span class="utitle"' + (o.title == 'BOT' ? ' data-bot="data-bot" ' : '') + '>' + o.title + '</span>&nbsp;'
+          ? '<span class="utitle"' +
+            (o.title == 'BOT' ? ' data-bot="data-bot" ' : '') +
+            '>' +
+            o.title +
+            '</span>&nbsp;'
           : '') +
         o.name +
         '</' +

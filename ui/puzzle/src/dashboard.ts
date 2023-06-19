@@ -1,4 +1,12 @@
-import { Chart, LineElement, PointElement, RadarController, RadialLinearScale, Tooltip, Filler } from 'chart.js';
+import {
+  Chart,
+  LineElement,
+  PointElement,
+  RadarController,
+  RadialLinearScale,
+  Tooltip,
+  Filler,
+} from 'chart.js';
 import { currentTheme } from 'common/theme';
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Tooltip, Filler);

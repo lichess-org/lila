@@ -41,7 +41,9 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
                 ctrl.moderation()?.open((e.target as HTMLElement).parentNode as HTMLElement)
               );
             else
-              $el.on('click', '.flag', (e: Event) => report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement));
+              $el.on('click', '.flag', (e: Event) =>
+                report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement)
+              );
             scrollCb(vnode);
           },
           postpatch: (_, vnode) => scrollCb(vnode),
@@ -175,7 +177,10 @@ function selectLines(ctrl: Ctrl): Array<Line> {
 function updateText(parseMoves: boolean) {
   return (oldVnode: VNode, vnode: VNode) => {
     if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
-      (vnode.elm as HTMLElement).innerHTML = enhance.enhance((vnode.data as VNodeData).lichessChat, parseMoves);
+      (vnode.elm as HTMLElement).innerHTML = enhance.enhance(
+        (vnode.data as VNodeData).lichessChat,
+        parseMoves
+      );
     }
   };
 }
@@ -207,7 +212,9 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   const myUserId = ctrl.data.userId;
   const mentioned =
     !!myUserId &&
-    !!line.t.match(enhance.userPattern)?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
+    !!line.t
+      .match(enhance.userPattern)
+      ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
 
   return h(
     'li',

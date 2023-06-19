@@ -23,7 +23,9 @@ const dotRegex = /\./g;
 const dollarRegex = /\$/g;
 
 function encodePath(path) {
-  return path ? path.replace(dotRegex, String.fromCharCode(144)).replace(dollarRegex, String.fromCharCode(145)) : '';
+  return path
+    ? path.replace(dotRegex, String.fromCharCode(144)).replace(dollarRegex, String.fromCharCode(145))
+    : '';
 }
 
 let i = 0;

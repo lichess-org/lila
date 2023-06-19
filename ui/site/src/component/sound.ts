@@ -47,7 +47,8 @@ const sound: SoundI = new (class {
   };
 
   preloadBoardSounds() {
-    if (this.soundSet !== 'music') ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
+    if (this.soundSet !== 'music')
+      ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
   }
 
   private getOrLoadSound = (name: string, set: string): Howl => {

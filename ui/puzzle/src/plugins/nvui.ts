@@ -143,7 +143,10 @@ export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
                 );
                 $board.on('keydown', arrowKeyHandler(ctrl.vm.pov, borderSound));
                 $board.on('keypress', boardCommandsHandler());
-                $buttons.on('keypress', lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()));
+                $buttons.on(
+                  'keypress',
+                  lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())
+                );
                 $buttons.on(
                   'keypress',
                   possibleMovesHandler(
@@ -186,7 +189,9 @@ export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          ...(!ctrl.getData().replay && !ctrl.streak ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
+          ...(!ctrl.getData().replay && !ctrl.streak
+            ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
+            : []),
           h('h2', 'Keyboard shortcuts'),
           h('p', [
             'Left and right arrow keys or k and j: Navigate to the previous or next move.',
@@ -324,7 +329,11 @@ function onCommand(ctrl: Controller, notify: (txt: string) => void, c: string, s
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
   else
-    notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
+    notify(
+      commands.piece.apply(c, pieces, style) ||
+        commands.scan.apply(c, pieces, style) ||
+        `Invalid command: ${c}`
+    );
 }
 
 function viewOrAdvanceSolution(ctrl: Controller, notify: (txt: string) => void): void {

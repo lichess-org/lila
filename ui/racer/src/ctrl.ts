@@ -13,7 +13,16 @@ import { parseUci } from 'chessops/util';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { defined, prop, Prop } from 'common';
-import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
+import {
+  RacerOpts,
+  RacerData,
+  RacerVm,
+  RacerPrefs,
+  Race,
+  UpdatableData,
+  RaceStatus,
+  WithGround,
+} from './interfaces';
 import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';

@@ -18,4 +18,5 @@ export function fromNodeList(nodes: Tree.Node[]): Tree.Path {
   return path;
 }
 
-export const isChildOf = (child: Tree.Path, parent: Tree.Path): boolean => !!child && child.slice(0, -2) === parent;
+export const isChildOf = (child: Tree.Path, parent: Tree.Path): boolean =>
+  !!child && child.slice(0, -2) === parent;

@@ -30,7 +30,11 @@ $theme-dark: false;
 }
 
 @mixin page-metal-hover {
-  background: linear-gradient(to bottom, mix($c-link, #fff, 25%) 0%, mix($c-link, c-light($c-bg-page, 90%), 25%) 100%);
+  background: linear-gradient(
+    to bottom,
+    mix($c-link, #fff, 25%) 0%,
+    mix($c-link, c-light($c-bg-page, 90%), 25%) 100%
+  );
   text-shadow: $text-shadow;
 }
 

@@ -18,13 +18,22 @@ export const brushes = new Map<string, DrawBrush>([
 
 const LABEL_SIZE = 40; // size of arrow labels in svg user units, 100 is the width of a board square
 
-export function numberedArrows(choices: [string, Uci][], timer: number | undefined, asWhite: boolean): DrawShape[] {
+export function numberedArrows(
+  choices: [string, Uci][],
+  timer: number | undefined,
+  asWhite: boolean
+): DrawShape[] {
   if (!choices) return [];
   const shapes: DrawShape[] = [];
   const dests: Map<Key, SparseSet<number>> = new Map();
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([, uci]) => {
-    shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-grey`, modifiers: { hilite: uci === preferred } });
+    shapes.push({
+      orig: src(uci),
+      dest: dest(uci),
+      brush: `v-grey`,
+      modifiers: { hilite: uci === preferred },
+    });
     if (uci.length > 2) pushMap(dests, dest(uci), moveAngle(uci, asWhite));
   });
   if (timer) {
@@ -50,7 +59,12 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
   const shapes: DrawShape[] = [];
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([c, uci]) => {
-    shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-${c}`, modifiers: { hilite: uci === preferred } });
+    shapes.push({
+      orig: src(uci),
+      dest: dest(uci),
+      brush: `v-${c}`,
+      modifiers: { hilite: uci === preferred },
+    });
   });
   if (timer) {
     shapes.push(timerShape(choices[0][1], [0, 0], timer, brushes.values().next().value.color));
@@ -71,7 +85,9 @@ function timerShape(uci: Uci, offset: [number, number], duration: number, color:
     orig: src(uci),
     brush: 'v-grey',
     customSvg:
-      (color !== 'grey' ? `<svg width="100" height="100">` : `<svg viewBox="${offset[0]} ${offset[1]} 100 100">`) +
+      (color !== 'grey'
+        ? `<svg width="100" height="100">`
+        : `<svg viewBox="${offset[0]} ${offset[1]} 100 100">`) +
       `<circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
                stroke-width="50" stroke-opacity="${alpha}" begin="indefinite" visibility="hidden">
          <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
@@ -85,7 +101,12 @@ function timerShape(uci: Uci, offset: [number, number], duration: number, color:
   };
 }
 
-function labelShape(uci: Uci, dests: Map<Key, number | Set<number>>, label: string, asWhite: boolean): DrawShape {
+function labelShape(
+  uci: Uci,
+  dests: Map<Key, number | Set<number>>,
+  label: string,
+  asWhite: boolean
+): DrawShape {
   const fontSize = Math.round(LABEL_SIZE * 0.82);
   const r = LABEL_SIZE / 2;
   const strokeW = 3;

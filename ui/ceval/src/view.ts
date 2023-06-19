@@ -108,7 +108,11 @@ function engineName(ctrl: CevalCtrl): VNode[] {
         )
       : ctrl.technology == 'wasm'
       ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly fallback (slow)' } }, 'WASM')
-      : h('span.technology', { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } }, 'ASMJS'),
+      : h(
+          'span.technology',
+          { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } },
+          'ASMJS'
+        ),
   ];
 }
 
@@ -378,7 +382,9 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
       },
     },
     [
-      ...[...Array(multiPv).keys()].map(i => renderPv(threat, multiPv, pvs[i], pos.isOk ? pos.value : undefined)),
+      ...[...Array(multiPv).keys()].map(i =>
+        renderPv(threat, multiPv, pvs[i], pos.isOk ? pos.value : undefined)
+      ),
       renderPvBoard(ctrl),
     ]
   );

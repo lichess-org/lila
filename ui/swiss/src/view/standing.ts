@@ -70,7 +70,9 @@ let lastBody: MaybeVNodes | undefined;
 const preloadUserTips = (vn: VNode) => lichess.powertip.manualUserIn(vn.elm as HTMLElement);
 
 export default function standing(ctrl: SwissCtrl, pag: Pager, klass?: string): VNode {
-  const tableBody = pag.currentPageResults ? pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
+  const tableBody = pag.currentPageResults
+    ? pag.currentPageResults.map(res => playerTr(ctrl, res))
+    : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h(
     'table.slist.swiss__standing' + (klass ? '.' + klass : ''),

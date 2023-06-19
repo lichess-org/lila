@@ -103,7 +103,10 @@ $piece-files: (
     @if $flips {
       @each $color, $orientation in ('White': 'black', 'Black': 'white') {
         @each $type in 'Bishop', 'Knight' {
-          .#{$name} .main-board .orientation-#{$orientation} .#{to-lower-case($type)}.#{to-lower-case($color)} {
+          .#{$name}
+            .main-board
+            .orientation-#{$orientation}
+            .#{to-lower-case($type)}.#{to-lower-case($color)} {
             background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.png');
           }
         }

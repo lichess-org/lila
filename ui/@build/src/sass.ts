@@ -19,7 +19,9 @@ export async function sass(): Promise<void> {
   const modNames = buildModules.map(x => x.name);
 
   // filter to modules we're actually building
-  builder.sources = new Set<string>(allSources.filter(x => modNames.find(y => x.startsWith(`${y}${path.sep}`))));
+  builder.sources = new Set<string>(
+    allSources.filter(x => modNames.find(y => x.startsWith(`${y}${path.sep}`)))
+  );
 
   for (const build of builder.sources) {
     await parseImports(build);

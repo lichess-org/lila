@@ -35,7 +35,10 @@ lichess.load.then(() => {
   });
 
   localPrefs.forEach(([categ, name, storeKey, def]) =>
-    $(`#ir${categ}_${name}_${lichess.storage.boolean(storeKey).getOrDefault(def) ? 1 : 0}`).prop('checked', true)
+    $(`#ir${categ}_${name}_${lichess.storage.boolean(storeKey).getOrDefault(def) ? 1 : 0}`).prop(
+      'checked',
+      true
+    )
   );
 
   $('form[action="/account/oauth/token/create"]').each(function (this: HTMLFormElement) {

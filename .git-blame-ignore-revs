@@ -18,3 +18,6 @@ eea12a89f8550d74518f19ec9cda404e3f73b3d0
 
 # Scala Steward: Reformat with scalafmt 3.7.4
 84137814df3b827196e1438f3bc654c0dcc1c1f2
+
+# prettier format to 110 columns like scalafmt https://github.com/lichess-org/lila/pull/13059/files
+41b34ff3926db68c05a6a97253983f23ba21184e

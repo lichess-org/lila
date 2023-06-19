@@ -33,7 +33,8 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
             '<a class="btn-rack__btn relation-button" disabled></a></div>'
         );
       }),
-      placement: pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement) || (inCrosstable(el) ? 'n' : 's'),
+      placement:
+        pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement) || (inCrosstable(el) ? 'n' : 's'),
     });
 
 const gamePowertip = (el: HTMLElement) =>

@@ -83,12 +83,16 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentCont
   const noarg = ctrl.trans.noarg,
     nb = p.nb;
   return h('table.stats', [
-    p.performance && ctrl.opts.showRatings ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
+    p.performance && ctrl.opts.showRatings
+      ? h('tr', [h('th', noarg('performance')), h('td', p.performance)])
+      : null,
     h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
     ...(nb.game
       ? [
           h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
-          berserkable ? h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))]) : null,
+          berserkable
+            ? h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
+            : null,
         ]
       : []),
   ]);
@@ -116,11 +120,16 @@ export function podium(ctrl: TournamentController) {
 }
 
 export function controls(ctrl: TournamentController, pag: Pagination): VNode {
-  return h('div.tour__controls', [h('div.pager', pagination.renderPager(ctrl, pag)), button.joinWithdraw(ctrl)]);
+  return h('div.tour__controls', [
+    h('div.pager', pagination.renderPager(ctrl, pag)),
+    button.joinWithdraw(ctrl),
+  ]);
 }
 
 export function standing(ctrl: TournamentController, pag: Pagination, klass?: string): VNode {
-  const tableBody = pag.currentPageResults ? pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
+  const tableBody = pag.currentPageResults
+    ? pag.currentPageResults.map(res => playerTr(ctrl, res))
+    : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h(
     'table.slist.tour__standing' + (klass ? '.' + klass : ''),

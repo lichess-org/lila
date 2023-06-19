@@ -55,7 +55,8 @@ async function main() {
   });
   const patch = `lexicon/${grammar}-patch.json`;
   if (fs.existsSync(patch))
-    for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ?? []) {
+    for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ??
+      []) {
       builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
     }
   writeGrammar(`../grammar/${grammar}.json`);
@@ -305,7 +306,9 @@ class Builder {
     }
   }
   addOccurrence(phrase: string) {
-    [...this.encode(phrase)].forEach(token => this.occurrences.set(token, (this.occurrences.get(token) ?? 0) + 1));
+    [...this.encode(phrase)].forEach(token =>
+      this.occurrences.set(token, (this.occurrences.get(token) ?? 0) + 1)
+    );
   }
   addSub(token: string, sub: Sub) {
     const tok = this.entries.find(e => e.tok === token)!;
@@ -334,7 +337,9 @@ class Builder {
     return [...tokens].map(token => this.fromToken(token)).join(' ');
   }
   wordsOf(tokens: string) {
-    return [...tokens].map(token => [...this.wordTok.entries()].find(([_, tok]) => tok === token)?.[0]).join(' ');
+    return [...tokens]
+      .map(token => [...this.wordTok.entries()].find(([_, tok]) => tok === token)?.[0])
+      .join(' ');
   }
   stringify() {
     // output like prettier

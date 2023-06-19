@@ -20,9 +20,12 @@ export default async function LichessDasher(element: Element, toggle: Element) {
   ctrl = makeCtrl(data, redraw);
   redraw();
 
-  new MutationObserver(_ => lichess.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'))).observe(toggle, {
-    attributes: true,
-  });
+  new MutationObserver(_ => lichess.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'))).observe(
+    toggle,
+    {
+      attributes: true,
+    }
+  );
 
   return ctrl;
 }

@@ -96,7 +96,9 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
   const getAmountToCharge = () => {
     const freq = getFreq(),
       amount =
-        freq == 'lifetime' ? pricing.lifetime : parseFloat($checkout.find('group.amount input:checked').data('amount'));
+        freq == 'lifetime'
+          ? pricing.lifetime
+          : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     if (amount && amount >= pricing.min && amount <= pricing.max) return amount;
   };
 
@@ -193,7 +195,12 @@ function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: (
     .render('.paypal--subscription');
 }
 
-function stripeStart($checkout: Cash, publicKey: string, pricing: Pricing, getAmount: () => number | undefined) {
+function stripeStart(
+  $checkout: Cash,
+  publicKey: string,
+  pricing: Pricing,
+  getAmount: () => number | undefined
+) {
   const stripe = window.Stripe(publicKey);
   $checkout.find('.service .stripe').on('click', function () {
     const amount = getAmount();

@@ -94,7 +94,10 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           },
           [
             isCandidate
-              ? h('span', [h('span', ctrl.trans.noarg('addCurrentVariation')), h('sans', renderNodesHtml(cNodes))])
+              ? h('span', [
+                  h('span', ctrl.trans.noarg('addCurrentVariation')),
+                  h('sans', renderNodesHtml(cNodes)),
+                ])
               : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
           ]
         ),

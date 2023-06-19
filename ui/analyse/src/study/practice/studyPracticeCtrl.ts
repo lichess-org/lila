@@ -7,7 +7,11 @@ import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
 
-export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
+export default function (
+  root: AnalyseCtrl,
+  studyData: StudyData,
+  data: StudyPracticeData
+): StudyPracticeCtrl {
   const goal = prop<Goal>(root.data.practiceGoal!),
     nbMoves = prop(0),
     // null = ongoing, true = win, false = fail

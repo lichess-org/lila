@@ -290,7 +290,8 @@
           bottom: $size;
           #{$start-direction}: $size;
           box-shadow: 0 0 0 $tag-inset-shadow-size $tag-hover inset;
-          box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-hover, $tag-hover) inset;
+          box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-hover, $tag-hover)
+            inset;
         }
       }
     }

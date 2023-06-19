@@ -17,7 +17,8 @@ window.onload = () => {
 
   const resize = () => {
     if (el.offsetHeight > window.innerHeight)
-      el.style.maxWidth = window.innerHeight - (el.querySelector('span.text') as HTMLElement).offsetHeight + 'px';
+      el.style.maxWidth =
+        window.innerHeight - (el.querySelector('span.text') as HTMLElement).offsetHeight + 'px';
   };
   resize();
   window.addEventListener('resize', resize);

@@ -5,7 +5,15 @@ import { withEffect } from 'common';
 import { makeCtrl as makeVoiceCtrl, VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'common/storage';
 import { Api as CgApi } from 'chessground/api';
-import { ColorChoice, TimeControl, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
+import {
+  ColorChoice,
+  TimeControl,
+  CoordinateTrainerConfig,
+  InputMethod,
+  Mode,
+  ModeScores,
+  Redraw,
+} from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
@@ -132,7 +140,10 @@ export default class CoordinateTrainerCtrl {
     window.location.hash = `#${this.mode().substring(0, 4)}`;
   };
 
-  selectionEnabled = withEffect<boolean>(storedBooleanProp('coordinateTrainer.selectionEnabled', false), this.redraw);
+  selectionEnabled = withEffect<boolean>(
+    storedBooleanProp('coordinateTrainer.selectionEnabled', false),
+    this.redraw
+  );
 
   selectedFiles = new Set<Files>();
   selectedRanks = new Set<Ranks>();
@@ -190,7 +201,8 @@ export default class CoordinateTrainerCtrl {
     this.redraw
   );
 
-  toggleInputMethod = () => this.coordinateInputMethod(this.coordinateInputMethod() === 'text' ? 'buttons' : 'text');
+  toggleInputMethod = () =>
+    this.coordinateInputMethod(this.coordinateInputMethod() === 'text' ? 'buttons' : 'text');
 
   start = () => {
     if (this.playing) return;
@@ -231,7 +243,8 @@ export default class CoordinateTrainerCtrl {
 
   advanceCoordinates = () => {
     this.currentKey = this.nextKey;
-    if (this.selectionEnabled() === true) this.nextKey = newKey(this.nextKey, this.selectedFiles, this.selectedRanks);
+    if (this.selectionEnabled() === true)
+      this.nextKey = newKey(this.nextKey, this.selectedFiles, this.selectedRanks);
     else this.nextKey = newKey(this.nextKey);
 
     if (this.mode() === 'nameSquare')

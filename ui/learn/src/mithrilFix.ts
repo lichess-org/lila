@@ -21,7 +21,10 @@ interface MithrilFixed extends _mithril.MithrilStatic {
     children?: Children<T>
   ): _mithril.MithrilVirtualElement<T>;
 
-  <T extends _mithril.MithrilController>(selector: string, children?: Children<T>): _mithril.MithrilVirtualElement<T>;
+  <T extends _mithril.MithrilController>(
+    selector: string,
+    children?: Children<T>
+  ): _mithril.MithrilVirtualElement<T>;
 }
 
 export default m as MithrilFixed;

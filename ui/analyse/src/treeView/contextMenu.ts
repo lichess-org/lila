@@ -50,7 +50,9 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
     windowWidth - coords.x < menuWidth ? windowWidth - menuWidth + 'px' : (menu.style.left = coords.x + 'px');
 
   menu.style.top =
-    windowHeight - coords.y < menuHeight ? windowHeight - menuHeight + 'px' : (menu.style.top = coords.y + 'px');
+    windowHeight - coords.y < menuHeight
+      ? windowHeight - menuHeight + 'px'
+      : (menu.style.top = coords.y + 'px');
 }
 
 function action(icon: string, text: string, handler: () => void): VNode {
@@ -82,7 +84,9 @@ function view(opts: Opts, coords: Coords): VNode {
     },
     [
       h('p.title', nodeFullName(node)),
-      onMainline ? null : action(licon.UpTriangle, trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
+      onMainline
+        ? null
+        : action(licon.UpTriangle, trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
       onMainline ? null : action(licon.Checkmark, trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
       action(licon.Trash, trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
     ]
@@ -102,7 +106,8 @@ export default function (e: MouseEvent, opts: Opts): void {
     pos = { x: 0, y: 0 };
   }
 
-  const el = ($('#' + elementId)[0] || $('<div id="' + elementId + '">').appendTo($('body'))[0]) as HTMLElement;
+  const el = ($('#' + elementId)[0] ||
+    $('<div id="' + elementId + '">').appendTo($('body'))[0]) as HTMLElement;
   opts.root.contextMenuPath = opts.path;
   function close(e: MouseEvent) {
     if (e.button === 2) return; // right click

@@ -12,7 +12,11 @@ export default function (ctrl: Controller) {
       menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), true),
     ]),
     h('section.board-menu__links', [
-      h('a', { attrs: { target: '_blank', href: '/account/preferences/display' } }, 'Game display preferences'),
+      h(
+        'a',
+        { attrs: { target: '_blank', href: '/account/preferences/display' } },
+        'Game display preferences'
+      ),
     ]),
   ]);
 }

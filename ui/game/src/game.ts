@@ -3,11 +3,13 @@ import * as status from './status';
 
 export * from './interfaces';
 
-export const playable = (data: GameData): boolean => data.game.status.id < status.ids.aborted && !imported(data);
+export const playable = (data: GameData): boolean =>
+  data.game.status.id < status.ids.aborted && !imported(data);
 
 export const isPlayerPlaying = (data: GameData): boolean => playable(data) && !data.player.spectator;
 
-export const isPlayerTurn = (data: GameData): boolean => isPlayerPlaying(data) && data.game.player == data.player.color;
+export const isPlayerTurn = (data: GameData): boolean =>
+  isPlayerPlaying(data) && data.game.player == data.player.color;
 
 export const mandatory = (data: GameData): boolean => !!data.tournament || !!data.simul || !!data.swiss;
 
@@ -42,7 +44,8 @@ export const moretimeable = (data: GameData): boolean =>
   isPlayerPlaying(data) &&
   data.moretimeable &&
   (!!data.clock ||
-    (!!data.correspondence && data.correspondence[data.opponent.color] < data.correspondence.increment - 3600));
+    (!!data.correspondence &&
+      data.correspondence[data.opponent.color] < data.correspondence.increment - 3600));
 
 const imported = (data: GameData): boolean => data.game.source === 'import';
 
@@ -79,4 +82,5 @@ export const setGone = (data: GameData, color: Color, gone: number | boolean): v
 export const nbMoves = (data: GameData, color: Color): number =>
   Math.floor((playedTurns(data) + (color == 'white' ? 1 : 0)) / 2);
 
-export const isSwitchable = (data: GameData): boolean => !hasAi(data) && (!!data.simul || isCorrespondence(data));
+export const isSwitchable = (data: GameData): boolean =>
+  !hasAi(data) && (!!data.simul || isCorrespondence(data));

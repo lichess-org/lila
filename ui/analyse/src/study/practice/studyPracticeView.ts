@@ -151,7 +151,8 @@ export function side(ctrl: StudyCtrl): VNode {
               [
                 h('span.status.' + completion, {
                   attrs: {
-                    'data-icon': (loading || active) && completion === 'ongoing' ? licon.PlayTriangle : licon.Checkmark,
+                    'data-icon':
+                      (loading || active) && completion === 'ongoing' ? licon.PlayTriangle : licon.Checkmark,
                   },
                 }),
                 h('h3', chapter.name),
