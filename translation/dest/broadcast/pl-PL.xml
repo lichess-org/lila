@@ -34,4 +34,6 @@
   <string name="definitivelyDeleteRound">Ostatecznie usuń rundę i jej wszystkie partie.</string>
   <string name="deleteAllGamesOfThisRound">Usuń wszystkie partie w tej rundzie. Źródło będzie musiało być aktywne, aby je odtworzyć.</string>
   <string name="editRoundStudy">Edytuj opracowanie rundy</string>
+  <string name="deleteTournament">Usuń ten turniej</string>
+  <string name="definitivelyDeleteTournament">Ostatecznie usuń cały turniej, wszystkie jego rundy i wszystkie partie.</string>
 </resources>
