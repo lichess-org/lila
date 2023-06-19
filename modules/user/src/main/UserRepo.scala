@@ -21,24 +21,24 @@ final class UserRepo(val coll: Coll)(using Executor):
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
 
-  def byId[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[User]] =
-    User.noGhost(idOf(u)) so coll.byId[User](idOf(u)).recover {
+  def byId[U: UserIdOf](u: U): Fu[Option[User]] =
+    User.noGhost(u.id) so coll.byId[User](u).recover {
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
-  def byIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
-    val ids = us.map(idOf.apply).filter(User.noGhost)
+  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] = {
+    val ids = us.map(_.id).filter(User.noGhost)
     ids.nonEmpty so coll.byIds[User, UserId](ids)
   }
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, ReadPreference.secondaryPreferred)
 
-  def enabledById[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[User]] =
-    User.noGhost(idOf(u)) so coll.one[User](enabledSelect ++ $id(u))
+  def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
+    User.noGhost(u.id) so coll.one[User](enabledSelect ++ $id(u))
 
-  def enabledByIds[U](us: Iterable[U])(using idOf: UserIdOf[U]): Fu[List[User]] = {
-    val ids = us.map(idOf.apply).filter(User.noGhost)
+  def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] = {
+    val ids = us.map(_.id).filter(User.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), temporarilyPrimary)
   }
 
@@ -439,13 +439,12 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll
       .find($doc(F.email -> email, F.enabled -> true))
       .one[Bdoc]
-      .map { maybeDoc =>
-        for {
+      .map: maybeDoc =>
+        for
           doc         <- maybeDoc
           storedEmail <- anyEmail(doc)
           user        <- summon[BSONHandler[User]] readOpt doc
-        } yield (user, storedEmail)
-      }
+        yield (user, storedEmail)
 
   def prevEmail(id: UserId): Fu[Option[EmailAddress]] =
     coll.primitiveOne[EmailAddress]($id(id), F.prevEmail)
@@ -454,9 +453,8 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll
       .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
       .one[Bdoc]
-      .mapz { doc =>
+      .mapz: doc =>
         anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
-      }
 
   def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
     coll.find($id(u.id)).one[Bdoc].mapz { doc =>
@@ -472,23 +470,20 @@ final class UserRepo(val coll: Coll)(using Executor):
       }
     }
 
-  def withEmails[U](
-      users: List[U]
-  )(using idOf: UserIdOf[U], r: BSONHandler[User]): Fu[List[User.WithEmails]] =
+  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] =
     coll
-      .list[Bdoc]($inIds(users.map(idOf.apply)), temporarilyPrimary)
-      .map { docs =>
-        for {
+      .list[Bdoc]($inIds(users.map(_.id)), temporarilyPrimary)
+      .map: docs =>
+        for
           doc  <- docs
           user <- r readOpt doc
-        } yield User.WithEmails(
+        yield User.WithEmails(
           user,
           User.Emails(
             current = anyEmail(doc),
             previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
           )
         )
-      }
 
   def emailMap(ids: List[UserId]): Fu[Map[UserId, EmailAddress]] =
     coll
@@ -498,13 +493,12 @@ final class UserRepo(val coll: Coll)(using Executor):
       )
       .cursor[Bdoc](temporarilyPrimary)
       .listAll()
-      .map { docs =>
+      .map: docs =>
         for
           doc   <- docs
           email <- anyEmailOrPrevious(doc)
           id    <- doc.getAsOpt[UserId](F.id)
         yield id -> email
-      }
       .dmap(_.toMap)
 
   def hasEmail(id: UserId): Fu[Boolean] = email(id).dmap(_.isDefined)
