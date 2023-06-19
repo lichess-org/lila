@@ -125,13 +125,13 @@ trait SetupHelper { self: I18nHelper =>
   private val encodeId = (v: Variant) => v.id.toString
 
   private def variantTuple(encode: Variant => String)(variant: Variant)(implicit lang: Lang) =
-    (encode(variant), transKeyTxt(variant.key), variant.title.some)
+    (encode(variant), transKeyTxt(variant.key), transKeyTxt(s"${variant.key}Description").some)
 
   def standardChoice(implicit lang: Lang): SelectChoice =
     standardChoice(encodeId)
 
   def standardChoice(encode: Variant => String)(implicit lang: Lang): SelectChoice =
-    (encode(shogi.variant.Standard), trans.standard.txt(), shogi.variant.Standard.title.some)
+    (encode(shogi.variant.Standard), trans.standard.txt(), trans.standardDescription.txt().some)
 
   def translatedVariantChoices(implicit lang: Lang): List[SelectChoice] =
     standardChoice ::

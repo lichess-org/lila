@@ -16,11 +16,11 @@ object variant {
   )(implicit ctx: Context) =
     layout(
       active = perfType.some,
-      title = s"${variantName(variant)} - ${variant.title}",
+      title = variantName(variant),
       klass = "box-pad page variant"
     )(
       h1(cls := "text", dataIcon := perfType.iconChar)(variantName(variant)),
-      h2(cls := "headline")(variant.title),
+      h2(cls := "headline")(variantDescription(variant)),
       div(cls := "body")(raw(~doc.getHtml("variant.content", resolver)))
     )
 
@@ -44,7 +44,7 @@ object variant {
           )(
             span(
               h2(variantName(variant)),
-              h3(cls := "headline")(variant.title)
+              h3(cls := "headline")(variantDescription(variant))
             )
           )
         }
@@ -60,8 +60,7 @@ object variant {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("variant"),
-      openGraph = openGraph,
-      withHrefLangs = none
+      openGraph = openGraph
     )(
       main(cls := "page-menu")(
         st.aside(cls := "page-menu__menu subnav")(

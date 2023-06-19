@@ -188,6 +188,11 @@ export type I18nKey =
 'chushogi'|
 'annanshogi'|
 'kyotoshogi'|
+'standardDescription'|
+'minishogiDescription'|
+'chushogiDescription'|
+'kyotoshogiDescription'|
+'annanshogiDescription'|
 'unlimited'|
 'mode'|
 'casual'|

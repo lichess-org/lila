@@ -88,9 +88,14 @@ trait GameHelper {
       case _                        => trans.standard.txt()
     }
 
-  private def variantNameOrShogi(v: shogi.variant.Variant)(implicit lang: Lang): String =
-    if (v.standard) trans.shogi.txt()
-    else variantName(v)
+  def variantDescription(v: shogi.variant.Variant)(implicit lang: Lang): String =
+    v match {
+      case shogi.variant.Minishogi  => trans.minishogiDescription.txt()
+      case shogi.variant.Chushogi   => trans.chushogiDescription.txt()
+      case shogi.variant.Annanshogi => trans.annanshogiDescription.txt()
+      case shogi.variant.Kyotoshogi => trans.kyotoshogiDescription.txt()
+      case _                        => trans.standardDescription.txt()
+    }
 
   def variantIcon(v: shogi.variant.Variant): String =
     v match {
