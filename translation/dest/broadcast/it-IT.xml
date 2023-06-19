@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Trasmissioni</string>
+  <string name="broadcasts">Dirette</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s trasmissione</item>
-    <item quantity="other">%s trasmissioni</item>
+    <item quantity="one">%s diretta</item>
+    <item quantity="other">%s dirette</item>
   </plurals>
   <string name="liveBroadcasts">Tornei in diretta</string>
-  <string name="newBroadcast">Nuova trasmissione in diretta</string>
+  <string name="newBroadcast">Nuova diretta</string>
   <string name="addRound">Aggiungi un turno</string>
   <string name="ongoing">In corso</string>
   <string name="upcoming">Prossimamente</string>
@@ -23,7 +23,7 @@
   <string name="startDate">Data di inizio nel tuo fuso orario</string>
   <string name="startDateHelp">Facoltativo, se sai quando inizia l\'evento</string>
   <string name="credits">Cita la fonte</string>
-  <string name="broadcastUrl">URL della trasmissione</string>
+  <string name="broadcastUrl">URL della diretta</string>
   <string name="currentRoundUrl">URL del turno corrente</string>
   <string name="currentGameUrl">URL della partita corrente</string>
   <string name="downloadAllRounds">Scarica tutti i round</string>
