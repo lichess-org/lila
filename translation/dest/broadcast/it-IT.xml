@@ -19,12 +19,12 @@
   <string name="startDate">Data di inizio nel tuo fuso orario</string>
   <string name="startDateHelp">Facoltativo, se sai quando inizia l\'evento</string>
   <string name="credits">Cita la fonte</string>
-  <string name="resetRound">Reimposta questo turno</string>
-  <string name="deleteRound">Cancella questo turno</string>
   <string name="broadcastUrl">URL della trasmissione</string>
   <string name="currentRoundUrl">URL del turno corrente</string>
   <string name="currentGameUrl">URL della partita corrente</string>
   <string name="downloadAllRounds">Scarica tutti i round</string>
+  <string name="resetRound">Reimposta questo turno</string>
+  <string name="deleteRound">Cancella questo turno</string>
   <string name="definitivelyDeleteRound">Elimina definitivamente il turno e le sue partite.</string>
   <string name="deleteAllGamesOfThisRound">Elimina tutte le partite di questo turno. L\'emittente dovrà essere attiva per poterli ricreare.</string>
   <string name="editRoundStudy">Modifica lo studio del turno</string>
