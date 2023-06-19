@@ -40,12 +40,25 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
           attrs: {
             width: 120,
             height: 120,
-            src: window.lishogi.assetUrl('images/mascot/octopus.svg'),
+            src: window.lishogi.assetUrl(`images/mascot/${mascot(ctrl)}.svg`),
           },
         }),
       ]),
     ]
   );
+}
+
+function mascot(ctrl: GamebookPlayCtrl) {
+  switch (ctrl.root.data.game.variant.key) {
+    case 'chushogi':
+      return 'owl';
+    case 'kyotoshogi':
+      return 'camel-head';
+    case 'minishogi':
+      return 'parrot-head';
+    default:
+      return 'octopus';
+  }
 }
 
 function hintZone(ctrl: GamebookPlayCtrl) {
