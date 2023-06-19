@@ -32,4 +32,6 @@
   <string name="definitivelyDeleteRound">Lösche die Runde und ihre Partien endgültig.</string>
   <string name="deleteAllGamesOfThisRound">Lösche alle Partien dieser Runde. Die Quelle muss aktiv sein, um sie neu zu erstellen.</string>
   <string name="editRoundStudy">Rundenstudie bearbeiten</string>
+  <string name="deleteTournament">Dieses Turnier löschen</string>
+  <string name="definitivelyDeleteTournament">Lösche definitiv das gesamte Turnier, alle seine Runden und Partieinformationen.</string>
 </resources>
