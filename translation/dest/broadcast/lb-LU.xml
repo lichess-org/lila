@@ -32,4 +32,6 @@
   <string name="definitivelyDeleteRound">Dës Ronn an hir Partien endgülteg läschen.</string>
   <string name="deleteAllGamesOfThisRound">All Partien vun dëser Ronn läschen. D\'Quell muss aktiv sinn fir se ze rekreéieren.</string>
   <string name="editRoundStudy">Ronnen-Etüd modifiéieren</string>
+  <string name="deleteTournament">Dësen Turnéier läschen</string>
+  <string name="definitivelyDeleteTournament">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
 </resources>
