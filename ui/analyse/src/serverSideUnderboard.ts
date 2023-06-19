@@ -22,7 +22,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         point.select(false);
       });
     };
-  let lastSfen: string;
+  let lastSfen = ctrl.node.sfen;
+  inputSfen.value = lastSfen;
 
   if (!li.AnalyseNVUI) {
     li.pubsub.on('analysis.comp.toggle', (v: boolean) => {
