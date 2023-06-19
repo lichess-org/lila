@@ -32,4 +32,6 @@
   <string name="definitivelyDeleteRound">Slet runden og dens partier endegyldigt.</string>
   <string name="deleteAllGamesOfThisRound">Slet alle partier i denne runde. Kilden skal være aktiv for at genskabe dem.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
+  <string name="deleteTournament">Slet denne turnering</string>
+  <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
 </resources>
