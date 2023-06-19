@@ -19,12 +19,12 @@
   <string name="startDate">Zure ordu-zonako hasiera data</string>
   <string name="startDateHelp">Hautazkoa, ekitaldia noiz hasten den baldin badakizu</string>
   <string name="credits">Jatorria zein den esaiguzu</string>
-  <string name="resetRound">Berrezarri txanda hau</string>
-  <string name="deleteRound">Ezabatu txanda hau</string>
   <string name="broadcastUrl">Zuzeneko emankizunaren URL helbidea</string>
   <string name="currentRoundUrl">Uneko txandaren URL helbidea</string>
   <string name="currentGameUrl">Uneko partidaren URL helbidea</string>
   <string name="downloadAllRounds">Deskargatu txanda guztiak</string>
+  <string name="resetRound">Berrezarri txanda hau</string>
+  <string name="deleteRound">Ezabatu txanda hau</string>
   <string name="definitivelyDeleteRound">Betiko ezabatu txanda eta bere partida guztiak.</string>
   <string name="deleteAllGamesOfThisRound">Ezabatu txanda honetako partida guztiak. Jatorria aktibo egon behar da berriz sortzeko.</string>
 </resources>
