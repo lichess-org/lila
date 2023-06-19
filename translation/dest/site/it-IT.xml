@@ -99,6 +99,7 @@
   <string name="openingExplorer">Esplora aperture</string>
   <string name="openingEndgameExplorer">Esploratore aperture/chiusure</string>
   <string name="xOpeningExplorer">Explorer delle aperture %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Gioca la prima apertura/mossa esploratore - fase finale</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata per la regola delle 50 mosse</string>
   <string name="winOr50MovesByPriorMistake">Vittoria o 50 mosse per errore precedente</string>
@@ -345,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s studio</item>
     <item quantity="other">%s studi</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s esibizioni simultanee</item>
+    <item quantity="other">%s esibizioni simultanee</item>
   </plurals>
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
