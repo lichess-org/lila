@@ -32,4 +32,6 @@
   <string name="definitivelyDeleteRound">Slett runden og tilhøyrande parti ugjenkalleleg.</string>
   <string name="deleteAllGamesOfThisRound">Fjern alle parti frå denne runden. Kjelda må vera aktiv om dei skal kunne rettast opp att.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
+  <string name="deleteTournament">Slett denne turneringa</string>
+  <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
 </resources>
