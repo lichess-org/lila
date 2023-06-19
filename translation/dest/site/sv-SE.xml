@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" med avrundning, baserat på antalet halvdrag till nästa slag eller bondedrag</string>
   <string name="noGameFound">Inget parti hittades</string>
+  <string name="maxDepthReached">Maxdjup nått!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
   <string name="openings">Öppningar</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="openingEndgameExplorer">Öppning-/slutspelsutforskare</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spela första drag från öppnings-/slutspelsutforskaren</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-dragsregeln</string>
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
   <string name="winOr50MovesByPriorMistake">Vinst eller 50 drag på grund av tidigare misstag</string>
@@ -119,6 +121,7 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
   <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
+  <string name="engineManager">Hantera analysmotor</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Misstag</string>
   <string name="inaccuracy">Felaktighet</string>
