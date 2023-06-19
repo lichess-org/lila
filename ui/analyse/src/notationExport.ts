@@ -66,30 +66,60 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
 
   return res;
 }
-export const tagToKanji = {
-  Start: '開始日時',
-  End: '終了日時',
-  Event: '棋戦',
-  Site: '場所',
-  Opening: '戦型',
-  Timecontrol: '持ち時間',
-  Byoyomi: '秒読み',
-  Handicap: '手合割',
-  Sente: '先手',
-  Gote: '後手',
-  Senteteam: '先手のチーム',
-  Goteteam: '後手のチーム',
-  Annotator: '注釈者',
-  Termination: '図',
-  Problemname: '作品名',
-  Problemid: '作品番号',
-  Composer: '作者',
-  Dateofpublication: '発表年月',
-  Publication: '発表誌',
-  Collection: '出典',
-  Length: '手数',
-  Prize: '受賞',
-};
+export function tagToKif(tag: string, handicap: boolean): string | undefined {
+  switch (tag.toLowerCase()) {
+    case 'start':
+      return '開始日時';
+    case 'end':
+      return '終了日時';
+    case 'event':
+      return '棋戦';
+    case 'site':
+      return '場所';
+    case 'opening':
+      return '戦型';
+    case 'timecontrol':
+      return '持ち時間';
+    case 'byoyomi':
+      return '秒読み';
+    case 'handicap':
+      return '手合割';
+    case 'sente':
+      return handicap ? '下手' : '先手';
+    case 'gote':
+      return handicap ? '上手' : '後手';
+    case 'senteteam':
+      return handicap ? '下手のチーム' : '先手のチーム';
+    case 'goteteam':
+      return handicap ? '上手のチーム' : '後手のチーム';
+    case 'senteelo':
+      return handicap ? '下手のELO' : '先手のELO';
+    case 'goteelo':
+      return handicap ? '上手のELO' : '後手のELO';
+    case 'annotator':
+      return '注釈者';
+    case 'termination':
+      return '図';
+    case 'problemname':
+      return '作品名';
+    case 'problemid':
+      return '作品番号';
+    case 'composer':
+      return '作者';
+    case 'dateofpublication':
+      return '発表年月';
+    case 'publication':
+      return '発表誌';
+    case 'collection':
+      return '出典';
+    case 'length':
+      return '手数';
+    case 'prize':
+      return '受賞';
+    default:
+      return undefined;
+  }
+}
 export function renderFullKif(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game,
     offset = ctrl.plyOffset(),
@@ -102,12 +132,14 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
     handicap = isHandicap({ sfen: sfen, rules: g.variant.key }),
     colorTags = [handicap ? '下手' : '先手', handicap ? '上手' : '後手'];
   // We either don't want to display these or we display them through other means
-  const unwatedTagNames = ['Sente', 'Shitate', 'Gote', 'Uwate', 'Handicap', 'Termination', 'Sfen', 'Result', 'Variant'],
-    otherTags = tags.filter(t => !unwatedTagNames.includes(t[0])).map(t => (tagToKanji[t[0]] || t[0]) + '：' + t[1]);
+  const unwatedTagNames = ['Sente', 'Gote', 'Handicap', 'Termination', 'Result'],
+    otherTags = tags
+      .filter(t => !unwatedTagNames.includes(t[0]))
+      .map(t => (tagToKif(t[0], handicap) || t[0]) + '：' + t[1]);
 
   // We want these even empty
-  const sente = tags.find(t => t[0] === 'Sente' || t[0] === 'Shitate')?.[1] ?? '',
-    gote = tags.find(t => t[0] === 'Gote' || t[0] === 'Uwate')?.[1] ?? '';
+  const sente = tags.find(t => t[0] === 'Sente')?.[1] ?? '',
+    gote = tags.find(t => t[0] === 'Gote')?.[1] ?? '';
 
   return [
     ...otherTags,
@@ -152,40 +184,39 @@ function makeCsaMainline(node: Tree.Node, pos: Shogi): string[] {
 }
 
 function processCsaTags(tags: string[][]): string[] {
-  function kifTagToCsaTag(kifTag: string[]): string {
-    switch (kifTag[0].toLowerCase()) {
+  function tagToCsa(tagWithValue: string[]): string {
+    switch (tagWithValue[0].toLowerCase()) {
       case 'start':
-        return `$START_TIME:${kifTag[1]}`;
+        return `$START_TIME:${tagWithValue[1]}`;
       case 'end':
-        return `$END_TIME:${kifTag[1]}`;
+        return `$END_TIME:${tagWithValue[1]}`;
       case 'event':
-        return `$EVENT:${kifTag[1]}`;
+        return `$EVENT:${tagWithValue[1]}`;
       case 'site':
-        return `$SITE:${kifTag[1]}`;
+        return `$SITE:${tagWithValue[1]}`;
       case 'timecontrol':
-        return `$TIME_LIMIT:${kifTag[1].replace(/[^\d+\|]/g, '')}`;
+        return `$TIME_LIMIT:${tagWithValue[1].replace(/[^\d+\|]/g, '')}`;
       case 'opening':
-        return `$OPENING:${kifTag[1]}`;
+        return `$OPENING:${tagWithValue[1]}`;
       case 'sente':
-      case 'shitate':
-        return `N+${kifTag[1]}`;
+        return `N+${tagWithValue[1]}`;
       case 'gote':
-      case 'uwate':
-        return `N-${kifTag[1]}`;
+        return `N-${tagWithValue[1]}`;
       default:
         return '';
     }
   }
   // CSA shouldn't contain non-ascii characters (except for comments)
   // allow non-ascii characters in values, but not in keys
-  const asciiTags = tags
-    .filter(t => /^[\x20-\x7F]+$/.test(t[0]) && !['SFEN', 'Result'].includes(t[0]))
-    .map(t => `$${t[0]}:${t[1]}`);
+  function asciiTag(tag: string[]): string {
+    if (/^[\x20-\x7F]+$/.test(tag[0]) && !['Result', 'Handicap'].includes(tag[0]))
+      return `$${tag[0].toUpperCase()}:${tag[1]}`;
+    else return '';
+  }
   return tags
-    .map(t => kifTagToCsaTag(t))
+    .map(t => tagToCsa(t) || asciiTag(t))
     .sort((a, b) => (a[0] === 'N' ? (b[0] === 'N' ? 0 : -1) : 1)) // so we have names on top
-    .filter(t => t.length > 0)
-    .concat(asciiTags);
+    .filter(t => t.length > 0);
 }
 
 export function renderFullCsa(ctrl: AnalyseCtrl): string {

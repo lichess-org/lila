@@ -6,9 +6,9 @@ import { VNode, h, thunk } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { option } from '../util';
 import { StudyChapter, StudyCtrl } from './interfaces';
-import { tagToKanji } from '../notationExport';
+import { tagToKif } from '../notationExport';
 
-const unwantedTags = ['Result', 'SenteElo', 'SenteTitle', 'GoteElo', 'GoteTitle', 'Variant'];
+const unwantedTags = ['Result', 'SenteElo', 'SenteTitle', 'GoteElo', 'GoteTitle'];
 
 function editable(value: string, submit: (v: string, el: HTMLInputElement) => void): VNode {
   return h('input', {
@@ -40,12 +40,7 @@ function renderTags(chapter: StudyChapter, submit, types: string[], trans: Trans
   let rows: TagRow[] = [];
   const wantedTags = chapter.tags.filter(t => !unwantedTags.includes(t[0])),
     handicap = isHandicap({ rules: chapter.setup.variant.key, sfen: chapter.initialSfen });
-  rows = rows.concat(
-    wantedTags.map(tag => [
-      translateTag(trans, tag[0], handicap),
-      submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1]),
-    ])
-  );
+  rows = rows.concat(wantedTags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]));
   if (submit) {
     const existingTypes = wantedTags.map(t => t[0]);
     rows.push([
@@ -90,13 +85,17 @@ function renderTags(chapter: StudyChapter, submit, types: string[], trans: Trans
     h(
       'tbody',
       rows.map(function (r) {
-        const tag = r[0];
+        const tag = typeof r[0] === 'string' ? translateTag(trans, r[0], handicap) : r[0];
+
         return h(
           'tr',
           {
             key: '' + r[0],
           },
-          [h('th', { attrs: { title: typeof tag === 'string' ? tagToKanji[tag] : undefined } }, tag), h('td', r[1])]
+          [
+            h('th', { attrs: { title: (typeof r[0] === 'string' ? tagToKif(r[0], handicap) : undefined) || '' } }, tag),
+            h('td', r[1]),
+          ]
         );
       })
     )
