@@ -46,7 +46,7 @@ object topic:
           ),
           p(
             trans.makeSureToRead(
-              strong(a(href := routes.Page.loneBookmark("forum-etiquette"))(trans.theForumEtiquette()))
+              strong(a(href := routes.ContentPage.loneBookmark("forum-etiquette"))(trans.theForumEtiquette()))
             )
           )
         ),
@@ -184,7 +184,7 @@ object topic:
               help = a(
                 dataIcon := licon.InfoCircle,
                 cls      := "text",
-                href     := routes.Page.loneBookmark("forum-etiquette")
+                href     := routes.ContentPage.loneBookmark("forum-etiquette")
               )(
                 "Forum etiquette"
               ).some

@@ -336,7 +336,7 @@ object layout:
             div(id := "agreement")(
               div(
                 "Lichess has updated the ",
-                a(href := routes.Page.tos)("Terms of Service"),
+                a(href := routes.ContentPage.tos)("Terms of Service"),
                 " as of ",
                 showDate(date),
                 "."

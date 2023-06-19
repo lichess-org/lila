@@ -42,9 +42,9 @@ object signup:
             trans.computersAreNotAllowedToPlay(),
             br,
             small(
-              trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())),
+              trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.ContentPage.tos)(trans.termsOfService())),
               br,
-              trans.readAboutOur(a(href := routes.Page.menuBookmark("privacy"))(trans.privacyPolicy())),
+              trans.readAboutOur(a(href := routes.ContentPage.menuBookmark("privacy"))(trans.privacyPolicy())),
               br
             )
           ),
@@ -69,6 +69,6 @@ object signup:
   private def agreements(using WebContext) = List(
     "assistance" -> trans.agreementAssistance(),
     "nice"       -> trans.agreementNice(),
-    "account"    -> trans.agreementMultipleAccounts(a(href := routes.Page.tos)(trans.termsOfService())),
+    "account"    -> trans.agreementMultipleAccounts(a(href := routes.ContentPage.tos)(trans.termsOfService())),
     "policy"     -> trans.agreementPolicy()
   )

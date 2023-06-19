@@ -48,7 +48,7 @@ object storm:
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Page.loneBookmark("storm"))(trans.aboutX("Puzzle Storm"))
+          a(href := routes.ContentPage.loneBookmark("storm"))(trans.aboutX("Puzzle Storm"))
         )
       )
     }

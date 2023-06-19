@@ -199,7 +199,7 @@ object form:
     p(
       a(
         dataIcon := licon.InfoCircle,
-        href     := routes.Page.loneBookmark("blog-etiquette"),
+        href     := routes.ContentPage.loneBookmark("blog-etiquette"),
         cls      := "text",
         targetBlank
       )("Blog Etiquette")
@@ -209,7 +209,7 @@ object form:
 
   def tips(using WebContext) = a(
     dataIcon := licon.InfoCircle,
-    href     := routes.Page.loneBookmark("blog-tips"),
+    href     := routes.ContentPage.loneBookmark("blog-tips"),
     cls      := "text",
     targetBlank
   )(trans.ublog.blogTips())

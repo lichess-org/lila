@@ -91,8 +91,8 @@ object bits:
       ul(
         li(rule1()),
         li(rule2()),
-        li(rule4(a(href := routes.Page.loneBookmark("streaming-fairplay-faq"))(streamingFairplayFAQ()))),
-        li(a(href := routes.Page.loneBookmark("streamer-page-activation"))(rule3()))
+        li(rule4(a(href := routes.ContentPage.loneBookmark("streaming-fairplay-faq"))(streamingFairplayFAQ()))),
+        li(a(href := routes.ContentPage.loneBookmark("streamer-page-activation"))(rule3()))
       ),
       h2(perks()),
       ul(

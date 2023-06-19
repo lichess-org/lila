@@ -22,7 +22,7 @@ object form:
           h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             div(cls := "form-group")(
-              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.ContentPage.loneBookmark("event-tips"))(
                 trans.ourEventTips()
               )
             ),

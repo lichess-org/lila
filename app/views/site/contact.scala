@@ -98,7 +98,7 @@ object contact:
               "title",
               wantTitle(),
               p(
-                a(href := routes.Page.master)(visitTitleConfirmation()),
+                a(href := routes.ContentPage.master)(visitTitleConfirmation()),
                 "."
               )
             ),

@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import chess.variant.Variant
 import lila.app.{ given, * }
 
-final class Page(
+final class ContentPage(
     env: Env,
     prismicC: Prismic
 ) extends LilaController(env):

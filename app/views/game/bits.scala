@@ -57,7 +57,7 @@ object bits:
         href = variant match
           case chess.variant.FromPosition =>
             s"""${routes.Editor.index}?fen=${initialFen.so(_.value.replace(' ', '_'))}"""
-          case v => routes.Page.variant(v.key).url
+          case v => routes.ContentPage.variant(v.key).url
         ,
         title = variant.title,
         name = (if (shortName && variant == chess.variant.KingOfTheHill) variant.shortName

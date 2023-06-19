@@ -27,7 +27,7 @@ object form:
           ),
           postForm(cls := "form3", action := routes.Tournament.create)(
             div(cls := "form-group")(
-              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.ContentPage.loneBookmark("event-tips"))(
                 trans.ourEventTips()
               )
             ),
