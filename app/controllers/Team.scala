@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
+import lila.common.HTTPRequest
 import lila.hub.LightTeam
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel }
@@ -67,7 +68,7 @@ final class Team(
     } yield html.team.show(team, members, info, chat, version)
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo)(implicit ctx: Context): Boolean =
-    !team.isChatFor(_.NONE) && ctx.noKid && {
+    !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
       isGranted(_.ChatTimeout)

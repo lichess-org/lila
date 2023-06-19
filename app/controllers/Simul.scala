@@ -78,8 +78,8 @@ final class Simul(
     }
 
   private[controllers] def canHaveChat(implicit ctx: Context): Boolean =
-    !ctx.kid &&           // no public chats for kids
-      ctx.me.fold(true) { // anon can see public chats
+    !ctx.kid &&                                   // no public chats for kids
+      ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
         env.chat.panic.allowed
       }
 

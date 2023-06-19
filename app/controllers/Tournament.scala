@@ -77,12 +77,13 @@ final class Tournament(
     }
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
-    tour.hasChat && !ctx.kid &&           // no public chats for kids
-      ctx.me.fold(!tour.isPrivate) { u => // anon can see public chats, except for private tournaments
-        (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) || isGranted(
-          _.ChatTimeout
-        )) && // private tournament that I joined or has ChatTimeout
-        env.chat.panic.allowed(u)
+    tour.hasChat && !ctx.kid && // no public chats for kids
+      ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
+        u => // anon can see public chats, except for private tournaments
+          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) || isGranted(
+            _.ChatTimeout
+          )) && // private tournament that I joined or has ChatTimeout
+          env.chat.panic.allowed(u)
       }
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
