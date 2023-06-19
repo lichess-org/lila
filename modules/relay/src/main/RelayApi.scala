@@ -7,6 +7,7 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
+import cats.syntax.all.*
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
@@ -31,7 +32,7 @@ final class RelayApi(
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given
 
-  def byId(id: RelayRoundId) = roundRepo.coll.byId[RelayRound](id.value)
+  def byId(id: RelayRoundId) = roundRepo.coll.byId[RelayRound](id)
 
   def byIdWithTour(id: RelayRoundId): Fu[Option[RelayRound.WithTour]] =
     roundRepo.coll
@@ -167,7 +168,7 @@ final class RelayApi(
         )
       .map(_.exists(_.contains("tier")))
 
-  def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
+  def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id)
 
   private[relay] def toSync(official: Boolean, maxDocs: Int = 30) =
     roundRepo.coll
@@ -275,6 +276,17 @@ final class RelayApi(
       roundRepo.coll.delete.one($id(rt.round.id)) >>
         denormalizeTourActive(rt.tour.id) inject rt.tour.some
 
+  def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
+    tour.ownerId
+      .is(me)
+      .so:
+        for
+          _      <- tourRepo.delete(tour)
+          rounds <- roundRepo.idsByTourOrdered(tour)
+          _      <- roundRepo.deleteByTour(tour)
+          _      <- rounds.map(_ into StudyId).traverse_(studyApi.deleteById)
+        yield true
+
   def getOngoing(id: RelayRoundId): Fu[Option[RelayRound.WithTour]] =
     roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMapz { relay =>
       tourById(relay.tourId) map2 relay.withTour
@@ -369,7 +381,7 @@ final class RelayApi(
     roundRepo.coll.delete.one($id(studyId into RelayRoundId)).void
 
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
-    studyApi members StudyId(id.value) map {
+    studyApi members id.into(StudyId) map {
       _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
         import lila.common.Json.given

@@ -49,6 +49,7 @@ object tour:
           boxTop:
             h1(lightUserLink(owner), " ", liveBroadcasts())
           ,
+          standardFlash,
           renderPager(pager, owner = owner.some)
         )
       )

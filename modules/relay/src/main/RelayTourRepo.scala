@@ -15,6 +15,9 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def countByOwner(owner: UserId): Fu[Int] =
     coll.countSel(selectors.ownerId(owner))
 
+  def delete(tour: RelayTour): Funit =
+    coll.delete.one($id(tour.id)).void
+
   private[relay] object selectors:
     val official           = $doc("tier" $exists true)
     val active             = $doc("active" -> true)

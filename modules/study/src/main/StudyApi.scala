@@ -742,6 +742,9 @@ final class StudyApi(
       studyRepo.delete(study) >>
         chapterRepo.deleteByStudy(study)
 
+  def deleteById(id: StudyId) =
+    studyRepo.byId(id).flatMap(_ so delete)
+
   def like(studyId: StudyId, v: Boolean)(who: Who): Funit =
     studyRepo.like(studyId, who.u, v) map { likes =>
       sendTo(studyId)(_.setLiking(Study.Liking(likes, v), who))

@@ -30,6 +30,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       .sort(sort.reverseChrono)
       .one[RelayRound]
 
+  def deleteByTour(tour: RelayTour): Funit =
+    coll.delete.one(selectors.tour(tour.id)).void
+
   private[relay] object sort:
     val chrono        = $doc("createdAt" -> 1)
     val reverseChrono = $doc("createdAt" -> -1)

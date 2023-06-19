@@ -1572,15 +1572,17 @@ object I18nKeys:
     val `startDate` = I18nKey("broadcast:startDate")
     val `startDateHelp` = I18nKey("broadcast:startDateHelp")
     val `credits` = I18nKey("broadcast:credits")
-    val `resetRound` = I18nKey("broadcast:resetRound")
-    val `deleteRound` = I18nKey("broadcast:deleteRound")
     val `broadcastUrl` = I18nKey("broadcast:broadcastUrl")
     val `currentRoundUrl` = I18nKey("broadcast:currentRoundUrl")
     val `currentGameUrl` = I18nKey("broadcast:currentGameUrl")
     val `downloadAllRounds` = I18nKey("broadcast:downloadAllRounds")
+    val `resetRound` = I18nKey("broadcast:resetRound")
+    val `deleteRound` = I18nKey("broadcast:deleteRound")
     val `definitivelyDeleteRound` = I18nKey("broadcast:definitivelyDeleteRound")
     val `deleteAllGamesOfThisRound` = I18nKey("broadcast:deleteAllGamesOfThisRound")
     val `editRoundStudy` = I18nKey("broadcast:editRoundStudy")
+    val `deleteTournament` = I18nKey("broadcast:deleteTournament")
+    val `definitivelyDeleteTournament` = I18nKey("broadcast:definitivelyDeleteTournament")
     val `nbBroadcasts` = I18nKey("broadcast:nbBroadcasts")
 
   object streamer:
@@ -2481,3 +2483,4 @@ object I18nKeys:
     val `engineWrite` = I18nKey("oauthScope:engineWrite")
     val `webLogin` = I18nKey("oauthScope:webLogin")
     val `webMod` = I18nKey("oauthScope:webMod")
+

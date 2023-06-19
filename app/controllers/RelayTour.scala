@@ -114,7 +114,8 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     )
 
   def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
-    ???
+    WithTour(id): tour =>
+      env.relay.api.deleteTourIfOwner(tour) inject Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
   def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:

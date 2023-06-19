@@ -15,9 +15,9 @@ object roundForm:
 
   def create(form: Form[Data], tour: RelayTour)(using WebContext) =
     layout(newBroadcast.txt())(
-      boxTop(h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound())),
+      boxTop(h1(a(href := routes.RelayTour.edit(tour.id))(tour.name), " • ", addRound())),
       standardFlash,
-      inner(form, routes.RelayRound.create(tour.id.value), tour, create = true)
+      inner(form, routes.RelayRound.create(tour.id), tour, create = true)
     )
 
   def edit(rt: RelayRound.WithTour, form: Form[Data])(using WebContext) =
@@ -25,24 +25,22 @@ object roundForm:
       boxTop(
         h1(
           "Edit ",
-          a(href := routes.RelayTour.edit(rt.tour.id.value))(rt.tour.name),
+          a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name),
           " > ",
           a(href := rt.path)(rt.round.name)
         )
       ),
-      inner(form, routes.RelayRound.update(rt.round.id.value), rt.tour, create = false),
-      div(cls := "relay-round__actions")(
-        postForm(action := routes.RelayRound.reset(rt.round.id.value))(
+      inner(form, routes.RelayRound.update(rt.round.id), rt.tour, create = false),
+      div(cls := "relay-form__actions")(
+        postForm(action := routes.RelayRound.reset(rt.round.id))(
           submitButton(
             cls := "button button-red button-empty confirm"
           )(
             strong(resetRound()),
-            em(
-              deleteAllGamesOfThisRound()
-            )
+            em(deleteAllGamesOfThisRound())
           )
         ),
-        postForm(action := routes.Study.delete(rt.round.id.value))(
+        postForm(action := routes.Study.delete(rt.round.id))(
           submitButton(
             cls := "button button-red button-empty confirm"
           )(strong(deleteRound()), em(definitivelyDeleteRound()))
@@ -118,7 +116,7 @@ object roundForm:
           )(form3.input(_, typ = "number"))
       ),
       form3.actions(
-        a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(trans.cancel()),
+        a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )
