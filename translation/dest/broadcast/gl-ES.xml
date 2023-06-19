@@ -32,4 +32,6 @@
   <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e as súas partidas.</string>
   <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta ronda. A emisión terá que estar activa para volver a crealas.</string>
   <string name="editRoundStudy">Editar ronda de estudo</string>
+  <string name="deleteTournament">Elimina este torneo</string>
+  <string name="definitivelyDeleteTournament">Elimina o torneo de forma definitiva, con todas as súas rondas e as súas partidas.</string>
 </resources>
