@@ -34,4 +34,6 @@
   <string name="definitivelyDeleteRound">Definitívne vymazať kolo a partie tohto kola.</string>
   <string name="deleteAllGamesOfThisRound">Vymazať všetky partie tohto kola. K opätovnému vytvoreniu partií bude potrebné aby bol zdroj aktívny.</string>
   <string name="editRoundStudy">Upraviť kolo štúdií</string>
+  <string name="deleteTournament">Vymazať tento turnaj</string>
+  <string name="definitivelyDeleteTournament">Definitívne odstrániť celý turnaj so všetkými kolami a partiami.</string>
 </resources>
