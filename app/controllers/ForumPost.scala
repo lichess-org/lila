@@ -32,7 +32,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>
     NoBot:
-      OptionFuResult(topicApi.show(categId, slug, page, ctx.me)): (categ, topic, posts) =>
+      OptionFuResult(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if topic.closed then BadRequest("This topic is closed")
         else if topic.isOld then BadRequest("This topic is archived")
         else

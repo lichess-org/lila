@@ -9,14 +9,11 @@ final class Msg(env: Env) extends LilaController(env):
 
   def home = Auth { _ ?=> me ?=>
     negotiate(
-      html = inboxJson(me) map { json =>
-        Ok(views.html.msg.home(json))
-      },
+      html = inboxJson.map(views.html.msg.home),
       api = v =>
-        {
-          if (v.value >= 5) inboxJson(me)
-          else env.msg.compat.inbox(me, getInt("page"))
-        } map { Ok(_) }
+        JsonOk:
+          if v.value >= 5 then inboxJson
+          else env.msg.compat.inbox(getInt("page"))
     )
   }
 
@@ -24,31 +21,29 @@ final class Msg(env: Env) extends LilaController(env):
     if username.value == "new"
     then Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
-      env.msg.api.convoWith(me, username, before).flatMap {
+      env.msg.api.convoWithMe(username, before).flatMap {
         case None =>
           negotiate(
             html = Redirect(routes.Msg.home),
             api = _ => notFoundJson()
           )
         case Some(c) =>
-          def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(c)) }
+          def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
           negotiate(
-            html = newJson map { json =>
-              Ok(views.html.msg.home(json))
-            },
+            html = newJson map views.html.msg.home,
             api = v =>
-              {
-                if (v.value >= 5) newJson
+              JsonOk:
+                if v.value >= 5 then newJson
                 else fuccess(env.msg.compat.thread(me, c))
-              } map { Ok(_) }
           )
       }
   }
 
   def search(q: String) = Auth { _ ?=> me ?=>
-    q.trim.some.filter(_.nonEmpty) match
-      case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
-      case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
+    JsonOk:
+      q.trim.some.filter(_.nonEmpty) match
+        case None    => env.msg.json.searchResult(env.msg.search.empty)
+        case Some(q) => env.msg.search(q) flatMap env.msg.json.searchResult
   }
 
   def unreadCount = Auth { _ ?=> me ?=>
@@ -57,8 +52,8 @@ final class Msg(env: Env) extends LilaController(env):
   }
 
   def convoDelete(username: UserStr) = Auth { _ ?=> me ?=>
-    env.msg.api.delete(me, username) >>
-      inboxJson(me) map { Ok(_) }
+    env.msg.api.delete(username) >>
+      JsonOk(inboxJson)
   }
 
   def compatCreate = AuthBody { ctx ?=> me ?=>
@@ -103,8 +98,8 @@ final class Msg(env: Env) extends LilaController(env):
           }
     )
 
-  private def inboxJson(me: lila.user.User) =
-    env.msg.api.threadsOf(me) flatMap env.msg.json.threads(me) map { threads =>
+  private def inboxJson(using me: Me) =
+    env.msg.api.myThreads flatMap env.msg.json.threads map { threads =>
       Json.obj(
         "me"       -> lightUserWrites.writes(me.light).add("bot" -> me.isBot),
         "contacts" -> threads

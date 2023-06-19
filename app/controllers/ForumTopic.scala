@@ -49,7 +49,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def show(categId: ForumCategId, slug: String, page: Int) = Open:
     NotForKids:
-      OptionFuResult(topicApi.show(categId, slug, page, ctx.me)): (categ, topic, posts) =>
+      OptionFuResult(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         for
           unsub       <- ctx.me soUsing env.timeline.status(s"forum:${topic.id}")
           canRead     <- access.isGrantedRead(categ.slug)
@@ -72,14 +72,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def close(categId: ForumCategId, slug: String) = Auth { _ ?=> me ?=>
     TopicGrantModBySlug(categId, slug):
-      OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)): (categ, topic, pag) =>
+      OptionFuRedirect(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
         topicApi.toggleClose(categ, topic) inject
           routes.ForumTopic.show(categId, slug, pag.nbPages)
   }
 
   def sticky(categId: ForumCategId, slug: String) = Auth { _ ?=> me ?=>
     CategGrantMod(categId):
-      OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)): (categ, topic, pag) =>
+      OptionFuRedirect(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
         topicApi.toggleSticky(categ, topic) inject
           routes.ForumTopic.show(categId, slug, pag.nbPages)
   }

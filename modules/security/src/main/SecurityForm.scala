@@ -34,9 +34,9 @@ final class SecurityForm(
 
   private val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)
 
-  private def fullyValidEmail(forUser: Option[User]) = sendableEmail
+  private def fullyValidEmail(using me: Option[Me]) = sendableEmail
     .verifying(emailValidator.withAcceptableDns)
-    .verifying(emailValidator.uniqueConstraint(forUser))
+    .verifying(emailValidator.uniqueConstraint(me))
 
   private val preloadEmailDnsForm = Form(single("email" -> sendableEmail))
 
@@ -47,7 +47,7 @@ final class SecurityForm(
 
   object signup:
 
-    val emailField = fullyValidEmail(none)
+    val emailField = fullyValidEmail(using none)
 
     val username = LilaForm.cleanNonEmptyText
       .verifying(
@@ -158,7 +158,7 @@ final class SecurityForm(
       Form(
         mapping(
           "passwd" -> passwordMapping(candidate),
-          "email"  -> fullyValidEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+          "email"  -> fullyValidEmail.verifying(emailValidator differentConstraint old)
         )(ChangeEmail.apply)(unapply)
       ).fillOption(old.map { ChangeEmail("", _) })
     }
@@ -195,7 +195,7 @@ final class SecurityForm(
 
   def fixEmail(old: EmailAddress) =
     Form(
-      single("email" -> fullyValidEmail(none).verifying(emailValidator differentConstraint old.some))
+      single("email" -> fullyValidEmail(using none).verifying(emailValidator differentConstraint old.some))
     ).fill(old)
 
   def modEmail(user: User) = Form(

@@ -31,20 +31,21 @@ final private class ForumTopicApi(
   def show(
       categId: ForumCategId,
       slug: String,
-      page: Int,
-      forUser: Option[User]
-  )(using lila.common.config.NetDomain): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
-    for {
+      page: Int
+  )(using
+      lila.common.config.NetDomain
+  )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
+    for
       data <- categRepo byId categId flatMapz { categ =>
-        topicRepo.forUser(forUser).byTree(categId, slug) dmap {
+        topicRepo.forUser(me).byTree(categId, slug) dmap {
           _ map (categ -> _)
         }
       }
-      res <- data so { case (categ, topic) =>
+      res <- data so { (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
+        paginator.topicPosts(topic, page) map { (categ, topic, _).some }
       }
-    } yield res
+    yield res
 
   object findDuplicate:
     private val cache =

@@ -10,7 +10,7 @@ import lila.common.Json.given
 import lila.common.LightUser
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.user.{ LightUserApi, User }
+import lila.user.{ LightUserApi, User, Me }
 
 final class MsgCompat(
     api: MsgApi,
@@ -23,13 +23,13 @@ final class MsgCompat(
 
   private val maxPerPage = MaxPerPage(25)
 
-  def inbox(me: User, pageOpt: Option[Int]): Fu[JsObject] =
+  def inbox(pageOpt: Option[Int])(using me: Me): Fu[JsObject] =
     val page = pageOpt.fold(1)(_ atLeast 1 atMost 2)
-    api.threadsOf(me) flatMap { allThreads =>
+    api.myThreads.flatMap: allThreads =>
       val threads =
         allThreads.slice((page - 1) * maxPerPage.value, (page - 1) * maxPerPage.value + maxPerPage.value)
       lightUserApi.preloadMany(threads.map(_ other me)) inject
-        PaginatorJson {
+        PaginatorJson:
           Paginator
             .fromResults(
               currentPageResults = threads,
@@ -37,18 +37,15 @@ final class MsgCompat(
               currentPage = page,
               maxPerPage = maxPerPage
             )
-            .mapResults { t =>
+            .mapResults: t =>
               val user = lightUserApi.syncFallback(t other me)
               Json.obj(
                 "id"        -> user.id,
                 "author"    -> user.titleName,
                 "name"      -> t.lastMsg.text,
                 "updatedAt" -> t.lastMsg.date,
-                "isUnread"  -> t.lastMsg.unreadBy(me.id)
+                "isUnread"  -> t.lastMsg.unreadBy(me)
               )
-            }
-        }
-    }
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 

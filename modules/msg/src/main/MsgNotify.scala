@@ -20,7 +20,7 @@ final private class MsgNotify(
 
   private val delay = 5 seconds
 
-  private val delayed = new ConcurrentHashMap[MsgThread.Id, Cancellable](256)
+  private val delayed = ConcurrentHashMap[MsgThread.Id, Cancellable](256)
 
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
@@ -39,7 +39,7 @@ final private class MsgNotify(
     threads
       .map: thread =>
         cancel(thread.id)
-        notifyApi.remove(thread other user, $doc("content.user" -> user.id)).void
+        notifyApi.remove(thread other user.id, $doc("content.user" -> user.id)).void
       .parallel
       .void
 
