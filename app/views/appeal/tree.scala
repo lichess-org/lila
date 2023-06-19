@@ -4,7 +4,6 @@ package appeal
 import controllers.routes
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User

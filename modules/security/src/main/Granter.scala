@@ -43,11 +43,11 @@ object Granter:
       }
     }
 
-  def canViewAltUsername(user: User)(using Me): Boolean =
-    apply(_.Admin) || {
-      (apply(_.CheatHunter) && user.marks.engine) ||
-      (apply(_.BoostHunter) && user.marks.boost) ||
-      (apply(_.Shusher) && user.marks.troll)
+  def canViewAltUsername(user: User)(using Option[Me]): Boolean =
+    opt(_.Admin) || {
+      (opt(_.CheatHunter) && user.marks.engine) ||
+      (opt(_.BoostHunter) && user.marks.boost) ||
+      (opt(_.Shusher) && user.marks.troll)
     }
 
   def canCloseAlt(using Me) = apply(_.CloseAccount) && apply(_.ViewPrintNoIP)

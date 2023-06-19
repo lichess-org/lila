@@ -10,7 +10,6 @@ import scala.util.chaining.*
 import scalatags.Text.Frag
 import views.*
 
-import lila.api.{ WebBodyContext, WebContext }
 import lila.app.{ given, * }
 import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.common.paginator.Paginator

@@ -4,14 +4,12 @@ import play.api.data.*
 import play.api.data.Forms.{ list as formList, * }
 import scala.util.chaining.*
 
-import lila.api.WebContext
 import lila.api.GameApiV2
 import lila.app.{ given, * }
 import lila.common.config
 import lila.common.Form.{ stringIn, given }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
-import lila.user.Me
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
@@ -71,7 +69,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
           .analyser(
             game,
             lila.fishnet.Work.Sender(
-              userId = me.userId,
+              userId = me,
               ip = ctx.ip.some,
               mod = true,
               system = false

@@ -4,7 +4,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.HTTPRequest

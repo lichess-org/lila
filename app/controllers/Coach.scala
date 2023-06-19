@@ -2,7 +2,6 @@ package controllers
 
 import play.api.mvc.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm }
 import views.*
@@ -48,7 +47,7 @@ final class Coach(env: Env) extends LilaController(env):
 
   def edit = Secure(_.Coach) { ctx ?=> me ?=>
     OptionFuResult(api.findOrInit): c =>
-      env.msg.twoFactorReminder(me.userId) inject
+      env.msg.twoFactorReminder(me) inject
         Ok(html.coach.edit(c, CoachProfileForm edit c.coach)).noCache
   }
 

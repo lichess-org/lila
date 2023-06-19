@@ -1,7 +1,6 @@
 package views.html
 package game
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }

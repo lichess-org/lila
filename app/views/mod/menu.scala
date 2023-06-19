@@ -3,7 +3,6 @@ package views.html.mod
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 

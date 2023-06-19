@@ -6,7 +6,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.{ config, HTTPRequest, IpAddress }
 import lila.memo.RateLimit

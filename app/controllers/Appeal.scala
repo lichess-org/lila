@@ -4,11 +4,9 @@ package appeal
 import play.api.mvc.Result
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.report.{ Suspect, Mod }
 import play.api.data.Form
-import lila.user.Me
 
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
     extends LilaController(env):

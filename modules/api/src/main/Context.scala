@@ -14,6 +14,8 @@ object context:
   export lila.api.{ WebContext, WebBodyContext }
   export lila.api.{ OAuthContext, OAuthBodyContext }
   export lila.api.{ MinimalContext, MinimalBodyContext }
+  given (using ctx: AnyContext): Option[lila.user.Me]    = ctx.me
+  given (using ctx: AnyContext): Option[lila.user.Me.Id] = ctx.meId
 
 /* data necessary to render the lichess website layout */
 case class PageData(

@@ -2,7 +2,6 @@ package views.html.game
 
 import play.api.i18n.Lang
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.{ Game, Pov }

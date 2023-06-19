@@ -7,7 +7,6 @@ import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
-import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.ApiVersion
 import lila.common.Json.given

@@ -4,7 +4,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
-import lila.api.AnyContext
+
 import lila.game.Pov
 import lila.user.{ User as UserModel }
 

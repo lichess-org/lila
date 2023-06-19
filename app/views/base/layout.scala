@@ -4,7 +4,6 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ Nonce, AnnounceStore, WebContext }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ContentSecurityPolicy
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -301,7 +300,7 @@ object layout:
           dataTheme        := ctx.currentBg,
           dataBoardTheme   := ctx.currentTheme.name,
           dataPieceSet     := ctx.currentPieceSet.name,
-          dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
           style            := zoomable option s"--zoom:${ctx.zoom}"
         )(
           blindModeForm,

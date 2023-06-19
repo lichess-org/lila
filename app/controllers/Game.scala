@@ -5,7 +5,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.api.GameApiV2
-import lila.api.context.*
+
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
@@ -13,12 +13,12 @@ import lila.common.HTTPRequest
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def bookmark(gameId: GameId) = Auth { _ ?=> me ?=>
-    env.bookmark.api.toggle(gameId, me.userId)
+    env.bookmark.api.toggle(gameId, me)
   }
 
   def delete(gameId: GameId) = Auth { _ ?=> me ?=>
     OptionFuResult(env.game.gameRepo game gameId): game =>
-      if game.pgnImport.flatMap(_.user).has(me.userId) then
+      if game.pgnImport.flatMap(_.user).has(me) then
         env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
         (env.game.gameRepo remove game.id) >>
           (env.analyse.analysisRepo remove game.id) >>

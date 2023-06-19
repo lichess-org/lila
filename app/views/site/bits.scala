@@ -1,6 +1,5 @@
 package views.html.site
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import controllers.routes

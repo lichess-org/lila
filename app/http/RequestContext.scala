@@ -4,7 +4,6 @@ package http
 import play.api.mvc.*
 import play.api.i18n.Lang
 
-import lila.api.context.*
 import lila.user.{ Me, UserContext }
 import lila.api.{ Nonce, PageData }
 import lila.i18n.I18nLangPicker

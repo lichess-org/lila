@@ -19,10 +19,10 @@ object Me extends TotalWrapper[Me, User]:
   given [M[_]]: Conversion[M[Me], M[User]]     = Me.raw(_)
   given (using me: Me): Option[Me]             = Some(me)
   extension (me: Me)
-    inline def userId: UserId = me.id
-    inline def user: User     = me
-    inline def modId: ModId   = userId into ModId
-    inline def meId: MeId     = userId into MeId
+    def userId: UserId      = me.id
+    inline def user: User   = me
+    inline def modId: ModId = userId into ModId
+    inline def meId: MeId   = userId into MeId
     // inline def is[U](u: U)(using idOf: UserIdOf[U]): Boolean = me.id == idOf(u)
 
 opaque type MeId = String

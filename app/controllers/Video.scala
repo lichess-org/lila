@@ -1,6 +1,5 @@
 package controllers
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.video.{ Filter, UserControl, View }

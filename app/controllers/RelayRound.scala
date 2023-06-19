@@ -3,12 +3,11 @@ package controllers
 import play.api.data.Form
 import play.api.mvc.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 
 // import lila.common.config.MaxPerSecond
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
-import lila.user.Me
+
 import views.*
 import chess.format.pgn.PgnStr
 import scala.annotation.nowarn

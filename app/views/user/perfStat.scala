@@ -2,7 +2,6 @@ package views.html.user
 
 import play.api.i18n.Lang
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.{ Perf, PerfType }

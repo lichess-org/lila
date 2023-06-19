@@ -1,6 +1,5 @@
 package views.html.mod
 
-import lila.api.WebContext
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ given, * }
 

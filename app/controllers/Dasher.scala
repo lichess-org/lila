@@ -4,7 +4,6 @@ import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyReadables.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ enLang, I18nKeys as trans, I18nLangPicker, LangList }

@@ -6,7 +6,7 @@ import scala.util.chaining.*
 import views.html
 
 import lila.api.AnnounceStore
-import lila.api.context.*
+
 import lila.app.{ given, * }
 import lila.security.SecurityForm.Reopen
 import lila.user.{ Me, TotpSecret, User as UserModel }
@@ -27,9 +27,7 @@ final class Account(
   }
 
   def profileApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.profile) { err =>
-      fuccess(html.account.profile(me, err))
-    } { profile =>
+    FormFuResult(env.user.forms.profile)(err => fuccess(html.account.profile(me, err))): profile =>
       profile.bio
         .exists(env.security.spam.detect)
         .option("profile.bio" -> ~profile.bio)
@@ -39,21 +37,16 @@ final class Account(
             .option("profile.links" -> ~profile.links)
         .so { (resource, text) =>
           env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-        } >> env.user.repo.setProfile(me.userId, profile) inject
+        } >> env.user.repo.setProfile(me, profile) inject
         Redirect(routes.User show me.username).flashSuccess
-    }
   }
 
   def usernameApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.username(me)) { err =>
-      fuccess(html.account.username(me, err))
-    } { username =>
-      env.user.repo
-        .setUsernameCased(me.userId, username) inject
+    FormFuResult(env.user.forms.username(me))(err => fuccess(html.account.username(me, err))): username =>
+      env.user.repo.setUsernameCased(me, username) inject
         Redirect(routes.User show me.username).flashSuccess recover { case e =>
           Redirect(routes.Account.username).flashFailure(e.getMessage)
         }
-    }
   }
 
   def info = Auth { _ ?=> me ?=>
@@ -62,8 +55,8 @@ final class Account(
       api = _ =>
         for
           povs         <- env.round.proxyRepo urgentGames me
-          nbChallenges <- env.challenge.api.countInFor get me.userId
-          playban      <- env.playban.api currentBan me.userId
+          nbChallenges <- env.challenge.api.countInFor get me
+          playban      <- env.playban.api currentBan me
         yield Ok {
           import lila.pref.JsonView.given
           env.user.jsonView
@@ -94,7 +87,7 @@ final class Account(
     Scoped() { ctx ?=> me ?=>
       def limited = rateLimitedFu:
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
-      rateLimit(me.userId, limited):
+      rateLimit(me, limited):
         env.api.userApi.extended(
           me,
           me.some,
@@ -135,31 +128,29 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
         FormFuResult(form)(err => fuccess(html.account.passwd(err))): data =>
-          env.user.authenticator.setPassword(me.userId, UserModel.ClearPassword(data.newPasswd1)) >>
-            refreshSessionId(me, Redirect(routes.Account.passwd).flashSuccess)
+          env.user.authenticator.setPassword(me, UserModel.ClearPassword(data.newPasswd1)) >>
+            refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 
-  private def refreshSessionId(me: UserModel, result: Result)(using ctx: WebContext): Fu[Result] =
-    env.security.store.closeAllSessionsOf(me.id) >>
+  private def refreshSessionId(result: Result)(using ctx: WebContext, me: Me): Fu[Result] =
+    env.security.store.closeAllSessionsOf(me) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
-      env.security.api.saveAuthentication(me.id, ctx.mobileApiVersion) map { sessionId =>
+      env.security.api.saveAuthentication(me, ctx.mobileApiVersion) map { sessionId =>
         result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
       }
 
-  private def emailForm(user: UserModel) =
-    env.user.repo email user.id flatMap {
-      env.security.forms.changeEmail(user, _)
-    }
+  private def emailForm(using me: Me) =
+    env.user.repo email me flatMap env.security.forms.changeEmail
 
   def email = Auth { _ ?=> me ?=>
     if getBool("check")
     then renderCheckYourEmail
-    else emailForm(me).map(html.account.email(_))
+    else emailForm.map(html.account.email(_))
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
-    env.user.repo email me.userId mapz { email =>
+    env.user.repo email me mapz { email =>
       JsonOk(Json.obj("email" -> email.value))
     }
   }
@@ -169,7 +160,7 @@ final class Account(
 
   def emailApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
-      env.security.forms.preloadEmailDns() >> emailForm(me).flatMap { form =>
+      env.security.forms.preloadEmailDns() >> emailForm.flatMap { form =>
         FormFuResult(form)(err => fuccess(html.account.email(err))): data =>
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
           auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimitedFu):
@@ -211,33 +202,26 @@ final class Account(
           )
 
   def twoFactor = Auth { _ ?=> me ?=>
-    if (me.totpSecret.isDefined)
-      env.security.forms.disableTwoFactor(me) map { form =>
-        html.account.twoFactor.disable(me, form)
-      }
-    else
-      env.security.forms.setupTwoFactor(me) map { form =>
-        html.account.twoFactor.setup(me, form)
-      }
+    if me.totpSecret.isDefined
+    then env.security.forms.disableTwoFactor(me) map html.account.twoFactor.disable
+    else env.security.forms.setupTwoFactor(me) map html.account.twoFactor.setup
+
   }
 
   def setupTwoFactor = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.setupTwoFactor(me) flatMap { form =>
-        FormFuResult(form) { err =>
-          fuccess(html.account.twoFactor.setup(me, err))
-        } { data =>
-          env.user.repo.setupTwoFactor(me.userId, TotpSecret(data.secret)) >>
-            refreshSessionId(me, Redirect(routes.Account.twoFactor).flashSuccess)
-        }
+        FormFuResult(form)(err => fuccess(html.account.twoFactor.setup(err))): data =>
+          env.user.repo.setupTwoFactor(me, TotpSecret(data.secret)) >>
+            refreshSessionId(Redirect(routes.Account.twoFactor).flashSuccess)
       }
   }
 
   def disableTwoFactor = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.disableTwoFactor(me) flatMap { form =>
-        FormFuResult(form)(err => fuccess(html.account.twoFactor.disable(me, err))): _ =>
-          env.user.repo.disableTwoFactor(me.userId) inject
+        FormFuResult(form)(err => fuccess(html.account.twoFactor.disable(err))): _ =>
+          env.user.repo.disableTwoFactor(me) inject
             Redirect(routes.Account.twoFactor).flashSuccess
       }
   }
@@ -245,7 +229,7 @@ final class Account(
   def close = Auth { _ ?=> me ?=>
     env.clas.api.student.isManaged(me) flatMap { managed =>
       env.security.forms.closeAccount.map: form =>
-        Ok(html.account.close(me, form, managed))
+        Ok(html.account.close(form, managed))
     }
   }
 
@@ -253,7 +237,7 @@ final class Account(
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.closeAccount.flatMap: form =>
-          FormFuResult(form)(err => fuccess(html.account.close(me, err, managed = false))): _ =>
+          FormFuResult(form)(err => fuccess(html.account.close(err, managed = false))): _ =>
             env.api.accountClosure
               .close(me.user)
               .inject:
@@ -301,8 +285,8 @@ final class Account(
 
   def security = Auth { _ ?=> me ?=>
     for
-      _                    <- env.security.api.dedup(me.userId, ctx.req)
-      sessions             <- env.security.api.locatedOpenSessions(me.userId, 50)
+      _                    <- env.security.api.dedup(me, ctx.req)
+      sessions             <- env.security.api.locatedOpenSessions(me, 50)
       clients              <- env.oAuth.tokenApi.listClients(me, 50)
       personalAccessTokens <- env.oAuth.tokenApi.countPersonal(me)
     yield Ok(
@@ -318,19 +302,16 @@ final class Account(
   }
 
   def signout(sessionId: String) = Auth { _ ?=> me ?=>
-    if (sessionId == "all")
-      refreshSessionId(me, Redirect(routes.Account.security).flashSuccess)
+    if sessionId == "all"
+    then refreshSessionId(Redirect(routes.Account.security).flashSuccess)
     else
-      env.security.store.closeUserAndSessionId(me.userId, sessionId) >>
+      env.security.store.closeUserAndSessionId(me, sessionId) >>
         env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
   }
 
-  private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(using
-      ctx: WebContext
-  ) =
-    env.security.forms.reopen map { baseForm =>
+  private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(using WebContext) =
+    env.security.forms.reopen.map: baseForm =>
       html.account.reopen.form(form.foldLeft(baseForm)(_ withForm _), msg)
-    }
 
   def reopen = Open:
     auth.RedirectToProfileIfLoggedIn:
@@ -378,10 +359,10 @@ final class Account(
   def data = Auth { _ ?=> me ?=>
     val userId: UserId = getUserStr("user")
       .map(_.id)
-      .filter(id => me == id || isGranted(_.Impersonate)) | me.userId
+      .filter(id => me.is(id) || isGranted(_.Impersonate)) | me.userId
     env.user.repo byId userId mapz { user =>
-      if (getBool("text"))
-        apiC.GlobalConcurrencyLimitUser(me.userId)(
+      if getBool("text") then
+        apiC.GlobalConcurrencyLimitUser(me)(
           env.api.personalDataExport(user)
         ): source =>
           Ok.chunked(source.map(_ + "\n"))

@@ -7,7 +7,6 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
 
-import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
@@ -406,9 +405,9 @@ final class Mod(
         lila.chat.JsonView.userModInfo(using env.user.lightUserSync)
   }
 
-  def permissions(username: UserStr) = Secure(_.ChangePermission) { _ ?=> me ?=>
-    OptionOk(env.user.repo byId username): user =>
-      html.mod.permissions(user, me)
+  def permissions(username: UserStr) = Secure(_.ChangePermission) { _ ?=> _ ?=>
+    OptionOk(env.user.repo byId username):
+      html.mod.permissions(_)
   }
 
   def savePermissions(username: UserStr) = SecureBody(_.ChangePermission) { ctx ?=> me ?=>
@@ -418,7 +417,7 @@ final class Mod(
         single("permissions" -> list(text.verifying(Permission.allByDbKey.contains)))
       ).bindFromRequest()
         .fold(
-          _ => BadRequest(html.mod.permissions(user, me)),
+          _ => BadRequest(html.mod.permissions(user)),
           permissions =>
             val newPermissions = Permission(permissions) diff Permission(user.roles)
             modApi.setPermissions(user.username, Permission(permissions)) >> {

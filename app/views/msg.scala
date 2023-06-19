@@ -2,7 +2,6 @@ package views.html
 
 import play.api.libs.json.*
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue

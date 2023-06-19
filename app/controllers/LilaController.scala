@@ -9,14 +9,12 @@ import play.api.libs.json.{ JsArray, JsNumber, JsObject, JsString, JsValue, Json
 import play.api.mvc.*
 import scalatags.Text.Frag
 
-import lila.api.context.*
 import lila.api.{ PageData, Nonce }
 import lila.app.{ *, given }
 import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
 import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer, EndpointScopes, TokenScopes }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
-import lila.user.Me
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController

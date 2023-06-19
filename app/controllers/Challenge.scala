@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 import views.html
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.{ Id as ChallengeId }
@@ -25,11 +24,11 @@ final class Challenge(
 
   def all = Auth { ctx ?=> me ?=>
     XhrOrRedirectHome:
-      api allFor me.userId map env.challenge.jsonView.apply map JsonOk
+      api allFor me map env.challenge.jsonView.apply map JsonOk
   }
 
   def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me ?=>
-    api.allFor(me.userId, 300).map { all =>
+    api.allFor(me, 300).map { all =>
       JsonOk:
         Json.obj(
           "in"  -> all.in.map(env.challenge.jsonView.apply(lila.challenge.Direction.In.some)),
@@ -290,7 +289,7 @@ final class Challenge(
                 case Some(destUser) =>
                   val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
                   BotChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isBot then 1 else 0):
-                    ChallengeUserRateLimit(me.userId, rateLimitedFu, cost = cost):
+                    ChallengeUserRateLimit(me, rateLimitedFu, cost = cost):
                       val challenge = makeOauthChallenge(config, me, destUser)
                       config.acceptByToken match
                         case Some(strToken) =>

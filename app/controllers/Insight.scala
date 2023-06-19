@@ -5,10 +5,8 @@ import play.api.libs.json.{ JsValue, Json }
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.insight.{ InsightDimension, InsightMetric }
-import lila.user.Me
 
 final class Insight(env: Env) extends LilaController(env):
 

@@ -153,8 +153,8 @@ final class SecurityForm(
     )
   )
 
-  def changeEmail(u: User, old: Option[EmailAddress]) =
-    authenticator loginCandidate u map { candidate =>
+  def changeEmail(old: Option[EmailAddress])(using me: Me) =
+    authenticator loginCandidate me map { candidate =>
       Form(
         mapping(
           "passwd" -> passwordMapping(candidate),

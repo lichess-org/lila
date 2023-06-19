@@ -5,9 +5,8 @@ import play.api.http.*
 import play.api.mvc.*
 import play.api.libs.json.JsNumber
 
-import lila.api.context.*
 import lila.security.{ Permission, Granter }
-import lila.user.Me
+
 import lila.common.HTTPRequest
 import lila.common.config
 
@@ -22,19 +21,12 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def isGranted(permission: Permission)(using me: Option[Me]): Boolean =
     me.exists(Granter(permission)(using _))
 
-  def NoCurrentGame(a: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
+  def NoCurrentGame(a: => Fu[Result])(using ctx: AnyContext)(using Executor): Fu[Result] =
     ctx.me
       .soUsing(env.preloader.currentGameMyTurn)
       .flatMap:
         _.fold(a): current =>
-          negotiate(
-            html = keyPages.home(Results.Forbidden),
-            api = _ => currentGameJsonError(current)
-          )
-  def NoCurrentGameOpt(me: Option[Me])(a: => Fu[Result])(using Executor): Fu[Result] =
-    me.soUsing(env.preloader.currentGameMyTurn)
-      .flatMap:
-        _.fold(a)(currentGameJsonError)
+          negotiateInWebContext(keyPages.home(Results.Forbidden), currentGameJsonError(current))
 
   private def currentGameJsonError(current: lila.app.mashup.Preload.CurrentGame) = fuccess:
     Forbidden(
@@ -42,21 +34,12 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
         s"You are already playing ${current.opponent}"
     ) as JSON
 
-  def NoPlaybanOrCurrent(a: => Fu[Result])(using WebContext, Executor): Fu[Result] =
+  def NoPlaybanOrCurrent(a: => Fu[Result])(using AnyContext, Executor): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
-
-  def NoPlaybanOrCurrentOpt(me: Option[Me])(a: => Fu[Result])(using Executor): Fu[Result] =
-    NoPlayban(me.map(_.meId))(NoCurrentGameOpt(me)(a))
 
   def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using ctx: AnyContext): Fu[Result] =
     if isGrantedOpt(perm) then f
-    else
-      ctx match
-        case web: WebContext => authorizationFailed(using web)
-        case _               => authorizationFailed(using ctx)
-
-  // def IfGranted(perm: Permission.Selector, me: User)(f: => Fu[Result])(using ctx: AnyContext): Fu[Result] =
-  //   if isGranted(perm, me) then f else authorizationFailed(using ctx)
+    else negotiateInWebContext(authorizationFailed, authorizationFailed)
 
   def Firewall[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if env.security.firewall.accepts(ctx.req) then a
@@ -82,9 +65,10 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def NoBot[A <: Result](a: => Fu[A])(using ctx: AnyContext): Fu[Result] =
     if ctx.isBot then
-      ctx match
-        case web: WebContext => Forbidden(views.html.site.message.noBot(using web))
-        case _               => Forbidden(jsonError("no bots allowed"))
+      negotiateInWebContext(
+        Forbidden(views.html.site.message.noBot),
+        Forbidden(jsonError("no bots allowed"))
+      )
     else a
 
   def NoLameOrBotOpt[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
@@ -98,20 +82,12 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def NoShadowban[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if (ctx.me.exists(_.marks.troll)) notFound else a
 
-  def NoPlayban(a: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
+  def NoPlayban(a: => Fu[Result])(using ctx: AnyContext)(using Executor): Fu[Result] =
     ctx.userId
       .so(env.playban.api.currentBan)
       .flatMap:
         _.fold(a): ban =>
-          negotiate(
-            html = keyPages.home(Results.Forbidden),
-            api = _ => playbanJsonError(ban)
-          )
-
-  def NoPlayban(me: Option[Me.Id])(a: => Fu[Result])(using Executor): Fu[Result] = me
-    .so(env.playban.api.currentBan(_))
-    .flatMap:
-      _.fold(a)(playbanJsonError)
+          negotiateInWebContext(keyPages.home(Results.Forbidden), playbanJsonError(ban))
 
   private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 

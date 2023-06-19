@@ -4,7 +4,6 @@ import java.util.Currency
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.EmailAddress
 import lila.plan.{

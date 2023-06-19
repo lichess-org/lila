@@ -4,7 +4,6 @@ import play.api.data.*, Forms.*
 import views.*
 
 import lila.app.{ given, * }
-import lila.user.Me
 
 final class Dev(env: Env) extends LilaController(env):
 

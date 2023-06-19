@@ -4,11 +4,9 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
 import lila.common.Json.given
-import lila.user.Me
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 

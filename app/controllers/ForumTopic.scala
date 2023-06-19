@@ -6,7 +6,6 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.common.IpAddress
-import lila.user.Me
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
@@ -22,7 +21,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NoBot:
       NotForKids:
         OptionFuOk(env.forum.categRepo byId categId): categ =>
-          categ.team.so(env.team.cached.isLeader(_, me.userId)) flatMap { inOwnTeam =>
+          categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
             forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(inOwnTeam), _) }
           }
   }
@@ -31,7 +30,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NoBot:
       CategGrantWrite(categId):
         OptionFuResult(env.forum.categRepo byId categId): categ =>
-          categ.team.so(env.team.cached.isLeader(_, me.userId)) flatMap { inOwnTeam =>
+          categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
             forms
               .topic(inOwnTeam)
               .bindFromRequest()
@@ -52,12 +51,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NotForKids:
       OptionFuResult(topicApi.show(categId, slug, page, ctx.me)): (categ, topic, posts) =>
         for
-          unsub       <- ctx.userId so env.timeline.status(s"forum:${topic.id}")
+          unsub       <- ctx.me soUsing env.timeline.status(s"forum:${topic.id}")
           canRead     <- access.isGrantedRead(categ.slug)
           canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
           canModCateg <- access.isGrantedMod(categ.slug)
           inOwnTeam <- ~(categ.team, ctx.me).mapN: (teamId, me) =>
-            env.team.cached.isLeader(teamId, me.userId)
+            env.team.cached.isLeader(teamId, me)
           form <- ctx.me
             .filter(_ => canWrite && topic.open && !topic.isOld)
             .soUsing: _ ?=>

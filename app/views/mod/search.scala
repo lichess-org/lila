@@ -4,7 +4,6 @@ import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
@@ -77,7 +76,7 @@ object search:
           ),
           br,
           br,
-          userTable(mod, users)
+          userTable(users)
         )
       )
     }
@@ -220,7 +219,7 @@ object search:
       tbody(
         users.map { case lila.user.User.WithEmails(u, emails) =>
           tr(
-            if showUsernames || Granter.canViewAltUsername(mod, u)
+            if showUsernames || Granter.canViewAltUsername(u)
             then
               td(
                 userLink(u, withBestRating = true, params = "?mod"),

@@ -4,12 +4,10 @@ package auth
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.HcaptchaForm
 import lila.user.User
-import lila.user.Me
 
 object bits:
 

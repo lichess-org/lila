@@ -18,6 +18,7 @@ import lila.swiss.{ GameView as SwissView }
 import lila.tournament.{ GameView as TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
+import lila.api.context.given
 
 final private[api] class RoundApi(
     jsonView: JsonView,

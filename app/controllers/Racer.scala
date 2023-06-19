@@ -3,7 +3,6 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.racer.RacerPlayer
 import lila.racer.RacerRace

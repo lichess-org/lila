@@ -9,7 +9,6 @@ import scalatags.Text.all.stringFrag
 import views.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress, Bearer }
 import lila.common.Json.given

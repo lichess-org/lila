@@ -7,15 +7,14 @@ import play.api.data.Forms.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
-import lila.user.Me
+
 import lila.clas.ClasInvite
 import lila.clas.Clas.{ Id => ClasId }
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
-  def index = Open:
+  def index = Open: ctx ?=>
     NoBot:
       ctx.me match
         case _ if getBool("home") => renderHome
@@ -25,9 +24,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             Ok(views.html.clas.clas.teacherIndex(classes, getBool("closed")))
           }
         case Some(me) =>
-          (fuccess(env.clas.studentCache.isStudent(me.userId)) >>| !couldBeTeacher) flatMap {
+          (fuccess(env.clas.studentCache.isStudent(me)) >>| !couldBeTeacher) flatMap {
             if _ then
-              env.clas.api.student.clasIdsOfUser(me.userId) flatMap
+              env.clas.api.student.clasIdsOfUser(me) flatMap
                 env.clas.api.clas.byIds map {
                   case List(single) => redirectTo(single)
                   case many         => Ok(views.html.clas.clas.studentIndex(many))
@@ -67,7 +66,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def show(id: ClasId) = Auth { ctx ?=> me ?=>
     WithClassAny(id)(
       forTeacher = WithClass(id): clas =>
-        env.msg.twoFactorReminder(me.userId) >>
+        env.msg.twoFactorReminder(me) >>
           env.clas.api.student.activeWithUsers(clas) map { students =>
             preloadStudentUsers(students)
             views.html.clas.teacherDashboard.overview(clas, students)
@@ -469,7 +468,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def becomeTeacher = AuthBody { ctx ?=> me ?=>
     couldBeTeacher.flatMapz:
       val perm = lila.security.Permission.Teacher.dbKey
-      (!me.roles.has(perm) so env.user.repo.setRoles(me.userId, perm :: me.roles).void) inject
+      (!me.roles.has(perm) so env.user.repo.setRoles(me, perm :: me.roles).void) inject
         Redirect(routes.Clas.index)
   }
 
@@ -478,7 +477,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     case Some(me) if me.isBot => fuFalse
     case Some(me) if me.kid   => fuFalse
     case _ if ctx.hasClas     => fuTrue
-    case Some(me)             => !env.mod.logApi.wasUnteachered(me.userId)
+    case Some(me)             => !env.mod.logApi.wasUnteachered(me)
 
   def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me ?=>
     OptionOk(env.clas.api.invite.view(id, me)): (invite, clas) =>

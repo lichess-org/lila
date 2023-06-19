@@ -4,7 +4,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scala.util.chaining.*
 
-import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ HTTPRequest, IpAddress }
@@ -15,7 +14,6 @@ import lila.study.{ Order, StudyForm, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 import lila.analyse.Analysis
-import lila.user.Me
 
 final class Study(
     env: Env,

@@ -3,7 +3,6 @@ package controllers
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }

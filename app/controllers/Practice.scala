@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }

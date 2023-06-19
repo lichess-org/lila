@@ -3,7 +3,6 @@ package mashup
 
 import play.api.data.Form
 
-import lila.api.{ WebContext, UserApi }
 import lila.bookmark.BookmarkApi
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
@@ -14,7 +13,7 @@ import lila.user.{ Me, User }
 
 case class UserInfo(
     user: User,
-    trophies: UserApi.TrophiesAndAwards,
+    trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
     ratingChart: Option[String],
     nbs: UserInfo.NbGames,

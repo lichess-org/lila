@@ -4,7 +4,6 @@ package mashup
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 
-import lila.api.WebContext
 import lila.event.Event
 import lila.game.{ Game, Pov }
 import lila.playban.TempBan

@@ -7,7 +7,6 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.game.Pov
 import lila.round.JsonView.WithFlags

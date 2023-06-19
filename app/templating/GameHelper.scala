@@ -4,7 +4,7 @@ package templating
 import chess.{ Black, Clock, Color, Mode, Outcome, Ply, White, Status as S }
 import controllers.routes
 import play.api.i18n.Lang
-import lila.api.WebContext
+
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Namer, Player, LightPlayer, Pov }
 import lila.i18n.{ defaultLang, I18nKeys as trans }

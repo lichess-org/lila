@@ -217,7 +217,7 @@ final class TeamApi(
         teamRepo.incMembers(team.id, +1) >>- {
           cached invalidateTeamIds me
           timeline ! Propagate(TeamJoin(me, team.id)).toFollowersOf(me)
-          Bus.publish(JoinTeam(id = team.id, userId = me.userId), "team")
+          Bus.publish(JoinTeam(id = team.id, userId = me), "team")
         }
     }
   } recover lila.db.ignoreDuplicateKey

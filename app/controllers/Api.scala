@@ -7,7 +7,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.api.GameApiV2
-import lila.api.context.*
+
 import lila.app.{ given, * }
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
@@ -330,9 +330,9 @@ final class Api(
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimitedFu:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
-      rateLimit(me.userId, limited):
+      rateLimit(me, limited):
         env.round.proxyRepo.urgentGames(me) flatMap { povs =>
-          env.challenge.api.createdByDestId(me.userId) map { challenges =>
+          env.challenge.api.createdByDestId(me) map { challenges =>
             sourceToNdJsonOption(env.api.eventStream(me, povs.map(_.game), challenges))
           }
         }

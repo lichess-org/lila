@@ -5,7 +5,6 @@ import play.api.libs.json.JsArray
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
@@ -23,7 +22,7 @@ final class Analyse(
       env.fishnet.analyser(
         game,
         lila.fishnet.Work.Sender(
-          userId = me.userId,
+          userId = me,
           ip = ctx.ip.some,
           mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
           system = false

@@ -4,7 +4,6 @@ import io.prismic.Document
 import org.apache.commons.lang3.StringUtils
 import play.api.mvc.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.blog.BlogApi
 import lila.common.config.MaxPerPage

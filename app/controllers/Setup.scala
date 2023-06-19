@@ -5,7 +5,7 @@ import play.api.mvc.Request
 import play.api.i18n.Lang
 
 import chess.format.Fen
-import lila.api.context.*
+
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.game.{ AnonCookie, Pov }
@@ -128,7 +128,7 @@ final class Setup(
 
   def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile)): ctx ?=>
     NoBot:
-      NoPlaybanOrCurrentOpt(ctx.me):
+      NoPlaybanOrCurrent:
         forms.hook
           .bindFromRequest()
           .fold(

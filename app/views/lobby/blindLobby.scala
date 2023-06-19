@@ -1,6 +1,5 @@
 package views.html.lobby
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov

@@ -6,12 +6,10 @@ import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
-import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.swiss.Swiss.ChatFor
 import lila.swiss.{ Swiss as SwissModel, SwissForm }
-import lila.user.Me
 
 final class Swiss(
     env: Env,

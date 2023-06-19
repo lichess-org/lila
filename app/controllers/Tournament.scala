@@ -4,7 +4,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.common.Json.given
@@ -12,7 +11,6 @@ import lila.memo.CacheApi.*
 import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
 import lila.gathering.Condition.GetUserTeamIds
 import play.api.i18n.Lang
-import lila.user.Me
 
 final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
     extends LilaController(env):
@@ -193,7 +191,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
     else
-      NoPlayban(me.meId.some):
+      NoPlayban:
         JoinLimitPerUser(me, rateLimitedJsonFu):
           val data = TournamentForm.joinForm
             .bindFromRequest()

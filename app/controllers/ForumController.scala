@@ -2,10 +2,8 @@ package controllers
 
 import play.api.mvc.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.forum.ForumTopic
-import lila.user.Me
 
 private[controllers] trait ForumController { self: LilaController =>
 

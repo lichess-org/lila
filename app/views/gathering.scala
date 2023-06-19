@@ -4,7 +4,6 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.Condition
 import lila.rating.PerfType
-import lila.api.WebContext
 
 object gathering:
 

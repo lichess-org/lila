@@ -3,7 +3,6 @@ package controllers
 import play.api.i18n.Lang
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList }

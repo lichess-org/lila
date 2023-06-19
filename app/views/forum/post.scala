@@ -4,7 +4,6 @@ package html.forum
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
@@ -58,12 +57,14 @@ object post:
                   momentFromNow(post.createdAt)
                 }
             ),
-            (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
+            (!post.erased && ctx.me.soUsing(post.shouldShowEditForm)) option
               button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := licon.Pencil)(
                 "Edit"
               ),
-            ctx.me flatMap { me =>
-              if (!post.erased && post.canBeEditedByMe)
+            ctx.me.flatMap: me =>
+              given Me = me
+              if !post.erased && post.canBeEditedByMe
+              then
                 postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
                   submitButton(
                     cls      := "mod delete button button-empty confirm",
@@ -97,7 +98,7 @@ object post:
                       )
                     }
                 ).some
-            },
+            ,
             (canReply && !post.erased) option button(
               cls      := "mod quote button button-empty text",
               tpe      := "button",
@@ -111,7 +112,7 @@ object post:
           else body
         ),
         !post.erased option reactions(post, canReact),
-        ctx.me.exists(post.shouldShowEditForm) option
+        ctx.me.soUsing(post.shouldShowEditForm) option
           postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
             textarea(
               bits.dataTopic := topic.id,

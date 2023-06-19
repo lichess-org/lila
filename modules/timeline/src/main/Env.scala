@@ -6,6 +6,7 @@ import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
+import lila.user.Me
 
 @Module
 private class TimelineConfig(
@@ -39,14 +40,14 @@ final class Env(
 
   lazy val unsubApi = new UnsubApi(db(config.unsubColl))
 
-  def isUnsub(channel: String)(userId: UserId): Fu[Boolean] =
-    unsubApi.get(channel, userId)
+  def isUnsub(channel: String)(using me: Me): Fu[Boolean] =
+    unsubApi.get(channel, me)
 
-  def status(channel: String)(userId: UserId): Fu[Option[Boolean]] =
-    unsubApi.get(channel, userId) flatMap {
+  def status(channel: String)(using me: Me): Fu[Option[Boolean]] =
+    unsubApi.get(channel, me) flatMap {
       if _ then fuccess(Some(true)) // unsubbed
       else
-        entryApi.channelUserIdRecentExists(channel, userId) map {
+        entryApi.channelUserIdRecentExists(channel, me) map {
           if _ then Some(false) // subbed
           else None             // not applicable
         }

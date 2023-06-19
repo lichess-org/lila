@@ -3,12 +3,10 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.{ config, IpAddress }
 import lila.relay.{ RelayTour as TourModel }
-import lila.user.Me
 
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 

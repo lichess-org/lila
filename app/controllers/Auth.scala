@@ -6,7 +6,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
@@ -298,7 +297,7 @@ final class Auth(
       !me.lame so (for
         otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filterNot(_ is me))
         _ <- (otherIds.sizeIs >= 2) so env.user.repo.countLameOrTroll(otherIds).flatMap {
-          case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.userId)
+          case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me)
           case _                                        => funit
         }
       yield ())
