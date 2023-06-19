@@ -30,7 +30,7 @@ final class Account(
   }
 
   def profileApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.profile)(err => page(html.account.profile(me, err))): profile =>
+    FormFuResult(env.user.forms.profile)(err => renderPage(html.account.profile(me, err))): profile =>
       profile.bio
         .exists(env.security.spam.detect)
         .option("profile.bio" -> ~profile.bio)
@@ -45,7 +45,7 @@ final class Account(
   }
 
   def usernameApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.username(me))(err => page[Frag](html.account.username(me, err))): username =>
+    FormFuResult(env.user.forms.username(me))(err => renderPage(html.account.username(me, err))): username =>
       env.user.repo.setUsernameCased(me, username) inject
         Redirect(routes.User show me.username).flashSuccess recover { case e =>
           Redirect(routes.Account.username).flashFailure(e.getMessage)
@@ -130,7 +130,7 @@ final class Account(
   def passwdApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
-        FormFuResult(form)(err => fuccess(html.account.passwd(err))): data =>
+        FormFuResult(form)(err => renderPage(html.account.passwd(err))): data =>
           env.user.authenticator.setPassword(me, UserModel.ClearPassword(data.newPasswd1)) >>
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
@@ -148,7 +148,7 @@ final class Account(
 
   def email = Auth { _ ?=> me ?=>
     if getBool("check")
-    then renderCheckYourEmail
+    then renderCheckYourEmail.map(Ok(_))
     else emailForm.map(html.account.email(_))
   }
 
@@ -159,7 +159,8 @@ final class Account(
   }
 
   def renderCheckYourEmail(using WebContext) =
-    html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
+    renderPage:
+      html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
