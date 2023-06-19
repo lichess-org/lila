@@ -2,8 +2,8 @@
 <resources>
   <string name="broadcasts">Emisiones</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s transmisión</item>
-    <item quantity="other">%s transmisiones</item>
+    <item quantity="one">%s retransmisión</item>
+    <item quantity="other">%s retransmisiones</item>
   </plurals>
   <string name="liveBroadcasts">Emisiones de torneos en directo</string>
   <string name="newBroadcast">Nueva emisión en directo</string>

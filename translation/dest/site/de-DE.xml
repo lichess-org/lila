@@ -349,7 +349,7 @@
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s Simultanschach</item>
-    <item quantity="other">%s Simultan-Partien</item>
+    <item quantity="other">%s Simultanpartien</item>
   </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
