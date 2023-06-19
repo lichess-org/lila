@@ -100,7 +100,10 @@ function landscapeView(ctrl: Ctrl) {
         help(ctrl),
       ]),
       spacer(),
-      h('div', widthStyle(mainW()), [header(ctrl), thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)])]),
+      h('div', widthStyle(mainW()), [
+        header(ctrl),
+        thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)]),
+      ]),
     ]),
   ]);
 }

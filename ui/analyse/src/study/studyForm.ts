@@ -234,7 +234,10 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 h(
                   'a.text',
                   {
-                    attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/${ctrl.relay.data.tour.id}/edit` },
+                    attrs: {
+                      'data-icon': licon.RadioTower,
+                      href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
+                    },
                   },
                   'Tournament settings'
                 ),
@@ -258,7 +261,9 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   },
                   hook: bindNonPassive(
                     'submit',
-                    _ => isNew || prompt(ctrl.trans('confirmDeleteStudy', data.name))?.trim() === data.name.trim()
+                    _ =>
+                      isNew ||
+                      prompt(ctrl.trans('confirmDeleteStudy', data.name))?.trim() === data.name.trim()
                   ),
                 },
                 [h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))]
@@ -272,7 +277,9 @@ export function view(ctrl: StudyFormCtrl): VNode {
                         action: '/study/' + data.id + '/clear-chat',
                         method: 'post',
                       },
-                      hook: bindNonPassive('submit', _ => confirm(ctrl.trans.noarg('deleteTheStudyChatHistory'))),
+                      hook: bindNonPassive('submit', _ =>
+                        confirm(ctrl.trans.noarg('deleteTheStudyChatHistory'))
+                      ),
                     },
                     [h(emptyRedButton, ctrl.trans.noarg('clearChat'))]
                   ),

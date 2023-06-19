@@ -164,8 +164,14 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 },
                 hook: bind('click', async event => {
                   const iconFeedback = (success: boolean) => {
-                    (event.target as HTMLElement).setAttribute('data-icon', success ? licon.Checkmark : licon.X);
-                    setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', licon.Clipboard), 1000);
+                    (event.target as HTMLElement).setAttribute(
+                      'data-icon',
+                      success ? licon.Checkmark : licon.X
+                    );
+                    setTimeout(
+                      () => (event.target as HTMLElement).setAttribute('data-icon', licon.Clipboard),
+                      1000
+                    );
                   };
                   writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`).then(
                     () => iconFeedback(true),

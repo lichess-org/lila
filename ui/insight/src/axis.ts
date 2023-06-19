@@ -55,7 +55,9 @@ export default function (ctrl: Ctrl, attrs: any = null) {
         v => ctrl.setDimension(v.value),
         () => ctrl.vm.dimension.key
       ),
-      ctrl.ui.dimensionCategs.map(optgroup(x => (x.key !== 'period' ? option(ctrl, x, 'dimension') : undefined)))
+      ctrl.ui.dimensionCategs.map(
+        optgroup(x => (x.key !== 'period' ? option(ctrl, x, 'dimension') : undefined))
+      )
     ),
   ]);
 }

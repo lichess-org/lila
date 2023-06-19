@@ -35,7 +35,12 @@ export function view(ctrl: ServerEval): VNode {
       hook: onInsert(el => {
         lichess.requestIdleCallback(async () => {
           await lichess.loadModule('chart.game');
-          ctrl.chart = await window.LichessChartGame!.acpl(el, ctrl.root.data, ctrl.root.mainline, ctrl.root.trans);
+          ctrl.chart = await window.LichessChartGame!.acpl(
+            el,
+            ctrl.root.data,
+            ctrl.root.mainline,
+            ctrl.root.trans
+          );
         }, 800);
       }),
     },

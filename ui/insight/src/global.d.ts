@@ -16,7 +16,17 @@ interface MultipleSelect {
   (method: 'getSelects'): string[];
   (method: 'setSelects', values: string[]): void;
   (
-    method: 'enable' | 'disable' | 'open' | 'close' | 'checkAll' | 'uncheckAll' | 'focus' | 'blur' | 'refresh' | 'close'
+    method:
+      | 'enable'
+      | 'disable'
+      | 'open'
+      | 'close'
+      | 'checkAll'
+      | 'uncheckAll'
+      | 'focus'
+      | 'blur'
+      | 'refresh'
+      | 'close'
   ): void;
   (option: MultiSelectOpts): void;
 }

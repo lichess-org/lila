@@ -33,7 +33,9 @@ function renderOffTrack(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
     h('div.icon.off', '!'),
     h('div.instruction', [
       h('strong', root.trans.noarg('youBrowsedAway')),
-      h('div.choices', [h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, root.trans.noarg('resumePractice'))]),
+      h('div.choices', [
+        h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, root.trans.noarg('resumePractice')),
+      ]),
     ]),
   ]);
 }
@@ -107,7 +109,10 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.outcome();
   return h('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
     h('div.title', root.trans.noarg('practiceWithComputer')),
-    h('div.feedback', !running ? renderOffTrack(root, ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl)),
+    h(
+      'div.feedback',
+      !running ? renderOffTrack(root, ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl)
+    ),
     running
       ? h(
           'div.comment',

@@ -73,7 +73,8 @@ lichess.studyTour = function (study) {
       study.isOwner
         ? {
             title: 'Invite members',
-            text: "By clicking the <i data-icon=''></i> button.<br>" + 'Then decide who can contribute or not.',
+            text:
+              "By clicking the <i data-icon=''></i> button.<br>" + 'Then decide who can contribute or not.',
             attachTo: '.study__members .add right',
             when: onTab('members'),
           }
@@ -81,7 +82,8 @@ lichess.studyTour = function (study) {
       {
         title: 'Study chapters',
         text:
-          'A study can contain several chapters.<br>' + 'Each chapter has a distinct initial position and move tree.',
+          'A study can contain several chapters.<br>' +
+          'Each chapter has a distinct initial position and move tree.',
         attachTo: '.study__chapters right',
         when: onTab('chapters'),
       },

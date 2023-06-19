@@ -24,7 +24,11 @@ interface Times {
   lastUpdate: Millis;
 }
 
-export function ctrl(root: RoundController, data: CorresClockData, onFlag: () => void): CorresClockController {
+export function ctrl(
+  root: RoundController,
+  data: CorresClockData,
+  onFlag: () => void
+): CorresClockController {
   const timePercentDivisor = 0.1 / data.increment;
 
   const timePercent = (color: Color): number => Math.max(0, Math.min(100, times[color] * timePercentDivisor));

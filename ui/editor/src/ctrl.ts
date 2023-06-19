@@ -1,4 +1,11 @@
-import { EditorState, Selected, Redraw, CastlingToggle, CastlingToggles, CASTLING_TOGGLES } from './interfaces';
+import {
+  EditorState,
+  Selected,
+  Redraw,
+  CastlingToggle,
+  CastlingToggles,
+  CASTLING_TOGGLES,
+} from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { Rules, Square } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';

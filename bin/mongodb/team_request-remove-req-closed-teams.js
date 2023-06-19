@@ -7,7 +7,10 @@ agg = db.team_request.aggregate([
       from: 'team',
       as: 'team',
       let: { teamId: '$_id' },
-      pipeline: [{ $match: { $expr: { $eq: ['$_id', '$$teamId'] }, enabled: false } }, { $project: { _id: 1 } }],
+      pipeline: [
+        { $match: { $expr: { $eq: ['$_id', '$$teamId'] }, enabled: false } },
+        { $project: { _id: 1 } },
+      ],
     },
   },
   { $unwind: { path: '$team' } },

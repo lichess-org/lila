@@ -33,7 +33,12 @@ const clockX = (dur: number) => {
 function renderPlot(ctrl: LobbyController, hook: Hook) {
   const bottom = Math.max(0, ratingY(hook.rating) - 2),
     left = Math.max(0, clockX(hook.t) - 2),
-    klass = [hook.id, 'plot.new', hook.ra ? 'rated' : 'casual', hook.action === 'cancel' ? 'cancel' : ''].join('.');
+    klass = [
+      hook.id,
+      'plot.new',
+      hook.ra ? 'rated' : 'casual',
+      hook.action === 'cancel' ? 'cancel' : '',
+    ].join('.');
   return h('span#' + klass, {
     key: hook.id,
     attrs: {
@@ -147,7 +152,8 @@ export function render(ctrl: LobbyController, hooks: Hook[]) {
         hook: bind(
           'click',
           e => {
-            if ((e.target as HTMLElement).classList.contains('plot')) ctrl.clickHook((e.target as HTMLElement).id);
+            if ((e.target as HTMLElement).classList.contains('plot'))
+              ctrl.clickHook((e.target as HTMLElement).id);
           },
           ctrl.redraw
         ),

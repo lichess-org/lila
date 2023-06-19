@@ -84,7 +84,9 @@ lichess.load.then(() => {
     if (!quoted.has(quote)) {
       quoted.add(quote);
       response.value =
-        response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
+        response.value.substring(0, response.selectionStart) +
+        quote +
+        response.value.substring(response.selectionEnd);
     }
   });
 

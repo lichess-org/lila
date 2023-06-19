@@ -14,7 +14,8 @@ const join = (ctrl: SwissCtrl, password?: string) =>
     }),
   }).catch(onFail);
 
-const withdraw = (ctrl: SwissCtrl) => json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
+const withdraw = (ctrl: SwissCtrl) =>
+  json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
 
 const loadPage = (ctrl: SwissCtrl, p: number, callback?: () => void) =>
   json(`/swiss/${ctrl.data.id}/standing/${p}`).then(data => {
@@ -23,16 +24,16 @@ const loadPage = (ctrl: SwissCtrl, p: number, callback?: () => void) =>
     ctrl.redraw();
   });
 
-const loadPageOf = (ctrl: SwissCtrl, userId: string): Promise<any> => json(`/swiss/${ctrl.data.id}/page-of/${userId}`);
+const loadPageOf = (ctrl: SwissCtrl, userId: string): Promise<any> =>
+  json(`/swiss/${ctrl.data.id}/page-of/${userId}`);
 
 const reload = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`).then(
-    data => {
-      ctrl.reload(data);
-      ctrl.redraw();
-    },
-    onFail
-  );
+  json(
+    `/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`
+  ).then(data => {
+    ctrl.reload(data);
+    ctrl.redraw();
+  }, onFail);
 
 const playerInfo = (ctrl: SwissCtrl, userId: string) =>
   json(`/swiss/${ctrl.data.id}/player/${userId}`).then(data => {

@@ -108,7 +108,9 @@ $c-bg-interesting-hover: c-dimmer($c-interesting, 70%);
     font-style: italic;
   }
 
-  move:not(.empty):not(.blunder):not(.mistake):not(.inaccuracy):not(.good):not(.brilliant):not(.interesting):hover {
+  move:not(.empty):not(.blunder):not(.mistake):not(.inaccuracy):not(.good):not(.brilliant):not(
+      .interesting
+    ):hover {
     &,
     index,
     eval {

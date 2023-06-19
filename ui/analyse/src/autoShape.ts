@@ -16,7 +16,12 @@ const pieceDrop = (key: cg.Key, role: cg.Role, color: Color): DrawShape => ({
   brush: 'green',
 });
 
-export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: DrawModifiers): DrawShape[] {
+export function makeShapesFromUci(
+  color: Color,
+  uci: Uci,
+  brush: string,
+  modifiers?: DrawModifiers
+): DrawShape[] {
   if (uci === 'Current Position') return [];
   const move = parseUci(uci)!;
   const to = makeSquare(move.to);
@@ -54,7 +59,12 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     return [];
   }
   const instance = ctrl.getCeval();
-  const { eval: nEval = {} as Partial<Tree.ServerEval>, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
+  const {
+    eval: nEval = {} as Partial<Tree.ServerEval>,
+    fen: nFen,
+    ceval: nCeval,
+    threat: nThreat,
+  } = ctrl.node;
 
   let hovering = ctrl.explorer.hovering();
 
@@ -70,13 +80,19 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       lineWidth: 8,
     });
   }
-  if (hovering && hovering.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
+  if (hovering && hovering.fen === nFen)
+    shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && instance.multiPv()) {
       const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
-      if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
+      if (
+        instance.enabled() &&
+        nCeval &&
+        nCeval.pvs[1] &&
+        !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)
+      ) {
         nCeval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);

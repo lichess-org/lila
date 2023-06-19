@@ -7,7 +7,12 @@ type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 type Visible = (ply: Ply) => boolean;
 
-export default function resizeHandle(els: cg.Elements, pref: Prefs.ShowResizeHandle, ply: number, visible?: Visible) {
+export default function resizeHandle(
+  els: cg.Elements,
+  pref: Prefs.ShowResizeHandle,
+  ply: number,
+  visible?: Visible
+) {
   if (pref === Prefs.ShowResizeHandle.Never) return;
 
   const el = document.createElement('cg-resize');

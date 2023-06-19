@@ -105,7 +105,10 @@ declare global {
 }
 
 export class ThreadedWasmWorker implements CevalWorker {
-  private static failed: { Stockfish: boolean; StockfishMv: boolean } = { Stockfish: false, StockfishMv: false };
+  private static failed: { Stockfish: boolean; StockfishMv: boolean } = {
+    Stockfish: false,
+    StockfishMv: false,
+  };
   private static protocols = { Stockfish: new Protocol(), StockfishMv: new Protocol() };
   private static sf: { Stockfish?: Promise<void>; StockfishMv?: Promise<void> } = {};
 

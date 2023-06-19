@@ -9,16 +9,21 @@ export default function wikiTheory(): WikiTheory {
     lichess.pubsub.emit('chat.resize');
   };
 
-  const plyPrefix = (node: Tree.Node) => `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
+  const plyPrefix = (node: Tree.Node) =>
+    `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
   const wikiBooksUrl = 'https://en.wikibooks.org';
   const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
 
   const removeEmptyParagraph = (html: string) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
 
-  const removeTableHeader = (html: string) => html.replace('<h2><span id="Theory_table">Theory table</span></h2>', '');
+  const removeTableHeader = (html: string) =>
+    html.replace('<h2><span id="Theory_table">Theory table</span></h2>', '');
   const removeTableExpl = (html: string) =>
-    html.replace(/For explanation of theory tables see theory table and for notation see algebraic notation.?/, '');
+    html.replace(
+      /For explanation of theory tables see theory table and for notation see algebraic notation.?/,
+      ''
+    );
   const removeContributing = (html: string) =>
     html.replace('When contributing to this Wikibook, please follow the Conventions for organization.', '');
 
@@ -53,7 +58,8 @@ export default function wikiTheory(): WikiTheory {
             const page = json.query.pages[0];
             if (page.missing) saveAndShow('');
             else if (page.invalid) show('invalid request: ' + page.invalidreason);
-            else if (!page.extract) show('error: unexpected API response:<br><pre>' + JSON.stringify(page) + '</pre>');
+            else if (!page.extract)
+              show('error: unexpected API response:<br><pre>' + JSON.stringify(page) + '</pre>');
             else saveAndShow(transform(page.extract, title));
           } else saveAndShow('');
         } catch (err) {

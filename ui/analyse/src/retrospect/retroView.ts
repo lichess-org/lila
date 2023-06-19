@@ -156,7 +156,10 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player.center', [
-          h('div.instruction', [h('strong', ctrl.noarg('evaluatingYourMove')), renderEvalProgress(ctrl.node())]),
+          h('div.instruction', [
+            h('strong', ctrl.noarg('evaluatingYourMove')),
+            renderEvalProgress(ctrl.node()),
+          ]),
         ])
       ),
     ];
@@ -178,7 +181,9 @@ const feedback = {
             'em',
             nothing
               ? ctrl.noarg(ctrl.color === 'white' ? 'noMistakesFoundForWhite' : 'noMistakesFoundForBlack')
-              : ctrl.noarg(ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes')
+              : ctrl.noarg(
+                  ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes'
+                )
           ),
           h('div.choices.end', [
             nothing

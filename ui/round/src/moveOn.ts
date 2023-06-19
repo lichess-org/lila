@@ -24,7 +24,8 @@ export default class MoveOn {
     if (d.player.spectator || !game.isSwitchable(d) || game.isPlayerTurn(d) || !this.get()) return;
     if (force) this.redirect('/round-next/' + d.game.id);
     else if (d.simul) {
-      if (d.simul.hostId === this.ctrl.opts.userId && d.simul.nbPlaying > 1) this.redirect('/round-next/' + d.game.id);
+      if (d.simul.hostId === this.ctrl.opts.userId && d.simul.nbPlaying > 1)
+        this.redirect('/round-next/' + d.game.id);
     } else
       xhr.whatsNext(this.ctrl).then(data => {
         if (data.next) this.redirect('/' + data.next);

@@ -29,7 +29,9 @@ function renderCompleted(ctrl: Ctrl, level: LevelCtrl) {
     },
     [
       m('h2', ctrl.trans.noarg(congrats())),
-      level.blueprint.nextButton ? m('button', ctrl.trans.noarg('next')) : makeStars(level.blueprint, level.vm.score),
+      level.blueprint.nextButton
+        ? m('button', ctrl.trans.noarg('next'))
+        : makeStars(level.blueprint, level.vm.score),
     ]
   );
 }
@@ -65,7 +67,10 @@ export default function (ctrl: Ctrl) {
             m('img', {
               src: stage.image,
             }),
-            m('div.text', [m('h2', ctrl.trans.noarg(stage.title)), m('p.subtitle', ctrl.trans.noarg(stage.subtitle))]),
+            m('div.text', [
+              m('h2', ctrl.trans.noarg(stage.title)),
+              m('p.subtitle', ctrl.trans.noarg(stage.subtitle)),
+            ]),
           ]),
           level.vm.failed
             ? renderFailed(ctrl)

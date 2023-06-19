@@ -1,4 +1,11 @@
-const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
+const roles: { [letter: string]: string } = {
+  P: 'pawn',
+  R: 'rook',
+  N: 'knight',
+  B: 'bishop',
+  Q: 'queen',
+  K: 'king',
+};
 
 function renderSan(san: San) {
   if (san.includes('O-O-O#')) return 'long castle checkmate';

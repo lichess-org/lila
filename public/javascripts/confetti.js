@@ -274,12 +274,19 @@ var retina = window.devicePixelRatio,
       this.backColor = colors[ci][1];
       this.particles = new Array();
       for (var i = 0; i < this.particleCount; i++) {
-        this.particles[i] = new EulerMass(this.position.x, this.position.y - i * this.particleDist, this.particleDrag);
+        this.particles[i] = new EulerMass(
+          this.position.x,
+          this.position.y - i * this.particleDist,
+          this.particleDrag
+        );
       }
     };
     this.Draw = function (_g) {
       for (var i = 0; i < this.particleCount - 1; i++) {
-        var p0 = new Vector2(this.particles[i].position.x + this.xOff, this.particles[i].position.y + this.yOff);
+        var p0 = new Vector2(
+          this.particles[i].position.x + this.xOff,
+          this.particles[i].position.y + this.yOff
+        );
         var p1 = new Vector2(
           this.particles[i + 1].position.x + this.xOff,
           this.particles[i + 1].position.y + this.yOff

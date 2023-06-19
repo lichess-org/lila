@@ -3,7 +3,12 @@ import { Prop } from 'common';
 import { bind } from 'common/snabbdom';
 import { rangeConfig } from 'common/controls';
 
-export function settingNodes(colors: Prop<boolean>, clarity: Prop<number>, timer: Prop<number>, redraw: () => void) {
+export function settingNodes(
+  colors: Prop<boolean>,
+  clarity: Prop<number>,
+  timer: Prop<number>,
+  redraw: () => void
+) {
   return [colorsSetting(colors, redraw), claritySetting(clarity, redraw), timerSetting(timer, redraw)];
 }
 

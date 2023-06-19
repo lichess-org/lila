@@ -58,7 +58,8 @@ export default (window as any).UserProfile = function (opts: { i18n: I18nDict })
           steps: [
             {
               title: 'Recently finished games',
-              content: 'Would you like to display the list of your correspondence games, sorted by completion date?',
+              content:
+                'Would you like to display the list of your correspondence games, sorted by completion date?',
               target: $('#perfStat.correspondence .view_games')[0],
               placement: 'bottom',
             },

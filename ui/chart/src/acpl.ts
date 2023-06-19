@@ -176,7 +176,8 @@ const glyphProperties = (node: Tree.Node) => {
   else return [undefined, undefined];
 };
 
-const toBlurArray = (player: Player) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
+const toBlurArray = (player: Player) =>
+  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 
 export default acpl;
 

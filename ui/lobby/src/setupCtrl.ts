@@ -283,7 +283,10 @@ export default class SetupController {
   validFen = (): boolean => this.variant() !== 'fromPosition' || !this.fenError;
   validTime = (): boolean => this.timeMode() !== 'realTime' || this.time() > 0 || this.increment() > 0;
   validAiTime = (): boolean =>
-    this.gameType !== 'ai' || this.timeMode() !== 'realTime' || this.variant() !== 'fromPosition' || this.time() >= 1;
+    this.gameType !== 'ai' ||
+    this.timeMode() !== 'realTime' ||
+    this.variant() !== 'fromPosition' ||
+    this.time() >= 1;
   valid = (): boolean => this.validFen() && this.validTime() && this.validAiTime();
 
   submit = async (color: Color | 'random') => {

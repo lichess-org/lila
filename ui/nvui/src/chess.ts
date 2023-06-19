@@ -40,7 +40,14 @@ const anna: { [letter: string]: string } = {
   g: 'gustav',
   h: 'hector',
 };
-const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
+const roles: { [letter: string]: string } = {
+  P: 'pawn',
+  R: 'rook',
+  N: 'knight',
+  B: 'bishop',
+  Q: 'queen',
+  K: 'king',
+};
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
 
 const letterPiece: { [letter: string]: string } = {
@@ -115,7 +122,9 @@ export function symbolToFile(char: string) {
 }
 
 export function supportedVariant(key: string) {
-  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'horde'].includes(key);
+  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'horde'].includes(
+    key
+  );
 }
 
 export function boardSetting(): Setting<BoardStyle> {
@@ -202,7 +211,11 @@ const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
   }
 };
 
-export function lastCaptured(movesGenerator: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle): string {
+export function lastCaptured(
+  movesGenerator: () => string[],
+  pieceStyle: PieceStyle,
+  prefixStyle: PrefixStyle
+): string {
   const moves = movesGenerator();
   const oldFen = moves[moves.length - 2];
   const newFen = moves[moves.length - 1];
@@ -325,7 +338,13 @@ export function renderBoard(
         return orig;
     }
   };
-  const doPieceButton = (rank: Rank, file: File, letter: string, color: Color | 'none', text: string): VNode => {
+  const doPieceButton = (
+    rank: Rank,
+    file: File,
+    letter: string,
+    color: Color | 'none',
+    text: string
+  ): VNode => {
     return h(
       'button',
       {
@@ -438,7 +457,8 @@ export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => voi
       return false;
     }
 
-    const $myBtnAttrs = '.board-wrapper [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
+    const $myBtnAttrs =
+      '.board-wrapper [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
     const $allPieces = $('.board-wrapper [piece="' + ev.key.toLowerCase() + '"], ' + $myBtnAttrs);
     const $myPieceIndex = $allPieces.index($myBtnAttrs);
     const $next = ev.key.toLowerCase() === ev.key;
@@ -475,7 +495,9 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
     } else {
       return true;
     }
-    const $newSq = document.querySelector('.board-wrapper [file="' + $file + '"][rank="' + $rank + '"]') as HTMLElement;
+    const $newSq = document.querySelector(
+      '.board-wrapper [file="' + $file + '"][rank="' + $rank + '"]'
+    ) as HTMLElement;
     if ($newSq) {
       $newSq.focus();
     } else {
@@ -555,7 +577,11 @@ export function boardCommandsHandler() {
     return true;
   };
 }
-export function lastCapturedCommandHandler(steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
+export function lastCapturedCommandHandler(
+  steps: () => string[],
+  pieceStyle: PieceStyle,
+  prefixStyle: PrefixStyle
+) {
   return (ev: KeyboardEvent) => {
     const $boardLive = $('.boardstatus');
     if (ev.key === 'c') {
@@ -710,6 +736,9 @@ export function renderComments(node: Tree.Node, style: Style): string {
 
 function renderComment(comment: Tree.Comment, style: Style): string {
   return comment.by === 'lichess'
-    ? comment.text.replace(/Best move was (.+)\./, (_, san) => 'Best move was ' + renderSan(san, undefined, style))
+    ? comment.text.replace(
+        /Best move was (.+)\./,
+        (_, san) => 'Best move was ' + renderSan(san, undefined, style)
+      )
     : comment.text;
 }

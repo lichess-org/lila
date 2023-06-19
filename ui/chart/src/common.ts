@@ -33,7 +33,9 @@ export async function loadHighcharts(tpe: string) {
     return path;
   });
   Highcharts.makeFont = function (size: number) {
-    return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
+    return (
+      size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif"
+    );
   };
   Highcharts.theme = (() => {
     const light = currentTheme() === 'light';

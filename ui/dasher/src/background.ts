@@ -124,7 +124,11 @@ function imageInput(ctrl: BackgroundCtrl) {
             debounce(function (this: HTMLInputElement) {
               const url = (this.value as string).trim();
               // modules/pref/src/main/PrefForm.scala
-              if ((url.startsWith('https://') || url.startsWith('//')) && url.length >= 10 && url.length <= 400)
+              if (
+                (url.startsWith('https://') || url.startsWith('//')) &&
+                url.length >= 10 &&
+                url.length <= 400
+              )
                 ctrl.setImage(url);
             }, 300)
           );
@@ -169,7 +173,9 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     const bgData = document.getElementById('bg-data');
     bgData
       ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}')
-      : $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>');
+      : $('head').append(
+          '<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>'
+        );
   }
 }
 

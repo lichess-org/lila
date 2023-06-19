@@ -14,7 +14,13 @@ interface Advice {
 }
 
 const renderRatingDiff = (rd: number | undefined): VNode | undefined =>
-  rd === 0 ? h('span', '±0') : rd && rd > 0 ? h('good', '+' + rd) : rd && rd < 0 ? h('bad', '−' + -rd) : undefined;
+  rd === 0
+    ? h('span', '±0')
+    : rd && rd > 0
+    ? h('good', '+' + rd)
+    : rd && rd < 0
+    ? h('bad', '−' + -rd)
+    : undefined;
 
 const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
   const p = game.getPlayer(ctrl.data, color);
@@ -48,7 +54,10 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   return h('div.advice-summary__side', [
     h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
     ...advices.map(a => error(ctrl, d.analysis![color][a.kind], color, a)),
-    h('div.advice-summary__acpl', [h('strong', sideData.acpl), h('span', ctrl.trans.noarg('averageCentipawnLoss'))]),
+    h('div.advice-summary__acpl', [
+      h('strong', sideData.acpl),
+      h('span', ctrl.trans.noarg('averageCentipawnLoss')),
+    ]),
     h('div.advice-summary__accuracy', [
       h('strong', [sideData.accuracy, '%']),
       h('span', [
