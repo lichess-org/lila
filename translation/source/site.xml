@@ -364,8 +364,7 @@
 	<string name="toStudy">Study</string>
 	<string name="importGame">Import game</string>
 	<string name="importedGame">Game was imported.</string>
-	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay, computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s imported game</item>
 		<item quantity="other">%s imported games</item>
