@@ -754,6 +754,8 @@
   <string name="keyGoToStartOrEnd">перейти до початку/кінця</string>
   <string name="keyShowOrHideComments">показати/приховати коментарі</string>
   <string name="keyEnterOrExitVariation">зайти/вийти з варіанту</string>
+  <string name="keyRequestComputerAnalysis">Зробити запит на комп\'ютерний аналіз, Учіться на своїх помилках</string>
+  <string name="keyNextLearnFromYourMistakes">Далі (Вивчити свої помилки)</string>
   <string name="keyNextBlunder">Наступна груба помилка</string>
   <string name="keyNextMistake">Наступна помилка</string>
   <string name="keyNextInaccuracy">Наступна неточність</string>
