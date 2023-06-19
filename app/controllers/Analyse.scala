@@ -129,15 +129,15 @@ final class Analyse(
     simul      <- pov.game.simulId so env.simul.repo.find
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
     pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
-  yield Ok(
-    html.analyse.replayBot(
-      pov,
-      initialFen,
-      env.analyse.annotator(pgn, pov.game, analysis).toString,
-      simul,
-      crosstable
-    )
-  )
+    page <- renderPage:
+      html.analyse.replayBot(
+        pov,
+        initialFen,
+        env.analyse.annotator(pgn, pov.game, analysis).toString,
+        simul,
+        crosstable
+      )
+  yield Ok(page)
 
   def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     env.analyse.externalEngine.list(me) map { list =>

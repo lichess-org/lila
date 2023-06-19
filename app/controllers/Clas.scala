@@ -20,34 +20,41 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         case _ if getBool("home") => renderHome
         case None                 => renderHome
         case Some(me) if isGrantedOpt(_.Teacher) && !me.lameOrTroll =>
-          env.clas.api.clas.of(me).map { classes =>
-            Ok(views.html.clas.clas.teacherIndex(classes, getBool("closed")))
-          }
+          Ok.pageAsync:
+            env.clas.api.clas.of(me).map {
+              views.html.clas.clas.teacherIndex(_, getBool("closed"))
+            }
         case Some(me) =>
-          (fuccess(env.clas.studentCache.isStudent(me)) >>| !couldBeTeacher) flatMap {
-            if _ then
-              env.clas.api.student.clasIdsOfUser(me) flatMap
-                env.clas.api.clas.byIds map {
-                  case List(single) => redirectTo(single)
-                  case many         => Ok(views.html.clas.clas.studentIndex(many))
-                }
-            else renderHome
-          }
+          for
+            hasClas <- fuccess(env.clas.studentCache.isStudent(me)) >>| !couldBeTeacher
+            res <-
+              if hasClas
+              then
+                for
+                  ids     <- env.clas.api.student.clasIdsOfUser(me)
+                  classes <- env.clas.api.clas.byIds(ids)
+                  res <- classes match
+                    case List(single) => redirectTo(single).toFuccess
+                    case many         => Ok.page(views.html.clas.clas.studentIndex(many))
+                yield res
+              else renderHome
+          yield res
 
   def teacher(username: UserStr) = Secure(_.Admin) { ctx ?=> _ ?=>
     env.user.repo byId username flatMapz { teacher =>
-      env.clas.api.clas.of(teacher) map { classes =>
-        Ok(html.mod.search.teacher(teacher.id, classes))
-      }
+      Ok.pageAsync:
+        env.clas.api.clas.of(teacher) map {
+          html.mod.search.teacher(teacher.id, _)
+        }
     }
   }
 
   private def renderHome(using WebContext) =
     pageHit
-    views.html.clas.clas.home
+    Ok.page(views.html.clas.clas.home)
 
   def form = Secure(_.Teacher) { ctx ?=> _ ?=>
-    html.clas.clas.create(env.clas.forms.clas.create)
+    Ok.page(html.clas.clas.create(env.clas.forms.clas.create))
   }
 
   def create = SecureBody(_.Teacher) { ctx ?=> me ?=>
@@ -55,7 +62,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       env.clas.forms.clas.create
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.clas.clas.create(err)).toFuccess,
+          err => BadRequest.page(html.clas.clas.create(err)),
           data => env.clas.api.clas.create(data, me.user) map redirectTo
         )
   }
@@ -80,9 +87,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         if (isGranted(_.UserModView))
           env.clas.api.clas.byId(id) flatMapz { clas =>
             env.clas.api.student.allWithUsers(clas) flatMap { students =>
-              env.user.repo.withEmails(students.map(_.user)) map { users =>
-                Ok(html.mod.search.clas(clas, users))
-              }
+              Ok.asyncPage:
+                env.user.repo.withEmails(students.map(_.user)) map {
+                  html.mod.search.clas(clas, _)
+                }
             }
           }
         else notFound
@@ -108,9 +116,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def wall(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAny(id)(
       forTeacher = WithClass(id): clas =>
-        env.clas.api.student.allWithUsers(clas) map { students =>
-          views.html.clas.wall.show(clas, env.clas.markup(clas), students)
-        },
+        Ok.asyncPage:
+          env.clas.api.student.allWithUsers(clas) map {
+            views.html.clas.wall.show(clas, env.clas.markup(clas), _)
+          }
+      ,
       forStudent = (clas, _) => redirectTo(clas)
     )
   }

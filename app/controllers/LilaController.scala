@@ -320,7 +320,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def FormFuResult[A, B: Writeable](
       form: Form[A]
-  )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using Request[?]) =
+  )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using Request[?]): Fu[Result] =
     form
       .bindFromRequest()
       .fold(
@@ -330,8 +330,18 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def OptionOk[A, B: Writeable](
       fua: Fu[Option[A]]
-  )(op: A => Fu[B])(using WebContext) =
+  )(op: A => Fu[B])(using WebContext): Fu[Result] =
     fua flatMap { _.fold(notFound)(a => op(a) dmap { Ok(_) }) }
+
+  def OptionPage[A](
+      fua: Fu[Option[A]]
+  )(op: A => PageContext ?=> Frag)(using WebContext): Fu[Result] =
+    fua flatMap { _.fold(notFound)(a => Ok.page(op(a))) }
+
+  def OptionFuPage[A](
+      fua: Fu[Option[A]]
+  )(op: A => PageContext ?=> Fu[Frag])(using WebContext): Fu[Result] =
+    fua flatMap { _.fold(notFound)(a => Ok.async(op(a))) }
 
   def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using WebContext): Fu[Result] =
     fua.flatMap:

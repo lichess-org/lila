@@ -50,16 +50,17 @@ trait ResponseBuilder(using Executor)
     pageContext.map(render(using _))
   def renderPage(render: PageContext ?=> Frag)(using AnyContext): Fu[Frag] =
     pageContext.map(render(using _))
+  def renderAsync(render: PageContext ?=> Fu[Frag])(using AnyContext): Fu[Frag] =
+    pageContext.flatMap(render(using _))
 
   extension (s: Status)
     def page(render: PageContext ?=> Frag)(using AnyContext): Fu[Result] =
       pageContext.map(render(using _)).map(s(_))
-    // def page[A: Writeable](render: PageContext ?=> A)(using AnyContext): Fu[Result] =
-    //   pageContext.map(render(using _)).map(s(_))
+    def pageAsync(render: PageContext ?=> Fu[Frag])(using AnyContext): Fu[Result] =
+      pageContext.flatMap(render(using _)).map(s(_))
+    def async(render: Fu[Frag]) = render.map(s(_))
 
-  def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using
-      ctx: AnyContext
-  ): Fu[Result] =
+  def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: AnyContext): Fu[Result] =
     lila.api.Mobile.Api
       .requestVersion(ctx.req)
       .fold(html): v =>

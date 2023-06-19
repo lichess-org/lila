@@ -28,7 +28,8 @@ final class Coach(env: Env) extends LilaController(env):
       langCodes    <- env.coach.api.allLanguages
       countryCodes <- env.coach.api.allCountries
       pager        <- env.coach.pager(lang, order, country, page)
-    yield Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
+      page         <- renderPage(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
+    yield Ok(page)
 
   def show(username: UserStr) = Open:
     OptionFuResult(api find username): c =>
@@ -37,18 +38,19 @@ final class Coach(env: Env) extends LilaController(env):
           stu     <- env.study.api.publicByIds(c.coach.profile.studyIds)
           studies <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
           posts   <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
-        yield
-          lila.mon.coach.pageView.profile(c.coach.id.value).increment()
-          Ok(html.coach.show(c, studies, posts))
+          page    <- renderPage(html.coach.show(c, studies, posts))
+          _ = lila.mon.coach.pageView.profile(c.coach.id.value).increment()
+        yield Ok(page)
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: WebContext) =
     if c.isListed || ctx.me.exists(_ is c.coach) || isGrantedOpt(_.Admin) then f
     else notFound
 
   def edit = Secure(_.Coach) { ctx ?=> me ?=>
-    OptionFuResult(api.findOrInit): c =>
+    OptionPage(api.findOrInit): c =>
       env.msg.twoFactorReminder(me) inject
-        Ok(html.coach.edit(c, CoachProfileForm edit c.coach)).noCache
+        html.coach.edit(c, CoachProfileForm edit c.coach)
+    .noCache
   }
 
   def editApply = SecureBody(_.Coach) { ctx ?=> me ?=>
@@ -63,16 +65,16 @@ final class Coach(env: Env) extends LilaController(env):
   }
 
   def picture = Secure(_.Coach) { ctx ?=> me ?=>
-    OptionResult(api.findOrInit): c =>
-      Ok(html.coach.picture(c)).noCache
+    OptionPage(api.findOrInit)(html.coach.picture).map(_.noCache)
   }
 
   def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>
     OptionFuResult(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
-          api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
-            BadRequest(html.coach.picture(c, e.message.some))
-          } inject Redirect(routes.Coach.edit)
+          api.uploadPicture(c, pic) inject Redirect(routes.Coach.edit) recoverWith {
+            case e: lila.base.LilaException =>
+              BadRequest.page(html.coach.picture(c, e.message.some))
+          }
         case None => Redirect(routes.Coach.edit)
   }
