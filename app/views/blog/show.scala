@@ -7,7 +7,7 @@ import controllers.routes
 
 object show:
 
-  def apply(doc: io.prismic.Document)(using ctx: WebContext, prismic: lila.blog.BlogApi.Context) =
+  def apply(doc: io.prismic.Document)(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
       title = s"${~doc.getText("blog.title")} | Blog",
       moreJs = jsModule("expandText"),

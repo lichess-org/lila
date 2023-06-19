@@ -13,7 +13,7 @@ object variant:
       resolver: io.prismic.DocumentLinkResolver,
       variant: chess.variant.Variant,
       perfType: lila.rating.PerfType
-  )(using WebContext) =
+  )(using PageContext) =
     layout(
       active = perfType.some,
       title = s"${variant.name} • ${variant.title}",
@@ -27,7 +27,7 @@ object variant:
   def home(
       doc: io.prismic.Document,
       resolver: io.prismic.DocumentLinkResolver
-  )(using WebContext) =
+  )(using PageContext) =
     layout(
       title = "Lichess variants",
       klass = "variants"
@@ -52,7 +52,7 @@ object variant:
       klass: String,
       active: Option[lila.rating.PerfType] = None,
       openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Modifier*)(using WebContext) =
+  )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("variant"),

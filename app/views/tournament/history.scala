@@ -10,7 +10,7 @@ import lila.tournament.Tournament
 
 object history:
 
-  def apply(freq: Freq, pager: Paginator[Tournament])(using WebContext) =
+  def apply(freq: Freq, pager: Paginator[Tournament])(using PageContext) =
     views.html.base.layout(
       title = "Tournament history",
       moreJs = infiniteScrollTag,

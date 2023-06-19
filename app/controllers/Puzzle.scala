@@ -422,7 +422,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     negotiate(
       html = notFound,
       _ =>
-        OptionFuOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
+        OptionOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
           env.puzzle.jsonView.bc(puz)
         .dmap(_ as JSON)
     )

@@ -472,12 +472,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         Redirect(routes.Clas.index)
   }
 
-  private def couldBeTeacher(using ctx: WebContext) = ctx.me match
-    case None                 => fuTrue
-    case Some(me) if me.isBot => fuFalse
-    case Some(me) if me.kid   => fuFalse
-    case _ if ctx.hasClas     => fuTrue
-    case Some(me)             => !env.mod.logApi.wasUnteachered(me)
+  private def couldBeTeacher(using ctx: WebContext): Fu[Boolean] = ctx.me.soUse: me ?=>
+    if me.isBot then fuFalse
+    else if me.kid then fuFalse
+    else if env.clas.hasClas then fuTrue
+    else !env.mod.logApi.wasUnteachered(me)
 
   def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me ?=>
     OptionOk(env.clas.api.invite.view(id, me)): (invite, clas) =>

@@ -12,7 +12,7 @@ import lila.swiss.Swiss
 
 object activity:
 
-  def apply(u: User, as: Iterable[lila.activity.ActivityView])(using WebContext) =
+  def apply(u: User, as: Iterable[lila.activity.ActivityView])(using PageContext) =
     div(cls := "activity")(
       as.toSeq filterNot (_.isEmpty) map { a =>
         st.section(
@@ -48,7 +48,7 @@ object activity:
 
   private def subCount(count: Int) = if (count >= maxSubEntries) s"$count+" else s"$count"
 
-  private def renderPatron(p: Patron)(using WebContext) =
+  private def renderPatron(p: Patron)(using PageContext) =
     div(cls := "entry plan")(
       iconTag(licon.Wings),
       div(
@@ -58,7 +58,7 @@ object activity:
       )
     )
 
-  private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(using WebContext) =
+  private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(using PageContext) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
       iconTag(licon.Bullseye),
@@ -71,7 +71,7 @@ object activity:
       )
     )
 
-  private def onePractice(tup: (lila.practice.PracticeStudy, Int))(using WebContext) =
+  private def onePractice(tup: (lila.practice.PracticeStudy, Int))(using PageContext) =
     tup match
       case (study, nb) =>
         val href = routes.Practice.show("-", study.slug, study.id)
@@ -80,7 +80,7 @@ object activity:
           br
         )
 
-  private def renderPuzzles(u: User)(p: Puzzles)(using ctx: WebContext) =
+  private def renderPuzzles(u: User)(p: Puzzles)(using ctx: PageContext) =
     entryTag(
       iconTag(licon.ArcheryTarget),
       scoreFrag(p.value),
@@ -90,7 +90,7 @@ object activity:
       )
     )
 
-  private def renderStorm(s: Storm)(using WebContext) =
+  private def renderStorm(s: Storm)(using PageContext) =
     entryTag(
       iconTag(licon.Storm),
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
@@ -100,7 +100,7 @@ object activity:
       )
     )
 
-  private def renderRacer(s: Racer)(using WebContext) =
+  private def renderRacer(s: Racer)(using PageContext) =
     entryTag(
       iconTag(licon.FlagChessboard),
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
@@ -110,7 +110,7 @@ object activity:
       )
     )
 
-  private def renderStreak(s: Streak)(using WebContext) =
+  private def renderStreak(s: Streak)(using PageContext) =
     entryTag(
       iconTag(licon.ArrowThruApple),
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
@@ -120,7 +120,7 @@ object activity:
       )
     )
 
-  private def renderGames(games: Games)(using WebContext) =
+  private def renderGames(games: Games)(using PageContext) =
     games.value.toSeq.sortBy(-_._2.size).map { case (pt, score) =>
       entryTag(
         iconTag(pt.icon),
@@ -133,7 +133,7 @@ object activity:
     }
 
   private def renderForumPosts(posts: Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]])(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     ctx.noKid option entryTag(
       iconTag(licon.BubbleConvo),
@@ -157,7 +157,7 @@ object activity:
     )
 
   private def renderUblogPosts(user: User)(posts: List[lila.ublog.UblogPost.LightPost])(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     ctx.noKid option entryTag(
       iconTag(licon.InkQuill),
@@ -171,7 +171,7 @@ object activity:
       )
     )
 
-  private def renderCorresMoves(nb: Int, povs: List[lila.game.LightPov])(using WebContext) =
+  private def renderCorresMoves(nb: Int, povs: List[lila.game.LightPov])(using PageContext) =
     entryTag(
       iconTag(licon.PaperAirplane),
       div(
@@ -197,7 +197,7 @@ object activity:
       )
     )
 
-  private def renderCorresEnds(score: Score, povs: List[lila.game.LightPov])(using WebContext) =
+  private def renderCorresEnds(score: Score, povs: List[lila.game.LightPov])(using PageContext) =
     entryTag(
       iconTag(licon.PaperAirplane),
       div(
@@ -228,7 +228,7 @@ object activity:
       )
     )
 
-  private def renderFollows(all: Follows)(using WebContext) =
+  private def renderFollows(all: Follows)(using PageContext) =
     entryTag(
       iconTag(licon.ThumbsUp),
       div(
@@ -247,7 +247,7 @@ object activity:
       )
     )
 
-  private def renderSimuls(u: User)(simuls: List[lila.simul.Simul])(using WebContext) =
+  private def renderSimuls(u: User)(simuls: List[lila.simul.Simul])(using PageContext) =
     entryTag(
       iconTag(licon.Group),
       div(
@@ -274,7 +274,7 @@ object activity:
       )
     )
 
-  private def renderStudies(studies: List[lila.study.Study.IdName])(using WebContext) =
+  private def renderStudies(studies: List[lila.study.Study.IdName])(using PageContext) =
     entryTag(
       iconTag(licon.StudyBoard),
       div(
@@ -287,7 +287,7 @@ object activity:
       )
     )
 
-  private def renderTeams(teams: Teams)(using ctx: WebContext) =
+  private def renderTeams(teams: Teams)(using ctx: PageContext) =
     ctx.noKid option entryTag(
       iconTag(licon.Group),
       div(
@@ -296,7 +296,7 @@ object activity:
       )
     )
 
-  private def renderTours(tours: lila.activity.ActivityView.Tours)(using WebContext) =
+  private def renderTours(tours: lila.activity.ActivityView.Tours)(using PageContext) =
     entryTag(
       iconTag(licon.Trophy),
       div(
@@ -324,7 +324,7 @@ object activity:
       )
     )
 
-  private def renderSwisses(swisses: List[(Swiss.IdName, Rank)])(using WebContext) =
+  private def renderSwisses(swisses: List[(Swiss.IdName, Rank)])(using PageContext) =
     entryTag(
       iconTag(licon.Trophy),
       div(
@@ -349,13 +349,13 @@ object activity:
       )
     )
 
-  private def renderStream(u: User)(using ctx: WebContext) =
+  private def renderStream(u: User)(using ctx: PageContext) =
     ctx.noKid option entryTag(
       iconTag(licon.Mic),
       a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
     )
 
-  private def renderSignup(using WebContext) =
+  private def renderSignup(using PageContext) =
     entryTag(
       iconTag(licon.StarOutline),
       div(trans.activity.signedUp())
@@ -366,7 +366,7 @@ object activity:
   private val scoreTag = tag("score")
   private val winTag   = tag("win")
 
-  private def scoreFrag(s: Score)(using WebContext) =
+  private def scoreFrag(s: Score)(using PageContext) =
     raw {
       s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
           "loss",
@@ -375,10 +375,10 @@ object activity:
         )}</score>"""
     }
 
-  private def ratingProgFrag(r: RatingProg)(using ctx: WebContext) =
+  private def ratingProgFrag(r: RatingProg)(using ctx: PageContext) =
     ctx.pref.showRatings option ratingTag(r.after.value, ratingProgress(r.diff))
 
-  private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(using WebContext) =
+  private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(using PageContext) =
     if (p == 0) ""
     else s"""<$tag>${wrapNumber(name.pluralSameTxt(p))}</$tag>"""
 

@@ -41,6 +41,9 @@ final class Env(
 
   lazy val markup = wire[ClasMarkup]
 
+  def hasClas(using me: lila.user.Me) =
+    lila.security.Granter(_.Teacher) || studentCache.isStudent(me)
+
   lila.common.Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
       progressApi.onFinishGame(game).unit

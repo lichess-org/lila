@@ -93,21 +93,21 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
                 ),
                 "theme" -> Json.obj(
                   "d2" -> Json.obj(
-                    "current" -> ctx.currentTheme.name,
+                    "current" -> ctx.pref.currentTheme.name,
                     "list"    -> lila.pref.Theme.all.map(_.name)
                   ),
                   "d3" -> Json.obj(
-                    "current" -> ctx.currentTheme3d.name,
+                    "current" -> ctx.pref.currentTheme3d.name,
                     "list"    -> lila.pref.Theme3d.all.map(_.name)
                   )
                 ),
                 "piece" -> Json.obj(
                   "d2" -> Json.obj(
-                    "current" -> ctx.currentPieceSet.name,
+                    "current" -> ctx.pref.currentPieceSet.name,
                     "list"    -> lila.pref.PieceSet.all.map(_.name)
                   ),
                   "d3" -> Json.obj(
-                    "current" -> ctx.currentPieceSet3d.name,
+                    "current" -> ctx.pref.currentPieceSet3d.name,
                     "list"    -> lila.pref.PieceSet3d.all.map(_.name)
                   )
                 ),

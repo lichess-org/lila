@@ -11,7 +11,7 @@ object show:
 
   import bits.*
 
-  def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: WebContext) =
+  def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),

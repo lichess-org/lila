@@ -12,7 +12,7 @@ import chess.format.pgn.PgnStr
 
 object empty:
 
-  def start(user: User)(using WebContext) =
+  def start(user: User)(using PageContext) =
     bits.layout(menu = emptyFrag, pageSmall = true)(
       cls := "tutor__empty box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
@@ -22,7 +22,7 @@ object empty:
       )
     )
 
-  def queued(in: TutorQueue.InQueue, user: User, waitGames: List[(Pov, PgnStr)])(using WebContext) =
+  def queued(in: TutorQueue.InQueue, user: User, waitGames: List[(Pov, PgnStr)])(using PageContext) =
     bits.layout(
       menu = emptyFrag,
       title = "Lichess Tutor - Examining games...",
@@ -70,7 +70,7 @@ object empty:
     "and comparing your playstyle to thousands of other players with similar rating."
   )
 
-  def insufficientGames(user: User)(using WebContext) =
+  def insufficientGames(user: User)(using PageContext) =
     bits.layout(menu = emptyFrag, pageSmall = true)(
       cls := "tutor__insufficient box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),

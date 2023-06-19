@@ -9,16 +9,18 @@ import lila.common.{ HTTPRequest, ApiVersion }
 
 trait ResponseBuilder(using Executor)
     extends ControllerHelpers
+    with RequestContext
     with ResponseWriter
     with CtrlExtensions
     with CtrlConversions:
 
   val keyPages = KeyPages(env)
   export keyPages.{ notFound as renderNotFound }
+  export scalatags.Text.Frag
 
-  given Conversion[scalatags.Text.Frag, Result]     = Ok(_)
-  given Conversion[Result, Fu[Result]]              = fuccess(_)
-  given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
+  // given Conversion[scalatags.Text.Frag, Result] = Ok(_)
+  given Conversion[Result, Fu[Result]] = fuccess(_)
+  // given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
   given (using AnyContext): Conversion[Funit, Fu[Result]] =
     _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
   given alleycats.Zero[Result] = alleycats.Zero(Results.NotFound)
@@ -41,6 +43,19 @@ trait ResponseBuilder(using Executor)
       _.fold(notFoundJson())(a => fuccess(JsonOk(a)))
   def JsonStrOk(str: JsonStr): Result       = Ok(str) as JSON
   def JsonBadRequest(body: JsValue): Result = BadRequest(body) as JSON
+
+  // def page[A: Writeable](render: PageContext ?=> A)(using AnyContext): Fu[A] =
+  //   pageContext.map(render(using _))
+  def page(render: PageContext ?=> Frag)(using AnyContext): Fu[Frag] =
+    pageContext.map(render(using _))
+  def renderPage(render: PageContext ?=> Frag)(using AnyContext): Fu[Frag] =
+    pageContext.map(render(using _))
+
+  extension (s: Status)
+    def page(render: PageContext ?=> Frag)(using AnyContext): Fu[Result] =
+      pageContext.map(render(using _)).map(s(_))
+    // def page[A: Writeable](render: PageContext ?=> A)(using AnyContext): Fu[Result] =
+    //   pageContext.map(render(using _)).map(s(_))
 
   def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using
       ctx: AnyContext
@@ -97,7 +112,7 @@ trait ResponseBuilder(using Executor)
     negotiateInWebContext(
       web =
         if HTTPRequest.isSynchronousHttp(ctx.req)
-        then Forbidden(views.html.site.message.authFailed)
+        then Forbidden.page(views.html.site.message.authFailed)
         else Results.Forbidden("Authorization failed"),
       any = fuccess(forbiddenJsonResult)
     )

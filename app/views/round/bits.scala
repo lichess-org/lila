@@ -24,7 +24,7 @@ object bits:
       zenable: Boolean = false,
       robots: Boolean = false,
       withHrefLangs: Option[LangPath] = None
-  )(body: Frag)(using ctx: WebContext) =
+  )(body: Frag)(using ctx: PageContext) =
     views.html.base.layout(
       title = title,
       openGraph = openGraph,
@@ -45,12 +45,12 @@ object bits:
       withHrefLangs = withHrefLangs
     )(body)
 
-  def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: WebContext) =
+  def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: PageContext) =
     cross map { c =>
       views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
     }
 
-  def underchat(game: Game)(using ctx: WebContext) =
+  def underchat(game: Game)(using ctx: PageContext) =
     frag(
       views.html.chat.spectatorsFrag,
       isGranted(_.ViewBlurs) option div(cls := "round__mod")(
@@ -72,7 +72,7 @@ object bits:
       )
     )
 
-  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(using WebContext) =
+  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(using PageContext) =
     frag(
       h3(
         simul.map { s =>
@@ -125,7 +125,7 @@ object bits:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.game.side(
       pov,
       (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
@@ -135,7 +135,7 @@ object bits:
       bookmarked = bookmarked
     )
 
-  def roundAppPreload(pov: Pov)(using WebContext) =
+  def roundAppPreload(pov: Pov)(using PageContext) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(chessground(pov)),
       div(cls := "col1-rmoves-preload")

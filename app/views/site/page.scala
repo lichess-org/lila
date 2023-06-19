@@ -8,7 +8,7 @@ import io.prismic.{ Document, DocumentLinkResolver }
 
 object page:
 
-  def lone(doc: Document, resolver: DocumentLinkResolver)(using WebContext) =
+  def lone(doc: Document, resolver: DocumentLinkResolver)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("page"),
       title = ~doc.getText("doc.title"),
@@ -16,11 +16,11 @@ object page:
     ):
       main(cls := "page-small box box-pad page force-ltr")(pageContent(doc, resolver))
 
-  private def fairPlayJs(using WebContext) = embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+  private def fairPlayJs(using PageContext) = embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })""")
 
-  def withMenu(active: String, doc: Document, resolver: DocumentLinkResolver)(using WebContext) =
+  def withMenu(active: String, doc: Document, resolver: DocumentLinkResolver)(using PageContext) =
     layout(
       title = ~doc.getText("doc.title"),
       active = active,
@@ -39,7 +39,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     )
   )
 
-  def source(doc: Document, resolver: DocumentLinkResolver)(using WebContext) =
+  def source(doc: Document, resolver: DocumentLinkResolver)(using PageContext) =
     val title = ~doc.getText("doc.title")
     layout(
       title = title,
@@ -86,7 +86,7 @@ $('#asset-version-message').text(lichess.info.message);"""
         st.section(cls := "box")(freeJs())
       )
 
-  def webmasters(using WebContext) =
+  def webmasters(using PageContext) =
     val parameters = frag(
       p("Parameters:"),
       ul(
@@ -202,7 +202,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       contentCls: String = "",
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag
-  )(body: Frag)(using WebContext) =
+  )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = moreCss,

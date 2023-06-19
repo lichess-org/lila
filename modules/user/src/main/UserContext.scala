@@ -1,6 +1,6 @@
 package lila.user
 
-final class UserContext(val me: Option[Me], val impersonatedBy: Option[User]):
+final class UserContext(val me: Option[Me], val needsFp: Boolean, val impersonatedBy: Option[User]):
 
   export me.{ isDefined as isAuth, isEmpty as isAnon }
 
@@ -18,4 +18,4 @@ final class UserContext(val me: Option[Me], val impersonatedBy: Option[User]):
   def noKid: Boolean = !kid
 
 object UserContext:
-  val anon = UserContext(none, none)
+  val anon = UserContext(none, false, none)

@@ -47,7 +47,7 @@ final private class StudyInvite(
     _ <-
       if (isPresent || Granter(_.StudyAdmin)) funit
       else
-        prefApi.getPref(invited).map(_.studyInvite).flatMap {
+        prefApi.get(invited).map(_.studyInvite).flatMap {
           case Pref.StudyInvite.ALWAYS => funit
           case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
           case Pref.StudyInvite.FRIEND =>

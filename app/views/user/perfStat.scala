@@ -17,7 +17,7 @@ object perfStat:
   def apply(
       data: PerfStatData,
       ratingChart: Option[String]
-  )(using WebContext) =
+  )(using PageContext) =
     import data.*
     import stat.perfType
     views.html.base.layout(
@@ -72,7 +72,7 @@ object perfStat:
   private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(using
-      ctx: WebContext
+      ctx: PageContext
   ): Frag =
     st.section(cls := "glicko")(
       h2(

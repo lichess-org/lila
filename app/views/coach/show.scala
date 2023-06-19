@@ -22,7 +22,7 @@ object show:
       c: lila.coach.Coach.WithUser,
       studies: Seq[lila.study.Study.WithChaptersAndLiked],
       posts: Seq[lila.ublog.UblogPost.PreviewPost]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.so(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)

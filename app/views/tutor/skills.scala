@@ -9,7 +9,7 @@ import lila.insight.InsightPosition
 
 object skills:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using WebContext) =
+  def apply(report: TutorPerfReport, user: lila.user.User)(using PageContext) =
     bits.layout(menu = perf.menu(user, report, "skills"))(
       cls := "tutor__skills box",
       boxTop(

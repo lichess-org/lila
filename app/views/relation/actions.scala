@@ -15,7 +15,7 @@ object actions:
       followable: Boolean,
       blocked: Boolean,
       signup: Boolean = false
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     div(cls := "relation-actions btn-rack")(
       (!ctx.is(user) && !blocked) option a(
         titleOrText(trans.challenge.challengeToPlay.txt()),

@@ -9,7 +9,7 @@ import lila.app.{ *, given }
 import lila.memo.CacheApi.*
 import views.*
 
-final class KeyPages(env: Env)(using Executor) extends ResponseWriter:
+final class KeyPages(env: Env)(using Executor) extends ResponseWriter with ResponseBuilder:
 
   def home(status: Results.Status)(using ctx: WebContext): Fu[Result] =
     homeHtml
@@ -26,16 +26,17 @@ final class KeyPages(env: Env)(using Executor) extends ResponseWriter:
         streamerSpots = env.streamer.homepageMaxSetting.get()
       )
       .mon(_.lobby segment "preloader.total")
-      .map: h =>
-        lila.mon.chronoSync(_.lobby segment "renderSync"):
-          html.lobby.home(h)
+      .flatMap: h =>
+        page(_ ?=> html.lobby.home(h)).mon(_.lobby segment "render")
 
-  def notFound(using WebContext): Result =
-    Results.NotFound(html.base.notFound())
+  def notFound(using WebContext): Fu[Result] =
+    NotFound.page(html.base.notFound())
 
-  def blacklisted(using ctx: WebContext): Result =
+  def blacklisted(using ctx: AnyContext): Fu[Result] =
     if lila.api.Mobile.Api requested ctx.req then
-      Results.Unauthorized:
-        Json.obj:
-          "error" -> html.site.message.blacklistedMessage
-    else Results.Unauthorized(html.site.message.blacklistedMessage)
+      Results
+        .Unauthorized:
+          Json.obj:
+            "error" -> html.site.message.blacklistedMessage
+        .toFuccess
+    else Unauthorized.page(html.site.message.blacklistedFrag)

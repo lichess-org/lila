@@ -11,7 +11,7 @@ import controllers.routes
 
 object bits:
 
-  def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using WebContext) =
+  def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using PageContext) =
     frag(
       jsModule("challengePage"),
       embedJsUnsafeLoadThen(s"""challengePageStart(${safeJsonValue(
@@ -24,7 +24,7 @@ object bits:
         )})""")
     )
 
-  def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: WebContext) =
+  def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: PageContext) =
     div(cls := "details")(
       div(
         cls      := "variant",

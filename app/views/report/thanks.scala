@@ -7,7 +7,7 @@ import controllers.routes
 
 object thanks:
 
-  def apply(userId: UserId, blocked: Boolean)(using WebContext) =
+  def apply(userId: UserId, blocked: Boolean)(using PageContext) =
 
     val title = "Thanks for the report"
 

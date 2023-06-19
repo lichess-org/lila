@@ -10,7 +10,7 @@ import controllers.routes
 
 object hosted:
 
-  def apply(user: User, pager: Paginator[lila.simul.Simul])(using WebContext) =
+  def apply(user: User, pager: Paginator[lila.simul.Simul])(using PageContext) =
     views.html.base.layout(
       title = s"${user.username} hosted simuls",
       moreCss = cssTag("user-simul"),

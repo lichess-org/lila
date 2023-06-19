@@ -4,6 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scala.util.chaining.*
 import views.html
+import scalatags.Text.Frag
 
 import lila.api.AnnounceStore
 
@@ -19,15 +20,17 @@ final class Account(
 ) extends LilaController(env):
 
   def profile = Auth { _ ?=> me ?=>
-    html.account.profile(me, env.user.forms profileOf me)
+    Ok.page:
+      html.account.profile(me, env.user.forms profileOf me)
   }
 
   def username = Auth { _ ?=> me ?=>
-    html.account.username(me, env.user.forms usernameOf me)
+    Ok.page:
+      html.account.username(me, env.user.forms usernameOf me)
   }
 
   def profileApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.profile)(err => fuccess(html.account.profile(me, err))): profile =>
+    FormFuResult(env.user.forms.profile)(err => page(html.account.profile(me, err))): profile =>
       profile.bio
         .exists(env.security.spam.detect)
         .option("profile.bio" -> ~profile.bio)
@@ -37,12 +40,12 @@ final class Account(
             .option("profile.links" -> ~profile.links)
         .so { (resource, text) =>
           env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-        } >> env.user.repo.setProfile(me, profile) inject
+        } >> env.user.repo.setProfile(me, profile) >>
         Redirect(routes.User show me.username).flashSuccess
   }
 
   def usernameApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.username(me))(err => fuccess(html.account.username(me, err))): username =>
+    FormFuResult(env.user.forms.username(me))(err => page[Frag](html.account.username(me, err))): username =>
       env.user.repo.setUsernameCased(me, username) inject
         Redirect(routes.User show me.username).flashSuccess recover { case e =>
           Redirect(routes.Account.username).flashFailure(e.getMessage)
@@ -108,7 +111,7 @@ final class Account(
     negotiate(
       html = notFound,
       api = _ =>
-        env.pref.api.getPref(me).map { prefs =>
+        env.pref.api.get(me).map { prefs =>
           Ok:
             import lila.pref.JsonView.given
             lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
@@ -120,8 +123,8 @@ final class Account(
   }
 
   def passwd = Auth { _ ?=> me ?=>
-    env.security.forms.passwdChange.map: form =>
-      Ok(html.account.passwd(form))
+    env.security.forms.passwdChange.flatMap: form =>
+      Ok.page(html.account.passwd(form))
   }
 
   def passwdApply = AuthBody { ctx ?=> me ?=>

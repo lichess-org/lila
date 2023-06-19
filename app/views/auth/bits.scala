@@ -12,7 +12,7 @@ import lila.user.User
 object bits:
 
   def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using
-      WebContext
+      PageContext
   ) =
     frag(
       form3.group(
@@ -36,7 +36,7 @@ object bits:
       }
     )
 
-  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using WebContext) =
+  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using PageContext) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("auth"),
@@ -60,7 +60,7 @@ object bits:
       )
     }
 
-  def passwordResetSent(email: String)(using WebContext) =
+  def passwordResetSent(email: String)(using PageContext) =
     views.html.base.layout(
       title = trans.passwordReset.txt()
     ) {
@@ -71,7 +71,7 @@ object bits:
       )
     }
 
-  def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using WebContext)(using
+  def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using PageContext)(using
       me: Me
   ) =
     views.html.base.layout(
@@ -112,7 +112,7 @@ object bits:
       )
     }
 
-  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using WebContext) =
+  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using PageContext) =
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
@@ -137,7 +137,7 @@ object bits:
       )
     }
 
-  def magicLinkSent(using WebContext) =
+  def magicLinkSent(using PageContext) =
     views.html.base.layout(
       title = "Log in by email"
     ) {
@@ -148,7 +148,7 @@ object bits:
       )
     }
 
-  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using WebContext) =
+  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using PageContext) =
     views.html.base.layout(
       title = s"Log in as ${user.username}",
       moreCss = cssTag("form3")
@@ -197,7 +197,7 @@ body { margin-top: 45px; }
       )
     )
 
-  def tor()(using WebContext) =
+  def tor()(using PageContext) =
     views.html.base.layout(
       title = "Tor exit node"
     ) {
@@ -208,7 +208,7 @@ body { margin-top: 45px; }
       )
     }
 
-  def logout()(using WebContext) =
+  def logout()(using PageContext) =
     views.html.base.layout(
       title = trans.logOut.txt()
     ) {

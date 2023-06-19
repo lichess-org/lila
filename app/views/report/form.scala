@@ -11,7 +11,7 @@ import lila.user.User
 object form:
 
   def apply(form: Form[?], reqUser: Option[User] = None, captcha: lila.common.Captcha)(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     views.html.base.layout(
       title = trans.reportAUser.txt(),
@@ -26,7 +26,11 @@ object form:
         )(
           div(cls := "form-group")(
             p(
-              a(href := routes.ContentPage.loneBookmark("report-faq"), dataIcon := licon.InfoCircle, cls := "text")(
+              a(
+                href     := routes.ContentPage.loneBookmark("report-faq"),
+                dataIcon := licon.InfoCircle,
+                cls      := "text"
+              )(
                 "Read more about Lichess reports"
               )
             ),

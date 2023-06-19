@@ -25,7 +25,7 @@ object games:
       arenas: Seq[TourEntry],
       swisses: Seq[(Swiss.IdName, Rank)]
   )(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     views.html.base.layout(
       title = s"${user.username} games",

@@ -7,7 +7,7 @@ import controllers.routes
 
 object bookmark:
 
-  def toggle(g: lila.game.Game, bookmarked: Boolean)(using ctx: WebContext) =
+  def toggle(g: lila.game.Game, bookmarked: Boolean)(using ctx: PageContext) =
     if ctx.isAuth then
       a(
         cls := List(

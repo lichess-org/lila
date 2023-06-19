@@ -18,7 +18,7 @@ object index:
       data: play.api.libs.json.JsObject,
       cross: Option[lila.game.Crosstable.WithMatchup],
       history: List[lila.game.Pov]
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.round.bits.layout(
       variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",

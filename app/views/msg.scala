@@ -8,7 +8,7 @@ import lila.common.String.html.safeJsonValue
 
 object msg:
 
-  def home(json: JsObject)(using WebContext) =
+  def home(json: JsObject)(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       moreJs = frag(

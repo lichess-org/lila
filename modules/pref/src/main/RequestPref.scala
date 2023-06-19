@@ -7,9 +7,10 @@ object RequestPref:
   import Pref.default
 
   def queryParamOverride(req: RequestHeader)(pref: Pref): Pref =
-    queryParam(req, "bg").flatMap(Pref.Bg.fromString.get).fold(pref) { bg =>
-      pref.copy(bg = bg)
-    }
+    queryParam(req, "bg")
+      .flatMap(Pref.Bg.fromString.get)
+      .fold(pref): bg =>
+        pref.copy(bg = bg)
 
   def fromRequest(req: RequestHeader): Pref =
 

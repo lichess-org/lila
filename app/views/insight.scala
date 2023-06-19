@@ -19,7 +19,7 @@ object insight:
       ui: play.api.libs.json.JsObject,
       question: play.api.libs.json.JsObject,
       stale: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.insight.xChessInsights.txt(u.username),
       moreJs = frag(
@@ -49,7 +49,7 @@ object insight:
       frag(main(id := "insight"))
     )
 
-  def empty(u: User)(using WebContext) =
+  def empty(u: User)(using PageContext) =
     views.html.base.layout(
       title = trans.insight.xChessInsights.txt(u.username),
       moreJs = jsTag("insight-refresh.js"),
@@ -62,7 +62,7 @@ object insight:
       )
     )
 
-  def forbidden(u: User)(using WebContext) =
+  def forbidden(u: User)(using PageContext) =
     views.html.site.message(
       title = trans.insight.insightsAreProtected.txt(u.username),
       back = routes.User.show(u.id).url.some

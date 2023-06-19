@@ -375,7 +375,7 @@ final class User(
             lightUserApi.preloadMany(rs.userIds) inject rs
           .map(view.reportLog(user))
 
-        val prefs = isGranted(_.CheatHunter) so env.pref.api.getPref(user).map(view.prefs(user))
+        val prefs = isGranted(_.CheatHunter) so env.pref.api.get(user).map(view.prefs(user))
 
         val rageSit = isGranted(_.CheatHunter) so env.playban.api
           .getRageSit(user.id)

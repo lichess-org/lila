@@ -9,7 +9,7 @@ import lila.mod.ModActivity.*
 
 object activity:
 
-  def apply(p: Result)(using WebContext) =
+  def apply(p: Result)(using PageContext) =
     views.html.base.layout(
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),

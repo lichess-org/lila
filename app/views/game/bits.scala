@@ -28,7 +28,7 @@ object bits:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     div(
       side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
       cross.map: c =>

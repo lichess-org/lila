@@ -13,7 +13,7 @@ object blog:
 
   import views.html.ublog.{ post as postView }
 
-  def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: WebContext) =
+  def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     val title = trans.ublog.xBlog.txt(user.username)
     views.html.base.layout(
       moreCss = cssTag("ublog"),

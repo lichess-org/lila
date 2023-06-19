@@ -22,9 +22,9 @@ object layout:
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
     def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
       s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
-    def metaCsp(csp: Option[ContentSecurityPolicy])(using ctx: WebContext): Frag =
+    def metaCsp(csp: Option[ContentSecurityPolicy])(using ctx: PageContext): Frag =
       metaCsp(csp getOrElse defaultCsp)
-    def metaThemeColor(using ctx: WebContext): Frag =
+    def metaThemeColor(using ctx: PageContext): Frag =
       if ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM then
         raw:
           s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
@@ -32,7 +32,7 @@ object layout:
       else
         raw:
           s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
-    def pieceSprite(using ctx: WebContext): Frag = pieceSprite(ctx.currentPieceSet)
+    def pieceSprite(using ctx: PageContext): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
@@ -48,7 +48,7 @@ object layout:
     raw:
       s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin so "crossorigin"}>"""
 
-  private def fontPreload(using ctx: WebContext) = frag(
+  private def fontPreload(using ctx: PageContext) = frag(
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(
       assetUrl("font/noto-sans-v14-latin-regular.woff2"),
@@ -59,12 +59,12 @@ object layout:
     !ctx.pref.pieceNotationIsLetter option
       preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
   )
-  private def boardPreload(using ctx: WebContext) = frag(
+  private def boardPreload(using ctx: PageContext) = frag(
     preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d option
       preload(assetUrl(s"images/staunton/board/${ctx.currentTheme3d.file}"), "image", crossorigin = false)
   )
-  private def piecesPreload(using ctx: WebContext) =
+  private def piecesPreload(using ctx: PageContext) =
     env.pieceImageExternal.get() option raw:
       (for {
         c <- List('w', 'b')
@@ -90,7 +90,7 @@ object layout:
             "logo/lichess-favicon-32.png"
           )}" sizes="32x32">"""
       )
-  private def blindModeForm(using ctx: WebContext) = raw:
+  private def blindModeForm(using ctx: PageContext) = raw:
     s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
         if ctx.blind then 0 else 1
       }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${
@@ -111,7 +111,7 @@ object layout:
       div(id := "dasher_app", cls := "dropdown")
     )
 
-  private def allNotifications(using ctx: WebContext) =
+  private def allNotifications(using ctx: PageContext) =
     val challengeTitle = trans.challenge.challengesX.txt(ctx.nbChallenges)
     val notifTitle     = trans.notificationsX.txt(ctx.nbNotifications.value)
     spaceless:
@@ -128,7 +128,7 @@ object layout:
   <div id="notify-app" class="dropdown"></div>
 </div>"""
 
-  private def anonDasher(using ctx: WebContext) =
+  private def anonDasher(using ctx: PageContext) =
     val preferences = trans.preferences.preferences.txt()
     spaceless:
       s"""<div class="dasher">
@@ -141,7 +141,7 @@ object layout:
 
   private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
 
-  private def clinput(using ctx: WebContext) =
+  private def clinput(using ctx: PageContext) =
     div(id := "clinput")(
       clinputLink,
       input(
@@ -153,7 +153,7 @@ object layout:
       )
     )
 
-  private def current2dTheme(using ctx: WebContext) =
+  private def current2dTheme(using ctx: PageContext) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.currentTheme
 
@@ -164,10 +164,10 @@ object layout:
       style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private def loadScripts(moreJs: Frag, chessground: Boolean)(using ctx: WebContext) =
+  private def loadScripts(moreJs: Frag, chessground: Boolean)(using ctx: PageContext) =
     frag(
       chessground option chessgroundTag,
-      ctx.requiresFingerprint option fingerprintTag,
+      ctx.userContext.needsFp option fingerprintTag,
       ctx.nonce map inlineJs.apply,
       if netConfig.minifiedAssets then jsModule("lichess")
       else frag(depsTag, jsModule("site")),
@@ -222,7 +222,7 @@ object layout:
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
       withHrefLangs: Option[LangPath] = None
-  )(body: Frag)(using ctx: WebContext): Frag =
+  )(body: Frag)(using ctx: PageContext): Frag =
     frag(
       doctype,
       htmlTag(
@@ -358,7 +358,7 @@ object layout:
 <label for="tn-tg" class="fullscreen-mask"></label>
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>"""
 
-    private def reports(using WebContext) =
+    private def reports(using PageContext) =
       if isGranted(_.SeeReport) then
         val (score, mid, high) = blockingReportScores
         a(
@@ -380,7 +380,7 @@ object layout:
           dataIcon := licon.Agent
         )
 
-    private def teamRequests(using ctx: WebContext) =
+    private def teamRequests(using ctx: PageContext) =
       ctx.teamNbRequests > 0 option
         a(
           cls       := "link data-count link-center",
@@ -390,7 +390,7 @@ object layout:
           title     := trans.team.teams.txt()
         )
 
-    def apply(zenable: Boolean)(using ctx: WebContext) =
+    def apply(zenable: Boolean)(using ctx: PageContext) =
       header(id := "top")(
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,

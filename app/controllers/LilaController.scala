@@ -7,9 +7,7 @@ import play.api.http.*
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsNumber, JsObject, JsString, JsValue, Json, Writes }
 import play.api.mvc.*
-import scalatags.Text.Frag
 
-import lila.api.{ PageData, Nonce }
 import lila.app.{ *, given }
 import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
@@ -240,13 +238,15 @@ abstract private[controllers] class LilaController(val env: Env)
       selectors: Seq[OAuthScope.Selector]
   )(f: OAuthContext ?=> Me ?=> Fu[Result])(using RequestHeader): Fu[Result] =
     handleScopedCommon(selectors): scoped =>
-      f(using oauthContext(scoped))(using scoped.me)
+      oauthContext(scoped).flatMap: ctx =>
+        f(using ctx)(using scoped.me)
 
   private def handleScopedBody[A](
       selectors: Seq[OAuthScope.Selector]
   )(f: OAuthBodyContext[A] ?=> Me ?=> Fu[Result])(using Request[A]): Fu[Result] =
     handleScopedCommon(selectors): scoped =>
-      f(using oauthBodyContext(scoped))(using scoped.me)
+      oauthBodyContext(scoped).flatMap: ctx =>
+        f(using ctx)(using scoped.me)
 
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using req: RequestHeader)(
       f: OAuthScope.Scoped => Fu[Result]
@@ -329,12 +329,6 @@ abstract private[controllers] class LilaController(val env: Env)
       )
 
   def OptionOk[A, B: Writeable](
-      fua: Fu[Option[A]]
-  )(op: A => B)(using WebContext): Fu[Result] =
-    OptionFuOk(fua): a =>
-      fuccess(op(a))
-
-  def OptionFuOk[A, B: Writeable](
       fua: Fu[Option[A]]
   )(op: A => Fu[B])(using WebContext) =
     fua flatMap { _.fold(notFound)(a => op(a) dmap { Ok(_) }) }

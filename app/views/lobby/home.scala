@@ -12,16 +12,14 @@ import lila.game.Pov
 
 object home:
 
-  def apply(homepage: Homepage)(using ctx: WebContext) =
+  def apply(homepage: Homepage)(using ctx: PageContext): Frag =
     import homepage.*
     views.html.base.layout(
       title = "",
-      fullTitle = Some {
-        s"$siteName • ${trans.freeOnlineChess.txt()}"
-      },
+      fullTitle = s"$siteName • ${trans.freeOnlineChess.txt()}".some,
       moreJs = frag(
         jsModule("lobby"),
-        embedJsUnsafeLoadThen(
+        embedJsUnsafeLoadThen:
           s"""LichessLobby(${safeJsonValue(
               Json
                 .obj(
@@ -37,7 +35,6 @@ object home:
                   }
                 )
             )})"""
-        )
       ),
       moreCss = cssTag("lobby"),
       chessground = false,

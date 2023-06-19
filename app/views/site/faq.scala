@@ -21,7 +21,7 @@ object faq:
       div(cls := "answer")(answer)
     )
 
-  def apply()(using WebContext) =
+  def apply()(using PageContext) =
     page.layout(
       title = "Frequently Asked Questions",
       active = "faq",

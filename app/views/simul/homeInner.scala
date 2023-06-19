@@ -12,7 +12,7 @@ object homeInner:
       createds: List[lila.simul.Simul],
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     div(cls := "box")(
       h1(cls := "box__top")(trans.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
@@ -103,7 +103,7 @@ object homeInner:
       )
     )
 
-  private def simHost(sim: lila.simul.Simul)(using ctx: WebContext) =
+  private def simHost(sim: lila.simul.Simul)(using ctx: PageContext) =
     td(cls := "host")(
       userIdLink(sim.hostId.some, withOnline = false),
       ctx.pref.showRatings option frag(

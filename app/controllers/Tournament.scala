@@ -434,7 +434,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     yield html.tournament.shields(history)
 
   def categShields(k: String) = Open:
-    OptionFuOk(env.tournament.shieldApi.byCategKey(k)): (categ, awards) =>
+    OptionOk(env.tournament.shieldApi.byCategKey(k)): (categ, awards) =>
       env.user.lightUserApi preloadMany awards.map(_.owner) inject
         html.tournament.shields.byCateg(categ, awards)
 

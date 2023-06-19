@@ -9,7 +9,7 @@ import lila.swiss.{ FeaturedSwisses, Swiss }
 
 object home:
 
-  def apply(featured: FeaturedSwisses)(using WebContext) =
+  def apply(featured: FeaturedSwisses)(using PageContext) =
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
@@ -42,7 +42,7 @@ object home:
       )
     }
 
-  private def renderList(name: String)(swisses: List[Swiss])(using WebContext) =
+  private def renderList(name: String)(swisses: List[Swiss])(using PageContext) =
     table(cls := "slist swisses")(
       thead(tr(th(colspan := 4)(name))),
       tbody(

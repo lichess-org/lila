@@ -17,7 +17,7 @@ object search:
   private val email = tag("email")
   private val mark  = tag("marked")
 
-  def apply(form: Form[?], users: List[User.WithEmails])(using WebContext, Me) =
+  def apply(form: Form[?], users: List[User.WithEmails])(using PageContext, Me) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
@@ -45,7 +45,7 @@ object search:
       users: List[User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(using WebContext, Me) =
+  )(using PageContext, Me) =
     views.html.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
@@ -86,7 +86,7 @@ object search:
       users: List[lila.user.User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(using ctx: WebContext, renderIp: RenderIp, mod: Me) =
+  )(using ctx: PageContext, renderIp: RenderIp, mod: Me) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
@@ -122,7 +122,7 @@ object search:
       )
     }
 
-  def clas(c: lila.clas.Clas, users: List[User.WithEmails])(using WebContext, Me) =
+  def clas(c: lila.clas.Clas, users: List[User.WithEmails])(using PageContext, Me) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
@@ -142,7 +142,7 @@ object search:
       )
     }
 
-  def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(using WebContext) =
+  def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(using PageContext) =
     views.html.base.layout(
       title = "Classes",
       moreCss = cssTag("mod.misc")
@@ -185,7 +185,7 @@ object search:
       )
     }
 
-  private def teacherLink(userId: UserId)(using WebContext) =
+  private def teacherLink(userId: UserId)(using PageContext) =
     lightUser(userId).map { user =>
       a(
         href     := clasRoutes.teacher(user.name),
@@ -202,7 +202,7 @@ object search:
       users: List[User.WithEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
-  )(using WebContext, Me) =
+  )(using PageContext, Me) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(

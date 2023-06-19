@@ -200,7 +200,7 @@ final class Mod(
     Secure { perms =>
       if priv then perms.ViewPrivateComms else perms.Shadowban
     } { ctx ?=> me ?=>
-      OptionFuOk(env.user.repo byId username): user =>
+      OptionOk(env.user.repo byId username): user =>
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)

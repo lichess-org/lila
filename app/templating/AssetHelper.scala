@@ -26,8 +26,8 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
-  def cssTag(name: String)(using ctx: WebContext): Frag =
-    cssTagWithDirAndTheme(name, isRTL(using ctx.lang), ctx.currentBg)
+  def cssTag(name: String)(using ctx: PageContext): Frag =
+    cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
     if (theme == "system")
@@ -61,15 +61,15 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
 
   def depsTag = jsAt("compiled/deps.min.js")
 
-  def roundTag                            = jsModule("round")
-  def roundNvuiTag(using ctx: WebContext) = ctx.blind option jsModule("round.nvui")
+  def roundTag                             = jsModule("round")
+  def roundNvuiTag(using ctx: PageContext) = ctx.blind option jsModule("round.nvui")
 
-  def analyseTag                            = jsModule("analysisBoard")
-  def analyseStudyTag                       = jsModule("analysisBoard.study")
-  def analyseNvuiTag(using ctx: WebContext) = ctx.blind option jsModule("analysisBoard.nvui")
+  def analyseTag                             = jsModule("analysisBoard")
+  def analyseStudyTag                        = jsModule("analysisBoard.study")
+  def analyseNvuiTag(using ctx: PageContext) = ctx.blind option jsModule("analysisBoard.nvui")
 
-  def puzzleTag                            = jsModule("puzzle")
-  def puzzleNvuiTag(using ctx: WebContext) = ctx.blind option jsModule("puzzle.nvui")
+  def puzzleTag                             = jsModule("puzzle")
+  def puzzleNvuiTag(using ctx: PageContext) = ctx.blind option jsModule("puzzle.nvui")
 
   def captchaTag          = jsModule("captcha")
   def infiniteScrollTag   = jsModule("infiniteScroll")
@@ -79,7 +79,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
-  def prismicJs(using WebContext): Frag =
+  def prismicJs(using PageContext): Frag =
     raw:
       isGranted(_.Prismic).so:
         embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
@@ -102,14 +102,14 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
       baseUri = List("'none'")
     )
 
-  def defaultCsp(using ctx: WebContext): ContentSecurityPolicy =
+  def defaultCsp(using ctx: PageContext): ContentSecurityPolicy =
     val csp = basicCsp(using ctx.req)
     ctx.nonce.fold(csp)(csp.withNonce(_))
 
-  def analysisCsp(using WebContext): ContentSecurityPolicy =
+  def analysisCsp(using PageContext): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)
 
-  def embedJsUnsafe(js: String)(using ctx: WebContext): Frag = raw:
+  def embedJsUnsafe(js: String)(using ctx: PageContext): Frag = raw:
     val nonce = ctx.nonce.so: nonce =>
       s""" nonce="$nonce""""
     s"""<script$nonce>$js</script>"""
@@ -117,7 +117,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def embedJsUnsafe(js: String, nonce: lila.api.Nonce): Frag = raw:
     s"""<script nonce="$nonce">$js</script>"""
 
-  def embedJsUnsafeLoadThen(js: String)(using WebContext): Frag =
+  def embedJsUnsafeLoadThen(js: String)(using PageContext): Frag =
     embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
 
   def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =

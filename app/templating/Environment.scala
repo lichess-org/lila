@@ -25,7 +25,7 @@ object Environment
 
   export lila.Lila.{ id as _, *, given }
   export lila.api.context.{ *, given }
-  export lila.api.Nonce
+  export lila.api.{ PageData, Nonce }
   export lila.user.Me
   export lila.common.licon
 

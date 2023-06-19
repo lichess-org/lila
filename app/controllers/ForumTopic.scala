@@ -20,7 +20,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def form(categId: ForumCategId) = Auth { _ ?=> me ?=>
     NoBot:
       NotForKids:
-        OptionFuOk(env.forum.categRepo byId categId): categ =>
+        OptionOk(env.forum.categRepo byId categId): categ =>
           categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
             forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(inOwnTeam), _) }
           }

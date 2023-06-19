@@ -9,7 +9,7 @@ import lila.insight.InsightPosition
 
 object phases:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using WebContext) =
+  def apply(report: TutorPerfReport, user: lila.user.User)(using PageContext) =
     bits.layout(menu = perf.menu(user, report, "phases"))(
       cls := "tutor__phases box",
       boxTop(

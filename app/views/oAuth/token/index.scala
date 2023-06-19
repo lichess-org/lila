@@ -7,7 +7,7 @@ import controllers.routes
 
 object index:
 
-  def apply(tokens: List[lila.oauth.AccessToken])(using WebContext) =
+  def apply(tokens: List[lila.oauth.AccessToken])(using PageContext) =
 
     val title = "Personal API access tokens"
 

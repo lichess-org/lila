@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.*
 
 object bits:
 
-  def coordinateConfig(scoreOption: Option[lila.coordinate.Score])(using ctx: WebContext) = Json.obj(
+  def coordinateConfig(scoreOption: Option[lila.coordinate.Score])(using ctx: PageContext) = Json.obj(
     "i18n"       -> i18nJsObject(i18nKeys),
     "resizePref" -> ctx.pref.resizeHandle,
     "is3d"       -> ctx.pref.is3d,

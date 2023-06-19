@@ -10,7 +10,7 @@ object tree:
 
   import bits.*
 
-  def apply(root: OpeningTree, config: OpeningConfig)(using WebContext) =
+  def apply(root: OpeningTree, config: OpeningConfig)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(none),

@@ -13,7 +13,7 @@ object show:
       video: lila.video.Video,
       similar: Seq[lila.video.VideoView],
       control: lila.video.UserControl
-  )(using WebContext) =
+  )(using PageContext) =
     layout(
       title = s"${video.title} • Free Chess Videos",
       control = control,

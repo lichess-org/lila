@@ -11,7 +11,7 @@ import controllers.routes
 
 object top:
 
-  def apply(perfType: lila.rating.PerfType, users: List[User.LightPerf])(using ctx: WebContext) =
+  def apply(perfType: lila.rating.PerfType, users: List[User.LightPerf])(using ctx: PageContext) =
 
     val title = s"${perfType.trans} top 200"
 

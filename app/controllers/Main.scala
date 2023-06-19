@@ -27,17 +27,12 @@ final class Main(
       .bindFromRequest()
       .fold(
         _ => BadRequest,
-        { case (enable, redirect) =>
-          Redirect(redirect) withCookies env.lilaCookie.cookie(
-            env.api.config.accessibility.blindCookieName,
-            if (enable == "0") "" else env.api.config.accessibility.hash,
-            maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
-            httpOnly = true.some
-          )
-        }
+        (enable, redirect) =>
+          Redirect(redirect).withCookies:
+            lila.api.ApiConfig.blindCookie.make(env.lilaCookie)(enable != "0")
       )
 
-  def handlerNotFound(using RequestHeader) = webContext map { renderNotFound(using _) }
+  def handlerNotFound(using RequestHeader) = webContext flatMap { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.long

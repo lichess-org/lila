@@ -18,7 +18,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
       streamers: List[UserId]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = rt.fullName,
       moreCss = cssTag("analyse.relay"),

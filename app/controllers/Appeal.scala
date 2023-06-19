@@ -15,34 +15,34 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def userForm(using WebContext) = lila.appeal.Appeal.form
 
   def home = Auth { _ ?=> me ?=>
-    renderAppealOrTree(me) map { Ok(_) }
+    renderAppealOrTree map { Ok(_) }
   }
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
       pageHit
       OptionOk(prismicC getBookmark "appeal-landing"): (doc, resolver) =>
-        views.html.site.page.lone(doc, resolver)
+        page:
+          views.html.site.page.lone(doc, resolver)
     else notFound
   }
 
   private def renderAppealOrTree(
-      me: lila.user.User,
       err: Option[Form[String]] = None
-  )(using WebContext) = env.appeal.api mine me flatMap {
+  )(using WebContext)(using me: Me): Fu[Frag] = env.appeal.api.mine flatMap {
     case None =>
-      env.playban.api.currentBan(me.id).dmap(_.isDefined) map {
-        html.appeal.tree(me, _)
+      env.playban.api.currentBan(me).dmap(_.isDefined) flatMap { ban =>
+        page(html.appeal.tree(me, ban))
       }
-    case Some(a) => fuccess(html.appeal.discussion(a, me, err | userForm))
+    case Some(a) => page(html.appeal.discussion(a, me, err | userForm))
   }
 
   def post = AuthBody { ctx ?=> me ?=>
     userForm
       .bindFromRequest()
       .fold(
-        err => renderAppealOrTree(me, err.some) map { BadRequest(_) },
-        text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
+        err => renderAppealOrTree(err.some) map { BadRequest(_) },
+        text => env.appeal.api.post(text) inject Redirect(routes.Appeal.home).flashSuccess
       )
   }
 

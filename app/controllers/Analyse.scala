@@ -69,8 +69,8 @@ final class Analyse(
                     rating = ctx.pref.showRatings,
                     puzzles = true
                   )
-                ) map { data =>
-                  Ok(
+                ) flatMap { data =>
+                  Ok.page(
                     html.analyse.replay(
                       pov,
                       data,
@@ -84,7 +84,7 @@ final class Analyse(
                       chat,
                       bookmarked = bookmarked
                     )
-                  ).enableSharedArrayBuffer
+                  ).map(_.enableSharedArrayBuffer)
                 }
             }
         }

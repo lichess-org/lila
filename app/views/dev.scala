@@ -9,7 +9,7 @@ import controllers.routes
 
 object dev:
 
-  def settings(settings: List[lila.memo.SettingStore[?]])(using WebContext) =
+  def settings(settings: List[lila.memo.SettingStore[?]])(using PageContext) =
     val title = "Settings"
     views.html.base.layout(
       title = title,
@@ -34,7 +34,7 @@ object dev:
       )
     )
 
-  def cli(form: Form[?], res: Option[String])(using WebContext) =
+  def cli(form: Form[?], res: Option[String])(using PageContext) =
     val title = "Command Line Interface"
     views.html.base.layout(
       title = title,

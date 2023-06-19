@@ -22,7 +22,7 @@ final private[round] class Drawer(
       .map: pov =>
         if (game.playerHasOfferedDrawRecently(pov.color)) fuccess(pov.some)
         else
-          pov.player.userId so { uid => prefApi.getPref(uid, _.autoThreefold) } map { autoThreefold =>
+          pov.player.userId so { uid => prefApi.get(uid, _.autoThreefold) } map { autoThreefold =>
             autoThreefold == Pref.AutoThreefold.ALWAYS || {
               autoThreefold == Pref.AutoThreefold.TIME &&
               game.clock.so { _.remainingTime(pov.color) < Centis.ofSeconds(30) }

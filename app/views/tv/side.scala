@@ -40,7 +40,7 @@ object side:
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(using WebContext): Frag =
+  def meta(pov: lila.game.Pov)(using PageContext): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(
@@ -75,7 +75,7 @@ object side:
   def sides(
       pov: lila.game.Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
-  )(using WebContext) =
+  )(using PageContext) =
     div(cls := "sides")(
       cross.map {
         views.html.game.crosstable(_, pov.gameId.some)

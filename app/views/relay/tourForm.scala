@@ -12,7 +12,7 @@ object tourForm:
 
   import trans.broadcast.*
 
-  def create(form: Form[Data])(using WebContext) =
+  def create(form: Form[Data])(using PageContext) =
     layout(newBroadcast.txt(), menu = "new".some)(
       boxTop(h1(newBroadcast())),
       postForm(cls := "form3", action := routes.RelayTour.create)(
@@ -24,7 +24,7 @@ object tourForm:
       )
     )
 
-  def edit(t: RelayTour, form: Form[Data])(using WebContext) =
+  def edit(t: RelayTour, form: Form[Data])(using PageContext) =
     layout(t.name, menu = none)(
       boxTop(h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(t.name))),
       postForm(cls := "form3", action := routes.RelayTour.update(t.id))(
@@ -43,7 +43,7 @@ object tourForm:
       )
     )
 
-  private def layout(title: String, menu: Option[String])(body: Modifier*)(using WebContext) =
+  private def layout(title: String, menu: Option[String])(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form")
@@ -56,7 +56,7 @@ object tourForm:
       case None => main(cls := "page-small box box-pad")(body)
     })
 
-  private def inner(form: Form[Data])(using WebContext) = frag(
+  private def inner(form: Form[Data])(using PageContext) = frag(
     div(cls := "form-group")(bits.howToUse),
     form3.globalError(form),
     form3.group(form("name"), tournamentName())(form3.input(_)(autofocus)),

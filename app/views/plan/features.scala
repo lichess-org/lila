@@ -12,7 +12,7 @@ object features:
 
   val engineFullName = "Stockfish 15.1 NNUE"
 
-  def apply()(using WebContext) =
+  def apply()(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("feature"),

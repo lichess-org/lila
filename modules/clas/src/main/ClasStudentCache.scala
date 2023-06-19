@@ -7,14 +7,10 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.db.dsl.*
 
-final class ClasStudentCache(colls: ClasColls)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: Materializer
-):
+final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using Executor, Materializer):
 
   private val falsePositiveRate = 0.00003
-  // Stick to [String], it does unsafe operation that don't play well with opaque types
+  // Stick to [String], it does unsafe operations that don't play well with opaque types
   private var bloomFilter: BloomFilter[String] =
     BloomFilter[String](100, falsePositiveRate) // temporary empty filter
 

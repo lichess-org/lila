@@ -12,7 +12,7 @@ import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
 
-  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using WebContext) =
+  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using PageContext) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -27,7 +27,11 @@ object form:
           ),
           postForm(cls := "form3", action := routes.Tournament.create)(
             div(cls := "form-group")(
-              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.ContentPage.loneBookmark("event-tips"))(
+              a(
+                dataIcon := licon.InfoCircle,
+                cls      := "text",
+                href     := routes.ContentPage.loneBookmark("event-tips")
+              )(
                 trans.ourEventTips()
               )
             ),
@@ -55,7 +59,7 @@ object form:
       )
     }
 
-  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using WebContext) =
+  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using PageContext) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -106,7 +110,7 @@ object form:
       fields: TourFields,
       teams: List[LeaderTeam],
       tour: Option[Tournament]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       form3.split(
         fields.entryCode,
@@ -180,7 +184,7 @@ object form:
       tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
 
-final private class TourFields(form: Form[?], tour: Option[Tournament])(using WebContext):
+final private class TourFields(form: Form[?], tour: Option[Tournament])(using PageContext):
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 

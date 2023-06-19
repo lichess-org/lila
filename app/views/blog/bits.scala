@@ -9,7 +9,7 @@ import controllers.routes
 
 object bits:
 
-  def menu(year: Option[Int], active: Option[String])(using ctx: WebContext) =
+  def menu(year: Option[Int], active: Option[String])(using ctx: PageContext) =
     st.nav(cls := "page-menu__menu subnav force-ltr")(
       a(cls := active.has("community").option("active"), href := langHref(routes.Ublog.communityAll()))(
         "Community blogs"
@@ -32,7 +32,7 @@ object bits:
       post: MiniPost,
       postClass: Option[String] = None,
       header: Tag = h2
-  )(using WebContext) =
+  )(using PageContext) =
     a(cls := postClass)(href := routes.Blog.show(post.id, post.slug))(
       st.img(src := post.image),
       div(cls := "content")(
@@ -44,7 +44,7 @@ object bits:
 
   private[blog] def metas(
       doc: io.prismic.Document
-  )(using ctx: WebContext, prismic: lila.blog.BlogApi.Context) =
+  )(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>
@@ -60,4 +60,4 @@ object bits:
       strong(cls := "headline")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw))
     )
 
-  private[blog] def csp(using WebContext) = defaultCsp.withPrismic(isGranted(_.Prismic)).some
+  private[blog] def csp(using PageContext) = defaultCsp.withPrismic(isGranted(_.Prismic)).some

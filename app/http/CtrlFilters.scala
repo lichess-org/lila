@@ -47,17 +47,17 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def NoTor(res: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if env.security.tor.isExitNode(ctx.ip)
-    then Unauthorized(views.html.auth.bits.tor())
+    then Unauthorized.page(views.html.auth.bits.tor())
     else res
 
   def NoEngine[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if ctx.me.exists(_.marks.engine)
-    then Forbidden(views.html.site.message.noEngine)
+    then Forbidden.page(views.html.site.message.noEngine)
     else a
 
   def NoBooster[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if ctx.me.exists(_.marks.boost)
-    then Forbidden(views.html.site.message.noBooster)
+    then Forbidden.page(views.html.site.message.noBooster)
     else a
 
   def NoLame[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
@@ -66,7 +66,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def NoBot[A <: Result](a: => Fu[A])(using ctx: AnyContext): Fu[Result] =
     if ctx.isBot then
       negotiateInWebContext(
-        Forbidden(views.html.site.message.noBot),
+        Forbidden.page(views.html.site.message.noBot),
         Forbidden(jsonError("no bots allowed"))
       )
     else a

@@ -11,7 +11,7 @@ import lila.clas.ClasForm.ClasData
 
 object clas:
 
-  def home(using WebContext) =
+  def home(using PageContext) =
     views.html.base.layout(
       moreCss = frag(
         cssTag("page"),
@@ -39,7 +39,7 @@ object clas:
       )
     }
 
-  def teacherIndex(classes: List[Clas], closed: Boolean)(using WebContext) =
+  def teacherIndex(classes: List[Clas], closed: Boolean)(using PageContext) =
     val (active, archived) = classes.partition(_.isActive)
     val (current, others)  = if (closed) (archived, active) else (active, archived)
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
@@ -68,7 +68,7 @@ object clas:
       )
     )
 
-  def studentIndex(classes: List[Clas])(using WebContext) =
+  def studentIndex(classes: List[Clas])(using PageContext) =
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       boxTop(h1(trans.clas.lichessClasses())),
@@ -98,14 +98,14 @@ object clas:
       )
     )
 
-  def create(form: Form[ClasData])(using WebContext) =
+  def create(form: Form[ClasData])(using PageContext) =
     bits.layout(trans.clas.newClass.txt(), Right("newClass"))(
       cls := "box-pad",
       h1(cls := "box__top")(trans.clas.newClass()),
       innerForm(form, none)
     )
 
-  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(using WebContext) =
+  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(using PageContext) =
     teacherDashboard.layout(c, students, "edit")(
       div(cls := "box-pad")(
         innerForm(form, c.some),
@@ -121,7 +121,7 @@ object clas:
       )
     )
 
-  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(using WebContext) =
+  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(using PageContext) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
@@ -143,7 +143,7 @@ object clas:
       )
     )
 
-  private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: WebContext) =
+  private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: PageContext) =
     postForm(cls := "form3", action := clas.fold(clasRoutes.create)(c => clasRoutes.update(c.id.value)))(
       form3.globalError(form),
       form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),
