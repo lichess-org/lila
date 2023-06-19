@@ -27,4 +27,7 @@
   <string name="deleteRound">Ta bort den här omgången</string>
   <string name="definitivelyDeleteRound">Ta bort denna runda och dess partier definitivt.</string>
   <string name="deleteAllGamesOfThisRound">Radera alla partier i denna runda. Källan kommer behöva vara aktiv för att återskapa dem.</string>
+  <string name="editRoundStudy">Redigera studie för ronden</string>
+  <string name="deleteTournament">Radera turnering</string>
+  <string name="definitivelyDeleteTournament">Definitivt radera turnering.</string>
 </resources>
