@@ -55,7 +55,8 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     else if (
       HTTPRequest
         .userSessionId(req)
-        .isEmpty && result.session(req).get("lang").isEmpty
+        .isEmpty && result.session(req).get("lang").isEmpty &&
+      HTTPRequest.isHuman(req)
     )
       req
         .getQueryString("lang")
