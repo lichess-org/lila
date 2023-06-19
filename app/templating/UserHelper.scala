@@ -47,7 +47,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       dataIcon := icon,
       cls      := "text"
     )(
-      if (clueless) frag(nbsp, nbsp, nbsp, if (nb < 1) "-" else "?")
+      if clueless then frag(nbsp, nbsp, nbsp, if (nb < 1) "-" else "?")
       else frag(rating, provisional.yes option "?")
     )
 
@@ -99,7 +99,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       else User.anonymous
     )
 
-  def userIdLink[U](
+  def userIdLink[U: UserIdOf](
       userIdOption: Option[U],
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
@@ -107,8 +107,8 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       truncate: Option[Int] = None,
       params: String = "",
       modIcon: Boolean = false
-  )(using Lang)(using idOf: UserIdOf[U]): Tag =
-    userIdOption.flatMap(u => lightUser(idOf(u))).fold[Tag](anonUserSpan(cssClass, modIcon)) { user =>
+  )(using Lang): Tag =
+    userIdOption.flatMap(u => lightUser(u.id)).fold[Tag](anonUserSpan(cssClass, modIcon)) { user =>
       userIdNameLink(
         userId = user.id,
         username = user.name,
@@ -129,7 +129,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = ""
-  )(using lang: Lang): Tag =
+  )(using Lang): Tag =
     userIdNameLink(
       userId = user.id,
       username = user.name,
@@ -158,7 +158,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       title: Option[UserTitle],
       params: String,
       modIcon: Boolean
-  )(using lang: Lang): Tag =
+  )(using Lang): Tag =
     a(
       cls  := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
@@ -178,7 +178,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       withPerfRating: Option[PerfType] = None,
       name: Option[Frag] = None,
       params: String = ""
-  )(using lang: Lang): Tag =
+  )(using Lang): Tag =
     a(
       cls  := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
@@ -198,7 +198,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       withBestRating: Boolean = false,
       withPerfRating: Option[PerfType] = None,
       name: Option[Frag] = None
-  )(using lang: Lang): Frag =
+  )(using Lang): Frag =
     span(
       cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
@@ -209,7 +209,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       userRating(user, withPerfRating, withBestRating)
     )
 
-  def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using lang: Lang): Tag =
+  def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using Lang): Tag =
     val user = lightUser(userId)
     val name = user.fold(userId into UserName)(_.name)
     span(
@@ -255,18 +255,13 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
         "ulpt"      -> withPowerTip
       )
 
-  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using
-      lang: Lang
-  ): Frag =
+  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Lang): Frag =
     if (filter == GameFilter.Search) frag(iconTag(licon.Search), br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
-  private def transLocalize(key: I18nKey, number: Int)(using lang: Lang) =
-    key.pluralSameTxt(number)
+  private def transLocalize(key: I18nKey, number: Int)(using Lang) = key.pluralSameTxt(number)
 
-  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using
-      lang: Lang
-  ): String =
+  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Lang): String =
     filter match
       case GameFilter.All      => transLocalize(trans.nbGames, u.count.game)
       case GameFilter.Me       => nbs.withMe so { transLocalize(trans.nbGamesWithYou, _) }
@@ -279,7 +274,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       case GameFilter.Imported => transLocalize(trans.nbImportedGames, nbs.imported)
       case GameFilter.Search   => trans.search.advancedSearch.txt()
 
-  def describeUser(user: User)(using lang: Lang) =
+  def describeUser(user: User)(using Lang) =
     val name      = user.titleUsername
     val nbGames   = user.count.game
     val createdAt = showEnglishDate(user.createdAt)
@@ -291,12 +286,12 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   val lineIconChar   = licon.Disc
 
   val lineIcon: Frag = i(cls := "line")
-  def patronIcon(using lang: Lang): Frag =
+  def patronIcon(using Lang): Frag =
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
-  val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
-  private def lineIcon(patron: Boolean)(using lang: Lang): Frag         = if (patron) patronIcon else lineIcon
-  private def lineIcon(user: Option[LightUser])(using lang: Lang): Frag = lineIcon(user.so(_.isPatron))
-  def lineIcon(user: LightUser)(using lang: Lang): Frag                 = lineIcon(user.isPatron)
-  def lineIcon(user: User)(using lang: Lang): Frag                      = lineIcon(user.isPatron)
+  val moderatorIcon: Frag                                 = i(cls := "line moderator", title := "Lichess Mod")
+  private def lineIcon(patron: Boolean)(using Lang): Frag = if (patron) patronIcon else lineIcon
+  private def lineIcon(user: Option[LightUser])(using Lang): Frag = lineIcon(user.so(_.isPatron))
+  def lineIcon(user: LightUser)(using Lang): Frag                 = lineIcon(user.isPatron)
+  def lineIcon(user: User)(using Lang): Frag                      = lineIcon(user.isPatron)
   def lineIconChar(user: User): Frag = if (user.isPatron) patronIconChar else lineIconChar
 }
