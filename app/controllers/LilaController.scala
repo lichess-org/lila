@@ -31,8 +31,7 @@ abstract private[controllers] class LilaController(val env: Env)
   def controllerComponents = env.controllerComponents
   given Executor           = env.executor
   given Scheduler          = env.scheduler
-
-  given FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
+  given FormBinding        = parse.formBinding(parse.DefaultMaxTextLength)
 
   given lila.common.config.NetDomain = env.net.domain
 

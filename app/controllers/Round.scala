@@ -241,20 +241,17 @@ final class Round(
                 .dmap(toEventChat(s"swiss/$sid"))
             }
         case _ =>
-          game.hasChat so {
+          game.hasChat.so:
             env.chat.api.playerChat.findIf(ChatId(game.id), !game.justCreated) map { chat =>
               Chat
-                .GameOrEvent(
-                  Left(
+                .GameOrEvent:
+                  Left:
                     Chat.Restricted(
                       chat,
                       restricted = game.fromLobby && ctx.isAnon
                     )
-                  )
-                )
                 .some
             }
-          }
     }
 
   def sides(gameId: GameId, color: String) = Open:

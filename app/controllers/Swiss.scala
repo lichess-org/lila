@@ -214,21 +214,22 @@ final class Swiss(
   }
 
   def scheduleNextRound(id: SwissId) =
-    def doSchedule(using BodyContext[?])(using me: Me) = WithEditableSwiss(id): swiss =>
-      env.swiss.forms.nextRound
-        .bindFromRequest()
-        .fold(
-          err =>
-            render.async:
-              case Accepts.Json() => newJsonFormError(err)
-              case _              => Redirect(routes.Swiss.show(id))
-          ,
-          date =>
-            env.swiss.api.scheduleNextRound(swiss, date) inject render:
-              case Accepts.Json() => NoContent
-              case _              => Redirect(routes.Swiss.show(id))
-        )
-    AuthOrScopedBody(_.Tournament.Write)(doSchedule, doSchedule)
+    AuthOrScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
+      WithEditableSwiss(id): swiss =>
+        env.swiss.forms.nextRound
+          .bindFromRequest()
+          .fold(
+            err =>
+              render.async:
+                case Accepts.Json() => newJsonFormError(err)
+                case _              => Redirect(routes.Swiss.show(id))
+            ,
+            date =>
+              env.swiss.api.scheduleNextRound(swiss, date) inject render:
+                case Accepts.Json() => NoContent
+                case _              => Redirect(routes.Swiss.show(id))
+          )
+    }
 
   def terminate(id: SwissId) = Auth { _ ?=> me ?=>
     WithEditableSwiss(id): swiss =>
