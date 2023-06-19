@@ -31,11 +31,10 @@ final class ChallengeMaker(
     }
 
   private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
-    Pov.ofUserId(game, challenger.id).so { pov =>
+    Pov(game, challenger.id).so: pov =>
       pov.opponent.userId so userRepo.byId flatMapz { dest =>
         makeRematch(pov, challenger.some, dest) dmap some
       }
-    }
 
   // pov of the challenger
   private def makeRematch(pov: Pov, challenger: Option[User], dest: User): Fu[Challenge] = for

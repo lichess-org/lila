@@ -10,7 +10,7 @@ import lila.common.Json.given
 import lila.common.LightUser
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.user.{ LightUserApi, User }
+import lila.user.{ LightUserApi, User, Me }
 
 final class MsgCompat(
     api: MsgApi,
@@ -23,13 +23,13 @@ final class MsgCompat(
 
   private val maxPerPage = MaxPerPage(25)
 
-  def inbox(me: User, pageOpt: Option[Int]): Fu[JsObject] =
+  def inbox(pageOpt: Option[Int])(using me: Me): Fu[JsObject] =
     val page = pageOpt.fold(1)(_ atLeast 1 atMost 2)
-    api.threadsOf(me) flatMap { allThreads =>
+    api.myThreads.flatMap: allThreads =>
       val threads =
         allThreads.slice((page - 1) * maxPerPage.value, (page - 1) * maxPerPage.value + maxPerPage.value)
       lightUserApi.preloadMany(threads.map(_ other me)) inject
-        PaginatorJson {
+        PaginatorJson:
           Paginator
             .fromResults(
               currentPageResults = threads,
@@ -37,18 +37,15 @@ final class MsgCompat(
               currentPage = page,
               maxPerPage = maxPerPage
             )
-            .mapResults { t =>
+            .mapResults: t =>
               val user = lightUserApi.syncFallback(t other me)
               Json.obj(
                 "id"        -> user.id,
                 "author"    -> user.titleName,
                 "name"      -> t.lastMsg.text,
                 "updatedAt" -> t.lastMsg.date,
-                "isUnread"  -> t.lastMsg.unreadBy(me.id)
+                "isUnread"  -> t.lastMsg.unreadBy(me)
               )
-            }
-        }
-    }
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
@@ -69,34 +66,30 @@ final class MsgCompat(
       }
   }
 
-  def thread(me: User, c: MsgConvo): JsObject =
+  def thread(c: MsgConvo)(using me: Me): JsObject =
     Json.obj(
       "id"   -> c.contact.id,
       "name" -> c.contact.name,
-      "posts" -> c.msgs.reverse.map { msg =>
+      "posts" -> c.msgs.reverse.map: msg =>
         Json.obj(
           "sender"    -> renderUser(if (msg.user == c.contact.id) c.contact else me.light),
           "receiver"  -> renderUser(if (msg.user != c.contact.id) c.contact else me.light),
           "text"      -> msg.text,
           "createdAt" -> msg.date
         )
-      }
     )
 
-  def create(
-      me: User
-  )(using play.api.mvc.Request[?], FormBinding): Either[Form[?], Fu[UserId]] =
+  def create(using play.api.mvc.Request[?], FormBinding)(using me: Me): Either[Form[?], Fu[UserId]] =
     Form(
       mapping(
         "username" -> lila.user.UserForm.historicalUsernameField
           .verifying("Unknown username", { blockingFetchUser(_).isDefined })
           .verifying(
             "Sorry, this player doesn't accept new messages",
-            { name =>
+            name =>
               security.may
-                .post(me.id, name.id, isNew = true)
+                .post(me, name.id, isNew = true)
                 .await(2 seconds, "pmAccept") // damn you blocking API
-            }
           ),
         "subject" -> text(minLength = 3, maxLength = 100),
         "text"    -> text(minLength = 3, maxLength = 8000)
@@ -104,18 +97,18 @@ final class MsgCompat(
     ).bindFromRequest()
       .fold(
         err => Left(err),
-        data => Right(api.post(me.id, data.user.id, s"${data.subject}\n${data.text}") inject data.user.id)
+        data => Right(api.post(me, data.user.id, s"${data.subject}\n${data.text}") inject data.user.id)
       )
 
-  def reply(me: User, userId: UserId)(using
-      req: play.api.mvc.Request[?],
-      formBinding: FormBinding
-  ): Either[Form[?], Funit] =
+  def reply(userId: UserId)(using
+      play.api.mvc.Request[?],
+      FormBinding
+  )(using me: Me): Either[Form[?], Funit] =
     Form(single("text" -> text(minLength = 3)))
       .bindFromRequest()
       .fold(
         err => Left(err),
-        text => Right(api.post(me.id, userId, text).void)
+        text => Right(api.post(me, userId, text).void)
       )
 
   private def blockingFetchUser(username: UserStr) =

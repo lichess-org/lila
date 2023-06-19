@@ -13,7 +13,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.security.Granter
-import lila.user.User
+import lila.user.{ User, Me }
 import lila.relay.RelayTour.ActiveWithSomeRounds
 
 final class RelayApi(
@@ -43,10 +43,10 @@ final class RelayApi(
         )
       .map(_ flatMap readRoundWithTour)
 
-  def byIdAndContributor(id: RelayRoundId, me: User) =
+  def byIdAndContributor(id: RelayRoundId)(using me: Me) =
     byIdWithStudy(id).map:
       _.collect:
-        case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me.id) =>
+        case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me) =>
           relay withTour tour
 
   def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
@@ -187,12 +187,12 @@ final class RelayApi(
         )
       .map(_ flatMap readRoundWithTour)
 
-  def tourCreate(data: RelayTourForm.Data, user: User): Fu[RelayTour] =
-    val tour = data.make(user)
+  def tourCreate(data: RelayTourForm.Data)(using Me): Fu[RelayTour] =
+    val tour = data.make
     tourRepo.coll.insert.one(tour) inject tour
 
-  def tourUpdate(tour: RelayTour, data: RelayTourForm.Data, user: User): Funit =
-    tourRepo.coll.update.one($id(tour.id), data.update(tour, user)).void >>-
+  def tourUpdate(tour: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
+    tourRepo.coll.update.one($id(tour.id), data.update(tour)).void >>-
       leaderboard.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
@@ -258,9 +258,9 @@ final class RelayApi(
         } inject round
     }
 
-  def reset(old: RelayRound, by: User): Funit =
+  def reset(old: RelayRound)(using me: Me): Funit =
     WithRelay(old.id) { relay =>
-      studyApi.deleteAllChapters(relay.studyId, by) >> {
+      studyApi.deleteAllChapters(relay.studyId, me) >> {
         old.hasStartedEarly so roundRepo.coll.update
           .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
           .void
@@ -280,11 +280,11 @@ final class RelayApi(
       tourById(relay.tourId) map2 relay.withTour
     }
 
-  def canUpdate(user: User, tour: RelayTour): Fu[Boolean] =
-    fuccess(Granter(_.Relay)(user) || tour.ownerId == user.id) >>|
+  def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
+    fuccess(Granter(_.Relay) || me.is(tour.ownerId)) >>|
       roundRepo.coll.distinctEasy[StudyId, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
         studyRepo.membersByIds(ids) map {
-          _.exists(_ contributorIds user.id)
+          _.exists(_ contributorIds me)
         }
       }
 

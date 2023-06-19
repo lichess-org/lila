@@ -8,8 +8,7 @@ import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.relation.Relations
-import lila.user.Holder
-import lila.user.{ User, UserRepo }
+import lila.user.{ Me, User, UserRepo }
 
 final class MsgApi(
     colls: MsgColls,
@@ -29,25 +28,25 @@ final class MsgApi(
   import BsonHandlers.{ *, given }
   import MsgApi.*
 
-  def threadsOf(me: User): Fu[List[MsgThread]] =
+  def myThreads(using me: Me): Fu[List[MsgThread]] =
     colls.thread
-      .find($doc("users" -> me.id, "del" $ne me.id))
+      .find($doc("users" -> me.userId, "del" $ne me.userId))
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
       .list(inboxSize)
-      .flatMap(maybeSortAgain(me, _))
+      .flatMap(maybeSortAgain)
       .map(prioritize)
 
   // maybeSortAgain maintains usable inbox thread ordering for team leaders after PM alls.
-  private def maybeSortAgain(me: User, threads: List[MsgThread]): Fu[List[MsgThread]] =
-    val candidates = threads.filter(_.maskFor.contains(me.id))
+  private def maybeSortAgain(threads: List[MsgThread])(using me: Me): Fu[List[MsgThread]] =
+    val candidates = threads.filter(_.maskFor.contains(me))
     if candidates.isEmpty then
       // we're done
       fuccess(threads)
     else
-      val receivedMultis = threads.filter(_.maskFor.exists(_ != me.id))
+      val receivedMultis = threads.filter(_.maskFor.exists(_ isnt me))
       colls.thread
-        .find($doc("users" -> me.id, "del" $ne me.id))
+        .find($doc("users" -> me.userId, "del" $ne me.userId))
         .sort($sort desc "maskWith.date") // sorting on maskWith.date now
         .cursor[MsgThread]()
         .list(inboxSize)
@@ -61,37 +60,36 @@ final class MsgApi(
       case (Nil, _)                                   => multis
       case (sorted :: sortedTail, multi :: multiTail) =>
         // we're comparing lastMsg.date in multis to maskWith.date in sorteds
-        if (sorted.maskWith.exists(sortMsg => multi.lastMsg.date.isAfter(sortMsg.date)))
-          multi :: merge(sorteds, multiTail)
-        else
-          sorted :: merge(sortedTail, multis)
+        if sorted.maskWith.exists(sortMsg => multi.lastMsg.date.isAfter(sortMsg.date))
+        then multi :: merge(sorteds, multiTail)
+        else sorted :: merge(sortedTail, multis)
 
   private def prioritize(threads: List[MsgThread]) =
-    threads.find(_.isPriority) match
-      case None        => threads
-      case Some(found) => found :: threads.filterNot(_.isPriority)
+    threads
+      .find(_.isPriority)
+      .fold(threads): found =>
+        found :: threads.filterNot(_.isPriority)
 
-  def convoWith(me: User, username: UserStr, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] =
+  def convoWithMe(username: UserStr, beforeMillis: Option[Long] = None)(using me: Me): Fu[Option[MsgConvo]] =
     val userId   = username.id
-    val threadId = MsgThread.id(me.id, userId)
-    val before = beforeMillis flatMap { millis =>
+    val threadId = MsgThread.id(me, userId)
+    val before = beforeMillis.flatMap: millis =>
       Try(millisToInstant(millis)).toOption
-    }
-    (userId != me.id) so lightUserApi.async(userId).flatMapz { contact =>
+    (userId isnt me) so lightUserApi.async(userId).flatMapz { contact =>
       for
         _         <- setReadBy(threadId, me, userId)
         msgs      <- threadMsgsFor(threadId, me, before)
-        relations <- relationApi.fetchRelations(me.id, userId)
-        postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
+        relations <- relationApi.fetchRelations(me, userId)
+        postable  <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
       yield MsgConvo(contact, msgs, relations, postable).some
     }
 
-  def delete(me: User, username: UserStr): Funit =
-    val threadId = MsgThread.id(me.id, username.id)
+  def delete(username: UserStr)(using me: Me): Funit =
+    val threadId = MsgThread.id(me, username.id)
     colls.msg.update
-      .one($doc("tid" -> threadId), $addToSet("del" -> me.id), multi = true) >>
+      .one($doc("tid" -> threadId), $addToSet("del" -> me.userId), multi = true) >>
       colls.thread.update
-        .one($id(threadId), $addToSet("del" -> me.id))
+        .one($id(threadId), $addToSet("del" -> me.userId))
         .void
 
   def post(
@@ -190,20 +188,21 @@ final class MsgApi(
   def systemPost(destId: UserId, text: String) =
     post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
 
-  def multiPost(orig: Holder, destSource: Source[UserId, ?], text: String): Fu[Int] =
+  def multiPost(destSource: Source[UserId, ?], text: String)(using me: Me): Fu[Int] =
     val now = nowInstant // same timestamp on all
     destSource
-      .filter(orig.id !=)
-      .mapAsync(4) {
-        post(orig.id, _, text, multi = true, date = now).logFailure(logger).recoverDefault(PostResult.Invalid)
-      }
+      .filterNot(_ is me)
+      .mapAsync(4):
+        post(me, _, text, multi = true, date = now)
+          .logFailure(logger)
+          .recoverDefault(PostResult.Invalid)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
-    userRepo byId orig flatMap {
-      case None         => fuccess(s"Unknown sender $orig")
-      case Some(sender) => multiPost(Holder(sender), Source(dests), text) inject "done"
+    userRepo me orig flatMap {
+      case None     => fuccess(s"Unknown sender $orig")
+      case Some(me) => multiPost(Source(dests), text)(using me) inject "done"
     }
 
   def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =

@@ -59,6 +59,10 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def has(a: A) = self contains a
 
+    // move to scalalib?
+    def soUse[B: Zero](f: A ?=> B): B      = self.fold(Zero[B].zero)(f(using _))
+    def foldUse[B](zero: B)(f: A ?=> B): B = self.fold(zero)(f(using _))
+
   extension (s: String)
 
     def replaceIf(t: Char, r: Char): String =

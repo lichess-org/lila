@@ -12,7 +12,7 @@ import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
-import lila.user.{ User, Holder, UserRepo }
+import lila.user.{ User, Me, UserRepo }
 import lila.report.SuspectId
 import lila.common.config.Max
 
@@ -41,7 +41,7 @@ final class KaladinApi(
   def get(user: User): Fu[Option[KaladinUser]] =
     coll(_.byId[KaladinUser](user.id))
 
-  def dashboard: Fu[KaladinUser.Dashboard] = for {
+  def dashboard: Fu[KaladinUser.Dashboard] = for
     c <- coll.get
     completed <- c
       .find($doc("response.at" $exists true))
@@ -53,10 +53,10 @@ final class KaladinApi(
       .sort($doc("queuedAt" -> -1))
       .cursor[KaladinUser]()
       .list(30)
-  } yield KaladinUser.Dashboard(completed ::: queued)
+  yield KaladinUser.Dashboard(completed ::: queued)
 
-  def modRequest(user: Suspect, by: Holder) =
-    request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, by.id into ModId)
+  def modRequest(user: Suspect)(using me: Me) =
+    request(user, KaladinUser.Requester.Mod(me)) >>- notification.add(user.id)
 
   def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot so
     sequence(user) { prev =>
@@ -123,7 +123,7 @@ final class KaladinApi(
       userRepo.hasTitle(user.id) flatMap {
         if _ then sendReport
         else
-          modApi.autoMark(user.suspectId, User.kaladinId into ModId, pred.note) >>-
+          modApi.autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id)) >>-
             lila.mon.mod.kaladin.mark.increment().unit
       }
     else if (pred.percent >= thresholds.get().report) sendReport
@@ -133,8 +133,8 @@ final class KaladinApi(
 
     private var subs = Map.empty[SuspectId, Set[ModId]]
 
-    def add(suspectId: SuspectId, modId: ModId): Unit =
-      subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
+    def add(suspectId: SuspectId)(using me: Me): Unit =
+      subs = subs.updated(suspectId, ~subs.get(suspectId) + me.modId)
 
     private[KaladinApi] def apply(user: KaladinUser): Funit =
       subs.get(user.suspectId) so { modIds =>

@@ -4,7 +4,7 @@ package templating
 
 import scalatags.Text.all.Tag
 import controllers.routes
-import lila.api.WebContext
+
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LightTeam.TeamName
 

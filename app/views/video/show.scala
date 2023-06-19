@@ -2,7 +2,6 @@ package views.html.video
 
 import lila.common.String.html.richText
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 

@@ -28,9 +28,7 @@ object ServerEval:
       } so {
         val unlimitedFu =
           fuccess(unlimited) >>|
-            fuccess(userId == User.lichessId) >>| userRepo
-              .byId(userId)
-              .map(_.exists(Granter(_.Relay)))
+            fuccess(userId == User.lichessId) >>| userRepo.me(userId).map(Granter.opt(_.Relay)(using _))
         unlimitedFu flatMap { unlimited =>
           chapterRepo.startServerEval(chapter) >>- {
             fishnet ! StudyChapterRequest(

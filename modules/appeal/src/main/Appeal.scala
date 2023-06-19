@@ -15,10 +15,10 @@ case class Appeal(
     firstUnrepliedAt: Instant
 ):
 
-  inline def userId = id.userId
-  def isRead        = status == Appeal.Status.Read
-  def isMuted       = status == Appeal.Status.Muted
-  def isUnread      = status == Appeal.Status.Unread
+  def userId   = id.userId
+  def isRead   = status == Appeal.Status.Read
+  def isMuted  = status == Appeal.Status.Muted
+  def isUnread = status == Appeal.Status.Unread
 
   def isAbout(userId: UserId) = id is userId
 

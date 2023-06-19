@@ -1,11 +1,11 @@
 package lila.report
 
-import lila.user.{ User, Holder }
+import lila.user.{ User, Me }
 
 case class Mod(user: User) extends AnyVal:
   def id = user.id into ModId
 object Mod:
-  def holder(holder: Holder): Mod = Mod(holder.user)
+  def me(me: Me): Mod = Mod(me.user)
 
 case class Suspect(user: User) extends AnyVal:
   def id                   = SuspectId(user.id)

@@ -5,7 +5,6 @@ import play.api.data.Forms.*
 import play.api.libs.json.*
 import views.html
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 
 final class Learn(env: Env) extends LilaController(env):
@@ -18,12 +17,10 @@ final class Learn(env: Env) extends LilaController(env):
   private def serveIndex(using ctx: WebContext) = NoBot:
     pageHit
     ctx.me
-      .so { me =>
+      .so: me =>
         env.learn.api.get(me) map { Json.toJson(_) } map some
-      }
-      .map { progress =>
+      .map: progress =>
         Ok(html.learn.index(progress))
-      }
 
   private val scoreForm = Form:
     mapping(
@@ -32,7 +29,7 @@ final class Learn(env: Env) extends LilaController(env):
       "score" -> number
     )(Tuple3.apply)(unapply)
 
-  def score = AuthBody { ctx ?=> me =>
+  def score = AuthBody { ctx ?=> me ?=>
     scoreForm
       .bindFromRequest()
       .fold(
@@ -40,10 +37,10 @@ final class Learn(env: Env) extends LilaController(env):
         (stage, level, s) =>
           val score = lila.learn.StageProgress.Score(s)
           env.learn.api.setScore(me, stage, level, score) >>
-            env.activity.write.learn(me.id, stage) inject Ok(Json.obj("ok" -> true))
+            env.activity.write.learn(me, stage) inject Ok(Json.obj("ok" -> true))
       )
   }
 
-  def reset = AuthBody { _ ?=> me =>
+  def reset = AuthBody { _ ?=> me ?=>
     env.learn.api.reset(me) inject Ok(Json.obj("ok" -> true))
   }

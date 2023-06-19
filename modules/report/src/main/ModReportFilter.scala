@@ -1,13 +1,13 @@
 package lila.report
 
-import lila.user.Holder
+import lila.user.Me
 
 final class ModReportFilter:
 
   // mutable storage, because I cba to put it in DB
-  private var modIdFilter = Map.empty[UserId, Option[Room]]
+  private var modIdFilter = Map.empty[Me.Id, Option[Room]]
 
-  def get(mod: Holder): Option[Room] = modIdFilter.get(mod.id).flatten
+  def get(mod: Me): Option[Room] = modIdFilter.get(mod).flatten
 
-  def set(mod: Holder, filter: Option[Room]) =
-    modIdFilter = modIdFilter + (mod.id -> filter)
+  def set(mod: Me, filter: Option[Room]) =
+    modIdFilter = modIdFilter + (mod.meId -> filter)

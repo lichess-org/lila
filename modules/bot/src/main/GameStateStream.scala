@@ -35,9 +35,10 @@ final class GameStateStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(init: Game.WithInitialFen, as: chess.Color, u: lila.user.User)(using
+  def apply(init: Game.WithInitialFen, as: chess.Color)(using
       lang: Lang,
-      req: RequestHeader
+      req: RequestHeader,
+      me: lila.user.Me
   ): Source[Option[JsObject], ?] =
 
     // terminate previous one if any
@@ -45,7 +46,7 @@ final class GameStateStream(
 
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
-        Props(mkActor(init, as, User(u.id, u.isBot), queue)),
+        Props(mkActor(init, as, User(me, me.isBot), queue)),
         name = s"GameStateStream:${init.game.id}:${ThreadLocalRandom nextString 8}"
       )
       queue.watchCompletion().addEffectAnyway {

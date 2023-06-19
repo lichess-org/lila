@@ -42,7 +42,7 @@ final private class PovToEntry(
   private def enrich(game: Game, userId: UserId, provisional: Boolean): Fu[Option[RichPov]] =
     if (removeWrongAnalysis(game)) fuccess(none)
     else
-      lila.game.Pov.ofUserId(game, userId) so { pov =>
+      lila.game.Pov(game, userId) so { pov =>
         gameRepo.initialFen(game) zip
           (game.metadata.analysed so analysisRepo.byId(game.id into Analysis.Id)) map { (fen, an) =>
             chess.Replay

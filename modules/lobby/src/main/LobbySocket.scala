@@ -12,6 +12,7 @@ import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
 import lila.round.ChangeFeatured
 import lila.common.Json.given
+import lila.user.Me
 
 case class LobbyCounters(members: Int, rounds: Int)
 
@@ -192,7 +193,6 @@ final class LobbySocket(
             poolApi.join(
               PoolConfig.Id(id),
               PoolApi.Joiner(
-                userId = user.id,
                 sri = member.sri,
                 rating = glicko.establishedIntRating | IntRating(
                   lila.common.Maths.boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
@@ -200,37 +200,35 @@ final class LobbySocket(
                 ratingRange = ratingRange,
                 lame = user.lame,
                 blocking = user.blocking.map(_ ++ blocking)
-              )
+              )(using user.id.into(Me.Id))
             )
           }
       }
     // leaving a pool
     case ("poolOut", o) =>
-      HookPoolLimit(member, cost = 1, msg = s"poolOut $o") {
-        for {
+      HookPoolLimit(member, cost = 1, msg = s"poolOut $o"):
+        for
           id   <- o str "d"
           user <- member.user
-        } poolApi.leave(PoolConfig.Id(id), user.id)
-      }
+        do poolApi.leave(PoolConfig.Id(id), user.id)
     // entering the hooks view
     case ("hookIn", _) =>
-      HookPoolLimit(member, cost = 2, msg = "hookIn") {
+      HookPoolLimit(member, cost = 2, msg = "hookIn"):
         lobby ! HookSub(member, value = true)
-      }
     // leaving the hooks view
     case ("hookOut", _) => actor ! HookSub(member, value = false)
 
   private def getOrConnect(sri: Sri, userOpt: Option[UserId]): Fu[Member] =
     actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
       userOpt so userRepo.enabledById flatMap { user =>
-        (user so { u =>
-          remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
-          relationApi.fetchBlocking(u.id)
-        }) map { blocks =>
-          val member = Member(sri, user map { LobbyUser.make(_, lila.pool.Blocking(blocks)) })
-          actor ! Join(member)
-          member
-        }
+        user
+          .so: u =>
+            remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
+            relationApi.fetchBlocking(u.id)
+          .map: blocks =>
+            val member = Member(sri, user map { LobbyUser.make(_, lila.pool.Blocking(blocks)) })
+            actor ! Join(member)
+            member
       }
     }
 

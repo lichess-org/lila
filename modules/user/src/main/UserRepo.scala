@@ -49,6 +49,9 @@ final class UserRepo(val coll: Coll)(using Executor):
         Left(LightUser.ghost).some
       }
 
+  def me[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Me]] =
+    enabledById(u).dmap(Me.from(_))
+
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(
       email: NormalizedEmailAddress,
@@ -76,9 +79,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       } yield xx -> yy
     }
 
-  def lichessAnd(id: UserId) = pair(User.lichessId, id) map2 { case (lichess, user) =>
-    Holder(lichess) -> user
-  }
+  def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(User.lichessId, id)
 
   def byOrderedIds(ids: Seq[UserId], readPreference: ReadPreference): Fu[List[User]] =
     coll.byOrderedIds[User, UserId](ids, readPreference = readPreference)(_.id)

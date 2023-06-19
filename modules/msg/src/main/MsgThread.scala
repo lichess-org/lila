@@ -1,6 +1,6 @@
 package lila.msg
 
-import lila.user.User
+import lila.user.{ Me, User }
 import lila.common.LightUser
 
 case class MsgThread(
@@ -16,7 +16,7 @@ case class MsgThread(
   def users = List(user1, user2)
 
   def other(userId: UserId): UserId  = if (user1 == userId) user2 else user1
-  def other(user: User): UserId      = other(user.id)
+  def other(using me: Me): UserId    = other(me.userId)
   def other(user: LightUser): UserId = other(user.id)
 
   def delBy(userId: UserId) = del.exists(_ contains userId)

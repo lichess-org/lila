@@ -3,7 +3,6 @@ package views.html.opening
 import chess.opening.Opening
 import controllers.routes
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningPage, OpeningWiki }

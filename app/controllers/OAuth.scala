@@ -9,7 +9,6 @@ import scalatags.Text.all.stringFrag
 import views.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress, Bearer }
 import lila.common.Json.given
@@ -48,7 +47,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
 
-  def authorizeApply = Auth { _ ?=> me =>
+  def authorizeApply = Auth { _ ?=> me ?=>
     withPrompt: prompt =>
       prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
         case Validated.Valid(authorized) =>
@@ -112,7 +111,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         }
       case Validated.Invalid(err) => BadRequest(err.toJson)
 
-  def tokenRevoke = Scoped() { ctx ?=> _ =>
+  def tokenRevoke = Scoped() { ctx ?=> _ ?=>
     HTTPRequest.bearer(ctx.req) so { token =>
       env.oAuth.tokenApi.revoke(token) inject NoContent
     }
@@ -120,7 +119,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   private val revokeClientForm = Form(single("origin" -> text))
 
-  def revokeClient = AuthBody { ctx ?=> me =>
+  def revokeClient = AuthBody { ctx ?=> me ?=>
     revokeClientForm
       .bindFromRequest()
       .fold(
@@ -129,8 +128,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def challengeTokens = ScopedBody(_.Web.Mod) { ctx ?=> me =>
-    if isGranted(_.ApiChallengeAdmin, me) then
+  def challengeTokens = ScopedBody(_.Web.Mod) { ctx ?=> me ?=>
+    if isGranted(_.ApiChallengeAdmin) then
       lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()
         .fold(

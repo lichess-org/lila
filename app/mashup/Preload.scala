@@ -4,7 +4,6 @@ package mashup
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 
-import lila.api.WebContext
 import lila.event.Event
 import lila.game.{ Game, Pov }
 import lila.playban.TempBan
@@ -15,7 +14,7 @@ import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.ublog.UblogPost
 import lila.user.LightUserApi
-import lila.user.User
+import lila.user.{ User, Me }
 
 final class Preload(
     tv: lila.tv.Tv,
@@ -45,6 +44,7 @@ final class Preload(
       simuls: Fu[List[Simul]],
       streamerSpots: Int
   )(using ctx: WebContext): Fu[Homepage] =
+    given Option[Me] = ctx.me
     lobbyApi.apply.mon(_.lobby segment "lobbyApi") zip
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip
@@ -67,11 +67,11 @@ final class Preload(
         // format: off
         case ((((((((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
         // format: on
-          (ctx.me so currentGameMyTurn(povs, lightUserApi.sync))
+          (ctx.me soUse currentGameMyTurn(povs, lightUserApi.sync))
             .mon(_.lobby segment "currentGame") zip
             lightUserApi
               .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
-              .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
+              .mon(_.lobby segment "lightUsers") map { (currentGame, _) =>
               Homepage(
                 data,
                 entries,
@@ -96,19 +96,19 @@ final class Preload(
             }
       }
 
-  def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
-    gameRepo.playingRealtimeNoAi(user).flatMap {
-      _.map { roundProxy.pov(_, user) }.parallel.dmap(_.flatten)
+  def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
+    gameRepo.playingRealtimeNoAi(me).flatMap {
+      _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
     } flatMap {
-      currentGameMyTurn(_, lightUserApi.sync)(user)
+      currentGameMyTurn(_, lightUserApi.sync)
     }
 
-  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(
-      user: User
+  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(using
+      me: Me
   ): Fu[Option[CurrentGame]] =
     ~povs.collectFirst {
       case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
-        roundProxy.pov(p1.gameId, user) dmap (_ | p1) map { pov =>
+        roundProxy.pov(p1.gameId, me) dmap (_ | p1) map { pov =>
           val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(using lightUser)
           CurrentGame(pov = pov, opponent = opponent).some
         }

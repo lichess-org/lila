@@ -10,7 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov, Source }
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.NoteApi
-import lila.user.{ UserRepo }
+import lila.user.{ Me, UserRepo }
 
 final class PlaybanApi(
     coll: Coll,
@@ -146,44 +146,42 @@ final class PlaybanApi(
   // memorize users without any ban to save DB reads
   private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
 
-  def currentBan(userId: UserId): Fu[Option[TempBan]] =
-    !cleanUserIds.get(userId) so {
+  def currentBan[U: UserIdOf](user: U): Fu[Option[TempBan]] =
+    !cleanUserIds.get(user.id) so {
       coll
         .find(
-          $doc("_id" -> userId, "b.0" $exists true),
+          $doc("_id" -> user.id, "b.0" $exists true),
           $doc("_id" -> false, "b" -> $doc("$slice" -> -1)).some
         )
         .one[Bdoc]
-        .dmap {
+        .dmap:
           _.flatMap(_.getAsOpt[List[TempBan]]("b")).so(_.find(_.inEffect))
-        } addEffect { ban =>
-        if (ban.isEmpty) cleanUserIds put userId
-      }
+        .addEffect: ban =>
+          if ban.isEmpty then cleanUserIds put user.id
     }
 
-  def hasCurrentBan(userId: UserId): Fu[Boolean] = currentBan(userId).map(_.isDefined)
+  def hasCurrentBan[U: UserIdOf](u: U): Fu[Boolean] = currentBan(u).map(_.isDefined)
 
-  def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] =
-    coll.aggregateList(Int.MaxValue, temporarilyPrimary) { framework =>
+  def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] = coll
+    .aggregateList(Int.MaxValue, temporarilyPrimary): framework =>
       import framework.*
       Match($inIds(userIds) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))
       )
-    } map {
-      _.flatMap { obj =>
+    .map:
+      _.flatMap: obj =>
         obj.getAsOpt[UserId]("_id") flatMap { id =>
           obj.getAsOpt[Int]("bans") map { id -> _ }
         }
-      }.toMap
-    }
+      .toMap
 
-  def bans(userId: UserId): Fu[Int] =
-    coll.aggregateOne(ReadPreference.secondaryPreferred) { framework =>
+  def bans(userId: UserId): Fu[Int] = coll
+    .aggregateOne(ReadPreference.secondaryPreferred): framework =>
       import framework.*
       Match($id(userId) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))
       )
-    } map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
+    .map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
 
   def getRageSit(userId: UserId) = rageSitCache get userId
 

@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 import views.html
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.{ Id as ChallengeId }
@@ -14,7 +13,7 @@ import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ OAuthScope, EndpointScopes }
 import lila.setup.ApiConfig
 import lila.socket.SocketVersion
-import lila.user.{ User as UserModel }
+import lila.user.{ Me, User as UserModel }
 
 final class Challenge(
     env: Env,
@@ -23,13 +22,13 @@ final class Challenge(
 
   def api = env.challenge.api
 
-  def all = Auth { ctx ?=> me =>
+  def all = Auth { ctx ?=> me ?=>
     XhrOrRedirectHome:
-      api allFor me.id map env.challenge.jsonView.apply map JsonOk
+      api allFor me map env.challenge.jsonView.apply map JsonOk
   }
 
-  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me =>
-    api.allFor(me.id, 300) map { all =>
+  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me ?=>
+    api.allFor(me, 300).map { all =>
       JsonOk:
         Json.obj(
           "in"  -> all.in.map(env.challenge.jsonView.apply(lila.challenge.Direction.In.some)),
@@ -53,8 +52,8 @@ final class Challenge(
       val mine = justCreated || isMine(c)
       import lila.challenge.Direction
       val direction: Option[Direction] =
-        if (mine) Direction.Out.some
-        else if (isForMe(c, ctx.me)) Direction.In.some
+        if mine then Direction.Out.some
+        else if isForMe(c) then Direction.In.some
         else none
       val json = env.challenge.jsonView.show(c, version, direction)
       negotiate(
@@ -79,15 +78,15 @@ final class Challenge(
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
       case lila.challenge.Challenge.Challenger.Open                  => false
 
-  private def isForMe(challenge: ChallengeModel, me: Option[UserModel]) =
+  private def isForMe(challenge: ChallengeModel)(using me: Option[Me]) =
     challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
       !challenge.challengerUserId.so(orig => me.exists(_ is orig))
 
   def accept(id: ChallengeId, color: Option[String]) = Open:
     OptionFuResult(api byId id): c =>
       val cc = color flatMap chess.Color.fromName
-      isForMe(c, ctx.me) so api
-        .accept(c, ctx.me, ctx.req.sid, cc)
+      isForMe(c) so api
+        .accept(c, ctx.req.sid, cc)
         .flatMap {
           case Validated.Valid(Some(pov)) =>
             negotiate(
@@ -106,18 +105,18 @@ final class Challenge(
         }
 
   def apiAccept(id: ChallengeId) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me =>
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me ?=>
       def tryRematch =
-        env.bot.player.rematchAccept(id into GameId, me) flatMap {
+        env.bot.player.rematchAccept(id into GameId) flatMap {
           if _ then jsonOkResult
           else notFoundJson()
         }
       api.byId(id) flatMap {
-        _.filter(isForMe(_, me.some)) match
+        _.filter(isForMe) match
           case None                  => tryRematch
           case Some(c) if c.accepted => tryRematch
           case Some(c) =>
-            api.accept(c, me.some, none) map {
+            api.accept(c, none) map {
               _.fold(err => BadRequest(jsonError(err)), _ => jsonOkResult)
             }
       }
@@ -138,24 +137,23 @@ final class Challenge(
         }
       }
     } map { cookieOption =>
-      cookieOption.fold(res) { res.withCookies(_) }
+      cookieOption.foldLeft(res)(_ withCookies _)
     }
 
-  def decline(id: ChallengeId) = AuthBody { ctx ?=> _ =>
-    OptionFuResult(api byId id) { c =>
-      isForMe(c, ctx.me) so
+  def decline(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
+    OptionFuResult(api byId id): c =>
+      isForMe(c) so
         api.decline(
           c,
           env.challenge.forms.decline
             .bindFromRequest()
             .fold(_ => ChallengeModel.DeclineReason.default, _.realReason)
         )
-    }
   }
-  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
+  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
     api.activeByIdFor(id, me) flatMap {
       case None =>
-        env.bot.player.rematchDecline(id into GameId, me) flatMap {
+        env.bot.player.rematchDecline(id into GameId) flatMap {
           if _ then jsonOkResult
           else notFoundJson()
         }
@@ -174,7 +172,7 @@ final class Challenge(
       OptionFuResult(api byId id): c =>
         if isMine(c) then api cancel c else notFound
 
-  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
+  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
     api.activeByIdBy(id, me) flatMap {
       case Some(c) => api.cancel(c) inject jsonOkResult
       case None =>
@@ -185,7 +183,7 @@ final class Challenge(
             import lila.hub.actorApi.round.Abort
             import lila.round.actorApi.round.AbortForce
             env.game.gameRepo game id.into(GameId) dmap {
-              _ flatMap { Pov.ofUserId(_, me.id) }
+              _ flatMap { Pov(_, me) }
             } flatMapz { p =>
               env.round.proxyRepo.upgradeIfPresent(p) dmap some
             } flatMap {
@@ -252,7 +250,7 @@ final class Challenge(
     ("slow", 40 * 5, 1.day)
   )
 
-  def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ =>
+  def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     import play.api.data.*
     import play.api.data.Forms.*
     OptionFuResult(api byId id): c =>
@@ -278,9 +276,8 @@ final class Challenge(
   }
 
   def apiCreate(username: UserStr) =
-    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me =>
-      !me.is(username) so env.setup.forms.api
-        .user(me)
+    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
+      !me.is(username) so env.setup.forms.api.user
         .bindFromRequest()
         .fold(
           newJsonFormError,
@@ -291,7 +288,7 @@ final class Challenge(
                 case Some(destUser) =>
                   val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
                   BotChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isBot then 1 else 0):
-                    ChallengeUserRateLimit(me.id, rateLimitedFu, cost = cost):
+                    ChallengeUserRateLimit(me, rateLimitedFu, cost = cost):
                       val challenge = makeOauthChallenge(config, me, destUser)
                       config.acceptByToken match
                         case Some(strToken) =>
@@ -346,17 +343,19 @@ final class Challenge(
         _.fold(
           err => BadRequest(jsonError(err.message)),
           scoped =>
-            if (scoped.user is dest) env.challenge.api.oauthAccept(dest, challenge) flatMap {
-              case Validated.Valid(g) =>
-                env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok:
-                  Json.obj:
-                    "game" -> {
-                      env.game.jsonView.baseWithChessDenorm(g, challenge.initialFen) ++ Json.obj(
-                        "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
-                      )
-                    }
-              case Validated.Invalid(err) => BadRequest(jsonError(err))
-            }
+            if scoped.me is dest
+            then
+              env.challenge.api.oauthAccept(dest, challenge) flatMap {
+                case Validated.Valid(g) =>
+                  env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok:
+                    Json.obj:
+                      "game" -> {
+                        env.game.jsonView.baseWithChessDenorm(g, challenge.initialFen) ++ Json.obj(
+                          "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
+                        )
+                      }
+                case Validated.Invalid(err) => BadRequest(jsonError(err))
+              }
             else BadRequest(jsonError("dest and accept user don't match"))
         )
 
@@ -369,7 +368,7 @@ final class Challenge(
           ChallengeIpRateLimit(req.ipAddress, rateLimitedFu):
             import lila.challenge.Challenge.*
             env.challenge.api
-              .createOpen(config, ctx.me)
+              .createOpen(config)
               .map: challenge =>
                 JsonOk:
                   env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
@@ -379,10 +378,10 @@ final class Challenge(
           .dmap(_ as JSON)
       )
 
-  def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me =>
+  def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me ?=>
     NoBot:
       OptionFuResult(env.game.gameRepo game gameId): g =>
-        Pov.opponentOfUserId(g, me.id).flatMap(_.userId) so env.user.repo.byId flatMapz { opponent =>
+        Pov.opponentOf(g, me).flatMap(_.userId) so env.user.repo.byId flatMapz { opponent =>
           env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d))
             case _ =>

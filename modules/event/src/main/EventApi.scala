@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.user.User
+import lila.user.Me
 
 final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -12,12 +12,14 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
   def promoteTo(req: RequestHeader): Fu[List[Event]] =
     promotable.getUnit map {
-      _.filter { event =>
+      _.filter: event =>
         event.lang.language == lila.i18n.enLang.language ||
-        lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
-          _.language == event.lang.language
-        }
-      }.take(3)
+          lila.i18n.I18nLangPicker
+            .allFromRequestHeaders(req)
+            .exists {
+              _.language == event.lang.language
+            }
+      .take(3)
     }
 
   private val promotable = cacheApi.unit[List[Event]] {
@@ -51,13 +53,13 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       EventForm.Data make event
     }
 
-  def update(old: Event, data: EventForm.Data, by: User): Fu[Int] =
-    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).dmap(_.n)
+  def update(old: Event, data: EventForm.Data)(using Me): Fu[Int] =
+    (coll.update.one($id(old.id), data.update(old)) >>- promotable.invalidateUnit()).dmap(_.n)
 
   def createForm = EventForm.form
 
-  def create(data: EventForm.Data, userId: UserId): Fu[Event] =
-    val event = data make userId
+  def create(data: EventForm.Data)(using me: Me.Id): Fu[Event] =
+    val event = data.make
     coll.insert.one(event) >>- promotable.invalidateUnit() inject event
 
   def clone(old: Event) =

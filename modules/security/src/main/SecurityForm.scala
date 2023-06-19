@@ -9,7 +9,7 @@ import play.api.mvc.RequestHeader
 import lila.common.{ EmailAddress, Form as LilaForm, LameName }
 import lila.common.Form.*
 import lila.user.User.{ ClearPassword, TotpToken }
-import lila.user.{ TotpSecret, User, UserRepo }
+import lila.user.{ TotpSecret, User, UserRepo, Me }
 
 final class SecurityForm(
     userRepo: UserRepo,
@@ -23,8 +23,8 @@ final class SecurityForm(
 
   private val newPasswordField =
     text(minLength = 4, maxLength = 999).verifying(PasswordCheck.newConstraint)
-  private def newPasswordFieldFor(user: User) =
-    newPasswordField.verifying(PasswordCheck.sameConstraint(user.username into UserStr))
+  private def newPasswordFieldForMe(using me: Me) =
+    newPasswordField.verifying(PasswordCheck.sameConstraint(me.username into UserStr))
 
   private val anyEmail: Mapping[EmailAddress] =
     LilaForm
@@ -34,9 +34,9 @@ final class SecurityForm(
 
   private val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)
 
-  private def fullyValidEmail(forUser: Option[User]) = sendableEmail
+  private def fullyValidEmail(using me: Option[Me]) = sendableEmail
     .verifying(emailValidator.withAcceptableDns)
-    .verifying(emailValidator.uniqueConstraint(forUser))
+    .verifying(emailValidator.uniqueConstraint(me))
 
   private val preloadEmailDnsForm = Form(single("email" -> sendableEmail))
 
@@ -47,7 +47,7 @@ final class SecurityForm(
 
   object signup:
 
-    val emailField = fullyValidEmail(none)
+    val emailField = fullyValidEmail(using none)
 
     val username = LilaForm.cleanNonEmptyText
       .verifying(
@@ -119,10 +119,10 @@ final class SecurityForm(
   case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String):
     def samePasswords = newPasswd1 == newPasswd2
 
-  def passwdResetFor(user: User) = Form(
+  def passwdResetForMe(using me: Me) = Form(
     mapping(
-      "newPasswd1" -> newPasswordFieldFor(user),
-      "newPasswd2" -> newPasswordFieldFor(user)
+      "newPasswd1" -> newPasswordFieldForMe,
+      "newPasswd2" -> newPasswordFieldForMe
     )(PasswordResetConfirm.apply)(unapply)
       .verifying("newPasswordsDontMatch", _.samePasswords)
   )
@@ -134,16 +134,15 @@ final class SecurityForm(
   ):
     def samePasswords = newPasswd1 == newPasswd2
 
-  def passwdChange(user: User)(using Executor) =
-    authenticator loginCandidate user map { candidate =>
-      Form(
+  def passwdChange(using Executor)(using me: Me) =
+    authenticator loginCandidate me.user map { candidate =>
+      Form:
         mapping(
           "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
-          "newPasswd1" -> newPasswordFieldFor(user),
-          "newPasswd2" -> newPasswordFieldFor(user)
+          "newPasswd1" -> newPasswordFieldForMe,
+          "newPasswd2" -> newPasswordFieldForMe
         )(Passwd.apply)(unapply)
           .verifying("newPasswordsDontMatch", _.samePasswords)
-      )
     }
 
   def magicLink(using req: RequestHeader) = hcaptcha.form(
@@ -154,12 +153,12 @@ final class SecurityForm(
     )
   )
 
-  def changeEmail(u: User, old: Option[EmailAddress]) =
-    authenticator loginCandidate u map { candidate =>
+  def changeEmail(old: Option[EmailAddress])(using me: Me) =
+    authenticator loginCandidate me map { candidate =>
       Form(
         mapping(
           "passwd" -> passwordMapping(candidate),
-          "email"  -> fullyValidEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+          "email"  -> fullyValidEmail.verifying(emailValidator differentConstraint old)
         )(ChangeEmail.apply)(unapply)
       ).fillOption(old.map { ChangeEmail("", _) })
     }
@@ -196,21 +195,21 @@ final class SecurityForm(
 
   def fixEmail(old: EmailAddress) =
     Form(
-      single("email" -> fullyValidEmail(none).verifying(emailValidator differentConstraint old.some))
+      single("email" -> fullyValidEmail(using none).verifying(emailValidator differentConstraint old.some))
     ).fill(old)
 
   def modEmail(user: User) = Form(
     single("email" -> anyEmail.verifying(emailValidator uniqueConstraint user.some))
   )
 
-  private def passwordProtected(u: User) =
-    authenticator loginCandidate u map { candidate =>
+  private def passwordProtected(using me: Me) =
+    authenticator loginCandidate me.user map { candidate =>
       Form(single("passwd" -> passwordMapping(candidate)))
     }
 
-  def closeAccount = passwordProtected
+  def closeAccount(using Me) = passwordProtected
 
-  def toggleKid = passwordProtected
+  def toggleKid(using Me) = passwordProtected
 
   def reopen(using RequestHeader) = hcaptcha.form(
     Form(

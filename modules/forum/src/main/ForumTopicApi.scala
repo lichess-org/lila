@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.memo.CacheApi
 import lila.security.{ Granter as MasterGranter }
-import lila.user.{ Holder, User }
+import lila.user.{ Me, User }
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,
@@ -31,56 +31,54 @@ final private class ForumTopicApi(
   def show(
       categId: ForumCategId,
       slug: String,
-      page: Int,
-      forUser: Option[User]
-  )(using lila.common.config.NetDomain): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
-    for {
+      page: Int
+  )(using
+      lila.common.config.NetDomain
+  )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
+    for
       data <- categRepo byId categId flatMapz { categ =>
-        topicRepo.forUser(forUser).byTree(categId, slug) dmap {
+        topicRepo.forUser(me).byTree(categId, slug) dmap {
           _ map (categ -> _)
         }
       }
-      res <- data so { case (categ, topic) =>
+      res <- data so { (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
+        paginator.topicPosts(topic, page) map { (categ, topic, _).some }
       }
-    } yield res
+    yield res
 
   object findDuplicate:
     private val cache =
-      cacheApi.notLoadingSync[(UserId, String), ForumTopicId](64, "forum.topic.duplicate") {
+      cacheApi.notLoadingSync[(UserId, String), ForumTopicId](64, "forum.topic.duplicate"):
         _.expireAfterWrite(1 hour).build()
-      }
-    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId so { uid =>
+    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId.so: uid =>
       val key = (uid, topic.name)
       cache.getIfPresent(key) so { topicRepo.coll.byId[ForumTopic](_) } orElse {
         cache.put(key, topic.id)
         fuccess(none)
       }
-    }
 
   def makeTopic(
       categ: ForumCateg,
-      data: ForumForm.TopicData,
-      me: User
-  ): Fu[ForumTopic] =
-    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
+      data: ForumForm.TopicData
+  )(using me: Me): Fu[ForumTopic] =
+    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { (slug, lang) =>
       val topic = ForumTopic.make(
         categId = categ.slug,
         slug = slug,
         name = noShouting(data.name),
-        userId = me.id,
+        userId = me,
         troll = me.marks.troll
       )
       val post = ForumPost.make(
         topicId = topic.id,
-        userId = me.id.some,
+        userId = me.some,
         troll = me.marks.troll,
         text = spam.replace(data.post.text),
         lang = lang map (_.language),
         number = 1,
         categId = categ.id,
-        modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+        modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)).option(true)
       )
       findDuplicate(topic) flatMap {
         case Some(dup) => fuccess(dup)
@@ -89,15 +87,15 @@ final private class ForumTopicApi(
             topicRepo.coll.insert.one(topic withPost post) >>
             categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
               !categ.quiet so (indexer ! InsertPost(post))
-              promotion.save(me, post.text)
+              promotion.save(post.text)
               shutup ! {
                 val text = s"${topic.name} ${post.text}"
-                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
+                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, text)
               }
               if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id))
-                  .toFollowersOf(me.id)
+                timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toFollowersOf(me)
                   .withTeam(categ.team)
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
@@ -170,37 +168,36 @@ final private class ForumTopicApi(
       }.parallel
     }
 
-  def toggleClose(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
+  def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.close(topic.id, topic.open) >> {
-      (MasterGranter.is(_.ModerateForum)(mod) || topic.isAuthor(mod.user)) so {
-        modLog.toggleCloseTopic(mod.id into ModId, categ.id, topic.slug, topic.open)
+      (MasterGranter(_.ModerateForum) || topic.isAuthor(me.user)) so {
+        modLog.toggleCloseTopic(categ.id, topic.slug, topic.open)
       }
     }
 
-  def toggleSticky(categ: ForumCateg, topic: ForumTopic, mod: Holder): Funit =
+  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.sticky(topic.id, !topic.isSticky) >> {
-      MasterGranter.is(_.ModerateForum)(mod) so
-        modLog.toggleStickyTopic(mod.id into ModId, categ.id, topic.slug, !topic.isSticky)
+      MasterGranter(_.ModerateForum) so
+        modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky)
     }
 
-  def denormalize(topic: ForumTopic): Funit =
-    for {
-      nbPosts       <- postRepo countByTopic topic
-      lastPost      <- postRepo lastByTopic topic
-      nbPostsTroll  <- postRepo.unsafe countByTopic topic
-      lastPostTroll <- postRepo.unsafe lastByTopic topic
-      _ <-
-        topicRepo.coll.update
-          .one(
-            $id(topic.id),
-            topic.copy(
-              nbPosts = nbPosts,
-              lastPostId = lastPost.fold(topic.lastPostId)(_.id),
-              updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
-              nbPostsTroll = nbPostsTroll,
-              lastPostIdTroll = lastPostTroll.fold(topic.lastPostIdTroll)(_.id),
-              updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
-            )
+  def denormalize(topic: ForumTopic): Funit = for
+    nbPosts       <- postRepo countByTopic topic
+    lastPost      <- postRepo lastByTopic topic
+    nbPostsTroll  <- postRepo.unsafe countByTopic topic
+    lastPostTroll <- postRepo.unsafe lastByTopic topic
+    _ <-
+      topicRepo.coll.update
+        .one(
+          $id(topic.id),
+          topic.copy(
+            nbPosts = nbPosts,
+            lastPostId = lastPost.fold(topic.lastPostId)(_.id),
+            updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
+            nbPostsTroll = nbPostsTroll,
+            lastPostIdTroll = lastPostTroll.fold(topic.lastPostIdTroll)(_.id),
+            updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
           )
-          .void
-    } yield ()
+        )
+        .void
+  yield ()

@@ -10,7 +10,7 @@ import lila.security.{ Flood, Granter }
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi.*
-import lila.user.{ Holder, User, UserRepo }
+import lila.user.{ Me, User, UserRepo }
 
 final class ChatApi(
     coll: Coll,
@@ -37,14 +37,14 @@ final class ChatApi(
 
       def invalidate = cache.invalidate
 
-      def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] =
+      def findMine(chatId: ChatId)(using me: Option[Me]): Fu[UserChat.Mine] =
         me match
-          case Some(user) => findMine(chatId, user)
-          case None       => cache.get(chatId) dmap { UserChat.Mine(_, timeout = false) }
+          case Some(me) => findMine(chatId)(using me)
+          case None     => cache.get(chatId) dmap { UserChat.Mine(_, timeout = false) }
 
-      private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] =
+      private def findMine(chatId: ChatId)(using me: Me): Fu[UserChat.Mine] =
         cache get chatId flatMap { chat =>
-          (!chat.isEmpty so chatTimeout.isActive(chatId, me.id)) dmap {
+          (!chat.isEmpty so chatTimeout.isActive(chatId, me)) dmap {
             UserChat.Mine(chat forUser me.some, _)
           }
         }
@@ -58,18 +58,18 @@ final class ChatApi(
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
       coll.byStringIds[UserChat](ChatId raw chatIds, ReadPreference.secondaryPreferred)
 
-    def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, cond = true)
+    def findMine(chatId: ChatId)(using Option[Me]): Fu[UserChat.Mine] = findMineIf(chatId, cond = true)
 
-    def findMineIf(chatId: ChatId, me: Option[User], cond: Boolean): Fu[UserChat.Mine] =
+    def findMineIf(chatId: ChatId, cond: Boolean)(using me: Option[Me]): Fu[UserChat.Mine] =
       me match
-        case Some(user) if cond => findMine(chatId, user)
-        case Some(user)   => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, timeout = false))
+        case Some(me) if cond => findMine(chatId)(using me)
+        case Some(me)     => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser me.some, timeout = false))
         case None if cond => find(chatId) dmap { UserChat.Mine(_, timeout = false) }
         case None         => fuccess(UserChat.Mine(Chat.makeUser(chatId), timeout = false))
 
-    private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] =
+    private def findMine(chatId: ChatId)(using me: Me): Fu[UserChat.Mine] =
       find(chatId) flatMap { chat =>
-        (!chat.isEmpty so chatTimeout.isActive(chatId, me.id)) dmap {
+        (!chat.isEmpty so chatTimeout.isActive(chatId, me)) dmap {
           UserChat.Mine(chat forUser me.some, _)
         }
       }
@@ -141,27 +141,24 @@ final class ChatApi(
 
     def timeout(
         chatId: ChatId,
-        modId: UserId,
         userId: UserId,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    ): Funit =
-      coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case ((Some(chat), Some(mod)), Some(user))
-            if isMod(mod) || (busChan(BusChan) == BusChan.Study && isRelayMod(
-              mod
-            )) || scope == ChatTimeout.Scope.Local =>
-          doTimeout(chat, mod, user, reason, scope, text, busChan)
+    )(using mod: Me.Id): Funit =
+      coll.byId[UserChat](chatId.value) zip userRepo.me(mod) zip userRepo.byId(userId) flatMap {
+        case ((Some(chat), Some(me)), Some(user))
+            if isMod(me) || (busChan(BusChan) == BusChan.Study && isRelayMod(me)) ||
+              scope == ChatTimeout.Scope.Local =>
+          doTimeout(chat, me, user, reason, scope, text, busChan)
         case _ => funit
       }
 
-    def publicTimeout(data: ChatTimeout.TimeoutFormData, me: Holder): Funit =
+    def publicTimeout(data: ChatTimeout.TimeoutFormData)(using Me): Funit =
       ChatTimeout.Reason(data.reason) so { reason =>
         timeout(
           chatId = data.roomId into ChatId,
-          modId = me.id,
           userId = data.userId.id,
           reason = reason,
           scope = ChatTimeout.Scope.Global,
@@ -182,7 +179,7 @@ final class ChatApi(
 
     private def doTimeout(
         c: UserChat,
-        mod: User,
+        mod: Me,
         user: User,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
@@ -212,7 +209,7 @@ final class ChatApi(
           if (isMod(mod) || isRelayMod(mod))
             lila.common.Bus.publish(
               lila.hub.actorApi.mod.ChatTimeout(
-                mod = mod.id,
+                mod = mod.user.id,
                 user = user.id,
                 reason = reason.key,
                 text = text
@@ -236,20 +233,19 @@ final class ChatApi(
         }
       } inject change
 
-    private def isMod(user: User)      = Granter(_.ChatTimeout)(user)
-    private def isRelayMod(user: User) = Granter(_.BroadcastTimeout)(user)
+    private def isMod(me: Me)      = Granter(_.ChatTimeout)(using me)
+    private def isRelayMod(me: Me) = Granter(_.BroadcastTimeout)(using me)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
-      list.foreach { r =>
+      list.foreach: r =>
         Bus.publish(OnReinstate(r.chat, r.user), BusChan.Global.chan)
-      }
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled =>
           Writer.preprocessUserInput(t1, user.username.some) flatMap { t2 =>
             val allow =
-              if (user.isBot) !lila.common.String.hasLinks(t2)
+              if user.isBot then !lila.common.String.hasLinks(t2)
               else flood.allowMessage(userId into Flood.Source, t2)
             allow option UserLine(
               user.username,

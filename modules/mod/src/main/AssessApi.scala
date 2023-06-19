@@ -155,9 +155,8 @@ final class AssessApi(
               modApi
                 .autoMark(
                   SuspectId(userId),
-                  User.lichessId into ModId,
                   playerAggregateAssessment.reportText(3)
-                )
+                )(using User.lichessIdAsMe)
             case Some(_) =>
               fuccess {
                 reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))

@@ -4,7 +4,7 @@ import lila.common.Bus
 import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Seek
-import lila.user.{ User, UserContext }
+import lila.user.Me
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,
@@ -13,14 +13,14 @@ final private[setup] class Processor(
     onStart: lila.round.OnStart
 )(using ec: Executor, idGenerator: IdGenerator):
 
-  def ai(config: AiConfig)(using ctx: UserContext): Fu[Pov] = for
-    pov <- config pov ctx.me
+  def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
+    pov <- config pov me
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
     _ <- pov.game.player.isAi so fishnetPlayer(pov.game)
   yield pov
 
-  def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = for
+  def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
     pov <- config pov me.some
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
@@ -28,12 +28,11 @@ final private[setup] class Processor(
   yield pov
 
   def hook(
-      me: Option[User],
       configBase: HookConfig,
       sri: lila.socket.Socket.Sri,
       sid: Option[String],
       blocking: lila.pool.Blocking
-  ): Fu[Processor.HookResult] =
+  )(using me: Option[Me]): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor
     config.hook(sri, me, sid, blocking) match
@@ -42,12 +41,11 @@ final private[setup] class Processor(
           Bus.publish(AddHook(hook), "lobbyActor")
           Created(hook.id)
       case Right(Some(seek)) =>
-        me.fold(fuccess(Refused)): user =>
-          createSeekIfAllowed(seek, user.id)
+        me.foldUse(fuccess(Refused))(createSeekIfAllowed(seek))
       case _ => fuccess(Refused)
 
-  def createSeekIfAllowed(seek: Seek, userId: UserId): Fu[Processor.HookResult] =
-    gameCache.nbPlaying(userId) map { nbPlaying =>
+  def createSeekIfAllowed(seek: Seek)(using me: Me.Id): Fu[Processor.HookResult] =
+    gameCache.nbPlaying(me) map { nbPlaying =>
       import Processor.HookResult.*
       if (nbPlaying >= lila.game.Game.maxPlaying) Refused
       else

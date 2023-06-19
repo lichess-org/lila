@@ -5,7 +5,6 @@ import scala.util.chaining.*
 import play.api.libs.json.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.game.Pov
 import lila.tv.Tv.Channel

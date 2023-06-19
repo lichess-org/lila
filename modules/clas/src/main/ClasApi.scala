@@ -9,7 +9,7 @@ import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
 import lila.user.{ Authenticator, User, UserRepo }
-import lila.user.Holder
+import lila.user.Me
 
 final class ClasApi(
     colls: ClasColls,
@@ -260,12 +260,12 @@ final class ClasApi(
       val password = Student.password.generate
       authenticator.setPassword(s.userId, password) inject password
 
-    def archive(sId: Student.Id, by: Holder, v: Boolean): Fu[Option[Student]] =
+    def archive(sId: Student.Id, v: Boolean)(using me: Me): Fu[Option[Student]] =
       coll
         .findAndUpdateSimplified[Student](
           selector = $id(sId),
           update =
-            if (v) $set("archived" -> Clas.Recorded(by.id, nowInstant))
+            if v then $set("archived" -> Clas.Recorded(me, nowInstant))
             else $unset("archived"),
           fetchNewObject = true
         )
@@ -292,18 +292,17 @@ ${clas.desc}""",
 
     import ClasInvite.Feedback.*
 
-    def create(clas: Clas, user: User, realName: String, teacher: Holder): Fu[ClasInvite.Feedback] =
+    def create(clas: Clas, user: User, realName: String)(using teacher: Me): Fu[ClasInvite.Feedback] =
       student
-        .archive(Student.id(user.id, clas.id), teacher, v = false)
+        .archive(Student.id(user.id, clas.id), v = false)
         .map2[ClasInvite.Feedback](_ => Already) getOrElse {
-        lila.mon.clas.student.invite(teacher.id.value).increment()
-        val invite = ClasInvite.make(clas, user, realName, teacher)
+        lila.mon.clas.student.invite(teacher.userId.value).increment()
+        val invite = ClasInvite.make(clas, user, realName)
         colls.invite.insert
           .one(invite)
           .void
-          .flatMap { _ =>
+          .flatMap: _ =>
             sendInviteMessage(teacher, user, clas, invite)
-          }
           .recover {
             lila.db.recoverDuplicateKey(_ => Found)
           }
@@ -348,7 +347,7 @@ ${clas.desc}""",
       colls.invite.delete.one($id(id)).void
 
     private def sendInviteMessage(
-        teacher: Holder,
+        teacher: Me,
         student: User,
         clas: Clas,
         invite: ClasInvite
@@ -360,7 +359,7 @@ ${clas.desc}""",
         given play.api.i18n.Lang = student.realLang | lila.i18n.defaultLang
         msgApi
           .post(
-            orig = teacher.id,
+            orig = teacher.userId,
             dest = student.id,
             text = s"""${invitationToClass.txt(clas.name)}
 

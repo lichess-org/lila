@@ -43,6 +43,5 @@ final class Env(
 
   lazy val panic = wire[ChatPanic]
 
-  scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery) { () =>
+  scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery): () =>
     timeout.checkExpired foreach api.userChat.reinstate
-  }

@@ -37,13 +37,12 @@ final class ChatTimeout(
     }
 
   def isActive(chatId: ChatId, userId: UserId): Fu[Boolean] =
-    fuccess(global.get(userId)) >>| coll.exists(
+    fuccess(global.get(userId)) >>| coll.exists:
       $doc(
         "chat" -> chatId,
         "user" -> userId,
         "expiresAt" $exists true
       )
-    )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
     coll.find($doc("user" -> user.id)).sort($sort desc "createdAt").cursor[UserEntry]().list(nb)

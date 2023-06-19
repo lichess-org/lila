@@ -4,7 +4,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.chat.Chat
 import lila.common.HTTPRequest
@@ -97,7 +96,7 @@ final class Round(
           Ok(Json.obj("next" -> next.map(_.fullId)))
         }
 
-  def next(gameId: GameId) = Auth { ctx ?=> me =>
+  def next(gameId: GameId) = Auth { ctx ?=> me ?=>
     OptionFuResult(env.round.proxyRepo game gameId): currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
@@ -198,12 +197,12 @@ final class Round(
   )(using ctx: WebContext): Fu[Option[lila.chat.UserChat.Mine]] = {
     ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.contains)) && ctx.me.fold(
       HTTPRequest isHuman ctx.req
-    )(env.chat.panic.allowed) && {
+    )(env.chat.panic.allowed(_)) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
     }
   } so {
     val id = ChatId(s"${game.id}/w")
-    env.chat.api.userChat.findMineIf(id, ctx.me, !game.justCreated) flatMap { chat =>
+    env.chat.api.userChat.findMineIf(id, !game.justCreated) flatMap { chat =>
       env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
     }
   }
@@ -228,17 +227,17 @@ final class Round(
           {
             ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
           } so env.chat.api.userChat.cached
-            .findMine(ChatId(tid), ctx.me)
+            .findMine(ChatId(tid))
             .dmap(toEventChat(s"tournament/$tid"))
         case (_, Some(sid), _) =>
-          env.chat.api.userChat.cached.findMine(sid into ChatId, ctx.me).dmap(toEventChat(s"simul/$sid"))
+          env.chat.api.userChat.cached.findMine(sid into ChatId).dmap(toEventChat(s"simul/$sid"))
         case (_, _, Some(sid)) =>
           env.swiss.api
             .roundInfo(SwissId(sid))
             .flatMapz(swissC.canHaveChat)
             .flatMapz {
               env.chat.api.userChat.cached
-                .findMine(sid into ChatId, ctx.me)
+                .findMine(sid into ChatId)
                 .dmap(toEventChat(s"swiss/$sid"))
             }
         case _ =>
@@ -269,19 +268,19 @@ final class Round(
             Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
         }
 
-  def writeNote(gameId: GameId) = AuthBody { ctx ?=> me =>
+  def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
     import play.api.data.Forms.*
     import play.api.data.*
     Form(single("text" -> text))
       .bindFromRequest()
       .fold(
         _ => BadRequest,
-        text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
+        text => env.round.noteApi.set(gameId, me, text.trim take 10000)
       )
   }
 
-  def readNote(gameId: GameId) = Auth { _ ?=> me =>
-    env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
+  def readNote(gameId: GameId) = Auth { _ ?=> me ?=>
+    env.round.noteApi.get(gameId, me) dmap { Ok(_) }
   }
 
   def continue(id: GameId, mode: String) = Open:
@@ -315,7 +314,7 @@ final class Round(
       html.game.mini(_)
     )
 
-  def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me =>
+  def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.round.actorApi.round.Moretime
     if (seconds < 1 || seconds > 86400) BadRequest
     else

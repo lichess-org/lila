@@ -6,7 +6,6 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
@@ -16,7 +15,7 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
 import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, userAgentParser }
-import lila.user.{ Holder, User }
+import lila.user.{ Me, User }
 
 object mod:
   private def mzSection(key: String) =
@@ -574,8 +573,7 @@ object mod:
     if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
 
-  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(
-      using
+  def otherUsers(mod: Me, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(using
       ctx: WebContext,
       renderIp: RenderIp
   ): Tag =
@@ -617,7 +615,7 @@ object mod:
               dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
               cls      := (o == u) option "same"
             )(
-              if (o == u || Granter.canViewAltUsername(mod, o))
+              if (o.is(u) || Granter.canViewAltUsername(o))
                 td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
               else td,
               isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),

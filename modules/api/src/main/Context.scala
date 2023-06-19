@@ -14,6 +14,8 @@ object context:
   export lila.api.{ WebContext, WebBodyContext }
   export lila.api.{ OAuthContext, OAuthBodyContext }
   export lila.api.{ MinimalContext, MinimalBodyContext }
+  given (using ctx: AnyContext): Option[lila.user.Me]    = ctx.me
+  given (using ctx: AnyContext): Option[lila.user.Me.Id] = ctx.meId
 
 /* data necessary to render the lichess website layout */
 case class PageData(
@@ -50,7 +52,7 @@ trait AnyContext:
   val req: RequestHeader
   val userContext: UserContext
   def lang: Lang
-  export userContext.{ me, impersonatedBy, userId, is, kid, noKid, troll }
+  export userContext.{ me, impersonatedBy, meId, user, userId, is, kid, noKid, troll }
   export me.{ isDefined as isAuth, isEmpty as isAnon }
   def isBot                = me.exists(_.isBot)
   def noBot                = !isBot
@@ -59,7 +61,7 @@ trait AnyContext:
   val scopes: TokenScopes  = TokenScopes(Nil)
   def isMobile             = scopes.has(_.Web.Mobile)
   def isWebAuth: Boolean   = false
-  def isOauthAuth: Boolean = false
+  def isOAuthAuth: Boolean = false
 
 trait BodyContext[A] extends AnyContext:
   val body: Request[A]
@@ -122,7 +124,7 @@ class OAuthContext(
     val userContext: UserContext,
     override val scopes: TokenScopes
 ) extends AnyContext:
-  override def isOauthAuth: Boolean = me.isDefined
+  override def isOAuthAuth: Boolean = me.isDefined
 
 final class OAuthBodyContext[A](
     val body: Request[A],

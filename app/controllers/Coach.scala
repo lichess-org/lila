@@ -2,7 +2,6 @@ package controllers
 
 import play.api.mvc.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm }
 import views.*
@@ -43,17 +42,17 @@ final class Coach(env: Env) extends LilaController(env):
           Ok(html.coach.show(c, studies, posts))
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: WebContext) =
-    if c.isListed || ctx.me.exists(_ is c.coach) || isGranted(_.Admin) then f
+    if c.isListed || ctx.me.exists(_ is c.coach) || isGrantedOpt(_.Admin) then f
     else notFound
 
-  def edit = Secure(_.Coach) { ctx ?=> me =>
-    OptionFuResult(api findOrInit me): c =>
-      env.msg.twoFactorReminder(me.id) inject
+  def edit = Secure(_.Coach) { ctx ?=> me ?=>
+    OptionFuResult(api.findOrInit): c =>
+      env.msg.twoFactorReminder(me) inject
         Ok(html.coach.edit(c, CoachProfileForm edit c.coach)).noCache
   }
 
-  def editApply = SecureBody(_.Coach) { ctx ?=> me =>
-    OptionFuResult(api findOrInit me): c =>
+  def editApply = SecureBody(_.Coach) { ctx ?=> me ?=>
+    OptionFuResult(api.findOrInit): c =>
       CoachProfileForm
         .edit(c.coach)
         .bindFromRequest()
@@ -63,13 +62,13 @@ final class Coach(env: Env) extends LilaController(env):
         )
   }
 
-  def picture = Secure(_.Coach) { ctx ?=> me =>
-    OptionResult(api findOrInit me): c =>
+  def picture = Secure(_.Coach) { ctx ?=> me ?=>
+    OptionResult(api.findOrInit): c =>
       Ok(html.coach.picture(c)).noCache
   }
 
-  def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me =>
-    OptionFuResult(api findOrInit me): c =>
+  def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>
+    OptionFuResult(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
           api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>

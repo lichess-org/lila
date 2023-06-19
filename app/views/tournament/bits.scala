@@ -1,6 +1,5 @@
 package views.html.tournament
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKeys as trans }

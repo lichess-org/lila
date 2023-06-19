@@ -3,7 +3,7 @@ package lila.forum
 import akka.stream.scaladsl.*
 
 import lila.security.{ Granter as MasterGranter }
-import lila.user.User
+import lila.user.{ User, Me }
 
 final class ForumDelete(
     postRepo: ForumPostRepo,
@@ -15,22 +15,20 @@ final class ForumDelete(
     modLog: lila.mod.ModlogApi
 )(using Executor, akka.stream.Materializer):
 
-  def post(categId: ForumCategId, postId: ForumPostId, mod: User): Funit =
+  def post(categId: ForumCategId, postId: ForumPostId)(using mod: Me): Funit =
     postRepo.unsafe.byCategAndId(categId, postId) flatMapz { post =>
       postApi.viewOf(post) flatMapz { view =>
         doDelete(view) >> {
-          if (MasterGranter(_.ModerateForum)(mod))
+          if MasterGranter(_.ModerateForum)
+          then
             modLog.deletePost(
-              mod.id into ModId,
               post.userId,
               text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
             )
           else
-            fuccess {
-              logger.info(
+            fuccess:
+              logger.info:
                 s"${mod.username} deletes post by ${post.userId.so(_.value)} \"${post.text take 200}\""
-              )
-            }
         }
       }
     }

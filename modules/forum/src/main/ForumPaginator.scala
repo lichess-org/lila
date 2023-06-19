@@ -4,7 +4,7 @@ import reactivemongo.api.ReadPreference
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.user.User
+import lila.user.{ User, Me }
 
 final class ForumPaginator(
     topicRepo: ForumTopicRepo,
@@ -15,11 +15,11 @@ final class ForumPaginator(
 
   import BSONHandlers.given
 
-  def topicPosts(topic: ForumTopic, page: Int, me: Option[User])(using
+  def topicPosts(topic: ForumTopic, page: Int)(using me: Option[Me])(using
       netDomain: lila.common.config.NetDomain
   ): Fu[Paginator[ForumPost.WithFrag]] =
     Paginator(
-      new Adapter[ForumPost](
+      Adapter[ForumPost](
         collection = postRepo.coll,
         selector = postRepo.forUser(me) selectTopic topic.id,
         projection = none,
@@ -31,9 +31,8 @@ final class ForumPaginator(
 
   def categTopics(
       categ: ForumCateg,
-      forUser: Option[User],
       page: Int
-  ): Fu[Paginator[TopicView]] =
+  )(using me: Option[Me]): Fu[Paginator[TopicView]] =
     Paginator(
       currentPage = page,
       maxPerPage = config.topicMaxPerPage,
@@ -45,30 +44,27 @@ final class ForumPaginator(
 
         def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
           topicRepo.coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
               import framework.*
               Match(selector) -> List(
                 Sort(Descending("updatedAt")),
                 Skip(offset),
                 Limit(length),
-                PipelineOperator(
+                PipelineOperator:
                   $lookup.simple(
                     from = postRepo.coll,
                     as = "post",
-                    local = if (forUser.exists(_.marks.troll)) "lastPostIdTroll" else "lastPostId",
+                    local = if me.exists(_.marks.troll) then "lastPostIdTroll" else "lastPostId",
                     foreign = "_id"
                   )
-                )
               )
-            }
-            .map { docs =>
-              for {
+            .map: docs =>
+              for
                 doc   <- docs
                 topic <- doc.asOpt[ForumTopic]
                 post = doc.getAsOpt[List[ForumPost]]("post").flatMap(_.headOption)
-              } yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
-            }
+              yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, me)
 
-        private def selector = topicRepo.forUser(forUser) byCategNotStickyQuery categ
+        private def selector = topicRepo.forUser(me) byCategNotStickyQuery categ
       }
     )

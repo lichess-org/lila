@@ -14,7 +14,7 @@ import lila.common.Form.into
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.User.{ ClearPassword, LoginCandidate }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, Me }
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -112,11 +112,11 @@ final class SecurityApi(
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
     firewall.accepts(req) so reqSessionId(req) so { sessionId =>
       appeal.authenticate(sessionId) match {
-        case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
+        case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(Me(u))) }
         case None =>
           store.authInfo(sessionId) flatMapz { d =>
-            userRepo byId d.user dmap {
-              _ map { u => Right(FingerPrintedUser(stripRolesOfCookieUser(u), d.hasFp)) }
+            userRepo me d.user dmap {
+              _ map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
             }
           }
       }: Fu[Option[AppealOrUser]]
@@ -132,13 +132,13 @@ final class SecurityApi(
 
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
     if scoped.scopes.has(_.Web.Mod) then scoped
-    else scoped.copy(user = stripRolesOfUser(scoped.user))
+    else scoped.copy(me = stripRolesOf(scoped.me))
 
-  private def stripRolesOfCookieUser(user: User) =
-    if mode == Mode.Prod && user.totpSecret.isEmpty then stripRolesOfUser(user)
-    else user
+  private def stripRolesOfCookieUser(me: Me) =
+    if mode == Mode.Prod && me.totpSecret.isEmpty then stripRolesOf(me)
+    else me
 
-  private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
+  private def stripRolesOf(me: Me) = me.map(_.copy(roles = me.roles.filter(nonModRoles.contains)))
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {

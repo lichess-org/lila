@@ -41,7 +41,7 @@ final private class PushApi(
     else
       game.userIds
         .map { userId =>
-          Pov.ofUserId(game, userId) so { pov =>
+          Pov(game, userId) so { pov =>
             IfAway(pov) {
               gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>

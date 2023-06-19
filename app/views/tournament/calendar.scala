@@ -2,7 +2,6 @@ package views.html.tournament
 
 import play.api.libs.json.Json
 
-import lila.api.WebContext
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue

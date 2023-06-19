@@ -8,6 +8,7 @@ import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails as trans }
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
+import lila.user.Me
 
 final class PasswordReset(
     mailer: Mailer,
@@ -42,16 +43,16 @@ ${trans.common_orPaste.txt()}"""),
       )
     }
 
-  def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMapz userRepo.byId map {
+  def confirm(token: String): Fu[Option[Me]] =
+    tokener read token flatMapz userRepo.me map {
       _.filter(_.canFullyLogin)
     }
 
-  private val tokener = new StringToken[UserId](
+  private val tokener = StringToken[UserId](
     secret = tokenerSecret,
     getCurrentValue = id =>
-      for {
+      for
         hash  <- userRepo getPasswordHash id
         email <- userRepo email id
-      } yield ~hash + email.fold("")(_.value)
+      yield ~hash + email.fold("")(_.value)
   )

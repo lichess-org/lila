@@ -4,7 +4,6 @@ package appeal
 import play.api.mvc.Result
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.report.{ Suspect, Mod }
 import play.api.data.Form
@@ -15,16 +14,15 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def modForm(using WebContext)  = lila.appeal.Appeal.modForm
   private def userForm(using WebContext) = lila.appeal.Appeal.form
 
-  def home = Auth { _ ?=> me =>
+  def home = Auth { _ ?=> me ?=>
     renderAppealOrTree(me) map { Ok(_) }
   }
 
-  def landing = Auth { ctx ?=> _ =>
-    if (ctx.isAppealUser || isGranted(_.Appeals))
+  def landing = Auth { ctx ?=> _ ?=>
+    if ctx.isAppealUser || isGranted(_.Appeals) then
       pageHit
-      OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
+      OptionOk(prismicC getBookmark "appeal-landing"): (doc, resolver) =>
         views.html.site.page.lone(doc, resolver)
-      }
     else notFound
   }
 
@@ -39,7 +37,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     case Some(a) => fuccess(html.appeal.discussion(a, me, err | userForm))
   }
 
-  def post = AuthBody { ctx ?=> me =>
+  def post = AuthBody { ctx ?=> me ?=>
     userForm
       .bindFromRequest()
       .fold(
@@ -48,39 +46,37 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       )
   }
 
-  def queue = Secure(_.Appeals) { ctx ?=> me =>
+  def queue = Secure(_.Appeals) { ctx ?=> me ?=>
     env.appeal.api.queueOf(me.user) zip
       env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
         case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
           env.user.lightUserApi preloadUsers appeals.map(_.user)
-          env.mod.logApi.wereMarkedBy(me.id into ModId, appeals.map(_.user.id)) map { markedByMap =>
+          env.mod.logApi.wereMarkedBy(appeals.map(_.user.id)) map { markedByMap =>
             Ok(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
           }
       }
   }
 
-  def show(username: UserStr) = Secure(_.Appeals) { ctx ?=> me =>
+  def show(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username): (appeal, suspect) =>
-      getModData(me, suspect) map { modData =>
+      getModData(suspect).map: modData =>
         Ok(html.appeal.discussion.show(appeal, modForm, modData))
-      }
   }
 
-  def reply(username: UserStr) = SecureBody(_.Appeals) { ctx ?=> me =>
+  def reply(username: UserStr) = SecureBody(_.Appeals) { ctx ?=> me ?=>
     asMod(username): (appeal, suspect) =>
       modForm
         .bindFromRequest()
         .fold(
           err =>
-            getModData(me, suspect) map { modData =>
-              BadRequest(html.appeal.discussion.show(appeal, err, modData))
-            },
+            getModData(suspect).map: modData =>
+              BadRequest(html.appeal.discussion.show(appeal, err, modData)),
           { case (text, process) =>
             for {
               _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
               preset = getPresets.findLike(text)
-              _ <- env.appeal.api.reply(text, appeal, me, preset.map(_.name))
-              _ <- env.mod.logApi.appealPost(me.id into ModId, suspect.user.id)
+              _ <- env.appeal.api.reply(text, appeal, preset.map(_.name))
+              _ <- env.mod.logApi.appealPost(suspect.user.id)
               result <-
                 if (process) {
                   env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
@@ -93,37 +89,37 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
         )
   }
 
-  private def getModData(me: lila.user.Holder, suspect: Suspect)(using WebContext) =
+  private def getModData(suspect: Suspect)(using WebContext)(using me: Me) =
     for
       users      <- env.security.userLogins(suspect.user, 100)
       logins     <- userC.loginsTableData(suspect.user, users, 100)
       appeals    <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
       inquiry    <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
-      markedByMe <- env.mod.logApi.wasMarkedBy(me.id into ModId, suspect.user.id)
+      markedByMe <- env.mod.logApi.wasMarkedBy(suspect.user.id)
     yield html.appeal.discussion.ModData(
       mod = me,
       suspect = suspect,
       presets = getPresets,
       logins = logins,
       appeals = appeals,
-      renderIp = env.mod.ipRender(me),
-      inquiry = inquiry.filter(_.mod == me.user.id),
+      renderIp = env.mod.ipRender.apply,
+      inquiry = inquiry.filter(_.mod is me),
       markedByMe = markedByMe
     )
 
-  def mute(username: UserStr) = Secure(_.Appeals) { ctx ?=> me =>
+  def mute(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username): (appeal, _) =>
       env.appeal.api.toggleMute(appeal) >>
         env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
         Redirect(routes.Appeal.queue)
   }
 
-  def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { ctx ?=> me =>
+  def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { ctx ?=> _ ?=>
     asMod(username): (_, suspect) =>
-      env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
+      env.irc.api.userAppeal(suspect.user) inject NoContent
   }
 
-  def snooze(username: UserStr, dur: String) = Secure(_.Appeals) { ctx ?=> me =>
+  def snooze(username: UserStr, dur: String) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username): (appeal, _) =>
       env.appeal.api.snooze(me.user, appeal.id, dur)
       env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject

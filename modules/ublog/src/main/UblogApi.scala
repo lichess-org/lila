@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
 import lila.memo.PicfitApi
 import lila.security.Granter
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, Me }
 
 final class UblogApi(
     colls: UblogColls,
@@ -20,17 +20,17 @@ final class UblogApi(
 
   import UblogBsonHandlers.{ *, given }
 
-  def create(data: UblogForm.UblogPostData, user: User): Fu[UblogPost] =
-    val post = data.create(user)
+  def create(data: UblogForm.UblogPostData)(using me: Me): Fu[UblogPost] =
+    val post = data.create(me.user)
     colls.post.insert.one(
-      bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(user.id))
+      bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(me.userId))
     ) inject post
 
-  def update(data: UblogForm.UblogPostData, prev: UblogPost, user: User): Fu[UblogPost] =
-    getUserBlog(user, insertMissing = true) flatMap { blog =>
-      val post = data.update(user, prev)
+  def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
+    getUserBlog(me.user, insertMissing = true) flatMap { blog =>
+      val post = data.update(me.user, prev)
       colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty) so onFirstPublish(user, blog, post)
+        (post.live && prev.lived.isEmpty) so onFirstPublish(me.user, blog, post)
       } inject post
     }
 
@@ -56,9 +56,9 @@ final class UblogApi(
 
   def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
-  def findByUserBlogOrAdmin(id: UblogPostId, user: User): Fu[Option[UblogPost]] =
+  def findByUserBlogOrAdmin(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
     colls.post.byId[UblogPost](id) dmap {
-      _.filter(_.blog == UblogBlog.Id.User(user.id) || Granter(_.ModerateBlog)(user))
+      _.filter(_.isBy(me) || Granter(_.ModerateBlog))
     }
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
@@ -71,9 +71,9 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def userBlogPreviewFor(user: User, nb: Int, forUser: Option[User]): Fu[Option[UblogPost.BlogPreview]] =
+  def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
-    val canView = fuccess(forUser exists { user.is(_) }) >>|
+    val canView = fuccess(me.exists(_ is user)) >>|
       colls.blog
         .primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier")
         .dmap(_.exists(_ >= UblogBlog.Tier.VISIBLE))

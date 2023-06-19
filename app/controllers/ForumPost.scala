@@ -30,22 +30,22 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               }
           yield html.forum.search(text, posts)
 
-  def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me =>
+  def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>
     NoBot:
-      OptionFuResult(topicApi.show(categId, slug, page, ctx.me)): (categ, topic, posts) =>
+      OptionFuResult(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if topic.closed then BadRequest("This topic is closed")
         else if topic.isOld then BadRequest("This topic is archived")
         else
-          categ.team.so { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+          categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
             forms
-              .post(me, inOwnTeam)
+              .post(inOwnTeam)
               .bindFromRequest()
               .fold(
                 err =>
                   CategGrantWrite(categId, tryingToPostAsMod = true):
                     for
                       captcha     <- forms.anyCaptcha
-                      unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
+                      unsub       <- env.timeline.status(s"forum:${topic.id}")
                       canModCateg <- access.isGrantedMod(categ.slug)
                     yield BadRequest:
                       html.forum.topic
@@ -54,25 +54,25 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                 data =>
                   CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
                     CreateRateLimit(ctx.ip, rateLimitedFu):
-                      postApi.makePost(categ, topic, data, me) map { post =>
+                      postApi.makePost(categ, topic, data) map { post =>
                         Redirect(routes.ForumPost.redirect(post.id))
                       }
               )
           }
   }
 
-  def edit(postId: ForumPostId) = AuthBody { ctx ?=> me =>
+  def edit(postId: ForumPostId) = AuthBody { ctx ?=> me ?=>
     env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
-      teamId.so { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+      teamId.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
         postApi getPost postId flatMapz { post =>
           forms
-            .postEdit(me, inOwnTeam, post.text)
+            .postEdit(inOwnTeam, post.text)
             .bindFromRequest()
             .fold(
               _ => Redirect(routes.ForumPost.redirect(postId)),
               data =>
                 CreateRateLimit(ctx.ip, rateLimitedFu):
-                  postApi.editPost(postId, data.changes, me).map { post =>
+                  postApi.editPost(postId, data.changes).map { post =>
                     Redirect(routes.ForumPost.redirect(post.id))
                   }
             )
@@ -81,14 +81,14 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     }
   }
 
-  def delete(categId: ForumCategId, id: ForumPostId) = AuthBody { ctx ?=> me =>
+  def delete(categId: ForumCategId, id: ForumPostId) = AuthBody { ctx ?=> me ?=>
     postApi getPost id flatMapz { post =>
       if (post.userId.exists(_ is me) && !post.erased)
         postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
       else
-        TopicGrantModById(categId, me, post.topicId):
+        TopicGrantModById(categId, post.topicId):
           env.forum.delete
-            .post(categId, id, me)
+            .post(categId, id)
             .inject:
               for
                 userId    <- post.userId
@@ -105,9 +105,9 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     }
   }
 
-  def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me =>
+  def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
-      postApi.react(categId, id, me, reaction, v) mapz { post =>
+      postApi.react(categId, id, reaction, v) mapz { post =>
         Ok(views.html.forum.post.reactions(post, canReact = true))
       }
   }

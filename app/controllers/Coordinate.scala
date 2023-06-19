@@ -2,7 +2,6 @@ package controllers
 
 import play.api.mvc.Result
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 
 final class Coordinate(env: Env) extends LilaController(env):
@@ -17,11 +16,11 @@ final class Coordinate(env: Env) extends LilaController(env):
       views.html.coordinate.show(score)
     }
 
-  def score = AuthBody { ctx ?=> me =>
+  def score = AuthBody { ctx ?=> me ?=>
     env.coordinate.forms.score
       .bindFromRequest()
       .fold(
         _ => fuccess(BadRequest),
-        data => env.coordinate.api.addScore(me.id, data.mode, data.color, data.score) inject Ok(())
+        data => env.coordinate.api.addScore(data.mode, data.color, data.score) inject Ok(())
       )
   }

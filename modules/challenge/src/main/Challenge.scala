@@ -9,7 +9,7 @@ import lila.common.Days
 import lila.game.{ Game, GameRule, PerfPicker }
 import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
-import lila.user.User
+import lila.user.{ Me, User }
 
 case class Challenge(
     _id: Challenge.Id,
@@ -172,16 +172,14 @@ object Challenge:
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
   case class Open(userIds: Option[(UserId, UserId)]):
-    def userIdList                = userIds.map { (u1, u2) => List(u1, u2) }
-    def canJoin(me: Option[User]) = userIdList.fold(true)(ids => me.map(_.id).exists(ids.has))
-    def colorFor(me: Option[User], requestedColor: Option[Color]): Option[ColorChoice] =
-      userIds.fold(requestedColor.fold(ColorChoice.Random)(ColorChoice.apply).some) { (u1, u2) =>
-        me flatMap { m =>
+    def userIdList                    = userIds.map { (u1, u2) => List(u1, u2) }
+    def canJoin(using me: Option[Me]) = userIdList.fold(true)(ids => me.exists(ids.has))
+    def colorFor(requestedColor: Option[Color])(using me: Option[Me]): Option[ColorChoice] =
+      userIds.fold(requestedColor.fold(ColorChoice.Random)(ColorChoice.apply).some): (u1, u2) =>
+        me.flatMap: m =>
           if m is u1 then ColorChoice.White.some
           else if m is u2 then ColorChoice.Black.some
           else none
-        }
-      }
 
   private def speedOf(timeControl: TimeControl) =
     timeControl match

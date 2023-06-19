@@ -1,6 +1,7 @@
 package lila.mod
 
 import lila.report.{ ModId, Mod, Suspect }
+import lila.user.Me
 
 case class Modlog(
     mod: ModId,
@@ -84,9 +85,15 @@ case class Modlog(
 
 object Modlog:
 
-  def make(mod: Mod, sus: Suspect, action: String, details: Option[String] = None): Modlog =
+  def apply(user: Option[UserId], action: String, details: Option[String])(using me: Me.Id): Modlog =
+    Modlog(me.modId, user, action, details)
+
+  def apply(user: Option[UserId], action: String)(using me: Me.Id): Modlog =
+    Modlog(me.modId, user, action, none)
+
+  def make(sus: Suspect, action: String, details: Option[String] = None)(using me: Me.Id): Modlog =
     Modlog(
-      mod = mod.id,
+      mod = me.modId,
       user = sus.user.id.some,
       action = action,
       details = details

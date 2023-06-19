@@ -2,7 +2,7 @@ package lila.msg
 
 import play.api.libs.json.*
 
-import lila.user.User
+import lila.user.{ Me, User }
 import lila.common.Json.given
 import lila.common.LightUser
 import lila.relation.Relations
@@ -15,9 +15,9 @@ final class MsgJson(
   private given lastMsgWrites: OWrites[Msg.Last]    = Json.writes
   private given relationsWrites: OWrites[Relations] = Json.writes
 
-  def threads(me: User)(threads: List[MsgThread]): Fu[JsArray] =
-    withContacts(me, threads) map { threads =>
-      JsArray(threads.map(renderThread(_, me.some)))
+  def threads(threads: List[MsgThread])(using me: Me): Fu[JsArray] =
+    withContacts(threads) map { threads =>
+      JsArray(threads.map(renderThread))
     }
 
   def convo(c: MsgConvo): JsObject =
@@ -36,30 +36,29 @@ final class MsgJson(
         "date" -> msg.date
       )
 
-  def searchResult(me: User)(res: MsgSearch.Result): Fu[JsObject] =
-    withContacts(me, res.threads) map { threads =>
+  def searchResult(res: MsgSearch.Result)(using me: Me): Fu[JsObject] =
+    withContacts(res.threads) map { threads =>
       Json.obj(
-        "contacts" -> threads.map(renderThread(_, None)),
+        "contacts" -> threads.map(renderThread),
         "friends"  -> res.friends,
         "users"    -> res.users
       )
     }
 
-  private def withContacts(me: User, threads: List[MsgThread]): Fu[List[MsgThread.WithContact]] =
-    lightUserApi.asyncMany(threads.map(_ other me)) map { users =>
-      threads.zip(users).map { case (thread, userOption) =>
-        MsgThread.WithContact(thread, userOption | LightUser.fallback(thread other me into UserName))
+  private def withContacts(threads: List[MsgThread])(using me: Me): Fu[List[MsgThread.WithContact]] =
+    lightUserApi.asyncMany(threads.map(_.other)) map { users =>
+      threads.zip(users).map { (thread, userOption) =>
+        MsgThread.WithContact(thread, userOption | LightUser.fallback(thread.other into UserName))
       }
     }
 
-  private def renderThread(t: MsgThread.WithContact, forUser: Option[User]) =
+  private def renderThread(t: MsgThread.WithContact)(using me: Option[Me]) =
     Json
       .obj(
         "user" -> renderContact(t.contact),
-        "lastMsg" -> forUser.fold(t.thread.lastMsg)(me =>
-          if t.thread.maskFor.contains(me.id) then t.thread.maskWith.getOrElse(t.thread.lastMsg)
+        "lastMsg" -> me.fold(t.thread.lastMsg): me =>
+          if t.thread.maskFor.contains(me) then t.thread.maskWith.getOrElse(t.thread.lastMsg)
           else t.thread.lastMsg
-        )
       )
 
   private def renderContact(user: LightUser): JsObject =
