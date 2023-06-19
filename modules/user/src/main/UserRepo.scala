@@ -49,7 +49,7 @@ final class UserRepo(val coll: Coll)(using Executor):
         Left(LightUser.ghost).some
       }
 
-  def me[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Me]] =
+  def me[U: UserIdOf](u: U): Fu[Option[Me]] =
     enabledById(u).dmap(Me.from(_))
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))

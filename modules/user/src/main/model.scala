@@ -1,7 +1,5 @@
 package lila.user
 
-import alleycats.Zero
-
 final class GetBotIds(f: () => Fu[Set[UserId]]) extends (() => Fu[Set[UserId]]):
   def apply() = f()
 
@@ -23,7 +21,6 @@ object Me extends TotalWrapper[Me, User]:
     inline def user: User   = me
     inline def modId: ModId = userId into ModId
     inline def meId: MeId   = userId into MeId
-    // inline def is[U](u: U)(using idOf: UserIdOf[U]): Boolean = me.id == idOf(u)
 
 opaque type MeId = String
 object MeId extends TotalWrapper[MeId, String]:
