@@ -162,7 +162,6 @@ final class Api(
       }
 
   def currentTournaments = ApiRequest:
-    given Lang = reqLang
     env.tournament.api.fetchVisibleTournaments flatMap
       env.tournament.apiJsonView.apply map ApiResult.Data.apply
 
@@ -178,7 +177,7 @@ final class Api(
         socketVersion = none,
         partial = false,
         withScores = true
-      )(using reqLang, _ => fuccess(Nil)) map some
+      )(using _ => fuccess(Nil)) map some
     } map toApiResult
 
   def tournamentGames(id: TourId) =
@@ -235,7 +234,6 @@ final class Api(
     (name.id != lila.user.User.lichessId) so env.user.repo.byId(name) flatMapz { user =>
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
-        given Lang = reqLang
         env.tournament.api
           .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
@@ -333,7 +331,7 @@ final class Api(
       rateLimit(me, limited):
         env.round.proxyRepo.urgentGames(me) flatMap { povs =>
           env.challenge.api.createdByDestId(me) map { challenges =>
-            sourceToNdJsonOption(env.api.eventStream(me, povs.map(_.game), challenges))
+            sourceToNdJsonOption(env.api.eventStream(povs.map(_.game), challenges))
           }
         }
     }
@@ -345,7 +343,6 @@ final class Api(
   )
 
   def activity(name: UserStr) = ApiRequest:
-    given Lang = reqLang
     UserActivityRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.activity.increment(1)
       env.user.repo byId name flatMapz { user =>
@@ -372,12 +369,11 @@ final class Api(
     }
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
-    given Lang = reqLang
-    env.perfStat.api.data(username, perfKey, none) map {
+    env.perfStat.api.data(username, perfKey) map {
       _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
     }
 
-  def ApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:
+  def ApiRequest(js: MinimalContext ?=> Fu[ApiResult]) = Anon:
     js map toHttp
 
   def MobileApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:

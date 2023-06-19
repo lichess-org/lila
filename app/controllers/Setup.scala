@@ -138,7 +138,6 @@ final class Setup(
                 AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = ctx.isAnon so 1):
                   (ctx.userId so env.relation.api.fetchBlocking) flatMap { blocking =>
                     processor.hook(
-                      ctx.me,
                       userConfig withinLimits ctx.me,
                       sri,
                       req.sid,
@@ -166,7 +165,6 @@ final class Setup(
               hookResult <-
                 processor
                   .hook(
-                    ctx.me,
                     hookConfigWithRating,
                     sri,
                     ctx.req.sid,
@@ -211,8 +209,8 @@ final class Setup(
                   case Right(Some(seek)) =>
                     author match
                       case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks"))
-                      case Right(u) =>
-                        env.setup.processor.createSeekIfAllowed(seek, u.id) map {
+                      case Right(me) =>
+                        env.setup.processor.createSeekIfAllowed(seek)(using me) map {
                           case HookResult.Refused =>
                             BadRequest(Json.obj("error" -> "Already playing too many games"))
                           case HookResult.Created(id) => Ok(Json.obj("id" -> id))
@@ -238,7 +236,7 @@ final class Setup(
           .fold(
             jsonFormError,
             config =>
-              processor.apiAi(config, me).map { pov =>
+              processor.apiAi(config).map { pov =>
                 Created(env.game.jsonView.baseWithChessDenorm(pov.game, config.fen)) as JSON
               }
           )

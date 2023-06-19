@@ -63,13 +63,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         ) dmap (_.noCache)
 
   def apiDaily = Anon:
-    given Lang = reqLang
     env.puzzle.daily.get.flatMap:
       _.fold(notFoundJson()): daily =>
         JsonOk(env.puzzle.jsonView(daily.puzzle, none, none))
 
   def apiShow(id: PuzzleId) = Anon:
-    given Lang = reqLang
     env.puzzle.api.puzzle find id flatMap {
       _.fold(notFoundJson()): puzzle =>
         JsonOk(env.puzzle.jsonView(puzzle, none, none))
@@ -232,7 +230,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.user.repo.addStreakRun(userId, score)
 
   def apiStreak = Anon:
-    streakJsonAndPuzzle(using reqLang).mapz: (json, _) =>
+    streakJsonAndPuzzle.mapz: (json, _) =>
       JsonOk(json)
 
   def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> me ?=>

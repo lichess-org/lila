@@ -66,7 +66,7 @@ final class Team(
     hasChat = canHaveChat(team, info, requestModView)
     chat <-
       hasChat so env.chat.api.userChat.cached
-        .findMine(ChatId(team.id), ctx.me)
+        .findMine(ChatId(team.id))
         .map(some)
     _ <- env.user.lightUserApi preloadMany {
       team.leaders.toList ::: info.userIds ::: chat.so(_.chat.userIds)
@@ -156,7 +156,7 @@ final class Team(
   private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
 
   def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { ctx ?=> me ?=>
-    WithOwnedTeamEnabledApi(teamId, me): team =>
+    WithOwnedTeamEnabledApi(teamId): team =>
       def limited =
         if kickLimitReportOnce(username.id) then
           lila
@@ -504,7 +504,7 @@ final class Team(
       }
 
   def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me ?=>
-    WithOwnedTeamEnabledApi(teamId, me): team =>
+    WithOwnedTeamEnabledApi(teamId): team =>
       import env.team.jsonView.requestWithUserWrites
       val reqs =
         if getBool("declined") then api.declinedRequestsWithUsers(team)
@@ -515,16 +515,14 @@ final class Team(
 
   def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) {
     _ ?=> me ?=>
-      WithOwnedTeamEnabledApi(teamId, me): team =>
+      WithOwnedTeamEnabledApi(teamId): team =>
         api request lila.team.Request.makeId(team.id, userId.id) flatMap {
           case None      => fuccess(ApiResult.ClientError("No such team join request"))
           case Some(req) => api.processRequest(team, req, decision) inject ApiResult.Done
         }
   }
 
-  private def doPmAll(team: TeamModel)(using me: Me)(using
-      req: Request[?]
-  ): Either[Form[?], Fu[RateLimit.Result]] =
+  private def doPmAll(team: TeamModel)(using req: Request[?], me: Me): Either[Form[?], Fu[RateLimit.Result]] =
     forms.pmAll
       .bindFromRequest()
       .fold(
@@ -574,11 +572,11 @@ You received this because you are subscribed to messages of the team $url."""
       if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
       else notFound
 
-  private def WithOwnedTeamEnabledApi(teamId: TeamId, me: UserModel)(
+  private def WithOwnedTeamEnabledApi(teamId: TeamId)(
       f: TeamModel => Fu[ApiResult]
-  ): Fu[Result] =
+  )(using me: Me): Fu[Result] =
     api teamEnabled teamId flatMap {
-      case Some(team) if team leaders me.id => f(team)
-      case Some(_)                          => fuccess(ApiResult.ClientError("Not your team"))
-      case None                             => fuccess(ApiResult.NoData)
+      case Some(team) if team leaders me => f(team)
+      case Some(_)                       => fuccess(ApiResult.ClientError("Not your team"))
+      case None                          => fuccess(ApiResult.NoData)
     } map apiC.toHttp

@@ -66,34 +66,30 @@ final class MsgCompat(
       }
   }
 
-  def thread(me: User, c: MsgConvo): JsObject =
+  def thread(c: MsgConvo)(using me: Me): JsObject =
     Json.obj(
       "id"   -> c.contact.id,
       "name" -> c.contact.name,
-      "posts" -> c.msgs.reverse.map { msg =>
+      "posts" -> c.msgs.reverse.map: msg =>
         Json.obj(
           "sender"    -> renderUser(if (msg.user == c.contact.id) c.contact else me.light),
           "receiver"  -> renderUser(if (msg.user != c.contact.id) c.contact else me.light),
           "text"      -> msg.text,
           "createdAt" -> msg.date
         )
-      }
     )
 
-  def create(
-      me: User
-  )(using play.api.mvc.Request[?], FormBinding): Either[Form[?], Fu[UserId]] =
+  def create(using play.api.mvc.Request[?], FormBinding)(using me: Me): Either[Form[?], Fu[UserId]] =
     Form(
       mapping(
         "username" -> lila.user.UserForm.historicalUsernameField
           .verifying("Unknown username", { blockingFetchUser(_).isDefined })
           .verifying(
             "Sorry, this player doesn't accept new messages",
-            { name =>
+            name =>
               security.may
-                .post(me.id, name.id, isNew = true)
+                .post(me, name.id, isNew = true)
                 .await(2 seconds, "pmAccept") // damn you blocking API
-            }
           ),
         "subject" -> text(minLength = 3, maxLength = 100),
         "text"    -> text(minLength = 3, maxLength = 8000)
@@ -101,18 +97,18 @@ final class MsgCompat(
     ).bindFromRequest()
       .fold(
         err => Left(err),
-        data => Right(api.post(me.id, data.user.id, s"${data.subject}\n${data.text}") inject data.user.id)
+        data => Right(api.post(me, data.user.id, s"${data.subject}\n${data.text}") inject data.user.id)
       )
 
-  def reply(me: User, userId: UserId)(using
-      req: play.api.mvc.Request[?],
-      formBinding: FormBinding
-  ): Either[Form[?], Funit] =
+  def reply(userId: UserId)(using
+      play.api.mvc.Request[?],
+      FormBinding
+  )(using me: Me): Either[Form[?], Funit] =
     Form(single("text" -> text(minLength = 3)))
       .bindFromRequest()
       .fold(
         err => Left(err),
-        text => Right(api.post(me.id, userId, text).void)
+        text => Right(api.post(me, userId, text).void)
       )
 
   private def blockingFetchUser(username: UserStr) =

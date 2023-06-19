@@ -15,19 +15,17 @@ final class Swiss(
     env: Env,
     tourC: Tournament,
     apiC: Api
-)(using
-    mat: akka.stream.Materializer
-) extends LilaController(env):
+)(using akka.stream.Materializer)
+    extends LilaController(env):
 
   private def swissNotFound(using WebContext) = NotFound(html.swiss.bits.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Swiss.home)(serveHome)
 
-  private def serveHome(using WebContext) = NoBot {
+  private def serveHome(using WebContext) = NoBot:
     ctx.userId.so(env.team.cached.teamIdsList) flatMap
       env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
-  }
 
   def show(id: SwissId) = Open:
     env.swiss.cache.swissCache.byId(id) flatMap { swissOption =>
@@ -50,7 +48,7 @@ final class Swiss(
             canChat <- canHaveChat(swiss.roundInfo)
             chat <-
               canChat so env.chat.api.userChat.cached
-                .findMine(swiss.id into ChatId, ctx.me)
+                .findMine(swiss.id into ChatId)
                 .flatMap: c =>
                   env.user.lightUserApi.preloadMany(c.chat.userIds) inject
                     c.copy(locked = !env.api.chatFreshness.of(swiss)).some
@@ -131,7 +129,7 @@ final class Swiss(
             .create(me)
             .bindFromRequest()
             .fold(
-              jsonFormError(_)(using reqLang),
+              jsonFormError,
               data =>
                 tourC.rateLimitCreation(isPrivate = true, rateLimited):
                   env.swiss.api.create(data, teamId) flatMap env.swiss.json.api map JsonOk

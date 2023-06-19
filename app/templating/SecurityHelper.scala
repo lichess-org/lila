@@ -11,7 +11,7 @@ trait SecurityHelper:
   export Granter.canGrant
 
   def isGranted(permission: Permission.Selector)(using ctx: AnyContext): Boolean =
-    ctx.me soUsing Granter.opt(permission)
+    ctx.me soUse Granter.opt(permission)
 
   def isGranted(permission: Permission.Selector, user: User): Boolean =
     isGranted(permission(Permission), user)
@@ -25,4 +25,4 @@ trait SecurityHelper:
   def reportScore(score: lila.report.Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
 
-  def canCloseAlt(using me: Option[Me]): Boolean = me soUsing Granter.canCloseAlt
+  def canCloseAlt(using me: Option[Me]): Boolean = me soUse Granter.canCloseAlt

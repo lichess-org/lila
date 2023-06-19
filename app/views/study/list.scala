@@ -35,8 +35,9 @@ object list:
       url = o => routes.Study.byOwner(owner.username, o)
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(using
-      ctx: WebContext
+  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
+      ctx: WebContext,
+      me: Me
   ) =
     layout(
       title = trans.study.myStudies.txt(),
@@ -61,8 +62,9 @@ object list:
       url = o => routes.Study.mineLikes(o)
     )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(using
-      ctx: WebContext
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
+      ctx: WebContext,
+      me: Me
   ) =
     layout(
       title = trans.study.studiesIContributeTo.txt(),
@@ -74,7 +76,7 @@ object list:
       topics = topics.some
     )
 
-  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(using WebContext) =
+  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order)(using WebContext)(using me: Me) =
     layout(
       title = trans.study.myPublicStudies.txt(),
       active = "minePublic",
@@ -84,7 +86,7 @@ object list:
       url = o => routes.Study.minePublic(o)
     )
 
-  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(using WebContext) =
+  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order)(using WebContext)(using me: Me) =
     layout(
       title = trans.study.myPrivateStudies.txt(),
       active = "minePrivate",

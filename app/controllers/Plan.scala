@@ -19,7 +19,6 @@ import lila.plan.{
   StripeCustomer,
   StripeCustomerId
 }
-import lila.user.{ User as UserModel }
 import views.*
 
 final class Plan(env: Env) extends LilaController(env):
@@ -28,7 +27,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def index = Open:
     pageHit
-    ctx.me.fold(indexAnon): me =>
+    ctx.me.foldUse(indexAnon): me ?=>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me) flatMap {
         case ReloadUser => Redirect(routes.Plan.index)
@@ -36,24 +35,24 @@ final class Plan(env: Env) extends LilaController(env):
           env.user.repo email me flatMap { email =>
             renderIndex(email, patron.some)
           }
-        case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(me, patron, stripeCus)
-        case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(me, patron, payPalSub)
-        case _                                        => indexFreeUser(me)
+        case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(patron, stripeCus)
+        case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(patron, payPalSub)
+        case _                                        => indexFreeUser
       }
 
   def list = Open:
-    ctx.me.fold(Redirect(routes.Plan.index).toFuccess): me =>
+    ctx.me.foldUse(Redirect(routes.Plan.index).toFuccess): me ?=>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me) flatMap {
         case ReloadUser            => Redirect(routes.Plan.list)
-        case Synced(Some(_), _, _) => indexFreeUser(me)
+        case Synced(Some(_), _, _) => indexFreeUser
         case _                     => Redirect(routes.Plan.index)
       }
 
   private def indexAnon(using WebContext) = renderIndex(email = none, patron = none)
 
-  private def indexFreeUser(me: UserModel)(using WebContext) =
-    env.user.repo email me.id flatMap { renderIndex(_, patron = none) }
+  private def indexFreeUser(using ctx: WebContext, me: Me) =
+    env.user.repo email me flatMap { renderIndex(_, patron = none) }
 
   private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(using
       WebContext
@@ -75,9 +74,10 @@ final class Plan(env: Env) extends LilaController(env):
       )
     )
 
-  private def indexStripePatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(using
-      ctx: WebContext
-  ) = for {
+  private def indexStripePatron(patron: lila.plan.Patron, customer: StripeCustomer)(using
+      ctx: WebContext,
+      me: Me
+  ) = for
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
     info    <- env.plan.api.stripe.customerInfo(me, customer)
     gifts   <- env.plan.api.giftsFrom(me)
@@ -87,13 +87,14 @@ final class Plan(env: Env) extends LilaController(env):
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email map { EmailAddress(_) }, patron.some)
       case None =>
-        env.user.repo email me.id flatMap {
+        env.user.repo email me flatMap {
           renderIndex(_, patron.some)
         }
-  } yield res
+  yield res
 
-  private def indexPayPalPatron(me: UserModel, patron: lila.plan.Patron, sub: PayPalSubscription)(using
-      WebContext
+  private def indexPayPalPatron(patron: lila.plan.Patron, sub: PayPalSubscription)(using
+      ctx: WebContext,
+      me: Me
   ) =
     env.plan.api.giftsFrom(me) map { gifts =>
       Ok(html.plan.indexPayPal(me, patron, sub, gifts))
@@ -149,11 +150,10 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   private def createStripeSession(
-      me: UserModel,
       checkout: PlanCheckout,
       customerId: StripeCustomerId,
-      giftTo: Option[UserModel]
-  )(using ctx: WebContext) = {
+      giftTo: Option[lila.user.User]
+  )(using ctx: WebContext, me: Me) = {
     for
       isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
       data = CreateStripeSession(
@@ -167,13 +167,13 @@ final class Plan(env: Env) extends LilaController(env):
         isLifetime = isLifetime,
         ip = ctx.ip
       )
-      session <- env.plan.api.stripe.createSession(data, me)
+      session <- env.plan.api.stripe.createSession(data)
     yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
   }.recover(badStripeApiCall)
 
-  def switchStripePlan(user: UserModel, money: Money) =
+  def switchStripePlan(money: Money)(using me: Me) =
     env.plan.api
-      .switch(user, money)
+      .switch(me, money)
       .inject(jsonOkResult)
       .recover(badStripeApiCall)
 
@@ -211,13 +211,13 @@ final class Plan(env: Env) extends LilaController(env):
                   customer <- env.plan.api.stripe.userCustomer(me)
                   session <- customer match
                     case Some(customer) if checkout.freq == Freq.Onetime =>
-                      createStripeSession(me, checkout, customer.id, gifted)
+                      createStripeSession(checkout, customer.id, gifted)
                     case Some(customer) if customer.firstSubscription.isDefined =>
-                      switchStripePlan(me, checkout.money)
+                      switchStripePlan(checkout.money)
                     case _ =>
                       env.plan.api.stripe
                         .makeCustomer(me, checkout)
-                        .flatMap(customer => createStripeSession(me, checkout, customer.id, gifted))
+                        .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
                 yield session
             )
   }

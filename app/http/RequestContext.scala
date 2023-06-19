@@ -55,8 +55,7 @@ trait RequestContext(using Executor):
   )(using req: RequestHeader, userCtx: UserContext): Fu[PageData] =
     val isPage = HTTPRequest isSynchronousHttp req
     val nonce  = isPage option Nonce.random
-    userCtx.me.fold(fuccess(PageData.anon(req, nonce, isBlindMode))): me =>
-      given Me = me
+    userCtx.me.foldUse(fuccess(PageData.anon(req, nonce, isBlindMode))): me ?=>
       env.pref.api.getPref(me, req) zip {
         if isPage then
           env.user.lightUserApi preloadUser me

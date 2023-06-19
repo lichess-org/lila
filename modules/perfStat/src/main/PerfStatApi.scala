@@ -2,7 +2,7 @@ package lila.perfStat
 
 import lila.rating.{ Perf, PerfType, UserRankMap }
 import lila.security.Granter
-import lila.user.{ LightUserApi, RankingApi, RankingsOf, User, UserRepo }
+import lila.user.{ LightUserApi, RankingApi, RankingsOf, User, UserRepo, Me }
 
 case class PerfStatData(
     user: User,
@@ -21,11 +21,11 @@ final class PerfStatApi(
     lightUserApi: LightUserApi
 )(using Executor):
 
-  def data(name: UserStr, perfKey: Perf.Key, by: Option[User.Me]): Fu[Option[PerfStatData]] =
-    PerfType(perfKey) so { perfType =>
+  def data(name: UserStr, perfKey: Perf.Key)(using me: Option[Me]): Fu[Option[PerfStatData]] =
+    PerfType(perfKey).so: perfType =>
       userRepo byId name flatMap {
         _.filter: u =>
-          (u.enabled.yes && (!u.lame || by.exists(_.user is u))) || by.exists(Granter(_.UserModView)(using _))
+          (u.enabled.yes && (!u.lame || me.exists(_ is u))) || me.soUse(Granter(_.UserModView))
         .so: u =>
           for
             oldPerfStat <- get(u, perfType)
@@ -40,7 +40,6 @@ final class PerfStatApi(
             _ <- lightUserApi preloadMany perfStat.userIds
           yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile).some
       }
-    }
 
-  def get(user: lila.user.User, perfType: lila.rating.PerfType): Fu[PerfStat] =
+  def get(user: User, perfType: PerfType): Fu[PerfStat] =
     storage.find(user.id, perfType) getOrElse indexer.userPerf(user, perfType)

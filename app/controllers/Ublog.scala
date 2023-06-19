@@ -279,7 +279,7 @@ final class Ublog(env: Env) extends LilaController(env):
             .getUserBlog(user)
             .flatMap: blog =>
               (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map { posts =>
-                Ok(html.ublog.atom.user(user, posts.currentPageResults)(using reqLang)) as XML
+                Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
               }
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible

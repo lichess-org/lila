@@ -80,7 +80,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     cachedTour(id) flatMap { tourOption =>
       def loadChat(tour: Tour, json: JsObject) =
         canHaveChat(tour, json.some) so env.chat.api.userChat.cached
-          .findMine(ChatId(tour.id), ctx.me)
+          .findMine(ChatId(tour.id))
           .flatMap: c =>
             env.user.lightUserApi.preloadMany(c.chat.userIds) inject
               c.copy(locked = !env.api.chatFreshness.of(tour)).some
@@ -316,14 +316,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     none,
                     partial = false,
                     withScores = false
-                  )(using ctx.lang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
+                  )(using _ => fuccess(teams.map(_.id))) map { Ok(_) }
                 }
               }
         )
     }
 
   def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
-    cachedTour(id) flatMap {
+    cachedTour(id).flatMap:
       _.filter(_.createdBy.is(me) || isGranted(_.ManageTournament)) so { tour =>
         env.team.api.lightsByLeader(me) flatMap { teams =>
           forms
@@ -342,12 +342,11 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     none,
                     partial = false,
                     withScores = true
-                  )(using ctx.lang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
+                  )(using _ => fuccess(teams.map(_.id))) map { Ok(_) }
                 }
             )
         }
       }
-    }
   }
 
   def apiTerminate(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>

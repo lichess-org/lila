@@ -202,7 +202,7 @@ final class Round(
     }
   } so {
     val id = ChatId(s"${game.id}/w")
-    env.chat.api.userChat.findMineIf(id, ctx.me, !game.justCreated) flatMap { chat =>
+    env.chat.api.userChat.findMineIf(id, !game.justCreated) flatMap { chat =>
       env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
     }
   }
@@ -227,17 +227,17 @@ final class Round(
           {
             ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
           } so env.chat.api.userChat.cached
-            .findMine(ChatId(tid), ctx.me)
+            .findMine(ChatId(tid))
             .dmap(toEventChat(s"tournament/$tid"))
         case (_, Some(sid), _) =>
-          env.chat.api.userChat.cached.findMine(sid into ChatId, ctx.me).dmap(toEventChat(s"simul/$sid"))
+          env.chat.api.userChat.cached.findMine(sid into ChatId).dmap(toEventChat(s"simul/$sid"))
         case (_, _, Some(sid)) =>
           env.swiss.api
             .roundInfo(SwissId(sid))
             .flatMapz(swissC.canHaveChat)
             .flatMapz {
               env.chat.api.userChat.cached
-                .findMine(sid into ChatId, ctx.me)
+                .findMine(sid into ChatId)
                 .dmap(toEventChat(s"swiss/$sid"))
             }
         case _ =>

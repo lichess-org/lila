@@ -4,7 +4,7 @@ import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.i18n.{ I18nKey, I18nKeys as trans }
-import lila.user.User
+import lila.user.{ Me, User }
 
 final class StudyPager(
     studyRepo: StudyRepo,
@@ -24,93 +24,83 @@ final class StudyPager(
     selectTopic
   }
 
-  def all(me: Option[User], order: Order, page: Int) =
+  def all(order: Order, page: Int)(using me: Option[Me]) =
     paginator(
-      noRelaySelect ++ accessSelect(me),
-      me,
+      noRelaySelect ++ accessSelect,
       order,
       page,
       fuccess(9999).some
     )
 
-  def byOwner(owner: User, me: Option[User], order: Order, page: Int) =
+  def byOwner(owner: User, order: Order, page: Int)(using me: Option[Me]) =
     paginator(
-      selectOwnerId(owner.id) ++ accessSelect(me),
-      me,
+      selectOwnerId(owner.id) ++ accessSelect,
       order,
       page
     )
 
-  def mine(me: User, order: Order, page: Int) =
+  def mine(order: Order, page: Int)(using me: Me) =
     paginator(
-      selectOwnerId(me.id),
-      me.some,
+      selectOwnerId(me),
       order,
       page
     )
 
-  def minePublic(me: User, order: Order, page: Int) =
+  def minePublic(order: Order, page: Int)(using me: Me) =
     paginator(
-      selectOwnerId(me.id) ++ selectPublic,
-      me.some,
+      selectOwnerId(me) ++ selectPublic,
       order,
       page
     )
 
-  def minePrivate(me: User, order: Order, page: Int) =
+  def minePrivate(order: Order, page: Int)(using me: Me) =
     paginator(
-      selectOwnerId(me.id) ++ selectPrivateOrUnlisted,
-      me.some,
+      selectOwnerId(me) ++ selectPrivateOrUnlisted,
       order,
       page
     )
 
-  def mineMember(me: User, order: Order, page: Int) =
+  def mineMember(order: Order, page: Int)(using me: Me) =
     paginator(
-      selectMemberId(me.id) ++ $doc("ownerId" $ne me.id),
-      me.some,
+      selectMemberId(me) ++ $doc("ownerId" $ne me.userId),
       order,
       page
     )
 
-  def mineLikes(me: User, order: Order, page: Int) =
+  def mineLikes(order: Order, page: Int)(using me: Me) =
     paginator(
-      selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id),
-      me.some,
+      selectLiker(me) ++ accessSelect ++ $doc("ownerId" $ne me.userId),
       order,
       page
     )
 
-  def byTopic(topic: StudyTopic, me: Option[User], order: Order, page: Int) =
+  def byTopic(topic: StudyTopic, order: Order, page: Int)(using me: Option[Me]) =
     val onlyMine = me.ifTrue(order == Order.Mine)
     paginator(
-      selectTopic(topic) ++ onlyMine.fold(accessSelect(me))(m => selectMemberId(m.id)),
-      me,
+      selectTopic(topic) ++ onlyMine.fold(accessSelect)(selectMemberId(_)),
       order,
       page,
       hint = onlyMine.isDefined option $doc("uids" -> 1, "rank" -> -1)
     )
 
-  private def accessSelect(me: Option[User]) =
-    me.fold(selectPublic) { u =>
-      $or(selectPublic, selectMemberId(u.id))
-    }
+  private def accessSelect(using me: Option[Me]) =
+    me.fold(selectPublic): u =>
+      $or(selectPublic, selectMemberId(u))
 
   private val noRelaySelect = $doc("from" $ne "relay")
 
   private def paginator(
       selector: Bdoc,
-      me: Option[User],
       order: Order,
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none
-  ): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll { coll =>
-    val adapter = new Adapter[Study](
+  )(using me: Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
+    val adapter = Adapter[Study](
       collection = coll,
       selector = selector,
       projection = studyRepo.projection.some,
-      sort = order match {
+      sort = order match
         case Order.Hot          => $sort desc "rank"
         case Order.Newest       => $sort desc "createdAt"
         case Order.Oldest       => $sort asc "createdAt"
@@ -119,17 +109,15 @@ final class StudyPager(
         case Order.Alphabetical => $sort asc "name"
         // mine filter for topic view
         case Order.Mine => $sort desc "rank"
-      },
+      ,
       hint = hint
     ) mapFutureList withChaptersAndLiking(me)
     Paginator(
-      adapter = nbResults.fold(adapter) { nb =>
-        new CachedAdapter(adapter, nb)
-      },
+      adapter = nbResults.fold(adapter): nb =>
+        CachedAdapter(adapter, nb),
       currentPage = page,
       maxPerPage = maxPerPage
     )
-  }
 
   def withChaptersAndLiking(
       me: Option[User],

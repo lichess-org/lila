@@ -34,7 +34,7 @@ final class Msg(env: Env) extends LilaController(env):
             api = v =>
               JsonOk:
                 if v.value >= 5 then newJson
-                else fuccess(env.msg.compat.thread(me, c))
+                else fuccess(env.msg.compat.thread(c))
           )
       }
   }
@@ -57,8 +57,7 @@ final class Msg(env: Env) extends LilaController(env):
   }
 
   def compatCreate = AuthBody { ctx ?=> me ?=>
-    ctx.noKid so ctx.noBot so env.msg.compat
-      .create(me)
+    ctx.noKid so ctx.noBot so env.msg.compat.create
       .fold(
         jsonFormError,
         _.map: id =>
@@ -73,7 +72,7 @@ final class Msg(env: Env) extends LilaController(env):
       auth = ctx ?=>
         me ?=>
           env.msg.compat
-            .reply(me, userId)
+            .reply(userId)
             .fold(
               jsonFormError,
               _ inject Ok(Json.obj("ok" -> true, "id" -> userId))

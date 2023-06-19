@@ -26,7 +26,7 @@ final class Study(
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
       if text.trim.isEmpty then
-        env.study.pager.all(ctx.me, Order.default, page) flatMap { pag =>
+        env.study.pager.all(Order.default, page) flatMap { pag =>
           preloadMembers(pag) >> negotiate(
             html = Ok(html.study.list.all(pag, Order.default)),
             api = _ => apiStudies(pag)
@@ -53,7 +53,7 @@ final class Study(
         case order if !Order.withoutSelector.contains(order) =>
           Redirect(routes.Study.allDefault(page))
         case order =>
-          env.study.pager.all(ctx.me, order, page) flatMap { pag =>
+          env.study.pager.all(order, page) flatMap { pag =>
             preloadMembers(pag) >> negotiate(
               html = Ok(html.study.list.all(pag, order)),
               api = _ => apiStudies(pag)
@@ -68,7 +68,7 @@ final class Study(
       .byId(username)
       .flatMapz: owner =>
         env.study.pager
-          .byOwner(owner, ctx.me, order, page)
+          .byOwner(owner, order, page)
           .flatMap: pag =>
             preloadMembers(pag) >> negotiate(
               html = Ok(html.study.list.byOwner(pag, order, owner)),
@@ -76,10 +76,10 @@ final class Study(
             )
 
   def mine(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.mine(me, order, page) flatMap { pag =>
+    env.study.pager.mine(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
         html = env.study.topicApi.userTopics(me) map { topics =>
-          Ok(html.study.list.mine(pag, order, me, topics))
+          Ok(html.study.list.mine(pag, order, topics))
         },
         api = _ => apiStudies(pag)
       )
@@ -87,28 +87,28 @@ final class Study(
   }
 
   def minePublic(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.minePublic(me, order, page) flatMap { pag =>
+    env.study.pager.minePublic(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = Ok(html.study.list.minePublic(pag, order, me)),
+        html = html.study.list.minePublic(pag, order),
         api = _ => apiStudies(pag)
       )
     }
   }
 
   def minePrivate(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.minePrivate(me, order, page) flatMap { pag =>
+    env.study.pager.minePrivate(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = Ok(html.study.list.minePrivate(pag, order, me)),
+        html = html.study.list.minePrivate(pag, order),
         api = _ => apiStudies(pag)
       )
     }
   }
 
   def mineMember(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.mineMember(me, order, page) flatMap { pag =>
+    env.study.pager.mineMember(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = env.study.topicApi.userTopics(me) map { topics =>
-          Ok(html.study.list.mineMember(pag, order, me, topics))
+        html = env.study.topicApi.userTopics(me) map {
+          html.study.list.mineMember(pag, order, _)
         },
         api = _ => apiStudies(pag)
       )
@@ -116,9 +116,9 @@ final class Study(
   }
 
   def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager.mineLikes(me, order, page) flatMap { pag =>
+    env.study.pager.mineLikes(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = Ok(html.study.list.mineLikes(pag, order)),
+        html = html.study.list.mineLikes(pag, order),
         api = _ => apiStudies(pag)
       )
     }
@@ -128,7 +128,7 @@ final class Study(
     lila.study.StudyTopic fromStr name match
       case None => notFound
       case Some(topic) =>
-        env.study.pager.byTopic(topic, ctx.me, order, page) zip
+        env.study.pager.byTopic(topic, order, page) zip
           ctx.me.so(u => env.study.topicApi.userTopics(u) dmap some) flatMap { (pag, topics) =>
             preloadMembers(pag) inject Ok(html.study.topic.show(topic, pag, order, topics))
           }
@@ -249,7 +249,7 @@ final class Study(
     ctx.noKid && ctx.noBot &&                    // no public chats for kids and bots
     ctx.me.fold(true)(env.chat.panic.allowed(_)) // anon can see public chats
   } so env.chat.api.userChat
-    .findMine(study.id into ChatId, ctx.me)
+    .findMine(study.id into ChatId)
     .dmap(some)
     .mon(_.chat.fetch("study"))
 

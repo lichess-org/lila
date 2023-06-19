@@ -57,7 +57,7 @@ object post:
                   momentFromNow(post.createdAt)
                 }
             ),
-            (!post.erased && ctx.me.soUsing(post.shouldShowEditForm)) option
+            (!post.erased && ctx.me.soUse(post.shouldShowEditForm)) option
               button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := licon.Pencil)(
                 "Edit"
               ),
@@ -112,7 +112,7 @@ object post:
           else body
         ),
         !post.erased option reactions(post, canReact),
-        ctx.me.soUsing(post.shouldShowEditForm) option
+        ctx.me.soUse(post.shouldShowEditForm) option
           postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
             textarea(
               bits.dataTopic := topic.id,

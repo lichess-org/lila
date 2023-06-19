@@ -67,7 +67,7 @@ final class Preload(
         // format: off
         case ((((((((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
         // format: on
-          (ctx.me soUsing currentGameMyTurn(povs, lightUserApi.sync))
+          (ctx.me soUse currentGameMyTurn(povs, lightUserApi.sync))
             .mon(_.lobby segment "currentGame") zip
             lightUserApi
               .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)

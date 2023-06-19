@@ -107,24 +107,22 @@ final class ForumPostApi(
   def react(
       categSlug: String,
       postId: ForumPostId,
-      me: User,
       reactionStr: String,
       v: Boolean
-  ): Fu[Option[ForumPost]] =
+  )(using me: Me): Fu[Option[ForumPost]] =
     ForumPost.Reaction(reactionStr) so { reaction =>
-      if (v) lila.mon.forum.reaction(reaction.key).increment()
+      if v then lila.mon.forum.reaction(reaction.key).increment()
       postRepo.coll
         .findAndUpdateSimplified[ForumPost](
-          selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
-          update = {
-            if (v) $addToSet(s"reactions.$reaction" -> me.id)
-            else $pull(s"reactions.$reaction"       -> me.id)
-          },
+          selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.userId),
+          update =
+            if v then $addToSet(s"reactions.$reaction" -> me.userId)
+            else $pull(s"reactions.$reaction"          -> me.userId),
           fetchNewObject = true
         ) >>- {
         if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
           scheduler.scheduleOnce(5 minutes):
-            react(categSlug, postId, me, reaction.key, false)
+            react(categSlug, postId, reaction.key, false)
       }
     }
 
@@ -153,11 +151,11 @@ final class ForumPostApi(
     postRepo.byIds(postIds) flatMap liteViews
 
   def liteView(post: ForumPost): Fu[Option[PostLiteView]] =
-    liteViews(List(post)) dmap (_.headOption)
+    liteViews(List(post)).dmap(_.headOption)
 
   def miniPosts(posts: List[ForumPost]): Fu[List[MiniForumPost]] =
     topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId.value).distinct) map { topics =>
-      posts flatMap { post =>
+      posts.flatMap: post =>
         topics.find(_.id == post.topicId) map { topic =>
           MiniForumPost(
             isTeam = post.isTeam,
@@ -168,7 +166,6 @@ final class ForumPostApi(
             createdAt = post.createdAt
           )
         }
-      }
     }
 
   def allUserIds(topicId: ForumTopicId) = postRepo allUserIdsByTopicId topicId

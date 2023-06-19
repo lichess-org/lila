@@ -39,8 +39,6 @@ abstract private[controllers] class LilaController(val env: Env)
   inline def ctx(using it: WebContext)    = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
 
-  def reqLang(using req: RequestHeader): Lang = I18nLangPicker(req)
-
   /* Anonymous requests */
   def Anon(f: MinimalContext ?=> Fu[Result]): EssentialAction =
     action(parse.empty)(f(using minimalContext))

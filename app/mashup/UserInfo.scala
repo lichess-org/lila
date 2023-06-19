@@ -54,7 +54,7 @@ object UserInfo:
       ctx.userId.so {
         relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
       } zip
-        ctx.me.soUsing { _ ?=>
+        ctx.me.soUse { _ ?=>
           fetchNotes(u).mon(_.user segment "notes")
         } zip
         ctx.isAuth.so {
@@ -131,7 +131,7 @@ object UserInfo:
         teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
-        (user.count.rated >= 10).so(insightShare.grant(user, ctx.me)) zip
+        (user.count.rated >= 10).so(insightShare.grant(user)) zip
         (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")) map {
           // format: off
           case ((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>

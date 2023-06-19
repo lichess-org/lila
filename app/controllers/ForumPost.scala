@@ -107,7 +107,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
-      postApi.react(categId, id, me, reaction, v) mapz { post =>
+      postApi.react(categId, id, reaction, v) mapz { post =>
         Ok(views.html.forum.post.reactions(post, canReact = true))
       }
   }

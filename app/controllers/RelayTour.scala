@@ -147,7 +147,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   private def redirectToTour(tour: TourModel)(using ctx: WebContext): Fu[Result] =
     env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
       case None =>
-        ctx.me.soUsing { env.relay.api.canUpdate(tour) } mapz {
+        ctx.me.soUse { env.relay.api.canUpdate(tour) } mapz {
           Redirect(routes.RelayRound.form(tour.id.value))
         }
       case Some(round) => Redirect(round.withTour(tour).path)
@@ -160,7 +160,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       id: TourModel.Id
   )(f: TourModel => Fu[Result])(using ctx: AnyContext): Fu[Result] =
     WithTour(id): tour =>
-      ctx.me.soUsing { env.relay.api.canUpdate(tour) } flatMapz f(tour)
+      ctx.me.soUse { env.relay.api.canUpdate(tour) } flatMapz f(tour)
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 10,

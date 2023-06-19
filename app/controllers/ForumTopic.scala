@@ -51,7 +51,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NotForKids:
       OptionFuResult(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         for
-          unsub       <- ctx.me soUsing env.timeline.status(s"forum:${topic.id}")
+          unsub       <- ctx.me soUse env.timeline.status(s"forum:${topic.id}")
           canRead     <- access.isGrantedRead(categ.slug)
           canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
           canModCateg <- access.isGrantedMod(categ.slug)
@@ -59,7 +59,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             env.team.cached.isLeader(teamId, me)
           form <- ctx.me
             .filter(_ => canWrite && topic.open && !topic.isOld)
-            .soUsing: _ ?=>
+            .soUse: _ ?=>
               forms.postWithCaptcha(inOwnTeam) map some
           _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
           res <-

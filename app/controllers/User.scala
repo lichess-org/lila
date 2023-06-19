@@ -139,7 +139,7 @@ final class User(
     else
       env.user.repo byId username flatMap {
         case None if isGrantedOpt(_.UserModView) =>
-          ctx.me.soUsing(modC.searchTerm(username.value))
+          ctx.me.soUse(modC.searchTerm(username.value))
         case None                                                    => notFound
         case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
         case Some(u) =>
@@ -455,10 +455,11 @@ final class User(
       .fold(
         err => BadRequest(err.errors.toString).toFuccess,
         data =>
-          doWriteNote(username, me, data): user =>
-            if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id).map { notes =>
-              Ok(views.html.mod.inquiry.noteZone(user, notes))
-            }
+          doWriteNote(username, data): user =>
+            if getBool("inquiry") then
+              env.user.noteApi.byUserForMod(user.id).map { notes =>
+                Ok(views.html.mod.inquiry.noteZone(user, notes))
+              }
             else
               env.socialInfo.fetchNotes(user) map { notes =>
                 Ok(views.html.user.show.header.noteZone(user, notes))
@@ -477,17 +478,13 @@ final class User(
   def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me ?=>
     lila.user.UserForm.apiNote
       .bindFromRequest()
-      .fold(
-        jsonFormError(_)(using reqLang),
-        data => doWriteNote(username, me, data)(_ => jsonOkResult)
-      )
+      .fold(jsonFormError, data => doWriteNote(username, data)(_ => jsonOkResult))
   }
 
   private def doWriteNote(
       username: UserStr,
-      me: UserModel,
       data: lila.user.UserForm.NoteData
-  )(f: UserModel => Fu[Result])(using Me) =
+  )(f: UserModel => Fu[Result])(using me: Me) =
     env.user.repo byId username flatMapz { user =>
       val isMod = data.mod && isGranted(_.ModNote)
       env.user.noteApi.write(user, data.text, isMod, isMod && data.dox) >> f(user)
@@ -530,7 +527,7 @@ final class User(
 
   def perfStat(username: UserStr, perfKey: Perf.Key) = Open:
     env.perfStat.api
-      .data(username, perfKey, ctx.me)
+      .data(username, perfKey)
       .flatMapz: data =>
         negotiate(
           html = env.history.ratingChartApi(data.user) map { chart =>

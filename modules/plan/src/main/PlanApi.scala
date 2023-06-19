@@ -8,7 +8,7 @@ import lila.common.config.Secret
 import lila.common.{ Bus, IpAddress, EmailAddress }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.user.{ User, UserRepo }
+import lila.user.{ Me, User, UserRepo }
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -154,9 +154,9 @@ final class PlanApi(
     def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
       patron.stripe.map(_.customerId) so stripeClient.getCustomer
 
-    def createSession(data: CreateStripeSession, me: User)(using Lang): Fu[StripeSession] =
-      canUse(me, data.ip, data.checkout.freq) flatMap { canUse =>
-        if canUse.yes then
+    def createSession(data: CreateStripeSession)(using Lang)(using me: Me): Fu[StripeSession] =
+      canUse(data.ip, data.checkout.freq) flatMap { can =>
+        if can.yes then
           data.checkout.freq match
             case Freq.Onetime => stripeClient.createOneTimeSession(data)
             case Freq.Monthly => stripeClient.createMonthlySession(data)
@@ -174,32 +174,30 @@ final class PlanApi(
           stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method) void
       }
 
-    def canUse(user: User, ip: IpAddress, freq: Freq): Fu[StripeCanUse] = ip2proxy(ip) flatMap { proxy =>
+    def canUse(ip: IpAddress, freq: Freq)(using me: Me): Fu[StripeCanUse] = ip2proxy(ip) flatMap { proxy =>
       if (!proxy.is) fuccess(StripeCanUse.Yes)
       else
         val maxPerWeek = {
-          val verifiedBonus  = user.isVerified so 50
-          val nbGamesBonus   = math.sqrt(user.count.game / 50)
-          val seniorityBonus = math.sqrt(daysBetween(user.createdAt, nowInstant) / 30d)
+          val verifiedBonus  = me.isVerified so 50
+          val nbGamesBonus   = math.sqrt(me.count.game / 50)
+          val seniorityBonus = math.sqrt(daysBetween(me.createdAt, nowInstant) / 30d)
           verifiedBonus + nbGamesBonus + seniorityBonus
         }.toInt.atLeast(1).atMost(50)
         freq match
           case Freq.Monthly => // prevent several subscriptions in a row
             StripeCanUse from mongo.charge
-              .countSel(
+              .countSel:
                 $doc(
-                  "userId" -> user.id,
+                  "userId" -> me.userId,
                   "date" $gt nowInstant.minusWeeks(1),
                   "stripe" $exists true,
                   "giftTo" $exists false
                 )
-              )
               .map(_ < maxPerWeek)
           case Freq.Onetime => // prevents mass gifting or one-time donations
             StripeCanUse from mongo.charge
-              .countSel(
-                $doc("userId" -> user.id, "date" $gt nowInstant.minusWeeks(1), "stripe" $exists true)
-              )
+              .countSel:
+                $doc("userId" -> me.userId, "date" $gt nowInstant.minusWeeks(1), "stripe" $exists true)
               .map(_ < maxPerWeek)
     }
 

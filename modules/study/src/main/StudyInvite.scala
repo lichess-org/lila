@@ -31,7 +31,7 @@ final private class StudyInvite(
   ): Fu[User] = for
     _       <- (study.nbMembers >= maxMembers) so fufail[Unit](s"Max study members reached: $maxMembers")
     inviter <- userRepo me byUserId orFail "No such inviter"
-    given User.Me = inviter
+    given Me = inviter
     _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)).so:
       fufail[Unit]("Only the study owner can invite")
     invited <-

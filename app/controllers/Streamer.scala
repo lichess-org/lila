@@ -169,8 +169,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       Ok(challenge)
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext): Fu[Result] =
-    ctx.me.fold(notFound): me =>
-      given Me = me
+    ctx.me.foldUse(notFound): me ?=>
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.userId) flatMap {
           _.fold(Ok(html.streamer.bits.create).toFuccess)(f)

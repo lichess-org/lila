@@ -37,7 +37,7 @@ final class Importer(env: Env) extends LilaController(env):
           ImportRateLimitPerIP(ctx.ip, rateLimitedFu, cost = 1):
             doImport(data, ctx.me) flatMap {
               case Right(game) =>
-                ctx.me.filter(_ => data.analyse.isDefined && game.analysable) soUsing { me ?=>
+                ctx.me.filter(_ => data.analyse.isDefined && game.analysable) soUse { me ?=>
                   env.fishnet
                     .analyser(
                       game,

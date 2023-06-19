@@ -132,7 +132,7 @@ object User:
 
   given UserIdOf[User] = _.id
 
-  export lila.user.{ Me, UserEnabled as Enabled }
+  export lila.user.UserEnabled as Enabled
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean):

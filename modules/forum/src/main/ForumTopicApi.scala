@@ -49,22 +49,20 @@ final private class ForumTopicApi(
 
   object findDuplicate:
     private val cache =
-      cacheApi.notLoadingSync[(UserId, String), ForumTopicId](64, "forum.topic.duplicate") {
+      cacheApi.notLoadingSync[(UserId, String), ForumTopicId](64, "forum.topic.duplicate"):
         _.expireAfterWrite(1 hour).build()
-      }
-    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId so { uid =>
+    def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId.so: uid =>
       val key = (uid, topic.name)
       cache.getIfPresent(key) so { topicRepo.coll.byId[ForumTopic](_) } orElse {
         cache.put(key, topic.id)
         fuccess(none)
       }
-    }
 
   def makeTopic(
       categ: ForumCateg,
       data: ForumForm.TopicData
   )(using me: Me): Fu[ForumTopic] =
-    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
+    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { (slug, lang) =>
       val topic = ForumTopic.make(
         categId = categ.slug,
         slug = slug,
