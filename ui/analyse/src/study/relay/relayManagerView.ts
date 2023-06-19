@@ -21,7 +21,9 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
               },
             }),
           ]),
-          ctrl.data.sync?.url || ctrl.data.sync?.ids ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl) : null,
+          ctrl.data.sync?.url || ctrl.data.sync?.ids
+            ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl)
+            : null,
           renderLog(ctrl),
         ]
       )

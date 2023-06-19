@@ -56,9 +56,12 @@ export default function LichessLobby(opts: LobbyOpts) {
     const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();
-    xhr.text(xhr.url(`/setup/hook/${lichess.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }), {
-      method: 'post',
-    });
+    xhr.text(
+      xhr.url(`/setup/hook/${lichess.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }),
+      {
+        method: 'post',
+      }
+    );
     lobbyCtrl.setTab('real_time');
     lobbyCtrl.redraw();
     history.replaceState(null, '', '/');
@@ -81,6 +84,8 @@ function suggestBgSwitch() {
   $('.bg-switch')
     .addClass('active')
     .on('click', () =>
-      loadDasher().then(dasher => dasher.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark'))
+      loadDasher().then(dasher =>
+        dasher.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark')
+      )
     );
 }

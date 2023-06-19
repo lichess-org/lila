@@ -1,4 +1,11 @@
-import { init, attributesModule, eventListenersModule, classModule, propsModule, styleModule } from 'snabbdom';
+import {
+  init,
+  attributesModule,
+  eventListenersModule,
+  classModule,
+  propsModule,
+  styleModule,
+} from 'snabbdom';
 import menuHover from 'common/menuHover';
 import { Chessground } from 'chessground';
 
@@ -8,7 +15,10 @@ import CoordinateTrainerCtrl from './ctrl';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 
-export default function LichessCoordinateTrainer(element: HTMLElement, config: CoordinateTrainerConfig): void {
+export default function LichessCoordinateTrainer(
+  element: HTMLElement,
+  config: CoordinateTrainerConfig
+): void {
   const ctrl = new CoordinateTrainerCtrl(config, redraw);
   element.innerHTML = '';
   const inner = document.createElement('div');

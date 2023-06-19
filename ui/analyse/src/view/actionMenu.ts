@@ -182,7 +182,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
-  const notSupported = (ceval?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
+  const notSupported =
+    (ceval?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
 
   const cevalConfig: MaybeVNodes =
     ceval?.possible && ceval.allowed()
@@ -285,7 +286,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       },
                       hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
                     }),
-                    h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`),
+                    h(
+                      'div.range_value',
+                      `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`
+                    ),
                   ]);
                 })('analyse-threads'),
                 (id =>

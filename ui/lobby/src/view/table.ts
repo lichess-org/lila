@@ -8,10 +8,14 @@ import { numberFormat } from 'common/number';
 export default function table(ctrl: LobbyController) {
   const { data, trans, opts } = ctrl;
   const hasOngoingRealTimeGame = ctrl.hasOngoingRealTimeGame();
-  const hookDisabled = opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot || hasOngoingRealTimeGame;
+  const hookDisabled =
+    opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot || hasOngoingRealTimeGame;
   const { members, rounds } = data.counters;
   return h('div.lobby__table', [
-    h('div.bg-switch', { attrs: { title: 'Dark mode' } }, [h('div.bg-switch__track'), h('div.bg-switch__thumb')]),
+    h('div.bg-switch', { attrs: { title: 'Dark mode' } }, [
+      h('div.bg-switch__track'),
+      h('div.bg-switch__thumb'),
+    ]),
     h(
       'div.lobby__start',
       (lichess.blindMode ? [h('h2', 'Play')] : []).concat(

@@ -1,6 +1,7 @@
 import { LobbyMe, PoolMember } from './interfaces';
 
-const makeKey = (me: LobbyMe | undefined, poolId: string) => `lobby-pool-range.${me?.username || 'anon'}.${poolId}`;
+const makeKey = (me: LobbyMe | undefined, poolId: string) =>
+  `lobby-pool-range.${me?.username || 'anon'}.${poolId}`;
 
 export const set = (me: LobbyMe | undefined, member: PoolMember) => {
   const key = makeKey(me, member.id);

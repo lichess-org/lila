@@ -45,7 +45,9 @@ export default function () {
     // compares current and previous mouse positions
     const compare = () => {
       // compare mouse positions to see if pointer has slowed enough to trigger `over` function
-      if (Math.sqrt((state.pX! - cX) * (state.pX! - cX) + (state.pY! - cY) * (state.pY! - cY)) < sensitivity) {
+      if (
+        Math.sqrt((state.pX! - cX) * (state.pX! - cX) + (state.pY! - cY) * (state.pY! - cY)) < sensitivity
+      ) {
         $el.off(state.event!, track);
         delete state.timeoutId;
         // set hoverIntent state as active for this element (permits `out` handler to trigger)

@@ -7,7 +7,13 @@ import * as search from './search';
 
 export const maxPerPage = 10;
 
-function button(text: string, icon: string, click: () => void, enable: boolean, ctrl: TournamentController): VNode {
+function button(
+  text: string,
+  icon: string,
+  click: () => void,
+  enable: boolean,
+  ctrl: TournamentController
+): VNode {
   return h('button.fbt.is', {
     attrs: {
       'data-icon': icon,

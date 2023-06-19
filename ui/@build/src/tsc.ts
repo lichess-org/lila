@@ -10,10 +10,15 @@ export async function tsc(onSuccess: () => void) {
 
   const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
   const cfg: any = { files: [] };
-  cfg.references = buildModules.filter(x => x.hasTsconfig).map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
+  cfg.references = buildModules
+    .filter(x => x.hasTsconfig)
+    .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
   await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
 
-  const tsc = cps.spawn('tsc', ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force']));
+  const tsc = cps.spawn(
+    'tsc',
+    ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force'])
+  );
 
   env.log(`Checking typescript`, { ctx: 'tsc' });
 

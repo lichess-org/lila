@@ -120,7 +120,9 @@ const renderText = (msg: Msg) =>
           create(_, vnode: VNode) {
             const el = vnode.elm as HTMLElement;
             el.innerHTML = enhance.enhance(msg.text);
-            el.querySelectorAll('img').forEach(c => c.addEventListener('load', scroller.auto, { once: true }));
+            el.querySelectorAll('img').forEach(c =>
+              c.addEventListener('load', scroller.auto, { once: true })
+            );
             $('form.unsub', el).on('submit', function (this: HTMLFormElement) {
               teamUnsub(this);
               return false;

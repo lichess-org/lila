@@ -12,7 +12,8 @@ function formatNumber(dt: string, n: number) {
   return numeral(n).format(f);
 }
 
-const formatSerieName = (dt: string, n: number) => (dt === 'date' ? new Date(n * 1000).toLocaleDateString() : n);
+const formatSerieName = (dt: string, n: number) =>
+  dt === 'date' ? new Date(n * 1000).toLocaleDateString() : n;
 
 export function vert(ctrl: Ctrl, attrs: any = null) {
   const answer = ctrl.vm.answer;

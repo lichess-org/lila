@@ -193,7 +193,9 @@ lichess.load.then(() => {
                   })
               )
               .append(
-                $(`<a class="text" data-icon="${licon.PlayTriangle}">`).attr('href', url).text(siteTrans('resume'))
+                $(`<a class="text" data-icon="${licon.PlayTriangle}">`)
+                  .attr('href', url)
+                  .text(siteTrans('resume'))
               )
           )
       );

@@ -74,7 +74,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
     lichess
       .loadModule('chart.game')
-      .then(() => window.LichessChartGame.acpl($('#acpl-chart')[0] as HTMLElement, data, ctrl.mainline, ctrl.trans))
+      .then(() =>
+        window.LichessChartGame.acpl($('#acpl-chart')[0] as HTMLElement, data, ctrl.mainline, ctrl.trans)
+      )
       .then(chart => {
         advChart = chart;
       });
@@ -91,7 +93,12 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
       lichess.loadModule('chart.game').then(() => {
         timeChartLoaded = true;
-        window.LichessChartGame.movetime($('#movetimes-chart')[0] as HTMLElement, data, ctrl.trans, ctrl.opts.hunter);
+        window.LichessChartGame.movetime(
+          $('#movetimes-chart')[0] as HTMLElement,
+          data,
+          ctrl.trans,
+          ctrl.opts.hunter
+        );
       });
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)
       setTimeout(startAdvantageChart, 200);

@@ -198,6 +198,11 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         hook: bind('click', ctrl.close),
       }),
     ]),
-    h('div.mchat__content.moderation', [h('i.line-text.block', ['"', data.text, '"']), infos, timeout, history]),
+    h('div.mchat__content.moderation', [
+      h('i.line-text.block', ['"', data.text, '"']),
+      infos,
+      timeout,
+      history,
+    ]),
   ];
 }

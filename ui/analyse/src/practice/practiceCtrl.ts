@@ -66,7 +66,9 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   function commentable(node: Tree.Node, bonus = 0): boolean {
     if (node.tbhit || root.outcome(node)) return true;
     const ceval = node.ceval;
-    return ceval ? ceval.depth + bonus >= 15 || (ceval.depth >= 13 && !ceval.cloud && ceval.millis > 3000) : false;
+    return ceval
+      ? ceval.depth + bonus >= 15 || (ceval.depth >= 13 && !ceval.cloud && ceval.millis > 3000)
+      : false;
   }
 
   function playable(node: Tree.Node): boolean {
@@ -105,7 +107,10 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev);
-      if (best === node.uci || (node.san!.startsWith('O-O') && best === (altCastles as Dictionary<Uci>)[node.uci!]))
+      if (
+        best === node.uci ||
+        (node.san!.startsWith('O-O') && best === (altCastles as Dictionary<Uci>)[node.uci!])
+      )
         best = undefined;
 
       if (!best) verdict = 'goodMove';

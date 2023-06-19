@@ -91,9 +91,9 @@ lichess.load.then(() => {
   function expandTwitter(a: Candidate) {
     $(a.element).replaceWith(
       $(
-        `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${currentTheme()}"><a href="${a.src}">${
+        `<blockquote class="twitter-tweet" data-dnt="true" data-theme="${currentTheme()}"><a href="${
           a.src
-        }</a></blockquote>`
+        }">${a.src}</a></blockquote>`
       )
     );
     if (!twitterLoaded) {

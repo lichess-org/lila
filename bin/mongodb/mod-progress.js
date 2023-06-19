@@ -1,4 +1,8 @@
-db.modlog.update({ human: { $ne: true }, mod: { $ne: 'lichess' } }, { $set: { human: true } }, { multi: true });
+db.modlog.update(
+  { human: { $ne: true }, mod: { $ne: 'lichess' } },
+  { $set: { human: true } },
+  { multi: true }
+);
 db.modlog.createIndex({ mod: 1, date: -1 }, { partialFilterExpression: { human: true } });
 
 db.report2.find({ processedBy: { $exists: 1 } }).forEach(r =>

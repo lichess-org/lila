@@ -19,7 +19,9 @@ export default function (opts: RoundOpts): void {
         else
           $('.tv-channels .' + o.channel + ' .champion').html(
             o.player
-              ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : ''].filter(x => x).join('&nbsp')
+              ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : '']
+                  .filter(x => x)
+                  .join('&nbsp')
               : 'Anonymous'
           );
       },
@@ -73,7 +75,8 @@ export default function (opts: RoundOpts): void {
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
     chatOpts.instance = lichess.makeChat(chatOpts) as Promise<ChatCtrl>;
     if (!data.tournament && !data.simul && !data.swiss)
-      opts.onChange = (d: RoundData) => chatOpts.instance!.then(chat => chat.preset.setGroup(getPresetGroup(d)));
+      opts.onChange = (d: RoundData) =>
+        chatOpts.instance!.then(chat => chat.preset.setGroup(getPresetGroup(d)));
   }
   startTournamentClock();
   $('.round__now-playing .move-on input')
@@ -83,7 +86,8 @@ export default function (opts: RoundOpts): void {
       lichess.unload.expected = true;
       return true;
     });
-  if (location.pathname.lastIndexOf('/round-next/', 0) === 0) history.replaceState(null, '', '/' + data.game.id);
+  if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
+    history.replaceState(null, '', '/' + data.game.id);
   $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
   lichess.storage.make('reload-round-tabs').listen(lichess.reload);
 

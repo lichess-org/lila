@@ -187,7 +187,9 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       // using lexicon instead of crowdin translations for moves/commands
       el.find('.scrollable').html(html);
       const valToWord = (val: string, phonetic: boolean) =>
-        grammar.entries.find((e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')))?.in;
+        grammar.entries.find(
+          (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic'))
+        )?.in;
       $('.val-to-word', el).each(function (this: HTMLElement) {
         const tryPhonetic = (val: string) =>
           (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);

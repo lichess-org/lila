@@ -22,7 +22,8 @@ export function loginStart() {
   const selector = '.auth-login form';
   const history = new LoginHistory();
 
-  const toggleSubmit = ($submit: Cash, v: boolean) => $submit.prop('disabled', !v).toggleClass('disabled', !v);
+  const toggleSubmit = ($submit: Cash, v: boolean) =>
+    $submit.prop('disabled', !v).toggleClass('disabled', !v);
 
   (function load() {
     const form = document.querySelector(selector) as HTMLFormElement,
@@ -108,7 +109,9 @@ export function signupStart() {
 
   lichess
     .loadModule('passwordComplexity')
-    .then(() => (window.passwordComplexity as typeof PasswordComplexity).addPasswordChangeListener('form3-password'));
+    .then(() =>
+      (window.passwordComplexity as typeof PasswordComplexity).addPasswordChangeListener('form3-password')
+    );
 }
 
 (window as any).loginSignup = { loginStart, signupStart };

@@ -124,7 +124,8 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               el.addEventListener('input', () => (ctrl.pgnInput = el.value));
 
               el.addEventListener('keypress', (e: KeyboardEvent) => {
-                if (e.key != 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile()) return;
+                if (e.key != 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
+                  return;
                 else if (changePgnIfDifferent()) e.preventDefault();
               });
               if (isMobile()) el.addEventListener('focusout', changePgnIfDifferent);
@@ -311,7 +312,10 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
 
 export default function (deps?: typeof studyDeps) {
   function renderResult(ctrl: AnalyseCtrl): VNode[] {
-    const render = (result: string, status: VNodeChildren) => [h('div.result', result), h('div.status', status)];
+    const render = (result: string, status: VNodeChildren) => [
+      h('div.result', result),
+      h('div.status', status),
+    ];
     if (ctrl.data.game.status.id >= 30) {
       let result;
       switch (ctrl.data.game.winner) {
@@ -417,7 +421,11 @@ export default function (deps?: typeof studyDeps) {
                       stepwiseScroll((e: WheelEvent, scroll: boolean) => {
                         if (ctrl.gamebookPlay()) return;
                         const target = e.target as HTMLElement;
-                        if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD')
+                        if (
+                          target.tagName !== 'PIECE' &&
+                          target.tagName !== 'SQUARE' &&
+                          target.tagName !== 'CG-BOARD'
+                        )
                           return;
                         e.preventDefault();
                         if (e.deltaY > 0 && scroll) control.next(ctrl);
@@ -458,7 +466,9 @@ export default function (deps?: typeof studyDeps) {
               'div.analyse__underboard',
               {
                 hook:
-                  ctrl.synthetic || playable(ctrl.data) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl)),
+                  ctrl.synthetic || playable(ctrl.data)
+                    ? undefined
+                    : onInsert(elm => serverSideUnderboard(elm, ctrl)),
               },
               study ? deps?.studyView.underboard(ctrl) : [inputs(ctrl)]
             ),

@@ -9,7 +9,8 @@ export const loaded = (ctrl: Ctrl): VNode =>
     ? h('div#challenge-app.dropdown', h('div.initiating', spinner()))
     : h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
 
-export const loading = (): VNode => h('div#challenge-app.links.dropdown.rendered', h('div.empty.loading', '-'));
+export const loading = (): VNode =>
+  h('div#challenge-app.links.dropdown.rendered', h('div.empty.loading', '-'));
 
 function renderContent(ctrl: Ctrl): VNode[] {
   const d = ctrl.data();
@@ -52,7 +53,9 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
             h('span.desc', [
               h('span.is.color-icon.' + myColor),
               ' • ',
-              [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • '),
+              [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
+                ' • '
+              ),
             ]),
           ]),
           h('i.perf', {

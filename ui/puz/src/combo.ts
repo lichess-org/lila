@@ -17,7 +17,10 @@ export class Combo {
   };
 
   level = () =>
-    this.config.combo.levels.reduce((lvl, [threshold, _], index) => (threshold <= this.current ? index : lvl), 0);
+    this.config.combo.levels.reduce(
+      (lvl, [threshold, _], index) => (threshold <= this.current ? index : lvl),
+      0
+    );
 
   percent = () => {
     const lvl = this.level();

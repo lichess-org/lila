@@ -60,7 +60,10 @@ export const registerMultipleSelect = () => {
       this.selectItemName = `data-name="selectItem${name}"`;
       if (!this.options.keepOpen) {
         $(document).on('click', function (e) {
-          if ($(e.target)[0] === that.$choice[0] || $(e.target).parents('.ms-choice')[0] === that.$choice[0]) {
+          if (
+            $(e.target)[0] === that.$choice[0] ||
+            $(e.target).parents('.ms-choice')[0] === that.$choice[0]
+          ) {
             return;
           }
           if (
@@ -223,7 +226,11 @@ export const registerMultipleSelect = () => {
         })
         .off('keyup')
         .on('keyup', function (e) {
-          if (that.options.filterAcceptOnEnter && (e.which === 13 || e.which == 32) && that.$searchInput.val()) {
+          if (
+            that.options.filterAcceptOnEnter &&
+            (e.which === 13 || e.which == 32) &&
+            that.$searchInput.val()
+          ) {
             that.$selectAll[0]?.click();
             that.close();
             that.focus();
@@ -418,7 +425,10 @@ export const registerMultipleSelect = () => {
       $.each(values, function (_i, value) {
         that.$selectItems.filter(`[value="${value}"]`).prop('checked', true);
       });
-      this.$selectAll.prop('checked', this.$selectItems.length === this.$selectItems.filter(':checked').length);
+      this.$selectAll.prop(
+        'checked',
+        this.$selectItems.length === this.$selectItems.filter(':checked').length
+      );
       $.each(that.$selectGroups!, function (_i, val) {
         const group = $(val).parent().attr('data-group'),
           $children = that.$selectItems.filter(`[data-group="${group}"]`);

@@ -18,7 +18,10 @@ function renderPlayer(ctrl: RoundController, position: Position) {
   return ctrl.nvui
     ? undefined
     : player.ai
-    ? h('div.user-link.online.ruser.ruser-' + position, [h('i.line'), h('name', renderUser.aiName(ctrl, player.ai))])
+    ? h('div.user-link.online.ruser.ruser-' + position, [
+        h('i.line'),
+        h('name', renderUser.aiName(ctrl, player.ai)),
+      ])
     : renderUser.userHtml(ctrl, player, position);
 }
 
@@ -33,7 +36,9 @@ const renderTableWith = (ctrl: RoundController, buttons: MaybeVNodes) => [
 
 export const renderTableEnd = (ctrl: RoundController) =>
   renderTableWith(ctrl, [
-    isLoading(ctrl) ? loader() : button.backToTournament(ctrl) || button.backToSwiss(ctrl) || button.followUp(ctrl),
+    isLoading(ctrl)
+      ? loader()
+      : button.backToTournament(ctrl) || button.backToSwiss(ctrl) || button.followUp(ctrl),
   ]);
 
 export const renderTableWatch = (ctrl: RoundController) =>
@@ -64,7 +69,10 @@ export const renderTablePlay = (ctrl: RoundController) => {
               : ctrl.data.game.threefold
               ? button.claimThreefold(ctrl, d => {
                   const threefoldable = game.drawableSwiss(d);
-                  return { enabled: threefoldable, overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit' };
+                  return {
+                    enabled: threefoldable,
+                    overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit',
+                  };
                 })
               : button.standard(
                   ctrl,

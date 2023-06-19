@@ -8,7 +8,8 @@ interface PgnNode {
   san?: San;
 }
 
-const plyPrefix = (node: Tree.Node): string => `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
+const plyPrefix = (node: Tree.Node): string =>
+  `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
 
 function renderNodesTxt(node: Tree.Node, forcePly: boolean): string {
   if (node.children.length === 0) return '';

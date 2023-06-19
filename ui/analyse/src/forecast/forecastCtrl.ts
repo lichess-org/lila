@@ -46,9 +46,13 @@ export default class ForecastCtrl {
 
   fixAll = () => {
     // remove contained forecasts
-    this.update(fcs => fcs.filter((fc, i) => fcs.filter((f, j) => i !== j && this.contains(f, fc)).length === 0));
+    this.update(fcs =>
+      fcs.filter((fc, i) => fcs.filter((f, j) => i !== j && this.contains(f, fc)).length === 0)
+    );
     // remove colliding forecasts
-    this.update(fcs => fcs.filter((fc, i) => fcs.filter((f, j) => i < j && this.collides(f, fc)).length === 0));
+    this.update(fcs =>
+      fcs.filter((fc, i) => fcs.filter((f, j) => i < j && this.collides(f, fc)).length === 0)
+    );
   };
 
   reloadToLastPly = () => {

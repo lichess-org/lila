@@ -18,7 +18,9 @@ export class Notify {
   };
 
   currentText = () =>
-    this.notification && this.notification.date.getTime() > Date.now() - this.timeout ? this.notification.text : '';
+    this.notification && this.notification.date.getTime() > Date.now() - this.timeout
+      ? this.notification.text
+      : '';
 
   render = () =>
     h(

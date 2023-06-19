@@ -43,7 +43,8 @@ export default function <Result>(opts: Opts<Result>) {
     },
     renderSelection = () => {
       $container.find('.complete-selected').removeClass('complete-selected');
-      if (selectedIndex !== null) $container.find('.complete-result').eq(selectedIndex).addClass('complete-selected');
+      if (selectedIndex !== null)
+        $container.find('.complete-result').eq(selectedIndex).addClass('complete-selected');
     };
 
   const $container: Cash = $('<div class="complete-list none"></div>').insertAfter(opts.input);

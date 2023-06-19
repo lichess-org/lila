@@ -13,9 +13,13 @@ async function fetchAndRender(data: OpeningPage, render: (html: string) => void)
 
   const removeH1 = (html: string) => html.replace(/<h1>.+<\/h1>/g, '');
   const removeEmptyParagraph = (html: string) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
-  const removeTableHeader = (html: string) => html.replace('<h2><span id="Theory_table">Theory table</span></h2>', '');
+  const removeTableHeader = (html: string) =>
+    html.replace('<h2><span id="Theory_table">Theory table</span></h2>', '');
   const removeTableExpl = (html: string) =>
-    html.replace(/For explanation of theory tables see theory table and for notation see algebraic notation.?/, '');
+    html.replace(
+      /For explanation of theory tables see theory table and for notation see algebraic notation.?/,
+      ''
+    );
   const removeContributing = (html: string) =>
     html.replace('When contributing to this Wikibook, please follow the Conventions for organization.', '');
 
@@ -23,7 +27,8 @@ async function fetchAndRender(data: OpeningPage, render: (html: string) => void)
     `<p><a target="_blank" href="${wikiBooksUrl}/wiki/${title}">Read more on WikiBooks</a></p>`;
 
   const transform = (html: string, title: string) =>
-    removeH1(removeEmptyParagraph(removeTableHeader(removeTableExpl(removeContributing(html))))) + readMore(title);
+    removeH1(removeEmptyParagraph(removeTableHeader(removeTableExpl(removeContributing(html))))) +
+    readMore(title);
 
   const plyPrefix = (ply: number) => `${Math.floor((ply + 1) / 2)}${ply % 2 === 1 ? '._' : '...'}`;
   const pathParts = data.sans.map((san, i) => `${plyPrefix(i + 1)}${san}`);

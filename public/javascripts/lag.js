@@ -1,6 +1,8 @@
 lichess.load.then(() => {
   Highcharts.makeFont = function (size) {
-    return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
+    return (
+      size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif"
+    );
   };
   Highcharts.theme = (function () {
     var light = $('body').hasClass('light');

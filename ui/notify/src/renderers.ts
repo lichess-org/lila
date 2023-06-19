@@ -110,7 +110,8 @@ export default function makeRenderers(trans: Trans): Renderers {
       text: _ => 'You just became a lichess Patron.',
     },
     planExpire: {
-      html: n => generic(n, '/patron', licon.Wings, [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
+      html: n =>
+        generic(n, '/patron', licon.Wings, [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
       text: _ => 'Patron account expired',
     },
     ratingRefund: {

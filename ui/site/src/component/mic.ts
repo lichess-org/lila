@@ -240,7 +240,9 @@ export const mic =
           deviceId: this.micId,
         },
       });
-      this.audioCtx = new AudioContext({ sampleRate: this.mediaStream.getAudioTracks()[0].getSettings().sampleRate });
+      this.audioCtx = new AudioContext({
+        sampleRate: this.mediaStream.getAudioTracks()[0].getSettings().sampleRate,
+      });
       this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
       this.recs.ctx = { vosk: this.vosk, source: this.micSource, ctx: this.audioCtx };
     }

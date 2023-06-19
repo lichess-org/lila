@@ -143,7 +143,9 @@ export function opponentGone(ctrl: RoundController) {
         ),
       ])
     : gone
-    ? h('div.suggestion', [h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone)))])
+    ? h('div.suggestion', [
+        h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone))),
+      ])
     : null;
 }
 
@@ -347,7 +349,9 @@ export function moretime(ctrl: RoundController) {
   return game.moretimeable(ctrl.data)
     ? h('a.moretime', {
         attrs: {
-          title: ctrl.data.clock ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) : ctrl.noarg('giveMoreTime'),
+          title: ctrl.data.clock
+            ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime)
+            : ctrl.noarg('giveMoreTime'),
           'data-icon': licon.PlusButton,
         },
         hook: util.bind('click', ctrl.socket.moreTime),
@@ -359,12 +363,14 @@ export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
     rematchable =
       !d.game.rematch &&
-      (status.finished(d) || (status.aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
+      (status.finished(d) ||
+        (status.aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
       !d.tournament &&
       !d.simul &&
       !d.swiss &&
       !d.game.boosted,
-    newable = (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
+    newable =
+      (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
     rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return h('div.follow-up', [
     ...rematchZone,
@@ -390,7 +396,10 @@ export function followUp(ctrl: RoundController): VNode {
       ? h(
           'a.fbt',
           {
-            attrs: { href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id },
+            attrs: {
+              href:
+                d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id,
+            },
           },
           ctrl.noarg('newOpponent')
         )

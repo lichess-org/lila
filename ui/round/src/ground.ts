@@ -89,7 +89,13 @@ export function makeConfig(ctrl: RoundController): Config {
 export const reload = (ctrl: RoundController) => ctrl.chessground.set(makeConfig(ctrl));
 
 export const boardOrientation = (data: RoundData, flip: boolean): Color =>
-  data.game.variant.key === 'racingKings' ? (flip ? 'black' : 'white') : flip ? data.opponent.color : data.player.color;
+  data.game.variant.key === 'racingKings'
+    ? flip
+      ? 'black'
+      : 'white'
+    : flip
+    ? data.opponent.color
+    : data.player.color;
 
 export const render = (ctrl: RoundController) =>
   h('div.cg-wrap', {

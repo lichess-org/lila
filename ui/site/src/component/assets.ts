@@ -29,7 +29,10 @@ export const loadCss = (url: string, media?: 'dark' | 'light'): Promise<void> =>
 export const loadCssPath = async (key: string): Promise<void> => {
   const theme = $('body').data('theme');
   const load = (theme: string, media?: 'dark' | 'light') =>
-    loadCss(`css/${key}.${document.dir || 'ltr'}.${theme}.${$('body').data('dev') ? 'dev' : 'min'}.css`, media);
+    loadCss(
+      `css/${key}.${document.dir || 'ltr'}.${theme}.${$('body').data('dev') ? 'dev' : 'min'}.css`,
+      media
+    );
   if (theme === 'system') {
     if (supportsSystemTheme()) {
       await load('dark', 'dark');

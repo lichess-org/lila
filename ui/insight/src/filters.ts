@@ -19,7 +19,10 @@ const select = (ctrl: Ctrl) => (dimension: Dimension) => {
             single,
             minimumCountSelected: 10,
             onClick: view =>
-              ctrl.setFilter(dimension.key, single ? [view.value] : $(vnode.elm).multipleSelect('getSelects')),
+              ctrl.setFilter(
+                dimension.key,
+                single ? [view.value] : $(vnode.elm).multipleSelect('getSelects')
+              ),
           }),
         postpatch: (_oldVnode, vnode) => {
           if (Object.keys(ctrl.vm.filters).length === 0) $(vnode.elm).multipleSelect('uncheckAll');

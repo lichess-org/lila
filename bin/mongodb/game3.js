@@ -50,7 +50,12 @@ function finishedOrAborted(game) {
 var c, z, pgn;
 var it = 0;
 var dat = new Date().getTime() / 1000;
-var finishedPlayerFieldsToRemove = ['previousMoveTs', 'lastDrawOffer', 'isOfferingDraw', 'isProposingTakeback'];
+var finishedPlayerFieldsToRemove = [
+  'previousMoveTs',
+  'lastDrawOffer',
+  'isOfferingDraw',
+  'isProposingTakeback',
+];
 
 gamesToMigrate.forEach(function (g) {
   cleanOrRename(g, 'castles', 'cs');

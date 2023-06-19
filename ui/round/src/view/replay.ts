@@ -62,7 +62,10 @@ const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Se
             a1t: step.ply === curPly,
           },
         },
-        [step.san[0] === 'P' ? step.san.slice(1) : step.san, drawOffers.has(step.ply) ? renderDrawOffer() : undefined]
+        [
+          step.san[0] === 'P' ? step.san.slice(1) : step.san,
+          drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
+        ]
       )
     : orEmpty
     ? h(moveTag, '…')
@@ -191,7 +194,10 @@ function renderButtons(ctrl: RoundController) {
 
 function initMessage(ctrl: RoundController) {
   const d = ctrl.data;
-  return (ctrl.replayEnabledByPref() || !isCol1()) && game.playable(d) && d.game.turns === 0 && !d.player.spectator
+  return (ctrl.replayEnabledByPref() || !isCol1()) &&
+    game.playable(d) &&
+    d.game.turns === 0 &&
+    !d.player.spectator
     ? h('div.message', util.justIcon(licon.InfoCircle), [
         h('div', [
           ctrl.trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),

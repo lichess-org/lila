@@ -49,7 +49,9 @@ import { SearchCtrl } from './studySearch';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
-  addNode(d: WithWhoAndPos & { d: string; n: Tree.Node; o: Opening; s: boolean; relay?: StudyChapterRelay }): void;
+  addNode(
+    d: WithWhoAndPos & { d: string; n: Tree.Node; o: Opening; s: boolean; relay?: StudyChapterRelay }
+  ): void;
   deleteNode(d: WithWhoAndPos): void;
   promote(d: WithWhoAndPos & { toMainline: boolean }): void;
   liking(d: WithWho & { l: { likes: number; me: boolean } }): void;
@@ -151,7 +153,9 @@ export default function (
 
   const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
-  const relay = relayData ? new RelayCtrl(data.id, relayData, send, redraw, members, data.chapter) : undefined;
+  const relay = relayData
+    ? new RelayCtrl(data.id, relayData, send, redraw, members, data.chapter)
+    : undefined;
 
   const form = studyFormCtrl(
     (d, isNew) => {
@@ -235,7 +239,8 @@ export default function (
     lichess.pubsub.emit('chat.writeable', data.features.chat);
     lichess.pubsub.emit('chat.permissions', { local: canContribute });
     lichess.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
-    const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
+    const computer: boolean =
+      !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
@@ -284,7 +289,8 @@ export default function (
 
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
-      nextPath = (vm.justSetChapterId === vm.chapterId && chapters.localPaths[vm.chapterId]) || data.position.path;
+      nextPath =
+        (vm.justSetChapterId === vm.chapterId && chapters.localPaths[vm.chapterId]) || data.position.path;
     } else {
       nextPath = sameChapter
         ? prevPath
@@ -330,9 +336,19 @@ export default function (
 
   const currentNode = () => ctrl.node;
   const onMainline = () => ctrl.tree.pathIsMainline(ctrl.path);
-  const bottomColor = () => (ctrl.flipped ? opposite(data.chapter.setup.orientation) : data.chapter.setup.orientation);
+  const bottomColor = () =>
+    ctrl.flipped ? opposite(data.chapter.setup.orientation) : data.chapter.setup.orientation;
 
-  const share = shareCtrl(data, currentChapter, currentNode, onMainline, bottomColor, relay, redraw, ctrl.trans);
+  const share = shareCtrl(
+    data,
+    currentChapter,
+    currentNode,
+    onMainline,
+    bottomColor,
+    relay,
+    redraw,
+    ctrl.trans
+  );
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
