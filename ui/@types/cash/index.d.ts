@@ -10,17 +10,8 @@ interface CashStatic {
 declare type falsy = undefined | null | false | 0 | '';
 declare type Ele = Window | Document | HTMLElement | Element | Node;
 declare type EleLoose = HTMLElement & Element & Node;
-// eslint-disable-next-line @typescript-eslint/ban-types
-declare type Selector =
-  | falsy
-  | string
-  | Function
-  | HTMLCollection
-  | NodeList
-  | Ele
-  | Ele[]
-  | ArrayLike<Ele>
-  | Cash;
+
+declare type Selector = falsy | string | HTMLCollection | NodeList | Ele | Ele[] | ArrayLike<Ele> | Cash;
 declare type Comparator = string | Ele | Cash | ((this: EleLoose, index: number, ele: EleLoose) => boolean);
 declare type Context = Document | HTMLElement | Element;
 declare type EventCallback = {
