@@ -1,7 +1,6 @@
 package lila.app
 package templating
 
-import lila.api.WebContext
 import lila.app.ui.ScalatagsTemplate.*
 
 trait FlashHelper { self: I18nHelper =>
@@ -11,23 +10,20 @@ trait FlashHelper { self: I18nHelper =>
 
   def successFlash(using ctx: WebContext): Option[Tag] =
     ctx.flash("success").map { msg =>
-      flashMessage("success")(
+      flashMessage("success"):
         if msg.isEmpty then trans.success()(using ctx.lang) else msg
-      )
     }
 
   def warningFlash(using ctx: WebContext): Option[Tag] =
     ctx.flash("warning").map { msg =>
-      flashMessage("warning")(
+      flashMessage("warning"):
         if (msg.isEmpty) "Warning" else msg
-      )
     }
 
   def failureFlash(using ctx: WebContext): Option[Tag] =
     ctx.flash("failure").map { msg =>
-      flashMessage("failure")(
+      flashMessage("failure"):
         if (msg.isEmpty) "Failure" else msg
-      )
     }
 
   def flashMessage(color: String)(content: Modifier*): Tag =

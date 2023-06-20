@@ -20,7 +20,8 @@ function tournamentClass(tour: Tournament, day: Date): Classes {
   return classes;
 }
 
-const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key]);
+const iconOf = (tour: Tournament) =>
+  tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key];
 
 const startDirection = () => (document.dir == 'rtl' ? 'right' : 'left');
 

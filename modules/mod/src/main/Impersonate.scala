@@ -2,7 +2,7 @@ package lila.mod
 
 import lila.common.Bus
 import lila.hub.actorApi.mod.Impersonate
-import lila.user.{ User, UserRepo }
+import lila.user.{ Me, User, UserRepo }
 
 final class ImpersonateApi(userRepo: UserRepo):
 
@@ -24,7 +24,7 @@ final class ImpersonateApi(userRepo: UserRepo):
       Bus.publish(Impersonate(user.id, none), "impersonate")
     }
 
-  def impersonating(mod: User): Fu[Option[User]] = modToUser.get(mod.id) so userRepo.byId
+  def impersonating(me: Me): Fu[Option[User]] = modToUser.get(me) so userRepo.byId
 
   def impersonatedBy(user: User): Option[UserId] = userToMod get user.id
 

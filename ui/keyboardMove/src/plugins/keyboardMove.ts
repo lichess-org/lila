@@ -68,7 +68,8 @@ export default (window as any).LichessKeyboardMove = (opts: Opts) => {
     } else if (legalSans && v.match(fileRegex)) {
       // do nothing
     } else if (legalSans && (selectedKey.slice(0, 1) + v).match(promotionRegex)) {
-      const promotionSan = selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1) ? selectedKey.slice(0, 1) + v : v;
+      const promotionSan =
+        selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1) ? selectedKey.slice(0, 1) + v : v;
       const foundUci = sanToUci(promotionSan.replace('=', '').slice(0, -1), legalSans);
       if (!foundUci) return;
       opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());

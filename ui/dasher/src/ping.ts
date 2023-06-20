@@ -38,7 +38,11 @@ function signalBars(ctrl: PingCtrl) {
   return h('signal.q' + lagRating, bars);
 }
 
-const showMillis = (name: string, m?: number) => [h('em', name), h('strong', defined(m) ? m : '?'), h('em', 'ms')];
+const showMillis = (name: string, m?: number) => [
+  h('em', name),
+  h('strong', defined(m) ? m : '?'),
+  h('em', 'ms'),
+];
 
 export const view = (ctrl: PingCtrl): VNode =>
   h(

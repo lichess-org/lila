@@ -56,7 +56,9 @@ export default class OnlineFriends {
           this.loaded ? `<strong>${ids.length}</strong>` : '-'
         );
         this.el.querySelector('.nobody')?.classList.toggle('none', !!ids[0]);
-        this.el.querySelector('.list')!.innerHTML = ids.map(id => this.renderFriend(this.users.get(id)!)).join('');
+        this.el.querySelector('.list')!.innerHTML = ids
+          .map(id => this.renderFriend(this.users.get(id)!))
+          .join('');
       });
   };
   renderFriend = (friend: Friend) => {

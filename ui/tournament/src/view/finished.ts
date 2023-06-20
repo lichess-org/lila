@@ -123,7 +123,9 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
   const teamS = teamStanding(ctrl, 'finished');
   return [
-    ...(teamS ? [header(ctrl), teamS] : [h('div.podium-wrap', [confetti(ctrl.data), header(ctrl), podium(ctrl)])]),
+    ...(teamS
+      ? [header(ctrl), teamS]
+      : [h('div.podium-wrap', [confetti(ctrl.data), header(ctrl), podium(ctrl)])]),
     controls(ctrl, pag),
     standing(ctrl, pag),
   ];

@@ -7,9 +7,9 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.rating.RatingRange
-import lila.user.{ User, UserContext }
 import lila.common.{ Days, Form as LilaForm }
 import lila.common.Form.{ *, given }
+import lila.user.Me
 
 object SetupForm:
 
@@ -35,29 +35,29 @@ object SetupForm:
       .verifying("invalidFen", _.validFen)
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
 
-  def friendFilled(fen: Option[Fen.Epd])(using UserContext): Form[FriendConfig] =
+  def friendFilled(fen: Option[Fen.Epd])(using Option[Me]): Form[FriendConfig] =
     friend fill fen.foldLeft(FriendConfig.default): (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
 
-  def friend(using ctx: UserContext) = Form:
+  def friend(using me: Option[Me]) = Form:
     mapping(
       "variant"   -> variantWithFenAndVariants,
       "timeMode"  -> timeMode,
       "time"      -> time,
       "increment" -> increment,
       "days"      -> days,
-      "mode"      -> mode(withRated = ctx.isAuth),
+      "mode"      -> mode(withRated = me.isDefined),
       "color"     -> color,
       "fen"       -> fenField
     )(FriendConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
-      .verifying("Invalid speed", _.validSpeed(ctx.me.exists(_.isBot)))
+      .verifying("Invalid speed", _.validSpeed(me.exists(_.isBot)))
       .verifying("invalidFen", _.validFen)
 
-  def hookFilled(timeModeString: Option[String])(using ctx: UserContext): Form[HookConfig] =
-    hook(ctx.me) fill HookConfig.default(ctx.isAuth).withTimeModeString(timeModeString)
+  def hookFilled(timeModeString: Option[String])(using me: Option[Me]): Form[HookConfig] =
+    hook fill HookConfig.default(me.isDefined).withTimeModeString(timeModeString)
 
-  def hook(me: Option[User]) = Form:
+  def hook(using me: Option[Me]) = Form:
     mapping(
       "variant"     -> variantWithVariants,
       "timeMode"    -> timeMode,
@@ -124,7 +124,7 @@ object SetupForm:
       )
     )
 
-    def user(from: User) =
+    def user(using from: Me) =
       Form(challengeMapping.verifying("Invalid speed", _ validSpeed from.isBot))
 
     def admin = Form(challengeMapping)

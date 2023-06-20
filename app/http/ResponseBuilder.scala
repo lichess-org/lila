@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import play.api.http.*
 import play.api.mvc.*
 
-import lila.api.context.*
 import lila.common.{ HTTPRequest, ApiVersion }
 
 trait ResponseBuilder(using Executor)
@@ -52,6 +51,15 @@ trait ResponseBuilder(using Executor)
         api(v).dmap(_ as JSON)
       .dmap(_.withHeaders(VARY -> "Accept"))
 
+  // TODO just weird. Can we avoid loading a WebContext at all for API calls?
+  def negotiateInWebContext(
+      web: WebContext ?=> Fu[Result],
+      any: AnyContext ?=> Fu[Result]
+  )(using ctx: AnyContext): Fu[Result] =
+    ctx match
+      case webCtx: WebContext => negotiate(html = web(using webCtx), api = _ => any)
+      case _                  => any
+
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
 
   def notFoundJsonSync(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
@@ -85,21 +93,16 @@ trait ResponseBuilder(using Executor)
 
   private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
 
-  def authorizationFailed(using ctx: WebContext): Fu[Result] =
-    negotiate(
-      html =
+  def authorizationFailed(using ctx: AnyContext): Fu[Result] =
+    negotiateInWebContext(
+      web =
         if HTTPRequest.isSynchronousHttp(ctx.req)
         then Forbidden(views.html.site.message.authFailed)
         else Results.Forbidden("Authorization failed"),
-      api = _ => fuccess(forbiddenJsonResult)
-    )
-  def authorizationFailed(using AnyContext): Fu[Result] =
-    negotiate(
-      html = fuccess(Results.Forbidden("Authorization failed")),
-      api = _ => fuccess(forbiddenJsonResult)
+      any = fuccess(forbiddenJsonResult)
     )
 
-  def playbanJsonError(ban: lila.playban.TempBan) = fuccess:
+  def playbanJsonError(ban: lila.playban.TempBan) =
     Forbidden(
       jsonError(
         s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."

@@ -16,9 +16,8 @@ final class ConcurrencyLimit[K](
 )(using Executor):
 
   private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
-
-  private lazy val logger  = lila.log("concurrencylimit").branch(name)
-  private lazy val monitor = lila.mon.security.concurrencyLimit(key)
+  private val logger  = lila.log("concurrencylimit").branch(name)
+  private val monitor = lila.mon.security.concurrencyLimit(key)
 
   def compose[T](k: K, msg: => String = ""): Option[Source[T, ?] => Source[T, ?]] =
     storage.get(k) match
@@ -28,20 +27,16 @@ final class ConcurrencyLimit[K](
         none
       case c @ _ =>
         storage.inc(k)
-        some {
-          _.watchTermination() { (_, done) =>
-            done.onComplete { _ =>
+        some:
+          _.watchTermination(): (_, done) =>
+            done.onComplete: _ =>
               storage.dec(k)
-            }
-          }
-        }
 
   def apply[T](k: K, msg: => String = "")(
       makeSource: => Source[T, ?]
   )(makeResult: Source[T, ?] => Result): Result =
-    compose[T](k, msg).fold(limitedDefault(maxConcurrency)) { watch =>
+    compose[T](k, msg).fold(limitedDefault(maxConcurrency)): watch =>
       makeResult(watch(makeSource))
-    }
 
 object ConcurrencyLimit:
 

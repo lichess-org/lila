@@ -106,7 +106,9 @@ export default (window as any).LichessVoiceMove = function (
 
   function initTimerRec() {
     if (timer() === 0) return;
-    const words = [...partials.commands, ...(colorsPref() ? partials.colors : partials.numbers)].map(w => valWord(w));
+    const words = [...partials.commands, ...(colorsPref() ? partials.colors : partials.numbers)].map(w =>
+      valWord(w)
+    );
     lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
   }
 
@@ -190,7 +192,11 @@ export default (window as any).LichessVoiceMove = function (
       console.info('handleAmbiguity', `no match for '${phrase}' among`, choices);
       return false;
     }
-    console.info('handleAmbiguity', `matched '${phrase}' to '${chosen[0]}' at cost=${chosen[1]} among`, choices);
+    console.info(
+      'handleAmbiguity',
+      `matched '${phrase}' to '${chosen[0]}' at cost=${chosen[1]} among`,
+      choices
+    );
     submit(chosen[0]);
     return true;
   }
@@ -255,7 +261,8 @@ export default (window as any).LichessVoiceMove = function (
       // mappings within a tag partition are not allowed when partite is true
       const to = byTok.get(transform.to);
       // should be optimized, maybe consolidate tags when parsing the lexicon
-      if (from?.tags?.every(x => to?.tags?.includes(x)) && from.tags.length === to!.tags.length) return Infinity;
+      if (from?.tags?.every(x => to?.tags?.includes(x)) && from.tags.length === to!.tags.length)
+        return Infinity;
     }
     return sub?.cost ?? Infinity;
   }
@@ -284,7 +291,8 @@ export default (window as any).LichessVoiceMove = function (
     // dedup by uci squares & keep first to preserve cost order
     options = options
       .filter(
-        ([uci, _], keepIfFirst) => options.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst
+        ([uci, _], keepIfFirst) =>
+          options.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst
       )
       .slice(0, maxArrows());
 

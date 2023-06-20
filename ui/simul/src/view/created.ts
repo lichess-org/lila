@@ -49,7 +49,8 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                     },
                     hook: canJoin
                       ? bind('click', () => {
-                          if (ctrl.data.variants.length === 1) xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
+                          if (ctrl.data.variants.length === 1)
+                            xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                           else {
                             modal({
                               content: $('.simul .continue-with'),

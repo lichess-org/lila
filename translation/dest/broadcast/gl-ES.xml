@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emisións</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s emisión</item>
+    <item quantity="other">%s emisións</item>
+  </plurals>
   <string name="liveBroadcasts">Emisións de torneos en directo</string>
   <string name="newBroadcast">Nova emisión en directo</string>
   <string name="addRound">Engadir unha ronda</string>
@@ -27,4 +31,5 @@
   <string name="downloadAllRounds">Descargar todas as partidas</string>
   <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e as súas partidas.</string>
   <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta ronda. A emisión terá que estar activa para volver a crealas.</string>
+  <string name="editRoundStudy">Editar ronda de estudo</string>
 </resources>

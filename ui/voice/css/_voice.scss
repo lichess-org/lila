@@ -134,7 +134,8 @@ button#microphone-button {
 
   select {
     flex: 1 4 auto;
-    margin: 0 1ch;
+    min-width: 0;
+    margin-#{$start-direction}: 1ch;
     padding: 4px;
     overflow: hidden;
     text-overflow: ellipsis;

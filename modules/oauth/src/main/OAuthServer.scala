@@ -30,7 +30,7 @@ final class OAuthServer(
       case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
         fufail(MissingScope(at.scopes))
       case at =>
-        userRepo enabledById at.userId flatMap {
+        userRepo me at.userId flatMap {
           case None => fufail(NoSuchUser)
           case Some(u) =>
             val blocked =
@@ -38,12 +38,12 @@ final class OAuthServer(
             andLogReq
               .filter: req =>
                 blocked || {
-                  u.id != User.explorerId && !HTTPRequest.looksLikeLichessBot(req)
+                  u.userId != User.explorerId && !HTTPRequest.looksLikeLichessBot(req)
                 }
               .foreach: req =>
                 logger.debug:
                   s"${if (blocked) "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
-            if (blocked) fufail(OriginBlocked)
+            if blocked then fufail(OriginBlocked)
             else fuccess(OAuthScope.Scoped(u, at.scopes))
         }
     } dmap Right.apply recover { case e: AuthError =>
@@ -60,9 +60,9 @@ final class OAuthServer(
     user1 <- auth1
     user2 <- auth2
     result <-
-      if user1.user is user2.user
+      if user1.me is user2.me
       then Left(OneUserWithTwoTokens)
-      else Right(user1.user -> user2.user)
+      else Right(user1.me.user -> user2.me.user)
   yield result
 
   private val bearerSigner = Algo hmac mobileSecret.value

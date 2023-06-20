@@ -2,7 +2,6 @@ package views.html.streamer
 
 import controllers.routes
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator

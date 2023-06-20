@@ -68,10 +68,9 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   }
 
   def userTopics(userId: UserId): Fu[StudyTopics] =
-    userTopicRepo.coll {
+    userTopicRepo.coll:
       _.primitiveOne[List[StudyTopic]]($id(userId), "topics")
         .dmap(_.fold(StudyTopics.empty)(StudyTopics(_)))
-    }
 
   private case class TagifyTopic(value: String)
   private given Reads[TagifyTopic] = Json.reads

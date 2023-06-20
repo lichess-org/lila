@@ -4,7 +4,6 @@ package appeal
 import controllers.routes
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -17,7 +16,7 @@ object tree:
   import views.html.base.navTree.Node.*
 
   val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
-  val engineMarked             = "Your account is marked for illegal assistance in games.";
+  val engineMarked             = "Your account is marked for external assistance in games.";
   val boosterMarked            = "Your account is marked for rating manipulation.";
   val accountMuted             = "Your account is muted.";
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
@@ -70,9 +69,9 @@ object tree:
 
   private def engineMenu(using WebContext): Branch =
     val accept =
-      "I accept that I used outside assistance in my games."
+      "I accept that I used external assistance in my games."
     val deny =
-      "I deny having used outside assistance in my games."
+      "I deny having used external assistance in my games."
     Branch(
       "root",
       engineMarked,

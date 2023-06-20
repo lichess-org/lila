@@ -37,7 +37,9 @@ export default function (ctrl: TournamentController): VNode {
     return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player!), spinner()])]);
   const nb = data.player.nb,
     pairingsLen = data.pairings.length,
-    avgOp = pairingsLen ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen) : undefined;
+    avgOp = pairingsLen
+      ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
+      : undefined;
   return h(
     tag,
     {

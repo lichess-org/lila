@@ -110,7 +110,11 @@ export default function (ctrl: Controller): VNode {
                   'wheel',
                   stepwiseScroll((e: WheelEvent, scroll: boolean) => {
                     const target = e.target as HTMLElement;
-                    if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD')
+                    if (
+                      target.tagName !== 'PIECE' &&
+                      target.tagName !== 'SQUARE' &&
+                      target.tagName !== 'CG-BOARD'
+                    )
                       return;
                     e.preventDefault();
                     if (e.deltaY > 0 && scroll) control.next(ctrl);

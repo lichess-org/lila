@@ -97,14 +97,22 @@ export default function (token: string) {
   let isLiveChessConnected = false; //Used to track if a board there is a connection to DGT Live Chess
   let currentSerialnr = '0'; //Public property to store the current serial number of the DGT Board in case there is more than one
   //subscription stores the information about the board being connected, most importantly the serialnr
-  const subscription = { id: 2, call: 'subscribe', param: { feed: 'eboardevent', id: 1, param: { serialnr: '' } } };
+  const subscription = {
+    id: 2,
+    call: 'subscribe',
+    param: { feed: 'eboardevent', id: 1, param: { serialnr: '' } },
+  };
   let lastLegalParam: { board: string; san: string[] }; //This can help prevent duplicate moves from LiveChess being detected as move from the other side, like a duplicate O-O
   let lastLiveChessBoard: string; //Store last Board received by LiveChess
   /***
    * Bind console output to HTML pre Element
    */
   rewireLoggingToElement(consoleOutput, root, true);
-  function rewireLoggingToElement(eleLocator: HTMLPreElement, eleOverflowLocator: HTMLDivElement, autoScroll: boolean) {
+  function rewireLoggingToElement(
+    eleLocator: HTMLPreElement,
+    eleOverflowLocator: HTMLDivElement,
+    autoScroll: boolean
+  ) {
     //Clear the console
     eleLocator.innerHTML = '';
     //Bind to all types of console messages
@@ -141,7 +149,8 @@ export default function (token: string) {
           let isScrolledToBottom = false;
           if (autoScroll) {
             isScrolledToBottom =
-              eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <= eleOverflowLocator.scrollTop + 1;
+              eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <=
+              eleOverflowLocator.scrollTop + 1;
           }
           eleLocator.innerHTML = eleLocator.innerHTML.slice(maxLogBytes) + output;
           if (isScrolledToBottom) {
@@ -230,7 +239,8 @@ export default function (token: string) {
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
-      if (verbose && value!.length > 1) console.log('connectToEventStream - Chunk received', decoder.decode(value));
+      if (verbose && value!.length > 1)
+        console.log('connectToEventStream - Chunk received', decoder.decode(value));
       //Update connection status
       eventSteamStatus = { connected: true, lastEvent: time.getTime() };
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
@@ -242,7 +252,8 @@ export default function (token: string) {
             const data = JSON.parse(jsonArray[i]);
             //JSON data found, let's check if this is a game that started. field type is mandatory except on http 4xx
             if (data.type == 'gameStart') {
-              if (verbose) console.log('connectToEventStream - gameStart event arrived. GameId: ' + data.game.id);
+              if (verbose)
+                console.log('connectToEventStream - gameStart event arrived. GameId: ' + data.game.id);
               try {
                 //Connect to that game's stream
                 connectToGameStream(data.game.id);
@@ -396,7 +407,13 @@ export default function (token: string) {
   function formattedTimer(timer: number): string {
     // Pad function to pad with 0 to 2 or 3 digits, default is 2
     const pad = (n: number, z = 2) => `00${n}`.slice(-z);
-    return pad((timer / 3.6e6) | 0) + ':' + pad(((timer % 3.6e6) / 6e4) | 0) + ':' + pad(((timer % 6e4) / 1000) | 0); //+ '.' + pad(timer % 1000, 3);
+    return (
+      pad((timer / 3.6e6) | 0) +
+      ':' +
+      pad(((timer % 3.6e6) / 6e4) | 0) +
+      ':' +
+      pad(((timer % 6e4) / 1000) | 0)
+    ); //+ '.' + pad(timer % 1000, 3);
   }
 
   /**
@@ -417,7 +434,8 @@ export default function (token: string) {
         for (const [gameId, networkState] of gameConnectionMap) {
           if (!networkState.connected && gameStateMap.get(gameId).status == 'started') {
             //Game is not connected and has not finished, reconnect
-            if (verbose) console.log(`Started game is disconnected. Attempting reconnection for gameId: ${gameId}`);
+            if (verbose)
+              console.log(`Started game is disconnected. Attempting reconnection for gameId: ${gameId}`);
             connectToGameStream(gameId);
           }
         }
@@ -425,7 +443,9 @@ export default function (token: string) {
       //This means event stream is not connected
       console.warn('No connection to event stream. Attempting re-connection. Attempt: ' + attempts);
     }
-    console.error('No connection to event stream after maximum number of attempts 20. Reload page to start again.');
+    console.error(
+      'No connection to event stream after maximum number of attempts 20. Reload page to start again.'
+    );
   }
 
   /**
@@ -453,7 +473,9 @@ export default function (token: string) {
       //TODO What happens if the games reconnect and this move is not sent?
     } else {
       if (playableGames.length > 1) {
-        console.warn('Multiple active games detected. Current game will be selected based on board position.');
+        console.warn(
+          'Multiple active games detected. Current game will be selected based on board position.'
+        );
         console.table(playableGames);
       }
       //Wait a few seconds until board position is received from LiveChess. Max 10 seconds.
@@ -483,7 +505,8 @@ export default function (token: string) {
           //No match found but there is a valid currentGameId , so keep it
           if (verbose)
             console.log(
-              'chooseCurrentGame - Board will remain attached to current game. currentGameId: ' + currentGameId
+              'chooseCurrentGame - Board will remain attached to current game. currentGameId: ' +
+                currentGameId
             );
         } else {
           //No match and No valid current game but there are active games
@@ -496,7 +519,9 @@ export default function (token: string) {
         if (currentGameId != playableGames[Number(index)].gameId) {
           //This is the happy path, board matches and game needs to be updated
           if (verbose)
-            console.log('chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId);
+            console.log(
+              'chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId
+            );
           currentGameId = playableGames[Number(index)].gameId;
           attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
           console.log('Active game updated. currentGameId: ' + currentGameId);
@@ -504,7 +529,8 @@ export default function (token: string) {
           //The board matches currentGameId . No need to do anything.
           if (verbose)
             console.log(
-              'chooseCurrentGame - Board will remain attached to current game. currentGameId: ' + currentGameId
+              'chooseCurrentGame - Board will remain attached to current game. currentGameId: ' +
+                currentGameId
             );
         }
       }
@@ -751,8 +777,11 @@ export default function (token: string) {
       if (String(gameState.moves).length > 1) {
         const moves = gameState.moves.split(' ');
         if (verbose)
-          console.log(`getLastUCIMove - ${moves.length} moves detected. Last one: ${moves[moves.length - 1]}`);
-        if (moves.length % 2 == 0) return { player: 'black', move: moves[moves.length - 1], by: gameInfo.black.id };
+          console.log(
+            `getLastUCIMove - ${moves.length} moves detected. Last one: ${moves[moves.length - 1]}`
+          );
+        if (moves.length % 2 == 0)
+          return { player: 'black', move: moves[moves.length - 1], by: gameInfo.black.id };
         else return { player: 'white', move: moves[moves.length - 1], by: gameInfo.white.id };
       }
     }
@@ -850,8 +879,10 @@ export default function (token: string) {
         //Update the base subscription message with the serial number
         currentSerialnr = boards[0].serialnr;
         subscription.param.param.serialnr = currentSerialnr;
-        if (verbose) console.info('Websocket onmessage[call]: board serial number updated to: ' + currentSerialnr);
-        if (verbose) console.info('Webscoket - about to send the following message \n' + JSON.stringify(subscription));
+        if (verbose)
+          console.info('Websocket onmessage[call]: board serial number updated to: ' + currentSerialnr);
+        if (verbose)
+          console.info('Webscoket - about to send the following message \n' + JSON.stringify(subscription));
         liveChessConnection.send(JSON.stringify(subscription));
         //Check if the board is properly connected
         if (boards[0].state != 'ACTIVE' && boards[0].state != 'INACTIVE')
@@ -884,17 +915,21 @@ export default function (token: string) {
         ) {
           //Prevent duplicates since LiveChess may send the same move twice
           //It looks like a duplicate, so just ignore it
-          if (verbose) console.info('onmessage - Duplicate position and san move received and will be ignored');
+          if (verbose)
+            console.info('onmessage - Duplicate position and san move received and will be ignored');
         } else {
           //A move was received
           //Get all the moves on the param.san that are not present on lastLegalParam.san
           //it is possible to receive two new moves on the message. Don't assume only the last move is pending.
           let movesToProcess = 1;
-          if (lastLegalParam !== undefined) movesToProcess = message.param.san.length - lastLegalParam.san.length;
+          if (lastLegalParam !== undefined)
+            movesToProcess = message.param.san.length - lastLegalParam.san.length;
           //Check border case in which DGT Board LiveChess detects the wrong move while pieces are still on the air
           if (movesToProcess > 1) {
             if (verbose)
-              console.warn('onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess);
+              console.warn(
+                'onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess
+              );
             if (localBoard.turn == currentGameColor) {
               //If more than one move is received when it's the DGT board player's turn this may be a invalid move
               //Move will be quarantined by 2.5 seconds
@@ -967,10 +1002,12 @@ export default function (token: string) {
               if (verbose) console.info('onmessage - Move is NOT legal');
               if (lastMove.move == SANMove) {
                 //This is fine, the same last move was received again and seems illegal
-                if (verbose) console.warn('onmessage - Move received is the same as the last move played: ' + SANMove);
+                if (verbose)
+                  console.warn('onmessage - Move received is the same as the last move played: ' + SANMove);
               } else if (SANMove.startsWith('O-')) {
                 //This is may be fine, sometimes castling triggers twice and second time is invalid
-                if (verbose) console.warn('onmessage - Castling may be duplicated as the last move played: ' + SANMove);
+                if (verbose)
+                  console.warn('onmessage - Castling may be duplicated as the last move played: ' + SANMove);
               } else {
                 //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-synchronization
                 if (verbose)
@@ -1015,7 +1052,9 @@ export default function (token: string) {
         liveChessConnection.send('{"id":1,"call":"eboards"}');
       }
     }
-    console.error('No connection to DGT Live Chess after maximum number of attempts (20). Reload page to start again.');
+    console.error(
+      'No connection to DGT Live Chess after maximum number of attempts (20). Reload page to start again.'
+    );
   }
 
   /**
@@ -1071,7 +1110,9 @@ export default function (token: string) {
       )
     ) {
       //Wait a few seconds to see if the games reconnects or starts and give some space to other code to run
-      console.warn('validateAndSendBoardMove - Cannot send move while disconnected. Re-Trying in 2 seconds...');
+      console.warn(
+        'validateAndSendBoardMove - Cannot send move while disconnected. Re-Trying in 2 seconds...'
+      );
       await sleep(2000);
       //Now attempt to select for which game is this command intended
       await chooseCurrentGame();
@@ -1133,7 +1174,10 @@ export default function (token: string) {
     let extendedSanMove = sanMove;
     for (let i = 0; i < keywordsBase.length; i++) {
       try {
-        extendedSanMove = extendedSanMove.replace(keywordsBase[i], ' ' + keywords[keywordsBase[i]].toLowerCase() + ' ');
+        extendedSanMove = extendedSanMove.replace(
+          keywordsBase[i],
+          ' ' + keywords[keywordsBase[i]].toLowerCase() + ' '
+        );
       } catch (error) {
         console.error(`raplaceKeywords - Error replacing keyword. ${keywordsBase[i]} . ${error}`);
       }

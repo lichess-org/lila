@@ -8,7 +8,7 @@ import lila.irc.IrcApi
 import lila.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, Me }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using Executor):
 
@@ -16,38 +16,39 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
+  private given Conversion[Me, ModId]                 = _.modId
 
   private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
 
-  def streamerDecline(mod: Mod, streamerId: UserId) = add:
-    Modlog(mod.id, streamerId.some, Modlog.streamerDecline)
+  def streamerDecline(streamerId: UserId)(using Me.Id) = add:
+    Modlog(streamerId.some, Modlog.streamerDecline)
 
-  def streamerList(mod: Mod, streamerId: UserId, v: Boolean) = add:
-    Modlog(mod.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
+  def streamerList(streamerId: UserId, v: Boolean)(using Me.Id) = add:
+    Modlog(streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
 
-  def streamerTier(mod: Mod, streamerId: UserId, v: Int) = add:
-    Modlog(mod.id, streamerId.some, Modlog.streamerTier, v.toString.some)
+  def streamerTier(streamerId: UserId, v: Int)(using Me.Id) = add:
+    Modlog(streamerId.some, Modlog.streamerTier, v.toString.some)
 
-  def blogTier(mod: Mod, sus: Suspect, tier: String) = add:
-    Modlog.make(mod, sus, Modlog.blogTier, tier.some)
+  def blogTier(sus: Suspect, tier: String)(using Me.Id) = add:
+    Modlog.make(sus, Modlog.blogTier, tier.some)
 
-  def blogPostEdit(mod: Mod, sus: Suspect, postId: UblogPostId, postName: String, action: String) = add:
-    Modlog.make(mod, sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
+  def blogPostEdit(sus: Suspect, postId: UblogPostId, postName: String, action: String)(using Me.Id) = add:
+    Modlog.make(sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
 
-  def practiceConfig(mod: UserId) = add:
-    Modlog(mod into ModId, none, Modlog.practiceConfig)
+  def practiceConfig(using Me.Id) = add:
+    Modlog(none, Modlog.practiceConfig)
 
-  def alt(mod: Mod, sus: Suspect, v: Boolean) = add:
-    Modlog.make(mod, sus, if (v) Modlog.alt else Modlog.unalt)
+  def alt(sus: Suspect, v: Boolean)(using Me.Id) = add:
+    Modlog.make(sus, if v then Modlog.alt else Modlog.unalt)
 
-  def engine(mod: Mod, sus: Suspect, v: Boolean) = add:
-    Modlog.make(mod, sus, if (v) Modlog.engine else Modlog.unengine)
+  def engine(sus: Suspect, v: Boolean)(using Me.Id) = add:
+    Modlog.make(sus, if v then Modlog.engine else Modlog.unengine)
 
-  def booster(mod: Mod, sus: Suspect, v: Boolean) = add:
-    Modlog.make(mod, sus, if (v) Modlog.booster else Modlog.unbooster)
+  def booster(sus: Suspect, v: Boolean)(using Me.Id) = add:
+    Modlog.make(sus, if v then Modlog.booster else Modlog.unbooster)
 
-  def troll(mod: Mod, sus: Suspect) = add:
-    Modlog.make(mod, sus, if (sus.user.marks.troll) Modlog.troll else Modlog.untroll)
+  def troll(sus: Suspect)(using Me.Id) = add:
+    Modlog.make(sus, if sus.user.marks.troll then Modlog.troll else Modlog.untroll)
 
   def setKidMode(mod: ModId, kid: UserId) = add:
     Modlog(mod, kid.some, Modlog.setKidMode)
@@ -61,8 +62,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def disableTwoFactor(mod: ModId, user: UserId) = add:
     Modlog(mod, user.some, Modlog.disableTwoFactor)
 
-  def closeAccount(mod: ModId, user: UserId) = add:
-    Modlog(mod, user.some, Modlog.closeAccount)
+  def closeAccount(user: UserId)(using me: Me) = add:
+    Modlog(me, user.some, Modlog.closeAccount)
 
   def selfCloseAccount(user: UserId, openReports: List[Report]) = add:
     Modlog(
@@ -75,37 +76,34 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def closedByMod(user: User): Fu[Boolean] =
     fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
 
-  def reopenAccount(mod: ModId, user: UserId) = add:
-    Modlog(mod, user.some, Modlog.reopenAccount)
+  def reopenAccount(user: UserId)(using Me) = add:
+    Modlog(user.some, Modlog.reopenAccount)
 
-  def addTitle(mod: ModId, user: UserId, title: String) = add:
-    Modlog(mod, user.some, Modlog.setTitle, title.some)
+  def addTitle(user: UserId, title: String)(using Me) = add:
+    Modlog(user.some, Modlog.setTitle, title.some)
 
-  def removeTitle(mod: ModId, user: UserId) = add:
-    Modlog(mod, user.some, Modlog.removeTitle)
+  def removeTitle(user: UserId)(using Me) = add:
+    Modlog(user.some, Modlog.removeTitle)
 
-  def setEmail(mod: ModId, user: UserId) = add:
-    Modlog(mod, user.some, Modlog.setEmail)
+  def setEmail(user: UserId)(using Me) = add:
+    Modlog(user.some, Modlog.setEmail)
 
-  def deletePost(mod: ModId, user: Option[UserId], text: String) = add:
+  def deletePost(user: Option[UserId], text: String)(using Me) = add:
     Modlog(
-      mod,
       user,
       Modlog.deletePost,
       details = Some(text.take(400))
     )
 
-  def toggleCloseTopic(mod: ModId, categ: ForumCategId, topicSlug: String, closed: Boolean) = add:
+  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me) = add:
     Modlog(
-      mod,
       none,
       if (closed) Modlog.closeTopic else Modlog.openTopic,
       details = s"$categ/$topicSlug".some
     )
 
-  def toggleStickyTopic(mod: ModId, categ: ForumCategId, topicSlug: String, sticky: Boolean) = add:
+  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me) = add:
     Modlog(
-      mod,
       none,
       if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic,
       details = s"$categ/$topicSlug".some
@@ -113,31 +111,27 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
 
   // Not to be confused with the eponymous lichess account.
   def postOrEditAsAnonMod(
-      mod: ModId,
       categ: ForumCategId,
       topic: String,
       postId: ForumPostId,
       text: String,
       edit: Boolean
-  ) = add:
+  )(using Me.Id) = add:
     Modlog(
-      mod,
       none,
       if (edit) Modlog.editAsAnonMod else Modlog.postAsAnonMod,
       details = s"$categ/$topic id: $postId ${text.take(400)}".some
     )
 
-  def deleteTeam(mod: ModId, id: String, explain: String) = add:
+  def deleteTeam(id: String, explain: String)(using Me.Id) = add:
     Modlog(
-      mod,
       none,
       Modlog.deleteTeam,
       details = s"$id: ${explain take 200}".some
     ) indexAs "team"
 
-  def toggleTeam(mod: ModId, id: String, closing: Boolean, explain: String) = add:
+  def toggleTeam(id: String, closing: Boolean, explain: String)(using Me.Id) = add:
     Modlog(
-      mod,
       none,
       if (closing) Modlog.disableTeam else Modlog.enableTeam,
       details = s"$id: ${explain take 200}".some
@@ -150,21 +144,19 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       .cursor[Modlog]()
       .list(30)
 
-  def terminateTournament(mod: ModId, name: String) = add:
-    Modlog(mod, none, Modlog.terminateTournament, details = name.some)
+  def terminateTournament(name: String)(using Me) = add:
+    Modlog(none, Modlog.terminateTournament, details = name.some)
 
-  def chatTimeout(mod: ModId, user: UserId, reason: String, text: String) = add:
-    Modlog(mod, user.some, Modlog.chatTimeout, details = s"$reason: $text".some)
+  def chatTimeout(user: UserId, reason: String, text: String)(using Me.Id) = add:
+    Modlog(user.some, Modlog.chatTimeout, details = s"$reason: $text".some)
 
-  def setPermissions(mod: Mod, user: UserId, permissions: Map[Permission, Boolean]) = add:
+  def setPermissions(user: UserId, permissions: Map[Permission, Boolean])(using Me) = add:
     Modlog(
-      mod.id,
       user.some,
       Modlog.permissions,
       details = permissions
-        .map { case (p, dir) =>
+        .map: (p, dir) =>
           s"${if (dir) "+" else "-"}${p}"
-        }
         .mkString(", ")
         .some
     )
@@ -172,34 +164,34 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def wasUnteachered(user: UserId): Fu[Boolean] =
     coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
 
-  def wasMarkedBy(mod: ModId, user: UserId): Fu[Boolean] =
+  def wasMarkedBy(user: UserId)(using me: Me): Fu[Boolean] =
     coll.secondaryPreferred.exists(
       $doc(
         "user" -> user,
-        "mod"  -> mod,
+        "mod"  -> me.userId,
         "action" $in markActions
       )
     )
 
-  def wereMarkedBy(mod: ModId, users: List[UserId]): Fu[Set[UserId]] =
+  def wereMarkedBy(users: List[UserId])(using me: Me): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](
       "user",
       $doc(
         "user" $in users,
-        "mod" -> mod,
+        "mod" -> me.userId,
         "action" $in markActions
       ),
       readPreference = ReadPreference.secondaryPreferred
     )
 
-  def reportban(mod: Mod, sus: Suspect, v: Boolean) = add:
-    Modlog.make(mod, sus, if (v) Modlog.reportban else Modlog.unreportban)
+  def reportban(sus: Suspect, v: Boolean)(using Me.Id) = add:
+    Modlog.make(sus, if v then Modlog.reportban else Modlog.unreportban)
 
-  def modMessage(mod: ModId, user: UserId, subject: String) = add:
-    Modlog(mod, user.some, Modlog.modMessage, details = subject.some)
+  def modMessage(user: UserId, subject: String)(using Me.Id) = add:
+    Modlog(user.some, Modlog.modMessage, details = subject.some)
 
-  def coachReview(mod: ModId, coach: UserId, author: UserId) = add:
-    Modlog(mod, coach.some, Modlog.coachReview, details = s"by $author".some)
+  def coachReview(coach: UserId, author: UserId)(using Me.Id) = add:
+    Modlog(coach.some, Modlog.coachReview, details = s"by $author".some)
 
   def cheatDetected(user: UserId, gameId: GameId) = add:
     Modlog(User.lichessId into ModId, user.some, Modlog.cheatDetected, details = s"game $gameId".some)
@@ -212,23 +204,23 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def cli(by: ModId, command: String) = add:
     Modlog(by, none, Modlog.cli, command.some)
 
-  def garbageCollect(mod: Mod, sus: Suspect) = add:
-    Modlog.make(mod, sus, Modlog.garbageCollect)
+  def garbageCollect(sus: Suspect)(using Me.Id) = add:
+    Modlog.make(sus, Modlog.garbageCollect)
 
-  def rankban(mod: Mod, sus: Suspect, v: Boolean) = add:
-    Modlog.make(mod, sus, if (v) Modlog.rankban else Modlog.unrankban)
+  def rankban(sus: Suspect, v: Boolean)(using Me.Id) = add:
+    Modlog.make(sus, if (v) Modlog.rankban else Modlog.unrankban)
 
-  def prizeban(mod: Mod, sus: Suspect, v: Boolean) = add:
-    Modlog.make(mod, sus, if (v) Modlog.prizeban else Modlog.unprizeban)
+  def prizeban(sus: Suspect, v: Boolean)(using Me.Id) = add:
+    Modlog.make(sus, if (v) Modlog.prizeban else Modlog.unprizeban)
 
-  def teamKick(mod: ModId, user: UserId, teamName: String) = add:
-    Modlog(mod, user.some, Modlog.teamKick, details = Some(teamName take 140))
+  def teamKick(user: UserId, teamName: String)(using Me.Id) = add:
+    Modlog(user.some, Modlog.teamKick, details = Some(teamName take 140))
 
-  def teamEdit(mod: ModId, teamOwner: UserId, teamName: String) = add:
-    Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
+  def teamEdit(teamOwner: UserId, teamName: String)(using Me.Id) = add:
+    Modlog(teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
 
-  def appealPost(mod: ModId, user: UserId) = add:
-    Modlog(mod, user.some, Modlog.appealPost, details = none)
+  def appealPost(user: UserId)(using me: Me) = add:
+    Modlog(me, user.some, Modlog.appealPost, details = none)
 
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(
@@ -311,6 +303,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
 
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.{ Modlog as M }
+    given Me.Id = m.mod into Me.Id
     val icon = m.action match
       case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
       case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
@@ -332,8 +325,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
             M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
           Some(IrcApi.ModDomain.Comm)
         case _ => Some(IrcApi.ModDomain.Other)
-      monitorType so {
-        ircApi.monitorMod(m.mod.id, icon = icon, text = text, _)
-      }
+      monitorType.so:
+        ircApi.monitorMod(icon = icon, text = text, _)
     }
-    ircApi.logMod(m.mod.id, icon = icon, text = text)
+    ircApi.logMod(icon = icon, text = text)

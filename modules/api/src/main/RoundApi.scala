@@ -18,6 +18,7 @@ import lila.swiss.{ GameView as SwissView }
 import lila.tournament.{ GameView as TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
+import lila.api.context.given
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -90,7 +91,7 @@ final private[api] class RoundApi(
         ) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.me.ifTrue(ctx.isMobileApi) so (me => noteApi.get(pov.gameId, me.id))) zip
+          (ctx.me.ifTrue(ctx.isMobileApi) so (me => noteApi.get(pov.gameId, me))) zip
           bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
             (
               withTournament(pov, tour) compose
@@ -105,7 +106,7 @@ final private[api] class RoundApi(
       .mon(_.round.api.watcher)
 
   private def ctxFlags(using ctx: WebContext) =
-    WithFlags(blurs = ctx.me so Granter(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
+    WithFlags(blurs = Granter.opt(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
 
   def review(
       pov: Pov,
@@ -124,7 +125,7 @@ final private[api] class RoundApi(
       ctx.userId,
       tv,
       initialFen = initialFen,
-      flags = withFlags.copy(blurs = ctx.me so Granter(_.ViewBlurs))
+      flags = withFlags.copy(blurs = Granter.opt(_.ViewBlurs))
     ) zip
       tourApi.gameView.analysis(pov.game) zip
       (pov.game.simulId so simulApi.find) zip

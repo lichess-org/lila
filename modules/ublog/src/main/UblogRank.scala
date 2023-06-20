@@ -8,7 +8,7 @@ import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
-import lila.user.User
+import lila.user.{ Me, User }
 
 final class UblogRank(
     colls: UblogColls,
@@ -22,60 +22,60 @@ final class UblogRank(
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
 
-  def like(postId: UblogPostId, user: User, v: Boolean): Fu[UblogPost.Likes] =
-    colls.post.update.one(
-      $id(postId),
-      if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
-    ) flatMap { res =>
-      colls.post
-        .aggregateOne() { framework =>
-          import framework.*
-          Match($id(postId)) -> List(
-            PipelineOperator($lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")),
-            UnwindField("blog"),
-            Project(
-              $doc(
-                "tier"     -> "$blog.tier",
-                "likes"    -> $doc("$size" -> "$likers"), // do not use denormalized field
-                "topics"   -> "$topics",
-                "at"       -> "$lived.at",
-                "language" -> true,
-                "title"    -> true
+  def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] =
+    colls.post.update
+      .one(
+        $id(postId),
+        if (v) $addToSet("likers" -> me.userId) else $pull("likers" -> me.userId)
+      )
+      .flatMap: res =>
+        colls.post
+          .aggregateOne(): framework =>
+            import framework.*
+            Match($id(postId)) -> List(
+              PipelineOperator(
+                $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
+              ),
+              UnwindField("blog"),
+              Project(
+                $doc(
+                  "tier"     -> "$blog.tier",
+                  "likes"    -> $doc("$size" -> "$likers"), // do not use denormalized field
+                  "topics"   -> "$topics",
+                  "at"       -> "$lived.at",
+                  "language" -> true,
+                  "title"    -> true
+                )
               )
             )
-          )
-        }
-        .map { docOption =>
-          for
-            doc      <- docOption
-            id       <- doc.getAsOpt[UblogPostId]("_id")
-            likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
-            topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
-            liveAt   <- doc.getAsOpt[Instant]("at")
-            tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
-            language <- doc.getAsOpt[Lang]("language")
-            title    <- doc string "title"
-          yield (id, topics, likes, liveAt, tier, language, title)
-        }
-        .flatMap {
-          case None                                                     => fuccess(UblogPost.Likes(0))
-          case Some((id, topics, likes, liveAt, tier, language, title)) =>
-            // Multiple updates may race to set denormalized likes and rank,
-            // but values should be approximately correct, match a real like
-            // count (though perhaps not the latest one), and any uncontended
-            // query will set the precisely correct value.
-            colls.post.update.one(
-              $id(postId),
-              $set(
-                "likes" -> likes,
-                "rank"  -> computeRank(topics, likes, liveAt, language, tier)
-              )
-            ) >>- {
-              if (res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW)
-                timeline ! (Propagate(UblogPostLike(user.id, id.value, title)) toFollowersOf user.id)
-            } inject likes
-        }
-    }
+          .map: docOption =>
+            for
+              doc      <- docOption
+              id       <- doc.getAsOpt[UblogPostId]("_id")
+              likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
+              topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
+              liveAt   <- doc.getAsOpt[Instant]("at")
+              tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
+              language <- doc.getAsOpt[Lang]("language")
+              title    <- doc string "title"
+            yield (id, topics, likes, liveAt, tier, language, title)
+          .flatMap:
+            case None                                                     => fuccess(UblogPost.Likes(0))
+            case Some((id, topics, likes, liveAt, tier, language, title)) =>
+              // Multiple updates may race to set denormalized likes and rank,
+              // but values should be approximately correct, match a real like
+              // count (though perhaps not the latest one), and any uncontended
+              // query will set the precisely correct value.
+              colls.post.update.one(
+                $id(postId),
+                $set(
+                  "likes" -> likes,
+                  "rank"  -> computeRank(topics, likes, liveAt, language, tier)
+                )
+              ) >>- {
+                if (res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW)
+                  timeline ! (Propagate(UblogPostLike(me, id.value, title)) toFollowersOf me)
+              } inject likes
 
   def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
     colls.blog.byId[UblogBlog](blogId.full) flatMapz recomputeRankOfAllPostsOfBlog

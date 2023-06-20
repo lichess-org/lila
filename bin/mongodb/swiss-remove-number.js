@@ -22,4 +22,7 @@ db.swiss.find().forEach(swiss => {
   db.swiss_player.update({ s: swiss._id }, { $unset: { n: 1 } }, { multi: 1 });
 });
 
-db.swiss.ensureIndex({ nbPlayers: -1 }, { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } });
+db.swiss.ensureIndex(
+  { nbPlayers: -1 },
+  { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } }
+);

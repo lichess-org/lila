@@ -36,7 +36,10 @@ export const view = (ctrl: RoundController): VNode =>
   snabModal({
     class: 'keyboard-help',
     onInsert: async ($wrap: Cash) => {
-      const [, html] = await Promise.all([lichess.loadCssPath('round.keyboard'), xhr.text(xhr.url('/round/help', {}))]);
+      const [, html] = await Promise.all([
+        lichess.loadCssPath('round.keyboard'),
+        xhr.text(xhr.url('/round/help', {})),
+      ]);
       $wrap.find('.scrollable').html(html);
     },
     onClose() {

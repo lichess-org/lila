@@ -47,7 +47,10 @@ function renderPgnTags(
   if (chapter.setup.variant.key !== 'standard') rows.push(['Variant', fixed(chapter.setup.variant.name)]);
   rows = rows.concat(
     chapter.tags
-      .filter(tag => !hideRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags))
+      .filter(
+        tag =>
+          !hideRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags)
+      )
       .map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])])
   );
   if (submit) {

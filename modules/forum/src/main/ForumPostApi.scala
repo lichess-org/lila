@@ -7,7 +7,7 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.{ Granter as MasterGranter }
-import lila.user.User
+import lila.user.{ Me, User }
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -29,16 +29,15 @@ final class ForumPostApi(
   def makePost(
       categ: ForumCateg,
       topic: ForumTopic,
-      data: ForumForm.PostData,
-      me: User
-  ): Fu[ForumPost] =
-    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { case (lang, topicUserIds) =>
-      val publicMod = MasterGranter(_.PublicMod)(me)
-      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
+      data: ForumForm.PostData
+  )(using me: Me): Fu[ForumPost] =
+    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { (lang, topicUserIds) =>
+      val publicMod = MasterGranter(_.PublicMod)
+      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
-        userId = !anonMod option me.id,
+        userId = !anonMod option me,
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
@@ -53,15 +52,17 @@ final class ForumPostApi(
             topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
             categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
               !categ.quiet so (indexer ! InsertPost(post))
-              promotion.save(me, post.text)
+              promotion.save(post.text)
               shutup ! {
-                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
+                if post.isTeam
+                then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, post.text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, post.text)
               }
-              if (anonMod) logAnonPost(me.id, post, edit = false)
-              else if (!post.troll && !categ.quiet)
-                timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id)).pipe {
-                  _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
+              if anonMod
+              then logAnonPost(post, edit = false)
+              else if !post.troll && !categ.quiet then
+                timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
+                  _ toFollowersOf me toUsers topicUserIds exceptUser me withTeam categ.team
                 }
               lila.mon.forum.post.create.increment()
               mentionNotifier.notifyMentionedUsers(post, topic)
@@ -70,10 +71,10 @@ final class ForumPostApi(
       }
     }
 
-  def editPost(postId: ForumPostId, newText: String, user: User): Fu[ForumPost] =
-    get(postId) flatMap { post =>
+  def editPost(postId: ForumPostId, newText: String)(using me: Me): Fu[ForumPost] =
+    get(postId).flatMap: post =>
       post.fold[Fu[ForumPost]](fufail("Post no longer exists.")) {
-        case (_, post) if !post.canBeEditedBy(user) =>
+        case (_, post) if !post.canBeEditedByMe =>
           fufail("You are not authorized to modify this post.")
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
@@ -81,14 +82,13 @@ final class ForumPostApi(
           val newPost = post.editPost(nowInstant, spam replace newText)
           (newPost.text != post.text).so {
             postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
-              logAnonPost(user.id, newPost, edit = true)
-            } >>- promotion.save(user, newPost.text)
+              logAnonPost(newPost, edit = true)
+            } >>- promotion.save(newPost.text)
           } inject newPost
       }
-    }
 
   def urlData(postId: ForumPostId, forUser: Option[User]): Fu[Option[PostUrlData]] =
-    get(postId) flatMap {
+    get(postId).flatMap:
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
         postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
@@ -96,12 +96,10 @@ final class ForumPostApi(
           PostUrlData(topic.categId, topic.slug, page, post.number).some
         }
       case _ => fuccess(none)
-    }
 
   def get(postId: ForumPostId): Fu[Option[(ForumTopic, ForumPost)]] =
-    getPost(postId) flatMapz { post =>
-      topicRepo.byId(post.topicId) dmap2 { _ -> post }
-    }
+    getPost(postId).flatMapz: post =>
+      topicRepo.byId(post.topicId).dmap2(_ -> post)
 
   def getPost(postId: ForumPostId): Fu[Option[ForumPost]] =
     postRepo.coll.byId[ForumPost](postId)
@@ -109,24 +107,22 @@ final class ForumPostApi(
   def react(
       categSlug: String,
       postId: ForumPostId,
-      me: User,
       reactionStr: String,
       v: Boolean
-  ): Fu[Option[ForumPost]] =
+  )(using me: Me): Fu[Option[ForumPost]] =
     ForumPost.Reaction(reactionStr) so { reaction =>
-      if (v) lila.mon.forum.reaction(reaction.key).increment()
+      if v then lila.mon.forum.reaction(reaction.key).increment()
       postRepo.coll
         .findAndUpdateSimplified[ForumPost](
-          selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
-          update = {
-            if (v) $addToSet(s"reactions.$reaction" -> me.id)
-            else $pull(s"reactions.$reaction"       -> me.id)
-          },
+          selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.userId),
+          update =
+            if v then $addToSet(s"reactions.$reaction" -> me.userId)
+            else $pull(s"reactions.$reaction"          -> me.userId),
           fetchNewObject = true
         ) >>- {
         if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
           scheduler.scheduleOnce(5 minutes):
-            react(categSlug, postId, me, reaction.key, false)
+            react(categSlug, postId, reaction.key, false)
       }
     }
 
@@ -155,11 +151,11 @@ final class ForumPostApi(
     postRepo.byIds(postIds) flatMap liteViews
 
   def liteView(post: ForumPost): Fu[Option[PostLiteView]] =
-    liteViews(List(post)) dmap (_.headOption)
+    liteViews(List(post)).dmap(_.headOption)
 
   def miniPosts(posts: List[ForumPost]): Fu[List[MiniForumPost]] =
     topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId.value).distinct) map { topics =>
-      posts flatMap { post =>
+      posts.flatMap: post =>
         topics.find(_.id == post.topicId) map { topic =>
           MiniForumPost(
             isTeam = post.isTeam,
@@ -170,7 +166,6 @@ final class ForumPostApi(
             createdAt = post.createdAt
           )
         }
-      }
     }
 
   def allUserIds(topicId: ForumTopicId) = postRepo allUserIdsByTopicId topicId
@@ -220,10 +215,9 @@ final class ForumPostApi(
       categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
     }
 
-  private def logAnonPost(userId: UserId, post: ForumPost, edit: Boolean): Funit =
+  private def logAnonPost(post: ForumPost, edit: Boolean)(using Me): Funit =
     topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
       modLog.postOrEditAsAnonMod(
-        userId into ModId,
         post.categId,
         topic.slug,
         post.id,

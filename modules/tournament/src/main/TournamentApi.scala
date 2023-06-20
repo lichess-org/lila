@@ -17,6 +17,7 @@ import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.user.{ User, UserRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetUserTeamIds
+import lila.user.Me
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -52,10 +53,9 @@ final class TournamentApi(
 
   def createTournament(
       setup: TournamentSetup,
-      me: User,
       leaderTeams: List[LeaderTeam],
       andJoin: Boolean = true
-  ): Fu[Tournament] =
+  )(using me: Me): Fu[Tournament] =
     val tour = Tournament
       .make(
         by = Right(me),
@@ -82,7 +82,6 @@ final class TournamentApi(
     } >> {
       (andJoin && !me.isBot && !me.lame) so join(
         tour.id,
-        me,
         TournamentForm.TournamentJoin(setup.teamBattleByTeam, tour.password),
         asLeader = false,
         none
@@ -256,45 +255,43 @@ final class TournamentApi(
             case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
     }
 
-  def getVerdicts(tour: Tournament, me: Option[User], playerExists: Boolean)(using
-      GetUserTeamIds
+  def getVerdicts(tour: Tournament, playerExists: Boolean)(using GetUserTeamIds)(using
+      me: Option[Me]
   ): Fu[Condition.WithVerdicts] =
     me match
       case None => fuccess(tour.conditions.accepted)
-      case Some(user) =>
-        if (tour.isStarted && playerExists) verify.rejoin(tour.conditions, user)
-        else verify(tour.conditions, user, tour.perfType)
+      case Some(me) =>
+        if (tour.isStarted && playerExists) verify.rejoin(tour.conditions, me.user)
+        else verify(tour.conditions, me.user, tour.perfType)
 
   private[tournament] def join(
       tourId: TourId,
-      me: User,
       data: TournamentForm.TournamentJoin,
       asLeader: Boolean,
       promise: Option[Promise[Tournament.JoinResult]]
-  )(using getUserTeamIds: GetUserTeamIds): Funit =
-    Parallel(tourId, "join")(cached.tourCache.enterable) { tour =>
-      playerRepo.find(tour.id, me.id) flatMap { prevPlayer =>
+  )(using getUserTeamIds: GetUserTeamIds, me: Me): Funit =
+    Parallel(tourId, "join")(cached.tourCache.enterable): tour =>
+      playerRepo.find(tour.id, me) flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
           if (me.marks.prizeban && tour.looksLikePrize) fuccess(JoinResult.PrizeBanned)
-          else if (
-            prevPlayer.nonEmpty || tour.password.forall(p =>
+          else if prevPlayer.nonEmpty || tour.password.forall(p =>
               // plain text access code
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
                 // user-specific access code: HMAC-SHA256(access code, user id)
                 MessageDigest
                   .isEqual(
-                    Algo.hmac(p).sha256(me.id.value).hex.getBytes(UTF_8),
+                    Algo.hmac(p).sha256(me.userId.value).hex.getBytes(UTF_8),
                     (~data.password).getBytes(UTF_8)
                   )
             )
-          )
-            getVerdicts(tour, me.some, prevPlayer.isDefined) flatMap { verdicts =>
+          then
+            getVerdicts(tour, prevPlayer.isDefined) flatMap { verdicts =>
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
-              else if (!pause.canJoin(me.id, tour)) fuccess(JoinResult.Paused)
+              else if (!pause.canJoin(me, tour)) fuccess(JoinResult.Paused)
               else
                 def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] =
-                  playerRepo.join(tour.id, me, tour.perfType, team, prevPlayer) >>
+                  playerRepo.join(tour.id, me.user, tour.perfType, team, prevPlayer) >>
                     updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
                 tour.teamBattle.fold(proceedWithTeam(none)) { battle =>
                   data.team match
@@ -306,30 +303,27 @@ final class TournamentApi(
                     case _ => fuccess(JoinResult.MissingTeam)
                 }
             }
-          else
-            fuccess(JoinResult.WrongEntryCode)
-        fuResult map { result =>
-          if (result.ok)
+          else fuccess(JoinResult.WrongEntryCode)
+        fuResult.map: result =>
+          if result.ok then
             data.team.ifTrue(asLeader && tour.isTeamBattle) foreach {
               tournamentRepo.setForTeam(tour.id, _)
             }
-            if (~data.pairMeAsap) pairingRepo.isPlaying(tourId, me.id) foreach { isPlaying =>
-              if !isPlaying then waitingUsers.addApiUser(tour, me)
-            }
+            if ~data.pairMeAsap then
+              pairingRepo.isPlaying(tourId, me) foreach { isPlaying =>
+                if !isPlaying then waitingUsers.addApiUser(tour, me)
+              }
           socket.reload(tour.id)
           promise.foreach(_ success result)
-        }
       }
-    }
 
   def joinWithResult(
       tourId: TourId,
-      me: User,
       data: TournamentForm.TournamentJoin,
       isLeader: Boolean
-  )(using GetUserTeamIds): Fu[Tournament.JoinResult] =
+  )(using GetUserTeamIds, Me): Fu[Tournament.JoinResult] =
     val promise = Promise[Tournament.JoinResult]()
-    join(tourId, me, data, isLeader, promise.some)
+    join(tourId, data, isLeader, promise.some)
     promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
 
   def pageOf(tour: Tournament, userId: UserId): Fu[Option[Int]] =
@@ -726,7 +720,7 @@ final class TournamentApi(
   private def playerPovs(tour: Tournament, userId: UserId, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
       gameRepo.light.gamesFromPrimary map {
-        _ flatMap { LightPov.ofUserId(_, userId) }
+        _ flatMap { LightPov(_, userId) }
       }
 
   private def Parallel(tourId: TourId, action: String)(

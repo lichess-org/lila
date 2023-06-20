@@ -1,9 +1,9 @@
 package views.html
 package account
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import play.api.data.Form
 
 import controllers.routes
 
@@ -11,13 +11,12 @@ object twoFactor:
 
   import trans.tfa.*
 
-  private val qrCode = raw(
+  private val qrCode = raw:
     """<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>"""
-  )
 
-  def setup(u: lila.user.User, form: play.api.data.Form[?])(using WebContext) =
+  def setup(form: Form[?])(using WebContext)(using me: Me) =
     account.layout(
-      title = s"${u.username} - ${twoFactorAuth.txt()}",
+      title = s"${me.username} - ${twoFactorAuth.txt()}",
       active = "twofactor",
       evenMoreJs = frag(
         jsAt("javascripts/vendor/qrcode.min.js"),
@@ -60,9 +59,9 @@ object twoFactor:
       )
     }
 
-  def disable(u: lila.user.User, form: play.api.data.Form[?])(using WebContext) =
+  def disable(form: Form[?])(using WebContext)(using me: Me) =
     account.layout(
-      title = s"${u.username} - ${twoFactorAuth.txt()}",
+      title = s"${me.username} - ${twoFactorAuth.txt()}",
       active = "twofactor"
     ) {
       div(cls := "account twofactor box box-pad")(

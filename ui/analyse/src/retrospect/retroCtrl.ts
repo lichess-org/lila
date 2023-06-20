@@ -61,7 +61,10 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
 
   function findNextNode(): Tree.Node | undefined {
     const colorModulo = color == 'white' ? 1 : 0;
-    candidateNodes = evalSwings(root.mainline, n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply));
+    candidateNodes = evalSwings(
+      root.mainline,
+      n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply)
+    );
     return candidateNodes.find(n => !isPlySolved(n.ply));
   }
 
@@ -141,7 +144,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function isCevalReady(node: Tree.Node): boolean {
-    return node.ceval ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000) : false;
+    return node.ceval
+      ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000)
+      : false;
   }
 
   function checkCeval(): void {

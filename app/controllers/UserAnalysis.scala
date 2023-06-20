@@ -7,7 +7,6 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.game.Pov
 import lila.round.JsonView.WithFlags
@@ -137,7 +136,7 @@ final class UserAnalysis(
 
   private def forecastReload = JsonOk(Json.obj("reload" -> true))
 
-  def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ =>
+  def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ ?=>
     import lila.round.Forecast
     OptionFuResult(env.round.proxyRepo pov fullId): pov =>
       if isTheft(pov) then theftResponse
@@ -158,7 +157,7 @@ final class UserAnalysis(
   }
 
   def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
-    AuthBody(parse.json) { ctx ?=> _ =>
+    AuthBody(parse.json) { ctx ?=> _ ?=>
       import lila.round.Forecast
       OptionFuResult(env.round.proxyRepo pov fullId): pov =>
         if isTheft(pov) then theftResponse

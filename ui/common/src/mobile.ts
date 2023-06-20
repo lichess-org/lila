@@ -36,7 +36,8 @@ export const bindMobileMousedown =
     }
   };
 
-export const hookMobileMousedown = (f: (e: Event) => any) => bind('ontouchstart' in window ? 'click' : 'mousedown', f);
+export const hookMobileMousedown = (f: (e: Event) => any) =>
+  bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
 export const isMobile = (): boolean => isAndroid() || isIOS();
 
@@ -45,7 +46,8 @@ export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 export const isIOS = (): boolean => /iPhone|iPod/.test(navigator.userAgent) || isIPad();
 
 // some newer iPads pretend to be Macs, hence checking for "Macintosh"
-export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
+export const isIPad = (): boolean =>
+  navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 

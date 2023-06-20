@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 import controllers.routes
 
 import chess.format.Fen
-import lila.api.WebContext
+
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue

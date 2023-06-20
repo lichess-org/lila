@@ -2,7 +2,7 @@ package lila.forum
 
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.user.{ User, Me }
 
 final class ForumCategApi(
     postRepo: ForumPostRepo,
@@ -50,11 +50,10 @@ final class ForumCategApi(
 
   def show(
       id: ForumCategId,
-      forUser: Option[User],
       page: Int
-  ): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
+  )(using Option[Me]): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
     categRepo byId id flatMapz { categ =>
-      paginator.categTopics(categ, forUser, page) dmap { (categ, _).some }
+      paginator.categTopics(categ, page) dmap { (categ, _).some }
     }
 
   def denormalize(categ: ForumCateg): Funit =

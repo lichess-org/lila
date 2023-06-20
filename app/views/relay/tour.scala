@@ -1,6 +1,5 @@
 package views.html.relay
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -50,6 +49,7 @@ object tour:
           boxTop:
             h1(lightUserLink(owner), " ", liveBroadcasts())
           ,
+          standardFlash,
           renderPager(pager, owner = owner.some)
         )
       )

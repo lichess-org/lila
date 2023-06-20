@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 import play.api.data.Form
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.user.User
+import lila.user.{ User, Me }
 
 case class Dated[V](value: V, date: Instant) extends Ordered[Dated[V]]:
   def compare(other: Dated[V]) = other.date compareTo date
@@ -13,9 +13,9 @@ case class Dated[V](value: V, date: Instant) extends Ordered[Dated[V]]:
 
 case class AuthInfo(user: UserId, hasFp: Boolean)
 
-case class FingerPrintedUser(user: User, hasFingerPrint: Boolean)
+case class FingerPrintedUser(me: Me, hasFingerPrint: Boolean)
 
-case class AppealUser(user: User)
+case class AppealUser(me: Me)
 
 case class UserSession(
     _id: String,

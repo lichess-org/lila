@@ -173,7 +173,10 @@ export default (window as any).LichessAnalyseNvui = function (ctrl: AnalyseContr
                   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
                   $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
-                  $buttons.on('keypress', lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()));
+                  $buttons.on(
+                    'keypress',
+                    lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get())
+                  );
                   $buttons.on('keypress', positionJumpHandler());
                   $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
                 },
@@ -310,7 +313,8 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
 function evalInfo(bestEv: Eval | undefined): string {
   if (bestEv) {
     if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
-    else if (defined(bestEv.mate)) return `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`;
+    else if (defined(bestEv.mate))
+      return `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`;
   }
   return '';
 }
@@ -402,7 +406,11 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
   else if (lowered === 'best') notify(renderBestMove(ctrl, style));
   else {
     const pieces = ctrl.chessground.state.pieces;
-    notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
+    notify(
+      commands.piece.apply(c, pieces, style) ||
+        commands.scan.apply(c, pieces, style) ||
+        `Invalid command: ${c}`
+    );
   }
 }
 
@@ -411,7 +419,9 @@ const analysisGlyphs = ['?!', '?', '??'];
 function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
   const anal = ctrl.data.analysis;
   if (!anal) return undefined;
-  const analysisNodes = ctrl.mainline.filter(n => (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)));
+  const analysisNodes = ctrl.mainline.filter(n =>
+    (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol))
+  );
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
     const acpl = anal[color].acpl;
@@ -420,7 +430,11 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
       h(
         'select',
         {
-          hook: bind('change', e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)), ctrl.redraw),
+          hook: bind(
+            'change',
+            e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)),
+            ctrl.redraw
+          ),
         },
         analysisNodes
           .filter(n => (n.ply % 2 === 1) === (color === 'white'))
@@ -433,7 +447,9 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
                   selected: node.ply === ctrl.node.ply,
                 },
               },
-              [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(' ')
+              [plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
+                ' '
+              )
             )
           )
       )
@@ -442,7 +458,11 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
   return res;
 }
 
-function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean>, notify: (msg: string) => void) {
+function requestAnalysisButton(
+  ctrl: AnalyseController,
+  inProgress: Prop<boolean>,
+  notify: (msg: string) => void
+) {
   if (inProgress()) return h('p', 'Server-side analysis in progress');
   if (ctrl.ongoing || ctrl.synthetic) return undefined;
   return h(
@@ -483,7 +503,12 @@ function renderLineIndex(ctrl: AnalyseController): string {
 function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
-  return [plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderLineIndex(ctrl), renderComments(node, style)]
+  return [
+    plyToTurn(node.ply),
+    renderSan(node.san, node.uci, style),
+    renderLineIndex(ctrl),
+    renderComments(node, style),
+  ]
     .join(' ')
     .trim();
 }

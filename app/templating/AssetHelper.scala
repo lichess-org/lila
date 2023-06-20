@@ -3,7 +3,6 @@ package templating
 
 import play.api.mvc.RequestHeader
 
-import lila.api.{ WebContext, Nonce }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.AssetVersion
 
@@ -80,7 +79,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
-  def prismicJs(using ctx: WebContext): Frag =
+  def prismicJs(using WebContext): Frag =
     raw:
       isGranted(_.Prismic).so:
         embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
@@ -107,7 +106,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     val csp = basicCsp(using ctx.req)
     ctx.nonce.fold(csp)(csp.withNonce(_))
 
-  def analysisCsp(using ctx: WebContext): ContentSecurityPolicy =
+  def analysisCsp(using WebContext): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)
 
   def embedJsUnsafe(js: String)(using ctx: WebContext): Frag = raw:
@@ -115,12 +114,12 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
       s""" nonce="$nonce""""
     s"""<script$nonce>$js</script>"""
 
-  def embedJsUnsafe(js: String, nonce: Nonce): Frag = raw:
+  def embedJsUnsafe(js: String, nonce: lila.api.Nonce): Frag = raw:
     s"""<script nonce="$nonce">$js</script>"""
 
-  def embedJsUnsafeLoadThen(js: String)(using ctx: WebContext): Frag =
+  def embedJsUnsafeLoadThen(js: String)(using WebContext): Frag =
     embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
 
-  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
+  def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =
     embedJsUnsafe(s"""lichess.load.then(()=>{$js})""", nonce)
 }

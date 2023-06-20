@@ -4,7 +4,6 @@ import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyReadables.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ enLang, I18nKeys as trans, I18nLangPicker, LangList }
@@ -67,7 +66,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
       html = notFound,
       api = _ =>
         ctx.me
-          .so(env.streamer.api.isPotentialStreamer)
+          .so(env.streamer.api.isPotentialStreamer(_))
           .zip(galleryJson.get({}))
           .map: (isStreamer, gallery) =>
             Ok:
@@ -112,7 +111,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
                     "list"    -> lila.pref.PieceSet3d.all.map(_.name)
                   )
                 ),
-                "coach"    -> isGranted(_.Coach),
+                "coach"    -> isGrantedOpt(_.Coach),
                 "streamer" -> isStreamer,
                 "i18n"     -> translations
               )

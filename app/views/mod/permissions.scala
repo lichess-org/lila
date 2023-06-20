@@ -1,16 +1,15 @@
 package views.html.mod
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.{ Holder, User }
+import lila.user.{ Me, User }
 import lila.security.Permission
 
 import controllers.routes
 
 object permissions:
 
-  def apply(u: User, me: Holder)(using WebContext) =
+  def apply(u: User)(using ctx: WebContext, me: Me) =
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
@@ -26,13 +25,13 @@ object permissions:
           p(cls := "granted")("In green, permissions enabled manually or by a package."),
           div(cls := "permission-list")(
             lila.security.Permission.categorized
-              .filter { case (_, ps) => ps.exists(canGrant(me, _)) }
-              .map { case (categ, perms) =>
+              .filter { (_, ps) => ps.exists(canGrant(_)) }
+              .map: (categ, perms) =>
                 st.section(
                   h2(categ),
                   perms
-                    .filter(canGrant(me, _))
-                    .map { perm =>
+                    .filter(canGrant)
+                    .map: perm =>
                       val id = s"permission-${perm.dbKey}"
                       div(
                         cls := isGranted(perm, u) option "granted",
@@ -52,9 +51,7 @@ object permissions:
                         ),
                         label(`for` := id)(perm.name)
                       )
-                    }
                 )
-              }
           ),
           form3.actions(
             a(href := routes.User.show(u.username))(trans.cancel()),

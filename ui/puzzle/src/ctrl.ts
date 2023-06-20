@@ -7,7 +7,16 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
-import { Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin, ReplayEnd } from './interfaces';
+import {
+  Vm,
+  Controller,
+  PuzzleOpts,
+  PuzzleData,
+  MoveTest,
+  ThemeKey,
+  NvuiPlugin,
+  ReplayEnd,
+} from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -59,7 +68,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
   const loadSound = (file: string, volume?: number, delay?: number) => {
-    setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true), delay || 1000);
+    setTimeout(
+      () => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true),
+      delay || 1000
+    );
     return () => lichess.sound.play(file, volume);
   };
   const sound = {
@@ -100,9 +112,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       vote,
       solve: viewSolution,
     });
-    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
+    if (opts.pref.voiceMove)
+      this.voiceMove = voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
     if (opts.pref.keyboardMove)
-      this.keyboardMove = keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.vm.node.fen });
+      this.keyboardMove = keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, {
+        fen: this.vm.node.fen,
+      });
     requestAnimationFrame(() => this.redraw());
   }
 

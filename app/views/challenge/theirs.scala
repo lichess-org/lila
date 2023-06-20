@@ -1,6 +1,5 @@
 package views.html.challenge
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
@@ -21,30 +20,28 @@ object theirs:
       openGraph = challengeOpenGraph(c).some,
       moreJs = bits.js(c, json, owner = false, color),
       moreCss = cssTag("challenge.page")
-    ) {
-      main(cls := "page-small challenge-page challenge-theirs box box-pad")(
-        c.status match {
+    ):
+      main(cls := "page-small challenge-page challenge-theirs box box-pad"):
+        c.status match
           case Status.Created | Status.Offline =>
             frag(
               boxTop(
                 h1(
-                  if (c.isOpen) c.name | "Open challenge"
+                  if c.isOpen then c.name | "Open challenge"
                   else
-                    user.fold[Frag]("Anonymous")(u =>
+                    user.fold[Frag]("Anonymous"): u =>
                       frag(
                         userLink(u),
                         " (",
                         u.perfs(c.perfType).glicko.display,
                         ")"
                       )
-                    )
                 )
               ),
               bits.details(c, color),
-              c.notableInitialFen.map { fen =>
-                div(cls := "board-preview", views.html.board.bits.mini(fen.board, !c.finalColor)(div))
-              },
-              if (c.open.exists(!_.canJoin(ctx.me)))
+              c.notableInitialFen.map: fen =>
+                div(cls := "board-preview", views.html.board.bits.mini(fen.board, !c.finalColor)(div)),
+              if c.open.exists(!_.canJoin) then
                 div(
                   "Waiting for ",
                   fragList((~c.open.flatMap(_.userIdList)).map(uid => userIdLink(uid.some)), " and "),
@@ -101,6 +98,3 @@ object theirs:
               bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
-        }
-      )
-    }

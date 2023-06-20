@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
@@ -99,28 +98,28 @@ final class Practice(
           (analysis, studyJson)
         }
 
-  def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me =>
+  def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>
     api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
   }
 
-  def reset = AuthBody { _ ?=> me =>
+  def reset = AuthBody { _ ?=> me ?=>
     api.progress.reset(me) inject Redirect(routes.Practice.index)
   }
 
-  def config = Secure(_.PracticeConfig) { ctx ?=> _ =>
+  def config = Secure(_.PracticeConfig) { ctx ?=> _ ?=>
     for
       struct <- api.structure.get
       form   <- api.config.form
     yield Ok(html.practice.config(struct, form))
   }
 
-  def configSave = SecureBody(_.PracticeConfig) { ctx ?=> me =>
+  def configSave = SecureBody(_.PracticeConfig) { ctx ?=> me ?=>
     api.config.form.flatMap: form =>
       FormFuResult(form) { err =>
         api.structure.get map { html.practice.config(_, err) }
       } { text =>
         ~api.config.set(text).toOption >>-
           api.structure.clear() >>
-          env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
+          env.mod.logApi.practiceConfig inject Redirect(routes.Practice.config)
       }
   }

@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 
 import lila.common.Form.{ stringIn, into, PrettyDateTime }
 import lila.i18n.LangList
-import lila.user.User
+import lila.user.Me
 
 object EventForm:
 
@@ -64,7 +64,7 @@ object EventForm:
       countdown: Boolean
   ):
 
-    def update(event: Event, by: User) =
+    def update(event: Event)(using me: Me.Id) =
       event.copy(
         title = title,
         headline = headline,
@@ -79,10 +79,10 @@ object EventForm:
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown,
         updatedAt = nowInstant.some,
-        updatedBy = by.id.some
+        updatedBy = me.some
       )
 
-    def make(userId: UserId) =
+    def make(using me: Me.Id) =
       Event(
         _id = Event.makeId,
         title = title,
@@ -94,7 +94,7 @@ object EventForm:
         enabled = enabled,
         startsAt = startsAt.instant,
         finishesAt = finishesAt.instant,
-        createdBy = userId,
+        createdBy = me,
         createdAt = nowInstant,
         updatedAt = none,
         updatedBy = none,

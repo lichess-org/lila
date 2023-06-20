@@ -2,7 +2,6 @@ package controllers
 
 import play.api.mvc.*
 
-import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 
@@ -23,11 +22,10 @@ final class Storm(env: Env) extends LilaController(env):
       }
     }
 
-  def apiGet = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me =>
-    dataAndHighScore(me, none).map: (data, high) =>
+  def apiGet = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
+    dataAndHighScore(ctx.me, none).map: (data, high) =>
       import lila.storm.StormJson.given
       JsonOk(data.add("high" -> high))
-  }
 
   def record =
     OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write, _.Web.Mobile)): ctx ?=>
@@ -39,7 +37,7 @@ final class Storm(env: Env) extends LilaController(env):
             data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
           ) map env.storm.json.newHigh map JsonOk
 
-  def dashboard(page: Int) = Auth { ctx ?=> me =>
+  def dashboard(page: Int) = Auth { ctx ?=> me ?=>
     renderDashboardOf(me, page)
   }
 

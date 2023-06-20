@@ -36,11 +36,11 @@ final class Dev(env: Env) extends LilaController(env):
     env.credentiallessUaRegex
   )
 
-  def settings = Secure(_.Settings) { _ ?=> _ =>
+  def settings = Secure(_.Settings) { _ ?=> _ ?=>
     html.dev.settings(settingsList)
   }
 
-  def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me =>
+  def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
     settingsList.find(_.id == id) so { setting =>
       setting.form
         .bindFromRequest()
@@ -57,28 +57,28 @@ final class Dev(env: Env) extends LilaController(env):
 
   private val commandForm = Form(single("command" -> nonEmptyText))
 
-  def cli = Secure(_.Cli) { _ ?=> _ =>
+  def cli = Secure(_.Cli) { _ ?=> _ ?=>
     html.dev.cli(commandForm, none)
   }
 
-  def cliPost = SecureBody(_.Cli) { _ ?=> me =>
+  def cliPost = SecureBody(_.Cli) { _ ?=> me ?=>
     commandForm
       .bindFromRequest()
       .fold(
         err => BadRequest(html.dev.cli(err, "Invalid command".some)),
         command =>
-          runAs(me.id, command) map { res =>
+          runCommand(command) map { res =>
             Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
           }
       )
   }
 
-  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me =>
-    lila.security.Granter(_.Cli)(me) so {
-      runAs(me.id, ctx.body.body) map { Ok(_) }
+  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me ?=>
+    lila.security.Granter(_.Cli).so {
+      runCommand(ctx.body.body) map { Ok(_) }
     }
   }
 
-  private def runAs(user: UserId, command: String): Fu[String] =
-    env.mod.logApi.cli(user into ModId, command) >>
+  private def runCommand(command: String)(using me: Me.Id): Fu[String] =
+    env.mod.logApi.cli(me.modId, command) >>
       env.api.cli(command.split(" ").toList)

@@ -46,33 +46,30 @@ final class JsonView(
       partial: Boolean,
       withScores: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none
-  )(using lang: Lang, getUserTeamIds: Condition.GetUserTeamIds): Fu[JsObject] =
-    for {
+  )(using getUserTeamIds: Condition.GetUserTeamIds)(using Lang): Fu[JsObject] =
+    for
       data   <- cachableData get tour.id
       myInfo <- myInfo.orLoad(me so { fetchMyInfo(tour, _) })
-      pauseDelay = me flatMap { u =>
+      pauseDelay = me.flatMap: u =>
         pause.remainingDelay(u.id, tour)
-      }
       full = !partial
       stand <- standingApi(
         tour,
-        (myInfo, page) match {
+        (myInfo, page) match
           case (_, Some(p)) => p
           case (Some(i), _) => i.page
           case _            => 1
-        },
+        ,
         withScores = withScores
       )
-      playerInfoJson <- playerInfoExt so { pie =>
+      playerInfoJson <- playerInfoExt.so: pie =>
         playerInfoExtended(tour, pie).map(_.some)
-      }
-      verdicts <- full so {
+      verdicts <- full.so:
         (me, myInfo) match
           case (None, _)                                   => fuccess(tour.conditions.accepted.some)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
           case (Some(user), Some(_))                       => verify.rejoin(tour.conditions, user) map some
           case (Some(user), None) => verify(tour.conditions, user, tour.perfType) map some
-      }
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi currentOwner tour }
       teamsToJoinWith <- full.so(~(for {
@@ -82,13 +79,13 @@ final class JsonView(
       }))
       teamStanding <- getTeamStanding(tour)
       myTeam       <- myInfo.flatMap(_.teamId) so { getMyRankedTeam(tour, _) }
-    } yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json
+    yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json
       .obj("standing" -> stand)
       .add("me" -> myInfo.map(myInfoJson(pauseDelay)))
       .add("playerInfo" -> playerInfoJson)
       .add("socketVersion" -> socketVersion)
       .add("myTeam" -> myTeam) ++
-      full.so {
+      full.so:
         Json
           .obj(
             "id"        -> tour.id,
@@ -114,7 +111,7 @@ final class JsonView(
           .add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
             Json.obj("name" -> tour.name, "url" -> url)
           })
-          .add("teamBattle" -> tour.teamBattle.map { battle =>
+          .add("teamBattle" -> tour.teamBattle.map: battle =>
             Json
               .obj(
                 "teams" -> JsObject(battle.sortedTeamIds.map { id =>
@@ -122,8 +119,7 @@ final class JsonView(
                 }),
                 "nbLeaders" -> battle.nbLeaders
               )
-              .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted))
-          })
+              .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted)))
           .add("description" -> tour.description)
           .add("myUsername" -> me.map(_.username))
           .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
@@ -131,7 +127,6 @@ final class JsonView(
           .add("minRatedGames", tour.conditions.nbRatedGame)
           .add("onlyTitled", tour.conditions.titled.isDefined)
           .add("teamMember", tour.conditions.teamMember.map(_.teamId))
-      }
 
   def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
     js + ("reloadEndpoint" -> JsString({
@@ -581,7 +576,7 @@ object JsonView:
       .add("iconFont" -> s.iconFont)
   }
 
-  private[tournament] given (using lang: Lang): OWrites[PerfType] =
+  private[tournament] given (using Lang): OWrites[PerfType] =
     OWrites { pt =>
       Json
         .obj("key" -> pt.key, "name" -> pt.trans)

@@ -9,7 +9,7 @@ final class GameProxyRepo(
 
   def game(gameId: GameId): Fu[Option[Game]] = GameId.validate(gameId) so roundSocket.getGame(gameId)
 
-  def pov(gameId: GameId, user: lila.user.User): Fu[Option[Pov]] =
+  def pov[U: UserIdOf](gameId: GameId, user: U): Fu[Option[Pov]] =
     game(gameId) dmap { _ flatMap { Pov(_, user) } }
 
   def pov(gameId: GameId, color: chess.Color): Fu[Option[Pov]] =
@@ -44,7 +44,7 @@ final class GameProxyRepo(
   def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
     gameIfPresent(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
 
-  def urgentGames(user: lila.user.User): Fu[List[Pov]] =
+  def urgentGames[U: UserIdOf](user: U): Fu[List[Pov]] =
     gameRepo urgentPovsUnsorted user flatMap {
       _.map { pov =>
         gameIfPresent(pov.gameId) dmap { _.fold(pov)(pov.withGame) }

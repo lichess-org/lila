@@ -48,11 +48,8 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
   def unsubscribe(userId: UserId, streamerId: UserId): Funit =
     coll.delete.one($id(makeId(userId, streamerId))).void
 
-  def isSubscribed[U, S](userId: U, streamerId: S)(using
-      idOfU: UserIdOf[U],
-      idOfS: UserIdOf[S]
-  ): Fu[Boolean] =
-    coll.exists($id(makeId(idOfU(userId), idOfS(streamerId))))
+  def isSubscribed[U: UserIdOf, S: UserIdOf](userId: U, streamerId: S): Fu[Boolean] =
+    coll.exists($id(makeId(userId.id, streamerId.id)))
 
   // only use "_id", not "s", so that mongo can work entirely from the index
   def filterSubscribed(subscriber: UserId, streamerIds: List[UserId]): Fu[Set[UserId]] =

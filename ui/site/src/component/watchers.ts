@@ -39,7 +39,9 @@ export default function watchers(element: HTMLElement) {
       const prevUsers = data.users.map(u => u || '').join(';');
       if ($listEl.data('prevUsers') !== prevUsers) {
         $listEl.data('prevUsers', prevUsers);
-        const tags = data.users.map(u => (u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : 'Anonymous'));
+        const tags = data.users.map(u =>
+          u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : 'Anonymous'
+        );
         if (data.anons === 1) tags.push('Anonymous');
         else if (data.anons) tags.push(`Anonymous (${data.anons})`);
         $listEl.html(tags.join(', '));

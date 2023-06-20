@@ -61,6 +61,8 @@ function esbuildMessage(msg: es.Message, error = false) {
   const file = msg.location?.file.replace(/^[./]*/, '') ?? '<unknown>';
   const line = msg.location?.line ? `line ${msg.location.line} of ` : '';
   const srcText = msg.location?.lineText;
-  env.log(`${error ? errorMark : c.warn('WARNING')} - ${line}'${c.cyan(file)}': ${msg.text}`, { ctx: 'esbuild' });
+  env.log(`${error ? errorMark : c.warn('WARNING')} - ${line}'${c.cyan(file)}': ${msg.text}`, {
+    ctx: 'esbuild',
+  });
   if (srcText) env.log('  ' + c.magenta(srcText), { ctx: 'esbuild' });
 }

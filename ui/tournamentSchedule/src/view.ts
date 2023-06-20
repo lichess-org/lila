@@ -125,7 +125,8 @@ function tournamentClass(tour: Tournament): Classes {
   return classes;
 }
 
-const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key]);
+const iconOf = (tour: Tournament) =>
+  tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key];
 
 let mousedownAt: number[] | undefined;
 

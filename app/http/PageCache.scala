@@ -4,7 +4,6 @@ package http
 import play.api.mvc.*
 
 import lila.common.HTTPRequest
-import lila.api.WebContext
 
 final class PageCache(cacheApi: lila.memo.CacheApi):
 

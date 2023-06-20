@@ -10,8 +10,8 @@ interface CashStatic {
 declare type falsy = undefined | null | false | 0 | '';
 declare type Ele = Window | Document | HTMLElement | Element | Node;
 declare type EleLoose = HTMLElement & Element & Node;
-// eslint-disable-next-line @typescript-eslint/ban-types
-declare type Selector = falsy | string | Function | HTMLCollection | NodeList | Ele | Ele[] | ArrayLike<Ele> | Cash;
+
+declare type Selector = falsy | string | HTMLCollection | NodeList | Ele | Ele[] | ArrayLike<Ele> | Cash;
 declare type Comparator = string | Ele | Cash | ((this: EleLoose, index: number, ele: EleLoose) => boolean);
 declare type Context = Document | HTMLElement | Element;
 declare type EventCallback = {
@@ -145,7 +145,13 @@ interface Cash {
   on(events: string, callback: EventCallback): this;
   on(events: string, selector: string, callback: EventCallback): this;
   on(events: string, data: any, callback: EventCallback): this;
-  on(events: string, selector: string | null | undefined, data: any, callback: EventCallback, _one?: boolean): this;
+  on(
+    events: string,
+    selector: string | null | undefined,
+    data: any,
+    callback: EventCallback,
+    _one?: boolean
+  ): this;
 }
 interface Cash {
   one(events: Record<string, EventCallback>): this;

@@ -58,7 +58,9 @@ export function view(ctrl: SearchCtrl) {
       h('input', {
         attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
         hook: onInsert((el: HTMLInputElement) => {
-          el.addEventListener('input', (e: KeyboardEvent) => ctrl.query((e.target as HTMLInputElement).value.trim()));
+          el.addEventListener('input', (e: KeyboardEvent) =>
+            ctrl.query((e.target as HTMLInputElement).value.trim())
+          );
           el.addEventListener('keydown', (e: KeyboardEvent) => e.key == 'Enter' && ctrl.setFirstChapter());
         }),
       }),

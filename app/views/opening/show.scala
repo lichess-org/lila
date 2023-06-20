@@ -3,7 +3,6 @@ package views.html.opening
 import cats.syntax.all.*
 import controllers.routes
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningPage

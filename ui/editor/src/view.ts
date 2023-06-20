@@ -182,8 +182,10 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               );
             const epd = state.fen.split(' ').slice(0, 4).join(' ');
             const value =
-              (ctrl.cfg.positions.find(p => p.fen.startsWith(epd)) || ctrl.cfg.endgamePositions.find(p => p.epd == epd))
-                ?.epd || '';
+              (
+                ctrl.cfg.positions.find(p => p.fen.startsWith(epd)) ||
+                ctrl.cfg.endgamePositions.find(p => p.epd == epd)
+              )?.epd || '';
             return h(
               'select.positions',
               {
@@ -202,7 +204,10 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               [
                 h('option', { attrs: { value: '' } }, ctrl.trans.noarg('setTheBoard')),
                 optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(positionOption)),
-                optgroup(ctrl.trans.noarg('endgamePositions'), ctrl.cfg.endgamePositions.map(endgamePosition2option)),
+                optgroup(
+                  ctrl.trans.noarg('endgamePositions'),
+                  ctrl.cfg.endgamePositions.map(endgamePosition2option)
+                ),
               ]
             );
           })(),
@@ -246,7 +251,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: {
                   'data-icon': licon.Microscope,
                   rel: 'nofollow',
-                  ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) } : {}),
+                  ...(state.legalFen
+                    ? { href: ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) }
+                    : {}),
                 },
                 class: {
                   button: true,

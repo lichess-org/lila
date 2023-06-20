@@ -2,7 +2,7 @@ package lila.mod
 
 import lila.common.LightUser
 import lila.report.{ Report, ReportApi }
-import lila.user.{ Note, NoteApi, User, UserRepo }
+import lila.user.{ Note, NoteApi, User, UserRepo, Me }
 
 case class Inquiry(
     mod: LightUser,
@@ -27,16 +27,15 @@ final class InquiryApi(
     logApi: ModlogApi
 ):
 
-  def forMod(mod: User)(using Executor): Fu[Option[Inquiry]] =
-    lila.security.Granter(_.SeeReport)(mod).so {
-      reportApi.inquiries.ofModId(mod.id).flatMapz { report =>
+  def forMod(using mod: Me)(using Executor): Fu[Option[Inquiry]] =
+    lila.security.Granter(_.SeeReport).so {
+      reportApi.inquiries.ofModId(mod).flatMapz { report =>
         reportApi.moreLike(report, 10) zip
           userRepo.byId(report.user) zip
           noteApi.byUserForMod(report.user) zip
           logApi.userHistory(report.user) map { case (((moreReports, userOption), notes), history) =>
-            userOption so { user =>
+            userOption.so: user =>
               Inquiry(mod.light, report, moreReports, notes, history, user).some
-            }
           }
       }
     }

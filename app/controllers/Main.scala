@@ -6,7 +6,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
 
@@ -38,7 +37,7 @@ final class Main(
         }
       )
 
-  def handlerNotFound(req: RequestHeader) = webContext(req) map { renderNotFound(using _) }
+  def handlerNotFound(using RequestHeader) = webContext map { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.long
@@ -163,11 +162,11 @@ final class Main(
     ("slow", 60, 1.day)
   )
 
-  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     ctx.body.body.file("image") match
       case Some(image) =>
         env.memo.picfitApi.bodyImage
-          .upload(rel = rel, image = image, me = me.id, ip = ctx.ip)
+          .upload(rel = rel, image = image, me = me, ip = ctx.ip)
           .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }

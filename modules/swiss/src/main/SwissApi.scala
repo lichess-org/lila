@@ -20,6 +20,7 @@ import lila.user.{ User, UserRepo }
 import lila.common.config.Max
 import lila.gathering.GreatPlayer
 import lila.gathering.Condition.WithVerdicts
+import lila.user.Me
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -53,7 +54,7 @@ final class SwissApi(
 
   def fetchByIdNoCache(id: SwissId) = mongo.swiss.byId[Swiss](id)
 
-  def create(data: SwissForm.SwissData, me: User, teamId: TeamId): Fu[Swiss] =
+  def create(data: SwissForm.SwissData, teamId: TeamId)(using me: Me): Fu[Swiss] =
     val swiss = Swiss(
       _id = Swiss.makeId,
       name = data.name | GreatPlayer.randomName,
@@ -63,7 +64,7 @@ final class SwissApi(
       nbPlayers = 0,
       nbOngoing = 0,
       createdAt = nowInstant,
-      createdBy = me.id,
+      createdBy = me,
       teamId = teamId,
       nextRoundAt = data.realStartsAt.some,
       startsAt = data.realStartsAt,
@@ -86,7 +87,7 @@ final class SwissApi(
       cache.featuredInTeam.invalidate(swiss.teamId) inject swiss
 
   def update(swissId: SwissId, data: SwissForm.SwissData): Fu[Option[Swiss]] =
-    Sequencing(swissId)(cache.swissCache.byId) { old =>
+    Sequencing(swissId)(cache.swissCache.byId): old =>
       val position =
         if (old.isCreated || old.settings.position.isDefined) data.realVariant.standard so data.realPosition
         else old.settings.position
@@ -129,13 +130,12 @@ final class SwissApi(
         cache.roundInfo.put(swiss.id, fuccess(swiss.roundInfo.some))
         socket.reload(swiss.id)
       } inject swiss.some
-    }
 
-  private def recomputePlayerRatings(swiss: Swiss): Funit = for {
+  private def recomputePlayerRatings(swiss: Swiss): Funit = for
     ranking <- rankingApi(swiss)
     perfs   <- userRepo.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
-    elements <- perfs.map { case (userId, perf) =>
+    elements <- perfs.map { (userId, perf) =>
       update.element(
         q = $id(SwissPlayer.makeId(swiss.id, userId)),
         u = $set(
@@ -145,10 +145,10 @@ final class SwissApi(
       )
     }.parallel
     _ <- elements.nonEmpty so update.many(elements).void
-  } yield ()
+  yield ()
 
   def scheduleNextRound(swiss: Swiss, date: Instant): Funit =
-    Sequencing(swiss.id)(cache.swissCache.notFinishedById) { old =>
+    Sequencing(swiss.id)(cache.swissCache.notFinishedById): old =>
       for
         _ <- !old.settings.manualRounds so mongo.swiss
           .updateField($id(old.id), "settings.i", Swiss.RoundInterval.manual)
@@ -163,23 +163,21 @@ final class SwissApi(
       yield
         cache.swissCache clear swiss.id
         socket.reload(swiss.id)
-    }
 
-  def verdicts(swiss: Swiss, me: Option[User]): Fu[WithVerdicts] = me match
-    case None       => fuccess(swiss.settings.conditions.accepted)
-    case Some(user) => verify(swiss, user)
+  def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] = me match
+    case None     => fuccess(swiss.settings.conditions.accepted)
+    case Some(me) => verify(swiss, me)
 
-  def join(id: SwissId, me: User, isInTeam: TeamId => Boolean, password: Option[String]): Fu[Boolean] =
-    Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
-      if (me.marks.prizeban && swiss.looksLikePrize) fuFalse
-      else if (
-        swiss.settings.password.forall(p =>
+  def join(id: SwissId, isInTeam: TeamId => Boolean, password: Option[String])(using me: Me): Fu[Boolean] =
+    Sequencing(id)(cache.swissCache.notFinishedById): swiss =>
+      if me.marks.prizeban && swiss.looksLikePrize then fuFalse
+      else if swiss.settings.password.forall(p =>
           MessageDigest.isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8))
         ) && isInTeam(swiss.teamId)
-      )
+      then
         mongo.player // try a rejoin first
-          .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
-          .flatMap { rejoin =>
+          .updateField($id(SwissPlayer.makeId(swiss.id, me)), SwissPlayer.Fields.absent, false)
+          .flatMap: rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
               verify(swiss, me).dmap(_.accepted && swiss.isEnterable) >>& {
                 mongo.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
@@ -187,11 +185,9 @@ final class SwissApi(
                   cache.swissCache.clear(swiss.id) inject true
               }
             }
-          }
       else fuFalse
-    } flatMap { res =>
+    .flatMap: res =>
       recomputeAndUpdateAll(id) inject res
-    }
 
   def gameIdSource(
       swissId: SwissId,
@@ -356,20 +352,20 @@ final class SwissApi(
     swissIds.map { withdraw(_, userId, forfeit) }.parallel.void
 
   def withdraw(id: SwissId, userId: UserId, forfeit: Boolean = false): Funit =
-    Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
-      SwissPlayer.fields { f =>
-        val selId = $id(SwissPlayer.makeId(swiss.id, userId))
-        if (swiss.isStarted)
-          mongo.player.updateField(selId, f.absent, true) >>
-            forfeit.so { forfeitPairings(swiss, userId) }
-        else
-          mongo.player.delete.one(selId) flatMap { res =>
-            (res.n == 1).so:
-              mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void >>-
-                cache.swissCache.clear(swiss.id)
-          }
-      }.void
-    } >> recomputeAndUpdateAll(id)
+    Sequencing(id)(cache.swissCache.notFinishedById): swiss =>
+      SwissPlayer
+        .fields: f =>
+          val selId = $id(SwissPlayer.makeId(swiss.id, userId))
+          if swiss.isStarted then
+            mongo.player.updateField(selId, f.absent, true) >>
+              forfeit.so { forfeitPairings(swiss, userId) }
+          else
+            mongo.player.delete.one(selId) flatMap { res =>
+              (res.n == 1).so:
+                mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void >>-
+                  cache.swissCache.clear(swiss.id)
+            }
+    .void >> recomputeAndUpdateAll(id)
 
   private def forfeitPairings(swiss: Swiss, userId: UserId): Funit =
     SwissPairing.fields: F =>

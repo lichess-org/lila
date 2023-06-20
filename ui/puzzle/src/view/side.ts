@@ -9,7 +9,10 @@ import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
   const data = ctrl.getData();
-  return h('div.puzzle__side__metas', [puzzleInfos(ctrl, data.puzzle), gameInfos(ctrl, data.game, data.puzzle)]);
+  return h('div.puzzle__side__metas', [
+    puzzleInfos(ctrl, data.puzzle),
+    gameInfos(ctrl, data.game, data.puzzle),
+  ]);
 }
 
 const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
@@ -252,7 +255,9 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
         'select#puzzle-difficulty.puzzle__difficulty__selector',
         {
           attrs: { name: 'difficulty' },
-          hook: onInsert(elm => elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit())),
+          hook: onInsert(elm =>
+            elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit())
+          ),
         },
         difficulties.map(([key, delta]) =>
           h(

@@ -32,7 +32,13 @@ export const variantsBlindMode: Variant[] = variants.filter(({ key }: Variant) =
 export const variantsForGameType = (baseVariants: Variant[], gameType: GameType): Variant[] =>
   gameType === 'hook' ? baseVariants.filter(({ key }) => key !== 'fromPosition') : baseVariants;
 
-export const variantsWhereWhiteIsBetter: VariantKey[] = ['antichess', 'atomic', 'horde', 'racingKings', 'threeCheck'];
+export const variantsWhereWhiteIsBetter: VariantKey[] = [
+  'antichess',
+  'atomic',
+  'horde',
+  'racingKings',
+  'threeCheck',
+];
 
 export const speeds: { key: Speed; name: string; icon: string }[] = [
   { icon: licon.UltraBullet, key: 'ultraBullet', name: 'UltraBullet' },

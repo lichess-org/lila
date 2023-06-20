@@ -3,7 +3,6 @@ package views.html.mod
 import cats.syntax.all.*
 import play.api.i18n.Lang
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period

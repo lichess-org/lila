@@ -66,16 +66,13 @@ object Pov:
   def apply(game: Game, playerId: GamePlayerId): Option[Pov] =
     game player playerId map { apply(game, _) }
 
-  def apply(game: Game, user: User): Option[Pov] =
-    game player user map { apply(game, _) }
+  def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
+    game playerByUserId user.id map { apply(game, _) }
 
-  def ofUserId(game: Game, userId: UserId): Option[Pov] =
-    game playerByUserId userId map { apply(game, _) }
+  def opponentOf[U: UserIdOf](game: Game, user: U): Option[Player] =
+    apply(game, user.id).map(_.opponent)
 
   def ofCurrentTurn(game: Game) = Pov(game, game.turnColor)
-
-  def opponentOfUserId(game: Game, userId: UserId): Option[Player] =
-    ofUserId(game, userId) map (_.opponent)
 
   private def orInf(i: Option[Int])     = i getOrElse Int.MaxValue
   private def isFresher(a: Pov, b: Pov) = a.game.movedAt isAfter b.game.movedAt
@@ -114,5 +111,5 @@ object LightPov:
 
   def apply(game: LightGame, player: LightPlayer): LightPov = LightPov(game, player.color)
 
-  def ofUserId(game: LightGame, userId: UserId): Option[LightPov] =
+  def apply(game: LightGame, userId: UserId): Option[LightPov] =
     game playerByUserId userId map { apply(game, _) }

@@ -4,7 +4,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.notify.NotifyApi
 import lila.security.Granter
-import lila.user.{ Holder, User, UserRepo }
+import lila.user.{ Me, User, UserRepo }
 
 final class CoachApi(
     coachColl: Coll,
@@ -16,35 +16,37 @@ final class CoachApi(
 
   import BsonHandlers.given
 
-  def byId[U](u: U)(using idOf: UserIdOf[U]): Fu[Option[Coach]] = coachColl.byId[Coach](idOf(u))
+  def byId[U: UserIdOf](u: U): Fu[Option[Coach]] = coachColl.byId[Coach](u)
 
   def find(username: UserStr): Fu[Option[Coach.WithUser]] =
     userRepo byId username flatMapz find
 
-  def find(user: User): Fu[Option[Coach.WithUser]] =
-    Granter(_.Coach)(user).so:
-      byId(user.id) dmap {
-        _ map withUser(user)
-      }
+  def canCoach = Granter.of(_.Coach)
 
-  def findOrInit(coach: Holder): Fu[Option[Coach.WithUser]] =
-    Granter.is(_.Coach)(coach) so {
-      find(coach.user) orElse {
-        val c = Coach.WithUser(Coach make coach.user, coach.user)
+  def find(user: User): Fu[Option[Coach.WithUser]] =
+    canCoach(user).so:
+      byId(user.id).dmap:
+        _ map withUser(user)
+
+  def findOrInit(using me: Me): Fu[Option[Coach.WithUser]] =
+    canCoach(me.user).so:
+      find(me.user) orElse {
+        val c = Coach.WithUser(Coach make me.user, me.user)
         coachColl.insert.one(c.coach) inject c.some
       }
-    }
 
   def isListedCoach(user: User): Fu[Boolean] =
-    Granter(_.Coach)(user) so user.enabled.yes so user.marks.clean so coachColl.exists(
-      $id(user.id) ++ $doc("listed" -> true)
-    )
+    canCoach(user).so:
+      user.enabled.yes so user.marks.clean so coachColl.exists(
+        $id(user.id) ++ $doc("listed" -> true)
+      )
 
   def setSeenAt(user: User): Funit =
-    Granter(_.Coach)(user) so coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
+    canCoach(user).so:
+      coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
 
   def setRating(userPre: User): Funit =
-    Granter(_.Coach)(userPre).so:
+    canCoach(userPre).so:
       userRepo.byId(userPre.id) flatMapz { user =>
         coachColl.update.one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
       }

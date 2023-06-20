@@ -19,6 +19,8 @@ private[lobby] case class LobbyUser(
 
 private[lobby] object LobbyUser:
 
+  given UserIdOf[LobbyUser] = _.id
+
   type PerfMap = Map[Perf.Key, LobbyPerf]
 
   def make(user: User, blocking: Blocking) =

@@ -31,7 +31,10 @@ function clock(d: TournamentData): VNode | undefined {
           },
           hook: {
             insert(vnode) {
-              (vnode.elm as HTMLElement).setAttribute('datetime', '' + (Date.now() + d.secondsToStart! * 1000));
+              (vnode.elm as HTMLElement).setAttribute(
+                'datetime',
+                '' + (Date.now() + d.secondsToStart! * 1000)
+              );
             },
           },
         }),

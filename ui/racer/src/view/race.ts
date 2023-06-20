@@ -56,7 +56,9 @@ const renderTrack = (
         'div.racer__race__player',
         {
           attrs: {
-            style: `transform:translateX(${relative(player.score) * 95 * (document.dir === 'rtl' ? -1 : 1)}%)`,
+            style: `transform:translateX(${
+              relative(player.score) * 95 * (document.dir === 'rtl' ? -1 : 1)
+            }%)`,
           },
         },
         [

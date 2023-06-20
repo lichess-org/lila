@@ -3,7 +3,6 @@ package views.html.team
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.WebContext
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }

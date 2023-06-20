@@ -134,7 +134,10 @@ const schedule = (relay: RelayCtrl): VNode[] => [
                 )
               ),
               h('td', round.startsAt ? lichess.dateFormat()(new Date(round.startsAt)) : undefined),
-              h('td', roundStateIcon(round) || (round.startsAt ? lichess.timeago(round.startsAt) : undefined)),
+              h(
+                'td',
+                roundStateIcon(round) || (round.startsAt ? lichess.timeago(round.startsAt) : undefined)
+              ),
             ])
           )
         )

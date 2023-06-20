@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.user.Holder
+import lila.user.Me
 import lila.common.Iso
 
 enum Room:
@@ -41,7 +41,7 @@ object Room:
     def get     = value.get
     def highest = ~value.values.maxOption
 
-  def isGrantedFor(mod: Holder)(room: Room) =
+  def isGrantedFor(mod: Me)(room: Room) =
     import lila.security.Granter
     room match
       case Cheat  => Granter.is(_.MarkEngine)(mod)
@@ -51,6 +51,6 @@ object Room:
       case Other  => Granter.is(_.Admin)(mod)
       case Xfiles => Granter.is(_.MarkEngine)(mod)
 
-  def filterGranted(mod: Holder, reports: List[Report]) = reports.filter { r =>
-    isGrantedFor(mod)(r.room) && (r.user != mod.id || mod.user.isSuperAdmin)
+  def filterGranted(mod: Me, reports: List[Report]) = reports.filter { r =>
+    isGrantedFor(mod)(r.room) && (r.user.isnt(mod) || mod.user.isSuperAdmin)
   }

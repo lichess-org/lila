@@ -114,7 +114,9 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
             ? h('div.time-choice.range', [
                 `${trans('minutesPerSide')}: `,
                 h('span', showTime(setupCtrl.time())),
-                inputRange(0, 38, setupCtrl.timeV, { failure: !setupCtrl.validTime() || !setupCtrl.validAiTime() }),
+                inputRange(0, 38, setupCtrl.timeV, {
+                  failure: !setupCtrl.validTime() || !setupCtrl.validAiTime(),
+                }),
               ])
             : null,
           setupCtrl.timeMode() === 'realTime'

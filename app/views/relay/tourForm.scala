@@ -3,7 +3,6 @@ package views.html.relay
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTourForm.Data
@@ -27,12 +26,19 @@ object tourForm:
 
   def edit(t: RelayTour, form: Form[Data])(using WebContext) =
     layout(t.name, menu = none)(
-      boxTop(h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(t.name))),
-      postForm(cls := "form3", action := routes.RelayTour.update(t.id.value))(
+      boxTop(h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(t.name))),
+      postForm(cls := "form3", action := routes.RelayTour.update(t.id))(
         inner(form),
         form3.actions(
-          a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(trans.cancel()),
+          a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id))(trans.cancel()),
           form3.submit(trans.apply())
+        )
+      ),
+      div(cls := "relay-form__actions")(
+        postForm(action := routes.RelayTour.delete(t.id))(
+          submitButton(
+            cls := "button button-red button-empty confirm"
+          )(strong(deleteTournament()), em(definitivelyDeleteTournament()))
         )
       )
     )

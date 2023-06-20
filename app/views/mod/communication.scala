@@ -2,7 +2,6 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -11,13 +10,13 @@ import lila.hub.actorApi.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.relation.Follow
-import lila.user.{ Holder, User }
+import lila.user.{ Me, User }
 import lila.shutup.Analyser
 
 object communication:
 
   def apply(
-      mod: Holder,
+      mod: Me,
       u: User,
       players: List[(lila.game.Pov, lila.chat.MixedChat)],
       convos: List[lila.msg.ModMsgConvo],

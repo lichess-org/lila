@@ -18,7 +18,7 @@ final class Opening(env: Env) extends LilaController(env):
       else html.opening.search.resultsPage(searchQuery, results, env.opening.api.readConfig)
     else
       env.opening.api.index flatMapz { page =>
-        isGranted(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki) map {
+        isGrantedOpt(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki) map {
           html.opening.index(page, _)
         }
       }
@@ -27,7 +27,7 @@ final class Opening(env: Env) extends LilaController(env):
     val crawler = HTTPRequest.isCrawler(ctx.req)
     if moves.sizeIs > 40 && crawler.yes then Forbidden
     else
-      env.opening.api.lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), crawler) flatMap {
+      env.opening.api.lookup(queryFromUrl(key, moves.some), isGrantedOpt(_.OpeningWiki), crawler) flatMap {
         case None => Redirect(routes.Opening.index(key.some))
         case Some(page) =>
           val query = page.query.query
@@ -56,7 +56,7 @@ final class Opening(env: Env) extends LilaController(env):
         .bindFromRequest()
         .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
 
-  def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { ctx ?=> me =>
+  def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { ctx ?=> me ?=>
     env.opening.api
       .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), Crawler.No)
       .map(_.flatMap(_.query.exactOpening))

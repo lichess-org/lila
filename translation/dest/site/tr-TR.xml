@@ -154,6 +154,10 @@
     <item quantity="one">%s oynanan oyun</item>
     <item quantity="other">%s oynanan oyun</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s oyun üzerinden %1$s puanı</item>
+    <item quantity="other">%2$s oyun üzerinden %1$s puanı</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s işaretlenmiş oyun</item>
     <item quantity="other">%s işaretlenmiş oyun</item>
@@ -342,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s çalışma</item>
     <item quantity="other">%s çalışma</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s eş zamanlı oyun</item>
+    <item quantity="other">%s eş zamanlı oyun</item>
   </plurals>
   <string name="viewTournament">Turnuvaya göz at</string>
   <string name="backToTournament">Turnuvaya geri dön</string>

@@ -2,7 +2,6 @@ package views.html
 
 import play.api.data.Form
 
-import lila.api.WebContext
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 

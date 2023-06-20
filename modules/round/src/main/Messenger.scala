@@ -3,6 +3,7 @@ package lila.round
 import lila.chat.{ ChatApi, ChatTimeout }
 import lila.game.Game
 import lila.hub.actorApi.shutup.PublicSource
+import lila.user.Me
 
 final class Messenger(api: ChatApi):
 
@@ -41,11 +42,11 @@ final class Messenger(api: ChatApi):
     (game.fromFriend || presets.contains(text)) so
       api.playerChat.write(game.id into ChatId, anonColor, text, _.Round)
 
-  def timeout(chatId: ChatId, modId: UserId, suspect: UserId, reason: String, text: String): Funit =
+  def timeout(chatId: ChatId, suspect: UserId, reason: String, text: String)(using mod: Me.Id): Funit =
     ChatTimeout
       .Reason(reason)
       .so: r =>
-        api.userChat.timeout(chatId, modId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
+        api.userChat.timeout(chatId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
 
   private val presets = Set(
     "Hello",

@@ -195,7 +195,10 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
           attrs: { colspan: ctrl.explorer.db() == 'masters' ? 4 : 5 },
         },
         [
-          h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`),
+          h(
+            'div.game_title',
+            `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`
+          ),
           h('div.menu', [
             h(
               'a.text',
@@ -255,7 +258,10 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
     h('div.message', [
-      h('strong', ctrl.trans.noarg(ctrl.explorer.root.node.ply >= MAX_DEPTH ? 'maxDepthReached' : 'noGameFound')),
+      h(
+        'strong',
+        ctrl.trans.noarg(ctrl.explorer.root.node.ply >= MAX_DEPTH ? 'maxDepthReached' : 'noGameFound')
+      ),
       data?.queuePosition
         ? h('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
         : !ctrl.explorer.config.fullHouse()
@@ -411,7 +417,9 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
               explorer.isIndexing() && !explorer.config.data.open()
                 ? h('i.ddloader', {
                     attrs: {
-                      title: queuePosition ? `Indexing ${queuePosition} other players first ...` : 'Indexing ...',
+                      title: queuePosition
+                        ? `Indexing ${queuePosition} other players first ...`
+                        : 'Indexing ...',
                     },
                   })
                 : undefined,
@@ -424,7 +432,8 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
 };
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
-  if (variant.key === 'standard' || variant.key === 'fromPosition') return ctrl.trans.noarg('openingExplorer');
+  if (variant.key === 'standard' || variant.key === 'fromPosition')
+    return ctrl.trans.noarg('openingExplorer');
   return ctrl.trans('xOpeningExplorer', variant.name);
 }
 

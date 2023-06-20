@@ -8,7 +8,11 @@ export interface TourStandingCtrl extends ChatPlugin {
   set(players: TourPlayer[]): void;
 }
 
-export const tourStandingCtrl = (players: TourPlayer[], team: Team | undefined, name: string): TourStandingCtrl => ({
+export const tourStandingCtrl = (
+  players: TourPlayer[],
+  team: Team | undefined,
+  name: string
+): TourStandingCtrl => ({
   set(d: TourPlayer[]) {
     players = d;
   },

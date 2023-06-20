@@ -205,7 +205,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
         case (Left(bads), Left(bad))       => Left(bad :: bads)
         case (Left(bads), _)               => Left(bads)
         case (Right(_), Left(bad))         => Left(bad :: Nil)
-        case (Right(users), Right(scoped)) => Right(scoped.user.id :: users)
+        case (Right(users), Right(scoped)) => Right(scoped.me :: users)
       }
       .flatMap {
         case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))

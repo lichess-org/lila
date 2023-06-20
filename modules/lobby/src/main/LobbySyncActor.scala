@@ -135,12 +135,11 @@ final private class LobbySyncActor(
       hookRepo byIds ids.toSet foreach remove
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
-    user.so { u =>
-      playbanApi.currentBan(u.id)
-    } foreach {
-      case None => f
-      case _    =>
-    }
+    user
+      .so(playbanApi.currentBan)
+      .foreach:
+        case None => f
+        case _    =>
 
   private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser]) =
     hookRepo byId hookId foreach { hook =>

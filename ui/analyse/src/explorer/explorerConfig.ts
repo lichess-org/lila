@@ -131,7 +131,11 @@ export class ExplorerConfigCtrl {
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
   return [
-    ctrl.data.db() === 'masters' ? masterDb(ctrl) : ctrl.data.db() === 'lichess' ? lichessDb(ctrl) : playerDb(ctrl),
+    ctrl.data.db() === 'masters'
+      ? masterDb(ctrl)
+      : ctrl.data.db() === 'lichess'
+      ? lichessDb(ctrl)
+      : playerDb(ctrl),
     h(
       'section.save',
       h(
@@ -185,7 +189,10 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     h('section.date', [
-      h('label', [ctrl.root.trans.noarg('since'), yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+      h('label', [
+        ctrl.root.trans.noarg('since'),
+        yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw),
+      ]),
       h('label', [
         ctrl.root.trans.noarg('until'),
         yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
@@ -295,7 +302,10 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.date', [
-    h('label', [ctrl.root.trans.noarg('since'), monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+    h('label', [
+      ctrl.root.trans.noarg('since'),
+      monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw),
+    ]),
     h('label', [
       ctrl.root.trans.noarg('until'),
       monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
@@ -335,14 +345,15 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(name =>
-          h(
-            `button.button${name == ctrl.myName ? '.button-green' : ''}`,
-            {
-              hook: bind('click', () => onSelect(name)),
-            },
-            name
-          )
+        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(
+          name =>
+            h(
+              `button.button${name == ctrl.myName ? '.button-green' : ''}`,
+              {
+                hook: bind('click', () => onSelect(name)),
+              },
+              name
+            )
         )
       ),
     ],

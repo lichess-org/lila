@@ -2,7 +2,7 @@ package lila.study
 
 import akka.stream.scaladsl.*
 import cats.syntax.all.*
-import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
+import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
 import chess.format.{ pgn as chessPgn }
 
 import lila.common.String.slugify
@@ -107,7 +107,7 @@ object PgnDump:
   def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
     Pgn(
       tags,
-      Initial(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
+      InitialComments(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
       rootToTree(root)(using flags)
     )
 

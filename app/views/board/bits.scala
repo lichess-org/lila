@@ -3,7 +3,6 @@ package views.html.board
 import chess.format.{ Fen, Uci, BoardFen }
 import play.api.libs.json.Json
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov

@@ -45,5 +45,5 @@ object ForumCateg:
 
   def isTeamSlug(id: ForumCategId) = id.value.startsWith("team-")
 
-  def toTeamId(id: ForumCategId) = isTeamSlug(id) option TeamId(id.value.drop(5))
-  def fromTeamId(id: TeamId)     = ForumCategId(s"team-$id")
+  def toTeamId(id: ForumCategId): Option[TeamId] = isTeamSlug(id) option TeamId(id.value.drop(5))
+  def fromTeamId(id: TeamId): ForumCategId       = ForumCategId(s"team-$id")

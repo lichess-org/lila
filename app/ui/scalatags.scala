@@ -7,7 +7,6 @@ import scalatags.text.Builder
 import scalatags.Text.GenericAttr
 import scalatags.Text.{ Aggregate, Cap }
 
-import lila.api.WebContext
 import lila.user.Title
 import lila.common.licon.Icon
 

@@ -49,7 +49,9 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
 }
 
 function eventPath(e: MouseEvent): Tree.Path | null {
-  return (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p');
+  return (
+    (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p')
+  );
 }
 
 const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {

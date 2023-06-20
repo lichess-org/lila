@@ -14,7 +14,7 @@ import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.tree.{ Branch, Branches }
-import lila.user.{ Holder, User }
+import lila.user.{ Me, User }
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -46,7 +46,7 @@ final class StudyApi(
 
   def byIdAndOwnerOrAdmin(id: StudyId, owner: User) =
     byId(id).map:
-      _.filter(_.isOwner(owner.id) || Granter(_.StudyAdmin)(owner))
+      _.filter(_.isOwner(owner.id) || Granter.of(_.StudyAdmin)(owner))
 
   def isOwnerOrAdmin(id: StudyId, owner: User) = byIdAndOwnerOrAdmin(id, owner).map(_.isDefined)
 
@@ -742,6 +742,9 @@ final class StudyApi(
       studyRepo.delete(study) >>
         chapterRepo.deleteByStudy(study)
 
+  def deleteById(id: StudyId) =
+    studyRepo.byId(id).flatMap(_ so delete)
+
   def like(studyId: StudyId, v: Boolean)(who: Who): Funit =
     studyRepo.like(studyId, who.u, v) map { likes =>
       sendTo(studyId)(_.setLiking(Study.Liking(likes, v), who))
@@ -778,8 +781,8 @@ final class StudyApi(
       Contribute(by.id, study):
         chapterRepo deleteByStudy study
 
-  def adminInvite(studyId: StudyId, me: Holder): Funit =
-    sequenceStudy(studyId) { inviter.admin(_, me) }
+  def adminInvite(studyId: StudyId)(using Me): Funit =
+    sequenceStudy(studyId)(inviter.admin)
 
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")

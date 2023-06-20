@@ -2,8 +2,8 @@ package lila.api
 
 import lila.common.Bus
 import lila.security.Granter
-import lila.user.Holder
-import lila.user.User
+import lila.user.Me
+import lila.user.{ User, Me }
 
 final class AccountClosure(
     userRepo: lila.user.UserRepo,
@@ -34,10 +34,10 @@ final class AccountClosure(
     "rageSitClose" -> { case lila.hub.actorApi.playban.RageSitClose(userId) => lichessClose(userId).unit }
   )
 
-  def close(u: User, by: Holder): Funit = for
-    playbanned <- playbanApi.hasCurrentBan(u.id)
-    selfClose = u.id == by.id
-    modClose  = !selfClose && Granter(_.CloseAccount)(by.user)
+  def close(u: User)(using me: Me): Funit = for
+    playbanned <- playbanApi.hasCurrentBan(u)
+    selfClose = me is u
+    modClose  = !selfClose && Granter(_.CloseAccount)
     badApple  = u.lameOrTrollOrAlt || modClose
     _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
     _       <- relationApi.unfollowAll(u.id)
@@ -55,7 +55,7 @@ final class AccountClosure(
     reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
     _ <-
       if (selfClose) modLogApi.selfCloseAccount(u.id, reports)
-      else modLogApi.closeAccount(by.id into ModId, u.id)
+      else modLogApi.closeAccount(u.id)
     _ <- appealApi.onAccountClose(u)
     _ <- u.marks.troll so relationApi.fetchFollowing(u.id).flatMap {
       activityWrite.unfollowAll(u, _)
@@ -63,7 +63,7 @@ final class AccountClosure(
   yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   private def lichessClose(userId: UserId) =
-    userRepo.lichessAnd(userId) flatMapz { (lichess, user) => close(user, lichess) }
+    userRepo.lichessAnd(userId) flatMapz { (lichess, user) => close(user)(using Me(lichess)) }
 
   def eraseClosed(username: UserId): Fu[Either[String, String]] =
     userRepo byId username map {
@@ -75,8 +75,8 @@ final class AccountClosure(
         Right(s"Erasing all data about $username in 24h")
     }
 
-  def closeThenErase(username: UserStr, by: Holder): Fu[Either[String, String]] =
+  def closeThenErase(username: UserStr)(using Me): Fu[Either[String, String]] =
     userRepo byId username flatMap {
       case None    => fuccess(Left("No such user."))
-      case Some(u) => (u.enabled.yes so close(u, by)) >> eraseClosed(u.id)
+      case Some(u) => (u.enabled.yes so close(u)) >> eraseClosed(u.id)
     }

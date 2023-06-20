@@ -99,7 +99,8 @@ export default class LobbyController {
     this.startWatching();
 
     if (this.playban) {
-      if (this.playban.remainingSecond < 86400) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
+      if (this.playban.remainingSecond < 86400)
+        setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
     } else {
       setInterval(() => {
         if (this.poolMember) this.poolIn();
@@ -133,7 +134,8 @@ export default class LobbyController {
       const interv = Math.abs(lichess.socket.pingInterval() / nbSteps);
       const prev = previous || nb;
       previous = nb;
-      for (let i = 0; i < nbSteps; i++) timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
+      for (let i = 0; i < nbSteps; i++)
+        timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
     };
   };
 

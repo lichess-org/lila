@@ -31,5 +31,5 @@
   <string name="downloadAllRounds">Alle Runden herunterladen</string>
   <string name="definitivelyDeleteRound">Lösche die Runde und ihre Partien endgültig.</string>
   <string name="deleteAllGamesOfThisRound">Lösche alle Partien dieser Runde. Die Quelle muss aktiv sein, um sie neu zu erstellen.</string>
-  <string name="editRoundStudy">Runden-Studie bearbeiten</string>
+  <string name="editRoundStudy">Rundenstudie bearbeiten</string>
 </resources>

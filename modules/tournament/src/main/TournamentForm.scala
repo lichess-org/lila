@@ -10,7 +10,7 @@ import scala.util.chaining.*
 
 import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
-import lila.user.User
+import lila.user.Me
 import lila.gathering.GatheringClock
 
 final class TournamentForm:
@@ -18,9 +18,9 @@ final class TournamentForm:
   import TournamentForm.*
   import GatheringClock.*
 
-  def create(user: User, leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamId] = None) =
-    form(user, leaderTeams, none) fill TournamentSetup(
-      name = teamBattleId.isEmpty option user.titleUsername,
+  def create(leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamId] = None)(using me: Me) =
+    form(leaderTeams, none) fill TournamentSetup(
+      name = teamBattleId.isEmpty option me.titleUsername,
       clockTime = timeDefault,
       clockIncrement = incrementDefault,
       minutes = minuteDefault,
@@ -39,8 +39,8 @@ final class TournamentForm:
       hasChat = true.some
     )
 
-  def edit(user: User, leaderTeams: List[LeaderTeam], tour: Tournament) =
-    form(user, leaderTeams, tour.some) fill TournamentSetup(
+  def edit(leaderTeams: List[LeaderTeam], tour: Tournament)(using Me) =
+    form(leaderTeams, tour.some) fill TournamentSetup(
       name = tour.name.some,
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,
@@ -60,10 +60,10 @@ final class TournamentForm:
       hasChat = tour.hasChat.some
     )
 
-  private def form(user: User, leaderTeams: List[LeaderTeam], prev: Option[Tournament]) =
-    Form {
-      makeMapping(user, leaderTeams) pipe { m =>
-        prev.fold(m) { tour =>
+  private def form(leaderTeams: List[LeaderTeam], prev: Option[Tournament])(using Me) =
+    Form:
+      makeMapping(leaderTeams).pipe: m =>
+        prev.fold(m): tour =>
           m
             .verifying(
               "Can't change variant after players have joined",
@@ -73,17 +73,14 @@ final class TournamentForm:
               "Can't change time control after players have joined",
               _.speed == tour.speed || tour.nbPlayers == 0
             )
-        }
-      }
-    }
 
-  private def makeMapping(user: User, leaderTeams: List[LeaderTeam]) =
+  private def makeMapping(leaderTeams: List[LeaderTeam])(using me: Me) =
     mapping(
-      "name"           -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
+      "name"           -> optional(eventName(2, 30, me.isVerifiedOrAdmin)),
       "clockTime"      -> numberInDouble(timeChoices),
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes" -> {
-        if (lila.security.Granter(_.ManageTournament)(user)) number
+        if lila.security.Granter(_.ManageTournament) then number
         else numberIn(minuteChoices)
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
@@ -121,18 +118,15 @@ object TournamentForm:
     List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
 
   def guessVariant(from: String): Option[Variant] =
-    validVariants.find { v =>
+    validVariants.find: v =>
       v.key.value == from || from.toIntOption.exists(v.id.value == _)
-    }
 
-  val joinForm =
-    Form(
-      mapping(
-        "team"       -> optional(nonEmptyText.into[TeamId]),
-        "password"   -> optional(nonEmptyText),
-        "pairMeAsap" -> optional(boolean)
-      )(TournamentJoin.apply)(unapply)
-    )
+  val joinForm = Form:
+    mapping(
+      "team"       -> optional(nonEmptyText.into[TeamId]),
+      "password"   -> optional(nonEmptyText),
+      "pairMeAsap" -> optional(boolean)
+    )(TournamentJoin.apply)(unapply)
 
   case class TournamentJoin(
       team: Option[TeamId],

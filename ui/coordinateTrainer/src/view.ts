@@ -66,7 +66,9 @@ const table = (ctrl: CoordinateTrainerCtrl): VNode => {
 const progress = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h(
     'div.progress',
-    ctrl.hasPlayed ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` } }) : null
+    ctrl.hasPlayed
+      ? h('div.progress__bar', { style: { width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` } })
+      : null
   );
 };
 

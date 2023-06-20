@@ -2,7 +2,6 @@ package views.html.challenge
 
 import play.api.libs.json.{ Json, JsObject }
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
@@ -43,7 +42,7 @@ object bits:
         )
       ),
       div(cls := "mode")(
-        c.open.fold(c.colorChoice.some)(_.colorFor(ctx.me, requestedColor)) map { colorChoice =>
+        c.open.fold(c.colorChoice.some)(_.colorFor(requestedColor)) map { colorChoice =>
           frag(colorChoice.trans(), " • ")
         },
         modeName(c.mode)

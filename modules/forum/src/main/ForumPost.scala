@@ -2,7 +2,7 @@ package lila.forum
 
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.User
+import lila.user.{ Me, User }
 import lila.security.Granter
 
 case class OldVersion(text: String, createdAt: Instant)
@@ -41,17 +41,15 @@ case class ForumPost(
   def canStillBeEdited =
     updatedOrCreatedAt.plus(ForumPost.permitEditsFor).isAfterNow
 
-  def canBeEditedBy(editingUser: User): Boolean =
+  def canBeEditedByMe(using me: Me): Boolean =
     userId match
-      case Some(userId) if userId == editingUser.id => true
-      case None
-          if (Granter(_.PublicMod)(editingUser) || Granter(_.SeeReport)(editingUser)) && isAnonModPost =>
+      case Some(userId) if me is userId => true
+      case None if (Granter(_.PublicMod) || Granter(_.SeeReport)) && isAnonModPost =>
         true
       case _ => false
 
-  def shouldShowEditForm(editingUser: User) =
-    canBeEditedBy(editingUser) &&
-      updatedOrCreatedAt.plus(ForumPost.showEditFormFor).isAfterNow
+  def shouldShowEditForm(using Me) =
+    canBeEditedByMe && updatedOrCreatedAt.plus(ForumPost.showEditFormFor).isAfterNow
 
   def editPost(updated: Instant, newText: String): ForumPost =
     val oldVersion = OldVersion(text, updatedOrCreatedAt)

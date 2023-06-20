@@ -1,5 +1,12 @@
 import throttle from 'common/throttle';
-import { CevalState, CevalWorker, WebWorker, ThreadedWasmWorker, ExternalEngine, ExternalWorker } from './worker';
+import {
+  CevalState,
+  CevalWorker,
+  WebWorker,
+  ThreadedWasmWorker,
+  ExternalEngine,
+  ExternalWorker,
+} from './worker';
 import { Cache } from './cache';
 import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
 import { defaultDepth, engineName, sanIrreversible, sharedWasmMemory } from './util';
@@ -64,13 +71,15 @@ export default class CevalCtrl {
 
     this.externalEngine = this.opts.externalEngines?.find(
       e =>
-        e.id == this.selectedEngine() && (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
+        e.id == this.selectedEngine() &&
+        (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
     );
     this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
     this.technology = this.platform.technology;
 
     this.multiPv = storedIntProp(this.storageKey('ceval.multipv'), this.opts.multiPvDefault || 1);
-    this.cachable = this.technology == 'nnue' || this.technology == 'hce' || !!this.externalEngine?.officialStockfish;
+    this.cachable =
+      this.technology == 'nnue' || this.technology == 'hce' || !!this.externalEngine?.officialStockfish;
   }
 
   storageKey = (k: string) => (this.opts.storageKeyPrefix ? `${this.opts.storageKeyPrefix}.${k}` : k);
@@ -194,7 +203,9 @@ export default class CevalCtrl {
         this.worker = new WebWorker(
           {
             url:
-              this.technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
+              this.technology == 'wasm'
+                ? 'vendor/stockfish.js/stockfish.wasm.js'
+                : 'vendor/stockfish.js/stockfish.js',
           },
           this.opts.redraw
         );

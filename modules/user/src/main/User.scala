@@ -132,7 +132,7 @@ object User:
 
   given UserIdOf[User] = _.id
 
-  export lila.user.{ UserEnabled as Enabled }
+  export lila.user.UserEnabled as Enabled
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean):
@@ -160,10 +160,11 @@ object User:
       case MissingTotpToken          extends Result(none)
       case InvalidTotpToken          extends Result(none)
 
-  val anonymous                        = UserName("Anonymous")
-  val anonMod                          = "A Lichess Moderator"
-  val lichessName                      = UserName("lichess")
-  val lichessId                        = lichessName.id
+  val anonymous: UserName              = UserName("Anonymous")
+  val anonMod: String                  = "A Lichess Moderator"
+  val lichessName: UserName            = UserName("lichess")
+  val lichessId: UserId                = lichessName.id
+  val lichessIdAsMe: Me.Id             = lichessId.into(Me.Id)
   val broadcasterId                    = UserId("broadcaster")
   val irwinId                          = UserId("irwin")
   val kaladinId                        = UserId("kaladin")

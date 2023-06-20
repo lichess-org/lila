@@ -83,9 +83,12 @@ export function movesTo(s: number, role: string, board: cs.Board): number[] {
   const deltas = (d: number[], s = 0) => d.flatMap(x => [s - x, s + x]);
 
   if (role === 'K') return deltas([1, 7, 8, 9], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) === 1);
-  else if (role === 'N') return deltas([6, 10, 15, 17], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) <= 2);
+  else if (role === 'N')
+    return deltas([6, 10, 15, 17], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) <= 2);
   const dests: number[] = [];
-  for (const delta of deltas(role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : role === 'B' ? [7, 9] : [])) {
+  for (const delta of deltas(
+    role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : role === 'B' ? [7, 9] : []
+  )) {
     for (
       let square = s + delta;
       square >= 0 && square < 64 && cs.squareDist(square, square - delta) === 1;

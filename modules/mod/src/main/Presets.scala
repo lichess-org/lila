@@ -4,7 +4,7 @@ import play.api.data.Form
 import play.api.data.Forms.*
 
 import lila.memo.SettingStore.{ Formable, StringReader }
-import lila.user.User
+import lila.user.Me
 import lila.security.{ Granter, Permission }
 import reactivemongo.api.bson.BSONHandler
 import lila.common.Iso
@@ -19,11 +19,11 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
       case "appeal" => appealPresets.some
       case _        => none
 
-  def getPmPresets(mod: User): ModPresets =
-    ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_)(mod))))
+  def getPmPresets(using Me): ModPresets =
+    ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_))))
 
-  def getPmPresets(mod: Option[User]): ModPresets =
-    mod.map(getPmPresets).getOrElse(ModPresets(Nil))
+  def getPmPresetsOpt(using mod: Option[Me]): ModPresets =
+    mod.map(getPmPresets(using _)).getOrElse(ModPresets(Nil))
 
   private lazy val pmPresets = settingStore[ModPresets](
     "modPmPresets",

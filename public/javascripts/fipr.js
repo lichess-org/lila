@@ -56,7 +56,11 @@ window.fipr = (function () {
         : ((t -= 32), [(e[1] << t) | (e[0] >>> (32 - t)), (e[0] << t) | (e[1] >>> (32 - t))]);
     },
     h = function (e, t) {
-      return 0 === (t %= 64) ? e : t < 32 ? [(e[0] << t) | (e[1] >>> (32 - t)), e[1] << t] : [e[1] << (t - 32), 0];
+      return 0 === (t %= 64)
+        ? e
+        : t < 32
+        ? [(e[0] << t) | (e[1] >>> (32 - t)), e[1] << t]
+        : [e[1] << (t - 32), 0];
     },
     m = function (e, t) {
       return [e[0] ^ t[0], e[1] ^ t[1]];
@@ -326,7 +330,9 @@ window.fipr = (function () {
               return null;
             })(o)
         ),
-        c.push('webgl max combined texture image units:' + o.getParameter(o.MAX_COMBINED_TEXTURE_IMAGE_UNITS)),
+        c.push(
+          'webgl max combined texture image units:' + o.getParameter(o.MAX_COMBINED_TEXTURE_IMAGE_UNITS)
+        ),
         c.push('webgl max cube map texture size:' + o.getParameter(o.MAX_CUBE_MAP_TEXTURE_SIZE)),
         c.push('webgl max fragment uniform vectors:' + o.getParameter(o.MAX_FRAGMENT_UNIFORM_VECTORS)),
         c.push('webgl max render buffer size:' + o.getParameter(o.MAX_RENDERBUFFER_SIZE)),
@@ -411,7 +417,9 @@ window.fipr = (function () {
       return !1;
     },
     b = function () {
-      return window.screen.width < window.screen.availWidth || window.screen.height < window.screen.availHeight;
+      return (
+        window.screen.width < window.screen.availWidth || window.screen.height < window.screen.availHeight
+      );
     },
     _ = function () {
       var e = navigator.userAgent.toLowerCase(),
@@ -456,7 +464,10 @@ window.fipr = (function () {
         if (0 <= (t = t.toLowerCase()).indexOf('win') && 'Windows' !== r && 'Windows Phone' !== r) return !0;
         if (0 <= t.indexOf('linux') && 'Linux' !== r && 'Android' !== r) return !0;
         if (0 <= t.indexOf('mac') && 'Mac' !== r && 'iOS' !== r) return !0;
-        if ((-1 === t.indexOf('win') && -1 === t.indexOf('linux') && -1 === t.indexOf('mac')) != ('Other' === r))
+        if (
+          (-1 === t.indexOf('win') && -1 === t.indexOf('linux') && -1 === t.indexOf('mac')) !=
+          ('Other' === r)
+        )
           return !0;
       }
       return (
@@ -464,7 +475,10 @@ window.fipr = (function () {
         ((0 <= n.indexOf('linux') || 0 <= n.indexOf('android') || 0 <= n.indexOf('pike')) &&
           'Linux' !== r &&
           'Android' !== r) ||
-        ((0 <= n.indexOf('mac') || 0 <= n.indexOf('ipad') || 0 <= n.indexOf('ipod') || 0 <= n.indexOf('iphone')) &&
+        ((0 <= n.indexOf('mac') ||
+          0 <= n.indexOf('ipad') ||
+          0 <= n.indexOf('ipod') ||
+          0 <= n.indexOf('iphone')) &&
           'Mac' !== r &&
           'iOS' !== r) ||
         (!(0 <= n.indexOf('arm') && 'Windows Phone' === r) &&
@@ -842,11 +856,17 @@ window.fipr = (function () {
               return e;
             })();
           n.appendChild(a);
-          for (var u = 0, s = d.length; u < s; u++) (r[d[u]] = c[u].offsetWidth), (i[d[u]] = c[u].offsetHeight);
+          for (var u = 0, s = d.length; u < s; u++)
+            (r[d[u]] = c[u].offsetWidth), (i[d[u]] = c[u].offsetHeight);
           var h = (function () {
             for (var e, t, n, r = {}, a = 0, i = l.length; a < i; a++) {
               for (var o = [], c = 0, u = d.length; c < u; c++) {
-                var s = ((e = l[a]), (t = d[c]), (n = void 0), ((n = g()).style.fontFamily = "'" + e + "'," + t), n);
+                var s =
+                  ((e = l[a]),
+                  (t = d[c]),
+                  (n = void 0),
+                  ((n = g()).style.fontFamily = "'" + e + "'," + t),
+                  n);
                 f.appendChild(s), o.push(s);
               }
               r[l[a]] = o;

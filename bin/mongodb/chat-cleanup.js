@@ -15,7 +15,8 @@ const isChatGarbage = chat =>
   });
 
 // system, anon, bots
-const isAuthorGarbage = author => author == 'lichess' || author == 'w' || author == 'b' || author.indexOf('BOT~') == 0;
+const isAuthorGarbage = author =>
+  author == 'lichess' || author == 'w' || author == 'b' || author.indexOf('BOT~') == 0;
 
 // shadowbanned and deleted
 const isFlagGarbage = flag => flag == '!' || flag == '?';
@@ -32,7 +33,10 @@ const presets = new Set([
 ]);
 
 const isTextGarbage = text =>
-  text.indexOf(' ') < 0 || text.length < 9 || presets.has(text) || text.indexOf("I'm studying this game") == 0;
+  text.indexOf(' ') < 0 ||
+  text.length < 9 ||
+  presets.has(text) ||
+  text.indexOf("I'm studying this game") == 0;
 
 const numberFormat = n => `${Math.round(n / 1000)}k`;
 

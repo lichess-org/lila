@@ -4,7 +4,6 @@ import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov

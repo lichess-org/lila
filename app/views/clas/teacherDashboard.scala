@@ -3,7 +3,6 @@ package views.html.clas
 import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
@@ -62,10 +61,9 @@ object teacherDashboard:
           )(trans.clas.addStudent())
         )
       ),
-      if (students.isEmpty)
-        p(cls := "box__pad students__empty")(trans.clas.noStudents())
-      else
-        studentList(c, students)
+      if students.isEmpty
+      then p(cls := "box__pad students__empty")(trans.clas.noStudents())
+      else studentList(c, students)
     )
 
   def students(
@@ -73,33 +71,26 @@ object teacherDashboard:
       all: List[Student.WithUser],
       invites: List[ClasInvite]
   )(using WebContext) =
-    layout(c, all.filter(_.student.isActive), "students") {
+    layout(c, all.filter(_.student.isActive), "students"):
       val archived = all.filter(_.student.isArchived)
       val inviteBox =
-        if (invites.isEmpty)
-          div(cls := "box__pad invites__empty")(h2(trans.clas.nbPendingInvitations(0)))
+        if invites.isEmpty
+        then div(cls := "box__pad invites__empty")(h2(trans.clas.nbPendingInvitations(0)))
         else
           div(cls := "box__pad invites")(
             h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
-            table(cls := "slist")(
-              tbody(
-                invites.map { i =>
+            table(cls := "slist"):
+              tbody:
+                invites.map: i =>
                   tr(
                     td(userIdLink(i.userId.some)),
                     td(i.realName),
-                    td(
-                      if (i.accepted has false) "Declined" else "Pending"
-                    ),
+                    td(if i.accepted has false then "Declined" else "Pending"),
                     td(momentFromNow(i.created.at)),
-                    td(
-                      postForm(action := clasRoutes.invitationRevoke(i._id.value))(
+                    td:
+                      postForm(action := clasRoutes.invitationRevoke(i._id.value)):
                         submitButton(cls := "button button-red button-empty")("Revoke")
-                      )
-                    )
                   )
-                }
-              )
-            )
           )
       val archivedBox =
         if (archived.isEmpty)
@@ -110,7 +101,6 @@ object teacherDashboard:
             studentList(c, archived)
           )
       frag(inviteBox, archivedBox)
-    }
 
   def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using WebContext) =
     layout(c, students, active)(

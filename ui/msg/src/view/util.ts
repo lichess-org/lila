@@ -16,5 +16,9 @@ export function userIcon(user: User, cls: string): VNode {
 
 export const userName = (user: User): Array<string | VNode> =>
   user.title
-    ? [h('span.utitle', user.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, user.title), ' ', user.name]
+    ? [
+        h('span.utitle', user.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, user.title),
+        ' ',
+        user.name,
+      ]
     : [user.name];

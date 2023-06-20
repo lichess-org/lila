@@ -64,7 +64,8 @@ export const memoize = <A>(compute: () => A): (() => A) => {
   };
 };
 
-export const scrollToInnerSelector = (el: HTMLElement, selector: string) => scrollTo(el, el.querySelector(selector));
+export const scrollToInnerSelector = (el: HTMLElement, selector: string) =>
+  scrollTo(el, el.querySelector(selector));
 
 export const scrollTo = (el: HTMLElement, target: HTMLElement | null) => {
   if (target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;

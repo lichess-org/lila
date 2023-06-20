@@ -17,7 +17,9 @@ export const variantPicker = (ctrl: LobbyController) => {
         },
         hook: onInsert<HTMLSelectElement>(element => element.focus()),
       },
-      variantsForGameType(baseVariants, setupCtrl.gameType!).map(variant => option(variant, setupCtrl.variant()))
+      variantsForGameType(baseVariants, setupCtrl.gameType!).map(variant =>
+        option(variant, setupCtrl.variant())
+      )
     ),
   ]);
 };

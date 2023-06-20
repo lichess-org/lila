@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Трансляції</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s трансляція</item>
+    <item quantity="few">%s трансляції</item>
+    <item quantity="many">%s трансляцій</item>
+    <item quantity="other">%s трансляцій</item>
+  </plurals>
   <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
   <string name="newBroadcast">Нова трансляція</string>
   <string name="addRound">Додати тур</string>

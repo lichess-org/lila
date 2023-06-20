@@ -17,7 +17,10 @@ export default function theme(ctrl: Controller): MaybeVNode {
   return ctrl.streak
     ? null
     : ctrl.vm.isDaily
-    ? h('div.puzzle__side__theme.puzzle__side__theme--daily', puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle'))))
+    ? h(
+        'div.puzzle__side__theme.puzzle__side__theme--daily',
+        puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle')))
+      )
     : h('div.puzzle__side__theme', [
         puzzleMenu(
           h(
@@ -31,7 +34,10 @@ export default function theme(ctrl: Controller): MaybeVNode {
           )
         ),
         angle.opening
-          ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, ['Learn more about ', angle.opening.name])
+          ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, [
+              'Learn more about ',
+              angle.opening.name,
+            ])
           : h('p', [
               angle.desc,
               angle.chapter &&

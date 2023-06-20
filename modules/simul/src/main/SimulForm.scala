@@ -9,7 +9,7 @@ import play.api.data.validation.Constraint
 
 import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
-import lila.user.User
+import lila.user.Me
 import chess.Clock
 import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
 
@@ -43,23 +43,20 @@ object SimulForm:
   )
   val colorDefault = "white"
 
-  private def nameType(host: User) =
+  private def nameType(using host: Me) =
     eventName(2, 40, host.isVerifiedOrAdmin).verifying(
       Constraint[String] { (t: String) =>
-        if (
-          t.toUpperCase.split(' ').exists { word =>
-            lila.user.Title.all.exists { case (title, name) =>
+        if t.toUpperCase.split(' ').exists { word =>
+            lila.user.Title.all.exists: (title, name) =>
               !host.title.has(title) && (title.value == word || name.toUpperCase == word)
-            }
           }
-        )
-          validation.Invalid(validation.ValidationError("Must not contain a title"))
+        then validation.Invalid(validation.ValidationError("Must not contain a title"))
         else validation.Valid
       }
     )
 
-  def create(host: User, teams: List[LeaderTeam]) =
-    baseForm(host, teams) fill Setup(
+  def create(teams: List[LeaderTeam])(using host: Me) =
+    baseForm(teams) fill Setup(
       name = host.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
@@ -74,8 +71,8 @@ object SimulForm:
       conditions = SimulCondition.All.empty
     )
 
-  def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
-    baseForm(host, teams) fill Setup(
+  def edit(teams: List[LeaderTeam], simul: Simul)(using Me) =
+    baseForm(teams) fill Setup(
       name = simul.name,
       clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
       clockIncrement = simul.clock.config.incrementSeconds,
@@ -90,10 +87,10 @@ object SimulForm:
       conditions = simul.conditions
     )
 
-  private def baseForm(host: User, teams: List[LeaderTeam]) =
+  private def baseForm(teams: List[LeaderTeam])(using host: Me) =
     Form(
       mapping(
-        "name"                -> nameType(host),
+        "name"                -> nameType,
         "clockTime"           -> numberIn(clockTimeChoices).into[LimitMinutes],
         "clockIncrement"      -> numberIn(clockIncrementChoices).into[IncrementSeconds],
         "clockExtra"          -> numberIn(clockExtraChoices).into[LimitMinutes],

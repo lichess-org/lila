@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import chess.{ Board, Color, Square }
-import lila.api.WebContext
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov

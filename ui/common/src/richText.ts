@@ -13,7 +13,10 @@ export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,})/.test(str);
 
 export function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
-  return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(/https?:\/\//, '')}</a>`;
+  return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(
+    /https?:\/\//,
+    ''
+  )}</a>`;
 }
 
 export const autolink = (str: string, callback: (str: string) => string): string =>
@@ -108,7 +111,9 @@ export function toYouTubeEmbed(url: string): string | undefined {
 function toTwitchEmbedUrl(url: string) {
   if (!url) return;
   const m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)/i);
-  return m ? `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false` : undefined;
+  return m
+    ? `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false`
+    : undefined;
 }
 
 export function toTwitchEmbed(url: string): string | undefined {

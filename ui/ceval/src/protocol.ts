@@ -107,7 +107,8 @@ export class Protocol {
       // Track max pv index to determine when pv prints are done.
       if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
-      if (depth < minDepth || !defined(nodes) || !defined(elapsedMs) || !defined(isMate) || !defined(povEv)) return;
+      if (depth < minDepth || !defined(nodes) || !defined(elapsedMs) || !defined(isMate) || !defined(povEv))
+        return;
 
       const pivot = this.work.threatMode ? 0 : 1;
       const ev = this.work.ply % 2 === pivot ? -povEv : povEv;
@@ -148,7 +149,11 @@ export class Protocol {
         // pruning. Therefore not using `go depth ${this.work.maxDepth}` and
         // manually ensuring Stockfish gets to spend a minimum amount of
         // time/nodes on each position.
-        if (depth >= this.work.maxDepth && elapsedMs > 8000 && nodes > 4000 * Math.exp(this.work.maxDepth * 0.3))
+        if (
+          depth >= this.work.maxDepth &&
+          elapsedMs > 8000 &&
+          nodes > 4000 * Math.exp(this.work.maxDepth * 0.3)
+        )
           this.stop();
       }
     } else if (command && !['Stockfish', 'id', 'option', 'info'].includes(parts[0])) {
