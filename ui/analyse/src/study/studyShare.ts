@@ -87,8 +87,8 @@ export function view(ctrl: StudyShareCtrl): VNode {
   let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`,
     embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
   const isPrivate = ctrl.isPrivate();
-  if (ctrl.withPly()) {
-    const p = ctrl.onMainline() ? ctrl.currentNode().ply.toString() : '';
+  if (ctrl.withPly() && ctrl.onMainline()) {
+    const p = ctrl.currentNode().ply;
     fullUrl += '#' + p;
     embedUrl += '#' + p;
   }
