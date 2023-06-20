@@ -23,7 +23,7 @@ object list {
       pag = pag,
       searchFilter = "",
       url = o => routes.Study.all(o),
-      canonicalPath = lila.common.CanonicalPath(routes.Study.allDefault()).some
+      canonicalPath = lila.common.CanonicalPath(routes.Study.allDefault(1)).some
     )
 
   def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) =

@@ -53,12 +53,12 @@ object show {
           title =
             s"${tour.name()}: ${variantName(tour.variant)} ${tour.clock.show} ${modeName(tour.mode)} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-          description = s"${trans.nbPlayers
-              .pluralSameTxt(tour.nbPlayers)} compete in the ${showDate(tour.startsAt)} ${tour.name()}. " +
-            s"${tour.clock.show} ${modeName(tour.mode).toLowerCase} games are played during ${tour.minutes} minutes. " +
+          description = s"${showDate(tour.startsAt)} ${tour.name()} - ${trans.nbPlayers
+              .pluralSameTxt(tour.nbPlayers)}, " +
+            s"${trans.duration.txt().toLowerCase}: ${tour.minutes}m. " +
             tour.winnerId.fold(trans.winnerIsNotYetDecided.txt()) { winnerId =>
               trans.xWon.txt(usernameOrId(winnerId))
-            } // todo
+            } // Jun 19, 2023 SuperBlitz Arena - 377 players, duration: 57m. Winner is not yet decided.
         )
         .some
     )(

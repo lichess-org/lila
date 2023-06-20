@@ -20,7 +20,7 @@ object show {
       control = control,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${video.title} - ${video.author}",
+          title = s"${video.title} - ${video.author} | ${trans.videoLibrary.txt()}",
           description = shorten(~video.metadata.description, 152),
           url = s"$netBaseUrl${routes.Video.show(video.id)}",
           `type` = "video",
