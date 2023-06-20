@@ -106,7 +106,8 @@ object dashboard {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
-      moreJs = moreJs
+      moreJs = moreJs,
+      withHrefLangs = lila.i18n.LangList.All.some
     )(
       main(cls := "page-menu")(
         bits.pageMenu(path),

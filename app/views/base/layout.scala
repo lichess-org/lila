@@ -243,7 +243,7 @@ object layout {
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       canonicalPath: Option[CanonicalPath] = None,
-      withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = Some(lila.i18n.LangList.All)
+      withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = None
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
       doctype,

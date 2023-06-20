@@ -33,7 +33,8 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
           description = trans.editorDescription.txt()
         )
         .some,
-      canonicalPath = lila.common.CanonicalPath(routes.Editor.index).some
+      canonicalPath = lila.common.CanonicalPath(routes.Editor.index).some,
+      withHrefLangs = lila.i18n.LangList.All.some
     )(
       main(id := "board-editor")(
         div(cls   := s"board-editor variant-${sit.variant.key}")(

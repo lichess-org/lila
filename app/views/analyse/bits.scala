@@ -31,7 +31,6 @@ object bits {
       shogiground = false,
       robots = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withPeer.some,
-      withHrefLangs = none
+      csp = defaultCsp.withWebAssembly.withPeer.some
     )(body)
 }

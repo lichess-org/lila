@@ -32,7 +32,8 @@ object index {
           description = freeShogi.txt()
         )
         .some,
-      csp = defaultCsp.withStripe.some
+      csp = defaultCsp.withStripe.some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "page-menu plan")(
         st.aside(cls := "page-menu__menu recent-patrons")(

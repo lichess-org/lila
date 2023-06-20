@@ -18,8 +18,7 @@ object message {
   )(message: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = ~moreCss,
-      withHrefLangs = none
+      moreCss = ~moreCss
     ) {
       main(cls := "box box-pad")(
         h1(dataIcon := icon ifTrue back.isEmpty, cls := List("text" -> (icon.isDefined && back.isEmpty)))(

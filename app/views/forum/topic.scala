@@ -19,8 +19,7 @@ object topic {
       moreJs = frag(
         jsTag("forum-post.js"),
         captchaTag
-      ),
-      withHrefLangs = none
+      )
     ) {
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         h1(
@@ -89,7 +88,6 @@ object topic {
           description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
         )
         .some,
-      withHrefLangs = none,
       canonicalPath =
         lila.common.CanonicalPath(routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)).some
     ) {

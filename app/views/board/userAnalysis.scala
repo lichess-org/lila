@@ -46,7 +46,8 @@ object userAnalysis {
         )
         .some,
       zoomable = true,
-      canonicalPath = lila.common.CanonicalPath(routes.UserAnalysis.index).some
+      canonicalPath = lila.common.CanonicalPath(routes.UserAnalysis.index).some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := s"analyse variant-${pov.game.variant.key}")(
         pov.game.synthetic option st.aside(cls := "analyse__side")(

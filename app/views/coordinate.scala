@@ -27,7 +27,8 @@ object coordinate {
           description = trans.coordinates.aSquareNameAppears.txt()
         )
         .some,
-      zoomable = true
+      zoomable = true,
+      withHrefLangs = lila.i18n.LangList.All.some
     )(
       main(
         id                      := "trainer",

@@ -43,8 +43,9 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
           url = s"$netBaseUrl${routes.Learn.index.url}"
         )
         .some,
+      zoomable = true,
       canonicalPath = lila.common.CanonicalPath(routes.Learn.index).some,
-      zoomable = true
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(id := "learn-app")
     }

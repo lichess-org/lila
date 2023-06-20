@@ -27,6 +27,7 @@ object index {
       title = lishogiCoaches.txt(),
       moreCss = cssTag("coach"),
       moreJs = infiniteScrollTag
+      // maybe someday - withHrefLangs = lila.i18n.LangList.All.some
     ) {
       val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
         .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)

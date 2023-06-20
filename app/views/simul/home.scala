@@ -29,7 +29,8 @@ object home {
           url = s"$netBaseUrl${routes.Simul.home}",
           description = trans.aboutSimul.txt()
         )
-        .some
+        .some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(

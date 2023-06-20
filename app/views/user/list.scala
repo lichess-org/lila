@@ -25,11 +25,12 @@ object list {
       wrapClass = "full-screen-force",
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${trans.players.txt()} - ${trans.leaderboards()}",
+          title = s"${trans.players.txt()} - ${trans.leaderboards.txt()}",
           url = s"$netBaseUrl${routes.User.list.url}",
           description = trans.bestPlayersInVariousCategories.txt()
         )
         .some
+      // todo later - withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "page-menu")(
         bits.communityMenu("leaderboard"),

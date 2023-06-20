@@ -22,7 +22,7 @@ object index {
       moreCss = cssTag("blog"),
       csp = bits.csp,
       moreJs = infiniteScrollTag,
-      withHrefLangs = Some(lila.i18n.LangList.EnglishJapanese)
+      withHrefLangs = lila.i18n.LangList.EnglishJapanese.some
     )(
       main(cls := "page-menu")(
         bits.menu(none),

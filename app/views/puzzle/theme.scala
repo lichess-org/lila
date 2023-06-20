@@ -13,7 +13,8 @@ object theme {
   def list(themes: List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
-      moreCss = cssTag("puzzle.page")
+      moreCss = cssTag("puzzle.page"),
+      withHrefLangs = lila.i18n.LangList.All.some
     )(
       main(cls := "page-menu")(
         bits.pageMenu("themes"),

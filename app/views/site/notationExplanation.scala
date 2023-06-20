@@ -9,8 +9,7 @@ object notationExplanation {
   def apply(doc: io.prismic.Document)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("notation-explanation"),
-      title = ~doc.getText("doc.title"),
-      withHrefLangs = none
+      title = ~doc.getText("doc.title")
     ) {
       main(cls := "page-small box box-pad page")(
         h1(doc.getText("doc.title")),

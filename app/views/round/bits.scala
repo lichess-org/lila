@@ -22,7 +22,8 @@ object bits {
       moreCss: Frag = emptyFrag,
       shogiground: Boolean = true,
       playing: Boolean = false,
-      robots: Boolean = false
+      robots: Boolean = false,
+      withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = None
   )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
@@ -39,7 +40,8 @@ object bits {
       robots = robots,
       deferJs = true,
       zoomable = true,
-      csp = defaultCsp.withPeer.some
+      csp = defaultCsp.withPeer.some,
+      withHrefLangs = withHrefLangs
     )(body)
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: Context) =

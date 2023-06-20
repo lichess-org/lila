@@ -23,7 +23,8 @@ object importGame {
           url = s"$netBaseUrl${routes.Importer.importGame.url}",
           description = trans.importGameKifCsaExplanation.txt()
         )
-        .some
+        .some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),

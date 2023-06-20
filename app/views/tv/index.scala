@@ -43,7 +43,8 @@ object index {
           url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
         )
         .some,
-      robots = true
+      robots = true,
+      withHrefLangs = lila.i18n.LangList.All.some
     )(
       main(cls := "round tv-single")(
         st.aside(cls := "round__side")(

@@ -57,7 +57,7 @@ object topnav {
             ),
             a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
             // ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
-            canSeeClasMenu option a(href := langHref(routes.Clas.index))(trans.clas.lishogiClasses()),
+            canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lishogiClasses()),
             a(href := routes.Page.variantHome)(trans.variants())
           )
         )
@@ -69,20 +69,20 @@ object topnav {
           div(role := "group")(
             a(href := tvUrl)("Lishogi TV"),
             a(href := langHref(routes.Tv.games))(trans.currentGames()),
-            ctx.noKid option a(href := langHref(routes.Streamer.index()))(trans.streamersMenu())
-            // a(href := langHref(routes.Relay.index))(trans.broadcast.broadcasts()),
-            // ctx.noBot option a(href := langHref(routes.Video.index))(trans.videoLibrary())
+            ctx.noKid option a(href := routes.Streamer.index())(trans.streamersMenu())
+            // a(href := routes.Relay.index)(trans.broadcast.broadcasts()),
+            // ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
           )
         )
       },
       st.section {
-        val userUrl = langHref(routes.User.list)
+        val userUrl = routes.User.list.url
         frag(
           linkTitle(userUrl, trans.community()),
           div(role := "group")(
             a(href := userUrl)(trans.players()),
-            a(href := langHref(routes.PlayApi.botOnline))(trans.bots()),
-            a(href := langHref(routes.Team.home()))(trans.team.teams()),
+            a(href := routes.PlayApi.botOnline)(trans.bots()),
+            a(href := routes.Team.home())(trans.team.teams()),
             ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
             ctx.me.exists(!_.kid) option a(href := langHref(routes.Plan.index))(trans.patron.donate())
           )
@@ -97,7 +97,7 @@ object topnav {
             // a(href := s"${routes.UserAnalysis.index}#explorer")(trans.openingExplorer()),
             a(href := langHref(routes.Editor.index))(trans.boardEditor()),
             a(href := langHref(routes.Importer.importGame))(trans.importGame()),
-            a(href := langHref(routes.Search.index()))(trans.search.advancedSearch())
+            a(href := routes.Search.index())(trans.search.advancedSearch())
           )
         )
       }

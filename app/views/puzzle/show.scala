@@ -63,7 +63,8 @@ object show {
             .some,
       zoomable = true,
       playing = true,
-      canonicalPath = lila.common.CanonicalPath(urlPath).some
+      canonicalPath = lila.common.CanonicalPath(urlPath).some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(

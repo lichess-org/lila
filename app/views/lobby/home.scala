@@ -49,7 +49,8 @@ object home {
         )
         .some,
       deferJs = true,
-      canonicalPath = lila.common.CanonicalPath("/").some
+      canonicalPath = lila.common.CanonicalPath("/").some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(
         cls := List(

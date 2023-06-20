@@ -20,8 +20,7 @@ object categ {
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
           description = trans.forumDescription.txt()
         )
-        .some,
-      withHrefLangs = none
+        .some
     ) {
       main(cls := "forum index box")(
         div(cls := "box__top")(
@@ -85,8 +84,7 @@ object categ {
           url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
           description = categ.desc
         )
-        .some,
-      withHrefLangs = none
+        .some
     ) {
       main(cls := "forum forum-categ box")(
         h1(

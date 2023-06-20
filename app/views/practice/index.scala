@@ -24,8 +24,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         )
         .some,
       robots = false,
-      canonicalPath = lila.common.CanonicalPath(routes.Practice.index).some,
-      withHrefLangs = none
+      canonicalPath = lila.common.CanonicalPath(routes.Practice.index).some
     ) {
       main(cls := "page-menu")(
         st.aside(cls := "page-menu__menu practice-side")(

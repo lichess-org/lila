@@ -24,7 +24,8 @@ object signup {
         fingerprintTag
       ),
       moreCss = cssTag("auth"),
-      csp = defaultCsp.withRecaptcha.some
+      csp = defaultCsp.withRecaptcha.some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(trans.signUp()),

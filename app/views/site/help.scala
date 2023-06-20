@@ -191,8 +191,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
     views.html.base.layout(
       title = title,
       moreCss = moreCss,
-      moreJs = moreJs,
-      withHrefLangs = none
+      moreJs = moreJs
     ) {
       val sep                  = div(cls := "sep")
       val external             = frag(" ", i(dataIcon := "0"))

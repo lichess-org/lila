@@ -41,7 +41,8 @@ var d=lishogi.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
           title = trans.tournamentHomeTitle.txt(),
           description = trans.tournamentHomeDescription.txt()
         )
-        .some
+        .some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "tour-home")(
         st.aside(cls := "tour-home__side")(

@@ -30,7 +30,8 @@ object storm {
       ),
       title = "Tsume Storm",
       zoomable = true,
-      shogiground = false
+      shogiground = false,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(
         div(cls   := "storm storm-app storm--play")(

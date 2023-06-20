@@ -20,7 +20,8 @@ object login {
       title = trans.signIn.txt(),
       moreJs = jsTag("login.js"),
       moreCss = cssTag("auth"),
-      canonicalPath = lila.common.CanonicalPath(routes.Auth.login).some
+      canonicalPath = lila.common.CanonicalPath(routes.Auth.login).some,
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "auth auth-login box box-pad")(
         h1(trans.signIn()),
