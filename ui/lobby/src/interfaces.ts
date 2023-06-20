@@ -22,6 +22,8 @@ export interface LobbyOpts extends Untyped {
   socketSend: SocketSend;
   pools: Pool[];
   blindMode: boolean;
+  variant?: VariantKey;
+  sfen?: string;
 }
 
 export interface LobbyData extends Untyped {

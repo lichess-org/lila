@@ -559,9 +559,15 @@ export default class Setup {
     });
 
     const initForm = (): void => {
-      const hasSfen = !!$sfenInput.val();
-      if (this.root.opts.variant)
+      if (this.root.opts.sfen) $sfenInput.val(this.root.opts.sfen);
+      let hasSfen = !!$sfenInput.val();
+      if (this.root.opts.variant) {
+        if (hasSfen && !this.root.opts.sfen) {
+          $sfenInput.val('');
+          hasSfen = false;
+        }
         $variantSelect.find(`option[value="${this.root.opts.variant}"]`).prop('selected', true);
+      }
       if (hasSfen) {
         $fromPosition.click();
         $positionPreview.html(li.spinnerHtml);

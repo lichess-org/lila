@@ -355,13 +355,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           h('div.continue-with.none', [
             h(
-              'a.button',
+              'a.button' + ['chushogi', 'annansogi'].includes(ctrl.rules) ? '.disabled' : '',
               {
                 attrs: {
                   href:
                     '/?sfen=' +
                     ctrl.encodeSfen(state.legalSfen || '') +
-                    `&variant=${ctrl.rules === 'standard' ? '1' : '2'}` +
+                    `&variant=${ctrl.encodeVariant(ctrl.rules)}` +
                     '#ai',
                   rel: 'nofollow',
                 },
@@ -375,7 +375,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   href:
                     '/?sfen=' +
                     ctrl.encodeSfen(state.legalSfen || '') +
-                    `&variant=${ctrl.rules === 'standard' ? '1' : '2'}` +
+                    `&variant=${ctrl.encodeVariant(ctrl.rules)}` +
                     '#friend',
                   rel: 'nofollow',
                 },

@@ -73,6 +73,8 @@ export default function boot(cfg, element) {
   cfg.socketSend = window.lishogi.socket.send;
   cfg.element = element;
   cfg.variant = getParameterByName('variant');
+  cfg.sfen = getParameterByName('sfen');
+
   lobby = window.LishogiLobby.start(cfg);
 
   const $startButtons = $('.lobby__start'),
