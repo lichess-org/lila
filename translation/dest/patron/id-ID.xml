@@ -2,7 +2,7 @@
 <resources>
   <string name="donate">Donasi</string>
   <string name="donateAsX">Donasi sebagai %s</string>
-  <string name="lichessPatron">Penyokong Lichess</string>
+  <string name="lichessPatron">Patron lichess</string>
   <string name="freeAccount">Akun gratis</string>
   <string name="becomePatron">Menjadi Penyokong Lichess</string>
   <string name="xBecamePatron">%s menjadi Penyokong Lichess</string>
@@ -15,6 +15,7 @@
   <string name="thankYou">Terima kasih untuk donasi Anda!</string>
   <string name="youHaveLifetime">Anda memiliki akun Lifetime Patron. Itu luar biasa!</string>
   <string name="patronUntil">Anda memiliki akun Penyokong hingga %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Jika tidak diperbarui, akun anda akan kembali menjadi akun reguler.</string>
   <string name="weAreNonProfit">Kami adalah bukanlah asosiasi mencari keuntungan karena kami percaya setiap orang harus memiliki akses ke platform catur kelas dunia yang gratis.</string>
   <string name="weRelyOnSupport">Kami mengandalkan dukungan dari orang-orang seperti Anda jika memungkinkan. Jika Anda menikmati menggunakan Lichess, silakan pertimbangkan mendukung kami dengan menyumbang dan menjadi Penyokong!</string>
   <string name="lifetime">Sepanjang waktu</string>
@@ -40,7 +41,9 @@ Lalu kami membayar pengembang dengan penuh-waktu: %s, pendiri Lichess.</string>
   <string name="changeOrContact">Ya, kapan saja, dari halaman ini. Atau Anda bisa %s.</string>
   <string name="contactSupport">kontak dukungan Lichess</string>
   <string name="otherMethods">Metode donasi lainnya?</string>
+  <string name="lichessIsRegisteredWith">Lichess terdaftar dengan %s.</string>
   <string name="bankTransfers">Kami juga menerima transfer bank</string>
+  <string name="onlyDonationFromAbove">Mohon diingat bahwa hanya formulir donasi diatas yang akan memberikan status Patron.</string>
   <string name="patronFeatures">Apakah beberapa fitur disediakan untuk para Penyokong?</string>
   <string name="noPatronFeatures">Tidak, karena Lichess sepenuhnya gratis, selamanya, dan untuk semua orang. Itu janji.
 Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
@@ -61,6 +64,7 @@ Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
   <string name="xOrY">%1$s atau %2$s</string>
   <string name="decideHowMuch">Putuskan apa yang layak bagi Lichess berguna bagi Anda:</string>
   <string name="stopPayments">Tarik kartu kredit Anda dan hentikan pembayaran:</string>
+  <string name="stopPaymentsPayPal">Batalkan langganan PayPal dan hentikan pembayaran:</string>
   <string name="noLongerSupport">Tidak lagi mendukung Lichess</string>
   <string name="viewOthers">Lihat Penyokong Lichess lainnya</string>
   <string name="date">Tanggal</string>
