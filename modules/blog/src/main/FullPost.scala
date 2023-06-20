@@ -10,7 +10,8 @@ case class FullPost(
     date: DateTime,
     image: String,
     author: String,
-    category: String
+    category: String,
+    alternateLangId: Option[String] // only when translated
 )
 
 object FullPost {
@@ -32,6 +33,7 @@ object FullPost {
       date = date.toDateTimeAtStartOfDay,
       image = image,
       author = author,
-      category = category
+      category = category,
+      alternateLangId = doc getText s"$coll.alternatelangid"
     )
 }
