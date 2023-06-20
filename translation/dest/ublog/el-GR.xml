@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Ιστολόγιο του χρήστη %s</string>
+  <string name="newPost">Νέα ανάρτηση</string>
+  <string name="editYourBlogPost">Επεξεργασία δημοσίευσης</string>
+  <string name="saveDraft">Αποθήκευση ως πρόχειρο</string>
+  <string name="postTitle">Τίτλος</string>
+  <string name="postIntro">Πρόλογος</string>
+  <string name="postBody">Κυρίως θέμα</string>
+  <string name="drafts">Πρόχειρα</string>
+  <string name="published">Δημοσιευμένα</string>
+  <string name="createBlogDiscussion">Ενεργοποίηση σχολίων</string>
+  <string name="createBlogDiscussionHelp">Θα δημιουργηθεί ένα θέμα στο φόρουμ για να σχολιάσουν τα άτομα στη δημοσίευσή σας</string>
+  <string name="publishOnYourBlog">Δημοσίευση στο ιστολόγιό σας</string>
+  <string name="publishHelp">Εάν επιλεχθεί, τότε η δημοσίευση θα υπάρχει στο ιστολόγιό σας. Εάν όχι, θα είναι ιδιωτική, στις προσχέδιες αναρτήσεις σας</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Δημοσιεύθηκε μια ανάρτηση ιστολογίου</item>
+    <item quantity="other">Δημοσιεύθηκαν οι αναρτήσεις ιστολογίου του %s</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Μία προβολή</item>
+    <item quantity="other">%s προβολές</item>
+  </plurals>
+  <string name="xPublishedY">%1$s δημοσίευσε %2$s</string>
+  <string name="thisPostIsPublished">Αυτή η ανάρτηση έχει δημοσιευτεί</string>
+  <string name="thisIsADraft">Πρόχειρο</string>
+  <string name="moreBlogPostsBy">Περισσότερες δημοσιεύσεις από τον χρήστη %s</string>
+  <string name="noPostsInThisBlogYet">Δεν υπάρχει καμία δημοσίευση σε αυτό το ιστολόγιο ακόμα.</string>
+  <string name="noDrafts">Δεν έχετε αποθηκευμένα πρόχειρα.</string>
+  <string name="latestBlogPosts">Τελευταίες δημοσιεύσεις ιστολογίου</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Δείτε μία δημοσίευση</item>
+    <item quantity="other">Δείτε όλες τις συνολικά %s δημοσιεύσεις</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Μεταφορτώστε μια εικόνα στη δημοσίευσή σας</string>
+  <string name="imageAlt">Alt text εικόνας</string>
+  <string name="imageCredit">Δικαιώματα εικόνας</string>
+  <string name="deleteBlog">Οριστική διαγραφή δημοσίευσης</string>
+  <string name="deleteImage">Διαγραφή εικόνας</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Είναι ασφαλές να χρησιμοποιείτε εικόνες από τις ακόλουθες ιστοσελίδες: </string>
+  <string name="selectPostTopics">Επιλέξτε τα θέματα που είναι σχετικά με τη δημοσίευσή σας</string>
+  <string name="useImagesYouMadeYourself">Μπορείτε επίσης να χρησιμοποιήσετε δικές σας εικόνες, φωτογραφίες που τραβήξατε, στιγμιότυπα οθόνης από το Lichess... με λίγα λόγια οτιδήποτε δεν έχει κατοχυρωμένα δικαιώματα πνευματικής ιδιοκτησίας.</string>
+  <string name="safeAndRespectfulContent">Το περιεχόμενο που δημοσιεύετε πρέπει να είναι ασφαλές, με σεβασμό προς όλους και να μην αντιγράφει δημοσιεύσεις άλλων χρηστών.</string>
+  <string name="inappropriateContentAccountClosed">Ο λογαριασμός σας ενδεχομένως να κλείσει αν εντοπίσουμε οτιδήποτε ακατάλληλο.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Απλές συμβουλές μας για να γράψει φανταστικές δημοσιεύσεις</string>
+</resources>

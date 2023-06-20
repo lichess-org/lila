@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">Süvaanalüüs kasutaja %s mängudest</string>
+  <string name="xHasNoChessInsights">Kasutajal %s ei ole veel süvaanalüüsi!</string>
+  <string name="insightsAreProtected">Kasutaja %s süvaanalüüs on kaitstud</string>
+  <string name="cantSeeInsights">Kahjuks, sa ei saa näha kasutaja %s süvaanalüüsi.</string>
+  <string name="generateInsights">Loo kasutaja %s süvaanalüüs.</string>
+  <string name="crunchingData">Kalkuleerime nüüd andmeid just sinu jaoks!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Sul on võimalik paluda teda vahetama oma %s?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">süvaanalüüsi sätted</string>
+</resources>

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+file=$1
+thumb_file=$2
+
+convert $file -crop 256x128+0+0 -scale 64x32 $thumb_file

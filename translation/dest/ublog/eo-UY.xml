@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blogo de %s</string>
+  <string name="newPost">Nova afiŝo</string>
+  <string name="editYourBlogPost">Redakti vian blogafiŝon</string>
+  <string name="saveDraft">Konservi malneton</string>
+  <string name="postTitle">Afiŝa titolo</string>
+  <string name="postIntro">Afiŝa enkonduko</string>
+  <string name="postBody">Afiŝa enhavo</string>
+  <string name="drafts">Malnetoj</string>
+  <string name="published">Eldonita</string>
+  <string name="createBlogDiscussion">Ebligi komentojn</string>
+  <string name="publishOnYourBlog">Eldoni en via blogo</string>
+  <plurals name="nbViews">
+    <item quantity="one">Unu vido</item>
+    <item quantity="other">%s vidoj</item>
+  </plurals>
+  <string name="xPublishedY">%1$s eldonis %2$s</string>
+  <string name="thisPostIsPublished">Tiu afiŝo estas eldonita</string>
+  <string name="thisIsADraft">Tiu estas malneto</string>
+  <string name="latestBlogPosts">Plej novaj blogafiŝoj</string>
+  <string name="imageAlt">Alternativa teksto de bildo</string>
+  <string name="deleteImage">Forigi la bildon</string>
+  <string name="safeAndRespectfulContent">Bonvolu nur afiŝi sekuran kaj respektan enhavon. Ne kopiu enhavon de iu alia.</string>
+  <string name="inappropriateContentAccountClosed">Io malkonvena povus fermigi vian konton.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Niaj facilaj konsiloj por verki bonegajn blogafiŝojn</string>
+</resources>

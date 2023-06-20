@@ -1,0 +1,54 @@
+$c-tabs-active: $c-accent !default;
+
+.tabs-horiz {
+  @extend %flex-center-nowrap, %page-text;
+
+  justify-content: center;
+  align-items: flex-end;
+  user-select: none;
+
+  @include breakpoint($mq-not-xx-small) {
+    font-size: 0.9em;
+  }
+
+  span {
+    @extend %roboto, %nowrap-hidden;
+
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 0.5em 0.2em;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 2px solid transparent;
+
+    transition: color 0.25s, border-color 0.25s;
+
+    min-width: 15%;
+    letter-spacing: -0.5px;
+
+    @include breakpoint($mq-xx-small) {
+      letter-spacing: inherit;
+    }
+
+    &.active,
+    &:hover {
+      color: $c-font-clear;
+      border-color: $c-tabs-active;
+    }
+
+    &.active {
+      color: $c-tabs-active;
+    }
+
+    &.narrow {
+      padding-left: 0;
+      padding-right: 0;
+      flex: 0 3 auto;
+      min-width: 10%;
+    }
+  }
+
+  .unread {
+    margin-#{$start-direction}: 0.3em;
+  }
+}

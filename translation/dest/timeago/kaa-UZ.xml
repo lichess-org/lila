@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">házirǵana</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s sekunddan keyin</item>
+    <item quantity="other">%s sekunddan keyin</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s minuttan keyin</item>
+    <item quantity="other">%s minuttan keyin</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s saǵattan keyin</item>
+    <item quantity="other">%s saǵattan keyin</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s kúnnen keyin</item>
+    <item quantity="other">%s kúnnen keyin</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s hápteden keyin</item>
+    <item quantity="other">%s hápteden keyin</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s aydan keyin</item>
+    <item quantity="other">%s aydan keyin</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s jıldan keyin</item>
+    <item quantity="other">%s jıldan keyin</item>
+  </plurals>
+  <string name="rightNow">tap házir</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s sekund aldın</item>
+    <item quantity="other">%s sekund aldın</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minut aldın</item>
+    <item quantity="other">%s minut aldın</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s saǵat aldın</item>
+    <item quantity="other">%s saǵat aldın</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s kún aldın</item>
+    <item quantity="other">%s kún aldın</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s hápte aldın</item>
+    <item quantity="other">%s hápte aldın</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s ay aldın</item>
+    <item quantity="other">%s ay aldın</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s jıl aldın</item>
+    <item quantity="other">%s jıl aldın</item>
+  </plurals>
+</resources>

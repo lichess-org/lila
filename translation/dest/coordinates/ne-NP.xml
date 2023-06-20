@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="coordinates">समकक्षहरु</string>
+  <string name="coordinateTraining">समकक्षको अभ्यास</string>
+  <string name="averageScoreAsWhiteX">सेतो लिएर औसत अंक: %s</string>
+  <string name="averageScoreAsBlackX">कालो लिएर औसत अंक: %s</string>
+  <string name="knowingTheChessBoard">चेस बोर्डका समकक्षहरूको को ज्ञान हुनु धेरै महत्वपूर्ण छ:</string>
+  <string name="mostChessCourses">प्राय सबै चेस कोर्स र अभ्यासहरूमा विजीय सङ्केत प्रयोग हुन्छ।</string>
+  <string name="talkToYourChessFriends">यसले तपाइलाईँ आफ्ना चेस खेल्ने मित्रहरू संग कुरा गर्न सहज हुन्छ, किनकि तपाईहरू दुवै \"चेस को भाषा\" बुझ्नुहुन्छ।</string>
+  <string name="youCanAnalyseAGameMoreEffectively">तपाइले खेलहरु प्रभावकारी रुपमा विश्लेषण गर्न सक्नुहुन्छ किनकि तपाइलाई कोठाको नामहरु खोजिरहनु पर्दैन।</string>
+  <string name="startTraining">अभ्यास सुरु गर्नुहोस्</string>
+</resources>

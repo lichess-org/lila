@@ -1,0 +1,48 @@
+@import 'topnav-hidden';
+@import 'topnav-visible';
+@import 'title';
+@import 'buttons';
+
+#top {
+  height: $site-header-height;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: z('site-header');
+  max-width: 1800px;
+  margin: 0 auto;
+  user-select: none;
+  --dropdown-top: 40px;
+
+  @include breakpoint($mq-site-header-tall) {
+    --dropdown-top: 60px;
+  }
+}
+
+#topnav .community-patron {
+  @extend %flex-center;
+  &::after {
+    @extend %data-icon;
+    content: '';
+    font-size: 1.3em;
+    color: $c-brag;
+    @include margin-direction(0, 0, 0.08ch, 0.3ch);
+    transform: scaleX(-1 * $transform-direction);
+  }
+}
+
+.site-title-nav {
+  display: flex;
+  justify-content: flex-start;
+
+  &__donate {
+    @extend %flex-center;
+    color: $c-brag;
+    margin-left: 1rem;
+    text-transform: uppercase;
+    line-height: $site-header-height;
+    @include breakpoint($mq-not-xx-small) {
+      display: none;
+    }
+  }
+}

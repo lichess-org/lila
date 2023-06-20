@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Prywatne</string>
+  <string name="myStudies">Moje opracowania</string>
+  <string name="studiesIContributeTo">Opracowania, które współtworzę</string>
+  <string name="myPublicStudies">Moje publiczne opracowania</string>
+  <string name="myPrivateStudies">Moje prywatne opracowania</string>
+  <string name="myFavoriteStudies">Moje ulubione opracowania</string>
+  <string name="whatAreStudies">Czym są opracowania?</string>
+  <string name="allStudies">Wszystkie opracowania</string>
+  <string name="studiesCreatedByX">Opracowanie stworzone przez %s</string>
+  <string name="noneYet">Jeszcze brak.</string>
+  <string name="hot">Hity</string>
+  <string name="dateAddedNewest">Data dodania (od najnowszych)</string>
+  <string name="dateAddedOldest">Data dodania (od najstarszych)</string>
+  <string name="recentlyUpdated">Ostatnio aktualizowane</string>
+  <string name="mostPopular">Najpopularniejsze</string>
+  <string name="alphabetical">Alfabetycznie</string>
+  <string name="addNewChapter">Dodaj nowy rozdział</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s rozdział</item>
+    <item quantity="few">%s rozdziały</item>
+    <item quantity="many">%s rozdziałów</item>
+    <item quantity="other">%s rozdziałów</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s partia</item>
+    <item quantity="few">%s partie</item>
+    <item quantity="many">%s partii</item>
+    <item quantity="other">%s partii</item>
+  </plurals>
+  <string name="addMembers">Dodaj uczestników</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s uczestnik</item>
+    <item quantity="few">%s uczestników</item>
+    <item quantity="many">%s uczestników</item>
+    <item quantity="other">%s uczestników</item>
+  </plurals>
+  <string name="inviteToTheStudy">Zaproś do opracowania</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Zapraszaj do opracowania tylko znajomych, którzy chcą w nim aktywnie uczestniczyć.</string>
+  <string name="searchByUsername">Szukaj wg nazwy użytkownika</string>
+  <string name="spectator">Obserwator</string>
+  <string name="contributor">Współautor</string>
+  <string name="kick">Wyrzuć</string>
+  <string name="leaveTheStudy">Opuść opracowanie</string>
+  <string name="youAreNowAContributor">Jesteś teraz współautorem</string>
+  <string name="youAreNowASpectator">Jesteś teraz obserwatorem</string>
+  <string name="pgnTags">Znaczniki PGN</string>
+  <string name="like">Lubię to</string>
+  <string name="unlike">Cofnij polubienie</string>
+  <string name="newTag">Nowy znacznik</string>
+  <string name="commentThisPosition">Skomentuj tę pozycję</string>
+  <string name="commentThisMove">Skomentuj ten ruch</string>
+  <string name="annotateWithGlyphs">Objaśnij za pomocą znaków</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Rozdział jest zbyt krótki do analizy.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Tylko współautorzy opracowania mogą prosić o analizę komputerową.</string>
+  <string name="getAFullComputerAnalysis">Uzyskaj pełną, zdalną analizę komputerową głównego wariantu.</string>
+  <string name="makeSureTheChapterIsComplete">Upewnij się, że rozdział jest kompletny. O jego analizę możesz poprosić tylko raz.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Wszyscy zsynchronizowani uczestnicy pozostają na tej samej pozycji</string>
+  <string name="shareChanges">Współdzielenie zmian z obserwatorami i ich zapis na serwerze</string>
+  <string name="playing">W toku</string>
+  <string name="first">Pierwszy</string>
+  <string name="previous">Poprzedni</string>
+  <string name="next">Następny</string>
+  <string name="last">Ostatni</string>
+  <string name="shareAndExport">Udostępnianie i eksport</string>
+  <string name="cloneStudy">Powiel</string>
+  <string name="studyPgn">PGN opracowania</string>
+  <string name="downloadAllGames">Pobierz wszystkie partie</string>
+  <string name="chapterPgn">PGN rozdziału</string>
+  <string name="copyChapterPgn">Kopiuj PGN</string>
+  <string name="copyChapterPgnDescription">Skopiuj rozdział w PGN do schowka.</string>
+  <string name="downloadGame">Pobierz partię</string>
+  <string name="studyUrl">Link do opracowania</string>
+  <string name="currentChapterUrl">URL bieżącego rozdziału</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Możesz wkleić to, aby osadzić na forum</string>
+  <string name="startAtInitialPosition">Rozpocznij z pozycji początkowej</string>
+  <string name="startAtX">Rozpocznij od %s</string>
+  <string name="embedInYourWebsite">Udostępnij na swojej stronie lub na blogu</string>
+  <string name="readMoreAboutEmbedding">Dowiedz się więcej o osadzaniu</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Tylko publiczne opracowania mogą być osadzane!</string>
+  <string name="open">Otwórz</string>
+  <string name="xBroughtToYouByY">%1$s przygotowane przez %2$s</string>
+  <string name="studyNotFound">Nie znaleziono opracowania</string>
+  <string name="editChapter">Edytuj rozdział</string>
+  <string name="newChapter">Nowy rozdział</string>
+  <string name="importFromChapterX">Zaimportuj z %s</string>
+  <string name="orientation">Orientacja</string>
+  <string name="analysisMode">Rodzaj analizy</string>
+  <string name="pinnedChapterComment">Przypięty komentarz</string>
+  <string name="saveChapter">Zapisz rozdział</string>
+  <string name="clearAnnotations">Usuń adnotacje</string>
+  <string name="clearVariations">Wyczyść warianty</string>
+  <string name="deleteChapter">Usuń rozdział</string>
+  <string name="deleteThisChapter">Usunąć ten rozdział? Nie będzie można tego cofnąć!</string>
+  <string name="clearAllCommentsInThisChapter">Usunąć wszystkie komentarze i oznaczenia w tym rozdziale?</string>
+  <string name="rightUnderTheBoard">Pod szachownicą, po prawej stronie</string>
+  <string name="noPinnedComment">Brak</string>
+  <string name="normalAnalysis">Normalna</string>
+  <string name="hideNextMoves">Ukryj następne posunięcia</string>
+  <string name="interactiveLesson">Lekcja interaktywna</string>
+  <string name="chapterX">Rozdział %s</string>
+  <string name="empty">Pusty</string>
+  <string name="startFromInitialPosition">Rozpocznij z pozycji początkowej</string>
+  <string name="editor">Edytor</string>
+  <string name="startFromCustomPosition">Rozpocznij z ustawionej pozycji</string>
+  <string name="loadAGameByUrl">Zaimportuj partię z linku</string>
+  <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
+  <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
+  <string name="automatic">Automatycznie</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Wklej tutaj swój PGN, max %s partię</item>
+    <item quantity="few">Wklej tutaj swój PGN, max %s partie</item>
+    <item quantity="many">Wklej tutaj swój PGN, max %s partii</item>
+    <item quantity="other">Wklej tutaj swój PGN, max %s partii</item>
+  </plurals>
+  <string name="urlOfTheGame">Link do partii</string>
+  <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s lub %2$s</string>
+  <string name="createChapter">Stwórz rozdział</string>
+  <string name="createStudy">Stwórz opracowanie</string>
+  <string name="editStudy">Edytuj opracowanie</string>
+  <string name="visibility">Widoczność</string>
+  <string name="public">Publiczne</string>
+  <string name="unlisted">Niepubliczne</string>
+  <string name="inviteOnly">Tylko zaproszeni</string>
+  <string name="allowCloning">Pozwól kopiować</string>
+  <string name="nobody">Nikt</string>
+  <string name="onlyMe">Tylko ja</string>
+  <string name="contributors">Współautorzy</string>
+  <string name="members">Uczestnicy</string>
+  <string name="everyone">Każdy</string>
+  <string name="enableSync">Włącz synchronizację</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Tak: utrzymaj wszystkich w tej samej pozycji</string>
+  <string name="noLetPeopleBrowseFreely">Nie: pozwól oglądać wszystkim</string>
+  <string name="pinnedStudyComment">Przypięte komentarze</string>
+  <string name="start">Rozpocznij</string>
+  <string name="save">Zapisz</string>
+  <string name="clearChat">Wyczyść czat</string>
+  <string name="deleteTheStudyChatHistory">Usunąć historię czatu opracowania? Nie będzie można tego cofnąć!</string>
+  <string name="deleteStudy">Usuń opracowanie</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Usunąć opracowanie? Nie będzie można go odzyskać! Wpisz nazwę opracowania, aby potwierdzić operację: %s</string>
+  <string name="whereDoYouWantToStudyThat">Gdzie chcesz się tego uczyć?</string>
+  <string name="goodMove">Dobry ruch</string>
+  <string name="mistake">Pomyłka</string>
+  <string name="brilliantMove">Świetny ruch</string>
+  <string name="blunder">Błąd</string>
+  <string name="interestingMove">Interesujący ruch</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Wątpliwy ruch</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Jedyny ruch</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Równa pozycja</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Niejasna pozycja</string>
+  <string name="whiteIsSlightlyBetter">Białe stoją nieznacznie lepiej</string>
+  <string name="blackIsSlightlyBetter">Czarne stoją nieznacznie lepiej</string>
+  <string name="whiteIsBetter">Białe stoją lepiej</string>
+  <string name="blackIsBetter">Czarne stoją lepiej</string>
+  <string name="whiteIsWinning">Białe wygrywają</string>
+  <string name="blackIsWinning">Czarne wygrywają</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nowość</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Rozwój</string>
+  <string name="initiative">Inicjatywa</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Atak</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Przeciwdziałanie</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Problem z czasem</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Z rekompensatą</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Z pomysłem</string>
+  <string name="nextChapter">Następny rozdział</string>
+  <string name="prevChapter">Poprzedni rozdział</string>
+  <string name="studyActions">Opcje opracowań</string>
+  <string name="topics">Tematy</string>
+  <string name="myTopics">Moje tematy</string>
+  <string name="popularTopics">Popularne tematy</string>
+  <string name="manageTopics">Zarządzaj tematami</string>
+  <string name="back">Powrót</string>
+  <string name="playAgain">Odtwórz ponownie</string>
+  <string name="whatWouldYouPlay">Co byś zagrał w tej pozycji?</string>
+  <string name="youCompletedThisLesson">Gratulacje! Ukończono tę lekcję.</string>
+</resources>

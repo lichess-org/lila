@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "noEmit": true
+  },
+  "references": [
+    { "path": "../ceval/tsconfig.json" },
+    { "path": "../chart/tsconfig.json" },
+    { "path": "../chat/tsconfig.json" },
+    { "path": "../chess/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../game/tsconfig.json" },
+    { "path": "../nvui/tsconfig.json" },
+    { "path": "../tree/tsconfig.json" }
+  ],
+  "isolatedModules": true
+}

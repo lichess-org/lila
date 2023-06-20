@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Access token API cá nhân mới</string>
+  <string name="tokenGrantsPermission">Một token cấp cho người khác quyền sử dụng tài khoản của bạn.</string>
+  <string name="carefullySelect">Cẩn thận khi lựa chọn những gì được phép làm thay bạn.</string>
+  <string name="tokenDescription">Mô tả token</string>
+  <string name="rememberTokenUse">Vì vậy bạn nhớ được token này dùng để</string>
+  <string name="whatTheTokenCanDo">Những gì token có thể làm thay bạn:</string>
+  <string name="doNotShareIt">Token sẽ cấp quyền truy cập vào tài khoản của bạn. KHÔNG chia sẻ nó với bất kỳ ai!</string>
+  <string name="copyTokenNow">Bây giờ hãy đảm bảo bạn đã sao chép access token cá nhân mới. Bạn sẽ không còn có thể nhìn thấy nó sau này nữa!</string>
+  <string name="preferenceRead">Tùy chọn đọc</string>
+  <string name="preferenceWrite">Tùy chọn viết</string>
+  <string name="emailRead">Đọc địa chỉ email</string>
+  <string name="challengeRead">Đọc các lời thách đấu được gửi đến</string>
+  <string name="challengeWrite">Gửi, chấp nhận và từ chối thách đấu</string>
+  <string name="challengeBulk">Tạo nhiều ván đấu cùng lúc với nhiều người chơi</string>
+  <string name="studyRead">Đọc các bài học riêng và các chương trình phát sóng</string>
+  <string name="studyWrite">Tạo, cập nhật, xóa các bài học và các chương trình phát sóng</string>
+  <string name="tournamentWrite">Tạo, cập nhật, và tham gia các giải đấu</string>
+  <string name="racerWrite">Tạo và tham gia đua câu đố</string>
+  <string name="puzzleRead">Đọc các hoạt động câu đố</string>
+  <string name="teamRead">Đọc thông tin riêng của đội</string>
+  <string name="teamWrite">Tham gia và rời khỏi đội</string>
+  <string name="teamLead">Quản lý các đội bạn đứng đầu: gửi tin nhắn cá nhân/tin nhắn riêng, xóa thành viên</string>
+  <string name="followRead">Đọc người chơi đã theo dõi</string>
+  <string name="followWrite">Theo dõi và bỏ theo dõi những người chới khác</string>
+  <string name="msgWrite">Gửi tin nhắn riêng đến những người chơi khác</string>
+  <string name="boardPlay">Chơi với bàn api</string>
+  <string name="botPlay">Chơi với bot api</string>
+  <string name="engineRead">Xem và sử dụng động cơ máy tính bên ngoài</string>
+  <string name="engineWrite">Tạo và cập nhật các động cơ máy tính</string>
+  <string name="webLogin">Tạo các phiên trang web đã được xác thực (cấp toàn quyền truy cập!)</string>
+  <string name="webMod">Sử dụng các công cụ quản trị (nằm trong quyền kiểm soát của bạn)</string>
+</resources>

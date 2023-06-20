@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">for kort tid sidan</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">om %s sekund</item>
+    <item quantity="other">om %s sekund</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">om %s minutt</item>
+    <item quantity="other">om %s minutt</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">om %s time</item>
+    <item quantity="other">om %s timar</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">om %s dag</item>
+    <item quantity="other">om %s dagar</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">om %s veke</item>
+    <item quantity="other">om %s veker</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">om %s månad</item>
+    <item quantity="other">om %s månader</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">om %s år</item>
+    <item quantity="other">om %s år</item>
+  </plurals>
+  <string name="rightNow">nett no</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s sekund sidan</item>
+    <item quantity="other">%s sekund sidan</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minutt sidan</item>
+    <item quantity="other">%s minutt sidan</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s time sidan</item>
+    <item quantity="other">%s timar sidan</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s dag sidan</item>
+    <item quantity="other">%s dagar sidan</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s veke sidan</item>
+    <item quantity="other">%s veker sidan</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s månad sidan</item>
+    <item quantity="other">%s månader sidan</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s år sidan</item>
+    <item quantity="other">%s år sidan</item>
+  </plurals>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Satna Rapid Arena</string>
+  <string name="hourlyRapid">Satni Rapid</string>
+  <string name="hourlyXArena">Satna %s Arena</string>
+  <string name="hourlyX">Satni %s</string>
+  <string name="dailyRapidArena">Dnevna Rapid Arena</string>
+  <string name="dailyRapid">Dnevni Rapid</string>
+  <string name="dailyClassicalArena">Dnevna Klasična arena</string>
+  <string name="dailyClassical">Dnevni klasični</string>
+  <string name="dailyXArena">Dnevna %s Arena</string>
+  <string name="dailyX">Dnevni %s</string>
+  <string name="easternRapidArena">Istočna Rapid Arena</string>
+  <string name="easternRapid">Istočni Rapid</string>
+  <string name="easternClassicalArena">Istočna Klasična arena</string>
+  <string name="easternClassical">Istočni klasični</string>
+  <string name="easternXArena">Istočna %s Arena</string>
+  <string name="easternX">Istočni %s</string>
+  <string name="weeklyRapidArena">Sedmična Rapid Arena</string>
+  <string name="weeklyRapid">Sedmični Rapid</string>
+  <string name="weeklyClassicalArena">Sedmična Klasična arena</string>
+  <string name="weeklyClassical">Sedmični klasični</string>
+  <string name="weeklyXArena">Sedmična %s Arena</string>
+  <string name="weeklyX">Sedmični %s</string>
+  <string name="monthlyRapidArena">Mjesečna Rapid Arena</string>
+  <string name="monthlyRapid">Mjesečni Rapid</string>
+  <string name="monthlyClassicalArena">Mjesečna Klasična arena</string>
+  <string name="monthlyClassical">Mjesečni klasični</string>
+  <string name="monthlyXArena">Mjesečna %s Arena</string>
+  <string name="monthlyX">Mjesečni %s</string>
+  <string name="yearlyRapidArena">Godišnja Rapid Arena</string>
+  <string name="yearlyRapid">Godišnji Rapid</string>
+  <string name="yearlyClassicalArena">Godišnja Klasična arena</string>
+  <string name="yearlyClassical">Godišnji klasični</string>
+  <string name="yearlyXArena">Godišnja %s Arena</string>
+  <string name="yearlyX">Godišnji %s</string>
+  <string name="rapidShieldArena">Rapid Štit Arena</string>
+  <string name="rapidShield">Rapid Štit</string>
+  <string name="classicalShieldArena">Klasična Štit arena</string>
+  <string name="classicalShield">Klasični Štit</string>
+  <string name="xShieldArena">%s Štit arena</string>
+  <string name="xShield">%s Štit</string>
+  <string name="xTeamBattle">%s bitka timova</string>
+  <string name="eliteXArena">Elitna %s arena</string>
+  <string name="eliteX">Elitni %s</string>
+  <string name="xArena">%s Arena</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="faqAbbreviation">FAQ</string>
+  <string name="frequentlyAskedQuestions">नेहमीचे प्रश्न</string>
+  <string name="whyIsLichessCalledLichess">Lichess ला Lichess का म्हणतात?</string>
+  <string name="howCanIContributeToLichess">मी लिचेस मध्ये योगदान कसे देऊ शकतो?</string>
+  <string name="whatIsACPL">सरासरी सेंटीपॉन तोटा (ACPL) म्हणजे काय?</string>
+  <string name="similarOpponents">समान ताकदीचे प्रतिस्पर्धी</string>
+</resources>

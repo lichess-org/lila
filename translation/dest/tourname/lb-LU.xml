@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Stendlech Rapid Arena</string>
+  <string name="hourlyRapid">Stendlech Rapid</string>
+  <string name="hourlyXArena">Stendlech %s Arena</string>
+  <string name="hourlyX">Stendlech %s</string>
+  <string name="dailyRapidArena">Deeglech Rapid Arena</string>
+  <string name="dailyRapid">Deeglech Rapid</string>
+  <string name="dailyClassicalArena">Deeglech Klassesch Arena</string>
+  <string name="dailyClassical">Deeglech Klassesch</string>
+  <string name="dailyXArena">Deeglech %s Arena</string>
+  <string name="dailyX">Deeglech %s</string>
+  <string name="easternRapidArena">Ëstlech Rapid Arena</string>
+  <string name="easternRapid">Ëstlech Rapid</string>
+  <string name="easternClassicalArena">Ëstlech Klassesch Arena</string>
+  <string name="easternClassical">Ëstlech Klassesch</string>
+  <string name="easternXArena">Ëstlech %s Arena</string>
+  <string name="easternX">Ëstlech %s</string>
+  <string name="weeklyRapidArena">Wöchentlech Rapid Arena</string>
+  <string name="weeklyRapid">Wöchentlech Rapid</string>
+  <string name="weeklyClassicalArena">Wöchentlech Klassesch Arena</string>
+  <string name="weeklyClassical">Wöchentlech Klassesch</string>
+  <string name="weeklyXArena">Wöchentlech %s Arena</string>
+  <string name="weeklyX">Wöchentlech %s</string>
+  <string name="monthlyRapidArena">Méintlech Rapid Arena</string>
+  <string name="monthlyRapid">Méintlech Rapid</string>
+  <string name="monthlyClassicalArena">Méintlech Klassesch Arena</string>
+  <string name="monthlyClassical">Méintlech Klassesch</string>
+  <string name="monthlyXArena">Méintlech %s Arena</string>
+  <string name="monthlyX">Méintlech %s</string>
+  <string name="yearlyRapidArena">Järlech Rapid Arena</string>
+  <string name="yearlyRapid">Järlech Rapid</string>
+  <string name="yearlyClassicalArena">Järlech Klassesch</string>
+  <string name="yearlyClassical">Järlech Klassesch</string>
+  <string name="yearlyXArena">Järlech %s Arena</string>
+  <string name="yearlyX">Järlech %s</string>
+  <string name="rapidShieldArena">Rapid Schëld-Arena</string>
+  <string name="rapidShield">Rapid Schëld</string>
+  <string name="classicalShieldArena">Klassesch Schëld-Arena</string>
+  <string name="classicalShield">Klassesch Schëld</string>
+  <string name="xShieldArena">%s Schëld-Arena</string>
+  <string name="xShield">%s Schëld</string>
+  <string name="xTeamBattle">%s Ekippenkampf</string>
+  <string name="eliteXArena">Elite %s Arena</string>
+  <string name="eliteX">Elite %s</string>
+  <string name="xArena">%s Arena</string>
+</resources>

@@ -1,0 +1,142 @@
+#main-wrap {
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
+  }
+}
+
+@include breakpoint(max-height 1050px) {
+  body {
+    overflow-y: scroll;
+    margin-bottom: 0;
+  }
+}
+
+.puzzle {
+  grid-area: main;
+  display: grid;
+
+  &--nvui {
+    display: block;
+    max-width: 800px;
+  }
+
+  &__side {
+    @extend %zen;
+    grid-area: side;
+  }
+
+  &__board {
+    grid-area: board;
+  }
+
+  &__tools {
+    grid-area: tools;
+  }
+
+  &__controls {
+    @extend %zen;
+    grid-area: controls;
+  }
+
+  &__session {
+    @extend %zen;
+    grid-area: session;
+    align-self: start;
+  }
+
+  .eval-gauge {
+    grid-area: gauge;
+  }
+
+  .keyboard-move {
+    grid-area: kb-move;
+  }
+
+  grid-template-areas: 'board' 'controls' 'tools' 'session' 'kb-move' 'side';
+  grid-row-gap: $block-gap;
+
+  &__moves {
+    display: none;
+  }
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: var(--col2-uniboard-width) var(--gauge-gap) $col2-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+      'board   gauge tools'
+      'session .     controls'
+      'kb-move .     controls'
+      'side    side  side';
+
+    &__moves {
+      display: block;
+    }
+  }
+
+  @include breakpoint($mq-col2-uniboard-squeeze) {
+    grid-template-columns: $col2-uniboard-squeeze-width var(--gauge-gap) $col2-uniboard-squeeze-table;
+  }
+
+  @include breakpoint($mq-col3) {
+    grid-template-areas:
+      'side    . board   gauge tools'
+      'side    . session .     controls'
+      'side    . kb-move .     controls'
+      'side    . .       .     .';
+    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
+  }
+
+  &__side {
+    display: grid;
+    grid-gap: $block-gap;
+    grid-template-areas: 'user' 'theme' 'metas' 'config';
+
+    .puzzle-replay & {
+      grid-template-areas: 'replay' 'user' 'theme' 'metas' 'config';
+    }
+
+    @include breakpoint($mq-xx-small) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
+      grid-template-rows: min-content min-content min-content;
+
+      .puzzle-replay & {
+        grid-template-areas: 'metas replay' 'metas user' 'config user' 'config theme';
+      }
+    }
+
+    @include breakpoint($mq-x-large) {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'metas' 'user' 'theme' 'config';
+      grid-template-rows: min-content min-content min-content;
+      min-width: 250px;
+      max-width: 350px;
+
+      .puzzle-replay & {
+        grid-template-areas: 'metas' 'replay' 'user' 'theme' 'config';
+      }
+    }
+
+    &__metas {
+      grid-area: metas;
+    }
+
+    &__user {
+      grid-area: user;
+    }
+
+    &__config {
+      grid-area: config;
+    }
+
+    &__theme {
+      grid-area: theme;
+    }
+
+    &__replay {
+      grid-area: replay;
+    }
+  }
+}

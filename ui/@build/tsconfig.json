@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig_module.base.json",
+  "include": ["src/*.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "allowUnreachableCode": true,
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "noImplicitThis": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "strict": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "declaration": false,
+    "lib": ["ES2020"],
+    "types": ["node", "web"]
+  }
+}

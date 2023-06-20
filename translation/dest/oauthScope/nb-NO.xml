@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Ny tilgangsnøkkel for API</string>
+  <string name="tokenGrantsPermission">En tilgangsnøkkel gir andre lov til å bruke kontoen din.</string>
+  <string name="carefullySelect">Vær nøye med hva andre kan gjøre på dine vegne.</string>
+  <string name="tokenDescription">Beskrivelse av tilgangsnøkkelen</string>
+  <string name="rememberTokenUse">For at du skal huske hva denne tilgangsnøkkelen gjelder</string>
+  <string name="whatTheTokenCanDo">Hva tilgangsnøkkelen kan gjøre på dine vegne:</string>
+  <string name="doNotShareIt">Tilgangsnøkkelen gir tilgang til kontoen din. Ikke del den.</string>
+  <string name="copyTokenNow">Kopier tilgangsnøkkelen din. Den blir aldri vist igjen.</string>
+  <string name="preferenceRead">Lese innstillinger</string>
+  <string name="preferenceWrite">Skrive innstillinger</string>
+  <string name="emailRead">Lese e-postadresse</string>
+  <string name="challengeRead">Lese innkommende utfordringer</string>
+  <string name="challengeWrite">Sende, godta og avslå utfordringer</string>
+  <string name="challengeBulk">Opprette mange partier på én gang for andre spillere</string>
+  <string name="studyRead">Lese private studier og overføringer</string>
+  <string name="studyWrite">Opprette, oppdatere og slette studier og overføringer</string>
+  <string name="tournamentWrite">Opprette, oppdatere og delta i turneringer</string>
+  <string name="racerWrite">Opprette og delta i sjakknøttløp</string>
+  <string name="puzzleRead">Lese sjakknøttaktivitet</string>
+  <string name="teamRead">Lese privat laginformasjon</string>
+  <string name="teamWrite">Delta i og forlate lag</string>
+  <string name="teamLead">Administrere lag du leder: sende meldinger, fjerne medlemmer</string>
+  <string name="followRead">Lese fulgte spillere</string>
+  <string name="followWrite">Følge og slutte å følge andre spillere</string>
+  <string name="msgWrite">Sende private meldinger til andre spillere</string>
+  <string name="boardPlay">Spille partier med brett-api</string>
+  <string name="botPlay">Spille partier med bot-api</string>
+  <string name="engineRead">Vise og bruke dine eksterne sjakkmotorer</string>
+  <string name="engineWrite">Opprette og oppdatere eksterne sjakkmotorer</string>
+  <string name="webLogin">Opprette autentiserte nettstedøkter (gir full tilgang!)</string>
+  <string name="webMod">Bruke moderatorverktøy (innenfor rammene av tillatelsene dine)</string>
+</resources>

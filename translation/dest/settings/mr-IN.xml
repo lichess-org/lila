@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">सेटिंग्ज</string>
+  <string name="closeAccount">खाते बंद करा</string>
+  <string name="closingIsDefinitive">बंद करणे निश्चित आहे. पुन्हा मागे जाता येणार नाही? तुम्हाला खात्री आहे?</string>
+  <string name="cantOpenSimilarAccount">तुम्हाला नवीन खाते त्याच नावाने पुन्हा चालू करता येणार नाही, जरी नावात capital किंवा small letter वापरले तरीही.</string>
+  <string name="changedMindDoNotCloseAccount">मी माझे मत बदलत आहे, माझे खाते बंद करू नका</string>
+  <string name="closeAccountExplanation">तुमचे खाते नक्की बंद करायचे का? खाते बंद करण्याचा निर्णय पुन्हा बदलता येणार नाही. तुम्ही परत कधीही लॉग इन करू शकणार नाही.</string>
+  <string name="thisAccountIsClosed">हे खाते बंद झाले आहे.</string>
+</resources>

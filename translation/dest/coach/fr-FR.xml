@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Coaches sur Lichess</string>
+  <string name="lichessCoach">Coach sur Lichess</string>
+  <string name="areYouCoach">Êtes-vous entraîneur d\'échecs avec un %s ?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Maitre national ou titre FIDE</string>
+  <string name="confirmTitle">Confirmez votre titre ici et nous examinerons votre demande.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Envoyez-nous un courriel à %s et nous examinerons votre demande.</string>
+  <string name="location">Localisation</string>
+  <string name="languages">Langues</string>
+  <string name="rating">Classement</string>
+  <string name="hourlyRate">Tarif horaire</string>
+  <string name="availability">Disponibilité</string>
+  <string name="accepting">Accepte des élèves</string>
+  <string name="notAccepting">N\'accepte plus d\'élèves pour le moment</string>
+  <string name="xCoachesStudents">%s entraîne des joueurs d\'échecs</string>
+  <string name="viewXProfile">Voir le profil Lichess de %s</string>
+  <string name="sendPM">Envoyer un message privé</string>
+  <string name="aboutMe">À propos de moi</string>
+  <string name="playingExperience">Expérience de jeu</string>
+  <string name="teachingExperience">Expérience d\'enseignement</string>
+  <string name="otherExperiences">Autres expériences</string>
+  <string name="bestSkills">Meilleures compétences</string>
+  <string name="teachingMethod">Méthode d\'enseignement</string>
+  <string name="publicStudies">Études publiques</string>
+  <string name="youtubeVideos">Vidéos YouTube</string>
+</resources>

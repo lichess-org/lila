@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="playWithAFriend">Laciyaar saaxiibkaa</string>
+  <string name="playWithTheMachine">La ciyaar computer</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Saa codsi ugu dirto qof kula ciyara, see URLkaan</string>
+  <string name="gameOver">Ciyaartii waa dhamaatay</string>
+  <string name="waitingForOpponent">Waxaad sugaysa qof kula dheela</string>
+  <string name="waiting">Sugitaan</string>
+  <string name="yourTurn">Waa markaagii</string>
+  <string name="aiNameLevelAiLevel">%1$sheer%2$s</string>
+  <string name="level">Heerarka</string>
+  <string name="strength">Awoodaada</string>
+  <string name="toggleTheChat">Chess</string>
+  <string name="resign">Is casil</string>
+  <string name="stalemate">Ismarinwaa</string>
+  <string name="white">Cadaan</string>
+  <string name="black">Madoow</string>
+  <string name="createAGame">Abuur ciyaar cusub</string>
+  <string name="whiteIsVictorious">Cadaankaa badiyey</string>
+  <string name="blackIsVictorious">Madoowbaa badiyey</string>
+  <string name="youPlayTheWhitePieces">Waxaad ku ciyaaraysaa kuwa cadaanka</string>
+  <string name="youPlayTheBlackPieces">Waxaad ku ciyaraysaa kuwa madoowga</string>
+  <string name="itsYourTurn">Waa markaagii!</string>
+  <string name="raceFinished">Tartankii waa dhamaaday</string>
+  <string name="joinTheGame">Kubiir ciyaarta</string>
+  <string name="whitePlays">Cadaanbaa baa ciyaaraya</string>
+  <string name="blackPlays">Madowbaa ciyaaraya</string>
+  <string name="forceResignation">Guusha qaado</string>
+  <string name="forceDraw">Bareejo dalbo</string>
+  <string name="talkInChat">Fadlan si wanaagsan u isticmal luqa!</string>
+  <string name="whiteResigned">caadaan wuu iscasilay</string>
+  <string name="blackResigned">Madow wa iscasilay</string>
+  <string name="whiteLeftTheGame">Cadaan wuu ka baxay ciyaarta</string>
+  <string name="blackLeftTheGame">Madow wuu ka baxay ciyaarta</string>
+  <string name="whiteDidntMove">Cadaan waxba ma dhaqaaqijin</string>
+  <string name="blackDidntMove">Madow waxba ma dhaqaajin</string>
+  <string name="requestAComputerAnalysis">Dalbo in computer falanqeeyo</string>
+  <string name="computerAnalysis">Falanqaynta computerka</string>
+  <string name="computerAnalysisAvailable">falanqaynta computerka wa diyaar</string>
+  <string name="computerAnalysisDisabled">falanqayn computerka maleh</string>
+  <string name="analysis">Looxa falanqaynta</string>
+  <string name="goDeeper">Gudaha usii gal</string>
+  <string name="showThreat">Itus khatarta</string>
+  <string name="move">Dhaqaaq</string>
+</resources>

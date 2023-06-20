@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">مسابقات أرينا</string>
+  <string name="isItRated">هل هي مقيمة؟</string>
+  <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا فإنه من الآمن اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
+  <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
+  <string name="isNotRated">هذه البطولة *ليست* مقيمة *ولن* تؤثر على تقييمك.</string>
+  <string name="someRated">بعض البطولات تكون مقيمة وسوف تؤثر على تقييمك.</string>
+  <string name="howAreScoresCalculated">كيف يتم احتساب النقاط؟</string>
+  <string name="howAreScoresCalculatedAnswer">الفوز نتيجته الأساسية  2 نقطة، التعادل: 1 نقطة، والخسارة 0 نقطة.
+إذا ربحت مباراتين على التوالي سوف تبدأ مرحلة مضاعفة النقاط، ويمثلها رمز الشعلة.
+وسوف تستمر المباريات التالية مضاعفة النقاط حتى تفشل في الفوز في مباراة.
+بمعنى أن، الفوز سيستحق 4 نقاط، التعادل: 2 نقطة، وستبقى الخسارة تستحق 0 نقطة.
+كمثال، انتصاران يليهما تعادل سيساوي 6 نقاط: 2 + 2 + (2 × 1)</string>
+  <string name="berserk">مخاطرة أرينا</string>
+  <string name="berserkAnswer">عندما يضغط اللاعب زر المخاطرة في بداية المباراة سيفقد اللاعب نصف وقته لكنه في حال الفوز يحصل على نقطة إضافية.
+المخاطرة في حالة الوقت المتزايد يلغي الزيادة مع كل نقلة (يستثنى من ذلك نمط دقيقة +2 ث زيادة/نقلة ، ستلغى الزيادة لكن الوقت سيكون دقيقة فقط)
+المخاطرة غير متاحة للمباريات ذات التوقيت صفر +زيادة بالثواني (0+1ث/نقلة, 0+2ث).
+المخاطرة تضمن النقطة الإضافية إذا لعبت على الأقل 7 نقلات.</string>
+  <string name="howIsTheWinnerDecided">كيف يحدد الفائز؟</string>
+  <string name="howIsTheWinnerDecidedAnswer">اللاعب (اللاعبون) ذو النقاط الأعلى في نهاية الوقت المحدد للبطولة يتم إعلانه/م فائز/ين.</string>
+  <string name="howDoesPairingWork">كيف يتم التزويج؟</string>
+  <string name="howDoesPairingWorkAnswer">في بداية البطولة، يتم إزواج اللاعبين على أساس تقييمهم. بمجرد الانتهاء من مباراتك، والعودة إلى بهو البطولة: سيتم ازواجك مع لاعب قريب من ترتيبك. وهذا ما يضمن وقت إنتظار أقل،بأي حال قد لا تواجه سائر اللاعبين في هذه البطولة. العب سريعًا وعد إلى المسابقة للعب مباريات أكثر واكسب المزيد من النقاط.</string>
+  <string name="howDoesItEnd">كيف تنتهي البطولة؟</string>
+  <string name="howDoesItEndAnswer">للبطولة ساعة عد تنازلي. عندما تصل إلى الصفر، يتم تجميد ترتيب مراكز البطولة، ويتم الإعلان عن الفائز. يجب أن يتم الانتهاء من المباريات قيد اللعب، ومع ذلك فإنها لا تحتسب نتائجها في البطولة.</string>
+  <string name="otherRules">قواعد أخرى هامة</string>
+  <string name="thereIsACountdown">هناك عد تنازلي لخطوتك الأولى. الفشل في اتخاذ خطوة خلال هذا الوقت ستخسر اللعبة لصالح خصمك.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="zero">اعلان التعادل في النقلات ال%s الاولى لن يكسب اللاعبين اي نقطه.</item>
+    <item quantity="one">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي من اللاعبين أي نِقَاط.</item>
+    <item quantity="two">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي لاعب أي نقطة.</item>
+    <item quantity="few">إعلان التعادل خلال النقلات %s الأولى لن يكسب أي من اللاعبين أي نقطة.</item>
+    <item quantity="many">إعلان التعادل خلال النقلات %s الأولى لن يكسب اللاعبين أي نِقَاط.</item>
+    <item quantity="other">اعلان التعادل خلال النقلات ال%s الأولى لن يكسب أي لاعب أي نقطة.</item>
+  </plurals>
+  <string name="thisIsPrivate">هذه بطولة خاصة</string>
+  <string name="shareUrl">شارك الرابط لتسمح للناس بالإنضمام: %s</string>
+  <string name="drawStreakStandard">سلسلة تعادلات: عندما يحصل لاعب على تعادلات متتالية فى مسابقات أرينا, يحصل اللاعب على نقطة من أول تعادل فقط, او من التعادلات التى إجتازت %s نقلة. يمكن كسر سلسلة تعادلات عن طريق الربح فقط, وليس خسارة أو تعادل.</string>
+  <string name="drawStreakVariants">الحد الادنى للمباريات المتعادلة لاحراز نقطة يختلف من متغير للثاني انظلا للجدول ادناه لمعرفى النقاط.</string>
+  <string name="variant">متغير (أنواع شطرنج غير الكلاسيكي)</string>
+  <string name="minimumGameLength">الحد الادنى لطول المباراة</string>
+  <string name="history">يُمكنك الإطلاع على جميع مسابقات أرينا السابقة حسب النمط من خلال الرتبط التالي: https://lichess. org/tournament/history</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="zero">%s عرض للفرق</item>
+    <item quantity="one">عرض الفريق</item>
+    <item quantity="two">عرض %s فرق</item>
+    <item quantity="few">عرض %s الفرق</item>
+    <item quantity="many">عرض %s فرق</item>
+    <item quantity="other">عرض %s فرق</item>
+  </plurals>
+  <string name="newTeamBattle">معركة فريق جديدة</string>
+  <string name="customStartDate">تاريخ بدأ مخصص</string>
+  <string name="customStartDateHelp">في المنطقة الزمنية المحلية الخاصة بك. هذا يتجاوز إعداد \"الوقت قبل بدء البطولة\"</string>
+  <string name="allowBerserk">السماح بالتحدي بنصف الوقت</string>
+  <string name="allowBerserkHelp">السماح للاعبين بالتضحية بنصف وقتهم مقابل الحصول على نقاط إضافية</string>
+  <string name="allowChatHelp">السماح للاعبين بالمناقشة في غرفة الدردشة</string>
+  <string name="arenaStreaks">تسلسل الفوز في الارينا</string>
+  <string name="arenaStreaksHelp">بعد تحقيق فوزين، الفوز المتتالي يمنحك اربعة نقاط بدلاً من ٢.</string>
+  <string name="noBerserkAllowed">كسر الوقت غير مسموح به</string>
+  <string name="noArenaStreaks">لا يوجد تسلسل بالفوز</string>
+  <string name="averagePerformance">متوسط الأداء</string>
+  <string name="averageScore">معدل النقاط</string>
+</resources>

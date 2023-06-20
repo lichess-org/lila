@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Баптаулар</string>
+  <string name="closeAccount">Тіркелгіні жабу</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Сіздің тіркелгіңіз біреудің басқаруында, сондықтан сіз оны жаба алмайсыз.</string>
+  <string name="closingIsDefinitive">Жабу - түпкілікті! Кері жол жоқ. Сенімдісіз бе?</string>
+  <string name="cantOpenSimilarAccount">Кейін дәл сондай атпенен жаңа тіркелгі жасай алмайсыз (әріп үлкендігі басқаша болса да).</string>
+  <string name="changedMindDoNotCloseAccount">Мен ойымды өзгерттім, тіркелгімді жаппаңызшы</string>
+  <string name="closeAccountExplanation">Сіз өз тіркелгіңіздің жабуын растайсыз ба? Тіркелгі жабу - қайтарымсыз әрекет. Тіркелгіге қайтадан ЕШҚАШАН КІРЕ АЛМАЙСЫЗ.</string>
+  <string name="thisAccountIsClosed">Бұл тіркелгі жабылды.</string>
+</resources>

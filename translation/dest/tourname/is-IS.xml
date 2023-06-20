@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Atskákmót á klukkutímafresti</string>
+  <string name="hourlyRapid">Atskákmót á klukkutímafresti</string>
+  <string name="dailyRapidArena">Daglegt atskákmót</string>
+  <string name="dailyRapid">Daglegt atskák</string>
+  <string name="dailyClassicalArena">Daglegt mót í hefðbundinni skák</string>
+</resources>

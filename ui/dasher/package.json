@@ -1,0 +1,28 @@
+{
+  "name": "dasher",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org multipurpose dropdown",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "dependencies": {
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "common": "workspace:*",
+    "snabbdom": "^3.5.1"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "modules": {
+      "esm": {
+        "src/main.ts": "dasher"
+      }
+    }
+  }
+}

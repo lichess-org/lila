@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Ιδιωτικό</string>
+  <string name="myStudies">Οι μελέτες μου</string>
+  <string name="studiesIContributeTo">Μελέτες που συνεισφέρω</string>
+  <string name="myPublicStudies">Οι δημόσιες μελέτες μου</string>
+  <string name="myPrivateStudies">Οι ιδιωτικές μελέτες μου</string>
+  <string name="myFavoriteStudies">Οι αγαπημένες μελέτες μου</string>
+  <string name="whatAreStudies">Τι είναι οι μελέτες;</string>
+  <string name="allStudies">Όλες οι μελέτες</string>
+  <string name="studiesCreatedByX">Μελέτες που δημιουργήθηκαν από τον/την %s</string>
+  <string name="noneYet">Τίποτα ακόμη εδώ.</string>
+  <string name="hot">Δημοφιλείς (hot)</string>
+  <string name="dateAddedNewest">Ημερομηνία προσθήκης (νεότερες)</string>
+  <string name="dateAddedOldest">Ημερομηνία προσθήκης (παλαιότερες)</string>
+  <string name="recentlyUpdated">Πρόσφατα ενημερωμένες</string>
+  <string name="mostPopular">Οι πιο δημοφιλείς</string>
+  <string name="alphabetical">Αλφαβητικά</string>
+  <string name="addNewChapter">Προσθήκη νέου κεφαλαίου</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Κεφάλαιο</item>
+    <item quantity="other">%s Κεφάλαια</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Παρτίδα</item>
+    <item quantity="other">%s Παρτίδες</item>
+  </plurals>
+  <string name="addMembers">Προσθήκη μελών</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Μέλος</item>
+    <item quantity="other">%s Μέλη</item>
+  </plurals>
+  <string name="inviteToTheStudy">Προσκάλεσε στην μελέτη</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Παρακαλώ, προσκαλέστε μόνο άτομα που γνωρίζετε και που θέλουν να συμμετέχουν ενεργά σε αυτήν την μελέτη.</string>
+  <string name="searchByUsername">Αναζήτηση με όνομα χρήστη</string>
+  <string name="spectator">Θεατής</string>
+  <string name="contributor">Συνεισφέρων</string>
+  <string name="kick">Διώξε</string>
+  <string name="leaveTheStudy">Αποχώρησε από αυτήν την μελέτη</string>
+  <string name="youAreNowAContributor">Μπορείτε τώρα να συνεισφέρετε στην μελέτη</string>
+  <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
+  <string name="pgnTags">PGN ετικέτες</string>
+  <string name="like">Μου αρέσει</string>
+  <string name="unlike">Δε μου αρέσει</string>
+  <string name="newTag">Νέα ετικέτα</string>
+  <string name="commentThisPosition">Σχολίασε την υπάρχουσα θέση</string>
+  <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
+  <string name="annotateWithGlyphs">Σχολιασμός με σύμβολα</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Μόνο αυτοί που συνεισφέρουν στην σπουδή μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
+  <string name="getAFullComputerAnalysis">Αίτηση πλήρης ανάλυσης της κύριας γραμμής παρτίδας από μηχανή του σέρβερ.</string>
+  <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα συγχρονισμένα μέλη παραμένουν στην ίδια θέση</string>
+  <string name="shareChanges">Διαμοιρασμός στους θεατές των αλλαγών και αποθήκευση τους στο σέρβερ</string>
+  <string name="playing">Παίζονται</string>
+  <string name="first">Πρώτη</string>
+  <string name="previous">Προηγούμενη</string>
+  <string name="next">Επόμενη</string>
+  <string name="last">Τελευταία</string>
+  <string name="shareAndExport">Διαμοιρασμός &amp; εξαγωγή</string>
+  <string name="cloneStudy">Κλωνοποίησε</string>
+  <string name="studyPgn">PGN της μελέτης</string>
+  <string name="downloadAllGames">Λήψη όλων των παιχνιδιών</string>
+  <string name="chapterPgn">PGN του κεφαλαίου</string>
+  <string name="downloadGame">Λήψη παιχνιδιού</string>
+  <string name="studyUrl">URL μελέτης</string>
+  <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Επικολλήστε το παρόν για ενσωμάτωση στο φόρουμ</string>
+  <string name="startAtInitialPosition">Ξεκινάει από αρχική θέση</string>
+  <string name="startAtX">Ξεκινάει με %s</string>
+  <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας ή το μπλογκ σας</string>
+  <string name="readMoreAboutEmbedding">Διαβάστε περισσότερα για την ενσωμάτωση</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Μόνο δημόσιες μελέτες μπορούν να ενσωματωθούν!</string>
+  <string name="open">Άνοιξε</string>
+  <string name="xBroughtToYouByY">%1$s, δημιουργήθηκε από %2$s</string>
+  <string name="studyNotFound">Η μελέτη δεν βρέθηκε</string>
+  <string name="editChapter">Επεξεργάσου το κεφάλαιο</string>
+  <string name="newChapter">Νέο κεφάλαιο</string>
+  <string name="importFromChapterX">Εισαγωγή από %s</string>
+  <string name="orientation">Προσανατολισμός</string>
+  <string name="analysisMode">Τύπος ανάλυσης</string>
+  <string name="pinnedChapterComment">Καρφιτσωμένο σχόλιο κεφαλαίου</string>
+  <string name="saveChapter">Αποθήκευση κεφαλαίου</string>
+  <string name="clearAnnotations">Διαγραφή σχολιασμών</string>
+  <string name="clearVariations">Εκκαθάριση βαριάντων</string>
+  <string name="deleteChapter">Διαγραφή κεφαλαίου</string>
+  <string name="deleteThisChapter">Διαγραφή κεφαλαίου; Μη αναιρέσιμη ενέργεια!</string>
+  <string name="clearAllCommentsInThisChapter">Καθαρισμός όλων των σχολίων, συμβόλων και σχεδίων στο τρέχον κεφάλαιο;</string>
+  <string name="rightUnderTheBoard">Κάτω από την σκακιέρα</string>
+  <string name="noPinnedComment">Καμία</string>
+  <string name="normalAnalysis">Απλή ανάλυση</string>
+  <string name="hideNextMoves">Απόκρυψη επόμενων κινήσεων</string>
+  <string name="interactiveLesson">Διαδραστικό μάθημα</string>
+  <string name="chapterX">Κεφάλαιο %s</string>
+  <string name="empty">Κενή</string>
+  <string name="startFromInitialPosition">Έναρξη από τρέχουσα θέση</string>
+  <string name="editor">Επεξεργαστής</string>
+  <string name="startFromCustomPosition">Έναρξη από τρέχουσα θέση</string>
+  <string name="loadAGameByUrl">Φόρτωση παρτίδας με URL</string>
+  <string name="loadAPositionFromFen">Φόρτωση θέσης από FEN</string>
+  <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
+  <string name="automatic">Αυτόματο</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδα</item>
+    <item quantity="other">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδες</item>
+  </plurals>
+  <string name="urlOfTheGame">URL παρτίδων, ένα ανά γραμμή</string>
+  <string name="loadAGameFromXOrY">Φόρτωση παρτίδων από %1$s ή %2$s</string>
+  <string name="createChapter">Δημιουργία κεφαλαίου</string>
+  <string name="createStudy">Δημιουργία μελέτης</string>
+  <string name="editStudy">Επεξεργασία μελέτης</string>
+  <string name="visibility">Ορατότητα</string>
+  <string name="public">Δημόσια</string>
+  <string name="unlisted">Ακαταχώρητη</string>
+  <string name="inviteOnly">Με πρόσκληση</string>
+  <string name="allowCloning">Επέτρεψε αντιγραφή</string>
+  <string name="nobody">Κανένας</string>
+  <string name="onlyMe">Μόνο εγώ</string>
+  <string name="contributors">Συνεισφέροντες</string>
+  <string name="members">Μέλη</string>
+  <string name="everyone">Οποιοσδήποτε</string>
+  <string name="enableSync">Ενεργοποίηση συγχρονισμού</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ναι: όλοι βλέπουν την ίδια θέση</string>
+  <string name="noLetPeopleBrowseFreely">Όχι: ελεύθερη επιλογή θέσης</string>
+  <string name="pinnedStudyComment">Καρφιτσωμένο σχόλιο μελέτης</string>
+  <string name="start">Δημιουργία</string>
+  <string name="save">Αποθήκευση</string>
+  <string name="clearChat">Εκκαθάριση συνομιλίας</string>
+  <string name="deleteTheStudyChatHistory">Διαγραφή συνομιλίας μελέτης; Μη αναιρέσιμη ενέργεια!</string>
+  <string name="deleteStudy">Διαγραφή μελέτης</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Να διαγραφεί όλη η μελέτη; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί! Πληκτρολογήστε το όνομα της μελέτης για επιβεβαίωση: %s</string>
+  <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσετε την μελέτη;</string>
+  <string name="goodMove">Καλή κίνηση</string>
+  <string name="mistake">Λάθος</string>
+  <string name="brilliantMove">Εξαιρετική κίνηση</string>
+  <string name="blunder">Σοβαρό λάθος</string>
+  <string name="interestingMove">Ενδιαφέρουσα κίνηση</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Κίνηση αμφίβολης αξίας</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Μοναδική κίνηση</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Τσούγκσβανγκ</string>
+  <string name="equalPosition">Ισόπαλη θέση</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Ασαφής θέση</string>
+  <string name="whiteIsSlightlyBetter">Το λευκά είναι ελαφρώς καλύτερα</string>
+  <string name="blackIsSlightlyBetter">Το μαύρα είναι ελαφρώς καλύτερα</string>
+  <string name="whiteIsBetter">Τα λευκά είναι καλύτερα</string>
+  <string name="blackIsBetter">Τα μαύρα είναι καλύτερα</string>
+  <string name="whiteIsWinning">Τα λευκά κερδίζουν</string>
+  <string name="blackIsWinning">Τα μαύρα κερδίζουν</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novelty</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Ανάπτυξη</string>
+  <string name="initiative">Πρωτοβουλία</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Επίθεση</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Αντεπίθεση</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Πίεση χρόνου</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Με αντάλλαγμα</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Με ιδέα</string>
+  <string name="nextChapter">Επόμενο κεφάλαιο</string>
+  <string name="prevChapter">Προηγούμενο κεφάλαιο</string>
+  <string name="studyActions">Ρυθμίσεις μελέτης</string>
+  <string name="topics">Θέματα</string>
+  <string name="myTopics">Τα θέματά μου</string>
+  <string name="popularTopics">Δημοφιλή θέματα</string>
+  <string name="manageTopics">Διαχείριση θεμάτων</string>
+  <string name="back">Πίσω</string>
+  <string name="playAgain">Παίξτε ξανά</string>
+  <string name="whatWouldYouPlay">Τι θα παίζατε σε αυτή τη θέση;</string>
+  <string name="youCompletedThisLesson">Συγχαρητήρια! Ολοκληρώσατε αυτό το μάθημα.</string>
+</resources>

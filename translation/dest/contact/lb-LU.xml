@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Kontakt</string>
+  <string name="contactLichess">Lichess kontaktéieren</string>
+  <string name="whatCanWeHelpYouWith">Woubäi kënne mir dir hëllefen?</string>
+  <string name="visitThisPage">Besich dës Säit fir den Probleem ze léisen</string>
+  <string name="iCantLogIn">Ech kann mech net aloggen</string>
+  <string name="noConfirmationEmail">Ech hunn keng Confirmatiounsemail kritt</string>
+  <string name="forgotPassword">Ech hunn mäin Passwuert vergiess</string>
+  <string name="forgotUsername">Ech hun mäin Benotzernumm vergiess</string>
+  <string name="youCanLoginWithEmail">Du kanns dech mat der Email Adress aloggen mat der du dech ugemellt hues</string>
+  <string name="lost2FA">Ech hunn Accès zu mengen Zwee-Faktor-Authentifizéierungs Codes verluer</string>
+  <string name="doPasswordReset">Passwuert zerécksétzen fir den zweeten Faktor ze läschen</string>
+  <string name="accountSupport">Ech brauch Benotzerkonto-Ënnerstëtzung</string>
+  <string name="wantTitle">Ech wëll mäin Titel op Lichess ugewisen kréien</string>
+  <string name="wantCloseAccount">Ech wëll mäin Konto zoumaachen</string>
+  <string name="closeYourAccount">Du kanns däin Konto op dëser Säit zoumaachen</string>
+  <string name="doNotAskByEmail">Fro eis net per Email fir däin Konto zouzemaachen, mir wäerten en net maachen.</string>
+  <string name="wantReopen">Ech wëll mäin Konto rëm opmaachen</string>
+  <string name="reopenOnThisPage">Du kanns däin Konto op dëser Säit rëm opmaachen. Et geet just eemol.</string>
+  <string name="doNotAskByEmailToReopen">Fro eis net per Email fir däin Konto rëm opzemaachen, mir wäerten en net maachen.</string>
+  <string name="wantChangeUsername">Ech wëll mäin Benotzernumm änneren</string>
+  <string name="wantClearHistory">Ech wëll mäin Verlaf oder meng Wäertung läschen</string>
+  <string name="wantReport">Ech wëll een Spiller mellen</string>
+  <string name="wantReportBug">Ech wëll een Bug mellen</string>
+  <string name="illegalPawnCapture">Illegalen Bauerenschlagzuch</string>
+  <string name="illegalCastling">Illegal oder onméiglech Rochade</string>
+  <string name="insufficientMaterial">Ongenügend Mattmaterial</string>
+  <string name="noRatingPoints">Keng Wäertungspunkten goufen verdeelt</string>
+  <string name="errorPage">Feelersäit</string>
+  <string name="wantBroadcastTournament">Ech wëll een Turnéier iwwerdroen</string>
+  <string name="banAppeal">Asproch géint een Bann oder eng IP Restriktioun</string>
+  <string name="engineAppeal">Engine- oder Bedruchsmarkéierung</string>
+  <string name="sendAppealTo">Du kanns däin Asproch un %s schécken.</string>
+  <string name="otherRestriction">Aner Aschränkung</string>
+  <string name="collaboration">Zesummenaarbecht, Legales, Kommerzielles</string>
+  <string name="monetizing">Lichess monetiséieren</string>
+  <string name="buyingLichess">Lichess kafen</string>
+  <string name="authorizationToUse">Authorisatioun fir Lichess ze benotzen</string>
+  <string name="noneOfTheAbove">Näischt dovun</string>
+  <string name="sendEmailAt">Schéck eis eng Email un %s.</string>
+</resources>

@@ -1,0 +1,35 @@
+{
+  "name": "racer",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org puzzle racer",
+  "keywords": [
+    "chess",
+    "lichess",
+    "puzzle",
+    "racer"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "chess": "workspace:*",
+    "chessops": "^0.12.7",
+    "common": "workspace:*",
+    "puz": "workspace:*",
+    "snabbdom": "^3.5.1"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "modules": {
+      "esm": {
+        "src/main.ts": "racer"
+      }
+    }
+  }
+}

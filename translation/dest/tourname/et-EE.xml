@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Igatunnine kiirmale areen</string>
+  <string name="hourlyRapid">Igatunnine kiirmale</string>
+  <string name="hourlyXArena">Igatunnine %s areen</string>
+  <string name="hourlyX">Igatunnine %s</string>
+  <string name="dailyRapidArena">Päevane kiirmale areen</string>
+  <string name="dailyRapid">Päevane kiirmale</string>
+  <string name="dailyClassicalArena">Päevane klassikaline areen</string>
+  <string name="dailyClassical">Päevane klassikaline</string>
+  <string name="dailyXArena">Päevane %s areen</string>
+  <string name="dailyX">Päevane %s</string>
+  <string name="easternRapidArena">Idapoolkera kiirmale areen</string>
+  <string name="easternRapid">Idapoolkera kiirmale</string>
+  <string name="easternClassicalArena">Idapoolkera klassikaline areen</string>
+  <string name="easternClassical">Idapoolkera klassikaline</string>
+  <string name="easternXArena">Idapoolkera %s areen</string>
+  <string name="easternX">Idapoolkera %s</string>
+  <string name="weeklyRapidArena">Nädala kiirmale areen</string>
+  <string name="weeklyRapid">Iganädalane Rapid</string>
+  <string name="weeklyClassicalArena">Nädala klassikaline areen</string>
+  <string name="weeklyClassical">Nädala klassikaline</string>
+  <string name="weeklyXArena">Nädala %s areen</string>
+  <string name="weeklyX">Nädala %s</string>
+  <string name="monthlyRapidArena">Igakuine kiirmale areen</string>
+  <string name="monthlyRapid">Kuu kiirmale</string>
+  <string name="monthlyClassicalArena">Igakuine klassikaline areen</string>
+  <string name="monthlyClassical">Igakuine klassikaline</string>
+  <string name="monthlyXArena">Igakuine %s areen</string>
+  <string name="monthlyX">Igakuine %s</string>
+  <string name="yearlyRapidArena">Iga-aastane kiirmale areen</string>
+  <string name="yearlyRapid">Iga-aastane kiirmale</string>
+  <string name="yearlyClassicalArena">Iga-aastane klassikaline areen</string>
+  <string name="yearlyClassical">Iga-aastane klassikaline</string>
+  <string name="yearlyXArena">Iga-aastane %s areen</string>
+  <string name="yearlyX">Iga-aastane %s</string>
+  <string name="rapidShieldArena">Kiirmale Kilp areen</string>
+  <string name="rapidShield">Kiirmale Kilp</string>
+  <string name="classicalShieldArena">Klassikaline Kilp areen</string>
+  <string name="classicalShield">Klassikaline Kilp</string>
+  <string name="xShieldArena">%s Kilp areen</string>
+  <string name="xShield">%s Kilp</string>
+  <string name="xTeamBattle">%s Võistkonnalahing</string>
+  <string name="eliteXArena">Eliit %s areen</string>
+  <string name="eliteX">Eliit %s</string>
+  <string name="xArena">%s areen</string>
+</resources>

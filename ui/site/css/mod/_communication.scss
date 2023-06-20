@@ -1,0 +1,149 @@
+@import 'user-marks';
+
+#communication {
+  h1 {
+    @extend %flex-between;
+
+    font-size: 1.5em;
+    margin-bottom: 2vh;
+  }
+
+  .user-link {
+    margin-#{$start-direction}: -0.5em;
+  }
+
+  .actions {
+    @extend %flex-center;
+
+    .priv {
+      margin-#{$start-direction}: 1em;
+      font-weight: normal;
+    }
+  }
+
+  h2 {
+    font-size: 1.6em;
+    margin-top: 1.6em;
+    border-bottom: 1px solid $border;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+  }
+
+  .user-link {
+    font-weight: bold;
+  }
+
+  .public_chats,
+  .notes,
+  .history {
+    margin-top: 0.5em;
+    max-height: 150px;
+    overflow-y: auto;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid $border;
+  }
+
+  .player_chats {
+    @extend %break-word;
+    @extend %flex-wrap;
+
+    overflow: hidden;
+  }
+
+  .public_chats li {
+    list-style: inside disc;
+  }
+
+  .player_chats .game {
+    display: block;
+    float: left;
+    width: 33.33%;
+  }
+
+  .player_chats .game:nth-child(odd) {
+    background: $c-bg-zebra;
+  }
+
+  .player_chats .game .title,
+  .player_chats .game .chat {
+    display: block;
+    padding: 6px;
+  }
+
+  .player_chats .game .friend_title,
+  .thread .title .friend_title {
+    color: green;
+    font-style: italic;
+  }
+
+  .player_chats .game .title {
+    text-align: center;
+  }
+
+  .player_chats .game .chat {
+    padding-top: 0;
+    height: 20em;
+    overflow: hidden;
+  }
+
+  .player_chats .game:hover .chat {
+    overflow-y: auto;
+  }
+
+  .user_marks i {
+    @include user_marks;
+  }
+
+  .player_chats .line,
+  .threads .post {
+    opacity: 0.5;
+    padding: 0 0.5em;
+  }
+
+  .public_chats .line,
+  .player_chats .line.author,
+  .threads .post.author {
+    opacity: 1;
+    cursor: pointer;
+    &:hover {
+      background: fade-out($c-accent, 0.8);
+    }
+  }
+
+  .thread {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+  }
+
+  .thread .title {
+    margin-bottom: 20px;
+    strong {
+      font-size: 1.2em;
+      margin-right: 1em;
+    }
+  }
+
+  .thread .truncated-convo {
+    text-align: center;
+    font-style: italic;
+    display: block;
+  }
+
+  .thread:nth-child(even) {
+    background: $c-bg-zebra;
+  }
+
+  .post {
+    margin: 1em 0;
+  }
+
+  > .mz-section--others {
+    font-size: 0.9em;
+    max-height: 30vh;
+
+    .mod-zone + & {
+      display: none;
+    }
+  }
+}

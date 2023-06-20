@@ -1,0 +1,132 @@
+@import '../../../common/css/component/material';
+
+$player-height: 1.6rem;
+
+.analyse.has-players {
+  cg-board {
+    border-radius: 0;
+  }
+
+  @include breakpoint($mq-col2) {
+    .analyse__underboard {
+      margin-top: calc(#{$player-height / 2} + #{$block-gap / 2});
+    }
+  }
+
+  @include breakpoint($mq-col1) {
+    .analyse__controls {
+      margin-top: $player-height;
+    }
+  }
+}
+
+.study__player {
+  @extend %flex-between-nowrap, %metal, %box-shadow;
+
+  position: absolute;
+  #{$end-direction}: 0;
+  font-weight: bold;
+  width: var(--cg-width, 100%);
+  height: $player-height;
+  white-space: nowrap;
+
+  &-top {
+    @extend %box-radius-top;
+
+    top: #{-$player-height};
+
+    .is3d & {
+      @extend %box-radius;
+
+      top: calc(#{-$player-height} - var(--cg-width) / 20);
+    }
+  }
+
+  &-bot {
+    @extend %box-radius-bottom;
+
+    top: var(--cg-height, 100%);
+  }
+
+  .left {
+    flex: 1 1 100%;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .result {
+    flex: 0 0 auto;
+    margin-#{$start-direction}: 0.8em;
+    padding-#{$end-direction}: 0.8em;
+    border-#{$end-direction}: $border;
+  }
+
+  .analyse__clock {
+    @extend %roboto, %flex-center-nowrap;
+
+    height: 100%;
+    font-size: 1.2em;
+    @include padding-direction(0, 0.8em, 0, 0.4em);
+
+    border-radius: 0 4px 0 0;
+    box-shadow: none;
+  }
+
+  &-bot .analyse__clock {
+    border-radius: 0 0 4px 0;
+  }
+
+  &.ticking .analyse__clock {
+    background: $c-secondary;
+    color: $c-secondary-over;
+    text-shadow: none;
+  }
+
+  .info {
+    margin-#{$start-direction}: 10px;
+    display: flex;
+    overflow: hidden;
+
+    > * {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: fit-content;
+      flex: 1;
+    }
+  }
+
+  .name {
+    margin-#{$start-direction}: 0.5ch;
+    flex: 3;
+  }
+
+  .elo {
+    margin-#{$start-direction}: 0.5em;
+    font-weight: normal;
+  }
+}
+
+.material {
+  padding: 0 6px;
+
+  mpiece {
+    width: 20px;
+    height: 20px;
+
+    &.pawn {
+      margin-#{$start-direction}: -10px;
+    }
+  }
+
+  score {
+    color: #777;
+  }
+}
+
+.material-top {
+  margin-top: 0.2em;
+}
+
+.material-bottom {
+  margin-top: 0.15em;
+}

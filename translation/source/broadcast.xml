@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="broadcasts">Broadcasts</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s broadcast</item>
+    <item quantity="other">%s broadcasts</item>
+  </plurals>
+  <string name="liveBroadcasts">Live tournament broadcasts</string>
+  <string name="newBroadcast">New live broadcast</string>
+  <string name="addRound">Add a round</string>
+  <string name="ongoing">Ongoing</string>
+  <string name="upcoming">Upcoming</string>
+  <string name="completed">Completed</string>
+  <string name="roundName">Round name</string>
+  <string name="roundNumber">Round number</string>
+  <string name="tournamentName">Tournament name</string>
+  <string name="tournamentDescription">Short tournament description</string>
+  <string name="fullDescription">Full tournament description</string>
+  <string name="fullDescriptionHelp">Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters.</string>
+  <string name="sourceUrlOrGameIds">Source URL, or game IDs</string>
+  <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
+  <string name="gameIdsHelp">Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.</string>
+  <string name="startDate">Start date in your own timezone</string>
+  <string name="startDateHelp">Optional, if you know when the event starts</string>
+  <string name="credits">Credit the source</string>
+  <string name="broadcastUrl">Broadcast URL</string>
+  <string name="currentRoundUrl">Current round URL</string>
+  <string name="currentGameUrl">Current game URL</string>
+  <string name="downloadAllRounds">Download all rounds</string>
+  <string name="resetRound">Reset this round</string>
+  <string name="deleteRound">Delete this round</string>
+  <string name="definitivelyDeleteRound">Definitively delete the round and all its games.</string>
+  <string name="deleteAllGamesOfThisRound">Delete all games of this round. The source will need to be active in order to re-create them.</string>
+  <string name="editRoundStudy">Edit round study</string>
+  <string name="deleteTournament">Delete this tournament</string>
+  <string name="definitivelyDeleteTournament">Definitively delete the entire tournament, all its rounds and all its games.</string>
+</resources>

@@ -1,0 +1,168 @@
+$mq-col2: $mq-xx-small;
+$mq-col3: $mq-small;
+$mq-col4: $mq-x-large;
+
+$mq-not-col3: $mq-not-small;
+
+@mixin lobby-app-size {
+  min-height: 300px;
+
+  @include breakpoint($mq-col2) {
+    min-height: 400px;
+  }
+
+  @include breakpoint($mq-col3) {
+    height: 600px;
+    max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
+  }
+}
+
+.lobby {
+  grid-area: main;
+  display: grid;
+  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'about';
+  grid-gap: $block-gap;
+
+  &__counters {
+    margin-top: $block-gap;
+  }
+
+  &__tournaments,
+  &__simuls,
+  &__leaderboard,
+  &__winners {
+    max-height: 20em;
+  }
+
+  .timeline {
+    display: none;
+  }
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto repeat(3, fit-content(0));
+    grid-template-areas:
+      'app    app'
+      'side  table'
+      'blog   blog'
+      'tv   puzzle'
+      'support support'
+      'tours  tours'
+      'leader winner'
+      'about  about';
+
+    &__support {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 2%;
+    }
+  }
+
+  @include breakpoint($mq-col3) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 12em repeat(2, fit-content(0)) auto auto fit-content(0);
+    grid-template-areas:
+      'table  app     app'
+      'side   app     app'
+      'tv     blog    blog'
+      'tv     support support'
+      'puzzle tours   tours'
+      'puzzle leader  winner'
+      'about  leader  winner';
+
+    &__start {
+      flex-flow: column;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    &__counters {
+      margin: #{$block-gap / 3} 0 #{$block-gap / -3} 0;
+    }
+
+    .timeline {
+      display: block;
+      margin-#{$start-direction}: 0;
+    }
+  }
+
+  @include breakpoint($mq-col4) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, fit-content(0)) auto minmax(0, 1fr);
+    grid-template-areas:
+      'side   app     app   table'
+      'tv     blog    blog  puzzle'
+      'tv     tours  tours  puzzle'
+      'about  tours  tours  support'
+      'about  leader winner support';
+
+    &__side {
+      margin-top: 2em;
+    }
+
+    &__counters {
+      margin: 0;
+    }
+
+    &__support {
+      display: flex;
+      flex-flow: column;
+      gap: $block-gap;
+      a {
+        flex: 0 1 auto;
+      }
+    }
+  }
+
+  &__side {
+    grid-area: side;
+  }
+
+  &__app,
+  &__nope {
+    grid-area: app;
+  }
+
+  &__table {
+    grid-area: table;
+  }
+
+  &__tv {
+    grid-area: tv;
+  }
+
+  &__leaderboard {
+    grid-area: leader;
+  }
+
+  &__winners {
+    grid-area: winner;
+  }
+
+  &__wide-winners {
+    grid-area: leader / leader / leader / winner;
+  }
+
+  &__puzzle {
+    grid-area: puzzle;
+  }
+
+  &__tournaments-simuls {
+    grid-area: tours;
+  }
+  &__simuls {
+    margin-top: $block-gap;
+  }
+
+  &__blog {
+    grid-area: blog;
+  }
+
+  &__support {
+    grid-area: support;
+  }
+
+  &__about {
+    grid-area: about;
+  }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">הקרנות</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">הקרנה %s</item>
+    <item quantity="two">%s הקרנות</item>
+    <item quantity="many">%s הקרנות</item>
+    <item quantity="other">%s הקרנות</item>
+  </plurals>
+  <string name="liveBroadcasts">צפייה ישירה בטורנירים</string>
+  <string name="newBroadcast">הקרנה ישירה חדשה</string>
+  <string name="addRound">הוספת סבב</string>
+  <string name="ongoing">כרגע</string>
+  <string name="upcoming">בקרוב</string>
+  <string name="completed">שהושלמו</string>
+  <string name="roundName">שם סבב</string>
+  <string name="roundNumber">מספר סבב</string>
+  <string name="tournamentName">שם הטורניר</string>
+  <string name="tournamentDescription">תיאור הטורניר בקצרה</string>
+  <string name="fullDescription">תיאור מלא של הטורניר</string>
+  <string name="fullDescriptionHelp">תיאור מפורט של הטורניר (אופציונאלי). %1$s זמין. אורך התיאור לא יעלה על %2$s תווים.</string>
+  <string name="sourceUrlOrGameIds">קישור למקור (URL) או מזהה המשחקים (IDs)</string>
+  <string name="sourceUrlHelp">הקישור ש־Lichess יבדוק כדי לקלוט עדכונים ב-PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
+  <string name="gameIdsHelp">לחלופין, ניתן להזין עד 64 IDs של משחקי ליצ׳ס, מופרדים ברווחים.</string>
+  <string name="startDate">תאריך ההתחלה באזור הזמן שלך</string>
+  <string name="startDateHelp">אופציונאלי, אם את/ה יודע/ת מתי האירוע צפוי להתחיל</string>
+  <string name="credits">תן/י קרדיט למקור</string>
+  <string name="resetRound">אפס את הסיבוב הזה</string>
+  <string name="deleteRound">מחיקת הסבב הזה</string>
+  <string name="broadcastUrl">הקישור להקרנה</string>
+  <string name="currentRoundUrl">הקישור לסבב הנוכחי</string>
+  <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
+  <string name="downloadAllRounds">הורדת כל הסבבים</string>
+  <string name="definitivelyDeleteRound">מחיקת הסבב הזה והמשחקים שבו לצמיתות</string>
+  <string name="deleteAllGamesOfThisRound">מחיקת כל המשחקים בסבב הזה. כדי ליצור אותם מחדש, קישור המקור צריך להיות פעיל.</string>
+  <string name="editRoundStudy">עריכת לוח הלמידה של הסבב</string>
+</resources>

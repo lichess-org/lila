@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">chiar acum</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">în %s secundă</item>
+    <item quantity="few">în %s secunde</item>
+    <item quantity="other">în %s de secunde</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">în %s minut</item>
+    <item quantity="few">în %s minute</item>
+    <item quantity="other">în %s de minute</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">în %s oră</item>
+    <item quantity="few">în %s ore</item>
+    <item quantity="other">în %s de ore</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">în %s zi</item>
+    <item quantity="few">în %s zile</item>
+    <item quantity="other">în %s de zile</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">în %s săptămână</item>
+    <item quantity="few">în %s săptămâni</item>
+    <item quantity="other">în %s de săptămâni</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">în %s lună</item>
+    <item quantity="few">în %s luni</item>
+    <item quantity="other">în %s de luni</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">în %s an</item>
+    <item quantity="few">în %s ani</item>
+    <item quantity="other">în %s de ani</item>
+  </plurals>
+  <string name="rightNow">chiar acum</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">cu %s secundă în urmă</item>
+    <item quantity="few">cu %s secunde în urmă</item>
+    <item quantity="other">cu %s de secunde în urmă</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">cu %s minut în urmă</item>
+    <item quantity="few">cu %s minute în urmă</item>
+    <item quantity="other">cu %s de minute în urmă</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">cu %s oră în urmă</item>
+    <item quantity="few">cu %s ore în urmă</item>
+    <item quantity="other">cu %s de ore în urmă</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">cu %s zi în urmă</item>
+    <item quantity="few">cu %s zile în urmă</item>
+    <item quantity="other">cu %s de zile în urmă</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">cu %s săptămână în urmă</item>
+    <item quantity="few">cu %s săptămâni în urmă</item>
+    <item quantity="other">cu %s de săptămâni în urmă</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">cu %s lună în urmă</item>
+    <item quantity="few">cu %s luni în urmă</item>
+    <item quantity="other">cu %s de luni în urmă</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">cu %s an în urmă</item>
+    <item quantity="few">cu %s ani în urmă</item>
+    <item quantity="other">cu %s de ani în urmă</item>
+  </plurals>
+</resources>

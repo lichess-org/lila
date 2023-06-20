@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">%s-ի խաղային վերլուծությունը</string>
+  <string name="xHasNoChessInsights">%s-ը դե՛ռ վերլուծություն չունի:</string>
+  <string name="insightsAreProtected">%s-ի վերլուծաբանը պաշտպանված է տեսադաշտից</string>
+  <string name="cantSeeInsights">Կներեք, դուք չեք կարող դիտել %s-ի վերլուծությունը:</string>
+  <string name="generateInsights">Ստեղծել խաղի վերլուծությունը %s-ի համար:</string>
+  <string name="crunchingData">Այժմ խաղի վերլուծությունը մշակվում է հենց ձե՛զ համար:</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Գուցե՞ խնդրել նրանց փոխել իրենց %s-ը։</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">խաղի վերլուծության կարգավորումներ</string>
+</resources>

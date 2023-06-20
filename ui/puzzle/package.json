@@ -1,0 +1,44 @@
+{
+  "name": "puzzle",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org puzzle solver",
+  "keywords": [
+    "chess",
+    "lichess",
+    "puzzle",
+    "training"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "ceval": "workspace:*",
+    "chart.js": "=3.9.1",
+    "chess": "workspace:*",
+    "chessops": "^0.12.7",
+    "common": "workspace:*",
+    "keyboardMove": "workspace:*",
+    "voice": "workspace:*",
+    "nvui": "workspace:*",
+    "board": "workspace:*",
+    "snabbdom": "^3.5.1",
+    "tree": "workspace:*"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "modules": {
+      "esm": {
+        "src/main.ts": "puzzle",
+        "src/dashboard.ts": "puzzle.dashboard",
+        "src/opening.ts": "puzzle.opening",
+        "src/plugins/nvui.ts": "puzzle.nvui"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Rivojlangan piyoda</string>
+  <string name="advancedPawnDescription">Sizning piyodalaringizdan biri raqib pozitsiyasiga chuqur kirib borib, ehtimol yuksalish bilan tahdid qilmoqda.</string>
+  <string name="advantage">Afzallik</string>
+  <string name="anastasiaMate">Anastasiya moti</string>
+  <string name="anastasiaMateDescription">Ot va ruh yoki qirolicha bir jamoa bo\'lib raqibning qirolini doskaning o\'rtasida va o\'zining piyodalari orasida tuzoqqa tushirishi.</string>
+  <string name="arabianMate">Arabcha mot</string>
+  <string name="attackingF2F7">f2 yoki f7 hujum</string>
+  <string name="attraction">Jozibasi</string>
+  <string name="backRankMateDescription">Qirolni rokirovkada turgan paytda, ya\'ni o\'z piyodalari bilan qurshab olingan paytda mot qilish.</string>
+  <string name="bishopEndgame">Filli o\'yin oxiri</string>
+  <string name="bishopEndgameDescription">Faqatgina fillar va piyodalar bilan bo\'lgan endshpil.</string>
+  <string name="bodenMate">Bodenning mot qilish uslubi</string>
+  <string name="bodenMateDescription">Ikki qarama-qarshi diagonal bo\'yicha hujum qilayotgan fillar, o\'zining piyodalari bilan to\'sib qo\'yilgan shohga mot berishadi.</string>
+  <string name="castling">Rokirovka</string>
+  <string name="castlingDescription">Qirolni xavfsiz joyga olib borish, va ruhni hujumga tayyorlash.</string>
+  <string name="capturingDefender">Himoyachini uring</string>
+  <string name="doubleBishopMate">Ikki fil yordamida mot</string>
+  <string name="equality">Tenglik</string>
+  <string name="defensiveMove">Himoya xodi</string>
+  <string name="doubleCheck">Ikki tomonlama shoh</string>
+  <string name="endgameDescription">O\'yinning oxirgi javhasidagi taktika.</string>
+  <string name="fork">Vilka</string>
+  <string name="hangingPieceDescription">Raqib piyodasini himoyasiz qolishga yoki etarli darajada himoyasi bo\'lmasligiga jalb qiladigan taktika.</string>
+</resources>

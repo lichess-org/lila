@@ -1,0 +1,28 @@
+$lpv-site-hue: 37;
+$lpv-accent: $c-primary;
+$lpv-accent-over: $c-primary-over;
+$lpv-bg: $c-bg-zebra;
+$lpv-bg-controls: $lpv-bg;
+$lpv-bg-movelist: $lpv-bg;
+$lpv-bg-variation: $c-bg-zebra2;
+$lpv-bg-pane: fade-out($c-bg-zebra2, 0.01);
+$lpv-font: $c-font;
+$lpv-font-shy: $c-font-dim;
+$lpv-font-accent: mix($lpv-bg, $c-font, 20%);
+$lpv-border: $c-border;
+
+$lpv-inaccuracy: $c-inaccuracy;
+$lpv-mistake: $c-mistake;
+$lpv-blunder: $c-blunder;
+$lpv-good-move: $c-good;
+$lpv-brilliant: $c-brilliant;
+$lpv-interesting: $c-interesting;
+
+@import '../../node_modules/lichess-pgn-viewer/scss/lichess-pgn-viewer.lib';
+
+.lpv {
+  @extend %box-neat-force;
+  &__player__title {
+    color: $c-brag;
+  }
+}

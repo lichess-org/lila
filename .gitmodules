@@ -1,0 +1,9 @@
+[submodule "public/vendor/ChessPursuit"]
+	path = public/vendor/ChessPursuit
+	url = https://github.com/ornicar/ChessPursuit
+[submodule "public/vendor/multiple-select"]
+	path = public/vendor/multiple-select
+	url = https://github.com/ornicar/multiple-select
+[submodule "public/vendor/shepherd"]
+	path = public/vendor/shepherd
+	url = https://github.com/HubSpot/shepherd

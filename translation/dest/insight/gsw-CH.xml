@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">%s\'s Schachiblick</string>
+  <string name="xHasNoChessInsights">%s hät no kei Schachiblick!</string>
+  <string name="insightsAreProtected">%s\'s Schachiblick sind gschützt</string>
+  <string name="cantSeeInsights">Sorry, du chasch em %s sini Schachiblick nöd gseh.</string>
+  <string name="generateInsights">Generier %ss Schachiblick.</string>
+  <string name="crunchingData">Bearbeitet Date nur für dich!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Du chönntschs fröge, obs ihri %s ändered?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">Schachiblick Ischtellige</string>
+</resources>

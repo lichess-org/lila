@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nuevo token personal de acceso a la API</string>
+  <string name="tokenGrantsPermission">Un token otorga permiso a otras personas para usar tu cuenta.</string>
+  <string name="carefullySelect">Selecciona cuidadosamente lo que se permite hacer en tu nombre.</string>
+  <string name="tokenDescription">Descripción del token</string>
+  <string name="rememberTokenUse">Así que recuerda para qué sirve este token</string>
+  <string name="whatTheTokenCanDo">Qué puede hacer el token en tu nombre:</string>
+  <string name="doNotShareIt">El token permitirá el acceso a tu cuenta. ¡No lo compartas con nadie!</string>
+  <string name="copyTokenNow">Asegúrate de copiar tu nuevo token de acceso personal. ¡No podrás volver a verlo!</string>
+  <string name="preferenceRead">Leer preferencias</string>
+  <string name="preferenceWrite">Preferencia de escritura</string>
+  <string name="emailRead">Leer dirección de correo electrónico</string>
+  <string name="challengeRead">Leer desafíos entrantes</string>
+  <string name="challengeWrite">Enviar, aceptar y rechazar desafíos</string>
+  <string name="challengeBulk">Crear varias partidas a la vez para otros jugadores</string>
+  <string name="studyRead">Leer estudios privados y transmisiones</string>
+  <string name="studyWrite">Crear, actualizar, eliminar estudios y emisiones</string>
+  <string name="tournamentWrite">Crear, actualizar y unirse a torneos</string>
+  <string name="racerWrite">Crear y unirse a las carreras de ejercicios</string>
+  <string name="puzzleRead">Leer actividad de los ejercicios</string>
+  <string name="teamRead">Leer información privada del equipo</string>
+  <string name="teamWrite">Unirse, salir y administrar el equipo</string>
+  <string name="teamLead">Administra los equipos que lideres: envía mensajes privados, expulsa a los miembros</string>
+  <string name="followRead">Leer jugadores seguidos</string>
+  <string name="followWrite">Seguir y dejar de seguir a otros jugadores</string>
+  <string name="msgWrite">Enviar mensaje privado a otros jugadores</string>
+  <string name="boardPlay">Juega con la API del tablero</string>
+  <string name="botPlay">Juega con la API de bot</string>
+  <string name="engineRead">Ver y usar tu motor externo</string>
+  <string name="engineWrite">Crear y actualizar motor externo</string>
+  <string name="webLogin">Crear sesiones web autenticadas (¡concede acceso completo!)</string>
+  <string name="webMod">Usar herramientas de moderador (dentro de los límites de tu permiso)</string>
+</resources>

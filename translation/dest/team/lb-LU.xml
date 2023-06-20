@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Ekipp</string>
+  <string name="teams">Ekippen</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Member</item>
+    <item quantity="other">%s Memberen</item>
+  </plurals>
+  <string name="allTeams">All Ekippen</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vun dir geréiert Ekippen</string>
+  <string name="newTeam">Nei Ekipp</string>
+  <string name="myTeams">Meng Ekippen</string>
+  <string name="noTeamFound">Keng Ekipp fonnt</string>
+  <string name="joinTeam">Ekipp bäitrieden</string>
+  <string name="quitTeam">Ekipp verloossen</string>
+  <string name="teamRecentMembers">Rezent Memberen</string>
+  <string name="kickSomeone">Een aus der Ekipp geheien</string>
+  <string name="whoToKick">Ween wëlls du aus der Ekipp geheien?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s Bäitrëttsufro</item>
+    <item quantity="other">%s Bäitrëttsufroen</item>
+  </plurals>
+  <string name="teamBattle">Ekippenkampf</string>
+  <string name="teamTournament">Ekippenturnéier</string>
+  <string name="teamPage">Ekippensäit</string>
+</resources>

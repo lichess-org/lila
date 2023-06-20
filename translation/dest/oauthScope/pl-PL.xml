@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nowy osobisty token dostępu do API</string>
+  <string name="tokenGrantsPermission">Token daje innym osobom uprawnienia do korzystania z Twojego konta.</string>
+  <string name="carefullySelect">Z rozwagą określ co można zrobić w Twoim imieniu.</string>
+  <string name="tokenDescription">Opis tokenu</string>
+  <string name="rememberTokenUse">Pamiętaj więc do czego służy ten token</string>
+  <string name="whatTheTokenCanDo">Co token może zrobić w Twoim imieniu:</string>
+  <string name="doNotShareIt">Token zapewni dostęp do Twojego konta. NIE udostępniaj go nikomu!</string>
+  <string name="copyTokenNow">Skopiuj swój nowy osobisty token dostępu. Nie można go zobaczyć ponownie!</string>
+  <string name="preferenceRead">Odczyt ustawień</string>
+  <string name="preferenceWrite">Zapis ustawień</string>
+  <string name="emailRead">Odczyt adresu email</string>
+  <string name="challengeRead">Odczyt nadchodzących wydarzeń</string>
+  <string name="challengeWrite">Tworzenie przyszłych wydarzeń</string>
+  <string name="challengeBulk">Tworzenie wielu partii na raz dla innych graczy</string>
+  <string name="studyRead">Odczyt prywatnych opracowań i transmisji</string>
+  <string name="studyWrite">Tworzenie, edycja i usuwanie opracowań oraz transmisji</string>
+  <string name="tournamentWrite">Tworzenie, edycja i dołączanie do turniejów</string>
+  <string name="racerWrite">Tworzenie i dołączanie do wyścigów w rozwiązywaniu zadań</string>
+  <string name="puzzleRead">Odczyt aktywności w rozwiązywaniu zadań</string>
+  <string name="teamRead">Odczyt prywatnych informacji o klubie</string>
+  <string name="teamWrite">Dołączanie, opuszczanie i zarządzanie klubem</string>
+  <string name="teamLead">Zarządzaj klubami, którymi dowodzisz: wysyłaj wiadomości prywatne, wyrzucaj graczy </string>
+  <string name="followRead">Odczyt listy obserwowanych graczy</string>
+  <string name="followWrite">Rozpoczęcie i zakończenie obserwowania innych graczy</string>
+  <string name="msgWrite">Wysyłanie prywatnych wiadomości do innych graczy</string>
+  <string name="boardPlay">Rozgrywanie partii na szachownicy za pomocą API</string>
+  <string name="botPlay">Rozgrywanie partii z botami za pomocą API</string>
+  <string name="engineRead">Podgląd i używanie zewnętrznego silnika szachowego</string>
+  <string name="engineWrite">Tworzenie i edycja zewnętrznego silnika szachowego</string>
+  <string name="webLogin">Tworzenie uwierzytelnionych sesji (nadanie pełnego dostępu!)</string>
+  <string name="webMod">Używanie narzędzi moderatora (w granicach nadanych uprawnień)</string>
+</resources>

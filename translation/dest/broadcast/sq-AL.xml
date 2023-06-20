@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Transmetime</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s transmetim</item>
+    <item quantity="other">%s transmetime</item>
+  </plurals>
+  <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
+  <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
+  <string name="addRound">Shtoni një raund</string>
+  <string name="ongoing">Në zhvillim</string>
+  <string name="upcoming">I ardhshëm</string>
+  <string name="completed">I mbaruar</string>
+  <string name="roundName">Emër raundi</string>
+  <string name="roundNumber">Numër raundi</string>
+  <string name="tournamentName">Emër turneu</string>
+  <string name="tournamentDescription">Përshkrim i shkurtër i turneut</string>
+  <string name="fullDescription">Përshkrim i plotë i turneut</string>
+  <string name="fullDescriptionHelp">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
+  <string name="sourceUrlOrGameIds">URL burimi, ose ID-ra loje</string>
+  <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
+  <string name="gameIdsHelp">Ndryshe, mund të jepni deri në 63 ID-ra lojërash Lichess, ndarë me presje.</string>
+  <string name="startDate">Datë fillimi në zonën tuaj kohore</string>
+  <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
+  <string name="credits">Atriboji merita burimit</string>
+  <string name="deleteRound">Fshije këtë raund</string>
+  <string name="broadcastUrl">URL Transmetimi</string>
+  <string name="currentRoundUrl">URL e raundit të tanishëm</string>
+  <string name="currentGameUrl">URL e lojës së tanishme</string>
+  <string name="downloadAllRounds">Shkarko krejt raundet</string>
+  <string name="definitivelyDeleteRound">Fshije përfundimisht raundin dhe lojërat e tij.</string>
+  <string name="deleteAllGamesOfThisRound">Fshi krejt lojërat e këtij raundi. Burimi do të duhet të jetë aktiv, që të mund të rikrijohen ato.</string>
+  <string name="editRoundStudy">Përpunoni analizë raundi</string>
+</resources>

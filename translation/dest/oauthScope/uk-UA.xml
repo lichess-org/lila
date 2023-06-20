@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Новий персональний токен доступу до API</string>
+  <string name="tokenGrantsPermission">Токен дає іншим людям дозвіл на використання вашого облікового запису.</string>
+  <string name="carefullySelect">Уважно оберіть те, що дозволено робити від вашого імені.</string>
+  <string name="tokenDescription">Опис токену</string>
+  <string name="rememberTokenUse">Пам\'ятайте для чого цей токен</string>
+  <string name="whatTheTokenCanDo">Що токен може робити від вашого імені:</string>
+  <string name="doNotShareIt">Токен надає доступ до вашого облікового запису. Не поширюйте його нікому!</string>
+  <string name="copyTokenNow">Переконайтеся, що ви скопіювали ваш токен. Ви не зможете побачити його ще раз!</string>
+  <string name="preferenceRead">Переглядати налаштування</string>
+  <string name="preferenceWrite">Змінювати налаштування</string>
+  <string name="emailRead">Переглядати ел. адресу</string>
+  <string name="challengeRead">Переглядати вхідні виклики</string>
+  <string name="challengeWrite">Створювати, приймати та відхиляти виклики</string>
+  <string name="challengeBulk">Створювати декілька ігор з іншими гравцями одночасно</string>
+  <string name="studyRead">Переглядати інформацію про приватні дослідження та трансляції</string>
+  <string name="studyWrite">Створювати, поновлювати та видаляти дослідження й трансляції</string>
+  <string name="tournamentWrite">Створювати, поновлювати й брати участь у турнірах</string>
+  <string name="racerWrite">Створювати та приєднуватись до пазлових перегонів</string>
+  <string name="puzzleRead">Переглядати активність по задачах</string>
+  <string name="teamRead">Переглядати інформацію приватних команд</string>
+  <string name="teamWrite">Приєднуватися та покидати команди</string>
+  <string name="teamLead">Контролювати команди, які ви адмініструєте: відправляти приватні повідомлення, виганяти учасників</string>
+  <string name="followRead">Переглядати підписки</string>
+  <string name="followWrite">Підписуватися і відписуватися від інших гравців</string>
+  <string name="msgWrite">Надсилати приватні повідомлення іншим гравцям</string>
+  <string name="boardPlay">Грати ігри з API дошкою</string>
+  <string name="botPlay">Грати ігри з API ботом</string>
+  <string name="engineRead">Переглядати та використовувати ваші зовнішні рушії</string>
+  <string name="engineWrite">Створювати та оновлювати зовнішні рушії</string>
+  <string name="webLogin">Створювати автентифіковані сесії на вебсайті (надає повний доступ!)</string>
+  <string name="webMod">Використовувати інструменти модерації (в рамках ваших дозволів)</string>
+</resources>

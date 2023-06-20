@@ -1,0 +1,141 @@
+#challenge-app {
+  @extend %box-radius-left, %dropdown-shadow;
+  overflow: hidden;
+  #{$end-direction}: 0;
+  width: 270px;
+  text-align: center;
+
+  .empty {
+    background: $c-bg-header-dropdown;
+    padding: 2rem 0;
+  }
+
+  .challenge {
+    background: $c-bg-header-dropdown;
+    border-bottom: $border;
+    padding-bottom: 0.5em;
+
+    &:hover {
+      background: mix($c-bg-box, $c-primary, 70%);
+      padding-bottom: 0;
+      outline: 1px solid $c-primary;
+
+      .perf {
+        color: $c-primary !important;
+      }
+    }
+
+    &.declined {
+      display: none;
+    }
+
+    .buttons {
+      display: none;
+    }
+
+    &:hover .buttons,
+    .blind-mode & .buttons {
+      @extend %flex-between-nowrap;
+    }
+
+    .buttons > * {
+      width: 33%;
+    }
+
+    button {
+      cursor: pointer;
+      color: $c-good;
+      width: 100%;
+      display: block;
+      padding: 0;
+      background: transparent;
+      font-size: 1.5rem;
+
+      @include transition;
+
+      box-shadow: none;
+    }
+
+    button,
+    .owner {
+      height: 3rem;
+    }
+
+    .owner {
+      color: $c-link;
+      line-height: 3rem;
+    }
+
+    .owner .view,
+    .owner:hover .waiting {
+      display: none;
+    }
+
+    .owner:hover .view {
+      display: block;
+      background: $c-primary;
+      color: $c-primary-over;
+
+      &::before {
+        vertical-align: middle;
+      }
+    }
+
+    button::before {
+      line-height: 3rem;
+    }
+
+    button.decline {
+      color: $c-bad;
+      border-#{$end-direction}: none;
+    }
+
+    button:hover {
+      background: $c-good;
+      color: $c-good-over;
+    }
+
+    button.decline:hover {
+      background: $c-bad;
+    }
+
+    .content {
+      @extend %flex-between-nowrap;
+      @include padding-direction(0.5em, 0.8em, 0, 1em);
+
+      &__text {
+        @extend %nowrap-ellipsis;
+
+        text-align: left;
+      }
+
+      .perf {
+        font-size: 2.5em;
+        color: $c-font-dim;
+      }
+    }
+
+    .head {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.1em;
+    }
+
+    .head .user-link {
+      margin-#{$start-direction}: -5px;
+    }
+
+    .color-icon::before {
+      vertical-align: text-top;
+    }
+
+    .position {
+      display: none;
+    }
+
+    &:hover .position,
+    .blind-mode & .position {
+      @extend %flex-between-nowrap;
+    }
+  }
+}

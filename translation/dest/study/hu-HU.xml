@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privát</string>
+  <string name="myStudies">Saját leckék</string>
+  <string name="studiesIContributeTo">Leckék amikben közreműködöm</string>
+  <string name="myPublicStudies">Nyilvános leckéim</string>
+  <string name="myPrivateStudies">Privát leckéim</string>
+  <string name="myFavoriteStudies">Kedvenc leckéim</string>
+  <string name="whatAreStudies">Mi a lecke?</string>
+  <string name="allStudies">Összes lecke</string>
+  <string name="studiesCreatedByX">%s által készített leckék</string>
+  <string name="noneYet">Még nincs ilyen lecke.</string>
+  <string name="hot">Mostanában népszerű</string>
+  <string name="dateAddedNewest">Hozzáadva (legújabb)</string>
+  <string name="dateAddedOldest">Hozzáadva (legrégebbi)</string>
+  <string name="recentlyUpdated">Nemrégiben frissítve</string>
+  <string name="mostPopular">Legnépszerűbb</string>
+  <string name="alphabetical">Betűrendben</string>
+  <string name="addNewChapter">Új fejezet hozzáadása</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Fejezet</item>
+    <item quantity="other">%s Fejezet</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Játszma</item>
+    <item quantity="other">%s Játszma</item>
+  </plurals>
+  <string name="addMembers">Tagok hozzáadása</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Tag</item>
+    <item quantity="other">%s Tag</item>
+  </plurals>
+  <string name="inviteToTheStudy">Meghívás közremüködésre</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Csak azt hívd meg akit ismersz és aki részt akar venni a lecke elkészítésében.</string>
+  <string name="searchByUsername">Keresés felhasználónév alapján</string>
+  <string name="spectator">Néző</string>
+  <string name="contributor">Lecke készítö</string>
+  <string name="kick">Eltávolítás</string>
+  <string name="leaveTheStudy">Lecke elhagyása</string>
+  <string name="youAreNowAContributor">Közreműködő vagy</string>
+  <string name="youAreNowASpectator">Megfigyelő vagy</string>
+  <string name="pgnTags">PGN címkék</string>
+  <string name="like">Kedvel</string>
+  <string name="unlike">Mégse tetszik</string>
+  <string name="newTag">Új címke</string>
+  <string name="commentThisPosition">Megjegyzés ehhez az álláshoz</string>
+  <string name="commentThisMove">Megjegyzés ehhez a lépéshez</string>
+  <string name="annotateWithGlyphs">Kiegészítés írásjelekkel</string>
+  <string name="theChapterIsTooShortToBeAnalysed">A fejezet túl rövid számítógépes elemzéshez.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Csak a leckében közreműködők kérhetnek számítógépes elemzést.</string>
+  <string name="getAFullComputerAnalysis">Teljes szerver oldali számítógépes elemzés kérése a fő ágról.</string>
+  <string name="makeSureTheChapterIsComplete">Ellenőrizd, hogy a fejezet elkészült-e. Csak egyszer kérhető számítógépes elemzés.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Minden SYNC tag ugyanazt az állást követi</string>
+  <string name="shareChanges">Változtatások megosztása a nézőkkel és mentése a szerveren</string>
+  <string name="playing">Folyamatban</string>
+  <string name="first">Első</string>
+  <string name="previous">Előző</string>
+  <string name="next">Következő</string>
+  <string name="last">Utolsó</string>
+  <string name="shareAndExport">Megosztás &amp; exportálás</string>
+  <string name="cloneStudy">Klónozás</string>
+  <string name="studyPgn">Lecke PGN</string>
+  <string name="downloadAllGames">Összes játszma letöltése</string>
+  <string name="chapterPgn">PGN a fejezetről</string>
+  <string name="copyChapterPgn">PGN másolása</string>
+  <string name="copyChapterPgnDescription">Fejezet PGN másolása.</string>
+  <string name="downloadGame">Játszma letöltése</string>
+  <string name="studyUrl">Tanulmány URL</string>
+  <string name="currentChapterUrl">URL erre a fejezetre</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Beszúrhatod a linket fórumba a beágyazáshoz</string>
+  <string name="startAtInitialPosition">Kezdés az alapállásból</string>
+  <string name="startAtX">Kezdés innen: %s</string>
+  <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
+  <string name="readMoreAboutEmbedding">A beágyazásról bővebben</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Csak nyilvános tanulmányok beágyazhatók!</string>
+  <string name="open">Megnyit</string>
+  <string name="xBroughtToYouByY">%1$s, a %2$s jóvoltából</string>
+  <string name="studyNotFound">Tanulmány nem található</string>
+  <string name="editChapter">Fejezet szerkesztése</string>
+  <string name="newChapter">Új fejezet</string>
+  <string name="importFromChapterX">Importálás innen: %s</string>
+  <string name="orientation">Szemszög</string>
+  <string name="analysisMode">Elemzés típusa</string>
+  <string name="pinnedChapterComment">Rögzített megjegyzés</string>
+  <string name="saveChapter">Fejezet mentése</string>
+  <string name="clearAnnotations">Jelölések eltávolítása</string>
+  <string name="clearVariations">Változatok törlése</string>
+  <string name="deleteChapter">Fejezet törlése</string>
+  <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
+  <string name="clearAllCommentsInThisChapter">Eltávolítasz minden megjegyzést, jelölést és rajzot ebből a fejezetből?</string>
+  <string name="rightUnderTheBoard">Közvetlen a tábla alatt</string>
+  <string name="noPinnedComment">Nincs</string>
+  <string name="normalAnalysis">Normál elemzés</string>
+  <string name="hideNextMoves">Következő lépések elrejtése</string>
+  <string name="interactiveLesson">Interaktív lecke</string>
+  <string name="chapterX">Fejezet: %s</string>
+  <string name="empty">Üres</string>
+  <string name="startFromInitialPosition">Kezdés az alapállásból</string>
+  <string name="editor">Szerkesztő</string>
+  <string name="startFromCustomPosition">Kezdés egyedi felállásból</string>
+  <string name="loadAGameByUrl">Játszmák betöltése URL-ről</string>
+  <string name="loadAPositionFromFen">Állás betöltése FEN-ből</string>
+  <string name="loadAGameFromPgn">Játszmák betöltése PGN-ből</string>
+  <string name="automatic">Automatikus</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
+    <item quantity="other">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
+  </plurals>
+  <string name="urlOfTheGame">URL a játszmákhoz, soronként egy</string>
+  <string name="loadAGameFromXOrY">Játszmák betöltése %1$s vagy %2$s-ról</string>
+  <string name="createChapter">Fejezet létrehozása</string>
+  <string name="createStudy">Tanulmány létrehozása</string>
+  <string name="editStudy">Tanulmány szerkesztése</string>
+  <string name="visibility">Láthatóság</string>
+  <string name="public">Nyilvános</string>
+  <string name="unlisted">Nincs listázva</string>
+  <string name="inviteOnly">Csak meghívással</string>
+  <string name="allowCloning">Klónozható</string>
+  <string name="nobody">Senki</string>
+  <string name="onlyMe">Csak én</string>
+  <string name="contributors">Közreműködők</string>
+  <string name="members">Tagok</string>
+  <string name="everyone">Mindenki</string>
+  <string name="enableSync">Sync engedélyezése</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Igen: mindenki ugyanazt az állást követi</string>
+  <string name="noLetPeopleBrowseFreely">Nem: szabadon böngészhető</string>
+  <string name="pinnedStudyComment">Rögzített megjegyzés</string>
+  <string name="start">Kezdés</string>
+  <string name="save">Mentés</string>
+  <string name="clearChat">Chat törlése</string>
+  <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeit? Ezt nem lehet visszavonni!</string>
+  <string name="deleteStudy">Tanulmány törlése</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni! Gépeld be a tanulmány nevét a megerősítéshez: %s</string>
+  <string name="whereDoYouWantToStudyThat">Hol szeretnéd a tanulmányt elhelyezni?</string>
+  <string name="goodMove">Jó lépés</string>
+  <string name="mistake">Hiba</string>
+  <string name="brilliantMove">Kiváló lépés</string>
+  <string name="blunder">Durva hiba</string>
+  <string name="interestingMove">Èrdekes lépés</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Szokatlan lépés</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Egyetlen lépés</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Lépéskényszer</string>
+  <string name="equalPosition">Egyenlő állás</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Zavaros állás</string>
+  <string name="whiteIsSlightlyBetter">Világos kicsit jobban áll</string>
+  <string name="blackIsSlightlyBetter">Sötét kicsit jobban áll</string>
+  <string name="whiteIsBetter">Világos jobban áll</string>
+  <string name="blackIsBetter">Sötét jobban áll</string>
+  <string name="whiteIsWinning">Világos nyerésre áll</string>
+  <string name="blackIsWinning">Sötét nyerésre áll</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Újítás</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Fejlődés</string>
+  <string name="initiative">Kezdeményezés</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Támadás</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Ellenjáték</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Időzavar</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kompenzáció</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Elképzelés</string>
+  <string name="nextChapter">Következő fejezet</string>
+  <string name="prevChapter">Előző fejezet</string>
+  <string name="studyActions">Lecke műveletek</string>
+  <string name="topics">Témakörök</string>
+  <string name="myTopics">Saját témaköreim</string>
+  <string name="popularTopics">Népszerű témakörök</string>
+  <string name="manageTopics">Témakörök kezelése</string>
+  <string name="back">Vissza</string>
+  <string name="playAgain">Újra</string>
+  <string name="whatWouldYouPlay">Mit lépnél ebben az állásban?</string>
+  <string name="youCompletedThisLesson">Gratulálunk! Sikeresen befejezted ezt a részt.</string>
+</resources>

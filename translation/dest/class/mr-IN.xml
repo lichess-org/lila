@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">शिकवणी</string>
+  <string name="teachClassesOfChessStudents">Lichess Class साधनॆचा वापर करुन विद्यार्थ्यांना शिकवा.</string>
+  <string name="features">वैशिष्ट्ये</string>
+  <string name="quicklyGenerateSafeUsernames">विद्यार्थ्यांसाठी त्वरीत सुरक्षित वापरकर्तानाव आणि पासवर्ड तयार करा</string>
+  <string name="trackStudentProgress">खेळ आणि कोड्यांमध्ये विद्यार्थ्यांच्या प्रगतीचा मोगावा घ्या</string>
+  <string name="messageAllStudents">नवीन वर्ग सामग्रीबद्दल सर्व विद्यार्थ्यांना संदेश द्या</string>
+  <string name="freeForAllForever">सर्वांसाठी 100% विनामूल्य, कायमचे, कोणत्याही जाहिराती किंवा ट्रॅकरशिवाय</string>
+  <string name="applyToBeLichessTeacher">लिचेस प्रशिक्षक होण्यासाठी अर्ज करा</string>
+  <string name="noClassesYet">अजून वर्ग नाहीत.</string>
+  <string name="teachersX">शिक्षक: %s</string>
+  <string name="newClass">नविन शिकवणी</string>
+  <string name="closeClass">शिकवणी संपली</string>
+  <string name="removedByX">%s ने काढले</string>
+  <string name="reopen">परत सुरू करा</string>
+  <string name="removeStudent">विद्यार्थी हटवा</string>
+  <string name="removedStudents">काढून टाका</string>
+  <string name="inviteTheStudentBack">विद्यार्थ्याला परत आमंत्रित करा</string>
+  <string name="sendAMessage">सर्व विद्यार्थ्याना संदेश पाठवा.</string>
+  <string name="aLinkToTheClassWillBeAdded">मेसेजच्या शेवटी क्लासची लिंक आपोआप जोडली जाईल, त्यामुळे तुम्हाला तो स्वतः समाविष्ट करण्याची आवश्यकता नाही.</string>
+  <string name="className">शिकवणीचे नाव</string>
+  <string name="classDescription">शिकवणीचे वर्णन</string>
+  <string name="visibleByBothStudentsAndTeachers">वर्गातील शिक्षक आणि विद्यार्थी दोघांनीही दृश्यमान</string>
+  <string name="teachersOfTheClass">वर्गातील शिक्षक</string>
+  <string name="addLichessUsernames">त्यांना शिक्षक म्हणून आमंत्रित करण्यासाठी लिचेस वापरकर्तानावे जोडा. प्रति ओळ एक.</string>
+  <string name="resetPassword">पासवर्ड रिसेट करा</string>
+  <string name="passwordX">पासवर्ड: %s</string>
+  <string name="generateANewPassword">या विद्यार्थी साठी नवीन पासवर्ड बनवा</string>
+  <string name="invitedToXByY">%1$s ला %2$s द्वारे आमंत्रित केले आहे</string>
+  <string name="realName">खरे नाव</string>
+  <string name="privateWillNeverBeShown">खाजगी. वर्गाबाहेर कधीही दाखवले जाणार नाही. विद्यार्थी कोण आहे हे लक्षात ठेवण्यास मदत होते.</string>
+  <string name="addStudent">विद्यार्थी जोडा</string>
+  <string name="lichessProfileXCreatedForY">%2$s साठी %1$s लिचेस प्रोफइल तयार केले.</string>
+  <string name="studentCredentials">विद्यार्थी:  %1$s
+वापरकर्तानाम: %2$s
+परवलीचा शब्द: %3$s</string>
+  <string name="inviteALichessAccount">लिचेस खात्याला निमंत्रित करा</string>
+  <string name="createANewLichessAccount">नविन लिचेस खाते तयार करा</string>
+  <string name="lichessUsername">लीचेस वापरकर्तानाव</string>
+  <string name="generateANewUsername">नविन वापरकर्तानाव</string>
+  <string name="welcomeToClass">%s वर्गात तुमचे स्वागत आहे.
+वर्गात प्रवेशासाठी ही लिंक वापरा.</string>
+  <string name="clickToViewInvitation">आमंत्रण पाहण्यासाठी लिंकवर क्लिक करा:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">एक प्रलंबित आमंत्रण</item>
+    <item quantity="other">%s प्रलंबित आमंत्रणे</item>
+  </plurals>
+  <string name="onlyVisibleToTeachers">केवळ वर्ग शिक्षकांनाच दृश्यमान</string>
+  <string name="lastActiveDate">सक्रिय</string>
+  <string name="managed">व्यवस्थापित</string>
+  <string name="closeStudent">खाते बंद करा</string>
+  <string name="closeTheAccount">विद्यार्थ्याचे खाते कायमचे बंद करा.</string>
+  <string name="closeDesc1">विद्यार्थी पुन्हा कधीही हे खाते वापरू शकणार नाही. समापन अंतिम आहे. विद्यार्थ्याला समजले आहे आणि ते सहमत आहे याची खात्री करा.</string>
+  <string name="teachers">शिक्षक</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">शिक्षक</item>
+    <item quantity="other">%s शिक्षक</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">विद्यार्थी</item>
+    <item quantity="other">%s विद्यार्थी</item>
+  </plurals>
+  <string name="students">विद्यार्थी</string>
+  <string name="progress">प्रगती</string>
+  <string name="noStudents">अजून शिकवणीत कोणताही विद्यार्थी नाही.</string>
+  <string name="noRemovedStudents">काढलेले विद्यार्थी नाहीत.</string>
+  <string name="timePlaying">खेळलेला वेळ</string>
+  <string name="variantXOverLastY">%1$s मागील %2$s</string>
+  <string name="winrate">जिंकण्याचे प्रमाण</string>
+  <string name="na">लागू नाही</string>
+  <string name="overview">आढावा</string>
+  <string name="classNews">वर्गाबाबत बातम्या</string>
+  <string name="editNews">बातमीत बदल</string>
+  <string name="notifyAllStudents">सर्व विद्यार्थ्याना सूचित करा</string>
+  <string name="nothingHere">अजून येथे काही नाही.</string>
+  <string name="invite">आमंत्रित करा</string>
+  <string name="youHaveBeenInvitedByX">%s ने तुम्हाला आमंत्रित केले आहे.</string>
+  <string name="youAcceptedThisInvitation">तुम्ही हे आमंत्रण स्वीकारले.</string>
+  <string name="youDeclinedThisInvitation">तुम्ही हे आमंत्रण नाकारले.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">किंवा</string>
+  <string name="createMultipleAccounts">एकाच वेळी अनेक लिचेस खाती तयार करा</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">विद्यार्थ्यांच्या नावाच्या यादीवरून अनेक लिचेस खाती तयार करण्यासाठी %s.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">हा अर्ज वापरा</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">एका वर्गात %1$s पर्यंतच विद्यार्थी असू शकतात. जास्त विद्यार्थ्यांसाठी %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">आणखी वर्ग तयार करा</string>
+  <string name="studentsRealNamesOnePerLine">विद्यार्थ्यांची खरी नावे, एका ओळीत एक</string>
+  <string name="xisNowAStudentOfTheClass">%s हा आता या वर्गाचा विद्यार्थी आहे</string>
+  <string name="anInvitationHasBeenSentToX">%s ला आमंत्रण पाठवले आहे</string>
+  <string name="xAlreadyHasAPendingInvitation">%s कडे आधीच प्रलंबित आमंत्रण आहे</string>
+  <string name="xIsAKidAccountWarning">%1$s हे लहान मुलांसाठीचे खाते आहे आणि संदेश स्वीकारू शकत नाही. तुम्हाला त्यांना व्यक्तीगतरीत्या आमंत्रण URL द्यावी लागेल: %2$s</string>
+</resources>

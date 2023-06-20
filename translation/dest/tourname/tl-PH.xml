@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyXArena">Pang-oras-orasan%sPaligsahan</string>
+  <string name="hourlyX">Pang-oras-orasan%s</string>
+  <string name="dailyXArena">%sPaligsahang Pang-araw-araw</string>
+  <string name="dailyX">Pang-araw-araw%s</string>
+  <string name="easternXArena">Silangan%sPaligsahan</string>
+  <string name="easternX">Silangan%s</string>
+  <string name="weeklyXArena">Lingguhan%sPaligsahan</string>
+  <string name="weeklyX">Lingguhan%s</string>
+  <string name="monthlyRapid">Buwanang Pangmabilisan</string>
+  <string name="monthlyXArena">Buwanan%sPaligsahan</string>
+  <string name="monthlyX">Buwanan%s</string>
+  <string name="yearlyRapidArena">Taunang Paligsahang Pangmabilisan</string>
+  <string name="yearlyXArena">Taunan%sPaligsahan</string>
+  <string name="yearlyX">Taunan%s</string>
+  <string name="rapidShieldArena">Paligsahang Pangmabilisang Kalasag</string>
+  <string name="rapidShield">Pangmabilisang Kalasag</string>
+  <string name="classicalShield">Kalasag na Klasikal</string>
+  <string name="xShieldArena">Paligsahang Kalasag%s</string>
+  <string name="xShield">%s Kalasag</string>
+  <string name="xTeamBattle">Labanan ng Koponan%s</string>
+  <string name="eliteXArena">Maharlika%sPaligsahan</string>
+  <string name="eliteX">Maharlika%s</string>
+  <string name="xArena">Paligsahan%s</string>
+</resources>

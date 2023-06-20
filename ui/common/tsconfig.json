@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig_module.base.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src",
+    "types": ["lichess", "web", "cash", "dom-screen-wake-lock"],
+    "composite": true,
+    "incremental": true
+  },
+  "isolatedModules": true
+}

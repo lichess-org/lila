@@ -1,0 +1,18 @@
+.main-board {
+  @extend %square;
+
+  direction: ltr;
+
+  &__preload {
+    position: absolute;
+  }
+
+  .cg-wrap {
+    @extend %abs-100;
+  }
+}
+
+.mini-board,
+.mini-game .cg-wrap {
+  @extend %square;
+}

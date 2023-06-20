@@ -1,0 +1,32 @@
+$direction: rtl;
+$opposite-direction: ltr;
+
+$start-direction: right;
+$end-direction: left;
+
+$transform-direction: -1;
+
+@mixin rtl-mirrored {
+  transform: scaleX(-1);
+}
+
+@mixin padding-direction($top, $end, $bottom, $start, $important: false) {
+  @if $important {
+    padding: $top $start $bottom $end !important;
+  } @else {
+    padding: $top $start $bottom $end;
+  }
+}
+
+@mixin margin-direction($top, $end, $bottom, $start, $important: false) {
+  @if $important {
+    margin: $top $start $bottom $end !important;
+  } @else {
+    margin: $top $start $bottom $end;
+  }
+}
+
+.force-ltr {
+  direction: ltr;
+  text-align: left;
+}

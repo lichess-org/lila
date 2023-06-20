@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Настройки</string>
+  <string name="closeAccount">Удалить учётную запись</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Ваш аккаунт находится под управлением и не может быть закрыт.</string>
+  <string name="closingIsDefinitive">Закрытие невозможно будет отменить. Вы уверены?</string>
+  <string name="cantOpenSimilarAccount">Вы не сможете создать новый аккаунт с таким же именем, даже если регистр символов отличается.</string>
+  <string name="changedMindDoNotCloseAccount">Я передумал, не закрывайте мой аккаунт</string>
+  <string name="closeAccountExplanation">Вы уверены, что хотите закрыть свой аккаунт? Закрытие аккаунта необратимо. Вы никогда больше не сможете в него войти.</string>
+  <string name="thisAccountIsClosed">Этот аккаунт закрыт.</string>
+</resources>

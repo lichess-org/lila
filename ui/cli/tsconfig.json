@@ -1,0 +1,6 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": { "noEmit": true },
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../dasher/tsconfig.json" }],
+  "isolatedModules": true
+}

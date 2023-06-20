@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="movePieceFromE2ToE4">Færa taflmann frá e2 til e4</string>
+  <string name="moveKnightToC3">Færa riddara til c3</string>
+  <string name="kingsideCastle">Stutthrókun</string>
+  <string name="queensideCastle">Langhrókun</string>
+  <string name="promoteC8ToQueen">Breyta c8 í drottningu</string>
+  <string name="offerOrAcceptDraw">Bjóða eða samþykkja jafntefli</string>
+  <string name="readOutClocks">Lesa klukkurnar upphátt</string>
+  <string name="readOutOpponentName">Lesa nafn mótherjans upphátt</string>
+  <string name="otherCommands">Aðrar skipanir</string>
+  <string name="tips">Hollráð</string>
+</resources>

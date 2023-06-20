@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">%s-қа сараптама</string>
+  <string name="xHasNoChessInsights">%s-қа сараптама әлі жоқ!</string>
+  <string name="insightsAreProtected">%s-қа сараптама жасырулы</string>
+  <string name="cantSeeInsights">Кешіріңіз, %s-қа сараптаманы қарауға рұқсат жоқ.</string>
+  <string name="generateInsights">%s-қа сараптама жасау.</string>
+  <string name="crunchingData">Сізге арналған жаңа деректер құрылуда!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Бәлкім, %s өзгертуді олардан сұрарсыз?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">сараптама баптауын</string>
+</resources>

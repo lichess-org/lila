@@ -1,0 +1,60 @@
+@import 'communication';
+
+#communication.public-chat {
+  position: relative;
+
+  .auto-refresh {
+    position: absolute;
+    top: 30px;
+    #{$end-direction}: 20px;
+
+    @include transition;
+
+    &.active.hold {
+      opacity: 0.4;
+    }
+  }
+
+  .player_chats .line,
+  .threads .post {
+    opacity: 1;
+  }
+
+  .chat {
+    overflow-y: auto !important;
+  }
+
+  .line:not(.lichess) {
+    cursor: pointer;
+    &:hover {
+      background: fade-out($c-accent, 0.8);
+    }
+  }
+
+  .player_chats .game {
+    .title-time {
+      @extend %flex-between;
+      overflow: hidden;
+      padding: 0.5em 1em;
+      border-bottom: $border;
+      margin-bottom: 0.3em;
+    }
+    .title {
+      padding: 0;
+    }
+
+    .tournament-status {
+      &.created {
+        color: $c-warn;
+      }
+
+      &.started {
+        color: $c-good;
+      }
+
+      &.finished {
+        color: $c-font-dim;
+      }
+    }
+  }
+}

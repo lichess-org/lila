@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="donate">Κάντε δωρεά</string>
+  <string name="donateAsX">Κάντε μία δωρεά ως %s</string>
+  <string name="lichessPatron">Υποστηρικτής του Lichess</string>
+  <string name="freeAccount">Δωρεάν λογαριασμός</string>
+  <string name="becomePatron">Υποστηρίξτε το Lichess</string>
+  <string name="xBecamePatron">%s έγινε Υποστηρικτής του Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">Ο χρήστης %1$s είναι υποστηρικτής του Lichess εδώ και %2$s μήνα</item>
+    <item quantity="other">Ο χρήστης %1$s είναι υποστηρικτής του Lichess εδώ και %2$s μήνες</item>
+  </plurals>
+  <string name="newPatrons">Νέοι Υποστηρικτές</string>
+  <string name="freeChess">Δωρεάν σκάκι για όλους, για πάντα!</string>
+  <string name="noAdsNoSubs">Χωρίς διαφημίσεις, χωρίς συνδρομές, αλλά με ανοιχτό κώδικα και πάθος.</string>
+  <string name="thankYou">Σας ευχαριστούμε για την δωρεά!</string>
+  <string name="youHaveLifetime">Έχετε λογαριασμό Lifetime Patron. Αυτό είναι φανταστικό!</string>
+  <string name="patronUntil">Έχετε έναν λογαριασμό Υποστηρικτή μέχρι %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Εάν δεν ανανεωθεί, ο λογαριασμός σας θα επανέλθει σε έναν κανονικό.</string>
+  <string name="weAreNonProfit">Είμαστε μια μη κερδοσκοπική οργάνωση που πιστεύει ότι όλοι πρέπει να έχουν πρόσβαση σε μια δωρεάν, παγκόσμιας κλάσης σκακιστική πλατφόρμα.</string>
+  <string name="weRelyOnSupport">Βασιζόμαστε στην υποστήριξη από ανθρώπους σαν εσάς για να το πραγματοποιήσουμε. Αν νιώθετε ευχαρίστηση να χρησιμοποιείτε το Lichess, παρακαλώ σκεφτείτε να μας υποστηρίξετε με δωρεά και να γίνεται Υποστηρικτής!</string>
+  <string name="lifetime">Για πάντα</string>
+  <string name="payLifetimeOnce">Πληρώστε %s μια φορά. Γίνετε Υποστηρικτής του Lichess για πάντα!</string>
+  <string name="lifetimePatron">Υποστηρικτής του Lichess για πάντα</string>
+  <string name="monthly">Μηνιαία</string>
+  <string name="recurringBilling">Επαναλαμβανόμενη χρέωση, ανανέωση των φτερών Υποστηρικτή κάθε μήνα.</string>
+  <string name="onetime">Μία φορά</string>
+  <string name="singleDonation">Μία μόνο δωρεά που σας δίνει τα φτερά Υποστηρικτή για ένα μήνα.</string>
+  <string name="otherAmount">Άλλο</string>
+  <string name="pleaseEnterAmountInX">Εισάγετε ένα ποσό σε %s</string>
+  <string name="withCreditCard">Πιστωτική κάρτα</string>
+  <string name="logInToDonate">Συνδεθείτε για να δωρίσετε</string>
+  <string name="weAreSmallTeam">Είμαστε μια μικρή ομάδα, επομένως η υποστήριξή σας κάνει μεγάλη διαφορά!</string>
+  <string name="celebratedPatrons">Οι διάσημοι Υποστηρικτές που έκαναν το Lichess πραγματικότητα</string>
+  <string name="whereMoneyGoes">Που πηγαίνουν τα χρήματα;</string>
+  <string name="serversAndDeveloper">Καταρχήν, σε δυνατούς διακομιστές.
+Έπειτα πληρώνουμε έναν προγραμματιστή πλήρους απασχόλησης: %s, τον ιδρυτή του Lichess.</string>
+  <string name="costBreakdown">Δείτε τα αναλυτικά έξοδα</string>
+  <string name="officialNonProfit">Είναι το Lichess επίσημα μια μη κερδοσκοπική οργάνωση;</string>
+  <string name="actOfCreation">Ναι, εδώ είναι η πράξη δημιουργίας (στα γαλλικά)</string>
+  <string name="changeMonthlySupport">Μπορώ να αλλάξω/ακυρώσω την μηνιαία υποστήριξη μου;</string>
+  <string name="changeOrContact">Ναι, οποιαδήποτε στιγμή, από αυτή τη σελίδα.
+Ή μπορείτε %s.</string>
+  <string name="contactSupport">να επικοινωνήσετε με την εξυπηρέτηση του Lichess</string>
+  <string name="otherMethods">Υπάρχουν άλλοι τρόποι δωρεάς;</string>
+  <string name="bankTransfers">Επίσης δεχόμαστε τραπεζικές μεταφορές</string>
+  <string name="patronFeatures">Υπάρχουν κάποιες δυνατότητες μόνο για Υποστηρικτές;</string>
+  <string name="noPatronFeatures">Όχι, επειδή το Lichess είναι δωρεάν για πάντα και για όλους. Αυτό είναι μία υπόσχεση.
+Όμως, οι Υποστηρικτές μπορούν να καυχώνται για το υπέροχο εικονίδιο στο προφίλ τους.</string>
+  <string name="featuresComparison">Δείτε την αναλυτική σύγκριση δυνατοτήτων</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Υποστηρικτής του Lichess για ένα μήνα</item>
+    <item quantity="other">Υποστηρικτής του Lichess για %s μήνες</item>
+  </plurals>
+  <string name="youSupportWith">Υποστηρίζετε το lichess.org με %s μηνιαίως.</string>
+  <string name="tyvm">Ευχαριστούμε πολύ για την βοήθεια!</string>
+  <string name="currentStatus">Τρέχουσα κατάσταση</string>
+  <string name="nextPayment">Επόμενη πληρωμή</string>
+  <string name="youWillBeChargedXOnY">Θα χρεωθείτε %1$s την %2$s.</string>
+  <string name="makeAdditionalDonation">Κάντε μια πρόσθετη δωρεά τώρα</string>
+  <string name="giftPatronWings">Δωρίστε τα φτερά Υποστηρικτή σε έναν παίκτη</string>
+  <string name="update">Ενημέρωση</string>
+  <string name="changeMonthlyAmount">Αλλαγή του μηνιαίου ποσού (%s)</string>
+  <string name="cancelSupport">διακοπή της υποστήριξής σας</string>
+  <string name="xOrY">%1$s ή %2$s</string>
+  <string name="decideHowMuch">Αποφασίστε πόσο αξίζει το Lichess για εσάς:</string>
+  <string name="stopPayments">Αφαίρεση της πιστωτικής κάρτας και παύση πληρωμών:</string>
+  <string name="stopPaymentsPayPal">Ακύρωση συνδρομής PayPal και διακοπή πληρωμών:</string>
+  <string name="noLongerSupport">Διακοπή υποστήριξης του Lichess</string>
+  <string name="viewOthers">Προβολή άλλων Υποστηρικτών Lichess</string>
+  <string name="date">Ημερομηνία</string>
+  <string name="amount">Ποσό</string>
+  <string name="transactionCompleted">Η συναλλαγή σας ολοκληρώθηκε, και μια απόδειξη για τη δωρεά σας έχει αποσταλεί στην διεύθυνση email σας.</string>
+  <string name="permanentPatron">Πλέον έχετε έναν μόνιμο λογαριασμό Υποστηρικτή.</string>
+  <string name="checkOutProfile">Δείτε τη σελίδα του προφίλ σας!</string>
+  <string name="nowLifetime">Είστε πλέον ένας Υποστηρικτής του Lichess για πάντα!</string>
+  <string name="nowOneMonth">Είστε ένας υποστηρικτής του Lichess για αυτόν τον μήνα!</string>
+  <string name="downgradeNextMonth">Σε ένα μήνα, ΔΕ θα χρεωθείτε ξανά, και ο λογαριασμός σας θα υποβαθμιστεί σε έναν κοινό λογαριασμό.</string>
+  <string name="changeCurrency">Αλλαγή νομίσματος</string>
+</resources>

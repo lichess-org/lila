@@ -1,0 +1,46 @@
+@import '../../common/css/component/material';
+
+.material {
+  align-self: center;
+  height: 40px;
+  line-height: 0;
+  white-space: nowrap;
+
+  div {
+    display: inline-block;
+    margin-#{$start-direction}: 10px;
+  }
+
+  mpiece {
+    margin-#{$start-direction}: -10px;
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    display: inline-block;
+
+    &.pawn {
+      margin-#{$start-direction}: -15px;
+    }
+  }
+
+  score {
+    font-family: 'Roboto';
+    line-height: 32px;
+    vertical-align: top;
+  }
+
+  @include breakpoint($mq-col1) {
+    height: $col1-mat-height;
+    margin-#{$start-direction}: 3vmin;
+
+    div {
+      margin-#{$start-direction}: 8px;
+    }
+
+    mpiece {
+      width: $col1-mat-height * 3/4;
+      height: $col1-mat-height * 3/4;
+      margin-#{$start-direction}: -8px !important;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.swiss__notice {
+  color: #fff;
+  background: $c-good;
+  text-align: center;
+  padding: 0.5em 0;
+  opacity: 0.8;
+
+  &.closed {
+    background: $c-primary;
+  }
+}
+
+.swiss__ur-playing {
+  @extend %flex-column;
+
+  text-align: center;
+  font-size: 1.5em;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    font-size: 2rem;
+    position: absolute;
+    top: 30px;
+  }
+
+  &::before {
+    #{$start-direction}: 30px;
+  }
+
+  &::after {
+    #{$end-direction}: 30px;
+  }
+}

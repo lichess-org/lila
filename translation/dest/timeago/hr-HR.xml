@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">upravo sada</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">za %s sekunda</item>
+    <item quantity="few">za %s sekundi</item>
+    <item quantity="other">za %s sekunda</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">za %s minutu</item>
+    <item quantity="few">za %s minute</item>
+    <item quantity="other">za %s minuta</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">za %s sat</item>
+    <item quantity="few">za %s sata</item>
+    <item quantity="other">za %s sati</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">za %s dan</item>
+    <item quantity="few">za %s dana</item>
+    <item quantity="other">za %s dana</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">za %s tjedan</item>
+    <item quantity="few">za %s tjedna</item>
+    <item quantity="other">za %s tjedana</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">za %s mjesec</item>
+    <item quantity="few">za %s mjeseca</item>
+    <item quantity="other">za %s mjeseci</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">za %s godinu</item>
+    <item quantity="few">za %s godine</item>
+    <item quantity="other">za %s godina</item>
+  </plurals>
+  <string name="rightNow">upravo sada</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">prije %s sekundi</item>
+    <item quantity="few">prije %s sekunde</item>
+    <item quantity="other">prije %s sekunda</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">prije %s minutu</item>
+    <item quantity="few">prije %s minute</item>
+    <item quantity="other">prije %s minuta</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">prije %s sat</item>
+    <item quantity="few">prije %s sata</item>
+    <item quantity="other">prije %s sati</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">prije %s dan</item>
+    <item quantity="few">prije %s dana</item>
+    <item quantity="other">prije %s dana</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">prije %s tjedan</item>
+    <item quantity="few">prije %s tjedna</item>
+    <item quantity="other">prije %s tjedana</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">prije %s mjesec</item>
+    <item quantity="few">prije %s mjeseca</item>
+    <item quantity="other">prije %s mjeseci</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">prije %s godinu</item>
+    <item quantity="few">prije %s godine</item>
+    <item quantity="other">prije %s godina</item>
+  </plurals>
+</resources>

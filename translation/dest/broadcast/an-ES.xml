@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Emisions</string>
+  <string name="liveBroadcasts">Emisions de torneyos en directo</string>
+  <string name="newBroadcast">Nueva emisión en directo</string>
+  <string name="addRound">Anyadir una ronda</string>
+  <string name="ongoing">En curso</string>
+  <string name="upcoming">Proximament</string>
+  <string name="completed">Completadas</string>
+  <string name="roundName">Nombre d\'a ronda</string>
+  <string name="roundNumber">Numero de ronda</string>
+  <string name="tournamentName">Nombre d\'o torneyo</string>
+  <string name="fullDescription">Descripción completa de l\'evento</string>
+  <string name="fullDescriptionHelp">Descripción larga opcional d\'a emisión. %1$s ye disponible. La largaria ha d\'estar inferior a %2$s caracters.</string>
+  <string name="sourceUrlHelp">URL que Lichess comprebará pa obtener actualizacions PGN. Ha d\'estar publicament accesible dende Internet.</string>
+  <string name="startDate">Data d\'inicio en a tuya zona horaria</string>
+  <string name="startDateHelp">Opcional, si sabes quan prencipia l\'evento</string>
+  <string name="credits">Cita la fuent</string>
+  <string name="broadcastUrl">URL d\'a emisión</string>
+  <string name="currentRoundUrl">Vinclo d\'a ronda actual</string>
+  <string name="currentGameUrl">Vinclo d\'a partida actual</string>
+</resources>

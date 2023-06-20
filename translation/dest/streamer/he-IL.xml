@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">שדרני ליצ׳ס</string>
+  <string name="lichessStreamer">שדרן ליצ׳ס</string>
+  <string name="live">בשידור חי!</string>
+  <string name="offline">מנותק</string>
+  <string name="currentlyStreaming">משדרים כרגע: %s</string>
+  <string name="lastStream">משדר אחרון %s</string>
+  <string name="becomeStreamer">הפכו לשדרני ליצ׳ס</string>
+  <string name="doYouHaveStream">יש לך ערוץ יוטיוב או טוויץ\'?</string>
+  <string name="hereWeGo">יוצאים לדרך!</string>
+  <string name="allStreamers">כל השדרנים</string>
+  <string name="editPage">ערוך עמוד שדרן</string>
+  <string name="yourPage">עמוד המשדר שלכם</string>
+  <string name="downloadKit">הורדת ערכת משדר</string>
+  <string name="xIsStreaming">%s משדר/ת</string>
+  <string name="rules">חוקי שידור</string>
+  <string name="rule1">יש לכלול את מילת המפתח \"lichess.org\" בכותרת המשדר שלכם ולהשתמש בקטגוריית \"Chess\", כשאתם משדרים בליצ׳ס.</string>
+  <string name="rule2">יש להסיר את מילת המפתח כשאתם משדרים תוכן שאינו קשור לליצ׳ס.</string>
+  <string name="rule3">ליצ׳ס יזהה את המשדר שלכם בצורה אוטומטית ויפעיל את ההטבות הבאות:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">קראו את %s כדי לאפשר משחק הוגן לכולם בזמן המשדר שלכם.</string>
+  <string name="streamingFairplayFAQ">המדריך שלנו לשידור הוגן</string>
+  <string name="perks">הטבות שידור עם מילת המפתח</string>
+  <string name="perk1">תקבלו אייקון משדר בוער בפרופיל הליצ׳ס שלכם.</string>
+  <string name="perk2">תועלו למעלה ברשימת המשדרים.</string>
+  <string name="perk3">העוקבים שלכם בליצ׳ס יקבלו הודעה.</string>
+  <string name="perk4">תוכלו להציג את השידור שלכם במשחקים, טורנירים ובלוחות הלמידה שלכם.</string>
+  <string name="approved">המשדר שלכם אושר.</string>
+  <string name="pendingReview">המשדר שלכם עובר בדיקת מנהלים.</string>
+  <string name="pleaseFillIn">אנא מלאו את פרטי המשדר שלכם והעלו תמונה.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להיכנס לרשימת שדרני ליצ׳ס, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">בקשו בדיקת מנהלים</string>
+  <string name="streamerLanguageSettings">עמוד השדרנים של ליצ׳ס מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
+  <string name="twitchUsername">שם המשתמש או כתובת הTwitch שלכם</string>
+  <string name="optionalOrEmpty">אופציונאלי. אם אין, השאירו את השדה ריק</string>
+  <string name="youTubeChannelId">המזהה (ID) של ערוץ ה-YouTube שלך</string>
+  <string name="streamerName">השם שלכם כשדרנים בליצ׳ס</string>
+  <plurals name="keepItShort">
+    <item quantity="one">עד תו %s</item>
+    <item quantity="two">עד %s תווים</item>
+    <item quantity="many">עד %s תווים</item>
+    <item quantity="other">עד %s תווים</item>
+  </plurals>
+  <string name="visibility">גלוי בעמוד השדרנים</string>
+  <string name="whenApproved">לאחר אישור מנהלים</string>
+  <string name="headline">כּוֹתֶרֶת</string>
+  <string name="tellUsAboutTheStream">ספרו לנו על שידורכם במשפט אחד</string>
+  <string name="longDescription">תיאור ארוך</string>
+  <string name="xStreamerPicture">תמונה של השדרן %s</string>
+  <string name="changePicture">שינוי/מחיקת התמונה שלך</string>
+  <string name="uploadPicture">העלאת תמונה</string>
+  <string name="maxSize">גודל מרבי: %s</string>
+</resources>

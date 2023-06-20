@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">chusto agora</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">en %s segundos</item>
+    <item quantity="other">en %s segundos</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">en %s minuto</item>
+    <item quantity="other">en %s minutos</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">en %s hora</item>
+    <item quantity="other">en %s horas</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">en %s día</item>
+    <item quantity="other">en %s días</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">en %s semana</item>
+    <item quantity="other">en %s semanas</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">en %s mes</item>
+    <item quantity="other">en %s meses</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">en %s anyo</item>
+    <item quantity="other">en %s anyos</item>
+  </plurals>
+  <string name="rightNow">chusto agora</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">fa %s segundo</item>
+    <item quantity="other">fa %s segundos</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">fa %s minuto</item>
+    <item quantity="other">fa %s minutos</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">fa %s hora</item>
+    <item quantity="other">fa %s horas</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">fa %s día</item>
+    <item quantity="other">fa %s días</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">fa %s semana</item>
+    <item quantity="other">fa %s semanas</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">fa %s mes</item>
+    <item quantity="other">fa %s meses</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">fa %s anyo</item>
+    <item quantity="other">fa %s anyos</item>
+  </plurals>
+</resources>

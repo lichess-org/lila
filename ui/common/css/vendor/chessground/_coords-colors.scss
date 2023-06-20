@@ -1,0 +1,20 @@
+$coord-color-default: #fff;
+$coord-shadow-default: 0 1px 2px #000;
+
+coords {
+  text-shadow: var(--cg-cs, $coord-shadow-default);
+}
+
+.orientation-white .files coord:nth-child(2n + 1),
+.orientation-white .ranks coord:nth-child(2n),
+.orientation-black .files coord:nth-child(2n),
+.orientation-black .ranks coord:nth-child(2n + 1) {
+  color: var(--cg-ccw, $coord-color-default);
+}
+
+.orientation-white .files coord:nth-child(2n),
+.orientation-white .ranks coord:nth-child(2n + 1),
+.orientation-black .files coord:nth-child(2n + 1),
+.orientation-black .ranks coord:nth-child(2n) {
+  color: var(--cg-ccb, $coord-color-default);
+}

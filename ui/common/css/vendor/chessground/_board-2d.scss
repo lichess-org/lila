@@ -1,0 +1,25 @@
+@import 'themes';
+
+@each $name, $theme in $board-themes-2d {
+  .#{$name} .is2d {
+    cg-board {
+      $file-ext: map-get($theme, file-ext);
+      $name-override: map-get($theme, name-override);
+      $file-name: if($name-override, $name-override, $name);
+      $dir-name: 'board#{if($file-ext == "svg", "/svg", "")}';
+
+      background-image: img-url('#{$dir-name}/#{$file-name}.#{$file-ext}');
+    }
+
+    $coord-color-white: map-get($theme, coord-color-white);
+    $coord-color-black: map-get($theme, coord-color-black);
+
+    @if $coord-color-white and $coord-color-black {
+      coords {
+        --cg-ccw: #{$coord-color-white};
+        --cg-ccb: #{$coord-color-black};
+        --cg-cs: none;
+      }
+    }
+  }
+}

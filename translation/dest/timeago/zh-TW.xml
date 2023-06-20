@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">剛剛</string>
+  <plurals name="inNbSeconds">
+    <item quantity="other">%s秒後</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="other">%s分後</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="other">%s小時後</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="other">%s天後</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="other">%s週後</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="other">%s個月後</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="other">%s年後</item>
+  </plurals>
+  <string name="rightNow">現在</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="other">%s秒前</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="other">%s分前</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">%s小時前</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="other">%s天前</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">%s週前</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="other">%s個月前</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">%s年前</item>
+  </plurals>
+</resources>

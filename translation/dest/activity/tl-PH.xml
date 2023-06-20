@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Aktibidad</string>
+  <string name="hostedALiveStream">Nag-host ng live stream</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Sinusuportahan ang lichess.org para sa %1$s buwan bilang isang %2$s</item>
+    <item quantity="other">Sinusuportahan ang lichess.org para sa %1$s buwan bilang isang %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Nalutas %s taktikal na palaisipan</item>
+    <item quantity="other">Nalutas %s taktikal na mga palaisipan</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Pinatugtog ang paglipat ng %1$s</item>
+    <item quantity="other">Pinatugtog ang %1$s na paggalaw</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">sa %1$s laro sa pagsusulatan</item>
+    <item quantity="other">sa %1$s mga laro sa pagsusulatan</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Nakumpleto ang laro ng pagsusulat sa %s</item>
+    <item quantity="other">Nakumpleto ang mga laro sa pagsusulat ng %s</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Sinimulan ang pagsunod sa %s isang manlalaro</item>
+    <item quantity="other">Sinimulan ang pagsunod sa %s mga manlalaro</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Hosted %s sabay na eksibisyon</item>
+    <item quantity="other">Naka-host na %s sabay na eksibisyon</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Sumali sa %s sabay-sabay na eksibisyon</item>
+    <item quantity="other">Sumali sa %s sabay-sabay na eksibisyon</item>
+  </plurals>
+</resources>

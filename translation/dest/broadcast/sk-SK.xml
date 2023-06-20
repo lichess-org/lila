@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Vysielanie</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s vysielanie</item>
+    <item quantity="few">%s vysielania</item>
+    <item quantity="many">%s vysielaní</item>
+    <item quantity="other">%s vysielaní</item>
+  </plurals>
+  <string name="liveBroadcasts">Živé vysielanie turnaja</string>
+  <string name="newBroadcast">Nové živé vysielanie</string>
+  <string name="addRound">Pridať kolo</string>
+  <string name="ongoing">Prebiehajúci</string>
+  <string name="upcoming">Nasledujúce</string>
+  <string name="completed">Ukončené</string>
+  <string name="roundName">Názov kola</string>
+  <string name="roundNumber">Číslo kola</string>
+  <string name="tournamentName">Názov turnaja</string>
+  <string name="tournamentDescription">Krátky popis turnaja</string>
+  <string name="fullDescription">Úplný popis turnaja</string>
+  <string name="fullDescriptionHelp">Voliteľný dlhý popis vysielania. %1$s je dostupný. Dĺžka musí byť menej ako %2$s znakov.</string>
+  <string name="sourceUrlOrGameIds">Zdrojová URL alebo ID partií</string>
+  <string name="sourceUrlHelp">URL, ktorú bude Lichess kontrolovať, aby získal aktualizácie PGN. Musí byť verejne prístupná z internetu.</string>
+  <string name="gameIdsHelp">Prípadne môžete zadať až 64 ID Lichess partií oddelených medzerami.</string>
+  <string name="startDate">Dátum a čas začiatku, vo vašej časovej zóne</string>
+  <string name="startDateHelp">Voliteľné, ak viete kedy sa udalosť začne</string>
+  <string name="credits">Uveďte zdroj</string>
+  <string name="resetRound">Resetovať toto kolo</string>
+  <string name="deleteRound">Vymazať toto kolo</string>
+  <string name="broadcastUrl">Adresa URL pre sledovanie</string>
+  <string name="currentRoundUrl">Adresa URL aktuálneho kola</string>
+  <string name="currentGameUrl">Adresa URL aktuálnej partie</string>
+  <string name="downloadAllRounds">Stiahnuť všetky kolá</string>
+  <string name="definitivelyDeleteRound">Definitívne vymazať kolo a partie tohto kola.</string>
+  <string name="deleteAllGamesOfThisRound">Vymazať všetky partie tohto kola. K opätovnému vytvoreniu partií bude potrebné aby bol zdroj aktívny.</string>
+</resources>

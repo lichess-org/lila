@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nova chave pessoal de acesso à API</string>
+  <string name="tokenGrantsPermission">Uma chave permite que outras pessoas usem sua conta.</string>
+  <string name="carefullySelect">Escolha com cuidado o que podem fazer em seu nome.</string>
+  <string name="tokenDescription">Descrição da chave</string>
+  <string name="rememberTokenUse">Lembrará para você qual a função da chave</string>
+  <string name="whatTheTokenCanDo">O que a chave pode fazer em seu nome:</string>
+  <string name="doNotShareIt">A chave dará acesso à sua conta. NÃO a compartilhe com ninguém!</string>
+  <string name="copyTokenNow">Copie e cole sua nova chave de acesso pessoal em um local seguro. Você não poderá mais vê-la!</string>
+  <string name="preferenceRead">Acesso a preferências</string>
+  <string name="preferenceWrite">Modificar preferências</string>
+  <string name="emailRead">Acesso ao endereço de e-mail</string>
+  <string name="challengeRead">Acesso aos desafios recebidos</string>
+  <string name="challengeWrite">Permitir enviar, aceitar e rejeitar desafios</string>
+  <string name="challengeBulk">Permitir criar vários jogos de uma vez para outros jogadores</string>
+  <string name="studyRead">Acesso a estudos privados e transmissões</string>
+  <string name="studyWrite">Permitir criar, atualizar e deletar estudos e transmissões</string>
+  <string name="tournamentWrite">Permitir criar, atualizar e entrar em torneios</string>
+  <string name="racerWrite">Permitir criar e entrar em corridas</string>
+  <string name="puzzleRead">Acesso à atividade de quebra-cabeças</string>
+  <string name="teamRead">Acesso a informações privadas da equipe</string>
+  <string name="teamWrite">Permitir entrar e sair de equipes</string>
+  <string name="teamLead">Administre suas equipes: envie mensagens privadas, expulse membros</string>
+  <string name="followRead">Acesso à lista de usuários seguidos</string>
+  <string name="followWrite">Permitir (parar de) seguir outros usuários</string>
+  <string name="msgWrite">Permitir enviar mensagens privadas a outros usuários</string>
+  <string name="boardPlay">Jogar com a API de tabuleiro</string>
+  <string name="botPlay">Jogar com a API de bots</string>
+  <string name="engineRead">Permitir ver e usar seus softwares de assistência externos</string>
+  <string name="engineWrite">Permitir criar e atualizar softwares de assistência externos</string>
+  <string name="webLogin">Permitir iniciar sessões autenticadas (garante acesso completo!)</string>
+  <string name="webMod">Permitir usar ferramentas de moderador (com restrições)</string>
+</resources>

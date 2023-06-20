@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Optiones</string>
+  <string name="closeAccount">Claude rationem</string>
+  <string name="cantOpenSimilarAccount">Non licebit tibi rationem novam nominis eiusdem creare, etiam si casum alium uteris.</string>
+  <string name="changedMindDoNotCloseAccount">Cor flexi, noli claudere rationem meam</string>
+  <string name="thisAccountIsClosed">Haec ratio clausa est.</string>
+</resources>

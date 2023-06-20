@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">הגדרות</string>
+  <string name="closeAccount">סגירת החשבון</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">חשבונך מנוהל, ולכן לא ניתן לסגור אותו.</string>
+  <string name="closingIsDefinitive">הסגירה היא סופית. אין דרך חזרה. האם את/ה בטוח/ה?</string>
+  <string name="cantOpenSimilarAccount">לא תוכל/י לפתוח חשבון חדש עם אותו השם, אפילו בשינוי אותיות קטנות לגדולות ולהיפך.</string>
+  <string name="changedMindDoNotCloseAccount">שיניתי את דעתי, אל תסגרו את החשבון שלי</string>
+  <string name="closeAccountExplanation">האם אכן ברצונך לסגור את חשבונך? סגירת חשבונך היא החלטה סופית. לעולם לא יהיה אפשר להתחבר לחשבון הזה שוב.</string>
+  <string name="thisAccountIsClosed">החשבון הזה סגור.</string>
+</resources>

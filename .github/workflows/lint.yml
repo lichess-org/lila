@@ -1,0 +1,33 @@
+name: Lint code
+
+on:
+  push:
+    branches-ignore:
+      - 'l10n_master'
+  pull_request:
+    paths-ignore:
+      - 'translation/dest/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: '8.6'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '17'
+          cache: pnpm
+      - uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+      - uses: github/codeql-action/analyze@v2
+      - run: pnpm install
+      - run: pnpm run lint
+      - run: pnpm run check-format

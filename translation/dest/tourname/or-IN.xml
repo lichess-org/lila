@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dailyClassical">ଦୈନିକ ଶାସ୍ତ୍ରୀୟ</string>
+  <string name="weeklyClassical">ସାପ୍ତାହିକ ଶାସ୍ତ୍ରୀୟ</string>
+  <string name="monthlyClassical">ମାସିକ ଶାସ୍ତ୍ରୀୟ</string>
+  <string name="yearlyClassical">ବାର୍ଷିକ ଶାସ୍ତ୍ରୀୟ</string>
+  <string name="classicalShield">ଶାସ୍ତ୍ରୀୟ ଢାଲ</string>
+</resources>

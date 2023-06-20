@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">رێکخستن</string>
+  <string name="closeAccount">داخستنی هەژمارەکەت</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">هەژمارەکەت بەڕێوەدەبدرێت، و ناتوانرێت دابخرێت.</string>
+  <string name="closingIsDefinitive">داخستنی هەژمارەکە بەتەواوەتی دەبێت و هیچ گەڕانەوەی بۆ نییە، تۆ دڵنیایت?</string>
+  <string name="cantOpenSimilarAccount">تۆ رێگەت پێنادرێت چیتر بەم ناوە هەژمارێکی نوێ بکەیتەوە، تەنانەت ئەگەر گۆڕانکاری لە گەورە و بچووکی پیتەکانیش بکەی.</string>
+  <string name="changedMindDoNotCloseAccount">من ڕای خۆم گۆڕی، هەژمارەکەم داناخەم</string>
+  <string name="closeAccountExplanation">ئایا دڵنیای کە دەتەوێت هەژمارەکەت دابخەیت؟ داخستنی هەژمارەکەت بڕیارێکی هەمیشەییە. جارێکی تر هەرگیز ناتوانیت بچیتە ژوورەوە.</string>
+  <string name="thisAccountIsClosed">ئەم هەژمارە داخرا.</string>
+</resources>

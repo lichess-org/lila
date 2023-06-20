@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Har Soatlik Rapid maydoni</string>
+  <string name="hourlyRapid">Har Soatlik Rapid</string>
+  <string name="hourlyXArena">Har Soatlik %s maydoni</string>
+  <string name="hourlyX">Har Soatlik %s</string>
+  <string name="dailyRapidArena">Har Soatlik Rapid maydoni</string>
+  <string name="dailyRapid">Har Kunlik Rapid</string>
+  <string name="dailyClassicalArena">Har Kunlik Klassika maydoni</string>
+  <string name="dailyClassical">Har Kunlik Klassika</string>
+  <string name="dailyXArena">Har Kunlik %s maydoni</string>
+  <string name="dailyX">Har Kunlik %s</string>
+  <string name="easternRapidArena">Sharqiy Rapid maydoni</string>
+  <string name="easternRapid">Sharqiy Rapid</string>
+  <string name="easternClassicalArena">Sharqiy Klassika maydoni</string>
+  <string name="easternClassical">Sharqiy Klassika</string>
+  <string name="easternXArena">Sharqiy %s maydoni</string>
+  <string name="easternX">Sharqiy %s</string>
+  <string name="weeklyRapidArena">Har Haftalik Rapid maydoni</string>
+  <string name="weeklyRapid">Har Haftalik Rapid</string>
+  <string name="weeklyClassicalArena">Har Haftalik Klassika maydoni</string>
+  <string name="weeklyClassical">Har Haftalik Klassika</string>
+  <string name="weeklyXArena">Har Haftalik %s maydoni</string>
+  <string name="weeklyX">Har Haftalik %s</string>
+  <string name="monthlyRapidArena">Har Oylik Rapid maydoni</string>
+  <string name="monthlyRapid">Har Oylik Rapid</string>
+  <string name="monthlyClassicalArena">Har Oylik Klassika maydoni</string>
+  <string name="monthlyClassical">Har Oylik Klassika</string>
+  <string name="monthlyXArena">Har Oylik %s maydoni</string>
+  <string name="monthlyX">Har oylik %s</string>
+  <string name="yearlyRapidArena">Har Yillik Rapid maydoni</string>
+  <string name="yearlyRapid">Har Yillik Rapid</string>
+  <string name="yearlyClassicalArena">Har Yillik Klassika maydoni</string>
+  <string name="yearlyClassical">Har Yillik Klassika</string>
+  <string name="yearlyXArena">Har Yillik %s maydoni</string>
+  <string name="yearlyX">Har Yillik %s</string>
+  <string name="rapidShieldArena">Rapid Qalqon maydoni</string>
+  <string name="rapidShield">Rapid Qalqoni</string>
+  <string name="classicalShieldArena">Klassika Qalqon maydoni</string>
+  <string name="classicalShield">Klassika Qalqoni</string>
+  <string name="xShieldArena">%s Qalqon maydoni</string>
+  <string name="xShield">%s Qalqon</string>
+  <string name="xTeamBattle">%s Jamoaviy jang</string>
+  <string name="eliteXArena">%s Elita maydoni</string>
+  <string name="eliteX">%s Elita</string>
+  <string name="xArena">%s maydoni</string>
+</resources>

@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig_module.base.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src",
+    "composite": true
+  },
+  "isolatedModules": true,
+  "references": [{ "path": "../common/tsconfig.json" }]
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">ชั้นเรียน</string>
+  <string name="trackStudentProgress">ติดตามความก้าวหน้าของนักเรียนจากเกมและปริศนา</string>
+  <string name="createANewLichessAccount">สร้างบัญชี Lichess ใหม่</string>
+  <string name="winrate">อัตราชนะ</string>
+  <string name="overview">ภาพรวม</string>
+  <string name="news">ข่าวสาร</string>
+  <string name="nothingHere">ยังไม่มีอะไรที่นี่</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">หรือ</string>
+  <string name="createMultipleAccounts">สร้างบัญชี Lichess หลายบัญชีในครั้งเดียว</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">ใช้แบบฟอร์มนี้</string>
+</resources>

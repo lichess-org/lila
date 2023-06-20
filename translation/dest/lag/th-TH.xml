@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLichessLagging">Lichess กำลังค้างอยู่ใช่ไหม?</string>
+  <string name="measurementInProgressThreeDot">การวัดกำลังดำเนินการ...</string>
+  <string name="noAndYourNetworkIsGood">ไม่ใช่ และเครือข่ายของคุณนั้นก็ดี</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">ไม่ใช่ และเครือข่ายของคุณนั้นก็ไม่ดี</string>
+  <string name="yesItWillBeFixedSoon">ใช่ มันจะถูกแก้ไขเร็วๆนี้!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">ตอนนี้ก็ได้เวลาตอบคำถามแบบยาวแล้ว! การค้างของเกม มีสาเหตุมาจากค่าสองค่าที่ไม่มีความสอดคล้องกัน (ยิ่งค่าต่ำ ยิ่งดี)</string>
+  <string name="lichessServerLatency">ความล่าช้าของเซิร์ฟเวอร์ Lichess</string>
+</resources>

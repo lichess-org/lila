@@ -1,0 +1,269 @@
+@import 'link';
+@import 'board';
+@import 'piece';
+
+#dasher_app {
+  @extend %box-radius-left;
+
+  width: 225px;
+
+  .spinner {
+    margin: 20px auto;
+  }
+
+  .status {
+    display: block;
+    position: relative;
+    padding: 0.8rem;
+    border-top: $border;
+
+    signal {
+      position: absolute;
+      #{$end-direction}: 1rem;
+      top: 1rem;
+      font-size: 1.7rem;
+    }
+
+    .ping,
+    .server {
+      @extend %roboto;
+
+      display: block;
+    }
+
+    strong {
+      padding: 0 5px;
+    }
+  }
+
+  .head {
+    @extend %button-none;
+
+    display: block;
+    padding: 1rem;
+    border-bottom: $border;
+    width: 100%;
+    text-align: start;
+  }
+
+  .head::before {
+    color: $c-dasher;
+    opacity: 0.8;
+  }
+
+  .head:hover::before {
+    opacity: 1;
+  }
+
+  .langs {
+    form {
+      max-height: 400px;
+      overflow: auto;
+    }
+
+    button {
+      display: block;
+      padding: 0.7rem 0.7rem 0.7rem 1rem;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+
+      &:hover {
+        background: $c-dasher-light;
+      }
+    }
+
+    .accepted {
+      border-#{$start-direction}: 4px solid $c-dasher;
+    }
+
+    .current {
+      background: $c-dasher !important;
+      color: $c-dasher-over !important;
+      border-#{$start-direction}: none;
+    }
+
+    .help {
+      color: $c-link;
+      display: block;
+      padding: 0.7rem 0.7rem 0.7rem 1rem;
+
+      &:hover {
+        background: $c-link;
+        color: $c-link-over;
+      }
+    }
+  }
+
+  .selector {
+    flex: 1 1 100%;
+    margin: 0.5rem 0;
+
+    button {
+      @extend %button-none;
+
+      display: block;
+      padding: 0.7rem 1rem;
+      width: 100%;
+      text-align: start;
+
+      @include transition(background);
+
+      &:hover {
+        background: $c-dasher-light;
+      }
+
+      &.active {
+        background: $c-dasher !important;
+        color: $c-dasher-over !important;
+      }
+
+      &::before {
+        @include margin-inline-end(8px);
+        font-size: 19px;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+
+        @include transition(opacity);
+      }
+
+      // don't show checkmarks on inactive selectors.
+
+      &.active::before {
+        opacity: 1;
+        color: $c-dasher-over !important;
+      }
+    }
+
+    &.large button {
+      padding: 1rem 1rem;
+    }
+  }
+
+  .zen {
+    button::before {
+      opacity: 0.5;
+    }
+
+    &:hover button::before {
+      opacity: 1;
+    }
+  }
+
+  .sound {
+    .content {
+      display: flex;
+      margin: 5px 0 5px 5px;
+    }
+
+    .selector a {
+      border-radius: $box-radius-size 0 0 $box-radius-size;
+    }
+
+    input[type='range'] {
+      flex: 0 0 1em;
+      width: 1em;
+      margin: 1rem;
+      padding-top: 0;
+      padding-bottom: 0;
+      writing-mode: bt-lr;
+      -webkit-appearance: slider-vertical;
+    }
+
+    &.silent input[type='range'] {
+      opacity: 0.2;
+    }
+  }
+
+  .background {
+    .image p {
+      font-size: 0.9em;
+      padding: 5px;
+    }
+
+    input {
+      padding: 5px;
+      border: 1px solid #444;
+      width: 100%;
+      background-color: #3e3e3e;
+      color: #fff;
+    }
+  }
+
+  .board .zoom {
+    display: none;
+
+    @include breakpoint($mq-board-resizable) {
+      display: block;
+    }
+
+    border-top: $border;
+    padding: 1.5rem;
+  }
+
+  .board .range {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .background #gallery {
+    $thumb-w: 160px; // see bin/make-gallery
+    $thumb-h: 90px;
+
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #000000bb;
+
+    #images-viewport {
+      max-height: ($thumb-h + 2px) * 4;
+      overflow: hidden auto;
+    }
+
+    #images-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      @include breakpoint($mq-x-small) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      background-attachment: scroll;
+
+      div {
+        margin: 1px;
+        width: $thumb-w;
+        height: $thumb-h;
+        background-color: transparent;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ffffff16;
+        }
+
+        &.selected {
+          outline: #afa 1px solid;
+        }
+      }
+    }
+
+    #url {
+      padding: 0.5rem 0.5rem 0.7rem;
+      display: flex;
+      align-items: center;
+
+      label {
+        margin: 0 1rem 0 0.5rem;
+        font-size: 1rem;
+      }
+
+      input {
+        padding: 0.5rem;
+        flex: 1 1 auto;
+        background-color: #181818dd;
+      }
+    }
+  }
+}

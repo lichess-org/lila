@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">இப்போது</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s நொடியில்</item>
+    <item quantity="other">%s வினாடிகளில்</item>
+  </plurals>
+</resources>

@@ -1,0 +1,66 @@
+.forum .slist {
+  td {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  td.right,
+  & th.right {
+    display: none;
+
+    @include breakpoint($mq-small) {
+      display: table-cell;
+      text-align: right;
+      padding-#{$end-direction}: 2em;
+    }
+  }
+
+  td:last-child {
+    white-space: nowrap;
+    padding-#{$end-direction}: 1em;
+
+    time {
+      color: $c-link;
+      font-size: 1em;
+    }
+
+    display: none;
+
+    @include breakpoint($mq-xx-small) {
+      display: table-cell;
+    }
+  }
+
+  thead {
+    display: none;
+
+    @include breakpoint($mq-xx-small) {
+      display: table-header-group;
+    }
+  }
+
+  &.topics {
+    table-layout: fixed;
+    margin-bottom: 2rem;
+
+    .subject {
+      font-size: 1.2em;
+    }
+
+    th:nth-child(2) {
+      width: 7%;
+    }
+
+    th:nth-child(3) {
+      width: 26%;
+    }
+
+    td:nth-child(3) {
+      overflow-x: hidden;
+    }
+  }
+
+  &.categs .subject p {
+    margin-top: 0.3em;
+  }
+}

@@ -1,0 +1,23 @@
+.color-icon {
+  @if $theme-light {
+    &.white::before {
+      content: '';
+    }
+
+    &.black::before {
+      content: '';
+    }
+  } @else {
+    &.white::before {
+      content: '';
+    }
+
+    &.black::before {
+      content: '';
+    }
+  }
+
+  &.random::before {
+    content: '';
+  }
+}

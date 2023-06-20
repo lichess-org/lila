@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">आत्ताच</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s सेकंद</item>
+    <item quantity="other">%s सेकंद</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s मिनिट</item>
+    <item quantity="other">%s मिनीट</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s तासांमध्ये</item>
+    <item quantity="other">%s तासांमध्ये</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s दिवस</item>
+    <item quantity="other">%s दिवस</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s आठवडा</item>
+    <item quantity="other">%s आठवडे</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s महिना</item>
+    <item quantity="other">%s महिने</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s वर्ष</item>
+    <item quantity="other">%s वर्ष</item>
+  </plurals>
+  <string name="rightNow">आत्ताच</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s सेकंदापूर्वी</item>
+    <item quantity="other">%s सेकंदांपूर्वी</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s मिनिटांपूर्वी</item>
+    <item quantity="other">%s मिनिटांआधी</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s तासाआधी</item>
+    <item quantity="other">%s तासांआधी</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s दिवसाआधी</item>
+    <item quantity="other">%s दिवसांआधी</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s आठवड्यापूर्वी</item>
+    <item quantity="other">%s आठवड्यांपूर्वी</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s महिन्यापूर्वी</item>
+    <item quantity="other">%s महिन्यांपूर्वी</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s वर्षापूर्वी</item>
+    <item quantity="other">%s वर्षांपूर्वी</item>
+  </plurals>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Preferencias</string>
+  <string name="closeAccount">Zarrar cuenta</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">La tuya cuenta ye administrada, y no se puede zarrar.</string>
+  <string name="closingIsDefinitive">Lo zarre d\'a cuenta será definitivo. No i hai tornada dezaga. Yes seguro?</string>
+  <string name="cantOpenSimilarAccount">No se te permitirá ubrir una nueva cuenta con o mesmo nombre, ni cambiando letras mayusclas y minusclas.</string>
+  <string name="changedMindDoNotCloseAccount">He cambiau d\'opinión, no zarren la mía cuenta</string>
+  <string name="closeAccountExplanation">Yes seguro que quiers zarrar la tuya cuenta? Zarrar la tuya cuenta ye una decisión permanent. Ya nunca mas podrás iniciar sesión dende la mesma.</string>
+  <string name="thisAccountIsClosed">Esta cuenta estió zarrada.</string>
+</resources>

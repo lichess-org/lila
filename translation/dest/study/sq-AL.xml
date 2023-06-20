@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privat</string>
+  <string name="myStudies">Mësimet e mia</string>
+  <string name="studiesIContributeTo">Mësimet në të cilat kam kontribuar</string>
+  <string name="myPublicStudies">Mësimet e mia publike</string>
+  <string name="myPrivateStudies">Mësimet e mia private</string>
+  <string name="myFavoriteStudies">Mësimet e mia të parapëlqyera</string>
+  <string name="whatAreStudies">Ç’janë mësimet?</string>
+  <string name="allStudies">Krejt mësimet</string>
+  <string name="studiesCreatedByX">Mësime të krijuara nga %s</string>
+  <string name="noneYet">Ende asnjë.</string>
+  <string name="hot">Më aktualet</string>
+  <string name="dateAddedNewest">Data e krijimit (nga më e reja)</string>
+  <string name="dateAddedOldest">Data e krijimit (nga më e vjetra)</string>
+  <string name="recentlyUpdated">E përditësuar së fundmi</string>
+  <string name="mostPopular">Më populloret</string>
+  <string name="alphabetical">Alfabetik</string>
+  <string name="addNewChapter">Shto një kapitull të ri</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Kapitull</item>
+    <item quantity="other">%s Kapituj</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Lojë</item>
+    <item quantity="other">%s Lojëra</item>
+  </plurals>
+  <string name="addMembers">Shto anëtarë</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Anëtar</item>
+    <item quantity="other">%s Anëtarë</item>
+  </plurals>
+  <string name="inviteToTheStudy">Ftoni në mësim</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Ju lutemi, ftoni vetëm njerëzit që i njihni dhe që duan vërtet të marrin pjesë në këtë mësim.</string>
+  <string name="searchByUsername">Kërkoni sipas emrit të përdoruesit</string>
+  <string name="spectator">Shikues</string>
+  <string name="contributor">Kontribues</string>
+  <string name="kick">Përjashtoje</string>
+  <string name="leaveTheStudy">Braktisni mësimin</string>
+  <string name="youAreNowAContributor">Tani jeni një kontribues</string>
+  <string name="youAreNowASpectator">Tani jeni shikues</string>
+  <string name="pgnTags">Etiketa PGN</string>
+  <string name="like">Pëlqejeni</string>
+  <string name="unlike">Shpëlqejeni</string>
+  <string name="newTag">Etiketë e re</string>
+  <string name="commentThisPosition">Komentoni këtë pozicion</string>
+  <string name="commentThisMove">Komentoni këtë lëvizje</string>
+  <string name="annotateWithGlyphs">Shenjoni me karaktere</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Ky kapitull është shumë i shkurtë për t’u analizuar.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Analizë kompjuterike mund të kërkohet vetëm nga kontribuesit e këtij mësimi.</string>
+  <string name="getAFullComputerAnalysis">Merrni nga shërbyesi një analizë të plotë kompjuterike të variantit kryesor.</string>
+  <string name="makeSureTheChapterIsComplete">Sigurohuni që kapitulli të jetë i plotë. Mund të kërkoni analizë vetëm një herë.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Krejt anëtarët SYNC mbesin në të njëjtin pozicion</string>
+  <string name="shareChanges">Ndani ndryshimet me shikuesit dhe ruajini ato në shërbyes</string>
+  <string name="playing">Po luhet</string>
+  <string name="first">E para</string>
+  <string name="previous">E mëparshmja</string>
+  <string name="next">Pasuesja</string>
+  <string name="last">E fundit</string>
+  <string name="shareAndExport">Ndajeni me të tjerë &amp; eksportoni</string>
+  <string name="cloneStudy">Klonoje</string>
+  <string name="studyPgn">Studioni PGN</string>
+  <string name="downloadAllGames">Shkarkoji krejt lojërat</string>
+  <string name="chapterPgn">PGN e kapitullit</string>
+  <string name="copyChapterPgn">Kopjo PGN</string>
+  <string name="copyChapterPgnDescription">Kopjo në të papastër PGN kapitulli.</string>
+  <string name="downloadGame">Shkarko lojën</string>
+  <string name="studyUrl">URL Mësimi</string>
+  <string name="currentChapterUrl">URL e Kapitullit Aktual</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Këtë mund ta ngjitni te forumi ose blogu juaj Lichess, për ta trupëzuar</string>
+  <string name="startAtInitialPosition">Fillo në pozicionin fillestar</string>
+  <string name="startAtX">Fillo tek %s</string>
+  <string name="embedInYourWebsite">Trupëzojeni te sajti juaj</string>
+  <string name="readMoreAboutEmbedding">Lexoni më tepër rreth trupëzimit</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Mund të trupëzoni vetëm mësime publike!</string>
+  <string name="open">Hap</string>
+  <string name="xBroughtToYouByY">%1$s, sjellë për ju nga %2$s</string>
+  <string name="studyNotFound">Mësimi s’u gjet</string>
+  <string name="editChapter">Përpunoni kapitullin</string>
+  <string name="newChapter">Kapitull i ri</string>
+  <string name="importFromChapterX">Importo prej %s</string>
+  <string name="orientation">Drejtimi</string>
+  <string name="analysisMode">Mënyra Analizim</string>
+  <string name="pinnedChapterComment">Koment kapitulli i fiksuar</string>
+  <string name="saveChapter">Ruaje kapitullin</string>
+  <string name="clearAnnotations">Spastro shënimet</string>
+  <string name="clearVariations">Spastroji variantet</string>
+  <string name="deleteChapter">Fshije kapitullin</string>
+  <string name="deleteThisChapter">Të fshihet ky kapitull? S’ka kthim mbrapa!</string>
+  <string name="clearAllCommentsInThisChapter">Të spastrohen krejt komentet, glifet dhe format e vizatuara në këtë kapitull?</string>
+  <string name="rightUnderTheBoard">Mu nën fushë</string>
+  <string name="noPinnedComment">Asnjë</string>
+  <string name="normalAnalysis">Analizë normale</string>
+  <string name="hideNextMoves">Fshih lëvizjen e radhës</string>
+  <string name="interactiveLesson">Mësim me ndërveprim</string>
+  <string name="chapterX">Kapitulli %s</string>
+  <string name="empty">E zbrazët</string>
+  <string name="startFromInitialPosition">Fillo nga pozicioni fillestar</string>
+  <string name="editor">Përpunues</string>
+  <string name="startFromCustomPosition">Fillo nga pozicion vetjak</string>
+  <string name="loadAGameByUrl">Ngarko lojëra nga URL</string>
+  <string name="loadAPositionFromFen">Ngarko pozicionin nga FEN</string>
+  <string name="loadAGameFromPgn">Ngarko lojëra nga PGN</string>
+  <string name="automatic">Automatik</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Hidhni këtu tekstin e PGN-s tuaj, deri në %s lojë</item>
+    <item quantity="other">Hidhni këtu tekstin e PGN-s tuaj, deri në %s lojëra</item>
+  </plurals>
+  <string name="urlOfTheGame">URL e lojërave, një për rresht</string>
+  <string name="loadAGameFromXOrY">Ngarko lojëra nga %1$s ose %2$s</string>
+  <string name="createChapter">Krijo kapitull</string>
+  <string name="createStudy">Krijoni mësim</string>
+  <string name="editStudy">Përpunoni mësimin</string>
+  <string name="visibility">Dukshmëri</string>
+  <string name="public">Publike</string>
+  <string name="unlisted">Jo në listë</string>
+  <string name="inviteOnly">Vetëm me ftesa</string>
+  <string name="allowCloning">Lejo klonimin</string>
+  <string name="nobody">Askush</string>
+  <string name="onlyMe">Vetëm unë</string>
+  <string name="contributors">Kontribues</string>
+  <string name="members">Anëtarë</string>
+  <string name="everyone">Cilido</string>
+  <string name="enableSync">Lejo njëkohësim</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Po: mbaje këdo në të njëjtin pozicion</string>
+  <string name="noLetPeopleBrowseFreely">Jo: lejoji njerëzit të shfletojnë lirisht</string>
+  <string name="pinnedStudyComment">Koment studimi i fiksuar</string>
+  <string name="start">Fillo</string>
+  <string name="save">Ruaje</string>
+  <string name="clearChat">Spastroje bisedën</string>
+  <string name="deleteTheStudyChatHistory">Të fshihet historiku i fjalosjeve të mësimit? S’ka kthim mbrapa!</string>
+  <string name="deleteStudy">Fshije mësimin</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Të fshihet krejt mësimi? S’ka kthim mbrapa! Për ta ripohuar, shtypni emrin e mësimit: %s</string>
+  <string name="whereDoYouWantToStudyThat">Ku doni ta studioni atë?</string>
+  <string name="goodMove">Lëvizje e mirë</string>
+  <string name="mistake">Gabim</string>
+  <string name="brilliantMove">Lëvizje e shkëlqyer</string>
+  <string name="blunder">Gafë</string>
+  <string name="interestingMove">Lëvizje me interes</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Lëvizje e dyshimtë</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Lëvizja e vetme</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">është baras me</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Shenjë gishti e paqartë</string>
+  <string name="whiteIsSlightlyBetter">I bardhi është pakëz më mirë</string>
+  <string name="blackIsSlightlyBetter">I ziu është pakëz më mirë</string>
+  <string name="whiteIsBetter">I bardhi është më mirë</string>
+  <string name="blackIsBetter">I ziu është më mirë</string>
+  <string name="whiteIsWinning">I bardhi po fiton</string>
+  <string name="blackIsWinning">I ziu po fiton</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Risi</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Zhvillim</string>
+  <string name="initiative">Nismë</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Sulm</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Kundërsulm</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Probleme me këtë instalim?</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Me kompesim</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Me idenë</string>
+  <string name="nextChapter">Kapitulli pasues</string>
+  <string name="prevChapter">Kapitulli i mëparshëm</string>
+  <string name="studyActions">Studioni veprimet</string>
+  <string name="topics">Tema</string>
+  <string name="myTopics">Temat e mia</string>
+  <string name="popularTopics">Tema popullore</string>
+  <string name="manageTopics">Administroni tema</string>
+  <string name="back">Mbrapsht</string>
+  <string name="playAgain">Riluaje</string>
+  <string name="whatWouldYouPlay">Ç’lëvizje do të bënit në këtë pozicion?</string>
+  <string name="youCompletedThisLesson">Përgëzime! E mbaruat këtë mësim.</string>
+</resources>

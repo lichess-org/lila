@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">lo konfigu</string>
+  <string name="closeAccount">co\'upli lo jaspu</string>
+  <string name="cantOpenSimilarAccount">baku lonu co\'a jaspu fi la litces. me\'e ga ti poi cmene gi lo cmene poi frica ti poi cmene ku\'o lo ka ga\'elto\'a cu na cumki .i</string>
+  <string name="changedMindDoNotCloseAccount">mi seljdicne .i na ku gau ko co\'upli lo mi jaspu</string>
+  <string name="closeAccountExplanation">.e\'unaicai xu do birti lo ka djica lo nu co\'upli lo do jaspu .i vitno nu jdice .i ba ki ri ze\'e na pilno .i lo do jaspu velski cu na jai zgana se zifre .i</string>
+  <string name="thisAccountIsClosed">co\'upli ti poi jaspu</string>
+</resources>

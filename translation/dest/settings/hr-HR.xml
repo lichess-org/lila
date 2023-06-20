@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Postavke</string>
+  <string name="closeAccount">Zatvori račun</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Vašim računom se upravlja i ne može se zatvoriti.</string>
+  <string name="closingIsDefinitive">Zatvaranje je konačno. Nema povratka. Jesi li siguran?</string>
+  <string name="cantOpenSimilarAccount">Neće ti biti dopušteno otvaranje novog računa s istim imenom, čak i ako kapitalizacija slova bude drugačija.</string>
+  <string name="changedMindDoNotCloseAccount">Predomislio/la sam se, ne zatvaraj moj račun</string>
+  <string name="closeAccountExplanation">Jeste li sigurni da želite zatvoriti račun? Zatvaranje računa je trajna odluka. Više se NIKADA nećete moći prijaviti.</string>
+  <string name="thisAccountIsClosed">Račun je zatvoren.</string>
+</resources>

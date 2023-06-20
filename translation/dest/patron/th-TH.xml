@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="donate">บริจาค</string>
+  <string name="donateAsX">บริจาคในนามของ %s</string>
+  <string name="freeAccount">บัญชีฟรี</string>
+  <string name="freeChess">หมากรุกเล่นฟรีสำหรับทุกคน ตลอดไป!</string>
+  <string name="lifetime">ตลอดชีพ</string>
+  <string name="monthly">รายเดือน</string>
+  <string name="onetime">รายครั้ง</string>
+  <string name="otherAmount">อื่นๆ</string>
+  <string name="withCreditCard">บัตรเครดิต</string>
+</resources>

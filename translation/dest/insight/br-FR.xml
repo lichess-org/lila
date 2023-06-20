@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">Dielfennañ krogadoù %s</string>
+  <string name="xHasNoChessInsights">Ne c\'haller ket dielfennañ krogadoù %s c\'hoazh!</string>
+  <string name="insightsAreProtected">N\'oc\'h ket aotreet da zielfennañ krogadoù %s</string>
+  <string name="cantSeeInsights">Hon digarezit met ne c\'hallit ket dielfennañ krogadoù %s.</string>
+  <string name="generateInsights">Lañsañ an dielfennañ evit krogadoù %s.</string>
+  <string name="crunchingData">O tolpañ ar roadennoù evidoc\'h nemetken!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Goulennit gant an implijer cheñch e %s marteze?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">arventennoù war an dielfennañ</string>
+</resources>

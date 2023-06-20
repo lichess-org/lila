@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Емитовања</string>
+  <string name="liveBroadcasts">Уживо емитовање турнира</string>
+  <string name="newBroadcast">Нова ужива емитовања</string>
+  <string name="ongoing">Текућа</string>
+  <string name="upcoming">Предстојећа</string>
+  <string name="completed">Завршена</string>
+  <string name="roundNumber">Број рунде</string>
+  <string name="fullDescription">Цео опис догађаја</string>
+  <string name="startDate">Датум почетка у твојој временској зони</string>
+</resources>

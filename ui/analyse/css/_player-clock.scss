@@ -1,0 +1,85 @@
+@import '../../common/css/component/material';
+
+$clock-height: 20px;
+
+.analyse__player_strip {
+  position: absolute;
+  #{$end-direction}: 0;
+  display: flex;
+
+  &.top {
+    top: #{-$clock-height};
+
+    .is3d & {
+      top: #{-$clock-height - 35px};
+    }
+  }
+
+  &.bottom {
+    top: var(--cg-height, 100%);
+    z-index: 1; // over the board coords
+
+    .is3d & {
+      top: calc(var(--cg-height, 100%) + 15px);
+    }
+  }
+
+  /* Where to put them in col1 layout? It moves the entire board and controls down for little benefit */
+  @include breakpoint($mq-col1) {
+    display: none;
+  }
+}
+
+.analyse__clock {
+  @extend %metal, %box-shadow;
+
+  padding: 0 0.5em;
+  margin-#{$start-direction}: 12px;
+  height: $clock-height;
+  font-weight: bold;
+  text-align: center;
+
+  &.top {
+    @extend %box-radius-top;
+
+    .is3d & {
+      @extend %box-radius;
+    }
+  }
+
+  &.bottom {
+    @extend %box-radius-bottom;
+  }
+
+  &.active {
+    background: mix($c-primary, $c-bg-box, 30%);
+  }
+
+  tenths {
+    font-size: 80%;
+  }
+}
+
+.material {
+  padding-#{$end-direction}: 1px;
+
+  mpiece {
+    width: 20px;
+    height: 20px;
+
+    &.pawn {
+      margin-#{$start-direction}: -10px;
+    }
+  }
+  score {
+    margin-top: -2px;
+  }
+}
+
+.material-top {
+  margin-top: -1px;
+}
+
+.material-bottom {
+  margin-top: 1px;
+}

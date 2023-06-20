@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="swissTournaments">Turnirji švicarskega formata</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Ogled kroga</item>
+    <item quantity="two">Ogled obeh krogov</item>
+    <item quantity="few">Ogled vseh %s krogov</item>
+    <item quantity="other">Ogled vseh %s krogov</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s krog</item>
+    <item quantity="two">%s kroga</item>
+    <item quantity="few">%s krogi</item>
+    <item quantity="other">%s krogov</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s krog tekmovanja po švicarskem sistemu</item>
+    <item quantity="two">%s kroga tekmovanja po švicarskem sistemu</item>
+    <item quantity="few">%s krogi tekmovanja po švicarskem sistemu</item>
+    <item quantity="other">%s krogov tekmovanja po švicarskem sistemu</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">En krog na dan</item>
+    <item quantity="two">En krog vsaka %s dni</item>
+    <item quantity="few">En krog vsake %s dni</item>
+    <item quantity="other">En krog vsakih %s dni</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Runde se začnejo ročno</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekanda med krogi</item>
+    <item quantity="two">%s sekundi med krogi</item>
+    <item quantity="few">%s sekunde med krogi</item>
+    <item quantity="other">%s sekund med krogi</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuta med krogi</item>
+    <item quantity="two">%s minuti med krogi</item>
+    <item quantity="few">%s minute med krogi</item>
+    <item quantity="other">%s minut med krogi</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Začetek v</string>
+  <string name="nextRound">Naslednji krog</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Tekoča igra</item>
+    <item quantity="two">Tekoči igri</item>
+    <item quantity="few">Tekoče igre</item>
+    <item quantity="other">Tekočih iger</item>
+  </plurals>
+  <string name="tournStartDate">Datum začetka turnirja</string>
+  <string name="numberOfRounds">Število krogov</string>
+  <string name="numberOfRoundsHelp">Neparno število krogov omogoča optimalno barvno ravnovesje.</string>
+  <string name="roundInterval">Interval med krogi</string>
+  <string name="forbiddenPairings">Prepovedano delanje parov</string>
+  <string name="forbiddenPairingsHelp">Uporabniška imena igralcev, ki ne smejo igrati skupaj (na primer bratje in sestre). Dve uporabniški imeni na vrstico, ločeni s presledkom.</string>
+  <string name="newSwiss">Nov švicarski turnir</string>
+  <string name="swissVsArenaQ">Kdaj uporabiti švicarske turnirje namesto aren?</string>
+  <string name="swissVsArenaA">Na švicarskem turnirju vsi udeleženci igrajo enako število iger in lahko med seboj igrajo le enkrat.
+To je lahko dobra izbira za klube in uradne turnirje.</string>
+  <string name="pointsCalculationQ">Kako se izračuna točke?</string>
+  <string name="pointsCalculationA">Zmaga je vredna eno točko, remi je pol točke, izguba pa nič točk.
+Kadar igralca v krogu ni mogoče seznaniti, prejme eno točko.</string>
+  <string name="tiebreaksCalculationQ">Kako se izračunajo neodločeni izidi?</string>
+  <string name="sonnebornBergerScore">Ocena Sonneborn – Berger</string>
+  <string name="tiebreaksCalculationA">Z %s.
+Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezultata vsakega nasprotnika, s katerim igralec remizira.</string>
+  <string name="earlyDrawsQ">Kaj se zgodi pri zgodnjih remijih?</string>
+  <string name="earlyDrawsA">Igralec dobi slovo ene točke vsakič, ko sistem za seznanjanje ne najde para zanj.
+Poleg tega se igralec, ki se turnirju pridruži pozno, pripiše eno samo polovico točke.</string>
+  <string name="protectionAgainstNoShowQ">Kaj se naredi v zvezi z neprihodom?</string>
+  <string name="protectionAgainstNoShowA">Igralci, ki se prijavijo na švicarske dogodke, vendar ne igrajo njihovih iger, so lahko problematični.
+Da bi ublažil to težavo, Lichess igralcem, ki niso igrali igre, prepreči, da bi se za določen čas pridružili novemu švicarskemu dogodku.
+Ustvarjalec švicarskega dogodka se lahko vseeno odloči, da mu dovoli, da se dogodku pridruži.</string>
+  <string name="pairingWaitTimeArena">Hitro: ne čakaj na vse igralce</string>
+  <string name="pairingWaitTimeSwiss">Počasi: čakaj na vse igralce</string>
+  <string name="lateJoinUntil">Da, dokler se ne začne več kot polovica krogov</string>
+  <string name="pause">Premor</string>
+  <string name="pauseSwiss">Da, vendar se lahko zmanjša število krogov</string>
+  <string name="predefinedUsers">Dovoli pridružitev samo vnaprej določenim uporabnikom</string>
+  <string name="forbiddedUsers">Če ta seznam ni prazen, se bo uporabniškim imenom, ki niso na tem seznamu, prepovedano pridružiti. Eno uporabniško ime na vrstico.</string>
+  <string name="playYourGames">Igraj svoje igre</string>
+</resources>

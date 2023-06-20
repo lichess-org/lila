@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src",
+    "types": ["lichess", "web", "cash"],
+    "declaration": true,
+    "composite": true
+  },
+  "references": [{ "path": "../common/tsconfig.json" }],
+  "isolatedModules": true
+}

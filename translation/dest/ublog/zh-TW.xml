@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s的網誌</string>
+  <string name="newPost">新文章</string>
+  <string name="editYourBlogPost">編輯您的網誌</string>
+  <string name="saveDraft">保存草稿</string>
+  <string name="postTitle">文章標題</string>
+  <string name="postIntro">文章簡介</string>
+  <string name="postBody">文章內容</string>
+  <string name="drafts">草稿箱</string>
+  <string name="published">已發布</string>
+  <string name="createBlogDiscussion">啟用留言</string>
+  <string name="publishOnYourBlog">在網誌上發布</string>
+  <string name="publishHelp">如果被選中，文章將列於您的網誌上。如果未選擇，它將是私密的，在您的草稿箱中</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="other">已發布 %s 網誌</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="other">%s 次閱讀</item>
+  </plurals>
+  <string name="xPublishedY">%1$s 發布了 %2$s</string>
+  <string name="thisPostIsPublished">文章已發布</string>
+  <string name="thisIsADraft">這是一個草稿</string>
+  <string name="moreBlogPostsBy">%s 的更多文章</string>
+  <string name="noPostsInThisBlogYet">此網誌中尚無文章</string>
+  <string name="noDrafts">沒有草稿</string>
+  <string name="latestBlogPosts">最新的網誌</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="other">查看所有 %s 篇文章</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">上傳一張圖片</string>
+  <string name="imageAlt">圖片備選文字</string>
+  <string name="imageCredit">圖片的來源</string>
+</resources>

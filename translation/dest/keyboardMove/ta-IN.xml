@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="keyboardInputCommands">விசைப்பலகை உள்ளீட்டு கட்டளைகள்</string>
+  <string name="performAMove">ஒரு நகர்வைச் செய்யவும்</string>
+  <string name="movePieceFromE2ToE4">E2 இலிருந்து e4 க்கு பகுதியை நகர்த்தவும்</string>
+  <string name="moveKnightToC3">நைட்டை c3க்கு நகர்த்தவும்</string>
+  <string name="kingsideCastle">ராஜாபக்கம் காசில்</string>
+  <string name="queensideCastle">குயின்சைட் காசில்</string>
+  <string name="promoteC8ToQueen">c8 ஐ ராணியாக உயர்த்தவும்</string>
+  <string name="dropARookAtB4">b4 இல் ஒரு ருக்கை விடவும் (கிரேசிஹவுஸ் வேரியன்ட் மட்டுமே)</string>
+  <string name="offerOrAcceptDraw">ஒரு டிராவை வழங்கவும் அல்லது ஏற்றுக்கொள்ளவும்</string>
+  <string name="readOutClocks">கடிகாரங்களைப் படிக்கவும்</string>
+  <string name="readOutOpponentName">எதிராளியின் பெயரைப் படிக்கவும்</string>
+</resources>

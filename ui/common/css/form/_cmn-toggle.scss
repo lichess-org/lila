@@ -1,0 +1,117 @@
+.cmn-toggle {
+  @extend %double-tap;
+  position: absolute;
+  margin-#{$start-direction}: -99999px;
+  .force-ltr & {
+    margin-left: -99999px;
+  }
+}
+
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  padding: 1px;
+  width: 40px;
+  height: 24px;
+  border: 1px solid $c-border;
+  border-radius: 24px;
+
+  &::before,
+  &::after {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 22px;
+    height: 22px;
+    bottom: 0;
+    #{$start-direction}: 0;
+  }
+
+  &::before {
+    @extend %data-icon;
+    font-size: 1em;
+    z-index: 1;
+    text-align: center;
+    line-height: 22px;
+  }
+
+  &::after {
+    @if $theme == 'transp' {
+      background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
+    } @else {
+      @extend %metal;
+    }
+
+    border-radius: 100%;
+    box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.cmn-toggle:not(:checked) + label {
+  background-color: $c-bad;
+}
+
+.cmn-toggle--subtle:not(:checked) + label {
+  background-color: $c-font-dimmer;
+}
+
+.cmn-toggle:checked + label {
+  background-color: $c-good;
+}
+
+.cmn-toggle:disabled + label {
+  opacity: 60%;
+  cursor: not-allowed !important;
+}
+
+.cmn-toggle:focus:not(:disabled) + label {
+  @extend %focus-shadow;
+}
+
+.cmn-toggle:hover:not(:disabled) {
+  + label {
+    @extend %focus-shadow;
+    @include transition(background);
+
+    &::before {
+      transition: margin $transition-duration, color $transition-duration;
+    }
+
+    &::after {
+      @if $theme == 'transp' {
+        background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
+      } @else {
+        @extend %metal;
+      }
+      @include transition(margin);
+    }
+  }
+}
+
+.cmn-toggle:not(:checked) + label {
+  &::before {
+    content: '';
+    color: $c-bad;
+  }
+}
+
+.cmn-toggle--subtle:not(:checked) + label {
+  &::before {
+    color: $c-font-dimmer;
+  }
+}
+
+.cmn-toggle:checked + label {
+  &::before,
+  &::after {
+    margin-#{$start-direction}: 16px;
+  }
+
+  &::before {
+    content: '';
+    color: $c-good;
+  }
+}

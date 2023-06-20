@@ -1,0 +1,152 @@
+main.has-relay-tour {
+  grid-template-areas:
+    'relay-tour'
+    'side'
+    'chat'
+    'uchat'
+    'round-training';
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: minmax(230px, 350px) minmax(70%, 800px);
+    grid-template-rows: auto auto 2.5em;
+    grid-template-areas:
+      'side  relay-tour'
+      'chat  relay-tour'
+      'uchat relay-tour'
+      'round-training relay-tour'
+      '. relay-tour';
+    grid-column-gap: $block-gap;
+
+    .analyse__side {
+      margin-top: 0;
+    }
+    .mchat {
+      height: 48vh;
+    }
+  }
+}
+
+.relay-tour {
+  grid-area: relay-tour;
+  &__round {
+    @extend %box-radius, %flex-between-nowrap;
+    background: mix($c-primary, $c-bg-box, 10%);
+    margin-bottom: 3em;
+    padding: 1em 2em;
+    strong {
+      @extend %roboto;
+      font-size: 1.2em;
+    }
+    &.ongoing {
+      background: mix($c-accent, $c-bg-box, 10%);
+      color: $c-accent;
+    }
+  }
+
+  .study__multiboard {
+    margin-top: $block-gap;
+  }
+
+  &__text {
+    @extend %box-neat;
+
+    background: $c-bg-box;
+    padding: 3vmin;
+
+    &__schedule {
+      td:nth-child(3) {
+        text-align: center;
+      }
+    }
+
+    &__leaderboard {
+      thead {
+        background: none;
+        th {
+          border: 0;
+          padding: 0 0.8rem;
+          &:first-child {
+            padding-left: 0;
+          }
+        }
+      }
+      th,
+      td {
+        text-align: $end-direction;
+        &:first-child {
+          text-align: $start-direction;
+        }
+      }
+      td {
+        &:nth-child(3) {
+          font-weight: bold;
+        }
+        &:last-child {
+          padding-#{$end-direction}: 1.5em;
+        }
+      }
+    }
+
+    .slist {
+      border-bottom: 0;
+      ongoing {
+        color: $c-red;
+      }
+      finished {
+        color: $c-good;
+      }
+    }
+
+    h1 {
+      @include fluid-size('font-size', 15px, 27px);
+
+      color: $c-brag;
+      margin-bottom: 3vh;
+    }
+
+    h2,
+    h3,
+    h4 {
+      line-height: 2em;
+    }
+
+    h2 {
+      font-size: 1.8em;
+    }
+
+    h3 {
+      font-size: 1.5em;
+      line-height: 2em;
+    }
+
+    h4 {
+      font-size: 1.3em;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul li {
+      list-style: disc outside;
+      margin: 0.5em 0 0 1.5em;
+    }
+
+    ol li {
+      list-style: decimal inside;
+      margin: 0.5em 0;
+    }
+
+    li {
+      margin-#{$start-direction}: 2em;
+
+      p {
+        display: inline;
+      }
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+}

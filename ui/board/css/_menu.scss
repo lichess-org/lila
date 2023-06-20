@@ -1,0 +1,66 @@
+.board-menu {
+  @extend %flex-column, %dropdown-shadow;
+  @if $theme == 'transp' {
+    @include back-blur();
+  }
+  background: $c-bg-popup;
+  padding: 0.5em 1.5em;
+  user-select: none;
+
+  @include breakpoint($mq-small) {
+    position: absolute;
+    right: 0;
+    min-width: 100%;
+    z-index: z(mz-menu);
+  }
+  @include breakpoint($mq-not-small) {
+    position: fixed;
+    top: 50% !important;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: z(context-menu);
+    min-width: 80%;
+    border-radius: $box-radius-size;
+  }
+
+  > div {
+    @extend %flex-column;
+    gap: 2em;
+    text-align: $start-direction;
+  }
+
+  section {
+    @extend %flex-column;
+    gap: 1.5em;
+    padding: 1.2em 0;
+    &:not(:last-child) {
+      border-bottom: 1px solid $c-border;
+    }
+  }
+
+  .setting {
+    @extend %flex-center-nowrap;
+
+    flex: 0 0 auto;
+
+    label {
+      flex: 4 1 auto;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .switch + label {
+      margin-#{$start-direction}: 1ch;
+    }
+
+    &--nag {
+      > label {
+        &::after {
+          content: ' NEW';
+          color: $c-brag;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

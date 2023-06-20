@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">প্রতি ঘন্টার র‍্যাপিড এরিনা</string>
+  <string name="hourlyRapid">প্রতি ঘন্টার র‍্যাপিড</string>
+  <string name="hourlyXArena">প্রতি ঘন্টার %s এরিনা</string>
+  <string name="hourlyX">প্রতি ঘন্টার %s</string>
+  <string name="dailyRapidArena">দৈনিক র‍্যাপিড এরিনা</string>
+  <string name="dailyRapid">দৈনিক র‍্যাপিড</string>
+  <string name="dailyClassicalArena">দৈনিক ক্লাসিকাল এরেনা</string>
+  <string name="dailyClassical">দৈনিক ক্লাসিকাল</string>
+  <string name="dailyXArena">দৈনিক %s এরিনা</string>
+  <string name="dailyX">দৈনিক %s</string>
+  <string name="easternRapidArena">পূর্বদেশীয় র‍্যাপিড এরিনা</string>
+  <string name="easternRapid">পূর্বদেশীয় র‍্যাপিড</string>
+  <string name="easternClassicalArena">পূর্বদেশীয় ক্লাসিকাল এরিনা</string>
+  <string name="easternClassical">পূর্বদেশীয় ক্লাসিকাল</string>
+  <string name="easternXArena">পূর্বদেশীয় %s এরিনা</string>
+  <string name="easternX">পূর্বদেশীয় %s</string>
+  <string name="weeklyRapidArena">সাপ্তাহিক র‍্যাপিড এরিনা</string>
+  <string name="weeklyRapid">সাপ্তাহিক র‍্যাপিড</string>
+  <string name="weeklyClassicalArena">সাপ্তাহিক ক্লাসিকাল এরিনা</string>
+  <string name="weeklyClassical">সাপ্তাহিক ক্লাসিকাল</string>
+  <string name="weeklyXArena">সাপ্তাহিক %s এরিনা</string>
+  <string name="weeklyX">সাপ্তাহিক %s</string>
+  <string name="monthlyRapidArena">মাসিক র‍্যাপিড এরিনা</string>
+  <string name="monthlyRapid">মাসিক র‍্যাপিড</string>
+  <string name="monthlyClassicalArena">মাসিক ক্লাসিকাল এরিনা</string>
+  <string name="monthlyClassical">মাসিক ক্লাসিকাল</string>
+  <string name="monthlyXArena">মাসিক %s এরিনা</string>
+  <string name="monthlyX">মাসিক %s</string>
+  <string name="yearlyRapidArena">বার্ষিক র‍্যাপিড এরিনা</string>
+  <string name="yearlyRapid">বার্ষিক র‍্যাপিড</string>
+  <string name="yearlyClassicalArena">বার্ষিক ক্লাসিকাল এরিনা</string>
+  <string name="yearlyClassical">বার্ষিক ক্লাসিকাল</string>
+  <string name="yearlyXArena">বার্ষিক %s এরিনা</string>
+  <string name="yearlyX">বার্ষিক %s</string>
+  <string name="rapidShieldArena">র‍্যাপিড শিল্ড এরিনা</string>
+  <string name="rapidShield">র‍্যাপিড শিল্ড</string>
+  <string name="classicalShieldArena">ক্লাসিকাল শিল্ড এরিনা</string>
+  <string name="classicalShield">ক্লাসিকাল শিল্ড</string>
+  <string name="xShieldArena">%s শিল্ড এরিনা</string>
+  <string name="xShield">%s শিল্ড</string>
+  <string name="xTeamBattle">%s দলীয় প্রতিযোগীতা</string>
+  <string name="eliteXArena">এলিট %s এরিনা</string>
+  <string name="eliteX">এলিট %s</string>
+  <string name="xArena">%s এরিনা</string>
+</resources>

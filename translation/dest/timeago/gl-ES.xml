@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">agora mesmo</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">en %s segundo</item>
+    <item quantity="other">en %s segundos</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">en %s minuto</item>
+    <item quantity="other">en %s minutos</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">en %s hora</item>
+    <item quantity="other">en %s horas</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">en %s día</item>
+    <item quantity="other">en %s días</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">en %s semana</item>
+    <item quantity="other">en %s semanas</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">en %s mes</item>
+    <item quantity="other">en %s meses</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">en %s ano</item>
+    <item quantity="other">en %s anos</item>
+  </plurals>
+  <string name="rightNow">agora</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">Hai %s segundo</item>
+    <item quantity="other">Hai %s segundos</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">Hai %s minuto</item>
+    <item quantity="other">Hai %s minutos</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">Hai %s hora</item>
+    <item quantity="other">Hai %s horas</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">Hai %s día</item>
+    <item quantity="other">Hai %s días</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">Hai %s semana</item>
+    <item quantity="other">Hai %s semanas</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">Hai %s mes</item>
+    <item quantity="other">Hai %s meses</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">Hai %s ano</item>
+    <item quantity="other">Hai %s anos</item>
+  </plurals>
+</resources>

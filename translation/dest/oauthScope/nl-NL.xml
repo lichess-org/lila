@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nieuwe persoonlijk API toegangs-token</string>
+  <string name="tokenGrantsPermission">Een token geeft andere mensen toestemming om je account te gebruiken.</string>
+  <string name="carefullySelect">Bepaal zorgvuldig wat anderen mogen doen.</string>
+  <string name="tokenDescription">Tokenbeschrijving</string>
+  <string name="rememberTokenUse">Zo weet je nog waar deze token voor is</string>
+  <string name="whatTheTokenCanDo">Wat de token voor je kan doen:</string>
+  <string name="doNotShareIt">De token geeft toegang tot uw account. Deel deze met niemand!</string>
+  <string name="copyTokenNow">Zorg ervoor dat je het persoonlijke toegangs-token nu kopieert of opschrijft. Je kunt het later niet meer zien!</string>
+  <string name="preferenceRead">Voorkeuren lezen</string>
+  <string name="preferenceWrite">Voorkeur schrijven</string>
+  <string name="emailRead">E-mailadres lezen</string>
+  <string name="challengeRead">Lees inkomende uitdagingen</string>
+  <string name="challengeWrite">Verzenden, accepteren en afwijzen van uitdagingen</string>
+  <string name="challengeBulk">Maak veel spellen tegelijk voor andere spelers</string>
+  <string name="studyRead">Lees privéstudies en uitzendingen</string>
+  <string name="studyWrite">Aanmaken, bijwerken, verwijderen van studies en uitzendingen</string>
+  <string name="tournamentWrite">Maak, update en neem deel aan toernooien</string>
+  <string name="racerWrite">Maak en neem deel aan puzzelraces</string>
+  <string name="puzzleRead">Lees puzzelactiviteit</string>
+  <string name="teamRead">Lees privé team-informatie</string>
+  <string name="teamWrite">Word lid en verlaat teams</string>
+  <string name="teamLead">Beheer teams die u leidt: verstuur PBen, leden schoppen</string>
+  <string name="followRead">Lees gevolgde spelers</string>
+  <string name="followWrite">Andere spelers volgen en ontvolgen</string>
+  <string name="msgWrite">Stuur privéberichten naar andere spelers</string>
+  <string name="boardPlay">Speel spellen met bord api</string>
+  <string name="botPlay">Speel spellen met de bot api</string>
+  <string name="engineRead">Bekijk en gebruik je externe engines</string>
+  <string name="engineWrite">Externe engines aanmaken en bijwerken</string>
+  <string name="webLogin">Geauthenticeerde website-sessies maken (verleent volledige toegang!)</string>
+  <string name="webMod">Gebruik moderatortools (binnen de perken van uw toestemming)</string>
+</resources>

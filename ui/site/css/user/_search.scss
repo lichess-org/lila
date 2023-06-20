@@ -1,0 +1,58 @@
+.search {
+  &__form {
+    @extend %flex-wrap;
+
+    align-items: flex-start;
+    font-size: 0.9em;
+    white-space: nowrap;
+    margin: 1em 1em 1em 0;
+
+    table {
+      flex: 0 1 48%;
+      margin-#{$start-direction}: 2%;
+    }
+
+    td {
+      padding: 0.4em 0;
+      text-align: right;
+    }
+
+    .date td {
+      padding: 0.1em 0;
+    }
+
+    input[type='text'],
+    select {
+      padding: 0.3em 1em;
+      width: 100%;
+    }
+
+    label {
+      margin-#{$end-direction}: 0.5em;
+      white-space: normal;
+    }
+
+    table {
+      .two-columns {
+        @extend %flex-wrap;
+        gap: 1em;
+
+        > * {
+          flex: 1 150px;
+          @extend %flex-between-nowrap;
+          gap: 2ch;
+        }
+      }
+    }
+
+    .action {
+      text-align: right;
+    }
+  }
+
+  &__status {
+    text-align: right;
+    padding: 1.5em;
+    border-bottom: $border;
+  }
+}

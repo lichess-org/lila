@@ -1,0 +1,23 @@
+{
+  "name": "ui",
+  "version": "2.0.0",
+  "private": true,
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "breakpoint-sass": "^2.7.1",
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@types/jest": "^28.1.6",
+    "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3",
+    "ts-jest": "^28.0.7"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

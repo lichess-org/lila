@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">એક્ટિવિટી</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">લીચેસ ને સપોર્ટ કર્યો%1$s મહિના માટે %2$s તરીકે</item>
+    <item quantity="other">લીચેસ ને સપોર્ટ કર્યો%1$s મહિના માટે %2$s તરીકે</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s વ્યૂહાત્મક કોયડો ઉકેલ્યો</item>
+    <item quantity="other">%s વ્યૂહાત્મક કોયડા ઉકેલ્યા</item>
+  </plurals>
+</resources>

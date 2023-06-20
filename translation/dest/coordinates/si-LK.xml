@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="coordinates">ඛණ්ඩාංක</string>
+  <string name="coordinateTraining">Запоминание координат полей</string>
+  <string name="averageScoreAsWhiteX">Average score as white: %s</string>
+  <string name="averageScoreAsBlackX">Average score as black: %s</string>
+  <string name="knowingTheChessBoard">Knowing the chessboard coordinates is a very important chess skill:</string>
+</resources>

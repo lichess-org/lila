@@ -1,0 +1,147 @@
+@import 'cmn-toggle';
+@import '../component/flash';
+
+.form-group {
+  margin-bottom: 3rem;
+}
+
+.form-split {
+  @extend %flex-between;
+
+  align-items: inherit;
+}
+
+.form-half {
+  flex: 1 1 48%;
+  min-width: 200px;
+}
+
+.form-third {
+  flex: 1 1 31%;
+}
+
+@include breakpoint($mq-xx-small) {
+  .form-half,
+  .form-third {
+    flex-grow: 0;
+  }
+}
+
+.form-label {
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  cursor: text;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(2.7em + 2px);
+  background-clip: padding-box;
+}
+
+.form-control-with-clipboard {
+  display: inline-flex;
+  width: 100%;
+}
+
+.form-control-with-clipboard > .form-control {
+  width: 95%;
+}
+
+.clipboard {
+  float: right;
+}
+
+textarea.form-control {
+  height: auto;
+}
+
+.form-control:invalid,
+.form-group.is-invalid .form-control {
+  border-color: $c-error;
+}
+
+.form3 .error,
+.form-help,
+.password-complexity-label {
+  font-size: 90%;
+  margin-top: 0.25rem;
+  unicode-bidi: plaintext;
+}
+
+.form3 .error {
+  color: $c-error;
+}
+
+.form-help,
+.password-complexity-label {
+  color: $c-font-dim;
+}
+
+.form-check {
+  @extend %flex-column;
+  justify-content: center;
+  div {
+    display: flex;
+  }
+}
+
+.form-check-input {
+  margin-#{$end-direction}: 0.5rem;
+}
+
+.form-check .form-label {
+  margin-bottom: 0;
+  cursor: pointer;
+  unicode-bidi: plaintext;
+}
+
+.form-actions {
+  @extend %flex-between;
+
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: $border;
+}
+
+.form-actions.single {
+  justify-content: flex-end;
+}
+
+.form3 hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: $border;
+}
+
+.password-complexity {
+  margin-top: -2rem;
+  margin-bottom: 3rem;
+}
+
+.password-complexity-meter {
+  display: flex;
+  grid-gap: 0.25rem;
+  height: 0.4rem;
+  margin-top: 1rem;
+
+  > * {
+    background-color: gray;
+    width: 25%;
+  }
+}
+
+.form-fieldset {
+  @extend %box-radius;
+  margin: 1.5em 0;
+  border-color: rgba(128, 128, 128, 0.3);
+
+  legend {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2em;
+  }
+}

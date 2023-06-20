@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Lichess-tränare</string>
+  <string name="lichessCoach">Lichess-tränare</string>
+  <string name="areYouCoach">Är du en bra schacktränare med en %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM eller FIDE-titel</string>
+  <string name="confirmTitle">Bekräfta din titel här så granskar vi din ansökan.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Skicka ett mail till oss på %s så granskar vi din ansökan.</string>
+  <string name="location">Plats</string>
+  <string name="languages">Språk</string>
+  <string name="rating">Rating</string>
+  <string name="hourlyRate">Timtaxa</string>
+  <string name="availability">Tillgänglighet</string>
+  <string name="accepting">Accepterar studenter</string>
+  <string name="notAccepting">Tar inte emot studenter just nu</string>
+  <string name="xCoachesStudents">%s tränar schackstudenter</string>
+  <string name="viewXProfile">Visa %s Lichess-profil</string>
+  <string name="sendPM">Skicka ett privat meddelande</string>
+  <string name="aboutMe">Om mig</string>
+  <string name="playingExperience">Schack-erfarenhet</string>
+  <string name="teachingExperience">Erfarenhet av undervisning</string>
+  <string name="otherExperiences">Andra erfarenheter</string>
+  <string name="bestSkills">Främsta färdigheter</string>
+  <string name="teachingMethod">Metod för undervisning</string>
+  <string name="publicStudies">Offentliga studier</string>
+  <string name="youtubeVideos">YouTube-videor</string>
+</resources>

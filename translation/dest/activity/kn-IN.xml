@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">ಚಟುವಟಿಕೆ</string>
+  <string name="hostedALiveStream">ನೇರಪ್ರಸಾರ ನಡೆಸಿದರು</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">%2$s ಆಗಿ lichess.org ಅನ್ನು %1$s ತಿಂಗಳು ಪ್ರೋತ್ಸಾಹಿಸಿದ್ದಾರೆ</item>
+    <item quantity="other">%2$s ಆಗಿ lichess.org ಅನ್ನು %1$s ತಿಂಗಳುಗಳಷ್ಟು ಪ್ರೋತ್ಸಾಹಿಸಿದ್ದಾರೆ</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">%2$s ವಿಭಾಗದಲ್ಲಿ %1$s ಸನ್ನಿವೇಶವನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿದ್ದಾರೆ</item>
+    <item quantity="other">%2$s ವಿಭಾಗದಲ್ಲಿ %1$s ಸನ್ನಿವೇಶಗಳನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿದ್ದಾರೆ</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s ಚತುರ ಒಗಟಗನ್ನು ಬಿಡಿಸಿದ್ದಾರೆ</item>
+    <item quantity="other">%s ಚತುರ ಒಗಟುಗಳನ್ನು ಬಿಡಿಸಿದ್ದಾರೆ</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s %2$s ಆಟವನ್ನು ಆಡಿದ್ದಾರೆ</item>
+    <item quantity="other">%1$s %2$s ಆಟಗಳನ್ನು ಆಡಿದ್ದಾರೆ</item>
+  </plurals>
+  <string name="signedUp">Lichess.org ನಲ್ಲಿ ನೋಂದಾಯಿಸಿಕೊಂಡಿದ್ದಾರೆ</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">%s ತಂಡಕ್ಕೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</item>
+    <item quantity="other">%s ತಂಡಗಳಿಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</item>
+  </plurals>
+</resources>

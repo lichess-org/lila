@@ -1,0 +1,49 @@
+$vp-min-width: 320px;
+$vp-max-width: 1200px;
+
+.box {
+  @extend %box-shadow;
+
+  background: $c-bg-box;
+
+  @include fluid-size('--box-padding', 15px, 60px);
+
+  &-pad {
+    @extend %box-padding;
+
+    .box__top {
+      padding: 0 0 $box-padding-vert 0;
+    }
+  }
+
+  &__top {
+    @extend %box-padding, %flex-between;
+    gap: 1rem;
+
+    &__actions {
+      @extend %flex-wrap;
+
+      .button {
+        @extend %flex-center;
+      }
+
+      > :not(:first-child) {
+        margin-#{$start-direction}: 1rem;
+      }
+    }
+  }
+
+  // &:not(.box-pad) > h1 {
+  //   @extend %box-padding;
+  // }
+
+  &__pad {
+    @extend %box-padding-horiz;
+  }
+}
+
+@include breakpoint($mq-main-margin) {
+  .box {
+    @include box-radius;
+  }
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Torneo rápido por hora</string>
+  <string name="hourlyRapid">Rápido por hora</string>
+  <string name="hourlyXArena">Torneo %s por hora</string>
+  <string name="hourlyX">%s por hora</string>
+  <string name="dailyRapidArena">Torneo rápido diario</string>
+  <string name="dailyRapid">Rápido diario</string>
+  <string name="dailyClassicalArena">Torneo clásico diario</string>
+  <string name="dailyClassical">Clásico diario</string>
+  <string name="dailyXArena">Torneo %s diario</string>
+  <string name="dailyX">%s diario</string>
+  <string name="easternRapidArena">Torneo rápido oriental</string>
+  <string name="easternRapid">Rápido oriental</string>
+  <string name="easternClassicalArena">Torneo clásico oriental</string>
+  <string name="easternClassical">Clásico oriental</string>
+  <string name="easternXArena">Torneo %s oriental</string>
+  <string name="easternX">%s oriental</string>
+  <string name="weeklyRapidArena">Torneo rápido semanal</string>
+  <string name="weeklyRapid">Rápido semanal</string>
+  <string name="weeklyClassicalArena">Torneo clásico semanal</string>
+  <string name="weeklyClassical">Clásico semanal</string>
+  <string name="weeklyXArena">Torneo %s semanal</string>
+  <string name="weeklyX">%s semanal</string>
+  <string name="monthlyRapidArena">Torneo rápido mensual</string>
+  <string name="monthlyRapid">Rápido mensual</string>
+  <string name="monthlyClassicalArena">Torneo clásico mensual</string>
+  <string name="monthlyClassical">Clásico mensual</string>
+  <string name="monthlyXArena">Torneo %s mensual</string>
+  <string name="monthlyX">%s mensual</string>
+  <string name="yearlyRapidArena">Torneo rápido anual</string>
+  <string name="yearlyRapid">Rápido anual</string>
+  <string name="yearlyClassicalArena">Torneo clásico anual</string>
+  <string name="yearlyClassical">Clásico anual</string>
+  <string name="yearlyXArena">Torneo %s anual</string>
+  <string name="yearlyX">%s anual</string>
+  <string name="rapidShieldArena">Torneo de escudo rápido</string>
+  <string name="rapidShield">Escudo rápido</string>
+  <string name="classicalShieldArena">Torneo de escudo clásico</string>
+  <string name="classicalShield">Escudo clásico</string>
+  <string name="xShieldArena">Torneo de escudo %s</string>
+  <string name="xShield">Escudo %s</string>
+  <string name="xTeamBattle">Batalla por equipos %s</string>
+  <string name="eliteXArena">Torneo %s de élite</string>
+  <string name="eliteX">%s de élite</string>
+  <string name="xArena">Torneo %s</string>
+</resources>

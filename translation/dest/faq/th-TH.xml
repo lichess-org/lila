@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="faqAbbreviation">คำถามที่พบบ่อย</string>
+  <string name="frequentlyAskedQuestions">คำถามที่พบบ่อย</string>
+  <string name="whyIsLichessCalledLichess">ทำไม Lichess ถึงมีชื่อว่า Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess เป็นการผสมผสานคำว่า live/light/libre กับ chess คำว่า Lichess อ่านออกเสียงว่า %1$s</string>
+  <string name="leechess">ลี-เชส</string>
+  <string name="hearItPronouncedBySpecialist">ฟังการอ่านออกเสียงโดยผู้เชี่ยวชาญ</string>
+  <string name="whyLiveLightLibre">Live เพราะมีการเล่นและการดูเกมในเวลาจริงทั้ง 24 ชั่วโมง; Light และ Libre เพราะว่า Lichess นั้น เป็นซอฟต์แวร์โอเพนซอร์สที่ไม่ผูกพันกับซอฟต์แวร์เอกสิทธิ์เฉพาะ ที่เห็นได้ทั่วไปตามเว็บไซต์อึ่น</string>
+  <string name="whyIsLilaCalledLila">เช่นเดียวกัน ซอร์สโค้ดของ Lichess ชี่อว่า %1$s มีความหมายว่า li[chess in sca]la (lichess ในภาษา scala)
+เพราะว่าโค้ดส่วนใหญ่ของ Lichess ถูกเขียนในภาษา %2$s ซึ่งเป็นภาษาที่ใช้งานง่าย</string>
+  <string name="howCanIContributeToLichess">ฉันจะช่วยสนับสนุน Lichess ได้อย่างไร?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess ได้รับการสนับสนุนโดยการบริจาคจากผู้อุปถัมภ์ และการร่วมมือกันของทีมอาสาสมัคร</string>
+  <string name="findMoreAndSeeHowHelp">คุณสามารถเรียนรู้เพิ่มเติมเกี่ยวกับ %1$s (รวมถึง %2$s) ถ้าคุณอยากช่วย Lichess โดยการอาสาสมัครด้วยเวลาและฝีมือ มี %3$s</string>
+  <string name="beingAPatron">เป็นผู้อุปถัมภ์</string>
+  <string name="breakdownOfOurCosts">สรุปค่าใช้จ่ายของ Lichess</string>
+  <string name="otherWaysToHelp">วิธีอื่นที่จะช่วยได้</string>
+  <string name="areThereWebsitesBasedOnLichess">มีเว็บไซต์อื่นที่ใช้ Lichess เป็นต้นแบบหรือไม่</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">มี Lichess ได้เปิดโอกาสให้เว็บไซต์โอเพนซอร์สอื่นใช้ %1$s %2$s หรือ %3$s ของพวกเรา</string>
+  <string name="fairPlay">การเล่นที่ยุติธรรม</string>
+  <string name="whenAmIEligibleRatinRefund">ฉันจะสามารถได้รับระดับคะแนนหมากรุกคืนจากผู้เล่นโกงได้เมื่อไหร่?</string>
+  <string name="ratingRefundExplanation">หนึ่งนาทีหลังจากมีผู้เล่นถูกจับได้ว่าโกง จะนับเกมคิดแต้ม 40 เกมใน 3 วันล่าสุดของผู้เล่นคนนั้น ถ้าคุณเป็นคู่ต่อสู้ของเขาในเกมเหล่านั้น และคุณเสียคะแนนเนึ่องจากการแพ้หรือเสมอ และคะแนนของคุณไม่ได้เป็นคะแนนชั่วคราว คุณจะได้คะแนนคืน คะแนนที่ได้คืนจะมีขีดจำกัดอยู่ระหว่างคะแนนสูงสุดของคุณและคะแนนหลังจากเกมที่เล่นกับผู้เล่นที่ถูกจับได้ว่าโกง (ถ้าคะแนนของคุณเพิ่มขึ้นอย่างมากเมี่อเทียบกับเกมที่เล่นกับผู้เล่นที่ถูกจับได้ว่าโกง คุณอาจจะได้คะแนนน้อยลง หรือไม่ได้เลยก็ได้) คะแนนคืนจะไม่เกิน 150 คะแนน</string>
+  <string name="canIChangeMyUsername">ฉันสามารถเปลี่ยนชื่อผู้ใช้งานของฉันได้ไหม?</string>
+</resources>

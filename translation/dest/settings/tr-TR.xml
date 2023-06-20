@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Ayarlar</string>
+  <string name="closeAccount">Hesabı kapat</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Hesabınız başkası tarafından yönetiliyor, kapatılamaz.</string>
+  <string name="closingIsDefinitive">Hesabı kapatma işleminin geri dönüşü yoktur. Bundan emin misiniz?</string>
+  <string name="cantOpenSimilarAccount">Büyük-küçük harf değişiklikleri yapsanız dahi aynı kullanıcı adıyla yeni bir hesap açamazsınız.</string>
+  <string name="changedMindDoNotCloseAccount">Fikrimi değiştirdim, hesabımı kapatmayacağım.</string>
+  <string name="closeAccountExplanation">Hesabınızı kapatmak istediğinizden emin misiniz? Hesap kapatmak geri dönüşü olmayan bir karardır. BİR DAHA ASLA giriş yapamayacaksınız.</string>
+  <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
+</resources>

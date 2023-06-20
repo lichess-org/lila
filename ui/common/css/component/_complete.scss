@@ -1,0 +1,42 @@
+.complete {
+  &-parent {
+    position: relative;
+  }
+
+  &-list {
+    @extend %box-radius, %popup-shadow;
+
+    position: absolute;
+    top: 100%;
+    z-index: z('complete');
+    width: 14em;
+    min-height: 2em;
+    background-color: $c-bg-box;
+
+    &__empty {
+      text-align: center;
+      font-style: italic;
+      padding: 1em;
+    }
+  }
+
+  &-result {
+    color: $c-font;
+    @include padding-direction(0.4em, 0, 0.4em, 0.4em);
+
+    display: block;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover,
+    &:focus,
+    &.complete-selected {
+      &,
+      & i {
+        color: $c-font-clearer !important;
+      }
+
+      background: mix($c-link, $c-bg-box, 20%);
+    }
+  }
+}

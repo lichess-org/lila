@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nou token personal d\'accés a l\'API</string>
+  <string name="tokenGrantsPermission">Un token dona permisos a altres persones per accedir al vostre compte.</string>
+  <string name="carefullySelect">Seleccioneu amb cura el que es pot fer en el vostre nom.</string>
+  <string name="tokenDescription">Descripció del token</string>
+  <string name="rememberTokenUse">Així recordeu per a què és el token</string>
+  <string name="whatTheTokenCanDo">Què pot fer el token en el vostre nom:</string>
+  <string name="doNotShareIt">El token dona accés al vostre compte. No el compartiu amb ningú!</string>
+  <string name="copyTokenNow">Assegura\'t de copiar el teu nou token d\'accés personal. No el podràs tornar a veure!</string>
+  <string name="preferenceRead">Llegir les preferències</string>
+  <string name="preferenceWrite">Escriure les preferències</string>
+  <string name="emailRead">Llegir el correu electrònic</string>
+  <string name="challengeRead">Llegir els reptes entrants</string>
+  <string name="challengeWrite">Envia, accepta i rebutja reptes entrants</string>
+  <string name="challengeBulk">Crear més d\'una partida a la vegada per altres jugadors</string>
+  <string name="studyRead">Llegir estudis privats i retransmissions</string>
+  <string name="studyWrite">Crea, actualitza, elimina estudis i retransmissions</string>
+  <string name="tournamentWrite">Crea, actualitza i uneix-te a tornejos</string>
+  <string name="racerWrite">Crea i uneix-te a carreres de problemes</string>
+  <string name="puzzleRead">Llegir l\'activitat de problemes</string>
+  <string name="teamRead">Llegir informació privada de l\'equip</string>
+  <string name="teamWrite">Uneix-te i surt d\'equips</string>
+  <string name="teamLead">Administra els equips que dirigeixes: envia missatges privats, expulsa membres</string>
+  <string name="followRead">Llegir els jugadors seguits</string>
+  <string name="followWrite">Segueix i deixa de seguir altres jugadors</string>
+  <string name="msgWrite">Envia missatges privats a altres usuaris</string>
+  <string name="boardPlay">Juga partides amb l\'api del tauler</string>
+  <string name="botPlay">Juga partides amb l\'api de bots</string>
+  <string name="engineRead">Visualitza i empra el teu motor d\'anàlisi extern</string>
+  <string name="engineWrite">Crear i actualitzar el motor d\'anàlisis extern</string>
+  <string name="webLogin">Crea sessions d\'autenticació del lloc web (permet l\'accés complet!)</string>
+  <string name="webMod">Utilitza les eines de moderació (dins dels límits del vostre permís)</string>
+</resources>

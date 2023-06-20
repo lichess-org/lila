@@ -1,0 +1,15 @@
+{
+  "name": "build",
+  "version": "2.0.0",
+  "private": true,
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "type": "commonjs",
+  "dependencies": {
+    "esbuild": "^0.18.4",
+    "fast-glob": "^3.2.12"
+  },
+  "scripts": {
+    "dev": "tsc && node dist/main.js"
+  }
+}

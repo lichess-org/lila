@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">چالاکی</string>
+  <string name="hostedALiveStream">دەستی بە پەخشی راستەوخۆ کرد</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">پشتگیریکرد لە Lichess.org بۆ ماوەی %1$s مانگ وەک %2$s</item>
+    <item quantity="other">پشتگیریکرد لە Lichess.org بۆ ماوەی %1$s مانگ وەک %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">راهێنانیکرد لە %1$s بار لەسەر %2$s</item>
+    <item quantity="other">راهێنانیکرد لە %1$s بار لەسەر %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">شیکاری %s مەتەڵی تاکتیکی کرد</item>
+    <item quantity="other">شیکاری %s مەتەڵی تاکتیکی کرد</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s یاری لە %2$s کراوە</item>
+    <item quantity="other">%1$s یاری لە %2$s کراوە</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%1$s نامەی ناردووە لەبارەی %2$s</item>
+    <item quantity="other">%1$s نامەی ناردووە لەبارەی %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s جار جوڵەت کردووە</item>
+    <item quantity="other">%1$s جار جوڵەت کردووە</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">لە %1$s شێوازی یاری نامەناردن</item>
+    <item quantity="other">لە %1$s شێوازی یاری نامەناردن</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">یاری تەواوکراو %s یاری نامەناردن</item>
+    <item quantity="other">یاری تەواوکراو %s یاری نامەناردن</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">دەستکرد بە فۆڵۆوی %s یاریزان</item>
+    <item quantity="other">دەستکرد بە فۆڵۆوی %s یاریزان</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s فۆڵۆوەری نوێی بەدەستهێنا</item>
+    <item quantity="other">%s فۆڵۆوەری نوێی بەدەستهێنا</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">لە هەمانکاتدا مێوانداری %s یاری پەخشکراو کرد</item>
+    <item quantity="other">لە هەمانکاتدا مێوانداری %s یاری پەخشکراو کرد</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">لە هەمانکاتدا بەشداری %s یاری پەخشکراو کرد</item>
+    <item quantity="other">لە هەمانکاتدا بەشداری %s یاری پەخشکراو کرد</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s فێرکاری نوێی دروستکرد</item>
+    <item quantity="other">%s فێرکاری نوێی دروستکرد</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">پێشبرکێ ی کرد لە %s پاڵەوانیەتی</item>
+    <item quantity="other">پێشبرکێی کرد لە %s پاڵەوانیەتی</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">پلەی #%1$s (باشترین %2$s%%) لە %3$s یاری لە %4$s</item>
+    <item quantity="other">پلەی #%1$s (باشترین %2$s%%) لە %3$s یاری لە %4$s</item>
+  </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">پێشبرکێی کرد لە %s پاڵەوانیەتی سویسری</item>
+    <item quantity="other">پێشبرکێی کرد لە %s پاڵەوانیەتی سویسری</item>
+  </plurals>
+  <string name="rankedInSwissTournament">پلەی #%1$s لە %2$s</string>
+  <string name="signedUp">ناوی تۆمار کردووە لە lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">پەیوەندی بە تیپی %s کرد</item>
+    <item quantity="other">پەیوەندی بە تیپی %s کرد</item>
+  </plurals>
+</resources>

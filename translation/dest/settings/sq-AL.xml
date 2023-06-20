@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Rregullime</string>
+  <string name="closeAccount">Mbyll llogarinë</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Llogaria juaj administrohet dhe nuk mund të mbyllet.</string>
+  <string name="closingIsDefinitive">Mbyllja është përfundimtare. Nuk ka kthim prapa. A jeni i sigurt?</string>
+  <string name="cantOpenSimilarAccount">S’do të lejoheni të hapni një llogari të re me të njëjtin emër, edhe nëse ndryshohet një nga shkronjat.</string>
+  <string name="changedMindDoNotCloseAccount">Ndryshova mendje, mos e mbyll llogarinë time</string>
+  <string name="closeAccountExplanation">Jeni i sigurt se doni të mbyllet llogaria juaj? Mbyllja e llogarisë tuaj është një vendim përfundimtar. S’do të jeni MË KURRË në gjendje të ribëni hyrjen.</string>
+  <string name="thisAccountIsClosed">Kjo llogari është e mbyllur</string>
+</resources>

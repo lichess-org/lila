@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">just nu</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">om %s sekund</item>
+    <item quantity="other">om %s sekunder</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">om %s minut</item>
+    <item quantity="other">om %s minuter</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">om %s timme</item>
+    <item quantity="other">om %s timmar</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">om %s dag</item>
+    <item quantity="other">om %s dagar</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">om %s vecka</item>
+    <item quantity="other">om %s veckor</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">om %s månad</item>
+    <item quantity="other">om %s månader</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">om %s år</item>
+    <item quantity="other">om %s år</item>
+  </plurals>
+  <string name="rightNow">just nu</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s sekund sedan</item>
+    <item quantity="other">%s sekunder sedan</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minut sedan</item>
+    <item quantity="other">%s minuter sedan</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s timme sedan</item>
+    <item quantity="other">%s timmar sedan</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s dag sedan</item>
+    <item quantity="other">%s dagar sedan</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s vecka sedan</item>
+    <item quantity="other">%s veckor sedan</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s månad sedan</item>
+    <item quantity="other">%s månader sedan</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s år sedan</item>
+    <item quantity="other">%s år sedan</item>
+  </plurals>
+</resources>

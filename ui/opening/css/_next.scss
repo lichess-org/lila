@@ -1,0 +1,86 @@
+.opening {
+  &__nexts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: $block-gap;
+  }
+  &__next {
+    @extend %flex-column, %box-neat;
+    background: $c-bg-zebra;
+    position: relative;
+    outline: 3px solid mix($c-font, $c-bg-box, 30%);
+    cursor: pointer;
+    color: $c-font;
+    &:hover {
+      outline: 3px solid mix($c-link, $c-bg-box, 60%);
+      background: mix($c-link, $c-bg-zebra, 10%);
+      box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+      piece {
+        opacity: 0.8;
+      }
+      cg-board {
+        background-color: none;
+      }
+    }
+    &__title {
+      @extend %flex-between-nowrap;
+    }
+    &__name {
+      @extend %roboto;
+      flex: 1 1 auto;
+      font-size: 1.3em;
+      margin: 0 0 0.2em 0.5em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &__san {
+      flex: 0 1 auto;
+      font-size: 2em;
+      margin: -1.2rem 0.5rem 0 0;
+    }
+    &__result-board {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
+    }
+    &__board {
+      flex: 1 1 100%;
+      .cg-wrap {
+        @extend %square;
+      }
+      cg-board {
+        box-shadow: none;
+        background-color: rgba($c-bg-box, 0.4);
+        @if $theme-dark {
+          background-blend-mode: darken;
+        } @else {
+          background-blend-mode: soft-light;
+        }
+      }
+      piece {
+        opacity: 0.6;
+        &.highlight {
+          opacity: 1;
+        }
+      }
+    }
+    &__popularity {
+      display: flex;
+      flex-flow: row nowrap;
+      span {
+        @extend %box-radius-bottom-right;
+        background: $c-primary;
+        color: $c-primary-over;
+        padding-right: 0.5em;
+        font-size: 0.8em;
+        text-align: right;
+      }
+    }
+    &:hover {
+      &__popularity span {
+        background: $c-primary;
+      }
+    }
+  }
+}

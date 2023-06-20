@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">லிச்சஸ் ஸ்ட்ரீமர்கள்</string>
+  <string name="lichessStreamer">லிச்சஸ் ஸ்ட்ரீமர்</string>
+  <string name="live">லைவ்!</string>
+  <string name="offline">ஆஃப்லைன்</string>
+</resources>

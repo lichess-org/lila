@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Équipe</string>
+  <string name="teams">Équipes</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s membre</item>
+    <item quantity="other">%s membres</item>
+  </plurals>
+  <string name="allTeams">Toutes les équipes</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vos équipes</string>
+  <string name="newTeam">Nouvelle équipe</string>
+  <string name="myTeams">Mes équipes</string>
+  <string name="noTeamFound">Aucune équipe trouvée</string>
+  <string name="joinTeam">Rejoindre l\'équipe</string>
+  <string name="onlyLeaderLeavesTeam">Ajoutez un nouveau chef d\'équipe avant de partir ou fermez l\'équipe.</string>
+  <string name="quitTeam">Quitter l\'équipe</string>
+  <string name="manuallyReviewAdmissionRequests">Examiner manuellement les demandes d\'admission</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si coché, les joueurs devront rédiger une demande pour rejoindre l\'équipe, que vous pourrez refuser ou accepter.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Chef d\'équipe</item>
+    <item quantity="other">Chefs d\'équipe</item>
+  </plurals>
+  <string name="teamRecentMembers">Membres récents de l\'équipe</string>
+  <string name="kickSomeone">Expulser quelqu\'un de l\'équipe</string>
+  <string name="whoToKick">Qui voulez-vous expulser de l\'équipe?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s demande d\'adhésion</item>
+    <item quantity="other">%s demandes d\'adhésion</item>
+  </plurals>
+  <string name="willBeReviewed">Votre requête d\'adhésion sera examinée par le chef d\'équipe.</string>
+  <string name="beingReviewed">Votre demande d\'adhésion est en cours d\'examination par le chef d\'équipe.</string>
+  <string name="requestDeclined">Votre demande d\'adhésion a été refusée par le chef d\'équipe.</string>
+  <string name="subToTeamMessages">S\'abonner aux messages de l\'équipe</string>
+  <string name="teamBattle">Tournoi entre équipes</string>
+  <string name="teamBattleOverview">Une bataille de plusieurs équipes, chaque joueur marque des points pour son équipe</string>
+  <string name="teamTournament">Tournoi arène pour l\'équipe</string>
+  <string name="teamTournamentOverview">Un tournoi d\'arène auquel seuls les membres de votre équipe peuvent participer</string>
+  <string name="swissTournamentOverview">Tournoi suisse auquel seuls les membres de votre équipe peuvent participer</string>
+  <string name="messageAllMembers">Contacter tous les membres</string>
+  <string name="messageAllMembersOverview">Envoyer un message privé à tous les membres de l\'équipe</string>
+  <string name="messageAllMembersLongDescription">Envoyez un message privé à TOUS les membres de l\'équipe.
+Vous pouvez l\'utiliser pour appeler les joueurs à rejoindre un tournoi ou une bataille d\'équipe.
+Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équipe.</string>
+  <string name="teamsIlead">Équipe(s) que je gère</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Souhaitez-vous rejoindre l\'un de ces prochains tournois ?</string>
+  <string name="usersWhoCanManageThisTeam">Utilisateurs qui peuvent administrer cette équipe</string>
+  <string name="leadersChat">Chat des chefs de l\'équipe</string>
+  <string name="closeTeam">Fermer l\'équipe</string>
+  <string name="closeTeamDescription">Ferme l\'équipe définitivement.</string>
+  <string name="entryCode">Mot de passe de l’équipe</string>
+  <string name="entryCodeDescriptionForLeader">(Optionnel) Mot de passe que les nouveaux membres doivent connaître pour se joindre à l\'équipe.</string>
+  <string name="incorrectEntryCode">Mot de passe incorrect.</string>
+  <string name="teamAlreadyExists">Cette équipe existe déjà.</string>
+  <string name="upcomingTourns">Tournois à venir</string>
+  <string name="completedTourns">Tournois terminés</string>
+  <string name="declinedRequests">Demandes refusées</string>
+  <string name="joinLichessVariantTeam">Joignez-vous à l\'équipe officielle %s pour les actualités et les événements</string>
+  <string name="teamPage">Page d\'équipe</string>
+</resources>

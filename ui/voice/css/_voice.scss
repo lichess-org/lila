@@ -1,0 +1,166 @@
+$c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
+
+#voice-bar {
+  position: relative;
+  user-select: none;
+  flex: 1 1 auto;
+  grid-area: voice;
+}
+
+#voice-status-row {
+  @extend %box-neat, %flex-center-nowrap;
+  font-size: 1rem;
+  align-items: stretch;
+  background: $c-bg-box;
+  padding-#{$end-direction}: 6px;
+
+  #voice-bar.puz & {
+    background: $c-bg-zebra;
+  }
+
+  #voice-bar.coords & button#voice-help-button {
+    display: none;
+  }
+
+  > button {
+    @extend %button-none;
+    color: $c-font-dim;
+    font-size: 16px;
+    padding: 0 6px;
+
+    &::before {
+      vertical-align: sub;
+    }
+
+    &:hover {
+      color: $c-font;
+    }
+  }
+}
+
+#voice-status {
+  @extend %flex-center-nowrap;
+  flex: 1 1 auto;
+}
+
+button#microphone-button {
+  margin: 4px;
+  margin-#{$end-direction}: 8px;
+  width: 42px; // compensate for width difference between speaker and cancel buttons
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: $c-mic-bg-hover;
+  }
+
+  &.push-to-talk {
+    border-color: $c-primary;
+  }
+
+  &.listening {
+    animation: pulseListening 2s;
+    animation-iteration-count: infinite;
+    color: $c-primary;
+
+    &:hover {
+      color: $c-link-hover;
+    }
+  }
+
+  &.busy {
+    color: $c-bad;
+  }
+
+  @keyframes pulseListening {
+    0% {
+      border-color: transparent;
+    }
+    50% {
+      border-color: $c-primary;
+    }
+    100% {
+      border-color: transparent;
+    }
+  }
+}
+
+#voice-settings-button {
+  &.active {
+    color: white;
+    background-color: $c-primary;
+  }
+}
+
+#voice-settings {
+  @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+  position: absolute;
+  @include back-blur();
+  border-top: 2px solid $c-primary;
+  z-index: z(mz-menu);
+  width: 100%;
+  background: $c-bg-popup;
+  gap: 1.5em;
+  padding: 1.5em;
+  > hr {
+    margin: 5px;
+  }
+}
+
+.voice-setting {
+  @extend %flex-center-nowrap;
+  * {
+    white-space: nowrap;
+  }
+
+  label {
+    flex: 4 1 auto;
+    cursor: pointer;
+  }
+
+  .switch + label {
+    margin-#{$start-direction}: 1ch;
+  }
+
+  input[type='range'] {
+    cursor: pointer;
+    flex: 1 4 auto;
+    padding: 0;
+    height: 1.6em;
+    width: 100%;
+    margin: 0 1ch;
+  }
+
+  select {
+    flex: 1 4 auto;
+    min-width: 0;
+    margin-#{$start-direction}: 1ch;
+    padding: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .range_value {
+    direction: ltr;
+    flex: 0 0 15%;
+    text-align: left;
+  }
+}
+
+.voice-choices {
+  @extend %flex-between;
+  gap: 1em;
+
+  .active {
+    @extend %active-primary;
+  }
+
+  &__device {
+    flex-flow: row nowrap;
+    select {
+      width: 0;
+      flex: 1;
+    }
+  }
+}

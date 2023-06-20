@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">тин кӑна</string>
+  <plurals name="inNbSeconds">
+    <item quantity="other">%s ҫеккунтран</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="other">%s минутран</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="other">%s сахатран</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="other">%s уйӑхран</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="other">%s эрнерен</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="other">%s уйӑхран</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="other">%s ҫултан</item>
+  </plurals>
+  <string name="rightNow">тин кӑна</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="other">%s ҫек кайалла</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="other">%s минут кайалла</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">%s сахат кайалла</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="other">%s кун кайалла</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">%s эрне кайалла</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="other">%s уйӑх кайалла</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">%s ҫул кайалла</item>
+  </plurals>
+</resources>

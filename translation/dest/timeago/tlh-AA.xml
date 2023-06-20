@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">\'eQ</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s lup pIq</item>
+    <item quantity="other">%s lup pIq</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s tup pIq</item>
+    <item quantity="other">%s tup pIq</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s rep pIq</item>
+    <item quantity="other">%s rep pIq</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s leS</item>
+    <item quantity="other">%s leS</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s Hogh pIq</item>
+    <item quantity="other">%s Hogh pIq</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s waQ</item>
+    <item quantity="other">%s waQ</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s nem</item>
+    <item quantity="other">%s nem</item>
+  </plurals>
+  <string name="rightNow">DaH</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s lup ret</item>
+    <item quantity="other">%s lup ret</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s tup ret</item>
+    <item quantity="other">%s tup ret</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s rep ret</item>
+    <item quantity="other">%s rep ret</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s Hu\'</item>
+    <item quantity="other">%s Hu\'</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s Hogh ret</item>
+    <item quantity="other">%s Hogh ret</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s wen</item>
+    <item quantity="other">%s wen</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s ben</item>
+    <item quantity="other">%s ben</item>
+  </plurals>
+</resources>

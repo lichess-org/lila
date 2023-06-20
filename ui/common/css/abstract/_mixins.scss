@@ -1,0 +1,91 @@
+@mixin box-radius {
+  border-radius: $box-radius-size;
+}
+
+@mixin box-shadow {
+  box-shadow: $box-shadow;
+}
+
+@mixin box-neat {
+  @include box-radius;
+  @include box-shadow;
+}
+
+@mixin debug-zoom-input {
+  #zoom-input {
+    display: none;
+
+    @include breakpoint($mq-zoom-enabled) {
+      display: block;
+      position: fixed;
+      bottom: 3px;
+      #{$end-direction}: 3px;
+      width: 10vw;
+    }
+  }
+}
+
+@mixin transition($prop: all, $dur: $transition-duration) {
+  transition: $prop $dur;
+}
+
+@mixin hoverflow {
+  overflow-y: auto;
+
+  @media (hover: hover) {
+    &:not(:hover) {
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}
+
+@mixin hide {
+  display: none;
+
+  .blind-mode & {
+    display: inherit;
+  }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin crosstable-large {
+  .crosstable__users {
+    flex: 7 1 auto;
+  }
+}
+
+@mixin crosstable-small {
+  .crosstable__users {
+    flex: 1 1 auto;
+  }
+}
+
+@mixin body-fixed-scroll {
+  body {
+    /* prevents scroll bar flicker when dragging a piece out */
+    overflow-y: scroll;
+  }
+}
+
+@mixin margin-inline-start($amount) {
+  margin-#{$start-direction}: $amount;
+  margin-inline: $amount 0; // this doesn't have perfect browser support so keep the other margin as fallback
+}
+
+@mixin margin-inline-end($amount) {
+  margin-#{$end-direction}: $amount;
+  margin-inline: 0 $amount; // this doesn't have perfect browser support so keep the other margin as fallback
+}
+
+@mixin back-blur($size: 6px) {
+  backdrop-filter: blur($size);
+  -webkit-backdrop-filter: blur($size);
+}

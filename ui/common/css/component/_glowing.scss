@@ -1,0 +1,17 @@
+@keyframes glowing {
+  42% {
+    background: none;
+  }
+
+  50% {
+    background: mix($c-link, $c-bg-box, 20%);
+  }
+
+  58% {
+    background: none;
+  }
+}
+
+.glowing {
+  animation: glowing 2s ease-in-out infinite;
+}

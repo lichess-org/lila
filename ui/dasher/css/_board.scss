@@ -1,0 +1,69 @@
+@import '../../common/css/vendor/chessground/themes';
+
+#dasher_app .theme {
+  .list {
+    @extend %flex-wrap;
+
+    margin: 5px 0;
+  }
+
+  .list button {
+    flex: 0 0 50%;
+    height: 44px;
+
+    @extend %flex-center;
+    @extend %button-none;
+
+    justify-content: center;
+  }
+
+  .list span {
+    display: block;
+    width: 64px;
+    height: 32px;
+  }
+
+  &.d3 .list span {
+    width: 66px;
+    height: 30px;
+
+    @include transition(transform);
+  }
+
+  .list button:hover {
+    filter: brightness(1.05);
+  }
+
+  .list button:hover span {
+    transform: scale(1.05);
+  }
+
+  .list button.active {
+    background-color: $c-shade;
+  }
+
+  &.d2 {
+    @each $name, $theme in $board-themes-2d {
+      .#{$name} {
+        $file-ext: map-get($theme, file-ext);
+        $name-override: map-get($theme, name-override);
+        $file-name: if($name-override, $name-override, $name);
+
+        @if $file-ext == 'svg' {
+          background-image: img-url('board/svg/#{$file-name}.svg');
+          background-size: 256px;
+        } @else {
+          background-image: img-url('board/#{$file-name}.thumbnail.#{$file-ext}');
+        }
+      }
+    }
+  }
+
+  &.d3 {
+    @each $name in map-keys($board-themes-3d) {
+      .#{$name} {
+        background-image: img-url('staunton/board/#{$name}.thumbnail.png');
+      }
+    }
+  }
+}

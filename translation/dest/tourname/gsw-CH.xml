@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Schtündlichi Schnällschach Arena</string>
+  <string name="hourlyRapid">Schtündlichs Schnällschach</string>
+  <string name="hourlyXArena">Schtündlichi %s Arena</string>
+  <string name="hourlyX">Schtündlichs %s</string>
+  <string name="dailyRapidArena">Täglichi Schnällschach Arena</string>
+  <string name="dailyRapid">Täglichs Schnällschach</string>
+  <string name="dailyClassicalArena">Täglichi Klassisch Arena</string>
+  <string name="dailyClassical">Täglichs Klassisch</string>
+  <string name="dailyXArena">Täglichi %s Arena</string>
+  <string name="dailyX">Täglichs %s</string>
+  <string name="easternRapidArena">Öschtlichi Schnällschach Arena</string>
+  <string name="easternRapid">Öschtlichs Schnällschach</string>
+  <string name="easternClassicalArena">Öschtlichi Klassik Arena</string>
+  <string name="easternClassical">Öschtlich Klassisch</string>
+  <string name="easternXArena">Öschtlichi %s Arena</string>
+  <string name="easternX">Öschtlichs %s</string>
+  <string name="weeklyRapidArena">Wüchentlichi Schnällschach Arena</string>
+  <string name="weeklyRapid">Wüchentlichs Schnällschach</string>
+  <string name="weeklyClassicalArena">Wüchentlichi Klassisch Arena</string>
+  <string name="weeklyClassical">Wüchentlichs Klassisch</string>
+  <string name="weeklyXArena">Wüchentlichi %s Arena</string>
+  <string name="weeklyX">Wüchentlichs %s</string>
+  <string name="monthlyRapidArena">Monetlichi Schnällschach Arena</string>
+  <string name="monthlyRapid">Monetlichs Schnällschach</string>
+  <string name="monthlyClassicalArena">Monetlichi Klassisch Arena</string>
+  <string name="monthlyClassical">Monetlichs Klassisch</string>
+  <string name="monthlyXArena">Monetlichi %s Arena</string>
+  <string name="monthlyX">Monetlichs %s</string>
+  <string name="yearlyRapidArena">Jährlichi Schnällschach Arena</string>
+  <string name="yearlyRapid">Jährlichs Schnällschach</string>
+  <string name="yearlyClassicalArena">Jährlichi Klassisch Arena</string>
+  <string name="yearlyClassical">Jährlichs Klassisch</string>
+  <string name="yearlyXArena">Jöhrlichi %s-Arena</string>
+  <string name="yearlyX">Jährlichs %s</string>
+  <string name="rapidShieldArena">Schnällschach Wanderpris Arena</string>
+  <string name="rapidShield">Schnällschach Wanderpris</string>
+  <string name="classicalShieldArena">Klassisch Wanderpris Arena</string>
+  <string name="classicalShield">Klassisch Wanderpris</string>
+  <string name="xShieldArena">%s Wanderpris Arena</string>
+  <string name="xShield">%s Wanderpris</string>
+  <string name="xTeamBattle">%s Teamkampf</string>
+  <string name="eliteXArena">Elite %s Arena</string>
+  <string name="eliteX">Elite %s</string>
+  <string name="xArena">%s Arena</string>
+</resources>

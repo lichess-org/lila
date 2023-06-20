@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">संपर्क</string>
+  <string name="contactLichess">Lichess शी संपर्क</string>
+  <string name="whatCanWeHelpYouWith">आम्ही आपल्याला काय मदत करू शकतो?</string>
+  <string name="visitThisPage">समस्या सोडवण्यासाठी या पानावर जा</string>
+  <string name="iCantLogIn">मी सनोंद प्रवेश करू शकत नाही</string>
+  <string name="wantCloseAccount">मला माझे खाते बंद करायचे आहे</string>
+  <string name="closeYourAccount">या पानावर तुम्हाला तुमचे खाते बंद करता येईल</string>
+  <string name="doNotAskByEmail">आम्हाला ई-मेल वरून खाते बंद करण्यास सांगू नका, आम्ही ते करणार नाही.</string>
+  <string name="wantReopen">मला माझे खाते परत सुरू करायचे आहे</string>
+  <string name="reopenOnThisPage">या पानावर तुम्हाला तुमचे खाते परत सुरू करता येईल. पण ते एकदाच काम करेल.</string>
+  <string name="doNotAskByEmailToReopen">आम्हाला ई-मेल वरून खाते परत सुरू करण्यास सांगू नका, आम्ही ते करणार नाही.</string>
+  <string name="wantChangeUsername">मला सदस्यनाव बदलायचे आहे</string>
+  <string name="illegalPawnCapture">प्याद्याला मारणे अवैध</string>
+  <string name="calledEnPassant">त्याला म्हणतात \"एन पसांट\", तो एक बुद्धिबळाचा नियम आहे.</string>
+  <string name="illegalCastling">किल्लेकोट अवैध किंवा असंभव</string>
+  <string name="castlingRules">तुम्हाला किल्लेकोटाचे नियम कळलेत याची खात्री करा</string>
+  <string name="tryCastling">बुद्धिबळातील किल्लेकोटाचा सराव करण्यासाठी हा छोटा खेळ खेळा</string>
+  <string name="insufficientMaterial">शहमातीसाठी अपर्याप्त सोंगट्या</string>
+  <string name="otherRestriction">दुसरा निर्बंध</string>
+</resources>

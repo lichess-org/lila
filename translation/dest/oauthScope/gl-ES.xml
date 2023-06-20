@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Novo token de acceso persoal á API</string>
+  <string name="tokenGrantsPermission">Un token garante a outra xente permiso a empregar a túa conta.</string>
+  <string name="carefullySelect">Selecciona cuidadosamente o que se permite facer no teu nome.</string>
+  <string name="tokenDescription">Descripción de token</string>
+  <string name="rememberTokenUse">Así que lembra para que serve este token</string>
+  <string name="whatTheTokenCanDo">Qeu pode facer o token no teu nome:</string>
+  <string name="doNotShareIt">O token dará acceso á túa conta. NON o compartas con ninguén!</string>
+  <string name="copyTokenNow">Asegúrate de copiar o teu novo token persoal de acceso. Non poderás obtelo posteriormente!</string>
+  <string name="preferenceRead">Preferencias de lectura</string>
+  <string name="preferenceWrite">Preferencias de escritura</string>
+  <string name="emailRead">Le o teu correo electrónico</string>
+  <string name="challengeRead">Ve desafíos entrantes</string>
+  <string name="challengeWrite">Envía, acepta e rexeita desafíos</string>
+  <string name="challengeBulk">Crear varias partidas á vez para outros xogadores</string>
+  <string name="studyRead">Le estudos privados e transmisións</string>
+  <string name="studyWrite">Crea, actualiza, borra estudos e transmisións</string>
+  <string name="tournamentWrite">Crea, actualiza e xoga torneos</string>
+  <string name="racerWrite">Crea e xoga exercicios de carreiras</string>
+  <string name="puzzleRead">Le actividade de exercicios</string>
+  <string name="teamRead">Le información privada de equipo</string>
+  <string name="teamWrite">Unirse e sair de equipos</string>
+  <string name="teamLead">Administra os equipos que lideres: envía mensaxes privadas, expulsa aos membros</string>
+  <string name="followRead">Le xogadores/as ás que segues</string>
+  <string name="followWrite">Segue e deixa de seguir a outras xogadores/as</string>
+  <string name="msgWrite">Envía mensaxes privadas a outras xogadoras</string>
+  <string name="boardPlay">Xoga partidas coa Api de taboleiro</string>
+  <string name="botPlay">Xoga partidas coa Api de Bot</string>
+  <string name="engineRead">Mira e emprega os teus motores de cálculo</string>
+  <string name="engineWrite">Crea e actualiza os teus motores de cálculo</string>
+  <string name="webLogin">Crea sesións web autenticadas (concede acceso completo!)</string>
+  <string name="webMod">Empregar ferramentas de moderador (dentro dos límites do teu permiso)</string>
+</resources>

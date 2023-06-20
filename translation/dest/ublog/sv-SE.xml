@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%ss blogg</string>
+  <string name="newPost">Nytt inlägg</string>
+  <string name="editYourBlogPost">Redigera ditt blogginlägg</string>
+  <string name="saveDraft">Spara utkast</string>
+  <string name="postTitle">Inläggets titel</string>
+  <string name="postIntro">Inläggets intro</string>
+  <string name="postBody">Brödtext</string>
+  <string name="drafts">Utkast</string>
+  <string name="published">Publicerat</string>
+  <string name="createBlogDiscussion">Tillåt kommentarer</string>
+  <string name="createBlogDiscussionHelp">Ett forumämne kommer att skapas för personer att kommentera ditt inlägg</string>
+  <string name="publishOnYourBlog">Publicera på din blogg</string>
+  <string name="publishHelp">Om markerad, kommer inlägget att visas på din blogg. Om inte, kommer det att vara dolt, bland dina utkast</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publicerade ett blogginlägg</item>
+    <item quantity="other">Publicerade %s blogginlägg</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">En visning</item>
+    <item quantity="other">%s visningar</item>
+  </plurals>
+  <string name="xPublishedY">%1$s publicerade %2$s</string>
+  <string name="thisPostIsPublished">Det här inlägget är publicerat</string>
+  <string name="thisIsADraft">Detta är ett utkast</string>
+  <string name="moreBlogPostsBy">Fler blogginlägg av %s</string>
+  <string name="noPostsInThisBlogYet">Inga inlägg i denna blogg, ännu.</string>
+  <string name="noDrafts">Inga utkast att visa.</string>
+  <string name="latestBlogPosts">Senaste blogginläggen</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Visa ett inlägg</item>
+    <item quantity="other">Visa alla %s inlägg</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Ladda upp en bild för ditt inlägg</string>
+  <string name="imageAlt">Bild beskriven som text</string>
+  <string name="imageCredit">Bildens upphovsmakare</string>
+  <string name="deleteBlog">Ta bort detta blogginlägg definitivt</string>
+  <string name="deleteImage">Radera bild</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Det är säkert att använda bilder från följande webbplatser: </string>
+  <string name="selectPostTopics">Välj de ämnen som ditt inlägg handlar om</string>
+  <string name="useImagesYouMadeYourself">Du kan också använda bilder som du gjort själv, bilder du tagit, skärmdumpar från Lichess... allt som inte är upphovsrättsskyddat av någon annan.</string>
+  <string name="safeAndRespectfulContent">Vänligen lägg bara upp säkert och respektfullt innehåll. Kopiera inte någon annans innehåll.</string>
+  <string name="inappropriateContentAccountClosed">Olämpligt innehåll kan göra att ditt konto stängs.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Våra enkla tips för att skriva bra blogginlägg</string>
+</resources>

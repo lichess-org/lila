@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">Личес стримери</string>
+  <string name="lichessStreamer">Личес стример</string>
+  <string name="live">УЖИВО!</string>
+  <string name="offline">ОФЛАЈН</string>
+  <string name="currentlyStreaming">Тренутно стримује: %s</string>
+  <string name="lastStream">Последњи стрим %s</string>
+  <string name="becomeStreamer">Постани Личес стример</string>
+  <string name="doYouHaveStream">Имаш ли Твич или Јутјуб канал?</string>
+  <string name="hereWeGo">Идемо!</string>
+  <string name="allStreamers">Сви стримери</string>
+  <string name="editPage">Уреди страницу стримера</string>
+  <string name="yourPage">Твоја страница стримера</string>
+  <string name="xIsStreaming">%s стримује</string>
+  <string name="rules">Правила стримовања</string>
+  <string name="rule1">Када стримујеш на Личесу, користи категорију \"Chess\" и укључи реч \"lichess.org\" у наслову стрима.</string>
+  <string name="rule2">Избаци ту реч када се на стриму не бавиш Личесом.</string>
+  <string name="perk3">Обавестите ваше Личес пратиоце.</string>
+  <string name="approved">Твој стрим је одобрен.</string>
+  <string name="pendingReview">Твој стрим проверавају модератори.</string>
+  <string name="pleaseFillIn">Молимо попуните стримерске информације и поставите слику.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будете спремни да постанете Личес стример, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">затражите проверу од стране модератора</string>
+  <string name="twitchUsername">Твоје Твич корисничко име или УРЛ</string>
+  <string name="optionalOrEmpty">Није обавезно. Оставити празно ако нема</string>
+  <string name="headline">Наслов</string>
+  <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
+  <string name="longDescription">Дужи опис</string>
+  <string name="changePicture">Измени/избриши своју слику</string>
+  <string name="uploadPicture">Постави слику</string>
+  <string name="maxSize">Максимална величина: %s</string>
+</resources>

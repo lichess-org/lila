@@ -1,0 +1,12 @@
+.is2d .pawn.white {background-image:url('/assets/piece/cburnett/wP.svg')}
+.is2d .knight.white {background-image:url('/assets/piece/cburnett/wN.svg')}
+.is2d .bishop.white {background-image:url('/assets/piece/cburnett/wB.svg')}
+.is2d .rook.white {background-image:url('/assets/piece/cburnett/wR.svg')}
+.is2d .queen.white {background-image:url('/assets/piece/cburnett/wQ.svg')}
+.is2d .king.white {background-image:url('/assets/piece/cburnett/wK.svg')}
+.is2d .pawn.black {background-image:url('/assets/piece/cburnett/bP.svg')}
+.is2d .knight.black {background-image:url('/assets/piece/cburnett/bN.svg')}
+.is2d .bishop.black {background-image:url('/assets/piece/cburnett/bB.svg')}
+.is2d .rook.black {background-image:url('/assets/piece/cburnett/bR.svg')}
+.is2d .queen.black {background-image:url('/assets/piece/cburnett/bQ.svg')}
+.is2d .king.black {background-image:url('/assets/piece/cburnett/bK.svg')}

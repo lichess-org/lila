@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="coordinates">الإحداثيات</string>
+  <string name="coordinateTraining">التدريب على الاحداثيات</string>
+  <string name="averageScoreAsWhiteX">متوسط الدرجات كأبيض: %s</string>
+  <string name="averageScoreAsBlackX">متوسط الدرجات كأسود: %s</string>
+  <string name="knowingTheChessBoard">معرفة إحداثيات رقعة الشطرنج مهارة شطرنجبة هامة جداً:</string>
+  <string name="mostChessCourses">معظم دورات الشطرنج والتمارين تستخدم التدوين الجبري على نطاق واسع.</string>
+  <string name="talkToYourChessFriends">فهي تجعل من السهل التحدث إلى أصدقائك الشطرنجين، ما دام كل منكم يفهم \"لغة الشطرنج\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">يمكنك تحليل المباراة بفعالية أكبر إذا كنت تتعرف بسرعة على الاحداثيات.</string>
+  <string name="aCoordinateAppears">الإحداثيات تظهر على اللوحة ويجب عليك النقر على المربع.</string>
+  <string name="aSquareIsHighlightedExplanation">يتم تسليط الضوء على مربع على اللوحة ويجب عليك إدخال إحداثياته (على سبيل المثال \"e4\").</string>
+  <string name="youHaveThirtySeconds">لديك 30 ثانية لرسم خريطة صحيحة لأكبر عدد ممكن من المربعات!</string>
+  <string name="goAsLongAsYouWant">اذهب طالما تريد، لا يوجد حد زمني!</string>
+  <string name="showCoordinates">إظهار الإحداثيات</string>
+  <string name="showPieces">إظهار القطع</string>
+  <string name="startTraining">إبدأ التدريب</string>
+  <string name="findSquare">ابحث عن مربع</string>
+  <string name="nameSquare">سم المربع</string>
+</resources>

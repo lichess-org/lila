@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="faqAbbreviation">FAQ</string>
+  <string name="frequentlyAskedQuestions">Heefeg gestallte Froen</string>
+  <string name="whyIsLichessCalledLichess">Firwat heescht Lichess Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess ass eng Kombinatioun vun live/light/libre an Schach. Et gëtt %1$s ausgesprach.</string>
+  <string name="leechess">li-tschess</string>
+  <string name="hearItPronouncedBySpecialist">Lauschter een Spezialist et prononcéieren.</string>
+  <string name="whyLiveLightLibre">Live, well Partien 24/7 an Echtzäit gespillt ginn; liicht an fräi well Lichess open-source an fräi vun proprietärem Dreck ass, wéi een en op aneren Websäiten geseit.</string>
+  <string name="whyIsLilaCalledLila">Et verhält sech ähnlech mam Quellcode fir Lichess; %1$s, deen fir li[chess an sca]la steet. Den Groussdeel vun Lichess ass an %2$s geschriwwen, enger intuitiver Programméiersprooch.</string>
+  <string name="howCanIContributeToLichess">Wéi kann ech zu Lichess bäidroen?</string>
+  <string name="areThereWebsitesBasedOnLichess">Ginn et Websäiten déi op Lichess baséieren?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Jo. Lichess huet aner Open-Source Säiten inspiréiert déi eis %1$s, %2$s, oder %3$s benotzen.</string>
+  <string name="keyboardShortcuts">Wéieng Tastaturkürzel ginn et?</string>
+  <string name="fairPlay">Fair Play</string>
+  <string name="whenAmIEligibleRatinRefund">Wéi qualifizéieren ech mech fir eng automatesch Wäertungsréckerstattung?</string>
+  <string name="preventLeavingGameWithoutResigning">Wat geschitt mat Spiller, déi eng Partie verloossen, ouni opzeginn?</string>
+  <string name="howCanIBecomeModerator">Wéi kann ech e Moderator ginn?</string>
+  <string name="isCorrespondenceDifferent">Wéi ënnerscheeden sech Korrespondenz an normalen Schach?</string>
+  <string name="gameplay">Spillerliefnis</string>
+  <string name="howBulletBlitzEtcDecided">Wat decidéiert op eng Zäitkontroll Bullet, Blitz oder eng aner ass?</string>
+  <string name="whatVariantsCanIplay">Wéieng Varianten kann ech op Lichess spillen?</string>
+  <string name="whatIsACPL">Wat ass den duerchschnëttlechen Honnertselbauerverloscht (ACPL)?</string>
+  <string name="insufficientMaterial">Op Zäit verléieren, Remis an ongenügend Material</string>
+  <string name="fideHandbookX">FIDE Handbuch %s</string>
+  <string name="discoveringEnPassant">Firwat kann e Bauern een aneren Bauer schloen, wann hien laanscht gezunn huet? (en passant)</string>
+  <string name="threefoldRepetition">Dräifach Stellungswidderhuelung</string>
+  <string name="accounts">Konten</string>
+  <string name="titlesAvailableOnLichess">Wéieng Titel ginn et op Lichess?</string>
+  <string name="canIbecomeLM">Kann ech den Lichess Meeschter (LM) Titel kréien?</string>
+  <string name="noUpperCaseDot">Nee.</string>
+  <string name="whatUsernameCanIchoose">Wéi kann mäin Benotzernumm ausgesinn?</string>
+  <string name="guidelines">Richtlinnen</string>
+  <string name="canIChangeMyUsername">Kann ech mäin Benotzernumm änneren?</string>
+  <string name="uniqueTrophies">Eenzegaarteg Trophäen</string>
+  <string name="lichessRatings">Lichess Wäertungen</string>
+  <string name="whichRatingSystemUsedByLichess">Wéieen Wäertungssystem benotzt Lichess?</string>
+  <string name="whatIsProvisionalRating">Firwat ass en Fragezeichen (?) nieft enger Wäertung?</string>
+  <string name="howDoLeaderoardsWork">Wéi funktionéieren Räng and Ranglëschten?</string>
+  <string name="whyAreRatingHigher">Firwat sin Wäertungen méi héich wéi op aneren Plazen wéi FIDE, USCF oder ICC?</string>
+  <string name="howToHideRatingWhilePlaying">Wéi kann ech Wäertungen wärend dem Spillen verstoppen?</string>
+  <string name="connexionLostCanIGetMyRatingBack">Ech hunn eng Partie wéinst Lag/Verbindungsverloscht verluer. Kann ech meng Wäertungspunkten zeréckkréien?</string>
+  <string name="howToThreeDots">Wéi...</string>
+  <string name="enableDisableNotificationPopUps">Notifikatiouns-Popups aktivéieren an desaktivéieren?</string>
+</resources>

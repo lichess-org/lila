@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">toki</string>
+  <string name="contactLichess">o toki tawa jan pi ilo Lichess</string>
+  <string name="wantTitle">mi wile e ni: o pana lukin e nimi wawa mi lon lipu \"Lichess\"</string>
+  <string name="illegalPawnCapture">ijo musi li ken anpa ike e ijo \"jan utala\"</string>
+  <string name="calledEnPassant">anpa ni li \"anpa tawa\" (\"en passant\"). ona li pona tawa nasin musi.</string>
+  <string name="tryEnPassant">sina wile kama sona e \"anpa tawa\", o lukin e musi lili ni.</string>
+  <string name="illegalCastling">\"tomo awen\" ike li ken</string>
+  <string name="castlingPrevented">\"tomo awen\" li ken ala lon nasin ni taso: nasin pi lawa mije li jo e ma ni: ijo musi pi jan ante li utala e ma ni.</string>
+  <string name="castlingRules">o sona e nasin pi \"tomo awen\".</string>
+  <string name="tryCastling">sina wile kama sona e nasin pi \"tomo awen\", o lukin e musi lili ni.</string>
+  <string name="castlingImported">sina pali e musi tan lipu anu nasin ma, o lukin e ni: sina ante ala ante e nasin ken pi \"tomo awen\"?</string>
+  <string name="insufficientMaterial">musi li pini ala, taso ijo musi ni li ken ala moli e lawa mije</string>
+  <string name="fideMate">nasin musi pi kulupu \"FIDE\" li toki e ni lon wan \"§6.9\": kulupu tawa li ken moli e lawa mije la, musi li pini ala pi anpa ala.</string>
+  <string name="knightMate">jan li ken moli e lawa mije kepeken soweli tawa anu (lawa sewi/soweli utala) lon ken ni: jan ante li jo ala e lawa mije taso.</string>
+  <string name="noRatingPoints">nanpa wawa li ante ala</string>
+  <string name="ratedGame">o musi e musi pi nanpa wawa. musi ante li ante ala e nanpa wawa.</string>
+  <string name="errorPage">lipu pakala</string>
+</resources>

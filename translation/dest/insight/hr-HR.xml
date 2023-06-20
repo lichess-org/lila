@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">Uvid u igru %s</string>
+  <string name="xHasNoChessInsights">Još nema uvida u igru %s!</string>
+  <string name="insightsAreProtected">Uvid u igru %s je zaštićen</string>
+  <string name="cantSeeInsights">Na žalost, ne možete vidjeti uvid u igru %s.</string>
+  <string name="generateInsights">Generiraj uvid u igru %s.</string>
+  <string name="crunchingData">Obrađujemo podatke za Vas!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Možete li pitati korisnika da Vam u %s dozvoli pristup?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">postavke za pristup uvidu u igru</string>
+</resources>

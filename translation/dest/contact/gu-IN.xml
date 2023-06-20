@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">સંપર્ક</string>
+  <string name="contactLichess">સંપર્ક કરો</string>
+  <string name="whatCanWeHelpYouWith">અમે તમને કેવી રીતે મદદ કરી શકીએ?</string>
+  <string name="visitThisPage">તમારી સમસ્યા હલ કરવા માટે આ પેજની મુલાકાત લો</string>
+  <string name="iCantLogIn">હું લોગીન કરી શકતો નથી</string>
+  <string name="noConfirmationEmail">મને મારો કન્ફર્મેશન ઈમેલ મળ્યો નથી</string>
+  <string name="forgotPassword">હું મારો પાસવાર્ડ ભૂલી ગયો છું</string>
+  <string name="forgotUsername">હું મારું યુઝરનેમ નામ ભૂલી ગયો છુ</string>
+  <string name="youCanLoginWithEmail">તમે જે ઈમેલ એડ્રેસ સાથે સાઈન અપ કર્યું છે તેનાથી તમે લોગીન કરી શકો છો</string>
+</resources>

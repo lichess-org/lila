@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">ساحة اللعب السريع الساعية</string>
+  <string name="hourlyRapid">النمط السريع الساعي</string>
+  <string name="hourlyXArena">ساحة %s الساعية</string>
+  <string name="hourlyX">%s المستمر ساعياً</string>
+  <string name="dailyRapidArena">ساحة اللعب اليومي السريع</string>
+  <string name="dailyRapid">سريع يومي</string>
+  <string name="dailyClassicalArena">الساحة الكلاسيكية اليومية</string>
+  <string name="dailyClassical">الكلاسيكية اليومية</string>
+  <string name="dailyXArena">الساحة اليومية %s</string>
+  <string name="dailyX">يومي %s</string>
+  <string name="easternRapidArena">ساحة اللعب السريعة الشرقية</string>
+  <string name="easternRapid">شرقي سريع</string>
+  <string name="easternClassicalArena">الساحة الكلاسيكية الشرقية</string>
+  <string name="easternClassical">الكلاسيكية الشرقية</string>
+  <string name="easternXArena">الساحة %s الشرقية</string>
+  <string name="easternX">شرقية%s</string>
+  <string name="weeklyRapidArena">ساحة اللعب السريع الأسبوعية</string>
+  <string name="weeklyRapid">الأسبوعية السريعة</string>
+  <string name="weeklyClassicalArena">الساحة الكلاسيكية الأسبوعية</string>
+  <string name="weeklyClassical">الكلاسيكية الأسبوعية</string>
+  <string name="weeklyXArena">الساحة %s الأسبوعية</string>
+  <string name="weeklyX">أسبوعياً %s</string>
+  <string name="monthlyRapidArena">ساحة اللعب السريع الشهرية</string>
+  <string name="monthlyRapid">سريع شهري</string>
+  <string name="monthlyClassicalArena">الساحة الكلاسيكية الشهرية</string>
+  <string name="monthlyClassical">الكلاسيكية الشهرية</string>
+  <string name="monthlyXArena">الساحة %s الشهرية</string>
+  <string name="monthlyX">شهرياً %s</string>
+  <string name="yearlyRapidArena">ساحة اللعب السريع السنوية</string>
+  <string name="yearlyRapid">النمط السريع السنوي</string>
+  <string name="yearlyClassicalArena">الساحة الكلاسيكية السنوية</string>
+  <string name="yearlyClassical">الكلاسيكية السنوية</string>
+  <string name="yearlyXArena">الساحة %s السنوية</string>
+  <string name="yearlyX">%s السنوي</string>
+  <string name="rapidShieldArena">ساحة الدرع السريع</string>
+  <string name="rapidShield">الدرع السريع</string>
+  <string name="classicalShieldArena">ساحة الدرع التقليدي</string>
+  <string name="classicalShield">الدرع التقليدي</string>
+  <string name="xShieldArena">ساحة الدفاع عن درع %s</string>
+  <string name="xShield">درع %s</string>
+  <string name="xTeamBattle">معركة فريق اللاعب %s</string>
+  <string name="eliteXArena">ساحة نخبة لاعبي %s</string>
+  <string name="eliteX">نخبة لاعبي %s</string>
+  <string name="xArena">ساحة %s</string>
+</resources>

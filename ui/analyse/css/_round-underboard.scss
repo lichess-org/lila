@@ -1,0 +1,176 @@
+$col1-panel-height: 30vh;
+$col2-panel-height: 240px;
+
+.comp-off .computer-analysis {
+  display: none !important;
+}
+
+.analyse__underboard {
+  &__menu {
+    @extend %flex-center-nowrap;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    > span {
+      @extend %roboto, %box-radius-top, %page-text;
+
+      flex: 1 1 0;
+      text-align: center;
+      font-size: 0.9em;
+      padding: 0.4em 0.1em;
+      cursor: pointer;
+      position: relative;
+
+      &:hover {
+        background: mix($c-bg-page, #888, 88%);
+      }
+
+      border-bottom: 1px solid $c-border;
+      &.active {
+        border-color: $c-accent;
+      }
+    }
+
+    .analyse-hunter & {
+      display: none;
+    }
+  }
+
+  &__panels {
+    --panel-height: #{$col1-panel-height};
+
+    @include breakpoint($mq-col2) {
+      --panel-height: #{$col2-panel-height};
+    }
+
+    > div {
+      height: var(--panel-height);
+      display: none;
+      text-align: left;
+
+      &.active {
+        display: block;
+      }
+    }
+
+    .crosstable table {
+      margin-top: 60px;
+    }
+
+    .analyse-hunter & > div {
+      display: block;
+    }
+  }
+
+  .ctable {
+    align-items: center;
+    justify-content: center;
+
+    &.active {
+      display: flex;
+    }
+  }
+
+  .computer-analysis {
+    position: relative;
+  }
+  .future-game-analysis {
+    text-align: center;
+    margin-top: 2em;
+  }
+
+  .fen-pgn {
+    overflow-x: visible;
+    overflow-y: auto;
+    font-size: 0.9em;
+    padding-top: 0.5em;
+
+    > div {
+      @extend %flex-center-nowrap;
+
+      margin-bottom: 1em;
+    }
+
+    .pgn {
+      white-space: pre-wrap;
+      font-family: monospace;
+      direction: ltr;
+    }
+
+    strong,
+    a {
+      display: inline-block;
+      margin-#{$end-direction}: 1em;
+    }
+  }
+
+  &__fen {
+    width: 100%;
+  }
+
+  input.like-text {
+    border: 0;
+    background: none;
+    padding: 0.3em;
+    margin-#{$end-direction}: 0.5em;
+  }
+}
+
+#acpl-chart,
+#movetimes-chart {
+  width: 100%;
+  height: var(--panel-height);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(128, 128, 128, 0.2) 50%,
+    rgba(255, 255, 255, 0) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#acpl-chart {
+  cursor: pointer;
+}
+
+#acpl-chart-loader {
+  font-size: 0.9em;
+  position: absolute;
+  top: 91px;
+  #{$start-direction}: -1px;
+  background: $c-bg-box;
+  @include padding-direction(7px, 10px, 7px, 0);
+
+  line-height: 20px;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  border: $border;
+  border-radius: 0 99px 99px 0;
+
+  span {
+    @extend %nowrap-hidden;
+
+    margin-#{$start-direction}: 7px;
+    opacity: 1;
+    transition: 0.5s;
+    width: 100px;
+    display: block;
+
+    .analyse__underboard:hover & {
+      margin-#{$start-direction}: 0;
+      width: 0;
+      opacity: 0;
+    }
+  }
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    margin-#{$start-direction}: 10px;
+  }
+}

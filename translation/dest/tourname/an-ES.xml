@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Torneyo Rapido per Hora</string>
+  <string name="hourlyRapid">Rapido per Hora</string>
+  <string name="hourlyXArena">Torneyo %s per Hora</string>
+  <string name="hourlyX">%s per Hora</string>
+  <string name="dailyRapidArena">Torneyo Rapido Diario</string>
+  <string name="dailyRapid">Rapido Diario</string>
+  <string name="dailyClassicalArena">Torneyo Clasico Diario</string>
+  <string name="dailyClassical">Clasico Diario</string>
+  <string name="dailyXArena">Torneyo %s Diario</string>
+  <string name="dailyX">%s Diario</string>
+  <string name="easternRapidArena">Torneyo Rapido Oriental</string>
+  <string name="easternRapid">Rapido Oriental</string>
+  <string name="easternClassicalArena">Torneyo Clasico Oriental</string>
+  <string name="easternClassical">Clasico Oriental</string>
+  <string name="easternXArena">Torneyo %s Oriental</string>
+  <string name="easternX">%s Oriental</string>
+  <string name="weeklyRapidArena">Torneyo Rapido Semanal</string>
+  <string name="weeklyRapid">Rapido Semanal</string>
+  <string name="weeklyClassicalArena">Torneyo Clasico Semanal</string>
+  <string name="weeklyClassical">Clasico Semanal</string>
+  <string name="weeklyXArena">Torneyo %s Semanal</string>
+  <string name="weeklyX">%s Semanal</string>
+  <string name="monthlyRapidArena">Torneyo Rapido Mensual</string>
+  <string name="monthlyRapid">Rapido Mensual</string>
+  <string name="monthlyClassicalArena">Torneyo Clasico Mensual</string>
+  <string name="monthlyClassical">Clasico Mensual</string>
+  <string name="monthlyXArena">Torneyo %s Mensual</string>
+  <string name="monthlyX">%s Mensual</string>
+  <string name="yearlyRapidArena">Torneyo Rapido Anyal</string>
+  <string name="yearlyRapid">Rapido Anyal</string>
+  <string name="yearlyClassicalArena">Torneyo Clasico Anyal</string>
+  <string name="yearlyClassical">Clasico Anyal</string>
+  <string name="yearlyXArena">Torneyo %s Anyal</string>
+  <string name="yearlyX">%s Anyal</string>
+  <string name="rapidShieldArena">Torneyo d\'Escudo Rapido</string>
+  <string name="rapidShield">Escudo Rapido</string>
+  <string name="classicalShieldArena">Torneyo d\'Escudo Clasico</string>
+  <string name="classicalShield">Escudo Clasico</string>
+  <string name="xShieldArena">Torneyo d\'Escudo %s</string>
+  <string name="xShield">Escudo %s</string>
+  <string name="xTeamBattle">Batalla per Equipos %s</string>
+  <string name="eliteXArena">Torneyo %s d\'Elite</string>
+  <string name="eliteX">%s d\'Elite</string>
+  <string name="xArena">Arena %s</string>
+</resources>

@@ -1,0 +1,127 @@
+@mixin rendered-markdown($element-margin: 1em) {
+  @extend %break-word;
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  p,
+  ol,
+  ul,
+  table,
+  pre {
+    margin: $element-margin 0;
+  }
+
+  ol,
+  ul {
+    padding-#{$start-direction}: 0.5em;
+  }
+
+  li ol,
+  li ul {
+    margin: 0;
+    padding-#{$start-direction}: 2em;
+  }
+
+  ol > li {
+    list-style: decimal inside;
+  }
+
+  ul > li {
+    list-style: disc inside;
+  }
+
+  li p {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 0;
+  }
+
+  /* should not be used */
+  h1 {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  h2 {
+    &:not(:first-child) {
+      margin-top: calc(0.9 * #{$element-margin});
+    }
+    border-bottom: 1px solid $c-brag;
+    line-height: 1.5em;
+    padding-bottom: calc(0.25 * #{$element-margin});
+  }
+
+  h3 {
+    @include fluid-size('font-size', 18px, 27px);
+
+    font-weight: bold;
+    margin: calc(0.8 * #{$element-margin}) 0 calc(0.5 * #{$element-margin}) 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  h4 {
+    @include fluid-size('font-size', 17px, 23px);
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: 50vh;
+    margin: auto;
+  }
+
+  th,
+  td {
+    &[align='left'] {
+      text-align: left;
+    }
+    &[align='center'] {
+      text-align: center;
+    }
+    &[align='right'] {
+      text-align: right;
+    }
+  }
+}
+
+@mixin rendered-markdown--code {
+  $c-code-bg: $c-bg-zebra;
+  $c-code-font: $c-font-clear;
+  code {
+    @extend %box-radius;
+    font-family: monospace;
+    padding: 0.2em 0.5em;
+    background: $c-code-bg;
+    color: $c-code-font;
+    font-size: 0.9em;
+    white-space: pre-wrap;
+  }
+
+  pre {
+    @extend %box-neat;
+    background: $c-code-bg;
+    padding: 1em 1.5em;
+    line-height: 1.4em;
+    code {
+      background: inherit;
+      padding: 0;
+    }
+  }
+}
+
+@mixin rendered-markdown--quote {
+  blockquote {
+    color: $c-font-dim;
+    border-#{$start-direction}: 0.3em solid $c-font-dimmer;
+    padding-#{$start-direction}: 1em;
+  }
+}

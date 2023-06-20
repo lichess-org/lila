@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nový osobný API prístupový token</string>
+  <string name="tokenGrantsPermission">Token udeľuje iným osobám povolenie používať Vaše konto.</string>
+  <string name="carefullySelect">Starostlivo vyberte čo povolíte vykonávať vo vašom mene!</string>
+  <string name="tokenDescription">Popis tokenu</string>
+  <string name="rememberTokenUse">Aby ste si zapamätali na čo tento token slúži</string>
+  <string name="whatTheTokenCanDo">Čo token môže urobiť v tvojom mene:</string>
+  <string name="doNotShareIt">Token umožňuje prístup k Vášmu účtu. NEZDIEĽAJTE ho s nikým!</string>
+  <string name="copyTokenNow">Nezabudnite si teraz skopírovať svoj nový osobný prístupový token! Už ho znova neuvidíte!</string>
+  <string name="preferenceRead">Čítať preferencie</string>
+  <string name="preferenceWrite">Prepísať preferencie</string>
+  <string name="emailRead">Čítať emailovú adresu</string>
+  <string name="challengeRead">Čítať prichádzajúce výzvy</string>
+  <string name="challengeWrite">Poslať, prijať alebo odmietnuť výzvy</string>
+  <string name="challengeBulk">Vytvárať viacero partií naraz pre iných hráčov</string>
+  <string name="studyRead">Čítať súkromné štúdie a vysielania</string>
+  <string name="studyWrite">Vytvárať, aktualizovať, odstraňovať štúdie a vysielania</string>
+  <string name="tournamentWrite">Vytvárať, upravovať a pripájať sa do turnajov</string>
+  <string name="racerWrite">Vytvárať preteky v šachových úlohách a pripájať sa do nich</string>
+  <string name="puzzleRead">Čítať aktivitu v šachových úlohách</string>
+  <string name="teamRead">Čítať súkromné informácie o tímoch</string>
+  <string name="teamWrite">Pripojiť sa k tímom alebo sa odpojiť</string>
+  <string name="teamLead">Spravujte tímy, ktoré vediete: posielajte súkromné správy, vyhadzujte členov</string>
+  <string name="followRead">Čítať sledovaných hráčov</string>
+  <string name="followWrite">Sledovať a zrušiť sledovanie iných hráčov</string>
+  <string name="msgWrite">Posielať súkromné správy iným hráčom</string>
+  <string name="boardPlay">Hrať partie s API šachovnicou</string>
+  <string name="botPlay">Hrať partie s API botom</string>
+  <string name="engineRead">Zobrazovať a používať vlastné externé motory</string>
+  <string name="engineWrite">Vytvárať a aktualizovať externé motory</string>
+  <string name="webLogin">Vytvoriť overené webové pripojenia (udeľuje úplný prístup!)</string>
+  <string name="webMod">Používať nástroje moderátora (v rámci Vášho povolenia)</string>
+</resources>

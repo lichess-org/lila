@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privat</string>
+  <string name="myStudies">Mini Schtudie</string>
+  <string name="studiesIContributeTo">Schtudie, wo ich mitwürke</string>
+  <string name="myPublicStudies">Mini öffentliche Schtudie</string>
+  <string name="myPrivateStudies">Mini private Schtudie</string>
+  <string name="myFavoriteStudies">Mini liebschte Schtudie</string>
+  <string name="whatAreStudies">Was sind Schtudie?</string>
+  <string name="allStudies">All Schtudie</string>
+  <string name="studiesCreatedByX">Vu %s erschtellte Schtudie</string>
+  <string name="noneYet">No kei.</string>
+  <string name="hot">agseit</string>
+  <string name="dateAddedNewest">wänn zuegfüegt (neui)</string>
+  <string name="dateAddedOldest">wänn zuegfüegt (älti)</string>
+  <string name="recentlyUpdated">frisch aktualisiert</string>
+  <string name="mostPopular">beliebtschti</string>
+  <string name="alphabetical">alphabetisch</string>
+  <string name="addNewChapter">Neus Kapitel zuefüege</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Kapitel</item>
+    <item quantity="other">%s Kapitäl</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partie</item>
+    <item quantity="other">%s Partien</item>
+  </plurals>
+  <string name="addMembers">Mitglider zuefüege</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Mitglid</item>
+    <item quantity="other">%s Mitglider</item>
+  </plurals>
+  <string name="inviteToTheStudy">Lad zu de Schtudie i</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Bitte lad nur Lüt i, wo du kännsch und wo wänd aktiv a dere Schtudie teilneh.</string>
+  <string name="searchByUsername">Suech noch Benutzername</string>
+  <string name="spectator">Zueschauer</string>
+  <string name="contributor">Mitwürkende</string>
+  <string name="kick">Userüere</string>
+  <string name="leaveTheStudy">Schtudie verlah</string>
+  <string name="youAreNowAContributor">Du bisch jetzt en Mitwürkende</string>
+  <string name="youAreNowASpectator">Du bisch jetzt Zueschauer</string>
+  <string name="pgnTags">PGN Tags</string>
+  <string name="like">Gfallt mir</string>
+  <string name="unlike">Gfallt mir nümme</string>
+  <string name="newTag">Neue Tag</string>
+  <string name="commentThisPosition">Kommentier die Schtellig</string>
+  <string name="commentThisMove">Kommentier de Zug</string>
+  <string name="annotateWithGlyphs">Mit Symbol kommentiere</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel isch z\'churz zum analysiere.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Nur wer a dere Schtudie mit macht, chann e Coputeranalyse afordere.</string>
+  <string name="getAFullComputerAnalysis">Erhalt e vollschtändigi, serversitigi Computeranalyse vu de Hauptvariante.</string>
+  <string name="makeSureTheChapterIsComplete">Schtell sicher, dass das Kapitel vollschtändig isch. Die Analyse chann nur eimal agforderet werde.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Alli synchronisierte Mitglider gsehnd die glich Schtellig</string>
+  <string name="shareChanges">Teil Änderige mit de Zueschauer und speicher sie uf em Server</string>
+  <string name="playing">Laufend</string>
+  <string name="first">zur erschte Site</string>
+  <string name="previous">zrugg</string>
+  <string name="next">nächschti</string>
+  <string name="last">zur letschte Site</string>
+  <string name="shareAndExport">Teile &amp; exportiere</string>
+  <string name="cloneStudy">Klone</string>
+  <string name="studyPgn">Schtudie PGN</string>
+  <string name="downloadAllGames">Lad alli Partie abe</string>
+  <string name="chapterPgn">Kapitel PGN</string>
+  <string name="copyChapterPgn">PGN kopiere</string>
+  <string name="copyChapterPgnDescription">PGN-Kapitel id Zwüscheablag kopiere.</string>
+  <string name="downloadGame">Lad die Partie abe</string>
+  <string name="studyUrl">Schtudie URL</string>
+  <string name="currentChapterUrl">URL aktuells Kapitel</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Du chasch das, zum ibinde, im Forum oder i din Liches Blog ifüege</string>
+  <string name="startAtInitialPosition">Fang ab de Grundschtellig a</string>
+  <string name="startAtX">Fang mit %s a</string>
+  <string name="embedInYourWebsite">I dini Website ibinde</string>
+  <string name="readMoreAboutEmbedding">Lies meh über s\'Ibinde</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Mer chann nur öffentlichi Schtudie ibinde!</string>
+  <string name="open">Öffne</string>
+  <string name="xBroughtToYouByY">%1$s präsentiert vu %2$s</string>
+  <string name="studyNotFound">Schtudie nöd gfunde</string>
+  <string name="editChapter">Kapitel bearbeite</string>
+  <string name="newChapter">Neus Kapitel</string>
+  <string name="importFromChapterX">Importiers us %s</string>
+  <string name="orientation">Orientierig</string>
+  <string name="analysisMode">Analyse Modus</string>
+  <string name="pinnedChapterComment">Aghänkte Kapitel Kommentar</string>
+  <string name="saveChapter">Kapitel schpeichere</string>
+  <string name="clearAnnotations">Amerkige lösche</string>
+  <string name="clearVariations">Variante lösche</string>
+  <string name="deleteChapter">Kapitel lösche</string>
+  <string name="deleteThisChapter">Kapitel lösche? Das chann nöd rückgängig gmacht werde!</string>
+  <string name="clearAllCommentsInThisChapter">Alli Kommentär, Symbol und Zeichnigsforme i dem Kapitel lösche?</string>
+  <string name="rightUnderTheBoard">Diräkt underhalb vom Brätt</string>
+  <string name="noPinnedComment">Kei</string>
+  <string name="normalAnalysis">Normali Analyse</string>
+  <string name="hideNextMoves">Nögschti Züg uusbländä</string>
+  <string name="interactiveLesson">Interaktivi Üäbig</string>
+  <string name="chapterX">Kapitäl %s</string>
+  <string name="empty">Läär</string>
+  <string name="startFromInitialPosition">Fang vu de Usgangsschtellig a</string>
+  <string name="editor">Ändärä</string>
+  <string name="startFromCustomPosition">Fang vunere benutzerdefinierte Schtellig a</string>
+  <string name="loadAGameByUrl">Lad e Partie mit ere URL</string>
+  <string name="loadAPositionFromFen">Lad e Partie mit ere FEN</string>
+  <string name="loadAGameFromPgn">Lad e Partie mit eme PGN</string>
+  <string name="automatic">Automatisch</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
+    <item quantity="other">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
+  </plurals>
+  <string name="urlOfTheGame">URL vu de Partie</string>
+  <string name="loadAGameFromXOrY">Partie vu %1$s oder %2$s lade</string>
+  <string name="createChapter">Kapitäl ärschtelä</string>
+  <string name="createStudy">Schtuudiä ärschtelä</string>
+  <string name="editStudy">Schtuudiä bearbeitä</string>
+  <string name="visibility">Sichtbarkeit</string>
+  <string name="public">Öffentlich</string>
+  <string name="unlisted">Unglischtet</string>
+  <string name="inviteOnly">Nur mit Iladig</string>
+  <string name="allowCloning">Chlone erlaube</string>
+  <string name="nobody">Niemer</string>
+  <string name="onlyMe">Nur ich</string>
+  <string name="contributors">Mitwirkändi</string>
+  <string name="members">Mitglider</string>
+  <string name="everyone">Alli</string>
+  <string name="enableSync">Sync aktiviärä</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Jawoll: Glichi Schtellig für alli</string>
+  <string name="noLetPeopleBrowseFreely">Nei: Unabhängigi Navigation für alli</string>
+  <string name="pinnedStudyComment">Agheftete Schtudiekommentar</string>
+  <string name="start">Schtart</string>
+  <string name="save">Schpeichärä</string>
+  <string name="clearChat">Tschätt löschä</string>
+  <string name="deleteTheStudyChatHistory">Tschättverlauf vu de Schtudie lösche? Das chann nüme rückgängig gmacht werde!</string>
+  <string name="deleteStudy">Schtuudiä löschä</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die ganz Schtudie lösche? Es git keis Zrugg! Gib zur Beschtätigung de Name vu de Schtudie i: %s</string>
+  <string name="whereDoYouWantToStudyThat">Weli Schtuudiä wöttsch bruuchä?</string>
+  <string name="goodMove">Guete Zug</string>
+  <string name="mistake">Fähler</string>
+  <string name="brilliantMove">Briliantä Zug</string>
+  <string name="blunder">Grobä Patzer</string>
+  <string name="interestingMove">Intressantä Zug</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Frogwürdigä Zug</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einzigä Zug</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Usglicheni Schtellig</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklari Schtellig</string>
+  <string name="whiteIsSlightlyBetter">Wiss schtaht es bitzli besser</string>
+  <string name="blackIsSlightlyBetter">Schwarz schtaht es bitzli besser</string>
+  <string name="whiteIsBetter">Wiss schtaht besser</string>
+  <string name="blackIsBetter">Schwarz schtoht besser</string>
+  <string name="whiteIsWinning">Wiss schtaht uf Gwünn</string>
+  <string name="blackIsWinning">Schwarz schtoht uf Gwünn</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuerig</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklig</string>
+  <string name="initiative">Initiativä</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Agriff</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Gägeschpiel</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Zitnot</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Mit Kompänsation</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Mit dä Idee</string>
+  <string name="nextChapter">Nögschts Kapitäl</string>
+  <string name="prevChapter">Vorhärigs Kapitäl</string>
+  <string name="studyActions">Lärnaktionä</string>
+  <string name="topics">Theme</string>
+  <string name="myTopics">Mini Theme</string>
+  <string name="popularTopics">Beliebti Theme</string>
+  <string name="manageTopics">Theme verwalte</string>
+  <string name="back">Zrugg</string>
+  <string name="playAgain">Vo vornä</string>
+  <string name="whatWouldYouPlay">Was würdisch du ih derä Stellig spiele?</string>
+  <string name="youCompletedThisLesson">Gratulation! Du häsch die Lektion abgschlosse.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">இரு-காரணி அங்கீகாரம்</string>
+  <string name="twoFactorHelp">இரு-காரணி அங்கீகாரம் உங்கள் கணக்கில் மற்றொரு பாதுகாப்பு அடுக்கு சேர்க்கிறது.</string>
+  <string name="twoFactorApp">இரு-காரணி அங்கீகாரத்திற்கான பயன்பாட்டைப் பெறவும், உதாரணத்திற்கு andOTP க்கான %1$s அல்லது Google Authenticator க்கான %2$s.</string>
+  <string name="scanTheCode">பயன்பாட்டின் மூலம் QR குறியீட்டை ஸ்கேன் செய்யவும்.</string>
+</resources>

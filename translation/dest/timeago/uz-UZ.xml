@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">hozirgina</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s soniyada</item>
+    <item quantity="other">%s soniyada</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s daqiqada</item>
+    <item quantity="other">%s daqiqada</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s soatda</item>
+    <item quantity="other">%s soatda</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s kunda</item>
+    <item quantity="other">%s kunda</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s haftada</item>
+    <item quantity="other">%s haftada</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s oyda</item>
+    <item quantity="other">%s oyda</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s yilda</item>
+    <item quantity="other">%s yilda</item>
+  </plurals>
+  <string name="rightNow">ayni vaqtda</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s soniya avval</item>
+    <item quantity="other">%s soniya avval</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s daqiqa avval</item>
+    <item quantity="other">%s daqiqa avval</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s soat avval</item>
+    <item quantity="other">%s soat avval</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s kun avval</item>
+    <item quantity="other">%s kun avval</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s hafta avval</item>
+    <item quantity="other">%s hafta avval</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s oy avval</item>
+    <item quantity="other">%s oy avval</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s yil avval</item>
+    <item quantity="other">%s yil avval</item>
+  </plurals>
+</resources>

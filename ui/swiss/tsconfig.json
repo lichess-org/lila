@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["lichess", "web", "cash"],
+    "noEmit": true
+  },
+  "isolatedModules": true,
+  "references": [
+    { "path": "../chat/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../game/tsconfig.json" }
+  ]
+}

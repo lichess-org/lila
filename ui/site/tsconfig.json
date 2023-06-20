@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "noImplicitReturns": false,
+    "noEmit": true
+  },
+  "isolatedModules": true,
+  "references": [
+    { "path": "../chat/tsconfig.json" },
+    { "path": "../chess/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../voice/tsconfig.json" }
+  ]
+}

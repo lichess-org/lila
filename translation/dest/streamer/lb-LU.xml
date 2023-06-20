@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">Lichess Streamer</string>
+  <string name="lichessStreamer">Lichess Streamer</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">Streamt grad: %s</string>
+  <string name="lastStream">Leschte Stream: %s</string>
+  <string name="becomeStreamer">Gëff e Lichess Streamer</string>
+  <string name="doYouHaveStream">Hues du en Twitch oder YouTube-Kanal?</string>
+  <string name="hereWeGo">Lass geet et!</string>
+  <string name="allStreamers">All Streamer</string>
+  <string name="editPage">Streamersäit beaarbechten</string>
+  <string name="yourPage">Deng Streamersäit</string>
+  <string name="downloadKit">Lued d\'Streamerkit erof</string>
+  <string name="xIsStreaming">%s streamt grad</string>
+  <string name="rules">Streaming-Reegelen</string>
+  <string name="rule1">Füg d\'Stéchwuert \"lichess.org\" an dengem Streamtitel an, oder verwend d\'Kategorie \"Chess\", wann s du op Lichess streamst.</string>
+  <string name="rule2">Sträich d\'Stéchwuert, wann s du grad näicht mat Lichess streamst.</string>
+  <string name="rule3">Lichess wäert däin Stream automatesch erkennen an follgend Zousazdéngscht aktivéieren:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lies eis %s fir Fairplay fir jiddereen wärend denge Streams ze garantéieren.</string>
+  <string name="streamingFairplayFAQ">Streaming Fairplay FAQ</string>
+  <string name="perks">Virdeeler fir Streaming mat engem Stéchwuert</string>
+  <string name="perk1">Du kriss een flamboyant Streamer-Symbol ob däin Lichess-Profil.</string>
+  <string name="perk2">Gëff un d\'Spëtzt vun der Streamer-Lëscht gesat.</string>
+  <string name="perk3">Notifiéier deng Lichess Follower.</string>
+  <string name="perk4">Weis däi Stream an dengen Partien, Turnéier an Etüden.</string>
+  <string name="approved">Däi Stream gouf approuvéiert.</string>
+  <string name="pendingReview">Däi Stream gëtt vun den Moderatoren iwwerpréift.</string>
+  <string name="pleaseFillIn">Wannechgelift fëll deng Streamer-Informatiounen aus an lued e Bild erop.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wanns du prett bass als Lichess Streamer gelëscht ze ginn, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">fro eng Iwwerpréifung vun den Moderatoren un</string>
+  <string name="twitchUsername">Twitch Benotzernumm oder URL</string>
+  <string name="youTubeChannelId">Deng YouTube-Kanal-ID</string>
+  <string name="headline">Iwwerschrëft</string>
+  <string name="longDescription">Laang Beschreiwung</string>
+  <string name="xStreamerPicture">%s Streamer Bild</string>
+  <string name="changePicture">Däin Bild änneren/läschen</string>
+  <string name="uploadPicture">E Bild héichlueden</string>
+  <string name="maxSize">Maximal Gréisst: %s</string>
+</resources>

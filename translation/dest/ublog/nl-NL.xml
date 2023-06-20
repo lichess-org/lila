@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog van %s</string>
+  <string name="newPost">Nieuwe blogpost</string>
+  <string name="editYourBlogPost">Bewerk je blogpost</string>
+  <string name="saveDraft">Concept opslaan</string>
+  <string name="postTitle">Titel</string>
+  <string name="postIntro">Inleiding</string>
+  <string name="postBody">Tekst</string>
+  <string name="drafts">Concepten</string>
+  <string name="published">Gepubliceerd</string>
+  <string name="createBlogDiscussion">Reacties toestaan</string>
+  <string name="createBlogDiscussionHelp">Een forumbericht zal worden gemaakt waar mensen kunnen reageren op je bericht</string>
+  <string name="publishOnYourBlog">Publiceren op blog</string>
+  <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publiceerde een blogpost</item>
+    <item quantity="other">Publiceerde %s blogposts</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Eén weergave</item>
+    <item quantity="other">%s weergaves</item>
+  </plurals>
+  <string name="xPublishedY">%1$s heeft %2$s gepubliceerd</string>
+  <string name="thisPostIsPublished">Dit bericht is gepubliceerd</string>
+  <string name="thisIsADraft">Dit is een concept</string>
+  <string name="moreBlogPostsBy">Bekijk meer blogberichten van %s</string>
+  <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
+  <string name="noDrafts">Geen concepten om weer te geven.</string>
+  <string name="latestBlogPosts">Meest recente blogberichten</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Bekijk één bericht</item>
+    <item quantity="other">Bekijk alle %s berichten</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Upload een afbeelding voor je bericht</string>
+  <string name="imageAlt">Alternatieve tekst voor afbeelding</string>
+  <string name="imageCredit">Foto</string>
+  <string name="deleteBlog">Deze blogpost definitief verwijderen</string>
+  <string name="deleteImage">Afbeelding verwijderen</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Het is veilig om afbeeldingen van de volgende websites te gebruiken: </string>
+  <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
+  <string name="useImagesYouMadeYourself">Je kunt ook afbeeldingen gebruiken die je zelf hebt gemaakt, foto\'s die je hebt gemaakt, screenshots van Lichess... alles waar geen auteursrechten van iemand anders op berusten.</string>
+  <string name="safeAndRespectfulContent">Plaats alleen veilige en respectvolle inhoud. Kopieer geen inhoud van iemand anders.</string>
+  <string name="inappropriateContentAccountClosed">Alles wat ongepast is kan sluiting van je account tot gevolg hebben.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Onze simpele tips om geweldige blogberichten te schrijven</string>
+</resources>

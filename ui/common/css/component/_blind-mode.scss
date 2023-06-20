@@ -1,0 +1,22 @@
+#blind-mode {
+  margin-#{$start-direction}: -99999px;
+  height: 0;
+
+  .blind-mode & {
+    text-align: center;
+    padding: 5px 0;
+    background: #888;
+    margin-#{$start-direction}: 0;
+    height: auto;
+  }
+}
+
+.blind-mode {
+  .is::before,
+  .is::after,
+  [data-icon]::before {
+    content: none;
+    display: none;
+    visibility: hidden;
+  }
+}

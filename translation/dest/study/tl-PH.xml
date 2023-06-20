@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="spectator">Manonood</string>
+  <string name="contributor">Taga-ambag</string>
+  <string name="kick">Paalisin</string>
+  <string name="leaveTheStudy">Umalis sa pag-aaral na ito</string>
+  <string name="youAreNowAContributor">Ikaw ay isa nang kontribyutor</string>
+  <string name="youAreNowASpectator">Ikaw ay isa nang manonood</string>
+  <string name="pgnTags">Mga PGN tag</string>
+  <string name="like">Gustohin</string>
+  <string name="unlike">Huwag gustohin</string>
+  <string name="newTag">Bagong tag</string>
+  <string name="commentThisPosition">Magkomento sa posisyong ito</string>
+  <string name="commentThisMove">Magkomento sa galaw na ito</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Ang kabanata ay masyadong maiksi para sa pagsusuri.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Ang mga kontribyutor lamang ng pag-aaral ang maaaring manghingi ng pagsusuri galing sa kompyuter.</string>
+  <string name="makeSureTheChapterIsComplete">Siguraduhin na ang kabanata ay kumpleto. Isang beses ka lang makakahingi ng analysis.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Lahat ng miyembro ng SYNC ay mananatili sa parehas na position</string>
+  <string name="shareChanges">Ibahagi ang mga pagbabago sa mga manonood at i-save sila sa server</string>
+  <string name="playing">Naglalaro</string>
+  <string name="first">Una</string>
+  <string name="previous">Nakaraan</string>
+  <string name="next">Sunod</string>
+  <string name="last">Huli</string>
+  <string name="shareAndExport">Ibahagi &amp; i-export</string>
+  <string name="studyPgn">PGN ng pag-aaral</string>
+  <string name="downloadAllGames">I-download lahat ng mga laro</string>
+  <string name="chapterPgn">PGN ng kabanata</string>
+  <string name="downloadGame">I-download ang laro</string>
+  <string name="studyUrl">URL ng pag-aaral</string>
+  <string name="currentChapterUrl">Ang URL ng kasalukuyang kabanata</string>
+  <string name="startAtInitialPosition">Magsimula galing sa isang paunang posisyon</string>
+  <string name="startAtX">Magsimula sa %s</string>
+  <string name="readMoreAboutEmbedding">Magbasa pa tungkol sa embedding</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Mga publikong pag-aaral lamang ang maaaring maging embedded!</string>
+  <string name="open">Bukas</string>
+  <string name="studyNotFound">Hindi matagpuan ang pag-aaral na ito</string>
+  <string name="editChapter">I-edit ang kabanata</string>
+  <string name="newChapter">Bagong kabanata</string>
+  <string name="orientation">Orientasyon</string>
+  <string name="analysisMode">Mode ng analysis</string>
+  <string name="saveChapter">I-save ang kabanata</string>
+  <string name="clearAnnotations">Tanggalin ang mga anotasyon</string>
+  <string name="deleteChapter">I-delete ang kabanata</string>
+  <string name="deleteThisChapter">I-delete ang kabanata? Hindi na ito mababawi muli!</string>
+  <string name="goodMove">Magandang galaw</string>
+  <string name="mistake">Pagkakamali</string>
+  <string name="brilliantMove">Magandang galaw</string>
+  <string name="blunder">Pagkakamali</string>
+  <string name="interestingMove">Nakaka-interesadiong galaw</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nag-iisang galaw</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Equal na posisyon</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Hindi malinaw na posisyon</string>
+  <string name="whiteIsSlightlyBetter">Mas magaling si white ng konti</string>
+  <string name="blackIsSlightlyBetter">Mas magaling si Black ng konti</string>
+  <string name="whiteIsBetter">Mas magaling si White</string>
+  <string name="blackIsBetter">Mas magaling si Black</string>
+  <string name="whiteIsWinning">Nananalo na si White</string>
+  <string name="blackIsWinning">Nananalo na si Black</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Pagdevelop</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Atake</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Тренеры Lichess</string>
+  <string name="lichessCoach">Тренер Lichess</string>
+  <string name="areYouCoach">Вы отличный тренер по шахматам и у вас есть %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">звание FIDE или национального мастера</string>
+  <string name="confirmTitle">Подтвердите ваше звание, и мы рассмотрим вашу заявку.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Отправьте нам письмо на %s и мы рассмотрим вашу заявку.</string>
+  <string name="location">Местоположение</string>
+  <string name="languages">Языки</string>
+  <string name="rating">Рейтинг</string>
+  <string name="hourlyRate">Оплата за час</string>
+  <string name="availability">Доступность</string>
+  <string name="accepting">Принимаю учеников</string>
+  <string name="notAccepting">Временно не принимаю учеников</string>
+  <string name="xCoachesStudents">%s обучает шахматам</string>
+  <string name="viewXProfile">Посмотреть Lichess профиль %s</string>
+  <string name="sendPM">Отправить личное сообщение</string>
+  <string name="aboutMe">Обо мне</string>
+  <string name="playingExperience">Игровой стаж</string>
+  <string name="teachingExperience">Тренерский стаж</string>
+  <string name="otherExperiences">Другие достижения</string>
+  <string name="bestSkills">Лучшие навыки</string>
+  <string name="teachingMethod">Методика преподавания</string>
+  <string name="publicStudies">Открытые уроки</string>
+  <string name="youtubeVideos">Видео на YouTube</string>
+</resources>

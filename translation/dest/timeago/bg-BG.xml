@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">току що</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">след %s секунда</item>
+    <item quantity="other">след %s секунди</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">след %s минута</item>
+    <item quantity="other">след %s минути</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">след %s час</item>
+    <item quantity="other">след %s часа</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">след %s ден</item>
+    <item quantity="other">след %s дни</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">след %s седмица</item>
+    <item quantity="other">след %s седмици</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">след %s месец</item>
+    <item quantity="other">след %s месеца</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">след %s година</item>
+    <item quantity="other">след %s години</item>
+  </plurals>
+  <string name="rightNow">точно сега</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">преди %s секунда</item>
+    <item quantity="other">преди %s секунди</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">преди %s минута</item>
+    <item quantity="other">преди %s минути</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">преди %s час</item>
+    <item quantity="other">Преди %s часа</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">преди %s ден</item>
+    <item quantity="other">Преди %s дни</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">преди %s седмица</item>
+    <item quantity="other">преди %s седмици</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">преди %s месец</item>
+    <item quantity="other">преди %s месеца</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">преди %s година</item>
+    <item quantity="other">преди %s години</item>
+  </plurals>
+</resources>

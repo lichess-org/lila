@@ -1,0 +1,35 @@
+{
+  "name": "coordinateTrainer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "lichess.org coordinate trainer",
+  "keywords": [
+    "chess",
+    "lichess.org",
+    "coordinate",
+    "trainer"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@fnando/sparkline": "^0.3.10",
+    "@types/cash": "workspace:*",
+    "@types/fnando__sparkline": "^0.3.4",
+    "@types/lichess": "workspace:*",
+    "common": "workspace:*",
+    "snabbdom": "^3.5.1",
+    "voice": "workspace:*"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "modules": {
+      "esm": {
+        "src/main.ts": "coordinateTrainer"
+      }
+    }
+  }
+}

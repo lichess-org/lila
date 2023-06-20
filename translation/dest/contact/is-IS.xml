@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Hafa samband</string>
+  <string name="contactLichess">Hafa samband við Lichess</string>
+  <string name="whatCanWeHelpYouWith">Hvernig getum við aðstoðað?</string>
+  <string name="visitThisPage">Farðu á síðuna til að leysa vandamálinu</string>
+  <string name="iCantLogIn">Ég get ekki skráð mig inn</string>
+  <string name="noConfirmationEmail">Ég fékk ekki staðfestingapóstinn minn</string>
+  <string name="forgotPassword">Ég gleymdi lykilorðinu mínu</string>
+  <string name="forgotUsername">Ég gleymdi notendanafninu mínu</string>
+</resources>

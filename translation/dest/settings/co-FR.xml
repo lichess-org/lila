@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Preferenze</string>
+  <string name="closeAccount">Chjude u so contu</string>
+  <string name="closingIsDefinitive">A chjuditura hè definitiva. Ùn ci hè manera di ricuparà u vostru contu. Site sicuru?</string>
+  <string name="cantOpenSimilarAccount">Ùn avete micca u drittu d\' apre un altru contu cù u stessu nomu, pocu impreme u pretestu.</string>
+  <string name="changedMindDoNotCloseAccount">Aghju cambiatu di decisione, ùn vogliu più chjude u mo contu</string>
+  <string name="closeAccountExplanation">Site sicuru di chjude u vostru contu? Hè una décisione definitiva. Ùn puderete mai ricuparà u vostru contu.</string>
+  <string name="thisAccountIsClosed">Issu contu hè chjosu.</string>
+</resources>

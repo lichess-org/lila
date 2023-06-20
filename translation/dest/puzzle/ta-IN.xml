@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">புதிர்கள்</string>
+  <string name="puzzleThemes">புதிர் கருப்பொருள்கள்</string>
+  <string name="recommended">பரிந்துரைக்கப்படுகிறது</string>
+  <string name="phases">கட்டங்கள்</string>
+  <string name="motifs">கருக்கள்</string>
+  <string name="advanced">மேம்படுத்தபட்ட</string>
+  <string name="lengths">நீளங்கள்</string>
+  <string name="mates">மேட்ஸ்</string>
+  <string name="goals">இலக்குகள்</string>
+  <string name="origin">தோற்றம்</string>
+  <string name="specialMoves">சிறப்பு நகர்வுகள்</string>
+  <string name="didYouLikeThisPuzzle">இந்தப் புதிர் நீங்கள் விரும்பினீர்களா?</string>
+  <string name="voteToLoadNextOne">அடுத்ததை ஏற்றுவதற்கு வாக்களியுங்கள்!</string>
+  <string name="upVote">வரை வாக்குப் புதிர்</string>
+  <string name="downVote">கீழ் வாக்குப் புதிர்</string>
+</resources>

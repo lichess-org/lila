@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">juuri äsken</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s sekunnin kuluttua</item>
+    <item quantity="other">%s sekunnin kuluttua</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s minuutin kuluttua</item>
+    <item quantity="other">%s minuutin kuluttua</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s tunnin kuluttua</item>
+    <item quantity="other">%s tunnin kuluttua</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s päivän kuluttua</item>
+    <item quantity="other">%s päivän kuluttua</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s viikon kuluttua</item>
+    <item quantity="other">%s viikon kuluttua</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s kuukauden kuluttua</item>
+    <item quantity="other">%s kuukauden kuluttua</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s vuoden kuluttua</item>
+    <item quantity="other">%s vuoden kuluttua</item>
+  </plurals>
+  <string name="rightNow">juuri nyt</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s sekunti sitten</item>
+    <item quantity="other">%s sekuntia sitten</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minuutti sitten</item>
+    <item quantity="other">%s minuuttia sitten</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s tunti sitten</item>
+    <item quantity="other">%s tuntia sitten</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s päivä sitten</item>
+    <item quantity="other">%s päivää sitten</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s viikko sitten</item>
+    <item quantity="other">%s viikkoa sitten</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s kuukausi sitten</item>
+    <item quantity="other">%s kuukautta sitten</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s vuosi sitten</item>
+    <item quantity="other">%s vuotta sitten</item>
+  </plurals>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challengesX">Erausfuerderungen: %1$s</string>
+  <string name="challengeToPlay">Erausfuerderung zu enger Partie</string>
+  <string name="challengeDeclined">Erausfuerderung ofgeleent</string>
+  <string name="challengeAccepted">Erausfuerderung ugeholl!</string>
+  <string name="challengeCanceled">Erausfuerderung annuléiert.</string>
+  <string name="registerToSendChallenges">Registréier dech wannechgelift fir Erausfuerderungen ze schécken.</string>
+  <string name="youCannotChallengeX">Du kanns %s net erausfuerderen.</string>
+  <string name="xDoesNotAcceptChallenges">%s akzeptéiert keng Erausfuerderungen.</string>
+  <string name="yourXRatingIsTooFarFromY">Deng %1$s Wäertung ass ze wäit vum %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kann net erausfuerderen wéinst provisorescher %s Wäertung.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s akzeptéiert just Erausfuerderungen vun Frënn.</string>
+  <string name="declineGeneric">Ech akzeptéieren am Moment keng Erausfuerderungen.</string>
+  <string name="declineLater">Ech hun gerad keng Zäit, wannechgelift probéier méi spéit.</string>
+  <string name="declineTooFast">Dës Zäitkontroll ass mer ze schnell, fuerder mech wannechgelift zu enger méi lueser Partie eraus.</string>
+  <string name="declineTooSlow">Dës Zäitkontroll ass mer ze lues, fuerder mech wannechgelift zu enger méi schneller Partie eraus.</string>
+  <string name="declineTimeControl">Ech akzeptéieren keng Erausfuerderungen an dëser Zäitkontroll.</string>
+  <string name="declineRated">Schéck mer wannechgelift eng gewäert Erausfuerderung.</string>
+  <string name="declineCasual">Schéck mer wannechgelift eng ongewäert Erausfuerderung.</string>
+  <string name="declineStandard">Ech akzeptéieren am Moment keng Erausfuerderungen zu Varianten.</string>
+  <string name="declineVariant">Ech wëll déi Variant gerad net spillen.</string>
+  <string name="declineNoBot">Ech akzeptéieren keng Erausfuerderungen vun Bots.</string>
+  <string name="declineOnlyBot">Ech akzeptéieren just Erausfuerderungen vun Bots.</string>
+  <string name="inviteLichessUser">Oder invitéier en Lichess Benotzer:</string>
+</resources>

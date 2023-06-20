@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">新的个人API访问令牌</string>
+  <string name="tokenGrantsPermission">一个令牌授予其他人使用您的帐户的权限。</string>
+  <string name="carefullySelect">仔细选择允许代表您进行的操作。</string>
+  <string name="tokenDescription">令牌描述</string>
+  <string name="rememberTokenUse">所以你记得这个令牌是</string>
+  <string name="whatTheTokenCanDo">令牌可以代表您做什么：</string>
+  <string name="doNotShareIt">令牌将授权访问您的帐户。不要与任何人分享它！</string>
+  <string name="copyTokenNow">请确保您已复制个人访问令牌。令牌将不再显示。</string>
+  <string name="preferenceRead">读取首选项</string>
+  <string name="preferenceWrite">写入首选项</string>
+  <string name="emailRead">阅读电子邮件地址</string>
+  <string name="challengeRead">读取收到的挑战</string>
+  <string name="challengeWrite">发送、接受和拒绝挑战</string>
+  <string name="challengeBulk">为其他玩家一次创建许多游戏</string>
+  <string name="studyRead">阅读私人研讨和广播</string>
+  <string name="studyWrite">创建、更新、删除研讨和广播</string>
+  <string name="tournamentWrite">创建、更新和加入锦标赛</string>
+  <string name="racerWrite">创建并加入谜题赛事</string>
+  <string name="puzzleRead">读取谜题活动</string>
+  <string name="teamRead">读取私人团队信息</string>
+  <string name="teamWrite">加入和离开团队</string>
+  <string name="teamLead">管理您领导的团队：发送私信，踢出成员</string>
+  <string name="followRead">阅读关注的棋手</string>
+  <string name="followWrite">关注并取消关注其他棋手</string>
+  <string name="msgWrite">向其他棋手发送私信</string>
+  <string name="boardPlay">用棋盘api下棋</string>
+  <string name="botPlay">用机器人api下棋</string>
+  <string name="engineRead">查看和使用您的外部引擎</string>
+  <string name="engineWrite">创建和更新外部引擎</string>
+  <string name="webLogin">创建认证的网站会话 (授予完全访问权限!)</string>
+  <string name="webMod">使用版主工具 (在您的权限范围内)</string>
+</resources>

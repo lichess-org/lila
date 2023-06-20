@@ -1,0 +1,19 @@
+.tutor {
+  &__phases {
+    &__phase {
+      .tutor-card__top {
+        justify-content: center;
+      }
+      .tutor-card__content {
+        @extend %flex-column;
+      }
+      &__buttons {
+        @extend %flex-column;
+        gap: 1em;
+        a {
+          text-align: $start-direction;
+        }
+      }
+    }
+  }
+}

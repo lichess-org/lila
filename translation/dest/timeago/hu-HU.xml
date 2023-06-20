@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">épp most</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s másodpercen belül</item>
+    <item quantity="other">%s másodpercen belül</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s percen belül</item>
+    <item quantity="other">%s percen belül</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s órán belül</item>
+    <item quantity="other">%s órán belül</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s napon belül</item>
+    <item quantity="other">%s napon belül</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s héten belül</item>
+    <item quantity="other">%s héten belül</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s hónapon belül</item>
+    <item quantity="other">%s hónapon belül</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s éven belül</item>
+    <item quantity="other">%s éven belül</item>
+  </plurals>
+  <string name="rightNow">épp most</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s másodperce</item>
+    <item quantity="other">%s másodperce</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s perce</item>
+    <item quantity="other">%s perce</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s órája</item>
+    <item quantity="other">%s órája</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s napja</item>
+    <item quantity="other">%s napja</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s hete</item>
+    <item quantity="other">%s hete</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s hónapja</item>
+    <item quantity="other">%s hónapja</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s éve</item>
+    <item quantity="other">%s éve</item>
+  </plurals>
+</resources>

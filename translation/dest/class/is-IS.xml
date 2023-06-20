@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="reopen">Enduropna</string>
+  <string name="removeStudent">Fjarlæga nemanda</string>
+  <string name="removedStudents">Fjarlægðir</string>
+  <string name="sendAMessage">Senda skilaboð til allra nemanda.</string>
+</resources>

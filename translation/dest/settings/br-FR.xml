@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Arventennoù</string>
+  <string name="closeAccount">Serriñ ar gont</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Meret eo ho kont ha ne c\'hall ket bezañ serret.</string>
+  <string name="closingIsDefinitive">Serret e vo ho kont da viken. Ne c\'halloc\'h ket cheñch ho soñj. Sur oc\'h?</string>
+  <string name="cantOpenSimilarAccount">Ne voc\'h ket aotreet da grouiñ ur gont nevez gant ar memes anv, pa vije gant ur ment lizherennoù disheñvel.</string>
+  <string name="changedMindDoNotCloseAccount">Cheñchet em eus ma soñj, na serrit ket ma c\'hont</string>
+  <string name="closeAccountExplanation">Serret e vo ho kont, sur oc\'h? Un diviz-pad an hini eo. NE c\'halloc\'h KET adkavout anezhi ken, BIKEN.</string>
+  <string name="thisAccountIsClosed">Serr eo ar gont-mañ.</string>
+</resources>

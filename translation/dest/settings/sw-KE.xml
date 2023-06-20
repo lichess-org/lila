@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Mipangilio</string>
+  <string name="closeAccount">Funga akaunti</string>
+  <string name="closingIsDefinitive">Kufunga ni dhahiri. Hakuna kurudi nyuma. Una uhakika?</string>
+  <string name="cantOpenSimilarAccount">Hutaruhusiwa kufungua akaunti mpya yenye jina sawa, hata kama herufi ya juu na chini ni tofauti.</string>
+  <string name="changedMindDoNotCloseAccount">Nilibadilisha mawazo yangu, usifunge akaunti yangu</string>
+  <string name="closeAccountExplanation">Je, una uhakika unataka kufunga akaunti yako? Kufunga akaunti yako ni uamuzi wa kudumu. HUTAWEZA KUINGIA TENA.</string>
+  <string name="thisAccountIsClosed">Akaunti huu umefungwa.</string>
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">agora mesmo</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">em %s segundos</item>
+    <item quantity="other">em %s segundos</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">dentro de %s minutos</item>
+    <item quantity="other">em %s minutos</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">em %s horas</item>
+    <item quantity="other">em %s horas</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">em %s dia</item>
+    <item quantity="other">em %s dias</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">há %s semana</item>
+    <item quantity="other">em %s semanas</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">há %s mês</item>
+    <item quantity="other">em %s meses</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">há %s ano</item>
+    <item quantity="other">em %s anos</item>
+  </plurals>
+  <string name="rightNow">agora mesmo</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s segundos atrás</item>
+    <item quantity="other">%s segundos atrás</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">Há %s minutos atrás</item>
+    <item quantity="other">há %s minutos atrás</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">há %s hora</item>
+    <item quantity="other">há %s horas</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">há %s dia</item>
+    <item quantity="other">%s dias atrás</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">há %s semana</item>
+    <item quantity="other">há %s semanas atrás</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">há %s mês atrás</item>
+    <item quantity="other">há %s meses atrás</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">há %s anos atrás</item>
+    <item quantity="other">há %s anos atrás</item>
+  </plurals>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="coordinates">Koordinatoj</string>
+  <string name="coordinateTraining">Koordinata ekzerco</string>
+  <string name="averageScoreAsWhiteX">Meznombra poentaro por blanka: %s</string>
+  <string name="averageScoreAsBlackX">Meznombra poentaro por nigra: %s</string>
+  <string name="knowingTheChessBoard">Scii la koordinatojn de ŝako estas tre grava ŝako:</string>
+  <string name="mostChessCourses">Plej multaj ŝako-kursoj kaj ekzercoj uzas la algebra notacio vaste.</string>
+  <string name="talkToYourChessFriends">Estas pli facile paroli kun viaj ŝakaj amikoj, ĉar vi ambaŭ komprenas la \"lingvon de ŝako\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Vi povas analizi ludon pli efike se vi ne bezonas serĉi kvadratajn nomojn.</string>
+  <string name="goAsLongAsYouWant">Ludi per via deziro, ne estas limo de la tempo!</string>
+  <string name="showCoordinates">Montri koordinatojn</string>
+  <string name="showPieces">Montri pecojn</string>
+  <string name="startTraining">Komenci trejnadon</string>
+  <string name="findSquare">Trovu kvadraton</string>
+  <string name="nameSquare">Nomu kvadraton</string>
+</resources>

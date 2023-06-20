@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Buscar</string>
+  <string name="advancedSearch">Busca avanzada</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Busca en %s partida</item>
+    <item quantity="other">Busca en %s partidas</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Atopouse unha partida</item>
+    <item quantity="other">Atopáronse %s partidas</item>
+  </plurals>
+  <string name="opponentName">Nome do rival</string>
+  <string name="loser">Perdedor</string>
+  <string name="from">Dende</string>
+  <string name="to">Ata</string>
+  <string name="humanOrComputer">Sen importar se o rival é humano ou máquina</string>
+  <string name="aiLevel">Nivel da IA</string>
+  <string name="source">Fonte</string>
+  <string name="nbTurns">Número de quendas</string>
+  <string name="result">Resultado</string>
+  <string name="winnerColor">Cor do gañador</string>
+  <string name="date">Data</string>
+  <string name="sortBy">Ordenar por</string>
+  <string name="analysis">Análise</string>
+  <string name="onlyAnalysed">Só partida onde a análise por ordenador estea dispoñible</string>
+  <string name="color">Cor</string>
+  <string name="evaluation">En avaliación</string>
+  <string name="maxNumber">Número máximo</string>
+  <string name="maxNumberExplanation">Número máximo de partidas a devolver</string>
+  <string name="include">Incluír</string>
+  <string name="descending">Descendente</string>
+  <string name="ascending">Ascendente</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Atopáronse %s partidas</item>
+    <item quantity="other">Atopáronse %s partidas</item>
+  </plurals>
+  <string name="ratingExplanation">A puntuación media de ambos xogadores</string>
+</resources>

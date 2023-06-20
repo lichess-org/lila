@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Neuer persönlicher API-Zugangsschlüssel</string>
+  <string name="tokenGrantsPermission">Ein Zugangsschlüssel erlaubt anderen Leuten Zugang zu deinem Konto.</string>
+  <string name="carefullySelect">Entscheide sorgfältig, was in deinem Namen erlaubt sein soll.</string>
+  <string name="tokenDescription">Zugangsschlüssel-Beschreibung</string>
+  <string name="rememberTokenUse">Damit du dich daran erinnerst, wofür der Zugangsschlüssel gedacht ist</string>
+  <string name="whatTheTokenCanDo">Was der Zugangsschlüssel in deinem Namen tun kann:</string>
+  <string name="doNotShareIt">Der Zugangsschlüssel wird Zugriff auf dein Konto ermöglichen. Teile ihn NIEMALS!</string>
+  <string name="copyTokenNow">Stelle sicher, dass du deinen persönlichen Zugangsschlüssel jetzt kopierst. Du wirst ihn nicht erneut sehen können!</string>
+  <string name="preferenceRead">Einstellungen lesen</string>
+  <string name="preferenceWrite">Einstellungen ändern</string>
+  <string name="emailRead">E-Mail-Adresse lesen</string>
+  <string name="challengeRead">Eingehende Herausforderungen lesen</string>
+  <string name="challengeWrite">Herausforderungen senden, akzeptieren und ablehnen</string>
+  <string name="challengeBulk">Erstelle viele Partien gleichzeitig für andere Spieler</string>
+  <string name="studyRead">Private Studien und Übertragungen lesen</string>
+  <string name="studyWrite">Erstelle, aktualisiere und lösche Studien und Übertragungen</string>
+  <string name="tournamentWrite">Erstelle, aktualisiere und trete Turnieren bei</string>
+  <string name="racerWrite">Erstelle und trete Aufgaben-Rennen bei</string>
+  <string name="puzzleRead">Aufgaben-Aktivität lesen</string>
+  <string name="teamRead">Private Team-Informationen lesen</string>
+  <string name="teamWrite">Teams beitreten und verlassen</string>
+  <string name="teamLead">Verwalte von dir geleitete Teams: Sende PMs, entferne Mitglieder</string>
+  <string name="followRead">Gefolgte Spieler lesen</string>
+  <string name="followWrite">Anderen Spielern folgen und entfolgen</string>
+  <string name="msgWrite">Anderen Spielern private Nachrichten senden</string>
+  <string name="boardPlay">Partien mit der Board-API spielen</string>
+  <string name="botPlay">Partien mit der Bot-API spielen</string>
+  <string name="engineRead">Deine externen Engines anzeigen und benutzen</string>
+  <string name="engineWrite">Externe Engines erstellen und aktualisieren</string>
+  <string name="webLogin">Authentifizierte Website-Sitzungen erstellen (gewährt vollen Zugriff!)</string>
+  <string name="webMod">Moderator-Werkzeuge verwenden (innerhalb der Grenzen deiner Berechtigung)</string>
+</resources>

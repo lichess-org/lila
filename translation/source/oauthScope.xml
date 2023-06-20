@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">New personal API access token</string>
+  <string name="tokenGrantsPermission">A token grants other people permission to use your account.</string>
+  <string name="carefullySelect">Carefully select what it is allowed to do on your behalf.</string>
+  <string name="tokenDescription">Token description</string>
+  <string name="rememberTokenUse">So you remember what this token is for</string>
+  <string name="whatTheTokenCanDo">What the token can do on your behalf:</string>
+  <string name="doNotShareIt">The token will grant access to your account. Do NOT share it with anyone!</string>
+  <string name="copyTokenNow">Make sure to copy your new personal access token now. You won’t be able to see it again!</string>
+  <string name="preferenceRead">Read preferences</string>
+  <string name="preferenceWrite">Write preference</string>
+  <string name="emailRead">Read email address</string>
+  <string name="challengeRead">Read incoming challenges</string>
+  <string name="challengeWrite">Send, accept and reject challenges</string>
+  <string name="challengeBulk">Create many games at once for other players</string>
+  <string name="studyRead">Read private studies and broadcasts</string>
+  <string name="studyWrite">Create, update, delete studies and broadcasts</string>
+  <string name="tournamentWrite">Create, update, and join tournaments</string>
+  <string name="racerWrite">Create and join puzzle races</string>
+  <string name="puzzleRead">Read puzzle activity</string>
+  <string name="teamRead">Read private team information</string>
+  <string name="teamWrite">Join and leave teams</string>
+  <string name="teamLead">Manage teams you lead: send PMs, kick members</string>
+  <string name="followRead">Read followed players</string>
+  <string name="followWrite">Follow and unfollow other players</string>
+  <string name="msgWrite">Send private messages to other players</string>
+  <string name="boardPlay">Play games with board API</string>
+  <string name="botPlay">Play games with the bot API</string>
+  <string name="engineRead">View and use your external engines</string>
+  <string name="engineWrite">Create and update external engines</string>
+  <string name="webLogin">Create authenticated website sessions (grants full access!)</string>
+  <string name="webMod">Use moderator tools (within bounds of your permission)</string>
+</resources>

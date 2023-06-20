@@ -1,0 +1,13 @@
+include "base"
+include "version"
+
+# give empty list for socket domains to quickly disable websockets (removes the red disconnecting nag)
+# net.socket.domains = []
+
+# uncomment to disable ratelimits which can get in the way of site testing
+# net.ratelimit = false
+
+# change for additional encryption of password hashes
+user.password.bpass.secret = "9qEYN0ThHer1KWLNekA76Q=="
+
+# override additional values from base.conf here

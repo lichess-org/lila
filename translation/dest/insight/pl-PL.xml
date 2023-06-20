@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">Statystyki użytkownika %s</string>
+  <string name="xHasNoChessInsights">%s nie ma jeszcze wygenerowanych statystyk!</string>
+  <string name="insightsAreProtected">Statystyki użytkownika %s są ukryte</string>
+  <string name="cantSeeInsights">Nie masz dostępu do statystyk użytkownika %s.</string>
+  <string name="generateInsights">Wygeneruj statystyki szachowe dla użytkownika %s.</string>
+  <string name="crunchingData">Teraz przetwarzamy dane tylko dla ciebie!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Może poprosić ich o zmianę %s?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ustawienia dostępności statystyk</string>
+</resources>

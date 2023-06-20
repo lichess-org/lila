@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="faqAbbreviation">پرسش‌های متداول</string>
+  <string name="frequentlyAskedQuestions">پرسش‌های متداول</string>
+  <string name="whyIsLichessCalledLichess">وجه تسمیه Lichess چیست؟</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess ترکیب کلمات live (زنده)، light (سریع) و libre (آزاد) و chess (شطرنج) است. تلفظ Lichess به شکل %1$s است.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist">می‌توانید تلفظ اسم سایت توسط فردی متخصص را بشنوید.</string>
+  <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
+  <string name="whyIsLilaCalledLila">به طور مشابه، کد مرجع برای لیچس، %1$s، که مخفف li[chess in sca]la هست، قابل رویت است به صورت فشرده لیچس که نوشته در %2$s، که یک زبان شهودی برنامه نویسی است.</string>
+  <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">لایچس از طریق کمک های مالی حامیان و تلاش های داوطلبان تامین میشود.</string>
+  <string name="findMoreAndSeeHowHelp">اینجا میتوانید بیشتر راجع‌ به %1$s بدانید (همینطور %2$s). اگر میخواهید به‌صورت داوطلب وقت و مهارت تان را در اختیار لیچس بگذارید، اینجا تعدادی از %3$s وجود دارد.</string>
+  <string name="beingAPatron">پشتیبان بودن</string>
+  <string name="breakdownOfOurCosts">جزئیات مخارج ما</string>
+  <string name="otherWaysToHelp">راه های دیگر برای حمایت</string>
+  <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. در واقع سایت های متن باز از %1$s و %2$s و %3$s لیچس استفاده میکنند.</string>
+  <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
+  <string name="keyboardShortcutsExplanation">برخی از صفحات لیچس دارای میانبرهای صفحه کلید هستند که می توانید از آنها استفاده کنید. کلید \"؟\" بر روی کیبورد را در صفحه مطالعه، تجزیه و تحلیل، پازل یا بازی بزنید تا میانبرهای صفحه کلید موجود فهرست شوند.</string>
+  <string name="fairPlay">بازی منصفانه</string>
+  <string name="whenAmIEligibleRatinRefund">چه زمانی من برای دریافت ریتینگ از دست داده ام توسط متقلبین واجد شرایط هستم?</string>
+  <string name="ratingRefundExplanation">یک دقیقه پس از اینکه یک بازیکن نشان‌گذاری میشود، چهل بازی ریتد انجام شده توسط او در سه روز گذشته گرفته میشوند. اگر شما در آن بازی ها حریف او بوده باشید، ریتینگ از دست رفته شما (به علت باخت یا مساوی) در صورتی که ریتینگ شما موقت نبوده باشد، را به صورت یک بازپرداخت ریتینگ دریافت میکنید. مقدار ریتینگ بر اساس ریتینگ اوج شما و تغییرات ریتینگتان پس از بازی محاسبه میشود. (برای مثال، اگر ریتینگ شما پس از آن بازی ها به مقدار زیادی افزایش داشته باشد، ممکن است مقدار جزئی دریافت یا هیچ ریتینگی دریافت نکنید) مقدار بازپرداخت هیچوقت از ١۵٠ امتیاز تجاوز نمی‌کند.</string>
+  <string name="preventLeavingGameWithoutResigning">چه اقدامی درباره بازیکنانی که بازی را بدون انصراف ترک میکنند انجام شده است?</string>
+  <string name="leavingGameWithoutResigningExplanation">اگر حریف شما به صورت مداوم بازی را ترک کند، از بازی محروم می شود این به این معنی است که به صورت موقت اجازه بازی کردن را نخواهد داشت. این امر در حساب کاربری فرد نمایش داده نمی شود. اگر این رفتار ادامه پیدا کند، مدت زمان محرومیت از بازی افزایش می یابد و انجام این کار در مدت زمان طولانی ممکن است منجر به مسدود شدن حساب کاربر شود.</string>
+  <string name="howCanIBecomeModerator">چگونه می‌توانم یک مدیر باشم؟</string>
+  <string name="youCannotApply">امکان تقاضا برای مدیر شدن وجود ندارد. اگر ما ببینیم که فردی از نظر ما می تواند یک مدیر خوب باشد، ما با او مستقیما ارتباط برقرار خواهیم کرد.</string>
+  <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
+  <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
+  <string name="fairPlayPage">صفحه بازی عادلانه</string>
+  <string name="gameplay">گیم پلی</string>
+  <string name="howBulletBlitzEtcDecided">مقدار زمان برای بازی های برق‌آسا، سریع و کنترل های زمانی دیگر چگونه تصمیم گیری می‌شود?</string>
+  <string name="whatVariantsCanIplay">چه شاخه هایی را میتوانم در لیچس بازی کنم?</string>
+  <string name="eightVariants">8 نوع شطرنج</string>
+  <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست?</string>
+  <string name="acplExplanation">صدم پیاده شاخص اندازه گیری برتری است که در شطرنج اندازه گیری میشود. هر صدم پیاده معادل یک صدم ارزش یک پیاده است. بنابراین هر 100 صدم پیاده = یک پیاده. این ارزش ها نقش خاصی در بازی ایفا نمی‌کنند اما برای بازیکنان مفید هستند و برای محاسبه پوزیسیون توسط کامپیوتر ضروری. بهترین حرکت کامپیوتری هیچ صدم پیاده ای از دست نمی‌دهد، ولی حرکت های پایینتر موجب افت پوزیسیونی میشوند که توسط صدم‌پیاده اندازه گیری میشود. این مقدار می‌تواند به عنوان ابزار اندازه‌گیری کیفیت بازی استفاده شود. هرچه صدم‌پیاده ای که یک بازیکن با هر حرکت از دست میدهد کمتر باشد، بازی او بهتر است. آنالیز های کامپیوتری لیچس از استاکفیش قدرت گرفته تند.</string>
+  <string name="insufficientMaterial">افتادن زمان، مساوی و مهره های ناکافی برای برد</string>
+  <string name="fideHandbookX">بخش %s هندبوک فیده</string>
+  <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
+  <string name="goodIntroduction">معرفی و مقدمه خوب</string>
+  <string name="lichessTraining">آموزش لایچس</string>
+  <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
+  <string name="threefoldRepetition">تکرار سه گانه</string>
+  <string name="threefoldRepetitionExplanation">اگر پوزیشنی سه بار اتفاق افتاد، بازیکنان میتوانن با استفاده از %1$s ادعای مساوی کنند. لیچس قوانین رسمی FIDE را که در مقاله %2$s توضیح داده شده اجرا میکند.</string>
+  <string name="threefoldRepetitionLowerCase">تکرار سه گانه</string>
+  <string name="notRepeatedMoves">ما حرکات را تکرار نکردیم. چرا بازی همچنان با تکرار مساوی می شد؟</string>
+  <string name="repeatedPositionsThatMatters">تکرار سه گانه مربوط به %1$s تکراری است، نه حرکت. لزومی ندارد که تکرار به طور متوالی اتفاق بیفتد.</string>
+  <string name="positions">موقعیت‌ها</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">ما یک موقعیت را سه بار تکرار کردیم. چرا بازی مساوی نشد؟</string>
+  <string name="configure">پیکربندی نمایید</string>
+  <string name="accounts">حساب‌های کاربری</string>
+  <string name="titlesAvailableOnLichess">چه عناوینی در Lichess وجود دارند؟</string>
+  <string name="asWellAsManyNMtitles">تعداد زیادی عناوین استادی ملی</string>
+  <string name="verificationForm">فرم تایید</string>
+  <string name="canIbecomeLM">آیا می‌توانم عنوان Lichess Master (LM) را دریافت کنم؟</string>
+  <string name="noUpperCaseDot">خیر.</string>
+  <string name="whatUsernameCanIchoose">نام کاربری من چه می‌تواند باشد؟</string>
+  <string name="usernamesNotOffensive">به طور کلی، نام های کاربری نباید: توهین آمیز، جعل هویت شخص دیگری یا تبلیغاتی باشند. می‌توانید درباره %1$s بیشتر بخوانید.</string>
+  <string name="guidelines">دستورالعمل‌ها</string>
+  <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
+  <string name="usernamesCannotBeChanged">خیر، نام کاربری به دلایل فنی و عملی قابل تغییر نیست. نام‌های کاربری در جاهای مختلف ثبت شده اند: پایگاه‌های داده، گزارش‌ها و در نظر مردم. می توانید یک بار حروف بزرگ را تنظیم کنید.</string>
+  <string name="uniqueTrophies">غنائم منحصر به فرد</string>
+  <string name="aHourlyBulletTournament">تورنمنت یک ساعت bullet</string>
+  <string name="lichessRatings">rating های lichess</string>
+  <string name="whichRatingSystemUsedByLichess">lichess از چه سیستم امتیاز دهی ای استفاده می کند؟</string>
+  <string name="ratingSystemUsedByLichess">رتبه‌بندی‌ها با استفاده از روش رتبه‌بندی Glicko-2 که توسط مارک گلیکمن ایجاد شده است، محاسبه می‌شوند. این یک روش رتبه‌بندی بسیار محبوب است و توسط تعداد قابل توجهی از سازمان‌های شطرنج استفاده می‌شود (FIDE یک مثال متقابل قابل‌توجه است، زیرا هنوز از سیستم رتبه‌بندی Elo استفاده می‌کنند).
+
+اساساً، رتبه‌بندی‌های Glicko از «فاصله‌های اطمینان» هنگام محاسبه و نمایش رتبه شما استفاده می‌کنند. وقتی برای اولین بار شروع به استفاده از سایت می کنید، امتیاز شما از 1000 ± 1500 شروع می شود. 1500 نشان دهنده رتبه شما و 1000 نشان دهنده فاصله اطمینان است.
+
+اساساً، سیستم 95٪ مطمئن است که رتبه شما بین 500 تا 2500 است. این فوق العاده نامشخص است. به همین دلیل، هنگامی که یک بازیکن تازه شروع به کار می کند، رتبه او به طور چشمگیری تغییر می کند، به طور بالقوه چندین صد امتیاز در یک زمان. اما پس از چند بازی در برابر بازیکنان مستقر، فاصله اطمینان کاهش می‌یابد و میزان امتیازهای کسب‌شده/از دست رفته پس از هر بازی کاهش می‌یابد.
+
+نکته دیگری که باید به آن توجه کرد این است که با گذشت زمان، فاصله اطمینان افزایش می یابد. این به شما امکان می دهد با سرعت بیشتری امتیاز کسب کنید و از دست بدهید تا با هر تغییری در سطح مهارت خود در آن زمان مطابقت داشته باشید.</string>
+  <string name="whatIsProvisionalRating">چرا کنار ریتینگ علامت سؤال (؟) وجود دارد؟</string>
+  <string name="provisionalRatingExplanation">علامت سؤال به این معنی است که رتبه بندی موقت است. دلایل عبارتند از:</string>
+  <string name="similarOpponents">بازیکنان با قدرت یکسان</string>
+  <string name="howDoLeaderoardsWork">رتبه ها و تابلو امتیازات چگونه کار می کنند؟</string>
+  <string name="inOrderToAppearsYouMust">برای اینکه وارد %1$s شوید شما باید:</string>
+  <string name="ratingLeaderboards">تابلوی امتیازات</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">حداقل 30 بازی ریتد در ریتینگ مشخص بازی کرده،</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">در طول هفته گذشته یک بازی ریتد برای این ریتینگ بازی کرده،</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">داشتن ریتینگ کمتر از %1$s در شطرنج استاندارد، و کمتر از %2$s در انواع مختلف دیگر شطرنج</string>
+  <string name="beInTopTen">جزو 10 نفر برتر این ریتینگ بودن.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">شرط دوم این است که بازیکنانی که دیگر از حساب‌های خود استفاده نمی‌کنند، از پر کردن تابلوهای امتیازات خودداری کنند.</string>
+  <string name="whyAreRatingHigher">چرا ریتینگ ها بالاتر از سایت ها دیگر و سازمان هایی مانند FIDE,USCF و ICC است؟</string>
+  <string name="whyAreRatingHigherExplanation">بهتر است رتبه بندی ها را تنها به عنوان اعداد در نظر نگیرید، یا آنها را با سایر سازمان ها مقایسه نکنید. سازمان‌های مختلف دارای سطوح مختلف بازیکنان، سیستم‌های رتبه‌بندی متفاوتی هستند (Elo، Glicko، Glicko-2، یا یک نسخه اصلاح‌شده از موارد فوق). این عوامل می توانند به شدت بر رتبه بندی ها تأثیر بگذارند.
+
+بهتر است رتبه‌بندی‌ها را به‌عنوان اعداد «نسبی» در نظر بگیرید، در میان مجموعه‌ای از بازیکنان، تفاوت‌های نسبی آن‌ها در رتبه‌بندی به شما کمک می‌کند تخمین بزنید که اغلب چه کسی برنده/تساوی/بازنده خواهد شد. گفتن \"من رتبه بندی X دارم\" معنایی ندارد مگر اینکه بازیکنان دیگری وجود داشته باشند که آن رتبه را با آن مقایسه کنند.</string>
+  <string name="howToHideRatingWhilePlaying">چگونه وقتی بازی می کنیم ریتینگ ها را پنهان کنیم؟</string>
+  <string name="enableZenMode">فعال کردن حالت امن در %1$s ، یا فشرده ان %2$s در طول بازی</string>
+  <string name="displayPreferences">تنظیمات نمایش</string>
+  <string name="connexionLostCanIGetMyRatingBack">من یک بازی را بخاطر قطعی اینترنت باختم. آیا می توانم ریتینگ از دست رفته ام را بازگردانی کنم؟</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">متأسفانه ما نمیتوانیم امتیاز بازی هایی که به دلیل لگ یا قطع اتصال از دست داده اید را برگردانیم، صرف نظر از اینکه مشکل از طرف شما بوده یا ما. هرچند مورد دوم بسیار نادر است. همچنین توجه داشته باشید زمانی که لیچس مجددا راه‌اندازی میشود، ما بازی را لغو میکنیم تا از باخت ناعادلانه شما جلوگیری کنیم.</string>
+  <string name="howToThreeDots">چگونه...</string>
+  <string name="enableDisableNotificationPopUps">فعال کردن یا خاموش کردن اعلان ها؟</string>
+  <string name="viewSiteInformationPopUp">مشاهده نوتیف اطلاعات سایت</string>
+  <string name="lichessCanOptionnalySendPopUps">لیچس میتواند در صورتی بخواهید اعلان ارسال کند، برای مثال وقتی که نوبت حرکت شماست و یا پیام خصوصی دریافت کرده اید. 
+برای نماد قفل در کنار ادرس lichess.org در نوار URL مرورگر کلیک کنید. 
+سپس انتخاب کنید که آیا میخواهید اعلان های لایچس مجاز باشند و یا مسدود شوند.</string>
+</resources>

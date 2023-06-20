@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": { "noEmit": true },
+  "isolatedModules": true,
+  "references": [
+    { "path": "../chat/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../game/tsconfig.json" }
+  ]
+}

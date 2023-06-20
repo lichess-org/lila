@@ -1,0 +1,29 @@
+{
+  "name": "chart",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org chart",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "types": "dist/game.d.ts",
+  "dependencies": {
+    "@types/cash": "workspace:*",
+    "@types/highcharts": "=4.2.57",
+    "@types/lichess": "workspace:*",
+    "common": "workspace:*"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "modules": {
+      "esm": {
+        "src/ratingDistribution.ts": "chart.ratingDistribution",
+        "src/ratingHistory.ts": "chart.ratingHistory",
+        "src/game.ts": "chart.game"
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+.pv_box {
+  position: relative;
+  background: $c-bg-box;
+  font-size: 13px;
+
+  .pv {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 2em;
+    border-top: $border;
+    padding-#{$end-direction}: 14px;
+    min-height: 2em;
+
+    &.pv--nowrap {
+      display: block; // "flex" doesn't support ellipsis so switch back to "block"
+      flex-wrap: initial;
+      height: 2em;
+      @extend %nowrap-ellipsis;
+    }
+
+    &[data-uci]:hover {
+      background: mix($c-secondary, $c-bg-box, 20%);
+      cursor: pointer;
+    }
+
+    strong {
+      display: inline-block;
+      width: 34px;
+      text-align: center;
+    }
+
+    span {
+      @extend %san;
+
+      margin-#{$start-direction}: 4px;
+    }
+
+    &[data-uci] .pv-san:hover {
+      color: $c-primary;
+    }
+
+    .pv-wrap-toggle {
+      position: absolute;
+      top: 0;
+      #{$end-direction}: 0;
+      padding: 0 4px;
+      margin: 0;
+      cursor: pointer;
+
+      &:hover {
+        background: $c-secondary;
+        color: $c-secondary-over;
+      }
+      &::before {
+        content: '▲';
+      }
+    }
+
+    &.pv--nowrap .pv-wrap-toggle {
+      transform: rotate(180deg);
+    }
+  }
+
+  .pv-board {
+    @extend %popup-shadow;
+    position: absolute;
+    width: 80%;
+    #{$start-direction}: 34px;
+    max-width: 240px;
+    z-index: 1;
+
+    .pv-board-square {
+      @extend %square;
+
+      .cg-wrap {
+        @extend %abs-100;
+      }
+    }
+  }
+}

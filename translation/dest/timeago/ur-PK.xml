@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">ابھی ابھی</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s ثانیہ میں</item>
+    <item quantity="other">%s ثنون میں</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s منٹ میں</item>
+    <item quantity="other">%s منٹ میں</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s گھنٹےمیں</item>
+    <item quantity="other">%s گھنٹےمیں</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s دن میں</item>
+    <item quantity="other">%s دن میں</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s ھفتے میں</item>
+    <item quantity="other">%s ھفتے میں</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s ماہ میں</item>
+    <item quantity="other">%s ماہ میں</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s سال میں</item>
+    <item quantity="other">%s سال میں</item>
+  </plurals>
+  <string name="rightNow">عین ابھی</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s ثانیہ قبل</item>
+    <item quantity="other">%s ثنون قبل</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s منٹ قبل</item>
+    <item quantity="other">%s منٹ قبل</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s گھنٹا قبل</item>
+    <item quantity="other">%s گھنٹے قبل</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s دن قبل</item>
+    <item quantity="other">%s دن قبل</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s ہفتہ قبل</item>
+    <item quantity="other">%s ہفتے قبل</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s ماہ قبل</item>
+    <item quantity="other">%s ماہ قبل</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s سال قبل</item>
+    <item quantity="other">%s سال قبل</item>
+  </plurals>
+</resources>

@@ -1,0 +1,48 @@
+.analyse {
+  &__side {
+    align-self: start;
+
+    .back-to-game {
+      margin-top: 2em;
+
+      @include breakpoint($mq-col3) {
+        margin-top: 10vh;
+      }
+
+      text-align: center;
+
+      .button {
+        margin: 0 auto;
+      }
+    }
+    .analyse__wiki {
+      margin-top: 2vh;
+      flex: 1 1 auto;
+      @include breakpoint($mq-col3) {
+        flex: 1 1 0;
+        padding: 0.5em 1em 0 0;
+      }
+    }
+  }
+  &--wiki .analyse__side {
+    @extend %flex-column;
+    align-self: auto;
+  }
+  &__wiki {
+    overflow-y: auto;
+    p {
+      text-align: justify;
+      line-height: 1.5;
+    }
+    h1,
+    h2 {
+      @include fluid-size('font-size', 17px, 23px);
+      margin-bottom: 1rem;
+    }
+    h3 {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 0.7rem;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Beállítások</string>
+  <string name="closeAccount">Fiók zárolása</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">A felhasználói fiókod felügyelet alatt áll, ezért nem zárolható.</string>
+  <string name="closingIsDefinitive">A fiók törlése végleges. Nem lehet visszavonni. Biztos vagy benne?</string>
+  <string name="cantOpenSimilarAccount">Nem fogsz tudni új fiókot nyitni ugyanezzel a névvel, még eltérő kis- és nagybetűkkel sem.</string>
+  <string name="changedMindDoNotCloseAccount">Meggondoltam magam, mégsem zárolom a fiókomat</string>
+  <string name="closeAccountExplanation">Biztos, hogy zárolni akarod a fiókod? A döntés végleges és visszavonhatatlan. Nem fogsz tudni belépni SOHA TÖBBÉ.</string>
+  <string name="thisAccountIsClosed">Ez a fiók zárolva van.</string>
+</resources>

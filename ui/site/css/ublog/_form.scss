@@ -1,0 +1,156 @@
+@import 'flash';
+
+.ublog-post-form {
+  padding-bottom: 5vh;
+
+  &__main .form-split,
+  &__main > .form-group,
+  &__main .form-actions,
+  &__delete .form-actions,
+  &__image {
+    padding-#{$start-direction}: var(--box-padding);
+    padding-#{$end-direction}: var(--box-padding);
+  }
+  &__image {
+    background: $c-bg-zebra;
+    padding-top: 5vh;
+  }
+  &__image-text {
+    background: $c-bg-zebra;
+    margin-bottom: 5vh;
+    border-bottom: $border;
+    font-size: 0.9em;
+    .form-group {
+      display: none;
+    }
+    &.visible {
+      height: auto;
+      .form-group {
+        display: block;
+      }
+    }
+  }
+  .ublog-post-image {
+    max-width: 100%;
+    height: auto;
+  }
+  &__delete {
+    padding: 10em 0 5em 0;
+  }
+  &__etiquette {
+    margin-#{$end-direction}: 3em;
+  }
+  &__image {
+    .form-group {
+      @extend %flex-column;
+      justify-content: center;
+    }
+    img {
+      @extend %box-neat;
+    }
+  }
+  &__etiquette {
+    @extend %box-neat;
+    background: $c-bg-zebra;
+    padding: 2em 3em;
+    margin: 0 auto 3em auto;
+    max-width: 80ch;
+  }
+  .tagify {
+    margin: 0;
+  }
+}
+#form3-markdown {
+  display: none;
+}
+#markdown-editor {
+  height: 60vh;
+  margin-bottom: -1em;
+  .tab-item {
+    background: $c-bg-box;
+    &.active {
+      @extend %metal;
+    }
+  }
+  .toastui-editor {
+    &-defaultUI {
+      border: none;
+      &-toolbar {
+        @extend %metal, %box-radius-top;
+        border-radius: 3px 3px 0 0 !important;
+        border: 1px solid $c-border;
+        border-width: 1px 1px 0 1px;
+      }
+    }
+    &-toolbar {
+      &-icons {
+        border-color: $c-border;
+        &:not(:disabled) {
+          &:hover {
+            background-color: $c-bg-box;
+          }
+          &.active {
+            background-color: $c-bg-zebra;
+          }
+        }
+      }
+    }
+    &-md-tab-container {
+      background: none;
+    }
+    &-tabs {
+      @extend %flex-center;
+      align-content: flex-end;
+      margin: 0 1ch 0 0;
+      .tab-item {
+        height: 2em;
+        line-height: 2em;
+        margin: 0 0 -1px 0;
+      }
+    }
+    &-ww-container,
+    &-md-container {
+      border: 1px solid $c-border;
+      border-width: 0 1px 1px 1px;
+      border-radius: 0 0 3px 3px;
+    }
+    &.ww-mode,
+    &.md-mode,
+    &-md-preview {
+      @extend %base-font;
+      font-size: 1rem;
+      background: $c-bg-input;
+      color: $c-font;
+    }
+    &-contents {
+      font-size: 1rem;
+      & p,
+      & h2,
+      & h3,
+      & h4 {
+        color: $c-font;
+      }
+      & h2 {
+        border-color: $c-brag;
+      }
+      & h3 {
+        border: none;
+      }
+    }
+    .ProseMirror {
+      font-size: 1rem;
+      padding: 0.8em 1.2em;
+    }
+    &-mode-switch {
+      background: none;
+      border: none;
+    }
+    &-popup-body li[data-type='Heading'] {
+      &[data-level='1'],
+      &[data-level='5'],
+      &[data-level='6'] {
+        display: none;
+      }
+    }
+  }
+}

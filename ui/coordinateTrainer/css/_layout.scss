@@ -1,0 +1,78 @@
+$mq-col1: $mq-not-medium;
+$mq-col2: $mq-medium;
+$mq-col3: $mq-x-large;
+
+#main-wrap {
+  --main-max-width: calc(100vh - #{$site-header-outer-height});
+
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
+  }
+}
+
+.trainer {
+  grid-area: main;
+  display: grid;
+
+  .side {
+    @extend %zen;
+    grid-area: side;
+  }
+
+  .main-board {
+    grid-area: board;
+  }
+
+  svg.coords-svg {
+    grid-area: board;
+  }
+
+  .table {
+    grid-area: table;
+  }
+
+  .progress {
+    @extend %zen;
+    grid-area: progress;
+  }
+
+  .coordinate-input {
+    grid-area: co-input;
+  }
+
+  grid-template-areas: 'board' 'progress' 'co-input' 'table' 'side';
+  grid-row-gap: $block-gap;
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: var(--col2-uniboard-width) $block-gap $col2-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+      'board    . table'
+      'board    . side'
+      'progress . side'
+      'co-input . side'
+      '.        . side';
+  }
+
+  @include breakpoint($mq-col3) {
+    grid-template-areas:
+      'side . board    . table'
+      'side . progress . .'
+      'side . co-input . .'
+      'side . .        . .';
+    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) $block-gap $col3-uniboard-table;
+  }
+}
+
+@include breakpoint($mq-col1) {
+  .explanation {
+    order: 2;
+    margin: 2em 1em 0 1em;
+  }
+}
+
+@include breakpoint($mq-col3) {
+  .box:first-child {
+    margin-top: $block-gap;
+  }
+}

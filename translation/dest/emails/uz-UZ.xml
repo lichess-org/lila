@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">%s lichess.org hisobingizni tasdiqlang</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Lichess hisobingizni yoqish uchun quyidagi linkni bosing:</string>
+  <string name="emailConfirm_ignore">Agarda siz \"Lichess\"dan ro\'yxatdan o\'tmagan bo\'lsangiz, ushbu xabarni e\'tiborsiz qoldirishingiz mumkin.</string>
+  <string name="passwordReset_subject">%s lichess.org parolingizni qayta tiklang</string>
+  <string name="passwordReset_intro">Biz hisobingizdagi parolingizni qayta tiklash uchun yuborilgan so\'rovni qabul qildik.</string>
+  <string name="passwordReset_clickOrIgnore">Agar ushbu so\'rovni siz yuborgan bo\'lsangiz, quyidagi linkni bosing. Aksincha bo\'lsa, ushbu emailni e\'tiborsiz qoldirishingiz mumkin.</string>
+  <string name="emailChange_subject">%s, yangi elektron manzilingizni tasdiqlang</string>
+  <string name="emailChange_intro">Siz emailingizni almashtirish haqida so\'rov yubordingiz.</string>
+  <string name="emailChange_click">Ushbu emailga egalik huquqingizni tasdiqlash uchun, quyidagi linkni bosing:</string>
+  <string name="welcome_subject">%s lichess.org ga xush kelibsiz</string>
+  <string name="welcome_text">Sizning https://lichess.org\'dagi hisobingizni muvaffaqiyatli yaratdingiz.
+
+%1$s:sizning shaxsiy sahifangiz. %2$s da uni tahrirlashingiz mumkin. 
+
+ Zavqlaning, va doim sipohlaringiz raqibingiz qiroli tomon yo\'lni topa olsin!</string>
+  <string name="logInToLichess">%s, lichess.org ga kirishingiz mumkin</string>
+  <string name="common_orPaste">(Bosish foyda bermayapdimi? Buni brauzeringizga nusxalab qo\'yishni urinib ko\'ring!)</string>
+  <string name="common_note">%s ni ishlatishingiz bilan bog\'liq bo\'lgan yordamchi email manzil.</string>
+  <string name="common_contact">Biz bilan bog\'lanish uchun %s dan foydalaning.</string>
+</resources>

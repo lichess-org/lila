@@ -1,0 +1,56 @@
+/* Widths */
+
+$mq-width-xx-small: 500px;
+$mq-width-x-small: 650px;
+$mq-width-small: 800px;
+$mq-width-medium: 980px;
+$mq-width-large: 1120px;
+$mq-width-x-large: 1260px;
+
+$mq-xx-small: min-width ($mq-width-xx-small - 0.7px);
+$mq-x-small: min-width ($mq-width-x-small - 0.7px);
+$mq-small: min-width ($mq-width-small - 0.7px);
+$mq-medium: min-width ($mq-width-medium - 0.7px);
+$mq-large: min-width ($mq-width-large - 0.7px);
+$mq-x-large: min-width ($mq-width-x-large - 0.7px);
+
+$mq-less-than-400: max-width 400px;
+$mq-not-xx-small: max-width ($mq-width-xx-small - 0.71px);
+$mq-not-x-small: max-width ($mq-width-x-small - 0.71px);
+$mq-not-small: max-width ($mq-width-small - 0.71px);
+$mq-not-medium: max-width ($mq-width-medium - 0.71px);
+$mq-not-large: max-width ($mq-width-large - 0.71px);
+$mq-not-x-large: max-width ($mq-width-x-large - 0.71px);
+
+/* Heights */
+
+$mq-x-short: min-height 399.3px;
+$mq-short: min-height 500px;
+$mq-tall: min-height 600px;
+$mq-x-tall: min-height 700px;
+
+$mq-not-x-short: max-height 399.29px;
+
+/* Orientations */
+
+$mq-portrait: orientation portrait;
+$mq-landscape: orientation landscape;
+
+/* Capabilities */
+
+$mq-hover-yes: 'hover: hover';
+$mq-hover-no: hover none;
+
+/* Aliases */
+
+$mq-main-margin: $mq-small;
+
+$mq-topnav-visible: $mq-medium;
+$mq-topnav-hidden: $mq-not-medium;
+
+$mq-site-header-tall: $mq-tall;
+
+$mq-subnav-top: $mq-not-small;
+$mq-subnav-side: $mq-small;
+
+$mq-zoom-enabled: $mq-small $mq-short;

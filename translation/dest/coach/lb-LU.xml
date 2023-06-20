@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Lichess Trainer</string>
+  <string name="lichessCoach">Lichess Trainer</string>
+  <string name="areYouCoach">Bass du en groussartegen Schachtrainer mat engem %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM oder FIDE Titel</string>
+  <string name="confirmTitle">Confirméier däin Titel hei an mir iwwerpréifen deng Demande.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Schéck eis eng Email un %s an mir iwwerpréifen deng Demande.</string>
+  <string name="location">Standuert</string>
+  <string name="languages">Sproochen</string>
+  <string name="rating">Wäertung</string>
+  <string name="hourlyRate">Stëndlech Rata</string>
+  <string name="availability">Verfügbarkeet</string>
+  <string name="accepting">Akzeptéiert nei Schüler</string>
+  <string name="notAccepting">Akzeptéiert am Moment keng nei Schüler</string>
+  <string name="xCoachesStudents">%s trainéiert Schachschüler</string>
+  <string name="viewXProfile">Dem %s säin Lichess Profil kucken</string>
+  <string name="sendPM">Eng privat Noriicht schécken</string>
+  <string name="aboutMe">Iwwert mech</string>
+  <string name="playingExperience">Spillererfarung</string>
+  <string name="teachingExperience">Trainererfarung</string>
+  <string name="otherExperiences">Aner Erfarungen</string>
+  <string name="bestSkills">Gréissten Talenter</string>
+  <string name="teachingMethod">Trainermethoden</string>
+  <string name="publicStudies">Ëffentlech Etüd</string>
+  <string name="youtubeVideos">Youtube Videoen</string>
+</resources>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Cờ thế</string>
+  <string name="puzzleThemes">Chủ đề cờ thế</string>
+  <string name="recommended">Đề xuất</string>
+  <string name="phases">Giai đoạn</string>
+  <string name="motifs">Mô típ</string>
+  <string name="advanced">Nâng cao</string>
+  <string name="lengths">Độ dài</string>
+  <string name="mates">Chiếu hết</string>
+  <string name="goals">Mục tiêu</string>
+  <string name="origin">Nguồn</string>
+  <string name="specialMoves">Nước đi đặc biệt</string>
+  <string name="didYouLikeThisPuzzle">Bạn thích thế cờ này chứ?</string>
+  <string name="voteToLoadNextOne">Bình chọn để mở thế cờ tiếp theo!</string>
+  <string name="upVote">Upvote câu đố</string>
+  <string name="downVote">Downvote câu đố</string>
+  <string name="yourPuzzleRatingWillNotChange">Hệ số giải cờ thế của bạn sẽ không thay đổi. Lưu ý rằng giải cờ thế không phải một cuộc thi. Hệ số của bạn nhằm giúp chọn những thế cờ phù hợp nhất với trình độ của bạn.</string>
+  <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng.</string>
+  <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen.</string>
+  <string name="toGetPersonalizedPuzzles">Để có được các thế cờ dành riêng cho bạn:</string>
+  <string name="puzzleId">Thế cờ %s</string>
+  <string name="puzzleOfTheDay">Thế cờ của ngày</string>
+  <string name="dailyPuzzle">Thế Cờ hàng ngày</string>
+  <string name="clickToSolve">Nhấn để giải</string>
+  <string name="goodMove">Nước đi tốt</string>
+  <string name="bestMove">Nước đi tối ưu!</string>
+  <string name="keepGoing">Hãy tiếp tục…</string>
+  <string name="puzzleSuccess">Thành công!</string>
+  <string name="puzzleComplete">Hoàn thành thế cờ!</string>
+  <string name="byOpenings">Theo khai cuộc</string>
+  <string name="puzzlesByOpenings">Cờ thế theo khai cuộc</string>
+  <string name="openingsYouPlayedTheMost">Những khai cuộc bạn thường chơi trong các ván đấu xếp hạng</string>
+  <string name="useFindInPage">Dùng \"tìm kiếm trong trang\" trên trình duyệt để tìm khai cuộc yêu thích của bạn!</string>
+  <string name="useCtrlF">Dùng Ctrl+f để tìm khai cuộc yêu thích của bạn!</string>
+  <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
+  <string name="trySomethingElse">Hãy thử nước đi khác.</string>
+  <string name="ratingX">Hệ số: %s</string>
+  <string name="hidden">ẩn</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">Đã chơi %s lần</item>
+  </plurals>
+  <string name="fromGameLink">Từ ván cờ %s</string>
+  <string name="continueTraining">Tiếp tục tập luyện</string>
+  <string name="difficultyLevel">Độ khó</string>
+  <string name="normal">Bình thường</string>
+  <string name="easier">Dễ hơn</string>
+  <string name="easiest">Dễ nhất</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">%s điểm dưới hệ số cờ thế của bạn</item>
+  </plurals>
+  <string name="harder">Khó hơn</string>
+  <string name="hardest">Khó nhất</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">%s điểm trên hệ số cờ thế của bạn</item>
+  </plurals>
+  <string name="example">Ví dụ</string>
+  <string name="addAnotherTheme">Thêm một chủ đề khác</string>
+  <string name="nextPuzzle">Thế cờ tiếp theo</string>
+  <string name="jumpToNextPuzzleImmediately">Chuyển tới thế cờ tiếp theo ngay lập tức</string>
+  <string name="puzzleDashboard">Bảng thống kê</string>
+  <string name="improvementAreas">Các điểm cần cải thiện</string>
+  <string name="strengths">Điểm mạnh</string>
+  <string name="history">Lịch sử cờ thế</string>
+  <string name="solved">giải đúng</string>
+  <string name="failed">giải sai</string>
+  <string name="streakDescription">Giải những thế cờ có độ khó tăng dần và tích lũy chuỗi thắng. Sẽ không có đồng hồ, nên hãy làm chúng một cách bình tĩnh. Một nước đi sai, và trò chơi sẽ kết thúc! Tuy nhiên, bạn được quyền bỏ qua một nước đi trong mỗi lần chơi.</string>
+  <string name="yourStreakX">Chuỗi của bạn: %s</string>
+  <string name="streakSkipExplanation">Bỏ qua nước đi này để bảo toàn chuỗi của bạn! Chỉ dùng được một lần cho mỗi lần chơi.</string>
+  <string name="continueTheStreak">Tiếp tục chuỗi</string>
+  <string name="newStreak">Chuỗi mới</string>
+  <string name="fromMyGames">Từ ván đấu của tôi</string>
+  <string name="lookupOfPlayer">Tìm cờ thế từ ván đấu của người khác</string>
+  <string name="fromXGames">Thế cờ của %s</string>
+  <string name="searchPuzzles">Tìm thế cờ</string>
+  <string name="fromMyGamesNone">Bạn không có thế cờ nào trong hệ thống, nhưng Lichess vẫn rất yêu mến bạn.
+
+Hãy chơi thêm nhiều ván cờ nhanh và cờ tiêu chuẩn để có cơ hội có một thế cờ từ ván đấu của riêng bạn!</string>
+  <string name="fromXGamesFound">%1$s tìm được trong %2$s ván đấu</string>
+  <string name="puzzleDashboardDescription">Rèn luyện, phân tích, tiến bộ</string>
+  <plurals name="nbPlayed">
+    <item quantity="other">%s đã giải</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">%s cần giải lại</item>
+  </plurals>
+  <string name="percentSolved">%s giải đúng</string>
+  <string name="noPuzzlesToShow">Chưa có gì cả, hãy giải một vài thế cờ trước đã!</string>
+  <string name="improvementAreasDescription">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
+  <string name="strengthDescription">Bạn thể hiện tốt nhất ở những chiến thuật này</string>
+</resources>

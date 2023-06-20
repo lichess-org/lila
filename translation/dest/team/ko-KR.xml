@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">팀</string>
+  <string name="teams">팀</string>
+  <plurals name="nbMembers">
+    <item quantity="other">멤버 %s명</item>
+  </plurals>
+  <string name="allTeams">모든 팀</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">당신이 이끄는 팀</string>
+  <string name="newTeam">팀 만들기</string>
+  <string name="myTeams">소속된 팀</string>
+  <string name="noTeamFound">팀을 찾지 못했습니다</string>
+  <string name="joinTeam">팀 가입</string>
+  <string name="onlyLeaderLeavesTeam">탈퇴하기 전에 새 팀 운영자를 추가하거나, 팀을 폐쇄하세요.</string>
+  <string name="quitTeam">팀 탈퇴</string>
+  <string name="manuallyReviewAdmissionRequests">수동으로 가입 요청을 검토합니다.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">체크한다면, 플레이어는 팀에 가입하기 위해 요청서를 작성해야 합니다. 당신은 이를 받아들이거나 거절할 수 있습니다.</string>
+  <plurals name="teamLeaders">
+    <item quantity="other">팀 운영자</item>
+  </plurals>
+  <string name="teamRecentMembers">최근 가입 멤버</string>
+  <string name="kickSomeone">클럽에서 누군가 제거</string>
+  <string name="whoToKick">클럽에서 누구를 제외하고 싶습니까?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s개의 가입 요청</item>
+  </plurals>
+  <string name="willBeReviewed">팀 운영자가 가입 요청을 검토할 것입니다.</string>
+  <string name="beingReviewed">팀 운영자가 가입 요청을 검토하고 있습니다.</string>
+  <string name="requestDeclined">당신의 가입 요청이 팀 리더에 의해 거절되었습니다.</string>
+  <string name="subToTeamMessages">팀 메시지 구독하기</string>
+  <string name="teamBattle">팀 배틀</string>
+  <string name="teamBattleOverview">각각의 플레이어가 팀의 점수를 올리는 여러 팀간의 대결</string>
+  <string name="teamTournament">팀내 대결</string>
+  <string name="teamTournamentOverview">팀원만 참가할 수 있는 아레나 토너먼트</string>
+  <string name="swissTournamentOverview">팀원만 참가할 수 있는 스위스 토너먼트</string>
+  <string name="messageAllMembers">팀원 전원에게 메시지 보내기</string>
+  <string name="messageAllMembersOverview">팀원 전원에게 메시지 보내기</string>
+  <string name="messageAllMembersLongDescription">팀원 전원에게 메시지 보내기. 팀 내 대회나 팀 배틀에 참가를 독려하기 위해 사용할 수 있습니다. 메시지를 받기 싫어하는 팀원이 팀을 탈퇴할 수 있습니다.</string>
+  <string name="teamsIlead">내가 이끄는 팀</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">곧 있을 다음 토너먼트들의 링크가 필요하신가요?</string>
+  <string name="usersWhoCanManageThisTeam">팀 관리자</string>
+  <string name="leadersChat">지도자 \'대화</string>
+  <string name="closeTeam">팀 폐쇄</string>
+  <string name="closeTeamDescription">영구히 팀 폐쇄</string>
+  <string name="entryCode">팀 가입 코드</string>
+  <string name="entryCodeDescriptionForLeader">(선택) 새 멤버가 가입하기 위해서는 코드를 반드시 알아야 합니다.</string>
+  <string name="incorrectEntryCode">코드가 잘못되었습니다.</string>
+  <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
+  <string name="upcomingTourns">다가오는 토너먼트</string>
+  <string name="completedTourns">종료된 토너먼트</string>
+  <string name="declinedRequests">거절된 요청</string>
+  <string name="joinLichessVariantTeam">%s 공식 팀을 가입하면 관련 소식과 행사에 대해 알 수 있습니다</string>
+  <string name="teamPage">팀 페이지</string>
+</resources>

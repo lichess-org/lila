@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challengesX">بەرەنگاریەکان: %1$s</string>
+  <string name="challengeToPlay">بەرانگاربوونەوە بۆ یاریکردن</string>
+  <string name="challengeDeclined">بەرەنگاربوونەوەکە ڕەتکرایەوە</string>
+  <string name="challengeAccepted">بەرەنگاربوونەوەکە قبوڵکرا!</string>
+  <string name="challengeCanceled">بەرەنگاربوونەوەکە قبوڵنەکرا.</string>
+  <string name="registerToSendChallenges">تکایە خۆت تۆماربکە بۆ ئەوەی بتوانی بەرەنگاری ئەو بەکارهێنەرە ببیتەوە.</string>
+  <string name="youCannotChallengeX">ناتوانی بەرەنگاری %s ببیتەوە.</string>
+  <string name="xDoesNotAcceptChallenges">%s بەرەنگاربوونەوە قبوڵناکات.</string>
+  <string name="yourXRatingIsTooFarFromY">ڕیزبەندی تۆ %1$s بەرزترە لە %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">ناتوانن بەرەنگاری یەکترببنەوە بەهۆی ڕیزبەندی %s کاتییە.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s تەنها بەرەنگاری هاوڕێکانی قبوڵ دەکات.</string>
+  <string name="declineGeneric">لەو کاتەدا هیچ بەرەنگاربوونەوەیەک قبوڵ ناکەم.</string>
+  <string name="declineLater">ئێستا بۆ من کاتێکی گونجاو نییە، تکایە کاتێکیتر بۆم بنێرە.</string>
+  <string name="declineTooFast">ئەو کات گرتنەوەیە بۆ من زۆر خێرایە، تکایە یاریەکیتر بنێرەوە بەڵام بە کاتەکەی هێواش بێت.</string>
+  <string name="declineTooSlow">ئەو کات گرتنەوەیە بۆ من زۆر هێواشە، تکایە یاریەکیتر بنێرەوە بەڵام بە کاتەکەی خێرا بێت.</string>
+  <string name="declineTimeControl">من بەم کاتگرتنەوەیە هیچ بەرەنگاربوونەوەیەک قبوڵ ناکەم.</string>
+  <string name="declineRated">تکایە بەرنگاربونەوەیەکی هەڵسەنگێنراوم بۆ بنێرە لە جیاتی ئەمە.</string>
+  <string name="declineCasual">تکایە بەرنگاربونەوەیەکی هەڵنەسەنگێنراوم بۆ بنێرە لە جیاتی ئەمە.</string>
+  <string name="declineStandard">ئێستا جۆرە جیاوازەکانی بەرەنگاربوونەوە قبوڵناکەم.</string>
+  <string name="declineVariant">ئێستا ئەو جۆرە یارییە قبوڵناکەم.</string>
+  <string name="declineNoBot">لە بۆت هیچ یارییەک قبوڵناکەم.</string>
+  <string name="declineOnlyBot">تەنها لە بووت یاریکردن قبوڵ دەکەم.</string>
+  <string name="inviteLichessUser">یان بەکارهێنەرێکی Lichess بانگهێشت بکە:</string>
+</resources>

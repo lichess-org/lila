@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">Стримери Lichess</string>
+  <string name="lichessStreamer">Стример Lichess</string>
+  <string name="live">НАЖИВО!</string>
+  <string name="offline">ОФЛАЙН</string>
+  <string name="currentlyStreaming">Зараз транслює: %s</string>
+  <string name="lastStream">Остання трансляція %s</string>
+  <string name="becomeStreamer">Стати стримером Lichess</string>
+  <string name="doYouHaveStream">У вас є канал на Twitch чи YouTube?</string>
+  <string name="hereWeGo">Приступаємо!</string>
+  <string name="allStreamers">Всі стримери</string>
+  <string name="editPage">Редагувати сторінку стримера</string>
+  <string name="yourPage">Ваша сторінка стримера</string>
+  <string name="downloadKit">Завантажити набір інструментів стримера</string>
+  <string name="xIsStreaming">%s транслює</string>
+  <string name="rules">Правила трансляцій</string>
+  <string name="rule1">Додайте ключове слово \"lichess.org\" у заголовку вашої трансляції і використовуйте категорію \"Chess\" під час трансляції на Lichess.</string>
+  <string name="rule2">Видаліть ключове слово, коли транслюєте щось не пов\'язане з Lichess.</string>
+  <string name="rule3">Lichess буде автоматично виявляти вашу трансляцію і включати наступні переваги:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Прочитайте наші %s для забезпечення справедливої гри для всіх протягом вашої трансляції.</string>
+  <string name="streamingFairplayFAQ">правила чесної гри для трансляцій</string>
+  <string name="perks">Переваги трансляції з ключовим словом</string>
+  <string name="perk1">Ви отримуєте значок стримера у вашому обліковому записі Lichess.</string>
+  <string name="perk2">Ви будете переміщені вверх по списку стримерів.</string>
+  <string name="perk3">Сповіщення ваших підписників Lichess.</string>
+  <string name="perk4">Відображення вашої трансляції у ваших іграх, турнірах та дослідженнях.</string>
+  <string name="approved">Вашу трансляцію затверджено.</string>
+  <string name="pendingReview">Вашу трансляцію перевіряють модератори.</string>
+  <string name="pleaseFillIn">Будь ласка, заповніть інформацію про трансляцію та завантажте фотографію.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Коли ви будете готові числитися як стример Lichess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запитати огляд модератора</string>
+  <string name="streamerLanguageSettings">Сторінка стримера Lichess націлена на глядачів за мовою, наданою вашою стримінговою платформою. Встановіть правильну мову за замовчуванням для ваших шахових трансляцій в додатку чи сервісі, який ви використовуєте для трансляцій.</string>
+  <string name="twitchUsername">Ваше ім\'я користувача Twitch або посилання</string>
+  <string name="optionalOrEmpty">За бажанням. Залиште порожнім, якщо немає</string>
+  <string name="youTubeChannelId">ID вашого YouTube каналу</string>
+  <string name="streamerName">Ваше ім\'я для трансляцій на Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Скоротіть: максимум %s символ</item>
+    <item quantity="few">Скоротіть: максимум %s символи</item>
+    <item quantity="many">Скоротіть: максимум %s символів</item>
+    <item quantity="other">Скоротіть: максимум %s символів</item>
+  </plurals>
+  <string name="visibility">Видимий на сторінці стримерів</string>
+  <string name="whenApproved">Після затвердження модераторами</string>
+  <string name="headline">Заголовок</string>
+  <string name="tellUsAboutTheStream">Розкажіть нам про вашу трансляцію одним реченням</string>
+  <string name="longDescription">Довгий опис</string>
+  <string name="xStreamerPicture">%s зображення стримера</string>
+  <string name="changePicture">Змінити/видалити своє зображення</string>
+  <string name="uploadPicture">Завантажити зображення</string>
+  <string name="maxSize">Максимальний розмір: %s</string>
+</resources>

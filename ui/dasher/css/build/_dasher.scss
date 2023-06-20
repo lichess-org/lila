@@ -1,0 +1,6 @@
+@import '../../../common/css/plugin';
+@import '../../../common/css/form/range';
+$c-dasher: $c-secondary;
+$c-dasher-over: $c-secondary-over;
+$c-dasher-light: mix($c-dasher, $c-bg-header-dropdown, 40%);
+@import '../dasher';

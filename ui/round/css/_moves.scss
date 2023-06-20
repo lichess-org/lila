@@ -1,0 +1,53 @@
+$buttons-height: 2.5rem;
+
+#{$moves-tag} > :not(.result-wrap) {
+  @extend %zen;
+}
+
+#{$index-tag} {
+  @extend %roboto;
+}
+
+#{$move-tag} {
+  @extend %san;
+}
+
+#{$rmoves-tag} {
+  @extend %flex-column, %double-tap;
+  position: relative;
+
+  .buttons {
+    @extend %box-shadow;
+
+    flex: 0 0 $buttons-height;
+    display: flex;
+    justify-content: stretch;
+    background: $c-bg-zebra;
+    font-size: 0.9em;
+    order: 2;
+
+    @include breakpoint($mq-col2) {
+      order: 0;
+    }
+  }
+
+  .fbt,
+  .noop {
+    flex: 0 0 calc(100% / 6);
+    text-align: center;
+  }
+
+  #{$moves-tag},
+  .message {
+    flex: 0 0 7.4rem;
+  }
+
+  @import 'moves-col1';
+  @import 'moves-col2';
+}
+
+@include breakpoint($mq-col1) {
+  .col1-rmoves-preload {
+    height: 2.5em;
+  }
+}

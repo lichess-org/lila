@@ -1,0 +1,16 @@
+ui/build was lovingly crafted from a single block of wood as a personal gift to you.
+
+Usage examples:
+
+  ./build                     # builds all client assets in dev mode (inline sources)
+  ./build -w                  # builds all client assets and watches for changes
+  ./build -p                  # builds minified client assets (prod builds)
+  ./build analyse site msg    # build modules analyse, site, and msg (don't build everything)
+  ./build --no-install        # don't run pnpm install (preserve any links you've set up)
+  ./build -w dasher chart     # watch mode for modules dasher and chart
+  ./build --tsc -w            # watch mode but type checking only
+  ./build --sass msg notify   # build css only for msg and notify modules 
+  ./build --esbuild           # run esbuild only
+  ./build --no-color          # don't use color in logs
+  ./build --no-time           # don't log the time
+  ./build --no-context        # don't log the context ([sass], [esbuild], [tsc])

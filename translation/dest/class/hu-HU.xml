@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">Tanulócsoportok</string>
+  <string name="teachClassesOfChessStudents">Tanítson sakk diákok osztályait a Lichess osztályok eszközkészlettel.</string>
+  <string name="features">Jellemzők</string>
+  <string name="quicklyGenerateSafeUsernames">Gyorsan előállíthat biztonságos felhasználóneveket és jelszavakat a hallgatók számára</string>
+  <string name="trackStudentProgress">Kövesse nyomon a tanulók fejlődését a játékokban és a rejtvényekben</string>
+  <string name="messageAllStudents">Üzenjen minden hallgatót az új tananyagról</string>
+  <string name="freeForAllForever">100% ingyenes mindenkinek, örökre, hirdetés és nyomkövető nélkül</string>
+  <string name="applyToBeLichessTeacher">Jelentkezzen Lichess tanárnak</string>
+  <string name="noClassesYet">Még nincs osztály.</string>
+  <string name="teachersX">Tanárok: %s</string>
+  <string name="newClass">Új osztály</string>
+  <string name="closeClass">Bezárás osztály</string>
+  <string name="removedByX">Eltávolítva %s által</string>
+  <string name="reopen">Nyissa meg újra</string>
+  <string name="removeStudent">Tanuló eltávolítása</string>
+  <string name="removedStudents">Eltávolítva</string>
+  <string name="inviteTheStudentBack">Hívja vissza a tanulót</string>
+  <string name="sendAMessage">Küldjön üzenetet minden hallgatónak.</string>
+  <string name="aLinkToTheClassWillBeAdded">Az osztály végére automatikusan bekerül egy link az üzenet végén, így nem kell magának hozzáadnia.</string>
+  <string name="className">Osztály név</string>
+  <string name="classDescription">Osztályleírás</string>
+  <string name="visibleByBothStudentsAndTeachers">Látható mind a tanárok, mind az osztály tanulói számára</string>
+  <string name="teachersOfTheClass">Az osztály tanárai</string>
+  <string name="addLichessUsernames">Adja hozzá a Lichess felhasználónéveket, hogy meghívja őket tanároknak. Soronként egy.</string>
+  <string name="resetPassword">Jelszó visszaállítása</string>
+  <string name="makeSureToCopy">Most mindenképpen másolja vagy írja le a jelszót. Nem láthatja újra!</string>
+  <string name="passwordX">Jelszó: %s</string>
+  <string name="generateANewPassword">Készítsen új jelszót a hallgató számára</string>
+  <string name="invitedToXByY">%2$s meghívta ide: %1$s</string>
+  <string name="realName">Igazi neve</string>
+  <string name="privateWillNeverBeShown">Magán. Soha nem jelenik meg az órán kívül. Segít emlékezni arra, hogy ki a hallgató.</string>
+  <string name="addStudent">Tanuló hozzáadása</string>
+  <string name="lichessProfileXCreatedForY">%1$s lichess profil létrehozva %2$s számára.</string>
+  <string name="studentCredentials">Diák: %1$s
+Felhasználónév: %2$s
+Jelszó: %3$s</string>
+  <string name="inviteALichessAccount">Hívjon meg egy Lichess-fiókot</string>
+  <string name="inviteDesc1">Ha a hallgatónak már van Lichess-fiókja, meghívhatja őket az órára.</string>
+  <string name="inviteDesc2">Üzenetet kapnak a Lichess oldalon a linkkel, hogy csatlakozzanak az osztályhoz.</string>
+  <string name="inviteDesc3">Fontos: csak azokat a tanulókat hívja meg, akiket ismer, és akik aktívan szeretnének csatlakozni az osztályhoz.</string>
+  <string name="inviteDesc4">Soha ne küldjön kéretlen meghívókat tetszőleges játékosoknak.</string>
+  <string name="createANewLichessAccount">Hozzon létre egy új Lichess-fiókot</string>
+  <string name="createDesc1">Ha a hallgatónak még nincs Lichess-fiókja, itt létrehozhat egyet a számára.</string>
+  <string name="createDesc2">Nincs szükség e-mail címre. Létrejön egy jelszó, amelyet el kell küldenie a hallgatónak, hogy bejelentkezhessenek.</string>
+  <string name="createDesc3">Fontos: egy hallgatónak nem lehet több fiókja.</string>
+  <string name="createDesc4">Ha már van ilyen, akkor használja a meghívó űrlapot.</string>
+  <string name="createStudentWarning">Csak valódi diákoknak hozz létre fiókot. Ne használd ezt a funkciót arra, hogy neked legyen több fiókod, mert ezért kitiltás jár.</string>
+  <string name="lichessUsername">Lichess felhasználónév</string>
+  <string name="generateANewUsername">Új felhasználónevet generál</string>
+  <string name="welcomeToClass">Üdvözöljük osztályában: %s.
+Itt található a link az osztály eléréséhez.</string>
+  <string name="invitationToClass">Meghívást kapsz, hogy csatlakozz a \"%s\" osztályhoz diákként.</string>
+  <string name="clickToViewInvitation">Kattintson a linkre a meghívó megtekintéséhez:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Egy függőben lévő meghívó</item>
+    <item quantity="other">%s függőben lévő meghívó</item>
+  </plurals>
+  <string name="onlyVisibleToTeachers">Csak az osztályfőnökök láthatják</string>
+  <string name="lastActiveDate">Aktív</string>
+  <string name="managed">Kezelt</string>
+  <string name="thisStudentAccountIsManaged">Ezt a hallgatói fiókot kezelik</string>
+  <string name="upgradeFromManaged">Frissítés menedzseltről autonómra</string>
+  <string name="release">Kiadás</string>
+  <string name="releaseTheAccount">Engedje el a fiókot, hogy a hallgató önállóan kezelhesse.</string>
+  <string name="releaseDesc1">A kiadott fiókot nem lehet újra kezelni. A hallgató képes lesz a gyerek mód váltására és a jelszó visszaállítására.</string>
+  <string name="releaseDesc2">A tanuló a fiókja kiadása után az osztályban marad.</string>
+  <string name="realUniqueEmail">A hallgató valódi, egyedi e-mail címe. Küldünk neki egy visszaigazoló e-mailt, amelyben megtalálható egy link a fiók felszabadításához.</string>
+  <string name="closeStudent">Fiók törlése</string>
+  <string name="closeTheAccount">A tanulói fiók végleges törlése.</string>
+  <string name="closeDesc1">A tanuló soha többé nem fér újra hozzá ehhez a fiókhoz. A törlés végleges. Bizonyosodj meg, hogy a tanuló megérti és elfogadja ezt.</string>
+  <string name="closeDesc2">Lehetőséged van a fiók jogosultságait átadni a tanulónak, így továbbra is használhatja majd azt.</string>
+  <string name="teachers">Tanárok</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Tanár</item>
+    <item quantity="other">%s tanár</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Diák</item>
+    <item quantity="other">%s hallgató</item>
+  </plurals>
+  <string name="students">Diákok</string>
+  <string name="progress">Előrehalad</string>
+  <string name="noStudents">Még nincs tanuló az osztályban.</string>
+  <string name="noRemovedStudents">Nincs eltávolított hallgató.</string>
+  <string name="overDays">Napok alatt</string>
+  <string name="timePlaying">Idő játszik</string>
+  <string name="variantXOverLastY">%1$s az elmúlt %2$s alatt</string>
+  <string name="winrate">Nyerési arány</string>
+  <string name="na">N/A</string>
+  <string name="overview">Áttekintés</string>
+  <string name="news">Hírek</string>
+  <string name="classNews">Osztályhírek</string>
+  <string name="editNews">Hírek szerkesztése</string>
+  <string name="notifyAllStudents">Értesítsen minden hallgatót</string>
+  <string name="nothingHere">Itt még semmi.</string>
+  <string name="newsEdit1">Minden osztályhír egyetlen mezőben.</string>
+  <string name="newsEdit2">Adja hozzá a legfrissebb híreket a tetején. Ne törölje a korábbi híreket.</string>
+  <string name="newsEdit3">Különválaszthatja a ---
+Vízszintes vonalat jelenít meg.</string>
+  <string name="invite">Meghívás</string>
+  <string name="youHaveBeenInvitedByX">%s meghívott küldött neked.</string>
+  <string name="youAcceptedThisInvitation">Elfogadtad ezt a meghívást.</string>
+  <string name="youDeclinedThisInvitation">Visszautasítottad ezt a meghívást.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">vagy</string>
+  <string name="createMultipleAccounts">Egyszerre több Lichess fiók létrehozása</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s létrehozhatsz egyszerre több Lichess fiókot a tanulók neveit tartalmazó listából.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">Ezen a felületen</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Megjegyzendő, hogy egy osztály legfeljebb %1$s tanulóból állhat. Ennél több tanuló gondozásához %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">hozz létre több osztályt</string>
+  <string name="studentsRealNamesOnePerLine">Tanulók valódi nevei, soronként egy</string>
+  <string name="xisNowAStudentOfTheClass">%s mostmár az osztály tanulója</string>
+  <string name="anInvitationHasBeenSentToX">A meghívó elküldve %s részére</string>
+  <string name="xAlreadyHasAPendingInvitation">%s már rendelkezik egy függőben lévő meghívóval</string>
+  <string name="xIsAKidAccountWarning">%1$s gyerekfiókkal rendelkezik ezért nem fogadhatja az üzeneted. Más módon kell eljuttatnod a meghívó URL-jét: %2$s</string>
+</resources>

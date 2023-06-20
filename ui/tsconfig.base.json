@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "target": "es2019",
+    "module": "esnext",
+    "lib": ["es2019"],
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "types": ["lichess", "web", "cash"]
+  }
+}

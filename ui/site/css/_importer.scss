@@ -1,0 +1,56 @@
+main.importer {
+  .explanation {
+    margin: 3vh 0;
+    text-align: center;
+  }
+
+  form {
+    label.pgn {
+      display: block;
+      margin-bottom: 1em;
+    }
+
+    label.pgn span {
+      display: block;
+      margin-bottom: 1em;
+    }
+
+    textarea {
+      width: 98%;
+      height: 20vh !important;
+      padding: 0.5em;
+    }
+
+    .analyse > span {
+      float: left;
+      margin-#{$end-direction}: 10px;
+    }
+
+    .analyse > label {
+      cursor: pointer;
+    }
+
+    .upload input {
+      margin-#{$start-direction}: 1em;
+    }
+
+    button.submit {
+      margin: 0 auto;
+      display: block;
+    }
+
+    p.error {
+      margin: 10px 0;
+      color: red;
+    }
+
+    pre.error {
+      overflow-x: auto;
+      padding-bottom: 1em;
+    }
+
+    .wait {
+      display: none;
+    }
+  }
+}

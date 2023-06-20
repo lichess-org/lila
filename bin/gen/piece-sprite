@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'base64'
+include FileUtils
+
+lila_dir = pwd()
+source_dir = lila_dir + '/public/piece/'
+dest_dir = lila_dir + '/public/piece-css/'
+
+themes = [
+  ['alpha', 'svg'],
+  ['cburnett', 'svg'],
+  ['merida', 'svg'],
+  ['pirouetti', 'svg'],
+  ['spatial', 'svg'],
+  ['chess7', 'svg'],
+  ['reillycraig', 'svg'],
+  ['fantasy', 'svg'],
+  ['shapes', 'svg'],
+  ['chessnut', 'svg'],
+  ['companion', 'svg'],
+  ['letter', 'svg'],
+  ['riohacha', 'svg'],
+  ['leipzig', 'svg'],
+  ['kosal', 'svg'],
+  ['pixel', 'svg'],
+  ['california', 'svg'],
+  ['maestro', 'svg'],
+  ['fresca', 'svg'],
+  ['cardinal', 'svg'],
+  ['gioco', 'svg'],
+  ['tatiana', 'svg'],
+  ['staunty', 'svg'],
+  ['governor', 'svg'],
+  ['libra', 'svg'],
+  ['dubrovny', 'svg'],
+  ['icpieces', 'svg'],
+  ['horsey', 'svg'],
+  ['anarcandy', 'svg'],
+  ['disguised', 'svg'],
+  ['celtic', 'svg'],
+  ['kiwen-suwi', 'svg'],
+  ['mpchess','svg']
+]
+types = {
+  'svg' => 'svg+xml;base64,',
+  'png' => 'png;base64,'
+}
+roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
+colors = ['white', 'black']
+
+# inline SVG
+themes.map { |theme|
+  name = theme[0]
+  ext = theme[1]
+  classes = colors.map { |color|
+    roles.map { |role|
+      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      file = source_dir + name + '/' + piece + '.' + ext
+      File.open(file, 'r') do|image_file|
+        image = image_file.read
+        base64 = Base64.strict_encode64(image)
+        '.is2d .' + role + '.' + color + ' {' +
+          "background-image:url('data:image/" + types[ext] + base64 + "')}"
+      end
+    }
+  }.flatten
+  File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+}
+
+# external SVG
+themes.map { |theme|
+  name = theme[0]
+  ext = theme[1]
+  classes = colors.map { |color|
+    roles.map { |role|
+      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      '.is2d .' + role + '.' + color + ' {' +
+        "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"
+    }
+  }.flatten
+  File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
+}

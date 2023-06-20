@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">ĵus nun</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">en %s sekundo</item>
+    <item quantity="other">en %s sekundoj</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">en %s minuto</item>
+    <item quantity="other">en %s minutoj</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">en %s horo</item>
+    <item quantity="other">en %s horoj</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">en %s tago</item>
+    <item quantity="other">en %s tagoj</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">en %s semajno</item>
+    <item quantity="other">en %s semajnoj</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">en %s monato</item>
+    <item quantity="other">en %s monatoj</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">en %s jaro</item>
+    <item quantity="other">en %s jaroj</item>
+  </plurals>
+  <string name="rightNow">ĵuse</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">antaŭ %s sekundo</item>
+    <item quantity="other">antaŭ %s sekundoj</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">antaŭ %s minuto</item>
+    <item quantity="other">antaŭ %s minutoj</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">antaŭ %s horo</item>
+    <item quantity="other">antaŭ %s horoj</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">antaŭ %s tago</item>
+    <item quantity="other">antaŭ %s tagoj</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">antaŭ %s semajno</item>
+    <item quantity="other">antaŭ %s semajnoj</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">antaŭ %s monato</item>
+    <item quantity="other">antaŭ %s monatoj</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">antaŭ %s jaro</item>
+    <item quantity="other">antaŭ %s jaroj</item>
+  </plurals>
+</resources>

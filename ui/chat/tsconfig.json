@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.base.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src",
+    "types": ["lichess", "web", "cash"],
+    "declaration": true,
+    "inlineSourceMap": true,
+    "composite": true
+  },
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../palantir/tsconfig.json" }],
+  "isolatedModules": true
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">حساب خود را در lichess.org تایید کنید،%s</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">بر روی لینک کلیک کنید تا حساب کاربری شما در Lichess فعال شود:</string>
+  <string name="emailConfirm_ignore">اگر شما در lichess ثبت نام نکرده اید میتوانید با خیال راحت این پیام را نادیده بگیرید.</string>
+  <string name="passwordReset_subject">%s، رمز عبور خود در lichess.org را دوباره تعریف نمایید.</string>
+  <string name="passwordReset_intro">ما یک درخواست برای تغییر رمز عبور حساب کاربری شما دریافت کرده ایم.</string>
+  <string name="passwordReset_clickOrIgnore">اگر شما درخواست داده اید، بر روی لینک زیر کلیک کنید. اگر نه، میتوانید این ایمیل را نادیده بگیرید.</string>
+  <string name="emailChange_subject">آدرس ایمیل جدید خود را تایید کنید، %s</string>
+  <string name="emailChange_intro">شما درخواست داده اید که آدرس ایمیل خود را تغییر دهید.</string>
+  <string name="emailChange_click">برای اینکه تایید کنید که شما به این ایمیل دسترسی دارید، لطفا بر روی لینک زیر کلیک کنید:</string>
+  <string name="welcome_subject">به لیچس خوش آمدید، %s</string>
+  <string name="welcome_text">شما با موفقیت حساب خود را در https://lichess.org ایجاد کردید.
+
+صفحه پروفایل شما اینجاست: %1$s. شما میتوانید در %2$s آن را شخصی سازی کنید.
+
+لذت ببرید و به امید اینکه قطعات شما همیشه راه خود را با شاه حریف پیدا کنند!</string>
+  <string name="logInToLichess">وارد حساب کاربری خود شوید%s</string>
+  <string name="common_orPaste">(با کلیک کردن عمل نمیکند؟ سعی کنید در مرورگر خود وارد کنید!)</string>
+  <string name="common_note">این سرویس ایمیل مربوط به استفاده شما از%s است.</string>
+  <string name="common_contact">لطفاً از %s، برای تماس با ما استفاده نمایید.</string>
+</resources>

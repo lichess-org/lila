@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">%s のチェス・インサイト</string>
+  <string name="xHasNoChessInsights">%s のインサイトはまだありません！</string>
+  <string name="insightsAreProtected">%s のインサイトは非公開です</string>
+  <string name="cantSeeInsights">残念ながら %s のインサイトは見られません。</string>
+  <string name="generateInsights">%s のインサイトを作成する。</string>
+  <string name="crunchingData">あなただけのデータを処理中です！</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">%s を変えてもらうよう頼みますか？</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">インサイト設定</string>
+</resources>

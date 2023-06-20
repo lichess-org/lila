@@ -1,0 +1,73 @@
+.simul-list {
+  overflow: hidden;
+  &__help {
+    @extend %page-text-shadow !optional;
+
+    color: $c-font-page;
+    max-width: 350px;
+    margin-top: 9em;
+    margin-#{$end-direction}: $block-gap;
+
+    img {
+      @extend %box-radius;
+
+      width: 100%;
+    }
+
+    em {
+      display: block;
+      font-style: italic;
+      margin-bottom: 1em;
+    }
+
+    display: none;
+
+    @include breakpoint($mq-large) {
+      display: block;
+    }
+  }
+
+  .slist {
+    td {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
+    .host,
+    .players {
+      display: none;
+    }
+
+    @include breakpoint($mq-x-small) {
+      .host {
+        display: table-cell;
+      }
+    }
+
+    @include breakpoint($mq-small) {
+      .players {
+        display: table-cell;
+      }
+    }
+
+    .header {
+      cursor: pointer;
+    }
+
+    .header a {
+      padding: 1em;
+      display: block;
+    }
+
+    .name {
+      white-space: nowrap;
+      font-size: 1.7em;
+      display: block;
+    }
+
+    .create td {
+      padding: 2em;
+      text-align: center;
+    }
+  }
+}

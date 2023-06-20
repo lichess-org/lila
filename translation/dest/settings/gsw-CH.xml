@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Ischtellige</string>
+  <string name="closeAccount">Benutzerkonto schlüsse</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Dis Konto wird verwaltet, es chann nöd geschlosse werde.</string>
+  <string name="closingIsDefinitive">Die Schlüssig isch ändgültig. Es git keis Z\'rugg! Bisch du sicher?</string>
+  <string name="cantOpenSimilarAccount">Es isch nöd erlaubt es neus Konto mit em gliche Name z\'eröffne, au wänn d\'Gross- und d\'Chlischribig andersch isch.</string>
+  <string name="changedMindDoNotCloseAccount">Ich ha mini Meinig gändert, schlüssed mis Benutzerkonto nöd</string>
+  <string name="closeAccountExplanation">Bisch du sicher, dass du dis Benutzerkonto schlüsse wottsch? Dini Entscheidig zum Schlüsse isch ändgültigi. Du chasch nachher NIE MEH ilogge.</string>
+  <string name="thisAccountIsClosed">Das Benutzerkonto isch g\'schlosse.</string>
+</resources>

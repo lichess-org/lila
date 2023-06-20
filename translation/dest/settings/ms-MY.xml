@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Tetapan</string>
+  <string name="closeAccount">Tutup Akaun</string>
+  <string name="closingIsDefinitive">Menutup akaun adalah muktamad. Tiada jalan kembali. Adakah anda pasti?</string>
+  <string name="cantOpenSimilarAccount">Anda tidak akan dibenarkan membuka akaun baru dengan nama yang sama, walaupun besar-kecil hurufnya berbeza.</string>
+  <string name="changedMindDoNotCloseAccount">Saya berubah fikiran, jangan tutup akaun saya</string>
+  <string name="closeAccountExplanation">Adakah anda pasti ingin menutup akaun anda? Menutup akaun anda adalah keputusan tetap. Anda TIDAK akan dapat log masuk LAGI.</string>
+  <string name="thisAccountIsClosed">Akaun ini telah ditutup.</string>
+</resources>

@@ -1,0 +1,55 @@
+.mini-game {
+  @extend %nowrap-hidden;
+
+  display: block;
+
+  &,
+  &:hover {
+    color: $c-font;
+  }
+
+  &__player {
+    @extend %flex-between-nowrap;
+    @extend %page-text-shadow !optional;
+
+    padding: 3px 2px 0 2px;
+
+    &:first-child {
+      padding: 0 2px 2px 2px;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: baseline;
+    overflow: hidden;
+  }
+
+  .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .rating {
+    @extend %roboto;
+
+    font-size: 0.9em;
+    margin-#{$start-direction}: 1ch;
+  }
+
+  &__clock {
+    @extend %roboto;
+
+    padding-#{$start-direction}: 2ch;
+
+    &.clock--run {
+      color: $c-accent;
+      font-weight: bold;
+    }
+  }
+
+  &__result {
+    font-weight: bold;
+    margin-#{$end-direction}: 1ch;
+  }
+}

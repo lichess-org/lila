@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Aloqa</string>
+  <string name="contactLichess">Lichess bilan aloqa</string>
+  <string name="whatCanWeHelpYouWith">Sizga qanday yordam bera olamiz?</string>
+  <string name="visitThisPage">Muammoni hal qilish uchun ushbu sahifaga tashrif buyuring</string>
+  <string name="iCantLogIn">Men kira olmayabman</string>
+  <string name="noConfirmationEmail">Elektron manzilimga tasdiq xati kelmadi</string>
+  <string name="forgotPassword">Men parolimni unutib qo\'ydim</string>
+  <string name="forgotUsername">Men username eslay olmayabman</string>
+  <string name="youCanLoginWithEmail">Siz tasdiqlangan elektron manzili bilan tizimga kirishingiz mumkin</string>
+  <string name="lost2FA">Ikki bosqichli tasdiqlash kodlariga kirish huquqimni yo\'qotdim</string>
+  <string name="doPasswordReset">Ikkinchi qadamni olib tashlash uchun parolni tiklashni tugating</string>
+  <string name="accountSupport">Profilimga yordami kerak</string>
+  <string name="wantTitle">Lichess mening nomim ko\'rsatilishini xohlayman</string>
+  <string name="visitTitleConfirmation">Lichessda profilida o\'z nomingizni ko\'rsatish va Titul Arenenada qatnashish uchun darajangizni tasdiqlash sahifasiga tashrif buyuring</string>
+  <string name="wantCloseAccount">Profilimni yopmoqchiman</string>
+  <string name="closeYourAccount">Siz ushbu sahifada profilingizni yopishingiz mumkin</string>
+  <string name="otherRestriction">Boshqa cheklovlar</string>
+  <string name="collaboration">Birga ishlash, qonuniy, tijoriy</string>
+  <string name="monetizing">Pullash litsenziyasi</string>
+  <string name="buyingLichess">Litsenziyani sotib olish</string>
+  <string name="authorizationToUse">Lichess dan foydalanish uchun mualliflik tekshiruvidan oʻtish</string>
+  <string name="welcomeToUse">Lichess-dan oʻz faoliyatingiz uchun, hattoki tijorat maqsadida ham foydalanishingiz mumkin.</string>
+  <string name="videosAndBooks">Siz uni videolarda koʻrsatishingiz va Lichessdan qisqa rasmlar olib kitoblaringizda joylashingiz mumkin.</string>
+  <string name="creditAppreciated">Kredit qadrlanadi ammo, talab qilinmaydi.</string>
+  <string name="noneOfTheAbove">Yuqoridagilardan hech qaysisi</string>
+  <string name="sendEmailAt">%s email orqali bizga yuboring.</string>
+  <string name="explainYourRequest">Iltimos soʻrovingizni aniq va ravon yuboring. Lichessdagi foydalanuvchi nomingizni va shunga taalluqli barcha maʻlumotlarni biz sizga yordam berishimiz uchun joʻnating.</string>
+</resources>

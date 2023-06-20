@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">এখনই</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s সেকেন্ডের মধ্যে</item>
+    <item quantity="other">%s সেকেন্ডের মধ্যে</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s মিনিটের মধ্যে</item>
+    <item quantity="other">%s মিনিটের মধ্যে</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s ঘন্টার মধ্যে</item>
+    <item quantity="other">%s ঘন্টার মধ্যে</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s দিনের মধ্যে</item>
+    <item quantity="other">%s দিনের মধ্যে</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s সপ্তাহের মধ্যে</item>
+    <item quantity="other">%s সপ্তাহের মধ্যে</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s মাসের মধ্যে</item>
+    <item quantity="other">%s মাসের মধ্যে</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s বছরের মধ্যে</item>
+    <item quantity="other">%s বছরের মধ্যে</item>
+  </plurals>
+  <string name="rightNow">এই মুহূর্তে</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s সেকেন্ড আগে</item>
+    <item quantity="other">%s সেকেন্ড আগে</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s মিনিট আগে</item>
+    <item quantity="other">%s মিনিট আগে</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s ঘণ্টা আগে</item>
+    <item quantity="other">%s ঘন্টা আগে</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s দিন আগে</item>
+    <item quantity="other">%s দিন আগে</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s সপ্তাহ আগে</item>
+    <item quantity="other">%s সপ্তাহ আগে</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s মাস আগে</item>
+    <item quantity="other">%s মাস আগে</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s বছর আগে</item>
+    <item quantity="other">%s বছর আগে</item>
+  </plurals>
+</resources>

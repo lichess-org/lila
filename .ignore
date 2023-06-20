@@ -1,0 +1,8 @@
+# search ignores
+vendor
+translation/dest
+ui/*/css/build
+public/font
+public/sound
+public/piece
+public/piece-css

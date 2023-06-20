@@ -1,0 +1,45 @@
+{
+  "name": "lila",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org: the forever free, adless and open source chess server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lichess-org/lila.git"
+  },
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis and the gang",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/lichess-org/lila/issues"
+  },
+  "homepage": "https://lichess.org",
+  "engines": {
+    "node": ">=14",
+    "pnpm": "^8.6"
+  },
+  "dependencies": {
+    "@types/node": "^18.11.17",
+    "@types/web": "^0.0.84",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "ab": "https://github.com/lichess-org/ab-stub",
+    "chessground": "^8.3.9",
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "2.8.1",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "format": "prettier --write . --loglevel warn",
+    "check-format": "prettier --check . --loglevel warn",
+    "lint": "eslint . --ext .ts",
+    "journal": "journalctl --user -fu lila -o cat",
+    "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
+    "serverlog": "pnpm journal & pnpm metals",
+    "multilog": "pnpm serverlog & ui/build -w"
+  }
+}

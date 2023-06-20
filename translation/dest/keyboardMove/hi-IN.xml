@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="keyboardInputCommands">कीबोर्ड इनपुट कमांड</string>
+  <string name="performAMove">एक चाल करें</string>
+  <string name="movePieceFromE2ToE4">टुकड़े को e2 से e4. में ले जाएँ</string>
+  <string name="moveKnightToC3">घोडा को c3 पर ले जाएं</string>
+  <string name="kingsideCastle">किंगसाइड कैसल</string>
+  <string name="queensideCastle">क्वीनसाइड कैसल</string>
+  <string name="promoteC8ToQueen">C8 को रानी में बढ़ावा दें</string>
+  <string name="dropARookAtB4">B4 पर एक किश्ती छोड़ें (केवल क्रेज़ीहाउस संस्करण)</string>
+  <string name="offerOrAcceptDraw">ड्रा की पेशकश करें या स्वीकार करें</string>
+  <string name="readOutClocks">घड़ी पढ़ें</string>
+  <string name="readOutOpponentName">प्रतिद्वंद्वी का नाम पढ़ें</string>
+  <string name="otherCommands">अन्य आदेश</string>
+  <string name="tips">सलाह</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">यदि उपरोक्त चाल संकेतन अपरिचित है, तो यहाँ और जानें:</string>
+</resources>

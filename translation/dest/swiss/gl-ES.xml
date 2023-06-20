@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="swissTournaments">Torneos suízos</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Ver a ronda</item>
+    <item quantity="other">Ver as %s rondas</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s rondas</item>
+    <item quantity="other">%s rondas</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s rondas Suizas</item>
+    <item quantity="other">%s / rondas Suizas</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Unha ronda por día</item>
+    <item quantity="other">Unha ronda cada %s días</item>
+  </plurals>
+  <string name="roundsAreStartedManually">As rondas comezan manualmente</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s segundo entre rondas</item>
+    <item quantity="other">%s segundos entre rondas</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto entre rondas</item>
+    <item quantity="other">%s minutos entre rondas</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Comeza en</string>
+  <string name="nextRound">Nova ronda</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partida en curso</item>
+    <item quantity="other">Partidas en curso</item>
+  </plurals>
+  <string name="tournStartDate">Data de comezo do torneo</string>
+  <string name="numberOfRounds">Número de rondas</string>
+  <string name="numberOfRoundsHelp">Un número impar de rondas permite un equilibrio de cores óptimo.</string>
+  <string name="roundInterval">Intervalo entre rondas</string>
+  <string name="forbiddenPairings">Emparellamentos prohibidos</string>
+  <string name="forbiddenPairingsHelp">Xogadores/as que non poden xogar xuntos (irmás, por exemplo). Dous nomes de usuario por liña, separados por un espazo.</string>
+  <string name="newSwiss">Novo torneo suízo</string>
+  <string name="swissVsArenaQ">Cando debería usar torneos suízos en lugar de areas?</string>
+  <string name="swissVsArenaA">Nun torneo suízo, todos os participantes xogan o mesmo número de partidas e só xogan unha vez con cada opoñente.
+Pode ser unha boa opción para clubes e torneos oficiais.</string>
+  <string name="pointsCalculationQ">Como se calculan os puntos?</string>
+  <string name="pointsCalculationA">Unha vitoria vale un punto, un empate é medio punto e unha perda son cero puntos.
+Cando un xogador/a non pode emparellarse durante unha ronda, recibe un \"bye\" ou exención de ronda, que vale un punto.</string>
+  <string name="tiebreaksCalculationQ">Como se calculan os desempates?</string>
+  <string name="sonnebornBergerScore">Puntuación Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Coa %s.
+Engade a puntuación de cada opoñente que o xogador venceu e a metade da puntuación de cada opoñente co que empatou.</string>
+  <string name="pairingsQ">Como se deciden os emparellamentos?</string>
+  <string name="dutchSystem">Sistema holandés</string>
+  <string name="FIDEHandbook">Manual da FIDE</string>
+  <string name="pairingsA">Co %1$s, posto en práctica por %2$s, de acordo co %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Que pasa se o torneo ten máis rondas que xogadores/as?</string>
+  <string name="moreRoundsThanPlayersA">Cando se xogaron todos os posibles emparellamentos, o torneo remata e declárase un gañador/a.</string>
+  <string name="restrictedToTeamsQ">Por que isto está restrinxido aos equipos?</string>
+  <string name="restrictedToTeamsA">Os torneos suízos non foron deseñados para o xadrez en liña, pois esixen puntualidade, dedicación e paciencia dos xogadores.
+Cremos que é máis probable que se cumpran estas condicións nun equipo que en torneos globais.</string>
+  <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
+  <string name="numberOfByesA">Un xogador/a ten un \"bye\" de un punto cada vez que o sistema de emparellamento non pode atoparlle opoñente. Adicionalmente, un \"bye\" de medio punto daráselle a un xogador cando entre tardiamente nun torneo.</string>
+  <string name="earlyDrawsQ">Que pasa coas táboas rápidas?</string>
+  <string name="earlyDrawsA">Un xogador recibe un \"bye\" de 1 punto cada vez que o sistema de emparellamento non é quen de asignarlle un opoñente.
+Ademais, outórgaselle un único \"bye\" de medio punto ó xogador que se une tarde ó torneo.</string>
+  <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador/a non xoga unha partida?</string>
+  <string name="whatIfOneDoesntPlayA">O seu reloxo parará, será marcado e perderá a partida.
+Entón o sistema botará ao xogador do torneo, para que non perda máis partidas.
+Poderá volver unirse ao torneo en calquera momento.</string>
+  <string name="protectionAgainstNoShowQ">Que se fai cos xogadores ausentes?</string>
+  <string name="protectionAgainstNoShowA">Os xogadores que se inscriben en Torneos Suízos pero que non xogan as súas partidas poden causar problemas.
+Pra mitigar este inconveniente, Lichess impide unirse a un Torneo Suízo durante un período de tempo ós xogadores que non se presentan ás súas partidas.
+De calquera maneira, o creador dun Torneo Suízo pode decidir deixalos participar.</string>
+  <string name="lateJoinQ">Poden os xogadores unirse a un torneo que xa comezou?</string>
+  <string name="lateJoinA">Si, pero só ata que se xoga a metade das rondas; por exemplo, nun torneo suízo de 11 rondas, os xogadores/as poden entrar antes de que a 6ª ronda comece e nun de 12 rondas antes de que comece a 7ª ronda.
+Os xogadores/as que entren tarde teñen un só \"bye\", mesmo se non se presentan a varias rondas.</string>
+  <string name="willSwissReplaceArenasQ">Poden os torneos suízos substituíren ós torneos area?</string>
+  <string name="willSwissReplaceArenasA">Non, teñen características complementarias.</string>
+  <string name="roundRobinQ">Que pasa cos Todos contra Todos (\"Round Robin\")?</string>
+  <string name="roundRobinA">Gustaríanos agregalos, pero este tipo de emparellamentos non soen funcionar en liña.
+O motivo é que non existe unha forma xusta de penalizar ós xogadores que abandonan o torneo antes do remate. Non podemos agardar que todos os participantes xoguen todas as súas partidas nun evento en liña. Simplemente non vai ocorrer e, como resultado, a maioría dos torneos de Todos contra todos serán imperfectos e inxustos, o que invalida a súa razón de ser.
+O formato máis próximo a un torneo en liña de Todos contra todos é un torneo suizo cun número de rondas moi elevado. Desta maneira, xogaranse todos os posibles emparellamentos antes de que finalice o torneo.</string>
+  <string name="otherSystemsQ">Que pasa con outros sistemas de torneos?</string>
+  <string name="otherSystemsA">Polo de agora non temos a intención de engadir máis tipos de torneos en Lichess.</string>
+  <string name="swissDescription">Nun torneo suízo %1$s, cada xogador non se enfronta necesariamente con todos os demais participantes. Os participantes xogan un contra un en cada ronda e son emparellados usando unha serie de normas creadas para garantir que cada un xoga con opoñentes cun marcador similar, pero non máis dunha vez con cada un deles. O gañador é o xogador co maior número de puntos totais tras todas as rondas. Todos os participantes xogan en cada ronda salvo que haxa un número impar de xogadores.</string>
+  <string name="teamOnly">Só os líderes dos equipos poden crear Torneos Suízos e só poden participar neles os membros deses equipos. %1$s para comezar a xogar en Torneos Suízos.</string>
+  <string name="joinOrCreateTeam">Únete ou crea un equipo</string>
+  <string name="nowPlaying">A reproducir</string>
+  <string name="startingSoon">Comeza pronto</string>
+  <string name="comparison">Comparación</string>
+  <string name="tournDuration">Duración do torneo</string>
+  <string name="predefinedDuration">Duración predefinida en minutos</string>
+  <string name="durationUnknown">Rondas máximas predefinidas, pero con duración descoñecida</string>
+  <string name="numberOfGames">Número de partidas</string>
+  <string name="numberOfGamesAsManyAsPossible">Todas as partidas que se poden xogar na duración proposta</string>
+  <string name="numberOfGamesPreDefined">Decidido de antemán, igual para todos os xogadores</string>
+  <string name="pairingSystem">Sistema de emparellamento</string>
+  <string name="pairingSystemArena">Calquera opoñente dispoñible cunha puntuación similar</string>
+  <string name="pairingSystemSwiss">Mellor emparellamento baseado en puntos e desempates</string>
+  <string name="pairingWaitTime">Tempo de emparellamento</string>
+  <string name="pairingWaitTimeArena">Rápido: non agarda por todos os xogadores</string>
+  <string name="pairingWaitTimeSwiss">Lento: agarda por todos os xogadores</string>
+  <string name="identicalPairing">Emparellamento co mesma xogador</string>
+  <string name="possibleButNotConsecutive">Posible, pero non consecutivo</string>
+  <string name="identicalForbidden">Prohibido</string>
+  <string name="lateJoin">Entrada tardía</string>
+  <string name="lateJoinUntil">Si, só antes de pasar a metade das rondas</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Si pero redúcese o número de rondas</string>
+  <string name="streaksAndBerserk">Secuencias de vitorias e Berserk</string>
+  <string name="similarToOTB">Similar aos torneos OTB (Over The Board, no taboleiro)</string>
+  <string name="unlimitedAndFree">Ilimitado e libre</string>
+  <string name="predefinedUsers">Só permitir xogar a usuarios predefinidos</string>
+  <string name="forbiddedUsers">Se esta lista non está baleira, os usuarios que non estean nela non poderán unirse. Un usuario por liña.</string>
+  <string name="playYourGames">Xoga as túas partidas</string>
+</resources>

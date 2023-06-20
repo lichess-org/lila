@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena Turnier</string>
+  <string name="isItRated">Isch es gwertet?</string>
+  <string name="willBeNotified">Du wirsch benachrichtiget, wänn\'s Turnier afangt. 
+Es isch also möglich, während de Wartezit ime andere Tab z\'schpille.</string>
+  <string name="isRated">Das Turnier isch gwertet und wird dini Wertig beiflusse.</string>
+  <string name="isNotRated">Das Turnier isch *nöd* gwertet und wird dini Wertig *nöd* beiflusse.</string>
+  <string name="someRated">Einigi Turnier sind gwertet und werded dini Wertig beiflusse.</string>
+  <string name="howAreScoresCalculated">Wie werded d\'Pünkt berächnet?</string>
+  <string name="howAreScoresCalculatedAnswer">En Sieg git 2 Pünkt, es Remis 1 Punkt, e Niderlag 0. Nach 2 Sieg in Serie, gits für jede witeri Sieg doppleti Pünkt. 
+Das wird dur e Flamme, bi de Punktzahl, azeigt. Doppleti Pünkt gits so lang, bis es Schpiel verlore gaht oder Remis ändet. 
+Bischpil: 4 Sieg und dänn es Remis ergit 14 Pünkt ( 2 + 2 + 2x2 + 2x2 + 2x1 = 14 ) und ab dänn, wider normal.</string>
+  <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Klickt en Schpiller vor Schpielbeginn uf \"Berserk\", dänn halbiert er sini Bedänkzit. 
+Wänn er das Schpiel trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
+
+Im Zitmodus mit Inkrement entfernt \"Berserk\" das Inkrement. 
+(1+2 isch e Usnahm, es wird zu 1+0.)
+
+Bi Schpiel ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd möglich.
+
+De zuesätzlich \"Berserk Punkt\" gits nur, wänn im Schpiel 
+meh als 6 Züg gschpillt worde sind.</string>
+  <string name="howIsTheWinnerDecided">Wie wird de Sieger ermittlet?</string>
+  <string name="howIsTheWinnerDecidedAnswer">De/die Schpiller wo bi Turnierändi die meischte Pünkt händ werded als Sieger bekanntgeh. 
+Wänn 2 oder meh Schpiller glich vill Pünkt händ, entscheidet d\'Turnierleischtig d\'Reihefolg.</string>
+  <string name="howDoesPairingWork">Wie werded d\'Paarige gmacht?</string>
+  <string name="howDoesPairingWorkAnswer">Am Afang werded Paarige gemäss Wertigszahl gmacht. 
+Sobald es Schpiel beändet isch, gahts zrugg id Turnierübersicht. Dänn werded Schpiller 
+mit ähnlichem Rang paaret. Es cha si, dass mer nöd gäge all Schpiller im Turnier spillt. 
+Wer schnäll schpillt und sofort zrugg id Turnierübersicht gaht, hät meh Schpiel und cha meh Pünkt mache.</string>
+  <string name="howDoesItEnd">Wie ändet es Turnier?</string>
+  <string name="howDoesItEndAnswer">Es Turnier hät e \"Countdown Uhr\" - isch d\'Turnierzit abgloffe, werded alli Räng fix und de Sieger wird bekannt geh. Schpiel wo no am laufe sind, müend fertig gschpillt werde, sie zelled aber nümme fürs Turnier.</string>
+  <string name="otherRules">Anderi wichtigi Regle</string>
+  <string name="thereIsACountdown">Es lauft en \"Countdown\" für de 1. Zug... 
+Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Es Remis innerhalb vu de erschte %s Züg git für beidi Schpiller 0 Pünkt.</item>
+    <item quantity="other">Es Remis innerhalb vu %s Züg git für beidi Schpiller 0 Pünkt.</item>
+  </plurals>
+  <string name="thisIsPrivate">Das isch es privats Turnier</string>
+  <string name="shareUrl">Teil die URL um anderi Lüt izlade: %s</string>
+  <string name="drawStreakStandard">Remis Serie: Macht en Schpiller, in ere Arena, in Serie mehreri Remis, gits nur fürs erschte Remis oder für Remispartie mit meh als %s Züg en Punkt. So e Serie chann nur dur en Sieg underbroche werde, nöd dur e Niederlag oder dur es witers Remis.</string>
+  <string name="drawStreakVariants">Die chürzischti Schpieldur, für Remispartie, wo Pünkt gänd, isch je nach Variante underschiedlich. Folgendi Tabälle zeigt de jewiligi Schwellewert für jedi Variante.</string>
+  <string name="variant">Variante</string>
+  <string name="minimumGameLength">Minimali Schpieldur</string>
+  <string name="history">Arena Verlauf</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Zeig s\'Team</item>
+    <item quantity="other">Zeig all %s Teams</item>
+  </plurals>
+  <string name="newTeamBattle">Neue Team Kampf</string>
+  <string name="customStartDate">Benutzerdefinierts Schtartdatum</string>
+  <string name="customStartDateHelp">I dinere eigene, lokale Zitzone. Das überschribt d\'Ischtellig \"Zit bis s Turnierbeginn\"</string>
+  <string name="allowBerserk">Berserk erlaube</string>
+  <string name="allowBerserkHelp">Erlaubt em Schpiller sini Bedänkziit z\'halbiere, um so en Zuesatzpunkt z\'günne</string>
+  <string name="allowChatHelp">Lass d\'Schpiller ime Chatruum diskutiere</string>
+  <string name="arenaStreaks">Arena Sieges Serie</string>
+  <string name="arenaStreaksHelp">Nach 2 Sieg in Serie gits 4 Pünkt anstatt 2.</string>
+  <string name="noBerserkAllowed">Berserk nöd möglich</string>
+  <string name="noArenaStreaks">Kei Arena-Serie</string>
+  <string name="averagePerformance">Durchschnittlichi Leischtig</string>
+  <string name="averageScore">Durchschnittlichi Punktzahl</string>
+  <string name="myTournaments">Mini Turnier</string>
+</resources>

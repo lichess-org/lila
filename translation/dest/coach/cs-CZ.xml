@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Lichess trenéři</string>
+  <string name="lichessCoach">Lichess trenér</string>
+  <string name="areYouCoach">Jste skvělý šachový trenér s %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM nebo FIDE titulem</string>
+  <string name="confirmTitle">Zde potvrďte svůj titul a my zkontrolujeme Vaši žádost.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Pošlete nám e-mail na %s a my Vaši žádost zkontrolujeme.</string>
+  <string name="location">Poloha</string>
+  <string name="languages">Jazyky</string>
+  <string name="rating">Rating</string>
+  <string name="hourlyRate">Hodinová sazba</string>
+  <string name="availability">Dostupnost</string>
+  <string name="accepting">Přijímá studenty</string>
+  <string name="notAccepting">Momentálně nepřijímá studenty</string>
+  <string name="xCoachesStudents">%s trénuje šachové studenty</string>
+  <string name="viewXProfile">Zobrazit Lichess profil %s</string>
+  <string name="sendPM">Odeslat soukromou zprávu</string>
+  <string name="aboutMe">O mně</string>
+  <string name="playingExperience">Hráčské zkušenosti</string>
+  <string name="teachingExperience">Zkušenost s výukou</string>
+  <string name="otherExperiences">Jiné zkušenosti</string>
+  <string name="bestSkills">Nejlepší dovednosti</string>
+  <string name="teachingMethod">Metodika výuky</string>
+  <string name="publicStudies">Veřejné studie</string>
+  <string name="youtubeVideos">YouTube videa</string>
+</resources>

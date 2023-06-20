@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">सुरू करण्यासाठी सोंगटी हलवा</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">तुम्ही सर्व कोड्यांमध्ये पांढऱ्या सोंगट्यांनी खेळणार आहात</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">तुम्ही सर्व कोड्यांमध्ये काळ्या सोंगट्यांनी खेळणार आहात</string>
+  <string name="puzzlesSolved">कोडी सोडवली</string>
+  <string name="newDailyHighscore">नवीन दैनिक उच्चांक!</string>
+  <string name="newWeeklyHighscore">नवीन साप्ताहिक उच्चांक!</string>
+  <string name="newMonthlyHighscore">नवीन मासिक उच्चांक!</string>
+  <string name="playAgain">परत खेळा</string>
+  <plurals name="xRuns">
+    <item quantity="one">१ प्रयत्न</item>
+    <item quantity="other">%s प्रयत्न</item>
+  </plurals>
+  <string name="score">गुण</string>
+  <string name="moves">चाली</string>
+  <string name="accuracy">अचूकता</string>
+  <string name="combo">चालींचा संयोग</string>
+  <string name="time">वेळ</string>
+  <string name="waitingForMorePlayers">आणखी खेळाडू दाखल होण्याच्या प्रतिक्षेत...</string>
+  <string name="skip">सोडा</string>
+  <string name="thisWeek">या आठवड्यात</string>
+  <string name="thisMonth">या महिन्यात</string>
+  <string name="allTime">सर्वकालीन</string>
+</resources>

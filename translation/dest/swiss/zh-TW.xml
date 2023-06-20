@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="swissTournaments">積分循環制錦標賽</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="other">查看%s的回合</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="other">%s 輪</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="other">每 %s 天一輪</item>
+  </plurals>
+  <string name="roundsAreStartedManually">回合由手動開啟</string>
+  <string name="startingIn" comment="Displayed above a timer">開始於</string>
+  <string name="nextRound">下一輪</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="other">進行中的棋局</item>
+  </plurals>
+  <string name="tournStartDate">比賽開始日期</string>
+  <string name="numberOfRounds">回合數</string>
+  <string name="forbiddenPairings">禁止配對</string>
+  <string name="pointsCalculationQ">分數是如何計算的?</string>
+  <string name="tiebreaksCalculationQ">平局如何决勝？</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger 分制</string>
+  <string name="pairingsQ">如何决定配對？</string>
+  <string name="FIDEHandbook">國際棋聯手冊</string>
+  <string name="lateJoinQ">玩家可以稍後加入嗎？</string>
+  <string name="joinOrCreateTeam">加入或創建團隊</string>
+  <string name="nowPlaying">正在對局</string>
+  <string name="startingSoon">即將開始</string>
+  <string name="comparison">對比</string>
+  <string name="tournDuration">比賽時長</string>
+</resources>
