@@ -46,10 +46,30 @@ function notationView(ctrl: NotationCtrl, current: Notation) {
       {
         hook: bind('click', () => ctrl.set(n)),
         class: { active: current === n },
-        attrs: { 'data-icon': 'E' },
+        attrs: {
+          title: notationExample(n),
+          'data-icon': 'E',
+        },
       },
       notationDisplay(ctrl, n)
     );
+}
+
+function notationExample(notation: Notation): string {
+  switch (notation) {
+    case Notation.Western:
+      return 'P-76';
+    case Notation.WesternEngine:
+      return 'P-7f';
+    case Notation.Japanese:
+      return '７六歩';
+    case Notation.Kawasaki:
+      return '歩-76';
+    case Notation.Kif:
+      return '７六歩(77)';
+    case Notation.Usi:
+      return '7g7f';
+  }
 }
 
 function notationDisplay(ctrl: NotationCtrl, notation: Notation): string {
