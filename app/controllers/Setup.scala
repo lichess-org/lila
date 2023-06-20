@@ -221,12 +221,12 @@ final class Setup(
           )
 
   def filterForm = Open:
-    html.setup.filter(forms.filter)
+    Ok.page(html.setup.filter(forms.filter))
 
   def validateFen = Open:
     (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]) flatMap ValidFen(getBool("strict")) match
       case None    => BadRequest
-      case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color))
+      case Some(v) => Ok.page(html.board.bits.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
     BotAiRateLimit(me, rateLimitedFu, cost = me.isBot so 1):

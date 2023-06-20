@@ -11,9 +11,8 @@ final class Storm(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Storm.home)(serveHome)
 
   private def serveHome(using ctx: WebContext) = NoBot:
-    dataAndHighScore(ctx.me, ctx.pref.some) map { (data, high) =>
-      Ok(views.html.storm.home(data, high)).noCache
-    }
+    dataAndHighScore(ctx.me, ctx.pref.some).flatMap: (data, high) =>
+      Ok.page(views.html.storm.home(data, high)).map(_.noCache)
 
   private def dataAndHighScore(me: Option[lila.user.User], pref: Option[lila.pref.Pref]) =
     env.storm.selector.apply flatMap { puzzles =>

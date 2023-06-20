@@ -144,11 +144,11 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     }))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
-    Reasonable(page, config.Max(20)) {
-      RelatedPager(api.blockingPaginatorAdapter(me), page) map { pag =>
-        html.relation.bits.blocks(me, pag)
-      }
-    }
+    Reasonable(page, config.Max(20)):
+      Ok.pageAsync:
+        RelatedPager(api.blockingPaginatorAdapter(me), page) map {
+          html.relation.bits.blocks(me, _)
+        }
   }
 
   private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using WebContext) =
