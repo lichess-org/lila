@@ -25,7 +25,7 @@ object Me extends TotalWrapper[Me, User]:
 opaque type MyId = String
 object MyId extends TotalWrapper[MyId, String]:
   given UserIdOf[MyId]                         = u => u
-  given Conversion[MyId, UserId]               = identity
+  given Conversion[MyId, UserId]               = UserId(_)
   given [M[_]]: Conversion[M[MyId], M[UserId]] = MyId.raw(_)
   given Conversion[Me, MyId]                   = _.id into MyId
   given (using me: Me): MyId                   = Me.meId(me)
