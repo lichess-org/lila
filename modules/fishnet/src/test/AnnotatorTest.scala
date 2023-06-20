@@ -10,7 +10,7 @@ import chess.format.pgn.{
   PgnNodeData,
   Move,
   Pgn,
-  Initial,
+  InitialComments,
   Parser,
   Tags,
   PgnTree,
@@ -132,7 +132,7 @@ extension (pgn: ParsedPgn)
     val game = makeChessGame(pgn.tags)
     Pgn(
       tags = pgn.tags,
-      initial = Initial(pgn.initialPosition.comments),
+      initial = InitialComments(pgn.initialPosition.comments),
       tree = pgn.tree.flatMap(_.toPgn(game))
     )
 
