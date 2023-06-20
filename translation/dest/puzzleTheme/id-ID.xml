@@ -25,6 +25,7 @@
   <string name="crushing">Hancurkan</string>
   <string name="crushingDescription">Temukan kesalahan lawan untuk mendapat keuntungan yang besar. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Skakmat gajah ganda</string>
+  <string name="doubleBishopMateDescription">Dua bidak gajah yang menyerang pada diagonal yang bersebelahan mengantarkan sekakmat pada raja yang terhalang bidaknya sendiri.</string>
   <string name="dovetailMate">Skatmat Dovetail</string>
   <string name="dovetailMateDescription">Menteri skakmat disebelah raja, yang dua petak melarikan dirinya terhambat oleh bidak kawan.</string>
   <string name="equality">Kesetaraan</string>
@@ -34,6 +35,7 @@
   <string name="clearance">Pembersihan</string>
   <string name="clearanceDescription">Sebuah gerakan, seringkali dengan tempo, file atau diagonal untuk ide taktis lanjutan.</string>
   <string name="defensiveMove">Gerakan bertahan</string>
+  <string name="defensiveMoveDescription">Sebuah gerakan presisi atau urutan gerakan yang dibutuhkan untuk menghindari kerugian material atau keunggulan lain.</string>
   <string name="deflection">Defleksi</string>
   <string name="deflectionDescription">Gerakan yang mengalihkan perhatian bidak lawan dari tugas lain yang dilakukan, seperti menjaga kotak kunci. Kadang juga disebut \"overloading\".</string>
   <string name="discoveredAttack">Menemukan serangan</string>
