@@ -19,7 +19,7 @@ final class Report(
 
   import env.report.api
 
-  private given Conversion[Me, AsMod] = me => AsMod(me.user)
+  private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
