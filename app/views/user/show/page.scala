@@ -2,6 +2,7 @@ package views.html.user.show
 
 import controllers.routes
 import play.api.data.Form
+import play.api.libs.json.Json
 
 import lila.app.mashup.UserInfo
 import lila.app.mashup.UserInfo.Angle
@@ -82,20 +83,14 @@ object page:
   private def moreJs(info: UserInfo, withSearch: Boolean = false)(using WebContext) =
     frag(
       infiniteScrollTag,
-      jsModule("user"),
-      info.ratingChart.map { ratingChart =>
-        frag(
-          jsModule("chart.ratingHistory"),
-          embedJsUnsafeLoadThen {
-            s"LichessChartRatingHistory($ratingChart,{perfIndex:${RatingChartApi.bestPerfIndex(info.user)}})"
-          }
-        )
-      },
+      jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
+      info.ratingChart.map: rc =>
+        jsModuleInit(
+          "chart.ratingHistory",
+          s"{data:$rc,perfIndex:${RatingChartApi.bestPerfIndex(info.user)}}"
+        ),
       withSearch option jsModule("gameSearch"),
-      isGranted(_.UserModView) option jsModule("mod.user"),
-      embedJsUnsafeLoadThen(
-        s"""UserProfile(${safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))})"""
-      )
+      isGranted(_.UserModView) option jsModule("mod.user")
     )
 
   def disabled(u: User)(using WebContext) =

@@ -16,14 +16,12 @@ object index:
   def apply(data: Option[play.api.libs.json.JsValue])(using WebContext) =
     views.html.base.layout(
       title = s"${learnChess.txt()} - ${byPlaying.txt()}",
-      moreJs = frag(
-        jsModule("learn"),
-        embedJsUnsafeLoadThen(s"""LichessLearn(document.getElementById('learn-app'), ${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "i18n" -> i18nJsObject(i18nKeys)
-            )
-          )})""")
+      moreJs = jsModuleInit(
+        "learn",
+        Json.obj(
+          "data" -> data,
+          "i18n" -> i18nJsObject(i18nKeys)
+        )
       ),
       moreCss = cssTag("learn"),
       openGraph = lila.app.ui

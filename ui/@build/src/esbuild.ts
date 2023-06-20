@@ -4,41 +4,47 @@ import * as es from 'esbuild';
 import { preModule, buildModules } from './build';
 import { env, errorMark, colors as c } from './main';
 
+const typeBundles = new Map<string, Map<string, string>>();
+
 export async function esbuild(): Promise<void> {
   if (!env.esbuild) return;
-  const entryPoints: { [key: string]: string } = {};
+
+  const define = {
+    __info__: JSON.stringify({
+      date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
+      commit: cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
+      message: cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
+    }),
+  };
+
   for (const mod of buildModules) {
     preModule(mod);
-    if (mod.bundle) {
-      for (const r of mod.bundle) {
-        entryPoints[r.output] = path.join(mod.root, r.input);
-      }
+    for (const tpe in mod.bundles) {
+      if (!typeBundles.has(tpe)) typeBundles.set(tpe, new Map());
+      for (const r of mod.bundles[tpe]) typeBundles.get(tpe)?.set(r.output, path.join(mod.root, r.input));
     }
   }
-  const opts: es.BuildOptions = {
-    sourcemap: !env.prod,
-    define: {
-      __info__: JSON.stringify({
-        date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-        commit: cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
-        message: cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
-      }),
-    },
-    format: 'iife',
-    target: 'es2018',
-    logLevel: 'silent',
-    bundle: true,
-    outdir: env.jsDir,
-    minify: env.prod,
-    entryPoints: entryPoints,
-    treeShaking: true,
-    outExtension: { '.js': env.prod ? '.min.js' : '.js' },
-    plugins: [onEndPlugin],
-  };
-  try {
-    env.watch ? await (await es.context(opts)).watch() : await es.build(opts);
-  } catch (e: any) {
-    env.log(e, { error: true });
+  for (const [tpe, bundles] of typeBundles) {
+    const ctx = await es.context({
+      sourcemap: !env.prod,
+      define,
+      format: tpe as es.Format,
+      target: 'es2018',
+      logLevel: 'silent',
+      splitting: env.split && tpe === 'esm',
+      bundle: true,
+      outdir: env.jsDir,
+      minify: env.prod,
+      entryPoints: Object.fromEntries(bundles),
+      treeShaking: true,
+      outExtension: { '.js': env.prod ? '.min.js' : '.js' },
+      plugins: [onEndPlugin],
+    });
+    if (env.watch) ctx.watch();
+    else {
+      await ctx.rebuild();
+      ctx.dispose();
+    }
   }
 }
 
@@ -46,13 +52,10 @@ const onEndPlugin = {
   name: 'lichessOnEnd',
   setup(build: es.PluginBuild) {
     build.onEnd((result: es.BuildResult) => {
-      for (const err of result.errors) {
-        esbuildMessage(err, true);
-      }
-      for (const warn of result.warnings) {
-        esbuildMessage(warn);
-      }
-      env.done(result.errors.length, 'esbuild');
+      for (const err of result.errors) esbuildMessage(err, true);
+      for (const warn of result.warnings) esbuildMessage(warn);
+      typeBundles.delete(typeBundles.keys().next().value);
+      if (result.errors.length || !typeBundles.size) env.done(result.errors.length, 'esbuild');
     });
   },
 };

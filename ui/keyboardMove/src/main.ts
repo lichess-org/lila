@@ -7,6 +7,7 @@ import { promote } from 'chess/promotion';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { propWithEffect, Prop } from 'common';
+import { load as loadKeyboardMove } from './plugins/keyboardMove';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -152,10 +153,8 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: 'false',
         autocomplete: 'off',
       },
-      hook: onInsert(input =>
-        lichess
-          .loadIife('keyboardMove', 'LichessKeyboardMove')
-          .then(keyboardMove => ctrl.registerHandler(keyboardMove({ input, ctrl })))
+      hook: onInsert((input: HTMLInputElement) =>
+        loadKeyboardMove({ input, ctrl }).then((m: KeyboardMoveHandler) => ctrl.registerHandler(m))
       ),
     }),
     ctrl.isFocused()

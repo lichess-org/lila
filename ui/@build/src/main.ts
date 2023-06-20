@@ -26,6 +26,8 @@ export function main() {
   }
   env.watch = ps.argv.includes('--watch') || ps.argv.includes('-w');
   env.prod = ps.argv.includes('--prod') || ps.argv.includes('-p');
+  env.split = ps.argv.includes('--split') || ps.argv.includes('-s');
+
   if (env.prod && env.watch) {
     env.error('You cannot watch prod builds! Think of the children');
     return;
@@ -36,6 +38,7 @@ export function main() {
 export interface BuildOpts {
   sass?: boolean; // compile scss, default = true
   esbuild?: boolean; // bundle with esbuild, default = true
+  splitting?: boolean; // enable code splitting for esm modules, default = false
   tsc?: boolean; // use tsc for type checking, default = true
   time?: boolean; // show time in log statements, default = true
   ctx?: boolean; // show context (tsc, rollup, etc), default = true
@@ -49,7 +52,9 @@ export interface LichessModule {
   pre: string[][]; // pre-bundle build steps from package.json scripts
   post: string[][]; // post-bundle build steps from package.json scripts
   hasTsconfig?: boolean; // fileExists('tsconfig.json')
-  bundle?: LichessBundle[]; // bundle targets from package json
+  bundles?: {
+    [moduleType: string]: LichessBundle[];
+  };
   copy?: Copy[]; // pre-bundle filesystem copies from package json
 }
 
@@ -107,6 +112,7 @@ class Env {
   opts: BuildOpts; // configure logging mostly
   watch = false;
   prod = false;
+  split = false;
   exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
   startTime: number | undefined = Date.now();
 

@@ -2,12 +2,7 @@ import { loadHighcharts, MovePoint, selectPly } from './common';
 import divisionLines from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
 
-const acpl: Window['LichessChartGame']['acpl'] = async (
-  el: HTMLElement,
-  data: AnalyseData,
-  mainline: Tree.Node[],
-  trans: Trans
-) => {
+export default async function (el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans) {
   await loadHighcharts('highchart');
 
   const area = window.Highcharts.theme.lichess.area;
@@ -165,7 +160,7 @@ const acpl: Window['LichessChartGame']['acpl'] = async (
   lichess.pubsub.emit('ply.trigger');
 
   return chart;
-};
+}
 
 // the color prefixes below are mirrored in analyse/src/roundTraining.ts
 const glyphProperties = (node: Tree.Node) => {
@@ -178,8 +173,3 @@ const glyphProperties = (node: Tree.Node) => {
 
 const toBlurArray = (player: Player) =>
   player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
-
-export default acpl;
-
-if (!window.LichessChartGame) (window as any).LichessChartGame = [];
-(window as any).LichessChartGame.acpl = acpl; // esbuild

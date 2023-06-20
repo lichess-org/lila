@@ -2,8 +2,9 @@ import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import { storedJsonProp } from 'common/storage';
 
-import type * as PasswordComplexity from './passwordComplexity';
-
+export function initModule(mode: 'login' | 'signup') {
+  mode === 'login' ? loginStart() : signupStart();
+}
 class LoginHistory {
   historyStorage = storedJsonProp<number[]>('login.history', () => []);
   private now = () => Math.round(Date.now() / 1000);
@@ -18,7 +19,7 @@ class LoginHistory {
   };
 }
 
-export function loginStart() {
+function loginStart() {
   const selector = '.auth-login form';
   const history = new LoginHistory();
 
@@ -80,7 +81,7 @@ export function loginStart() {
   })();
 }
 
-export function signupStart() {
+function signupStart() {
   const $form = $('#signup-form'),
     $exists = $form.find('.username-exists'),
     $username = $form.find('input[name="username"]').on('change keyup paste', () => {
@@ -107,11 +108,5 @@ export function signupStart() {
     else return false;
   });
 
-  lichess
-    .loadModule('passwordComplexity')
-    .then(() =>
-      (window.passwordComplexity as typeof PasswordComplexity).addPasswordChangeListener('form3-password')
-    );
+  lichess.loadEsm('passwordComplexity', { init: 'form3-password' });
 }
-
-(window as any).loginSignup = { loginStart, signupStart };

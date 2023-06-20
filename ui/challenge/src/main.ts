@@ -6,18 +6,18 @@ import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export default function LichessChallenge(element: Element, opts: ChallengeOpts) {
+export function initModule(opts: ChallengeOpts) {
   let vnode: VNode, ctrl: Ctrl;
 
   function redraw() {
-    vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());
+    vnode = patch(vnode || opts.el, ctrl ? loaded(ctrl) : loading());
   }
 
   function update(d: ChallengeData) {
     if (ctrl) ctrl.update(d);
     else {
       ctrl = makeCtrl(opts, d, redraw);
-      element.innerHTML = '';
+      opts.el.innerHTML = '';
     }
     redraw();
   }
@@ -29,5 +29,3 @@ export default function LichessChallenge(element: Element, opts: ChallengeOpts) 
     update,
   };
 }
-
-(window as any).LichessChallenge = LichessChallenge; // esbuild

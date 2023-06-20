@@ -17,16 +17,16 @@ object show:
       title = us.practiceStudy.name,
       moreCss = cssTag("analyse.practice"),
       moreJs = frag(
-        analyseStudyTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess.practice=${safeJsonValue(
-            Json.obj(
-              "practice" -> data.practice,
-              "study"    -> data.study,
-              "data"     -> data.analysis,
-              "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys))
-            ) ++ views.html.board.bits.explorerAndCevalConfig
-          )}""")
+        analyseStudyInit(
+          "practice",
+          Json.obj(
+            "practice" -> data.practice,
+            "study"    -> data.study,
+            "data"     -> data.analysis,
+            "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys))
+          ) ++ views.html.board.bits.explorerAndCevalConfig
+        )
       ),
       csp = analysisCsp.some,
       chessground = false,

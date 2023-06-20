@@ -16,14 +16,7 @@ object show:
         cssTag("coordinateTrainer"),
         cssTag("voice")
       ),
-      moreJs = frag(
-        jsModule("coordinateTrainer"),
-        embedJsUnsafeLoadThen(
-          s"""LichessCoordinateTrainer(document.getElementById('trainer'), ${safeJsonValue(
-              bits.coordinateConfig(scoreOption)
-            )});"""
-        )
-      ),
+      moreJs = jsModuleInit("coordinateTrainer", bits.coordinateConfig(scoreOption)),
       csp = defaultCsp.withPeer.withWebAssembly.some,
       openGraph = lila.app.ui
         .OpenGraph(

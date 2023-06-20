@@ -7,7 +7,6 @@ import { noteView } from './note';
 import { moderationView } from './moderation';
 
 import type * as palantir from 'palantir';
-type PalantirModule = typeof palantir;
 
 export default function (ctrl: Ctrl): VNode {
   const mod = ctrl.moderation();
@@ -39,14 +38,15 @@ function renderPalantir(ctrl: Ctrl) {
         hook: bind('click', () => {
           if (!p.loaded) {
             p.loaded = true;
-            lichess.loadScript('javascripts/vendor/peerjs.min.js').then(() => {
-              lichess.loadModule('palantir').then(() => {
-                p.instance = (window.Palantir as PalantirModule).palantir({
-                  uid: ctrl.data.userId!,
-                  redraw: ctrl.redraw,
+            lichess.loadIife('javascripts/vendor/peerjs.min.js').then(() => {
+              lichess
+                .loadEsm<palantir.Palantir>('palantir', {
+                  init: { uid: ctrl.data.userId!, redraw: ctrl.redraw },
+                })
+                .then(m => {
+                  p.instance = m;
+                  ctrl.redraw();
                 });
-                ctrl.redraw();
-              });
             });
           }
         }),

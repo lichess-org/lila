@@ -2,12 +2,7 @@ import divisionLines from './division';
 import { loadHighcharts, MovePoint, selectPly } from './common';
 import { AnalyseData } from './interface';
 
-const movetime: Window['LichessChartGame']['movetime'] = async (
-  el: HTMLElement,
-  data: AnalyseData,
-  trans: Trans,
-  hunter: boolean
-) => {
+export default async function (el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean) {
   const moveCentis = data.game.moveCentis;
   if (!moveCentis) return; // imported games
   await loadHighcharts('highchart');
@@ -284,7 +279,7 @@ const movetime: Window['LichessChartGame']['movetime'] = async (
   lichess.pubsub.on('ply', chart.selectPly);
   lichess.pubsub.emit('ply.trigger');
   return chart;
-};
+}
 
 const toBlurArray = (player: any) => (player.blurs && player.blurs.bits ? player.blurs.bits.split('') : []);
 
@@ -300,8 +295,3 @@ const formatClock = (centis: number) => {
   else result += Math.floor(secs).toString().padStart(2, '0');
   return result;
 };
-
-export default movetime;
-
-if (!window.LichessChartGame) (window as any).LichessChartGame = [];
-(window as any).LichessChartGame.movetime = movetime;

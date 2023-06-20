@@ -30,9 +30,11 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "round",
-      "src/plugins/nvui.ts": "round.nvui"
+    "modules": {
+      "esm": {
+        "src/main.ts": "round",
+        "src/plugins/nvui.ts": "round.nvui"
+      }
     }
   }
 }

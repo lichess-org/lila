@@ -1,26 +1,19 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
-import LichessChat from 'chat';
 import menuHover from 'common/menuHover';
-import MoveOn from './moveOn';
 import RoundController from './ctrl';
 import { Chessground } from 'chessground';
 import { main as view } from './view/main';
-import { RoundOpts } from './interfaces';
-
-export interface RoundApi {
-  socketReceive(typ: string, data: any): boolean;
-  moveOn: MoveOn;
-}
-
-export interface RoundMain {
-  app: (opts: RoundOpts) => RoundApi;
-}
+import { RoundOpts, NvuiPlugin } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export function app(opts: RoundOpts): RoundApi {
-  const ctrl = new RoundController(opts, redraw);
+export function initModule(opts: RoundOpts) {
+  boot(opts, app);
+}
+
+function app(opts: RoundOpts, nvui?: NvuiPlugin) {
+  const ctrl = new RoundController(opts, redraw, nvui);
 
   const blueprint = view(ctrl);
   opts.element.innerHTML = '';
@@ -42,11 +35,6 @@ export function app(opts: RoundOpts): RoundApi {
   };
 }
 
-export { boot };
-
-window.LichessChat = LichessChat;
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-
-(window as any).LichessRound = { boot, app }; // esbuild

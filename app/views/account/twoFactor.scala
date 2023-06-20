@@ -19,8 +19,8 @@ object twoFactor:
       title = s"${me.username} - ${twoFactorAuth.txt()}",
       active = "twofactor",
       evenMoreJs = frag(
-        jsAt("javascripts/vendor/qrcode.min.js"),
-        jsTag("twofactor.form.js")
+        iifeModule("javascripts/vendor/qrcode.min.js"),
+        iifeModule("javascripts/twofactor.form.js")
       )
     ) {
       div(cls := "account twofactor box box-pad")(

@@ -16,8 +16,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "serviceWorker"
+    "modules": {
+      "iife": {
+        "src/main.ts": "serviceWorker"
+      }
     }
   }
 }

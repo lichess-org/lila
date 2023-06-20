@@ -1,9 +1,13 @@
 import Lpv from 'lichess-pgn-viewer';
 import { loadCssPath } from './component/assets';
-import { Opts } from 'lichess-pgn-viewer/interfaces';
+import { Opts as LpvOpts } from 'lichess-pgn-viewer/interfaces';
 import { text as xhrText } from 'common/xhr';
 
-export function autostart() {
+export default async function (opts?: { el: HTMLElement; url: string; lpvOpts: LpvOpts }) {
+  return opts ? loadPgnAndStart(opts.el, opts.url, opts.lpvOpts) : autostart();
+}
+
+function autostart() {
   $('.lpv--autostart').each(function (this: HTMLElement) {
     loadCssPath('lpv').then(() => {
       Lpv(this, {
@@ -14,9 +18,10 @@ export function autostart() {
       });
     });
   });
+  return Promise.resolve(undefined);
 }
 
-export const loadPgnAndStart = async (el: HTMLElement, url: string, opts: Opts) => {
+async function loadPgnAndStart(el: HTMLElement, url: string, opts: LpvOpts) {
   await loadCssPath('lpv');
   const pgn = await xhrText(url, {
     headers: {
@@ -24,6 +29,4 @@ export const loadPgnAndStart = async (el: HTMLElement, url: string, opts: Opts) 
     },
   });
   return Lpv(el, { ...opts, pgn });
-};
-
-(window as any).LilaLpv = { autostart, loadPgnAndStart };
+}

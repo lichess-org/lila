@@ -17,14 +17,7 @@ object storm:
   def home(data: JsObject, high: Option[StormHigh])(using WebContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
-      moreJs = frag(
-        jsModule("storm"),
-        embedJsUnsafeLoadThen(
-          s"""LichessStorm.start(${safeJsonValue(
-              data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))
-            )})"""
-        )
-      ),
+      moreJs = jsModuleInit("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))),
       title = "Puzzle Storm",
       zoomable = true,
       zenable = true,

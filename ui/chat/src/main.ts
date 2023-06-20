@@ -7,19 +7,14 @@ import { PresetCtrl } from './preset';
 
 export type { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
 
-export default function LichessChat(
-  element: Element,
-  opts: ChatOpts
-): {
-  preset: PresetCtrl;
-} {
+export function initModule(opts: ChatOpts): { preset: PresetCtrl } {
   const patch = init([classModule, attributesModule]);
 
   const ctrl = makeCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
-  element.innerHTML = '';
-  let vnode = patch(element, blueprint);
+  opts.el.innerHTML = '';
+  let vnode = patch(opts.el, blueprint);
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
@@ -27,5 +22,3 @@ export default function LichessChat(
 
   return ctrl;
 }
-
-(window as any).LichessChat = LichessChat; // esbuild

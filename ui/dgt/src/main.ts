@@ -1,7 +1,6 @@
 import configPage from './config';
 import playPage from './play';
 
-export default (window as any).LichessDgt = {
-  configPage,
-  playPage,
-};
+export function initModule(token?: string) {
+  token ? playPage(token) : configPage();
+}

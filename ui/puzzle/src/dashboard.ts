@@ -21,7 +21,7 @@ interface RadarData {
   };
 }
 
-export function renderRadar(data: RadarData) {
+export function initModule(data: RadarData) {
   const canvas = document.querySelector('.puzzle-dashboard__radar') as HTMLCanvasElement;
   const d = data.radar;
   d.datasets[0] = {
@@ -65,5 +65,3 @@ export function renderRadar(data: RadarData) {
     },
   });
 }
-
-(window as any).LichessPuzzleDashboard = { renderRadar };

@@ -1,13 +1,12 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { SimulOpts } from './interfaces';
 import SimulCtrl from './ctrl';
-import LichessChat from 'chat';
 
 const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 
-export function start(opts: SimulOpts) {
+export function initModule(opts: SimulOpts) {
   const element = document.querySelector('main.simul') as HTMLElement;
 
   lichess.socket = new lichess.StrongSocket(`/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
@@ -31,8 +30,3 @@ export function start(opts: SimulOpts) {
 
   redraw();
 }
-
-// that's for the rest of lichess to access the chat
-window.LichessChat = LichessChat;
-
-(window as any).LichessSimul = { start }; // esbuild

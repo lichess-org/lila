@@ -38,14 +38,14 @@ object watcher:
       title = s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator",
       moreJs = frag(
         roundNvuiTag,
-        roundTag,
-        embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "i18n" -> jsI18n(pov.game),
-              "chat" -> chatJson
-            )
-          )})""")
+        jsModuleInit(
+          "round",
+          Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n(pov.game),
+            "chat" -> chatJson
+          )
+        )
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false

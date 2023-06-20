@@ -10,7 +10,7 @@ import lila.common.Json.given
 
 final class Editor(env: Env) extends LilaController(env):
 
-  private lazy val positionsJson = lila.common.String.html.safeJsonValue {
+  private lazy val positionsJson =
     JsArray(chess.StartingPosition.all map { p =>
       Json.obj(
         "eco"  -> p.eco,
@@ -18,16 +18,14 @@ final class Editor(env: Env) extends LilaController(env):
         "fen"  -> p.fen
       )
     })
-  }
 
-  private lazy val endgamePositionsJson = lila.common.String.html.safeJsonValue {
+  private lazy val endgamePositionsJson =
     JsArray(chess.EndgamePosition.positions map { p =>
       Json.obj(
         "name" -> p.name,
         "fen"  -> p.fen
       )
     })
-  }
 
   def index = load("")
 

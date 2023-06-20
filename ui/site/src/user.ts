@@ -3,7 +3,7 @@ import once from './component/once';
 import { hopscotch } from './component/assets';
 import { makeLinkPopups } from 'common/linkPopup';
 
-export default (window as any).UserProfile = function (opts: { i18n: I18nDict }): void {
+export function initModule(opts: { i18n: I18nDict }): void {
   const trans = lichess.trans(opts.i18n);
 
   makeLinkPopups($('.social_links'), trans);
@@ -75,7 +75,7 @@ export default (window as any).UserProfile = function (opts: { i18n: I18nDict })
           $content.html(html);
           lichess.contentLoaded($content[0]);
           history.replaceState({}, '', path);
-          window.InfiniteScroll('.infinite-scroll');
+          //window.InfiniteScroll('.infinite-scroll');
         });
     $angles.on('click', 'a', function (this: HTMLAnchorElement) {
       if ($('#games .to-search').hasClass('active')) return true;
@@ -91,4 +91,4 @@ export default (window as any).UserProfile = function (opts: { i18n: I18nDict })
       return false;
     });
   });
-};
+}

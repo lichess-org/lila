@@ -1,6 +1,7 @@
 import { VNode } from 'snabbdom';
 
 export interface NotifyOpts {
+  el: Element;
   data?: NotifyData;
   incoming: boolean;
   isVisible(): boolean;

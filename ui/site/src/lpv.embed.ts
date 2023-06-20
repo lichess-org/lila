@@ -5,7 +5,8 @@ interface OptsWithI18n extends Opts {
   i18n: any;
 }
 
-export default (window as any).LpvEmbed = function start(elem: HTMLElement, opts: Partial<OptsWithI18n>) {
+(window as any).LpvEmbed = function (opts: Partial<OptsWithI18n>) {
+  const elem = document.body.firstChild!.firstChild as HTMLElement;
   const i18n = {
     ...(opts.i18n || {}),
     flipTheBoard: opts.i18n.flipBoard,

@@ -32,11 +32,13 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "puzzle",
-      "src/dashboard.ts": "puzzle.dashboard",
-      "src/opening.ts": "puzzle.opening",
-      "src/plugins/nvui.ts": "puzzle.nvui"
+    "modules": {
+      "esm": {
+        "src/main.ts": "puzzle",
+        "src/dashboard.ts": "puzzle.dashboard",
+        "src/opening.ts": "puzzle.opening",
+        "src/plugins/nvui.ts": "puzzle.nvui"
+      }
     }
   }
 }

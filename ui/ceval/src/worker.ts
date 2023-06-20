@@ -166,7 +166,7 @@ export class ThreadedWasmWorker implements CevalWorker {
     }
 
     // Load Emscripten module.
-    await lichess.loadScript(this.opts.baseUrl + 'stockfish.js', { version });
+    await lichess.loadIife(this.opts.baseUrl + 'stockfish.js', { version });
     const sf = await window[this.opts.module]!({
       wasmBinary,
       locateFile: (path: string) =>

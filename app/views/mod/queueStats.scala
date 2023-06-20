@@ -1,6 +1,7 @@
 package views.html.mod
 
 import controllers.routes
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -14,10 +15,7 @@ object queueStats:
     views.html.base.layout(
       title = "Queues stats",
       moreCss = cssTag("mod.activity"),
-      moreJs = frag(
-        jsModule("mod.activity"),
-        embedJsUnsafeLoadThen(s"""LichessModActivity.queues(${safeJsonValue(p.json)})""")
-      )
+      moreJs = jsModuleInit("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("queues"),

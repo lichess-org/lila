@@ -49,9 +49,11 @@ object embed:
       views.html.base.layout.inlineJs(config.nonce)(using config.lang),
       depsTag,
       jsModule("analysisBoard.embed"),
-      analyseStudyTag,
-      embedJsUnsafeLoadThen(
-        s"""analyseEmbed(${safeJsonValue(
+      jsModuleInit(
+        "analysisBoard.study",
+        Json.obj(
+          "mode" -> "embed",
+          "cfg" ->
             Json.obj(
               "study"  -> data.study,
               "data"   -> data.analysis,
@@ -59,10 +61,7 @@ object embed:
               "i18n"   -> jsI18n.embed(chapter),
               "userId" -> none[String]
             )
-          )});
-document.getElementById('chapter-selector').onchange = function() {
-  location.href = this.value + location.search;
-}""",
+        ),
         config.nonce
       )
     )

@@ -23,6 +23,7 @@ export interface VoiceMove extends VoiceModule {
   confirm: (request: string, callback: (v: boolean) => void) => void;
 }
 
+export interface VoiceMoveOpts {}
 export interface Match {
   cost: number;
   isSan?: boolean;

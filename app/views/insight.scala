@@ -24,24 +24,22 @@ object insight:
       title = trans.insight.xChessInsights.txt(u.username),
       moreJs = frag(
         highchartsLatestTag,
-        jsModule("insight"),
-        jsTag("insight-refresh.js"),
-        embedJsUnsafeLoadThen(
-          s"""lichess.insight=LichessInsight(document.getElementById('insight'), ${safeJsonValue(
-              Json.obj(
-                "ui"              -> ui,
-                "initialQuestion" -> question,
-                "i18n"            -> Json.obj(),
-                "myUserId"        -> ctx.userId,
-                "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
-                  "nbGames" -> insightUser.count,
-                  "stale"   -> stale,
-                  "shareId" -> prefId
-                )),
-                "pageUrl" -> routes.Insight.index(u.username).url,
-                "postUrl" -> routes.Insight.json(u.username).url
-              )
-            )})"""
+        iifeModule("javascripts/insight-refresh.js"),
+        jsModuleInit(
+          "insight",
+          Json.obj(
+            "ui"              -> ui,
+            "initialQuestion" -> question,
+            "i18n"            -> Json.obj(),
+            "myUserId"        -> ctx.userId,
+            "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
+              "nbGames" -> insightUser.count,
+              "stale"   -> stale,
+              "shareId" -> prefId
+            )),
+            "pageUrl" -> routes.Insight.index(u.username).url,
+            "postUrl" -> routes.Insight.json(u.username).url
+          )
         )
       ),
       moreCss = cssTag("insight")
@@ -52,7 +50,7 @@ object insight:
   def empty(u: User)(using WebContext) =
     views.html.base.layout(
       title = trans.insight.xChessInsights.txt(u.username),
-      moreJs = jsTag("insight-refresh.js"),
+      moreJs = iifeModule("javascripts/insight-refresh.js"),
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(

@@ -27,9 +27,11 @@
     "dev": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/vosk.ts": "voice.vosk",
-      "src/move/moveCtrl.ts": "voice.move"
+    "modules": {
+      "esm": {
+        "src/vosk.ts": "voice.vosk",
+        "src/move/moveCtrl.ts": "voice.move"
+      }
     },
     "copy": [
       {

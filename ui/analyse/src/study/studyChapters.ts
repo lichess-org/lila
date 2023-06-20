@@ -96,7 +96,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
       };
       if (window.Sortable) makeSortable();
-      else lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
+      else lichess.loadIife('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
   }
 

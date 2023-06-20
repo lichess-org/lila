@@ -1,6 +1,7 @@
 package views.html.user
 
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -25,14 +26,11 @@ object perfStat:
       robots = false,
       moreJs = frag(
         jsModule("user"),
-        ratingChart.map { rc =>
-          frag(
-            jsModule("chart.ratingHistory"),
-            embedJsUnsafeLoadThen {
-              s"LichessChartRatingHistory($rc,{singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'});"
-            }
+        ratingChart.map: rc =>
+          jsModuleInit(
+            "chart.ratingHistory",
+            s"{data:$rc,singlePerName:'${perfType.trans(using lila.i18n.defaultLang)}'}"
           )
-        }
       ),
       moreCss = cssTag("perf-stat")
     ) {

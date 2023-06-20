@@ -170,7 +170,6 @@ function labelOffset(uci: Uci, dests: Map<Key, SparseSet<number>>, asWhite: bool
     if (slots instanceof Set) {
       mag -= 125 / 8;
       const arc = moveAngle(uci, asWhite);
-      console.log(uci, arc, slots.has((arc + 1) % 16), slots.has((arc + 15) % 16), slots);
       if (slots.has((arc + 1) % 16) || slots.has((arc + 15) % 16)) if (arc & 1) mag -= LABEL_SIZE;
     }
   }

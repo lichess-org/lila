@@ -12,7 +12,7 @@ object picture:
   def apply(c: Coach.WithUser, error: Option[String] = None)(using WebContext) =
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach picture",
-      evenMoreJs = jsTag("coach.form.js"),
+      evenMoreJs = iifeModule("javascripts/coach.form.js"),
       evenMoreCss = cssTag("coach.editor"),
       active = "coach"
     ) {

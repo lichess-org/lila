@@ -1,28 +1,26 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as fg from 'fast-glob';
-import { LichessModule, env } from './main';
+import { LichessModule, env, colors as c } from './main';
 
 export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<string, string[]>]> => {
-  const moduleList: LichessModule[] = [];
-
-  for (const dir of (await globArray('[^@]*/package.json')).map(pkg => path.dirname(pkg))) {
-    moduleList.push(await parseModule(dir));
-  }
-  const modules = new Map(moduleList.map(mod => [mod.name, mod]));
+  const modules = new Map<string, LichessModule>();
   const moduleDeps = new Map<string, string[]>();
 
-  modules.forEach(mod => {
+  for (const dir of (await globArray('[^@]*/package.json')).map(pkg => path.dirname(pkg))) {
+    const mod = await parseModule(dir);
+    modules.set(mod.name, mod);
+  }
+
+  for (const mod of modules.values()) {
     const deplist: string[] = [];
     for (const dep in mod.pkg.dependencies) {
       if (modules.has(dep)) deplist.push(dep);
     }
     moduleDeps.set(mod.name, deplist);
-    // for package.jsons with multiple bundles, subsequent bundles depend on the first
-    mod.bundle?.slice(1).forEach(r => {
-      moduleDeps.set(r.output, [mod.name, ...deplist]);
-    });
-  });
+    // for package.jsons with multiple esm bundles, subsequent bundles depend on the first
+    mod.bundles?.esm?.slice(1).forEach(r => moduleDeps.set(r.output, [mod.name, ...deplist]));
+  }
   return [modules, moduleDeps];
 };
 
@@ -45,8 +43,21 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
   };
   parseScripts(mod, 'scripts' in pkg ? pkg.scripts : {});
 
-  if ('lichess' in pkg && 'bundles' in pkg.lichess) {
-    mod.bundle = Object.entries(pkg.lichess.bundles).map(x => ({ input: x[0], output: x[1] as string }));
+  if ('lichess' in pkg && 'modules' in pkg.lichess) {
+    for (const moduleType in pkg.lichess.modules) {
+      if (moduleType !== 'esm' && moduleType !== 'iife') {
+        env.log(
+          c.warn('WARNING') +
+            ` - Unsupported module type '${c.cyan(moduleType)}' in '${c.cyan(mod.name + '/package.json')}'`
+        );
+        continue;
+      }
+      mod.bundles ??= {};
+      mod.bundles[moduleType] = Object.entries(pkg.lichess.modules[moduleType]).map(x => ({
+        input: x[0],
+        output: x[1] as string,
+      }));
+    }
   }
   return mod;
 }

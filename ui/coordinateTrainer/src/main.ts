@@ -15,11 +15,9 @@ import CoordinateTrainerCtrl from './ctrl';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 
-export default function LichessCoordinateTrainer(
-  element: HTMLElement,
-  config: CoordinateTrainerConfig
-): void {
+export function initModule(config: CoordinateTrainerConfig) {
   const ctrl = new CoordinateTrainerCtrl(config, redraw);
+  const element = document.getElementById('trainer')!;
   element.innerHTML = '';
   const inner = document.createElement('div');
   element.appendChild(inner);
@@ -35,5 +33,3 @@ export default function LichessCoordinateTrainer(
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-
-(window as any).LichessCoordinateTrainer = LichessCoordinateTrainer; // esbuild

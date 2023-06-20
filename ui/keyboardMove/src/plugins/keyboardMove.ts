@@ -1,6 +1,6 @@
 import { Dests, files } from 'chessground/types';
 import { sanWriter, SanToUci, destsToUcis } from 'chess';
-import { KeyboardMove } from '../main';
+import { KeyboardMoveHandler, KeyboardMove } from '../main';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -11,10 +11,6 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 // accept partial ICCF because submit runs on every keypress
 const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 
-interface Opts {
-  input: HTMLInputElement;
-  ctrl: KeyboardMove;
-}
 interface SubmitOpts {
   isTrusted: boolean;
   force?: boolean;
@@ -22,7 +18,16 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-export default (window as any).LichessKeyboardMove = (opts: Opts) => {
+interface Opts {
+  input: HTMLInputElement;
+  ctrl: KeyboardMove;
+}
+
+export function load(opts: Opts): Promise<KeyboardMoveHandler> {
+  return lichess.loadEsm('keyboardMove', { init: opts });
+}
+
+export function initModule(opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
@@ -139,7 +144,7 @@ export default (window as any).LichessKeyboardMove = (opts: Opts) => {
       yourMove: yourMove,
     });
   };
-};
+}
 
 function iccfToUci(v: string) {
   const chars = v.split('');

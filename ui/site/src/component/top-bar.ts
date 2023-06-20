@@ -1,6 +1,5 @@
 import pubsub from './pubsub';
-import { loadCssPath, loadModule } from './assets';
-import { loadDasher } from 'common/dasher';
+import { loadCssPath, loadEsm } from './assets';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
@@ -44,22 +43,22 @@ export default function () {
       booted = true;
       const $el = $('#challenge-app').html(initiatingHtml);
       loadCssPath('challenge');
-      loadModule('challenge').then(
-        () =>
-          (instance = window.LichessChallenge($el[0], {
-            data,
-            show() {
-              if (!isVisible('#challenge-app')) $toggle.trigger('click');
-            },
-            setCount(nb: number) {
-              const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
-              $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
-            },
-            pulse() {
-              $toggle.addClass('pulse');
-            },
-          }))
-      );
+      loadEsm('challenge', {
+        init: {
+          el: $el[0],
+          data,
+          show() {
+            if (!isVisible('#challenge-app')) $toggle.trigger('click');
+          },
+          setCount(nb: number) {
+            const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
+            $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
+          },
+          pulse() {
+            $toggle.addClass('pulse');
+          },
+        },
+      });
     };
     pubsub.on('socket.in.challenges', data => {
       if (!instance) load(data);
@@ -81,8 +80,9 @@ export default function () {
       booted = true;
       const $el = $('#notify-app').html(initiatingHtml);
       loadCssPath('notify');
-      loadModule('notify').then(() => {
-        instance = window.LichessNotify($el.empty()[0], {
+      loadEsm('notify', {
+        init: {
+          el: $el.empty()[0],
           data,
           isVisible: () => isVisible(selector),
           updateUnread(nb: number | 'increment') {
@@ -102,8 +102,8 @@ export default function () {
           pulse() {
             $toggle.addClass('pulse');
           },
-        });
-      });
+        },
+      }).then(m => (instance = m));
     };
 
     $toggle
@@ -130,7 +130,7 @@ export default function () {
     $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
       $(this).removeAttr('href');
       loadCssPath('dasher');
-      loadDasher();
+      loadEsm('dasher');
     });
   }
 
@@ -143,10 +143,7 @@ export default function () {
     const boot = () => {
       if (booted) return;
       booted = true;
-      loadModule('cli').then(
-        () => window.LichessCli.app($input[0]),
-        () => (booted = false)
-      );
+      loadEsm('cli', { init: { input: $input[0] } }).catch(() => (booted = false));
     };
     $input.on({
       blur() {

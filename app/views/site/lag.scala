@@ -15,7 +15,7 @@ object lag:
       moreJs = frag(
         highchartsLatestTag,
         highchartsMoreTag,
-        jsTag("lag.js")
+        iifeModule("javascripts/lag.js")
       )
     ):
       div(cls := "box box-pad lag")(

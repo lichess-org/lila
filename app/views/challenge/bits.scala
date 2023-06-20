@@ -12,16 +12,14 @@ import controllers.routes
 object bits:
 
   def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using WebContext) =
-    frag(
-      jsModule("challengePage"),
-      embedJsUnsafeLoadThen(s"""challengePageStart(${safeJsonValue(
-          Json.obj(
-            "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
-            "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
-            "owner"     -> owner,
-            "data"      -> json
-          )
-        )})""")
+    jsModuleInit(
+      "challengePage",
+      Json.obj(
+        "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
+        "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
+        "owner"     -> owner,
+        "data"      -> json
+      )
     )
 
   def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: WebContext) =

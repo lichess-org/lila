@@ -16,7 +16,7 @@ object importGame:
     views.html.base.layout(
       title = trans.importGame.txt(),
       moreCss = cssTag("importer"),
-      moreJs = jsTag("importer.js"),
+      moreJs = iifeModule("javascripts/importer.js"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Paste PGN chess game",

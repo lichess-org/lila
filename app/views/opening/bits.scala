@@ -68,18 +68,16 @@ object bits:
       )
     )
 
-  def moreJs(page: Option[OpeningPage])(using WebContext) = frag(
-    jsModule("opening"),
-    embedJsUnsafeLoadThen:
-      page match
-        case Some(p) =>
-          import lila.common.Json.given
-          s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
-            )})"""
-        case None =>
-          s"""LichessOpening.search()"""
-  )
+  def moreJs(page: Option[OpeningPage])(using WebContext) =
+    page match
+      case Some(p) =>
+        import lila.common.Json.given
+        jsModuleInit(
+          "opening",
+          Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
+        )
+      case None =>
+        jsModule("opening")
 
   def splitName(op: Opening) =
     NameSection.sectionsOf(op.name) match

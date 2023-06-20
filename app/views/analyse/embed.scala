@@ -19,12 +19,8 @@ object embed:
       div(cls := "is2d")(div(pgn)),
       jsModule("lpv.embed"),
       embedJsUnsafe(
-        s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(document.body.firstChild.firstChild,${safeJsonValue(
-            Json
-              .obj(
-                "i18n" -> i18nJsObject(lpvI18n)
-              )
-              .add("orientation", orientation.map(_.name))
+        s"""document.addEventListener('DOMContentLoaded',function(){LpvEmbed(${safeJsonValue(
+            Json.obj("i18n" -> i18nJsObject(lpvI18n)).add("orientation", orientation.map(_.name))
           )})})""",
         config.nonce
       )
