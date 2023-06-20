@@ -22,16 +22,16 @@ object features {
           description = trans.everybodyGetsAllFeaturesForFree.txt()
         )
         .some,
-      withHrefLangs = none
+      withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "box box-pad features")(
         table(
           header(h1(dataIcon := "")("Website")),
           tbody(
-            tr(unlimited)(
+            tr(check)(
               a(href := routes.Tournament.home)(trans.tournaments())
             ),
-            tr(unlimited)(
+            tr(check)(
               a(href := routes.Simul.home)(trans.simultaneousExhibitions())
             ),
             tr(check)(
@@ -40,18 +40,18 @@ object features {
             tr(check)(
               a(href := routes.Page.variantHome)(trans.variants())
             ),
-            tr(unlimited)(
+            tr(check)(
               s"${trans.localAnalysis.txt()} - YaneuraOu/Fairy-Stockfish"
             ),
-            tr(unlimited)(
-              s"${trans.cloudAnalysis()} - YaneuraOu/Fairy-Stockfish"
+            tr(check)(
+              s"${trans.cloudAnalysis.txt()} - YaneuraOu/Fairy-Stockfish"
             ),
-            tr(unlimited)(
+            tr(check)(
               a(href := "https://lishogi.org/study")(
                 trans.studyMenu()
               )
             ),
-            tr(unlimited)(
+            tr(check)(
               a(href := "https://lishogi.org/blog/post/ZBxnNBAAACIA599h")(
                 trans.postGameStudies()
               )
@@ -59,7 +59,7 @@ object features {
             tr(check)(
               a(href := routes.Learn.index)(trans.shogiBasics())
             ),
-            tr(unlimited)(
+            tr(check)(
               a(href := routes.Puzzle.home)(trans.puzzles())
             ),
             tr(check)(
@@ -69,7 +69,7 @@ object features {
                 trans.importCsa()
               )
             ),
-            tr(unlimited)(
+            tr(check)(
               a(href := routes.Search.index(1))(trans.search.advancedSearch()),
               " - ",
               trans.search.searchInXGames.pluralSameTxt(2_000_000)
@@ -89,19 +89,19 @@ object features {
           ),
           // header(h1(dataIcon := "")("Mobile")),
           // tbody(
-          //  tr(unlimited)(
+          //  tr(check)(
           //    "Online and offline games, with 8 variants"
           //  ),
-          //  tr(unlimited)(
+          //  tr(check)(
           //    "Bullet, Blitz, Rapid, Classical and Correspondence chess"
           //  ),
-          //  tr(unlimited)(
+          //  tr(check)(
           //    a(href := routes.Tournament.home)("Arena tournaments")
           //  ),
           //  tr(check)(
           //    s"Board editor and analysis board with $engineName"
           //  ),
-          //  tr(unlimited)(
+          //  tr(check)(
           //    a(href := routes.Puzzle.home)("Tactics puzzles")
           //  ),
           //  tr(check)(
@@ -153,9 +153,6 @@ object features {
         )
       )
     )
-
-  private def unlimited(implicit lang: Lang) =
-    span(dataIcon := "E", cls := "is is-green text unlimited")(trans.unlimited())
 
   private def check(implicit lang: Lang) =
     span(dataIcon := "E", cls := "is is-green text check")(trans.yes())
