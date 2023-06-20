@@ -2,13 +2,12 @@ package lila.game
 
 import cats.syntax.all.*
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
+import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
 import chess.format.{ pgn as chessPgn }
 import chess.{ Centis, Color, ByColor, Outcome, Ply, FullMoveNumber }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
-import chess.format.pgn.Initial
 import chess.Tree
 
 final class PgnDump(
@@ -51,7 +50,7 @@ final class PgnDump(
           game.startColor
         )
       }
-      Pgn(ts, Initial.empty, tree)
+      Pgn(ts, InitialComments.empty, tree)
     }
 
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
