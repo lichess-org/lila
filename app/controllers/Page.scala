@@ -95,10 +95,7 @@ final class Page(
     Open { implicit ctx =>
       import play.api.libs.json._
       negotiate(
-        html =
-          OptionOk(prismicC.getPage("doc", "variants", BlogLang.fromLang(ctx.lang))) { case (doc, resolver) =>
-            views.html.site.variant.home(doc, resolver)
-          },
+        html = Ok(views.html.site.variant.home).fuccess,
         api = _ =>
           Ok(JsArray(shogi.variant.Variant.all.map { v =>
             Json.obj(
@@ -113,11 +110,10 @@ final class Page(
   def variant(key: String) =
     Open { implicit ctx =>
       (for {
-        variant  <- shogi.variant.Variant.byKey get key
-        perfType <- lila.rating.PerfType byVariant variant
+        variant <- shogi.variant.Variant.byKey get key
       } yield OptionOk(prismicC.getVariant(variant, BlogLang.fromLangCode(ctx.lang.code))) {
         case (doc, resolver) =>
-          views.html.site.variant.show(doc, resolver, variant, perfType)
+          views.html.site.variant.show(doc, resolver, variant)
       }) | notFound
     }
 }

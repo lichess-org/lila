@@ -11,40 +11,41 @@ object variant {
   def show(
       doc: io.prismic.Document,
       resolver: io.prismic.DocumentLinkResolver,
-      variant: shogi.variant.Variant,
-      perfType: lila.rating.PerfType
+      shogiVariant: shogi.variant.Variant
   )(implicit ctx: Context) =
     layout(
-      active = perfType.some,
-      title = variantName(variant),
-      klass = "box-pad page variant"
+      activeKey = shogiVariant.key.some,
+      title = variantName(shogiVariant),
+      klass = "box-pad page variant",
+      openGraph = lila.app.ui
+        .OpenGraph(
+          title = s"${variantName(shogiVariant)} - ${trans.variant.txt()}",
+          url = s"$netBaseUrl${routes.Page.variant(shogiVariant.key)}",
+          description = variantDescription(shogiVariant)
+        )
+        .some
     )(
-      h1(cls := "text", dataIcon := perfType.iconChar)(variantName(variant)),
-      h2(cls := "headline")(variantDescription(variant)),
+      h1(cls := "text", dataIcon := variantIcon(shogiVariant))(variantName(shogiVariant)),
+      h2(cls := "headline")(variantDescription(shogiVariant)),
       div(cls := "body")(raw(~doc.getHtml("variant.content", resolver)))
     )
 
-  def home(
-      doc: io.prismic.Document,
-      resolver: io.prismic.DocumentLinkResolver
-  )(implicit ctx: Context) =
+  def home(implicit ctx: Context) =
     layout(
       title = s"Lishogi ${trans.variants.txt()}",
       klass = "variants"
     )(
       h1(s"Lishogi ${trans.variants.txt()}"),
-      div(cls := "body box__pad")(raw(~doc.getHtml("doc.content", resolver))),
       div(cls := "variants")(
-        lila.rating.PerfType.variants map { pt =>
-          val variant = lila.rating.PerfType variantOf pt
+        shogi.variant.Variant.all.withFilter(!_.standard) map { v =>
           a(
             cls      := "variant text box__pad",
-            href     := routes.Page.variant(pt.key),
-            dataIcon := pt.iconChar
+            href     := routes.Page.variant(v.key),
+            dataIcon := variantIcon(v)
           )(
             span(
-              h2(variantName(variant)),
-              h3(cls := "headline")(variantDescription(variant))
+              h2(variantName(v)),
+              h3(cls := "headline")(variantDescription(v))
             )
           )
         }
@@ -54,7 +55,7 @@ object variant {
   private def layout(
       title: String,
       klass: String,
-      active: Option[lila.rating.PerfType] = None,
+      activeKey: Option[String] = None,
       openGraph: Option[lila.app.ui.OpenGraph] = None
   )(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
@@ -64,12 +65,12 @@ object variant {
     )(
       main(cls := "page-menu")(
         st.aside(cls := "page-menu__menu subnav")(
-          lila.rating.PerfType.variants map { pt =>
+          shogi.variant.Variant.all.withFilter(!_.standard) map { v =>
             a(
-              cls      := List("text" -> true, "active" -> active.has(pt)),
-              href     := routes.Page.variant(pt.key),
-              dataIcon := pt.iconChar
-            )(pt.trans)
+              cls      := List("text" -> true, "active" -> activeKey.has(v.key)),
+              href     := routes.Page.variant(v.key),
+              dataIcon := variantIcon(v)
+            )(variantName(v))
           }
         ),
         div(cls := s"page-menu__content box $klass")(body)
