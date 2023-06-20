@@ -1,10 +1,10 @@
 import { standardColorName } from 'common/colorName';
 import { Prop, defined, prop } from 'common/common';
+import * as modal from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import * as modal from '../modal';
 import { emptyRedButton, option } from '../util';
 import * as chapterForm from './chapterNewForm';
 import { StudyChapterConfig, StudyChapterMeta } from './interfaces';
@@ -79,7 +79,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
   const data = ctrl.current();
   return data
     ? modal.modal({
-        class: 'edit-' + data.id, // full redraw when changing chapter
+        class: 'study__modal.edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);
           ctrl.redraw();

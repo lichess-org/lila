@@ -1,8 +1,8 @@
+import { modal } from 'common/modal';
 import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import { modal } from './modal';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
   e.preventDefault();
@@ -134,7 +134,7 @@ export function bind(ctrl: AnalyseCtrl): void {
 
 export function view(ctrl: AnalyseCtrl): VNode {
   return modal({
-    class: 'keyboard-help',
+    class: 'study__modal.keyboard-help',
     onInsert(el: HTMLElement) {
       window.lishogi.loadCssPath('analyse.keyboard');
       $(el)

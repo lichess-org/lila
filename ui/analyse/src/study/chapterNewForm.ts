@@ -1,5 +1,6 @@
 import { standardColorName } from 'common/colorName';
 import { Prop, defined, prop } from 'common/common';
+import * as modal from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import { StoredProp, storedProp } from 'common/storage';
@@ -7,7 +8,6 @@ import * as xhr from 'common/xhr';
 import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
-import * as modal from '../modal';
 import { option } from '../util';
 import { StudyChapterMeta } from './interfaces';
 import { chapter as chapterTour } from './studyTour';
@@ -136,7 +136,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   let isDefaultName = true;
 
   return modal.modal({
-    class: 'chapter-new',
+    class: 'study__modal.chapter-new',
     onClose() {
       ctrl.close();
       ctrl.redraw();

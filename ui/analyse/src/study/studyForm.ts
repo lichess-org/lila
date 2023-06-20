@@ -1,8 +1,8 @@
 import { Prop, prop } from 'common/common';
+import * as modal from 'common/modal';
 import { MaybeVNodes, bindNonPassive, bindSubmit } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import * as modal from '../modal';
 import { emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
@@ -109,7 +109,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
     ['everyone', ctrl.trans.noarg('everyone')],
   ];
   return modal.modal({
-    class: 'study-edit',
+    class: 'study__modal.study-edit',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();

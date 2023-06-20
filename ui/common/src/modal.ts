@@ -1,4 +1,4 @@
-import { MaybeVNodes, bind, onInsert } from 'common/snabbdom';
+import { MaybeVNodes, bind, onInsert } from './snabbdom';
 import { VNode, h } from 'snabbdom';
 
 interface Modal {
@@ -16,7 +16,7 @@ export function modal(d: Modal): VNode {
     },
     [
       h(
-        'div#modal-wrap.study__modal.' + d.class,
+        'div#modal-wrap.' + d.class,
         {
           hook: onInsert(el => {
             el.addEventListener('mousedown', e => e.stopPropagation());

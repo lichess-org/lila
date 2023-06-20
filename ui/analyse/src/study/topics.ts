@@ -1,8 +1,8 @@
 import { Prop, prop } from 'common/common';
+import * as modal from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import * as modal from '../modal';
 import { StudyCtrl, Topic } from './interfaces';
 
 export interface TopicsCtrl {
@@ -55,7 +55,7 @@ let tagify: any | undefined;
 
 export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
   return modal.modal({
-    class: 'study-topics',
+    class: 'study__modal.study-topics',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();

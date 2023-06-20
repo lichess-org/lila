@@ -1,8 +1,8 @@
 import { Prop, prop } from 'common/common';
+import { modal } from 'common/modal';
 import { bind, onInsert } from 'common/snabbdom';
 import { storedSet } from 'common/storage';
 import { VNode, h } from 'snabbdom';
-import { modal } from '../modal';
 import { titleNameToId } from '../util';
 import { StudyMemberMap } from './interfaces';
 
@@ -74,7 +74,7 @@ export function makeCtrl(
 export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = ctrl.candidates();
   return modal({
-    class: 'study__invite',
+    class: 'study__modal.study__invite',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();
