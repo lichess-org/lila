@@ -32,4 +32,6 @@
   <string name="definitivelyDeleteRound">Die Rundi und ihri Spiel definitiv lösche.</string>
   <string name="deleteAllGamesOfThisRound">Lösch alli Spiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
   <string name="editRoundStudy">Studie Rundi bearbeite</string>
+  <string name="deleteTournament">Lösch das Turnier</string>
+  <string name="definitivelyDeleteTournament">Lösch das ganze Turnier, alli Runde und alli Partie.</string>
 </resources>
