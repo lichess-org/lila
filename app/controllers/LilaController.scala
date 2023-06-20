@@ -16,15 +16,16 @@ import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
-    with lila.app.http.RequestGetter
-    with lila.app.http.ResponseBuilder(using env.executor)
-    with lila.app.http.ResponseHeaders
-    with lila.app.http.ResponseWriter
-    with lila.app.http.CtrlExtensions
-    with lila.app.http.CtrlConversions
-    with lila.app.http.CtrlFilters
-    with lila.app.http.RequestContext(using env.executor)
-    with lila.app.http.CtrlErrors:
+    with http.RequestGetter
+    with http.ResponseBuilder(using env.executor)
+    with http.ResponseHeaders
+    with http.ResponseWriter
+    with http.CtrlExtensions
+    with http.CtrlConversions
+    with http.CtrlFilters
+    with http.CtrlPage(using env.executor)
+    with http.RequestContext(using env.executor)
+    with http.CtrlErrors:
 
   def controllerComponents = env.controllerComponents
   given Executor           = env.executor

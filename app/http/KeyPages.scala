@@ -9,7 +9,11 @@ import lila.app.{ *, given }
 import lila.memo.CacheApi.*
 import views.*
 
-final class KeyPages(env: Env)(using Executor) extends ResponseWriter with ResponseBuilder:
+final class KeyPages(val env: Env)(using Executor)
+    extends ResponseWriter
+    with RequestContext
+    with CtrlPage
+    with ControllerHelpers:
 
   def home(status: Results.Status)(using ctx: WebContext): Fu[Result] =
     homeHtml
@@ -27,16 +31,17 @@ final class KeyPages(env: Env)(using Executor) extends ResponseWriter with Respo
       )
       .mon(_.lobby segment "preloader.total")
       .flatMap: h =>
-        page(_ ?=> html.lobby.home(h)).mon(_.lobby segment "render")
+        renderPage:
+          lila.mon.chronoSync(_.lobby segment "renderSync"):
+            html.lobby.home(h)
 
   def notFound(using WebContext): Fu[Result] =
     NotFound.page(html.base.notFound())
 
   def blacklisted(using ctx: AnyContext): Fu[Result] =
     if lila.api.Mobile.Api requested ctx.req then
-      Results
-        .Unauthorized:
+      fuccess:
+        Results.Unauthorized:
           Json.obj:
             "error" -> html.site.message.blacklistedMessage
-        .toFuccess
     else Unauthorized.page(html.site.message.blacklistedFrag)

@@ -48,7 +48,7 @@ object show:
                     frame.credentialless,
                     st.frameborder  := "0",
                     frame.scrolling := "yes",
-                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") so "darkpopout&"}parent=${netConfig.domain}"
+                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.pref.currentBg != "light") so "darkpopout&"}parent=${netConfig.domain}"
                   )
                 }
             }

@@ -12,7 +12,8 @@ trait ResponseBuilder(using Executor)
     with RequestContext
     with ResponseWriter
     with CtrlExtensions
-    with CtrlConversions:
+    with CtrlConversions
+    with CtrlPage:
 
   val keyPages = KeyPages(env)
   export keyPages.{ notFound as renderNotFound }
@@ -43,24 +44,6 @@ trait ResponseBuilder(using Executor)
       _.fold(notFoundJson())(a => fuccess(JsonOk(a)))
   def JsonStrOk(str: JsonStr): Result       = Ok(str) as JSON
   def JsonBadRequest(body: JsValue): Result = BadRequest(body) as JSON
-
-  // def page[A: Writeable](render: PageContext ?=> A)(using AnyContext): Fu[A] =
-  //   pageContext.map(render(using _))
-  def page(render: PageContext ?=> Frag)(using AnyContext): Fu[Frag] =
-    pageContext.map(render(using _))
-  def renderPage(render: PageContext ?=> Frag)(using AnyContext): Fu[Frag] =
-    pageContext.map(render(using _))
-  def renderAsync(render: PageContext ?=> Fu[Frag])(using AnyContext): Fu[Frag] =
-    pageContext.flatMap(render(using _))
-  def withPageContext[A](render: PageContext ?=> A)(using AnyContext): Fu[A] =
-    pageContext.map(render(using _))
-
-  extension (s: Status)
-    def page(render: PageContext ?=> Frag)(using AnyContext): Fu[Result] =
-      pageContext.map(render(using _)).map(s(_))
-    def pageAsync(render: PageContext ?=> Fu[Frag])(using AnyContext): Fu[Result] =
-      pageContext.flatMap(render(using _)).map(s(_))
-    def async(render: Fu[Frag]) = render.map(s(_))
 
   def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: AnyContext): Fu[Result] =
     lila.api.Mobile.Api

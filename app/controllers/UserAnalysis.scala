@@ -100,14 +100,10 @@ final class UserAnalysis(
                 data <-
                   env.api.roundApi
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner, me = ctx.me)
-              yield Ok(
-                html.board
-                  .userAnalysis(
-                    data,
-                    pov,
-                    withForecast = owner && !pov.game.synthetic && pov.game.playable
-                  )
-              ).noCache
+                withForecast = owner && !pov.game.synthetic && pov.game.playable
+                page <- renderPage:
+                  html.board.userAnalysis(data, pov, withForecast = withForecast)
+              yield Ok(page).noCache
           ,
           api = apiVersion => mobileAnalysis(pov, apiVersion)
         )
@@ -183,4 +179,5 @@ final class UserAnalysis(
     }
 
   def help = Open:
-    html.site.helpModal.analyse(getBool("study"))
+    Ok.page:
+      html.site.helpModal.analyse(getBool("study"))

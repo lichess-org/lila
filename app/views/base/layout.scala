@@ -32,7 +32,7 @@ object layout:
       else
         raw:
           s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
-    def pieceSprite(using ctx: PageContext): Frag = pieceSprite(ctx.currentPieceSet)
+    def pieceSprite(using ctx: PageContext): Frag = pieceSprite(ctx.pref.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
@@ -60,17 +60,21 @@ object layout:
       preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
   )
   private def boardPreload(using ctx: PageContext) = frag(
-    preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
+    preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d option
-      preload(assetUrl(s"images/staunton/board/${ctx.currentTheme3d.file}"), "image", crossorigin = false)
+      preload(
+        assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
+        "image",
+        crossorigin = false
+      )
   )
   private def piecesPreload(using ctx: PageContext) =
     env.pieceImageExternal.get() option raw:
-      (for {
+      (for
         c <- List('w', 'b')
         p <- List('K', 'Q', 'R', 'B', 'N', 'P')
-        href = staticAssetUrl(s"piece/${ctx.currentPieceSet.name}/$c$p.svg")
-      } yield s"""<link rel="preload" href="$href" as="image">""").mkString
+        href = staticAssetUrl(s"piece/${ctx.pref.currentPieceSet.name}/$c$p.svg")
+      yield s"""<link rel="preload" href="$href" as="image">""").mkString
 
   private val manifests = raw:
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
@@ -155,7 +159,7 @@ object layout:
 
   private def current2dTheme(using ctx: PageContext) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
-    else ctx.currentTheme
+    else ctx.pref.currentTheme
 
   private def botImage =
     img(
@@ -172,7 +176,7 @@ object layout:
       if netConfig.minifiedAssets then jsModule("lichess")
       else frag(depsTag, jsModule("site")),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsModule("mod.inquiry"),
+      ctx.data.inquiry.isDefined option jsModule("mod.inquiry"),
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
     )
 
@@ -223,6 +227,7 @@ object layout:
       atomLinkTag: Option[Tag] = None,
       withHrefLangs: Option[LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
+    import ctx.pref
     frag(
       doctype,
       htmlTag(
@@ -238,8 +243,8 @@ object layout:
             else s"${ctx.me.so(_.username + " ")} $prodTitle"
           },
           cssTag("site"),
-          ctx.pref.is3d option cssTag("board-3d"),
-          ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
+          pref.is3d option cssTag("board-3d"),
+          ctx.data.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
           ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
           ctx.blind option cssTagNoTheme("blind"),
           moreCss,
@@ -260,7 +265,7 @@ object layout:
             tpe := "application/atom+xml",
             rel := "alternate"
           ),
-          ctx.pref.bg == lila.pref.Pref.Bg.TRANSPARENT option ctx.pref.bgImgOrDefault map { img =>
+          pref.bg == lila.pref.Pref.Bg.TRANSPARENT option pref.bgImgOrDefault map { img =>
             raw:
               s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
                   .replace("&amp;", "&")}");}</style>"""
@@ -275,36 +280,36 @@ object layout:
         st.body(
           cls := {
             val baseClass =
-              s"${ctx.currentBg} ${current2dTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass}"
+              s"${pref.currentBg} ${current2dTheme.cssClass} ${pref.currentTheme3d.cssClass} ${pref.currentPieceSet3d.toString} coords-${pref.coordsClass}"
             List(
               baseClass              -> true,
-              "dark-board"           -> (ctx.pref.bg == lila.pref.Pref.Bg.DARKBOARD),
-              "piece-letter"         -> ctx.pref.pieceNotationIsLetter,
-              "zen"                  -> ctx.pref.isZen,
+              "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
+              "piece-letter"         -> pref.pieceNotationIsLetter,
+              "zen"                  -> pref.isZen,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid,
               "mobile"               -> ctx.isMobileBrowser,
               "playing fixed-scroll" -> playing,
               "zenable"              -> zenable,
-              "no-rating"            -> !ctx.pref.showRatings
+              "no-rating"            -> !pref.showRatings
             )
           },
           dataDev,
           dataVapid    := (ctx.isAuth && env.lilaCookie.isRememberMe(ctx.req)) option vapidPublicKey,
           dataUser     := ctx.userId,
-          dataSoundSet := ctx.currentSoundSet.toString,
+          dataSoundSet := pref.currentSoundSet.toString,
           dataSocketDomains,
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
-          dataTheme        := ctx.currentBg,
-          dataBoardTheme   := ctx.currentTheme.name,
-          dataPieceSet     := ctx.currentPieceSet.name,
+          dataTheme        := pref.currentBg,
+          dataBoardTheme   := pref.currentTheme.name,
+          dataPieceSet     := pref.currentPieceSet.name,
           dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
           style            := zoomable option s"--zoom:${ctx.zoom}"
         )(
           blindModeForm,
-          ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
+          ctx.data.inquiry map { views.html.mod.inquiry(_) },
           ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
           netConfig.stageBanner option views.html.base.bits.stage,
           lila.security.EmailConfirm.cookie
@@ -317,8 +322,8 @@ object layout:
             id := "main-wrap",
             cls := List(
               wrapClass -> wrapClass.nonEmpty,
-              "is2d"    -> ctx.pref.is2d,
-              "is3d"    -> ctx.pref.is3d
+              "is2d"    -> pref.is2d,
+              "is3d"    -> pref.is3d
             )
           )(body),
           ctx.me.exists(_.enabled.yes) option div(id := "friend_box")(
@@ -332,7 +337,7 @@ object layout:
             cls      := "link text",
             dataIcon := licon.ChasingArrows
           )(trans.reconnecting()),
-          ctx.pref.agreementNeededSince.map: date =>
+          pref.agreementNeededSince.map: date =>
             div(id := "agreement")(
               div(
                 "Lichess has updated the ",
@@ -417,7 +422,7 @@ object layout:
           else
             ctx.me map { me =>
               frag(allNotifications, dasher(me))
-            } getOrElse { !ctx.pageData.error option anonDasher }
+            } getOrElse { !ctx.data.error option anonDasher }
         )
       )
 
