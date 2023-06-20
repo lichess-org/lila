@@ -38,7 +38,7 @@ object theirs {
                     )
                   )
               ),
-              bits.details(c),
+              bits.details(c, false),
               c.initialSfen.map { sfen =>
                 div(
                   cls := "board-preview",
@@ -77,13 +77,13 @@ object theirs {
           case Status.Declined =>
             div(cls := "follow-up")(
               h1(trans.challengeDeclined()),
-              bits.details(c),
+              bits.details(c, false),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
               h1(trans.challengeAccepted()),
-              bits.details(c),
+              bits.details(c, false),
               a(
                 id   := "challenge-redirect",
                 href := routes.Round.watcher(c.id, "sente"),
@@ -95,7 +95,7 @@ object theirs {
           case Status.Canceled =>
             div(cls := "follow-up")(
               h1(trans.challengeCanceled()),
-              bits.details(c),
+              bits.details(c, false),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }

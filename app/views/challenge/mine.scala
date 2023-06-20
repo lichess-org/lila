@@ -30,7 +30,7 @@ object mine {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
               h1(if (c.isOpen) trans.openChallenge.txt() else trans.challengeToPlay.txt()),
-              bits.details(c),
+              bits.details(c, true),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),
@@ -94,13 +94,13 @@ object mine {
           case Status.Declined =>
             div(cls := "follow-up")(
               h1(trans.challengeDeclined()),
-              bits.details(c),
+              bits.details(c, true),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
               h1(trans.challengeAccepted()),
-              bits.details(c),
+              bits.details(c, true),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "sente"), cls := "button-fat")(
                 trans.joinTheGame()
               )
@@ -108,7 +108,7 @@ object mine {
           case Status.Canceled =>
             div(cls := "follow-up")(
               h1(trans.challengeCanceled()),
-              bits.details(c),
+              bits.details(c, true),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }

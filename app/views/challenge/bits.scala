@@ -27,7 +27,7 @@ object bits {
         )}""")
     )
 
-  def details(c: Challenge)(implicit ctx: Context) =
+  def details(c: Challenge, mine: Boolean)(implicit ctx: Context) =
     div(cls := "details")(
       div(cls := "variant", dataIcon := (if (c.initialSfen.isDefined) '*' else c.perfType.iconChar))(
         div(
@@ -41,14 +41,16 @@ object bits {
           )
         )
       ),
-      div(cls := "mode")(
-        shogi.Color.fromName(c.colorChoice.toString.toLowerCase).fold(trans.randomColor.txt()) { color =>
-          if (c.initialSfen.fold(false)(sfen => shogi.Handicap.isHandicap(sfen, c.variant)))
-            handicapColorName(color)
-          else standardColorName(color)
-        },
-        " - ",
-        modeName(c.mode)
-      )
+      div(cls := "game-color") {
+        val handicap = c.initialSfen.fold(false)(sfen => shogi.Handicap.isHandicap(sfen, c.variant))
+        frag(
+          shogi.Color.fromName(c.colorChoice.toString.toLowerCase).fold(trans.randomColor.txt()) { color =>
+            transWithColorName(trans.youPlayAsX, if (mine) color else !color, handicap)
+          },
+          " - ",
+          transWithColorName(trans.xPlays, c.initialSfen.flatMap(_.color).getOrElse(shogi.Sente), handicap)
+        )
+      },
+      div(cls := "mode")(modeName(c.mode))
     )
 }

@@ -40,6 +40,7 @@ $c-challenge: $c-secondary;
     font-size: 2em;
     > div {
       @extend %flex-center, %roboto;
+      flex: 1;
       &::before {
         color: $c-challenge;
         font-size: 6rem;
@@ -52,10 +53,15 @@ $c-challenge: $c-secondary;
         font-weight: bold;
       }
     }
+    .game-color {
+      font-size: 1.25rem;
+      justify-content: center;
+    }
     .mode {
       font-weight: bold;
       color: $c-challenge;
       text-transform: uppercase;
+      justify-content: flex-end;
     }
   }
   .follow-up .button {
