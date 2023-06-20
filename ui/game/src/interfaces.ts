@@ -47,6 +47,7 @@ export type StatusName =
   | 'tryRule'
   | 'impasse27'
   | 'perpetualCheck'
+  | 'repetition'
   | 'royalsLost'
   | 'bareKing'
   | 'timeout'

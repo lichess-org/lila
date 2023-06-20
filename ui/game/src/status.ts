@@ -19,6 +19,7 @@ export const ids = {
   impasse27: 41,
   royalsLost: 42,
   bareKing: 43,
+  repetition: 44,
 };
 
 export function started(data: GameData): boolean {

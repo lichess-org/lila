@@ -41,6 +41,7 @@ object userAnalysisI18n {
     trans.stalemate,
     trans.royalsLost,
     trans.bareKing,
+    trans.repetition,
     trans.perpetualCheck,
     trans.xLeftTheGame,
     trans.draw,

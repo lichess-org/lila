@@ -22,6 +22,8 @@ export default function status(trans: Trans, status: Status, winner: Color | und
       return 'Try rule';
     case 'perpetualCheck':
       return noarg('perpetualCheck');
+    case 'repetition':
+      return noarg('repetition');
     case 'timeout':
       switch (winner) {
         case 'sente':
