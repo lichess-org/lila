@@ -16,15 +16,15 @@ final class Tutor(env: Env) extends LilaController(env):
   }
 
   def user(username: UserStr) = TutorPage(username) { _ ?=> user => av =>
-    views.html.tutor.home(av, user)
+    Ok.page(views.html.tutor.home(av, user))
   }
 
   def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    views.html.tutor.perf(perf, user)
+    Ok.page(views.html.tutor.perf(perf, user))
   }
 
   def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    views.html.tutor.openings(perf, user)
+    Ok.page(views.html.tutor.openings(perf, user))
   }
 
   def opening(username: UserStr, perf: Perf.Key, colName: String, opName: String) =
@@ -36,21 +36,21 @@ final class Tutor(env: Env) extends LilaController(env):
             .find(opName)
             .flatMap(perf.openings(color).find)
             .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
-              env.puzzle.opening.find(family.family.key) map { puzzle =>
-                Ok(views.html.tutor.opening(perf, family, color, user, puzzle))
+              env.puzzle.opening.find(family.family.key) flatMap { puzzle =>
+                Ok.page(views.html.tutor.opening(perf, family, color, user, puzzle))
               }
     }
 
   def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    views.html.tutor.skills(perf, user)
+    Ok.page(views.html.tutor.skills(perf, user))
   }
 
   def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    views.html.tutor.phases(perf, user)
+    Ok.page(views.html.tutor.phases(perf, user))
   }
 
   def time(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    views.html.tutor.time(perf, user)
+    Ok.page(views.html.tutor.time(perf, user))
   }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>
@@ -80,12 +80,12 @@ final class Tutor(env: Env) extends LilaController(env):
     TutorPageAvailability(username) { _ ?=> user => availability =>
       availability match
         case TutorFullReport.InsufficientGames =>
-          BadRequest(views.html.tutor.empty.insufficientGames(user))
+          BadRequest.page(views.html.tutor.empty.insufficientGames(user))
         case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
-          env.tutor.queue.waitingGames(user) map { waitGames =>
-            Accepted(views.html.tutor.empty.queued(in, user, waitGames))
+          env.tutor.queue.waitingGames(user) flatMap { waitGames =>
+            Accepted.page(views.html.tutor.empty.queued(in, user, waitGames))
           }
-        case TutorFullReport.Empty(_)             => Accepted(views.html.tutor.empty.start(user))
+        case TutorFullReport.Empty(_)             => Accepted.page(views.html.tutor.empty.start(user))
         case available: TutorFullReport.Available => f(user)(available)
     }
 

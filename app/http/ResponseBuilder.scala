@@ -52,6 +52,8 @@ trait ResponseBuilder(using Executor)
     pageContext.map(render(using _))
   def renderAsync(render: PageContext ?=> Fu[Frag])(using AnyContext): Fu[Frag] =
     pageContext.flatMap(render(using _))
+  def withPageContext[A](render: PageContext ?=> A)(using AnyContext): Fu[A] =
+    pageContext.map(render(using _))
 
   extension (s: Status)
     def page(render: PageContext ?=> Frag)(using AnyContext): Fu[Result] =

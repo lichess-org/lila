@@ -24,9 +24,10 @@ final class Team(
 
   def all(page: Int) = Open:
     Reasonable(page):
-      paginator popularTeams page map {
-        html.team.list.all(_)
-      }
+      Ok.pageAsync:
+        paginator popularTeams page map {
+          html.team.list.all(_)
+        }
 
   def home(page: Int) = Open:
     ctx.me.so(api.hasTeams(_)) map {
@@ -47,17 +48,19 @@ final class Team(
           }
         canSee flatMap {
           if _ then
-            paginator.teamMembersWithDate(team, page) map {
-              html.team.members(team, _)
-            }
+            Ok.pageAsync:
+              paginator.teamMembersWithDate(team, page) map {
+                html.team.members(team, _)
+              }
           else authorizationFailed
         }
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
-      if text.trim.isEmpty
-      then paginator popularTeams page map { html.team.list.all(_) }
-      else env.teamSearch(text, page) map { html.team.list.search(text, _) }
+      Ok.pageAsync:
+        if text.trim.isEmpty
+        then paginator popularTeams page map { html.team.list.all(_) }
+        else env.teamSearch(text, page) map { html.team.list.search(text, _) }
 
   private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: WebContext) = for
     info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
@@ -72,8 +75,8 @@ final class Team(
       team.leaders.toList ::: info.userIds ::: chat.so(_.chat.userIds)
     }
     version <- hasChat so env.team.version(team.id).dmap(some)
-  yield Ok(html.team.show(team, members, info, chat, version, requestModView, log))
-    .withCanonical(routes.Team.show(team.id))
+    page    <- renderPage(html.team.show(team, members, info, chat, version, requestModView, log))
+  yield Ok(page).withCanonical(routes.Team.show(team.id))
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
       ctx: WebContext
@@ -112,15 +115,16 @@ final class Team(
 
   def tournaments(teamId: TeamId) = Open:
     api teamEnabled teamId flatMapz { team =>
-      env.teamInfo.tournaments(team, 30, 30) map { tours =>
-        Ok(html.team.tournaments.page(team, tours))
-      }
+      Ok.pageAsync:
+        env.teamInfo.tournaments(team, 30, 30) map {
+          html.team.tournaments.page(team, _)
+        }
     }
 
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id): team =>
-      env.msg.twoFactorReminder(me) inject
-        html.team.form.edit(team, forms edit team)
+      env.msg.twoFactorReminder(me) >>
+        Ok.page(html.team.form.edit(team, forms edit team))
   }
 
   def update(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -129,14 +133,14 @@ final class Team(
         .edit(team)
         .bindFromRequest()
         .fold(
-          err => BadRequest(html.team.form.edit(team, err)),
+          err => BadRequest.page(html.team.form.edit(team, err)),
           data => api.update(team, data) inject Redirect(routes.Team.show(team.id)).flashSuccess
         )
   }
 
   def kickForm(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id): team =>
-      html.team.admin.kick(team, forms.members)
+      Ok.page(html.team.admin.kick(team, forms.members))
   }
 
   def kick(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -169,7 +173,7 @@ final class Team(
 
   def leadersForm(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id): team =>
-      html.team.admin.leaders(team, forms leaders team)
+      Ok.page(html.team.admin.leaders(team, forms leaders team))
   }
 
   def leaders(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -209,8 +213,8 @@ final class Team(
 
   def form = Auth { ctx ?=> me ?=>
     LimitPerWeek:
-      forms.anyCaptcha map { captcha =>
-        Ok(html.team.form.create(forms.create, captcha))
+      forms.anyCaptcha flatMap { captcha =>
+        Ok.page(html.team.form.create(forms.create, captcha))
       }
   }
 
@@ -227,29 +231,30 @@ final class Team(
             .bindFromRequest()
             .fold(
               err =>
-                forms.anyCaptcha map { captcha =>
-                  BadRequest(html.team.form.create(err, captcha))
-                },
+                BadRequest.pageAsync:
+                  forms.anyCaptcha.map(html.team.form.create(err, _))
+              ,
               data =>
                 api.create(data, me) map { team =>
-                  Redirect(routes.Team.show(team.id)).flashSuccess
+                  Redirect(routes.Team.show(team.id))
                 }
             )
   }
 
   def mine = Auth { ctx ?=> me ?=>
-    api.mine map {
-      html.team.list.mine(_)
-    }
+    Ok.pageAsync:
+      api.mine map {
+        html.team.list.mine(_)
+      }
   }
 
   private def tooManyTeamsHtml(using WebContext, Me): Fu[Result] =
-    api.mine map html.team.list.mine map { BadRequest(_) }
+    BadRequest.pageAsync:
+      api.mine map html.team.list.mine
 
   def leader = Auth { ctx ?=> me ?=>
-    env.team.teamRepo enabledTeamsByLeader me map {
-      html.team.list.ledByMe(_)
-    }
+    Ok.pageAsync:
+      env.team.teamRepo enabledTeamsByLeader me map html.team.list.ledByMe
   }
 
   private def JoinLimit(tooMany: => Fu[Result])(f: => Fu[Result])(using Me) =
@@ -327,11 +332,12 @@ final class Team(
   def requests = Auth { _ ?=> me ?=>
     import lila.memo.CacheApi.*
     env.team.cached.nbRequests invalidate me
-    api requestsWithUsers me map { html.team.request.all(_) }
+    Ok.pageAsync:
+      api requestsWithUsers me map html.team.request.all
   }
 
   def requestForm(id: TeamId) = Auth { _ ?=> me ?=>
-    OptionOk(api.requestable(id)): team =>
+    OptionPage(api.requestable(id)): team =>
       html.team.request.requestForm(team, forms.request(team))
   }
 
@@ -343,7 +349,7 @@ final class Team(
             .request(team)
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.team.request.requestForm(team, err)),
+              err => BadRequest.page(html.team.request.requestForm(team, err)),
               setup =>
                 if team.open then webJoin(team, request = none, password = setup.password)
                 else
@@ -375,11 +381,11 @@ final class Team(
   }
 
   def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ ?=>
-    WithOwnedTeamEnabled(id) { team =>
-      paginator.declinedRequests(team, page) map { requests =>
-        Ok(html.team.declinedRequest.all(team, requests))
-      }
-    }
+    WithOwnedTeamEnabled(id): team =>
+      Ok.pageAsync:
+        paginator.declinedRequests(team, page) map {
+          html.team.declinedRequest.all(team, _)
+        }
   }
 
   def quit(id: TeamId) =
@@ -433,7 +439,8 @@ final class Team(
     tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs  <- env.team.cached.unsubs.get(team.id)
     limiter <- env.teamInfo.pmAllStatus(team.id)
-  yield Ok(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
+    page    <- renderPage(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
+  yield Ok(page)
 
   def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(
@@ -557,7 +564,7 @@ You received this because you are subscribed to messages of the team $url."""
           (isGrantedOpt(_.Teacher) && count < 10) ||
           count < 3
       if allow then a
-      else Forbidden(views.html.site.message.teamCreateLimit)
+      else Forbidden.page(views.html.site.message.teamCreateLimit)
     }
 
   private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(using WebContext): Fu[Result] =

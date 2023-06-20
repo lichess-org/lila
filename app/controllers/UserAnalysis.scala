@@ -37,27 +37,35 @@ final class UserAnalysis(
       .orElse(get("fen")) map Fen.Epd.clean
     val pov         = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
-    env.api.roundApi
-      .userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
-      Ok(html.board.userAnalysis(data, pov))
-        .withCanonical(routes.UserAnalysis.index)
-        .enableSharedArrayBuffer
-    }
+    for
+      data <- env.api.roundApi.userAnalysisJson(
+        pov,
+        ctx.pref,
+        decodedFen,
+        orientation,
+        owner = false,
+        me = ctx.me
+      )
+      page <- renderPage(html.board.userAnalysis(data, pov))
+    yield Ok(page)
+      .withCanonical(routes.UserAnalysis.index)
+      .enableSharedArrayBuffer
 
   def pgn(pgn: String) = Open:
     val pov         = makePov(none, Standard)
     val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
-    env.api.roundApi
-      .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me) map { data =>
-      Ok(html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)).enableSharedArrayBuffer
-    }
+    Ok.pageAsync:
+      env.api.roundApi
+        .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me) map { data =>
+        html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)
+      }
+    .map(_.enableSharedArrayBuffer)
 
   private[controllers] def makePov(fen: Option[Fen.Epd], variant: Variant): Pov =
-    makePov {
+    makePov:
       fen.filter(_.value.nonEmpty).flatMap {
         Fen.readWithMoveNumber(variant, _)
       } | Situation.AndFullMoveNumber(Situation(variant), FullMoveNumber.initial)
-    }
 
   private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =
     Pov(

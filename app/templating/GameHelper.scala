@@ -252,13 +252,12 @@ trait GameHelper:
       color: Color,
       ownerLink: Boolean = false,
       tv: Boolean = false
-  )(using ctx: WebContext): String = {
+  )(using ctx: AnyContext): String = {
     val owner = ownerLink so ctx.me.flatMap(game.player)
-    if (tv) routes.Tv.index
+    if tv then routes.Tv.index
     else
-      owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
+      owner.fold(routes.Round.watcher(game.id, color.name)): o =>
         routes.Round.player(game fullIdOf o.color)
-      }
   }.toString
 
   def gameLink(pov: Pov)(using WebContext): String = gameLink(pov.game, pov.color)

@@ -124,8 +124,8 @@ final class Simul(env: Env) extends LilaController(env):
                   BadRequest.page(html.simul.form.create(err, teams))
                 },
               setup =>
-                env.simul.api.create(setup, me, teams) flatMap { simul =>
-                  Redirect.page(routes.Simul.show(simul.id))
+                env.simul.api.create(setup, me, teams) map { simul =>
+                  Redirect(routes.Simul.show(simul.id))
                 }
             )
   }
