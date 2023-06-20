@@ -5,7 +5,7 @@ import play.api.http.DefaultHttpErrorHandler
 import play.api.mvc.*
 import play.api.mvc.Results.*
 import play.api.routing.*
-import play.api.{ Configuration, Environment, UsefulException }
+import play.api.{ Configuration, Environment, UsefulException, UserContext, PageContext }
 
 import lila.common.HTTPRequest
 
@@ -26,8 +26,8 @@ final class ErrorHandler(
       lila.mon.http.error(actionName, client, req.method, 500).increment()
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
-        given PageContext = lila.api.PageContext(
-          lila.api.WebContext(req, lila.i18n.defaultLang, lila.user.UserContext.anon, lila.pref.Pref.default),
+        given PageContext = PageContext(
+          lila.api.WebContext(req, lila.i18n.defaultLang, UserContext.anon, lila.pref.Pref.default),
           lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req) option lila.api.Nonce.random)
         )
         InternalServerError(views.html.site.bits.errorPage)

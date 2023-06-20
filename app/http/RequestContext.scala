@@ -4,8 +4,8 @@ package http
 import play.api.mvc.*
 import play.api.i18n.Lang
 
-import lila.user.{ Me, UserContext }
-import lila.api.{ Nonce, PageData }
+import lila.user.Me
+import lila.api.{ Nonce, PageData, UserContext }
 import lila.i18n.I18nLangPicker
 import lila.common.{ HTTPRequest }
 import lila.security.{ Granter, FingerPrintedUser, AppealUser }
@@ -34,19 +34,21 @@ trait RequestContext(using Executor):
     pref <- env.pref.api.get(userCtx.me, req)
   yield WebBodyContext(req, lang, userCtx, pref)
 
-  def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[OAuthContext] =
-    val lang = getAndSaveLang(req, scoped.me.some)
+  def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[WebContext] =
+    val lang    = getAndSaveLang(req, scoped.me.some)
+    val userCtx = UserContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
       .get(scoped.me, req)
       .map:
-        OAuthContext(req, lang, scoped.me.some, _, scoped.scopes)
+        WebContext(req, lang, userCtx, _)
 
-  def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): Fu[OAuthBodyContext[A]] =
-    val lang = getAndSaveLang(req, scoped.me.some)
+  def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): Fu[WebBodyContext[A]] =
+    val lang    = getAndSaveLang(req, scoped.me.some)
+    val userCtx = UserContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
       .get(scoped.me, req)
       .map:
-        OAuthBodyContext(req, lang, scoped.me.some, _, scoped.scopes)
+        WebBodyContext(req, lang, userCtx, _)
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
     val lang = I18nLangPicker(req, me.flatMap(_.lang))
@@ -97,7 +99,7 @@ trait RequestContext(using Executor):
       case None => fuccess(UserContext.anon)
       case Some(d) =>
         env.mod.impersonate.impersonating(d.me) map {
-          _.fold(UserContext(d.me.some, !d.hasFingerPrint, none)): impersonated =>
-            UserContext(Me(impersonated).some, needsFp = false, d.me.some)
+          _.fold(UserContext(d.me.some, !d.hasFingerPrint, none, none)): impersonated =>
+            UserContext(Me(impersonated).some, needsFp = false, d.me.some, none)
         }
     }

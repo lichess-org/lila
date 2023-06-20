@@ -442,7 +442,7 @@ final class Auth(
           }
 
   def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>
-    if ctx.isOAuthAuth
+    if ctx.isOAuth
     then lila.log("oauth").info(s"api makeLoginToken ${me.username} ${HTTPRequest printClient ctx.req}")
     JsonOk:
       env.security.loginToken

@@ -5,7 +5,7 @@ import lila.app.ui.ScalatagsTemplate.*
 
 trait FlashHelper { self: I18nHelper =>
 
-  def standardFlash(using WebContext): Option[Tag] =
+  def standardFlash(using AnyContext): Option[Tag] =
     successFlash orElse warningFlash orElse failureFlash
 
   def successFlash(using ctx: WebContext): Option[Tag] =

@@ -169,6 +169,6 @@ trait ScalatagsExtensions:
     if blind then t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-  def titleOrText(v: String)(using ctx: WebContext): Modifier = titleOrText(ctx.blind, v)
+  def titleOrText(v: String)(using ctx: AnyContext): Modifier = titleOrText(ctx.blind, v)
 
 object ScalatagsExtensions extends ScalatagsExtensions
