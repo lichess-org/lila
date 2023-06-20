@@ -6,4 +6,5 @@ $c-dasher-light: mix($c-dasher, $c-bg-header-dropdown, 15%);
 $c-slider: $c-dasher;
 
 @import '../../../common/css/form/ui-slider';
+@import '../../../common/css/form/cmn-toggle';
 @import '../dasher';
