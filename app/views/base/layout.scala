@@ -171,7 +171,7 @@ object layout:
   private def loadScripts(moreJs: Frag, chessground: Boolean)(using ctx: PageContext) =
     frag(
       chessground option chessgroundTag,
-      ctx.userContext.needsFp option fingerprintTag,
+      ctx.needsFp option fingerprintTag,
       ctx.nonce map inlineJs.apply,
       if netConfig.minifiedAssets then jsModule("lichess")
       else frag(depsTag, jsModule("site")),
@@ -245,7 +245,7 @@ object layout:
           cssTag("site"),
           pref.is3d option cssTag("board-3d"),
           ctx.data.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
-          ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
+          ctx.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
           ctx.blind option cssTagNoTheme("blind"),
           moreCss,
           pieceSprite,
@@ -310,7 +310,7 @@ object layout:
         )(
           blindModeForm,
           ctx.data.inquiry map { views.html.mod.inquiry(_) },
-          ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
+          ctx.me ifTrue ctx.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
           netConfig.stageBanner option views.html.base.bits.stage,
           lila.security.EmailConfirm.cookie
             .get(ctx.req)

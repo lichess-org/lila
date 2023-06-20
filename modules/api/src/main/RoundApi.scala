@@ -52,7 +52,7 @@ final private[api] class RoundApi(
         ) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.userId.ifTrue(ctx.isMobileApi) so (noteApi.get(pov.gameId, _))) zip
+          (ctx.meId.ifTrue(ctx.isMobileApi) so (noteApi.get(pov.gameId, _))) zip
           forecastApi.loadForDisplay(pov) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
             case (((((json, simul), swiss), note), forecast), bookmarked) =>
@@ -84,7 +84,7 @@ final private[api] class RoundApi(
           pov,
           ctx.pref.some,
           apiVersion,
-          ctx.userId,
+          ctx.me,
           tv,
           initialFen = initialFen,
           flags = ctxFlags
@@ -122,7 +122,7 @@ final private[api] class RoundApi(
       pov,
       ctx.pref.some,
       apiVersion,
-      ctx.userId,
+      ctx.me,
       tv,
       initialFen = initialFen,
       flags = withFlags.copy(blurs = Granter.opt(_.ViewBlurs))
@@ -130,7 +130,7 @@ final private[api] class RoundApi(
       tourApi.gameView.analysis(pov.game) zip
       (pov.game.simulId so simulApi.find) zip
       swissApi.gameView(pov) zip
-      ctx.userId.ifTrue(ctx.isMobileApi).so {
+      ctx.me.ifTrue(ctx.isMobileApi).so {
         noteApi.get(pov.gameId, _)
       } zip
       owner.so(forecastApi loadForDisplay pov) zip

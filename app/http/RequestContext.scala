@@ -35,20 +35,18 @@ trait RequestContext(using Executor):
   yield WebBodyContext(req, lang, userCtx, pref)
 
   def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[OAuthContext] =
-    val lang    = getAndSaveLang(req, scoped.me.some)
-    val userCtx = UserContext(scoped.me.some, false, none)
+    val lang = getAndSaveLang(req, scoped.me.some)
     env.pref.api
-      .get(userCtx.me, req)
+      .get(scoped.me, req)
       .map:
-        OAuthContext(req, lang, userCtx, _, scoped.scopes)
+        OAuthContext(req, lang, scoped.me.some, _, scoped.scopes)
 
   def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): Fu[OAuthBodyContext[A]] =
-    val lang    = getAndSaveLang(req, scoped.me.some)
-    val userCtx = UserContext(scoped.me.some, false, none)
+    val lang = getAndSaveLang(req, scoped.me.some)
     env.pref.api
-      .get(userCtx.me, req)
+      .get(scoped.me, req)
       .map:
-        OAuthBodyContext(req, lang, userCtx, _, scoped.scopes)
+        OAuthBodyContext(req, lang, scoped.me.some, _, scoped.scopes)
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
     val lang = I18nLangPicker(req, me.flatMap(_.lang))

@@ -5,7 +5,7 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.HTTPRequest
 import lila.pref.Pref
-import lila.user.UserContext
+import lila.user.{ Me, MyId, User, UserContext }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 
@@ -18,9 +18,8 @@ object context:
   given (using ctx: AnyContext): Option[lila.user.Me]    = ctx.me
   given (using ctx: AnyContext): Option[lila.user.Me.Id] = ctx.meId
   given (using page: PageContext): AnyContext            = page.ctx
-  // temporary, TODO remove:
   given (using page: PageContext): WebContext =
-    WebContext(page.ctx.req, page.ctx.lang, page.ctx.userContext, page.ctx.pref)
+    WebContext(page.ctx.req, page.ctx.lang, UserContext(page.me, false, page.impersonatedBy), page.ctx.pref)
 
 /* data necessary to render the lichess website layout */
 case class PageData(
@@ -49,23 +48,32 @@ object PageData:
 
 trait AnyContext:
   val req: RequestHeader
-  val userContext: UserContext
   def lang: Lang
   def pref: Pref
-  export userContext.{ me, impersonatedBy, meId, user, userId, is, kid, noKid, troll }
+  val me: Option[Me]
+  val impersonatedBy: Option[User]
+  val needsFp: Boolean
   export me.{ isDefined as isAuth, isEmpty as isAnon }
-  def isBot                 = me.exists(_.isBot)
-  def noBot                 = !isBot
-  def isAppealUser          = me.exists(_.enabled.no)
-  def ip                    = HTTPRequest ipAddress req
-  val scopes: TokenScopes   = TokenScopes(Nil)
-  def isMobile              = scopes.has(_.Web.Mobile)
-  def isWebAuth: Boolean    = false
-  def isOAuthAuth: Boolean  = false
-  lazy val blind            = req.cookies.get(ApiConfig.blindCookie.name).exists(_.value.nonEmpty)
-  def noBlind               = !blind
-  lazy val mobileApiVersion = Mobile.Api requestVersion req
-  def isMobileApi           = mobileApiVersion.isDefined
+  def meId: Option[MyId]             = me.map(_.meId)
+  def is[U: UserIdOf](u: U): Boolean = me.exists(_ is u)
+  inline def user: Option[User]      = Me raw me
+  def userId: Option[UserId]         = user.map(_.id)
+  def username: Option[UserName]     = user.map(_.username)
+  def isBot                          = me.exists(_.isBot)
+  def noBot                          = !isBot
+  def troll                          = user.exists(_.marks.troll)
+  def kid                            = user.exists(_.kid)
+  def noKid                          = !kid
+  def isAppealUser                   = me.exists(_.enabled.no)
+  def ip                             = HTTPRequest ipAddress req
+  val scopes: TokenScopes            = TokenScopes(Nil)
+  def isMobile                       = scopes.has(_.Web.Mobile)
+  def isWebAuth: Boolean             = false
+  def isOAuthAuth: Boolean           = false
+  lazy val blind                     = req.cookies.get(ApiConfig.blindCookie.name).exists(_.value.nonEmpty)
+  def noBlind                        = !blind
+  lazy val mobileApiVersion          = Mobile.Api requestVersion req
+  def isMobileApi                    = mobileApiVersion.isDefined
   def flash(name: String): Option[String] = req.flash get name
 
 final class PageContext(val ctx: AnyContext, val data: PageData) extends AnyContext:
@@ -90,6 +98,8 @@ class WebContext(
     val pref: Pref
 ) extends AnyContext:
 
+  export userContext.{ me, impersonatedBy, needsFp }
+
   override def isWebAuth = isAuth
 
   def withLang(l: Lang) = WebContext(req, l, userContext, pref)
@@ -108,26 +118,30 @@ final class WebBodyContext[A](
 class OAuthContext(
     val req: RequestHeader,
     val lang: Lang,
-    val userContext: UserContext, // TODO remove
+    val me: Option[Me],
     val pref: Pref,
     override val scopes: TokenScopes
 ) extends AnyContext:
+  val impersonatedBy                = none
+  val needsFp                       = false
   override def isOAuthAuth: Boolean = me.isDefined
 
 final class OAuthBodyContext[A](
     val body: Request[A],
     lang: Lang,
-    userContext: UserContext,
+    me: Option[Me],
     pref: Pref,
     override val scopes: TokenScopes
-) extends OAuthContext(body, lang, userContext, pref, scopes)
+) extends OAuthContext(body, lang, me, pref, scopes)
     with BodyContext[A]:
   def scoped = me.map(OAuthScope.Scoped(_, scopes))
 
 /* Cannot render a lichess page. Cannot be authenticated. */
 class MinimalContext(val req: RequestHeader) extends AnyContext:
-  lazy val lang   = lila.i18n.I18nLangPicker(req)
-  val userContext = UserContext.anon
-  lazy val pref   = lila.pref.RequestPref.fromRequest(req)
+  lazy val lang      = lila.i18n.I18nLangPicker(req)
+  val me             = none
+  val impersonatedBy = none
+  val needsFp        = false
+  lazy val pref      = lila.pref.RequestPref.fromRequest(req)
 
 final class MinimalBodyContext[A](val body: Request[A]) extends MinimalContext(body) with BodyContext[A]
