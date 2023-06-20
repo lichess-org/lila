@@ -30,7 +30,7 @@ const fileR = new RegExp('(?:[１２３４５６７８９]|[一二三四五六�
   keyR = new RegExp(`${fileR.source}${rankR.source}`, 'g'),
   japaneseAmbiguitiesR = new RegExp('左|右|上|行|引|寄|直'),
   allRolesR = new RegExp(
-    'fu|ky|ke|gi|ki|ka|hi|to|ny|nk|ng|um|ry|ou|p|l|n|s|g|b|r|k|\\+p|\\+l|\\+n|\\+s|\\+b|\\+r|歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|王|玉|d|h|t'
+    'fu|kyou|kyoo|kyo|ky|kei|ke|gin|gi|kin|ki|kaku|ka|hi|to|ny|nk|ng|uma|um|ryuu|ryu|ry|gyoku|ou|p|l|n|s|g|b|r|k|\\+p|\\+l|\\+n|\\+s|\\+b|\\+r|歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|王|玉|d|h|t|o'
   ),
   KKlastDestR = new RegExp(`^(?:${allRolesR.source})x$`);
 
@@ -250,8 +250,30 @@ function regexMatchAllSquares(str: string): Square[] {
 }
 
 function toRole(variant: VariantKey, str: string): Role | undefined {
-  if (str.length === 1) {
-    str = str.replace('h', '+b').replace('d', '+r');
+  if (str.length >= 3) {
+    switch (str) {
+      case 'kyo':
+      case 'kyoo':
+      case 'kyou':
+        return 'lance';
+      case 'kei':
+        return 'knight';
+      case 'gin':
+        return 'silver';
+      case 'kin':
+        return 'gold';
+      case 'kaku':
+        return 'bishop';
+      case 'uma':
+        return 'horse';
+      case 'ryu':
+      case 'ryuu':
+        return 'dragon';
+      case 'gyoku':
+        return 'king';
+    }
+  } else if (str.length === 1) {
+    str = str.replace('h', '+b').replace('d', '+r').replace('o', 'k');
     if (variant !== 'kyotoshogi') str.replace('t', '+p');
   }
   return forsythToRole(variant)(str) || kanjiToRole(str)[0] || csaToRole(str.toUpperCase());
