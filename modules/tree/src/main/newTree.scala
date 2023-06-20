@@ -116,7 +116,9 @@ case class NewBranch(
 
 object NewBranch:
   given HasId[NewBranch, UciCharPair] = _.id
-  given Mergeable[NewBranch]          = _.merge(_)
+  given Mergeable[NewBranch] with
+    extension (a: NewBranch)
+      def merge(other: NewBranch): Option[NewBranch] = a.merge(other)
 
 type NewTree = ChessNode[NewBranch]
 
