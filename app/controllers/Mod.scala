@@ -24,7 +24,7 @@ final class Mod(
   private def modApi    = env.mod.api
   private def assessApi = env.mod.assessApi
 
-  private given Conversion[Me, AsMod] = me => AsMod(me.user)
+  private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def alt(username: UserStr, v: Boolean) = OAuthModBody(_.CloseAccount) { me ?=>
     withSuspect(username): sus =>
