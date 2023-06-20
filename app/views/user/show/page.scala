@@ -68,7 +68,7 @@ object page {
         isGranted(_.UserSpy) option cssTag("mod.user")
       ),
       robots = u.count.game >= 10,
-      canonicalPath = lila.common.CanonicalPath(routes.User.games(u.username, filters.current.name)).some
+      canonicalPath = lila.common.CanonicalPath(routes.User.games(u.username, "all")).some
     ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
