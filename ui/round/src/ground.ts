@@ -2,7 +2,7 @@ import { notationFiles, notationRanks } from 'common/notation';
 import { predrop, premove } from 'common/pre-sg';
 import resizeHandle from 'common/resize';
 import { Config } from 'shogiground/config';
-import { checksSquareNames, usiToSquareNames } from 'shogiops/compat';
+import { usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole, parseSfen, roleToForsyth } from 'shogiops/sfen';
 import { Piece, Role } from 'shogiops/types';
 import { makeSquareName, parseSquareName } from 'shogiops/util';
@@ -19,7 +19,7 @@ export function makeConfig(ctrl: RoundController): Config {
     hooks = ctrl.makeSgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
-    posRes = playing || (step.check && variant === 'chushogi') ? parseSfen(variant, step.sfen, false) : undefined,
+    posRes = playing ? parseSfen(variant, step.sfen, false) : undefined,
     splitSfen = step.sfen.split(' ');
   return {
     sfen: { board: splitSfen[0], hands: splitSfen[2] },
@@ -27,7 +27,7 @@ export function makeConfig(ctrl: RoundController): Config {
     turnColor: step.ply % 2 === 0 ? 'sente' : 'gote',
     activeColor: playing ? data.player.color : undefined,
     lastDests: step.usi ? usiToSquareNames(step.usi) : undefined,
-    checks: variant === 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : step.check,
+    checks: step.check,
     coordinates: {
       enabled: data.pref.coords !== 0,
       files: notationFiles(),
@@ -35,7 +35,7 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     highlight: {
       lastDests: data.pref.highlightLastDests,
-      check: data.pref.highlightCheck,
+      check: data.pref.highlightCheck && variant !== 'chushogi',
     },
     events: {
       move: hooks.onMove,

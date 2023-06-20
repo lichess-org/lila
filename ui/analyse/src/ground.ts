@@ -136,7 +136,7 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
     },
     highlight: {
       lastDests: pref.highlightLastDests,
-      check: pref.highlightCheck,
+      check: pref.highlightCheck && variant !== 'chushogi',
     },
     draggable: {
       enabled: pref.moveEvent > 0,

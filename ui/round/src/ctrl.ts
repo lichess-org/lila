@@ -300,7 +300,7 @@ export default class RoundController {
       config: SgConfig = {
         sfen: { board: splitSfen[0], hands: splitSfen[2] },
         lastDests: s.usi ? usiToSquareNames(s.usi) : undefined,
-        checks: variant === 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : !!s.check,
+        checks: !!s.check,
         turnColor: this.ply % 2 === 0 ? 'sente' : 'gote',
         activeColor: this.isPlaying() ? this.data.player.color : undefined,
         drawable: {
@@ -322,7 +322,7 @@ export default class RoundController {
     if (s.usi && isForwardStep) {
       if (capture) sound.capture();
       else sound.move();
-      if (s.check) sound.check();
+      if (s.check && variant !== 'chushogi') sound.check();
     }
     this.lionFirstMove = undefined;
     this.autoScroll();
@@ -471,12 +471,12 @@ export default class RoundController {
         droppable: {
           dests: playing && activeColor && posRes ? util.getDropDests(posRes) : new Map(),
         },
-        checks: variant === 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : o.check,
+        checks: o.check,
         drawable: {
           squares: [],
         },
       });
-      if (o.check) sound.check();
+      if (o.check && variant !== 'chushogi') sound.check();
       blur.onMove();
       li.pubsub.emit('ply', this.ply);
     }
