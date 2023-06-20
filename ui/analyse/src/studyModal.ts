@@ -1,4 +1,5 @@
 import { bind, onInsert } from 'common/snabbdom';
+import { modal } from 'common/modal';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 
@@ -64,10 +65,15 @@ function postGameStudyForm(ctrl: AnalyseCtrl): VNode {
       }),
       h('div', [
         h('label', ctrl.trans.noarg('studyWith')),
-        h('input.user-autocomplete', {
+        h('input.user-invite', {
+          hook: onInsert<HTMLInputElement>(el => {
+            window.lishogi.userAutocomplete($(el), {
+              tag: 'span',
+              focus: true,
+            });
+          }),
           attrs: {
             name: 'invited',
-            'data-tag': 'span',
             placeholder: ctrl.trans.noarg('searchByUsername') + ` (${ctrl.trans.noarg('optional').toLowerCase()})`,
           },
         }),
@@ -89,22 +95,30 @@ function postGameStudyForm(ctrl: AnalyseCtrl): VNode {
 }
 
 export function studyAdvancedButton(ctrl: AnalyseCtrl, menuIsOpen: boolean): VNode | null {
-  const d = ctrl.data;
-  return h(
-    'button.fbt',
-    {
-      attrs: {
-        'data-icon': '4',
-        disabled: !document.body.dataset.user,
-        title: ctrl.trans.noarg('toStudy'),
-        hidden: menuIsOpen,
-      },
-      hook: bind('click', _ => {
-        $.modal($('.g_' + d.game.id), undefined, undefined, true);
-      }),
+  return h('button.fbt', {
+    attrs: {
+      'data-icon': '4',
+      disabled: !document.body.dataset.user,
+      title: ctrl.trans.noarg('toStudy'),
+      hidden: menuIsOpen,
     },
-    [
-      h('div.none.g_' + d.game.id, [
+    hook: bind('click', _ => {
+      ctrl.studyModal(true);
+      ctrl.redraw();
+    }),
+  });
+}
+
+export function studyModal(ctrl: AnalyseCtrl): VNode {
+  const d = ctrl.data;
+  return modal({
+    class: 'study__invite',
+    onClose() {
+      ctrl.studyModal(false);
+      ctrl.redraw();
+    },
+    content: [
+      h('div', [
         h('div.study-option', [
           h('div.study-title', ctrl.trans.noarg('postGameStudy')),
           h('div.desc', ctrl.trans.noarg('postGameStudyExplanation')),
@@ -117,6 +131,6 @@ export function studyAdvancedButton(ctrl: AnalyseCtrl, menuIsOpen: boolean): VNo
         ]),
         h('div.study-option', [h('div.study-title', ctrl.trans.noarg('standardStudy')), standardStudyForm(ctrl)]),
       ]),
-    ]
-  );
+    ],
+  });
 }

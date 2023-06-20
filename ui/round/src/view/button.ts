@@ -1,4 +1,5 @@
-import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
+import { modal } from 'common/modal';
+import { MaybeVNode, MaybeVNodes, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import * as game from 'game';
 import { PlayerUser } from 'game';
@@ -83,10 +84,15 @@ function postGameStudyForm(ctrl: RoundController): VNode {
       }),
       h('div', [
         h('label', ctrl.trans.noarg('studyWith')),
-        h('input.user-autocomplete', {
+        h('input.user-invite', {
+          hook: onInsert<HTMLInputElement>(el => {
+            window.lishogi.userAutocomplete($(el), {
+              tag: 'span',
+              focus: true,
+            });
+          }),
           attrs: {
             name: 'invited',
-            'data-tag': 'span',
             placeholder: ctrl.trans.noarg('searchByUsername') + ` (${ctrl.trans.noarg('optional').toLowerCase()})`,
           },
         }),
@@ -114,27 +120,39 @@ function studyAdvancedButton(ctrl: RoundController): VNode | null {
         'a.fbt.new-study-button',
         {
           hook: util.bind('click', _ => {
-            $.modal($('.g_' + d.game.id), undefined, undefined, true);
+            ctrl.openStudyModal = true;
+            ctrl.redraw();
           }),
         },
-        [
-          '+',
-          h('div.none.g_' + d.game.id, [
-            h('div.study-option', [
-              h('div.study-title', ctrl.trans.noarg('postGameStudy')),
-              h('div.desc', ctrl.trans.noarg('postGameStudyExplanation')),
-              postGameStudyForm(ctrl),
-              h(
-                'a.text',
-                { attrs: { 'data-icon': '', href: `/study/post-game-study/${d.game.id}/hot` } },
-                ctrl.trans.noarg('postGameStudiesOfGame')
-              ),
-            ]),
-            h('div.study-option', [h('div.study-title', ctrl.trans.noarg('standardStudy')), standardStudyForm(ctrl)]),
-          ]),
-        ]
+        '+'
       )
     : null;
+}
+
+function studyModal(ctrl: RoundController): VNode {
+  const d = ctrl.data;
+  return modal({
+    class: 'study__invite',
+    onClose() {
+      ctrl.openStudyModal = false;
+      ctrl.redraw();
+    },
+    content: [
+      h('div', [
+        h('div.study-option', [
+          h('div.study-title', ctrl.trans.noarg('postGameStudy')),
+          h('div.desc', ctrl.trans.noarg('postGameStudyExplanation')),
+          postGameStudyForm(ctrl),
+          h(
+            'a.text',
+            { attrs: { 'data-icon': '', href: `/study/post-game-study/${d.game.id}/hot` } },
+            ctrl.trans.noarg('postGameStudiesOfGame')
+          ),
+        ]),
+        h('div.study-option', [h('div.study-title', ctrl.trans.noarg('standardStudy')), standardStudyForm(ctrl)]),
+      ]),
+    ],
+  });
 }
 
 let loadingStudy = false;
@@ -697,6 +715,7 @@ export function followUp(ctrl: RoundController): VNode {
       : null,
     studyButton(ctrl),
     analysisButton(ctrl),
+    ctrl.openStudyModal ? studyModal(ctrl) : null,
   ]);
 }
 
@@ -735,6 +754,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
         : null,
       studyButton(ctrl),
       analysisButton(ctrl),
+      ctrl.openStudyModal ? studyModal(ctrl) : null,
     ];
   return content.find(x => !!x) ? h('div.follow-up', content) : null;
 }

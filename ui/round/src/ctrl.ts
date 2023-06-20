@@ -83,6 +83,7 @@ export default class RoundController {
   autoScroll: () => void = $.noop;
   challengeRematched: boolean = false;
   shouldSendMoveTime: boolean = false;
+  openStudyModal = false;
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
 
