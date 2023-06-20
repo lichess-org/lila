@@ -62,17 +62,17 @@ final class Plan(env: Env) extends LilaController(env):
       bestIds   <- env.plan.api.topPatronUserIds
       _         <- env.user.lightUserApi.preloadMany(recentIds ::: bestIds)
       pricing   <- env.plan.priceApi.pricingOrDefault(myCurrency)
-    yield Ok(
-      html.plan.index(
-        stripePublicKey = env.plan.stripePublicKey,
-        payPalPublicKey = env.plan.payPalPublicKey,
-        email = email,
-        patron = patron,
-        recentIds = recentIds,
-        bestIds = bestIds,
-        pricing = pricing
-      )
-    )
+      page <- renderPage:
+        html.plan.index(
+          stripePublicKey = env.plan.stripePublicKey,
+          payPalPublicKey = env.plan.payPalPublicKey,
+          email = email,
+          patron = patron,
+          recentIds = recentIds,
+          bestIds = bestIds,
+          pricing = pricing
+        )
+    yield Ok(page)
 
   private def indexStripePatron(patron: lila.plan.Patron, customer: StripeCustomer)(using
       ctx: WebContext,
@@ -83,7 +83,7 @@ final class Plan(env: Env) extends LilaController(env):
     gifts   <- env.plan.api.giftsFrom(me)
     res <- info match
       case Some(info: CustomerInfo.Monthly) =>
-        Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).toFuccess
+        Ok.page(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email map { EmailAddress(_) }, patron.some)
       case None =>
@@ -96,9 +96,8 @@ final class Plan(env: Env) extends LilaController(env):
       ctx: WebContext,
       me: Me
   ) =
-    env.plan.api.giftsFrom(me) map { gifts =>
-      Ok(html.plan.indexPayPal(me, patron, sub, gifts))
-    }
+    Ok.pageAsync:
+      env.plan.api.giftsFrom(me) map { html.plan.indexPayPal(me, patron, sub, _) }
 
   private def myCurrency(using ctx: WebContext): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
@@ -109,7 +108,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def features = Open:
     pageHit
-    html.plan.features()
+    Ok.page(html.plan.features())
 
   def switch = AuthBody { ctx ?=> me ?=>
     env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
@@ -134,7 +133,8 @@ final class Plan(env: Env) extends LilaController(env):
         patron   <- ctx.me so { env.plan.api.userPatron(_) }
         customer <- patron so env.plan.api.stripe.patronCustomer
         gift     <- ctx.me so { env.plan.api.recentGiftFrom(_) }
-      yield Ok(html.plan.thanks(patron, customer, gift))
+        page     <- renderPage(html.plan.thanks(patron, customer, gift))
+      yield Ok(page)
 
   def webhook = AnonBodyOf(parse.json): body =>
     if req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG")

@@ -46,7 +46,7 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
       )
     )
 
-  def jsData(fen: Option[Fen.Epd] = None)(using ctx: PageContext) =
+  def jsData(fen: Option[Fen.Epd] = None)(using ctx: AnyContext) =
     Json
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",

@@ -10,9 +10,8 @@ final class OAuthToken(env: Env) extends LilaController(env):
   private val tokenApi = env.oAuth.tokenApi
 
   def index = Auth { ctx ?=> me ?=>
-    tokenApi.listPersonal(me) map { tokens =>
-      Ok(html.oAuth.token.index(tokens))
-    }
+    Ok.pageAsync:
+      tokenApi.listPersonal(me).map(html.oAuth.token.index(_))
   }
 
   def create = Auth { ctx ?=> me ?=>
@@ -20,14 +19,14 @@ final class OAuthToken(env: Env) extends LilaController(env):
       description = ~get("description"),
       scopes = (~ctx.req.queryString.get("scopes[]")).toList
     )
-    html.oAuth.token.create(form, me)
+    Ok.page(html.oAuth.token.create(form, me))
   }
 
   def createApply = AuthBody { ctx ?=> me ?=>
     OAuthTokenForm.create
       .bindFromRequest()
       .fold(
-        err => BadRequest(html.oAuth.token.create(err, me)).toFuccess,
+        err => BadRequest.page(html.oAuth.token.create(err, me)),
         setup =>
           tokenApi.create(setup, me, env.clas.studentCache.isStudent(me)) inject
             Redirect(routes.OAuthToken.index).flashSuccess

@@ -13,7 +13,7 @@ import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ OAuthScope, EndpointScopes }
 import lila.setup.ApiConfig
 import lila.socket.SocketVersion
-import lila.user.{ Me, User as UserModel }
+import lila.user.{ User as UserModel }
 
 final class Challenge(
     env: Env,

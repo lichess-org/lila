@@ -10,7 +10,7 @@ import scalatags.Text.Frag
 import lila.api.AnnounceStore
 import lila.app.{ given, * }
 import lila.security.SecurityForm.Reopen
-import lila.user.{ Me, TotpSecret, User as UserModel }
+import lila.user.{ TotpSecret, User as UserModel }
 import lila.i18n.I18nLangPicker
 
 final class Account(

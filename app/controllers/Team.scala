@@ -10,7 +10,7 @@ import lila.app.{ given, * }
 import lila.common.{ config, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.team.{ Requesting, Team as TeamModel }
-import lila.user.{ Me, User as UserModel }
+import lila.user.{ User as UserModel }
 import Api.ApiResult
 
 final class Team(

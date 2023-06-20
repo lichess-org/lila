@@ -36,12 +36,12 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         AuthorizationRequest.logPrompt(prompt, ctx.me)
         f(prompt)
       case Validated.Invalid(error) =>
-        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description)))
+        BadRequest.page(html.site.message("Bad authorization request")(stringFrag(error.description)))
 
   def authorize = Open:
     withPrompt: prompt =>
-      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri)))): me =>
-        Ok:
+      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri))).toFuccess): me =>
+        Ok.page:
           html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
 
   def legacyAuthorize = Anon:

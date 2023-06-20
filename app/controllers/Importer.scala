@@ -22,7 +22,7 @@ final class Importer(env: Env) extends LilaController(env):
   def importGame = OpenBody:
     val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
     val data = lila.importer.ImportData(PgnStr(pgn), None)
-    html.game.importGame(env.importer.forms.importForm.fill(data))
+    Ok.page(html.game.importGame(env.importer.forms.importForm.fill(data)))
 
   def sendGame = OpenBody:
     env.importer.forms.importForm
@@ -30,7 +30,7 @@ final class Importer(env: Env) extends LilaController(env):
       .fold(
         failure =>
           negotiate( // used by mobile app
-            html = Ok(html.game.importGame(failure)),
+            html = BadRequest.page(html.game.importGame(failure)),
             api = _ => BadRequest(jsonError("Invalid PGN"))
           ),
         data =>

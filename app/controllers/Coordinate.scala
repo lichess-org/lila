@@ -12,8 +12,8 @@ final class Coordinate(env: Env) extends LilaController(env):
   private def serveHome(using ctx: WebContext): Fu[Result] =
     ctx.userId so { userId =>
       env.coordinate.api getScore userId map (_.some)
-    } map { score =>
-      views.html.coordinate.show(score)
+    } flatMap { score =>
+      Ok.page(views.html.coordinate.show(score))
     }
 
   def score = AuthBody { ctx ?=> me ?=>

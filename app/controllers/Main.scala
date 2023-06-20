@@ -42,23 +42,23 @@ final class Main(
 
   def webmasters = Open:
     pageHit
-    html.site.page.webmasters
+    Ok.page(html.site.page.webmasters)
 
   def lag = Open:
     pageHit
-    html.site.lag()
+    Ok.page(html.site.lag())
 
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
   private def serveMobile(using WebContext) =
     pageHit
-    OptionOk(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
+    OptionPage(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
       html.mobile(doc, resolver)
 
   def dailyPuzzleSlackApp = Open:
     pageHit
-    html.site.dailyPuzzleSlackApp()
+    Ok.page(html.site.dailyPuzzleSlackApp())
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -81,7 +81,7 @@ final class Main(
 
   def getFishnet = Open:
     pageHit
-    html.site.bits.getFishnet()
+    Ok.page(html.site.bits.getFishnet())
 
   def costs = Anon:
     pageHit
@@ -95,23 +95,23 @@ final class Main(
 
   def contact = Open:
     pageHit
-    html.site.contact()
+    Ok.page(html.site.contact())
 
   def faq = Open:
     pageHit
-    html.site.faq()
+    Ok.page(html.site.faq())
 
   def temporarilyDisabled = Open:
     pageHit
-    NotImplemented(html.site.message.temporarilyDisabled)
+    NotImplemented.page(html.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    html.site.helpModal.keyboardMove
+    Ok.page(html.site.helpModal.keyboardMove)
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move"   => html.site.helpModal.voiceMove
-      case "coords" => html.site.helpModal.voiceCoords
+      case "move"   => Ok.page(html.site.helpModal.voiceMove)
+      case "coords" => Ok.page(html.site.helpModal.voiceCoords)
       case _        => NotFound(s"Unknown voice help module: $module")
 
   def movedPermanently(to: String) = Anon:

@@ -341,7 +341,8 @@ abstract private[controllers] class LilaController(val env: Env)
   def OptionFuPage[A](
       fua: Fu[Option[A]]
   )(op: A => PageContext ?=> Fu[Frag])(using WebContext): Fu[Result] =
-    fua flatMap { _.fold(notFound)(a => Ok.async(op(a))) }
+    fua.flatMap:
+      _.fold(notFound)(a => Ok.pageAsync(op(a)))
 
   def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using WebContext): Fu[Result] =
     fua.flatMap:

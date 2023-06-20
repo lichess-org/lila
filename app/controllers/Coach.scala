@@ -47,10 +47,9 @@ final class Coach(env: Env) extends LilaController(env):
     else notFound
 
   def edit = Secure(_.Coach) { ctx ?=> me ?=>
-    OptionPage(api.findOrInit): c =>
-      env.msg.twoFactorReminder(me) inject
-        html.coach.edit(c, CoachProfileForm edit c.coach)
-    .noCache
+    OptionFuPage(api.findOrInit): c =>
+      env.msg.twoFactorReminder(me) inject html.coach.edit(c, CoachProfileForm edit c.coach)
+    .map(_.noCache)
   }
 
   def editApply = SecureBody(_.Coach) { ctx ?=> me ?=>
@@ -65,7 +64,7 @@ final class Coach(env: Env) extends LilaController(env):
   }
 
   def picture = Secure(_.Coach) { ctx ?=> me ?=>
-    OptionPage(api.findOrInit)(html.coach.picture).map(_.noCache)
+    OptionPage(api.findOrInit)(html.coach.picture(_)).map(_.noCache)
   }
 
   def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>

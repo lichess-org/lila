@@ -20,7 +20,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def form(categId: ForumCategId) = Auth { _ ?=> me ?=>
     NoBot:
       NotForKids:
-        OptionOk(env.forum.categRepo byId categId): categ =>
+        OptionFuPage(env.forum.categRepo byId categId): categ =>
           categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
             forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(inOwnTeam), _) }
           }
@@ -36,8 +36,10 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               .bindFromRequest()
               .fold(
                 err =>
-                  forms.anyCaptcha.map: captcha =>
-                    BadRequest(html.forum.topic.form(categ, err, captcha)),
+                  BadRequest.pageAsync:
+                    forms.anyCaptcha.map:
+                      html.forum.topic.form(categ, err, _)
+                ,
                 data =>
                   CreateRateLimit(ctx.ip, rateLimitedFu):
                     topicApi.makeTopic(categ, data) map { topic =>
@@ -64,9 +66,8 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
           res <-
             if canRead then
-              Ok(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg))
-                .withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page))
-                .toFuccess
+              Ok.page(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg))
+                .map(_.withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page)))
             else notFound
         yield res
 

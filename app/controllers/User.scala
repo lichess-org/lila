@@ -17,7 +17,7 @@ import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Game as GameModel, Pov }
 import lila.rating.{ Perf, PerfType }
 import lila.socket.UserLagCache
-import lila.user.{ Me, User as UserModel }
+import lila.user.{ User as UserModel }
 import lila.security.{ Granter, UserLogins }
 import lila.mod.UserWithModlog
 import play.api.i18n.Lang

@@ -12,7 +12,7 @@ import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
-import lila.user.{ Me, PasswordHasher, User as UserModel }
+import lila.user.{ PasswordHasher, User as UserModel }
 
 final class Auth(
     env: Env,

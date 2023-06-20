@@ -12,17 +12,18 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def index(page: Int, q: String) = Open:
     Reasonable(page, config.Max(20)):
-      q.trim.take(100).some.filter(_.nonEmpty) match
-        case Some(query) =>
-          env.relay.pager
-            .search(query, page)
-            .map: pager =>
-              Ok(html.relay.tour.index(Nil, pager, query))
-        case None =>
-          for
-            active <- (page == 1).so(env.relay.api.officialActive.get({}))
-            pager  <- env.relay.pager.inactive(page)
-          yield Ok(html.relay.tour.index(active, pager))
+      Ok.pageAsync:
+        q.trim.take(100).some.filter(_.nonEmpty) match
+          case Some(query) =>
+            env.relay.pager
+              .search(query, page)
+              .map: pager =>
+                html.relay.tour.index(Nil, pager, query)
+          case None =>
+            for
+              active <- (page == 1).so(env.relay.api.officialActive.get({}))
+              pager  <- env.relay.pager.inactive(page)
+            yield html.relay.tour.index(active, pager)
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
@@ -32,14 +33,15 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       .lightUser(owner.id)
       .flatMapz: owner =>
         Reasonable(page, config.Max(20)):
-          env.relay.pager
-            .byOwner(owner.id, page)
-            .map: pager =>
-              Ok(html.relay.tour.byOwner(pager, owner))
+          Ok.pageAsync:
+            env.relay.pager
+              .byOwner(owner.id, page)
+              .map: pager =>
+                html.relay.tour.byOwner(pager, owner)
 
   private def page(bookmark: String, menu: String) = Open:
     pageHit
-    OptionOk(prismicC getBookmark bookmark): (doc, resolver) =>
+    OptionPage(prismicC getBookmark bookmark): (doc, resolver) =>
       html.relay.tour.page(doc, resolver, menu)
 
   def form = Auth { ctx ?=> _ ?=>

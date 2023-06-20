@@ -19,8 +19,8 @@ final class Learn(env: Env) extends LilaController(env):
     ctx.me
       .so: me =>
         env.learn.api.get(me) map { Json.toJson(_) } map some
-      .map: progress =>
-        Ok(html.learn.index(progress))
+      .flatMap: progress =>
+        Ok.page(html.learn.index(progress))
 
   private val scoreForm = Form:
     mapping(

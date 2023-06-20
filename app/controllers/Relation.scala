@@ -8,7 +8,7 @@ import lila.common.config.MaxPerSecond
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
 import lila.relation.Related
 import lila.relation.RelationStream.*
-import lila.user.{ Me, User as UserModel }
+import lila.user.{ User as UserModel }
 import views.*
 import lila.common.config
 import Api.ApiResult
@@ -24,7 +24,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         (ctx.isAuth so { env.pref.api followable user.id }) zip
         (ctx.userId so { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
           negotiate(
-            html = Ok:
+            html = Ok.page:
               if mini then
                 html.relation.mini(user.id, blocked = blocked, followable = followable, relation = relation)
               else
@@ -107,7 +107,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           negotiate(
             html =
               if ctx.is(user) || isGrantedOpt(_.CloseAccount)
-              then Ok(html.relation.bits.friends(user, pag))
+              then Ok.page(html.relation.bits.friends(user, pag))
               else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username))),
             api = _ => Ok(jsonRelatedPaginator(pag))
           )
