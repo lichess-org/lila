@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Supprimer toutes les parties de la ronde. La source doit être active pour recréer les parties.</string>
   <string name="editRoundStudy">Modifier l\'étude de la ronde</string>
   <string name="deleteTournament">Supprimer ce tournoi</string>
-  <string name="definitivelyDeleteTournament">Supprimer définitivement le tournoi, les rondes et les parties</string>
+  <string name="definitivelyDeleteTournament">Supprimer définitivement le tournoi, toutes ses rondes et toutes ses parties.</string>
 </resources>
