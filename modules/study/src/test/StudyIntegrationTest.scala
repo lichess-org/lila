@@ -95,8 +95,8 @@ object TestCase:
 
   import Fixtures.*
   val all = standards.map((str, expected) => TestCase(Standard, str, expected))
-  ++ crazyhouses.map((str, expected) => TestCase(Crazyhouse, str, expected))
-  ++ antichess.map((str, expected) => TestCase(Antichess, str, expected))
+    ++ crazyhouses.map((str, expected) => TestCase(Crazyhouse, str, expected))
+    ++ antichess.map((str, expected) => TestCase(Antichess, str, expected))
 
 enum StudyAction:
   case Move(m: AnaMove)
@@ -245,10 +245,11 @@ object StudyAction:
     def promote(chapter: NewChapter, position: Position.Ref, toMainline: Boolean) =
       chapter
         .updateRoot: root =>
-          root.updateTree: tree =>
-            if toMainline then tree.promoteToMainline(position.path.ids)
-            else tree.promote(position.path.ids)
-          .some
+          root
+            .updateTree: tree =>
+              if toMainline then tree.promoteToMainline(position.path.ids)
+              else tree.promote(position.path.ids)
+            .some
 
     def toggleGlyph(chapter: NewChapter, position: Position.Ref, glyph: Glyph) =
       chapter.toggleGlyph(glyph, position.path)

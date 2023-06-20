@@ -47,7 +47,7 @@ class PgnRoundTripTest extends munit.FunSuite:
 
   given Conversion[Bdoc, Reader] = Reader(_)
   val treeBson                   = summon[BSON[Root]]
-  val newTreeBson                   = summon[BSON[NewRoot]]
+  val newTreeBson                = summon[BSON[NewRoot]]
   val w                          = new Writer
 
   test("roundtrip with BSONHandlers"):

@@ -303,8 +303,8 @@ object NewRoot:
     wa.writes(tree.value)
       .add(
         "children",
-        if alwaysChildren || tree.childAndItsVariations.nonEmpty then
-          nodeListJsonWriter(true)(wa).writes(tree.childAndItsVariations).some
+        if alwaysChildren || tree.childAndChildVariations.nonEmpty then
+          nodeListJsonWriter(true)(wa).writes(tree.childAndChildVariations).some
         else None
       )
 

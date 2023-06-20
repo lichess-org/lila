@@ -66,7 +66,9 @@ case class NewChapter(
     updateRoot(_.modifyWithParentPath(path, _.copy(forceVariation = force)))
 
   def opening: Option[Opening] =
-    Variant.list.openingSensibleVariants(setup.variant).so(OpeningDb.searchInFens(root.mainlineValues.map(_.metas.fen.opening)))
+    Variant.list
+      .openingSensibleVariants(setup.variant)
+      .so(OpeningDb.searchInFens(root.mainlineValues.map(_.metas.fen.opening)))
 
   def isEmptyInitial = order == 1 && root.isEmpty
 

@@ -117,7 +117,7 @@ object PgnDump:
   def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
     Pgn(
       tags,
-      Initial(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
+      InitialComments(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
       root.tree.map(treeToTree(_)(using flags))
     )
 
