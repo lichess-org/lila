@@ -64,5 +64,7 @@ function notationDisplay(ctrl: NotationCtrl, notation: Notation): string {
       return ctrl.trans.noarg('kitaoKawasakiNotation');
     case Notation.Kif:
       return ctrl.trans.noarg('kifNotation');
+    case Notation.Usi:
+      return 'USI';
   }
 }

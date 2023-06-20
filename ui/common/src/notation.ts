@@ -6,7 +6,7 @@ import { makeWesternMove } from 'shogiops/notation/western';
 import { makeWesternEngineMove } from 'shogiops/notation/westernEngine';
 import { parseSfen } from 'shogiops/sfen';
 import { Move, Square } from 'shogiops/types';
-import { parseUsi } from 'shogiops/util';
+import { makeUsi, parseUsi } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
 
 export const enum Notation {
@@ -15,6 +15,7 @@ export const enum Notation {
   Japanese,
   WesternEngine,
   Kif,
+  Usi,
 }
 
 const notationPref: Notation = parseInt(document.body.dataset.notation || '0');
@@ -35,6 +36,7 @@ export function notationRanks() {
     case Notation.Kif:
       return sgNotation.JAPANESE;
     case Notation.WesternEngine:
+    case Notation.Usi:
       return sgNotation.ENGINE;
     default:
       return sgNotation.HEX;
@@ -51,6 +53,8 @@ export function makeNotationWithPosition(pos: Position, move: Move, lastMove?: M
       return makeWesternEngineMove(pos, move)!;
     case Notation.Kif:
       return makeKifMove(pos, move, lastMove?.to)!;
+    case Notation.Usi:
+      return makeUsi(move);
     default:
       return makeWesternMove(pos, move)!;
   }

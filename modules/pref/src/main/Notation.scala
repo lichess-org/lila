@@ -13,13 +13,15 @@ object Notations {
   val japanese      = new Notation(2)
   val westernEngine = new Notation(3) // 1a
   val kif           = new Notation(4)
+  val usi           = new Notation(5)
 
   val all = List(
     western,
     westernEngine,
     kawasaki,
     japanese,
-    kif
+    kif,
+    usi
   )
   val allToString = all.map(_.toString)
 
