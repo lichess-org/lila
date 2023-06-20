@@ -170,13 +170,14 @@ object jsI18n {
       hintOnDemand,
       playerTip,
       playQuestion,
+      trans.goodMove,
+      trans.mistake,
+      trans.learn.goldComplete,
       trans.analyse,
       trans.back,
       trans.preview,
       trans.getAHint,
       trans.retry,
-      trans.mistake,
-      trans.goodMove,
       trans.storm.playAgain
     ).map(_.key)
   }

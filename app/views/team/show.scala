@@ -26,7 +26,7 @@ object show {
       ctx: Context
   ) =
     bits.layout(
-      title = t.name,
+      title = trans.teamNamedX.txt(t.name),
       openGraph = lila.app.ui
         .OpenGraph(
           title = trans.teamNamedX.txt(t.name),
