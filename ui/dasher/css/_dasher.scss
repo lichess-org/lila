@@ -203,6 +203,9 @@
     }
     &.loading {
       height: 550px;
+      body.board-layout-1 & {
+        height: 400px;
+      }
       .spinner {
         display: flex;
         justify-content: center;
@@ -240,6 +243,9 @@
       .sp-dragger {
         outline: 1px solid #1b1b1b;
       }
+    }
+    body.board-layout-1 & .hands {
+      display: none;
     }
   }
 }
