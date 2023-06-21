@@ -145,16 +145,12 @@ final class NotifyApi(
         "socketUsers"
       )
 
-  private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent) =
+  private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent): Funit =
     val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells foreach unreadCountCache.invalidate // or maybe update only if getIfPresent?
     repo.insertMany(bells.map(to => Notification.make(to, content))) >>-
       Bus.publish(
-        SendTos(
-          bells.toSet,
-          "notifications",
-          Json.obj("incrementUnread" -> true)
-        ),
+        SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true)),
         "socketUsers"
       )
 

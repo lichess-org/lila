@@ -75,7 +75,8 @@ fishnet client create {username}
 gdpr erase {username} forever
 msg multi {sender} {recipient1,recipient2} {message}
 team members add {teamId} {username1,username2,username3}
-notify users {username1,username2,username3} {url} {link title} | {link description}
+notify url users {username1,username2,username3} {url} {link title} | {link description}
+notify url titled {url} {link title} | {link description}
 patron lifetime {username}
 patron month {username}
 patron remove {username}

@@ -3,6 +3,7 @@ package lila.notify
 import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
+import akka.stream.Materializer
 
 import lila.db.dsl.Coll
 import lila.common.Bus
@@ -19,7 +20,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     subsRepo: lila.relation.SubscriptionRepo
-)(using Executor, ActorSystem):
+)(using Executor, ActorSystem, Materializer):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
@@ -53,15 +54,8 @@ final class Env(
       }
     }
   )
-  def cli: lila.common.Cli = new:
-    def process =
-      case "notify" :: "users" :: users :: url :: words =>
-        val userIds      = users.split(',').flatMap(UserStr.read).map(_.id)
-        val title        = words.takeWhile(_ != "|").mkString(" ").some.filter(_.nonEmpty)
-        val text         = words.dropWhile(_ != "|").drop(1).mkString(" ").some.filter(_.nonEmpty)
-        val notification = GenericLink(url, title, text, lila.common.licon.InfoCircle)
-        api.notifyManyIgnoringPrefs(userIds, notification) inject
-          s"Notified ${userIds.size} users"
+
+  lazy val cli = wire[NotifyCli]
 
 final class NotifyColls(val notif: Coll, val pref: Coll)
 
