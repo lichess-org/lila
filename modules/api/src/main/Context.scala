@@ -9,13 +9,6 @@ import lila.user.{ Me, MyId, User }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 
-object Context:
-  export lila.api.{ Context, BodyContext }
-  export lila.api.{ LoginContext, PageContext }
-  given (using ctx: Context): Option[Me]   = ctx.me
-  given (using ctx: Context): Option[MyId] = ctx.meId
-  given (using page: PageContext): Context = page.ctx
-
 /* Who is logged in, and how */
 final class LoginContext(
     val me: Option[Me],
@@ -59,6 +52,20 @@ class Context(
   def flash(name: String): Option[String] = req.flash get name
   def withLang(l: Lang)                   = new Context(req, l, userContext, pref)
 
+object Context:
+  export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }
+  given (using ctx: Context): Option[Me]     = ctx.me
+  given (using ctx: Context): Option[MyId]   = ctx.meId
+  given (using page: PageContext): Context   = page.ctx
+  given (using embed: EmbedContext): Context = embed.ctx
+
+  import lila.i18n.I18nLangPicker
+  import lila.pref.RequestPref
+  def minimal(req: RequestHeader) =
+    Context(req, I18nLangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+  def minimalBody[A](req: Request[A]) =
+    BodyContext(req, I18nLangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+
 final class BodyContext[A](
     val body: Request[A],
     lang: Lang,
@@ -84,3 +91,18 @@ object PageData:
 final class PageContext(val ctx: Context, val data: PageData):
   export ctx.*
   export data.*
+
+final class EmbedContext(val ctx: Context, val bg: String, val nonce: Nonce):
+  export ctx.*
+  def boardClass = ctx.pref.realTheme.cssClass
+  def pieceSet   = ctx.pref.realPieceSet
+
+object EmbedContext:
+  given (using config: EmbedContext): Lang = config.lang
+  def apply(req: RequestHeader): EmbedContext = new EmbedContext(
+    Context.minimal(req),
+    bg = get("bg", req).filterNot("auto".==) | "system",
+    nonce = Nonce.random
+  )
+  private def get(name: String, req: RequestHeader): Option[String] =
+    req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)

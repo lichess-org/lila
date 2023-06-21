@@ -17,12 +17,6 @@ trait RequestContext(using Executor):
 
   val env: Env
 
-  def minimalContext(using req: RequestHeader): Context =
-    Context(req, I18nLangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
-
-  def minimalBodyContext[A](using req: Request[A]): BodyContext[A] =
-    BodyContext(req, I18nLangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
-
   def makeContext(using req: RequestHeader): Fu[Context] = for
     userCtx <- makeUserContext(req)
     lang = getAndSaveLang(req, userCtx.me)

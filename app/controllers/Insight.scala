@@ -56,7 +56,6 @@ final class Insight(env: Env) extends LilaController(env):
     }
 
   def json(username: UserStr) =
-    import lila.app.ui.EmbedConfig.given
     OpenOrScopedBody(parse.json)(Nil): ctx ?=>
       AccessibleApi(username) { processQuestion(_, ctx.body) }
 

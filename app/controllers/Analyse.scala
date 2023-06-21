@@ -18,21 +18,21 @@ final class Analyse(
 ) extends LilaController(env):
 
   def requestAnalysis(id: GameId) = Auth { ctx ?=> me ?=>
-    OptionFuResult(env.game.gameRepo game id) { game =>
-      env.fishnet.analyser(
-        game,
-        lila.fishnet.Work.Sender(
-          userId = me,
-          ip = ctx.ip.some,
-          mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
-          system = false
+    OptionFuResult(env.game.gameRepo game id): game =>
+      env.fishnet
+        .analyser(
+          game,
+          lila.fishnet.Work.Sender(
+            userId = me,
+            ip = ctx.ip.some,
+            mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
+            system = false
+          )
         )
-      ) map { result =>
-        result.error match
-          case None        => NoContent
-          case Some(error) => BadRequest(error)
-      }
-    }
+        .map: result =>
+          result.error match
+            case None        => NoContent
+            case Some(error) => BadRequest(error)
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =

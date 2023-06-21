@@ -26,7 +26,7 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
-  def cssTag(name: String)(using ctx: PageContext): Frag =
+  def cssTag(name: String)(using ctx: Context): Frag =
     cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
@@ -61,15 +61,15 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
 
   def depsTag = jsAt("compiled/deps.min.js")
 
-  def roundTag                             = jsModule("round")
-  def roundNvuiTag(using ctx: PageContext) = ctx.blind option jsModule("round.nvui")
+  def roundTag                         = jsModule("round")
+  def roundNvuiTag(using ctx: Context) = ctx.blind option jsModule("round.nvui")
 
-  def analyseTag                             = jsModule("analysisBoard")
-  def analyseStudyTag                        = jsModule("analysisBoard.study")
-  def analyseNvuiTag(using ctx: PageContext) = ctx.blind option jsModule("analysisBoard.nvui")
+  def analyseTag                         = jsModule("analysisBoard")
+  def analyseStudyTag                    = jsModule("analysisBoard.study")
+  def analyseNvuiTag(using ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
-  def puzzleTag                             = jsModule("puzzle")
-  def puzzleNvuiTag(using ctx: PageContext) = ctx.blind option jsModule("puzzle.nvui")
+  def puzzleTag                         = jsModule("puzzle")
+  def puzzleNvuiTag(using ctx: Context) = ctx.blind option jsModule("puzzle.nvui")
 
   def captchaTag          = jsModule("captcha")
   def infiniteScrollTag   = jsModule("infiniteScroll")

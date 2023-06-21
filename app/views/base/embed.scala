@@ -1,14 +1,12 @@
 package views.html.base
 
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.EmbedConfig
-import lila.app.ui.EmbedConfig.given
 import lila.app.ui.ScalatagsTemplate.*
 import lila.pref.SoundSet
 
 object embed:
 
-  def apply(title: String, cssModule: String)(body: Modifier*)(using config: EmbedConfig) =
+  def apply(title: String, cssModule: String)(body: Modifier*)(using config: EmbedContext) =
     frag(
       layout.bits.doctype,
       layout.bits.htmlTag(using config.lang)(

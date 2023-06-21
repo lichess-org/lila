@@ -42,7 +42,6 @@
       "src/site.ts": "site",
       "src/tvEmbed.ts": "tvEmbed",
       "src/puzzleEmbed.ts": "puzzle.embed",
-      "src/analyseEmbed.ts": "analysisBoard.embed",
       "src/user.ts": "user",
       "src/clas.ts": "clas",
       "src/captcha.ts": "captcha",
