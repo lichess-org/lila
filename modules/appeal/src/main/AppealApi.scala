@@ -14,7 +14,7 @@ final class AppealApi(
 
   import BsonHandlers.given
 
-  def mine(using me: Me): Fu[Option[Appeal]] = coll.byId[Appeal](me)
+  def mine(using me: Me.Id): Fu[Option[Appeal]] = coll.byId[Appeal](me)
 
   def get(user: User) = coll.byId[Appeal](user.id)
 
