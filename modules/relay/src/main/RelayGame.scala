@@ -46,7 +46,7 @@ private object RelayGame:
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
 
   import lila.common.Iso
-  import chess.format.pgn.{ Initial, Pgn }
+  import chess.format.pgn.{ InitialComments, Pgn }
   val iso: Iso[RelayGames, MultiPgn] =
     import lila.study.PgnDump.WithFlags
     given WithFlags = WithFlags(
@@ -62,7 +62,7 @@ private object RelayGame:
           gs.view.map { g =>
             Pgn(
               tags = g.tags,
-              initial = Initial.empty,
+              initial = InitialComments.empty,
               lila.study.PgnDump.rootToTree(g.root)
             ).render
           }.toList

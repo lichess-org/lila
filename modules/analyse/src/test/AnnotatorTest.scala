@@ -4,7 +4,7 @@ import chess.{ ByColor, Color, Ply }
 import lila.common.Maths.isCloseTo
 import lila.common.config.{ NetDomain, BaseUrl }
 import lila.tree.Eval
-import chess.format.pgn.{ Pgn, PgnStr, Initial, Tag, Tags, Parser, PgnTree }
+import chess.format.pgn.{ Pgn, PgnStr, InitialComments, Tag, Tags, Parser, PgnTree }
 import chess.{ Node, Move }
 import lila.game.PgnDump
 
@@ -24,7 +24,7 @@ class AnnotatorTest extends munit.FunSuite:
         pgnImport = none
       )
       .sloppy
-  val emptyPgn                = Pgn(Tags.empty, Initial.empty, None)
+  val emptyPgn                = Pgn(Tags.empty, InitialComments.empty, None)
   def withAnnotator(pgn: Pgn) = pgn.copy(tags = pgn.tags + Tag(name = "Annotator", value = "l.org"))
   val emptyAnalysis           = Analysis(Analysis.Id("abcd"), None, Nil, Ply.initial, nowInstant, None)
   val emptyEval               = Eval(none, none, none)
