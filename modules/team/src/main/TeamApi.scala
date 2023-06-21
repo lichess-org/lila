@@ -4,6 +4,7 @@ import play.api.libs.json.{ JsSuccess, Json, Reads }
 import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 import scala.util.Try
+import cats.syntax.traverse.*
 
 import lila.chat.ChatApi
 import lila.common.Bus
@@ -221,6 +222,21 @@ final class TeamApi(
         }
     }
   } recover lila.db.ignoreDuplicateKey
+
+  private[team] def addMembers(team: Team, userIds: Seq[UserId]): Funit =
+    userIds
+      .traverse: userId =>
+        userRepo
+          .enabledById(userId)
+          .flatMapz: user =>
+            memberRepo
+              .add(team.id, Me(user))
+              .map: _ =>
+                cached.invalidateTeamIds(user.id)
+                1
+              .recover(lila.db.recoverDuplicateKey(_ => 0))
+      .flatMap: inserts =>
+        teamRepo.incMembers(team.id, inserts.sum)
 
   def teamsOf(username: UserStr) =
     cached.teamIdsList(username.id) flatMap teamsByIds
