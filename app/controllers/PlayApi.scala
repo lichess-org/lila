@@ -147,10 +147,10 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
     }
 
   def botOnline = Open:
-    env.user.repo
-      .botsByIds(env.bot.onlineApiUsers.get)
-      .map: users =>
-        Ok(views.html.user.bots(users))
+    Ok.pageAsync:
+      env.user.repo
+        .botsByIds(env.bot.onlineApiUsers.get)
+        .map(views.html.user.bots(_))
 
   def botOnlineApi = Anon:
     apiC

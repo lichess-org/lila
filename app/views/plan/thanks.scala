@@ -14,7 +14,7 @@ object thanks:
       stripeCustomer: Option[lila.plan.StripeCustomer],
       gift: Option[lila.plan.Patron]
   )(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     views.html.base.layout(
       moreCss = cssTag("page"),

@@ -13,14 +13,14 @@ object roundForm:
 
   import trans.broadcast.*
 
-  def create(form: Form[Data], tour: RelayTour)(using WebContext) =
+  def create(form: Form[Data], tour: RelayTour)(using PageContext) =
     layout(newBroadcast.txt())(
       boxTop(h1(a(href := routes.RelayTour.edit(tour.id))(tour.name), " • ", addRound())),
       standardFlash,
       inner(form, routes.RelayRound.create(tour.id), tour, create = true)
     )
 
-  def edit(rt: RelayRound.WithTour, form: Form[Data])(using WebContext) =
+  def edit(rt: RelayRound.WithTour, form: Form[Data])(using PageContext) =
     layout(rt.fullName)(
       boxTop(
         h1(
@@ -48,7 +48,7 @@ object roundForm:
       )
     )
 
-  private def layout(title: String)(body: Modifier*)(using WebContext) =
+  private def layout(title: String)(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
@@ -58,7 +58,7 @@ object roundForm:
     )
 
   private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     val isLcc = form("syncUrl").value.exists(LccRegex.matches)
     postForm(cls := "form3", action := url)(

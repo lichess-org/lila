@@ -16,7 +16,7 @@ object editor:
       fen: Option[Fen.Epd],
       positionsJson: String,
       endgamePositionsJson: String
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(
@@ -46,7 +46,7 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
       )
     )
 
-  def jsData(fen: Option[Fen.Epd] = None)(using ctx: WebContext) =
+  def jsData(fen: Option[Fen.Epd] = None)(using ctx: AnyContext) =
     Json
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",

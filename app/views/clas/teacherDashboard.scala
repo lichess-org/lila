@@ -15,7 +15,7 @@ object teacherDashboard:
       c: Clas,
       students: List[Student.WithUser],
       active: String
-  )(modifiers: Modifier*)(using WebContext) =
+  )(modifiers: Modifier*)(using PageContext) =
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
@@ -48,7 +48,7 @@ object teacherDashboard:
   def overview(
       c: Clas,
       students: List[Student.WithUser]
-  )(using WebContext) =
+  )(using PageContext) =
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
         c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc)),
@@ -70,7 +70,7 @@ object teacherDashboard:
       c: Clas,
       all: List[Student.WithUser],
       invites: List[ClasInvite]
-  )(using WebContext) =
+  )(using PageContext) =
     layout(c, all.filter(_.student.isActive), "students"):
       val archived = all.filter(_.student.isArchived)
       val inviteBox =
@@ -102,7 +102,7 @@ object teacherDashboard:
           )
       frag(inviteBox, archivedBox)
 
-  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using WebContext) =
+  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using PageContext) =
     layout(c, students, active)(
       div(cls := "box__pad students__empty")(
         p(
@@ -122,7 +122,7 @@ object teacherDashboard:
       c: Clas,
       students: List[Student.WithUser],
       progress: ClasProgress
-  )(using WebContext) =
+  )(using PageContext) =
     layout(c, students, "progress")(
       progressHeader(c, progress.some),
       div(cls := "students")(
@@ -177,7 +177,7 @@ object teacherDashboard:
       basicCompletion: Map[UserId, Int],
       practiceCompletion: Map[UserId, Int],
       coordScores: Map[UserId, chess.ByColor[Int]]
-  )(using WebContext) =
+  )(using PageContext) =
     layout(c, students, "progress")(
       progressHeader(c, none),
       div(cls := "students")(
@@ -216,7 +216,7 @@ object teacherDashboard:
       )
     )
 
-  private def progressHeader(c: Clas, progress: Option[ClasProgress])(using WebContext) =
+  private def progressHeader(c: Clas, progress: Option[ClasProgress])(using PageContext) =
     div(cls := "progress")(
       div(cls := "progress-perf")(
         label(trans.variant()),
@@ -254,7 +254,7 @@ object teacherDashboard:
       }
     )
 
-  private def studentList(c: Clas, students: List[Student.WithUser])(using WebContext) =
+  private def studentList(c: Clas, students: List[Student.WithUser])(using PageContext) =
     div(cls := "students")(
       table(cls := "slist slist-pad sortable")(
         thead(
@@ -287,7 +287,7 @@ object teacherDashboard:
       )
     )
 
-  private def studentTd(c: Clas, s: Student.WithUser)(using WebContext) =
+  private def studentTd(c: Clas, s: Student.WithUser)(using PageContext) =
     td(
       a(href := clasRoutes.studentShow(c.id.value, s.user.username))(
         userSpan(

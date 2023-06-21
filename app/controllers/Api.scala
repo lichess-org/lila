@@ -33,7 +33,7 @@ final class Api(
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
   def index = Anon:
-    views.html.site.bits.api
+    Ok(views.html.site.bits.api)
 
   private val userRateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.api.ip")
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>

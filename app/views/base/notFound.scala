@@ -8,7 +8,7 @@ import controllers.routes
 
 object notFound:
 
-  def apply()(using WebContext) =
+  def apply()(using PageContext) =
     layout(
       title = "Page not found",
       moreJs = prismicJs,

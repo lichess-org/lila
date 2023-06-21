@@ -7,9 +7,7 @@ import play.api.http.*
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsNumber, JsObject, JsString, JsValue, Json, Writes }
 import play.api.mvc.*
-import scalatags.Text.Frag
 
-import lila.api.{ PageData, Nonce }
 import lila.app.{ *, given }
 import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
@@ -18,15 +16,16 @@ import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
-    with lila.app.http.RequestGetter
-    with lila.app.http.ResponseBuilder(using env.executor)
-    with lila.app.http.ResponseHeaders
-    with lila.app.http.ResponseWriter
-    with lila.app.http.CtrlExtensions
-    with lila.app.http.CtrlConversions
-    with lila.app.http.CtrlFilters
-    with lila.app.http.RequestContext(using env.executor)
-    with lila.app.http.CtrlErrors:
+    with http.RequestGetter
+    with http.ResponseBuilder(using env.executor)
+    with http.ResponseHeaders
+    with http.ResponseWriter
+    with http.CtrlExtensions
+    with http.CtrlConversions
+    with http.CtrlFilters
+    with http.CtrlPage(using env.executor)
+    with http.RequestContext(using env.executor)
+    with http.CtrlErrors:
 
   def controllerComponents = env.controllerComponents
   given Executor           = env.executor
@@ -240,13 +239,15 @@ abstract private[controllers] class LilaController(val env: Env)
       selectors: Seq[OAuthScope.Selector]
   )(f: OAuthContext ?=> Me ?=> Fu[Result])(using RequestHeader): Fu[Result] =
     handleScopedCommon(selectors): scoped =>
-      f(using oauthContext(scoped))(using scoped.me)
+      oauthContext(scoped).flatMap: ctx =>
+        f(using ctx)(using scoped.me)
 
   private def handleScopedBody[A](
       selectors: Seq[OAuthScope.Selector]
   )(f: OAuthBodyContext[A] ?=> Me ?=> Fu[Result])(using Request[A]): Fu[Result] =
     handleScopedCommon(selectors): scoped =>
-      f(using oauthBodyContext(scoped))(using scoped.me)
+      oauthBodyContext(scoped).flatMap: ctx =>
+        f(using ctx)(using scoped.me)
 
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using req: RequestHeader)(
       f: OAuthScope.Scoped => Fu[Result]
@@ -320,7 +321,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def FormFuResult[A, B: Writeable](
       form: Form[A]
-  )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using Request[?]) =
+  )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using Request[?]): Fu[Result] =
     form
       .bindFromRequest()
       .fold(
@@ -330,14 +331,19 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def OptionOk[A, B: Writeable](
       fua: Fu[Option[A]]
-  )(op: A => B)(using WebContext): Fu[Result] =
-    OptionFuOk(fua): a =>
-      fuccess(op(a))
-
-  def OptionFuOk[A, B: Writeable](
-      fua: Fu[Option[A]]
-  )(op: A => Fu[B])(using WebContext) =
+  )(op: A => Fu[B])(using WebContext): Fu[Result] =
     fua flatMap { _.fold(notFound)(a => op(a) dmap { Ok(_) }) }
+
+  def OptionPage[A](
+      fua: Fu[Option[A]]
+  )(op: A => PageContext ?=> Frag)(using WebContext): Fu[Result] =
+    fua flatMap { _.fold(notFound)(a => Ok.page(op(a))) }
+
+  def OptionFuPage[A](
+      fua: Fu[Option[A]]
+  )(op: A => PageContext ?=> Fu[Frag])(using WebContext): Fu[Result] =
+    fua.flatMap:
+      _.fold(notFound)(a => Ok.pageAsync(op(a)))
 
   def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using WebContext): Fu[Result] =
     fua.flatMap:

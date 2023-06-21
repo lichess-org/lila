@@ -8,7 +8,7 @@ import lila.relay.RelayTour
 
 object bits:
 
-  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using WebContext) =
+  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using PageContext) =
     a(
       href := tr.path,
       cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
@@ -31,7 +31,7 @@ object bits:
       "How to use Lichess Broadcasts"
     )
 
-  def jsI18n(using WebContext) =
+  def jsI18n(using PageContext) =
     views.html.study.jsI18n() ++
       i18nJsObject(i18nKeys)
 

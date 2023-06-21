@@ -12,7 +12,7 @@ object bits:
       title: String,
       active: Either[Clas.WithStudents, String],
       student: Option[Student] = none
-  )(body: Modifier*)(using WebContext) =
+  )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("clas"),
@@ -48,7 +48,7 @@ object bits:
       else main(cls := "page-small box")(body)
     )
 
-  def showArchived(archived: Clas.Recorded)(using WebContext) =
+  def showArchived(archived: Clas.Recorded)(using PageContext) =
     div(
       trans.clas.removedByX(userIdLink(archived.by.some)),
       " ",

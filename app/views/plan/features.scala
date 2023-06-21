@@ -12,7 +12,7 @@ object features:
 
   val engineFullName = "Stockfish 15.1 NNUE"
 
-  def apply()(using WebContext) =
+  def apply()(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("feature"),
@@ -47,7 +47,7 @@ object features:
             ),
             tr(check)(
               "Standard chess and ",
-              a(href := routes.Page.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
+              a(href := routes.ContentPage.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
             tr(custom(s"${lila.fishnet.FishnetLimiter.maxPerDay} per day"))(
               "Deep ",

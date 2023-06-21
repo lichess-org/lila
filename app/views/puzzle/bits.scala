@@ -32,7 +32,7 @@ object bits:
         "static"  -> static.mkString(" ")
       )
 
-  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: WebContext) =
+  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: PageContext) =
     val u = user.filterNot(ctx.is).map(_.username)
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.Puzzle.home)(

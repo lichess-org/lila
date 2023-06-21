@@ -7,7 +7,7 @@ import controllers.routes
 
 object clone:
 
-  def apply(s: lila.study.Study)(using WebContext) =
+  def apply(s: lila.study.Study)(using PageContext) =
     views.html.site.message(
       title = s"Clone ${s.name}",
       icon = licon.StudyBoard.some

@@ -10,7 +10,7 @@ import controllers.routes
 
 object bits:
 
-  def communityMenu(active: String)(using WebContext) =
+  def communityMenu(active: String)(using PageContext) =
     st.nav(cls := "page-menu__menu subnav")(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
       a(
@@ -26,7 +26,7 @@ object bits:
       a(cls := active.active("bots"), href := routes.PlayApi.botOnline)("Online bots")
     )
 
-  def miniClosed(u: User)(using WebContext) =
+  def miniClosed(u: User)(using PageContext) =
     frag(
       div(cls := "title")(userLink(u, withPowerTip = false)),
       div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed())

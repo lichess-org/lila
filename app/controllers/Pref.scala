@@ -13,7 +13,7 @@ final class Pref(env: Env) extends LilaController(env):
   private def forms = lila.pref.PrefForm
 
   def apiGet = Scoped(_.Preference.Read) { _ ?=> me ?=>
-    env.pref.api.getPref(me) map { prefs =>
+    env.pref.api.get(me) map { prefs =>
       JsonOk:
         import play.api.libs.json.*
         import lila.pref.JsonView.given
@@ -33,11 +33,12 @@ final class Pref(env: Env) extends LilaController(env):
         Auth { ctx ?=> me ?=>
           lila.pref.PrefCateg(categSlug) match
             case None if categSlug == "notification" =>
-              env.notifyM.api.prefs.form(me) map { form =>
-                Ok(html.account.notification(form))
-              }
+              Ok.pageAsync:
+                env.notifyM.api.prefs.form(me) map {
+                  html.account.notification(_)
+                }
             case None        => notFound
-            case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ))
+            case Some(categ) => Ok.page(html.account.pref(me, forms prefOf ctx.pref, categ))
         }
 
   def formApply = AuthBody { ctx ?=> _ ?=>

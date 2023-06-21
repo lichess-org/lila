@@ -9,7 +9,7 @@ final class Share(
     relationApi: lila.relation.RelationApi
 )(using Executor):
 
-  def getPrefId(insighted: User) = prefApi.getPref(insighted.id, _.insightShare)
+  def getPrefId(insighted: User) = prefApi.get(insighted.id, _.insightShare)
 
   def grant(insighted: User)(using to: Option[Me]): Fu[Boolean] =
     if to.exists(Granter(_.SeeInsight)(using _)) then fuTrue

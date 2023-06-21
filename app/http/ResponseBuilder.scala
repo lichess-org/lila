@@ -9,16 +9,19 @@ import lila.common.{ HTTPRequest, ApiVersion }
 
 trait ResponseBuilder(using Executor)
     extends ControllerHelpers
+    with RequestContext
     with ResponseWriter
     with CtrlExtensions
-    with CtrlConversions:
+    with CtrlConversions
+    with CtrlPage:
 
   val keyPages = KeyPages(env)
   export keyPages.{ notFound as renderNotFound }
+  export scalatags.Text.Frag
 
-  given Conversion[scalatags.Text.Frag, Result]     = Ok(_)
-  given Conversion[Result, Fu[Result]]              = fuccess(_)
-  given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
+  // given Conversion[scalatags.Text.Frag, Result] = Ok(_)
+  given Conversion[Result, Fu[Result]] = fuccess(_)
+  // given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
   given (using AnyContext): Conversion[Funit, Fu[Result]] =
     _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
   given alleycats.Zero[Result] = alleycats.Zero(Results.NotFound)
@@ -42,9 +45,7 @@ trait ResponseBuilder(using Executor)
   def JsonStrOk(str: JsonStr): Result       = Ok(str) as JSON
   def JsonBadRequest(body: JsValue): Result = BadRequest(body) as JSON
 
-  def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using
-      ctx: AnyContext
-  ): Fu[Result] =
+  def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: AnyContext): Fu[Result] =
     lila.api.Mobile.Api
       .requestVersion(ctx.req)
       .fold(html): v =>
@@ -97,7 +98,7 @@ trait ResponseBuilder(using Executor)
     negotiateInWebContext(
       web =
         if HTTPRequest.isSynchronousHttp(ctx.req)
-        then Forbidden(views.html.site.message.authFailed)
+        then Forbidden.page(views.html.site.message.authFailed)
         else Results.Forbidden("Authorization failed"),
       any = fuccess(forbiddenJsonResult)
     )

@@ -69,8 +69,8 @@ final class Analyse(
                     rating = ctx.pref.showRatings,
                     puzzles = true
                   )
-                ) map { data =>
-                  Ok(
+                ) flatMap { data =>
+                  Ok.page(
                     html.analyse.replay(
                       pov,
                       data,
@@ -84,7 +84,7 @@ final class Analyse(
                       chat,
                       bookmarked = bookmarked
                     )
-                  ).enableSharedArrayBuffer
+                  ).map(_.enableSharedArrayBuffer)
                 }
             }
         }
@@ -129,15 +129,15 @@ final class Analyse(
     simul      <- pov.game.simulId so env.simul.repo.find
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
     pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
-  yield Ok(
-    html.analyse.replayBot(
-      pov,
-      initialFen,
-      env.analyse.annotator(pgn, pov.game, analysis).toString,
-      simul,
-      crosstable
-    )
-  )
+    page <- renderPage:
+      html.analyse.replayBot(
+        pov,
+        initialFen,
+        env.analyse.annotator(pgn, pov.game, analysis).toString,
+        simul,
+        crosstable
+      )
+  yield Ok(page)
 
   def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     env.analyse.externalEngine.list(me) map { list =>

@@ -29,7 +29,7 @@ object bits:
     )
 
   def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using
-      WebContext
+      PageContext
   ) =
     layout(
       title = s"$name • Free Chess Videos",
@@ -55,7 +55,7 @@ object bits:
       )
     )
 
-  def notFound(control: lila.video.UserControl)(using WebContext) =
+  def notFound(control: lila.video.UserControl)(using PageContext) =
     layout(title = "Video not found", control = control)(
       div(cls := "content_box_top")(
         a(cls := "is4 text", dataIcon := licon.Back, href := routes.Video.index)("Video library")
@@ -70,12 +70,12 @@ object bits:
       )
     )
 
-  def searchForm(query: Option[String])(using WebContext) =
+  def searchForm(query: Option[String])(using PageContext) =
     form(cls := "search", method := "GET", action := routes.Video.index)(
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
     )
 
-  def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(using WebContext) =
+  def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(using PageContext) =
     layout(title = s"Tags • Free Chess Videos", control = control)(
       boxTop(
         h1(

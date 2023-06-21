@@ -19,7 +19,7 @@ object watcher:
       userTv: Option[lila.user.User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
 
     val chatJson = chatOption map { c =>
       chat.json(
@@ -62,7 +62,7 @@ object watcher:
     )
 
   def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Epd], pgn: chess.format.pgn.Pgn)(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     bits.layout(
       variant = pov.game.variant,

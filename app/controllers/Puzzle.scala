@@ -13,7 +13,7 @@ import lila.common.Json.given
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme, PuzzleDifficulty }
-import lila.user.{ Me, User }
+import lila.user.User
 import lila.common.LangPath
 import play.api.i18n.Lang
 
@@ -40,19 +40,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       langPath: Option[LangPath] = None
   )(using ctx: WebContext) =
-    renderJson(puzzle, angle, replay) zip
-      ctx.me.so(u => env.puzzle.session.getSettings(u) dmap some) map { (json, settings) =>
-        Ok(
-          views.html.puzzle
-            .show(
-              puzzle,
-              json,
-              env.puzzle.jsonView.pref(ctx.pref),
-              settings | PuzzleSettings.default(color),
-              langPath
-            )
-        ).enableSharedArrayBuffer
-      }
+    for
+      json     <- renderJson(puzzle, angle, replay)
+      settings <- ctx.me.so(u => env.puzzle.session.getSettings(u) dmap some)
+      prefJson = env.puzzle.jsonView.pref(ctx.pref)
+      page <- renderPage:
+        views.html.puzzle.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
+    yield Ok(page).enableSharedArrayBuffer
 
   def daily = Open:
     NoBot:
@@ -114,11 +108,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def ofPlayer(name: Option[UserStr], page: Int) = Open:
     val userId = name flatMap lila.user.User.validateId
-    userId.so(env.user.repo.enabledById) orElse fuccess(ctx.me.map(_.user)) flatMap { user =>
-      user.so { env.puzzle.api.puzzle.of(_, page) dmap some } map { puzzles =>
-        Ok(views.html.puzzle.ofPlayer(name.so(_.value), user, puzzles))
-      }
-    }
+    for
+      user    <- userId.so(env.user.repo.enabledById) orElse fuccess(ctx.me.map(_.user))
+      puzzles <- user.so { env.puzzle.api.puzzle.of(_, page) dmap some }
+      page    <- renderPage(views.html.puzzle.ofPlayer(name.so(_.value), user, puzzles))
+    yield Ok(page)
 
   private def onComplete[A](form: Form[RoundData])(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
       ctx: WebBodyContext[A]
@@ -205,17 +199,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def streakLang = LangPage(routes.Puzzle.streak)(serveStreak)
 
   private def serveStreak(using ctx: WebContext) = NoBot:
-    streakJsonAndPuzzle.mapz: (json, puzzle) =>
-      Ok(
-        views.html.puzzle
-          .show(
-            puzzle,
-            json,
-            env.puzzle.jsonView.pref(ctx.pref),
-            PuzzleSettings.default,
-            langPath = LangPath(routes.Puzzle.streak).some
-          )
-      ).noCache.enableSharedArrayBuffer
+    streakJsonAndPuzzle.flatMapz: (json, puzzle) =>
+      val prefJson = env.puzzle.jsonView.pref(ctx.pref)
+      val langPath = LangPath(routes.Puzzle.streak).some
+      Ok.page:
+        views.html.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
+      .map(_.noCache.enableSharedArrayBuffer)
 
   private def streakJsonAndPuzzle(using Lang) =
     given Option[Me] = none
@@ -280,8 +269,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
   private def serveThemes(using WebContext) =
-    env.puzzle.api.angles.map: all =>
-      Ok(views.html.puzzle.theme.list(all))
+    Ok.pageAsync:
+      env.puzzle.api.angles.map(views.html.puzzle.theme.list(_))
 
   def openings(order: String) = Open:
     env.puzzle.opening.collection flatMap { collection =>
@@ -292,8 +281,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               collection.makeMine(insightUser.families, insightUser.openings).some
             }
           }
-        .map: mine =>
-          Ok(views.html.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order)))
+        .flatMap: mine =>
+          Ok.page(views.html.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order)))
     }
 
   def show(angleOrId: String) = Open(serveShow(angleOrId))
@@ -342,8 +331,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           }
 
   def frame = Anon:
-    env.puzzle.daily.get.map:
-      _.fold(NotFound)(html.puzzle.embed(_))
+    env.puzzle.daily.get.flatMap:
+      _.fold(InternalServerError("No daily puzzle yet").toFuccess)(p => Ok.page(html.puzzle.embed(p)))
 
   def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     val config = lila.puzzle.PuzzleActivity.Config(
@@ -362,12 +351,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =
     DashboardPage(u) { ctx ?=> user =>
-      env.puzzle.dashboard(user, days).map { dashboard =>
+      env.puzzle.dashboard(user, days).flatMap { dashboard =>
         path match
-          case "dashboard" => Ok(views.html.puzzle.dashboard.home(user, dashboard, days))
+          case "dashboard" => Ok.page(views.html.puzzle.dashboard.home(user, dashboard, days))
           case "improvementAreas" =>
-            Ok(views.html.puzzle.dashboard.improvementAreas(user, dashboard, days))
-          case "strengths" => Ok(views.html.puzzle.dashboard.strengths(user, dashboard, days))
+            Ok.page(views.html.puzzle.dashboard.improvementAreas(user, dashboard, days))
+          case "strengths" => Ok.page(views.html.puzzle.dashboard.strengths(user, dashboard, days))
           case _ => Redirect(routes.Puzzle.dashboard(days, "dashboard", !ctx.is(user) option user.username))
       }
     }
@@ -383,10 +372,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { _ ?=> user =>
     Reasonable(page):
-      env.puzzle
-        .history(user, page)
-        .map: history =>
-          Ok(views.html.puzzle.history(user, history))
+      Ok.pageAsync:
+        env.puzzle
+          .history(user, page)
+          .map:
+            views.html.puzzle.history(user, _)
   }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
@@ -422,7 +412,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     negotiate(
       html = notFound,
       _ =>
-        OptionFuOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
+        OptionOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
           env.puzzle.jsonView.bc(puz)
         .dmap(_ as JSON)
     )
@@ -498,7 +488,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    html.site.helpModal.puzzle
+    Ok.page(html.site.helpModal.puzzle)
 
   private def DashboardPage(username: Option[UserStr])(f: WebContext ?=> User => Fu[Result]) =
     Auth { ctx ?=> me ?=>

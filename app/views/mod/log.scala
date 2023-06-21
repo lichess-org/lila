@@ -5,7 +5,7 @@ import lila.app.ui.ScalatagsTemplate.*
 
 object log:
 
-  def apply(logs: List[lila.mod.Modlog])(using WebContext) =
+  def apply(logs: List[lila.mod.Modlog])(using PageContext) =
 
     val title = "My logs"
 

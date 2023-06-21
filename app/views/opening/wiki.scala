@@ -9,7 +9,7 @@ import lila.opening.{ OpeningPage, OpeningWiki }
 
 object wiki:
 
-  def apply(page: OpeningPage)(using WebContext) =
+  def apply(page: OpeningPage)(using PageContext) =
     div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
       div(cls := "opening__wiki__markup")(
         page.wiki

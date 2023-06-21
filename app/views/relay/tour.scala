@@ -17,7 +17,7 @@ object tour:
       active: List[RelayTour.ActiveWithSomeRounds],
       pager: Paginator[RelayTour.WithLastRound],
       query: String = ""
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
@@ -37,7 +37,7 @@ object tour:
         )
       )
 
-  def byOwner(pager: Paginator[RelayTour.WithLastRound], owner: LightUser)(using WebContext) =
+  def byOwner(pager: Paginator[RelayTour.WithLastRound], owner: LightUser)(using PageContext) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
@@ -55,7 +55,7 @@ object tour:
       )
 
   def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(using
-      WebContext
+      PageContext
   ) =
     val title = ~doc.getText("doc.title")
     views.html.base.layout(
@@ -70,7 +70,7 @@ object tour:
         )
       )
 
-  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: WebContext) =
+  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: PageContext) =
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
@@ -89,7 +89,7 @@ object tour:
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))("About broadcasts")
     )
 
-  private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using WebContext) =
+  private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using PageContext) =
     div(
       cls := List(
         "relay-widget"                                        -> true,
@@ -114,7 +114,7 @@ object tour:
       )
     )
 
-  private def searchForm(search: String)(using WebContext) = div(cls := "box__top__actions")(
+  private def searchForm(search: String)(using PageContext) = div(cls := "box__top__actions")(
     st.form(cls := "search", action := routes.RelayTour.index())(
       input(st.name := "q", value := search, placeholder := trans.search.search.txt())
     )
@@ -124,7 +124,7 @@ object tour:
       pager: Paginator[WithLastRound],
       query: String = "",
       owner: Option[LightUser] = None
-  )(using WebContext) =
+  )(using PageContext) =
     def next(page: Int) = owner match
       case None    => routes.RelayTour.index(page, query)
       case Some(u) => routes.RelayTour.by(u.name, page)

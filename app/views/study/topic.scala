@@ -12,7 +12,7 @@ import controllers.routes
 
 object topic:
 
-  def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using WebContext) =
+  def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using PageContext) =
     views.html.base.layout(
       title = trans.study.topics.txt(),
       moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
@@ -43,7 +43,7 @@ object topic:
       pag: Paginator[WithChaptersAndLiked],
       order: Order,
       myTopics: Option[StudyTopics]
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = topic.value,
       moreCss = cssTag("study.index"),

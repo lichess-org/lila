@@ -20,7 +20,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
       verdicts: Condition.WithVerdicts
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     val userIsHost = ctx.userId has sim.hostId
     views.html.base.layout(
       moreCss = cssTag("simul.show"),

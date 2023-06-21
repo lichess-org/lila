@@ -12,7 +12,7 @@ object user:
 
   import trans.search.*
 
-  def apply(u: User, form: Form[?])(using WebContext) =
+  def apply(u: User, form: Form[?])(using PageContext) =
     val commons = bits of form
     import commons.*
     st.form(

@@ -37,7 +37,8 @@ final class Dev(env: Env) extends LilaController(env):
   )
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>
-    html.dev.settings(settingsList)
+    Ok.page:
+      html.dev.settings(settingsList)
   }
 
   def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
@@ -45,7 +46,7 @@ final class Dev(env: Env) extends LilaController(env):
       setting.form
         .bindFromRequest()
         .fold(
-          _ => BadRequest(html.dev.settings(settingsList)),
+          _ => BadRequest.page(html.dev.settings(settingsList)),
           v =>
             lila
               .log("setting")
@@ -58,18 +59,20 @@ final class Dev(env: Env) extends LilaController(env):
   private val commandForm = Form(single("command" -> nonEmptyText))
 
   def cli = Secure(_.Cli) { _ ?=> _ ?=>
-    html.dev.cli(commandForm, none)
+    Ok.page:
+      html.dev.cli(commandForm, none)
   }
 
   def cliPost = SecureBody(_.Cli) { _ ?=> me ?=>
     commandForm
       .bindFromRequest()
       .fold(
-        err => BadRequest(html.dev.cli(err, "Invalid command".some)),
+        err => BadRequest.page(html.dev.cli(err, "Invalid command".some)),
         command =>
-          runCommand(command) map { res =>
-            Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
-          }
+          Ok.pageAsync:
+            runCommand(command) map { res =>
+              html.dev.cli(commandForm fill command, s"$command\n\n$res".some)
+            }
       )
   }
 

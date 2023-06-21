@@ -16,7 +16,7 @@ object mini:
       rel: Option[lila.relation.Relation],
       ping: Option[Int],
       crosstable: Option[lila.game.Crosstable]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(

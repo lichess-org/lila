@@ -17,7 +17,7 @@ object dashboard:
   private val metricClass = s"${baseClass}__metric"
   private val themeClass  = s"${baseClass}__theme"
 
-  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
+  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -61,7 +61,7 @@ object dashboard:
         )
     }
 
-  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -75,7 +75,7 @@ object dashboard:
       dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
     }
 
-  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
+  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -99,7 +99,7 @@ object dashboard:
       moreJs: Frag = emptyFrag
   )(
       body: PuzzleDashboard => Option[Frag]
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
@@ -133,7 +133,7 @@ object dashboard:
     )
 
   private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     themes.map { case (key, results) =>
       div(cls := themeClass)(
@@ -148,7 +148,7 @@ object dashboard:
     }
 
   private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(

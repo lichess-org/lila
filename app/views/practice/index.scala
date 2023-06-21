@@ -8,7 +8,7 @@ import controllers.routes
 
 object index:
 
-  def apply(data: lila.practice.UserPractice)(using ctx: WebContext) =
+  def apply(data: lila.practice.UserPractice)(using ctx: PageContext) =
     views.html.base.layout(
       title = "Practice chess positions",
       moreCss = cssTag("practice.index"),

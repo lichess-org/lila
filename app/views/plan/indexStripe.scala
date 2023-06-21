@@ -19,7 +19,7 @@ object indexStripe:
       stripePublicKey: String,
       pricing: lila.plan.PlanPricing,
       gifts: List[lila.plan.Charge.Gift]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),

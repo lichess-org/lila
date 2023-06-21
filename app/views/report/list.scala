@@ -16,7 +16,7 @@ object list:
       scores: lila.report.Room.Scores,
       streamers: Int,
       appeals: Int
-  )(using WebContext) =
+  )(using PageContext) =
     layout(filter, scores, streamers, appeals)(
       table(cls := "slist slist-pad see")(
         thead(
@@ -90,7 +90,7 @@ object list:
 
   def layout(filter: String, scores: lila.report.Room.Scores, streamers: Int, appeals: Int)(
       body: Frag
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = "Reports",
       moreCss = cssTag("mod.report")

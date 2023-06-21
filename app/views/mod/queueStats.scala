@@ -10,7 +10,7 @@ import lila.mod.ModActivity.Period
 
 object queueStats:
 
-  def apply(p: Result)(using WebContext) =
+  def apply(p: Result)(using PageContext) =
     views.html.base.layout(
       title = "Queues stats",
       moreCss = cssTag("mod.activity"),

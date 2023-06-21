@@ -14,7 +14,7 @@ object show:
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
       activities: Vector[lila.activity.ActivityView]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
@@ -48,7 +48,7 @@ object show:
                     frame.credentialless,
                     st.frameborder  := "0",
                     frame.scrolling := "yes",
-                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") so "darkpopout&"}parent=${netConfig.domain}"
+                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.pref.currentBg != "light") so "darkpopout&"}parent=${netConfig.domain}"
                   )
                 }
             }

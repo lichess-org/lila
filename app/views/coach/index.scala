@@ -24,7 +24,7 @@ object index:
       countryCodes: Set[String],
       country: Option[Country]
   )(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     views.html.base.layout(
       title = lichessCoaches.txt(),

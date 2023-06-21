@@ -11,7 +11,7 @@ import lila.i18n.I18nKeys.{ storm as s }
 
 object racer:
 
-  def home(using WebContext) =
+  def home(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("racer-home"),
       title = "Puzzle Racer",
@@ -28,12 +28,12 @@ object racer:
           )
         ),
         div(cls := "racer-home__about")(
-          a(href := routes.Page.loneBookmark("racer"))(trans.aboutX("Puzzle Racer"))
+          a(href := routes.ContentPage.loneBookmark("racer"))(trans.aboutX("Puzzle Racer"))
         )
       )
     }
 
-  def show(data: JsObject)(using WebContext) =
+  def show(data: JsObject)(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("racer")),
       moreJs = frag(

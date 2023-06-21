@@ -17,7 +17,7 @@ object home:
       finished: List[Tournament],
       winners: lila.tournament.AllWinners,
       json: play.api.libs.json.JsObject
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.tournaments.txt(),
       moreCss = cssTag("tournament.home"),

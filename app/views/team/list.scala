@@ -10,7 +10,7 @@ object list:
 
   import trans.team.*
 
-  def search(text: String, teams: Paginator[lila.team.Team])(using WebContext) =
+  def search(text: String, teams: Paginator[lila.team.Team])(using PageContext) =
     list(
       name = s"""${trans.search.search.txt()} "$text"""",
       teams = teams,
@@ -18,14 +18,14 @@ object list:
       search = text
     )
 
-  def all(teams: Paginator[lila.team.Team])(using WebContext) =
+  def all(teams: Paginator[lila.team.Team])(using PageContext) =
     list(
       name = trans.team.teams.txt(),
       teams = teams,
       nextPageUrl = n => routes.Team.all(n).url
     )
 
-  def mine(teams: List[lila.team.Team])(using ctx: WebContext) =
+  def mine(teams: List[lila.team.Team])(using ctx: PageContext) =
     bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
@@ -45,7 +45,7 @@ object list:
       )
     }
 
-  def ledByMe(teams: List[lila.team.Team])(using WebContext) =
+  def ledByMe(teams: List[lila.team.Team])(using PageContext) =
     bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
@@ -60,7 +60,7 @@ object list:
       )
     }
 
-  private def noTeam()(using WebContext) =
+  private def noTeam()(using PageContext) =
     tbody(
       tr(
         td(colspan := "2")(
@@ -75,7 +75,7 @@ object list:
       teams: Paginator[lila.team.Team],
       nextPageUrl: Int => String,
       search: String = ""
-  )(using WebContext) =
+  )(using PageContext) =
     bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {
       main(cls := "team-list page-menu")(
         bits.menu("all".some),

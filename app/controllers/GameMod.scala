@@ -19,17 +19,16 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
     OptionFuResult(env.user.repo byId username): user =>
       val form   = filterForm.bindFromRequest()
       val filter = form.fold(_ => emptyFilter, identity)
-      env.tournament.leaderboardApi.recentByUser(user, 1) zip
-        env.activity.read.recentSwissRanks(user.id) zip
-        fetchGames(user, filter) flatMap { case ((arenas, swisses), povs) =>
-          {
-            if isGranted(_.UserEvaluate)
-            then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map Right.apply
-            else fuccess(Left(povs))
-          } map { games =>
-            Ok(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
-          }
-        }
+      for
+        arenas  <- env.tournament.leaderboardApi.recentByUser(user, 1)
+        swisses <- env.activity.read.recentSwissRanks(user.id)
+        povs    <- fetchGames(user, filter)
+        games <-
+          if isGranted(_.UserEvaluate)
+          then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map Right.apply
+          else fuccess(Left(povs))
+        page <- renderPage(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
+      yield Ok(page)
   }
 
   private def fetchGames(user: lila.user.User, filter: Filter) =

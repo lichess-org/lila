@@ -25,10 +25,11 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
           for
             paginator <- env.forumSearch(text, page, ctx.troll)
             posts <- paginator.mapFutureResults: post =>
-              access.isGrantedRead(post.categ.id) map { canRead =>
-                lila.forum.PostView.WithReadPerm(post, canRead)
+              access.isGrantedRead(post.categ.id) map {
+                lila.forum.PostView.WithReadPerm(post, _)
               }
-          yield html.forum.search(text, posts)
+            page <- renderPage(html.forum.search(text, posts))
+          yield Ok(page)
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>
     NoBot:
@@ -47,9 +48,10 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       captcha     <- forms.anyCaptcha
                       unsub       <- env.timeline.status(s"forum:${topic.id}")
                       canModCateg <- access.isGrantedMod(categ.slug)
-                    yield BadRequest:
-                      html.forum.topic
-                        .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
+                      page <- renderPage:
+                        html.forum.topic
+                          .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
+                    yield BadRequest(page)
                 ,
                 data =>
                   CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
@@ -107,8 +109,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
-      postApi.react(categId, id, reaction, v) mapz { post =>
-        Ok(views.html.forum.post.reactions(post, canReact = true))
+      postApi.react(categId, id, reaction, v) flatMapz { post =>
+        Ok.page(views.html.forum.post.reactions(post, canReact = true))
       }
   }
 
