@@ -39,7 +39,7 @@ object embed:
   def notFound(using EmbedContext) =
     views.html.base.embed(
       title = "404 - Game not found",
-      cssModule = "analyse.notFound"
+      cssModule = "lpv.embed"
     ):
       div(cls := "not-found"):
         h1("Game not found")

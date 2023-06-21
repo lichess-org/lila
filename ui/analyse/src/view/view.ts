@@ -182,60 +182,58 @@ function controls(ctrl: AnalyseCtrl) {
       ),
     },
     [
-      ctrl.embed
-        ? null
-        : h(
-            'div.features',
-            ctrl.studyPractice
-              ? [
-                  h('button.fbt', {
+      h(
+        'div.features',
+        ctrl.studyPractice
+          ? [
+              h('button.fbt', {
+                attrs: {
+                  title: noarg('analysis'),
+                  'data-act': 'analysis',
+                  'data-icon': licon.Microscope,
+                },
+              }),
+            ]
+          : [
+              h('button.fbt', {
+                attrs: {
+                  title: noarg('openingExplorerAndTablebase'),
+                  'data-act': 'explorer',
+                  'data-icon': licon.Book,
+                },
+                class: {
+                  hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
+                  active: ctrl.explorer.enabled(),
+                },
+              }),
+              ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()
+                ? h('button.fbt', {
                     attrs: {
-                      title: noarg('analysis'),
-                      'data-act': 'analysis',
-                      'data-icon': licon.Microscope,
-                    },
-                  }),
-                ]
-              : [
-                  h('button.fbt', {
-                    attrs: {
-                      title: noarg('openingExplorerAndTablebase'),
-                      'data-act': 'explorer',
-                      'data-icon': licon.Book,
+                      title: noarg('practiceWithComputer'),
+                      'data-act': 'practice',
+                      'data-icon': licon.Bullseye,
                     },
                     class: {
-                      hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-                      active: ctrl.explorer.enabled(),
+                      hidden: menuIsOpen || !!ctrl.retro,
+                      active: !!ctrl.practice,
                     },
-                  }),
-                  ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()
-                    ? h('button.fbt', {
-                        attrs: {
-                          title: noarg('practiceWithComputer'),
-                          'data-act': 'practice',
-                          'data-icon': licon.Bullseye,
-                        },
-                        class: {
-                          hidden: menuIsOpen || !!ctrl.retro,
-                          active: !!ctrl.practice,
-                        },
-                      })
-                    : null,
-                  ctrl.persistence
-                    ? h('button.fbt.persistence', {
-                        attrs: {
-                          title: noarg('savingMoves'),
-                          'data-act': 'persistence',
-                          'data-icon': licon.ScreenDesktop,
-                        },
-                        class: {
-                          hidden: menuIsOpen || !!ctrl.retro,
-                          active: ctrl.persistence.open(),
-                        },
-                      })
-                    : null,
-                ]
-          ),
+                  })
+                : null,
+              ctrl.persistence
+                ? h('button.fbt.persistence', {
+                    attrs: {
+                      title: noarg('savingMoves'),
+                      'data-act': 'persistence',
+                      'data-icon': licon.ScreenDesktop,
+                    },
+                    class: {
+                      hidden: menuIsOpen || !!ctrl.retro,
+                      active: ctrl.persistence.open(),
+                    },
+                  })
+                : null,
+            ]
+      ),
       h('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.JumpPrev, 'prev', canJumpPrev),
@@ -298,8 +296,6 @@ export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
   );
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
-  if (ctrl.embed) return;
-
   const clocks = renderClocks(ctrl),
     whitePov = ctrl.bottomIsWhite(),
     materialDiffs = renderMaterialDiffs(ctrl);
@@ -341,11 +337,7 @@ export default function (deps?: typeof studyDeps) {
 
   const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
     h('div.analyse__moves.areplay', [
-      h(`div.areplay__v${ctrl.treeVersion}`, [
-        ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
-        renderTreeView(ctrl, concealOf),
-        ...renderResult(ctrl),
-      ]),
+      h(`div.areplay__v${ctrl.treeVersion}`, [renderTreeView(ctrl, concealOf), ...renderResult(ctrl)]),
       !ctrl.practice && !deps?.gbEdit.running(ctrl) ? renderNextChapter(ctrl) : null,
     ]);
 
@@ -460,7 +452,7 @@ export default function (deps?: typeof studyDeps) {
               ])),
         menuIsOpen || tour ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
         gamebookPlayView || tour ? null : controls(ctrl),
-        ctrl.embed || tour
+        tour
           ? null
           : h(
               'div.analyse__underboard',
@@ -473,9 +465,7 @@ export default function (deps?: typeof studyDeps) {
               study ? deps?.studyView.underboard(ctrl) : [inputs(ctrl)]
             ),
         tour ? null : trainingView(ctrl),
-        ctrl.embed
-          ? null
-          : ctrl.studyPractice
+        ctrl.studyPractice
           ? deps?.studyPracticeView.side(study!)
           : h(
               'aside.analyse__side',
@@ -509,11 +499,9 @@ export default function (deps?: typeof studyDeps) {
                   ]
             ),
         study && study.relay && deps?.relayManager(study.relay),
-        ctrl.embed
-          ? null
-          : h('div.chat__members.none', {
-              hook: onInsert(lichess.watchers),
-            }),
+        h('div.chat__members.none', {
+          hook: onInsert(lichess.watchers),
+        }),
       ]
     );
   };

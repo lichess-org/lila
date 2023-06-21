@@ -330,20 +330,21 @@ final class Study(
   }
 
   def embed(studyId: StudyId, chapterId: StudyChapterId) = Anon:
-    val studyFu =
-      if chapterId.value == "autochap"
-      then env.study.api.byIdWithChapter(studyId)
-      else env.study.api.byIdWithChapterOrFallback(studyId, chapterId)
-    def notFound = NotFound(html.study.embed.notFound)
-    studyFu
-      .map(_.filterNot(_.study.isPrivate))
-      .flatMap:
-        _.fold(notFound.toFuccess): sc =>
-          env.api.textLpvExpand
-            .getChapterPgn(sc.chapter.id)
-            .map:
-              _.fold(notFound): pgn =>
-                Ok(html.study.embed(sc.study, sc.chapter, pgn))
+    InEmbedContext:
+      val studyFu =
+        if chapterId.value == "autochap"
+        then env.study.api.byIdWithChapter(studyId)
+        else env.study.api.byIdWithChapterOrFallback(studyId, chapterId)
+      def notFound = NotFound(html.study.embed.notFound)
+      studyFu
+        .map(_.filterNot(_.study.isPrivate))
+        .flatMap:
+          _.fold(notFound.toFuccess): sc =>
+            env.api.textLpvExpand
+              .getChapterPgn(sc.chapter.id)
+              .map:
+                _.fold(notFound): pgn =>
+                  Ok(html.study.embed(sc.study, sc.chapter, pgn))
     // studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
     //   _.fold(NotFound.page(html.study.embed.notFound)) { case WithChapter(study, chapter) =>
     //     for

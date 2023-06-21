@@ -79,6 +79,9 @@ trait RequestContext(using Executor):
   def pageContext(using ctx: Context): Fu[PageContext] =
     pageDataBuilder.dmap(PageContext(ctx, _))
 
+  def InEmbedContext[A](f: EmbedContext ?=> A)(using ctx: Context): A =
+    f(using EmbedContext(ctx.req))
+
   private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
     env.security.api restoreUser req dmap {
       case Some(Left(AppealUser(me))) if HTTPRequest.isClosedLoginPath(req) =>

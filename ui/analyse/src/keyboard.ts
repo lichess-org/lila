@@ -43,8 +43,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     });
 
-  if (ctrl.embed) return;
-
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();

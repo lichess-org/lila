@@ -49,10 +49,10 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     check: opts.check,
     lastMove: opts.lastMove,
     orientation: ctrl.bottomColor(),
-    coordinates: pref.coords !== Prefs.Coords.Hidden && !ctrl.embed,
+    coordinates: pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: pref.is3d,
     addDimensionsCssVarsTo: document.body,
-    viewOnly: !!ctrl.embed,
+    viewOnly: false,
     movable: {
       free: false,
       color: opts.movable!.color,
@@ -64,7 +64,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       move: ctrl.userMove,
       dropNewPiece: ctrl.userNewPiece,
       insert(elements: cg.Elements) {
-        if (!ctrl.embed) resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.node.ply);
+        resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.node.ply);
       },
     },
     premovable: {
@@ -82,7 +82,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       enabled: pref.moveEvent !== Prefs.MoveEvent.Drag,
     },
     drawable: {
-      enabled: !ctrl.embed,
+      enabled: true,
       eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
       defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
     },

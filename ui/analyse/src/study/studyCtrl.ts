@@ -232,7 +232,6 @@ export default function (
   else if (data.chapter.relay && !defined(ctrl.requestInitialPly)) ctrl.userJump(data.chapter.relay.path);
 
   function configureAnalysis() {
-    if (ctrl.embed) return;
     const canContribute = members.canContribute();
     // unwrite if member lost privileges
     vm.mode.write = vm.mode.write && canContribute;

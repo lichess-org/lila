@@ -331,8 +331,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           }
 
   def frame = Anon:
-    env.puzzle.daily.get.flatMap:
-      _.fold(InternalServerError("No daily puzzle yet").toFuccess)(p => Ok.page(html.puzzle.embed(p)))
+    InEmbedContext:
+      env.puzzle.daily.get.flatMap:
+        _.fold(InternalServerError("No daily puzzle yet").toFuccess)(p => Ok(html.puzzle.embed(p)))
 
   def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     val config = lila.puzzle.PuzzleActivity.Config(

@@ -95,18 +95,19 @@ final class Analyse(
   val AcceptsPgn = Accepting("application/x-chess-pgn")
 
   def embedReplayGame(gameId: GameId, color: String) = Anon:
-    env.api.textLpvExpand.getPgn(gameId) map {
-      case Some(pgn) =>
-        render {
-          case AcceptsPgn() => Ok(pgn)
-          case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
-        }.enableSharedArrayBuffer
-      case _ =>
-        render {
-          case AcceptsPgn() => NotFound("*")
-          case _            => NotFound(html.analyse.embed.notFound)
-        }
-    }
+    InEmbedContext:
+      env.api.textLpvExpand.getPgn(gameId) map {
+        case Some(pgn) =>
+          render {
+            case AcceptsPgn() => Ok(pgn)
+            case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
+          }.enableSharedArrayBuffer
+        case _ =>
+          render {
+            case AcceptsPgn() => NotFound("*")
+            case _            => NotFound(html.analyse.embed.notFound)
+          }
+      }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using
       Context

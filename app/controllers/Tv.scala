@@ -102,4 +102,5 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
 
   def frame = Anon:
     env.tv.tv.getBestGame.mapz: game =>
-      Ok(views.html.tv.embed(Pov naturalOrientation game))
+      InEmbedContext:
+        Ok(views.html.tv.embed(Pov naturalOrientation game))

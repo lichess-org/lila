@@ -21,7 +21,7 @@ object embed:
   def notFound(using EmbedContext) =
     views.html.base.embed(
       title = s"404 - ${trans.study.studyNotFound.txt()}",
-      cssModule = "analyse.notFound"
+      cssModule = "lpv.embed"
     ):
       div(cls := "not-found"):
         h1(trans.study.studyNotFound())
