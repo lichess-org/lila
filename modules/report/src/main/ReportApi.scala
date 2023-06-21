@@ -592,8 +592,8 @@ final class ReportApi(
       }
 
     private def cancel(mod: Mod)(report: Report): Funit =
-      if (report.isOther && report.onlyAtom.map(_.by.value).has(mod.user.id))
-        coll.delete.one($id(report.id)).void // cancel spontaneous inquiry
+      if report.isOther && report.onlyAtom.map(_.by.value).has(mod.user.id.value)
+      then coll.delete.one($id(report.id)).void // cancel spontaneous inquiry
       else
         coll.update
           .one(

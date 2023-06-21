@@ -57,7 +57,7 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
 
-    def has(a: A) = self contains a
+    def has[B](b: B)(using A =:= B): Boolean = self.contains(b)
 
     // move to scalalib?
     def soUse[B: Zero](f: A ?=> B): B      = self.fold(Zero[B].zero)(f(using _))
