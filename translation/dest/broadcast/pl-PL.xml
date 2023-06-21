@@ -25,13 +25,15 @@
   <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
   <string name="credits">Potwierdź źródło</string>
-  <string name="resetRound">Zresetuj tę rundę</string>
-  <string name="deleteRound">Usuń tę rundę</string>
   <string name="broadcastUrl">Adres URL transmisji</string>
   <string name="currentRoundUrl">Adres URL bieżącej rundy</string>
   <string name="currentGameUrl">Adres URL bieżącej partii</string>
   <string name="downloadAllRounds">Pobierz wszystkie rundy</string>
+  <string name="resetRound">Zresetuj tę rundę</string>
+  <string name="deleteRound">Usuń tę rundę</string>
   <string name="definitivelyDeleteRound">Ostatecznie usuń rundę i jej wszystkie partie.</string>
   <string name="deleteAllGamesOfThisRound">Usuń wszystkie partie w tej rundzie. Źródło będzie musiało być aktywne, aby je odtworzyć.</string>
   <string name="editRoundStudy">Edytuj opracowanie rundy</string>
+  <string name="deleteTournament">Usuń ten turniej</string>
+  <string name="definitivelyDeleteTournament">Ostatecznie usuń cały turniej, jego wszystkie rundy i partie.</string>
 </resources>

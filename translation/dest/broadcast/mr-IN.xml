@@ -19,10 +19,10 @@
   <string name="startDate">आपल्या स्वत: च्या टाइमझोनमधील तारीख</string>
   <string name="startDateHelp">पर्यायी, इव्हेंट कधी सुरू होतो हे आपल्याला माहिती असल्यास</string>
   <string name="credits">Credit the source</string>
-  <string name="resetRound">ही फेरी रेसेट करा</string>
-  <string name="deleteRound">फेरी रद्द करा</string>
   <string name="broadcastUrl">URL चे प्रसारण</string>
   <string name="currentRoundUrl">चालू फेरीचा URL</string>
   <string name="currentGameUrl">चालू खेळाचा URL</string>
   <string name="downloadAllRounds">सर्व फेऱ्या डाउनलोड करा</string>
+  <string name="resetRound">ही फेरी रेसेट करा</string>
+  <string name="deleteRound">फेरी रद्द करा</string>
 </resources>

@@ -25,13 +25,15 @@
   <string name="startDate">Datum začetka v vaše časovnem pasu</string>
   <string name="startDateHelp">Izbirno, če veste, kdaj se dogodek začne</string>
   <string name="credits">Navedi vir</string>
-  <string name="resetRound">Ponastavi ta krog</string>
-  <string name="deleteRound">Izbriši ta krog</string>
   <string name="broadcastUrl">URL oddaje</string>
   <string name="currentRoundUrl">URL trenutnega kroga</string>
   <string name="currentGameUrl">URL trenutno igrane igre</string>
   <string name="downloadAllRounds">Prenesite vse kroge</string>
+  <string name="resetRound">Ponastavi ta krog</string>
+  <string name="deleteRound">Izbriši ta krog</string>
   <string name="definitivelyDeleteRound">Dokončno izbrišite krog in njegove igre.</string>
   <string name="deleteAllGamesOfThisRound">Izbriši vse igre tega kroga. Vir bo moral biti aktiven, da jih lahko znova ustvarite.</string>
   <string name="editRoundStudy">Uredi krog študije</string>
+  <string name="deleteTournament">Zbrišite ta turnir</string>
+  <string name="definitivelyDeleteTournament">Dokončno izbrišite celoten turnir, vse njegove kroge in vse njegove igre.</string>
 </resources>

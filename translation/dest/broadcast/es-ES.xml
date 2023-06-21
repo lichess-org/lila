@@ -23,12 +23,15 @@
   <string name="startDate">Fecha de inicio en tu zona horaria</string>
   <string name="startDateHelp">Opcional, si sabes cuando comienza el evento</string>
   <string name="credits">Cita la fuente</string>
-  <string name="resetRound">Restablecer esta ronda</string>
-  <string name="deleteRound">Eliminar esta ronda</string>
   <string name="broadcastUrl">Enlace de la emisión</string>
   <string name="currentRoundUrl">Enlace de la ronda actual</string>
   <string name="currentGameUrl">Enlace de la partida actual</string>
   <string name="downloadAllRounds">Descargar todas las rondas</string>
+  <string name="resetRound">Restablecer esta ronda</string>
+  <string name="deleteRound">Eliminar esta ronda</string>
   <string name="definitivelyDeleteRound">Eliminar definitivamente la ronda y sus partidas.</string>
   <string name="deleteAllGamesOfThisRound">Eliminar todas las partidas de esta ronda. La fuente tendrá que estar activa para volver a crearlos.</string>
+  <string name="editRoundStudy">Editar estudio de ronda</string>
+  <string name="deleteTournament">Elimina este torneo</string>
+  <string name="definitivelyDeleteTournament">Elimina definitivamente todo el torneo, rondas y partidas incluidas.</string>
 </resources>

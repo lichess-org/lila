@@ -25,13 +25,15 @@
   <string name="startDate">תאריך ההתחלה באזור הזמן שלך</string>
   <string name="startDateHelp">אופציונאלי, אם את/ה יודע/ת מתי האירוע צפוי להתחיל</string>
   <string name="credits">תן/י קרדיט למקור</string>
-  <string name="resetRound">אפס את הסיבוב הזה</string>
-  <string name="deleteRound">מחיקת הסבב הזה</string>
   <string name="broadcastUrl">הקישור להקרנה</string>
   <string name="currentRoundUrl">הקישור לסבב הנוכחי</string>
   <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
   <string name="downloadAllRounds">הורדת כל הסבבים</string>
+  <string name="resetRound">אפס את הסיבוב הזה</string>
+  <string name="deleteRound">מחיקת הסבב הזה</string>
   <string name="definitivelyDeleteRound">מחיקת הסבב הזה והמשחקים שבו לצמיתות</string>
   <string name="deleteAllGamesOfThisRound">מחיקת כל המשחקים בסבב הזה. כדי ליצור אותם מחדש, קישור המקור צריך להיות פעיל.</string>
   <string name="editRoundStudy">עריכת לוח הלמידה של הסבב</string>
+  <string name="deleteTournament">מחיקת הטורניר הזה</string>
+  <string name="definitivelyDeleteTournament">מחיקה לצמיתות של הטורניר הזה, על כל סבביו והמשחקים שבו.</string>
 </resources>

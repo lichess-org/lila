@@ -23,12 +23,13 @@
   <string name="startDate">Дата на започване във вашата часова зона</string>
   <string name="startDateHelp">По избор, ако знаете, кога започва събитието</string>
   <string name="credits">Признателност на източника</string>
-  <string name="resetRound">Нулирай този рунд</string>
-  <string name="deleteRound">Изтрий този рунд</string>
   <string name="broadcastUrl">URL на предаването</string>
   <string name="currentRoundUrl">URL на настоящия гунд</string>
   <string name="currentGameUrl">URL на настоящата партия</string>
   <string name="downloadAllRounds">Изтегли всички рундове</string>
+  <string name="resetRound">Нулирай този рунд</string>
+  <string name="deleteRound">Изтрий този рунд</string>
   <string name="definitivelyDeleteRound">Окончателно изтрийте този рунд и всичките му игри.</string>
   <string name="deleteAllGamesOfThisRound">Изтрийте този рунд и всичките му игри. Източникът трябва да е активен за да можете да ги възстановите.</string>
+  <string name="deleteTournament">Изтрий този турнир</string>
 </resources>

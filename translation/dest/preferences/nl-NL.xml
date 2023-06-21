@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>
   <string name="moveConfirmation">Zetbevestiging</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Kan tijdens een partij uitgeschakeld worden met het bordmenu</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>
   <string name="confirmResignationAndDrawOffers">Opgave en remise-aanbod bevestigen</string>

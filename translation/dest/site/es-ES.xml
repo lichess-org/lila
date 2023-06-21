@@ -99,6 +99,7 @@
   <string name="openingExplorer">Explorador de aperturas</string>
   <string name="openingEndgameExplorer">Explorador de aperturas y finales</string>
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Juega la primera jugada del explorador de aperturas y finales</string>
   <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
   <string name="winOr50MovesByPriorMistake">Victoria o 50 movimientos por error anterior</string>
@@ -345,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s estudio</item>
     <item quantity="other">%s estudios</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultánea</item>
+    <item quantity="other">%s simultáneas</item>
   </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
@@ -681,6 +686,11 @@
   <string name="keyGoToStartOrEnd">ir al inicio/fin</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
+  <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, Aprende de tus errores</string>
+  <string name="keyNextLearnFromYourMistakes">Siguiente (Aprende de tus errores)</string>
+  <string name="keyNextBlunder">Siguiente error grave</string>
+  <string name="keyNextMistake">Siguiente error</string>
+  <string name="keyNextInaccuracy">Siguiente imprecisión</string>
   <string name="newTournament">Nuevo torneo</string>
   <string name="tournamentHomeTitle">Torneos de ajedrez con diferentes variantes y controles de tiempo</string>
   <string name="tournamentHomeDescription">¡Juega torneos de ajedrez rápido! Únete a un torneo oficial programado o crea el tuyo propio. Bala, Relámpago, Clásico, Ajedrez960, Rey de la Colina, Tres jaques y más opciones disponibles para una diversión sin fin en ajedrez.</string>

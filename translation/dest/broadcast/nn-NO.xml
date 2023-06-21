@@ -23,13 +23,15 @@
   <string name="startDate">Startdato i di eiga tidssone</string>
   <string name="startDateHelp">Valfritt, om du veit når arrangementet startar</string>
   <string name="credits">Kreditér kjelda</string>
-  <string name="resetRound">Tilbakestill denne runden</string>
-  <string name="deleteRound">Slett denne runden</string>
   <string name="broadcastUrl">Kunngjerings-URL</string>
   <string name="currentRoundUrl">URL til noverande runde</string>
   <string name="currentGameUrl">URL til pågåande parti</string>
   <string name="downloadAllRounds">Last ned alle rundene</string>
+  <string name="resetRound">Tilbakestill denne runden</string>
+  <string name="deleteRound">Slett denne runden</string>
   <string name="definitivelyDeleteRound">Slett runden og tilhøyrande parti ugjenkalleleg.</string>
   <string name="deleteAllGamesOfThisRound">Fjern alle parti frå denne runden. Kjelda må vera aktiv om dei skal kunne rettast opp att.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
+  <string name="deleteTournament">Slett denne turneringa</string>
+  <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
 </resources>

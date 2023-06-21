@@ -2,4 +2,6 @@
 <resources>
   <string name="definitivelyDeleteRound">بە دڵنیاییەوە خولەکە و یاریەکانی بسڕەوە.</string>
   <string name="deleteAllGamesOfThisRound">هەموو یارییەکانی ئەم خولە بسڕەوە. سەرچاوەکە پێویستی بە چالاکبوون دەبێت بۆ ئەوەی دووبارە دروستیان بکاتەوە.</string>
+  <string name="deleteTournament">ئەم پاڵەوانێتییە بسڕەوە</string>
+  <string name="definitivelyDeleteTournament">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
 </resources>

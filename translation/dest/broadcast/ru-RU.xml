@@ -25,13 +25,15 @@
   <string name="startDate">Дата начала в вашем часовом поясе</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>
   <string name="credits">Признательность</string>
-  <string name="resetRound">Сбросить тур</string>
-  <string name="deleteRound">Удалить этот тур</string>
   <string name="broadcastUrl">URL-адрес трансляции</string>
   <string name="currentRoundUrl">URL-адрес текущего тура</string>
   <string name="currentGameUrl">URL-адрес текущей партии</string>
   <string name="downloadAllRounds">Скачать все туры</string>
+  <string name="resetRound">Сбросить тур</string>
+  <string name="deleteRound">Удалить этот тур</string>
   <string name="definitivelyDeleteRound">Определенно удалить тур и его партии.</string>
   <string name="deleteAllGamesOfThisRound">Удалить все партии этого тура. Для их пересоздания потребуется активный источник.</string>
   <string name="editRoundStudy">Редактировать студию тура</string>
+  <string name="deleteTournament">Удалить этот турнир</string>
+  <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
 </resources>
