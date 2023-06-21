@@ -23,7 +23,7 @@ object Environment
     with ChessgroundHelper:
 
   export lila.Lila.{ id as _, *, given }
-  export lila.api.context.{ *, given }
+  export lila.api.Context.{ *, given }
   export lila.api.{ PageData, Nonce }
   export lila.user.Me
   export lila.common.licon

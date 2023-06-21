@@ -101,7 +101,7 @@ final class Account(
 
   def apiNowPlaying = Scoped()(doNowPlaying)
 
-  private def doNowPlaying(using WebContext)(using me: Me) =
+  private def doNowPlaying(using Context)(using me: Me) =
     env.round.proxyRepo.urgentGames(me) map { povs =>
       val nb = (getInt("nb") | 9) atMost 50
       Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map env.api.lobbyApi.nowPlaying)))
@@ -135,7 +135,7 @@ final class Account(
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 
-  private def refreshSessionId(result: Result)(using ctx: WebContext, me: Me): Fu[Result] =
+  private def refreshSessionId(result: Result)(using ctx: Context, me: Me): Fu[Result] =
     env.security.store.closeAllSessionsOf(me) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
@@ -158,7 +158,7 @@ final class Account(
     }
   }
 
-  def renderCheckYourEmail(using WebContext): Fu[Frag] =
+  def renderCheckYourEmail(using Context): Fu[Frag] =
     renderPage:
       html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
@@ -291,7 +291,7 @@ final class Account(
       case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
   }
 
-  private def currentSessionId(using WebContext) =
+  private def currentSessionId(using Context) =
     ~env.security.api.reqSessionId(ctx.req)
 
   def security = Auth { _ ?=> me ?=>
@@ -314,7 +314,7 @@ final class Account(
   }
 
   private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using
-      WebContext
+      Context
   ): Fu[Frag] =
     renderAsync:
       env.security.forms.reopen.map: baseForm =>

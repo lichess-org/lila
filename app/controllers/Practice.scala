@@ -47,7 +47,7 @@ final class Practice(
           select(section).so: study =>
             Redirect(routes.Practice.show(section.id, study.slug, study.id))
 
-  private def showUserPractice(us: lila.practice.UserStudy)(using WebContext) =
+  private def showUserPractice(us: lila.practice.UserStudy)(using Context) =
     Ok.pageAsync:
       analysisJson(us).map: (analysisJson, studyJson) =>
         html.practice
@@ -72,7 +72,7 @@ final class Practice(
           )
         ).noCache
 
-  private def analysisJson(us: UserStudy)(using WebContext): Fu[(JsObject, JsObject)] =
+  private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] =
     us match
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
         env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>

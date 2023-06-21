@@ -59,7 +59,7 @@ final class Tutor(env: Env) extends LilaController(env):
 
   private def TutorPageAvailability(
       username: UserStr
-  )(f: WebContext ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
+  )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> me ?=>
       def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(user)
       if me.user is username then proceed(me.user)
@@ -76,7 +76,7 @@ final class Tutor(env: Env) extends LilaController(env):
 
   private def TutorPage(
       username: UserStr
-  )(f: WebContext ?=> UserModel => TutorFullReport.Available => Fu[Result]): EssentialAction =
+  )(f: Context ?=> UserModel => TutorFullReport.Available => Fu[Result]): EssentialAction =
     TutorPageAvailability(username) { _ ?=> user => availability =>
       availability match
         case TutorFullReport.InsufficientGames =>
@@ -90,7 +90,7 @@ final class Tutor(env: Env) extends LilaController(env):
     }
 
   private def TutorPerfPage(username: UserStr, perf: Perf.Key)(
-      f: WebContext ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
+      f: Context ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
   ): EssentialAction =
     TutorPage(username) { _ ?=> user => availability =>
       PerfType(perf).fold(redirHome(user).toFuccess): perf =>

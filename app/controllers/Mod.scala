@@ -350,7 +350,7 @@ final class Mod(
         case Left(err)  => res flashFailure err
   }
 
-  protected[controllers] def searchTerm(q: String)(using WebContext, Me) =
+  protected[controllers] def searchTerm(q: String)(using Context, Me) =
     Ok.pageAsync:
       env.mod.search(q).map(html.mod.search(UserSearch.form fill q, _))
 
@@ -514,22 +514,22 @@ final class Mod(
   private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
-  private def OAuthMod[A](perm: Permission.Selector)(f: WebContext ?=> Me ?=> Fu[Option[A]])(
-      thenWhat: A => (WebContext, Me) ?=> Fu[Result]
+  private def OAuthMod[A](perm: Permission.Selector)(f: Context ?=> Me ?=> Fu[Option[A]])(
+      thenWhat: A => (Context, Me) ?=> Fu[Result]
   ): EssentialAction =
     SecureOrScoped(perm) { ctx ?=> me ?=>
       f.flatMapz: res =>
         if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
   private def OAuthModBody[A](perm: Permission.Selector)(f: Me ?=> Fu[Option[A]])(
-      thenWhat: A => (WebBodyContext[?], Me) ?=> Fu[Result]
+      thenWhat: A => (BodyContext[?], Me) ?=> Fu[Result]
   ): EssentialAction =
     SecureOrScopedBody(perm) { ctx ?=> me ?=>
       f.flatMapz: res =>
         if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
 
-  private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: WebContext, me: Me): Fu[Result] =
+  private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: Context, me: Me): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then redirect(username)
     else userC.renderModZoneActions(username)

@@ -110,7 +110,7 @@ final class UserAnalysis(
       }
 
   private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Result] =
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
       val owner = isMyPov(pov)

@@ -44,7 +44,7 @@ final class Preload(
       events: Fu[List[Event]],
       simuls: Fu[List[Simul]],
       streamerSpots: Int
-  )(using ctx: WebContext): Fu[Homepage] = for
+  )(using ctx: Context): Fu[Homepage] = for
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
     given Option[Me] = ctx.me
     (

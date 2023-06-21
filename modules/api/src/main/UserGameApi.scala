@@ -19,7 +19,7 @@ final class UserGameApi(
   import lila.game.JsonView.given
   import LightUser.lightUserWrites
 
-  def jsPaginator(pag: Paginator[Game])(using ctx: WebContext): Fu[JsObject] =
+  def jsPaginator(pag: Paginator[Game])(using ctx: Context): Fu[JsObject] =
     for {
       bookmarkedIds <- bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me)
       _             <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))

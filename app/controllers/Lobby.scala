@@ -29,7 +29,7 @@ final class Lobby(env: Env) extends LilaController(env):
         Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
     )
 
-  private def serveHtmlHome(using ctx: WebContext) =
+  private def serveHtmlHome(using ctx: Context) =
     env.pageCache { () =>
       keyPages.homeHtml.map: html =>
         Ok(html).withCanonical("").noCache
@@ -40,7 +40,7 @@ final class Lobby(env: Env) extends LilaController(env):
       LangPage("/")(serveHtmlHome)(lang)
 
   def handleStatus(status: Results.Status)(using RequestHeader): Fu[Result] =
-    webContext.flatMap: ctx =>
+    makeContext.flatMap: ctx =>
       keyPages.home(status)(using ctx)
 
   def seeks = Open:

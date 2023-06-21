@@ -32,7 +32,7 @@ final class Main(
             lila.api.ApiConfig.blindCookie.make(env.lilaCookie)(enable != "0")
       )
 
-  def handlerNotFound(using RequestHeader) = webContext flatMap { renderNotFound(using _) }
+  def handlerNotFound(using RequestHeader) = makeContext flatMap { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.long
@@ -51,7 +51,7 @@ final class Main(
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
-  private def serveMobile(using WebContext) =
+  private def serveMobile(using Context) =
     pageHit
     OptionPage(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
       html.mobile(doc, resolver)

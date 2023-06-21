@@ -18,7 +18,7 @@ object bits:
       simuls: List[lila.simul.Simul],
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     frag(
       ctx.pref.showRatings option div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
@@ -28,7 +28,7 @@ object bits:
         div(cls := "lobby__box__content")(
           table(
             tbody(
-              leaderboard map { l =>
+              leaderboard.map: l =>
                 tr(
                   td(lightUserLink(l.user)),
                   lila.rating.PerfType(l.perfKey) map { pt =>
@@ -36,7 +36,6 @@ object bits:
                   },
                   td(ratingProgress(l.progress))
                 )
-              }
             )
           )
         )

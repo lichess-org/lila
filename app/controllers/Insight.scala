@@ -33,7 +33,7 @@ final class Insight(env: Env) extends LilaController(env):
   def path(username: UserStr, metric: String, dimension: String, filters: String) = Open:
     Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
 
-  private def doPath(user: User, metric: String, dimension: String, filters: String)(using WebContext) =
+  private def doPath(user: User, metric: String, dimension: String, filters: String)(using Context) =
     import lila.insight.InsightApi.UserStatus.*
     env.insight.api userStatus user flatMap {
       case NoGame => Ok.page(html.site.message.insightNoGames(user))
@@ -71,7 +71,7 @@ final class Insight(env: Env) extends LilaController(env):
             env.insight.jsonView.chartWrites.writes map { Ok(_) }
       )
 
-  private def Accessible(username: UserStr)(f: User => Fu[Result])(using ctx: WebContext) =
+  private def Accessible(username: UserStr)(f: User => Fu[Result])(using ctx: Context) =
     env.user.repo byId username flatMap {
       _.fold(notFound): u =>
         env.insight.share.grant(u) flatMap {

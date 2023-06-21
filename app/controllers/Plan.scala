@@ -49,13 +49,13 @@ final class Plan(env: Env) extends LilaController(env):
         case _                     => Redirect(routes.Plan.index)
       }
 
-  private def indexAnon(using WebContext) = renderIndex(email = none, patron = none)
+  private def indexAnon(using Context) = renderIndex(email = none, patron = none)
 
-  private def indexFreeUser(using ctx: WebContext, me: Me) =
+  private def indexFreeUser(using ctx: Context, me: Me) =
     env.user.repo email me flatMap { renderIndex(_, patron = none) }
 
   private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(using
-      WebContext
+      Context
   ): Fu[Result] =
     for
       recentIds <- env.plan.api.recentChargeUserIds
@@ -75,7 +75,7 @@ final class Plan(env: Env) extends LilaController(env):
     yield Ok(page)
 
   private def indexStripePatron(patron: lila.plan.Patron, customer: StripeCustomer)(using
-      ctx: WebContext,
+      ctx: Context,
       me: Me
   ) = for
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
@@ -93,13 +93,13 @@ final class Plan(env: Env) extends LilaController(env):
   yield res
 
   private def indexPayPalPatron(patron: lila.plan.Patron, sub: PayPalSubscription)(using
-      ctx: WebContext,
+      ctx: Context,
       me: Me
   ) =
     Ok.pageAsync:
       env.plan.api.giftsFrom(me) map { html.plan.indexPayPal(me, patron, sub, _) }
 
-  private def myCurrency(using ctx: WebContext): Currency =
+  private def myCurrency(using ctx: Context): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
       env.plan.currencyApi.currencyByCountryCodeOrLang(
         env.security.geoIP(ctx.ip).flatMap(_.countryCode),
@@ -153,7 +153,7 @@ final class Plan(env: Env) extends LilaController(env):
       checkout: PlanCheckout,
       customerId: StripeCustomerId,
       giftTo: Option[lila.user.User]
-  )(using ctx: WebContext, me: Me) = {
+  )(using ctx: Context, me: Me) = {
     for
       isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
       data = CreateStripeSession(

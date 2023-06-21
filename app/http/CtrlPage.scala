@@ -10,18 +10,18 @@ import lila.common.{ HTTPRequest, ApiVersion }
 
 trait CtrlPage(using Executor) extends RequestContext with ControllerHelpers with ResponseWriter:
 
-  // def page[A: Writeable](render: PageContext ?=> A)(using WebContext): Fu[A] =
+  // def page[A: Writeable](render: PageContext ?=> A)(using Context): Fu[A] =
   //   pageContext.map(render(using _))
-  def renderPage(render: PageContext ?=> Frag)(using WebContext): Fu[Frag] =
+  def renderPage(render: PageContext ?=> Frag)(using Context): Fu[Frag] =
     pageContext.map(render(using _))
-  def renderAsync(render: PageContext ?=> Fu[Frag])(using WebContext): Fu[Frag] =
+  def renderAsync(render: PageContext ?=> Fu[Frag])(using Context): Fu[Frag] =
     pageContext.flatMap(render(using _))
-  def withPageContext[A](render: PageContext ?=> A)(using WebContext): Fu[A] =
+  def withPageContext[A](render: PageContext ?=> A)(using Context): Fu[A] =
     pageContext.map(render(using _))
 
   extension (s: Status)
-    def page(render: PageContext ?=> Frag)(using WebContext): Fu[Result] =
+    def page(render: PageContext ?=> Frag)(using Context): Fu[Result] =
       pageContext.map(render(using _)).map(s(_))
-    def pageAsync(render: PageContext ?=> Fu[Frag])(using WebContext): Fu[Result] =
+    def pageAsync(render: PageContext ?=> Fu[Frag])(using Context): Fu[Result] =
       pageContext.flatMap(render(using _)).map(s(_))
     def async(render: Fu[Frag]) = render.map(s(_))

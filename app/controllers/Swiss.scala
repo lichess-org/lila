@@ -18,12 +18,12 @@ final class Swiss(
 )(using akka.stream.Materializer)
     extends LilaController(env):
 
-  private def swissNotFound(using WebContext) = NotFound.page(html.swiss.bits.notFound())
+  private def swissNotFound(using Context) = NotFound.page(html.swiss.bits.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Swiss.home)(serveHome)
 
-  private def serveHome(using WebContext) = NoBot:
+  private def serveHome(using Context) = NoBot:
     for
       teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
       swiss   <- env.swiss.feature.get(teamIds)
@@ -99,7 +99,7 @@ final class Swiss(
         }
       }
 
-  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.userId so { env.team.cached.isLeader(teamId, _) } flatMapz f
 
   def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
@@ -287,7 +287,7 @@ final class Swiss(
       else if isGranted(_.ManageTournament) then f(swiss)
       else fallback(swiss)
 
-  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: WebContext): Fu[Boolean] =
+  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
     (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)).so:
       swiss.chatFor match
         case ChatFor.NONE                     => fuFalse

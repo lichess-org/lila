@@ -22,7 +22,7 @@ final class Round(
 ) extends LilaController(env)
     with TheftPrevention:
 
-  private def renderPlayer(pov: Pov)(using ctx: WebContext): Fu[Result] =
+  private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     negotiate(
       html =
         if !pov.game.started then notFound
@@ -73,7 +73,7 @@ final class Round(
       case None      => userC.tryRedirect(fullId into UserStr) getOrElse notFound
     }
 
-  private def otherPovs(game: GameModel)(using ctx: WebContext) =
+  private def otherPovs(game: GameModel)(using ctx: Context) =
     ctx.me so { user =>
       env.round.proxyRepo urgentGames user map {
         _ filter { pov =>
@@ -133,7 +133,7 @@ final class Round(
     }
 
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Result] =
     playablePovForReq(pov.game) match
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
@@ -195,7 +195,7 @@ final class Round(
 
   private[controllers] def getWatcherChat(
       game: GameModel
-  )(using ctx: WebContext): Fu[Option[lila.chat.UserChat.Mine]] = {
+  )(using ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
     ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.contains)) && ctx.me.fold(
       HTTPRequest isHuman ctx.req
     )(env.chat.panic.allowed(_)) && {
@@ -209,7 +209,7 @@ final class Round(
   }
 
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Option[Chat.GameOrEvent]] =
     ctx.noKid so {
       def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =

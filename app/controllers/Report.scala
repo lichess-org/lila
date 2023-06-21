@@ -37,7 +37,7 @@ final class Report(
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(me: Me, room: String)(using WebContext) =
+  private def renderList(me: Me, room: String)(using Context) =
     api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) >>
@@ -64,7 +64,7 @@ final class Report(
     else if (inquiry.isComm) Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
-  protected[controllers] def onModAction(goTo: Suspect)(using ctx: WebBodyContext[?], me: Me): Fu[Result] =
+  protected[controllers] def onModAction(goTo: Suspect)(using ctx: BodyContext[?], me: Me): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then userC.renderModZoneActions(goTo.user.username)
     else
       api.inquiries
@@ -74,7 +74,7 @@ final class Report(
   protected[controllers] def onInquiryAction(
       inquiry: ReportModel,
       processed: Boolean = false
-  )(using ctx: WebBodyContext[?], me: Me): Fu[Result] =
+  )(using ctx: BodyContext[?], me: Me): Fu[Result] =
     val dataOpt = ctx.body.body match
       case AnyContentAsFormUrlEncoded(data) => data.some
       case _                                => none

@@ -100,7 +100,7 @@ final class Pref(env: Env) extends LilaController(env):
     "keyboardMove" -> (forms.keyboardMove -> save("keyboardMove"))
   )
 
-  private def save(name: String)(value: String, ctx: WebContext): Fu[Cookie] =
+  private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me so {
       api.setPrefString(_, name, value)
     } inject env.lilaCookie.session(name, value)(using ctx.req)

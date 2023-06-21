@@ -49,7 +49,7 @@ final class User(
         case Some(gameId) => gameC.exportGame(gameId)
       }
 
-  private def apiGames(u: UserModel, filter: String, page: Int)(using WebBodyContext[?]) =
+  private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
@@ -62,7 +62,7 @@ final class User(
       )
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Result] =
     if HTTPRequest isSynchronousHttp ctx.req
     then
@@ -132,7 +132,7 @@ final class User(
             api = _ => apiGames(u, filter, page)
           )
 
-  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
     if UserModel.isGhost(username.id)
     then
       negotiate(
@@ -222,7 +222,7 @@ final class User(
       u: UserModel,
       filterName: String,
       page: Int
-  )(using ctx: WebBodyContext[?]): Fu[Paginator[GameModel]] =
+  )(using ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
     UserGamesRateLimitPerIP(
       ctx.ip,
       fuccess(Paginator.empty[GameModel]),
@@ -311,7 +311,7 @@ final class User(
   }
 
   protected[controllers] def modZoneOrRedirect(username: UserStr)(using
-      ctx: WebContext,
+      ctx: Context,
       me: Me
   ): Fu[Result] =
     if HTTPRequest isEventSource ctx.req then renderModZone(username)
@@ -327,7 +327,7 @@ final class User(
       user: UserModel,
       userLogins: UserLogins,
       max: Int
-  )(using WebContext): Fu[UserLogins.TableData[UserWithModlog]] =
+  )(using Context): Fu[UserLogins.TableData[UserWithModlog]] =
     val familyUserIds = user.id :: userLogins.otherUserIds
     (isGrantedOpt(_.ModNote) so env.user.noteApi
       .byUsersForMod(familyUserIds)
@@ -342,7 +342,7 @@ final class User(
       }
 
   protected[controllers] def renderModZone(username: UserStr)(using
-      ctx: WebContext,
+      ctx: Context,
       me: Me
   ): Fu[Result] =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
@@ -433,7 +433,7 @@ final class User(
           .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
-  protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: WebContext) =
+  protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
@@ -605,7 +605,7 @@ final class User(
       tryRedirect(username) getOrElse notFound
     }
 
-  def tryRedirect(username: UserStr)(using WebContext): Fu[Option[Result]] =
+  def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
     env.user.repo byId username map {
       _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)) map { user =>
         Redirect(routes.User.show(user.username))

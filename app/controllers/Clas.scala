@@ -49,7 +49,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     }
   }
 
-  private def renderHome(using WebContext) =
+  private def renderHome(using Context) =
     pageHit
     Ok.page(views.html.clas.clas.home)
 
@@ -104,8 +104,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def WithClassAny(id: ClasId)(
       forTeacher: => Fu[Result],
       forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
-      orDefault: WebContext => Fu[Result] = notFound(using _)
-  )(using ctx: WebContext, me: Me): Fu[Result] =
+      orDefault: Context => Fu[Result] = notFound(using _)
+  )(using ctx: Context, me: Me): Fu[Result] =
     isGranted(_.Teacher).so(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       if _ then forTeacher
       else
@@ -481,7 +481,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         Redirect(routes.Clas.index)
   }
 
-  private def couldBeTeacher(using ctx: WebContext): Fu[Boolean] = ctx.me.soUse: me ?=>
+  private def couldBeTeacher(using ctx: Context): Fu[Boolean] = ctx.me.soUse: me ?=>
     if me.isBot then fuFalse
     else if me.kid then fuFalse
     else if env.clas.hasClas then fuTrue
@@ -517,7 +517,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
       f: => Fu[Result]
-  )(using WebContext): Fu[Result] =
+  )(using Context): Fu[Result] =
     if students.sizeIs <= lila.clas.Clas.maxStudents then f
     else Unauthorized.page(views.html.clas.teacherDashboard.unreasonable(clas, students, active))
 
@@ -537,7 +537,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       env.clas.api.student.get(clas, user) flatMapz f
     }
 
-  private def SafeTeacher(f: => Fu[Result])(using WebContext): Fu[Result] =
+  private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
     if ctx.me.exists(!_.lameOrTroll) then f
     else Redirect(routes.Clas.index)
 

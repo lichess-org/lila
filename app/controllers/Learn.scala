@@ -14,7 +14,7 @@ final class Learn(env: Env) extends LilaController(env):
   def index     = Open(serveIndex)
   def indexLang = LangPage(routes.Learn.index)(serveIndex)
 
-  private def serveIndex(using ctx: WebContext) = NoBot:
+  private def serveIndex(using ctx: Context) = NoBot:
     pageHit
     ctx.me
       .so: me =>

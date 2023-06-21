@@ -10,7 +10,7 @@ final class Storm(env: Env) extends LilaController(env):
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Storm.home)(serveHome)
 
-  private def serveHome(using ctx: WebContext) = NoBot:
+  private def serveHome(using ctx: Context) = NoBot:
     dataAndHighScore(ctx.me, ctx.pref.some).flatMap: (data, high) =>
       Ok.page(views.html.storm.home(data, high)).map(_.noCache)
 
@@ -45,7 +45,7 @@ final class Storm(env: Env) extends LilaController(env):
       renderDashboardOf(_, page)
     }
 
-  private def renderDashboardOf(user: lila.user.User, page: Int)(using WebContext): Fu[Result] =
+  private def renderDashboardOf(user: lila.user.User, page: Int)(using Context): Fu[Result] =
     for
       history <- env.storm.dayApi.history(user.id, page)
       high    <- env.storm.highApi.get(user.id)

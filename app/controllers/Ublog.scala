@@ -148,7 +148,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private def logModAction(post: UblogPost, action: String)(using ctx: WebContext, me: Me): Funit =
+  private def logModAction(post: UblogPost, action: String)(using ctx: Context, me: Me): Funit =
     isGrantedOpt(_.ModerateBlog).so:
       !me.is(post.created.by) so {
         env.user.repo.byId(post.created.by) flatMapz { user =>
@@ -233,7 +233,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityAll(page: Int) = Open:
     communityIndex(none, page)
 
-  def communityIndex(l: Option[Lang], page: Int)(using ctx: WebContext) =
+  def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
     NotForKids:
       Reasonable(page, config.Max(100)):
         pageHit
@@ -294,8 +294,8 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
-  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: WebContext) =
+  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGrantedOpt(_.ModerateBlog) || isBlogVisible(user, blog)
 
-  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: WebContext) =
+  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: Context) =
     canViewBlogOf(user, blog) && (ctx.is(user) || post.live)

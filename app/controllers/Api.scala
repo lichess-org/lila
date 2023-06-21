@@ -297,7 +297,7 @@ final class Api(
       env.game.gamesByIdsStream.addGameIds(streamId, ids)
       jsonOkResult
 
-  private def gamesByIdsMax(using ctx: WebContext) =
+  private def gamesByIdsMax(using ctx: Context) =
     ctx.me.fold(500): u =>
       if u == lila.user.User.challengermodeId then 10_000 else 1000
 
@@ -373,7 +373,7 @@ final class Api(
       _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
     }
 
-  def ApiRequest(js: WebContext ?=> Fu[ApiResult]) = Anon:
+  def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js map toHttp
 
   def MobileApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:
@@ -455,7 +455,7 @@ final class Api(
 
   private[controllers] def GlobalConcurrencyLimitPerIpAndUserOption[T, U: UserIdOf](
       about: Option[U]
-  )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result)(using ctx: WebContext): Result =
+  )(makeSource: => Source[T, ?])(makeResult: Source[T, ?] => Result)(using ctx: Context): Result =
     val ipLimiter =
       if ctx.me.exists(u => about.exists(u.is(_)))
       then GlobalConcurrencyGenerousLimitPerIP

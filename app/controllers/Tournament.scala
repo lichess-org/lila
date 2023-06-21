@@ -21,7 +21,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   private def forms      = env.tournament.forms
   private def cachedTour = env.tournament.cached.tourCache.byId
 
-  private def tournamentNotFound(using WebContext) = NotFound.page(html.tournament.bits.notFound())
+  private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
     _.refreshAfterWrite(3.seconds)
@@ -36,7 +36,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
 
-  private def serveHome(using ctx: WebContext) = NoBot:
+  private def serveHome(using ctx: Context) = NoBot:
     for
       (visible, scheduled) <- upcomingCache.getUnit
       teamIds              <- ctx.userId.so(env.team.cached.teamIdsList)
@@ -66,7 +66,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       page    <- renderPage(html.tournament.leaderboard(winners))
     yield Ok(page)
 
-  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: WebContext): Boolean =
+  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
     tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
@@ -299,7 +299,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     else doApiCreate
   }
 
-  private def doApiCreate(using ctx: WebBodyContext[?], me: Me): Fu[Result] =
+  private def doApiCreate(using ctx: BodyContext[?], me: Me): Fu[Result] =
     env.team.api.lightsByLeader(me) flatMap { teams =>
       forms
         .create(teams)
@@ -503,7 +503,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
-  )(using ctx: WebContext, me: Me): Fu[Result] =
+  )(using ctx: Context, me: Me): Fu[Result] =
     cachedTour(id) flatMap {
       case Some(t) if (t.createdBy.is(me) && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)

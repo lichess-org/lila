@@ -161,7 +161,7 @@ final class RelayRound(
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
-  )(using ctx: WebContext): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id): rt =>
       if !ctx.req.path.startsWith(rt.path)
       then Redirect(rt.path)
@@ -169,19 +169,19 @@ final class RelayRound(
 
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
-  )(using WebContext): Fu[Result] =
+  )(using Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
-  )(using ctx: WebContext): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me.soUse { env.relay.api.canUpdate(tour) } flatMapz {
         env.relay.api withRounds tour flatMap f
       }
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Result] =
     studyC
       .CanView(oldSc.study)(

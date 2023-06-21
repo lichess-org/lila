@@ -30,7 +30,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       username = UserStr from get("username")
     )
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
     reqToAuthorizationRequest.prompt match
       case Validated.Valid(prompt) =>
         AuthorizationRequest.logPrompt(prompt, ctx.me)

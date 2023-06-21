@@ -39,7 +39,7 @@ object message:
   def noBooster(using PageContext) = apply("No booster area"):
     "Sorry, boosters and sandbaggers are not allowed here."
 
-  def blacklistedMessage(using ctx: WebContext) =
+  def blacklistedMessage(using ctx: Context) =
     s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 
   def blacklistedFrag(using PageContext) = frag(blacklistedMessage)

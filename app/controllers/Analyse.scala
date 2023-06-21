@@ -35,7 +35,7 @@ final class Analyse(
     }
   }
 
-  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: WebContext) =
+  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
     if HTTPRequest.isCrawler(ctx.req).yes then replayBot(pov)
     else
       env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
@@ -109,7 +109,7 @@ final class Analyse(
     }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using
-      WebContext
+      Context
   ): Fu[Result] =
     (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or): atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
@@ -123,7 +123,7 @@ final class Analyse(
           ply => Redirect(s"$url#$ply")
         )
 
-  private def replayBot(pov: Pov)(using WebContext) = for
+  private def replayBot(pov: Pov)(using Context) = for
     initialFen <- env.game.gameRepo initialFen pov.gameId
     analysis   <- env.analyse.analyser get pov.game
     simul      <- pov.game.simulId so env.simul.repo.find

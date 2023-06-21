@@ -242,7 +242,7 @@ final class Setup(
           )
   }
 
-  private[controllers] def redirectPov(pov: Pov)(using ctx: WebContext) =
+  private[controllers] def redirectPov(pov: Pov)(using ctx: Context) =
     val redir = Redirect(routes.Round.watcher(pov.gameId.value, "white"))
     if ctx.isAuth then redir
     else

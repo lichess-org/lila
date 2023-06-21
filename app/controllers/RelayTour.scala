@@ -147,7 +147,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
         .map(env.relay.jsonView.apply(_, withUrls = true))
 
-  private def redirectToTour(tour: TourModel)(using ctx: WebContext): Fu[Result] =
+  private def redirectToTour(tour: TourModel)(using ctx: Context): Fu[Result] =
     env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
       case None =>
         ctx.me.soUse { env.relay.api.canUpdate(tour) } mapz {
@@ -156,12 +156,12 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       case Some(round) => Redirect(round.withTour(tour).path)
     }
 
-  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using WebContext): Fu[Result] =
+  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById id)(f)
 
   private def WithTourCanUpdate(
       id: TourModel.Id
-  )(f: TourModel => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  )(f: TourModel => Fu[Result])(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me.soUse { env.relay.api.canUpdate(tour) } flatMapz f(tour)
 

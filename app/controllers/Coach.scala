@@ -19,7 +19,7 @@ final class Coach(env: Env) extends LilaController(env):
   def search(l: String, o: String, c: String, page: Int) = Open:
     searchResults(l, o, c, page)
 
-  private def searchResults(l: String, o: String, c: String, page: Int)(using WebContext) =
+  private def searchResults(l: String, o: String, c: String, page: Int)(using Context) =
     pageHit
     val order   = CoachPager.Order(o)
     val lang    = (l != "all") so play.api.i18n.Lang.get(l)
@@ -42,7 +42,7 @@ final class Coach(env: Env) extends LilaController(env):
           _ = lila.mon.coach.pageView.profile(c.coach.id.value).increment()
         yield Ok(page)
 
-  private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: WebContext) =
+  private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =
     if c.isListed || ctx.me.exists(_ is c.coach) || isGrantedOpt(_.Admin) then f
     else notFound
 

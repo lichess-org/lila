@@ -50,7 +50,7 @@ object UserInfo:
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
   ):
-    def apply(u: User)(using ctx: WebContext): Fu[Social] =
+    def apply(u: User)(using ctx: Context): Fu[Social] =
       ctx.userId.so {
         relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
       } zip
@@ -85,7 +85,7 @@ object UserInfo:
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
   ):
-    def apply(u: User, ctx: WebContext, withCrosstable: Boolean): Fu[NbGames] =
+    def apply(u: User, ctx: Context, withCrosstable: Boolean): Fu[NbGames] =
       (withCrosstable so ctx.me.filterNot(u.is(_)) so { me =>
         crosstableApi.withMatchup(me, u.id) dmap some
       }).mon(_.user segment "crosstable") zip
@@ -117,7 +117,7 @@ object UserInfo:
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share
   )(using Executor):
-    def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: WebContext): Fu[UserInfo] =
+    def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
         (!user.is(User.lichessId) && !user.isBot).so {

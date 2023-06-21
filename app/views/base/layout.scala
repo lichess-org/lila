@@ -191,6 +191,11 @@ object layout:
       }.mkString
   }
 
+  private def pageZoom(using ctx: Context): Int = {
+    def oldZoom = ctx.req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100)
+    ctx.req.cookies get "zoom" map (_.value) flatMap (_.toIntOption) orElse oldZoom filter (0 <=) filter (100 >=)
+  } | 85
+
   private val spinnerMask = raw:
     """<svg width="0" height="0"><mask id="mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
 
@@ -288,7 +293,7 @@ object layout:
               "zen"                  -> pref.isZen,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid,
-              "mobile"               -> ctx.isMobileBrowser,
+              "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> playing,
               "zenable"              -> zenable,
               "no-rating"            -> !pref.showRatings
@@ -306,7 +311,7 @@ object layout:
           dataBoardTheme   := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
           dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          style            := zoomable option s"--zoom:${ctx.zoom}"
+          style            := zoomable option s"--zoom:$pageZoom"
         )(
           blindModeForm,
           ctx.data.inquiry map { views.html.mod.inquiry(_) },

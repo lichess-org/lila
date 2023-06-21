@@ -11,8 +11,8 @@ import play.api.data.Form
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
     extends LilaController(env):
 
-  private def modForm(using WebContext)  = lila.appeal.Appeal.modForm
-  private def userForm(using WebContext) = lila.appeal.Appeal.form
+  private def modForm(using Context)  = lila.appeal.Appeal.modForm
+  private def userForm(using Context) = lila.appeal.Appeal.form
 
   def home = Auth { _ ?=> me ?=>
     Ok async renderAppealOrTree()
@@ -28,7 +28,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   private def renderAppealOrTree(
       err: Option[Form[String]] = None
-  )(using WebContext)(using me: Me): Fu[Frag] = env.appeal.api.mine flatMap {
+  )(using Context)(using me: Me): Fu[Frag] = env.appeal.api.mine flatMap {
     case None =>
       renderAsync:
         env.playban.api.currentBan(me).dmap(_.isDefined) map { html.appeal.tree(me, _) }
@@ -84,7 +84,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
         )
   }
 
-  private def getModData(suspect: Suspect)(using WebContext)(using me: Me) =
+  private def getModData(suspect: Suspect)(using Context)(using me: Me) =
     for
       users      <- env.security.userLogins(suspect.user, 100)
       logins     <- userC.loginsTableData(suspect.user, users, 100)
@@ -125,7 +125,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   private def asMod(
       username: UserStr
-  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using WebContext): Fu[Result] =
+  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using Context): Fu[Result] =
     env.user.repo byId username flatMapz { user =>
       env.appeal.api get user flatMapz { appeal =>
         f(appeal, Suspect(user)) dmap some

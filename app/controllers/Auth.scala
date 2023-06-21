@@ -22,7 +22,7 @@ final class Auth(
   private def api   = env.security.api
   private def forms = env.security.forms
 
-  private def mobileUserOk(u: UserModel, sessionId: String)(using WebContext): Fu[Result] =
+  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] =
     env.round.proxyRepo urgentGames u map { povs =>
       Ok:
         env.user.jsonView.full(
@@ -35,14 +35,14 @@ final class Auth(
         )
     }
 
-  private def getReferrerOption(using ctx: WebContext): Option[String] =
+  private def getReferrerOption(using ctx: Context): Option[String] =
     get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
       ctx.req.session.get(api.AccessUri)
 
-  private def getReferrer(using WebContext): String = getReferrerOption | routes.Lobby.home.url
+  private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
   def authenticateUser(u: UserModel, remember: Boolean, result: Option[String => Result] = None)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Result] =
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
@@ -52,7 +52,7 @@ final class Auth(
     } recoverWith authRecovery
 
   private def authenticateAppealUser(u: UserModel, redirect: String => Result)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Result] =
     api.appeal.saveAuthentication(u.id) flatMap { sessionId =>
       negotiate(
@@ -72,7 +72,7 @@ final class Auth(
       }
     )
 
-  private def authRecovery(using ctx: WebContext): PartialFunction[Throwable, Fu[Result]] =
+  private def authRecovery(using ctx: Context): PartialFunction[Throwable, Fu[Result]] =
     case lila.security.SecurityApi.MustConfirmEmail(_) =>
       if HTTPRequest isXhr ctx.req
       then Ok(s"ok:${routes.Auth.checkYourEmail}")
@@ -81,7 +81,7 @@ final class Auth(
   def login     = Open(serveLogin)
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
-  private def serveLogin(using ctx: WebContext) = NoBot:
+  private def serveLogin(using ctx: Context) = NoBot:
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
     val switch   = get("switch")
     referrer ifTrue ctx.isAuth ifTrue switch.isEmpty match
@@ -170,7 +170,7 @@ final class Auth(
 
   def signup     = Open(serveSignup)
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
-  private def serveSignup(using WebContext) = NoTor:
+  private def serveSignup(using Context) = NoTor:
     forms.signup.website.flatMap: form =>
       Ok.page(html.auth.signup(form))
 
@@ -212,14 +212,14 @@ final class Auth(
         )
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
-      ctx: WebContext
+      ctx: Context
   ): Funit =
     garbageCollect(user)(email)
     if (sendWelcomeEmail) env.mailer.automaticEmail.welcomeEmail(user, email)
     env.mailer.automaticEmail.welcomePM(user)
     env.pref.api.saveNewUserPrefs(user, ctx.req)
 
-  private def garbageCollect(user: UserModel)(email: EmailAddress)(using ctx: WebContext) =
+  private def garbageCollect(user: UserModel)(email: EmailAddress)(using ctx: Context) =
     env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open:
@@ -280,7 +280,7 @@ final class Auth(
         } >> redirectNewUser(user)
     }
 
-  private def redirectNewUser(user: UserModel)(using WebContext) =
+  private def redirectNewUser(user: UserModel)(using Context) =
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = Redirect(getReferrerOption | routes.User.show(user.username).url),
@@ -303,7 +303,7 @@ final class Auth(
     } inject NoContent
   }
 
-  private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Boolean)(using ctx: WebContext) =
+  private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Boolean)(using ctx: Context) =
     renderAsync:
       env.security.forms.passwordReset map { baseForm =>
         html.auth.bits.passwordReset(form.foldLeft(baseForm)(_ withForm _), fail)
@@ -380,7 +380,7 @@ final class Auth(
         }
     }
 
-  private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using WebContext) =
+  private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
     renderAsync:
       env.security.forms.magicLink map { baseForm =>
         html.auth.bits.magicLink(form.foldLeft(baseForm)(_ withForm _), fail)
@@ -473,7 +473,7 @@ final class Auth(
         Firewall:
           consumingToken(token) { authenticateUser(_, remember = true) }
 
-  private def consumingToken(token: String)(f: UserModel => Fu[Result])(using WebContext) =
+  private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =
     env.security.loginToken consume token flatMap {
       case None =>
         BadRequest.page:
@@ -515,7 +515,7 @@ final class Auth(
 
   private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result]
 
-  private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me match
       case Some(me) => Redirect(routes.User.show(me.username))
       case None     => f

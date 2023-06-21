@@ -41,7 +41,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
     trans.logOut
   ) ::: translationsBase
 
-  private def translations(using WebContext) =
+  private def translations(using Context) =
     lila.i18n.JsDump.keysToObject(
       if (ctx.isAnon) translationsAnon else translationsAuth,
       ctx.lang

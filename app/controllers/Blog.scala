@@ -127,13 +127,13 @@ final class Blog(
       }
     }
 
-  private def WithPrismic(f: WebContext ?=> BlogApi.Context ?=> Fu[Result]) = Open:
+  private def WithPrismic(f: Context ?=> BlogApi.Context ?=> Fu[Result]) = Open:
     blogApi context ctx.req flatMap { f(using ctx)(using _) }
 
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[Document], slug: String)(
       callback: Either[String, Document] => Fu[Result]
-  )(using WebContext): Fu[Result] =
+  )(using Context): Fu[Result] =
     document
       .collect:
         case document if document.slug == slug => callback(Right(document))

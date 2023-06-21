@@ -11,12 +11,12 @@ final class Simul(env: Env) extends LilaController(env):
 
   private def forms = lila.simul.SimulForm
 
-  private def simulNotFound(using WebContext) = NotFound.page(html.simul.bits.notFound())
+  private def simulNotFound(using Context) = NotFound.page(html.simul.bits.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Simul.home)(serveHome)
 
-  private def serveHome(using ctx: WebContext) = NoBot:
+  private def serveHome(using ctx: Context) = NoBot:
     pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
       Ok.page(html.simul.home(pending, created, started, finished))
@@ -57,7 +57,7 @@ final class Simul(env: Env) extends LilaController(env):
         yield Ok(page).noCache
     }
 
-  private[controllers] def canHaveChat(simul: Sim)(using ctx: WebContext): Boolean =
+  private[controllers] def canHaveChat(simul: Sim)(using ctx: Context): Boolean =
     ctx.noKid && ctx.noBot &&                     // no public chats for kids or bots
       ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
         env.chat.panic.allowed(_)
@@ -180,14 +180,14 @@ final class Simul(env: Env) extends LilaController(env):
             html.simul.hosted(user, _)
           }
 
-  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
     env.simul.repo.find(simulId).flatMap {
       case None                                                               => notFound
       case Some(simul) if ctx.is(simul.hostId) || isGrantedOpt(_.ManageSimul) => f(simul)
       case _                                                                  => Unauthorized
     }
 
-  private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using WebContext): Fu[Result] =
+  private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using Context): Fu[Result] =
     AsHost(id): sim =>
       if sim.isStarted
       then Redirect(routes.Simul.show(sim.id))

@@ -62,7 +62,7 @@ final class Team(
         then paginator popularTeams page map { html.team.list.all(_) }
         else env.teamSearch(text, page) map { html.team.list.search(text, _) }
 
-  private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: WebContext) = for
+  private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: Context) = for
     info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
     members <- paginator.teamMembers(team, page)
     log     <- (requestModView && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
@@ -79,7 +79,7 @@ final class Team(
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
-      ctx: WebContext
+      ctx: Context
   ): Boolean =
     team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
@@ -88,7 +88,7 @@ final class Team(
     }
 
   private def canHaveForum(team: TeamModel, requestModView: Boolean)(isMember: Boolean)(using
-      ctx: WebContext
+      ctx: Context
   ): Boolean =
     team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
       team.isForumFor(_.EVERYONE) ||
@@ -248,7 +248,7 @@ final class Team(
       }
   }
 
-  private def tooManyTeamsHtml(using WebContext, Me): Fu[Result] =
+  private def tooManyTeamsHtml(using Context, Me): Fu[Result] =
     BadRequest.pageAsync:
       api.mine map html.team.list.mine
 
@@ -435,7 +435,7 @@ final class Team(
       renderPmAll(team, forms.pmAll)
   }
 
-  private def renderPmAll(team: TeamModel, form: Form[?])(using WebContext) = for
+  private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
     tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs  <- env.team.cached.unsubs.get(team.id)
     limiter <- env.teamInfo.pmAllStatus(team.id)
@@ -556,7 +556,7 @@ You received this because you are subscribed to messages of the team $url."""
             }(RateLimit.Result.Limited)
       )
 
-  private def LimitPerWeek[A <: Result](a: => Fu[A])(using ctx: WebContext, me: Me): Fu[Result] =
+  private def LimitPerWeek[A <: Result](a: => Fu[A])(using ctx: Context, me: Me): Fu[Result] =
     api.countCreatedRecently(me) flatMap { count =>
       val allow =
         isGrantedOpt(_.ManageTeam) ||
@@ -567,14 +567,14 @@ You received this because you are subscribed to messages of the team $url."""
       else Forbidden.page(views.html.site.message.teamCreateLimit)
     }
 
-  private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(using WebContext): Fu[Result] =
+  private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
     OptionFuResult(api team teamId): team =>
       if ctx.userId.exists(team.leaders.contains) || isGrantedOpt(_.ManageTeam) then f(team)
       else Redirect(routes.Team.show(team.id))
 
   private def WithOwnedTeamEnabled(
       teamId: TeamId
-  )(f: TeamModel => Fu[Result])(using WebContext): Fu[Result] =
+  )(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
     WithOwnedTeam(teamId): team =>
       if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
       else notFound

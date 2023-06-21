@@ -22,7 +22,7 @@ trait ResponseBuilder(using Executor)
   // given Conversion[scalatags.Text.Frag, Result] = Ok(_)
   given Conversion[Result, Fu[Result]] = fuccess(_)
   // given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
-  given (using WebContext): Conversion[Funit, Fu[Result]] =
+  given (using Context): Conversion[Funit, Fu[Result]] =
     _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
   given alleycats.Zero[Result] = alleycats.Zero(Results.NotFound)
 
@@ -45,14 +45,14 @@ trait ResponseBuilder(using Executor)
   def JsonStrOk(str: JsonStr): Result       = Ok(str) as JSON
   def JsonBadRequest(body: JsValue): Result = BadRequest(body) as JSON
 
-  def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: Context): Fu[Result] =
     lila.api.Mobile.Api
       .requestVersion(ctx.req)
       .fold(html): v =>
         api(v).dmap(_ as JSON)
       .dmap(_.withHeaders(VARY -> "Accept"))
 
-  def negotiateHtmlOrJson(html: => Fu[Result], json: => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  def negotiateHtmlOrJson(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] =
     render.async:
       case Accepts.Json() => json
       case _              => html
@@ -65,16 +65,16 @@ trait ResponseBuilder(using Executor)
 
   def notForBotAccounts = JsonBadRequest(jsonError("This API endpoint is not for Bot accounts."))
 
-  def notFound(using ctx: WebContext): Fu[Result] =
+  def notFound(using ctx: Context): Fu[Result] =
     negotiate(
       html = ctx match
-        case web: WebContext if HTTPRequest.isSynchronousHttp(ctx.req) => renderNotFound(using web)
+        case web: Context if HTTPRequest.isSynchronousHttp(ctx.req) => renderNotFound(using web)
         case _ => fuccess(Results.NotFound("Resource not found"))
       ,
       api = _ => notFoundJson("Resource not found")
     )
 
-  def authenticationFailed(using ctx: WebContext): Fu[Result] =
+  def authenticationFailed(using ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess:
         Redirect(
@@ -90,7 +90,7 @@ trait ResponseBuilder(using Executor)
 
   private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
 
-  def authorizationFailed(using ctx: WebContext): Fu[Result] =
+  def authorizationFailed(using ctx: Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then Forbidden.page(views.html.site.message.authFailed)
     else

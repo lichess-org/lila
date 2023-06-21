@@ -61,7 +61,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
         )
   }
 
-  private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using WebContext) =
+  private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using Context) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
         env.fishnet

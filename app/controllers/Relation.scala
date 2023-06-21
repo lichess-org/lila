@@ -18,7 +18,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   val api = env.relation.api
 
-  private def renderActions(username: UserName, mini: Boolean)(using ctx: WebContext) =
+  private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) =
     env.user.lightUserApi.asyncFallbackName(username) flatMap { user =>
       (ctx.userId so { api.fetchRelation(_, user.id) }) zip
         (ctx.isAuth so { env.pref.api followable user.id }) zip
@@ -151,14 +151,14 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         }
   }
 
-  private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using WebContext) =
+  private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using Context) =
     Paginator(
       adapter = adapter mapFutureList followship,
       currentPage = page,
       maxPerPage = lila.common.config.MaxPerPage(30)
     )
 
-  private def followship(userIds: Seq[UserId])(using ctx: WebContext): Fu[List[Related]] =
+  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related]] =
     env.user.repo usersFromSecondary userIds flatMap { users =>
       (ctx.isAuth so { env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>

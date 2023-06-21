@@ -76,7 +76,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         }
   }
 
-  private def modData(streamer: StreamerModel)(using WebContext) =
+  private def modData(streamer: StreamerModel)(using Context) =
     isGrantedOpt(_.ModLog).so:
       logApi.userHistory(streamer.userId) zip
         env.user.noteApi.byUserForMod(streamer.userId) zip
@@ -168,7 +168,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         .info(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
       Ok(challenge)
 
-  private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.foldUse(notFound): me ?=>
       if StreamerModel.canApply(me) || isGranted(_.Streamers) then
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.userId) flatMap {
@@ -179,7 +179,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           html.site.message("Too soon"):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
 
-  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: WebContext) =
+  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: Context) =
     ctx.noKid.so:
       if s.streamer.isListed || ctx.me.exists(_ is s.streamer) || isGrantedOpt(_.Admin)
       then f

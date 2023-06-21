@@ -27,7 +27,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       newMe: Option[Me] = None,
       apiVersion: Option[ApiVersion] = None
-  )(using ctx: WebContext): Fu[JsObject] =
+  )(using ctx: Context): Fu[JsObject] =
     given Option[Me] = newMe orElse ctx.me
     if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
     then env.puzzle.jsonView.bc(puzzle)
@@ -39,7 +39,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       color: Option[Color] = None,
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       langPath: Option[LangPath] = None
-  )(using ctx: WebContext) =
+  )(using ctx: Context) =
     for
       json     <- renderJson(puzzle, angle, replay)
       settings <- ctx.me.so(u => env.puzzle.session.getSettings(u) dmap some)
@@ -71,7 +71,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def homeLang = LangPage(routes.Puzzle.home.url)(serveHome)
 
-  private def serveHome(using WebContext) = NoBot:
+  private def serveHome(using Context) = NoBot:
     val angle = PuzzleAngle.mix
     nextPuzzleForMe(angle, none) flatMap {
       _.fold(redirectNoPuzzle):
@@ -82,7 +82,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       angle: PuzzleAngle,
       color: Option[Option[Color]],
       difficulty: PuzzleDifficulty = PuzzleDifficulty.Normal
-  )(using ctx: WebContext): Fu[Option[Puz]] =
+  )(using ctx: Context): Fu[Option[Puz]] =
     ctx.me match
       case Some(me) =>
         ctx.req.session.get(cookieDifficulty).flatMap(PuzzleDifficulty.find).so {
@@ -115,7 +115,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     yield Ok(page)
 
   private def onComplete[A](form: Form[RoundData])(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
-      ctx: WebBodyContext[A]
+      ctx: BodyContext[A]
   ) =
     form
       .bindFromRequest()
@@ -198,7 +198,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def streak     = Open(serveStreak)
   def streakLang = LangPage(routes.Puzzle.streak)(serveStreak)
 
-  private def serveStreak(using ctx: WebContext) = NoBot:
+  private def serveStreak(using ctx: Context) = NoBot:
     streakJsonAndPuzzle.flatMapz: (json, puzzle) =>
       val prefJson = env.puzzle.jsonView.pref(ctx.pref)
       val langPath = LangPath(routes.Puzzle.streak).some
@@ -268,7 +268,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def themes     = Open(serveThemes)
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
-  private def serveThemes(using WebContext) =
+  private def serveThemes(using Context) =
     Ok.pageAsync:
       env.puzzle.api.angles.map(views.html.puzzle.theme.list(_))
 
@@ -289,7 +289,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def showLang(lang: String, angleOrId: String) =
     LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId))(lang)
 
-  private def serveShow(angleOrId: String)(using ctx: WebContext) = NoBot:
+  private def serveShow(angleOrId: String)(using ctx: Context) = NoBot:
     val langPath = LangPath(routes.Puzzle.show(angleOrId)).some
     PuzzleAngle find angleOrId match
       case Some(angle) =>
@@ -490,7 +490,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def help = Open:
     Ok.page(html.site.helpModal.puzzle)
 
-  private def DashboardPage(username: Option[UserStr])(f: WebContext ?=> User => Fu[Result]) =
+  private def DashboardPage(username: Option[UserStr])(f: Context ?=> User => Fu[Result]) =
     Auth { ctx ?=> me ?=>
       username
         .so(env.user.repo.byId)

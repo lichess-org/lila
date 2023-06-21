@@ -21,7 +21,7 @@ object mini:
       ownerLink: Boolean = false,
       tv: Boolean = false,
       withLink: Boolean = true
-  )(using ctx: WebContext): Tag =
+  )(using ctx: Context): Tag =
     renderMini(
       pov,
       withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
