@@ -101,7 +101,7 @@ final class Account(
 
   def apiNowPlaying = Scoped()(doNowPlaying)
 
-  private def doNowPlaying(using AnyContext)(using me: Me) =
+  private def doNowPlaying(using WebContext)(using me: Me) =
     env.round.proxyRepo.urgentGames(me) map { povs =>
       val nb = (getInt("nb") | 9) atMost 50
       Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map env.api.lobbyApi.nowPlaying)))

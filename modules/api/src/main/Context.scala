@@ -10,15 +10,11 @@ import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 
 object context:
-  export lila.api.{ AnyContext, BodyContext }
   export lila.api.{ WebContext, WebBodyContext }
-  export lila.api.{ MinimalContext, MinimalBodyContext }
   export lila.api.{ UserContext, PageContext }
-  given (using ctx: AnyContext): Option[lila.user.Me]    = ctx.me
-  given (using ctx: AnyContext): Option[lila.user.Me.Id] = ctx.meId
-  given (using page: PageContext): AnyContext            = page.ctx
-  // given (using page: PageContext): WebContext =
-  //   WebContext(page.ctx.req, page.ctx.lang, UserContext(page.me, false, page.impersonatedBy), page.ctx.pref)
+  given (using ctx: WebContext): Option[lila.user.Me]    = ctx.me
+  given (using ctx: WebContext): Option[lila.user.Me.Id] = ctx.meId
+  given (using page: PageContext): WebContext            = page.ctx
 
 /* data necessary to render the lichess website layout */
 case class PageData(
@@ -32,17 +28,7 @@ case class PageData(
 )
 
 object PageData:
-
-  def anon(nonce: Option[Nonce]) =
-    PageData(
-      teamNbRequests = 0,
-      nbChallenges = 0,
-      nbNotifications = UnreadCount(0),
-      hasClas = false,
-      inquiry = none,
-      nonce = nonce
-    )
-
+  def anon(nonce: Option[Nonce])  = PageData(0, 0, UnreadCount(0), false, none, nonce)
   def error(nonce: Option[Nonce]) = anon(nonce).copy(error = true)
 
 final class UserContext(
@@ -64,11 +50,21 @@ final class UserContext(
 object UserContext:
   val anon = UserContext(none, false, none, none)
 
-trait AnyContext:
-  val req: RequestHeader
-  def lang: Lang
-  def pref: Pref
-  val userContext: UserContext
+final class PageContext(val ctx: WebContext, val data: PageData):
+  export ctx.*
+  export data.*
+  lazy val isMobileBrowser = HTTPRequest isMobile req
+  def zoom: Int = {
+    def oldZoom = req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100)
+    req.cookies get "zoom" map (_.value) flatMap (_.toIntOption) orElse oldZoom filter (0 <=) filter (100 >=)
+  } | 85
+
+class WebContext(
+    val req: RequestHeader,
+    val lang: Lang,
+    val userContext: UserContext,
+    val pref: Pref
+):
   export userContext.*
   def username: Option[UserName] = user.map(_.username)
   def isBot                      = me.exists(_.isBot)
@@ -83,45 +79,11 @@ trait AnyContext:
   lazy val mobileApiVersion      = Mobile.Api requestVersion req
   def isMobileApi                = mobileApiVersion.isDefined
   def flash(name: String): Option[String] = req.flash get name
+  def withLang(l: Lang)                   = WebContext(req, l, userContext, pref)
 
-final class PageContext(val ctx: AnyContext, val data: PageData) extends AnyContext:
-  export data.{ teamNbRequests, nbChallenges, nbNotifications, nonce, hasClas }
-  export ctx.*
-
-  lazy val isMobileBrowser = HTTPRequest isMobile req
-
-  def zoom: Int = {
-    def oldZoom = req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100)
-    req.cookies get "zoom" map (_.value) flatMap (_.toIntOption) orElse oldZoom filter (0 <=) filter (100 >=)
-  } | 85
-
-trait BodyContext[A] extends AnyContext:
-  val body: Request[A]
-
-/* Able to render a lichess page with a layout. Might be authenticated with cookie session */
-class WebContext(
-    val req: RequestHeader,
-    val lang: Lang,
-    val userContext: UserContext,
-    val pref: Pref
-) extends AnyContext:
-
-  def withLang(l: Lang) = WebContext(req, l, userContext, pref)
-
-/* Able to render a lichess page with a layout. Might be authenticated with cookie session */
 final class WebBodyContext[A](
     val body: Request[A],
     lang: Lang,
     userContext: UserContext,
     pref: Pref
 ) extends WebContext(body, lang, userContext, pref)
-    with BodyContext[A]:
-  override def withLang(l: Lang) = WebBodyContext(body, l, userContext, pref)
-
-/* Cannot render a lichess page. Cannot be authenticated. */
-class MinimalContext(val req: RequestHeader) extends AnyContext:
-  lazy val lang   = lila.i18n.I18nLangPicker(req)
-  val userContext = UserContext.anon
-  lazy val pref   = lila.pref.RequestPref.fromRequest(req)
-
-final class MinimalBodyContext[A](val body: Request[A]) extends MinimalContext(body) with BodyContext[A]

@@ -166,7 +166,7 @@ trait GameHelper:
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(using ctx: AnyContext): Frag =
+  )(using ctx: WebContext): Frag =
     given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
@@ -252,7 +252,7 @@ trait GameHelper:
       color: Color,
       ownerLink: Boolean = false,
       tv: Boolean = false
-  )(using ctx: AnyContext): String = {
+  )(using ctx: WebContext): String = {
     val owner = ownerLink so ctx.me.flatMap(game.player)
     if tv then routes.Tv.index
     else

@@ -514,23 +514,19 @@ final class Mod(
   private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
-  private def OAuthMod[A](perm: Permission.Selector)(f: AnyContext ?=> Me ?=> Fu[Option[A]])(
+  private def OAuthMod[A](perm: Permission.Selector)(f: WebContext ?=> Me ?=> Fu[Option[A]])(
       thenWhat: A => (WebContext, Me) ?=> Fu[Result]
   ): EssentialAction =
     SecureOrScoped(perm) { ctx ?=> me ?=>
       f.flatMapz: res =>
-        ctx match
-          case web: WebContext => thenWhat(res)(using web, me)
-          case _               => fuccess(jsonOkResult)
+        if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
   private def OAuthModBody[A](perm: Permission.Selector)(f: Me ?=> Fu[Option[A]])(
       thenWhat: A => (WebBodyContext[?], Me) ?=> Fu[Result]
   ): EssentialAction =
     SecureOrScopedBody(perm) { ctx ?=> me ?=>
       f.flatMapz: res =>
-        ctx match
-          case web: WebBodyContext[?] => thenWhat(res)(using web, me)
-          case _                      => fuccess(jsonOkResult)
+        if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
 
   private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: WebContext, me: Me): Fu[Result] =

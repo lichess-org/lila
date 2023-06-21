@@ -27,7 +27,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       newMe: Option[Me] = None,
       apiVersion: Option[ApiVersion] = None
-  )(using ctx: AnyContext): Fu[JsObject] =
+  )(using ctx: WebContext): Fu[JsObject] =
     given Option[Me] = newMe orElse ctx.me
     if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
     then env.puzzle.jsonView.bc(puzzle)

@@ -3,6 +3,7 @@ package http
 
 import play.api.mvc.*
 import play.api.i18n.Lang
+import play.api.http.Writeable
 
 import lila.user.Me
 import lila.api.{ Nonce, PageData, UserContext }
@@ -10,17 +11,17 @@ import lila.i18n.I18nLangPicker
 import lila.common.{ HTTPRequest }
 import lila.security.{ Granter, FingerPrintedUser, AppealUser }
 import lila.oauth.OAuthScope
-import play.api.http.Writeable
+import lila.pref.RequestPref
 
 trait RequestContext(using Executor):
 
   val env: Env
 
-  def minimalContext(using req: RequestHeader): MinimalContext =
-    MinimalContext(req)
+  def minimalContext(using req: RequestHeader): WebContext =
+    WebContext(req, I18nLangPicker(req), UserContext.anon, RequestPref.fromRequest(req))
 
-  def minimalBodyContext[A](using req: Request[A]): MinimalBodyContext[A] =
-    MinimalBodyContext(req)
+  def minimalBodyContext[A](using req: Request[A]): WebBodyContext[A] =
+    WebBodyContext(req, I18nLangPicker(req), UserContext.anon, RequestPref.fromRequest(req))
 
   def webContext(using req: RequestHeader): Fu[WebContext] = for
     userCtx <- makeUserContext(req)
@@ -55,7 +56,7 @@ trait RequestContext(using Executor):
     me.filter(_.lang.fold(true)(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
     lang
 
-  private def pageDataBuilder(using ctx: AnyContext): Fu[PageData] =
+  private def pageDataBuilder(using ctx: WebContext): Fu[PageData] =
     val isPage = HTTPRequest isSynchronousHttp ctx.req
     val nonce  = isPage option Nonce.random
     ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
@@ -81,7 +82,7 @@ trait RequestContext(using Executor):
         )
       }
 
-  def pageContext(using ctx: AnyContext): Fu[PageContext] =
+  def pageContext(using ctx: WebContext): Fu[PageContext] =
     pageDataBuilder.dmap(PageContext(ctx, _))
 
   private def makeUserContext(req: RequestHeader): Fu[UserContext] =

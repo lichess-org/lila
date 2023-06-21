@@ -299,7 +299,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     else doApiCreate
   }
 
-  private def doApiCreate(using ctx: BodyContext[?], me: Me): Fu[Result] =
+  private def doApiCreate(using ctx: WebBodyContext[?], me: Me): Fu[Result] =
     env.team.api.lightsByLeader(me) flatMap { teams =>
       forms
         .create(teams)

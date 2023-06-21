@@ -38,15 +38,15 @@ abstract private[controllers] class LilaController(val env: Env)
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
 
   /* Anonymous requests */
-  def Anon(f: MinimalContext ?=> Fu[Result]): EssentialAction =
+  def Anon(f: WebContext ?=> Fu[Result]): EssentialAction =
     action(parse.empty)(f(using minimalContext))
 
   /* Anonymous requests, with a body */
-  def AnonBody(f: MinimalBodyContext[?] ?=> Fu[Result]): EssentialAction =
+  def AnonBody(f: WebBodyContext[?] ?=> Fu[Result]): EssentialAction =
     action(parse.anyContent)(f(using minimalBodyContext))
 
   /* Anonymous requests, with a body */
-  def AnonBodyOf[A](parser: BodyParser[A])(f: MinimalBodyContext[A] ?=> A => Fu[Result]): EssentialAction =
+  def AnonBodyOf[A](parser: BodyParser[A])(f: WebBodyContext[A] ?=> A => Fu[Result]): EssentialAction =
     action(parser)(req ?=> f(using minimalBodyContext)(req.body))
 
   /* Anonymous and authenticated requests */
@@ -81,7 +81,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous, authenticated, and oauth requests */
   def OpenOrScoped(selectors: OAuthScope.Selector*)(
-      f: AnyContext ?=> Fu[Result]
+      f: WebContext ?=> Fu[Result]
   ): EssentialAction =
     OpenOrScoped(selectors*)(f, f)
 
@@ -92,7 +92,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous, authenticated, and oauth requests with a body */
   def OpenOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
-      f: BodyContext[A] ?=> Fu[Result]
+      f: WebBodyContext[A] ?=> Fu[Result]
   ): EssentialAction =
     action(parser): req ?=>
       if HTTPRequest.isOAuth(req)
@@ -101,7 +101,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous and oauth requests */
   def AnonOrScoped(selectors: OAuthScope.Selector*)(
-      f: AnyContext ?=> Fu[Result]
+      f: WebContext ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
@@ -110,7 +110,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous and oauth requests with a body */
   def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
-      f: BodyContext[A] ?=> Fu[Result]
+      f: WebBodyContext[A] ?=> Fu[Result]
   ): EssentialAction =
     action(parser): req ?=>
       if HTTPRequest.isOAuth(req)
@@ -129,7 +129,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def AuthOrScoped(
       selectors: OAuthScope.Selector*
-  )(f: AnyContext ?=> Me ?=> Fu[Result]): EssentialAction =
+  )(f: WebContext ?=> Me ?=> Fu[Result]): EssentialAction =
     AuthOrScoped(selectors*)(auth = f, scoped = f)
 
   /* Authenticated and oauth requests with a body */
@@ -143,7 +143,7 @@ abstract private[controllers] class LilaController(val env: Env)
       else handleAuthBody(auth)
 
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
-      f: BodyContext[?] ?=> Me ?=> Fu[Result]
+      f: WebBodyContext[?] ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.anyContent): req ?=>
       if HTTPRequest.isOAuth(req)
@@ -284,7 +284,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and OAuth requests requiring certain permissions */
   def SecureOrScoped(perm: Permission.Selector)(
-      f: AnyContext ?=> Me ?=> Fu[Result]
+      f: WebContext ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
@@ -299,7 +299,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and OAuth requests requiring certain permissions, with a body */
   def SecureOrScopedBody(perm: Permission.Selector)(
-      f: BodyContext[?] ?=> Me ?=> Fu[Result]
+      f: WebBodyContext[?] ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.anyContent): req ?=>
       if HTTPRequest.isOAuth(req)
@@ -354,7 +354,7 @@ abstract private[controllers] class LilaController(val env: Env)
     OptionFuResult(fua): a =>
       fuccess(op(a))
 
-  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using AnyContext): Fu[Result] =
+  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using WebContext): Fu[Result] =
     fua flatMap { _.fold(notFound)(op) }
 
   def pageHit(using req: RequestHeader): Unit =

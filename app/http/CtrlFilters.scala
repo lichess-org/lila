@@ -21,12 +21,12 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def isGranted(permission: Permission)(using me: Option[Me]): Boolean =
     me.exists(Granter(permission)(using _))
 
-  def NoCurrentGame(a: => Fu[Result])(using ctx: AnyContext)(using Executor): Fu[Result] =
+  def NoCurrentGame(a: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
     ctx.me
       .soUse(env.preloader.currentGameMyTurn)
       .flatMap:
         _.fold(a): current =>
-          negotiateInWebContext(keyPages.home(Results.Forbidden), currentGameJsonError(current))
+          negotiateHtmlOrJson(keyPages.home(Results.Forbidden), currentGameJsonError(current))
 
   private def currentGameJsonError(current: lila.app.mashup.Preload.CurrentGame) = fuccess:
     Forbidden(
@@ -34,12 +34,12 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
         s"You are already playing ${current.opponent}"
     ) as JSON
 
-  def NoPlaybanOrCurrent(a: => Fu[Result])(using AnyContext, Executor): Fu[Result] =
+  def NoPlaybanOrCurrent(a: => Fu[Result])(using WebContext, Executor): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
 
-  def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using ctx: AnyContext): Fu[Result] =
+  def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if isGrantedOpt(perm) then f
-    else negotiateInWebContext(authorizationFailed, authorizationFailed)
+    else negotiateHtmlOrJson(authorizationFailed, authorizationFailed)
 
   def Firewall[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if env.security.firewall.accepts(ctx.req) then a
@@ -63,9 +63,9 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def NoLame[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
     NoEngine(NoBooster(a))
 
-  def NoBot[A <: Result](a: => Fu[A])(using ctx: AnyContext): Fu[Result] =
+  def NoBot[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if ctx.isBot then
-      negotiateInWebContext(
+      negotiateHtmlOrJson(
         Forbidden.page(views.html.site.message.noBot),
         Forbidden(jsonError("no bots allowed"))
       )
@@ -82,12 +82,12 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def NoShadowban[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
     if (ctx.me.exists(_.marks.troll)) notFound else a
 
-  def NoPlayban(a: => Fu[Result])(using ctx: AnyContext)(using Executor): Fu[Result] =
+  def NoPlayban(a: => Fu[Result])(using ctx: WebContext)(using Executor): Fu[Result] =
     ctx.userId
       .so(env.playban.api.currentBan)
       .flatMap:
         _.fold(a): ban =>
-          negotiateInWebContext(keyPages.home(Results.Forbidden), playbanJsonError(ban))
+          negotiateHtmlOrJson(keyPages.home(Results.Forbidden), playbanJsonError(ban))
 
   private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 

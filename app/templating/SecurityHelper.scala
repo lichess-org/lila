@@ -10,7 +10,7 @@ trait SecurityHelper:
 
   export Granter.canGrant
 
-  def isGranted(permission: Permission.Selector)(using ctx: AnyContext): Boolean =
+  def isGranted(permission: Permission.Selector)(using ctx: WebContext): Boolean =
     ctx.me soUse Granter.opt(permission)
 
   def isGranted(permission: Permission.Selector, user: User): Boolean =

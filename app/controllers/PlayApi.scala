@@ -58,7 +58,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   // common code for bot & board APIs
   private object impl:
 
-    def gameStream(pov: Pov)(using AnyContext, Me) =
+    def gameStream(pov: Pov)(using WebContext, Me) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color))
       }

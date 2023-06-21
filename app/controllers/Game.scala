@@ -53,7 +53,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = AnonOrScoped()(handleExport(username))
 
-  private def handleExport(username: UserStr)(using ctx: AnyContext) =
+  private def handleExport(username: UserStr)(using ctx: WebContext) =
     env.user.repo byId username flatMap {
       _.filter(u => u.enabled.yes || ctx.me.exists(_ is u) || isGrantedOpt(_.GamesModView)) so { user =>
         val format = GameApiV2.Format byRequest req

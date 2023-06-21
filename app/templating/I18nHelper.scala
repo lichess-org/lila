@@ -7,13 +7,13 @@ import play.api.mvc.Call
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.{ I18nKey, JsDump, LangList, Translator }
-import lila.api.AnyContext
+import lila.api.WebContext
 
 trait I18nHelper:
 
   export LangList.{ nameByStr as langName }
 
-  given (using ctx: AnyContext): Lang = ctx.lang
+  given (using ctx: WebContext): Lang = ctx.lang
 
   def transKey(key: I18nKey, args: Seq[Matchable] = Nil)(using lang: Lang): Frag =
     Translator.frag.literal(key, args, lang)
@@ -28,8 +28,8 @@ trait I18nHelper:
 
   def isRTL(using lang: Lang) = lila.i18n.LangList.isRTL(lang)
 
-  def langHref(call: Call)(using AnyContext): String = langHref(call.url)
-  def langHref(path: String)(using ctx: AnyContext): String =
+  def langHref(call: Call)(using WebContext): String = langHref(call.url)
+  def langHref(path: String)(using ctx: WebContext): String =
     if (ctx.isAuth || ctx.lang.language == "en") path
     else
       val code = lila.i18n.fixJavaLanguageCode(ctx.lang)

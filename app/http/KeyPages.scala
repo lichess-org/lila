@@ -38,7 +38,7 @@ final class KeyPages(val env: Env)(using Executor)
   def notFound(using WebContext): Fu[Result] =
     NotFound.page(html.base.notFound())
 
-  def blacklisted(using ctx: AnyContext): Fu[Result] =
+  def blacklisted(using ctx: WebContext): Fu[Result] =
     if lila.api.Mobile.Api requested ctx.req then
       fuccess:
         Results.Unauthorized:

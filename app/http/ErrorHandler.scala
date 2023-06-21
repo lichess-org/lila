@@ -5,9 +5,10 @@ import play.api.http.DefaultHttpErrorHandler
 import play.api.mvc.*
 import play.api.mvc.Results.*
 import play.api.routing.*
-import play.api.{ Configuration, Environment, UsefulException, UserContext, PageContext }
+import play.api.{ Configuration, Environment, UsefulException }
 
 import lila.common.HTTPRequest
+import lila.api.{ UserContext, PageContext }
 
 final class ErrorHandler(
     environment: Environment,
