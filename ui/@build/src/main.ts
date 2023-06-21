@@ -7,9 +7,10 @@ import { build, postBuild } from './build';
 export function main() {
   const configPath = path.resolve(__dirname, '../build-config.json');
   const config: BuildOpts = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : {};
+  const oneDashArgs = ps.argv.filter(x => /^-([hpsw]+)$/.test(x))?.flatMap(x => x.slice(1).split(''));
 
   if (ps.argv.includes('--tsc') || ps.argv.includes('--sass') || ps.argv.includes('--esbuild')) {
-    // cli args override json
+    // cli args override json, including any of these flags sets those not present to false
     config.sass = ps.argv.includes('--sass');
     config.tsc = ps.argv.includes('--tsc');
     config.esbuild = ps.argv.includes('--esbuild');
@@ -20,13 +21,13 @@ export function main() {
 
   init(path.resolve(__dirname, '../../..'), config);
 
-  if (ps.argv.includes('--help') || ps.argv.includes('-h')) {
+  if (ps.argv.includes('--help') || oneDashArgs.includes('h')) {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
     return;
   }
-  env.watch = ps.argv.includes('--watch') || ps.argv.includes('-w');
-  env.prod = ps.argv.includes('--prod') || ps.argv.includes('-p');
-  env.split = ps.argv.includes('--split') || ps.argv.includes('-s');
+  env.watch = ps.argv.includes('--watch') || oneDashArgs.includes('w');
+  env.prod = ps.argv.includes('--prod') || oneDashArgs.includes('p');
+  env.split = ps.argv.includes('--split') || oneDashArgs.includes('s');
 
   if (env.prod && env.watch) {
     env.error('You cannot watch prod builds! Think of the children');
