@@ -39,7 +39,7 @@ object topnav {
           linkTitle(puzzleUrl, trans.puzzles()),
           div(role := "group")(
             a(href := puzzleUrl)(trans.puzzles()),
-            a(href := langHref(routes.Puzzle.dashboard(30, "home")))(trans.puzzle.puzzleDashboard()),
+            a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
             a(href := langHref(routes.Puzzle.show("tsume")))(trans.puzzleTheme.tsume())
             // a(cls := "new-feature")(href := langHref(routes.Storm.home))("Tsume Storm")
           )

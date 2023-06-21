@@ -64,7 +64,9 @@ trait GameHelper {
           game.variant.standard ?? trans.shogi.txt(),
           game.clock.map(_.config) ?? { clock => s"(${clock.show})" }
         ).filter(_.nonEmpty).mkString(" ")
-    val result = game.winner.map(w => trans.xWon.txt(playerText(w))).getOrElse(trans.gameWasDraw.txt())
+    val result = game.winner.map(w => trans.xWon.txt(playerText(w))) getOrElse {
+      if (game.finishedOrAborted) trans.gameWasDraw.txt() else trans.winnerIsNotYetDecided.txt()
+    }
     s"$players - $gameDesc - $result ${trans.clickGame.txt()}"
   }
 
