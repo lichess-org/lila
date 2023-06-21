@@ -30,6 +30,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
   val baseHandler: Handler =
     case In.ConnectUser(userId) =>
       onlineUserIds.getAndUpdate(_ + userId).unit
+    case In.ConnectUsers(userIds) =>
+      onlineUserIds.getAndUpdate(_ ++ userIds).unit
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds).unit
     case In.NotifiedBatch(userIds) =>
@@ -189,7 +191,8 @@ object RemoteSocket:
 
       case object WsBoot                                                               extends In
       case class ConnectUser(userId: UserId)                                           extends In
-      case class DisconnectUsers(userId: Iterable[UserId])                             extends In
+      case class ConnectUsers(userIds: Iterable[UserId])                               extends In
+      case class DisconnectUsers(userIds: Iterable[UserId])                            extends In
       case class ConnectSris(cons: Iterable[(Sri, Option[UserId])])                    extends In
       case class DisconnectSris(sris: Iterable[Sri])                                   extends In
       case class NotifiedBatch(userIds: Iterable[UserId])                              extends In
@@ -203,6 +206,7 @@ object RemoteSocket:
       val baseReader: Reader = raw =>
         raw.path match
           case "connect/user"     => ConnectUser(UserId(raw.args)).some
+          case "connect/users"    => ConnectUsers(UserId.from(commas(raw.args))).some
           case "disconnect/users" => DisconnectUsers(UserId from commas(raw.args)).some
           case "connect/sris" =>
             ConnectSris {

@@ -25,12 +25,15 @@
   <string name="startDate">Dátum a čas začiatku, vo vašej časovej zóne</string>
   <string name="startDateHelp">Voliteľné, ak viete kedy sa udalosť začne</string>
   <string name="credits">Uveďte zdroj</string>
-  <string name="resetRound">Resetovať toto kolo</string>
-  <string name="deleteRound">Vymazať toto kolo</string>
   <string name="broadcastUrl">Adresa URL pre sledovanie</string>
   <string name="currentRoundUrl">Adresa URL aktuálneho kola</string>
   <string name="currentGameUrl">Adresa URL aktuálnej partie</string>
   <string name="downloadAllRounds">Stiahnuť všetky kolá</string>
+  <string name="resetRound">Resetovať toto kolo</string>
+  <string name="deleteRound">Vymazať toto kolo</string>
   <string name="definitivelyDeleteRound">Definitívne vymazať kolo a partie tohto kola.</string>
   <string name="deleteAllGamesOfThisRound">Vymazať všetky partie tohto kola. K opätovnému vytvoreniu partií bude potrebné aby bol zdroj aktívny.</string>
+  <string name="editRoundStudy">Upraviť kolo štúdií</string>
+  <string name="deleteTournament">Vymazať tento turnaj</string>
+  <string name="definitivelyDeleteTournament">Definitívne odstrániť celý turnaj so všetkými kolami a všetkými partiami.</string>
 </resources>

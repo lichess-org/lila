@@ -254,12 +254,8 @@ abstract private[controllers] class LilaController(val env: Env)
   ) =
     val accepted = OAuthScope.select(selectors) into EndpointScopes
     env.security.api.oauthScoped(req, accepted).flatMap {
-      case Left(e) =>
-        monitorOauth(false)
-        handleScopedFail(accepted, e)
-      case Right(scoped) =>
-        monitorOauth(true)
-        f(scoped) map OAuthServer.responseHeaders(accepted, scoped.scopes)
+      case Left(e)       => handleScopedFail(accepted, e)
+      case Right(scoped) => f(scoped) map OAuthServer.responseHeaders(accepted, scoped.scopes)
     }
 
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
@@ -269,9 +265,6 @@ abstract private[controllers] class LilaController(val env: Env)
     case e =>
       OAuthServer.responseHeaders(accepted, TokenScopes(Nil)):
         Unauthorized(jsonError(e.message))
-
-  private def monitorOauth(success: Boolean)(using req: RequestHeader) =
-    lila.mon.user.oauth.request(HTTPRequest.userAgent(req).fold("none")(_.value), success).increment()
 
   /* Authenticated and OAuth requests requiring certain permissions */
   def SecuredScoped(perms: Permission.Selector)(

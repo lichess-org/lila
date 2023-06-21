@@ -23,13 +23,15 @@
   <string name="startDate">Date de début dans votre fuseau horaire</string>
   <string name="startDateHelp">Facultatif, si vous savez quand l\'événement commence</string>
   <string name="credits">Créditer la source</string>
-  <string name="resetRound">Réinitialiser cette ronde</string>
-  <string name="deleteRound">Supprimer cette ronde</string>
   <string name="broadcastUrl">URL de diffusion</string>
   <string name="currentRoundUrl">Ronde actuelle</string>
   <string name="currentGameUrl">URL de la partie en cours</string>
   <string name="downloadAllRounds">Télécharger toutes les rondes</string>
+  <string name="resetRound">Réinitialiser cette ronde</string>
+  <string name="deleteRound">Supprimer cette ronde</string>
   <string name="definitivelyDeleteRound">Supprimer définitivement la ronde et ses parties.</string>
   <string name="deleteAllGamesOfThisRound">Supprimer toutes les parties de la ronde. La source doit être active pour recréer les parties.</string>
   <string name="editRoundStudy">Modifier l\'étude de la ronde</string>
+  <string name="deleteTournament">Supprimer ce tournoi</string>
+  <string name="definitivelyDeleteTournament">Supprimer définitivement le tournoi, toutes ses rondes et toutes ses parties.</string>
 </resources>

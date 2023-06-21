@@ -19,12 +19,14 @@
   <string name="startDate">Data de início no teu fuso horário</string>
   <string name="startDateHelp">Opcional, se souberes quando começa o evento</string>
   <string name="credits">Credita a fonte</string>
-  <string name="resetRound">Reiniciar esta ronda</string>
-  <string name="deleteRound">Apagar esta ronda</string>
   <string name="broadcastUrl">Transmitir o link</string>
   <string name="currentRoundUrl">Link da ronda atual</string>
   <string name="currentGameUrl">Link da partida atual</string>
   <string name="downloadAllRounds">Descarregar todas as partidas</string>
+  <string name="resetRound">Reiniciar esta ronda</string>
+  <string name="deleteRound">Apagar esta ronda</string>
   <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e os seus jogos.</string>
   <string name="deleteAllGamesOfThisRound">Eliminar todos os jogos desta ronda. A fonte deverá estar ativa para poder recriá-los.</string>
+  <string name="deleteTournament">Eliminar este torneio</string>
+  <string name="definitivelyDeleteTournament">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
 </resources>

@@ -23,13 +23,15 @@
   <string name="startDate">Startdato i din egen tidszone</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>
   <string name="credits">Krediter kilden</string>
-  <string name="resetRound">Nulstil denne runde</string>
-  <string name="deleteRound">Slet denne runde</string>
   <string name="broadcastUrl">Udsendelse-URL</string>
   <string name="currentRoundUrl">Nuværende runde URL</string>
   <string name="currentGameUrl">Nuværende parti URL</string>
   <string name="downloadAllRounds">Download alle runder</string>
+  <string name="resetRound">Nulstil denne runde</string>
+  <string name="deleteRound">Slet denne runde</string>
   <string name="definitivelyDeleteRound">Slet runden og dens partier endegyldigt.</string>
   <string name="deleteAllGamesOfThisRound">Slet alle partier i denne runde. Kilden skal være aktiv for at genskabe dem.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
+  <string name="deleteTournament">Slet denne turnering</string>
+  <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
 </resources>

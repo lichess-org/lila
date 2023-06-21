@@ -19,12 +19,12 @@
   <string name="startDate">Kezdés időpontja a saját időzónádban</string>
   <string name="startDateHelp">Opcionális, ha tudod mikor kezdődik az esemény</string>
   <string name="credits">Forrásmegjelölés</string>
-  <string name="resetRound">A forduló újrakezdése</string>
-  <string name="deleteRound">A forduló törlése</string>
   <string name="broadcastUrl">Közvetítés URL</string>
   <string name="currentRoundUrl">Jelenlegi forduló URL</string>
   <string name="currentGameUrl">Jelenlegi játszma URL</string>
   <string name="downloadAllRounds">Összes játszma letöltése</string>
+  <string name="resetRound">A forduló újrakezdése</string>
+  <string name="deleteRound">A forduló törlése</string>
   <string name="definitivelyDeleteRound">A forduló és játszmáinak végleges törlése.</string>
   <string name="deleteAllGamesOfThisRound">Minden játék törlése ebben a fordulóban. A forrásnak aktívnak kell lennie, hogy újra létre lehessen hozni őket.</string>
 </resources>

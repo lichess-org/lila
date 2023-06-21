@@ -23,6 +23,8 @@ final class OAuthServer(
       auth(_, accepted, req.some)
     } recover { case e: AuthError =>
       Left(e)
+    } addEffect { res =>
+      monitorAuth(res.isRight, req)
     }
 
   def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
@@ -77,6 +79,12 @@ final class OAuthServer(
           logger.warn(s"Web:Mobile token requested but not signed: $token")
           none
         else token.some
+
+  private val cleanUaRegex = """ user:[\w\-]{2,30}""".r
+  private def monitorAuth(success: Boolean, req: RequestHeader) =
+    val ua      = HTTPRequest.userAgent(req).fold("none")(_.value)
+    val cleanUa = cleanUaRegex.replaceAllIn(ua, "")
+    lila.mon.user.oauth.request(cleanUa, success).increment()
 
 object OAuthServer:
 

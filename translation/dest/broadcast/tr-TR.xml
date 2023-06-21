@@ -23,12 +23,12 @@
   <string name="startDate">Kendi saat diliminizdeki başlangıç zamanı</string>
   <string name="startDateHelp">İsteğe bağlı, etkinliğin ne zaman başladığını biliyorsanız ekleyebilirsiniz.</string>
   <string name="credits">Kaynağı görüntüle</string>
-  <string name="resetRound">Bu turu sıfırla</string>
-  <string name="deleteRound">Bu turu sil</string>
   <string name="broadcastUrl">Yayın linki</string>
   <string name="currentRoundUrl">Şu anki turun linki</string>
   <string name="currentGameUrl">Şu anki oyunun linki</string>
   <string name="downloadAllRounds">Bütün maçları indir</string>
+  <string name="resetRound">Bu turu sıfırla</string>
+  <string name="deleteRound">Bu turu sil</string>
   <string name="definitivelyDeleteRound">Turu ve oyunlarını tamamen sil.</string>
   <string name="deleteAllGamesOfThisRound">Bu turdaki tüm oyunları sil. Tekrardan yapılabilmesi için kaynağın aktif olması gerekir.</string>
   <string name="editRoundStudy">Tur çalışmasını düzenle</string>

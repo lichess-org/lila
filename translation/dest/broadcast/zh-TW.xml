@@ -19,10 +19,10 @@
   <string name="startDate">開始日期 (當地時間)</string>
   <string name="startDateHelp">可選，如果知道比賽開始時間</string>
   <string name="credits">將來源歸因</string>
-  <string name="resetRound">重設此回合</string>
-  <string name="deleteRound">刪除此回合</string>
   <string name="broadcastUrl">直播連結</string>
   <string name="currentRoundUrl">目前回合連結</string>
   <string name="currentGameUrl">目前棋局連結</string>
   <string name="downloadAllRounds">下載所有棋局</string>
+  <string name="resetRound">重設此回合</string>
+  <string name="deleteRound">刪除此回合</string>
 </resources>

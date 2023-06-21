@@ -25,7 +25,7 @@
   <string name="horizontalGreenProgressBars">Barra verde orizzontale del tempo</string>
   <string name="soundWhenTimeGetsCritical">Suono quando sei a corto di tempo</string>
   <string name="giveMoreTime">Dai più tempo</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamento di gioco</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Preferenze di gioco</string>
   <string name="howDoYouMovePieces">Come vuoi muovere i pezzi?</string>
   <string name="clickTwoSquares">Clicca su due caselle</string>
   <string name="dragPiece">Trascina il pezzo</string>
