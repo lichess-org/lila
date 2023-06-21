@@ -14,7 +14,7 @@ object irwin:
       case p if p < 80 => "orange"
       case _           => "red"
 
-  def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(using WebContext) =
+  def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(using PageContext) =
     views.html.base.layout(
       title = "Irwin dashboard",
       moreCss = cssTag("mod.misc")
@@ -71,7 +71,7 @@ object irwin:
       )
     }
 
-  def report(report: lila.irwin.IrwinReport.WithPovs)(using WebContext): Frag =
+  def report(report: lila.irwin.IrwinReport.WithPovs)(using PageContext): Frag =
     div(cls := "mz-section mz-section--irwin", dataRel := "irwin")(
       header(
         a(cls := "title", href := routes.Irwin.dashboard)(

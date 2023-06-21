@@ -22,7 +22,7 @@ final class Blog(
     WithPrismic { _ ?=> prismic ?=>
       pageHit
       blogApi.recent(prismic, page, MaxPerPage(12)) flatMap {
-        case Some(response) => Ok(views.html.blog.index(response))
+        case Some(response) => Ok.page(views.html.blog.index(response))
         case _              => notFound
       }
     }
@@ -30,14 +30,16 @@ final class Blog(
   def show(id: String, slug: String, ref: Option[String]) =
     WithPrismic { _ ?=> prismic ?=>
       pageHit
-      blogApi.one(prismic, id) flatMap { maybeDocument =>
-        checkSlug(maybeDocument, slug) {
-          case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
-          case Right(doc)    => Ok(views.html.blog.show(doc))
+      blogApi
+        .one(prismic, id)
+        .flatMap { maybeDocument =>
+          checkSlug(maybeDocument, slug):
+            case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
+            case Right(doc)    => Ok.page(views.html.blog.show(doc))
         }
-      } recoverWith {
-        case e: RuntimeException if e.getMessage contains "Not Found" => notFound
-      }
+        .recoverWith {
+          case e: RuntimeException if e.getMessage contains "Not Found" => notFound
+        }
     }
 
   def preview(token: String) =
@@ -88,17 +90,19 @@ final class Blog(
 
   def all =
     WithPrismic { _ ?=> prismic ?=>
-      blogApi.byYear(prismic, lila.blog.thisYear) map { posts =>
-        Ok(views.html.blog.index.byYear(lila.blog.thisYear, posts))
-      }
+      Ok.pageAsync:
+        blogApi.byYear(prismic, lila.blog.thisYear) map {
+          views.html.blog.index.byYear(lila.blog.thisYear, _)
+        }
     }
 
   def year(year: Int) =
     WithPrismic { _ ?=> prismic ?=>
-      if (lila.blog.allYears contains year)
-        blogApi.byYear(prismic, year) map { posts =>
-          Ok(views.html.blog.index.byYear(year, posts))
-        }
+      if lila.blog.allYears contains year then
+        Ok.pageAsync:
+          blogApi.byYear(prismic, year) map {
+            views.html.blog.index.byYear(year, _)
+          }
       else notFound
     }
 
@@ -123,19 +127,18 @@ final class Blog(
       }
     }
 
-  private def WithPrismic(f: WebContext ?=> BlogApi.Context ?=> Fu[Result]) = Open:
+  private def WithPrismic(f: Context ?=> BlogApi.Context ?=> Fu[Result]) = Open:
     blogApi context ctx.req flatMap { f(using ctx)(using _) }
 
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[Document], slug: String)(
-      callback: Either[String, Document] => Result
-  )(using WebContext): Fu[Result] =
+      callback: Either[String, Document] => Fu[Result]
+  )(using Context): Fu[Result] =
     document
-      .collect {
+      .collect:
         case document if document.slug == slug => callback(Right(document))
         case document
             if document.slugs
               .exists(s => StringUtils.stripEnd(s, ".") == slug || s == StringUtils.stripEnd(slug, ".")) =>
           callback(Left(document.slug))
-      }
-      .fold(notFound)(_.toFuccess)
+      .|(notFound)

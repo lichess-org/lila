@@ -150,7 +150,7 @@ final private class MsgSecurity(
       }
 
     private def create(contacts: User.Contacts): Fu[Boolean] =
-      prefApi.getPref(contacts.dest.id, _.message) flatMap {
+      prefApi.get(contacts.dest.id, _.message) flatMap {
         case lila.pref.Pref.Message.NEVER  => fuccess(false)
         case lila.pref.Pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
         case lila.pref.Pref.Message.ALWAYS => fuccess(true)

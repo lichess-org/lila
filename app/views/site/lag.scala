@@ -7,7 +7,7 @@ object lag:
 
   import trans.lag.*
 
-  def apply()(using WebContext) =
+  def apply()(using PageContext) =
     page.layout(
       title = "Is Lichess lagging?",
       active = "lag",

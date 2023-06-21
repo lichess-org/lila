@@ -20,7 +20,7 @@ object create:
       owner: List[(Study.IdName, Int)],
       contrib: List[(Study.IdName, Int)],
       backUrl: Option[String]
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.site.message(
       title = trans.toStudy.txt(),
       icon = Some(licon.StudyBoard),

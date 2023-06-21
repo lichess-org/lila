@@ -137,7 +137,6 @@ export interface AnalyseOpts {
   data: AnalyseData;
   userId?: string;
   hunter: boolean;
-  embed: boolean;
   explorer: ExplorerOpts;
   socketSend: AnalyseSocketSend;
   trans: Trans;

@@ -16,7 +16,7 @@ object editor:
       fen: Option[Fen.Epd],
       positionsJson: JsArray,
       endgamePositionsJson: JsArray
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = jsModuleInit(
@@ -43,7 +43,7 @@ object editor:
       )
     )
 
-  def jsData(fen: Option[Fen.Epd] = None)(using ctx: WebContext) =
+  def jsData(fen: Option[Fen.Epd] = None)(using ctx: Context) =
     Json
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",

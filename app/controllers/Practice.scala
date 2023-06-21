@@ -18,9 +18,9 @@ final class Practice(
 
   def index = Open:
     pageHit
-    api.get(ctx.me) flatMap { up =>
-      Ok(html.practice.index(up)).noCache
-    }
+    Ok.pageAsync:
+      api.get(ctx.me) map { html.practice.index(_) }
+    .map(_.noCache)
 
   def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
     OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
@@ -47,9 +47,9 @@ final class Practice(
           select(section).so: study =>
             Redirect(routes.Practice.show(section.id, study.slug, study.id))
 
-  private def showUserPractice(us: lila.practice.UserStudy)(using WebContext) =
-    analysisJson(us) map { (analysisJson, studyJson) =>
-      Ok(
+  private def showUserPractice(us: lila.practice.UserStudy)(using Context) =
+    Ok.pageAsync:
+      analysisJson(us).map: (analysisJson, studyJson) =>
         html.practice
           .show(
             us,
@@ -59,23 +59,20 @@ final class Practice(
               practice = lila.practice.JsonView(us)
             )
           )
-      ).noCache.enableSharedArrayBuffer
-        .withCanonical(s"${us.url}/${us.study.chapter.id}")
-    }
+    .map:
+        _.noCache.enableSharedArrayBuffer.withCanonical(s"${us.url}/${us.study.chapter.id}")
 
   def chapter(studyId: StudyId, chapterId: StudyChapterId) = Open:
-    OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
-      analysisJson(us) map { (analysisJson, studyJson) =>
+    OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)): us =>
+      analysisJson(us).map: (analysisJson, studyJson) =>
         JsonOk(
           Json.obj(
             "study"    -> studyJson,
             "analysis" -> analysisJson
           )
         ).noCache
-      }
-    }
 
-  private def analysisJson(us: UserStudy)(using WebContext): Fu[(JsObject, JsObject)] =
+  private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] =
     us match
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
         env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
@@ -110,13 +107,15 @@ final class Practice(
     for
       struct <- api.structure.get
       form   <- api.config.form
-    yield Ok(html.practice.config(struct, form))
+      page   <- renderPage(html.practice.config(struct, form))
+    yield Ok(page)
   }
 
   def configSave = SecureBody(_.PracticeConfig) { ctx ?=> me ?=>
     api.config.form.flatMap: form =>
       FormFuResult(form) { err =>
-        api.structure.get map { html.practice.config(_, err) }
+        renderAsync:
+          api.structure.get.map(html.practice.config(_, err))
       } { text =>
         ~api.config.set(text).toOption >>-
           api.structure.clear() >>

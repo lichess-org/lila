@@ -12,14 +12,14 @@ object show:
   def apply(
       us: lila.practice.UserStudy,
       data: lila.practice.JsonView.JsData
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = us.practiceStudy.name,
       moreCss = cssTag("analyse.practice"),
       moreJs = frag(
         analyseNvuiTag,
-        analyseStudyInit(
-          "practice",
+        jsModuleInit(
+          "analysisBoard.practice",
           Json.obj(
             "practice" -> data.practice,
             "study"    -> data.study,

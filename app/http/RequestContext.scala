@@ -3,60 +3,58 @@ package http
 
 import play.api.mvc.*
 import play.api.i18n.Lang
+import play.api.http.Writeable
 
-import lila.user.{ Me, UserContext }
-import lila.api.{ Nonce, PageData }
+import lila.user.Me
+import lila.api.{ Nonce, PageData, LoginContext }
 import lila.i18n.I18nLangPicker
 import lila.common.{ HTTPRequest }
 import lila.security.{ Granter, FingerPrintedUser, AppealUser }
 import lila.oauth.OAuthScope
+import lila.pref.RequestPref
 
 trait RequestContext(using Executor):
 
   val env: Env
 
-  def minimalContext(using req: RequestHeader): MinimalContext =
-    MinimalContext(req, UserContext.anon)
+  def makeContext(using req: RequestHeader): Fu[Context] = for
+    userCtx <- makeUserContext(req)
+    lang = getAndSaveLang(req, userCtx.me)
+    pref <- env.pref.api.get(userCtx.me, req)
+  yield Context(req, lang, userCtx, pref)
 
-  def minimalBodyContext[A](using req: Request[A]): MinimalBodyContext[A] =
-    MinimalBodyContext(req, UserContext.anon)
+  def makeBodyContext[A](using req: Request[A]): Fu[BodyContext[A]] = for
+    userCtx <- makeUserContext(req)
+    lang = getAndSaveLang(req, userCtx.me)
+    pref <- env.pref.api.get(userCtx.me, req)
+  yield BodyContext(req, lang, userCtx, pref)
 
-  def webContext(using req: RequestHeader): Fu[WebContext] =
-    restoreUser(req).flatMap: (d, impersonatedBy) =>
-      val lang    = getAndSaveLang(req, d.map(_.me))
-      val userCtx = UserContext(d.map(_.me), impersonatedBy)
-      pageDataBuilder(d.exists(_.hasFingerPrint))(using req, userCtx).dmap:
-        WebContext(req, lang, userCtx, _)
-
-  def webBodyContext[A](using req: Request[A]): Fu[WebBodyContext[A]] =
-    restoreUser(req).flatMap: (d, impersonatedBy) =>
-      val lang    = getAndSaveLang(req, d.map(_.me))
-      val userCtx = UserContext(d.map(_.me), impersonatedBy)
-      pageDataBuilder(d.exists(_.hasFingerPrint))(using req, userCtx).dmap:
-        WebBodyContext(req, lang, userCtx, _)
-
-  def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): OAuthContext =
+  def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[Context] =
     val lang    = getAndSaveLang(req, scoped.me.some)
-    val userCtx = UserContext(scoped.me.some, none)
-    OAuthContext(req, lang, userCtx, scoped.scopes)
+    val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
+    env.pref.api
+      .get(scoped.me, req)
+      .map:
+        Context(req, lang, userCtx, _)
 
-  def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): OAuthBodyContext[A] =
+  def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): Fu[BodyContext[A]] =
     val lang    = getAndSaveLang(req, scoped.me.some)
-    val userCtx = UserContext(scoped.me.some, none)
-    OAuthBodyContext(req, lang, userCtx, scoped.scopes)
+    val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
+    env.pref.api
+      .get(scoped.me, req)
+      .map:
+        BodyContext(req, lang, userCtx, _)
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
     val lang = I18nLangPicker(req, me.flatMap(_.lang))
     me.filter(_.lang.fold(true)(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
     lang
 
-  private def pageDataBuilder(
-      hasFingerPrint: Boolean
-  )(using req: RequestHeader, userCtx: UserContext): Fu[PageData] =
-    val isPage = HTTPRequest isSynchronousHttp req
+  private def pageDataBuilder(using ctx: Context): Fu[PageData] =
+    val isPage = HTTPRequest isSynchronousHttp ctx.req
     val nonce  = isPage option Nonce.random
-    userCtx.me.foldUse(fuccess(PageData.anon(req, nonce, isBlindMode))): me ?=>
-      env.pref.api.getPref(me, req) zip {
+    ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
+      {
         if isPage then
           env.user.lightUserApi preloadUser me
           val enabledId = me.enabled.yes option me.userId
@@ -67,32 +65,27 @@ trait RequestContext(using Executor):
         else
           fuccess:
             (((0, 0), lila.notify.Notification.UnreadCount(0)), none)
-      } map { case (pref, (((teamNbRequests, nbChallenges), nbNotifications), inquiry)) =>
+      } map { case (((teamNbRequests, nbChallenges), nbNotifications), inquiry) =>
         PageData(
           teamNbRequests,
           nbChallenges,
           nbNotifications,
-          pref,
-          blindMode = isBlindMode,
-          hasFingerprint = hasFingerPrint,
-          hasClas = Granter(_.Teacher) || env.clas.studentCache.isStudent(me),
+          hasClas = env.clas.hasClas,
           inquiry = inquiry,
           nonce = nonce
         )
       }
 
-  private def isBlindMode(using req: RequestHeader, userCtx: UserContext) =
-    req.cookies.get(env.api.config.accessibility.blindCookieName) so { c =>
-      c.value.nonEmpty && c.value == env.api.config.accessibility.hash(using userCtx.me)
-    }
+  def pageContext(using ctx: Context): Fu[PageContext] =
+    pageDataBuilder.dmap(PageContext(ctx, _))
 
-  // user, impersonatedBy
-  private type RestoredUser = (Option[FingerPrintedUser], Option[Me])
+  def InEmbedContext[A](f: EmbedContext ?=> A)(using ctx: Context): A =
+    f(using EmbedContext(ctx.req))
 
-  private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
+  private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
     env.security.api restoreUser req dmap {
-      case Some(Left(AppealUser(user))) if HTTPRequest.isClosedLoginPath(req) =>
-        FingerPrintedUser(user, true).some
+      case Some(Left(AppealUser(me))) if HTTPRequest.isClosedLoginPath(req) =>
+        FingerPrintedUser(me, true).some
       case Some(Right(d)) if !env.net.isProd =>
         d.copy(me = d.me.map:
           _.addRole(lila.security.Permission.Beta.dbKey)
@@ -101,10 +94,10 @@ trait RequestContext(using Executor):
       case Some(Right(d)) => d.some
       case _              => none
     } flatMap {
-      case None => fuccess(None -> None)
+      case None => fuccess(LoginContext.anon)
       case Some(d) =>
         env.mod.impersonate.impersonating(d.me) map {
-          _.fold[RestoredUser](d.some -> None): impersonated =>
-            FingerPrintedUser(Me(impersonated), hasFingerPrint = true).some -> d.me.some
+          _.fold(LoginContext(d.me.some, !d.hasFingerPrint, none, none)): impersonated =>
+            LoginContext(Me(impersonated).some, needsFp = false, d.me.some, none)
         }
     }

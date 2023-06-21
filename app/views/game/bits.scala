@@ -28,7 +28,7 @@ object bits:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     div(
       side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
       cross.map: c =>
@@ -57,7 +57,7 @@ object bits:
         href = variant match
           case chess.variant.FromPosition =>
             s"""${routes.Editor.index}?fen=${initialFen.so(_.value.replace(' ', '_'))}"""
-          case v => routes.Page.variant(v.key).url
+          case v => routes.ContentPage.variant(v.key).url
         ,
         title = variant.title,
         name = (if (shortName && variant == chess.variant.KingOfTheHill) variant.shortName

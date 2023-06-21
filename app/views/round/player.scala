@@ -19,7 +19,7 @@ object player:
       playing: List[Pov],
       chatOption: Option[lila.chat.Chat.GameOrEvent],
       bookmarked: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
 
     val chatJson = chatOption.map(_.either).map {
       case Left(c) =>

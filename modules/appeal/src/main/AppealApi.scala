@@ -14,7 +14,7 @@ final class AppealApi(
 
   import BsonHandlers.given
 
-  def mine(me: User): Fu[Option[Appeal]] = coll.byId[Appeal](me.id)
+  def mine(using me: Me.Id): Fu[Option[Appeal]] = coll.byId[Appeal](me)
 
   def get(user: User) = coll.byId[Appeal](user.id)
 
@@ -24,15 +24,15 @@ final class AppealApi(
 
   def exists(user: User) = coll.exists($id(user.id))
 
-  def post(text: String, me: User) =
-    mine(me) flatMap {
+  def post(text: String)(using me: Me) =
+    mine.flatMap:
       case None =>
         val appeal =
           Appeal(
-            id = me.id into Appeal.Id,
+            id = me.userId into Appeal.Id,
             msgs = Vector(
               AppealMsg(
-                by = me.id,
+                by = me,
                 text = text,
                 at = nowInstant
               )
@@ -46,7 +46,6 @@ final class AppealApi(
       case Some(prev) =>
         val appeal = prev.post(text, me)
         coll.update.one($id(appeal.id), appeal) inject appeal
-    }
 
   def reply(text: String, prev: Appeal, preset: Option[String])(using me: Me) =
     val appeal = prev.post(text, me.user)

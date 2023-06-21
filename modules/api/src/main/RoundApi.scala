@@ -18,7 +18,7 @@ import lila.swiss.{ GameView as SwissView }
 import lila.tournament.{ GameView as TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
-import lila.api.context.given
+import lila.api.Context.given
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -36,7 +36,7 @@ final private[api] class RoundApi(
 )(using Executor):
 
   def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[JsObject] =
     gameRepo
       .initialFen(pov.game)
@@ -52,7 +52,7 @@ final private[api] class RoundApi(
         ) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.userId.ifTrue(ctx.isMobileApi) so (noteApi.get(pov.gameId, _))) zip
+          (ctx.meId.ifTrue(ctx.isMobileApi) so (noteApi.get(pov.gameId, _))) zip
           forecastApi.loadForDisplay(pov) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
             case (((((json, simul), swiss), note), forecast), bookmarked) =>
@@ -75,7 +75,7 @@ final private[api] class RoundApi(
       apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv],
       initialFenO: Option[Option[Fen.Epd]] = None
-  )(using ctx: WebContext): Fu[JsObject] =
+  )(using ctx: Context): Fu[JsObject] =
     initialFenO
       .fold(gameRepo initialFen pov.game)(fuccess)
       .flatMap { initialFen =>
@@ -84,7 +84,7 @@ final private[api] class RoundApi(
           pov,
           ctx.pref.some,
           apiVersion,
-          ctx.userId,
+          ctx.me,
           tv,
           initialFen = initialFen,
           flags = ctxFlags
@@ -105,7 +105,7 @@ final private[api] class RoundApi(
       }
       .mon(_.round.api.watcher)
 
-  private def ctxFlags(using ctx: WebContext) =
+  private def ctxFlags(using ctx: Context) =
     WithFlags(blurs = Granter.opt(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
 
   def review(
@@ -116,13 +116,13 @@ final private[api] class RoundApi(
       initialFen: Option[Fen.Epd],
       withFlags: WithFlags,
       owner: Boolean = false
-  )(using ctx: WebContext): Fu[JsObject] = withExternalEngines(ctx.me) {
+  )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
     given play.api.i18n.Lang = ctx.lang
     jsonView.watcherJson(
       pov,
       ctx.pref.some,
       apiVersion,
-      ctx.userId,
+      ctx.me,
       tv,
       initialFen = initialFen,
       flags = withFlags.copy(blurs = Granter.opt(_.ViewBlurs))
@@ -130,7 +130,7 @@ final private[api] class RoundApi(
       tourApi.gameView.analysis(pov.game) zip
       (pov.game.simulId so simulApi.find) zip
       swissApi.gameView(pov) zip
-      ctx.userId.ifTrue(ctx.isMobileApi).so {
+      ctx.me.ifTrue(ctx.isMobileApi).so {
         noteApi.get(pov.gameId, _)
       } zip
       owner.so(forecastApi loadForDisplay pov) zip

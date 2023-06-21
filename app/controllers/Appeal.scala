@@ -11,56 +11,54 @@ import play.api.data.Form
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
     extends LilaController(env):
 
-  private def modForm(using WebContext)  = lila.appeal.Appeal.modForm
-  private def userForm(using WebContext) = lila.appeal.Appeal.form
+  private def modForm(using Context)  = lila.appeal.Appeal.modForm
+  private def userForm(using Context) = lila.appeal.Appeal.form
 
   def home = Auth { _ ?=> me ?=>
-    renderAppealOrTree(me) map { Ok(_) }
+    Ok async renderAppealOrTree()
   }
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
       pageHit
-      OptionOk(prismicC getBookmark "appeal-landing"): (doc, resolver) =>
+      OptionPage(prismicC getBookmark "appeal-landing"): (doc, resolver) =>
         views.html.site.page.lone(doc, resolver)
     else notFound
   }
 
   private def renderAppealOrTree(
-      me: lila.user.User,
       err: Option[Form[String]] = None
-  )(using WebContext) = env.appeal.api mine me flatMap {
+  )(using Context)(using me: Me): Fu[Frag] = env.appeal.api.mine flatMap {
     case None =>
-      env.playban.api.currentBan(me.id).dmap(_.isDefined) map {
-        html.appeal.tree(me, _)
-      }
-    case Some(a) => fuccess(html.appeal.discussion(a, me, err | userForm))
+      renderAsync:
+        env.playban.api.currentBan(me).dmap(_.isDefined) map { html.appeal.tree(me, _) }
+    case Some(a) => renderPage(html.appeal.discussion(a, me, err | userForm))
   }
 
   def post = AuthBody { ctx ?=> me ?=>
     userForm
       .bindFromRequest()
       .fold(
-        err => renderAppealOrTree(me, err.some) map { BadRequest(_) },
-        text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
+        err => renderAppealOrTree(err.some) map { BadRequest(_) },
+        text => env.appeal.api.post(text) inject Redirect(routes.Appeal.home).flashSuccess
       )
   }
 
   def queue = Secure(_.Appeals) { ctx ?=> me ?=>
-    env.appeal.api.queueOf(me.user) zip
-      env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
-        case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
-          env.user.lightUserApi preloadUsers appeals.map(_.user)
-          env.mod.logApi.wereMarkedBy(appeals.map(_.user.id)) map { markedByMap =>
-            Ok(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
-          }
-      }
+    for
+      appeals                          <- env.appeal.api.queueOf(me.user)
+      inquiries                        <- env.report.api.inquiries.allBySuspect
+      ((scores, streamers), nbAppeals) <- reportC.getScores
+      _ = env.user.lightUserApi preloadUsers appeals.map(_.user)
+      markedByMap <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
+      page <- renderPage(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
+    yield Ok(page)
   }
 
   def show(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username): (appeal, suspect) =>
-      getModData(suspect).map: modData =>
-        Ok(html.appeal.discussion.show(appeal, modForm, modData))
+      getModData(suspect).flatMap: modData =>
+        Ok.page(html.appeal.discussion.show(appeal, modForm, modData))
   }
 
   def reply(username: UserStr) = SecureBody(_.Appeals) { ctx ?=> me ?=>
@@ -69,27 +67,24 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
         .bindFromRequest()
         .fold(
           err =>
-            getModData(suspect).map: modData =>
-              BadRequest(html.appeal.discussion.show(appeal, err, modData)),
-          { case (text, process) =>
-            for {
+            getModData(suspect).flatMap: modData =>
+              BadRequest.page(html.appeal.discussion.show(appeal, err, modData)),
+          (text, process) =>
+            for
               _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
               preset = getPresets.findLike(text)
               _ <- env.appeal.api.reply(text, appeal, preset.map(_.name))
               _ <- env.mod.logApi.appealPost(suspect.user.id)
               result <-
-                if (process) {
+                if process then
                   env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
                     Redirect(routes.Appeal.queue)
-                } else {
-                  fuccess(Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions"))
-                }
-            } yield result
-          }
+                else Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions").toFuccess
+            yield result
         )
   }
 
-  private def getModData(suspect: Suspect)(using WebContext)(using me: Me) =
+  private def getModData(suspect: Suspect)(using Context)(using me: Me) =
     for
       users      <- env.security.userLogins(suspect.user, 100)
       logins     <- userC.loginsTableData(suspect.user, users, 100)
@@ -130,7 +125,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   private def asMod(
       username: UserStr
-  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using WebContext): Fu[Result] =
+  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using Context): Fu[Result] =
     env.user.repo byId username flatMapz { user =>
       env.appeal.api get user flatMapz { appeal =>
         f(appeal, Suspect(user)) dmap some

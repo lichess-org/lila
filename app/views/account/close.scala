@@ -10,7 +10,7 @@ object close:
 
   import trans.settings.*
 
-  def apply(form: play.api.data.Form[?], managed: Boolean)(using WebContext)(using me: Me) =
+  def apply(form: play.api.data.Form[?], managed: Boolean)(using PageContext)(using me: Me) =
     account.layout(
       title = s"${me.username} - ${closeAccount.txt()}",
       active = "close"

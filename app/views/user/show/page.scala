@@ -22,7 +22,7 @@ object page:
       activities: Vector[lila.activity.ActivityView],
       info: UserInfo,
       social: UserInfo.Social
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
       openGraph = lila.app.ui
@@ -58,7 +58,7 @@ object page:
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
       notes: Map[GameId, String]
-  )(using WebContext) =
+  )(using PageContext) =
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
     val pageName   = (games.currentPage > 1) so s" - page ${games.currentPage}"
     views.html.base.layout(
@@ -80,7 +80,7 @@ object page:
       )
     }
 
-  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using WebContext) =
+  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
     frag(
       infiniteScrollTag,
       jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
@@ -93,7 +93,7 @@ object page:
       isGranted(_.UserModView) option jsModule("mod.user")
     )
 
-  def disabled(u: User)(using WebContext) =
+  def disabled(u: User)(using PageContext) =
     views.html.base.layout(title = u.username, robots = false) {
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),

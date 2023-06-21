@@ -8,7 +8,7 @@ import lila.common.config.MaxPerSecond
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
 import lila.relation.Related
 import lila.relation.RelationStream.*
-import lila.user.{ Me, User as UserModel }
+import lila.user.{ User as UserModel }
 import views.*
 import lila.common.config
 import Api.ApiResult
@@ -18,13 +18,13 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   val api = env.relation.api
 
-  private def renderActions(username: UserName, mini: Boolean)(using ctx: WebContext) =
+  private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) =
     env.user.lightUserApi.asyncFallbackName(username) flatMap { user =>
       (ctx.userId so { api.fetchRelation(_, user.id) }) zip
         (ctx.isAuth so { env.pref.api followable user.id }) zip
         (ctx.userId so { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
           negotiate(
-            html = Ok:
+            html = Ok.page:
               if mini then
                 html.relation.mini(user.id, blocked = blocked, followable = followable, relation = relation)
               else
@@ -107,7 +107,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           negotiate(
             html =
               if ctx.is(user) || isGrantedOpt(_.CloseAccount)
-              then Ok(html.relation.bits.friends(user, pag))
+              then Ok.page(html.relation.bits.friends(user, pag))
               else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username))),
             api = _ => Ok(jsonRelatedPaginator(pag))
           )
@@ -144,21 +144,21 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     }))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
-    Reasonable(page, config.Max(20)) {
-      RelatedPager(api.blockingPaginatorAdapter(me), page) map { pag =>
-        html.relation.bits.blocks(me, pag)
-      }
-    }
+    Reasonable(page, config.Max(20)):
+      Ok.pageAsync:
+        RelatedPager(api.blockingPaginatorAdapter(me), page) map {
+          html.relation.bits.blocks(me, _)
+        }
   }
 
-  private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using WebContext) =
+  private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using Context) =
     Paginator(
       adapter = adapter mapFutureList followship,
       currentPage = page,
       maxPerPage = lila.common.config.MaxPerPage(30)
     )
 
-  private def followship(userIds: Seq[UserId])(using ctx: WebContext): Fu[List[Related]] =
+  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related]] =
     env.user.repo usersFromSecondary userIds flatMap { users =>
       (ctx.isAuth so { env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>

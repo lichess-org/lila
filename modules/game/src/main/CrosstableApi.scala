@@ -12,14 +12,12 @@ final class CrosstableApi(
   import Crosstable.{ BSONFields as F }
 
   def apply(game: Game): Fu[Option[Crosstable]] =
-    game.twoUserIds so { case (u1, u2) =>
+    game.twoUserIds.so: (u1, u2) =>
       apply(u1, u2) dmap some
-    }
 
   def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] =
-    game.twoUserIds so { case (u1, u2) =>
+    game.twoUserIds.so: (u1, u2) =>
       withMatchup(u1, u2) dmap some
-    }
 
   def apply(u1: UserId, u2: UserId): Fu[Crosstable] =
     justFetch(u1, u2) dmap { _ | Crosstable.empty(u1, u2) }
@@ -28,7 +26,7 @@ final class CrosstableApi(
     coll.one[Crosstable](select(u1, u2))
 
   def withMatchup(u1: UserId, u2: UserId): Fu[Crosstable.WithMatchup] =
-    apply(u1, u2) zip getMatchup(u1, u2) dmap { case (crosstable, matchup) =>
+    apply(u1, u2) zip getMatchup(u1, u2) dmap { (crosstable, matchup) =>
       Crosstable.WithMatchup(crosstable, matchup)
     }
 
@@ -38,13 +36,13 @@ final class CrosstableApi(
         select(u1, u2),
         $doc("s1" -> true, "s2" -> true).some
       )
-      .one[Bdoc] dmap { res =>
-      ~(for {
-        o  <- res
-        s1 <- o.int("s1")
-        s2 <- o.int("s2")
-      } yield (s1 + s2) / 10)
-    }
+      .one[Bdoc]
+      .dmap: res =>
+        ~(for
+          o  <- res
+          s1 <- o.int("s1")
+          s2 <- o.int("s2")
+        yield (s1 + s2) / 10)
 
   def add(game: Game): Funit =
     game.userIds.distinct.sorted(using stringOrdering) match

@@ -18,24 +18,24 @@ final class Analyse(
 ) extends LilaController(env):
 
   def requestAnalysis(id: GameId) = Auth { ctx ?=> me ?=>
-    OptionFuResult(env.game.gameRepo game id) { game =>
-      env.fishnet.analyser(
-        game,
-        lila.fishnet.Work.Sender(
-          userId = me,
-          ip = ctx.ip.some,
-          mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
-          system = false
+    OptionFuResult(env.game.gameRepo game id): game =>
+      env.fishnet
+        .analyser(
+          game,
+          lila.fishnet.Work.Sender(
+            userId = me,
+            ip = ctx.ip.some,
+            mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
+            system = false
+          )
         )
-      ) map { result =>
-        result.error match
-          case None        => NoContent
-          case Some(error) => BadRequest(error)
-      }
-    }
+        .map: result =>
+          result.error match
+            case None        => NoContent
+            case Some(error) => BadRequest(error)
   }
 
-  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: WebContext) =
+  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
     if HTTPRequest.isCrawler(ctx.req).yes then replayBot(pov)
     else
       env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
@@ -69,8 +69,8 @@ final class Analyse(
                     rating = ctx.pref.showRatings,
                     puzzles = true
                   )
-                ) map { data =>
-                  Ok(
+                ) flatMap { data =>
+                  Ok.page(
                     html.analyse.replay(
                       pov,
                       data,
@@ -84,7 +84,7 @@ final class Analyse(
                       chat,
                       bookmarked = bookmarked
                     )
-                  ).enableSharedArrayBuffer
+                  ).map(_.enableSharedArrayBuffer)
                 }
             }
         }
@@ -95,21 +95,22 @@ final class Analyse(
   val AcceptsPgn = Accepting("application/x-chess-pgn")
 
   def embedReplayGame(gameId: GameId, color: String) = Anon:
-    env.api.textLpvExpand.getPgn(gameId) map {
-      case Some(pgn) =>
-        render {
-          case AcceptsPgn() => Ok(pgn)
-          case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
-        }.enableSharedArrayBuffer
-      case _ =>
-        render {
-          case AcceptsPgn() => NotFound("*")
-          case _            => NotFound(html.analyse.embed.notFound)
-        }
-    }
+    InEmbedContext:
+      env.api.textLpvExpand.getPgn(gameId) map {
+        case Some(pgn) =>
+          render {
+            case AcceptsPgn() => Ok(pgn)
+            case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
+          }.enableSharedArrayBuffer
+        case _ =>
+          render {
+            case AcceptsPgn() => NotFound("*")
+            case _            => NotFound(html.analyse.embed.notFound)
+          }
+      }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using
-      WebContext
+      Context
   ): Fu[Result] =
     (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or): atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
@@ -123,21 +124,21 @@ final class Analyse(
           ply => Redirect(s"$url#$ply")
         )
 
-  private def replayBot(pov: Pov)(using WebContext) = for
+  private def replayBot(pov: Pov)(using Context) = for
     initialFen <- env.game.gameRepo initialFen pov.gameId
     analysis   <- env.analyse.analyser get pov.game
     simul      <- pov.game.simulId so env.simul.repo.find
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
     pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
-  yield Ok(
-    html.analyse.replayBot(
-      pov,
-      initialFen,
-      env.analyse.annotator(pgn, pov.game, analysis).toString,
-      simul,
-      crosstable
-    )
-  )
+    page <- renderPage:
+      html.analyse.replayBot(
+        pov,
+        initialFen,
+        env.analyse.annotator(pgn, pov.game, analysis).toString,
+        simul,
+        crosstable
+      )
+  yield Ok(page)
 
   def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
     env.analyse.externalEngine.list(me) map { list =>

@@ -9,7 +9,7 @@ import lila.rating.RatingRange
 
 object filter:
 
-  def apply(form: Form[?])(using ctx: WebContext) =
+  def apply(form: Form[?])(using ctx: PageContext) =
     frag(
       st.form(novalidate)(
         table(

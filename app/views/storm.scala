@@ -14,7 +14,7 @@ import lila.user.User
 
 object storm:
 
-  def home(data: JsObject, high: Option[StormHigh])(using WebContext) =
+  def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
       moreJs = jsModuleInit("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))),
@@ -41,7 +41,7 @@ object storm:
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Page.loneBookmark("storm"))(trans.aboutX("Puzzle Storm"))
+          a(href := routes.ContentPage.loneBookmark("storm"))(trans.aboutX("Puzzle Storm"))
         )
       )
     }
@@ -63,7 +63,7 @@ object storm:
 
   private val numberTag = tag("number")
 
-  def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(using ctx: WebContext) =
+  def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${user.username} Puzzle Storm",
       moreCss = frag(cssTag("storm.dashboard")),

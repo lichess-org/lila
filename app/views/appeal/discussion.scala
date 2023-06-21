@@ -28,7 +28,7 @@ object discussion:
       markedByMe: Boolean
   )
 
-  def apply(appeal: Appeal, me: User, textForm: Form[?])(using WebContext) =
+  def apply(appeal: Appeal, me: User, textForm: Form[?])(using PageContext) =
     bits.layout("Appeal") {
       main(cls := "page-small box box-pad appeal")(
         renderAppeal(appeal, textForm, Right(me))
@@ -39,7 +39,7 @@ object discussion:
       appeal: Appeal,
       textForm: Form[?],
       modData: ModData
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     bits.layout(s"Appeal by ${modData.suspect.user.username}") {
       main(cls := "box box-pad appeal")(
         renderAppeal(appeal, textForm, Left(modData)),
@@ -78,7 +78,7 @@ object discussion:
       appeal: Appeal,
       textForm: Form[?],
       as: Either[ModData, User]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       h1(
         div(cls := "title")(
@@ -132,7 +132,7 @@ object discussion:
       )
     )
 
-  private def renderMark(suspect: User)(using ctx: WebContext) =
+  private def renderMark(suspect: User)(using ctx: PageContext) =
     val query = isGranted(_.Appeals) so ctx.req.queryString.toMap
     if (suspect.enabled.no || query.contains("alt")) tree.closedByModerators
     else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
@@ -141,7 +141,7 @@ object discussion:
     else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
     else tree.cleanAllGood
 
-  private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using WebContext) =
+  private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using PageContext) =
     if (appeal isAbout userId) userIdLink(userId.some, params = asMod so "?mod")
     else
       span(
@@ -154,7 +154,7 @@ object discussion:
       )
 
   def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using
-      WebContext
+      PageContext
   ) =
     postForm(st.action := action)(
       form3.globalError(form),

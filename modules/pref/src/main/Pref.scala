@@ -139,6 +139,17 @@ case class Pref(
       highlight &&
       coords == Coords.OUTSIDE
 
+  def currentTheme      = Theme(theme)
+  def currentTheme3d    = Theme3d(theme3d)
+  def currentPieceSet   = PieceSet.get(pieceSet)
+  def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
+  def currentSoundSet   = SoundSet(soundSet)
+  def currentBg =
+    if bg == Pref.Bg.TRANSPARENT then "transp"
+    else if bg == Pref.Bg.LIGHT then "light"
+    else if bg == Pref.Bg.SYSTEM then "system"
+    else "dark" // dark && dark board
+
 object Pref:
 
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"

@@ -19,7 +19,8 @@ final class TextLpvExpand(
     net: lila.common.config.NetConfig
 )(using Executor):
 
-  def getPgn(id: GameId) = gamePgnCache get id
+  def getPgn(id: GameId)                = gamePgnCache get id
+  def getChapterPgn(id: StudyChapterId) = chapterPgnCache get id
 
   // forum linkRenderFromText builds a LinkRender from relative game urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks

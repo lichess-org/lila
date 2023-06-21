@@ -93,7 +93,6 @@ export default class AnalyseCtrl {
 
   // display flags
   flipped = false;
-  embed: boolean;
   showComments = true; // whether to display comments in the move tree
   showAutoShapes = storedBooleanProp('analyse.show-auto-shapes', true);
   showGauge = storedBooleanProp('analyse.show-gauge', true);
@@ -127,9 +126,8 @@ export default class AnalyseCtrl {
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw, makeStudy?: typeof makeStudyCtrl) {
     this.data = opts.data;
     this.element = opts.element;
-    this.embed = opts.embed;
     this.trans = opts.trans;
-    this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
+    this.treeView = treeViewCtrl('column');
     this.promotion = new PromotionCtrl(
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),
@@ -147,7 +145,7 @@ export default class AnalyseCtrl {
 
     this.initialize(this.data, false);
 
-    this.persistence = this.embed || opts.study || this.synthetic ? undefined : new Persistence(this);
+    this.persistence = opts.study || this.synthetic ? undefined : new Persistence(this);
 
     this.instanciateCeval();
 
@@ -312,7 +310,7 @@ export default class AnalyseCtrl {
   }
 
   private getDests: () => void = throttle(800, () => {
-    if (!this.embed && !defined(this.node.dests))
+    if (!defined(this.node.dests))
       this.socket.sendAnaDests({
         variant: this.data.game.variant.key,
         fen: this.node.fen,
@@ -330,21 +328,16 @@ export default class AnalyseCtrl {
         ? gamebookPlay.movableColor()
         : this.practice
         ? this.bottomColor()
-        : !this.embed && ((dests && dests.size > 0) || drops === null || drops.length)
+        : (dests && dests.size > 0) || drops === null || drops.length
         ? color
         : undefined,
       config: ChessgroundConfig = {
         fen: node.fen,
         turnColor: color,
-        movable: this.embed
-          ? {
-              color: undefined,
-              dests: new Map(),
-            }
-          : {
-              color: movableColor,
-              dests: (movableColor === color && dests) || new Map(),
-            },
+        movable: {
+          color: movableColor,
+          dests: (movableColor === color && dests) || new Map(),
+        },
         check: !!node.check,
         lastMove: uciToMove(node.uci),
       };
@@ -671,7 +664,7 @@ export default class AnalyseCtrl {
     this.ceval = new CevalCtrl({
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
-      possible: !this.embed && (this.synthetic || !game.playable(this.data)),
+      possible: this.synthetic || !game.playable(this.data),
       emit: (ev: Tree.ClientEval, work: EvalMeta) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },

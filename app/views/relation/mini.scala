@@ -12,7 +12,7 @@ object mini:
       blocked: Boolean,
       followable: Boolean,
       relation: Option[lila.relation.Relation] = None
-  )(using WebContext) =
+  )(using PageContext) =
     relation match
       case None if followable && !blocked =>
         val name   = trans.follow.txt()

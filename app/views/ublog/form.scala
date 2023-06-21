@@ -15,9 +15,9 @@ object form:
 
   import views.html.ublog.{ post as postView }
 
-  private def moreCss(using WebContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
+  private def moreCss(using PageContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
-  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using WebContext) =
+  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
@@ -34,7 +34,7 @@ object form:
       )
     }
 
-  def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: WebContext) =
+  def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
@@ -68,7 +68,7 @@ object form:
       )
     }
 
-  private def imageForm(post: UblogPost)(using ctx: WebContext) =
+  private def imageForm(post: UblogPost)(using ctx: PageContext) =
     postForm(
       cls     := "ublog-post-form__image",
       action  := routes.Ublog.image(post.id),
@@ -112,7 +112,7 @@ object form:
     postView.thumbnail(post, _.Size.Small)(cls := post.image.isDefined.option("user-image"))
 
   private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(using
-      WebContext
+      PageContext
   ) =
     postForm(
       cls    := "form3 ublog-post-form__main",
@@ -193,13 +193,13 @@ object form:
       )
     )
 
-  private def etiquette(using WebContext) = div(cls := "ublog-post-form__etiquette")(
+  private def etiquette(using PageContext) = div(cls := "ublog-post-form__etiquette")(
     p(trans.ublog.safeAndRespectfulContent()),
     p(trans.ublog.inappropriateContentAccountClosed()),
     p(
       a(
         dataIcon := licon.InfoCircle,
-        href     := routes.Page.loneBookmark("blog-etiquette"),
+        href     := routes.ContentPage.loneBookmark("blog-etiquette"),
         cls      := "text",
         targetBlank
       )("Blog Etiquette")
@@ -207,9 +207,9 @@ object form:
     p(tips)
   )
 
-  def tips(using WebContext) = a(
+  def tips(using PageContext) = a(
     dataIcon := licon.InfoCircle,
-    href     := routes.Page.loneBookmark("blog-tips"),
+    href     := routes.ContentPage.loneBookmark("blog-tips"),
     cls      := "text",
     targetBlank
   )(trans.ublog.blogTips())

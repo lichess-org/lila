@@ -18,7 +18,7 @@ object side:
       streamers: List[UserId],
       shieldOwner: Option[UserId],
       chat: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       div(cls := "tour__meta")(
         st.section(dataIcon := tour.perfType.icon.toString)(
@@ -90,7 +90,7 @@ object side:
       chat option views.html.chat.frag
     )
 
-  private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: WebContext) =
+  private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: PageContext) =
     st.section(cls := "team-battle")(
       p(cls := "team-battle__title text", dataIcon := licon.Group)(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",

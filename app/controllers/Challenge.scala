@@ -13,7 +13,7 @@ import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ OAuthScope, EndpointScopes }
 import lila.setup.ApiConfig
 import lila.socket.SocketVersion
-import lila.user.{ Me, User as UserModel }
+import lila.user.{ User as UserModel }
 
 final class Challenge(
     env: Env,
@@ -40,14 +40,14 @@ final class Challenge(
   def show(id: ChallengeId, _color: Option[String]) = Open:
     showId(id)
 
-  protected[controllers] def showId(id: ChallengeId)(using WebContext): Fu[Result] =
+  protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
       c: ChallengeModel,
       error: Option[String] = None,
       justCreated: Boolean = false
-  )(using ctx: WebContext): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     env.challenge version c.id flatMap { version =>
       val mine = justCreated || isMine(c)
       import lila.challenge.Direction
@@ -57,22 +57,23 @@ final class Challenge(
         else none
       val json = env.challenge.jsonView.show(c, version, direction)
       negotiate(
-        html = {
+        html =
           val color = get("color") flatMap chess.Color.fromName
           if mine then
             error match
-              case Some(e) => BadRequest(html.challenge.mine(c, json, e.some, color))
-              case None    => Ok(html.challenge.mine(c, json, none, color))
+              case Some(e) => BadRequest.page(html.challenge.mine(c, json, e.some, color))
+              case None    => Ok.page(html.challenge.mine(c, json, none, color))
           else
-            (c.challengerUserId so env.user.repo.byId) map { user =>
-              Ok(html.challenge.theirs(c, json, user, color))
-            }
-        },
+            Ok.pageAsync:
+              (c.challengerUserId so env.user.repo.byId) map {
+                html.challenge.theirs(c, json, _, color)
+              }
+        ,
         api = _ => Ok(json)
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } map env.lilaCookie.ensure(ctx.req)
 
-  private def isMine(challenge: ChallengeModel)(using WebContext) =
+  private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
       case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
@@ -124,7 +125,7 @@ final class Challenge(
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
       res: Result
-  )(using WebContext): Fu[Result] =
+  )(using Context): Fu[Result] =
     cond so {
       env.game.gameRepo.game(c.id into GameId).map {
         _ map { game =>

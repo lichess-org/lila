@@ -11,7 +11,7 @@ object members:
 
   import trans.team.*
 
-  def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(using WebContext) =
+  def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(using PageContext) =
     bits.layout(
       title = t.name,
       openGraph = lila.app.ui

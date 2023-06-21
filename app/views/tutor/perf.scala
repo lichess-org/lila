@@ -13,7 +13,7 @@ import lila.rating.PerfType
 
 object perf:
 
-  def apply(report: TutorPerfReport, user: User)(using ctx: WebContext) =
+  def apply(report: TutorPerfReport, user: User)(using ctx: PageContext) =
     bits.layout(menu = menu(user, report, "perf"))(
       cls := "tutor__perf box",
       boxTop(
@@ -72,7 +72,7 @@ object perf:
       user: User,
       report: TutorPerfReport,
       active: String
-  )(using WebContext) = frag(
+  )(using PageContext) = frag(
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
       report.perf.trans
     ),

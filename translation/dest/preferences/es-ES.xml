@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cuando el tiempo restante sea de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Se puede desactivar durante una partida con el menú del tablero</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia y sin límite de tiempo</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono y ofertas de tablas</string>

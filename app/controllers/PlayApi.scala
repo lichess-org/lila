@@ -58,7 +58,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   // common code for bot & board APIs
   private object impl:
 
-    def gameStream(pov: Pov)(using AnyContext, Me) =
+    def gameStream(pov: Pov)(using Context, Me) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color))
       }
@@ -147,10 +147,10 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
     }
 
   def botOnline = Open:
-    env.user.repo
-      .botsByIds(env.bot.onlineApiUsers.get)
-      .map: users =>
-        Ok(views.html.user.bots(users))
+    Ok.pageAsync:
+      env.user.repo
+        .botsByIds(env.bot.onlineApiUsers.get)
+        .map(views.html.user.bots(_))
 
   def botOnlineApi = Anon:
     apiC

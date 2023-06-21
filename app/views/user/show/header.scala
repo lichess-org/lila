@@ -14,7 +14,7 @@ object header:
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
 
-  def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: WebContext) =
+  def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: PageContext) =
     frag(
       div(cls := "box__top user-show__header")(
         if (u.isPatron)
@@ -257,7 +257,7 @@ object header:
       )
     )
 
-  def noteZone(u: User, notes: List[lila.user.Note])(using ctx: WebContext) = div(cls := "note-zone")(
+  def noteZone(u: User, notes: List[lila.user.Note])(using ctx: PageContext) = div(cls := "note-zone")(
     postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
         placeholder := trans.writeAPrivateNoteAboutThisUser.txt()

@@ -9,7 +9,7 @@ import lila.common.LangPath
 
 object show:
 
-  def apply(scoreOption: Option[lila.coordinate.Score])(using WebContext) =
+  def apply(scoreOption: Option[lila.coordinate.Score])(using PageContext) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
       moreCss = frag(

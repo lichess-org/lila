@@ -29,7 +29,7 @@ object edit:
   }
 
   def apply(c: lila.coach.Coach.WithUser, form: Form[?])(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach page",

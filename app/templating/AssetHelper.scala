@@ -28,8 +28,8 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
-  def cssTag(name: String)(using ctx: WebContext): Frag =
-    cssTagWithDirAndTheme(name, isRTL(using ctx.lang), ctx.currentBg)
+  def cssTag(name: String)(using ctx: Context): Frag =
+    cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
     if (theme == "system")
@@ -59,11 +59,11 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   // jsModule is esm, no defer needed
   def jsModule(name: String): Frag =
     script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets so ".min"}.js"))
-  def jsModuleInit(name: String)(using WebContext) =
+  def jsModuleInit(name: String)(using PageContext) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name')"))
-  def jsModuleInit(name: String, text: String)(using WebContext) =
+  def jsModuleInit(name: String, text: String)(using PageContext) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:$text})"))
-  def jsModuleInit(name: String, json: JsValue)(using WebContext): Frag =
+  def jsModuleInit(name: String, json: JsValue)(using PageContext): Frag =
     jsModuleInit(name, safeJsonValue(json))
   def jsModuleInit(name: String, text: String, nonce: lila.api.Nonce) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:$text})", nonce))
@@ -71,33 +71,31 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     jsModule(name),
     embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:${safeJsonValue(json)}})", nonce)
   )
-  def analyseInit(mode: String, json: JsValue)(using ctx: WebContext) =
+  def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
     jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
-  def analyseStudyInit(mode: String, json: JsValue)(using ctx: WebContext) =
-    jsModuleInit("analysisBoard.study", Json.obj("mode" -> mode, "cfg" -> json))
 
-  def analyseNvuiTag(using ctx: WebContext)    = ctx.blind option jsModule("analysisBoard.nvui")
-  def puzzleNvuiTag(using ctx: WebContext)     = ctx.blind option jsModule("puzzle.nvui")
-  def roundNvuiTag(using ctx: WebContext)      = ctx.blind option jsModule("round.nvui")
-  def infiniteScrollTag(using ctx: WebContext) = jsModuleInit("infiniteScroll", "'.infinite-scroll'")
-  def captchaTag                               = jsModule("captcha")
-  def depsTag                                  = iifeModule("compiled/deps.min.js")
-  def chessgroundTag                           = iifeModule("javascripts/vendor/chessground.min.js")
-  def cashTag                                  = iifeModule("javascripts/vendor/cash.min.js")
-  def fingerprintTag                           = iifeModule("javascripts/fipr.js")
-  def highchartsLatestTag                      = iifeModule("vendor/highcharts-4.2.5/highcharts.js")
-  def highchartsMoreTag                        = iifeModule("vendor/highcharts-4.2.5/highcharts-more.js")
+  def analyseNvuiTag(using ctx: PageContext)    = ctx.blind option jsModule("analysisBoard.nvui")
+  def puzzleNvuiTag(using ctx: PageContext)     = ctx.blind option jsModule("puzzle.nvui")
+  def roundNvuiTag(using ctx: PageContext)      = ctx.blind option jsModule("round.nvui")
+  def infiniteScrollTag(using ctx: PageContext) = jsModuleInit("infiniteScroll", "'.infinite-scroll'")
+  def captchaTag                                = jsModule("captcha")
+  def depsTag                                   = iifeModule("compiled/deps.min.js")
+  def chessgroundTag                            = iifeModule("javascripts/vendor/chessground.min.js")
+  def cashTag                                   = iifeModule("javascripts/vendor/cash.min.js")
+  def fingerprintTag                            = iifeModule("javascripts/fipr.js")
+  def highchartsLatestTag                       = iifeModule("vendor/highcharts-4.2.5/highcharts.js")
+  def highchartsMoreTag                         = iifeModule("vendor/highcharts-4.2.5/highcharts-more.js")
 
-  def prismicJs(using WebContext): Frag =
+  def prismicJs(using PageContext): Frag =
     raw:
       isGranted(_.Prismic).so:
         embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
           """<script src="//static.cdn.prismic.io/prismic.min.js"></script>"""
 
-  def basicCsp(using req: RequestHeader): ContentSecurityPolicy =
-    val sockets = socketDomains map { x => s"wss://$x${!req.secure so s" ws://$x"}" }
+  def basicCsp(using ctx: Context): ContentSecurityPolicy =
+    val sockets = socketDomains map { x => s"wss://$x${!ctx.req.secure so s" ws://$x"}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
-    val localDev = !req.secure so List("http://127.0.0.1:3000")
+    val localDev = !ctx.req.secure so List("http://127.0.0.1:3000")
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc =
@@ -111,14 +109,13 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
       baseUri = List("'none'")
     )
 
-  def defaultCsp(using ctx: WebContext): ContentSecurityPolicy =
-    val csp = basicCsp(using ctx.req)
-    ctx.nonce.fold(csp)(csp.withNonce(_))
+  def defaultCsp(using ctx: PageContext): ContentSecurityPolicy =
+    ctx.nonce.foldLeft(basicCsp)(_ withNonce _)
 
-  def analysisCsp(using WebContext): ContentSecurityPolicy =
+  def analysisCsp(using PageContext): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)
 
-  def embedJsUnsafe(js: String)(using ctx: WebContext): Frag = raw:
+  def embedJsUnsafe(js: String)(using ctx: PageContext): Frag = raw:
     val nonce = ctx.nonce.so: nonce =>
       s""" nonce="$nonce""""
     s"""<script$nonce>$js</script>"""
@@ -126,7 +123,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def embedJsUnsafe(js: String, nonce: lila.api.Nonce): Frag = raw:
     s"""<script nonce="$nonce">$js</script>"""
 
-  def embedJsUnsafeLoadThen(js: String)(using WebContext): Frag =
+  def embedJsUnsafeLoadThen(js: String)(using PageContext): Frag =
     embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
 
   def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =

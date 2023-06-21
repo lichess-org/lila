@@ -13,7 +13,7 @@ object variant:
       resolver: io.prismic.DocumentLinkResolver,
       variant: chess.variant.Variant,
       perfType: lila.rating.PerfType
-  )(using WebContext) =
+  )(using PageContext) =
     layout(
       active = perfType.some,
       title = s"${variant.name} • ${variant.title}",
@@ -27,7 +27,7 @@ object variant:
   def home(
       doc: io.prismic.Document,
       resolver: io.prismic.DocumentLinkResolver
-  )(using WebContext) =
+  )(using PageContext) =
     layout(
       title = "Lichess variants",
       klass = "variants"
@@ -37,7 +37,7 @@ object variant:
       div(cls := "variants")(
         lila.rating.PerfType.variants map { pt =>
           val variant = lila.rating.PerfType variantOf pt
-          a(cls := "variant text box__pad", href := routes.Page.variant(pt.key), dataIcon := pt.icon)(
+          a(cls := "variant text box__pad", href := routes.ContentPage.variant(pt.key), dataIcon := pt.icon)(
             span(
               h2(variant.name),
               h3(cls := "headline")(variant.title)
@@ -52,7 +52,7 @@ object variant:
       klass: String,
       active: Option[lila.rating.PerfType] = None,
       openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Modifier*)(using WebContext) =
+  )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("variant"),
@@ -63,7 +63,7 @@ object variant:
           lila.rating.PerfType.variants map { pt =>
             a(
               cls      := List("text" -> true, "active" -> active.has(pt)),
-              href     := routes.Page.variant(pt.key),
+              href     := routes.ContentPage.variant(pt.key),
               dataIcon := pt.icon
             )(pt.trans)
           }

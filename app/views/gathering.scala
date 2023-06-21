@@ -8,7 +8,7 @@ import lila.rating.PerfType
 object gathering:
 
   def verdicts(vs: Condition.WithVerdicts, pt: PerfType, relevant: Boolean = true)(using
-      ctx: WebContext
+      ctx: PageContext
   ): Option[Tag] =
     vs.nonEmpty option st.section(
       dataIcon := relevant.option(if ctx.isAuth && vs.accepted then licon.Checkmark else licon.Padlock),

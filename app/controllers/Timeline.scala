@@ -13,7 +13,7 @@ final class Timeline(env: Env) extends LilaController(env):
 
   def home = Auth { ctx ?=> me ?=>
     negotiate(
-      html =
+      html = Ok.pageAsync:
         if HTTPRequest isXhr ctx.req then
           for
             entries <- env.timeline.entryApi.userEntries(me)

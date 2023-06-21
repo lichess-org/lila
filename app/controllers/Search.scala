@@ -27,7 +27,7 @@ final class Search(env: Env) extends LilaController(env):
     env.game.cached.nbTotal flatMap { nbGames =>
       if ctx.isAnon then
         negotiate(
-          html = Unauthorized(html.search.login(nbGames)),
+          html = Unauthorized.page(html.search.login(nbGames)),
           api = _ => Unauthorized(jsonError("Login required"))
         )
       else
@@ -42,20 +42,20 @@ final class Search(env: Env) extends LilaController(env):
                   key = "",
                   message = "Please only send one request at a time per IP address"
                 )
-              TooManyRequests(html.search.index(form, none, nbGames))
+              TooManyRequests.page(html.search.index(form, none, nbGames))
             SearchRateLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
               SearchConcurrencyLimitPerIP(ctx.ip, limited = limited):
                 negotiate(
                   html = searchForm
                     .bindFromRequest()
                     .fold(
-                      failure => BadRequest(html.search.index(failure, none, nbGames)),
+                      failure => BadRequest.page(html.search.index(failure, none, nbGames)),
                       data =>
                         data.nonEmptyQuery
                           .so: query =>
                             env.gameSearch.paginator(query, page) map some
-                          .map: pager =>
-                            Ok(html.search.index(searchForm fill data, pager, nbGames))
+                          .flatMap: pager =>
+                            Ok.page(html.search.index(searchForm fill data, pager, nbGames))
                           .recover: _ =>
                             InternalServerError("Sorry, we can't process that query at the moment")
                     ),

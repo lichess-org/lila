@@ -19,14 +19,14 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
       streamers: List[UserId]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = s.name.value,
       moreCss = cssTag("analyse.study"),
       moreJs = frag(
         analyseNvuiTag,
-        analyseStudyInit(
-          "study",
+        jsModuleInit(
+          "analysisBoard.study",
           Json.obj(
             "study" -> data.study
               .add("admin", isGranted(_.StudyAdmin))

@@ -22,24 +22,24 @@ final class Round(
 ) extends LilaController(env)
     with TheftPrevention:
 
-  private def renderPlayer(pov: Pov)(using ctx: WebContext): Fu[Result] =
+  private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     negotiate(
       html =
-        if (!pov.game.started) notFound
+        if !pov.game.started then notFound
         else
-          PreventTheft(pov) {
+          PreventTheft(pov):
             pov.game.playableByAi so env.fishnet.player(pov.game)
-            env.tournament.api.gameView.player(pov) flatMap { tour =>
+            env.tournament.api.gameView.player(pov).flatMap { tour =>
               gameC.preloadUsers(pov.game) zip
                 (pov.game.simulId so env.simul.repo.find) zip
                 getPlayerChat(pov.game, tour.map(_.tour)) zip
                 (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
                 (pov.game.isSwitchable so otherPovs(pov.game)) zip
                 env.bookmark.api.exists(pov.game, ctx.me) zip
-                env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) map {
+                env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) flatMap {
                   case ((((((_, simul), chatOption), crosstable), playing), bookmarked), data) =>
                     simul foreach env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                    Ok(
+                    Ok.page(
                       html.round.player(
                         pov,
                         data,
@@ -50,10 +50,10 @@ final class Round(
                         chatOption = chatOption,
                         bookmarked = bookmarked
                       )
-                    ).noCache
+                    ).dmap(_.noCache)
                 }
             }
-          },
+      ,
       api = apiVersion =>
         if isTheft(pov) then theftResponse
         else
@@ -73,7 +73,7 @@ final class Round(
       case None      => userC.tryRedirect(fullId into UserStr) getOrElse notFound
     }
 
-  private def otherPovs(game: GameModel)(using ctx: WebContext) =
+  private def otherPovs(game: GameModel)(using ctx: Context) =
     ctx.me so { user =>
       env.round.proxyRepo urgentGames user map {
         _ filter { pov =>
@@ -133,7 +133,7 @@ final class Round(
     }
 
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Result] =
     playablePovForReq(pov.game) match
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
@@ -160,8 +160,8 @@ final class Round(
                           lila.round.OnTv.User(u.id)
                         }
                       )
-                      .map: data =>
-                        Ok:
+                      .flatMap: data =>
+                        Ok.page:
                           html.round.watcher(
                             pov,
                             data,
@@ -177,7 +177,8 @@ final class Round(
               for // web crawlers don't need the full thing
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
                 pgn        <- env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
-              yield Ok(html.round.watcher.crawler(pov, initialFen, pgn))
+                page       <- renderPage(html.round.watcher.crawler(pov, initialFen, pgn))
+              yield Ok(page)
           ,
           api = apiVersion =>
             for
@@ -194,7 +195,7 @@ final class Round(
 
   private[controllers] def getWatcherChat(
       game: GameModel
-  )(using ctx: WebContext): Fu[Option[lila.chat.UserChat.Mine]] = {
+  )(using ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
     ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.contains)) && ctx.me.fold(
       HTTPRequest isHuman ctx.req
     )(env.chat.panic.allowed(_)) && {
@@ -208,7 +209,7 @@ final class Round(
   }
 
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Option[Chat.GameOrEvent]] =
     ctx.noKid so {
       def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =
@@ -260,9 +261,10 @@ final class Round(
         (pov.game.simulId so env.simul.repo.find) zip
         env.game.gameRepo.initialFen(pov.game) zip
         env.game.crosstableApi.withMatchup(pov.game) zip
-        env.bookmark.api.exists(pov.game, ctx.me) map {
+        env.bookmark.api.exists(pov.game, ctx.me) flatMap {
           case ((((tour, simul), initialFen), crosstable), bookmarked) =>
-            Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
+            Ok.page:
+              html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
         }
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
@@ -301,19 +303,19 @@ final class Round(
         akka.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: String) = Open:
-    OptionOk(
-      chess.Color.fromName(color).so(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo
-        .pov(gameId, color)
+    OptionPage(
+      chess.Color.fromName(color).so(env.round.proxyRepo.povIfPresent(gameId, _)) orElse
+        env.game.gameRepo.pov(gameId, color)
     )(html.game.mini(_))
 
   def miniFullId(fullId: GameFullId) = Open:
-    OptionOk(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
+    OptionPage(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
       html.game.mini(_)
     )
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.round.actorApi.round.Moretime
-    if (seconds < 1 || seconds > 86400) BadRequest
+    if seconds < 1 || seconds > 86400 then BadRequest
     else
       env.round.proxyRepo.game(anyId.gameId) flatMap {
         _.flatMap { Pov(_, me) }.so { pov =>
@@ -328,4 +330,4 @@ final class Round(
   }
 
   def help = Open:
-    html.site.helpModal.round
+    Ok.page(html.site.helpModal.round)

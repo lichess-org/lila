@@ -15,19 +15,18 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def index     = Open(serveIndex)
   def indexLang = LangPage(routes.Tv.index)(serveIndex)
 
-  private def serveIndex(using WebContext) = serveChannel(Channel.Best.key)
+  private def serveIndex(using Context) = serveChannel(Channel.Best.key)
 
   def onChannel(chanKey: String) = Open(serveChannel(chanKey))
 
-  private def serveChannel(chanKey: String)(using WebContext) =
+  private def serveChannel(chanKey: String)(using Context) =
     Channel.byKey.get(chanKey) so lichessTv
 
   def sides(gameId: GameId, color: String) = Open:
-    OptionFuResult(chess.Color.fromName(color) so { env.round.proxyRepo.pov(gameId, _) }) { pov =>
-      env.game.crosstableApi.withMatchup(pov.game) map { ct =>
-        Ok(html.tv.side.sides(pov, ct))
+    OptionFuResult(chess.Color.fromName(color) so { env.round.proxyRepo.pov(gameId, _) }): pov =>
+      env.game.crosstableApi.withMatchup(pov.game) flatMap { ct =>
+        Ok.page(html.tv.side.sides(pov, ct))
       }
-    }
 
   private given Writes[lila.tv.Tv.Champion] = Json.writes
 
@@ -36,20 +35,20 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       _.channels map { (chan, champ) => chan.name -> champ }
     } map { Json.toJson(_) } dmap Api.ApiResult.Data.apply
 
-  private def lichessTv(channel: Channel)(using WebContext) =
+  private def lichessTv(channel: Channel)(using Context) =
     OptionFuResult(env.tv.tv getGameAndHistory channel): (game, history) =>
       val flip    = getBool("flip")
       val natural = Pov naturalOrientation game
       val pov     = if (flip) !natural else natural
       val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
       negotiate(
-        html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
-          env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
-            env.game.crosstableApi.withMatchup(game) zip
-            env.tv.tv.getChampions map { case ((data, cross), champions) =>
-              Ok(html.tv.index(channel, champions, pov, data, cross, history)).noCache
-            }
-        },
+        html = for
+          tour   <- env.tournament.api.gameView.watcher(pov.game)
+          data   <- env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some)
+          cross  <- env.game.crosstableApi.withMatchup(game)
+          champs <- env.tv.tv.getChampions
+          page   <- renderPage(html.tv.index(channel, champs, pov, data, cross, history))
+        yield Ok(page).noCache,
         api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) dmap { Ok(_) }
       )
 
@@ -57,8 +56,8 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
 
   def gamesChannel(chanKey: String) = Open:
     Channel.byKey.get(chanKey).so { channel =>
-      env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map { (champs, games) =>
-        Ok(html.tv.games(channel, games map Pov.naturalOrientation, champs)).noCache
+      env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) flatMap { (champs, games) =>
+        Ok.page(html.tv.games(channel, games map Pov.naturalOrientation, champs)).map(_.noCache)
       }
     }
 
@@ -66,7 +65,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     val gameFu = Channel.byKey.get(chanKey) so { channel =>
       env.tv.tv.getReplacementGame(channel, gameId, exclude map { GameId(_) })
     }
-    OptionResult(gameFu): game =>
+    OptionFuResult(gameFu): game =>
       JsonOk:
         play.api.libs.json.Json.obj(
           "id"   -> game.id,
@@ -103,4 +102,5 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
 
   def frame = Anon:
     env.tv.tv.getBestGame.mapz: game =>
-      Ok(views.html.tv.embed(Pov naturalOrientation game))
+      InEmbedContext:
+        Ok(views.html.tv.embed(Pov naturalOrientation game))

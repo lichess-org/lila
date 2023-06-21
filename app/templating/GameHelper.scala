@@ -122,7 +122,7 @@ trait GameHelper:
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(using ctx: WebContext): Frag =
+  )(using ctx: Context): Frag =
     given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
@@ -166,7 +166,7 @@ trait GameHelper:
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(using ctx: WebContext): Frag =
+  )(using ctx: Context): Frag =
     given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
@@ -252,18 +252,17 @@ trait GameHelper:
       color: Color,
       ownerLink: Boolean = false,
       tv: Boolean = false
-  )(using ctx: WebContext): String = {
+  )(using ctx: Context): String = {
     val owner = ownerLink so ctx.me.flatMap(game.player)
-    if (tv) routes.Tv.index
+    if tv then routes.Tv.index
     else
-      owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
+      owner.fold(routes.Round.watcher(game.id, color.name)): o =>
         routes.Round.player(game fullIdOf o.color)
-      }
   }.toString
 
-  def gameLink(pov: Pov)(using WebContext): String = gameLink(pov.game, pov.color)
+  def gameLink(pov: Pov)(using Context): String = gameLink(pov.game, pov.color)
 
-  def challengeTitle(c: lila.challenge.Challenge)(using ctx: WebContext) =
+  def challengeTitle(c: lila.challenge.Challenge)(using ctx: Context) =
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
@@ -279,7 +278,7 @@ trait GameHelper:
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(using WebContext) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

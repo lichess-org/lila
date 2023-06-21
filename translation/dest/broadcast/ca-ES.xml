@@ -23,13 +23,15 @@
   <string name="startDate">Data d\'inici en la teva zona horària</string>
   <string name="startDateHelp">Opcional, si saps quan comença l\'esdeveniment</string>
   <string name="credits">Cita la font</string>
-  <string name="resetRound">Restablir aquesta ronda</string>
-  <string name="deleteRound">Eliminar aquesta ronda</string>
   <string name="broadcastUrl">URL d\'emissió</string>
   <string name="currentRoundUrl">URL actual de ronda</string>
   <string name="currentGameUrl">URL actual de joc</string>
   <string name="downloadAllRounds">Baixa totes les rondes</string>
+  <string name="resetRound">Restablir aquesta ronda</string>
+  <string name="deleteRound">Eliminar aquesta ronda</string>
   <string name="definitivelyDeleteRound">Eliminar definitivament la ronda i les seves partides.</string>
   <string name="deleteAllGamesOfThisRound">Eliminar totes les partides d\'aquesta ronda. L\'origen ha d\'estar actiu per a recrear-les.</string>
   <string name="editRoundStudy">Edita l\'estudi de la ronda</string>
+  <string name="deleteTournament">Elimina aquest torneig</string>
+  <string name="definitivelyDeleteTournament">Elimina el torneig de forma definitiva, amb totes les seves rondes i les seves partides.</string>
 </resources>

@@ -347,6 +347,10 @@
     <item quantity="one">%s étude</item>
     <item quantity="other">%s études</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanée(s)</item>
+    <item quantity="other">%s simultanées</item>
+  </plurals>
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
   <string name="noDrawBeforeSwissLimit">Vous ne pouvez pas faire de nulle avant 30 coups dans un tournoi suisse.</string>

@@ -12,7 +12,7 @@ object created:
 
   private val path = "created"
 
-  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using WebContext) =
+  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using PageContext) =
     bits.layout(
       u = u,
       title = s"${u.username} created tournaments",

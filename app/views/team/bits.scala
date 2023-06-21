@@ -18,7 +18,7 @@ object bits:
   def link(team: Team): Frag =
     a(href := routes.Team.show(team.id))(team.name)
 
-  def menu(currentTab: Option[String])(using ctx: WebContext) =
+  def menu(currentTab: Option[String])(using ctx: PageContext) =
     ~currentTab pipe { tab =>
       st.nav(cls := "page-menu__menu subnav")(
         (ctx.teamNbRequests > 0) option
@@ -51,7 +51,7 @@ object bits:
       .build[Markdown, Html]()
     def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))
 
-  private[team] def teamTr(t: Team)(using ctx: WebContext) =
+  private[team] def teamTr(t: Team)(using ctx: PageContext) =
     val isMine = isMyTeamSync(t.id)
     tr(cls := "paginated")(
       td(cls := "subject")(
@@ -80,7 +80,7 @@ object bits:
       title: String,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       moreJs: Frag = emptyFrag
-  )(body: Frag)(using WebContext) =
+  )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),

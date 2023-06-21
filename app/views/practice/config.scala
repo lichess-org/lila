@@ -9,7 +9,7 @@ import controllers.routes
 
 object config:
 
-  def apply(structure: lila.practice.PracticeStructure, form: Form[?])(using WebContext) =
+  def apply(structure: lila.practice.PracticeStructure, form: Form[?])(using PageContext) =
     views.html.base.layout(
       title = "Practice structure",
       moreCss = cssTag("mod.misc")

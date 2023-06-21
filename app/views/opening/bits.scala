@@ -40,7 +40,7 @@ object bits:
           )
       )
 
-  def configForm(config: OpeningConfig, thenTo: String)(using WebContext) =
+  def configForm(config: OpeningConfig, thenTo: String)(using PageContext) =
     import OpeningConfig.*
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
@@ -68,7 +68,7 @@ object bits:
       )
     )
 
-  def moreJs(page: Option[OpeningPage])(using WebContext) =
+  def moreJs(page: Option[OpeningPage])(using PageContext) =
     page match
       case Some(p) =>
         import lila.common.Json.given

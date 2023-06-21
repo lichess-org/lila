@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Pion terdepan</string>
-  <string name="advancedPawnDescription">Satu pion anda masuk kedalam posisi lawan, mungkin mengancam untuk promosi.</string>
+  <string name="advancedPawnDescription">Satu pion anda jauh dalam posisi lawan, mungkin mengancam untuk melakukan promosi.</string>
   <string name="advantage">Keuntungan</string>
   <string name="advantageDescription">Raih kesempatan Anda untuk mendapatkan keuntungan yang besar. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Skakmat Anastasia</string>
@@ -25,6 +25,7 @@
   <string name="crushing">Hancurkan</string>
   <string name="crushingDescription">Temukan kesalahan lawan untuk mendapat keuntungan yang besar. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Skakmat gajah ganda</string>
+  <string name="doubleBishopMateDescription">Dua bidak gajah yang menyerang pada diagonal yang bersebelahan mengantarkan sekakmat pada raja yang terhalang bidaknya sendiri.</string>
   <string name="dovetailMate">Skatmat Dovetail</string>
   <string name="dovetailMateDescription">Menteri skakmat disebelah raja, yang dua petak melarikan dirinya terhambat oleh bidak kawan.</string>
   <string name="equality">Kesetaraan</string>
@@ -34,15 +35,28 @@
   <string name="clearance">Pembersihan</string>
   <string name="clearanceDescription">Sebuah gerakan, seringkali dengan tempo, file atau diagonal untuk ide taktis lanjutan.</string>
   <string name="defensiveMove">Gerakan bertahan</string>
+  <string name="defensiveMoveDescription">Sebuah gerakan presisi atau urutan gerakan yang dibutuhkan untuk menghindari kerugian material atau keunggulan lain.</string>
   <string name="deflection">Defleksi</string>
   <string name="deflectionDescription">Gerakan yang mengalihkan perhatian bidak lawan dari tugas lain yang dilakukan, seperti menjaga kotak kunci. Kadang juga disebut \"overloading\".</string>
   <string name="discoveredAttack">Menemukan serangan</string>
   <string name="discoveredAttackDescription">Menggerakan bidak(seperti kuda), yang sebelumnya memblokir serangan oleh bidak jarak jauh(seperti benteng) keluar dari bidak itu.</string>
   <string name="doubleCheck">Skak ganda</string>
+  <string name="doubleCheckDescription">Skak dengan dua bidak bersamaan, sebagai hasil dari serangan tarik dimana bidak yang bergerak dan bidak yang terungkap menyerang raja lawan bersamaan.</string>
   <string name="endgame">Akhir permainan</string>
+  <string name="endgameDescription">Sebuah taktik selama fase akhir permainan.</string>
   <string name="enPassantDescription">Taktik melibatkan aturan \"en passant\", yang mana pion dapat makan pion lawan yang baru saja melangkah 2 petak awal.</string>
+  <string name="exposedKing">Raja tak terlindung</string>
+  <string name="exposedKingDescription">Sebuah taktik melibatkan raja dan beberapa bidak penjaga yang dimana sering berujung sekakmat.</string>
   <string name="fork">Fork</string>
+  <string name="forkDescription">Sebuah gerakan dimana bidak yang digerakkan menyerang dua bidak lawan secara bersamaan.</string>
+  <string name="hangingPiece">Bidak tak terjaga</string>
+  <string name="hangingPieceDescription">Sebuah taktik dimana bidak lawan tidak dipertahankan atau kurang cukup pertahanan sehingga dapat dimakan dengan aman.</string>
+  <string name="hookMate">Sekakmat kait</string>
   <string name="hookMateDescription">Skakmat dengan benteng, kuda, dan pion serta satu pion lawan untuk membatasi pergerakan raja lawan.</string>
+  <string name="interference">Gangguan</string>
+  <string name="interferenceDescription">Menggerakan sebuah bidak diantara dua bidak lawan agar menghilangkan pertahanan satu atau kedua bidak lasan, contohnya sebuah kuda pada kotak yang aman diantara dua benteng.</string>
+  <string name="intermezzo">Selingan</string>
+  <string name="intermezzoDescription">Daripada memainkan gerakan yang disangka, mainkan terlebih dulu gerakan lain yang mengancam sehingga mewajibkan lawan untuk membalas. Juga disebut \"Zwischenzug\" atau \"Di antara\".</string>
   <string name="knightEndgame">Babak akhir kuda</string>
   <string name="knightEndgameDescription">Babak akhir dengan hanya kuda dan pion.</string>
   <string name="long">Puzzle Panjang</string>
@@ -82,12 +96,17 @@
   <string name="queensideAttack">Serangan sisi menteri</string>
   <string name="queensideAttackDescription">Serangan raja lawan, setelah lawan rokade panjang.</string>
   <string name="quietMove">Gerakan tenang</string>
+  <string name="quietMoveDescription">Sebuah gerakan yang tidak melakukan sekak maupun memakan, dan tidak memberi ancaman memakan langsung, namun mempersiapkan ancaman tersembunyi yang tidak dapat dihindari pada gerakan selanjutnya.</string>
   <string name="rookEndgame">Permainan Akhir benteng</string>
   <string name="rookEndgameDescription">Babak akhir dengan hanya benteng dan pion.</string>
   <string name="sacrifice">Sacrifice</string>
+  <string name="sacrificeDescription">Sebuah taktik yang melibatkan menyerahkan material dalam jangka pendek, untuk meraih keuntungan kembali setelah urutan gerakan yang terpaksa.</string>
   <string name="short">Teka-teki pendek</string>
   <string name="shortDescription">Dua gerakan untuk menang.</string>
   <string name="skewer">Tusukan</string>
+  <string name="skewerDescription">Sebuah motif melibatkan sebuah bidak berharga yang diserang bergerak sehingga mengizinkan bidak bernilai lebih rendah dibelakangnya dimakan atau diserang, yang merupakan kebalikan dari sebuah pin.</string>
+  <string name="smotheredMate">Sekakmat kepung</string>
+  <string name="smotheredMateDescription">Sebuah sekakmat yang diraih oleh sebuah kuda yang dimana raja tidak dapat bergerak karena terkepung oleh bidaknya sendiri.</string>
   <string name="superGM">Permainan super GM</string>
   <string name="superGMDescription">Teka-teki dari permainan yang dimainkan oleh pemain terbaik di seluruh dunia.</string>
   <string name="trappedPiece">Bidak yang terperangkap</string>

@@ -9,7 +9,7 @@ object notification {
   import bits.*
   import trans.preferences.*
 
-  def apply(form: play.api.data.Form[?])(using WebContext) =
+  def apply(form: play.api.data.Form[?])(using PageContext) =
     account.layout(
       title = s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
       active = "notification"

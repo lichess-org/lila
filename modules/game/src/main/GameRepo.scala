@@ -498,7 +498,7 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def random: Fu[Option[Game]] =
     coll
-      .find($empty)
+      .find(Query.variantStandard)
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom nextInt 1000)
       .one[Game]

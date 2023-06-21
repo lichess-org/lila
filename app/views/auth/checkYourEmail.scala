@@ -12,7 +12,7 @@ object checkYourEmail:
   def apply(
       userEmail: Option[lila.security.EmailConfirm.UserEmail],
       form: Option[Form[?]] = None
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = "Check your email",
       moreCss = cssTag("email-confirm")

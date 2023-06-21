@@ -634,6 +634,7 @@
   <string name="keyGoToStartOrEnd">Ke awal/akhir</string>
   <string name="keyShowOrHideComments">Tampilkan/sembunyikan komentar</string>
   <string name="keyEnterOrExitVariation">masuk/keluar dari variasi</string>
+  <string name="keyNextMistake">Kesalahan berikutnya</string>
   <string name="newTournament">Turnamen baru</string>
   <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
   <string name="tournamentHomeDescription">Turnamen catur cepat! ikuti jadwal pertandingan yang telah kami atur, atau buat sesuai keinginanmu.  bullet, blitz, classical, chess960, king of the hill, tiga langkah mati, dan banyak lagi pilihan yang tersedia untuk kesenangan bercatur yang tiada habisnya.</string>

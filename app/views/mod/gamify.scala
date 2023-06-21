@@ -12,7 +12,7 @@ import controllers.routes
 object gamify:
 
   def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
@@ -61,7 +61,7 @@ object gamify:
     }
 
   def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     val title = s"Moderators of the ${period.name}"
     views.html.base.layout(

@@ -15,7 +15,7 @@ object opening:
       as: chess.Color,
       user: lila.user.User,
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
-  )(using WebContext) =
+  )(using PageContext) =
     bits.layout(
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
       menu = frag(

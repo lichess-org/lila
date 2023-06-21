@@ -69,7 +69,7 @@ const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(
 const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
 
 export function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study && ctrl.embed && !ctrl.ongoing)
+  if (ctrl.study && !ctrl.ongoing)
     return h(
       'a.button.button-empty',
       {
@@ -82,7 +82,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
       },
       ctrl.trans.noarg('openStudy')
     );
-  if (ctrl.study || ctrl.ongoing || ctrl.embed) return;
+  if (ctrl.study || ctrl.ongoing) return;
   return h(
     'form',
     {
@@ -120,7 +120,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     noarg = ctrl.trans.noarg,
-    canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
+    canContinue = !ctrl.ongoing && d.game.variant.key === 'standard',
     ceval = ctrl.getCeval(),
     mandatoryCeval = ctrl.mandatoryCeval();
 
@@ -152,14 +152,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     })
                   : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
                 'data-icon': licon.Pencil,
-                ...(ctrl.embed
-                  ? {
-                      target: '_blank',
-                      rel: 'noopener nofollow',
-                    }
-                  : {
-                      rel: 'nofollow',
-                    }),
+                rel: 'nofollow',
               },
             },
             noarg('boardEditor')

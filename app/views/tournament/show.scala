@@ -19,7 +19,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],
       shieldOwner: Option[UserId]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = jsModuleInit(

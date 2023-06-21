@@ -346,6 +346,10 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studies</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultaan</item>
+    <item quantity="other">%s simultaans</item>
+  </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
   <string name="noDrawBeforeSwissLimit">In een Zwitsers toernooi kun je pas na 30 zetten remise aanbieden.</string>
@@ -683,6 +687,7 @@
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
   <string name="keyRequestComputerAnalysis">Verzoek om computeranalyse, Leer van je fouten</string>
   <string name="keyNextLearnFromYourMistakes">Volgende (leer van je fouten)</string>
+  <string name="keyNextBlunder">Volgende blunder</string>
   <string name="keyNextMistake">Volgende fout</string>
   <string name="keyNextInaccuracy">Volgende onnauwkeurigheid</string>
   <string name="newTournament">Nieuw toernooi</string>

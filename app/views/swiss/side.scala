@@ -19,7 +19,7 @@ object side:
       verdicts: WithVerdicts,
       streamers: List[UserId],
       chat: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       div(cls := "swiss__meta")(
         st.section(dataIcon := s.perfType.icon.toString)(

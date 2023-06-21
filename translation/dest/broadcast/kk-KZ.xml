@@ -19,12 +19,12 @@
   <string name="startDate">Басталу күні (өз уақыт белдеуіңізде)</string>
   <string name="startDateHelp">Міндетті емес, егер күнін біліп тұрсаңыз</string>
   <string name="credits">Қайнар көзіне сілтеңіз</string>
-  <string name="resetRound">Бұл айналымды жаңарту</string>
-  <string name="deleteRound">Бұл айналымды жою</string>
   <string name="broadcastUrl">Көрсетілім сілтемесі</string>
   <string name="currentRoundUrl">Қазіргі айналым сілтемесі</string>
   <string name="currentGameUrl">Қазіргі ойын сілтемесі</string>
   <string name="downloadAllRounds">Барлық айналымдарды жүктеп алу</string>
+  <string name="resetRound">Бұл айналымды жаңарту</string>
+  <string name="deleteRound">Бұл айналымды жою</string>
   <string name="definitivelyDeleteRound">Айналым мен оның ойындарын толығымен жою.</string>
   <string name="deleteAllGamesOfThisRound">Айналымның бүкіл ойындарын жою. Оларды қайта құру үшін қайнар көзі белсенді болуы керек.</string>
 </resources>

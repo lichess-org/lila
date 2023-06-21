@@ -30,7 +30,7 @@ object replay:
       userTv: Option[lila.user.User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
 
     import pov.*
 

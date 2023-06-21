@@ -53,7 +53,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = AnonOrScoped()(handleExport(username))
 
-  private def handleExport(username: UserStr)(using ctx: AnyContext) =
+  private def handleExport(username: UserStr)(using ctx: Context) =
     env.user.repo byId username flatMap {
       _.filter(u => u.enabled.yes || ctx.me.exists(_ is u) || isGrantedOpt(_.GamesModView)) so { user =>
         val format = GameApiV2.Format byRequest req
@@ -76,8 +76,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
             perSecond = MaxPerSecond(ctx.me match
               case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
               case Some(m) if m is user.id                   => 60
-              case Some(_) if ctx.isOAuthAuth => 30 // bonus for oauth logged in only (not for CSRF)
-              case _                          => 20
+              case Some(_) if ctx.isOAuth => 30 // bonus for oauth logged in only (not for CSRF)
+              case _                      => 20
             ),
             playerFile = get("players"),
             ongoing = getBool("ongoing") || !finished,

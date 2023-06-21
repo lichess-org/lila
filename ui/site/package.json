@@ -43,14 +43,12 @@
     "modules": {
       "iife": {},
       "esm": {
-        "src/captcha.ts": "captcha",
-        "src/gameSearch.ts": "gameSearch",
         "src/site.ts": "site",
         "src/tvEmbed.ts": "tvEmbed",
-        "src/analyseEmbed.ts": "analysisBoard.embed",
         "src/puzzleEmbed.ts": "puzzle.embed",
         "src/user.ts": "user",
         "src/clas.ts": "clas",
+        "src/captcha.ts": "captcha",
         "src/expandText.ts": "expandText",
         "src/lpv.ts": "lpv",
         "src/lpv.embed.ts": "lpv.embed",
@@ -65,6 +63,7 @@
         "src/login.ts": "login",
         "src/teamBattleForm.ts": "teamBattleForm",
         "src/tourForm.ts": "tourForm",
+        "src/gameSearch.ts": "gameSearch",
         "src/userComplete.ts": "userComplete",
         "src/infiniteScroll.ts": "infiniteScroll",
         "src/flatpickr.ts": "flatpickr",

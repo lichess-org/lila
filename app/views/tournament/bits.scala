@@ -9,7 +9,7 @@ import controllers.routes
 
 object bits:
 
-  def notFound()(using WebContext) =
+  def notFound()(using PageContext) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
@@ -23,9 +23,9 @@ object bits:
       )
     }
 
-  def enterable(tours: List[Tournament])(using WebContext) =
+  def enterable(tours: List[Tournament])(using Context) =
     table(cls := "tournaments")(
-      tours map { tour =>
+      tours.map: tour =>
         tr(
           td(cls := "name")(
             a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id))(
@@ -38,7 +38,6 @@ object bits:
           td(tour.durationString),
           td(dataIcon := licon.User, cls := "text")(tour.nbPlayers)
         )
-      }
     )
 
   def userPrizeDisclaimer(ownerId: UserId) =
@@ -49,9 +48,9 @@ object bits:
         "If it has prizes, Lichess is not responsible for paying them."
       )
 
-  def scheduleJsI18n(using WebContext) = i18nJsObject(schedulei18nKeys)
+  def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)
 
-  def jsI18n(tour: Tournament)(using WebContext) = i18nJsObject(
+  def jsI18n(tour: Tournament)(using Context) = i18nJsObject(
     i18nKeys ++ (tour.isTeamBattle so teamBattleI18nKeys)
   )
 

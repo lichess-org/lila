@@ -5,7 +5,7 @@ import AnalyseCtrl from '../ctrl';
 import { ops as treeOps } from 'tree';
 
 export const renderNextChapter = (ctrl: AnalyseCtrl) =>
-  !ctrl.embed && !ctrl.opts.relay && ctrl.study?.hasNextChapter()
+  !ctrl.opts.relay && ctrl.study?.hasNextChapter()
     ? h(
         'button.next.text',
         {

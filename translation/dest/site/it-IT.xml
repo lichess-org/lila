@@ -97,8 +97,9 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openings">Aperture</string>
   <string name="openingExplorer">Esplora aperture</string>
-  <string name="openingEndgameExplorer">Esploratore aperture/chiusure</string>
+  <string name="openingEndgameExplorer">Explorer di aperture/chiusure</string>
   <string name="xOpeningExplorer">Explorer delle aperture %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Gioca la prima apertura/mossa in chiusura dell\'explorer</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata per la regola delle 50 mosse</string>
   <string name="winOr50MovesByPriorMistake">Vittoria o 50 mosse per errore precedente</string>
@@ -241,12 +242,12 @@
   <string name="rank">Posizione</string>
   <string name="rankX">Posizione: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Il ranking viene aggiornato ogni minuto</item>
-    <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
+    <item quantity="one">La posizione viene aggiornata ogni minuto</item>
+    <item quantity="other">La posizione viene aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s problema</item>
-    <item quantity="other">%s problemi</item>
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzle</item>
   </plurals>
   <string name="gamesPlayed">Partite giocate</string>
   <plurals name="nbGamesWithYou">
@@ -326,7 +327,7 @@
     <item quantity="other">Concedi %s secondi</item>
   </plurals>
   <string name="thisAccountViolatedTos">Questo account ha violato i termini di servizio di Lichess</string>
-  <string name="openingExplorerAndTablebase">Esplora le aperture e finali</string>
+  <string name="openingExplorerAndTablebase">Explorer delle aperture &amp; tablebase</string>
   <string name="takeback">Ritira la mossa</string>
   <string name="proposeATakeback">Chiedi di ritirare la mossa</string>
   <string name="takebackPropositionSent">Richiesta di ritiro mossa inviata</string>
@@ -337,7 +338,7 @@
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Tornei</string>
-  <string name="tournamentPoints">Punti di torneo</string>
+  <string name="tournamentPoints">Punti torneo</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s punto di torneo</item>
     <item quantity="other">%s punti di torneo</item>
@@ -345,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s studio</item>
     <item quantity="other">%s studi</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s esibizioni simultanee</item>
+    <item quantity="other">%s esibizioni simultanee</item>
   </plurals>
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
@@ -405,7 +410,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   </plurals>
   <string name="thisIsAChessCaptcha">Questo è un CAPTCHA di scacchi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
-  <string name="captcha.fail">Per favore risolvi il captcha di scacchi.</string>
+  <string name="captcha.fail">Per favore risolvi il captcha-puzzle.</string>
   <string name="notACheckmate">Non è scacco matto</string>
   <string name="whiteCheckmatesInOneMove">Il Bianco dà matto in una mossa</string>
   <string name="blackCheckmatesInOneMove">Il Nero dà matto in una mossa</string>
@@ -485,7 +490,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="boardEditor">Editor scacchiera</string>
   <string name="setTheBoard">Imposta la scacchiera</string>
   <string name="popularOpenings">Aperture popolari</string>
-  <string name="endgamePositions">Poizioni di chiusura</string>
+  <string name="endgamePositions">Posizioni di chiusura</string>
   <string name="chess960StartPosition">Posizione iniziale di Chess960: %s</string>
   <string name="startPosition">Posizione iniziale</string>
   <string name="clearBoard">Svuota scacchiera</string>
@@ -520,7 +525,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
   <string name="autoSwitch">Cambia automaticamente</string>
-  <string name="puzzles">Problemi</string>
+  <string name="puzzles">Puzzle</string>
   <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>

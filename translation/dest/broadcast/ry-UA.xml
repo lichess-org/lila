@@ -19,12 +19,12 @@
   <string name="startDate">Дата старта у вашум часовум поясі</string>
   <string name="startDateHelp">Опціонално, кідь знаєте коли ся зачинат припад</string>
   <string name="credits">Оддяка</string>
-  <string name="resetRound">Перепустити сисю рунду</string>
-  <string name="deleteRound">Стерти сю рунду</string>
   <string name="broadcastUrl">Адрес трансляції</string>
   <string name="currentRoundUrl">Одкликованя теперішнього тура</string>
   <string name="currentGameUrl">Одкликованя теперішньої бавкы</string>
   <string name="downloadAllRounds">Стерьхати вшыткі рунды</string>
+  <string name="resetRound">Перепустити сисю рунду</string>
+  <string name="deleteRound">Стерти сю рунду</string>
   <string name="definitivelyDeleteRound">Стерти вшытку рунду ай бавкы їв.</string>
   <string name="deleteAllGamesOfThisRound">Стерти вшыткі бавкы сьої рунды. Жерело має быти актівным, обы учинити їх щи раз.</string>
 </resources>

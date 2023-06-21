@@ -19,10 +19,10 @@
   <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
   <string name="credits">Αναφέρετε την πηγή</string>
-  <string name="resetRound">Επαναφορά αυτού του γύρου</string>
-  <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
   <string name="broadcastUrl">Διεύθυνση URL μετάδοσης</string>
   <string name="currentRoundUrl">Διεύθυνση URL αυτού του γύρου</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>
   <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
+  <string name="resetRound">Επαναφορά αυτού του γύρου</string>
+  <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
 </resources>

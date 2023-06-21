@@ -9,7 +9,7 @@ import lila.clas.{ Clas, Student }
 
 object wall:
 
-  def show(c: Clas, html: Html, students: List[Student.WithUser])(using WebContext) =
+  def show(c: Clas, html: Html, students: List[Student.WithUser])(using PageContext) =
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
       div(cls := "clas-wall__actions")(
         a(
@@ -33,7 +33,7 @@ object wall:
         div(cls := "box__pad clas-wall")(rawHtml(html))
     )
 
-  def edit(c: Clas, students: List[Student.WithUser], form: Form[?])(using WebContext) =
+  def edit(c: Clas, students: List[Student.WithUser], form: Form[?])(using PageContext) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(

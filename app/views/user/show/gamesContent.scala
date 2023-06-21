@@ -17,7 +17,7 @@ object gamesContent:
       filters: lila.app.mashup.GameFilterMenu,
       filterName: String,
       notes: Map[GameId, String]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map { f =>

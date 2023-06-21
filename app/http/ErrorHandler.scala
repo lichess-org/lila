@@ -8,6 +8,7 @@ import play.api.routing.*
 import play.api.{ Configuration, Environment, UsefulException }
 
 import lila.common.HTTPRequest
+import lila.api.{ LoginContext, PageContext }
 
 final class ErrorHandler(
     environment: Environment,
@@ -26,13 +27,11 @@ final class ErrorHandler(
       lila.mon.http.error(actionName, client, req.method, 500).increment()
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
-        val errorCtx = lila.api.WebContext(
-          req,
-          lila.i18n.defaultLang,
-          lila.user.UserContext.anon,
-          lila.api.PageData.error(req, HTTPRequest.isSynchronousHttp(req) option lila.api.Nonce.random)
+        given PageContext = PageContext(
+          lila.api.Context(req, lila.i18n.defaultLang, LoginContext.anon, lila.pref.Pref.default),
+          lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req) option lila.api.Nonce.random)
         )
-        InternalServerError(views.html.site.bits.errorPage(using errorCtx))
+        InternalServerError(views.html.site.bits.errorPage)
       else InternalServerError("Sorry, something went wrong.")
     } recover { case scala.util.control.NonFatal(e) =>
       lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)

@@ -12,17 +12,18 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def index(page: Int, q: String) = Open:
     Reasonable(page, config.Max(20)):
-      q.trim.take(100).some.filter(_.nonEmpty) match
-        case Some(query) =>
-          env.relay.pager
-            .search(query, page)
-            .map: pager =>
-              Ok(html.relay.tour.index(Nil, pager, query))
-        case None =>
-          for
-            active <- (page == 1).so(env.relay.api.officialActive.get({}))
-            pager  <- env.relay.pager.inactive(page)
-          yield Ok(html.relay.tour.index(active, pager))
+      Ok.pageAsync:
+        q.trim.take(100).some.filter(_.nonEmpty) match
+          case Some(query) =>
+            env.relay.pager
+              .search(query, page)
+              .map: pager =>
+                html.relay.tour.index(Nil, pager, query)
+          case None =>
+            for
+              active <- (page == 1).so(env.relay.api.officialActive.get({}))
+              pager  <- env.relay.pager.inactive(page)
+            yield html.relay.tour.index(active, pager)
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
@@ -32,56 +33,57 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       .lightUser(owner.id)
       .flatMapz: owner =>
         Reasonable(page, config.Max(20)):
-          env.relay.pager
-            .byOwner(owner.id, page)
-            .map: pager =>
-              Ok(html.relay.tour.byOwner(pager, owner))
+          Ok.pageAsync:
+            env.relay.pager
+              .byOwner(owner.id, page)
+              .map: pager =>
+                html.relay.tour.byOwner(pager, owner)
 
   private def page(bookmark: String, menu: String) = Open:
     pageHit
-    OptionOk(prismicC getBookmark bookmark): (doc, resolver) =>
+    OptionPage(prismicC getBookmark bookmark): (doc, resolver) =>
       html.relay.tour.page(doc, resolver, menu)
 
   def form = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
-      html.relay.tourForm.create(env.relay.tourForm.create)
+      Ok.page(html.relay.tourForm.create(env.relay.tourForm.create))
   }
 
-  def create =
-    AuthOrScopedBody(_.Study.Write)(
-      auth = ctx ?=>
-        me ?=>
-          NoLameOrBot:
-            env.relay.tourForm.create
-              .bindFromRequest()
-              .fold(
-                err => BadRequest(html.relay.tourForm.create(err)).toFuccess,
-                setup =>
-                  rateLimitCreation(Redirect(routes.RelayTour.index())):
+  def create = AuthOrScopedBody(_.Study.Write)(
+    auth = ctx ?=>
+      me ?=>
+        NoLameOrBot:
+          env.relay.tourForm.create
+            .bindFromRequest()
+            .fold(
+              err => BadRequest.page(html.relay.tourForm.create(err)),
+              setup =>
+                rateLimitCreation(Redirect(routes.RelayTour.index())):
+                  env.relay.api.tourCreate(setup) map { tour =>
+                    Redirect(routes.RelayRound.form(tour.id)).flashSuccess
+                  }
+            )
+    ,
+    scoped = _ ?=>
+      _ ?=>
+        NoLameOrBot:
+          env.relay.tourForm.create
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(apiFormError(err)).toFuccess,
+              setup =>
+                rateLimitCreation(rateLimited):
+                  JsonOk:
                     env.relay.api.tourCreate(setup) map { tour =>
-                      Redirect(routes.RelayRound.form(tour.id)).flashSuccess
+                      env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
                     }
-              )
-      ,
-      scoped = _ ?=>
-        _ ?=>
-          NoLameOrBot:
-            env.relay.tourForm.create
-              .bindFromRequest()
-              .fold(
-                err => BadRequest(apiFormError(err)).toFuccess,
-                setup =>
-                  rateLimitCreation(rateLimited):
-                    JsonOk:
-                      env.relay.api.tourCreate(setup) map { tour =>
-                        env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
-                      }
-              )
-    )
+            )
+  )
 
   def edit(id: TourModel.Id) = Auth { ctx ?=> _ ?=>
     WithTourCanUpdate(id): tour =>
-      html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))
+      Ok.page:
+        html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))
   }
 
   def update(id: TourModel.Id) =
@@ -93,7 +95,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               .edit(tour)
               .bindFromRequest()
               .fold(
-                err => BadRequest(html.relay.tourForm.edit(tour, err)),
+                err => BadRequest.page(html.relay.tourForm.edit(tour, err)),
                 setup =>
                   env.relay.api.tourUpdate(tour, setup) inject
                     Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
@@ -145,7 +147,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
         .map(env.relay.jsonView.apply(_, withUrls = true))
 
-  private def redirectToTour(tour: TourModel)(using ctx: WebContext): Fu[Result] =
+  private def redirectToTour(tour: TourModel)(using ctx: Context): Fu[Result] =
     env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
       case None =>
         ctx.me.soUse { env.relay.api.canUpdate(tour) } mapz {
@@ -154,12 +156,12 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       case Some(round) => Redirect(round.withTour(tour).path)
     }
 
-  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using AnyContext): Fu[Result] =
+  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById id)(f)
 
   private def WithTourCanUpdate(
       id: TourModel.Id
-  )(f: TourModel => Fu[Result])(using ctx: AnyContext): Fu[Result] =
+  )(f: TourModel => Fu[Result])(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me.soUse { env.relay.api.canUpdate(tour) } flatMapz f(tour)
 

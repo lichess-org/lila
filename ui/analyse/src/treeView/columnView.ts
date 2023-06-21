@@ -240,7 +240,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
     ctrl,
-    truncateComments: !ctrl.embed,
+    truncateComments: false,
     concealOf: concealOf || emptyConcealOf,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),

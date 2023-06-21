@@ -48,13 +48,13 @@ final class ChallengeGranter(
   ): Fu[Option[ChallengeDenied]] =
     fromOption
       .fold[Fu[Option[ChallengeDenied.Reason]]] {
-        prefApi.getPref(dest).map(_.challenge) map {
+        prefApi.get(dest).map(_.challenge) map {
           case Pref.Challenge.ALWAYS => none
           case _                     => YouAreAnon.some
         }
       } { from =>
         relationApi.fetchRelation(dest, from) zip
-          prefApi.getPref(dest).map(_.challenge) map {
+          prefApi.get(dest).map(_.challenge) map {
             case (Some(Block), _)                                  => YouAreBlocked.some
             case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
             case (Some(Follow), _)                                 => none // always accept from followed

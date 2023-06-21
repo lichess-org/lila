@@ -17,7 +17,7 @@ object student:
       students: List[Student],
       s: Student.WithUserAndManagingClas,
       activities: Vector[lila.activity.ActivityView]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show",
       top(clas, s.withUser),
@@ -69,7 +69,7 @@ object student:
       )
     )
 
-  private def top(clas: Clas, s: Student.WithUser)(using WebContext) =
+  private def top(clas: Clas, s: Student.WithUser)(using PageContext) =
     div(cls := "student-show__top")(
       boxTop(
         h1(dataIcon := licon.User)(
@@ -115,7 +115,7 @@ object student:
       )
     )
 
-  private def realNameField(form: Form[?], fieldName: String = "realName")(using WebContext) =
+  private def realNameField(form: Form[?], fieldName: String = "realName")(using PageContext) =
     form3.group(
       form(fieldName),
       trans.clas.realName(),
@@ -129,7 +129,7 @@ object student:
       create: Form[?],
       nbStudents: Int,
       created: Option[lila.clas.Student.WithPassword] = none
-  )(using WebContext) =
+  )(using PageContext) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add",
       boxTop(
@@ -221,7 +221,7 @@ object student:
       form: Form[?],
       nbStudents: Int,
       created: Seq[lila.clas.Student.WithPassword] = Nil
-  )(using WebContext) =
+  )(using PageContext) =
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add-many",
       h1(cls := "box__top")(trans.clas.createMultipleAccounts()),
@@ -277,7 +277,7 @@ object student:
       )
     )
 
-  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using WebContext) =
+  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using PageContext) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -313,7 +313,7 @@ object student:
       )
     )
 
-  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using WebContext) =
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using PageContext) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
@@ -339,7 +339,7 @@ object student:
       )
     )
 
-  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using WebContext) =
+  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using PageContext) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),

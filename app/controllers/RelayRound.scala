@@ -21,7 +21,8 @@ final class RelayRound(
   def form(tourId: String) = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
-        html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
+        Ok.page:
+          html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
   }
 
   def create(tourId: String) =
@@ -35,7 +36,7 @@ final class RelayRound(
                 .create(trs)
                 .bindFromRequest()
                 .fold(
-                  err => BadRequest(html.relay.roundForm.create(err, tour)),
+                  err => BadRequest.page(html.relay.roundForm.create(err, tour)),
                   setup =>
                     rateLimitCreation(Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))):
                       env.relay.api.create(setup, me, tour) map { round =>
@@ -65,7 +66,7 @@ final class RelayRound(
     )
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
-    OptionFuResult(env.relay.api.byIdAndContributor(id)): rt =>
+    OptionPage(env.relay.api.byIdAndContributor(id)): rt =>
       html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
@@ -73,11 +74,12 @@ final class RelayRound(
     AuthOrScopedBody(_.Study.Write)(
       auth = ctx ?=>
         me ?=>
-          doUpdate(id).flatMapz: res =>
-            res.fold(
-              (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
+          doUpdate(id).flatMapz:
+            _.fold(
+              (old, err) => BadRequest.page(html.relay.roundForm.edit(old, err)),
               rt => Redirect(rt.path)
-            ),
+            )
+      ,
       scoped = ctx ?=>
         me ?=>
           doUpdate(id).map:
@@ -159,7 +161,7 @@ final class RelayRound(
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
-  )(using ctx: WebContext): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id): rt =>
       if !ctx.req.path.startsWith(rt.path)
       then Redirect(rt.path)
@@ -167,19 +169,19 @@ final class RelayRound(
 
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
-  )(using WebContext): Fu[Result] =
+  )(using Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
-  )(using ctx: WebContext): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me.soUse { env.relay.api.canUpdate(tour) } flatMapz {
         env.relay.api withRounds tour flatMap f
       }
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
-      ctx: WebContext
+      ctx: Context
   ): Fu[Result] =
     studyC
       .CanView(oldSc.study)(
@@ -195,9 +197,8 @@ final class RelayRound(
           chat      <- studyC.chatOf(sc.study)
           sVersion  <- env.study.version(sc.study.id)
           streamers <- studyC.streamersOf(sc.study)
-        yield Ok:
-          html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers)
-        .enableSharedArrayBuffer
+          page      <- renderPage(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
+        yield Ok(page).enableSharedArrayBuffer
       )(
         studyC.privateUnauthorizedFu(oldSc.study),
         studyC.privateForbiddenFu(oldSc.study)
