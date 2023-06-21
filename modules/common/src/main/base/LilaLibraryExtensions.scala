@@ -46,22 +46,12 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension [A](self: Option[A])
 
-    def fold[X](some: A => X, none: => X): X = self.fold(none)(some)
-
-    def orDefault(using z: Zero[A]): A = self getOrElse z.zero
-
     def toTryWith(err: => Exception): Try[A] =
       self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
 
     def toTry(err: => String): Try[A] = toTryWith(lila.base.LilaException(err))
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
-
-    def has[B](b: B)(using A =:= B): Boolean = self.contains(b)
-
-    // move to scalalib?
-    def soUse[B: Zero](f: A ?=> B): B      = self.fold(Zero[B].zero)(f(using _))
-    def foldUse[B](zero: B)(f: A ?=> B): B = self.fold(zero)(f(using _))
 
   extension (s: String)
 
@@ -122,10 +112,6 @@ trait LilaLibraryExtensions extends LilaTypes:
     def indexOption(a: A)         = Option(list indexOf a).filter(0 <= _)
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
     def next(a: A): Option[A]     = indexOption(a).flatMap(i => list.lift(i + 1))
-
-  extension [A](seq: Seq[A])
-    def has(a: A)         = seq contains a
-    def indexOption(a: A) = Option(seq indexOf a).filter(0 <= _)
 
   extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
 

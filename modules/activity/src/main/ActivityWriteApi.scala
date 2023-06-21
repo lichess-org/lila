@@ -25,11 +25,11 @@ final class ActivityWriteApi(
       player <- game playerByUserId userId
     yield update(userId): a =>
       val setGames = !game.isCorrespondence so $doc(
-        ActivityFields.games -> a.games.orDefault
+        ActivityFields.games -> a.games.orZero
           .add(pt, Score.make(game wonBy player.color, RatingProg make player.light))
       )
       val setCorres = game.hasCorrespondenceClock so $doc(
-        ActivityFields.corres -> a.corres.orDefault.add(game.id, moved = false, ended = true)
+        ActivityFields.corres -> a.corres.orZero.add(game.id, moved = false, ended = true)
       )
       setGames ++ setCorres
     ).parallel.void
