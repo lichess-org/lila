@@ -46,18 +46,18 @@ final class NotifyApi(
       colls.pref.tempPrimary
         .find($inIds(userIds), $doc(event.key -> true).some)
         .cursor[Bdoc]()
-        .listAll() map { docs =>
-        val customAllows = for
-          doc    <- docs
-          userId <- doc.getAsOpt[UserId]("_id")
-          allows <- doc.getAsOpt[Allows](event.key)
-        yield NotifyAllows(userId, allows)
-        val customIds = customAllows.view.map(_.userId).toSet
-        val defaultAllows = userIds.filterNot(customIds.contains).map {
-          NotifyAllows(_, NotificationPref.default.allows(event))
-        }
-        customAllows ::: defaultAllows.toList
-      }
+        .listAll()
+        .map: docs =>
+          val customAllows = for
+            doc    <- docs
+            userId <- doc.getAsOpt[UserId]("_id")
+            allows <- doc.getAsOpt[Allows](event.key)
+          yield NotifyAllows(userId, allows)
+          val customIds = customAllows.view.map(_.userId).toSet
+          val defaultAllows = userIds.filterNot(customIds.contains).map {
+            NotifyAllows(_, NotificationPref.default.allows(event))
+          }
+          customAllows ::: defaultAllows.toList
 
   private val unreadCountCache = cacheApi[UserId, UnreadCount](32768, "notify.unreadCountCache") {
     _.expireAfterAccess(15 minutes)
@@ -124,6 +124,10 @@ final class NotifyApi(
         bellMany(recips, content)
       }
     }
+  private[notify] def notifyManyIgnoringPrefs(userIds: Seq[UserId], content: NotificationContent): Funit =
+    val recips = userIds.map(NotifyAllows(_, Allows.all))
+    pushMany(recips, content)
+    bellMany(recips, content)
 
   private def bellOne(note: Notification): Funit =
     insertNotification(note) >>-

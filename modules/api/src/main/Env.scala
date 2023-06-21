@@ -51,6 +51,7 @@ final class Env(
     pushEnv: lila.push.Env,
     reportEnv: lila.report.Env,
     modEnv: lila.mod.Env,
+    notifyEnv: lila.notify.Env,
     appealApi: lila.appeal.AppealApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,

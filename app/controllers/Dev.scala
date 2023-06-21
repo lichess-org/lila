@@ -82,6 +82,6 @@ final class Dev(env: Env) extends LilaController(env):
     }
   }
 
-  private def runCommand(command: String)(using me: Me.Id): Fu[String] =
-    env.mod.logApi.cli(me.modId, command) >>
+  private def runCommand(command: String)(using Me): Fu[String] =
+    env.mod.logApi.cli(command) >>
       env.api.cli(command.split(" ").toList)

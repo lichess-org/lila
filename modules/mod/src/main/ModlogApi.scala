@@ -201,8 +201,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     _         <- cheatDetected(user, gameId)
   yield prevCount + 1
 
-  def cli(by: ModId, command: String) = add:
-    Modlog(by, none, Modlog.cli, command.some)
+  def cli(command: String)(using by: Me.Id) = add:
+    Modlog(none, Modlog.cli, command.some)
 
   def garbageCollect(sus: Suspect)(using Me.Id) = add:
     Modlog.make(sus, Modlog.garbageCollect)

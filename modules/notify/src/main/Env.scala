@@ -53,6 +53,15 @@ final class Env(
       }
     }
   )
+  def cli: lila.common.Cli = new:
+    def process =
+      case "notify" :: "users" :: users :: url :: words =>
+        val userIds      = users.split(',').flatMap(UserStr.read).map(_.id)
+        val title        = words.takeWhile(_ != "|").mkString(" ").some.filter(_.nonEmpty)
+        val text         = words.dropWhile(_ != "|").drop(1).mkString(" ").some.filter(_.nonEmpty)
+        val notification = GenericLink(url, title, text, lila.common.licon.InfoCircle)
+        api.notifyManyIgnoringPrefs(userIds, notification) inject
+          s"Notified ${userIds.size} users"
 
 final class NotifyColls(val notif: Coll, val pref: Coll)
 
