@@ -355,8 +355,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           h('div.continue-with.none', [
             h(
-              'a.button' + ['chushogi', 'annansogi'].includes(ctrl.rules) ? '.disabled' : '',
+              'a',
               {
+                class: {
+                  button: true,
+                  disabled: ['chushogi', 'annansogi'].includes(ctrl.rules),
+                },
                 attrs: {
                   href:
                     '/?sfen=' +
