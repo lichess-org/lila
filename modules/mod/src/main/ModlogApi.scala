@@ -277,18 +277,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
         ),
         $doc("user" -> true, "action" -> true, "date" -> true).some
       )
-      .sort($sort desc "date")
+      .sort($sort asc "date")
       .cursor[Modlog.UserEntry]()
       .listAll()
-      .map {
-        _.foldLeft(users.map(UserWithModlog(_, Nil))) { (users, log) =>
-          users.map {
+      .map:
+        _.foldLeft(users.map(UserWithModlog(_, Nil))): (users, log) =>
+          users.map:
             case UserWithModlog(user, prevLog) if log.user is user =>
               UserWithModlog(user, log :: prevLog)
             case u => u
-          }
-        }
-      }
 
   private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()
