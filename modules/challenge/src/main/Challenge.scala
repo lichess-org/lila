@@ -160,9 +160,7 @@ object Challenge:
     case class Clock(config: chess.Clock.Config) extends TimeControl:
       override def realTime = config.some
       // All durations are expressed in seconds
-      def limit     = config.limit
-      def increment = config.increment
-      def show      = config.show
+      export config.{ limit, increment, show }
 
   enum ColorChoice(val trans: I18nKey):
     case Random extends ColorChoice(I18nKeys.randomColor)
@@ -192,14 +190,12 @@ object Challenge:
       .perfType(
         speedOf(timeControl),
         variant,
-        timeControl match {
+        timeControl match
           case TimeControl.Correspondence(d) => d.some
           case _                             => none
-        }
       )
-      .orElse {
+      .orElse:
         (variant == FromPosition) option perfTypeOf(chess.variant.Standard, timeControl)
-      }
       .|(PerfType.Correspondence)
 
   private val idSize = 8
