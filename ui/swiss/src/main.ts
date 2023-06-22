@@ -2,13 +2,12 @@ import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { Chessground } from 'chessground';
 import { SwissOpts } from './interfaces';
 import SwissCtrl from './ctrl';
-import LichessChat from 'chat';
 
 const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 
-export function start(opts: SwissOpts) {
+export function initModule(opts: SwissOpts) {
   const element = document.querySelector('main.swiss') as HTMLElement;
 
   lichess.socket = new lichess.StrongSocket('/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
@@ -37,6 +36,3 @@ export function start(opts: SwissOpts) {
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-window.LichessChat = LichessChat;
-
-(window as any).LichessSwiss = { start };

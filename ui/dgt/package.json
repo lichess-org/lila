@@ -16,8 +16,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "dgt"
+    "modules": {
+      "esm": {
+        "src/main.ts": "dgt"
+      }
     }
   }
 }

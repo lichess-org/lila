@@ -45,11 +45,7 @@ export interface AnalyseData {
   };
 }
 
-declare global {
-  interface Window {
-    readonly LichessChartGame: {
-      acpl(el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
-      movetime(el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean): Promise<PlyChart>;
-    };
-  }
+export interface ChartGame {
+  acpl(el: HTMLElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
+  movetime(el: HTMLElement, data: AnalyseData, trans: Trans, hunter: boolean): Promise<PlyChart>;
 }

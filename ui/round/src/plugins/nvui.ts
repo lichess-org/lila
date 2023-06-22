@@ -42,7 +42,7 @@ const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
 // esbuild
-export default (window as any).LichessRoundNvui = function (redraw: Redraw): NvuiPlugin {
+export function initModule(redraw: Redraw): NvuiPlugin {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
@@ -299,7 +299,7 @@ export default (window as any).LichessRoundNvui = function (redraw: Redraw): Nvu
       );
     },
   };
-};
+}
 
 function createSubmitHandler(
   ctrl: RoundController,

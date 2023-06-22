@@ -45,27 +45,29 @@ export const loadCssPath = async (key: string): Promise<void> => {
 
 export const jsModule = (name: string) => `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 
-const loadedScript = new Map<string, Promise<void>>();
-export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> => {
-  if (!loadedScript.has(url)) loadedScript.set(url, xhr.script(assetUrl(url, opts)));
-  return loadedScript.get(url)!;
+const scriptCache = new Map<string, Promise<void>>();
+
+export const loadIife = (url: string, opts: AssetUrlOpts = {}): Promise<void> => {
+  if (!scriptCache.has(url)) scriptCache.set(url, xhr.script(assetUrl(url, opts)));
+  return scriptCache.get(url)!;
 };
 
-export const loadModule = (name: string): Promise<void> => loadScript(jsModule(name));
-export const loadIife = async (name: string, iife: keyof Window) => {
-  await loadModule(name);
-  return window[iife];
-};
+export async function loadEsm<T, ModuleOpts = any>(
+  name: string,
+  opts?: { init?: ModuleOpts; url?: AssetUrlOpts }
+): Promise<T> {
+  const module = await import(assetUrl(jsModule(name), opts?.url));
+  return module.initModule ? module.initModule(opts?.init) : module.default(opts?.init);
+}
 
-export const userComplete = async (): Promise<UserComplete> => {
+export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete> => {
   loadCssPath('complete');
-  await loadModule('userComplete');
-  return window.UserComplete;
+  return loadEsm('userComplete', { init: opts });
 };
 
 export const hopscotch = () => {
   loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
-  return loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {
+  return loadIife('vendor/hopscotch/dist/js/hopscotch.min.js', {
     noVersion: true,
   });
 };

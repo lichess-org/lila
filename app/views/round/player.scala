@@ -47,17 +47,17 @@ object player:
       title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)}",
       moreJs = frag(
         roundNvuiTag,
-        roundTag,
-        embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
-            Json
-              .obj(
-                "data"   -> data,
-                "i18n"   -> jsI18n(pov.game),
-                "userId" -> ctx.userId,
-                "chat"   -> chatJson
-              )
-              .add("noab" -> ctx.me.exists(_.marks.engine))
-          )})""")
+        jsModuleInit(
+          "round",
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(pov.game),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson
+            )
+            .add("noab" -> ctx.me.exists(_.marks.engine))
+        )
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false,

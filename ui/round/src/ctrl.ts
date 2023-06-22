@@ -11,7 +11,7 @@ import notify from 'common/notification';
 import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
-import * as speech from './speech';
+import viewStatus from 'game/view/status';
 import * as cg from 'chessground/types';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
@@ -90,12 +90,11 @@ export default class RoundController {
   shouldSendMoveTime = false;
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
-  nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   private music?: any;
 
-  constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
+  constructor(readonly opts: RoundOpts, readonly redraw: Redraw, readonly nvui?: NvuiPlugin) {
     round.massage(opts.data);
 
     const d = (this.data = opts.data);
@@ -110,8 +109,6 @@ export default class RoundController {
     }, 3000);
 
     this.socket = makeSocket(opts.socketSend, this);
-
-    if (window.LichessRoundNvui) this.nvui = window.LichessRoundNvui(redraw) as NvuiPlugin;
 
     if (d.clock)
       this.clock = new ClockController(d, {
@@ -158,7 +155,7 @@ export default class RoundController {
 
     lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        lichess.loadScript('javascripts/music/play.js').then(() => {
+        lichess.loadIife('javascripts/music/play.js').then(() => {
           this.music = lichess.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
@@ -252,7 +249,7 @@ export default class RoundController {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.chessground.selectSquare(null);
-    if (ply != this.ply && this.jump(ply)) speech.userJump(this, this.ply);
+    if (ply != this.ply && this.jump(ply)) lichess.sound.saySan(this.stepAt(ply).san, true);
     else this.redraw();
   };
 
@@ -509,7 +506,7 @@ export default class RoundController {
     this.keyboardMove?.update(step, playedColor != d.player.color);
     this.voiceMove?.update(step.fen /*, playedColor != d.player.color*/);
     if (this.music) this.music.jump(o);
-    speech.step(step);
+    lichess.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
 
@@ -590,7 +587,8 @@ export default class RoundController {
     this.onChange();
     if (d.tv) setTimeout(lichess.reload, 10000);
     wakeLock.release();
-    speech.status(this);
+    if (this.data.game.status.name === 'started') lichess.sound.saySan(this.stepAt(this.ply).san, false);
+    else lichess.sound.say(viewStatus(this), false, false, true);
   };
 
   challengeRematch = async () => {
@@ -828,8 +826,6 @@ export default class RoundController {
       }
 
       if (!this.nvui) keyboard.init(this);
-
-      speech.setup(this);
 
       wakeLock.request();
 

@@ -54,7 +54,7 @@ export const textRaw = (url: string, init: RequestInit = {}): Promise<Response> 
     ...init,
   });
 
-/* load a remote script */
+/* load & inject a remote script */
 export const script = (src: string): Promise<void> =>
   new Promise((resolve, reject) => {
     const nonce = document.body.getAttribute('data-nonce'),

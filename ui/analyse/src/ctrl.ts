@@ -2,7 +2,6 @@ import * as cg from 'chessground/types';
 import * as chessUtil from 'chess';
 import * as game from 'game';
 import * as keyboard from './keyboard';
-import * as speech from './speech';
 import * as util from './util';
 import { plural } from './view/util';
 import debounce from 'common/debounce';
@@ -137,7 +136,8 @@ export default class AnalyseCtrl {
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
-    if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(this) as NvuiPlugin;
+    if (lichess.blindMode)
+      lichess.loadEsm<NvuiPlugin>('analysisBoard.nvui', { init: this }).then(nvui => (this.nvui = nvui));
 
     this.instanciateEvalCache();
 
@@ -180,7 +180,7 @@ export default class AnalyseCtrl {
 
     lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        lichess.loadScript('javascripts/music/play.js').then(() => {
+        lichess.loadIife('javascripts/music/play.js').then(() => {
           this.music = lichess.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
@@ -194,7 +194,6 @@ export default class AnalyseCtrl {
       this.redraw();
     });
     lichess.pubsub.on('theme.change', redraw);
-    speech.setup();
     this.persistence?.merge();
   }
 
@@ -396,7 +395,7 @@ export default class AnalyseCtrl {
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
-      speech.node(this.node);
+      lichess.sound.saySan(this.node.san, true);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();

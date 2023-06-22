@@ -11,14 +11,7 @@ object calendar:
   def apply(json: play.api.libs.json.JsObject)(using PageContext) =
     views.html.base.layout(
       title = "Tournament calendar",
-      moreJs = frag(
-        jsModule("tournament.calendar"),
-        embedJsUnsafeLoadThen(
-          s"""LichessTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
-              Json.obj("data" -> json)
-            )})"""
-        )
-      ),
+      moreJs = jsModuleInit("tournament.calendar", Json.obj("data" -> json)),
       moreCss = cssTag("tournament.calendar")
     ) {
       main(cls := "box")(

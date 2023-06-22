@@ -13,20 +13,17 @@ interface Lichess {
   loadCss(path: string): void;
   loadCssPath(path: string): Promise<void>;
   jsModule(name: string): string;
-  loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
-  loadModule(name: string): Promise<void>;
-  loadIife(name: string, iife: keyof Window): Promise<any>;
+  loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
+  loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
   hopscotch: any;
-  userComplete: () => Promise<UserComplete>;
+  userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
   slider(): Promise<void>;
   makeChat(data: any): any;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
   contentLoaded(parent?: HTMLElement): void;
   blindMode: boolean;
-  unload: {
-    expected: boolean;
-  };
+  unload: { expected: boolean };
   watchers(el: HTMLElement): void;
   redirect(o: RedirectTo): void;
   reload(): void;
@@ -34,14 +31,18 @@ interface Lichess {
   announce(d: LichessAnnouncement): void;
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
-
   siteI18n: I18nDict;
   trans(i18n: I18nDict): Trans;
+  timeago(date: number | Date): string;
+  dateFormat: () => (date: Date) => string;
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
-
   socket: any;
   sound: SoundI;
   mic: Voice.Microphone;
+  playMusic(): any;
+  quietMode?: boolean;
+  analysis?: any; // expose the analysis ctrl
+  ab?: any;
 
   miniBoard: {
     init(node: HTMLElement): void;
@@ -53,26 +54,17 @@ interface Lichess {
     update(node: HTMLElement, data: MiniGameUpdateData): void;
     finish(node: HTMLElement, win?: Color): void;
   };
-  ab?: any;
-
   // socket.js
   StrongSocket: {
     new (url: string, version: number | false, cfg?: any): any;
     firstConnect: Promise<(tpe: string, data: any) => void>;
     defaultParams: Record<string, any>;
   };
-
-  timeago(date: number | Date): string;
-  dateFormat: () => (date: Date) => string;
-
   // misc
   advantageChart?: {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
-  playMusic(): any;
-  quietMode?: boolean;
-  analysis?: any; // expose the analysis ctrl
 }
 
 type I18nDict = { [key: string]: string };
@@ -112,6 +104,7 @@ interface SoundI {
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
   say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
+  saySan(san?: San, cut?: boolean): void;
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
   soundSet: string;
@@ -246,6 +239,7 @@ declare namespace Voice {
 
 declare namespace Editor {
   export interface Config {
+    el: HTMLElement;
     baseUrl: string;
     fen?: string;
     options?: Editor.Options;
@@ -290,30 +284,10 @@ interface Window {
   readonly moment: any;
   readonly Mousetrap: any;
   Chessground: any;
-  readonly InfiniteScroll: (selector: string) => void;
   readonly lichessReplayMusic: () => {
     jump(node: Tree.Node): void;
   };
   readonly hopscotch: any;
-  LichessSpeech?: LichessSpeech;
-  readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
-  LichessChat: (element: Element, opts: any) => any;
-  readonly LichessFlatpickr: (element: Element, opts: any) => any;
-  readonly LichessNotify: (element: any, opts: any) => any;
-  readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: HTMLElement, toggle: HTMLElement) => any;
-  readonly LichessAnalyse: any;
-  readonly LichessCli: any;
-  readonly LichessRound: any;
-  readonly LichessRoundNvui?: Nvui;
-  readonly LichessPuzzleNvui?: Nvui;
-  readonly LichessAnalyseNvui?: (ctrl: any) => {
-    render(): any;
-  };
-  readonly LichessChartRatingHistory?: any;
-  readonly LichessKeyboardMove?: any;
-  readonly LichessVoiceMove?: any;
-  readonly LichessVoicePlugin: { mic: Voice.Microphone; vosk: any };
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;
@@ -321,13 +295,6 @@ interface Window {
   readonly Sortable: any;
   readonly Peer: any;
   readonly Highcharts: any;
-  readonly LilaLpv: {
-    autostart(): void;
-    loadPgnAndStart(el: HTMLElement, url: string, opts: any): Promise<void>;
-  };
-
-  readonly Palantir: unknown;
-  readonly passwordComplexity: unknown;
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;

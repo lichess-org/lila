@@ -26,8 +26,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "palantir"
+    "modules": {
+      "esm": {
+        "src/main.ts": "palantir"
+      }
     }
   }
 }

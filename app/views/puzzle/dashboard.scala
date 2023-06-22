@@ -28,29 +28,24 @@ object dashboard:
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
       moreJs = dashOpt so { dash =>
-        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
-          PuzzleTheme(key).name.txt()
-        }
-        frag(
-          jsModule("puzzle.dashboard"),
-          embedJsUnsafeLoadThen(s"""LichessPuzzleDashboard.renderRadar(${safeJsonValue(
-              Json
-                .obj(
-                  "radar" -> Json.obj(
-                    "labels" -> mostPlayed.map { case (key, _) =>
-                      PuzzleTheme(key).name.txt()
-                    },
-                    "datasets" -> Json.arr(
-                      Json.obj(
-                        "label" -> "Performance",
-                        "data" -> mostPlayed.map { case (_, results) =>
-                          results.performance
-                        }
-                      )
-                    )
-                  )
+        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) => PuzzleTheme(key).name.txt() }
+        jsModuleInit(
+          "puzzle.dashboard",
+          Json.obj(
+            "radar" -> Json.obj(
+              "labels" -> mostPlayed.map { case (key, _) =>
+                PuzzleTheme(key).name.txt()
+              },
+              "datasets" -> Json.arr(
+                Json.obj(
+                  "label" -> "Performance",
+                  "data" -> mostPlayed.map { case (_, results) =>
+                    results.performance
+                  }
                 )
-            )})""")
+              )
+            )
+          )
         )
       }
     ) { dash =>

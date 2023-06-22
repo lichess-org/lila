@@ -2,9 +2,11 @@ package lila.app
 package templating
 
 import play.api.mvc.RequestHeader
+import play.api.libs.json.{ Json, JsValue }
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.AssetVersion
+import lila.common.String.html.safeJsonValue
 
 trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
 
@@ -51,33 +53,38 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     document.querySelectorAll('[media="(prefers-color-scheme: dark)"]').forEach(e=>e.media='')
 """
 
-  // load scripts in <head> and always use defer
-  def jsAt(path: String): Frag = script(deferAttr, src := assetUrl(path))
+  // load iife scripts in <head> and defer
+  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
-  def jsTag(name: String): Frag = jsAt(s"javascripts/$name")
-
+  // jsModule is esm, no defer needed
   def jsModule(name: String): Frag =
-    jsAt(s"compiled/$name${minifiedAssets so ".min"}.js")
+    script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets so ".min"}.js"))
+  def jsModuleInit(name: String)(using PageContext) =
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name')"))
+  def jsModuleInit(name: String, text: String)(using PageContext) =
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:$text})"))
+  def jsModuleInit(name: String, json: JsValue)(using PageContext): Frag =
+    jsModuleInit(name, safeJsonValue(json))
+  def jsModuleInit(name: String, text: String, nonce: lila.api.Nonce) =
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:$text})", nonce))
+  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
+    jsModule(name),
+    embedJsUnsafeLoadThen(s"lichess.loadEsm('$name',{init:${safeJsonValue(json)}})", nonce)
+  )
+  def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
+    jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
 
-  def depsTag = jsAt("compiled/deps.min.js")
-
-  def roundTag                         = jsModule("round")
-  def roundNvuiTag(using ctx: Context) = ctx.blind option jsModule("round.nvui")
-
-  def analyseTag                         = jsModule("analysisBoard")
-  def analyseStudyTag                    = jsModule("analysisBoard.study")
-  def analyseNvuiTag(using ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
-
-  def puzzleTag                         = jsModule("puzzle")
-  def puzzleNvuiTag(using ctx: Context) = ctx.blind option jsModule("puzzle.nvui")
-
-  def captchaTag          = jsModule("captcha")
-  def infiniteScrollTag   = jsModule("infiniteScroll")
-  def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
-  def cashTag             = jsAt("javascripts/vendor/cash.min.js")
-  def fingerprintTag      = jsAt("javascripts/fipr.js")
-  def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
-  def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
+  def analyseNvuiTag(using ctx: PageContext)    = ctx.blind option jsModule("analysisBoard.nvui")
+  def puzzleNvuiTag(using ctx: PageContext)     = ctx.blind option jsModule("puzzle.nvui")
+  def roundNvuiTag(using ctx: PageContext)      = ctx.blind option jsModule("round.nvui")
+  def infiniteScrollTag(using ctx: PageContext) = jsModuleInit("infiniteScroll", "'.infinite-scroll'")
+  def captchaTag                                = jsModule("captcha")
+  def depsTag                                   = iifeModule("compiled/deps.min.js")
+  def chessgroundTag                            = iifeModule("javascripts/vendor/chessground.min.js")
+  def cashTag                                   = iifeModule("javascripts/vendor/cash.min.js")
+  def fingerprintTag                            = iifeModule("javascripts/fipr.js")
+  def highchartsLatestTag                       = iifeModule("vendor/highcharts-4.2.5/highcharts.js")
+  def highchartsMoreTag                         = iifeModule("vendor/highcharts-4.2.5/highcharts-more.js")
 
   def prismicJs(using PageContext): Frag =
     raw:

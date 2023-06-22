@@ -21,10 +21,8 @@ object embed:
     )
 
   def lpvJs(orientation: Option[Color])(using config: EmbedContext) = embedJsUnsafe(
-    s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(document.body.firstChild.firstChild,${safeJsonValue(
-        Json
-          .obj("i18n" -> i18nJsObject(lpvI18n))
-          .add("orientation", orientation.map(_.name))
+    s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
+        Json.obj("i18n" -> i18nJsObject(lpvI18n)).add("orientation", orientation.map(_.name))
       )})})""",
     config.nonce
   )

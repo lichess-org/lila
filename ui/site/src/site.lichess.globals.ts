@@ -1,6 +1,5 @@
 import StrongSocket from './component/socket';
 import { requestIdleCallback, escapeHtml } from './component/functions';
-import makeChat from './component/chat';
 import once from './component/once';
 import { spinnerHtml } from 'common/spinner';
 import sri from './component/sri';
@@ -12,11 +11,10 @@ import {
   loadCss,
   loadCssPath,
   jsModule,
-  loadScript,
+  loadIife,
   hopscotch,
   userComplete,
-  loadModule,
-  loadIife,
+  loadEsm,
 } from './component/assets';
 import idleTimer from './component/idle-timer';
 import pubsub from './component/pubsub';
@@ -45,12 +43,10 @@ export default () => {
   l.loadCss = loadCss;
   l.loadCssPath = loadCssPath;
   l.jsModule = jsModule;
-  l.loadScript = loadScript;
-  l.loadModule = loadModule;
   l.loadIife = loadIife;
+  l.loadEsm = loadEsm;
   l.hopscotch = hopscotch;
   l.userComplete = userComplete;
-  l.makeChat = makeChat;
   l.idleTimer = idleTimer;
   l.pubsub = pubsub;
   l.unload = unload;
@@ -68,4 +64,5 @@ export default () => {
   l.dateFormat = dateFormat;
   l.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
   l.blindMode = document.body.classList.contains('blind-mode');
+  l.makeChat = data => lichess.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
 };

@@ -38,23 +38,21 @@ object show:
           description = t.intro so { shorten(_, 152) }
         )
         .some,
-      moreJs = frag(
-        jsModule("team"),
-        embedJsUnsafeLoadThen(s"""teamStart(${safeJsonValue(
-            Json
-              .obj("id" -> t.id)
-              .add("socketVersion" -> socketVersion)
-              .add("chat" -> chatOption.map { chat =>
-                views.html.chat.json(
-                  chat.chat,
-                  name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
-                  timeout = chat.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-                  localMod = ctx.userId exists t.leaders.contains
-                )
-              })
-          )})""")
+      moreJs = jsModuleInit(
+        "team",
+        Json
+          .obj("id" -> t.id)
+          .add("socketVersion" -> socketVersion)
+          .add("chat" -> chatOption.map { chat =>
+            views.html.chat.json(
+              chat.chat,
+              name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
+              timeout = chat.timeout,
+              public = true,
+              resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
+              localMod = ctx.userId exists t.leaders.contains
+            )
+          })
       )
     ) {
       val manageTeamEnabled = isGranted(_.ManageTeam) && requestedModView

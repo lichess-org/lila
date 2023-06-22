@@ -42,8 +42,7 @@ object gamesContent:
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
-          else
-            div(cls := "search__status")(strong(trans.noGameFound.txt()))
+          else div(cls := "search__status")(strong(trans.noGameFound.txt()))
         } else
           div(
             cls := List(
@@ -56,7 +55,8 @@ object gamesContent:
                 views.html.game.mini(pov)(cls := "paginated")
               }
             else
-              views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),
+              views.html.game
+                .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),
             pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
           )
       )

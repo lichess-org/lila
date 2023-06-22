@@ -1,6 +1,6 @@
 import zxcvbn from 'zxcvbn';
 
-export function addPasswordChangeListener(id: string): void {
+export function initModule(id: string): void {
   const passwordInput = document.getElementById(id) as HTMLInputElement;
   passwordInput.addEventListener('input', () => {
     updatePasswordComplexityMeter(passwordInput.value);
@@ -25,5 +25,3 @@ function updateMeter(score: number): void {
     (children[i] as HTMLElement).style.backgroundColor = i < score ? color : '';
   }
 }
-
-(window as any).passwordComplexity = { addPasswordChangeListener };

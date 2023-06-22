@@ -8,7 +8,7 @@ const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 
-export function start(opts: StormOpts) {
+export function initModule(opts: StormOpts) {
   const element = document.querySelector('.storm-app') as HTMLElement;
 
   let vnode: VNode;
@@ -30,5 +30,3 @@ export function start(opts: StormOpts) {
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-
-(window as any).LichessStorm = { start };

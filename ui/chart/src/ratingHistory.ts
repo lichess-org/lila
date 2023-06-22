@@ -1,14 +1,12 @@
 import { loadHighcharts } from './common';
 
 interface Opts {
+  data: any;
   singlePerfName: string;
   perfIndex: number;
 }
 
-export default (window as any).LichessChartRatingHistory = async function (
-  data: any,
-  { singlePerfName, perfIndex }: Opts
-) {
+export async function initModule({ data, singlePerfName, perfIndex }: Opts) {
   const oneDay = 86400000;
   function smoothDates(data: any[]) {
     if (!data.length) return [];
@@ -115,4 +113,4 @@ export default (window as any).LichessChartRatingHistory = async function (
         }),
     });
   });
-};
+}

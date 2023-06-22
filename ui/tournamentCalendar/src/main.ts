@@ -6,7 +6,8 @@ import { Ctrl, Opts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export function app(element: HTMLElement, opts: Opts) {
+export function initModule(opts: Opts) {
+  const element = document.getElementById('tournament-calendar');
   // enrich tournaments
   opts.data.tournaments.forEach(t => {
     if (!t.bounds)
@@ -27,5 +28,3 @@ export function app(element: HTMLElement, opts: Opts) {
 
   redraw();
 }
-
-(window as any).LichessTournamentCalendar = { app };

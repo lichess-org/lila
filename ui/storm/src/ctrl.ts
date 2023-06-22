@@ -67,7 +67,7 @@ export default class StormCtrl implements PuzCtrl {
     }, config.timeToStart + 1000);
     lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        lichess.loadScript('javascripts/music/play.js').then(() => {
+        lichess.loadIife('javascripts/music/play.js').then(() => {
           this.music = lichess.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;

@@ -332,14 +332,13 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess.userComplete().then(uac => {
-              uac({
+            lichess
+              .userComplete({
                 input,
                 tag: 'span',
                 onSelect: v => onSelect(v.name),
-              });
-              input.focus();
-            })
+              })
+              .then(() => input.focus())
           ),
         }),
       ]),

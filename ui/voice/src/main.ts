@@ -4,7 +4,7 @@ import { VoiceCtrl, VoiceModule } from './interfaces';
 
 export * from './interfaces';
 export * from './move/interfaces';
-export { makeVoiceMove } from './move/shim';
+export { load as makeVoiceMove } from './move/moveCtrl';
 export { renderVoiceBar } from './view';
 
 export type VoiceUIOpts = {

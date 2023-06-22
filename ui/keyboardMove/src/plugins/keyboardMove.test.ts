@@ -1,6 +1,6 @@
 import { jest, beforeEach, describe, expect, test } from '@jest/globals';
 import { Prop, propWithEffect } from 'common';
-import keyboardMove from './keyboardMove';
+import { initModule as keyboardMove } from './keyboardMove';
 
 // Tips for working with this file:
 // - use https://lichess.org/editor to create positions and get their FENs

@@ -23,13 +23,15 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/activity.ts": "mod.activity",
-      "src/user.ts": "mod.user",
-      "src/inquiry.ts": "mod.inquiry",
-      "src/games.ts": "mod.games",
-      "src/search.ts": "mod.search",
-      "src/teamAdmin.ts": "team.admin"
+    "modules": {
+      "esm": {
+        "src/activity.ts": "mod.activity",
+        "src/user.ts": "mod.user",
+        "src/inquiry.ts": "mod.inquiry",
+        "src/games.ts": "mod.games",
+        "src/search.ts": "mod.search",
+        "src/teamAdmin.ts": "team.admin"
+      }
     }
   }
 }

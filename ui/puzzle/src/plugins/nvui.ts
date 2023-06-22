@@ -38,7 +38,7 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
+export function initModule(redraw: Redraw) {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
@@ -246,7 +246,7 @@ export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
       );
     },
   };
-};
+}
 
 interface StepWithUci extends Tree.Node {
   uci: Uci;

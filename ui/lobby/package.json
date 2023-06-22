@@ -18,6 +18,7 @@
     "@types/debounce-promise": "^3.1.6",
     "@types/lichess": "workspace:*",
     "common": "workspace:*",
+    "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
     "snabbdom": "^3.5.1"
   },
@@ -27,8 +28,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/boot.ts": "lobby"
+    "modules": {
+      "esm": {
+        "src/boot.ts": "lobby"
+      }
     }
   }
 }

@@ -3,7 +3,6 @@ import { storage } from './storage';
 
 export default async function () {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;
-
   const workerUrl = new URL(
     assetUrl(jsModule('serviceWorker'), {
       sameDomain: true,

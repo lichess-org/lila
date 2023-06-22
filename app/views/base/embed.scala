@@ -25,6 +25,7 @@ object embed:
           layout.dataAssetVersion := assetVersion.value,
           layout.dataTheme        := ctx.bg,
           layout.dataPieceSet     := ctx.pieceSet.name,
+          layout.dataDev,
           body
         )
       )

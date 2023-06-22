@@ -5,7 +5,7 @@ import { NotifyOpts, NotifyData, BumpUnread } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export default function LichessNotify(element: Element, opts: NotifyOpts) {
+export function initModule(opts: NotifyOpts) {
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
@@ -14,7 +14,7 @@ export default function LichessNotify(element: Element, opts: NotifyOpts) {
   }
 
   const ctrl = makeCtrl(opts, redraw);
-  let vnode = patch(element, view(ctrl));
+  let vnode = patch(opts.el, view(ctrl));
 
   if (opts.data) update(opts.data);
   else ctrl.loadPage(1);
@@ -27,5 +27,3 @@ export default function LichessNotify(element: Element, opts: NotifyOpts) {
     redraw,
   };
 }
-
-(window as any).LichessNotify = LichessNotify; // esbuild

@@ -1,6 +1,6 @@
 import { loadHighcharts } from './common';
 
-export default (window as any).LichessChartRatingDistribution = async function (data: any) {
+export async function initModule(data: any) {
   await loadHighcharts('highchart');
   const trans = lichess.trans(data.i18n);
   const Highcharts = window.Highcharts;
@@ -127,4 +127,4 @@ export default (window as any).LichessChartRatingDistribution = async function (
       ],
     });
   });
-};
+}

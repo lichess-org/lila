@@ -17,24 +17,18 @@ object home:
     views.html.base.layout(
       title = "",
       fullTitle = s"$siteName • ${trans.freeOnlineChess.txt()}".some,
-      moreJs = frag(
-        jsModule("lobby"),
-        embedJsUnsafeLoadThen:
-          s"""LichessLobby(${safeJsonValue(
-              Json
-                .obj(
-                  "data" -> data,
-                  "i18n" -> i18nJsObject(i18nKeys)
-                )
-                .add("hideRatings" -> !ctx.pref.showRatings)
-                .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
-                .add(
-                  "playban",
-                  playban.map { pb =>
-                    Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
-                  }
-                )
-            )})"""
+      moreJs = jsModuleInit(
+        "lobby",
+        Json
+          .obj("data" -> data, "i18n" -> i18nJsObject(i18nKeys))
+          .add("hideRatings" -> !ctx.pref.showRatings)
+          .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
+          .add(
+            "playban",
+            playban.map { pb =>
+              Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
+            }
+          )
       ),
       moreCss = cssTag("lobby"),
       chessground = false,

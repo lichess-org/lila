@@ -21,7 +21,7 @@ export interface Palantir {
   render(h: typeof snabbdom.h): any;
 }
 
-export function palantir(opts: PalantirOpts): Palantir | undefined {
+export function initModule(opts: PalantirOpts): Palantir | undefined {
   const devices = navigator.mediaDevices;
   if (!devices) {
     alert('Voice chat requires navigator.mediaDevices');
@@ -240,5 +240,3 @@ export function palantir(opts: PalantirOpts): Palantir | undefined {
     },
   };
 }
-
-(window as any).Palantir = { palantir }; // esbuild

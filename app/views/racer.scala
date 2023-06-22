@@ -36,14 +36,7 @@ object racer:
   def show(data: JsObject)(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("racer")),
-      moreJs = frag(
-        jsModule("racer"),
-        embedJsUnsafeLoadThen(
-          s"""LichessRacer.start(${safeJsonValue(
-              data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))
-            )})"""
-        )
-      ),
+      moreJs = jsModuleInit("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))),
       title = "Puzzle Racer",
       zoomable = true,
       zenable = true,

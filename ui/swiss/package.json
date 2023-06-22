@@ -16,6 +16,7 @@
     "@types/lichess": "workspace:*",
     "chat": "workspace:*",
     "common": "workspace:*",
+    "flatpickr": "^4.6.13",
     "game": "workspace:*",
     "snabbdom": "^3.5.1"
   },
@@ -25,8 +26,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "swiss"
+    "modules": {
+      "esm": {
+        "src/main.ts": "swiss"
+      }
     }
   }
 }

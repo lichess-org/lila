@@ -1,4 +1,3 @@
-import * as speech from './speech';
 import * as xhr from './xhr';
 import * as router from 'common/router';
 import computeAutoShapes from './autoShape';
@@ -7,16 +6,7 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
-import {
-  Vm,
-  Controller,
-  PuzzleOpts,
-  PuzzleData,
-  MoveTest,
-  ThemeKey,
-  NvuiPlugin,
-  ReplayEnd,
-} from './interfaces';
+import { Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -141,7 +131,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
     vm.isDaily = location.href.endsWith('/daily');
 
-    setPath(window.LichessPuzzleNvui ? initialPath : treePath.init(initialPath));
+    setPath(lichess.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
       () => {
         jump(initialPath);
@@ -279,7 +269,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (progress) applyProgress(progress);
     reorderChildren(path);
     redraw();
-    speech.node(node, false);
+    lichess.sound.saySan(node.san, false);
     if (music) music.jump(node);
   }
 
@@ -301,7 +291,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function revertUserMove(): void {
-    if (window.LichessPuzzleNvui) instantRevertUserMove();
+    if (lichess.blindMode) instantRevertUserMove();
     else setTimeout(instantRevertUserMove, 100);
   }
 
@@ -364,7 +354,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       vm.round = res.round;
       if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
     }
-    if (win) speech.success();
+    if (win) lichess.sound.say('Success!');
     if (next) {
       vm.next.resolve(data.replay && res.replayComplete ? data.replay : next);
       if (streak && win) streak.onComplete(true, res.next);
@@ -516,7 +506,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (tree.nodeAtPath(path)?.puzzle == 'fail' && vm.mode != 'view') return;
     withGround(g => g.selectSquare(null));
     jump(path);
-    speech.node(vm.node, true);
+    lichess.sound.saySan(vm.node.san, true);
     if (music) music.jump(vm.node);
   }
 
@@ -619,11 +609,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   // Make sure chessground is fully shown when the page goes back to being visible.
   document.addEventListener('visibilitychange', () => lichess.requestIdleCallback(() => jump(vm.path), 500));
 
-  speech.setup();
-
   lichess.pubsub.on('sound_set', (set: string) => {
     if (!music && set === 'music')
-      lichess.loadScript('javascripts/music/play.js').then(() => {
+      lichess.loadIife('javascripts/music/play.js').then(() => {
         music = lichess.playMusic();
       });
     if (music && set !== 'music') music = undefined;
@@ -702,7 +690,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flip,
     flipped: () => flipped,
     showRatings: opts.showRatings,
-    nvui: window.LichessPuzzleNvui ? (window.LichessPuzzleNvui(redraw) as NvuiPlugin) : undefined,
     menu,
   };
 }

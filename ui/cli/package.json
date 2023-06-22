@@ -8,7 +8,8 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
-    "common": "workspace:*"
+    "common": "workspace:*",
+    "dasher": "workspace:*"
   },
   "scripts": {
     "compile": "tsc",
@@ -16,8 +17,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "cli"
+    "modules": {
+      "esm": {
+        "src/main.ts": "cli"
+      }
     }
   }
 }

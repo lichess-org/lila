@@ -7,7 +7,11 @@ import panels from './panels';
 import renderPlaceholderWiki from './wiki';
 import { Config } from 'chessground/config';
 
-export function page(data: OpeningPage) {
+export function initModule(data?: OpeningPage): void {
+  data ? page(data) : searchEngine();
+}
+
+function page(data: OpeningPage) {
   $('.opening__intro .lpv').each(function (this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
@@ -35,8 +39,6 @@ export function page(data: OpeningPage) {
     renderPlaceholderWiki(data);
   });
 }
-
-export const search = searchEngine;
 
 const cgConfig: Config = {
   coordinates: false,
@@ -71,5 +73,3 @@ const highlightNextPieces = () => {
       });
   });
 };
-
-(window as any).LichessOpening = { page, search }; // esbuild

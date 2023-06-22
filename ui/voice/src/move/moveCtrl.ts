@@ -4,7 +4,7 @@ import * as prop from 'common/storage';
 import * as cs from 'chess';
 import { src as src, dest as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
-import { RootCtrl, VoiceMove, VoiceCtrl, Entry, Match } from '../main';
+import { RootCtrl, VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../main';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
 import {
@@ -19,13 +19,33 @@ import {
   findTransforms,
 } from '../util';
 
-// Based on the original implementation by Sam 'Spammy' Ezeh. see the README.md in ui/voice/@build
+// shimmed so we can show the UI while fetching the module
+export function load(ctrl: RootCtrl, initialFen: string): VoiceMove {
+  let move: VoiceMove;
+  const ui = makeCtrl({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
 
-export default (window as any).LichessVoiceMove = function (
-  root: RootCtrl,
-  ui: VoiceCtrl,
-  initialFen: string
-): VoiceMove {
+  lichess.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initialFen } }).then(x => (move = x));
+  return {
+    ui,
+    initGrammar: () => move.initGrammar(),
+    update: fen => move.update(fen),
+    confirm: (request, callback) => move.confirm(request, callback),
+    get promotionHook() {
+      return move.promotionHook;
+    },
+    get allPhrases() {
+      return move.allPhrases;
+    },
+    get prefNodes() {
+      return move.prefNodes;
+    },
+  };
+}
+
+export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: string }): VoiceMove {
+  const root = opts.root;
+  const ui = opts.ui;
+  const initialFen = opts.initialFen;
   const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
   const cg: CgApi = root.chessground;
   let entries: Entry[] = [];
@@ -585,4 +605,4 @@ export default (window as any).LichessVoiceMove = function (
     }
     return [...new Map(res)]; // vals expansion can create duplicates
   }
-};
+}

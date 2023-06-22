@@ -1,31 +1,37 @@
 import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
 import { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
 import { Selector, Selectable } from 'common/selector';
-import { RecognizerOpts } from './interfaces';
-
-const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
+import { RecognizerOpts, VoskModule } from './interfaces';
 
 // Thanks to Sam 'Spammy' Ezeh who found Vosk-browser and first got it working in lichess.
 
-export default (window as any).LichessVoicePlugin.vosk = new (class {
-  voiceModel?: Model;
-  recs = new Selector<KaldiRec>();
-  lang?: string;
+const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
 
-  async initModel(url: string, lang: string): Promise<void> {
-    this.voiceModel?.terminate();
-    this.voiceModel = undefined;
-    this.recs.delete();
-    this.voiceModel = await createModel(url, LOG_LEVEL);
-    this.lang = lang;
+export function initModule(): VoskModule {
+  const recs = new Selector<KaldiRec>();
+  let voiceModel: Model;
+  let lang: string;
+
+  return {
+    initModel,
+    initRecognizer,
+    isLoaded,
+    select,
+  };
+
+  async function initModel(url: string, language: string): Promise<void> {
+    voiceModel?.terminate();
+    recs.delete();
+    voiceModel = await createModel(url, LOG_LEVEL);
+    lang = language;
   }
 
-  initRecognizer(opts: RecognizerOpts): AudioNode | undefined {
-    if (!opts.words?.length || !this.voiceModel) {
-      this.recs.delete(opts.recId);
+  function initRecognizer(opts: RecognizerOpts): AudioNode | undefined {
+    if (!opts.words?.length || !voiceModel) {
+      recs.delete(opts.recId);
       return;
     }
-    const kaldi = new this.voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.words));
+    const kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.words));
 
     // buffer size under 100ms for timely partial results, 200ms for full results
     const bufSize = 2 ** Math.ceil(Math.log2(opts.audioCtx.sampleRate / (opts.partial ? 16 : 8)));
@@ -34,13 +40,11 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
     const node = opts.audioCtx.createScriptProcessor(bufSize, 1, 1);
     if (opts.partial)
       kaldi.on('partialresult', (msg: ServerMessagePartialResult) => {
-        if (msg.result.partial.length < 1 || !this.recs.selected?.partial) return;
-        opts.broadcast(msg.result.partial, 'partial', 0);
+        if (msg.result.partial.length > 0) opts.broadcast(msg.result.partial, 'partial', 0);
       });
     else
       kaldi.on('result', (msg: ServerMessageResult) => {
-        if (msg.result.text.length < 1 || this.recs.selected?.partial) return;
-        opts.broadcast(msg.result.text, 'full', 3000);
+        if (msg.result.text.length > 0) opts.broadcast(msg.result.text, 'full', 3000);
       });
 
     if (LOG_LEVEL >= -1)
@@ -51,18 +55,18 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
         opts.words
       );
 
-    this.recs.set(opts.recId, new KaldiRec(kaldi, node, opts.partial));
+    recs.set(opts.recId, new KaldiRec(kaldi, node, opts.partial));
     return node;
   }
 
-  isLoaded(lang?: string): boolean {
-    return this.voiceModel !== undefined && (!lang || lang === this.lang);
+  function isLoaded(language?: string): boolean {
+    return voiceModel !== undefined && (!language || language === lang);
   }
 
-  select(recId: string | false): void {
-    this.recs.select(recId);
+  function select(recId: string | false): void {
+    recs.select(recId);
   }
-})();
+}
 
 class KaldiRec implements Selectable {
   kaldi: KaldiRecognizer;

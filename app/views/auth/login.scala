@@ -15,10 +15,7 @@ object login:
   def apply(form: Form[?], referrer: Option[String])(using PageContext) =
     views.html.base.layout(
       title = trans.signIn.txt(),
-      moreJs = frag(
-        jsModule("login"),
-        embedJsUnsafeLoadThen("""loginSignup.loginStart()""")
-      ),
+      moreJs = jsModuleInit("login", "'login'"),
       moreCss = cssTag("auth"),
       withHrefLangs = lila.common.LangPath(routes.Auth.login).some
     ) {

@@ -208,7 +208,6 @@ lichess.load.then(() => {
 const expandLpv = async () => {
   if ($('.lpv--autostart').length) {
     lichess.loadCssPath('lpv');
-    await lichess.loadModule('lpv');
-    window.LilaLpv.autostart();
+    await lichess.loadEsm('lpv');
   }
 };

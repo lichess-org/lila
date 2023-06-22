@@ -2,13 +2,23 @@ import { Redraw } from './util';
 import { DasherCtrl, makeCtrl } from './dasher';
 import { loading, loaded } from './view';
 import * as xhr from 'common/xhr';
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
+import { init as initSnabbdom, VNode, classModule, attributesModule } from 'snabbdom';
 
-const patch = init([classModule, attributesModule]);
+const patch = initSnabbdom([classModule, attributesModule]);
 
-export default async function LichessDasher(element: Element, toggle: Element) {
+export { type DasherCtrl };
+
+export function load() {
+  return lichess.loadEsm<DasherCtrl>('dasher');
+}
+
+export async function initModule() {
   let vnode: VNode,
     ctrl: DasherCtrl | undefined = undefined;
+
+  const $el = $('#dasher_app').html(`<div class="initiating">${lichess.spinnerHtml}</div>`);
+  const element = $el.empty()[0] as HTMLElement;
+  const toggle = $('#top .dasher')[0] as HTMLElement;
 
   const redraw: Redraw = () => {
     vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());
@@ -29,5 +39,3 @@ export default async function LichessDasher(element: Element, toggle: Element) {
 
   return ctrl;
 }
-
-(window as any).LichessDasher = LichessDasher; // esbuild

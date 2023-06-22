@@ -41,7 +41,12 @@ const conf = (title: string, xaxis: Date[]) => ({
   },
 });
 
-export function activity(data: any) {
+export function initModule({ op, data }: { op: 'activity' | 'queues'; data: any }) {
+  if (op === 'activity') activity(data);
+  else queues(data);
+}
+
+function activity(data: any) {
   const extend = {
     chart: {
       height: Math.round(window.innerHeight * 0.4),
@@ -70,7 +75,7 @@ export function activity(data: any) {
   ).render();
 }
 
-export function queues(data: any) {
+function queues(data: any) {
   const $grid = $('.chart-grid');
   data.rooms.forEach((room: any) => {
     const cfg = merge(
@@ -104,5 +109,3 @@ function merge(base: any, extend: any): void {
 function isObject(o: unknown): boolean {
   return typeof o === 'object';
 }
-
-(window as any).LichessModActivity = { activity, queues }; // esbuild
