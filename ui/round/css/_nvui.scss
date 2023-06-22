@@ -17,7 +17,8 @@
     max-height: 140px;
     overflow-y: auto;
   }
-  .board, .hand {
+  .board,
+  .hand {
     font-family: monospace;
     font-size: 1.5em;
     margin: 0;

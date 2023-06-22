@@ -188,7 +188,7 @@ final class Tournament(
           env.team.teamRepo mini teamId flatMap {
             _ ?? { team =>
               if (HTTPRequest isXhr ctx.req)
-                jsonView.teamInfo(tour, teamId).pp("XHR") dmap { JsonOk(_) }
+                jsonView.teamInfo(tour, teamId) dmap { JsonOk(_) }
               else
                 api.teamBattleTeamInfo(tour, teamId) map {
                   _ ?? { info =>
