@@ -25,7 +25,7 @@ object show:
       moreJs = frag(
         analyseNvuiTag,
         jsModuleInit(
-          "analysisBoard.relay",
+          "analysisBoard.study",
           Json.obj(
             "relay"    -> data.relay,
             "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
