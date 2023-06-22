@@ -116,6 +116,14 @@ final class UserRepo(val coll: Coll)(using Executor):
   def botsByIds(ids: Iterable[UserId]): Fu[List[User]] =
     coll.find($inIds(ids) ++ botSelect(true)).cursor[User](temporarilyPrimary).listAll()
 
+  def enabledTitledCursor(proj: Option[Bdoc]) =
+    coll
+      .find(
+        enabledSelect ++ $doc(F.title -> $doc("$exists" -> true, "$ne" -> List(Title.LM, Title.BOT))),
+        proj
+      )
+      .cursor[Bdoc](temporarilyPrimary)
+
   def usernameById(id: UserId): Fu[Option[UserName]] =
     coll.primitiveOne[UserName]($id(id), F.username)
 

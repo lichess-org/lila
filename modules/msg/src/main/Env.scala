@@ -42,13 +42,13 @@ final class Env(
   lazy val twoFactorReminder = wire[TwoFactorReminder]
 
   def cli: lila.common.Cli = new:
-    def process = { case "msg" :: "multi" :: orig :: dests :: words =>
-      api.cliMultiPost(
-        UserStr(orig),
-        UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
-        words mkString " "
-      )
-    }
+    def process =
+      case "msg" :: "multi" :: orig :: dests :: words =>
+        api.cliMultiPost(
+          UserStr(orig),
+          UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
+          words mkString " "
+        )
 
   Bus.subscribeFuns(
     "msgSystemSend" -> { case lila.hub.actorApi.msg.SystemMsg(userId, text) =>

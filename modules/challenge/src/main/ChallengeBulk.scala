@@ -94,13 +94,12 @@ final class ChallengeBulkApi(
     val (chessGame, state) = ChallengeJoiner.gameSetup(bulk.variant, timeControl, bulk.fen)
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
-      .mapAsyncUnordered(8) { game =>
+      .mapAsyncUnordered(8): game =>
         userRepo.pair(game.white, game.black) map2 { case (white, black) =>
           (game.id, white, black)
         }
-      }
       .mapConcat(_.toList)
-      .map { case (id, white, black) =>
+      .map: (id, white, black) =>
         val game = Game
           .make(
             chess = chessGame,
@@ -116,15 +115,12 @@ final class ChallengeBulkApi(
           .pipe(ChallengeJoiner.addGameHistory(state))
           .start
         (game, white, black)
-      }
-      .mapAsyncUnordered(8) { case (game, white, black) =>
+      .mapAsyncUnordered(8): (game, white, black) =>
         gameRepo.insertDenormalized(game) >>- onStart(game.id) inject {
           (game, white, black)
         }
-      }
-      .mapAsyncUnordered(8) { case (game, white, black) =>
+      .mapAsyncUnordered(8): (game, white, black) =>
         msgApi.onApiPair(game.id, white.light, black.light)(bulk.by, bulk.message)
-      }
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .addEffect { nb =>

@@ -165,13 +165,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
 
   def wasMarkedBy(user: UserId)(using me: Me): Fu[Boolean] =
-    coll.secondaryPreferred.exists(
+    coll.secondaryPreferred.exists:
       $doc(
         "user" -> user,
         "mod"  -> me.userId,
         "action" $in markActions
       )
-    )
 
   def wereMarkedBy(users: List[UserId])(using me: Me): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](
@@ -201,8 +200,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     _         <- cheatDetected(user, gameId)
   yield prevCount + 1
 
-  def cli(by: ModId, command: String) = add:
-    Modlog(by, none, Modlog.cli, command.some)
+  def cli(command: String)(using by: Me.Id) = add:
+    Modlog(none, Modlog.cli, command.some)
 
   def garbageCollect(sus: Suspect)(using Me.Id) = add:
     Modlog.make(sus, Modlog.garbageCollect)
@@ -238,23 +237,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().list(60)
 
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
-    coll.secondaryPreferred.countSel(
+    coll.secondaryPreferred.countSel:
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
         "date" $gte nowInstant.minusMonths(6)
       )
-    )
 
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
-    coll.secondaryPreferred.countSel(
+    coll.secondaryPreferred.countSel:
       $doc(
         "user"   -> userId,
         "action" -> Modlog.modMessage,
         $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
         "date" $gte nowInstant.minusMonths(6)
       )
-    )
 
   def recentBy(mod: Mod) =
     coll.tempPrimary
@@ -279,18 +276,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
         ),
         $doc("user" -> true, "action" -> true, "date" -> true).some
       )
-      .sort($sort desc "date")
+      .sort($sort asc "date")
       .cursor[Modlog.UserEntry]()
       .listAll()
-      .map {
-        _.foldLeft(users.map(UserWithModlog(_, Nil))) { (users, log) =>
-          users.map {
+      .map:
+        _.foldLeft(users.map(UserWithModlog(_, Nil))): (users, log) =>
+          users.map:
             case UserWithModlog(user, prevLog) if log.user is user =>
               UserWithModlog(user, log :: prevLog)
             case u => u
-          }
-        }
-      }
 
   private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()

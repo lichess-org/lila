@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Коли часу залишається &lt; 30 секунд</string>
   <string name="moveConfirmation">Підтвердження ходу</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Можна вимкнути під час гри в меню дошки</string>
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="correspondenceAndUnlimited">За листуванням та необмежені</string>
   <string name="confirmResignationAndDrawOffers">Підтверджувати повернення ходу та пропозиції нічий</string>

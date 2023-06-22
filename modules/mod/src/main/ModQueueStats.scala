@@ -20,11 +20,11 @@ final class ModQueueStats(
   private val cache = cacheApi[Period, Result](64, "mod.activity") {
     _.expireAfter[Period, Result](
       create = (key, _) =>
-        key match {
+        key match
           case Period.Week  => 15.seconds
           case Period.Month => 5.minutes
           case Period.Year  => 1.day
-        },
+      ,
       update = (_, _, current) => current,
       read = (_, _, current) => current
     ).buildAsyncFuture(compute)
@@ -35,7 +35,7 @@ final class ModQueueStats(
       .find($doc("_id" $gte dateFormat.print(Period dateSince period)))
       .cursor[Bdoc](temporarilyPrimary)
       .listAll()
-      .map { docs =>
+      .map: docs =>
         for
           doc     <- docs
           dateStr <- doc.string("_id")
@@ -50,8 +50,7 @@ final class ModQueueStats(
             score <- entry.int("score")
           yield (room, score, nb)
         }
-      }
-      .map { days =>
+      .map: days =>
         Result(
           period,
           Json.obj(
@@ -59,30 +58,27 @@ final class ModQueueStats(
               "xaxis" -> days.map(_._1.toMillis)
             ),
             "rooms" -> Room.values
-              .map { room => room.key -> room.name }
+              .map(room => room.key -> room.name)
               .appendedAll {
                 List(
                   "appeal"   -> "Appeal",
                   "streamer" -> "Streamer"
                 )
               }
-              .map { case (roomKey, roomName) =>
+              .map: (roomKey, roomName) =>
                 Json.obj(
                   "name" -> roomName,
-                  "series" -> scores.collect {
+                  "series" -> scores.collect:
                     case score if score > 20 || roomKey == Room.Boost.key =>
                       Json.obj(
                         "name" -> score,
-                        "data" -> days.map(~_._2.collectFirst {
+                        "data" -> days.map(~_._2.collectFirst:
                           case (r, s, nb) if r == roomKey && s == score => nb
-                        })
+                        )
                       )
-                  }
                 )
-              }
           )
         )
-      }
 
 object ModQueueStats:
 

@@ -38,8 +38,7 @@ object side:
             if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
             separator,
             "Arena",
-            (isGranted(_.ManageTournament) || (ctx.userId
-              .has(tour.createdBy) && !tour.isFinished)) option frag(
+            (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && !tour.isFinished)) option frag(
               " ",
               a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag(licon.Gear))
             )
@@ -94,7 +93,7 @@ object side:
     st.section(cls := "team-battle")(
       p(cls := "team-battle__title text", dataIcon := licon.Group)(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
-        (ctx.userId.has(tour.createdBy) || isGranted(_.ManageTournament)) option
+        (ctx.is(tour.createdBy) || isGranted(_.ManageTournament)) option
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(
             iconTag(licon.Gear)
           )

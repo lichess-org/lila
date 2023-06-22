@@ -245,7 +245,7 @@ object User:
 
   def validateId(str: UserStr): Option[UserId] = couldBeUsername(str) option str.id
 
-  def isGhost(id: UserId) = id == ghostId || id.value.headOption.has('!')
+  def isGhost(id: UserId) = id == ghostId || id.value.startsWith("!")
 
   def noGhost(id: UserId) = !isGhost(id)
 

@@ -70,7 +70,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
-          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) ||
+          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.is(tour.createdBy) ||
             isGrantedOpt(_.ChatTimeout)) && // private tournament that I joined or has ChatTimeout
           (env.chat.panic.allowed(u) || isGrantedOpt(_.ChatTimeout))
       }

@@ -46,7 +46,7 @@ final private class PayPalClient(
   private val plans = cacheApi(32, "plan.payPal.plans") {
     _.buildAsyncFuture[Currency, PayPalPlan] { cur =>
       getPlans() flatMap {
-        _.find(p => p.currency.has(cur)).fold(createPlan(cur))(fuccess)
+        _.find(_.currency.has(cur)).fold(createPlan(cur))(fuccess)
       }
     }
   }

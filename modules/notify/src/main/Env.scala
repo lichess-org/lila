@@ -3,6 +3,7 @@ package lila.notify
 import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
+import akka.stream.Materializer
 
 import lila.db.dsl.Coll
 import lila.common.Bus
@@ -19,7 +20,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     subsRepo: lila.relation.SubscriptionRepo
-)(using Executor, ActorSystem):
+)(using Executor, ActorSystem, Materializer):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
@@ -53,6 +54,8 @@ final class Env(
       }
     }
   )
+
+  lazy val cli = wire[NotifyCli]
 
 final class NotifyColls(val notif: Coll, val pref: Coll)
 

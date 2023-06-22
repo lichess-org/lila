@@ -372,7 +372,7 @@ final class SwissApi(
       mongo.pairing
         .list[SwissPairing]($doc(F.swissId -> swiss.id, F.players -> userId))
         .flatMap {
-          _.filter(p => p.isDraw || p.winner.has(userId))
+          _.filter(p => p.isDraw || userId.is(p.winner))
             .map { pairing =>
               mongo.pairing.update.one($id(pairing.id), pairing forfeit userId)
             }

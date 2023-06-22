@@ -52,12 +52,10 @@ object JsonApi:
       import Evaluation.*
       def evaluations = analysis.collect { case EvalOrSkip.Evaluated(e) => e }
 
-      def medianNodes =
-        Maths.median {
-          evaluations
-            .withFilter(e => !(e.mateFound || e.deadDraw))
-            .flatMap(_.nodes)
-        }
+      def medianNodes = Maths.median:
+        evaluations
+          .withFilter(e => !(e.mateFound || e.deadDraw))
+          .flatMap(_.nodes)
 
     case class PartialAnalysis(
         fishnet: Fishnet,

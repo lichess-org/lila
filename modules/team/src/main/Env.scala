@@ -30,9 +30,9 @@ final class Env(
     materializer: akka.stream.Materializer
 ):
 
-  lazy val teamRepo    = new TeamRepo(db(CollName("team")))
-  lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
-  lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
+  lazy val teamRepo    = TeamRepo(db(CollName("team")))
+  lazy val memberRepo  = MemberRepo(db(CollName("team_member")))
+  lazy val requestRepo = RequestRepo(db(CollName("team_request")))
 
   lazy val forms = wire[TeamForm]
 
@@ -53,6 +53,15 @@ final class Env(
   val getTeamName = GetTeamNameSync(cached.blockingTeamName)
 
   lazy val api = wire[TeamApi]
+
+  def cli: lila.common.Cli = new:
+    def process =
+      case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
+        for
+          team <- teamRepo byId TeamId(teamId) orFail s"Team $teamId not found"
+          userIds = members.split(',').flatMap(UserStr.read).map(_.id)
+          _ <- api.addMembers(team, userIds)
+        yield s"Added ${userIds.size} members to team ${team.name}"
 
   lila.common.Bus.subscribeFuns(
     "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>

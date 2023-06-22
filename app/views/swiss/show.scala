@@ -25,7 +25,7 @@ object show:
       streamers: List[UserId],
       isLocalMod: Boolean
   )(using ctx: PageContext): Frag =
-    val isDirector       = ctx.userId.has(s.createdBy)
+    val isDirector       = ctx is s.createdBy
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
       title = fullName(s),

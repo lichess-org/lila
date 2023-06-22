@@ -207,14 +207,14 @@ final class MsgApi(
 
   def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =
     colls.thread
-      .aggregateList(nb) { framework =>
+      .aggregateList(nb): framework =>
         import framework.*
         Match($doc("users" -> user.id)) -> List(
           Sort(Descending("lastMsg.date")),
           Limit(nb),
           UnwindField("users"),
           Match($doc("users" $ne user.id)),
-          PipelineOperator(
+          PipelineOperator:
             $lookup.pipeline(
               from = colls.msg,
               as = "msgs",
@@ -226,26 +226,25 @@ final class MsgApi(
                 $doc("$project" -> msgProjection)
               )
             )
-          ),
-          PipelineOperator(
+          ,
+          PipelineOperator:
             $lookup.simple(
               from = userRepo.coll,
               as = "contact",
               local = "users",
               foreign = "_id"
             )
-          ),
+          ,
           UnwindField("contact")
         )
-      } flatMap { docs =>
-      (for
-        doc     <- docs
-        msgs    <- doc.getAsOpt[List[Msg]]("msgs")
-        contact <- doc.getAsOpt[User]("contact")
-      yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
-        ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
-      }).parallel
-    }
+      .flatMap: docs =>
+        (for
+          doc     <- docs
+          msgs    <- doc.getAsOpt[List[Msg]]("msgs")
+          contact <- doc.getAsOpt[User]("contact")
+        yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
+          ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
+        }).parallel
 
   def deleteAllBy(user: User): Funit =
     colls.thread.list[MsgThread]($doc("users" -> user.id)) flatMap { threads =>
@@ -267,11 +266,9 @@ final class MsgApi(
       .sort($sort desc "date")
       .cursor[Bdoc]()
       .list(msgsPerPage.value)
-      .map {
-        _.flatMap { doc =>
+      .map:
+        _.flatMap: doc =>
           doc.getAsOpt[List[UserId]]("del").fold(true)(!_.has(me.id)) so doc.asOpt[Msg]
-        }
-      }
 
   private def setReadBy(threadId: MsgThread.Id, me: User, contactId: UserId): Funit =
     colls.thread.updateField(

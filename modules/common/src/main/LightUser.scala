@@ -12,7 +12,7 @@ case class LightUser(
 
   def titleName: String = title.fold(name.value)(_.value + " " + name)
 
-  def isBot = title has "BOT"
+  def isBot = title.exists(_.value == "BOT")
 
 object LightUser:
 

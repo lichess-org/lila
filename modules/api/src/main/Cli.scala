@@ -15,6 +15,8 @@ final private[api] class Cli(
     msg: lila.msg.Env,
     video: lila.video.Env,
     puzzle: lila.puzzle.Env,
+    team: lila.team.Env,
+    notify: lila.notify.Env,
     accountClosure: AccountClosure
 )(using Executor)
     extends lila.common.Cli:
@@ -51,10 +53,9 @@ final private[api] class Cli(
       puzzle.opening.recomputeAll
       fuccess("started in background")
     case "threads" :: Nil =>
-      fuccess {
+      fuccess:
         val threads = ornicar.scalalib.Jvm.threadGroups()
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
-      }
 
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
@@ -74,4 +75,6 @@ final private[api] class Cli(
       plan.cli.process orElse
       msg.cli.process orElse
       video.cli.process orElse
+      team.cli.process orElse
+      notify.cli.process orElse
       process

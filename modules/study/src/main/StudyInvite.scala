@@ -36,7 +36,7 @@ final private class StudyInvite(
       fufail[Unit]("Only the study owner can invite")
     invited <-
       userRepo
-        .byId(invitedUsername)
+        .enabledById(invitedUsername)
         .map(
           _.filterNot(u => User.lichessId.is(u) && !Granter(_.StudyAdmin))
         ) orFail "No such invited"
@@ -81,7 +81,7 @@ final private class StudyInvite(
       _.update
         .one(
           $id(study.id),
-          $set(s"members.${me}" -> $doc("role" -> "w", "admin" -> true)) ++
+          $set(s"members.${me.userId}" -> $doc("role" -> "w", "admin" -> true)) ++
             $addToSet("uids" -> me.userId)
         )
         .void

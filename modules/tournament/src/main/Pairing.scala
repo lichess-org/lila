@@ -42,19 +42,19 @@ case class Pairing(
     case ThreeCheck | Atomic | RacingKings      => 20
   }))
 
-  def wonBy(user: UserId): Boolean     = winner.has(user)
-  def lostBy(user: UserId): Boolean    = winner.exists(user !=)
-  def notLostBy(user: UserId): Boolean = winner.fold(true)(user ==)
+  def wonBy(user: UserId): Boolean     = winner.exists(user is _)
+  def lostBy(user: UserId): Boolean    = winner.exists(user isnt _)
+  def notLostBy(user: UserId): Boolean = winner.fold(true)(user is _)
   def draw: Boolean                    = finished && winner.isEmpty
 
   def colorOf(userId: UserId): Option[Color] =
-    if (userId == user1) Color.White.some
-    else if (userId == user2) Color.Black.some
+    if userId is user1 then Color.White.some
+    else if userId is user2 then Color.Black.some
     else none
 
   def berserkOf(userId: UserId): Boolean =
-    if (userId == user1) berserk1
-    else if (userId == user2) berserk2
+    if userId is user1 then berserk1
+    else if userId is user2 then berserk2
     else false
 
   def berserkOf(color: Color) = color.fold(berserk1, berserk2)
