@@ -416,8 +416,8 @@ export default class Setup {
       .trigger('change');
 
     const updateHandicaps = () => {
-      const buildOption = (value: string, name: string, selected = false): string => {
-        return `<option ${selected ? 'selected ' : ''}value="${value}">${name}</option>`;
+      const buildOption = (value: string, name: string): string => {
+        return `<option value="${value}">${name}</option>`;
       };
       const rules = this.idToRules($variantSelect.val()),
         handicaps = findHandicaps({ rules }),
@@ -426,7 +426,7 @@ export default class Setup {
             return buildOption(h.sfen, `${h.japaneseName} (${h.englishName})`);
           })
           .join(''),
-        defaultOption = buildOption(initialSfen(rules), this.root.trans.noarg('startPosition'), true);
+        defaultOption = buildOption(initialSfen(rules), this.root.trans.noarg('startPosition'));
       $handicapSelect.html(defaultOption + options);
     };
 
@@ -446,10 +446,15 @@ export default class Setup {
         .attr('title', colorName(this.root.trans.noarg, 'gote', isHandicap({ sfen, rules })));
 
       $infos.text((_, text) => {
-        const from = useYane ? 'Fairy Stockfish' : 'YaneuraOu V7.00';
-        const to = useYane ? 'YaneuraOu V7.00' : 'Fairy Stockfish';
+        const from = useYane ? 'Fairy Stockfish' : 'YaneuraOu V7.00',
+          to = useYane ? 'YaneuraOu V7.00' : 'Fairy Stockfish';
         return text.replace(from, to);
       });
+    };
+
+    const setHandicapvalue = () => {
+      const sfen = $sfenInput.val();
+      $handicapSelect.val(sfen || initialSfen(this.idToRules($variantSelect.val())));
     };
 
     const validateSfen = li.debounce(function () {
@@ -479,7 +484,7 @@ export default class Setup {
       });
     }, 300);
     $sfenInput.on('keyup', () => {
-      $handicapSelect.val('');
+      setHandicapvalue();
       validateSfen();
       updateEngineName();
     });
@@ -491,12 +496,12 @@ export default class Setup {
         $positionPreview.html(li.spinnerHtml);
         validateSfen();
       } else {
-        $handicapSelect.val('');
         $sfenInput.val('');
         $positionWrap.hide();
         $positionPreview.html();
         toggleButtons();
       }
+      setHandicapvalue();
       updateEngineName();
       save();
     });
@@ -559,7 +564,8 @@ export default class Setup {
     });
 
     const initForm = (): void => {
-      if (this.root.opts.sfen) $sfenInput.val(this.root.opts.sfen);
+      if (this.root.opts.sfen) $sfenInput.val(this.root.opts.sfen.replace(/_/g, ' '));
+
       let hasSfen = !!$sfenInput.val();
       if (this.root.opts.variant) {
         if (hasSfen && !this.root.opts.sfen) {
@@ -578,6 +584,7 @@ export default class Setup {
       }
       updateEngineName();
       updateHandicaps();
+      setHandicapvalue();
       initAdvancedTimeSetup();
       toggleButtons();
     };
