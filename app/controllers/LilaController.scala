@@ -71,19 +71,12 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous, authenticated, and oauth requests */
   def OpenOrScoped(selectors: OAuthScope.Selector*)(
-      open: Context ?=> Fu[Result],
-      scoped: Context ?=> Fu[Result]
+      f: Context ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(_ ?=> _ ?=> scoped)
-      else handleOpen(open)
-
-  /* Anonymous, authenticated, and oauth requests */
-  def OpenOrScoped(selectors: OAuthScope.Selector*)(
-      f: Context ?=> Fu[Result]
-  ): EssentialAction =
-    OpenOrScoped(selectors*)(f, f)
+      then handleScoped(selectors)(_ ?=> _ ?=> f)
+      else handleOpen(f)
 
   private def handleOpen(f: Context ?=> Fu[Result])(using RequestHeader): Fu[Result] =
     CSRF:

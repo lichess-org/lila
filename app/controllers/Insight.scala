@@ -15,20 +15,14 @@ final class Insight(env: Env) extends LilaController(env):
     AccessibleApi(username): user =>
       env.insight.api indexAll user inject Ok
 
-  def index(username: UserStr) =
-    def jsonStatus(user: User) =
-      env.insight.api userStatus user map { status =>
-        Ok(Json.obj("status" -> status.toString))
-      }
-    OpenOrScoped()(
-      open = ctx ?=>
-        Accessible(username): user =>
-          render.async:
-            case Accepts.Html() => doPath(user, InsightMetric.MeanCpl.key, InsightDimension.Perf.key, "")
-            case Accepts.Json() => jsonStatus(user)
-      ,
-      scoped = ctx ?=> AccessibleApi(username)(jsonStatus)
-    )
+  def index(username: UserStr) = OpenOrScoped(): ctx ?=>
+    Accessible(username): user =>
+      negotiateHtmlOrJson(
+        html = doPath(user, InsightMetric.MeanCpl.key, InsightDimension.Perf.key, ""),
+        json = env.insight.api userStatus user map { status =>
+          Ok(Json.obj("status" -> status.toString))
+        }
+      )
 
   def path(username: UserStr, metric: String, dimension: String, filters: String) = Open:
     Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
