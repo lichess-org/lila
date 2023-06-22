@@ -53,9 +53,7 @@ trait ResponseBuilder(using Executor)
       .dmap(_.withHeaders(VARY -> "Accept"))
 
   def negotiateHtmlOrJson(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] =
-    render.async:
-      case Accepts.Json() => json
-      case _              => html
+    if HTTPRequest.acceptsJson(ctx.req) then json else html
 
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
 

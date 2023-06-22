@@ -12,18 +12,10 @@ object HTTPRequest:
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req)
 
-  def isEventSource(req: RequestHeader): Boolean =
-    req.headers get "Accept" contains "text/event-stream"
-
   def isSafe(req: RequestHeader)   = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
-
-  def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || req.headers
-      .get(HeaderNames.ACCEPT)
-      .exists(_ startsWith "application/vnd.lichess.v")
 
   private val appOrigins = List(
     "capacitor://localhost", // ios
@@ -104,20 +96,26 @@ object HTTPRequest:
 
   def isOAuth(req: RequestHeader) = bearer(req).isDefined
 
-  def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
-  def acceptsJson(req: RequestHeader)   = req.headers get HeaderNames.ACCEPT contains "application/json"
-  def acceptsCsv(req: RequestHeader)    = req.headers get HeaderNames.ACCEPT contains "text/csv"
+  def startsWithLichobileAccepts(a: String)       = a.startsWith("application/vnd.lichess.v")
+  def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
+  def acceptsNdJson(req: RequestHeader)           = accepts(req) contains "application/x-ndjson"
+  def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
+    a == "application/json" || startsWithLichobileAccepts(a)
+  def acceptsCsv(req: RequestHeader)             = accepts(req) contains "text/csv"
+  def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
+  def isProgrammatic(req: RequestHeader) =
+    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) ||
+      accepts(req).exists(startsWithLichobileAccepts)
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.ActionName).getOrElse("NoHandler")
 
-  private val ApiVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
+  private val LichobileVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
 
   def apiVersion(req: RequestHeader): Option[ApiVersion] =
-    req.headers.get(HeaderNames.ACCEPT) flatMap {
-      case ApiVersionHeaderPattern(v) => v.toIntOption map { ApiVersion(_) }
-      case _                          => none
-    }
+    accepts(req).flatMap:
+      case LichobileVersionHeaderPattern(v) => v.toIntOption map { ApiVersion(_) }
+      case _                                => none
 
   private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
   private def isAppeal(req: RequestHeader)   = req.path.startsWith("/appeal")
