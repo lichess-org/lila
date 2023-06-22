@@ -48,10 +48,9 @@ object BSONHandlers:
 
   given BSONHandler[UciCharPair] = tryHandler[UciCharPair](
     { case BSONString(v) =>
-      v.toArray match {
+      v.toArray match
         case Array(a, b) => Success(UciCharPair(a, b))
         case _           => handlerBadValue(s"Invalid UciCharPair $v")
-      }
     },
     x => BSONString(x.toString)
   )
@@ -65,10 +64,10 @@ object BSONHandlers:
       case BSONString(name)                                                 => Comment.Author.External(name)
       case doc: Bdoc =>
         {
-          for {
+          for
             id   <- doc.getAsOpt[UserId]("id")
             name <- doc.getAsOpt[String]("name")
-          } yield Comment.Author.User(id, name)
+          yield Comment.Author.User(id, name)
         } err s"Invalid comment author $doc"
       case _ => Comment.Author.Unknown
     },
