@@ -32,7 +32,7 @@ final private class SandbagWatch(
     if record.immaculate then
       fuccess:
         records invalidate userId
-    else if game.isTournament && game.winnerUserId.has(userId) then
+    else if game.isTournament && userId.is(game.winnerUserId) then
       // if your opponent always resigns to you in a tournament
       // we'll assume you're not boosting
       funit

@@ -142,8 +142,8 @@ final private[round] class RoundAsyncActor(
     case HasUserId(userId, promise) =>
       fuccess:
         promise.success:
-          (whitePlayer.userId.has(userId) && whitePlayer.isOnline) ||
-            (blackPlayer.userId.has(userId) && blackPlayer.isOnline)
+          (userId.is(whitePlayer.userId) && whitePlayer.isOnline) ||
+            (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
     case lila.chat.RoundLine(line, watcher) =>
       fuccess:

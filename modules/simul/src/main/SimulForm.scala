@@ -45,14 +45,13 @@ object SimulForm:
 
   private def nameType(using host: Me) =
     eventName(2, 40, host.isVerifiedOrAdmin).verifying(
-      Constraint[String] { (t: String) =>
+      Constraint[String]: (t: String) =>
         if t.toUpperCase.split(' ').exists { word =>
             lila.user.Title.all.exists: (title, name) =>
               !host.title.has(title) && (title.value == word || name.toUpperCase == word)
           }
         then validation.Invalid(validation.ValidationError("Must not contain a title"))
         else validation.Valid
-      }
     )
 
   def create(teams: List[LeaderTeam])(using host: Me) =

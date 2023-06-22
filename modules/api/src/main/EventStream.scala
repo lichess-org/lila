@@ -132,7 +132,7 @@ final class EventStream(
                   queue.offer(json.some).unit
 
     private def isMyChallenge(c: Challenge) =
-      c.destUserId.has(me.userId) || c.challengerUserId.has(me.userId)
+      me.is(c.destUserId) || me.is(c.challengerUserId)
 
   private def gameJson(game: Game, tpe: String)(using me: Me) =
     Pov(game, me) map { pov =>
