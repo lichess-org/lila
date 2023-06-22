@@ -2,7 +2,17 @@ import * as game from 'game';
 import { commands } from 'nvui/command';
 import { Notify } from 'nvui/notify';
 import { renderSetting } from 'nvui/setting';
-import { Style, renderBoard, renderMove, renderPieces, styleSetting, supportedVariant, validUsi } from 'nvui/shogi';
+import {
+  NVUITrans,
+  Style,
+  renderBoard,
+  renderHand,
+  renderMove,
+  renderPieces,
+  styleSetting,
+  supportedVariant,
+  validUsi,
+} from 'nvui/shogi';
 import { Shogiground } from 'shogiground';
 import { VNode, h } from 'snabbdom';
 import { renderClock } from '../clock/clockView';
@@ -14,6 +24,7 @@ import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { renderResult } from '../view/replay';
 import { renderTableEnd, renderTablePlay, renderTableWatch } from '../view/table';
+import { opposite } from 'shogiground/util';
 
 window.lishogi.RoundNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -52,7 +63,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
           ),
           h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-          h('h2', 'Moves'),
+          h('h2', NVUITrans('Moves')),
           h(
             'p.moves',
             {
@@ -63,7 +74,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
             },
             renderMoves(d.steps.slice(1), ctrl.data.game.variant.key, style)
           ),
-          h('h2', 'Pieces'),
+          h('h2', NVUITrans('Pieces')),
           h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
           h('h2', 'Game status'),
           h(
@@ -90,7 +101,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
           ),
           ...(ctrl.isPlaying()
             ? [
-                h('h2', 'Move form'),
+                h('h2', NVUITrans('Move form')),
                 h(
                   'form',
                   {
@@ -129,10 +140,30 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
             : game.playable(ctrl.data)
             ? renderTablePlay(ctrl)
             : renderTableEnd(ctrl)),
-          h('h2', 'Board'),
+          h('h2', [NVUITrans('Board'), ' & ', NVUITrans('hands')]),
+          h(
+            'pre.hand',
+            renderHand(
+              'top',
+              opposite(ctrl.data.player.color),
+              ctrl.shogiground.state.hands.handMap.get(opposite(ctrl.data.player.color)),
+              ctrl.data.game.variant.key,
+              style
+            )
+          ),
           h(
             'pre.board',
-            renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color, ctrl.data.game.variant.key)
+            renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color, ctrl.data.game.variant.key, style)
+          ),
+          h(
+            'pre.hand',
+            renderHand(
+              'bottom',
+              ctrl.data.player.color,
+              ctrl.shogiground.state.hands.handMap.get(ctrl.data.player.color),
+              ctrl.data.game.variant.key,
+              style
+            )
           ),
           h('h2', 'Settings'),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
@@ -199,8 +230,11 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else if (lowered == 'takeback') $('.nvui button.takeback-yes').click();
   else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
   else {
-    const pieces = ctrl.shogiground.state.pieces;
-    notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
+    const pieces = ctrl.shogiground.state.pieces,
+      hands = ctrl.shogiground.state.hands.handMap;
+    notify(
+      commands.piece.apply(c, pieces, hands, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`
+    );
   }
 }
 

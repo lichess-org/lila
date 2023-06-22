@@ -3,8 +3,16 @@
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org non-visual user interface",
-  "main": "dist/main.js",
-  "types": "dist/main",
+  "exports": {
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "keywords": [
     "shogi",
     "lishogi",
@@ -24,8 +32,9 @@
     "typescript": "^4"
   },
   "dependencies": {
+    "keyboardMove": "^1.0.0",
     "shogiground": "^0.7.1",
-    "shogiops": "^0.14.3",
+    "shogiops": "^0.14.4",
     "snabbdom": "^3.5.1"
   }
 }

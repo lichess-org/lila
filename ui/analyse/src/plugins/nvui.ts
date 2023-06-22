@@ -4,12 +4,23 @@ import { Player } from 'game';
 import { commands } from 'nvui/command';
 import { Notify } from 'nvui/notify';
 import { renderSetting } from 'nvui/setting';
-import { Style, renderBoard, renderMove, renderPieces, styleSetting, supportedVariant, validUsi } from 'nvui/shogi';
+import {
+  Style,
+  renderBoard,
+  renderMove,
+  renderPieces,
+  styleSetting,
+  supportedVariant,
+  validUsi,
+  renderHand,
+  NVUITrans,
+} from 'nvui/shogi';
 import { Shogiground } from 'shogiground';
 import { VNode, h } from 'snabbdom';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeSgConfig } from '../ground';
 import { AnalyseData, Redraw } from '../interfaces';
+import { opposite } from 'shogiground/util';
 
 window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -45,7 +56,7 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
           ),
           h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-          h('h2', 'Moves'),
+          h('h2', NVUITrans('Moves')),
           h(
             'p.moves',
             {
@@ -56,9 +67,9 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
             },
             renderMainline(ctrl.mainline, ctrl.path, ctrl.data.game.variant.key, style)
           ),
-          h('h2', 'Pieces'),
+          h('h2', NVUITrans('Pieces')),
           h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
-          h('h2', 'Current position'),
+          h('h2', NVUITrans('Current position')),
           h(
             'p.position',
             {
@@ -69,7 +80,7 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
             },
             renderCurrentNode(ctrl.node, ctrl.data.game.variant.key, style)
           ),
-          h('h2', 'Move form'),
+          h('h2', NVUITrans('Move form')),
           h(
             'form',
             {
@@ -83,7 +94,7 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
             },
             [
               h('label', [
-                'Command input',
+                NVUITrans('Command input'),
                 h('input.move.mousetrap', {
                   attrs: {
                     name: 'move',
@@ -102,10 +113,30 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
           ...(renderAcpl(ctrl, ctrl.data.game.variant.key, style) || [
             requestAnalysisButton(ctrl, analysisInProgress, notify.set),
           ]),
-          h('h2', 'Board'),
+          h('h2', [NVUITrans('Board'), ' & ', NVUITrans('hands')]),
+          h(
+            'pre.hand',
+            renderHand(
+              'top',
+              opposite(ctrl.data.player.color),
+              ctrl.shogiground.state.hands.handMap.get(opposite(ctrl.data.player.color)),
+              ctrl.data.game.variant.key,
+              style
+            )
+          ),
           h(
             'pre.board',
-            renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color, ctrl.data.game.variant.key)
+            renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color, ctrl.data.game.variant.key, style)
+          ),
+          h(
+            'pre.hand',
+            renderHand(
+              'bottom',
+              ctrl.data.player.color,
+              ctrl.shogiground.state.hands.handMap.get(ctrl.data.player.color),
+              ctrl.data.game.variant.key,
+              style
+            )
           ),
           h('div.content', {
             hook: {
@@ -155,8 +186,11 @@ function isShortCommand(input: string): boolean {
 }
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
-  const pieces = ctrl.shogiground.state.pieces;
-  notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
+  const pieces = ctrl.shogiground.state.pieces,
+    hands = ctrl.shogiground.state.hands.handMap;
+  notify(
+    commands.piece.apply(c, pieces, hands, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`
+  );
 }
 
 const analysisGlyphs = ['?!', '?', '??'];

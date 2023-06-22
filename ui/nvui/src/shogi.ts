@@ -1,12 +1,15 @@
-import { Pieces, files, ranks } from 'shogiground/types';
-import { allKeys } from 'shogiground/util';
-import { parseSfen, pieceToForsyth } from 'shogiops/sfen';
+import { Hand, Hands, Pieces, files, ranks } from 'shogiground/types';
+import { allKeys, opposite } from 'shogiground/util';
+import { boardToSfen } from 'shogiground/sfen';
+import { parseBoardSfen, parseSfen, pieceToForsyth, roleToForsyth } from 'shogiops/sfen';
 import { Piece, Role, isDrop } from 'shogiops/types';
 import { VNode, h } from 'snabbdom';
 import { Setting, makeSetting } from './setting';
-import { dimensions } from 'shogiops/variant/util';
-import { parseUsi } from 'shogiops';
+import { dimensions, handRoles } from 'shogiops/variant/util';
+import { makeUsi, parseUsi } from 'shogiops';
 import { toKanjiDigit } from 'shogiops/notation/util';
+import { makeKifBoard } from 'shogiops/notation/kif/kif';
+import { toMove } from 'keyboardMove/dist/plugins/util'; // todo better later
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna' | 'japanese';
 
@@ -25,7 +28,7 @@ export function styleSetting(): Setting<Style> {
       ['nato', 'Nato: pawn, 7 golf 3 foxtrot'],
       ['japanese', 'Japanese: ７ 七 ３ 六'],
     ],
-    default: useJP() ? 'japanese' : 'anna',
+    default: document.documentElement.lang === 'ja-JP' ? 'japanese' : 'anna',
     storage: window.lishogi.storage.make('nvui.moveNotation'),
   });
 }
@@ -39,11 +42,11 @@ export function renderMove(usi: Usi | undefined, sfen: Sfen, variant: VariantKey
   const piece = pos.value.board.get(move.to)!;
   if (isDrop(move)) {
     const to = usi.slice(2, 4) as Key;
-    return renderRole(piece.role) + ' * ' + renderKey(to, style);
+    return renderRole(piece.role, style) + ' * ' + renderKey(to, style);
   } else {
     const from = usi.slice(0, 2) as Key,
       to = usi.slice(2, 4) as Key;
-    return [renderRole(piece.role), renderKey(from, style), renderKey(to, style)].join(' ');
+    return [renderRole(piece.role, style), renderKey(from, style), renderKey(to, style)].join(' ');
   }
 }
 
@@ -73,12 +76,12 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
           if (piece.color === color && piece.role === role) keys.push(key);
         }
         let name;
-        if (useJP()) name = rolesJP[role];
+        if (style === 'japanese') name = rolesJP[role];
         else name = `${role}${keys.length > 1 ? 's' : ''}`;
         if (keys.length) lists.push([name, ...keys]);
       });
       return h('div', [
-        h('h3', `${useJP() ? colorsJP[color] : color} pieces:`),
+        h('h3', `${renderColor(color, style)} pieces:`),
         ...lists
           .map(
             (l: any) =>
@@ -93,17 +96,19 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
   );
 }
 
-export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string {
+export function renderPieceKeys(pieces: Pieces, hands: Hands, p: string, style: Style): string {
   const role = letterToRole(p);
   if (!role) return 'Invalid piece';
-  const name = `${p === p.toUpperCase() ? 'sente' : 'gote'} ${role}`,
+  const color = p === p.toUpperCase() ? 'sente' : 'gote',
+    name = `${color} ${role}`,
     res: Key[] = [];
   for (const [k, piece] of pieces) {
     if (piece && `${piece.color} ${piece.role}` === name) res.push(k);
   }
-  return `${useJP() ? `${p === p.toUpperCase() ? '先手' : '後手'} ${rolesJP[role]}` : name}: ${
+  const handStr = (hands.get(color)?.get(role) || 'none') + ' in hand';
+  return `${style === 'japanese' ? `${renderColor(color, style)} ${rolesJP[role]}` : name}: ${
     res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'
-  }`;
+  }; ${handStr}`;
 }
 
 export function renderPiecesOn(pieces: Pieces, rankOrFileOrBoth: string, style: Style): string {
@@ -111,13 +116,39 @@ export function renderPiecesOn(pieces: Pieces, rankOrFileOrBoth: string, style: 
   for (const k of allKeys) {
     if (k.includes(rankOrFileOrBoth)) {
       const piece = pieces.get(k) as Piece | undefined;
-      if (piece) res.push(`${renderKey(k, style)} ${renderPiece(piece.color, piece.role)}`);
+      if (piece) res.push(`${renderKey(k, style)} ${renderPiece(piece.color, piece.role, style)}`);
     }
   }
   return res.length ? res.join(', ') : 'blank';
 }
 
-export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey): string {
+export function renderHand(
+  position: 'top' | 'bottom',
+  pov: Color,
+  hand: Hand | undefined,
+  variant: VariantKey,
+  style: Style
+): string {
+  let handStr = '',
+    color = position === 'top' ? opposite(pov) : pov;
+  if (style === 'japanese') color = position === 'top' ? 'gote' : 'sente';
+  if (!hand) return '-';
+  for (const role of handRoles(variant)) {
+    const forsyth = pieceToForsyth(variant)({ color, role });
+    if (forsyth) {
+      const senteCnt = hand.get(role);
+      if (senteCnt) handStr += senteCnt > 1 ? senteCnt.toString() + forsyth : forsyth;
+    }
+  }
+  return renderColor(color, style) + ': ' + (handStr || '-');
+}
+
+export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey, style: Style): string {
+  if (style === 'japanese') {
+    const boardSfen = boardToSfen(pieces, dimensions(variant), roleToForsyth(variant)),
+      board = parseBoardSfen(variant, boardSfen);
+    if (board.isOk) return makeKifBoard(variant, board.value);
+  }
   const reversedFiles = [...files].slice(0, dimensions(variant).files).reverse(),
     board = [[' ', ...reversedFiles, ' ']];
   for (let rank of ranks.slice(0, dimensions(variant).ranks)) {
@@ -140,10 +171,12 @@ export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey): st
   return board.map(line => line.join(' ')).join('\n');
 }
 
-export function validUsi(usi: Usi, sfen: Sfen, variant: VariantKey): Usi | undefined {
-  const pos = parseSfen(variant, sfen, false),
-    move = parseUsi(usi);
-  if (pos.isOk && move) return pos.value.isLegal(move) ? usi : undefined;
+export function validUsi(moveString: string, sfen: Sfen, variant: VariantKey): Usi | undefined {
+  const pos = parseSfen(variant, sfen, false);
+  if (pos.isOk) {
+    const move = toMove(moveString.toLowerCase(), pos.value);
+    if (move) return makeUsi(move);
+  }
   return undefined;
 }
 
@@ -210,13 +243,35 @@ const colorsJP = {
   gote: '後手',
 };
 
-export function renderRole(r: Role): string {
-  if (useJP()) return rolesJP[r];
+// quick and dirty to do later
+const jpTrans: Record<string, string> = {
+  pieces: '駒',
+  board: '将棋盤',
+  hands: '駒台',
+  none: 'ない',
+  moves: '総手数',
+  'current position': '現在の局面',
+  'move form': '手のフォーム',
+  'command input': '指令入力',
+};
+
+export function NVUITrans(key: string): string {
+  if (document.documentElement.lang === 'ja-JP') return jpTrans[key.toLowerCase()] || key;
+  else return key;
+}
+
+function renderColor(c: Color, s: Style): string {
+  if (s === 'japanese') return colorsJP[c];
+  else return c;
+}
+
+function renderRole(r: Role, s: Style): string {
+  if (s === 'japanese') return rolesJP[r];
   else return r.replace(/^promoted/, 'promoted ');
 }
 
-export function renderPiece(c: Color, r: Role): string {
-  return `${useJP() ? colorsJP[c] : c} ${renderRole(r)}`;
+function renderPiece(c: Color, r: Role, s: Style): string {
+  return `${renderColor(c, s)} ${renderRole(r, s)}`;
 }
 
 const nato: { [letter: string]: string } = {
@@ -242,23 +297,19 @@ const anna: { [letter: string]: string } = {
   i: 'ivan',
 };
 
-export function renderFile(f: string, style: Style): string {
+function renderFile(f: string, style: Style): string {
   if (style === 'japanese') return String.fromCharCode(f.charCodeAt(0) + 0xfee0);
   else return f;
 }
 
-export function renderRank(f: string, style: Style): string {
+function renderRank(f: string, style: Style): string {
   if (style === 'japanese') return toKanjiDigit((f.toLowerCase().charCodeAt(0) - 96).toString());
   else if (style === 'nato') return nato[f];
   else if (style === 'anna') return anna[f];
   else return f;
 }
 
-export function renderKey(key: Key, style: Style): string {
+function renderKey(key: Key, style: Style): string {
   if (style === 'usi') return key;
   else return `${renderFile(key[0], style)} ${renderRank(key[1], style)} `;
-}
-
-function useJP(): boolean {
-  return document.documentElement.lang === 'ja-JP';
 }
