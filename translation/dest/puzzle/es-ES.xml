@@ -49,17 +49,17 @@
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente ejercicio inmediatamente</string>
   <string name="puzzleDashboard">Panel de ejercicios</string>
-  <string name="puzzleDashboardSubtitle">Train, analyse, improve</string>
+  <string name="puzzleDashboardSubtitle">Entrena, analiza, mejora</string>
   <string name="improvementAreas">Áreas de mejora</string>
-  <string name="improvementAreasSubtitle">Train these to optimize your progress!</string>
+  <string name="improvementAreasSubtitle">¡Repasa estos temas para progresar!</string>
   <string name="strengths">Fortalezas</string>
-  <string name="strengthsSubtitle">You perform the best in these themes</string>
+  <string name="strengthsSubtitle">Estas son las áreas en las que eres más fuerte</string>
   <string name="history">Historial de ejercicios</string>
   <string name="solved">resuelto</string>
   <string name="failed">fallido</string>
-  <string name="fromMyGames">From my games</string>
-  <string name="lookupOfPlayer">Lookup puzzles from a player\'s games</string>
-  <string name="fromXGames">Puzzles from %s\' games</string>
-  <string name="searchPuzzles">Search puzzles</string>
-  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
+  <string name="fromMyGames">De mis partidas</string>
+  <string name="lookupOfPlayer">Busca ejercicios en las partidas de un jugador</string>
+  <string name="fromXGames">Ejercicios de las partidas de %s</string>
+  <string name="searchPuzzles">Buscar ejercicios</string>
+  <string name="fromXGamesFound">%1$s ejercicios encontrados en las partidas de %2$s</string>
 </resources>

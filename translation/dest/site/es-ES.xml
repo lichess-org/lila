@@ -228,6 +228,11 @@
 	<string name="chushogi">Chushogi</string>
 	<string name="annanshogi">Shogi Annan (coreano)</string>
 	<string name="kyotoshogi">Shogi Kyoto</string>
+	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standard rules of shogi</string>
+	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Same rules as standard shogi, but played on a smaller 5x5 board</string>
+	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">The most popular historical variant of shogi played on a 12x12 board</string>
+	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Modern variant of shogi with alternating unique promotions on a 5x5 board</string>
+	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variant similar to standard shogi, where pieces move like friendly pieces behind them</string>
 	<string name="unlimited">Ilimitado</string>
 	<string name="mode">Modo</string>
 	<string name="casual">Amistosa</string>
@@ -930,4 +935,7 @@
 	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
 	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
 	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
+	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
+	<string name="back" comment="As in: go back">Back</string>
+	<string name="preview">Preview</string>
 </resources>

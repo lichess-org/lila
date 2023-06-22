@@ -127,6 +127,7 @@
   <string name="topicsDescription">Topics to organize your studies with</string>
   <string name="myTopics">自分のトピック</string>
   <string name="popularTopics">人気のトピック</string>
+  <string name="manageTopics">Manage topics</string>
   <string name="startTag" comment="Tags for kif and csa">開始</string>
   <string name="endTag" comment="Tags for kif and csa">終了</string>
   <string name="siteTag" comment="Tags for kif and csa">場所</string>
@@ -145,4 +146,17 @@
   <string name="collectionTag" comment="Tags for kif and csa">出典</string>
   <string name="lengthTag" comment="Tags for kif and csa">手数</string>
   <string name="prizeTag" comment="Tags for kif and csa">受賞</string>
+  <string name="initHelp" comment="Interactive study lesson">Help the player find the initial move, with a comment.</string>
+  <string name="introGamebook" comment="Interactive study lesson">Introduce the gamebook with a comment</string>
+  <string name="putFirstMove" comment="Interactive study lesson">Put the opponent\'s first move on the board.</string>
+  <string name="explainMove" comment="Interactive study lesson">Explain the opponent move, and help the player find the next move, with a comment.</string>
+  <string name="reflectOnMove" comment="Interactive study lesson">You may reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.</string>
+  <string name="variationMoves" comment="Interactive study lesson">Add variation moves to explain why specific other moves are wrong.</string>
+  <string name="explainWrongMove" comment="Interactive study lesson">Explain why this move is wrong in a comment</string>
+  <string name="orPromote" comment="Interactive study lesson">Or promote it as the mainline if it is the right move.</string>
+  <string name="otherMove" comment="Interactive study lesson">When any other wrong move is played:</string>
+  <string name="explainAllWrong" comment="Interactive study lesson">Explain why all other moves are wrong</string>
+  <string name="hintOnDemand" comment="Interactive study lesson">Optional, on-demand hint for the player:</string>
+  <string name="playerTip" comment="Interactive study lesson">Give the player a tip so they can find the right move</string>
+  <string name="playQuestion" comment="Interactive study lesson">What would you play in this position?</string>
 </resources>

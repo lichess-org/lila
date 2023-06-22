@@ -37,7 +37,7 @@
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
   <string name="drawStreak">اعتصاب تساوی: هنگامیکه یک بازیکن در مسابقات به شکل متوالی مساوی میکند،
-تنها برای نخستین مساوی یک امتیاز درنظر گرفته میشود، با تساوی هایی بیش از٪s حرکت. سلسله تساوی تنها با برد شکسته می‌شود، نه با باخت یا نه یا مساوی.</string>
+تنها برای نخستین مساوی یک امتیاز درنظر گرفته میشود، با تساوی هایی بیش از%s حرکت. سلسله تساوی تنها با برد شکسته می‌شود، نه با باخت یا نه یا مساوی.</string>
   <string name="noBerserkAllowed">No Berserk allowed</string>
   <string name="noArenaStreaks">No Arena streaks</string>
   <string name="averagePerformance">Average performance</string>

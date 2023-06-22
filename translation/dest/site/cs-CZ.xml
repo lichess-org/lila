@@ -214,10 +214,10 @@
 		<item quantity="other">Pořadí je aktualizováno každých %s minut</item>
 	</plurals>
 	<plurals name="nbPuzzles">
-		<item quantity="one">%s taktická úloha</item>
-		<item quantity="few">%s taktické úlohy</item>
-		<item quantity="many">%s taktických úloh</item>
-		<item quantity="other">%s taktických úloh</item>
+		<item quantity="one">%s puzzle</item>
+		<item quantity="few">%s puzzle</item>
+		<item quantity="many">%s puzzle</item>
+		<item quantity="other">%s puzzle</item>
 	</plurals>
 	<string name="gamesPlayed">Odehraných partií</string>
 	<plurals name="nbGamesWithYou">
@@ -248,6 +248,11 @@
 	<string name="chushogi">Čú šógi</string>
 	<string name="annanshogi">Annan šógi</string>
 	<string name="kyotoshogi">Kjóto šógi</string>
+	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standardní pravidla šógi</string>
+	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Stejná pravidla jako standardní šógi, ale hrané na menší 5x5 desce</string>
+	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Nejpopulárnější historická varianta šógi hraná na 12x12 desce</string>
+	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Moderní varianta šógi s jedinečnými střídavými povýšeními na 5x5 desce</string>
+	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Varianta podobná standardnímu šógi, kde kameny získavají pohyby jako přátelské kameny za nimi</string>
 	<string name="unlimited">Bez hodin</string>
 	<string name="mode">Režim hry</string>
 	<string name="casual">Jen tak</string>
@@ -279,7 +284,7 @@
 	<string name="send">Odeslat</string>
 	<string name="incrementInSeconds">Bonus za tah (v sekundách)</string>
 	<string name="byoyomiInSeconds">Byoyomi v sekundách</string>
-	<string name="numberOfPeriods">Počet tahů</string>
+	<string name="numberOfPeriods">Počet intervalů</string>
 	<string name="freeOnlineShogi">Šógi online zdarma</string>
 	<string name="spectators">Diváci:</string>
 	<plurals name="nbRated">
@@ -384,7 +389,7 @@
 	<string name="youAreNotInTeam">Nejste členem týmu %s</string>
 	<string name="backToGame">Zpět do hry</string>
 	<string name="siteDescription">Šógi online zdarma. Hrajte přímo ve vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
-	<string name="shogiDescription" comment="Feel free to tweak it">Šogi (shogi), také známý jako \"将棋\" v japonštině, je strategická hra pro dva hráče, která se hrála v Japonsku už po staletí. Často se také nezývá jako ,,japonské šachy\" kvůli podobnostem se západní hrou šachů, ale má jedinečné vlastnosti, díky nimž je výjímečnou hrou.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Šógi (shogi), také známé jako \"将棋\" v japonštině, je strategická hra pro dva hráče, která se hrála v Japonsku už po staletí. Často se také nazývá jako ,,japonské šachy\" kvůli podobnostem se západní hrou šachů, ale má jedinečné vlastnosti, díky nimž je výjimečnou hrou.</string>
 	<string name="learnShogiHereX">Pokud nejste obeznámeni s pravidly šógi, podívejte se na - %s.</string>
 	<string name="xJoinedTeamY">%1$s se přidal k týmu %2$s</string>
 	<string name="xCreatedTeamY">%1$s založil tým %2$s</string>
@@ -1004,4 +1009,7 @@
 	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Stiskněte %s pro aktivaci</string>
 	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Stiskněte %s pro potvrzení</string>
 	<string name="clickGame">Klikněte pro záznam, analýzu a diskusi o hře!</string>
+	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyzujte</string>
+	<string name="back" comment="As in: go back">Zpět</string>
+	<string name="preview">Náhled</string>
 </resources>

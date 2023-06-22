@@ -228,6 +228,11 @@
 	<string name="chushogi">Chushogi</string>
 	<string name="annanshogi">Annan shogi</string>
 	<string name="kyotoshogi">Kyoto shogi</string>
+	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standard rules of shogi</string>
+	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Same rules as standard shogi, but played on a smaller 5x5 board</string>
+	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">The most popular historical variant of shogi played on a 12x12 board</string>
+	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Modern variant of shogi with alternating unique promotions on a 5x5 board</string>
+	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variant similar to standard shogi, where pieces move like friendly pieces behind them</string>
 	<string name="unlimited">Απεριόριστου χρόνου</string>
 	<string name="mode">Ρύθμιση</string>
 	<string name="casual">Φιλικό</string>
@@ -364,8 +369,7 @@
 	<string name="toStudy">Μελέτη</string>
 	<string name="importGame">Εισαγωγή παιχνιδιού</string>
 	<string name="importedGame">Game was imported.</string>
-	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay, computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s Εισαγόμενο παιχνίδι</item>
 		<item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -664,7 +668,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να σας βοηθήσει στην έκθεση.</string>
 	<string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
 	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
-	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="hostColorForEachGame">Host colour for each game</string>
 	<string name="onlyMembersOfTeam">Only members of team</string>
 	<string name="noRestriction">No Restriction</string>
 	<string name="estimatedStart">Estimated start time</string>
@@ -763,8 +767,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="transparent">Διάφανο</string>
 	<string name="customTheme">Custom theme</string>
 	<string name="backgroundImageUrl">Διεύθυνση εικόνας φόντου:</string>
-	<string name="backgroundColor">Background color:</string>
-	<string name="gridColor">Grid color:</string>
+	<string name="backgroundColor">Background colour:</string>
+	<string name="gridColor">Grid colour:</string>
 	<string name="gridWidth">Grid width:</string>
 	<string name="board">Board</string>
 	<string name="grid">Grid</string>
@@ -931,4 +935,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
 	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
 	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
+	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
+	<string name="back" comment="As in: go back">Back</string>
+	<string name="preview">Preview</string>
 </resources>
