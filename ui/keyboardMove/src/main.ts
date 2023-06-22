@@ -3,6 +3,7 @@ import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { Api as SgApi } from 'shogiground/api';
 import { userMove, userDrop } from 'shogiground/board';
+import { anim } from 'shogiground/anim';
 
 export type KeyboardMoveHandler = (
   variant: VariantKey,
@@ -77,12 +78,12 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     move(orig, dest, prom) {
       usedMove = true;
       root.shogiground.cancelMove();
-      userMove(root.shogiground.state, orig, dest, prom);
+      anim(state => userMove(state, orig, dest, prom), root.shogiground.state);
     },
     drop(key, role) {
       const color = root.data.player.color;
       root.shogiground.cancelMove();
-      userDrop(root.shogiground.state, { role, color }, key);
+      anim(state => userDrop(state, { role, color }, key), root.shogiground.state);
     },
     sg: root.shogiground,
     update(step) {
