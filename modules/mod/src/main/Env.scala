@@ -34,10 +34,10 @@ final class Env(
     ec: Executor,
     scheduler: Scheduler
 ):
-  private lazy val logRepo        = new ModlogRepo(db(CollName("modlog")))
-  private lazy val assessmentRepo = new AssessmentRepo(db(CollName("player_assessment")))
-  private lazy val historyRepo    = new HistoryRepo(db(CollName("mod_gaming_history")))
-  private lazy val queueStatsRepo = new ModQueueStatsRepo(db(CollName("mod_queue_stat")))
+  private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
+  private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
+  private lazy val historyRepo    = HistoryRepo(db(CollName("mod_gaming_history")))
+  private lazy val queueStatsRepo = ModQueueStatsRepo(db(CollName("mod_queue_stat")))
 
   lazy val logApi = wire[ModlogApi]
 

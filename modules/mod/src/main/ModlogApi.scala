@@ -165,13 +165,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
 
   def wasMarkedBy(user: UserId)(using me: Me): Fu[Boolean] =
-    coll.secondaryPreferred.exists(
+    coll.secondaryPreferred.exists:
       $doc(
         "user" -> user,
         "mod"  -> me.userId,
         "action" $in markActions
       )
-    )
 
   def wereMarkedBy(users: List[UserId])(using me: Me): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](
