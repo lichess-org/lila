@@ -18,6 +18,9 @@
     margin-top: 2rem;
     font-size: 0.9em;
     @extend %flex-between;
+    a {
+      margin: 0 0.1rem;
+    }
   }
 
   &-login {

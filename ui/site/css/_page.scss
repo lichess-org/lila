@@ -4,7 +4,7 @@
     text-align: justify;
     h2 {
       margin-top: 1.3em;
-      border-bottom: 1px solid $c-brag;
+      border-bottom: 2px solid $c-brag;
       line-height: 2.5em;
     }
     p,
@@ -27,6 +27,7 @@
       @extend %roboto;
       font-size: 1.5em;
       line-height: 2.5em;
+      border-bottom: 1px solid $c-font;
     }
     h4 {
       font-weight: bold;
