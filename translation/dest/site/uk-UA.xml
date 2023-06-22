@@ -103,6 +103,7 @@
   <string name="openingExplorer">Провідник дебютів</string>
   <string name="openingEndgameExplorer">Дослідник дебютів\ендпшілю</string>
   <string name="xOpeningExplorer">Провідник дебюту %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Грати перший хід провідника дебютів/ендшпілів</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
   <string name="winOr50MovesByPriorMistake">Перемога або 50 ходiв за попередньою помилкою</string>
@@ -391,6 +392,12 @@
     <item quantity="few">%s дослідження</item>
     <item quantity="many">%s досліджень</item>
     <item quantity="other">%s досліджень</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s сеанс</item>
+    <item quantity="few">%s сеанса</item>
+    <item quantity="many">%s сеансів</item>
+    <item quantity="other">%s сеансів</item>
   </plurals>
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
