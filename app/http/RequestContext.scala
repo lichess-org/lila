@@ -51,30 +51,26 @@ trait RequestContext(using Executor):
     lang
 
   private def pageDataBuilder(using ctx: Context): Fu[PageData] =
-    val isPage = HTTPRequest isSynchronousHttp ctx.req
-    val nonce  = isPage option Nonce.random
-    ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
-      {
-        if isPage then
-          env.user.lightUserApi preloadUser me
-          val enabledId = me.enabled.yes option me.userId
-          enabledId.so(env.team.api.nbRequests) zip
-            enabledId.so(env.challenge.api.countInFor.get) zip
-            enabledId.so(env.notifyM.api.unreadCount) zip
-            env.mod.inquiryApi.forMod
-        else
-          fuccess:
-            (((0, 0), lila.notify.Notification.UnreadCount(0)), none)
-      } map { case (((teamNbRequests, nbChallenges), nbNotifications), inquiry) =>
-        PageData(
-          teamNbRequests,
-          nbChallenges,
-          nbNotifications,
-          hasClas = env.clas.hasClas,
-          inquiry = inquiry,
-          nonce = nonce
-        )
-      }
+    if HTTPRequest isSynchronousHttp ctx.req
+    then
+      val nonce = Nonce.random.some
+      ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
+        env.user.lightUserApi preloadUser me
+        val enabledId = me.enabled.yes option me.userId
+        enabledId.so(env.team.api.nbRequests) zip
+          enabledId.so(env.challenge.api.countInFor.get) zip
+          enabledId.so(env.notifyM.api.unreadCount) zip
+          env.mod.inquiryApi.forMod map { case (((teamNbRequests, nbChallenges), nbNotifications), inquiry) =>
+            PageData(
+              teamNbRequests,
+              nbChallenges,
+              nbNotifications,
+              hasClas = env.clas.hasClas,
+              inquiry = inquiry,
+              nonce = nonce
+            )
+          }
+    else fuccess(PageData.anon(none))
 
   def pageContext(using ctx: Context): Fu[PageContext] =
     pageDataBuilder.dmap(PageContext(ctx, _))
