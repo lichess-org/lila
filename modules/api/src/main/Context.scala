@@ -101,8 +101,6 @@ object EmbedContext:
   given (using config: EmbedContext): Lang = config.lang
   def apply(req: RequestHeader): EmbedContext = new EmbedContext(
     Context.minimal(req),
-    bg = get("bg", req).filterNot("auto".==) | "system",
+    bg = req.queryString.get("bg").flatMap(_.headOption).filterNot("auto".==) | "system",
     nonce = Nonce.random
   )
-  private def get(name: String, req: RequestHeader): Option[String] =
-    req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
