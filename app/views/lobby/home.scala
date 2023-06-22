@@ -60,7 +60,7 @@ object home {
       )(
         div(cls := "lobby__table")(
           div(cls := "lobby__start")(
-            ctx.blind option h2("Play"),
+            ctx.blind option h2(trans.play()),
             a(
               href := routes.Setup.hookForm,
               cls := List(
