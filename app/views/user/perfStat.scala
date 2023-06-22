@@ -29,7 +29,7 @@ object perfStat:
         ratingChart.map: rc =>
           jsModuleInit(
             "chart.ratingHistory",
-            s"{data:$rc,singlePerName:'${perfType.trans(using lila.i18n.defaultLang)}'}"
+            s"{data:$rc,singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'}"
           )
       ),
       moreCss = cssTag("perf-stat")
