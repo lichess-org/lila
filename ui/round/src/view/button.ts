@@ -341,7 +341,7 @@ export function impasse(ctrl: RoundController): MaybeVNode {
     {
       attrs: {
         title: ctrl.noarg('impasse'),
-        disabled: 'standard' !== ctrl.data.game.variant.key,
+        disabled: !['standard', 'annanshogi'].includes(ctrl.data.game.variant.key),
       },
       class: { active: ctrl.impasseHelp },
       hook: util.bind('click', _ => {
