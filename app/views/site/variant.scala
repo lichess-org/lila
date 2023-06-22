@@ -23,7 +23,8 @@ object variant {
           url = s"$netBaseUrl${routes.Page.variant(shogiVariant.key)}",
           description = variantDescription(shogiVariant)
         )
-        .some
+        .some,
+      withHrefLangs = doc.getText("variant.translated").isDefined option lila.i18n.LangList.EnglishJapanese
     )(
       h1(cls := "text", dataIcon := variantIcon(shogiVariant))(variantName(shogiVariant)),
       h2(cls := "headline")(variantDescription(shogiVariant)),
@@ -56,12 +57,14 @@ object variant {
       title: String,
       klass: String,
       activeKey: Option[String] = None,
-      openGraph: Option[lila.app.ui.OpenGraph] = None
+      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = None
   )(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("variant"),
-      openGraph = openGraph
+      openGraph = openGraph,
+      withHrefLangs = withHrefLangs
     )(
       main(cls := "page-menu")(
         st.aside(cls := "page-menu__menu subnav")(
