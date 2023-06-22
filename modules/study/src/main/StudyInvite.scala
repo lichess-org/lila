@@ -36,7 +36,7 @@ final private class StudyInvite(
       fufail[Unit]("Only the study owner can invite")
     invited <-
       userRepo
-        .byId(invitedUsername)
+        .enabledById(invitedUsername)
         .map(
           _.filterNot(u => User.lichessId.is(u) && !Granter(_.StudyAdmin))
         ) orFail "No such invited"
