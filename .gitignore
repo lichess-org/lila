@@ -30,8 +30,6 @@ ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
 yarn-error.log
-ui/puz/**/*.js
-ui/puz/**/*.d.ts
 
 RUNNING_PID
 

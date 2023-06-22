@@ -1,6 +1,6 @@
 import * as game from 'game';
 import { VNode, h } from 'snabbdom';
-import { defined } from '../../common/common';
+import { defined } from 'common/common';
 import AnalyseCtrl from './ctrl';
 import { isFinished } from './study/studyChapters';
 
@@ -76,7 +76,7 @@ export function renderTime(centis: number, forceHours: boolean): string {
     mins = Math.floor(centis / 6000) % 60,
     secs = Math.floor(centis / 100) % 60,
     sep = ':';
-  return ((hrs || forceHours) > 0 ? pad2(hrs) + sep : '') + pad2(mins) + sep + pad2(secs);
+  return (hrs > 0 || forceHours ? pad2(hrs) + sep : '') + pad2(mins) + sep + pad2(secs);
 }
 
 function pad2(num: number): string {

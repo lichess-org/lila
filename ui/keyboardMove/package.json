@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "description": "lishogi.org keyboard move",
-  "type": "module",
-  "main": "dist/src/main.js",
-  "types": "dist/src/main",
+  "main": "dist/main.js",
+  "types": "dist/main",
   "keywords": [
     "shogi",
     "lishogi",
@@ -22,7 +21,7 @@
   "dependencies": {
     "common": "2.0.0",
     "shogiground": "^0.7.1",
-    "shogiops": "^0.14.3",
+    "shogiops": "^0.14.4",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

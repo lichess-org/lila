@@ -4,6 +4,17 @@
   "private": true,
   "description": "lishogi.org game",
   "main": "game.js",
+  "exports": {
+    ".": "./dist/game.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "keywords": [
     "shogi",
     "lishogi",
