@@ -95,7 +95,7 @@ function extraTeams(ctrl: TournamentController): VNode {
         'a',
         {
           attrs: {
-            href: `/tournament/${ctrl.data.tour.id}/teams`,
+            href: `/tournament/${ctrl.data.id}/teams`,
           },
         },
         ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length)
@@ -156,7 +156,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
             const href = (e.target as HTMLElement).getAttribute('data-href');
             if (href) {
               ctrl.jumpToPageOf(href.slice(3));
-              ctrl.redraw;
+              ctrl.redraw();
             }
           }),
         },
