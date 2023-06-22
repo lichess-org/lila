@@ -1,16 +1,14 @@
 package controllers
 
+import scala.annotation.nowarn
 import play.api.data.Form
 import play.api.mvc.*
 
 import lila.app.{ given, * }
-
-// import lila.common.config.MaxPerSecond
+import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
-
-import views.*
 import chess.format.pgn.PgnStr
-import scala.annotation.nowarn
+import views.*
 
 final class RelayRound(
     env: Env,
@@ -112,28 +110,33 @@ final class RelayRound(
   }
 
   def show(ts: String, rs: String, id: RelayRoundId) =
-    OpenOrScoped(_.Study.Read)(
-      open = ctx ?=>
-        pageHit
-        WithRoundAndTour(ts, rs, id): rt =>
-          val sc =
-            if rt.round.sync.ongoing then
-              env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
-                chapters.find(_.looksAlive) orElse chapters.headOption match {
-                  case Some(chapter) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
-                  case None          => env.study.api byIdWithChapter rt.round.studyId
+    OpenOrScoped(_.Study.Read): ctx ?=>
+      negotiateHtmlOrJson(
+        html =
+          pageHit
+          WithRoundAndTour(ts, rs, id): rt =>
+            val sc =
+              if rt.round.sync.ongoing then
+                env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
+                  chapters.find(_.looksAlive) orElse chapters.headOption match {
+                    case Some(chapter) =>
+                      env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
+                    case None => env.study.api byIdWithChapter rt.round.studyId
+                  }
                 }
+              else env.study.api byIdWithChapter rt.round.studyId
+            sc flatMapz { doShow(rt, _) }
+        ,
+        json = env.relay.api.byIdWithTour(id) flatMapz { rt =>
+          env.study.studyRepo.byId(rt.round.studyId) flatMapz { study =>
+            studyC.CanView(study)(
+              env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
+                JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
               }
-            else env.study.api byIdWithChapter rt.round.studyId
-          sc flatMapz { doShow(rt, _) }
-      ,
-      scoped = _ ?=>
-        env.relay.api.byIdWithTour(id) flatMapz { rt =>
-          env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
-            JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
+            )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
           }
         }
-    )
+      )
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
   def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
@@ -163,7 +166,7 @@ final class RelayRound(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id): rt =>
-      if !ctx.req.path.startsWith(rt.path)
+      if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable(ctx.req)
       then Redirect(rt.path)
       else f(rt)
 
@@ -183,26 +186,25 @@ final class RelayRound(
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
       ctx: Context
   ): Fu[Result] =
-    studyC
-      .CanView(oldSc.study)(
-        for
-          (sc, studyData) <- studyC.getJsonData(oldSc)
-          rounds          <- env.relay.api.byTourOrdered(rt.tour)
-          data <- env.relay.jsonView.makeData(
-            rt.tour withRounds rounds.map(_.round),
-            rt.round.id,
-            studyData,
-            ctx.userId exists sc.study.canContribute
-          )
-          chat      <- studyC.chatOf(sc.study)
-          sVersion  <- env.study.version(sc.study.id)
-          streamers <- studyC.streamersOf(sc.study)
-          page      <- renderPage(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
-        yield Ok(page).enableSharedArrayBuffer
-      )(
-        studyC.privateUnauthorizedFu(oldSc.study),
-        studyC.privateForbiddenFu(oldSc.study)
-      )
+    studyC.CanView(oldSc.study)(
+      for
+        (sc, studyData) <- studyC.getJsonData(oldSc)
+        rounds          <- env.relay.api.byTourOrdered(rt.tour)
+        data <- env.relay.jsonView.makeData(
+          rt.tour withRounds rounds.map(_.round),
+          rt.round.id,
+          studyData,
+          ctx.userId exists sc.study.canContribute
+        )
+        chat      <- studyC.chatOf(sc.study)
+        sVersion  <- env.study.version(sc.study.id)
+        streamers <- studyC.streamersOf(sc.study)
+        page      <- renderPage(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
+      yield Ok(page).enableSharedArrayBuffer
+    )(
+      studyC.privateUnauthorizedFu(oldSc.study),
+      studyC.privateForbiddenFu(oldSc.study)
+    )
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 100 * 10,
