@@ -44,6 +44,7 @@ object userAnalysisI18n {
     trans.repetition,
     trans.perpetualCheck,
     trans.xLeftTheGame,
+    trans.xDidntMove,
     trans.draw,
     trans.impasse,
     trans.timeOut,
