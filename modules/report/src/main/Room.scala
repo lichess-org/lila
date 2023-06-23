@@ -1,9 +1,12 @@
 package lila.report
 
+import cats.Eq
+import cats.derived.*
+
 import lila.user.Me
 import lila.common.Iso
 
-enum Room:
+enum Room derives Eq:
 
   case Cheat, Boost, Print, Comm, Other, Xfiles
 

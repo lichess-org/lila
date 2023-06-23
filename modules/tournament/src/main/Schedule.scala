@@ -1,5 +1,8 @@
 package lila.tournament
 
+import cats.Eq
+import cats.derived.*
+
 import chess.format.Fen
 import chess.variant.Variant
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
@@ -151,7 +154,7 @@ object Schedule:
         buildFunc = buildFunc.fold(f)(f.compose).some
       )
 
-  enum Freq(val id: Int, val importance: Int) extends Ordered[Freq]:
+  enum Freq(val id: Int, val importance: Int) extends Ordered[Freq] derives Eq:
     case Hourly               extends Freq(10, 10)
     case Daily                extends Freq(20, 20)
     case Eastern              extends Freq(30, 15)

@@ -15,6 +15,7 @@ import lila.user.User
 import java.util.Currency
 import play.api.i18n.Lang
 import play.api.ConfigLoader
+import cats.kernel.Eq
 
 final private class PayPalClient(
     ws: StandaloneWSClient,
@@ -42,6 +43,9 @@ final private class PayPalClient(
     val events                     = "v1/notifications/webhooks-events"
 
   private val patronMonthProductId = "PATRON-MONTH"
+
+  // todo: proper Eq implementation
+  given Eq[Currency] = Eq.fromUniversalEquals
 
   private val plans = cacheApi(32, "plan.payPal.plans") {
     _.buildAsyncFuture[Currency, PayPalPlan] { cur =>

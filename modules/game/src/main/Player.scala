@@ -1,11 +1,13 @@
 package lila.game
 
+import cats.Eq
+import cats.derived.*
 import cats.syntax.all.*
 import chess.{ Ply, Color, ByColor }
 
 import lila.user.User
 
-case class PlayerUser(id: UserId, rating: IntRating, ratingDiff: Option[IntRatingDiff])
+case class PlayerUser(id: UserId, rating: IntRating, ratingDiff: Option[IntRatingDiff]) derives Eq
 
 case class Player(
     id: GamePlayerId,
@@ -21,7 +23,7 @@ case class Player(
     blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
     name: Option[String] = None
-):
+) derives Eq:
 
   def playerUser =
     userId flatMap { uid =>
