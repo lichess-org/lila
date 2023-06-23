@@ -65,37 +65,24 @@ final class Msg(env: Env) extends LilaController(env):
       )
   }
 
-  def apiPost(username: UserStr) =
+  def apiPost(username: UserStr) = AuthOrScopedBody(_.Msg.Write) { ctx ?=> me ?=>
     val userId = username.id
-    AuthOrScopedBody(_.Msg.Write)(
-      // compat: reply
-      auth = ctx ?=>
-        me ?=>
-          env.msg.compat
-            .reply(userId)
-            .fold(
-              jsonFormError,
-              _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
-            ),
-      // new API: create/reply
-      scoped = ctx ?=>
-        me ?=>
-          (!me.kid && !me.is(userId)) so {
-            import play.api.data.*
-            import play.api.data.Forms.*
-            Form(single("text" -> nonEmptyText))
-              .bindFromRequest()
-              .fold(
-                jsonFormError,
-                text =>
-                  env.msg.api.post(me, userId, text) map {
-                    case lila.msg.MsgApi.PostResult.Success => jsonOkResult
-                    case lila.msg.MsgApi.PostResult.Limited => rateLimitedJson
-                    case _ => BadRequest(jsonError("The message was rejected"))
-                  }
-              )
-          }
-    )
+    if ctx.isWebAuth then // compat: reply
+      env.msg.compat.reply(userId).fold(jsonFormError, _ inject Ok(Json.obj("ok" -> true, "id" -> userId)))
+    else // new API: create/reply
+      (!me.kid && !me.is(userId)).so:
+        env.msg.textForm
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            text =>
+              env.msg.api.post(me, userId, text) map {
+                case lila.msg.MsgApi.PostResult.Success => jsonOkResult
+                case lila.msg.MsgApi.PostResult.Limited => rateLimitedJson
+                case _                                  => BadRequest(jsonError("The message was rejected"))
+              }
+          )
+  }
 
   private def inboxJson(using me: Me) =
     env.msg.api.myThreads flatMap env.msg.json.threads map { threads =>

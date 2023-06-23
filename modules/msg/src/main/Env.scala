@@ -66,6 +66,9 @@ final class Env(
     }
   )
 
+  import play.api.data.Forms.*
+  val textForm = play.api.data.Form(single("text" -> nonEmptyText))
+
 private class MsgColls(db: lila.db.Db):
   val thread = db(CollName("msg_thread"))
   val msg    = db(CollName("msg_msg"))

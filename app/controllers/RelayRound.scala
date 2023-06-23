@@ -23,45 +23,33 @@ final class RelayRound(
           html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
   }
 
-  def create(tourId: String) =
-    AuthOrScopedBody(_.Study.Write)(
-      auth = ctx ?=>
-        me ?=>
-          NoLameOrBot:
-            WithTourAndRoundsCanUpdate(tourId): trs =>
-              val tour = trs.tour
-              env.relay.roundForm
-                .create(trs)
-                .bindFromRequest()
-                .fold(
-                  err => BadRequest.page(html.relay.roundForm.create(err, tour)),
-                  setup =>
-                    rateLimitCreation(Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))):
-                      env.relay.api.create(setup, me, tour) map { round =>
-                        Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
-                      }
-                )
-      ,
-      scoped = ctx ?=>
-        me ?=>
-          NoLameOrBot:
-            env.relay.api tourById TourModel.Id(tourId) flatMapz { tour =>
-              env.relay.api.withRounds(tour) flatMap { trs =>
-                env.relay.roundForm
-                  .create(trs)
-                  .bindFromRequest()
-                  .fold(
-                    err => BadRequest(apiFormError(err)),
-                    setup =>
-                      rateLimitCreation(rateLimited):
-                        JsonOk:
-                          env.relay.api.create(setup, me, tour) map { round =>
-                            env.relay.jsonView.withUrl(round withTour tour)
-                          }
+  def create(tourId: String) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    NoLameOrBot:
+      WithTourAndRoundsCanUpdate(tourId): trs =>
+        val tour = trs.tour
+        def whenRateLimited = negotiateHtmlOrJson(
+          Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value)),
+          rateLimited
+        )
+        env.relay.roundForm
+          .create(trs)
+          .bindFromRequest()
+          .fold(
+            err =>
+              negotiateHtmlOrJson(
+                BadRequest.page(html.relay.roundForm.create(err, tour)),
+                BadRequest(apiFormError(err))
+              ),
+            setup =>
+              rateLimitCreation(whenRateLimited):
+                env.relay.api.create(setup, tour) flatMap { round =>
+                  negotiateHtmlOrJson(
+                    Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value)),
+                    JsonOk(env.relay.jsonView.withUrl(round withTour tour))
                   )
-              }
-            }
-    )
+                }
+          )
+  }
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     OptionPage(env.relay.api.byIdAndContributor(id)): rt =>

@@ -196,12 +196,12 @@ final class RelayApi(
     tourRepo.coll.update.one($id(tour.id), data.update(tour)).void >>-
       leaderboard.invalidate(tour.id)
 
-  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
+  def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound] =
     roundRepo.lastByTour(tour) flatMapz { last =>
       studyRepo.byId(last.studyId)
     } flatMap { lastStudy =>
       import lila.study.{ StudyMember, StudyMembers }
-      val relay = data.make(user, tour)
+      val relay = data.make(me, tour)
       roundRepo.coll.insert.one(relay) >>
         studyApi.create(
           StudyMaker.ImportGame(
@@ -218,13 +218,10 @@ final class RelayApi(
               .some,
             from = Study.From.Relay(none).some
           ),
-          user,
+          me,
           withRatings = true,
-          _.copy(members =
-            lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(
-              id = user.id,
-              role = StudyMember.Role.Write
-            )
+          _.copy(
+            members = lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(me, StudyMember.Role.Write)
           )
         ) >>
         tourRepo.setActive(tour.id, true) >>
