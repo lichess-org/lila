@@ -120,15 +120,6 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and oauth requests with a body */
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
-      auth: BodyContext[?] ?=> Me ?=> Fu[Result],
-      scoped: BodyContext[?] ?=> Me ?=> Fu[Result]
-  ): EssentialAction =
-    action(parse.anyContent): req ?=>
-      if HTTPRequest.isOAuth(req)
-      then handleScopedBody(selectors)(scoped)
-      else handleAuthBody(auth)
-
-  def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
       f: BodyContext[?] ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.anyContent): req ?=>

@@ -49,36 +49,30 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       Ok.page(html.relay.tourForm.create(env.relay.tourForm.create))
   }
 
-  def create = AuthOrScopedBody(_.Study.Write)(
-    auth = ctx ?=>
-      me ?=>
-        NoLameOrBot:
-          env.relay.tourForm.create
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.page(html.relay.tourForm.create(err)),
-              setup =>
-                rateLimitCreation(Redirect(routes.RelayTour.index())):
-                  env.relay.api.tourCreate(setup) map { tour =>
-                    Redirect(routes.RelayRound.form(tour.id)).flashSuccess
-                  }
-            )
-    ,
-    scoped = _ ?=>
-      _ ?=>
-        NoLameOrBot:
-          env.relay.tourForm.create
-            .bindFromRequest()
-            .fold(
-              err => BadRequest(apiFormError(err)).toFuccess,
-              setup =>
-                rateLimitCreation(rateLimited):
+  def create = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    NoLameOrBot:
+      def whenRateLimited = negotiateHtmlOrJson(Redirect(routes.RelayTour.index()), rateLimited)
+      env.relay.tourForm.create
+        .bindFromRequest()
+        .fold(
+          err =>
+            negotiateHtmlOrJson(
+              BadRequest.page(html.relay.tourForm.create(err)),
+              BadRequest(apiFormError(err))
+            ),
+          setup =>
+            rateLimitCreation(whenRateLimited):
+              env.relay.api.tourCreate(setup) flatMap { tour =>
+                negotiateHtmlOrJson(
+                  Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
                   JsonOk:
                     env.relay.api.tourCreate(setup) map { tour =>
                       env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
                     }
-            )
-  )
+                )
+              }
+        )
+  }
 
   def edit(id: TourModel.Id) = Auth { ctx ?=> _ ?=>
     WithTourCanUpdate(id): tour =>
@@ -86,34 +80,25 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))
   }
 
-  def update(id: TourModel.Id) =
-    AuthOrScopedBody(_.Study.Write)(
-      auth = ctx ?=>
-        me ?=>
-          WithTourCanUpdate(id): tour =>
-            env.relay.tourForm
-              .edit(tour)
-              .bindFromRequest()
-              .fold(
-                err => BadRequest.page(html.relay.tourForm.edit(tour, err)),
-                setup =>
-                  env.relay.api.tourUpdate(tour, setup) inject
-                    Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-              ),
-      scoped = _ ?=>
-        me ?=>
-          env.relay.api tourById id flatMapz { tour =>
-            env.relay.api.canUpdate(tour) flatMapz {
-              env.relay.tourForm
-                .edit(tour)
-                .bindFromRequest()
-                .fold(
-                  err => BadRequest(apiFormError(err)).toFuccess,
-                  setup => env.relay.api.tourUpdate(tour, setup) inject jsonOkResult
-                )
-            }
-          }
-    )
+  def update(id: TourModel.Id) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    WithTourCanUpdate(id): tour =>
+      env.relay.tourForm
+        .edit(tour)
+        .bindFromRequest()
+        .fold(
+          err =>
+            negotiateHtmlOrJson(
+              BadRequest.page(html.relay.tourForm.edit(tour, err)),
+              BadRequest(apiFormError(err))
+            ),
+          setup =>
+            env.relay.api.tourUpdate(tour, setup) >>
+              negotiateHtmlOrJson(
+                Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value)),
+                jsonOkResult
+              )
+        )
+  }
 
   def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>

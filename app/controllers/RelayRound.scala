@@ -56,31 +56,30 @@ final class RelayRound(
       html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
-  def update(id: RelayRoundId) =
-    AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
-      env.relay.api.byIdAndContributor(id) flatMapz { rt =>
-        env.relay.roundForm
-          .edit(rt.round)
-          .bindFromRequest()
-          .fold(
-            err => fuccess(Left(rt -> err)),
-            data =>
-              env.relay.api
-                .update(rt.round)(data.update)
-                .dmap(_ withTour rt.tour)
-                .dmap(Right(_))
-          ) dmap some
-      } flatMapz {
-        _.fold(
-          (old, err) =>
-            negotiateHtmlOrJson(
-              BadRequest.page(html.relay.roundForm.edit(old, err)),
-              BadRequest(apiFormError(err))
-            ),
-          rt => negotiateHtmlOrJson(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
-        )
-      }
+  def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    env.relay.api.byIdAndContributor(id) flatMapz { rt =>
+      env.relay.roundForm
+        .edit(rt.round)
+        .bindFromRequest()
+        .fold(
+          err => fuccess(Left(rt -> err)),
+          data =>
+            env.relay.api
+              .update(rt.round)(data.update)
+              .dmap(_ withTour rt.tour)
+              .dmap(Right(_))
+        ) dmap some
+    } flatMapz {
+      _.fold(
+        (old, err) =>
+          negotiateHtmlOrJson(
+            BadRequest.page(html.relay.roundForm.edit(old, err)),
+            BadRequest(apiFormError(err))
+          ),
+        rt => negotiateHtmlOrJson(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
+      )
     }
+  }
 
   def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     OptionFuResult(env.relay.api.byIdAndContributor(id)): rt =>
