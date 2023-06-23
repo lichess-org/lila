@@ -82,8 +82,6 @@ trait ResponseBuilder(using Executor)
   def notFoundJson(msg: String = "Not found"): Fu[Result] = fuccess(notFoundJsonSync(msg))
   def notFoundText(msg: String = "Not found"): Fu[Result] = fuccess(Results.NotFound(msg))
 
-  def notForBotAccounts = JsonBadRequest(jsonError("This API endpoint is not for Bot accounts."))
-
   def notFound(using ctx: Context): Fu[Result] =
     negotiate(
       html =
@@ -120,6 +118,16 @@ trait ResponseBuilder(using Executor)
       InternalServerError.page(views.html.site.message.serverError(msg)),
       InternalServerError(jsonError(msg))
     )
+
+  def notForBotAccounts(using Context) = negotiate(
+    Forbidden.page(views.html.site.message.noBot),
+    Forbidden(jsonError("This API endpoint is not for Bot accounts."))
+  )
+
+  def notForLameAccounts(using Context, Me) = negotiate(
+    Forbidden.page(views.html.site.message.noLame),
+    Forbidden(jsonError("The access to this resource is restricted."))
+  )
 
   def playbanJsonError(ban: lila.playban.TempBan) =
     Forbidden(

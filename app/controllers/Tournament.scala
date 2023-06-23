@@ -186,9 +186,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
-    if me.lame || me.isBot
-    then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
-    else
+    NoLameOrBot:
       NoPlayban:
         JoinLimitPerUser(me, rateLimitedJsonFu):
           val data = TournamentForm.joinForm

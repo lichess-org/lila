@@ -39,6 +39,13 @@ object message:
   def noBooster(using PageContext) = apply("No booster area"):
     "Sorry, boosters and sandbaggers are not allowed here."
 
+  def noLame(using PageContext)(using me: Me) =
+    if me.marks.boost then noBooster
+    if me.marks.engine then noEngine
+    else // ?
+      apply("Restricted area"):
+        "Sorry, the access to this resource is restricted."
+
   def blacklistedMessage(using ctx: Context) =
     s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 

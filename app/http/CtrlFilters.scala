@@ -74,9 +74,9 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def NoLameOrBotOpt[A <: Result](a: => Fu[A])(using Context): Fu[Result] =
     NoLame(NoBot(a))
 
-  def NoLameOrBot[A <: Result](a: => Fu[A])(using me: Me): Fu[Result] =
+  def NoLameOrBot[A <: Result](a: => Fu[A])(using me: Me)(using Context): Fu[Result] =
     if me.isBot then notForBotAccounts
-    else if me.lame then Forbidden
+    else if me.lame then notForLameAccounts
     else a
 
   def NoShadowban[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
