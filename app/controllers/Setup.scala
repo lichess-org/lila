@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import chess.format.Fen
 
 import lila.app.{ given, * }
-import lila.common.IpAddress
+import lila.common.{ IpAddress, HTTPRequest }
 import lila.game.{ AnonCookie, Pov }
 import lila.rating.Glicko
 import lila.setup.Processor.HookResult
@@ -185,7 +185,7 @@ final class Setup(
       case Right(author) =>
         forms
           .boardApiHook:
-            ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.IsLichessMobile(ctx.req))
+            ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
           .bindFromRequest()
           .fold(
             newJsonFormError,
