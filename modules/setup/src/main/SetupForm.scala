@@ -99,7 +99,9 @@ object SetupForm:
       .verifying(
         "Invalid time control",
         hook =>
-          mobile || hook.makeClock.exists(lila.game.Game.isBoardCompatible) || hook.makeDaysPerTurn.isDefined
+          allowFastGames || hook.makeClock.exists(
+            lila.game.Game.isBoardCompatible
+          ) || hook.makeDaysPerTurn.isDefined
       )
 
   object api:
