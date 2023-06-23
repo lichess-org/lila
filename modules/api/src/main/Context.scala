@@ -17,7 +17,7 @@ final class LoginContext(
     val oauth: Option[TokenScopes]
 ):
   export me.{ isDefined as isAuth, isEmpty as isAnon }
-  def meId: Option[MyId]             = me.map(_.meId)
+  def myId: Option[MyId]             = me.map(_.myId)
   def is[U: UserIdOf](u: U): Boolean = me.exists(_ is u)
   inline def user: Option[User]      = Me raw me
   def userId: Option[UserId]         = user.map(_.id)
@@ -55,7 +55,7 @@ class Context(
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }
   given (using ctx: Context): Option[Me]     = ctx.me
-  given (using ctx: Context): Option[MyId]   = ctx.meId
+  given (using ctx: Context): Option[MyId]   = ctx.myId
   given (using page: PageContext): Context   = page.ctx
   given (using embed: EmbedContext): Context = embed.ctx
 

@@ -10,4 +10,4 @@ final class ModReportFilter:
   def get(mod: Me): Option[Room] = modIdFilter.get(mod).flatten
 
   def set(mod: Me, filter: Option[Room]) =
-    modIdFilter = modIdFilter + (mod.meId -> filter)
+    modIdFilter = modIdFilter + (mod.myId -> filter)
