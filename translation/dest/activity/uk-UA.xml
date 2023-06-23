@@ -89,7 +89,7 @@
   <plurals name="rankedInTournament">
     <item quantity="one">Досяг #%1$s місця (кращі %2$s%%), зіграна %3$s гра, в турнірі: %4$s</item>
     <item quantity="few">Досяг #%1$s місця (кращі %2$s%%), зіграно %3$s гри, турнір: %4$s</item>
-    <item quantity="many">Досяг #%1$s місця (кращі %2$s%%), зіграна %3$s ігор, турнір: %4$s</item>
+    <item quantity="many">Досяг #%1$s місця (кращі %2$s%%), зіграно %3$s ігор, турнір: %4$s</item>
     <item quantity="other">Досяг #%1$s місця (кращі %2$s%%), зіграно %3$s ігор, турнір: %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
