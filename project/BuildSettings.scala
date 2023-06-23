@@ -29,7 +29,8 @@ object BuildSettings {
       alleycats,
       play.api,
       chess,
-      scalalib
+      scalalib,
+      kittens,
     )
 
   def module(
