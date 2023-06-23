@@ -114,15 +114,15 @@ final class Blog(
       env.forum.topicRepo.existsByTree(categId, topicSlug) flatMap {
         if _ then redirect
         else
-          IfFound(blogApi.one(prismic.api, none, id)): doc =>
-            IfFound(env.forum.categRepo.byId(categId)): categ =>
+          Found(blogApi.one(prismic.api, none, id)): doc =>
+            Found(env.forum.categRepo.byId(categId)): categ =>
               env.forum.topicApi.makeBlogDiscuss(
                 categ = categ,
                 slug = topicSlug,
                 name = doc.getText("blog.title") | "New blog post",
                 url = s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
-              )
-      } inject redirect
+              ) inject redirect
+      }
     }
 
   private def WithPrismic(f: Context ?=> BlogApi.Context ?=> Fu[Result]) = Open:

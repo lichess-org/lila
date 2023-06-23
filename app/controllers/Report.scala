@@ -123,8 +123,8 @@ final class Report(
   }
 
   def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { _ ?=> me ?=>
-    IfFound(env.user.repo byId username): user =>
-      IfFound(api.currentCheatReport(lila.report.Suspect(user))): report =>
+    Found(env.user.repo byId username): user =>
+      Found(api.currentCheatReport(lila.report.Suspect(user))): report =>
         api.inquiries.toggle(me, Left(report.id)).void
   }
 
@@ -173,7 +173,7 @@ final class Report(
       .fold(
         _ => BadRequest,
         data =>
-          IfFound(env.user.repo byId data.username): user =>
+          Found(env.user.repo byId data.username): user =>
             if user == me then BadRequest
             else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
       )

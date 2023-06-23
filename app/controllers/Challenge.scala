@@ -41,7 +41,7 @@ final class Challenge(
     showId(id)
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
-    IfFound(api byId id)(showChallenge(_))
+    Found(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
       c: ChallengeModel,
@@ -84,7 +84,7 @@ final class Challenge(
       !challenge.challengerUserId.so(orig => me.exists(_ is orig))
 
   def accept(id: ChallengeId, color: Option[String]) = Open:
-    IfFound(api byId id): c =>
+    Found(api byId id): c =>
       val cc = color flatMap chess.Color.fromName
       isForMe(c) so api
         .accept(c, ctx.req.sid, cc)
@@ -142,7 +142,7 @@ final class Challenge(
     }
 
   def decline(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
-    IfFound(api byId id): c =>
+    Found(api byId id): c =>
       isForMe(c) so
         api.decline(
           c,
@@ -170,7 +170,7 @@ final class Challenge(
 
   def cancel(id: ChallengeId) =
     Open:
-      IfFound(api byId id): c =>
+      Found(api byId id): c =>
         if isMine(c) then api cancel c else notFound
 
   def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
@@ -254,7 +254,7 @@ final class Challenge(
   def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     import play.api.data.*
     import play.api.data.Forms.*
-    IfFound(api byId id): c =>
+    Found(api byId id): c =>
       if isMine(c) then
         Form(single("username" -> lila.user.UserForm.historicalUsernameField))
           .bindFromRequest()
@@ -382,7 +382,7 @@ final class Challenge(
 
   def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me ?=>
     NoBot:
-      IfFound(env.game.gameRepo game gameId): g =>
+      Found(env.game.gameRepo game gameId): g =>
         Pov.opponentOf(g, me).flatMap(_.userId) so env.user.repo.byId orNotFound { opponent =>
           env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d))

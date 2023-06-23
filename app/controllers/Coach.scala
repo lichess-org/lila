@@ -32,7 +32,7 @@ final class Coach(env: Env) extends LilaController(env):
     yield Ok(page)
 
   def show(username: UserStr) = Open:
-    IfFound(api find username): c =>
+    Found(api find username): c =>
       WithVisibleCoach(c):
         for
           stu     <- env.study.api.publicByIds(c.coach.profile.studyIds)
@@ -47,13 +47,13 @@ final class Coach(env: Env) extends LilaController(env):
     else notFound
 
   def edit = Secure(_.Coach) { ctx ?=> me ?=>
-    OptionFuPage(api.findOrInit): c =>
+    FoundPage(api.findOrInit): c =>
       env.msg.twoFactorReminder(me) inject html.coach.edit(c, CoachProfileForm edit c.coach)
     .map(_.noCache)
   }
 
   def editApply = SecureBody(_.Coach) { ctx ?=> me ?=>
-    IfFound(api.findOrInit): c =>
+    Found(api.findOrInit): c =>
       CoachProfileForm
         .edit(c.coach)
         .bindFromRequest()
@@ -64,11 +64,11 @@ final class Coach(env: Env) extends LilaController(env):
   }
 
   def picture = Secure(_.Coach) { ctx ?=> me ?=>
-    OptionPage(api.findOrInit)(html.coach.picture(_)).map(_.noCache)
+    FoundPage(api.findOrInit)(html.coach.picture(_)).map(_.noCache)
   }
 
   def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>
-    IfFound(api.findOrInit): c =>
+    Found(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
           api.uploadPicture(c, pic) inject Redirect(routes.Coach.edit) recoverWith {

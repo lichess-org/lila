@@ -174,7 +174,7 @@ final class Simul(env: Env) extends LilaController(env):
     Reasonable(page):
       val userOption =
         env.user.repo.byId(username).map { _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)) }
-      IfFound(userOption): user =>
+      Found(userOption): user =>
         Ok.pageAsync:
           env.simul.api.hostedByUser(user.id, page).map {
             html.simul.hosted(user, _)

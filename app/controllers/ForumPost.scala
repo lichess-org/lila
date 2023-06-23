@@ -33,7 +33,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>
     NoBot:
-      IfFound(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
+      Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if topic.closed then BadRequest("This topic is closed")
         else if topic.isOld then BadRequest("This topic is archived")
         else
@@ -66,7 +66,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def edit(postId: ForumPostId) = AuthBody { ctx ?=> me ?=>
     env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
       teamId.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
-        IfFound(postApi getPost postId): post =>
+        Found(postApi getPost postId): post =>
           forms
             .postEdit(inOwnTeam, post.text)
             .bindFromRequest()
@@ -83,7 +83,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   }
 
   def delete(categId: ForumCategId, id: ForumPostId) = AuthBody { ctx ?=> me ?=>
-    IfFound(postApi getPost id): post =>
+    Found(postApi getPost id): post =>
       if post.userId.exists(_ is me) && !post.erased
       then postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
       else
@@ -107,12 +107,12 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
-      OptionPage(postApi.react(categId, id, reaction, v)): post =>
+      FoundPage(postApi.react(categId, id, reaction, v)): post =>
         views.html.forum.post.reactions(post, canReact = true)
   }
 
   def redirect(id: ForumPostId) = Open:
-    OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
-      val call = routes.ForumTopic.show(categ, topic, page)
-      Redirect(s"$call#$number").withCanonical(call)
-    }
+    Found(postApi.urlData(id, ctx.me)):
+      case lila.forum.PostUrlData(categ, topic, page, number) =>
+        val call = routes.ForumTopic.show(categ, topic, page)
+        Redirect(s"$call#$number").withCanonical(call)

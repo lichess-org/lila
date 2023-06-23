@@ -19,15 +19,22 @@ trait ResponseBuilder(using Executor)
   val keyPages = KeyPages(env)
   export scalatags.Text.Frag
 
-  // given Conversion[scalatags.Text.Frag, Result] = Ok(_)
   given Conversion[Result, Fu[Result]] = fuccess(_)
-  // given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
-  given (using Context): Conversion[Funit, Fu[Result]] =
-    _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
+  given Conversion[Frag, Fu[Frag]]     = fuccess(_)
+  given (using Context): Conversion[Funit, Fu[Result]] = _ =>
+    negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
   given (using Context): Zero[Fu[Result]] = Zero(notFound)
 
-  def IfFound[A](a: Fu[Option[A]])(f: A => Fu[Result])(using Context): Fu[Result] =
+  def Found[A](a: Fu[Option[A]])(f: A => Fu[Result])(using Context): Fu[Result] =
     a.flatMap(_.fold(notFound)(f))
+
+  def FoundOk[A, B: Writeable](fua: Fu[Option[A]])(op: A => Fu[B])(using Context): Fu[Result] =
+    Found(fua): a =>
+      op(a).dmap(Ok(_))
+
+  def FoundPage[A](fua: Fu[Option[A]])(op: A => PageContext ?=> Fu[Frag])(using Context): Fu[Result] =
+    Found(fua): a =>
+      Ok.pageAsync(op(a))
 
   extension [A](fua: Fu[Option[A]])
     def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =

@@ -15,12 +15,12 @@ final class TournamentCrud(env: Env) extends LilaController(env):
   }
 
   def edit(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ ?=>
-    OptionPage(crud one id): tour =>
+    FoundPage(crud one id): tour =>
       html.tournament.crud.edit(tour, crud editForm tour)
   }
 
   def update(id: TourId) = SecureBody(_.ManageTournament) { ctx ?=> _ ?=>
-    IfFound(crud one id): tour =>
+    Found(crud one id): tour =>
       crud
         .editForm(tour)
         .bindFromRequest()
@@ -50,6 +50,6 @@ final class TournamentCrud(env: Env) extends LilaController(env):
   }
 
   def cloneT(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ ?=>
-    OptionPage(crud one id): old =>
+    FoundPage(crud one id): old =>
       html.tournament.crud.create(crud editForm crud.clone(old))
   }

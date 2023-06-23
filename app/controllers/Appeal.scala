@@ -21,7 +21,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
       pageHit
-      OptionPage(prismicC getBookmark "appeal-landing"): (doc, resolver) =>
+      FoundPage(prismicC getBookmark "appeal-landing"): (doc, resolver) =>
         views.html.site.page.lone(doc, resolver)
     else notFound
   }

@@ -37,11 +37,11 @@ final class Team(
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      IfFound(api team id) { renderTeam(_, page, mod) }
+      Found(api team id) { renderTeam(_, page, mod) }
 
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, config.Max(50)):
-      IfFound(api teamEnabled id): team =>
+      Found(api teamEnabled id): team =>
         val canSee =
           fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so {
             api.belongsTo(team.id, _)
@@ -98,7 +98,7 @@ final class Team(
     }
 
   def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
-    IfFound(api teamEnabled teamId): team =>
+    Found(api teamEnabled teamId): team =>
       val canView: Fu[Boolean] =
         if team.publicMembers then fuccess(true)
         else ctx.me.so(api.belongsTo(team.id, _))
@@ -113,7 +113,7 @@ final class Team(
         else Unauthorized
 
   def tournaments(teamId: TeamId) = Open:
-    OptionFuPage(api teamEnabled teamId): team =>
+    FoundPage(api teamEnabled teamId): team =>
       env.teamInfo.tournaments(team, 30, 30) map {
         html.team.tournaments.page(team, _)
       }
@@ -183,7 +183,7 @@ final class Team(
   }
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
-    IfFound(api team id): team =>
+    Found(api team id): team =>
       forms.explain
         .bindFromRequest()
         .fold(
@@ -261,7 +261,7 @@ final class Team(
         if _ then tooMany else f
 
   def join(id: TeamId) = AuthOrScopedBody(_.Team.Write) { ctx ?=> me ?=>
-    IfFound(api.teamEnabled(id)): team =>
+    Found(api.teamEnabled(id)): team =>
       OneAtATime(me, rateLimitedFu):
         JoinLimit(negotiateHtmlOrJson(tooManyTeamsHtml, tooManyTeamsJson)):
           negotiateHtmlOrJson(
@@ -297,12 +297,12 @@ final class Team(
   }
 
   def requestForm(id: TeamId) = Auth { _ ?=> me ?=>
-    OptionPage(api.requestable(id)): team =>
+    FoundPage(api.requestable(id)): team =>
       html.team.request.requestForm(team, forms.request(team))
   }
 
   def requestCreate(id: TeamId) = AuthBody { ctx ?=> me ?=>
-    IfFound(api.requestable(id)): team =>
+    Found(api.requestable(id)): team =>
       OneAtATime(me, rateLimitedFu):
         JoinLimit(tooManyTeamsHtml):
           forms
@@ -327,17 +327,16 @@ final class Team(
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
     import cats.syntax.all.*
-    OptionFuRedirectUrl(for
+    Found(for
       requestOption <- api request requestId
       teamOption    <- requestOption.so(req => env.team.teamRepo.byLeader(req.team, me))
-    yield (teamOption, requestOption).mapN((_, _))) { (team, request) =>
+    yield (teamOption, requestOption).mapN((_, _))): (team, request) =>
       forms.processRequest
         .bindFromRequest()
         .fold(
-          _ => fuccess(routes.Team.show(team.id).toString),
-          (decision, url) => api.processRequest(team, request, decision) inject url
+          _ => Redirect(routes.Team.show(team.id)),
+          (decision, url) => api.processRequest(team, request, decision) inject Redirect(url)
         )
-    }
   }
 
   def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ ?=>
@@ -509,7 +508,7 @@ final class Team(
     }
 
   private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
-    IfFound(api team teamId): team =>
+    Found(api team teamId): team =>
       if ctx.userId.exists(team.leaders.contains) || isGrantedOpt(_.ManageTeam) then f(team)
       else Redirect(routes.Team.show(team.id))
 

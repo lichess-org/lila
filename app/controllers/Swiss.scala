@@ -91,7 +91,7 @@ final class Swiss(
     env.team.cached.teamIds(user).dmap(_ contains teamId)
 
   def round(id: SwissId, round: Int) = Open:
-    IfFound(env.swiss.cache.swissCache byId id): swiss =>
+    Found(env.swiss.cache.swissCache byId id): swiss =>
       (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRoundNumber(round)) so { r =>
         val page = getInt("page").filter(0.<)
         env.swiss.roundPager(swiss, r, page | 0) flatMap { pager =>
@@ -144,7 +144,7 @@ final class Swiss(
   }
 
   def apiTerminate(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
-    IfFound(env.swiss.cache.swissCache byId id):
+    Found(env.swiss.cache.swissCache byId id):
       case swiss if swiss.createdBy.is(me) || isGranted(_.ManageTournament) =>
         env.swiss.api
           .kill(swiss)
@@ -210,7 +210,7 @@ final class Swiss(
         .fold(
           newJsonFormError,
           data =>
-            IfFound(env.swiss.api.update(swiss.id, data)): swiss =>
+            Found(env.swiss.api.update(swiss.id, data)): swiss =>
               env.swiss.json.api(swiss) map JsonOk
         )
   }
@@ -245,13 +245,13 @@ final class Swiss(
 
   def pageOf(id: SwissId, userId: UserStr) = Anon:
     WithSwiss(id): swiss =>
-      IfFound(env.swiss.api.pageOf(swiss, userId.id)): page =>
+      Found(env.swiss.api.pageOf(swiss, userId.id)): page =>
         JsonOk:
           env.swiss.standingApi(swiss, page)
 
   def player(id: SwissId, userId: UserStr) = Anon:
     WithSwiss(id): swiss =>
-      IfFound(env.swiss.api.playerInfo(swiss, userId.id)): player =>
+      Found(env.swiss.api.playerInfo(swiss, userId.id)): player =>
         JsonOk(lila.swiss.SwissJson.playerJsonExt(swiss, player))
 
   def exportTrf(id: SwissId) = Anon:

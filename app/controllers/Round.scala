@@ -88,7 +88,7 @@ final class Round(
     }
 
   def whatsNext(fullId: GameFullId) = Open:
-    IfFound(env.round.proxyRepo.pov(fullId)): currentPov =>
+    Found(env.round.proxyRepo.pov(fullId)): currentPov =>
       if currentPov.isMyTurn
       then Ok(Json.obj("nope" -> true))
       else
@@ -97,7 +97,7 @@ final class Round(
         }
 
   def next(gameId: GameId) = Auth { ctx ?=> me ?=>
-    IfFound(env.round.proxyRepo game gameId): currentGame =>
+    Found(env.round.proxyRepo game gameId): currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
       } flatMap {
@@ -256,7 +256,7 @@ final class Round(
     }
 
   def sides(gameId: GameId, color: String) = Open:
-    IfFound(proxyPov(gameId, color)): pov =>
+    Found(proxyPov(gameId, color)): pov =>
       env.tournament.api.gameView.withTeamVs(pov.game) zip
         (pov.game.simulId so env.simul.repo.find) zip
         env.game.gameRepo.initialFen(pov.game) zip
@@ -283,7 +283,7 @@ final class Round(
   }
 
   def continue(id: GameId, mode: String) = Open:
-    OptionResult(env.game.gameRepo game id): game =>
+    Found(env.game.gameRepo game id): game =>
       Redirect(
         "%s?fen=%s#%s".format(
           routes.Lobby.home,
@@ -293,8 +293,8 @@ final class Round(
       )
 
   def resign(fullId: GameFullId) = Open:
-    OptionFuRedirect(env.round.proxyRepo.pov(fullId)): pov =>
-      val redirection = fuccess(routes.Lobby.home)
+    Found(env.round.proxyRepo.pov(fullId)): pov =>
+      val redirection = fuccess(Redirect(routes.Lobby.home))
       if isTheft(pov) then
         lila.log("round").warn(s"theft resign $fullId ${ctx.ip}")
         redirection
@@ -303,13 +303,13 @@ final class Round(
         akka.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: String) = Open:
-    OptionPage(
+    FoundPage(
       chess.Color.fromName(color).so(env.round.proxyRepo.povIfPresent(gameId, _)) orElse
         env.game.gameRepo.pov(gameId, color)
     )(html.game.mini(_))
 
   def miniFullId(fullId: GameFullId) = Open:
-    OptionPage(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
+    FoundPage(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
       html.game.mini(_)
     )
 

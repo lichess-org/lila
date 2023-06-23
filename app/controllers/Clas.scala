@@ -41,7 +41,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           yield res
 
   def teacher(username: UserStr) = Secure(_.Admin) { ctx ?=> _ ?=>
-    OptionFuPage(env.user.repo byId username): teacher =>
+    FoundPage(env.user.repo byId username): teacher =>
       env.clas.api.clas.of(teacher) map {
         html.mod.search.teacher(teacher.id, _)
       }
@@ -87,7 +87,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       ,
       orDefault = _ =>
         isGranted(_.UserModView) so
-          OptionFuPage(env.clas.api.clas.byId(id)): clas =>
+          FoundPage(env.clas.api.clas.byId(id)): clas =>
             env.clas.api.student.allWithUsers(clas) flatMap { students =>
               env.user.repo.withEmails(students.map(_.user)) map {
                 html.mod.search.clas(clas, _)
@@ -104,7 +104,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     isGranted(_.Teacher).so(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       if _ then forTeacher
       else
-        IfFound(env.clas.api.clas.byId(id)): clas =>
+        Found(env.clas.api.clas.byId(id)): clas =>
           env.clas.api.student.activeWithUsers(clas) flatMap { students =>
             if (students.exists(_.student is me)) forStudent(clas, students)
             else orDefault(ctx)
@@ -355,7 +355,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               }
           ,
           data =>
-            IfFound(env.user.repo enabledById data.username): user =>
+            Found(env.user.repo enabledById data.username): user =>
               import lila.clas.ClasInvite.{ Feedback as F }
               import lila.i18n.{ I18nKeys as trans }
               env.clas.api.invite.create(clas, user, data.realName) map { feedback =>
@@ -481,7 +481,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     else !env.mod.logApi.wasUnteachered(me)
 
   def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me ?=>
-    OptionPage(env.clas.api.invite.view(id, me)): (invite, clas) =>
+    FoundPage(env.clas.api.invite.view(id, me)): (invite, clas) =>
       views.html.clas.invite.show(clas, invite)
   }
 
@@ -492,14 +492,14 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         _ => Redirect(routes.Clas.invitation(id)).toFuccess,
         v =>
           if v then
-            IfFound(env.clas.api.invite.accept(id, me)): student =>
+            Found(env.clas.api.invite.accept(id, me)): student =>
               redirectTo(student.clasId)
           else env.clas.api.invite.decline(id) inject Redirect(routes.Clas.invitation(id))
       )
   }
 
   def invitationRevoke(id: lila.clas.ClasInvite.Id) = Secure(_.Teacher) { _ ?=> me ?=>
-    IfFound(env.clas.api.invite.get(id)): invite =>
+    Found(env.clas.api.invite.get(id)): invite =>
       WithClass(invite.clasId): clas =>
         env.clas.api.invite.delete(invite._id) inject Redirect(routes.Clas.students(clas.id.value))
   }
@@ -511,7 +511,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     else Unauthorized.page(views.html.clas.teacherDashboard.unreasonable(clas, students, active))
 
   private def WithClass(clasId: ClasId)(f: lila.clas.Clas => Fu[Result])(using Context, Me): Fu[Result] =
-    IfFound(env.clas.api.clas.getAndView(clasId))(f)
+    Found(env.clas.api.clas.getAndView(clasId))(f)
 
   private def WithClassAndStudents(clasId: ClasId)(
       f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
@@ -522,8 +522,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def WithStudent(clas: lila.clas.Clas, username: UserStr)(
       f: lila.clas.Student.WithUser => Fu[Result]
   )(using Context): Fu[Result] =
-    IfFound(env.user.repo byId username): user =>
-      IfFound(env.clas.api.student.get(clas, user))(f)
+    Found(env.user.repo byId username): user =>
+      Found(env.clas.api.student.get(clas, user))(f)
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
     if ctx.me.exists(!_.lameOrTroll) then f

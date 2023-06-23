@@ -41,7 +41,7 @@ final class Storm(env: Env) extends LilaController(env):
   }
 
   def dashboardOf(username: UserStr, page: Int) = Open:
-    IfFound(env.user.repo.enabledById(username)):
+    Found(env.user.repo.enabledById(username)):
       renderDashboardOf(_, page)
 
   private def renderDashboardOf(user: lila.user.User, page: Int)(using Context): Fu[Result] = for

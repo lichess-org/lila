@@ -140,27 +140,27 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
 
   def standing(id: TourId, page: Int) = Open:
-    IfFound(cachedTour(id)): tour =>
+    Found(cachedTour(id)): tour =>
       JsonOk:
         env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
 
   def pageOf(id: TourId, userId: UserStr) = Open:
-    IfFound(cachedTour(id)): tour =>
-      IfFound(api.pageOf(tour, userId.id)): page =>
+    Found(cachedTour(id)): tour =>
+      Found(api.pageOf(tour, userId.id)): page =>
         JsonOk:
           env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
 
   def player(tourId: TourId, userId: UserStr) = Anon:
-    IfFound(cachedTour(tourId)): tour =>
-      IfFound(api.playerInfo(tour, userId.id)): player =>
+    Found(cachedTour(tourId)): tour =>
+      Found(api.playerInfo(tour, userId.id)): player =>
         JsonOk:
           jsonView.playerInfoExtended(tour, player)
 
   def teamInfo(tourId: TourId, teamId: TeamId) = Open:
-    IfFound(cachedTour(tourId)): tour =>
-      IfFound(env.team.teamRepo mini teamId): team =>
+    Found(cachedTour(tourId)): tour =>
+      Found(env.team.teamRepo mini teamId): team =>
         negotiateHtmlOrJson(
-          OptionPage(api.teamBattleTeamInfo(tour, teamId)):
+          FoundPage(api.teamBattleTeamInfo(tour, teamId)):
             views.html.tournament.teamBattle.teamInfo(tour, team, _)
           ,
           jsonView.teamInfo(tour, teamId) orNotFound JsonOk
@@ -208,14 +208,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         api.joinWithResult(tourId, data = data, isLeader)
 
   def pause(id: TourId) = Auth { ctx ?=> me ?=>
-    OptionResult(cachedTour(id)): tour =>
+    Found(cachedTour(id)): tour =>
       api.selfPause(tour.id, me)
       if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Tournament.show(tour.id))
   }
 
   def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
-    IfFound(cachedTour(id)): tour =>
+    Found(cachedTour(id)): tour =>
       api.selfPause(tour.id, me) inject jsonOkResult
   }
 
@@ -348,14 +348,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def apiTerminate(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
-    IfFound(cachedTour(id)):
+    Found(cachedTour(id)):
       case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) =>
         api.kill(tour).inject(jsonOkResult)
       case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied"))
   }
 
   def teamBattleEdit(id: TourId) = Auth { ctx ?=> me ?=>
-    IfFound(cachedTour(id)):
+    Found(cachedTour(id)):
       case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) =>
         tour.teamBattle.so: battle =>
           env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
@@ -374,7 +374,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def teamBattleUpdate(id: TourId) = AuthBody { ctx ?=> me ?=>
-    IfFound(cachedTour(id)):
+    Found(cachedTour(id)):
       case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) && !tour.isFinished =>
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
@@ -388,7 +388,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
-    IfFound(cachedTour(id)):
+    Found(cachedTour(id)):
       case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) && !tour.isFinished =>
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
@@ -430,7 +430,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     yield Ok(page)
 
   def categShields(k: String) = Open:
-    OptionFuPage(env.tournament.shieldApi.byCategKey(k)): (categ, awards) =>
+    FoundPage(env.tournament.shieldApi.byCategKey(k)): (categ, awards) =>
       env.user.lightUserApi preloadMany awards.map(_.owner) inject
         html.tournament.shields.byCateg(categ, awards)
 

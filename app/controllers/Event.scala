@@ -8,7 +8,7 @@ final class Event(env: Env) extends LilaController(env):
   private def api = env.event.api
 
   def show(id: String) = Open:
-    OptionPage(api oneEnabled id)(html.event.show)
+    FoundPage(api oneEnabled id)(html.event.show)
 
   def manager = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     Ok.pageAsync:
@@ -16,12 +16,12 @@ final class Event(env: Env) extends LilaController(env):
   }
 
   def edit(id: String) = Secure(_.ManageEvent) { ctx ?=> _ ?=>
-    OptionPage(api one id): event =>
+    FoundPage(api one id): event =>
       html.event.edit(event, api editForm event)
   }
 
   def update(id: String) = SecureBody(_.ManageEvent) { ctx ?=> me ?=>
-    IfFound(api one id): event =>
+    Found(api one id): event =>
       api
         .editForm(event)
         .bindFromRequest()
@@ -49,6 +49,6 @@ final class Event(env: Env) extends LilaController(env):
   }
 
   def cloneE(id: String) = Secure(_.ManageEvent) { ctx ?=> _ ?=>
-    OptionPage(api one id): old =>
+    FoundPage(api one id): old =>
       html.event.create(api editForm api.clone(old))
   }

@@ -55,7 +55,7 @@ final class Main(
 
   private def serveMobile(using Context) =
     pageHit
-    OptionPage(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
+    FoundPage(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
       html.mobile(doc, resolver)
 
   def dailyPuzzleSlackApp = Open:

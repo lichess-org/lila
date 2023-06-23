@@ -15,7 +15,7 @@ final class ContentPage(
 
   def bookmark(name: String, active: Option[String]) = Open:
     pageHit
-    OptionPage(prismicC getBookmark name): (doc, resolver) =>
+    FoundPage(prismicC getBookmark name): (doc, resolver) =>
       active match
         case None       => views.html.site.page.lone(doc, resolver)
         case Some(name) => views.html.site.page.withMenu(name, doc, resolver)
@@ -25,12 +25,12 @@ final class ContentPage(
 
   def source = Open:
     pageHit
-    OptionPage(prismicC getBookmark "source"): (doc, resolver) =>
+    FoundPage(prismicC getBookmark "source"): (doc, resolver) =>
       views.html.site.page.source(doc, resolver)
 
   def variantHome = Open:
     negotiate(
-      html = OptionPage(prismicC getBookmark "variant"): (doc, resolver) =>
+      html = FoundPage(prismicC getBookmark "variant"): (doc, resolver) =>
         views.html.site.variant.home(doc, resolver),
       api = _ => Ok(lila.api.StaticContent.variantsJson)
     )
@@ -39,5 +39,5 @@ final class ContentPage(
     (for
       variant  <- Variant(key)
       perfType <- lila.rating.PerfType byVariant variant
-    yield OptionPage(prismicC getVariant variant): (doc, resolver) =>
+    yield FoundPage(prismicC getVariant variant): (doc, resolver) =>
       views.html.site.variant.show(doc, resolver, variant, perfType)) | notFound

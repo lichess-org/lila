@@ -52,7 +52,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
 
   def show(username: UserStr) = Open:
-    IfFound(api.forSubscriber(username)): s =>
+    Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
         for
           sws      <- env.streamer.liveStreamApi of s
@@ -61,7 +61,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         yield Ok(page)
 
   def redirect(username: UserStr) = Open:
-    IfFound(api.forSubscriber(username)): s =>
+    Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
         env.streamer.liveStreamApi of s map { sws =>
           Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)

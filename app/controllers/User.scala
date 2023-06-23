@@ -34,7 +34,7 @@ final class User(
   import env.user.lightUserApi
 
   def tv(username: UserStr) = Open:
-    IfFound(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       currentlyPlaying(user) orElse lastPlayed(user) flatMap {
         _.fold(fuccess(Redirect(routes.User.show(username.value)))): pov =>
           ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
@@ -83,7 +83,7 @@ final class User(
 
   def download(username: UserStr) = OpenBody:
     val userOption = if username.value == "me" then fuccess(ctx.user) else env.user.repo byId username
-    OptionPage(userOption.dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))):
+    FoundPage(userOption.dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))):
       html.user.download(_)
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.All.name, page)
@@ -155,7 +155,7 @@ final class User(
           )
       }
   def showMini(username: UserStr) = Open:
-    IfFound(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       if user.enabled.yes || isGrantedOpt(_.UserModView)
       then
         ctx.userId.so { relationApi.fetchBlocks(user.id, _) } zip
@@ -271,7 +271,7 @@ final class User(
     }
 
   def topNb(nb: Int, perfKey: Perf.Key) = Open:
-    IfFound(topNbUsers(nb, perfKey)): (users, perfType) =>
+    Found(topNbUsers(nb, perfKey)): (users, perfType) =>
       negotiateHtmlOrJson(
         (nb == 200) so Ok.page(html.user.top(perfType, users)),
         topNbJson(users)
@@ -284,7 +284,7 @@ final class User(
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
       }
-    else IfFound(topNbUsers(nb, perfKey)) { users => topNbJson(users._1) }
+    else Found(topNbUsers(nb, perfKey)) { users => topNbJson(users._1) }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
     PerfType(perfKey).so: perfType =>
@@ -467,7 +467,7 @@ final class User(
   }
 
   def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
-    IfFound(env.user.repo byId username):
+    Found(env.user.repo byId username):
       env.socialInfo.fetchNotes(_) flatMap {
         lila.user.JsonView.notes(_)(using lightUserApi)
       } map JsonOk
@@ -483,19 +483,19 @@ final class User(
       username: UserStr,
       data: lila.user.UserForm.NoteData
   )(f: UserModel => Fu[Result])(using Context, Me) =
-    IfFound(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       val isMod = data.mod && isGranted(_.ModNote)
       env.user.noteApi.write(user, data.text, isMod, isMod && data.dox) >> f(user)
 
   def deleteNote(id: String) = Auth { ctx ?=> me ?=>
-    IfFound(env.user.noteApi.byId(id)): note =>
+    Found(env.user.noteApi.byId(id)): note =>
       (note.isFrom(me) && !note.mod) so {
         env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
       }
   }
 
   def setDoxNote(id: String, dox: Boolean) = Secure(_.Admin) { ctx ?=> _ ?=>
-    IfFound(env.user.noteApi.byId(id)): note =>
+    Found(env.user.noteApi.byId(id)): note =>
       note.mod so {
         env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
       }
@@ -524,7 +524,7 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: Perf.Key) = Open:
-    IfFound(env.perfStat.api.data(username, perfKey)): data =>
+    Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiateHtmlOrJson(
         Ok.pageAsync:
           env.history.ratingChartApi(data.user) map {

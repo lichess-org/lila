@@ -150,7 +150,7 @@ final class Setup(
     NoBot:
       PostRateLimit(ctx.ip, rateLimitedFu):
         NoPlaybanOrCurrent:
-          IfFound(env.game.gameRepo game gameId): game =>
+          Found(env.game.gameRepo game gameId): game =>
             for
               blocking <- ctx.userId so env.relation.api.fetchBlocking
               hookConfig = lila.setup.HookConfig.default(ctx.isAuth)

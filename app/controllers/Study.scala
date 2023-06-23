@@ -64,7 +64,7 @@ final class Study(
   def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default, page)
 
   def byOwner(username: UserStr, order: Order, page: Int) = Open:
-    IfFound(env.user.repo.byId(username)): owner =>
+    Found(env.user.repo.byId(username)): owner =>
       env.study.pager
         .byOwner(owner, order, page)
         .flatMap: pag =>
@@ -158,7 +158,7 @@ final class Study(
     else f
 
   private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
-    IfFound(query): oldSc =>
+    Found(query): oldSc =>
       CanView(oldSc.study) {
         for
           (sc, data) <- getJsonData(oldSc)
@@ -289,7 +289,7 @@ final class Study(
     }
 
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
-    IfFound(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
+    Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
       env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
         case None       => Redirect(routes.Study.mine("hot"))
         case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
@@ -379,7 +379,7 @@ final class Study(
     // } dmap (_.noCache)
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
-    IfFound(env.study.api.byId(id)): study =>
+    Found(env.study.api.byId(id)): study =>
       CanView(study) {
         Ok.page(html.study.clone(study))
       }(privateUnauthorizedFu(study), privateForbiddenFu(study))
@@ -401,7 +401,7 @@ final class Study(
     val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
     CloneLimitPerUser(me, rateLimitedFu, cost = cost):
       CloneLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
-        IfFound(env.study.api.byId(id)) { prev =>
+        Found(env.study.api.byId(id)) { prev =>
           CanView(prev) {
             env.study.api.clone(me, prev) map { study =>
               Redirect(routes.Study.show((study | prev).id))
@@ -418,7 +418,7 @@ final class Study(
 
   def pgn(id: StudyId) = Open:
     PgnRateLimitPerIp(ctx.ip, rateLimitedFu, msg = id):
-      IfFound(env.study.api byId id): study =>
+      Found(env.study.api byId id): study =>
         CanView(study) {
           doPgn(study)
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
@@ -524,7 +524,7 @@ final class Study(
     }
 
   def multiBoard(id: StudyId, page: Int) = Open:
-    IfFound(env.study.api byId id): study =>
+    Found(env.study.api byId id): study =>
       CanView(study) {
         env.study.multiBoard.json(study.id, page, getBool("playing")) map JsonOk
       }(privateUnauthorizedJson, privateForbiddenJson)
@@ -556,7 +556,7 @@ final class Study(
 
   def staffPicks = Open:
     pageHit
-    OptionPage(prismicC getBookmark "studies-staff-picks") { (doc, resolver) =>
+    FoundPage(prismicC getBookmark "studies-staff-picks") { (doc, resolver) =>
       html.study.list.staffPicks(doc, resolver)
     }
 

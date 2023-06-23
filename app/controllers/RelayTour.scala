@@ -30,7 +30,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def by(owner: UserStr, page: Int) = Open:
     Reasonable(page, config.Max(20)):
-      OptionFuPage(env.user.lightUser(owner.id)): owner =>
+      FoundPage(env.user.lightUser(owner.id)): owner =>
         env.relay.pager
           .byOwner(owner.id, page)
           .map:
@@ -38,7 +38,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   private def page(bookmark: String, menu: String) = Open:
     pageHit
-    OptionPage(prismicC getBookmark bookmark): (doc, resolver) =>
+    FoundPage(prismicC getBookmark bookmark): (doc, resolver) =>
       html.relay.tour.page(doc, resolver, menu)
 
   def form = Auth { ctx ?=> _ ?=>
@@ -103,7 +103,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   }
 
   def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:
-    IfFound(env.relay.api tourById id): tour =>
+    Found(env.relay.api tourById id): tour =>
       render.async:
         case Accepts.Json() =>
           JsonOk:
@@ -113,7 +113,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         case _ => redirectToTour(tour)
 
   def pgn(id: TourModel.Id) = OpenOrScoped(): ctx ?=>
-    IfFound(env.relay.api tourById id): tour =>
+    Found(env.relay.api tourById id): tour =>
       val canViewPrivate = ctx.isWebAuth || ctx.scopes.has(_.Study.Read)
       apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
         env.relay.pgnStream.exportFullTourAs(tour, ctx.me ifTrue canViewPrivate)
@@ -138,7 +138,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     }
 
   private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
-    IfFound(env.relay.api tourById id)(f)
+    Found(env.relay.api tourById id)(f)
 
   private def WithTourCanUpdate(
       id: TourModel.Id

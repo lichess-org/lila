@@ -50,7 +50,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def daily = Open:
     NoBot:
-      IfFound(env.puzzle.daily.get): daily =>
+      Found(env.puzzle.daily.get): daily =>
         negotiate(
           html = renderShow(daily.puzzle, PuzzleAngle.mix),
           api = v => renderJson(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some) dmap { Ok(_) }
@@ -199,7 +199,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def streakLang = LangPage(routes.Puzzle.streak)(serveStreak)
 
   private def serveStreak(using ctx: Context) = NoBot:
-    OptionPage(streakJsonAndPuzzle): (json, puzzle) =>
+    FoundPage(streakJsonAndPuzzle): (json, puzzle) =>
       val prefJson = env.puzzle.jsonView.pref(ctx.pref)
       val langPath = LangPath(routes.Puzzle.streak).some
       views.html.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
@@ -241,14 +241,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { _ ?=> me ?=>
     NoBot:
-      PuzzleTheme.findDynamic(themeStr) so { theme =>
-        env.puzzle.forms.themeVote
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            vote => env.puzzle.api.theme.vote(me, id, theme.key, vote) inject jsonOkResult
-          )
-      }
+      PuzzleTheme
+        .findDynamic(themeStr)
+        .so: theme =>
+          env.puzzle.forms.themeVote
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              vote => env.puzzle.api.theme.vote(me, id, theme.key, vote) inject jsonOkResult
+            )
   }
 
   def setDifficulty(theme: String) = AuthBody { _ ?=> me ?=>
@@ -298,7 +299,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       case _ =>
         lila.puzzle.Puzzle toId angleOrId match
           case Some(id) =>
-            IfFound(env.puzzle.api.puzzle find id): puzzle =>
+            Found(env.puzzle.api.puzzle find id): puzzle =>
               ctx.me.so { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
                 renderShow(puzzle, PuzzleAngle.mix, langPath = langPath)
           case _ =>
@@ -312,7 +313,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def showWithAngle(angleKey: String, id: PuzzleId) = Open:
     NoBot:
       val angle = PuzzleAngle.findOrMix(angleKey)
-      IfFound(env.puzzle.api.puzzle find id): puzzle =>
+      Found(env.puzzle.api.puzzle find id): puzzle =>
         if angle.asTheme.exists(theme => !puzzle.themes.contains(theme))
         then Redirect(routes.Puzzle.show(puzzle.id))
         else
@@ -412,7 +413,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     negotiate(
       html = notFound,
       _ =>
-        OptionOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
+        FoundOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
           env.puzzle.jsonView.bc(puz)
         .dmap(_ as JSON)
     )

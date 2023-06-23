@@ -20,7 +20,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def form(categId: ForumCategId) = Auth { _ ?=> me ?=>
     NoBot:
       NotForKids:
-        OptionFuPage(env.forum.categRepo byId categId): categ =>
+        FoundPage(env.forum.categRepo byId categId): categ =>
           categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
             forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(inOwnTeam), _) }
           }
@@ -29,7 +29,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def create(categId: ForumCategId) = AuthBody { ctx ?=> me ?=>
     NoBot:
       CategGrantWrite(categId):
-        IfFound(env.forum.categRepo byId categId): categ =>
+        Found(env.forum.categRepo byId categId): categ =>
           categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
             forms
               .topic(inOwnTeam)
@@ -51,7 +51,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def show(categId: ForumCategId, slug: String, page: Int) = Open:
     NotForKids:
-      IfFound(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
+      Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         for
           unsub       <- ctx.me soUse env.timeline.status(s"forum:${topic.id}")
           canRead     <- access.isGrantedRead(categ.slug)
@@ -73,16 +73,16 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def close(categId: ForumCategId, slug: String) = Auth { _ ?=> me ?=>
     TopicGrantModBySlug(categId, slug):
-      OptionFuRedirect(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
+      Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
         topicApi.toggleClose(categ, topic) inject
-          routes.ForumTopic.show(categId, slug, pag.nbPages)
+          Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages))
   }
 
   def sticky(categId: ForumCategId, slug: String) = Auth { _ ?=> me ?=>
     CategGrantMod(categId):
-      OptionFuRedirect(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
+      Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
         topicApi.toggleSticky(categ, topic) inject
-          routes.ForumTopic.show(categId, slug, pag.nbPages)
+          Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages))
   }
 
   /** Returns a list of the usernames of people participating in a forum topic conversation

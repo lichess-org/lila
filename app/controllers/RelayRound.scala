@@ -52,7 +52,7 @@ final class RelayRound(
   }
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
-    OptionPage(env.relay.api.byIdAndContributor(id)): rt =>
+    FoundPage(env.relay.api.byIdAndContributor(id)): rt =>
       html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
@@ -82,7 +82,7 @@ final class RelayRound(
   }
 
   def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
-    IfFound(env.relay.api.byIdAndContributor(id)): rt =>
+    Found(env.relay.api.byIdAndContributor(id)): rt =>
       env.relay.api.reset(rt.round) inject Redirect(rt.path)
   }
 
@@ -104,8 +104,8 @@ final class RelayRound(
               else env.study.api byIdWithChapter rt.round.studyId
             sc orNotFound { doShow(rt, _) }
         ,
-        json = IfFound(env.relay.api.byIdWithTour(id)): rt =>
-          IfFound(env.study.studyRepo.byId(rt.round.studyId)): study =>
+        json = Found(env.relay.api.byIdWithTour(id)): rt =>
+          Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
             studyC.CanView(study)(
               env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
                 JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
@@ -117,7 +117,7 @@ final class RelayRound(
   def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
-    IfFound(env.relay.api.byIdWithStudy(id)): rt =>
+    Found(env.relay.api.byIdWithStudy(id)): rt =>
       studyC.CanView(rt.study) {
         apiC.GlobalConcurrencyLimitPerIP
           .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)): source =>
@@ -139,7 +139,7 @@ final class RelayRound(
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: Context): Fu[Result] =
-    IfFound(env.relay.api byIdWithTour id): rt =>
+    Found(env.relay.api byIdWithTour id): rt =>
       if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable(ctx.req)
       then Redirect(rt.path)
       else f(rt)
@@ -147,7 +147,7 @@ final class RelayRound(
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
   )(using Context): Fu[Result] =
-    IfFound(env.relay.api tourById TourModel.Id(id))(f)
+    Found(env.relay.api tourById TourModel.Id(id))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]

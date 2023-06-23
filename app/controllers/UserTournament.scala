@@ -9,7 +9,7 @@ final class UserTournament(env: Env) extends LilaController(env):
     Reasonable(page):
       val userOption =
         env.user.repo.byId(username).map { _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)) }
-      IfFound(userOption): user =>
+      Found(userOption): user =>
         path match
           case "recent" =>
             env.tournament.leaderboardApi.recentByUser(user, page).flatMap { entries =>

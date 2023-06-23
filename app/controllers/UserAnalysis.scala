@@ -87,7 +87,7 @@ final class UserAnalysis(
 
   // correspondence premove aka forecast
   def game(id: GameId, color: String) = Open:
-    IfFound(env.game.gameRepo game id): g =>
+    Found(env.game.gameRepo game id): g =>
       env.round.proxyRepo upgradeIfPresent g flatMap { game =>
         val pov = Pov(game, chess.Color.fromName(color) | White)
         negotiate(
@@ -142,7 +142,7 @@ final class UserAnalysis(
 
   def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ ?=>
     import lila.round.Forecast
-    IfFound(env.round.proxyRepo pov fullId): pov =>
+    Found(env.round.proxyRepo pov fullId): pov =>
       if isTheft(pov) then theftResponse
       else
         ctx.body.body
@@ -163,7 +163,7 @@ final class UserAnalysis(
   def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
     AuthBody(parse.json) { ctx ?=> _ ?=>
       import lila.round.Forecast
-      IfFound(env.round.proxyRepo pov fullId): pov =>
+      Found(env.round.proxyRepo pov fullId): pov =>
         if isTheft(pov) then theftResponse
         else
           ctx.body.body

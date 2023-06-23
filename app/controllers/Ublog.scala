@@ -19,7 +19,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def index(username: UserStr, page: Int) = Open:
     NotForKids:
       val userFu = if username == UserStr("me") then fuccess(ctx.user) else env.user.repo.byId(username)
-      OptionFuPage(userFu): user =>
+      FoundPage(userFu): user =>
         env.ublog.api
           .getUserBlog(user)
           .flatMap: blog =>
@@ -39,7 +39,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open:
     NotForKids:
-      IfFound(env.user.repo byId username): user =>
+      Found(env.user.repo byId username): user =>
         env.ublog.api
           .getUserBlog(user)
           .flatMap: blog =>
@@ -119,13 +119,13 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      OptionPage(env.ublog.api.findByUserBlogOrAdmin(id)): post =>
+      FoundPage(env.ublog.api.findByUserBlogOrAdmin(id)): post =>
         html.ublog.form.edit(post, env.ublog.form.edit(post))
   }
 
   def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      IfFound(env.ublog.api.findByUserBlogOrAdmin(id)): prev =>
+      Found(env.ublog.api.findByUserBlogOrAdmin(id)): prev =>
         env.ublog.form
           .edit(prev)
           .bindFromRequest()
@@ -141,7 +141,7 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   def delete(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
-    IfFound(env.ublog.api.findByUserBlogOrAdmin(id)): post =>
+    Found(env.ublog.api.findByUserBlogOrAdmin(id)): post =>
       env.ublog.api.delete(post) >>
         logModAction(post, "delete") inject
         Redirect(urlOfBlog(post.blog)).flashSuccess
@@ -172,7 +172,7 @@ final class Ublog(env: Env) extends LilaController(env):
           Redirect(urlOfPost(post))
 
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
-    IfFound(UblogBlog.Id(blogId).so(env.ublog.api.getBlog)): blog =>
+    Found(UblogBlog.Id(blogId).so(env.ublog.api.getBlog)): blog =>
       lila.ublog.UblogForm.tier
         .bindFromRequest()
         .fold(
@@ -195,7 +195,7 @@ final class Ublog(env: Env) extends LilaController(env):
   )
 
   def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
-    IfFound(env.ublog.api.findByUserBlogOrAdmin(id)): post =>
+    Found(env.ublog.api.findByUserBlogOrAdmin(id)): post =>
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageRateLimitPerIp(ctx.ip, rateLimitedFu):

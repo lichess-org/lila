@@ -122,9 +122,9 @@ final class Mod(
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
     else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId) then
-      OptionFuRedirect(env.user.repo byId username): user =>
+      Found(env.user.repo byId username): user =>
         env.mod.impersonate.start(me, user)
-        fuccess(routes.User.show(user.username))
+        Redirect(routes.User.show(user.username))
     else notFound
   }
 
@@ -142,7 +142,7 @@ final class Mod(
   }
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>
-    IfFound(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       env.security.forms
         .modEmail(user)
         .bindFromRequest()
@@ -158,7 +158,7 @@ final class Mod(
     env.report.api.inquiries ofModId me.id flatMap {
       case None => Redirect(report.routes.Report.list)
       case Some(report) =>
-        IfFound(env.user.repo byId report.user): user =>
+        Found(env.user.repo byId report.user): user =>
           import lila.report.Room
           import lila.irc.IrcApi.ModDomain
           env.irc.api.inquiry(
@@ -201,7 +201,7 @@ final class Mod(
     Secure { perms =>
       if priv then perms.ViewPrivateComms else perms.Shadowban
     } { ctx ?=> me ?=>
-      OptionFuPage(env.user.repo byId username): user =>
+      FoundPage(env.user.repo byId username): user =>
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)
@@ -271,7 +271,7 @@ final class Mod(
     s"${routes.User.show(username.value).url}${mod so "?mod"}"
 
   def refreshUserAssess(username: UserStr) = Secure(_.MarkEngine) { ctx ?=> me ?=>
-    IfFound(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       assessApi.refreshAssessOf(user) >>
         env.irwin.irwinApi.requests.fromMod(Suspect(user)) >>
         env.irwin.kaladinApi.modRequest(Suspect(user)) >>
@@ -279,7 +279,7 @@ final class Mod(
   }
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
-    IfFound(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       (isGranted(_.Appeals) so env.appeal.api.exists(user)) flatMap { isAppeal =>
         isAppeal.so(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
           case Some(ongoing) if ongoing.mod != me.id =>
@@ -408,13 +408,13 @@ final class Mod(
   }
 
   def permissions(username: UserStr) = Secure(_.ChangePermission) { _ ?=> _ ?=>
-    OptionPage(env.user.repo byId username):
+    FoundPage(env.user.repo byId username):
       html.mod.permissions(_)
   }
 
   def savePermissions(username: UserStr) = SecureBody(_.ChangePermission) { ctx ?=> me ?=>
     import lila.security.Permission
-    IfFound(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       Form(single("permissions" -> list(text.verifying(Permission.allByDbKey.contains))))
         .bindFromRequest()
         .fold(
@@ -492,7 +492,7 @@ final class Mod(
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me ?=>
     import lila.common.Json.given
-    IfFound(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       for
         logs      <- env.mod.logApi.userHistory(user.id)
         notes     <- env.socialInfo.fetchNotes(user)

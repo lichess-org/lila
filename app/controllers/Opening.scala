@@ -18,7 +18,7 @@ final class Opening(env: Env) extends LilaController(env):
         then html.opening.search.resultsList(results)
         else html.opening.search.resultsPage(searchQuery, results, env.opening.api.readConfig)
     else
-      OptionFuPage(env.opening.api.index): page =>
+      FoundPage(env.opening.api.index): page =>
         isGrantedOpt(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki) map {
           html.opening.index(page, _)
         }

@@ -299,37 +299,6 @@ abstract private[controllers] class LilaController(val env: Env)
         data => op(data)
       )
 
-  def OptionOk[A, B: Writeable](fua: Fu[Option[A]])(op: A => Fu[B])(using Context): Fu[Result] =
-    IfFound(fua): a =>
-      op(a).dmap(Ok(_))
-
-  def OptionPage[A](
-      fua: Fu[Option[A]]
-  )(op: A => PageContext ?=> Frag)(using Context): Fu[Result] =
-    fua flatMap { _.fold(notFound)(a => Ok.page(op(a))) }
-
-  def OptionFuPage[A](
-      fua: Fu[Option[A]]
-  )(op: A => PageContext ?=> Fu[Frag])(using Context): Fu[Result] =
-    fua.flatMap:
-      _.fold(notFound)(a => Ok.pageAsync(op(a)))
-
-  def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using Context): Fu[Result] =
-    fua.flatMap:
-      _.fold(notFound): a =>
-        op(a).map:
-          Redirect(_)
-
-  def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A => Fu[String])(using Context): Fu[Result] =
-    fua.flatMap:
-      _.fold(notFound): a =>
-        op(a).map:
-          Redirect(_)
-
-  def OptionResult[A](fua: Fu[Option[A]])(op: A => Result)(using Context): Fu[Result] =
-    IfFound(fua): a =>
-      fuccess(op(a))
-
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment().unit
 

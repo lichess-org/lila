@@ -41,7 +41,7 @@ final class Editor(env: Env) extends LilaController(env):
     JsonOk(html.board.editor.jsData())
 
   def game(id: GameId) = Open:
-    OptionResult(env.game.gameRepo game id): game =>
+    Found(env.game.gameRepo game id): game =>
       Redirect:
         if game.playable
         then routes.Round.watcher(game.id, "white").url
