@@ -83,7 +83,7 @@ abstract private[controllers] class LilaController(val env: Env)
         f(using _)
 
   /* Anonymous, authenticated, and oauth requests with a body */
-  def OpenOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
+  def OpenOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
       f: BodyContext[A] ?=> Fu[Result]
   ): EssentialAction =
     action(parser): req ?=>

@@ -26,15 +26,14 @@ final class Storm(env: Env) extends LilaController(env):
       import lila.storm.StormJson.given
       JsonOk(data.add("high" -> high))
 
-  def record =
-    OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write, _.Web.Mobile)): ctx ?=>
-      NoBot:
-        env.storm.forms.run
-          .bindFromRequest()
-          .fold(
-            _ => fuccess(none),
-            data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
-          ) map env.storm.json.newHigh map JsonOk
+  def record = OpenOrScopedBody(parse.anyContent)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
+    NoBot:
+      env.storm.forms.run
+        .bindFromRequest()
+        .fold(
+          _ => fuccess(none),
+          data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
+        ) map env.storm.json.newHigh map JsonOk
 
   def dashboard(page: Int) = Auth { ctx ?=> me ?=>
     renderDashboardOf(me, page)

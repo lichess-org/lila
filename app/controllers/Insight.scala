@@ -50,7 +50,7 @@ final class Insight(env: Env) extends LilaController(env):
     }
 
   def json(username: UserStr) =
-    OpenOrScopedBody(parse.json)(Nil): ctx ?=>
+    OpenOrScopedBody(parse.json)(): ctx ?=>
       AccessibleApi(username) { processQuestion(_, ctx.body) }
 
   private def processQuestion(user: User, body: Request[JsValue])(using Lang) =

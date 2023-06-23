@@ -126,7 +126,7 @@ final class Setup(
         )
     case HookResult.Refused => BadRequest(jsonError("Game was not created"))
 
-  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile)): ctx ?=>
+  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile): ctx ?=>
     NoBot:
       NoPlaybanOrCurrent:
         forms.hook

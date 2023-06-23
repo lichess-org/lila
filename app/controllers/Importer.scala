@@ -24,63 +24,52 @@ final class Importer(env: Env) extends LilaController(env):
     val data = lila.importer.ImportData(PgnStr(pgn), None)
     Ok.page(html.game.importGame(env.importer.forms.importForm.fill(data)))
 
-  def sendGame = OpenBody:
+  def sendGame = OpenOrScopedBody(parse.anyContent)(): ctx ?=>
     env.importer.forms.importForm
       .bindFromRequest()
       .fold(
-        failure =>
-          negotiate( // used by mobile app
-            BadRequest.page(html.game.importGame(failure)),
-            BadRequest(jsonError("Invalid PGN"))
+        err =>
+          negotiate(
+            BadRequest.page(html.game.importGame(err)),
+            BadRequest(apiFormError(err))
           ),
         data =>
           ImportRateLimitPerIP(ctx.ip, rateLimitedFu, cost = 1):
-            doImport(data, ctx.me) flatMap {
+            env.importer.importer(data) flatMap { game =>
+              ctx.me.so(env.game.cached.clearNbImportedByCache(_)) inject Right(game)
+            } recover { case _: Exception =>
+              Left("The PGN contains illegal and/or ambiguous moves.")
+            } flatMap {
               case Right(game) =>
-                ctx.me.filter(_ => data.analyse.isDefined && game.analysable) soUse { me ?=>
-                  env.fishnet
-                    .analyser(
-                      game,
-                      lila.fishnet.Work.Sender(
-                        userId = me,
-                        ip = ctx.ip.some,
-                        mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
-                        system = false
+                negotiate(
+                  html = ctx.me.filter(_ => data.analyse.isDefined && game.analysable) soUse { me ?=>
+                    env.fishnet
+                      .analyser(
+                        game,
+                        lila.fishnet.Work.Sender(
+                          userId = me,
+                          ip = ctx.ip.some,
+                          mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
+                          system = false
+                        )
                       )
-                    )
-                    .void
-                } inject Redirect(routes.Round.watcher(game.id, "white"))
-              case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error)
-            }
-      )
-
-  def apiSendGame =
-    AnonOrScopedBody(parse.anyContent)(): ctx ?=>
-      ImportRateLimitPerIP(req.ipAddress, rateLimitedFu, cost = if ctx.isAuth then 1 else 2):
-        env.importer.forms.importForm
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(apiFormError(err)),
-            data =>
-              doImport(data, ctx.me).map:
-                case Left(error) => BadRequest(jsonError(error))
-                case Right(game) =>
-                  JsonOk:
+                      .void
+                  } inject Redirect(routes.Round.watcher(game.id, "white")),
+                  json = JsonOk:
                     Json.obj(
                       "id"  -> game.id,
                       "url" -> s"${env.net.baseUrl}/${game.id}"
                     )
-          )
+                )
+              case Left(error) =>
+                negotiate(
+                  Redirect(routes.Importer.importGame).flashFailure(error),
+                  BadRequest(jsonError(error))
+                )
+            }
+      )
 
-  private def doImport(
-      data: lila.importer.ImportData,
-      me: Option[lila.user.User]
-  ): Fu[Either[String, lila.game.Game]] =
-    env.importer.importer(data, me.map(_.id)) flatMap { game =>
-      me.map(_.id).so(env.game.cached.clearNbImportedByCache) inject Right(game)
-    } recover { case _: Exception =>
-      Left("The PGN contains illegal and/or ambiguous moves.")
-    }
+  def apiSendGame = sendGame
 
   def masterGame(id: GameId, orientation: String) = Open:
     Found(env.explorer.importer(id)): game =>

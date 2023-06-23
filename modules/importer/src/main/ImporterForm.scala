@@ -50,8 +50,8 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
       case Reader.Result.Incomplete(replay, _) => replay
 
   def preprocess(user: Option[UserId]): Validated[ErrorStr, Preprocessed] =
-    ImporterForm.catchOverflow { () =>
-      Parser.full(pgn) map { parsed =>
+    ImporterForm.catchOverflow: () =>
+      Parser.full(pgn).map { parsed =>
         Reader.fullWithSans(
           parsed,
           _.map(_ take maxPlies)
@@ -126,4 +126,3 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
           Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
         }
       }
-    }

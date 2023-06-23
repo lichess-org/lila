@@ -114,7 +114,7 @@ final class RelayRound(
       )
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
-  def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
+  def apiPgn                                   = studyC.apiPgn
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rt =>
