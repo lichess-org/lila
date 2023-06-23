@@ -24,20 +24,17 @@ object HTTPRequest:
   )
 
   def appOrigin(req: RequestHeader): Option[String] =
-    origin(req) filter { reqOrigin =>
-      appOrigins exists { appOrigin =>
+    origin(req).filter: reqOrigin =>
+      appOrigins.exists: appOrigin =>
         reqOrigin == appOrigin || reqOrigin.startsWith(s"$appOrigin:")
-      }
-    }
 
   def isApi(req: RequestHeader)      = req.path startsWith "/api/"
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
   def isAssets(req: RequestHeader) = req.path startsWith "/assets/"
 
-  def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent from {
+  def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
     req.headers get HeaderNames.USER_AGENT
-  }
 
   val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
   val isChrome113Plus  = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
@@ -45,8 +42,7 @@ object HTTPRequest:
   val isMobileBrowser  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   val isLichessMobile  = UaMatcher("""Lichess Mobile/""")
 
-  def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
-
+  def origin(req: RequestHeader): Option[String]  = req.headers get HeaderNames.ORIGIN
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
   def ipAddress(req: RequestHeader) =
@@ -135,9 +131,8 @@ object HTTPRequest:
     else "browser"
 
   def queryStringGet(req: RequestHeader, name: String): Option[String] =
-    req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
+    req.queryString.get(name).flatMap(_.headOption).filter(_.nonEmpty)
 
   def looksLikeLichessBot(req: RequestHeader) =
-    userAgent(req) exists { ua =>
+    userAgent(req).exists: ua =>
       ua.value.startsWith("lichess-bot/") || ua.value.startsWith("maia-bot/")
-    }

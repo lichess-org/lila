@@ -422,12 +422,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     NoBot:
       negotiate(
         html = notFound,
-        api = v => {
+        api = v =>
           val angle = PuzzleAngle.mix
           nextPuzzleForMe(angle, none) flatMap {
             _.fold(notFoundJson()) { p => JsonOk(renderJson(p, angle, apiVersion = v.some)) }
           }
-        }
       )
 
   /* Mobile API: select a bunch of puzzles for offline use */

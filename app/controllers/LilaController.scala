@@ -299,10 +299,9 @@ abstract private[controllers] class LilaController(val env: Env)
         data => op(data)
       )
 
-  def OptionOk[A, B: Writeable](
-      fua: Fu[Option[A]]
-  )(op: A => Fu[B])(using Context): Fu[Result] =
-    fua flatMap { _.fold(notFound)(a => op(a) dmap { Ok(_) }) }
+  def OptionOk[A, B: Writeable](fua: Fu[Option[A]])(op: A => Fu[B])(using Context): Fu[Result] =
+    IfFound(fua): a =>
+      op(a).dmap(Ok(_))
 
   def OptionPage[A](
       fua: Fu[Option[A]]
