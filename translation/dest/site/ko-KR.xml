@@ -91,6 +91,7 @@
   </plurals>
   <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\" 수치</string>
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
+  <string name="maxDepthReached">최대 깊이 도달!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
   <string name="openings">오프닝</string>
   <string name="openingExplorer">오프닝 탐색기</string>
@@ -117,6 +118,7 @@
   <string name="memory">메모리</string>
   <string name="infiniteAnalysis">무한 분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
+  <string name="engineManager">엔진 매니저</string>
   <string name="blunder">심각한 실수</string>
   <string name="mistake">실수</string>
   <string name="inaccuracy">사소한 실수</string>
@@ -320,6 +322,7 @@
   </plurals>
   <string name="viewTournament">토너먼트 보기</string>
   <string name="backToTournament">토너먼트로 돌아가기</string>
+  <string name="noDrawBeforeSwissLimit">스위스 토너먼트에서는 30수 전에 무승부를 할 수 없습니다.</string>
   <string name="thematic">국면지정</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">레이팅전 %s 국 이상</item>
@@ -628,6 +631,7 @@
   <string name="simulAddExtraTime">동시대국을 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
   <string name="simulHostExtraTime">호스트 연장 시간</string>
   <string name="simulAddExtraTimePerPlayer">다면기에 참여하는 각 플레이어에게 기본 시간을 추가합니다.</string>
+  <string name="simulHostExtraTimePerPlayer">호스트는 플레이어마다 추가 시간을 가짐</string>
   <string name="lichessTournaments">Lichess 토너먼트</string>
   <string name="tournamentFAQ">아레나 토너먼트 FAQ</string>
   <string name="timeBeforeTournamentStarts">토너먼트 시작까지 시간</string>
@@ -638,6 +642,11 @@
   <string name="keyGoToStartOrEnd">처음/끝으로 가기</string>
   <string name="keyShowOrHideComments">댓글 표시/숨기기</string>
   <string name="keyEnterOrExitVariation">바리에이션 들어가기/나오기</string>
+  <string name="keyRequestComputerAnalysis">컴퓨터 분석 요청, 실수에서 배우기</string>
+  <string name="keyNextLearnFromYourMistakes">다음 (실수에서 배우기)</string>
+  <string name="keyNextBlunder">다음 블런더</string>
+  <string name="keyNextMistake">다음 실수</string>
+  <string name="keyNextInaccuracy">다음 부정확한 수</string>
   <string name="newTournament">새로운 토너먼트</string>
   <string name="tournamentHomeTitle">다양한 제한시간과 게임방식을 지원하는 체스 토너먼트</string>
   <string name="tournamentHomeDescription">빠른 체스 토너먼트를 즐겨 보세요! 공식 일정이 잡힌 토너먼트에 참가할 수도, 당신만의 토너먼트를 만들 수도 있습니다. 불릿, 블릿츠, 클래식, 체스960, 언덕의 제왕, 삼연속체크를 비롯하여 다양한 게임방식을 즐길 수 있습니다.</string>
@@ -733,6 +742,7 @@
   <string name="invalidFen">잘못된 FEN입니다.</string>
   <string name="custom">사용자 지정</string>
   <string name="notifications">알림</string>
+  <string name="notificationsX">알림: %1$s</string>
   <string name="perfRatingX">레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
