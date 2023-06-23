@@ -10,7 +10,7 @@ import lila.common.Form.{ cleanText, into }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
-import lila.user.User
+import lila.user.{ User, Me }
 import lila.common.Seconds
 
 final class RelayRoundForm:
@@ -109,13 +109,12 @@ object RelayRoundForm:
 
     def gameIds = syncUrl flatMap toGameIds
 
-    def update(relay: RelayRound, user: User) =
+    def update(relay: RelayRound)(using me: Me) =
       relay.copy(
         name = name,
         caption = caption,
-        sync = makeSync(user) pipe { sync =>
-          if (relay.sync.playing) sync.play else sync
-        },
+        sync = makeSync(me).pipe: sync =>
+          if (relay.sync.playing) sync.play else sync,
         startsAt = startsAt,
         finished = relay.finished && startsAt.fold(true)(_.isBeforeNow)
       )

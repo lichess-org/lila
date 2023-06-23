@@ -57,39 +57,29 @@ final class RelayRound(
   }
 
   def update(id: RelayRoundId) =
-    AuthOrScopedBody(_.Study.Write)(
-      auth = ctx ?=>
-        me ?=>
-          doUpdate(id).flatMapz:
-            _.fold(
-              (old, err) => BadRequest.page(html.relay.roundForm.edit(old, err)),
-              rt => Redirect(rt.path)
-            )
-      ,
-      scoped = ctx ?=>
-        me ?=>
-          doUpdate(id).map:
-            case None => NotFound(jsonError("No such broadcast"))
-            case Some(res) =>
-              res.fold(
-                (_, err) => BadRequest(apiFormError(err)),
-                rt => JsonOk(env.relay.jsonView.withUrl(rt))
-              )
-    )
-
-  private def doUpdate(id: RelayRoundId)(using
-      req: Request[?],
-      me: Me
-  ): Fu[Option[Either[(RoundModel.WithTour, Form[RelayRoundForm.Data]), RoundModel.WithTour]]] =
-    env.relay.api.byIdAndContributor(id) flatMapz { rt =>
-      env.relay.roundForm
-        .edit(rt.round)
-        .bindFromRequest()
-        .fold(
-          err => fuccess(Left(rt -> err)),
-          data =>
-            env.relay.api.update(rt.round) { data.update(_, me) }.dmap(_ withTour rt.tour) dmap Right.apply
-        ) dmap some
+    AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+      env.relay.api.byIdAndContributor(id) flatMapz { rt =>
+        env.relay.roundForm
+          .edit(rt.round)
+          .bindFromRequest()
+          .fold(
+            err => fuccess(Left(rt -> err)),
+            data =>
+              env.relay.api
+                .update(rt.round)(data.update)
+                .dmap(_ withTour rt.tour)
+                .dmap(Right(_))
+          ) dmap some
+      } flatMapz {
+        _.fold(
+          (old, err) =>
+            negotiateHtmlOrJson(
+              BadRequest.page(html.relay.roundForm.edit(old, err)),
+              BadRequest(apiFormError(err))
+            ),
+          rt => negotiateHtmlOrJson(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
+        )
+      }
     }
 
   def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
