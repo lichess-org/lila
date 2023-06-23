@@ -33,7 +33,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>
     NoBot:
-      OptionFuResult(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
+      IfFound(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if topic.closed then BadRequest("This topic is closed")
         else if topic.isOld then BadRequest("This topic is archived")
         else
@@ -66,7 +66,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def edit(postId: ForumPostId) = AuthBody { ctx ?=> me ?=>
     env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
       teamId.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
-        postApi getPost postId flatMapz { post =>
+        IfFound(postApi getPost postId): post =>
           forms
             .postEdit(inOwnTeam, post.text)
             .bindFromRequest()
@@ -78,15 +78,14 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                     Redirect(routes.ForumPost.redirect(post.id))
                   }
             )
-        }
       }
     }
   }
 
   def delete(categId: ForumCategId, id: ForumPostId) = AuthBody { ctx ?=> me ?=>
-    postApi getPost id flatMapz { post =>
-      if (post.userId.exists(_ is me) && !post.erased)
-        postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
+    IfFound(postApi getPost id): post =>
+      if post.userId.exists(_ is me) && !post.erased
+      then postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
       else
         TopicGrantModById(categId, post.topicId):
           env.forum.delete
@@ -104,14 +103,12 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                   else MsgPreset.forumDeletion.byTeamLeader(categId)
               do env.msg.api.systemPost(userId, preset(reason))
               NoContent
-    }
   }
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
-      postApi.react(categId, id, reaction, v) flatMapz { post =>
-        Ok.page(views.html.forum.post.reactions(post, canReact = true))
-      }
+      OptionPage(postApi.react(categId, id, reaction, v)): post =>
+        views.html.forum.post.reactions(post, canReact = true)
   }
 
   def redirect(id: ForumPostId) = Open:

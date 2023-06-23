@@ -153,7 +153,7 @@ final class Account(
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
-    env.user.repo email me mapz { email =>
+    env.user.repo email me orNotFound { email =>
       JsonOk(Json.obj("email" -> email.value))
     }
   }
@@ -175,16 +175,15 @@ final class Account(
   }
 
   def emailConfirm(token: String) = Open:
-    env.security.emailChange.confirm(token) flatMapz { (user, prevEmail) =>
+    env.security.emailChange.confirm(token) orNotFound { (user, prevEmail) =>
       (prevEmail.exists(_.isNoReply) so env.clas.api.student.release(user)) >>
         auth.authenticateUser(
           user,
           remember = true,
           result =
-            if (prevEmail.exists(_.isNoReply))
-              Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
-            else
-              Some(_ => Redirect(routes.Account.email).flashSuccess)
+            if prevEmail.exists(_.isNoReply)
+            then Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
+            else Some(_ => Redirect(routes.Account.email).flashSuccess)
         )
     }
 
@@ -367,7 +366,7 @@ final class Account(
     val userId: UserId = getUserStr("user")
       .map(_.id)
       .filter(id => me.is(id) || isGranted(_.Impersonate)) | me.userId
-    env.user.repo byId userId flatMapz { user =>
+    env.user.repo byId userId orNotFound { user =>
       if getBool("text") then
         apiC.GlobalConcurrencyLimitUser(me)(env.api.personalDataExport(user)): source =>
           Ok.chunked(source.map(_ + "\n"))

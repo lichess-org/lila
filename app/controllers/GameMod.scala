@@ -16,7 +16,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
   import GameMod.*
 
   def index(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> _ ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    IfFound(env.user.repo byId username): user =>
       val form   = filterForm.bindFromRequest()
       val filter = form.fold(_ => emptyFilter, identity)
       for
@@ -47,7 +47,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       .map(_.toList)
 
   def post(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    IfFound(env.user.repo byId username): user =>
       actionForm
         .bindFromRequest()
         .fold(

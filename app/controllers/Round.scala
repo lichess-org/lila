@@ -88,7 +88,7 @@ final class Round(
     }
 
   def whatsNext(fullId: GameFullId) = Open:
-    OptionFuResult(env.round.proxyRepo.pov(fullId)): currentPov =>
+    IfFound(env.round.proxyRepo.pov(fullId)): currentPov =>
       if currentPov.isMyTurn
       then Ok(Json.obj("nope" -> true))
       else
@@ -97,7 +97,7 @@ final class Round(
         }
 
   def next(gameId: GameId) = Auth { ctx ?=> me ?=>
-    OptionFuResult(env.round.proxyRepo game gameId): currentGame =>
+    IfFound(env.round.proxyRepo game gameId): currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
       } flatMap {
@@ -256,7 +256,7 @@ final class Round(
     }
 
   def sides(gameId: GameId, color: String) = Open:
-    OptionFuResult(proxyPov(gameId, color)): pov =>
+    IfFound(proxyPov(gameId, color)): pov =>
       env.tournament.api.gameView.withTeamVs(pov.game) zip
         (pov.game.simulId so env.simul.repo.find) zip
         env.game.gameRepo.initialFen(pov.game) zip

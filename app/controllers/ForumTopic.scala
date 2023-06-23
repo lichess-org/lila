@@ -29,7 +29,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def create(categId: ForumCategId) = AuthBody { ctx ?=> me ?=>
     NoBot:
       CategGrantWrite(categId):
-        OptionFuResult(env.forum.categRepo byId categId): categ =>
+        IfFound(env.forum.categRepo byId categId): categ =>
           categ.team.so(env.team.cached.isLeader(_, me)) flatMap { inOwnTeam =>
             forms
               .topic(inOwnTeam)
@@ -51,7 +51,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def show(categId: ForumCategId, slug: String, page: Int) = Open:
     NotForKids:
-      OptionFuResult(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
+      IfFound(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         for
           unsub       <- ctx.me soUse env.timeline.status(s"forum:${topic.id}")
           canRead     <- access.isGrantedRead(categ.slug)

@@ -37,11 +37,11 @@ final class Team(
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      OptionFuResult(api team id) { renderTeam(_, page, mod) }
+      IfFound(api team id) { renderTeam(_, page, mod) }
 
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, config.Max(50)):
-      OptionFuResult(api teamEnabled id): team =>
+      IfFound(api teamEnabled id): team =>
         val canSee =
           fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so {
             api.belongsTo(team.id, _)
@@ -98,7 +98,7 @@ final class Team(
     }
 
   def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
-    api teamEnabled teamId flatMapz { team =>
+    IfFound(api teamEnabled teamId): team =>
       val canView: Fu[Boolean] =
         if team.publicMembers then fuccess(true)
         else ctx.me.so(api.belongsTo(team.id, _))
@@ -111,15 +111,12 @@ final class Team(
                 env.api.userApi.one(user, joinedAt.some)
           )
         else Unauthorized
-    }
 
   def tournaments(teamId: TeamId) = Open:
-    api teamEnabled teamId flatMapz { team =>
-      Ok.pageAsync:
-        env.teamInfo.tournaments(team, 30, 30) map {
-          html.team.tournaments.page(team, _)
-        }
-    }
+    OptionFuPage(api teamEnabled teamId): team =>
+      env.teamInfo.tournaments(team, 30, 30) map {
+        html.team.tournaments.page(team, _)
+      }
 
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id): team =>
@@ -186,7 +183,7 @@ final class Team(
   }
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
-    OptionFuResult(api team id): team =>
+    IfFound(api team id): team =>
       forms.explain
         .bindFromRequest()
         .fold(
@@ -264,26 +261,24 @@ final class Team(
         if _ then tooMany else f
 
   def join(id: TeamId) = AuthOrScopedBody(_.Team.Write) { ctx ?=> me ?=>
-    api
-      .teamEnabled(id)
-      .flatMapz: team =>
-        OneAtATime(me, rateLimitedFu):
-          JoinLimit(negotiateHtmlOrJson(tooManyTeamsHtml, tooManyTeamsJson)):
-            negotiateHtmlOrJson(
-              html = webJoin(team, request = none, password = none),
-              json = forms
-                .apiRequest(team)
-                .bindFromRequest()
-                .fold(
-                  newJsonFormError,
-                  setup =>
-                    api.join(team, setup.message, setup.password) flatMap {
-                      case Requesting.Joined      => jsonOkResult
-                      case Requesting.NeedRequest => BadRequest(jsonError("This team requires confirmation."))
-                      case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
-                    }
-                )
-            )
+    IfFound(api.teamEnabled(id)): team =>
+      OneAtATime(me, rateLimitedFu):
+        JoinLimit(negotiateHtmlOrJson(tooManyTeamsHtml, tooManyTeamsJson)):
+          negotiateHtmlOrJson(
+            html = webJoin(team, request = none, password = none),
+            json = forms
+              .apiRequest(team)
+              .bindFromRequest()
+              .fold(
+                newJsonFormError,
+                setup =>
+                  api.join(team, setup.message, setup.password) flatMap {
+                    case Requesting.Joined       => jsonOkResult
+                    case Requesting.NeedRequest  => BadRequest(jsonError("This team requires confirmation."))
+                    case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
+                  }
+              )
+          )
   }
 
   def subscribe(teamId: TeamId) =
@@ -307,7 +302,7 @@ final class Team(
   }
 
   def requestCreate(id: TeamId) = AuthBody { ctx ?=> me ?=>
-    OptionFuResult(api.requestable(id)): team =>
+    IfFound(api.requestable(id)): team =>
       OneAtATime(me, rateLimitedFu):
         JoinLimit(tooManyTeamsHtml):
           forms
@@ -514,7 +509,7 @@ final class Team(
     }
 
   private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
-    OptionFuResult(api team teamId): team =>
+    IfFound(api team teamId): team =>
       if ctx.userId.exists(team.leaders.contains) || isGrantedOpt(_.ManageTeam) then f(team)
       else Redirect(routes.Team.show(team.id))
 

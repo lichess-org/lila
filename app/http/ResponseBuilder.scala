@@ -4,6 +4,7 @@ package http
 import play.api.libs.json.*
 import play.api.http.*
 import play.api.mvc.*
+import alleycats.Zero
 
 import lila.common.{ HTTPRequest, ApiVersion }
 
@@ -23,8 +24,17 @@ trait ResponseBuilder(using Executor)
   // given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
   given (using Context): Conversion[Funit, Fu[Result]] =
     _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
-  // TODO what does this do
-  given alleycats.Zero[Result] = alleycats.Zero(Results.NotFound)
+  given (using Context): Zero[Fu[Result]] = Zero(notFound)
+
+  def IfFound[A](a: Fu[Option[A]])(f: A => Fu[Result])(using Context): Fu[Result] =
+    a.flatMap(_.fold(notFound)(f))
+
+  extension [A](fua: Fu[Option[A]])
+    def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =
+      fua flatMap { _.fold(notFound)(f) }
+  extension [A](fua: Fu[Boolean])
+    def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
+      fua flatMap { if _ then f else notFound }
 
   val rateLimitedMsg             = "Too many requests. Try again later."
   val rateLimited                = TooManyRequests(rateLimitedMsg)

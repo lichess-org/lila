@@ -18,7 +18,7 @@ final class Analyse(
 ) extends LilaController(env):
 
   def requestAnalysis(id: GameId) = Auth { ctx ?=> me ?=>
-    OptionFuResult(env.game.gameRepo game id): game =>
+    IfFound(env.game.gameRepo game id): game =>
       env.fishnet
         .analyser(
           game,

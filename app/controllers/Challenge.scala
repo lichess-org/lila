@@ -41,7 +41,7 @@ final class Challenge(
     showId(id)
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
-    OptionFuResult(api byId id)(showChallenge(_))
+    IfFound(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
       c: ChallengeModel,
@@ -84,7 +84,7 @@ final class Challenge(
       !challenge.challengerUserId.so(orig => me.exists(_ is orig))
 
   def accept(id: ChallengeId, color: Option[String]) = Open:
-    OptionFuResult(api byId id): c =>
+    IfFound(api byId id): c =>
       val cc = color flatMap chess.Color.fromName
       isForMe(c) so api
         .accept(c, ctx.req.sid, cc)
@@ -142,7 +142,7 @@ final class Challenge(
     }
 
   def decline(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
-    OptionFuResult(api byId id): c =>
+    IfFound(api byId id): c =>
       isForMe(c) so
         api.decline(
           c,
@@ -170,7 +170,7 @@ final class Challenge(
 
   def cancel(id: ChallengeId) =
     Open:
-      OptionFuResult(api byId id): c =>
+      IfFound(api byId id): c =>
         if isMine(c) then api cancel c else notFound
 
   def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
@@ -227,7 +227,7 @@ final class Challenge(
             env.game.gameRepo game id flatMapz { g =>
               env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
                 (_.filter(_.hasUserIds(u1.id, u2.id)))
-            } mapz { game =>
+            } orNotFound { game =>
               env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
               jsonOkResult
             }
@@ -254,7 +254,7 @@ final class Challenge(
   def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     import play.api.data.*
     import play.api.data.Forms.*
-    OptionFuResult(api byId id): c =>
+    IfFound(api byId id): c =>
       if isMine(c) then
         Form(single("username" -> lila.user.UserForm.historicalUsernameField))
           .bindFromRequest()
@@ -382,8 +382,8 @@ final class Challenge(
 
   def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me ?=>
     NoBot:
-      OptionFuResult(env.game.gameRepo game gameId): g =>
-        Pov.opponentOf(g, me).flatMap(_.userId) so env.user.repo.byId flatMapz { opponent =>
+      IfFound(env.game.gameRepo game gameId): g =>
+        Pov.opponentOf(g, me).flatMap(_.userId) so env.user.repo.byId orNotFound { opponent =>
           env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d))
             case _ =>

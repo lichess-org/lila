@@ -150,7 +150,7 @@ final class Setup(
     NoBot:
       PostRateLimit(ctx.ip, rateLimitedFu):
         NoPlaybanOrCurrent:
-          env.game.gameRepo game gameId flatMapz { game =>
+          IfFound(env.game.gameRepo game gameId): game =>
             for
               blocking <- ctx.userId so env.relation.api.fetchBlocking
               hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
@@ -160,18 +160,10 @@ final class Setup(
                   get("deltaMin"),
                   get("deltaMax")
                 )
-              )(rr => hookConfig withRatingRange rr) updateFrom game
-              sameOpponents = game.userIds
-              hookResult <-
-                processor
-                  .hook(
-                    hookConfigWithRating,
-                    sri,
-                    ctx.req.sid,
-                    lila.pool.Blocking(blocking ++ sameOpponents)
-                  )
+              )(hookConfig.withRatingRange) updateFrom game
+              allBlocking = lila.pool.Blocking(blocking ++ game.userIds)
+              hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)
             yield hookResponse(hookResult)
-          }
 
   private val BoardApiHookConcurrencyLimitPerUserOrSri = lila.memo.ConcurrencyLimit[Either[Sri, UserId]](
     name = "Board API hook Stream API concurrency per user",

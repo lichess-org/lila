@@ -69,7 +69,7 @@ final class RelayRound(
               .dmap(_ withTour rt.tour)
               .dmap(Right(_))
         ) dmap some
-    } flatMapz {
+    } orNotFound {
       _.fold(
         (old, err) =>
           negotiateHtmlOrJson(
@@ -82,7 +82,7 @@ final class RelayRound(
   }
 
   def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
-    OptionFuResult(env.relay.api.byIdAndContributor(id)): rt =>
+    IfFound(env.relay.api.byIdAndContributor(id)): rt =>
       env.relay.api.reset(rt.round) inject Redirect(rt.path)
   }
 
@@ -102,34 +102,31 @@ final class RelayRound(
                   }
                 }
               else env.study.api byIdWithChapter rt.round.studyId
-            sc flatMapz { doShow(rt, _) }
+            sc orNotFound { doShow(rt, _) }
         ,
-        json = env.relay.api.byIdWithTour(id) flatMapz { rt =>
-          env.study.studyRepo.byId(rt.round.studyId) flatMapz { study =>
+        json = IfFound(env.relay.api.byIdWithTour(id)): rt =>
+          IfFound(env.study.studyRepo.byId(rt.round.studyId)): study =>
             studyC.CanView(study)(
               env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
                 JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
               }
             )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
-          }
-        }
       )
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
   def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
-    env.relay.api.byIdWithStudy(id) flatMapz { rt =>
+    IfFound(env.relay.api.byIdWithStudy(id)): rt =>
       studyC.CanView(rt.study) {
         apiC.GlobalConcurrencyLimitPerIP
           .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)): source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
       }(Unauthorized, Forbidden)
-    }
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) = Open:
     WithRoundAndTour(ts, rs, id): rt =>
-      env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
+      env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId) orNotFound { doShow(rt, _) }
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     env.relay.api
@@ -142,7 +139,7 @@ final class RelayRound(
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: Context): Fu[Result] =
-    OptionFuResult(env.relay.api byIdWithTour id): rt =>
+    IfFound(env.relay.api byIdWithTour id): rt =>
       if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable(ctx.req)
       then Redirect(rt.path)
       else f(rt)
@@ -150,15 +147,16 @@ final class RelayRound(
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
   )(using Context): Fu[Result] =
-    OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
+    IfFound(env.relay.api tourById TourModel.Id(id))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
-      ctx.me.soUse { env.relay.api.canUpdate(tour) } flatMapz {
-        env.relay.api withRounds tour flatMap f
-      }
+      ctx.me
+        .soUse { env.relay.api.canUpdate(tour) }
+        .elseNotFound:
+          env.relay.api withRounds tour flatMap f
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
       ctx: Context

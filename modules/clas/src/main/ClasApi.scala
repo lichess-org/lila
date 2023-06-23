@@ -59,10 +59,10 @@ final class ClasApi(
     def updateWall(clas: Clas, text: Markdown): Funit =
       coll.updateField($id(clas.id), "wall", text).void
 
-    def getAndView(id: Clas.Id, teacher: User): Fu[Option[Clas]] =
+    def getAndView(id: Clas.Id)(using teacher: Me): Fu[Option[Clas]] =
       coll
         .findAndUpdateSimplified[Clas](
-          selector = $id(id) ++ $doc("teachers" -> teacher.id),
+          selector = $id(id) ++ $doc("teachers" -> teacher.userId),
           update = $set("viewedAt" -> nowInstant),
           fetchNewObject = true
         )
