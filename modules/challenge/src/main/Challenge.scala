@@ -1,5 +1,8 @@
 package lila.challenge
 
+import cats.Eq
+import cats.derived.*
+
 import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
@@ -162,7 +165,7 @@ object Challenge:
       // All durations are expressed in seconds
       export config.{ limit, increment, show }
 
-  enum ColorChoice(val trans: I18nKey):
+  enum ColorChoice(val trans: I18nKey) derives Eq:
     case Random extends ColorChoice(I18nKeys.randomColor)
     case White  extends ColorChoice(I18nKeys.white)
     case Black  extends ColorChoice(I18nKeys.black)
