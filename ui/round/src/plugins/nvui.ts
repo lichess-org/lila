@@ -55,9 +55,6 @@ export function initModule(): NvuiPlugin {
   lichess.pubsub.on('round.suggestion', notify.set);
 
   return {
-    setRedraw(redraw) {
-      notify.redraw = redraw;
-    },
     premoveInput: '',
     playPremove(ctrl: RoundController) {
       const nvui = ctrl.nvui!;
@@ -66,6 +63,7 @@ export function initModule(): NvuiPlugin {
     },
     submitMove: undefined,
     render(ctrl: RoundController): VNode {
+      notify.redraw = ctrl.redraw;
       const d = ctrl.data,
         nvui = ctrl.nvui!,
         step = plyStep(d, ctrl.ply),
