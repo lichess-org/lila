@@ -133,12 +133,12 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         BadRequest(jsonError("This game cannot be played with the Bot API."))
       else f(pov)
 
-  private def WithPovAsBoard(anyId: GameAnyId)(f: Pov => Fu[Result])(using me: Me) =
+  private def WithPovAsBoard(anyId: GameAnyId)(f: Pov => Fu[Result])(using ctx: Context)(using Me) =
     WithPov(anyId): pov =>
-      if me.isBot then notForBotAccounts
-      else if !lila.game.Game.isBoardCompatible(pov.game) then
-        BadRequest(jsonError("This game cannot be played with the Board API."))
-      else f(pov)
+      NoBot:
+        if !lila.game.Game.isBoardCompatible(pov.game) then
+          BadRequest(jsonError("This game cannot be played with the Board API."))
+        else f(pov)
 
   private def WithPov(anyId: GameAnyId)(f: Pov => Fu[Result])(using me: Me) =
     env.round.proxyRepo.game(anyId.gameId) flatMap {

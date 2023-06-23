@@ -64,11 +64,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     NoEngine(NoBooster(a))
 
   def NoBot[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
-    if ctx.isBot then
-      negotiate(
-        Forbidden.page(views.html.site.message.noBot),
-        Forbidden(jsonError("no bots allowed"))
-      )
+    if ctx.isBot then notForBotAccounts
     else a
 
   def NoLameOrBotOpt[A <: Result](a: => Fu[A])(using Context): Fu[Result] =

@@ -172,46 +172,46 @@ final class Setup(
     maxConcurrency = 1
   )
   def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile): ctx ?=>
-    val reqSri = getAs[Sri]("sri")
-    val author: Either[Result, Either[Sri, lila.user.User]] = ctx.me match
-      case Some(u) if u.isBot => Left(notForBotAccounts)
-      case Some(u)            => Right(Right(u))
-      case None =>
-        reqSri match
-          case Some(sri) => Right(Left(sri))
-          case None      => Left(BadRequest(jsonError("Authentication required")))
-    author match
-      case Left(err) => err.toFuccess
-      case Right(author) =>
-        forms
-          .boardApiHook:
-            ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
-          .bindFromRequest()
-          .fold(
-            newJsonFormError,
-            config =>
-              ctx.me.so(env.relation.api.fetchBlocking(_)).flatMap { blocking =>
-                val uniqId = author.fold(_.value, u => s"sri:${u.id}")
-                config.fixColor
-                  .hook(reqSri | Sri(uniqId), ctx.me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
-                  case Left(hook) =>
-                    PostRateLimit(req.ipAddress, rateLimitedFu):
-                      BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
-                        env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                      )(apiC.sourceToNdJsonOption)
-                  case Right(Some(seek)) =>
-                    author match
-                      case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks"))
-                      case Right(me) =>
-                        env.setup.processor.createSeekIfAllowed(seek)(using me) map {
-                          case HookResult.Refused =>
-                            BadRequest(Json.obj("error" -> "Already playing too many games"))
-                          case HookResult.Created(id) => Ok(Json.obj("id" -> id))
-                        }
-                  case Right(None) => notFoundJson()
+    NoBot:
+      val reqSri = getAs[Sri]("sri")
+      val author: Either[Result, Either[Sri, lila.user.User]] = ctx.me match
+        case Some(u) => Right(Right(u))
+        case None =>
+          reqSri match
+            case Some(sri) => Right(Left(sri))
+            case None      => Left(BadRequest(jsonError("Authentication required")))
+      author match
+        case Left(err) => err.toFuccess
+        case Right(author) =>
+          forms
+            .boardApiHook:
+              ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
+            .bindFromRequest()
+            .fold(
+              newJsonFormError,
+              config =>
+                ctx.me.so(env.relation.api.fetchBlocking(_)).flatMap { blocking =>
+                  val uniqId = author.fold(_.value, u => s"sri:${u.id}")
+                  config.fixColor
+                    .hook(reqSri | Sri(uniqId), ctx.me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
+                    case Left(hook) =>
+                      PostRateLimit(req.ipAddress, rateLimitedFu):
+                        BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
+                          env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                        )(apiC.sourceToNdJsonOption)
+                    case Right(Some(seek)) =>
+                      author match
+                        case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks"))
+                        case Right(me) =>
+                          env.setup.processor.createSeekIfAllowed(seek)(using me) map {
+                            case HookResult.Refused =>
+                              BadRequest(Json.obj("error" -> "Already playing too many games"))
+                            case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                          }
+                    case Right(None) => notFoundJson()
 
-              }
-          )
+                }
+            )
 
   def filterForm = Open:
     Ok.page(html.setup.filter(forms.filter))
