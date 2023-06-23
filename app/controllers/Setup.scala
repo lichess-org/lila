@@ -184,7 +184,8 @@ final class Setup(
       case Left(err) => err.toFuccess
       case Right(author) =>
         forms
-          .boardApiHook(ctx.isMobile)
+          .boardApiHook:
+            ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.IsLichessMobile(ctx.req))
           .bindFromRequest()
           .fold(
             newJsonFormError,

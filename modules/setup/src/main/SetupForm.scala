@@ -94,7 +94,7 @@ object SetupForm:
     )(_ => none)
       .verifying("Invalid clock", _.validClock)
 
-  def boardApiHook(mobile: Boolean) = Form:
+  def boardApiHook(allowFastGames: Boolean) = Form:
     boardApiHookBase
       .verifying(
         "Invalid time control",

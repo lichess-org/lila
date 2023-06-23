@@ -30,7 +30,7 @@ final class LoginContext(
   def isAppealUser                   = me.exists(_.enabled.no)
   def isWebAuth                      = isAuth && oauth.isEmpty
   def isOAuth                        = isAuth && oauth.isDefined
-  def isMobile                       = oauth.exists(_.has(_.Web.Mobile))
+  def isMobileOauth                  = oauth.exists(_.has(_.Web.Mobile))
   def scopes                         = oauth | TokenScopes(Nil)
 
 object LoginContext:
