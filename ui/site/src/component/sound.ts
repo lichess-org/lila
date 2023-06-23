@@ -103,18 +103,23 @@ export default new (class implements SoundI {
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
-    if (cut) speechSynthesis.cancel();
-    if (!this.speechStorage.get() && !force) return false;
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.volume = this.getVolume();
-    msg.lang = translated ? document.documentElement!.lang : 'en-US';
-    if (!isIOS()) {
-      // speech events are unreliable on iOS, but iphones do their own cancellation
-      msg.onstart = _ => lichess.mic.pause();
-      msg.onend = msg.onerror = _ => lichess.mic.resume();
+    try {
+      if (cut) speechSynthesis.cancel();
+      if (!this.speechStorage.get() && !force) return false;
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.volume = this.getVolume();
+      msg.lang = translated ? document.documentElement!.lang : 'en-US';
+      if (!isIOS()) {
+        // speech events are unreliable on iOS, but iphones do their own cancellation
+        msg.onstart = _ => lichess.mic.pause();
+        msg.onend = msg.onerror = _ => lichess.mic.resume();
+      }
+      speechSynthesis.speak(msg);
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
     }
-    speechSynthesis.speak(msg);
-    return true;
   };
 
   sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
