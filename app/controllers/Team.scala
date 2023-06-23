@@ -388,31 +388,23 @@ final class Team(
         }
   }
 
-  def quit(id: TeamId) =
-    AuthOrScoped(_.Team.Write)(
-      auth = ctx ?=>
-        me ?=>
-          OptionFuResult(api team id): team =>
-            if team isOnlyLeader me then
-              negotiate(
-                html = Redirect(routes.Team.edit(team.id))
-                  .flashFailure(lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()),
-                api = _ => jsonOkResult
-              )
-            else
-              api.cancelRequestOrQuit(team) >>
-                negotiate(
-                  html = Redirect(routes.Team.mine).flashSuccess,
-                  api = _ => jsonOkResult
-                )
-      ,
-      scoped = _ ?=>
-        me ?=>
-          api team id flatMap {
-            _.fold(notFoundJson()): team =>
-              api.cancelRequestOrQuit(team) inject jsonOkResult
-          }
-    )
+  def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
+    api team id flatMap {
+      _.fold(notFound): team =>
+        if team isOnlyLeader me then
+          val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
+          negotiateHtmlOrJson(
+            html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
+            json = JsonBadRequest(msg)
+          )
+        else
+          api.cancelRequestOrQuit(team) >>
+            negotiateHtmlOrJson(
+              html = Redirect(routes.Team.mine).flashSuccess,
+              json = jsonOkResult
+            )
+    }
+  }
 
   def autocomplete = Anon:
     get("term").filter(_.nonEmpty) match

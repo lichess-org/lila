@@ -1,6 +1,5 @@
 package controllers
 
-import alleycats.Zero
 import play.api.data.Form
 import play.api.data.FormBinding
 import play.api.http.*
@@ -112,18 +111,12 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and oauth requests */
   def AuthOrScoped(selectors: OAuthScope.Selector*)(
-      auth: Context ?=> Me ?=> Fu[Result],
-      scoped: Context ?=> Me ?=> Fu[Result]
+      f: Context ?=> Me ?=> Fu[Result]
   ): EssentialAction =
     action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
-      then handleScoped(selectors)(scoped)
-      else handleAuth(auth)
-
-  def AuthOrScoped(
-      selectors: OAuthScope.Selector*
-  )(f: Context ?=> Me ?=> Fu[Result]): EssentialAction =
-    AuthOrScoped(selectors*)(auth = f, scoped = f)
+      then handleScoped(selectors)(f)
+      else handleAuth(f)
 
   /* Authenticated and oauth requests with a body */
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(

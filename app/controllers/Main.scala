@@ -32,7 +32,9 @@ final class Main(
             lila.api.ApiConfig.blindCookie.make(env.lilaCookie)(enable != "0")
       )
 
-  def handlerNotFound(using RequestHeader) = makeContext flatMap { renderNotFound(using _) }
+  def handlerNotFound(using RequestHeader) =
+    makeContext.flatMap:
+      keyPages.notFound(using _)
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.long

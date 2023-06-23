@@ -16,7 +16,6 @@ trait ResponseBuilder(using Executor)
     with CtrlPage:
 
   val keyPages = KeyPages(env)
-  export keyPages.{ notFound as renderNotFound }
   export scalatags.Text.Frag
 
   // given Conversion[scalatags.Text.Frag, Result] = Ok(_)
@@ -24,6 +23,7 @@ trait ResponseBuilder(using Executor)
   // given Conversion[scalatags.Text.Frag, Fu[Result]] = html => fuccess(Ok(html))
   given (using Context): Conversion[Funit, Fu[Result]] =
     _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
+  // TODO what does this do
   given alleycats.Zero[Result] = alleycats.Zero(Results.NotFound)
 
   val rateLimitedMsg             = "Too many requests. Try again later."
@@ -44,6 +44,7 @@ trait ResponseBuilder(using Executor)
       _.fold(notFoundJson())(a => fuccess(JsonOk(a)))
   def JsonStrOk(str: JsonStr): Result       = Ok(str) as JSON
   def JsonBadRequest(body: JsValue): Result = BadRequest(body) as JSON
+  def JsonBadRequest(msg: String): Result   = JsonBadRequest(jsonError(msg))
 
   def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: Context): Fu[Result] =
     lila.api.Mobile.Api
@@ -60,16 +61,17 @@ trait ResponseBuilder(using Executor)
   def notFoundJsonSync(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
 
   def notFoundJson(msg: String = "Not found"): Fu[Result] = fuccess(notFoundJsonSync(msg))
+  def notFoundText(msg: String = "Not found"): Fu[Result] = fuccess(Results.NotFound(msg))
 
   def notForBotAccounts = JsonBadRequest(jsonError("This API endpoint is not for Bot accounts."))
 
   def notFound(using ctx: Context): Fu[Result] =
-    negotiate(
-      html = ctx match
-        case web: Context if HTTPRequest.isSynchronousHttp(ctx.req) => renderNotFound(using web)
-        case _ => fuccess(Results.NotFound("Resource not found"))
-      ,
-      api = _ => notFoundJson("Resource not found")
+    negotiateHtmlOrJson(
+      html =
+        if HTTPRequest.isSynchronousHttp(ctx.req)
+        then keyPages.notFound
+        else notFoundText(),
+      json = notFoundJson()
     )
 
   def authenticationFailed(using ctx: Context): Fu[Result] =
