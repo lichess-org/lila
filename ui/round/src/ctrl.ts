@@ -432,19 +432,22 @@ export default class RoundController {
     this.setTitle();
     const move = parseUsi(o.usi!)!,
       keys = usiToSquareNames(o.usi!),
-      posRes =
-        variant === 'chushogi' || (playing && activeColor) ? parseSfen(d.game.variant.key, o.sfen, false) : undefined;
+      posRes = playing && activeColor ? parseSfen(d.game.variant.key, o.sfen, false) : undefined;
 
     if (!this.replaying()) {
       this.ply++;
       if (isDrop(move)) {
         const capture = this.shogiground.state.pieces.get(keys[0]),
+          unpromotedRole =
+            variant === 'kyotoshogi' && !handRoles(variant).includes(move.role)
+              ? unpromote(variant)(move.role)
+              : undefined, // unify this behaviour, somewhere we get piece already promoted, somwehere we get original piece with boolean promotion
           piece = {
-            role: move.role,
+            role: unpromotedRole || move.role,
             color: playedColor,
           };
         // no need to drop the piece if it is already there - would play the sound again
-        if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, keys[0]);
+        if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, keys[0], !!unpromotedRole);
       } else {
         // This block needs to be idempotent
         if (defined(move.midStep)) {
