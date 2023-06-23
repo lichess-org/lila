@@ -34,16 +34,15 @@ export default function () {
 
   {
     // challengeApp
-    let instance: any, booted: boolean;
+    let instance: Promise<any> | undefined;
     const $toggle = $('#challenge-toggle'),
       $countSpan = $toggle.find('span');
     $toggle.one('mouseover click', () => load());
     const load = function (data?: any) {
-      if (booted) return;
-      booted = true;
+      if (instance) return;
       const $el = $('#challenge-app').html(initiatingHtml);
       loadCssPath('challenge');
-      loadEsm('challenge', {
+      instance = loadEsm('challenge', {
         init: {
           el: $el[0],
           data,
@@ -60,9 +59,9 @@ export default function () {
         },
       });
     };
-    pubsub.on('socket.in.challenges', data => {
+    pubsub.on('socket.in.challenges', async data => {
       if (!instance) load(data);
-      else instance.update(data);
+      else (await instance).update(data);
     });
 
     pubsub.on('challenge-app.open', () => $toggle.trigger('click'));
