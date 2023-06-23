@@ -19,7 +19,7 @@ object show:
       moreJs = frag(
         analyseNvuiTag,
         jsModuleInit(
-          "analysisBoard.practice",
+          "analysisBoard.study",
           Json.obj(
             "practice" -> data.practice,
             "study"    -> data.study,
