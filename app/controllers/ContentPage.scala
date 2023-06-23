@@ -30,9 +30,9 @@ final class ContentPage(
 
   def variantHome = Open:
     negotiate(
-      html = FoundPage(prismicC getBookmark "variant"): (doc, resolver) =>
+      FoundPage(prismicC getBookmark "variant"): (doc, resolver) =>
         views.html.site.variant.home(doc, resolver),
-      api = _ => Ok(lila.api.StaticContent.variantsJson)
+      Ok(lila.api.StaticContent.variantsJson)
     )
 
   def variant(key: Variant.LilaKey) = Open:

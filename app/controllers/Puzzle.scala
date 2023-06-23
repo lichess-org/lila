@@ -51,10 +51,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def daily = Open:
     NoBot:
       Found(env.puzzle.daily.get): daily =>
-        negotiate(
+        negotiateApi(
           html = renderShow(daily.puzzle, PuzzleAngle.mix),
           api = v => renderJson(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some) dmap { Ok(_) }
-        ) dmap (_.noCache)
+        ).dmap(_.noCache)
 
   def apiDaily = Anon:
     env.puzzle.daily.get.flatMap:
@@ -410,18 +410,14 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
 
   def mobileBcLoad(nid: Long) = Open:
-    negotiate(
-      html = notFound,
-      _ =>
-        FoundOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
-          env.puzzle.jsonView.bc(puz)
-        .dmap(_ as JSON)
-    )
+    negotiateJson:
+      FoundOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
+        env.puzzle.jsonView.bc(puz)
 
   // XHR load next play puzzle
   def mobileBcNew = Open:
     NoBot:
-      negotiate(
+      negotiateApi(
         html = notFound,
         api = v =>
           val angle = PuzzleAngle.mix
@@ -432,59 +428,52 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   /* Mobile API: select a bunch of puzzles for offline use */
   def mobileBcBatchSelect = Auth { ctx ?=> _ ?=>
-    negotiate(
-      html = notFound,
-      api = _ =>
-        val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
-        env.puzzle.batch.nextForMe(PuzzleDifficulty.default, nb) flatMap { puzzles =>
+    negotiateJson:
+      val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
+      env.puzzle.batch
+        .nextForMe(PuzzleDifficulty.default, nb)
+        .flatMap: puzzles =>
           env.puzzle.jsonView.bc.batch(puzzles)
-        } dmap { Ok(_) }
-    )
+        .dmap(Ok(_))
   }
 
   /* Mobile API: tell the server about puzzles solved while offline */
   def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me ?=>
-    negotiate(
-      html = notFound,
-      api = _ => {
-        import lila.puzzle.PuzzleForm.bc.*
-        import lila.puzzle.PuzzleWin
-        ctx.body.body
-          .validate[SolveDataBc]
-          .fold(
-            err => BadRequest(err.toString),
-            data =>
-              data.solutions.lastOption
-                .flatMap: solution =>
-                  Puz
-                    .numericalId(solution.id)
-                    .map(_ -> PuzzleWin(solution.win))
-                .so: (id, solution) =>
-                  env.puzzle.finisher(id, PuzzleAngle.mix, me, solution, chess.Mode.Rated)
-                .map:
-                  case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
-                  case Some((round, perf)) =>
-                    env.puzzle.session.onComplete(round, PuzzleAngle.mix)
-                    Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
-          )
-      }
-    )
+    negotiateJson:
+      import lila.puzzle.PuzzleForm.bc.*
+      import lila.puzzle.PuzzleWin
+      ctx.body.body
+        .validate[SolveDataBc]
+        .fold(
+          err => BadRequest(err.toString),
+          data =>
+            data.solutions.lastOption
+              .flatMap: solution =>
+                Puz
+                  .numericalId(solution.id)
+                  .map(_ -> PuzzleWin(solution.win))
+              .so: (id, solution) =>
+                env.puzzle.finisher(id, PuzzleAngle.mix, me, solution, chess.Mode.Rated)
+              .map:
+                case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
+                case Some((round, perf)) =>
+                  env.puzzle.session.onComplete(round, PuzzleAngle.mix)
+                  Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
+        )
   }
 
   def mobileBcVote(nid: Long) = AuthBody { ctx ?=> me ?=>
-    negotiate(
-      html = notFound,
-      api = _ =>
-        env.puzzle.forms.bc.vote
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            intVote =>
-              Puz.numericalId(nid) so {
-                env.puzzle.api.vote.update(_, me, intVote == 1) inject jsonOkResult
-              }
-          )
-    )
+    negotiateJson:
+      env.puzzle.forms.bc.vote
+        .bindFromRequest()
+        .fold(
+          jsonFormError,
+          intVote =>
+            Puz.numericalId(nid) so {
+              env.puzzle.api.vote.update(_, me, intVote == 1) inject jsonOkResult
+            }
+        )
+
   }
 
   def help = Open:

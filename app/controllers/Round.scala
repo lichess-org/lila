@@ -23,7 +23,7 @@ final class Round(
     with TheftPrevention:
 
   private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
-    negotiate(
+    negotiateApi(
       html =
         if !pov.game.started then notFound
         else
@@ -141,7 +141,7 @@ final class Round(
         if (userTv.isDefined) watch(!pov, userTv)
         else Redirect(routes.Round.watcher(pov.gameId, "white"))
       case _ =>
-        negotiate(
+        negotiateApi(
           html =
             if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
             else if HTTPRequest.isHuman(ctx.req) then
@@ -186,11 +186,10 @@ final class Round(
               data     <- env.api.roundApi.watcher(pov, tour, apiVersion, tv = none)
               analysis <- env.analyse.analyser get pov.game
               chat     <- getWatcherChat(pov.game)
-            yield Ok {
+            yield Ok:
               data
                 .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
                 .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
-            }
         ) dmap (_.noCache)
 
   private[controllers] def getWatcherChat(

@@ -23,8 +23,8 @@ final class Lobby(env: Env) extends LilaController(env):
   def home = Open:
     pageHit
     negotiate(
-      html = serveHtmlHome,
-      api = _ =>
+      serveHtmlHome,
+      json =
         val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
         Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
     )
@@ -44,13 +44,10 @@ final class Lobby(env: Env) extends LilaController(env):
       keyPages.home(status)(using ctx)
 
   def seeks = Open:
-    negotiate(
-      html = NotFound,
-      api = _ =>
-        ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser(_)) map { seeks =>
-          Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
-        }
-    )
+    negotiateJson:
+      ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser(_)) map { seeks =>
+        Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
+      }
 
   def timeline = Auth { _ ?=> me ?=>
     Ok.pageAsync:

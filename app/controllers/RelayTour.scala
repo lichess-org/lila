@@ -48,19 +48,19 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def create = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
-      def whenRateLimited = negotiateHtmlOrJson(Redirect(routes.RelayTour.index()), rateLimited)
+      def whenRateLimited = negotiate(Redirect(routes.RelayTour.index()), rateLimited)
       env.relay.tourForm.create
         .bindFromRequest()
         .fold(
           err =>
-            negotiateHtmlOrJson(
+            negotiate(
               BadRequest.page(html.relay.tourForm.create(err)),
               BadRequest(apiFormError(err))
             ),
           setup =>
             rateLimitCreation(whenRateLimited):
               env.relay.api.tourCreate(setup) flatMap { tour =>
-                negotiateHtmlOrJson(
+                negotiate(
                   Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
                   JsonOk:
                     env.relay.api.tourCreate(setup) map { tour =>
@@ -84,13 +84,13 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         .bindFromRequest()
         .fold(
           err =>
-            negotiateHtmlOrJson(
+            negotiate(
               BadRequest.page(html.relay.tourForm.edit(tour, err)),
               BadRequest(apiFormError(err))
             ),
           setup =>
             env.relay.api.tourUpdate(tour, setup) >>
-              negotiateHtmlOrJson(
+              negotiate(
                 Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value)),
                 jsonOkResult
               )

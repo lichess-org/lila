@@ -53,36 +53,30 @@ final class Account(
   }
 
   def info = Auth { _ ?=> me ?=>
-    negotiate(
-      html = notFound,
-      api = _ =>
-        for
-          povs         <- env.round.proxyRepo urgentGames me
-          nbChallenges <- env.challenge.api.countInFor get me
-          playban      <- env.playban.api currentBan me
-        yield Ok {
-          import lila.pref.JsonView.given
-          env.user.jsonView
-            .full(me, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
-            .obj(
-              "prefs"        -> ctx.pref,
-              "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
-              "nbChallenges" -> nbChallenges,
-              "online"       -> true
-            )
-            .add("kid" -> me.kid)
-            .add("troll" -> me.marks.troll)
-            .add("playban" -> playban)
-            .add("announce" -> AnnounceStore.get.map(_.json))
-        }.withHeaders(CACHE_CONTROL -> "max-age=15")
-    )
+    negotiateJson:
+      for
+        povs         <- env.round.proxyRepo urgentGames me
+        nbChallenges <- env.challenge.api.countInFor get me
+        playban      <- env.playban.api currentBan me
+      yield Ok {
+        import lila.pref.JsonView.given
+        env.user.jsonView
+          .full(me, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
+          .obj(
+            "prefs"        -> ctx.pref,
+            "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
+            "nbChallenges" -> nbChallenges,
+            "online"       -> true
+          )
+          .add("kid" -> me.kid)
+          .add("troll" -> me.marks.troll)
+          .add("playban" -> playban)
+          .add("announce" -> AnnounceStore.get.map(_.json))
+      }.withHeaders(CACHE_CONTROL -> "max-age=15")
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>
-    negotiate(
-      html = notFound,
-      api = _ => doNowPlaying
-    )
+    negotiateJson(doNowPlaying)
   }
 
   val apiMe =
@@ -108,17 +102,15 @@ final class Account(
     }
 
   def dasher = Auth { _ ?=> me ?=>
-    negotiate(
-      html = notFound,
-      api = _ =>
-        env.pref.api.get(me).map { prefs =>
-          Ok:
-            import lila.pref.JsonView.given
-            lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
-              "coach" -> isGranted(_.Coach),
-              "prefs" -> prefs
-            )
-        }
+    negotiateJson(
+      env.pref.api.get(me).map { prefs =>
+        Ok:
+          import lila.pref.JsonView.given
+          lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+            "coach" -> isGranted(_.Coach),
+            "prefs" -> prefs
+          )
+      }
     )
   }
 
@@ -272,14 +264,14 @@ final class Account(
           .fold(
             err =>
               negotiate(
-                html = BadRequest.page(html.account.kid(me, err, managed = false)),
-                api = _ => BadRequest(errorsAsJson(err))
+                BadRequest.page(html.account.kid(me, err, managed = false)),
+                BadRequest(errorsAsJson(err))
               ),
             _ =>
               env.user.repo.setKid(me, getBool("v")) >>
                 negotiate(
-                  html = Redirect(routes.Account.kid).flashSuccess,
-                  api = _ => jsonOkResult
+                  Redirect(routes.Account.kid).flashSuccess,
+                  jsonOkResult
                 )
           )
   }

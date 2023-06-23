@@ -90,7 +90,7 @@ final class UserAnalysis(
     Found(env.game.gameRepo game id): g =>
       env.round.proxyRepo upgradeIfPresent g flatMap { game =>
         val pov = Pov(game, chess.Color.fromName(color) | White)
-        negotiate(
+        negotiateApi(
           html =
             if game.replayable then Redirect(routes.Round.watcher(game.id, color))
             else

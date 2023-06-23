@@ -30,8 +30,8 @@ final class Importer(env: Env) extends LilaController(env):
       .fold(
         failure =>
           negotiate( // used by mobile app
-            html = BadRequest.page(html.game.importGame(failure)),
-            api = _ => BadRequest(jsonError("Invalid PGN"))
+            BadRequest.page(html.game.importGame(failure)),
+            BadRequest(jsonError("Invalid PGN"))
           ),
         data =>
           ImportRateLimitPerIP(ctx.ip, rateLimitedFu, cost = 1):

@@ -57,7 +57,7 @@ final class Setup(
             jsonFormError,
             config =>
               processor.ai(config) flatMap { pov =>
-                negotiate(
+                negotiateApi(
                   html = redirectPov(pov),
                   api = apiVersion =>
                     env.api.roundApi.player(pov, none, apiVersion) map { data =>
@@ -80,9 +80,9 @@ final class Setup(
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
-                      html = Forbidden(jsonError(message)),
                       // 403 tells setupCtrl.ts to close the setup modal
-                      api = _ => BadRequest(jsonError(message))
+                      Forbidden(jsonError(message)), // TODO test
+                      BadRequest(jsonError(message))
                     )
                   case None =>
                     import lila.challenge.Challenge.*
@@ -104,13 +104,13 @@ final class Setup(
                     env.challenge.api create challenge flatMap {
                       if _ then
                         negotiate(
-                          html = Redirect(routes.Round.watcher(challenge.id, "white")),
-                          api = _ => challengeC.showChallenge(challenge, justCreated = true)
+                          Redirect(routes.Round.watcher(challenge.id, "white")),
+                          challengeC.showChallenge(challenge, justCreated = true)
                         )
                       else
                         negotiate(
-                          html = Redirect(routes.Lobby.home),
-                          api = _ => BadRequest(jsonError("Challenge not created"))
+                          Redirect(routes.Lobby.home),
+                          BadRequest(jsonError("Challenge not created"))
                         )
                     }
                 }

@@ -59,25 +59,24 @@ final class Swiss(
             isLocalMod <- canChat so ctx.userId so { env.team.cached.isLeader(swiss.teamId, _) }
             page       <- renderPage(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
-        api = _ =>
-          swissOption.fold(notFoundJson("No such swiss tournament")): swiss =>
-            for
-              isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
-              verdicts      <- env.swiss.api.verdicts(swiss)
-              socketVersion <- getBool("socketVersion").so(env.swiss version swiss.id dmap some)
-              playerInfo <- getUserStr("playerInfo").so: u =>
-                env.swiss.api.playerInfo(swiss, u.id)
-              page = getInt("page").filter(0.<)
-              json <- env.swiss.json(
-                swiss = swiss,
-                me = ctx.me,
-                verdicts = verdicts,
-                reqPage = page,
-                socketVersion = socketVersion,
-                playerInfo = playerInfo,
-                isInTeam = isInTeam
-              )
-            yield JsonOk(json)
+        json = swissOption.fold(notFoundJson("No such swiss tournament")): swiss =>
+          for
+            isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
+            verdicts      <- env.swiss.api.verdicts(swiss)
+            socketVersion <- getBool("socketVersion").so(env.swiss version swiss.id dmap some)
+            playerInfo <- getUserStr("playerInfo").so: u =>
+              env.swiss.api.playerInfo(swiss, u.id)
+            page = getInt("page").filter(0.<)
+            json <- env.swiss.json(
+              swiss = swiss,
+              me = ctx.me,
+              verdicts = verdicts,
+              reqPage = page,
+              socketVersion = socketVersion,
+              playerInfo = playerInfo,
+              isInTeam = isInTeam
+            )
+          yield JsonOk(json)
       )
     }
 
@@ -174,17 +173,14 @@ final class Swiss(
       }
     }
 
-  def withdraw(id: SwissId) = Auth { ctx ?=> me ?=>
+  def withdraw(id: SwissId) = AuthOrScoped(_.Tournament.Write) { ctx ?=> me ?=>
     env.swiss.api.withdraw(id, me) >>
       negotiate(
-        html = Redirect(routes.Swiss.show(id)),
-        api = _ => jsonOkResult
+        Redirect(routes.Swiss.show(id)),
+        jsonOkResult
       )
   }
-
-  def apiWithdraw(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
-    env.swiss.api.withdraw(id, me) inject jsonOkResult
-  }
+  def apiWithdraw = withdraw
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
@@ -197,23 +193,20 @@ final class Swiss(
         .edit(me, swiss)
         .bindFromRequest()
         .fold(
-          err => BadRequest.page(html.swiss.form.edit(swiss, err)),
-          data => env.swiss.api.update(swiss.id, data) inject Redirect(routes.Swiss.show(id))
+          err =>
+            negotiate(
+              BadRequest.page(html.swiss.form.edit(swiss, err)),
+              newJsonFormError(err)
+            ),
+          data =>
+            env.swiss.api.update(swiss.id, data) >> negotiate(
+              Redirect(routes.Swiss.show(id)),
+              FoundOk(env.swiss.api.update(swiss.id, data))(env.swiss.json.api)
+            )
         )
   }
 
-  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
-    WithEditableSwiss(id, _ => Unauthorized(jsonError("This user cannot edit this swiss"))): swiss =>
-      env.swiss.forms
-        .edit(me, swiss)
-        .bindFromRequest()
-        .fold(
-          newJsonFormError,
-          data =>
-            Found(env.swiss.api.update(swiss.id, data)): swiss =>
-              env.swiss.json.api(swiss) map JsonOk
-        )
-  }
+  def apiUpdate = update
 
   def scheduleNextRound(id: SwissId) =
     AuthOrScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
@@ -275,7 +268,11 @@ final class Swiss(
 
   private def WithEditableSwiss(
       id: SwissId,
-      fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id))
+      fallback: SwissModel => Context ?=> Fu[Result] = swiss =>
+        negotiate(
+          Redirect(routes.Swiss.show(swiss.id)),
+          Unauthorized(jsonError("This user cannot edit this swiss"))
+        )
   )(f: SwissModel => Fu[Result])(using me: Me)(using Context): Fu[Result] =
     WithSwiss(id): swiss =>
       if swiss.createdBy.is(me) && !swiss.isFinished then f(swiss)

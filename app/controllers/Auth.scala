@@ -46,8 +46,8 @@ final class Auth(
   ): Fu[Result] =
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
-        html = result.fold(Redirect(getReferrer))(_(getReferrer)),
-        api = _ => mobileUserOk(u, sessionId)
+        result.fold(Redirect(getReferrer))(_(getReferrer)),
+        mobileUserOk(u, sessionId)
       ) map authenticateCookie(sessionId, remember)
     } recoverWith authRecovery
 
@@ -55,12 +55,8 @@ final class Auth(
       ctx: Context
   ): Fu[Result] =
     api.appeal.saveAuthentication(u.id) flatMap { sessionId =>
-      negotiate(
-        html = authenticateCookie(sessionId, remember = false):
-          redirect(appeal.routes.Appeal.landing.url)
-        ,
-        api = _ => NotFound
-      )
+      authenticateCookie(sessionId, remember = false):
+        redirect(appeal.routes.Appeal.landing.url)
     } recoverWith authRecovery
 
   private def authenticateCookie(sessionId: String, remember: Boolean)(
@@ -103,8 +99,8 @@ final class Auth(
           .fold(
             err =>
               negotiate(
-                html = Unauthorized.page(html.auth.login(err, referrer)),
-                api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
+                Unauthorized.page(html.auth.login(err, referrer)),
+                Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
               ),
             (login, pass) =>
               LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
@@ -120,13 +116,11 @@ final class Auth(
                           .attempt(isEmail, stuffing = stuffing, result = false)
                           .increment()
                         negotiate(
-                          html = err.errors match
+                          err.errors match
                             case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
                             case _ => Unauthorized.page(html.auth.login(err, referrer))
                           ,
-                          api = _ =>
-                            Unauthorized:
-                              ridiculousBackwardCompatibleJsonError(errorsAsJson(err))
+                          Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
                         )
                       ,
                       result =>
@@ -134,11 +128,11 @@ final class Auth(
                           case None => InternalServerError("Authentication error")
                           case Some(u) if u.enabled.no =>
                             negotiate(
-                              html = env.mod.logApi.closedByMod(u) flatMap {
+                              env.mod.logApi.closedByMod(u) flatMap {
                                 if _ then authenticateAppealUser(u, redirectTo)
                                 else redirectTo(routes.Account.reopen.url)
                               },
-                              api = _ => Unauthorized(jsonError("This account is closed."))
+                              Unauthorized(jsonError("This account is closed."))
                             )
                           case Some(u) =>
                             lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
@@ -154,17 +148,17 @@ final class Auth(
     env.security.store.delete(currentSessionId) >>
       env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
       negotiate(
-        html = Redirect(routes.Auth.login),
-        api = _ => Ok(Json.obj("ok" -> true))
+        Redirect(routes.Auth.login),
+        jsonOkResult
       ).dmap(_.withCookies(env.lilaCookie.newSession))
 
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>
     negotiate(
       html = Ok.page(html.auth.bits.logout()),
-      api = _ =>
+      json =
         ctx.req.session get api.sessionIdKey foreach env.security.store.delete
-        Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession)
+        jsonOkResult.withCookies(env.lilaCookie.newSession)
     )
   }
 
@@ -180,7 +174,7 @@ final class Auth(
   def signupPost = OpenBody:
     NoTor:
       Firewall:
-        forms.preloadEmailDns() >> negotiate(
+        forms.preloadEmailDns() >> negotiateApi(
           html = env.security.signup
             .website(ctx.blind)
             .flatMap {
@@ -283,8 +277,8 @@ final class Auth(
   private def redirectNewUser(user: UserModel)(using Context) =
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
-        html = Redirect(getReferrerOption | routes.User.show(user.username).url),
-        api = _ => mobileUserOk(user, sessionId)
+        Redirect(getReferrerOption | routes.User.show(user.username).url),
+        mobileUserOk(user, sessionId)
       ) map authenticateCookie(sessionId, remember = true)
     } recoverWith authRecovery
 

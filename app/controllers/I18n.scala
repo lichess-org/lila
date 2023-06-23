@@ -38,6 +38,6 @@ final class I18n(env: Env) extends LilaController(env):
               then redir.withCookies(env.lilaCookie.session("lang", lang.code))
               else redir
             ,
-            api = _ => Ok(Json.obj("lang" -> lang.code))
+            Ok(Json.obj("lang" -> lang.code))
           )
       )

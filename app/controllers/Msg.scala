@@ -8,7 +8,7 @@ import lila.common.LightUser.lightUserWrites
 final class Msg(env: Env) extends LilaController(env):
 
   def home = Auth { _ ?=> me ?=>
-    negotiate(
+    negotiateApi(
       html = Ok.pageAsync(inboxJson map views.html.msg.home),
       api = v =>
         JsonOk:
@@ -22,14 +22,10 @@ final class Msg(env: Env) extends LilaController(env):
     then Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
       env.msg.api.convoWithMe(username, before).flatMap {
-        case None =>
-          negotiate(
-            html = Redirect(routes.Msg.home),
-            api = _ => notFoundJson()
-          )
+        case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
         case Some(c) =>
           def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
-          negotiate(
+          negotiateApi(
             html = Ok.pageAsync(newJson map views.html.msg.home),
             api = v =>
               JsonOk:

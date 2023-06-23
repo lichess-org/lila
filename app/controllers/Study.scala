@@ -28,15 +28,15 @@ final class Study(
       if text.trim.isEmpty then
         env.study.pager.all(Order.default, page) flatMap { pag =>
           preloadMembers(pag) >> negotiate(
-            html = Ok.page(html.study.list.all(pag, Order.default)),
-            api = _ => apiStudies(pag)
+            Ok.page(html.study.list.all(pag, Order.default)),
+            apiStudies(pag)
           )
         }
       else
         env.studySearch(ctx.me)(text, page) flatMap { pag =>
           negotiate(
-            html = Ok.page(html.study.list.search(pag, text)),
-            api = _ => apiStudies(pag)
+            Ok.page(html.study.list.search(pag, text)),
+            apiStudies(pag)
           )
         }
 
@@ -55,8 +55,8 @@ final class Study(
         case order =>
           env.study.pager.all(order, page) flatMap { pag =>
             preloadMembers(pag) >> negotiate(
-              html = Ok.page(html.study.list.all(pag, order)),
-              api = _ => apiStudies(pag)
+              Ok.page(html.study.list.all(pag, order)),
+              apiStudies(pag)
             )
           }
     }
@@ -69,17 +69,17 @@ final class Study(
         .byOwner(owner, order, page)
         .flatMap: pag =>
           preloadMembers(pag) >> negotiate(
-            html = Ok.page(html.study.list.byOwner(pag, order, owner)),
-            api = _ => apiStudies(pag)
+            Ok.page(html.study.list.byOwner(pag, order, owner)),
+            apiStudies(pag)
           )
 
   def mine(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mine(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = env.study.topicApi.userTopics(me) flatMap { topics =>
+        env.study.topicApi.userTopics(me) flatMap { topics =>
           Ok.page(html.study.list.mine(pag, order, topics))
         },
-        api = _ => apiStudies(pag)
+        apiStudies(pag)
       )
     }
   }
@@ -87,8 +87,8 @@ final class Study(
   def minePublic(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.minePublic(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = Ok.page(html.study.list.minePublic(pag, order)),
-        api = _ => apiStudies(pag)
+        Ok.page(html.study.list.minePublic(pag, order)),
+        apiStudies(pag)
       )
     }
   }
@@ -96,8 +96,8 @@ final class Study(
   def minePrivate(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.minePrivate(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = Ok.page(html.study.list.minePrivate(pag, order)),
-        api = _ => apiStudies(pag)
+        Ok.page(html.study.list.minePrivate(pag, order)),
+        apiStudies(pag)
       )
     }
   }
@@ -105,12 +105,12 @@ final class Study(
   def mineMember(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mineMember(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = Ok.pageAsync:
+        Ok.pageAsync:
           env.study.topicApi.userTopics(me) map {
             html.study.list.mineMember(pag, order, _)
           }
         ,
-        api = _ => apiStudies(pag)
+        apiStudies(pag)
       )
     }
   }
@@ -118,8 +118,8 @@ final class Study(
   def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mineLikes(order, page) flatMap { pag =>
       preloadMembers(pag) >> negotiate(
-        html = Ok.page(html.study.list.mineLikes(pag, order)),
-        api = _ => apiStudies(pag)
+        Ok.page(html.study.list.mineLikes(pag, order)),
+        apiStudies(pag)
       )
     }
   }
@@ -142,8 +142,8 @@ final class Study(
     )
 
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
-    given Writes[StudyModel.WithChaptersAndLiked] = Writes[StudyModel.WithChaptersAndLiked]: s =>
-      env.study.jsonView.pagerData(s)
+    given Writes[StudyModel.WithChaptersAndLiked] = Writes[StudyModel.WithChaptersAndLiked]:
+      env.study.jsonView.pagerData
     Ok(Json.obj("paginator" -> PaginatorJson(pager)))
 
   private def orRelay(id: StudyId, chapterId: Option[StudyChapterId] = None)(
@@ -172,18 +172,17 @@ final class Study(
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enableSharedArrayBuffer,
-            api = _ =>
-              chatOf(sc.study).map: chatOpt =>
-                Ok:
-                  Json.obj(
-                    "study" -> data.study.add("chat" -> chatOpt.map { c =>
-                      lila.chat.JsonView.mobile(
-                        chat = c.chat,
-                        writeable = ctx.userId.so(sc.study.canChat)
-                      )
-                    }),
-                    "analysis" -> data.analysis
-                  )
+            json = chatOf(sc.study).map: chatOpt =>
+              Ok:
+                Json.obj(
+                  "study" -> data.study.add("chat" -> chatOpt.map { c =>
+                    lila.chat.JsonView.mobile(
+                      chat = c.chat,
+                      writeable = ctx.userId.so(sc.study.canChat)
+                    )
+                  }),
+                  "analysis" -> data.analysis
+                )
           )
         yield res
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
@@ -562,19 +561,17 @@ final class Study(
 
   def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
-  def privateUnauthorizedFu(study: StudyModel)(using Context) =
-    negotiate(
-      html = Unauthorized.page(html.site.message.privateStudy(study)),
-      api = _ => privateUnauthorizedJson
-    )
+  def privateUnauthorizedFu(study: StudyModel)(using Context) = negotiate(
+    Unauthorized.page(html.site.message.privateStudy(study)),
+    privateUnauthorizedJson
+  )
 
   def privateForbiddenText = Forbidden("This study is now private")
   def privateForbiddenJson = Forbidden(jsonError("This study is now private"))
-  def privateForbiddenFu(study: StudyModel)(using Context) =
-    negotiate(
-      html = Forbidden.page(html.site.message.privateStudy(study)),
-      api = _ => privateForbiddenJson
-    )
+  def privateForbiddenFu(study: StudyModel)(using Context) = negotiate(
+    Forbidden.page(html.site.message.privateStudy(study)),
+    privateForbiddenJson
+  )
 
   def studyNotFoundText = NotFound("Study or chapter not found")
   def studyNotFoundJson = NotFound(jsonError("Study or chapter not found"))

@@ -69,7 +69,7 @@ final class Challenge(
                 html.challenge.theirs(c, json, _, color)
               }
         ,
-        api = _ => Ok(json)
+        json = Ok(json)
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } map env.lilaCookie.ensure(ctx.req)
 
@@ -90,18 +90,17 @@ final class Challenge(
         .accept(c, ctx.req.sid, cc)
         .flatMap {
           case Validated.Valid(Some(pov)) =>
-            negotiate(
+            negotiateApi(
               html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
               api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
             ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
           case invalid =>
             negotiate(
-              html = Redirect(routes.Round.watcher(c.id.value, cc.fold("white")(_.name))),
-              api = _ =>
-                notFoundJson(invalid match
-                  case Validated.Invalid(err) => err
-                  case _                      => "The challenge has already been accepted"
-                )
+              Redirect(routes.Round.watcher(c.id.value, cc.fold("white")(_.name))),
+              notFoundJson(invalid match
+                case Validated.Invalid(err) => err
+                case _                      => "The challenge has already been accepted"
+              )
             )
         }
 

@@ -41,7 +41,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       val natural = Pov naturalOrientation game
       val pov     = if (flip) !natural else natural
       val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
-      negotiate(
+      negotiateApi(
         html = for
           tour   <- env.tournament.api.gameView.watcher(pov.game)
           data   <- env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some)

@@ -27,7 +27,7 @@ final class RelayRound(
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         val tour = trs.tour
-        def whenRateLimited = negotiateHtmlOrJson(
+        def whenRateLimited = negotiate(
           Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value)),
           rateLimited
         )
@@ -36,14 +36,14 @@ final class RelayRound(
           .bindFromRequest()
           .fold(
             err =>
-              negotiateHtmlOrJson(
+              negotiate(
                 BadRequest.page(html.relay.roundForm.create(err, tour)),
                 BadRequest(apiFormError(err))
               ),
             setup =>
               rateLimitCreation(whenRateLimited):
                 env.relay.api.create(setup, tour) flatMap { round =>
-                  negotiateHtmlOrJson(
+                  negotiate(
                     Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value)),
                     JsonOk(env.relay.jsonView.withUrl(round withTour tour))
                   )
@@ -72,11 +72,11 @@ final class RelayRound(
     } orNotFound {
       _.fold(
         (old, err) =>
-          negotiateHtmlOrJson(
+          negotiate(
             BadRequest.page(html.relay.roundForm.edit(old, err)),
             BadRequest(apiFormError(err))
           ),
-        rt => negotiateHtmlOrJson(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
+        rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
       )
     }
   }
@@ -88,7 +88,7 @@ final class RelayRound(
 
   def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read): ctx ?=>
-      negotiateHtmlOrJson(
+      negotiate(
         html =
           pageHit
           WithRoundAndTour(ts, rs, id): rt =>

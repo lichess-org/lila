@@ -87,6 +87,8 @@ object message:
   def authFailed(using PageContext) = apply("403 - Access denied!"):
     "You tried to visit a page you're not authorized to access."
 
+  def serverError(msg: String)(using PageContext) = apply("Something went wrong")(msg)
+
   def temporarilyDisabled(using PageContext) = apply("Temporarily disabled"):
     "Sorry, this feature is temporarily disabled while we figure out a way to bring it back."
 

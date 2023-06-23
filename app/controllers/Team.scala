@@ -263,8 +263,8 @@ final class Team(
   def join(id: TeamId) = AuthOrScopedBody(_.Team.Write) { ctx ?=> me ?=>
     Found(api.teamEnabled(id)): team =>
       OneAtATime(me, rateLimitedFu):
-        JoinLimit(negotiateHtmlOrJson(tooManyTeamsHtml, tooManyTeamsJson)):
-          negotiateHtmlOrJson(
+        JoinLimit(negotiate(tooManyTeamsHtml, tooManyTeamsJson)):
+          negotiate(
             html = webJoin(team, request = none, password = none),
             json = forms
               .apiRequest(team)
@@ -352,13 +352,13 @@ final class Team(
       _.fold(notFound): team =>
         if team isOnlyLeader me then
           val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
-          negotiateHtmlOrJson(
+          negotiate(
             html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
             json = JsonBadRequest(msg)
           )
         else
           api.cancelRequestOrQuit(team) >>
-            negotiateHtmlOrJson(
+            negotiate(
               html = Redirect(routes.Team.mine).flashSuccess,
               json = jsonOkResult
             )
@@ -422,9 +422,9 @@ final class Team(
               }(Result.Limited)
         )
         .fold(
-          err => negotiateHtmlOrJson(renderPmAll(team, err), BadRequest(errorsAsJson(err))),
+          err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),
           _.flatMap: res =>
-            negotiateHtmlOrJson(
+            negotiate(
               Redirect(routes.Team.show(team.id)).flashing:
                 res match
                   case Result.Through => "success" -> ""

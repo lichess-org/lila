@@ -57,8 +57,8 @@ final class User(
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
       negotiate(
-        html = renderShow(u),
-        api = _ => apiGames(u, GameFilter.All.name, 1)
+        renderShow(u),
+        apiGames(u, GameFilter.All.name, 1)
       )
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using
@@ -94,8 +94,8 @@ final class User(
         if filter == "search" && ctx.isAnon
         then
           negotiate(
-            html = Unauthorized.page(html.search.login(u.count.game)),
-            api = _ => Unauthorized(jsonError("Login required"))
+            Unauthorized.page(html.search.login(u.count.game)),
+            Unauthorized(jsonError("Login required"))
           )
         else
           negotiate(
@@ -129,15 +129,15 @@ final class User(
                   yield Ok(page)
                 else Ok.page(html.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
             yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-            api = _ => apiGames(u, filter, page)
+            json = apiGames(u, filter, page)
           )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
     if UserModel.isGhost(username.id)
     then
       negotiate(
-        html = Ok.page(html.site.bits.ghost),
-        api = _ => notFoundJson("Deleted user")
+        Ok.page(html.site.bits.ghost),
+        notFoundJson("Deleted user")
       )
     else
       env.user.repo byId username flatMap {
@@ -147,11 +147,11 @@ final class User(
         case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
         case Some(u) =>
           negotiate(
-            html = env.user.repo isErased u flatMap { erased =>
+            env.user.repo isErased u flatMap { erased =>
               if erased.value then notFound
               else NotFound.page(html.user.show.page.disabled(u))
             },
-            api = _ => NotFound(jsonError("No such user, or account closed"))
+            NotFound(jsonError("No such user, or account closed"))
           )
       }
   def showMini(username: UserStr) = Open:
@@ -169,7 +169,7 @@ final class User(
                   Ok.page(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                     .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
                 },
-                api = _ =>
+                json =
                   import lila.game.JsonView.given
                   Ok:
                     Json.obj(
@@ -182,16 +182,13 @@ final class User(
 
   def online = Anon:
     val max = 50
-    negotiate(
-      html = notFoundJson(),
-      api = _ =>
-        env.user.cached.getTop50Online.map: users =>
-          Ok:
-            Json.toJson:
-              users
-                .take(getInt("nb").fold(10)(_ min max))
-                .map(env.user.jsonView.full(_, withRating = true, withProfile = true))
-    )
+    negotiateJson:
+      env.user.cached.getTop50Online.map: users =>
+        Ok:
+          Json.toJson:
+            users
+              .take(getInt("nb").fold(10)(_ min max))
+              .map(env.user.jsonView.full(_, withRating = true, withProfile = true))
 
   def ratingHistory(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -256,7 +253,7 @@ final class User(
           page <- renderPage:
             html.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
-        api = _ =>
+        json =
           given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
           JsonOk(leaderboards)
@@ -272,7 +269,7 @@ final class User(
 
   def topNb(nb: Int, perfKey: Perf.Key) = Open:
     Found(topNbUsers(nb, perfKey)): (users, perfType) =>
-      negotiateHtmlOrJson(
+      negotiate(
         (nb == 200) so Ok.page(html.user.top(perfType, users)),
         topNbJson(users)
       )
@@ -297,13 +294,9 @@ final class User(
     Ok(Json.obj("users" -> users))
 
   def topWeek = Open:
-    negotiate(
-      html = notFound,
-      api = _ =>
-        env.user.cached.topWeek.map { users =>
-          Ok(Json toJson users.map(env.user.jsonView.lightPerfIsOnline))
-        }
-    )
+    negotiateJson:
+      env.user.cached.topWeek.map: users =>
+        Ok(Json toJson users.map(env.user.jsonView.lightPerfIsOnline))
 
   def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> _ ?=>
     modZoneOrRedirect(username)
@@ -525,7 +518,7 @@ final class User(
 
   def perfStat(username: UserStr, perfKey: Perf.Key) = Open:
     Found(env.perfStat.api.data(username, perfKey)): data =>
-      negotiateHtmlOrJson(
+      negotiate(
         Ok.pageAsync:
           env.history.ratingChartApi(data.user) map {
             html.user.perfStat(data, _)

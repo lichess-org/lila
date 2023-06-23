@@ -26,7 +26,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
       .soUse(env.preloader.currentGameMyTurn)
       .flatMap:
         _.fold(a): current =>
-          negotiateHtmlOrJson(keyPages.home(Results.Forbidden), currentGameJsonError(current))
+          negotiate(keyPages.home(Results.Forbidden), currentGameJsonError(current))
 
   private def currentGameJsonError(current: lila.app.mashup.Preload.CurrentGame) = fuccess:
     Forbidden(
@@ -39,7 +39,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if isGrantedOpt(perm) then f
-    else negotiateHtmlOrJson(authorizationFailed, authorizationFailed)
+    else negotiate(authorizationFailed, authorizationFailed)
 
   def Firewall[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     if env.security.firewall.accepts(ctx.req) then a
@@ -65,7 +65,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def NoBot[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     if ctx.isBot then
-      negotiateHtmlOrJson(
+      negotiate(
         Forbidden.page(views.html.site.message.noBot),
         Forbidden(jsonError("no bots allowed"))
       )
@@ -87,7 +87,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
       .so(env.playban.api.currentBan)
       .flatMap:
         _.fold(a): ban =>
-          negotiateHtmlOrJson(keyPages.home(Results.Forbidden), playbanJsonError(ban))
+          negotiate(keyPages.home(Results.Forbidden), playbanJsonError(ban))
 
   private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 
