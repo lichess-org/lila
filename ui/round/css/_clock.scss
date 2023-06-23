@@ -54,7 +54,7 @@
     opacity: 0.8;
   }
   .time {
-    @extend %roboto;
+    @extend %roboto, %box-shadow;
     background: $c-bg-box;
     font-size: 2.5em;
     font-weight: bold;
