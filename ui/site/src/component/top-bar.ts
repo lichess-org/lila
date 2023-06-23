@@ -69,17 +69,16 @@ export default function () {
 
   {
     // notifyApp
-    let instance: any, booted: boolean;
+    let instance: Promise<any> | undefined;
     const $toggle = $('#notify-toggle'),
       $countSpan = $toggle.find('span'),
       selector = '#notify-app';
 
     const load = (data?: any) => {
-      if (booted) return;
-      booted = true;
+      if (instance) return;
       const $el = $('#notify-app').html(initiatingHtml);
       loadCssPath('notify');
-      loadEsm('notify', {
+      instance = loadEsm('notify', {
         init: {
           el: $el.empty()[0],
           data,
@@ -102,36 +101,34 @@ export default function () {
             $toggle.addClass('pulse');
           },
         },
-      }).then(m => (instance = m));
+      });
     };
 
     $toggle
       .one('mouseover click', () => load())
       .on('click', () => {
         if ('Notification' in window) Notification.requestPermission();
-        setTimeout(() => {
-          if (instance && isVisible(selector)) instance.onShow();
+        setTimeout(async () => {
+          if (instance && isVisible(selector)) (await instance).onShow();
         }, 200);
       });
 
-    pubsub.on('socket.in.notifications', data => {
+    pubsub.on('socket.in.notifications', async data => {
       if (!instance) load(data);
-      else instance.update(data);
+      else (await instance).update(data);
     });
-    pubsub.on('notify-app.set-read', user => {
+    pubsub.on('notify-app.set-read', async user => {
       if (!instance) load();
-      else instance.setMsgRead(user);
+      else (await instance).setMsgRead(user);
     });
   }
 
-  {
-    // dasher
-    $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
-      $(this).removeAttr('href');
-      loadCssPath('dasher');
-      loadEsm('dasher');
-    });
-  }
+  // dasher
+  $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
+    $(this).removeAttr('href');
+    loadCssPath('dasher');
+    loadEsm('dasher');
+  });
 
   {
     // cli
