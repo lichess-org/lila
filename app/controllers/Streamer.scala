@@ -156,8 +156,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     Ok
   }
 
-  def onYouTubeVideo = AnonBodyOf(parse.tolerantXml):
-    env.streamer.ytApi.onVideoXml
+  def onYouTubeVideo = AnonBodyOf(parse.tolerantXml): body =>
+    env.streamer.ytApi.onVideoXml(body)
+    NoContent
 
   def youTubePubSubChallenge = Anon:
     get("hub.challenge").fold(BadRequest): challenge =>

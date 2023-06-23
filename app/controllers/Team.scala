@@ -196,16 +196,17 @@ final class Team(
 
   def disable(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id) { team =>
+      val redirect = Redirect(routes.Team show id)
       forms.explain
         .bindFromRequest()
         .fold(
-          _ => funit,
+          _ => redirect.flashFailure,
           explain =>
-            api.toggleEnabled(team, explain) >> {
-              env.mod.logApi.toggleTeam(team.id, team.enabled, explain)
-            }
+            api.toggleEnabled(team, explain) >>
+              env.mod.logApi.toggleTeam(team.id, team.enabled, explain) inject
+              redirect.flashSuccess
         )
-    } inject Redirect(routes.Team show id).flashSuccess
+    }
   }
 
   def form = Auth { ctx ?=> me ?=>

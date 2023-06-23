@@ -51,7 +51,7 @@ final class Mod(
       .bindFromRequest()
       .fold(
         form => BadRequest(form.errors mkString "\n"),
-        data => env.chat.api.userChat.publicTimeout(data)
+        data => env.chat.api.userChat.publicTimeout(data) inject NoContent
       )
   }
 

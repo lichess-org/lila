@@ -314,7 +314,7 @@ final class Study(
               data.toChapterDatas,
               sticky = data.sticky,
               ctx.pref.showRatings
-            )(Who(me, lila.socket.Socket.Sri(sri)))
+            )(Who(me, lila.socket.Socket.Sri(sri))) inject NoContent
         )
     }
   }

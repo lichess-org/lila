@@ -13,7 +13,7 @@ import lila.common.HTTPRequest
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def bookmark(gameId: GameId) = Auth { _ ?=> me ?=>
-    env.bookmark.api.toggle(gameId, me)
+    env.bookmark.api.toggle(gameId, me) inject NoContent
   }
 
   def delete(gameId: GameId) = Auth { _ ?=> me ?=>

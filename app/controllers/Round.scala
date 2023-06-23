@@ -273,7 +273,7 @@ final class Round(
       .bindFromRequest()
       .fold(
         _ => BadRequest,
-        text => env.round.noteApi.set(gameId, me, text.trim take 10000)
+        text => env.round.noteApi.set(gameId, me, text.trim take 10000) inject NoContent
       )
   }
 

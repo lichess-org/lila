@@ -125,7 +125,7 @@ final class Report(
   def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { _ ?=> me ?=>
     Found(env.user.repo byId username): user =>
       Found(api.currentCheatReport(lila.report.Suspect(user))): report =>
-        api.inquiries.toggle(me, Left(report.id)).void
+        api.inquiries.toggle(me, Left(report.id)) inject NoContent
   }
 
   def form = Auth { _ ?=> _ ?=>

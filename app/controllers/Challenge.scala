@@ -142,13 +142,13 @@ final class Challenge(
 
   def decline(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     Found(api byId id): c =>
-      isForMe(c) so
+      isForMe(c).so:
         api.decline(
           c,
           env.challenge.forms.decline
             .bindFromRequest()
             .fold(_ => ChallengeModel.DeclineReason.default, _.realReason)
-        )
+        ) inject NoContent
   }
   def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
     api.activeByIdFor(id, me) flatMap {
@@ -170,7 +170,9 @@ final class Challenge(
   def cancel(id: ChallengeId) =
     Open:
       Found(api byId id): c =>
-        if isMine(c) then api cancel c else notFound
+        if isMine(c)
+        then api cancel c inject NoContent
+        else notFound
 
   def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
     api.activeByIdBy(id, me) flatMap {
@@ -258,7 +260,7 @@ final class Challenge(
         Form(single("username" -> lila.user.UserForm.historicalUsernameField))
           .bindFromRequest()
           .fold(
-            _ => funit,
+            _ => NoContent,
             username =>
               ChallengeIpRateLimit(ctx.ip, rateLimitedFu):
                 env.user.repo byId username flatMap {

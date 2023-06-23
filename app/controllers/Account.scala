@@ -301,7 +301,7 @@ final class Account(
     then refreshSessionId(Redirect(routes.Account.security).flashSuccess)
     else
       env.security.store.closeUserAndSessionId(me, sessionId) >>
-        env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
+        env.push.webSubscriptionApi.unsubscribeBySession(sessionId) inject NoContent
   }
 
   private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using

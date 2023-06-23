@@ -19,10 +19,8 @@ trait ResponseBuilder(using Executor)
   val keyPages = KeyPages(env)
   export scalatags.Text.Frag
 
-  given Conversion[Result, Fu[Result]] = fuccess(_)
-  given Conversion[Frag, Fu[Frag]]     = fuccess(_)
-  given (using Context): Conversion[Funit, Fu[Result]] = _ =>
-    negotiate(fuccess(Ok("ok")), fuccess(jsonOkResult))
+  given Conversion[Result, Fu[Result]]    = fuccess(_)
+  given Conversion[Frag, Fu[Frag]]        = fuccess(_)
   given (using Context): Zero[Fu[Result]] = Zero(notFound)
 
   def Found[A](a: Fu[Option[A]])(f: A => Fu[Result])(using Context): Fu[Result] =

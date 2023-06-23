@@ -38,5 +38,5 @@ final class Timeline(env: Env) extends LilaController(env):
   }
 
   def unsub(channel: String) = Auth { ctx ?=> me ?=>
-    env.timeline.unsubApi.set(channel, me, ~get("unsub") == "on")
+    env.timeline.unsubApi.set(channel, me, ~get("unsub") == "on") inject NoContent
   }

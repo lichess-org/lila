@@ -96,7 +96,7 @@ final class Practice(
         }
 
   def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>
-    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
+    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)) inject NoContent
   }
 
   def reset = AuthBody { _ ?=> me ?=>
