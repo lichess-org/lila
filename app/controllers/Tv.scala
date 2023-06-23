@@ -23,7 +23,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     Channel.byKey.get(chanKey) so lichessTv
 
   def sides(gameId: GameId, color: String) = Open:
-    OptionFuResult(chess.Color.fromName(color) so { env.round.proxyRepo.pov(gameId, _) }): pov =>
+    IfFound(chess.Color.fromName(color) so { env.round.proxyRepo.pov(gameId, _) }): pov =>
       env.game.crosstableApi.withMatchup(pov.game) flatMap { ct =>
         Ok.page(html.tv.side.sides(pov, ct))
       }
@@ -36,7 +36,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     } map { Json.toJson(_) } dmap Api.ApiResult.Data.apply
 
   private def lichessTv(channel: Channel)(using Context) =
-    OptionFuResult(env.tv.tv getGameAndHistory channel): (game, history) =>
+    IfFound(env.tv.tv getGameAndHistory channel): (game, history) =>
       val flip    = getBool("flip")
       val natural = Pov naturalOrientation game
       val pov     = if (flip) !natural else natural
@@ -65,7 +65,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     val gameFu = Channel.byKey.get(chanKey) so { channel =>
       env.tv.tv.getReplacementGame(channel, gameId, exclude map { GameId(_) })
     }
-    OptionFuResult(gameFu): game =>
+    IfFound(gameFu): game =>
       JsonOk:
         play.api.libs.json.Json.obj(
           "id"   -> game.id,
@@ -101,6 +101,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     }
 
   def frame = Anon:
-    env.tv.tv.getBestGame.mapz: game =>
-      InEmbedContext:
-        Ok(views.html.tv.embed(Pov naturalOrientation game))
+    env.tv.tv.getBestGame.flatMap:
+      _.fold(notFoundText()): game =>
+        InEmbedContext:
+          Ok(views.html.tv.embed(Pov naturalOrientation game))

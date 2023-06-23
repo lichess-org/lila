@@ -18,12 +18,10 @@ final class Opening(env: Env) extends LilaController(env):
         then html.opening.search.resultsList(results)
         else html.opening.search.resultsPage(searchQuery, results, env.opening.api.readConfig)
     else
-      env.opening.api.index flatMapz { page =>
-        Ok.pageAsync:
-          isGrantedOpt(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki) map {
-            html.opening.index(page, _)
-          }
-      }
+      OptionFuPage(env.opening.api.index): page =>
+        isGrantedOpt(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki) map {
+          html.opening.index(page, _)
+        }
 
   def byKeyAndMoves(key: String, moves: String) = Open:
     val crawler = HTTPRequest.isCrawler(ctx.req)
@@ -63,7 +61,7 @@ final class Opening(env: Env) extends LilaController(env):
     env.opening.api
       .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), Crawler.No)
       .map(_.flatMap(_.query.exactOpening))
-      .flatMapz: op =>
+      .orNotFound: op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
         lila.opening.OpeningWiki.form
           .bindFromRequest()

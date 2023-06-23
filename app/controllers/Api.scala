@@ -182,7 +182,7 @@ final class Api(
 
   def tournamentGames(id: TourId) =
     AnonOrScoped(): ctx ?=>
-      env.tournament.tournamentRepo byId id flatMapz { tour =>
+      env.tournament.tournamentRepo byId id orNotFound { tour =>
         val onlyUserId = getUserStr("player").map(_.id)
         val config = GameApiV2.ByTournamentConfig(
           tour = tour,
@@ -199,7 +199,7 @@ final class Api(
 
   def tournamentResults(id: TourId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
-    env.tournament.tournamentRepo byId id mapz { tour =>
+    env.tournament.tournamentRepo byId id orNotFound { tour =>
       import lila.tournament.JsonView.playerResultWrites
       val withSheet = getBool("sheet")
       val perSecond = MaxPerSecond:
@@ -214,13 +214,13 @@ final class Api(
           withSheet = withSheet
         )
       val result =
-        if (csv) csvDownload(lila.tournament.TournamentCsv(source))
+        if csv then csvDownload(lila.tournament.TournamentCsv(source))
         else jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
       result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if (csv) "csv" else "ndjson")))
     }
 
   def tournamentTeams(id: TourId) = Anon:
-    env.tournament.tournamentRepo byId id flatMapz { tour =>
+    env.tournament.tournamentRepo byId id orNotFound { tour =>
       env.tournament.jsonView.apiTeamStanding(tour) map { arr =>
         JsonOk:
           Json.obj(
@@ -231,7 +231,7 @@ final class Api(
     }
 
   def tournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
-    (name.id != lila.user.User.lichessId) so env.user.repo.byId(name) flatMapz { user =>
+    (name.id != lila.user.User.lichessId) so env.user.repo.byId(name) orNotFound { user =>
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
         env.tournament.api
@@ -240,7 +240,7 @@ final class Api(
     }
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
-    env.swiss.cache.swissCache byId id flatMapz { swiss =>
+    env.swiss.cache.swissCache byId id orNotFound { swiss =>
       val config = GameApiV2.BySwissConfig(
         swissId = swiss.id,
         format = GameApiV2.Format byRequest req,
@@ -261,12 +261,11 @@ final class Api(
 
   def swissResults(id: SwissId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
-    env.swiss.cache.swissCache byId id mapz { swiss =>
+    env.swiss.cache.swissCache byId id orNotFound { swiss =>
       val source = env.swiss.api
         .resultStream(swiss, MaxPerSecond(50), getInt("nb") | Int.MaxValue)
-        .mapAsync(8) { p =>
+        .mapAsync(8): p =>
           env.user.lightUserApi.asyncFallback(p.player.userId) map p.withUser
-        }
       val result =
         if csv then csvDownload(lila.swiss.SwissCsv(source))
         else jsonDownload(source.map(env.swiss.json.playerResult))
@@ -274,7 +273,8 @@ final class Api(
     }
 
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
-    val max = ctx.me.fold(300) { u => if u is lila.user.User.lichess4545Id then 900 else 500 }
+    val max = ctx.me.fold(300): u =>
+      if u is lila.user.User.lichess4545Id then 900 else 500
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         addKeepAlive:

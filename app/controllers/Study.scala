@@ -64,16 +64,14 @@ final class Study(
   def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default, page)
 
   def byOwner(username: UserStr, order: Order, page: Int) = Open:
-    env.user.repo
-      .byId(username)
-      .flatMapz: owner =>
-        env.study.pager
-          .byOwner(owner, order, page)
-          .flatMap: pag =>
-            preloadMembers(pag) >> negotiate(
-              html = Ok.page(html.study.list.byOwner(pag, order, owner)),
-              api = _ => apiStudies(pag)
-            )
+    IfFound(env.user.repo.byId(username)): owner =>
+      env.study.pager
+        .byOwner(owner, order, page)
+        .flatMap: pag =>
+          preloadMembers(pag) >> negotiate(
+            html = Ok.page(html.study.list.byOwner(pag, order, owner)),
+            api = _ => apiStudies(pag)
+          )
 
   def mine(order: Order, page: Int) = Auth { ctx ?=> me ?=>
     env.study.pager.mine(order, page) flatMap { pag =>
@@ -160,7 +158,7 @@ final class Study(
     else f
 
   private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
-    OptionFuResult(query): oldSc =>
+    IfFound(query): oldSc =>
       CanView(oldSc.study) {
         for
           (sc, data) <- getJsonData(oldSc)
@@ -242,11 +240,11 @@ final class Study(
             case sc => showQuery(fuccess(sc))
 
   def chapterMeta(id: StudyId, chapterId: StudyChapterId) = Open:
-    env.study.chapterRepo.byId(chapterId).map {
-      _.filter(_.studyId == id) so { chapter =>
+    env.study.chapterRepo
+      .byId(chapterId)
+      .map(_.filter(_.studyId == id))
+      .orNotFound: chapter =>
         Ok(env.study.jsonView.chapterConfig(chapter))
-      }
-    }
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.noKid && ctx.noBot &&                    // no public chats for kids and bots
@@ -291,12 +289,12 @@ final class Study(
     }
 
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
-    env.study.api.byIdAndOwnerOrAdmin(id, me) flatMapz { study =>
+    IfFound(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
       env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
         case None       => Redirect(routes.Study.mine("hot"))
         case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
       }
-    }
+
   }
 
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
@@ -381,7 +379,7 @@ final class Study(
     // } dmap (_.noCache)
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
-    OptionFuResult(env.study.api.byId(id)): study =>
+    IfFound(env.study.api.byId(id)): study =>
       CanView(study) {
         Ok.page(html.study.clone(study))
       }(privateUnauthorizedFu(study), privateForbiddenFu(study))
@@ -403,7 +401,7 @@ final class Study(
     val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
     CloneLimitPerUser(me, rateLimitedFu, cost = cost):
       CloneLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
-        OptionFuResult(env.study.api.byId(id)) { prev =>
+        IfFound(env.study.api.byId(id)) { prev =>
           CanView(prev) {
             env.study.api.clone(me, prev) map { study =>
               Redirect(routes.Study.show((study | prev).id))
@@ -420,7 +418,7 @@ final class Study(
 
   def pgn(id: StudyId) = Open:
     PgnRateLimitPerIp(ctx.ip, rateLimitedFu, msg = id):
-      OptionFuResult(env.study.api byId id): study =>
+      IfFound(env.study.api byId id): study =>
         CanView(study) {
           doPgn(study)
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
@@ -526,7 +524,7 @@ final class Study(
     }
 
   def multiBoard(id: StudyId, page: Int) = Open:
-    OptionFuResult(env.study.api byId id): study =>
+    IfFound(env.study.api byId id): study =>
       CanView(study) {
         env.study.multiBoard.json(study.id, page, getBool("playing")) map JsonOk
       }(privateUnauthorizedJson, privateForbiddenJson)

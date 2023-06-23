@@ -29,7 +29,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import * as control from '../control';
-import { bind, onInsert, Redraw } from 'common/snabbdom';
+import { bind, onInsert } from 'common/snabbdom';
 import { Api } from 'chessground/api';
 import throttle from 'common/throttle';
 
@@ -38,8 +38,8 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export function initModule(redraw: Redraw) {
-  const notify = new Notify(redraw),
+export function initModule() {
+  const notify = new Notify(),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
     pieceStyle = pieceSetting(),
@@ -48,6 +48,7 @@ export function initModule(redraw: Redraw) {
 
   return {
     render(ctrl: Controller): VNode {
+      notify.redraw = ctrl.redraw;
       const ground = ctrl.ground() || createGround(ctrl);
 
       return h(

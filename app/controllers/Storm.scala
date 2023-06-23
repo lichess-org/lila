@@ -41,16 +41,14 @@ final class Storm(env: Env) extends LilaController(env):
   }
 
   def dashboardOf(username: UserStr, page: Int) = Open:
-    env.user.repo.enabledById(username).flatMapz {
+    IfFound(env.user.repo.enabledById(username)):
       renderDashboardOf(_, page)
-    }
 
-  private def renderDashboardOf(user: lila.user.User, page: Int)(using Context): Fu[Result] =
-    for
-      history <- env.storm.dayApi.history(user.id, page)
-      high    <- env.storm.highApi.get(user.id)
-      page    <- renderPage(views.html.storm.dashboard(user, history, high))
-    yield Ok(page)
+  private def renderDashboardOf(user: lila.user.User, page: Int)(using Context): Fu[Result] = for
+    history <- env.storm.dayApi.history(user.id, page)
+    high    <- env.storm.highApi.get(user.id)
+    page    <- renderPage(views.html.storm.dashboard(user, history, high))
+  yield Ok(page)
 
   def apiDashboardOf(username: UserStr, days: Int) = Open:
     lila.user.User.validateId(username).so { userId =>

@@ -23,7 +23,7 @@ final class Practice(
     .map(_.noCache)
 
   def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
-    OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
+    IfFound(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
 
   def showChapter(
       sectionId: String,
@@ -31,7 +31,7 @@ final class Practice(
       studyId: StudyId,
       chapterId: StudyChapterId
   ) = Open:
-    OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
+    IfFound(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
 
   def showSection(sectionId: String) =
     redirectTo(sectionId)(_.studies.headOption)
@@ -63,7 +63,7 @@ final class Practice(
         _.noCache.enableSharedArrayBuffer.withCanonical(s"${us.url}/${us.study.chapter.id}")
 
   def chapter(studyId: StudyId, chapterId: StudyChapterId) = Open:
-    OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)): us =>
+    IfFound(api.getStudyWithChapter(ctx.me, studyId, chapterId)): us =>
       analysisJson(us).map: (analysisJson, studyJson) =>
         JsonOk(
           Json.obj(

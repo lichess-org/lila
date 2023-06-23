@@ -47,11 +47,12 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     key = "follow.user"
   )
 
-  private def FollowingUser(str: UserStr)(f: LightUser => Fu[Result])(using me: Me): Fu[Result] =
-    env.user.lightUserApi.async(str.id) flatMapz { user =>
+  private def FollowingUser(
+      str: UserStr
+  )(f: LightUser => Fu[Result])(using me: Me)(using Context): Fu[Result] =
+    IfFound(env.user.lightUserApi.async(str.id)): user =>
       FollowLimitPerUser(me, rateLimitedFu):
         f(user)
-    }
 
   def follow(username: UserStr) = Auth { ctx ?=> me ?=>
     FollowingUser(username): user =>
@@ -102,7 +103,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def following(username: UserStr, page: Int) = Open:
     Reasonable(page, config.Max(20)):
-      OptionFuResult(env.user.repo byId username): user =>
+      IfFound(env.user.repo byId username): user =>
         RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html =

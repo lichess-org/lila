@@ -41,12 +41,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           yield res
 
   def teacher(username: UserStr) = Secure(_.Admin) { ctx ?=> _ ?=>
-    env.user.repo byId username flatMapz { teacher =>
-      Ok.pageAsync:
-        env.clas.api.clas.of(teacher) map {
-          html.mod.search.teacher(teacher.id, _)
-        }
-    }
+    OptionFuPage(env.user.repo byId username): teacher =>
+      env.clas.api.clas.of(teacher) map {
+        html.mod.search.teacher(teacher.id, _)
+      }
   }
 
   private def renderHome(using Context) =
@@ -88,16 +86,13 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           }
       ,
       orDefault = _ =>
-        if isGranted(_.UserModView) then
-          env.clas.api.clas.byId(id) flatMapz { clas =>
+        isGranted(_.UserModView) so
+          OptionFuPage(env.clas.api.clas.byId(id)): clas =>
             env.clas.api.student.allWithUsers(clas) flatMap { students =>
-              Ok.pageAsync:
-                env.user.repo.withEmails(students.map(_.user)) map {
-                  html.mod.search.clas(clas, _)
-                }
+              env.user.repo.withEmails(students.map(_.user)) map {
+                html.mod.search.clas(clas, _)
+              }
             }
-          }
-        else notFound
     )
   }
 
@@ -109,12 +104,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     isGranted(_.Teacher).so(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       if _ then forTeacher
       else
-        env.clas.api.clas.byId(id) flatMapz { clas =>
+        IfFound(env.clas.api.clas.byId(id)): clas =>
           env.clas.api.student.activeWithUsers(clas) flatMap { students =>
             if (students.exists(_.student is me)) forStudent(clas, students)
             else orDefault(ctx)
           }
-        }
     }
 
   def wall(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
@@ -260,7 +254,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def studentForm(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
-    if getBool("gen") then env.clas.nameGenerator() mapz { Ok(_) }
+    if getBool("gen") then env.clas.nameGenerator() orNotFound { Ok(_) }
     else
       WithClassAndStudents(id): (clas, students) =>
         for
@@ -361,7 +355,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               }
           ,
           data =>
-            env.user.repo enabledById data.username flatMapz { user =>
+            IfFound(env.user.repo enabledById data.username): user =>
               import lila.clas.ClasInvite.{ Feedback as F }
               import lila.i18n.{ I18nKeys as trans }
               env.clas.api.invite.create(clas, user, data.realName) map { feedback =>
@@ -375,7 +369,6 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                     case F.CantMsgKid(url) =>
                       "warning" -> trans.clas.xIsAKidAccountWarning.txt(user.username, url)
               }
-            }
         )
   }
 
@@ -475,7 +468,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def becomeTeacher = AuthBody { ctx ?=> me ?=>
-    couldBeTeacher.flatMapz:
+    couldBeTeacher.elseNotFound:
       val perm = lila.security.Permission.Teacher.dbKey
       (!me.roles.has(perm) so env.user.repo.setRoles(me, perm :: me.roles).void) inject
         Redirect(routes.Clas.index)
@@ -499,20 +492,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         _ => Redirect(routes.Clas.invitation(id)).toFuccess,
         v =>
           if v then
-            env.clas.api.invite.accept(id, me) mapz { student =>
+            IfFound(env.clas.api.invite.accept(id, me)): student =>
               redirectTo(student.clasId)
-            }
-          else
-            env.clas.api.invite.decline(id) inject
-              Redirect(routes.Clas.invitation(id))
+          else env.clas.api.invite.decline(id) inject Redirect(routes.Clas.invitation(id))
       )
   }
 
   def invitationRevoke(id: lila.clas.ClasInvite.Id) = Secure(_.Teacher) { _ ?=> me ?=>
-    env.clas.api.invite.get(id) flatMapz { invite =>
+    IfFound(env.clas.api.invite.get(id)): invite =>
       WithClass(invite.clasId): clas =>
         env.clas.api.invite.delete(invite._id) inject Redirect(routes.Clas.students(clas.id.value))
-    }
   }
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
@@ -521,21 +510,20 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     if students.sizeIs <= lila.clas.Clas.maxStudents then f
     else Unauthorized.page(views.html.clas.teacherDashboard.unreasonable(clas, students, active))
 
-  private def WithClass(clasId: ClasId)(f: lila.clas.Clas => Fu[Result])(using me: Me): Fu[Result] =
-    env.clas.api.clas.getAndView(clasId, me.user) flatMapz f
+  private def WithClass(clasId: ClasId)(f: lila.clas.Clas => Fu[Result])(using Context, Me): Fu[Result] =
+    IfFound(env.clas.api.clas.getAndView(clasId))(f)
 
   private def WithClassAndStudents(clasId: ClasId)(
       f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
-  )(using Me): Fu[Result] =
+  )(using Context, Me): Fu[Result] =
     WithClass(clasId): c =>
       env.clas.api.student.activeOf(c) flatMap { f(c, _) }
 
   private def WithStudent(clas: lila.clas.Clas, username: UserStr)(
       f: lila.clas.Student.WithUser => Fu[Result]
-  ): Fu[Result] =
-    env.user.repo byId username flatMapz { user =>
-      env.clas.api.student.get(clas, user) flatMapz f
-    }
+  )(using Context): Fu[Result] =
+    IfFound(env.user.repo byId username): user =>
+      IfFound(env.clas.api.student.get(clas, user))(f)
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
     if ctx.me.exists(!_.lameOrTroll) then f

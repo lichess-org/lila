@@ -142,7 +142,7 @@ final class Mod(
   }
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    IfFound(env.user.repo byId username): user =>
       env.security.forms
         .modEmail(user)
         .bindFromRequest()
@@ -158,7 +158,7 @@ final class Mod(
     env.report.api.inquiries ofModId me.id flatMap {
       case None => Redirect(report.routes.Report.list)
       case Some(report) =>
-        env.user.repo byId report.user flatMapz { user =>
+        IfFound(env.user.repo byId report.user): user =>
           import lila.report.Room
           import lila.irc.IrcApi.ModDomain
           env.irc.api.inquiry(
@@ -176,7 +176,6 @@ final class Mod(
             ,
             room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
           ) inject NoContent
-        }
     }
   }
 
@@ -185,7 +184,7 @@ final class Mod(
 
   private def SendToZulip(username: UserStr, method: UserModel => Me ?=> Funit) =
     Secure(_.SendToZulip) { _ ?=> _ ?=>
-      env.user.repo byId username flatMapz { method(_) inject NoContent }
+      env.user.repo byId username orNotFound { method(_) inject NoContent }
     }
 
   def table = Secure(_.ModLog) { ctx ?=> _ ?=>
@@ -272,7 +271,7 @@ final class Mod(
     s"${routes.User.show(username.value).url}${mod so "?mod"}"
 
   def refreshUserAssess(username: UserStr) = Secure(_.MarkEngine) { ctx ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    IfFound(env.user.repo byId username): user =>
       assessApi.refreshAssessOf(user) >>
         env.irwin.irwinApi.requests.fromMod(Suspect(user)) >>
         env.irwin.kaladinApi.modRequest(Suspect(user)) >>
@@ -280,7 +279,7 @@ final class Mod(
   }
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    IfFound(env.user.repo byId username): user =>
       (isGranted(_.Appeals) so env.appeal.api.exists(user)) flatMap { isAppeal =>
         isAppeal.so(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
           case Some(ongoing) if ongoing.mod != me.id =>
@@ -415,7 +414,7 @@ final class Mod(
 
   def savePermissions(username: UserStr) = SecureBody(_.ChangePermission) { ctx ?=> me ?=>
     import lila.security.Permission
-    OptionFuResult(env.user.repo byId username): user =>
+    IfFound(env.user.repo byId username): user =>
       Form(single("permissions" -> list(text.verifying(Permission.allByDbKey.contains))))
         .bindFromRequest()
         .fold(
@@ -493,7 +492,7 @@ final class Mod(
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me ?=>
     import lila.common.Json.given
-    env.user.repo byId username flatMapz { user =>
+    IfFound(env.user.repo byId username): user =>
       for
         logs      <- env.mod.logApi.userHistory(user.id)
         notes     <- env.socialInfo.fetchNotes(user)
@@ -508,24 +507,23 @@ final class Mod(
           "notes" -> notesJson
         )
       )
-    }
   }
 
-  private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
+  private def withSuspect[A](username: UserStr)(f: Suspect => Fu[Option[A]]): Fu[Option[A]] =
     env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: Context ?=> Me ?=> Fu[Option[A]])(
       thenWhat: A => (Context, Me) ?=> Fu[Result]
   ): EssentialAction =
     SecureOrScoped(perm) { ctx ?=> me ?=>
-      f.flatMapz: res =>
+      f.orNotFound: res =>
         if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
   private def OAuthModBody[A](perm: Permission.Selector)(f: Me ?=> Fu[Option[A]])(
       thenWhat: A => (BodyContext[?], Me) ?=> Fu[Result]
   ): EssentialAction =
     SecureOrScopedBody(perm) { ctx ?=> me ?=>
-      f.flatMapz: res =>
+      f.orNotFound: res =>
         if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
 

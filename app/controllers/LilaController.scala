@@ -328,11 +328,8 @@ abstract private[controllers] class LilaController(val env: Env)
           Redirect(_)
 
   def OptionResult[A](fua: Fu[Option[A]])(op: A => Result)(using Context): Fu[Result] =
-    OptionFuResult(fua): a =>
+    IfFound(fua): a =>
       fuccess(op(a))
-
-  def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using Context): Fu[Result] =
-    fua flatMap { _.fold(notFound)(op) }
 
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment().unit

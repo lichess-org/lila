@@ -20,7 +20,7 @@ final class TournamentCrud(env: Env) extends LilaController(env):
   }
 
   def update(id: TourId) = SecureBody(_.ManageTournament) { ctx ?=> _ ?=>
-    OptionFuResult(crud one id): tour =>
+    IfFound(crud one id): tour =>
       crud
         .editForm(tour)
         .bindFromRequest()

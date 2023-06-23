@@ -35,15 +35,14 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import { throttled } from '../sound';
-import { Redraw } from 'common/snabbdom';
 
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
 // esbuild
-export function initModule(redraw: Redraw): NvuiPlugin {
-  const notify = new Notify(redraw),
+export function initModule(): NvuiPlugin {
+  const notify = new Notify(),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
     pieceStyle = pieceSetting(),
@@ -64,6 +63,7 @@ export function initModule(redraw: Redraw): NvuiPlugin {
     },
     submitMove: undefined,
     render(ctrl: RoundController): VNode {
+      notify.redraw = ctrl.redraw;
       const d = ctrl.data,
         nvui = ctrl.nvui!,
         step = plyStep(d, ctrl.ply),

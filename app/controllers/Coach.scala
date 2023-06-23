@@ -32,7 +32,7 @@ final class Coach(env: Env) extends LilaController(env):
     yield Ok(page)
 
   def show(username: UserStr) = Open:
-    OptionFuResult(api find username): c =>
+    IfFound(api find username): c =>
       WithVisibleCoach(c):
         for
           stu     <- env.study.api.publicByIds(c.coach.profile.studyIds)
@@ -53,7 +53,7 @@ final class Coach(env: Env) extends LilaController(env):
   }
 
   def editApply = SecureBody(_.Coach) { ctx ?=> me ?=>
-    OptionFuResult(api.findOrInit): c =>
+    IfFound(api.findOrInit): c =>
       CoachProfileForm
         .edit(c.coach)
         .bindFromRequest()
@@ -68,7 +68,7 @@ final class Coach(env: Env) extends LilaController(env):
   }
 
   def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>
-    OptionFuResult(api.findOrInit): c =>
+    IfFound(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
           api.uploadPicture(c, pic) inject Redirect(routes.Coach.edit) recoverWith {

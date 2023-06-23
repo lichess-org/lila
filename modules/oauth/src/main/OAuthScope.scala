@@ -11,7 +11,7 @@ object OAuthScopes extends TotalWrapper[OAuthScopes, List[OAuthScope]]:
   extension (e: OAuthScopes)
     def has(s: OAuthScope): Boolean             = e contains s
     def has(s: OAuthScope.Selector): Boolean    = has(s(OAuthScope))
-    def keyList: String                         = e.map(_.key) mkString ", "
+    def keyList: String                         = e.map(_.key) mkString ","
     def intersects(other: OAuthScopes): Boolean = e.exists(other.has)
     def isEmpty                                 = e.isEmpty
 

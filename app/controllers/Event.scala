@@ -21,7 +21,7 @@ final class Event(env: Env) extends LilaController(env):
   }
 
   def update(id: String) = SecureBody(_.ManageEvent) { ctx ?=> me ?=>
-    OptionFuResult(api one id): event =>
+    IfFound(api one id): event =>
       api
         .editForm(event)
         .bindFromRequest()

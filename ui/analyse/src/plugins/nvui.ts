@@ -51,7 +51,7 @@ const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
 export function initModule(ctrl: AnalyseController) {
-  const notify = new Notify(ctrl.redraw),
+  const notify = new Notify(),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
     prefixStyle = prefixSetting(),
@@ -67,6 +67,7 @@ export function initModule(ctrl: AnalyseController) {
 
   return {
     render(): VNode {
+      notify.redraw = ctrl.redraw;
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.chessground)
