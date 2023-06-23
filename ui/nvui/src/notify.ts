@@ -7,14 +7,15 @@ type Notification = {
 
 export class Notify {
   notification: Notification | undefined;
+  redraw?: () => void;
 
-  constructor(readonly redraw: () => void, readonly timeout: number = 3000) {}
+  constructor(readonly timeout: number = 3000) {}
 
   set = (msg: string) => {
     // make sure it's different from previous, so it gets read again
     if (this.notification && this.notification.text == msg) msg += ' ';
     this.notification = { text: msg, date: new Date() };
-    lichess.requestIdleCallback(this.redraw, 500);
+    lichess.requestIdleCallback(() => this.redraw && this.redraw(), 500);
   };
 
   currentText = () =>

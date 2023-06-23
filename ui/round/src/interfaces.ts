@@ -6,6 +6,7 @@ import RoundController from './ctrl';
 import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
+import { Redraw } from 'common/snabbdom';
 
 export interface Untyped {
   [key: string]: any;
@@ -16,6 +17,7 @@ export interface NvuiPlugin {
   playPremove: (ctrl: RoundController) => void;
   premoveInput: string;
   render(ctrl: RoundController): VNode;
+  setRedraw(redraw: Redraw): void;
 }
 
 export interface SocketOpts {

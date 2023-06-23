@@ -109,6 +109,7 @@ export default class RoundController {
     }, 3000);
 
     this.socket = makeSocket(opts.socketSend, this);
+    this.nvui?.setRedraw(redraw);
 
     if (d.clock)
       this.clock = new ClockController(d, {

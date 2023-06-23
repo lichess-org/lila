@@ -35,15 +35,14 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import { throttled } from '../sound';
-import { Redraw } from 'common/snabbdom';
 
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
 // esbuild
-export function initModule(redraw: Redraw): NvuiPlugin {
-  const notify = new Notify(redraw),
+export function initModule(): NvuiPlugin {
+  const notify = new Notify(),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
     pieceStyle = pieceSetting(),
@@ -56,6 +55,9 @@ export function initModule(redraw: Redraw): NvuiPlugin {
   lichess.pubsub.on('round.suggestion', notify.set);
 
   return {
+    setRedraw(redraw) {
+      notify.redraw = redraw;
+    },
     premoveInput: '',
     playPremove(ctrl: RoundController) {
       const nvui = ctrl.nvui!;
