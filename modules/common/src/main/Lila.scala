@@ -48,3 +48,7 @@ trait Lila
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
     Some(Tuple.fromProductTyped(p))
+
+  // move somewhere else when we have more Eqs
+  import cats.Eq
+  given Eq[play.api.i18n.Lang] = Eq.fromUniversalEquals

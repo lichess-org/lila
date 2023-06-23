@@ -1,5 +1,7 @@
 package lila.oauth
 
+import cats.Eq
+import cats.derived.*
 import lila.i18n.I18nKey
 import lila.i18n.I18nKeys.{ oauthScope as trans }
 
@@ -28,6 +30,8 @@ object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
     def compatible(token: TokenScopes): Boolean = e.exists(token.has)
 
 object OAuthScope:
+
+  given Eq[OAuthScope] = Eq.fromUniversalEquals
 
   object Preference:
     case object Read  extends OAuthScope("preference:read", lila.i18n.I18nKeys.oauthScope.preferenceRead)
