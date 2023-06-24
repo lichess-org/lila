@@ -97,6 +97,7 @@
   <string name="openingExplorer">Sách khai cuộc</string>
   <string name="openingEndgameExplorer">Sách khai cuộc/cờ tàn</string>
   <string name="xOpeningExplorer">Khám phá khai cuộc %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Chơi nước đầu tiên của người khám phá khai cuộc/tàn cuộc</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
   <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 lần di chuyển do sai lầm trước</string>
@@ -645,6 +646,11 @@
   <string name="keyGoToStartOrEnd">chuyển đến đầu/cuối</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
   <string name="keyEnterOrExitVariation">thêm/thoát biến thể cờ</string>
+  <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ lỗi sai của bạn</string>
+  <string name="keyNextLearnFromYourMistakes">Tiếp theo (Học từ lỗi sai của bạn)</string>
+  <string name="keyNextBlunder">Nước sai nghiêm trọng tiếp theo</string>
+  <string name="keyNextMistake">Nước đi sai tiếp theo</string>
+  <string name="keyNextInaccuracy">Nước đi không chính xác tiếp theo</string>
   <string name="newTournament">Giải đấu mới</string>
   <string name="tournamentHomeTitle">Giải đấu cờ vua với nhiều thiết lập thời gian và thể loại phong phú</string>
   <string name="tournamentHomeDescription">Chơi các giải đấu cờ vua nhịp độ nhanh! Tham gia một giải đấu chính thức, hoặc tự tạo giải đấu của bạn. Cờ Siêu Chớp, cờ Chớp, cờ Nhanh, cờ Cổ Điển, Chess960, King of the Hill, Threecheck, và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
