@@ -58,4 +58,5 @@
   <string name="noArenaStreaks">아레나 연승 없음</string>
   <string name="averagePerformance">평균 성과</string>
   <string name="averageScore">평균 점수</string>
+  <string name="myTournaments">내 토너먼트</string>
 </resources>

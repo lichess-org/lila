@@ -40,8 +40,8 @@
   <string name="reportBugInDiscord">Lichess 디스코드 서버</string>
   <string name="howToReportBug">버그가 무엇인지, 어떻게 고쳐져야 하는지 설명해주세요.</string>
   <string name="illegalPawnCapture">폰을 이상하게 잡았습니다</string>
-  <string name="calledEnPassant">\'앙 파상\' 이라고 불리는 체스의 규칙입니다.</string>
-  <string name="tryEnPassant">이 미니 게임으로 앙 파상에 대해 배우십시오.</string>
+  <string name="calledEnPassant">\'앙파상\' 이라고 불리는 체스의 규칙입니다.</string>
+  <string name="tryEnPassant">이 미니 게임으로 앙파상에 대해 배우십시오.</string>
   <string name="illegalCastling">캐슬링이 불가능합니다</string>
   <string name="castlingPrevented">킹이 공격 받고 있는 칸을 지나려 할 경우 캐슬링이 불가능합니다.</string>
   <string name="castlingRules">캐슬링 규칙에 대해서 이해했는지 확인하세요</string>
@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">특정 상황에서 봇 계정을 상대로 플레이할 때, 플레이어가 레이팅을 얻기 위해 부정행위를 하는 것으로 판단될 경우 레이팅 포인트가 부여되지 않을 수 있습니다.</string>
   <string name="errorPage">에러 페이지</string>
   <string name="reportErrorPage">에러 페이지가 나온 경우 여기에서 신고해주세요:</string>
+  <string name="wantBroadcastTournament">대회를 방송하고 싶습니다</string>
+  <string name="learnHowToMakeBroadcasts">Lichess에서 나만의 방송을 하는 방법을 알아보세요</string>
+  <string name="contactAboutOfficialBroadcasts">또한 공식 방송에 대해 방송 팀에 문의할 수도 있습니다.</string>
   <string name="banAppeal">차단 또는 IP 제한에 대한 이의를 제기하고 싶습니다</string>
   <string name="engineAppeal">엔진 또는 부정행위 표시</string>
   <string name="sendAppealTo">%s에서 이의를 제기할 수 있습니다.</string>
