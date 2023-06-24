@@ -6,72 +6,65 @@ const renderRatingDifferencePickers = (ctrl: LobbyController, isProvisional: boo
   const { trans, setupCtrl } = ctrl;
 
   // Get current rating values or use default values if isProvisional
-  const currentRatingMinString = isProvisional ? "-500" : setupCtrl.ratingMin().toString();
-  const currentRatingMaxString = isProvisional ? "500" : setupCtrl.ratingMax().toString();
-  
+  const currentRatingMinString = isProvisional ? '-500' : setupCtrl.ratingMin().toString();
+  const currentRatingMaxString = isProvisional ? '500' : setupCtrl.ratingMax().toString();
+
   return h('div.rating-range-choice', [
     h('div.label-select', [
-        h('label', { attrs: { for: 'sf_minRating' } }, trans('minimumRating')),
-        h(
-          'select#sf_minRating',
-          {
-            hook: {
-              update: (_oldVnode: VNode, vnode: VNode) => {
-                (vnode.elm as HTMLSelectElement).value = currentRatingMinString;
-              },
-            },
-            attrs: {
-              disabled: isProvisional,
-            },
-            on: {
-              change: (e: Event): void => {
-                const newVal = parseInt((e.target as HTMLSelectElement).value);
-                if (newVal === 0 && currentRatingMaxString === "0") setupCtrl.ratingMax(50);
-                setupCtrl.ratingMin(newVal);
-              },
+      h('label', { attrs: { for: 'sf_minRating' } }, trans('minimumRating')),
+      h(
+        'select#sf_minRating',
+        {
+          hook: {
+            update: (_oldVnode: VNode, vnode: VNode) => {
+              (vnode.elm as HTMLSelectElement).value = currentRatingMinString;
             },
           },
-          Array.from({length: 11}, (_v, i) => {
-            i *= -50;
-            return option(
-              { key: i.toString(), name: i.toString() },
-              currentRatingMinString
-            );
-          })
-        ),
-      ]),
+          attrs: {
+            disabled: isProvisional,
+          },
+          on: {
+            change: (e: Event): void => {
+              const newVal = parseInt((e.target as HTMLSelectElement).value);
+              if (newVal === 0 && currentRatingMaxString === '0') setupCtrl.ratingMax(50);
+              setupCtrl.ratingMin(newVal);
+            },
+          },
+        },
+        Array.from({ length: 11 }, (_v, i) => {
+          i *= -50;
+          return option({ key: i.toString(), name: i.toString() }, currentRatingMinString);
+        })
+      ),
+    ]),
     h('div.label-select', [
-        h('label', { attrs: { for: 'sf_maxRating' } }, trans('maximumRating')),
-        h(
-          'select#sf_maxRating',
-          {
-            hook: {
-              update: (_oldVnode: VNode, vnode: VNode) => {
-                (vnode.elm as HTMLSelectElement).value = currentRatingMaxString;
-              },
-            },
-            attrs: {
-              disabled: isProvisional,
-            },
-            on: {
-              change: (e: Event): void => {
-                const newVal = parseInt((e.target as HTMLSelectElement).value);
-                if (newVal === 0 && currentRatingMinString === "0") setupCtrl.ratingMin(-50);
-                setupCtrl.ratingMax(newVal);
-              },
+      h('label', { attrs: { for: 'sf_maxRating' } }, trans('maximumRating')),
+      h(
+        'select#sf_maxRating',
+        {
+          hook: {
+            update: (_oldVnode: VNode, vnode: VNode) => {
+              (vnode.elm as HTMLSelectElement).value = currentRatingMaxString;
             },
           },
-          Array.from({length: 11}, (_v, i) => {
-            i *= 50;
-            return option(
-              { key: i.toString(), name: i.toString() },
-              currentRatingMaxString
-            );
-          })
-        ),
-      ]),
-    ]
-  );
+          attrs: {
+            disabled: isProvisional,
+          },
+          on: {
+            change: (e: Event): void => {
+              const newVal = parseInt((e.target as HTMLSelectElement).value);
+              if (newVal === 0 && currentRatingMinString === '0') setupCtrl.ratingMin(-50);
+              setupCtrl.ratingMax(newVal);
+            },
+          },
+        },
+        Array.from({ length: 11 }, (_v, i) => {
+          i *= 50;
+          return option({ key: i.toString(), name: i.toString() }, currentRatingMaxString);
+        })
+      ),
+    ]),
+  ]);
 };
 
 const renderRatingDifferenceSliders = (ctrl: LobbyController, isProvisional: boolean) => {
@@ -119,9 +112,8 @@ const renderRatingDifferenceSliders = (ctrl: LobbyController, isProvisional: boo
         },
       },
     }),
-    ]
-  )
-}
+  ]);
+};
 
 export const ratingDifferencePickersAndSliders = (ctrl: LobbyController) => {
   if (!ctrl.me || !ctrl.data.ratingMap) return null;
@@ -142,9 +134,9 @@ export const ratingDifferencePickersAndSliders = (ctrl: LobbyController) => {
     },
     [
       trans('ratingRange'),
-      lichess.blindMode ? 
-        renderRatingDifferencePickers(ctrl, isProvisional) : 
-        renderRatingDifferenceSliders(ctrl, isProvisional)
+      lichess.blindMode
+        ? renderRatingDifferencePickers(ctrl, isProvisional)
+        : renderRatingDifferenceSliders(ctrl, isProvisional),
     ]
   );
 };
