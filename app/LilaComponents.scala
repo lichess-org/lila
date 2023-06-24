@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
 import play.api.{ Environment, Configuration, BuiltInComponents }
 import play.api.http.HttpRequestHandler
-import play.api.libs.crypto.CookieSignerProvider
+import play.api.libs.crypto.DefaultCookieSigner
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*
 import play.api.mvc.request.*
@@ -40,10 +40,10 @@ final class LilaComponents(
 
   // we want to use the legacy session cookie baker
   // for compatibility with lila-ws
-  def cookieBaker = LegacySessionCookieBaker(httpConfiguration.session, cookieSigner)
+  lazy val cookieBaker = LegacySessionCookieBaker(httpConfiguration.session, cookieSigner)
 
   override lazy val requestFactory: RequestFactory =
-    val cookieSigner = CookieSignerProvider(httpConfiguration.secret).get
+    val cookieSigner = DefaultCookieSigner(httpConfiguration.secret)
     DefaultRequestFactory(
       DefaultCookieHeaderEncoding(httpConfiguration.cookies),
       cookieBaker,

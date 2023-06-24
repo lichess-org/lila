@@ -22,7 +22,7 @@ object bits:
       )
     }
 
-  def categName(categ: lila.pref.PrefCateg)(using PageContext): String =
+  def categName(categ: PrefCateg)(using PageContext): String =
     categ match
       case PrefCateg.Display      => trans.preferences.display.txt()
       case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()

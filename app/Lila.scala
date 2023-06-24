@@ -10,7 +10,7 @@ import play.api.inject.DefaultApplicationLifecycle
 // The program entry point.
 // To run with bloop:
 // /path/to/bloop run lila -m lila.app.Lila -c /path/to/lila/.bloop
-object Lila {
+object Lila:
 
   def main(args: Array[String]): Unit = start(new RealServerProcess(args.toIndexedSeq))
 
@@ -100,4 +100,3 @@ object Lila {
           else Mode.Dev
 
         ServerConfig(rootDir, httpPort, address, mode, process.properties, configuration)
-}

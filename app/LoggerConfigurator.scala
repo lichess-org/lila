@@ -10,11 +10,9 @@ import ch.qos.logback.core.util._
 import org.slf4j.{ LoggerFactory, ILoggerFactory }
 import org.slf4j.bridge._
 
-private object LoggerConfigurator {
+private object LoggerConfigurator:
 
-  def loggerFactory: ILoggerFactory = {
-    LoggerFactory.getILoggerFactory
-  }
+  def loggerFactory: ILoggerFactory = LoggerFactory.getILoggerFactory
 
   def configure(): Unit =
     configure(
@@ -75,7 +73,7 @@ private object LoggerConfigurator {
     // }
   }
 
-  def shutdown(): Unit = {
+  def shutdown(): Unit =
     val ctx = loggerFactory.asInstanceOf[LoggerContext]
     ctx.stop()
 
@@ -83,5 +81,3 @@ private object LoggerConfigurator {
 
     // Unset the global application mode for logging
     play.api.Logger.unsetApplicationMode()
-  }
-}
