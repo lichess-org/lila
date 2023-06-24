@@ -134,7 +134,7 @@ object SetupBulk:
   ):
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {
-      pairAt == other.pairAt || startClocksAt == other.startClocksAt
+      pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty option rules
 
