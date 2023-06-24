@@ -294,7 +294,7 @@ final class Challenge(
                       val challenge = makeOauthChallenge(config, me, destUser)
                       config.acceptByToken match
                         case Some(strToken) =>
-                          apiChallengeAccept(destUser, challenge, strToken)(me, config.message)
+                          apiChallengeAccept(destUser, challenge, strToken)(config.message)
                         case _ =>
                           env.challenge.granter
                             .isDenied(me.some, destUser, config.perfType)
@@ -338,8 +338,11 @@ final class Challenge(
       dest: UserModel,
       challenge: lila.challenge.Challenge,
       strToken: String
-  )(managedBy: lila.user.User, message: Option[Template])(using req: RequestHeader): Fu[Result] =
+  )(message: Option[Template])(using me: Me, req: RequestHeader): Fu[Result] =
     val accepted = OAuthScope.select(_.Challenge.Write) into EndpointScopes
+    lila.challenge.logger.warn(
+      s"Deprecated challenge acceptByToken ${me.username} ${lila.common.HTTPRequest.print(req)}"
+    )
     env.oAuth.server
       .auth(Bearer(strToken), accepted, req.some)
       .flatMap:
@@ -350,7 +353,7 @@ final class Challenge(
             then
               env.challenge.api.oauthAccept(dest, challenge) flatMap {
                 case Validated.Valid(g) =>
-                  env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok:
+                  env.challenge.msg.onApiPair(challenge)(message) inject Ok:
                     Json.obj:
                       "game" -> {
                         env.game.jsonView.baseWithChessDenorm(g, challenge.initialFen) ++ Json.obj(
