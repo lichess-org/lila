@@ -11,7 +11,7 @@ import lila.game.{ Game, Player }
 import lila.hub.actorApi.map.TellMany
 import lila.hub.AsyncActorSequencers
 import lila.rating.PerfType
-import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame }
+import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
 import chess.Clock
 import lila.common.config.Max
@@ -56,32 +56,29 @@ final class ChallengeBulkApi(
       .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", nowInstant)
       .map(_.n == 1)
 
-  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
+  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by):
     coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
-      if bulks.sizeIs >= 10 then fuccess(Left("Already too many bulks queued"))
+      if bulks.sizeIs >= maxBulks then fuccess(Left("Already too many bulks queued"))
       else if bulks.map(_.games.size).sum >= 1000
       then fuccess(Left("Already too many games queued"))
       else if bulks.exists(_ collidesWith bulk)
       then fuccess(Left("A bulk containing the same players is scheduled at the same time"))
       else coll.insert.one(bulk) inject Right(bulk)
     }
-  }
 
   private[challenge] def tick: Funit =
     checkForPairing >> checkForClocks
 
   private def checkForPairing: Funit =
     coll.one[ScheduledBulk]($doc("pairAt" $lte nowInstant, "pairedAt" $exists false)) flatMapz { bulk =>
-      workQueue(bulk.by) {
+      workQueue(bulk.by):
         makePairings(bulk).void
-      }
     }
 
   private def checkForClocks: Funit =
     coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz { bulk =>
-      workQueue(bulk.by) {
+      workQueue(bulk.by):
         startClocksNow(bulk)
-      }
     }
 
   private def startClocksNow(bulk: ScheduledBulk): Funit =
@@ -95,7 +92,7 @@ final class ChallengeBulkApi(
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
-        userRepo.pair(game.white, game.black) map2 { case (white, black) =>
+        userRepo.pair(game.white, game.black) map2 { (white, black) =>
           (game.id, white, black)
         }
       .mapConcat(_.toList)

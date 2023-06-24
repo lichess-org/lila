@@ -17,6 +17,7 @@ import lila.user.User
 object SetupBulk:
 
   val maxGames = 500
+  val maxBulks = 20
 
   case class BulkFormData(
       tokens: String,
@@ -105,12 +106,11 @@ object SetupBulk:
       .split(',')
       .view
       .map(_ split ":")
-      .collect { case Array(w, b) =>
-        w.trim -> b.trim
-      }
-      .collect {
+      .collect:
+        case Array(w, b) =>
+          w.trim -> b.trim
+      .collect:
         case (w, b) if w.nonEmpty && b.nonEmpty => (Bearer(w), Bearer(b))
-      }
       .toList
 
   case class BadToken(token: Bearer, error: OAuthServer.AuthError)
@@ -150,13 +150,12 @@ object SetupBulk:
     Json
       .obj(
         "id" -> _id,
-        "games" -> games.map { g =>
+        "games" -> games.map: g =>
           Json.obj(
             "id"    -> g.id,
             "white" -> g.white,
             "black" -> g.black
-          )
-        },
+          ),
         "variant"       -> variant.key,
         "rated"         -> mode.rated,
         "pairAt"        -> pairAt,
@@ -164,22 +163,20 @@ object SetupBulk:
         "scheduledAt"   -> scheduledAt,
         "pairedAt"      -> pairedAt
       )
-      .add("clock" -> bulk.clock.left.toOption.map { c =>
+      .add("clock" -> bulk.clock.left.toOption.map: c =>
         Json.obj(
           "limit"     -> c.limitSeconds,
           "increment" -> c.incrementSeconds
-        )
-      })
-      .add("correspondence" -> bulk.clock.toOption.map { days =>
-        Json.obj("daysPerTurn" -> days)
-      })
+        ))
+      .add("correspondence" -> bulk.clock.toOption.map: days =>
+        Json.obj("daysPerTurn" -> days))
       .add("message" -> message.map(_.value))
       .add("rules" -> nonEmptyRules)
       .add("fen" -> fen)
 
 final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
+    Executor,
+    akka.stream.Materializer
 ):
 
   import SetupBulk.*
@@ -194,32 +191,29 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
 
   def apply(data: BulkFormData, me: User): Fu[Result] =
     Source(extractTokenPairs(data.tokens))
-      .mapConcat { case (whiteToken, blackToken) =>
+      .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
-      }
       .mapAsync(8): token =>
         oauthServer.auth(token, OAuthScope.select(_.Challenge.Write) into EndpointScopes, none) map {
           _.left.map { BadToken(token, _) }
         }
-      .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)) {
+      .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
         case (Left(bads), Left(bad))       => Left(bad :: bads)
         case (Left(bads), _)               => Left(bads)
         case (Right(_), Left(bad))         => Left(bad :: Nil)
         case (Right(users), Right(scoped)) => Right(scoped.me :: users)
-      }
-      .flatMap {
+      .flatMap:
         case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
         case Right(allPlayers) =>
           lazy val dups = allPlayers
             .groupBy(identity)
             .view
             .mapValues(_.size)
-            .collect {
+            .collect:
               case (u, nb) if nb > 1 => u
-            }
             .toList
-          if (!data.allowMultiplePairingsPerUser && dups.nonEmpty)
-            fuccess(Left(ScheduleError.DuplicateUsers(dups)))
+          if !data.allowMultiplePairingsPerUser && dups.nonEmpty
+          then fuccess(Left(ScheduleError.DuplicateUsers(dups)))
           else
             val pairs = allPlayers.reverse
               .grouped(2)
@@ -253,4 +247,3 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                     fen = data.fen
                   )
                 .dmap(Right.apply)
-      }
