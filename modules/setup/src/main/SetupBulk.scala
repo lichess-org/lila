@@ -43,7 +43,7 @@ object SetupBulk:
 
   private def timestampInNearFuture = longNumber(
     min = 0,
-    max = nowInstant.plusDays(1).toMillis
+    max = nowInstant.plusDays(7).toMillis
   )
 
   def form = Form[BulkFormData](
