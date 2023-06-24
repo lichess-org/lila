@@ -5,7 +5,7 @@ import LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
 import { timePickerAndSliders } from './components/timePickerAndSliders';
 import { gameModeButtons } from './components/gameModeButtons';
-import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
+import { ratingDifferencePickersAndSliders } from './components/ratingDifferencePickersAndSliders';
 import { colorButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 
@@ -17,7 +17,7 @@ export default function hookContent(ctrl: LobbyController): MaybeVNodes {
       variantPicker(ctrl),
       timePickerAndSliders(ctrl),
       gameModeButtons(ctrl),
-      ratingDifferenceSliders(ctrl),
+      ratingDifferencePickersAndSliders(ctrl),
       colorButtons(ctrl),
     ]),
     ratingView(ctrl),
