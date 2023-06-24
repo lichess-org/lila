@@ -80,7 +80,7 @@ final class Account(
   }
 
   val apiMe =
-    val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.account.user")
+    val rateLimit = lila.memo.RateLimit[UserId](30, 5.minutes, "api.account.user")
     Scoped() { ctx ?=> me ?=>
       def limited = rateLimitedFu:
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
