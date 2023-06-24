@@ -46,7 +46,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   const root = opts.root;
   const ui = opts.ui;
   const initialFen = opts.initialFen;
-  const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
+  const DEBUG = { emptyMatches: false, buildMoves: true, buildSquares: true, collapse: true };
   const cg: CgApi = root.chessground;
   let entries: Entry[] = [];
   let partials = { commands: [], colors: [], numbers: [] };
@@ -241,7 +241,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     for (const [xtoks, outs] of spreadMap(xtoksOut)) {
       const cost = costToMatch(htoks, xtoks, partite);
       const sanUcis = new Set(getSpread(sans, toksVals(xtoks)));
-      if (cost > 1) continue;
+      if (cost > 0.99) continue;
       for (const out of outs) {
         if (!matches.has(out) || matches.get(out)!.cost > cost) {
           matches.set(out, { isSan: sanUcis.has(out), cost });
@@ -250,7 +250,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     }
     const sorted = [...matches].sort(([, lhs], [, rhs]) => lhs.cost - rhs.cost);
     if (sorted.length > 0 || DEBUG.emptyMatches)
-      console.info('matchMany', `from: `, xtoksOut, '\nto: ', new Map(sorted));
+      console.info('matchMany - in:', xvalsOut, 'from: ', xtoksOut, '\nto: ', new Map(sorted));
     return sorted;
   }
 
@@ -417,7 +417,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
         } else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
       }
       xvalset.clear();
-      xvalset.add(uci);
+      addToks(uci, uci);
 
       if (dp && !isOurs(dp)) {
         const drole = dp.toUpperCase(); // takes
