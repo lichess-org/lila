@@ -30,8 +30,9 @@ trait I18nHelper:
 
   def langHref(call: Call)(using Context): String = langHref(call.url)
   def langHref(path: String)(using ctx: Context): String =
-    if (ctx.isAuth || ctx.lang.language == "en") path
+    if ctx.isAuth || ctx.lang.language == "en"
+    then path
     else
       val code = lila.i18n.fixJavaLanguageCode(ctx.lang)
-      if (path == "/") s"/$code"
+      if path == "/" then s"/$code"
       else s"/$code$path"

@@ -63,7 +63,7 @@ object player:
       chessground = false,
       playing = true,
       zenable = true
-    )(
+    ):
       main(cls := "round")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
@@ -82,4 +82,3 @@ object player:
         ),
         div(cls := "round__underchat")(bits underchat pov.game)
       )
-    )

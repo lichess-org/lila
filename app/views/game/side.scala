@@ -19,7 +19,7 @@ object side:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(using ctx: PageContext): Option[Frag] =
+  )(using ctx: Context): Option[Frag] =
     ctx.noBlind option frag(
       meta(pov, initialFen, tour, simul, userTv, bookmarked),
       pov.game.userIds.filter(isStreaming) map views.html.streamer.bits.contextual
@@ -32,7 +32,7 @@ object side:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(using ctx: PageContext): Option[Frag] =
+  )(using ctx: Context): Option[Frag] =
     ctx.noBlind option {
       import pov.*
       div(cls := "game__meta")(

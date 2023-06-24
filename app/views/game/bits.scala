@@ -28,7 +28,7 @@ object bits:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     div(
       side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
       cross.map: c =>
@@ -41,18 +41,15 @@ object bits:
       initialFen: Option[chess.format.Fen.Epd] = None,
       shortName: Boolean = false
   )(using Lang): Frag =
-    def link(
-        href: String,
-        title: String,
-        name: String
-    ) = a(
+
+    def link(href: String, title: String, name: String) = a(
       cls     := "variant-link",
       st.href := href,
       targetBlank,
       st.title := title
     )(name)
 
-    if (variant.exotic)
+    if variant.exotic then
       link(
         href = variant match
           case chess.variant.FromPosition =>

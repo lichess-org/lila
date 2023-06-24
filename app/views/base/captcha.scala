@@ -14,7 +14,7 @@ object captcha:
   private val dataMoves    = attr("data-moves")
   private val dataPlayable = attr("data-playable")
 
-  def apply(form: lila.common.Form.FormLike, captcha: lila.common.Captcha)(using ctx: PageContext) =
+  def apply(form: lila.common.Form.FormLike, captcha: lila.common.Captcha)(using ctx: Context) =
     frag(
       form3.hidden(form("gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(form("move"), captcha.solutions.head.some)

@@ -14,7 +14,7 @@ object widgets:
       notes: Map[GameId, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
-  )(using PageContext): Frag =
+  )(using Context): Frag =
     games map { g =>
       val fromPlayer  = user flatMap g.player
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
@@ -105,51 +105,45 @@ object widgets:
       )
     }
 
-  def showClock(game: Game)(using PageContext) =
-    game.clock.map { clock =>
-      frag(clock.config.show)
-    } getOrElse {
-      game.daysPerTurn
-        .map { days =>
-          span(title := trans.correspondence.txt())(
-            if (days.value == 1) trans.oneDay()
-            else trans.nbDays.pluralSame(days.value)
-          )
-        }
-        .getOrElse {
-          span(title := trans.unlimited.txt())("∞")
-        }
-    }
+  def showClock(game: Game)(using Context) =
+    game.clock
+      .map: clock =>
+        frag(clock.config.show)
+      .getOrElse:
+        game.daysPerTurn
+          .map: days =>
+            span(title := trans.correspondence.txt()):
+              if days.value == 1 then trans.oneDay()
+              else trans.nbDays.pluralSame(days.value)
+          .getOrElse:
+            span(title := trans.unlimited.txt())("∞")
 
   private lazy val anonSpan = span(cls := "anon")(lila.user.User.anonymous)
 
-  private def gamePlayer(player: Player)(using ctx: PageContext) =
-    div(cls := s"player ${player.color.name}")(
-      player.playerUser map { playerUser =>
-        frag(
-          userIdLink(playerUser.id.some, withOnline = false),
-          br,
-          player.berserk option berserkIconSpan,
-          ctx.pref.showRatings option frag(
-            playerUser.rating,
-            player.provisional.yes option "?",
-            playerUser.ratingDiff map { d =>
-              frag(" ", showRatingDiff(d))
-            }
-          )
-        )
-      } getOrElse {
-        player.aiLevel map { level =>
-          span(aiNameFrag(level))
-        } getOrElse {
-          player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
-            frag(
-              span(name),
-              rating.map { r =>
-                frag(br, r)
+  private def gamePlayer(player: Player)(using ctx: Context) =
+    div(cls := s"player ${player.color.name}"):
+      player.playerUser
+        .map: playerUser =>
+          frag(
+            userIdLink(playerUser.id.some, withOnline = false),
+            br,
+            player.berserk option berserkIconSpan,
+            ctx.pref.showRatings option frag(
+              playerUser.rating,
+              player.provisional.yes option "?",
+              playerUser.ratingDiff map { d =>
+                frag(" ", showRatingDiff(d))
               }
             )
-          }
-        }
-      }
-    )
+          )
+        .getOrElse:
+          player.aiLevel
+            .map: level =>
+              span(aiNameFrag(level))
+            .getOrElse:
+              player.nameSplit.fold[Frag](anonSpan): (name, rating) =>
+                frag(
+                  span(name),
+                  rating.map:
+                    frag(br, _)
+                )

@@ -21,7 +21,7 @@ object watcher:
       bookmarked: Boolean
   )(using ctx: PageContext) =
 
-    val chatJson = chatOption map { c =>
+    val chatJson = chatOption.map: c =>
       chat.json(
         c.chat,
         name = trans.spectatorRoom.txt(),
@@ -31,7 +31,6 @@ object watcher:
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.me.exists(_.canPalantir)
       )
-    }
 
     bits.layout(
       variant = pov.game.variant,
@@ -49,7 +48,7 @@ object watcher:
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false
-    )(
+    ):
       main(cls := "round")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour, simul, userTv, bookmarked),
@@ -59,7 +58,6 @@ object watcher:
         div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
         div(cls := "round__underchat")(bits underchat pov.game)
       )
-    )
 
   def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Epd], pgn: chess.format.pgn.Pgn)(using
       ctx: PageContext
@@ -69,18 +67,15 @@ object watcher:
       title = gameVsText(pov.game, withRatings = true),
       openGraph = povOpenGraph(pov).some,
       chessground = false
-    )(
-      frag(
-        main(cls := "round")(
-          st.aside(cls := "round__side")(
-            game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
-            div(cls := "for-crawler")(
-              h1(titleGame(pov.game)),
-              p(describePov(pov)),
-              div(cls := "pgn")(pgn.render)
-            )
-          ),
-          div(cls := "round__board main-board")(chessground(pov))
-        )
+    ):
+      main(cls := "round")(
+        st.aside(cls := "round__side")(
+          game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
+          div(cls := "for-crawler")(
+            h1(titleGame(pov.game)),
+            p(describePov(pov)),
+            div(cls := "pgn")(pgn.render)
+          )
+        ),
+        div(cls := "round__board main-board")(chessground(pov))
       )
-    )

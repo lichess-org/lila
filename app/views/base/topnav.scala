@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object topnav:
 
-  private def linkTitle(url: String, name: Frag)(using ctx: PageContext) =
+  private def linkTitle(url: String, name: Frag)(using ctx: Context) =
     if (ctx.blind) h3(name) else a(href := url)(name)
 
   private def canSeeClasMenu(using ctx: PageContext) =
@@ -35,7 +35,7 @@ object topnav:
           )
         )
       ),
-      ctx.noBot option {
+      ctx.noBot.option:
         val puzzleUrl = langHref(routes.Puzzle.home.url)
         st.section(
           linkTitle(puzzleUrl, trans.puzzles()),
@@ -47,7 +47,7 @@ object topnav:
             a(href := langHref(routes.Racer.home))("Puzzle Racer")
           )
         )
-      },
+      ,
       st.section(
         linkTitle(routes.Learn.index.url, trans.learnMenu()),
         div(role := "group")(
@@ -61,7 +61,7 @@ object topnav:
           canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
         )
       ),
-      st.section {
+      st.section:
         val tvUrl = langHref(routes.Tv.index)
         frag(
           linkTitle(tvUrl, trans.watch()),
@@ -73,7 +73,7 @@ object topnav:
             ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
           )
         )
-      },
+      ,
       st.section(
         linkTitle(routes.User.list.url, trans.community()),
         div(role := "group")(

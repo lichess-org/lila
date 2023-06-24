@@ -30,12 +30,12 @@ object bits:
   def miniSpan(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None) =
     mini(fen, color, lastMove)(span)
 
-  private def explorerConfig(using ctx: PageContext) = Json.obj(
+  private def explorerConfig(using ctx: Context) = Json.obj(
     "endpoint"          -> explorerEndpoint,
     "tablebaseEndpoint" -> tablebaseEndpoint,
     "showRatings"       -> ctx.pref.showRatings
   )
-  def explorerAndCevalConfig(using ctx: PageContext) =
+  def explorerAndCevalConfig(using ctx: Context) =
     Json.obj(
       "explorer"               -> explorerConfig,
       "externalEngineEndpoint" -> externalEngineEndpoint

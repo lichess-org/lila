@@ -66,7 +66,7 @@ object list:
       )
     }
 
-  private def tournamentWinners(winners: List[lila.tournament.Winner])(using PageContext) =
+  private def tournamentWinners(winners: List[lila.tournament.Winner])(using Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := licon.Trophy)(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
@@ -81,7 +81,7 @@ object list:
       })
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: PageContext) =
+  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.icon)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
@@ -95,7 +95,7 @@ object list:
     )
 
   private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[licon.Icon])(using
-      PageContext
+      Context
   ) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),

@@ -33,7 +33,7 @@ object perfStat:
           )
       ),
       moreCss = cssTag("perf-stat")
-    ) {
+    ):
       main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(user, ranks, perfType.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
@@ -65,12 +65,11 @@ object perfStat:
           )
         )
       )
-    }
 
   private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(using
-      ctx: PageContext
+      ctx: Context
   ): Frag =
     st.section(cls := "glicko")(
       h2(

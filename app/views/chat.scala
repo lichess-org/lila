@@ -26,7 +26,7 @@ object chat:
       writeable: Boolean = true,
       localMod: Boolean = false,
       palantir: Boolean = false
-  )(using PageContext) =
+  )(using Context) =
     json(
       chat.chat,
       name = name,
@@ -52,7 +52,7 @@ object chat:
       localMod: Boolean = false,
       broadcastMod: Boolean = false,
       palantir: Boolean = false
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     Json
       .obj(
         "data" -> Json
@@ -85,7 +85,7 @@ object chat:
           .option(lila.chat.JsonView.timeoutReasons)
       )
 
-  def i18n(withNote: Boolean)(using PageContext) =
+  def i18n(withNote: Boolean)(using Context) =
     i18nOptionJsObject(
       I18nKeys.talkInChat.some,
       I18nKeys.toggleTheChat.some,

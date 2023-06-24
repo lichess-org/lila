@@ -24,5 +24,5 @@ val defaultLang = enLang
 // ffs
 def fixJavaLanguageCode(lang: Lang) =
   val code = lang.language
-  if (code == "in") "id"
+  if code == "in" then "id"
   else code

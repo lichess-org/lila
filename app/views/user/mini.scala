@@ -16,7 +16,7 @@ object mini:
       rel: Option[lila.relation.Relation],
       ping: Option[Int],
       crosstable: Option[lila.game.Crosstable]
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(
@@ -42,7 +42,7 @@ object mini:
             showPerfRating(u, _)
           })
       ),
-      ctx.userId map { myId =>
+      ctx.userId.map: myId =>
         frag(
           (myId != u.id && u.enabled.yes) option div(cls := "upt__actions btn-rack")(
             a(
@@ -75,8 +75,7 @@ object mini:
             )(trans.yourScore(raw(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross
                 .showOpponentScore(myId)}</strong>""")))
           }
-        )
-      },
+        ),
       isGranted(_.UserModView) option div(cls := "upt__mod")(
         span(
           trans.nbGames.plural(u.count.game, u.count.game.localize),
