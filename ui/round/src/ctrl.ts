@@ -249,7 +249,7 @@ export default class RoundController {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.chessground.selectSquare(null);
-    if (ply != this.ply && this.jump(ply)) lichess.sound.saySan(this.stepAt(ply).san, true);
+    if (ply != this.ply && this.jump(ply)) lichess.sound.saySan(this.stepAt(this.ply).san, true);
     else this.redraw();
   };
 
