@@ -53,7 +53,7 @@ final private class RatingRefund(
           }
 
         def pointsToRefund(ref: Refund, curRating: IntRating, perfs: PerfStat): Int = {
-          ref.diff.value - (ref.diff + curRating - ref.topRating atLeast 0).value / 2 atMost
+          ref.diff.value - (ref.diff.value + curRating.value - ref.topRating.value atLeast 0) / 2 atMost
             perfs.highest.fold(100) { _.int.value - curRating.value + 20 }
         }.squeeze(0, 150)
 

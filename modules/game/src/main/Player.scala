@@ -71,11 +71,11 @@ case class Player(
       case ((None, _), (Some(_), _))              => false
       case ((_, a), (_, b))                       => a.value < b.value
 
-  def ratingAfter = rating.map(_ + ~ratingDiff)
+  def ratingAfter = rating.map(_.applyDiff(~ratingDiff))
 
   def stableRating = rating ifFalse provisional.value
 
-  def stableRatingAfter = stableRating.map(_ + ~ratingDiff)
+  def stableRatingAfter = stableRating.map(_.applyDiff(~ratingDiff))
 
   def light = LightPlayer(color, aiLevel, userId, rating, ratingDiff, provisional, berserk)
 
