@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju pozicije</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kada je preostalo vrijeme &lt; 30 sekundi</string>
   <string name="moveConfirmation">Potvrda poteza</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Može se isključiti tokom partije u izborniku za tablu</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
   <string name="correspondenceAndUnlimited">Prepiska i neograničeno</string>
   <string name="confirmResignationAndDrawOffers">Potvrdite predaju partije i ponudu za remi</string>
