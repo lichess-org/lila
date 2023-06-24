@@ -119,6 +119,7 @@
   <string name="memory">内存</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使您的电脑发热</string>
+  <string name="engineManager">开炮</string>
   <string name="blunder">失策</string>
   <string name="mistake">失误</string>
   <string name="inaccuracy">失准</string>
