@@ -365,6 +365,8 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def isTroll(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
+  def isBot(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ botSelect(true))
+
   def isCreatedSince(id: UserId, since: Instant): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.createdAt $lt since))
 

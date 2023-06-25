@@ -38,6 +38,14 @@ case class TextAnalysis(
 
   lazy val critical = badWords.nonEmpty && Analyser.isCritical(text)
 
+  def removeEngineIfBot(isBot: => Fu[Boolean]) =
+    if badWords.has("engine")
+    then
+      isBot.dmap:
+        if _ then copy(badWords = badWords.filterNot(_ == "engine"))
+        else this
+    else fuccess(this)
+
 enum TextType(val key: String, val rotation: Int, val name: String):
   case PublicForumMessage extends TextType("puf", 20, "Public forum message")
   case TeamForumMessage   extends TextType("tef", 20, "Team forum message")
