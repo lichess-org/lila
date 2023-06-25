@@ -30,9 +30,9 @@ final class Env(
 
   // api actor
   system.actorOf(
-    Props(new Actor {
+    Props(new Actor:
       import lila.hub.actorApi.shutup.*
-      def receive = {
+      def receive =
         case RecordPublicForumMessage(userId, text) =>
           api.publicForumMessage(userId, text).unit
         case RecordTeamForumMessage(userId, text) =>
@@ -43,7 +43,6 @@ final class Env(
           api.privateChat(chatId, userId, text).unit
         case RecordPublicChat(userId, text, source) =>
           api.publicChat(userId, text, source).unit
-      }
-    }),
+    ),
     name = config.actorName
   )

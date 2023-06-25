@@ -88,13 +88,11 @@ final class ChatApi(
             linkCheck(line, publicSource) flatMap {
               if _ then
                 (persist so persistLine(chatId, line)) >>- {
-                  if (persist)
-                    if (publicSource.isDefined) cached invalidate chatId
-                    shutup ! {
-                      publicSource match
-                        case Some(source) => RecordPublicChat(userId, text, source)
-                        case _            => RecordPrivateChat(chatId.value, userId, text)
-                    }
+                  if persist then
+                    if publicSource.isDefined then cached invalidate chatId
+                    shutup ! publicSource.match
+                      case Some(source) => RecordPublicChat(userId, text, source)
+                      case _            => RecordPrivateChat(chatId.value, userId, text)
                     lila.mon.chat
                       .message(publicSource.fold("player")(_.parentName), line.troll)
                       .increment()
