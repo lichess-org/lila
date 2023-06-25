@@ -180,7 +180,6 @@ final class Swiss(
         jsonOkResult
       )
   }
-  def apiWithdraw = withdraw
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
