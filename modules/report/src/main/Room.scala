@@ -29,17 +29,8 @@ object Room:
       case R.Cheat                           => Cheat
       case R.Boost                           => Boost
       case R.AltPrint | R.CheatPrint         => Print
-      case R.Comm                            => Comm
+      case R.Comm | R.Sexism                 => Comm
       case R.Other | R.Playbans | R.Username => Other
-
-  def toReasons(room: Room): Set[Reason] =
-    room match
-      case Cheat  => Set(Reason.Cheat)
-      case Boost  => Set(Reason.Boost)
-      case Print  => Set(Reason.AltPrint)
-      case Comm   => Set(Reason.Comm)
-      case Other  => Set(Reason.Playbans, Reason.Other)
-      case Xfiles => Set.empty
 
   case class Scores(value: Map[Room, Int]):
     def get     = value.get

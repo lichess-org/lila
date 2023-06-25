@@ -82,6 +82,7 @@ trait SetupHelper { self: I18nHelper =>
       (Reason.Comm.key, trans.insult.txt()),
       (Reason.Boost.key, trans.ratingManipulation.txt()),
       (Reason.Comm.key, trans.troll.txt()),
+      (Reason.Sexism.key, "Sexual harassment or Sexist remarks"),
       (Reason.Username.key, trans.username.txt()),
       (Reason.Other.key, trans.other.txt())
     )

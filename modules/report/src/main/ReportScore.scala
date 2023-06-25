@@ -40,8 +40,8 @@ final private class ReportScore(
       else if c.isAutoComm then 42d
       else if c.isIrwinCheat then 45d
       else if c.isKaladinCheat then 25d
-      else if c.isPrint || c.isCoachReview || c.isPlaybans then baseScore * 2
-      else if c.isUsername then score + 30
+      else if c.isPrint || c.isCoachReview || c.is(_.Playbans) then baseScore * 2
+      else if c.is(_.Username) || c.is(_.Sexism) then score + 30
       else score
 
     private val gameRegex = ReportForm gameLinkRegex domain

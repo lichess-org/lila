@@ -83,6 +83,6 @@ object form:
           if key == Cheat.key || key == Boost.key then trans.reportDescriptionHelp()
           else if key == Username.key then
             "Please explain briefly what about this username is offensive." + englishPlease
-          else if key == Comm.key then
+          else if key == Comm.key || key == Sexism.key then
             "Please explain briefly what that user said that was abusive." + englishPlease
           else "Please explain briefly what happened." + englishPlease
