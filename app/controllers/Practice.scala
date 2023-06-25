@@ -41,11 +41,9 @@ final class Practice(
 
   private def redirectTo(sectionId: String)(select: PracticeSection => Option[PracticeStudy]) = Open:
     api.structure.get.flatMap: struct =>
-      struct.sections
-        .find(_.id == sectionId)
-        .fold(notFound): section =>
-          select(section).so: study =>
-            Redirect(routes.Practice.show(section.id, study.slug, study.id))
+      Found(struct.sections.find(_.id == sectionId)): section =>
+        select(section).so: study =>
+          Redirect(routes.Practice.show(section.id, study.slug, study.id))
 
   private def showUserPractice(us: lila.practice.UserStudy)(using Context) =
     Ok.pageAsync:

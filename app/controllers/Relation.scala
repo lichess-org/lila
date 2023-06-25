@@ -106,7 +106,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
             then Ok.page(html.relation.bits.friends(user, pag))
-            else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username))),
+            else Found(ctx.me)(me => Redirect(routes.Relation.following(me.username))),
             Ok(jsonRelatedPaginator(pag))
           )
         }

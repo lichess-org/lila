@@ -32,6 +32,6 @@ final class UserTournament(env: Env) extends LilaController(env):
               Ok.page(html.userTournament.upcoming(user, pager))
             }
           case "upcoming" =>
-            ctx.me.fold(notFound): me =>
+            Found(ctx.me): me =>
               Redirect(routes.UserTournament.path(me.username, "upcoming"))
           case _ => notFound

@@ -474,28 +474,23 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
   )(using ctx: Context, me: Me): Fu[Result] =
-    cachedTour(id) flatMap {
-      case Some(t) if (t.createdBy.is(me) && !t.isFinished) || isGranted(_.ManageTournament) =>
-        f(t)
-      case Some(t) => Redirect(routes.Tournament.show(t.id))
-      case _       => notFound
-    }
+    Found(cachedTour(id)): t =>
+      if (t.createdBy.is(me) && !t.isFinished) || isGranted(_.ManageTournament)
+      then f(t)
+      else Redirect(routes.Tournament.show(t.id))
 
-  private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](64, "tournament.streamers") {
+  private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](64, "tournament.streamers"):
     _.refreshAfterWrite(15.seconds)
       .maximumSize(256)
-      .buildAsyncFuture { tourId =>
+      .buildAsyncFuture: tourId =>
         repo.isUnfinished(tourId) flatMapz {
           env.streamer.liveStreamApi.all.flatMap {
             _.streams
-              .map { stream =>
+              .map: stream =>
                 env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
-              }
               .parallel
               .dmap(_.flatten)
           }
         }
-      }
-  }
 
   private given GetUserTeamIds = user => env.team.cached.teamIdsList(user.id)

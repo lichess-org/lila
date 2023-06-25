@@ -309,12 +309,10 @@ final class Mod(
   }
 
   def gamifyPeriod(periodStr: String) = Secure(_.GamifyView) { ctx ?=> _ ?=>
-    lila.mod.Gamify
-      .Period(periodStr)
-      .fold(notFound): period =>
-        Ok.pageAsync:
-          env.mod.gamify.leaderboards.map:
-            html.mod.gamify.period(_, period)
+    Found(lila.mod.Gamify.Period(periodStr)): period =>
+      Ok.pageAsync:
+        env.mod.gamify.leaderboards.map:
+          html.mod.gamify.period(_, period)
   }
 
   def activity = activityOf("team", "month")
@@ -475,15 +473,13 @@ final class Mod(
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>
-    env.mod.presets
-      .get(group)
-      .fold(notFound): setting =>
-        setting.form
-          .bindFromRequest()
-          .fold(
-            err => BadRequest.page(html.mod.presets(group, err)),
-            v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
-          )
+    Found(env.mod.presets.get(group)): setting =>
+      setting.form
+        .bindFromRequest()
+        .fold(
+          err => BadRequest.page(html.mod.presets(group, err)),
+          v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
+        )
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>

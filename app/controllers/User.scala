@@ -148,7 +148,7 @@ final class User(
         case Some(u) =>
           negotiate(
             env.user.repo isErased u flatMap { erased =>
-              if erased.value then notFound
+              if erased.yes then notFound
               else NotFound.page(html.user.show.page.disabled(u))
             },
             NotFound(jsonError("No such user, or account closed"))
@@ -572,16 +572,14 @@ final class User(
         } map JsonOk
 
   def ratingDistribution(perfKey: lila.rating.Perf.Key, username: Option[UserStr] = None) = Open:
-    lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has) match
-      case Some(perfType) =>
-        env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap { data =>
-          username match
-            case Some(name) =>
-              EnabledUser(name): u =>
-                Ok.page(html.stat.ratingDistribution(perfType, data, Some(u)))
-            case _ => Ok.page(html.stat.ratingDistribution(perfType, data, None))
-        }
-      case _ => notFound
+    Found(lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has)): perfType =>
+      env.user.rankingApi.weeklyRatingDistribution(perfType) flatMap { data =>
+        username match
+          case Some(name) =>
+            EnabledUser(name): u =>
+              Ok.page(html.stat.ratingDistribution(perfType, data, Some(u)))
+          case _ => Ok.page(html.stat.ratingDistribution(perfType, data, None))
+      }
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))

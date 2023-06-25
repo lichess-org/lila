@@ -125,13 +125,11 @@ final class Study(
   }
 
   def byTopic(name: String, order: Order, page: Int) = Open:
-    lila.study.StudyTopic fromStr name match
-      case None => notFound
-      case Some(topic) =>
-        env.study.pager.byTopic(topic, order, page) zip
-          ctx.me.so(u => env.study.topicApi.userTopics(u) dmap some) flatMap { (pag, topics) =>
-            preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
-          }
+    Found(lila.study.StudyTopic fromStr name): topic =>
+      env.study.pager.byTopic(topic, order, page) zip
+        ctx.me.so(u => env.study.topicApi.userTopics(u) dmap some) flatMap { (pag, topics) =>
+          preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
+        }
 
   private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
     env.user.lightUserApi.preloadMany(
@@ -282,10 +280,8 @@ final class Study(
   }
 
   private def createStudy(data: StudyForm.importGame.Data, me: lila.user.User)(using ctx: Context) =
-    env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
-      _.fold(notFound): sc =>
-        Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
-    }
+    Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
+      Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
@@ -508,8 +504,8 @@ final class Study(
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:
-    env.study.api.byIdWithChapter(id, chapterId) flatMap {
-      _.fold(notFound) { case WithChapter(study, chapter) =>
+    Found(env.study.api.byIdWithChapter(id, chapterId)):
+      case WithChapter(study, chapter) =>
         CanView(study) {
           env.study.gifExport.ofChapter(chapter, theme, piece) map { stream =>
             Ok.chunked(stream)
@@ -519,8 +515,6 @@ final class Study(
             BadRequest(msg)
           }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
-      }
-    }
 
   def multiBoard(id: StudyId, page: Int) = Open:
     Found(env.study.api byId id): study =>

@@ -165,11 +165,8 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   def redirect(id: UblogPostId) = Open:
-    env.ublog.api
-      .postPreview(id)
-      .flatMap:
-        _.fold(notFound): post =>
-          Redirect(urlOfPost(post))
+    Found(env.ublog.api.postPreview(id)): post =>
+      Redirect(urlOfPost(post))
 
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
     Found(UblogBlog.Id(blogId).so(env.ublog.api.getBlog)): blog =>

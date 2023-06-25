@@ -76,7 +76,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     else a
 
   def NoShadowban[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.marks.troll)) notFound else a
+    if ctx.me.exists(_.marks.troll) then notFound else a
 
   def NoPlayban(a: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
     ctx.userId

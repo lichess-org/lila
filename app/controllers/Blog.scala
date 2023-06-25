@@ -21,10 +21,8 @@ final class Blog(
   def index(page: Int) =
     WithPrismic { _ ?=> prismic ?=>
       pageHit
-      blogApi.recent(prismic, page, MaxPerPage(12)) flatMap {
-        case Some(response) => Ok.page(views.html.blog.index(response))
-        case _              => notFound
-      }
+      Found(blogApi.recent(prismic, page, MaxPerPage(12))): response =>
+        Ok.page(views.html.blog.index(response))
     }
 
   def show(id: String, slug: String, ref: Option[String]) =
@@ -32,11 +30,10 @@ final class Blog(
       pageHit
       blogApi
         .one(prismic, id)
-        .flatMap { maybeDocument =>
+        .flatMap: maybeDocument =>
           checkSlug(maybeDocument, slug):
             case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
             case Right(doc)    => Ok.page(views.html.blog.show(doc))
-        }
         .recoverWith {
           case e: RuntimeException if e.getMessage contains "Not Found" => notFound
         }

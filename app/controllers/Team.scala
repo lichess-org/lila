@@ -349,21 +349,19 @@ final class Team(
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
-    api team id flatMap {
-      _.fold(notFound): team =>
-        if team isOnlyLeader me then
-          val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
+    Found(api team id): team =>
+      if team isOnlyLeader me then
+        val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
+        negotiate(
+          html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
+          json = JsonBadRequest(msg)
+        )
+      else
+        api.cancelRequestOrQuit(team) >>
           negotiate(
-            html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
-            json = JsonBadRequest(msg)
+            html = Redirect(routes.Team.mine).flashSuccess,
+            json = jsonOkResult
           )
-        else
-          api.cancelRequestOrQuit(team) >>
-            negotiate(
-              html = Redirect(routes.Team.mine).flashSuccess,
-              json = jsonOkResult
-            )
-    }
   }
 
   def autocomplete = Anon:

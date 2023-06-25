@@ -27,6 +27,9 @@ trait ResponseBuilder(using Executor)
   def Found[A](a: Fu[Option[A]])(f: A => Fu[Result])(using Context): Fu[Result] =
     a.flatMap(_.fold(notFound)(f))
 
+  def Found[A](a: Option[A])(f: A => Fu[Result])(using Context): Fu[Result] =
+    a.fold(notFound)(f)
+
   def FoundOk[A, B: Writeable](fua: Fu[Option[A]])(op: A => Fu[B])(using Context): Fu[Result] =
     Found(fua): a =>
       op(a).dmap(Ok(_))

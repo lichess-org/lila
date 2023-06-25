@@ -181,11 +181,9 @@ final class Simul(env: Env) extends LilaController(env):
           }
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
-    env.simul.repo.find(simulId).flatMap {
-      case None                                                               => notFound
-      case Some(simul) if ctx.is(simul.hostId) || isGrantedOpt(_.ManageSimul) => f(simul)
-      case _                                                                  => Unauthorized
-    }
+    Found(env.simul.repo.find(simulId)): simul =>
+      if ctx.is(simul.hostId) || isGrantedOpt(_.ManageSimul) then f(simul)
+      else Unauthorized
 
   private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using Context): Fu[Result] =
     AsHost(id): sim =>

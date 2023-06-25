@@ -160,7 +160,7 @@ final class Report(
             page    <- renderPage(html.report.form(err, user, captcha))
           yield BadRequest(page),
         data =>
-          if data.user.id == me.id then notFound
+          if me.is(data.user.id) then notFound
           else
             api.create(data, Reporter(me)) inject
               Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
