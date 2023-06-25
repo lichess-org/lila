@@ -76,53 +76,58 @@
     flex: 1 1 auto;
   }
 
-  &--sitdccounter {
+  &--teacher {
     order: 3;
     flex: 1 1 auto;
   }
 
-  &--preferences {
+  &--sitdccounter {
     order: 4;
     flex: 1 1 auto;
   }
 
-  &--boardTokens {
+  &--preferences {
     order: 5;
+    flex: 1 1 auto;
+  }
+
+  &--boardTokens {
+    order: 6;
     flex: 1 1 auto;
   }
 
   &--plan,
   &--student {
-    order: 6;
+    order: 7;
     flex: 1 1 auto;
   }
 
   &--kaladin {
-    order: 7;
-  }
-
-  &--irwin {
     order: 8;
   }
 
-  &--assessments {
+  &--irwin {
     order: 9;
   }
 
-  &--mod_log {
+  &--assessments {
     order: 10;
   }
 
-  &--reports {
+  &--mod_log {
     order: 11;
   }
 
-  &--identification {
+  &--reports {
     order: 12;
   }
 
-  &--others {
+  &--identification {
     order: 13;
+  }
+
+  &--others {
+    order: 14;
   }
 
   &--menu {

@@ -331,6 +331,11 @@ object mod:
             )
       )
 
+  def teacher(u: User)(nb: Int)(using Context): Frag =
+    if nb == 0 then emptyFrag
+    else
+      mzSection("teacher")(strong(cls := "inline")(a(href := clasRoutes.teacher(u.username))(nb, " Classes")))
+
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Lang) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(

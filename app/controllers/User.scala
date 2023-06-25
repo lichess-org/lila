@@ -404,6 +404,8 @@ final class User(
 
           val boardTokens = env.oAuth.tokenApi.usedBoardApi(user).map(html.user.mod.boardTokens)
 
+          val teacher = env.clas.api.clas.countOf(user).map(html.user.mod.teacher(user))
+
           given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
           Ok.chunked:
             Source.single(html.user.mod.menu) merge
@@ -411,6 +413,7 @@ final class User(
               modZoneSegment(modLog, "modLog", user) merge
               modZoneSegment(plan, "plan", user) merge
               modZoneSegment(student, "student", user) merge
+              modZoneSegment(teacher, "teacher", user) merge
               modZoneSegment(reportLog, "reportLog", user) merge
               modZoneSegment(prefs, "prefs", user) merge
               modZoneSegment(rageSit, "rageSit", user) merge

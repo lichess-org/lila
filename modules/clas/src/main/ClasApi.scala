@@ -36,6 +36,9 @@ final class ClasApi(
         .cursor[Clas]()
         .list(100)
 
+    def countOf(teacher: User): Fu[Int] =
+      coll.countSel($doc("teachers" -> teacher.id))
+
     def byIds(clasIds: List[Clas.Id]): Fu[List[Clas]] =
       coll
         .find($inIds(clasIds))
