@@ -161,7 +161,7 @@ final class Challenge(
         env.challenge.forms.decline
           .bindFromRequest()
           .fold(
-            badJsonFormError,
+            jsonFormError,
             data => api.decline(c, data.realReason) inject jsonOkResult
           )
     }
@@ -282,7 +282,7 @@ final class Challenge(
       !me.is(username) so env.setup.forms.api.user
         .bindFromRequest()
         .fold(
-          badJsonFormError,
+          doubleJsonFormError,
           config =>
             ChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isApiHog then 0 else 1):
               env.user.repo enabledById username flatMap {

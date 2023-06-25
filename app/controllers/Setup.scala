@@ -188,7 +188,7 @@ final class Setup(
               ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
             .bindFromRequest()
             .fold(
-              badJsonFormError,
+              doubleJsonFormError,
               config =>
                 ctx.me.so(env.relation.api.fetchBlocking(_)).flatMap { blocking =>
                   val uniqId = author.fold(_.value, u => s"sri:${u.id}")

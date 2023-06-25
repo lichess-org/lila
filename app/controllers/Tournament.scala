@@ -309,7 +309,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             .edit(teams, tour)
             .bindFromRequest()
             .fold(
-              badJsonFormError,
+              jsonFormError,
               data =>
                 api.apiUpdate(tour, data) flatMap { tour =>
                   jsonView(
@@ -374,7 +374,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
           .fold(
-            badJsonFormError,
+            jsonFormError,
             res =>
               api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) >> {
                 cachedTour(tour.id) map (_ | tour) flatMap { tour =>

@@ -196,7 +196,7 @@ final class Swiss(
           err =>
             negotiate(
               BadRequest.page(html.swiss.form.edit(swiss, err)),
-              badJsonFormError(err)
+              jsonFormError(err)
             ),
           data =>
             env.swiss.api.update(swiss.id, data) >> negotiate(
@@ -215,8 +215,8 @@ final class Swiss(
           .bindFromRequest()
           .fold(
             err =>
-              render.async:
-                case Accepts.Json() => badJsonFormError(err)
+              render.async: // TODO
+                case Accepts.Json() => jsonFormError(err)
                 case _              => Redirect(routes.Swiss.show(id))
             ,
             date =>

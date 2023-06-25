@@ -30,7 +30,7 @@ final class BulkPairing(env: Env) extends LilaController(env):
     lila.setup.SetupBulk.form
       .bindFromRequest()
       .fold(
-        badJsonFormError,
+        jsonFormError,
         data =>
           env.setup.bulk(data, me) flatMap {
             case Left(SetupBulk.ScheduleError.RateLimited) =>
