@@ -59,7 +59,7 @@ final class Swiss(
             isLocalMod <- canChat so ctx.userId so { env.team.cached.isLeader(swiss.teamId, _) }
             page       <- renderPage(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
-        json = swissOption.fold(notFoundJson("No such swiss tournament")): swiss =>
+        json = swissOption.fold[Fu[Result]](notFoundJson("No such swiss tournament")): swiss =>
           for
             isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
             verdicts      <- env.swiss.api.verdicts(swiss)

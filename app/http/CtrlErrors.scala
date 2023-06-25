@@ -10,6 +10,11 @@ import lila.i18n.{ Translator, I18nKey }
 
 trait CtrlErrors extends ControllerHelpers:
 
+  def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
+
+  def notFoundJson(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
+  def notFoundText(msg: String = "Not found"): Result = Results.NotFound(msg)
+
   private val jsonGlobalErrorRenamer: Reads[JsObject] =
     import play.api.libs.json.*
     __.json update (
@@ -32,14 +37,14 @@ trait CtrlErrors extends ControllerHelpers:
    * { "error" -> { "key" -> "value" } }
    */
   def jsonFormError(form: Form[?])(using Lang) =
-    BadRequest(Json.obj("error" -> errorsAsJson(form)))
+    BadRequest(jsonError(errorsAsJson(form)))
 
   /* For compat with old clients
    * { "error" -> { "key" -> "value" }, "key" -> "value" }
    */
   def doubleJsonFormErrorBody(form: Form[?])(using Lang): JsObject =
     val json = errorsAsJson(form)
-    json ++ Json.obj("error" -> json)
+    json ++ jsonError(json)
 
   def doubleJsonFormError(form: Form[?])(using Lang) =
     BadRequest(doubleJsonFormErrorBody(form))

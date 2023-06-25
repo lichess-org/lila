@@ -115,7 +115,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               Ok(page).noCache
           .monSuccess(_.tournament.apiShowPartial(partial = false, HTTPRequest clientName ctx.req)),
         json = tourOption
-          .fold(notFoundJson("No such tournament")): tour =>
+          .fold[Fu[Result]](notFoundJson("No such tournament")): tour =>
             for
               playerInfoExt <- getUserStr("playerInfo").map(_.id).so { api.playerInfo(tour, _) }
               socketVersion <- getBool("socketVersion").so(env.tournament version tour.id dmap some)

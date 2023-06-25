@@ -147,11 +147,8 @@ final class Analyse(
   }
 
   def externalEngineShow(id: String) = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
-    env.analyse.externalEngine.find(me, id) map {
-      _.fold(notFoundJsonSync()) { engine =>
-        JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-      }
-    }
+    Found(env.analyse.externalEngine.find(me, id)): engine =>
+      JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
   }
 
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
@@ -170,23 +167,18 @@ final class Analyse(
   }
 
   def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
-    env.analyse.externalEngine.find(me, id) flatMap {
-      _.fold(notFoundJson()) { engine =>
-        lila.analyse.ExternalEngine.form
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            data =>
-              env.analyse.externalEngine.update(engine, data) map { engine =>
-                JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-              }
-          )
-      }
-    }
+    Found(env.analyse.externalEngine.find(me, id)): engine =>
+      lila.analyse.ExternalEngine.form
+        .bindFromRequest()
+        .fold(
+          jsonFormError,
+          data =>
+            env.analyse.externalEngine.update(engine, data) map { engine =>
+              JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+            }
+        )
   }
 
   def externalEngineDelete(id: String) = ScopedBody(_.Engine.Write) { _ ?=> me ?=>
-    env.analyse.externalEngine.delete(me, id) map {
-      if _ then jsonOkResult else notFoundJsonSync()
-    }
+    env.analyse.externalEngine.delete(me, id) elseNotFound jsonOkResult
   }

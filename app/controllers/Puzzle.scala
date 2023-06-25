@@ -57,15 +57,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         ).dmap(_.noCache)
 
   def apiDaily = Anon:
-    env.puzzle.daily.get.flatMap:
-      _.fold(notFoundJson()): daily =>
-        JsonOk(env.puzzle.jsonView(daily.puzzle, none, none))
+    Found(env.puzzle.daily.get): daily =>
+      JsonOk(env.puzzle.jsonView(daily.puzzle, none, none))
 
   def apiShow(id: PuzzleId) = Anon:
-    env.puzzle.api.puzzle find id flatMap {
-      _.fold(notFoundJson()): puzzle =>
-        JsonOk(env.puzzle.jsonView(puzzle, none, none))
-    }
+    Found(env.puzzle.api.puzzle find id): puzzle =>
+      JsonOk(env.puzzle.jsonView(puzzle, none, none))
 
   def home = Open(serveHome)
 
@@ -421,9 +418,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         html = notFound,
         api = v =>
           val angle = PuzzleAngle.mix
-          nextPuzzleForMe(angle, none) flatMap {
-            _.fold(notFoundJson()) { p => JsonOk(renderJson(p, angle, apiVersion = v.some)) }
-          }
+          Found(nextPuzzleForMe(angle, none)): p =>
+            JsonOk(renderJson(p, angle, apiVersion = v.some))
       )
 
   /* Mobile API: select a bunch of puzzles for offline use */

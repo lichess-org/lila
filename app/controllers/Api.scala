@@ -314,7 +314,7 @@ final class Api(
     val rateLimit = lila.memo.RateLimit[IpAddress](3_000, 1.day, "cloud-eval.api.ip")
     Anon:
       rateLimit(req.ipAddress, rateLimitedFu):
-        get("fen").fold(notFoundJson("Missing FEN")): fen =>
+        get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
           import chess.variant.Variant
           JsonOptionOk:
             env.evalCache.api.getEvalJson(
@@ -389,7 +389,7 @@ final class Api(
     result match
       case ApiResult.Limited          => rateLimitedJson
       case ApiResult.ClientError(msg) => BadRequest(jsonError(msg))
-      case ApiResult.NoData           => notFoundJsonSync()
+      case ApiResult.NoData           => notFoundJson()
       case ApiResult.Custom(result)   => result
       case ApiResult.Done             => jsonOkResult
       case ApiResult.Data(json)       => JsonOk(json)

@@ -14,7 +14,8 @@ trait ResponseBuilder(using Executor)
     with ResponseWriter
     with CtrlExtensions
     with CtrlConversions
-    with CtrlPage:
+    with CtrlPage
+    with CtrlErrors:
 
   val keyPages = KeyPages(env)
   export scalatags.Text.Frag
@@ -51,15 +52,13 @@ trait ResponseBuilder(using Executor)
   val jsonOkBody   = Json.obj("ok" -> true)
   val jsonOkResult = JsonOk(jsonOkBody)
 
-  def JsonOk(body: JsValue): Result             = Ok(body) as JSON
-  def JsonOk[A: Writes](body: A): Result        = Ok(Json toJson body) as JSON
-  def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua dmap { JsonOk(_) }
-  def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) =
-    fua.flatMap:
-      _.fold(notFoundJson())(a => fuccess(JsonOk(a)))
-  def JsonStrOk(str: JsonStr): Result       = Ok(str) as JSON
-  def JsonBadRequest(body: JsValue): Result = BadRequest(body) as JSON
-  def JsonBadRequest(msg: String): Result   = JsonBadRequest(jsonError(msg))
+  def JsonOk(body: JsValue): Result               = Ok(body) as JSON
+  def JsonOk[A: Writes](body: A): Result          = Ok(Json toJson body) as JSON
+  def JsonOk[A: Writes](fua: Fu[A]): Fu[Result]   = fua.dmap(JsonOk)
+  def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) = fua.map(_.fold(notFoundJson())(JsonOk))
+  def JsonStrOk(str: JsonStr): Result             = Ok(str) as JSON
+  def JsonBadRequest(body: JsValue): Result       = BadRequest(body) as JSON
+  def JsonBadRequest(msg: String): Result         = JsonBadRequest(jsonError(msg))
 
   def negotiateApi(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: Context): Fu[Result] =
     lila.api.Mobile.Api
@@ -74,13 +73,6 @@ trait ResponseBuilder(using Executor)
     else html.dmap(_.withHeaders(VARY -> "Accept"))
 
   def negotiateJson(result: => Fu[Result])(using Context) = negotiate(notFound, result)
-
-  def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
-
-  def notFoundJsonSync(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
-
-  def notFoundJson(msg: String = "Not found"): Fu[Result] = fuccess(notFoundJsonSync(msg))
-  def notFoundText(msg: String = "Not found"): Fu[Result] = fuccess(Results.NotFound(msg))
 
   def notFound(using ctx: Context): Fu[Result] =
     negotiate(

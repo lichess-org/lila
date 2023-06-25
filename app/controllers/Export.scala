@@ -27,10 +27,9 @@ final class Export(env: Env) extends LilaController(env):
   )
 
   private def exportImageOf[A](fetch: Fu[Option[A]])(convert: A => Fu[Result]) = Anon:
-    fetch.flatMap:
-      _.fold(notFoundJson()): res =>
-        ExportImageRateLimitByIp(req.ipAddress, rateLimitedFu):
-          ExportImageRateLimitGlobal("-", rateLimitedFu)(convert(res))
+    Found(fetch): res =>
+      ExportImageRateLimitByIp(req.ipAddress, rateLimitedFu):
+        ExportImageRateLimitGlobal("-", rateLimitedFu)(convert(res))
 
   def gif(id: GameId, color: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo gameWithInitialFen id) { g =>
