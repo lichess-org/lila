@@ -271,7 +271,7 @@ final class Team(
               .apiRequest(team)
               .bindFromRequest()
               .fold(
-                newJsonFormError,
+                badJsonFormError,
                 setup =>
                   api.join(team, setup.message, setup.password) flatMap {
                     case Requesting.Joined       => jsonOkResult

@@ -307,7 +307,7 @@ final class Study(
       StudyForm.importPgn.form
         .bindFromRequest()
         .fold(
-          jsonFormError,
+          doubleJsonFormError,
           data =>
             env.study.api.importPgns(
               id,

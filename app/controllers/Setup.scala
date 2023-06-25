@@ -54,7 +54,7 @@ final class Setup(
         forms.ai
           .bindFromRequest()
           .fold(
-            jsonFormError,
+            doubleJsonFormError,
             config =>
               processor.ai(config) flatMap { pov =>
                 negotiateApi(
@@ -73,7 +73,7 @@ final class Setup(
         forms.friend
           .bindFromRequest()
           .fold(
-            jsonFormError,
+            doubleJsonFormError,
             config =>
               userId so env.user.repo.enabledById flatMap { destUser =>
                 destUser so { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
@@ -132,7 +132,7 @@ final class Setup(
         forms.hook
           .bindFromRequest()
           .fold(
-            jsonFormError,
+            doubleJsonFormError,
             userConfig =>
               PostRateLimit(req.ipAddress, rateLimitedFu):
                 AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = ctx.isAnon so 1):
@@ -188,7 +188,7 @@ final class Setup(
               ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
             .bindFromRequest()
             .fold(
-              newJsonFormError,
+              badJsonFormError,
               config =>
                 ctx.me.so(env.relation.api.fetchBlocking(_)).flatMap { blocking =>
                   val uniqId = author.fold(_.value, u => s"sri:${u.id}")
@@ -227,7 +227,7 @@ final class Setup(
         forms.api.ai
           .bindFromRequest()
           .fold(
-            jsonFormError,
+            doubleJsonFormError,
             config =>
               processor.apiAi(config).map { pov =>
                 Created(env.game.jsonView.baseWithChessDenorm(pov.game, config.fen)) as JSON

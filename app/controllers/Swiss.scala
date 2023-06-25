@@ -132,7 +132,7 @@ final class Swiss(
             .create(me)
             .bindFromRequest()
             .fold(
-              jsonFormError,
+              doubleJsonFormError,
               data =>
                 tourC.rateLimitCreation(isPrivate = true, rateLimited):
                   env.swiss.api.create(data, teamId) flatMap env.swiss.json.api map JsonOk
@@ -196,7 +196,7 @@ final class Swiss(
           err =>
             negotiate(
               BadRequest.page(html.swiss.form.edit(swiss, err)),
-              newJsonFormError(err)
+              badJsonFormError(err)
             ),
           data =>
             env.swiss.api.update(swiss.id, data) >> negotiate(
@@ -216,7 +216,7 @@ final class Swiss(
           .fold(
             err =>
               render.async:
-                case Accepts.Json() => newJsonFormError(err)
+                case Accepts.Json() => badJsonFormError(err)
                 case _              => Redirect(routes.Swiss.show(id))
             ,
             date =>

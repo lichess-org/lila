@@ -161,7 +161,7 @@ final class Challenge(
         env.challenge.forms.decline
           .bindFromRequest()
           .fold(
-            newJsonFormError,
+            badJsonFormError,
             data => api.decline(c, data.realReason) inject jsonOkResult
           )
     }
@@ -282,7 +282,7 @@ final class Challenge(
       !me.is(username) so env.setup.forms.api.user
         .bindFromRequest()
         .fold(
-          newJsonFormError,
+          badJsonFormError,
           config =>
             ChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isApiHog then 0 else 1):
               env.user.repo enabledById username flatMap {
@@ -369,7 +369,7 @@ final class Challenge(
     env.setup.forms.api.open
       .bindFromRequest()
       .fold(
-        err => BadRequest(apiFormError(err)),
+        jsonFormError,
         config =>
           ChallengeIpRateLimit(req.ipAddress, rateLimitedFu):
             import lila.challenge.Challenge.*

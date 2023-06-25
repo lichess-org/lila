@@ -133,7 +133,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()
         .fold(
-          err => BadRequest(apiFormError(err)),
+          jsonFormError,
           data =>
             env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
               JsonOk(tokens.view.mapValues(_.plain).toMap)

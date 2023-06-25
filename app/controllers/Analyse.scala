@@ -160,7 +160,7 @@ final class Analyse(
       lila.analyse.ExternalEngine.form
         .bindFromRequest()
         .fold(
-          err => newJsonFormError(err),
+          err => badJsonFormError(err),
           data =>
             env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
               Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -175,7 +175,7 @@ final class Analyse(
         lila.analyse.ExternalEngine.form
           .bindFromRequest()
           .fold(
-            err => newJsonFormError(err),
+            err => badJsonFormError(err),
             data =>
               env.analyse.externalEngine.update(engine, data) map { engine =>
                 JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))

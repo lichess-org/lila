@@ -469,7 +469,7 @@ final class User(
   def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me ?=>
     lila.user.UserForm.apiNote
       .bindFromRequest()
-      .fold(jsonFormError, data => doWriteNote(username, data)(_ => jsonOkResult))
+      .fold(doubleJsonFormError, data => doWriteNote(username, data)(_ => jsonOkResult))
   }
 
   private def doWriteNote(

@@ -55,7 +55,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           err =>
             negotiate(
               BadRequest.page(html.relay.tourForm.create(err)),
-              BadRequest(apiFormError(err))
+              jsonFormError(err)
             ),
           setup =>
             rateLimitCreation(whenRateLimited):
@@ -86,7 +86,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           err =>
             negotiate(
               BadRequest.page(html.relay.tourForm.edit(tour, err)),
-              BadRequest(apiFormError(err))
+              jsonFormError(err)
             ),
           setup =>
             env.relay.api.tourUpdate(tour, setup) >>

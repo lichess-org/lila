@@ -273,7 +273,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               err =>
                 negotiate(
                   BadRequest.page(html.tournament.form.create(err, teams)),
-                  jsonFormError(err)
+                  doubleJsonFormError(err)
                 ),
               setup =>
                 rateLimitCreation(setup.isPrivate, whenRateLimited):
@@ -309,7 +309,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             .edit(teams, tour)
             .bindFromRequest()
             .fold(
-              newJsonFormError,
+              badJsonFormError,
               data =>
                 api.apiUpdate(tour, data) flatMap { tour =>
                   jsonView(
@@ -374,7 +374,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
           .fold(
-            newJsonFormError,
+            badJsonFormError,
             res =>
               api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) >> {
                 cachedTour(tour.id) map (_ | tour) flatMap { tour =>

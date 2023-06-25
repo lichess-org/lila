@@ -31,7 +31,7 @@ final class Importer(env: Env) extends LilaController(env):
         err =>
           negotiate(
             BadRequest.page(html.game.importGame(err)),
-            BadRequest(apiFormError(err))
+            jsonFormError(err)
           ),
         data =>
           ImportRateLimitPerIP(ctx.ip, rateLimitedFu, cost = 1):

@@ -38,7 +38,7 @@ final class RelayRound(
             err =>
               negotiate(
                 BadRequest.page(html.relay.roundForm.create(err, tour)),
-                BadRequest(apiFormError(err))
+                jsonFormError(err)
               ),
             setup =>
               rateLimitCreation(whenRateLimited):
@@ -74,7 +74,7 @@ final class RelayRound(
         (old, err) =>
           negotiate(
             BadRequest.page(html.relay.roundForm.edit(old, err)),
-            BadRequest(apiFormError(err))
+            jsonFormError(err)
           ),
         rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
       )

@@ -120,7 +120,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     form
       .bindFromRequest()
       .fold(
-        jsonFormError,
+        doubleJsonFormError,
         data =>
           data.streakPuzzleId.match {
             case Some(streakNextId) =>
@@ -234,7 +234,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       env.puzzle.forms.vote
         .bindFromRequest()
         .fold(
-          jsonFormError,
+          doubleJsonFormError,
           vote => env.puzzle.api.vote.update(id, me, vote) inject jsonOkResult
         )
   }
@@ -247,7 +247,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           env.puzzle.forms.themeVote
             .bindFromRequest()
             .fold(
-              jsonFormError,
+              doubleJsonFormError,
               vote => env.puzzle.api.theme.vote(me, id, theme.key, vote) inject jsonOkResult
             )
   }
@@ -257,7 +257,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       env.puzzle.forms.difficulty
         .bindFromRequest()
         .fold(
-          jsonFormError,
+          doubleJsonFormError,
           diff =>
             PuzzleDifficulty.find(diff) so { env.puzzle.session.setDifficulty(me, _) } inject
               Redirect(routes.Puzzle.show(theme))
@@ -467,7 +467,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       env.puzzle.forms.bc.vote
         .bindFromRequest()
         .fold(
-          jsonFormError,
+          doubleJsonFormError,
           intVote =>
             Puz.numericalId(nid) so {
               env.puzzle.api.vote.update(_, me, intVote == 1) inject jsonOkResult

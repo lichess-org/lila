@@ -100,7 +100,7 @@ final class Auth(
             err =>
               negotiate(
                 Unauthorized.page(html.auth.login(err, referrer)),
-                Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
+                Unauthorized(doubleJsonFormErrorBody(errorsAsJson(err)))
               ),
             (login, pass) =>
               LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
@@ -120,7 +120,7 @@ final class Auth(
                             case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
                             case _ => Unauthorized.page(html.auth.login(err, referrer))
                           ,
-                          Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
+                          Unauthorized(doubleJsonFormErrorBody(errorsAsJson(err)))
                         )
                       ,
                       result =>
@@ -198,7 +198,7 @@ final class Auth(
               .flatMap {
                 case Signup.Result.RateLimited        => limitedDefault.zero
                 case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
-                case Signup.Result.Bad(err)           => jsonFormError(err)
+                case Signup.Result.Bad(err)           => doubleJsonFormError(err)
                 case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
                 case Signup.Result.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user, remember = true)

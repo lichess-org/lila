@@ -28,14 +28,23 @@ trait CtrlErrors extends ControllerHelpers:
         .toMap
     json validate jsonGlobalErrorRenamer getOrElse json
 
-  def apiFormError(form: Form[?]): JsObject =
+  /* This is what we want
+   * { "error" -> { "key" -> "value" } }
+   */
+  def jsonFormErrorBody(form: Form[?]): JsObject =
     Json.obj("error" -> errorsAsJson(form)(using lila.i18n.defaultLang))
 
-  def ridiculousBackwardCompatibleJsonError(err: JsObject): JsObject =
-    err ++ Json.obj("error" -> err)
+  def jsonFormError(form: Form[?])(using Lang) = fuccess:
+    BadRequest(jsonFormErrorBody(form))
 
-  def jsonFormError(err: Form[?])(using Lang) = fuccess:
-    BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
+  /* For compat with old clients
+   * { "error" -> { "key" -> "value" }, "key" -> "value" }
+   */
+  def doubleJsonFormErrorBody(form: JsObject): JsObject =
+    form ++ Json.obj("error" -> form)
 
-  def newJsonFormError(err: Form[?])(using Lang) = fuccess:
-    BadRequest(errorsAsJson(err))
+  def doubleJsonFormError(form: Form[?])(using Lang) = fuccess:
+    BadRequest(doubleJsonFormErrorBody(errorsAsJson(form)))
+
+  def badJsonFormError(form: Form[?])(using Lang) = fuccess:
+    BadRequest(errorsAsJson(form))
