@@ -34,7 +34,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       h(
         'span',
         {
-          attrs: { 'data-icon': getPerfIcon(hook.perf)! },
+          attrs: { 'data-icon': getPerfIcon(hook.perf) || getPerfIcon(hook.variant)! },
         },
         noarg(hook.ra ? 'rated' : 'casual')
       ),

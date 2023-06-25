@@ -42,7 +42,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
   return h('span#' + hook.id + '.' + klass, {
     key: hook.id,
     attrs: {
-      'data-icon': getPerfIcon(hook.perf)!,
+      'data-icon': getPerfIcon(hook.perf) || getPerfIcon(hook.variant)!,
       style: `bottom:${percents(bottom)};left:${percents(left)}`,
     },
     hook: {
@@ -87,7 +87,12 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   }
   html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
-  html += '<i data-icon="' + getPerfIcon(hook.perf) + '"> ' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</i>';
+  html +=
+    '<i data-icon="' +
+    (getPerfIcon(hook.perf) || getPerfIcon(hook.variant)) +
+    '"> ' +
+    ctrl.trans(hook.ra ? 'rated' : 'casual') +
+    '</i>';
   html += '</div>';
   html += '</div>';
   return html;
