@@ -214,15 +214,10 @@ final class Swiss(
         env.swiss.forms.nextRound
           .bindFromRequest()
           .fold(
-            err =>
-              render.async: // TODO
-                case Accepts.Json() => jsonFormError(err)
-                case _              => Redirect(routes.Swiss.show(id))
-            ,
+            err => negotiate(Redirect(routes.Swiss.show(id)), jsonFormError(err)),
             date =>
-              env.swiss.api.scheduleNextRound(swiss, date) inject render:
-                case Accepts.Json() => NoContent
-                case _              => Redirect(routes.Swiss.show(id))
+              env.swiss.api.scheduleNextRound(swiss, date) >>
+                negotiate(Redirect(routes.Swiss.show(id)), NoContent)
           )
     }
 

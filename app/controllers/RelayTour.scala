@@ -104,13 +104,12 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:
     Found(env.relay.api tourById id): tour =>
-      render.async:
-        case Accepts.Json() =>
-          JsonOk:
-            env.relay.api.withRounds(tour) map { trs =>
-              env.relay.jsonView(trs, withUrls = true)
-            }
-        case _ => redirectToTour(tour)
+      negotiate(
+        redirectToTour(tour),
+        env.relay.api.withRounds(tour) map { trs =>
+          Ok(env.relay.jsonView(trs, withUrls = true))
+        }
+      )
 
   def pgn(id: TourModel.Id) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api tourById id): tour =>
