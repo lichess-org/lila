@@ -221,10 +221,11 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     const work: Work = {
       variant: opts.variant.key,
-      threads: threads(),
-      hashSize: hashSize(),
+      config: {
+        threads: threads(),
+        hashSize: hashSize(),
+      },
       stopRequested: false,
-
       initialSfen: steps[0].sfen,
       moves: [],
       currentSfen: step.sfen,

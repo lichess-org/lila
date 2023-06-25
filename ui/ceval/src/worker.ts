@@ -1,6 +1,6 @@
 import { Cache } from './cache';
 import { Protocol } from './protocol';
-import { Work } from './types';
+import { Config, Work } from './types';
 
 interface WasmEngineModule {
   (opts: {
@@ -29,7 +29,7 @@ export abstract class AbstractWorker<T> {
 
   start(work: Work): void {
     if (!this.booted) {
-      this.boot();
+      this.boot(work.config);
       this.booted = true;
     }
     this.getProtocol().compute(work);
@@ -48,7 +48,7 @@ export abstract class AbstractWorker<T> {
   }
 
   protected abstract getProtocol(): Protocol;
-  protected abstract boot(): void;
+  protected abstract boot(cfg: Config): void;
   abstract destroy(): void;
 }
 
@@ -70,7 +70,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
     return ThreadedWasmWorker.protocols[this.opts.module];
   }
 
-  protected async boot() {
+  protected async boot(cfg: Config) {
     if (!ThreadedWasmWorker.engine[this.opts.module]) {
       const version = this.opts.version;
       const cache = this.opts.cache;
@@ -123,6 +123,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       });
 
       const protocol = this.getProtocol();
+      protocol.config = cfg;
       engine.addMessageListener(protocol.received.bind(protocol));
       protocol.connected(msg => engine.postMessage(msg));
       ThreadedWasmWorker.engine[this.opts.module] = engine;
