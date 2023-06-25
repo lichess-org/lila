@@ -322,9 +322,11 @@ case class Game(
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
       !playerHasOfferedDrawRecently(color) &&
-      !swissPreventsDraw
+      !swissPreventsDraw &&
+      !rulePreventsDraw
 
   def swissPreventsDraw = isSwiss && playedTurns < 60
+  def rulePreventsDraw  = metadata.hasRule(_.NoEarlyDraw) && playedTurns < 60
 
   def playerHasOfferedDrawRecently(color: Color) =
     drawOffers.lastBy(color) so (_ >= ply - 20)
@@ -383,7 +385,7 @@ case class Game(
   def resignable = playable && !abortable
   def forceResignable =
     resignable && nonAi && !fromFriend && hasClock && !isSwiss && !metadata.hasRule(_.NoClaimWin)
-  def drawable      = playable && !abortable && !swissPreventsDraw
+  def drawable      = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
   def forceDrawable = playable && !abortable && !metadata.hasRule(_.NoClaimWin)
 
   def finish(status: Status, winner: Option[Color]): Game =
