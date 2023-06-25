@@ -26,6 +26,10 @@ final private[report] class ReportForm(
       "username" -> lila.user.UserForm.historicalUsernameField
         .verifying("Unknown username", { blockingFetchUser(_).isDefined })
         .verifying(
+          "You cannot report yourself.",
+          u => false // u.id != me.id
+        )
+        .verifying(
           "Don't report Lichess. Use lichess.org/contact instead.",
           u => !User.isOfficial(u)
         ),
