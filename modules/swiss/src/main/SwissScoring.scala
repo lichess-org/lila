@@ -24,39 +24,34 @@ final private class SwissScoring(mongo: SwissMongo)(using
   private def recompute(id: SwissId): Fu[Option[SwissScoring.Result]] =
     mongo.swiss.byId[Swiss](id) flatMap {
       _.so { swiss =>
-        for {
+        for
           (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
           pairingMap = SwissPairing.toMap(pairings)
           sheets     = SwissSheet.many(swiss, prevPlayers, pairingMap)
-          withPoints = (prevPlayers zip sheets).map { case (player, sheet) =>
+          withPoints = (prevPlayers zip sheets).map: (player, sheet) =>
             player.copy(points = sheet.points)
-          }
           playerMap = withPoints.mapBy(_.userId)
-          players = withPoints.map { p =>
+          players = withPoints.map: p =>
             val playerPairings = (~pairingMap.get(p.userId)).values
-            val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f) {
+            val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f):
               case ((tieBreak, perfSum), pairing) =>
                 val opponent       = playerMap.get(pairing opponentOf p.userId)
                 val opponentPoints = opponent.so(_.points.value)
                 val result         = pairing.resultFor(p.userId)
                 val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ so opponentPoints }
-                val newPerf = perfSum + opponent.so(_.rating.value) + result.so { win =>
-                  if (win) 500 else -500
-                }
+                val newPerf = perfSum + opponent.so(_.rating.value) + result.so: win =>
+                  if win then 500 else -500
                 newTieBreak -> newPerf
-            }
             p.copy(
               tieBreak = Swiss.TieBreak(tieBreak),
               performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
             ).recomputeScore
-          }
-          _ <- SwissPlayer.fields { f =>
+          _ <- SwissPlayer.fields: f =>
             prevPlayers
               .zip(players)
-              .withFilter { case (a, b) =>
+              .withFilter: (a, b) =>
                 a != b
-              }
-              .map { case (_, player) =>
+              .map: (_, player) =>
                 mongo.player.update
                   .one(
                     $id(player.id),
@@ -68,11 +63,9 @@ final private class SwissScoring(mongo: SwissMongo)(using
                     )
                   )
                   .void
-              }
               .parallel
               .void
-          }
-        } yield SwissScoring
+        yield SwissScoring
           .Result(
             swiss,
             players.zip(sheets).sortBy(-_._1.score.value),

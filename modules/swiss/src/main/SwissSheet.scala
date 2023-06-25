@@ -41,17 +41,16 @@ private object SwissSheet:
       players: List[SwissPlayer],
       pairingMap: SwissPairing.PairingMap
   ): List[SwissSheet] =
-    players.map { player =>
+    players.map: player =>
       one(swiss, ~pairingMap.get(player.userId), player)
-    }
 
   def one(
       swiss: Swiss,
       pairingMap: Map[SwissRoundNumber, SwissPairing],
       player: SwissPlayer
   ): SwissSheet =
-    SwissSheet {
-      swiss.allRounds.map { round =>
+    SwissSheet:
+      swiss.allRounds.map: round =>
         pairingMap get round match
           case Some(pairing) =>
             pairing.status match
@@ -63,8 +62,6 @@ private object SwissSheet:
           case None if player.byes(round) => Bye
           case None if round.value == 1   => Late
           case None                       => Absent
-      }
-    }
 
 final private class SwissSheetApi(mongo: SwissMongo)(using
     Executor,
@@ -76,24 +73,22 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
       sort: Bdoc
   ): Source[(SwissPlayer, Map[SwissRoundNumber, SwissPairing], SwissSheet), ?] =
     val readPreference =
-      if (swiss.finishedAt.exists(_ isBefore nowInstant.minusSeconds(10)))
-        temporarilyPrimary
+      if swiss.finishedAt.exists(_ isBefore nowInstant.minusSeconds(10))
+      then temporarilyPrimary
       else ReadPreference.primary
     SwissPlayer
-      .fields { f =>
+      .fields: f =>
         mongo.player.find($doc(f.swissId -> swiss.id)).sort(sort)
-      }
       .cursor[SwissPlayer](readPreference)
       .documentSource()
-      .mapAsync(4) { player =>
-        SwissPairing.fields { f =>
-          mongo.pairing.list[SwissPairing](
-            $doc(f.swissId -> swiss.id, f.players -> player.userId),
-            readPreference
-          ) dmap { player -> _ }
-        }
-      }
-      .map { (player, pairings) =>
+      .mapAsync(4): player =>
+        SwissPairing.fields: f =>
+          mongo.pairing
+            .list[SwissPairing](
+              $doc(f.swissId -> swiss.id, f.players -> player.userId),
+              readPreference
+            )
+            .dmap(player -> _)
+      .map: (player, pairings) =>
         val pairingMap = pairings.mapBy(_.round)
         (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
-      }
