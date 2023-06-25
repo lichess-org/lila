@@ -9,7 +9,7 @@ import lila.common.{ HTTPRequest, Preload }
 import lila.common.Json.given
 import lila.memo.CacheApi.*
 import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
-import lila.gathering.Condition.GetUserTeamIds
+import lila.gathering.Condition.GetMyTeamIds
 import play.api.i18n.Lang
 
 final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
@@ -96,7 +96,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               json <- jsonView(
                 tour = tour,
                 page = page,
-                me = ctx.me,
                 getTeamName = env.team.getTeamName.apply,
                 playerInfoExt = none,
                 socketVersion = version.some,
@@ -123,7 +122,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               json <- jsonView(
                 tour = tour,
                 page = page,
-                me = ctx.me,
                 getTeamName = env.team.getTeamName.apply,
                 playerInfoExt = playerInfoExt,
                 socketVersion = socketVersion,
@@ -131,9 +129,8 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                 withScores = getBoolOpt("scores") | true
               )
               chat <- !partial so loadChat(tour, json)
-            yield Ok(json.add("chat" -> chat.map { c =>
-              lila.chat.JsonView.mobile(chat = c.chat)
-            })).noCache
+            yield Ok(json.add("chat" -> chat.map: c =>
+              lila.chat.JsonView.mobile(chat = c.chat))).noCache
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
       )
     }
@@ -280,6 +277,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                   api
                     .createTournament(setup, teams, andJoin = ctx.isWebAuth)
                     .flatMap: tour =>
+                      given GetMyTeamIds = _ => fuccess(teams.map(_.id))
                       negotiate(
                         html = Redirect {
                           if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
@@ -288,13 +286,12 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                         json = jsonView(
                           tour,
                           none,
-                          none,
                           env.team.getTeamName.apply,
                           none,
                           none,
                           partial = false,
                           withScores = false
-                        )(using _ => fuccess(teams.map(_.id))) map { Ok(_) }
+                        ) map { Ok(_) }
                       )
             )
   }
@@ -311,17 +308,17 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             .fold(
               jsonFormError,
               data =>
+                given GetMyTeamIds = _ => fuccess(teams.map(_.id))
                 api.apiUpdate(tour, data) flatMap { tour =>
                   jsonView(
                     tour,
-                    none,
                     none,
                     env.team.getTeamName.apply,
                     none,
                     none,
                     partial = false,
                     withScores = true
-                  )(using _ => fuccess(teams.map(_.id))) map { Ok(_) }
+                  ) map { Ok(_) }
                 }
             )
         }
@@ -381,7 +378,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                   jsonView(
                     tour,
                     none,
-                    none,
                     env.team.getTeamName.apply,
                     none,
                     none,
@@ -397,7 +393,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def featured = Open:
     negotiateJson:
       env.tournament.cached.onHomepage.getUnit.recoverDefault map {
-        lila.tournament.Spotlight.select(_, ctx.me, 4)
+        lila.tournament.Spotlight.select(_, 4)
       } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
 
   def shields = Open:
@@ -493,4 +489,4 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           }
         }
 
-  private given GetUserTeamIds = user => env.team.cached.teamIdsList(user.id)
+  private given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)

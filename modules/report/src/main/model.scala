@@ -5,7 +5,7 @@ import lila.user.{ User, Me }
 case class Mod(user: User) extends AnyVal:
   def id = user.id into ModId
 object Mod:
-  def me(me: Me): Mod = Mod(me.user)
+  def me(me: Me): Mod = Mod(me.value)
 
 case class Suspect(user: User) extends AnyVal:
   def id                   = SuspectId(user.id)

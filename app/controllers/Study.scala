@@ -574,10 +574,10 @@ final class Study(
       f: => Fu[Result]
   )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
     me match
-      case _ if !study.isPrivate                       => f
-      case None                                        => unauthorized
-      case Some(me) if study.members.contains(me.user) => f
-      case _                                           => forbidden
+      case _ if !study.isPrivate                        => f
+      case None                                         => unauthorized
+      case Some(me) if study.members.contains(me.value) => f
+      case _                                            => forbidden
 
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
 

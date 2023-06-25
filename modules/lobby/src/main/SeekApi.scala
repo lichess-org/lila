@@ -2,7 +2,7 @@ package lila.lobby
 
 import lila.common.config.*
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.user.Me
 import lila.memo.CacheApi.*
 
 final class SeekApi(
@@ -37,16 +37,15 @@ final class SeekApi(
 
   def forAnon = cache get ForAnon
 
-  def forUser(user: User): Fu[List[Seek]] =
-    relationApi.fetchBlocking(user.id) flatMap { blocking =>
-      forUser(LobbyUser.make(user, lila.pool.Blocking(blocking)))
+  def forMe(using me: Me): Fu[List[Seek]] =
+    relationApi.fetchBlocking(me.userId) flatMap { blocking =>
+      forUser(LobbyUser.make(me.value, lila.pool.Blocking(blocking)))
     }
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =
     cache get ForUser map { seeks =>
-      val filtered = seeks.filter { seek =>
-        seek.user.id == user.id || biter.canJoin(seek, user)
-      }
+      val filtered = seeks.filter: seek =>
+        seek.user.is(user) || biter.canJoin(seek, user)
       noDupsFor(user, filtered) take maxPerPage.value
     }
 
@@ -103,7 +102,7 @@ final class SeekApi(
       )
       .void >>- cacheClear()
 
-  def removeByUser(user: User) =
+  def removeByUser(user: lila.user.User) =
     coll.delete.one($doc("user.id" -> user.id)).void >>- cacheClear()
 
 private object SeekApi:

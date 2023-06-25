@@ -104,28 +104,25 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
     def apply(user: User, perf: PerfType): Fu[IntRating] = cache.get(user.id -> perf)
 
-    private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating") {
-      _.expireAfterAccess(20 minutes)
-        .buildAsyncFuture { case (userId, perf) =>
-          userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
-            val currentRating = user.perfs(perf).intRating
-            val firstDay      = daysBetween(user.createdAt, nowInstant minusWeeks 1)
-            val days          = firstDay to (firstDay + 6) toList
-            val project = BSONDocument {
-              ("_id" -> BSONBoolean(false)) :: days.map { d =>
-                s"${perf.key}.$d" -> BSONBoolean(true)
-              }
+    private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating"):
+      _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
+        userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
+          val currentRating = user.perfs(perf).intRating
+          val firstDay      = daysBetween(user.createdAt, nowInstant minusWeeks 1)
+          val days          = firstDay to (firstDay + 6) toList
+          val project = BSONDocument {
+            ("_id" -> BSONBoolean(false)) :: days.map { d =>
+              s"${perf.key}.$d" -> BSONBoolean(true)
             }
-            withColl(_.find($id(user.id), project.some).one[Bdoc].map {
-              _.flatMap {
-                _.child(perf.key.value) map {
-                  _.elements.foldLeft(currentRating) {
-                    case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
-                    case (max, _)                                         => max
-                  }
+          }
+          withColl(_.find($id(user.id), project.some).one[Bdoc].map {
+            _.flatMap {
+              _.child(perf.key.value) map {
+                _.elements.foldLeft(currentRating) {
+                  case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
+                  case (max, _)                                         => max
                 }
               }
-            }).dmap(_ | currentRating)
-          }
+            }
+          }).dmap(_ | currentRating)
         }
-    }

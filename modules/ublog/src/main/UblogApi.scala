@@ -21,16 +21,16 @@ final class UblogApi(
   import UblogBsonHandlers.{ *, given }
 
   def create(data: UblogForm.UblogPostData)(using me: Me): Fu[UblogPost] =
-    val post = data.create(me.user)
+    val post = data.create(me.value)
     colls.post.insert.one(
       bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(me.userId))
     ) inject post
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
-    getUserBlog(me.user, insertMissing = true) flatMap { blog =>
-      val post = data.update(me.user, prev)
+    getUserBlog(me.value, insertMissing = true) flatMap { blog =>
+      val post = data.update(me.value, prev)
       colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty) so onFirstPublish(me.user, blog, post)
+        (post.live && prev.lived.isEmpty) so onFirstPublish(me.value, blog, post)
       } inject post
     }
 

@@ -1,7 +1,7 @@
 package lila.simul
 
 import lila.rating.PerfType
-import lila.user.User
+import lila.user.Me
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import lila.hub.LeaderTeam
@@ -14,13 +14,15 @@ object SimulCondition:
       teamMember: Option[TeamMember]
   ) extends ConditionList(List(maxRating, minRating, teamMember)):
 
-    def withVerdicts(user: User, pt: PerfType, getTeams: GetUserTeamIds, getMaxRating: GetMaxRating)(using
+    def withVerdicts(pt: PerfType, getMaxRating: GetMaxRating)(using
+        Me,
+        GetMyTeamIds,
         Executor
     ): Fu[WithVerdicts] =
       list.map {
-        case c: MaxRating  => c(getMaxRating)(user, pt) map c.withVerdict
-        case c: TeamMember => c(user, getTeams) map c.withVerdict
-        case c: FlatCond   => fuccess(c withVerdict c(user, pt))
+        case c: MaxRating  => c(getMaxRating)(pt) map c.withVerdict
+        case c: TeamMember => c.apply map c.withVerdict
+        case c: FlatCond   => fuccess(c withVerdict c(pt))
       }.parallel dmap WithVerdicts.apply
 
   object All:
@@ -42,9 +44,8 @@ object SimulCondition:
     Macros.handler
 
   final class Verify(historyApi: lila.history.HistoryApi):
-    def apply(simul: Simul, user: User, pt: PerfType)(using
-        ex: Executor,
-        getTeams: Condition.GetUserTeamIds
-    ): Fu[WithVerdicts] =
-      val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
-      simul.conditions.withVerdicts(user, pt, getTeams, getMaxRating)
+    def apply(simul: Simul, pt: PerfType)(using
+        me: Me
+    )(using Executor, Condition.GetMyTeamIds): Fu[WithVerdicts] =
+      val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(me.value, perf)
+      simul.conditions.withVerdicts(pt, getMaxRating)

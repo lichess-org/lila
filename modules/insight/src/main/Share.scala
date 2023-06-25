@@ -19,6 +19,6 @@ final class Share(
         case Pref.InsightShare.EVERYBODY => fuTrue
         case Pref.InsightShare.FRIENDS =>
           to.so: t =>
-            relationApi.fetchAreFriends(insighted.id, t.user.id)
+            relationApi.fetchAreFriends(insighted.id, t.userId)
         case Pref.InsightShare.NOBODY => fuFalse
       }

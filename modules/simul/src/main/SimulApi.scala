@@ -11,12 +11,12 @@ import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.socket.SendToFlag
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, Me, UserRepo }
 import lila.common.config.Max
 import lila.common.Json.given
 import lila.hub.LeaderTeam
 import lila.gathering.Condition
-import lila.gathering.Condition.GetUserTeamIds
+import lila.gathering.Condition.GetMyTeamIds
 import lila.rating.PerfType
 import lila.common.paginator.Paginator
 import lila.common.config.MaxPerPage
@@ -47,7 +47,7 @@ final class SimulApi(
     _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
       repo.allStarted dmap (_.view.map(_.hostId).toSet)
 
-  def create(setup: SimulForm.Setup, me: User, teams: Seq[LeaderTeam]): Fu[Simul] =
+  def create(setup: SimulForm.Setup, teams: Seq[LeaderTeam])(using me: Me): Fu[Simul] =
     val simul = Simul.make(
       name = setup.name,
       clock = setup.clock,
@@ -61,10 +61,10 @@ final class SimulApi(
       conditions = setup.conditions
     )
     repo.create(simul) >>- publish() >>- {
-      timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
+      timeline ! (Propagate(SimulCreate(me.userId, simul.id, simul.fullName)) toFollowersOf me.userId)
     } inject simul
 
-  def update(prev: Simul, setup: SimulForm.Setup, me: User, teams: Seq[LeaderTeam]): Fu[Simul] =
+  def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LeaderTeam])(using me: Me): Fu[Simul] =
     val simul = prev.copy(
       name = setup.name,
       clock = setup.clock,
@@ -78,39 +78,35 @@ final class SimulApi(
     )
     repo.update(simul) >>- publish() inject simul
 
-  def getVerdicts(simul: Simul, me: Option[User])(using
-      getTeams: GetUserTeamIds
-  ): Fu[Condition.WithVerdicts] =
-    me match
-      case None       => fuccess(simul.conditions.accepted)
-      case Some(user) => verify(simul, user, simul.mainPerfType)
+  def getVerdicts(simul: Simul)(using me: Option[Me])(using GetMyTeamIds): Fu[Condition.WithVerdicts] =
+    me.foldUse(fuccess(simul.conditions.accepted)):
+      verify(simul, simul.mainPerfType)
 
-  def addApplicant(simulId: SimulId, user: User, variantKey: Variant.LilaKey)(using
-      getTeams: GetUserTeamIds
-  ): Funit = workQueue(simulId):
-    repo.findCreated(simulId) flatMapz { simul =>
-      Variant(variantKey)
-        .filter(simul.variants.contains)
-        .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime) so { variant =>
-        val perfType = PerfType(variant, chess.Speed.Rapid)
-        verify(simul, user, perfType).map:
-          _.accepted so {
-            timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
-            val newSimul = simul addApplicant SimulApplicant.make(
-              SimulPlayer.make(
-                user,
-                variant,
-                PerfPicker.mainOrDefault(
-                  speed = chess.Speed(simul.clock.config.some),
-                  variant = variant,
-                  daysPerTurn = none
-                )(user.perfs)
+  def addApplicant(simulId: SimulId, variantKey: Variant.LilaKey)(using me: Me)(using GetMyTeamIds): Funit =
+    workQueue(simulId):
+      repo.findCreated(simulId) flatMapz { simul =>
+        Variant(variantKey)
+          .filter(simul.variants.contains)
+          .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime) so { variant =>
+          val perfType = PerfType(variant, chess.Speed.Rapid)
+          verify(simul, perfType).map:
+            _.accepted so {
+              timeline ! (Propagate(SimulJoin(me.userId, simul.id, simul.fullName)) toFollowersOf me.userId)
+              val newSimul = simul addApplicant SimulApplicant.make(
+                SimulPlayer.make(
+                  me.value,
+                  variant,
+                  PerfPicker.mainOrDefault(
+                    speed = chess.Speed(simul.clock.config.some),
+                    variant = variant,
+                    daysPerTurn = none
+                  )(me.perfs)
+                )
               )
-            )
-            repo.update(newSimul) >>- socket.reload(newSimul.id) >>- publish()
-          }
+              repo.update(newSimul) >>- socket.reload(newSimul.id) >>- publish()
+            }
+        }
       }
-    }
 
   def removeApplicant(simulId: SimulId, user: User): Funit =
     WithSimul(repo.findCreated, simulId) { _ removeApplicant user.id }

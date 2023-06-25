@@ -62,7 +62,7 @@ final class Tutor(env: Env) extends LilaController(env):
   )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> me ?=>
       def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(user)
-      if me.user is username then proceed(me.user)
+      if me is username then proceed(me.value)
       else
         Found(env.user.repo.byId(username)): user =>
           if isGranted(_.SeeInsight) then proceed(user)

@@ -164,9 +164,8 @@ final class SwissApi(
         cache.swissCache clear swiss.id
         socket.reload(swiss.id)
 
-  def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] = me match
-    case None     => fuccess(swiss.settings.conditions.accepted)
-    case Some(me) => verify(swiss, me)
+  def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] =
+    me.foldUse(fuccess(swiss.settings.conditions.accepted))(verify(swiss))
 
   def join(id: SwissId, isInTeam: TeamId => Boolean, password: Option[String])(using me: Me): Fu[Boolean] =
     Sequencing(id)(cache.swissCache.notFinishedById): swiss =>
@@ -179,7 +178,7 @@ final class SwissApi(
           .updateField($id(SwissPlayer.makeId(swiss.id, me)), SwissPlayer.Fields.absent, false)
           .flatMap: rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
-              verify(swiss, me).dmap(_.accepted && swiss.isEnterable) >>& {
+              verify(swiss).dmap(_.accepted && swiss.isEnterable) >>& {
                 mongo.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
                   mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) >>-
                   cache.swissCache.clear(swiss.id) inject true

@@ -7,10 +7,10 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.api.GameApiV2
-
 import lila.app.{ given, * }
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
+import lila.gathering.Condition.GetMyTeamIds
 
 final class Api(
     env: Env,
@@ -167,17 +167,17 @@ final class Api(
 
   def tournament(id: TourId) = ApiRequest:
     env.tournament.tournamentRepo byId id flatMapz { tour =>
-      val page = (getInt("page") | 1) atLeast 1 atMost 200
+      val page           = (getInt("page") | 1) atLeast 1 atMost 200
+      given GetMyTeamIds = _ => fuccess(Nil)
       env.tournament.jsonView(
         tour = tour,
         page = page.some,
-        me = none,
         getTeamName = env.team.getTeamName.apply,
         playerInfoExt = none,
         socketVersion = none,
         partial = false,
         withScores = true
-      )(using _ => fuccess(Nil)) map some
+      ) map some
     } map toApiResult
 
   def tournamentGames(id: TourId) =

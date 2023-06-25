@@ -189,7 +189,7 @@ final class Team(
         .fold(
           _ => funit,
           explain =>
-            api.delete(team, me.user, explain) >>
+            api.delete(team, me.value, explain) >>
               env.mod.logApi.deleteTeam(team.id, explain)
         ) inject Redirect(routes.Team all 1).flashSuccess
   }

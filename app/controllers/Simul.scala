@@ -44,7 +44,7 @@ final class Simul(env: Env) extends LilaController(env):
     env.simul.repo find id flatMap {
       _.fold(simulNotFound): sim =>
         for
-          verdicts <- env.simul.api.getVerdicts(sim, ctx.me)
+          verdicts <- env.simul.api.getVerdicts(sim)
           version  <- env.simul.version(sim.id)
           json     <- env.simul.jsonView(sim, verdicts)
           chat <- canHaveChat(sim) so env.chat.api.userChat.cached
@@ -124,7 +124,7 @@ final class Simul(env: Env) extends LilaController(env):
                   BadRequest.page(html.simul.form.create(err, teams))
                 },
               setup =>
-                env.simul.api.create(setup, me, teams) map { simul =>
+                env.simul.api.create(setup, teams) map { simul =>
                   Redirect(routes.Simul.show(simul.id))
                 }
             )
@@ -133,9 +133,9 @@ final class Simul(env: Env) extends LilaController(env):
   def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       env.simul.api
-        .addApplicant(id, me, variant)
+        .addApplicant(id, variant)
         .inject:
-          if (HTTPRequest isXhr ctx.req)
+          if HTTPRequest isXhr ctx.req
           then jsonOkResult
           else Redirect(routes.Simul.show(id))
   }
@@ -166,7 +166,7 @@ final class Simul(env: Env) extends LilaController(env):
             .bindFromRequest()
             .fold(
               err => BadRequest.page(html.simul.form.edit(err, teams, simul)),
-              data => env.simul.api.update(simul, data, me, teams) inject Redirect(routes.Simul.show(id))
+              data => env.simul.api.update(simul, data, teams) inject Redirect(routes.Simul.show(id))
             )
   }
 
@@ -191,4 +191,4 @@ final class Simul(env: Env) extends LilaController(env):
       then Redirect(routes.Simul.show(sim.id))
       else f(sim)
 
-  private given lila.gathering.Condition.GetUserTeamIds = user => env.team.cached.teamIdsList(user.id)
+  private given lila.gathering.Condition.GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)

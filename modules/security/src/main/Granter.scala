@@ -13,12 +13,6 @@ object Granter:
   def opt(f: Permission.Selector)(using me: Option[Me]): Boolean =
     me.fold(false)(apply(f)(using _))
 
-  def is(permission: Permission)(me: Me): Boolean =
-    of(permission)(me.user)
-
-  def is(f: Permission.Selector)(me: Me): Boolean =
-    of(f)(me.user)
-
   def of(permission: Permission)(user: User): Boolean =
     user.enabled.yes && apply(permission, user.roles)
 

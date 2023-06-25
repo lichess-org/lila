@@ -12,7 +12,7 @@ import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
 import lila.socket.{ SocketVersion, given }
-import lila.user.{ LightUserApi, User }
+import lila.user.{ LightUserApi, Me, User }
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 
 final class JsonView(
@@ -39,19 +39,18 @@ final class JsonView(
   def apply(
       tour: Tournament,
       page: Option[Int],
-      me: Option[User],
       getTeamName: TeamId => Option[String],
       playerInfoExt: Option[PlayerInfoExt],
       socketVersion: Option[SocketVersion],
       partial: Boolean,
       withScores: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none
-  )(using getUserTeamIds: Condition.GetUserTeamIds)(using Lang): Fu[JsObject] =
+  )(using me: Option[Me])(using getMyTeamIds: Condition.GetMyTeamIds)(using Lang): Fu[JsObject] =
     for
       data   <- cachableData get tour.id
       myInfo <- myInfo.orLoad(me so { fetchMyInfo(tour, _) })
-      pauseDelay = me.flatMap: u =>
-        pause.remainingDelay(u.id, tour)
+      pauseDelay = me.flatMap: me =>
+        pause.remainingDelay(me.userId, tour)
       full = !partial
       stand <- standingApi(
         tour,
@@ -68,13 +67,13 @@ final class JsonView(
         (me, myInfo) match
           case (None, _)                                   => fuccess(tour.conditions.accepted.some)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
-          case (Some(user), Some(_))                       => verify.rejoin(tour.conditions, user) map some
-          case (Some(user), None) => verify(tour.conditions, user, tour.perfType) map some
+          case (Some(me), Some(_)) => verify.rejoin(tour.conditions)(using me) map some
+          case (Some(me), None)    => verify(tour.conditions, tour.perfType)(using me) map some
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi currentOwner tour }
       teamsToJoinWith <- full.so(~(for {
         u <- me; battle <- tour.teamBattle
-      } yield getUserTeamIds(u) map { teams =>
+      } yield getMyTeamIds(u) map { teams =>
         battle.teams.intersect(teams.toSet).toList
       }))
       teamStanding <- getTeamStanding(tour)

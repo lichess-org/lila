@@ -48,18 +48,17 @@ final class AppealApi(
         coll.update.one($id(appeal.id), appeal) inject appeal
 
   def reply(text: String, prev: Appeal, preset: Option[String])(using me: Me) =
-    val appeal = prev.post(text, me.user)
+    val appeal = prev.post(text, me.value)
     coll.update.one($id(appeal.id), appeal) >> {
-      preset so { note =>
+      preset.so: note =>
         userRepo.byId(appeal.id) flatMapz {
           noteApi.write(_, s"Appeal reply: $note", modOnly = true, dox = false)
         }
-      }
     } inject appeal
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def queueOf(mod: User) = bothQueues(snoozer snoozedKeysOf mod.id map (_.appealId.userId))
+  def myQueue(using me: Me) = bothQueues(snoozer snoozedKeysOf me.userId map (_.appealId.userId))
 
   private def bothQueues(exceptIds: Iterable[UserId]): Fu[List[Appeal.WithUser]] =
     fetchQueue(

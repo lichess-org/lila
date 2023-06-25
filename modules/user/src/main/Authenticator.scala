@@ -31,8 +31,8 @@ final class Authenticator(
   ): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _ option passwordAndToken } }
 
-  def loginCandidate(u: User): Fu[User.LoginCandidate] =
-    loginCandidateById(u.id) dmap { _ | User.LoginCandidate(u, _ => false, false) }
+  def loginCandidate(using me: Me): Fu[User.LoginCandidate] =
+    loginCandidateById(me.userId) dmap { _ | User.LoginCandidate(me, _ => false, false) }
 
   def loginCandidateById(id: UserId): Fu[Option[User.LoginCandidate]] =
     loginCandidate($id(id))

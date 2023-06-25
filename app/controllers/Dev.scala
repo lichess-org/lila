@@ -50,7 +50,7 @@ final class Dev(env: Env) extends LilaController(env):
           v =>
             lila
               .log("setting")
-              .info(s"${me.user.username} changes $id from ${setting.get()} to ${v.toString}")
+              .info(s"${me.username} changes $id from ${setting.get()} to ${v.toString}")
             setting.setString(v.toString) inject Redirect(routes.Dev.settings)
         )
     }

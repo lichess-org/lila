@@ -50,24 +50,21 @@ case class Simul(
   def hasUser(userId: UserId) = hasApplicant(userId) || hasPairing(userId)
 
   def addApplicant(applicant: SimulApplicant) =
-    Created {
-      if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
-        copy(applicants = applicants :+ applicant)
+    Created:
+      if !hasApplicant(applicant.player.user) && variants.has(applicant.player.variant)
+      then copy(applicants = applicants :+ applicant)
       else this
-    }
 
   def removeApplicant(userId: UserId) =
-    Created {
+    Created:
       copy(applicants = applicants.filterNot(_ is userId))
-    }
 
   def accept(userId: UserId, v: Boolean) =
-    Created {
+    Created:
       copy(applicants = applicants map {
         case a if a is userId => a.copy(accepted = v)
         case a                => a
       })
-    }
 
   def removePairing(userId: UserId) =
     copy(pairings = pairings.filterNot(_ is userId)).finishIfDone

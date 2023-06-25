@@ -568,7 +568,7 @@ final class ReportApi(
           case Left(reportId) => coll.byId[Report](reportId)
           case Right(userId)  => findByUser(userId)
           case anyId: String  => coll.byId[Report](anyId) orElse findByUser(UserId(anyId))
-        current <- ofModId(mod.user.id)
+        current <- ofModId(mod.userId)
         _       <- current so cancel
         _ <-
           report.so: r =>
@@ -576,7 +576,7 @@ final class ReportApi(
               .updateField(
                 $id(r.id),
                 "inquiry",
-                Report.Inquiry(mod.user.id, nowInstant)
+                Report.Inquiry(mod.userId, nowInstant)
               )
               .void
       } yield (current, report.filter(_.inquiry.isEmpty))
@@ -605,19 +605,19 @@ final class ReportApi(
       openOther(sus, Report.appealText)
 
     private def openOther(sus: Suspect, name: String)(using mod: Me): Fu[Report] =
-      ofModId(mod.user.id) flatMap { current =>
+      ofModId(mod.userId) flatMap { current =>
         current.so(cancel) >> {
           val report = Report
             .make(
               Candidate(
-                Reporter(mod.user),
+                Reporter(mod.value),
                 sus,
                 Reason.Other,
                 name
               ) scored Report.Score(0),
               none
             )
-            .copy(inquiry = Report.Inquiry(mod.user.id, nowInstant).some)
+            .copy(inquiry = Report.Inquiry(mod.userId, nowInstant).some)
           coll.insert.one(report) inject report
         }
       }

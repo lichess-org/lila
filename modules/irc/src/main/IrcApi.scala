@@ -31,12 +31,12 @@ final class IrcApi(
       .flatMap {
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
-            s"${markdown.userLink(mod.user.username)} :monkahmm: is looking at a $room report about **${markdown
+            s"${markdown.userLink(mod.username)} :monkahmm: is looking at a $room report about **${markdown
                 .userLink(user.username)}**"
           )
         case Some(note) =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
-            s"${markdown.modLink(mod.user)} :pepenote: **${markdown
+            s"${markdown.modLink(mod.username)} :pepenote: **${markdown
                 .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
@@ -81,7 +81,7 @@ final class IrcApi(
   def commlog(user: User, reportBy: Option[UserId])(using mod: Me): Funit =
     zulip(_.mod.adminLog, "private comms checks")({
         val finalS = if (user.username.value endsWith "s") "" else "s"
-        s"**${markdown modLink mod.user}** checked out **${markdown userLink user.username}**'$finalS communications "
+        s"**${markdown modLink mod.username}** checked out **${markdown userLink user.username}**'$finalS communications "
       } + reportBy
         .filterNot(_ is mod)
         .fold("spontaneously"): by =>
@@ -118,7 +118,7 @@ final class IrcApi(
 
   def chatPanic(mod: Me, v: Boolean): Funit =
     val msg =
-      s":stop: ${markdown.modLink(mod.user)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
+      s":stop: ${markdown.modLink(mod.username)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
 
   def garbageCollector(msg: String): Funit =
@@ -146,7 +146,7 @@ final class IrcApi(
   def userAppeal(user: User)(using mod: Me): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.username):
-        s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
+        s"${markdown.modLink(mod.username)} :monkahmm: is looking at the appeal of **${markdown
             .lichessLink(s"/appeal/${user.username}", user.username)}**"
       .flatMapz: zulipAppealConv =>
         noteApi.write(user, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
@@ -225,7 +225,6 @@ object IrcApi:
     def userIdLinks(ids: List[UserId]): String =
       UserName.from[List, UserId](ids) map markdown.userLink mkString ", "
     def modLink(name: UserName): String               = lichessLink(s"/@/$name", name.value)
-    def modLink(user: User): String                   = modLink(user.username)
     def gameLink(id: String)                          = lichessLink(s"/$id", s"#$id")
     def printLink(print: String)                      = lichessLink(s"/mod/print/$print", print)
     def ipLink(ip: String)                            = lichessLink(s"/mod/ip/$ip", ip)

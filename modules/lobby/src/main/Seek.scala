@@ -70,6 +70,8 @@ case class Seek(
 
 object Seek:
 
+  given UserIdOf[Seek] = _.user.id
+
   val idSize = 8
 
   def make(

@@ -46,7 +46,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def queue = Secure(_.Appeals) { ctx ?=> me ?=>
     for
-      appeals                          <- env.appeal.api.queueOf(me.user)
+      appeals                          <- env.appeal.api.myQueue
       inquiries                        <- env.report.api.inquiries.allBySuspect
       ((scores, streamers), nbAppeals) <- reportC.getScores
       _ = env.user.lightUserApi preloadUsers appeals.map(_.user)

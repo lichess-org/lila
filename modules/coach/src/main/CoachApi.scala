@@ -29,9 +29,10 @@ final class CoachApi(
         _ map withUser(user)
 
   def findOrInit(using me: Me): Fu[Option[Coach.WithUser]] =
-    canCoach(me.user).so:
-      find(me.user) orElse {
-        val c = Coach.WithUser(Coach make me.user, me.user)
+    val user = me.value
+    canCoach(user).so:
+      find(user) orElse {
+        val c = Coach.WithUser(Coach make user, user)
         coachColl.insert.one(c.coach) inject c.some
       }
 

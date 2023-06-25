@@ -356,7 +356,7 @@ final class Auth(
         notFound
       case Some(me) =>
         given Me = me
-        val user = me.user
+        val user = me.value
         FormFuResult(forms.passwdResetForMe) { err =>
           renderPage(html.auth.bits.passwordResetConfirm(token, err, false.some))
         } { data =>
@@ -440,7 +440,7 @@ final class Auth(
     then lila.log("oauth").info(s"api makeLoginToken ${me.username} ${HTTPRequest printClient ctx.req}")
     JsonOk:
       env.security.loginToken
-        .generate(me.user)
+        .generate(me.value)
         .map: token =>
           Json.obj(
             "userId" -> me.userId,

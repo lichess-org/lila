@@ -87,7 +87,7 @@ object home:
               val nbForced = nbManual + simulBBB.size
               val tourBBBs = if nbForced > 3 then 0 else if nbForced == 3 then 1 else 3 - nbForced
               frag(
-                lila.tournament.Spotlight.select(tours, ctx.me, tourBBBs) map {
+                lila.tournament.Spotlight.select(tours, tourBBBs) map {
                   views.html.tournament.homepageSpotlight(_)
                 },
                 swiss.ifTrue(nbForced < 3) map views.html.swiss.bits.homepageSpotlight,

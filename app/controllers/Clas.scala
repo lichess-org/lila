@@ -61,7 +61,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         .bindFromRequest()
         .fold(
           err => BadRequest.page(html.clas.clas.create(err)),
-          data => env.clas.api.clas.create(data, me.user) map redirectTo
+          data => env.clas.api.clas.create(data, me.value) map redirectTo
         )
   }
 
@@ -249,7 +249,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def archive(id: ClasId, v: Boolean) = SecureBody(_.Teacher) { _ ?=> me ?=>
     WithClass(id): clas =>
-      env.clas.api.clas.archive(clas, me.user, v) inject
+      env.clas.api.clas.archive(clas, me.value, v) inject
         redirectTo(clas).flashSuccess
   }
 
@@ -288,7 +288,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                     }
                 ,
                 data =>
-                  env.clas.api.student.create(clas, data, me.user) map { s =>
+                  env.clas.api.student.create(clas, data, me.value) map { s =>
                     Redirect(routes.Clas.studentForm(clas.id.value))
                       .flashing("created" -> s"${s.student.userId} ${s.password.value}")
                   }
@@ -329,7 +329,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 .fold(
                   err => BadRequest.page(html.clas.student.manyForm(clas, students, err, nbStudents)),
                   data =>
-                    env.clas.api.student.manyCreate(clas, data, me.user) flatMap { many =>
+                    env.clas.api.student.manyCreate(clas, data, me.value) flatMap { many =>
                       env.user.lightUserApi.preloadMany(many.map(_.student.userId)) inject
                         Redirect(routes.Clas.studentManyForm(clas.id.value))
                           .flashing:

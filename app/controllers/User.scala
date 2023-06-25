@@ -388,9 +388,8 @@ final class User(
             data       <- loginsTableData(user, userLogins, nbOthers)
           yield html.user.mod.otherUsers(me, user, data, appeals)
 
-          val identification = userLoginsFu map { logins =>
-            Granter.is(_.ViewPrintNoIP)(me) so html.user.mod.identification(logins)
-          }
+          val identification = userLoginsFu.map: logins =>
+            Granter(_.ViewPrintNoIP) so html.user.mod.identification(logins)
 
           val kaladin = isGranted(_.MarkEngine) so env.irwin.kaladinApi.get(user).map {
             _.flatMap(_.response) so html.kaladin.report
@@ -498,7 +497,7 @@ final class User(
     getUserStr("u")
       .ifTrue(isGranted(_.BoostHunter))
       .so(env.user.repo.byId)
-      .map(_ | me.user)
+      .map(_ | me.value)
       .flatMap: user =>
         for
           ops         <- env.game.favoriteOpponents(user.id)

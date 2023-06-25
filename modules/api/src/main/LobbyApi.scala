@@ -17,7 +17,7 @@ final class LobbyApi(
 )(using Executor):
 
   def apply(using me: Option[Me]): Fu[(JsObject, List[Pov])] =
-    me.map(_.user).fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
+    me.foldUse(seekApi.forAnon)(seekApi.forMe).mon(_.lobby segment "seeks") zip
       me.so(gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { (seeks, povs) =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
@@ -34,9 +34,8 @@ final class LobbyApi(
             .add("ratingMap", me.map(ratingMap))
             .add(
               "me",
-              me.map { u =>
+              me.map: u =>
                 Json.obj("username" -> u.username).add("isBot" -> u.isBot)
-              }
             ) -> displayedPovs
         }
       }
@@ -49,9 +48,7 @@ final class LobbyApi(
       .writes(
         me.perfs.perfsMap.view.mapValues { perf =>
           Json
-            .obj(
-              "rating" -> perf.intRating.value
-            )
+            .obj("rating" -> perf.intRating.value)
             .add("prov" -> perf.glicko.provisional)
         }.toMap
       )

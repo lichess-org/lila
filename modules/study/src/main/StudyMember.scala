@@ -29,13 +29,9 @@ case class StudyMembers(members: StudyMember.MemberMap):
     }.toMap
   )
 
-  def contains(userId: UserId): Boolean = members contains userId
-  def contains(user: User): Boolean     = contains(user.id)
+  def contains[U: UserIdOf](u: U): Boolean = members contains u.id
 
-  def get = members.get
-
-  def ids   = members.keys
-  def idSet = members.keySet
+  export members.{ get, keys as ids, keySet as idSet }
 
   def contributorIds: Set[UserId] =
     members.view.collect {

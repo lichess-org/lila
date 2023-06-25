@@ -19,10 +19,11 @@ object Reason:
   case object Comm extends Reason:
     def flagText = "[FLAG]"
   case object Boost    extends Reason
+  case object Username extends Reason
   case object Other    extends Reason
   case object Playbans extends Reason
 
-  val all   = List(Cheat, AltPrint, Comm, Boost, Other, CheatPrint)
+  val all   = List(Cheat, AltPrint, Comm, Boost, Username, Other, CheatPrint)
   val keys  = all.map(_.key)
   val byKey = all.mapBy(_.key)
 
@@ -40,10 +41,10 @@ object Reason:
     def isBoost    = reason == Boost
     def isPlaybans = reason == Playbans
 
-  def isGrantedFor(mod: Me)(reason: Reason) =
+  def isGranted(reason: Reason)(using Me) =
     import lila.security.Granter
     reason match
-      case Cheat                                    => Granter.is(_.MarkEngine)(mod)
-      case AltPrint | CheatPrint | Playbans | Other => Granter.is(_.Admin)(mod)
-      case Comm                                     => Granter.is(_.Shadowban)(mod)
-      case Boost                                    => Granter.is(_.MarkBooster)(mod)
+      case Cheat                                               => Granter(_.MarkEngine)
+      case Comm                                                => Granter(_.Shadowban)
+      case Boost                                               => Granter(_.MarkBooster)
+      case AltPrint | CheatPrint | Playbans | Username | Other => Granter(_.Admin)

@@ -199,11 +199,11 @@ final class Account(
   def twoFactor = Auth { _ ?=> me ?=>
     if me.totpSecret.isDefined
     then
-      env.security.forms.disableTwoFactor(me).flatMap { f =>
+      env.security.forms.disableTwoFactor.flatMap { f =>
         Ok.page(html.account.twoFactor.disable(f))
       }
     else
-      env.security.forms.setupTwoFactor(me) flatMap { f =>
+      env.security.forms.setupTwoFactor flatMap { f =>
         Ok.page(html.account.twoFactor.setup(f))
       }
 
@@ -211,20 +211,18 @@ final class Account(
 
   def setupTwoFactor = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
-      env.security.forms.setupTwoFactor(me) flatMap { form =>
+      env.security.forms.setupTwoFactor.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.twoFactor.setup(err))): data =>
           env.user.repo.setupTwoFactor(me, TotpSecret(data.secret)) >>
             refreshSessionId(Redirect(routes.Account.twoFactor).flashSuccess)
-      }
   }
 
   def disableTwoFactor = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
-      env.security.forms.disableTwoFactor(me) flatMap { form =>
+      env.security.forms.disableTwoFactor.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.twoFactor.disable(err))): _ =>
           env.user.repo.disableTwoFactor(me) inject
             Redirect(routes.Account.twoFactor).flashSuccess
-      }
   }
 
   def close = Auth { _ ?=> me ?=>
@@ -240,7 +238,7 @@ final class Account(
         env.security.forms.closeAccount.flatMap: form =>
           FormFuResult(form)(err => renderPage(html.account.close(err, managed = false))): _ =>
             env.api.accountClosure
-              .close(me.user)
+              .close(me.value)
               .inject:
                 Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
   }
