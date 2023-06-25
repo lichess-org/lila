@@ -177,14 +177,22 @@ object layout {
   private def hrefLang(langCode: String, pathWithQuery: String) =
     s"""<link rel="alternate" hreflang="$langCode" href="$netBaseUrl$pathWithQuery"/>"""
 
+  private def defaultWithEnHrefLang(path: String) =
+    hrefLang("x-default", path) + hrefLang("en", path)
+
   private def hrefLangs(altLangs: lila.i18n.LangList.AlternativeLangs)(implicit ctx: Context) = raw {
-    val path      = ctx.req.path
-    val baseLangs = hrefLang("x-default", path) + hrefLang("en", path)
+    val path = ctx.req.path
     altLangs match {
-      case lila.i18n.LangList.EnglishJapanese => baseLangs + hrefLang("ja", s"$path?lang=ja")
+      case lila.i18n.LangList.EnglishJapanese =>
+        defaultWithEnHrefLang(path) + hrefLang("ja", s"$path?lang=ja")
       case lila.i18n.LangList.All =>
-        baseLangs + (lila.i18n.LangList.alternativeLangCodes.map { langCode =>
+        defaultWithEnHrefLang(path) + (lila.i18n.LangList.alternativeLangCodes.map { langCode =>
           hrefLang(langCode, s"$path?lang=$langCode")
+        }).mkString
+      case lila.i18n.LangList.Custom(langPathMap) =>
+        (langPathMap.map { case (langCode, pathWithQuery) =>
+          if (langCode == "en") defaultWithEnHrefLang(pathWithQuery)
+          else hrefLang(langCode, pathWithQuery)
         }).mkString
     }
   }

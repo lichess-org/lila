@@ -11,7 +11,7 @@ case class FullPost(
     image: String,
     author: String,
     category: String,
-    alternateLangId: Option[String] // only when translated
+    allLangIds: Option[String] // only when translated, hacky but whatevs
 )
 
 object FullPost {
@@ -34,6 +34,6 @@ object FullPost {
       image = image,
       author = author,
       category = category,
-      alternateLangId = doc getText s"$coll.alternatelangid"
+      allLangIds = doc getText s"$coll.alllangids"
     )
 }

@@ -183,8 +183,9 @@ object LangList {
     )
 
   sealed trait AlternativeLangs
-  case object EnglishJapanese extends AlternativeLangs
-  case object All             extends AlternativeLangs
+  case object EnglishJapanese                      extends AlternativeLangs
+  case object All                                  extends AlternativeLangs
+  case class Custom(langPath: Map[String, String]) extends AlternativeLangs
 
   lazy val alternativeLangCodes: List[String] =
     popularNoRegion.withFilter(l => fullyTranslated.contains(l.code)).map(fixJavaLanguageCode).take(15)
