@@ -77,7 +77,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
               _ <- env.mod.logApi.appealPost(suspect.user.id)
               result <-
                 if process then
-                  env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
+                  env.report.api.inquiries.toggle(Right(appeal.userId)) inject
                     Redirect(routes.Appeal.queue)
                 else Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions").toFuccess
             yield result
@@ -102,22 +102,22 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       markedByMe = markedByMe
     )
 
-  def mute(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
+  def mute(username: UserStr) = Secure(_.Appeals) { _ ?=> _ ?=>
     asMod(username): (appeal, _) =>
       env.appeal.api.toggleMute(appeal) >>
-        env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
+        env.report.api.inquiries.toggle(Right(appeal.userId)) inject
         Redirect(routes.Appeal.queue)
   }
 
-  def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { ctx ?=> _ ?=>
+  def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
     asMod(username): (_, suspect) =>
       env.irc.api.userAppeal(suspect.user) inject NoContent
   }
 
-  def snooze(username: UserStr, dur: String) = Secure(_.Appeals) { ctx ?=> me ?=>
+  def snooze(username: UserStr, dur: String) = Secure(_.Appeals) { _ ?=> _ ?=>
     asMod(username): (appeal, _) =>
-      env.appeal.api.snooze(me.user, appeal.id, dur)
-      env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
+      env.appeal.api.snooze(appeal.id, dur)
+      env.report.api.inquiries.toggle(Right(appeal.userId)) inject
         Redirect(routes.Appeal.queue)
   }
 

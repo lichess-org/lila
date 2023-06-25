@@ -292,7 +292,7 @@ final class Mod(
             val f =
               if (isAppeal) env.report.api.inquiries.appeal
               else env.report.api.inquiries.spontaneous
-            f(me, Suspect(user)) inject {
+            f(Suspect(user)) inject {
               if (isAppeal) Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
               else redirect(user.username, mod = true)
             }

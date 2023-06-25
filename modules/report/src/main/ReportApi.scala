@@ -388,8 +388,8 @@ final class ReportApi(
       .cursor[Report]()
       .list(nb)
 
-  def byAndAbout(user: User, nb: Int, mod: Me): Fu[Report.ByAndAbout] =
-    for {
+  def byAndAbout(user: User, nb: Int)(using Me): Fu[Report.ByAndAbout] =
+    for
       by <-
         coll
           .find($doc("atoms.by" -> user.id))
@@ -397,7 +397,7 @@ final class ReportApi(
           .cursor[Report](temporarilyPrimary)
           .list(nb)
       about <- recent(Suspect(user), nb, temporarilyPrimary)
-    } yield Report.ByAndAbout(by, Room.filterGranted(mod, about))
+    yield Report.ByAndAbout(by, Room.filterGranted(about))
 
   def currentCheatScore(suspect: Suspect): Fu[Option[Report.Score]] =
     coll.primitiveOne[Report.Score](
@@ -428,20 +428,20 @@ final class ReportApi(
       ReadPreference.secondaryPreferred
     ) dmap (_ filterNot ReporterId.lichess.==)
 
-  def openAndRecentWithFilter(mod: Mod, nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] =
-    for {
-      opens <- findBest(nb, selectOpenInRoom(room, snoozedIdsOf(mod)))
+  def openAndRecentWithFilter(nb: Int, room: Option[Room])(using mod: Me): Fu[List[Report.WithSuspect]] =
+    for
+      opens <- findBest(nb, selectOpenInRoom(room, snoozedIds))
       nbClosed = nb - opens.size
       closed <-
         if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
         else findRecent(nbClosed, closedSelect ++ roomSelect(room))
       withNotes <- addSuspectsAndNotes(opens ++ closed)
-    } yield withNotes
+    yield withNotes
 
-  private def findNext(mod: Mod, room: Room): Fu[Option[Report]] =
-    findBest(1, selectOpenAvailableInRoom(room.some, snoozedIdsOf(mod))).map(_.headOption)
+  private def findNext(room: Room)(using Me): Fu[Option[Report]] =
+    findBest(1, selectOpenAvailableInRoom(room.some, snoozedIds)).map(_.headOption)
 
-  private def snoozedIdsOf(mod: Mod) = snoozer snoozedKeysOf mod.user.id map (_.reportId)
+  private def snoozedIds(using mod: Me) = snoozer snoozedKeysOf mod.userId map (_.reportId)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     userRepo byIdsSecondary reports.map(_.user).distinct map { users =>
@@ -454,10 +454,10 @@ final class ReportApi(
         .sortBy(-_.urgency)
     }
 
-  def snooze(mod: Mod, reportId: Report.Id, duration: String): Fu[Option[Report]] =
+  def snooze(reportId: Report.Id, duration: String)(using mod: Me): Fu[Option[Report]] =
     byId(reportId) flatMapz { report =>
-      snoozer.set(Report.SnoozeKey(mod.user.id, reportId), duration)
-      inquiries.toggleNext(mod, report.room)
+      snoozer.set(Report.SnoozeKey(mod.userId, reportId), duration)
+      inquiries.toggleNext(report.room)
     }
 
   object accuracy:
@@ -555,15 +555,13 @@ final class ReportApi(
      * If they already are on this inquiry, cancel it.
      * Returns the previous and next inquiries
      */
-    def toggle(mod: Mod, id: String | Either[Report.Id, UserId]): Fu[(Option[Report], Option[Report])] =
-      workQueue {
-        doToggle(mod, id)
-      }
+    def toggle(id: String | Either[Report.Id, UserId])(using Me): Fu[(Option[Report], Option[Report])] =
+      workQueue:
+        doToggle(id)
 
     private def doToggle(
-        mod: Mod,
         id: String | Either[Report.Id, UserId]
-    ): Fu[(Option[Report], Option[Report])] =
+    )(using mod: Me): Fu[(Option[Report], Option[Report])] =
       def findByUser(userId: UserId) = coll.one[Report]($doc("user" -> userId, "inquiry.mod" $exists true))
       for {
         report <- id match
@@ -571,9 +569,9 @@ final class ReportApi(
           case Right(userId)  => findByUser(userId)
           case anyId: String  => coll.byId[Report](anyId) orElse findByUser(UserId(anyId))
         current <- ofModId(mod.user.id)
-        _       <- current so cancel(mod)
+        _       <- current so cancel
         _ <-
-          report so { r =>
+          report.so: r =>
             r.inquiry.isEmpty so coll
               .updateField(
                 $id(r.id),
@@ -581,18 +579,16 @@ final class ReportApi(
                 Report.Inquiry(mod.user.id, nowInstant)
               )
               .void
-          }
       } yield (current, report.filter(_.inquiry.isEmpty))
 
-    def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
-      workQueue {
-        findNext(mod, room) flatMapz { report =>
-          doToggle(mod, Left(report.id)).dmap(_._2)
+    def toggleNext(room: Room)(using Me): Fu[Option[Report]] =
+      workQueue:
+        findNext(room) flatMapz { report =>
+          doToggle(Left(report.id)).dmap(_._2)
         }
-      }
 
-    private def cancel(mod: Mod)(report: Report): Funit =
-      if report.isOther && mod.user.is(report.onlyAtom.map(_.by))
+    private def cancel(report: Report)(using mod: Me): Funit =
+      if report.isOther && mod.is(report.onlyAtom.map(_.by))
       then coll.delete.one($id(report.id)).void // cancel spontaneous inquiry
       else
         coll.update
@@ -602,15 +598,15 @@ final class ReportApi(
           )
           .void
 
-    def spontaneous(mod: Mod, sus: Suspect): Fu[Report] =
-      openOther(mod, sus, Report.spontaneousText)
+    def spontaneous(sus: Suspect)(using Me): Fu[Report] =
+      openOther(sus, Report.spontaneousText)
 
-    def appeal(mod: Mod, sus: Suspect): Fu[Report] =
-      openOther(mod, sus, Report.appealText)
+    def appeal(sus: Suspect)(using Me): Fu[Report] =
+      openOther(sus, Report.appealText)
 
-    private def openOther(mod: Mod, sus: Suspect, name: String): Fu[Report] =
+    private def openOther(sus: Suspect, name: String)(using mod: Me): Fu[Report] =
       ofModId(mod.user.id) flatMap { current =>
-        current.so(cancel(mod)) >> {
+        current.so(cancel) >> {
           val report = Report
             .make(
               Candidate(

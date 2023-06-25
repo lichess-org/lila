@@ -360,7 +360,7 @@ final class User(
           val student = env.clas.api.student.findManaged(user).map2(view.student).dmap(~_)
 
           val reportLog = isGranted(_.SeeReport) so env.report.api
-            .byAndAbout(user, 20, me)
+            .byAndAbout(user, 20)
             .flatMap: rs =>
               lightUserApi.preloadMany(rs.userIds) inject rs
             .map(view.reportLog(user))

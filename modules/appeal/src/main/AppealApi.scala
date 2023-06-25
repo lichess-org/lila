@@ -122,5 +122,5 @@ final class AppealApi(
 
   def onAccountClose(user: User) = setReadById(user.id)
 
-  def snooze(mod: User, appealId: Appeal.Id, duration: String): Unit =
-    snoozer.set(Appeal.SnoozeKey(mod.id, appealId), duration)
+  def snooze(appealId: Appeal.Id, duration: String)(using mod: Me): Unit =
+    snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)

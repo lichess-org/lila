@@ -24,31 +24,31 @@ final class Report(
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
     then Forbidden.page(html.site.message.streamingMod)
-    else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
+    else renderList(env.report.modFilters.get(me).fold("all")(_.key))
   }
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     env.report.modFilters.set(me, Room(room))
-    if Room(room).fold(true)(Room.isGrantedFor(me))
-    then renderList(me, room)
+    if Room(room).fold(true)(Room.isGranted)
+    then renderList(room)
     else notFound
   }
 
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(me: Me, room: String)(using Context) =
-    api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
+  private def renderList(room: String)(using Context, Me) =
+    api.openAndRecentWithFilter(12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) >>
           Ok.page:
-            val filteredReports = reports.filter(r => lila.report.Reason.isGrantedFor(me)(r.report.reason))
+            val filteredReports = reports.filter(r => lila.report.Reason.isGranted(r.report.reason))
             html.report.list(filteredReports, room, scores, streamers, appeals)
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     api.inquiries
-      .toggle(me, reportOrAppealId)
+      .toggle(reportOrAppealId)
       .flatMap: (prev, next) =>
         prev.filter(_.isAppeal).map(_.user).so(env.appeal.api.setUnreadById) inject
           next.fold(
@@ -95,7 +95,7 @@ final class Report(
             then Redirect(modC.userUrl(inquiry.user, mod = true))
             else
               api.inquiries
-                .toggleNext(me, inquiry.room)
+                .toggleNext(inquiry.room)
                 .map:
                   _.fold(redirectToList)(onInquiryStart)
           }
@@ -115,9 +115,9 @@ final class Report(
     api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
   }
 
-  def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> me ?=>
+  def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
     api
-      .snooze(me, id, dur)
+      .snooze(id, dur)
       .map:
         _.fold(Redirect(routes.Report.list))(onInquiryStart)
   }
@@ -125,7 +125,7 @@ final class Report(
   def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { _ ?=> me ?=>
     Found(env.user.repo byId username): user =>
       Found(api.currentCheatReport(lila.report.Suspect(user))): report =>
-        api.inquiries.toggle(me, Left(report.id)) inject NoContent
+        api.inquiries.toggle(Left(report.id)) inject NoContent
   }
 
   def form = Auth { _ ?=> _ ?=>
