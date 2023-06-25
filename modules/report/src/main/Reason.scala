@@ -40,6 +40,7 @@ object Reason:
     def isComm     = reason == Comm
     def isBoost    = reason == Boost
     def isPlaybans = reason == Playbans
+    def isUsername = reason == Username
 
   def isGranted(reason: Reason)(using Me) =
     import lila.security.Granter
