@@ -45,7 +45,7 @@ object SwissPlayer:
       userId = user.id,
       rating = user.perfs(perf).intRating,
       provisional = user.perfs(perf).provisional,
-      points = SwissPoints fromDouble 0,
+      points = SwissPoints fromDoubled 0,
       tieBreak = Swiss.TieBreak(0),
       performance = none,
       score = Swiss.Score(0),

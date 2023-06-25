@@ -293,7 +293,7 @@ lazy val tournament = module("tournament",
 
 lazy val swiss = module("swiss",
   Seq(gathering, round),
-  Seq(scalatags, lettuce) ++ reactivemongo.bundle
+  Seq(scalatags, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val simul = module("simul",

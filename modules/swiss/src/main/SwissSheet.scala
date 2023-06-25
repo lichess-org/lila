@@ -10,9 +10,9 @@ import lila.db.dsl.{ *, given }
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]):
   import SwissSheet.*
 
-  def points = SwissPoints fromDouble {
-    outcomes.foldLeft(0) { case (acc, out) => acc + pointsFor(out).doubled }
-  }
+  def points = SwissPoints.fromDoubled:
+    outcomes.foldLeft(0): (acc, out) =>
+      acc + pointsFor(out).doubled
 
 private object SwissSheet:
 
@@ -29,28 +29,40 @@ private object SwissSheet:
 
   import Outcome.*
 
-  def pointsFor(outcome: Outcome) = SwissPoints fromDouble {
+  def pointsFor(outcome: Outcome) = SwissPoints.fromDoubled:
     outcome match
       case Win | Bye | ForfeitWin => 2
       case Late | Draw            => 1
       case _                      => 0
-  }
 
   def many(
       swiss: Swiss,
       players: List[SwissPlayer],
       pairingMap: SwissPairing.PairingMap
   ): List[SwissSheet] =
+    many(swiss.allRounds, players, pairingMap)
+
+  def many(
+      rounds: List[SwissRoundNumber],
+      players: List[SwissPlayer],
+      pairingMap: SwissPairing.PairingMap
+  ): List[SwissSheet] =
     players.map: player =>
-      one(swiss, ~pairingMap.get(player.userId), player)
+      one(rounds, ~pairingMap.get(player.userId), player)
 
   def one(
       swiss: Swiss,
       pairingMap: Map[SwissRoundNumber, SwissPairing],
       player: SwissPlayer
+  ): SwissSheet = one(swiss.allRounds, pairingMap, player)
+
+  def one(
+      rounds: List[SwissRoundNumber],
+      pairingMap: Map[SwissRoundNumber, SwissPairing],
+      player: SwissPlayer
   ): SwissSheet =
     SwissSheet:
-      swiss.allRounds.map: round =>
+      rounds.map: round =>
         pairingMap get round match
           case Some(pairing) =>
             pairing.status match

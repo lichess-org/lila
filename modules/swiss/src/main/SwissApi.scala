@@ -370,14 +370,12 @@ final class SwissApi(
     SwissPairing.fields: F =>
       mongo.pairing
         .list[SwissPairing]($doc(F.swissId -> swiss.id, F.players -> userId))
-        .flatMap {
+        .flatMap:
           _.filter(p => p.isDraw || userId.is(p.winner))
-            .map { pairing =>
+            .map: pairing =>
               mongo.pairing.update.one($id(pairing.id), pairing forfeit userId)
-            }
             .parallel
             .void
-        }
 
   private[swiss] def finishGame(game: Game): Funit =
     game.swissId.so: swissId =>
@@ -499,7 +497,7 @@ final class SwissApi(
   def teamOf(id: SwissId): Fu[Option[TeamId]] =
     mongo.swiss.primitiveOne[TeamId]($id(id), "teamId")
 
-  private def recomputeAndUpdateAll(id: SwissId): Funit =
+  def recomputeAndUpdateAll(id: SwissId): Funit =
     scoring(id).flatMapz { res =>
       rankingApi.update(res)
       standingApi.update(res) >>

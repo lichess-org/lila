@@ -83,7 +83,7 @@ final class Env(
 
   lazy val cache: SwissCache = wire[SwissCache]
 
-  lazy val getName = new GetSwissName(cache.name)
+  lazy val getName = GetSwissName(cache.name)
 
   private lazy val officialSchedule = wire[SwissOfficialSchedule]
 

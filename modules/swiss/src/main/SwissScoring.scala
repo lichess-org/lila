@@ -1,13 +1,11 @@
 package lila.swiss
 
 import reactivemongo.api.bson.*
+import cats.syntax.all.*
 
 import lila.db.dsl.{ *, given }
 
-final private class SwissScoring(mongo: SwissMongo)(using
-    scheduler: Scheduler,
-    ec: Executor
-):
+final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
 
   import BsonHandlers.given
 
@@ -29,22 +27,7 @@ final private class SwissScoring(mongo: SwissMongo)(using
           sheets     = SwissSheet.many(swiss, prevPlayers, pairingMap)
           withPoints = (prevPlayers zip sheets).map: (player, sheet) =>
             player.copy(points = sheet.points)
-          playerMap = withPoints.mapBy(_.userId)
-          players = withPoints.map: p =>
-            val playerPairings = (~pairingMap.get(p.userId)).values
-            val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f):
-              case ((tieBreak, perfSum), pairing) =>
-                val opponent       = playerMap.get(pairing opponentOf p.userId)
-                val opponentPoints = opponent.so(_.points.value)
-                val result         = pairing.resultFor(p.userId)
-                val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ so opponentPoints }
-                val newPerf = perfSum + opponent.so(_.rating.value) + result.so: win =>
-                  if win then 500 else -500
-                newTieBreak -> newPerf
-            p.copy(
-              tieBreak = Swiss.TieBreak(tieBreak),
-              performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
-            ).recomputeScore
+          players = SwissScoring.computePlayers(withPoints, pairingMap)
           _ <- SwissPlayer.fields: f =>
             prevPlayers
               .zip(players)
@@ -97,3 +80,22 @@ private object SwissScoring:
       playerMap: SwissPlayer.PlayerMap,
       pairings: SwissPairing.PairingMap
   )
+
+  def computePlayers(withPoints: List[SwissPlayer], pairingMap: SwissPairing.PairingMap) =
+    val playerMap = withPoints.mapBy(_.userId)
+    withPoints.map: p =>
+      val playerPairings = (~pairingMap.get(p.userId)).values
+      val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f):
+        case ((tieBreak, perfSum), pairing) =>
+          val opponent       = playerMap.get(pairing opponentOf p.userId)
+          val opponentPoints = opponent.so(_.points.value)
+          val result         = pairing.resultFor(p.userId)
+          val newTieBreak    = tieBreak + result.fold(opponentPoints / 2)(_ so opponentPoints)
+          if p.userId.value == "supertactic91" then println(s"$pairing $result $newTieBreak")
+          val newPerf = perfSum + opponent.so(_.rating.value) + result.so:
+            if _ then 500 else -500
+          newTieBreak -> newPerf
+      p.copy(
+        tieBreak = Swiss.TieBreak(tieBreak),
+        performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
+      ).recomputeScore
