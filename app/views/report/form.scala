@@ -10,19 +10,14 @@ import lila.user.User
 
 object form:
 
-  def apply(form: Form[?], reqUser: Option[User] = None, captcha: lila.common.Captcha)(using
-      ctx: PageContext
-  ) =
+  def apply(form: Form[?], reqUser: Option[User] = None)(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.reportAUser.txt(),
-      moreCss = cssTag("form3-captcha"),
-      moreJs = frag(
-        captchaTag,
-        embedJsUnsafeLoadThen(
-          """$('#form3-reason').on('change', function() {
+      moreCss = cssTag("form3"),
+      moreJs = embedJsUnsafeLoadThen(
+        """$('#form3-reason').on('change', function() {
             $('.report-reason').addClass('none').filter('.report-reason-' + this.value).removeClass('none');
           })"""
-        )
       )
     ):
       val defaultReason = form("reason").value orElse translatedReasonChoices.headOption.map(_._1)
@@ -64,7 +59,6 @@ object form:
           form3.group(form("text"), trans.description(), help = descriptionHelp(~defaultReason).some):
             form3.textarea(_)(rows := 8)
           ,
-          views.html.base.captcha(form, captcha),
           form3.actions(
             a(href := routes.Lobby.home)(trans.cancel()),
             form3.submit(trans.send())

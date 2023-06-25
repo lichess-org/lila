@@ -133,19 +133,17 @@ final class Report(
       if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact)
       else
         Ok.pageAsync:
-          env.report.forms.createWithCaptcha.map: (form, captcha) =>
-            val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
-              case (Some(u), Some(pid)) =>
-                form.fill:
-                  lila.report.ReportSetup(
-                    u.light,
-                    reason = ~get("reason"),
-                    text = s"$pid\n\n",
-                    GameId(""),
-                    ""
-                  )
-              case _ => form
-            html.report.form(filledForm, user, captcha)
+          val form = env.report.forms.create
+          val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
+            case (Some(u), Some(pid)) =>
+              form.fill:
+                lila.report.ReportSetup(
+                  u.light,
+                  reason = ~get("reason"),
+                  text = s"$pid\n\n"
+                )
+            case _ => form
+          html.report.form(filledForm, user)
     }
   }
 
@@ -155,9 +153,8 @@ final class Report(
       .fold(
         err =>
           for
-            user    <- getUserStr("username") so env.user.repo.byId
-            captcha <- env.report.forms.anyCaptcha
-            page    <- renderPage(html.report.form(err, user, captcha))
+            user <- getUserStr("username") so env.user.repo.byId
+            page <- renderPage(html.report.form(err, user))
           yield BadRequest(page),
         data =>
           if me.is(data.user.id) then notFound
