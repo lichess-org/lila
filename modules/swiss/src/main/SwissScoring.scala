@@ -13,13 +13,12 @@ final private class SwissScoring(mongo: SwissMongo)(using
 
   def apply(id: SwissId): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
 
-  private val sequencer =
-    new lila.hub.AskPipelines[SwissId, Option[SwissScoring.Result]](
-      compute = recompute,
-      expiration = 1 minute,
-      timeout = 10 seconds,
-      name = "swiss.scoring"
-    )
+  private val sequencer = lila.hub.AskPipelines[SwissId, Option[SwissScoring.Result]](
+    compute = recompute,
+    expiration = 1 minute,
+    timeout = 10 seconds,
+    name = "swiss.scoring"
+  )
 
   private def recompute(id: SwissId): Fu[Option[SwissScoring.Result]] =
     mongo.swiss.byId[Swiss](id) flatMap {

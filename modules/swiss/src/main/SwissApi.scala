@@ -399,32 +399,28 @@ final class SwissApi(
                   if (swiss.nbOngoing > 0)
                     mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1))
                   else
-                    fuccess {
+                    fuccess:
                       logger.warn(s"swiss ${swiss.id} nbOngoing = ${swiss.nbOngoing}")
-                    }
                 } >>
                   game.playerWhoDidNotMove.flatMap(_.userId).so { absent =>
-                    SwissPlayer.fields { f =>
+                    SwissPlayer.fields: f =>
                       mongo.player
                         .updateField($doc(f.swissId -> swiss.id, f.userId -> absent), f.absent, true)
                         .void
-                    }
                   } >> {
                     (swiss.nbOngoing <= 1) so {
                       if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
-                      else if (swiss.settings.manualRounds) fuccess {
+                      else if (swiss.settings.manualRounds) fuccess:
                         systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
-                      }
                       else
                         mongo.swiss
                           .updateField(
                             $id(swiss.id),
                             "nextRoundAt",
-                            swiss.settings.dailyInterval match {
+                            swiss.settings.dailyInterval match
                               case Some(days) => game.createdAt plusDays days
                               case None =>
                                 nowInstant.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
-                            }
                           )
                           .void >>-
                           systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
@@ -443,17 +439,15 @@ final class SwissApi(
       socket.reload(swiss.id)
 
   private[swiss] def finish(oldSwiss: Swiss): Funit =
-    Sequencing(oldSwiss.id)(cache.swissCache.startedById) { swiss =>
+    Sequencing(oldSwiss.id)(cache.swissCache.startedById): swiss =>
       mongo.pairing.exists($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
         if (_) doFinish(swiss)
         else destroy(swiss)
       }
-    }
   private def doFinish(swiss: Swiss): Funit =
     SwissPlayer
-      .fields { f =>
+      .fields: f =>
         mongo.player.primitiveOne[UserId]($doc(f.swissId -> swiss.id), $sort desc f.score, f.userId)
-      }
       .flatMap { winnerUserId =>
         mongo.swiss.update
           .one(
@@ -475,13 +469,12 @@ final class SwissApi(
       cache.swissCache clear swiss.id
       socket.reload(swiss.id)
       scheduler
-        .scheduleOnce(10 seconds) {
+        .scheduleOnce(10 seconds):
           // we're delaying this to make sure the ranking has been recomputed
           // since doFinish is called by finishGame before that
           rankingApi(swiss) foreach { ranking =>
             Bus.publish(SwissFinish(swiss.id, ranking), "swissFinish")
           }
-        }
         .unit
     }
 
@@ -555,13 +548,12 @@ final class SwissApi(
           } >> recomputeAndUpdateAll(id)
       .monSuccess(_.swiss.tick)
 
-  private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields { f =>
+  private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields: f =>
     mongo.player.countSel($doc(f.swissId -> swiss.id, f.absent $ne true))
-  }
 
   private[swiss] def checkOngoingGames: Funit =
     SwissPairing
-      .fields { f =>
+      .fields: f =>
         mongo.pairing
           .aggregateList(100) { framework =>
             import framework.*
@@ -570,17 +562,14 @@ final class SwissApi(
               Limit(100)
             )
           }
-      }
-      .map {
-        _.flatMap { doc =>
-          for {
+      .map:
+        _.flatMap: doc =>
+          for
             swissId <- doc.getAsOpt[SwissId]("_id")
             gameIds <- doc.getAsOpt[List[GameId]]("ids")
-          } yield swissId -> gameIds
-        }
-      }
-      .flatMap {
-        _.map { case (swissId, gameIds) =>
+          yield swissId -> gameIds
+      .flatMap:
+        _.map { (swissId, gameIds) =>
           Sequencing[List[Game]](swissId)(cache.swissCache.byId) { _ =>
             roundSocket.getGames(gameIds) map { pairs =>
               val games               = pairs.collect { case (_, Some(g)) => g }
@@ -601,7 +590,6 @@ final class SwissApi(
             _.map(finishGame).parallel.void
           }
         }.parallel.void
-      }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
     chatApi.userChat.service(id into ChatId, text, _.Swiss, isVolatile = volatile)
@@ -641,7 +629,7 @@ final class SwissApi(
   def filterPlaying(id: SwissId, userIds: Seq[UserId]): Fu[List[UserId]] =
     userIds.nonEmpty so
       mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false)) flatMapz {
-        SwissPlayer.fields { f =>
+        SwissPlayer.fields: f =>
           mongo.player.distinctEasy[UserId, List](
             f.userId,
             $doc(
@@ -649,11 +637,10 @@ final class SwissApi(
               f.absent $ne true
             )
           )
-        }
       }
 
   def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[SwissPlayer.WithRank, ?] =
-    SwissPlayer.fields { f =>
+    SwissPlayer.fields: f =>
       mongo.player
         .find($doc(f.swissId -> swiss.id))
         .sort($sort desc f.score)
@@ -662,10 +649,8 @@ final class SwissApi(
         .documentSource(nb)
         .throttle(perSecond.value, 1 second)
         .zipWithIndex
-        .map { case (player, index) =>
+        .map: (player, index) =>
           SwissPlayer.WithRank(player, index.toInt + 1)
-        }
-    }
 
   private val idNameProjection = $doc("name" -> true)
 
@@ -675,6 +660,5 @@ final class SwissApi(
   private def Sequencing[A <: Matchable: Zero](
       id: SwissId
   )(fetch: SwissId => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =
-    sequencer(id) {
+    sequencer(id):
       fetch(id) flatMapz run
-    }
