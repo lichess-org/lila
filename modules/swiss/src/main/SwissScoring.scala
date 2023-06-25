@@ -59,18 +59,16 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
     }
 
   private def fetchPlayers(swiss: Swiss) =
-    SwissPlayer.fields { f =>
+    SwissPlayer.fields: f =>
       mongo.player
         .find($doc(f.swissId -> swiss.id))
         .sort($sort asc f.score)
         .cursor[SwissPlayer]()
         .listAll()
-    }
 
   private def fetchPairings(swiss: Swiss) =
-    !swiss.isCreated so SwissPairing.fields { f =>
+    !swiss.isCreated so SwissPairing.fields: f =>
       mongo.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id))
-    }
 
 private object SwissScoring:
 
