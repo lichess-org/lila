@@ -113,5 +113,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       noBerserk = !data.berserkable,
       noStreak = !data.streakable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
-      hasChat = data.hasChat
+      hasChat = data.hasChat,
+      conditions = data.conditions
+        .copy(teamMember = tour.conditions.teamMember) // can't change that
     )
