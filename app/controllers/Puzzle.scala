@@ -116,7 +116,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def onComplete[A](form: Form[RoundData])(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
       ctx: BodyContext[A]
-  ) =
+  ): Fu[Result] =
     form
       .bindFromRequest()
       .fold(

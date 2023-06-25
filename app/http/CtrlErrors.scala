@@ -31,11 +31,8 @@ trait CtrlErrors extends ControllerHelpers:
   /* This is what we want
    * { "error" -> { "key" -> "value" } }
    */
-  def jsonFormErrorBody(form: Form[?])(using Lang): JsObject =
-    Json.obj("error" -> errorsAsJson(form))
-
-  def jsonFormError(form: Form[?])(using Lang) = fuccess:
-    BadRequest(jsonFormErrorBody(form))
+  def jsonFormError(form: Form[?])(using Lang) =
+    BadRequest(Json.obj("error" -> errorsAsJson(form)))
 
   /* For compat with old clients
    * { "error" -> { "key" -> "value" }, "key" -> "value" }
@@ -44,8 +41,8 @@ trait CtrlErrors extends ControllerHelpers:
     val json = errorsAsJson(form)
     json ++ Json.obj("error" -> json)
 
-  def doubleJsonFormError(form: Form[?])(using Lang) = fuccess:
+  def doubleJsonFormError(form: Form[?])(using Lang) =
     BadRequest(doubleJsonFormErrorBody(form))
 
-  def badJsonFormError(form: Form[?])(using Lang) = fuccess:
+  def badJsonFormError(form: Form[?])(using Lang) =
     BadRequest(errorsAsJson(form))
