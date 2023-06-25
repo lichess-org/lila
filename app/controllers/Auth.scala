@@ -100,7 +100,7 @@ final class Auth(
             err =>
               negotiate(
                 Unauthorized.page(html.auth.login(err, referrer)),
-                Unauthorized(doubleJsonFormErrorBody(errorsAsJson(err)))
+                Unauthorized(doubleJsonFormErrorBody(err))
               ),
             (login, pass) =>
               LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
@@ -120,7 +120,7 @@ final class Auth(
                             case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
                             case _ => Unauthorized.page(html.auth.login(err, referrer))
                           ,
-                          Unauthorized(doubleJsonFormErrorBody(errorsAsJson(err)))
+                          Unauthorized(doubleJsonFormErrorBody(err))
                         )
                       ,
                       result =>
