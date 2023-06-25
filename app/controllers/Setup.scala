@@ -49,8 +49,8 @@ final class Setup(
   )
 
   def ai = OpenBody:
-    BotAiRateLimit(ctx.userId | UserId(""), rateLimitedFu, cost = ctx.me.exists(_.isBot) so 1):
-      PostRateLimit(ctx.ip, rateLimitedFu):
+    BotAiRateLimit(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot) so 1):
+      PostRateLimit(ctx.ip, rateLimited):
         forms.ai
           .bindFromRequest()
           .fold(
@@ -69,7 +69,7 @@ final class Setup(
 
   def friend(userId: Option[UserStr]) =
     OpenBody:
-      PostRateLimit(ctx.ip, rateLimitedFu):
+      PostRateLimit(ctx.ip, rateLimited):
         forms.friend
           .bindFromRequest()
           .fold(
@@ -134,8 +134,8 @@ final class Setup(
           .fold(
             doubleJsonFormError,
             userConfig =>
-              PostRateLimit(req.ipAddress, rateLimitedFu):
-                AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = ctx.isAnon so 1):
+              PostRateLimit(req.ipAddress, rateLimited):
+                AnonHookRateLimit(req.ipAddress, rateLimited, cost = ctx.isAnon so 1):
                   (ctx.userId so env.relation.api.fetchBlocking) flatMap { blocking =>
                     processor.hook(
                       userConfig withinLimits ctx.me,
@@ -148,7 +148,7 @@ final class Setup(
 
   def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
-      PostRateLimit(ctx.ip, rateLimitedFu):
+      PostRateLimit(ctx.ip, rateLimited):
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo game gameId): game =>
             for
@@ -195,7 +195,7 @@ final class Setup(
                   config.fixColor
                     .hook(reqSri | Sri(uniqId), ctx.me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
                     case Left(hook) =>
-                      PostRateLimit(req.ipAddress, rateLimitedFu):
+                      PostRateLimit(req.ipAddress, rateLimited):
                         BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
                           env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                         )(apiC.sourceToNdJsonOption)
@@ -222,8 +222,8 @@ final class Setup(
       case Some(v) => Ok.page(html.board.bits.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-    BotAiRateLimit(me, rateLimitedFu, cost = me.isBot so 1):
-      PostRateLimit(req.ipAddress, rateLimitedFu):
+    BotAiRateLimit(me, rateLimited, cost = me.isBot so 1):
+      PostRateLimit(req.ipAddress, rateLimited):
         forms.api.ai
           .bindFromRequest()
           .fold(

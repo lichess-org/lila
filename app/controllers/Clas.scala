@@ -442,7 +442,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 err => BadRequest.page(html.clas.student.release(clas, students, s, err)),
                 email =>
                   val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email)
-                  authC.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimitedFu):
+                  authC.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
                     env.security.emailChange.send(s.user, newUserEmail.email) inject
                       Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess:
                         s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account."

@@ -49,7 +49,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       str: UserStr
   )(f: LightUser => Fu[Result])(using me: Me)(using Context): Fu[Result] =
     Found(env.user.lightUserApi.async(str.id)): user =>
-      FollowLimitPerUser(me, rateLimitedFu):
+      FollowLimitPerUser(me, rateLimited):
         f(user)
 
   def follow(username: UserStr) = Auth { ctx ?=> me ?=>

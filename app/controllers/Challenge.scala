@@ -262,7 +262,7 @@ final class Challenge(
           .fold(
             _ => NoContent,
             username =>
-              ChallengeIpRateLimit(ctx.ip, rateLimitedFu):
+              ChallengeIpRateLimit(ctx.ip, rateLimited):
                 env.user.repo byId username flatMap {
                   case None                       => Redirect(routes.Challenge.show(c.id))
                   case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id))
@@ -284,13 +284,13 @@ final class Challenge(
         .fold(
           doubleJsonFormError,
           config =>
-            ChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isApiHog then 0 else 1):
+            ChallengeIpRateLimit(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
               env.user.repo enabledById username flatMap {
                 case None => JsonBadRequest(jsonError(s"No such user: $username"))
                 case Some(destUser) =>
                   val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
-                  BotChallengeIpRateLimit(req.ipAddress, rateLimitedFu, cost = if me.isBot then 1 else 0):
-                    ChallengeUserRateLimit(me, rateLimitedFu, cost = cost):
+                  BotChallengeIpRateLimit(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
+                    ChallengeUserRateLimit(me, rateLimited, cost = cost):
                       val challenge = makeOauthChallenge(config, me, destUser)
                       config.acceptByToken match
                         case Some(strToken) =>
@@ -371,7 +371,7 @@ final class Challenge(
       .fold(
         jsonFormError,
         config =>
-          ChallengeIpRateLimit(req.ipAddress, rateLimitedFu):
+          ChallengeIpRateLimit(req.ipAddress, rateLimited):
             import lila.challenge.Challenge.*
             env.challenge.api
               .createOpen(config)

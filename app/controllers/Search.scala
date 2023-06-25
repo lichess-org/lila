@@ -43,7 +43,7 @@ final class Search(env: Env) extends LilaController(env):
                   message = "Please only send one request at a time per IP address"
                 )
               TooManyRequests.page(html.search.index(form, none, nbGames))
-            SearchRateLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
+            SearchRateLimitPerIP(ctx.ip, rateLimited, cost = cost):
               SearchConcurrencyLimitPerIP(ctx.ip, limited = limited):
                 searchForm
                   .bindFromRequest()

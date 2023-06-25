@@ -222,7 +222,7 @@ final class Team(
     maxConcurrency = 1
   )
   def create = AuthBody { ctx ?=> me ?=>
-    OneAtATime(me, rateLimitedFu):
+    OneAtATime(me, rateLimited):
       LimitPerWeek:
         JoinLimit(tooManyTeamsHtml):
           forms.create
@@ -263,7 +263,7 @@ final class Team(
 
   def join(id: TeamId) = AuthOrScopedBody(_.Team.Write) { ctx ?=> me ?=>
     Found(api.teamEnabled(id)): team =>
-      OneAtATime(me, rateLimitedFu):
+      OneAtATime(me, rateLimited):
         JoinLimit(negotiate(tooManyTeamsHtml, tooManyTeamsJson)):
           negotiate(
             html = webJoin(team, request = none, password = none),
@@ -304,7 +304,7 @@ final class Team(
 
   def requestCreate(id: TeamId) = AuthBody { ctx ?=> me ?=>
     Found(api.requestable(id)): team =>
-      OneAtATime(me, rateLimitedFu):
+      OneAtATime(me, rateLimited):
         JoinLimit(tooManyTeamsHtml):
           forms
             .request(team)

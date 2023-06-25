@@ -98,15 +98,13 @@ final class Analyse(
     InEmbedContext:
       env.api.textLpvExpand.getPgn(gameId) map {
         case Some(pgn) =>
-          render {
+          render:
             case AcceptsPgn() => Ok(pgn)
             case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
-          }.enableSharedArrayBuffer
         case _ =>
-          render {
+          render:
             case AcceptsPgn() => NotFound("*")
             case _            => NotFound(html.analyse.embed.notFound)
-          }
       }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using

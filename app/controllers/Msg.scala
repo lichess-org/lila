@@ -64,7 +64,9 @@ final class Msg(env: Env) extends LilaController(env):
   def apiPost(username: UserStr) = AuthOrScopedBody(_.Msg.Write) { ctx ?=> me ?=>
     val userId = username.id
     if ctx.isWebAuth then // compat: reply
-      env.msg.compat.reply(userId).fold(doubleJsonFormError, _ inject Ok(Json.obj("ok" -> true, "id" -> userId)))
+      env.msg.compat
+        .reply(userId)
+        .fold(doubleJsonFormError, _ inject Ok(Json.obj("ok" -> true, "id" -> userId)))
     else // new API: create/reply
       (!me.kid && !me.is(userId)).so:
         env.msg.textForm
@@ -72,9 +74,9 @@ final class Msg(env: Env) extends LilaController(env):
           .fold(
             doubleJsonFormError,
             text =>
-              env.msg.api.post(me, userId, text) map {
+              env.msg.api.post(me, userId, text) flatMap {
                 case lila.msg.MsgApi.PostResult.Success => jsonOkResult
-                case lila.msg.MsgApi.PostResult.Limited => rateLimitedJson
+                case lila.msg.MsgApi.PostResult.Limited => rateLimited
                 case _                                  => BadRequest(jsonError("The message was rejected"))
               }
           )

@@ -394,8 +394,8 @@ final class Study(
 
   def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
     val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
-    CloneLimitPerUser(me, rateLimitedFu, cost = cost):
-      CloneLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
+    CloneLimitPerUser(me, rateLimited, cost = cost):
+      CloneLimitPerIP(ctx.ip, rateLimited, cost = cost):
         Found(env.study.api.byId(id)) { prev =>
           CanView(prev) {
             env.study.api.clone(me, prev) map { study =>
@@ -412,7 +412,7 @@ final class Study(
   )
 
   def pgn(id: StudyId) = Open:
-    PgnRateLimitPerIp(ctx.ip, rateLimitedFu, msg = id):
+    PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
       Found(env.study.api byId id): study =>
         CanView(study) {
           doPgn(study)
