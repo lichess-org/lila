@@ -214,7 +214,7 @@ final class Auth(
     env.pref.api.saveNewUserPrefs(user, ctx.req)
 
   private def garbageCollect(user: UserModel)(email: EmailAddress)(using ctx: Context) =
-    env.security.garbageCollector.delay(user, email, ctx.req)
+    env.security.garbageCollector.delay(user, email, ctx.req, quickly = lila.api.AnnounceStore.get.isDefined)
 
   def checkYourEmail = Open:
     RedirectToProfileIfLoggedIn:
