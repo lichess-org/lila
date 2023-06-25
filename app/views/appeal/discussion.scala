@@ -95,17 +95,18 @@ object discussion:
         )
       ),
       as.toOption.map(user => h2(renderMark(user))),
-      as.left.toOption map { m =>
+      as.left.toOption.map: m =>
+        given RenderIp = m.renderIp
         frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(using ctx, m.renderIp)(
+          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(
             cls := "mod-zone communication__logins"
           )
         )
-      },
+      ,
       standardFlash,
       div(cls := "body")(
-        appeal.msgs.map { msg =>
+        appeal.msgs.map: msg =>
           div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
               renderUser(appeal, msg.by, as.isLeft),
@@ -113,8 +114,7 @@ object discussion:
               else momentFromNowServer(msg.at)
             ),
             div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
-          )
-        },
+          ),
         as.left
           .exists(_.markedByMe) option div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
           "You have marked this user. Appeal should be handled by another moderator"

@@ -33,9 +33,8 @@ object communication:
         cssTag("mod.communication"),
         isGranted(_.UserModView) option cssTag("mod.user")
       ),
-      moreJs = frag(
+      moreJs = frag:
         isGranted(_.UserModView) option jsModule("mod.user")
-      )
     ) {
       main(id := "communication", cls := "box box-pad")(
         boxTop(
@@ -63,14 +62,14 @@ object communication:
         ),
         isGranted(_.UserModView) option frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(mod, u, logins, appeals)(using ctx, renderIp)(
+          views.html.user.mod.otherUsers(mod, u, logins, appeals)(
             cls := "mod-zone communication__logins"
           )
         ),
         history.nonEmpty option frag(
           h2("Moderation history"),
           div(cls := "history")(
-            history.map { e =>
+            history.map: e =>
               div(
                 userIdLink(e.mod.userId.some),
                 " ",
@@ -82,13 +81,12 @@ object communication:
                 " ",
                 momentFromNowServer(e.date)
               )
-            }
           )
         ),
         notes.nonEmpty option frag(
           h2("Notes from other users"),
           div(cls := "notes")(
-            notes.map { note =>
+            notes.map: note =>
               (isGranted(_.Admin) || !note.dox) option
                 div(
                   userIdLink(note.from.some),
@@ -97,34 +95,32 @@ object communication:
                   ": ",
                   richText(note.text)
                 )
-            }
           )
         ),
         h2("Dubious public chats"),
         if (publicLines.isEmpty) strong("None!")
         else
           ul(cls := "public_chats")(
-            publicLines.reverse.map { line =>
+            publicLines.reverse.map: line =>
               li(cls := "line author")(
                 line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
-                line.from.map {
+                line.from.map:
                   case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
                   case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
                   case PublicSource.Swiss(id)   => views.html.swiss.bits.link(SwissId(id))
-                },
+                ,
                 nbsp,
                 span(cls := "message")(highlightBad(line.text))
               )
-            }
           ),
         priv option frag(
           h2("Recent private chats"),
           div(cls := "player_chats")(
-            players.map { case (pov, chat) =>
+            players.map: (pov, chat) =>
               div(cls := "game")(
                 a(
                   href := routes.Round.player(pov.fullId),
@@ -139,7 +135,7 @@ object communication:
                   momentFromNowServer(pov.game.movedAt)
                 ),
                 div(cls := "chat")(
-                  chat.lines.map { line =>
+                  chat.lines.map: line =>
                     div(
                       cls := List(
                         "line"   -> true,
@@ -150,14 +146,12 @@ object communication:
                       nbsp,
                       span(cls := "message")(highlightBad(line.text))
                     )
-                  }
                 )
               )
-            }
           ),
           div(cls := "threads")(
             h2("Recent inbox messages"),
-            convos.map { modConvo =>
+            convos.map: modConvo =>
               div(cls := "thread")(
                 p(cls := "title")(
                   strong(userLink(modConvo.contact)),
@@ -172,18 +166,16 @@ object communication:
                     modConvo.truncated option div(cls := "truncated-convo")(
                       s"Truncated, showing last ${modConvo.msgs.length} messages"
                     ),
-                    modConvo.msgs.reverse.map { msg =>
+                    modConvo.msgs.reverse.map: msg =>
                       val author = msg.user == u.id
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowServer(msg.date)),
                         td(strong(if (author) u.username else modConvo.contact.username)),
                         td(cls := "message")(highlightBad(msg.text))
                       )
-                    }
                   )
                 )
               )
-            }
           )
         )
       )
