@@ -52,41 +52,26 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       FollowLimitPerUser(me, rateLimited):
         f(user)
 
-  def follow(username: UserStr) = Auth { ctx ?=> me ?=>
+  def follow(username: UserStr) = AuthOrScoped(_.Follow.Write) { ctx ?=> me ?=>
     FollowingUser(username): user =>
       api.reachedMaxFollowing(me) flatMap {
         if _ then
-          env.msg.api
-            .postPreset(
-              me,
-              lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
-            ) inject Ok
-        else api.follow(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+          val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
+          env.msg.api.postPreset(me, msg) >> rateLimited(msg.name)
+        else
+          api.follow(me, user.id).recoverDefault >> negotiate(
+            renderActions(user.name, getBool("mini")),
+            jsonOkResult
+          )
       }
   }
 
-  def apiFollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me ?=>
-    FollowLimitPerUser(me, fuccess(ApiResult.Limited)):
-      api
-        .reachedMaxFollowing(me)
-        .flatMap:
-          if _ then
-            fuccess:
-              ApiResult.ClientError:
-                lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value).text
-          else api.follow(me, userId.id).recoverDefault inject ApiResult.Done
-    .map(apiC.toHttp)
-  }
-
-  def unfollow(username: UserStr) = Auth { ctx ?=> me ?=>
+  def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write) { ctx ?=> me ?=>
     FollowingUser(username): user =>
-      api.unfollow(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
-  }
-
-  def apiUnfollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me ?=>
-    FollowLimitPerUser(me, fuccess(ApiResult.Limited)):
-      api.unfollow(me, userId.id) inject ApiResult.Done
-    .map(apiC.toHttp)
+      api.unfollow(me, user.id).recoverDefault >> negotiate(
+        renderActions(user.name, getBool("mini")),
+        jsonOkResult
+      )
   }
 
   def block(username: UserStr) = Auth { ctx ?=> me ?=>
