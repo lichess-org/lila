@@ -59,10 +59,9 @@ final class Env(
               .take(keep)
               .map(_._1)
 
-  lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, v) =>
-    api.setShadowban(userId, v) >>
-      rank.recomputeRankOfAllPostsOfBlog(UblogBlog.Id.User(userId))
-    ()
-  }
+  lila.common.Bus.subscribeFun("shadowban"):
+    case lila.hub.actorApi.mod.Shadowban(userId, v) =>
+      api.setShadowban(userId, v) >>
+        rank.recomputeRankOfAllPostsOfBlog(UblogBlog.Id.User(userId))
 
 final private class UblogColls(val blog: Coll, val post: Coll)
