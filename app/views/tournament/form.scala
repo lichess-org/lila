@@ -25,15 +25,13 @@ object form:
             if (fields.isTeamBattle) trans.arena.newTeamBattle()
             else trans.createANewTournament()
           ),
-          postForm(cls := "form3", action := routes.Tournament.create)(
+          postForm(cls := "form3", action := routes.Tournament.webCreate)(
             div(cls := "form-group")(
               a(
                 dataIcon := licon.InfoCircle,
                 cls      := "text",
                 href     := routes.ContentPage.loneBookmark("event-tips")
-              )(
-                trans.ourEventTips()
-              )
+              )(trans.ourEventTips())
             ),
             form3.globalError(form),
             fields.name,

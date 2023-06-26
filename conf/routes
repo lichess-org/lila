@@ -339,7 +339,7 @@ GET   /round/help                                controllers.Round.help
 GET   /tournament                             controllers.Tournament.home
 GET   /tournament/featured                    controllers.Tournament.featured
 GET   /tournament/new                         controllers.Tournament.form
-POST  /tournament/new                         controllers.Tournament.create
+POST  /tournament/new                         controllers.Tournament.webCreate
 GET   /tournament/team-battle/new/:teamId     controllers.Tournament.teamBattleForm(teamId)
 GET   /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleEdit(id)
 POST  /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleUpdate(id)
