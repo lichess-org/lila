@@ -669,6 +669,7 @@ export default class RoundController {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) li.sound.berserk();
     this.redraw();
+    $('<i data-icon="`">').appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
   setLoading = (v: boolean, duration: number = 1500) => {
