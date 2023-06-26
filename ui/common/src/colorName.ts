@@ -1,3 +1,5 @@
+import { capitalize } from './string';
+
 export const enum ColorName {
   Lang,
   SenteJP,
@@ -9,7 +11,7 @@ const colorNamePref = parseInt(document.body.dataset.colorName || '0');
 
 export function transWithColorName(trans: Trans, key: I18nKey, color: Color, isHandicap: boolean): string {
   const res = trans(key, colorName(trans.noarg, color, isHandicap));
-  return capitalizeFirstLetter(res);
+  return capitalize(res);
 }
 
 export function colorName(noarg: TransNoArg, color: Color, isHandicap: boolean): string {
@@ -40,8 +42,4 @@ export function handicapColorName(noarg: TransNoArg, color: Color): string {
     default:
       return color === 'sente' ? noarg('shitate') : noarg('uwate');
   }
-}
-
-function capitalizeFirstLetter(str: string) {
-  return str.charAt(0).toLocaleUpperCase() + str.slice(1).toLocaleLowerCase();
 }
