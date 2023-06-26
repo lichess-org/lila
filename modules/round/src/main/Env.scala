@@ -111,9 +111,10 @@ final class Env(
   lazy val onStart: OnStart = new OnStart((gameId: Game.ID) =>
     proxyRepo game gameId foreach {
       _ foreach { game =>
-        Bus.publish(lila.game.actorApi.StartGame(game), "startGame")
+        val sg = lila.game.actorApi.StartGame(game)
+        Bus.publish(sg, "startGame")
         game.userIds foreach { userId =>
-          Bus.publish(lila.game.actorApi.StartGame(game), s"userStartGame:$userId")
+          Bus.publish(sg, s"userStartGame:$userId")
         }
       }
     }

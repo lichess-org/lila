@@ -14,7 +14,7 @@ final class Tv(
     gameC: => Game
 ) extends LilaController(env) {
 
-  def index = onChannel(lila.tv.Tv.Channel.Best.key)
+  def index = onChannel(lila.tv.Tv.Channel.Standard.key)
 
   def onChannel(chanKey: String) = {
     Open { implicit ctx =>
@@ -36,7 +36,7 @@ final class Tv(
       import play.api.libs.json._
       implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
       env.tv.tv.getChampions map {
-        _.channels map { case (chan, champ) => chan.name -> champ }
+        _.channels map { case (chan, champ) => chan.key -> champ }
       } map { Json.toJson(_) } dmap Api.Data.apply
     }
   }
@@ -59,12 +59,12 @@ final class Tv(
     }
   }
 
-  def games = gamesChannel(lila.tv.Tv.Channel.Best.key)
+  def games = gamesChannel(lila.tv.Tv.Channel.Standard.key)
 
   def gamesChannel(chanKey: String) =
     Open { implicit ctx =>
       lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
-        env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map { case (champs, games) =>
+        env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 12) map { case (champs, games) =>
           Ok(html.tv.games(channel, games map Pov.first, champs)).noCache
         }
       }

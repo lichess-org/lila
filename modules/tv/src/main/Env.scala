@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 final class Env(
     gameRepo: lila.game.GameRepo,
     renderer: lila.hub.actors.Renderer,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     gameProxyRepo: lila.round.GameProxyRepo,
     system: ActorSystem,
     recentTvGames: lila.round.RecentTvGames,
@@ -19,7 +19,7 @@ final class Env(
 
   lazy val tv = wire[Tv]
 
-  system.scheduler.scheduleWithFixedDelay(12 seconds, 3 seconds) { () =>
+  system.scheduler.scheduleWithFixedDelay(12 seconds, 5 seconds) { () =>
     tvTrouper ! TvTrouper.Select
   }
 }

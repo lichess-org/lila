@@ -585,11 +585,6 @@ case class Game(
   def isKifImport      = notationImport.fold(false)(_.isKif)
   def isCsaImport      = notationImport.fold(false)(_.isCsa)
 
-  def resetPlies =
-    copy(
-      shogi = shogi.copy(plies = 0, startedAtPly = 0)
-    )
-
   def synthetic = id == Game.syntheticId
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap f

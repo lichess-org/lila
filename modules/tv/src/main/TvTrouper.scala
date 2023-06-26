@@ -5,13 +5,13 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.common.{ Bus, LightUser }
+import lila.common.Bus
 import lila.game.Game
 import lila.hub.Trouper
 
 final private[tv] class TvTrouper(
     renderer: lila.hub.actors.Renderer,
-    lightUser: LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
     rematches: lila.game.Rematches
@@ -47,9 +47,10 @@ final private[tv] class TvTrouper(
 
     case lila.game.actorApi.StartGame(g) =>
       if (g.hasClock) {
-        val candidate = Tv.toCandidate(lightUser)(g)
+        val nbOfBots  = g.userIds.count(lightUserApi.isBotSync)
+        val candidate = Tv.Candidate(g, hasBot = nbOfBots > 0, hasHuman = nbOfBots == 0 || (nbOfBots == 1 && !g.hasAi))
         channelTroupers collect {
-          case (chan, trouper) if chan filter candidate => trouper
+          case (chan, trouper) if chan.filter(candidate) => trouper
         } foreach (_ addCandidate g)
       }
 
@@ -58,8 +59,10 @@ final private[tv] class TvTrouper(
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
       import cats.implicits._
-      val player = game.firstPlayer
-      val user   = player.userId flatMap lightUser
+      val player = game.players.sortBy { p =>
+        (channel.key == "computer" || p.userId.fold(true)(uid => !lightUserApi.isBotSync(uid))) ?? ~p.rating
+      }.lastOption | game.firstPlayer
+      val user = player.userId flatMap lightUserApi.sync
       (user, player.rating) mapN { (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
@@ -77,7 +80,7 @@ final private[tv] class TvTrouper(
         }
       )
       Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
-      if (channel == Tv.Channel.Best) {
+      if (channel == Tv.Channel.Standard) {
         implicit def timeout = makeTimeout(100 millis)
         actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game)) foreach { case html: String =>
           val event = lila.hub.actorApi.game.ChangeFeatured(

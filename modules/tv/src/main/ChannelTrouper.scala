@@ -26,7 +26,7 @@ final private[tv] class ChannelTrouper(
   // the list of candidates by descending rating order
   private var manyIds = List.empty[Game.ID]
 
-  private val candidateIds = new lila.memo.ExpireSetMemo(3 minutes)
+  private val candidateIds = new lila.memo.ExpireSetMemo(20 minutes)
 
   protected val process: Trouper.Receive = {
 
@@ -47,16 +47,16 @@ final private[tv] class ChannelTrouper(
         .map(
           _.view
             .collect {
-              case Some(g) if channel isFresh g => g
+              case Some(g) if isActive(g) => g
             }
             .toList
         )
         .foreach { candidates =>
           oneId ?? proxyGame foreach {
-            case Some(current) if channel isFresh current =>
-              fuccess(wayBetter(current, candidates)) orElse rematch(current) foreach elect
-            case Some(current) => rematch(current) orElse fuccess(bestOf(candidates)) foreach elect
-            case _             => elect(bestOf(candidates))
+            case Some(game) if isActive(game) && !game.olderThan(5 * 60) =>
+              fuccess(wayBetter(game, candidates)) orElse rematch(game) foreach elect
+            case Some(game) => rematch(game) orElse fuccess(bestOf(candidates)) foreach elect
+            case _          => elect(bestOf(candidates))
           }
           manyIds = candidates
             .sortBy { g =>
@@ -74,39 +74,48 @@ final private[tv] class ChannelTrouper(
   private def wayBetter(game: Game, candidates: List[Game]) =
     bestOf(candidates) filter { isWayBetter(game, _) }
 
-  private def isWayBetter(g1: Game, g2: Game) = score(g2.resetPlies) > (score(g1.resetPlies) * 1.17)
+  private def isWayBetter(g1: Game, g2: Game) = score(g2) > (score(g1) * 1.17)
 
   private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id) ?? proxyGame
 
-  private def bestOf(candidates: List[Game]) =
-    candidates sortBy { -score(_) } headOption
+  private def bestOf(candidates: List[Game]) = {
+    import cats.implicits._
+    candidates.maximumByOption(score)
+  }
 
   private def score(game: Game): Int =
-    math.round {
-      (heuristics map { case (fn, coefficient) =>
-        heuristicBox(fn(game)) * coefficient
-      }).sum * 1000
+    heuristics.foldLeft(0) { case (score, fn) =>
+      score + fn(game)
     }
 
-  private type Heuristic = Game => Float
-  private val heuristicBox = box(0 to 1) _
-  private val ratingBox    = box(1000 to 2700) _
-  private val turnBox      = box(1 to 25) _
+  private def isActive(game: Game): Boolean =
+    game.onePlayerHasMoved && (game.isBeingPlayed || (game.finished && !game.olderThan(20)))
 
-  private val heuristics: List[(Heuristic, Float)] = List(
-    ratingHeuristic(Color.Sente) -> 1.2f,
-    ratingHeuristic(Color.Gote)  -> 1.2f,
-    progressHeuristic            -> 0.7f
+  private type Heuristic = Game => Int
+
+  private val heuristics: List[Heuristic] = List(
+    ratingHeuristic(Color.Sente),
+    ratingHeuristic(Color.Gote),
+    speedHeuristic,
+    sourceHeuristic
   )
 
   private def ratingHeuristic(color: Color): Heuristic =
-    game => ratingBox(game.player(color).rating.fold(1400f)(_.toFloat))
+    game => game.player(color).stableRating | 1250
 
-  private def progressHeuristic: Heuristic = game => 1 - turnBox(game.plies.toFloat)
+  // prefer faster games - better for watching
+  private def speedHeuristic: Heuristic =
+    game => ~game.estimateClockTotalTime.map(ct => ((1000 - ct) / 5) atLeast 0)
 
-  // boxes and reduces to 0..1 range
-  private def box(in: Range.Inclusive)(v: Float): Float =
-    (math.max(in.start.toFloat, math.min(v, in.end.toFloat)) - in.start) / (in.end - in.start).toFloat
+  //
+  private def sourceHeuristic: Heuristic =
+    game => {
+      if (game.source.contains(lila.game.Source.Api)) 0
+      else if (game.source.contains(lila.game.Source.Ai)) 125
+      else if (game.source.contains(lila.game.Source.Friend)) 250
+      else 1000
+    }
+
 }
 
 object ChannelTrouper {

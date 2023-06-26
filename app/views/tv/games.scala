@@ -10,7 +10,7 @@ object games {
       ctx: Context
   ) =
     views.html.base.layout(
-      title = s"${channel.name} - ${trans.currentGames.txt()}",
+      title = s"${transKeyTxt(channel.key)} - ${trans.currentGames.txt()}",
       moreCss = cssTag("tv.games")
     ) {
       main(cls := "page-menu tv-games")(

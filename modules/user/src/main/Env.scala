@@ -8,7 +8,6 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.LightUser
 import lila.db.dsl.Coll
 
 private class UserConfig(
@@ -42,7 +41,7 @@ final class Env(
   val lightUserApi: LightUserApi = wire[LightUserApi]
   val lightUser                  = lightUserApi.async
   val lightUserSync              = lightUserApi.sync
-  val isBotSync                  = new LightUser.IsBotSync(id => lightUserApi.sync(id).exists(_.isBot))
+  val isBotSync                  = lightUserApi.isBotSync
 
   lazy val botIds = new GetBotIds(() => cached.botIds.get {})
 

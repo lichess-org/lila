@@ -4,6 +4,8 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
+import play.api.i18n.Lang
+
 import controllers.routes
 
 object side {
@@ -12,7 +14,7 @@ object side {
       channel: lila.tv.Tv.Channel,
       champions: lila.tv.Tv.Champions,
       baseUrl: String
-  ): Frag =
+  )(implicit lang: Lang): Frag =
     div(cls := "tv-channels subnav")(
       lila.tv.Tv.Channel.all.map { c =>
         a(
@@ -25,7 +27,7 @@ object side {
         )(
           span(dataIcon := c.icon)(
             span(
-              strong(c.name),
+              strong(transKeyTxt(c.key)),
               span(cls := "champion")(
                 champions.get(c).fold[Frag](raw(" - ")) { p =>
                   frag(
