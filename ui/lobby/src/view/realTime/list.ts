@@ -5,6 +5,7 @@ import LobbyController from '../../ctrl';
 import * as hookRepo from '../../hookRepo';
 import { Hook } from '../../interfaces';
 import { tds } from '../util';
+import { capitalize } from 'common/string';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
   const noarg = ctrl.trans.noarg;
@@ -12,9 +13,13 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     'tr.hook.' + hook.action,
     {
       key: hook.id,
-      class: { disabled: hook.disabled },
+      class: { disabled: !!hook.disabled },
       attrs: {
-        title: hook.disabled ? '' : hook.action === 'join' ? noarg('joinTheGame') + ' | ' + hook.perf : noarg('cancel'),
+        title: hook.disabled
+          ? ''
+          : hook.action === 'join'
+          ? noarg('joinTheGame') + ' | ' + capitalize(noarg((hook.perf || '') as I18nKey))
+          : noarg('cancel'),
         'data-id': hook.id,
       },
     },
@@ -34,7 +39,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       h(
         'span',
         {
-          attrs: { 'data-icon': getPerfIcon(hook.perf) || getPerfIcon(hook.variant)! },
+          attrs: { ...(hook.perf ? { 'data-icon': getPerfIcon(hook.perf) } : null) },
         },
         noarg(hook.ra ? 'rated' : 'casual')
       ),
@@ -42,17 +47,17 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
   );
 }
 
-function isStandard(value) {
-  return function (hook) {
+function isStandard(value: boolean) {
+  return function (hook: Hook) {
     return (hook.variant === 'standard') === value;
   };
 }
 
-function isMine(hook) {
+function isMine(hook: Hook) {
   return hook.action === 'cancel';
 }
 
-function isNotMine(hook) {
+function isNotMine(hook: Hook) {
   return !isMine(hook);
 }
 

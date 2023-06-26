@@ -10,7 +10,7 @@ function storageKey(key) {
   return 'lobby.variant.' + key;
 }
 
-export default function (variant: string) {
+export default function (variant: VariantKey) {
   return Object.keys(variantConfirms).every(function (key) {
     const v = variantConfirms[key];
     if (variant === key && !window.lishogi.storage.get(storageKey(key))) {

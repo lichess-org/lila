@@ -33,7 +33,7 @@ export default class LobbySocket {
         ctrl.redraw();
       },
       hli(ids: string) {
-        hookRepo.syncIds(ctrl, ids.match(/.{8}/g));
+        hookRepo.syncIds(ctrl, ids.match(/.{8}/g) || []);
         ctrl.redraw();
       },
       reload_seeks() {

@@ -16,7 +16,6 @@ import lila.rating.RatingRange
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
 import lila.user.User
-import lila.i18n.defaultLang
 
 case class LobbyCounters(members: Int, rounds: Int)
 
@@ -77,7 +76,7 @@ final class LobbySocket(
             hookSubscriberSris diff idleSris filter { sri =>
               members get sri exists { biter.showHookTo(hook, _) }
             } map Sri.apply,
-            makeMessage("had", hook.render(defaultLang))
+            makeMessage("had", hook.render)
           )
         )
 
@@ -114,7 +113,7 @@ final class LobbySocket(
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
         send(
-          P.Out.tellSri(member.sri, makeMessage("hooks", JsArray(hooks.map(_.render(defaultLang)))))
+          P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render)))
         )
         hookSubscriberSris += member.sri.value
     }

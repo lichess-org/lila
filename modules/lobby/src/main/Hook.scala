@@ -2,7 +2,6 @@ package lila.lobby
 
 import shogi.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
-import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.game.PerfPicker
@@ -60,7 +59,7 @@ case class Hook(
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
   def rating: Option[Int]          = perf.map(_.rating)
 
-  def render(implicit lang: Lang): JsObject =
+  def render: JsObject =
     Json
       .obj(
         "id"    -> id,
@@ -78,7 +77,7 @@ case class Hook(
       .add("variant" -> (!realVariant.standard).option(realVariant.key))
       .add("ra" -> realMode.rated.option(1))
       .add("c" -> shogi.Color.fromName(color).map(_.name))
-      .add("perf" -> perfType.map(_.trans))
+      .add("perf" -> perfType.map(_.key))
 
   def randomColor = color == "random"
 

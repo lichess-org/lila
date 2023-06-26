@@ -1,3 +1,5 @@
+export function getPerfIcon(key: Perf): string;
+export function getPerfIcon(key: string): string | undefined;
 export function getPerfIcon(key: string): string | undefined {
   return perfIcons[key.toLowerCase()];
 }

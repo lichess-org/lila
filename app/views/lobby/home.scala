@@ -218,6 +218,8 @@ object home {
     trans.chushogi,
     trans.annanshogi,
     trans.kyotoshogi,
+    trans.rapid,
+    trans.classical,
     trans.mode,
     trans.list,
     trans.graph,

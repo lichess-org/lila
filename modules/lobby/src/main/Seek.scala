@@ -3,7 +3,6 @@ package lila.lobby
 import shogi.{ Mode, Speed }
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.i18n.Lang
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange
@@ -48,24 +47,21 @@ case class Seek(
 
   def rating = perf.map(_.rating)
 
-  def render(implicit lang: Lang): JsObject =
+  def render: JsObject =
     Json
       .obj(
         "id"       -> _id,
         "username" -> user.username,
         "rating"   -> rating,
-        "variant" -> Json.obj(
-          "key"  -> realVariant.key,
-          "name" -> realVariant.name
-        ),
-        "mode"  -> realMode.id,
-        "days"  -> daysPerTurn,
-        "color" -> shogi.Color.fromName(color).??(_.name),
-        "perf" -> Json.obj(
-          "icon" -> perfType.map(_.iconChar.toString),
-          "name" -> perfType.map(_.trans)
-        )
+        "mode"     -> realMode.id
       )
+      .add(
+        "color",
+        shogi.Color.fromName(color).map(_.name)
+      )
+      .add("days", daysPerTurn)
+      .add("variant" -> (!realVariant.standard).option(realVariant.key))
+      .add("perf", perfType.map(_.key))
       .add("provisional" -> perf.map(_.provisional).filter(identity))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
