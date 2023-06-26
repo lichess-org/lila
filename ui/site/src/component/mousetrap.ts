@@ -147,14 +147,14 @@ const characterFromEvent = (e: KeyboardEvent): string => {
   // come in as an uppercase character whether you are pressing shift
   // or not.  we should make sure it is always lowercase for comparisons
   return MAP[e.which] || KEYCODE_MAP[e.which] || String.fromCharCode(e.which).toLowerCase();
-}
+};
 
 /**
  * checks if two arrays are equal
  */
 const modifiersMatch = (modifiers1: string[], modifiers2: string[]): boolean => {
   return modifiers1.sort().join(',') === modifiers2.sort().join(',');
-}
+};
 
 /**
  * takes a key event and figures out what the modifiers are
@@ -166,14 +166,14 @@ const eventModifiers = (e: KeyboardEvent): string[] => {
   if (e.ctrlKey) modifiers.push('ctrl');
   if (e.metaKey) modifiers.push('meta');
   return modifiers;
-}
+};
 
 /**
  * determines if the keycode specified is a modifier key or not
  */
 const isModifier = (key: string): boolean => {
   return key == 'shift' || key == 'ctrl' || key == 'alt' || key == 'meta';
-}
+};
 
 /**
  * reverses the map lookup so that we can look for specific keys
@@ -181,10 +181,10 @@ const isModifier = (key: string): boolean => {
  */
 const getReverseMap = (() => {
   /**
-  * variable to store the flipped version of MAP from above
-  * needed to check if we should use keypress or not when no action
-  * is specified
-  */
+   * variable to store the flipped version of MAP from above
+   * needed to check if we should use keypress or not when no action
+   * is specified
+   */
   let REVERSE_MAP: Record<string, string> | undefined;
 
   return () => {
@@ -203,7 +203,7 @@ const getReverseMap = (() => {
       }
     }
     return REVERSE_MAP;
-  }
+  };
 })();
 
 /**
@@ -223,7 +223,7 @@ const pickBestAction = (key: string, modifiers: string[], action?: Action): Acti
   }
 
   return action;
-}
+};
 
 /**
  * Converts from a string key combination to an array
@@ -235,7 +235,7 @@ const keysFromString = (combination: string): string[] => {
 
   combination = combination.replace(/\+{2}/g, '+plus');
   return combination.split('+');
-}
+};
 
 /**
  * Gets info for a specific key combination
@@ -261,7 +261,7 @@ const getKeyInfo = (combination: string, action?: Action): KeyInfo => {
     modifiers,
     action: pickBestAction(key!, modifiers, action), // depending on what the key combination is we will try to pick the best event for it
   };
-}
+};
 
 export default class Mousetrap {
   /**
@@ -282,11 +282,7 @@ export default class Mousetrap {
    * finds all callbacks that match based on the keycode, modifiers,
    * and action
    */
-  private getMatches(
-    character: string,
-    modifiers: string[],
-    e: Partial<KeyboardEvent>,
-  ): CallbackEntry[] {
+  private getMatches(character: string, modifiers: string[], e: Partial<KeyboardEvent>): CallbackEntry[] {
     const action = e.type;
 
     // if there are no events related to this keycode
@@ -299,21 +295,20 @@ export default class Mousetrap {
       modifiers = [character];
     }
 
-    return this.callbacks[character].filter(callback =>
-      // if the action we are looking for doesn't match the action we got
-      // then we should keep going
-      action == callback.action &&
-      // if this is a keypress event and the meta key and control key
-      // are not pressed that means that we need to only look at the
-      // character, otherwise check the modifiers as well
-      //
-      // chrome will not fire a keypress if meta or control is down
-      // safari will fire a keypress if meta or meta+shift is down
-      // firefox will fire a keypress if meta or control is down
-      (
-        (action == 'keypress' && !e.metaKey && !e.ctrlKey) ||
-        modifiersMatch(modifiers, callback.modifiers)
-      ));
+    return this.callbacks[character].filter(
+      callback =>
+        // if the action we are looking for doesn't match the action we got
+        // then we should keep going
+        action == callback.action &&
+        // if this is a keypress event and the meta key and control key
+        // are not pressed that means that we need to only look at the
+        // character, otherwise check the modifiers as well
+        //
+        // chrome will not fire a keypress if meta or control is down
+        // safari will fire a keypress if meta or meta+shift is down
+        // firefox will fire a keypress if meta or control is down
+        ((action == 'keypress' && !e.metaKey && !e.ctrlKey) || modifiersMatch(modifiers, callback.modifiers))
+    );
   }
 
   /**
@@ -342,7 +337,7 @@ export default class Mousetrap {
 
     // loop through matching callbacks for this key event
     for (const callback of callbacks) {
-        this.fireCallback(callback.callback, e, callback.combo);
+      this.fireCallback(callback.callback, e, callback.combo);
     }
   }
 
@@ -363,17 +358,13 @@ export default class Mousetrap {
       return;
     }
 
-    this.handleKey.call(this, character, eventModifiers(e), e);
+    this.handleKey(character, eventModifiers(e), e);
   }
 
   /**
    * binds a single keyboard combination
    */
-  private bindSingle(
-    combination: string,
-    callback: Callback,
-    action?: Action,
-  ): void {
+  private bindSingle(combination: string, callback: Callback, action?: Action): void {
     const info = getKeyInfo(combination, action);
 
     // make sure to initialize array if this is the first time
@@ -406,7 +397,7 @@ export default class Mousetrap {
    * correct key ends up getting bound (the last key in the pattern)
    */
   bind(keys: string | string[], callback: Callback, action?: Action): Mousetrap {
-    this.bindMultiple.call(this, keys instanceof Array ? keys : [keys], callback, action);
+    this.bindMultiple(keys instanceof Array ? keys : [keys], callback, action);
     return this;
   }
 }
