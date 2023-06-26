@@ -45,6 +45,12 @@ final private class RoundMobileSocket(
         "black"  -> playerJson(Color.Black),
         "socket" -> socket.version
       )
+      .add("expiration" -> game.expirable.option:
+        Json.obj(
+          "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
+          "millisToMove" -> game.timeForFirstMove.millis
+        )
+      )
       .add("clock", game.clock.map(roundJson.clockJson))
       .add("correspondence", game.correspondenceClock)
       .add("youAre", id.playerId.flatMap(game.player(_)).map(_.color))
