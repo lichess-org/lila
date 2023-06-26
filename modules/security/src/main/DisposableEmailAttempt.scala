@@ -37,11 +37,15 @@ final class DisposableEmailAttempt(
 
   def onSuccess(user: User, email: EmailAddress, ip: IpAddress) =
     val attempts = ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)
-    if (
-      attempts.sizeIs > 3 || (
+    if attempts.sizeIs > 3 || (
         attempts.nonEmpty && email.domain.exists(d => !DisposableEmailDomain.whitelisted(d))
       )
-    ) irc.signupAfterTryingDisposableEmail(user, email, attempts.map(_.email))
+    then
+      val dispEmails = attempts.map(_.email)
+      irc.signupAfterTryingDisposableEmail(user, email, dispEmails)
+      logger
+        .branch("disposableEmailAttempt")
+        .info(s"User ${user.id} signed up with $email after trying ${dispEmails.mkString(", ")}")
 
 private object DisposableEmailAttempt:
 
