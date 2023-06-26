@@ -8,9 +8,8 @@ class SwissScoringTest extends munit.FunSuite:
     val rounds     = SwissRoundNumber from (1 to nbRounds).toList
     val pairingMap = SwissPairing.toMap(pairings)
     val sheets     = SwissSheet.many(rounds, players, pairingMap)
-    val withPoints = (players zip sheets).map: (player, sheet) =>
-      player.copy(points = sheet.points)
-    computePlayers(withPoints, pairingMap)
+    val withSheets = players.zip(sheets).map(SwissSheet.OfPlayer.withSheetPoints)
+    computePlayers(SwissRoundNumber(nbRounds), withSheets, pairingMap)
 
   test("empty"):
     assertEquals(compute(1, Nil, Nil), Nil)
@@ -20,10 +19,10 @@ class SwissScoringTest extends munit.FunSuite:
     val pairings = List(
       pairing(1, 'a', 'b', "1-0")
     )
-    compute(1, players, pairings) match
+    compute(1, players, pairings).map(_.pointsAndTieBreak) match
       case List(a, b) =>
-        assertEquals(a.points.value, 1f)
-        assertEquals(b.points.value, 0f)
+        assertEquals(a, (1f, 0f))
+        assertEquals(b, (0f, 0f))
       case _ => fail("expected 2 players")
 
   test("one round, one draw"):
@@ -31,10 +30,10 @@ class SwissScoringTest extends munit.FunSuite:
     val pairings = List(
       pairing(1, 'a', 'b', "1/2-1/2")
     )
-    compute(1, players, pairings) match
+    compute(1, players, pairings).map(_.pointsAndTieBreak) match
       case List(a, b) =>
-        assertEquals(a.points.value, 0.5f)
-        assertEquals(b.points.value, 0.5f)
+        assertEquals(a, (0.5f, 0.25f))
+        assertEquals(b, (0.5f, 0.25f))
       case _ => fail("expected 2 players")
 
   test("two rounds"):
@@ -43,10 +42,10 @@ class SwissScoringTest extends munit.FunSuite:
       pairing(1, 'a', 'b', "1-0"),
       pairing(2, 'b', 'a', "1/2-1/2")
     )
-    compute(2, players, pairings) match
+    compute(2, players, pairings).map(_.pointsAndTieBreak) match
       case List(a, b) =>
-        assertEquals(a.points.value, 1.5f)
-        assertEquals(b.points.value, 0.5f)
+        assertEquals(a, (1.5f, 0.75f))
+        assertEquals(b, (0.5f, 0.75f))
       case _ => fail("expected 2 players")
 
   test("three rounds"):
@@ -56,24 +55,38 @@ class SwissScoringTest extends munit.FunSuite:
       pairing(2, 'b', 'a', "1/2-1/2"),
       pairing(3, 'a', 'b', "1-0")
     )
-    compute(3, players, pairings) match
+    compute(3, players, pairings).map(_.pointsAndTieBreak) match
       case List(a, b) =>
-        assertEquals(a.points.value, 2.5f)
-        assertEquals(b.points.value, 0.5f)
+        assertEquals(a, (2.5f, 1.25f))
+        assertEquals(b, (0.5f, 1.25f))
       case _ => fail("expected 2 players")
 
-  test("three rounds, three players"):
+  test("three rounds, three players, one gets a bye on first round"):
+    val players = List(player('a'), player('b'), player('c', Set(1)))
+    val pairings = List(
+      pairing(1, 'a', 'b', "1-0"),
+      pairing(2, 'c', 'a', "1-0"),
+      pairing(3, 'b', 'c', "1-0")
+    )
+    compute(3, players, pairings).map(_.pointsAndTieBreak) match
+      case List(a, b, c) =>
+        assertEquals(a, (1f, 1f))
+        assertEquals(b, (1f, 2f))
+        assertEquals(c, (2f, 2f))
+      case _ => fail("expected 3 players")
+
+  test("three rounds, three players, three byes"):
     val players = List(player('a', Set(3)), player('b', Set(2)), player('c', Set(1)))
     val pairings = List(
       pairing(1, 'a', 'b', "1-0"),
       pairing(2, 'c', 'a', "1-0"),
       pairing(3, 'b', 'c', "1-0")
     )
-    compute(3, players, pairings) match
+    compute(3, players, pairings).map(_.pointsAndTieBreak) match
       case List(a, b, c) =>
-        assertEquals(a.pointsAndTieBreak, (2f, 2f))
-        assertEquals(b.pointsAndTieBreak, (2f, 2f))
-        assertEquals(c.pointsAndTieBreak, (2f, 2f))
+        assertEquals(a, (2f, 3f))
+        assertEquals(b, (2f, 2.5f))
+        assertEquals(c, (2f, 3f))
       case _ => fail("expected 3 players")
 
   extension (e: SwissPlayer)

@@ -10,11 +10,16 @@ import lila.db.dsl.{ *, given }
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]):
   import SwissSheet.*
 
-  def points = SwissPoints.fromDoubled:
-    outcomes.foldLeft(0): (acc, out) =>
-      acc + pointsFor(out).doubled
+  def points = SwissSheet.pointsFor(outcomes)
+
+  def pointsAfterRound(round: SwissRoundNumber) = SwissSheet.pointsFor(outcomes.take(round.value))
 
 private object SwissSheet:
+
+  case class OfPlayer private (player: SwissPlayer, sheet: SwissSheet)
+  object OfPlayer:
+    def withSheetPoints(player: SwissPlayer, sheet: SwissSheet): OfPlayer =
+      OfPlayer(player.copy(points = sheet.points), sheet)
 
   enum Outcome:
     case Bye
@@ -29,7 +34,11 @@ private object SwissSheet:
 
   import Outcome.*
 
-  def pointsFor(outcome: Outcome) = SwissPoints.fromDoubled:
+  def pointsFor(outcomes: List[Outcome]): SwissPoints = SwissPoints.fromDoubled:
+    outcomes.foldLeft(0): (acc, out) =>
+      acc + pointsFor(out).doubled
+
+  def pointsFor(outcome: Outcome): SwissPoints = SwissPoints.fromDoubled:
     outcome match
       case Win | Bye | ForfeitWin => 2
       case Late | Draw            => 1

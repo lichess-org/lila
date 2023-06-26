@@ -36,8 +36,7 @@ case class Swiss(
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
-  def allRounds: List[SwissRoundNumber]      = SwissRoundNumber from (1 to round.value).toList
-  def finishedRounds: List[SwissRoundNumber] = SwissRoundNumber from (1 until round.value).toList
+  def allRounds: List[SwissRoundNumber] = SwissRoundNumber from (1 to round.value).toList
 
   def startRound =
     copy(
