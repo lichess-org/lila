@@ -37,7 +37,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   };
 
-  if (!ctrl.nvui) {
+  if (!lichess.blindMode) {
     lichess.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
@@ -66,7 +66,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     `<div id="acpl-chart-loader"><span>Stockfish 15.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
 
   function startAdvantageChart() {
-    if (advChart || ctrl.nvui) return;
+    if (advChart || lichess.blindMode) return;
     const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
