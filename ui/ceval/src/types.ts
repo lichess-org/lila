@@ -16,8 +16,10 @@ export interface Config {
 
 export interface Work {
   variant: VariantKey;
-  config: Config;
+  threads: number;
+  hashSize: number;
   stopRequested: boolean;
+
   path: string;
   maxDepth: number;
   multiPv: number;

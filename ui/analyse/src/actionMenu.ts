@@ -295,7 +295,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                             {
                               attrs: {
                                 for: id,
-                                title: ceval.maxThreads <= 1 ? notSupported : 'Page reload required after change',
+                                ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
                               },
                             },
                             noarg('cpus')
@@ -321,8 +321,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                             'label',
                             {
                               attrs: {
-                                title: ceval.maxHashSize <= 16 ? notSupported : 'Page reload required after change',
                                 for: id,
+                                ...(ceval.maxHashSize <= 16 ? { title: notSupported } : null),
                               },
                             },
                             noarg('memory')

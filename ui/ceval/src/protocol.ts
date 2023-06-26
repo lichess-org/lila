@@ -16,6 +16,7 @@ export class Protocol {
   private expectedPvs = 1;
 
   private nextWork: Work | undefined;
+  private reloading = false;
 
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
@@ -30,12 +31,17 @@ export class Protocol {
     this.send('usi');
   }
 
-  private setOption(name: string, value: string | number): void {
+  private setOption(name: string, value: string | number): boolean {
     value = value.toString();
     if (this.send && this.options.get(name) !== value) {
       this.send(`setoption name ${name} value ${value}`);
       this.options.set(name, value);
-    }
+      return true;
+    } else return false;
+  }
+
+  private isReady(): void {
+    if (this.send) this.send('isready');
   }
 
   disconnected(): void {
@@ -53,9 +59,9 @@ export class Protocol {
       this.setOption('USI_Hash', this.config?.hashSize || 16);
       this.setOption('Threads', this.config?.threads || 1);
       this.send?.('usinewgame');
-      this.send?.('isready');
+      this.isReady();
     } else if (parts[0] === 'readyok') {
-      this.swapWork();
+      this.swapWork(this.reloading);
     } else if (parts[0] === 'id' && parts[1] === 'name') {
       this.engineName = parts.slice(2).join(' ');
     } else if (parts[0] === 'bestmove') {
@@ -165,11 +171,15 @@ export class Protocol {
     }
   }
 
-  private swapWork(): void {
-    if (!this.send || this.work) return;
+  private swapWork(reloaded: boolean = false): void {
+    this.reloading = false;
 
-    this.work = this.nextWork;
-    this.nextWork = undefined;
+    if (!this.send || (this.work && !reloaded)) return;
+
+    if (!reloaded || !this.work) {
+      this.work = this.nextWork;
+      this.nextWork = undefined;
+    }
 
     if (this.work) {
       this.currentEval = undefined;
@@ -177,12 +187,20 @@ export class Protocol {
 
       if (this.work.variant !== 'standard') this.setOption('USI_Variant', this.work.variant);
 
+      const threadChange = this.setOption('Threads', this.work.threads || 1),
+        hashChange = this.setOption('USI_Hash', this.work.hashSize || 16);
+      if (threadChange || hashChange) {
+        this.reloading = true;
+        this.isReady();
+        return;
+      }
+
       this.setOption('MultiPV', this.work.multiPv);
+
       const command =
         this.work.variant === 'kyotoshogi'
           ? this.toFairyKyotoFormat(this.work.initialSfen, this.work.moves)
           : ['position sfen', this.work.initialSfen, 'moves', ...this.work.moves].join(' ');
-      console.info(command);
       this.send(command);
       this.send(
         this.work.maxDepth >= 99

@@ -29,7 +29,7 @@ export abstract class AbstractWorker<T> {
 
   start(work: Work): void {
     if (!this.booted) {
-      this.boot(work.config);
+      this.boot({ threads: work.threads, hashSize: work.hashSize });
       this.booted = true;
     }
     this.getProtocol().compute(work);
@@ -125,7 +125,10 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       const protocol = this.getProtocol();
       protocol.config = cfg;
       engine.addMessageListener(protocol.received.bind(protocol));
-      protocol.connected(msg => engine.postMessage(msg));
+      protocol.connected(msg => {
+        // console.log(`Engine <- ${msg}`);
+        engine.postMessage(msg);
+      });
       ThreadedWasmWorker.engine[this.opts.module] = engine;
     }
   }
