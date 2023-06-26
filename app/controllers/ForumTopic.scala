@@ -41,7 +41,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                       html.forum.topic.form(categ, err, _)
                 ,
                 data =>
-                  CreateRateLimit(ctx.ip, rateLimitedFu):
+                  CreateRateLimit(ctx.ip, rateLimited):
                     topicApi.makeTopic(categ, data) map { topic =>
                       Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
                     }

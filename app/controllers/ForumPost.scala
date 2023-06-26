@@ -55,7 +55,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                 ,
                 data =>
                   CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
-                    CreateRateLimit(ctx.ip, rateLimitedFu):
+                    CreateRateLimit(ctx.ip, rateLimited):
                       postApi.makePost(categ, topic, data) map { post =>
                         Redirect(routes.ForumPost.redirect(post.id))
                       }
@@ -73,7 +73,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             .fold(
               _ => Redirect(routes.ForumPost.redirect(postId)),
               data =>
-                CreateRateLimit(ctx.ip, rateLimitedFu):
+                CreateRateLimit(ctx.ip, rateLimited):
                   postApi.editPost(postId, data.changes).map { post =>
                     Redirect(routes.ForumPost.redirect(post.id))
                   }

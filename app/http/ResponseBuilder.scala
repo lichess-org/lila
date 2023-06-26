@@ -45,12 +45,16 @@ trait ResponseBuilder(using Executor)
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
       fua flatMap { if _ then f else notFound }
 
-  val rateLimitedMsg             = "Too many requests. Try again later."
-  val rateLimited                = TooManyRequests(rateLimitedMsg)
-  val rateLimitedJson            = TooManyRequests(jsonError(rateLimitedMsg))
-  val rateLimitedJsonFu          = rateLimitedJson.toFuccess
-  val rateLimitedFu              = rateLimited.toFuccess
-  def rateLimitedFu(msg: String) = TooManyRequests(jsonError(msg)).toFuccess
+  val rateLimitedMsg                           = "Too many requests. Try again later."
+  val rateLimitedJson                          = TooManyRequests(jsonError(rateLimitedMsg))
+  def rateLimited(using Context): Fu[Result] = rateLimited(rateLimitedMsg)
+  def rateLimited(msg: String = rateLimitedMsg)(using ctx: Context): Fu[Result] = negotiate(
+    html =
+      if HTTPRequest.isSynchronousHttp(ctx.req)
+      then TooManyRequests.page(views.html.site.message.rateLimited(msg))
+      else TooManyRequests(msg).toFuccess,
+    json = TooManyRequests(jsonError(msg))
+  )
 
   val jsonOkBody   = Json.obj("ok" -> true)
   val jsonOkResult = JsonOk(jsonOkBody)
