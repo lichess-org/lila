@@ -202,11 +202,13 @@ interface Navigator {
 
 declare type VariantKey = 'standard' | 'minishogi' | 'chushogi' | 'annanshogi' | 'kyotoshogi';
 
-declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';
+declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence' | 'unlimited';
 
 declare type Perf =
+  | 'ultraBullet'
   | 'bullet'
   | 'blitz'
+  | 'rapid'
   | 'classical'
   | 'correspondence'
   | 'minishogi'
@@ -244,7 +246,6 @@ declare type Ply = number;
 interface Variant {
   key: VariantKey;
   name: string;
-  title?: string;
 }
 
 interface Paginator<A> {
