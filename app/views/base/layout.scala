@@ -190,9 +190,9 @@ object layout {
           hrefLang(langCode, s"$path?lang=$langCode")
         }).mkString
       case lila.i18n.LangList.Custom(langPathMap) =>
-        (langPathMap.map { case (langCode, pathWithQuery) =>
-          if (langCode == "en") defaultWithEnHrefLang(pathWithQuery)
-          else hrefLang(langCode, pathWithQuery)
+        (langPathMap.map { case (langCode, path) =>
+          if (langCode == "en") defaultWithEnHrefLang(path)
+          else hrefLang(langCode, s"$path?lang=$langCode")
         }).mkString
     }
   }
