@@ -34,7 +34,6 @@ final class JsonView(rematches: Rematches):
       .add("swissId" -> game.swissId)
       .add("winner" -> game.winnerColor)
       .add("rematch" -> rematches.getAcceptedId(game.id))
-      .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
       .add("rules" -> game.metadata.nonEmptyRules)
 
     // adds fields that could be computed by the client instead

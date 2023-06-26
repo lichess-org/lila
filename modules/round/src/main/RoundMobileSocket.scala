@@ -37,9 +37,9 @@ final private class RoundMobileSocket(
     Json
       .obj(
         "game" -> {
-          jsonView.base(game, initialFen) ++ Json.obj(
-            "pgn" -> game.sans.mkString(" ")
-          )
+          jsonView.base(game, initialFen) ++ Json
+            .obj("pgn" -> game.sans.mkString(" "))
+            .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
         },
         "white"  -> playerJson(Color.White),
         "black"  -> playerJson(Color.Black),

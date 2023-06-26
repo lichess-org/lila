@@ -71,14 +71,13 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
   private def annotateDrawOffers(pgn: Pgn, drawOffers: GameDrawOffers): Pgn =
     if drawOffers.isEmpty then pgn
     else
-      drawOffers.normalizedPlies.foldLeft(pgn) { (pgn, ply) =>
+      drawOffers.normalizedPlies.foldLeft(pgn): (pgn, ply) =>
         pgn
           .updatePly(
             ply,
             move => move.copy(comments = Comment(s"${!ply.turn} offers draw") :: move.comments)
           )
           .getOrElse(pgn)
-      }
 
   private def makeVariation(advice: Advice): Option[Variation[Move]] =
     val sans = advice.info.variation take 20
