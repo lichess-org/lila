@@ -1,12 +1,11 @@
 package controllers
 
-import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Results
 import scala.concurrent.duration._
 
 import shogi.format.forsyth.Sfen
-import lila.api.{ BodyContext, Context }
+import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
@@ -32,6 +31,12 @@ final class Setup(
     enforce = env.net.rateLimit.value
   )
 
+  private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[lila.user.User.ID](
+    50,
+    1.day,
+    key = "setup.post.bot.ai"
+  )
+
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
@@ -48,10 +53,32 @@ final class Setup(
       } else Redirect(s"${routes.Lobby.home}#ai").fuccess
     }
 
-  def ai =
-    process(_ => forms.ai) { config => implicit ctx =>
-      processor ai config
-    }
+  def ai = OpenBody { implicit ctx =>
+    BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
+      PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+        implicit val req = ctx.body
+        forms.ai
+          .bindFromRequest()
+          .fold(
+            err =>
+              negotiate(
+                html = keyPages.home(Results.BadRequest),
+                api = _ => jsonFormError(err)
+              ),
+            config =>
+              processor.ai(config)(ctx) flatMap { pov =>
+                negotiate(
+                  html = fuccess(redirectPov(pov)),
+                  api = apiVersion =>
+                    env.api.roundApi.player(pov, none, apiVersion) map { data =>
+                      Created(data) as JSON
+                    }
+                )
+              }
+          )
+      }(rateLimitedFu)
+    }(rateLimitedFu)
+  }
 
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
@@ -261,42 +288,18 @@ final class Setup(
   def apiAi =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      PostRateLimit(HTTPRequest lastRemoteAddress req) {
-        forms.api.ai
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            config =>
-              processor.apiAi(config, me) map { pov =>
-                Created(env.game.jsonView(pov.game)) as JSON
-              }
-          )
-      }(rateLimitedFu)
-    }
-
-  private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
-    OpenBody { implicit ctx =>
-      PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-        implicit val req = ctx.body
-        form(ctx)
-          .bindFromRequest()
-          .fold(
-            err =>
-              negotiate(
-                html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
-              ),
-            config =>
-              op(config)(ctx) flatMap { pov =>
-                negotiate(
-                  html = fuccess(redirectPov(pov)),
-                  api = apiVersion =>
-                    env.api.roundApi.player(pov, none, apiVersion) map { data =>
-                      Created(data) as JSON
-                    }
-                )
-              }
-          )
+      BotAiRateLimit(me.id, cost = me.isBot ?? 1) {
+        PostRateLimit(HTTPRequest lastRemoteAddress req) {
+          forms.api.ai
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              config =>
+                processor.apiAi(config, me) map { pov =>
+                  Created(env.game.jsonView(pov.game)) as JSON
+                }
+            )
+        }(rateLimitedFu)
       }(rateLimitedFu)
     }
 
