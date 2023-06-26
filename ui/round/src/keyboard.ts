@@ -9,10 +9,11 @@ export const prev = (ctrl: RoundController) => ctrl.userJump(ctrl.ply - 1);
 export const next = (ctrl: RoundController) => ctrl.userJump(ctrl.ply + 1);
 
 export const init = (ctrl: RoundController) =>
-  window.Mousetrap.bind(['left', 'k'], () => {
-    prev(ctrl);
-    ctrl.redraw();
-  })
+  lichess.mousetrap
+    .bind(['left', 'k'], () => {
+      prev(ctrl);
+      ctrl.redraw();
+    })
     .bind(['right', 'j'], () => {
       next(ctrl);
       ctrl.redraw();

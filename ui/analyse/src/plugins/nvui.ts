@@ -63,7 +63,7 @@ export function initModule(ctrl: AnalyseController) {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 
-  window.Mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
+  lichess.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
 
   return {
     render(): VNode {

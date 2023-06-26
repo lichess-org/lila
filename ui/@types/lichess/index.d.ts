@@ -44,6 +44,7 @@ interface Lichess {
   analysis?: any; // expose the analysis ctrl
   ab?: any;
 
+  mousetrap: LichessMousetrap;
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
@@ -73,6 +74,14 @@ type I18nKey = string;
 type RedirectTo = string | { url: string; cookie: Cookie };
 
 type UserComplete = (opts: UserCompleteOpts) => void;
+
+interface LichessMousetrap {
+  bind(
+    keys: string | string[],
+    callback: (e: KeyboardEvent) => void,
+    action?: 'keypress' | 'keydown' | 'keyup'
+  ): LichessMousetrap;
+}
 
 interface LichessPowertip {
   watchMouse(): void;
@@ -282,7 +291,6 @@ interface Window {
 
   readonly chrome?: unknown;
   readonly moment: any;
-  readonly Mousetrap: any;
   Chessground: any;
   readonly lichessReplayMusic: () => {
     jump(node: Tree.Node): void;

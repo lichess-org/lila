@@ -817,10 +817,12 @@ export default class RoundController {
           });
 
         if (!this.nvui && d.pref.submitMove) {
-          window.Mousetrap.bind('esc', () => {
-            this.submitMove(false);
-            this.chessground.cancelMove();
-          }).bind('return', () => this.submitMove(true));
+          lichess.mousetrap
+            .bind('esc', () => {
+              this.submitMove(false);
+              this.chessground.cancelMove();
+            })
+            .bind('return', () => this.submitMove(true));
         }
         cevalSub.subscribe(this);
       }
