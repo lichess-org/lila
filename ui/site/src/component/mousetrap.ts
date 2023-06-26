@@ -145,20 +145,10 @@ const characterFromEvent = (e: KeyboardEvent): string => {
   }
 
   // for non keypress events the special maps are needed
-  if (MAP[e.which]) {
-    return MAP[e.which];
-  }
-
-  if (KEYCODE_MAP[e.which]) {
-    return KEYCODE_MAP[e.which];
-  }
-
-  // if it is not in the special map
-
   // with keydown and keyup events the character seems to always
   // come in as an uppercase character whether you are pressing shift
   // or not.  we should make sure it is always lowercase for comparisons
-  return String.fromCharCode(e.which).toLowerCase();
+  return MAP[e.which] || KEYCODE_MAP[e.which] || String.fromCharCode(e.which).toLowerCase();
 }
 
 /**
@@ -256,13 +246,7 @@ const getKeyInfo = (combination: string, action?: Action): KeyInfo => {
   let key: string;
   const modifiers: string[] = [];
 
-  // take the keys from this pattern and figure out what the actual
-  // pattern is all about
-  const keys = keysFromString(combination);
-
-  for (let i = 0; i < keys.length; ++i) {
-    key = keys[i];
-
+  for (key of keysFromString(combination)) {
     // normalize key names
     if (SPECIAL_ALIASES[key]) {
       key = SPECIAL_ALIASES[key];
@@ -274,13 +258,10 @@ const getKeyInfo = (combination: string, action?: Action): KeyInfo => {
     }
   }
 
-  // depending on what the key combination is
-  // we will try to pick the best event for it
-
   return {
     key: key!,
     modifiers,
-    action: pickBestAction(key!, modifiers, action),
+    action: pickBestAction(key!, modifiers, action), // depending on what the key combination is we will try to pick the best event for it
   };
 }
 
