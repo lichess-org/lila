@@ -130,3 +130,7 @@ body {
     @include crosstable-large;
   }
 }
+
+body.blind-mode .analysis {
+  display: block;
+}
