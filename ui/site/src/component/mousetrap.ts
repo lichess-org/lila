@@ -123,7 +123,7 @@ const getReverseMap = (() => {
           // be able to detect the keys from the character
           continue;
         }
-        if (MAP.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(MAP, key)) {
           REVERSE_MAP[MAP[key]] = key;
         }
       }
