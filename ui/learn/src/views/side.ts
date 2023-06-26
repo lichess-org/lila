@@ -14,7 +14,7 @@ export default function (ctrl: LearnCtrl): VNode {
             },
           },
         },
-        [h('div.stage-img.brutal-helm'), ctrl.trans.noarg('menu')]
+        [h('div.stage-img.samurai-helmet'), ctrl.trans.noarg('menu')]
       ),
       ...ctrl.categories.map(categ => {
         return h(
