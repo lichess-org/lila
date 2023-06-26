@@ -1,11 +1,14 @@
 package lila.game
 
+import cats.Eq
+import cats.syntax.all.*
 import chess.Color.{ Black, White }
 import chess.format.{ Fen, Uci }
 import chess.format.pgn.SanStr
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{
+  ByColor,
   Ply,
   Castles,
   Centis,
@@ -29,8 +32,7 @@ import lila.user.User
 
 case class Game(
     id: GameId,
-    whitePlayer: Player,
-    blackPlayer: Player,
+    players: ByColor[Player],
     chess: ChessGame,
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
@@ -48,19 +50,27 @@ case class Game(
   export chess.situation.board.{ history, variant }
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
 
+  extension [A](b: ByColor[A])
+    def find(p: A => Boolean): Option[A] =
+      if p(b.white) then Some(b.white)
+      else if p(b.black) then Some(b.black)
+      else None
+
+    def contains(a: A): Eq[A] ?=> Boolean =
+      b.exists(_ === a)
+
+    def flatMap[B](f: A => Option[B]): List[B] =
+      b.all.flatMap(f).toList
+
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
-  def players = List(whitePlayer, blackPlayer)
-
-  def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
+  def player(color: Color): Player = players(color)
 
   def player(playerId: GamePlayerId): Option[Player] =
     players.find(_.id == playerId)
 
   def player[U: UserIdOf](user: U): Option[Player] =
     players.find(_ isUser user)
-
-  def player(c: Color.type => Color): Player = player(c(Color))
 
   def player: Player = player(turnColor)
 
@@ -77,7 +87,7 @@ case class Game(
   def opponent(c: Color): Player = player(!c)
 
   lazy val naturalOrientation =
-    if variant.racingKings then White else Color.fromWhite(whitePlayer before blackPlayer)
+    if variant.racingKings then White else Color.fromWhite(players.reduce(_ before _))
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean  = c == turnColor
@@ -180,8 +190,7 @@ case class Game(
     yield ch.record(turnColor, clk)
 
     val updated = copy(
-      whitePlayer = copyPlayer(whitePlayer),
-      blackPlayer = copyPlayer(blackPlayer),
+      players = players.map(copyPlayer),
       chess = game,
       binaryMoveTimes = (!isPgnImport && chess.clock.isEmpty).option {
         BinaryFormat.moveTime.write {
@@ -199,8 +208,8 @@ case class Game(
       turns = game.ply,
       status = (status != updated.status) option updated.status,
       winner = game.situation.winner,
-      whiteOffersDraw = whitePlayer.isOfferingDraw,
-      blackOffersDraw = blackPlayer.isOfferingDraw
+      whiteOffersDraw = players.white.isOfferingDraw,
+      blackOffersDraw = players.black.isOfferingDraw
     )
 
     val clockEvent = updated.chess.clock map Event.Clock.apply orElse {
@@ -227,16 +236,10 @@ case class Game(
       case m: Uci.Move         => m.keys
 
   def updatePlayer(color: Color, f: Player => Player) =
-    color.fold(
-      copy(whitePlayer = f(whitePlayer)),
-      copy(blackPlayer = f(blackPlayer))
-    )
+    copy(players = players.update(color, f))
 
   def updatePlayers(f: Player => Player) =
-    copy(
-      whitePlayer = f(whitePlayer),
-      blackPlayer = f(blackPlayer)
-    )
+    copy(players = players.map(f))
 
   def start =
     if started then this
@@ -302,10 +305,7 @@ case class Game(
   def aiPov: Option[Pov] = players.find(_.isAi).map(_.color) map pov
 
   def mapPlayers(f: Player => Player) =
-    copy(
-      whitePlayer = f(whitePlayer),
-      blackPlayer = f(blackPlayer)
-    )
+    copy(players = players.map(f))
 
   def playerCanOfferDraw(color: Color) =
     started && playable &&
@@ -381,8 +381,7 @@ case class Game(
   def finish(status: Status, winner: Option[Color]): Game =
     copy(
       status = status,
-      whitePlayer = whitePlayer.finish(winner contains White),
-      blackPlayer = blackPlayer.finish(winner contains Black),
+      players = players.map(_.finish(winner contains White), _.finish(winner contains Black)),
       chess = chess.copy(clock = clock.map(_.stop)),
       loadClockHistory = clk =>
         clockHistory.map: history =>
@@ -547,15 +546,15 @@ case class Game(
 
   def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
 
-  def userIds = playerMaps[UserId](_.userId)
+  def userIds = players.flatMap(_.userId)
 
   def twoUserIds: Option[(UserId, UserId)] = for
-    w <- whitePlayer.userId
-    b <- blackPlayer.userId
+    w <- players.white.userId
+    b <- players.black.userId
     if w != b
   yield w -> b
 
-  def userRatings = playerMaps[IntRating](_.rating)
+  def userRatings = players.flatMap(_.rating)
 
   def averageUsersRating = userRatings match
     case a :: b :: Nil => Some((a + b).value / 2)
@@ -576,8 +575,6 @@ case class Game(
     (!fromPosition && Variant.list.openingSensibleVariants(variant)) so OpeningDb.search(sans)
 
   def synthetic = id == Game.syntheticId
-
-  private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap f
 
   def pov(c: Color)                                    = Pov(this, c)
   def playerIdPov(playerId: GamePlayerId): Option[Pov] = player(playerId) map { Pov(this, _) }
@@ -701,8 +698,7 @@ object Game:
     NewGame:
       Game(
         id = IdGenerator.uncheckedGame,
-        whitePlayer = whitePlayer,
-        blackPlayer = blackPlayer,
+        players = ByColor(whitePlayer, blackPlayer),
         chess = chess,
         status = Status.Created,
         daysPerTurn = daysPerTurn,
