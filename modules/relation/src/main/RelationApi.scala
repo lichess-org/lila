@@ -63,23 +63,17 @@ final class RelationApi(
       }
 
   def fetchFollows(u1: UserId, u2: UserId): Fu[Boolean] =
-    (u1 != u2) so {
-      coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
-    }
+    (u1 != u2) so coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
 
   def fetchBlocks(u1: UserId, u2: UserId): Fu[Boolean] =
-    (u1 != u2) so {
-      coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Block))
-    }
+    (u1 != u2) so coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Block))
 
   def fetchAreFriends(u1: UserId, u2: UserId): Fu[Boolean] =
     fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
-  private val countFollowingCache = cacheApi[UserId, Int](8_192, "relation.count.following") {
-    _.maximumSize(8_192)
-      .buildAsyncFuture { userId =>
-        coll.countSel($doc("u1" -> userId, "r" -> Follow))
-      }
+  private val countFollowingCache = cacheApi[UserId, Int](16_384, "relation.count.following") {
+    _.maximumSize(8_192).buildAsyncFuture: userId =>
+      coll.countSel($doc("u1" -> userId, "r" -> Follow))
   }
 
   def countFollowing(userId: UserId) = countFollowingCache get userId
@@ -88,10 +82,8 @@ final class RelationApi(
     countFollowingCache get userId map (_ >= config.maxFollow.value)
 
   private val countFollowersCache = cacheApi[UserId, Int](32_768, "relation.count.followers") {
-    _.maximumSize(32_768)
-      .buildAsyncFuture { userId =>
-        coll.secondaryPreferred.countSel($doc("u2" -> userId, "r" -> Follow))
-      }
+    _.maximumSize(32_768).buildAsyncFuture: userId =>
+      coll.secondaryPreferred.countSel($doc("u2" -> userId, "r" -> Follow))
   }
 
   def countFollowers(userId: UserId) = countFollowersCache get userId
