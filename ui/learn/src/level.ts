@@ -72,7 +72,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
   };
 
   // cheat
-  // Mousetrap.bind(['shift+enter'], complete);
+  // lichess.mousetrap.bind(['shift+enter'], complete);
 
   const assertData = function (): AssertData {
     return {

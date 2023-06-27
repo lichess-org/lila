@@ -84,7 +84,7 @@ lichess.load.then(() => {
           const id = getLocationHash(this),
             n = '' + (i + 1);
           $(this).prepend(`<i>${n}</i>`);
-          window.Mousetrap.bind(n, () => scrollTo(id));
+          lichess.mousetrap.bind(n, () => scrollTo(id));
         });
     });
 
@@ -184,9 +184,9 @@ lichess.load.then(() => {
 
   if (new URL(location.href).searchParams.has('mod')) $toggle.trigger('click');
 
-  window.Mousetrap.bind('m', () => $toggle.trigger('click')).bind('i', () =>
-    $zone.find('button.inquiry').trigger('click')
-  );
+  lichess.mousetrap
+    .bind('m', () => $toggle.trigger('click'))
+    .bind('i', () => $zone.find('button.inquiry').trigger('click'));
 
   const $other = $('#communication,main.appeal');
   if ($other.length) userMod($other);

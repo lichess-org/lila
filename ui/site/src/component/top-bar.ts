@@ -157,9 +157,11 @@ export default function () {
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
     });
-    window.Mousetrap.bind('/', () => {
-      $input.val('/');
-      $input[0]!.focus();
-    }).bind('s', () => $input[0]!.focus());
+    lichess.mousetrap
+      .bind('/', () => {
+        $input.val('/');
+        $input[0]!.focus();
+      })
+      .bind('s', () => $input[0]!.focus());
   }
 }
