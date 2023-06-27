@@ -17,7 +17,6 @@ case class UserInfo(
     hasSimul: Boolean,
     ratingChart: Option[String],
     nbs: UserInfo.NbGames,
-    nbFollowers: Int,
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
@@ -119,7 +118,6 @@ object UserInfo:
   )(using Executor):
     def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart") zip
-        relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
         (!user.is(User.lichessId) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts")
         } zip
@@ -134,14 +132,13 @@ object UserInfo:
         (user.count.rated >= 10).so(insightShare.grant(user)) zip
         (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")) map {
           // format: off
-          case ((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
+          case (((((((((((ratingChart, nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
           // format: on
             new UserInfo(
               user = user,
               nbs = nbs,
               hasSimul = hasSimul,
               ratingChart = ratingChart,
-              nbFollowers = nbFollowers,
               nbForumPosts = nbForumPosts,
               ublog = ublog,
               nbStudies = nbStudies,
