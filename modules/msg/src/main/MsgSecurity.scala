@@ -61,43 +61,35 @@ final private class MsgSecurity(
         unlimited: Boolean = false
     ): Fu[Verdict] =
       val text = rawText.trim
-      if (text.isEmpty) fuccess(Invalid)
-      else if (contacts.orig.isLichess && !contacts.dest.isLichess) fuccess(Ok)
+      if text.isEmpty then fuccess(Invalid)
+      else if contacts.orig.isLichess && !contacts.dest.isLichess then fuccess(Ok)
       else
-        may.post(contacts, isNew) flatMap {
-          case false => fuccess(Block)
-          case _ =>
-            isLimited(contacts, isNew, unlimited, text) orElse
-              isFakeTeamMessage(rawText, unlimited) orElse
-              isSpam(text) orElse
-              isTroll(contacts) orElse
-              isDirt(contacts.orig, text, isNew) getOrElse
-              fuccess(Ok)
-        } flatMap {
-          case mute: Mute =>
-            relationApi.fetchFollows(contacts.dest.id, contacts.orig.id) dmap { isFriend =>
-              if (isFriend) Ok else mute
-            }
-          case verdict => fuccess(verdict)
-        } addEffect {
-          case Dirt =>
-            if (dirtSpamDedup(text))
-              Bus.publish(
-                AutoFlag(
-                  contacts.orig.id,
-                  s"msg/${contacts.orig.id}/${contacts.dest.id}",
-                  text,
-                  Analyser.isCritical(text)
-                ),
-                "autoFlag"
-              )
-
-          case Spam =>
-            if (dirtSpamDedup(text) && !contacts.orig.isTroll)
-              logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
-
-          case _ =>
-        }
+        may
+          .post(contacts, isNew)
+          .flatMap:
+            case false => fuccess(Block)
+            case _ =>
+              isLimited(contacts, isNew, unlimited, text) orElse
+                isFakeTeamMessage(rawText, unlimited) orElse
+                isSpam(text) orElse
+                isTroll(contacts) orElse
+                isDirt(contacts.orig, text, isNew) getOrElse
+                fuccess(Ok)
+          .flatMap:
+            case mute: Mute =>
+              relationApi.fetchFollows(contacts.dest.id, contacts.orig.id) dmap { isFriend =>
+                if (isFriend) Ok else mute
+              }
+            case verdict => fuccess(verdict)
+          .addEffect:
+            case Dirt =>
+              if dirtSpamDedup(text) then
+                val resource = s"msg/${contacts.orig.id}/${contacts.dest.id}"
+                Bus.publish(AutoFlag(contacts.orig.id, resource, text, Analyser.isCritical(text)), "autoFlag")
+            case Spam =>
+              if dirtSpamDedup(text) && !contacts.orig.isTroll
+              then logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
+            case _ =>
 
     private def isLimited(
         contacts: User.Contacts,
@@ -110,13 +102,11 @@ final private class MsgSecurity(
           if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
         }
         limiter(contacts.orig.id, Limit.some, cost)(none)
-      if (unlimited) fuccess(none)
-      else if (isNew) {
-        isLeaderOf(contacts) >>| isTeacherOf(contacts)
-      } map {
-        if _ then none
-        else limitWith(CreateLimitPerUser)
-      }
+      if unlimited then fuccess(none)
+      else if isNew then
+        (isLeaderOf(contacts) >>| isTeacherOf(contacts)).map:
+          if _ then none
+          else limitWith(CreateLimitPerUser)
       else fuccess(limitWith(ReplyLimitPerUser))
 
     private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
