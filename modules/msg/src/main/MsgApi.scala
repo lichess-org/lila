@@ -146,16 +146,13 @@ final class MsgApi(
                     // unset "deleted by receiver" unless the message is muted
                   )
             (msgWrite zip threadWrite).void >>- {
-              if !send.mute then
+              import MsgSecurity.*
+              import lila.hub.actorApi.socket.SendTo
+              import lila.socket.Socket.makeMessage
+              if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
-                Bus.publish(
-                  lila.hub.actorApi.socket.SendTo(
-                    dest,
-                    lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg))
-                  ),
-                  "socketUsers"
-                )
-                shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+                Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
+              if send == Ok then shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
             } inject PostResult.Success
       yield res
     }

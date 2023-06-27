@@ -18,10 +18,7 @@ final private class MsgSecurity(
     relationApi: lila.relation.RelationApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, Scheduler):
 
   import MsgSecurity.*
 
@@ -76,10 +73,12 @@ final private class MsgSecurity(
                 isDirt(contacts.orig, text, isNew) getOrElse
                 fuccess(Ok)
           .flatMap:
+            case Troll =>
+              destFollowsOrig(contacts).dmap:
+                if _ then TrollFriend else Troll
             case mute: Mute =>
-              relationApi.fetchFollows(contacts.dest.id, contacts.orig.id) dmap { isFriend =>
-                if (isFriend) Ok else mute
-              }
+              destFollowsOrig(contacts).dmap:
+                if _ then Ok else mute
             case verdict => fuccess(verdict)
           .addEffect:
             case Dirt =>
@@ -122,6 +121,9 @@ final private class MsgSecurity(
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) so
         !userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)) dmap { _ option Dirt }
+
+    private def destFollowsOrig(contacts: User.Contacts): Fu[Boolean] =
+      relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
 
   object may:
 
@@ -181,7 +183,8 @@ private object MsgSecurity:
   sealed abstract class Send(val mute: Boolean) extends Verdict
   sealed abstract class Mute                    extends Send(true)
 
-  case object Ok              extends Send(false)
+  case object Ok              extends Send(mute = false)
+  case object TrollFriend     extends Send(mute = false)
   case object Troll           extends Mute
   case object Spam            extends Mute
   case object Dirt            extends Mute
