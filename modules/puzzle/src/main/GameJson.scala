@@ -89,16 +89,15 @@ final private class GameJson(
         "rated"   -> game.rated,
         "treeParts" -> {
           val pgnMoves = game.sans.take(plies.value + 1)
-          for {
+          for
             pgnMove <- pgnMoves.lastOption
             situation <- chess.Replay
               .situations(pgnMoves, None, game.variant)
-              .valueOr { err =>
+              .valueOr: err =>
                 sys.error(s"GameJson.generateBc ${game.id} $err")
-              }
               .lastOption
             uciMove <- situation.board.history.lastMove
-          } yield Json.obj(
+          yield Json.obj(
             "fen" -> Fen.write(situation).value,
             "ply" -> (plies + 1),
             "san" -> pgnMove,

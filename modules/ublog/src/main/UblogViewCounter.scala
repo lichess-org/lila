@@ -16,11 +16,10 @@ final class UblogViewCounter(colls: UblogColls)(using Executor):
     if (post.live) post.copy(views =
       val key = s"${post.id}:${ip.value}"
       if bloomFilter mightContain key then post.views
-      else {
+      else
         bloomFilter.add(key)
         lila.mon.ublog.view(post.created.by.value).increment()
         colls.post.incFieldUnchecked($id(post.id), "views")
         post.views + 1
-      }
     )
     else post

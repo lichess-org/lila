@@ -10,21 +10,20 @@ import lila.user.User
 final private class Biter(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo
-)(using
-    ec: Executor,
-    idGenerator: lila.game.IdGenerator
-):
+)(using Executor, lila.game.IdGenerator):
 
   def apply(hook: Hook, sri: Sri, user: Option[LobbyUser]): Fu[JoinHook] =
-    if (canJoin(hook, user)) join(hook, sri, user)
+    if canJoin(hook, user)
+    then join(hook, sri, user)
     else fufail(s"$user cannot bite hook $hook")
 
   def apply(seek: Seek, user: LobbyUser): Fu[JoinSeek] =
-    if (canJoin(seek, user)) join(seek, user)
+    if canJoin(seek, user)
+    then join(seek, user)
     else fufail(s"$user cannot join seek $seek")
 
   private def join(hook: Hook, sri: Sri, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] =
-    for {
+    for
       userOption   <- lobbyUserOption.map(_.id) so userRepo.byId
       ownerOption  <- hook.userId so userRepo.byId
       creatorColor <- assignCreatorColor(ownerOption, userOption, hook.realColor)
@@ -34,13 +33,13 @@ final private class Biter(
         blackUser = creatorColor.fold(userOption, ownerOption)
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
-    } yield
+    yield
       lila.mon.lobby.hook.join.increment()
       rememberIfFixedColor(hook.realColor, game)
       JoinHook(sri, hook, game, creatorColor)
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] =
-    for {
+    for
       user         <- userRepo byId lobbyUser.id orFail s"No such user: ${lobbyUser.id}"
       owner        <- userRepo byId seek.user.id orFail s"No such user: ${seek.user.id}"
       creatorColor <- assignCreatorColor(owner.some, user.some, seek.realColor)
@@ -50,13 +49,13 @@ final private class Biter(
         blackUser = creatorColor.fold(user.some, owner.some)
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
-    } yield
+    yield
       rememberIfFixedColor(seek.realColor, game)
       JoinSeek(user.id, seek, game, creatorColor)
 
   private def rememberIfFixedColor(color: Color, game: Game) =
-    if (color != Color.Random)
-      gameRepo.fixedColorLobbyCache put game.id
+    if color != Color.Random
+    then gameRepo.fixedColorLobbyCache put game.id
 
   private def assignCreatorColor(
       creatorUser: Option[User],
@@ -104,24 +103,21 @@ final private class Biter(
       .start
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
-    hook.isAuth == user.isDefined && user.fold(true) { u =>
+    hook.isAuth == user.isDefined && user.fold(true): u =>
       u.lame == hook.lame &&
-      !hook.userId.contains(u.id) &&
-      !hook.userId.so(u.blocking.value.contains) &&
-      !hook.user.so(_.blocking).value.contains(u.id) &&
-      hook.realRatingRange.fold(true) { range =>
-        (hook.perfType map u.ratingAt) so range.contains
-      }
-    }
+        !hook.userId.contains(u.id) &&
+        !hook.userId.so(u.blocking.value.contains) &&
+        !hook.user.so(_.blocking).value.contains(u.id) &&
+        hook.realRatingRange.fold(true): range =>
+          (hook.perfType map u.ratingAt) so range.contains
 
   def canJoin(seek: Seek, user: LobbyUser): Boolean =
     seek.user.id != user.id &&
       (seek.realMode.casual || user.lame == seek.user.lame) &&
       !(user.blocking.value contains seek.user.id) &&
       !(seek.user.blocking.value contains user.id) &&
-      seek.realRatingRange.fold(true) { range =>
+      seek.realRatingRange.fold(true): range =>
         (seek.perfType map user.ratingAt) so range.contains
-      }
 
   def showHookTo(hook: Hook, member: LobbySocket.Member): Boolean =
     hook.sri == member.sri || canJoin(hook, member.user)

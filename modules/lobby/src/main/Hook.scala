@@ -43,17 +43,15 @@ case class Hook(
       (userId.isEmpty || userId != h.userId)
 
   private def ratingRangeCompatibleWith(h: Hook) =
-    realRatingRange.fold(true) { range =>
+    realRatingRange.fold(true): range =>
       h.rating so range.contains
-    }
 
-  lazy val realRatingRange: Option[RatingRange] = isAuth so {
+  lazy val realRatingRange: Option[RatingRange] = isAuth.so:
     RatingRange noneIfDefault ratingRange
-  }
 
   def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
-  def lame     = user so (_.lame)
+  def lame     = user.so(_.lame)
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
@@ -87,7 +85,7 @@ case class Hook(
   def compatibleWithPool(poolClock: chess.Clock.Config) =
     compatibleWithPools && clock == poolClock
 
-  def toPool = user map { u =>
+  def toPool = user.map: u =>
     lila.pool.HookThieve.PoolHook(
       hookId = id,
       member = lila.pool.PoolMember(
@@ -100,7 +98,6 @@ case class Hook(
         rageSitCounter = 0
       )
     )
-  }
 
   private lazy val speed = Speed(clock)
 
