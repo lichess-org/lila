@@ -47,8 +47,7 @@ final class ForumSearchApi(
             .mapAsync(1)(postApi.liteViews)
             .map(_.map(v => v.post.id.into(Id) -> toDoc(v)))
             .mapAsyncUnordered(2)(c.storeBulk)
-            .toMat(Sink.ignore)(Keep.right)
-            .run()
+            .runWith(Sink.ignore)
         } >> client.refresh
 
       case _ => funit

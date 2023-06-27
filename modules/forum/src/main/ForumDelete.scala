@@ -40,8 +40,7 @@ final class ForumDelete(
       .mapAsyncUnordered(4) { post =>
         postApi.viewOf(post) flatMap { _ so doDelete }
       }
-      .toMat(Sink.ignore)(Keep.left)
-      .run()
+      .runWith(Sink.ignore)
       .void
 
   private def doDelete(view: PostView) =
