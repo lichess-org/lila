@@ -41,7 +41,6 @@ object Helpers:
       newBranch.metas.crazyData,
       newBranch.forceVariation
     )
-  // extension (newBranch: NewBranch)
 
   extension (newTree: NewTree)
     def toBranch: Branch = newTree.value.toBranch(newTree.child)
