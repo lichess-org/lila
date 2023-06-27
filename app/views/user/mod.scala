@@ -565,6 +565,7 @@ object mod:
     )
 
   private val sortNumberTh    = th(attr("data-sort-method") := "number")
+  private val sortNoneTh      = th(attr("data-sort-method") := "none")
   private val dataSort        = attr("data-sort")
   private val dataTags        = attr("data-tags")
   private val playban         = iconTag(licon.Clock)
@@ -610,7 +611,14 @@ object mod:
             sortNumberTh(iconTag(licon.InkQuill))(cls := "i", title := "Appeals"),
             sortNumberTh("Created"),
             sortNumberTh("Active"),
-            isGranted(_.CloseAccount) option th
+            isGranted(_.CloseAccount) option sortNoneTh(
+              select(style := "width: 2em")(
+                option(value := "")(""),
+                option(value := "all")("Select all"),
+                option(value := "none")("Select none"),
+                option(value := "alt")("Alt selected")
+              )
+            )
           )
         ),
         tbody(
@@ -631,9 +639,8 @@ object mod:
                 dataSort := other.score + (other.ips.nonEmpty so 1000000) + (other.fps.nonEmpty so 3000000)
               )(
                 List(other.ips.size -> "IP", other.fps.size -> "Print")
-                  .collect {
+                  .collect:
                     case (nb, name) if nb > 0 => s"$nb $name"
-                  }
                   .mkString(", ")
               ),
               td(dataSort := o.count.game)(o.count.game.localize),
@@ -655,7 +662,7 @@ object mod:
                   )
                 )
               } getOrElse td(dataSort := 0),
-              userAppeal match {
+              userAppeal match
                 case None => td(dataSort := 0)
                 case Some(appeal) =>
                   td(dataSort := 1)(
@@ -669,14 +676,16 @@ object mod:
                       title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted so " [MUTED]"}"
                     )(appeal.msgs.size)
                   )
-              },
+              ,
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
               canCloseAlt option td(
-                !o.marks.alt option button(
-                  cls  := "button button-empty button-thin button-red mark-alt",
-                  href := routes.Mod.alt(o.id, !o.marks.alt)
-                )("ALT")
+                input(
+                  tpe      := "checkbox",
+                  name     := "user[]",
+                  st.value := "all",
+                  disabled := o.marks.alt.option(true)
+                )
               )
             )
           }

@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import extendTablesortNumber from 'common/tablesort-number';
 import tablesort from 'tablesort';
+import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 
 lichess.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
@@ -115,17 +116,30 @@ lichess.load.then(() => {
 
     makeReady('.mz-section--others', el => {
       $(el).height($(el).height());
-      $(el)
-        .find('.mark-alt')
-        .on('click', function (this: HTMLAnchorElement) {
-          if (confirm('Close alt account?')) {
-            xhr.text(this.getAttribute('href')!, { method: 'post' });
-            $(this).remove();
-          }
-        });
     });
-    makeReady('.mz-section--others table', el => {
-      tablesort(el, { descending: true });
+    makeReady('.mz-section--others table', (table: HTMLTableElement) => {
+      tablesort(table, { descending: true });
+      if (table) {
+        expandCheckboxZone(table, 'td:last-child', shiftClickCheckboxRange(table));
+        const select = table.querySelector('thead select');
+        if (select)
+          selector(
+            table,
+            select as HTMLSelectElement
+          )(async action => {
+            if (action == 'alt') {
+              const usernames = Array.from(
+                $(table)
+                  .find('td:last-child input:checked')
+                  .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort'))
+              );
+              if (usernames.length > 0 && confirm(`Close ${usernames.length} alt accounts?`)) {
+                await xhr.text('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
+                reloadZone();
+              }
+            }
+          });
+      }
     });
     makeReady('.mz-section--identification .spy_filter', el => {
       $(el)

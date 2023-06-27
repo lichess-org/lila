@@ -19,7 +19,8 @@ final class Mod(
     env: Env,
     reportC: => report.Report,
     userC: => User
-) extends LilaController(env):
+)(using akka.stream.Materializer)
+    extends LilaController(env):
 
   private def modApi    = env.mod.api
   private def assessApi = env.mod.assessApi
@@ -34,6 +35,16 @@ final class Mod(
         _ <- (!v && sus.user.enabled.no) so modApi.reopenAccount(sus.user.id)
       yield sus.some
   }(reportC.onModAction)
+
+  def altMany = SecureBody(parse.tolerantText)(_.CloseAccount) { ctx ?=> me ?=>
+    import akka.stream.scaladsl.*
+    Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
+      .mapAsync(1): username =>
+        withSuspect(username): sus =>
+          modApi.setAlt(sus, true) >> (sus.user.enabled.yes so env.api.accountClosure.close(sus.user))
+      .runWith(Sink.ignore)
+      .void inject NoContent
+  }
 
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me ?=>
@@ -505,7 +516,7 @@ final class Mod(
       )
   }
 
-  private def withSuspect[A](username: UserStr)(f: Suspect => Fu[Option[A]]): Fu[Option[A]] =
+  private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: Context ?=> Me ?=> Fu[Option[A]])(

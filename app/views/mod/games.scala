@@ -41,29 +41,26 @@ object games:
               form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
                 filterForm("perf"),
-                PerfType.nonPuzzle.map { p =>
-                  p.key -> p.trans
-                },
+                PerfType.nonPuzzle.map: p =>
+                  p.key -> p.trans,
                 "Variant".some
               ),
               form3.select(
                 filterForm("arena"),
-                arenas.map(t =>
+                arenas.map: t =>
                   t.tour.id -> List(
                     s"games ${t.entry.nbGames}",
                     s"rank ${t.entry.rank}",
                     s"top ${t.entry.rankRatio.percent}%",
                     t.tour.name()
-                  ).mkString(" / ")
-                ),
+                  ).mkString(" / "),
                 pluralize("arena", arenas.size).some,
                 disabled = arenas.isEmpty
               ),
               form3.select(
                 filterForm("swiss"),
-                swisses.map { case (swiss, rank) =>
-                  swiss.id -> s"rank ${rank} / ${swiss.name}"
-                },
+                swisses.map: (swiss, rank) =>
+                  swiss.id -> s"rank ${rank} / ${swiss.name}",
                 s"${swisses.size} swiss".some,
                 disabled = swisses.isEmpty
               )
@@ -87,7 +84,7 @@ object games:
                 sortNoneTh(
                   input(
                     tpe      := "checkbox",
-                    name     := s"game[]",
+                    name     := "game[]",
                     st.value := "all"
                   )
                 ),

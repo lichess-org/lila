@@ -528,6 +528,7 @@ GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token)
 
 # Mod
 POST  /mod/:username/alt/:v            controllers.Mod.alt(username, v: Boolean)
+POST  /mod/alt-many                    controllers.Mod.altMany
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username, v: Boolean)
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username, v: Boolean)
