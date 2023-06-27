@@ -125,9 +125,8 @@ final class IrcApi(
       intro: String
   ): Funit =
     zulip(_.blog, "non-tiered new posts"):
-      s":note: ${markdown
-          .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} $intro - by ${markdown
-          .userLink(user)}"
+      val link = markdown.lichessLink(s"/@/${user.username}/blog/$slug/$id", title)
+      s":note: $link $intro - by ${markdown.userLink(user)}"
 
   def broadcastStart(id: RelayRoundId, fullName: String): Funit =
     zulip(_.broadcast, "non-tiered broadcasts"):
@@ -136,8 +135,8 @@ final class IrcApi(
   def userAppeal(user: User)(using mod: Me): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.username):
-        s"${markdown.modLink(mod.username)} :monkahmm: is looking at the appeal of **${markdown
-            .lichessLink(s"/appeal/${user.username}", user.username)}**"
+        val link = markdown.lichessLink(s"/appeal/${user.username}", user.username)
+        s"${markdown.modLink(mod.username)} :monkahmm: is looking at the appeal of **$link**"
       .flatMapz: zulipAppealConv =>
         noteApi.write(user, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
 
