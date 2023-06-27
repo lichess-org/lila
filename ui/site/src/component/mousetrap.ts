@@ -131,7 +131,7 @@ const getReverseMap = (() => {
 const pickBestAction = (key: string, modifiers: string[], action?: Action): Action => {
   // if no action was picked in we should try to pick the one
   // that we think would work best for this key
-  action = action || getReverseMap()[key] ? 'keydown' : 'keypress';
+  action = action || (getReverseMap()[key] ? 'keydown' : 'keypress');
   // modifier keys don't work as expected with keypress, switch to keydown
   if (action == 'keypress' && modifiers.length) return 'keydown';
   return action;
