@@ -141,7 +141,8 @@ final class IrcApi(
         noteApi.write(user, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
 
   def nameClosePreset(username: UserName): Funit =
-    zulip(_.mod.usernames, s"/$username")("@**remind** here in 48h to close this account")
+    zulip(_.mod.adminGeneral, "username 48h closure"):
+      s"@**remind** here in 48h to close ${markdown.userLink(username)}"
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
