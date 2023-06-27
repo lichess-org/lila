@@ -639,11 +639,9 @@ final class UserRepo(val coll: Coll)(using Executor):
       case _          => none
     }
 
-  def isErased(user: User): Fu[User.Erased] = User.Erased from {
-    user.enabled.no so {
+  def isErased(user: User): Fu[User.Erased] = User.Erased.from:
+    user.enabled.no.so:
       coll.exists($id(user.id) ++ $doc(F.erasedAt $exists true))
-    }
-  }
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](
