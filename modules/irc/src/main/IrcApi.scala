@@ -28,44 +28,39 @@ final class IrcApi(
     noteApi
       .byUserForMod(user.id)
       .map(_.headOption.filter(_.date isAfter nowInstant.minusMinutes(5)))
-      .flatMap {
+      .flatMap:
         case None =>
-          zulip.sendAndGetLink(stream, "/" + user.username)(
-            s"${markdown.userLink(mod.username)} :monkahmm: is looking at a $room report about **${markdown
-                .userLink(user.username)}**"
-          )
+          zulip.sendAndGetLink(stream, "/" + user.username):
+            val link = markdown.userLink(user.username)
+            s"${markdown.userLink(mod.username)} :monkahmm: is looking at a $room report about **$link**"
+
         case Some(note) =>
-          zulip.sendAndGetLink(stream, "/" + user.username)(
-            s"${markdown.modLink(mod.username)} :pepenote: **${markdown
-                .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
+          zulip.sendAndGetLink(stream, "/" + user.username):
+            val link = markdown.userLink(user.username)
+            s"${markdown.modLink(mod.username)} :pepenote: **$link** (${markdown.userNotesLink(user.username)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
-          )
-      }
-      .flatMapz { zulipLink =>
+      .flatMapz: zulipLink =>
         noteApi.write(
           user,
           s"$domain discussion: $zulipLink",
           modOnly = true,
           dox = domain == ModDomain.Admin
         )
-      }
 
   def nameCloseVote(user: User)(using mod: Me): Funit =
     zulip
       .sendAndGetLink(_.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
-      .flatMapz { zulipLink =>
+      .flatMapz: zulipLink =>
         noteApi.write(
           user,
           s"username discussion: $zulipLink",
           modOnly = true,
           dox = false
         )
-      }
 
   def usertableCheck(user: User)(using mod: Me): Funit =
-    zulip(_.mod.cafeteria, "reports")(
+    zulip(_.mod.cafeteria, "reports"):
       s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.username)})"
-    )
 
   def userModNote(modName: UserName, username: UserName, note: String): Funit =
     (!User.isLichess(modName)).so:
@@ -74,33 +69,28 @@ final class IrcApi(
           markdown.linkifyUsers(note take 2000)
 
   def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
-    zulip(_.mod.adminLog, "self report")(
+    zulip(_.mod.adminLog, "self report"):
       s"[**$typ**] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
-    )
 
   def commlog(user: User, reportBy: Option[UserId])(using mod: Me): Funit =
-    zulip(_.mod.adminLog, "private comms checks")({
+    zulip(_.mod.adminLog, "private comms checks"):
+      val checkedOut =
         val finalS = if (user.username.value endsWith "s") "" else "s"
         s"**${markdown modLink mod.username}** checked out **${markdown userLink user.username}**'$finalS communications "
-      } + reportBy
+      checkedOut + reportBy
         .filterNot(_ is mod)
         .fold("spontaneously"): by =>
           s"while investigating a report created by ${markdown.userLink(by into UserName)}"
-    )
 
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using modId: Me.Id): Funit =
-    lightUser(modId) flatMapz { mod =>
-      zulip(_.mod.adminMonitor(tpe), mod.name.value)(
+    lightUser(modId).flatMapz: mod =>
+      zulip(_.mod.adminMonitor(tpe), mod.name.value):
         s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
-      )
-    }
 
   def logMod(icon: String, text: String)(using modId: Me.Id): Funit =
-    lightUser(modId) flatMapz { mod =>
-      zulip(_.mod.log, "actions")(
+    lightUser(modId).flatMapz: mod =>
+      zulip(_.mod.log, "actions"):
         s"${markdown.modLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
-      )
-    }
 
   def printBan(print: String, v: Boolean, userIds: List[UserId])(using Me.Id): Funit =
     logMod(
@@ -163,9 +153,8 @@ final class IrcApi(
     case Event.Victory(msg) => publishVictory(msg)
 
   def signupAfterTryingDisposableEmail(user: User, email: EmailAddress, previous: Set[EmailAddress]) =
-    zulip(_.mod.adminLog, "disposable email")(
+    zulip(_.mod.adminLog, "disposable email"):
       s"${markdown userLink user} signed up with ${email.value} after trying: ${previous mkString ", "}"
-    )
 
   private def publishError(msg: String): Funit =
     zulip(_.general, "lila")(s":lightning: ${markdown linkifyUsers msg}")
@@ -186,18 +175,20 @@ final class IrcApi(
 
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
-      buffer.head.date.isBefore(nowInstant.minusHours(12)) so {
-        val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
-        val amountSum = buffer.map(_.cents).sum
-        val patrons =
-          if (firsts.lengthIs > 10) s"$firsts and, like, ${firsts.length - 10} others,"
-          else firsts
-        displayMessage {
-          s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
-        } >>- {
-          buffer = Vector.empty
-        }
-      }
+      buffer.head.date
+        .isBefore(nowInstant.minusHours(12))
+        .so:
+          val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
+          val amountSum = buffer.map(_.cents).sum
+          val patrons =
+            if firsts.lengthIs > 10
+            then s"$firsts and, like, ${firsts.length - 10} others,"
+            else firsts
+          displayMessage {
+            s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
+          } >>- {
+            buffer = Vector.empty
+          }
 
     private def displayMessage(text: String) =
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
