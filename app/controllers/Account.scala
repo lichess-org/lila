@@ -145,9 +145,8 @@ final class Account(
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
-    env.user.repo email me orNotFound { email =>
+    Found(env.user.repo email me): email =>
       JsonOk(Json.obj("email" -> email.value))
-    }
   }
 
   def renderCheckYourEmail(using Context): Fu[Frag] =
@@ -156,18 +155,17 @@ final class Account(
 
   def emailApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
-      env.security.forms.preloadEmailDns() >> emailForm.flatMap { form =>
+      env.security.forms.preloadEmailDns() >> emailForm.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.email(err))): data =>
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
           auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
             env.security.emailChange.send(me, newUserEmail.email) inject
               Redirect(routes.Account.email).flashSuccess:
                 lila.i18n.I18nKeys.checkYourEmail.txt()
-      }
   }
 
   def emailConfirm(token: String) = Open:
-    env.security.emailChange.confirm(token) orNotFound { (user, prevEmail) =>
+    Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
       (prevEmail.exists(_.isNoReply) so env.clas.api.student.release(user)) >>
         auth.authenticateUser(
           user,
@@ -177,7 +175,6 @@ final class Account(
             then Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
             else Some(_ => Redirect(routes.Account.email).flashSuccess)
         )
-    }
 
   def emailConfirmHelp = OpenBody:
     import lila.security.EmailConfirm.Help.*
@@ -199,14 +196,11 @@ final class Account(
   def twoFactor = Auth { _ ?=> me ?=>
     if me.totpSecret.isDefined
     then
-      env.security.forms.disableTwoFactor.flatMap { f =>
+      env.security.forms.disableTwoFactor.flatMap: f =>
         Ok.page(html.account.twoFactor.disable(f))
-      }
     else
-      env.security.forms.setupTwoFactor flatMap { f =>
+      env.security.forms.setupTwoFactor.flatMap: f =>
         Ok.page(html.account.twoFactor.setup(f))
-      }
-
   }
 
   def setupTwoFactor = AuthBody { ctx ?=> me ?=>
@@ -280,15 +274,13 @@ final class Account(
       case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
   }
 
-  private def currentSessionId(using Context) =
-    ~env.security.api.reqSessionId(ctx.req)
-
   def security = Auth { _ ?=> me ?=>
     for
-      _                    <- env.security.api.dedup(me, ctx.req)
+      _                    <- env.security.api.dedup(me, req)
       sessions             <- env.security.api.locatedOpenSessions(me, 50)
       clients              <- env.oAuth.tokenApi.listClients(me, 50)
       personalAccessTokens <- env.oAuth.tokenApi.countPersonal(me)
+      currentSessionId = ~env.security.api.reqSessionId(req)
       page <- renderPage:
         html.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
     yield Ok(page)
@@ -316,7 +308,7 @@ final class Account(
   def reopenApply = OpenBody:
     env.security.hcaptcha.verify() flatMap { captcha =>
       if captcha.ok then
-        env.security.forms.reopen flatMap {
+        env.security.forms.reopen.flatMap:
           _.form
             .bindFromRequest()
             .fold(
@@ -334,7 +326,6 @@ final class Account(
                         routes.Account.reopenSent
                 }
             )
-        }
       else renderReopen(none, none) map { BadRequest(_) }
     }
 

@@ -27,7 +27,7 @@ final class UblogPaginator(
 
   def byBlog(blog: UblogBlog.Id, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
-      adapter = new Adapter[PreviewPost](
+      adapter = Adapter[PreviewPost](
         collection = colls.post,
         selector = $doc("blog" -> blog, "live" -> live),
         projection = previewPostProjection.some,
@@ -41,9 +41,8 @@ final class UblogPaginator(
   def liveByCommunity(lang: Option[Lang], page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost] {
-        val select = $doc("live" -> true, "topics" $ne UblogTopic.offTopic) ++ lang.so { l =>
+        val select = $doc("live" -> true, "topics" $ne UblogTopic.offTopic) ++ lang.so: l =>
           $doc("language" -> l.code)
-        }
         def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
       },
@@ -76,11 +75,11 @@ final class UblogPaginator(
     )
 
   private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int) = colls.post
-    .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+    .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
       import framework.*
       Match(select ++ $doc("live" -> true)) -> List(
         Sort(Descending("rank")),
-        PipelineOperator(
+        PipelineOperator:
           $lookup.pipeline(
             from = colls.blog,
             as = "blog",
@@ -91,73 +90,67 @@ final class UblogPaginator(
               $doc("$project" -> $id(true))
             )
           )
-        ),
+        ,
         UnwindField("blog"),
         Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
         Skip(offset),
         Limit(length)
       )
-    }
-    .map { docs =>
-      for {
+    .map: docs =>
+      for
         doc  <- docs
         post <- doc.asOpt[PreviewPost]
-      } yield post
-    }
+      yield post
 
   object liveByFollowed:
 
     def apply(user: User, page: Int): Fu[Paginator[PreviewPost]] =
       Paginator(
-        adapter = new AdapterLike[PreviewPost] {
+        adapter = new AdapterLike[PreviewPost]:
           def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
           def slice(offset: Int, length: Int) = cache.get((user.id, offset, length))
-        },
+        ,
         currentPage = page,
         maxPerPage = maxPerPage
       )
 
-    private val cache = cacheApi[(UserId, Int, Int), List[PreviewPost]](256, "ublog.paginator.followed")(
-      _.expireAfterWrite(15 seconds)
-        .buildAsyncFuture { case (userId, offset, length) =>
-          relationApi.coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework.*
-              Match($doc("u1" -> userId, "r" -> lila.relation.Follow)) -> List(
-                Group(BSONNull)("ids" -> PushField("u2")),
-                PipelineOperator(
-                  $lookup.pipelineFull(
-                    from = colls.post.name,
-                    as = "post",
-                    let = $doc("users" -> "$ids"),
-                    pipe = List(
-                      $doc(
-                        "$match" -> $expr(
-                          $and(
-                            $doc("$in" -> $arr(s"$$created.by", "$$users")),
-                            $doc("$eq" -> $arr("$live", true)),
-                            $doc("$gt" -> $arr("$lived.at", nowInstant.minusMonths(3)))
-                          )
+    private val cache = cacheApi[(UserId, Int, Int), List[PreviewPost]](256, "ublog.paginator.followed"):
+      _.expireAfterWrite(15 seconds).buildAsyncFuture: (userId, offset, length) =>
+        relationApi.coll
+          .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+            import framework.*
+            Match($doc("u1" -> userId, "r" -> lila.relation.Follow)) -> List(
+              Group(BSONNull)("ids" -> PushField("u2")),
+              PipelineOperator:
+                $lookup.pipelineFull(
+                  from = colls.post.name,
+                  as = "post",
+                  let = $doc("users" -> "$ids"),
+                  pipe = List(
+                    $doc(
+                      "$match" -> $expr(
+                        $and(
+                          $doc("$in" -> $arr(s"$$created.by", "$$users")),
+                          $doc("$eq" -> $arr("$live", true)),
+                          $doc("$gt" -> $arr("$lived.at", nowInstant.minusMonths(3)))
                         )
-                      ),
-                      $doc("$project" -> previewPostProjection),
-                      $doc("$sort"    -> $doc("lived.at" -> -1)),
-                      $doc("$skip"    -> offset),
-                      $doc("$limit"   -> length)
-                    )
+                      )
+                    ),
+                    $doc("$project" -> previewPostProjection),
+                    $doc("$sort"    -> $doc("lived.at" -> -1)),
+                    $doc("$skip"    -> offset),
+                    $doc("$limit"   -> length)
                   )
-                ),
-                Project($doc("ids" -> false, "_id" -> false)),
-                UnwindField("post"),
-                Limit(length),
-                ReplaceRootField("post")
-              )
-            }
-            .map { docs =>
-              for {
-                doc  <- docs
-                post <- doc.asOpt[PreviewPost]
-              } yield post
-            }
-        }
-    )
+                )
+              ,
+              Project($doc("ids" -> false, "_id" -> false)),
+              UnwindField("post"),
+              Limit(length),
+              ReplaceRootField("post")
+            )
+          }
+          .map: docs =>
+            for
+              doc  <- docs
+              post <- doc.asOpt[PreviewPost]
+            yield post

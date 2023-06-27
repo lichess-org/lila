@@ -34,8 +34,9 @@ object UblogBlog:
     val BEST: Tier    = 5
 
     def default(user: User) =
-      if (user.marks.troll) Tier.HIDDEN
-      else if (user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > 2200)) Tier.NORMAL
+      if user.marks.troll then Tier.HIDDEN
+      else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > 2200)
+      then Tier.NORMAL
       else Tier.LOW
 
     val options = List(

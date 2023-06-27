@@ -145,9 +145,8 @@ final class UblogApi(
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if (v) fuccess(UblogBlog.Tier.HIDDEN)
     else userRepo.byId(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
-  } flatMap {
+  }.flatMap:
     setTier(UblogBlog.Id.User(userId), _)
-  }
 
   def canBlog(u: User) =
     !u.isBot && {

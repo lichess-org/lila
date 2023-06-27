@@ -26,16 +26,16 @@ final class UblogRank(
     colls.post.update
       .one(
         $id(postId),
-        if (v) $addToSet("likers" -> me.userId) else $pull("likers" -> me.userId)
+        if v then $addToSet("likers" -> me.userId) else $pull("likers" -> me.userId)
       )
       .flatMap: res =>
         colls.post
           .aggregateOne(): framework =>
             import framework.*
             Match($id(postId)) -> List(
-              PipelineOperator(
+              PipelineOperator:
                 $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
-              ),
+              ,
               UnwindField("blog"),
               Project(
                 $doc(
@@ -73,8 +73,8 @@ final class UblogRank(
                   "rank"  -> computeRank(topics, likes, liveAt, language, tier)
                 )
               ) >>- {
-                if (res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW)
-                  timeline ! (Propagate(UblogPostLike(me, id.value, title)) toFollowersOf me)
+                if res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW
+                then timeline ! (Propagate(UblogPostLike(me, id.value, title)) toFollowersOf me)
               } inject likes
 
   def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
@@ -108,14 +108,12 @@ final class UblogRank(
       .cursor[UblogBlog](ReadPreference.secondaryPreferred)
       .documentSource()
       .mapAsyncUnordered(4)(recomputeRankOfAllPostsOfBlog)
-      .toMat(lila.common.LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(lila.common.LilaStream.sinkCount)
       .map(nb => println(s"Recomputed rank of $nb blogs"))
 
   def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.RankDate] =
-    post.lived map { lived =>
+    post.lived.map: lived =>
       computeRank(post.topics, post.likes, lived.at, post.language, blog.tier)
-    }
 
   private def computeRank(
       topics: List[UblogTopic],
@@ -125,23 +123,22 @@ final class UblogRank(
       tier: UblogBlog.Tier
   ) = UblogPost.RankDate {
     import UblogBlog.Tier.*
-    if (tier < LOW) liveAt minusMonths 3
+    if tier < LOW
+    then liveAt minusMonths 3
     else
-      liveAt plusHours {
-        val tierBase = 24 * (tier match {
+      liveAt plusHours:
+        val tierBase = 24 * tier.match
           case LOW    => -30
           case NORMAL => 0
           case HIGH   => 10
           case BEST   => 15
           case _      => 0
-        })
 
         val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
 
-        val topicsBonus = if (topics.exists(UblogTopic.chessExists)) 0 else -24 * 5
+        val topicsBonus = if topics.exists(UblogTopic.chessExists) then 0 else -24 * 5
 
-        val langBonus = if (language.language == lila.i18n.defaultLang.language) 0 else -24 * 10
+        val langBonus = if language.language == lila.i18n.defaultLang.language then 0 else -24 * 10
 
         (tierBase + likesBonus + topicsBonus + langBonus).toInt
-      }
   }

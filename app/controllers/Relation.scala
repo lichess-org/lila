@@ -45,7 +45,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     key = "follow.user"
   )
 
-  private def FollowingUser(
+  private def RatelimitWith(
       str: UserStr
   )(f: LightUser => Fu[Result])(using me: Me)(using Context): Fu[Result] =
     Found(env.user.lightUserApi.async(str.id)): user =>
@@ -53,7 +53,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         f(user)
 
   def follow(username: UserStr) = AuthOrScoped(_.Follow.Write) { ctx ?=> me ?=>
-    FollowingUser(username): user =>
+    RatelimitWith(username): user =>
       api.reachedMaxFollowing(me) flatMap {
         if _ then
           val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
@@ -67,7 +67,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write) { ctx ?=> me ?=>
-    FollowingUser(username): user =>
+    RatelimitWith(username): user =>
       api.unfollow(me, user.id).recoverDefault >> negotiate(
         renderActions(user.name, getBool("mini")),
         jsonOkResult
@@ -75,12 +75,12 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def block(username: UserStr) = Auth { ctx ?=> me ?=>
-    FollowingUser(username): user =>
+    RatelimitWith(username): user =>
       api.block(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
   }
 
   def unblock(username: UserStr) = Auth { ctx ?=> me ?=>
-    FollowingUser(username): user =>
+    RatelimitWith(username): user =>
       api.unblock(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
   }
 
