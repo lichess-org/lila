@@ -114,11 +114,7 @@ const getReverseMap = (() => {
     if (!REVERSE_MAP) {
       REVERSE_MAP = {};
       for (const key in MAP) {
-        if (parseInt(key, 10) > 95 && parseInt(key, 10) < 112) {
-          // pull out the numeric keypad from here cause keypress should
-          // be able to detect the keys from the character
-          continue;
-        }
+        if (parseInt(key, 10) > 95 && parseInt(key, 10) < 112) continue; // skip numeric keypad
         if (Object.prototype.hasOwnProperty.call(MAP, key)) {
           REVERSE_MAP[MAP[key]] = key;
         }
@@ -129,11 +125,8 @@ const getReverseMap = (() => {
 })();
 
 const pickBestAction = (key: string, modifiers: string[], action?: Action): Action => {
-  // if no action was picked in we should try to pick the one
-  // that we think would work best for this key
   action = action || (getReverseMap()[key] ? 'keydown' : 'keypress');
-  // modifier keys don't work as expected with keypress, switch to keydown
-  if (action == 'keypress' && modifiers.length) return 'keydown';
+  if (action == 'keypress' && modifiers.length) return 'keydown'; // modifiers incompatible with keypress
   return action;
 };
 
@@ -145,9 +138,7 @@ const getKeyInfo = (combination: string, action?: Action): KeyInfo => {
   const modifiers: string[] = [];
 
   for (key of keysFromString(combination)) {
-    // normalize key names
-    if (SPECIAL_ALIASES[key]) key = SPECIAL_ALIASES[key];
-    // if this key is a modifier then add it to the list of modifiers
+    key = SPECIAL_ALIASES[key] || key; // normalize
     if (isModifier(key)) modifiers.push(key);
   }
 
@@ -169,13 +160,12 @@ export default class Mousetrap {
   }
 
   /**
-   * binds an event to mousetrap
+   * Binds an event to mousetrap.
    *
-   * can be a single key, a combination of keys separated with +,
-   * or an array of such combinations
+   * Can be a single key, a combination of keys separated with +,
+   * or an array of such combinations.
    *
-   * be sure to list the modifier keys first to make sure that the
-   * correct key ends up getting bound (the last key in the pattern)
+   * When adding modifiers, list the actual key last.
    */
   bind = (combinations: string | string[], callback: Callback, action?: Action): Mousetrap => {
     this.bindMultiple(combinations instanceof Array ? combinations : [combinations], callback, action);
@@ -197,10 +187,7 @@ export default class Mousetrap {
   };
 
   private handleKeyEvent = (e: KeyboardEvent) => {
-    // normalize (see http://stackoverflow.com/questions/4285627/javascript-keycode-vs-charcode-utter-confusion)
-    if (typeof e.which !== 'number') {
-      (e as any).which = e.keyCode;
-    }
+    if (typeof e.which !== 'number') (e as any).which = e.keyCode; // normalize
 
     const el = e.target as HTMLElement;
 
@@ -223,9 +210,9 @@ export default class Mousetrap {
     return (this.bindings[key] || []).filter(
       binding =>
         action == binding.action &&
-        // chrome will not fire a keypress if meta or control is down,
-        // safari will fire a keypress if meta or meta+shift is down,
-        // firefox will fire a keypress if meta or control is down
+        // Chrome will not fire a keypress if meta or control is down,
+        // Safari will fire a keypress if meta or meta+shift is down,
+        // Firefox will fire a keypress if meta or control is down
         ((action == 'keypress' && !e.metaKey && !e.ctrlKey) || modifiersMatch(modifiers, binding.modifiers))
     );
   };
