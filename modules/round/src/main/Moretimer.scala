@@ -11,6 +11,9 @@ final class Moretimer(
     prefApi: PrefApi
 )(using Executor):
 
+  private val minTime = 5.seconds
+  private val maxTime = 60.seconds
+
   // pov of the player giving more time
   def apply(pov: Pov, duration: FiniteDuration): Fu[Option[Progress]] =
     IfAllowed(pov.game):
@@ -27,8 +30,12 @@ final class Moretimer(
     (game.canTakebackOrAddTime && game.playable && !game.metadata.hasRule(_.NoGiveTime)) so
       isAllowedByPrefs(game)
 
-  private[round] def give(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
+  private[round] def give(game: Game, colors: List[Color], unchecked: FiniteDuration): Progress =
     game.clock.fold(Progress(game)): clock =>
+      val duration =
+        if unchecked < minTime then minTime
+        else if unchecked > maxTime then maxTime
+        else unchecked
       val centis = duration.toCentis
       val newClock = colors.foldLeft(clock): (c, color) =>
         c.giveTime(color, centis)
