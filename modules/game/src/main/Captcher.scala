@@ -28,15 +28,16 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
 
     def get(id: GameId): Fu[Captcha] =
       find(id) match
-        case None    => getFromDb(id) map (c => (c | Captcha.default) ~ add)
+        case None =>
+          getFromDb(id)
+            .dmap(_ | Captcha.default)
+            .addEffect(add)
         case Some(c) => fuccess(c)
 
     def current = challenges.head
 
-    def refresh =
-      createFromDb andThen { case Success(Some(captcha)) =>
-        add(captcha)
-      }
+    def refresh = createFromDb.andThen:
+      case Success(Some(captcha)) => add(captcha)
 
     // Private stuff
 
@@ -65,24 +66,22 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
       }
 
     private def makeCaptcha(game: Game, moves: Vector[SanStr]): Option[Captcha] =
-      for {
+      for
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
-        moves = rewinded.situation.destinations map { case (from, dests) =>
+        moves = rewinded.situation.destinations.map: (from, dests) =>
           from.key -> dests.map(_.key).mkString
-        }
-      } yield Captcha(game.id, fenOf(rewinded), rewinded.player, solutions, moves = moves)
+      yield Captcha(game.id, fenOf(rewinded), rewinded.player, solutions, moves = moves)
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
       game.situation.moves.view
-        .flatMap { case (_, moves) =>
-          moves filter { move =>
+        .flatMap: (_, moves) =>
+          moves.filter: move =>
             (move.after situationOf !game.player).checkMate
-          }
-        }
-        .to(List) map { move =>
-        s"${move.orig.key} ${move.dest.key}"
-      } toNel
+        .to(List)
+        .map: move =>
+          s"${move.orig.key} ${move.dest.key}"
+        .toNel
 
     private def rewind(moves: Vector[SanStr]): Option[ChessGame] =
       pgn.Reader

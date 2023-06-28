@@ -19,12 +19,7 @@ final class Env(
     poolApi: lila.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
     remoteSocketApi: lila.socket.RemoteSocket
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler,
-    idGenerator: lila.game.IdGenerator
-):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.game.IdGenerator):
 
   private lazy val seekApiConfig = new SeekApi.Config(
     coll = db(CollName("seek")),
@@ -49,6 +44,5 @@ final class Env(
 
   val socket = wire[LobbySocket]
 
-  lila.common.Bus.subscribeFun("abortGame") { case lila.game.actorApi.AbortedBy(pov) =>
-    abortListener(pov).unit
-  }
+  lila.common.Bus.subscribeFun("abortGame"):
+    case lila.game.actorApi.AbortedBy(pov) => abortListener(pov).unit

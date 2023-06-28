@@ -63,23 +63,17 @@ final class RelationApi(
       }
 
   def fetchFollows(u1: UserId, u2: UserId): Fu[Boolean] =
-    (u1 != u2) so {
-      coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
-    }
+    (u1 != u2) so coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
 
   def fetchBlocks(u1: UserId, u2: UserId): Fu[Boolean] =
-    (u1 != u2) so {
-      coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Block))
-    }
+    (u1 != u2) so coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Block))
 
   def fetchAreFriends(u1: UserId, u2: UserId): Fu[Boolean] =
     fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
-  private val countFollowingCache = cacheApi[UserId, Int](8_192, "relation.count.following") {
-    _.maximumSize(8_192)
-      .buildAsyncFuture { userId =>
-        coll.countSel($doc("u1" -> userId, "r" -> Follow))
-      }
+  private val countFollowingCache = cacheApi[UserId, Int](16_384, "relation.count.following") {
+    _.maximumSize(8_192).buildAsyncFuture: userId =>
+      coll.countSel($doc("u1" -> userId, "r" -> Follow))
   }
 
   def countFollowing(userId: UserId) = countFollowingCache get userId
@@ -87,20 +81,11 @@ final class RelationApi(
   def reachedMaxFollowing(userId: UserId): Fu[Boolean] =
     countFollowingCache get userId map (_ >= config.maxFollow.value)
 
-  private val countFollowersCache = cacheApi[UserId, Int](32_768, "relation.count.followers") {
-    _.maximumSize(32_768)
-      .buildAsyncFuture { userId =>
-        coll.secondaryPreferred.countSel($doc("u2" -> userId, "r" -> Follow))
-      }
-  }
-
-  def countFollowers(userId: UserId) = countFollowersCache get userId
-
   def countBlocking(userId: UserId) =
     coll.countSel($doc("u1" -> userId, "r" -> Block))
 
   def followingPaginatorAdapter(userId: UserId) =
-    new Adapter[Followed](
+    Adapter[Followed](
       collection = coll,
       selector = $doc("u1" -> userId, "r" -> Follow),
       projection = $doc("u2" -> true, "_id" -> false).some,
@@ -109,16 +94,15 @@ final class RelationApi(
       .map(_.userId)
 
   def followersPaginatorAdapter(userId: UserId) =
-    new Adapter[Follower](
+    Adapter[Follower](
       collection = coll,
       selector = $doc("u2" -> userId, "r" -> Follow),
       projection = $doc("u1" -> true, "_id" -> false).some,
       sort = $empty
-    ).withNbResults(countFollowers(userId))
-      .map(_.userId)
+    ).map(_.userId)
 
   def blockingPaginatorAdapter(userId: UserId) =
-    new Adapter[Blocked](
+    Adapter[Blocked](
       collection = coll,
       selector = $doc("u1" -> userId, "r" -> Block),
       projection = $doc("u2" -> true, "_id" -> false).some,
@@ -133,7 +117,6 @@ final class RelationApi(
           case (_, Some(Block))  => funit
           case _ =>
             repo.follow(u1, u2) >> limitFollow(u1) >>- {
-              countFollowersCache.update(u2, 1 +)
               countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
               timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1)
               Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
@@ -162,54 +145,47 @@ final class RelationApi(
       }
 
   private def limitBlock(u: UserId) =
-    countBlocking(u) flatMap { nb =>
+    countBlocking(u).flatMap: nb =>
       (nb > config.maxBlock.value) so repo.drop(u, false, nb - config.maxBlock.value)
-    }
 
   def block(u1: UserId, u2: UserId): Funit =
-    (u1 != u2 && u2 != User.lichessId) so {
-      fetchBlocks(u1, u2) flatMap {
-        if _ then funit
-        else
-          repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
-            Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
-            Bus.publish(
-              lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
-              "socketUsers"
-            )
-            lila.mon.relation.block.increment().unit
-          }
-      }
+    (u1 != u2 && u2 != User.lichessId) so fetchBlocks(u1, u2).flatMap {
+      if _ then funit
+      else
+        repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
+          Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
+          Bus.publish(
+            lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
+            "socketUsers"
+          )
+          lila.mon.relation.block.increment().unit
+        }
     }
 
   def unfollow(u1: UserId, u2: UserId): Funit =
-    (u1 != u2) so {
-      fetchFollows(u1, u2) flatMapz {
+    (u1 != u2) so
+      fetchFollows(u1, u2).flatMapz {
         repo.unfollow(u1, u2) >>- {
-          countFollowersCache.update(u2, _ - 1)
           countFollowingCache.update(u1, _ - 1)
           Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
           lila.mon.relation.unfollow.increment().unit
         }
       }
-    }
 
   def unfollowAll(u1: UserId): Funit = repo.unfollowAll(u1)
 
   def unblock(u1: UserId, u2: UserId): Funit =
-    (u1 != u2) so {
-      fetchBlocks(u1, u2) flatMap {
-        if _ then
-          repo.unblock(u1, u2) >>- {
-            Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
-            Bus.publish(
-              lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
-              "socketUsers"
-            )
-            lila.mon.relation.unblock.increment().unit
-          }
-        else funit
-      }
+    (u1 != u2) so fetchBlocks(u1, u2).flatMap {
+      if _ then
+        repo.unblock(u1, u2) >>- {
+          Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
+          Bus.publish(
+            lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
+            "socketUsers"
+          )
+          lila.mon.relation.unblock.increment().unit
+        }
+      else funit
     }
 
   def searchFollowedBy(u: User, term: UserStr, max: Int): Fu[List[UserId]] =

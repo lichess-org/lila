@@ -11,11 +11,14 @@ case class EvalCacheEntry(
   import EvalCacheEntry.*
 
   // finds the best eval with at least multiPv pvs,
-  // and truncates its pvs to multiPv
+  // and truncates its pvs to multiPv.
+  // Defaults to lower multiPv if no eval has enough pvs.
   def makeBestMultiPvEval(multiPv: MultiPv): Option[Eval] =
     evals
       .find(_.multiPv >= multiPv.atMost(nbMoves))
       .map(_ takePvs multiPv)
+      .orElse:
+        evals.sortBy(-_.multiPv.value).headOption
 
 object EvalCacheEntry:
 

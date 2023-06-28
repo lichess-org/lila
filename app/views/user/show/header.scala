@@ -273,7 +273,7 @@ object header:
       else submitButton(cls := "button", name := "noteType", value := "normal")(trans.save())
     ),
     notes.isEmpty option div(trans.noNoteYet()),
-    notes.map { note =>
+    notes.map: note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
         (note.mod && isGranted(_.Admin)) option postForm(
@@ -301,5 +301,4 @@ object header:
           )
         )
       )
-    }
   )

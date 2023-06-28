@@ -138,9 +138,10 @@ final private class RelayFetch(
         gameRepo.gamesFromSecondary(ids) flatMap
           gameProxy.upgradeIfPresent flatMap
           gameRepo.withInitialFens flatMap { games =>
-            if (games.size == ids.size)
+            if games.size == ids.size then
+              val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
               games.map { (game, fen) =>
-                pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
+                pgnDump(game, fen, pgnFlags).dmap(_.render)
               }.parallel dmap MultiPgn.apply
             else
               throw LilaInvalid(

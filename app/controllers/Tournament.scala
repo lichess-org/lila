@@ -12,8 +12,7 @@ import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments,
 import lila.gathering.Condition.GetMyTeamIds
 import play.api.i18n.Lang
 
-final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
-    extends LilaController(env):
+final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
   private def repo       = env.tournament.tournamentRepo
   private def api        = env.tournament.api

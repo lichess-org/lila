@@ -28,12 +28,12 @@ object RoomSocket:
       case SetVersion(v)       => version = v
       case nv: NotifyVersion[?] =>
         version = version.incVersion
-        send {
+        send:
           val tell =
-            if (chatMsgs(nv.tpe)) Protocol.Out.tellRoomChat
+            if chatMsgs(nv.tpe) then Protocol.Out.tellRoomChat
             else Protocol.Out.tellRoomVersion
           tell(roomId, nv.msg, version, nv.troll)
-        }
+
     override def stop() =
       super.stop()
       send(Protocol.Out.stop(roomId))
@@ -66,7 +66,7 @@ object RoomSocket:
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
           localTimeout.so { _(roomId, modId, suspect) } foreach { local =>
-            val scope = if (local) ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
+            val scope = if local then ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
             chat.userChat.timeout(
               roomId into ChatId,
               suspect,
@@ -85,21 +85,19 @@ object RoomSocket:
       logger.warn("Remote socket boot")
     // rooms.killAll // apparently not
     case Protocol.In.SetVersions(versions) =>
-      versions foreach { case (roomId, version) =>
+      versions.foreach: (roomId, version) =>
         rooms.tell(RoomId(roomId), SetVersion(version))
-      }
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
   def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select) =
-    lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan) {
+    lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan):
       case lila.chat.ChatLine(id, line: UserLine) =>
         rooms.tellIfPresent(id into RoomId, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
       case lila.chat.OnTimeout(id, userId) =>
         rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_timeout", userId, troll = false))
       case lila.chat.OnReinstate(id, userId) =>
         rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_reinstate", userId, troll = false))
-    }
 
   object Protocol:
 

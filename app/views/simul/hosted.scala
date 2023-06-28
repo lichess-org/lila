@@ -28,7 +28,7 @@ object hosted:
               )
             ),
             tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map { s =>
+              pager.currentPageResults.map: s =>
                 val hostColor = s.color match
                   case Some(color) => color
                   case None        => "random"
@@ -43,7 +43,7 @@ object hosted:
                   ),
                   td(s"${s.wins} / ${s.draws} / ${s.losses}")
                 )
-              },
+              ,
               pagerNextTable(pager, np => routes.Simul.byUser(user.username, np).url)
             )
           )

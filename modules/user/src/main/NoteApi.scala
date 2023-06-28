@@ -2,6 +2,9 @@ package lila.user
 
 import lila.db.dsl.{ *, given }
 import ornicar.scalalib.ThreadLocalRandom
+import lila.common.paginator.Paginator
+import reactivemongo.api.ReadPreference
+import lila.common.config.MaxPerPage
 
 case class Note(
     _id: String,
@@ -13,30 +16,27 @@ case class Note(
     date: Instant
 ):
   def userIds            = List(from, to)
-  def isFrom(user: User) = user.id == from
+  def isFrom(user: User) = user.id is from
+  def searchable         = mod && !dox && from.isnt(User.lichessId) && from.isnt(User.watcherbotId)
 
-final class NoteApi(
-    userRepo: UserRepo,
-    coll: Coll
-)(using
-    ec: Executor,
-    ws: play.api.libs.ws.StandaloneWSClient
+final class NoteApi(userRepo: UserRepo, coll: Coll)(using
+    Executor,
+    play.api.libs.ws.StandaloneWSClient
 ):
 
   import reactivemongo.api.bson.*
-  private given BSONDocumentHandler[Note] = Macros.handler[Note]
+  private given bsonHandler: BSONDocumentHandler[Note] = Macros.handler[Note]
 
   def get(user: User, isMod: Boolean)(using me: Me.Id): Fu[List[Note]] =
     coll
       .find(
         $doc("to" -> user.id) ++ {
-          if (isMod)
+          if isMod then
             $or(
               $doc("from" -> me),
               $doc("mod"  -> true)
             )
-          else
-            $doc("from" -> me, "mod" -> false)
+          else $doc("from" -> me, "mod" -> false)
         }
       )
       .sort($sort desc "date")
@@ -58,7 +58,6 @@ final class NoteApi(
       .list(100)
 
   def write(to: User, text: String, modOnly: Boolean, dox: Boolean)(using me: Me) = {
-
     val note = Note(
       _id = ThreadLocalRandom nextString 8,
       from = me,
@@ -68,17 +67,11 @@ final class NoteApi(
       dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
       date = nowInstant
     )
-
-    coll.insert.one(note) >>-
-      lila.common.Bus.publish(
-        lila.hub.actorApi.user.Note(
-          from = me.username,
-          to = to.username,
-          text = note.text,
-          mod = modOnly
-        ),
-        "userNote"
-      )
+    Future
+      .fromTry(bsonHandler.writeTry(note))
+      .flatMap: base =>
+        val bson = if note.searchable then base ++ searchableBsonFlag else base
+        coll.insert.one(bson)
   } >> {
     modOnly so Title.fromUrl(text) flatMap {
       _ so { userRepo.addTitle(to.id, _) }
@@ -94,3 +87,32 @@ final class NoteApi(
   def delete(id: String) = coll.delete.one($id(id))
 
   def setDox(id: String, dox: Boolean) = coll.update.one($id(id), $set("dox" -> dox)).void
+
+  private val searchableBsonFlag = $doc("s" -> true)
+
+  def search(query: String, page: Int): Fu[Paginator[Note]] =
+    Paginator(
+      adapter = new:
+        private val selector =
+          if query.nonEmpty
+          then $text(query) ++ searchableBsonFlag
+          else searchableBsonFlag
+        def nbResults: Fu[Int] =
+          if query.nonEmpty
+          then coll.countSel(selector)
+          else fuccess(500_000)
+        def slice(offset: Int, length: Int): Fu[List[Note]] =
+          coll
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
+              import framework.*
+              Match(selector) -> {
+                List(Sort(Descending("date"))) :::
+                  List(Skip(offset), Limit(length))
+              }
+            .map:
+              _.flatMap:
+                _.asOpt[Note]
+      ,
+      currentPage = page,
+      maxPerPage = MaxPerPage(30)
+    )

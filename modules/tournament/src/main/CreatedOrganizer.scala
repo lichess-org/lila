@@ -18,8 +18,7 @@ final private class CreatedOrganizer(
     tournamentRepo.shouldStartCursor
       .documentSource()
       .mapAsync(1)(api.start)
-      .toMat(Sink.ignore)(Keep.right)
-      .run()
+      .runWith(Sink.ignore)
       .monSuccess(_.tournament.createdOrganizer.tick)
       .void
   }

@@ -8,8 +8,7 @@ import { initModule as keyboardMove } from './keyboardMove';
 
 // Set up the globals that are normally attached to window
 declare let global: any;
-global.lichess = { sound: { say: () => null, play: () => null } };
-global.Mousetrap = { bind: () => null };
+global.lichess = { sound: { say: () => null, play: () => null }, mousetrap: { bind: () => undefined } };
 
 // Set up the common defaults
 document.body.innerHTML = `<input id="keyboardInput" />`;

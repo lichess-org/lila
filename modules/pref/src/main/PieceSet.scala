@@ -38,6 +38,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("spatial"),
     PieceSet("celtic"),
     PieceSet("california"),
+    PieceSet("caliente"),
     PieceSet("pixel"),
     PieceSet("maestro"),
     PieceSet("fresca"),

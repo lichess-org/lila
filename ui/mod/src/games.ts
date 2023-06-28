@@ -2,8 +2,7 @@ import extendTablesortNumber from 'common/tablesort-number';
 import tablesort from 'tablesort';
 import debounce from 'common/debounce';
 import { formToXhr } from 'common/xhr';
-
-type OnSelect = (input: HTMLInputElement, shift: boolean) => void;
+import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
 
 lichess.load.then(() => {
   setupTable();
@@ -28,10 +27,7 @@ const setupTable = () => {
   extendTablesortNumber();
   tablesort(table, { descending: true });
 
-  const onSelect = shiftClickCheckboxRange(table);
-
-  expandCheckboxZone(table, onSelect);
-
+  expandCheckboxZone(table, 'td:first-child', shiftClickCheckboxRange(table));
   checkBoxAll(table);
 };
 
@@ -59,43 +55,3 @@ const setupActionForm = () => {
     return;
   });
 };
-
-const shiftClickCheckboxRange = (table: HTMLTableElement): OnSelect => {
-  let lastChecked: HTMLInputElement | undefined;
-
-  const checkIntermediateBoxes = (first: HTMLInputElement, last: HTMLInputElement) => {
-    let started = false;
-    for (const input of table.querySelectorAll('tbody input')) {
-      if (first == input || last == input) {
-        if (started) return;
-        started = true;
-      } else if (started) (input as HTMLInputElement).checked = last.checked;
-    }
-  };
-
-  return (input: HTMLInputElement, shift: boolean) => {
-    if (shift && lastChecked && input != lastChecked) checkIntermediateBoxes(lastChecked, input);
-    lastChecked = input;
-  };
-};
-
-const expandCheckboxZone = (table: HTMLTableElement, onSelect: OnSelect) =>
-  $(table).on('click', 'td:first-child', (e: MouseEvent) => {
-    if ((e.target as HTMLElement).tagName == 'INPUT') onSelect(e.target as HTMLInputElement, e.shiftKey);
-    else {
-      const input = (e.target as HTMLTableElement).querySelector('input') as HTMLInputElement | undefined;
-      if (input) {
-        input.checked = !input.checked;
-        onSelect(input, e.shiftKey);
-      }
-    }
-  });
-
-const checkBoxAll = (table: HTMLTableElement) =>
-  $(table)
-    .find('thead input')
-    .on('change', (e: MouseEvent) =>
-      $(table)
-        .find('tbody input')
-        .prop('checked', (e.target as HTMLInputElement).checked)
-    );

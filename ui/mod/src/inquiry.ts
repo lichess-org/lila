@@ -70,7 +70,7 @@ lichess.load.then(() => {
     }
   });
 
-  window.Mousetrap.bind('d', () =>
+  lichess.mousetrap.bind('d', () =>
     $('#inquiry .actions.close form.process button[type="submit"]').trigger('click')
   );
 

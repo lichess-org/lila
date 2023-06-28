@@ -52,7 +52,7 @@ export default class EditorCtrl {
       cfg.endgamePositions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
     }
 
-    window.Mousetrap.bind('f', () => {
+    lichess.mousetrap.bind('f', () => {
       if (this.chessground) this.chessground.toggleOrientation();
       this.onChange();
     });

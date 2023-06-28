@@ -118,7 +118,7 @@ lichess.load.then(() => {
 
     $('body').on('focusin', trapFocus);
 
-    window.Mousetrap.bind('esc', () => {
+    lichess.mousetrap.bind('esc', () => {
       const $oc = $('#modal-wrap .close');
       if ($oc.length) $oc.trigger('click');
       else {

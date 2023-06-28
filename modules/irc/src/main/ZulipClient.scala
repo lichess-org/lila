@@ -85,9 +85,10 @@ private object ZulipClient:
       val cafeteria    = "mod-cafeteria"
       val usernames    = "mod-usernames"
       def adminMonitor(tpe: IrcApi.ModDomain) = tpe match
-        case IrcApi.ModDomain.Comm                           => "mod-admin-monitor-comm"
-        case IrcApi.ModDomain.Cheat | IrcApi.ModDomain.Boost => "mod-admin-monitor-hunt"
-        case _                                               => "mod-admin-monitor-other"
+        case IrcApi.ModDomain.Comm  => "mod-admin-monitor-comm"
+        case IrcApi.ModDomain.Cheat => "mod-admin-monitor-cheat"
+        case IrcApi.ModDomain.Boost => "mod-admin-monitor-boost"
+        case _                      => "mod-admin-monitor-other"
     val general   = "general"
     val broadcast = "content-broadcast"
     val blog      = "content-blog"

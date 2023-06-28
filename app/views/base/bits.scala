@@ -37,9 +37,8 @@ padding: .5em 1em;
 border-top-right-radius: 3px;
 z-index: 99;
 """
-  )(
+  ):
     "This is an empty Lichess preview website, go to lichess.org instead"
-  )
 
   val connectLinks =
     div(cls := "connect-links")(
@@ -61,15 +60,17 @@ z-index: 99;
 
   def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =
     st.nav(cls := "pagination")(
-      if (page > 1) a(href := url(page - 1), dataIcon := licon.LessThan)
-      else span(cls        := "disabled", dataIcon    := licon.LessThan),
-      sliding(page, nbPages, 3, showPost = showPost).map {
+      if page > 1
+      then a(href   := url(page - 1), dataIcon := licon.LessThan)
+      else span(cls := "disabled", dataIcon    := licon.LessThan),
+      sliding(page, nbPages, 3, showPost = showPost).map:
         case None                 => raw(" &hellip; ")
         case Some(p) if p == page => span(cls := "current")(p)
         case Some(p)              => a(href := url(p))(p)
-      },
-      if (page < nbPages) a(rel := "next", href         := url(page + 1), dataIcon := licon.GreaterThan)
-      else span(cls             := "disabled", dataIcon := licon.GreaterThan)
+      ,
+      if page < nbPages
+      then a(rel    := "next", dataIcon     := licon.GreaterThan, href := url(page + 1))
+      else span(cls := "disabled", dataIcon := licon.GreaterThan)
     )
 
   private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] =
@@ -88,7 +89,7 @@ z-index: 99;
 
   def ariaTabList(prefix: String, selected: String)(tabs: (String, String, Frag)*) = frag(
     div(cls := "tab-list", role := "tablist")(
-      tabs map { case (id, name, _) =>
+      tabs.map: (id, name, _) =>
         button(
           st.id            := s"$prefix-tab-$id",
           aria("controls") := s"$prefix-panel-$id",
@@ -97,10 +98,9 @@ z-index: 99;
           aria("selected") := (selected == id).option("true"),
           tabindex         := 0
         )(name)
-      }
     ),
     div(cls := "panel-list")(
-      tabs map { case (id, _, content) =>
+      tabs.map: (id, _, content) =>
         div(
           st.id              := s"$prefix-panel-$id",
           aria("labelledby") := s"$prefix-tab-$id",
@@ -108,6 +108,5 @@ z-index: 99;
           cls                := List("panel-list__panel" -> true, "none" -> (selected != id)),
           tabindex           := 0
         )(content)
-      }
     )
   )

@@ -48,9 +48,7 @@ final private[video] class VideoApi(
       Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $doc(
-            "$text" -> $doc("$search" -> q)
-          ),
+          selector = $text(q),
           projection = textScore.some,
           sort = textScore,
           readPreference = ReadPreference.secondaryPreferred

@@ -85,6 +85,5 @@ final private class InsightIndexer(
         .via(LilaStream.collect)
         .grouped(100 atMost maxGames)
         .map(storage.bulkInsert)
-        .toMat(Sink.ignore)(Keep.right)
-        .run()
+        .runWith(Sink.ignore)
     } void

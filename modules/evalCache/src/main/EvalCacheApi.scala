@@ -16,7 +16,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
     getEval(Id(variant, SmallFen.make(variant, fen.simple)), multiPv) map {
       _.map { JsonView.writeEval(_, fen) }
     } addEffect { res =>
-      Fen.readPly(fen) foreach { ply =>
+      Fen.readPly(fen).foreach { ply =>
         lila.mon.evalCache.request(ply.value, res.isDefined).increment()
       }
     }
@@ -29,16 +29,13 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
     coll(_.delete.one($id(id)).void)
 
   private def getEval(id: Id, multiPv: MultiPv): Fu[Option[Eval]] =
-    cache.get(id) map {
+    cache.get(id).map {
       _.flatMap(_ makeBestMultiPvEval multiPv)
     }
 
-  private val cache = cacheApi[Id, Option[EvalCacheEntry]](512, "evalCache") {
-    _.expireAfterAccess(5 minutes).buildAsyncFuture { id =>
-      coll { c =>
-        c.one[EvalCacheEntry]($id(id)) addEffect { res =>
-          if (res.isDefined) c.updateFieldUnchecked($id(id), "usedAt", nowInstant)
-        }
-      }
-    }
-  }
+  private val cache = cacheApi[Id, Option[EvalCacheEntry]](512, "evalCache"):
+    _.expireAfterAccess(5 minutes).buildAsyncFuture: id =>
+      coll: c =>
+        c.one[EvalCacheEntry]($id(id))
+          .addEffect: res =>
+            if (res.isDefined) c.updateFieldUnchecked($id(id), "usedAt", nowInstant)

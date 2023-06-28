@@ -106,12 +106,12 @@ final class MsgApi(
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
         verdict <-
-          if (ignoreSecurity) fuccess(MsgSecurity.Ok)
+          if ignoreSecurity then fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         _       = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
         maskFor = multi option orig
         maskWith <-
-          if (multi && !isNew) then lastDirectMsg(threadId, orig) else fuccess(None)
+          if multi && !isNew then lastDirectMsg(threadId, orig) else fuccess(None)
         res <- verdict match
           case MsgSecurity.Limit     => fuccess(PostResult.Limited)
           case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
@@ -124,40 +124,35 @@ final class MsgApi(
               else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
             val threadWrite =
-              if (isNew)
-                colls.thread.insert.one {
+              if isNew then
+                colls.thread.insert.one:
                   writeThread(
                     MsgThread.make(orig, dest, msg, maskFor, maskWith),
                     List(multi option orig, send.mute option dest).flatten
                   )
-                }.void
               else
                 colls.thread.update
                   .one(
                     $id(threadId),
-                    if (multi) {
+                    if multi
+                    then
                       $set("lastMsg" -> msg.asLast, "maskFor" -> maskFor, "maskWith" -> maskWith)
                         ++ $pull("del" -> List(orig))
-                    } else {
+                    else
                       $set("lastMsg" -> msg.asLast, "maskWith.date" -> msg.date)
                         ++ $unset("maskFor", "maskWith.text", "maskWith.user", "maskWith.read")
                         ++ $pull("del" $in (orig :: (!send.mute).option(dest).toList))
-                      // keep maskWith.date always valid (though sometimes redundant)
-                      // unset "deleted by receiver" unless the message is muted
-                    }
+                    // keep maskWith.date always valid (though sometimes redundant)
+                    // unset "deleted by receiver" unless the message is muted
                   )
-                  .void
             (msgWrite zip threadWrite).void >>- {
-              if (!send.mute)
+              import MsgSecurity.*
+              import lila.hub.actorApi.socket.SendTo
+              import lila.socket.Socket.makeMessage
+              if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
-                Bus.publish(
-                  lila.hub.actorApi.socket.SendTo(
-                    dest,
-                    lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg))
-                  ),
-                  "socketUsers"
-                )
-                shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+                Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
+              if send == Ok then shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
             } inject PostResult.Success
       yield res
     }
@@ -178,9 +173,8 @@ final class MsgApi(
         "lastMsg.read",
         true
       )
-      .flatMap { res =>
+      .flatMap: res =>
         (res.nModified > 0) so notifier.onRead(threadId, userId, contactId)
-      }
 
   def postPreset(destId: UserId, preset: MsgPreset): Fu[PostResult] =
     systemPost(destId, preset.text)
@@ -258,9 +252,8 @@ final class MsgApi(
   private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[Instant]): Fu[List[Msg]] =
     colls.msg
       .find(
-        $doc("tid" -> threadId) ++ before.so { b =>
-          $doc("date" $lt b)
-        },
+        $doc("tid" -> threadId) ++ before.so: b =>
+          $doc("date" $lt b),
         msgProjection.some
       )
       .sort($sort desc "date")
@@ -271,16 +264,17 @@ final class MsgApi(
           doc.getAsOpt[List[UserId]]("del").fold(true)(!_.has(me.id)) so doc.asOpt[Msg]
 
   private def setReadBy(threadId: MsgThread.Id, me: User, contactId: UserId): Funit =
-    colls.thread.updateField(
-      $id(threadId) ++ $doc(
-        "lastMsg.user" $ne me.id,
-        "lastMsg.read" -> false
-      ),
-      "lastMsg.read",
-      true
-    ) flatMap { res =>
-      (res.nModified > 0) so notifier.onRead(threadId, me.id, contactId)
-    }
+    colls.thread
+      .updateField(
+        $id(threadId) ++ $doc(
+          "lastMsg.user" $ne me.id,
+          "lastMsg.read" -> false
+        ),
+        "lastMsg.read",
+        true
+      )
+      .flatMap: res =>
+        (res.nModified > 0) so notifier.onRead(threadId, me.id, contactId)
 
   def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] = colls.thread.secondaryPreferred.exists(
     $id(MsgThread.id(userId, User.lichessId)) ++ $doc("lastMsg.read" -> false)
@@ -288,9 +282,7 @@ final class MsgApi(
 
   def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread
-      .aggregateWith[Bdoc](
-        readPreference = temporarilyPrimary
-      ) { framework =>
+      .aggregateWith[Bdoc](readPreference = temporarilyPrimary): framework =>
         import framework.*
         List(
           Match($doc("users" -> userId)),
@@ -324,15 +316,13 @@ final class MsgApi(
           Unwind("msg"),
           Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
         )
-      }
       .documentSource()
-      .mapConcat { doc =>
+      .mapConcat: doc =>
         (for
           msg  <- doc child "msg"
           text <- msg string "text"
           date <- msg.getAsOpt[Instant]("date")
         yield (text, date)).toList
-      }
 
 object MsgApi:
   enum PostResult:

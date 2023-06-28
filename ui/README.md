@@ -38,7 +38,7 @@ The Jest extension is your friend. You will want to configure the following in y
 "jest.jestCommandLine": "node_modules/.bin/jest --config jest.config.js",
 ```
 
-### CSS
+## CSS
 
 The structure of a CSS module is as follows:
 

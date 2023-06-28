@@ -90,13 +90,13 @@ object tourForm:
     ),
     form3.group(
       form("players"),
-      "Optional: replace player names and ratings",
+      "Optional: replace player names, ratings and titles",
       help = frag(
         "One line per player, formatted as such:",
-        pre("Original name; Replacement name; Optional replacement rating"),
+        pre("Original name; Replacement name; Optional replacement rating; Optional replacement title"),
         "Example:",
         pre("""DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764""")
+AnishGiri;Anish Giri;2764;GM""")
       ).some
     )(form3.textarea(_)(rows := 3))
   )

@@ -133,8 +133,7 @@ final class StudySearchApi(
             .mapAsyncUnordered(8) { study =>
               lila.common.LilaFuture.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
             }
-            .toMat(Sink.ignore)(Keep.right)
-            .run()
+            .runWith(Sink.ignore)
         } >> client.refresh
       case _ => funit
 

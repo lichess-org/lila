@@ -213,20 +213,14 @@ final class Round(
     ctx.noKid so {
       def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =
         Chat
-          .GameOrEvent(
-            Right(
-              (
-                c truncate 100,
-                lila.chat.Chat.ResourceId(resource)
-              )
-            )
-          )
+          .GameOrEvent:
+            Right:
+              (c truncate 100, lila.chat.Chat.ResourceId(resource))
           .some
       (game.tournamentId, game.simulId, game.swissId) match
         case (Some(tid), _, _) =>
-          {
-            ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
-          } so env.chat.api.userChat.cached
+          val hasChat = ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
+          hasChat so env.chat.api.userChat.cached
             .findMine(ChatId(tid))
             .dmap(toEventChat(s"tournament/$tid"))
         case (_, Some(sid), _) =>
@@ -235,35 +229,30 @@ final class Round(
           env.swiss.api
             .roundInfo(SwissId(sid))
             .flatMapz(swissC.canHaveChat)
-            .flatMapz {
+            .flatMapz:
               env.chat.api.userChat.cached
                 .findMine(sid into ChatId)
                 .dmap(toEventChat(s"swiss/$sid"))
-            }
         case _ =>
           game.hasChat.so:
             env.chat.api.playerChat.findIf(ChatId(game.id), !game.justCreated) map { chat =>
               Chat
                 .GameOrEvent:
                   Left:
-                    Chat.Restricted(
-                      chat,
-                      restricted = game.fromLobby && ctx.isAnon
-                    )
+                    Chat.Restricted(chat, restricted = game.fromLobby && ctx.isAnon)
                 .some
             }
     }
 
   def sides(gameId: GameId, color: String) = Open:
-    Found(proxyPov(gameId, color)): pov =>
+    FoundPage(proxyPov(gameId, color)): pov =>
       env.tournament.api.gameView.withTeamVs(pov.game) zip
         (pov.game.simulId so env.simul.repo.find) zip
         env.game.gameRepo.initialFen(pov.game) zip
         env.game.crosstableApi.withMatchup(pov.game) zip
         env.bookmark.api.exists(pov.game, ctx.me) flatMap {
           case ((((tour, simul), initialFen), crosstable), bookmarked) =>
-            Ok.page:
-              html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
+            html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
         }
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
@@ -283,13 +272,12 @@ final class Round(
 
   def continue(id: GameId, mode: String) = Open:
     Found(env.game.gameRepo game id): game =>
-      Redirect(
+      Redirect:
         "%s?fen=%s#%s".format(
           routes.Lobby.home,
           get("fen") | (chess.format.Fen write game.chess).value,
           mode
         )
-      )
 
   def resign(fullId: GameFullId) = Open:
     Found(env.round.proxyRepo.pov(fullId)): pov =>
@@ -314,18 +302,16 @@ final class Round(
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.round.actorApi.round.Moretime
-    if seconds < 1 || seconds > 86400 then BadRequest
-    else
-      env.round.proxyRepo.game(anyId.gameId) flatMap {
-        _.flatMap { Pov(_, me) }.so { pov =>
-          env.round.moretimer.isAllowedIn(pov.game) map {
-            if _ then
-              env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
-              jsonOkResult
-            else BadRequest(jsonError("This game doesn't allow giving time"))
-          }
+    env.round.proxyRepo.game(anyId.gameId) flatMap {
+      _.flatMap { Pov(_, me) }.so { pov =>
+        env.round.moretimer.isAllowedIn(pov.game) map {
+          if _ then
+            env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
+            jsonOkResult
+          else BadRequest(jsonError("This game doesn't allow giving time"))
         }
       }
+    }
   }
 
   def help = Open:

@@ -37,9 +37,8 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
     env.game.gameRepo
       .recentGamesFromSecondaryCursor(select)
       .documentSource(10_000)
-      .filter { game =>
+      .filter: game =>
         filter.perf.fold(true)(game.perfKey ==)
-      }
       .take(filter.nbGames)
       .mapConcat { lila.game.Pov(_, user).toList }
       .toMat(Sink.seq)(Keep.right)
@@ -102,13 +101,12 @@ object GameMod:
       nbGamesOpt: Option[Int]
   ):
     def opponentIds: List[UserId] = UserStr
-      .from {
+      .from:
         (~opponents)
           .take(800)
           .replace(",", " ")
           .split(' ')
           .map(_.trim)
-      }
       .flatMap(lila.user.User.validateId)
       .toList
       .distinct

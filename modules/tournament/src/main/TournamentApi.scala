@@ -517,8 +517,7 @@ final class TournamentApi(
             )
           )
         }
-        .toMat(Sink.ignore)(Keep.right)
-        .run()
+        .runWith(Sink.ignore)
         .void
     }
 

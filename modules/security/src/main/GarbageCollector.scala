@@ -97,18 +97,15 @@ final class GarbageCollector(
 
   private def collect(user: User, email: EmailAddress, msg: => String, quickly: Boolean): Funit =
     justOnce(user.id).so:
-      hasBeenCollectedBefore(user) flatMap {
-        if _ then funit
-        else
+      !hasBeenCollectedBefore(user) map {
+        if _ then
           val armed = isArmed()
           val wait  = if quickly then 3.seconds else (30 + ThreadLocalRandom.nextInt(300)).seconds
           val message =
             s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed so " [SIMULATION]"}"
           logger.info(message)
           noteApi.lichessWrite(user, s"Garbage collected because of $msg")
-          irc.garbageCollector(message) >>- {
-            if armed then scheduler.scheduleOnce(wait) { doCollect(user.id) }.unit
-          }
+          if armed then scheduler.scheduleOnce(wait) { doCollect(user.id) }.unit
       }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =

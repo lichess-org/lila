@@ -17,7 +17,7 @@ final class ModQueueStats(
   def apply(period: String): Fu[Result] =
     cache.get(Period(period))
 
-  private val cache = cacheApi[Period, Result](64, "mod.activity") {
+  private val cache = cacheApi[Period, Result](64, "mod.activity"):
     _.expireAfter[Period, Result](
       create = (key, _) =>
         key match
@@ -28,7 +28,6 @@ final class ModQueueStats(
       update = (_, _, current) => current,
       read = (_, _, current) => current
     ).buildAsyncFuture(compute)
-  }
 
   private def compute(period: Period): Fu[Result] =
     repo.coll
@@ -59,12 +58,11 @@ final class ModQueueStats(
             ),
             "rooms" -> Room.values
               .map(room => room.key -> room.name)
-              .appendedAll {
+              .appendedAll:
                 List(
                   "appeal"   -> "Appeal",
                   "streamer" -> "Streamer"
                 )
-              }
               .map: (roomKey, roomName) =>
                 Json.obj(
                   "name" -> roomName,

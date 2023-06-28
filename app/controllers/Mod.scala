@@ -19,7 +19,8 @@ final class Mod(
     env: Env,
     reportC: => report.Report,
     userC: => User
-) extends LilaController(env):
+)(using akka.stream.Materializer)
+    extends LilaController(env):
 
   private def modApi    = env.mod.api
   private def assessApi = env.mod.assessApi
@@ -34,6 +35,16 @@ final class Mod(
         _ <- (!v && sus.user.enabled.no) so modApi.reopenAccount(sus.user.id)
       yield sus.some
   }(reportC.onModAction)
+
+  def altMany = SecureBody(parse.tolerantText)(_.CloseAccount) { ctx ?=> me ?=>
+    import akka.stream.scaladsl.*
+    Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
+      .mapAsync(1): username =>
+        withSuspect(username): sus =>
+          modApi.setAlt(sus, true) >> (sus.user.enabled.yes so env.api.accountClosure.close(sus.user))
+      .runWith(Sink.ignore)
+      .void inject NoContent
+  }
 
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me ?=>
@@ -233,7 +244,7 @@ final class Mod(
               } flatMap { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
                 if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
                   env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
-                  if isGranted(_.MonitoredMod) then
+                  if isGranted(_.MonitoredCommMod) then
                     env.irc.api.monitorMod(
                       "eyes",
                       s"spontaneously checked out @${user.username}'s private comms",
@@ -338,6 +349,11 @@ final class Mod(
       )
   }
 
+  def notes(page: Int, q: String) = Secure(_.ModNote) { _ ?=> _ ?=>
+    Ok.pageAsync:
+      env.user.noteApi.search(q.trim, page).map(html.mod.search.notes(q, _))
+  }
+
   def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> me ?=>
     val res = Redirect(routes.User.show(username.value))
     env.api.accountClosure
@@ -364,10 +380,7 @@ final class Mod(
 
   def printBan(v: Boolean, fh: String) = Secure(_.PrintBan) { _ ?=> me ?=>
     val hash = FingerHash(fh)
-    env.security.printBan.toggle(hash, v) >>
-      env.security.api.recentUserIdsByFingerHash(hash) flatMap { userIds =>
-        env.irc.api.printBan(fh, v, userIds)
-      } inject Redirect(routes.Mod.print(fh))
+    env.security.printBan.toggle(hash, v) inject Redirect(routes.Mod.print(fh))
   }
 
   def singleIp(ip: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
@@ -389,14 +402,9 @@ final class Mod(
       if v then env.security.firewall.blockIps
       else env.security.firewall.unblockIps
     val ipAddr = IpAddress from ip
-    op(ipAddr) >> (ipAddr so {
-      env.security.api.recentUserIdsByIp(_) flatMap { userIds =>
-        env.irc.api.ipBan(ip, v, userIds)
-      }
-    }) inject {
+    op(ipAddr).inject:
       if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Mod.singleIp(ip))
-    }
   }
 
   def chatUser(username: UserStr) = Secure(_.ChatTimeout) { _ ?=> _ ?=>
@@ -505,7 +513,7 @@ final class Mod(
       )
   }
 
-  private def withSuspect[A](username: UserStr)(f: Suspect => Fu[Option[A]]): Fu[Option[A]] =
+  private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: Context ?=> Me ?=> Fu[Option[A]])(

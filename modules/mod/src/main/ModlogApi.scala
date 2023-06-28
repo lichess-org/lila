@@ -309,17 +309,24 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
-    userRepo.isMonitoredMod(m.mod) flatMapz {
+    userRepo.getRoles(m.mod).map(Permission(_)) flatMap { permissions =>
+      import IrcApi.{ ModDomain as domain }
       val monitorType = m.action match
         case M.closeAccount | M.alt => None
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>
-          Some(IrcApi.ModDomain.Cheat)
-        case M.booster | M.unbooster => Some(IrcApi.ModDomain.Boost)
+          Some(domain.Cheat)
+        case M.booster | M.unbooster => Some(domain.Boost)
         case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam | M.enableTeam |
             M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
-          Some(IrcApi.ModDomain.Comm)
-        case _ => Some(IrcApi.ModDomain.Other)
-      monitorType.so:
-        ircApi.monitorMod(icon = icon, text = text, _)
+          Some(domain.Comm)
+        case _ => Some(domain.Other)
+      import Permission.*
+      monitorType.so: dom =>
+        val monitorable = dom match
+          case domain.Cheat => permissions(MonitoredCheatMod)
+          case domain.Boost => permissions(MonitoredBoostMod)
+          case domain.Comm  => permissions(MonitoredCommMod)
+          case domain.Other => permissions(MonitoredCommMod) || permissions(MonitoredBoostMod)
+          case _            => false
+        monitorable so ircApi.monitorMod(icon = icon, text = text, dom)
     }
-    ircApi.logMod(icon = icon, text = text)

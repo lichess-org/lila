@@ -55,7 +55,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:
-        private val selector   = $doc("tier" $exists true, "$text" -> $doc("$search" -> query))
+        private val selector   = $text(query) ++ $doc("tier" $exists true)
         def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll

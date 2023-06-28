@@ -43,7 +43,6 @@ final class TeamSearchApi(
             .map(t => t.id.into(Id) -> toDoc(t))
             .grouped(200)
             .mapAsync(1)(c.storeBulk)
-            .toMat(Sink.ignore)(Keep.right)
-            .run()
+            .runWith(Sink.ignore)
         } >> client.refresh
       case _ => funit

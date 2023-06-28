@@ -221,7 +221,8 @@ export default class StormCtrl implements PuzCtrl {
   private toggleZen = () => lichess.pubsub.emit('zen');
 
   private hotkeys = () =>
-    window.Mousetrap.bind('space', () => location.reload())
+    lichess.mousetrap
+      .bind('space', () => location.reload())
       .bind('return', this.end)
       .bind('f', this.flip)
       .bind('z', this.toggleZen);
