@@ -58,26 +58,15 @@ final class NoteApi(
       .list(100)
 
   def write(to: User, text: String, modOnly: Boolean, dox: Boolean)(using me: Me) = {
-
-    val note = Note(
-      _id = ThreadLocalRandom nextString 8,
-      from = me,
-      to = to.id,
-      text = text,
-      mod = modOnly,
-      dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
-      date = nowInstant
-    )
-
-    coll.insert.one(note) >>-
-      lila.common.Bus.publish(
-        lila.hub.actorApi.user.Note(
-          from = me.username,
-          to = to.username,
-          text = note.text,
-          mod = modOnly
-        ),
-        "userNote"
+    coll.insert.one:
+      Note(
+        _id = ThreadLocalRandom nextString 8,
+        from = me,
+        to = to.id,
+        text = text,
+        mod = modOnly,
+        dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
+        date = nowInstant
       )
   } >> {
     modOnly so Title.fromUrl(text) flatMap {

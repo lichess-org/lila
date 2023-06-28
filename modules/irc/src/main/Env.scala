@@ -8,7 +8,6 @@ import lila.common.Lilakka
 import lila.common.config.*
 import lila.hub.actorApi.plan.ChargeEvent
 import lila.hub.actorApi.irc.Event
-import lila.hub.actorApi.user.Note
 
 @Module
 final class Env(
@@ -30,8 +29,7 @@ final class Env(
     api.publishInfo("Lichess has started!")
     Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell IRC")((() => api.stop()))
 
-  lila.common.Bus.subscribeFun("slack", "plan", "userNote") {
-    case d: ChargeEvent                                      => api.charge(d).unit
-    case Note(from, to, text, true) if from.value != "Irwin" => api.userModNote(from, to, text).unit
-    case e: Event                                            => api.publishEvent(e).unit
+  lila.common.Bus.subscribeFun("slack", "plan") {
+    case d: ChargeEvent => api.charge(d).unit
+    case e: Event       => api.publishEvent(e).unit
   }

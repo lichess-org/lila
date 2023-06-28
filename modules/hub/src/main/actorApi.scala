@@ -212,7 +212,6 @@ package fishnet:
 package user:
 
   import lila.common.EmailAddress
-  case class Note(from: UserName, to: UserName, text: String, mod: Boolean)
   case class ChangeEmail(id: UserId, email: EmailAddress)
 
 package round:

@@ -62,12 +62,6 @@ final class IrcApi(
     zulip(_.mod.cafeteria, "reports"):
       s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.username)})"
 
-  def userModNote(modName: UserName, username: UserName, note: String): Funit =
-    (!User.isLichess(modName)).so:
-      zulip(_.mod.adminLog, "notes"):
-        s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
-          markdown.linkifyUsers(note take 2000)
-
   def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
     zulip(_.mod.adminLog, "self report"):
       s"[**$typ**] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
