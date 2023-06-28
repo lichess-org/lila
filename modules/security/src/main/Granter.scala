@@ -31,7 +31,9 @@ object Granter:
     } || {
       apply(_.Admin) && {
         apply(permission) || Set[Permission](
-          Permission.MonitoredMod,
+          Permission.MonitoredCheatMod,
+          Permission.MonitoredBoostMod,
+          Permission.MonitoredCommMod,
           Permission.PublicMod
         )(permission)
       }

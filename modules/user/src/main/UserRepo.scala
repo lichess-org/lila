@@ -373,6 +373,9 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setRoles(id: UserId, roles: List[String]): Funit =
     coll.updateField($id(id), F.roles, roles).void
 
+  def getRoles[U: UserIdOf](u: U): Fu[List[String]] =
+    coll.primitiveOne[List[String]]($id(u), User.BSONFields.roles).dmap(_.orZero)
+
   def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret $exists false))
 
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
@@ -406,8 +409,6 @@ final class UserRepo(val coll: Coll)(using Executor):
         }
       )
       .void
-
-  def isMonitoredMod[U: UserIdOf](u: U) = coll.exists($id(u) ++ $doc(F.roles -> "ROLE_MONITORED_MOD"))
 
   import Authenticator.*
   def getPasswordHash(id: UserId): Fu[Option[String]] =

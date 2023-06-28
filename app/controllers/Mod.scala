@@ -244,7 +244,7 @@ final class Mod(
               } flatMap { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
                 if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
                   env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
-                  if isGranted(_.MonitoredMod) then
+                  if isGranted(_.MonitoredCommMod) then
                     env.irc.api.monitorMod(
                       "eyes",
                       s"spontaneously checked out @${user.username}'s private comms",
