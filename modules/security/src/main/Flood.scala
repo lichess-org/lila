@@ -15,12 +15,12 @@ final class Flood(duration: FiniteDuration):
   def allowMessage(source: Source, text: String): Boolean =
     val msg  = Message(text, nowInstant)
     val msgs = ~cache.getIfPresent(source)
-    !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
-      _ so cache.put(source, msg :: msgs)
-    }
+    val ok   = !duplicateMessage(msg, msgs) && !quickPost(msg, msgs)
+    if ok then cache.put(source, msg :: msgs)
+    ok
 
   private def quickPost(msg: Message, msgs: Messages): Boolean =
-    msgs.lift(floodNumber) so (_.date isAfter msg.date.minusSeconds(10))
+    msgs.lift(floodNumber).exists(_.date isAfter msg.date.minusSeconds(10))
 
 object Flood:
 
@@ -45,11 +45,9 @@ object Flood:
   private type Messages = List[Message]
 
   private[security] def duplicateMessage(msg: Message, msgs: Messages): Boolean =
-    !passList.contains(msg.text) && msgs.headOption.so { m =>
-      similar(m.text, msg.text) || msgs.tail.headOption.so { m2 =>
+    !passList.contains(msg.text) && msgs.headOption.so: m =>
+      similar(m.text, msg.text) || msgs.tail.headOption.so: m2 =>
         similar(m2.text, msg.text)
-      }
-    }
 
   private def similar(s1: String, s2: String): Boolean =
     Levenshtein.isDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3) atLeast 2)
