@@ -45,8 +45,8 @@ trait ResponseBuilder(using Executor)
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
       fua flatMap { if _ then f else notFound }
 
-  val rateLimitedMsg                           = "Too many requests. Try again later."
-  val rateLimitedJson                          = TooManyRequests(jsonError(rateLimitedMsg))
+  val rateLimitedMsg                         = "Too many requests. Try again later."
+  val rateLimitedJson                        = TooManyRequests(jsonError(rateLimitedMsg))
   def rateLimited(using Context): Fu[Result] = rateLimited(rateLimitedMsg)
   def rateLimited(msg: String = rateLimitedMsg)(using ctx: Context): Fu[Result] = negotiate(
     html =

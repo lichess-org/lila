@@ -60,12 +60,12 @@ final class GameApiV2(
   private val fileR = """[\s,]""".r
 
   def filename(game: Game, format: Format): Fu[String] =
-    gameLightUsers(game).map: (wu, bu) =>
+    gameLightUsers(game).map: users =>
       fileR.replaceAllIn(
         "lichess_pgn_%s_%s_vs_%s.%s.%s".format(
           Tag.UTCDate.format.print(game.createdAt),
-          pgnDump.dumper.player(game.whitePlayer, wu),
-          pgnDump.dumper.player(game.blackPlayer, bu),
+          pgnDump.dumper.player(game.whitePlayer, users.white),
+          pgnDump.dumper.player(game.blackPlayer, users.black),
           game.id,
           format.toString.toLowerCase
         ),
@@ -261,7 +261,7 @@ final class GameApiV2(
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
   ): Fu[JsObject] = for
-    lightUsers <- gameLightUsers(g) dmap { (wu, bu) => ByColor(wu, bu) }
+    lightUsers <- gameLightUsers(g)
     pgn <-
       withFlags.pgnInJson so pgnDump
         .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
@@ -313,8 +313,8 @@ final class GameApiV2(
       ))
     .add("lastFen" -> withFlags.lastFen.option(Fen.write(g.chess.situation)))
 
-  private def gameLightUsers(game: Game): Fu[PairOf[Option[LightUser]]] =
-    (game.whitePlayer.userId so getLightUser) zip (game.blackPlayer.userId so getLightUser)
+  private def gameLightUsers(game: Game): Fu[ByColor[Option[LightUser]]] =
+    game.players.traverse(_.userId so getLightUser)
 
 object GameApiV2:
 

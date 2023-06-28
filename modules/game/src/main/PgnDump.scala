@@ -55,8 +55,8 @@ final class PgnDump(
 
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
-  private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
-    game.players.map(_.userId so lightUserApi.async).reduce(_ zip _)
+  private def gameLightUsers(game: Game): Fu[ByColor[Option[LightUser]]] =
+    game.players.traverse(_.userId so lightUserApi.async)
 
   private def rating(p: Player) = p.rating.orElse(p.nameSplit.flatMap(_._2)).fold("?")(_.toString)
 
@@ -91,64 +91,65 @@ final class PgnDump(
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] =
-    gameLightUsers(game).map: (wu, bu) =>
-      Tags:
-        val importedDate = imported.flatMap(_.tags(_.Date))
-        List[Option[Tag]](
-          Tag(
-            _.Event,
-            imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
-          ).some,
-          Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
-          Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
-          imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
-          Tag(_.White, player(game.whitePlayer, wu)).some,
-          Tag(_.Black, player(game.blackPlayer, bu)).some,
-          Tag(_.Result, result(game)).some,
-          importedDate.isEmpty option Tag(
-            _.UTCDate,
-            imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)
-          ),
-          importedDate.isEmpty option Tag(
-            _.UTCTime,
-            imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)
-          ),
-          withRating option Tag(_.WhiteElo, rating(game.whitePlayer)),
-          withRating option Tag(_.BlackElo, rating(game.blackPlayer)),
-          withRating so ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
-          withRating so ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
-          wu.flatMap(_.title).map { t =>
-            Tag(_.WhiteTitle, t)
-          },
-          bu.flatMap(_.title).map { t =>
-            Tag(_.BlackTitle, t)
-          },
-          teams.map { t => Tag("WhiteTeam", t.white) },
-          teams.map { t => Tag("BlackTeam", t.black) },
-          Tag(_.Variant, game.variant.name.capitalize).some,
-          Tag.timeControl(game.clock.map(_.config)).some,
-          Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
-          withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
-          Tag(
-            _.Termination, {
-              import chess.Status.*
-              game.status match
-                case Created | Started                             => "Unterminated"
-                case Aborted | NoStart                             => "Abandoned"
-                case Timeout | Outoftime                           => "Time forfeit"
-                case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
-                case Cheat                                         => "Rules infraction"
-                case UnknownFinish                                 => "Unknown"
-            }
-          ).some
-        ).flatten ::: customStartPosition(game.variant).so(
-          initialFen.so(fen =>
-            List(
-              Tag(_.FEN, fen.value),
-              Tag("SetUp", "1")
+    gameLightUsers(game).map:
+      case ByColor(wu, bu) =>
+        Tags:
+          val importedDate = imported.flatMap(_.tags(_.Date))
+          List[Option[Tag]](
+            Tag(
+              _.Event,
+              imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
+            ).some,
+            Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
+            Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
+            imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
+            Tag(_.White, player(game.whitePlayer, wu)).some,
+            Tag(_.Black, player(game.blackPlayer, bu)).some,
+            Tag(_.Result, result(game)).some,
+            importedDate.isEmpty option Tag(
+              _.UTCDate,
+              imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)
+            ),
+            importedDate.isEmpty option Tag(
+              _.UTCTime,
+              imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)
+            ),
+            withRating option Tag(_.WhiteElo, rating(game.whitePlayer)),
+            withRating option Tag(_.BlackElo, rating(game.blackPlayer)),
+            withRating so ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
+            withRating so ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
+            wu.flatMap(_.title).map { t =>
+              Tag(_.WhiteTitle, t)
+            },
+            bu.flatMap(_.title).map { t =>
+              Tag(_.BlackTitle, t)
+            },
+            teams.map { t => Tag("WhiteTeam", t.white) },
+            teams.map { t => Tag("BlackTeam", t.black) },
+            Tag(_.Variant, game.variant.name.capitalize).some,
+            Tag.timeControl(game.clock.map(_.config)).some,
+            Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
+            withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
+            Tag(
+              _.Termination, {
+                import chess.Status.*
+                game.status match
+                  case Created | Started                             => "Unterminated"
+                  case Aborted | NoStart                             => "Abandoned"
+                  case Timeout | Outoftime                           => "Time forfeit"
+                  case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
+                  case Cheat                                         => "Rules infraction"
+                  case UnknownFinish                                 => "Unknown"
+              }
+            ).some
+          ).flatten ::: customStartPosition(game.variant).so(
+            initialFen.so(fen =>
+              List(
+                Tag(_.FEN, fen.value),
+                Tag("SetUp", "1")
+              )
             )
           )
-        )
 
 object PgnDump:
 

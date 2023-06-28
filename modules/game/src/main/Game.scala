@@ -197,8 +197,8 @@ case class Game(
       turns = game.ply,
       status = (status != updated.status) option updated.status,
       winner = game.situation.winner,
-      whiteOffersDraw = players.white.isOfferingDraw,
-      blackOffersDraw = players.black.isOfferingDraw
+      whiteOffersDraw = whitePlayer.isOfferingDraw,
+      blackOffersDraw = blackPlayer.isOfferingDraw
     )
 
     val clockEvent = updated.chess.clock map Event.Clock.apply orElse {
@@ -538,8 +538,8 @@ case class Game(
   def userIds = players.flatMap(_.userId)
 
   def twoUserIds: Option[(UserId, UserId)] = for
-    w <- players.white.userId
-    b <- players.black.userId
+    w <- whitePlayer.userId
+    b <- blackPlayer.userId
     if w != b
   yield w -> b
 
