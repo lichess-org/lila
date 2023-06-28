@@ -204,16 +204,17 @@ object search:
             thead(
               tr(th("Moderator"), th("Player"), th("Note"), th("Date"))
             ),
-            tbody(cls := "infinite-scroll"):
+            tbody(cls := "infinite-scroll")(
               pager.currentPageResults.map: note =>
                 tr(cls := "paginated")(
                   td(userIdLink(note.from.some)),
                   td(userIdLink(note.to.some, params = "?notes=1")),
                   td(cls := "user-note__text")(richText(note.text, expandImg = false)),
                   td(momentFromNowOnce(note.date))
-                )
-          ),
-          pagerNextTable(pager, np => routes.Mod.notes(np, query).url)
+                ),
+              pagerNextTable(pager, np => routes.Mod.notes(np, query).url)
+            )
+          )
         )
       )
     }
