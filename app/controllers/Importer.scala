@@ -6,7 +6,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ given, * }
-import lila.common.IpAddress
+import lila.common.{ HTTPRequest, IpAddress }
 import chess.format.pgn.PgnStr
 
 final class Importer(env: Env) extends LilaController(env):
@@ -34,7 +34,7 @@ final class Importer(env: Env) extends LilaController(env):
             jsonFormError(err)
           ),
         data =>
-          ImportRateLimitPerIP(ctx.ip, rateLimited, cost = 1):
+          ImportRateLimitPerIP(ctx.ip, rateLimited, cost = if ctx.isAuth then 1 else 2):
             env.importer.importer(data) flatMap { game =>
               ctx.me.so(env.game.cached.clearNbImportedByCache(_)) inject Right(game)
             } recover { case _: Exception =>
@@ -55,11 +55,15 @@ final class Importer(env: Env) extends LilaController(env):
                       )
                       .void
                   } inject Redirect(routes.Round.watcher(game.id, "white")),
-                  json = JsonOk:
-                    Json.obj(
-                      "id"  -> game.id,
-                      "url" -> s"${env.net.baseUrl}/${game.id}"
-                    )
+                  json =
+                    if HTTPRequest.isLichessMobile(ctx.req)
+                    then Redirect(routes.Round.watcher(game.id, "white"))
+                    else
+                      JsonOk:
+                        Json.obj(
+                          "id"  -> game.id,
+                          "url" -> s"${env.net.baseUrl}/${game.id}"
+                        )
                 )
               case Left(error) =>
                 negotiate(
