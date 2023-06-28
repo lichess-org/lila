@@ -17,6 +17,7 @@ import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.User
 import lila.round.GameProxyRepo
+import chess.ByColor
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -260,7 +261,7 @@ final class GameApiV2(
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
   ): Fu[JsObject] = for
-    lightUsers <- gameLightUsers(g) dmap { (wu, bu) => List(wu, bu) }
+    lightUsers <- gameLightUsers(g) dmap { (wu, bu) => ByColor(wu, bu) }
     pgn <-
       withFlags.pgnInJson so pgnDump
         .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
@@ -279,7 +280,7 @@ final class GameApiV2(
       "createdAt"  -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
-      "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
+      "players" -> JsObject(g.players.zip(lightUsers).mapList { (p, user) =>
         p.color.name -> gameJsonView
           .player(p, user)
           .add(

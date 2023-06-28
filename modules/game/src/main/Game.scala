@@ -49,18 +49,7 @@ case class Game(
   export chess.situation.board
   export chess.situation.board.{ history, variant }
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
-
-  extension [A](b: ByColor[A])
-    def find(p: A => Boolean): Option[A] =
-      if p(b.white) then Some(b.white)
-      else if p(b.black) then Some(b.black)
-      else None
-
-    def contains(a: A): Eq[A] ?=> Boolean =
-      b.exists(_ === a)
-
-    def flatMap[B](f: A => Option[B]): List[B] =
-      b.all.flatMap(f).toList
+  export players.{ white as whitePlayer, black as blackPlayer }
 
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
@@ -70,17 +59,17 @@ case class Game(
     players.find(_.id == playerId)
 
   def player[U: UserIdOf](user: U): Option[Player] =
-    players.find(_ isUser user)
+    players.find(_.isUser(user))
 
-  def player: Player = player(turnColor)
+  def player: Player = players(turnColor)
 
-  def playerByUserId(userId: UserId): Option[Player]   = players.find(_.userId contains userId)
-  def opponentByUserId(userId: UserId): Option[Player] = playerByUserId(userId) map opponent
+  def playerByUserId(userId: UserId): Option[Player]   = players.find(_.userId.has(userId))
+  def opponentByUserId(userId: UserId): Option[Player] = playerByUserId(userId).map(opponent)
 
   def hasUserIds(userId1: UserId, userId2: UserId) =
-    playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
+    players.reduce((w, b) => w.userId.has(userId1) && b.userId.has(userId2))
 
-  def hasUserId(userId: UserId) = playerByUserId(userId).isDefined
+  def hasUserId(userId: UserId) = players.exists(_.userId.has(userId))
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -89,8 +78,8 @@ case class Game(
   lazy val naturalOrientation =
     if variant.racingKings then White else Color.fromWhite(players.reduce(_ before _))
 
-  def turnOf(p: Player): Boolean = p == player
-  def turnOf(c: Color): Boolean  = c == turnColor
+  def turnOf(p: Player): Boolean = p === player
+  def turnOf(c: Color): Boolean  = c === turnColor
   def turnOf(u: User): Boolean   = player(u) so turnOf
 
   def playedTurns = ply - startedAtPly
@@ -297,12 +286,12 @@ case class Game(
 
   def continuable = status != Status.Mate && status != Status.Stalemate
 
-  def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
+  def aiLevel: Option[Int] = players.find(_.aiLevel)
 
   def hasAi: Boolean = players.exists(_.isAi)
   def nonAi          = !hasAi
 
-  def aiPov: Option[Pov] = players.find(_.isAi).map(_.color) map pov
+  def aiPov: Option[Pov] = players.collect { case x if x.isAi => x.color }.map(pov)
 
   def mapPlayers(f: Player => Player) =
     copy(players = players.map(f))
@@ -381,7 +370,7 @@ case class Game(
   def finish(status: Status, winner: Option[Color]): Game =
     copy(
       status = status,
-      players = players.map(_.finish(winner contains White), _.finish(winner contains Black)),
+      players = winner.fold(players)(c => players.update(c, _.finish(true))),
       chess = chess.copy(clock = clock.map(_.stop)),
       loadClockHistory = clk =>
         clockHistory.map: history =>

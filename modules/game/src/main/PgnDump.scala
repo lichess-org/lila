@@ -56,7 +56,7 @@ final class PgnDump(
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
-    (game.whitePlayer.userId so lightUserApi.async) zip (game.blackPlayer.userId so lightUserApi.async)
+    game.players.map(_.userId so lightUserApi.async).reduce(_ zip _)
 
   private def rating(p: Player) = p.rating.orElse(p.nameSplit.flatMap(_._2)).fold("?")(_.toString)
 

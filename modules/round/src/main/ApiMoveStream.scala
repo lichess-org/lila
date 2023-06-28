@@ -22,12 +22,12 @@ final class ApiMoveStream(
     Source.futureSource:
       for
         initialFen <- gameRepo.initialFen(game)
-        lightUsers <- lightUserApi.asyncManyOptions(game.players.map(_.userId))
+        lightUsers <- lightUserApi.asyncManyOptions(game.players.mapList(_.userId))
       yield
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
         def makeGameJson(g: Game) =
           gameJsonView.baseWithChessDenorm(g, initialFen) ++ Json.obj(
-            "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
+            "players" -> JsObject(g.players.all zip lightUsers map { (p, user) =>
               p.color.name -> gameJsonView.player(p, user)
             })
           )

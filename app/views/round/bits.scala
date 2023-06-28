@@ -53,7 +53,7 @@ object bits:
     frag(
       views.html.chat.spectatorsFrag,
       isGranted(_.ViewBlurs) option div(cls := "round__mod")(
-        game.players.filter(p => game.playerBlurPercent(p.color) > 30) map { p =>
+        game.players.all.filter(p => game.playerBlurPercent(p.color) > 30) map { p =>
           div(
             playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true),
             s" ${p.blurs.nb}/${game.playerMoves(p.color)} blurs ",

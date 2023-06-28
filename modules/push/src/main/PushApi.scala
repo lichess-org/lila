@@ -116,7 +116,7 @@ final private class PushApi(
     LilaFuture.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).so { game =>
-          game.players.collectFirst {
+          game.players.collect {
             case p if p.isProposingTakeback => Pov(game, game opponent p)
           } so { pov => // the pov of the receiver
             pov.player.userId so { userId =>
@@ -150,7 +150,7 @@ final private class PushApi(
     LilaFuture.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
         _.filter(_.playable).so { game =>
-          game.players.collectFirst {
+          game.players.collect {
             case p if p.isOfferingDraw => Pov(game, game opponent p)
           } so { pov => // the pov of the receiver
             pov.player.userId so { userId =>

@@ -55,7 +55,7 @@ final private class TvBroadcast(
         Json.obj(
           "id"          -> pov.gameId,
           "orientation" -> pov.color.name,
-          "players" -> pov.game.players.map { p =>
+          "players" -> pov.game.players.mapList { p =>
             val user = p.userId.flatMap(lightUserSync)
             Json
               .obj("color" -> p.color.name)

@@ -4,6 +4,7 @@ import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
 import lila.user.UserRepo
 import lila.common.config.Max
+import chess.ByColor
 
 final private class GameStarter(
     userRepo: UserRepo,
@@ -69,8 +70,7 @@ final private class GameStarter(
         situation = chess.Situation(chess.variant.Standard),
         clock = pool.clock.toClock.some
       ),
-      whitePlayer = Player.make(chess.White, whiteUser),
-      blackPlayer = Player.make(chess.Black, blackUser),
+      players = ByColor(whiteUser, blackUser).mapWithColor(Player.make),
       mode = chess.Mode.Rated,
       status = chess.Status.Created,
       daysPerTurn = none,
