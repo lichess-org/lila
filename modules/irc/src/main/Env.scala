@@ -25,9 +25,11 @@ final class Env(
 
   lazy val api: IrcApi = wire[IrcApi]
 
-  if (mode == Mode.Prod)
+  if mode == Mode.Prod then
     api.publishInfo("Lichess has started!")
-    Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell IRC")((() => api.stop()))
+    Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell IRC"): () =>
+      api.stop()
+      funit // don't wait for zulip aknowledgment to restart lila.
 
   lila.common.Bus.subscribeFun("slack", "plan") {
     case d: ChargeEvent => api.charge(d).unit
