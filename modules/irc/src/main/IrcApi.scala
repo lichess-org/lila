@@ -86,9 +86,6 @@ final class IrcApi(
       s":stop: ${markdown.modLink(mod.username)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
 
-  def garbageCollector(msg: String): Funit =
-    zulip(_.mod.adminLog, "garbage collector")(markdown linkifyUsers msg)
-
   def broadcastError(id: RelayRoundId, name: String, error: String): Funit =
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
