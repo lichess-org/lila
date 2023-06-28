@@ -561,6 +561,7 @@ GET   /mod/activity                    controllers.Mod.activity
 GET   /mod/activity/:who/:period       controllers.Mod.activityOf(who, period)
 GET   /mod/queues/:period              controllers.Mod.queues(period)
 GET   /mod/search                      controllers.Mod.search
+GET   /mod/notes                       controllers.Mod.notes(page: Int ?= 1, q ?= "")
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username)
 GET   /mod/:username/permissions       controllers.Mod.permissions(username)
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username)

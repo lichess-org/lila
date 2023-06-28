@@ -58,12 +58,11 @@ final class ModQueueStats(
             ),
             "rooms" -> Room.values
               .map(room => room.key -> room.name)
-              .appendedAll {
+              .appendedAll:
                 List(
                   "appeal"   -> "Appeal",
                   "streamer" -> "Streamer"
                 )
-              }
               .map: (roomKey, roomName) =>
                 Json.obj(
                   "name" -> roomName,

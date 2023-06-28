@@ -24,6 +24,8 @@ object menu:
         a(cls := active.active("log"), href := routes.Mod.log)("My logs"),
       isGranted(_.UserSearch) option
         a(cls := active.active("search"), href := routes.Mod.search)("Search users"),
+      isGranted(_.ModNote) option
+        a(cls := active.active("notes"), href := routes.Mod.notes())("User notes"),
       isGranted(_.SetEmail) option
         a(cls := active.active("email"), href := routes.Mod.emailConfirm)("Email confirm"),
       isGranted(_.PracticeConfig) option

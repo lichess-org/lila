@@ -78,3 +78,8 @@
   color: $c-bad;
   font-weight: bold;
 }
+
+.user-note__text {
+  @extend %break-word-hard;
+  font-size: 0.9em;
+}
