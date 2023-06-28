@@ -43,20 +43,23 @@ final class Ublog(env: Env) extends LilaController(env):
         env.ublog.api
           .getUserBlog(user)
           .flatMap: blog =>
-            env.ublog.api.findByIdAndBlog(id, blog.id) flatMap {
-              _.filter(canViewPost(user, blog)).fold(notFound): post =>
-                if slug != post.slug then Redirect(urlOfPost(post))
-                else
-                  for
-                    others   <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
-                    liked    <- ctx.user.so(env.ublog.rank.liked(post))
-                    followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
-                    markup   <- env.ublog.markup(post)
-                    viewedPost = env.ublog.viewCounter(post, ctx.ip)
-                    page <- renderPage:
-                      html.ublog.post(user, blog, viewedPost, markup, others, liked, followed)
-                  yield Ok(page)
-            }
+            if !canViewBlogOf(user, blog) then notFound
+            else
+              env.ublog.api
+                .getPost(id)
+                .flatMap:
+                  _.fold(notFound): post =>
+                    if slug != post.slug then Redirect(urlOfPost(post))
+                    else
+                      for
+                        others   <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
+                        liked    <- ctx.user.so(env.ublog.rank.liked(post))
+                        followed <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
+                        markup   <- env.ublog.markup(post)
+                        viewedPost = env.ublog.viewCounter(post, ctx.ip)
+                        page <- renderPage:
+                          html.ublog.post(user, blog, viewedPost, markup, others, liked, followed)
+                      yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
     NotForKids:
@@ -291,6 +294,3 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGrantedOpt(_.ModerateBlog) || isBlogVisible(user, blog)
-
-  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: Context) =
-    canViewBlogOf(user, blog) && (ctx.is(user) || post.live)
