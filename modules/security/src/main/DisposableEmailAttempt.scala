@@ -42,7 +42,6 @@ final class DisposableEmailAttempt(
       )
     then
       val dispEmails = attempts.map(_.email)
-      irc.signupAfterTryingDisposableEmail(user, email, dispEmails)
       logger
         .branch("disposableEmailAttempt")
         .info(s"User ${user.id} signed up with $email after trying ${dispEmails.mkString(", ")}")
