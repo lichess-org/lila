@@ -322,4 +322,3 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       monitorType.so:
         ircApi.monitorMod(icon = icon, text = text, _)
     }
-    ircApi.logMod(icon = icon, text = text)

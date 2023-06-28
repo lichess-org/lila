@@ -87,25 +87,6 @@ final class IrcApi(
       zulip(_.mod.adminMonitor(tpe), mod.name.value):
         s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
-  def logMod(icon: String, text: String)(using modId: Me.Id): Funit =
-    lightUser(modId).flatMapz: mod =>
-      zulip(_.mod.log, "actions"):
-        s"${markdown.modLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
-
-  def printBan(print: String, v: Boolean, userIds: List[UserId])(using Me.Id): Funit =
-    logMod(
-      "paw_prints",
-      s"${if (v) "Banned" else "Unbanned"} print ${markdown
-          .printLink(print)} of ${userIds.length} user(s): ${markdown userIdLinks userIds}"
-    )
-
-  def ipBan(ip: String, v: Boolean, userIds: List[UserId])(using Me): Funit =
-    logMod(
-      "1234",
-      s"${if (v) "Banned" else "Unbanned"} IP ${markdown
-          .ipLink(ip)} of ${userIds.length} user(s): ${markdown userIdLinks userIds}"
-    )
-
   def chatPanic(mod: Me, v: Boolean): Funit =
     val msg =
       s":stop: ${markdown.modLink(mod.username)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
