@@ -64,8 +64,8 @@ final class GameApiV2(
       fileR.replaceAllIn(
         "lichess_pgn_%s_%s_vs_%s.%s.%s".format(
           Tag.UTCDate.format.print(game.createdAt),
-          pgnDump.dumper.player(game.whitePlayer, users.white),
-          pgnDump.dumper.player(game.blackPlayer, users.black),
+          pgnDump.dumper.player.tupled(users.white),
+          pgnDump.dumper.player.tupled(users.black),
           game.id,
           format.toString.toLowerCase
         ),
@@ -280,7 +280,7 @@ final class GameApiV2(
       "createdAt"  -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
-      "players" -> JsObject(g.players.zip(lightUsers).mapList { (p, user) =>
+      "players" -> JsObject(lightUsers.mapList: (p, user) =>
         p.color.name -> gameJsonView
           .player(p, user)
           .add(
@@ -288,8 +288,7 @@ final class GameApiV2(
               analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy)
             )
           )
-          .add("team" -> teams.map(_(p.color)))
-      })
+          .add("team" -> teams.map(_(p.color))))
     )
     .add("initialFen" -> initialFen)
     .add("winner" -> g.winnerColor.map(_.name))
@@ -313,8 +312,8 @@ final class GameApiV2(
       ))
     .add("lastFen" -> withFlags.lastFen.option(Fen.write(g.chess.situation)))
 
-  private def gameLightUsers(game: Game): Fu[ByColor[Option[LightUser]]] =
-    game.players.traverse(_.userId so getLightUser)
+  private def gameLightUsers(game: Game): Future[ByColor[(lila.game.Player, Option[LightUser])]] =
+    game.players.traverse(_.userId so getLightUser).dmap(game.players.zip(_))
 
 object GameApiV2:
 
