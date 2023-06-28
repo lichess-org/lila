@@ -41,7 +41,6 @@ final class UblogRank(
                 $doc(
                   "tier"     -> "$blog.tier",
                   "likes"    -> $doc("$size" -> "$likers"), // do not use denormalized field
-                  "topics"   -> "$topics",
                   "at"       -> "$lived.at",
                   "language" -> true,
                   "title"    -> true
@@ -53,15 +52,14 @@ final class UblogRank(
               doc      <- docOption
               id       <- doc.getAsOpt[UblogPostId]("_id")
               likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
-              topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
               liveAt   <- doc.getAsOpt[Instant]("at")
               tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
               language <- doc.getAsOpt[Lang]("language")
               title    <- doc string "title"
-            yield (id, topics, likes, liveAt, tier, language, title)
+            yield (id, likes, liveAt, tier, language, title)
           .flatMap:
-            case None                                                     => fuccess(UblogPost.Likes(0))
-            case Some((id, topics, likes, liveAt, tier, language, title)) =>
+            case None                                             => fuccess(UblogPost.Likes(0))
+            case Some((id, likes, liveAt, tier, language, title)) =>
               // Multiple updates may race to set denormalized likes and rank,
               // but values should be approximately correct, match a real like
               // count (though perhaps not the latest one), and any uncontended
@@ -70,7 +68,7 @@ final class UblogRank(
                 $id(postId),
                 $set(
                   "likes" -> likes,
-                  "rank"  -> computeRank(topics, likes, liveAt, language, tier)
+                  "rank"  -> computeRank(likes, liveAt, language, tier)
                 )
               ) >>- {
                 if res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW
@@ -84,20 +82,19 @@ final class UblogRank(
     colls.post
       .find(
         $doc("blog" -> blog.id),
-        $doc("topics" -> true, "likes" -> true, "lived" -> true, "language" -> true).some
+        $doc("likes" -> true, "lived" -> true, "language" -> true).some
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .list(500) flatMap:
         _.traverse_ : doc =>
           (
             doc.string("_id"),
-            doc.getAsOpt[List[UblogTopic]]("topics"),
             doc.getAsOpt[UblogPost.Likes]("likes"),
             doc.getAsOpt[UblogPost.Recorded]("lived"),
             doc.getAsOpt[Lang]("language")
-          ).tupled so { (id, topics, likes, lived, language) =>
+          ).tupled so { (id, likes, lived, language) =>
             colls.post
-              .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
+              .updateField($id(id), "rank", computeRank(likes, lived.at, language, blog.tier))
               .void
           }
 
@@ -113,10 +110,9 @@ final class UblogRank(
 
   def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.RankDate] =
     post.lived.map: lived =>
-      computeRank(post.topics, post.likes, lived.at, post.language, blog.tier)
+      computeRank(post.likes, lived.at, post.language, blog.tier)
 
   private def computeRank(
-      topics: List[UblogTopic],
       likes: UblogPost.Likes,
       liveAt: Instant,
       language: Lang,
@@ -136,9 +132,7 @@ final class UblogRank(
 
         val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
 
-        val topicsBonus = if topics.exists(UblogTopic.chessExists) then 0 else -24 * 5
-
         val langBonus = if language.language == lila.i18n.defaultLang.language then 0 else -24 * 10
 
-        (tierBase + likesBonus + topicsBonus + langBonus).toInt
+        (tierBase + likesBonus + langBonus).toInt
   }
