@@ -22,7 +22,7 @@ import chess.{
   Status
 }
 
-import chess.MoveOrDrop.fold
+import chess.MoveOrDrop.{ fold, color }
 
 import lila.common.Days
 import lila.db.ByteArray
@@ -167,7 +167,7 @@ case class Game(
   ): Progress =
 
     def copyPlayer(player: Player) =
-      if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
+      if blur && moveOrDrop.color == player.color then
         player.copy(blurs = player.blurs.add(playerMoves(player.color)))
       else player
 

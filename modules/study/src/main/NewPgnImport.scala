@@ -98,11 +98,11 @@ object NewPgnImport:
     data
       .san(context.game.situation)
       .map(moveOrDrop =>
-        val game   = moveOrDrop.fold(context.game.apply, context.game.applyDrop)
-        val uci    = moveOrDrop.fold(_.toUci, _.toUci)
+        val game   = moveOrDrop.applyGame(context.game)
+        val uci    = moveOrDrop.toUci
         val id     = UciCharPair(uci)
         val path   = context.path + id
-        val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
+        val sanStr = moveOrDrop.toSanStr
         (
           Context(game, path),
           PgnImport.parseComments(data.metas.comments, annotator) match
