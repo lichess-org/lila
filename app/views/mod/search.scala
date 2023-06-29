@@ -183,7 +183,7 @@ object search:
 
   def notes(query: String, pager: Paginator[lila.user.Note])(using PageContext) =
     views.html.base.layout(
-      title = "Notes",
+      title = "Mod notes",
       moreCss = frag(cssTag("mod.misc"), cssTag("slist")),
       moreJs = infiniteScrollTag
     ) {
@@ -191,7 +191,7 @@ object search:
         views.html.mod.menu("notes"),
         div(cls := "page-menu__content box")(
           boxTop(
-            h1("User notes"),
+            h1("Mod notes"),
             div(cls := "box__top__actions")(
               st.form(cls := "search", action := routes.Mod.notes())(
                 input(st.name := "q", value := query, placeholder := trans.search.search.txt())
@@ -210,7 +210,7 @@ object search:
                   td(userIdLink(note.from.some)),
                   td(userIdLink(note.to.some, params = "?notes=1")),
                   td(cls := "user-note__text")(richText(note.text, expandImg = false)),
-                  td(momentFromNowOnce(note.date))
+                  td(small(momentFromNowOnce(note.date)))
                 ),
               pagerNextTable(pager, np => routes.Mod.notes(np, query).url)
             )
