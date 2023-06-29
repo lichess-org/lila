@@ -44,27 +44,19 @@ object BSONHandlers:
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*
     def reads(r: BSON.Reader) =
+      val (white, black) = r.str("p").view.flatMap(chess.Piece.fromChar).to(List).partition(_ is chess.White)
       Crazyhouse.Data(
-        pockets = {
-          val (white, black) = {
-            r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
-          }.partition(_ is chess.White)
-          ByColor(
-            white = Pocket(white.map(_.role)),
-            black = Pocket(black.map(_.role))
-          )
-        },
+        pockets = ByColor(white, black).map(pieces => Pocket(pieces.map(_.role))),
         promoted = chess.bitboard.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
       )
+
     def writes(w: BSON.Writer, o: Crazyhouse.Data) =
-      def roles(color: Color) = o.pockets(color).values.flatMap { (role, nb) =>
-        List.fill(nb)(role)
-      }
+      def roles = o.pockets.mapWithColor: (color, pocket) =>
+        pocket.flatMap((role, nb) => List.fill(nb)(role.forsythBy(color))).mkString
+
       BSONDocument(
-        "p" -> {
-          roles(chess.White).map(_.forsythUpper).mkString + roles(chess.Black).map(_.forsyth).mkString
-        },
-        "t" -> o.promoted.squares.map(_.asChar).mkString
+        "p" -> roles.reduce(_ + _),
+        "t" -> o.promoted.map(_.asChar).mkString
       )
 
   private[game] given gameDrawOffersHandler: BSONHandler[GameDrawOffers] = tryHandler[GameDrawOffers](
