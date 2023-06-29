@@ -43,7 +43,8 @@ final class UblogRank(
                   "likes"    -> $doc("$size" -> "$likers"), // do not use denormalized field
                   "at"       -> "$lived.at",
                   "language" -> true,
-                  "title"    -> true
+                  "title"    -> true,
+                  "imageId"  -> "$image.id"
                 )
               )
             )
@@ -56,10 +57,11 @@ final class UblogRank(
               tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
               language <- doc.getAsOpt[Lang]("language")
               title    <- doc string "title"
-            yield (id, likes, liveAt, tier, language, title)
+              hasImage = doc.contains("imageId")
+            yield (id, likes, liveAt, tier, language, title, hasImage)
           .flatMap:
-            case None                                             => fuccess(UblogPost.Likes(0))
-            case Some((id, likes, liveAt, tier, language, title)) =>
+            case None                                                       => fuccess(UblogPost.Likes(0))
+            case Some((id, likes, liveAt, tier, language, title, hasImage)) =>
               // Multiple updates may race to set denormalized likes and rank,
               // but values should be approximately correct, match a real like
               // count (though perhaps not the latest one), and any uncontended
@@ -68,7 +70,7 @@ final class UblogRank(
                 $id(postId),
                 $set(
                   "likes" -> likes,
-                  "rank"  -> computeRank(likes, liveAt, language, tier)
+                  "rank"  -> computeRank(likes, liveAt, language, tier, hasImage)
                 )
               ) >>- {
                 if res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW
@@ -91,10 +93,11 @@ final class UblogRank(
             doc.string("_id"),
             doc.getAsOpt[UblogPost.Likes]("likes"),
             doc.getAsOpt[UblogPost.Recorded]("lived"),
-            doc.getAsOpt[Lang]("language")
-          ).tupled so { (id, likes, lived, language) =>
+            doc.getAsOpt[Lang]("language"),
+            doc.contains("image").some
+          ).tupled so { (id, likes, lived, language, hasImage) =>
             colls.post
-              .updateField($id(id), "rank", computeRank(likes, lived.at, language, blog.tier))
+              .updateField($id(id), "rank", computeRank(likes, lived.at, language, blog.tier, hasImage))
               .void
           }
 
@@ -110,17 +113,17 @@ final class UblogRank(
 
   def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.RankDate] =
     post.lived.map: lived =>
-      computeRank(post.likes, lived.at, post.language, blog.tier)
+      computeRank(post.likes, lived.at, post.language, blog.tier, post.image.nonEmpty)
 
   private def computeRank(
       likes: UblogPost.Likes,
       liveAt: Instant,
       language: Lang,
-      tier: UblogBlog.Tier
+      tier: UblogBlog.Tier,
+      hasImage: Boolean
   ) = UblogPost.RankDate {
     import UblogBlog.Tier.*
-    if tier < LOW
-    then liveAt minusMonths 3
+    if tier < LOW || !hasImage then liveAt minusMonths 3
     else
       liveAt plusHours:
         val tierBase = 24 * tier.match
