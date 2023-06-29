@@ -1,7 +1,7 @@
 lichess.playMusic = function () {
   var orchestra;
 
-  lichess.loadScript('javascripts/music/orchestra.js').then(function () {
+  lichess.loadIife('javascripts/music/orchestra.js').then(function () {
     orchestra = lichessOrchestra();
   });
 
