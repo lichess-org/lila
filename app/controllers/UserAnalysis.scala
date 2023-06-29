@@ -105,11 +105,11 @@ final class UserAnalysis(
                   html.board.userAnalysis(data, pov, withForecast = withForecast)
               yield Ok(page).noCache
           ,
-          api = apiVersion => mobileAnalysis(pov, apiVersion)
+          api = _ => mobileAnalysis(pov)
         )
       }
 
-  private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(using
+  private def mobileAnalysis(pov: Pov)(using
       ctx: Context
   ): Fu[Result] =
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
@@ -120,7 +120,6 @@ final class UserAnalysis(
           import lila.game.JsonView.given
           env.api.roundApi.review(
             pov,
-            apiVersion,
             tv = none,
             analysis,
             initialFen = initialFen,

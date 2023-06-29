@@ -19,7 +19,7 @@ object Mobile:
 
   object Api:
 
-    val currentVersion = ApiVersion(6)
+    val currentVersion = ApiVersion.lichobile
 
     val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3, 4, 5, 6) map { ApiVersion(_) }
 

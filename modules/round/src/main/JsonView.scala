@@ -57,7 +57,6 @@ final class JsonView(
   def playerJson(
       pov: Pov,
       pref: Option[Pref],
-      apiVersion: ApiVersion,
       playerUser: Option[Either[LightUser.Ghost, User]],
       initialFen: Option[Fen.Epd],
       flags: WithFlags
@@ -83,10 +82,11 @@ final class JsonView(
               )
             }.add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
               .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
-            "url" -> Json.obj(
-              "socket" -> s"/play/$fullId/v$apiVersion",
-              "round"  -> s"/$fullId"
-            )
+            "url" -> flags.lichobileCompat.option:
+              Json.obj(
+                "socket" -> s"/play/$fullId/v${ApiVersion.lichobile}",
+                "round"  -> s"/$fullId"
+              )
           )
           .add(
             "pref" -> pref.map: pref =>
@@ -131,7 +131,7 @@ final class JsonView(
           .add("takebackable" -> takebackable)
           .add("moretimeable" -> moretimeable)
           .add("crazyhouse" -> pov.game.board.crazyData)
-          .add("possibleMoves" -> possibleMoves(pov, apiVersion))
+          .add("possibleMoves" -> possibleMoves(pov))
           .add("possibleDrops" -> possibleDrops(pov))
           .add("expiration" -> game.expirable.option:
             Json.obj(
@@ -159,7 +159,6 @@ final class JsonView(
   def watcherJson(
       pov: Pov,
       pref: Option[Pref],
-      apiVersion: ApiVersion,
       me: Option[UserId],
       tv: Option[OnTv],
       initialFen: Option[Fen.Epd] = None,
@@ -184,16 +183,18 @@ final class JsonView(
                   "version"   -> socket.version,
                   "spectator" -> true
                 )
-                .add("id" -> (apiVersion < 10).so(me.flatMap(game.player).map(_.id)))
+                .add("id" -> flags.lichobileCompat.so(me.flatMap(game.player).map(_.id)))
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, flags).add(
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
             ),
             "orientation" -> pov.color.name,
-            "url" -> Json.obj(
-              "socket" -> s"/watch/$gameId/${color.name}/v$apiVersion",
-              "round"  -> s"/$gameId/${color.name}"
-            ),
+            "url" -> flags.lichobileCompat.option:
+              Json.obj(
+                "socket" -> s"/watch/$gameId/${color.name}/v${ApiVersion.lichobile}",
+                "round"  -> s"/$gameId/${color.name}"
+              )
+            ,
             "pref" -> pref.map: pref =>
               Json
                 .obj(
@@ -301,9 +302,9 @@ final class JsonView(
   private[round] def clockJson(clock: Clock): JsObject =
     Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
-  private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
+  private def possibleMoves(pov: Pov): Option[JsValue] =
     pov.game.playableBy(pov.player) option
-      lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
+      lila.game.Event.PossibleMoves.json(pov.game.situation.destinations)
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
     (pov.game playableBy pov.player).so:
@@ -326,5 +327,6 @@ object JsonView:
       blurs: Boolean = false,
       rating: Boolean = true,
       puzzles: Boolean = false,
-      nvui: Boolean = false
+      nvui: Boolean = false,
+      lichobileCompat: Boolean = false
   )

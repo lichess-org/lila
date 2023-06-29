@@ -36,7 +36,7 @@ final class Round(
                 (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
                 (pov.game.isSwitchable so otherPovs(pov.game)) zip
                 env.bookmark.api.exists(pov.game, ctx.me) zip
-                env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) flatMap {
+                env.api.roundApi.player(pov, tour) flatMap {
                   case ((((((_, simul), chatOption), crosstable), playing), bookmarked), data) =>
                     simul foreach env.simul.api.onPlayerConnection(pov.game, ctx.me)
                     Ok.page(
@@ -54,13 +54,13 @@ final class Round(
                 }
             }
       ,
-      api = apiVersion =>
+      api = _ =>
         if isTheft(pov) then theftResponse
         else
           env.tournament.api.gameView.mobile(pov.game) flatMap { tour =>
             pov.game.playableByAi so env.fishnet.player(pov.game)
             gameC.preloadUsers(pov.game) zip
-              env.api.roundApi.player(pov, tour, apiVersion) zip
+              env.api.roundApi.player(pov, tour) zip
               getPlayerChat(pov.game, none) map { case ((_, data), chat) =>
                 Ok(data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))).noCache
               }
@@ -155,10 +155,8 @@ final class Round(
                       .watcher(
                         pov,
                         tour,
-                        lila.api.Mobile.Api.currentVersion,
-                        tv = userTv.map { u =>
+                        tv = userTv.map: u =>
                           lila.round.OnTv.User(u.id)
-                        }
                       )
                       .flatMap: data =>
                         Ok.page:
@@ -180,10 +178,10 @@ final class Round(
                 page       <- renderPage(html.round.watcher.crawler(pov, initialFen, pgn))
               yield Ok(page)
           ,
-          api = apiVersion =>
+          api = _ =>
             for
               tour     <- env.tournament.api.gameView.watcher(pov.game)
-              data     <- env.api.roundApi.watcher(pov, tour, apiVersion, tv = none)
+              data     <- env.api.roundApi.watcher(pov, tour, tv = none)
               analysis <- env.analyse.analyser get pov.game
               chat     <- getWatcherChat(pov.game)
             yield Ok:

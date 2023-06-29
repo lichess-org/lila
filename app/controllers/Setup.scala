@@ -59,8 +59,8 @@ final class Setup(
               processor.ai(config) flatMap { pov =>
                 negotiateApi(
                   html = redirectPov(pov),
-                  api = apiVersion =>
-                    env.api.roundApi.player(pov, none, apiVersion) map { data =>
+                  api = _ =>
+                    env.api.roundApi.player(pov, none) map { data =>
                       Created(data) as JSON
                     }
                 )

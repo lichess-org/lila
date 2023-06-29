@@ -55,10 +55,8 @@ final class Analyse(
               case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
                 env.api.roundApi.review(
                   pov,
-                  lila.api.Mobile.Api.currentVersion,
-                  tv = userTv.map { u =>
-                    lila.round.OnTv.User(u.id)
-                  },
+                  tv = userTv.map: u =>
+                    lila.round.OnTv.User(u.id),
                   analysis,
                   initialFen = initialFen,
                   withFlags = WithFlags(

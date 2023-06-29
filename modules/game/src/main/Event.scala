@@ -66,9 +66,8 @@ object Event:
         .add("wDraw" -> state.whiteOffersDraw)
         .add("bDraw" -> state.blackOffersDraw)
         .add("crazyhouse" -> crazyData)
-        .add("drops" -> possibleDrops.map { squares =>
-          JsString(squares.map(_.key).mkString)
-        })
+        .add("drops" -> possibleDrops.map: squares =>
+          JsString(squares.map(_.key).mkString))
 
   case class Move(
       orig: Square,
@@ -174,7 +173,7 @@ object Event:
       )
 
   object PossibleMoves:
-    def json(moves: Map[Square, List[Square]]) =
+    def json(moves: Map[Square, List[Square]]): JsValue =
       if moves.isEmpty then JsNull
       else
         val sb    = new java.lang.StringBuilder(128)
@@ -184,8 +183,13 @@ object Event:
           else sb append " "
           sb append orig.key
           dests foreach { sb append _.key }
-
         JsString(sb.toString)
+
+    def oldJson(moves: Map[Square, List[Square]]): JsValue =
+      if moves.isEmpty then JsNull
+      else
+        moves.foldLeft(JsObject(Nil)):
+          case (res, (o, d)) => res + (o.key -> JsString(d.map(_.key) mkString))
 
   case class Enpassant(pos: Square, color: Color) extends Event:
     def typ = "enpassant"

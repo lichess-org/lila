@@ -92,7 +92,7 @@ final class Challenge(
           case Validated.Valid(Some(pov)) =>
             negotiateApi(
               html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
-              api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
+              api = _ => env.api.roundApi.player(pov, none) map { Ok(_) }
             ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
           case invalid =>
             negotiate(

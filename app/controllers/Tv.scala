@@ -44,12 +44,12 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       negotiateApi(
         html = for
           tour   <- env.tournament.api.gameView.watcher(pov.game)
-          data   <- env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some)
+          data   <- env.api.roundApi.watcher(pov, tour, tv = onTv.some)
           cross  <- env.game.crosstableApi.withMatchup(game)
           champs <- env.tv.tv.getChampions
           page   <- renderPage(html.tv.index(channel, champs, pov, data, cross, history))
         yield Ok(page).noCache,
-        api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) dmap { Ok(_) }
+        api = _ => env.api.roundApi.watcher(pov, none, tv = onTv.some) dmap { Ok(_) }
       )
 
   def games = gamesChannel(Channel.Best.key)

@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
-import lila.common.ApiVersion
+import lila.common.{ HTTPRequest, ApiVersion }
 import lila.common.Json.given
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
@@ -19,6 +19,7 @@ import lila.tournament.{ GameView as TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
 import lila.api.Context.given
+import lila.memo.MongoCache.Api
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -35,17 +36,14 @@ final private[api] class RoundApi(
     getLightUser: lila.common.LightUser.GetterSync
 )(using Executor):
 
-  def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(using
-      ctx: Context
-  ): Fu[JsObject] =
+  def player(pov: Pov, tour: Option[TourView])(using ctx: Context): Fu[JsObject] =
     gameRepo
       .initialFen(pov.game)
       .flatMap { initialFen =>
-        given play.api.i18n.Lang = ctx.lang
+        given Lang = ctx.lang
         jsonView.playerJson(
           pov,
           ctx.pref.some,
-          apiVersion,
           ctx.me.map(Right.apply),
           flags = ctxFlags,
           initialFen = initialFen
@@ -72,18 +70,16 @@ final private[api] class RoundApi(
   def watcher(
       pov: Pov,
       tour: Option[TourView],
-      apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv],
       initialFenO: Option[Option[Fen.Epd]] = None
   )(using ctx: Context): Fu[JsObject] =
     initialFenO
       .fold(gameRepo initialFen pov.game)(fuccess)
       .flatMap { initialFen =>
-        given play.api.i18n.Lang = ctx.lang
+        given Lang = ctx.lang
         jsonView.watcherJson(
           pov,
           ctx.pref.some,
-          apiVersion,
           ctx.me,
           tv,
           initialFen = initialFen,
@@ -106,22 +102,25 @@ final private[api] class RoundApi(
       .mon(_.round.api.watcher)
 
   private def ctxFlags(using ctx: Context) =
-    WithFlags(blurs = Granter.opt(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
+    WithFlags(
+      blurs = Granter.opt(_.ViewBlurs),
+      rating = ctx.pref.showRatings,
+      nvui = ctx.blind,
+      lichobileCompat = HTTPRequest.isLichobile(ctx.req)
+    )
 
   def review(
       pov: Pov,
-      apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
       initialFen: Option[Fen.Epd],
       withFlags: WithFlags,
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
-    given play.api.i18n.Lang = ctx.lang
+    given Lang = ctx.lang
     jsonView.watcherJson(
       pov,
       ctx.pref.some,
-      apiVersion,
       ctx.me,
       tv,
       initialFen = initialFen,
