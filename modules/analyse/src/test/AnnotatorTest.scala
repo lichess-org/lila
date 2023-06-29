@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.{ ByColor, Color, Ply }
+import chess.{ Color, Ply }
 import lila.common.Maths.isCloseTo
 import lila.common.config.{ NetDomain, BaseUrl }
 import lila.tree.Eval

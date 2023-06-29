@@ -107,8 +107,7 @@ trait LilaModel:
 
   opaque type IntRating = Int
   object IntRating extends OpaqueInt[IntRating]:
-    extension (r: IntRating)
-      def applyDiff(diff: IntRatingDiff): IntRating = r + diff.value
+    extension (r: IntRating) def applyDiff(diff: IntRatingDiff): IntRating = r + diff.value
 
   opaque type IntRatingDiff = Int
   object IntRatingDiff extends OpaqueInt[IntRatingDiff]:

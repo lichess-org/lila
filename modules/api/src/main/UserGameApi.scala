@@ -44,7 +44,7 @@ final class UserGameApi(
         "turns"     -> g.ply,
         "status"    -> g.status,
         "source"    -> g.source.map(_.name),
-        "players" -> JsObject(g.players map { p =>
+        "players" -> JsObject(g.players.mapList { p =>
           p.color.name -> Json
             .obj(
               "user"   -> p.userId.flatMap(lightUser.sync),

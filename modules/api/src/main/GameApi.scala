@@ -207,7 +207,7 @@ final private[api] class GameApi(
           )
         },
         "daysPerTurn" -> g.daysPerTurn,
-        "players" -> JsObject(g.players map { p =>
+        "players" -> JsObject(g.players.mapList { p =>
           p.color.name -> Json
             .obj(
               "userId"     -> p.userId,

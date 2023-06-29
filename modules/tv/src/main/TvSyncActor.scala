@@ -70,7 +70,7 @@ final private[tv] class TvSyncActor(
           .flatMap(_.title)
           .flatMap(Tv.titleScores.get)
       }
-      val player = game.players.sorted.lastOption | game.player(game.naturalOrientation)
+      val player = game.players.all.sorted.lastOption | game.player(game.naturalOrientation)
       val user   = player.userId flatMap lightUserApi.sync
       (user, player.rating) mapN { (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id))

@@ -73,7 +73,7 @@ private object GameStream:
           "createdAt"  -> g.createdAt,
           "status"     -> g.status.id,
           "statusName" -> g.status.name,
-          "players" -> JsObject(g.players map { p =>
+          "players" -> JsObject(g.players.mapList { p =>
             p.color.name -> Json
               .obj(
                 "userId" -> p.userId,
