@@ -25,7 +25,7 @@ object PrefForm:
   private lazy val booleanNumber =
     number.verifying(Pref.BooleanPref.verify)
 
-  val pref = Form(
+  def pref(lichobile: Boolean) = Form(
     mapping(
       "display" -> mapping(
         "animation"     -> numberIn(Set(0, 1, 2, 3)),
@@ -45,7 +45,12 @@ object PrefForm:
         "takeback"      -> checkedNumber(Pref.Takeback.choices),
         "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices),
         "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
-        "submitMove"    -> optional(bitCheckedNumber(Pref.SubmitMove.choices)),
+        "submitMove" -> optional:
+          if lichobile then
+            import Pref.SubmitMove.{ lichobile as compat }
+            numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp)
+          else bitCheckedNumber(Pref.SubmitMove.choices)
+        ,
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
         "keyboardMove"  -> optional(booleanNumber),
         "voice"         -> optional(booleanNumber),
@@ -186,7 +191,7 @@ object PrefForm:
         ratings = pref.ratings.some
       )
 
-  def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
+  def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))
 
   val theme = Form(
     single(

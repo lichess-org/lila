@@ -12,6 +12,7 @@ import lila.app.{ given, * }
 import lila.security.SecurityForm.Reopen
 import lila.user.{ TotpSecret, User as UserModel }
 import lila.i18n.I18nLangPicker
+import lila.common.HTTPRequest
 
 final class Account(
     env: Env,
@@ -58,12 +59,11 @@ final class Account(
         povs         <- env.round.proxyRepo urgentGames me
         nbChallenges <- env.challenge.api.countInFor get me
         playban      <- env.playban.api currentBan me
-      yield Ok {
-        import lila.pref.JsonView.given
+      yield Ok:
         env.user.jsonView
           .full(me, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
           .obj(
-            "prefs"        -> ctx.pref,
+            "prefs" -> lila.pref.JsonView.write(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
             "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
             "nbChallenges" -> nbChallenges,
             "online"       -> true
@@ -72,7 +72,7 @@ final class Account(
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
           .add("announce" -> AnnounceStore.get.map(_.json))
-      }.withHeaders(CACHE_CONTROL -> "max-age=15")
+      .withHeaders(CACHE_CONTROL -> "max-age=15")
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>
@@ -105,10 +105,9 @@ final class Account(
     negotiateJson(
       env.pref.api.get(me).map { prefs =>
         Ok:
-          import lila.pref.JsonView.given
           lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
             "coach" -> isGranted(_.Coach),
-            "prefs" -> prefs
+            "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
           )
       }
     )

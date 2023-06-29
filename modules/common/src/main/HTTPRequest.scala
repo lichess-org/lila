@@ -42,6 +42,8 @@ object HTTPRequest:
   val isMobileBrowser  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   val isLichessMobile  = UaMatcher("""Lichess Mobile/""")
   val isLichobile      = UaMatcher("""Lichobile/""")
+  def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
+    isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
 
   def origin(req: RequestHeader): Option[String]  = req.headers get HeaderNames.ORIGIN
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER

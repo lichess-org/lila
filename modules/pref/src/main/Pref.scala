@@ -227,6 +227,24 @@ object Pref:
       BLITZ          -> "Blitz"
     )
 
+    object lichobile:
+      val NEVER                    = 0
+      val CORRESPONDENCE_ONLY      = 4
+      val CORRESPONDENCE_UNLIMITED = 1
+      val ALWAYS                   = 2
+      val choices                  = Seq(NEVER, CORRESPONDENCE_ONLY, CORRESPONDENCE_UNLIMITED, ALWAYS)
+      def appToServer(v: Int) = v match
+        case NEVER                    => 0
+        case CORRESPONDENCE_ONLY      => CORRESPONDENCE
+        case CORRESPONDENCE_UNLIMITED => CORRESPONDENCE | UNLIMITED
+        case ALWAYS                   => BLITZ | RAPID | CLASSICAL | CORRESPONDENCE | UNLIMITED
+      def serverToApp(v: Int) =
+        if (v & CLASSICAL) != 0 || (v & RAPID) != 0 || (v & BLITZ) != 0 then ALWAYS
+        else if (v & CORRESPONDENCE) != 0 then
+          if (v & UNLIMITED) != 0 then CORRESPONDENCE_UNLIMITED
+          else CORRESPONDENCE_ONLY
+        else NEVER
+
   object ConfirmResign extends BooleanPref
 
   object InsightShare:

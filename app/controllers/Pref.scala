@@ -16,8 +16,9 @@ final class Pref(env: Env) extends LilaController(env):
     env.pref.api.get(me) map { prefs =>
       JsonOk:
         import play.api.libs.json.*
-        import lila.pref.JsonView.given
-        Json.obj("prefs" -> prefs).add("language" -> me.lang)
+        Json
+          .obj("prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false))
+          .add("language" -> me.lang)
     }
   }
 
@@ -42,12 +43,14 @@ final class Pref(env: Env) extends LilaController(env):
         }
 
   def formApply = AuthBody { ctx ?=> _ ?=>
-    def onSuccess(data: lila.pref.PrefForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
-    forms.pref
+    def onSuccess(data: lila.pref.PrefForm.PrefData) =
+      api.setPref(data(ctx.pref)) inject Ok("saved")
+    val form = forms.pref(lichobile = HTTPRequest.isLichobile(req))
+    form
       .bindFromRequest()
       .fold(
         _ =>
-          forms.pref
+          form
             .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
             .fold(
               err => BadRequest(err.toString).toFuccess,
