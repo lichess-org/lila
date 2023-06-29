@@ -56,7 +56,7 @@ final class Importer(env: Env) extends LilaController(env):
                       .void
                   } inject Redirect(routes.Round.watcher(game.id, "white")),
                   json =
-                    if HTTPRequest.isLichessMobile(ctx.req)
+                    if HTTPRequest.isLichobile(ctx.req)
                     then Redirect(routes.Round.watcher(game.id, "white"))
                     else
                       JsonOk:
