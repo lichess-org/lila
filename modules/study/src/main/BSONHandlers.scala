@@ -84,7 +84,7 @@ object BSONHandlers:
 
   private given BSON[Crazyhouse.Data] with
     private def writePocket(p: Crazyhouse.Pocket) =
-      p.values.flatMap { (role, nb) => List.fill(nb)(role.forsyth) }.mkString
+      p.flatMap((role, nb) => List.fill(nb)(role.forsyth)).mkString
     private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
     def reads(r: Reader) =
       Crazyhouse.Data(

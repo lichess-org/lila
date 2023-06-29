@@ -110,7 +110,4 @@ for x in xs:
       }
     yield AccuracyPercent((weighted + harmonic) / 2)
 
-    for
-      wa <- colorAccuracy(Color.white)
-      ba <- colorAccuracy(Color.black)
-    yield ByColor(wa, ba)
+    ByColor(colorAccuracy)
