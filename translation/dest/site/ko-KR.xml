@@ -146,6 +146,9 @@
   <plurals name="nbGames">
     <item quantity="other">%s개의 게임</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%2$s게임간의 %1$s 레이팅</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s개의 즐겨찾기</item>
   </plurals>
