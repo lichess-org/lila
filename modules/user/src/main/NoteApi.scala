@@ -87,17 +87,18 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
 
   def delete(id: String) = coll.delete.one($id(id))
 
-  def setDox(id: String, dox: Boolean) = coll.update.one($id(id), $set("dox" -> dox)).void
+  def setDox(id: String, dox: Boolean) = coll.updateField($id(id), "dox", dox).void
 
   private val searchableBsonFlag = $doc("s" -> true)
 
-  def search(query: String, page: Int): Fu[Paginator[Note]] =
+  def search(query: String, page: Int, withDox: Boolean): Fu[Paginator[Note]] =
     Paginator(
       adapter = new:
         private val selector =
+          val base = searchableBsonFlag ++ (!withDox).so($doc("dox" -> false))
           if query.nonEmpty
-          then $text(query) ++ searchableBsonFlag
-          else searchableBsonFlag
+          then base ++ $text(query)
+          else base
         def nbResults: Fu[Int] =
           if query.nonEmpty
           then coll.countSel(selector)

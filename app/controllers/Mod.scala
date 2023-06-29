@@ -351,7 +351,7 @@ final class Mod(
 
   def notes(page: Int, q: String) = Secure(_.ModNote) { _ ?=> _ ?=>
     Ok.pageAsync:
-      env.user.noteApi.search(q.trim, page).map(html.mod.search.notes(q, _))
+      env.user.noteApi.search(q.trim, page, withDox = isGranted(_.Admin)).map(html.mod.search.notes(q, _))
   }
 
   def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> me ?=>
