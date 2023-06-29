@@ -62,10 +62,6 @@ final class IrcApi(
     zulip(_.mod.cafeteria, "reports"):
       s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.username)})"
 
-  def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
-    zulip(_.mod.adminLog, "self report"):
-      s"[**$typ**] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
-
   def commlog(user: User, reportBy: Option[UserId])(using mod: Me): Funit =
     zulip(_.mod.adminLog, "private comms checks"):
       val checkedOut =
