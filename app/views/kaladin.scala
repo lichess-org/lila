@@ -92,8 +92,7 @@ object kaladin:
     div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
       header(
         span(cls := "title")(
-          a(href := routes.Irwin.kaladin)("Kaladin "),
-          strong(cls := "beta")("BETA")
+          a(href := routes.Irwin.kaladin)("Kaladin")
         ),
         div(cls := "infos")(
           p("Updated ", momentFromNowServer(response.at))
