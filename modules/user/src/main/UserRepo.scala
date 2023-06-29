@@ -185,7 +185,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def irwin   = byId(User.irwinId)
   def kaladin = byId(User.kaladinId)
 
-  def setPerfs(user: User, perfs: Perfs, prev: Perfs)(using wr: BSONHandler[Perf]) =
+  def setPerfs(user: User, perfs: UserPerfs, prev: UserPerfs)(using wr: BSONHandler[Perf]) =
     val diff = for {
       pt <- PerfType.all
       if perfs(pt).nb != prev(pt).nb
@@ -199,7 +199,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       .void
 
   def setManagedUserInitialPerfs(id: UserId) =
-    coll.updateField($id(id), F.perfs, Perfs.defaultManaged).void
+    coll.updateField($id(id), F.perfs, UserPerfs.defaultManaged).void
 
   def setPerf(userId: UserId, pt: PerfType, perf: Perf) =
     coll.updateField($id(userId), s"${F.perfs}.${pt.key}", perf).void
@@ -523,7 +523,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       coll.update
         .one(
           $id(user.id),
-          $set(F.title -> Title.BOT, F.perfs -> Perfs.defaultBot)
+          $set(F.title -> Title.BOT, F.perfs -> UserPerfs.defaultBot)
         )
         .void
 

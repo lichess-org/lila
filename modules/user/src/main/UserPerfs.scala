@@ -6,7 +6,7 @@ import lila.common.Heapsort.*
 import lila.db.BSON
 import lila.rating.{ Glicko, Perf, PerfType }
 
-case class Perfs(
+case class UserPerfs(
     standard: Perf,
     chess960: Perf,
     kingOfTheHill: Perf,
@@ -181,11 +181,11 @@ case class Perfs(
       puzzle.glicko.rating > 2700 && !standard.glicko.establishedIntRating.exists(_ > 1900) ||
       puzzle.glicko.rating > 2500 && !standard.glicko.establishedIntRating.exists(_ > 1800)
 
-case object Perfs:
+case object UserPerfs:
 
   val default =
     val p = Perf.default
-    Perfs(
+    UserPerfs(
       p,
       p,
       p,
@@ -231,7 +231,7 @@ case object Perfs:
       correspondence = bot
     )
 
-  def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] =
+  def variantLens(variant: chess.variant.Variant): Option[UserPerfs => Perf] =
     variant match
       case chess.variant.Standard      => Some(_.standard)
       case chess.variant.Chess960      => Some(_.chess960)
@@ -244,7 +244,7 @@ case object Perfs:
       case chess.variant.Crazyhouse    => Some(_.crazyhouse)
       case _                           => none
 
-  def speedLens(speed: Speed): Perfs => Perf = perfs =>
+  def speedLens(speed: Speed): UserPerfs => Perf = perfs =>
     speed match
       case Speed.Bullet         => perfs.bullet
       case Speed.Blitz          => perfs.blitz
@@ -253,13 +253,13 @@ case object Perfs:
       case Speed.Correspondence => perfs.correspondence
       case Speed.UltraBullet    => perfs.ultraBullet
 
-  given reactivemongo.api.bson.BSONDocumentHandler[Perfs] = new BSON[Perfs]:
+  given reactivemongo.api.bson.BSONDocumentHandler[UserPerfs] = new BSON[UserPerfs]:
 
     import Perf.given
 
-    def reads(r: BSON.Reader): Perfs =
+    def reads(r: BSON.Reader): UserPerfs =
       inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
-      Perfs(
+      UserPerfs(
         standard = perf("standard"),
         chess960 = perf("chess960"),
         kingOfTheHill = perf("kingOfTheHill"),
@@ -283,7 +283,7 @@ case object Perfs:
 
     private inline def notNew(p: Perf): Option[Perf] = p.nonEmpty option p
 
-    def writes(w: BSON.Writer, o: Perfs) =
+    def writes(w: BSON.Writer, o: UserPerfs) =
       reactivemongo.api.bson.BSONDocument(
         "standard"       -> notNew(o.standard),
         "chess960"       -> notNew(o.chess960),

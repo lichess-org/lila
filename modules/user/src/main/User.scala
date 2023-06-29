@@ -9,7 +9,7 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 case class User(
     id: UserId,
     username: UserName,
-    perfs: Perfs,
+    perfs: UserPerfs,
     count: Count,
     enabled: UserEnabled,
     roles: List[String],
@@ -295,7 +295,7 @@ object User:
     import UserMark.given
     import Count.given
     import Profile.given
-    import Perfs.given
+    import UserPerfs.given
     import TotpSecret.given
 
     def reads(r: BSON.Reader): User =
@@ -303,7 +303,7 @@ object User:
       User(
         id = r.get[UserId](id),
         username = r.get[UserName](username),
-        perfs = r.getO[Perfs](perfs).fold(Perfs.default) { perfs =>
+        perfs = r.getO[UserPerfs](perfs).fold(UserPerfs.default) { perfs =>
           if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
           else perfs
         },

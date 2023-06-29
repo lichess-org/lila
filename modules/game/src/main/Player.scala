@@ -114,7 +114,7 @@ object Player:
   def make(
       color: Color,
       user: Option[User],
-      perfPicker: lila.user.Perfs => lila.rating.Perf
+      perfPicker: lila.user.UserPerfs => lila.rating.Perf
   ): Player =
     user.fold(make(color)) { u =>
       make(color, (u.id, perfPicker(u.perfs)))

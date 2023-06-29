@@ -6,7 +6,7 @@ import lila.rating.glicko2
 import lila.game.{ Game, GameRepo, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator }
-import lila.user.{ Perfs, RankingApi, User, UserRepo }
+import lila.user.{ UserPerfs, RankingApi, User, UserRepo }
 
 final class PerfsUpdater(
     gameRepo: GameRepo,
@@ -62,7 +62,7 @@ final class PerfsUpdater(
                 case _ =>
               val perfsW                      = mkPerfs(ratingsW, white -> black, game)
               val perfsB                      = mkPerfs(ratingsB, black -> white, game)
-              def intRatingLens(perfs: Perfs) = mainPerf(perfs).glicko.intRating
+              def intRatingLens(perfs: UserPerfs) = mainPerf(perfs).glicko.intRating
               val ratingDiffs = ByColor(
                 intRatingLens(perfsW) - intRatingLens(white.perfs),
                 intRatingLens(perfsB) - intRatingLens(black.perfs)
@@ -93,7 +93,7 @@ final class PerfsUpdater(
       correspondence: glicko2.Rating
   )
 
-  private def mkRatings(perfs: Perfs) =
+  private def mkRatings(perfs: UserPerfs) =
     Ratings(
       chess960 = perfs.chess960.toRating,
       kingOfTheHill = perfs.kingOfTheHill.toRating,
@@ -123,7 +123,7 @@ final class PerfsUpdater(
     try Glicko.system.updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
-  private def mkPerfs(ratings: Ratings, users: (User, User), game: Game): Perfs =
+  private def mkPerfs(ratings: Ratings, users: (User, User), game: Game): UserPerfs =
     users match
       case (player, opponent) =>
         val perfs            = player.perfs

@@ -19,7 +19,7 @@ final class RankingApi(
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
-  def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
+  def save(user: User, perfType: Option[PerfType], perfs: UserPerfs): Funit =
     perfType.so: pt =>
       save(user, pt, perfs(pt))
 
@@ -65,7 +65,7 @@ final class RankingApi(
             .parallel.dmap(_.flatten)
     }
 
-  private[user] def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] =
+  private[user] def fetchLeaderboard(nb: Int): Fu[UserPerfs.Leaderboards] =
     for
       ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)
       bullet        <- topPerf(PerfType.Bullet.id, nb)
@@ -80,7 +80,7 @@ final class RankingApi(
       horde         <- topPerf(PerfType.Horde.id, nb)
       racingKings   <- topPerf(PerfType.RacingKings.id, nb)
       crazyhouse    <- topPerf(PerfType.Crazyhouse.id, nb)
-    yield Perfs.Leaderboards(
+    yield UserPerfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,
       blitz = blitz,

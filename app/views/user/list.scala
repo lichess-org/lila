@@ -14,7 +14,7 @@ object list:
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
       online: List[User],
-      leaderboards: lila.user.Perfs.Leaderboards,
+      leaderboards: lila.user.UserPerfs.Leaderboards,
       nbAllTime: List[User.LightCount]
   )(using ctx: PageContext) =
     views.html.base.layout(

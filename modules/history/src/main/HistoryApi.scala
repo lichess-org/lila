@@ -7,7 +7,7 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ Perfs, User, UserRepo }
+import lila.user.{ UserPerfs, User, UserRepo }
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
     using ec: Executor
@@ -26,7 +26,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
       .void
   }
 
-  def add(user: User, game: Game, perfs: Perfs): Funit = withColl { coll =>
+  def add(user: User, game: Game, perfs: UserPerfs): Funit = withColl { coll =>
     val isStd = game.ratingVariant.standard
     val changes = List(
       isStd.option("standard"                                               -> perfs.standard),

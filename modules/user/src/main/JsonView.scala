@@ -19,7 +19,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
       withRating: Boolean,
       withProfile: Boolean
   ): JsObject =
-    if (u.enabled.no) disabled(u.light)
+    if u.enabled.no then disabled(u.light)
     else
       base(u, onlyPerf, withRating = withRating) ++ Json
         .obj("createdAt" -> u.createdAt)
@@ -32,7 +32,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
         .add("playTime" -> u.playTime)
 
   def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
-    if (u.enabled.no) disabled(u.light)
+    if u.enabled.no then disabled(u.light)
     else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline(u.id))
 
   private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
@@ -64,7 +64,7 @@ object JsonView:
 
   val nameWrites: Writes[User] = writeAs(_.username)
 
-  given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf] { l =>
+  given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf]: l =>
     Json
       .obj(
         "id"       -> l.user.id,
@@ -75,7 +75,6 @@ object JsonView:
       )
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
-  }
 
   val modWrites = OWrites[User] { u =>
     Json
@@ -106,10 +105,11 @@ object JsonView:
     perf.nb > 0 || standardPerfKeys(key)
 
   def perfs(u: User, onlyPerf: Option[PerfType] = None): JsObject =
-    JsObject(u.perfs.perfsMap collect {
-      case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
-        key.value -> perfWrites.writes(perf)
-    }).add(
+    JsObject:
+      u.perfs.perfsMap.collect:
+        case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
+          key.value -> perfWrites.writes(perf)
+    .add(
       "storm",
       u.perfs.storm.nonEmpty option Json.obj(
         "runs"  -> u.perfs.storm.runs,
@@ -130,13 +130,13 @@ object JsonView:
     )
 
   def perfs(u: User, onlyPerfs: List[PerfType]) =
-    JsObject(onlyPerfs.map { perfType =>
-      perfType.key.value -> perfWrites.writes(u.perfs(perfType))
-    })
+    JsObject:
+      onlyPerfs.map: perfType =>
+        perfType.key.value -> perfWrites.writes(u.perfs(perfType))
 
   def notes(ns: List[Note])(using lightUser: LightUserApi) =
-    lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray(
-      ns.map { note =>
+    lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray:
+      ns.map: note =>
         Json
           .obj(
             "from" -> lightUser.syncFallback(note.from),
@@ -146,11 +146,9 @@ object JsonView:
           )
           .add("mod", note.mod)
           .add("dox", note.dox)
-      }
-    )
 
-  given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[Perfs.Leaderboards] =
-    OWrites { leaderboards =>
+  given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[UserPerfs.Leaderboards] =
+    OWrites: leaderboards =>
       Json.obj(
         "bullet"        -> leaderboards.bullet,
         "blitz"         -> leaderboards.blitz,
@@ -166,10 +164,9 @@ object JsonView:
         "horde"         -> leaderboards.horde,
         "racingKings"   -> leaderboards.racingKings
       )
-    }
 
-  given leaderboardStandardTopOneWrites(using OWrites[User.LightPerf]): OWrites[Perfs.Leaderboards] =
-    OWrites { leaderboards =>
+  given leaderboardStandardTopOneWrites(using OWrites[User.LightPerf]): OWrites[UserPerfs.Leaderboards] =
+    OWrites: leaderboards =>
       Json.obj(
         "bullet"      -> leaderboards.bullet.headOption,
         "blitz"       -> leaderboards.blitz.headOption,
@@ -177,4 +174,3 @@ object JsonView:
         "classical"   -> leaderboards.classical.headOption,
         "ultraBullet" -> leaderboards.ultraBullet.headOption
       )
-    }

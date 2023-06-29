@@ -20,7 +20,7 @@ final class Cached(
   private given BSONDocumentHandler[LightPerf]  = Macros.handler
   private given BSONDocumentHandler[LightCount] = Macros.handler
 
-  val top10 = cacheApi.unit[Perfs.Leaderboards] {
+  val top10 = cacheApi.unit[UserPerfs.Leaderboards] {
     _.refreshAfterWrite(2 minutes)
       .buildAsyncFuture { _ =>
         rankingApi
