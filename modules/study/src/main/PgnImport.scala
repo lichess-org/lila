@@ -120,9 +120,9 @@ object PgnImport:
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
-            val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
+            val game   = moveOrDrop.applyGame(prev)
             val uci    = moveOrDrop.toUci
-            val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
+            val sanStr = moveOrDrop.toSanStr
             parseComments(node.value.metas.comments, annotator) match {
               case (shapes, clock, comments) =>
                 Branch(
