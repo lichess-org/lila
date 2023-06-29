@@ -41,6 +41,24 @@ object PlayerAssessment:
       }
     }
 
+  private def antichessCorrectedGameAssessment(
+      assessment: GameAssessment,
+      pov: Pov,
+      flags: PlayerFlags
+  ): GameAssessment =
+    import pov.{ color, game }
+    if (
+      game.variant != chess.variant.Antichess ||
+      (assessment != GameAssessment.Cheating && assessment != GameAssessment.LikelyCheating)
+    ) assessment
+    else if (
+      flags.highlyConsistentMoveTimes && flags.suspiciousErrorRate && game.playedTurns < 50 && game
+        .sansOf(!color)
+        .takeRight(12)
+        .count(_.value.startsWith("B")) > 6
+    ) GameAssessment.Unclear
+    else assessment
+
   def makeBasics(pov: Pov, holdAlerts: Option[Player.HoldAlert]): PlayerAssessment.Basics =
     import Statistics.*
     import pov.{ color, game }
@@ -135,7 +153,7 @@ object PlayerAssessment:
         case _                                   => NotCheating
 
       if (flags.suspiciousHoldAlert) assessment
-      else if (~game.wonBy(color)) assessment
+      else if (~game.wonBy(color)) antichessCorrectedGameAssessment(assessment, pov, flags)
       else if (assessment == Cheating) LikelyCheating
       else if (assessment == LikelyCheating) Unclear
       else assessment
