@@ -3,10 +3,10 @@ package lila.user
 import chess.Speed
 
 import lila.common.Heapsort.*
-import lila.db.BSON
 import lila.rating.{ Glicko, Perf, PerfType }
 
 case class UserPerfs(
+    id: UserId,
     standard: Perf,
     chess960: Perf,
     kingOfTheHill: Perf,
@@ -48,24 +48,21 @@ case class UserPerfs(
   )
 
   def bestPerf: Option[(PerfType, Perf)] =
-    val ps = PerfType.nonPuzzle map { pt =>
+    val ps = PerfType.nonPuzzle.map: pt =>
       pt -> apply(pt)
-    }
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
-    ps.foldLeft(none[(PerfType, Perf)]) {
+    ps.foldLeft(none[(PerfType, Perf)]):
       case (ro, p) if p._2.nb >= minNb =>
         ro.fold(p.some) { r =>
           Some(if (p._2.intRating > r._2.intRating) p else r)
         }
       case (ro, _) => ro
-    }
 
   private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating.value)
 
   def bestPerfs(nb: Int): List[(PerfType, Perf)] =
-    val ps = PerfType.nonPuzzle map { pt =>
+    val ps = PerfType.nonPuzzle.map: pt =>
       pt -> apply(pt)
-    }
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
     ps.filter(p => p._2.nb >= minNb).topN(nb)
 
@@ -80,27 +77,27 @@ case class UserPerfs(
       case Nil => List(standard)
       case x   => x
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
-    ps.foldLeft(none[IntRating]) {
+    ps.foldLeft(none[IntRating]):
       case (ro, p) if p.nb >= minNb =>
         ro.fold(p.intRating) { r =>
           if (p.intRating > r) p.intRating else r
         }.some
       case (ro, _) => ro
-    } | Perf.default.intRating
+    .getOrElse(Perf.default.intRating)
 
   def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
-    types.map(apply).foldLeft(none[IntRating]) {
-      case (ro, p) if p.nb >= nbGames && ro.fold(true)(_ < p.intRating) => p.intRating.some
-      case (ro, _)                                                      => ro
-    }
+    types
+      .map(apply)
+      .foldLeft(none[IntRating]):
+        case (ro, p) if p.nb >= nbGames && ro.fold(true)(_ < p.intRating) => p.intRating.some
+        case (ro, _)                                                      => ro
 
   def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
 
   def bestProgressIn(types: List[PerfType]): IntRatingDiff =
-    types.foldLeft(IntRatingDiff(0)) { case (max, t) =>
+    types.foldLeft(IntRatingDiff(0)): (max, t) =>
       val p = apply(t).progress
       if (p > max) p else max
-    }
 
   lazy val perfsMap: Map[Perf.Key, Perf] = Map(
     Perf.Key("chess960")       -> chess960,
@@ -142,14 +139,14 @@ case class UserPerfs(
     case PerfType.Crazyhouse     => crazyhouse
     case PerfType.Puzzle         => puzzle
 
-  def inShort =
-    perfs map { case (name, perf) =>
+  def inShort = perfs
+    .map: (name, perf) =>
       s"$name:${perf.intRating}"
-    } mkString ", "
+    .mkString(", ")
 
   def updateStandard =
     copy(
-      standard = {
+      standard =
         val subs = List(bullet, blitz, rapid, classical, correspondence).filter(_.provisional.no)
         subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(standard) { date =>
           val nb = subs.map(_.nb).sum
@@ -165,15 +162,15 @@ case class UserPerfs(
             latest = date.some
           )
         }
-      }
     )
 
   def latest: Option[Instant] =
-    perfsMap.values.flatMap(_.latest).foldLeft(none[Instant]) {
-      case (None, date)                          => date.some
-      case (Some(acc), date) if date isAfter acc => date.some
-      case (acc, _)                              => acc
-    }
+    perfsMap.values
+      .flatMap(_.latest)
+      .foldLeft(none[Instant]):
+        case (None, date)                          => date.some
+        case (Some(acc), date) if date isAfter acc => date.some
+        case (acc, _)                              => acc
 
   def dubiousPuzzle =
     puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > 2100) ||
@@ -183,9 +180,10 @@ case class UserPerfs(
 
 case object UserPerfs:
 
-  val default =
+  def default(id: UserId) =
     val p = Perf.default
     UserPerfs(
+      id,
       p,
       p,
       p,
@@ -207,10 +205,10 @@ case object UserPerfs:
       Perf.Streak.default
     )
 
-  val defaultManaged =
+  def defaultManaged(id: UserId) =
     val managed       = Perf.defaultManaged
     val managedPuzzle = Perf.defaultManagedPuzzle
-    default.copy(
+    default(id).copy(
       standard = managed,
       bullet = managed,
       blitz = managed,
@@ -220,9 +218,9 @@ case object UserPerfs:
       puzzle = managedPuzzle
     )
 
-  val defaultBot =
+  def defaultBot(id: UserId) =
     val bot = Perf.defaultBot
-    default.copy(
+    default(id).copy(
       standard = bot,
       bullet = bot,
       blitz = bot,
@@ -253,13 +251,18 @@ case object UserPerfs:
       case Speed.Correspondence => perfs.correspondence
       case Speed.UltraBullet    => perfs.ultraBullet
 
-  given reactivemongo.api.bson.BSONDocumentHandler[UserPerfs] = new BSON[UserPerfs]:
+  import lila.db.BSON
+  import lila.db.dsl.{ *, given }
+  import reactivemongo.api.bson.*
+
+  given BSONDocumentHandler[UserPerfs] = new BSON[UserPerfs]:
 
     import Perf.given
 
     def reads(r: BSON.Reader): UserPerfs =
       inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
       UserPerfs(
+        id = r.get[UserId]("_id"),
         standard = perf("standard"),
         chess960 = perf("chess960"),
         kingOfTheHill = perf("kingOfTheHill"),
@@ -284,7 +287,8 @@ case object UserPerfs:
     private inline def notNew(p: Perf): Option[Perf] = p.nonEmpty option p
 
     def writes(w: BSON.Writer, o: UserPerfs) =
-      reactivemongo.api.bson.BSONDocument(
+      BSONDocument(
+        "id"             -> o.id,
         "standard"       -> notNew(o.standard),
         "chess960"       -> notNew(o.chess960),
         "kingOfTheHill"  -> notNew(o.kingOfTheHill),

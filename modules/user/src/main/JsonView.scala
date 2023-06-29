@@ -15,13 +15,13 @@ final class JsonView(isOnline: lila.socket.IsOnline):
 
   def full(
       u: User,
+      perfs: Option[UserPerfs],
       onlyPerf: Option[PerfType] = None,
-      withRating: Boolean,
       withProfile: Boolean
   ): JsObject =
     if u.enabled.no then disabled(u.light)
     else
-      base(u, onlyPerf, withRating = withRating) ++ Json
+      base(u, perfs, onlyPerf) ++ Json
         .obj("createdAt" -> u.createdAt)
         .add(
           "profile" -> u.profile
@@ -31,17 +31,17 @@ final class JsonView(isOnline: lila.socket.IsOnline):
         .add("seenAt" -> u.seenAt)
         .add("playTime" -> u.playTime)
 
-  def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
+  def roundPlayer(u: User, perfs: Option[UserPerfs], onlyPerf: Option[PerfType]) =
     if u.enabled.no then disabled(u.light)
-    else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline(u.id))
+    else base(u, perfs, onlyPerf).add("online" -> isOnline(u.id))
 
-  private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
+  private def base(u: User, perfs: Option[UserPerfs], onlyPerf: Option[PerfType]) =
     Json
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "perfs" -> (if (withRating) perfs(u, onlyPerf)
-                    else Json.obj())
+        "perfs" -> perfs.fold(Json.obj()): p =>
+          perfsJson(u.withPerfs(p), onlyPerf)
       )
       .add("title" -> u.title)
       .add("tosViolation" -> u.lame)
@@ -104,7 +104,7 @@ object JsonView:
   private def select(key: Perf.Key, perf: Perf) =
     perf.nb > 0 || standardPerfKeys(key)
 
-  def perfs(u: User, onlyPerf: Option[PerfType] = None): JsObject =
+  def perfsJson(u: User.WithPerfs, onlyPerf: Option[PerfType] = None): JsObject =
     JsObject:
       u.perfs.perfsMap.collect:
         case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
@@ -129,10 +129,10 @@ object JsonView:
       )
     )
 
-  def perfs(u: User, onlyPerfs: List[PerfType]) =
+  def perfsJson(perfs: UserPerfs, onlyPerfs: List[PerfType]) =
     JsObject:
       onlyPerfs.map: perfType =>
-        perfType.key.value -> perfWrites.writes(u.perfs(perfType))
+        perfType.key.value -> perfWrites.writes(perfs(perfType))
 
   def notes(ns: List[Note])(using lightUser: LightUserApi) =
     lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray:

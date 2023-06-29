@@ -9,7 +9,6 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 case class User(
     id: UserId,
     username: UserName,
-    perfs: UserPerfs,
     count: Count,
     enabled: UserEnabled,
     roles: List[String],
@@ -26,15 +25,16 @@ case class User(
     marks: UserMarks = UserMarks.empty
 ):
 
-  override def equals(other: Any) =
-    other match
-      case u: User => id == u.id
-      case _       => false
+  override def equals(other: Any) = other match
+    case u: User => id == u.id
+    case _       => false
 
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll so " troll"}${marks.engine so " engine"}${enabled.no so " closed"}"
+    s"User $username games:${count.game}${marks.troll so " troll"}${marks.engine so " engine"}${enabled.no so " closed"}"
+
+  def withPerfs(p: UserPerfs) = User.WithPerfs(this, p)
 
   def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
@@ -44,16 +44,7 @@ case class User(
 
   def canPalantir = !kid && !marks.troll
 
-  def usernameWithBestRating = s"$username (${perfs.bestRating})"
-
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
-
-  def hasVariantRating = PerfType.variants.exists(perfs.apply(_).nonEmpty)
-
-  def titleUsernameWithBestRating =
-    title.fold(usernameWithBestRating) { t =>
-      s"$t $usernameWithBestRating"
-    }
 
   def profileOrDefault = profile | Profile.default
 
@@ -81,29 +72,7 @@ case class User(
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
-  def lightPerf(key: Perf.Key) =
-    perfs(key) map { perf =>
-      User.LightPerf(light, key, perf.intRating, perf.progress)
-    }
-
   def lightCount = User.LightCount(light, count.game)
-
-  private def bestOf(perfTypes: List[PerfType], nb: Int) =
-    perfTypes.sortBy { pt =>
-      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
-    } take nb
-
-  def best8Perfs: List[PerfType] = User.firstRow ::: bestOf(User.secondRow, 4)
-
-  def best6Perfs: List[PerfType] = User.firstRow ::: bestOf(User.secondRow, 2)
-
-  def best4Perfs: List[PerfType] = User.firstRow
-
-  def bestAny3Perfs: List[PerfType] = bestOf(User.firstRow ::: User.secondRow, 3)
-
-  def bestPerf: Option[PerfType] = bestOf(User.firstRow ::: User.secondRow, 1).headOption
-
-  def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 
   def isPatron = plan.active
 
@@ -133,6 +102,29 @@ object User:
   given UserIdOf[User] = _.id
 
   export lila.user.UserEnabled as Enabled
+
+  case class WithPerfs(user: User, perfs: UserPerfs):
+    export user.*
+    def usernameWithBestRating = s"$username (${perfs.bestRating})"
+    def hasVariantRating       = PerfType.variants.exists(perfs.apply(_).nonEmpty)
+    def titleUsernameWithBestRating =
+      title.fold(usernameWithBestRating): t =>
+        s"$t $usernameWithBestRating"
+
+    def lightPerf(key: Perf.Key) =
+      perfs(key).map: perf =>
+        User.LightPerf(light, key, perf.intRating, perf.progress)
+
+    def best8Perfs: List[PerfType]         = User.firstRow ::: bestOf(User.secondRow, 4)
+    def best6Perfs: List[PerfType]         = User.firstRow ::: bestOf(User.secondRow, 2)
+    def best4Perfs: List[PerfType]         = User.firstRow
+    def bestAny3Perfs: List[PerfType]      = bestOf(User.firstRow ::: User.secondRow, 3)
+    def bestPerf: Option[PerfType]         = bestOf(User.firstRow ::: User.secondRow, 1).headOption
+    def hasEstablishedRating(pt: PerfType) = perfs(pt).established
+    private def bestOf(perfTypes: List[PerfType], nb: Int) = perfTypes
+      .sortBy: pt =>
+        -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
+      .take(nb)
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean):
@@ -253,7 +245,6 @@ object User:
   object BSONFields:
     val id                    = "_id"
     val username              = "username"
-    val perfs                 = "perfs"
     val count                 = "count"
     val enabled               = "enabled"
     val roles                 = "roles"
@@ -266,7 +257,6 @@ object User:
     val createdWithApiVersion = "createdWithApiVersion"
     val lang                  = "lang"
     val title                 = "title"
-    def glicko(perf: String)  = s"$perfs.$perf.gl"
     val email                 = "email"
     val verbatimEmail         = "verbatimEmail"
     val mustConfirmEmail      = "mustConfirmEmail"
@@ -295,7 +285,6 @@ object User:
     import UserMark.given
     import Count.given
     import Profile.given
-    import UserPerfs.given
     import TotpSecret.given
 
     def reads(r: BSON.Reader): User =
@@ -303,10 +292,6 @@ object User:
       User(
         id = r.get[UserId](id),
         username = r.get[UserName](username),
-        perfs = r.getO[UserPerfs](perfs).fold(UserPerfs.default) { perfs =>
-          if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
-          else perfs
-        },
         count = r.get[Count](count),
         enabled = r.get[UserEnabled](enabled),
         roles = ~r.getO[List[String]](roles),
@@ -327,7 +312,6 @@ object User:
       BSONDocument(
         id         -> o.id,
         username   -> o.username,
-        perfs      -> o.perfs,
         count      -> o.count,
         enabled    -> o.enabled,
         roles      -> o.roles.some.filter(_.nonEmpty),

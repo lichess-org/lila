@@ -113,12 +113,11 @@ object Player:
 
   def make(
       color: Color,
-      user: Option[User],
+      user: Option[User.WithPerfs],
       perfPicker: lila.user.UserPerfs => lila.rating.Perf
   ): Player =
-    user.fold(make(color)) { u =>
+    user.fold(make(color)): u =>
       make(color, (u.id, perfPicker(u.perfs)))
-    }
 
   def makeImported(
       color: Color,

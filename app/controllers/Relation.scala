@@ -117,7 +117,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       Json.toJsObject(r) ++ Json
         .obj(
           "perfs" -> r.user.perfs.bestPerfType.map { best =>
-            lila.user.JsonView.perfs(r.user, best.some)
+            lila.user.JsonView.perfsJson(r.user, best.some)
           }
         )
         .add("online" -> env.socket.isOnline(r.user.id))

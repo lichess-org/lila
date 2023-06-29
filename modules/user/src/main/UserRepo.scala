@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.Glicko
 import lila.rating.{ Perf, PerfType }
 
-final class UserRepo(val coll: Coll)(using Executor):
+final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
 
   import User.{ BSONFields as F, given }
   import UserMark.given
@@ -185,38 +185,6 @@ final class UserRepo(val coll: Coll)(using Executor):
   def irwin   = byId(User.irwinId)
   def kaladin = byId(User.kaladinId)
 
-  def setPerfs(user: User, perfs: UserPerfs, prev: UserPerfs)(using wr: BSONHandler[Perf]) =
-    val diff = for {
-      pt <- PerfType.all
-      if perfs(pt).nb != prev(pt).nb
-      bson <- wr.writeOpt(perfs(pt))
-    } yield BSONElement(s"${F.perfs}.${pt.key}", bson)
-    diff.nonEmpty so coll.update
-      .one(
-        $id(user.id),
-        $doc("$set" -> $doc(diff*))
-      )
-      .void
-
-  def setManagedUserInitialPerfs(id: UserId) =
-    coll.updateField($id(id), F.perfs, UserPerfs.defaultManaged).void
-
-  def setPerf(userId: UserId, pt: PerfType, perf: Perf) =
-    coll.updateField($id(userId), s"${F.perfs}.${pt.key}", perf).void
-
-  def addStormRun  = addStormLikeRun("storm")
-  def addRacerRun  = addStormLikeRun("racer")
-  def addStreakRun = addStormLikeRun("streak")
-
-  private def addStormLikeRun(field: String)(userId: UserId, score: Int): Funit =
-    coll.update
-      .one(
-        $id(userId),
-        $inc(s"perfs.$field.runs" -> 1) ++
-          $doc("$max" -> $doc(s"perfs.$field.score" -> score))
-      )
-      .void
-
   def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
 
@@ -255,18 +223,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val patronSelect = $doc(s"${F.plan}.active" -> true)
 
-  def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
-  val sortCreatedAtDesc          = $sort desc F.createdAt
-
-  def glicko(userId: UserId, perfType: PerfType): Fu[Glicko] =
-    coll
-      .find($id(userId), $doc(s"${F.perfs}.${perfType.key}.gl" -> true).some)
-      .one[Bdoc]
-      .dmap {
-        _.flatMap(_ child F.perfs)
-          .flatMap(_ child perfType.key.value)
-          .flatMap(_.getAsOpt[Glicko]("gl")) | Glicko.default
-      }
+  val sortCreatedAtDesc = $sort desc F.createdAt
 
   def incNbGames(
       id: UserId,
@@ -517,19 +474,16 @@ final class UserRepo(val coll: Coll)(using Executor):
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
   def setBot(user: User): Funit =
-    if (user.count.game > 0)
-      fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
+    if user.count.game > 0
+    then fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
     else
       coll.update
-        .one(
-          $id(user.id),
-          $set(F.title -> Title.BOT, F.perfs -> UserPerfs.defaultBot)
-        )
-        .void
+        .one($id(user.id), $set(F.title -> Title.BOT)) >>
+        perfsRepo.setBotInitialPerfs(user.id)
 
   private def botSelect(v: Boolean) =
-    if (v) $doc(F.title -> Title.BOT)
-    else $doc(F.title   -> $ne(Title.BOT))
+    if v then $doc(F.title -> Title.BOT)
+    else $doc(F.title      -> $ne(Title.BOT))
 
   private[user] def botIds =
     coll.distinctEasy[UserId, Set](
@@ -546,37 +500,6 @@ final class UserRepo(val coll: Coll)(using Executor):
     import Plan.given
     coll.updateField($id(user.id), User.BSONFields.plan, plan).void
   def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), User.BSONFields.plan).void
-
-  private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
-    doc.child(F.perfs).flatMap(_.getAsOpt[Perf](perfType.key.value))
-
-  def perfOf(id: UserId, perfType: PerfType): Fu[Option[Perf]] =
-    coll
-      .find(
-        $id(id),
-        $doc(s"${F.perfs}.${perfType.key}" -> true).some
-      )
-      .one[Bdoc]
-      .dmap {
-        _.flatMap { docPerf(_, perfType) }
-      }
-
-  def perfOf(ids: Iterable[UserId], perfType: PerfType): Fu[Map[UserId, Perf]] =
-    coll
-      .find(
-        $inIds(ids),
-        $doc(s"${F.perfs}.${perfType.key}" -> true).some
-      )
-      .cursor[Bdoc]()
-      .listAll()
-      .map { docs =>
-        for
-          doc <- docs
-          id  <- doc.getAsOpt[UserId](F.id)
-          perf = docPerf(doc, perfType) | Perf.default
-        yield id -> perf
-      }
-      .dmap(_.toMap)
 
   def setSeenAt(id: UserId): Unit =
     coll.updateFieldUnchecked($id(id), F.seenAt, nowInstant)
@@ -674,7 +597,6 @@ final class UserRepo(val coll: Coll)(using Executor):
       F.email                 -> normalizedEmail,
       F.mustConfirmEmail      -> mustConfirmEmail.option(now),
       F.bpass                 -> passwordHash,
-      F.perfs                 -> $empty,
       F.count                 -> Count.default,
       F.enabled               -> true,
       F.createdAt             -> now,

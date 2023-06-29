@@ -174,7 +174,7 @@ final class User(
                   Ok:
                     Json.obj(
                       "crosstable" -> crosstable,
-                      "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
+                      "perfs"      -> lila.user.JsonView.perfsJson(user, user.best8Perfs)
                     )
               )
           }
