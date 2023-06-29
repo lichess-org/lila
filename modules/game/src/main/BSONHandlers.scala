@@ -158,8 +158,7 @@ object BSONHandlers:
 
       Game(
         id = light.id,
-        whitePlayer = whitePlayer,
-        blackPlayer = blackPlayer,
+        players = ByColor(whitePlayer, blackPlayer),
         chess = chessGame,
         loadClockHistory = clk =>
           for
@@ -192,12 +191,15 @@ object BSONHandlers:
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
         F.id        -> o.id,
-        F.playerIds -> (o.whitePlayer.id.value + o.blackPlayer.id.value),
-        F.playerUids -> ((o.whitePlayer.userId, o.blackPlayer.userId) match
-          case (None, None)    => None
-          case (Some(w), None) => Some(List(w.value))
-          case (wo, Some(b))   => Some(List(wo.so(_.value), b.value))
-        ),
+        F.playerIds -> o.players.reduce(_.id.value + _.id.value),
+        F.playerUids -> o.players
+          .map(_.userId)
+          .toPair
+          .match
+            case (None, None)    => None
+            case (Some(w), None) => Some(List(w.value))
+            case (wo, Some(b))   => Some(List(wo.so(_.value), b.value))
+        ,
         F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
         F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),
         F.status        -> o.status,

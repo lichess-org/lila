@@ -17,6 +17,7 @@ import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.User
 import lila.round.GameProxyRepo
+import chess.ByColor
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -59,12 +60,12 @@ final class GameApiV2(
   private val fileR = """[\s,]""".r
 
   def filename(game: Game, format: Format): Fu[String] =
-    gameLightUsers(game).map: (wu, bu) =>
+    gameLightUsers(game).map: users =>
       fileR.replaceAllIn(
         "lichess_pgn_%s_%s_vs_%s.%s.%s".format(
           Tag.UTCDate.format.print(game.createdAt),
-          pgnDump.dumper.player(game.whitePlayer, wu),
-          pgnDump.dumper.player(game.blackPlayer, bu),
+          pgnDump.dumper.player.tupled(users.white),
+          pgnDump.dumper.player.tupled(users.black),
           game.id,
           format.toString.toLowerCase
         ),
@@ -260,7 +261,7 @@ final class GameApiV2(
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
   ): Fu[JsObject] = for
-    lightUsers <- gameLightUsers(g) dmap { (wu, bu) => List(wu, bu) }
+    lightUsers <- gameLightUsers(g)
     pgn <-
       withFlags.pgnInJson so pgnDump
         .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
@@ -279,7 +280,7 @@ final class GameApiV2(
       "createdAt"  -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
-      "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
+      "players" -> JsObject(lightUsers.mapList: (p, user) =>
         p.color.name -> gameJsonView
           .player(p, user)
           .add(
@@ -287,8 +288,7 @@ final class GameApiV2(
               analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy)
             )
           )
-          .add("team" -> teams.map(_(p.color)))
-      })
+          .add("team" -> teams.map(_(p.color))))
     )
     .add("initialFen" -> initialFen)
     .add("winner" -> g.winnerColor.map(_.name))
@@ -312,8 +312,8 @@ final class GameApiV2(
       ))
     .add("lastFen" -> withFlags.lastFen.option(Fen.write(g.chess.situation)))
 
-  private def gameLightUsers(game: Game): Fu[PairOf[Option[LightUser]]] =
-    (game.whitePlayer.userId so getLightUser) zip (game.blackPlayer.userId so getLightUser)
+  private def gameLightUsers(game: Game): Future[ByColor[(lila.game.Player, Option[LightUser])]] =
+    game.players.traverse(_.userId so getLightUser).dmap(game.players.zip(_))
 
 object GameApiV2:
 

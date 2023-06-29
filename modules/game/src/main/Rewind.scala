@@ -27,8 +27,7 @@ object Rewind:
         }
       }
       val newGame = game.copy(
-        whitePlayer = game.whitePlayer.removeTakebackProposition,
-        blackPlayer = game.blackPlayer.removeTakebackProposition,
+        players = game.players.map(_.removeTakebackProposition),
         chess = rewindedGame.copy(clock = newClock),
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)

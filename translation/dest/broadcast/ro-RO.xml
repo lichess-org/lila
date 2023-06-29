@@ -27,4 +27,6 @@
   <string name="deleteRound">Șterge această rundă</string>
   <string name="definitivelyDeleteRound">Șterge definitiv runda și jocurile sale.</string>
   <string name="deleteAllGamesOfThisRound">Șterge toate jocurile din această rundă. Sursa va trebui să fie activă pentru a le recrea.</string>
+  <string name="deleteTournament">Șterge acest turneu</string>
+  <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
 </resources>

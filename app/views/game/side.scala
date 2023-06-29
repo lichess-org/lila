@@ -74,7 +74,7 @@ object side:
             )
           ),
           div(cls := "game__meta__players")(
-            game.players.map { p =>
+            game.players.mapList { p =>
               frag(
                 div(cls := s"player color-icon is ${p.color.name} text")(
                   playerLink(p, withOnline = false, withDiff = true, withBerserk = true)

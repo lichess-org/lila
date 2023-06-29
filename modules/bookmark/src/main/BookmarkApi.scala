@@ -19,7 +19,7 @@ final class BookmarkApi(
     coll exists selectId(gameId, userId)
 
   def exists(game: Game, user: User): Fu[Boolean] =
-    if (game.bookmarks > 0) exists(game.id, user.id)
+    if game.bookmarks > 0 then exists(game.id, user.id)
     else fuFalse
 
   def exists(game: Game, user: Option[User]): Fu[Boolean] =
@@ -41,14 +41,14 @@ final class BookmarkApi(
   def remove(gameId: GameId, userId: UserId): Funit = coll.delete.one(selectId(gameId, userId)).void
 
   def toggle(gameId: GameId, userId: UserId): Funit =
-    exists(gameId, userId) flatMap { e =>
-      (if (e) remove(gameId, userId) else add(gameId, userId, nowInstant)) inject !e
-    } flatMap { bookmarked =>
-      val inc = if (bookmarked) 1 else -1
-      gameRepo.incBookmarks(gameId, inc) >> gameProxyRepo.updateIfPresent(gameId)(
-        _.incBookmarks(inc)
-      )
-    }
+    exists(gameId, userId)
+      .flatMap: e =>
+        (if e then remove(gameId, userId) else add(gameId, userId, nowInstant)) inject !e
+      .flatMap: bookmarked =>
+        val inc = if bookmarked then 1 else -1
+        gameRepo.incBookmarks(gameId, inc) >> gameProxyRepo.updateIfPresent(gameId)(_.incBookmarks(inc))
+      .recover:
+        lila.db.ignoreDuplicateKey
 
   def countByUser(user: User): Fu[Int] = coll.countSel(userIdQuery(user.id))
 
@@ -56,14 +56,13 @@ final class BookmarkApi(
 
   private def add(gameId: GameId, userId: UserId, date: Instant): Funit =
     coll.insert
-      .one(
+      .one:
         $doc(
           "_id" -> makeId(gameId, userId),
           "g"   -> gameId,
           "u"   -> userId,
           "d"   -> date
         )
-      )
       .void
 
   private def userIdQuery(userId: UserId)              = $doc("u" -> userId)

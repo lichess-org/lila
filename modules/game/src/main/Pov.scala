@@ -55,7 +55,7 @@ case class Pov(game: Game, color: Color):
 
 object Pov:
 
-  def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
+  def apply(game: Game): List[Pov] = game.players.mapList(apply(game, _))
 
   def naturalOrientation(game: Game) = apply(game, game.naturalOrientation)
 

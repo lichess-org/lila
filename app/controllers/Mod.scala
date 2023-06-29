@@ -198,7 +198,7 @@ final class Mod(
       env.user.repo byId username orNotFound { method(_) inject NoContent }
     }
 
-  def table = Secure(_.ModLog) { ctx ?=> _ ?=>
+  def table = Secure(_.Admin) { ctx ?=> _ ?=>
     Ok.pageAsync:
       modApi.allMods.map(html.mod.table(_))
   }
@@ -349,9 +349,9 @@ final class Mod(
       )
   }
 
-  def notes(page: Int, q: String) = Secure(_.ModNote) { _ ?=> _ ?=>
+  def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
     Ok.pageAsync:
-      env.user.noteApi.search(q.trim, page).map(html.mod.search.notes(q, _))
+      env.user.noteApi.search(q.trim, page, withDox = true).map(html.mod.search.notes(q, _))
   }
 
   def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> me ?=>

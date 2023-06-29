@@ -69,7 +69,7 @@ final private class GameJson(
       "name" -> perfType.trans(using defaultLang)
     )
 
-  private def playersJson(game: Game) = JsArray(game.players.map { p =>
+  private def playersJson(game: Game) = JsArray(game.players.mapList { p =>
     val user = p.userId.fold(lila.common.LightUser.ghost)(lightUserApi.syncFallback)
     Json
       .obj(
