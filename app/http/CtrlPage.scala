@@ -6,12 +6,8 @@ import play.api.http.*
 import play.api.mvc.*
 import scalatags.Text.Frag
 
-import lila.common.{ HTTPRequest, ApiVersion }
-
 trait CtrlPage(using Executor) extends RequestContext with ControllerHelpers with ResponseWriter:
 
-  // def page[A: Writeable](render: PageContext ?=> A)(using Context): Fu[A] =
-  //   pageContext.map(render(using _))
   def renderPage(render: PageContext ?=> Frag)(using Context): Fu[Frag] =
     pageContext.map(render(using _))
   def renderAsync(render: PageContext ?=> Fu[Frag])(using Context): Fu[Frag] =

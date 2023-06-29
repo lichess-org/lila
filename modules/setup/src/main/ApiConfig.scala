@@ -16,7 +16,6 @@ final case class ApiConfig(
     rated: Boolean,
     color: Color,
     position: Option[Fen.Epd] = None,
-    acceptByToken: Option[String] = None,
     message: Option[Template],
     keepAliveStream: Boolean,
     rules: Set[GameRule] = Set.empty
@@ -27,16 +26,16 @@ final case class ApiConfig(
   def validFen = ApiConfig.validFen(variant, position)
 
   def validSpeed(isBot: Boolean) =
-    !isBot || clock.fold(true) { c =>
+    !isBot || clock.fold(true): c =>
       Speed(c) >= Speed.Bullet
-    }
 
   def validRated = mode.casual || clock.isDefined || variant.standard
 
   def mode = chess.Mode(rated)
 
   def autoVariant =
-    if (variant.standard && position.exists(!_.isInitial)) copy(variant = FromPosition)
+    if variant.standard && position.exists(!_.isInitial)
+    then copy(variant = FromPosition)
     else this
 
 object ApiConfig extends BaseHumanConfig:
@@ -51,28 +50,26 @@ object ApiConfig extends BaseHumanConfig:
       r: Boolean,
       c: Option[String],
       pos: Option[Fen.Epd],
-      tok: Option[String],
       msg: Option[String],
       keepAliveStream: Option[Boolean],
       rules: Option[Set[GameRule]]
   ) =
-    new ApiConfig(
+    ApiConfig(
       variant = chess.variant.Variant.orDefault(v),
       clock = cl,
       days = d,
       rated = r,
       color = Color.orDefault(~c),
       position = pos,
-      acceptByToken = tok,
       message = msg map Template.apply,
       keepAliveStream = ~keepAliveStream,
       rules = ~rules
     ).autoVariant
 
   def validFen(variant: Variant, fen: Option[Fen.Epd]) =
-    if (variant.chess960) fen.forall(f => Chess960.positionNumber(f).isDefined)
-    else if (variant.fromPosition)
-      fen exists { f =>
+    if variant.chess960
+    then fen.forall(f => Chess960.positionNumber(f).isDefined)
+    else if variant.fromPosition then
+      fen.exists: f =>
         Fen.read(f).exists(_ playable false)
-      }
     else true

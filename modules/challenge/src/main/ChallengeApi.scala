@@ -166,9 +166,6 @@ final class ChallengeApi(
   def removeByUserId(userId: UserId): Funit =
     repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void
 
-  def oauthAccept(dest: User, challenge: Challenge): Fu[Validated[String, Game]] =
-    joiner(challenge, dest.some).map(_.map(_.game))
-
   private def isLimitedByMaxPlaying(c: Challenge) =
     if c.hasClock then fuFalse
     else
