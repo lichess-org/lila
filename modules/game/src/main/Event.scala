@@ -174,30 +174,18 @@ object Event:
       )
 
   object PossibleMoves:
-
-    def json(moves: Map[Square, List[Square]], apiVersion: ApiVersion) =
-      if (apiVersion.value >= 4) newJson(moves)
-      else oldJson(moves)
-
-    def newJson(moves: Map[Square, List[Square]]) =
-      if (moves.isEmpty) JsNull
+    def json(moves: Map[Square, List[Square]]) =
+      if moves.isEmpty then JsNull
       else
         val sb    = new java.lang.StringBuilder(128)
         var first = true
-        moves foreach { case (orig, dests) =>
-          if (first) first = false
+        moves.foreach: (orig, dests) =>
+          if first then first = false
           else sb append " "
           sb append orig.key
           dests foreach { sb append _.key }
-        }
-        JsString(sb.toString)
 
-    def oldJson(moves: Map[Square, List[Square]]) =
-      if (moves.isEmpty) JsNull
-      else
-        moves.foldLeft(JsObject(Nil)) { case (res, (o, d)) =>
-          res + (o.key -> JsString(d.map(_.key) mkString))
-        }
+        JsString(sb.toString)
 
   case class Enpassant(pos: Square, color: Color) extends Event:
     def typ = "enpassant"
