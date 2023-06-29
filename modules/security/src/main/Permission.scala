@@ -256,13 +256,15 @@ object Permission:
       GamifyView,
       Appeals,
       UserSearch,
-      MonitoredBoostMod,
-      MonitoredCheatMod,
-      MonitoredCommMod,
       ModNote,
       ModLog,
       ManageTeam,
       Streamers
+    ),
+    "Monitoring" -> List(
+      MonitoredBoostMod,
+      MonitoredCheatMod,
+      MonitoredCommMod
     ),
     "Content" -> List(
       Relay,
