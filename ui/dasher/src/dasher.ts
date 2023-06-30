@@ -21,6 +21,7 @@ export interface DasherData {
   customTheme: CustomThemeData;
   piece: PieceData;
   chuPiece: PieceData;
+  kyoPiece: PieceData;
   inbox: boolean;
   coach: boolean;
   streamer: boolean;
@@ -84,7 +85,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     theme: themeCtrl(data.theme, trans, redraw, setMode),
     customTheme: customThemeCtrl(data.customTheme, trans, redraw, setMode),
     notation: notationCtrl(data.notation, trans, redraw, close),
-    piece: pieceCtrl(data.piece, data.chuPiece, trans, redraw, close),
+    piece: pieceCtrl(data.piece, data.chuPiece, data.kyoPiece, trans, redraw, close),
   };
 
   window.lishogi.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));

@@ -244,7 +244,7 @@
         outline: 1px solid #1b1b1b;
       }
     }
-    body.board-layout-1 & .hands {
+    body.board-layout-1:not(.hands-background) & .hands {
       display: none;
     }
   }

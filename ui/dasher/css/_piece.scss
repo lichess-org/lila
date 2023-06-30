@@ -6,7 +6,7 @@
       height: calc(100% / 9);
       top: 0;
       left: 0;
-      background-size: cover;
+      background-size: cover !important;
       z-index: 2; /* no less than 2 */
       pointer-events: none;
     }
@@ -31,11 +31,23 @@
       height: 200%;
       margin: calc(-50% / 11 * 12) -50%;
     }
-    .chu-piece {
-      padding: 0.5rem;
-      &::before {
-        opacity: 0.8;
-        font-weight: bold;
+    .piece-tabs {
+      display: flex;
+      justify-content: space-around;
+      border-top: 2px solid $c-dasher;
+      div {
+        flex: 1;
+        opacity: 0.65;
+        padding: 5px 0;
+        text-align: center;
+        font-size: 0.9rem;
+        &:hover {
+          opacity: 0.9;
+        }
+        &.active {
+          opacity: 1;
+          font-weight: bold;
+        }
       }
     }
   }
