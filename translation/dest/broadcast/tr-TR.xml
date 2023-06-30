@@ -32,4 +32,5 @@
   <string name="definitivelyDeleteRound">Turu ve oyunlarını tamamen sil.</string>
   <string name="deleteAllGamesOfThisRound">Bu turdaki tüm oyunları sil. Tekrardan yapılabilmesi için kaynağın aktif olması gerekir.</string>
   <string name="editRoundStudy">Tur çalışmasını düzenle</string>
+  <string name="deleteTournament">Bu turnuvayı sil</string>
 </resources>

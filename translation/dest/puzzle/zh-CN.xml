@@ -28,6 +28,11 @@
   <string name="keepGoing">请继续…</string>
   <string name="puzzleSuccess">解题成功!</string>
   <string name="puzzleComplete">解题完成</string>
+  <string name="byOpenings">按开局分类</string>
+  <string name="puzzlesByOpenings">按开局分类的谜题</string>
+  <string name="openingsYouPlayedTheMost">您在计分赛中使用最多的开局。</string>
+  <string name="useFindInPage">在浏览器菜单中使用“在页面中查找”，来找到您最爱的开局。</string>
+  <string name="useCtrlF">使用 Ctrl + f 查找您最爱的开局</string>
   <string name="notTheMove">不是最佳着法</string>
   <string name="trySomethingElse">尝试其他着法</string>
   <string name="ratingX">积分：%s</string>
