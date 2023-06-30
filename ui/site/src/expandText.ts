@@ -153,12 +153,5 @@ lichess.load.then(() => {
 
   as.filter(a => a.type === 'twitter').forEach(expandTwitter);
 
-  expandLpv();
+  if ($('.lpv--autostart').length) lichess.loadEsm('lpv');
 });
-
-const expandLpv = async () => {
-  if ($('.lpv--autostart').length) {
-    lichess.loadCssPath('lpv');
-    await lichess.loadEsm('lpv');
-  }
-};
