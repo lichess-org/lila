@@ -319,7 +319,7 @@ final class ReportApi(
       case _ => funit
     }
 
-  def moveToXfiles(id: UserId): Funit =
+  def moveToXfiles(id: Report.Id): Funit =
     coll.update
       .one(
         $id(id),

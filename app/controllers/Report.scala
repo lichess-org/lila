@@ -110,8 +110,8 @@ final class Report(
           onInquiryAction(inquiry, processed = true)
   }
 
-  def xfiles(id: UserStr) = Secure(_.SeeReport) { _ ?=> _ ?=>
-    api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
+  def xfiles(id: ReportId) = Secure(_.SeeReport) { _ ?=> _ ?=>
+    api.moveToXfiles(id) inject Redirect(routes.Report.list)
   }
 
   def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
