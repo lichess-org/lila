@@ -1,5 +1,6 @@
 package lila.report
 
+import cats.syntax.all.*
 import lila.game.GameRepo
 
 final private class ReportScore(
@@ -50,8 +51,9 @@ final private class ReportScore(
       if (c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat)
         val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(m => GameId(m.group(1)))
         def isUsable(gameId: GameId) = gameRepo analysed gameId map { _.exists(_.ply > 30) }
-        lila.common.LilaFuture.exists(gameIds)(isUsable) map {
-          if _ then c
-          else c.withScore(_.map(_ / 3))
-        }
+        gameIds
+          .existsM(isUsable)
+          .map:
+            if _ then c
+            else c.withScore(_.map(_ / 3))
       else fuccess(c)

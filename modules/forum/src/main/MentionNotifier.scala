@@ -1,6 +1,6 @@
 package lila.forum
 
-import lila.common.LilaFuture
+import cats.syntax.all.*
 import lila.notify.MentionedInThread
 
 /** Notifier to inform users if they have been mentioned in a post
@@ -49,7 +49,7 @@ final class MentionNotifier(
           .filterExists(candidates take 10)
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
-      users <- LilaFuture.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
+      users            <- mentionableUsers.toList.filterA(relationApi.fetchBlocks(_, mentionedBy))
     } yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =
