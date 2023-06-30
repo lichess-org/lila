@@ -443,21 +443,20 @@ object Node:
 
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
-    extension (a: Comments)
-      def findBy(author: Comment.Author) = a.value.find(_.by is author)
-      def set(comment: Comment): Comments = {
-        if (a.value.exists(_.by.is(comment.by))) a.value.map {
-          case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
-          case c                        => c
-        }
-        else a.value :+ comment
+    extension (a: Comments) def findBy(author: Comment.Author) = a.value.find(_.by is author)
+    def set(comment: Comment): Comments = {
+      if (a.value.exists(_.by.is(comment.by))) a.value.map {
+        case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
+        case c                        => c
       }
-      def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
-      def +(comment: Comment): Comments           = comment :: a.value
-      def ++(comments: Comments): Comments        = a.value ::: comments.value
-      def filterEmpty: Comments                   = a.value.filter(_.text.value.nonEmpty)
-      def hasLichessComment                       = a.value.exists(_.by == Comment.Author.Lichess)
-    val empty = Comments(Nil)
+      else a.value :+ comment
+    }
+    def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
+    def +(comment: Comment): Comments           = comment :: a.value
+    def ++(comments: Comments): Comments        = a.value ::: comments.value
+    def filterEmpty: Comments                   = a.value.filter(_.text.value.nonEmpty)
+    def hasLichessComment                       = a.value.exists(_.by == Comment.Author.Lichess)
+    val empty                                   = Comments(Nil)
 
   case class Gamebook(deviation: Option[String], hint: Option[String]):
     private def trimOrNone(txt: Option[String]) = txt.map(_.trim).filter(_.nonEmpty)

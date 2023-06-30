@@ -89,15 +89,14 @@ object Report:
 
   opaque type Score = Double
   object Score extends OpaqueDouble[Score]:
-    extension (a: Score)
-      def +(s: Score): Score = a + s
-      def color =
-        if (a >= 150) "red"
-        else if (a >= 100) "orange"
-        else if (a >= 50) "yellow"
-        else "green"
-      def atLeast(s: Score): Score = math.max(a, s)
-      def withinBounds: Score      = a atLeast 5 atMost 100
+    extension (a: Score) def +(s: Score): Score = a + s
+    def color =
+      if (a >= 150) "red"
+      else if (a >= 100) "orange"
+      else if (a >= 50) "yellow"
+      else "green"
+    def atLeast(s: Score): Score = math.max(a, s)
+    def withinBounds: Score      = a atLeast 5 atMost 100
 
   case class Atom(
       by: ReporterId,

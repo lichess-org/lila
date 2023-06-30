@@ -56,7 +56,7 @@ object Domain extends OpaqueString[Domain]:
         case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain from s"$tail.$sld.$tld"
         case tld :: sld :: _                              => Domain from s"$sld.$tld"
         case _                                            => none
-    def lower = Domain.Lower(a.value.toLowerCase)
+  def lower = Domain.Lower(a.value.toLowerCase)
 
   // https://stackoverflow.com/a/26987741/1744715
   private val regex =

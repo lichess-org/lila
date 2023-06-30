@@ -72,16 +72,15 @@ object Eval:
 
   opaque type Mate = Int
   object Mate extends OpaqueInt[Mate]:
-    extension (mate: Mate)
-      inline def moves: Int = mate.value
+    extension (mate: Mate) inline def moves: Int = mate.value
 
-      inline def invert: Mate                  = Mate(-moves)
-      inline def invertIf(cond: Boolean): Mate = if (cond) invert else mate
+    inline def invert: Mate                  = Mate(-moves)
+    inline def invertIf(cond: Boolean): Mate = if (cond) invert else mate
 
-      inline def signum: Int = if (positive) 1 else -1
+    inline def signum: Int = if (positive) 1 else -1
 
-      inline def positive = mate.value > 0
-      inline def negative = mate.value < 0
+    inline def positive = mate.value > 0
+    inline def negative = mate.value < 0
 
   val initial = Eval(Some(Cp.initial), None, None)
 

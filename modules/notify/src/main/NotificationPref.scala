@@ -6,12 +6,11 @@ import alleycats.Zero
 
 opaque type Allows = Int
 object Allows extends OpaqueInt[Allows]:
-  extension (e: Allows)
-    def push: Boolean   = (e & PUSH) != 0
-    def web: Boolean    = (e & WEB) != 0
-    def device: Boolean = (e & DEVICE) != 0
-    def bell: Boolean   = (e & BELL) != 0
-    def any: Boolean    = e != 0
+  extension (e: Allows) def push: Boolean = (e & PUSH) != 0
+  def web: Boolean                        = (e & WEB) != 0
+  def device: Boolean                     = (e & DEVICE) != 0
+  def bell: Boolean                       = (e & BELL) != 0
+  def any: Boolean                        = e != 0
 
   given Zero[Allows] = Zero(Allows(0))
 

@@ -13,8 +13,8 @@ object activities:
   object Games extends TotalWrapper[Games, Map[PerfType, Score]]:
     extension (a: Games)
       def add(pt: PerfType, score: Score): Games = a.value + (pt -> a.value.get(pt).fold(score)(_ add score))
-      def hasNonCorres                           = a.value.exists(_._1 != PerfType.Correspondence)
-    given Zero[Games] = Zero(Map.empty)
+    def hasNonCorres                             = a.value.exists(_._1 != PerfType.Correspondence)
+    given Zero[Games]                            = Zero(Map.empty)
 
   opaque type ForumPosts = List[ForumPostId]
   object ForumPosts extends TotalWrapper[ForumPosts, List[ForumPostId]]:

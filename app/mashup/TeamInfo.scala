@@ -31,13 +31,12 @@ object TeamInfo:
   val pmAllDays    = 7
   opaque type AnyTour = Either[Tournament, Swiss]
   object AnyTour extends TotalWrapper[AnyTour, Either[Tournament, Swiss]]:
-    extension (e: AnyTour)
-      def isEnterable = e.fold(_.isEnterable, _.isEnterable)
-      def startsAt    = e.fold(_.startsAt, _.startsAt)
-      def isNowOrSoon = e.fold(_.isNowOrSoon, _.isNowOrSoon)
-      def nbPlayers   = e.fold(_.nbPlayers, _.nbPlayers)
-    def apply(tour: Tournament): AnyTour = Left(tour)
-    def apply(swiss: Swiss): AnyTour     = Right(swiss)
+    extension (e: AnyTour) def isEnterable = e.fold(_.isEnterable, _.isEnterable)
+    def startsAt                           = e.fold(_.startsAt, _.startsAt)
+    def isNowOrSoon                        = e.fold(_.isNowOrSoon, _.isNowOrSoon)
+    def nbPlayers                          = e.fold(_.nbPlayers, _.nbPlayers)
+    def apply(tour: Tournament): AnyTour   = Left(tour)
+    def apply(swiss: Swiss): AnyTour       = Right(swiss)
 
   case class PastAndNext(past: List[AnyTour], next: List[AnyTour]):
     def nonEmpty = past.nonEmpty || next.nonEmpty

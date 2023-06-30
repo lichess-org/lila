@@ -11,24 +11,21 @@ sealed abstract class OAuthScope(val key: String, val name: I18nKey):
 
 opaque type OAuthScopes = List[OAuthScope]
 object OAuthScopes extends TotalWrapper[OAuthScopes, List[OAuthScope]]:
-  extension (e: OAuthScopes)
-    def has(s: OAuthScope): Boolean             = e contains s
-    def has(s: OAuthScope.Selector): Boolean    = has(s(OAuthScope))
-    def keyList: String                         = e.map(_.key) mkString ","
-    def intersects(other: OAuthScopes): Boolean = e.exists(other.has)
-    def isEmpty                                 = e.isEmpty
+  extension (e: OAuthScopes) def has(s: OAuthScope): Boolean = e contains s
+  def has(s: OAuthScope.Selector): Boolean                   = has(s(OAuthScope))
+  def keyList: String                                        = e.map(_.key) mkString ","
+  def intersects(other: OAuthScopes): Boolean                = e.exists(other.has)
+  def isEmpty                                                = e.isEmpty
 
 opaque type TokenScopes = List[OAuthScope]
 object TokenScopes extends TotalWrapper[TokenScopes, List[OAuthScope]]:
-  extension (e: TokenScopes)
-    def intersects(other: OAuthScopes): Boolean = e.exists(other.contains)
-    def has(s: OAuthScope.Selector): Boolean    = e.contains(s(OAuthScope))
+  extension (e: TokenScopes) def intersects(other: OAuthScopes): Boolean = e.exists(other.contains)
+  def has(s: OAuthScope.Selector): Boolean                               = e.contains(s(OAuthScope))
 
 opaque type EndpointScopes = List[OAuthScope]
 object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
-  extension (e: EndpointScopes)
-    def isEmpty                                 = e.isEmpty
-    def compatible(token: TokenScopes): Boolean = e.exists(token.has)
+  extension (e: EndpointScopes) def isEmpty   = e.isEmpty
+  def compatible(token: TokenScopes): Boolean = e.exists(token.has)
 
 object OAuthScope:
 
