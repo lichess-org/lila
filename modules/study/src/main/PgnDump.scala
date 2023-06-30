@@ -115,16 +115,16 @@ object PgnDump:
     NewTree(root).map(treeToTree(_)(using flags))
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
-    if flags.variations then tree.map(branch2move) else tree.mapMainline(branch2move)
+    if flags.variations then tree.map(branchTomove) else tree.mapMainline(branchTomove)
 
-  private def branch2move(node: NewBranch)(using flags: WithFlags) =
+  private def branchTomove(node: NewBranch)(using flags: WithFlags) =
     chessPgn.Move(
       node.ply,
       san = node.move.san,
       glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
-      comments = flags.comments so {
+      comments = flags.comments.so:
         node.comments.value.map(_.text into Comment) ::: shapeComment(node.shapes).toList
-      },
+      ,
       opening = none,
       result = none,
       secondsLeft = flags.clocks so node.clock.map(_.roundSeconds)
