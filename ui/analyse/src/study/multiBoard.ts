@@ -78,6 +78,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
   if (pager.currentPageResults.some(p => p.variant.key === 'chushogi')) window.lishogi.loadChushogiPieceSprite();
+  if (pager.currentPageResults.some(p => p.variant.key === 'kyotoshogi')) window.lishogi.loadKyotoshogiPieceSprite();
   return [
     h('div.top', [renderPagerNav(pager, ctrl), renderPlayingToggle(ctrl)]),
     h('div.now-playing', pager.currentPageResults.map(makePreview(study))),

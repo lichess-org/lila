@@ -200,6 +200,7 @@ export default class AnalyseCtrl {
     this.ongoing = !this.synthetic && game.playable(data);
 
     if (this.data.game.variant.key === 'chushogi') li.loadChushogiPieceSprite();
+    else if (this.data.game.variant.key == 'kyotoshogi') li.loadKyotoshogiPieceSprite();
 
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
@@ -456,7 +457,7 @@ export default class AnalyseCtrl {
       success: (data: AnalyseData) => {
         this.reloadData(data, false);
         const $selSpan = $('.mselect__label span'),
-          icon = getPerfIcon(data.game.variant.key)!;
+          icon = getPerfIcon(data.game.variant.key);
         $selSpan.attr('data-icon', icon);
         $selSpan.text(this.trans.noarg(data.game.variant.key));
         $('nav.mselect__list a').each(function (this: HTMLElement) {

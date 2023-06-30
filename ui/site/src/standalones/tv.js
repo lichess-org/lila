@@ -120,6 +120,17 @@ function loadChushogiPieceSprite() {
     );
   }
 }
+function loadKyotoshogiPieceSprite() {
+  if (!document.getElementById('kyo-piece-sprite')) {
+    const cps = document.body.dataset.kyoPieceSet || 'Kyo_Ryoko_1Kanji';
+    $('head').append(
+      $('<link id="kyo-piece-sprite" rel="stylesheet" type="text/css" />').attr(
+        'href',
+        `https://lishogi1.org/assets/piece-css/${cps}.css`
+      )
+    );
+  }
+}
 
 function parseSfen($elem) {
   $elem.each(function () {
@@ -148,6 +159,7 @@ function parseSfen($elem) {
         },
       };
     if (variant === 'chushogi') loadChushogiPieceSprite();
+    else if (variant === 'kyotoshogi') loadKyotoshogiPieceSprite();
     if (color) config.orientation = color;
     if (ground) ground.set(config);
     else {

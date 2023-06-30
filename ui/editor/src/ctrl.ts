@@ -304,6 +304,7 @@ export default class EditorCtrl {
       true
     );
     if (rules === 'chushogi') window.lishogi.loadChushogiPieceSprite();
+    else if (rules === 'kyotoshogi') window.lishogi.loadKyotoshogiPieceSprite();
     this.onChange();
   }
 

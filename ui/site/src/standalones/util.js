@@ -271,6 +271,17 @@ lishogi.loadChushogiPieceSprite = function () {
     );
   }
 };
+lishogi.loadKyotoshogiPieceSprite = function () {
+  if (!document.getElementById('kyo-piece-sprite')) {
+    const cps = document.body.dataset.kyoPieceSet || 'Kyo_Ryoko_1Kanji';
+    $('head').append(
+      $('<link id="kyo-piece-sprite" rel="stylesheet" type="text/css" />').attr(
+        'href',
+        lishogi.assetUrl(`piece-css/${cps}.css`)
+      )
+    );
+  }
+};
 
 lishogi.compiledScript = function (name) {
   return 'compiled/lishogi.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
