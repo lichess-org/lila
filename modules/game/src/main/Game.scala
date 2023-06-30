@@ -257,8 +257,8 @@ case class Game(
 
   def speed = Speed(chess.clock.map(_.config))
 
-  def perfKey: Perf.Key = PerfPicker.key(this)
-  def perfType          = PerfType(perfKey)
+  def perfKey: Perf.Key  = PerfPicker.key(this)
+  def perfType: PerfType = PerfType(perfKey) | PerfType.Standard
 
   def started = status >= Status.Started
 

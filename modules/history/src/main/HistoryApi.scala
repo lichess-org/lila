@@ -79,7 +79,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
 
   def progresses(
-      users: List[User.WithPerfs],
+      users: List[User.WithPerf],
       perfType: PerfType,
       days: Int
   ): Fu[List[(IntRating, IntRating)]] =
@@ -89,16 +89,17 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
         $doc(perfType.key.value -> true).some
       )(_.getAsTry[UserId]("_id").get) map { hists =>
         import History.ratingsReader
-        users zip hists map { case (user, doc) =>
-          val current      = user.perfs(perfType).intRating
+        users zip hists map { (user, doc) =>
+          val current      = user.perf.intRating
           val previousDate = daysBetween(user.createdAt, nowInstant minusDays days)
           val previous =
-            doc.flatMap(_ child perfType.key.value).flatMap(ratingsReader.readOpt).fold(current) { hist =>
-              hist.foldLeft(hist.headOption.fold(current)(_._2)) {
-                case (_, (d, r)) if d < previousDate => r
-                case (acc, _)                        => acc
-              }
-            }
+            doc
+              .flatMap(_ child perfType.key.value)
+              .flatMap(ratingsReader.readOpt)
+              .fold(current): hist =>
+                hist.foldLeft(hist.headOption.fold(current)(_._2)):
+                  case (_, (d, r)) if d < previousDate => r
+                  case (acc, _)                        => acc
           previous -> current
         }
       }

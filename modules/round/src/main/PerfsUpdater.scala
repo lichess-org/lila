@@ -18,7 +18,7 @@ final class PerfsUpdater(
 )(using Executor):
 
   // returns rating diffs
-  def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =
+  def save(game: Game, white: User.WithPerfs, black: User.WithPerfs): Fu[Option[RatingDiffs]] =
     botFarming(game) flatMap {
       if _ then fuccess(none)
       else
@@ -60,8 +60,8 @@ final class PerfsUpdater(
                     case Speed.UltraBullet =>
                       updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
                 case _ =>
-              val perfsW                      = mkPerfs(ratingsW, white -> black, game)
-              val perfsB                      = mkPerfs(ratingsB, black -> white, game)
+              val perfsW                          = mkPerfs(ratingsW, white -> black, game)
+              val perfsB                          = mkPerfs(ratingsB, black -> white, game)
               def intRatingLens(perfs: UserPerfs) = mainPerf(perfs).glicko.intRating
               val ratingDiffs = ByColor(
                 intRatingLens(perfsW) - intRatingLens(white.perfs),

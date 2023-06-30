@@ -5,8 +5,7 @@ import lila.common.{ Bus, LichessDay }
 import lila.common.paginator.Paginator
 import lila.db.dsl.*
 import lila.db.paginator.Adapter
-import lila.user.User
-import lila.user.UserRepo
+import lila.user.{ User, UserPerfsRepo }
 import reactivemongo.api.ReadPreference
 
 // stores data of the best run of the day
@@ -48,7 +47,7 @@ object StormDay:
 
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, IntRating(0), 0)
 
-final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, sign: StormSign)(using
+final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsRepo, sign: StormSign)(using
     Executor
 ):
 
@@ -76,7 +75,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
             }
             .flatMap { _ =>
               val high = highApi.update(u.id, prevHigh, data.score)
-              userRepo.addStormRun(u.id, data.score) inject high
+              perfsRepo.addStormRun(u.id, data.score) inject high
             }
         }
       else

@@ -8,7 +8,7 @@ import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
-import lila.user.{ Authenticator, User, UserRepo }
+import lila.user.{ Authenticator, User, UserRepo, UserPerfsRepo }
 import lila.user.Me
 
 final class ClasApi(
@@ -16,6 +16,7 @@ final class ClasApi(
     studentCache: ClasStudentCache,
     nameGenerator: NameGenerator,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     msgApi: MsgApi,
     authenticator: Authenticator,
     baseUrl: BaseUrl
@@ -237,7 +238,7 @@ final class ClasApi(
           studentCache addStudent user.id
           val student = Student.make(user, clas, teacher.id, data.realName, managed = true)
           userRepo.setKid(user, v = true) >>
-            userRepo.setManagedUserInitialPerfs(user.id) >>
+            perfsRepo.setManagedUserInitialPerfs(user.id) >>
             coll.insert.one(student) >>
             sendWelcomeMessage(teacher.id, user, clas) inject
             Student.WithPassword(student, password)

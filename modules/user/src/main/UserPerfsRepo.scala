@@ -76,7 +76,10 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
       .dmap:
         _.flatMap { docPerf(_, perfType) }
 
-  def perfOf(ids: Iterable[UserId], perfType: PerfType): Fu[Map[UserId, Perf]] =
+  def perfOfDefault(id: UserId, perfType: PerfType): Fu[Perf] =
+    perfOf(id, perfType).dmap(_ | Perf.default)
+
+  def perfOf(ids: Iterable[UserId], perfType: PerfType): Fu[Map[UserId, Perf]] = ids.nonEmpty.so:
     coll
       .find(
         $inIds(ids),
@@ -91,6 +94,10 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
           perf = docPerf(doc, perfType) | Perf.default
         yield id -> perf
       .dmap(_.toMap)
+
+  def withPerf(users: List[User], perfType: PerfType): Fu[List[User.WithPerf]] =
+    perfOf(users.map(_.id), perfType).map: perfs =>
+      users.map(u => User.WithPerf(u, perfs.getOrElse(u.id, Perf.default)))
 
   def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean] =
     if puzzle.glicko.rating < 2500

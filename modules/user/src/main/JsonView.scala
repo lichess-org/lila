@@ -15,13 +15,12 @@ final class JsonView(isOnline: lila.socket.IsOnline):
 
   def full(
       u: User,
-      perfs: Option[UserPerfs],
-      onlyPerf: Option[PerfType] = None,
+      perfs: Option[UserPerfs | Perf.Typed],
       withProfile: Boolean
   ): JsObject =
     if u.enabled.no then disabled(u.light)
     else
-      base(u, perfs, onlyPerf) ++ Json
+      base(u, perfs) ++ Json
         .obj("createdAt" -> u.createdAt)
         .add(
           "profile" -> u.profile
@@ -31,17 +30,18 @@ final class JsonView(isOnline: lila.socket.IsOnline):
         .add("seenAt" -> u.seenAt)
         .add("playTime" -> u.playTime)
 
-  def roundPlayer(u: User, perfs: Option[UserPerfs], onlyPerf: Option[PerfType]) =
+  def roundPlayer(u: User, perf: Option[Perf.Typed]) =
     if u.enabled.no then disabled(u.light)
-    else base(u, perfs, onlyPerf).add("online" -> isOnline(u.id))
+    else base(u, perf).add("online" -> isOnline(u.id))
 
-  private def base(u: User, perfs: Option[UserPerfs], onlyPerf: Option[PerfType]) =
+  private def base(u: User, perfs: Option[UserPerfs | Perf.Typed]) =
     Json
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "perfs" -> perfs.fold(Json.obj()): p =>
-          perfsJson(User.WithPerfs(u, p), onlyPerf)
+        "perfs" -> perfs.fold(Json.obj()):
+          case p: UserPerfs  => perfsJson(p)
+          case p: Perf.Typed => perfTypedJson(p)
       )
       .add("title" -> u.title)
       .add("tosViolation" -> u.lame)
@@ -104,30 +104,22 @@ object JsonView:
   private def select(key: Perf.Key, perf: Perf) =
     perf.nb > 0 || standardPerfKeys(key)
 
-  def perfsJson(u: User.WithPerfs, onlyPerf: Option[PerfType] = None): JsObject =
+  def perfTypedJson(p: Perf.Typed): JsObject =
+    Json.obj(p.perfType.key.value -> p.perf)
+
+  def perfsJson(p: UserPerfs): JsObject =
     JsObject:
-      u.perfs.perfsMap.collect:
-        case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
+      p.perfsMap.collect:
+        case (key, perf) if perf.nb > 0 || standardPerfKeys(key) =>
           key.value -> perfWrites.writes(perf)
-    .add(
-      "storm",
-      u.perfs.storm.nonEmpty option Json.obj(
-        "runs"  -> u.perfs.storm.runs,
-        "score" -> u.perfs.storm.score
-      )
-    ).add(
-      "racer",
-      u.perfs.racer.nonEmpty option Json.obj(
-        "runs"  -> u.perfs.racer.runs,
-        "score" -> u.perfs.racer.score
-      )
-    ).add(
-      "streak",
-      u.perfs.streak.nonEmpty option Json.obj(
-        "runs"  -> u.perfs.streak.runs,
-        "score" -> u.perfs.streak.score
-      )
-    )
+    .add("storm", p.storm.option.map(puzPerfJson))
+      .add("racer", p.racer.option.map(puzPerfJson))
+      .add("streak", p.streak.option.map(puzPerfJson))
+
+  private def puzPerfJson(p: Perf.PuzPerf) = Json.obj(
+    "runs"  -> p.runs,
+    "score" -> p.score
+  )
 
   def perfsJson(perfs: UserPerfs, onlyPerfs: List[PerfType]) =
     JsObject:

@@ -127,6 +127,9 @@ object User:
   object WithPerfs:
     given UserIdOf[WithPerfs] = _.user.id
 
+  case class WithPerf(user: User, perf: Perf):
+    export user.*
+
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean):
     import LoginCandidate.*

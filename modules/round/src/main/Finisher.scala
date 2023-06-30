@@ -151,7 +151,7 @@ final private class Finisher(
         (finish.white so incNbGames(finish.game)) zip
         (finish.black so incNbGames(finish.game)) dmap (_._1._1)
 
-  private def incNbGames(game: Game)(user: User): Funit =
+  private def incNbGames(game: Game)(user: User.WithPerfs): Funit =
     game.finished so { user.noBot || game.nonAi } so {
       val totalTime = (game.hasClock && user.playTime.isDefined) so game.durationSeconds
       val tvTime    = totalTime ifTrue recentTvGames.get(game.id)

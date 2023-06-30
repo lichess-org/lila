@@ -9,6 +9,7 @@ import lila.common.config.*
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     gameRepo: lila.game.GameRepo,
     historyApi: lila.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,

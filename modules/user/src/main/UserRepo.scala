@@ -16,7 +16,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   import User.{ BSONFields as F, given }
   import UserMark.given
 
-  export perfsRepo.{ byId as perfs, setPerfs,perfOf }
+  export perfsRepo.{ byId as perfs, setPerfs, perfOf }
 
   def withColl[A](f: Coll => A): A = f(coll)
 
@@ -49,11 +49,17 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   }
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
-    if (User isGhost id) fuccess(Left(LightUser.ghost).some)
+    if User isGhost id
+    then fuccess(Left(LightUser.ghost).some)
     else
       coll.byId[User](id).map2(Right.apply) recover { case _: exceptions.BSONValueNotFoundException =>
         Left(LightUser.ghost).some
       }
+
+  def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[Either[LightUser.Ghost, (User, Perf)]]] =
+    byIdOrGhost(id).flatMapz:
+      case Left(g)  => fuccess(Left(g).some)
+      case Right(u) => perfsRepo.perfOfDefault(u.id, pt).dmap(p => Right(u -> p).some)
 
   def me[U: UserIdOf](u: U): Fu[Option[Me]] =
     enabledById(u).dmap(Me.from(_))
@@ -76,13 +82,22 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       x.so(xx => users.find(_.id == xx)) ->
         y.so(yy => users.find(_.id == yy))
     }
+  def pairWithPerf(
+      x: Option[UserId],
+      y: Option[UserId],
+      perfType: PerfType
+  ): Fu[(Option[User.WithPerf], Option[User.WithPerf])] = for
+    (x, y) <- pair(x, y)
+    perfs  <- perfsRepo.perfOf(List(x, y).flatten.map(_.id), perfType)
+    make = (u: Option[User]) => u.map(u => User.WithPerf(u, perfs.getOrElse(u.id, Perf.default)))
+  yield make(x) -> make(y)
 
   def pair(x: UserId, y: UserId): Fu[Option[(User, User)]] =
     coll.byIds[User, UserId](List(x, y)) map { users =>
-      for {
+      for
         xx <- users.find(_.id == x)
         yy <- users.find(_.id == y)
-      } yield xx -> yy
+      yield xx -> yy
     }
 
   def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(User.lichessId, id)
