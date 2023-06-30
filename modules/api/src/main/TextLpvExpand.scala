@@ -48,9 +48,9 @@ final class TextLpvExpand(
             )
       }
 
-  // gamePgnsFromText is used by blogs & ublogs to build game id -> pgn maps but the
+  // used by blogs & ublogs to build game id -> pgn maps but the
   // substitution happens in blog/BlogApi (blogs) and common/MarkdownRender for ublogs
-  def gamePgnsFromText(text: String): Fu[Map[GameId, PgnStr]] =
+  private def gamePgnsFromText(text: String): Fu[Map[GameId, PgnStr]] =
     val gameIds = GameId from
       regex.gamePgnsRe
         .findAllMatchIn(text)
@@ -61,9 +61,9 @@ final class TextLpvExpand(
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
 
-  // studyPgnsFromText is used by blogs & ublogs to build chapter id -> pgn maps but the
+  // used by blogs & ublogs to build chapter id -> pgn maps but the
   // substitution happens in blog/BlogApi (blogs) and common/MarkdownRender for ublogs
-  def chapterPgnsFromText(text: String): Fu[Map[StudyChapterId, PgnStr]] =
+  private def chapterPgnsFromText(text: String): Fu[Map[StudyChapterId, PgnStr]] =
     val chapterIds = StudyChapterId from
       regex.chapterPgnsRe
         .findAllMatchIn(text)
@@ -74,8 +74,6 @@ final class TextLpvExpand(
       _.collect { case (chapterId, Some(pgn)) => chapterId -> pgn }
     }
 
-  // studyPgnsFromText is used by blogs & ublogs to build chapter id -> pgn maps but the
-  // substitution happens in blog/BlogApi (blogs) and common/MarkdownRender for ublogs
   def allPgnsFromText(text: String): Fu[Map[String, PgnStr]] =
     gamePgnsFromText(text) zip chapterPgnsFromText(text) map { (g, c) =>
       g.mapKeys(_.value) ++ c.mapKeys(_.value)
@@ -111,14 +109,16 @@ final class TextLpvExpand(
 
 final class LpvGameRegex(domain: NetDomain):
 
+  private val quotedDomain = java.util.regex.Pattern.quote(domain.value)
+
 // linkified forum hrefs are relative but this regex runs pre-linkify, match path & id
   val linkRenderRe =
-    raw"(?m)^(?:(?:https?://)?$domain)?(/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?)\b".r
+    raw"(?m)^(?:(?:https?://)?$quotedDomain)?(/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?)\b".r
 
 // for blogs, only allow absolute links and match id
   val gamePgnsRe =
-    raw"(?:https?://)?$domain/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?\b".r
+    raw"(?:https?://)?$quotedDomain/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?\b".r
 
 // for blogs, only allow absolute links and match id
   val chapterPgnsRe =
-    raw"(?:https?://)?$domain/study/(?:embed/)?(?:\w{8})/(\w{8})(?:(#|\b))".r
+    raw"(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\w{8})/(\w{8})(?:(#|\b))".r

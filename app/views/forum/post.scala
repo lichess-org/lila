@@ -12,7 +12,7 @@ object post:
 
   def recent(posts: List[lila.forum.MiniForumPost])(using PageContext) =
     ol(
-      posts map { p =>
+      posts.map: p =>
         li(
           a(
             dataIcon := p.isTeam.option(licon.Group),
@@ -25,7 +25,6 @@ object post:
           " ",
           span(cls := "extract")(shorten(p.text, 70))
         )
-      }
     )
 
   def show(
@@ -47,15 +46,13 @@ object post:
             ),
             a(href := url)(
               post.updatedAt
-                .map { updatedAt =>
+                .map: updatedAt =>
                   frag(
                     span(cls := "post-edited")("edited "),
                     momentFromNow(updatedAt)
                   )
-                }
-                .getOrElse {
+                .getOrElse:
                   momentFromNow(post.createdAt)
-                }
             ),
             (!post.erased && ctx.me.soUse(post.shouldShowEditForm)) option
               button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := licon.Pencil)(
@@ -82,7 +79,7 @@ object post:
                       title    := "Delete"
                     )
                   else
-                    post.userId map { userId =>
+                    post.userId.map: userId =>
                       val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
                       frag(
                         nbsp,
@@ -96,7 +93,6 @@ object post:
                           dataIcon := licon.CautionTriangle
                         )
                       )
-                    }
                 ).some
             ,
             (canReply && !post.erased) option button(
@@ -107,10 +103,9 @@ object post:
           ),
           a(cls := "anchor", href := url)(s"#${post.number}")
         ),
-        p(cls := "forum-post__message expand-text")(
-          if (post.erased) "<Comment deleted by user>"
-          else body
-        ),
+        p(cls := "forum-post__message expand-text"):
+          if post.erased then "<Comment deleted by user>" else body
+        ,
         !post.erased option reactions(post, canReact),
         ctx.me.soUse(post.shouldShowEditForm) option
           postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
@@ -126,9 +121,9 @@ object post:
                 cls   := "edit-post-cancel",
                 href  := routes.ForumPost.redirect(post.id),
                 style := "margin-left:20px"
-              )(
+              ):
                 trans.cancel()
-              ),
+              ,
               submitButton(cls := "button")(trans.apply())
             )
           )
@@ -138,7 +133,7 @@ object post:
     val mine             = ctx.me so { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
-      ForumPost.Reaction.list.map { r =>
+      ForumPost.Reaction.list.map: r =>
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(
@@ -147,16 +142,15 @@ object post:
             .url,
           cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
-            if (size > 0) {
+            if size > 0 then
               val who =
                 if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} others"
                 else users mkString ", "
               s"$who reacted with $r"
-            } else r.key
+            else r.key
           }
         )(
           img(src := assetUrl(s"images/emoji/$r.png"), alt := r.key),
           size > 0 option size
         )
-      }
     )
