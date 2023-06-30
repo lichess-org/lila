@@ -51,7 +51,7 @@ final class TextLpvExpand(
         div(
           cls              := "lpv--autostart is2d",
           attr("data-pgn") := pgn.toString,
-          attr("data-ply") := plyRe.findFirstIn(url).fold("last")(_.substring(1)),
+          plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
           (url contains "/black").option(attr("data-orientation") := "black")
         )
 

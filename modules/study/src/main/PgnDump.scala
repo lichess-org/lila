@@ -56,7 +56,7 @@ final class PgnDump(
     Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
 
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
-    Tags {
+    Tags:
       val opening = chapter.opening
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
@@ -75,14 +75,14 @@ final class PgnDump(
         )
       ) :::
         flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
-        flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name)))
+        flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name))) :::
+        chapter.isGamebook.so(List(Tag("ChapterMode", "gamebook")))
       genTags
-        .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
-          if (tags.exists(t => tag.name == t.name)) tags
+        .foldLeft(chapter.tags.value.reverse) { (tags, tag) =>
+          if tags.exists(t => tag.name == t.name) then tags
           else tag :: tags
         }
         .reverse
-    }
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
     val root = chapter.root
@@ -104,15 +104,15 @@ object PgnDump:
   private type Variations = List[Branch]
   private val noVariations: Variations = Nil
 
-  def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
+  def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
     Pgn(
       tags,
       InitialComments(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
-      rootToTree(root)(using flags)
+      rootToTree(root)
     )
 
-  def rootToTree(root: Root)(using flags: WithFlags): Option[PgnTree] =
-    NewTree(root).map(treeToTree(_)(using flags))
+  def rootToTree(root: Root)(using WithFlags): Option[PgnTree] =
+    NewTree(root).map(treeToTree)
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)
@@ -136,14 +136,12 @@ object PgnDump:
       shapes match
         case Nil    => ""
         case shapes => s"[%$as ${shapes.mkString(",")}]"
-    val circles = render("csl") {
+    val circles = render("csl"):
       shapes.value.collect { case Shape.Circle(brush, orig) =>
         s"${brush.head.toUpper}${orig.key}"
       }
-    }
-    val arrows = render("cal") {
+    val arrows = render("cal"):
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
         s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
-    }
     Comment from s"$circles$arrows".some.filter(_.nonEmpty)
