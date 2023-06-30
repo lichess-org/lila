@@ -17,7 +17,7 @@ final private class SwissCache(
 
   val name = cacheApi.sync[Swiss.Id, Option[String]](
     name = "swiss.name",
-    initialCapacity = 4096,
+    initialCapacity = 512,
     compute = id => colls.swiss.primitiveOne[String]($id(id), "name"),
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),

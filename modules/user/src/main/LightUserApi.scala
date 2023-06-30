@@ -38,7 +38,7 @@ final class LightUserApi(
 
   private val cache = cacheApi.sync[User.ID, Option[LightUser]](
     name = "user.light",
-    initialCapacity = 131072,
+    initialCapacity = 32768,
     compute = id => repo.coll.find($id(id), projection).one[LightUser],
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(8 millis),

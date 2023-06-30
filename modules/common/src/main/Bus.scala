@@ -61,7 +61,7 @@ object Bus {
   }
 
   private val bus = new EventBus[Any, Channel, Tellable](
-    initialCapacity = 65535,
+    initialCapacity = 4096,
     publish = (tellable, event) => tellable ! event
   )
 

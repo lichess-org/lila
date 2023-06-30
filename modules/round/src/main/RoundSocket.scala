@@ -88,7 +88,7 @@ final class RoundSocket(
       }
       duct
     },
-    initialCapacity = 65536
+    initialCapacity = 8192
   )
 
   private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)

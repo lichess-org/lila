@@ -13,7 +13,7 @@ final class LastPostCache(
 
   private val cache = cacheApi.sync[BlogLang.Code, List[MiniPost]](
     name = "blog.lastPost",
-    initialCapacity = 1,
+    initialCapacity = 2,
     compute = langCode => fetch(BlogLang.fromLangCode(langCode)),
     default = _ => Nil,
     expireAfter = Syncache.ExpireAfterWrite(config.lastPostTtl),

@@ -19,9 +19,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   import Store._
 
-  private val authCache = cacheApi[String, Option[AuthInfo]](32768, "security.authCache") {
+  private val authCache = cacheApi[String, Option[AuthInfo]](4096, "security.authCache") {
     _.expireAfterAccess(5 minutes)
-      .maximumSize(65536)
       .buildAsyncFuture[String, Option[AuthInfo]] { id =>
         coll
           .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
