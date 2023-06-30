@@ -34,8 +34,6 @@ case class User(
   override def toString =
     s"User $username games:${count.game}${marks.troll so " troll"}${marks.engine so " engine"}${enabled.no so " closed"}"
 
-  def withPerfs(p: UserPerfs) = User.WithPerfs(this, p)
-
   def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
@@ -125,6 +123,9 @@ object User:
       .sortBy: pt =>
         -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
       .take(nb)
+
+  object WithPerfs:
+    given UserIdOf[WithPerfs] = _.user.id
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean):

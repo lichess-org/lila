@@ -30,7 +30,7 @@ object Coach:
 
   val imageSize = 350
 
-  def make(user: lila.user.User) =
+  def make(user: lila.user.User.WithPerfs) =
     Coach(
       _id = user.id into Id,
       listed = Listed(false),

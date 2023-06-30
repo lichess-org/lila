@@ -172,13 +172,17 @@ case class UserPerfs(
         case (Some(acc), date) if date isAfter acc => date.some
         case (acc, _)                              => acc
 
-  def dubiousPuzzle =
+  def dubiousPuzzle = UserPerfs.dubiousPuzzle(puzzle, standard)
+
+case object UserPerfs:
+
+  given UserIdOf[User] = _.id
+
+  def dubiousPuzzle(puzzle: Perf, standard: Perf) =
     puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > 2100) ||
       puzzle.glicko.rating > 2900 && !standard.glicko.establishedIntRating.exists(_ > 2000) ||
       puzzle.glicko.rating > 2700 && !standard.glicko.establishedIntRating.exists(_ > 1900) ||
       puzzle.glicko.rating > 2500 && !standard.glicko.establishedIntRating.exists(_ > 1800)
-
-case object UserPerfs:
 
   def default(id: UserId) =
     val p = Perf.default

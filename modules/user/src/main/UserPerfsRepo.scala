@@ -13,6 +13,15 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
 
   def glickoField(perf: Perf.Key) = s"$perf.gl"
 
+  def byId[U: UserIdOf](u: U): Fu[UserPerfs] =
+    coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
+
+  def withPerfs(u: User): Fu[User.WithPerfs] =
+    coll
+      .byId[UserPerfs](u.id)
+      .dmap: perfs =>
+        User.WithPerfs(u, perfs | UserPerfs.default(u.id))
+
   def setPerfs(user: User, perfs: UserPerfs, prev: UserPerfs)(using wr: BSONHandler[Perf]) =
     val diff = for
       pt <- PerfType.all
@@ -82,3 +91,10 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
           perf = docPerf(doc, perfType) | Perf.default
         yield id -> perf
       .dmap(_.toMap)
+
+  def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean] =
+    if puzzle.glicko.rating < 2500
+    then fuFalse
+    else
+      perfOf(id, PerfType.Standard).map:
+        _.fold(true)(UserPerfs.dubiousPuzzle(puzzle, _))

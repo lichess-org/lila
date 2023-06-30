@@ -19,7 +19,7 @@ final class PerfStatIndexer(
     lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 10 seconds, name = "perfStatIndexer")
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
-    workQueue {
+    workQueue:
       storage.find(user.id, perfType) getOrElse gameRepo
         .sortedCursor(
           Query.user(user.id) ++
@@ -36,7 +36,6 @@ final class PerfStatIndexer(
         .flatMap: ps =>
           storage insert ps recover lila.db.ignoreDuplicateKey inject ps
         .mon(_.perfStat.indexTime)
-    }
 
   def addGame(game: Game): Funit =
     game.players

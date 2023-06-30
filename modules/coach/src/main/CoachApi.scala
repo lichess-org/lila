@@ -31,8 +31,8 @@ final class CoachApi(
   def findOrInit(using me: Me): Fu[Option[Coach.WithUser]] =
     val user = me.value
     canCoach(user).so:
-      find(user) orElse {
-        val c = Coach.WithUser(Coach make user, user)
+      find(user) orElse userRepo.withPerfs(user).flatMap { user =>
+        val c = Coach.WithUser(Coach make user, user.user)
         coachColl.insert.one(c.coach) inject c.some
       }
 
@@ -48,8 +48,8 @@ final class CoachApi(
 
   def setRating(userPre: User): Funit =
     canCoach(userPre).so:
-      userRepo.byId(userPre.id) flatMapz { user =>
-        coachColl.update.one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
+      userRepo.perfs(userPre.id).flatMap { perfs =>
+        coachColl.update.one($id(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
       }
 
   def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =

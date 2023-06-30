@@ -16,7 +16,13 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   import User.{ BSONFields as F, given }
   import UserMark.given
 
+  export perfsRepo.{ byId as perfs, setPerfs,perfOf }
+
   def withColl[A](f: Coll => A): A = f(coll)
+
+  def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
+  def withPerfs(id: UserId): Fu[Option[User.WithPerfs]] = // TODO aggregation
+    byId(id).flatMapz(u => withPerfs(u).dmap(some))
 
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)

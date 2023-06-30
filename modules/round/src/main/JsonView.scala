@@ -40,9 +40,8 @@ final class JsonView(
     Json
       .obj("color" -> p.color.name)
       .add("user" -> user.map {
-        _.toOption.fold(userJsonView.ghost) { u =>
+        _.toOption.fold(userJsonView.ghost): u =>
           userJsonView.roundPlayer(u, g.perfType, withRating = withFlags.rating)
-        }
       })
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))

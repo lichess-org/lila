@@ -78,7 +78,11 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
 
-  def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(IntRating, IntRating)]] =
+  def progresses(
+      users: List[User.WithPerfs],
+      perfType: PerfType,
+      days: Int
+  ): Fu[List[(IntRating, IntRating)]] =
     withColl(
       _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
@@ -106,7 +110,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
     private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating"):
       _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
-        userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
+        userRepo.withPerfs(userId) orFail s"No such user: $userId" flatMap { user =>
           val currentRating = user.perfs(perf).intRating
           val firstDay      = daysBetween(user.createdAt, nowInstant minusWeeks 1)
           val days          = firstDay to (firstDay + 6) toList

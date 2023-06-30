@@ -25,6 +25,7 @@ final class Env(
     mongoCacheApi: lila.memo.MongoCache.Api,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     mongo: lila.db.Env
 )(using
     ec: Executor,

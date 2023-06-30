@@ -41,7 +41,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
         "id"       -> u.id,
         "username" -> u.username,
         "perfs" -> perfs.fold(Json.obj()): p =>
-          perfsJson(u.withPerfs(p), onlyPerf)
+          perfsJson(User.WithPerfs(u, p), onlyPerf)
       )
       .add("title" -> u.title)
       .add("tosViolation" -> u.lame)
