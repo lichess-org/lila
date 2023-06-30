@@ -10,6 +10,7 @@ import shogi.Handicap
 
 import lila.common.{ IpAddress, Maths }
 import lila.common.Json._
+import lila.game.FairyConversion.Kyoto
 import lila.fishnet.{ Work => W }
 import lila.tree.Eval.JsonHandlers._
 import lila.tree.Eval.{ Cp, Mate }
@@ -32,65 +33,6 @@ object JsonApi {
         ip,
         DateTime.now
       )
-  }
-
-  object Kyoto {
-    private val kyotoBoardMap: Map[Char, String] = Map(
-      'g' -> "+n",
-      'G' -> "+N",
-      't' -> "+l",
-      'T' -> "+L",
-      'b' -> "+s",
-      'B' -> "+S",
-      'r' -> "+p",
-      'R' -> "+P"
-    )
-    private val kyotoHandsMap: Map[Char, Char] = Map(
-      'g' -> 'n',
-      'G' -> 'N',
-      't' -> 'l',
-      'T' -> 'L'
-    )
-    private val dropRoles: Map[String, Char] = kyotoBoardMap.map { case (k, v) => (v, k) } toMap
-
-    def fairySfen(sfen: Sfen): Sfen =
-      Sfen(
-        List(
-          sfen.boardString.fold("") { _.flatMap(c => kyotoBoardMap.getOrElse(c, c.toString)) },
-          sfen.color.map(_.letter.toString) | "b",
-          sfen.handsString.fold("-") { _.map(c => kyotoHandsMap.getOrElse(c, c)) }
-        ).mkString(" ")
-      )
-
-    def lishogiToFairy(usiWithRole: Usi.WithRole): String = {
-      val usi        = usiWithRole.usi
-      val usiStr     = usi.usi
-      val roleLetter = usiWithRole.role.name.head.toUpper
-      usi match {
-        case move: Usi.Move =>
-          if (move.promotion && kyotoBoardMap.contains(roleLetter))
-            usiStr.replace("+", "-")
-          else usiStr
-        case _: Usi.Drop =>
-          kyotoBoardMap.get(roleLetter).fold(usiStr) { c =>
-            s"$c${usiStr.drop(1)}"
-          }
-      }
-    }
-
-    def fairyToLishogi(str: String): String =
-      if (str.startsWith("+")) dropRoles.get(str.take(2)).fold(str) { roleChar =>
-        s"$roleChar${str.drop(2)}"
-      }
-      else if (str.endsWith("-")) str.replace('-', '+')
-      else str
-
-    def readFairy(move: String): Option[Usi] =
-      Usi(fairyToLishogi(move))
-
-    def readFairyList(moves: String): Option[List[Usi]] =
-      Usi.readList(moves.split(' ').map(fairyToLishogi).mkString(" "))
-
   }
 
   object Request {
@@ -138,7 +80,7 @@ object JsonApi {
 
     case class MoveResult(bestmove: String) {
       def usi(variant: Variant): Option[Usi] = {
-        if (variant.kyotoshogi) Kyoto.readFairy(bestmove)
+        if (variant.kyotoshogi) Kyoto.readFairyUsi(bestmove)
         else Usi(bestmove).orElse(UciToUsi(bestmove))
       }
     }
@@ -233,22 +175,13 @@ object JsonApi {
         moves = g.moves
       )
 
-  private def kyotoFromGame(g: W.Game) = {
-    val sfen = g.initialSfen | g.variant.initialSfen
+  private def kyotoFromGame(g: W.Game) =
     Game(
       game_id = if (g.studyId.isDefined) "" else g.id,
-      position = Kyoto.fairySfen(sfen),
+      position = Kyoto.makeFairySfen(g.initialSfen | g.variant.initialSfen),
       variant = g.variant,
-      moves = (shogi.Replay
-        .usiWithRoleWhilePossible(
-          g.usiList,
-          g.initialSfen,
-          g.variant
-        )
-        .map(Kyoto.lishogiToFairy))
-        .mkString(" ")
+      moves = Kyoto.makeFairyUsiList(g.usiList, g.initialSfen).mkString(" ")
     )
-  }
 
   sealed trait Work {
     val id: String
@@ -294,7 +227,7 @@ object JsonApi {
     implicit val PostMoveReads      = Json.reads[Request.PostMove]
     implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
     implicit val usiListReads = Reads.of[String] map { str =>
-      ~(Usi.readList(str).orElse(UciToUsi.readList(str)).orElse(Kyoto.readFairyList(str)))
+      ~(Usi.readList(str).orElse(UciToUsi.readList(str)).orElse(Kyoto.readFairyUsiList(str)))
     }
 
     implicit val EvaluationReads: Reads[Request.Evaluation] = (

@@ -5,6 +5,7 @@ import scala.concurrent.Promise
 
 import shogi.format.usi.{ UciToUsi, Usi }
 import lila.common.Bus
+import lila.game.FairyConversion.Kyoto
 import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
@@ -25,17 +26,20 @@ final class BotPlayer(
 
   def apply(pov: Pov, me: User, usiStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
-      Usi(usiStr).orElse(UciToUsi(usiStr)).fold(clientError[Unit](s"Invalid USI: $usiStr")) { usi =>
-        lila.mon.bot.moves(me.username).increment()
-        if (!pov.isMyTurn) clientError("Not your turn, or game already over")
-        else {
-          val promise = Promise[Unit]()
-          if (pov.player.isOfferingDraw && (offeringDraw contains false)) declineDraw(pov)
-          else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
-          tellRound(pov.gameId, BotPlay(pov.playerId, usi, promise.some))
-          promise.future
+      Usi(usiStr)
+        .orElse(UciToUsi(usiStr))
+        .orElse(Kyoto.readFairyUsi(usiStr))
+        .fold(clientError[Unit](s"Invalid USI: $usiStr")) { usi =>
+          lila.mon.bot.moves(me.username).increment()
+          if (!pov.isMyTurn) clientError("Not your turn, or game already over")
+          else {
+            val promise = Promise[Unit]()
+            if (pov.player.isOfferingDraw && (offeringDraw contains false)) declineDraw(pov)
+            else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
+            tellRound(pov.gameId, BotPlay(pov.playerId, usi, promise.some))
+            promise.future
+          }
         }
-      }
     }
 
   def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) =

@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.common.Json.jodaWrites
+import lila.game.FairyConversion.Kyoto
 import lila.game.JsonView._
 import lila.game.{ Game, GameRepo, Pov }
 
@@ -39,6 +40,11 @@ final class BotJsonView(
         "initialSfen" -> game.initialSfen.fold("startpos")(_.value),
         "initialFen"  -> game.initialSfen.fold("startpos")(_.value) // backwards support
       )
+      .add(
+        "fairyInitialSfen" -> (game.variant.kyotoshogi option game.initialSfen.fold("startpos")(sfen =>
+          Kyoto.makeFairySfen(sfen).value
+        ))
+      )
       .add("tournamentId" -> game.tournamentId)
   }
 
@@ -55,6 +61,11 @@ final class BotJsonView(
         "sdraw"  -> game.sentePlayer.isOfferingDraw,
         "gdraw"  -> game.gotePlayer.isOfferingDraw,
         "status" -> game.status.name
+      )
+      .add(
+        "fairyMoves" -> (game.variant.kyotoshogi option Kyoto
+          .makeFairyUsiList(game.usiMoves, game.initialSfen)
+          .mkString(" "))
       )
       .add("winner" -> game.winnerColor)
       .add("rematch" -> rematches.of(game.id))
