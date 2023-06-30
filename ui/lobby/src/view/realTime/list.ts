@@ -18,7 +18,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
         title: hook.disabled
           ? ''
           : hook.action === 'join'
-          ? noarg('joinTheGame') + ' | ' + capitalize(noarg((hook.perf || '') as I18nKey))
+          ? noarg('joinTheGame') + ' | ' + capitalize(noarg((hook.perf || hook.variant) as I18nKey))
           : noarg('cancel'),
         'data-id': hook.id,
       },
@@ -39,7 +39,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       h(
         'span',
         {
-          attrs: { ...(hook.perf ? { 'data-icon': getPerfIcon(hook.perf) } : null) },
+          attrs: { 'data-icon': getPerfIcon(hook.perf || hook.variant) },
         },
         noarg(hook.ra ? 'rated' : 'casual')
       ),

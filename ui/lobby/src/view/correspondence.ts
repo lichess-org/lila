@@ -16,7 +16,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       attrs: {
         title:
           seek.action === 'joinSeek'
-            ? noarg('joinTheGame') + ' - ' + capitalize(noarg((seek.perf || '') as I18nKey))
+            ? `${noarg('joinTheGame')} - ${capitalize(noarg(seek.variant))} - ${noarg('correspondence')}`
             : noarg('cancel'),
         'data-id': seek.id,
       },
@@ -36,7 +36,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       seek.days ? ctrl.trans.plural('nbDays', seek.days) : '∞',
       h('span', [
         h('span.varicon', {
-          attrs: { ...(seek.perf ? { 'data-icon': getPerfIcon(seek.perf) } : null) },
+          attrs: { 'data-icon': getPerfIcon(seek.perf || seek.variant) },
         }),
         noarg(seek.mode === 1 ? 'rated' : 'casual'),
       ]),

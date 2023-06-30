@@ -22,6 +22,7 @@ function timer(pov) {
 
 export default function (ctrl: LobbyController) {
   if (ctrl.data.nowPlaying.some(pov => pov.variant.key === 'chushogi')) window.lishogi.loadChushogiPieceSprite();
+  if (ctrl.data.nowPlaying.some(pov => pov.variant.key === 'kyotoshogi')) window.lishogi.loadKyotoshogiPieceSprite();
   return h(
     'div.now-playing',
     ctrl.data.nowPlaying.map(function (pov) {

@@ -32,8 +32,8 @@ export interface Seek {
   rating: number;
   mode: number;
   color?: Color;
-  perf?: Perf;
   days?: number;
+  perf?: Perf;
   provisional?: boolean;
   variant: VariantKey;
   action: 'joinSeek' | 'cancelSeek';
