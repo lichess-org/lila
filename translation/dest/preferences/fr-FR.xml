@@ -4,6 +4,7 @@
 	<string name="gameDisplay">Affichage de la partie</string>
 	<string name="boardLayout">tableau de bord</string>
 	<string name="clearHands">Cacher les pièces invisibles à la main</string>
+	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">Animation des pièces</string>
 	<string name="materialDifference">Différence de matériel</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

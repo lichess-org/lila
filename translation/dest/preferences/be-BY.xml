@@ -4,6 +4,7 @@
 	<string name="gameDisplay">Выгляд дошкі</string>
 	<string name="boardLayout">Расклад дошкі</string>
 	<string name="clearHands">Схаваць фігуры, калі яны на руцэ</string>
+	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">Анімацыя фігур</string>
 	<string name="materialDifference">Паказваць розніцу ў фігурах</string>
 	<string name="boardHighlightsLastDests">Дошка паказвае — апошні ход/скід</string>

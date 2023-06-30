@@ -4,6 +4,7 @@
 	<string name="gameDisplay">Schermata di gioco</string>
 	<string name="boardLayout">Layout di tastiera</string>
 	<string name="clearHands">Nascondi i fantasmi dei pezzi in mano</string>
+	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">Animazione dei pezzi</string>
 	<string name="materialDifference">Differenza di materiale</string>
 	<string name="boardHighlightsLastDests">Evidenziazione sulla scacchiera - ultima mossa / piazzamento</string>

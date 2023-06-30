@@ -4,6 +4,7 @@
 	<string name="gameDisplay">表示設定</string>
 	<string name="boardLayout">盤面のレイアウト</string>
 	<string name="clearHands">持ち駒にある駒の影を隠す</string>
+	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">駒のアニメーション速度</string>
 	<string name="materialDifference">駒の損得</string>
 	<string name="boardHighlightsLastDests">盤面のハイライト - 最後の指し手</string>

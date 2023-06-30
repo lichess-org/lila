@@ -14,21 +14,21 @@
 	<string name="toggleTheChat">Pokaż/ukryj rozmowy</string>
 	<string name="toggleSound">Włącz/wyłącz dźwięk</string>
 	<string name="chat">Czat</string>
-	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Strona</string>
 	<string name="resign">Poddaj się</string>
 	<string name="checkmate">Mat</string>
 	<string name="stalemate">Pat</string>
 	<string name="impasse">Impas</string>
-	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Powtórzenie</string>
 	<string name="perpetualCheck">Wieczny szach</string>
 	<string name="royalsLost" comment="Used in chushogi">Wszystkie królewskie bierki stracone</string>
 	<string name="bareKing" comment="Used in chushogi">Ogołocony król</string>
 	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
 	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
-	<string name="xWon" comment="Example: Player won!">%s won!</string>
-	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
-	<string name="gameWasDraw">Game was a draw!</string>
-	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
+	<string name="xWon" comment="Example: Player won!">%s wygrywa!</string>
+	<string name="xLost" comment="Example: Player lost!">%s przegrywa!</string>
+	<string name="gameWasDraw">Partia zakończona remisem!</string>
+	<string name="winnerIsNotYetDecided">Zwycięzca jeszcze nie został wyłoniony.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Białe</string>
 	<string name="white" comment="Alternative to gote">Białe</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Czarne</string>
@@ -68,12 +68,12 @@
 	<string name="computerAnalysis">Analiza komputerowa</string>
 	<string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
 	<string name="analysis">Analiza partii</string>
-	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
+	<string name="analysisDescription">Analizuj pozycje i warianty na interaktywnej szachownicy shogi</string>
 	<string name="depthX">Głębokość %s</string>
 	<string name="usingServerAnalysis">Analiza zdalna</string>
 	<string name="loadingEngine">Wczytywanie silnika...</string>
 	<string name="cloudAnalysis">Analiza w chmurze</string>
-	<string name="localAnalysis">Local analysis</string>
+	<string name="localAnalysis">Analiza lokalna</string>
 	<string name="goDeeper" comment="Engine depth">Analizuj głębiej</string>
 	<string name="showThreat">Pokaż zagrożenia</string>
 	<string name="inLocalBrowser">w przeglądarce</string>
@@ -203,7 +203,7 @@
 	<string name="changeEmail">Zmień adres e-mail</string>
 	<string name="email">E-mail</string>
 	<string name="passwordReset">Resetuj hasło</string>
-	<string name="loginByEmail">Log in by email</string>
+	<string name="loginByEmail">Logowanie przez e-mail</string>
 	<string name="forgotPassword">Zapomniałeś hasła?</string>
 	<string name="rank">Miejsce</string>
 	<string name="rankX">Miejsce: %s</string>
@@ -248,11 +248,11 @@
 	<string name="chushogi">Chushogi</string>
 	<string name="annanshogi">Annan shogi</string>
 	<string name="kyotoshogi">Kyoto shogi</string>
-	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standard rules of shogi</string>
-	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Same rules as standard shogi, but played on a smaller 5x5 board</string>
-	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">The most popular historical variant of shogi played on a 12x12 board</string>
-	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Modern variant of shogi with alternating unique promotions on a 5x5 board</string>
-	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variant similar to standard shogi, where pieces move like friendly pieces behind them</string>
+	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standardowe zasady shogi</string>
+	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Takie same zasady, jak standardowe shogi, tylko grane na mniejszej szachownicy 5×5.</string>
+	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Najpopularniejszy historyczny wariant shogi, grany na szachownicy 12×12.</string>
+	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Współczesny wariant shogi z naprzemiennymi unikalnymi promocjami na szachownicy 5×5.</string>
+	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Wariant podobny do standardowego shogi, gdzie bierki poruszają się jak sojusznicze bierki za nimi.</string>
 	<string name="unlimited">Bez limitu</string>
 	<string name="mode">Rodzaj</string>
 	<string name="casual">Towarzyska</string>
@@ -337,7 +337,7 @@
 	<string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
 	<string name="bookmarkThisGame">Dodaj do ulubionych</string>
 	<string name="tournament">Turniej</string>
-	<string name="tournamentLeaderboard">Tournament leaderboard</string>
+	<string name="tournamentLeaderboard">Tabela wyników turnieju</string>
 	<string name="tournaments">Turnieje</string>
 	<string name="tournamentPoints">Punkty turniejowe</string>
 	<plurals name="nbTournamentPoints">
@@ -401,9 +401,9 @@
 	<string name="apply">Zastosuj</string>
 	<string name="save">Zapisz</string>
 	<string name="leaderboard">Najlepsi gracze</string>
-	<string name="leaderboards">Leaderboards</string>
-	<string name="bestPlayersInVariousCategories">Best players in various categories</string>
-	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Top %1$s best players in %2$s, sorted by rating</string>
+	<string name="leaderboards">Tabele wyników</string>
+	<string name="bestPlayersInVariousCategories">Najlepsi gracze w różnych kategoriach</string>
+	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">%1$s najlepszych graczy %2$s posortowanych po rankingu</string>
 	<string name="selectHandicap">Wybierz fory</string>
 	<string name="pasteTheSfenStringHere">Wklej tutaj pozycję w formacie SFEN</string>
 	<string name="pasteTheKifCsaStringHere">Wklej KIF lub CSA tutaj</string>
@@ -508,7 +508,7 @@
 	<string name="averageOpponent">Średni ranking przeciwnika</string>
 	<string name="membersOnly">Tylko dla zarejestrowanych</string>
 	<string name="boardEditor">Edytor pozycji</string>
-	<string name="editorDescription">Load shogi positions or create your own shogi position on a shogi board editor</string>
+	<string name="editorDescription">Wczytaj pozycje lub stwórz własne pozycje w edytorze pozycji shogi.</string>
 	<string name="setTheBoard">Ustaw szachownicę</string>
 	<string name="popularOpenings">Popularne otwarcia</string>
 	<string name="handicaps">Fory</string>
@@ -537,7 +537,7 @@
 	<string name="watchLishogiTVDescription">Sit back, relax, and watch the best Lishogi players compete on Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Poprzednio w Lishogi TV</string>
 	<string name="onlinePlayers">Gracze online</string>
-	<string name="onlineBots">Online bots</string>
+	<string name="onlineBots">Boty online</string>
 	<string name="activeToday">Aktywni dzisiaj</string>
 	<string name="activePlayers">Aktywni gracze</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Miej na uwadze, że partia jest rankingowa, ale nie ma limitu czasu!</string>
@@ -599,8 +599,8 @@
 	<string name="questionsAndAnswers">Pytania i odpowiedzi</string>
 	<string name="notes">Notatki</string>
 	<string name="typePrivateNotesHere">Pisz tutaj notatki prywatne</string>
-	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
-	<string name="noNoteYet">No note yet</string>
+	<string name="writeAPrivateNoteAboutThisUser">Napisz prywatką notatkę o tym użytkowniku</string>
+	<string name="noNoteYet">Brak notatek</string>
 	<string name="invalidUsernameOrPassword">Niepoprawne nazwa użytkownika lub hasło</string>
 	<string name="incorrectPassword">Nieprawidłowe hasło</string>
 	<string name="invalidAuthenticationCode">Nieprawidłowy kod uwierzytelniający</string>
@@ -658,7 +658,7 @@
 	</plurals>
 	<string name="listBlockedPlayers">Lista zablokowanych przez Ciebie graczy</string>
 	<string name="human">Człowiek</string>
-	<string name="bots">Bots</string>
+	<string name="bots">Boty</string>
 	<string name="computer">Komputer</string>
 	<string name="side">Z boku</string>
 	<string name="clock">Zegar</string>
@@ -995,21 +995,21 @@
 	<string name="welcomeToX">Welcome to %s!</string>
 	<string name="whatNow">What now?</string>
 	<string name="hereAreSuggestions">Here are a few suggestions:</string>
-	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="hangOn" comment="Meaning: wait!">Zaczekaj!</string>
 	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
 	<string name="or" comment="links alternatives: Do X or do Y">or</string>
 	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
-	<string name="challengeDeclined">Challenge declined</string>
-	<string name="challengeAccepted">Challenge accepted</string>
-	<string name="challengeCanceled">Challenge canceled</string>
-	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
-	<string name="challengeDescription">Join the challenge or watch the game</string>
-	<string name="challengeFromX" comment="From username">Challenge from %s</string>
-	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
+	<string name="challengeDeclined">Wyzwanie odrzucone</string>
+	<string name="challengeAccepted">Wyzwanie zaakceptowane</string>
+	<string name="challengeCanceled">Wyzwanie anulowane</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Otwarte wyzwanie</string>
+	<string name="challengeDescription">Dołącz do wyzwania lub obserwuj grę</string>
+	<string name="challengeFromX" comment="From username">Wyzwanie od %s</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s rzuca wyzwanie %2$s</string>
 	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
 	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
-	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
-	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
-	<string name="back" comment="As in: go back">Back</string>
-	<string name="preview">Preview</string>
+	<string name="clickGame">Kliknij, aby odtworzyć, analizować i omówić partię!</string>
+	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analizuj</string>
+	<string name="back" comment="As in: go back">Wstecz</string>
+	<string name="preview">Podgląd</string>
 </resources>

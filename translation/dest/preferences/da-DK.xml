@@ -4,6 +4,7 @@
 	<string name="gameDisplay">Skakspillets udseende</string>
 	<string name="boardLayout">Board layout</string>
 	<string name="clearHands">Hide ghosts of pieces in hand</string>
+	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">Animation af brikkerne</string>
 	<string name="materialDifference">Materialeforskel</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

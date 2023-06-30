@@ -4,6 +4,7 @@
 	<string name="gameDisplay">棋局顯示</string>
 	<string name="boardLayout">Board layout</string>
 	<string name="clearHands">Hide ghosts of pieces in hand</string>
+	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">棋子動畫</string>
 	<string name="materialDifference">子力差距</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>

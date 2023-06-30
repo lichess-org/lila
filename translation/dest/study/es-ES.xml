@@ -9,7 +9,7 @@
   <string name="whatAreStudies">¿Qué son los estudios?</string>
   <string name="allStudies">Todos los estudios</string>
   <string name="studiesCreatedByX">Estudios creados por %s</string>
-  <string name="studyByX" comment="By username">A shogi study by %s</string>
+  <string name="studyByX" comment="By username">Un estudio de shogi hecho por %s</string>
   <string name="noneYet">Ninguno por ahora.</string>
   <string name="hot">De interés actualmente</string>
   <string name="dateAddedNewest">Fecha (más recientes)</string>
@@ -126,11 +126,11 @@
   <string name="deleteStudy">Borrar estudio</string>
   <string name="deleteTheEntireStudy">¿Realmente quieres borrar todo el estudio? ¡Esta acción no se puede deshacer!</string>
   <string name="whereDoYouWantToStudyThat">¿Dónde quieres estudiar eso?</string>
-  <string name="studyTopics">Study topics</string>
-  <string name="topicsDescription">Topics to organize your studies with</string>
-  <string name="myTopics">My topics</string>
-  <string name="popularTopics">Popular topics</string>
-  <string name="manageTopics">Manage topics</string>
+  <string name="studyTopics">Temas de estudio</string>
+  <string name="topicsDescription">Temas con los que organizar tus estudios</string>
+  <string name="myTopics">Mis temas</string>
+  <string name="popularTopics">Temas populares</string>
+  <string name="manageTopics">Gestionar temas</string>
   <string name="startTag" comment="Tags for kif and csa">Comenzar</string>
   <string name="endTag" comment="Tags for kif and csa">Finalizar</string>
   <string name="siteTag" comment="Tags for kif and csa">Lugar</string>
@@ -139,7 +139,7 @@
   <string name="xEloTag" comment="Tags for kif and csa; Sente/Gote">%s Elo</string>
   <string name="xTitleTag" comment="Tags for kif and csa; Sente/Gote">%s título</string>
   <string name="xTeamTag" comment="Tags for kif and csa; Sente/Gote">%s equipo</string>
-  <string name="openingTag" comment="Tags for kif and csa">Opening</string>
+  <string name="openingTag" comment="Tags for kif and csa">Apertura</string>
   <string name="resultTag" comment="Tags for kif and csa">Resultado</string>
   <string name="problemNameTag" comment="Tags for kif and csa">Nombre del problema</string>
   <string name="problemIdTag" comment="Tags for kif and csa">ID del problema</string>
@@ -149,7 +149,7 @@
   <string name="collectionTag" comment="Tags for kif and csa">Colección</string>
   <string name="lengthTag" comment="Tags for kif and csa">Longitud</string>
   <string name="prizeTag" comment="Tags for kif and csa">Premio</string>
-  <string name="initHelp" comment="Interactive study lesson">Help the player find the initial move, with a comment.</string>
+  <string name="initHelp" comment="Interactive study lesson">Ayuda al jugador a encontrar el movimiento inicial, con un comentario.</string>
   <string name="introGamebook" comment="Interactive study lesson">Introduce the gamebook with a comment</string>
   <string name="putFirstMove" comment="Interactive study lesson">Put the opponent\'s first move on the board.</string>
   <string name="explainMove" comment="Interactive study lesson">Explain the opponent move, and help the player find the next move, with a comment.</string>

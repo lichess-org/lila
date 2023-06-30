@@ -4,6 +4,7 @@
 	<string name="gameDisplay">Widok partii</string>
 	<string name="boardLayout">Układ szachownicy</string>
 	<string name="clearHands">Ukryj podgląd nieobecnych bierek w ręce</string>
+	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">Animacja ruchu bierek</string>
 	<string name="materialDifference">Przewaga materialna</string>
 	<string name="boardHighlightsLastDests">Wyróżnienie pól szachownicy – ostatni ruch/wstawienie</string>
@@ -12,7 +13,7 @@
 	<string name="dropDestinations">Pola docelowe (zrzutki poprawne i planowane)</string>
 	<string name="boardCoordinates">Współrzędne pól</string>
 	<string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
-	<string name="colorName">Name used for individual players</string>
+	<string name="colorName">Nazwy dla grających stron</string>
 	<string name="displayTouchSquareOverlay">Podświetlenie pól na urządzeniach dotykowych</string>
 	<string name="zenMode">Tryb Zen</string>
 	<string name="displayBoardResizeHandle">Uchwyt zmiany rozmiaru szachownicy</string>
@@ -43,6 +44,6 @@
 	<string name="westernNotation">Notacja zachodnia</string>
 	<string name="japaneseNotation">Notacja japońska</string>
 	<string name="kitaoKawasakiNotation">Notacja Kitao-Kawasaki</string>
-	<string name="kifNotation">Kif notation</string>
+	<string name="kifNotation">Notacja KIF</string>
 	<string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
 </resources>

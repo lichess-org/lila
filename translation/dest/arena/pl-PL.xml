@@ -43,11 +43,11 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="noBerserkAllowed">No Berserk allowed</string>
   <string name="noArenaStreaks">No Arena streaks</string>
   <string name="averagePerformance">Average performance</string>
-  <string name="averageScore">Average score</string>
+  <string name="averageScore">Średni wynik</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">View the team</item>
-    <item quantity="few">View all %s teams</item>
-    <item quantity="many">View all %s teams</item>
-    <item quantity="other">View all %s teams</item>
+    <item quantity="one">Zobacz zespół</item>
+    <item quantity="few">Zobacz wszystkie %s zespoły</item>
+    <item quantity="many">Zobacz wszystkie %s zespołów</item>
+    <item quantity="other">Zobacz wszystkie %s zespołów</item>
   </plurals>
 </resources>
