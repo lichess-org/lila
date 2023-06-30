@@ -95,7 +95,6 @@ function whatNext(ctrl: LearnCtrl) {
         : makeStage('/signup', 'beams-aura', 'register', 'getAFreeLishogiAccount'),
       makeStage('/resources', 'king', 'shogiResources', 'curatedShogiResources'),
       makeStage('/training', 'bullseye', 'puzzles', 'exerciseYourTacticalSkills'),
-      makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveShogiVideos'),
       makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
       makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
     ]),

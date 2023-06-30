@@ -101,22 +101,18 @@ function renderCompleted(ctrl: LearnCtrl) {
 
 function renderInfo(ctrl: LearnCtrl) {
   if (!ctrl.vm?.level.text) return null;
-  return h('div.info-text', [
-    h('div', [
-      h(
-        'a.nextOne',
-        {
-          on: {
-            click: e => {
-              e.stopPropagation();
-              ctrl.completeLevel();
-            },
-          },
+  return h(
+    'a.info-text',
+    {
+      on: {
+        click: e => {
+          e.stopPropagation();
+          ctrl.completeLevel();
         },
-        [ctrl.trans.noarg(ctrl.vm.level.text)]
-      ),
-    ]),
-  ]);
+      },
+    },
+    ctrl.trans.noarg(ctrl.vm.level.text)
+  );
 }
 
 function shogigroundBoard(ctrl: LearnCtrl): VNode {
