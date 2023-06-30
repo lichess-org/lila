@@ -47,8 +47,9 @@ final private[tv] class TvTrouper(
 
     case lila.game.actorApi.StartGame(g) =>
       if (g.hasClock) {
-        val nbOfBots  = g.userIds.count(lightUserApi.isBotSync)
-        val candidate = Tv.Candidate(g, hasBot = nbOfBots > 0, hasHuman = nbOfBots == 0 || (nbOfBots == 1 && !g.hasAi))
+        val nbOfBots = g.userIds.count(lightUserApi.isBotSync)
+        val candidate =
+          Tv.Candidate(g, hasBot = nbOfBots > 0, hasHuman = nbOfBots == 0 || (nbOfBots == 1 && !g.hasAi))
         channelTroupers collect {
           case (chan, trouper) if chan.filter(candidate) => trouper
         } foreach (_ addCandidate g)

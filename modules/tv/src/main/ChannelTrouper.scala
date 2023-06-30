@@ -105,14 +105,13 @@ final private[tv] class ChannelTrouper(
 
   // prefer faster games - better for watching
   private def speedHeuristic: Heuristic =
-    game => ~game.estimateClockTotalTime.map(ct => ((1000 - ct) / 5) atLeast 0)
+    game => ~game.estimateClockTotalTime.map(ct => ((1000 - ct) / 5) atLeast 0) + (!game.olderThan(30) ?? 500)
 
-  //
   private def sourceHeuristic: Heuristic =
     game => {
       if (game.source.contains(lila.game.Source.Api)) 0
       else if (game.source.contains(lila.game.Source.Ai)) 125
-      else if (game.source.contains(lila.game.Source.Friend)) 250
+      else if (game.source.contains(lila.game.Source.Friend)) 250 // bots
       else 1000
     }
 
