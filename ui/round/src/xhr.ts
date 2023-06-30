@@ -3,7 +3,12 @@ import { throttlePromiseDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import { RoundData } from './interfaces';
 
-export const reload = (ctrl: RoundController): Promise<RoundData> => xhr.json(ctrl.data.url.round);
+export const reload = (ctrl: RoundController): Promise<RoundData> => {
+  const url = ctrl.data.player.spectator
+    ? `/${ctrl.data.game.id}/${ctrl.data.player.color}`
+    : `/${ctrl.data.game.id}${ctrl.data.player.id}`;
+  return xhr.json(url);
+};
 
 export const setPreference = (key: string, value: string): Promise<string> =>
   xhr.text(`/pref/${key}`, { method: 'post', body: xhr.form({ [key]: value }) });
