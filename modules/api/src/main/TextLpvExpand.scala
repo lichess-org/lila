@@ -22,34 +22,46 @@ final class TextLpvExpand(
   def getPgn(id: GameId)                = gamePgnCache get id
   def getChapterPgn(id: StudyChapterId) = chapterPgnCache get id
 
-  // forum linkRenderFromText builds a LinkRender from relative game urls -> lpv div tags.
+  // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
-  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
-    regex.linkRenderRe
+  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] = for
+    gameMatches <- regex.gameLinkRenderRe
       .findAllMatchIn(text)
       .toList
       .flatMap: m =>
-        Option(m.group(2)) filter { id =>
-          !notGames(id)
-        } map (m.group(1) -> _)
+        Option(m.group(2)).filter(id => !notGames(id)).map(m.group(1) -> _)
       .map: (matched, id) =>
         gamePgnCache.get(GameId(id)) map2 { matched -> _ }
       .parallel
       .map(_.flatten.toMap)
-      .map { matches => (url, _) =>
-        matches
-          .get(url)
-          .map: pgn =>
-            div(
-              cls                      := "lpv--autostart is2d",
-              attr("data-pgn")         := pgn.toString,
-              attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
-              attr("data-ply")         := plyRe.findFirstIn(url).fold("last")(_.substring(1))
-            )
-      }
+    chapterMatches <- regex.chapterLinkRenderRe
+      .findAllMatchIn(text)
+      .toList
+      .flatMap: m =>
+        Option(m.group(2)).filter(id => !notGames(id)).map(m.group(1) -> _)
+      .map: (matched, id) =>
+        chapterPgnCache.get(StudyChapterId(id)) map2 { matched -> _ }
+      .parallel
+      .map(_.flatten.toMap)
+    allMatches = gameMatches ++ chapterMatches
+  yield (url, _) =>
+    allMatches
+      .get(url)
+      .map: pgn =>
+        div(
+          cls              := "lpv--autostart is2d",
+          attr("data-pgn") := pgn.toString,
+          attr("data-ply") := plyRe.findFirstIn(url).fold("last")(_.substring(1)),
+          (url contains "/black").option(attr("data-orientation") := "black")
+        )
 
-  // used by blogs & ublogs to build game id -> pgn maps but the
-  // substitution happens in blog/BlogApi (blogs) and common/MarkdownRender for ublogs
+  // used by blogs & ublogs to build game|chapter id -> pgn maps
+  // the substitution happens later in blog/BlogApi or common/MarkdownRender
+  def allPgnsFromText(text: String): Fu[Map[String, PgnStr]] =
+    gamePgnsFromText(text) zip chapterPgnsFromText(text) map { (g, c) =>
+      g.mapKeys(_.value) ++ c.mapKeys(_.value)
+    }
+
   private def gamePgnsFromText(text: String): Fu[Map[GameId, PgnStr]] =
     val gameIds = GameId from
       regex.gamePgnsRe
@@ -61,8 +73,6 @@ final class TextLpvExpand(
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
 
-  // used by blogs & ublogs to build chapter id -> pgn maps but the
-  // substitution happens in blog/BlogApi (blogs) and common/MarkdownRender for ublogs
   private def chapterPgnsFromText(text: String): Fu[Map[StudyChapterId, PgnStr]] =
     val chapterIds = StudyChapterId from
       regex.chapterPgnsRe
@@ -72,11 +82,6 @@ final class TextLpvExpand(
         .distinct
     chapterPgnCache getAll chapterIds map {
       _.collect { case (chapterId, Some(pgn)) => chapterId -> pgn }
-    }
-
-  def allPgnsFromText(text: String): Fu[Map[String, PgnStr]] =
-    gamePgnsFromText(text) zip chapterPgnsFromText(text) map { (g, c) =>
-      g.mapKeys(_.value) ++ c.mapKeys(_.value)
     }
 
   private val regex = LpvGameRegex(net.domain)
@@ -111,9 +116,11 @@ final class LpvGameRegex(domain: NetDomain):
 
   private val quotedDomain = java.util.regex.Pattern.quote(domain.value)
 
-// linkified forum hrefs are relative but this regex runs pre-linkify, match path & id
-  val linkRenderRe =
+// linkified forum hrefs are relative but these regexes run pre-linkify, match path & id
+  val gameLinkRenderRe =
     raw"(?m)^(?:(?:https?://)?$quotedDomain)?(/(\w{8})(?:/(?:white|black)|\w{4}|)(?:#(?:last|\d+))?)\b".r
+  val chapterLinkRenderRe =
+    raw"(?m)^(?:(?:https?://)?$quotedDomain)?(/study/(?:embed/)?(?:\w{8})/(\w{8})(?:(#|\b)))\b".r
 
 // for blogs, only allow absolute links and match id
   val gamePgnsRe =
