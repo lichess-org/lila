@@ -318,6 +318,7 @@ object layout {
             s"board-layout-1"                                        -> (ctx.pref.boardLayout != 2),
             "compact-layout"                                         -> (ctx.pref.boardLayout == 1),
             "clear-hands"                                            -> ctx.pref.clearHands,
+            "hands-background"                                       -> ctx.pref.handsBackground,
             "no-touch"                                               -> !ctx.pref.squareOverlay,
             "zen"                                                    -> ctx.pref.isZen,
             "blind-mode"                                             -> ctx.blind,

@@ -1604,6 +1604,7 @@ export type I18nKey =
 'gameDisplay'|
 'boardLayout'|
 'clearHands'|
+'handsBackground'|
 'pieceAnimation'|
 'materialDifference'|
 'boardHighlightsLastDests'|

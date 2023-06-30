@@ -143,9 +143,6 @@ sg-hand-wrap {
       height: calc(100% / 9 * 7);
       sg-hand {
         flex-direction: column-reverse;
-        background-image: none;
-        background-color: transparent;
-        border: none;
         sg-hp-wrap {
           width: 100%;
         }
@@ -162,6 +159,16 @@ sg-hand-wrap {
       &.r-4 {
         height: calc(100% / 9 * 4);
       }
+    }
+  }
+}
+
+.board-layout-1:not(.hands-background) {
+  .sg-hand-wrap:not(.inlined) {
+    sg-hand {
+      background-image: none;
+      background-color: transparent;
+      border: none;
     }
   }
 }

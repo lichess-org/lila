@@ -28,6 +28,7 @@ object JsonView {
       "boardLayout"        -> p.boardLayout,
       "animation"          -> p.animation,
       "clearHands"         -> p.clearHands,
+      "handsBackground"    -> p.handsBackground,
       "follow"             -> p.follow,
       "highlightLastDests" -> p.highlightLastDests,
       "highlightCheck"     -> p.highlightCheck,

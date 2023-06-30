@@ -66,6 +66,10 @@ object pref {
               radios(form("display.clearHands"), booleanChoices)
             ),
             setting(
+              handsBackground(),
+              radios(form("display.handsBackground"), booleanChoices)
+            ),
+            setting(
               boardHighlightsLastDests(),
               radios(form("display.highlightLastDests"), booleanChoices)
             ),
