@@ -21,18 +21,19 @@
   $trophy-ratio: 1.1056;
    */
   .first .trophy {
-    height: 150px;
-    width: 195px;
+    height: 9em;
+    width: 9em;
     background-image: img-url('icons/trophy_gold.svg');
     background-size: cover;
   }
   .second .trophy {
-    height: 85px;
-    width: calc(1.1056 * 85px);
+    height: 9em;
+    width: 7em;
     background-image: img-url('icons/trophy_silver.svg');
   }
   .third .trophy {
-    height: 65px;
+    height: 7em;
+    width: 7em;
     width: calc(1.1056 * 65px);
     background-image: img-url('icons/trophy_bronze.svg');
   }
