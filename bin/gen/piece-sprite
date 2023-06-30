@@ -8,27 +8,6 @@ lila_dir = pwd()
 source_dir = lila_dir + '/public/piece/'
 dest_dir = lila_dir + '/public/piece-css/'
 
-kyototokinthemes = [
-  '1Kanji_3D',
-  '2Kanji_3D',
-  'Engraved_cz',
-  'international',
-  'Intl_Colored_2D',
-  'Intl_Colored_3D',
-  'Intl_Monochrome_2D',
-  'Intl_Portella',
-  'Intl_Shadowed',
-  'Intl_Wooden_3D',
-  'kanji_brown',
-  'Kanji_Guide_Shadowed',
-  'kanji_light',
-  'orangain',
-  'Ryoko_1Kanji',
-  'Shogi_cz',
-  'Valdivia',
-  'Vald_opt'
-]
-
 def add_variant_prefix(classes, variant)
   classes.split(',').map { |s| '.variant-' + variant + ' ' + s.strip }.join(', ')
 end
@@ -157,12 +136,7 @@ themes.map { |theme|
         image = image_file.read
         base64 = Base64.strict_encode64(image)
         cls = classes(color, stanRoles[role])
-        (if role == 'TO' && kyototokinthemes.include?(name)
-          tokin = 'k_' + piece
-          add_variant_prefix(cls, 'kyotoshogi') + ' {' +
-          "background-image:url('/assets/piece/" + name + "/" + tokin + "." + ext + "')}\n"
-        else ''
-        end) + cls + ' {' +
+        cls + ' {' +
           "background-image:url('data:image/" + types[ext] + base64 + "')}"
       end
     }
@@ -171,6 +145,7 @@ themes.map { |theme|
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
+  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
@@ -185,12 +160,7 @@ bidirectional.map { |theme|
           image = image_file.read
           base64 = Base64.strict_encode64(image)
           cls = classesWithOrientation(color, stanRoles[role], up.length != 0)
-          (if role == 'TO' && kyototokinthemes.include?(name)
-            tokin = 'k_' + piece
-            add_variant_prefix(cls, 'kyotoshogi') + ' {' +
-            "background-image:url('/assets/piece/" + name + "/" + tokin + "." + ext + "')}\n"
-          else ''
-          end) + cls + ' {' +
+          cls + ' {' +
             "background-image:url('data:image/" + types[ext] + base64 + "')}"
         end
       }
@@ -200,6 +170,7 @@ bidirectional.map { |theme|
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
+  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 
@@ -210,13 +181,8 @@ themes.map { |theme|
   classes = colors.map { |color|
     roles.map { |role|
       piece = (color == 'sente' ? '0' : '1') + role
-      cls = classes(color, stanRoles[role]) 
-      (if role == 'TO' && kyototokinthemes.include?(name)
-        tokin = 'k_' + piece
-        add_variant_prefix(cls, 'kyotoshogi') + ' {' +
-        "background-image:url('/assets/piece/" + name + "/" + tokin + "." + ext + "')}\n"
-      else ''
-      end) + cls + ' {' +
+      cls = classes(color, stanRoles[role])
+      cls + ' {' +
         "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"
     }
   }.flatten
@@ -224,6 +190,7 @@ themes.map { |theme|
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
+  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
@@ -234,12 +201,7 @@ bidirectional.map { |theme|
       roles.map { |role|
         piece = (color == 'sente' ? '0' : '1') + role + up
         cls = classesWithOrientation(color, stanRoles[role], up.length != 0)
-        (if role == 'TO' && kyototokinthemes.include?(name)
-          tokin = 'k_' + piece
-          add_variant_prefix(cls, 'kyotoshogi') + ' {' +
-          "background-image:url('/assets/piece/" + name + "/" + tokin + "." + ext + "')}\n"
-        else ''
-        end) + cls + ' {' +
+        cls + ' {' +
           "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"     
       }
     }
@@ -248,5 +210,6 @@ bidirectional.map { |theme|
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
+  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
