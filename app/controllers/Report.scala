@@ -103,16 +103,19 @@ final class Report(
         else onInquiryStart(inquiry)
 
   def process(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> me ?=>
-    api byId id flatMap {
+    api byId id flatMap:
       _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
         inquiry.isAppeal.so(env.appeal.api.setReadById(inquiry.user)) >>
           api.process(inquiry) >>
           onInquiryAction(inquiry, processed = true)
-    }
   }
 
-  def xfiles(id: UserStr) = Secure(_.SeeReport) { _ ?=> _ ?=>
-    api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
+  def xfiles(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
+    api.moveToXfiles(id) >> {
+      api byId id flatMap:
+        _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
+          onInquiryAction(inquiry)
+    }
   }
 
   def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
