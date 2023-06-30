@@ -28,13 +28,12 @@ object BlogTransform:
     def apply(html: Html): Html = Html {
       PreRegex.replaceAllIn(
         html.value,
-        m => {
+        m =>
           val markdown = m group 1
           val markup = cache.get(
             markdown.hashCode,
             _ => renderer("prismic")(Markdown(markdown.replace("<br>", "\n")))
           )
           Regex.quoteReplacement(markup.value)
-        }
       )
     }

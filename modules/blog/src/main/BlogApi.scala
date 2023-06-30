@@ -6,19 +6,20 @@ import play.api.mvc.RequestHeader
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
-import lila.common.config.MaxPerPage
+import lila.common.config.{ BaseUrl, MaxPerPage }
 import lila.common.paginator.*
-import lila.hub.actorApi.lpv.GamePgnsFromText
+import lila.hub.actorApi.lpv.AllPgnsFromText
 import chess.format.pgn.PgnStr
+import java.util.regex.Pattern
 
 final class BlogApi(
     config: BlogConfig,
+    baseUrl: BaseUrl,
     cacheApi: lila.memo.CacheApi
 )(using Executor, Scheduler, StandaloneWSClient):
 
   import BlogApi.looksLikePrismicId
-
-  private def collection = config.collection
+  import config.collection
 
   def recent(
       api: Api,
@@ -59,7 +60,7 @@ final class BlogApi(
       doc.getHtml("blog.body", prismic.linkResolver) match
         case Some(html) =>
           Bus
-            .ask("lpv")(GamePgnsFromText(html, _))
+            .ask("lpv")(AllPgnsFromText(html, _))
             .map(pgnCache.putAll) inject doc.some
         case _ => fuccess(doc.some)
     }
@@ -100,26 +101,41 @@ final class BlogApi(
       (docs.nonEmpty so all(page + 1)) map (docs ::: _)
     }
 
-  def expand(html: Html) = Html(
-    expandGameRegex.replaceAllIn(
-      html.value,
-      m =>
-        pgnCache.getIfPresent(GameId(m.group(1))).fold(m.matched) { pgn =>
-          val esc   = lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
-          val color = Option(m.group(2)).getOrElse("white")
-          val ply   = Option(m.group(3)).getOrElse("last")
-          s"""<div class="lpv--autostart" data-pgn="$esc" data-orientation="$color" data-ply="$ply"></div>"""
-        }
-    )
+  def expand(html: Html) = html.map(expandGames).map(expandChapters)
+
+  private def expandGames(html: String) = expandGameRegex.replaceAllIn(
+    html,
+    m =>
+      pgnCache.getIfPresent(m.group(1)).fold(m.matched) { pgn =>
+        val esc   = lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
+        val color = Option(m.group(2)).getOrElse("white")
+        val ply   = Option(m.group(3)).getOrElse("last")
+        s"""<div class="lpv--autostart" data-pgn="$esc" data-orientation="$color" data-ply="$ply"></div>"""
+      }
+  )
+
+  private def expandChapters(html: String) = expandChapterRegex.replaceAllIn(
+    html,
+    m =>
+      pgnCache.getIfPresent(m.group(1)).fold(m.matched) { pgn =>
+        val esc = lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
+        val ply = Option(m.group(2)).getOrElse("last")
+        s"""<div class="lpv--autostart" data-pgn="$esc" data-ply="$ply"></div>"""
+      }
   )
 
   // match the entire <a.../> tag with scheme & domain.  href value should be identical to inner text
   private val expandGameRegex =
-    """<a href="https://lichess\.org/(\w{8})(?:/(white|black)|\w{4}|)(?:#(last|\d+))?">https://lichess\.org/[^<]{8,19}+</a>""".r
+    val quotedBaseUrl = Pattern.quote(baseUrl.value)
+    val gameUrlRegex  = quotedBaseUrl + """/(\w{8})(?:/(white|black)|\w{4}|)(?:#(last|\d+))?"""
+    ("<a href=\"" + gameUrlRegex + "\">" + gameUrlRegex + "</a>").r
+  private val expandChapterRegex =
+    val quotedBaseUrl   = Pattern.quote(baseUrl.value)
+    val chapterUrlRegex = quotedBaseUrl + """/study/(?:embed/)?(?:\w{8})/(\w{8})(?:#(last|\d+))?"""
+    ("<a href=\"" + chapterUrlRegex + "\">" + chapterUrlRegex + "</a>").r
 
-  private val pgnCache = cacheApi.notLoadingSync[GameId, PgnStr](256, "prisblog.markup.pgn") {
-    _.expireAfterWrite(1 second).build()
-  }
+  private val pgnCache = cacheApi.notLoadingSync[String, PgnStr](256, "prisblog.markup.pgn"):
+    _.expireAfterWrite(10.seconds).build()
 
   private def resolveRef(api: Api)(ref: Option[String]) =
     ref.map(_.trim).filterNot(_.isEmpty) map { reqRef =>

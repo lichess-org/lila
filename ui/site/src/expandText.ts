@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import { currentTheme } from 'common/theme';
 
-type LinkType = 'youtube' | 'study' | 'twitter';
+type LinkType = 'youtube' | 'twitter';
 
 interface Parsed {
   type: LinkType;
@@ -40,10 +40,6 @@ function toTwitterEmbedUrl(url: string) {
 }
 
 lichess.load.then(() => {
-  const domain = window.location.host,
-    chapterRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b'),
-    studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})(#\\d+)?\\b');
-
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
     if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return;
     const tw = toTwitterEmbedUrl(a.href);
@@ -57,18 +53,6 @@ lichess.load.then(() => {
       return {
         type: 'youtube',
         src: yt,
-      };
-    let matches = a.href.match(chapterRegex);
-    if (matches && matches[2])
-      return {
-        type: 'study',
-        src: `/study/embed/${matches[1]}/${matches[2]}${matches[3] || ''}`,
-      };
-    matches = a.href.match(studyRegex);
-    if (matches && matches[1])
-      return {
-        type: 'study',
-        src: `/study/embed/${matches[1]}/autochap${matches[2] || ''}`,
       };
   }
 
@@ -111,29 +95,6 @@ lichess.load.then(() => {
 
       xhr.script('https://platform.twitter.com/widgets.js');
     }
-  }
-
-  function expandStudy(a: Candidate) {
-    const $iframe: any = $('<iframe>')
-      .addClass('analyse ' + a.type)
-      .attr('src', a.src);
-    $(a.element).replaceWith($('<div class="embed embed--study">').prepend($iframe));
-    return $iframe
-      .on('load', function (this: HTMLIFrameElement) {
-        if (this.contentDocument?.title.startsWith('404')) this.style.height = '100px';
-      })
-      .on('mouseenter', function (this: HTMLElement) {
-        this.focus();
-      });
-  }
-
-  function expandStudies(as: Candidate[], wait = 100) {
-    const a = as.shift();
-    wait = Math.min(1500, wait);
-    if (a)
-      expandStudy(a).on('load', () => {
-        setTimeout(() => expandStudies(as, wait + 200), wait);
-      });
   }
 
   const themes = [
@@ -192,22 +153,5 @@ lichess.load.then(() => {
 
   as.filter(a => a.type === 'twitter').forEach(expandTwitter);
 
-  expandStudies(
-    as
-      .filter(a => a.type === 'study')
-      .map(a => {
-        a.element.classList.add('embedding_analyse');
-        a.element.innerHTML = lichess.spinnerHtml;
-        return a;
-      })
-  );
-
-  expandLpv();
+  if ($('.lpv--autostart').length) lichess.loadEsm('lpv');
 });
-
-const expandLpv = async () => {
-  if ($('.lpv--autostart').length) {
-    lichess.loadCssPath('lpv');
-    await lichess.loadEsm('lpv');
-  }
-};

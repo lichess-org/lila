@@ -34,6 +34,7 @@ import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
 import chess.format.pgn.PgnStr
 import lila.common.config.AssetDomain
+import scala.util.matching.Regex
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -197,10 +198,14 @@ object MarkdownRender:
         )
       )
 
-    private val gameRegex =
-      s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r
-    private val chapterRegex =
-      s"""^(?:https?://)?${expander.domain}/study/(?:embed/)?(?:\\w{8})/(\\w{8})(?:#(last|\\d+))?$$""".r
+    final class PgnRegexes(val game: Regex, val chapter: Regex)
+    def makePgnRegexes(domain: config.NetDomain): PgnRegexes =
+      val quotedDomain = java.util.regex.Pattern.quote(domain.value)
+      PgnRegexes(
+        s"""^(?:https?://)?$quotedDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r,
+        s"""^(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\\w{8})/(\\w{8})(?:#(last|\\d+))?$$""".r
+      )
+    private val pgnRegexes = makePgnRegexes(expander.domain)
 
     private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
       renderLinkNode(node, context, html)
@@ -216,11 +221,11 @@ object MarkdownRender:
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
         def justAsLink() = renderLinkWithBase(node, context, html, link)
         link.getUrl match
-          case gameRegex(id, color, ply) =>
+          case pgnRegexes.game(id, color, ply) =>
             expander
               .getPgn(id)
               .fold(justAsLink())(renderPgnViewer(node, html, link, _, Option(color), Option(ply)))
-          case chapterRegex(id, ply) =>
+          case pgnRegexes.chapter(id, ply) =>
             expander
               .getPgn(id)
               .fold(justAsLink())(renderPgnViewer(node, html, link, _, none, Option(ply)))

@@ -9,7 +9,7 @@
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
     "common": "workspace:*",
-    "lichess-pgn-viewer": "^1.5.6"
+    "lichess-pgn-viewer": "^1.6.0"
   },
   "scripts": {
     "compile": "tsc",

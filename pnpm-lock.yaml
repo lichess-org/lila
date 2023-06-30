@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -275,8 +275,8 @@ importers:
         specifier: workspace:*
         version: link:../@types/lichess
       lichess-pgn-viewer:
-        specifier: ^1.5.6
-        version: 1.5.6
+        specifier: ^1.6.0
+        version: 1.6.0
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -566,8 +566,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^1.5.6
-        version: 1.5.6
+        specifier: ^1.6.0
+        version: 1.6.0
 
   ui/palantir:
     dependencies:
@@ -794,8 +794,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       lichess-pgn-viewer:
-        specifier: ^1.5.7
-        version: 1.5.7
+        specifier: ^1.6.0
+        version: 1.6.0
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -950,8 +950,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: ^1.5.6
-        version: 1.5.6
+        specifier: ^1.6.0
+        version: 1.6.0
 
   ui/voice:
     dependencies:
@@ -5075,17 +5075,8 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lichess-pgn-viewer@1.5.6:
-    resolution: {integrity: sha512-5y7W7oOWQikJkPZv7Cv0bLOw5t6qEz6hs8xJZcc7q97RbNdTPVprMAenxzEoFRU2UaEJaJ3FbDs/DbRmwNQk4A==}
-    dependencies:
-      '@types/node': 18.16.18
-      chessground: 8.3.11
-      chessops: 0.12.7
-      snabbdom: 3.5.1
-    dev: false
-
-  /lichess-pgn-viewer@1.5.7:
-    resolution: {integrity: sha512-NGrMwA6h4SMS/amtDRSXQHrgiqeNmll15WGq4cl+4uZe5MR0wsJxpZUImCb0oJ47NXkZdl3zz4ahX2whENC7Mg==}
+  /lichess-pgn-viewer@1.6.0:
+    resolution: {integrity: sha512-YvG/vVng/MT0Uxe09WYYrFJ7YepwsJ1059A7NosjrysW+xK7r2xXChOJTl1vB0i4v1t8KxepRzSLG3GO4R2DUw==}
     dependencies:
       '@types/node': 18.16.18
       chessground: 8.3.11

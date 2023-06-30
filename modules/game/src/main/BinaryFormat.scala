@@ -60,18 +60,16 @@ object BinaryFormat:
 
     private val decodeMap: Map[Int, MT] = buckets.mapWithIndex((x, i) => i -> x).toMap
 
-    def write(mts: Vector[Centis]): ByteArray = ByteArray {
+    def write(mts: Vector[Centis]): ByteArray = ByteArray:
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
       mts
         .grouped(2)
-        .map {
+        .map:
           case Vector(a, b) => (enc(a) << 4) + enc(b)
           case Vector(a)    => enc(a) << 4
           case v            => sys error s"moveTime.write unexpected $v"
-        }
         .map(_.toByte)
         .toArray
-    }
 
     def read(ba: ByteArray, turns: Ply): Vector[Centis] = Centis from {
       def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
@@ -111,19 +109,16 @@ object BinaryFormat:
             val config      = Clock.Config(clock.readClockLimit(b1), Clock.IncrementSeconds(b2))
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
+            val players = ByColor((whiteBerserk, legacyWhite), (blackBerserk, legacyBlack))
+              .map: (berserk, legacy) =>
+                ClockPlayer
+                  .withConfig(config)
+                  .copy(berserk = berserk)
+                  .setRemaining(computeRemaining(config, legacy))
             Clock(
               config = config,
               color = color,
-              players = ByColor(
-                ClockPlayer
-                  .withConfig(config)
-                  .copy(berserk = whiteBerserk)
-                  .setRemaining(computeRemaining(config, legacyWhite)),
-                ClockPlayer
-                  .withConfig(config)
-                  .copy(berserk = blackBerserk)
-                  .setRemaining(computeRemaining(config, legacyBlack))
-              ),
+              players = players,
               timer = timer
             )
           case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
