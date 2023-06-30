@@ -75,3 +75,22 @@ object ChuPieceSet extends PieceSetBase {
   }
 
 }
+
+object KyoPieceSet extends PieceSetBase {
+
+  val default = new PieceSet("Kyo_Ryoko_1Kanji")
+
+  val all = List[String](
+    default.name,
+    "Kyo_orangain",
+    "Kyo_Kanji",
+    "Kyo_Intl",
+    "Kyo_international",
+    "Kyo_simple_kanji",
+    "Kyo_doubutsu",
+    "Kyo_Logy_Games"
+  ) map { name =>
+    new PieceSet(name)
+  }
+
+}

@@ -20,7 +20,8 @@ object userAnalysis {
         cssTag("analyse.free"),
         withForecast option cssTag("analyse.forecast"),
         ctx.blind option cssTag("round.nvui"),
-        (pov.game.variant.chushogi) option layout.chuPieceSprite
+        pov.game.variant.chushogi option layout.chuPieceSprite,
+        pov.game.variant.kyotoshogi option layout.kyoPieceSprite
       ),
       moreJs = frag(
         analyseTag,

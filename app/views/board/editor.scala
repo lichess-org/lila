@@ -23,7 +23,11 @@ object editor {
 LishogiEditor(document.getElementById('board-editor'), data);"""
         )
       ),
-      moreCss = cssTag("editor"),
+      moreCss = frag(
+        cssTag("editor"),
+        sit.variant.chushogi option views.html.base.layout.bits.chuPieceSprite,
+        sit.variant.kyotoshogi option views.html.base.layout.bits.kyoPieceSprite
+      ),
       shogiground = false,
       zoomable = true,
       openGraph = lila.app.ui

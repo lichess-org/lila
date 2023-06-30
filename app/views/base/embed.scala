@@ -28,6 +28,7 @@ object embed {
           layout.dataTheme        := config.bg,
           layout.dataPieceSet     := config.pieceSet.name,
           layout.dataChuPieceSet  := config.chuPieceSet.name,
+          layout.dataKyoPieceSet  := config.kyoPieceSet.name,
           body
         )
       )

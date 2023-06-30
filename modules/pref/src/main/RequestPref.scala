@@ -37,6 +37,7 @@ object RequestPref {
       theme = theme,
       pieceSet = pieceSet | default.pieceSet,
       chuPieceSet = paramOrSession("chuPieceSet") | (pieceSet.map(ChuPieceSet(_).name) | default.chuPieceSet),
+      kyoPieceSet = paramOrSession("kyoPieceSet") | (pieceSet.map(KyoPieceSet(_).name) | default.kyoPieceSet),
       soundSet = paramOrSession("soundSet") | default.soundSet,
       bgImg = paramOrSession("bgImg"),
       notation = paramOrSession("notation").flatMap(_.toIntOption) | default.notation,

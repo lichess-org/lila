@@ -19,8 +19,9 @@ object embed {
           layout.viewport,
           layout.metaCsp(basicCsp(config.req)),
           st.headTitle("lishogi.org shogi TV"),
-          if (!pov.game.variant.chushogi) layout.pieceSprite(config.pieceSet)
-          else layout.chuPieceSprite(config.chuPieceSet),
+          if (pov.game.variant.chushogi) layout.chuPieceSprite(config.chuPieceSet)
+          else if (pov.game.variant.kyotoshogi) layout.kyoPieceSprite(config.kyoPieceSet)
+          else layout.pieceSprite(config.pieceSet),
           cssTagWithTheme("tv.embed", config.bg)
         ),
         body(

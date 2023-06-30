@@ -50,6 +50,14 @@ object layout {
         tpe  := "text/css",
         rel  := "stylesheet"
       )
+    def kyoPieceSprite(implicit ctx: Context): Frag = kyoPieceSprite(ctx.currentKyoPieceSet)
+    def kyoPieceSprite(ps: lila.pref.PieceSet): Frag =
+      link(
+        id   := "kyo-piece-sprite",
+        href := assetUrl(s"piece-css/$ps.css"),
+        tpe  := "text/css",
+        rel  := "stylesheet"
+      )
   }
   import bits._
 
@@ -233,6 +241,7 @@ object layout {
   val dataTheme                 = attr("data-theme")
   val dataPieceSet              = attr("data-piece-set")
   val dataChuPieceSet           = attr("data-chu-piece-set")
+  val dataKyoPieceSet           = attr("data-kyo-piece-set")
   val dataAssetUrl              = attr("data-asset-url")
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev")
@@ -327,6 +336,7 @@ object layout {
           dataTheme         := ctx.currentBg,
           dataPieceSet      := ctx.currentPieceSet.name,
           dataChuPieceSet   := ctx.currentChuPieceSet.name,
+          dataKyoPieceSet   := ctx.currentKyoPieceSet.name,
           dataAnnounce      := AnnounceStore.get.map(a => safeJsonValue(a.json)),
           dataNotation      := ctx.pref.notation.toString,
           dataColorName     := ctx.pref.colorName.toString,

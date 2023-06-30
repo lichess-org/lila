@@ -192,6 +192,12 @@ object DataForm {
     )
   )
 
+  val kyoPieceSet = Form(
+    single(
+      "set" -> text.verifying(KyoPieceSet contains _)
+    )
+  )
+
   val soundSet = Form(
     single(
       "set" -> text.verifying(SoundSet contains _)

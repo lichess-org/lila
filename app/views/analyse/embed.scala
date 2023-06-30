@@ -23,8 +23,9 @@ object embed {
           layout.viewport,
           layout.metaCsp(basicCsp withNonce config.nonce),
           st.headTitle(replay titleOf pov),
-          if (!pov.game.variant.chushogi) layout.pieceSprite(config.pieceSet)
-          else layout.chuPieceSprite(config.chuPieceSet),
+          if (pov.game.variant.chushogi) layout.chuPieceSprite(config.chuPieceSet)
+          else if (pov.game.variant.kyotoshogi) layout.kyoPieceSprite(config.kyoPieceSet)
+          else layout.pieceSprite(config.pieceSet),
           cssTagWithTheme("analyse.embed", config.bg)
         ),
         body(
@@ -34,7 +35,8 @@ object embed {
           dataAssetVersion := assetVersion.value,
           dataTheme        := config.bg,
           dataPieceSet     := config.pieceSet.name,
-          dataChuPieceSet  := config.chuPieceSet.name
+          dataChuPieceSet  := config.chuPieceSet.name,
+          dataKyoPieceSet  := config.kyoPieceSet.name
         )(
           div(
             main(cls := "analyse")

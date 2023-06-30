@@ -15,6 +15,7 @@ object JsonView {
       "customTheme"        -> p.customThemeOrDefault,
       "pieceSet"           -> p.pieceSet,
       "chuPieceSet"        -> p.chuPieceSet,
+      "kyoPieceSet"        -> p.kyoPieceSet,
       "soundSet"           -> p.soundSet,
       "notation"           -> p.notation,
       "blindfold"          -> p.blindfold,

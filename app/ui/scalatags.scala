@@ -17,6 +17,7 @@ trait ScalatagsAttrs {
   val dataTheme        = attr("data-theme")
   val dataPieceSet     = attr("data-piece-set")
   val dataChuPieceSet  = attr("data-chu-piece-set")
+  val dataKyoPieceSet  = attr("data-kyo-piece-set")
   val dataTag          = attr("data-tag")
   val dataIcon         = attr("data-icon")
   val dataHref         = attr("data-href")
