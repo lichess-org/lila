@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="arenaTournaments">پاڵەوانیەتی ئارینا</string>
+  <string name="isItRated">ئایا ڕیزبەندی کراوە؟</string>
+  <string name="willBeNotified">کاتێک پاڵەوانێتییەکە دەستپێدەکات ئاگادار دەکرێیتەوە، بۆیە باشترە لە پەڕەیەکتردا یاری بکەیت لەکاتی چاوەڕوانیدا.</string>
+  <string name="isRated">ئەم پاڵەوانێتییە ڕیزبەندی کراوە و کاریگەری لەسەر پلەبەندیەکەت دەبێت.</string>
+  <string name="isNotRated">ئەم پاڵەوانێتییە ڕیزبەندی کراوە *نییە* و کاریگەری لەسەر پلەبەندییەکەت *نییە*.</string>
+  <string name="someRated">هەندێک پاڵەوانێتی ڕیزبەندییان بۆ کراوە و کاریگەری لەسەر پلە بەندییەکەت دەبێت.</string>
+</resources>
