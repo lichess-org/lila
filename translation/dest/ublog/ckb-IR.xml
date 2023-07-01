@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">پەڕەی کەسی</string>
+  <string name="newPost">پەیامی نوێ</string>
+  <string name="editYourBlogPost">دەستکاریکردنی پەیامی پەڕەی تایبەتیت</string>
+  <string name="saveDraft">پاشەکەوتکردنی  ڕەشنووس</string>
+  <string name="postTitle">ناونیشانی پەیام</string>
+  <string name="postIntro">پێشەکی پەیام</string>
+  <string name="postBody">ناوەرۆکی پەیام</string>
+  <string name="drafts">ڕەشنووسەکان</string>
+  <string name="published">بڵاوکراوەکان</string>
+  <string name="createBlogDiscussion">چالاککردنی سەرنجدان</string>
+  <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت درووستدەکرێت بۆ ئەوەی خەڵک سەرنج لەسەر پەیامەکەت بدەن</string>
+  <string name="publishOnYourBlog">بڵاوکردنەوە لە پەڕەی کەسیدا</string>
+</resources>
