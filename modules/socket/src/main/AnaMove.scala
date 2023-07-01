@@ -1,6 +1,5 @@
 package lila.socket
 
-import cats.data.Validated
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.*
 import chess.variant.Variant
@@ -11,7 +10,7 @@ import lila.tree.Branch
 import lila.common.Json.given
 
 trait AnaAny:
-  def branch: Validated[ErrorStr, Branch]
+  def branch: Either[ErrorStr, Branch]
   def chapterId: Option[StudyChapterId]
   def path: UciPath
 
@@ -26,26 +25,28 @@ case class AnaMove(
     promotion: Option[chess.PromotableRole]
 ) extends AnaAny:
 
-  def branch: Validated[ErrorStr, Branch] =
-    chess.Game(variant.some, fen.some)(orig, dest, promotion) andThen { (game, move) =>
-      game.sans.lastOption toValid ErrorStr("Moved but no last move!") map { san =>
-        val uci     = Uci(move)
-        val movable = game.situation playable false
-        val fen     = chess.format.Fen write game
-        Branch(
-          id = UciCharPair(uci),
-          ply = game.ply,
-          move = Uci.WithSan(uci, san),
-          fen = fen,
-          check = game.situation.check,
-          dests = Some(movable so game.situation.destinations),
-          opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)) so
-            OpeningDb.findByEpdFen(fen),
-          drops = if (movable) game.situation.drops else Some(Nil),
-          crazyData = game.situation.board.crazyData
-        )
-      }
-    }
+  def branch: Either[ErrorStr, Branch] =
+    chess
+      .Game(variant.some, fen.some)(orig, dest, promotion)
+      .flatMap: (game, move) =>
+        game.sans.lastOption
+          .toRight(ErrorStr("Moved but no last move!"))
+          .map: san =>
+            val uci     = Uci(move)
+            val movable = game.situation playable false
+            val fen     = chess.format.Fen write game
+            Branch(
+              id = UciCharPair(uci),
+              ply = game.ply,
+              move = Uci.WithSan(uci, san),
+              fen = fen,
+              check = game.situation.check,
+              dests = Some(movable so game.situation.destinations),
+              opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)) so
+                OpeningDb.findByEpdFen(fen),
+              drops = if (movable) game.situation.drops else Some(Nil),
+              crazyData = game.situation.board.crazyData
+            )
 
 object AnaMove:
 

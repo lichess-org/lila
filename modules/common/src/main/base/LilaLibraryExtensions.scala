@@ -92,6 +92,8 @@ trait LilaLibraryExtensions extends LilaTypes:
         case scala.util.Right(res) => Right(res)
         case scala.util.Left(_)    => other
 
+    def toFuture: Fu[B] = v.fold(err => fufail(err.toString), fuccess)
+
   extension (d: FiniteDuration)
     def toCentis = chess.Centis(d)
     def abs      = if (d.length < 0) -d else d

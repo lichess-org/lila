@@ -1,5 +1,6 @@
 package lila.importer
 
+import cats.syntax.either.*
 import cats.data.Validated
 import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
@@ -51,7 +52,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
 
   def preprocess(user: Option[UserId]): Validated[ErrorStr, Preprocessed] =
     ImporterForm.catchOverflow: () =>
-      Parser.full(pgn).map { parsed =>
+      Parser.full(pgn).toValidated.map { parsed =>
         Reader.fullWithSans(
           parsed,
           _.map(_ take maxPlies)
