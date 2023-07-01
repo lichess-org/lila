@@ -11,7 +11,7 @@
   <string name="level">پلە</string>
   <string name="strength">هێز</string>
   <string name="toggleTheChat">کارپێکرد/لەکارخستنی چاتەکە</string>
-  <string name="chat">دەمەتەقێ</string>
+  <string name="chat">گفتووگۆ</string>
   <string name="resign">خۆبەدەستەوەدان</string>
   <string name="checkmate">کش مات</string>
   <string name="stalemate">یەکسانبوون</string>
@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' لەگەڵ نزیکخستنەوەیان، بە پێی ژمارەی نیوەی جووڵەکان تا خواردنی داشی داهاتوو یان جوڵەی سەرباز</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
+  <string name="maxDepthReached">بەرزترین جوڵەی شیکراوە!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
   <string name="openings">دەستپێک</string>
   <string name="openingExplorer">دۆزەرەوەی کردنەوەکان</string>
@@ -119,6 +120,7 @@
   <string name="memory">یادگە</string>
   <string name="infiniteAnalysis">شیکاریکردنی بێ کۆتا</string>
   <string name="removesTheDepthLimit">لابردنی سنووری قوڵیەکەی، بەمەش کۆمپیوتەرەکەت سەلامەتتر دەبێت</string>
+  <string name="engineManager">بەڕێوەبردنی کۆمپیوتەر</string>
   <string name="blunder">هەڵەی دۆڕان</string>
   <string name="mistake">هەڵە</string>
   <string name="inaccuracy">ناتەواو</string>
