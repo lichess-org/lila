@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">%s\'ning Blogi</string>
   <string name="newPost">Yangi post</string>
   <string name="editYourBlogPost">Blog postingizni tahrirlang</string>
   <string name="saveDraft">Qoralamani saqlash</string>
+  <string name="postTitle">Post sarlavhasi</string>
+  <string name="postIntro">Post kirish qismi</string>
+  <string name="postBody">Post asosiy qismi</string>
   <string name="drafts">Qarolamalar</string>
+  <string name="published">Chop etildi</string>
   <string name="createBlogDiscussion">Izohlashga ruhsat berish</string>
+  <string name="xPublishedY">%1$s %2$s\'ni chop etdi</string>
+  <string name="thisPostIsPublished">Ushbu post chop etilgan</string>
+  <string name="thisIsADraft">Bu qoralama</string>
+  <string name="moreBlogPostsBy">%s\'dan koʻproq blog postlar</string>
+  <string name="noPostsInThisBlogYet">Ushbu blogda hozircha postlar yoʻq.</string>
+  <string name="noDrafts">Ko‘rsatish uchun qoralamalar yo‘q.</string>
+  <string name="latestBlogPosts">Eng soʻnggi nlog postlar</string>
+  <string name="uploadAnImageForYourPost">Postingiz uchun rasm yuklang</string>
+  <string name="deleteBlog">Ushbu blog postini butunlay o\'chirib tashlash</string>
+  <string name="deleteImage">Rasmni oʻchirish</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Quyidagi veb-saytlardagi rasmlardan foydalanish xavfsiz: </string>
+  <string name="selectPostTopics">Blog postingizda muhokama qiladigan mavzularni tanlang</string>
 </resources>
