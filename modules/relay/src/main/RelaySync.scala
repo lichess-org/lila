@@ -25,7 +25,7 @@ final private class RelaySync(
       chapterUpdates <- sanitizedGames.traverse(createOrUpdateChapter(_, rt, study, chapters, nbGames))
       result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
       _      = lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
-      _      <- tourRepo.setSyncedNow(rt.tour)
+      _ <- tourRepo.setSyncedNow(rt.tour)
     yield result
 
   private def createOrUpdateChapter(
@@ -35,21 +35,21 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Fu[Option[SyncResult.ChapterResult]] =
-    findCorrespondingChapter(game, chapters, nbGames) match
-      case Some(chapter) => updateChapter(rt.tour, study, chapter, game).dmap(_.some)
-      case None =>
-        chapterRepo.countByStudyId(study.id) flatMap {
-          case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
-          case _ =>
-            createChapter(study, game) flatMap { chapter =>
-              chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
-                studyApi.deleteChapter(study.id, initial.id):
-                  actorApi.Who(study.ownerId, sri)
-              } inject SyncResult
-                .ChapterResult(chapter.id, true, chapter.root.mainline.size)
-                .some
-            }
-        }
+    findCorrespondingChapter(game, chapters, nbGames)
+      .map(updateChapter(rt.tour, study, game, _).dmap(_.some))
+      .getOrElse:
+        chapterRepo
+          .countByStudyId(study.id)
+          .flatMap:
+            case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
+            case _ =>
+              createChapter(study, game).flatMap: chapter =>
+                chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
+                  studyApi.deleteChapter(study.id, initial.id):
+                    actorApi.Who(study.ownerId, sri)
+                } inject SyncResult
+                  .ChapterResult(chapter.id, true, chapter.root.mainline.size)
+                  .some
 
   /*
    * If the source contains several games, use their index to match them with the study chapter.
@@ -68,8 +68,8 @@ final private class RelaySync(
   private def updateChapter(
       tour: RelayTour,
       study: Study,
-      chapter: Chapter,
-      game: RelayGame
+      game: RelayGame,
+      chapter: Chapter
   ): Fu[SyncResult.ChapterResult] =
     updateChapterTags(tour, study, chapter, game) zip
       updateChapterTree(study, chapter, game) map { (tagUpdate, nbMoves) =>
