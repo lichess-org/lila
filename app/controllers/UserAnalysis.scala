@@ -10,6 +10,7 @@ import views.*
 import lila.app.{ given, * }
 import lila.game.Pov
 import lila.round.JsonView.WithFlags
+import lila.common.HTTPRequest
 
 final class UserAnalysis(
     env: Env,
@@ -128,7 +129,8 @@ final class UserAnalysis(
               opening = true,
               clocks = true,
               movetimes = true,
-              rating = ctx.pref.showRatings
+              rating = ctx.pref.showRatings,
+              lichobileCompat = HTTPRequest.isLichobile(ctx.req)
             ),
             owner = owner
           ) map { data =>
