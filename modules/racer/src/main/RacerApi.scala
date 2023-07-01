@@ -2,22 +2,22 @@ package lila.racer
 
 import lila.memo.CacheApi
 import lila.storm.StormSelector
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.common.{ Bus, LightUser }
 import lila.common.config.Max
 
 final class RacerApi(
     selector: StormSelector,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     cacheApi: CacheApi,
     lightUser: LightUser.GetterSyncFallback
 )(using ec: Executor, scheduler: Scheduler):
 
   import RacerRace.Id
 
-  private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](2048, "racer.race")(
+  private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](2048, "racer.race"):
     _.expireAfterAccess(30 minutes).build()
-  )
 
   def get(id: Id): Option[RacerRace] = store getIfPresent id
 
@@ -100,7 +100,7 @@ final class RacerApi(
         lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
         player.user.ifTrue(player.score > 0) foreach { user =>
           Bus.publish(lila.hub.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
-          userRepo.addRacerRun(user.id, player.score)
+          perfsRepo.addRacerRun(user.id, player.score)
         }
       }
       publish(race)

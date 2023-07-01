@@ -11,13 +11,12 @@ import lila.common.Json.given
 import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
-import lila.user.{ User, UserRepo, UserPerfsRepo }
+import lila.user.{ User, UserApi }
 import chess.Speed
 import lila.rating.{ PerfType, Perf }
 
 final class JsonView(
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userApi: UserApi,
     lightUserGet: LightUser.Getter,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
@@ -64,7 +63,7 @@ final class JsonView(
       flags: WithFlags
   ): Fu[JsObject] =
     getSocketStatus(pov.game) zip
-      pov.opponent.userId.so(userRepo.byIdOrGhostWithPerf(_, pov.game.perfType)) zip
+      pov.opponent.userId.so(userApi.byIdOrGhostWithPerf(_, pov.game.perfType)) zip
       takebacker.isAllowedIn(pov.game) zip
       moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
         import pov.*
@@ -146,7 +145,7 @@ final class JsonView(
   private def commonWatcherJson(
       g: Game,
       p: GamePlayer,
-      user: Option[(User, Perf)],
+      user: Option[User.WithPerf],
       withFlags: WithFlags
   ): JsObject =
     Json
@@ -154,8 +153,8 @@ final class JsonView(
         "color" -> p.color.name,
         "name"  -> p.name
       )
-      .add("user" -> user.map: (u, perf) =>
-        userJsonView.roundPlayer(u, withFlags.rating.option(Perf.Typed(perf, g.perfType))))
+      .add("user" -> user.map: u =>
+        userJsonView.roundPlayer(u.user, withFlags.rating.option(Perf.Typed(u.perf, g.perfType))))
       .add("ai" -> p.aiLevel)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
@@ -173,7 +172,7 @@ final class JsonView(
       flags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
-      userRepo.pairWithPerf(pov.player.userId, pov.opponent.userId, pov.game.perfType) map {
+      userApi.gamePlayers(pov.player.userId -> pov.opponent.userId, pov.game.perfType) map {
         case (socket, (playerUser, opponentUser)) =>
           import pov.*
           Json

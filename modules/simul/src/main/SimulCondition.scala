@@ -1,7 +1,7 @@
 package lila.simul
 
 import lila.rating.PerfType
-import lila.user.Me
+import lila.user.{ UserPerfs, Me }
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import lila.hub.LeaderTeam
@@ -16,6 +16,7 @@ object SimulCondition:
 
     def withVerdicts(pt: PerfType, getMaxRating: GetMaxRating)(using
         Me,
+        UserPerfs,
         GetMyTeamIds,
         Executor
     ): Fu[WithVerdicts] =
@@ -46,6 +47,6 @@ object SimulCondition:
   final class Verify(historyApi: lila.history.HistoryApi):
     def apply(simul: Simul, pt: PerfType)(using
         me: Me
-    )(using Executor, Condition.GetMyTeamIds): Fu[WithVerdicts] =
+    )(using Executor, Condition.GetMyTeamIds, UserPerfs): Fu[WithVerdicts] =
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(me.value, perf)
       simul.conditions.withVerdicts(pt, getMaxRating)

@@ -3,7 +3,7 @@ package lila.swiss
 import play.api.i18n.Lang
 
 import lila.rating.PerfType
-import lila.user.Me
+import lila.user.{ Me, UserPerfs }
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import alleycats.Zero
@@ -31,7 +31,7 @@ object SwissCondition:
         perf: PerfType,
         getMaxRating: GetMaxRating,
         getBannedUntil: GetBannedUntil
-    )(using me: Me)(using Executor): Fu[WithVerdicts] =
+    )(using me: Me)(using UserPerfs, Executor): Fu[WithVerdicts] =
       list.map {
         case PlayYourGames => getBannedUntil(me.userId) map PlayYourGames.withBan
         case c: MaxRating  => c(getMaxRating)(perf) map c.withVerdict
@@ -45,7 +45,7 @@ object SwissCondition:
     given Zero[All] = Zero(empty)
 
   final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi):
-    def apply(swiss: Swiss)(using me: Me)(using Executor): Fu[WithVerdicts] =
+    def apply(swiss: Swiss)(using me: Me)(using UserPerfs, Executor): Fu[WithVerdicts] =
       val getBan: GetBannedUntil     = banApi.bannedUntil
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(me.value, perf)
       swiss.settings.conditions.withVerdicts(swiss.perfType, getMaxRating, getBan)

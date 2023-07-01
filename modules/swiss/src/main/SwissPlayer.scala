@@ -37,11 +37,7 @@ object SwissPlayer:
 
   def makeId(swissId: SwissId, userId: UserId) = Id(s"$swissId:$userId")
 
-  private[swiss] def make(
-      swissId: SwissId,
-      user: User,
-      perf: PerfType
-  ): SwissPlayer =
+  private[swiss] def make(swissId: SwissId, user: User.WithPerf): SwissPlayer =
     SwissPlayer(
       id = makeId(swissId, user.id),
       swissId = swissId,

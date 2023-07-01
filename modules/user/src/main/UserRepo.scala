@@ -21,7 +21,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   def withColl[A](f: Coll => A): A = f(coll)
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
-  def withPerfs(id: UserId): Fu[Option[User.WithPerfs]] = // TODO aggregation
+  def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = // TODO aggregation
     byId(id).flatMapz(u => withPerfs(u).dmap(some))
 
   def topNbGame(nb: Int): Fu[List[User]] =
@@ -56,11 +56,6 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
         Left(LightUser.ghost).some
       }
 
-  def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[Either[LightUser.Ghost, (User, Perf)]]] =
-    byIdOrGhost(id).flatMapz:
-      case Left(g)  => fuccess(Left(g).some)
-      case Right(u) => perfsRepo.perfOfDefault(u.id, pt).dmap(p => Right(u -> p).some)
-
   def me[U: UserIdOf](u: U): Fu[Option[Me]] =
     enabledById(u).dmap(Me.from(_))
 
@@ -82,15 +77,6 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       x.so(xx => users.find(_.id == xx)) ->
         y.so(yy => users.find(_.id == yy))
     }
-  def pairWithPerf(
-      x: Option[UserId],
-      y: Option[UserId],
-      perfType: PerfType
-  ): Fu[(Option[User.WithPerf], Option[User.WithPerf])] = for
-    (x, y) <- pair(x, y)
-    perfs  <- perfsRepo.perfOf(List(x, y).flatten.map(_.id), perfType)
-    make = (u: Option[User]) => u.map(u => User.WithPerf(u, perfs.getOrElse(u.id, Perf.default)))
-  yield make(x) -> make(y)
 
   def pair(x: UserId, y: UserId): Fu[Option[(User, User)]] =
     coll.byIds[User, UserId](List(x, y)) map { users =>
@@ -493,14 +479,6 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   def hasEmail(id: UserId): Fu[Boolean] = email(id).dmap(_.isDefined)
 
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
-
-  def setBot(user: User): Funit =
-    if user.count.game > 0
-    then fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
-    else
-      coll.update
-        .one($id(user.id), $set(F.title -> Title.BOT)) >>
-        perfsRepo.setBotInitialPerfs(user.id)
 
   private def botSelect(v: Boolean) =
     if v then $doc(F.title -> Title.BOT)

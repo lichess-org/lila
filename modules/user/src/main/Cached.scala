@@ -94,9 +94,8 @@ final class Cached(
   private def userIdsLikeFetch(text: UserStr) =
     userRepo.userIdsLikeFilter(text, $empty, 12)
 
-  private val userIdsLikeCache = cacheApi[UserStr, List[UserId]](1024, "user.like") {
+  private val userIdsLikeCache = cacheApi[UserStr, List[UserId]](1024, "user.like"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
-  }
 
   def userIdsLike(text: UserStr): Fu[List[UserId]] =
     if (text.value.lengthIs < 5) userIdsLikeCache get text

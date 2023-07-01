@@ -179,8 +179,7 @@ final private class PovToEntry(
     import from.*
     import pov.game
     for
-      myId     <- pov.player.userId
-      perfType <- game.perfType
+      myId <- pov.player.userId
       myRating = pov.player.stableRating
       opRating = pov.opponent.stableRating
       opening  = findOpening(from)
@@ -188,7 +187,7 @@ final private class PovToEntry(
       id = InsightEntry povToId pov,
       userId = myId,
       color = pov.color,
-      perf = perfType,
+      perf = game.perfType,
       opening = opening,
       myCastling = Castling.fromMoves(game sansOf pov.color),
       rating = myRating,

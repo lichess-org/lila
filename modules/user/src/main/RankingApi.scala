@@ -19,9 +19,8 @@ final class RankingApi(
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
-  def save(user: User, perfType: Option[PerfType], perfs: UserPerfs): Funit =
-    perfType.so: pt =>
-      save(user, pt, perfs(pt))
+  def save(user: User, perfType: PerfType, perfs: UserPerfs): Funit =
+    save(user, perfType, perfs(perfType))
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
     (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)) so coll:

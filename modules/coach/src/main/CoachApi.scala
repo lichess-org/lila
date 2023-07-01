@@ -46,9 +46,9 @@ final class CoachApi(
     canCoach(user).so:
       coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
 
-  def setRating(userPre: User): Funit =
-    canCoach(userPre).so:
-      userRepo.perfs(userPre.id).flatMap { perfs =>
+  def setRating(u: User.WithPerfs): Funit =
+    canCoach(u.user).so:
+      userRepo.perfs(u.id).flatMap { perfs =>
         coachColl.update.one($id(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
       }
 

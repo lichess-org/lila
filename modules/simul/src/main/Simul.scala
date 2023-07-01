@@ -146,7 +146,7 @@ object Simul:
   case class OnStart(simul: Simul) extends AnyVal
 
   def make(
-      host: User,
+      host: User.WithPerfs,
       name: String,
       clock: SimulClock,
       variants: List[Variant],

@@ -8,6 +8,7 @@ case class StartGame(game: Game)
 
 case class FinishGame(
     game: Game,
+    // users and perfs BEFORE the game result is applied
     white: Option[User.WithPerfs],
     black: Option[User.WithPerfs]
 ):

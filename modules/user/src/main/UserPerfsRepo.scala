@@ -66,18 +66,18 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
   private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
     doc.getAsOpt[Perf](perfType.key.value)
 
-  def perfOf(id: UserId, perfType: PerfType): Fu[Option[Perf]] =
+  def perfOptionOf[U: UserIdOf](u: U, perfType: PerfType): Fu[Option[Perf]] =
     coll
       .find(
-        $id(id),
+        $id(u.id),
         $doc(perfType.key.value -> true).some
       )
       .one[Bdoc]
       .dmap:
         _.flatMap { docPerf(_, perfType) }
 
-  def perfOfDefault(id: UserId, perfType: PerfType): Fu[Perf] =
-    perfOf(id, perfType).dmap(_ | Perf.default)
+  def perfOf[U: UserIdOf](u: U, perfType: PerfType): Fu[Perf] =
+    perfOptionOf(u, perfType).dmap(_ | Perf.default)
 
   def perfOf(ids: Iterable[UserId], perfType: PerfType): Fu[Map[UserId, Perf]] = ids.nonEmpty.so:
     coll
@@ -95,13 +95,19 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
         yield id -> perf
       .dmap(_.toMap)
 
+  def perfsOf(ids: Iterable[UserId]): Fu[Map[UserId, UserPerfs]] = ids.nonEmpty.so:
+    coll.find($inIds(ids)).cursor[UserPerfs]().listAll().map(_.mapBy(_.id))
+
   def withPerf(users: List[User], perfType: PerfType): Fu[List[User.WithPerf]] =
     perfOf(users.map(_.id), perfType).map: perfs =>
       users.map(u => User.WithPerf(u, perfs.getOrElse(u.id, Perf.default)))
+
+  def withPerf(user: User, perfType: PerfType): Fu[User.WithPerf] =
+    perfOf(user.id, perfType).map(User.WithPerf(user, _))
 
   def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean] =
     if puzzle.glicko.rating < 2500
     then fuFalse
     else
-      perfOf(id, PerfType.Standard).map:
+      perfOptionOf(id, PerfType.Standard).map:
         _.fold(true)(UserPerfs.dubiousPuzzle(puzzle, _))

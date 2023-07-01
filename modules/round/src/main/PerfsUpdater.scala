@@ -6,11 +6,12 @@ import lila.rating.glicko2
 import lila.game.{ Game, GameRepo, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator }
-import lila.user.{ UserPerfs, RankingApi, User, UserRepo }
+import lila.user.{ UserPerfs, RankingApi, User, UserRepo, UserPerfsRepo }
 
 final class PerfsUpdater(
     gameRepo: GameRepo,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     historyApi: HistoryApi,
     rankingApi: RankingApi,
     botFarming: BotFarming,
@@ -68,12 +69,12 @@ final class PerfsUpdater(
                 intRatingLens(perfsB) - intRatingLens(black.perfs)
               ).map(_ into IntRatingDiff)
               gameRepo.setRatingDiffs(game.id, ratingDiffs) zip
-                userRepo.setPerfs(white, perfsW, white.perfs) zip
-                userRepo.setPerfs(black, perfsB, black.perfs) zip
-                historyApi.add(white, game, perfsW) zip
-                historyApi.add(black, game, perfsB) zip
-                rankingApi.save(white, game.perfType, perfsW) zip
-                rankingApi.save(black, game.perfType, perfsB) inject ratingDiffs.some
+                perfsRepo.setPerfs(white.user, perfsW, white.perfs) zip
+                perfsRepo.setPerfs(black.user, perfsB, black.perfs) zip
+                historyApi.add(white.user, game, perfsW) zip
+                historyApi.add(black.user, game, perfsB) zip
+                rankingApi.save(white.user, game.perfType, perfsW) zip
+                rankingApi.save(black.user, game.perfType, perfsB) inject ratingDiffs.some
     }
 
   private case class Ratings(
@@ -123,7 +124,7 @@ final class PerfsUpdater(
     try Glicko.system.updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
-  private def mkPerfs(ratings: Ratings, users: (User, User), game: Game): UserPerfs =
+  private def mkPerfs(ratings: Ratings, users: PairOf[User.WithPerfs], game: Game): UserPerfs =
     users match
       case (player, opponent) =>
         val perfs            = player.perfs
@@ -131,10 +132,10 @@ final class PerfsUpdater(
         val isStd            = game.ratingVariant.standard
         val isHumanVsMachine = player.noBot && opponent.isBot
         def addRatingIf(cond: Boolean, perf: Perf, rating: glicko2.Rating) =
-          if (cond)
+          if cond then
             val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
-            if (isHumanVsMachine)
-              p.copy(glicko = p.glicko average perf.glicko) // halve rating diffs for human
+            if isHumanVsMachine
+            then p.copy(glicko = p.glicko average perf.glicko) // halve rating diffs for human
             else p
           else perf
         val perfs1 = perfs.copy(

@@ -71,6 +71,8 @@ case class Game(
 
   def hasUserId(userId: UserId) = players.exists(_.userId.has(userId))
 
+  def userIdPair: PairOf[Option[UserId]] = players.map(_.userId).toPair
+
   def opponent(p: Player): Player = opponent(p.color)
 
   def opponent(c: Color): Player = player(!c)
@@ -535,7 +537,7 @@ case class Game(
 
   def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
 
-  def userIds = players.flatMap(_.userId)
+  def userIds: List[UserId] = players.flatMap(_.userId)
 
   def twoUserIds: Option[(UserId, UserId)] = for
     w <- whitePlayer.userId
