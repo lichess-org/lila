@@ -65,6 +65,7 @@ final class Analyse(
                     division = true,
                     opening = true,
                     rating = ctx.pref.showRatings,
+                    lichobileCompat = HTTPRequest.isLichobile(ctx.req),
                     puzzles = true
                   )
                 ) flatMap { data =>
