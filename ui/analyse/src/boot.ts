@@ -2,7 +2,8 @@ import { AnalyseApi, AnalyseOpts } from './interfaces';
 
 export default function (start: (opts: AnalyseOpts) => AnalyseApi) {
   return function (cfg: AnalyseOpts) {
-    lichess.socket = new lichess.StrongSocket(cfg.data.url.socket, cfg.data.player.version, {
+    const socketUrl = `/watch/${cfg.data.game.id}/${cfg.data.player.color}/v6`;
+    lichess.socket = new lichess.StrongSocket(socketUrl, cfg.data.player.version, {
       params: {
         userTv: cfg.data.userTv && cfg.data.userTv.id,
       },
