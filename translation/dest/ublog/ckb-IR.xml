@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">پەڕەی کەسی</string>
+  <string name="xBlog">پەڕەی کەسی%s</string>
   <string name="newPost">پەیامی نوێ</string>
   <string name="editYourBlogPost">دەستکاریکردنی پەیامی پەڕەی تایبەتیت</string>
   <string name="saveDraft">پاشەکەوتکردنی  ڕەشنووس</string>
@@ -12,7 +12,7 @@
   <string name="createBlogDiscussion">چالاککردنی سەرنجدان</string>
   <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت درووستدەکرێت بۆ ئەوەی خەڵک سەرنج لەسەر پەیامەکەت بدەن</string>
   <string name="publishOnYourBlog">بڵاوکردنەوە لە پەڕەی کەسیدا</string>
-  <string name="xPublishedY">%1$s بڵاوکرایەوە %2$s</string>
+  <string name="xPublishedY">%1$s،%2$sبڵاوکردەوە</string>
   <string name="thisPostIsPublished">ئەم پەیامە بڵاوکرایەوە</string>
   <string name="thisIsADraft">ئەمە ڕەشنووسە</string>
   <string name="moreBlogPostsBy">پەیامی زیاتر لەلایەن %s</string>
