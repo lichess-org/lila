@@ -94,5 +94,7 @@
   <string name="queenRookEndgame">شاژن و قەڵا</string>
   <string name="queenRookEndgameDescription">قۆناغی کۆتایی یاری بە بوونی تەنها شاژ ەکان و قەڵاکان و سەربازەکان.</string>
   <string name="queensideAttack">هێرشبردن لە بەرەی شاژنەوە</string>
+  <string name="queensideAttackDescription">هێرشکردنە سەر پاشای ڕکابەر، دوای ماڵکردن لە لای شاژن.</string>
+  <string name="quietMove">جوڵەی بێ دەنگ</string>
   <string name="sacrifice">قوربانی</string>
 </resources>
