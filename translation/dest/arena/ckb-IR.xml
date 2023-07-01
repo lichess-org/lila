@@ -6,4 +6,5 @@
   <string name="isRated">ئەم پاڵەوانێتییە ڕیزبەندی کراوە و کاریگەری لەسەر پلەبەندیەکەت دەبێت.</string>
   <string name="isNotRated">ئەم پاڵەوانێتییە ڕیزبەندی کراوە *نییە* و کاریگەری لەسەر پلەبەندییەکەت *نییە*.</string>
   <string name="someRated">هەندێک پاڵەوانێتی ڕیزبەندییان بۆ کراوە و کاریگەری لەسەر پلە بەندییەکەت دەبێت.</string>
+  <string name="howAreScoresCalculated">چۆن نمرەکان حیسابی بۆ دەکرێت؟</string>
 </resources>
