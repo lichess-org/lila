@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Nun vi estas spektanto</string>
   <string name="pgnTags">PGN etikedoj</string>
   <string name="like">Ŝati</string>
+  <string name="unlike">Malŝati</string>
   <string name="newTag">Nova etikedo</string>
   <string name="commentThisPosition">Komenti tiun posicion</string>
   <string name="commentThisMove">Komenti tiun movon</string>

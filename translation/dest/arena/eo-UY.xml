@@ -47,4 +47,6 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
   <string name="customStartDate">Agorda komenca dato</string>
   <string name="allowBerserk">Permesi uzi la Berserkon</string>
   <string name="allowChatHelp">Permesi uzi la turniran babilejon</string>
+  <string name="averageScore">Averaĝa poentaro</string>
+  <string name="myTournaments">Mia turniroj</string>
 </resources>
