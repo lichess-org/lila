@@ -10,7 +10,7 @@
     <item quantity="other">%s forduló</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s / Svájci típusú kör</item>
+    <item quantity="one">%s fordulós svájci</item>
     <item quantity="other">%s / Svájci típusú körök</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
@@ -56,7 +56,7 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="moreRoundsThanPlayersQ">Mi történik, ha több forduló van előírva, mint amennyi résztvevő van?</string>
   <string name="moreRoundsThanPlayersA">Ha minden lehetséges párosítást lejátszottak, a versenynek vége és a győztest kihirdetjük.</string>
   <string name="restrictedToTeamsQ">Miért van csapatokra korlátozva?</string>
-  <string name="restrictedToTeamsA">A svájci rendszerű versenyek nem online sakkra lettek kitalálva. Pontosságot, elhivatottságot és türelmet vár el a résztvevőktől. Úgy gondoljuk, hogy ezek a feltételek jobban adottak egy csapaton belül a nyílt versenyekkel szemben.</string>
+  <string name="restrictedToTeamsA">A svájci rendszerű versenyek nem online sakkra lettek kitalálva. Pontosságot, elköteleződést és türelmet vár el a résztvevőktől. Úgy gondoljuk, hogy ezek a feltételek jobban adottak egy csapaton belül a nyílt versenyekkel szemben.</string>
   <string name="numberOfByesQ">Hány szabadkört kaphat egy játékos?</string>
   <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
 Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki késve csatlakozik a versenyhez.</string>
@@ -98,7 +98,7 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="possibleButNotConsecutive">Lehetséges, de nem egymást követően</string>
   <string name="identicalForbidden">Tiltott</string>
   <string name="lateJoin">Késői csatlakozás</string>
-  <string name="lateJoinUntil">Lehet amíg legfeljebb a körök fele elkezdődött</string>
+  <string name="lateJoinUntil">Lehet, amíg a fordulók fele el nem kezdődött</string>
   <string name="pause">Szünet</string>
   <string name="pauseSwiss">Lehet, de ezzel csökkenhet a fordulók száma</string>
   <string name="streaksAndBerserk">Nyerő széria és Berserk</string>
