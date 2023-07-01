@@ -60,6 +60,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
           .map:
             case res if res.status == 200 => res.body[JsValue].some
             case _                        => none
+          .recoverWith(_ => fuccess(none))
 
   def get = Open:
     negotiateJson:
