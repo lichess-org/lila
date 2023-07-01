@@ -72,6 +72,14 @@
 یاری ڕاپید یان کلاسیک بکە بۆ بەرزکردنەوەی چانسی دەستکەوتنی مەتەڵی یاریەکانی خۆت!</string>
   <string name="fromXGamesFound">%1$s مەتەڵ دۆزرایەوە لە %2$s یاریەدا</string>
   <string name="puzzleDashboardDescription">ڕاهێنان ، شیکردنەوە، بەرەوپێشچوون</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s یاری کرد</item>
+    <item quantity="other">%s یاری کرد</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s بۆ دووبارەکردنەوە</item>
+    <item quantity="other">%s دووبارە شیکارکردنەوە</item>
+  </plurals>
   <string name="percentSolved">%s شیکارکراو</string>
   <string name="noPuzzlesToShow">هیچشتێک نییە بۆ نیشاندان، سەرەتا هەندێک مەتەڵ شیکاربکە!</string>
   <string name="improvementAreasDescription">ڕاهێنانی ئەمانە بکە بۆ باشتر بەرەوپێشچوونت!</string>
