@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">بجوڵێ بۆ دەستپێکردن</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">أنت تلعب القطع البيضاء في جميع الألغاز</string>
   <string name="puzzlesSolved">مەتەڵەکان شیکارکران</string>
   <string name="newDailyHighscore">نمرەی بەرزی نوێی ڕۆژانە!</string>
   <string name="newWeeklyHighscore">نمرەی بەرزی نوێی هەفتانە!</string>
