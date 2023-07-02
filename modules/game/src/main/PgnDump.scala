@@ -23,11 +23,11 @@ final class PgnDump(
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn] =
-    val imported = game.pgnImport.flatMap { pgni =>
+    val imported = game.pgnImport.flatMap: pgni =>
       Parser.full(pgni.pgn).toOption
-    }
+
     val tagsFuture =
-      if (flags.tags)
+      if flags.tags then
         tags(
           game,
           initialFen,
@@ -37,21 +37,17 @@ final class PgnDump(
           teams = teams
         )
       else fuccess(Tags(Nil))
-    tagsFuture map { ts =>
-      val tree = flags.moves so {
-        val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
+
+    tagsFuture.map: ts =>
+      val tree = flags.moves.so:
+        val fenSituation = ts.fen.flatMap(Fen.readWithMoveNumber)
         makeTree(
-          flags keepDelayIf game.playable applyDelay {
-            if fenSituation.exists(_.situation.color.black) then SanStr("..") +: game.sans
-            else game.sans
-          },
+          flags.keepDelayIf(game.playable).applyDelay(game.sans),
           fenSituation.fold(Ply.initial)(_.ply),
           flags.clocks so ~game.bothClockStates,
           game.startColor
         )
-      }
       Pgn(ts, InitialComments.empty, tree)
-    }
 
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
 

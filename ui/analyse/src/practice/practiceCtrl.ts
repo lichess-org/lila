@@ -57,12 +57,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     hinting = prop<Hinting | null>(null),
     played = prop(false);
 
-  function ensureCevalRunning() {
-    if (!root.showComputer()) root.toggleComputer();
-    if (!root.ceval.enabled()) root.toggleCeval();
-    if (root.threatMode()) root.toggleThreatMode();
-  }
-
   function commentable(node: Tree.Node, bonus = 0): boolean {
     if (node.tbhit || root.outcome(node)) return true;
     const ceval = node.ceval;
@@ -148,7 +142,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       return root.redraw();
     }
     if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
-    ensureCevalRunning();
+    root.ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
       if (h) {

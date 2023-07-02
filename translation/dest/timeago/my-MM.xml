@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">ယခုလေးတင်</string>
+  <plurals name="inNbSeconds">
+    <item quantity="other">%s စက္ကန့်အတွင်း</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="other">%s မိနစ်အတွင်း</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="other">%s နာရီအတွင်း</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="other">%s ရက်အတွင်း</item>
+  </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="other">ရက်သတ္တ %s ပတ် ကြာပြီးလျှင်</item>
+    <item quantity="other">%s ပတ်အတွင်း</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="other">%s လအတွင်း</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="other">%s နှစ်အတွင်း</item>
   </plurals>
   <string name="rightNow">ယခု</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="other">လွန်ခဲ့သော %s စက္ကန့်က</item>
+  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="other">လွန်ခဲ့သော %s မိနစ်က</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">လွန်ခဲ့သော %s နာရီက</item>
   </plurals>
   <plurals name="nbDaysAgo">
     <item quantity="other">လွန်ခဲ့သော %s ရက်က</item>
   </plurals>
   <plurals name="nbWeeksAgo">
-    <item quantity="other">လွန်ခဲ့သေ ရက်သတ္တ %s ပတ်က</item>
+    <item quantity="other">လွန်ခဲ့သော %s ပတ်က</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="other">လွန်ခဲ့သော %s လက</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">လွန်ခဲ့သော %s နှစ်က</item>
   </plurals>
 </resources>

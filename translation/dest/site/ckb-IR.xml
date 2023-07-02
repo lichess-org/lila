@@ -11,7 +11,7 @@
   <string name="level">پلە</string>
   <string name="strength">هێز</string>
   <string name="toggleTheChat">کارپێکرد/لەکارخستنی چاتەکە</string>
-  <string name="chat">دەمەتەقێ</string>
+  <string name="chat">گفتووگۆ</string>
   <string name="resign">خۆبەدەستەوەدان</string>
   <string name="checkmate">کش مات</string>
   <string name="stalemate">یەکسانبوون</string>
@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' لەگەڵ نزیکخستنەوەیان، بە پێی ژمارەی نیوەی جووڵەکان تا خواردنی داشی داهاتوو یان جوڵەی سەرباز</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
+  <string name="maxDepthReached">بەرزترین جوڵەی شیکراوە!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
   <string name="openings">دەستپێک</string>
   <string name="openingExplorer">دۆزەرەوەی کردنەوەکان</string>
@@ -119,6 +120,7 @@
   <string name="memory">یادگە</string>
   <string name="infiniteAnalysis">شیکاریکردنی بێ کۆتا</string>
   <string name="removesTheDepthLimit">لابردنی سنووری قوڵیەکەی، بەمەش کۆمپیوتەرەکەت سەلامەتتر دەبێت</string>
+  <string name="engineManager">بەڕێوەبردنی کۆمپیوتەر</string>
   <string name="blunder">هەڵەی دۆڕان</string>
   <string name="mistake">هەڵە</string>
   <string name="inaccuracy">ناتەواو</string>
@@ -209,8 +211,10 @@
   <string name="forgotPassword">وشەی نهێنیت لەبیر کردووە?</string>
   <string name="error.weakPassword">ئەم وشەی نهێنییە لەڕادەبەدەر باو و ئاساییە، و زۆر ئاسانە بۆ پێشبینیکردن.</string>
   <string name="error.namePassword">تکایە ناوی بەکارهێنەرەکەت وەک وشەی نهێنی بەکارمەهێنە.</string>
+  <string name="blankedPassword">ئەم تێپەڕە وشەیەت بۆ وێبسایتێکی تر بەکارهێناوە، بۆ دڵنیابوونەوە لە پارێزراوی هەژماری لیچێس، پێویستە تێپەڕە وشەیەکی نوێ دابنێی. سوپاس بۆ تێگەیشتنت.</string>
   <string name="youAreLeavingLichess">تۆ دەردەچیت لە لیچێس</string>
   <string name="neverTypeYourPassword">هەرگیز وشەی نهێنی لیچێسەکەت لە سایتێکی تردا مەنووسە!</string>
+  <string name="proceedToX">بەردەوام بوون لە %s</string>
   <string name="passwordSuggestion">وشەیەکی نهێنی دامەنێ کە کەسێکی تر پێشنیاری کردبێت. بۆ دزینی ئەکاونتەکەت بەکاری دەهێنن.</string>
   <string name="emailSuggestion">ناونیشانی ئیمەیڵێک دامەنێ کە کەسێکی تر پێشنیاری کردبێت. بۆ دزینی ئەکاونتەکەت بەکاری دەهێنن.</string>
   <string name="emailConfirmHelp">یارمەتی بۆ پشتراستکردنەوەی ئیمێڵ</string>
@@ -340,6 +344,7 @@
   </plurals>
   <string name="viewTournament">بینینی پاڵەوانیەتیەکان</string>
   <string name="backToTournament">گەڕانەوە بۆ پاڵەوانێتی</string>
+  <string name="noDrawBeforeSwissLimit">ناتوانیت یەکسان بیت بەر لە 30 جوڵە لە تۆرنەمێنتی سویس.</string>
   <string name="thematic">بابەتیی</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s یاری هەڵسەنگێنراو</item>
@@ -669,6 +674,11 @@
   <string name="keyGoToStartOrEnd">برۆ بۆ کۆتا/سەرەتا</string>
   <string name="keyShowOrHideComments">پێشاندان/شاردنەوەی کۆمێنتەکان</string>
   <string name="keyEnterOrExitVariation">داخڵکردن/دەرچوون لە گۆڕاوەکان</string>
+  <string name="keyRequestComputerAnalysis">داواکردنی شیکاری کۆمپیوتەری، لە هەڵەکانتەوە فێربە</string>
+  <string name="keyNextLearnFromYourMistakes">دواتر (لە هەڵەکانتەوە فێرببە)</string>
+  <string name="keyNextBlunder">بڵەندەر(هەڵە) ی دواتر</string>
+  <string name="keyNextMistake">میستەیک(هەڵە) ی دواتر</string>
+  <string name="keyNextInaccuracy">جووڵەی ناپێویستی دواتر</string>
   <string name="newTournament">پاڵەوانیەتی نوێ</string>
   <string name="tournamentHomeTitle">پاڵەوانێتییەکانی شەترەنج کە کۆنترۆڵی کات و جۆرە جیاوازەکانی تێدایە</string>
   <string name="tournamentHomeDescription">یاری پاڵەوانێتی شەترەنجی خێرا بکە! بەشداری پاڵەوانێتیەکی فەرمی بەرنامە بۆ داڕێژراو بکە، یان خۆت دانەیەکی تایبەت دروست بکە. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, و بژاردەی تر بەردەستە بۆ خۆشی بێکۆتایی شەترەنج.</string>
@@ -712,6 +722,7 @@
   <string name="kidMode">بەشی شێوازی منداڵان</string>
   <string name="kidModeExplanation">ئەمە پەیوەندی بە سەلامەتییەوە هەیە. لە دۆخی منداڵدا، هەموو پەیوەندییەکانی ماڵپەڕەکە لەکاردەخرێن. ئەمە بۆ منداڵەکانت و خوێندکارانی قوتابخانە چالاک بکە، بۆ ئەوەی لە بەکارهێنەرانی تری ئینتەرنێت بیانپارێزیت.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">بۆ ئەوەی بزانی منداڵەکەت پارێزراوە، ئێمە لە دۆخی منداڵان ئایکۆنی لیچێس دەگۆڕین بۆ ئەو شێوازە %s.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">هەژمارەکەت بەکارهاتووە، پرسیار لە مامۆستای شەتڕەنج بکە بۆ داواکاری بەرزکردنەوەی دۆخی منداڵ.</string>
   <string name="enableKidMode">دۆخی شێوازی منداڵ چالاک بکە</string>
   <string name="disableKidMode">دۆخی شێوازی منداڵ ناچالاک بکە</string>
   <string name="security">پاراستن</string>
@@ -860,6 +871,8 @@
   <string name="useTheReportForm">فۆڕمی ڕاپۆرت بەکاربهێنە</string>
   <string name="toRequestSupport">بۆ داوای پشتگیری، %1$s</string>
   <string name="tryTheContactPage">لاپەڕەی پەیوەندیکردن تاقی بکەرەوە</string>
+  <string name="makeSureToRead">دڵنیابە لە خوێندنەوەی%1$s</string>
+  <string name="theForumEtiquette">ئەتەکێتی مەکۆ</string>
   <string name="thisTopicIsArchived">ئەم بابەتە ئەرشیف کراوە و چیتر ناتوانرێت وەڵام بدرێتەوە.</string>
   <string name="joinTheTeamXToPost">بەشداری %1$s بکە، بۆ پۆستکردن لەم یانەیەدا</string>
   <string name="teamNamedX">%1$s یانە</string>
@@ -941,4 +954,5 @@
   <string name="lichessDbExplanation">نمونەیەک لە یارییە هەڵسەنگێنراوەکان، لە هەموو یاریزانەکانی لیچێس</string>
   <string name="switchSides">لای یاریکردن بگۆڕە</string>
   <string name="closingAccountWithdrawAppeal">داخستنی ئەکاونتەکەت تانەکەت دەکێشێتەوە</string>
+  <string name="ourEventTips">پێشنیارەکانمان بۆ ڕێکخستنی ئیڤێنت</string>
 </resources>

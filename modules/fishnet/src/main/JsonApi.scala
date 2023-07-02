@@ -163,6 +163,7 @@ object JsonApi:
               "type" -> "analysis",
               "id"   -> a.id,
               "nodes" -> Json.obj(
+                "sf16"      -> a.nodes,
                 "sf15"      -> a.nodes,
                 "sf14"      -> a.nodes * 14 / 10,
                 "nnue"      -> a.nodes * 14 / 10, // bc fishnet <= 2.3.4
