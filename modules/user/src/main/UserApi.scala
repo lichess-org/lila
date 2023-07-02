@@ -56,12 +56,12 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         u.map(u => User.WithPerfs(u, perfs.getOrElse(u.id, UserPerfs.default(u.id))))
     yield make(x) -> make(y)
 
-  def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[Either[LightUser.Ghost, (User, Perf)]]] =
+  def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[Either[LightUser.Ghost, User.WithPerf]]] =
     userRepo
       .byIdOrGhost(id)
       .flatMapz:
         case Left(g)  => fuccess(Left(g).some)
-        case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => Right(u -> p).some)
+        case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => Right(User.WithPerf(u, p)).some)
 
   def setBot(user: User): Funit =
     if user.count.game > 0

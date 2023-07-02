@@ -12,7 +12,7 @@ import lila.common.{ HTTPRequest, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.WithFlags
-import lila.game.{ Game, PerfPicker, Query }
+import lila.game.{ Game, Query }
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.User
@@ -276,7 +276,7 @@ final class GameApiV2(
       "rated"      -> g.rated,
       "variant"    -> g.variant.key,
       "speed"      -> g.speed.key,
-      "perf"       -> PerfPicker.key(g),
+      "perf"       -> g.perfKey,
       "createdAt"  -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
@@ -357,7 +357,7 @@ object GameApiV2:
   ) extends Config:
     def postFilter(g: Game) =
       rated.fold(true)(g.rated ==) && {
-        perfType.isEmpty || g.perfType.exists(perfType.contains)
+        perfType.isEmpty || perfType.contains(g.perfType)
       } && color.fold(true) { c =>
         g.player(c).userId has user.id
       } && analysed.fold(true)(g.metadata.analysed ==)

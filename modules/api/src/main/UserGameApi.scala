@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.LightUser
 import lila.common.paginator.Paginator
-import lila.game.{ Game, PerfPicker }
+import lila.game.Game
 import lila.user.User
 
 final class UserGameApi(
@@ -39,12 +39,12 @@ final class UserGameApi(
         "rated"     -> g.rated,
         "variant"   -> g.variant,
         "speed"     -> g.speed.key,
-        "perf"      -> PerfPicker.key(g),
+        "perf"      -> g.perfKey,
         "timestamp" -> g.createdAt,
         "turns"     -> g.ply,
         "status"    -> g.status,
         "source"    -> g.source.map(_.name),
-        "players" -> JsObject(g.players.mapList { p =>
+        "players" -> JsObject(g.players.mapList: p =>
           p.color.name -> Json
             .obj(
               "user"   -> p.userId.flatMap(lightUser.sync),
@@ -54,8 +54,7 @@ final class UserGameApi(
             .add("id" -> as.exists(p.isUser).option(p.id))
             .add("aiLevel" -> p.aiLevel)
             .add("rating" -> p.rating)
-            .add("ratingDiff" -> p.ratingDiff)
-        }),
+            .add("ratingDiff" -> p.ratingDiff)),
         "fen"       -> Fen.writeBoard(g.board),
         "winner"    -> g.winnerColor.map(_.name),
         "bookmarks" -> g.bookmarks

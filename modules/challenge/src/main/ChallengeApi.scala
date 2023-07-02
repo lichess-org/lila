@@ -119,8 +119,9 @@ final class ChallengeApi(
       c: Challenge,
       sid: Option[String],
       requestedColor: Option[chess.Color] = None
-  )(using me: Option[Me]): Fu[Validated[String, Option[Pov]]] =
+  )(using me: Option[User.WithPerfs]): Fu[Validated[String, Option[Pov]]] =
     acceptQueue:
+      given Option[Me] = Me.from(me.map(_.user))
       if c.canceled
       then fuccess(Invalid("The challenge has been canceled."))
       else if c.declined
@@ -145,7 +146,7 @@ final class ChallengeApi(
             case Valid(pov) =>
               (repo accept c) >>- {
                 uncacheAndNotify(c)
-                Bus.publish(Event.Accept(c, me), "challenge")
+                Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
               } inject Valid(pov.some)
             case Invalid(err) => fuccess(Invalid(err))
 
@@ -156,7 +157,7 @@ final class ChallengeApi(
         false
     }
 
-  def setDestUser(c: Challenge, u: User): Funit =
+  def setDestUser(c: Challenge, u: User.WithPerfs): Funit =
     val challenge = c setDestUser u
     repo.update(challenge) >>- {
       uncacheAndNotify(challenge)

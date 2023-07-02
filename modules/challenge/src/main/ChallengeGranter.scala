@@ -43,38 +43,39 @@ final class ChallengeGranter(
 
   val ratingThreshold = 300
 
-  def isDenied(fromOption: Option[User], dest: User, perfType: Option[PerfType])(using
-      ec: Executor
+  def isDenied(fromOption: Option[User.WithPerfs], dest: User.WithPerfs, perfType: PerfType)(using
+      Executor
   ): Fu[Option[ChallengeDenied]] =
     fromOption
       .fold[Fu[Option[ChallengeDenied.Reason]]] {
-        prefApi.get(dest).map(_.challenge) map {
+        prefApi.get(dest.user).map(_.challenge) map {
           case Pref.Challenge.ALWAYS => none
           case _                     => YouAreAnon.some
         }
       } { from =>
-        relationApi.fetchRelation(dest, from) zip
-          prefApi.get(dest).map(_.challenge) map {
+        relationApi.fetchRelation(dest.user, from.user) zip
+          prefApi.get(dest.user).map(_.challenge) map {
             case (Some(Block), _)                                  => YouAreBlocked.some
             case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
             case (Some(Follow), _)                                 => none // always accept from followed
             case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
             case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
             case (_, Pref.Challenge.RATING) =>
-              perfType.so: pt =>
-                if (from.perfs(pt).provisional || dest.perfs(pt).provisional) RatingIsProvisional(pt).some
-                else
-                  val diff = math.abs(from.perfs(pt).intRating.value - dest.perfs(pt).intRating.value)
-                  (diff > ratingThreshold) option RatingOutsideRange(pt)
+              if (from.perfs(perfType).provisional || dest.perfs(perfType).provisional)
+                RatingIsProvisional(perfType).some
+              else
+                val diff =
+                  math.abs(from.perfs(perfType).intRating.value - dest.perfs(perfType).intRating.value)
+                (diff > ratingThreshold) option RatingOutsideRange(perfType)
             case (_, Pref.Challenge.REGISTERED) => none
             case _ if from == dest              => SelfChallenge.some
             case _                              => none
           }
       }
       .map {
-        case None if dest.isBot && perfType.has(PerfType.UltraBullet) => BotUltraBullet.some
-        case res                                                      => res
+        case None if dest.isBot && perfType == PerfType.UltraBullet => BotUltraBullet.some
+        case res                                                    => res
       }
       .map {
-        _.map { ChallengeDenied(dest, _) }
+        _.map { ChallengeDenied(dest.user, _) }
       }

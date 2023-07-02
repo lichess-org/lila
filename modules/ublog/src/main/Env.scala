@@ -20,12 +20,7 @@ final class Env(
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer,
-    mode: play.api.Mode
-):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 

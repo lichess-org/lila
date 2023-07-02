@@ -35,15 +35,15 @@ final class JsonView(
   private def commonPlayerJson(
       g: Game,
       p: GamePlayer,
-      user: Option[Either[LightUser.Ghost, (User, Perf)]],
+      user: Option[Either[LightUser.Ghost, User.WithPerf]],
       withFlags: WithFlags
   ): JsObject =
     Json
       .obj("color" -> p.color.name)
       .add("user" -> user.map:
-        _.toOption.fold(userJsonView.ghost): (u, perf) =>
-          val p = withFlags.rating.option(Perf.Typed(perf, g.perfType))
-          userJsonView.roundPlayer(u, p)
+        _.toOption.fold(userJsonView.ghost): u =>
+          val p = withFlags.rating.option(Perf.Typed(u.perf, g.perfType))
+          userJsonView.roundPlayer(u.user, p)
       )
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
@@ -58,7 +58,7 @@ final class JsonView(
   def playerJson(
       pov: Pov,
       pref: Option[Pref],
-      playerUser: Option[Either[LightUser.Ghost, (User, Perf)]],
+      playerUser: Option[Either[LightUser.Ghost, User.WithPerf]],
       initialFen: Option[Fen.Epd],
       flags: WithFlags
   ): Fu[JsObject] =

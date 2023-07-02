@@ -14,7 +14,7 @@ import lila.db.paginator.Adapter
 import lila.game.BSONHandlers.given
 import lila.game.Game.{ BSONFields as G }
 import lila.game.JsonView.given
-import lila.game.{ CrosstableApi, Game, PerfPicker }
+import lila.game.{ CrosstableApi, Game }
 import lila.user.User
 
 final private[api] class GameApi(
@@ -38,7 +38,7 @@ final private[api] class GameApi(
       page: Int
   ): Fu[JsObject] =
     Paginator(
-      adapter = new Adapter[Game](
+      adapter = Adapter[Game](
         collection = gameRepo.coll,
         selector = {
           if (~playing) lila.game.Query.nowPlaying(user.id)
@@ -89,7 +89,7 @@ final private[api] class GameApi(
       page: Int
   ): Fu[JsObject] =
     Paginator(
-      adapter = new Adapter[Game](
+      adapter = Adapter[Game](
         collection = gameRepo.coll,
         selector = {
           if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
@@ -133,7 +133,7 @@ final private[api] class GameApi(
       page: Int
   ): Fu[JsObject] =
     Paginator(
-      adapter = new Adapter[Game](
+      adapter = Adapter[Game](
         collection = gameRepo.coll,
         selector = {
           if (~playing) lila.game.Query.nowPlayingVs(userIds)
@@ -193,7 +193,7 @@ final private[api] class GameApi(
         "rated"      -> g.rated,
         "variant"    -> g.variant.key,
         "speed"      -> g.speed.key,
-        "perf"       -> PerfPicker.key(g),
+        "perf"       -> g.perfKey,
         "createdAt"  -> g.createdAt,
         "lastMoveAt" -> g.movedAt,
         "turns"      -> g.ply,

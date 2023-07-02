@@ -15,7 +15,7 @@ final class UserApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
     gameCache: lila.game.Cached,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     userCache: lila.user.Cached,
     prefApi: lila.pref.PrefApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
@@ -26,8 +26,8 @@ final class UserApi(
     net: NetConfig
 )(using Executor):
 
-  def one(u: User, joinedAt: Option[Instant] = None): JsObject = {
-    addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
+  def one(u: User.WithPerfs, joinedAt: Option[Instant] = None): JsObject = {
+    addStreaming(jsonView.full(u.user, u.perfs.some, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
 
@@ -37,17 +37,18 @@ final class UserApi(
       withFollows: Boolean,
       withTrophies: Boolean
   )(using Lang): Fu[Option[JsObject]] =
-    userRepo byId username flatMapz {
+    userApi withPerfs username flatMapz {
       extended(_, as, withFollows, withTrophies) dmap some
     }
 
   def extended(
-      u: User,
+      u: User.WithPerfs,
       as: Option[User],
       withFollows: Boolean,
       withTrophies: Boolean
   )(using Lang): Fu[JsObject] =
-    if (u.enabled.no) fuccess(jsonView disabled u.light)
+    if u.enabled.no
+    then fuccess(jsonView disabled u.light)
     else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
         as.filter(u !=).so { me => crosstableApi.nbGames(me.id, u.id) } zip
@@ -55,15 +56,15 @@ final class UserApi(
         as.isDefined.so { prefApi followable u.id } zip
         as.map(_.id).so { relationApi.fetchRelation(_, u.id) } zip
         as.map(_.id).so { relationApi.fetchFollows(u.id, _) } zip
-        bookmarkApi.countByUser(u) zip
+        bookmarkApi.countByUser(u.user) zip
         gameCache.nbPlaying(u.id) zip
         gameCache.nbImportedBy(u.id) zip
-        withTrophies.so(getTrophiesAndAwards(u).dmap(some)) map {
+        withTrophies.so(getTrophiesAndAwards(u.user).dmap(some)) map {
           // format: off
             case (((((((((gameOption,nbGamesWithMe),following),followable),
               relation),isFollowed),nbBookmarks),nbPlaying),nbImported),trophiesAndAwards)=>
             // format: on
-            jsonView.full(u, withRating = true, withProfile = true) ++ {
+            jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
               Json
                 .obj(
                   "url"     -> makeUrl(s"@/${u.username}"), // for app BC

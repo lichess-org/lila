@@ -27,6 +27,7 @@ final private[api] class RoundApi(
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameRepo: lila.game.GameRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     tourApi: lila.tournament.TournamentApi,
     swissApi: lila.swiss.SwissApi,
     simulApi: lila.simul.SimulApi,
@@ -36,15 +37,16 @@ final private[api] class RoundApi(
     getLightUser: lila.common.LightUser.GetterSync
 )(using Executor):
 
-  def player(pov: Pov, tour: Option[TourView])(using ctx: Context): Fu[JsObject] =
-    gameRepo
-      .initialFen(pov.game)
-      .flatMap { initialFen =>
-        given Lang = ctx.lang
+  def player(pov: Pov, tour: Option[TourView])(using ctx: Context): Fu[JsObject] = {
+    for
+      initialFen <- gameRepo.initialFen(pov.game)
+      user       <- ctx.me.so(perfsRepo.withPerf(_, pov.game.perfType) dmap some)
+      given Lang = ctx.lang
+      (((((json, simul), swiss), note), forecast), bookmarked) <-
         jsonView.playerJson(
           pov,
           ctx.pref.some,
-          ctx.me.map(Right.apply),
+          user.map(Right.apply),
           flags = ctxFlags,
           initialFen = initialFen
         ) zip
@@ -52,20 +54,17 @@ final private[api] class RoundApi(
           swissApi.gameView(pov) zip
           (ctx.myId.ifTrue(ctx.isMobileApi) so (noteApi.get(pov.gameId, _))) zip
           forecastApi.loadForDisplay(pov) zip
-          bookmarkApi.exists(pov.game, ctx.me) map {
-            case (((((json, simul), swiss), note), forecast), bookmarked) =>
-              (
-                withTournament(pov, tour) compose
-                  withSwiss(swiss) compose
-                  withSimul(simul) compose
-                  withSteps(pov, initialFen) compose
-                  withNote(note) compose
-                  withBookmark(bookmarked) compose
-                  withForecastCount(forecast.map(_.steps.size))
-              )(json)
-          }
-      }
-      .mon(_.round.api.player)
+          bookmarkApi.exists(pov.game, ctx.me)
+    yield (
+      withTournament(pov, tour) compose
+        withSwiss(swiss) compose
+        withSimul(simul) compose
+        withSteps(pov, initialFen) compose
+        withNote(note) compose
+        withBookmark(bookmarked) compose
+        withForecastCount(forecast.map(_.steps.size))
+    )(json)
+  }.mon(_.round.api.player)
 
   def watcher(
       pov: Pov,
