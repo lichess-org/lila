@@ -17,16 +17,32 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
     coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
 
   def idsMap[U: UserIdOf](
-      u: List[U],
+      u: Seq[U],
       readPreference: ReadPreference = ReadPreference.primary
   ): Fu[Map[UserId, UserPerfs]] =
     coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPreference)(_.id)
 
+  def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs] =
+    coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
+
+  def perfsOf[U: UserIdOf](us: PairOf[U]): Fu[PairOf[UserPerfs]] = us match
+    case (x, y) =>
+      idsMap(List(x, y)).dmap: ps =>
+        ps.getOrElse(x.id, UserPerfs.default(x.id)) -> ps.getOrElse(y.id, UserPerfs.default(y.id))
+
   def withPerfs(u: User): Fu[User.WithPerfs] =
-    coll
-      .byId[UserPerfs](u.id)
-      .dmap: perfs =>
-        User.WithPerfs(u, perfs | UserPerfs.default(u.id))
+    perfsOf(u).dmap(User.WithPerfs(u, _))
+
+  def withPerfs(us: PairOf[User]): Fu[PairOf[User.WithPerfs]] =
+    perfsOf(us).dmap: (x, y) =>
+      User.WithPerfs(us._1, y) -> User.WithPerfs(us._2, x)
+
+  def withPerfs(
+      us: Seq[User],
+      readPreference: ReadPreference = ReadPreference.primary
+  ): Fu[Seq[User.WithPerfs]] =
+    idsMap(us, readPreference).map: perfs =>
+      us.map(u => User.WithPerfs(u, perfs.getOrElse(u.id, UserPerfs.default(u.id))))
 
   def setPerfs(user: User, perfs: UserPerfs, prev: UserPerfs)(using wr: BSONHandler[Perf]) =
     val diff = for

@@ -38,9 +38,12 @@ final class SeekApi(
 
   def forAnon = cache get ForAnon
 
-  def forMe(using me: User.WithPerfs): Fu[List[Seek]] = for
-    blocking <- relationApi.fetchBlocking(me.id)
-    seeks    <- forUser(LobbyUser.make(me, lila.pool.Blocking(blocking)))
+  def forMe(using me: User | User.WithPerfs): Fu[List[Seek]] = for
+    user <- me match
+      case u: User.WithPerfs => fuccess(u)
+      case u: User           => perfsRepo.withPerfs(u)
+    blocking <- relationApi.fetchBlocking(user.id)
+    seeks    <- forUser(LobbyUser.make(user, lila.pool.Blocking(blocking)))
   yield seeks
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =

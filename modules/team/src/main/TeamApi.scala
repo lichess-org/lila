@@ -143,7 +143,7 @@ final class TeamApi(
 
   private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
     userApi
-      .withPerfs(requests.map(_.user), ReadPreference.secondaryPreferred)
+      .listWithPerfs(requests.map(_.user), ReadPreference.secondaryPreferred)
       .map: users =>
         RequestWithUser.combine(requests, users.filter(_.enabled.yes))
 

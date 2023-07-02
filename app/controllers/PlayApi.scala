@@ -29,7 +29,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
           else
             env.tournament.api.withdrawAll(me) >>
               env.team.cached.teamIdsList(me).flatMap { env.swiss.api.withdrawAll(me, _) } >>
-              env.user.repo.setBot(me) >>
+              env.user.api.setBot(me) >>
               env.pref.api.setBot(me) >>
               env.streamer.api.delete(me) >>-
               env.user.lightUserApi.invalidate(me) pipe
@@ -155,8 +155,6 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   def botOnlineApi = Anon:
     apiC
       .jsonDownload:
-        env.user.repo
-          .botsByIdsCursor(env.bot.onlineApiUsers.get)
-          .documentSource(getInt("nb") | Int.MaxValue)
-          .throttle(50, 1 second)
-          .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
+        env.user.api
+          .botsByIdsStream(env.bot.onlineApiUsers.get)
+          .map { env.user.jsonView.full(_, withProfile = true) }

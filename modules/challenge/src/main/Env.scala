@@ -11,6 +11,7 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,

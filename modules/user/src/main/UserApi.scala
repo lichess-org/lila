@@ -1,11 +1,19 @@
 package lila.user
 
+import reactivemongo.api.ReadPreference
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import akka.stream.scaladsl.*
+
 import lila.rating.{ Perf, PerfType }
 import lila.memo.CacheApi
 import lila.common.LightUser
-import reactivemongo.api.ReadPreference
+import lila.db.dsl.{ *, given }
+import lila.db.BSON.Reader
 
-final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using Executor):
+final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
+    Executor,
+    akka.stream.Materializer
+):
 
   private type GameUserIds = PairOf[Option[UserId]]
 
@@ -36,7 +44,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def withPerfs(u: User): Fu[User.WithPerfs]                    = perfsRepo.withPerfs(u)
   def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = userRepo.withPerfs(id)
-  def withPerfs[U: UserIdOf](
+
+  def listWithPerfs[U: UserIdOf](
       ids: List[U],
       readPreference: ReadPreference = ReadPreference.primary
   ): Fu[List[User.WithPerfs]] = for
@@ -69,3 +78,13 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     else
       userRepo.addTitle(user.id, Title.BOT) >>
         perfsRepo.setBotInitialPerfs(user.id)
+
+  def botsByIdsStream(ids: Iterable[UserId], nb: Option[Int]): Source[User.WithPerfs, _] =
+    userRepo.coll
+      .find($inIds(ids) ++ userRepo.botSelect(true))
+      .cursor[User](temporarilyPrimary)
+      .documentSource(nb | Int.MaxValue)
+      .grouped(40)
+      .mapAsync(1)(perfsRepo.withPerfs(_, ReadPreference.secondaryPreferred))
+      .throttle(1, 1 second)
+      .mapConcat(identity)

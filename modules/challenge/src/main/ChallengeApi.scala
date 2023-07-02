@@ -10,22 +10,19 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi.*
-import lila.user.{ Me, LightUserApi, User, UserRepo }
+import lila.user.{ Me, LightUserApi, User, UserRepo, UserPerfsRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,
     challengeMaker: ChallengeMaker,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     lightUserApi: LightUserApi,
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     cacheApi: lila.memo.CacheApi
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler
-):
+)(using Executor, akka.actor.ActorSystem, Scheduler):
 
   import Challenge.*
 
@@ -119,9 +116,9 @@ final class ChallengeApi(
       c: Challenge,
       sid: Option[String],
       requestedColor: Option[chess.Color] = None
-  )(using me: Option[User.WithPerfs]): Fu[Validated[String, Option[Pov]]] =
+  )(using me: Option[Me]): Fu[Validated[String, Option[Pov]]] =
     acceptQueue:
-      given Option[Me] = Me.from(me.map(_.user))
+      def withPerfs = me.map(_.value).so(perfsRepo.withPerfs(_) dmap some)
       if c.canceled
       then fuccess(Invalid("The challenge has been canceled."))
       else if c.declined
@@ -138,17 +135,23 @@ final class ChallengeApi(
         yield chess.Color.fromWhite(me is userIds._1)
         val color = openFixedColor orElse requestedColor
         if c.challengerIsOpen
-        then repo.setChallenger(c.setChallenger(me, sid), color) inject Valid(none)
+        then
+          withPerfs.flatMap: me =>
+            repo.setChallenger(c.setChallenger(me, sid), color) inject Valid(none)
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then fuccess(Invalid("This color has already been chosen"))
         else
-          joiner(c, me).flatMap:
-            case Valid(pov) =>
-              (repo accept c) >>- {
-                uncacheAndNotify(c)
-                Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
-              } inject Valid(pov.some)
-            case Invalid(err) => fuccess(Invalid(err))
+          for
+            me   <- withPerfs
+            join <- joiner(c, me)
+            result <- join match
+              case Valid(pov) =>
+                repo.accept(c) >>- {
+                  uncacheAndNotify(c)
+                  Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
+                } inject Valid(pov.some)
+              case Invalid(err) => fuccess(Invalid(err))
+          yield result
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
     challengeMaker.makeRematchOf(game, user) flatMapz { challenge =>
@@ -157,12 +160,13 @@ final class ChallengeApi(
         false
     }
 
-  def setDestUser(c: Challenge, u: User.WithPerfs): Funit =
-    val challenge = c setDestUser u
-    repo.update(challenge) >>- {
-      uncacheAndNotify(challenge)
-      Bus.publish(Event.Create(challenge), "challenge")
-    }
+  def setDestUser(c: Challenge, u: User): Funit = for
+    user <- perfsRepo.withPerfs(u)
+    challenge = c setDestUser user
+    _ <- repo.update(challenge)
+  yield
+    uncacheAndNotify(challenge)
+    Bus.publish(Event.Create(challenge), "challenge")
 
   def removeByUserId(userId: UserId): Funit =
     repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void

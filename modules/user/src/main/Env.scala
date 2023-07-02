@@ -38,7 +38,7 @@ final class Env(
   val perfsRepo = UserPerfsRepo(db(CollName("user_perf")))
   val repo      = UserRepo(db(CollName("user4")), perfsRepo)
 
-  val userApi = wire[UserApi]
+  val api = wire[UserApi]
 
   val lightUserApi: LightUserApi = wire[LightUserApi]
 

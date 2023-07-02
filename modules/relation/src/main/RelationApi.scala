@@ -27,9 +27,8 @@ final class RelationApi(
   val coll = repo.coll
 
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =
-    (u1 != u2) so {
-      coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r")
-    }
+    (u1 != u2) so coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r")
+
   def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
 
   def fetchRelations(u1: UserId, u2: UserId): Fu[Relations] =

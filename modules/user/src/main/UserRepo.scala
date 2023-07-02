@@ -119,9 +119,6 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       .cursor[User](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def botsByIdsCursor(ids: Iterable[UserId]): AkkaStreamCursor[User] =
-    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](temporarilyPrimary)
-
   def botsByIds(ids: Iterable[UserId]): Fu[List[User]] =
     coll.find($inIds(ids) ++ botSelect(true)).cursor[User](temporarilyPrimary).listAll()
 
@@ -161,21 +158,15 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
 
   def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean] =
     coll
-      .find(
-        $inIds(List(u1, u2)),
-        $id(true).some
-      )
+      .find($inIds(List(u1, u2)), $id(true).some)
       .sort($doc(F.colorIt -> 1))
       .one[Bdoc]
-      .map {
-        _.fold(ThreadLocalRandom.nextBoolean()) { doc =>
+      .map:
+        _.fold(ThreadLocalRandom.nextBoolean()): doc =>
           doc.string("_id") contains u1
-        }
-      }
-      .addEffect { v =>
+      .addEffect: v =>
         incColor(u1, if (v) 1 else -1)
         incColor(u2, if (v) -1 else 1)
-      }
 
   def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean] =
     (u1O, u2O).mapN(firstGetsWhite) | fuccess(ThreadLocalRandom.nextBoolean())
@@ -482,7 +473,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
 
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
-  private def botSelect(v: Boolean) =
+  def botSelect(v: Boolean) =
     if v then $doc(F.title -> Title.BOT)
     else $doc(F.title      -> $ne(Title.BOT))
 
