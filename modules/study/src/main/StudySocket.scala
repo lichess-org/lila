@@ -1,7 +1,6 @@
 package lila.study
 
 import actorApi.Who
-import cats.data.Validated
 import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.UciPath
@@ -257,17 +256,17 @@ final private class StudySocket(
   )
 
   private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(who: Who) =
-    m.branch match
-      case Validated.Valid(branch) if branch.ply < Node.MAX_PLIES =>
-        m.chapterId.ifTrue(opts.write) foreach { chapterId =>
-          api.addNode(
-            studyId,
-            Position.Ref(chapterId, m.path),
-            branch withClock opts.clock,
-            opts
-          )(who)
-        }
-      case _ =>
+    m.branch.foreach: branch =>
+      if branch.ply < Node.MAX_PLIES then
+        m.chapterId
+          .ifTrue(opts.write)
+          .foreach: chapterId =>
+            api.addNode(
+              studyId,
+              Position.Ref(chapterId, m.path),
+              branch withClock opts.clock,
+              opts
+            )(who)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply
 
