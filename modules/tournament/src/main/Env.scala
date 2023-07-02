@@ -17,6 +17,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     proxyRepo: lila.round.GameProxyRepo,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,

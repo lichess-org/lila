@@ -42,15 +42,13 @@ private[tournament] object Player:
 
   private[tournament] def make(
       tourId: TourId,
-      user: User,
-      perfType: PerfType,
+      user: User.WithPerf,
       team: Option[TeamId]
-  ): Player =
-    new Player(
-      _id = TourPlayerId(ThreadLocalRandom.nextString(8)),
-      tourId = tourId,
-      userId = user.id,
-      rating = user.perfs(perfType).intRating,
-      provisional = user.perfs(perfType).provisional,
-      team = team
-    )
+  ): Player = Player(
+    _id = TourPlayerId(ThreadLocalRandom.nextString(8)),
+    tourId = tourId,
+    userId = user.id,
+    rating = user.perf.intRating,
+    provisional = user.perf.provisional,
+    team = team
+  )

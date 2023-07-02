@@ -14,7 +14,7 @@ import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.LeaderTeam
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.user.Me
@@ -22,6 +22,7 @@ import lila.user.Me
 final class TournamentApi(
     cached: TournamentCache,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     gameRepo: GameRepo,
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
@@ -258,10 +259,13 @@ final class TournamentApi(
   def getVerdicts(tour: Tournament, playerExists: Boolean)(using GetMyTeamIds)(using
       me: Option[Me]
   ): Fu[Condition.WithVerdicts] =
-    me.foldUse(fuccess(tour.conditions.accepted)):
+    me.foldUse(fuccess(tour.conditions.accepted)): me ?=>
       if tour.isStarted && playerExists
       then verify.rejoin(tour.conditions)
-      else verify(tour.conditions, tour.perfType)
+      else
+        perfsRepo
+          .usingPerfOf(me, tour.perfType):
+            verify(tour.conditions, tour.perfType)
 
   private[tournament] def join(
       tourId: TourId,
@@ -289,9 +293,13 @@ final class TournamentApi(
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
               else if (!pause.canJoin(me, tour)) fuccess(JoinResult.Paused)
               else
-                def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] =
-                  playerRepo.join(tour.id, me.value, tour.perfType, team, prevPlayer) >>
-                    updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
+                def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
+                  user <- perfsRepo.withPerf(me.value, tour.perfType)
+                  _    <- playerRepo.join(tour.id, user, team, prevPlayer)
+                  _    <- updateNbPlayers(tour.id)
+                yield
+                  publish()
+                  JoinResult.Ok
                 tour.teamBattle.fold(proceedWithTeam(none)) { battle =>
                   data.team match
                     case None if prevPlayer.isDefined => proceedWithTeam(none)
@@ -408,7 +416,7 @@ final class TournamentApi(
             }
 
   private def updatePlayerAfterGame(tour: Tournament, game: Game, pairing: Pairing)(userId: UserId): Funit =
-    tour.mode.rated so { userRepo.perfOf(userId, tour.perfType) } flatMap { perf =>
+    tour.mode.rated so { perfsRepo.perfOptionOf(userId, tour.perfType) } flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
         cached.sheet.addResult(tour, userId, pairing).map { sheet =>
           player.copy(
@@ -487,7 +495,7 @@ final class TournamentApi(
     }
 
   private def recomputePlayerAndSheet(tour: Tournament)(userId: UserId): Funit =
-    tour.mode.rated so { userRepo.perfOf(userId, tour.perfType) } flatMap { perf =>
+    tour.mode.rated so { perfsRepo.perfOptionOf(userId, tour.perfType) } flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
         cached.sheet.recompute(tour, userId).map { sheet =>
           player.copy(

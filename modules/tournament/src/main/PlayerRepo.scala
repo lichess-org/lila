@@ -215,23 +215,20 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   def join(
       tourId: TourId,
-      user: User,
-      perfType: PerfType,
+      user: User.WithPerf,
       team: Option[TeamId],
       prev: Option[Player]
-  ) =
-    prev match
-      case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
-      case Some(_)               => funit
-      case None                  => coll.insert.one(Player.make(tourId, user, perfType, team))
+  ) = prev match
+    case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
+    case Some(_)               => funit
+    case None                  => coll.insert.one(Player.make(tourId, user, team))
 
   def withdraw(tourId: TourId, userId: UserId) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: TourId): Fu[List[Player]] =
-    coll.list[Player](
+    coll.list[Player]:
       selectTour(tourId) ++ $doc("m" $gt 0)
-    )
 
   private[tournament] def nbActivePlayers(tourId: TourId): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)

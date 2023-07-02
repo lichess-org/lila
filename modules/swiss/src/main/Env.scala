@@ -14,6 +14,8 @@ final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     onStart: lila.round.OnStart,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi,

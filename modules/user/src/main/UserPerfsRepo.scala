@@ -79,6 +79,12 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
   def perfOf[U: UserIdOf](u: U, perfType: PerfType): Fu[Perf] =
     perfOptionOf(u, perfType).dmap(_ | Perf.default)
 
+  def usingPerfOf[A, U: UserIdOf](u: U, perfType: PerfType)(f: Perf ?=> Fu[A]): Fu[A] =
+    perfOf(u, perfType)
+      .flatMap: perf =>
+        given Perf = perf
+        f
+
   def perfOf(ids: Iterable[UserId], perfType: PerfType): Fu[Map[UserId, Perf]] = ids.nonEmpty.so:
     coll
       .find(

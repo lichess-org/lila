@@ -11,18 +11,18 @@ import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.socket.SendToFlag
-import lila.user.{ User, Me, UserRepo, UserApi, UserPerfs }
-import lila.common.config.Max
+import lila.user.{ User, Me, UserRepo, UserPerfsRepo, UserApi, UserPerfs }
 import lila.common.Json.given
 import lila.hub.LeaderTeam
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.common.paginator.Paginator
-import lila.common.config.MaxPerPage
+import lila.common.config.{ Max, MaxPerPage }
 
 final class SimulApi(
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     userApi: UserApi,
     gameRepo: GameRepo,
     onGameStart: lila.round.OnStart,
@@ -84,7 +84,7 @@ final class SimulApi(
 
   def getVerdicts(simul: Simul)(using
       me: Option[Me]
-  )(using GetMyTeamIds, UserPerfs): Fu[Condition.WithVerdicts] =
+  )(using GetMyTeamIds, Perf): Fu[Condition.WithVerdicts] =
     me.foldUse(fuccess(simul.conditions.accepted)):
       verify(simul, simul.mainPerfType)
 
@@ -97,19 +97,14 @@ final class SimulApi(
             .filter(simul.variants.contains)
             .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime)
             .so: variant =>
-              userApi
-                .withPerfs(me.value)
+              val perfType = PerfType(variant, chess.Speed.Rapid)
+              perfsRepo
+                .withPerf(me.value, perfType)
                 .flatMap: user =>
-                  val perfType    = PerfType(variant, chess.Speed.Rapid)
-                  given UserPerfs = user.perfs
+                  given Perf = user.perf
                   verify(simul, perfType).flatMap:
                     _.accepted.so:
-                      val perf = PerfPicker.mainOrDefault(
-                        chess.Speed(simul.clock.config.some),
-                        variant,
-                        none
-                      )(user.perfs)
-                      val player   = SimulPlayer.make(user.user, variant, perf)
+                      val player   = SimulPlayer.make(user, variant)
                       val newSimul = simul addApplicant SimulApplicant(player, accepted = false)
                       repo.update(newSimul) >>- {
                         timeline ! Propagate(SimulJoin(me.userId, simul.id, simul.fullName))

@@ -20,6 +20,7 @@ import lila.user.{ UserPerfs, Me, User, UserRepo, UserPerfsRepo, UserApi }
 import lila.common.config.Max
 import lila.gathering.GreatPlayer
 import lila.gathering.Condition.WithVerdicts
+import lila.rating.Perf
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -164,10 +165,10 @@ final class SwissApi(
 
   def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] =
     me.foldUse(fuccess(swiss.settings.conditions.accepted)): me ?=>
-      userApi
-        .withPerfs(me.value)
+      perfsRepo
+        .withPerf(me.value, swiss.perfType)
         .flatMap: user =>
-          given UserPerfs = user.perfs
+          given Perf = user.perf
           verify(swiss)
 
   def join(id: SwissId, isInTeam: TeamId => Boolean, password: Option[String])(using me: Me): Fu[Boolean] =
@@ -182,12 +183,12 @@ final class SwissApi(
           .flatMap: rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
               for
-                user <- userApi.withPerfs(me.value)
-                given UserPerfs = user.perfs
+                user <- perfsRepo.withPerf(me.value, swiss.perfType)
+                given Perf = user.perf
                 verified <- verify(swiss)
                 ok = verified.accepted && swiss.isEnterable
                 _ <- ok.so:
-                  mongo.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
+                  mongo.player.insert.one(SwissPlayer.make(swiss.id, user)) zip
                     mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) void
               yield
                 cache.swissCache.clear(swiss.id)

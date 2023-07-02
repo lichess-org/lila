@@ -12,7 +12,7 @@ import lila.memo.CacheApi
 @annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     gameRepo: lila.game.GameRepo,
     fishnetAnalyser: Analyser,
     fishnetAwaiter: FishnetAwaiter,
@@ -21,12 +21,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mode: play.api.Mode,
-    mat: akka.stream.Materializer
-):
+)(using Executor, Scheduler, play.api.Mode, akka.stream.Materializer):
 
   private val colls = TutorColls(db(config.CollName("tutor_report")), db(config.CollName("tutor_queue")))
 

@@ -21,6 +21,7 @@ final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     renderer: lila.hub.actors.Renderer,
     timeline: lila.hub.actors.Timeline,

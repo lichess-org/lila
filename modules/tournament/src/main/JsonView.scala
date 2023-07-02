@@ -10,7 +10,7 @@ import lila.common.{ LightUser, Preload, Uptime }
 import lila.game.LightPov
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
-import lila.rating.PerfType
+import lila.rating.{ PerfType, Perf }
 import lila.socket.{ SocketVersion, given }
 import lila.user.{ LightUserApi, Me, User }
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
@@ -25,6 +25,7 @@ final class JsonView(
     shieldApi: TournamentShieldApi,
     cacheApi: lila.memo.CacheApi,
     proxyRepo: lila.round.GameProxyRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     verify: TournamentCondition.Verify,
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
@@ -68,7 +69,11 @@ final class JsonView(
           case (None, _)                                   => fuccess(tour.conditions.accepted.some)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
           case (Some(me), Some(_)) => verify.rejoin(tour.conditions)(using me) map some
-          case (Some(me), None)    => verify(tour.conditions, tour.perfType)(using me) map some
+          case (Some(me), None) =>
+            perfsRepo
+              .usingPerfOf(me, tour.perfType):
+                verify(tour.conditions, tour.perfType)(using me)
+              .dmap(some)
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi currentOwner tour }
       teamsToJoinWith <- full.so(~(for {
