@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">پۆلەکان</string>
+  <string name="teachClassesOfChessStudents">بە بەکارهێنانی ئامرازەکانی پۆلی لیچێس پۆلێک لە خوێندکارانی شەترەنج فێر بکە.</string>
+  <string name="features">تایبەتمەندیەکان</string>
+  <string name="quicklyGenerateSafeUsernames">دروستکردنی ناوی بەکارهێنەر و وشەی نهێنی پارێزراو بۆ خوێندکاران</string>
+  <string name="trackStudentProgress">بەدواداچوون بۆ پێشکەوتنی ئاستی خوێندکار لە یاری و مەتەڵەکاندا</string>
+  <string name="messageAllStudents">پەیام بۆ هەموو خوێندکاران بنێرە دەربارەی مادەی نوێی ناو پۆلەکەت</string>
+  <string name="freeForAllForever">100% بەخۆڕاییە بۆ هەمووان، بۆ هەمیشە، بەبێ هیچ ڕیکلام و شوێنپێهەڵگرێک</string>
+  <string name="applyToBeLichessTeacher">داواکاری پێشکەش بکە بۆ ئەوەی ببیتە مامۆستای لیچێس</string>
+  <string name="noClassesYet">هێشتا هیچ پۆلێک نییە.</string>
+  <string name="teachersX">مامۆستایان: %s</string>
+  <string name="newClass">پۆلی نوێ</string>
+  <string name="closeClass">داخستنی پۆل</string>
+  <string name="removedByX">لەلایەن %s لابرا</string>
+  <string name="reopen">دووبارە بیکەوە</string>
+  <string name="removeStudent">لابردنی خوێندکار</string>
+  <string name="removedStudents">لابردن</string>
+  <string name="inviteTheStudentBack">خوێندکارەکە بانگهێشت بکەرەوە</string>
+  <string name="sendAMessage">نامە بۆ سەرجەم قوتابیان بنێرە.</string>
+  <string name="aLinkToTheClassWillBeAdded">لە کۆتایی نامەکەدا بە شێوەیەکی خۆکارانە بەستەرێک بۆ پۆلەکە زیاد دەکرێت، بۆیە پێویست ناکات خۆت ئەو کارە بکەیت.</string>
+  <string name="className">ناوی پۆل</string>
+  <string name="classDescription">کورتە باسێکی پۆلەکە</string>
+  <string name="visibleByBothStudentsAndTeachers">لالەیەن هەردوولا، مامۆستایان و خوێندکارانی پۆل دەردەکەوێت</string>
+  <string name="teachersOfTheClass">مامۆستایانی پۆلەکە</string>
+  <string name="addLichessUsernames">ناوی بەکارهێنەری لیچێس زیاد بکە بۆ ئەوەی وەک مامۆستا بانگهێشتیان بکەیت. یەک دانە بۆ هەر دێڕێک.</string>
+  <string name="resetPassword">وشەی نهێنی ڕێکبخەرەوە</string>
+  <string name="makeSureToCopy">دڵنیابە لەوەی وشەی نهێنیت لایخۆت تۆمارکردووە. جارێکی تر ناتوانیت بیبینیتەوە!</string>
+  <string name="passwordX">وشەی نهێنی: %s</string>
+  <string name="generateANewPassword">وشەی نهێنی نوێ بۆ خوێندکار دروست بکە</string>
 </resources>
