@@ -101,6 +101,13 @@ export function movesTo(s: number, role: string, board: cs.Board): number[] {
   return dests;
 }
 
+export function as<T>(v: T, f: () => void): () => T {
+  return () => {
+    f();
+    return v;
+  };
+}
+
 export type Transform = {
   from: string; // single token
   to: string; // zero or more tokens, (empty string for erasure)

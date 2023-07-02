@@ -18,9 +18,10 @@ export interface RootCtrl {
 }
 
 export interface VoiceMove extends VoiceModule {
-  update: (fen: string, yourMove?: boolean) => void;
+  update: (fen: string, canMove: boolean) => void;
   promotionHook: () => (ctrl: PromotionCtrl, roles: cg.Role[] | false) => void;
-  confirm: (request: string, callback: (v: boolean) => void) => void;
+  listenForResponse: (request: string, action: (v: boolean) => void) => void;
+  question: () => QuestionOpts | false;
 }
 
 export interface VoiceMoveOpts {}

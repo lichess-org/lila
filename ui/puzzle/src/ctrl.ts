@@ -218,7 +218,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.promotionHook() }))
       playUserMove(orig, dest);
-    voiceMove?.update(vm.node.fen);
+    voiceMove?.update(vm.node.fen, true);
     keyboardMove?.update({ fen: vm.node.fen });
   }
 
@@ -498,7 +498,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
     keyboardMove?.update({ fen: vm.node.fen });
-    voiceMove?.update(vm.node.fen);
+    voiceMove?.update(vm.node.fen, true);
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 

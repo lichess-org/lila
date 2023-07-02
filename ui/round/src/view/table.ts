@@ -49,9 +49,9 @@ export const renderTableWatch = (ctrl: RoundController) =>
 export const renderTablePlay = (ctrl: RoundController) => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
-    submit = button.submitMove(ctrl),
+    question = button.askQuestion(ctrl),
     icons =
-      loading || submit
+      loading || question
         ? []
         : [
             game.abortable(d)
@@ -80,7 +80,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
                     enabled: ctrl.canOfferDraw(),
                     overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
                   }),
-                  '2',
+                  licon.OneHalf,
                   'offerDraw',
                   'draw-yes',
                   () => ctrl.offerDraw(true)
@@ -100,16 +100,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
           ],
     buttons: MaybeVNodes = loading
       ? [loader()]
-      : submit
-      ? [submit]
-      : [
-          button.opponentGone(ctrl),
-          button.threefoldSuggestion(ctrl),
-          button.cancelDrawOffer(ctrl),
-          button.answerOpponentDrawOffer(ctrl),
-          button.cancelTakebackProposition(ctrl),
-          button.answerOpponentTakebackProposition(ctrl),
-        ];
+      : [question, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
   return [
     replay.render(ctrl),
     h('div.rcontrols', [
