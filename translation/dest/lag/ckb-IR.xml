@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">ئایە لیچێس خاوبۆتەوە?</string>
+  <string name="measurementInProgressThreeDot">پێوانەکان بەردەوامن...</string>
+  <string name="noAndYourNetworkIsGood">نەخێر. وە تۆڕەکەت باشە.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">نەخێر. وە تۆڕەکەت خراپە.</string>
+  <string name="yesItWillBeFixedSoon">بەڵێ. بەم زووانە چاک دەکرێت!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">و ئێستاش، وەڵامی درێژ! خاوبونەوەی یارییەکە لە دوو بەهای ناپەیوەندیدار پێکدێت (کەمتر باشترە):</string>
+  <string name="lichessServerLatency">وەستانی سێرڤەری لیچێس</string>
+</resources>
