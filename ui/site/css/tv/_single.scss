@@ -30,8 +30,8 @@ $mq-col3: $mq-col3-uniboard;
       'side under .';
     .board-layout-1 & {
       grid-template-areas:
-        'side app   app'
-        'side under .';
+        'side . app   app'
+        'side . under .';
     }
 
     @include crosstable-large;
