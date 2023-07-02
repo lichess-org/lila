@@ -61,7 +61,7 @@ final private[tv] class TvTrouper(
       import lila.socket.Socket.makeMessage
       import cats.implicits._
       val player = game.players.sortBy { p =>
-        (channel.key == "computer" || p.userId.fold(true)(uid => !lightUserApi.isBotSync(uid))) ?? ~p.rating
+        (p.userId.fold(true)(uid => (channel.key == "computer") == lightUserApi.isBotSync(uid))) ?? ~p.rating
       }.lastOption | game.firstPlayer
       val user = player.userId flatMap lightUserApi.sync
       (user, player.rating) mapN { (u, r) =>
