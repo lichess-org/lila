@@ -169,8 +169,13 @@ export default class AnalyseCtrl {
 
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
-      this.getCeval().selectedEngine(urlEngine);
-      if (!this.ceval.enabled()) this.toggleCeval();
+      try {
+        this.getCeval().selectedEngine(urlEngine);
+        this.ensureCevalRunning();
+      } catch (e) {
+        console.info(e);
+      }
+      lichess.redirect('/analysis');
     }
 
     lichess.pubsub.on('jump', (ply: string) => {
@@ -710,6 +715,12 @@ export default class AnalyseCtrl {
       } else this.ceval.stop();
     }
   });
+
+  ensureCevalRunning = () => {
+    if (!this.showComputer()) this.toggleComputer();
+    if (!this.ceval.enabled()) this.toggleCeval();
+    if (this.threatMode()) this.toggleThreatMode();
+  };
 
   toggleCeval = () => {
     if (!this.showComputer()) return;
