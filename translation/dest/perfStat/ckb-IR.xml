@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%sئامارەکان</string>
+  <string name="viewTheGames">بینینی یارییەکان</string>
+  <string name="provisional">کاتیی</string>
+  <string name="notEnoughRatedGames">یاریی پلەبەندی پێویست ئەنجام نەدراوە بۆ جێگیرکردنی پلەبەندیەکی جێی متمانە.</string>
+  <string name="progressOverLastXGames">پێشکەوتن لە کۆتا %s یارییەکان:</string>
+  <string name="ratingDeviation">لادان لە پلەبەندی:%s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">بەهای کەمتر واتا پلەبەندی جێگیرترە. لە سەرووی %1$s, پلەبەندیەکە بە کاتیی دادەنرێت. بۆ ئەوەی لە ڕیزبەندیەکاندا جێگیر بکرێت، ئەو بەهایە دەبێت لە خوار %2$s(شەتڕەنجی ئاسایی) یان %3$s (جۆرەکانی تر) بێت.</string>
+</resources>
