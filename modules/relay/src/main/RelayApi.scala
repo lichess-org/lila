@@ -107,8 +107,9 @@ final class RelayApi(
 
   val officialActive = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]]:
     _.refreshAfterWrite(5 seconds).buildAsyncFuture: _ =>
+      val max = 64
       tourRepo.coll
-        .aggregateList(40): framework =>
+        .aggregateList(max): framework =>
           import framework.*
           Match(tourRepo.selectors.officialActive) -> List(
             Sort(Descending("tier")),
@@ -127,7 +128,7 @@ final class RelayApi(
               )
             ,
             UnwindField("round"),
-            Limit(40)
+            Limit(max)
           )
         .map: docs =>
           for
