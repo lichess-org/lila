@@ -422,13 +422,13 @@ object layout {
       header(id := "top")(
         div(cls := "site-title-nav")(
           topnavToggle,
-          div(cls := "site-title")(
+          (if (ctx.req.path == "/" ) h1 else div)(cls := "site-title")(
             if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
             a(href := siteUrl)(
               "lishogi",
               span(if (isProd) ".org" else ".dev"),
-              span(style := "position: relative; top: -12px; margin-left: 5px; font-size: 14px;")("beta")
+              span(cls := "site-beta")("beta")
             )
           ),
           ctx.blind option h2("Navigation"),

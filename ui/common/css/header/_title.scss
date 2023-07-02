@@ -33,6 +33,13 @@
   }
   span {
     color: $c-font-dim;
+    &.site-beta {
+      color: $c-font-dimmer;
+      position: relative;
+      top: -16px;
+      margin-left: 5px;
+      font-size: 14px;
+    }
   }
 
   .kiddo {
