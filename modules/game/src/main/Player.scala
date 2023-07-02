@@ -112,8 +112,7 @@ object Player:
     )
 
   def make(color: Color, user: Option[User.WithPerf]): Player =
-    user.fold(makeAnon(color)): u =>
-      make(color, (u.id, u.perf))
+    user.fold(makeAnon(color))(u => make(color, u.user.id -> u.perf))
 
   def makeImported(
       color: Color,

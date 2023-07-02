@@ -25,12 +25,12 @@ object PuzzleHistory:
     // def performance     = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
   }
 
-  final class HistoryAdapter(user: User.WithPerfs, colls: PuzzleColls)(using Executor)
+  final class HistoryAdapter(user: User.WithPerf, colls: PuzzleColls)(using Executor)
       extends AdapterLike[PuzzleSession]:
 
     import BsonHandlers.given
 
-    def nbResults: Fu[Int] = fuccess(user.perfs.puzzle.nb)
+    def nbResults: Fu[Int] = fuccess(user.perf.nb)
 
     def slice(offset: Int, length: Int): Fu[Seq[PuzzleSession]] =
       colls
@@ -74,7 +74,7 @@ final class PuzzleHistoryApi(colls: PuzzleColls)(using Executor):
 
   import PuzzleHistory.*
 
-  def apply(user: User.WithPerfs, page: Int): Fu[Paginator[PuzzleSession]] =
+  def apply(user: User.WithPerf, page: Int): Fu[Paginator[PuzzleSession]] =
     Paginator[PuzzleSession](
       HistoryAdapter(user, colls),
       currentPage = page,

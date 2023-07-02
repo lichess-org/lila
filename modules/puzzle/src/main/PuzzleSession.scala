@@ -4,7 +4,7 @@ import chess.Color
 import scala.util.chaining.*
 
 import lila.memo.CacheApi
-import lila.user.Me
+import lila.user.{ User, Me }
 import lila.rating.Perf
 
 private case class PuzzleSession(
@@ -51,9 +51,9 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       }
     }
 
-  def getSettings(using me: Me): Fu[PuzzleSettings] =
+  def getSettings(user: User): Fu[PuzzleSettings] =
     sessions
-      .getIfPresent(me.userId)
+      .getIfPresent(user.id)
       .fold[Fu[PuzzleSettings]](fuccess(PuzzleSettings.default))(_.dmap(_.settings))
 
   def setDifficulty(difficulty: PuzzleDifficulty)(using Me, Perf): Funit =

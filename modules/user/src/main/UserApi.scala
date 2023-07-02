@@ -39,7 +39,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           for
             (x, y) <- userRepo.pair(x, y)
             perfs  <- perfsRepo.perfOf(List(x, y).flatten.map(_.id), perfType)
-            make = (u: Option[User]) => u.map(u => User.WithPerf(u, perfs.getOrElse(u.id, Perf.default)))
+            make = (u: Option[User]) => u.map(u => u.withPerf(perfs.getOrElse(u.id, Perf.default)))
           yield make(x) -> make(y)
 
   def withPerfs(u: User): Fu[User.WithPerfs]                    = perfsRepo.withPerfs(u)
@@ -70,7 +70,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .byIdOrGhost(id)
       .flatMapz:
         case Left(g)  => fuccess(Left(g).some)
-        case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => Right(User.WithPerf(u, p)).some)
+        case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => Right(u withPerf p).some)
 
   def setBot(user: User): Funit =
     if user.count.game > 0

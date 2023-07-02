@@ -128,7 +128,7 @@ final class GifExport(
           (g, uci.some)
         })
         framesRec(
-          steps.zip(scaleMoveTimes(~game.moveTimes).map(_.some).padTo(steps.length, None)),
+          steps.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(steps.length, None)),
           Json.arr()
         )
 

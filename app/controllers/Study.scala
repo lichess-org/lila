@@ -127,7 +127,7 @@ final class Study(
   def byTopic(name: String, order: Order, page: Int) = Open:
     Found(lila.study.StudyTopic fromStr name): topic =>
       env.study.pager.byTopic(topic, order, page) zip
-        ctx.me.so(u => env.study.topicApi.userTopics(u) dmap some) flatMap { (pag, topics) =>
+        ctx.me.soFu(env.study.topicApi.userTopics) flatMap { (pag, topics) =>
           preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
         }
 

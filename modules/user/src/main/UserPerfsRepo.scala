@@ -128,10 +128,10 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
 
   def withPerf(users: List[User], perfType: PerfType): Fu[List[User.WithPerf]] =
     perfOf(users.map(_.id), perfType).map: perfs =>
-      users.map(u => User.WithPerf(u, perfs.getOrElse(u.id, Perf.default)))
+      users.map(u => u.withPerf(perfs.getOrElse(u.id, Perf.default)))
 
   def withPerf(user: User, perfType: PerfType): Fu[User.WithPerf] =
-    perfOf(user.id, perfType).map(User.WithPerf(user, _))
+    perfOf(user.id, perfType).dmap(user.withPerf)
 
   def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean] =
     if puzzle.glicko.rating < 2500

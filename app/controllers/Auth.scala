@@ -24,7 +24,7 @@ final class Auth(
 
   private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] = for
     povs  <- env.round.proxyRepo urgentGames u
-    perfs <- ctx.pref.showRatings.so(env.user.perfsRepo perfsOf u dmap some)
+    perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo perfsOf u)
   yield Ok:
     env.user.jsonView.full(u, perfs, withProfile = true) ++ Json.obj(
       "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),

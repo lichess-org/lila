@@ -118,7 +118,7 @@ final class ChallengeApi(
       requestedColor: Option[chess.Color] = None
   )(using me: Option[Me]): Fu[Validated[String, Option[Pov]]] =
     acceptQueue:
-      def withPerfs = me.map(_.value).so(perfsRepo.withPerfs(_) dmap some)
+      def withPerfs = me.map(_.value).soFu(perfsRepo.withPerfs)
       if c.canceled
       then fuccess(Invalid("The challenge has been canceled."))
       else if c.declined

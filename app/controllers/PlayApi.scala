@@ -156,5 +156,6 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
     apiC
       .jsonDownload:
         env.user.api
-          .botsByIdsStream(env.bot.onlineApiUsers.get)
-          .map { env.user.jsonView.full(_, withProfile = true) }
+          .botsByIdsStream(env.bot.onlineApiUsers.get, getInt("nb"))
+          .map: u =>
+            env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)

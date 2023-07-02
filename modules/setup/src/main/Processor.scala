@@ -4,23 +4,26 @@ import lila.common.Bus
 import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Seek
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, UserPerfsRepo }
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,
     gameRepo: GameRepo,
+    perfsRepo: UserPerfsRepo,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart
 )(using ec: Executor, idGenerator: IdGenerator):
 
-  def ai(config: AiConfig)(using me: Option[User.WithPerfs]): Fu[Pov] = for
+  def ai(config: AiConfig)(using me: Option[User]): Fu[Pov] = for
+    me  <- me.soFu(perfsRepo.withPerfs)
     pov <- config pov me
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
     _ <- pov.game.player.isAi so fishnetPlayer(pov.game)
   yield pov
 
-  def apiAi(config: ApiAiConfig)(using me: User.WithPerfs): Fu[Pov] = for
+  def apiAi(config: ApiAiConfig)(using me: User): Fu[Pov] = for
+    me  <- perfsRepo.withPerfs(me)
     pov <- config pov me.some
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)

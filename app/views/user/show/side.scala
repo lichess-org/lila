@@ -11,7 +11,7 @@ import lila.user.User
 object side:
 
   def apply(
-      u: User,
+      u: User.WithPerfs,
       rankMap: lila.rating.UserRankMap,
       active: Option[lila.rating.PerfType]
   )(using ctx: PageContext) =

@@ -87,6 +87,8 @@ case class User(
 
   def rankable = noBot && !marks.rankban
 
+  def withPerf(perf: Perf): User.WithPerf = User.WithPerf(this, perf)
+
   def addRole(role: String) = copy(roles = role :: roles)
 
   def isVerified        = roles.exists(_ contains "ROLE_VERIFIED")
@@ -128,7 +130,7 @@ object User:
     given UserIdOf[WithPerfs] = _.user.id
 
   case class WithPerf(user: User, perf: Perf):
-    export user.*
+    export user.{ id, createdAt, hasTitle, light }
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean):

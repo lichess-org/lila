@@ -120,7 +120,7 @@ final private class Rematcher(
         ),
         whitePlayer = returnPlayer(pov.game, White, users),
         blackPlayer = returnPlayer(pov.game, Black, users),
-        mode = if users.exists(_.lame) then chess.Mode.Casual else pov.game.mode,
+        mode = if users.exists(_.user.lame) then chess.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None

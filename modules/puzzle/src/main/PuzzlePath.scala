@@ -37,7 +37,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
       else tier
     colls
       .path:
-        _.aggregateOne() { framework =>
+        _.aggregateOne(): framework =>
           import framework.*
           val rating     = perf.glicko.intRating + difficulty.ratingDelta
           val ratingFlex = (100 + math.abs(1500 - rating.value) / 4) * compromise.atMost(4)
@@ -48,8 +48,8 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
             Sample(1),
             Project($id(true))
           )
-        }.dmap(_.flatMap(_.getAsOpt[Id]("_id")))
-      .flatMap {
+        .dmap(_.flatMap(_.getAsOpt[Id]("_id")))
+      .flatMap:
         case Some(path) => fuccess(path.some)
         case _ if actualTier == PuzzleTier.top =>
           nextFor(angle, PuzzleTier.good, difficulty, previousPaths)
@@ -58,7 +58,6 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
         case _ if compromise < 5 =>
           nextFor(angle, actualTier, difficulty, previousPaths, compromise + 1)
         case _ => fuccess(none)
-      }
   }.mon(_.puzzle.path.nextFor(angle.key, tier.key, difficulty.key, previousPaths.size, compromise))
 
   def select(angle: PuzzleAngle, tier: PuzzleTier, rating: Range) = $doc(

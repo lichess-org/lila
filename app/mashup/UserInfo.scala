@@ -85,9 +85,9 @@ object UserInfo:
       crosstableApi: lila.game.CrosstableApi
   ):
     def apply(u: User, ctx: Context, withCrosstable: Boolean): Fu[NbGames] =
-      (withCrosstable so ctx.me.filterNot(u.is(_)) so { me =>
-        crosstableApi.withMatchup(me, u.id) dmap some
-      }).mon(_.user segment "crosstable") zip
+      (withCrosstable so ctx.me
+        .filter(u.isnt(_))
+        .soFu(me => crosstableApi.withMatchup(mes, u.id).mon(_.user segment "crosstable"))) zip
         gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
         gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported") zip
         bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks") dmap {

@@ -70,7 +70,7 @@ final class TeamInfoApi(
       mine       <- me.so(m => api.belongsTo(team.id, m.id))
       myRequest  <- !mine so me.so(m => requestRepo.find(team.id, m.id))
       subscribed <- me.ifTrue(mine) so { api.isSubscribed(team, _) }
-      forumPosts <- withForum(mine) so forumRecent(team.id).dmap(some)
+      forumPosts <- withForum(mine) soFu forumRecent(team.id)
       tours      <- tournaments(team, 5, 5)
       simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
     } yield TeamInfo(
