@@ -1,6 +1,6 @@
 package lila.importer
 
-import cats.data.Validated
+import cats.syntax.either.*
 import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
 import chess.{ Color, Mode, Outcome, Replay, Status, ErrorStr }
@@ -16,21 +16,20 @@ final class ImporterForm:
 
   lazy val importForm = Form(
     mapping(
-      "pgn"     -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => checkPgn(p).isValid),
+      "pgn"     -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => checkPgn(p).isRight),
       "analyse" -> optional(nonEmptyText)
     )(ImportData.apply)(unapply)
   )
 
-  def checkPgn(pgn: PgnStr): Validated[ErrorStr, Preprocessed] = ImporterForm.catchOverflow { () =>
-    ImportData(pgn, none).preprocess(none)
-  }
+  def checkPgn(pgn: PgnStr): Either[ErrorStr, Preprocessed] = ImporterForm.catchOverflow:
+    () => ImportData(pgn, none).preprocess(none)
 
 object ImporterForm:
 
-  def catchOverflow(f: () => Validated[ErrorStr, Preprocessed]): Validated[ErrorStr, Preprocessed] = try f()
+  def catchOverflow(f: () => Either[ErrorStr, Preprocessed]): Either[ErrorStr, Preprocessed] = try f()
   catch
     case e: RuntimeException if e.getMessage contains "StackOverflowError" =>
-      Validated.Invalid(ErrorStr("This PGN seems too long or too complex!"))
+      ErrorStr("This PGN seems too long or too complex!").asLeft
 
 private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
@@ -49,7 +48,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
       case Reader.Result.Complete(replay)      => replay
       case Reader.Result.Incomplete(replay, _) => replay
 
-  def preprocess(user: Option[UserId]): Validated[ErrorStr, Preprocessed] =
+  def preprocess(user: Option[UserId]): Either[ErrorStr, Preprocessed] =
     ImporterForm.catchOverflow: () =>
       Parser.full(pgn).map { parsed =>
         Reader.fullWithSans(

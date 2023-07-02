@@ -1,7 +1,7 @@
 package lila.round
 
+import cats.syntax.all.*
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
-import cats.data.Validated
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status, ErrorStr }
 import chess.MoveOrDrop.*
@@ -133,7 +133,7 @@ final private class Player(
       uci: Uci,
       blur: Boolean,
       metrics: MoveMetrics
-  ): Validated[ErrorStr, MoveResult] =
+  ): Either[ErrorStr, MoveResult] =
     (uci match
       case Uci.Move(orig, dest, prom) =>
         game.chess.moveWithCompensated(orig, dest, prom, metrics) map { (ncg, move) =>

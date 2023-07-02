@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.data.Validated
 import chess.ErrorStr
 import chess.format.{ pgn as chessPgn, Fen }
 
@@ -11,7 +10,7 @@ object Rewind:
     val fenTag     = fen.map(f => chessPgn.Tag(_.FEN, f.value))
     chessPgn.Tags(List(variantTag, fenTag).flatten)
 
-  def apply(game: Game, initialFen: Option[Fen.Epd]): Validated[ErrorStr, Progress] =
+  def apply(game: Game, initialFen: Option[Fen.Epd]): Either[ErrorStr, Progress] =
     chessPgn.Reader
       .movesWithSans(
         sans = game.sans,
