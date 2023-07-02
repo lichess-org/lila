@@ -21,8 +21,8 @@ final class ImporterForm:
     )(ImportData.apply)(unapply)
   )
 
-  def checkPgn(pgn: PgnStr): Either[ErrorStr, Preprocessed] = ImporterForm.catchOverflow:
-    () => ImportData(pgn, none).preprocess(none)
+  def checkPgn(pgn: PgnStr): Either[ErrorStr, Preprocessed] = ImporterForm.catchOverflow: () =>
+    ImportData(pgn, none).preprocess(none)
 
 object ImporterForm:
 
