@@ -44,6 +44,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   val pageData: PageData
 
   def lang = userContext.lang
+  def withLang(newLang: Lang): Context
 
   def teamNbRequests  = pageData.teamNbRequests
   def nbChallenges    = pageData.nbChallenges
@@ -97,12 +98,17 @@ final class BodyContext[A](
 ) extends BaseContext(bodyContext, data) {
 
   def body = bodyContext.body
+
+  def withLang(l: Lang) = new BodyContext(bodyContext withLang l, data)
 }
 
 final class HeaderContext(
     headerContext: HeaderUserContext,
     data: PageData
-) extends BaseContext(headerContext, data)
+) extends BaseContext(headerContext, data) {
+
+  def withLang(l: Lang) = new HeaderContext(headerContext withLang l, data)
+}
 
 object Context {
 

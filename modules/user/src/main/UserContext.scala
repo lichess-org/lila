@@ -12,6 +12,7 @@ sealed trait UserContext {
   val impersonatedBy: Option[User]
 
   def lang: Lang
+  def withLang(newLang: Lang): UserContext
 
   def isAuth = me.isDefined
 
@@ -40,6 +41,8 @@ sealed abstract class BaseUserContext(
     val lang: Lang
 ) extends UserContext {
 
+  def withLang(newLang: Lang): BaseUserContext
+
   override def toString =
     "%s %s %s".format(
       me.fold("Anonymous")(_.username),
@@ -49,11 +52,16 @@ sealed abstract class BaseUserContext(
 }
 
 final class BodyUserContext[A](val body: Request[A], m: Option[User], i: Option[User], l: Lang)
-    extends BaseUserContext(body, m, i, l)
+    extends BaseUserContext(body, m, i, l) {
+
+  def withLang(newLang: Lang) = new BodyUserContext(body, m, i, newLang)
+}
 
 final class HeaderUserContext(r: RequestHeader, m: Option[User], i: Option[User], l: Lang)
-    extends BaseUserContext(r, m, i, l)
+    extends BaseUserContext(r, m, i, l) {
 
+  def withLang(newLang: Lang) = new HeaderUserContext(r, m, i, newLang)
+}
 trait UserContextWrapper extends UserContext {
   val userContext: UserContext
   val req            = userContext.req
