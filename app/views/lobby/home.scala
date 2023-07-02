@@ -90,7 +90,7 @@ object home {
             ctx.blind option h2("Counters"),
             a(
               id   := "nb_connected_players",
-              href := ctx.noBlind.option(langHref(routes.User.list))
+              href := ctx.noBlind.option(routes.User.list.url)
             )(
               trans.nbPlayers.plural(
                 homepage.counters.members,
