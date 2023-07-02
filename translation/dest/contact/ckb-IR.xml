@@ -2,4 +2,12 @@
 <resources>
   <string name="contact">پەیوەندی</string>
   <string name="contactLichess">پەیوەندی بە لیچێسەوە بکەن</string>
+  <string name="whatCanWeHelpYouWith">چۆن دەتوانین یارمەتیت بدەین?</string>
+  <string name="visitThisPage">سەردانی ئەم پەڕەیە بکە بۆ چارەسەرکردنی کێشەکە</string>
+  <string name="iCantLogIn">ناتوانم بچمە ژوورەوە</string>
+  <string name="noConfirmationEmail">ئیمەیڵی پشتڕاستکردنەوەکەم پێنەگەیشتووە</string>
+  <string name="forgotPassword">ووشەی نهێنیم بیرچووە</string>
+  <string name="forgotUsername">ناوی بەکارهێنەرم بیرچووە</string>
+  <string name="youCanLoginWithEmail">دەتوانی لە ڕێگەی ناونیشانی ئەو ئیمێڵە بچیتە ژوورەوە کە سەرەتا هەژمارەکەت پێ دروستکردووە</string>
+  <string name="lost2FA">ناتوانم کۆدی دوو-فاکتۆری باوەڕپێکراو ڤەکاربهێنم</string>
 </resources>
