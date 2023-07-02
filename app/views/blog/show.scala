@@ -23,19 +23,14 @@ object show {
         .some,
       moreCss = cssTag("blog"),
       csp = bits.csp,
-      withHrefLangs = post.allLangIds.flatMap { langIds =>
-        langIds.split(" ") match {
-          case Array(enId, jaId) =>
-            lila.i18n.LangList
-              .Custom(
-                Map(
-                  "en" -> routes.Blog.show(enId).url,
-                  "ja" -> routes.Blog.show(jaId).url
-                )
-              )
-              .some
-          case _ => None
-        }
+      withHrefLangs = post.allLangIds.map { ids =>
+        lila.i18n.LangList
+          .Custom(
+            Map(
+              "en" -> routes.Blog.show(ids.en).url,
+              "ja" -> routes.Blog.show(ids.ja).url
+            )
+          )
       }
     )(
       main(cls := "page-menu page-small")(

@@ -11,8 +11,10 @@ case class FullPost(
     image: String,
     author: String,
     category: String,
-    allLangIds: Option[String] // only when translated, hacky but whatevs
-)
+    allLangIds: Option[BlogLang.Ids] // only when translated, hacky but whatevs
+) {
+  def isJapanese = allLangIds.exists(_.ja == id)
+}
 
 object FullPost {
 
@@ -34,6 +36,7 @@ object FullPost {
       image = image,
       author = author,
       category = category,
-      allLangIds = doc getText s"$coll.alllangids"
+      allLangIds = doc.getText(s"$coll.alllangids").flatMap(BlogLang.Ids.apply)
     )
+
 }

@@ -10,11 +10,16 @@ import controllers.routes
 
 object bits {
 
-  private[blog] def menu(year: Option[Int], hasActive: Boolean = true) =
+  private[blog] def menu(year: Option[Int], hasActive: Boolean = true)(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
-      a(cls := (year.isEmpty && hasActive).option("active"), href := routes.Blog.index())("Latest"),
+      a(
+        cls  := (year.isEmpty && hasActive).option("active"),
+        href := langHrefJP(routes.Blog.index())
+      )(
+        trans.blog()
+      ),
       lila.blog.allYears map { y =>
-        a(cls := (year has y).option("active"), href := routes.Blog.year(y))(y)
+        a(cls := (year has y).option("active"), href := langHrefJP(routes.Blog.year(y)))(y)
       }
     )
 

@@ -20,4 +20,15 @@ object BlogLang {
 
   def fromLang(lang: Lang): BlogLang =
     fromLangCode(lang.code)
+
+  case class Ids(en: String, ja: String)
+
+  object Ids {
+    def apply(str: String): Option[Ids] =
+      str.split(" ") match {
+        case Array(enId, jaId) => Ids(enId, jaId).some
+        case _                 => none
+      }
+  }
+
 }

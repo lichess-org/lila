@@ -123,7 +123,7 @@ object bits {
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = {
     posts.nonEmpty option
       div(cls := "lobby__blog lobby__box")(
-        a(cls := "lobby__box__top", href := langHref(routes.Blog.index()))(
+        a(cls := "lobby__box__top", href := langHrefJP(routes.Blog.index()))(
           h2(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
           span(cls := "more")(trans.more(), " »")
         ),
