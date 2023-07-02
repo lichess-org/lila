@@ -200,7 +200,7 @@ object layout {
       case lila.i18n.LangList.Custom(langPathMap) =>
         (langPathMap.map { case (langCode, path) =>
           if (langCode == "en") defaultWithEnHrefLang(path)
-          else hrefLang(langCode, s"$path?lang=$langCode")
+          else hrefLang(langCode, path)
         }).mkString
     }
   }
@@ -411,6 +411,13 @@ object layout {
           title     := trans.team.teams.txt()
         )
 
+    // For Japanese let's force lang param - to build backlinks for SEO - for now
+    // unless JP comes from param itself, langHref will take care of that
+    private def siteUrl(implicit ctx: Context) =
+      if (ctx.lang.language == "ja" && ctx.req.getQueryString("lang").isEmpty)
+        urlWithLangQuery("/", "ja")
+      else langHref("/")
+
     def apply(playing: Boolean)(implicit ctx: Context) =
       header(id := "top")(
         div(cls := "site-title-nav")(
@@ -418,7 +425,7 @@ object layout {
           h1(cls := "site-title")(
             if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
-            a(href := langHref("/"))(
+            a(href := siteUrl)(
               "lishogi",
               span(if (isProd) ".org" else ".dev"),
               span(style := "position: relative; top: -12px; margin-left: 5px; font-size: 14px;")("beta")
