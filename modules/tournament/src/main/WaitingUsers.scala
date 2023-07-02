@@ -12,19 +12,10 @@ private[tournament] case class WaitingUsers(
     date: DateTime
 ) {
 
-  // ultrabullet -> 9
-  // hyperbullet -> 11
-  // 1+0  -> 12  -> 15
-  // 3+0  -> 24  -> 24
-  // 5+0  -> 36  -> 36
-  // 10+0 -> 66  -> 50
   private val waitSeconds: Int =
-    if (clock.estimateTotalSeconds < 30) 9
-    else if (clock.estimateTotalSeconds < 60) 11
-    else
-      {
-        clock.estimateTotalSeconds / 10 + 6
-      } atMost 50 atLeast 15
+    if (clock.estimateTotalSeconds < 30) 8
+    else if (clock.estimateTotalSeconds < 60) 10
+    else (clock.estimateTotalSeconds / 10 + 6) atMost 50 atLeast 15
 
   lazy val all  = hash.keySet
   lazy val size = hash.size

@@ -58,18 +58,18 @@ final private class StartedOrganizer(
     if (tour.secondsToFinish <= 0) api finish tour inject 0
     else if (tour.nbPlayers < 2) fuccess(0)
     else if (tour.nbPlayers < 30 && ThreadLocalRandom.nextInt(10) == 0) {
-      playerRepo nbActiveUserIds tour.id flatMap { nb =>
-        (nb >= 2) ?? startPairing(tour)
+      playerRepo nbActivePlayers tour.id flatMap { nb =>
+        (nb >= 2) ?? startPairing(tour, nb.some)
       }
     } else startPairing(tour)
 
   // returns number of users actively awaiting a pairing
-  private def startPairing(tour: Tournament): Fu[Int] =
+  private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Fu[Int] =
     !tour.pairingsClosed ??
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
         .flatMap { waiting =>
-          api.makePairings(tour, waiting) inject waiting.size
+          api.makePairings(tour, waiting, smallTourNbActivePlayers) inject waiting.size
         }
 }
