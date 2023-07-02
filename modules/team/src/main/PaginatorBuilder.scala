@@ -5,12 +5,13 @@ import lila.common.paginator.*
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
+import reactivemongo.api.ReadPreference
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
   private val maxPerPage         = MaxPerPage(15)
@@ -94,12 +95,12 @@ final private[team] class PaginatorBuilder(
     private def sorting  = $sort desc "date"
 
     def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] =
-      for {
+      for
         requests <- requestRepo.coll
           .find(selector)
           .sort(sorting)
           .skip(offset)
           .cursor[Request]()
           .list(length)
-        users <- userRepo usersFromSecondary requests.map(_.user)
-      } yield requests zip users map { case (request, user) => RequestWithUser(request, user) }
+        users <- userApi.withPerfs(requests.map(_.user), ReadPreference.secondaryPreferred)
+      yield RequestWithUser.combine(requests, users)

@@ -9,6 +9,7 @@ final class SeekApi(
     config: SeekApi.Config,
     biter: Biter,
     relationApi: lila.relation.RelationApi,
+    perfsRepo: lila.user.UserPerfsRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
   import config.*
@@ -37,10 +38,11 @@ final class SeekApi(
 
   def forAnon = cache get ForAnon
 
-  def forMe(using me: Me): Fu[List[Seek]] =
-    relationApi.fetchBlocking(me.userId) flatMap { blocking =>
-      forUser(LobbyUser.make(me.value, lila.pool.Blocking(blocking)))
-    }
+  def forMe(using me: Me): Fu[List[Seek]] = for
+    blocking <- relationApi.fetchBlocking(me.userId)
+    user     <- perfsRepo.withPerfs(me.value)
+    seeks    <- forUser(LobbyUser.make(user, lila.pool.Blocking(blocking)))
+  yield seeks
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =
     cache get ForUser map { seeks =>

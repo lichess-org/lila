@@ -32,10 +32,12 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
-  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] = {
+  def byIds[U: UserIdOf](
+      us: Iterable[U],
+      readPreference: ReadPreference = ReadPreference.primary
+  ): Fu[List[User]] =
     val ids = us.map(_.id).filter(User.noGhost)
-    ids.nonEmpty so coll.byIds[User, UserId](ids)
-  }
+    ids.nonEmpty so coll.byIds[User, UserId](ids, readPreference)
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, ReadPreference.secondaryPreferred)

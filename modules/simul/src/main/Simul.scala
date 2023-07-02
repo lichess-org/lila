@@ -108,12 +108,8 @@ case class Simul(
   def gameIds = pairings.map(_.gameId)
 
   def perfTypes: List[PerfType] =
-    variants.flatMap: variant =>
-      lila.game.PerfPicker.perfType(
-        speed = Speed(clock.config.some),
-        variant = variant,
-        daysPerTurn = none
-      )
+    variants.map:
+      PerfType(_, Speed(clock.config.some))
 
   def mainPerfType =
     perfTypes.find(pt => PerfType.variantOf(pt).standard) orElse perfTypes.headOption getOrElse PerfType.Rapid
@@ -162,19 +158,15 @@ object Simul:
     status = SimulStatus.Created,
     clock = clock,
     hostId = host.id,
-    hostRating = host.perfs.bestRatingIn {
-      variants.flatMap { variant =>
-        lila.game.PerfPicker.perfType(
-          speed = Speed(clock.config.some),
-          variant = variant,
-          daysPerTurn = none
-        )
+    hostRating = host.perfs.bestRatingIn:
+      variants.map {
+        PerfType(_, Speed(clock.config.some))
       } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
-    },
+    ,
     hostGameId = none,
     createdAt = nowInstant,
     estimatedStartAt = estimatedStartAt,
-    variants = if (position.isDefined) List(chess.variant.Standard) else variants,
+    variants = if position.isDefined then List(chess.variant.Standard) else variants,
     position = position,
     applicants = Nil,
     pairings = Nil,

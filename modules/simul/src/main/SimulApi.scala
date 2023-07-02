@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo, PerfPicker }
+import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.socket.SendToFlag
@@ -233,9 +233,7 @@ final class SimulApi(
     whiteUser = hostColor.fold(host, user)
     blackUser = hostColor.fold(user, host)
     clock     = simul.clock.chessClockOf(hostColor)
-    perfPicker =
-      lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
-    makePlayer = (u: User.WithPerfs) => User.WithPerf(u.user, perfPicker(u.perfs)).some
+    perfType  = PerfType(pairing.player.variant, chess.Speed(clock.config))
     game1 = Game.make(
       chess = chess
         .Game(
@@ -247,22 +245,21 @@ final class SimulApi(
           fen = simul.position
         )
         .copy(clock = clock.start.some),
-      whitePlayer = lila.game.Player.make(chess.White, makePlayer(whiteUser)),
-      blackPlayer = lila.game.Player.make(chess.Black, makePlayer(blackUser)),
+      whitePlayer = lila.game.Player.make(chess.White, whiteUser.only(perfType).some),
+      blackPlayer = lila.game.Player.make(chess.Black, blackUser.only(perfType).some),
       mode = chess.Mode.Casual,
       source = lila.game.Source.Simul,
       pgnImport = None
     )
-    game2 =
-      game1
-        .withId(pairing.gameId)
-        .withSimulId(simul.id)
-        .start
-    _ <-
-      (gameRepo insertDenormalized game2) >>-
-        onGameStart(game2.id) >>-
-        socket.startGame(simul, game2)
-  yield game2 -> hostColor
+    game2 = game1
+      .withId(pairing.gameId)
+      .withSimulId(simul.id)
+      .start
+    _ <- gameRepo.insertDenormalized(game2)
+  yield
+    onGameStart(game2.id)
+    socket.startGame(simul, game2)
+    game2 -> hostColor
 
   private def update(simul: Simul): Funit =
     repo.update(simul) >>- socket.reload(simul.id) >>- publish()

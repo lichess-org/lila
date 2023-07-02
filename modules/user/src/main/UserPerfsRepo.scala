@@ -16,6 +16,12 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
   def byId[U: UserIdOf](u: U): Fu[UserPerfs] =
     coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
 
+  def idsMap[U: UserIdOf](
+      u: List[U],
+      readPreference: ReadPreference = ReadPreference.primary
+  ): Fu[Map[UserId, UserPerfs]] =
+    coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPreference)(_.id)
+
   def withPerfs(u: User): Fu[User.WithPerfs] =
     coll
       .byId[UserPerfs](u.id)

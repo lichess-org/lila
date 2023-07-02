@@ -108,11 +108,11 @@ object User:
     def titleUsernameWithBestRating =
       title.fold(usernameWithBestRating): t =>
         s"$t $usernameWithBestRating"
-
     def lightPerf(key: Perf.Key) =
       perfs(key).map: perf =>
         User.LightPerf(light, key, perf.intRating, perf.progress)
 
+    def only(pt: PerfType)                 = WithPerf(user, perfs(pt))
     def best8Perfs: List[PerfType]         = User.firstRow ::: bestOf(User.secondRow, 4)
     def best6Perfs: List[PerfType]         = User.firstRow ::: bestOf(User.secondRow, 2)
     def best4Perfs: List[PerfType]         = User.firstRow

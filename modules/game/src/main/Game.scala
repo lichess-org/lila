@@ -21,13 +21,11 @@ import chess.{
   Speed,
   Status
 }
-
 import chess.MoveOrDrop.{ fold, color }
 
 import lila.common.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
-import lila.rating.PerfType.Classical
 import lila.user.User
 
 case class Game(
@@ -259,8 +257,15 @@ case class Game(
 
   def speed = Speed(chess.clock.map(_.config))
 
-  def perfKey: Perf.Key  = PerfPicker.key(this)
-  def perfType: PerfType = PerfType(perfKey) | PerfType.Standard
+  lazy val perfType: PerfType = PerfType(variant, speed)
+  def perfKey: Perf.Key       = perfType.key
+
+  def ratingVariant =
+    if isTournament && variant.fromPosition then Standard else variant
+
+  def ratingPerfType: Option[PerfType] =
+    if variant.fromPosition then isTournament option PerfType.Standard
+    else perfType.some
 
   def started = status >= Status.Started
 
@@ -400,9 +405,6 @@ case class Game(
     replayable && playedTurns > 4 &&
       Game.analysableVariants(variant) &&
       !Game.isOldHorde(this)
-
-  def ratingVariant =
-    if isTournament && variant.fromPosition then Standard else variant
 
   def fromPosition = variant.fromPosition || source.has(Source.Position)
 

@@ -6,7 +6,7 @@ import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGam
 import ChessColor.{ Black, White }
 
 import lila.common.Bus
-import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
+import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches, Source }
 import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserApi }
 import lila.i18n.{ defaultLang, I18nKeys as trans }

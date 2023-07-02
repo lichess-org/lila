@@ -12,6 +12,7 @@ import lila.db.dsl.Coll
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     timeline: lila.hub.actors.Timeline,
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,

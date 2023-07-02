@@ -23,7 +23,7 @@ private[lobby] object LobbyUser:
 
   type PerfMap = Map[Perf.Key, LobbyPerf]
 
-  def make(user: User, blocking: Blocking) =
+  def make(user: User.WithPerfs, blocking: Blocking) =
     LobbyUser(
       id = user.id,
       username = user.username,
@@ -39,6 +39,7 @@ private[lobby] object LobbyUser:
         key -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
 
+// TODO opaque type Int (minus for provisional)
 case class LobbyPerf(rating: IntRating, provisional: RatingProvisional)
 
 object LobbyPerf:

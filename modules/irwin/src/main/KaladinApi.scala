@@ -12,13 +12,14 @@ import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
-import lila.user.{ User, Me, UserRepo }
+import lila.user.{ User, Me, UserRepo, UserPerfsRepo }
 import lila.report.SuspectId
 import lila.common.config.Max
 
 final class KaladinApi(
     coll: AsyncColl,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     insightApi: lila.insight.InsightApi,
@@ -58,23 +59,25 @@ final class KaladinApi(
   def modRequest(user: Suspect)(using me: Me) =
     request(user, KaladinUser.Requester.Mod(me)) >>- notification.add(user.id)
 
-  def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot so
-    sequence(user) { prev =>
-      prev.fold(KaladinUser.make(user, requester).some)(_.queueAgain(requester)) so { req =>
-        hasEnoughRecentMoves(user) flatMap {
-          if _ then
-            lila.mon.mod.kaladin.request(requester.name).increment()
-            insightApi.indexAll(user.user) >>
-              coll(_.update.one($id(req._id), req, upsert = true)).void
-          else
-            lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
-            funit
-        }
-      }
-    }
+  private def request(sus: Suspect, requester: KaladinUser.Requester) = sus.user.noBot.so:
+    sequence(sus):
+      _.fold(KaladinUser.make(sus, requester).some)(_.queueAgain(requester))
+        .so: req =>
+          for
+            user        <- perfsRepo.withPerfs(sus.user)
+            enoughMoves <- hasEnoughRecentMoves(user)
+            _ <-
+              if enoughMoves then
+                lila.mon.mod.kaladin.request(requester.name).increment()
+                insightApi.indexAll(user.user) >>
+                  coll(_.update.one($id(req._id), req, upsert = true)).void
+              else
+                lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
+                funit
+          yield ()
 
   private[irwin] def readResponses: Funit =
-    coll { coll =>
+    coll: coll =>
       // hits a mongodb index
       // db.kaladin_queue.createIndex({'response.at':1,'response.read':1},{partialFilterExpression:{'response.at':{$exists:true}}})
       coll
@@ -83,13 +86,11 @@ final class KaladinApi(
         .hint(coll hint "response.at_1_response.read_1")
         .cursor[KaladinUser]()
         .list(50)
-        .flatMap { docs =>
+        .flatMap: docs =>
           docs.nonEmpty.so:
             coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
               docs.traverse_(readResponse)
-        }
         .void
-    }
 
   private def readResponse(user: KaladinUser): Funit = user.response.so: res =>
     res.pred match
@@ -186,24 +187,23 @@ final class KaladinApi(
               $doc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPreference.secondaryPreferred)
-            .foldWhile(Counter(0, 0)) {
-              case (counter, doc) => {
-                val next = (for {
+            .foldWhile(Counter(0, 0)):
+              case (counter, doc) =>
+                val next = (for
                   clockBin    <- doc.getAsOpt[BSONBinary](F.clock)
                   clockConfig <- BinaryFormat.clock.readConfig(clockBin.byteArray)
                   speed = Speed(clockConfig)
                   if speed == Speed.Blitz || speed == Speed.Rapid
                   moves <- doc.int(F.turns)
-                } yield counter.add(moves / 2, speed)) | counter
-                if (next.isEnough) Cursor.Done(next)
+                yield counter.add(moves / 2, speed)) | counter
+                if next.isEnough then Cursor.Done(next)
                 else Cursor.Cont(next)
-              }
-            }
+
         }.dmap(_.isEnough)
       )
     }
-    def apply(u: Suspect): Fu[Boolean] =
-      fuccess(u.user.perfs.blitz.nb + u.user.perfs.rapid.nb > 30) >>& cache.get(u.id.value)
+    def apply(u: User.WithPerfs): Fu[Boolean] =
+      fuccess(u.perfs.blitz.nb + u.perfs.rapid.nb > 30) >>& cache.get(u.id)
 
   private[irwin] def autoRequest(requester: KaladinUser.Requester)(user: Suspect) =
     request(user, requester)

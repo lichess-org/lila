@@ -7,9 +7,9 @@ case class UblogBlog(
     tier: UblogBlog.Tier,           // actual tier, auto or set by a mod
     modTier: Option[UblogBlog.Tier] // tier set by a mod
 ):
-  def id      = _id
-  def visible = tier >= UblogBlog.Tier.VISIBLE
-  def listed  = tier >= UblogBlog.Tier.LOW
+  inline def id = _id
+  def visible   = tier >= UblogBlog.Tier.VISIBLE
+  def listed    = tier >= UblogBlog.Tier.LOW
 
   def userId = id match
     case UblogBlog.Id.User(userId) => userId
@@ -33,7 +33,7 @@ object UblogBlog:
     val HIGH: Tier    = 4
     val BEST: Tier    = 5
 
-    def default(user: User) =
+    def default(user: User.WithPerfs) =
       if user.marks.troll then Tier.HIDDEN
       else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > 2200)
       then Tier.NORMAL
@@ -51,7 +51,7 @@ object UblogBlog:
       case (t, n) if t == tier => n
     } | "???"
 
-  def make(user: User) = UblogBlog(
+  def make(user: User.WithPerfs) = UblogBlog(
     _id = Id.User(user.id),
     tier = Tier default user,
     modTier = none

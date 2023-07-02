@@ -31,9 +31,9 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.user.JsonView):
       .add("declined" -> req.declined)
   }
 
-  given requestWithUserWrites: OWrites[RequestWithUser] = OWrites { case RequestWithUser(req, user) =>
-    Json.obj(
-      "request" -> req,
-      "user"    -> userJson.full(user, withRating = true, withProfile = false)
-    )
-  }
+  given requestWithUserWrites: OWrites[RequestWithUser] = OWrites:
+    case RequestWithUser(req, user) =>
+      Json.obj(
+        "request" -> req,
+        "user"    -> userJson.full(user.user, user.perfs.some, withProfile = false)
+      )
