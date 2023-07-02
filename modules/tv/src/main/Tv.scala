@@ -123,7 +123,6 @@ object Tv {
     val byKey = all.map { c =>
       c.key -> c
     }.toMap
-
   }
 
   private def someComputer(c: Candidate) = c.hasBot || c.game.hasAi

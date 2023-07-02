@@ -19,7 +19,7 @@ final class Env(
 
   lazy val tv = wire[Tv]
 
-  system.scheduler.scheduleWithFixedDelay(12 seconds, 5 seconds) { () =>
+  system.scheduler.scheduleWithFixedDelay(12 seconds, 6 seconds) { () =>
     tvTrouper ! TvTrouper.Select
   }
 }
