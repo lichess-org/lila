@@ -34,10 +34,17 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
   def shortLangName(str: String) = langName(str).takeWhile(','.!=)
 
   def langHref(call: Call)(implicit ctx: lila.api.Context): String = langHref(call.url)
-  def langHref(uri: String)(implicit ctx: lila.api.Context): String =
-    if (ctx.isAuth || ctx.lang.language == "en" || ctx.req.session.get("lang").isDefined) uri
-    else {
-      val query = s"${if (uri.contains("?")) "&" else "?"}lang=${lila.i18n.fixJavaLanguageCode(ctx.lang)}"
-      s"$uri$query"
-    }
+  def langHref(url: String)(implicit ctx: lila.api.Context): String =
+    if (ctx.isAuth || ctx.lang.language == "en") url
+    else urlWithLangQuery(url, lila.i18n.fixJavaLanguageCode(ctx.lang))
+
+  def langHrefJP(call: Call)(implicit ctx: lila.api.Context): String =
+    langHrefJP(call.url)
+  def langHrefJP(url: String)(implicit ctx: lila.api.Context): String =
+    if (ctx.isAuth || ctx.lang.language != "ja") url
+    else urlWithLangQuery(url, "ja")
+
+  def urlWithLangQuery(url: String, langCode: String): String =
+    s"$url${if (url.contains("?")) "&" else "?"}lang=$langCode"
+
 }
