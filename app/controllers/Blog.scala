@@ -30,6 +30,10 @@ final class Blog(
     WithPrismic { implicit ctx => implicit prismic =>
       pageHit
       blogApi.one(prismic, id) flatMap {
+        case Some(post) if (post.isJapanese && ctx.isAnon && ctx.req.session.get("lang").isEmpty) => {
+          val langCtx = ctx withLang lila.i18n.I18nLangPicker.byStr("ja-JP").getOrElse(ctx.lang)
+          fuccess(Ok(views.html.blog.show(post)(langCtx, prismic)))
+        }
         case Some(post) => fuccess(Ok(views.html.blog.show(post)))
         case _          => notFound
       }
