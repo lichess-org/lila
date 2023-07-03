@@ -1,4 +1,4 @@
-import { ExplorerData, ExplorerDb, OpeningData, TablebaseData } from './interfaces';
+import { ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
 import { readNdJson } from 'common/ndjson';
 import { ExplorerConfigData } from './explorerConfig';
@@ -16,7 +16,7 @@ interface OpeningXhrOpts {
 
 export async function opening(
   opts: OpeningXhrOpts,
-  processData: (data: ExplorerData) => void,
+  processData: (data: OpeningData) => void,
   signal?: AbortSignal
 ): Promise<void> {
   const conf = opts.config;
@@ -64,12 +64,18 @@ export async function opening(
   });
 }
 
-export async function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {
+export async function tablebase(
+  endpoint: string,
+  variant: VariantKey,
+  fen: Fen,
+  signal?: AbortSignal
+): Promise<TablebaseData> {
   const effectiveVariant = variant === 'fromPosition' || variant === 'chess960' ? 'standard' : variant;
   const data = await xhr.json(xhr.url(`${endpoint}/${effectiveVariant}`, { fen }), {
     cache: 'default',
     headers: {}, // avoid default headers for cors
     credentials: 'omit',
+    signal,
   });
   data.tablebase = true;
   data.fen = fen;

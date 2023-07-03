@@ -61,15 +61,15 @@ object AuthorizationRequest:
 
     def maybeLegacy: Boolean = codeChallengeMethod.isEmpty && codeChallenge.isEmpty
 
+    lazy val trusted = List("lichess.org", "discotron.lichess.org", "www.lichess4545.com").has(~redirectUri.host)
     lazy val lichessMobileAttributes = List(
       clientId == ClientId("lichess_mobile"),
       redirectUri.value.toString == "org.lichess.mobile://login-callback",
       scope.has(OAuthScope.Web.Mobile.key)
     )
-
     lazy val looksLikeLichessMobile = lichessMobileAttributes.forall(identity)
-    lazy val isDanger               = scopes.intersects(OAuthScope.dangerList) && !looksLikeLichessMobile
     lazy val mimicsLichessMobile    = !looksLikeLichessMobile && lichessMobileAttributes.exists(identity)
+    lazy val isDanger               = scopes.intersects(OAuthScope.dangerList) && !trusted && !looksLikeLichessMobile
 
     def authorize(
         user: User,

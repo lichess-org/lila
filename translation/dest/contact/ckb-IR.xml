@@ -2,4 +2,22 @@
 <resources>
   <string name="contact">پەیوەندی</string>
   <string name="contactLichess">پەیوەندی بە لیچێسەوە بکەن</string>
+  <string name="whatCanWeHelpYouWith">چۆن دەتوانین یارمەتیت بدەین?</string>
+  <string name="visitThisPage">سەردانی ئەم پەڕەیە بکە بۆ چارەسەرکردنی کێشەکە</string>
+  <string name="iCantLogIn">ناتوانم بچمە ژوورەوە</string>
+  <string name="noConfirmationEmail">ئیمەیڵی پشتڕاستکردنەوەکەم پێنەگەیشتووە</string>
+  <string name="forgotPassword">ووشەی نهێنیم بیرچووە</string>
+  <string name="forgotUsername">ناوی بەکارهێنەرم بیرچووە</string>
+  <string name="youCanLoginWithEmail">دەتوانی لە ڕێگەی ناونیشانی ئەو ئیمێڵە بچیتە ژوورەوە کە سەرەتا هەژمارەکەت پێ دروستکردووە</string>
+  <string name="lost2FA">ناتوانم کۆدی دوو-فاکتۆری باوەڕپێکراو ڤەکاربهێنم</string>
+  <string name="doPasswordReset">هەنگاوەکانی رێکخستنی وشەی نهێنی تەواوبکە بۆ ئەوەی بتوانی کۆدی باوەرپێکراوی جۆری دوو-فاکتۆربەکاربێنیت</string>
+  <string name="accountSupport">پێویستم بە پشتگیری تەکنیکی هەیە بۆ هەژمارەکەم</string>
+  <string name="wantTitle">دەمەوێت ناونیشانەکەم لەسەر لیچێس دەرکەوێت</string>
+  <string name="visitTitleConfirmation">بۆ پیشاندانی ناونیشانەکەت لە پڕۆفایلی لیچێسەکەتدا، و بەشداریکردن لە Titled Arenas، سەردانی لاپەڕەی پشتڕاستکردنەوەی ناونیشان بکە</string>
+  <string name="wantCloseAccount">دەمەوێت هەژمارەکەم دابخەم</string>
+  <string name="closeYourAccount">تۆ دەتوانیت لەم پەڕەیە هەژمارەکەت دابخەیت</string>
+  <string name="doNotAskByEmail">لە ڕێگەی ئیمەیڵەوە داوامان لێ مەکەن ئەکاونتێک دابخەین، ئێمە ئەوە ناکەین.</string>
+  <string name="wantReopen">من دەمەوێت هەژمارەکەم بکەمەوە</string>
+  <string name="reopenOnThisPage">ئەتوانی لەم پەڕەیە ئەکاونتەکەت بکەیتەوە. تەنها یەک جار کاردەکات.</string>
+  <string name="doNotAskByEmailToReopen">لە ڕێگەی ئیمەیڵەوە داوامان لێ مەکەن ئەکاونتێک بکەینەوە، ئێمە ئەوە ناکەین.</string>
 </resources>

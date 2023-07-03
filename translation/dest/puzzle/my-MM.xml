@@ -37,15 +37,11 @@
   <plurals name="playedXTimes">
     <item quantity="other">%s ကြိမ်း ကစားခဲ့သည်</item>
   </plurals>
-  <string name="fromGameLink">ပွဲအတွင်းမှ</string>
   <string name="continueTraining">ဆက်လက် လေ့ကျင့်ရန်</string>
   <string name="difficultyLevel">အခက်အခဲ အဆင့်</string>
   <string name="normal">သာမန်</string>
   <string name="easier">ပို၍ လွယ်သည်</string>
   <string name="easiest">အလွယ်ဆုံး</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="other">သင့်အမှတ်များ အောက် တစ်မှတ်</item>
-  </plurals>
   <string name="harder">ပို၍ ခက်သည်</string>
   <string name="hardest">အခက်ဆုံး</string>
   <plurals name="nbPointsAboveYourPuzzleRating">

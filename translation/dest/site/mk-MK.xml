@@ -59,6 +59,8 @@
   <string name="depthX">Длабочина %s</string>
   <string name="usingServerAnalysis">Користење на анализи од серверот</string>
   <string name="loadingEngine">Се вчитува компјутерската програма ...</string>
+  <string name="calculatingMoves">Пресметување...</string>
+  <string name="engineFailed">Грешка при вчитување на компјутерот</string>
   <string name="cloudAnalysis">Анализа на облакот</string>
   <string name="goDeeper">Оди подлабоку</string>
   <string name="showThreat">Покажи закана</string>
@@ -91,10 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' со заокружување, врз основа на бројот на полу-потези до наредното земање или потег на пионот</string>
   <string name="noGameFound">Не е пронајдена таква партија</string>
+  <string name="maxDepthReached">Максималната длабочина е постигната!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Би можеле да додадете повеќе партии од менито за поставки.</string>
+  <string name="openings">Отворања</string>
   <string name="openingExplorer">Пребарувач на отворања</string>
   <string name="openingEndgameExplorer">Истражувач на отворања/затворања</string>
   <string name="xOpeningExplorer">Пребарување отворања на: %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Одиграјте го првиот истражувачки потег во отворање/завршница</string>
   <string name="winPreventedBy50MoveRule">Спречена е победата поради правилото за 50 потези</string>
   <string name="lossSavedBy50MoveRule">Спречен е поразот поради правилото на 50 потези</string>
   <string name="winOr50MovesByPriorMistake">Победа или 50 потези поради претходна грешка</string>
@@ -116,6 +121,7 @@
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконечна анализа</string>
   <string name="removesTheDepthLimit">Неограничена длабочина на анализа, го загрева вашиот компјутер</string>
+  <string name="engineManager">Менаџер на компјутерот</string>
   <string name="blunder">Глупа грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
@@ -155,6 +161,7 @@
   <string name="viewInFullSize">Гледај во полна големина</string>
   <string name="logOut">Одјави се</string>
   <string name="signIn">Најави се</string>
+  <string name="rememberMe">Задржи ме најавен</string>
   <string name="youNeedAnAccountToDoThat">Ви треба свој профил за да го направите тоа</string>
   <string name="signUp">Регистрирај се</string>
   <string name="computersAreNotAllowedToPlay">Не е дозволено да играат компјутери и компјутерски потпомогнати играчи. Додедка играте, Ве молиме да не користите помош од шаховски машини, бази на податоци или од други играчи. Примете на знаење дека сериозно се настојува да не се отвораат повеќе профили. Прекумерното повеќекратно профилирање води кон отстранување.</string>
@@ -195,12 +202,39 @@
   <string name="changeUsername">Промени го корисничкото име</string>
   <string name="changeUsernameNotSame">Може да се промени само големината на буквите. На пример: \"johndoe\" во \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промени го корисничкото име. Ова може да се направи само еднаш и дозволено Ви е само да ја промените големината на буквите.</string>
+  <string name="signupUsernameHint">Бидете сигурни дека корисничкото име не е навредливо или вулгарно, бидејќи негова промена подоцна е невозможна. Сите профили со несоодветно корисничко име ќе бидат затворени!</string>
+  <string name="signupEmailHint">Ќе го користиме само за ресетирање на лозинката.</string>
   <string name="password">Лозинка</string>
   <string name="changePassword">Променете ја шифрата</string>
   <string name="changeEmail">Променете ја е-поштата</string>
   <string name="email">е-пошта</string>
   <string name="passwordReset">Задај нова лозинката</string>
   <string name="forgotPassword">Сте ја заборавиле лозинката?</string>
+  <string name="error.weakPassword">Оваа лозинка е пречеста и прелесна за откривање.</string>
+  <string name="error.namePassword">Ве молиме не го користете корисничкото име како лозинка.</string>
+  <string name="blankedPassword">Истата лозинка сте ја користеле на друг сајт кој е компромитиран. За до го обезбедите вашиот Lichess профил, Ве замолуваме да одберете нова лозинка. Ви благодариме на разбирањето.</string>
+  <string name="youAreLeavingLichess">Го напуштате Lichess</string>
+  <string name="neverTypeYourPassword">Никогаш не ја користете Вашата Lichess лозинка на друг сајт!</string>
+  <string name="proceedToX">Продолжете кон %s</string>
+  <string name="passwordSuggestion">Не користете предлог лозинка од некој друг. Можат да ја искористат да Ви го присвојат профилот.</string>
+  <string name="emailSuggestion">Не користете предлог емајл од некој друг. Можат да го искористат за да Ви го присвојат профилот.</string>
+  <string name="emailConfirmHelp">Помош околу потврдата на email-от</string>
+  <string name="emailConfirmNotReceived">Не го добивте email-от за потврда после пријавувањето?</string>
+  <string name="whatSignupUsername">Кое корисничко име го користевте за пријава?</string>
+  <string name="usernameNotFound">Не најдовме корисник со име %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Можете да го користите ова корисничко име за креирање на нов профил</string>
+  <string name="emailSent">Испративме email на %s.</string>
+  <string name="emailCanTakeSomeTime">Испраќањето може да потрае.</string>
+  <string name="refreshInboxAfterFiveMinutes">Почекајте 5 минути па превчитајте го email приемното сандаче.</string>
+  <string name="checkSpamFolder">Исто, проверете да не залутал во spam фолдерот. Во таков случај преместете го од таму.</string>
+  <string name="emailForSignupHelp">Ако ништо друо не функционира испратете ни го следниов email:</string>
+  <string name="copyTextToEmail">Копирајте го текстот погоре и испратете го на %s</string>
+  <string name="waitForSignupHelp">За брзо ќе сме со Вас да Ви помогнеме околу пријавувањето.</string>
+  <string name="accountConfirmed">Корсникот %s е успешно потврден.</string>
+  <string name="accountCanLogin">Сега можете да се најавите како %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Не Ви е потребен email за потврда.</string>
+  <string name="accountClosed">Профилот %s е затворен.</string>
+  <string name="accountRegisteredWithoutEmail">Профилот %s е пријавен без email.</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранк: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -309,8 +343,13 @@
     <item quantity="one">%s студија</item>
     <item quantity="other">%s студии</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s симултанка</item>
+    <item quantity="other">%s симултанки</item>
+  </plurals>
   <string name="viewTournament">Погледнете го турнирот</string>
   <string name="backToTournament">Врати се на турнир</string>
+  <string name="noDrawBeforeSwissLimit">Во турнир со швајцарски систем не можете да ремизирате пред 30-тиот потег.</string>
   <string name="thematic">Тематски</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s рангирана партија</item>
@@ -340,6 +379,7 @@
   <string name="siteDescription">Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.</string>
   <string name="xJoinedTeamY">%1$s се приклучи на тимот %2$s</string>
   <string name="xCreatedTeamY">%1$s го создаде тимот %2$s</string>
+  <string name="startedStreaming">почна да емитува</string>
   <string name="xStartedStreaming">%s почна да емитува</string>
   <string name="averageElo">Просечно Elo</string>
   <string name="location">Локација</string>
@@ -348,6 +388,8 @@
   <string name="apply">Аплицирај</string>
   <string name="save">Зачувај</string>
   <string name="leaderboard">Табела</string>
+  <string name="screenshotCurrentPosition">Сликајте ја моменталната позиција</string>
+  <string name="gameAsGIF">Сочувај ја партијата како GIF</string>
   <string name="pasteTheFenStringHere">Пастирај го FEN стрингот овде</string>
   <string name="pasteThePgnStringHere">Пастирај го PGN стрингот овде</string>
   <string name="orUploadPgnFile">Или закачете PGN датотека</string>
@@ -357,6 +399,7 @@
   <string name="importGame">Внеси игра</string>
   <string name="importGameExplanation">Залепи PGN од игра за да добиеш реприза, 
 компјутерска анализа, разговор во играта и URL за споделување.</string>
+  <string name="importGameCaveat">Варијациите ќе бидат избришани. За да ги задржите внесете го PNG преку студија.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s внесени игри</item>
     <item quantity="other">%s внесени игри</item>
@@ -427,6 +470,8 @@
   <string name="tournamentIsStarting">Турнирот започна</string>
   <string name="tournamentPairingsAreNowClosed">Спарувањата за турнирот се затворени.</string>
   <string name="standByX">Почекај %s, се спаруваат играчите, подготви се!</string>
+  <string name="pause">Пауза</string>
+  <string name="resume">Продолжи</string>
   <string name="youArePlaying">Играш!</string>
   <string name="winRate">Стапка на победи</string>
   <string name="berserkRate">Стапка на лудило</string>
@@ -461,6 +506,10 @@
   <string name="socialMediaLinks">Врски на друштвени мрежи</string>
   <string name="oneUrlPerLine">Еден УРЛ по линија.</string>
   <string name="inlineNotation">Подредена нотација</string>
+  <string name="savingMoves">Привремено зачувани потези</string>
+  <string name="savingMovesHelp">Секогаш ги чуваме Вашите варијации во кеш меморијата на пребарувачот.</string>
+  <string name="makeAStudy">Заради сигурност и споделување, креирајте студија.</string>
+  <string name="clearSavedMoves">Исчисти потези</string>
   <string name="previouslyOnLichessTV">Предходно на Личес ТВ</string>
   <string name="onlinePlayers">Вклучени играчи (играчи на линија )</string>
   <string name="activePlayers">Активни играчи</string>
@@ -508,6 +557,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Белешки</string>
   <string name="typePrivateNotesHere">Напиши приватни белешки</string>
+  <string name="writeAPrivateNoteAboutThisUser">Напишете приватна белешка за овој корисник</string>
+  <string name="noNoteYet">Уште нема белешка</string>
   <string name="invalidUsernameOrPassword">Невалидно корисничко име или лозинка</string>
   <string name="incorrectPassword">Погрешна лозинка</string>
   <string name="invalidAuthenticationCode">Неважечки код за автентикација</string>
@@ -564,6 +615,7 @@
   <string name="community">Заедница</string>
   <string name="tools">Алатки</string>
   <string name="increment">Зголемување на време</string>
+  <string name="error.unknown">Невалидна вредност</string>
   <string name="error.required">Ова поле е задолжително</string>
   <string name="error.email">Адресата на е-поштата е невалидна</string>
   <string name="error.email_acceptable">Оваа е-мајл адреса е невалидна. Ве молам проверете и пробајте повторно.</string>
@@ -574,6 +626,7 @@
   <string name="error.min">Мора да биде најмалку %s</string>
   <string name="error.max">Мора да биде најмногу %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рејтингот е ± %s</string>
+  <string name="ifRegistered">Ако се регистрирани</string>
   <string name="onlyExistingConversations">Само веќе постоечки разговори</string>
   <string name="onlyFriends">Пријатели кои се онлајн</string>
   <string name="menu">Мени</string>
@@ -618,15 +671,23 @@
   <string name="simulClockHint">Поставување на Фишерскиот часовник. Што повеќе противници, толку повеќе време ти треба.</string>
   <string name="simulAddExtraTime">Можеш да додадеш додатно време на часовникот, за да ти помогне со симултаната партија.</string>
   <string name="simulHostExtraTime">Додатно време за домаќинот</string>
+  <string name="simulAddExtraTimePerPlayer">Додајте почетно време на Вашиот часовник со приклучувањето на секој нов играч во симултанката.</string>
+  <string name="simulHostExtraTimePerPlayer">Додатно време по играч за домаќинот на симултанката</string>
   <string name="lichessTournaments">Lichess турнири</string>
   <string name="tournamentFAQ">ЧПП за арена турнирите</string>
   <string name="timeBeforeTournamentStarts">Време до почетокот на турнирот</string>
   <string name="averageCentipawnLoss">Просечна загуба во центи-пиони</string>
+  <string name="accuracy">Прецизност</string>
   <string name="keyboardShortcuts">Кратенки на тастатурата</string>
   <string name="keyMoveBackwardOrForward">оди назад/напред</string>
   <string name="keyGoToStartOrEnd">оди на почеток/крај</string>
   <string name="keyShowOrHideComments">покажи/скриј ги коментарите</string>
   <string name="keyEnterOrExitVariation">отвори/затвори ја варијантата</string>
+  <string name="keyRequestComputerAnalysis">Побарајте компјутерска анализа, Учете од Вашите грешки</string>
+  <string name="keyNextLearnFromYourMistakes">Следно (учете од Вашите грешки)</string>
+  <string name="keyNextBlunder">Следен превид</string>
+  <string name="keyNextMistake">Следна грешка</string>
+  <string name="keyNextInaccuracy">Следна непрецизност</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир со различни временски контроли и варијанти</string>
   <string name="tournamentHomeDescription">Играј брзи турнири! Придружи се на официјален турнир, или започни свој. Стрела, Блиц, Класичен, Шах 960, Кралот на средина, Три шаха, и многу други варијанти за бескрајна забава.</string>
@@ -670,6 +731,7 @@
   <string name="kidMode">Детска заштита</string>
   <string name="kidModeExplanation">Ова е заради безбедност. Во детска заштита, сите комуникации се оневозможени. Вклучете го овој начин за вашите деца, да ги заштитите од останатите интернет корисници.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Во детскиот режим, на Lichess логото е додадено „%s“, за да знаете дека вашите деца се безбедни.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Вашиот профил е под администратор. Прашајте го Вашиот учител за исклучување на работниот начин за деца.</string>
   <string name="enableKidMode">Вклучи го детскиот режим</string>
   <string name="disableKidMode">Исклучи го детскиот режим</string>
   <string name="security">Безбедност</string>
@@ -704,6 +766,7 @@
   <string name="light">Светло</string>
   <string name="dark">Темно</string>
   <string name="transparent">Проѕирно</string>
+  <string name="deviceTheme">Тема на уредот</string>
   <string name="backgroundImageUrl">URL на заднинската слика:</string>
   <string name="boardGeometry">Геометрија на таблата</string>
   <string name="boardTheme">Тема на таблата</string>
@@ -722,6 +785,7 @@
   <string name="invalidFen">Невалиден FEN</string>
   <string name="custom">Персонализирано</string>
   <string name="notifications">Известувања</string>
+  <string name="notificationsX">Известувања: %1$s</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за првиот потег</item>
@@ -732,6 +796,7 @@
   <string name="bestWasX">Најдобриот потег беше %s</string>
   <string name="youBrowsedAway">Одсурфавте надвор</string>
   <string name="resumePractice">Продолжи со вежбата</string>
+  <string name="drawByFiftyMoves">Оваа партија е реми по правилото од 50 потези.</string>
   <string name="theGameIsADraw">Партијата е реми.</string>
   <string name="computerThinking">Компјутерот размислува...</string>
   <string name="seeBestMove">Види го најдобриот потег</string>
@@ -815,6 +880,8 @@
   <string name="useTheReportForm">користи го образецот за пријава</string>
   <string name="toRequestSupport">За помош, %1$s</string>
   <string name="tryTheContactPage">обрати се на страната за контакт</string>
+  <string name="makeSureToRead">Обавезно прочитајте %1$s</string>
+  <string name="theForumEtiquette">Форумски бон-тон</string>
   <string name="thisTopicIsArchived">Темата е архивирана и не дозволува нови објави.</string>
   <string name="joinTheTeamXToPost">Придружи се на %1$s за да објавуваш на овој форум</string>
   <string name="teamNamedX">тим %1$s</string>
@@ -895,4 +962,6 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Одбрани рангирани игри од сите Lichess играчи</string>
   <string name="switchSides">Променете страна</string>
+  <string name="closingAccountWithdrawAppeal">Затворањето на Вашиот профил ќе ја повлече жалбата</string>
+  <string name="ourEventTips">Наши совети за организирање настани</string>
 </resources>

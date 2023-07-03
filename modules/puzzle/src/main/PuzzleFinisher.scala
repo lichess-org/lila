@@ -31,16 +31,16 @@ final private[puzzle] class PuzzleFinisher(
       angle: PuzzleAngle,
       solutions: List[Solution]
   )(using me: Me, perf: Perf): Fu[List[(PuzzleRound, IntRatingDiff)]] =
-    lila.common.LilaFuture
-      .fold(solutions)((perf, List.empty[(PuzzleRound, IntRatingDiff)])) { case ((perf, rounds), sol) =>
-        apply(sol.id, angle, sol.win, sol.mode) map {
-          case Some((round, newPerf)) =>
-            val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
-            (newPerf, (round, rDiff) :: rounds)
-          case None => (perf, rounds)
-        }
-      }
-      .map { (_, rounds) => rounds.reverse }
+    solutions
+      .foldM((perf, List.empty[(PuzzleRound, IntRatingDiff)])):
+        case ((perf, rounds), sol) =>
+          apply(sol.id, angle, sol.win, sol.mode).map:
+            case Some((round, newPerf)) =>
+              val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
+              (newPerf, (round, rDiff) :: rounds)
+            case None => (perf, rounds)
+      .map: (_, rounds) =>
+        rounds.reverse
 
   def apply(
       id: PuzzleId,

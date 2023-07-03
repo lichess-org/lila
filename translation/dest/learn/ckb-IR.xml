@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">فێری شەترەنج ببە</string>
+  <string name="learnChess">فێرکاری شەترەنج</string>
   <string name="byPlaying">لە ڕێگەی یاریکردن!</string>
   <string name="menu">پێڕست</string>
   <string name="progressX">پێشکەوتن: %s</string>
