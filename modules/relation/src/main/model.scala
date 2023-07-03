@@ -10,7 +10,7 @@ case class Blocked(u2: UserId):
   def userId = u2
 
 case class Related(
-    user: lila.user.User,
+    user: lila.user.User.WithPerfs,
     nbGames: Option[Int],
     followable: Boolean,
     relation: Option[Relation]

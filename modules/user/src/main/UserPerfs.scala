@@ -47,15 +47,16 @@ case class UserPerfs(
     Perf.Key("puzzle")         -> puzzle
   )
 
+  def typed(pt: PerfType) = Perf.Typed(apply(pt), pt)
+
   def bestPerf: Option[(PerfType, Perf)] =
     val ps = PerfType.nonPuzzle.map: pt =>
       pt -> apply(pt)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
     ps.foldLeft(none[(PerfType, Perf)]):
       case (ro, p) if p._2.nb >= minNb =>
-        ro.fold(p.some) { r =>
+        ro.fold(p.some): r =>
           Some(if (p._2.intRating > r._2.intRating) p else r)
-        }
       case (ro, _) => ro
 
   private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating.value)

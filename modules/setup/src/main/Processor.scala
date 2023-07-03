@@ -14,15 +14,15 @@ final private[setup] class Processor(
     onStart: lila.round.OnStart
 )(using ec: Executor, idGenerator: IdGenerator):
 
-  def ai(config: AiConfig)(using me: Option[User]): Fu[Pov] = for
-    me  <- me.soFu(perfsRepo.withPerfs)
+  def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
+    me  <- me.map(_.value).soFu(perfsRepo.withPerfs)
     pov <- config pov me
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
     _ <- pov.game.player.isAi so fishnetPlayer(pov.game)
   yield pov
 
-  def apiAi(config: ApiAiConfig)(using me: User): Fu[Pov] = for
+  def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
     me  <- perfsRepo.withPerfs(me)
     pov <- config pov me.some
     _   <- gameRepo insertDenormalized pov.game

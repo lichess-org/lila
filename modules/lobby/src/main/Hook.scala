@@ -124,7 +124,7 @@ object Hook:
       clock = clock,
       mode = mode.id,
       color = color,
-      user = user map { LobbyUser.make(_, blocking) },
+      user = user.map(LobbyUser.make(_, blocking)),
       sid = sid,
       ratingRange = ratingRange.toString,
       createdAt = nowInstant,

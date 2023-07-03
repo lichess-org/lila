@@ -6,8 +6,8 @@ import chess.variant.Variant
 import lila.common.Days
 import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.RatingRange
-import lila.user.User
-import lila.rating.PerfType
+import lila.user.{ Me, User }
+import lila.rating.{ Perf, PerfType }
 
 case class HookConfig(
     variant: chess.variant.Variant,
@@ -20,17 +20,18 @@ case class HookConfig(
     ratingRange: RatingRange
 ) extends HumanConfig:
 
-  def withinLimits(user: Option[User.WithPerfs]): HookConfig =
-    user.fold(this): u =>
+  def withinLimits(using me: Option[Me], perf: Perf): HookConfig =
+    if me.isEmpty then this
+    else
       copy(
         ratingRange = ratingRange.withinLimits(
-          rating = u.perfs(perfType).intRating,
+          rating = perf.intRating,
           delta = 400,
           multipleOf = 50
         )
       )
 
-  private def perfType = PerfType(variant, makeSpeed)
+  def perfType = PerfType(variant, makeSpeed)
 
   def makeSpeed = chess.Speed(makeClock)
 

@@ -10,7 +10,7 @@ import lila.common.licon
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.User
+import lila.user.{ User, UserPerfs }
 
 trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
 
@@ -61,20 +61,16 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       perfType.icon
     )
 
-  def showPerfRating(u: User, perfType: PerfType)(using Lang): Frag =
-    showPerfRating(perfType, u perfs perfType)
+  def showPerfRating(perfs: UserPerfs, perfType: PerfType)(using Lang): Frag =
+    showPerfRating(perfType, perfs(perfType))
 
-  def showPerfRating(u: User, perfKey: Perf.Key)(using Lang): Option[Frag] =
-    PerfType(perfKey) map { showPerfRating(u, _) }
+  def showPerfRating(perfs: UserPerfs, perfKey: Perf.Key)(using Lang): Option[Frag] =
+    PerfType(perfKey).map(showPerfRating(perfs, _))
 
-  def showBestPerf(u: User)(using Lang): Option[Frag] =
-    u.perfs.bestPerf map { case (pt, perf) =>
-      showPerfRating(pt, perf)
-    }
-  def showBestPerfs(u: User, nb: Int)(using Lang): List[Frag] =
-    u.perfs.bestPerfs(nb) map { case (pt, perf) =>
-      showPerfRating(pt, perf)
-    }
+  def showBestPerf(perfs: UserPerfs)(using Lang): Option[Frag] =
+    perfs.bestPerf.map(showPerfRating)
+  def showBestPerfs(perfs: UserPerfs, nb: Int)(using Lang): List[Frag] =
+    perfs.bestPerfs(nb).map(showPerfRating)
 
   def showRatingDiff(diff: IntRatingDiff): Frag = diff.value match
     case 0          => span("±0")

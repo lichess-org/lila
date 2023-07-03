@@ -44,6 +44,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def withPerfs(u: User): Fu[User.WithPerfs]                    = perfsRepo.withPerfs(u)
   def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = userRepo.withPerfs(id)
+  def enabledWithPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
+    withPerfs(id).dmap(_.filter(_.enabled.yes))
 
   def listWithPerfs[U: UserIdOf](
       ids: List[U],

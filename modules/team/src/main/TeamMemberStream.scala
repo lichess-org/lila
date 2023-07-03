@@ -5,18 +5,20 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserApi }
+import reactivemongo.api.ReadPreference
 
 final class TeamMemberStream(
     memberRepo: MemberRepo,
-    userRepo: UserRepo
+    userApi: UserApi
 )(using Executor, akka.stream.Materializer):
 
-  def apply(team: Team, perSecond: MaxPerSecond): Source[(User, Instant), ?] =
+  def apply(team: Team, perSecond: MaxPerSecond): Source[(User.WithPerfs, Instant), ?] =
     idsBatches(team, perSecond)
-      .mapAsync(1) { members =>
-        userRepo.usersFromSecondary(members.map(_._1)).map(_ zip members.map(_._2))
-      }
+      .mapAsync(1): members =>
+        userApi
+          .listWithPerfs(members.view.map(_._1).toList, ReadPreference.secondaryPreferred)
+          .map(_ zip members.map(_._2))
       .mapConcat(identity)
 
   def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =

@@ -38,9 +38,7 @@ final class RelationApi(
 
   def fetchFriends(userId: UserId) =
     coll
-      .aggregateWith[Bdoc](
-        readPreference = ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred): framework =>
         import framework.*
         List(
           Match(
@@ -55,11 +53,9 @@ final class RelationApi(
           ),
           Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
         )
-      }
       .headOption
-      .map {
+      .map:
         ~_.flatMap(_.getAsOpt[Set[UserId]]("_id")) - userId
-      }
 
   def fetchFollows(u1: UserId, u2: UserId): Fu[Boolean] =
     (u1 != u2) so coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
