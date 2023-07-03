@@ -17,7 +17,18 @@
   <string name="rules">স্ট্রিমিং এর নিয়ম-কানুন</string>
   <string name="rule1">লিচেসে স্ট্রিমিং করার সময় অবশ্যই \"lichess.org\" কথাটি টাইটেলে এবং cetagory তে chess ব্যাবহার করতে হবে যখন লিচেসে স্ট্রিমিং করছেন.</string>
   <string name="rule2">যখন লিচেসের কোনো কাজ করছেন না স্ট্রিমিং এর ভেতর তখন দাবার কোনো keyword ব্যাবহার করবেন না.</string>
+  <string name="rule3">স্বয়ংক্রিয়ভাবে লিচেস আপনার স্ট্রিমিং এর ভেতর এই বিষয়গুলো ধরে ফেলবে:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">আমাদের %s পড়ুন, এটি স্ট্রিমিং এর মধ্যকালীন সময়ে প্রযোজ্য.</string>
   <string name="streamingFairplayFAQ">স্ট্রিমিং এর ন্যায়নীতি FAQ</string>
+  <string name="perks">স্ট্রিমিং এর সময় keywords ব্যাবহারের সুবিধাসমুহ</string>
+  <string name="perk1">লিচেস প্রোফাইলে স্ট্রিমার আইকন যুক্ত হবে.</string>
+  <string name="perk2">স্ট্রীমার তালিকায় শীর্ষে অবস্থান.</string>
+  <string name="perk3">স্ট্রিমিং এর সময় আপনার লিচেস ফলোয়ার অবহিত থাকবে.</string>
+  <string name="perk4">স্ট্রিমিং এ আপনার গেম, টুর্নামেন্ট, অধায়ন দেখাতে পারবেন.</string>
+  <string name="approved">আপনার স্ট্রিমিং অনুমোদিত হলো.</string>
+  <string name="pendingReview">আপনার stream মডারেটরদের দ্বারা পর্যালোচনা করা হচ্ছে.</string>
+  <string name="pleaseFillIn">Streamer হতে অনুগ্রহপূর্বক নিজের ছবি ও তথ্যের ঘর পুরন করুন.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">লিচেস যখন আপনি স্ট্রিমার হিসেবে লিচেসে তালিকাভুক্ত হবেন, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">মোডারেটরদের কাছে পর্যালোচনার জন্য আবেদন করুন</string>
   <string name="streamerLanguageSettings">যে ভাষা নির্বাচন করবেন, লিচেস সেই ভাষার সদস্যদের কাছে আপনার স্ট্রিমিং পৌছে দেবে । তাই ব্রডকাষ্ট করার সময় অবশ্যই নিজের মাতৃভাষা ব্যাবহার করুন।.</string>
   <string name="twitchUsername">আপনার Twitch ইউজারনেম অথবা URL</string>
