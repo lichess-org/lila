@@ -46,7 +46,7 @@ final class OpeningApi(
       crawler: Crawler
   ): Fu[Option[OpeningPage]] =
     for
-      wiki <- query.closestOpening.so(op => wikiApi(op, withWikiRevisions) dmap some)
+      wiki <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
       useExplorer = crawler.no || wiki.exists(_.hasMarkup)
       stats      <- (useExplorer so explorer.stats(query.uci, query.config, crawler))
       allHistory <- allGamesHistory.get(query.config)

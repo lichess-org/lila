@@ -158,10 +158,10 @@ final class User(
     Found(env.user.repo byId username): user =>
       if user.enabled.yes || isGrantedOpt(_.UserModView)
       then
-        ctx.userId.so { relationApi.fetchBlocks(user.id, _) } zip
-          ctx.userId.so { env.game.crosstableApi(user.id, _) dmap some } zip
-          ctx.isAuth.so { env.pref.api.followable(user.id) } zip
-          ctx.userId.so { relationApi.fetchRelation(_, user.id) } flatMap {
+        ctx.userId.so(relationApi.fetchBlocks(user.id, _)) zip
+          ctx.userId.soFu(env.game.crosstableApi(user.id, _)) zip
+          ctx.isAuth.so(env.pref.api.followable(user.id)) zip
+          ctx.userId.so(relationApi.fetchRelation(_, user.id)) flatMap {
             case (((blocked, crosstable), followable), relation) =>
               val ping = env.socket.isOnline(user.id) so UserLagCache.getLagRating(user.id)
               negotiate(

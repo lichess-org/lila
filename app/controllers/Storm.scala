@@ -16,7 +16,7 @@ final class Storm(env: Env) extends LilaController(env):
 
   private def dataAndHighScore(me: Option[lila.user.User], pref: Option[lila.pref.Pref]) =
     env.storm.selector.apply flatMap { puzzles =>
-      me.so { u => env.storm.highApi.get(u.id) dmap some } map { high =>
+      me.so(u => env.storm.highApi.get(u.id)) map { high =>
         env.storm.json(puzzles, me, pref) -> high
       }
     }

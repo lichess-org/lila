@@ -43,7 +43,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       langPath: Option[LangPath] = None
   )(using ctx: Context) = for
     json     <- renderJson(puzzle, angle, replay)
-    settings <- ctx.me.so(u => env.puzzle.session.getSettings(u) dmap some)
+    settings <- ctx.me.soFu(env.puzzle.session.getSettings)
     prefJson = env.puzzle.jsonView.pref(ctx.pref)
     page <- renderPage:
       views.html.puzzle.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
@@ -114,7 +114,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val userId = name flatMap lila.user.User.validateId
     for
       user    <- userId.so(env.user.repo.enabledById) orElse fuccess(ctx.me.map(_.value))
-      puzzles <- user.so { env.puzzle.api.puzzle.of(_, page) dmap some }
+      puzzles <- user.soFu(env.puzzle.api.puzzle.of(_, page))
       page    <- renderPage(views.html.puzzle.ofPlayer(name.so(_.value), user, puzzles))
     yield Ok(page)
 
@@ -196,7 +196,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                   else
                     nextPuzzleForMe(angle, data.color map some)
                       .flatMap:
-                        _ so { renderJson(_, angle) dmap some }
+                        _.so(renderJson(_, angle))
                       .map: json =>
                         Json.obj("next" -> json)
           } dmap JsonOk

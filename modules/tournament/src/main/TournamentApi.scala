@@ -661,9 +661,8 @@ final class TournamentApi(
       .sortedCursor(tour.id, perSecond.value)
       .documentSource(nb)
       .throttle(perSecond.value, 1 second)
-      .mapAsync(1) { player =>
-        withSheet.so(cached.sheet(tour, player.userId) dmap some).dmap(player -> _)
-      }
+      .mapAsync(1): player =>
+        withSheet.soFu(cached.sheet(tour, player.userId)).dmap(player -> _)
       .zipWithIndex
       .mapAsync(8) { case ((player, sheet), index) =>
         lightUserApi.asyncFallback(player.userId) map {

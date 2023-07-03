@@ -531,7 +531,7 @@ final class Study(
 
   def topics = Open:
     env.study.topicApi.popular(50) zip
-      ctx.me.so(me => env.study.topicApi.userTopics(me) dmap some) flatMap { (popular, mine) =>
+      ctx.me.soFu(env.study.topicApi.userTopics) flatMap { (popular, mine) =>
         val form = mine map StudyForm.topicsForm
         Ok.page(html.study.topic.index(popular, mine, form))
       }

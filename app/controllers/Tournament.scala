@@ -116,7 +116,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .fold[Fu[Result]](notFoundJson("No such tournament")): tour =>
             for
               playerInfoExt <- getUserStr("playerInfo").map(_.id).so { api.playerInfo(tour, _) }
-              socketVersion <- getBool("socketVersion").so(env.tournament version tour.id dmap some)
+              socketVersion <- getBool("socketVersion").so(env.tournament version tour.id)
               partial = getBool("partial")
               json <- jsonView(
                 tour = tour,

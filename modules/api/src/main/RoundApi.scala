@@ -40,7 +40,7 @@ final private[api] class RoundApi(
   def player(pov: Pov, tour: Option[TourView])(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- gameRepo.initialFen(pov.game)
-      user       <- ctx.me.so(perfsRepo.withPerf(_, pov.game.perfType) dmap some)
+      user       <- ctx.me.soFu(perfsRepo.withPerf(_, pov.game.perfType))
       given Lang = ctx.lang
       (((((json, simul), swiss), note), forecast), bookmarked) <-
         jsonView.playerJson(

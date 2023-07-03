@@ -53,15 +53,15 @@ final class UserApi(
         then fuccess(jsonView disabled u.light)
         else
           gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
-            as.filter(u !=).so { me => crosstableApi.nbGames(me.userId, u.id) } zip
-            withFollows.so(relationApi.countFollowing(u.id) dmap some) zip
-            as.isDefined.so { prefApi followable u.id } zip
-            as.map(_.userId).so { relationApi.fetchRelation(_, u.id) } zip
-            as.map(_.userId).so { relationApi.fetchFollows(u.id, _) } zip
+            as.filter(u !=).so(me => crosstableApi.nbGames(me.userId, u.id)) zip
+            withFollows.soFu(relationApi.countFollowing(u.id)) zip
+            as.isDefined.so(prefApi followable u.id) zip
+            as.map(_.userId).so(relationApi.fetchRelation(_, u.id)) zip
+            as.map(_.userId).so(relationApi.fetchFollows(u.id, _)) zip
             bookmarkApi.countByUser(u.user) zip
             gameCache.nbPlaying(u.id) zip
             gameCache.nbImportedBy(u.id) zip
-            withTrophies.so(getTrophiesAndAwards(u.user).dmap(some)) map {
+            withTrophies.soFu(getTrophiesAndAwards(u.user)) map {
             // format: off
               case (((((((((gameOption,nbGamesWithMe),following),followable),
                 relation),isFollowed),nbBookmarks),nbPlaying),nbImported),trophiesAndAwards)=>
