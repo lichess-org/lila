@@ -422,7 +422,7 @@ object layout {
       header(id := "top")(
         div(cls := "site-title-nav")(
           topnavToggle,
-          (if (ctx.req.path == "/" ) h1 else div)(cls := "site-title")(
+          (if (ctx.req.path == "/") h1 else div) (cls := "site-title")(
             if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
             a(href := siteUrl)(
