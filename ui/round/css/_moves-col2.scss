@@ -1,6 +1,8 @@
 /* context: .rmoves */
 @include breakpoint($mq-col2) {
-  background: $c-bg-box;
+  @if $theme != 'transp' {
+    background: $c-bg-box;
+  }
   .moves {
     display: flex;
     flex-flow: row wrap;
