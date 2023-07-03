@@ -470,6 +470,8 @@
   <string name="tournamentIsStarting">Турнирот започна</string>
   <string name="tournamentPairingsAreNowClosed">Спарувањата за турнирот се затворени.</string>
   <string name="standByX">Почекај %s, се спаруваат играчите, подготви се!</string>
+  <string name="pause">Пауза</string>
+  <string name="resume">Продолжи</string>
   <string name="youArePlaying">Играш!</string>
   <string name="winRate">Стапка на победи</string>
   <string name="berserkRate">Стапка на лудило</string>
@@ -504,6 +506,9 @@
   <string name="socialMediaLinks">Врски на друштвени мрежи</string>
   <string name="oneUrlPerLine">Еден УРЛ по линија.</string>
   <string name="inlineNotation">Подредена нотација</string>
+  <string name="savingMoves">Привремено зачувани потези</string>
+  <string name="savingMovesHelp">Секогаш ги чуваме Вашите варијации во кеш меморијата на пребарувачот.</string>
+  <string name="makeAStudy">Заради сигурност и споделување, креирајте студија.</string>
   <string name="previouslyOnLichessTV">Предходно на Личес ТВ</string>
   <string name="onlinePlayers">Вклучени играчи (играчи на линија )</string>
   <string name="activePlayers">Активни играчи</string>
