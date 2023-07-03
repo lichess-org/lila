@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">یاریکردن لەگەڵ هاوڕێ</string>
   <string name="playWithTheMachine">یاریکردن لەگەڵ کۆمپیوتەر</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگێشتکردنی کەسیک بۆ یاریکردن, ئەم لینکەیان پێ بدە</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
   <string name="waiting">چاوەڕوانی ڕازیبوونی لایەنی بەرامبەر</string>
@@ -99,6 +99,7 @@
   <string name="openingExplorer">دۆزەرەوەی کردنەوەکان</string>
   <string name="openingEndgameExplorer">دۆزەرەوەی دەستپێکی یاری/کۆتاییەکانی یاری</string>
   <string name="xOpeningExplorer">%s دۆزەرەوەی دەستپێکەکان</string>
+  <string name="playFirstOpeningEndgameExplorerMove">یەکەم جوڵەی گەڕان بەدوای کردنەوەی/کۆتایی یاریدا یاری بکە</string>
   <string name="winPreventedBy50MoveRule">براوە دیاری ناکرێت بە یاسای-50 جووڵە</string>
   <string name="lossSavedBy50MoveRule">دۆڕاو دیاری ناکرێت بە یاسای-50 جووڵە</string>
   <string name="winOr50MovesByPriorMistake">براوە یان 50 جووڵە بەهۆی هەڵەی پێشوو</string>
@@ -152,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s یاری</item>
     <item quantity="other">%s یاریەکان</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s ئاستی ئیلۆ لە %2$s یاریدا</item>
+    <item quantity="other">%1$s ئاستی ئیلۆ لە %2$s یارییەکانی</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s یاری خوازراو</item>
@@ -342,6 +347,10 @@
     <item quantity="one">%s خوێندن</item>
     <item quantity="other">%s خوێندن</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s هاوکات</item>
+    <item quantity="other">%s هاوکاتەکان</item>
+  </plurals>
   <string name="viewTournament">بینینی پاڵەوانیەتیەکان</string>
   <string name="backToTournament">گەڕانەوە بۆ پاڵەوانێتی</string>
   <string name="noDrawBeforeSwissLimit">ناتوانیت یەکسان بیت بەر لە 30 جوڵە لە تۆرنەمێنتی سویس.</string>
@@ -393,6 +402,7 @@
   <string name="toStudy">خوێندن</string>
   <string name="importGame">یارییەکان هەناردەبکە</string>
   <string name="importGameExplanation">دوای پەیستکردنی PGN لینکێکت دەست دەکەوێت، دەتوانی لە وێبگەرەکان بەکاری بێنیت بۆ شیکاریکردنی یارییەکە، گفتوگۆکردن و بەشداریپێکردن.</string>
+  <string name="importGameCaveat">گۆڕانکارییەکان دەسڕدرێنەوە. بۆ پاراستنی، لە ڕێگەی PGN توێژینەوەکە هاوردە بکە.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s یاری هاوردەکراو</item>
     <item quantity="other">%s یارییە هاوردەکراوەکان</item>
@@ -664,6 +674,8 @@
   <string name="simulClockHint">ڕێکخستنی کاتژمێری فیشەر. تا یاریزانی زیاتر وەربگریت، ڕەنگە پێویستت بە کاتێکی زیاتر بێت.</string>
   <string name="simulAddExtraTime">لەوانەیە کاتێکی زیاتر بۆ کاتژمێرەکەت زیاد بکەیت بۆ ئەوەی یارمەتیت بدات لەگەڵ سیموڵدا ڕوبەڕو ببیتەوە.</string>
   <string name="simulHostExtraTime">کاتی زیادکراو بۆ کاتژمێری هۆستەکە</string>
+  <string name="simulAddExtraTimePerPlayer">کاتێکی سەرەتایی زیاد بکە بۆ کاتژمێرەکەت بۆ هەر یاریزانێک کە بەشداری لە هاوکاتەکە (simul) دەکات.</string>
+  <string name="simulHostExtraTimePerPlayer">زیادکردنی کاتی کاتژمێر بۆ هەر یاریزانێک</string>
   <string name="lichessTournaments">پاڵەوانیەتەکانی لیی چێس</string>
   <string name="tournamentFAQ">پاڵەوانیەتی ئارینا (پرسیار و وەڵام)</string>
   <string name="timeBeforeTournamentStarts">کاتی پێش دەستپێکردنی پاڵەوانیەتی</string>
