@@ -53,7 +53,7 @@ final private[tv] class ChannelTrouper(
         )
         .foreach { candidates =>
           oneId ?? proxyGame foreach {
-            case Some(game) if isActive(game) && !game.olderThan(5 * 60) =>
+            case Some(game) if isActive(game) =>
               fuccess(wayBetter(game, candidates)) orElse rematch(game) foreach elect
             case Some(game) => rematch(game) orElse fuccess(bestOf(candidates)) foreach elect
             case _          => elect(bestOf(candidates))
@@ -105,7 +105,7 @@ final private[tv] class ChannelTrouper(
 
   // prefer faster games - better for watching
   private def speedHeuristic: Heuristic =
-    game => ~game.estimateClockTotalTime.map(ct => ((1000 - ct) / 5) atLeast 0) + (!game.olderThan(30) ?? 500)
+    game => ~game.estimateClockTotalTime.map(ct => ((1000 - ct) / 5) atLeast 0) + (!game.olderThan(60) ?? 750)
 
   private def sourceHeuristic: Heuristic =
     game => {
