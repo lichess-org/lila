@@ -98,10 +98,16 @@ final class Pref(env: Env) extends LilaController(env):
     "bg"           -> (forms.bg           -> save("bg")),
     "bgImg"        -> (forms.bgImg        -> save("bgImg")),
     "is3d"         -> (forms.is3d         -> save("is3d")),
-    "zen"          -> (forms.zen          -> save("zen")),
+    "zen"          -> (forms.zen          -> saveZen()),
     "voice"        -> (forms.voice        -> save("voice")),
     "keyboardMove" -> (forms.keyboardMove -> save("keyboardMove"))
   )
+
+  private def saveZen()(value: String, ctx: Context): Fu[Cookie] =
+    //Discard 0-1 bit, then add 0-1 bit with wanted value
+    var newVal = ctx.pref.zenInt & ~1 | value.toInt
+
+    save("zen")(newVal.toString, ctx)
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me so {

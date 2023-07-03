@@ -31,11 +31,11 @@ object bits:
 
   def setting(name: Frag, body: Frag) = st.section(h2(name), body)
 
-  def radios[A](field: play.api.data.Field, options: Iterable[(A, String)], prefix: String = "ir") =
+  def radios[A](field: play.api.data.Field, options: Iterable[(A, String)], valueAliases: Option[Map[Option[String], Option[String]]] = None) =
     st.group(cls := "radio")(
       options.map { (key, value) =>
-        val id      = s"$prefix${field.id}_$key"
-        val checked = field.value has key.toString
+        val id      = s"ir${field.id}_$key"
+        val checked = (field.value has key.toString) || (~((~valueAliases).get(field.value)) has key.toString)
         div(
           input(
             st.id := id,

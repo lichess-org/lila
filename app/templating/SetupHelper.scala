@@ -300,6 +300,13 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.InsightShare.FRIENDS, trans.withFriends.txt()),
       (Pref.InsightShare.EVERYBODY, trans.withEverybody.txt())
     )
+  
+  def translatedZenChoices(using Lang) =
+    List(
+      (Pref.Zen.NO, trans.no.txt()),
+      (Pref.Zen.YES, trans.yes.txt()),
+      (Pref.Zen.GAME_AUTO, trans.preferences.inGameOnly.txt())
+    )
 
   def translatedBoardResizeHandleChoices(using Lang) =
     List(
@@ -324,5 +331,10 @@ trait SetupHelper { self: I18nHelper =>
     List(
       false -> trans.no.txt(),
       true  -> trans.yes.txt()
+    )
+
+  def valueAliasesZenChoices =
+    Map(
+      Option("3") -> Option("2")
     )
 }
