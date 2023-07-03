@@ -39,6 +39,10 @@
   </plurals>
   <string name="thisIsPrivate">Ова е приватен турнир</string>
   <string name="shareUrl">Споделете го URL-то за да поканите некого: %s</string>
+  <string name="drawStreakStandard">Низа ремија: Кога играчот ќе одигра низа ремија во арена турнир, ќе добие поен само за првото реми, односно за ремијата со повеќе од %s потези во стандардни партии. Низата на ремија може да биде прекината само со победа, но не и со пораз или реми.</string>
+  <string name="drawStreakVariants">Минималниот број на потези во реми партија за добивање поени е различен во секоја варијанта. Табелата подолу го прикажува прагот за секоја варијанта.</string>
+  <string name="variant">Варијанта</string>
+  <string name="minimumGameLength">Минимален број потези</string>
   <string name="history">Историја на Арена</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Прегледај го тимот</item>
@@ -52,4 +56,9 @@
   <string name="allowChatHelp">Дозволете играчите да разговараат во соба за разговор</string>
   <string name="arenaStreaks">Арена серија</string>
   <string name="arenaStreaksHelp">После 2 победи, последователни победи носат 4 поени наместо 2.</string>
+  <string name="noBerserkAllowed">Berserk не е дозволен</string>
+  <string name="noArenaStreaks">Без Арена низа</string>
+  <string name="averagePerformance">Просечна изведба</string>
+  <string name="averageScore">Просечен резултат</string>
+  <string name="myTournaments">Мои турнири</string>
 </resources>

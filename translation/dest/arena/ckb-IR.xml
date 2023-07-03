@@ -18,6 +18,7 @@
 برزێرک بۆ ئەو یارییانە بەردەست نییە کە زیادبوونی 0+ چرکەیان هەیە (0+1s/جووڵە، 0+2s).
 برزێرک گەرەنتی خاڵە زیادەکە دەکات ئەگەر لانیکەم ٧ جوڵە یاری بکەیت.</string>
   <string name="howIsTheWinnerDecided">چۆن براوە دیاری دەکرێت?</string>
+  <string name="howIsTheWinnerDecidedAnswer">ئەو یاریزانە (یاریزانانەی) کە زۆرترین خاڵیان لە کۆتایی سنووری کاتی پاڵەوانێتییەکەدا بەدەستهێناوە، بە براوە ڕادەگەیەنرێت.</string>
   <string name="howDoesPairingWork">چۆن یاریزانی بەرامبەر هەڵدەبژێردرێت?</string>
   <string name="howDoesPairingWorkAnswer">لە سەرەتای پاڵەوانێتییەکەدا یاریزانەکان بە پێی ڕیزبەندی یاریزانەکان دەکەونە ڤەرامبەر یەک. کاتێک یارییەکەت تەواو کرد، بگەڕێوە بۆ بەشی پاڵەوانێتییەکە: لەگەڵ یاریزانێکی نزیک لە ڕیزبەندییەکەت یاریەکیترت بۆ رێکدەخرێت . ئەمەش کاتێکی کەمتر دەخایەنێت، لەگەڵ ئەوەشدا لەوانەیە لەم پاڵەوانێتییەدا ڕووبەڕووی یاریزانانی تر نەبیتەوە. خێرا یاری بکە و بگەڕێوە پاڵەوانێتیەکە بۆ ئەوەی یاری زیاتر ئەنجام بدەیت و خاڵی زیاتر بەدەست بهێنیت.</string>
   <string name="howDoesItEnd">چۆن کۆتایی پێ دێت?</string>
@@ -30,4 +31,26 @@
   </plurals>
   <string name="thisIsPrivate">ئەمە پاڵەوانێتییەکی تایبەتە</string>
   <string name="shareUrl">ئەم لینکە هاوبەشی پێبکە بۆ ئەوەی خەڵک بتوانێت بەشداری بکات: %s</string>
+  <string name="drawStreakStandard">یەکسانبوونی زنجیرەیی: کاتێک یاریزانێک لە پێشبڕکێکانی ئارینا یەکسانبوونی یەک لە دوای یەک بەدەست دەهێنێت، یاریزانەکە تەنها لە یەکەم یەکسانبوون خاڵێک بەدەست دەهێنێت، یان لەو یەکسانبوونانەی کە %s جوڵەی تێپەڕاندووە. ڕیزبەندی یەکسانبوون تەنها بە بردنەوە دەتوانرێت بشکێنرێت نەک دۆڕان یان یەکسانبوون.</string>
+  <string name="drawStreakVariants">کەمترین سنوور بۆ یارییە یەکسانەکان بۆ بەدەستهێنانی خاڵێک لە شێوازێکەوە بۆ چرکەیەکی تر دەگۆڕێت، بەپێی خشتەی خوارەوە بۆ پێناسەکردنی خاڵەکان.</string>
+  <string name="variant">شێواز</string>
+  <string name="minimumGameLength">کەمترین ماوەی درێژەی یاری</string>
+  <string name="history">ئەرشیفی ئارینا</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">بینینی یاریەکە</item>
+    <item quantity="other">نیشاندانی هەموو تیمەکان %s</item>
+  </plurals>
+  <string name="newTeamBattle">شەڕی تیمی نوێ</string>
+  <string name="customStartDate">بەرواری دەستپێکردنی تایبەت بەخۆت</string>
+  <string name="customStartDateHelp">لە ناوچەی کاتیی ناوخۆیی خۆتدا. ئەمە ڕێکخستنی \"کات پێش دەستپێکردنی پاڵەوانێتییەکە\" دەسڕێتەوە</string>
+  <string name="allowBerserk">ڕێگە بدە بە کەمکردنەوەی نیوەی کات</string>
+  <string name="allowBerserkHelp">ڕێگەبدە یاریزانەکان نیوەی کاتەکەیان کەم بکەنەوە بۆ ئەوەی خاڵی زیادە بەدەستبێنن</string>
+  <string name="allowChatHelp">ڕێگە بدە یاریزانان گفتوگۆبکەن لە ژووری پەیام گۆڕینەوە</string>
+  <string name="arenaStreaks">زنجیرەی بردنەوەی ئارینا</string>
+  <string name="arenaStreaksHelp">دوای ٢ بردنەوە، بردنەوەی یەک لە دوای یەک ٤ خاڵی پێ دەدرێت لەبری ٢.</string>
+  <string name="noBerserkAllowed">کەمکردنەوەی کات ڕێگە پێ نەدراوە</string>
+  <string name="noArenaStreaks">زنجیرەی بردنەوەی ئارێنا نییە</string>
+  <string name="averagePerformance">تێکڕای هەوڵەکان</string>
+  <string name="averageScore">تێکڕای خاڵ</string>
+  <string name="myTournaments">پاڵەوانێتیەکانم</string>
 </resources>

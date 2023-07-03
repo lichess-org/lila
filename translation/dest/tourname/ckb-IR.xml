@@ -2,4 +2,7 @@
 <resources>
   <string name="hourlyRapidArena">گۆڕەپانی یاری خێرای کاتژمێرانە</string>
   <string name="hourlyRapid">یاری خێرای کاتژمێرانە</string>
+  <string name="hourlyXArena">کاتژمێرانە %s مەیدان</string>
+  <string name="hourlyX">کاتژمێرانە%s</string>
+  <string name="dailyRapidArena">میدان مسابقه سریع روزانه</string>
 </resources>

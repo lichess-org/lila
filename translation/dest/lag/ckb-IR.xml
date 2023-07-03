@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">ئایە لیچێس خاوبۆتەوە?</string>
+  <string name="measurementInProgressThreeDot">پێوانەکان بەردەوامن...</string>
+  <string name="noAndYourNetworkIsGood">نەخێر. وە تۆڕەکەت باشە.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">نەخێر. وە تۆڕەکەت خراپە.</string>
+  <string name="yesItWillBeFixedSoon">بەڵێ. بەم زووانە چاک دەکرێت!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">و ئێستاش، وەڵامی درێژ! خاوبونەوەی یارییەکە لە دوو بەهای ناپەیوەندیدار پێکدێت (کەمتر باشترە):</string>
+  <string name="lichessServerLatency">وەستانی سێرڤەری lichess</string>
+  <string name="lichessServerLatencyExplanation">ئەو کاتەی کە پێویستە بۆ کردارکردنی جوڵەیەک لەسەر سێرڤەر. بۆ هەموو کەسێک وەک یەکە، و تەنها پەیوەستە بە پەستانی سێرڤەرەکانەوە. تا یاریزان زیاتر بێت و بەرزتر بێت، بەڵام گەشەپێدەرانی lichess هەموو هەوڵێکیان دەدەن بۆ ئەوەی بە نزمیی بمێنێتەوە. بە دەگمەن لە 10ms تێدەپەڕێت.</string>
+  <string name="networkBetweenLichessAndYou">تۆڕی نێوان lichess و تۆ</string>
+  <string name="networkBetweenLichessAndYouExplanation">ئەو کاتەی کە پێویستە بۆ ناردنی گواستنەوەیەک لە کۆمپیوتەرەکەتەوە بۆ سێرڤەری لیچێس،  وەرگرتنەوەی وەڵامەکە. تایبەتە بە مەودای تۆ لە شاری lichess(فەرەنسا)، و بە کوالێتی هێڵی ئینتەرنێتەکەت. گەشەپێدەرانی lichess ناتوانن وایفایەکەت چاک بکەنەوە یان خێراتری بکەن.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">دەتوانیت هەردوو ئەم بەهایە لە هەر کاتێکدا بدۆزیتەوە، بە کلیککردن لەسەر ناوی بەکارهێنەرەکەت لە تووڵی سەرەوەدا.</string>
+  <string name="lagCompensation">قەرەبووکردنەوەی خاوبونەوە</string>
+  <string name="lagCompensationExplanation">lichess قەرەبووی خاوبونەوەی تۆڕ دەکاتەوە. ئەمەش خاوبونەوەی بەردەوام و ناوبەناو بەرزبوونەوەی دواکەوتن لەخۆدەگرێت. سنوور و زانیاری هەیە لەسەر بنەمای کۆنترۆڵکردنی کات و دواکەوتنی قەرەبووکراو تا ئێستا، بەجۆرێک ئەنجامەکە دەبێت هەست بە گونجاوی بکات بۆ هەردوو یاریزانەکە. لە ئەنجامدا هەبوونی خاوبونەوەی تۆڕی زیاتر لە بەرامبەرەکەت بەربەست نییە!</string>
+</resources>
