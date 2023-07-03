@@ -509,6 +509,7 @@
   <string name="savingMoves">Привремено зачувани потези</string>
   <string name="savingMovesHelp">Секогаш ги чуваме Вашите варијации во кеш меморијата на пребарувачот.</string>
   <string name="makeAStudy">Заради сигурност и споделување, креирајте студија.</string>
+  <string name="clearSavedMoves">Исчисти потези</string>
   <string name="previouslyOnLichessTV">Предходно на Личес ТВ</string>
   <string name="onlinePlayers">Вклучени играчи (играчи на линија )</string>
   <string name="activePlayers">Активни играчи</string>
@@ -556,6 +557,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Белешки</string>
   <string name="typePrivateNotesHere">Напиши приватни белешки</string>
+  <string name="writeAPrivateNoteAboutThisUser">Напишете приватна белешка за овој корисник</string>
+  <string name="noNoteYet">Уште нема белешка</string>
   <string name="invalidUsernameOrPassword">Невалидно корисничко име или лозинка</string>
   <string name="incorrectPassword">Погрешна лозинка</string>
   <string name="invalidAuthenticationCode">Неважечки код за автентикација</string>
@@ -612,6 +615,7 @@
   <string name="community">Заедница</string>
   <string name="tools">Алатки</string>
   <string name="increment">Зголемување на време</string>
+  <string name="error.unknown">Невалидна вредност</string>
   <string name="error.required">Ова поле е задолжително</string>
   <string name="error.email">Адресата на е-поштата е невалидна</string>
   <string name="error.email_acceptable">Оваа е-мајл адреса е невалидна. Ве молам проверете и пробајте повторно.</string>
@@ -622,6 +626,7 @@
   <string name="error.min">Мора да биде најмалку %s</string>
   <string name="error.max">Мора да биде најмногу %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рејтингот е ± %s</string>
+  <string name="ifRegistered">Ако се регистрирани</string>
   <string name="onlyExistingConversations">Само веќе постоечки разговори</string>
   <string name="onlyFriends">Пријатели кои се онлајн</string>
   <string name="menu">Мени</string>
@@ -666,15 +671,23 @@
   <string name="simulClockHint">Поставување на Фишерскиот часовник. Што повеќе противници, толку повеќе време ти треба.</string>
   <string name="simulAddExtraTime">Можеш да додадеш додатно време на часовникот, за да ти помогне со симултаната партија.</string>
   <string name="simulHostExtraTime">Додатно време за домаќинот</string>
+  <string name="simulAddExtraTimePerPlayer">Додајте почетно време на Вашиот часовник со приклучувањето на секој нов играч во симултанката.</string>
+  <string name="simulHostExtraTimePerPlayer">Додатно време по играч за домаќинот на симултанката</string>
   <string name="lichessTournaments">Lichess турнири</string>
   <string name="tournamentFAQ">ЧПП за арена турнирите</string>
   <string name="timeBeforeTournamentStarts">Време до почетокот на турнирот</string>
   <string name="averageCentipawnLoss">Просечна загуба во центи-пиони</string>
+  <string name="accuracy">Прецизност</string>
   <string name="keyboardShortcuts">Кратенки на тастатурата</string>
   <string name="keyMoveBackwardOrForward">оди назад/напред</string>
   <string name="keyGoToStartOrEnd">оди на почеток/крај</string>
   <string name="keyShowOrHideComments">покажи/скриј ги коментарите</string>
   <string name="keyEnterOrExitVariation">отвори/затвори ја варијантата</string>
+  <string name="keyRequestComputerAnalysis">Побарајте компјутерска анализа, Учете од Вашите грешки</string>
+  <string name="keyNextLearnFromYourMistakes">Следно (учете од Вашите грешки)</string>
+  <string name="keyNextBlunder">Следен превид</string>
+  <string name="keyNextMistake">Следна грешка</string>
+  <string name="keyNextInaccuracy">Следна непрецизност</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир со различни временски контроли и варијанти</string>
   <string name="tournamentHomeDescription">Играј брзи турнири! Придружи се на официјален турнир, или започни свој. Стрела, Блиц, Класичен, Шах 960, Кралот на средина, Три шаха, и многу други варијанти за бескрајна забава.</string>
@@ -718,6 +731,7 @@
   <string name="kidMode">Детска заштита</string>
   <string name="kidModeExplanation">Ова е заради безбедност. Во детска заштита, сите комуникации се оневозможени. Вклучете го овој начин за вашите деца, да ги заштитите од останатите интернет корисници.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Во детскиот режим, на Lichess логото е додадено „%s“, за да знаете дека вашите деца се безбедни.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Вашиот профил е под администратор. Прашајте го Вашиот учител за исклучување на работниот начин за деца.</string>
   <string name="enableKidMode">Вклучи го детскиот режим</string>
   <string name="disableKidMode">Исклучи го детскиот режим</string>
   <string name="security">Безбедност</string>
@@ -752,6 +766,7 @@
   <string name="light">Светло</string>
   <string name="dark">Темно</string>
   <string name="transparent">Проѕирно</string>
+  <string name="deviceTheme">Тема на уредот</string>
   <string name="backgroundImageUrl">URL на заднинската слика:</string>
   <string name="boardGeometry">Геометрија на таблата</string>
   <string name="boardTheme">Тема на таблата</string>
@@ -770,6 +785,7 @@
   <string name="invalidFen">Невалиден FEN</string>
   <string name="custom">Персонализирано</string>
   <string name="notifications">Известувања</string>
+  <string name="notificationsX">Известувања: %1$s</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за првиот потег</item>
@@ -780,6 +796,7 @@
   <string name="bestWasX">Најдобриот потег беше %s</string>
   <string name="youBrowsedAway">Одсурфавте надвор</string>
   <string name="resumePractice">Продолжи со вежбата</string>
+  <string name="drawByFiftyMoves">Оваа партија е реми по правилото од 50 потези.</string>
   <string name="theGameIsADraw">Партијата е реми.</string>
   <string name="computerThinking">Компјутерот размислува...</string>
   <string name="seeBestMove">Види го најдобриот потег</string>
@@ -863,6 +880,8 @@
   <string name="useTheReportForm">користи го образецот за пријава</string>
   <string name="toRequestSupport">За помош, %1$s</string>
   <string name="tryTheContactPage">обрати се на страната за контакт</string>
+  <string name="makeSureToRead">Обавезно прочитајте %1$s</string>
+  <string name="theForumEtiquette">Форумски бон-тон</string>
   <string name="thisTopicIsArchived">Темата е архивирана и не дозволува нови објави.</string>
   <string name="joinTheTeamXToPost">Придружи се на %1$s за да објавуваш на овој форум</string>
   <string name="teamNamedX">тим %1$s</string>
@@ -943,4 +962,6 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Одбрани рангирани игри од сите Lichess играчи</string>
   <string name="switchSides">Променете страна</string>
+  <string name="closingAccountWithdrawAppeal">Затворањето на Вашиот профил ќе ја повлече жалбата</string>
+  <string name="ourEventTips">Наши совети за организирање настани</string>
 </resources>
