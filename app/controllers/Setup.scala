@@ -204,7 +204,7 @@ final class Setup(
                         PostRateLimit(req.ipAddress, rateLimited):
                           BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
                             env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                          )(apiC.sourceToNdJsonOption)
+                          )(apiC.sourceToNdJsonOption).toFuccess
                       case Right(Some(seek)) =>
                         author match
                           case Left(_) =>
