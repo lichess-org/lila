@@ -27,17 +27,15 @@ final private[puzzle] class PuzzleFinisher(
   )
 
   def batch(me: User, angle: PuzzleAngle, solutions: List[Solution]): Fu[List[(PuzzleRound, IntRatingDiff)]] =
-    lila.common.LilaFuture
-      .fold(solutions)((me.perfs.puzzle, List.empty[(PuzzleRound, IntRatingDiff)])) {
+    solutions
+      .foldM((me.perfs.puzzle, List.empty[(PuzzleRound, IntRatingDiff)])):
         case ((perf, rounds), sol) =>
-          apply(sol.id, angle, me, sol.win, sol.mode) map {
+          apply(sol.id, angle, me, sol.win, sol.mode).map:
             case Some((round, newPerf)) =>
               val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
               (newPerf, (round, rDiff) :: rounds)
             case None => (perf, rounds)
-          }
-      }
-      .map { (_, rounds) => rounds.reverse }
+      .map((_, rounds) => rounds.reverse)
 
   def apply(
       id: PuzzleId,
