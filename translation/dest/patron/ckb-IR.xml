@@ -59,4 +59,24 @@
   <string name="currentStatus">بارودۆخی ئێستا</string>
   <string name="nextPayment">پارەی دواتر</string>
   <string name="youWillBeChargedXOnY">%1$sت لێ وەردەگیرێت لەسەر %2$s.</string>
+  <string name="makeAdditionalDonation">بەخشینێکی زیادە بکە</string>
+  <string name="giftPatronWings">هێمای باڵەکانی بەخشین بە دیاری بدە بە یاریزانێک</string>
+  <string name="update">نوێکردنەوە</string>
+  <string name="changeMonthlyAmount">گۆڕینی بڕی مانگانە (%s)</string>
+  <string name="cancelSupport">پشتگیریەکەت هەڵبوەشێنەرەوە</string>
+  <string name="xOrY">%1$s یان %2$s</string>
+  <string name="decideHowMuch">بڕیار بدە کە Lichess بەهای چییە بۆ تۆ:</string>
+  <string name="stopPayments">کارتی بانکیی خۆت بکێشێنەوە و پارەدانەکەت بوەستێنە:</string>
+  <string name="stopPaymentsPayPal">هەڵوەشاندنەوەی بەشداریکردن بە PayPal و ڕاگرتنی پارەدان:</string>
+  <string name="noLongerSupport">وازهێنان لە پشتگیریکردنی Lichess</string>
+  <string name="viewOthers">بینینی بەخشەرەکانی تری Lichess</string>
+  <string name="date">بەروار</string>
+  <string name="amount">بڕ</string>
+  <string name="transactionCompleted">مامەڵەکەت تەواو بووە، پسوڵەی بەخشینەکەت بە ئیمەیڵ بۆت نێردراوە.</string>
+  <string name="permanentPatron">ئێستا هەژمارێکی هەمیشەیی بەخشینت هەیە.</string>
+  <string name="checkOutProfile">لاپەڕەی پڕۆفایلی خۆت ببینە!</string>
+  <string name="nowLifetime">ئێستا تۆ بەخشەرێکی بێ کۆتای Lichessیت!</string>
+  <string name="nowOneMonth">ئێستا تۆ بۆ ماوەی مانگێک بەخشەری Lichessیت!</string>
+  <string name="downgradeNextMonth">دوای تەواوبوونی ماوەی یەک مانگ، پارەکە جارێکی تر نوی ناکرێتەوە،هەژماری Lichess ـەکەت دەگەڕێتەوە بۆ هەژمارێکی ئاسایی.</string>
+  <string name="changeCurrency">گۆڕینی دراو</string>
 </resources>
