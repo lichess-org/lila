@@ -30,7 +30,7 @@ object BuildSettings {
       play.api,
       chess,
       scalalib,
-      kittens,
+      kittens
     )
 
   def module(
