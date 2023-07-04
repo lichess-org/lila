@@ -69,6 +69,7 @@ export interface Player {
   offeringDraw?: boolean;
   ai: number | null;
   onGame: boolean;
+  lastDrawOfferAtPly?: Ply;
   gone: number | boolean;
   blurs?: Blurs;
   hold?: Hold;

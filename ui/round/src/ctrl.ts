@@ -100,6 +100,7 @@ export default class RoundController {
     const d = (this.data = opts.data);
 
     this.ply = round.lastPly(d);
+    this.lastDrawOfferAtPly = d.player.lastDrawOfferAtPly;
     this.goneBerserk[d.player.color] = d.player.berserk;
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;
 
