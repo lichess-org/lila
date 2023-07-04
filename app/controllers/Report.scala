@@ -111,11 +111,9 @@ final class Report(
   }
 
   def xfiles(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
-    api.moveToXfiles(id) >> {
-      api byId id flatMap:
-        _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
-          onInquiryAction(inquiry)
-    }
+    api byId id flatMap:
+      _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
+        api.moveToXfiles(id) >> onInquiryAction(inquiry, processed = true)
   }
 
   def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
