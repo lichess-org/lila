@@ -325,7 +325,7 @@
     <item quantity="other">%s 研讨</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="other">%s 同时进行的棋局</item>
+    <item quantity="other">%s 个进行的车轮战棋局</item>
   </plurals>
   <string name="viewTournament">观看锦标赛</string>
   <string name="backToTournament">回到锦标赛主页</string>
@@ -637,6 +637,8 @@
   <string name="simulClockHint">菲舍尔时钟设置。挑战者越多，您所需时间就可能相应越多。</string>
   <string name="simulAddExtraTime">您可以为自己附加时间应对车轮战。</string>
   <string name="simulHostExtraTime">主持的额外时间</string>
+  <string name="simulAddExtraTimePerPlayer">每有一个玩家加入车轮战，您棋钟的初始时间都将增加。</string>
+  <string name="simulHostExtraTimePerPlayer">每个玩家加入后棋钟增加的额外时间</string>
   <string name="lichessTournaments">Lichess 锦标赛</string>
   <string name="tournamentFAQ">锦标赛常见问题</string>
   <string name="timeBeforeTournamentStarts">距比赛开始时间</string>
@@ -647,6 +649,11 @@
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
   <string name="keyShowOrHideComments">显示／隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入／退出变着</string>
+  <string name="keyRequestComputerAnalysis">请求计算机分析，并从您的失误中吸取教训</string>
+  <string name="keyNextLearnFromYourMistakes">下一个 ( 从您的失误中吸取教训)</string>
+  <string name="keyNextBlunder">下一个漏着</string>
+  <string name="keyNextMistake">下一个错着</string>
+  <string name="keyNextInaccuracy">下一个不精确的着法</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
   <string name="tournamentHomeDescription">参加快节奏的国际象棋锦标赛！欢迎参与Lichess官方的锦标赛或创建自己的锦标赛。子弹超快棋，闪电超快棋，经典，菲舍尔任意制，王居中，三次将军，并提供更多的选择给您带来无尽的国际象棋乐趣。</string>
@@ -742,6 +749,7 @@
   <string name="invalidFen">FEN无法识别</string>
   <string name="custom">自定义</string>
   <string name="notifications">通知</string>
+  <string name="notificationsX">通知: %1$s</string>
   <string name="perfRatingX">等级分：%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">还剩%s秒走第一步</item>
@@ -833,6 +841,8 @@
   <string name="useTheReportForm">请使用举报表单</string>
   <string name="toRequestSupport">要请求支持，%1$s</string>
   <string name="tryTheContactPage">请尝试使用联系页面</string>
+  <string name="makeSureToRead">请确保您已阅 %1$s</string>
+  <string name="theForumEtiquette">论坛礼仪</string>
   <string name="thisTopicIsArchived">此话题已被存档且不能再回复。</string>
   <string name="joinTheTeamXToPost">加入%1$s，以在此论坛发表意见</string>
   <string name="teamNamedX">%1$s 团队</string>
