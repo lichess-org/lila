@@ -20,6 +20,7 @@
   <string name="keyboardShortcutsExplanation">Kelkaj Lichess paĝoj havas flumklavojn, ke vi povas uzi. Provi premu la \"?\" klavon ĉe studa, analiza, puzla, aŭ luda paĝo por listo de disponeblaj flumklavoj.</string>
   <string name="fairPlay">Honesta ludo</string>
   <string name="whenAmIEligibleRatinRefund">Kiam mi aŭtomate reakiras la perditajn poentojn pro trompantoj?</string>
+  <string name="preventLeavingGameWithoutResigning">Kio estas fari pri ludantoj forlasantaj ludojn sen rezigni?</string>
   <string name="howCanIBecomeModerator">Kiel mi fariĝis moderatoro?</string>
   <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
   <string name="pleaseReadFairPlayPage">Por pli informo, bonvole legu nian %s</string>
