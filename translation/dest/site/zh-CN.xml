@@ -204,6 +204,7 @@
   <string name="forgotPassword">忘记密码？</string>
   <string name="error.weakPassword">这个密码太常见了，而且很容易猜到。</string>
   <string name="error.namePassword">请不要把密码设为用户名。</string>
+  <string name="blankedPassword">您已在另一个站点使用了相同的密码，该站点已经失效。 为确保您的Lichess账户安全，我们需要您设置一个新密码。感谢您的理解。</string>
   <string name="youAreLeavingLichess">您正在离开Lichess</string>
   <string name="neverTypeYourPassword">永远不要在其他网站输入您的Lichess密码 ！</string>
   <string name="proceedToX">前往 %s</string>
@@ -323,8 +324,12 @@
   <plurals name="nbStudies">
     <item quantity="other">%s 研讨</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s 同时进行的棋局</item>
+  </plurals>
   <string name="viewTournament">观看锦标赛</string>
   <string name="backToTournament">回到锦标赛主页</string>
+  <string name="noDrawBeforeSwissLimit">你不能在瑞士锦标赛中30步棋之前和棋。</string>
   <string name="thematic">从常见开局开始的锦标赛</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">完成至少 %s 局排位赛</item>
@@ -369,6 +374,7 @@
   <string name="toStudy">研讨</string>
   <string name="importGame">导入棋局</string>
   <string name="importGameExplanation">粘贴PGN棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
+  <string name="importGameCaveat">变着分支将被删除。若要保存这些变着，请通过导入PGN棋谱创建一个研究。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s盘导入的棋局</item>
   </plurals>
