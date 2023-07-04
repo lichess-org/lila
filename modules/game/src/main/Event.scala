@@ -86,17 +86,15 @@ object Event:
       crazyData: Option[Crazyhouse.Data]
   ) extends Event:
     def typ = "move"
-    def data =
-      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
-        Json
-          .obj(
-            "uci" -> s"${orig.key}${dest.key}",
-            "san" -> san
-          )
-          .add("promotion" -> promotion.map(_.data))
-          .add("enpassant" -> enpassant.map(_.data))
-          .add("castle" -> castle.map(_.data))
-      }
+    def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData):
+      Json
+        .obj(
+          "uci" -> s"${orig.key}${dest.key}",
+          "san" -> san
+        )
+        .add("promotion" -> promotion.map(_.data))
+        .add("enpassant" -> enpassant.map(_.data))
+        .add("castle" -> castle.map(_.data))
     override def moveBy = Some(!state.turns.turn)
   object Move:
     def apply(
@@ -105,27 +103,22 @@ object Event:
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
-    ): Move =
-      Move(
-        orig = move.orig,
-        dest = move.dest,
-        san = chess.format.pgn.Dumper(move),
-        fen = Fen.writeBoard(situation.board),
-        check = situation.check,
-        threefold = situation.threefoldRepetition,
-        promotion = move.promotion.map { Promotion(_, move.dest) },
-        enpassant = (move.capture ifTrue move.enpassant).map {
-          Event.Enpassant(_, !move.color)
-        },
-        castle = move.castle.map(_.value).map { (king, rook) =>
-          Castling(king, rook, move.color)
-        },
-        state = state,
-        clock = clock,
-        possibleMoves = situation.destinations,
-        possibleDrops = situation.drops,
-        crazyData = crazyData
-      )
+    ): Move = Move(
+      orig = move.orig,
+      dest = move.dest,
+      san = chess.format.pgn.Dumper(move),
+      fen = Fen.writeBoard(situation.board),
+      check = situation.check,
+      threefold = situation.threefoldRepetition,
+      promotion = move.promotion.map { Promotion(_, move.dest) },
+      enpassant = move.capture.ifTrue(move.enpassant).map(Event.Enpassant(_, !move.color)),
+      castle = move.castle.map(_.value).map((king, rook) => Castling(king, rook, move.color)),
+      state = state,
+      clock = clock,
+      possibleMoves = situation.destinations,
+      possibleDrops = situation.drops,
+      crazyData = crazyData
+    )
 
   case class Drop(
       role: chess.Role,
@@ -141,14 +134,12 @@ object Event:
       possibleDrops: Option[List[Square]]
   ) extends Event:
     def typ = "drop"
-    def data =
-      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
-        Json.obj(
-          "role" -> role.name,
-          "uci"  -> s"${role.pgn}@${pos.key}",
-          "san"  -> san
-        )
-      }
+    def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData):
+      Json.obj(
+        "role" -> role.name,
+        "uci"  -> s"${role.pgn}@${pos.key}",
+        "san"  -> san
+      )
     override def moveBy = Some(!state.turns.turn)
   object Drop:
     def apply(
@@ -157,20 +148,19 @@ object Event:
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
-    ): Drop =
-      Drop(
-        role = drop.piece.role,
-        pos = drop.square,
-        san = chess.format.pgn.Dumper(drop),
-        fen = Fen.writeBoard(situation.board),
-        check = situation.check,
-        threefold = situation.threefoldRepetition,
-        state = state,
-        clock = clock,
-        possibleMoves = situation.destinations,
-        possibleDrops = situation.drops,
-        crazyData = crazyData
-      )
+    ): Drop = Drop(
+      role = drop.piece.role,
+      pos = drop.square,
+      san = chess.format.pgn.Dumper(drop),
+      fen = Fen.writeBoard(situation.board),
+      check = situation.check,
+      threefold = situation.threefoldRepetition,
+      state = state,
+      clock = clock,
+      possibleMoves = situation.destinations,
+      possibleDrops = situation.drops,
+      crazyData = crazyData
+    )
 
   object PossibleMoves:
     def json(moves: Map[Square, List[Square]]): JsValue =
