@@ -164,4 +164,6 @@ export default function () {
       })
       .bind('s', () => $input[0]!.focus());
   }
+
+  $('#warn-no-autoplay a').on('click', () => $('#warn-no-autoplay').removeClass('shown'));
 }

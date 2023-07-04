@@ -157,6 +157,11 @@ object layout:
       )
     )
 
+  private def warnNoAutoplay(using ctx: PageContext) =
+    div(id := "warn-no-autoplay")(
+      a(dataIcon := licon.Mute, target := "_blank", href := routes.Main.faq.url + "#autoplay")
+    )
+
   private def current2dTheme(using ctx: PageContext) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.pref.currentTheme
@@ -418,6 +423,7 @@ object layout:
           )
         ),
         div(cls := "site-buttons")(
+          warnNoAutoplay,
           !ctx.isAppealUser option clinput,
           reports,
           teamRequests,

@@ -62,6 +62,7 @@ export default new (class implements SoundI {
   };
 
   play(name: string, volume?: number) {
+    console.log('howler enabled?', this.enabled());
     if (!this.enabled()) return;
     let set = this.soundSet;
     if (set === 'music' || this.speechStorage.get()) {
@@ -71,8 +72,14 @@ export default new (class implements SoundI {
     const s = this.getOrLoadSound(name, set);
 
     const doPlay = () => s.volume(this.getVolume() * (volume || 1)).play();
-    if (Howler.ctx?.state === 'suspended') Howler.ctx.resume().then(doPlay);
-    else doPlay();
+    if (Howler.ctx?.state === 'suspended') {
+      const canPlay = setTimeout(() => console.log($('#warn-no-autoplay').addClass('shown')), 300);
+      // in lieu of https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getAutoplayPolicy
+      Howler.ctx.resume().then(() => {
+        clearTimeout(canPlay);
+        doPlay();
+      });
+    } else doPlay();
   }
 
   playOnce(name: string): void {
