@@ -52,7 +52,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
               )
             )
           : null,
-        h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays)))),
+        h('p', ctrl.trans.vdomPlural('playedXTimes', puzzle.plays, h('strong', numberFormat(puzzle.plays)))),
       ]),
     ]
   );
