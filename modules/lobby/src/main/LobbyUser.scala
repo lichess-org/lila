@@ -35,8 +35,8 @@ private[lobby] object LobbyUser:
 
   private def perfMapOf(perfs: lila.user.UserPerfs): PerfMap =
     perfs.perfs.view.collect {
-      case (key, perf) if key != PerfType.Puzzle.key && perf.nonEmpty =>
-        key -> LobbyPerf(perf.intRating, perf.provisional)
+      case (pt, perf) if pt != PerfType.Puzzle && perf.nonEmpty =>
+        pt.key -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
 
 // TODO opaque type Int (minus for provisional)

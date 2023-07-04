@@ -134,7 +134,7 @@ final class TournamentApi(
         users.haveWaitedEnough ||
         smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
     )) so
-      Parallel(forTour.id, "makePairings")(cached.tourCache.started) { tour =>
+      Parallel(forTour.id, "makePairings")(cached.tourCache.started): tour =>
         cached
           .ranking(tour)
           .mon(_.tournament.pairing.createRanking)
@@ -167,7 +167,6 @@ final class TournamentApi(
           .chronometer
           .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
           .result
-      }
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
     import cats.syntax.all.*
@@ -732,14 +731,13 @@ final class TournamentApi(
       fetch: TourId => Fu[Option[Tournament]]
   )(run: Tournament => Funit): Funit =
     fetch(tourId) flatMapz { tour =>
-      if (tour.nbPlayers > 1000)
-        run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
-      else
-        run(tour)
+      if tour.nbPlayers > 3000
+      then run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
+      else run(tour)
     }
 
   private object publish:
-    private val debouncer = Debouncer[Unit](15 seconds, 1) { _ =>
+    private val debouncer = Debouncer[Unit](15 seconds, 1): _ =>
       given play.api.i18n.Lang = lila.i18n.defaultLang
       fetchUpdateTournaments flatMap apiJsonView.apply foreach { json =>
         Bus.publish(
@@ -747,7 +745,6 @@ final class TournamentApi(
           "sendToFlag"
         )
       }
-    }
     def apply() = debouncer.push(()).unit
 
   private object updateTournamentStanding:

@@ -389,9 +389,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def featured = Open:
     negotiateJson:
-      env.tournament.cached.onHomepage.getUnit.recoverDefault map {
-        lila.tournament.Spotlight.select(_, 4)
-      } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
+      WithMyPerfs:
+        env.tournament.cached.onHomepage.getUnit.recoverDefault map {
+          lila.tournament.Spotlight.select(_, 4)
+        } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
 
   def shields = Open:
     for

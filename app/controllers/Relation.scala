@@ -117,8 +117,8 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     Json.obj("paginator" -> PaginatorJson(pag.mapResults: r =>
       Json.toJsObject(r) ++ Json
         .obj:
-          "perfs" -> r.user.perfs.bestPerfType.map: best =>
-            lila.user.JsonView.perfTypedJson(r.user.perfs.typed(best))
+          "perfs" -> r.user.perfs.bestRatedPerf.map:
+            lila.user.JsonView.perfTypedJson
         .add("online" -> env.socket.isOnline(r.user.id))))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>

@@ -3,6 +3,7 @@ package lila.clas
 import ornicar.scalalib.SecureRandom
 
 import lila.user.User
+import lila.user.UserPerfs
 
 case class Student(
     _id: Student.Id, // userId:clasId
@@ -43,10 +44,10 @@ object Student:
     )
 
   case class WithUser(student: Student, user: User)
+  case class WithUserPerfs(student: Student, user: User, perfs: UserPerfs)
 
-  case class WithUserAndManagingClas(withUser: WithUser, managingClas: Option[Clas]):
-    def student = withUser.student
-    def user    = withUser.user
+  case class WithUserAndManagingClas(withUser: WithUserPerfs, managingClas: Option[Clas]):
+    export withUser.*
 
   case class WithPassword(student: Student, password: User.ClearPassword)
 
@@ -58,7 +59,5 @@ object Student:
     private val nbChars    = chars.length
     private def secureChar = chars(SecureRandom nextInt nbChars)
 
-    def generate =
-      User.ClearPassword {
-        new String(Array.fill(7)(secureChar))
-      }
+    def generate = User.ClearPassword:
+      String(Array.fill(7)(secureChar))

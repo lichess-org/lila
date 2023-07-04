@@ -87,6 +87,7 @@ case object Perf:
   object Id extends OpaqueInt[Id]
 
   case class Typed(perf: Perf, perfType: PerfType)
+  def typed(pt: PerfType, perf: Perf) = new Typed(perf, pt)
 
   val default = Perf(Glicko.default, 0, Nil, None)
 

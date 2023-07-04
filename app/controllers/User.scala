@@ -77,9 +77,11 @@ final class User(
             html.user.show.page.activity(u, as, info, social)
       yield status(page).withCanonical(routes.User.show(u.username))
     else
-      env.activity.read.recentAndPreload(u) flatMap { as =>
-        renderPage(html.activity(u, as)).map(status(_))
-      }
+      for
+        withPerfs <- env.user.perfsRepo.withPerfs(u)
+        as        <- env.activity.read.recentAndPreload(u)
+        page      <- renderPage(html.activity(withPerfs, as)).map(status(_))
+      yield page
 
   def download(username: UserStr) = OpenBody:
     val userOption = if username.value == "me" then fuccess(ctx.user) else env.user.repo byId username
@@ -155,7 +157,7 @@ final class User(
           )
       }
   def showMini(username: UserStr) = Open:
-    Found(env.user.repo byId username): user =>
+    Found(env.user.api withPerfs username): user =>
       if user.enabled.yes || isGrantedOpt(_.UserModView)
       then
         ctx.userId.so(relationApi.fetchBlocks(user.id, _)) zip
@@ -165,7 +167,7 @@ final class User(
             case (((blocked, crosstable), followable), relation) =>
               val ping = env.socket.isOnline(user.id) so UserLagCache.getLagRating(user.id)
               negotiate(
-                html = !ctx.is(user) so currentlyPlaying(user) flatMap { pov =>
+                html = !ctx.is(user) so currentlyPlaying(user.user) flatMap { pov =>
                   Ok.page(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                     .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
                 },
@@ -174,21 +176,23 @@ final class User(
                   Ok:
                     Json.obj(
                       "crosstable" -> crosstable,
-                      "perfs"      -> lila.user.JsonView.perfsJson(user, user.best8Perfs)
+                      "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                     )
               )
           }
-      else Ok.page(html.user.bits.miniClosed(user))
+      else Ok.page(html.user.bits.miniClosed(user.user))
 
   def online = Anon:
     val max = 50
     negotiateJson:
-      env.user.cached.getTop50Online.map: users =>
-        Ok:
-          Json.toJson:
-            users
-              .take(getInt("nb").fold(10)(_ min max))
-              .map(env.user.jsonView.full(_, withRating = true, withProfile = true))
+      for
+        users <- env.user.cached.getTop50Online
+        users <- env.user.perfsRepo.withPerfs:
+          users.take(getInt("nb").fold(10)(_ min max))
+      yield Ok:
+        Json.toJson:
+          users.map: u =>
+            env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
 
   def ratingHistory(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -205,9 +209,7 @@ final class User(
   private def lastPlayed(user: UserModel): Fu[Option[Pov]] =
     env.game.gameRepo
       .lastPlayed(user)
-      .flatMap(_ so { p =>
-        env.round.proxyRepo.upgradeIfPresent(p) dmap some
-      })
+      .flatMap(_.soFu(env.round.proxyRepo.upgradeIfPresent))
 
   private val UserGamesRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 500,
@@ -236,9 +238,8 @@ final class User(
           page = page
         )
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
-        _ <- env.tournament.cached.nameCache preloadMany {
+        _ <- env.tournament.cached.nameCache.preloadMany:
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
-        }
         _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       yield pag
 
@@ -503,8 +504,10 @@ final class User(
       .map(_ | me.value)
       .flatMap: user =>
         for
-          ops         <- env.game.favoriteOpponents(user.id)
-          followables <- env.pref.api.followables(ops map (_._1.id))
+          usersAndGames <- env.game.favoriteOpponents(user.id)
+          withPerfs     <- env.user.perfsRepo.withPerfs(usersAndGames.map(_._1))
+          ops = withPerfs.toList zip usersAndGames.map(_._2)
+          followables <- env.pref.api.followables(ops.map(_._1.id))
           relateds <-
             ops
               .zip(followables)
@@ -522,16 +525,16 @@ final class User(
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
         Ok.pageAsync:
-          env.history.ratingChartApi(data.user) map {
+          env.history.ratingChartApi(data.user.user) map {
             html.user.perfStat(data, _)
           }
         ,
         JsonOk:
-          getBool("graph").so {
-            env.history.ratingChartApi.singlePerf(data.user, data.stat.perfType) map some
-          } map { graph =>
-            env.perfStat.jsonView(data).add("graph", graph)
-          }
+          getBool("graph")
+            .so:
+              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType) map some
+            .map: graph =>
+              env.perfStat.jsonView(data).add("graph", graph)
       )
 
   def autocomplete = OpenOrScoped(): ctx ?=>

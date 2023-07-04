@@ -28,46 +28,56 @@ case class UserPerfs(
     streak: Perf.Streak
 ):
 
-  def perfs = List[(Perf.Key, Perf)](
-    Perf.Key("standard")       -> standard,
-    Perf.Key("chess960")       -> chess960,
-    Perf.Key("kingOfTheHill")  -> kingOfTheHill,
-    Perf.Key("threeCheck")     -> threeCheck,
-    Perf.Key("antichess")      -> antichess,
-    Perf.Key("atomic")         -> atomic,
-    Perf.Key("horde")          -> horde,
-    Perf.Key("racingKings")    -> racingKings,
-    Perf.Key("crazyhouse")     -> crazyhouse,
-    Perf.Key("ultraBullet")    -> ultraBullet,
-    Perf.Key("bullet")         -> bullet,
-    Perf.Key("blitz")          -> blitz,
-    Perf.Key("rapid")          -> rapid,
-    Perf.Key("classical")      -> classical,
-    Perf.Key("correspondence") -> correspondence,
-    Perf.Key("puzzle")         -> puzzle
+  def perfs: List[(PerfType, Perf)] = List(
+    PerfType.Standard       -> standard,
+    PerfType.Chess960       -> chess960,
+    PerfType.KingOfTheHill  -> kingOfTheHill,
+    PerfType.ThreeCheck     -> threeCheck,
+    PerfType.Antichess      -> antichess,
+    PerfType.Atomic         -> atomic,
+    PerfType.Horde          -> horde,
+    PerfType.RacingKings    -> racingKings,
+    PerfType.Crazyhouse     -> crazyhouse,
+    PerfType.UltraBullet    -> ultraBullet,
+    PerfType.Bullet         -> bullet,
+    PerfType.Blitz          -> blitz,
+    PerfType.Rapid          -> rapid,
+    PerfType.Classical      -> classical,
+    PerfType.Correspondence -> correspondence,
+    PerfType.Puzzle         -> puzzle
   )
 
   def typed(pt: PerfType) = Perf.Typed(apply(pt), pt)
 
-  def bestPerf: Option[(PerfType, Perf)] =
-    val ps = PerfType.nonPuzzle.map: pt =>
-      pt -> apply(pt)
+  def best8Perfs: List[PerfType]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 4)
+  def best6Perfs: List[PerfType]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 2)
+  def best4Perfs: List[PerfType]    = UserPerfs.firstRow
+  def bestAny3Perfs: List[PerfType] = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 3)
+  def bestPerf: Option[PerfType]    = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 1).headOption
+  private def bestOf(perfTypes: List[PerfType], nb: Int) = perfTypes
+    .sortBy: pt =>
+      -(apply(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
+    .take(nb)
+  def hasEstablishedRating(pt: PerfType) = apply(pt).established
+
+  def bestRatedPerf: Option[Perf.Typed] =
+    val ps    = perfs.filter(_._1 != PerfType.Puzzle)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
-    ps.foldLeft(none[(PerfType, Perf)]):
-      case (ro, p) if p._2.nb >= minNb =>
-        ro.fold(p.some): r =>
-          Some(if (p._2.intRating > r._2.intRating) p else r)
-      case (ro, _) => ro
+    ps
+      .foldLeft(none[(PerfType, Perf)]):
+        case (ro, p) if p._2.nb >= minNb =>
+          ro.fold(p.some): r =>
+            Some(if p._2.intRating > r._2.intRating then p else r)
+        case (ro, _) => ro
+      .map(Perf.typed)
 
   private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating.value)
 
-  def bestPerfs(nb: Int): List[(PerfType, Perf)] =
+  def bestPerfs(nb: Int): List[Perf.Typed] =
     val ps = PerfType.nonPuzzle.map: pt =>
       pt -> apply(pt)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
-    ps.filter(p => p._2.nb >= minNb).topN(nb)
-
-  def bestPerfType: Option[PerfType] = bestPerf.map(_._1)
+    ps.filter(p => p._2.nb >= minNb).topN(nb).map(Perf.typed)
 
   def bestRating: IntRating = bestRatingIn(PerfType.leaderboardable)
 
@@ -175,7 +185,7 @@ case class UserPerfs(
 
   def dubiousPuzzle = UserPerfs.dubiousPuzzle(puzzle, standard)
 
-case object UserPerfs:
+object UserPerfs:
 
   given UserIdOf[User] = _.id
 
@@ -332,3 +342,18 @@ case object UserPerfs:
   )
 
   val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
+
+  private val firstRow: List[PerfType] =
+    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
+  private val secondRow: List[PerfType] = List(
+    PerfType.Correspondence,
+    PerfType.UltraBullet,
+    PerfType.Crazyhouse,
+    PerfType.Chess960,
+    PerfType.KingOfTheHill,
+    PerfType.ThreeCheck,
+    PerfType.Antichess,
+    PerfType.Atomic,
+    PerfType.Horde,
+    PerfType.RacingKings
+  )

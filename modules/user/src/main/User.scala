@@ -114,17 +114,7 @@ object User:
       perfs(key).map: perf =>
         User.LightPerf(light, key, perf.intRating, perf.progress)
 
-    def only(pt: PerfType)                 = WithPerf(user, perfs(pt))
-    def best8Perfs: List[PerfType]         = User.firstRow ::: bestOf(User.secondRow, 4)
-    def best6Perfs: List[PerfType]         = User.firstRow ::: bestOf(User.secondRow, 2)
-    def best4Perfs: List[PerfType]         = User.firstRow
-    def bestAny3Perfs: List[PerfType]      = bestOf(User.firstRow ::: User.secondRow, 3)
-    def bestPerf: Option[PerfType]         = bestOf(User.firstRow ::: User.secondRow, 1).headOption
-    def hasEstablishedRating(pt: PerfType) = perfs(pt).established
-    private def bestOf(perfTypes: List[PerfType], nb: Int) = perfTypes
-      .sortBy: pt =>
-        -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
-      .take(nb)
+    def only(pt: PerfType) = WithPerf(user, perfs(pt))
 
   object WithPerfs:
     given UserIdOf[WithPerfs] = _.user.id
@@ -336,18 +326,3 @@ object User:
 
   given BSONDocumentHandler[Speaker] = Macros.handler[Speaker]
   given BSONDocumentHandler[Contact] = Macros.handler[Contact]
-
-  private val firstRow: List[PerfType] =
-    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
-  private val secondRow: List[PerfType] = List(
-    PerfType.Correspondence,
-    PerfType.UltraBullet,
-    PerfType.Crazyhouse,
-    PerfType.Chess960,
-    PerfType.KingOfTheHill,
-    PerfType.ThreeCheck,
-    PerfType.Antichess,
-    PerfType.Atomic,
-    PerfType.Horde,
-    PerfType.RacingKings
-  )
