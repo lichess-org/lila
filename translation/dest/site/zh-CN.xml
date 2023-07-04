@@ -204,7 +204,7 @@
   <string name="forgotPassword">忘记密码？</string>
   <string name="error.weakPassword">这个密码太常见了，而且很容易猜到。</string>
   <string name="error.namePassword">请不要把密码设为用户名。</string>
-  <string name="blankedPassword">您已在另一个站点使用了相同的密码，该站点已经失效。 为确保您的Lichess账户安全，我们需要您设置一个新密码。感谢您的理解。</string>
+  <string name="blankedPassword">您已在另一个站点使用了相同的密码，该站点已经失效。 为确保您的Lichess帐户安全，我们需要您设置一个新密码。感谢您的理解。</string>
   <string name="youAreLeavingLichess">您正在离开Lichess</string>
   <string name="neverTypeYourPassword">永远不要在其他网站输入您的Lichess密码 ！</string>
   <string name="proceedToX">前往 %s</string>
@@ -841,7 +841,7 @@
   <string name="useTheReportForm">请使用举报表单</string>
   <string name="toRequestSupport">要请求支持，%1$s</string>
   <string name="tryTheContactPage">请尝试使用联系页面</string>
-  <string name="makeSureToRead">请确保您已阅 %1$s</string>
+  <string name="makeSureToRead">请确保您已阅读 %1$s</string>
   <string name="theForumEtiquette">论坛礼仪</string>
   <string name="thisTopicIsArchived">此话题已被存档且不能再回复。</string>
   <string name="joinTheTeamXToPost">加入%1$s，以在此论坛发表意见</string>
