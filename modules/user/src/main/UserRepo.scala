@@ -425,33 +425,24 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
         anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
 
   def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
-    coll.find($id(u.id)).one[Bdoc].mapz { doc =>
-      r readOpt doc map {
-        User
-          .WithEmails(
-            _,
-            User.Emails(
-              current = anyEmail(doc),
-              previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
-            )
-          )
-      }
-    }
+    withEmails(List(u)).map(_.headOption)
 
-  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] =
-    coll
+  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] = for
+    perfs <- perfsRepo.idsMap(users)
+    users <- coll
       .list[Bdoc]($inIds(users.map(_.id)), temporarilyPrimary)
       .map: docs =>
         for
           doc  <- docs
           user <- r readOpt doc
         yield User.WithEmails(
-          user,
+          User.WithPerfs(user, perfs.get(user.id)),
           User.Emails(
             current = anyEmail(doc),
             previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
           )
         )
+  yield users
 
   def emailMap(ids: List[UserId]): Fu[Map[UserId, EmailAddress]] =
     coll

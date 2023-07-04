@@ -107,6 +107,7 @@ final class Preload(
     blindGames,
     lastPostCache.apply,
     ublogPosts,
+    withPerfs,
     hasUnreadLichessMessage = lichessMsg
   )
 
@@ -149,6 +150,7 @@ object Preload:
       blindGames: List[Pov],
       lastPost: Option[lila.blog.MiniPost],
       ublogPosts: List[UblogPost.PreviewPost],
+      me: Option[User.WithPerfs],
       hasUnreadLichessMessage: Boolean
   )
 

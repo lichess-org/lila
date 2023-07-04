@@ -65,7 +65,7 @@ final class Challenge(
               case None    => Ok.page(html.challenge.mine(c, json, none, color))
           else
             Ok.pageAsync:
-              c.challengerUserId.so(env.user.api.withPerfs).map {
+              c.challengerUserId.so(env.user.api.withPerf(_, c.perfType)).map {
                 html.challenge.theirs(c, json, _, color)
               }
         ,

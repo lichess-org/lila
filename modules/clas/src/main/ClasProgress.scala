@@ -15,12 +15,12 @@ case class ClasProgress(
     days: Int,
     students: Map[UserId, StudentProgress]
 ):
-  def apply(user: User.WithPerfs) =
+  def apply(user: User.WithPerf) =
     students.getOrElse(
       user.id,
       StudentProgress(
         nb = 0,
-        rating = (user.perfs(perfType).intRating, user.perfs(perfType).intRating),
+        rating = (user.perf.intRating, user.perf.intRating),
         wins = 0,
         millis = 0
       )

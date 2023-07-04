@@ -38,7 +38,7 @@ object inquiry:
       )
     }
 
-  def apply(in: lila.mod.Inquiry)(using ctx: PageContext) =
+  def apply(in: lila.mod.Inquiry)(using ctx: Context) =
     def renderReport(r: Report) =
       div(cls := "doc report")(
         r.bestAtoms(10).map { atom =>
@@ -69,7 +69,7 @@ object inquiry:
     div(id := "inquiry")(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
-        userLink(in.user, withBestRating = true, params = "?mod"),
+        userLink(in.user.user, withPerfRating = in.user.perfs.some, params = "?mod"),
         div(cls := "docs reports")(
           div(cls := "expendable")(
             in.allReports.map(renderReport)
@@ -87,7 +87,7 @@ object inquiry:
           ),
           in.history.nonEmpty option div(
             ul(
-              in.history.map { e =>
+              in.history.map: e =>
                 li(
                   userIdLink(e.mod.userId.some, withOnline = false),
                   " ",
@@ -97,11 +97,10 @@ object inquiry:
                   " ",
                   momentFromNow(e.date)
                 )
-              }
             )
           )
         ),
-        noteZone(in.user, in.notes)
+        noteZone(in.user.user, in.notes)
       ),
       div(cls := "links")(
         isGranted(_.MarkBooster) option {
@@ -117,7 +116,7 @@ object inquiry:
                 cls := "fbt",
                 href := s"$searchUrl?turnsMax=5&mode=1&players.winner=${in.user.id}&sort.field=d&sort.order=desc"
               )("Quick rated wins"),
-              boostOpponents(in.report, in.allReports, in.user) map { opponents =>
+              boostOpponents(in.report, in.allReports, in.user.user) map { opponents =>
                 a(
                   cls  := "fbt",
                   href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}"
@@ -248,7 +247,7 @@ object inquiry:
       )
     )
 
-  def noteZone(u: User, notes: List[lila.user.Note])(using PageContext) = div(
+  def noteZone(u: User, notes: List[lila.user.Note])(using Context) = div(
     cls := List(
       "dropper counter notes" -> true,
       "empty"                 -> notes.isEmpty

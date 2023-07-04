@@ -27,22 +27,22 @@ object widgets:
           div(cls := "header", dataIcon := bits.gameIcon(g))(
             div(cls := "header__text")(
               strong(
-                if (g.imported)
+                if g.imported then
                   frag(
                     span("IMPORT"),
                     g.pgnImport.flatMap(_.user).map { user =>
                       frag(" ", trans.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
-                    bits.variantLink(g.variant)
+                    bits.variantLink(g.variant, g.perfType)
                   )
                 else
                   frag(
                     showClock(g),
                     separator,
-                    g.perfType.fold(chess.variant.FromPosition.name)(_.trans),
+                    if g.fromPosition then g.variant.name else g.perfType.trans,
                     separator,
-                    if (g.rated) trans.rated.txt() else trans.casual.txt()
+                    (if g.rated then trans.rated else trans.casual).txt()
                   )
               ),
               g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),

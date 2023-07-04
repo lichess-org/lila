@@ -444,15 +444,16 @@ final class Mod(
         val email    = query.headOption.flatMap(EmailAddress.from)
         val username = query lift 1
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-          env.mod.search(q).map(_.filter(_.user.enabled.yes)) flatMap {
+          env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
             case List(UserModel.WithEmails(user, _)) =>
-              (!user.everLoggedIn).so {
-                lila.mon.user.register.modConfirmEmail.increment()
-                modApi.setEmail(user.id, setEmail)
-              } >>
-                env.user.repo.email(user.id).flatMap { email =>
-                  Ok.page(html.mod.emailConfirm("", user.some, email)).dmap(some)
+              for
+                _ <- (!user.everLoggedIn).so {
+                  lila.mon.user.register.modConfirmEmail.increment()
+                  modApi.setEmail(user.id, setEmail)
                 }
+                email <- env.user.repo.email(user.id)
+                page  <- renderPage(html.mod.emailConfirm("", user.some, email))
+              yield Ok(page).some
             case _ => fuccess(none)
           }
         email.so { em =>

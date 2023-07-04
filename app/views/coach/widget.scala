@@ -27,11 +27,10 @@ object widget:
       div(cls := "overview")(
         (if (link) h2 else h1) (cls := "coach-name")(titleName(c)),
         c.coach.profile.headline
-          .map { h =>
+          .map: h =>
             p(
               cls := s"headline ${if (h.length < 60) "small" else if (h.length < 120) "medium" else "large"}"
-            )(h)
-          },
+            )(h),
         table(
           tbody(
             tr(
@@ -62,31 +61,30 @@ object widget:
                   frag("FIDE: ", r)
                 },
                 a(href := routes.User.show(c.user.username))(
-                  c.user.best6Perfs.filter(c.user.hasEstablishedRating).map {
-                    showPerfRating(c.user, _)
-                  }
+                  c.user.perfs.best6Perfs
+                    .filter(c.user.perfs.hasEstablishedRating)
+                    .map:
+                      showPerfRating(c.user.perfs, _)
                 )
               )
             ),
-            c.coach.profile.hourlyRate.map { r =>
+            c.coach.profile.hourlyRate.map: r =>
               tr(cls := "rate")(
                 th(hourlyRate()),
                 td(r)
-              )
-            },
+              ),
             !link option tr(cls := "available")(
               th(availability()),
-              td(
-                if (c.coach.available.value) span(cls := "text", dataIcon := licon.Checkmark)(accepting())
+              td:
+                if c.coach.available.yes
+                then span(cls := "text", dataIcon := licon.Checkmark)(accepting())
                 else span(cls := "text", dataIcon := licon.X)(notAccepting())
-              )
             ),
-            c.user.seenAt.map { seen =>
+            c.user.seenAt.map: seen =>
               tr(cls := "seen")(
                 th,
                 td(trans.lastSeenActive(momentFromNow(seen)))
               )
-            }
           )
         )
       )

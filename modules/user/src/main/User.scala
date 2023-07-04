@@ -117,6 +117,8 @@ object User:
     def only(pt: PerfType) = WithPerf(user, perfs(pt))
 
   object WithPerfs:
+    def apply(user: User, perfs: Option[UserPerfs]): WithPerfs =
+      new WithPerfs(user, perfs | UserPerfs.default(user.id))
     given UserIdOf[WithPerfs] = _.user.id
 
   case class WithPerf(user: User, perf: Perf):
@@ -176,7 +178,7 @@ object User:
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
     def strList = current.map(_.value).toList ::: previous.map(_.value).toList
 
-  case class WithEmails(user: User, emails: Emails)
+  case class WithEmails(user: User.WithPerfs, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal:
     override def toString = "ClearPassword(****)"

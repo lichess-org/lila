@@ -8,8 +8,8 @@ import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
-import lila.user.{ Authenticator, User, UserRepo, UserPerfsRepo }
-import lila.user.Me
+import lila.user.{ Authenticator, Me, User, UserRepo, UserPerfs, UserPerfsRepo }
+import lila.rating.{ Perf, PerfType }
 
 final class ClasApi(
     colls: ClasColls,
@@ -131,7 +131,7 @@ final class ClasApi(
 
     def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
       colls.student
-        .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+        .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred): framework =>
           import framework.*
           Match($doc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
@@ -144,17 +144,29 @@ final class ClasApi(
             ),
             UnwindField("user")
           )
-        }
-        .map { docs =>
-          for {
+        .map: docs =>
+          for
             doc     <- docs
             student <- doc.asOpt[Student]
             user    <- doc.getAsOpt[User]("user")
-          } yield Student.WithUser(student, user)
-        }
+          yield Student.WithUser(student, user)
 
     def activeWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
       allWithUsers(clas, selectArchived(false))
+
+    def withPerfs(student: Student.WithUser): Fu[Student.WithUserPerfs] =
+      perfsRepo.perfsOf(student.user).map(student.withPerfs)
+
+    def withPerfs(students: List[Student.WithUser]): Fu[List[Student.WithUserPerfs]] =
+      perfsRepo.idsMap(students.map(_.user.id)).map { perfs =>
+        students.map(s => s.withPerfs(perfs.getOrElse(s.user.id, UserPerfs.default(s.user.id))))
+      }
+
+    def withPerf(students: List[Student.WithUser], perfType: PerfType): Fu[List[Student.WithUserPerf]] =
+      perfsRepo.idsMap(students.map(_.user.id), perfType).map { perfs =>
+        students.map: s =>
+          Student.WithUserPerf(s.student, s.user, perfs.getOrElse(s.user.id, Perf.default))
+      }
 
     private def of(selector: Bdoc): Fu[List[Student]] =
       coll
@@ -188,11 +200,11 @@ final class ClasApi(
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id) map2 { Student.WithUser(_, user) }
 
-    def withManagingClas(s: Student.WithUser, clas: Clas): Fu[Student.WithUserAndManagingClas] = {
-      if (s.student.managed) fuccess(clas.some)
+    def withManagingClas(s: Student.WithUserPerfs, clas: Clas): Fu[Student.WithUserAndManagingClas] = {
+      if s.student.managed then fuccess(clas.some)
       else
         colls.student
-          .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
+          .aggregateOne(ReadPreference.secondaryPreferred): framework =>
             import framework.*
             Match($doc("userId" -> s.user.id, "managed" -> true)) -> List(
               PipelineOperator(
@@ -205,10 +217,8 @@ final class ClasApi(
               ),
               UnwindField("clas")
             )
-          }
-          .map {
+          .map:
             _.flatMap(_.getAsOpt[Clas]("clas"))
-          }
     } map { Student.WithUserAndManagingClas(s, _) }
 
     def update(from: Student, data: ClasForm.StudentData): Fu[Student] =

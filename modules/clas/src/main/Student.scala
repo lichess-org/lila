@@ -2,8 +2,8 @@ package lila.clas
 
 import ornicar.scalalib.SecureRandom
 
-import lila.user.User
-import lila.user.UserPerfs
+import lila.user.{ User, UserPerfs }
+import lila.rating.Perf
 
 case class Student(
     _id: Student.Id, // userId:clasId
@@ -43,8 +43,14 @@ object Student:
       archived = none
     )
 
-  case class WithUser(student: Student, user: User)
-  case class WithUserPerfs(student: Student, user: User, perfs: UserPerfs)
+  trait WithUserLike:
+    val student: Student
+    val user: User
+  case class WithUser(student: Student, user: User) extends WithUserLike:
+    def withPerfs(perfs: UserPerfs) = WithUserPerfs(student, user, perfs)
+  case class WithUserPerf(student: Student, user: User, perf: Perf) extends WithUserLike
+  case class WithUserPerfs(student: Student, user: User, perfs: UserPerfs) extends WithUserLike:
+    def withPerfs = User.WithPerfs(user, perfs)
 
   case class WithUserAndManagingClas(withUser: WithUserPerfs, managingClas: Option[Clas]):
     export withUser.*

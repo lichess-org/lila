@@ -270,6 +270,14 @@ object UserPerfs:
   import lila.db.dsl.{ *, given }
   import reactivemongo.api.bson.*
 
+  def idPerfReader(pt: PerfType) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
+    import Perf.given
+    for
+      id   <- doc.getAsOpt[UserId]("_id")
+      perf <- doc.getAsOpt[Perf](pt.key.value)
+    yield (id, perf)
+  }
+
   given BSONDocumentHandler[UserPerfs] = new BSON[UserPerfs]:
 
     import Perf.given

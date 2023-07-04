@@ -54,7 +54,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     users <- userRepo.byIds(ids, readPreference)
     perfs <- perfsRepo.idsMap(ids, readPreference)
   yield users.map: user =>
-    User.WithPerfs(user, perfs.getOrElse(user.id, UserPerfs.default(user.id)))
+    User.WithPerfs(user, perfs.get(user.id))
 
   def withPerf[U: UserIdOf](id: U, pt: PerfType): Fu[Option[User.WithPerf]] =
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
@@ -63,8 +63,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     for
       (x, y) <- userRepo.pair.tupled(userIds)
       perfs  <- perfsRepo.perfsOf(List(x, y).flatten.map(_.id))
-      make = (u: Option[User]) =>
-        u.map(u => User.WithPerfs(u, perfs.getOrElse(u.id, UserPerfs.default(u.id))))
+      make = (u: Option[User]) => u.map(u => User.WithPerfs(u, perfs.get(u.id)))
     yield make(x) -> make(y)
 
   def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[Either[LightUser.Ghost, User.WithPerf]]] =

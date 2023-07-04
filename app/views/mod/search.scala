@@ -235,7 +235,7 @@ object search:
       users: List[User.WithEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
-  )(using PageContext, Me) =
+  )(using Context, Me) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(
@@ -252,10 +252,10 @@ object search:
       tbody(
         users.map { case lila.user.User.WithEmails(u, emails) =>
           tr(
-            if showUsernames || Granter.canViewAltUsername(u)
+            if showUsernames || Granter.canViewAltUsername(u.user)
             then
               td(
-                userLink(u, withBestRating = true, params = "?mod"),
+                userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
                 isGranted(_.Admin) option
                   email(emails.strList.mkString(", "))
               )

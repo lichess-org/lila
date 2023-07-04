@@ -11,6 +11,8 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
 
   import UserPerfs.given
 
+  def collName = coll.name
+
   def glickoField(perf: Perf.Key) = s"$perf.gl"
 
   def byId[U: UserIdOf](u: U): Fu[UserPerfs] =
@@ -18,9 +20,17 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
 
   def idsMap[U: UserIdOf](
       u: Seq[U],
-      readPreference: ReadPreference = ReadPreference.primary
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Fu[Map[UserId, UserPerfs]] =
     coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPreference)(_.id)
+
+  def idsMap[U: UserIdOf](u: Seq[U], pt: PerfType): Fu[Map[UserId, Perf]] =
+    given BSONDocumentReader[(UserId, Perf)] = UserPerfs.idPerfReader(pt)
+    coll
+      .find($inIds(u.map(_.id)), $doc(pt.key.value -> true).some)
+      .cursor[(UserId, Perf)](ReadPreference.secondaryPreferred)
+      .listAll()
+      .map(_.toMap)
 
   def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs] =
     coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
@@ -42,7 +52,7 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
       readPreference: ReadPreference = ReadPreference.primary
   ): Fu[Seq[User.WithPerfs]] =
     idsMap(us, readPreference).map: perfs =>
-      us.map(u => User.WithPerfs(u, perfs.getOrElse(u.id, UserPerfs.default(u.id))))
+      us.map(u => User.WithPerfs(u, perfs.get(u.id)))
 
   def setPerfs(user: User, perfs: UserPerfs, prev: UserPerfs)(using wr: BSONHandler[Perf]) =
     val diff = for
