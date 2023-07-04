@@ -153,6 +153,10 @@
     <item quantity="one">%s jogo</item>
     <item quantity="other">%s jogos</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Avaliação %1$s em %2$s partidas</item>
+    <item quantity="other">Avaliação %1$s em %2$s partidas</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s favorito</item>
     <item quantity="other">%s favoritos</item>
