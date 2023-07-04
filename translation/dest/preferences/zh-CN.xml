@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒时</string>
   <string name="moveConfirmation">确认走棋</string>
+  <string name="explainCanThenBeTemporarilyDisabled">可以在游戏中使用棋盘菜单禁用此功能</string>
   <string name="inCorrespondenceGames">通信棋局</string>
   <string name="correspondenceAndUnlimited">通信和无限</string>
   <string name="confirmResignationAndDrawOffers">认输以及提出和棋需要确认</string>
