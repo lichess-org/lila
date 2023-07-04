@@ -357,7 +357,7 @@ case class Game(
           ).updatePlayer(color, _.goBerserk)
         ) ++
           List(
-            Event.ClockInc(color, -c.config.berserkPenalty),
+            Event.ClockInc(color, -c.config.berserkPenalty, newClock),
             Event.Clock(newClock), // BC
             Event.Berserk(color)
           )

@@ -279,12 +279,13 @@ object Event:
     def typ  = "reload"
     def data = reloadOr("drawOffer", by)
 
-  case class ClockInc(color: Color, time: Centis) extends Event:
+  case class ClockInc(color: Color, time: Centis, newClock: ChessClock) extends Event:
     def typ = "clockInc"
     def data =
       Json.obj(
         "color" -> color,
-        "time"  -> time.centis
+        "time"  -> time.centis,
+        "total" -> newClock.remainingTime(color).centis
       )
 
   sealed trait ClockEvent extends Event
