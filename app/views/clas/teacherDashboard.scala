@@ -93,8 +93,7 @@ object teacherDashboard:
                   )
           )
       val archivedBox =
-        if (archived.isEmpty)
-          div(cls := "box__pad students__empty")(h2(trans.clas.noRemovedStudents()))
+        if archived.isEmpty then div(cls := "box__pad students__empty")(h2(trans.clas.noRemovedStudents()))
         else
           div(cls := "box__pad")(
             h2(trans.clas.removedStudents()),
@@ -133,8 +132,8 @@ object teacherDashboard:
                 trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.txt(progress.days)),
                 dataSortNumberTh(trans.rating()),
                 dataSortNumberTh(trans.clas.progress()),
-                dataSortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
-                if (progress.isPuzzle) dataSortNumberTh(trans.clas.winrate())
+                dataSortNumberTh(if progress.isPuzzle then trans.puzzles() else trans.games()),
+                if progress.isPuzzle then dataSortNumberTh(trans.clas.winrate())
                 else dataSortNumberTh(trans.clas.timePlaying()),
                 th
               )
@@ -151,10 +150,10 @@ object teacherDashboard:
                     ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
                   ),
                   td(prog.nb),
-                  if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
+                  if progress.isPuzzle then td(dataSort := prog.winRate)(prog.winRate, "%")
                   else td(dataSort := prog.millis)(showDuration(prog.duration)),
                   td(
-                    if (progress.isPuzzle)
+                    if progress.isPuzzle then
                       a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
                         trans.puzzle.puzzleDashboard()
                       )
@@ -278,7 +277,7 @@ object teacherDashboard:
               td(user.perfs.puzzle.nb),
               td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce)),
               td(
-                dataSort := (if (student.managed) 1 else 0),
+                dataSort := (if student.managed then 1 else 0),
                 student.managed option iconTag(licon.Shield)(title := trans.clas.managed.txt())
               )
             )

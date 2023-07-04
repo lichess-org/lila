@@ -32,7 +32,7 @@ final class ActivityReadApi(
   private given Ordering[Double] = scala.math.Ordering.Double.TotalOrdering
 
   def recentAndPreload(u: User)(using lang: Lang): Fu[Vector[ActivityView]] =
-    for {
+    for
       activities <-
         coll(
           _.find(regexId(u.id))
@@ -49,7 +49,7 @@ final class ActivityReadApi(
         one(practiceStructure, a).mon(_.user segment "activity.view")
       }.parallel
       _ <- preloadAll(views)
-    } yield addSignup(u.createdAt, views)
+    yield addSignup(u.createdAt, views)
 
   private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for
     _ <- lightUserApi.preloadMany(views.flatMap(_.follows.so(_.allUserIds)))
@@ -73,10 +73,10 @@ final class ActivityReadApi(
           .liveLightsByIds(p.value)
           .mon(_.user segment "activity.ublogs")
           .dmap(_.some.filter(_.nonEmpty))
-      practice = (for {
+      practice = (for
         p      <- a.practice
         struct <- practiceStructure
-      } yield p.value.flatMap { (studyId, nb) =>
+      yield p.value.flatMap { (studyId, nb) =>
         struct study studyId map (_ -> nb)
       }.toMap)
       forumPostView = forumPosts.map { p =>
@@ -169,7 +169,7 @@ final class ActivityReadApi(
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at))
+    if !found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at) then
       views :+ ActivityView(
         interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true

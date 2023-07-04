@@ -1,6 +1,6 @@
 package lila.lobby
 
-class MultiKeyMapTest extends munit.FunSuite {
+class MultiKeyMapTest extends munit.FunSuite:
 
   case class V(a: Int, b: Int)
 
@@ -24,4 +24,3 @@ class MultiKeyMapTest extends munit.FunSuite {
   test("expose keys") {
     assertEquals(m.key1s.toSet, Set(1))
   }
-}

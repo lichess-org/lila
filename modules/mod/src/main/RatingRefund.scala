@@ -41,7 +41,7 @@ final private class RatingRefund(
 
         def makeRefunds(games: List[Game]) =
           games.foldLeft(Refunds(List.empty)) { case (refs, g) =>
-            (for {
+            (for
               perf <- g.perfType
               op   <- g.playerByUserId(sus.user.id) map g.opponent
               if op.provisional.no
@@ -49,7 +49,7 @@ final private class RatingRefund(
               diff   <- op.ratingDiff
               if diff < 0
               rating <- op.rating
-            } yield refs.add(victim, perf, -diff, rating)) | refs
+            yield refs.add(victim, perf, -diff, rating)) | refs
           }
 
         def pointsToRefund(ref: Refund, curRating: IntRating, perfs: PerfStat): Int = {
@@ -90,7 +90,7 @@ private object RatingRefund:
 
   case class Refunds(all: List[Refund]):
     def add(victim: UserId, perf: PerfType, diff: IntRatingDiff, rating: IntRating) =
-      copy(all = all.find(_.is(victim, perf)) match {
+      copy(all = all.find(_.is(victim, perf)) match
         case None    => Refund(victim, perf, diff, rating) :: all
         case Some(r) => r.add(diff, rating) :: all.filterNot(_ is r)
-      })
+      )

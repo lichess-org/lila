@@ -127,7 +127,7 @@ trait dsl:
     $doc("$addToSet" -> $doc((Seq(item) ++ items)*))
 
   def $pop(item: (String, Int)): Bdoc =
-    if (item._2 != -1 && item._2 != 1)
+    if item._2 != -1 && item._2 != 1 then
       throw new IllegalArgumentException(s"${item._2} is not equal to: -1 | 1")
     $doc("$pop" -> $doc(item))
 
@@ -141,7 +141,7 @@ trait dsl:
   def $pull(item: ElementProducer): Bdoc = $doc("$pull" -> $doc(item))
 
   def $addOrPull[T: BSONWriter](key: String, value: T, add: Boolean): Bdoc =
-    $doc((if (add) "$addToSet" else "$pull") -> $doc(key -> value))
+    $doc((if add then "$addToSet" else "$pull") -> $doc(key -> value))
 
   // End ofTop Level Array Update Operators
   // **********************************************************************************************//
@@ -185,7 +185,8 @@ trait dsl:
       this.value ++ value
 
   /** MongoDB comparison operators. */
-  trait ComparisonOperators { self: ElementBuilder =>
+  trait ComparisonOperators:
+    self: ElementBuilder =>
 
     def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] =
       SimpleExpression(field, summon[BSONWriter[T]].writeTry(value).get)
@@ -221,13 +222,12 @@ trait dsl:
     def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
       SimpleExpression(field, $doc("$nin" -> values))
 
-  }
-
-  trait ElementOperators { self: ElementBuilder =>
+  trait ElementOperators:
+    self: ElementBuilder =>
     def $exists(v: Boolean): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$exists" -> v))
-  }
 
-  trait EvaluationOperators { self: ElementBuilder =>
+  trait EvaluationOperators:
+    self: ElementBuilder =>
     def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] =
       SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
 
@@ -236,9 +236,9 @@ trait dsl:
 
     def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       $regex(s"^$value", options)
-  }
 
-  trait ArrayOperators { self: ElementBuilder =>
+  trait ArrayOperators:
+    self: ElementBuilder =>
     def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] =
       SimpleExpression(field, $doc("$all" -> values))
 
@@ -246,7 +246,6 @@ trait dsl:
       SimpleExpression(field, $doc("$elemMatch" -> $doc(query*)))
 
     def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
-  }
 
   object $sort:
 

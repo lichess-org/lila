@@ -73,11 +73,11 @@ final class CoachPager(
               )
             }
             .map { docs =>
-              for {
+              for
                 doc   <- docs
                 coach <- doc.asOpt[Coach]
                 user  <- doc.getAsOpt[User]("_user")
-              } yield Coach.WithUser(coach, user)
+              yield Coach.WithUser(coach, user)
             }
 
     Paginator(

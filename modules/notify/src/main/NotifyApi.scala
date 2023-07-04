@@ -105,14 +105,13 @@ final class NotifyApi(
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
     !shouldSkip(note) flatMapz {
-      NotificationPref.Event.byKey.get(content.key) match {
+      NotificationPref.Event.byKey.get(content.key) match
         case None => bellOne(note)
         case Some(event) =>
           prefs.allows(note.to, event) map { allows =>
             if allows.bell then bellOne(note)
             if allows.push then pushOne(NotifyAllows(note.to, allows), note.content)
           }
-      }
     }
 
   // notifyMany tells clients that an update is available to bump their bell. there's no need

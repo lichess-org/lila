@@ -44,13 +44,13 @@ final class Env(
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
   system.actorOf(
-    Props(new Actor {
+    Props(new Actor:
       import lila.forum.*
       def receive = {
         case InsertPost(post) => api.store(post).unit
         case RemovePost(id)   => client.deleteById(id into Id).unit
         case RemovePosts(ids) => client.deleteByIds(Id.from[List, ForumPostId](ids)).unit
       }
-    }),
+    ),
     name = config.actorName
   )

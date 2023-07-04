@@ -53,7 +53,7 @@ object ratingDistribution:
           div(cls := "desc", dataIcon := perfType.icon)(
             ctx.me.ifTrue(ctx.pref.showRatings).flatMap(_.perfs(perfType).glicko.establishedIntRating).map {
               rating =>
-                lila.user.Stat.percentile(data, rating) match {
+                lila.user.Stat.percentile(data, rating) match
                   case (under, sum) =>
                     div(
                       trans
@@ -66,7 +66,6 @@ object ratingDistribution:
                         perfType.trans
                       )
                     )
-                }
             } getOrElse div(
               trans.nbPerfTypePlayersThisWeek
                 .plural(data.sum, strong(data.sum.localize), perfType.trans),

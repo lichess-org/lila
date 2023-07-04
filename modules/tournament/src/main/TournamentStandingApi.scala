@@ -30,7 +30,7 @@ final class TournamentStandingApi(
       .documentSource()
       .zipWithIndex
       .mapAsync(16) { case (player, index) =>
-        for {
+        for
           sheet <- cached.sheet(tour, player.userId)
           json <- JsonView.playerJson(
             lightUserApi,
@@ -39,7 +39,7 @@ final class TournamentStandingApi(
             streakable = tour.streakable,
             withScores = true
           )
-        } yield json
+        yield json
       }
       .toMat(Sink.seq)(Keep.right)
       .run()
@@ -47,8 +47,8 @@ final class TournamentStandingApi(
 
   def apply(tour: Tournament, forPage: Int, withScores: Boolean): Fu[JsObject] =
     val page = forPage atMost Math.ceil(tour.nbPlayers.toDouble / perPage).toInt atLeast 1
-    if (page == 1) first get tour.id
-    else if (page > 50 && tour.isCreated) createdCache.get(tour.id -> page)
+    if page == 1 then first get tour.id
+    else if page > 50 && tour.isCreated then createdCache.get(tour.id -> page)
     else compute(tour, page, withScores)
 
   private val first = cacheApi[TourId, JsObject](64, "tournament.page.first") {
@@ -77,9 +77,9 @@ final class TournamentStandingApi(
     }
 
   private def compute(tour: Tournament, page: Int, withScores: Boolean): Fu[JsObject] =
-    for {
+    for
       rankedPlayers <-
-        if (page < 10) playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
+        if page < 10 then playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
         else playerIdsOnPage(tour, page) flatMap { playerRepo.byPlayerIdsOnPage(_, page) }
       sheets <- rankedPlayers
         .map { p =>
@@ -90,7 +90,7 @@ final class TournamentStandingApi(
       players <- rankedPlayers
         .map(JsonView.playerJson(lightUserApi, sheets, streakable = tour.streakable, withScores = withScores))
         .parallel
-    } yield Json.obj(
+    yield Json.obj(
       "page"    -> page,
       "players" -> players
     )

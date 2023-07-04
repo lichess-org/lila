@@ -23,7 +23,7 @@ final class StudyMultiBoard(
   import StudyMultiBoard.*
 
   def json(studyId: StudyId, page: Int, playing: Boolean): Fu[JsObject] = {
-    if (page == 1 && !playing) firstPageCache.get(studyId)
+    if page == 1 && !playing then firstPageCache.get(studyId)
     else fetch(studyId, page, playing)
   } map { PaginatorJson(_) }
 

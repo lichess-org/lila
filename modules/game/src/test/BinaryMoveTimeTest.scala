@@ -5,7 +5,7 @@ import scala.language.implicitConversions
 import lila.db.ByteArray
 import chess.{ Ply, Centis }
 
-class BinaryMoveTimeTest extends munit.FunSuite {
+class BinaryMoveTimeTest extends munit.FunSuite:
 
   private given Conversion[Int, Ply] = Ply(_)
 
@@ -53,4 +53,3 @@ class BinaryMoveTimeTest extends munit.FunSuite {
     val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), 3)
     assertEquals(again, rounded)
   }
-}

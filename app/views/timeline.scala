@@ -33,7 +33,7 @@ object timeline:
     )
 
   private def filterEntries(entries: Vector[lila.timeline.Entry])(using ctx: PageContext) =
-    if (ctx.noKid) entries
+    if ctx.noKid then entries
     else entries.filter(e => e.okForKid)
 
   private def userLink(userId: UserId)(using ctx: PageContext) =
@@ -86,20 +86,20 @@ object timeline:
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
           lila.rating.PerfType(lila.rating.Perf.Key(perfKey)) map { perf =>
-            (win match {
+            (win match
               case Some(true)  => trans.victoryVsYInZ
               case Some(false) => trans.defeatVsYInZ
               case None        => trans.drawVsYInZ
-            })(
+            )(
               a(
                 href     := routes.Round.player(playerId),
                 dataIcon := perf.icon,
                 cls      := "text glpt"
-              )(win match {
+              )(win match
                 case Some(true)  => trans.victory()
                 case Some(false) => trans.defeat()
                 case None        => trans.draw()
-              }),
+              ),
               userIdLink(opponent),
               perf.trans
             )

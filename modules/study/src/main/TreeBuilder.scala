@@ -11,7 +11,7 @@ object TreeBuilder:
   // DEBUG should be done in BSONHandler
   def apply(root: Root, variant: Variant): Root =
     val dests =
-      if (variant.standard && root.fen.isInitial) initialStandardDests
+      if variant.standard && root.fen.isInitial then initialStandardDests
       else
         val sit = chess.Game(variant.some, root.fen.some).situation
         sit.playable(false) so sit.destinations

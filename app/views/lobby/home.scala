@@ -66,7 +66,7 @@ object home:
         currentGame.map(bits.currentGameInfo) orElse
           hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
           playban.map(bits.playbanInfo) getOrElse {
-            if (ctx.blind) blindLobby(blindGames)
+            if ctx.blind then blindLobby(blindGames)
             else bits.lobbyApp
           },
         div(cls := "lobby__side")(

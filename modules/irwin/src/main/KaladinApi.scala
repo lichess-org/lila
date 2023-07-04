@@ -105,7 +105,7 @@ final class KaladinApi(
 
   private def markOrReport(user: KaladinUser, pred: KaladinUser.Pred): Funit =
 
-    def sendReport = for {
+    def sendReport = for
       suspect <- getSuspect(user.suspectId.value)
       kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod.apply
       _ <- reportApi.create(
@@ -117,16 +117,16 @@ final class KaladinApi(
             text = pred.note
           )
       )
-    } yield lila.mon.mod.kaladin.report.increment().unit
+    yield lila.mon.mod.kaladin.report.increment().unit
 
-    if (pred.percent >= thresholds.get().mark)
+    if pred.percent >= thresholds.get().mark then
       userRepo.hasTitle(user.id) flatMap {
         if _ then sendReport
         else
           modApi.autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id)) >>-
             lila.mon.mod.kaladin.mark.increment().unit
       }
-    else if (pred.percent >= thresholds.get().report) sendReport
+    else if pred.percent >= thresholds.get().report then sendReport
     else funit
 
   object notification:
@@ -154,11 +154,11 @@ final class KaladinApi(
         Match($doc("response.at" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
       }
         .map { res =>
-          for {
+          for
             obj      <- res
             priority <- obj int "_id"
             nb       <- obj int "nb"
-          } yield (priority, nb)
+          yield (priority, nb)
         }
     } map {
       _ foreach { case (priority, nb) =>
@@ -170,8 +170,8 @@ final class KaladinApi(
     private val minMoves = 1050
     private case class Counter(blitz: Int, rapid: Int):
       def add(nb: Int, speed: Speed) =
-        if (speed == Speed.Blitz) copy(blitz = blitz + nb)
-        else if (speed == Speed.Rapid) copy(rapid = rapid + nb)
+        if speed == Speed.Blitz then copy(blitz = blitz + nb)
+        else if speed == Speed.Rapid then copy(rapid = rapid + nb)
         else this
       def isEnough = blitz >= minMoves || rapid >= minMoves
     private val cache = cacheApi[UserId, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
@@ -186,18 +186,16 @@ final class KaladinApi(
               $doc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPreference.secondaryPreferred)
-            .foldWhile(Counter(0, 0)) {
-              case (counter, doc) => {
-                val next = (for {
-                  clockBin    <- doc.getAsOpt[BSONBinary](F.clock)
-                  clockConfig <- BinaryFormat.clock.readConfig(clockBin.byteArray)
-                  speed = Speed(clockConfig)
-                  if speed == Speed.Blitz || speed == Speed.Rapid
-                  moves <- doc.int(F.turns)
-                } yield counter.add(moves / 2, speed)) | counter
-                if (next.isEnough) Cursor.Done(next)
-                else Cursor.Cont(next)
-              }
+            .foldWhile(Counter(0, 0)) { case (counter, doc) =>
+              val next = (for
+                clockBin    <- doc.getAsOpt[BSONBinary](F.clock)
+                clockConfig <- BinaryFormat.clock.readConfig(clockBin.byteArray)
+                speed = Speed(clockConfig)
+                if speed == Speed.Blitz || speed == Speed.Rapid
+                moves <- doc.int(F.turns)
+              yield counter.add(moves / 2, speed)) | counter
+              if next.isEnough then Cursor.Done(next)
+              else Cursor.Cont(next)
             }
         }.dmap(_.isEnough)
       )

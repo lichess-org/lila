@@ -8,7 +8,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 import lila.common.licon
 
-trait FormHelper { self: I18nHelper =>
+trait FormHelper:
+  self: I18nHelper =>
 
   def errMsg(form: Field)(using Lang): Frag = errMsg(form.errors)
 
@@ -258,7 +259,7 @@ trait FormHelper { self: I18nHelper =>
         utc: Boolean = false,
         minDate: Option[String] = Some("today")
     ): Tag =
-      input(field, klass = s"flatpickr${if (utc) " flatpickr-utc" else ""}")(
+      input(field, klass = s"flatpickr${if utc then " flatpickr-utc" else ""}")(
         dataEnableTime := withTime,
         dataTime24h    := withTime,
         dataMinDate := minDate.map {
@@ -271,4 +272,3 @@ trait FormHelper { self: I18nHelper =>
       def image(name: String): Frag =
         st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg")
       def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-}

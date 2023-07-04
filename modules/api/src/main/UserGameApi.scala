@@ -20,11 +20,11 @@ final class UserGameApi(
   import LightUser.lightUserWrites
 
   def jsPaginator(pag: Paginator[Game])(using ctx: Context): Fu[JsObject] =
-    for {
+    for
       bookmarkedIds <- bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me)
       _             <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))
       _ <- getTournamentName.preload(pag.currentPageResults.flatMap(_.tournamentId))(using ctx.lang)
-    } yield
+    yield
       given Writes[Game] = Writes { g =>
         write(g, bookmarkedIds(g.id), ctx.me)(using ctx.lang)
       }

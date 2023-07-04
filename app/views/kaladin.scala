@@ -25,7 +25,7 @@ object kaladin:
           boxTop(
             h1(
               "Kaladin status: ",
-              if (dashboard.seenRecently) span(cls := "up")("Operational")
+              if dashboard.seenRecently then span(cls := "up")("Operational")
               else
                 span(cls := "down")(
                   dashboard.lastSeenAt.map { seenAt =>
@@ -61,10 +61,9 @@ object kaladin:
                   td(cls := "little")(entry.startedAt map { momentFromNow(_) }),
                   td(cls := "little completed")(entry.response.map(_.at) map { momentFromNow(_) }),
                   td {
-                    entry.queuedBy match {
+                    entry.queuedBy match
                       case KaladinUser.Requester.Mod(id) => userIdLink(id.some)
                       case requester                     => em(requester.name)
-                    }
                   },
                   entry.response.fold(td) { res =>
                     res.pred

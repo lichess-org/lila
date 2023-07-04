@@ -19,7 +19,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
       withRating: Boolean,
       withProfile: Boolean
   ): JsObject =
-    if (u.enabled.no) disabled(u.light)
+    if u.enabled.no then disabled(u.light)
     else
       base(u, onlyPerf, withRating = withRating) ++ Json
         .obj("createdAt" -> u.createdAt)
@@ -32,7 +32,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
         .add("playTime" -> u.playTime)
 
   def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
-    if (u.enabled.no) disabled(u.light)
+    if u.enabled.no then disabled(u.light)
     else base(u, onlyPerf, withRating = withRating).add("online" -> isOnline(u.id))
 
   private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
@@ -40,7 +40,7 @@ final class JsonView(isOnline: lila.socket.IsOnline):
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "perfs" -> (if (withRating) perfs(u, onlyPerf)
+        "perfs" -> (if withRating then perfs(u, onlyPerf)
                     else Json.obj())
       )
       .add("title" -> u.title)

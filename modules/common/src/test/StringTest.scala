@@ -1,8 +1,8 @@
 package lila.common
 
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
-class StringTest extends munit.FunSuite {
+class StringTest extends munit.FunSuite:
 
   given config.NetDomain = config.NetDomain("lichess.org")
 
@@ -122,5 +122,3 @@ class StringTest extends munit.FunSuite {
     assertEquals(String.noShouting("HELLO SIR"), "hello sir")
     assertEquals(String.noShouting("1. Nf3 O-O-O#"), "1. Nf3 O-O-O#")
   }
-
-}

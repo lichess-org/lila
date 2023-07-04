@@ -114,7 +114,7 @@ final class ClasApi(
       coll.update
         .one(
           $id(c.id),
-          if (v) $set("archived" -> Clas.Recorded(t.id, nowInstant))
+          if v then $set("archived" -> Clas.Recorded(t.id, nowInstant))
           else $unset("archived")
         )
         .void
@@ -145,11 +145,11 @@ final class ClasApi(
           )
         }
         .map { docs =>
-          for {
+          for
             doc     <- docs
             student <- doc.asOpt[Student]
             user    <- doc.getAsOpt[User]("user")
-          } yield Student.WithUser(student, user)
+          yield Student.WithUser(student, user)
         }
 
     def activeWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
@@ -188,7 +188,7 @@ final class ClasApi(
       get(clas, user.id) map2 { Student.WithUser(_, user) }
 
     def withManagingClas(s: Student.WithUser, clas: Clas): Fu[Student.WithUserAndManagingClas] = {
-      if (s.student.managed) fuccess(clas.some)
+      if s.student.managed then fuccess(clas.some)
       else
         colls.student
           .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
@@ -356,7 +356,7 @@ ${clas.desc}""",
         invite: ClasInvite
     ): Fu[ClasInvite.Feedback] =
       val url = s"$baseUrl/class/invitation/${invite._id}"
-      if (student.kid) fuccess(ClasInvite.Feedback.CantMsgKid(url))
+      if student.kid then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
         import lila.i18n.I18nKeys.clas.*
         given play.api.i18n.Lang = student.realLang | lila.i18n.defaultLang

@@ -45,7 +45,6 @@ object StepBuilder:
         }
 
   private val logChessError = (id: String) =>
-    (err: chess.ErrorStr) => {
-      val path = if (id == "synthetic") "analysis" else id
+    (err: chess.ErrorStr) =>
+      val path = if id == "synthetic" then "analysis" else id
       logger.info(s"https://lichess.org/$path ${err.value.linesIterator.toList.headOption | "?"}")
-    }

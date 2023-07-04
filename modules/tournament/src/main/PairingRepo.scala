@@ -47,8 +47,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           case (acc, List(u1, u2)) =>
             val b1   = userIds.contains(u1)
             val b2   = !b1 || userIds.contains(u2)
-            val acc1 = if (!b1 || acc.contains(u1)) acc else acc.updated(u1, u2)
-            if (!b2 || acc.contains(u2)) acc1 else acc1.updated(u2, u1)
+            val acc1 = if !b1 || acc.contains(u1) then acc else acc.updated(u1, u2)
+            if !b2 || acc.contains(u2) then acc1 else acc1.updated(u2, u1)
           case (acc, _) => acc
         }
         .takeWhile(
@@ -171,7 +171,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     }.void
 
   def finishAndGet(g: Game): Fu[Option[Pairing]] =
-    if (g.aborted) coll.delete.one($id(g.id)) inject none
+    if g.aborted then coll.delete.one($id(g.id)) inject none
     else
       coll.findAndUpdateSimplified[Pairing](
         selector = $id(g.id),
@@ -184,8 +184,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       )
 
   def setBerserk(pairing: Pairing, userId: UserId) = {
-    if (pairing.user1 == userId) "b1".some
-    else if (pairing.user2 == userId) "b2".some
+    if pairing.user1 == userId then "b1".some
+    else if pairing.user2 == userId then "b2".some
     else none
   } so { field =>
     coll.update

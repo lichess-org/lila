@@ -65,7 +65,7 @@ final class TeamInfoApi(
     }
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
-    for {
+    for
       requests   <- (team.enabled && me.exists(m => team.leaders(m.id))) so api.requestsWithUsers(team)
       mine       <- me.so(m => api.belongsTo(team.id, m.id))
       myRequest  <- !mine so me.so(m => requestRepo.find(team.id, m.id))
@@ -73,7 +73,7 @@ final class TeamInfoApi(
       forumPosts <- withForum(mine) so forumRecent(team.id).dmap(some)
       tours      <- tournaments(team, 5, 5)
       simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
-    } yield TeamInfo(
+    yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
       myRequest = myRequest,

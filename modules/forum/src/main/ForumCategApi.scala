@@ -57,7 +57,7 @@ final class ForumCategApi(
     }
 
   def denormalize(categ: ForumCateg): Funit =
-    for {
+    for
       nbTopics      <- topicRepo countByCateg categ
       nbPosts       <- postRepo countByCateg categ
       lastPost      <- postRepo lastByCateg categ
@@ -78,4 +78,4 @@ final class ForumCategApi(
             )
           )
           .void
-    } yield ()
+    yield ()

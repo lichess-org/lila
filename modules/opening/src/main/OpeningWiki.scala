@@ -62,11 +62,11 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         )
       }
       .map { docs =>
-        for {
+        for
           doc <- docs
           id  <- doc.getAsOpt[OpeningKey]("_id")
           op  <- OpeningDb.shortestLines get id
-        } yield op
+        yield op
       }
 
   private object markdown:
@@ -126,7 +126,7 @@ object OpeningWiki:
   private def filterMarkupForMove(move: String)(markup: Html) = markup map {
     _.linesIterator collect {
       case MoveLiRegex(m, content) =>
-        if (m.toLowerCase == move.toLowerCase) s"<p>${content.trim}</p>" else ""
+        if m.toLowerCase == move.toLowerCase then s"<p>${content.trim}</p>" else ""
       case html => html
     } mkString "\n"
   }

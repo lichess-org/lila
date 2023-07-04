@@ -18,7 +18,7 @@ object EmailAddress extends OpaqueString[EmailAddress]:
           val normalizedName = name
             .replace(".", "")    // remove all dots
             .takeWhile('+' != _) // skip everything after the first '+'
-          if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
+          if normalizedName.isEmpty then lower else s"$normalizedName@$domain"
         case _ => lower
 
     def domain: Option[Domain] =

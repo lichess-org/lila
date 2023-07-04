@@ -55,7 +55,7 @@ case class Perfs(
     ps.foldLeft(none[(PerfType, Perf)]) {
       case (ro, p) if p._2.nb >= minNb =>
         ro.fold(p.some) { r =>
-          Some(if (p._2.intRating > r._2.intRating) p else r)
+          Some(if p._2.intRating > r._2.intRating then p else r)
         }
       case (ro, _) => ro
     }
@@ -83,7 +83,7 @@ case class Perfs(
     ps.foldLeft(none[IntRating]) {
       case (ro, p) if p.nb >= minNb =>
         ro.fold(p.intRating) { r =>
-          if (p.intRating > r) p.intRating else r
+          if p.intRating > r then p.intRating else r
         }.some
       case (ro, _) => ro
     } | Perf.default.intRating
@@ -99,7 +99,7 @@ case class Perfs(
   def bestProgressIn(types: List[PerfType]): IntRatingDiff =
     types.foldLeft(IntRatingDiff(0)) { case (max, t) =>
       val p = apply(t).progress
-      if (p > max) p else max
+      if p > max then p else max
     }
 
   lazy val perfsMap: Map[Perf.Key, Perf] = Map(
@@ -149,7 +149,7 @@ case class Perfs(
 
   def updateStandard =
     copy(
-      standard = {
+      standard =
         val subs = List(bullet, blitz, rapid, classical, correspondence).filter(_.provisional.no)
         subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(standard) { date =>
           val nb = subs.map(_.nb).sum
@@ -165,7 +165,6 @@ case class Perfs(
             latest = date.some
           )
         }
-      }
     )
 
   def latest: Option[Instant] =

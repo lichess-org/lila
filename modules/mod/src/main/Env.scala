@@ -80,11 +80,11 @@ final class Env(
             sandbagWatch(game)
             assessApi.onGameReady(game, whiteUser, blackUser)
         }
-        if (game.status == chess.Status.Cheat)
+        if game.status == chess.Status.Cheat then
           game.loserUserId foreach { userId =>
             logApi.cheatDetectedAndCount(userId, game.id) flatMap { count =>
               (count >= 3) so {
-                if (game.hasClock)
+                if game.hasClock then
                   api.autoMark(
                     SuspectId(userId),
                     s"Cheat detected during game, ${count} times"

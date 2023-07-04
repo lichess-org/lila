@@ -35,7 +35,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       case None => NotFound
       case Some(game) =>
         val config = GameApiV2.OneConfig(
-          format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+          format = if HTTPRequest acceptsJson req then GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported"),
           flags = requestPgnFlags(extended = true),
           playerFile = get("players")
@@ -72,7 +72,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
             color = get("color") flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed"),
             flags = requestPgnFlags(extended = false),
-            sort = if (get("sort") has "dateAsc") GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
+            sort =
+              if get("sort") has "dateAsc" then GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
             perSecond = MaxPerSecond(ctx.me match
               case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
               case Some(m) if m is user.id                   => 60

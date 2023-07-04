@@ -42,7 +42,7 @@ object side:
               div(cls := "header")(
                 div(cls := "setup")(
                   views.html.bookmark.toggle(game, bookmarked),
-                  if (game.imported)
+                  if game.imported then
                     div(
                       a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
                       separator,
@@ -52,7 +52,7 @@ object side:
                     frag(
                       widgets showClock game,
                       separator,
-                      (if (game.rated) trans.rated else trans.casual).txt(),
+                      (if game.rated then trans.rated else trans.casual).txt(),
                       separator,
                       bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )

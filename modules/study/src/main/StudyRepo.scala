@@ -244,7 +244,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def like(studyId: StudyId, userId: UserId, v: Boolean): Fu[Study.Likes] =
     coll: c =>
-      c.update.one($id(studyId), if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)) >> {
+      c.update.one($id(studyId), if v then $addToSet(F.likers -> userId) else $pull(F.likers -> userId)) >> {
         countLikes(studyId).flatMap:
           case None                     => fuccess(Study.Likes(0))
           case Some((likes, createdAt)) =>
@@ -273,11 +273,11 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       )
         .cursor[Bdoc]()
         .foldWhileM(0) { (count, doc) =>
-          ~(for {
+          ~(for
             id        <- doc.getAsOpt[StudyId]("_id")
             likes     <- doc.getAsOpt[Study.Likes](F.likes)
             createdAt <- doc.getAsOpt[Instant](F.createdAt)
-          } yield coll:
+          yield coll:
             _.update
               .one(
                 $id(id),

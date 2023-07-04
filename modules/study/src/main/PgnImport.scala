@@ -90,11 +90,11 @@ object PgnImport:
           (
             (shapes ++ s),
             c orElse clock,
-            (str.trim match {
+            (str.trim match
               case "" => comments
               case com =>
                 comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
-            })
+            )
           )
     }
 
@@ -122,7 +122,7 @@ object PgnImport:
             val game   = moveOrDrop.applyGame(prev)
             val uci    = moveOrDrop.toUci
             val sanStr = moveOrDrop.toSanStr
-            parseComments(node.value.metas.comments, annotator) match {
+            parseComments(node.value.metas.comments, annotator) match
               case (shapes, clock, comments) =>
                 Branch(
                   id = UciCharPair(uci),
@@ -137,7 +137,6 @@ object PgnImport:
                   crazyData = game.situation.board.crazyData,
                   children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
                 ).some
-            }
         )
     catch
       case _: StackOverflowError =>
@@ -155,7 +154,7 @@ object PgnImport:
       case Some(main) if children.variations.exists(_.id == main.id) =>
         Branches {
           main +: children.variations.flatMap { node =>
-            if (node.id == main.id) node.children.nodes
+            if node.id == main.id then node.children.nodes
             else List(node)
           }
         }

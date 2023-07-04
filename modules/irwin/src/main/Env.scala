@@ -41,10 +41,10 @@ final class Env(
     def mk = (coll: AsyncColl) => wire[KaladinApi]
     mk(insightDb(CollName("kaladin_queue")))
 
-  if (appConfig.get[Boolean]("kaladin.enabled"))
+  if appConfig.get[Boolean]("kaladin.enabled") then
 
     scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
-      (for {
+      (for
         leaders <- tournamentApi.allCurrentLeadersInStandard
         suspects <-
           leaders.toList
@@ -56,14 +56,14 @@ final class Env(
             .map(_.flatten.map(Suspect.apply))
         _ <- irwinApi.requests.fromTournamentLeaders(suspects)
         _ <- kaladinApi.tournamentLeaders(suspects)
-      } yield ()).unit
+      yield ()).unit
     }
     scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
-      (for {
+      (for
         topOnline <- userCache.getTop50Online.map(_ map Suspect.apply)
         _         <- irwinApi.requests.topOnline(topOnline)
         _         <- kaladinApi.topOnline(topOnline)
-      } yield ()).unit
+      yield ()).unit
     }
 
     scheduler.scheduleWithFixedDelay(83 seconds, 5 seconds) { () =>

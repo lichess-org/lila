@@ -142,7 +142,7 @@ object User:
         if check(p.password) then
           user.totpSecret.fold[Result](Result.Success(user)) { tp =>
             p.token.fold[Result](Result.MissingTotpToken) { token =>
-              if (tp verify token) Result.Success(user) else Result.InvalidTotpToken
+              if tp verify token then Result.Success(user) else Result.InvalidTotpToken
             }
           }
         else if isBlanked then Result.BlankedPassword
@@ -304,7 +304,7 @@ object User:
         id = r.get[UserId](id),
         username = r.get[UserName](username),
         perfs = r.getO[Perfs](perfs).fold(Perfs.default) { perfs =>
-          if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
+          if userTitle has Title.BOT then perfs.copy(ultraBullet = Perf.default)
           else perfs
         },
         count = r.get[Count](count),

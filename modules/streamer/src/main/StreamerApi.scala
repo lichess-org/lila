@@ -46,10 +46,10 @@ final class StreamerApi(
         subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
       }
 
-  def withUsers(live: LiveStreams)(using me: Option[Me.Id]): Fu[List[Streamer.WithUserAndStream]] = for {
+  def withUsers(live: LiveStreams)(using me: Option[Me.Id]): Fu[List[Streamer.WithUserAndStream]] = for
     users <- userRepo.byIdsSecondary(live.streams.map(_.streamer.userId))
     subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
-  } yield live.streams.flatMap { s =>
+  yield live.streams.flatMap { s =>
     users.find(_ is s.streamer) map {
       Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
     }
@@ -76,7 +76,7 @@ final class StreamerApi(
       }.parallel
       _            <- elements.nonEmpty so update.many(elements).void
       candidateIds <- cache.candidateIds.getUnit
-    yield if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
+    yield if streams.map(_.streamer.id).exists(candidateIds.contains) then cache.candidateIds.invalidateUnit()
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
     val streamer = data(prev, asMod)

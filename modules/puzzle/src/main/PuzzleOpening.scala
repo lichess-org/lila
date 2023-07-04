@@ -28,7 +28,7 @@ case class PuzzleOpeningCollection(
           op.opening.ref.variation.isDefined so Set(op)
         ).some
       case Some((famCount, ops)) =>
-        (famCount, if (op.opening.ref.variation.isDefined) ops incl op else ops).some
+        (famCount, if op.opening.ref.variation.isDefined then ops incl op else ops).some
     }
   }
   val treePopular: TreeList = treeMap.toList

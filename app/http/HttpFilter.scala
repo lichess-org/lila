@@ -44,7 +44,7 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     !HTTPRequest.isProgrammatic(req) &&
     // asset request going through the CDN, don't redirect
     !(req.host == env.net.assetDomain.value && HTTPRequest.hasFileExtension(req))
-  } option Results.MovedPermanently(s"http${if (req.secure) "s" else ""}://${env.net.domain}${req.uri}")
+  } option Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${env.net.domain}${req.uri}")
 
   private def addApiResponseHeaders(req: RequestHeader)(result: Result) =
     if HTTPRequest.isApiOrApp(req)

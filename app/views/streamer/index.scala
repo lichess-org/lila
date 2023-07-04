@@ -18,11 +18,11 @@ object index:
       requests: Boolean
   )(using ctx: PageContext) =
 
-    val title = if (requests) "Streamer approval requests" else lichessStreamers.txt()
+    val title = if requests then "Streamer approval requests" else lichessStreamers.txt()
 
     def widget(s: lila.streamer.Streamer.WithContext, stream: Option[lila.streamer.Stream]) =
       frag(
-        if (requests) a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
+        if requests then a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
         else bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
         stream.isDefined option span(cls := "live-ribbon")(span(trans.streamer.live())),
         picture.thumbnail(s.streamer, s.user),
@@ -30,7 +30,9 @@ object index:
           bits.streamerTitle(s),
           s.streamer.headline.map(_.value).map { d =>
             p(
-              cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}"
+              cls := s"headline ${
+                  if d.length < 60 then "small" else if d.length < 120 then "medium" else "large"
+                }"
             )(d)
           },
           div(cls := "services")(
@@ -66,7 +68,7 @@ object index:
       moreJs = frag(infiniteScrollTag, jsModule("streamer"))
     ) {
       main(cls := "page-menu")(
-        bits.menu(if (requests) "requests" else "index", none)(cls := " page-menu__menu"),
+        bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
           boxTop(h1(dataIcon := licon.Mic, cls := "text")(title)),
           !requests option div(cls := "list force-ltr live")(

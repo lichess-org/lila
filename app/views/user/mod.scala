@@ -153,7 +153,7 @@ object mod:
         }
       ),
       isGranted(_.CloseAccount) option div(cls := "btn-rack")(
-        if (u.enabled.yes) {
+        if u.enabled.yes then
           postForm(
             action := routes.Mod.closeAccount(u.username),
             title  := "Disables this account.",
@@ -161,9 +161,8 @@ object mod:
           )(
             submitButton(cls := "btn-rack__btn")("Close")
           )
-        } else if (erased.value) {
-          "Erased"
-        } else
+        else if erased.value then "Erased"
+        else
           frag(
             postForm(
               action := routes.Mod.reopenAccount(u.username),
@@ -244,9 +243,9 @@ object mod:
   def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
     frag(
       canViewRoles(u) option mzSection("roles")(
-        (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span) (
+        (if isGranted(_.ChangePermission) then a(href := routes.Mod.permissions(u.username)) else span) (
           strong(cls := "text inline", dataIcon := " ")("Permissions: "),
-          if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+          if u.roles.isEmpty then "Add some" else Permission(u.roles).map(_.name).mkString(", ")
         )
       ),
       mzSection("preferences")(
@@ -292,11 +291,11 @@ object mod:
         ul(
           charges.map { c =>
             li(
-              c.giftTo match {
+              c.giftTo match
                 case Some(giftedId) if u is giftedId => frag("Gift from", userIdLink(c.userId), " ")
                 case Some(giftedId)                  => frag("Gift to", userIdLink(giftedId.some), " ")
                 case _                               => emptyFrag
-              },
+              ,
               c.money.display,
               " with ",
               c.serviceName,
@@ -544,7 +543,7 @@ object mod:
                 ),
                 td(
                   span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := licon.DiscBig),
-                  if (result.basics.hold) "Yes" else "No"
+                  if result.basics.hold then "Yes" else "No"
                 ),
                 td(
                   pag.pov(result).map { p =>
@@ -578,7 +577,7 @@ object mod:
   private val reportban       = iconTag(licon.CautionTriangle)
   private val notesText       = iconTag(licon.Pencil)
   private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
-    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
+    if nb > 0 then td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
 
   def otherUsers(mod: Me, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(using
@@ -630,7 +629,7 @@ object mod:
               dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
               cls      := (o == u) option "same"
             )(
-              if (o.is(u) || Granter.canViewAltUsername(o))
+              if o.is(u) || Granter.canViewAltUsername(o) then
                 td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
               else td,
               isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
@@ -749,7 +748,7 @@ object mod:
                 val parsed = userAgentParser.parse(ua.value)
                 tr(
                   td(title := ua.value)(
-                    if (parsed.device.family == "Other") "Computer" else parsed.device.family
+                    if parsed.device.family == "Other" then "Computer" else parsed.device.family
                   ),
                   td(parts(parsed.os.family.some, parsed.os.major)),
                   td(parts(parsed.userAgent.family.some, parsed.userAgent.major)),

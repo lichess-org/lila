@@ -33,7 +33,7 @@ object inquiry:
       frag(
         link,
         " ",
-        if (highlight) communication.highlightBad(text) else frag(text),
+        if highlight then communication.highlightBad(text) else frag(text),
         " "
       )
     }
@@ -168,7 +168,7 @@ object inquiry:
           div(cls := "dropper shadowban buttons")(
             postForm(
               action := url,
-              title  := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
+              title  := (if in.user.marks.troll then "Un-shadowban" else "Shadowban"),
               cls    := "main"
             )(
               markButton(in.user.marks.troll)(dataIcon := licon.BubbleSpeech),
@@ -192,7 +192,7 @@ object inquiry:
           div(
             isGranted(_.SendToZulip) option {
               val url =
-                if (in.report.isAppeal) appealRoutes.sendToZulip(in.user.username)
+                if in.report.isAppeal then appealRoutes.sendToZulip(in.user.username)
                 else routes.Mod.inquiryToZulip
               postForm(action := url)(
                 submitButton(cls := "fbt")("Send to Zulip")
@@ -280,7 +280,7 @@ object inquiry:
   )
 
   private def snoozeUrl(report: Report, duration: String): String =
-    if (report.isAppeal) appealRoutes.snooze(report.user, duration).url
+    if report.isAppeal then appealRoutes.snooze(report.user, duration).url
     else reportRoutes.snooze(report.id, duration).url
 
   private def boostOpponents(

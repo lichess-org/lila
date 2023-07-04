@@ -17,7 +17,7 @@ trait ChessgroundHelper:
     wrap {
       cgBoard {
         raw {
-          if (ctx.pref.is3d) ""
+          if ctx.pref.is3d then ""
           else
             def top(p: Square)  = orient.fold(7 - p.rank.index, p.rank.index) * 12.5
             def left(p: Square) = orient.fold(p.file.index, 7 - p.file.index) * 12.5
@@ -25,7 +25,7 @@ trait ChessgroundHelper:
               s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
             } mkString ""
             val pieces =
-              if (ctx.pref.isBlindfold) ""
+              if ctx.pref.isBlindfold then ""
               else
                 board.pieces.map { case (pos, piece) =>
                   val klass = s"${piece.color.name} ${piece.role.name}"

@@ -32,7 +32,7 @@ final class PlaybanApi(
 
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(blameableSources.contains) && game.hasClock) so {
-      if (game.rated) fuTrue
+      if game.rated then fuTrue
       else !userRepo.containsEngine(game.userIds)
     }
 
@@ -72,11 +72,11 @@ final class PlaybanApi(
 
     // flagged after waiting a long time
     def sitting: Option[Funit] =
-      for {
+      for
         userId <- game.player(flaggerColor).userId
         seconds = nowSeconds - game.movedAt.toSeconds
         if unreasonableTime.exists(seconds >= _)
-      } yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>-
+      yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>-
         feedback.sitting(Pov(game, flaggerColor)) >>
         propagateSitting(game, userId)
 
@@ -85,11 +85,11 @@ final class PlaybanApi(
     // assumes game was already checked for sitting
     def sitMoving: Option[Funit] =
       game.player(flaggerColor).userId.ifTrue {
-        ~(for {
+        ~(for
           movetimes    <- game moveTimes flaggerColor
           lastMovetime <- movetimes.lastOption
           limit        <- unreasonableTime
-        } yield lastMovetime.toSeconds >= limit)
+        yield lastMovetime.toSeconds >= limit)
       } map { userId =>
         save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>-
           feedback.sitting(Pov(game, flaggerColor)) >>
@@ -104,17 +104,17 @@ final class PlaybanApi(
 
   private def propagateSitting(game: Game, userId: UserId): Funit =
     rageSitCache get userId map { rageSit =>
-      if (rageSit.isBad) Bus.publish(SittingDetected(game, userId), "playban")
+      if rageSit.isBad then Bus.publish(SittingDetected(game, userId), "playban")
     }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
     IfBlameable(game) {
-      ~(for {
+      ~(for
         w <- winner
         loser = game.player(!w)
         loserId <- loser.userId
-      } yield {
-        if (Status.NoStart is status)
+      yield
+        if Status.NoStart is status then
           save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source) >>- feedback.noStart(Pov(game, !w))
         else
           game.clock
@@ -135,7 +135,7 @@ final class PlaybanApi(
             .getOrElse {
               good(game, !w)
             }
-      })
+      )
     }
 
   private def good(game: Game, loserColor: Color): Funit =
@@ -199,31 +199,30 @@ final class PlaybanApi(
       source: Option[Source]
   ): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
-    for {
+    for
       withOutcome <- coll
         .findAndUpdateSimplified[UserRecord](
           selector = $id(userId),
           update = $doc(
             $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
-              rsUpdate match {
+              rsUpdate match
                 case RageSit.Update.Reset            => $min("c" -> 0)
                 case RageSit.Update.Inc(v) if v != 0 => $inc("c" -> v)
                 case _                               => $empty
-              }
             }
           ),
           fetchNewObject = true,
           upsert = true
         ) orFail s"can't find newly created record for user $userId"
       withBan <-
-        if (outcome == Outcome.Good) fuccess(withOutcome)
+        if outcome == Outcome.Good then fuccess(withOutcome)
         else
-          for {
+          for
             createdAt <- userRepo.createdAtById(userId) orFail s"Missing user creation date $userId"
             withBan   <- legiferate(withOutcome, createdAt, source)
-          } yield withBan
+          yield withBan
       _ <- registerRageSit(withBan, rsUpdate)
-    } yield ()
+    yield ()
   }.void logFailure lila.log("playban")
 
   private def legiferate(record: UserRecord, accCreatedAt: Instant, source: Option[Source]): Fu[UserRecord] =
@@ -262,7 +261,7 @@ final class PlaybanApi(
               lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
               "autoWarning"
             )
-            if (record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60))
+            if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then
               userRepo
                 .byId(record.userId)
                 .flatMapz { user =>

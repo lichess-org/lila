@@ -22,7 +22,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   def tick(): Unit = {
     val now = LocalTime.now
-    if (now.isAfter(runAfter) && now.isBefore(runBefore)) run()
+    if now.isAfter(runAfter) && now.isBefore(runBefore) then run()
   }.unit
 
   private def run() =
@@ -67,7 +67,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
       .documentSource()
       .mapConcat { doc =>
         import lila.game.BSONHandlers.given
-        (for {
+        (for
           userId <- doc.getAsOpt[UserId]("_id")
           games  <- doc.getAsOpt[List[Game]]("games")
           povs = games
@@ -82,5 +82,5 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
               pov.game.id
             )
           }
-        } yield CorrespondenceOpponents(userId, opponents)).toList
+        yield CorrespondenceOpponents(userId, opponents)).toList
       }

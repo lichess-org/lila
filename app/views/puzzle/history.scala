@@ -14,7 +14,7 @@ object history:
 
   def apply(user: User, pager: Paginator[PuzzleSession])(using ctx: PageContext) =
     val title =
-      if (ctx is user) trans.puzzle.history.txt()
+      if ctx is user then trans.puzzle.history.txt()
       else s"${user.username} ${trans.puzzle.history.txt()}"
     views.html.base.layout(
       title = title,
@@ -51,7 +51,7 @@ object history:
       ),
       span(cls := "puzzle-history__round__meta")(
         span(cls := "puzzle-history__round__result")(
-          if (r.round.win.yes) goodTag(trans.puzzle.solved())
+          if r.round.win.yes then goodTag(trans.puzzle.solved())
           else badTag(trans.puzzle.failed())
         ),
         span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id}")

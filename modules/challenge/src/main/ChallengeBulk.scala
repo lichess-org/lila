@@ -123,7 +123,6 @@ final class ChallengeBulkApi(
       .addEffect { nb =>
         lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb).unit
       } >> {
-      if (bulk.startClocksAt.isDefined)
-        coll.updateField($id(bulk._id), "pairedAt", nowInstant)
+      if bulk.startClocksAt.isDefined then coll.updateField($id(bulk._id), "pairedAt", nowInstant)
       else coll.delete.one($id(bulk._id))
     }.void

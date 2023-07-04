@@ -65,7 +65,7 @@ object Chart:
               val key = metric.name
               acc.updated(
                 key,
-                acc.get(key) match {
+                acc.get(key) match
                   case None =>
                     Serie(
                       name = metric.name,
@@ -74,14 +74,13 @@ object Chart:
                       data = List(point.value)
                     )
                   case Some(s) => s.copy(data = point.value :: s.data)
-                }
               )
             case Insight.Stacked(points) =>
               points.foldLeft(acc) { case (acc, (metricValueName, point)) =>
                 val key = s"${metric.name}/${metricValueName}"
                 acc.updated(
                   key,
-                  acc.get(key) match {
+                  acc.get(key) match
                     case None =>
                       Serie(
                         name = metricValueName.value,
@@ -90,7 +89,6 @@ object Chart:
                         data = List(point.value)
                       )
                     case Some(s) => s.copy(data = point.value :: s.data)
-                  }
                 )
               }
         }
@@ -115,10 +113,10 @@ object Chart:
       }
 
     povs.map { pov =>
-      for {
+      for
         user1 <- gameUserJson(pov.player)
         user2 <- gameUserJson(pov.opponent)
-      } yield Json.obj(
+      yield Json.obj(
         "id"       -> pov.gameId,
         "fen"      -> (chess.format.Fen writeBoard pov.game.board),
         "color"    -> pov.player.color.name,

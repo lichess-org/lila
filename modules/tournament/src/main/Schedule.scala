@@ -25,7 +25,7 @@ case class Schedule(
     import Schedule.Freq.*
     import Schedule.Speed.*
     import lila.i18n.I18nKeys.tourname.*
-    if (variant.standard && position.isEmpty)
+    if variant.standard && position.isEmpty then
       (conditions.minRating, conditions.maxRating) match
         case (None, None) =>
           (freq, speed) match
@@ -75,11 +75,11 @@ case class Schedule(
         case (Some(_), _)           => eliteX.txt(speed.trans)
         case (_, Some(max)) if full => s"≤${max.rating} ${xArena.txt(speed.trans)}"
         case (_, Some(max))         => s"≤${max.rating} ${speed.trans}"
-    else if (variant.standard)
+    else if variant.standard then
       val n = position.flatMap(Thematic.byFen).fold(speed.trans) { pos =>
         s"${pos.family.name} ${speed.trans}"
       }
-      if (full) xArena.txt(n) else n
+      if full then xArena.txt(n) else n
     else
       freq match
         case Hourly if full  => hourlyXArena.txt(variant.name)
@@ -98,7 +98,7 @@ case class Schedule(
         case Shield          => xShield.txt(variant.name)
         case _ =>
           val n = s"${freq.name} ${variant.name}"
-          if (full) xArena.txt(n) else n
+          if full then xArena.txt(n) else n
 
   def day = at.withTimeAtStartOfDay
 
@@ -208,12 +208,12 @@ object Schedule:
         case _                                                       => false
     def fromClock(clock: chess.Clock.Config) =
       val time = clock.estimateTotalSeconds
-      if (time < 30) UltraBullet
-      else if (time < 60) HyperBullet
-      else if (time < 120) Bullet
-      else if (time < 180) HippoBullet
-      else if (time < 480) Blitz
-      else if (time < 1500) Rapid
+      if time < 30 then UltraBullet
+      else if time < 60 then HyperBullet
+      else if time < 120 then Bullet
+      else if time < 180 then HippoBullet
+      else if time < 480 then Blitz
+      else if time < 1500 then Rapid
       else Classical
     def toPerfType(speed: Speed) =
       speed match

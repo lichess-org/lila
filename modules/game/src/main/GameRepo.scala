@@ -188,7 +188,7 @@ final class GameRepo(val coll: Coll)(using Executor):
           .void
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
-    if (doc.isEmpty) $empty else $doc(mod -> doc)
+    if doc.isEmpty then $empty else $doc(mod -> doc)
 
   def setRatingDiffs(id: GameId, diffs: RatingDiffs) =
     coll.update.one(
@@ -328,12 +328,12 @@ final class GameRepo(val coll: Coll)(using Executor):
         val idColors = povs.view.map { p =>
           p.gameId -> p.color
         }.toMap
-        val holds = for {
+        val holds = for
           doc   <- docs
           id    <- doc.getAsOpt[GameId]("_id")
           color <- idColors get id
           holds <- holdAlertOf(doc, color)
-        } yield id -> holds
+        yield id -> holds
         holds.toMap
       }
 
@@ -392,7 +392,7 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Epd] = None): Funit =
     val g2 =
-      if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
+      if g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))) then
         g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
@@ -402,9 +402,9 @@ final class GameRepo(val coll: Coll)(using Executor):
         .filterNot(_.isInitial)
     }
     val checkInHours =
-      if (g2.isPgnImport) none
-      else if (g2.fromApi) some(24 * 7)
-      else if (g2.hasClock) 1.some
+      if g2.isPgnImport then none
+      else if g2.fromApi then some(24 * 7)
+      else if g2.hasClock then 1.some
       else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
@@ -438,10 +438,11 @@ final class GameRepo(val coll: Coll)(using Executor):
     coll.primitiveOne[Fen.Epd]($id(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[Fen.Epd]] =
-    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
-      case None if game.variant == chess.variant.Chess960 => Fen.initial.some
-      case fen                                            => fen
-    }
+    if game.imported || !game.variant.standardInitialPosition then
+      initialFen(game.id) dmap {
+        case None if game.variant == chess.variant.Chess960 => Fen.initial.some
+        case fen                                            => fen
+      }
     else fuccess(none)
 
   def gameWithInitialFen(gameId: GameId): Fu[Option[Game.WithInitialFen]] =

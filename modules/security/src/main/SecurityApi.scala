@@ -98,7 +98,7 @@ final class SecurityApi(
       if _ then fufail(SecurityApi MustConfirmEmail userId)
       else
         val sessionId = SecureRandom nextString 22
-        if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"Tor login $userId")
+        if tor isExitNode HTTPRequest.ipAddress(req) then logger.info(s"Tor login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
@@ -111,7 +111,7 @@ final class SecurityApi(
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
     firewall.accepts(req) so reqSessionId(req) so { sessionId =>
-      appeal.authenticate(sessionId) match {
+      appeal.authenticate(sessionId) match
         case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(Me(u))) }
         case None =>
           store.authInfo(sessionId) flatMapz { d =>
@@ -119,7 +119,7 @@ final class SecurityApi(
               _ map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
             }
           }
-      }: Fu[Option[AppealOrUser]]
+      : Fu[Option[AppealOrUser]]
     }
 
   def oauthScoped(

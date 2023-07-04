@@ -34,7 +34,7 @@ object bits:
 
   def signalBars(v: Int) = raw:
     val bars = (1 to 4).map { b =>
-      s"""<i${if (v < b) " class=\"off\"" else ""}></i>"""
+      s"""<i${if v < b then " class=\"off\"" else ""}></i>"""
     } mkString ""
     val title = v match
       case 1 => "Poor connection"

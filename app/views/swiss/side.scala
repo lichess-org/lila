@@ -29,7 +29,7 @@ object side:
               separator,
               views.html.game.bits.variantLink(s.variant, s.perfType.some, shortName = true),
               separator,
-              if (s.settings.rated) trans.ratedTournament() else trans.casualTournament()
+              if s.settings.rated then trans.ratedTournament() else trans.casualTournament()
             ),
             p(
               span(cls := "swiss__meta__round")(

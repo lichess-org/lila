@@ -26,10 +26,9 @@ final class UserRepo(val coll: Coll)(using Executor):
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
-  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] = {
+  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(User.noGhost)
     ids.nonEmpty so coll.byIds[User, UserId](ids)
-  }
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, ReadPreference.secondaryPreferred)
@@ -37,13 +36,12 @@ final class UserRepo(val coll: Coll)(using Executor):
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
     User.noGhost(u.id) so coll.one[User](enabledSelect ++ $id(u))
 
-  def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] = {
+  def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(User.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), temporarilyPrimary)
-  }
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
-    if (User isGhost id) fuccess(Left(LightUser.ghost).some)
+    if User isGhost id then fuccess(Left(LightUser.ghost).some)
     else
       coll.byId[User](id).map2(Right.apply) recover { case _: exceptions.BSONValueNotFoundException =>
         Left(LightUser.ghost).some
@@ -73,10 +71,10 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def pair(x: UserId, y: UserId): Fu[Option[(User, User)]] =
     coll.byIds[User, UserId](List(x, y)) map { users =>
-      for {
+      for
         xx <- users.find(_.id == x)
         yy <- users.find(_.id == y)
-      } yield xx -> yy
+      yield xx -> yy
     }
 
   def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(User.lichessId, id)
@@ -164,8 +162,8 @@ final class UserRepo(val coll: Coll)(using Executor):
         }
       }
       .addEffect { v =>
-        incColor(u1, if (v) 1 else -1)
-        incColor(u2, if (v) -1 else 1)
+        incColor(u1, if v then 1 else -1)
+        incColor(u2, if v then -1 else 1)
       }
 
   def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean] =
@@ -176,7 +174,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       .update(ordered = false, WriteConcern.Unacknowledged)
       .one(
         // limit to -3 <= colorIt <= 5 but set when undefined
-        $id(userId) ++ $doc(F.colorIt -> $not(if (value < 0) $lte(-3) else $gte(5))),
+        $id(userId) ++ $doc(F.colorIt -> $not(if value < 0 then $lte(-3) else $gte(5))),
         $inc(F.colorIt -> value)
       )
       .unit
@@ -186,11 +184,11 @@ final class UserRepo(val coll: Coll)(using Executor):
   def kaladin = byId(User.kaladinId)
 
   def setPerfs(user: User, perfs: Perfs, prev: Perfs)(using wr: BSONHandler[Perf]) =
-    val diff = for {
+    val diff = for
       pt <- PerfType.all
       if perfs(pt).nb != prev(pt).nb
       bson <- wr.writeOpt(perfs(pt))
-    } yield BSONElement(s"${F.perfs}.${pt.key}", bson)
+    yield BSONElement(s"${F.perfs}.${pt.key}", bson)
     diff.nonEmpty so coll.update
       .one(
         $id(user.id),
@@ -221,12 +219,12 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.updateField($id(id), F.profile, profile).void
 
   def setUsernameCased(id: UserId, name: UserName): Funit =
-    if (id is name)
+    if id is name then
       coll.update.one(
         $id(id) ++ (F.changedCase $exists false),
         $set(F.username -> name, F.changedCase -> true)
       ) flatMap { result =>
-        if (result.n == 0) fufail(s"You have already changed your username")
+        if result.n == 0 then fufail(s"You have already changed your username")
         else funit
       }
     else fufail(s"Proposed username $name does not match old username $id")
@@ -243,7 +241,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   val enabledSelect  = $doc(F.enabled -> true)
   val disabledSelect = $doc(F.enabled -> false)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
-    if (v) $doc(F.marks -> mark.key)
+    if v then $doc(F.marks -> mark.key)
     else F.marks $ne mark.key
   def engineSelect       = markSelect(UserMark.Engine)
   def trollSelect        = markSelect(UserMark.Troll)
@@ -280,18 +278,18 @@ final class UserRepo(val coll: Coll)(using Executor):
       "count.game".some,
       rated option "count.rated",
       ai option "count.ai",
-      (result match {
+      (result match
         case -1 => "count.loss".some
         case 1  => "count.win".some
         case 0  => "count.draw".some
         case _  => none
-      }),
-      (result match {
+      ),
+      (result match
         case -1 => "count.lossH".some
         case 1  => "count.winH".some
         case 0  => "count.drawH".some
         case _  => none
-      }) ifFalse ai
+      ) ifFalse ai
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
       totalTime map (v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
       tvTime map (v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
@@ -404,7 +402,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       .one(
         $id(user.id),
         $set(F.enabled -> false) ++ $unset(F.roles) ++ {
-          if (keepEmail) $unset(F.mustConfirmEmail)
+          if keepEmail then $unset(F.mustConfirmEmail)
           else $doc("$rename" -> $doc(F.email -> F.prevEmail))
         }
       )
@@ -517,7 +515,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
   def setBot(user: User): Funit =
-    if (user.count.game > 0)
+    if user.count.game > 0 then
       fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
     else
       coll.update
@@ -528,8 +526,8 @@ final class UserRepo(val coll: Coll)(using Executor):
         .void
 
   private def botSelect(v: Boolean) =
-    if (v) $doc(F.title -> Title.BOT)
-    else $doc(F.title   -> $ne(Title.BOT))
+    if v then $doc(F.title -> Title.BOT)
+    else $doc(F.title      -> $ne(Title.BOT))
 
   private[user] def botIds =
     coll.distinctEasy[UserId, Set](

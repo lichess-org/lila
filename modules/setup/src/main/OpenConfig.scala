@@ -25,7 +25,7 @@ final case class OpenConfig(
   def validFen = ApiConfig.validFen(variant, position)
 
   def autoVariant =
-    if (variant.standard && position.exists(!_.isInitial)) copy(variant = FromPosition)
+    if variant.standard && position.exists(!_.isInitial) then copy(variant = FromPosition)
     else this
 
 object OpenConfig:

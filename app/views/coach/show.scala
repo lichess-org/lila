@@ -44,9 +44,9 @@ object show:
           a(cls := "button button-empty", href := routes.User.show(c.user.username))(
             viewXProfile(c.user.username)
           ),
-          if (ctx.me.exists(_ is c.coach))
+          if ctx.me.exists(_ is c.coach) then
             frag(
-              if (c.coach.listed.value) p("This page is now public.")
+              if c.coach.listed.value then p("This page is now public.")
               else "This page is not public yet. ",
               a(href := routes.Coach.edit, cls := "text", dataIcon := licon.Pencil)("Edit my coach profile")
             )

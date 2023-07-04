@@ -41,7 +41,7 @@ final private[api] class GameApi(
       adapter = new Adapter[Game](
         collection = gameRepo.coll,
         selector = {
-          if (~playing) lila.game.Query.nowPlaying(user.id)
+          if ~playing then lila.game.Query.nowPlaying(user.id)
           else
             $doc(
               G.playerUids -> user.id,
@@ -61,7 +61,7 @@ final private[api] class GameApi(
         sort = $doc(G.createdAt -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ).withNbResults(
-        if (~playing) gameCache.nbPlaying(user.id)
+        if ~playing then gameCache.nbPlaying(user.id)
         else
           fuccess:
             rated.fold(user.count.game):
@@ -92,7 +92,7 @@ final private[api] class GameApi(
       adapter = new Adapter[Game](
         collection = gameRepo.coll,
         selector = {
-          if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
+          if ~playing then lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
           else
             lila.game.Query.opponents(users._1, users._2) ++ $doc(
               G.status $gte chess.Status.Mate.id,
@@ -111,7 +111,7 @@ final private[api] class GameApi(
         sort = $doc(G.createdAt -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ).withNbResults(
-        if (~playing) gameCache.nbPlaying(users._1.id)
+        if ~playing then gameCache.nbPlaying(users._1.id)
         else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
       ),
       currentPage = page,
@@ -136,7 +136,7 @@ final private[api] class GameApi(
       adapter = new Adapter[Game](
         collection = gameRepo.coll,
         selector = {
-          if (~playing) lila.game.Query.nowPlayingVs(userIds)
+          if ~playing then lila.game.Query.nowPlayingVs(userIds)
           else
             lila.game.Query.opponents(userIds) ++ $doc(
               G.status $gte chess.Status.Mate.id,
@@ -168,7 +168,7 @@ final private[api] class GameApi(
 
   private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] =
     val allAnalysis =
-      if (withFlags.analysis) analysisRepo byIds games.map(_.id into Analysis.Id)
+      if withFlags.analysis then analysisRepo byIds games.map(_.id into Analysis.Id)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map gameRepo.initialFen).parallel map { initialFens =>

@@ -41,7 +41,7 @@ final class TournamentCache(
       .buildAsyncFuture(_ => tournamentRepo.onHomepage)
 
   def ranking(tour: Tournament): Fu[FullRanking] =
-    if (tour.isFinished) finishedRanking get tour.id
+    if tour.isFinished then finishedRanking get tour.id
     else ongoingRanking get tour.id
 
   // only applies to ongoing tournaments

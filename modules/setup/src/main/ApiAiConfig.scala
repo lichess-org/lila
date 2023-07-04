@@ -25,8 +25,8 @@ final case class ApiAiConfig(
   val time      = clock.so(_.limit.roundSeconds / 60)
   val increment = clock.fold(Clock.IncrementSeconds(0))(_.incrementSeconds)
   val timeMode =
-    if (clock.isDefined) TimeMode.RealTime
-    else if (daysO.isDefined) TimeMode.Correspondence
+    if clock.isDefined then TimeMode.RealTime
+    else if daysO.isDefined then TimeMode.Correspondence
     else TimeMode.Unlimited
 
   private def game(user: Option[User])(using IdGenerator): Fu[Game] =
@@ -48,7 +48,7 @@ final case class ApiAiConfig(
             Player.make(chess.Black, user, perfPicker)
           ),
           mode = chess.Mode.Casual,
-          source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Ai,
+          source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           pgnImport = None
         )
@@ -58,7 +58,7 @@ final case class ApiAiConfig(
   def pov(user: Option[User])(using IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def autoVariant =
-    if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)
+    if variant.standard && fen.exists(!_.isInitial) then copy(variant = FromPosition)
     else this
 
 object ApiAiConfig extends BaseConfig:

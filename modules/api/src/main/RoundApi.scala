@@ -196,7 +196,7 @@ final private[api] class RoundApi(
     ))
 
   private def withNote(note: String)(json: JsObject) =
-    if (note.isEmpty) json else json + ("note" -> JsString(note))
+    if note.isEmpty then json else json + ("note" -> JsString(note))
 
   private def withBookmark(v: Boolean)(json: JsObject) =
     json.add("bookmarked" -> v)
@@ -221,13 +221,14 @@ final private[api] class RoundApi(
     )
 
   private def withForecast(pov: Pov, owner: Boolean, fco: Option[Forecast])(json: JsObject) =
-    if (pov.game.forecastable && owner)
+    if pov.game.forecastable && owner then
       json + (
         "forecast" -> {
-          if (pov.forecastable) fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
-            import Forecast.given
-            Json toJson fc
-          }
+          if pov.forecastable then
+            fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
+              import Forecast.given
+              Json toJson fc
+            }
           else Json.obj("onMyTurn" -> true)
         }
       )

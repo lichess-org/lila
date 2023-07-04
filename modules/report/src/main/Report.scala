@@ -30,7 +30,7 @@ case class Report(
   def add(atom: Atom) =
     atomBy(atom.by)
       .fold(copy(atoms = atom :: atoms)) { existing =>
-        if (existing.text contains atom.text) this
+        if existing.text contains atom.text then this
         else
           copy(
             atoms = {
@@ -92,9 +92,9 @@ object Report:
     extension (a: Score)
       def +(s: Score): Score = a + s
       def color =
-        if (a >= 150) "red"
-        else if (a >= 100) "orange"
-        else if (a >= 50) "yellow"
+        if a >= 150 then "red"
+        else if a >= 100 then "orange"
+        else if a >= 50 then "yellow"
         else "green"
       def atLeast(s: Score): Score = math.max(a, s)
       def withinBounds: Score      = a atLeast 5 atMost 100

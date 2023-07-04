@@ -1,11 +1,11 @@
 package lila.game
 
-import chess._
+import chess.*
 import chess.format.Uci
 
 import lila.db.ByteArray
 
-class BinaryCLMTest extends munit.FunSuite {
+class BinaryCLMTest extends munit.FunSuite:
 
   val _0_ = "00000000"
   def write(all: CastleLastMove): List[String] =
@@ -52,4 +52,3 @@ class BinaryCLMTest extends munit.FunSuite {
     // check from old format ignored
     assertEquals(read("11110000" :: _0_ :: "00000001" :: "10000110" :: "10011111" :: "00111111" :: Nil), clmt)
   }
-}

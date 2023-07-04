@@ -19,5 +19,5 @@ final class InfluxEvent(
       .post(s"""event,program=lila,env=$env,title=$key text="$text"""")
       .effectFold(
         err => lila.log("influxEvent").error(endpoint, err),
-        res => if (res.status != 204) lila.log("influxEvent").error(s"$endpoint ${res.status}")
+        res => if res.status != 204 then lila.log("influxEvent").error(s"$endpoint ${res.status}")
       )

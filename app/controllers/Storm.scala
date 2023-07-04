@@ -51,7 +51,7 @@ final class Storm(env: Env) extends LilaController(env):
 
   def apiDashboardOf(username: UserStr, days: Int) = Open:
     lila.user.User.validateId(username).so { userId =>
-      if (days < 0 || days > 365) notFoundJson("Invalid days parameter")
+      if days < 0 || days > 365 then notFoundJson("Invalid days parameter")
       else
         ((days > 0) so env.storm.dayApi.apiHistory(userId, days)) zip env.storm.highApi.get(userId) map {
           case (history, high) => Ok(env.storm.json.apiDashboard(high, history))

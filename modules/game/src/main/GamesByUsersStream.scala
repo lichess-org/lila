@@ -16,7 +16,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
   private val chans = List("startGame", "finishGame")
 
   def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
-    val initialGames = if (withCurrentGames) currentGamesSource(userIds) else Source.empty
+    val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
     val startStream = Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead) mapMaterializedValue {
       queue =>
         def matches(game: Game) =

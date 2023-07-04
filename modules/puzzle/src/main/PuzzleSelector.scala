@@ -121,8 +121,9 @@ final class PuzzleSelector(
                 .getAsOpt[List[Puzzle]]("puzzle")
                 .flatMap(_.headOption)
                 .fold[NextPuzzleResult](PuzzleMissing(puzzleId)): puzzle =>
-                  if (session.settings.color.exists(puzzle.color !=)) WrongColor(puzzle)
-                  else if (doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty)) PuzzleAlreadyPlayed(puzzle)
+                  if session.settings.color.exists(puzzle.color !=) then WrongColor(puzzle)
+                  else if doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty) then
+                    PuzzleAlreadyPlayed(puzzle)
                   else PuzzleFound(puzzle)
       .monValue: result =>
         _.puzzle.selector.nextPuzzleResult(

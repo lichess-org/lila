@@ -22,7 +22,7 @@ object bots:
     )(
       main(cls := "page-menu bots")(
         user.bits.communityMenu("bots"),
-        sorted.partition(_.isVerified) match {
+        sorted.partition(_.isVerified) match
           case (featured, all) =>
             div(cls := "bots page-menu__content")(
               div(cls := "box bots__featured")(
@@ -42,7 +42,6 @@ object bots:
                 botTable(all)
               )
             )
-        }
       )
     )
 

@@ -20,10 +20,10 @@ case class HookConfig(
 ) extends HumanConfig:
 
   def withinLimits(user: Option[User]): HookConfig =
-    (for {
+    (for
       pt <- perfType
       me <- user
-    } yield copy(
+    yield copy(
       ratingRange = ratingRange.withinLimits(
         rating = me.perfs(pt).intRating,
         delta = 400,

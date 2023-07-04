@@ -112,7 +112,7 @@ final class TeamApi(
     cached
       .teamIdsList(userIdOf(member))
       .map(_.take(lila.team.Team.maxJoinCeiling)) flatMap { allIds =>
-      if (viewer.exists(_ is member) || Granter.opt(_.UserModView)) fuccess(allIds)
+      if viewer.exists(_ is member) || Granter.opt(_.UserModView) then fuccess(allIds)
       else
         allIds.nonEmpty.so:
           teamRepo.filterHideMembers(allIds) flatMap { hiddenIds =>
@@ -314,11 +314,12 @@ final class TeamApi(
       idsNoKids            <- userRepo.filterNotKid(allIds.toSeq)
       previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)
       ids =
-        (if (idsNoKids(User.lichessId) && !byMod && !previousValidLeaders(User.lichessId))
+        (if idsNoKids(User.lichessId) && !byMod && !previousValidLeaders(User.lichessId) then
            idsNoKids - User.lichessId
          else idsNoKids)
       _ <- ids.nonEmpty so {
-        if (ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod)
+        if ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod
+        then
           cached.leaders.put(team.id, fuccess(ids))
           logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
@@ -334,18 +335,16 @@ final class TeamApi(
     }
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
-    if (
-      Granter(_.ManageTeam) || me.is(team.createdBy) ||
+    if Granter(_.ManageTeam) || me.is(team.createdBy) ||
       (team.leaders(me) && !team.leaders(team.createdBy))
-    )
+    then
       logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me}: $explain")
-      if (team.enabled)
+      if team.enabled then
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
           requestRepo.removeByTeam(team.id).void >>-
           (indexer ! RemoveTeam(team.id))
-      else
-        teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
+      else teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
     else teamRepo.setLeaders(team.id, team.leaders - me)
 
   // delete for ever, with members but not forums

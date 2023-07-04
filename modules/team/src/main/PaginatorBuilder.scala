@@ -53,7 +53,7 @@ final private[team] class PaginatorBuilder(
 
   final private class TeamAdapter(val team: Team) extends AdapterLike[LightUser] with MembersAdapter:
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
-      for {
+      for
         docs <-
           memberRepo.coll
             .find(selector, $doc("user" -> true, "_id" -> false).some)
@@ -63,13 +63,13 @@ final private[team] class PaginatorBuilder(
             .list(length)
         userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
         users <- lightUserApi asyncManyFallback userIds
-      } yield users
+      yield users
 
   final private class TeamAdapterWithDate(val team: Team)
       extends AdapterLike[TeamMember.UserAndDate]
       with MembersAdapter:
     def slice(offset: Int, length: Int): Fu[Seq[TeamMember.UserAndDate]] =
-      for {
+      for
         docs <-
           memberRepo.coll
             .find(selector, $doc("user" -> true, "date" -> true, "_id" -> false).some)
@@ -80,7 +80,7 @@ final private[team] class PaginatorBuilder(
         userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
         dates   = docs.flatMap(_.getAsOpt[Instant]("date"))
         users <- lightUserApi asyncManyFallback userIds
-      } yield users.zip(dates) map TeamMember.UserAndDate.apply
+      yield users.zip(dates) map TeamMember.UserAndDate.apply
 
   def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
     Paginator(
@@ -94,7 +94,7 @@ final private[team] class PaginatorBuilder(
     private def sorting  = $sort desc "date"
 
     def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] =
-      for {
+      for
         requests <- requestRepo.coll
           .find(selector)
           .sort(sorting)
@@ -102,4 +102,4 @@ final private[team] class PaginatorBuilder(
           .cursor[Request]()
           .list(length)
         users <- userRepo usersFromSecondary requests.map(_.user)
-      } yield requests zip users map { case (request, user) => RequestWithUser(request, user) }
+      yield requests zip users map { case (request, user) => RequestWithUser(request, user) }

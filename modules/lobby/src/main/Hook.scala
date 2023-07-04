@@ -55,7 +55,7 @@ case class Hook(
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
-  lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
+  lazy val perf: Option[LobbyPerf] = for u <- user; pt <- perfType yield u perfAt pt
   def rating: Option[IntRating]    = perf.map(_.rating)
 
   import lila.common.Json.given
@@ -66,7 +66,7 @@ case class Hook(
       "clock" -> clock.show,
       "t"     -> clock.estimateTotalSeconds,
       "s"     -> speed.id,
-      "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
+      "i"     -> (if clock.incrementSeconds > 0 then 1 else 0)
     )
     .add("prov" -> perf.map(_.provisional))
     .add("u" -> user.map(_.username))

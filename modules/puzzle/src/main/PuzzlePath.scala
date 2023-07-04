@@ -32,7 +32,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
       compromise: Int = 0
   ): Fu[Option[Id]] = {
     val actualTier =
-      if (tier == PuzzleTier.top && PuzzleDifficulty.isExtreme(difficulty)) PuzzleTier.good
+      if tier == PuzzleTier.top && PuzzleDifficulty.isExtreme(difficulty) then PuzzleTier.good
       else tier
     colls
       .path {

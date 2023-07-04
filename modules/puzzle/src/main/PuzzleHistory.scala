@@ -47,12 +47,12 @@ object PuzzleHistory:
           }
         }
         .map { r =>
-          for {
+          for
             doc   <- r
             round <- doc.asOpt[PuzzleRound]
             theme = doc.getAsOpt[PuzzleTheme.Key](PuzzleRound.BSONFields.theme) | PuzzleTheme.mix.key
             puzzle <- doc.getAsOpt[Puzzle]("puzzle")
-          } yield SessionRound(round, puzzle, theme)
+          yield SessionRound(round, puzzle, theme)
         }
         .map(groupBySessions)
 
@@ -61,11 +61,9 @@ object PuzzleHistory:
       .foldLeft(List.empty[PuzzleSession]) {
         case (Nil, round) => List(PuzzleSession(round.theme, NonEmptyList(round, Nil)))
         case (last :: sessions, r) =>
-          if (
-            last.puzzles.head.theme == r.theme &&
+          if last.puzzles.head.theme == r.theme &&
             r.round.date.isAfter(last.puzzles.head.round.date minusHours 1)
-          )
-            last.copy(puzzles = r :: last.puzzles) :: sessions
+          then last.copy(puzzles = r :: last.puzzles) :: sessions
           else PuzzleSession(r.theme, NonEmptyList(r, Nil)) :: last :: sessions
       }
       .reverse

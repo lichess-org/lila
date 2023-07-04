@@ -86,11 +86,11 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
         )
       }
       .map { docO =>
-        for {
+        for
           doc      <- docO
           mates    <- doc.getAsOpt[Set[UserId]]("mates")
           teachers <- doc.getAsOpt[Set[UserId]]("teachers")
-        } yield mates ++ teachers
+        yield mates ++ teachers
       }
       .dmap(~_)
       .recover {

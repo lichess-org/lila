@@ -9,10 +9,10 @@ import lila.memo.CacheApi
 case class ColorHistory(strike: Int, balance: Int) extends Ordered[ColorHistory]:
 
   override def compare(that: ColorHistory): Int =
-    if (strike < that.strike) -1
-    else if (strike > that.strike) 1
-    else if (balance < that.balance) -1
-    else if (balance > that.balance) 1
+    if strike < that.strike then -1
+    else if strike > that.strike then 1
+    else if balance < that.balance then -1
+    else if balance > that.balance then 1
     else 0
 
   def firstGetsWhite(that: ColorHistory)(fallback: () => Boolean) =

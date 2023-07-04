@@ -21,7 +21,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams" $in ids)
   private def sinceSelect(date: Instant)       = $doc("startsAt" $gt date)
   private def variantSelect(variant: Variant) =
-    if (variant.standard) $doc("variant" $exists false)
+    if variant.standard then $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
   private def nbPlayersSelect(nb: Int) = $doc("nbPlayers" $gte nb)
   private val nonEmptySelect           = nbPlayersSelect(1)
@@ -237,7 +237,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           case Weekly | Weekend           => 3 * 45
           case Daily                      => 1 * 30
           case _                          => 20
-        if (tour.variant.exotic && schedule.freq != Unique) base / 3 else base
+        if tour.variant.exotic && schedule.freq != Unique then base / 3 else base
       }
     }
 
@@ -282,11 +282,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         case ((tours, skip), (tour, sched)) =>
           (
             tour :: tours,
-            sched.freq match {
+            sched.freq match
               case Schedule.Freq.Daily   => Schedule.Freq.Eastern.some
               case Schedule.Freq.Eastern => Schedule.Freq.Daily.some
               case _                     => skip
-            }
           )
       }._1
         .reverse

@@ -62,7 +62,7 @@ final class ChallengeGranter(
             case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
             case (_, Pref.Challenge.RATING) =>
               perfType.so: pt =>
-                if (from.perfs(pt).provisional || dest.perfs(pt).provisional) RatingIsProvisional(pt).some
+                if from.perfs(pt).provisional || dest.perfs(pt).provisional then RatingIsProvisional(pt).some
                 else
                   val diff = math.abs(from.perfs(pt).intRating.value - dest.perfs(pt).intRating.value)
                   (diff > ratingThreshold) option RatingOutsideRange(pt)

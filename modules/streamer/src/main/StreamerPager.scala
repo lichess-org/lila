@@ -38,7 +38,7 @@ final class StreamerPager(
     def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithContext]] =
       coll
         .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
-          import framework._
+          import framework.*
           Match(
             $doc(
               "approval.granted" -> true,
@@ -73,7 +73,7 @@ final class StreamerPager(
     def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithContext]] =
       coll
         .aggregateList(length, ReadPreference.secondaryPreferred): framework =>
-          import framework._
+          import framework.*
           Match(selector) -> List(
             Sort(Ascending("updatedAt")),
             Skip(offset),

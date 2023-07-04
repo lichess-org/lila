@@ -40,7 +40,7 @@ private object ChallengeJoiner:
         chess = chessGame,
         whitePlayer = Player.make(chess.White, c.finalColor.fold(origUser, destUser), _(c.perfType)),
         blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, origUser), _(c.perfType)),
-        mode = if (chessGame.board.variant.fromPosition) Mode.Casual else c.mode,
+        mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
         source = Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,
@@ -70,9 +70,8 @@ private object ChallengeJoiner:
         startedAtPly = sp.ply,
         clock = tc.realTime.map(_.toClock)
       )
-      if (variant.fromPosition && Fen.write(game).isInitial)
-        makeChess(chess.variant.Standard) -> none
-      else game                           -> baseState
+      if variant.fromPosition && Fen.write(game).isInitial then makeChess(chess.variant.Standard) -> none
+      else game                                                                                   -> baseState
     }
 
   def addGameHistory(position: Option[Situation.AndFullMoveNumber])(game: Game): Game =

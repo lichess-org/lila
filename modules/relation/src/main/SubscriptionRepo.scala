@@ -8,14 +8,14 @@ import lila.relation.RelationRepo.makeId
 
 final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
     Executor
-) {
+):
   val coll = colls.subscription
 
   // for streaming, streamerId is the user UserId of the streamer being subscribed to
   def subscribersOnlineSince(streamerId: UserId, daysAgo: Int): Fu[List[UserId]] =
     coll
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred): framework =>
-        import framework._
+        import framework.*
         Match($doc("s" -> streamerId)) -> List(
           PipelineOperator(
             $lookup.pipeline(
@@ -56,4 +56,3 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
     coll.distinctEasy[String, Set]("_id", $inIds(streamerIds.map(makeId(subscriber, _)))) map { ids =>
       UserId from ids.flatMap(_.split('/').lift(1))
     }
-}

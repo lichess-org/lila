@@ -45,23 +45,24 @@ object bits:
       ),
       table(cls := "slist slist-pad")(
         tbody(
-          if (sugs.nonEmpty) sugs.map { r =>
-            tr(
-              td(userLink(r.user)),
-              ctx.pref.showRatings option td(showBestPerf(r.user)),
-              td(
-                r.nbGames.filter(_ > 0).map { nbGames =>
-                  a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}")(
-                    trans.nbGames.plural(nbGames, nbGames.localize)
-                  )
-                }
-              ),
-              td(
-                views.html.relation
-                  .actions(r.user.light, r.relation, followable = r.followable, blocked = false)
+          if sugs.nonEmpty then
+            sugs.map { r =>
+              tr(
+                td(userLink(r.user)),
+                ctx.pref.showRatings option td(showBestPerf(r.user)),
+                td(
+                  r.nbGames.filter(_ > 0).map { nbGames =>
+                    a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}")(
+                      trans.nbGames.plural(nbGames, nbGames.localize)
+                    )
+                  }
+                ),
+                td(
+                  views.html.relation
+                    .actions(r.user.light, r.relation, followable = r.followable, blocked = false)
+                )
               )
-            )
-          }
+            }
           else tr(td(trans.none()))
         )
       )
@@ -78,7 +79,7 @@ object bits:
 
   private def pagTable(pager: Paginator[Related], call: Call)(using ctx: PageContext) =
     table(cls := "slist slist-pad")(
-      if (pager.nbResults > 0)
+      if pager.nbResults > 0 then
         tbody(cls := "infinite-scroll")(
           pager.currentPageResults.map { r =>
             tr(cls := "paginated")(

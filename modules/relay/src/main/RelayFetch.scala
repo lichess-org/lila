@@ -78,14 +78,14 @@ final private class RelayFetch(
                 .copy(finished = games.forall(_.end.isDefined))
         .recover:
           case e: Exception =>
-            e.match {
+            e.match
               case SyncResult.Timeout =>
-                if (rt.tour.official) logger.info(s"Sync timeout ${rt.round}")
+                if rt.tour.official then logger.info(s"Sync timeout ${rt.round}")
                 SyncResult.Timeout
               case _ =>
-                if (rt.tour.official) logger.info(s"Sync error ${rt.round} ${e.getMessage take 80}")
+                if rt.tour.official then logger.info(s"Sync error ${rt.round} ${e.getMessage take 80}")
                 SyncResult.Error(e.getMessage)
-            } -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
+              -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
         .map: (result, newRelay) =>
           afterSync(result, newRelay withTour rt.tour)
 
@@ -173,13 +173,12 @@ final private class RelayFetch(
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               gameDoc.format
-                .match {
+                .match
                   case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
                   case RelayFormat.DocFormat.Json =>
                     httpGetJson[GameJson](gameDoc.url).recover { case _: Exception =>
                       GameJson(moves = Nil, result = none)
                     } map { _.toPgn(pairing.tags) }
-                }
                 .map(number -> _)
             .parallel
             .map { results =>
@@ -212,7 +211,7 @@ final private class RelayFetch(
 private[relay] object RelayFetch:
 
   def maxChapters(tour: RelayTour) =
-    lila.study.Study.maxChapters * (if (tour.official) 2 else 1)
+    lila.study.Study.maxChapters * (if tour.official then 2 else 1)
 
   private[relay] object DgtJson:
     case class PairingPlayer(
@@ -267,7 +266,7 @@ private[relay] object RelayFetch:
           case (Success((acc, index)), pgn) =>
             pgnCache.get(pgn) flatMap { f =>
               val game = f(index)
-              if (game.isEmpty) Failure(LilaInvalid(s"Found an empty PGN at index $index"))
+              if game.isEmpty then Failure(LilaInvalid(s"Found an empty PGN at index $index"))
               else Success((acc :+ game, index + 1))
             }
           case (acc, _) => acc

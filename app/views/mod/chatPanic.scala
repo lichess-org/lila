@@ -33,7 +33,7 @@ object chatPanic:
             } getOrElse badTag(cls := "text", dataIcon := licon.X)(strong("DISABLED"))
           ),
           div(cls := "forms")(
-            if (state.isDefined)
+            if state.isDefined then
               frag(
                 postForm(action := s"${routes.Mod.chatPanicPost}?v=0")(
                   submitButton(cls := "button button-fat button-red text", dataIcon := licon.X)("Disable")

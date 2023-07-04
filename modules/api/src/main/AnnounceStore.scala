@@ -11,7 +11,7 @@ object AnnounceStore:
 
   def get: Option[Announce] =
     current foreach { c =>
-      if (c.date.isBeforeNow) current = none
+      if c.date.isBeforeNow then current = none
     }
     current
 
@@ -22,7 +22,7 @@ object AnnounceStore:
   // 5 minutes Lichess will restart
   // 20 seconds Cthulhu will awake
   def set(str: String): Option[Announce] =
-    set(str.split(" ").toList match {
+    set(str.split(" ").toList match
       case length :: unit :: rest =>
         Try {
           val msg     = rest mkString " "
@@ -32,7 +32,7 @@ object AnnounceStore:
           Announce(msg, date, json)
         }.toOption
       case _ => none
-    })
+    )
     get
 
   def cancel = Announce("", nowInstant, Json.obj())

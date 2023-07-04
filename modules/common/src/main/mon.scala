@@ -43,7 +43,7 @@ object mon:
     gauge("caffeine.request").withTags(tags("name" -> name, "hit" -> true)).update(stats.hitCount.toDouble)
     gauge("caffeine.request").withTags(tags("name" -> name, "hit" -> false)).update(stats.missCount.toDouble)
     histogram("caffeine.hit.rate").withTag("name", name).record((stats.hitRate * 100000).toLong)
-    if (stats.totalLoadTime > 0)
+    if stats.totalLoadTime > 0 then
       gauge("caffeine.load.count")
         .withTags(tags("name" -> name, "success" -> "success"))
         .update(stats.loadSuccessCount.toDouble)
@@ -68,7 +68,7 @@ object mon:
   object evalCache:
     private val r = counter("evalCache.request")
     def request(ply: Int, isHit: Boolean) =
-      r.withTags(tags("ply" -> (if (ply < 15) ply.toString else "15+"), "hit" -> isHit))
+      r.withTags(tags("ply" -> (if ply < 15 then ply.toString else "15+"), "hit" -> isHit))
     object upgrade:
       val count     = counter("evalCache.upgrade.count").withoutTags()
       val members   = gauge("evalCache.upgrade.members").withoutTags()
@@ -242,7 +242,7 @@ object mon:
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
     def zoneSegment(name: String) = future("mod.zone.segment", name)
   object relay:
-    private def by(official: Boolean) = if (official) "official" else "user"
+    private def by(official: Boolean) = if official then "official" else "user"
     private def relay(official: Boolean, slug: String) =
       tags("by" -> by(official), "slug" -> slug)
     def ongoing(official: Boolean)                 = gauge("relay.ongoing").withTag("by", by(official))
@@ -255,10 +255,9 @@ object mon:
     def chats(username: String)   = counter("bot.chats").withTag("name", username)
     def gameStream(event: String) = counter("bot.gameStream").withTag("event", event)
   object cheat:
-    def selfReport(wildName: String, auth: Boolean) = {
+    def selfReport(wildName: String, auth: Boolean) =
       val name = if wildName startsWith "soc: " then "soc" else wildName.takeWhile(' ' !=)
       counter("cheat.selfReport").withTags(tags("name" -> name, "auth" -> auth))
-    }
     val holdAlert                    = counter("cheat.holdAlert").withoutTags()
     def autoAnalysis(reason: String) = counter("cheat.autoAnalysis").withTag("reason", reason)
     val autoMark                     = counter("cheat.autoMark.count").withoutTags()
@@ -476,7 +475,7 @@ object mon:
       def score(auth: Boolean) = histogram("storm.run.score").withTag("auth", auth)
       def sign(cause: String)  = counter("storm.run.sign").withTag("cause", cause)
   object racer:
-    private def tpe(lobby: Boolean) = if (lobby) "lobby" else "friend"
+    private def tpe(lobby: Boolean) = if lobby then "lobby" else "friend"
     def race(lobby: Boolean)        = counter("racer.lobby.race").withTag("tpe", tpe(lobby))
     def players(lobby: Boolean) =
       histogram("racer.lobby.players").withTag("tpe", tpe(lobby))
@@ -663,8 +662,8 @@ object mon:
       timer(name).withTags:
         tags("success" -> successTag(success), "segment" -> segment)
 
-  private def successTag(success: Boolean) = if (success) "success" else "failure"
-  private def hitTag(hit: Boolean)         = if (hit) "hit" else "miss"
+  private def successTag(success: Boolean) = if success then "success" else "failure"
+  private def hitTag(hit: Boolean)         = if hit then "hit" else "miss"
 
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 

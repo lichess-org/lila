@@ -48,7 +48,7 @@ object index:
           p(
             areYouCoach(a(href := "https://lichess.org/help/master")(nmOrFideTitle())),
             br,
-            if (!ctx.me.exists(_.hasTitle)) a(href := routes.Main.verifyTitle)(confirmTitle())
+            if !ctx.me.exists(_.hasTitle) then a(href := routes.Main.verifyTitle)(confirmTitle())
             else sendApplication(a(href := s"mailto:$contactEmailInClear")(contactEmailInClear))
           )
         ),

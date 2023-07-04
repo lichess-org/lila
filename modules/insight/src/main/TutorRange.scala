@@ -53,7 +53,7 @@ object MaterialRange:
   def reversedButEqualAndLast = values.diff(List(Equal, Up4)).reverse
   val byId                    = values.mapBy(_.id)
   def toRange(mr: MaterialRange): (Int, Int) =
-    if (mr.id == Equal.id) (0, 0)
+    if mr.id == Equal.id then (0, 0)
     else
       (
         byId.get(mr.id - 1).fold(Int.MinValue)(_.imbalance),
@@ -72,7 +72,7 @@ object TimeVariance:
   def apply(v: Float) = values.find(_.id >= v) | VeryVariable
   val intFactor: Int  = 100_000 // multiply variance by that to get an Int for storage
   def toRange(tv: TimeVariance): (Int, Int) =
-    if (tv == VeryVariable) (QuiteVariable.intFactored, Int.MaxValue)
+    if tv == VeryVariable then (QuiteVariable.intFactored, Int.MaxValue)
     else
       (
         values.indexOption(tv).map(_ - 1).flatMap(values.lift).fold(0)(_.intFactored),
@@ -83,7 +83,7 @@ final class CplRange(val name: String, val cpl: Int)
 object CplRange:
   val all = List(0, 10, 25, 50, 100, 200, 500, 99999).map { cpl =>
     CplRange(
-      name = if (cpl == 0) "Perfect" else if (cpl == 99999) "> 500 CPL" else s"≤ $cpl CPL",
+      name = if cpl == 0 then "Perfect" else if cpl == 99999 then "> 500 CPL" else s"≤ $cpl CPL",
       cpl = cpl
     )
   }

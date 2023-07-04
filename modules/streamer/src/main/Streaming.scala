@@ -21,7 +21,7 @@ final private class Streaming(
   def getLiveStreams: LiveStreams = liveStreams
 
   LilaScheduler("Streaming", _.Every(15 seconds), _.AtMost(10 seconds), _.Delay(20 seconds)) {
-    for {
+    for
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
         liveStreams.has(id) || isOnline(id.userId)
@@ -44,18 +44,18 @@ final private class Streaming(
         }
       }
       _ <- api.setLangLiveNow(streams.streams)
-    } yield publishStreams(streamers, streams)
+    yield publishStreams(streamers, streams)
   }
 
   private val streamStartOnceEvery = lila.memo.OnceEvery[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
-    if (newStreams != liveStreams)
+    if newStreams != liveStreams then
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
       } foreach { s =>
         import s.streamer.userId
-        if (streamStartOnceEvery(userId))
+        if streamStartOnceEvery(userId) then
           Bus.publish(
             lila.hub.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
             "streamStart"
@@ -64,11 +64,11 @@ final private class Streaming(
     liveStreams = newStreams
     streamers foreach { streamer =>
       streamer.twitch.foreach { t =>
-        if (liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer)))
+        if liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.userId}@twitch").increment()
       }
       streamer.youTube.foreach { t =>
-        if (liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer)))
+        if liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
       }
     }

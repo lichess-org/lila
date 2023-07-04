@@ -44,7 +44,7 @@ final private class FishnetOpeningBook(
           case res =>
             for
               data <- res.body[JsValue].validate[Response].asOpt
-              _ = if (data.moves.isEmpty) outOfBook.put(game.id)
+              _ = if data.moves.isEmpty then outOfBook.put(game.id)
               move <- data randomPonderedMove (game.turnColor, level)
             yield move.uci
         }

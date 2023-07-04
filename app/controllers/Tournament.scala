@@ -25,10 +25,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
     _.refreshAfterWrite(3.seconds)
       .buildAsyncFuture { _ =>
-        for {
+        for
           visible   <- api.fetchVisibleTournaments
           scheduled <- repo.allScheduledDedup
-        } yield (visible, scheduled)
+        yield (visible, scheduled)
       }
   }
 

@@ -24,7 +24,7 @@ final class TournamentLilaHttp(
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
   def handledIds                = isOnLilaHttp.keys
   def hit(tour: Tournament) =
-    if (tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
+    if tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id) then isOnLilaHttp.put(tour.id)
 
   private val isOnLilaHttp = ExpireSetMemo[TourId](3 hours)
   private val hitCounter   = FrequencyThreshold[TourId](10, 20 seconds)
@@ -37,7 +37,7 @@ final class TournamentLilaHttp(
       .idsCursor(handledIds)
       .documentSource()
       .mapAsyncUnordered(4) { tour =>
-        if (tour.finishedSinceSeconds.exists(_ > 20)) isOnLilaHttp.remove(tour.id)
+        if tour.finishedSinceSeconds.exists(_ > 20) then isOnLilaHttp.remove(tour.id)
         arenaFullJson(tour)
       }
       .map { json =>
@@ -52,7 +52,7 @@ final class TournamentLilaHttp(
       .void
   }
 
-  private def arenaFullJson(tour: Tournament): Fu[JsObject] = for {
+  private def arenaFullJson(tour: Tournament): Fu[JsObject] = for
     data  <- jsonView.cachableData get tour.id
     stats <- statsApi(tour)
     teamStanding <- tour.isTeamBattle so jsonView
@@ -63,20 +63,19 @@ final class TournamentLilaHttp(
       .documentSource()
       .zipWithIndex
       .mapAsync(16) { case (player, index) =>
-        for {
+        for
           sheet <- cached.sheet(tour, player.userId)
           json <- playerJson(
             tour,
             sheet,
             RankedPlayer(Rank(index.toInt + 1), player)
           )
-        } yield json
+        yield json
       }
       .toMat(Sink.seq)(Keep.right)
       .run()
       .map(JsArray(_))
-
-  } yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
+  yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
     .obj(
       "id" -> tour.id,
       "ongoingUserGames" -> {

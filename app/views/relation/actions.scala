@@ -31,7 +31,7 @@ object actions:
             cls      := "btn-rack__btn",
             dataIcon := licon.BubbleSpeech
           ),
-          relation match {
+          relation match
             case None =>
               frag(
                 followable && !blocked option a(
@@ -63,7 +63,6 @@ object actions:
                 titleOrText(trans.blocked.txt()),
                 dataHoverText := trans.unblock.txt()
               )
-          }
         )
       } getOrElse {
         signup option frag(

@@ -51,7 +51,7 @@ object homeInner:
           },
           tr(cls := "create")(
             td(colspan := "4")(
-              if (ctx.isAuth)
+              if ctx.isAuth then
                 a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
               else
                 a(href := routes.Auth.signup, cls := "action button text")("Sign up to host or join a simul")

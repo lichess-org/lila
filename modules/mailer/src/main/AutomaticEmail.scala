@@ -160,7 +160,7 @@ To make a new donation, head to $baseUrl/patron"""
     userRepo.pair(from, to) map {
       _.foreach: (from, to) =>
         val wings =
-          if (lifetime) "lifetime Patron wings"
+          if lifetime then "lifetime Patron wings"
           else "Patron wings for one month"
         alsoSendAsPrivateMessage(from): _ =>
           s"""You gift @${to.username} the $wings. Thank you so much!"""

@@ -83,7 +83,7 @@ final class AppealApi(
       ) { framework =>
         import framework.*
         Match(selector) -> List(
-          Sort((if (ascending) Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
+          Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
           Limit(nb),
           PipelineOperator(
             $lookup.simple(
@@ -97,11 +97,11 @@ final class AppealApi(
         )
       }
       .map { docs =>
-        for {
+        for
           doc    <- docs
           appeal <- doc.asOpt[Appeal]
           user   <- doc.getAsOpt[User]("user")
-        } yield Appeal.WithUser(appeal, user)
+        yield Appeal.WithUser(appeal, user)
       }
 
   def setRead(appeal: Appeal) =

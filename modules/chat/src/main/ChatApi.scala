@@ -135,7 +135,7 @@ final class ChatApi(
       publish(chatId, ChatLine(chatId, line), busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
-      (if (isVolatile) volatile else system) (chatId, text, busChan).unit
+      (if isVolatile then volatile else system) (chatId, text, busChan).unit
 
     def timeout(
         chatId: ChatId,
@@ -161,12 +161,11 @@ final class ChatApi(
           reason = reason,
           scope = ChatTimeout.Scope.Global,
           text = data.text,
-          busChan = data.chan match {
+          busChan = data.chan match
             case "tournament" => _.Tournament
             case "swiss"      => _.Swiss
             case "team"       => _.Team
             case _            => _.Study
-          }
         )
       }
 
@@ -204,7 +203,7 @@ final class ChatApi(
           line foreach { l =>
             publish(chat.id, ChatLine(chat.id, l), busChan)
           }
-          if (isMod(mod) || isRelayMod(mod))
+          if isMod(mod) || isRelayMod(mod) then
             lila.common.Bus.publish(
               lila.hub.actorApi.mod.ChatTimeout(
                 mod = mod.userId,
@@ -214,7 +213,7 @@ final class ChatApi(
               ),
               "chatTimeout"
             )
-            if (isNew)
+            if isNew then
               lila.common.Bus
                 .publish(lila.hub.actorApi.security.DeletePublicChats(user.id), "deletePublicChats")
           else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
@@ -266,7 +265,7 @@ final class ChatApi(
       findOption(chatId) dmap (_ | Chat.makeMixed(chatId))
 
     def findIf(chatId: ChatId, cond: Boolean): Fu[MixedChat] =
-      if (cond) find(chatId)
+      if cond then find(chatId)
       else fuccess(Chat.makeMixed(chatId))
 
     def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
@@ -324,7 +323,7 @@ final class ChatApi(
       out2.take(Line.textMaxSize).some.filter(_.nonEmpty)
 
     private def removeSelfMention(in: String, username: UserName) =
-      if (in.contains('@'))
+      if in.contains('@') then
         ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username.value)
       else in
 

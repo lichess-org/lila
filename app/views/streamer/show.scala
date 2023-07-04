@@ -34,7 +34,7 @@ object show:
       main(cls := "page-menu streamer-show")(
         st.aside(cls := "page-menu__menu")(
           s.streamer.approval.chatEnabled option div(cls := "streamer-chat")(
-            s.stream match {
+            s.stream match
               case Some(YouTube.Stream(_, _, videoId, _, _)) =>
                 iframe(
                   frame.credentialless,
@@ -51,12 +51,11 @@ object show:
                     src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.pref.currentBg != "light") so "darkpopout&"}parent=${netConfig.domain}"
                   )
                 }
-            }
           ),
           bits.menu("show", s.some)
         ),
         div(cls := "page-menu__content")(
-          s.stream match {
+          s.stream match
             case Some(YouTube.Stream(_, _, videoId, _, _)) =>
               div(cls := "box embed youTube")(
                 iframe(
@@ -76,7 +75,7 @@ object show:
                   )
                 )
               } getOrElse div(cls := "box embed")(div(cls := "nostream")(offline()))
-          },
+          ,
           div(cls := "box streamer")(
             views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),

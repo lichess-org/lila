@@ -138,7 +138,7 @@ final class SimulApi(
     }
 
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit =
-    if (user.exists(simul.isHost) && simul.isRunning)
+    if user.exists(simul.isHost) && simul.isRunning then
       repo.setHostGameId(simul, game.id)
       socket.hostIsOn(simul.id, game.id)
 
@@ -165,7 +165,7 @@ final class SimulApi(
             _.finish(game.status, game.winnerUserId)
           )
           update(simul2) >>- {
-            if (simul2.isFinished) onComplete(simul2)
+            if simul2.isFinished then onComplete(simul2)
           }
         }
       }
@@ -236,7 +236,7 @@ final class SimulApi(
       pairing: SimulPairing,
       number: Int
   ): Fu[(Game, chess.Color)] =
-    for {
+    for
       user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
       hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
       whiteUser = hostColor.fold(host, user)
@@ -248,7 +248,7 @@ final class SimulApi(
         chess = chess
           .Game(
             variantOption = Some {
-              if (simul.position.isEmpty) pairing.player.variant
+              if simul.position.isEmpty then pairing.player.variant
               else chess.variant.FromPosition
             },
             fen = simul.position
@@ -269,7 +269,7 @@ final class SimulApi(
         (gameRepo insertDenormalized game2) >>-
           onGameStart(game2.id) >>-
           socket.startGame(simul, game2)
-    } yield game2 -> hostColor
+    yield game2 -> hostColor
 
   private def update(simul: Simul): Funit =
     repo.update(simul) >>- socket.reload(simul.id) >>- publish()

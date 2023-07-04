@@ -216,7 +216,7 @@ final class Api(
       val result =
         if csv then csvDownload(lila.tournament.TournamentCsv(source))
         else jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
-      result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if (csv) "csv" else "ndjson")))
+      result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if csv then "csv" else "ndjson")))
     }
 
   def tournamentTeams(id: TourId) = Anon:
@@ -307,7 +307,7 @@ final class Api(
       transform: String => Option[Id]
   )(f: Set[Id] => Result): Result =
     val ids = req.body.split(',').view.filter(_.nonEmpty).flatMap(s => transform(s.trim)).toSet
-    if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
+    if ids.size > max then JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
 
   val cloudEval =

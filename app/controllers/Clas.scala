@@ -10,7 +10,7 @@ import views.*
 import lila.app.{ given, * }
 
 import lila.clas.ClasInvite
-import lila.clas.Clas.{ Id => ClasId }
+import lila.clas.Clas.{ Id as ClasId }
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -106,7 +106,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       else
         Found(env.clas.api.clas.byId(id)): clas =>
           env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-            if (students.exists(_.student is me)) forStudent(clas, students)
+            if students.exists(_.student is me) then forStudent(clas, students)
             else orDefault(ctx)
           }
     }
@@ -172,7 +172,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             env.clas.api.student.activeWithUsers(clas) flatMap { students =>
               Reasonable(clas, students, "notify"):
                 val url  = routes.Clas.show(clas.id.value).url
-                val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
+                val full = if text contains url then text else s"$text\n\n${env.net.baseUrl}$url"
                 env.msg.api
                   .multiPost(Source(students.map(_.user.id)), full)
                   .addEffect: nb =>

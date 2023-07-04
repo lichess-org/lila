@@ -7,7 +7,7 @@ import lila.user.Me
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import alleycats.Zero
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{ I18nKeys as trans }
 
 object SwissCondition:
 

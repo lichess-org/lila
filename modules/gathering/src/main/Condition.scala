@@ -54,12 +54,14 @@ object Condition:
   case class MaxRating(rating: IntRating) extends Condition with RatingCondition:
 
     def apply(getMaxRating: GetMaxRating)(pt: PerfType)(using Executor)(using me: Me): Fu[Verdict] =
-      if (me.perfs(pt).provisional.yes) fuccess(Refused { lang =>
-        trans.yourPerfRatingIsProvisional.txt(pt.trans(using lang))(using lang)
-      })
-      else if (me.perfs(pt).intRating > rating) fuccess(Refused { lang =>
-        trans.yourPerfRatingIsTooHigh.txt(pt.trans(using lang), me.perfs(pt).intRating)(using lang)
-      })
+      if me.perfs(pt).provisional.yes then
+        fuccess(Refused { lang =>
+          trans.yourPerfRatingIsProvisional.txt(pt.trans(using lang))(using lang)
+        })
+      else if me.perfs(pt).intRating > rating then
+        fuccess(Refused { lang =>
+          trans.yourPerfRatingIsTooHigh.txt(pt.trans(using lang), me.perfs(pt).intRating)(using lang)
+        })
       else
         getMaxRating(pt).map:
           case r if r <= rating => Accepted

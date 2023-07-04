@@ -21,14 +21,14 @@ case class PerfStat(
   inline def id = _id
 
   def agg(pov: Pov) =
-    if (!pov.game.finished) this
+    if !pov.game.finished then this
     else
       val thisYear = pov.game.createdAt isAfter nowInstant.minusYears(1)
       copy(
         highest = RatingAt.agg(highest, pov, 1),
-        lowest = if (thisYear) RatingAt.agg(lowest, pov, -1) else lowest,
-        bestWins = if (~pov.win) bestWins.agg(pov, 1) else bestWins,
-        worstLosses = if (thisYear && ~pov.loss) worstLosses.agg(pov, -1) else worstLosses,
+        lowest = if thisYear then RatingAt.agg(lowest, pov, -1) else lowest,
+        bestWins = if ~pov.win then bestWins.agg(pov, 1) else bestWins,
+        worstLosses = if thisYear && ~pov.loss then worstLosses.agg(pov, -1) else worstLosses,
         count = count(pov),
         resultStreak = resultStreak agg pov,
         playStreak = playStreak agg pov
@@ -74,7 +74,7 @@ case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[Instant]):
       )
     }
   def checkCurrent =
-    if (isContinued(nowInstant)) this
+    if isContinued(nowInstant) then this
     else copy(nb = nb.reset, time = time.reset)
   private def isContinued(at: Instant) =
     lastDate.fold(true) { ld =>
@@ -89,14 +89,14 @@ case class Streaks(cur: Streak, max: Streak):
   def continueOrStart(cont: Boolean, pov: Pov)(v: Int) =
     copy(cur = cur.continueOrStart(cont, pov)(v)).setMax
   def reset          = copy(cur = Streak.init)
-  private def setMax = copy(max = if (cur.v >= max.v) cur else max)
+  private def setMax = copy(max = if cur.v >= max.v then cur else max)
 object Streaks:
   val init = Streaks(Streak.init, Streak.init)
 case class Streak(v: Int, from: Option[GameAt], to: Option[GameAt]):
   def continueOrReset(cont: Boolean, pov: Pov)(v: Int) =
-    if (cont) inc(pov, v) else Streak.init
+    if cont then inc(pov, v) else Streak.init
   def continueOrStart(cont: Boolean, pov: Pov)(v: Int) =
-    if (cont) inc(pov, v)
+    if cont then inc(pov, v)
     else
       val at  = GameAt(pov.game.createdAt, pov.gameId).some
       val end = GameAt(pov.game.movedAt, pov.gameId).some
@@ -124,19 +124,19 @@ case class Count(
   def apply(pov: Pov) =
     copy(
       all = all + 1,
-      rated = rated + (if (pov.game.rated) 1 else 0),
-      win = win + (if (pov.win.contains(true)) 1 else 0),
-      loss = loss + (if (pov.win.contains(false)) 1 else 0),
-      draw = draw + (if (pov.win.isEmpty) 1 else 0),
-      tour = tour + (if (pov.game.isTournament) 1 else 0),
-      berserk = berserk + (if (pov.player.berserk) 1 else 0),
+      rated = rated + (if pov.game.rated then 1 else 0),
+      win = win + (if pov.win.contains(true) then 1 else 0),
+      loss = loss + (if pov.win.contains(false) then 1 else 0),
+      draw = draw + (if pov.win.isEmpty then 1 else 0),
+      tour = tour + (if pov.game.isTournament then 1 else 0),
+      berserk = berserk + (if pov.player.berserk then 1 else 0),
       opAvg = pov.opponent.stableRating.fold(opAvg)(r => opAvg agg r.value),
-      seconds = seconds + (pov.game.durationSeconds match {
+      seconds = seconds + (pov.game.durationSeconds match
         case Some(s) if s <= 3 * 60 * 60 => s
         case _                           => 0
-      }),
+      ),
       disconnects = disconnects + {
-        if (~pov.loss && pov.game.status == chess.Status.Timeout) 1 else 0
+        if ~pov.loss && pov.game.status == chess.Status.Timeout then 1 else 0
       }
     )
   def duration = Duration.ofSeconds(seconds)

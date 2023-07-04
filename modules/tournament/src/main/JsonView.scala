@@ -71,9 +71,8 @@ final class JsonView(
           case (Some(me), None)    => verify(tour.conditions, tour.perfType)(using me) map some
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi currentOwner tour }
-      teamsToJoinWith <- full.so(~(for {
-        u <- me; battle <- tour.teamBattle
-      } yield getMyTeamIds(u) map { teams =>
+      teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
+      yield getMyTeamIds(u) map { teams =>
         battle.teams.intersect(teams.toSet).toList
       }))
       teamStanding <- getTeamStanding(tour)
@@ -129,7 +128,7 @@ final class JsonView(
 
   def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
     js + ("reloadEndpoint" -> JsString({
-      if (useLilaHttp(tour)) reloadEndpointSetting.get() else reloadEndpointSetting.default
+      if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
     }.replace("{id}", tour.id.value)))
 
   def clearCache(tour: Tournament): Unit =
@@ -196,7 +195,7 @@ final class JsonView(
         )
 
   private def fetchCurrentGameId(tour: Tournament, user: User): Fu[Option[GameId]] =
-    if (Uptime.startedSinceSeconds(60)) fuccess(duelStore.find(tour, user))
+    if Uptime.startedSinceSeconds(60) then fuccess(duelStore.find(tour, user))
     else pairingRepo.playingByTourAndUserId(tour.id, user.id)
 
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
@@ -204,11 +203,11 @@ final class JsonView(
       proxyRepo game pairing.gameId flatMapz { game =>
         cached ranking tour flatMap { ranking =>
           playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2) map { pairOption =>
-            for {
+            for
               (p1, p2) <- pairOption
               rp1      <- RankedPlayer(ranking.ranking)(p1)
               rp2      <- RankedPlayer(ranking.ranking)(p2)
-            } yield FeaturedGame(game, rp1, rp2)
+            yield FeaturedGame(game, rp1, rp2)
           }
         }
       }
@@ -231,7 +230,7 @@ final class JsonView(
     cacheApi[TourId, CachableData](64, "tournament.json.cachable") {
       _.expireAfterWrite(1 second)
         .buildAsyncFuture { id =>
-          for {
+          for
             tour               <- cached.tourCache byId id
             (duels, jsonDuels) <- duelsJson(id)
             duelTeams <- tour.exists(_.isTeamBattle) so {
@@ -243,7 +242,7 @@ final class JsonView(
             }
             featured <- tour so fetchFeaturedGame
             podium   <- tour.exists(_.isFinished) so podiumJsonCache.get(id)
-          } yield CachableData(
+          yield CachableData(
             duels = jsonDuels,
             duelTeams = duelTeams,
             featured = featured map featuredJson,
@@ -311,7 +310,7 @@ final class JsonView(
               tournamentRepo.setWinnerId(tour.id, _)
             }
             top3.map { case rp @ RankedPlayer(_, player) =>
-              for {
+              for
                 sheet <- cached.sheet(tour, player.userId)
                 json <- playerJson(
                   lightUserApi,
@@ -320,7 +319,7 @@ final class JsonView(
                   streakable = tour.streakable,
                   withScores = false
                 )
-              } yield json ++ Json
+              yield json ++ Json
                 .obj("nb" -> sheetNbs(sheet))
                 .add("performance" -> player.performanceOption)
             }.parallel: Fu[List[JsObject]]
@@ -343,10 +342,10 @@ final class JsonView(
     }
 
   private def duelJson(d: Duel): Fu[JsObject] =
-    for {
+    for
       u1 <- duelPlayerJson(d.p1)
       u2 <- duelPlayerJson(d.p2)
-    } yield Json.obj(
+    yield Json.obj(
       "id" -> d.gameId,
       "p"  -> Json.arr(u1, u2)
     )
@@ -356,7 +355,7 @@ final class JsonView(
 
   def apiTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
     tour.teamBattle so { battle =>
-      if (battle.hasTooManyTeams) bigTeamStandingJsonCache get tour.id dmap some
+      if battle.hasTooManyTeams then bigTeamStandingJsonCache get tour.id dmap some
       else teamStandingJsonCache get tour.id dmap some
     }
 

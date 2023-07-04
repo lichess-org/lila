@@ -137,14 +137,14 @@ case class Game(
         .map: (first, second) =>
           {
             val d = first - second
-            if (pairs.hasNext || !noLastInc) d + inc else d
+            if pairs.hasNext || !noLastInc then d + inc else d
           }.nonNeg
         .toList
     }
   } orElse binaryMoveTimes.map: binary =>
     // TODO: make movetime.read return List after writes are disabled.
     val base = BinaryFormat.moveTime.read(binary, playedTurns)
-    val mts  = if (color == startColor) base else base.drop(1)
+    val mts  = if color == startColor then base else base.drop(1)
     everyOther(mts.toList)
 
   def moveTimes: Option[Vector[Centis]] = for
@@ -155,7 +155,7 @@ case class Game(
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
   def sansOf(color: Color): Vector[SanStr] =
-    val pivot = if (color == startColor) 0 else 1
+    val pivot = if color == startColor then 0 else 1
     sans.zipWithIndex.collect:
       case (e, i) if (i % 2) == pivot => e
 
@@ -793,8 +793,7 @@ private def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator
   val iterB   = b.iterator
   val builder = Vector.newBuilder[A]
-  while (iterA.hasNext && iterB.hasNext)
-    builder += iterA.next() += iterB.next()
+  while iterA.hasNext && iterB.hasNext do builder += iterA.next() += iterB.next()
   builder ++= iterA ++= iterB
 
   builder.result()

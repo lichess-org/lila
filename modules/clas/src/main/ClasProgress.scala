@@ -35,7 +35,7 @@ case class StudentProgress(
     rating: (IntRating, IntRating)
 ):
   def ratingProgress = (rating._2 - rating._1) into IntRatingDiff
-  def winRate        = if (nb > 0) wins * 100 / nb else 0
+  def winRate        = if nb > 0 then wins * 100 / nb else 0
   def duration       = Duration.ofMillis(millis)
 
 final class ClasProgressApi(
@@ -52,7 +52,7 @@ final class ClasProgressApi(
     val userIds = users.map(_.id)
 
     val playStatsFu =
-      if (perfType == PerfType.Puzzle) getPuzzleStats(userIds, days)
+      if perfType == PerfType.Puzzle then getPuzzleStats(userIds, days)
       else getGameStats(perfType, userIds, days)
 
     val progressesFu = historyApi.progresses(users, perfType, days)
@@ -162,4 +162,4 @@ final class ClasProgressApi(
       }
 
   private[clas] def onFinishGame(game: lila.game.Game): Unit =
-    if (game.userIds.exists(studentCache.isStudent)) gameRepo.denormalizePerfType(game)
+    if game.userIds.exists(studentCache.isStudent) then gameRepo.denormalizePerfType(game)

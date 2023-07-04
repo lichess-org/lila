@@ -161,7 +161,7 @@ final class RelayApi(
   def isOfficial(id: StudyId): Fu[Boolean] =
     roundRepo.coll
       .aggregateOne(): framework =>
-        import framework._
+        import framework.*
         Match($id(id)) -> List(
           PipelineOperator(tourRepo lookup "tourId"),
           UnwindField("tour"),

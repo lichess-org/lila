@@ -32,7 +32,7 @@ trait TournamentHelper extends HasEnv:
   def tournamentLink(tour: Tournament)(using Lang): Frag =
     a(
       dataIcon := licon.Trophy.value,
-      cls      := (if (tour.isScheduled) "text is-gold" else "text"),
+      cls      := (if tour.isScheduled then "text is-gold" else "text"),
       href     := routes.Tournament.show(tour.id.value).url
     )(tour.name())
 

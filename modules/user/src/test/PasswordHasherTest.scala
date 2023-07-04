@@ -1,9 +1,9 @@
 package lila.user
 
 import lila.common.config.Secret
-import User.{ ClearPassword => P }
+import User.{ ClearPassword as P }
 
-class PasswordHasherTest extends munit.FunSuite {
+class PasswordHasherTest extends munit.FunSuite:
 
   test("bad secrets throw exceptions") {
     intercept[IllegalArgumentException] {
@@ -57,4 +57,3 @@ class PasswordHasherTest extends munit.FunSuite {
   test("hasher uniq hash") {
     assertNotEquals(liHash, passHasher.hash(P("abc")))
   }
-}

@@ -22,22 +22,22 @@ final class FishnetRedis(
   private var stopping = false
 
   def request(work: Work.Move): Unit =
-    if (!stopping) connOut.async.publish(chanOut, writeWork(work)).unit
+    if !stopping then connOut.async.publish(chanOut, writeWork(work)).unit
 
   connIn.async.subscribe(chanIn)
 
-  connIn.addListener(new RedisPubSubAdapter[String, String] {
+  connIn.addListener(
+    new RedisPubSubAdapter[String, String]:
 
-    override def message(chan: String, msg: String): Unit =
-      msg split ' ' match {
-        case Array("start") => Bus.publish(TellAll(FishnetStart), "roundSocket")
-        case Array(gameId, sign, uci) =>
-          Uci(uci) foreach { move =>
-            Bus.publish(Tell(gameId, FishnetPlay(move, sign)), "roundSocket")
-          }
-        case _ =>
-      }
-  })
+      override def message(chan: String, msg: String): Unit =
+        msg split ' ' match
+          case Array("start") => Bus.publish(TellAll(FishnetStart), "roundSocket")
+          case Array(gameId, sign, uci) =>
+            Uci(uci) foreach { move =>
+              Bus.publish(Tell(gameId, FishnetPlay(move, sign)), "roundSocket")
+            }
+          case _ =>
+  )
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the fishnet redis pool") { () =>
     Future {

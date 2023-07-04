@@ -25,8 +25,9 @@ final class Env(
 
   lila.common.Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
-      if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
-        white so api.setRating
-        black so api.setRating
-      }.unit
+      if game.perfType.exists(lila.rating.PerfType.standard.contains) then
+        {
+          white so api.setRating
+          black so api.setRating
+        }.unit
   }

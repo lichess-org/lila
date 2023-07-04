@@ -33,7 +33,7 @@ object Query:
   val notFinished: Bdoc = F.status $lte Status.Started.id
 
   def analysed(an: Boolean): Bdoc =
-    if (an) F.analysed $eq true
+    if an then F.analysed $eq true
     else F.analysed $ne true
 
   val frozen: Bdoc = F.status $gte Status.Mate.id
@@ -112,7 +112,7 @@ object Query:
   def checkableOld = F.checkAt $lt nowInstant.minusHours(1)
 
   def variant(v: chess.variant.Variant) =
-    $doc(F.variant -> (if (v.standard) $exists(false) else $int(v.id)))
+    $doc(F.variant -> (if v.standard then $exists(false) else $int(v.id)))
 
   lazy val variantStandard = variant(chess.variant.Standard)
 

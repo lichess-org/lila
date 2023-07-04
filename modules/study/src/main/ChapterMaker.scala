@@ -28,7 +28,7 @@ final private class ChapterMaker(
         }
       case Some(game) => fromGame(study, game, data, order, userId, withRatings)
     } map { (c: Chapter) =>
-      if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
+      if c.name.value.isEmpty then c.copy(name = Chapter defaultName order) else c
     }
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: UserId): Fu[Chapter] =
@@ -37,12 +37,12 @@ final private class ChapterMaker(
       case None      => fuccess(fromFenOrBlank(study, data, order, userId))
 
   private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
-    for {
+    for
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
       parsed <- PgnImport(pgn, contributors.flatten).toFuture recoverWith { case e: Exception =>
         fufail(ValidationException(e.getMessage))
       }
-    } yield Chapter.make(
+    yield Chapter.make(
       studyId = study.id,
       name = getChapterNameFromPgn(data, parsed),
       setup = Chapter.Setup(
@@ -133,10 +133,9 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         !game.synthetic option game.id,
         game.variant,
-        data.orientation match {
+        data.orientation match
           case Orientation.Auto         => Color.white
           case Orientation.Fixed(color) => color
-        }
       ),
       root = root,
       tags = PgnTags(tags),
@@ -148,7 +147,7 @@ final private class ChapterMaker(
     )
 
   def notifyChat(study: Study, game: Game, userId: UserId) =
-    if (study.isPublic)
+    if study.isPublic then
       List(game hasUserId userId option game.id.value, s"${game.id}/w".some).flatten foreach { chatId =>
         chatApi.userChat.write(
           chatId = ChatId(chatId),

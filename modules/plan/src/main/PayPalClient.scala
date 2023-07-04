@@ -134,7 +134,7 @@ final private class PayPalClient(
     )(using (__ \ "plans").read[List[PayPalPlan]])
     current
       .flatMap { (plans: List[PayPalPlan]) =>
-        if (plans.size == plansPerPage) getPlans(page + 1).map(plans ::: _)
+        if plans.size == plansPerPage then getPlans(page + 1).map(plans ::: _)
         else fuccess(plans)
       }
       .map(_.filter(_.active))

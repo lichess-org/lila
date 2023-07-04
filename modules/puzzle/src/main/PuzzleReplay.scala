@@ -38,7 +38,7 @@ final class PuzzleReplayApi(
   ): Fu[Option[(Puzzle, PuzzleReplay)]] =
     maybeDays map { days =>
       replays.getFuture(user.id, _ => createReplayFor(user, days, theme)) flatMap { current =>
-        if (current.days == days && current.theme == theme && current.remaining.nonEmpty) fuccess(current)
+        if current.days == days && current.theme == theme && current.remaining.nonEmpty then fuccess(current)
         else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
       } flatMap { replay =>
         replay.remaining.headOption so { id =>
@@ -51,8 +51,7 @@ final class PuzzleReplayApi(
     angle.asTheme so { theme =>
       replays.getIfPresent(round.userId) so {
         _ map { replay =>
-          if (replay.days == days && replay.theme == theme)
-            replays.put(round.userId, fuccess(replay.step))
+          if replay.days == days && replay.theme == theme then replays.put(round.userId, fuccess(replay.step))
         }
       }
     }
@@ -83,7 +82,7 @@ final class PuzzleReplayApi(
                   $doc(
                     "$match" -> $doc(
                       $expr {
-                        if (theme == PuzzleTheme.mix.key) $doc("$eq" -> $arr("$_id", "$$pid"))
+                        if theme == PuzzleTheme.mix.key then $doc("$eq" -> $arr("$_id", "$$pid"))
                         else
                           $doc(
                             $and(

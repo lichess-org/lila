@@ -131,9 +131,9 @@ final class PerfsUpdater(
         val isStd            = game.ratingVariant.standard
         val isHumanVsMachine = player.noBot && opponent.isBot
         def addRatingIf(cond: Boolean, perf: Perf, rating: glicko2.Rating) =
-          if (cond)
+          if cond then
             val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
-            if (isHumanVsMachine)
+            if isHumanVsMachine then
               p.copy(glicko = p.glicko average perf.glicko) // halve rating diffs for human
             else p
           else perf
@@ -172,4 +172,4 @@ final class PerfsUpdater(
           classical = r(PT.Classical, perfs.classical, perfs1.classical),
           correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
         )
-        if (isStd) perfs2.updateStandard else perfs2
+        if isStd then perfs2.updateStandard else perfs2

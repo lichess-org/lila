@@ -1,14 +1,12 @@
 package lila.tournament
 
-object ColorHistoryTest {
-  def apply(s: String): ColorHistory = {
+object ColorHistoryTest:
+  def apply(s: String): ColorHistory =
     s.foldLeft(ColorHistory(0, 0)) { (acc, c) =>
-      c match {
+      c match
         case 'W' => acc.inc(chess.White)
         case 'B' => acc.inc(chess.Black)
-      }
     }
-  }
   def toTuple2(history: ColorHistory): (Int, Int)                = (history.strike, history.balance)
   def unpack(s: String): (Int, Int)                              = toTuple2(apply(s))
   def couldPlay(s1: String, s2: String, maxStreak: Int): Boolean = apply(s1).couldPlay(apply(s2), maxStreak)
@@ -17,9 +15,8 @@ object ColorHistoryTest {
     apply(s1).firstGetsWhite(apply(s2)) { () =>
       true
     }
-}
 
-class ColorHistoryTest extends munit.FunSuite {
+class ColorHistoryTest extends munit.FunSuite:
   import ColorHistoryTest.{ apply, couldPlay, firstGetsWhite, sameColors, unpack }
   test("hand tests") {
     assertEquals(unpack("WWW"), ((3, 3)))
@@ -49,4 +46,3 @@ class ColorHistoryTest extends munit.FunSuite {
     assertEquals(apply(""), apply(""))
     assertEquals(apply("WBW"), apply("W"))
   }
-}

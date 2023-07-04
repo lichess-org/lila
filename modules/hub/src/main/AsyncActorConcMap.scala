@@ -60,10 +60,9 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
     asyncActors
       .computeIfPresent(
         id,
-        (_, d) => {
+        (_, d) =>
           lastWill(d)
           nullD
-        }
       )
       .unit
 
