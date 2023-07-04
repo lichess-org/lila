@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">بەخشین</string>
+  <string name="donateAsX">بەناوی %s بەخشین بکە</string>
+  <string name="lichessPatron">پشتیوانی Lichess</string>
+  <string name="freeAccount">ئەکاونتی بێ بەرامبەر</string>
+  <string name="becomePatron">ببە بە پشتیوانی Lichess</string>
+  <string name="xBecamePatron">%s ببە بە پشتیوانی Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s پشتیوانێکی Lichess\'ە بۆ %2$s مانگ</item>
+    <item quantity="other">%1$s پشتیوانێکی Lichess\'ە بۆ %2$s مانگان</item>
+  </plurals>
+  <string name="newPatrons">پشتیوانی نوێ</string>
+  <string name="freeChess">شەترەنج بێ بەرامبەر بۆ هەمووان، بۆ هەمیشە!</string>
+  <string name="noAdsNoSubs">بێ ڕیکلام، بێ بەشداریکردن؛ بەڵام پەرۆشی و سەرچاوەی زۆر.</string>
+  <string name="thankYou">سوپاس بۆ بەخشینەکەت!</string>
+  <string name="youHaveLifetime">تۆ هەژماری بەخشینت هەیە. ئەوە زۆر نایاب و سەرنجڕاکێشە!</string>
+</resources>
