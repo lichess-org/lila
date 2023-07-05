@@ -10,11 +10,13 @@ export interface BoardCtrl {
   setIs3d(v: boolean): void;
   readZoom(): number;
   setZoom(v: number): void;
+  setCrosstableLocation(v: string): void;
   close(): void;
 }
 
 export interface BoardData {
   is3d: boolean;
+  crosstableLocation: string;
 }
 
 export type PublishZoom = (v: number) => void;
@@ -49,6 +51,16 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
       window.dispatchEvent(new Event('resize'));
       redraw();
       saveZoom();
+    },
+    setCrosstableLocation(v: string) {
+      data.crosstableLocation = v;
+      xhr
+        .text('/pref/crosstableLocation', {
+          body: xhr.form({ crosstableLocation: v }),
+          method: 'post',
+        })
+        .then(lichess.reload, _ => lichess.announce({ msg: 'Failed to save crosstable location' }));
+      redraw();
     },
     close,
   };
@@ -102,5 +114,26 @@ export function view(ctrl: BoardCtrl): VNode {
             }),
           ]
     ),
+    h('div.selector.large', [
+      h('p.subhead', [ctrl.trans.noarg('crosstableLocation') + ':']),
+      h(
+        'button.text',
+        {
+          class: { active: ctrl.data.crosstableLocation == 'under' },
+          attrs: { 'data-icon': licon.Checkmark, type: 'button' },
+          hook: bind('click', () => ctrl.setCrosstableLocation('under')),
+        },
+        'Under the board'
+      ),
+      h(
+        'button.text',
+        {
+          class: { active: ctrl.data.crosstableLocation == 'side' },
+          attrs: { 'data-icon': licon.Checkmark, type: 'button' },
+          hook: bind('click', () => ctrl.setCrosstableLocation('side')),
+        },
+        'On the sidebar'
+      ),
+    ]),
   ]);
 }

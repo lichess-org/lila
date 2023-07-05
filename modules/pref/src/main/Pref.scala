@@ -7,6 +7,7 @@ case class Pref(
     bg: Int,
     bgImg: Option[String],
     is3d: Boolean,
+    crosstableLocation: String,
     theme: String,
     pieceSet: String,
     theme3d: String,
@@ -85,7 +86,8 @@ case class Pref(
         PieceSet3d.allByName get value map { p =>
           copy(pieceSet3d = p.name)
         }
-      case "is3d" => copy(is3d = value == "true").some
+      case "is3d"               => copy(is3d = value == "true").some
+      case "crosstableLocation" => copy(crosstableLocation = value).some
       case "soundSet" =>
         SoundSet.allByKey get value map { s =>
           copy(soundSet = s.key)
@@ -458,6 +460,7 @@ object Pref:
     bg = Bg.DARK,
     bgImg = none,
     is3d = false,
+    crosstableLocation = "under",
     theme = Theme.default.name,
     pieceSet = PieceSet.default.name,
     theme3d = Theme3d.default.name,

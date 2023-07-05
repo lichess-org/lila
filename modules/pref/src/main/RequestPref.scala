@@ -25,7 +25,8 @@ object RequestPref:
         pieceSet3d = paramOrSession("pieceSet3d") | default.pieceSet3d,
         soundSet = paramOrSession("soundSet") | default.soundSet,
         bgImg = paramOrSession("bgImg"),
-        is3d = paramOrSession("is3d") has "true"
+        is3d = paramOrSession("is3d") has "true",
+        crosstableLocation = paramOrSession("crosstableLocation") | default.crosstableLocation
       )
 
   private def queryParam(queryString: Map[String, Seq[String]], name: String): Option[String] =

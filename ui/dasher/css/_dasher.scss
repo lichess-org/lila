@@ -210,6 +210,12 @@
     width: 100%;
   }
 
+  .subhead {
+    border-top: $border;
+    padding: 1.5rem;
+    padding-bottom: 0;
+  }
+
   .background #gallery {
     $thumb-w: 160px; // see bin/make-gallery
     $thumb-h: 90px;

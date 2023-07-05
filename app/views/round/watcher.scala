@@ -52,10 +52,15 @@ object watcher:
       main(cls := "round")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour, simul, userTv, bookmarked),
+          (ctx.pref.crosstableLocation == "side") option
+            bits.crosstable(cross, pov.game),
           chatOption.map(_ => chat.frag)
         ),
         bits.roundAppPreload(pov),
-        div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
+        div(cls := "round__underboard")(
+          (ctx.pref.crosstableLocation == "under") option
+            bits.crosstable(cross, pov.game)
+        ),
         div(cls := "round__underchat")(bits underchat pov.game)
       )
 

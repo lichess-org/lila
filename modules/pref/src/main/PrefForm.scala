@@ -243,6 +243,12 @@ object PrefForm:
     )
   )
 
+  val crosstableLocation = Form(
+    single(
+      "crosstableLocation" -> text.verifying(List("under", "side") contains _)
+    )
+  )
+
   val zen = Form(
     single(
       "zen" -> text.verifying(Set("0", "1") contains _)

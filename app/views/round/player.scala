@@ -67,11 +67,14 @@ object player:
       main(cls := "round")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
+          (ctx.pref.crosstableLocation == "side") option
+            bits.crosstable(cross, pov.game),
           chatOption.map(_ => chat.frag)
         ),
         bits.roundAppPreload(pov),
         div(cls := "round__underboard")(
-          bits.crosstable(cross, pov.game),
+          (ctx.pref.crosstableLocation == "under") option
+            bits.crosstable(cross, pov.game),
           (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
             div(
               cls := List(

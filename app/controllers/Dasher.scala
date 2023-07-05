@@ -21,6 +21,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
     trans.deviceTheme,
     trans.backgroundImageUrl,
     trans.boardGeometry,
+    trans.crosstableLocation,
     trans.boardTheme,
     trans.boardSize,
     trans.pieceSet,
@@ -88,7 +89,8 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
                 )
                 .add("gallery", gallery),
               "board" -> Json.obj(
-                "is3d" -> ctx.pref.is3d
+                "is3d"               -> ctx.pref.is3d,
+                "crosstableLocation" -> ctx.pref.crosstableLocation
               ),
               "theme" -> Json.obj(
                 "d2" -> Json.obj(

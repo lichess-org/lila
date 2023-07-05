@@ -619,6 +619,7 @@ object I18nKeys:
   val `deviceTheme` = I18nKey("deviceTheme")
   val `backgroundImageUrl` = I18nKey("backgroundImageUrl")
   val `boardGeometry` = I18nKey("boardGeometry")
+  val `crosstableLocation` = I18nKey("crosstableLocation")
   val `boardTheme` = I18nKey("boardTheme")
   val `boardSize` = I18nKey("boardSize")
   val `pieceSet` = I18nKey("pieceSet")

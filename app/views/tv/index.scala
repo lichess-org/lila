@@ -18,7 +18,7 @@ object index:
       data: play.api.libs.json.JsObject,
       cross: Option[lila.game.Crosstable.WithMatchup],
       history: List[lila.game.Pov]
-  )(using PageContext) =
+  )(using ctx: PageContext) =
     views.html.round.bits.layout(
       variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
@@ -40,11 +40,14 @@ object index:
       main(cls := "round tv-single")(
         st.aside(cls := "round__side")(
           side.meta(pov),
+          (ctx.pref.crosstableLocation == "side") option
+            views.html.round.bits.crosstable(cross, pov.game),
           side.channels(channel, champions, "/tv")
         ),
         views.html.round.bits.roundAppPreload(pov),
         div(cls := "round__underboard")(
-          views.html.round.bits.crosstable(cross, pov.game),
+          (ctx.pref.crosstableLocation == "under") option
+            views.html.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(
             h2(trans.previouslyOnLichessTV()),
             div(cls := "now-playing")(
