@@ -18,11 +18,11 @@ import play.api.libs.json.Json
 object page:
 
   def activity(
-      u: User,
       activities: Vector[lila.activity.ActivityView],
       info: UserInfo,
       social: UserInfo.Social
   )(using PageContext) =
+    val u = info.user
     views.html.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
       openGraph = lila.app.ui
@@ -40,7 +40,7 @@ object page:
         isGranted(_.UserModView) option cssTag("mod.user")
       ),
       robots = u.count.game >= 10
-    ) {
+    ):
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
@@ -48,10 +48,8 @@ object page:
           div(cls := "angle-content")(views.html.activity(u, activities))
         )
       )
-    }
 
   def games(
-      u: User,
       info: UserInfo,
       games: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
@@ -59,6 +57,7 @@ object page:
       social: UserInfo.Social,
       notes: Map[GameId, String]
   )(using PageContext) =
+    val u          = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
     val pageName   = (games.currentPage > 1) so s" - page ${games.currentPage}"
     views.html.base.layout(

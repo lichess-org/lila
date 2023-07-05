@@ -80,9 +80,11 @@ final class Tutor(env: Env) extends LilaController(env):
         case TutorFullReport.InsufficientGames =>
           BadRequest.page(views.html.tutor.empty.insufficientGames(user))
         case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
-          env.tutor.queue.waitingGames(user) flatMap { waitGames =>
-            Accepted.page(views.html.tutor.empty.queued(in, user, waitGames))
-          }
+          for
+            waitGames <- env.tutor.queue.waitingGames(user)
+            user      <- env.user.api.withPerfs(user)
+            page      <- renderPage(views.html.tutor.empty.queued(in, user, waitGames))
+          yield Accepted(page)
         case TutorFullReport.Empty(_)             => Accepted.page(views.html.tutor.empty.start(user))
         case available: TutorFullReport.Available => f(user)(available)
     }

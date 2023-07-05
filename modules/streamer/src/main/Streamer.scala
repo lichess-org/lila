@@ -113,22 +113,22 @@ object Streamer:
 
   trait WithContext:
     def streamer: Streamer
-    def user: User
+    def user: User.WithPerfs
     def subscribed: Boolean
     def titleName = s"${user.title.fold("")(t => s"$t ")}${streamer.name}"
 
-  case class WithUser(streamer: Streamer, user: User, subscribed: Boolean = false) extends WithContext
+  case class WithUser(streamer: Streamer, user: User.WithPerfs, subscribed: Boolean = false)
+      extends WithContext
   case class WithUserAndStream(
       streamer: Streamer,
-      user: User,
+      user: User.WithPerfs,
       stream: Option[Stream],
       subscribed: Boolean = false
   ) extends WithContext:
     def redirectToLiveUrl: Option[String] =
-      stream so { s =>
+      stream.so: s =>
         streamer.twitch.ifTrue(s.twitch).map(_.fullUrl) orElse
           streamer.youTube.ifTrue(s.youTube).map(_.fullUrl)
-      }
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean)
 

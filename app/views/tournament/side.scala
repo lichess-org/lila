@@ -28,7 +28,7 @@ object side:
               separator,
               views.html.game.bits.variantLink(
                 tour.variant,
-                tour.perfType.some,
+                tour.perfType,
                 shortName = true
               ),
               tour.position.isDefined so s"$separator${trans.thematic.txt()}",

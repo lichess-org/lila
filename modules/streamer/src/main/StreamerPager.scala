@@ -4,11 +4,12 @@ import reactivemongo.api.*
 
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ Me, User, UserRepo, UserPerfsRepo }
 
 final class StreamerPager(
     coll: Coll,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     maxPerPage: lila.common.config.MaxPerPage,
     subsRepo: lila.relation.SubscriptionRepo
 )(using Executor):
@@ -50,14 +51,16 @@ final class StreamerPager(
             Skip(offset),
             Limit(3),
             PipelineOperator(userLookup),
-            UnwindField("user")
+            UnwindField("user"),
+            PipelineOperator(perfsRepo.aggregate.lookup)
           )
         .map: docs =>
           for
             doc      <- docs
             streamer <- doc.asOpt[Streamer]
             user     <- doc.getAsOpt[User]("user")
-          yield Streamer.WithUser(streamer, user, false)
+            perfs = perfsRepo.aggregate.read(doc, user)
+          yield Streamer.WithUser(streamer, User.WithPerfs(user, perfs), false)
         .flatMap: streamers =>
           me.fold(fuccess(streamers)): me =>
             subsRepo.filterSubscribed(me, streamers.map(_.user.id)) map { subs =>
@@ -79,14 +82,16 @@ final class StreamerPager(
             Skip(offset),
             Limit(length),
             PipelineOperator(userLookup),
-            UnwindField("user")
+            UnwindField("user"),
+            PipelineOperator(perfsRepo.aggregate.lookup)
           )
         .map: docs =>
           for
             doc      <- docs
             streamer <- doc.asOpt[Streamer]
             user     <- doc.getAsOpt[User]("user")
-          yield Streamer.WithUser(streamer, user)
+            perfs = perfsRepo.aggregate.read(doc, user)
+          yield Streamer.WithUser(streamer, User.WithPerfs(user, perfs))
 
   private val userLookup = $lookup.simple(
     from = userRepo.coll,

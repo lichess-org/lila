@@ -519,9 +519,7 @@ object mod:
                   pag.pov(result).map { p =>
                     a(href := routes.Round.watcher(p.gameId, p.color.name))(
                       p.game.isTournament option iconTag(licon.Trophy),
-                      p.game.perfType.map { pt =>
-                        iconTag(pt.icon)(cls := "text")
-                      },
+                      iconTag(p.game.perfType.icon)(cls := "text"),
                       shortClockName(p.game.clock.map(_.config))
                     )
                   }
@@ -631,7 +629,7 @@ object mod:
               cls      := (o == u) option "same"
             )(
               if (o.is(u) || Granter.canViewAltUsername(o))
-                td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
+                td(dataSort := o.id)(userLink(o, o.perfs.some, params = "?mod"))
               else td,
               isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
               td(

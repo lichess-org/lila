@@ -39,7 +39,7 @@ object mini:
         then div(cls := "upt__info__warning")(trans.thisAccountViolatedTos())
         else
           ctx.pref.showRatings option div(cls := "upt__info__ratings"):
-            u.perfs.best8Perfs.map(showPerfRating(u, _))
+            u.perfs.best8Perfs.map(showPerfRating(u.perfs, _))
       ),
       ctx.userId.map: myId =>
         frag(

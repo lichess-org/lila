@@ -80,9 +80,9 @@ object show:
           div(cls := "box streamer")(
             views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
-            ctx.pref.showRatings option a(cls := "ratings", href := routes.User.show(s.user.username))(
-              s.user.best6Perfs.map { showPerfRating(s.user, _) }
-            ),
+            ctx.pref.showRatings option a(cls := "ratings", href := routes.User.show(s.user.username)):
+              s.user.perfs.best6Perfs.map { showPerfRating(s.user.perfs, _) }
+            ,
             views.html.activity(s.user, activities)
           )
         )

@@ -36,7 +36,7 @@ object list:
                   br,
                   userLink(sus.user, params = "?mod"),
                   br,
-                  p(cls := "perfs")(showBestPerfs(sus.user, 2)),
+                  p(cls := "perfs")(showBestPerfs(sus.perfs, 2)),
                   views.html.user.mod.userMarks(sus.user, none)
                 ),
                 td(cls := "atoms")(

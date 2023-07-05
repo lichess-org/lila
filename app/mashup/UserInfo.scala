@@ -12,7 +12,7 @@ import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Me, User }
 
 case class UserInfo(
-    user: User,
+    user: User.WithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
     ratingChart: Option[String],
@@ -104,6 +104,7 @@ object UserInfo:
       relationApi: RelationApi,
       postApi: ForumPostApi,
       ublogApi: UblogApi,
+      perfsRepo: lila.user.UserPerfsRepo,
       studyRepo: lila.study.StudyRepo,
       simulApi: lila.simul.SimulApi,
       relayApi: lila.relay.RelayApi,
@@ -118,6 +119,7 @@ object UserInfo:
   )(using Executor):
     def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart") zip
+        perfsRepo.withPerfs(user) zip
         (!user.is(User.lichessId) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts")
         } zip
@@ -132,9 +134,9 @@ object UserInfo:
         (user.count.rated >= 10).so(insightShare.grant(user)) zip
         (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")) map {
           // format: off
-          case (((((((((((ratingChart, nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
+          case ((((((((((((ratingChart, user), nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
           // format: on
-            new UserInfo(
+            UserInfo(
               user = user,
               nbs = nbs,
               hasSimul = hasSimul,

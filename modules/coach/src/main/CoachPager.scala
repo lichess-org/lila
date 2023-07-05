@@ -70,16 +70,7 @@ final class CoachPager(
               ),
               Skip(offset),
               Limit(length),
-              PipelineOperator:
-                $doc:
-                  "$lookup" -> $doc(
-                    "from"         -> perfsRepo.collName,
-                    "localField"   -> "_id",
-                    "foreignField" -> "_id",
-                    "as"           -> "_perfs"
-                  )
-              ,
-              UnwindField("_perfs")
+              PipelineOperator(perfsRepo.aggregate.lookup)
             )
           }
           .map: docs =>
@@ -87,7 +78,7 @@ final class CoachPager(
               doc   <- docs
               coach <- doc.asOpt[Coach]
               user  <- doc.getAsOpt[User]("_user")
-              perfs = doc.getAsOpt[UserPerfs]("_perfs")
+              perfs = perfsRepo.aggregate.read(doc, user)
             yield coach withUser User.WithPerfs(user, perfs)
 
     Paginator(

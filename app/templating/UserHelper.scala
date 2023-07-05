@@ -14,6 +14,8 @@ import lila.user.{ User, UserPerfs }
 
 trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
 
+  given Conversion[User.WithPerfs, User] = _.user
+
   def ratingProgress(progress: IntRatingDiff): Option[Frag] =
     if (progress > 0) goodTag(cls := "rp")(progress).some
     else if (progress < 0) badTag(cls := "rp")(math.abs(progress.value)).some

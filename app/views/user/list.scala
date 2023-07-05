@@ -13,7 +13,7 @@ object list:
 
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
-      online: List[User],
+      online: List[User.WithPerfs],
       leaderboards: lila.user.UserPerfs.Leaderboards,
       nbAllTime: List[User.LightCount]
   )(using ctx: PageContext) =
@@ -38,7 +38,7 @@ object list:
             ol(cls := "user-top")(online map { u =>
               li(
                 userLink(u),
-                ctx.pref.showRatings option showBestPerf(u)
+                ctx.pref.showRatings option showBestPerf(u.perfs)
               )
             })
           ),

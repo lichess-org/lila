@@ -11,8 +11,6 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
 
   import UserPerfs.given
 
-  def collName = coll.name
-
   def glickoField(perf: Perf.Key) = s"$perf.gl"
 
   def byId[U: UserIdOf](u: U): Fu[UserPerfs] =
@@ -149,3 +147,14 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
     else
       perfOptionOf(id, PerfType.Standard).map:
         _.fold(true)(UserPerfs.dubiousPuzzle(puzzle, _))
+
+  object aggregate:
+    val lookup = $doc:
+      "$lookup" -> $doc(
+        "from"         -> coll.name,
+        "localField"   -> "_id",
+        "foreignField" -> "_id",
+        "as"           -> "perfs"
+      )
+    def read[U: UserIdOf](root: Bdoc, u: U) =
+      root.getAsOpt[List[UserPerfs]]("perfs").flatMap(_.headOption).getOrElse(UserPerfs.default(u.id))

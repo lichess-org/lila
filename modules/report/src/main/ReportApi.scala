@@ -7,12 +7,13 @@ import lila.common.{ Bus, Heapsort }
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ Me, User, UserRepo, UserApi }
 import lila.common.config.Max
 
 final class ReportApi(
     val coll: Coll,
     userRepo: UserRepo,
+    userApi: UserApi,
     gameRepo: GameRepo,
     autoAnalysis: AutoAnalysis,
     securityApi: lila.security.SecurityApi,
@@ -444,15 +445,13 @@ final class ReportApi(
   private def snoozedIds(using mod: Me) = snoozer snoozedKeysOf mod.userId map (_.reportId)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
-    userRepo byIdsSecondary reports.map(_.user).distinct map { users =>
-      reports
-        .flatMap { r =>
-          users.find(_.id == r.user) map { u =>
-            Report.WithSuspect(r, Suspect(u), isOnline(u.id))
-          }
-        }
-        .sortBy(-_.urgency)
-    }
+    userApi
+      .listWithPerfs(reports.map(_.user).distinct, ReadPreference.secondaryPreferred)
+      .map: users =>
+        reports
+          .flatMap: r =>
+            users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline(u.id)) }
+          .sortBy(-_.urgency)
 
   def snooze(reportId: Report.Id, duration: String)(using mod: Me): Fu[Option[Report]] =
     byId(reportId) flatMapz { report =>
