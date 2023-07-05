@@ -34,25 +34,22 @@ object index:
             )(d)
           },
           div(cls := "services")(
-            s.streamer.twitch.map { twitch =>
-              div(cls := "service twitch")(twitch.minUrl)
-            },
-            s.streamer.youTube.map { youTube =>
+            s.streamer.twitch.map: twitch =>
+              div(cls := "service twitch")(twitch.minUrl),
+            s.streamer.youTube.map: youTube =>
               div(cls := "service youTube")(youTube.minUrl)
-            }
           ),
-          div(cls := "ats")(
-            stream.map { s =>
-              p(cls := "at")(
-                currentlyStreaming(strong(s.cleanStatus))
-              )
-            } getOrElse frag(
-              p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
-              s.streamer.liveAt.map { liveAt =>
-                p(cls := "at")(lastStream(momentFromNow(liveAt)))
-              }
-            )
-          ),
+          div(cls := "ats"):
+            stream
+              .map: s =>
+                p(cls := "at")(currentlyStreaming(strong(s.cleanStatus)))
+              .getOrElse:
+                frag(
+                  p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
+                  s.streamer.liveAt.map: liveAt =>
+                    p(cls := "at")(lastStream(momentFromNow(liveAt)))
+                )
+          ,
           div(cls := "streamer-footer")(
             !requests option bits.subscribeButtonFor(s),
             bits.streamerProfile(s)
@@ -76,9 +73,8 @@ object index:
           ),
           div(cls := "list force-ltr infinite-scroll")(
             (live.size % 2 == 1) option div(cls := "none"),
-            pager.currentPageResults.map { s =>
-              st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
-            },
+            pager.currentPageResults.map: s =>
+              st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none)),
             pagerNext(
               pager,
               np =>

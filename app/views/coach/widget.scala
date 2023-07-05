@@ -13,13 +13,12 @@ object widget:
 
   def titleName(c: lila.coach.Coach.WithUser) =
     frag(
-      c.user.title.map { t =>
-        s"$t "
-      },
+      c.user.title.map: t =>
+        s"$t ",
       c.user.realNameOrUsername
     )
 
-  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(using PageContext) =
+  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(using Context) =
     val profile = c.user.profileOrDefault
     frag(
       link option a(cls := "overlay", href := routes.Coach.show(c.user.username)),
