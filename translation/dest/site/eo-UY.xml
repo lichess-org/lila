@@ -925,6 +925,7 @@ kaj influas la rangojn de ludantoj</string>
   <string name="noChat">Malaktivigi babilejon</string>
   <string name="onlyTeamLeaders">Nuraj teamaj gvidantoj</string>
   <string name="onlyTeamMembers">Nuraj teamaj membroj</string>
+  <string name="mouseTricks">Musaj lertaĵoj</string>
   <string name="toggleLocalAnalysis">Baskuligu lokan komputilan analizon</string>
   <string name="toggleAllAnalysis">Baskuligu ĉiujn komputilan analizon</string>
   <string name="playComputerMove">Ludi la plej bonan komputilan movon</string>
@@ -937,11 +938,16 @@ kaj influas la rangojn de ludantoj</string>
   <string name="cantDoThisTwice">Se vi fermos vian konton je la dua fojo, ne estos maniero por regajni ĝin.</string>
   <string name="emailAssociatedToaccount">Retpoŝtadreso, ke asociitas al la konto</string>
   <string name="sentEmailWithLink">Ni sendis retmesaĝon kun ligilo al vi.</string>
+  <string name="tournamentEntryCode">Turnira enirkodo</string>
   <string name="hangOn">Atendu!</string>
+  <string name="gameInProgress">Vi havas ludon en progreso kun %s.</string>
   <string name="abortTheGame">Ĉesigu ludon</string>
   <string name="resignTheGame">Rezignu la ludo</string>
+  <string name="youCantStartNewGame">Vi ne povas komenci novan ludon ĝis ĉi tiu finiĝos.</string>
   <string name="since">Ekde</string>
   <string name="until">Ĝis</string>
   <string name="lichessDbExplanation">Rangaj ludoj luditaj per Lichess</string>
+  <string name="switchSides">Ŝanĝi flankojn</string>
+  <string name="closingAccountWithdrawAppeal">Fermata de via konto estos eltiri vian apelacion</string>
   <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
 </resources>
