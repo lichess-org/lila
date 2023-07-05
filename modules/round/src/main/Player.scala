@@ -77,7 +77,7 @@ final private class Player(
     if pov.game.hasAi then uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
     if progress.game.finished then moveFinish(progress.game) dmap { progress.events ::: _ }
-    else {
+    else
       if progress.game.playableByAi then requestFishnet(progress.game, round)
       if pov.opponent.isOfferingDraw then round ! DrawNo(pov.player.id)
       if pov.player.isProposingTakeback then round ! TakebackNo(pov.player.id)
@@ -87,7 +87,6 @@ final private class Player(
         }
       scheduleExpiration(progress.game)
       fuccess(progress.events)
-    }
 
   private[round] def fishnet(game: Game, sign: String, uci: Uci)(using proxy: GameProxy): Fu[Events] =
     if game.playable && game.player.isAi then

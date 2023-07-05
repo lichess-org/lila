@@ -24,10 +24,9 @@ class WMMatchingTest extends munit.FunSuite:
     def off(i: Int) = f(n - 1) - f(n - 1 - i)
     def pairScore(i: Int, j: Int): Option[Int] =
       if i > j then pairScore(j, i)
-      else {
+      else
         val o = off(i) + (j - (i + 1))
         if a(o) < 0 then None else Some(a(o))
-      }
     def score(l: List[(Int, Int)]): (Int, Int) = (l.length, l.map(t => pairScore(t._1, t._2).head).sum)
     def checkScore(ans: (Int, Int)): Boolean   = res == ans
     assert(WMMatching(v, pairScore) match

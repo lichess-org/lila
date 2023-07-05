@@ -64,18 +64,17 @@ object widgets:
           ),
           div(cls := "result")(
             if g.isBeingPlayed then trans.playingRightNow()
-            else
-              if g.finishedOrAborted then
-                span(cls := g.winner.flatMap(w => fromPlayer.map(p => if p == w then "win" else "loss")))(
-                  gameEndStatus(g),
-                  g.winner.map { winner =>
-                    frag(
-                      " • ",
-                      winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
-                    )
-                  }
-                )
-              else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
+            else if g.finishedOrAborted then
+              span(cls := g.winner.flatMap(w => fromPlayer.map(p => if p == w then "win" else "loss")))(
+                gameEndStatus(g),
+                g.winner.map { winner =>
+                  frag(
+                    " • ",
+                    winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+                  )
+                }
+              )
+            else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
           ),
           if g.playedTurns > 0 then
             div(cls := "opening")(

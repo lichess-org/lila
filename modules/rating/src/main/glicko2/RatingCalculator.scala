@@ -46,14 +46,13 @@ final class RatingCalculator(
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
       if results.getResults(player).sizeIs > 0 then
         calculateNewRating(player, results.getResults(player), elapsedRatingPeriods)
-      else {
+      else
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
         player.workingRating = player.getGlicko2Rating
         player.workingRatingDeviation =
           calculateNewRD(player.getGlicko2RatingDeviation, player.volatility, elapsedRatingPeriods)
         player.workingVolatility = player.volatility
-      }
     }
 
     // now iterate through the participants and confirm their new ratings
@@ -95,14 +94,13 @@ final class RatingCalculator(
     var A: Double = a
     var B: Double = 0
     if Math.pow(delta, 2) > Math.pow(phi, 2) + v then B = Math.log(Math.pow(delta, 2) - Math.pow(phi, 2) - v)
-    else {
+    else
       var k = 1d
       B = a - (k * Math.abs(tau))
 
       while f(B, delta, phi, v, a, tau) < 0 do
         k = k + 1
         B = a - (k * Math.abs(tau))
-    }
 
     // step 5.3
     var fA = f(A, delta, phi, v, a, tau)
