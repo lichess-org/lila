@@ -48,15 +48,17 @@ final class IrcApi(
         )
 
   def nameCloseVote(user: User)(using mod: Me): Funit =
-    zulip
-      .sendAndGetLink(_.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
-      .flatMapz: zulipLink =>
-        noteApi.write(
-          user,
-          s"username discussion: $zulipLink",
-          modOnly = true,
-          dox = false
-        )
+    val topic = "/" + user.username
+    zulip(_.mod.usernames, topic)(s"created on: ${user.createdAt.date}, ${user.count.game} games") >>
+      zulip
+        .sendAndGetLink(_.mod.usernames, topic)("/poll Close?\n🔨 Yes\n🍃 No")
+        .flatMapz: zulipLink =>
+          noteApi.write(
+            user,
+            s"username discussion: $zulipLink",
+            modOnly = true,
+            dox = false
+          )
 
   def usertableCheck(user: User)(using mod: Me): Funit =
     zulip(_.mod.cafeteria, "reports"):
