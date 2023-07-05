@@ -69,25 +69,23 @@ private object GameStream:
           "rated"      -> g.rated,
           "variant"    -> g.variant.key,
           "speed"      -> g.speed.key,
-          "perf"       -> PerfPicker.key(g),
+          "perf"       -> g.perfKey,
           "createdAt"  -> g.createdAt,
           "status"     -> g.status.id,
           "statusName" -> g.status.name,
-          "players" -> JsObject(g.players.mapList { p =>
+          "players" -> JsObject(g.players.mapList: p =>
             p.color.name -> Json
               .obj(
                 "userId" -> p.userId,
                 "rating" -> p.rating
               )
-              .add("provisional" -> p.provisional)
-          })
+              .add("provisional" -> p.provisional))
         )
         .add("initialFen" -> initialFen)
-        .add("clock" -> g.clock.map { clock =>
+        .add("clock" -> g.clock.map: clock =>
           Json.obj(
             "initial"   -> clock.limitSeconds,
             "increment" -> clock.incrementSeconds
-          )
-        })
+          ))
         .add("daysPerTurn" -> g.daysPerTurn)
   }

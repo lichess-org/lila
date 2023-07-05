@@ -17,7 +17,7 @@ final class TutorApi(
 
   import TutorBsonHandlers.given
 
-  def availability(user: User): Fu[TutorFullReport.Availability] =
+  def availability(user: User.WithPerfs): Fu[TutorFullReport.Availability] =
     cache.get(user.id) flatMap {
       case Some(report) if report.isFresh => fuccess(TutorFullReport.Available(report, none))
       case Some(report) => queue.status(user) dmap some map { TutorFullReport.Available(report, _) }

@@ -40,7 +40,6 @@ final class Api(
     userRateLimit(ctx.ip, rateLimited):
       userApi.extended(
         name,
-        ctx.me,
         withFollows = userWithFollows,
         withTrophies = getBool("trophies")
       ) map toApiResult map toHttp
@@ -61,8 +60,8 @@ final class Api(
     val cost      = usernames.size / 4
     UsersRateLimitPerIP(req.ipAddress, rateLimited, cost = cost):
       lila.mon.api.users.increment(cost.toLong)
-      env.user.repo byIds usernames map {
-        _.map { env.user.jsonView.full(_, none, withRating = true, withProfile = true) }
+      env.user.api.listWithPerfs(usernames) map {
+        _.map { u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true) }
       } map toApiResult map toHttp
 
   def usersStatus = ApiRequest:

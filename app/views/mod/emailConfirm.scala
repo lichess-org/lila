@@ -7,8 +7,8 @@ import controllers.routes
 
 object emailConfirm:
 
-  def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(using
-      ctx: PageContext
+  def apply(query: String, user: Option[lila.user.User.WithPerfs], email: Option[lila.common.EmailAddress])(
+      using ctx: PageContext
   ) =
     views.html.base.layout(
       title = "Email confirmation",
@@ -32,9 +32,9 @@ this.setSelectionRange(this.value.length, this.value.length);
           st.form(cls := "search", action := routes.Mod.emailConfirm, method := "GET")(
             input(name := "q", placeholder := "<email> <username (optional)>", value := query, autofocus)
           ),
-          user.map { u =>
+          user.map: u =>
             table(cls := "slist")(
-              thead(
+              thead:
                 tr(
                   th("User"),
                   th("Email"),
@@ -44,10 +44,10 @@ this.setSelectionRange(this.value.length, this.value.length);
                   th("Active"),
                   th("Confirmed")
                 )
-              ),
-              tbody(
+              ,
+              tbody:
                 tr(
-                  td(userLink(u, withBestRating = true, params = "?mod")),
+                  td(userLink(u.user, withPerfRating = u.perfs.some, params = "?mod")),
                   td(email.fold("-")(_.value)),
                   td(u.count.game.localize),
                   td(
@@ -63,9 +63,7 @@ this.setSelectionRange(this.value.length, this.value.length);
                     else iconTag(licon.X)(cls                         := "is-red")
                   )
                 )
-              )
             )
-          }
         )
       )
     }

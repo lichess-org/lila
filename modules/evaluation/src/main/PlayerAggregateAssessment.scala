@@ -6,7 +6,7 @@ import scala.math.sqrt
 import lila.user.User
 
 case class PlayerAggregateAssessment(
-    user: User,
+    user: User.WithPerfs,
     playerAssessments: List[PlayerAssessment]
 ):
   import Statistics.*

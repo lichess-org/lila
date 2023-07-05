@@ -548,5 +548,4 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   // only for student games, for aggregation
   def denormalizePerfType(game: Game): Unit =
-    game.perfType.so: pt =>
-      coll.updateFieldUnchecked($id(game.id), F.perfType, pt.id)
+    coll.updateFieldUnchecked($id(game.id), F.perfType, game.perfType.id)

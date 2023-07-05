@@ -6,12 +6,13 @@ import lila.common.{ Bus, Uptime }
 import lila.game.actorApi.{ AbortedBy, FinishGame }
 import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.playban.PlaybanApi
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserApi }
 import lila.i18n.{ defaultLang, I18nKeys as trans }
 
 final private class Finisher(
     gameRepo: GameRepo,
     userRepo: UserRepo,
+    userApi: UserApi,
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
     playban: PlaybanApi,
@@ -124,23 +125,20 @@ final private class Finisher(
         winnerId = winnerC flatMap (game.player(_).userId),
         status = prog.game.status
       ) >>
-      userRepo
-        .pair(game.whitePlayer.userId, game.blackPlayer.userId)
-        .flatMap { (whiteO, blackO) =>
+      userApi
+        .pairWithPerfs(game.userIdPair)
+        .flatMap: (whiteO, blackO) =>
           val finish = FinishGame(game, whiteO, blackO)
-          updateCountAndPerfs(finish) map { ratingDiffs =>
+          updateCountAndPerfs(finish).map: ratingDiffs =>
             message foreach { messenger(game, _) }
             gameRepo game game.id foreach { newGame =>
               newGame foreach proxy.setFinishedGame
               val newFinish = finish.copy(game = newGame | game)
               Bus.publish(newFinish, "finishGame")
-              game.userIds foreach { userId =>
+              game.userIds.foreach: userId =>
                 Bus.publish(newFinish, s"userFinishGame:$userId")
-              }
             }
             List(lila.game.Event.EndData(game, ratingDiffs))
-          }
-        }
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted).so:
@@ -151,7 +149,7 @@ final private class Finisher(
         (finish.white so incNbGames(finish.game)) zip
         (finish.black so incNbGames(finish.game)) dmap (_._1._1)
 
-  private def incNbGames(game: Game)(user: User): Funit =
+  private def incNbGames(game: Game)(user: User.WithPerfs): Funit =
     game.finished so { user.noBot || game.nonAi } so {
       val totalTime = (game.hasClock && user.playTime.isDefined) so game.durationSeconds
       val tvTime    = totalTime ifTrue recentTvGames.get(game.id)

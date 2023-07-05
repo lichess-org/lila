@@ -4,16 +4,18 @@ import lila.common.Bus
 import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Seek
-import lila.user.Me
+import lila.user.{ Me, User, UserPerfsRepo }
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,
     gameRepo: GameRepo,
+    perfsRepo: UserPerfsRepo,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart
 )(using ec: Executor, idGenerator: IdGenerator):
 
   def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
+    me  <- me.map(_.value).soFu(perfsRepo.withPerfs)
     pov <- config pov me
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
@@ -21,6 +23,7 @@ final private[setup] class Processor(
   yield pov
 
   def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
+    me  <- perfsRepo.withPerfs(me)
     pov <- config pov me.some
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
@@ -32,7 +35,7 @@ final private[setup] class Processor(
       sri: lila.socket.Socket.Sri,
       sid: Option[String],
       blocking: lila.pool.Blocking
-  )(using me: Option[Me]): Fu[Processor.HookResult] =
+  )(using me: Option[User.WithPerfs]): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor
     config.hook(sri, me, sid, blocking) match
@@ -40,14 +43,14 @@ final private[setup] class Processor(
         fuccess:
           Bus.publish(AddHook(hook), "lobbyActor")
           Created(hook.id)
-      case Right(Some(seek)) =>
-        me.foldUse(fuccess(Refused))(createSeekIfAllowed(seek))
-      case _ => fuccess(Refused)
+      case Right(Some(seek)) => me.fold(fuccess(Refused))(u => createSeekIfAllowed(seek, u.id))
+      case _                 => fuccess(Refused)
 
-  def createSeekIfAllowed(seek: Seek)(using me: Me.Id): Fu[Processor.HookResult] =
-    gameCache.nbPlaying(me) map { nbPlaying =>
+  def createSeekIfAllowed(seek: Seek, owner: UserId): Fu[Processor.HookResult] =
+    gameCache.nbPlaying(owner) map { nbPlaying =>
       import Processor.HookResult.*
-      if (nbPlaying >= lila.game.Game.maxPlaying) Refused
+      if nbPlaying >= lila.game.Game.maxPlaying
+      then Refused
       else
         Bus.publish(AddSeek(seek), "lobbyActor")
         Created(seek.id)

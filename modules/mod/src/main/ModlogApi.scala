@@ -260,7 +260,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       .cursor[Modlog]()
       .list(100)
 
-  def addModlog(users: List[User]): Fu[List[UserWithModlog]] =
+  def addModlog(users: List[User.WithPerfs]): Fu[List[UserWithModlog]] =
     coll.tempPrimary
       .find(
         $doc(

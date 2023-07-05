@@ -45,7 +45,7 @@ final class Lobby(env: Env) extends LilaController(env):
 
   def seeks = Open:
     negotiateJson:
-      ctx.me.foldUse(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forMe) map { seeks =>
+      ctx.me.foldUse(env.lobby.seekApi.forAnon)(me ?=> env.lobby.seekApi.forMe(using me)) map { seeks =>
         Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
       }
 

@@ -27,26 +27,24 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   import StormBsonHandlers.given
   import StormHigh.NewHigh
 
-  def get(userId: UserId): Fu[StormHigh] = cache get userId
+  private val cache = cacheApi[UserId, StormHigh](8192, "storm.high"):
+    _.expireAfterAccess(1 hour).buildAsyncFuture(compute)
+
+  export cache.get
 
   def update(userId: UserId, prev: StormHigh, score: Int): Option[NewHigh] =
     val high = prev update score
-    (high != prev) so {
+    (high != prev).so:
       cache.put(userId, fuccess(high))
       import NewHigh.*
-      if (high.allTime > prev.allTime) AllTime(prev.allTime).some
-      else if (high.month > prev.month) Month(prev.month).some
-      else if (high.week > prev.week) Week(prev.week).some
+      if high.allTime > prev.allTime then AllTime(prev.allTime).some
+      else if high.month > prev.month then Month(prev.month).some
+      else if high.week > prev.week then Week(prev.week).some
       else Day(prev.day).some
-    }
-
-  private val cache = cacheApi[UserId, StormHigh](8192, "storm.high") {
-    _.expireAfterAccess(1 hour).buildAsyncFuture(compute)
-  }
 
   private def compute(userId: UserId): Fu[StormHigh] =
     coll
-      .aggregateOne() { framework =>
+      .aggregateOne(): framework =>
         import framework.*
         def matchSince(sinceId: UserId => StormDay.Id) = Match($doc("_id" $gte sinceId(userId)))
         val scoreSort                                  = Sort(Descending("score"))
@@ -62,8 +60,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
             )
           )
         )
-      }
-      .map2 { doc =>
+      .map2: doc =>
         def readScore(doc: Bdoc, field: String) =
           ~doc.getAsOpt[List[Bdoc]](field).flatMap(_.headOption).flatMap(_.getAsOpt[Int]("score"))
         StormHigh(
@@ -72,5 +69,4 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
           month = readScore(doc, "month"),
           allTime = readScore(doc, "allTime")
         )
-      }
-      .map(_ | StormHigh.default)
+      .dmap(_ | StormHigh.default)

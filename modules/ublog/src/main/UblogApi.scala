@@ -7,12 +7,12 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
 import lila.memo.PicfitApi
 import lila.security.Granter
-import lila.user.{ User, UserRepo, Me }
+import lila.user.{ User, UserApi, Me }
 
 final class UblogApi(
     colls: UblogColls,
     rank: UblogRank,
-    userRepo: UserRepo,
+    userApi: UserApi,
     picfitApi: PicfitApi,
     timeline: lila.hub.actors.Timeline,
     irc: lila.irc.IrcApi
@@ -48,8 +48,11 @@ final class UblogApi(
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)) getOrElse {
-      val blog = UblogBlog make user
-      (insertMissing so colls.blog.insert.one(blog).void) inject blog
+      userApi
+        .withPerfs(user)
+        .flatMap: user =>
+          val blog = UblogBlog make user
+          (insertMissing so colls.blog.insert.one(blog).void) inject blog
     }
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
@@ -144,7 +147,7 @@ final class UblogApi(
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if (v) fuccess(UblogBlog.Tier.HIDDEN)
-    else userRepo.byId(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
+    else userApi.withPerfs(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
   }.flatMap:
     setTier(UblogBlog.Id.User(userId), _)
 

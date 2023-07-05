@@ -22,18 +22,14 @@ final class Auth(
   private def api   = env.security.api
   private def forms = env.security.forms
 
-  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] =
-    env.round.proxyRepo urgentGames u map { povs =>
-      Ok:
-        env.user.jsonView.full(
-          u,
-          withRating = ctx.pref.showRatings,
-          withProfile = true
-        ) ++ Json.obj(
-          "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
-          "sessionId"  -> sessionId
-        )
-    }
+  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] = for
+    povs  <- env.round.proxyRepo urgentGames u
+    perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo perfsOf u)
+  yield Ok:
+    env.user.jsonView.full(u, perfs, withProfile = true) ++ Json.obj(
+      "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
+      "sessionId"  -> sessionId
+    )
 
   private def getReferrerOption(using ctx: Context): Option[String] =
     get("referrer").flatMap(env.api.referrerRedirect.valid) orElse

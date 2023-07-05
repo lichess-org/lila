@@ -5,7 +5,7 @@ import chess.Ply
 import chess.format.{ Fen, UciCharPair }
 import play.api.libs.json.*
 
-import lila.game.{ Game, GameRepo, PerfPicker }
+import lila.game.{ Game, GameRepo }
 import lila.i18n.defaultLang
 import lila.common.Json.given
 
@@ -64,10 +64,9 @@ final private class GameJson(
       .add("clock", game.clock.map(_.config.show))
 
   private def perfJson(game: Game) =
-    val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
     Json.obj(
-      "key"  -> perfType.key,
-      "name" -> perfType.trans(using defaultLang)
+      "key"  -> game.perfType.key,
+      "name" -> game.perfType.trans(using defaultLang)
     )
 
   private def playersJson(game: Game) = JsArray(game.players.mapList { p =>

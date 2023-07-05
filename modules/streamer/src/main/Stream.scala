@@ -12,8 +12,8 @@ trait Stream:
   val streamer: Streamer
   val language: String
 
-  def is(s: Streamer): Boolean    = streamer.id == s.id
-  def is(userId: UserId): Boolean = streamer.userId == userId
+  def is(s: Streamer): Boolean    = streamer is s
+  def is(userId: UserId): Boolean = streamer is userId
   def twitch                      = serviceName == "twitch"
   def youTube                     = serviceName == "youTube"
 

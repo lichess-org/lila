@@ -21,6 +21,8 @@ final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     renderer: lila.hub.actors.Renderer,
     timeline: lila.hub.actors.Timeline,
     chatApi: lila.chat.ChatApi,
@@ -31,11 +33,7 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mode: play.api.Mode
-):
+)(using Executor, Scheduler, play.api.Mode):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 
@@ -53,10 +51,8 @@ final class Env(
 
   val isHosting = lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
 
-  val allCreatedFeaturable = cacheApi.unit[List[Simul]] {
-    _.refreshAfterWrite(3 seconds)
-      .buildAsyncFuture(_ => repo.allCreatedFeaturable)
-  }
+  val allCreatedFeaturable = cacheApi.unit[List[Simul]]:
+    _.refreshAfterWrite(3 seconds).buildAsyncFuture(_ => repo.allCreatedFeaturable)
 
   val featurable = SimulIsFeaturable: simul =>
     simul.conditions.teamMember.isEmpty && featureLimiter.zero(simul.hostId)(true)

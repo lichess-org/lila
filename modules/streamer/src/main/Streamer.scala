@@ -125,10 +125,9 @@ object Streamer:
       subscribed: Boolean = false
   ) extends WithContext:
     def redirectToLiveUrl: Option[String] =
-      stream so { s =>
+      stream.so: s =>
         streamer.twitch.ifTrue(s.twitch).map(_.fullUrl) orElse
           streamer.youTube.ifTrue(s.youTube).map(_.fullUrl)
-      }
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean)
 

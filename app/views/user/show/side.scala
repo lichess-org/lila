@@ -11,10 +11,10 @@ import lila.user.User
 object side:
 
   def apply(
-      u: User,
+      u: User.WithPerfs,
       rankMap: lila.rating.UserRankMap,
       active: Option[lila.rating.PerfType]
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
       perf.nonEmpty option showPerf(perf, perfType)

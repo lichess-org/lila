@@ -29,7 +29,7 @@ case class Report(
 
   def add(atom: Atom) =
     atomBy(atom.by)
-      .fold(copy(atoms = atom :: atoms)) { existing =>
+      .fold(copy(atoms = atom :: atoms)): existing =>
         if (existing.text contains atom.text) this
         else
           copy(
@@ -41,13 +41,10 @@ case class Report(
               ) :: atoms.toList.filterNot(_.by == atom.by)
             }.toNel | atoms
           )
-      }
       .recomputeScore
 
   def recomputeScore =
-    copy(
-      score = atoms.toList.foldLeft(Score(0))(_ + _.score)
-    )
+    copy(score = atoms.toList.foldLeft(Score(0))(_ + _.score))
 
   def recentAtom: Atom = atoms.head
   def oldestAtom: Atom = atoms.last
@@ -115,8 +112,7 @@ object Report:
 
   case class Inquiry(mod: UserId, seenAt: Instant)
 
-  case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean):
-
+  case class WithSuspect(report: Report, suspect: User.WithPerfs, isOnline: Boolean):
     def urgency: Int =
       report.score.value.toInt +
         (isOnline so 1000) +

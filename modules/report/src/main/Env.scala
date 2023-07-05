@@ -21,6 +21,7 @@ final class Env(
     db: lila.db.Db,
     isOnline: lila.socket.IsOnline,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     lightUserAsync: lila.common.LightUser.Getter,
     gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
@@ -31,11 +32,7 @@ final class Env(
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler
-):
+)(using ec: Executor, system: ActorSystem, scheduler: Scheduler):
 
   private val config = appConfig.get[ReportConfig]("report")(AutoConfig.loader)
 
@@ -63,23 +60,21 @@ final class Env(
 
   // api actor
   system.actorOf(
-    Props(new Actor {
-      def receive = {
-        case lila.hub.actorApi.report.Cheater(userId, text) =>
-          api.autoCheatReport(userId, text).unit
-        case lila.hub.actorApi.report.Shutup(userId, text, critical) =>
-          api.autoCommReport(userId, text, critical).unit
-      }
-    }),
+    Props(
+      new Actor:
+        def receive =
+          case lila.hub.actorApi.report.Cheater(userId, text) =>
+            api.autoCheatReport(userId, text).unit
+          case lila.hub.actorApi.report.Shutup(userId, text, critical) =>
+            api.autoCommReport(userId, text, critical).unit
+    ),
     name = config.actorName
   )
 
-  lila.common.Bus.subscribeFun("playban", "autoFlag") {
+  lila.common.Bus.subscribeFun("playban", "autoFlag"):
     case lila.hub.actorApi.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins).unit
     case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text, critical) =>
       api.autoCommFlag(SuspectId(suspectId), resource, text, critical).unit
-  }
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
     api.inquiries.expire.unit
-  }

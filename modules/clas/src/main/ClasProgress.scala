@@ -15,12 +15,12 @@ case class ClasProgress(
     days: Int,
     students: Map[UserId, StudentProgress]
 ):
-  def apply(user: User) =
+  def apply(user: User.WithPerf) =
     students.getOrElse(
       user.id,
       StudentProgress(
         nb = 0,
-        rating = (user.perfs(perfType).intRating, user.perfs(perfType).intRating),
+        rating = (user.perf.intRating, user.perf.intRating),
         wins = 0,
         millis = 0
       )
@@ -40,6 +40,7 @@ case class StudentProgress(
 
 final class ClasProgressApi(
     gameRepo: GameRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     historyApi: lila.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
     studentCache: ClasStudentCache
@@ -52,10 +53,14 @@ final class ClasProgressApi(
     val userIds = users.map(_.id)
 
     val playStatsFu =
-      if (perfType == PerfType.Puzzle) getPuzzleStats(userIds, days)
+      if perfType == PerfType.Puzzle
+      then getPuzzleStats(userIds, days)
       else getGameStats(perfType, userIds, days)
 
-    val progressesFu = historyApi.progresses(users, perfType, days)
+    val progressesFu = for
+      usersWithPerf <- perfsRepo.withPerf(users, perfType)
+      progresses    <- historyApi.progresses(usersWithPerf, perfType, days)
+    yield progresses
 
     playStatsFu zip progressesFu map { case (playStats, progresses) =>
       ClasProgress(

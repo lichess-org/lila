@@ -11,12 +11,18 @@ import lila.db.dsl.{ *, given }
 import lila.rating.Glicko
 import lila.rating.{ Perf, PerfType }
 
-final class UserRepo(val coll: Coll)(using Executor):
+final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
 
   import User.{ BSONFields as F, given }
   import UserMark.given
 
+  export perfsRepo.{ byId as perfs, setPerfs, perfOf }
+
   def withColl[A](f: Coll => A): A = f(coll)
+
+  def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
+  def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = // TODO aggregation
+    byId(id).flatMapz(u => withPerfs(u).dmap(some))
 
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
@@ -26,10 +32,12 @@ final class UserRepo(val coll: Coll)(using Executor):
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
-  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] = {
+  def byIds[U: UserIdOf](
+      us: Iterable[U],
+      readPreference: ReadPreference = ReadPreference.primary
+  ): Fu[List[User]] =
     val ids = us.map(_.id).filter(User.noGhost)
-    ids.nonEmpty so coll.byIds[User, UserId](ids)
-  }
+    ids.nonEmpty so coll.byIds[User, UserId](ids, readPreference)
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, ReadPreference.secondaryPreferred)
@@ -43,7 +51,8 @@ final class UserRepo(val coll: Coll)(using Executor):
   }
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
-    if (User isGhost id) fuccess(Left(LightUser.ghost).some)
+    if User isGhost id
+    then fuccess(Left(LightUser.ghost).some)
     else
       coll.byId[User](id).map2(Right.apply) recover { case _: exceptions.BSONValueNotFoundException =>
         Left(LightUser.ghost).some
@@ -73,10 +82,10 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def pair(x: UserId, y: UserId): Fu[Option[(User, User)]] =
     coll.byIds[User, UserId](List(x, y)) map { users =>
-      for {
+      for
         xx <- users.find(_.id == x)
         yy <- users.find(_.id == y)
-      } yield xx -> yy
+      yield xx -> yy
     }
 
   def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(User.lichessId, id)
@@ -109,9 +118,6 @@ final class UserRepo(val coll: Coll)(using Executor):
       .sort($sort desc "perfs.standard.gl.r")
       .cursor[User](ReadPreference.secondaryPreferred)
       .list(nb)
-
-  def botsByIdsCursor(ids: Iterable[UserId]): AkkaStreamCursor[User] =
-    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](temporarilyPrimary)
 
   def botsByIds(ids: Iterable[UserId]): Fu[List[User]] =
     coll.find($inIds(ids) ++ botSelect(true)).cursor[User](temporarilyPrimary).listAll()
@@ -152,21 +158,15 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean] =
     coll
-      .find(
-        $inIds(List(u1, u2)),
-        $id(true).some
-      )
+      .find($inIds(List(u1, u2)), $id(true).some)
       .sort($doc(F.colorIt -> 1))
       .one[Bdoc]
-      .map {
-        _.fold(ThreadLocalRandom.nextBoolean()) { doc =>
+      .map:
+        _.fold(ThreadLocalRandom.nextBoolean()): doc =>
           doc.string("_id") contains u1
-        }
-      }
-      .addEffect { v =>
+      .addEffect: v =>
         incColor(u1, if (v) 1 else -1)
         incColor(u2, if (v) -1 else 1)
-      }
 
   def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean] =
     (u1O, u2O).mapN(firstGetsWhite) | fuccess(ThreadLocalRandom.nextBoolean())
@@ -184,38 +184,6 @@ final class UserRepo(val coll: Coll)(using Executor):
   def lichess = byId(User.lichessId)
   def irwin   = byId(User.irwinId)
   def kaladin = byId(User.kaladinId)
-
-  def setPerfs(user: User, perfs: Perfs, prev: Perfs)(using wr: BSONHandler[Perf]) =
-    val diff = for {
-      pt <- PerfType.all
-      if perfs(pt).nb != prev(pt).nb
-      bson <- wr.writeOpt(perfs(pt))
-    } yield BSONElement(s"${F.perfs}.${pt.key}", bson)
-    diff.nonEmpty so coll.update
-      .one(
-        $id(user.id),
-        $doc("$set" -> $doc(diff*))
-      )
-      .void
-
-  def setManagedUserInitialPerfs(id: UserId) =
-    coll.updateField($id(id), F.perfs, Perfs.defaultManaged).void
-
-  def setPerf(userId: UserId, pt: PerfType, perf: Perf) =
-    coll.updateField($id(userId), s"${F.perfs}.${pt.key}", perf).void
-
-  def addStormRun  = addStormLikeRun("storm")
-  def addRacerRun  = addStormLikeRun("racer")
-  def addStreakRun = addStormLikeRun("streak")
-
-  private def addStormLikeRun(field: String)(userId: UserId, score: Int): Funit =
-    coll.update
-      .one(
-        $id(userId),
-        $inc(s"perfs.$field.runs" -> 1) ++
-          $doc("$max" -> $doc(s"perfs.$field.score" -> score))
-      )
-      .void
 
   def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
@@ -255,18 +223,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val patronSelect = $doc(s"${F.plan}.active" -> true)
 
-  def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
-  val sortCreatedAtDesc          = $sort desc F.createdAt
-
-  def glicko(userId: UserId, perfType: PerfType): Fu[Glicko] =
-    coll
-      .find($id(userId), $doc(s"${F.perfs}.${perfType.key}.gl" -> true).some)
-      .one[Bdoc]
-      .dmap {
-        _.flatMap(_ child F.perfs)
-          .flatMap(_ child perfType.key.value)
-          .flatMap(_.getAsOpt[Glicko]("gl")) | Glicko.default
-      }
+  val sortCreatedAtDesc = $sort desc F.createdAt
 
   def incNbGames(
       id: UserId,
@@ -468,33 +425,24 @@ final class UserRepo(val coll: Coll)(using Executor):
         anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
 
   def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
-    coll.find($id(u.id)).one[Bdoc].mapz { doc =>
-      r readOpt doc map {
-        User
-          .WithEmails(
-            _,
-            User.Emails(
-              current = anyEmail(doc),
-              previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
-            )
-          )
-      }
-    }
+    withEmails(List(u)).map(_.headOption)
 
-  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] =
-    coll
+  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] = for
+    perfs <- perfsRepo.idsMap(users, _.sec)
+    users <- coll
       .list[Bdoc]($inIds(users.map(_.id)), temporarilyPrimary)
       .map: docs =>
         for
           doc  <- docs
           user <- r readOpt doc
         yield User.WithEmails(
-          user,
+          User.WithPerfs(user, perfs.get(user.id)),
           User.Emails(
             current = anyEmail(doc),
             previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
           )
         )
+  yield users
 
   def emailMap(ids: List[UserId]): Fu[Map[UserId, EmailAddress]] =
     coll
@@ -516,27 +464,12 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
-  def setBot(user: User): Funit =
-    if (user.count.game > 0)
-      fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
-    else
-      coll.update
-        .one(
-          $id(user.id),
-          $set(F.title -> Title.BOT, F.perfs -> Perfs.defaultBot)
-        )
-        .void
-
-  private def botSelect(v: Boolean) =
-    if (v) $doc(F.title -> Title.BOT)
-    else $doc(F.title   -> $ne(Title.BOT))
+  def botSelect(v: Boolean) =
+    if v then $doc(F.title -> Title.BOT)
+    else $doc(F.title      -> $ne(Title.BOT))
 
   private[user] def botIds =
-    coll.distinctEasy[UserId, Set](
-      "_id",
-      botSelect(true) ++ enabledSelect,
-      ReadPreference.secondaryPreferred
-    )
+    coll.distinctEasy[UserId, Set]("_id", botSelect(true) ++ enabledSelect, ReadPref.sec)
 
   def getTitle(id: UserId): Fu[Option[UserTitle]] = coll.primitiveOne[UserTitle]($id(id), F.title)
 
@@ -546,37 +479,6 @@ final class UserRepo(val coll: Coll)(using Executor):
     import Plan.given
     coll.updateField($id(user.id), User.BSONFields.plan, plan).void
   def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), User.BSONFields.plan).void
-
-  private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
-    doc.child(F.perfs).flatMap(_.getAsOpt[Perf](perfType.key.value))
-
-  def perfOf(id: UserId, perfType: PerfType): Fu[Option[Perf]] =
-    coll
-      .find(
-        $id(id),
-        $doc(s"${F.perfs}.${perfType.key}" -> true).some
-      )
-      .one[Bdoc]
-      .dmap {
-        _.flatMap { docPerf(_, perfType) }
-      }
-
-  def perfOf(ids: Iterable[UserId], perfType: PerfType): Fu[Map[UserId, Perf]] =
-    coll
-      .find(
-        $inIds(ids),
-        $doc(s"${F.perfs}.${perfType.key}" -> true).some
-      )
-      .cursor[Bdoc]()
-      .listAll()
-      .map { docs =>
-        for
-          doc <- docs
-          id  <- doc.getAsOpt[UserId](F.id)
-          perf = docPerf(doc, perfType) | Perf.default
-        yield id -> perf
-      }
-      .dmap(_.toMap)
 
   def setSeenAt(id: UserId): Unit =
     coll.updateFieldUnchecked($id(id), F.seenAt, nowInstant)
@@ -590,14 +492,14 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.distinctEasy[UserId, Set](
       F.id,
       $inIds(userIds) ++ enabledSelect ++ patronSelect,
-      ReadPreference.secondaryPreferred
+      ReadPref.sec
     )
 
   def filterEnabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect, ReadPreference.secondaryPreferred)
+    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect, ReadPref.sec)
 
   def filterDisabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ disabledSelect, ReadPreference.secondaryPreferred)
+    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ disabledSelect, ReadPref.sec)
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("_id", $doc("roles" $in roles))
@@ -648,7 +550,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.distinctEasy[UserId, List](
       F.id,
       $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since),
-      ReadPreference.secondaryPreferred
+      ReadPref.sec
     )
 
   def setEraseAt(user: User) =
@@ -674,7 +576,6 @@ final class UserRepo(val coll: Coll)(using Executor):
       F.email                 -> normalizedEmail,
       F.mustConfirmEmail      -> mustConfirmEmail.option(now),
       F.bpass                 -> passwordHash,
-      F.perfs                 -> $empty,
       F.count                 -> Count.default,
       F.enabled               -> true,
       F.createdAt             -> now,

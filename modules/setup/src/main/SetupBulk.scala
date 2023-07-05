@@ -13,6 +13,7 @@ import lila.common.{ Bearer, Days, Template }
 import lila.game.{ GameRule, IdGenerator }
 import lila.oauth.{ OAuthScope, OAuthServer, EndpointScopes }
 import lila.user.User
+import lila.rating.PerfType
 
 object SetupBulk:
 
@@ -137,6 +138,7 @@ object SetupBulk:
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty option rules
+    def perfType      = PerfType(variant, chess.Speed(clock.left.toOption))
 
   enum ScheduleError:
     case BadTokens(tokens: List[BadToken])

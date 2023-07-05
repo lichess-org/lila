@@ -115,8 +115,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         json = tourOption
           .fold[Fu[Result]](notFoundJson("No such tournament")): tour =>
             for
-              playerInfoExt <- getUserStr("playerInfo").map(_.id).so { api.playerInfo(tour, _) }
-              socketVersion <- getBool("socketVersion").so(env.tournament version tour.id dmap some)
+              playerInfoExt <- getUserStr("playerInfo").map(_.id).so(api.playerInfo(tour, _))
+              socketVersion <- getBool("socketVersion").soFu(env.tournament version tour.id)
               partial = getBool("partial")
               json <- jsonView(
                 tour = tour,
@@ -389,9 +389,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def featured = Open:
     negotiateJson:
-      env.tournament.cached.onHomepage.getUnit.recoverDefault map {
-        lila.tournament.Spotlight.select(_, 4)
-      } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
+      WithMyPerfs:
+        env.tournament.cached.onHomepage.getUnit.recoverDefault map {
+          lila.tournament.Spotlight.select(_, 4)
+        } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
 
   def shields = Open:
     for

@@ -14,7 +14,7 @@ import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LeaderTeam
 import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
-import lila.user.{ User, UserRepo, Me }
+import lila.user.{ User, UserApi, UserRepo, Me }
 import lila.security.Granter
 import java.time.Period
 
@@ -23,6 +23,7 @@ final class TeamApi(
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     userRepo: UserRepo,
+    userApi: UserApi,
     cached: Cached,
     notifier: Notifier,
     timeline: lila.hub.actors.Timeline,
@@ -141,11 +142,10 @@ final class TeamApi(
   yield withUsers
 
   private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
-    userRepo optionsByIds requests.map(_.user) map { users =>
-      requests zip users collect {
-        case (request, Some(user)) if user.enabled.yes => RequestWithUser(request, user)
-      }
-    }
+    userApi
+      .listWithPerfs(requests.map(_.user))
+      .map: users =>
+        RequestWithUser.combine(requests, users.filter(_.enabled.yes))
 
   def join(team: Team, request: Option[String], password: Option[String])(using Me): Fu[Requesting] =
     if team.open then
@@ -158,17 +158,15 @@ final class TeamApi(
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
       createRequest(team, txt) inject Requesting.Joined
 
-  def requestable(teamId: TeamId)(using Me): Fu[Option[Team]] =
-    for
-      teamOption <- teamEnabled(teamId)
-      able       <- teamOption.so(requestable)
-    yield teamOption ifTrue able
+  def requestable(teamId: TeamId)(using Me): Fu[Option[Team]] = for
+    teamOption <- teamEnabled(teamId)
+    able       <- teamOption.so(requestable)
+  yield teamOption ifTrue able
 
-  def requestable(team: Team)(using me: Me): Fu[Boolean] =
-    for
-      belongs   <- belongsTo(team.id, me)
-      requested <- requestRepo.exists(team.id, me)
-    yield !belongs && !requested
+  def requestable(team: Team)(using me: Me): Fu[Boolean] = for
+    belongs   <- belongsTo(team.id, me)
+    requested <- requestRepo.exists(team.id, me)
+  yield !belongs && !requested
 
   def createRequest(team: Team, msg: String)(using me: Me): Funit =
     requestable(team).flatMapz {
@@ -314,18 +312,18 @@ final class TeamApi(
       idsNoKids            <- userRepo.filterNotKid(allIds.toSeq)
       previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)
       ids =
-        (if (idsNoKids(User.lichessId) && !byMod && !previousValidLeaders(User.lichessId))
-           idsNoKids - User.lichessId
-         else idsNoKids)
-      _ <- ids.nonEmpty so {
-        if (ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod)
+        if idsNoKids(User.lichessId) && !byMod && !previousValidLeaders(User.lichessId)
+        then idsNoKids - User.lichessId
+        else idsNoKids
+      _ <- ids.nonEmpty.so:
+        if ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod
+        then
           cached.leaders.put(team.id, fuccess(ids))
           logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
         else
           logger.info(s"invalid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           funit
-      }
     yield ()
 
   def isLeaderOf(leader: UserId, member: UserId) =

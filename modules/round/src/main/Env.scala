@@ -30,6 +30,8 @@ final class Env(
     gameRepo: GameRepo,
     idGenerator: lila.game.IdGenerator,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     timeline: actors.Timeline,
     bookmark: actors.Bookmark,
     chatApi: lila.chat.ChatApi,

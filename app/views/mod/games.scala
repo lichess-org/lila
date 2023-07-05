@@ -118,9 +118,7 @@ object games:
                         pov.game.correspondenceClock.fold(Int.MaxValue)(_.daysPerTurn * 3600 * 24)
                       )(_.config.estimateTotalSeconds)
                     )(
-                      pov.game.perfType.map { pt =>
-                        iconTag(pt.icon)(cls := "text")
-                      },
+                      iconTag(pov.game.perfType.icon)(cls := "text"),
                       shortClockName(pov.game)
                     ),
                     td(dataSort := pov.game.tournamentId.so(_.value))(

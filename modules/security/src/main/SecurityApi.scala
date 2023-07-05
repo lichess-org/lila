@@ -147,10 +147,10 @@ final class SecurityApi(
     }
 
   def dedup(userId: UserId, req: RequestHeader): Funit =
-    reqSessionId(req) so { store.dedup(userId, _) }
+    reqSessionId(req).so(store.dedup(userId, _))
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
-    reqSessionId(req) so { store.setFingerPrint(_, fp) map some }
+    reqSessionId(req).soFu(store.setFingerPrint(_, fp))
 
   val sessionIdKey = "sessionId"
 

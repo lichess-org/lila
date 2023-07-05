@@ -11,7 +11,7 @@ import lila.user.User
 
 object activity:
 
-  def apply(u: User, as: Iterable[lila.activity.ActivityView])(using Context) =
+  def apply(u: User.WithPerfs, as: Iterable[lila.activity.ActivityView])(using Context) =
     div(cls := "activity")(
       as.toSeq filterNot (_.isEmpty) map { a =>
         st.section(
@@ -25,16 +25,16 @@ object activity:
             a.streak map renderStreak,
             a.games map renderGames,
             a.forumPosts map renderForumPosts,
-            a.ublogPosts map renderUblogPosts(u),
+            a.ublogPosts map renderUblogPosts(u.user),
             a.corresMoves map renderCorresMoves,
             a.corresEnds map renderCorresEnds,
             a.follows map renderFollows,
-            a.simuls map renderSimuls(u),
+            a.simuls map renderSimuls(u.user),
             a.studies map renderStudies,
             a.tours map renderTours,
             a.swisses map renderSwisses,
             a.teams map renderTeams,
-            a.stream option renderStream(u),
+            a.stream option renderStream(u.user),
             a.signup option renderSignup
           )
         )
@@ -74,7 +74,7 @@ object activity:
       br
     )
 
-  private def renderPuzzles(u: User)(p: Puzzles)(using ctx: Context) =
+  private def renderPuzzles(u: User.WithPerfs)(p: Puzzles)(using ctx: Context) =
     entryTag(
       iconTag(licon.ArcheryTarget),
       scoreFrag(p.value),

@@ -16,6 +16,7 @@ final class AssessApi(
     assessRepo: AssessmentRepo,
     modApi: ModApi,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
@@ -44,7 +45,7 @@ final class AssessApi(
       userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment]] =
-    userRepo byId userId flatMap {
+    userRepo withPerfs userId flatMap {
       _.filter(_.noBot) so { user =>
         getPlayerAssessmentsByUserId(userId, nb) map { games =>
           games.nonEmpty option PlayerAggregateAssessment(user, games)
@@ -177,7 +178,7 @@ final class AssessApi(
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent
 
-  def onGameReady(game: Game, white: User, black: User): Funit =
+  def onGameReady(game: Game, white: User.WithPerf, black: User.WithPerf): Funit =
 
     import AutoAnalysis.Reason.*
 
@@ -185,17 +186,13 @@ final class AssessApi(
       game.playerBlurPercent(player.color) >= 70
 
     def winnerGreatProgress(player: Player): Boolean =
-      game.winner.has(player) && game.perfType.so: perfType =>
-        player.color.fold(white, black).perfs(perfType).progress >= 90
+      game.winner.has(player) && player.color.fold(white, black).perf.progress >= 90
 
     def noFastCoefVariation(player: Player): Option[Float] =
       Statistics.noFastMoves(Pov(game, player)) so Statistics.moveTimeCoefVariation(Pov(game, player))
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
-    def winnerNbGames = for
-      user     <- winnerUserOption
-      perfType <- game.perfType
-    yield user.perfs(perfType).nb
+    def winnerNbGames    = winnerUserOption.map(_.perf.nb)
 
     def suspCoefVariation(c: Color) =
       val x = noFastCoefVariation(game player c)

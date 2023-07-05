@@ -4,7 +4,7 @@ import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import lila.history.HistoryApi
 import lila.hub.LeaderTeam
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import alleycats.Zero
 import lila.user.{ User, Me }
 
@@ -20,13 +20,14 @@ object TournamentCondition:
   ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, teamMember, allowList)):
 
     def withVerdicts(perfType: PerfType)(using
-        me: Me,
-        ex: Executor,
-        getMaxRating: GetMaxRating,
-        getMyTeamIds: GetMyTeamIds
+        Me,
+        Perf,
+        Executor,
+        GetMaxRating,
+        GetMyTeamIds
     ): Fu[WithVerdicts] =
       list.map {
-        case c: MaxRating  => c(getMaxRating)(perfType) map c.withVerdict
+        case c: MaxRating  => c(perfType) map c.withVerdict
         case c: FlatCond   => fuccess(c withVerdict c(perfType))
         case c: TeamMember => c.apply map { c withVerdict _ }
       }.parallel dmap WithVerdicts.apply
@@ -62,14 +63,14 @@ object TournamentCondition:
 
   final class Verify(historyApi: HistoryApi)(using Executor):
 
-    def apply(all: All, perfType: PerfType)(using me: Me)(using GetMyTeamIds): Fu[WithVerdicts] =
-      given GetMaxRating = perf => historyApi.lastWeekTopRating(me.value, perf)
+    def apply(all: All, perfType: PerfType)(using me: Me)(using GetMyTeamIds, Perf): Fu[WithVerdicts] =
+      given GetMaxRating = historyApi.lastWeekTopRating(me.value, _)
       all.withVerdicts(perfType)
 
     def rejoin(all: All)(using Me)(using GetMyTeamIds): Fu[WithVerdicts] =
       all.withRejoinVerdicts
 
-    def canEnter(perfType: PerfType)(conditions: All)(using Me, GetMyTeamIds): Fu[Boolean] =
+    def canEnter(perfType: PerfType)(conditions: All)(using Me, GetMyTeamIds, Perf): Fu[Boolean] =
       apply(conditions, perfType).dmap(_.accepted)
 
   import reactivemongo.api.bson.*

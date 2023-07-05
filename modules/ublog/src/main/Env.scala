@@ -12,6 +12,7 @@ import lila.db.dsl.Coll
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     timeline: lila.hub.actors.Timeline,
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
@@ -19,12 +20,7 @@ final class Env(
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer,
-    mode: play.api.Mode
-):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 

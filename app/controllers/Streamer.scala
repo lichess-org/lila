@@ -57,7 +57,8 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         for
           sws      <- env.streamer.liveStreamApi of s
           activity <- env.activity.read.recentAndPreload(sws.user)
-          page     <- renderPage(html.streamer.show(sws, activity))
+          perfs    <- env.user.perfsRepo.perfsOf(sws.user)
+          page     <- renderPage(html.streamer.show(sws, perfs, activity))
         yield Ok(page)
 
   def redirect(username: UserStr) = Open:

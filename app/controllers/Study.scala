@@ -127,7 +127,7 @@ final class Study(
   def byTopic(name: String, order: Order, page: Int) = Open:
     Found(lila.study.StudyTopic fromStr name): topic =>
       env.study.pager.byTopic(topic, order, page) zip
-        ctx.me.so(u => env.study.topicApi.userTopics(u) dmap some) flatMap { (pag, topics) =>
+        ctx.userId.soFu(env.study.topicApi.userTopics) flatMap { (pag, topics) =>
           preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
         }
 
@@ -531,7 +531,7 @@ final class Study(
 
   def topics = Open:
     env.study.topicApi.popular(50) zip
-      ctx.me.so(me => env.study.topicApi.userTopics(me) dmap some) flatMap { (popular, mine) =>
+      ctx.userId.soFu(env.study.topicApi.userTopics) flatMap { (popular, mine) =>
         val form = mine map StudyForm.topicsForm
         Ok.page(html.study.topic.index(popular, mine, form))
       }

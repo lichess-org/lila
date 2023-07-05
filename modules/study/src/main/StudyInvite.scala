@@ -57,11 +57,9 @@ final private class StudyInvite(
     _ <- studyRepo.addMember(study, StudyMember make invited)
     shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
-      if (Granter(_.StudyAdmin)) 1
-      else if (relation has Follow) 10
-      else if (inviter.roles has "ROLE_COACH") 20
-      else if (inviter.hasTitle) 20
-      else if (inviter.perfs.bestRating >= 2000) 50
+      if Granter(_.StudyAdmin) then 1
+      else if relation has Follow then 5
+      else if inviter.hasTitle then 10
       else 100
     _ <- shouldNotify so notifyRateLimit.zero(inviter.userId, rateLimitCost):
       notifyApi

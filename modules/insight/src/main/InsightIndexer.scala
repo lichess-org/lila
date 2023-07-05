@@ -70,13 +70,12 @@ final private class InsightIndexer(
     storage nbByPerf user.id flatMap { nbs =>
       var nbByPerf = nbs
       def toEntry(game: Game): Fu[Option[InsightEntry]] =
-        game.perfType so { pt =>
-          val nb = nbByPerf.getOrElse(pt, 0) + 1
-          nbByPerf = nbByPerf.updated(pt, nb)
-          povToEntry(game, user.id, provisional = nb < 10).addFailureEffect { e =>
+        val nb = nbByPerf.getOrElse(game.perfType, 0) + 1
+        nbByPerf = nbByPerf.updated(game.perfType, nb)
+        povToEntry(game, user.id, provisional = nb < 10)
+          .addFailureEffect: e =>
             logger.warn(e.getMessage, e)
-          } map (_.toOption)
-        }
+          .map(_.toOption)
       val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
       gameRepo
         .sortedCursor(query, Query.sortChronological)

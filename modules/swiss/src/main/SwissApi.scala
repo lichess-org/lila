@@ -16,16 +16,18 @@ import lila.common.{ Bus, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.round.actorApi.round.QuietFlag
-import lila.user.{ User, UserRepo }
+import lila.user.{ UserPerfs, Me, User, UserRepo, UserPerfsRepo, UserApi }
 import lila.common.config.Max
 import lila.gathering.GreatPlayer
 import lila.gathering.Condition.WithVerdicts
-import lila.user.Me
+import lila.rating.Perf
 
 final class SwissApi(
     mongo: SwissMongo,
     cache: SwissCache,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
+    userApi: UserApi,
     socket: SwissSocket,
     director: SwissDirector,
     scoring: SwissScoring,
@@ -37,11 +39,7 @@ final class SwissApi(
     chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
     roundSocket: lila.round.RoundSocket
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer
-):
+)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
   private val sequencer = lila.hub.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
@@ -133,17 +131,18 @@ final class SwissApi(
 
   private def recomputePlayerRatings(swiss: Swiss): Funit = for
     ranking <- rankingApi(swiss)
-    perfs   <- userRepo.perfOf(ranking.keys, swiss.perfType)
+    perfs   <- perfsRepo.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
     elements <- perfs.map { (userId, perf) =>
-      update.element(
-        q = $id(SwissPlayer.makeId(swiss.id, userId)),
-        u = $set(
-          SwissPlayer.Fields.rating      -> perf.intRating,
-          SwissPlayer.Fields.provisional -> perf.provisional.yes.option(true)
+      update
+        .element(
+          q = $id(SwissPlayer.makeId(swiss.id, userId)),
+          u = $set(
+            SwissPlayer.Fields.rating      -> perf.intRating,
+            SwissPlayer.Fields.provisional -> perf.provisional.yes.option(true)
+          )
         )
-      )
-    }.parallel
+    }.parallel // doesn't talk to the db yet
     _ <- elements.nonEmpty so update.many(elements).void
   yield ()
 
@@ -165,7 +164,12 @@ final class SwissApi(
         socket.reload(swiss.id)
 
   def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] =
-    me.foldUse(fuccess(swiss.settings.conditions.accepted))(verify(swiss))
+    me.foldUse(fuccess(swiss.settings.conditions.accepted)): me ?=>
+      perfsRepo
+        .withPerf(me.value, swiss.perfType)
+        .flatMap: user =>
+          given Perf = user.perf
+          verify(swiss)
 
   def join(id: SwissId, isInTeam: TeamId => Boolean, password: Option[String])(using me: Me): Fu[Boolean] =
     Sequencing(id)(cache.swissCache.notFinishedById): swiss =>
@@ -178,11 +182,17 @@ final class SwissApi(
           .updateField($id(SwissPlayer.makeId(swiss.id, me)), SwissPlayer.Fields.absent, false)
           .flatMap: rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
-              verify(swiss).dmap(_.accepted && swiss.isEnterable) >>& {
-                mongo.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
-                  mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) >>-
-                  cache.swissCache.clear(swiss.id) inject true
-              }
+              for
+                user <- perfsRepo.withPerf(me.value, swiss.perfType)
+                given Perf = user.perf
+                verified <- verify(swiss)
+                ok = verified.accepted && swiss.isEnterable
+                _ <- ok.so:
+                  mongo.player.insert.one(SwissPlayer.make(swiss.id, user)) zip
+                    mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) void
+              yield
+                cache.swissCache.clear(swiss.id)
+                ok
             }
       else fuFalse
     .flatMap: res =>

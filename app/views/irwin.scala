@@ -115,9 +115,7 @@ object irwin:
                     ),
                     br,
                     pov.game.isTournament so frag(iconTag(licon.Trophy), " "),
-                    pov.game.perfType.map { pt =>
-                      iconTag(pt.icon)
-                    },
+                    iconTag(pov.game.perfType.icon),
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",
                     momentFromNowServer(pov.game.createdAt)

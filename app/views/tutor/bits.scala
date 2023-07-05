@@ -35,9 +35,8 @@ object bits:
       moreJs = jsModule("tutor"),
       title = title,
       csp = defaultCsp.withInlineIconFont.some
-    ) {
+    ):
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
         st.aside(cls := "page-menu__menu subnav")(menu),
         div(cls := "page-menu__content")(content)
       )
-    }

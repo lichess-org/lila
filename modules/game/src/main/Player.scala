@@ -83,7 +83,7 @@ object Player:
 
   private val nameSplitRegex = """([^(]++)\((\d++)\)""".r
 
-  def make(color: Color, aiLevel: Option[Int] = None): Player = Player(
+  def makeAnon(color: Color, aiLevel: Option[Int] = None): Player = Player(
     id = IdGenerator.player(color),
     color = color,
     aiLevel = aiLevel
@@ -111,14 +111,8 @@ object Player:
       provisional = provisional
     )
 
-  def make(
-      color: Color,
-      user: Option[User],
-      perfPicker: lila.user.Perfs => lila.rating.Perf
-  ): Player =
-    user.fold(make(color)) { u =>
-      make(color, (u.id, perfPicker(u.perfs)))
-    }
+  def make(color: Color, user: Option[User.WithPerf]): Player =
+    user.fold(makeAnon(color))(u => make(color, u.user.id -> u.perf))
 
   def makeImported(
       color: Color,

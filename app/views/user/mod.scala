@@ -519,9 +519,7 @@ object mod:
                   pag.pov(result).map { p =>
                     a(href := routes.Round.watcher(p.gameId, p.color.name))(
                       p.game.isTournament option iconTag(licon.Trophy),
-                      p.game.perfType.map { pt =>
-                        iconTag(pt.icon)(cls := "text")
-                      },
+                      iconTag(p.game.perfType.icon)(cls := "text"),
                       shortClockName(p.game.clock.map(_.config))
                     )
                   }
@@ -623,15 +621,15 @@ object mod:
         ),
         tbody(
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
-            val userNotes =
-              notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Admin)))
+            val userNotes = notes.filter: n =>
+              n.to.is(o.id) && (ctx.me.exists(n.isFrom) || isGranted(_.Admin))
             val userAppeal = appeals.find(_.isAbout(o.id))
             tr(
               dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
-              cls      := (o == u) option "same"
+              cls      := o.is(u) option "same"
             )(
-              if (o.is(u) || Granter.canViewAltUsername(o))
-                td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
+              if o.is(u) || Granter.canViewAltUsername(o)
+              then td(dataSort := o.id)(userLink(o, withPerfRating = o.perfs.some, params = "?mod"))
               else td,
               isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
               td(

@@ -14,7 +14,7 @@ import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.LeaderTeam
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.user.Me
@@ -22,6 +22,7 @@ import lila.user.Me
 final class TournamentApi(
     cached: TournamentCache,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     gameRepo: GameRepo,
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
@@ -133,7 +134,7 @@ final class TournamentApi(
         users.haveWaitedEnough ||
         smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
     )) so
-      Parallel(forTour.id, "makePairings")(cached.tourCache.started) { tour =>
+      Parallel(forTour.id, "makePairings")(cached.tourCache.started): tour =>
         cached
           .ranking(tour)
           .mon(_.tournament.pairing.createRanking)
@@ -166,7 +167,6 @@ final class TournamentApi(
           .chronometer
           .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
           .result
-      }
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
     import cats.syntax.all.*
@@ -258,10 +258,13 @@ final class TournamentApi(
   def getVerdicts(tour: Tournament, playerExists: Boolean)(using GetMyTeamIds)(using
       me: Option[Me]
   ): Fu[Condition.WithVerdicts] =
-    me.foldUse(fuccess(tour.conditions.accepted)):
+    me.foldUse(fuccess(tour.conditions.accepted)): me ?=>
       if tour.isStarted && playerExists
       then verify.rejoin(tour.conditions)
-      else verify(tour.conditions, tour.perfType)
+      else
+        perfsRepo
+          .usingPerfOf(me, tour.perfType):
+            verify(tour.conditions, tour.perfType)
 
   private[tournament] def join(
       tourId: TourId,
@@ -289,9 +292,13 @@ final class TournamentApi(
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
               else if (!pause.canJoin(me, tour)) fuccess(JoinResult.Paused)
               else
-                def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] =
-                  playerRepo.join(tour.id, me.value, tour.perfType, team, prevPlayer) >>
-                    updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
+                def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
+                  user <- perfsRepo.withPerf(me.value, tour.perfType)
+                  _    <- playerRepo.join(tour.id, user, team, prevPlayer)
+                  _    <- updateNbPlayers(tour.id)
+                yield
+                  publish()
+                  JoinResult.Ok
                 tour.teamBattle.fold(proceedWithTeam(none)) { battle =>
                   data.team match
                     case None if prevPlayer.isDefined => proceedWithTeam(none)
@@ -408,7 +415,7 @@ final class TournamentApi(
             }
 
   private def updatePlayerAfterGame(tour: Tournament, game: Game, pairing: Pairing)(userId: UserId): Funit =
-    tour.mode.rated so { userRepo.perfOf(userId, tour.perfType) } flatMap { perf =>
+    tour.mode.rated so { perfsRepo.perfOptionOf(userId, tour.perfType) } flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
         cached.sheet.addResult(tour, userId, pairing).map { sheet =>
           player.copy(
@@ -487,7 +494,7 @@ final class TournamentApi(
     }
 
   private def recomputePlayerAndSheet(tour: Tournament)(userId: UserId): Funit =
-    tour.mode.rated so { userRepo.perfOf(userId, tour.perfType) } flatMap { perf =>
+    tour.mode.rated so { perfsRepo.perfOptionOf(userId, tour.perfType) } flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
         cached.sheet.recompute(tour, userId).map { sheet =>
           player.copy(
@@ -653,9 +660,8 @@ final class TournamentApi(
       .sortedCursor(tour.id, perSecond.value)
       .documentSource(nb)
       .throttle(perSecond.value, 1 second)
-      .mapAsync(1) { player =>
-        withSheet.so(cached.sheet(tour, player.userId) dmap some).dmap(player -> _)
-      }
+      .mapAsync(1): player =>
+        withSheet.soFu(cached.sheet(tour, player.userId)).dmap(player -> _)
       .zipWithIndex
       .mapAsync(8) { case ((player, sheet), index) =>
         lightUserApi.asyncFallback(player.userId) map {
@@ -725,14 +731,13 @@ final class TournamentApi(
       fetch: TourId => Fu[Option[Tournament]]
   )(run: Tournament => Funit): Funit =
     fetch(tourId) flatMapz { tour =>
-      if (tour.nbPlayers > 1000)
-        run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
-      else
-        run(tour)
+      if tour.nbPlayers > 3000
+      then run(tour).chronometer.mon(_.tournament.action(tourId.value, action)).result
+      else run(tour)
     }
 
   private object publish:
-    private val debouncer = Debouncer[Unit](15 seconds, 1) { _ =>
+    private val debouncer = Debouncer[Unit](15 seconds, 1): _ =>
       given play.api.i18n.Lang = lila.i18n.defaultLang
       fetchUpdateTournaments flatMap apiJsonView.apply foreach { json =>
         Bus.publish(
@@ -740,7 +745,6 @@ final class TournamentApi(
           "sendToFlag"
         )
       }
-    }
     def apply() = debouncer.push(()).unit
 
   private object updateTournamentStanding:

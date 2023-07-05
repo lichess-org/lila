@@ -110,14 +110,10 @@ object timeline:
             a(href := routes.Study.show(studyId))(studyName)
           )
         case PlanStart(userId) =>
-          a(href := routes.Plan.index)(
-            trans.patron.xBecamePatron(userLink(userId))
-          )
+          trans.patron.xBecamePatron(userLink(userId))
         case PlanRenew(userId, months) =>
-          a(href := routes.Plan.index)(
-            trans.patron.xIsPatronForNbMonths
-              .plural(months, userLink(userId), months)
-          )
+          trans.patron.xIsPatronForNbMonths
+            .plural(months, userLink(userId), months)
         case BlogPost(id, slug, title) =>
           a(cls := "text", dataIcon := licon.InkQuill, href := routes.Blog.show(id, slug))(title)
         case UblogPostLike(userId, postId, postTitle) =>

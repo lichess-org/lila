@@ -7,11 +7,11 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
-import lila.user.UserRepo
+import lila.user.UserApi
 
 final class SelfReport(
     tellRound: TellRound,
-    userRepo: UserRepo,
+    userApi: UserApi,
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
@@ -25,7 +25,7 @@ final class SelfReport(
       fullId: GameFullId,
       name: String
   ): Funit =
-    userId so userRepo.byId map { user =>
+    userId so userApi.withPerfs map { user =>
       val known = user.exists(_.marks.engine)
       // user.ifTrue(!known && name != "ceval") so { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)

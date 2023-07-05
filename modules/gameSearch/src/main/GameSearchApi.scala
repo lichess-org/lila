@@ -48,7 +48,7 @@ final class GameSearchApi(
         }).id,
         Fields.turns         -> (game.ply.value + 1) / 2,
         Fields.rated         -> game.rated,
-        Fields.perf          -> game.perfType.map(_.id),
+        Fields.perf          -> game.perfType.id,
         Fields.uids          -> game.userIds.some.filterNot(_.isEmpty),
         Fields.winner        -> game.winner.flatMap(_.userId),
         Fields.loser         -> game.loser.flatMap(_.userId),

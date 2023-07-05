@@ -7,12 +7,13 @@ import lila.common.licon
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserApi }
 import lila.user.Me
 
 final class StreamerApi(
     coll: Coll,
     userRepo: UserRepo,
+    userApi: UserApi,
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi,
@@ -31,9 +32,8 @@ final class StreamerApi(
     userRepo byId username flatMapz find
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
-    byId(user.id into Streamer.Id) dmap {
-      _ map { Streamer.WithUser(_, user) }
-    }
+    byId(user.id into Streamer.Id).mapz: streamer =>
+      Streamer.WithUser(streamer, user).some
 
   def findOrInit(user: User): Fu[Option[Streamer.WithUser]] =
     find(user).orElse:
@@ -42,18 +42,16 @@ final class StreamerApi(
 
   def forSubscriber(streamerName: UserStr)(using me: Option[Me.Id]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)): (streamerFu, me) =>
-      streamerFu flatMapz { s =>
+      streamerFu.flatMapz: s =>
         subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
-      }
 
-  def withUsers(live: LiveStreams)(using me: Option[Me.Id]): Fu[List[Streamer.WithUserAndStream]] = for {
-    users <- userRepo.byIdsSecondary(live.streams.map(_.streamer.userId))
+  def withUsers(live: LiveStreams)(using me: Option[Me.Id]): Fu[List[Streamer.WithUserAndStream]] = for
+    users <- userRepo.byIds(live.streams.map(_.streamer.userId))
     subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
-  } yield live.streams.flatMap { s =>
+  yield live.streams.flatMap: s =>
     users.find(_ is s.streamer) map {
       Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
     }
-  }
 
   def allListedIds: Fu[Set[Streamer.Id]] = cache.listedIds.getUnit
 

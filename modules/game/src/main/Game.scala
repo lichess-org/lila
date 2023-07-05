@@ -21,13 +21,11 @@ import chess.{
   Speed,
   Status
 }
-
 import chess.MoveOrDrop.{ fold, color }
 
 import lila.common.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
-import lila.rating.PerfType.Classical
 import lila.user.User
 
 case class Game(
@@ -70,6 +68,8 @@ case class Game(
     players.reduce((w, b) => w.userId.has(userId1) && b.userId.has(userId2))
 
   def hasUserId(userId: UserId) = players.exists(_.userId.has(userId))
+
+  def userIdPair: PairOf[Option[UserId]] = players.map(_.userId).toPair
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -257,8 +257,15 @@ case class Game(
 
   def speed = Speed(chess.clock.map(_.config))
 
-  def perfKey: Perf.Key = PerfPicker.key(this)
-  def perfType          = PerfType(perfKey)
+  lazy val perfType: PerfType = PerfType(variant, speed)
+  def perfKey: Perf.Key       = perfType.key
+
+  def ratingVariant =
+    if isTournament && variant.fromPosition then Standard else variant
+
+  def ratingPerfType: Option[PerfType] =
+    if variant.fromPosition then isTournament option PerfType.Standard
+    else perfType.some
 
   def started = status >= Status.Started
 
@@ -399,9 +406,6 @@ case class Game(
       Game.analysableVariants(variant) &&
       !Game.isOldHorde(this)
 
-  def ratingVariant =
-    if isTournament && variant.fromPosition then Standard else variant
-
   def fromPosition = variant.fromPosition || source.has(Source.Position)
 
   def imported   = source contains Source.Import
@@ -535,7 +539,7 @@ case class Game(
 
   def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
 
-  def userIds = players.flatMap(_.userId)
+  def userIds: List[UserId] = players.flatMap(_.userId)
 
   def twoUserIds: Option[(UserId, UserId)] = for
     w <- whitePlayer.userId

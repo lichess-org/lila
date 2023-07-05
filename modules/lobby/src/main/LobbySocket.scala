@@ -19,6 +19,8 @@ case class LobbyCounters(members: Int, rounds: Int)
 final class LobbySocket(
     biter: Biter,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
@@ -189,7 +191,7 @@ final class LobbySocket(
           blocking    = d.get[UserId]("blocking")
         } yield
           lobby ! CancelHook(member.sri) // in case there's one...
-          userRepo.glicko(user.id, perfType) foreach { glicko =>
+          perfsRepo.glicko(user.id, perfType) foreach { glicko =>
             poolApi.join(
               PoolConfig.Id(id),
               PoolApi.Joiner(
@@ -220,8 +222,9 @@ final class LobbySocket(
 
   private def getOrConnect(sri: Sri, userOpt: Option[UserId]): Fu[Member] =
     actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
-      userOpt so userRepo.enabledById flatMap { user =>
+      userOpt so userApi.withPerfs flatMap { user =>
         user
+          .filter(_.enabled.yes)
           .so: u =>
             remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
             relationApi.fetchBlocking(u.id)

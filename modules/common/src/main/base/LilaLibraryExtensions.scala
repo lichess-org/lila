@@ -53,6 +53,17 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
 
+    // move to scalalib? generalize Future away?
+    def soFu[B](f: A => Future[B]): Future[Option[B]] = self match
+      case Some(x) => f(x).map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
+      case None    => Future.successful(None)
+
+  extension (self: Boolean)
+    // move to scalalib? generalize Future away?
+    def soFu[B](f: => Future[B]): Future[Option[B]] =
+      if self then f.map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
+      else Future.successful(None)
+
   extension (s: String)
 
     def replaceIf(t: Char, r: Char): String =

@@ -44,9 +44,8 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
 
   def scoresToString: String =
     val sb = new java.lang.StringBuilder(16)
-    scores foreach { score =>
+    scores.foreach: score =>
       sb append score.value
-    }
     sb.toString
 
 object Sheet:

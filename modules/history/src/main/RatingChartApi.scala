@@ -54,7 +54,7 @@ final class RatingChartApi(
 
 object RatingChartApi:
 
-  def bestPerfIndex(user: User): Int = user.bestPerf so { perfTypes indexOf _ }
+  def bestPerfIndex(user: User.WithPerfs): Int = user.perfs.bestRatedPerf.so(perfTypes indexOf _)
 
   import lila.rating.PerfType.*
   private val perfTypes = List(
