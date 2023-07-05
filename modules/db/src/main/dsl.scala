@@ -20,13 +20,21 @@ import alleycats.Zero
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import scala.collection.Factory
+import reactivemongo.api.ReadPreference.Primary
 
 trait dsl:
 
   // #TODO FIXME
   // should be secondaryPreferred
   // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-  val temporarilyPrimary = ReadPreference.primary
+  val temporarilyPrimary: ReadPreference = ReadPreference.primary
+
+  type ReadPref = ReadPref.type => ReadPreference
+  object ReadPref:
+    val pri: ReadPreference                    = ReadPreference.primary
+    val sec: ReadPreference                    = ReadPreference.secondaryPreferred
+    val secOnly: ReadPreference                = ReadPreference.secondary
+    given Conversion[ReadPref, ReadPreference] = _(ReadPref)
 
   type Coll = reactivemongo.api.bson.collection.BSONCollection
   type Bdoc = BSONDocument

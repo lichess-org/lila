@@ -428,7 +428,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
     withEmails(List(u)).map(_.headOption)
 
   def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] = for
-    perfs <- perfsRepo.idsMap(users)
+    perfs <- perfsRepo.idsMap(users, _.sec)
     users <- coll
       .list[Bdoc]($inIds(users.map(_.id)), temporarilyPrimary)
       .map: docs =>
@@ -469,11 +469,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
     else $doc(F.title      -> $ne(Title.BOT))
 
   private[user] def botIds =
-    coll.distinctEasy[UserId, Set](
-      "_id",
-      botSelect(true) ++ enabledSelect,
-      ReadPreference.secondaryPreferred
-    )
+    coll.distinctEasy[UserId, Set]("_id", botSelect(true) ++ enabledSelect, ReadPref.sec)
 
   def getTitle(id: UserId): Fu[Option[UserTitle]] = coll.primitiveOne[UserTitle]($id(id), F.title)
 
@@ -496,14 +492,14 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
     coll.distinctEasy[UserId, Set](
       F.id,
       $inIds(userIds) ++ enabledSelect ++ patronSelect,
-      ReadPreference.secondaryPreferred
+      ReadPref.sec
     )
 
   def filterEnabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect, ReadPreference.secondaryPreferred)
+    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect, ReadPref.sec)
 
   def filterDisabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ disabledSelect, ReadPreference.secondaryPreferred)
+    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ disabledSelect, ReadPref.sec)
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("_id", $doc("roles" $in roles))
@@ -554,7 +550,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
     coll.distinctEasy[UserId, List](
       F.id,
       $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since),
-      ReadPreference.secondaryPreferred
+      ReadPref.sec
     )
 
   def setEraseAt(user: User) =

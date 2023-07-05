@@ -68,7 +68,7 @@ final class ChallengeGranter(
           case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
           case (_, Pref.Challenge.RATING) =>
             perfsRepo
-              .perfsOf(from.value -> dest)
+              .perfsOf(from.value -> dest, _.sec)
               .map: (fromPerfs, destPerfs) =>
                 if fromPerfs(perfType).provisional || destPerfs(perfType).provisional
                 then RatingIsProvisional(perfType).some

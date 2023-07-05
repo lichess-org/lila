@@ -102,5 +102,5 @@ final private[team] class PaginatorBuilder(
           .skip(offset)
           .cursor[Request]()
           .list(length)
-        users <- userApi.listWithPerfs(requests.map(_.user), ReadPreference.secondaryPreferred)
+        users <- userApi.listWithPerfs(requests.map(_.user))
       yield RequestWithUser.combine(requests, users)

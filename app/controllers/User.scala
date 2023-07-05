@@ -250,6 +250,7 @@ final class User(
           nbAllTime      <- env.user.cached.top10NbGame.get {}
           tourneyWinners <- env.tournament.winners.all.map(_.top)
           topOnline      <- env.user.cached.getTop50Online
+          topOnline      <- env.user.perfsRepo.withPerfs(topOnline)
           _              <- lightUserApi preloadMany tourneyWinners.map(_.userId)
           page <- renderPage:
             html.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
@@ -322,17 +323,17 @@ final class User(
       max: Int
   )(using Context): Fu[UserLogins.TableData[UserWithModlog]] =
     val familyUserIds = user.id :: userLogins.otherUserIds
-    (isGrantedOpt(_.ModNote) so env.user.noteApi
-      .byUsersForMod(familyUserIds)
-      .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)) zip
-      env.playban.api.bans(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds) zip
-      lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) flatMap {
-        case ((notes, bans), othersWithEmail) =>
-          env.mod.logApi.addModlog(othersWithEmail.others.map(_.user)).map(othersWithEmail.withUsers).map {
-            otherUsers =>
-              UserLogins.TableData(userLogins, otherUsers, notes, bans, max)
-          }
-      }
+    for
+      ((notes, bans), othersWithEmail) <-
+        (isGrantedOpt(_.ModNote) so env.user.noteApi
+          .byUsersForMod(familyUserIds)
+          .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)) zip
+          env.playban.api.bans(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds) zip
+          lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins)
+      otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
+      otherUsers <- env.mod.logApi.addModlog(otherUsers)
+      others = othersWithEmail.withUsers(otherUsers)
+    yield UserLogins.TableData(userLogins, others, notes, bans, max)
 
   protected[controllers] def renderModZone(username: UserStr)(using
       ctx: Context,

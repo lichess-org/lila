@@ -318,7 +318,7 @@ final class Challenge(
     import lila.challenge.Challenge.*
     val timeControl = TimeControl.make(config.clock, config.days)
     env.user.perfsRepo
-      .withPerfs(orig -> dest)
+      .withPerfs(orig -> dest, _.sec)
       .map: (orig, dest) =>
         lila.challenge.Challenge.make(
           variant = config.variant,

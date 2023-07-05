@@ -39,6 +39,5 @@ final class Env(
       driver = driver
     )
 
-  Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Closing mongodb driver") { () =>
+  Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Closing mongodb driver"): () =>
     driver.close()
-  }

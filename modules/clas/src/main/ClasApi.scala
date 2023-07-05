@@ -158,7 +158,7 @@ final class ClasApi(
       perfsRepo.perfsOf(student.user).map(student.withPerfs)
 
     def withPerfs(students: List[Student.WithUser]): Fu[List[Student.WithUserPerfs]] =
-      perfsRepo.idsMap(students.map(_.user.id)).map { perfs =>
+      perfsRepo.idsMap(students.map(_.user.id), _.sec).map { perfs =>
         students.map(s => s.withPerfs(perfs.getOrElse(s.user.id, UserPerfs.default(s.user.id))))
       }
 

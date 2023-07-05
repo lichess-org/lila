@@ -17,7 +17,7 @@ final class TeamMemberStream(
     idsBatches(team, perSecond)
       .mapAsync(1): members =>
         userApi
-          .listWithPerfs(members.view.map(_._1).toList, ReadPreference.secondaryPreferred)
+          .listWithPerfs(members.view.map(_._1).toList)
           .map(_ zip members.map(_._2))
       .mapConcat(identity)
 

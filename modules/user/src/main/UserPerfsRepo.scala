@@ -18,9 +18,9 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
 
   def idsMap[U: UserIdOf](
       u: Seq[U],
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPref: ReadPref
   ): Fu[Map[UserId, UserPerfs]] =
-    coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPreference)(_.id)
+    coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPref)(_.id)
 
   def idsMap[U: UserIdOf](u: Seq[U], pt: PerfType): Fu[Map[UserId, Perf]] =
     given BSONDocumentReader[(UserId, Perf)] = UserPerfs.idPerfReader(pt)
@@ -33,24 +33,21 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
   def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs] =
     coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
 
-  def perfsOf[U: UserIdOf](us: PairOf[U]): Fu[PairOf[UserPerfs]] = us match
+  def perfsOf[U: UserIdOf](us: PairOf[U], readPref: ReadPref): Fu[PairOf[UserPerfs]] = us match
     case (x, y) =>
-      idsMap(List(x, y)).dmap: ps =>
+      idsMap(List(x, y), readPref).dmap: ps =>
         ps.getOrElse(x.id, UserPerfs.default(x.id)) -> ps.getOrElse(y.id, UserPerfs.default(y.id))
 
   def withPerfs(u: User): Fu[User.WithPerfs] =
     perfsOf(u).dmap(User.WithPerfs(u, _))
 
-  def withPerfs(us: PairOf[User]): Fu[PairOf[User.WithPerfs]] =
-    perfsOf(us).dmap: (x, y) =>
+  def withPerfs(us: PairOf[User], readPref: ReadPref): Fu[PairOf[User.WithPerfs]] =
+    perfsOf(us, readPref).dmap: (x, y) =>
       User.WithPerfs(us._1, y) -> User.WithPerfs(us._2, x)
 
-  def withPerfs(
-      us: Seq[User],
-      readPreference: ReadPreference = ReadPreference.primary
-  ): Fu[Seq[User.WithPerfs]] =
-    idsMap(us, readPreference).map: perfs =>
-      us.map(u => User.WithPerfs(u, perfs.get(u.id)))
+  def withPerfs(us: Seq[User], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
+    idsMap(us, readPref).map: perfs =>
+      us.view.map(u => User.WithPerfs(u, perfs.get(u.id))).toList
 
   def setPerfs(user: User, perfs: UserPerfs, prev: UserPerfs)(using wr: BSONHandler[Perf]) =
     val diff = for

@@ -47,12 +47,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def enabledWithPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
     withPerfs(id).dmap(_.filter(_.enabled.yes))
 
-  def listWithPerfs[U: UserIdOf](
-      ids: List[U],
-      readPreference: ReadPreference = ReadPreference.primary
-  ): Fu[List[User.WithPerfs]] = for
-    users <- userRepo.byIds(ids, readPreference)
-    perfs <- perfsRepo.idsMap(ids, readPreference)
+  def listWithPerfs[U: UserIdOf](ids: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] = for
+    users <- userRepo.byIds(ids, readPref)
+    perfs <- perfsRepo.idsMap(ids, readPref)
   yield users.map: user =>
     User.WithPerfs(user, perfs.get(user.id))
 
@@ -86,6 +83,6 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .cursor[User](temporarilyPrimary)
       .documentSource(nb | Int.MaxValue)
       .grouped(40)
-      .mapAsync(1)(perfsRepo.withPerfs(_, ReadPreference.secondaryPreferred))
+      .mapAsync(1)(perfsRepo.withPerfs(_))
       .throttle(1, 1 second)
       .mapConcat(identity)

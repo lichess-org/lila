@@ -60,7 +60,7 @@ final class Api(
     val cost      = usernames.size / 4
     UsersRateLimitPerIP(req.ipAddress, rateLimited, cost = cost):
       lila.mon.api.users.increment(cost.toLong)
-      env.user.api listWithPerfs usernames map {
+      env.user.api.listWithPerfs(usernames) map {
         _.map { u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true) }
       } map toApiResult map toHttp
 

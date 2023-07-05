@@ -50,7 +50,7 @@ final class StreamerApi(
         subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
 
   def withUsers(live: LiveStreams)(using me: Option[Me.Id]): Fu[List[Streamer.WithUserAndStream]] = for
-    users <- userApi.listWithPerfs(live.streams.map(_.streamer.userId), ReadPreference.secondaryPreferred)
+    users <- userApi.listWithPerfs(live.streams.map(_.streamer.userId))
     subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
   yield live.streams.flatMap: s =>
     users.find(_ is s.streamer) map {

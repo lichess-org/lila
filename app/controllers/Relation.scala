@@ -137,7 +137,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     )
 
   private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related]] =
-    env.user.api.listWithPerfs(userIds.toList, ReadPreference.secondaryPreferred) flatMap { users =>
+    env.user.api.listWithPerfs(userIds.toList) flatMap { users =>
       ctx.isAuth.so(env.pref.api.followableIds(users map (_.id))) flatMap { followables =>
         users.map { u =>
           ctx.userId

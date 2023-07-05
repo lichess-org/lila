@@ -27,7 +27,7 @@ final class RelationStream(colls: Colls, userApi: UserApi)(using akka.stream.Mat
       .map(_.flatMap(_.getAsOpt[UserId](projectField(direction))))
       .throttle(1, 1 second)
       .mapAsync(1): ids =>
-        userApi.listWithPerfs(ids.toList, ReadPreference.secondaryPreferred)
+        userApi.listWithPerfs(ids.toList)
       .mapConcat(identity)
 
   private def selectField(d: Direction) = d match

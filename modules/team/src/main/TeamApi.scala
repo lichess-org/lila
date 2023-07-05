@@ -143,7 +143,7 @@ final class TeamApi(
 
   private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
     userApi
-      .listWithPerfs(requests.map(_.user), ReadPreference.secondaryPreferred)
+      .listWithPerfs(requests.map(_.user))
       .map: users =>
         RequestWithUser.combine(requests, users.filter(_.enabled.yes))
 
@@ -158,17 +158,15 @@ final class TeamApi(
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
       createRequest(team, txt) inject Requesting.Joined
 
-  def requestable(teamId: TeamId)(using Me): Fu[Option[Team]] =
-    for
-      teamOption <- teamEnabled(teamId)
-      able       <- teamOption.so(requestable)
-    yield teamOption ifTrue able
+  def requestable(teamId: TeamId)(using Me): Fu[Option[Team]] = for
+    teamOption <- teamEnabled(teamId)
+    able       <- teamOption.so(requestable)
+  yield teamOption ifTrue able
 
-  def requestable(team: Team)(using me: Me): Fu[Boolean] =
-    for
-      belongs   <- belongsTo(team.id, me)
-      requested <- requestRepo.exists(team.id, me)
-    yield !belongs && !requested
+  def requestable(team: Team)(using me: Me): Fu[Boolean] = for
+    belongs   <- belongsTo(team.id, me)
+    requested <- requestRepo.exists(team.id, me)
+  yield !belongs && !requested
 
   def createRequest(team: Team, msg: String)(using me: Me): Funit =
     requestable(team).flatMapz {
