@@ -154,7 +154,7 @@ object RawHtml:
             )
           )
       var parenCnt = pCnter(start, -1)
-      while (sArr(last): @switch) match
+      while (sArr(last): @switch).match
           case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' => true
           case '('                                                        => parenCnt -= 1; true
           case ')'                                                        => parenCnt += 1; parenCnt <= 0
