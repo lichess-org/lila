@@ -92,10 +92,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
       )
       .void
 
-  def cursor =
-    coll
-      .find(enabledSelect)
-      .cursor[Team](ReadPreference.secondaryPreferred)
+  def cursor = coll.find(enabledSelect).cursor[Team](ReadPref.sec)
 
   def countRequestsOfLeader(userId: UserId, requestColl: Coll): Fu[Int] =
     coll

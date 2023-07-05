@@ -1,6 +1,5 @@
 package lila.practice
 
-import reactivemongo.api.ReadPreference
 import cats.syntax.all.*
 
 import lila.common.Bus

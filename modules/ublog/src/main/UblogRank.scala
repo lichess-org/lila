@@ -106,7 +106,7 @@ final class UblogRank(
     colls.blog
       .find($empty)
       .sort($sort desc "tier")
-      .cursor[UblogBlog](ReadPreference.secondaryPreferred)
+      .cursor[UblogBlog](ReadPref.sec)
       .documentSource()
       .mapAsyncUnordered(4)(recomputeRankOfAllPostsOfBlog)
       .runWith(lila.common.LilaStream.sinkCount)

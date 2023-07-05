@@ -1,7 +1,5 @@
 package lila.relay
 
-import reactivemongo.api.ReadPreference
-
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.*
