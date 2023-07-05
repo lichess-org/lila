@@ -18,7 +18,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
       def nbResults: Fu[Int] = tourRepo.countByOwner(owner)
       def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
         tourRepo.coll
-          .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
+          .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(tourRepo.selectors.ownerId(owner.id)) -> {
               List(Sort(Descending("createdAt"))) ::: aggregateRound(framework) ::: List(
@@ -38,7 +38,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
         def nbResults: Fu[Int] = fuccess(9999)
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
+            .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(tourRepo.selectors.officialInactive) -> {
                 List(Sort(Descending("syncedAt"))) ::: aggregateRound(framework) ::: List(
@@ -59,7 +59,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
         def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
+            .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
                 List(Sort(Descending("tier"), Descending("syncedAt"), Descending("createdAt"))) :::

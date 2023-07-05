@@ -1,7 +1,6 @@
 package lila.chat
 
 import chess.Color
-import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
 import lila.common.config.NetDomain
@@ -56,7 +55,7 @@ final class ChatApi(
       findOption(chatId).dmap(_ | Chat.makeUser(chatId))
 
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
-      coll.byStringIds[UserChat](ChatId raw chatIds, ReadPreference.secondaryPreferred)
+      coll.byStringIds[UserChat](ChatId raw chatIds, _.sec)
 
     def findMine(chatId: ChatId)(using Option[Me]): Fu[UserChat.Mine] = findMineIf(chatId, cond = true)
 
@@ -273,7 +272,7 @@ final class ChatApi(
       findOption(chatId) dmap (_ filter (_.nonEmpty))
 
     def optionsByOrderedIds(chatIds: List[ChatId]): Fu[List[Option[MixedChat]]] =
-      coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
+      coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, none, _.sec)(_.id)
 
     def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) so { line =>

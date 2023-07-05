@@ -58,7 +58,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           .coll {
             _.find($doc("_id".$startsWith(java.util.regex.Pattern.quote(str), "i")))
               .sort($sort.naturalAsc)
-              .cursor[Bdoc](readPref)
+              .cursor[Bdoc]()
               .list(nb - favs.size)
           }
           .dmap { _ flatMap docTopic }

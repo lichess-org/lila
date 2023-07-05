@@ -6,7 +6,6 @@ import reactivemongo.api.bson.*
 import lila.common.Bearer
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
-import reactivemongo.api.ReadPreference
 import lila.hub.actorApi.oauth.TokenRevoke
 
 final class AccessTokenApi(
@@ -193,7 +192,7 @@ final class AccessTokenApi(
     coll
       .optionsByOrderedIds[AccessToken, AccessToken.Id](
         bearers map AccessToken.Id.from,
-        readPreference = ReadPreference.secondaryPreferred
+        readPref = _.sec
       )(_.id)
       .flatMap: tokens =>
         userRepo.filterDisabled(tokens.flatten.map(_.userId)) map { closedUserIds =>

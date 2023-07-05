@@ -5,7 +5,6 @@ import lila.common.paginator.*
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
-import reactivemongo.api.ReadPreference
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,

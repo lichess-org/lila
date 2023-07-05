@@ -86,8 +86,9 @@ final class UblogRank(
         $doc("blog" -> blog.id),
         $doc("likes" -> true, "lived" -> true, "language" -> true).some
       )
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list(500) flatMap:
+      .cursor[Bdoc](ReadPref.sec)
+      .list(500)
+      .flatMap:
         _.traverse_ : doc =>
           (
             doc.string("_id"),

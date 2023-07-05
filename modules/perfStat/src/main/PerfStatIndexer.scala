@@ -1,7 +1,5 @@
 package lila.perfStat
 
-import reactivemongo.api.ReadPreference
-
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.rating.PerfType
 import lila.user.User
@@ -27,7 +25,7 @@ final class PerfStatIndexer(
             Query.turnsGt(2) ++
             Query.variant(PerfType variantOf perfType),
           Query.sortChronological,
-          readPreference = ReadPreference.secondaryPreferred
+          readPref = _.sec
         )
         .fold(PerfStat.init(user.id, perfType)):
           case (perfStat, game) if game.perfType == perfType =>

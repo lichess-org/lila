@@ -3,7 +3,6 @@ package lila.playban
 import chess.{ Centis, Color, Status }
 import play.api.Mode
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
@@ -163,7 +162,7 @@ final class PlaybanApi(
   def hasCurrentBan[U: UserIdOf](u: U): Fu[Boolean] = currentBan(u).map(_.isDefined)
 
   def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] = coll
-    .aggregateList(Int.MaxValue, temporarilyPrimary): framework =>
+    .aggregateList(Int.MaxValue, _.pri): framework =>
       import framework.*
       Match($inIds(userIds) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))
@@ -176,7 +175,7 @@ final class PlaybanApi(
       .toMap
 
   def bans(userId: UserId): Fu[Int] = coll
-    .aggregateOne(ReadPreference.secondaryPreferred): framework =>
+    .aggregateOne(_.sec): framework =>
       import framework.*
       Match($id(userId) ++ $doc("b" $exists true)) -> List(
         Project($doc("bans" -> $doc("$size" -> "$b")))

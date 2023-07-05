@@ -346,10 +346,10 @@ final class PlayerRepo(coll: Coll)(using Executor):
   private[tournament] def sortedCursor(
       tournamentId: TourId,
       batchSize: Int,
-      readPreference: ReadPreference = temporarilyPrimary
+      readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Player] =
     coll
       .find(selectTour(tournamentId))
       .sort($sort desc "m")
       .batchSize(batchSize)
-      .cursor[Player](readPreference)
+      .cursor[Player](readPref)

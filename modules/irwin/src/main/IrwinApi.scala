@@ -2,7 +2,6 @@ package lila.irwin
 
 import cats.syntax.all.*
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.analyse.Analysis
 import lila.analyse.AnalysisRepo
@@ -129,7 +128,7 @@ final class IrwinApi(
       gameRepo.coll
         .find(baseQuery(suspect) ++ Query.analysed(true))
         .sort(Query.sortCreated)
-        .cursor[Game](ReadPreference.secondaryPreferred)
+        .cursor[Game](ReadPref.sec)
         .list(nb)
         .flatMap(analysisRepo.associateToGames)
 
@@ -138,7 +137,7 @@ final class IrwinApi(
         gameRepo.coll
           .find(baseQuery(suspect) ++ Query.analysed(false))
           .sort(Query.sortCreated)
-          .cursor[Game](ReadPreference.secondaryPreferred)
+          .cursor[Game](ReadPref.sec)
           .list(nb)
 
   object notification:

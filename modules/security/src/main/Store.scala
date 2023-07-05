@@ -3,7 +3,6 @@ package lila.security
 import play.api.mvc.RequestHeader
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
-import reactivemongo.api.ReadPreference
 import scala.concurrent.blocking
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
@@ -175,7 +174,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       } >> uncacheAllOf(userId)
 
   def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean] =
-    coll.aggregateExists(ReadPreference.secondaryPreferred) { framework =>
+    coll.aggregateExists(_.sec): framework =>
       import framework.*
       Match($doc("user" $in List(u1, u2))) -> List(
         Limit(500),
@@ -196,15 +195,13 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
         ),
         Limit(1)
       )
-    }
 
   def ips(user: User): Fu[Set[IpAddress]] =
     coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))
 
   private[security] def recentByIpExists(ip: IpAddress, since: FiniteDuration): Fu[Boolean] =
-    coll.secondaryPreferred.exists(
+    coll.secondaryPreferred.exists:
       $doc("ip" -> ip, "date" -> $gt(nowInstant minusMinutes since.toMinutes.toInt))
-    )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     FingerHash.from(fp).so { hash =>

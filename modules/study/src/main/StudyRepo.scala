@@ -71,9 +71,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def sortedCursor(
       selector: Bdoc,
       sort: Bdoc,
-      readPreference: ReadPreference = readPref
+      readPref: ReadPref = _.pri
   ): Fu[AkkaStreamCursor[Study]] =
-    coll.map(_.find(selector).sort(sort).cursor[Study](readPreference))
+    coll.map(_.find(selector).sort(sort).cursor[Study](readPref))
 
   def exists(id: StudyId) = coll(_.exists($id(id)))
 
@@ -100,7 +100,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       coll.map:
         _.find(selectOwnerId(ownerId) ++ (!isMe so selectPublic))
           .sort($sort desc "updatedAt")
-          .cursor[Study](readPreference = readPref)
+          .cursor[Study]()
           .documentSource()
 
   def insert(s: Study): Funit =

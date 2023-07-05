@@ -2,7 +2,6 @@ package lila.forum
 
 import Filter.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -97,16 +96,16 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def sortQuery = $sort.createdAsc
 
   def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
-    coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+    coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), _.sec)
 
   def allUserIdsByTopicId(topicId: ForumTopicId): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](
       "userId",
       $doc("topicId" -> topicId) ++ selectNotErased,
-      ReadPreference.secondaryPreferred
+      _.sec
     )
 
   def nonGhostCursor =
     coll
       .find($doc("userId" $ne User.ghostId))
-      .cursor[ForumPost](ReadPreference.secondaryPreferred)
+      .cursor[ForumPost](ReadPref.sec)

@@ -509,21 +509,17 @@ final class TournamentApi(
 
   private[tournament] def recomputeEntireTournament(id: TourId): Funit =
     tournamentRepo.byId(id) flatMapz { tour =>
-      import reactivemongo.api.ReadPreference
       playerRepo
-        .sortedCursor(tour.id, 64, ReadPreference.primary)
+        .sortedCursor(tour.id, 64, _.pri)
         .documentSource()
-        .mapAsyncUnordered(4) { player =>
-          cached.sheet.recompute(tour, player.userId) dmap (player -> _)
-        }
-        .mapAsyncUnordered(4) { case (player, sheet) =>
-          playerRepo.update(
+        .mapAsyncUnordered(4): player =>
+          cached.sheet.recompute(tour, player.userId).dmap(player -> _)
+        .mapAsyncUnordered(4): (player, sheet) =>
+          playerRepo.update:
             player.copy(
               score = sheet.total,
               fire = tour.streakable && sheet.isOnFire
             )
-          )
-        }
         .runWith(Sink.ignore)
         .void
     }

@@ -202,17 +202,16 @@ final class SwissApi(
       swissId: SwissId,
       player: Option[UserId],
       batchSize: Int = 0,
-      readPreference: ReadPreference = temporarilyPrimary
+      readPref: ReadPref = _.priTemp
   ): Source[GameId, ?] =
-    SwissPairing.fields { f =>
+    SwissPairing.fields: f =>
       mongo.pairing
         .find($doc(f.swissId -> swissId) ++ player.so(u => $doc(f.players -> u)), $id(true).some)
         .sort($sort asc f.round)
         .batchSize(batchSize)
-        .cursor[Bdoc](readPreference)
+        .cursor[Bdoc](readPref)
         .documentSource()
         .mapConcat(_.getAsOpt[GameId]("_id").toList)
-    }
 
   def featuredInTeam(teamId: TeamId): Fu[List[Swiss]] =
     cache.featuredInTeam.get(teamId) flatMap { ids =>
@@ -338,7 +337,7 @@ final class SwissApi(
 
   def joinedPlayableSwissIds(userId: UserId, teamIds: List[TeamId]): Fu[List[SwissId]] =
     mongo.swiss
-      .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
+      .aggregateList(100, _.sec): framework =>
         import framework.*
         Match($doc("teamId" $in teamIds, "featurable" -> true)) -> List(
           PipelineOperator(
@@ -354,7 +353,6 @@ final class SwissApi(
           Limit(100),
           Project($id(true))
         )
-      }
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
 
   private def kickFromSwissIds(userId: UserId, swissIds: Seq[SwissId], forfeit: Boolean = false): Funit =
@@ -604,7 +602,7 @@ final class SwissApi(
 
   def withdrawAll(user: User, teamIds: List[TeamId]): Funit =
     mongo.swiss
-      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred): framework =>
+      .aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match($doc("finishedAt" $exists false, "nbPlayers" $gt 0, "teamId" $in teamIds)) -> List(
           PipelineOperator(

@@ -1,7 +1,5 @@
 package lila.tournament
 
-import reactivemongo.api.ReadPreference
-
 import chess.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl.{ *, given }
 import Schedule.{ Freq, Speed }
@@ -75,7 +73,7 @@ final class WinnersApi(
         )
       )
       .sort($sort desc "startsAt")
-      .cursor[Tournament](ReadPreference.secondaryPreferred)
+      .cursor[Tournament](ReadPref.sec)
       .list(Int.MaxValue)
 
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =

@@ -4,7 +4,6 @@ import cats.syntax.all.*
 import chess.Speed
 import reactivemongo.api.bson.*
 import reactivemongo.api.Cursor
-import reactivemongo.api.ReadPreference
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
@@ -150,22 +149,18 @@ final class KaladinApi(
 
   private[irwin] def monitorQueued: Funit =
     coll {
-      _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+      _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match($doc("response.at" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
-      }
-        .map { res =>
-          for {
-            obj      <- res
-            priority <- obj int "_id"
-            nb       <- obj int "nb"
-          } yield (priority, nb)
-        }
-    } map {
-      _ foreach { case (priority, nb) =>
+      .map: res =>
+        for
+          obj      <- res
+          priority <- obj int "_id"
+          nb       <- obj int "nb"
+        yield (priority, nb)
+    }.map:
+      _.foreach: (priority, nb) =>
         lila.mon.mod.kaladin.queue(priority).update(nb)
-      }
-    }
 
   private object hasEnoughRecentMoves:
     private val minMoves = 1050
@@ -186,7 +181,7 @@ final class KaladinApi(
               Query.user(userId) ++ Query.rated ++ Query.createdSince(nowInstant minusMonths 6),
               $doc(F.turns -> true, F.clock -> true).some
             )
-            .cursor[Bdoc](ReadPreference.secondaryPreferred)
+            .cursor[Bdoc](ReadPref.sec)
             .foldWhile(Counter(0, 0)):
               case (counter, doc) =>
                 val next = (for

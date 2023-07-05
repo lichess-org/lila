@@ -60,11 +60,11 @@ final private class InsightIndexer(
           .find(gameQuery(user))
           .sort(Query.sortCreated)
           .skip(maxGames - 1)
-          .one[Game](readPreference = ReadPreference.secondaryPreferred)
+          .one[Game](ReadPref.sec)
       } orElse gameRepo.coll
         .find(gameQuery(user))
         .sort(Query.sortChronological)
-        .one[Game](readPreference = ReadPreference.secondaryPreferred)
+        .one[Game](ReadPref.sec)
 
   private def computeFrom(user: User, from: Instant): Funit =
     storage nbByPerf user.id flatMap { nbs =>

@@ -39,12 +39,9 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
   private def currentGamesSource(userIds: Set[UserId]): Source[Game, ?] =
     import lila.db.dsl.*
     import BSONHandlers.given
-    import reactivemongo.api.ReadPreference
     import reactivemongo.akkastream.cursorProducer
     gameRepo.coll
-      .aggregateWith[Game](
-        readPreference = ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match($doc(Game.BSONFields.playingUids $in userIds)),
@@ -55,7 +52,6 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
           ),
           Match($doc("both" -> true))
         )
-      }
       .documentSource()
       .throttle(30, 1.second)
 

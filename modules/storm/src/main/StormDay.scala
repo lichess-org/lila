@@ -6,7 +6,6 @@ import lila.common.paginator.Paginator
 import lila.db.dsl.*
 import lila.db.paginator.Adapter
 import lila.user.{ User, UserPerfsRepo }
-import reactivemongo.api.ReadPreference
 
 // stores data of the best run of the day
 // plus the number of runs
@@ -108,7 +107,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsR
     coll
       .find(idRegexFor(userId))
       .sort($sort desc "_id")
-      .cursor[StormDay](ReadPreference.secondaryPreferred)
+      .cursor[StormDay](ReadPref.sec)
       .list(days)
 
   private def idRegexFor(userId: UserId) = $doc("_id" $startsWith s"${userId}:")

@@ -1,6 +1,7 @@
 package lila.practice
 
 import reactivemongo.api.ReadPreference
+import cats.syntax.all.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
@@ -108,10 +109,7 @@ final class PracticeApi(
 
     def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
       coll
-        .aggregateList(
-          maxDocs = Int.MaxValue,
-          readPreference = ReadPreference.secondaryPreferred
-        ) { framework =>
+        .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
           Match($doc("_id" $in userIds)) -> List(
             Project(
@@ -124,14 +122,9 @@ final class PracticeApi(
               )
             )
           )
-        }
-        .map {
+        .map:
           _.view
-            .flatMap { obj =>
-              import cats.syntax.all.*
-              (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN { (k, v) =>
+            .flatMap: obj =>
+              (obj.getAsOpt[UserId]("_id"), obj.int("nb")).mapN: (k, v) =>
                 k -> (v * 100f / PracticeStructure.totalChapters).toInt
-              }
-            }
             .toMap
-        }

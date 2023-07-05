@@ -26,7 +26,7 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
     given BSONDocumentReader[(UserId, Perf)] = UserPerfs.idPerfReader(pt)
     coll
       .find($inIds(u.map(_.id)), $doc(pt.key.value -> true).some)
-      .cursor[(UserId, Perf)](ReadPreference.secondaryPreferred)
+      .cursor[(UserId, Perf)](ReadPref.sec)
       .listAll()
       .map(_.toMap)
 

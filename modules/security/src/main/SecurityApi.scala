@@ -6,7 +6,6 @@ import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, Valid
 import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 import ornicar.scalalib.SecureRandom
 
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
@@ -164,10 +163,10 @@ final class SecurityApi(
   def shareAnIpOrFp = store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
+    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), _.sec)
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), ReadPreference.secondaryPreferred)
+    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), _.sec)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[UserId]] =
     store.coll.distinctEasy[UserId, List](
@@ -176,7 +175,7 @@ final class SecurityApi(
         field -> value,
         "date" $gt nowInstant.minusYears(1)
       ),
-      ReadPreference.secondaryPreferred
+      _.sec
     )
 
   // special temporary auth for marked closed accounts so they can use appeal endpoints

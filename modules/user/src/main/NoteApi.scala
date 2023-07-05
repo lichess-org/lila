@@ -3,7 +3,6 @@ package lila.user
 import lila.db.dsl.{ *, given }
 import ornicar.scalalib.ThreadLocalRandom
 import lila.common.paginator.Paginator
-import reactivemongo.api.ReadPreference
 import lila.common.config.MaxPerPage
 
 case class Note(
@@ -105,7 +104,7 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
           else fuccess(500_000)
         def slice(offset: Int, length: Int): Fu[List[Note]] =
           coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
+            .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
                 List(Sort(Descending("date"))) :::

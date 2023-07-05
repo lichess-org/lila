@@ -26,7 +26,7 @@ final private class TutorQueue(
   private val durationCache = cacheApi.unit[FiniteDuration]:
     _.refreshAfterWrite(1 minutes).buildAsyncFuture: _ =>
       colls.report
-        .aggregateOne(ReadPreference.secondaryPreferred): framework =>
+        .aggregateOne(_.sec): framework =>
           import framework.*
           Sort(Descending(TutorFullReport.F.at)) -> List(
             Limit(100),

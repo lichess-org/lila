@@ -3,7 +3,6 @@ package lila.api
 import chess.format.Fen
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.common.config.*
@@ -59,7 +58,7 @@ final private[api] class GameApi(
         ),
         projection = none,
         sort = $doc(G.createdAt -> -1),
-        readPreference = ReadPreference.secondaryPreferred
+        _.sec
       ).withNbResults(
         if (~playing) gameCache.nbPlaying(user.id)
         else
@@ -109,7 +108,7 @@ final private[api] class GameApi(
         ),
         projection = none,
         sort = $doc(G.createdAt -> -1),
-        readPreference = ReadPreference.secondaryPreferred
+        _.sec
       ).withNbResults(
         if (~playing) gameCache.nbPlaying(users._1.id)
         else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
@@ -154,7 +153,7 @@ final private[api] class GameApi(
         ),
         projection = none,
         sort = $doc(G.createdAt -> -1),
-        readPreference = ReadPreference.secondaryPreferred
+        _.sec
       ),
       currentPage = page,
       maxPerPage = nb

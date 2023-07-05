@@ -19,7 +19,7 @@ final private class LeaderboardIndexer(
   //     tournamentRepo.coll
   //       .find(tournamentRepo.finishedSelect)
   //       .sort($sort desc "startsAt")
-  //       .cursor[Tournament](ReadPreference.secondaryPreferred)
+  //       .cursor[Tournament](ReadPref.sec)
   //       .documentSource()
   //       .via(lila.common.LilaStream.logRate[Tournament]("leaderboard index tour")(logger))
   //       .mapAsyncUnordered(1)(generateTourEntries)

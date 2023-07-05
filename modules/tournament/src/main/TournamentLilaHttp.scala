@@ -3,7 +3,6 @@ package lila.tournament
 import akka.stream.scaladsl.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
-import reactivemongo.api.ReadPreference
 
 import lila.common.{ LilaScheduler, LilaStream }
 import lila.common.Json.given
@@ -55,7 +54,7 @@ final class TournamentLilaHttp(
     teamStanding <- tour.isTeamBattle.soFu:
       jsonView.fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
     fullStanding <- playerRepo
-      .sortedCursor(tour.id, 100, ReadPreference.primary)
+      .sortedCursor(tour.id, 100, _.pri)
       .documentSource()
       .zipWithIndex
       .mapAsync(16): (player, index) =>

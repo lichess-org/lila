@@ -180,7 +180,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
         "mod" -> me.userId,
         "action" $in markActions
       ),
-      readPreference = ReadPreference.secondaryPreferred
+      _.sec
     )
 
   def reportban(sus: Suspect, v: Boolean)(using Me.Id) = add:

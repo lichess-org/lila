@@ -2,7 +2,6 @@ package lila.relation
 
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ given, * }
@@ -21,7 +20,7 @@ final class RelationStream(colls: Colls, userApi: UserApi)(using akka.stream.Mat
         $doc(projectField(direction) -> true, "_id" -> false).some
       )
       .batchSize(perSecond.value)
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .cursor[Bdoc](ReadPref.sec)
       .documentSource()
       .grouped(perSecond.value)
       .map(_.flatMap(_.getAsOpt[UserId](projectField(direction))))

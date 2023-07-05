@@ -79,18 +79,15 @@ final class ClasProgressApi(
     }
 
   private def getPuzzleStats(userIds: List[UserId], days: Int): Fu[Map[UserId, PlayStats]] =
-    puzzleColls.round {
-      _.aggregateList(
-        maxDocs = Int.MaxValue,
-        ReadPreference.secondaryPreferred
-      ) { framework =>
+    puzzleColls.round:
+      _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
           $doc(
             PuzzleRound.BSONFields.user $in userIds,
             PuzzleRound.BSONFields.date $gt nowInstant.minusDays(days)
           )
-        ) -> List(
+        ) -> List:
           GroupField("u")(
             "nb" -> SumAll,
             "win" -> Sum(
@@ -99,9 +96,8 @@ final class ClasProgressApi(
               )
             )
           )
-        )
-      }.map {
-        _.flatMap { obj =>
+      .map:
+        _.flatMap: obj =>
           obj.getAsOpt[UserId]("_id") map { id =>
             id -> PlayStats(
               nb = ~obj.int("nb"),
@@ -109,9 +105,7 @@ final class ClasProgressApi(
               millis = 0
             )
           }
-        }.toMap
-      }
-    }
+        .toMap
 
   private def getGameStats(
       perfType: PerfType,
@@ -121,10 +115,7 @@ final class ClasProgressApi(
     import Game.{ BSONFields as F }
     import lila.game.Query
     gameRepo.coll
-      .aggregateList(
-        maxDocs = Int.MaxValue,
-        ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
           $doc(
@@ -153,9 +144,8 @@ final class ClasProgressApi(
             "ms" -> SumField("ms")
           )
         )
-      }
-      .map {
-        _.flatMap { obj =>
+      .map:
+        _.flatMap: obj =>
           obj.getAsOpt[UserId](F.id) map { id =>
             id -> PlayStats(
               nb = ~obj.int("nb"),
@@ -163,8 +153,7 @@ final class ClasProgressApi(
               millis = ~obj.long("ms")
             )
           }
-        }.toMap
-      }
+        .toMap
 
   private[clas] def onFinishGame(game: lila.game.Game): Unit =
     if (game.userIds.exists(studentCache.isStudent)) gameRepo.denormalizePerfType(game)

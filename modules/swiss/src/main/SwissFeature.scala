@@ -1,7 +1,5 @@
 package lila.swiss
 
-import reactivemongo.api.ReadPreference
-
 import lila.common.Heapsort
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -39,7 +37,7 @@ final class SwissFeature(
 
   private def getForTeams(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     teams.map(swissCache.featuredInTeam.get).parallel.dmap(_.flatten) flatMap { ids =>
-      mongo.swiss.byIds[Swiss, SwissId](ids, ReadPreference.secondaryPreferred)
+      mongo.swiss.byIds[Swiss, SwissId](ids, _.sec)
     } map {
       _.filter(_.isNotFinished).partition(_.isCreated) match
         case (created, started) =>
@@ -61,7 +59,7 @@ final class SwissFeature(
   // causes heavy team reads
   private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =
     mongo.swiss
-      .aggregateList(nb, ReadPreference.secondaryPreferred): framework =>
+      .aggregateList(nb, _.sec): framework =>
         import framework.*
         Match(
           $doc(

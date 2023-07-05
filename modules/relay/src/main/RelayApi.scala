@@ -5,7 +5,6 @@ import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 import cats.syntax.all.*
 
@@ -173,7 +172,7 @@ final class RelayApi(
 
   private[relay] def toSync(official: Boolean, maxDocs: Int = 30) =
     roundRepo.coll
-      .aggregateList(maxDocs, ReadPreference.primary): framework =>
+      .aggregateList(maxDocs, _.pri): framework =>
         import framework.*
         Match(
           $doc(
@@ -308,7 +307,7 @@ final class RelayApi(
       pipe = List($doc("$sort" -> roundRepo.sort.start))
     )
     val activeStream = tourRepo.coll
-      .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred): framework =>
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match(tourRepo.selectors.officialActive),
@@ -318,7 +317,7 @@ final class RelayApi(
       .documentSource(nb)
 
     val inactiveStream = tourRepo.coll
-      .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred): framework =>
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match(tourRepo.selectors.officialInactive),

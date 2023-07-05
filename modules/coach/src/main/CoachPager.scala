@@ -36,7 +36,7 @@ final class CoachPager(
 
       def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
         coll
-          .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+          .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selector) -> List(
               Sort:
@@ -72,7 +72,6 @@ final class CoachPager(
               Limit(length),
               PipelineOperator(perfsRepo.aggregate.lookup)
             )
-          }
           .map: docs =>
             for
               doc   <- docs

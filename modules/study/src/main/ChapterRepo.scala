@@ -58,14 +58,14 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       coll.map:
         _.find($studyId(studyId))
           .sort($sort asc "order")
-          .cursor[Chapter](readPreference = readPref)
+          .cursor[Chapter]()
           .documentSource()
 
   def byIdsSource(ids: Iterable[StudyChapterId]): Source[Chapter, ?] =
     Source.futureSource:
       coll.map:
         _.find($inIds(ids))
-          .cursor[Chapter](readPreference = readPref)
+          .cursor[Chapter]()
           .documentSource()
 
   // loads all study chapters in memory!
@@ -233,7 +233,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll:
       _.find($studyId(studyId), $doc("_id" -> true, "name" -> true).some)
         .sort($sort asc "order")
-        .cursor[Bdoc](readPref)
+        .cursor[Bdoc]()
         .list(Study.maxChapters * 2)
     .dmap(_ flatMap readIdName)
 

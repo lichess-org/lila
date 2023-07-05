@@ -13,7 +13,6 @@ import views.*
 import lila.common.config
 import Api.ApiResult
 import lila.common.LightUser
-import reactivemongo.api.ReadPreference
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 

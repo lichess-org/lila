@@ -1,7 +1,5 @@
 package lila.tournament
 
-import reactivemongo.api.ReadPreference
-
 import chess.variant.Variant
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -32,7 +30,7 @@ final class RevolutionApi(
             ),
             $doc("winner" -> true, "variant" -> true).some
           )
-          .cursor[Bdoc](ReadPreference.secondaryPreferred)
+          .cursor[Bdoc](ReadPref.sec)
           .list(300) map { docOpt =>
           val awards =
             for {

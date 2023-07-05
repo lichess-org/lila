@@ -72,14 +72,14 @@ final class ClasApi(
         )
 
     def teachers(clas: Clas): Fu[List[User]] =
-      userRepo.byOrderedIds(clas.teachers.toList, ReadPreference.secondaryPreferred)
+      userRepo.byOrderedIds(clas.teachers.toList, readPref = _.sec)
 
     def isTeacherOf(teacher: User, clasId: Clas.Id): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
     def areKidsInSameClass(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
-        colls.student.aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
+        colls.student.aggregateExists(_.sec): framework =>
           import framework.*
           Match($doc("userId" $in List(kid1.id, kid2.id))) -> List(
             GroupField("clasId")("nb" -> SumAll),
@@ -89,7 +89,7 @@ final class ClasApi(
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
       studentCache.isStudent(student) so colls.student
-        .aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
+        .aggregateExists(_.sec): framework =>
           import framework.*
           Match($doc("userId" -> student)) -> List(
             Project($doc("clasId" -> true)),
@@ -131,7 +131,7 @@ final class ClasApi(
 
     def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
       colls.student
-        .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred): framework =>
+        .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
           Match($doc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
@@ -204,7 +204,7 @@ final class ClasApi(
       if s.student.managed then fuccess(clas.some)
       else
         colls.student
-          .aggregateOne(ReadPreference.secondaryPreferred): framework =>
+          .aggregateOne(_.sec): framework =>
             import framework.*
             Match($doc("userId" -> s.user.id, "managed" -> true)) -> List(
               PipelineOperator(

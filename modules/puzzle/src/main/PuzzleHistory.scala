@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
-import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
@@ -35,7 +34,7 @@ object PuzzleHistory:
     def slice(offset: Int, length: Int): Fu[Seq[PuzzleSession]] =
       colls
         .round {
-          _.aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+          _.aggregateList(length, _.sec): framework =>
             import framework.*
             Match($doc("u" -> user.id)) -> List(
               Sort(Descending("d")),
@@ -44,30 +43,26 @@ object PuzzleHistory:
               PipelineOperator(PuzzleRound puzzleLookup colls),
               Unwind("puzzle")
             )
-          }
+
         }
-        .map { r =>
-          for {
+        .map: r =>
+          for
             doc   <- r
             round <- doc.asOpt[PuzzleRound]
             theme = doc.getAsOpt[PuzzleTheme.Key](PuzzleRound.BSONFields.theme) | PuzzleTheme.mix.key
             puzzle <- doc.getAsOpt[Puzzle]("puzzle")
-          } yield SessionRound(round, puzzle, theme)
-        }
+          yield SessionRound(round, puzzle, theme)
         .map(groupBySessions)
 
   private def groupBySessions(rounds: List[SessionRound]): List[PuzzleSession] =
     rounds
-      .foldLeft(List.empty[PuzzleSession]) {
+      .foldLeft(List.empty[PuzzleSession]):
         case (Nil, round) => List(PuzzleSession(round.theme, NonEmptyList(round, Nil)))
         case (last :: sessions, r) =>
-          if (
-            last.puzzles.head.theme == r.theme &&
+          if last.puzzles.head.theme == r.theme &&
             r.round.date.isAfter(last.puzzles.head.round.date minusHours 1)
-          )
-            last.copy(puzzles = r :: last.puzzles) :: sessions
+          then last.copy(puzzles = r :: last.puzzles) :: sessions
           else PuzzleSession(r.theme, NonEmptyList(r, Nil)) :: last :: sessions
-      }
       .reverse
 
 final class PuzzleHistoryApi(colls: PuzzleColls)(using Executor):

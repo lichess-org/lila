@@ -1,7 +1,6 @@
 package lila.report
 
 import com.softwaremill.macwire.*
-import reactivemongo.api.ReadPreference
 
 import lila.common.{ Bus, Heapsort }
 import lila.db.dsl.{ *, given }
@@ -374,12 +373,12 @@ final class ReportApi(
   def recent(
       suspect: Suspect,
       nb: Int,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPref: ReadPref = _.sec
   ): Fu[List[Report]] =
     coll
       .find($doc("user" -> suspect.id.value))
       .sort(sortLastAtomAt)
-      .cursor[Report](readPreference)
+      .cursor[Report](readPref)
       .list(nb)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
@@ -397,7 +396,7 @@ final class ReportApi(
           .sort(sortLastAtomAt)
           .cursor[Report](temporarilyPrimary)
           .list(nb)
-      about <- recent(Suspect(user), nb, temporarilyPrimary)
+      about <- recent(Suspect(user), nb, _.priTemp)
     yield Report.ByAndAbout(by, Room.filterGranted(about))
 
   def currentCheatScore(suspect: Suspect): Fu[Option[Report.Score]] =
@@ -420,14 +419,16 @@ final class ReportApi(
     )
 
   def recentReportersOf(sus: Suspect): Fu[List[ReporterId]] =
-    coll.distinctEasy[ReporterId, List](
-      "atoms.by",
-      $doc(
-        "user" -> sus.user.id,
-        "atoms.0.at" $gt nowInstant.minusDays(3)
-      ),
-      ReadPreference.secondaryPreferred
-    ) dmap (_ filterNot ReporterId.lichess.==)
+    coll
+      .distinctEasy[ReporterId, List](
+        "atoms.by",
+        $doc(
+          "user" -> sus.user.id,
+          "atoms.0.at" $gt nowInstant.minusDays(3)
+        ),
+        _.sec
+      )
+      .dmap(_ filterNot ReporterId.lichess.==)
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room])(using mod: Me): Fu[List[Report.WithSuspect]] =
     for
@@ -474,7 +475,7 @@ final class ReportApi(
                 )
               )
               .sort(sortLastAtomAt)
-              .cursor[Report](ReadPreference.secondaryPreferred)
+              .cursor[Report](ReadPref.sec)
               .list(20) flatMap { reports =>
               if (reports.sizeIs < 4) fuccess(none) // not enough data to know
               else
@@ -496,7 +497,7 @@ final class ReportApi(
 
     def invalidate(selector: Bdoc): Funit =
       coll
-        .distinctEasy[ReporterId, List]("atoms.by", selector, ReadPreference.secondaryPreferred)
+        .distinctEasy[ReporterId, List]("atoms.by", selector, _.sec)
         .map(_ foreach cache.invalidate)
         .void
 

@@ -4,7 +4,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import reactivemongo.api.ReadPreference
 
 final class WebSubscriptionApi(coll: Coll)(using Executor):
 
@@ -35,12 +34,12 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
     coll
       .find($doc("userId" -> userId), $doc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
       .sort($doc("seenAt" -> -1))
-      .cursor[WebSubscription](ReadPreference.secondaryPreferred)
+      .cursor[WebSubscription](ReadPref.sec)
       .list(max)
 
   private[push] def getSubscriptions(userIds: Iterable[UserId], maxPerUser: Int): Fu[List[WebSubscription]] =
     coll
-      .aggregateList(100_000, ReadPreference.secondaryPreferred) { framework =>
+      .aggregateList(100_000, _.sec): framework =>
         import framework._
         Match($doc("userId" $in userIds)) -> List(
           Sort(Descending("seenAt")),
@@ -49,5 +48,4 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
           Unwind("subs"),
           ReplaceRootField("subs")
         )
-      }
       .map(_ flatMap webSubscriptionReader.readOpt)

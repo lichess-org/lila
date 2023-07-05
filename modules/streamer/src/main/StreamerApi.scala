@@ -1,6 +1,5 @@
 package lila.streamer
 
-import reactivemongo.api.ReadPreference
 import play.api.i18n.Lang
 
 import lila.common.licon
@@ -188,7 +187,7 @@ final class StreamerApi(
         )
       )
       .sort($sort desc "createdAt")
-      .cursor[Streamer](readPreference = ReadPreference.secondaryPreferred)
+      .cursor[Streamer](ReadPref.sec)
       .list(10)
 
   private object cache:

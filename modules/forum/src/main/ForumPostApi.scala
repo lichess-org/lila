@@ -1,6 +1,5 @@
 package lila.forum
 
-import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 
 import lila.common.Bus
@@ -196,7 +195,7 @@ final class ForumPostApi(
           "topicId" -> topic.id,
           "number" $gt (newPostNumber - 20)
         ),
-        ReadPreference.secondaryPreferred
+        _.sec
       )
 
   def erasePost(post: ForumPost) =
@@ -205,10 +204,9 @@ final class ForumPostApi(
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
-      .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
-      .map { ids =>
+      .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
+      .map: ids =>
         indexer ! RemovePosts(ids)
-      }
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId) flatMapz { post =>

@@ -90,20 +90,18 @@ final class AssessApi(
       assessRepo.coll
         .idsMap[PlayerAssessment, String](
           ids = povs.map(p => s"${p.gameId}/${p.color.name}"),
-          readPreference = temporarilyPrimary
+          readPref = _.pri
         )(_.gameId.value)
-        .flatMap { fulls =>
+        .flatMap: fulls =>
           val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId.value))
           gameRepo.holdAlert.povs(basicsPovs) map { holds =>
-            povs map { pov =>
+            povs.map: pov =>
               pov -> {
                 fulls.get(pov.gameId.value) match
                   case Some(full) => Left(full)
                   case None       => Right(PlayerAssessment.makeBasics(pov, holds get pov.gameId))
               }
-            }
           }
-        }
 
   def getPlayerAggregateAssessmentWithGames(
       userId: UserId,

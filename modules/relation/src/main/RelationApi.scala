@@ -38,7 +38,7 @@ final class RelationApi(
 
   def fetchFriends(userId: UserId) =
     coll
-      .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred): framework =>
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match(

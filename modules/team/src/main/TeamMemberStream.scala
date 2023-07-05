@@ -6,7 +6,6 @@ import reactivemongo.akkastream.cursorProducer
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserApi }
-import reactivemongo.api.ReadPreference
 
 final class TeamMemberStream(
     memberRepo: MemberRepo,

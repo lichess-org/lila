@@ -1,7 +1,6 @@
 package lila.timeline
 
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.common.config.Max
 import lila.db.dsl.{ *, given }
@@ -34,7 +33,7 @@ final class EntryApi(
         projection.some
       )
       .sort($sort desc "date")
-      .cursor[Entry](ReadPreference.secondaryPreferred)
+      .cursor[Entry](ReadPref.sec)
       .vector(max.value)
 
   def findRecent(typ: String, since: Instant, max: Max) =
@@ -44,7 +43,7 @@ final class EntryApi(
         projection.some
       )
       .sort($sort desc "date")
-      .cursor[Entry](ReadPreference.secondaryPreferred)
+      .cursor[Entry](ReadPref.sec)
       .vector(max.value)
 
   def channelUserIdRecentExists(channel: String, userId: UserId): Fu[Boolean] =
@@ -79,7 +78,7 @@ final class EntryApi(
         coll
           .find($doc("users" $exists false, "date" $gt nowInstant.minusWeeks(2)))
           .sort($sort desc "date")
-          .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work
+          .cursor[Entry](ReadPref.pri) // must be on primary for cache refresh to work
           .vector(3)
       }
     }

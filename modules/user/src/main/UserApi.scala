@@ -1,6 +1,5 @@
 package lila.user
 
-import reactivemongo.api.ReadPreference
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import akka.stream.scaladsl.*
 

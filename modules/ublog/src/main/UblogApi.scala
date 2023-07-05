@@ -71,7 +71,7 @@ final class UblogApi(
     colls.post
       .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
+      .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
@@ -91,14 +91,14 @@ final class UblogApi(
     colls.post
       .find($doc("live" -> true), previewPostProjection.some)
       .sort($doc("rank" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
+      .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
   def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("blog" -> blog, "live" -> true, "_id" $ne post.id), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
+      .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
   def postPreview(id: UblogPostId) =

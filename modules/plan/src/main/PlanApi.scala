@@ -599,28 +599,20 @@ final class PlanApi(
   private val topPatronUserIdsCache = mongoCache.unit[List[UserId]](
     "patron:top",
     59 minutes
-  ) { loader =>
-    _.refreshAfterWrite(60 minutes)
-      .buildAsyncFuture {
-        loader { _ =>
-          mongo.charge
-            .aggregateList(
-              maxDocs = topPatronUserIdsNb * 2,
-              readPreference = ReadPreference.secondaryPreferred
-            ) { framework =>
-              import framework.*
-              Match($doc("userId" $exists true)) -> List(
-                GroupField("userId")("total" -> SumField("usd")),
-                Sort(Descending("total")),
-                Limit(topPatronUserIdsNb * 3 / 2)
-              )
-            }
-            .dmap {
-              _.flatMap { _.getAsOpt[UserId]("_id") }
-            } flatMap filterUserIds dmap (_ take topPatronUserIdsNb)
-        }
-      }
-  }
+  ): loader =>
+    _.refreshAfterWrite(60 minutes).buildAsyncFuture:
+      loader: _ =>
+        mongo.charge
+          .aggregateList(topPatronUserIdsNb * 2, _.sec): framework =>
+            import framework.*
+            Match($doc("userId" $exists true)) -> List(
+              GroupField("userId")("total" -> SumField("usd")),
+              Sort(Descending("total")),
+              Limit(topPatronUserIdsNb * 3 / 2)
+            )
+          .dmap {
+            _.flatMap { _.getAsOpt[UserId]("_id") }
+          } flatMap filterUserIds dmap (_ take topPatronUserIdsNb)
 
   def topPatronUserIds: Fu[List[UserId]] = topPatronUserIdsCache.get {}
 

@@ -25,7 +25,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
     coll
       .find($doc("leaders" -> leaderId) ++ enabledSelect, lightProjection)
       .sort(sortPopular)
-      .cursor[LeaderTeam](ReadPreference.secondaryPreferred)
+      .cursor[LeaderTeam](ReadPref.sec)
       .list(100)
 
   def enabled(id: TeamId) = coll.one[Team]($id(id) ++ enabledSelect)
@@ -34,14 +34,14 @@ final class TeamRepo(val coll: Coll)(using Executor):
     coll
       .find($inIds(ids))
       .sort(sortPopular)
-      .cursor[Team](ReadPreference.secondaryPreferred)
+      .cursor[Team](ReadPref.sec)
       .list(100)
 
   def enabledTeamsByLeader(userId: UserId): Fu[List[Team]] =
     coll
       .find($doc("leaders" -> userId) ++ enabledSelect)
       .sort(sortPopular)
-      .cursor[Team](ReadPreference.secondaryPreferred)
+      .cursor[Team](ReadPref.sec)
       .list(100)
 
   def enabledTeamIdsByLeader(userId: UserId): Fu[List[TeamId]] =
@@ -99,7 +99,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   def countRequestsOfLeader(userId: UserId, requestColl: Coll): Fu[Int] =
     coll
-      .aggregateOne(readPreference = ReadPreference.secondaryPreferred): framework =>
+      .aggregateOne(_.sec): framework =>
         import framework.*
         Match($doc("leaders" -> userId)) -> List(
           Group(BSONNull)("ids" -> PushField("_id")),

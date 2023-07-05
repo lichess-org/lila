@@ -1,7 +1,5 @@
 package lila.mod
 
-import reactivemongo.api.ReadPreference
-
 import lila.db.dsl.*
 import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
@@ -38,7 +36,7 @@ final private class RatingRefund(
                 .createdSince(nowInstant minusDays 3) ++ Query.finished
             )
             .sort(Query.sortCreated)
-            .cursor[Game](ReadPreference.secondaryPreferred)
+            .cursor[Game](ReadPref.sec)
             .list(40)
 
         def makeRefunds(games: List[Game]) =

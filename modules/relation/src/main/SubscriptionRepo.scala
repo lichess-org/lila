@@ -1,7 +1,6 @@
 package lila.relation
 
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.relation.RelationRepo.makeId
@@ -14,7 +13,7 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
   // for streaming, streamerId is the user UserId of the streamer being subscribed to
   def subscribersOnlineSince(streamerId: UserId, daysAgo: Int): Fu[List[UserId]] =
     coll
-      .aggregateOne(readPreference = ReadPreference.secondaryPreferred): framework =>
+      .aggregateOne(_.sec): framework =>
         import framework._
         Match($doc("s" -> streamerId)) -> List(
           PipelineOperator(

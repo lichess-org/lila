@@ -32,7 +32,7 @@ final class UblogPaginator(
         selector = $doc("blog" -> blog, "live" -> live),
         projection = previewPostProjection.some,
         sort = if (live) $doc("lived.at" -> -1) else $doc("created.at" -> -1),
-        readPreference = ReadPreference.secondaryPreferred
+        _.sec
       ),
       currentPage = page,
       maxPerPage = maxPerPage
@@ -57,7 +57,7 @@ final class UblogPaginator(
         selector = $doc("live" -> true, "likers" -> me.userId),
         projection = previewPostProjection.some,
         sort = $sort desc "rank",
-        readPreference = ReadPreference.secondaryPreferred
+        _.sec
       ),
       currentPage = page,
       maxPerPage = maxPerPage
@@ -75,7 +75,7 @@ final class UblogPaginator(
     )
 
   private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int) = colls.post
-    .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
+    .aggregateList(length, _.sec): framework =>
       import framework.*
       Match(select ++ $doc("live" -> true)) -> List(
         Sort(Descending("rank")),
@@ -117,7 +117,7 @@ final class UblogPaginator(
     private val cache = cacheApi[(UserId, Int, Int), List[PreviewPost]](256, "ublog.paginator.followed"):
       _.expireAfterWrite(15 seconds).buildAsyncFuture: (userId, offset, length) =>
         relationApi.coll
-          .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+          .aggregateList(length, _.sec) { framework =>
             import framework.*
             Match($doc("u1" -> userId, "r" -> lila.relation.Follow)) -> List(
               Group(BSONNull)("ids" -> PushField("u2")),

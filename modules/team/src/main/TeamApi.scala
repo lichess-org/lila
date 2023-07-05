@@ -1,7 +1,6 @@
 package lila.team
 
 import play.api.libs.json.{ JsSuccess, Json, Reads }
-import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 import scala.util.Try
 import cats.syntax.traverse.*
@@ -240,7 +239,7 @@ final class TeamApi(
     cached.teamIdsList(username.id) flatMap teamsByIds
 
   def teamsByIds(ids: List[TeamId]) =
-    teamRepo.coll.byIds[Team, TeamId](ids, ReadPreference.secondaryPreferred)
+    teamRepo.coll.byIds[Team, TeamId](ids, _.sec)
 
   def quit(team: Team, userId: UserId): Funit =
     memberRepo.remove(team.id, userId) flatMap { res =>
@@ -364,7 +363,7 @@ final class TeamApi(
     teamRepo.leads(teamId, u.id)
 
   def filterExistingIds(ids: Set[TeamId]): Fu[Set[TeamId]] =
-    teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids), ReadPreference.secondaryPreferred)
+    teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids), _.sec)
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
     teamRepo.coll
@@ -375,7 +374,7 @@ final class TeamApi(
         )
       )
       .sort($sort desc "nbMembers")
-      .cursor[Team](ReadPreference.secondaryPreferred)
+      .cursor[Team](ReadPref.sec)
       .list(max)
 
   export cached.nbRequests.{ get as nbRequests }
