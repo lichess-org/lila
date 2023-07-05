@@ -53,13 +53,19 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
               ...(ctrl.isPlaying() ? { target: '_blank', rel: 'noopener' } : {}),
             },
           },
-          user.title
-            ? [
-                h('span.utitle', user.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, user.title),
-                ' ',
-                user.username,
-              ]
-            : [user.username]
+          (user.title
+            ? [h('span.utitle', user.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, user.title), ' ']
+            : []
+          ).concat([
+            user.username,
+            player.countryCode
+              ? h('img.flag', {
+                  attrs: {
+                    src: lichess.assetUrl(`images/flags/${player.countryCode}.png`),
+                  },
+                })
+              : '',
+          ])
         ),
         rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
         rating ? ratingDiff : null,

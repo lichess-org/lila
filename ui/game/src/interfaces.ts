@@ -79,6 +79,7 @@ export interface Player {
   engine?: boolean;
   berserk?: boolean;
   version: number;
+  countryCode?: string;
 }
 
 export interface TournamentRanks {
@@ -141,6 +142,7 @@ export interface PlayerUser {
   username: string;
   patron?: boolean;
   title?: string;
+  countryFlag?: string;
   perfs: {
     [key: string]: Perf;
   };

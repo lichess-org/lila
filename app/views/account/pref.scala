@@ -74,7 +74,11 @@ object pref:
                   explainShowPlayerRatings()
                 )
               )
-            )
+            ),
+            setting(
+              showPlayerCountryFlags(),
+              radios(form("display.countryFlags"), booleanChoices)
+            ),
           ),
           categFieldset(PrefCateg.ChessClock, categ)(
             setting(

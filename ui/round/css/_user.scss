@@ -16,6 +16,12 @@
     color: $c-font;
   }
 
+  .flag {
+    padding-left: 7.5px;
+    padding-bottom: 1px;
+    vertical-align: middle;
+  }
+
   &.long a {
     letter-spacing: -0.5px;
   }

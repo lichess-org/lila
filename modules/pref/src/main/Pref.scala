@@ -13,6 +13,7 @@ case class Pref(
     pieceSet3d: String,
     soundSet: String,
     blindfold: Int,
+    countryFlags: Int,
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
@@ -295,6 +296,8 @@ object Pref:
       NO  -> "What? No!",
       YES -> "Yes, hide the pieces"
     )
+  
+  object CountryFlags extends BooleanPref
 
   object AutoThreefold:
     val NEVER  = 1
@@ -464,6 +467,7 @@ object Pref:
     pieceSet3d = PieceSet3d.default.name,
     soundSet = SoundSet.default.key,
     blindfold = Blindfold.NO,
+    countryFlags = CountryFlags.YES,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.ALWAYS,
     takeback = Takeback.ALWAYS,

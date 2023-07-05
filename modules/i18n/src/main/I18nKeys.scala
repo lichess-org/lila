@@ -1674,6 +1674,7 @@ object I18nKeys:
     val `pgnLetter` = I18nKey("preferences:pgnLetter")
     val `zenMode` = I18nKey("preferences:zenMode")
     val `showPlayerRatings` = I18nKey("preferences:showPlayerRatings")
+    val `showPlayerCountryFlags` = I18nKey("preferences:showPlayerCountryFlags")
     val `explainShowPlayerRatings` = I18nKey("preferences:explainShowPlayerRatings")
     val `displayBoardResizeHandle` = I18nKey("preferences:displayBoardResizeHandle")
     val `onlyOnInitialPosition` = I18nKey("preferences:onlyOnInitialPosition")

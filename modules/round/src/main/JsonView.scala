@@ -36,9 +36,17 @@ final class JsonView(
       g: Game,
       p: GamePlayer,
       user: Option[LightUser.Ghost | User.WithPerf],
-      withFlags: WithFlags
+      withFlags: WithFlags,
+      showCountryFlags: Boolean
   ): JsObject =
-    Json
+    var countryCode: Option[String] = Some("");
+    if (showCountryFlags) {
+      (user.map {_.toOption.fold(userJsonView.ghost) { u => 
+            countryCode = u.user.profileOrDefault.country
+      } })
+    }
+
+    var json: JsObject = Json
       .obj("color" -> p.color.name)
       .add("user" -> user.map:
         case u: User.WithPerf =>
@@ -55,6 +63,13 @@ final class JsonView(
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("blurs" -> (withFlags.blurs so blurs(g, p)))
+      
+    if (showCountryFlags) {
+      json = json.add("countryCode" -> countryCode);
+    }
+
+    return json;
+
 
   def playerJson(
       pov: Pov,
@@ -63,6 +78,7 @@ final class JsonView(
       initialFen: Option[Fen.Epd],
       flags: WithFlags
   ): Fu[JsObject] =
+    var showCountryFlags = (~pref).countryFlags == 1;
     getSocketStatus(pov.game) zip
       pov.opponent.userId.so(userApi.byIdOrGhostWithPerf(_, pov.game.perfType)) zip
       takebacker.isAllowedIn(pov.game) zip
@@ -72,13 +88,13 @@ final class JsonView(
           .obj(
             "game" -> gameJsonView.baseWithChessDenorm(game, initialFen),
             "player" -> {
-              commonPlayerJson(game, player, playerUser, flags) ++ Json.obj(
+              commonPlayerJson(game, player, playerUser, flags, showCountryFlags) ++ Json.obj(
                 "id"      -> playerId,
                 "version" -> socket.version
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> {
-              commonPlayerJson(game, opponent, opponentUser, flags) ++ Json.obj(
+              commonPlayerJson(game, opponent, opponentUser, flags, showCountryFlags) ++ Json.obj(
                 "color" -> opponent.color.name,
                 "ai"    -> opponent.aiLevel
               )
