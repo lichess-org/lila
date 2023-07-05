@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Elsendoj</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s elsendo</item>
+    <item quantity="other">%s elsendoj</item>
+  </plurals>
+  <string name="liveBroadcasts">Vivaj turniraj elsendoj</string>
   <string name="newBroadcast">Nova viva elsendo</string>
+  <string name="addRound">Aldoni raŭndon</string>
   <string name="ongoing">Nun funkcianta</string>
   <string name="upcoming">Baldaŭ</string>
   <string name="completed">Kompletigita</string>
+  <string name="roundName">Raŭndnomo</string>
   <string name="roundNumber">Rondnumero</string>
   <string name="tournamentName">Nomo de la turniro</string>
+  <string name="tournamentDescription">Mallonga turnira priskribo</string>
   <string name="fullDescription">Plena eventa priskribo</string>
   <string name="fullDescriptionHelp">Laŭvola longa priskribo de la elsendo. %1$s haveblas. Longeco devas esti malpli ol %2$s literoj.</string>
+  <string name="sourceUrlOrGameIds">Fontaj URL-oj, aŭ ludaj ID-oj</string>
   <string name="sourceUrlHelp">URL kiun Lichess kontrolos por akiri PGN ĝisdatigojn. Ĝi devas esti publike alirebla en interreto.</string>
   <string name="startDate">Komenca dato en via propra horzono</string>
   <string name="startDateHelp">Laŭvola, se vi scias, kiam komenciĝas la evento</string>
   <string name="credits">Citu la fonton</string>
+  <string name="broadcastUrl">Elsenda URL</string>
+  <string name="currentRoundUrl">Nuna raŭnda URL</string>
+  <string name="currentGameUrl">Nuna luda URL</string>
+  <string name="downloadAllRounds">Elŝuti ĉiujn raŭndojn</string>
+  <string name="resetRound">Restarigi ĉi tiun raŭndon</string>
+  <string name="deleteRound">Forigi ĉi tiun raŭndon</string>
 </resources>
