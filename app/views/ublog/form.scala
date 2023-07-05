@@ -38,7 +38,7 @@ object form:
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
-      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} blog • ${post.title}"
+      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
