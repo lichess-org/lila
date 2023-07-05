@@ -30,6 +30,7 @@
   <string name="byOpenings">Laŭ malfermoj</string>
   <string name="puzzlesByOpenings">Puzloj laŭ malfermoj</string>
   <string name="openingsYouPlayedTheMost">Malfermoj kiujn vi plej ludis en rangaj ludoj</string>
+  <string name="useCtrlF">Uzu Ctrl+f por trovi vian plej ŝatatan malfermon!</string>
   <string name="notTheMove">Tiu ne estas la movo!</string>
   <string name="trySomethingElse">Provu ion alian.</string>
   <string name="ratingX">Taksado: %s</string>
@@ -63,6 +64,7 @@
   <string name="continueTheStreak">Daŭrigi la sinsekvon</string>
   <string name="newStreak">Nova sinsekvo</string>
   <string name="fromMyGames">De miaj ludoj</string>
+  <string name="fromXGames">Puzloj el %s\' ludoj</string>
   <string name="searchPuzzles">Serĉi puzlojn</string>
   <string name="puzzleDashboardDescription">Trejnu, analizu, pliboniĝu</string>
   <plurals name="nbPlayed">
