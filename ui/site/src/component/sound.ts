@@ -73,10 +73,10 @@ export default new (class implements SoundI {
 
     const doPlay = () => s.volume(this.getVolume() * (volume || 1)).play();
     if (Howler.ctx?.state === 'suspended') {
-      const canPlay = setTimeout(() => console.log($('#warn-no-autoplay').addClass('shown')), 300);
+      const noResume = setTimeout(() => $('#warn-no-autoplay').addClass('shown'), 300);
       // in lieu of https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getAutoplayPolicy
       Howler.ctx.resume().then(() => {
-        clearTimeout(canPlay);
+        clearTimeout(noResume);
         doPlay();
       });
     } else doPlay();
