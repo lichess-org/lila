@@ -154,6 +154,10 @@
     <item quantity="one">%s ludo</item>
     <item quantity="other">%s ludoj</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rango trans %2$s ludo</item>
+    <item quantity="other">%1$s rangoj trans %2$s ludoj</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s paĝmarko</item>
     <item quantity="other">%s paĝmarkoj</item>
@@ -915,16 +919,20 @@ kaj influas la rangojn de ludantoj</string>
   <string name="onlyTitled">Nuraj titolaj ludantoj</string>
   <string name="onlyTitledHelp">Necesigi la oficiala titolo por aliĝi al la turniro</string>
   <string name="cancelSimul">Nuligi la samtempludo</string>
+  <string name="simulHostcolor">Gastiganta koloro por ĉiu ludo</string>
   <string name="estimatedStart">Proksimuma komenca tempo</string>
+  <string name="simulFeatured">Prezenti ĉe %s</string>
   <string name="simulFeaturedHelp">Montri vian samtempludon al ĉiuj en %s. Malaktivigi por privataj samtempludoj.</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
   <string name="simulDescriptionHelp">Ĉu vi volas diri ion al la partoprenantoj?</string>
   <string name="markdownAvailable">%s estas havebla por pli progresinta sintakso.</string>
+  <string name="embedsAvailable">Algui luda URL aŭ studa ĉapitro URL enkorpigi ĝin.</string>
   <string name="inYourLocalTimezone">En via loka horzono</string>
   <string name="tournChat">Babilejo de turnira</string>
   <string name="noChat">Malaktivigi babilejon</string>
   <string name="onlyTeamLeaders">Nuraj teamaj gvidantoj</string>
   <string name="onlyTeamMembers">Nuraj teamaj membroj</string>
+  <string name="navigateMoveTree">Navigi la movarbon</string>
   <string name="mouseTricks">Musaj lertaĵoj</string>
   <string name="toggleLocalAnalysis">Baskuligu lokan komputilan analizon</string>
   <string name="toggleAllAnalysis">Baskuligu ĉiujn komputilan analizon</string>
