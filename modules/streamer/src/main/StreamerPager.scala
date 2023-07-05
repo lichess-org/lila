@@ -51,16 +51,14 @@ final class StreamerPager(
             Skip(offset),
             Limit(3),
             PipelineOperator(userLookup),
-            UnwindField("user"),
-            PipelineOperator(perfsRepo.aggregate.lookup)
+            UnwindField("user")
           )
         .map: docs =>
           for
             doc      <- docs
             streamer <- doc.asOpt[Streamer]
             user     <- doc.getAsOpt[User]("user")
-            perfs = perfsRepo.aggregate.read(doc, user)
-          yield Streamer.WithUser(streamer, User.WithPerfs(user, perfs), false)
+          yield Streamer.WithUser(streamer, user, false)
         .flatMap: streamers =>
           me.fold(fuccess(streamers)): me =>
             subsRepo.filterSubscribed(me, streamers.map(_.user.id)) map { subs =>
@@ -82,16 +80,14 @@ final class StreamerPager(
             Skip(offset),
             Limit(length),
             PipelineOperator(userLookup),
-            UnwindField("user"),
-            PipelineOperator(perfsRepo.aggregate.lookup)
+            UnwindField("user")
           )
         .map: docs =>
           for
             doc      <- docs
             streamer <- doc.asOpt[Streamer]
             user     <- doc.getAsOpt[User]("user")
-            perfs = perfsRepo.aggregate.read(doc, user)
-          yield Streamer.WithUser(streamer, User.WithPerfs(user, perfs))
+          yield Streamer.WithUser(streamer, user)
 
   private val userLookup = $lookup.simple(
     from = userRepo.coll,

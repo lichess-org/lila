@@ -113,15 +113,14 @@ object Streamer:
 
   trait WithContext:
     def streamer: Streamer
-    def user: User.WithPerfs
+    def user: User
     def subscribed: Boolean
     def titleName = s"${user.title.fold("")(t => s"$t ")}${streamer.name}"
 
-  case class WithUser(streamer: Streamer, user: User.WithPerfs, subscribed: Boolean = false)
-      extends WithContext
+  case class WithUser(streamer: Streamer, user: User, subscribed: Boolean = false) extends WithContext
   case class WithUserAndStream(
       streamer: Streamer,
-      user: User.WithPerfs,
+      user: User,
       stream: Option[Stream],
       subscribed: Boolean = false
   ) extends WithContext:

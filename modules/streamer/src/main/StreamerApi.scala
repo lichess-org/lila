@@ -32,17 +32,13 @@ final class StreamerApi(
     userRepo byId username flatMapz find
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
-    byId(user.id into Streamer.Id).flatMapz: streamer =>
-      userApi.withPerfs(streamer.userId).mapz {
-        Streamer.WithUser(streamer, _).some
-      }
+    byId(user.id into Streamer.Id).mapz: streamer =>
+      Streamer.WithUser(streamer, user).some
 
   def findOrInit(user: User): Fu[Option[Streamer.WithUser]] =
     find(user).orElse:
-      userApi.withPerfs(user).flatMap { user =>
-        val s = Streamer.WithUser(Streamer make user.user, user)
-        coll.insert.one(s.streamer) inject s.some
-      }
+      val s = Streamer.WithUser(Streamer make user, user)
+      coll.insert.one(s.streamer) inject s.some
 
   def forSubscriber(streamerName: UserStr)(using me: Option[Me.Id]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)): (streamerFu, me) =>
@@ -50,7 +46,7 @@ final class StreamerApi(
         subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
 
   def withUsers(live: LiveStreams)(using me: Option[Me.Id]): Fu[List[Streamer.WithUserAndStream]] = for
-    users <- userApi.listWithPerfs(live.streams.map(_.streamer.userId))
+    users <- userRepo.byIds(live.streams.map(_.streamer.userId))
     subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
   yield live.streams.flatMap: s =>
     users.find(_ is s.streamer) map {
