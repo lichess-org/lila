@@ -41,7 +41,8 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
     showDate(instant.date)
 
   def showDate(date: LocalDate)(using lang: Lang): String =
-    if (lang.language == "ar") dateFormatter.print(date).replaceAll("\u200f", "")
+    if lang.language == "ar"
+    then dateFormatter.print(date).replaceAll("\u200f", "")
     else dateFormatter print date
 
   def showEnglishDate(instant: Instant): String    = englishDateFormatter print instant

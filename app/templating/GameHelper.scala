@@ -41,15 +41,17 @@ trait GameHelper:
     val p2    = playerText(game.blackPlayer, withRating = true)
     val plays = if game.finishedOrAborted then "played" else "is playing"
     val speedAndClock =
-      if (game.imported) "imported"
+      if game.imported then "imported"
       else
-        game.clock.fold(chess.Speed.Correspondence.name) { c =>
+        game.clock.fold(chess.Speed.Correspondence.name): c =>
           s"${chess.Speed(c.config).name} (${c.config.show})"
-        }
+
     val mode = game.mode.name
     val variant =
-      if (game.variant == chess.variant.FromPosition) "position setup chess"
-      else if (game.variant.exotic) game.variant.name
+      if game.variant == chess.variant.FromPosition
+      then "position setup chess"
+      else if game.variant.exotic
+      then game.variant.name
       else "chess"
     import chess.Status.*
     val result = (game.winner, game.loser, game.status) match
@@ -100,9 +102,8 @@ trait GameHelper:
           )
         )
       }
-    ) { level =>
+    ): level =>
       frag(aiName(level))
-    }
 
   def playerText(player: Player, withRating: Boolean = false) =
     Namer.playerTextBlocking(player, withRating)(using lightUser)

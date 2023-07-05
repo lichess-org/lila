@@ -57,9 +57,8 @@ trait TournamentHelper extends HasEnv:
       pt.trans(using lila.i18n.defaultLang) -> icon(pt.icon)
     }
     def apply(name: String): Frag = raw:
-      replacements.foldLeft(name) { case (n, (from, to)) =>
-        n.replace(from, to)
-      }
+      replacements.foldLeft(name):
+        case (n, (from, to)) => n.replace(from, to)
 
   def tournamentIcon(tour: Tournament): licon.Icon =
     tour.schedule.map(_.freq) match

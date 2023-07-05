@@ -39,9 +39,8 @@ trait StringHelper { self: I18nHelper with NumberHelper =>
       case Nil        => emptyFrag
       case one :: Nil => one
       case first :: rest =>
-        RawFrag(
+        RawFrag:
           frag(first :: rest.map { frag(separator, _) }).render
-        )
 
   extension (e: String)
     def active(other: String, one: String = "active")  = if e == other then one else ""
