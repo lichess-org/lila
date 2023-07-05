@@ -50,14 +50,14 @@ final class SwissStatsApi(
                 blackWins + pairing.blackWins.so(1),
                 draws + pairing.isDraw.so(1)
               )
-            } match {
+            } match
               case (games, whiteWins, blackWins, draws) =>
                 sheet.outcomes.foldLeft((0, 0)) { case ((byes, absences), outcome) =>
                   (
                     byes + (outcome == SwissSheet.Outcome.Bye).so(1),
                     absences + (outcome == SwissSheet.Outcome.Absent).so(1)
                   )
-                } match {
+                } match
                   case (byes, absences) =>
                     stats.copy(
                       games = stats.games + games,
@@ -68,8 +68,6 @@ final class SwissStatsApi(
                       absences = stats.absences + absences,
                       averageRating = stats.averageRating + player.rating
                     )
-                }
-            }
           })(Keep.right)
           .run()
           .dmap { s =>

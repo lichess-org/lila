@@ -59,7 +59,7 @@ case class Perf(
     )
 
   private def updateRecentWith(glicko: Glicko) =
-    if (nb < 10) recent
+    if nb < 10 then recent
     else (glicko.intRating :: recent) take Perf.recentMaxSize
 
   def clearRecent = copy(recent = Nil)

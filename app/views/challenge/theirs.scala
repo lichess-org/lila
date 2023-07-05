@@ -41,12 +41,12 @@ object theirs:
                   fragList((~c.open.flatMap(_.userIdList)).map(uid => userIdLink(uid.some)), " and "),
                   " to start the game."
                 )
-              else if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
+              else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) then
                 badTag(
                   // very rare message, don't translate
                   s"You have the wrong color link for this open challenge. The ${color.so(_.name)} player has already joined."
                 )
-              else if (!c.mode.rated || ctx.isAuth) {
+              else if !c.mode.rated || ctx.isAuth then
                 frag(
                   (c.mode.rated && c.unlimited) option
                     badTag(trans.bewareTheGameIsRatedButHasNoClock()),
@@ -56,7 +56,7 @@ object theirs:
                     )
                   )
                 )
-              } else
+              else
                 frag(
                   hr,
                   badTag(

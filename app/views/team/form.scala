@@ -173,8 +173,7 @@ object form:
         help = trans.team.entryCodeDescriptionForLeader().some,
         half = true
       ) { field =>
-        if (team.fold(true)(t => ctx.userId.exists(t.leaders.contains)))
-          form3.input(field)
+        if team.fold(true)(t => ctx.userId.exists(t.leaders.contains)) then form3.input(field)
         else form3.input(field)(tpe := "password", disabled)
       }
     )

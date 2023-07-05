@@ -8,7 +8,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 import lila.common.licon
 
-trait FormHelper { self: I18nHelper =>
+trait FormHelper:
+  self: I18nHelper =>
 
   def errMsg(form: Field)(using Lang): Frag = errMsg(form.errors)
 
@@ -266,4 +267,3 @@ trait FormHelper { self: I18nHelper =>
       def image(name: String): Frag =
         st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg")
       def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-}

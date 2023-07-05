@@ -73,7 +73,7 @@ final class StreamerApi(
       }.parallel
       _            <- elements.nonEmpty so update.many(elements).void
       candidateIds <- cache.candidateIds.getUnit
-    yield if (streams.map(_.streamer.id).exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
+    yield if streams.map(_.streamer.id).exists(candidateIds.contains) then cache.candidateIds.invalidateUnit()
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
     val streamer = data(prev, asMod)

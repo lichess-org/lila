@@ -95,7 +95,7 @@ object studentDashboard:
     )
 
   private def challengeTd(user: lila.user.User)(using ctx: PageContext) =
-    if (ctx is user) td
+    if ctx is user then td
     else
       val online = isOnline(user.id)
       td(

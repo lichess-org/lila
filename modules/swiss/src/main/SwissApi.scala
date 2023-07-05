@@ -87,16 +87,17 @@ final class SwissApi(
   def update(swissId: SwissId, data: SwissForm.SwissData): Fu[Option[Swiss]] =
     Sequencing(swissId)(cache.swissCache.byId): old =>
       val position =
-        if (old.isCreated || old.settings.position.isDefined) data.realVariant.standard so data.realPosition
+        if old.isCreated || old.settings.position.isDefined then
+          data.realVariant.standard so data.realPosition
         else old.settings.position
       val swiss =
         old.copy(
           name = data.name | old.name,
-          clock = if (old.isCreated) data.clock else old.clock,
-          variant = if (old.isCreated && data.variant.isDefined) data.realVariant else old.variant,
+          clock = if old.isCreated then data.clock else old.clock,
+          variant = if old.isCreated && data.variant.isDefined then data.realVariant else old.variant,
           startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
           nextRoundAt =
-            if (old.isCreated) Some(data.startsAt | old.startsAt)
+            if old.isCreated then Some(data.startsAt | old.startsAt)
             else old.nextRoundAt,
           settings = old.settings.copy(
             nbRounds = data.nbRounds,
@@ -105,7 +106,7 @@ final class SwissApi(
             position = position,
             chatFor = data.chatFor | old.settings.chatFor,
             roundInterval =
-              if (data.roundInterval.isDefined) data.realRoundInterval
+              if data.roundInterval.isDefined then data.realRoundInterval
               else old.settings.roundInterval,
             password = data.password,
             conditions = data.conditions,
@@ -113,12 +114,9 @@ final class SwissApi(
             manualPairings = ~data.manualPairings
           )
         ) pipe { s =>
-          if (
-            s.isStarted && s.nbOngoing == 0 && (s.nextRoundAt.isEmpty || old.settings.manualRounds) && !s.settings.manualRounds
-          )
-            s.copy(nextRoundAt = nowInstant.plusSeconds(s.settings.roundInterval.toSeconds.toInt).some)
-          else if (s.settings.manualRounds && !old.settings.manualRounds)
-            s.copy(nextRoundAt = none)
+          if s.isStarted && s.nbOngoing == 0 && (s.nextRoundAt.isEmpty || old.settings.manualRounds) && !s.settings.manualRounds
+          then s.copy(nextRoundAt = nowInstant.plusSeconds(s.settings.roundInterval.toSeconds.toInt).some)
+          else if s.settings.manualRounds && !old.settings.manualRounds then s.copy(nextRoundAt = none)
           else s
         }
       mongo.swiss.update.one($id(old.id), addFeaturable(swiss)).void >> {
@@ -388,7 +386,7 @@ final class SwissApi(
   private[swiss] def finishGame(game: Game): Funit =
     game.swissId.so: swissId =>
       Sequencing(swissId)(cache.swissCache.byId): swiss =>
-        if (!swiss.isStarted)
+        if !swiss.isStarted then
           logger.info(s"Removing pairing ${game.id} finished after swiss ${swiss.id}")
           mongo.pairing.delete.one($id(game.id)) inject false
         else
@@ -399,11 +397,10 @@ final class SwissApi(
               Right(game.winnerColor): SwissPairing.Status
             )
             .flatMap { result =>
-              if (result.nModified == 0) fuccess(false) // dedup
+              if result.nModified == 0 then fuccess(false) // dedup
               else
                 {
-                  if (swiss.nbOngoing > 0)
-                    mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1))
+                  if swiss.nbOngoing > 0 then mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1))
                   else
                     fuccess:
                       logger.warn(s"swiss ${swiss.id} nbOngoing = ${swiss.nbOngoing}")
@@ -415,9 +412,10 @@ final class SwissApi(
                         .void
                   } >> {
                     (swiss.nbOngoing <= 1) so {
-                      if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
-                      else if (swiss.settings.manualRounds) fuccess:
-                        systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
+                      if swiss.round.value == swiss.settings.nbRounds then doFinish(swiss)
+                      else if swiss.settings.manualRounds then
+                        fuccess:
+                          systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
                       else
                         mongo.swiss
                           .updateField(
@@ -447,7 +445,7 @@ final class SwissApi(
   private[swiss] def finish(oldSwiss: Swiss): Funit =
     Sequencing(oldSwiss.id)(cache.swissCache.startedById): swiss =>
       mongo.pairing.exists($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
-        if (_) doFinish(swiss)
+        if _ then doFinish(swiss)
         else destroy(swiss)
       }
   private def doFinish(swiss: Swiss): Funit =
@@ -467,7 +465,7 @@ final class SwissApi(
           .void zip
           SwissPairing.fields { f =>
             mongo.pairing.delete.one($doc(f.swissId -> swiss.id, f.status -> true)) map { res =>
-              if (res.n > 0) logger.warn(s"Swiss ${swiss.id} finished with ${res.n} ongoing pairings")
+              if res.n > 0 then logger.warn(s"Swiss ${swiss.id} finished with ${res.n} ongoing pairings")
             }
           } void
       } >>- {
@@ -485,12 +483,12 @@ final class SwissApi(
     }
 
   def kill(swiss: Swiss): Funit = {
-    if (swiss.isStarted)
+    if swiss.isStarted then
       finish(swiss) >>- {
         logger.info(s"Tournament ${swiss.id} cancelled by its creator.")
         systemChat(swiss.id, "Tournament cancelled by its creator.")
       }
-    else if (swiss.isCreated) destroy(swiss)
+    else if swiss.isCreated then destroy(swiss)
     else funit
   } >>- cache.featuredInTeam.invalidate(swiss.teamId)
 
@@ -522,10 +520,10 @@ final class SwissApi(
       .flatMap:
         _.traverse_ : id =>
           Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
-            if (swiss.round.value >= swiss.settings.nbRounds) doFinish(swiss)
-            else if (swiss.nbPlayers >= 2)
+            if swiss.round.value >= swiss.settings.nbRounds then doFinish(swiss)
+            else if swiss.nbPlayers >= 2 then
               countPresentPlayers(swiss) flatMap { nbPresent =>
-                if (nbPresent < 2)
+                if nbPresent < 2 then
                   systemChat(swiss.id, "Not enough players left.")
                   doFinish(swiss)
                 else
@@ -545,7 +543,7 @@ final class SwissApi(
                     }
                   } >>- cache.swissCache.clear(swiss.id)
               }
-            else if (swiss.startsAt isBefore nowInstant.minusMinutes(60)) destroy(swiss)
+            else if swiss.startsAt isBefore nowInstant.minusMinutes(60) then destroy(swiss)
             else
               systemChat(swiss.id, "Not enough players for first round; delaying start.", volatile = true)
               mongo.swiss.update
@@ -586,10 +584,9 @@ final class SwissApi(
               lila.mon.swiss.games("ongoing").record(ongoing.size)
               lila.mon.swiss.games("flagged").record(flagged.size)
               lila.mon.swiss.games("missing").record(missingIds.size)
-              if (flagged.nonEmpty)
+              if flagged.nonEmpty then
                 Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag), "roundSocket")
-              if (missingIds.nonEmpty)
-                mongo.pairing.delete.one($inIds(missingIds))
+              if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
               finished
             }
           } flatMap {

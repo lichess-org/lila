@@ -160,7 +160,7 @@ final private class LobbySyncActor(
   private object recentlyAbortedUserIdPairs:
     private val cache = lila.memo.ExpireSetMemo[CacheKey](1 hour)
     private def makeKey(u1: UserId, u2: UserId) = CacheKey:
-      if (u1.value < u2.value) s"$u1/$u2" else s"$u2/$u1"
+      if u1.value < u2.value then s"$u1/$u2" else s"$u2/$u1"
 
     def register(g: Game) =
       for

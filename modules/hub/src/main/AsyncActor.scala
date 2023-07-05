@@ -16,7 +16,7 @@ abstract class AsyncActor(using Executor) extends lila.common.Tellable:
   protected val process: ReceiveAsync
 
   def !(msg: Matchable): Unit =
-    if (stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Matchable])(_ enqueue msg))).isEmpty)
+    if stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Matchable])(_ enqueue msg))).isEmpty then
       run(msg)
 
   def ask[A](makeMsg: Promise[A] => Matchable): Fu[A] =
@@ -46,10 +46,9 @@ object AsyncActor:
   private val postRunUpdate = new UnaryOperator[State]:
     override def apply(state: State): State =
       state flatMap { q =>
-        if (q.isEmpty) None else Some(q.tail)
+        if q.isEmpty then None else Some(q.tail)
       }
 
-  private val fallback = { (msg: Matchable) =>
+  private val fallback = (msg: Matchable) =>
     lila.log("asyncActor").warn(s"unhandled msg: $msg")
     funit
-  }

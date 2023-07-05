@@ -36,7 +36,7 @@ object show:
       main(cls := "page-menu streamer-show")(
         st.aside(cls := "page-menu__menu")(
           s.streamer.approval.chatEnabled option div(cls := "streamer-chat")(
-            s.stream match {
+            s.stream match
               case Some(YouTube.Stream(_, _, videoId, _, _)) =>
                 iframe(
                   frame.credentialless,
@@ -53,7 +53,6 @@ object show:
                     src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.pref.currentBg != "light") so "darkpopout&"}parent=${netConfig.domain}"
                   )
                 }
-            }
           ),
           bits.menu("show", s.some)
         ),

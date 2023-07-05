@@ -76,7 +76,7 @@ final class PgnDump(
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
     p.ratingDiff.map { rd =>
-      Tag(tag(Tag), s"${if (rd >= 0) "+" else ""}$rd")
+      Tag(tag(Tag), s"${if rd >= 0 then "+" else ""}$rd")
     }
 
   def tags(
@@ -94,7 +94,7 @@ final class PgnDump(
           List[Option[Tag]](
             Tag(
               _.Event,
-              imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
+              imported.flatMap(_.tags(_.Event)) | { if game.imported then "Import" else eventOf(game) }
             ).some,
             Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
             Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,

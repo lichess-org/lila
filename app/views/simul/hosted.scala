@@ -17,7 +17,8 @@ object hosted:
       moreJs = infiniteScrollTag
     ) {
       main(cls := "page-small box simul-list")(
-        if (pager.nbResults == 0) div(cls := "box__top")(h1(userLink(user), " hasn't hosted any simuls yet!"))
+        if pager.nbResults == 0 then
+          div(cls := "box__top")(h1(userLink(user), " hasn't hosted any simuls yet!"))
         else
           table(cls := "slist slist-pad")(
             thead(

@@ -36,11 +36,11 @@ object faq:
       },
       p(trans.arena.willBeNotified()),
       h2(trans.arena.isItRated()),
-      rated match {
+      rated match
         case Some(true)  => p(trans.arena.isRated())
         case Some(false) => p(trans.arena.isNotRated())
         case None        => p(trans.arena.someRated())
-      },
+      ,
       h2(howAreScoresCalculated()),
       p(howAreScoresCalculatedAnswer()),
       h2(berserk()),

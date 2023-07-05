@@ -38,4 +38,4 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
       coll: c =>
         c.one[EvalCacheEntry]($id(id))
           .addEffect: res =>
-            if (res.isDefined) c.updateFieldUnchecked($id(id), "usedAt", nowInstant)
+            if res.isDefined then c.updateFieldUnchecked($id(id), "usedAt", nowInstant)

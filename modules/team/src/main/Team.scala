@@ -57,7 +57,7 @@ object Team:
   val maxJoinCeiling = 50
 
   def maxJoin(u: User) =
-    if (u.isVerified) maxJoinCeiling * 2
+    if u.isVerified then maxJoinCeiling * 2
     else
       {
         15 + daysBetween(u.createdAt, nowInstant) / 7
@@ -124,7 +124,7 @@ object Team:
   def nameToId(name: String) =
     lila.common.String.slugify(name) pipe { slug =>
       // if most chars are not latin, go for random slug
-      if (slug.lengthIs > (name.length / 2)) TeamId(slug) else randomId()
+      if slug.lengthIs > (name.length / 2) then TeamId(slug) else randomId()
     }
 
   private[team] def randomId() = TeamId(ThreadLocalRandom nextString 8)

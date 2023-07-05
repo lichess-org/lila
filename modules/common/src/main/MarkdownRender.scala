@@ -49,11 +49,11 @@ final class MarkdownRender(
 ):
 
   private val extensions = java.util.ArrayList[Extension]()
-  if (table)
+  if table then
     extensions.add(TablesExtension.create())
     extensions.add(MarkdownRender.tableWrapperExtension)
-  if (strikeThrough) extensions.add(StrikethroughExtension.create())
-  if (autoLink)
+  if strikeThrough then extensions.add(StrikethroughExtension.create())
+  if autoLink then
     extensions.add(AutolinkExtension.create())
     extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
   extensions.add(
@@ -70,10 +70,10 @@ final class MarkdownRender(
     .set(Parser.FENCED_CODE_BLOCK_PARSER, Boolean box code)
 
   // configurable
-  if (table) options.set(TablesExtension.CLASS_NAME, "slist")
-  if (!header) options.set(Parser.HEADING_PARSER, Boolean box false)
-  if (!blockQuote) options.set(Parser.BLOCK_QUOTE_PARSER, Boolean box false)
-  if (!list) options.set(Parser.LIST_BLOCK_PARSER, Boolean box false)
+  if table then options.set(TablesExtension.CLASS_NAME, "slist")
+  if !header then options.set(Parser.HEADING_PARSER, Boolean box false)
+  if !blockQuote then options.set(Parser.BLOCK_QUOTE_PARSER, Boolean box false)
+  if !list then options.set(Parser.LIST_BLOCK_PARSER, Boolean box false)
 
   private val immutableOptions = options.toImmutable
 
@@ -146,15 +146,16 @@ object MarkdownRender:
       override def rendererOptions(options: MutableDataHolder) = ()
       override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
         htmlRendererBuilder
-          .nodeRendererFactory(new NodeRendererFactory {
-            override def apply(options: DataHolder) = new NodeRenderer:
-              override def getNodeRenderingHandlers() =
-                Set(NodeRenderingHandler(classOf[Image], render _)).asJava
-          })
+          .nodeRendererFactory(
+            new NodeRendererFactory:
+              override def apply(options: DataHolder) = new NodeRenderer:
+                override def getNodeRenderingHandlers() =
+                  Set(NodeRenderingHandler(classOf[Image], render _)).asJava
+          )
 
       private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
         // Based on implementation in CoreNodeRenderer.
-        if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+        if context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context) then
           context.renderChildren(node)
         else
           {
@@ -185,9 +186,10 @@ object MarkdownRender:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder
-        .nodeRendererFactory(new NodeRendererFactory {
-          override def apply(options: DataHolder) = new PgnEmbedNodeRenderer(expander)
-        })
+        .nodeRendererFactory(
+          new NodeRendererFactory:
+            override def apply(options: DataHolder) = new PgnEmbedNodeRenderer(expander)
+        )
         .unit
   private class PgnEmbedNodeRenderer(expander: PgnSourceExpand) extends NodeRenderer:
     override def getNodeRenderingHandlers() =
@@ -215,7 +217,7 @@ object MarkdownRender:
 
     private def renderLinkNode(node: LinkNode, context: NodeRendererContext, html: HtmlWriter) =
       // Based on implementation in CoreNodeRenderer.
-      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+      if context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context) then
         context.renderChildren(node)
       else
         val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
@@ -237,7 +239,7 @@ object MarkdownRender:
         html: HtmlWriter,
         baseLink: ResolvedLink
     ) =
-      val link = if (node.getTitle.isNotNull) baseLink.withTitle(node.getTitle().unescape()) else baseLink
+      val link = if node.getTitle.isNotNull then baseLink.withTitle(node.getTitle().unescape()) else baseLink
       html.attr("href", link.getUrl)
       html.attr(link.getNonNullAttributes())
       html.srcPos(node.getChars()).withAttr(link).tag("a")
@@ -270,14 +272,15 @@ object MarkdownRender:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder
-        .attributeProviderFactory(new IndependentAttributeProviderFactory {
-          override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
-        })
+        .attributeProviderFactory(
+          new IndependentAttributeProviderFactory:
+            override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
+        )
         .unit
 
   private val lilaLinkAttributeProvider = new AttributeProvider:
     override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
-      if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK)
+      if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
         attributes.replaceValue("rel", rel).unit
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href"))).unit
 

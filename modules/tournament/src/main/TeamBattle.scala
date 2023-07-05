@@ -35,8 +35,8 @@ object TeamBattle:
       this(rank, teamId, leaders, leaders.foldLeft(0)(_ + _.score))
     def updateRank(newRank: Int) = new RankedTeam(newRank, teamId, leaders, score)
     override def compare(that: RankedTeam) =
-      if (this.score > that.score) -1
-      else if (this.score < that.score) 1
+      if this.score > that.score then -1
+      else if this.score < that.score then 1
       else that.magicScore - this.magicScore
 
   case class TeamLeader(userId: UserId, magicScore: Int):
@@ -75,6 +75,6 @@ object TeamBattle:
       def potentialTeamIds: Set[TeamId] =
         val lines = teams.linesIterator.toList
         val dirtyIds =
-          if (lines.sizeIs > 1) lines.map(_.takeWhile(' ' !=))
+          if lines.sizeIs > 1 then lines.map(_.takeWhile(' ' !=))
           else lines.headOption.so(_.split(',').toList)
         dirtyIds.map(_.trim).filter(_.nonEmpty).map(TeamId(_)).toSet

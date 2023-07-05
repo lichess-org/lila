@@ -38,7 +38,7 @@ final class UciMemo(gameRepo: GameRepo)(using Executor):
   }
 
   private def compute(game: Game, max: Int): Fu[UciVector] =
-    for {
+    for
       fen      <- gameRepo initialFen game
       uciMoves <- UciDump(game.sans take max, fen, game.variant, force960Notation = true).toFuture
-    } yield uciMoves.toVector
+    yield uciMoves.toVector

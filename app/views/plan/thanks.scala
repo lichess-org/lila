@@ -25,30 +25,30 @@ object thanks:
         div(cls := "body")(
           p(tyvm()),
           p(transactionCompleted()),
-          (gift, patron) match {
+          (gift, patron) match
             case (Some(gift), _) =>
               p(
                 userIdLink(gift.userId.some),
                 " ",
-                if (gift.isLifetime) "is now a lifetime Lichess Patron"
+                if gift.isLifetime then "is now a lifetime Lichess Patron"
                 else "is now a Lichess Patron for one month",
                 ", thanks to you!"
               )
             case (_, Some(pat)) =>
-              if (
-                pat.payPal.exists(_.renew) ||
+              if pat.payPal.exists(_.renew) ||
                 pat.payPalCheckout.exists(_.renew) ||
                 stripeCustomer.exists(_.renew)
-              ) ctx.me map { me =>
-                p(
-                  permanentPatron(),
-                  br,
-                  a(href := routes.User.show(me.username))(checkOutProfile())
-                )
-              }
-              else {
+              then
+                ctx.me map { me =>
+                  p(
+                    permanentPatron(),
+                    br,
+                    a(href := routes.User.show(me.username))(checkOutProfile())
+                  )
+                }
+              else
                 frag(
-                  if (pat.isLifetime)
+                  if pat.isLifetime then
                     p(
                       nowLifetime(),
                       br,
@@ -68,9 +68,8 @@ object thanks:
                       p(downgradeNextMonth())
                     )
                 )
-              }
             case _ => emptyFrag
-          },
+          ,
           br,
           br,
           br,

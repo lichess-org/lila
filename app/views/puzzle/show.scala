@@ -19,7 +19,7 @@ object show:
   )(using ctx: PageContext) =
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
-      title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
+      title = if isStreak then "Puzzle Streak" else trans.puzzles.txt(),
       moreCss = frag(
         cssTag("puzzle"),
         ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
@@ -49,11 +49,11 @@ object show:
             routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
           ).some,
           title =
-            if (isStreak) "Puzzle Streak"
+            if isStreak then "Puzzle Streak"
             else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
           url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
           description =
-            if (isStreak) trans.puzzle.streakDescription.txt()
+            if isStreak then trans.puzzle.streakDescription.txt()
             else
               s"Lichess tactic trainer: ${puzzle.color
                   .fold(

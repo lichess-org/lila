@@ -42,10 +42,11 @@ final private class Finisher(
       }
 
   def outOfTime(game: Game)(using GameProxy): Fu[Events] =
-    if (!game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt))
+    if !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
+    then
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
-    else if (game.player(!game.player.color).isOfferingDraw)
+    else if game.player(!game.player.color).isOfferingDraw then
       apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
     else
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
@@ -58,7 +59,8 @@ final private class Finisher(
     game.playerWhoDidNotMove.so: culprit =>
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
-      if (game.isMandatory || game.metadata.hasRule(_.NoAbort)) apply(game, _.NoStart, Some(!culprit.color))
+      if game.isMandatory || game.metadata.hasRule(_.NoAbort) then
+        apply(game, _.NoStart, Some(!culprit.color))
       else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
 
   def other(
@@ -69,7 +71,7 @@ final private class Finisher(
   )(using GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
 
-  private def recordLagStats(game: Game) = for {
+  private def recordLagStats(game: Game) = for
     clock  <- game.clock
     player <- clock.players.all
     lt    = player.lag
@@ -82,7 +84,7 @@ final private class Finisher(
     compEstStdErr <- lt.compEstStdErr
     quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
     compEstOvers = lt.compEstOvers.centis
-  } {
+  do
     import lila.mon.round.move.{ lag as lRec }
     lRec.mean.record(Math.round(10 * mean))
     lRec.stdDev.record(Math.round(10 * sd))
@@ -96,7 +98,6 @@ final private class Finisher(
       case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
     lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
     lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
-  }
 
   private def apply(
       prev: Game,
@@ -107,7 +108,7 @@ final private class Finisher(
     val status = makeStatus(Status)
     val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
     val game   = prog.game
-    if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
+    if game.nonAi && game.isCorrespondence then Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game
       .finish(
         variant = game.variant.key.value,
@@ -154,8 +155,8 @@ final private class Finisher(
       val totalTime = (game.hasClock && user.playTime.isDefined) so game.durationSeconds
       val tvTime    = totalTime ifTrue recentTvGames.get(game.id)
       val result =
-        if (game.winnerUserId has user.id) 1
-        else if (game.loserUserId has user.id) -1
+        if game.winnerUserId has user.id then 1
+        else if game.loserUserId has user.id then -1
         else 0
       userRepo
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)

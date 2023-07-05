@@ -191,7 +191,7 @@ final class PersonalDataExport(
 
     val outro = Source(List(textTitle("End of data export.")))
 
-    List[Source[String, _]](
+    List[Source[String, ?]](
       intro,
       connections,
       followedUsers,

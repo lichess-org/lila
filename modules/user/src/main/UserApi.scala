@@ -76,7 +76,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.addTitle(user.id, Title.BOT) >>
         perfsRepo.setBotInitialPerfs(user.id)
 
-  def botsByIdsStream(ids: Iterable[UserId], nb: Option[Int]): Source[User.WithPerfs, _] =
+  def botsByIdsStream(ids: Iterable[UserId], nb: Option[Int]): Source[User.WithPerfs, ?] =
     userRepo.coll
       .find($inIds(ids) ++ userRepo.botSelect(true))
       .cursor[User](temporarilyPrimary)

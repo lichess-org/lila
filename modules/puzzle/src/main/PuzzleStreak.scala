@@ -44,7 +44,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
               Facet(
                 buckets.map { case (rating, nbPuzzles) =>
                   val (tier, samples, deviation) =
-                    if (rating > 2300) (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
+                    if rating > 2300 then (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
                   rating.toString -> List(
                     Match(
                       $doc(
@@ -95,9 +95,8 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
   private def monitor(puzzles: List[Puzzle]): Unit =
     val nb = puzzles.size
     lila.mon.streak.selector.count.record(nb)
-    if (nb < poolSize * 0.9)
-      logger.warn(s"Streak selector wanted $poolSize puzzles, only got $nb")
-    if (nb > 1)
+    if nb < poolSize * 0.9 then logger.warn(s"Streak selector wanted $poolSize puzzles, only got $nb")
+    if nb > 1 then
       val rest = puzzles.toVector drop 1
       lila.common.Maths.mean(rest.map(_.glicko.intRating.value)) foreach { r =>
         lila.mon.streak.selector.rating.record(r.toInt).unit

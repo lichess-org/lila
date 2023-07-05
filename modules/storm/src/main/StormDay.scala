@@ -21,7 +21,7 @@ case class StormDay(
 ):
 
   def add(run: StormForm.RunData) = {
-    if (run.score > score)
+    if run.score > score then
       copy(
         score = run.score,
         moves = run.moves,
@@ -60,7 +60,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsR
   ): Fu[Option[StormHigh.NewHigh]] =
     lila.mon.storm.run.score(user.isDefined).record(data.score).unit
     user so { u =>
-      if (mobile || sign.check(u, ~data.signed))
+      if mobile || sign.check(u, ~data.signed) then
         Bus.publish(lila.hub.actorApi.puzzle.StormRun(u.id, data.score), "stormRun")
         highApi get u.id flatMap { prevHigh =>
           val todayId = Id today u.id
@@ -78,15 +78,15 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsR
             }
         }
       else
-        if (data.time > 40)
-          if (data.score > 99) logger.warn(s"badly signed run from ${u.username} $data")
+        if data.time > 40 then
+          if data.score > 99 then logger.warn(s"badly signed run from ${u.username} $data")
           lila.mon.storm.run
-            .sign(data.signed match {
+            .sign(data.signed match
               case None              => "missing"
               case Some("")          => "empty"
               case Some("undefined") => "undefined"
               case _                 => "wrong"
-            })
+            )
             .increment()
         fuccess(none)
     }

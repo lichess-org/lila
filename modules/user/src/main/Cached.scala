@@ -98,5 +98,5 @@ final class Cached(
     _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
 
   def userIdsLike(text: UserStr): Fu[List[UserId]] =
-    if (text.value.lengthIs < 5) userIdsLikeCache get text
+    if text.value.lengthIs < 5 then userIdsLikeCache get text
     else userIdsLikeFetch(text)

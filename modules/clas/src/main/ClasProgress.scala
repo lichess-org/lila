@@ -35,7 +35,7 @@ case class StudentProgress(
     rating: (IntRating, IntRating)
 ):
   def ratingProgress = (rating._2 - rating._1) into IntRatingDiff
-  def winRate        = if (nb > 0) wins * 100 / nb else 0
+  def winRate        = if nb > 0 then wins * 100 / nb else 0
   def duration       = Duration.ofMillis(millis)
 
 final class ClasProgressApi(
@@ -156,4 +156,4 @@ final class ClasProgressApi(
         .toMap
 
   private[clas] def onFinishGame(game: lila.game.Game): Unit =
-    if (game.userIds.exists(studentCache.isStudent)) gameRepo.denormalizePerfType(game)
+    if game.userIds.exists(studentCache.isStudent) then gameRepo.denormalizePerfType(game)

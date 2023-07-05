@@ -6,7 +6,7 @@ import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Field, FormError, Mapping, Form => PlayForm }
+import play.api.data.{ Field, FormError, Mapping, Form as PlayForm }
 import play.api.data.validation as V
 import scala.util.Try
 import java.time.LocalDate
@@ -109,8 +109,7 @@ object Form:
     // \u0131\u0307 is ı (\u0131) with an i dot (\u0307)
     private val regex = "(?iu)l(?:[i\u0456]|\u0131\u0307?)[c\u0441][h\u04bb][e\u0435][s\u0455]".r
     def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
-      if (regex.find(t) && !verifiedUser)
-        V.Invalid(V.ValidationError("Must not contain \"lichess\""))
+      if regex.find(t) && !verifiedUser then V.Invalid(V.ValidationError("Must not contain \"lichess\""))
       else V.Valid
     }
 
@@ -136,7 +135,7 @@ object Form:
       .transform[Color](c => Color.fromWhite(c == "white"), _.name)
 
   private def pluralize(pattern: String, nb: Int) =
-    pattern.replace("{s}", if (nb == 1) "" else "s")
+    pattern.replace("{s}", if nb == 1 then "" else "s")
 
   given intBase: Formatter[Int]      = intFormat
   given strBase: Formatter[String]   = stringFormat
@@ -164,22 +163,24 @@ object Form:
   object constraint:
     def minLength[A](from: A => String)(length: Int): Constraint[A] =
       Constraint[A]("constraint.minLength", length) { o =>
-        if (from(o).lengthIs >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
+        if from(o).lengthIs >= length then V.Valid
+        else V.Invalid(V.ValidationError("error.minLength", length))
       }
     def maxLength[A](from: A => String)(length: Int): Constraint[A] =
       Constraint[A]("constraint.maxLength", length) { o =>
-        if (from(o).lengthIs <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
+        if from(o).lengthIs <= length then V.Valid
+        else V.Invalid(V.ValidationError("error.maxLength", length))
       }
 
   object fen:
     val mapping = trim(of[String]).into[Fen.Epd]
     def playable(strict: Boolean) = mapping
       .verifying("Invalid position", fen => Fen.read(fen).exists(_ playable strict))
-      .transform[Fen.Epd](if (strict) truncateMoveNumber else identity, identity)
+      .transform[Fen.Epd](if strict then truncateMoveNumber else identity, identity)
     val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen.Epd) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
-        if (g.fullMoveNumber >= 150)
+        if g.fullMoveNumber >= 150 then
           Fen write g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100)) // keep the start ply low
         else fen
       }
@@ -206,10 +207,9 @@ object Form:
     def bind(key: String, data: Map[String, String]) = base.bind(key, data) map sr.apply
     def unbind(key: String, value: T)                = base.unbind(key, rs(value))
 
-  given Formatter[chess.variant.Variant] = {
+  given Formatter[chess.variant.Variant] =
     import chess.variant.Variant
     formatter.stringFormatter[Variant](_.key.value, str => Variant.orDefault(Variant.LilaKey(str)))
-  }
 
   extension [A](f: Formatter[A])
     def transform[B](to: A => B, from: B => A): Formatter[B] = new:

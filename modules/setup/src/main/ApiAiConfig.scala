@@ -45,7 +45,7 @@ final case class ApiAiConfig(
             Player.make(chess.Black, user.map(_ only pt))
           ),
           mode = chess.Mode.Casual,
-          source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Ai,
+          source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           pgnImport = None
         )

@@ -35,12 +35,12 @@ final class IrwinApi(
 
   object reports:
 
-    def insert(data: IrwinReport) = for {
+    def insert(data: IrwinReport) = for
       prev <- get(data.userId)
       report = prev.fold(data)(_ add data)
       _ <- reportColl.update.one($id(report._id), report, upsert = true)
       _ <- markOrReport(report)
-    } yield
+    yield
       notification(report)
       lila.mon.mod.irwin.ownerReport(report.owner).increment().unit
 
@@ -66,21 +66,22 @@ final class IrwinApi(
 
     private def markOrReport(report: IrwinReport): Funit =
       userRepo.getTitle(report.suspectId.value) flatMap { title =>
-        if (report.activation >= thresholds.get().mark && title.isEmpty)
+        if report.activation >= thresholds.get().mark && title.isEmpty then
           modApi.autoMark(report.suspectId, report.note)(using User.irwinId.into(Me.Id)) >>-
             lila.mon.mod.irwin.mark.increment().unit
-        else if (report.activation >= thresholds.get().report) for {
-          suspect <- getSuspect(report.suspectId.value)
-          irwin   <- userRepo.irwin orFail s"Irwin user not found" dmap Mod.apply
-          _ <- reportApi.create(
-            Report.Candidate(
-              reporter = Reporter(irwin.user),
-              suspect = suspect,
-              reason = lila.report.Reason.Cheat,
-              text = s"${report.activation}% over ${report.games.size} games"
+        else if report.activation >= thresholds.get().report then
+          for
+            suspect <- getSuspect(report.suspectId.value)
+            irwin   <- userRepo.irwin orFail s"Irwin user not found" dmap Mod.apply
+            _ <- reportApi.create(
+              Report.Candidate(
+                reporter = Reporter(irwin.user),
+                suspect = suspect,
+                reason = lila.report.Reason.Cheat,
+                text = s"${report.activation}% over ${report.games.size} games"
+              )
             )
-          )
-        } yield lila.mon.mod.irwin.report.increment().unit
+          yield lila.mon.mod.irwin.report.increment().unit
         else funit
       }
 

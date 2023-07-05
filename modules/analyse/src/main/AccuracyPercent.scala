@@ -42,7 +42,7 @@ for x in xs:
     print(f"f({x}) = {model_func(x, a, k, b)}");
    */
   def fromWinPercents(before: WinPercent, after: WinPercent): AccuracyPercent = AccuracyPercent {
-    if (after.value >= before.value) 100d
+    if after.value >= before.value then 100d
     else
       {
         val winDiff = before.value - after.value
@@ -53,7 +53,8 @@ for x in xs:
 
   def fromEvalsAndPov(pov: Game.SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
-    val alignedEvals = if (pov.color == pov.startColor) Eval.initial :: subjectiveEvals else subjectiveEvals
+    val alignedEvals =
+      if pov.color == pov.startColor then Eval.initial :: subjectiveEvals else subjectiveEvals
     alignedEvals
       .grouped(2)
       .collect { case List(e1, e2) =>

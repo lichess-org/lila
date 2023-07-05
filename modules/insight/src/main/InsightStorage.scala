@@ -67,10 +67,10 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
         )
       }.map {
         _.flatMap { doc =>
-          for {
+          for
             perfType <- doc.getAsOpt[PerfType]("_id")
             nb       <- doc.int("nb")
-          } yield perfType -> nb
+          yield perfType -> nb
         }.toMap
       }
     }

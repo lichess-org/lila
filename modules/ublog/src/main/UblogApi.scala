@@ -39,11 +39,11 @@ final class UblogApi(
       colls.post.updateField($id(post.id), "rank", rank).void
     } >>- {
       lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-      if (blog.visible)
+      if blog.visible then
         timeline ! Propagate(
           lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
         ).toFollowersOf(user.id)
-        if (blog.modTier.isEmpty) sendPostToZulipMaybe(user, post).unit
+        if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post).unit
     }
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
@@ -146,7 +146,7 @@ final class UblogApi(
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](temporarilyPrimary)
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
-    if (v) fuccess(UblogBlog.Tier.HIDDEN)
+    if v then fuccess(UblogBlog.Tier.HIDDEN)
     else userApi.withPerfs(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
   }.flatMap:
     setTier(UblogBlog.Id.User(userId), _)

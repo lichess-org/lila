@@ -51,7 +51,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
               val fenColorRegex = $doc(
                 "$regexMatch" -> $doc(
                   "input" -> "$fen",
-                  "regex" -> { if (scala.util.Random.nextBoolean()) " w " else " b " }
+                  "regex" -> { if scala.util.Random.nextBoolean() then " w " else " b " }
                 )
               )
               Facet(
@@ -119,9 +119,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
   private def monitor(puzzles: Vector[StormPuzzle], poolSize: Int): Unit =
     val nb = puzzles.size
     lila.mon.storm.selector.count.record(nb)
-    if (nb < poolSize * 0.9)
-      logger.warn(s"Selector wanted $poolSize puzzles, only got $nb")
-    if (nb > 1)
+    if nb < poolSize * 0.9 then logger.warn(s"Selector wanted $poolSize puzzles, only got $nb")
+    if nb > 1 then
       val rest = puzzles.toVector drop 1
       lila.common.Maths.mean(IntRating raw rest.map(_.rating)) foreach { r =>
         lila.mon.storm.selector.rating.record(r.toInt).unit

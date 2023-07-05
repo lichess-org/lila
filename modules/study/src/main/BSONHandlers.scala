@@ -312,10 +312,9 @@ object BSONHandlers:
 
   given BSONHandler[Tag] = tryHandler[Tag](
     { case BSONString(v) =>
-      v.split(":", 2) match {
+      v.split(":", 2) match
         case Array(name, value) => Success(Tag(name, value))
         case _                  => handlerBadValue(s"Invalid pgn tag $v")
-      }
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
@@ -353,22 +352,21 @@ object BSONHandlers:
   import Study.From
   private[study] given BSONHandler[From] = tryHandler[From](
     { case BSONString(v) =>
-      v.split(' ') match {
+      v.split(' ') match
         case Array("scratch")   => Success(From.Scratch)
         case Array("game", id)  => Success(From.Game(GameId(id)))
         case Array("study", id) => Success(From.Study(StudyId(id)))
         case Array("relay")     => Success(From.Relay(none))
         case Array("relay", id) => Success(From.Relay(StudyId(id).some))
         case _                  => handlerBadValue(s"Invalid from $v")
-      }
     },
     x =>
-      BSONString(x match {
+      BSONString(x match
         case From.Scratch   => "scratch"
         case From.Game(id)  => s"game $id"
         case From.Study(id) => s"study $id"
         case From.Relay(id) => s"relay${id.fold("")(" " + _)}"
-      })
+      )
   )
   import Settings.UserSelection
   private[study] given BSONHandler[UserSelection] = tryHandler[UserSelection](
@@ -401,7 +399,7 @@ object BSONHandlers:
       )
 
   given BSONDocumentReader[Chapter.Metadata] with
-    def readDocument(doc: Bdoc) = for {
+    def readDocument(doc: Bdoc) = for
       id    <- doc.getAsTry[StudyChapterId]("_id")
       name  <- doc.getAsTry[StudyChapterName]("name")
       setup <- doc.getAsTry[Chapter.Setup]("setup")
@@ -413,4 +411,4 @@ object BSONHandlers:
             .map(Outcome.fromResult)
         }
       hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
-    } yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)
+    yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)

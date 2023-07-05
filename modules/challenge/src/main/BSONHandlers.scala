@@ -63,8 +63,8 @@ private object BSONHandlers:
 
   given BSON[Challenger] with
     def reads(r: Reader) =
-      if (r contains "id") registeredHandler reads r
-      else if (r contains "s") anonHandler reads r
+      if r contains "id" then registeredHandler reads r
+      else if r contains "s" then anonHandler reads r
       else Challenger.Open
     def writes(w: Writer, c: Challenger) =
       c match

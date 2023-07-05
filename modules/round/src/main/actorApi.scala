@@ -46,7 +46,8 @@ package round:
   case class DrawNo(playerId: GamePlayerId)
   case class TakebackYes(playerId: GamePlayerId)
   case class TakebackNo(playerId: GamePlayerId)
-  object Moretime { val defaultDuration = 15.seconds }
+  object Moretime:
+    val defaultDuration = 15.seconds
   case class Moretime(playerId: GamePlayerId, seconds: FiniteDuration = Moretime.defaultDuration)
   case object QuietFlag
   case class ClientFlag(color: Color, fromPlayerId: Option[GamePlayerId])

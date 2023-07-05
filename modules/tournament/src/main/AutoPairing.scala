@@ -19,7 +19,7 @@ final class AutoPairing(
         chess = chess
           .Game(
             variantOption = Some {
-              if (tour.position.isEmpty) tour.variant
+              if tour.position.isEmpty then tour.variant
               else chess.variant.FromPosition
             },
             fen = fen

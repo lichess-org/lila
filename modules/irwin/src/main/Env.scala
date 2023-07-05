@@ -42,7 +42,7 @@ final class Env(
     def mk = (coll: AsyncColl) => wire[KaladinApi]
     mk(insightDb(CollName("kaladin_queue")))
 
-  if (appConfig.get[Boolean]("kaladin.enabled"))
+  if appConfig.get[Boolean]("kaladin.enabled") then
 
     scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes): () =>
       (for

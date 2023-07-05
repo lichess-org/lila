@@ -59,7 +59,7 @@ final class SeekApi(
         case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
         case ((res, h), seek) =>
           val seekH = List(seek.variant, seek.daysPerTurn, seek.mode, seek.color, seek.user.id) mkString ","
-          if (h contains seekH) (res, h)
+          if h contains seekH then (res, h)
           else (seek :: res, h + seekH)
       }
       ._1

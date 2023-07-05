@@ -26,11 +26,11 @@ final class Mailer(
   private val secondaryClient = SMTPMailer(config.secondary.toClientConfig)
 
   private def randomClient(): (SMTPMailer, Mailer.Smtp) =
-    if (ThreadLocalRandom.nextInt(1000) < getSecondaryPermille()) (secondaryClient, config.secondary)
+    if ThreadLocalRandom.nextInt(1000) < getSecondaryPermille() then (secondaryClient, config.secondary)
     else (primaryClient, config.primary)
 
   def send(msg: Mailer.Message): Funit =
-    if (msg.to.isNoReply)
+    if msg.to.isNoReply then
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     else

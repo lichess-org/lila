@@ -139,7 +139,7 @@ final class SimulApi(
       }
 
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit =
-    if (user.exists(simul.isHost) && simul.isRunning)
+    if user.exists(simul.isHost) && simul.isRunning then
       repo.setHostGameId(simul, game.id)
       socket.hostIsOn(simul.id, game.id)
 

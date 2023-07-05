@@ -40,7 +40,7 @@ final class TournamentShieldApi(
 
   private[tournament] def clearAfterMarking(userId: UserId): Funit = cache.getUnit map { hist =>
     import cats.syntax.all.*
-    if (hist.value.exists(_._2.exists(_.owner == userId))) clear()
+    if hist.value.exists(_._2.exists(_.owner == userId)) then clear()
   }
 
   private val cache = cacheApi.unit[History]:

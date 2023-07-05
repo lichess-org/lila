@@ -21,13 +21,13 @@ case class RelayTour(
 
   lazy val slug =
     val s = lila.common.String slugify name
-    if (s.isEmpty) "-" else s
+    if s.isEmpty then "-" else s
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
 
   def official = tier.isDefined
 
-  def reAssignIfOfficial = if (official) copy(ownerId = User.broadcasterId) else this
+  def reAssignIfOfficial = if official then copy(ownerId = User.broadcasterId) else this
 
 object RelayTour:
 

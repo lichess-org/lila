@@ -11,17 +11,18 @@ final class AutoAnalysis(
 ):
 
   def apply(candidate: Report.Candidate): Funit =
-    if (candidate.isCheat) doItNow(candidate)
-    else if (candidate.isPrint) fuccess {
-      List(30, 90) foreach { minutes =>
-        scheduler.scheduleOnce(minutes minutes) { doItNow(candidate).unit }
+    if candidate.isCheat then doItNow(candidate)
+    else if candidate.isPrint then
+      fuccess {
+        List(30, 90) foreach { minutes =>
+          scheduler.scheduleOnce(minutes minutes) { doItNow(candidate).unit }
+        }
       }
-    }
     else funit
 
   private def doItNow(candidate: Report.Candidate) =
     gamesToAnalyse(candidate) map { games =>
-      if (games.nonEmpty)
+      if games.nonEmpty then
         logger.info(s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}")
       games foreach { game =>
         lila.mon.cheat.autoAnalysis("Report").increment()

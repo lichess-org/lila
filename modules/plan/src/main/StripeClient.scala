@@ -35,7 +35,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
     val args =
       sessionArgs(StripeMode.payment, data, data.urls) ::: List(
         "line_items[0][price_data][product]" -> {
-          if (data.giftTo.isDefined) config.products.gift
+          if data.giftTo.isDefined then config.products.gift
           else config.products.onetime
         },
         "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
@@ -172,7 +172,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
         (summon[Reads[A]] reads res.body[JsValue]).fold(
           errs =>
             fufail {
-              if (isDeleted(res.body[JsValue]))
+              if isDeleted(res.body[JsValue]) then
                 new DeletedException(s"[stripe] Upstream resource was deleted: ${res.body}")
               else new Exception(s"[stripe] Can't parse ${res.body} --- $errs")
             },

@@ -26,7 +26,7 @@ final class DetectLanguage(
   private val defaultLang = Lang("en")
 
   def apply(message: String): Fu[Option[Lang]] =
-    if (config.key.value.isEmpty) fuccess(defaultLang.some)
+    if config.key.value.isEmpty then fuccess(defaultLang.some)
     else
       ws.url(config.url)
         .post(

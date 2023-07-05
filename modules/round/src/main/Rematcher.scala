@@ -37,10 +37,9 @@ final private class Rematcher(
   def yes(pov: Pov): Fu[Events] =
     pov match
       case Pov(game, color) if game.playerCouldRematch =>
-        if (isOffering(!pov) || game.opponent(color).isAi)
+        if isOffering(!pov) || game.opponent(color).isAi then
           rematches.getAcceptedId(game.id).fold(rematchJoin(pov))(rematchExists(pov))
-        else if (!declined.get(pov.flip.fullId) && rateLimit.zero(pov.fullId)(true))
-          rematchCreate(pov)
+        else if !declined.get(pov.flip.fullId) && rateLimit.zero(pov.fullId)(true) then rematchCreate(pov)
         else fuccess(List(Event.RematchOffer(by = none)))
       case _ => fuccess(List(Event.ReloadOwner))
 
@@ -72,12 +71,12 @@ final private class Rematcher(
 
   private def rematchJoin(pov: Pov): Fu[Events] =
 
-    def createGame(withId: Option[GameId]) = for {
+    def createGame(withId: Option[GameId]) = for
       nextGame <- returnGame(pov, withId).map(_.start)
       _ = rematches.accept(pov.gameId, nextGame.id)
-      _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
+      _ = if pov.game.variant == Chess960 && !chess960.get(pov.gameId) then chess960.put(nextGame.id)
       _ <- gameRepo insertDenormalized nextGame
-    } yield
+    yield
       messenger.volatile(pov.game, trans.rematchOfferAccepted.txt())
       onStart(nextGame.id)
       redirectEvents(nextGame)
@@ -88,12 +87,12 @@ final private class Rematcher(
       case Some(Rematches.NextGame.Offered(_, id)) => createGame(id.some)
 
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
-    for {
+    for
       initialFen <- gameRepo initialFen pov.game
       situation = initialFen.flatMap(Fen.readWithMoveNumber(pov.game.variant, _))
       pieces = pov.game.variant match
         case Chess960 =>
-          if (chess960 get pov.gameId) Chess960.pieces
+          if chess960 get pov.gameId then Chess960.pieces
           else situation.fold(Chess960.pieces)(_.situation.board.pieces)
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
@@ -126,7 +125,7 @@ final private class Rematcher(
         pgnImport = None
       )
       game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy withId id) }
-    } yield game
+    yield game
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User.WithPerf]): lila.game.Player =
     game.opponent(color).aiLevel match

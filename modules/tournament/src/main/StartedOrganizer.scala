@@ -24,8 +24,8 @@ final private class StartedOrganizer(
 
     tournamentRepo
       .startedCursorWithNbPlayersGte {
-        if (doAllTournaments) none // every 15s, do all tournaments
-        else if (runCounter % 2 == 0) 50.some // every 2s, do all decent tournaments
+        if doAllTournaments then none // every 15s, do all tournaments
+        else if runCounter % 2 == 0 then 50.some // every 2s, do all decent tournaments
         else 1000.some // always do massive tournaments
       }
       .documentSource()
@@ -38,7 +38,7 @@ final private class StartedOrganizer(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .addEffect { nb =>
-        if (doAllTournaments) lila.mon.tournament.started.update(nb).unit
+        if doAllTournaments then lila.mon.tournament.started.update(nb).unit
         runCounter = runCounter + 1
       }
       .monSuccess(_.tournament.startedOrganizer.tick)
@@ -46,12 +46,12 @@ final private class StartedOrganizer(
   }
 
   private def processTour(tour: Tournament): Funit =
-    if (tour.secondsToFinish <= 0) api finish tour
-    else if (api.killSchedule contains tour.id)
+    if tour.secondsToFinish <= 0 then api finish tour
+    else if api.killSchedule contains tour.id then
       api.killSchedule remove tour.id
       api finish tour
-    else if (tour.nbPlayers < 2) funit
-    else if (tour.nbPlayers < 30)
+    else if tour.nbPlayers < 2 then funit
+    else if tour.nbPlayers < 30 then
       playerRepo nbActivePlayers tour.id flatMap { nb =>
         (nb >= 2) so startPairing(tour, nb.some)
       }

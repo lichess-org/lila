@@ -61,10 +61,10 @@ case class RankedPairing(pairing: Pairing, rank1: Rank, rank2: Rank):
 object RankedPairing:
 
   def apply(ranking: Ranking)(pairing: Pairing): Option[RankedPairing] =
-    for {
+    for
       r1 <- ranking get pairing.user1
       r2 <- ranking get pairing.user2
-    } yield RankedPairing(pairing, r1 + 1, r2 + 1)
+    yield RankedPairing(pairing, r1 + 1, r2 + 1)
 
 case class RankedPlayer(rank: Rank, player: Player):
 

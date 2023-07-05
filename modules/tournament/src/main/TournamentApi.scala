@@ -232,8 +232,8 @@ final class TournamentApi(
   private[tournament] val killSchedule = scala.collection.mutable.Set.empty[TourId]
 
   def kill(tour: Tournament): Funit =
-    if (tour.isStarted) fuccess(killSchedule add tour.id).void
-    else if (tour.isCreated) destroy(tour)
+    if tour.isStarted then fuccess(killSchedule add tour.id).void
+    else if tour.isCreated then destroy(tour)
     else funit
 
   private def awardTrophies(tour: Tournament): Funit =
@@ -276,7 +276,7 @@ final class TournamentApi(
       playerRepo.find(tour.id, me) flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if (me.marks.prizeban && tour.looksLikePrize) fuccess(JoinResult.PrizeBanned)
+          if me.marks.prizeban && tour.looksLikePrize then fuccess(JoinResult.PrizeBanned)
           else if prevPlayer.nonEmpty || tour.password.forall(p =>
               // plain text access code
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
@@ -289,8 +289,8 @@ final class TournamentApi(
             )
           then
             getVerdicts(tour, prevPlayer.isDefined) flatMap { verdicts =>
-              if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
-              else if (!pause.canJoin(me, tour)) fuccess(JoinResult.Paused)
+              if !verdicts.accepted then fuccess(JoinResult.Verdicts)
+              else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
               else
                 def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
                   user <- perfsRepo.withPerf(me.value, tour.perfType)
@@ -369,7 +369,7 @@ final class TournamentApi(
             then cached.ranking(tour).map { _.ranking get userId exists (_ < 7) }
             else fuccess(isStalling)
         yield
-          if (pausable) pause.add(userId)
+          if pausable then pause.add(userId)
           socket.reload(tour.id)
           publish()
       case _ => funit
@@ -442,15 +442,16 @@ final class TournamentApi(
   private def performanceOf(g: Game, userId: UserId): Option[IntRating] = for
     opponent       <- g.opponentByUserId(userId)
     opponentRating <- opponent.rating
-    multiplier = g.winnerUserId.so(winner => if (winner == userId) 1 else -1)
+    multiplier = g.winnerUserId.so(winner => if winner == userId then 1 else -1)
   yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit =
-    if (game.status == chess.Status.NoStart) for
-      tourId <- game.tournamentId
-      player <- game.playerWhoDidNotMove
-      userId <- player.userId
-    yield withdraw(tourId, userId, isPause = false, isStalling = false)
+    if game.status == chess.Status.NoStart then
+      for
+        tourId <- game.tournamentId
+        player <- game.playerWhoDidNotMove
+        userId <- player.userId
+      yield withdraw(tourId, userId, isPause = false, isStalling = false)
 
   def pausePlaybanned(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "pausePlaybanned") flatMap {
@@ -464,7 +465,7 @@ final class TournamentApi(
       _.map { tourId =>
         Parallel(tourId, "kickFromTeam")(tournamentRepo.byId) { tour =>
           val fu =
-            if (tour.isCreated) playerRepo.remove(tour.id, userId)
+            if tour.isCreated then playerRepo.remove(tour.id, userId)
             else playerRepo.withdraw(tour.id, userId)
           fu >> updateNbPlayers(tourId) >>- socket.reload(tourId)
         }
@@ -474,8 +475,7 @@ final class TournamentApi(
   // withdraws the player and forfeits all pairings in ongoing tournaments
   private[tournament] def ejectLameFromEnterable(tourId: TourId, userId: UserId): Funit =
     Parallel(tourId, "ejectLameFromEnterable")(cached.tourCache.enterable) { tour =>
-      if (tour.isCreated)
-        playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
+      if tour.isCreated then playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
       else
         playerRepo.remove(tourId, userId) >> {
           tour.isStarted so {
@@ -710,12 +710,11 @@ final class TournamentApi(
       (Tournament.PastAndNext.apply).tupled
 
   def toggleFeaturing(tourId: TourId, v: Boolean): Funit =
-    if (v)
+    if v then
       tournamentRepo.byId(tourId) flatMapz { tour =>
         tournamentRepo.setSchedule(tour.id, Schedule.uniqueFor(tour).some)
       }
-    else
-      tournamentRepo.setSchedule(tourId, none)
+    else tournamentRepo.setSchedule(tourId, none)
 
   private def playerPovs(tour: Tournament, userId: UserId, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
@@ -754,7 +753,7 @@ final class TournamentApi(
     private def publishNow(tourId: TourId) =
       tournamentTop(tourId) map { top =>
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
-        if (lastHash != top.hashCode)
+        if lastHash != top.hashCode then
           Bus.publish(
             lila.hub.actorApi.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
             "tourStanding"
@@ -765,7 +764,7 @@ final class TournamentApi(
     private val throttler = new lila.hub.EarlyMultiThrottler[TourId](logger)
 
     def apply(tour: Tournament): Unit =
-      if (!tour.isTeamBattle) throttler(tour.id, 15.seconds) { publishNow(tour.id) }
+      if !tour.isTeamBattle then throttler(tour.id, 15.seconds) { publishNow(tour.id) }
 
 private object TournamentApi:
 

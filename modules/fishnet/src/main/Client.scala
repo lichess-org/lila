@@ -54,9 +54,9 @@ object Client:
   case class Instance(version: Version, ip: IpAddress, seenAt: Instant):
 
     def update(i: Instance): Option[Instance] =
-      if (i.version != version) i.some
-      else if (i.ip != ip) i.some
-      else if (i.seenAt isAfter seenAt.plusMinutes(5)) i.some
+      if i.version != version then i.some
+      else if i.ip != ip then i.some
+      else if i.seenAt isAfter seenAt.plusMinutes(5) then i.some
       else none
 
     def seenRecently = seenAt isAfter Instance.recentSince

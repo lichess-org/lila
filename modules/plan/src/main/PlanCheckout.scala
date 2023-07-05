@@ -12,7 +12,7 @@ case class PlanCheckout(
     giftTo: Option[UserStr]
 ):
   def fixFreq = copy(
-    freq = if (giftTo.isDefined) Freq.Onetime else freq
+    freq = if giftTo.isDefined then Freq.Onetime else freq
   )
 
 private object PlanCheckout:
@@ -29,7 +29,7 @@ final class PlanCheckoutForm(lightUserApi: lila.user.LightUserApi):
     PlanCheckout(
       email,
       Money(amount, currency),
-      if (freq == "monthly") Freq.Monthly else Freq.Onetime,
+      if freq == "monthly" then Freq.Monthly else Freq.Onetime,
       giftTo = giftTo
     )
 

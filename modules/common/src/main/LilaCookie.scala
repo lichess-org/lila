@@ -34,7 +34,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
           )
         )
       ),
-      if (remember) none else 0.some
+      if remember then none else 0.some
     )
 
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(using
@@ -43,7 +43,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
     Cookie(
       name,
       value,
-      if (maxAge has 0) none
+      if maxAge has 0 then none
       else maxAge orElse baker.maxAge orElse 86400.some,
       "/",
       cookieDomain.some,
@@ -57,7 +57,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
     DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
 
   def ensure(req: RequestHeader)(res: Result): Result =
-    if (req.session.data.contains(LilaCookie.sessionId)) res
+    if req.session.data.contains(LilaCookie.sessionId) then res
     else res withCookies makeSessionId(using req)
 
   def ensureAndGet(req: RequestHeader)(res: String => Fu[Result])(using Executor): Fu[Result] =

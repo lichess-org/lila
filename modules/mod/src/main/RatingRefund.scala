@@ -84,7 +84,7 @@ private object RatingRefund:
 
   case class Refunds(all: List[Refund]):
     def add(victim: UserId, perf: PerfType, diff: IntRatingDiff, rating: IntRating) =
-      copy(all = all.find(_.is(victim, perf)) match {
+      copy(all = all.find(_.is(victim, perf)) match
         case None    => Refund(victim, perf, diff, rating) :: all
         case Some(r) => r.add(diff, rating) :: all.filterNot(_ is r)
-      })
+      )

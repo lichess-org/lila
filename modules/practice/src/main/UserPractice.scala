@@ -30,6 +30,6 @@ case class UserStudy(
 
 case class Completion(done: Int, total: Int):
 
-  def percent = if (total == 0) 0 else done * 100 / total
+  def percent = if total == 0 then 0 else done * 100 / total
 
   def complete = done >= total

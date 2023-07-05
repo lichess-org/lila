@@ -163,7 +163,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                 "voted" -> round.vote
                               )
                           else
-                            (data.replayDays, angle.asTheme) match {
+                            (data.replayDays, angle.asTheme) match
                               case (Some(replayDays), Some(theme)) =>
                                 for
                                   _    <- env.puzzle.replay.onComplete(round, replayDays, angle)
@@ -187,12 +187,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                   "round" -> env.puzzle.jsonView.roundJson.web(round, perf)(using me),
                                   "next"  -> nextJson
                                 )
-                            }
                       yield json
                     }
                 case None =>
                   env.puzzle.finisher.incPuzzlePlays(id)
-                  if (mobileBc) fuccess(Json.obj("user" -> false))
+                  if mobileBc then fuccess(Json.obj("user" -> false))
                   else
                     nextPuzzleForMe(angle, data.color map some)
                       .flatMap:

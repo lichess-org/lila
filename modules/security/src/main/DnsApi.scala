@@ -32,7 +32,7 @@ final private class DnsApi(
           .map(_ split ' ')
           .collect { case Array(_, domain) =>
             Domain.from {
-              if (domain endsWith ".") domain.init
+              if domain endsWith "." then domain.init
               else domain
             }
           }

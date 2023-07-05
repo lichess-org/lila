@@ -45,8 +45,7 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
     private var challenges = NonEmptyList.one(Captcha.default)
 
     private def add(c: Captcha): Unit =
-      if (find(c.gameId).isEmpty)
-        challenges = NonEmptyList(c, challenges.toList take capacity)
+      if find(c.gameId).isEmpty then challenges = NonEmptyList(c, challenges.toList take capacity)
 
     private def find(id: GameId): Option[Captcha] =
       challenges.find(_.gameId == id)

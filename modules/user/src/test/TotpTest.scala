@@ -3,7 +3,7 @@ package lila.user
 import java.nio.charset.StandardCharsets.UTF_8
 import User.TotpToken
 
-class TotpTest extends munit.FunSuite {
+class TotpTest extends munit.FunSuite:
 
   test("read and write secret") {
     val secret = TotpSecret.random
@@ -33,4 +33,3 @@ class TotpTest extends munit.FunSuite {
     assertEquals(secret.totp(2000000000L / 30), TotpToken("279037"))
     assertEquals(secret.totp(20000000000L / 30), TotpToken("353130"))
   }
-}

@@ -60,9 +60,8 @@ case class OpeningExplored(
     games: List[GameWithPgn],
     next: List[OpeningNext],
     history: PopularityHistoryPercent
-) {
+):
   def lastPopularityPercent: Option[Float] = history.lastOption
-}
 
 object OpeningPage:
   def apply(
@@ -80,13 +79,13 @@ object OpeningPage:
           games = games,
           next = exp.moves
             .flatMap { m =>
-              for {
+              for
                 uci  <- Uci.Move(m.uci)
                 move <- query.position.move(uci).toOption
                 result  = ResultCounts(m.white, m.draws, m.black)
                 fen     = Fen writeOpening move.situationAfter
                 opening = OpeningDb findByOpeningFen fen
-              } yield OpeningNext(
+              yield OpeningNext(
                 m.san,
                 uci,
                 fen,

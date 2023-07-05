@@ -12,13 +12,14 @@ import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserPerfs }
 
-trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
+trait UserHelper extends HasEnv:
+  self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
 
   given Conversion[User.WithPerfs, User] = _.user
 
   def ratingProgress(progress: IntRatingDiff): Option[Frag] =
-    if (progress > 0) goodTag(cls := "rp")(progress).some
-    else if (progress < 0) badTag(cls := "rp")(math.abs(progress.value)).some
+    if progress > 0 then goodTag(cls := "rp")(progress).some
+    else if progress < 0 then badTag(cls := "rp")(math.abs(progress.value)).some
     else none
 
   val topBarSortedPerfTypes: List[PerfType] = List(
@@ -49,7 +50,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       dataIcon := icon,
       cls      := "text"
     )(
-      if clueless then frag(nbsp, nbsp, nbsp, if (nb < 1) "-" else "?")
+      if clueless then frag(nbsp, nbsp, nbsp, if nb < 1 then "-" else "?")
       else frag(rating, provisional.yes option "?")
     )
 
@@ -163,7 +164,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       cls  := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
     )(
-      withOnline so (if (modIcon) moderatorIcon else lineIcon(isPatron)),
+      withOnline so (if modIcon then moderatorIcon else lineIcon(isPatron)),
       titleTag(title),
       truncate.fold(username.value)(username.value.take)
     )
@@ -236,16 +237,16 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       withOnline: Boolean,
       withPowerTip: Boolean = true
   ): List[(String, Boolean)] =
-    if (User isGhost userId) List("user-link" -> true, ~cssClass -> cssClass.isDefined)
+    if User isGhost userId then List("user-link" -> true, ~cssClass -> cssClass.isDefined)
     else
-      (withOnline so List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
+      (withOnline so List((if isOnline(userId) then "online" else "offline") -> true)) ::: List(
         "user-link" -> true,
         ~cssClass   -> cssClass.isDefined,
         "ulpt"      -> withPowerTip
       )
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Lang): Frag =
-    if (filter == GameFilter.Search) frag(iconTag(licon.Search), br, trans.search.advancedSearch())
+    if filter == GameFilter.Search then frag(iconTag(licon.Search), br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   private def transLocalize(key: I18nKey, number: Int)(using Lang) = key.pluralSameTxt(number)
@@ -278,9 +279,8 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   def patronIcon(using Lang): Frag =
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag                                 = i(cls := "line moderator", title := "Lichess Mod")
-  private def lineIcon(patron: Boolean)(using Lang): Frag = if (patron) patronIcon else lineIcon
+  private def lineIcon(patron: Boolean)(using Lang): Frag = if patron then patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser])(using Lang): Frag = lineIcon(user.so(_.isPatron))
   def lineIcon(user: LightUser)(using Lang): Frag                 = lineIcon(user.isPatron)
   def lineIcon(user: User)(using Lang): Frag                      = lineIcon(user.isPatron)
-  def lineIconChar(user: User): Frag = if (user.isPatron) patronIconChar else lineIconChar
-}
+  def lineIconChar(user: User): Frag = if user.isPatron then patronIconChar else lineIconChar

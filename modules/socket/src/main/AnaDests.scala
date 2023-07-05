@@ -18,7 +18,7 @@ case class AnaDests(
   def isInitial = variant.standard && fen.isInitial && path == ""
 
   val dests: String =
-    if (isInitial) AnaDests.initialDests
+    if isInitial then AnaDests.initialDests
     else
       val sit = chess.Game(variant.some, fen.some).situation
       sit.playable(false) so destString(sit.destinations)

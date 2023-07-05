@@ -144,7 +144,7 @@ trait ScalatagsExtensions:
   given AttrValue[List[(String, Boolean)]] with
     def apply(t: Builder, a: Attr, m: List[(String, Boolean)]): Unit =
       val cls = m collect { case (s, true) => s } mkString " "
-      if (cls.nonEmpty) t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
+      if cls.nonEmpty then t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
 
   val emptyFrag: Frag = RawFrag("")
   given Zero[Frag]    = Zero(emptyFrag)
