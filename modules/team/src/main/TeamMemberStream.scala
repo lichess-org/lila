@@ -34,7 +34,7 @@ final class TeamMemberStream(
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true, "date" -> true).some)
       .sort($sort desc "date")
       .batchSize(perSecond.value)
-      .cursor[Bdoc](temporarilyPrimary)
+      .cursor[Bdoc](ReadPref.priTemp)
       .documentSource()
       .grouped(perSecond.value)
       .map(_.flatMap(u => u.getAsOpt[UserId]("user").zip(u.getAsOpt[Instant]("date"))))

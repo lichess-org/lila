@@ -23,7 +23,7 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
       val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
       colls.student
         .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
-        .cursor[Bdoc](temporarilyPrimary)
+        .cursor[Bdoc](ReadPref.priTemp)
         .documentSource()
         .throttle(300, 1.second)
         .toMat(Sink.fold[Int, Bdoc](0) { case (counter, doc) =>

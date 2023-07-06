@@ -23,17 +23,15 @@ import scala.collection.Factory
 
 trait dsl:
 
-  // #TODO FIXME
-  // should be secondaryPreferred
-  // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-  val temporarilyPrimary: ReadPreference = ReadPreference.primary
-
   type ReadPref = ReadPref.type => ReadPreference
   object ReadPref:
-    val pri: ReadPreference                    = ReadPreference.primary
-    val sec: ReadPreference                    = ReadPreference.secondaryPreferred
-    val secOnly: ReadPreference                = ReadPreference.secondary
-    val priTemp: ReadPreference                = temporarilyPrimary
+    val pri: ReadPreference     = ReadPreference.primary
+    val sec: ReadPreference     = ReadPreference.secondaryPreferred
+    val secOnly: ReadPreference = ReadPreference.secondary
+    // #TODO FIXME
+    // should be sec
+    // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
+    val priTemp: ReadPreference                = ReadPreference.primary
     given Conversion[ReadPref, ReadPreference] = _(ReadPref)
 
   type Coll = reactivemongo.api.bson.collection.BSONCollection

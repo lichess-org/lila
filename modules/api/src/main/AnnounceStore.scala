@@ -10,9 +10,8 @@ object AnnounceStore:
   private var current = none[Announce]
 
   def get: Option[Announce] =
-    current foreach { c =>
+    current.foreach: c =>
       if c.date.isBeforeNow then current = none
-    }
     current
 
   def set(announce: Option[Announce]) =

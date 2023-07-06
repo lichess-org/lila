@@ -28,14 +28,13 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
   private def run() =
     opponentStream
       .map { Bus.publish(_, "dailyCorrespondenceNotif") }
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
       .addEffect(lila.mon.round.correspondenceEmail.emails.record(_).unit)
       .monSuccess(_.round.correspondenceEmail.time)
 
   private def opponentStream =
     notifyColls.pref
-      .aggregateWith(readPreference = temporarilyPrimary) { framework =>
+      .aggregateWith(readPreference = ReadPref.priTemp): framework =>
         import framework.*
         // hit partial index
         List(
@@ -63,9 +62,8 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
             )
           )
         )
-      }
       .documentSource()
-      .mapConcat { doc =>
+      .mapConcat: doc =>
         import lila.game.BSONHandlers.given
         (for
           userId <- doc.getAsOpt[UserId]("_id")
@@ -75,12 +73,10 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
             .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)
             .sortBy(_.remainingSeconds getOrElse Int.MaxValue)
           if !povs.isEmpty
-          opponents = povs map { pov =>
+          opponents = povs.map: pov =>
             CorrespondenceOpponent(
               pov.opponent.userId,
               pov.remainingSeconds.map(s => Duration.ofSeconds(s.toLong)),
               pov.game.id
             )
-          }
         yield CorrespondenceOpponents(userId, opponents)).toList
-      }

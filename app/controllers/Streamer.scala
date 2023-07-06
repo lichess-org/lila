@@ -167,7 +167,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
       lila
         .log("streamer")
-        .info(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
+        .debug(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
       Ok(challenge)
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context): Fu[Result] =

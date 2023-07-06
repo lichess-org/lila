@@ -73,19 +73,17 @@ final class EntryApi(
   // they have no db `users` field
   object broadcast:
 
-    private val cache = cacheApi.unit[Vector[Entry]] {
-      _.refreshAfterWrite(1 hour).buildAsyncFuture { _ =>
+    private val cache = cacheApi.unit[Vector[Entry]]:
+      _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
         coll
           .find($doc("users" $exists false, "date" $gt nowInstant.minusWeeks(2)))
           .sort($sort desc "date")
           .cursor[Entry](ReadPref.pri) // must be on primary for cache refresh to work
           .vector(3)
-      }
-    }
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] =
-      cache.getUnit map { bcs =>
-        bcs.headOption.fold(entries) { mostRecentBc =>
+      cache.getUnit.map: bcs =>
+        bcs.headOption.fold(entries): mostRecentBc =>
           val interleaved =
             val oldestEntry = entries.lastOption
             if oldestEntry.fold(true)(_.date isBefore mostRecentBc.date) then
@@ -95,7 +93,5 @@ final class EntryApi(
           if mostRecentBc.date.isAfter(nowInstant minusDays 1) then
             mostRecentBc +: interleaved.filter(mostRecentBc !=)
           else interleaved
-        }
-      }
 
     def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void >>- cache.invalidateUnit()
