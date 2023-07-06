@@ -550,8 +550,11 @@ final class TournamentApi(
 
   object gameView:
 
+    private def OfGame[A](game: Game)(f: => Tournament => Fu[A]): Fu[Option[A]] =
+      game.tournamentId.so(get).flatMap(_ soFu f)
+
     def player(pov: Pov): Fu[Option[GameView]] =
-      pov.game.tournamentId.so(get) flatMapz { tour =>
+      OfGame(pov.game): tour =>
         getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { (teamVs, ranks) =>
           teamVs
             .fold(tournamentTop(tour.id)): vs =>
@@ -559,43 +562,34 @@ final class TournamentApi(
                 TournamentTop(info.topPlayers take tournamentTopNb)
               }
             .dmap: top =>
-              GameView(tour, teamVs, ranks, top.some).some
+              GameView(tour, teamVs, ranks, top.some)
         }
-      }
 
     def watcher(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId so get) flatMapz { tour =>
+      OfGame(game): tour =>
         getTeamVs(tour, game) zip getGameRanks(tour, game) dmap { (teamVs, ranks) =>
-          GameView(tour, teamVs, ranks, none).some
+          GameView(tour, teamVs, ranks, none)
         }
-      }
 
     def mobile(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId so get) flatMapz { tour =>
-        getGameRanks(tour, game) dmap { ranks =>
-          GameView(tour, none, ranks, none).some
-        }
-      }
+      OfGame(game): tour =>
+        getGameRanks(tour, game).dmap(GameView(tour, none, _, none))
 
     def analysis(game: Game): Fu[Option[GameView]] =
-      (game.tournamentId so get) flatMapz { tour =>
-        getTeamVs(tour, game) dmap { GameView(tour, _, none, none).some }
-      }
+      OfGame(game): tour =>
+        getTeamVs(tour, game).dmap(GameView(tour, _, none, none))
 
     def withTeamVs(game: Game): Fu[Option[TourAndTeamVs]] =
-      (game.tournamentId so get) flatMapz { tour =>
-        getTeamVs(tour, game) dmap { TourAndTeamVs(tour, _).some }
-      }
+      OfGame(game): tour =>
+        getTeamVs(tour, game).dmap(TourAndTeamVs(tour, _))
 
     private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] =
       game.whitePlayer.userId.ifTrue(tour.isStarted) so { whiteId =>
-        game.blackPlayer.userId so { blackId =>
+        game.blackPlayer.userId.so: blackId =>
           cached ranking tour map { ranking =>
-            (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
+            (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)).mapN: (whiteR, blackR) =>
               GameRanks(whiteR + 1, blackR + 1)
-            }
           }
-        }
       }
 
     private def getTeamVs(tour: Tournament, game: Game): Fu[Option[TeamBattle.TeamVs]] =
@@ -614,24 +608,20 @@ final class TournamentApi(
 
   // when updating /tournament
   def fetchUpdateTournaments: Fu[VisibleTournaments] =
-    scheduledCreatedAndStarted dmap { (created, started) =>
+    scheduledCreatedAndStarted.dmap: (created, started) =>
       VisibleTournaments(created, started, Nil)
-    }
 
   def playerInfo(tour: Tournament, userId: UserId): Fu[Option[PlayerInfoExt]] =
     playerRepo.find(tour.id, userId) flatMapz { player =>
-      playerPovs(tour, userId, 50) map { povs =>
+      playerPovs(tour, userId, 50).map: povs =>
         PlayerInfoExt(userId, player, povs).some
-      }
     }
 
   def allCurrentLeadersInStandard: Fu[Map[Tournament, TournamentTop]] =
-    tournamentRepo.standardPublicStartedFromSecondary.flatMap {
-      _.map { tour =>
+    tournamentRepo.standardPublicStartedFromSecondary.flatMap:
+      _.traverse: tour =>
         tournamentTop(tour.id) dmap (tour -> _)
-      }.parallel
-        .dmap(_.toMap)
-    }
+      .dmap(_.toMap)
 
   def calendar: Fu[List[Tournament]] =
     val from = nowInstant.minusDays(1)
@@ -686,12 +676,9 @@ final class TournamentApi(
     private val max = 20
 
     private val cache =
-      cacheApi[UserId, lila.db.paginator.StaticAdapter[Tournament]](64, "tournament.upcomingByPlayer") {
-        _.expireAfterWrite(10 seconds)
-          .buildAsyncFuture {
-            tournamentRepo.upcomingAdapterExpensiveCacheMe(_, max)
-          }
-      }
+      cacheApi[UserId, lila.db.paginator.StaticAdapter[Tournament]](64, "tournament.upcomingByPlayer"):
+        _.expireAfterWrite(10 seconds).buildAsyncFuture:
+          tournamentRepo.upcomingAdapterExpensiveCacheMe(_, max)
 
     def apply(player: User, page: Int): Fu[Paginator[Tournament]] =
       cache.get(player.id) flatMap { adapter =>
