@@ -76,17 +76,6 @@ export default function (ctrl: Controller): VNode {
     `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}`,
     {
       class: { 'gauge-on': gaugeOn },
-      hook: {
-        postpatch(old, vnode) {
-          if (old.data!.gaugeOn !== gaugeOn) {
-            if (ctrl.pref.coords == 2) {
-              $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
-            }
-            document.body.dispatchEvent(new Event('shogiground.resize'));
-          }
-          vnode.data!.gaugeOn = gaugeOn;
-        },
-      },
     },
     [
       h('aside.puzzle__side', [
