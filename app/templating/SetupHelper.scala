@@ -301,7 +301,7 @@ trait SetupHelper:
       (Pref.InsightShare.FRIENDS, trans.withFriends.txt()),
       (Pref.InsightShare.EVERYBODY, trans.withEverybody.txt())
     )
-  
+
   def translatedZenChoices(using Lang) =
     List(
       (Pref.Zen.NO, trans.no.txt()),
@@ -338,4 +338,3 @@ trait SetupHelper:
     Map(
       Option("3") -> Option("2")
     )
-}
