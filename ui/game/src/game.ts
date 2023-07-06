@@ -75,8 +75,8 @@ export const setOnGame = (data: GameData, color: Color, onGame: boolean): void =
 
 export const setGone = (data: GameData, color: Color, gone: number | boolean): void => {
   const player = getPlayer(data, color);
-  player.gone = !player.ai && gone;
-  if (player.gone === false && player.user) player.user.online = true;
+  player.isGone = !player.ai && gone;
+  if (player.isGone === false && player.user) player.user.online = true;
 };
 
 export const nbMoves = (data: GameData, color: Color): number =>

@@ -70,7 +70,7 @@ export interface Player {
   ai?: number;
   onGame: boolean;
   lastDrawOfferAtPly?: Ply;
-  gone: number | boolean;
+  isGone: number | boolean;
   blurs?: Blurs;
   hold?: Hold;
   ratingDiff?: number;
