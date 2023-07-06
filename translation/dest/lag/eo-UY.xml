@@ -8,5 +8,6 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Kaj nun, la longa respondo! Prokrasto de ludo estas kunmetita de du senrilataj valoroj (pli malalta estas pli bona):</string>
   <string name="lichessServerLatency">Servila respondotempo de Lichess</string>
   <string name="networkBetweenLichessAndYou">Retkonekto inter Lichess kaj vi</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Vi povas trovi ambaŭ ĉi tiujn valorojn per alklaki vian uzantnomon en la supra breto.</string>
   <string name="lagCompensation">Prokrasta kompenso</string>
 </resources>
