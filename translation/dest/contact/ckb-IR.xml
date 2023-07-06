@@ -20,4 +20,16 @@
   <string name="wantReopen">من دەمەوێت هەژمارەکەم بکەمەوە</string>
   <string name="reopenOnThisPage">ئەتوانی لەم پەڕەیە ئەکاونتەکەت بکەیتەوە. تەنها یەک جار کاردەکات.</string>
   <string name="doNotAskByEmailToReopen">لە ڕێگەی ئیمەیڵەوە داوامان لێ مەکەن ئەکاونتێک بکەینەوە، ئێمە ئەوە ناکەین.</string>
+  <string name="wantChangeUsername">من دەمەوێت ناوی بەکارهێنەرەکەم بگۆڕم</string>
+  <string name="changeUsernameCase">بۆ گۆڕینی ناوی بەکارهێنەرەکەت سەردانی ئەم لاپەڕەیە بکە</string>
+  <string name="cantChangeMore">ناتوانین لەوە زیاتر پیتی گەورە و بچوک بگۆڕین، بە هۆی کێشەی تەکنیکی کارێکی ئەستەمە.</string>
+  <string name="orCloseAccount">بەڵام دەتوانیت ئەکاونتی ئێستات دابخەیت، و ئەکاونتێکی نوێ دروست بکەیت.</string>
+  <string name="wantClearHistory">من دەمەوێت چالاکیەکانی پێشووم یان هەڵسەنگاندنەکەم پاک بکەمەوە</string>
+  <string name="cantClearHistory">ناتوانرێت مێژووی یارییەکانت، مێژووی مەتەڵەکانت، یان هەڵسەنگاندنەکانت پاک بکەیتەوە.</string>
+  <string name="wantReport">من دەمەوێت سکاڵا لەسەر یاریزانێک تۆمار بکەم</string>
+  <string name="toReportAPlayerUseForm">بۆ تۆمارکردنی سکاڵا لەسەر یاریزانێک، تۆماری سکاڵا بەکاربهێنە</string>
+  <string name="youCanAlsoReachReportPage">هەروەها دەتوانیت بگەیتە ئەو لاپەڕەیە بە کرتەکردن لەسەر دوگمەی ڕاپۆرتی %s لە سەر پڕۆفایل.</string>
+  <string name="doNotReportInForum">لە مەکۆدا سکاڵا لەسەر یاریزانەکان مەکەن.</string>
+  <string name="doNotSendReportEmails">سکاڵا لە رێگەی ئیمێڵەوە بۆ ئێمە مەنێرن.</string>
+  <string name="doNotMessageModerators">تکایە نامەی ڕاستەوخۆ بۆ بەڕێوەبەران مەنێرن.</string>
 </resources>
