@@ -2,6 +2,10 @@
 <resources>
   <string name="performAMove">Fari movon</string>
   <string name="movePieceFromE2ToE4">Movi pecon de e2 al e4</string>
+  <string name="moveKnightToC3">Movi ĉevalon al c3</string>
+  <string name="offerOrAcceptDraw">Oferi aŭ akcepti egalvenkon</string>
+  <string name="readOutClocks">Voĉlegi horloĝojn</string>
   <string name="readOutOpponentName">Legi la nomon de la kontraŭulo</string>
+  <string name="otherCommands">Aliaj ordonoj</string>
   <string name="tips">Konsiletoj</string>
 </resources>
