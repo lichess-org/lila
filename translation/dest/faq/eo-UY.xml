@@ -16,8 +16,12 @@
   <string name="otherWaysToHelp">aliaj formoj por helpi</string>
   <string name="areThereWebsitesBasedOnLichess">Ĉu estas retejoj bazitaj sur Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Jes. Lichess efektive inspiris aliajn malfermkodajn retejojn, kiuj uzas niajn %1$s, %2$s aŭ %3$s.</string>
+  <string name="keyboardShortcuts">Kiuj flumklavoj estas tie?</string>
+  <string name="keyboardShortcutsExplanation">Kelkaj Lichess paĝoj havas flumklavojn, ke vi povas uzi. Provi premu la \"?\" klavon ĉe studa, analiza, puzla, aŭ luda paĝo por listo de disponeblaj flumklavoj.</string>
   <string name="fairPlay">Honesta ludo</string>
   <string name="whenAmIEligibleRatinRefund">Kiam mi aŭtomate reakiras la perditajn poentojn pro trompantoj?</string>
+  <string name="preventLeavingGameWithoutResigning">Kio estas fari pri ludantoj forlasantaj ludojn sen rezigni?</string>
+  <string name="howCanIBecomeModerator">Kiel mi fariĝis moderatoro?</string>
   <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
   <string name="pleaseReadFairPlayPage">Por pli informo, bonvole legu nian %s</string>
   <string name="fairPlayPage">paĝon de honesta ludo</string>
@@ -30,6 +34,14 @@ Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj
   <string name="whatVariantsCanIplay">Kiujn ŝakvariantojn mi povas ludi en Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess subtenas norman ŝakon kaj %1$s.</string>
   <string name="eightVariants">8 ŝakvariantojn</string>
+  <string name="whatIsACPL">Kio estas la Averaĝa ĉentonpeona perdo (ACPP/ACPL)?</string>
+  <string name="acplExplanation">La centonpeono estas la mezurunuo uzata en ŝako kiel reprezentado de la avantaĝo. Unu centonpeono egalas 1/100-ono de peono. Do, 100 centonpeonoj = 1 peono. Tiuj valoroj ludas ne formalan rolon en la ŝakludo, sed estas utila al ludantoj, kaj nepra en komputila ŝako por kontroli poziciojn.
+
+La supra komputila movo perdos nulo centonpeonoj, sed malpliaj movoj rezultos en difektata pozicio, mezurata en centonpeonoj.
+
+Tiu valoro povas esti uzata kiel indikilo de la kvalito de ludo. Ju malpli centonpeonoj oni perdas move, des pli forta la ludo.
+
+La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="insufficientMaterial">Perdi pro tempo, egaleco kaj nesufiĉa materialo</string>
   <string name="fideHandbookX">FIDE-a manlibro %s</string>
   <string name="discoveringEnPassant">Kial povas peonon kaptiĝi alian peonon kiam ĝi estas pasita? (pasante)</string>

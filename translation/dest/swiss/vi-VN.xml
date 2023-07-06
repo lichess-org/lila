@@ -56,10 +56,16 @@ Chúng tôi nghĩ những điều kiện trên sẽ dễ được đáp ứng tr
   <string name="numberOfByesQ">Người chơi sẽ được miễn đấu bao nhiêu lần?</string>
   <string name="numberOfByesA">Mỗi người chơi sẽ được cộng 1 điểm \"bye\" khi hệ thống xếp cặp không thể tìm được đối thủ cho họ.
 Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộng cho người chơi nếu họ vào giải đấu muộn.</string>
+  <string name="earlyDrawsQ">Điều gì xảy ra với hòa sớm?</string>
+  <string name="earlyDrawsA">Mỗi người chơi sẽ được cộng 1 điểm \"bye\" khi hệ thống xếp cặp không thể tìm được đối thủ cho họ.
+Ngoài ra, 0.5 điểm \"bye\" cộng một lần duy nhất sẽ được cộng cho người chơi nếu họ vào giải đấu muộn.</string>
   <string name="whatIfOneDoesntPlayQ">Chuyện gì sẽ xảy ra nếu một người chơi không chơi ván đấu của họ?</string>
   <string name="whatIfOneDoesntPlayA">Đồng hồ của họ vẫn sẽ đếm ngược, họ sẽ bị xử thua theo thời gian.
 Sau đó, hệ thống sẽ tự động rút họ khỏi giải đấu để tránh thua thêm những ván khác.
 Họ có thể tham gia lại bất cứ lúc nào.</string>
+  <string name="protectionAgainstNoShowA">Người chơi đăng ký các sự kiện của Thụy Sĩ nhưng không chơi trò chơi của họ có thể gặp vấn đề.
+Để giải quyết vấn đề này, Lichess ngăn những người chơi không chơi được trò chơi tham gia một sự kiện Thụy Sĩ mới trong một khoảng thời gian nhất định.
+Người tạo sự kiện ở Thụy Sĩ vẫn có thể quyết định cho phép họ tham gia sự kiện đó.</string>
   <string name="lateJoinQ">Người chơi có thể tham gia muộn không?</string>
   <string name="lateJoinA">Có, trước khi quá nửa số ván đấu của giải đã bắt đầu; ví dụ trong 1 giải hệ Thụy Sĩ 11 ván, người chơi có thể tham gia trước khi ván 6 bắt đầu, còn trong giải hệ Thụy Sĩ 12 ván sẽ là trước khi ván 7 bắt đầu.
 Người vào muộn sẽ chỉ được cộng 1 điểm \"bye\", kể cả nếu họ lỡ nhiều hơn 1 ván đấu.</string>
