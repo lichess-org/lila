@@ -38,7 +38,7 @@ final class AssessApi(
     assessRepo.coll
       .find($doc("userId" -> userId))
       .sort($sort desc "date")
-      .cursor[PlayerAssessment](temporarilyPrimary)
+      .cursor[PlayerAssessment](ReadPref.priTemp)
       .list(nb)
 
   private def getPlayerAggregateAssessment(

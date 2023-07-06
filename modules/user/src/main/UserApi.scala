@@ -79,7 +79,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def botsByIdsStream(ids: Iterable[UserId], nb: Option[Int]): Source[User.WithPerfs, _] =
     userRepo.coll
       .find($inIds(ids) ++ userRepo.botSelect(true))
-      .cursor[User](temporarilyPrimary)
+      .cursor[User](ReadPref.priTemp)
       .documentSource(nb | Int.MaxValue)
       .grouped(40)
       .mapAsync(1)(perfsRepo.withPerfs(_))
