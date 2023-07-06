@@ -27,4 +27,7 @@
   <string name="deleteRound">Xóa vòng này</string>
   <string name="definitivelyDeleteRound">Xóa hoàn toàn vòng đấu và các ván đấu trong đó.</string>
   <string name="deleteAllGamesOfThisRound">Xóa toàn bộ ván cờ trong vòng này. Để tạo lại chúng bạn cần thêm lại nguồn.</string>
+  <string name="editRoundStudy">Nghiên cứu chỉnh sửa vòng</string>
+  <string name="deleteTournament">Xóa giải đấu này</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả các trò chơi của nó.</string>
 </resources>
