@@ -217,7 +217,7 @@ export function askQuestion(ctrl: RoundController) {
   const noBtn = o.no && btn('no', o.noIcon || licon.X, o.noKey || 'decline', o.no!);
   const yesBtn = o.yes && btn('yes', o.yesIcon || licon.Checkmark, o.yesKey || 'accept', o.yes!);
 
-  return h('div.question', [yesBtn ? noBtn : null, h('p', o.prompt), yesBtn ? yesBtn : noBtn]);
+  return h('div.question', [noBtn, h('p', o.prompt), yesBtn]);
 }
 
 export function backToTournament(ctrl: RoundController): VNode | undefined {
