@@ -14,8 +14,8 @@ object bits:
 
   def orderSelect(order: Order, active: String, url: String => Call)(using PageContext) =
     val orders =
-      if (active == "all") Order.withoutSelector
-      else if (active startsWith "topic") Order.list
+      if active == "all" then Order.withoutSelector
+      else if active startsWith "topic" then Order.list
       else Order.withoutMine
     views.html.base.bits.mselect(
       "orders",
@@ -59,7 +59,7 @@ object bits:
               iconTag(licon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
               " "
             ),
-            iconTag(if (s.liked) licon.Heart else licon.HeartOutline),
+            iconTag(if s.liked then licon.Heart else licon.HeartOutline),
             " ",
             s.study.likes.value,
             " • ",
@@ -73,7 +73,7 @@ object bits:
         ol(cls := "chapters")(
           s.chapters.map { name =>
             li(cls := "text", dataIcon := licon.DiscBigOutline)(
-              if (ctx.userId.exists(s.study.isMember)) name
+              if ctx.userId.exists(s.study.isMember) then name
               else removeMultibyteSymbols(name.value)
             )
           }
@@ -82,7 +82,7 @@ object bits:
           s.study.members.members.values
             .take(Study.previewNbMembers)
             .map { m =>
-              li(cls := "text", dataIcon := (if (m.canContribute) licon.RadioTower else licon.Eye))(
+              li(cls := "text", dataIcon := (if m.canContribute then licon.RadioTower else licon.Eye))(
                 titleNameOrId(m.id)
               )
             }

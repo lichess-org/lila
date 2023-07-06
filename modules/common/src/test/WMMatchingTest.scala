@@ -1,44 +1,38 @@
 package lila.common
 import scala.util.{ Failure, Success }
 
-class WMMatchingTest extends munit.FunSuite {
+class WMMatchingTest extends munit.FunSuite:
 
-  def toMate(n: Int, l: List[(Int, Int)]): Array[Int] = {
+  def toMate(n: Int, l: List[(Int, Int)]): Array[Int] =
     val a = Array.fill(n)(-1)
-    l.foreach { case (i, j) => { a(i) = j; a(j) = i; } }
-    if (a.count(_ >= 0) != 2 * l.length) null else a
-  }
-  def check0(a: Array[(Int, Int, Int)], maxcardinality: Boolean, expectedMate: Seq[Int]) = {
+    l.foreach { case (i, j) => a(i) = j; a(j) = i; }
+    if a.count(_ >= 0) != 2 * l.length then null else a
+  def check0(a: Array[(Int, Int, Int)], maxcardinality: Boolean, expectedMate: Seq[Int]) =
     val n = a.view.map(p => p._1.max(p._2)).max + 1
     val e = Array.newBuilder[Int]
     val w = Array.newBuilder[Int]
-    for (p <- a) {
+    for p <- a do
       e += p._1
       e += p._2
       w += p._3
-    }
     val l = toMate(n, WMMatching.maxWeightMatching(e.result(), w.result(), maxcardinality))
-    assert(if (l eq null) false else expectedMate.sameElements(l))
-  }
+    assert(if l eq null then false else expectedMate.sameElements(l))
   //  check(Array((0,1,1)), false, List (1, 0))
-  def check(n: Int, a: Array[Int], res: (Int, Int)) = {
+  def check(n: Int, a: Array[Int], res: (Int, Int)) =
     val v           = Array.range(0, n)
     def f(x: Int)   = (x * (x + 1)) / 2
     def off(i: Int) = f(n - 1) - f(n - 1 - i)
-    def pairScore(i: Int, j: Int): Option[Int] = {
-      if (i > j) pairScore(j, i)
-      else {
+    def pairScore(i: Int, j: Int): Option[Int] =
+      if i > j then pairScore(j, i)
+      else
         val o = off(i) + (j - (i + 1))
-        if (a(o) < 0) None else Some(a(o))
-      }
-    }
+        if a(o) < 0 then None else Some(a(o))
     def score(l: List[(Int, Int)]): (Int, Int) = (l.length, l.map(t => pairScore(t._1, t._2).head).sum)
     def checkScore(ans: (Int, Int)): Boolean   = res == ans
     assert(WMMatching(v, pairScore) match
       case Success(l) => checkScore(score(l))
       case Failure(_) => false
     )
-  }
 
   test("create S-blossom and use it for augmentation") {
     check0(Array((1, 2, 8), (1, 3, 9), (2, 3, 10), (3, 4, 7)), false, List(-1, 2, 1, 4, 3))
@@ -860,4 +854,3 @@ class WMMatchingTest extends munit.FunSuite {
     )
 
   }
-}

@@ -10,7 +10,8 @@ import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
 
-trait SetupHelper { self: I18nHelper =>
+trait SetupHelper:
+  self: I18nHelper =>
 
   type SelectChoice = (String, String, Option[String])
 

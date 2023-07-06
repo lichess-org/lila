@@ -107,7 +107,7 @@ final class StudySearchApi(
       case c: ESClientHttp =>
         {
           val sinceOption: Either[Unit, Option[LocalDate]] =
-            if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
+            if sinceStr == "reset" then Left(()) else Right(parseDate(sinceStr))
           val since = sinceOption match
             case Right(None) => sys error "Missing since date argument"
             case Right(Some(date)) =>

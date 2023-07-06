@@ -1,6 +1,6 @@
 package lila.common
 
-class LameNameTest extends munit.FunSuite {
+class LameNameTest extends munit.FunSuite:
 
   def isLame(str: String) = LameName.username(UserName(str))
 
@@ -51,4 +51,3 @@ class LameNameTest extends munit.FunSuite {
     assertEquals(isLame("BrianMatthewsnm"), false)
     assertEquals(isLame("TheGMBRianMatthews"), false)
   }
-}

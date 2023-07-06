@@ -20,12 +20,12 @@ case class KaladinUser(
   def recentlyQueued = queuedAt isAfter nowInstant.minusWeeks(1)
 
   def queueAgain(by: KaladinUser.Requester): Option[KaladinUser] =
-    if (startedAt.isEmpty && by.priority > priority)
+    if startedAt.isEmpty && by.priority > priority then
       copy(
         priority = by.priority,
         queuedBy = by
       ).some
-    else if (by.isMod || !recentlyQueued)
+    else if by.isMod || !recentlyQueued then
       copy(
         priority = by.priority,
         queuedAt = nowInstant,

@@ -6,7 +6,8 @@ import chess.variant.Variant
 import lila.common.Days
 import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.RatingRange
-import lila.user.User
+import lila.user.{ Me, User }
+import lila.rating.{ Perf, PerfType }
 
 case class HookConfig(
     variant: chess.variant.Variant,
@@ -19,19 +20,18 @@ case class HookConfig(
     ratingRange: RatingRange
 ) extends HumanConfig:
 
-  def withinLimits(user: Option[User]): HookConfig =
-    (for {
-      pt <- perfType
-      me <- user
-    } yield copy(
-      ratingRange = ratingRange.withinLimits(
-        rating = me.perfs(pt).intRating,
-        delta = 400,
-        multipleOf = 50
+  def withinLimits(using me: Option[Me], perf: Perf): HookConfig =
+    if me.isEmpty then this
+    else
+      copy(
+        ratingRange = ratingRange.withinLimits(
+          rating = perf.intRating,
+          delta = 400,
+          multipleOf = 50
+        )
       )
-    )) | this
 
-  private def perfType = lila.game.PerfPicker.perfType(makeSpeed, variant, makeDaysPerTurn)
+  def perfType = PerfType(variant, makeSpeed)
 
   def makeSpeed = chess.Speed(makeClock)
 
@@ -56,7 +56,7 @@ case class HookConfig(
 
   def hook(
       sri: lila.socket.Socket.Sri,
-      user: Option[User],
+      user: Option[User.WithPerfs],
       sid: Option[String],
       blocking: lila.pool.Blocking
   ): Either[Hook, Option[Seek]] =

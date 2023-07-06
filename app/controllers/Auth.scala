@@ -22,18 +22,14 @@ final class Auth(
   private def api   = env.security.api
   private def forms = env.security.forms
 
-  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] =
-    env.round.proxyRepo urgentGames u map { povs =>
-      Ok:
-        env.user.jsonView.full(
-          u,
-          withRating = ctx.pref.showRatings,
-          withProfile = true
-        ) ++ Json.obj(
-          "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
-          "sessionId"  -> sessionId
-        )
-    }
+  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] = for
+    povs  <- env.round.proxyRepo urgentGames u
+    perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo perfsOf u)
+  yield Ok:
+    env.user.jsonView.full(u, perfs, withProfile = true) ++ Json.obj(
+      "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
+      "sessionId"  -> sessionId
+    )
 
   private def getReferrerOption(using ctx: Context): Option[String] =
     get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
@@ -92,7 +88,7 @@ final class Auth(
   def authenticate = OpenBody:
     NoCrawlers:
       Firewall:
-        def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
+        def redirectTo(url: String) = if HTTPRequest isXhr ctx.req then Ok(s"ok:$url") else Redirect(url)
         val referrer                = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers)
         api.loginForm
           .bindFromRequest()
@@ -208,7 +204,7 @@ final class Auth(
       ctx: Context
   ): Funit =
     garbageCollect(user)(email)
-    if (sendWelcomeEmail) env.mailer.automaticEmail.welcomeEmail(user, email)
+    if sendWelcomeEmail then env.mailer.automaticEmail.welcomeEmail(user, email)
     env.mailer.automaticEmail.welcomePM(user)
     env.pref.api.saveNewUserPrefs(user, ctx.req)
 
@@ -386,7 +382,7 @@ final class Auth(
   def magicLinkApply = OpenBody:
     Firewall:
       env.security.hcaptcha.verify() flatMap { captcha =>
-        if (captcha.ok)
+        if captcha.ok then
           forms.magicLink flatMap {
             _.form
               .bindFromRequest()
@@ -405,8 +401,7 @@ final class Auth(
                   }
               )
           }
-        else
-          renderMagicLink(none, fail = true) map { BadRequest(_) }
+        else renderMagicLink(none, fail = true) map { BadRequest(_) }
       }
 
   def magicLinkSent = Open:

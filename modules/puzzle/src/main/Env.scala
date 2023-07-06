@@ -25,6 +25,7 @@ final class Env(
     mongoCacheApi: lila.memo.MongoCache.Api,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     mongo: lila.db.Env
 )(using
     ec: Executor,
@@ -87,10 +88,10 @@ final class Env(
   scheduler.scheduleAtFixedRate(10 minutes, 1 day): () =>
     tagger.addAllMissing unit
 
-  if (mode == play.api.Mode.Prod)
+  if mode == play.api.Mode.Prod then
     scheduler.scheduleAtFixedRate(1 hour, 1 hour): () =>
       pathApi.isStale.foreach: stale =>
-        if (stale) logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
+        if stale then logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
 
 final class PuzzleColls(
     val puzzle: AsyncColl,

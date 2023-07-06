@@ -27,6 +27,7 @@ final private[api] class RoundApi(
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameRepo: lila.game.GameRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     tourApi: lila.tournament.TournamentApi,
     swissApi: lila.swiss.SwissApi,
     simulApi: lila.simul.SimulApi,
@@ -36,36 +37,34 @@ final private[api] class RoundApi(
     getLightUser: lila.common.LightUser.GetterSync
 )(using Executor):
 
-  def player(pov: Pov, tour: Option[TourView])(using ctx: Context): Fu[JsObject] =
-    gameRepo
-      .initialFen(pov.game)
-      .flatMap { initialFen =>
-        given Lang = ctx.lang
+  def player(pov: Pov, tour: Option[TourView])(using ctx: Context): Fu[JsObject] = {
+    for
+      initialFen <- gameRepo.initialFen(pov.game)
+      user       <- ctx.me.soFu(perfsRepo.withPerf(_, pov.game.perfType))
+      given Lang = ctx.lang
+      (((((json, simul), swiss), note), forecast), bookmarked) <-
         jsonView.playerJson(
           pov,
           ctx.pref.some,
-          ctx.me.map(Right.apply),
+          user,
           flags = ctxFlags,
           initialFen = initialFen
         ) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.myId.ifTrue(ctx.isMobileApi) so (noteApi.get(pov.gameId, _))) zip
+          (ctx.myId.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _))) zip
           forecastApi.loadForDisplay(pov) zip
-          bookmarkApi.exists(pov.game, ctx.me) map {
-            case (((((json, simul), swiss), note), forecast), bookmarked) =>
-              (
-                withTournament(pov, tour) compose
-                  withSwiss(swiss) compose
-                  withSimul(simul) compose
-                  withSteps(pov, initialFen) compose
-                  withNote(note) compose
-                  withBookmark(bookmarked) compose
-                  withForecastCount(forecast.map(_.steps.size))
-              )(json)
-          }
-      }
-      .mon(_.round.api.player)
+          bookmarkApi.exists(pov.game, ctx.me)
+    yield (
+      withTournament(pov, tour) compose
+        withSwiss(swiss) compose
+        withSimul(simul) compose
+        withSteps(pov, initialFen) compose
+        withNote(note) compose
+        withBookmark(bookmarked) compose
+        withForecastCount(forecast.map(_.steps.size))
+    )(json)
+  }.mon(_.round.api.player)
 
   def watcher(
       pov: Pov,
@@ -196,7 +195,7 @@ final private[api] class RoundApi(
     ))
 
   private def withNote(note: String)(json: JsObject) =
-    if (note.isEmpty) json else json + ("note" -> JsString(note))
+    if note.isEmpty then json else json + ("note" -> JsString(note))
 
   private def withBookmark(v: Boolean)(json: JsObject) =
     json.add("bookmarked" -> v)
@@ -221,13 +220,14 @@ final private[api] class RoundApi(
     )
 
   private def withForecast(pov: Pov, owner: Boolean, fco: Option[Forecast])(json: JsObject) =
-    if (pov.game.forecastable && owner)
+    if pov.game.forecastable && owner then
       json + (
         "forecast" -> {
-          if (pov.forecastable) fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
-            import Forecast.given
-            Json toJson fc
-          }
+          if pov.forecastable then
+            fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
+              import Forecast.given
+              Json toJson fc
+            }
           else Json.obj("onMyTurn" -> true)
         }
       )

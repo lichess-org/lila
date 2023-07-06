@@ -1,7 +1,5 @@
 package lila.practice
 
-import reactivemongo.api.ReadPreference
-
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
@@ -79,7 +77,7 @@ final class PracticeApi(
     def clear() = cache.invalidateUnit()
     def onSave(study: Study) =
       get foreach { structure =>
-        if (structure.hasStudy(study.id)) clear()
+        if structure.hasStudy(study.id) then clear()
       }
 
   object progress:
@@ -108,10 +106,7 @@ final class PracticeApi(
 
     def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
       coll
-        .aggregateList(
-          maxDocs = Int.MaxValue,
-          readPreference = ReadPreference.secondaryPreferred
-        ) { framework =>
+        .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
           Match($doc("_id" $in userIds)) -> List(
             Project(
@@ -124,14 +119,9 @@ final class PracticeApi(
               )
             )
           )
-        }
-        .map {
+        .map:
           _.view
-            .flatMap { obj =>
-              import cats.syntax.all.*
-              (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN { (k, v) =>
+            .flatMap: obj =>
+              (obj.getAsOpt[UserId]("_id"), obj.int("nb")).mapN: (k, v) =>
                 k -> (v * 100f / PracticeStructure.totalChapters).toInt
-              }
-            }
             .toMap
-        }

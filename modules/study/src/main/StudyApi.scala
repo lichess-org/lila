@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
 import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis
@@ -261,7 +260,7 @@ final class StudyApi(
   private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
     chapter.conceal so { conceal =>
       chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal) so { newConceal =>
-        if (newConceal >= chapter.root.lastMainlinePly)
+        if newConceal >= chapter.root.lastMainlinePly then
           chapterRepo.removeConceal(chapter.id) >>-
             sendTo(study.id)(_.setConceal(position, none))
         else
@@ -307,7 +306,7 @@ final class StudyApi(
           chapter
             .updateRoot:
               _.withChildren: children =>
-                if (toMainline) children.promoteToMainlineAt(position.path)
+                if toMainline then children.promoteToMainlineAt(position.path)
                 else children.promoteUpAt(position.path).map(_._1)
             .match
               case Some(newChapter) =>
@@ -520,7 +519,7 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, data.position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          if (data.insert)
+          if data.insert then
             explorerGameHandler.insert(study, Position(chapter, data.position.path), data.gameId) flatMap {
               case None =>
                 fufail(s"Invalid explorerGame insert $studyId $data") >>-
@@ -606,25 +605,24 @@ final class StudyApi(
             name = name,
             practice = data.isPractice option true,
             gamebook = data.isGamebook option true,
-            conceal = (chapter.conceal, data.isConceal) match {
+            conceal = (chapter.conceal, data.isConceal) match
               case (None, true)     => chapter.root.ply.some
               case (Some(_), false) => None
               case _                => chapter.conceal
-            },
+            ,
             setup = chapter.setup.copy(
-              orientation = data.orientation match {
+              orientation = data.orientation match
                 case ChapterMaker.Orientation.Fixed(color) => color
                 case _                                     => chapter.setup.orientation
-              }
             ),
             description = data.hasDescription option {
               chapter.description | "-"
             }
           )
-          if (chapter == newChapter) funit
+          if chapter == newChapter then funit
           else
             chapterRepo.update(newChapter) >> {
-              if (chapter.conceal != newChapter.conceal)
+              if chapter.conceal != newChapter.conceal then
                 (newChapter.conceal.isDefined && study.position.chapterId == chapter.id).so {
                   val newPosition = study.position.withPath(UciPath.root)
                   studyRepo.setPosition(study.id, newPosition)
@@ -637,7 +635,7 @@ final class StudyApi(
                       (newChapter.practice != chapter.practice) ||
                       (newChapter.gamebook != chapter.gamebook) ||
                       (newChapter.description != chapter.description)
-                  if (shouldReload) sendTo(study.id)(_.updateChapter(chapter.id, who))
+                  if shouldReload then sendTo(study.id)(_.updateChapter(chapter.id, who))
                   else reloadChapters(study)
             }
         }
@@ -663,7 +661,7 @@ final class StudyApi(
         chapterRepo.byIdAndStudy(chapterId, studyId) flatMapz { chapter =>
           chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
             // deleting the only chapter? Automatically create an empty one
-            if (chaps.sizeIs < 2)
+            if chaps.sizeIs < 2 then
               chapterMaker(
                 study,
                 ChapterMaker.Data(StudyChapterName("Chapter 1")),
@@ -748,11 +746,12 @@ final class StudyApi(
   def like(studyId: StudyId, v: Boolean)(who: Who): Funit =
     studyRepo.like(studyId, who.u, v) map { likes =>
       sendTo(studyId)(_.setLiking(Study.Liking(likes, v), who))
-      if (v) studyRepo byId studyId foreach {
-        _.filter(_.isPublic) foreach { study =>
-          timeline ! (Propagate(StudyLike(who.u, study.id, study.name)) toFollowersOf who.u)
+      if v then
+        studyRepo byId studyId foreach {
+          _.filter(_.isPublic) foreach { study =>
+            timeline ! (Propagate(StudyLike(who.u, study.id, study.name)) toFollowersOf who.u)
+          }
         }
-      }
     }
 
   def chapterIdNames(studyIds: List[StudyId]): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
@@ -804,7 +803,7 @@ final class StudyApi(
 
   // work around circular dependency
   private var socket: Option[StudySocket]           = None
-  private[study] def registerSocket(s: StudySocket) = { socket = s.some }
+  private[study] def registerSocket(s: StudySocket) = socket = s.some
   private def sendTo(studyId: StudyId)(f: StudySocket => StudyId => Unit): Unit =
     socket.foreach: s =>
       f(s)(studyId)

@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
 import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
 
 import lila.common.Chronometer

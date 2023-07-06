@@ -19,6 +19,7 @@ import lila.user.{ User, Me }
 final class Preload(
     tv: lila.tv.Tv,
     gameRepo: lila.game.GameRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     userCached: lila.user.Cached,
     tourWinners: lila.tournament.WinnersApi,
     timelineApi: lila.timeline.EntryApi,
@@ -46,7 +47,8 @@ final class Preload(
       streamerSpots: Int
   )(using ctx: Context): Fu[Homepage] = for
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
-    given Option[Me] = ctx.me
+    withPerfs       <- ctx.user.soFu(perfsRepo.withPerfs)
+    given Option[User.WithPerfs] = withPerfs
     (
       (
         (
@@ -105,6 +107,7 @@ final class Preload(
     blindGames,
     lastPostCache.apply,
     ublogPosts,
+    withPerfs,
     hasUnreadLichessMessage = lichessMsg
   )
 
@@ -147,6 +150,7 @@ object Preload:
       blindGames: List[Pov],
       lastPost: Option[lila.blog.MiniPost],
       ublogPosts: List[UblogPost.PreviewPost],
+      me: Option[User.WithPerfs],
       hasUnreadLichessMessage: Boolean
   )
 

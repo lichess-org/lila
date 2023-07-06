@@ -1,7 +1,6 @@
 package lila.forum
 
 import lila.db.dsl.{ *, given }
-import reactivemongo.api.ReadPreference
 
 final private class ForumCategRepo(val coll: Coll)(using Executor):
 
@@ -17,7 +16,7 @@ final private class ForumCategRepo(val coll: Coll)(using Executor):
           $doc("team" $in teams)
         )
       )
-      .cursor[ForumCateg](ReadPreference.secondaryPreferred)
+      .cursor[ForumCateg](ReadPref.sec)
       .list(100)
 
   def nbPosts(id: String): Fu[Int] =

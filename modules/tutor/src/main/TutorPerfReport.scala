@@ -1,6 +1,5 @@
 package lila.tutor
 
-import cats.data.NonEmptyList
 import chess.{ ByColor, Color }
 
 import lila.analyse.AccuracyPercent
@@ -121,8 +120,8 @@ private object TutorPerfReport:
       resourcefulness <- TutorResourcefulness compute users
       conversion      <- TutorConversion compute users
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
-      globalClock <- clockUsers.so { answerManyPerfs(globalClockQuestion, _).dmap(some) }
-      clockUsage  <- clockUsers.so { TutorClockUsage.compute(_).dmap(some) }
+      globalClock <- clockUsers.soFu(answerManyPerfs(globalClockQuestion, _))
+      clockUsage  <- clockUsers.soFu(TutorClockUsage.compute)
       perfReports <- Future sequence users.toList.map { user =>
         for
           openings <- TutorOpening compute user

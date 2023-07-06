@@ -1,6 +1,5 @@
 package lila.forum
 
-import lila.common.LilaFuture
 import lila.notify.MentionedInThread
 
 /** Notifier to inform users if they have been mentioned in a post
@@ -39,18 +38,12 @@ final class MentionNotifier(
   /** Checks the database to make sure that the users mentioned exist, and removes any users that do not exist
     * or block the mentioner from the returned list.
     */
-  private def filterValidUsers(
-      candidates: Set[UserId],
-      mentionedBy: UserId
-  ): Fu[List[UserId]] =
-    for {
-      existingUsers <-
-        userRepo
-          .filterExists(candidates take 10)
-          .map(_.take(5).toSet)
+  private def filterValidUsers(candidates: Set[UserId], mentionedBy: UserId): Fu[List[UserId]] =
+    for
+      existingUsers    <- userRepo.filterExists(candidates take 10).map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
-      users <- LilaFuture.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
-    } yield users
+      users            <- mentionableUsers.toList.filterA(!relationApi.fetchBlocks(_, mentionedBy))
+    yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =
     post.text.contains('@') so {

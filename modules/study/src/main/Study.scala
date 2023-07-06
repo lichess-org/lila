@@ -40,7 +40,7 @@ case class Study(
 
   def isCurrent(c: Chapter.Like) = c.id == position.chapterId
 
-  def withChapter(c: Chapter.Like): Study = if (isCurrent(c)) this else rewindTo(c)
+  def withChapter(c: Chapter.Like): Study = if isCurrent(c) then this else rewindTo(c)
 
   def rewindTo(c: Chapter.Like): Study =
     copy(position = Position.Ref(chapterId = c.id, path = UciPath.root))
@@ -108,7 +108,7 @@ object Study:
     def compute(likes: Likes, createdAt: Instant) =
       Rank(createdAt plusHours likesToHours(likes))
     private def likesToHours(likes: Likes): Int =
-      if (likes < 1) 0
+      if likes < 1 then 0
       else (5 * math.log(likes) + 1).toInt.min(likes) * 24
 
   enum From:

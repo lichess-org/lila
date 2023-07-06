@@ -20,7 +20,7 @@ final class ModApi(
       _ <- userRepo.setAlt(prev.user.id, v)
       sus = prev.set(_.withMarks(_.set(_.Alt, v)))
       _ <- logApi.alt(sus, v)
-    yield if (v) notifier.reporters(me.modId, sus).unit
+    yield if v then notifier.reporters(me.modId, sus).unit
 
   def setEngine(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
     (prev.user.marks.engine != v) so {
@@ -30,7 +30,7 @@ final class ModApi(
         _ <- logApi.engine(sus, v)
       yield
         Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
-        if (v)
+        if v then
           notifier.reporters(me.modId, sus)
           refunder schedule sus
     }
@@ -70,7 +70,7 @@ final class ModApi(
         Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
       }
     } >>- {
-      if (value) notifier.reporters(me.modId, sus).unit
+      if value then notifier.reporters(me.modId, sus).unit
     } inject sus
 
   def autoTroll(sus: Suspect, note: String): Funit =
@@ -143,7 +143,7 @@ final class ModApi(
 
   def setRankban(sus: Suspect, v: Boolean)(using Me.Id): Funit =
     (sus.user.marks.rankban != v) so {
-      if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
+      if v then Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
     }
 

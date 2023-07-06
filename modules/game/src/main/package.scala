@@ -1,7 +1,7 @@
 package lila.game
 
 import alleycats.Zero
-import cats.kernel.Monoid
+import cats.Monoid
 import chess.PositionHash
 
 export lila.Lila.{ *, given }

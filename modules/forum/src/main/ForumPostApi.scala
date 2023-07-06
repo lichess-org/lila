@@ -1,6 +1,5 @@
 package lila.forum
 
-import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 
 import lila.common.Bus
@@ -173,7 +172,7 @@ final class ForumPostApi(
   def nbByUser(userId: UserId) = postRepo.coll.countSel($doc("userId" -> userId))
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
-    for {
+    for
       categs <- categRepo visibleWithTeams teams
       views <- categs.map { categ =>
         get(categ lastPostId forUser) map { topicPost =>
@@ -186,7 +185,7 @@ final class ForumPostApi(
           )
         }
       }.parallel
-    } yield views
+    yield views
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll
@@ -196,7 +195,7 @@ final class ForumPostApi(
           "topicId" -> topic.id,
           "number" $gt (newPostNumber - 20)
         ),
-        ReadPreference.secondaryPreferred
+        _.sec
       )
 
   def erasePost(post: ForumPost) =
@@ -205,10 +204,9 @@ final class ForumPostApi(
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
-      .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
-      .map { ids =>
+      .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
+      .map: ids =>
         indexer ! RemovePosts(ids)
-      }
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId) flatMapz { post =>

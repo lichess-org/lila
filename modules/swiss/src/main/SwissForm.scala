@@ -60,7 +60,7 @@ final class SwissForm(using mode: Mode):
       name = none,
       clock = ClockConfig(LimitSeconds(180), IncrementSeconds(0)),
       startsAt = Some(nowInstant plusSeconds {
-        if (mode == Mode.Prod) 60 * 10 else 20
+        if mode == Mode.Prod then 60 * 10 else 20
       }),
       variant = Variant.default.key.some,
       rated = true.some,
@@ -110,7 +110,7 @@ object SwissForm:
     LimitSeconds raw clockLimits,
     l =>
       s"${chess.Clock.Config(LimitSeconds(l), IncrementSeconds(0)).limitString}${
-          if (l <= 1) " minute" else " minutes"
+          if l <= 1 then " minute" else " minutes"
         }"
   )
 
@@ -141,11 +141,11 @@ object SwissForm:
   val roundIntervalChoices = options(
     roundIntervals,
     s =>
-      if (s == Swiss.RoundInterval.auto) s"Automatic"
-      else if (s == Swiss.RoundInterval.manual) s"Manually schedule each round"
-      else if (s < 60) s"$s seconds"
-      else if (s < 3600) s"${s / 60} minute(s)"
-      else if (s < 24 * 3600) s"${s / 3600} hour(s)"
+      if s == Swiss.RoundInterval.auto then s"Automatic"
+      else if s == Swiss.RoundInterval.manual then s"Manually schedule each round"
+      else if s < 60 then s"$s seconds"
+      else if s < 3600 then s"${s / 60} minute(s)"
+      else if s < 24 * 3600 then s"${s / 3600} hour(s)"
       else s"${s / 24 / 3600} days(s)"
   )
 

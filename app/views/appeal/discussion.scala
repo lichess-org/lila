@@ -44,14 +44,14 @@ object discussion:
       main(cls := "box box-pad appeal")(
         renderAppeal(appeal, textForm, Left(modData)),
         div(cls := "appeal__actions", id := "appeal-actions")(
-          modData.inquiry match {
+          modData.inquiry match
             case None =>
               postForm(action := routes.Mod.spontaneousInquiry(appeal.id))(
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId has mod =>
               postForm(action := appealRoutes.mute(modData.suspect.user.username))(
-                if (appeal.isMuted)
+                if appeal.isMuted then
                   submitButton("Un-mute")(
                     title := "Be notified about user replies again",
                     cls   := "button button-green button-thin"
@@ -63,7 +63,7 @@ object discussion:
                   )
               )
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
-          },
+          ,
           postForm(
             action := appealRoutes.sendToZulip(modData.suspect.user.id),
             cls    := "appeal__actions__slack"
@@ -107,10 +107,10 @@ object discussion:
       standardFlash,
       div(cls := "body")(
         appeal.msgs.map: msg =>
-          div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
+          div(cls := s"appeal__msg appeal__msg--${if appeal isByMod msg then "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
               renderUser(appeal, msg.by, as.isLeft),
-              if (as.isRight) momentFromNowOnce(msg.at)
+              if as.isRight then momentFromNowOnce(msg.at)
               else momentFromNowServer(msg.at)
             ),
             div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
@@ -119,12 +119,12 @@ object discussion:
           .exists(_.markedByMe) option div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
           "You have marked this user. Appeal should be handled by another moderator"
         ),
-        if (as.isRight && !appeal.canAddMsg) p("Please wait for a moderator to reply.")
+        if as.isRight && !appeal.canAddMsg then p("Please wait for a moderator to reply.")
         else
           as.fold(_.inquiry.isDefined, _ => true) option renderForm(
             textForm,
             action =
-              if (as.isLeft) appealRoutes.reply(appeal.id).url
+              if as.isLeft then appealRoutes.reply(appeal.id).url
               else appealRoutes.post.url,
             isNew = false,
             presets = as.left.toOption.map(_.presets)
@@ -134,15 +134,15 @@ object discussion:
 
   private def renderMark(suspect: User)(using ctx: PageContext) =
     val query = isGranted(_.Appeals) so ctx.req.queryString.toMap
-    if (suspect.enabled.no || query.contains("alt")) tree.closedByModerators
-    else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
-    else if (suspect.marks.boost || query.contains("boost")) tree.boosterMarked
-    else if (suspect.marks.troll || query.contains("shadowban")) tree.accountMuted
-    else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
+    if suspect.enabled.no || query.contains("alt") then tree.closedByModerators
+    else if suspect.marks.engine || query.contains("engine") then tree.engineMarked
+    else if suspect.marks.boost || query.contains("boost") then tree.boosterMarked
+    else if suspect.marks.troll || query.contains("shadowban") then tree.accountMuted
+    else if suspect.marks.rankban || query.contains("rankban") then tree.excludedFromLeaderboards
     else tree.cleanAllGood
 
   private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using PageContext) =
-    if (appeal isAbout userId) userIdLink(userId.some, params = asMod so "?mod")
+    if appeal isAbout userId then userIdLink(userId.some, params = asMod so "?mod")
     else
       span(
         userIdLink(User.lichessId.some),
@@ -160,7 +160,7 @@ object discussion:
       form3.globalError(form),
       form3.group(
         form("text"),
-        if (isNew) "Create an appeal" else "Add something to the appeal",
+        if isNew then "Create an appeal" else "Add something to the appeal",
         help = !isGranted(_.Appeals) option frag("Please be concise. Maximum 1000 chars.")
       )(f => form3.textarea(f.copy(constraints = Seq.empty))(rows := 6, maxlength := Appeal.maxLengthClient)),
       presets.map { ps =>

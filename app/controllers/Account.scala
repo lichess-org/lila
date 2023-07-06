@@ -59,9 +59,10 @@ final class Account(
         povs         <- env.round.proxyRepo urgentGames me
         nbChallenges <- env.challenge.api.countInFor get me
         playban      <- env.playban.api currentBan me
+        perfs        <- ctx.pref.showRatings.soFu(env.user.perfsRepo.perfsOf(me))
       yield Ok:
         env.user.jsonView
-          .full(me, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
+          .full(me, perfs, withProfile = false) ++ Json
           .obj(
             "prefs" -> lila.pref.JsonView.write(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
             "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
@@ -86,8 +87,7 @@ final class Account(
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
       rateLimit(me, limited):
         env.api.userApi.extended(
-          me,
-          me.some,
+          me.value,
           withFollows = apiC.userWithFollows,
           withTrophies = false
         ) dmap { JsonOk(_) }

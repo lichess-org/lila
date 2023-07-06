@@ -3,11 +3,12 @@ package lila.swiss
 import play.api.i18n.Lang
 
 import lila.rating.PerfType
-import lila.user.Me
+import lila.user.{ Me, UserPerfs }
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import alleycats.Zero
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{ I18nKeys as trans }
+import lila.rating.Perf
 
 object SwissCondition:
 
@@ -28,14 +29,13 @@ object SwissCondition:
   ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, allowList, playYourGames)):
 
     def withVerdicts(
-        perf: PerfType,
-        getMaxRating: GetMaxRating,
+        perfType: PerfType,
         getBannedUntil: GetBannedUntil
-    )(using me: Me)(using Executor): Fu[WithVerdicts] =
+    )(using me: Me)(using Perf, Executor, GetMaxRating): Fu[WithVerdicts] =
       list.map {
         case PlayYourGames => getBannedUntil(me.userId) map PlayYourGames.withBan
-        case c: MaxRating  => c(getMaxRating)(perf) map c.withVerdict
-        case c: FlatCond   => fuccess(c withVerdict c(perf))
+        case c: MaxRating  => c(perfType) map c.withVerdict
+        case c: FlatCond   => fuccess(c withVerdict c(perfType))
       }.parallel dmap WithVerdicts.apply
 
     def similar(other: All) = sameRatings(other) && titled == other.titled
@@ -45,10 +45,10 @@ object SwissCondition:
     given Zero[All] = Zero(empty)
 
   final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi):
-    def apply(swiss: Swiss)(using me: Me)(using Executor): Fu[WithVerdicts] =
-      val getBan: GetBannedUntil     = banApi.bannedUntil
-      val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(me.value, perf)
-      swiss.settings.conditions.withVerdicts(swiss.perfType, getMaxRating, getBan)
+    def apply(swiss: Swiss)(using me: Me)(using Perf, Executor): Fu[WithVerdicts] =
+      val getBan: GetBannedUntil = banApi.bannedUntil
+      given GetMaxRating         = historyApi.lastWeekTopRating(me.value, _)
+      swiss.settings.conditions.withVerdicts(swiss.perfType, getBan)
 
   object form:
     import play.api.data.Forms.*

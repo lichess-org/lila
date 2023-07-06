@@ -1,10 +1,8 @@
 package lila.irwin
 
-import cats.syntax.all.*
 import chess.Speed
 import reactivemongo.api.bson.*
 import reactivemongo.api.Cursor
-import reactivemongo.api.ReadPreference
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
@@ -12,13 +10,14 @@ import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
-import lila.user.{ User, Me, UserRepo }
+import lila.user.{ User, Me, UserRepo, UserPerfsRepo }
 import lila.report.SuspectId
 import lila.common.config.Max
 
 final class KaladinApi(
     coll: AsyncColl,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     insightApi: lila.insight.InsightApi,
@@ -58,23 +57,25 @@ final class KaladinApi(
   def modRequest(user: Suspect)(using me: Me) =
     request(user, KaladinUser.Requester.Mod(me)) >>- notification.add(user.id)
 
-  def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot so
-    sequence(user) { prev =>
-      prev.fold(KaladinUser.make(user, requester).some)(_.queueAgain(requester)) so { req =>
-        hasEnoughRecentMoves(user) flatMap {
-          if _ then
-            lila.mon.mod.kaladin.request(requester.name).increment()
-            insightApi.indexAll(user.user) >>
-              coll(_.update.one($id(req._id), req, upsert = true)).void
-          else
-            lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
-            funit
-        }
-      }
-    }
+  private def request(sus: Suspect, requester: KaladinUser.Requester) = sus.user.noBot.so:
+    sequence(sus):
+      _.fold(KaladinUser.make(sus, requester).some)(_.queueAgain(requester))
+        .so: req =>
+          for
+            user        <- perfsRepo.withPerfs(sus.user)
+            enoughMoves <- hasEnoughRecentMoves(user)
+            _ <-
+              if enoughMoves then
+                lila.mon.mod.kaladin.request(requester.name).increment()
+                insightApi.indexAll(user.user) >>
+                  coll(_.update.one($id(req._id), req, upsert = true)).void
+              else
+                lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
+                funit
+          yield ()
 
   private[irwin] def readResponses: Funit =
-    coll { coll =>
+    coll: coll =>
       // hits a mongodb index
       // db.kaladin_queue.createIndex({'response.at':1,'response.read':1},{partialFilterExpression:{'response.at':{$exists:true}}})
       coll
@@ -83,13 +84,11 @@ final class KaladinApi(
         .hint(coll hint "response.at_1_response.read_1")
         .cursor[KaladinUser]()
         .list(50)
-        .flatMap { docs =>
+        .flatMap: docs =>
           docs.nonEmpty.so:
             coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
               docs.traverse_(readResponse)
-        }
         .void
-    }
 
   private def readResponse(user: KaladinUser): Funit = user.response.so: res =>
     res.pred match
@@ -105,7 +104,7 @@ final class KaladinApi(
 
   private def markOrReport(user: KaladinUser, pred: KaladinUser.Pred): Funit =
 
-    def sendReport = for {
+    def sendReport = for
       suspect <- getSuspect(user.suspectId.value)
       kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod.apply
       _ <- reportApi.create(
@@ -117,16 +116,16 @@ final class KaladinApi(
             text = pred.note
           )
       )
-    } yield lila.mon.mod.kaladin.report.increment().unit
+    yield lila.mon.mod.kaladin.report.increment().unit
 
-    if (pred.percent >= thresholds.get().mark)
+    if pred.percent >= thresholds.get().mark then
       userRepo.hasTitle(user.id) flatMap {
         if _ then sendReport
         else
           modApi.autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id)) >>-
             lila.mon.mod.kaladin.mark.increment().unit
       }
-    else if (pred.percent >= thresholds.get().report) sendReport
+    else if pred.percent >= thresholds.get().report then sendReport
     else funit
 
   object notification:
@@ -149,29 +148,25 @@ final class KaladinApi(
 
   private[irwin] def monitorQueued: Funit =
     coll {
-      _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+      _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match($doc("response.at" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
-      }
-        .map { res =>
-          for {
-            obj      <- res
-            priority <- obj int "_id"
-            nb       <- obj int "nb"
-          } yield (priority, nb)
-        }
-    } map {
-      _ foreach { case (priority, nb) =>
+      .map: res =>
+        for
+          obj      <- res
+          priority <- obj int "_id"
+          nb       <- obj int "nb"
+        yield (priority, nb)
+    }.map:
+      _.foreach: (priority, nb) =>
         lila.mon.mod.kaladin.queue(priority).update(nb)
-      }
-    }
 
   private object hasEnoughRecentMoves:
     private val minMoves = 1050
     private case class Counter(blitz: Int, rapid: Int):
       def add(nb: Int, speed: Speed) =
-        if (speed == Speed.Blitz) copy(blitz = blitz + nb)
-        else if (speed == Speed.Rapid) copy(rapid = rapid + nb)
+        if speed == Speed.Blitz then copy(blitz = blitz + nb)
+        else if speed == Speed.Rapid then copy(rapid = rapid + nb)
         else this
       def isEnough = blitz >= minMoves || rapid >= minMoves
     private val cache = cacheApi[UserId, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
@@ -185,25 +180,24 @@ final class KaladinApi(
               Query.user(userId) ++ Query.rated ++ Query.createdSince(nowInstant minusMonths 6),
               $doc(F.turns -> true, F.clock -> true).some
             )
-            .cursor[Bdoc](ReadPreference.secondaryPreferred)
-            .foldWhile(Counter(0, 0)) {
-              case (counter, doc) => {
-                val next = (for {
+            .cursor[Bdoc](ReadPref.sec)
+            .foldWhile(Counter(0, 0)):
+              case (counter, doc) =>
+                val next = (for
                   clockBin    <- doc.getAsOpt[BSONBinary](F.clock)
                   clockConfig <- BinaryFormat.clock.readConfig(clockBin.byteArray)
                   speed = Speed(clockConfig)
                   if speed == Speed.Blitz || speed == Speed.Rapid
                   moves <- doc.int(F.turns)
-                } yield counter.add(moves / 2, speed)) | counter
-                if (next.isEnough) Cursor.Done(next)
+                yield counter.add(moves / 2, speed)) | counter
+                if next.isEnough then Cursor.Done(next)
                 else Cursor.Cont(next)
-              }
-            }
+
         }.dmap(_.isEnough)
       )
     }
-    def apply(u: Suspect): Fu[Boolean] =
-      fuccess(u.user.perfs.blitz.nb + u.user.perfs.rapid.nb > 30) >>& cache.get(u.id.value)
+    def apply(u: User.WithPerfs): Fu[Boolean] =
+      fuccess(u.perfs.blitz.nb + u.perfs.rapid.nb > 30) >>& cache.get(u.id)
 
   private[irwin] def autoRequest(requester: KaladinUser.Requester)(user: Suspect) =
     request(user, requester)

@@ -14,12 +14,11 @@ object RawHtml:
   def nl2br(s: String): Html =
     val sb      = jStringBuilder(s.length)
     var counter = 0
-    for (char <- s)
-      if (char == '\n')
+    for char <- s do
+      if char == '\n' then
         counter += 1
-        if (counter < 3)
-          sb.append("<br>")
-      else if (char != '\r')
+        if counter < 3 then sb.append("<br>")
+      else if char != '\r' then
         counter = 0
         sb.append(char)
     Html(sb.toString)
@@ -44,16 +43,16 @@ object RawHtml:
 
   def expandAtUser(text: String)(using netDomain: config.NetDomain): List[String] =
     val m = atUsernamePat.matcher(text)
-    if (m.find)
+    if m.find then
       var idx = 0
       val buf = List.newBuilder[String]
       while
-        if (idx < m.start) buf += text.substring(idx, m.start)
+        if idx < m.start then buf += text.substring(idx, m.start)
         buf += s"${netDomain}/@/${m.group(1)}"
         idx = m.end
         m.find
       do ()
-      if (idx < text.length) buf += text.substring(idx)
+      if idx < text.length then buf += text.substring(idx)
       buf.result()
     else List(text)
 
@@ -69,7 +68,7 @@ object RawHtml:
     expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
 
-      if (!m.find) escapeHtmlRaw(expanded) // preserve fast case!
+      if !m.find then escapeHtmlRaw(expanded) // preserve fast case!
       else
         val sb            = new jStringBuilder(expanded.length + 200)
         val sArr          = expanded.toCharArray
@@ -84,43 +83,41 @@ object RawHtml:
 
           val end =
             val e = m.end
-            if (isLetterOrDigit(sArr(e - 1))) e
+            if isLetterOrDigit(sArr(e - 1)) then e
             else adjustUrlEnd(sArr, Math.max(pathS, domainS), e)
 
           val domain = expanded.substring(
             domainS,
-            pathS match {
+            pathS match
               case -1 => end
               case _  => pathS
-            }
           )
 
           val isTldInternal = netDomain.value == domain
 
           val csb = new jStringBuilder()
-          if (!isTldInternal) csb.append(domain)
-          if (pathS >= 0)
-            if (sArr(pathS) != '/') csb.append('/')
+          if !isTldInternal then csb.append(domain)
+          if pathS >= 0 then
+            if sArr(pathS) != '/' then csb.append('/')
             csb.append(sArr, pathS, end - pathS)
 
           val allButScheme = escapeHtmlRaw(removeUrlTrackingParameters(csb.toString))
           lazy val isHttp  = domainS - start == 7
-          lazy val url     = (if (isHttp) "http://" else "https://") + allButScheme
-          lazy val text    = if (isHttp) url else allButScheme
+          lazy val url     = (if isHttp then "http://" else "https://") + allButScheme
+          lazy val text    = if isHttp then url else allButScheme
 
           sb append {
-            if (isTldInternal)
+            if isTldInternal then
               linkRender flatMap { _(allButScheme, text).map(_.render) } getOrElse s"""<a href="${
-                  if (allButScheme.isEmpty)
-                    "/"
+                  if allButScheme.isEmpty then "/"
                   else allButScheme
-                }">${allButScheme match {
+                }">${allButScheme match
                   case USER_LINK(user) => "@" + user
                   case _               => s"${netDomain}$allButScheme"
-                }}</a>"""
+                }</a>"""
             else
               {
-                if ((end < sArr.length && sArr(end) == '"') || !expandImg) None
+                if (end < sArr.length && sArr(end) == '"') || !expandImg then None
                 else imgUrl(url)
               } getOrElse {
                 s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
@@ -139,34 +136,30 @@ object RawHtml:
 
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int =
     var last = end - 1
-    while (
-      (sArr(last): @switch) match {
+    while (sArr(last): @switch) match
         case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' | '(' => true
         case _                                                                => false
-      }
-    ) { last -= 1 }
+    do last -= 1
 
-    if (sArr(last) == ')')
+    if sArr(last) == ')' then
       @tailrec def pCnter(idx: Int, acc: Int): Int =
-        if (idx >= last) acc
+        if idx >= last then acc
         else
           pCnter(
             idx + 1,
-            acc + (sArr(idx) match {
+            acc + (sArr(idx) match
               case '(' => 1
               case ')' => -1
               case _   => 0
-            })
+            )
           )
       var parenCnt = pCnter(start, -1)
-      while (
-        (sArr(last): @switch) match {
+      while (sArr(last): @switch).match
           case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' => true
           case '('                                                        => parenCnt -= 1; true
           case ')'                                                        => parenCnt += 1; parenCnt <= 0
           case _                                                          => false
-        }
-      ) { last -= 1 }
+      do last -= 1
     last + 1
 
   private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w++)(?:\.jpe?g|\.png|\.gif)?""".r
@@ -186,11 +179,10 @@ object RawHtml:
   def justMarkdownLinks(escapedHtml: Html): Html = Html {
     markdownLinkRegex.replaceAllIn(
       escapedHtml.value,
-      m => {
+      m =>
         val content = Matcher.quoteReplacement(m group 1)
         val href    = removeUrlTrackingParameters(m group 2)
         s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
-      }
     )
   }
 

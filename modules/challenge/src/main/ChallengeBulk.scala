@@ -20,7 +20,7 @@ final class ChallengeBulkApi(
     colls: ChallengeColls,
     msgApi: ChallengeMsg,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     onStart: lila.round.OnStart
 )(using
     ec: Executor,
@@ -92,7 +92,7 @@ final class ChallengeBulkApi(
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
-        userRepo.pair(game.white, game.black) map2 { (white, black) =>
+        userApi.gamePlayers.loggedIn(game.white -> game.black, bulk.perfType) map2 { (white, black) =>
           (game.id, white, black)
         }
       .mapConcat(_.toList)
@@ -100,8 +100,8 @@ final class ChallengeBulkApi(
         val game = Game
           .make(
             chess = chessGame,
-            whitePlayer = Player.make(chess.White, white.some, _(perfType)),
-            blackPlayer = Player.make(chess.Black, black.some, _(perfType)),
+            whitePlayer = Player.make(chess.White, white.some),
+            blackPlayer = Player.make(chess.Black, black.some),
             mode = bulk.mode,
             source = lila.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,
@@ -113,9 +113,7 @@ final class ChallengeBulkApi(
           .start
         (game, white, black)
       .mapAsyncUnordered(8): (game, white, black) =>
-        gameRepo.insertDenormalized(game) >>- onStart(game.id) inject {
-          (game, white, black)
-        }
+        gameRepo.insertDenormalized(game) >>- onStart(game.id) inject (game, white, black)
       .mapAsyncUnordered(8): (game, white, black) =>
         msgApi.onApiPair(game.id, white.light, black.light)(bulk.by, bulk.message)
       .toMat(LilaStream.sinkCount)(Keep.right)
@@ -123,7 +121,7 @@ final class ChallengeBulkApi(
       .addEffect { nb =>
         lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb).unit
       } >> {
-      if (bulk.startClocksAt.isDefined)
-        coll.updateField($id(bulk._id), "pairedAt", nowInstant)
+      if bulk.startClocksAt.isDefined
+      then coll.updateField($id(bulk._id), "pairedAt", nowInstant)
       else coll.delete.one($id(bulk._id))
     }.void

@@ -1,6 +1,5 @@
 package lila.relay
 
-import cats.syntax.traverse.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
 import lila.socket.Socket.Sri
@@ -16,36 +15,39 @@ final private class RelaySync(
 )(using Executor):
 
   def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
-    studyApi
-      .byId(rt.round.studyId)
-      .orFail("Missing relay study!")
-      .flatMap: study =>
+    for
+      study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
+      chapters       <- chapterRepo.orderedByStudy(study.id)
+      sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
+      nbGames = sanitizedGames.size
+      chapterUpdates <- sanitizedGames.traverse(createOrUpdateChapter(_, rt, study, chapters, nbGames))
+      result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
+      _      = lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
+      _ <- tourRepo.setSyncedNow(rt.tour)
+    yield result
+
+  private def createOrUpdateChapter(
+      game: RelayGame,
+      rt: RelayRound.WithTour,
+      study: Study,
+      chapters: List[Chapter],
+      nbGames: Int
+  ): Fu[Option[SyncResult.ChapterResult]] =
+    findCorrespondingChapter(game, chapters, nbGames)
+      .map(updateChapter(rt.tour, study, game, _).dmap(_.some))
+      .getOrElse:
         chapterRepo
-          .orderedByStudy(study.id)
-          .flatMap: chapters =>
-            RelayInputSanity(chapters, games) match
-              case Left(fail) => fufail(fail.msg)
-              case Right(games) =>
-                games.traverse: game =>
-                  findCorrespondingChapter(game, chapters, games.size) match
-                    case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
-                    case None =>
-                      chapterRepo.countByStudyId(study.id) flatMap {
-                        case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
-                        case _ =>
-                          createChapter(study, game) flatMap { chapter =>
-                            chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
-                              studyApi.deleteChapter(study.id, initial.id):
-                                actorApi.Who(study.ownerId, sri)
-                            } inject SyncResult
-                              .ChapterResult(chapter.id, true, chapter.root.mainline.size)
-                              .some
-                          }
-                      }
-          .flatMap: chapterUpdates =>
-            val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
-            lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
-            tourRepo.setSyncedNow(rt.tour) inject result
+          .countByStudyId(study.id)
+          .flatMap:
+            case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
+            case _ =>
+              createChapter(study, game).flatMap: chapter =>
+                chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
+                  studyApi.deleteChapter(study.id, initial.id):
+                    actorApi.Who(study.ownerId, sri)
+                } inject SyncResult
+                  .ChapterResult(chapter.id, true, chapter.root.mainline.size)
+                  .some
 
   /*
    * If the source contains several games, use their index to match them with the study chapter.
@@ -58,14 +60,14 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if (nbGames == 1 || game.looksLikeLichess) chapters find game.staticTagsMatch
+    if nbGames == 1 || game.looksLikeLichess then chapters find game.staticTagsMatch
     else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(
       tour: RelayTour,
       study: Study,
-      chapter: Chapter,
-      game: RelayGame
+      game: RelayGame,
+      chapter: Chapter
   ): Fu[SyncResult.ChapterResult] =
     updateChapterTags(tour, study, chapter, game) zip
       updateChapterTree(study, chapter, game) map { (tagUpdate, nbMoves) =>
@@ -100,23 +102,22 @@ final private class RelaySync(
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.so { node =>
-          lila.common.LilaFuture.fold(node.mainline.toList)(Position(chapter, path).ref) {
-            case (position, n) =>
-              studyApi.addNode(
-                studyId = study.id,
-                position = position,
-                node = n,
-                opts = moveOpts.copy(clock = n.clock),
-                relay = Chapter
-                  .Relay(
-                    index = game.index,
-                    path = position.path + n.id,
-                    lastMoveAt = nowInstant
-                  )
-                  .some
-              )(who) inject position + n
+          node.mainline.foldM(Position(chapter, path).ref) { case (position, n) =>
+            studyApi.addNode(
+              studyId = study.id,
+              position = position,
+              node = n,
+              opts = moveOpts.copy(clock = n.clock),
+              relay = Chapter
+                .Relay(
+                  index = game.index,
+                  path = position.path + n.id,
+                  lastMoveAt = nowInstant
+                )
+                .some
+            )(who) inject position + n
           } inject {
-            if (chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty)
+            if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
               studyApi.reloadChapters(study)
             node.mainline.size
           }
@@ -129,7 +130,7 @@ final private class RelaySync(
       game: RelayGame
   ): Fu[Boolean] =
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
-      if (!chapter.tags.value.has(tag)) newTags + tag
+      if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
     val newEndTag = game.end
       .ifFalse(gameTags(_.Result).isDefined)
@@ -139,7 +140,7 @@ final private class RelaySync(
     val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
     (chapterNewTags != chapter.tags) so {
-      if (vs(chapterNewTags) != vs(chapter.tags))
+      if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
       studyApi.setTags(
         studyId = study.id,

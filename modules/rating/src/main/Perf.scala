@@ -59,7 +59,7 @@ case class Perf(
     )
 
   private def updateRecentWith(glicko: Glicko) =
-    if (nb < 10) recent
+    if nb < 10 then recent
     else (glicko.intRating :: recent) take Perf.recentMaxSize
 
   def clearRecent = copy(recent = Nil)
@@ -87,6 +87,7 @@ case object Perf:
   object Id extends OpaqueInt[Id]
 
   case class Typed(perf: Perf, perfType: PerfType)
+  def typed(pt: PerfType, perf: Perf) = new Typed(perf, pt)
 
   val default = Perf(Glicko.default, 0, Nil, None)
 
@@ -97,18 +98,21 @@ case object Perf:
 
   val recentMaxSize = 12
 
-  case class Storm(score: Int, runs: Int):
+  trait PuzPerf:
+    val score: Int
+    val runs: Int
     def nonEmpty = runs > 0
+    def option   = nonEmpty option this
+
+  case class Storm(score: Int, runs: Int) extends PuzPerf
   object Storm:
     val default = Storm(0, 0)
 
-  case class Racer(score: Int, runs: Int):
-    def nonEmpty = runs > 0
+  case class Racer(score: Int, runs: Int) extends PuzPerf
   object Racer:
     val default = Racer(0, 0)
 
-  case class Streak(score: Int, runs: Int):
-    def nonEmpty = runs > 0
+  case class Streak(score: Int, runs: Int) extends PuzPerf
   object Streak:
     val default = Streak(0, 0)
 

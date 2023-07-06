@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר קטן מ-30 שניות</string>
   <string name="moveConfirmation">אישור המהלכים</string>
+  <string name="explainCanThenBeTemporarilyDisabled">ניתן לביטול במהלך המשחק באמצעות תפריט הלוח</string>
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
   <string name="correspondenceAndUnlimited">התכתבות וללא הגבלה</string>
   <string name="confirmResignationAndDrawOffers">אשרו כניעה והצעות תיקו</string>

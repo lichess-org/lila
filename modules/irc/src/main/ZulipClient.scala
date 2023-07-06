@@ -9,8 +9,6 @@ import play.api.libs.ws.WSAuthScheme
 import lila.common.config.Secret
 import lila.common.String.urlencode
 import play.api.ConfigLoader
-import cats.Show
-import cats.syntax.show.*
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     Executor
@@ -40,7 +38,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
     }
 
   private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] = dedupMsg(msg) so {
-    if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString)) inject None
+    if config.domain.isEmpty then fuccess(lila.log("zulip").info(msg.toString)) inject None
     else
       ws
         .url(s"https://${config.domain}/api/v1/messages")

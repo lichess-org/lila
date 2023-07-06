@@ -37,10 +37,9 @@ object ofPlayer:
             submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt())
           ),
           div(cls := "puzzle-of-player__results")(
-            (user, puzzles) match {
+            (user, puzzles) match
               case (Some(u), Some(pager)) =>
-                if (pager.nbResults == 0 && ctx.is(u))
-                  p(trans.puzzle.fromMyGamesNone())
+                if pager.nbResults == 0 && ctx.is(u) then p(trans.puzzle.fromMyGamesNone())
                 else
                   frag(
                     p(strong(trans.puzzle.fromXGamesFound((pager.nbResults), userLink(u)))),
@@ -67,7 +66,6 @@ object ofPlayer:
                     )
                   )
               case (_, _) => emptyFrag
-            }
           )
         )
       )

@@ -23,11 +23,11 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
       val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
       colls.student
         .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
-        .cursor[Bdoc](temporarilyPrimary)
+        .cursor[Bdoc](ReadPref.priTemp)
         .documentSource()
         .throttle(300, 1.second)
         .toMat(Sink.fold[Int, Bdoc](0) { case (counter, doc) =>
-          if (counter % 500 == 0) logger.info(s"ClasStudentCache.rebuild $counter")
+          if counter % 500 == 0 then logger.info(s"ClasStudentCache.rebuild $counter")
           doc.string("userId") foreach nextBloom.add
           counter + 1
         })(Keep.right)

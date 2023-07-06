@@ -3,7 +3,7 @@ package lila.study
 import chess.Centis
 import lila.tree.Node.Shapes
 
-class CommentParserTest extends lila.common.LilaTest {
+class CommentParserTest extends lila.common.LilaTest:
 
   import chess.format.pgn.Comment
   import scala.language.implicitConversions
@@ -121,4 +121,3 @@ class CommentParserTest extends lila.common.LilaTest {
         shapes.value.size == 6 &&
         clock == Some(Centis(3843300))
     }
-}

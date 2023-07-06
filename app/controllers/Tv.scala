@@ -39,7 +39,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     Found(env.tv.tv getGameAndHistory channel): (game, history) =>
       val flip    = getBool("flip")
       val natural = Pov naturalOrientation game
-      val pov     = if (flip) !natural else natural
+      val pov     = if flip then !natural else natural
       val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
       negotiateApi(
         html = for

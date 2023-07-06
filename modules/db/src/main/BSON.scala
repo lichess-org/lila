@@ -84,23 +84,23 @@ object BSON extends Handlers:
   final class Writer:
 
     def apply[A](a: A)(using writer: BSONWriter[A]): BSONValue = writer.writeTry(a).get
-    def boolO(b: Boolean): Option[BSONBoolean]                 = if (b) Some(BSONBoolean(true)) else None
+    def boolO(b: Boolean): Option[BSONBoolean]                 = if b then Some(BSONBoolean(true)) else None
     def str(s: String): BSONString                             = BSONString(s)
-    def strO(s: String): Option[BSONString]                    = if (s.nonEmpty) Some(BSONString(s)) else None
-    def int(i: Int): BSONInteger                               = BSONInteger(i)
-    def intO(i: Int): Option[BSONInteger]                      = if (i != 0) Some(BSONInteger(i)) else None
+    def strO(s: String): Option[BSONString] = if s.nonEmpty then Some(BSONString(s)) else None
+    def int(i: Int): BSONInteger            = BSONInteger(i)
+    def intO(i: Int): Option[BSONInteger]   = if i != 0 then Some(BSONInteger(i)) else None
     def date(d: Instant)(using handler: BSONHandler[Instant]): BSONValue = handler.writeTry(d).get
     def byteArrayO(b: ByteArray)(using handler: BSONHandler[ByteArray]): Option[BSONValue] =
-      if (b.isEmpty) None else handler.writeOpt(b)
+      if b.isEmpty then None else handler.writeOpt(b)
     def bytesO(b: Array[Byte]): Option[BSONValue] = byteArrayO(ByteArray(b))
     def bytes(b: Array[Byte]): BSONBinary         = BSONBinary(b, ByteArray.subtype)
     def listO[A](list: List[A])(using writer: BSONWriter[A]): Option[Barr] =
-      if (list.isEmpty) None
+      if list.isEmpty then None
       else Some(BSONArray(list flatMap writer.writeOpt))
-    def docO(o: Bdoc): Option[Bdoc]                   = if (o.isEmpty) None else Some(o)
+    def docO(o: Bdoc): Option[Bdoc]                   = if o.isEmpty then None else Some(o)
     def double(i: Double): BSONDouble                 = BSONDouble(i)
-    def doubleO(i: Double): Option[BSONDouble]        = if (i != 0) Some(BSONDouble(i)) else None
-    def zero[A](a: A)(using zero: Zero[A]): Option[A] = if (zero.zero == a) None else Some(a)
+    def doubleO(i: Double): Option[BSONDouble]        = if i != 0 then Some(BSONDouble(i)) else None
+    def zero[A](a: A)(using zero: Zero[A]): Option[A] = if zero.zero == a then None else Some(a)
     def yesnoO[A](a: A)(using sr: SameRuntime[A, Boolean]): Option[BSONBoolean] =
       boolO(sr(a))
 

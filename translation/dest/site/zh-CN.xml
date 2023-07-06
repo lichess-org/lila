@@ -147,6 +147,9 @@
   <plurals name="nbGames">
     <item quantity="other">查看所有%s个对局</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%2$s 個場次內的%1$s 積分</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">书签里有%s盘棋</item>
   </plurals>

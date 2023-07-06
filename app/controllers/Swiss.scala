@@ -63,7 +63,7 @@ final class Swiss(
           for
             isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
             verdicts      <- env.swiss.api.verdicts(swiss)
-            socketVersion <- getBool("socketVersion").so(env.swiss version swiss.id dmap some)
+            socketVersion <- getBool("socketVersion").soFu(env.swiss version swiss.id)
             playerInfo <- getUserStr("playerInfo").so: u =>
               env.swiss.api.playerInfo(swiss, u.id)
             page = getInt("page").filter(0.<)

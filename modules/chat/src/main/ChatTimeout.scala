@@ -21,7 +21,7 @@ final class ChatTimeout(
     isActive(chat.id, user.id) flatMap {
       if _ then fuccess(false)
       else
-        if (scope == Scope.Global) global put user.id
+        if scope == Scope.Global then global put user.id
         coll.insert
           .one(
             $doc(

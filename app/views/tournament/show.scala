@@ -43,7 +43,7 @@ object show:
         )
       ),
       moreCss = cssTag {
-        if (tour.isTeamBattle) "tournament.show.team-battle"
+        if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
       },
       chessground = false,

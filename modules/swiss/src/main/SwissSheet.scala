@@ -3,7 +3,6 @@ package lila.swiss
 import akka.stream.scaladsl.*
 import BsonHandlers.given
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 
@@ -78,8 +77,8 @@ private object SwissSheet:
               case Left(_)     => Ongoing
               case Right(None) => Draw
               case Right(Some(color)) if pairing.isForfeit =>
-                if (pairing(color) == player.userId) ForfeitWin else ForfeitLoss
-              case Right(Some(color)) => if (pairing(color) == player.userId) Win else Loss
+                if pairing(color) == player.userId then ForfeitWin else ForfeitLoss
+              case Right(Some(color)) => if pairing(color) == player.userId then Win else Loss
           case None if player.byes(round) => Bye
           case None if round.value == 1   => Late
           case None                       => Absent
@@ -93,21 +92,21 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
       swiss: Swiss,
       sort: Bdoc
   ): Source[(SwissPlayer, Map[SwissRoundNumber, SwissPairing], SwissSheet), ?] =
-    val readPreference =
+    val readPref: ReadPref =
       if swiss.finishedAt.exists(_ isBefore nowInstant.minusSeconds(10))
-      then temporarilyPrimary
-      else ReadPreference.primary
+      then _.priTemp
+      else _.pri
     SwissPlayer
       .fields: f =>
         mongo.player.find($doc(f.swissId -> swiss.id)).sort(sort)
-      .cursor[SwissPlayer](readPreference)
+      .cursor[SwissPlayer](readPref)
       .documentSource()
       .mapAsync(4): player =>
         SwissPairing.fields: f =>
           mongo.pairing
             .list[SwissPairing](
               $doc(f.swissId -> swiss.id, f.players -> player.userId),
-              readPreference
+              readPref
             )
             .dmap(player -> _)
       .map: (player, pairings) =>

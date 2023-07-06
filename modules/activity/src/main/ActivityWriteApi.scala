@@ -1,6 +1,5 @@
 package lila.activity
 
-import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently
@@ -21,12 +20,11 @@ final class ActivityWriteApi(
   def game(game: Game): Funit =
     (for
       userId <- game.userIds
-      pt     <- game.perfType
       player <- game playerByUserId userId
     yield update(userId): a =>
       val setGames = !game.isCorrespondence so $doc(
         ActivityFields.games -> a.games.orZero
-          .add(pt, Score.make(game wonBy player.color, RatingProg make player.light))
+          .add(game.perfType, Score.make(game wonBy player.color, RatingProg make player.light))
       )
       val setCorres = game.hasCorrespondenceClock so $doc(
         ActivityFields.corres -> a.corres.orZero.add(game.id, moved = false, ended = true)

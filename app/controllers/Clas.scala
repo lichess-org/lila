@@ -10,7 +10,7 @@ import views.*
 import lila.app.{ given, * }
 
 import lila.clas.ClasInvite
-import lila.clas.Clas.{ Id => ClasId }
+import lila.clas.Clas.{ Id as ClasId }
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -71,20 +71,21 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def show(id: ClasId) = Auth { ctx ?=> me ?=>
     WithClassAny(id)(
       forTeacher = WithClass(id): clas =>
-        env.msg.twoFactorReminder(me) >>
-          Ok.pageAsync:
-            env.clas.api.student.activeWithUsers(clas) map { students =>
-              preloadStudentUsers(students)
-              views.html.clas.teacherDashboard.overview(clas, students)
-            }
-      ,
+        for
+          _        <- env.msg.twoFactorReminder(me)
+          students <- env.clas.api.student.activeWithUsers(clas)
+          _ = preloadStudentUsers(students)
+          students <- env.clas.api.student.withPerfs(students)
+          page     <- renderPage(views.html.clas.teacherDashboard.overview(clas, students))
+        yield Ok(page),
       forStudent = (clas, students) =>
-        Ok.pageAsync:
-          env.clas.api.clas.teachers(clas) map { teachers =>
-            preloadStudentUsers(students)
+        for
+          teachers <- env.clas.api.clas.teachers(clas)
+          _ = preloadStudentUsers(students)
+          students <- env.clas.api.student.withPerfs(students)
+          page <- renderPage:
             views.html.clas.studentDashboard(clas, env.clas.markup(clas), teachers, students)
-          }
-      ,
+        yield Ok(page),
       orDefault = _ =>
         isGranted(_.UserModView) so
           FoundPage(env.clas.api.clas.byId(id)): clas =>
@@ -106,7 +107,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       else
         Found(env.clas.api.clas.byId(id)): clas =>
           env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-            if (students.exists(_.student is me)) forStudent(clas, students)
+            if students.exists(_.student is me) then forStudent(clas, students)
             else orDefault(ctx)
           }
     }
@@ -172,7 +173,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             env.clas.api.student.activeWithUsers(clas) flatMap { students =>
               Reasonable(clas, students, "notify"):
                 val url  = routes.Clas.show(clas.id.value).url
-                val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
+                val full = if text contains url then text else s"$text\n\n${env.net.baseUrl}$url"
                 env.msg.api
                   .multiPost(Source(students.map(_.user.id)), full)
                   .addEffect: nb =>
@@ -184,12 +185,12 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def students(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
-      env.clas.api.student.allWithUsers(clas) flatMap { students =>
-        Ok.pageAsync:
-          env.clas.api.invite.listPending(clas) map {
-            views.html.clas.teacherDashboard.students(clas, students, _)
-          }
-      }
+      for
+        students <- env.clas.api.student.allWithUsers(clas)
+        students <- env.clas.api.student.withPerfs(students)
+        invites  <- env.clas.api.invite.listPending(clas)
+        page     <- renderPage(views.html.clas.teacherDashboard.students(clas, students, invites))
+      yield Ok(page)
   }
 
   def progress(id: ClasId, key: lila.rating.Perf.Key, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
@@ -199,10 +200,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         WithClass(id): clas =>
           env.clas.api.student.activeWithUsers(clas) flatMap { students =>
             Reasonable(clas, students, "progress"):
-              Ok.pageAsync:
-                env.clas.progressApi(perfType, days, students) map {
-                  views.html.clas.teacherDashboard.progress(clas, students, _)
-                }
+              for
+                progress <- env.clas.progressApi(perfType, days, students)
+                students <- env.clas.api.student.withPerf(students, perfType)
+                page     <- renderPage(views.html.clas.teacherDashboard.progress(clas, students, progress))
+              yield Ok(page)
           }
   }
 
@@ -376,6 +378,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAndStudents(id): (clas, students) =>
       WithStudent(clas, username): s =>
         for
+          s                <- env.clas.api.student.withPerfs(s)
           withManagingClas <- env.clas.api.student.withManagingClas(s, clas)
           activity         <- env.activity.read.recentAndPreload(s.user)
           page <- renderPage(views.html.clas.student.show(clas, students, withManagingClas, activity))

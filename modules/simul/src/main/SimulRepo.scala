@@ -6,7 +6,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import reactivemongo.api.ReadPreference
 
 final private[simul] class SimulRepo(val coll: Coll)(using Executor):
 
@@ -78,7 +77,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       selector = finishedSelect ++ $doc("hostId" -> hostId),
       projection = none,
       sort = createdSort,
-      readPreference = ReadPreference.secondaryPreferred
+      _.sec
     )
 
   def hostId(id: SimulId): Fu[Option[UserId]] =

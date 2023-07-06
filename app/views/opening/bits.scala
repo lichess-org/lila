@@ -1,6 +1,5 @@
 package views.html.opening
 
-import cats.data.NonEmptyList
 import chess.opening.{ OpeningKey, Opening }
 import controllers.routes
 import play.api.libs.json.Json

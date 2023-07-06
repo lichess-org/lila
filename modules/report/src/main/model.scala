@@ -14,7 +14,7 @@ case class SuspectId(value: UserId) extends AnyVal
 object SuspectId:
   def of(u: UserStr) = SuspectId(u.id)
 
-case class Victim(user: User) extends AnyVal
+case class Victim(user: User.WithPerf) extends AnyVal
 
 case class Reporter(user: User) extends AnyVal:
   def id = user.id into ReporterId

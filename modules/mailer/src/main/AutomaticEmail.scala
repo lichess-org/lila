@@ -160,7 +160,7 @@ To make a new donation, head to $baseUrl/patron"""
     userRepo.pair(from, to) map {
       _.foreach: (from, to) =>
         val wings =
-          if (lifetime) "lifetime Patron wings"
+          if lifetime then "lifetime Patron wings"
           else "Patron wings for one month"
         alsoSendAsPrivateMessage(from): _ =>
           s"""You gift @${to.username} the $wings. Thank you so much!"""
@@ -179,7 +179,7 @@ To make a new donation, head to $baseUrl/patron"""
         userWithEmail.emails.current
           .filterNot(_.isNoReply)
           .so: email =>
-            given Lang = userLang(userWithEmail.user)
+            given Lang = userLang(userWithEmail.user.user)
             val hello =
               "Hello and thank you for playing correspondence chess on Lichess!"
             val disableSettingNotice =
@@ -215,7 +215,7 @@ $disableSettingNotice $disableLink"""
       s"You have ${showDuration(remainingTime)} remaining in your game with $opponentName:"
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
-    body(userLang(user)) tap { txt =>
+    body(userLang(user)).tap { txt =>
       lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
     }
 

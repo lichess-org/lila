@@ -75,8 +75,8 @@ final class GarbageCollector(
               case _ =>
                 badOtherAccounts(spy.otherUsers.map(_.user)).so: others =>
                   logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-                  lila.common.LilaFuture
-                    .exists(spy.ips)(ipTrust.isSuspicious)
+                  spy.ips
+                    .existsM(ipTrust.isSuspicious)
                     .map:
                       _ so collect(
                         user,

@@ -74,7 +74,7 @@ object config:
     }
 
   given [A](using loader: ConfigLoader[A]): ConfigLoader[Option[A]] =
-    ConfigLoader[Option[A]](c => k => if (c.hasPath(k)) Some(loader.load(c, k)) else None)
+    ConfigLoader[Option[A]](c => k => if c.hasPath(k) then Some(loader.load(c, k)) else None)
 
   def strLoader[A](f: String => A): ConfigLoader[A]   = ConfigLoader.stringLoader map f
   def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader map f

@@ -46,7 +46,7 @@ object show:
           .add("chat" -> chatOption.map { chat =>
             views.html.chat.json(
               chat.chat,
-              name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
+              name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.chatRoom.txt(),
               timeout = chat.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
@@ -67,7 +67,7 @@ object show:
         boxTop(
           h1(cls := "text", dataIcon := licon.Group)(t.name),
           div(
-            if (t.disabled) span(cls := "staff")("CLOSED")
+            if t.disabled then span(cls := "staff")("CLOSED")
             else
               canSeeMembers option a(href := routes.Team.members(t.slug))(
                 nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
@@ -96,12 +96,12 @@ object show:
             ),
             div(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(
-                if (info.myRequest.exists(_.declined))
+                if info.myRequest.exists(_.declined) then
                   frag(
                     strong(requestDeclined()),
                     a(cls := "button disabled button-metal")(joinTeam())
                   )
-                else if (info.myRequest.isDefined)
+                else if info.myRequest.isDefined then
                   frag(
                     strong(beingReviewed()),
                     postForm(action := routes.Team.quit(t.id))(

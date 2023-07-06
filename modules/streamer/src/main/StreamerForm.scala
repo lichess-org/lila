@@ -1,7 +1,5 @@
 package lila.streamer
 
-import cats.syntax.all.*
-
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
@@ -86,13 +84,13 @@ object StreamerForm:
         updatedAt = nowInstant
       )
       newStreamer.copy(
-        approval = approval.map(_.resolve) match {
+        approval = approval.map(_.resolve) match
           case Some(m) if asMod =>
             streamer.approval.copy(
               granted = m.granted,
               tier = m.tier | streamer.approval.tier,
               requested = !m.granted && {
-                if (streamer.approval.requested != m.requested) m.requested
+                if streamer.approval.requested != m.requested then m.requested
                 else streamer.approval.requested || m.requested
               },
               ignored = m.ignored && !m.granted,
@@ -105,7 +103,6 @@ object StreamerForm:
                 newStreamer.twitch.fold(true)(streamer.twitch.has) &&
                 newStreamer.youTube.fold(true)(streamer.youTube.has)
             )
-        }
       )
 
   case class ApprovalData(

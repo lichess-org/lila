@@ -1,7 +1,8 @@
 package lila.puzzle
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.user.Me
+import lila.rating.Perf
 
 final class PuzzleSelector(
     colls: PuzzleColls,
@@ -19,8 +20,8 @@ final class PuzzleSelector(
     case PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
     case PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
 
-  def nextPuzzleFor(user: User, angle: PuzzleAngle): Fu[Option[Puzzle]] =
-    findNextPuzzleFor(user, angle, 0)
+  def nextPuzzleFor(angle: PuzzleAngle)(using Me, Perf): Fu[Option[Puzzle]] =
+    findNextPuzzleFor(angle, 0)
       .fold(
         err =>
           logger.warn(s"PuzzleSelector.nextPuzzleFor ${err.getMessage}")
@@ -30,19 +31,19 @@ final class PuzzleSelector(
       )
       .mon(_.puzzle.selector.user.time(angle.key))
 
-  private def findNextPuzzleFor(user: User, angle: PuzzleAngle, retries: Int): Fu[Puzzle] =
+  private def findNextPuzzleFor(angle: PuzzleAngle, retries: Int)(using me: Me, perf: Perf): Fu[Puzzle] =
     sessionApi
-      .continueOrCreateSessionFor(user, angle, canFlush = retries == 0)
+      .continueOrCreateSessionFor(angle, canFlush = retries == 0)
       .flatMap { session =>
         import NextPuzzleResult.*
 
         def switchPath(withRetries: Int)(tier: PuzzleTier) =
           pathApi
-            .nextFor(user, angle, tier, session.settings.difficulty, session.previousPaths) orFail
-            s"No puzzle path for ${user.id} $angle $tier" flatMap { pathId =>
+            .nextFor(angle, tier, session.settings.difficulty, session.previousPaths) orFail
+            s"No puzzle path for ${me.username} $angle $tier" flatMap { pathId =>
               val newSession = session.switchTo(pathId)
-              sessionApi.set(user, newSession)
-              findNextPuzzleFor(user, angle, retries = withRetries + 1)
+              sessionApi.set(newSession)
+              findNextPuzzleFor(angle, retries = withRetries + 1)
             }
 
         def serveAndMonitor(puzzle: Puzzle) =
@@ -51,33 +52,33 @@ final class PuzzleSelector(
           mon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))
           mon
             .ratingDiff(angle.key, session.settings.difficulty.key)
-            .record(math.abs(puzzle.glicko.intRating.value - user.perfs.puzzle.intRating.value))
+            .record(math.abs(puzzle.glicko.intRating.value - perf.intRating.value))
           mon.ratingDev(angle.key).record(puzzle.glicko.intDeviation)
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment().unit
           puzzle
 
-        nextPuzzleResult(user, session).flatMap:
+        nextPuzzleResult(session).flatMap:
           case PathMissing | PathEnded if retries < 10 => switchPath(retries)(session.path.tier)
-          case PathMissing => fufail(s"Puzzle path missing for ${user.id} $session")
-          case PathEnded   => fufail(s"Puzzle path ended for ${user.id} $session")
+          case PathMissing => fufail(s"Puzzle path missing for ${me.username} $session")
+          case PathEnded   => fufail(s"Puzzle path ended for ${me.username} $session")
           case PuzzleMissing(id) =>
             logger.warn(s"Puzzle missing: $id")
-            sessionApi.set(user, session.next)
-            findNextPuzzleFor(user, angle, retries + 1)
+            sessionApi.set(session.next)
+            findNextPuzzleFor(angle, retries + 1)
           case PuzzleAlreadyPlayed(_) if retries < 5 =>
-            sessionApi.set(user, session.next)
-            findNextPuzzleFor(user, angle, retries = retries + 1)
+            sessionApi.set(session.next)
+            findNextPuzzleFor(angle, retries = retries + 1)
           case PuzzleAlreadyPlayed(puzzle) =>
             session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries))
           case WrongColor(_) if retries < 10 =>
-            sessionApi.set(user, session.next)
-            findNextPuzzleFor(user, angle, retries = retries + 1)
+            sessionApi.set(session.next)
+            findNextPuzzleFor(angle, retries = retries + 1)
           case WrongColor(puzzle) =>
             session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries - 5))
           case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
       }
 
-  private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
+  private def nextPuzzleResult(session: PuzzleSession)(using me: Me): Fu[NextPuzzleResult] =
     colls
       .path:
         _.aggregateOne(): framework =>
@@ -88,7 +89,7 @@ final class PuzzleSelector(
             Project:
               $doc(
                 "puzzleId" -> true,
-                "roundId"  -> $doc("$concat" -> $arr(s"${user.id}${PuzzleRound.idSep}", "$puzzleId"))
+                "roundId"  -> $doc("$concat" -> $arr(s"${me.userId}${PuzzleRound.idSep}", "$puzzleId"))
               )
             ,
             // fetch the puzzle
@@ -121,8 +122,9 @@ final class PuzzleSelector(
                 .getAsOpt[List[Puzzle]]("puzzle")
                 .flatMap(_.headOption)
                 .fold[NextPuzzleResult](PuzzleMissing(puzzleId)): puzzle =>
-                  if (session.settings.color.exists(puzzle.color !=)) WrongColor(puzzle)
-                  else if (doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty)) PuzzleAlreadyPlayed(puzzle)
+                  if session.settings.color.exists(puzzle.color !=) then WrongColor(puzzle)
+                  else if doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty) then
+                    PuzzleAlreadyPlayed(puzzle)
                   else PuzzleFound(puzzle)
       .monValue: result =>
         _.puzzle.selector.nextPuzzleResult(

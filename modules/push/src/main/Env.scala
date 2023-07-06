@@ -52,7 +52,7 @@ final class Env(
       case e: Exception =>
         logger.warn("Failed to create google credentials", e)
         none
-  if (googleCredentials.isDefined) logger.info("Firebase push notifications are enabled.")
+  if googleCredentials.isDefined then logger.info("Firebase push notifications are enabled.")
 
   private lazy val firebasePush = wire[FirebasePush]
 

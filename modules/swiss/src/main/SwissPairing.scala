@@ -16,14 +16,14 @@ case class SwissPairing(
   def players                    = List(white, black)
   def has(userId: UserId)        = white == userId || black == userId
   def colorOf(userId: UserId)    = chess.Color.fromWhite(white == userId)
-  def opponentOf(userId: UserId) = if (white == userId) black else white
+  def opponentOf(userId: UserId) = if white == userId then black else white
   def winner: Option[UserId]     = (~status.toOption).map(apply)
   def isOngoing                  = status.isLeft
   def resultFor(userId: UserId)  = winner.map(userId.==)
   def whiteWins                  = status == Right(Some(Color.White))
   def blackWins                  = status == Right(Some(Color.Black))
   def isDraw                     = status == Right(None)
-  def strResultOf(color: Color)  = status.fold(_ => "*", _.fold("1/2")(c => if (c == color) "1" else "0"))
+  def strResultOf(color: Color)  = status.fold(_ => "*", _.fold("1/2")(c => if c == color then "1" else "0"))
   def forfeit(userId: UserId)    = copy(status = Right(Some(!colorOf(userId))), isForfeit = true)
 
 object SwissPairing:

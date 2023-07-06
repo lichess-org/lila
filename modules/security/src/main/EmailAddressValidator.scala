@@ -17,7 +17,7 @@ final class EmailAddressValidator(
   import EmailAddressValidator.*
 
   val sendableConstraint = Constraint[EmailAddress]("constraint.email_acceptable") { email =>
-    if (email.isSendable) Valid
+    if email.isSendable then Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
 
@@ -25,13 +25,13 @@ final class EmailAddressValidator(
     Constraint[EmailAddress]("constraint.email_unique") { email =>
       val (taken, reused) =
         (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
-      if (taken || reused) Invalid(ValidationError("error.email_unique"))
+      if taken || reused then Invalid(ValidationError("error.email_unique"))
       else Valid
     }
 
   def differentConstraint(than: Option[EmailAddress]) =
     Constraint[EmailAddress]("constraint.email_different") { email =>
-      if (than has email) Invalid(ValidationError("error.email_different"))
+      if than has email then Invalid(ValidationError("error.email_different"))
       else Valid
     }
 

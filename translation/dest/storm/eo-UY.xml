@@ -10,11 +10,21 @@
   <string name="newAllTimeHighscore">Nova nesuperita rekordo!</string>
   <string name="previousHighscoreWasX">Antaŭa rekordo estis %s</string>
   <string name="playAgain">Reludi</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 kuro</item>
+    <item quantity="other">%s kuroj</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Ludis unu kuron de %2$s</item>
+    <item quantity="other">Ludis %1$s kurojn de %2$s</item>
+  </plurals>
   <string name="highscoreX">Rekordo: %s</string>
+  <string name="score">Poentaroj</string>
   <string name="moves">Movoj</string>
   <string name="accuracy">Precizeco</string>
   <string name="time">Tempo</string>
   <string name="timePerMove">Tempo por movo</string>
+  <string name="highestSolved">Plej alta solvita</string>
   <string name="puzzlesPlayed">Luditaj puzloj</string>
   <string name="highscores">Rekordoj</string>
   <string name="yourRankX">Via poentaro: %s</string>

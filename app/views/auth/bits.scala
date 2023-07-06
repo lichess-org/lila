@@ -17,7 +17,7 @@ object bits:
     frag(
       form3.group(
         username,
-        if (register) trans.username() else trans.usernameOrEmail(),
+        if register then trans.username() else trans.usernameOrEmail(),
         help = register option trans.signupUsernameHint()
       ) { f =>
         frag(
@@ -26,7 +26,7 @@ object bits:
         )
       },
       form3.passwordModified(password, trans.password())(
-        autocomplete := (if (register) "new-password" else "current-password")
+        autocomplete := (if register then "new-password" else "current-password")
       ),
       register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
       email.map { email =>
@@ -81,11 +81,11 @@ object bits:
     ) {
       main(cls := "page-small box box-pad")(
         boxTop(
-          (ok match {
+          (ok match
             case Some(true)  => h1(cls := "is-green text", dataIcon := licon.Checkmark)
             case Some(false) => h1(cls := "is-red text", dataIcon := licon.X)
             case _           => h1
-          })(
+          )(
             userLink(me, withOnline = false),
             " - ",
             trans.changePassword()

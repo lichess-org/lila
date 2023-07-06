@@ -39,7 +39,7 @@ final class Main(
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.long
     env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
-      Ok(if (valid) 1 else 0)
+      Ok(if valid then 1 else 0)
     }
 
   def webmasters = Open:

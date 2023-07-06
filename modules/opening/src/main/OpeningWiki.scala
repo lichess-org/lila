@@ -4,7 +4,6 @@ import chess.opening.{ Opening, OpeningDb, OpeningKey }
 import play.api.data.*
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -52,7 +51,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   def popularOpeningsWithShortWiki: Fu[List[Opening]] =
     coll
-      .aggregateList(100, ReadPreference.secondaryPreferred) { framework =>
+      .aggregateList(100, _.sec): framework =>
         import framework.*
         Project($doc("popularity" -> true, "rev" -> $doc("$first" -> "$revisions"))) -> List(
           AddFields($doc("len" -> $doc("$strLenBytes" -> $doc("$ifNull" -> $arr("$rev.text", ""))))),
@@ -60,14 +59,12 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
           Sort(Descending("popularity")),
           Project($doc("_id" -> true))
         )
-      }
-      .map { docs =>
-        for {
+      .map: docs =>
+        for
           doc <- docs
           id  <- doc.getAsOpt[OpeningKey]("_id")
           op  <- OpeningDb.shortestLines get id
-        } yield op
-      }
+        yield op
 
   private object markdown:
 
@@ -126,7 +123,7 @@ object OpeningWiki:
   private def filterMarkupForMove(move: String)(markup: Html) = markup map {
     _.linesIterator collect {
       case MoveLiRegex(m, content) =>
-        if (m.toLowerCase == move.toLowerCase) s"<p>${content.trim}</p>" else ""
+        if m.toLowerCase == move.toLowerCase then s"<p>${content.trim}</p>" else ""
       case html => html
     } mkString "\n"
   }

@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import cats.syntax.all.*
 import chess.format.Fen
 import JsonApi.Request.Evaluation
 

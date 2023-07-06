@@ -1,11 +1,10 @@
 package lila.puzzle
 
-import cats.syntax.all.*
 import chess.Ply
 import chess.format.{ Fen, UciCharPair }
 import play.api.libs.json.*
 
-import lila.game.{ Game, GameRepo, PerfPicker }
+import lila.game.{ Game, GameRepo }
 import lila.i18n.defaultLang
 import lila.common.Json.given
 
@@ -16,7 +15,7 @@ final private class GameJson(
 )(using Executor):
 
   def apply(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
-    (if (bc) bcCache else cache) get writeKey(gameId, plies)
+    (if bc then bcCache else cache) get writeKey(gameId, plies)
 
   def noCache(game: Game, plies: Ply): Fu[JsObject] =
     lightUserApi preloadMany game.userIds inject generate(game, plies)
@@ -47,7 +46,7 @@ final private class GameJson(
   private def generate(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     gameRepo gameFromSecondary gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
       lightUserApi preloadMany game.userIds map { _ =>
-        if (bc) generateBc(game, plies)
+        if bc then generateBc(game, plies)
         else generate(game, plies)
       }
     }
@@ -64,10 +63,9 @@ final private class GameJson(
       .add("clock", game.clock.map(_.config.show))
 
   private def perfJson(game: Game) =
-    val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
     Json.obj(
-      "key"  -> perfType.key,
-      "name" -> perfType.trans(using defaultLang)
+      "key"  -> game.perfType.key,
+      "name" -> game.perfType.trans(using defaultLang)
     )
 
   private def playersJson(game: Game) = JsArray(game.players.mapList { p =>

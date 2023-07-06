@@ -1,6 +1,5 @@
 package lila.irwin
 
-import cats.syntax.all.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
@@ -20,6 +19,7 @@ final class Env(
     userCache: lila.user.Cached,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi,
@@ -41,10 +41,10 @@ final class Env(
     def mk = (coll: AsyncColl) => wire[KaladinApi]
     mk(insightDb(CollName("kaladin_queue")))
 
-  if (appConfig.get[Boolean]("kaladin.enabled"))
+  if appConfig.get[Boolean]("kaladin.enabled") then
 
-    scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
-      (for {
+    scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes): () =>
+      (for
         leaders <- tournamentApi.allCurrentLeadersInStandard
         suspects <-
           leaders.toList
@@ -56,20 +56,16 @@ final class Env(
             .map(_.flatten.map(Suspect.apply))
         _ <- irwinApi.requests.fromTournamentLeaders(suspects)
         _ <- kaladinApi.tournamentLeaders(suspects)
-      } yield ()).unit
-    }
-    scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
-      (for {
+      yield ()).unit
+    scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes): () =>
+      (for
         topOnline <- userCache.getTop50Online.map(_ map Suspect.apply)
         _         <- irwinApi.requests.topOnline(topOnline)
         _         <- kaladinApi.topOnline(topOnline)
-      } yield ()).unit
-    }
+      yield ()).unit
 
-    scheduler.scheduleWithFixedDelay(83 seconds, 5 seconds) { () =>
+    scheduler.scheduleWithFixedDelay(83 seconds, 5 seconds): () =>
       kaladinApi.readResponses.unit
-    }
 
-    scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+    scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
       kaladinApi.monitorQueued.unit
-    }

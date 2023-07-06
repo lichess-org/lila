@@ -35,7 +35,7 @@ object search:
                   bits.authorLink(view.post)
                 )
               tr(cls := "paginated")(
-                if (viewWithRead.canRead)
+                if viewWithRead.canRead then
                   frag(
                     td(
                       a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(

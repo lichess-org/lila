@@ -52,7 +52,7 @@ final class Env(
       case "video" :: "sheet" :: Nil =>
         sheet.fetchAll map { nb => s"Processed $nb videos" }
 
-  if (mode == Mode.Prod)
+  if mode == Mode.Prod then
     scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay) { () =>
       sheet.fetchAll.logFailure(logger).unit
     }

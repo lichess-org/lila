@@ -19,21 +19,23 @@ object Request:
 
   val defaultMessage = "Hello, I would like to join the team!"
 
-  def make(team: TeamId, user: UserId, message: String): Request =
-    new Request(
-      _id = makeId(team, user),
-      user = user,
-      team = team,
-      message = message.trim,
-      date = nowInstant,
-      declined = false
-    )
+  def make(team: TeamId, user: UserId, message: String): Request = Request(
+    _id = makeId(team, user),
+    user = user,
+    team = team,
+    message = message.trim,
+    date = nowInstant,
+    declined = false
+  )
 
-case class RequestWithUser(request: Request, user: User):
-  def id      = request.id
-  def message = request.message
-  def date    = request.date
-  def team    = request.team
+case class RequestWithUser(request: Request, user: User.WithPerfs):
+  export request.{ user as _, * }
+
+object RequestWithUser:
+  def combine(reqs: List[Request], users: List[User.WithPerfs]): List[RequestWithUser] = for
+    req  <- reqs
+    user <- users.find(_.user.id == req.user)
+  yield RequestWithUser(req, user)
 
 enum Requesting:
   case Joined, NeedRequest, NeedPassword

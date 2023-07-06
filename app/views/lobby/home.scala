@@ -25,9 +25,8 @@ object home:
           .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
           .add(
             "playban",
-            playban.map { pb =>
+            playban.map: pb =>
               Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
-            }
           )
       ),
       moreCss = cssTag("lobby"),
@@ -43,6 +42,7 @@ object home:
         .some,
       withHrefLangs = LangPath("/").some
     ) {
+      given Option[lila.user.User.WithPerfs] = homepage.me
       main(
         cls := List(
           "lobby"      -> true,
@@ -63,12 +63,15 @@ object home:
             button(cls := "button button-metal", tpe := "button", trans.playWithTheMachine())
           )
         ),
-        currentGame.map(bits.currentGameInfo) orElse
-          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
-          playban.map(bits.playbanInfo) getOrElse {
-            if (ctx.blind) blindLobby(blindGames)
-            else bits.lobbyApp
-          },
+        currentGame
+          .map(bits.currentGameInfo)
+          .orElse:
+            hasUnreadLichessMessage.option(bits.showUnreadLichessMessage)
+          .orElse:
+            playban.map(bits.playbanInfo)
+          .getOrElse:
+            if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
+        ,
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(
@@ -84,10 +87,10 @@ object home:
             !ctx.isBot option {
               val nbManual = events.size + relays.size
               val simulBBB = simuls.find(isFeaturable(_) && nbManual < 4)
-              val nbForced = nbManual + simulBBB.size
+              val nbForced = nbManual + simulBBB.size.toInt
               val tourBBBs = if nbForced > 3 then 0 else if nbForced == 3 then 1 else 3 - nbForced
               frag(
-                lila.tournament.Spotlight.select(tours, tourBBBs) map {
+                lila.tournament.Spotlight.select(tours, tourBBBs).map {
                   views.html.tournament.homepageSpotlight(_)
                 },
                 swiss.ifTrue(nbForced < 3) map views.html.swiss.bits.homepageSpotlight,

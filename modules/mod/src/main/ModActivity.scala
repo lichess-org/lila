@@ -35,7 +35,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
 
   private def compute(who: Who, period: Period): Fu[Result] =
     repo.coll
-      .aggregateList(maxDocs = maxDocs, readPreference = temporarilyPrimary) { framework =>
+      .aggregateList(maxDocs = maxDocs, _.priTemp): framework =>
         import framework.*
         def dateToString(field: String): Bdoc =
           $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))
@@ -74,8 +74,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           Sort(Descending("_id.0")),
           Limit(maxDocs)
         )
-      }
-      .map { docs =>
+      .map: docs =>
         for
           doc  <- docs
           id   <- doc.getAsOpt[List[String]]("_id")
@@ -83,20 +82,17 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           key  <- id lift 1
           nb   <- doc.int("nb")
         yield (date, key, nb)
-      }
-      .map {
-        _.foldLeft(Map.empty[String, Day]) { case (acc, (date, key, nb)) =>
-          acc.updatedWith(date) { prev =>
-            val row = prev | Day(Map.empty, Map.empty)
-            Room.byKey
-              .get(key)
-              .map(row.set(_, nb))
-              .orElse(Action.dbMap.get(key).map(row.set(_, nb)))
-              .orElse(row.some)
-          }
-        }
-      }
-      .map { data =>
+      .map:
+        _.foldLeft(Map.empty[String, Day]):
+          case (acc, (date, key, nb)) =>
+            acc.updatedWith(date): prev =>
+              val row = prev | Day(Map.empty, Map.empty)
+              Room.byKey
+                .get(key)
+                .map(row.set(_, nb))
+                .orElse(Action.dbMap.get(key).map(row.set(_, nb)))
+                .orElse(row.some)
+      .map: data =>
         Result(
           who,
           period,
@@ -106,7 +102,6 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
             }
           }
         )
-      }
 
 object ModActivity:
 
@@ -127,8 +122,8 @@ object ModActivity:
     case Week, Month, Year
   object Period:
     def apply(str: String): Period =
-      if (str == "year") Year
-      else if (str == "month") Month
+      if str == "year" then Year
+      else if str == "month" then Month
       else Week
     def dateSince(period: Period) = period match
       case Period.Week  => nowInstant.minusWeeks(1)

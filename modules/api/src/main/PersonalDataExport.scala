@@ -116,7 +116,7 @@ final class PersonalDataExport(
 
     def gameChatsLookup(lookup: Bdoc) =
       gameEnv.gameRepo.coll
-        .aggregateWith[Bdoc](readPreference = temporarilyPrimary) { framework =>
+        .aggregateWith[Bdoc](readPreference = ReadPref.priTemp) { framework =>
           import framework.*
           List(
             Match($doc(Game.BSONFields.playerUids -> user.id)),
@@ -148,7 +148,7 @@ final class PersonalDataExport(
       Source(List(textTitle("Game notes"))) concat
         gameEnv.gameRepo.coll
           .aggregateWith[Bdoc](
-            readPreference = temporarilyPrimary
+            readPreference = ReadPref.priTemp
           ) { framework =>
             import framework.*
             List(
@@ -191,7 +191,7 @@ final class PersonalDataExport(
 
     val outro = Source(List(textTitle("End of data export.")))
 
-    List[Source[String, _]](
+    List[Source[String, ?]](
       intro,
       connections,
       followedUsers,

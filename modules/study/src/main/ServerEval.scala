@@ -7,9 +7,9 @@ import play.api.libs.json.*
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.security.Granter
-import lila.tree.Node.Comment
 import lila.user.{ User, UserRepo }
 import lila.tree.{ Node, Root, Branch }
+import lila.tree.Node.Comment
 import lila.db.dsl.bsonWriteOpt
 
 object ServerEval:
@@ -64,49 +64,49 @@ object ServerEval:
         sequencer.sequenceStudyWithChapter(studyId, analysis.id into StudyChapterId) {
           case Study.WithChapter(_, chapter) =>
             (complete so chapterRepo.completeServerEval(chapter)) >> {
-              lila.common.LilaFuture
-                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(UciPath.root) {
-                  case (path, (node, (info, advOpt))) =>
-                    chapter.root
-                      .nodeAt(path)
-                      .flatMap: parent =>
-                        analysisLine(parent, chapter.setup.variant, info).map: subTree =>
-                          parent.addChild(subTree) -> subTree
-                      .so { (newParent, subTree) =>
-                        chapterRepo.addSubTree(subTree, newParent, path)(chapter)
-                      } >> {
-                      import BSONHandlers.given
-                      import lila.db.dsl.given
-                      import lila.study.Node.{ BsonFields as F }
-                      ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) so
-                        chapterRepo
-                          .setNodeValues(
-                            chapter,
-                            path + node.id,
-                            List(
-                              F.score -> info.eval.score
-                                .ifTrue {
-                                  node.eval.isEmpty ||
-                                  advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
-                                }
-                                .flatMap(bsonWriteOpt),
-                              F.comments -> advOpt
-                                .map { adv =>
-                                  node.comments + Comment(
-                                    Comment.Id.make,
-                                    adv.makeComment(withEval = false, withBestMove = true) into Comment.Text,
-                                    Comment.Author.Lichess
-                                  )
-                                }
-                                .flatMap(bsonWriteOpt),
-                              F.glyphs -> advOpt
-                                .map { adv =>
-                                  node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                                }
-                                .flatMap(bsonWriteOpt)
-                            )
+              chapter.root.mainline
+                .zip(analysis.infoAdvices)
+                .foldM(UciPath.root) { case (path, (node, (info, advOpt))) =>
+                  chapter.root
+                    .nodeAt(path)
+                    .flatMap: parent =>
+                      analysisLine(parent, chapter.setup.variant, info).map: subTree =>
+                        parent.addChild(subTree) -> subTree
+                    .so { (newParent, subTree) =>
+                      chapterRepo.addSubTree(subTree, newParent, path)(chapter)
+                    } >> {
+                    import BSONHandlers.given
+                    import lila.db.dsl.given
+                    import lila.study.Node.{ BsonFields as F }
+                    ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) so
+                      chapterRepo
+                        .setNodeValues(
+                          chapter,
+                          path + node.id,
+                          List(
+                            F.score -> info.eval.score
+                              .ifTrue {
+                                node.eval.isEmpty ||
+                                advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                              }
+                              .flatMap(bsonWriteOpt),
+                            F.comments -> advOpt
+                              .map { adv =>
+                                node.comments + Comment(
+                                  Comment.Id.make,
+                                  adv.makeComment(withEval = false, withBestMove = true) into Comment.Text,
+                                  Comment.Author.Lichess
+                                )
+                              }
+                              .flatMap(bsonWriteOpt),
+                            F.glyphs -> advOpt
+                              .map { adv =>
+                                node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                              }
+                              .flatMap(bsonWriteOpt)
                           )
-                    } inject path + node.id
+                        )
+                  } inject path + node.id
                 } void
             } >>- {
               chapterRepo

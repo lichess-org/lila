@@ -245,7 +245,7 @@ final class RoundSocket(
       .andThen:
         case scala.util.Success(loadedIds) =>
           val missingIds = gamePromises.keySet -- loadedIds
-          if (missingIds.nonEmpty)
+          if missingIds.nonEmpty then
             bootLog.warn:
               s"RoundSocket ${missingIds.size} round games could not be loaded: ${missingIds.take(20) mkString " "}"
             missingIds.foreach: id =>
@@ -367,12 +367,12 @@ object RoundSocket:
           case _           => RP.In.reader(raw)
 
       private def centis(s: String): Option[Centis] =
-        if (s == "-") none
+        if s == "-" then none
         else Centis from s.toIntOption
 
       private def readColor(s: String) =
-        if (s == "w") Some(White)
-        else if (s == "b") Some(Black)
+        if s == "w" then Some(White)
+        else if s == "b" then Some(Black)
         else None
 
     object Out:
@@ -385,14 +385,14 @@ object RoundSocket:
 
       def tellVersion(roomId: RoomId, version: SocketVersion, e: Event) =
         val flags = StringBuilder(2)
-        if (e.watcher) flags += 's'
-        else if (e.owner) flags += 'p'
+        if e.watcher then flags += 's'
+        else if e.owner then flags += 'p'
         else
           e.only.map(_.fold('w', 'b')).orElse {
             e.moveBy.map(_.fold('W', 'B'))
           } foreach flags.+=
-        if (e.troll) flags += 't'
-        if (flags.isEmpty) flags += '-'
+        if e.troll then flags += 't'
+        if flags.isEmpty then flags += '-'
         s"r/ver $roomId $version $flags ${e.typ} ${e.data}"
 
       def tvSelect(gameId: GameId, speed: chess.Speed, data: JsObject) =

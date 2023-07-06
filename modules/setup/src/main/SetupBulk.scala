@@ -13,6 +13,7 @@ import lila.common.{ Bearer, Days, Template }
 import lila.game.{ GameRule, IdGenerator }
 import lila.oauth.{ OAuthScope, OAuthServer, EndpointScopes }
 import lila.user.User
+import lila.rating.PerfType
 
 object SetupBulk:
 
@@ -38,7 +39,7 @@ object SetupBulk:
     def validFen = ApiConfig.validFen(variant, fen)
 
     def autoVariant =
-      if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)
+      if variant.standard && fen.exists(!_.isInitial) then copy(variant = FromPosition)
       else this
 
   private def timestampInNearFuture = longNumber(
@@ -137,6 +138,7 @@ object SetupBulk:
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty option rules
+    def perfType      = PerfType(variant, chess.Speed(clock.left.toOption))
 
   enum ScheduleError:
     case BadTokens(tokens: List[BadToken])

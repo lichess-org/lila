@@ -20,10 +20,10 @@ object TutorFlagging:
     val question = Question(InsightDimension.Result, InsightMetric.Termination) filter
       TutorBuilder.perfFilter(user.perfType)
     val clockFlagValueName = InsightMetric.MetricValueName(Termination.ClockFlag.name)
-    for {
+    for
       mine <- insightApi.ask(question, user.user, withPovs = false)
       peer <- insightApi.askPeers(question, user.perfStats.rating, nbGames = maxPeerGames)
-    } yield
+    yield
       def valueCountOf(answer: Answer[Result], result: Result) =
         answer.clusters.collectFirst {
           case Cluster(res, Insight.Stacked(points), _, _) if res == result =>

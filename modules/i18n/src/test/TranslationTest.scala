@@ -1,21 +1,20 @@
 package lila.i18n
 
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 import play.api.i18n.Lang
 
-class TranslationTest extends munit.FunSuite {
+class TranslationTest extends munit.FunSuite:
 
   test("be valid") {
     val en     = Registry.all.get(defaultLang).get
     var tested = 0
     val errors: List[String] = LangList.all.flatMap { (lang, name) =>
       Registry.all.get(lang).get.asScala.toMap flatMap { (k, v) =>
-        try {
-          val enTrans: String = en.get(k) match {
+        try
+          val enTrans: String = en.get(k) match
             case literal: Simple  => literal.message
             case literal: Escaped => literal.message
             case plurals: Plurals => plurals.messages.getOrElse(I18nQuantity.Other, plurals.messages.head._2)
-          }
           val args = argsForKey(enTrans)
           v match
             case literal: Simple =>
@@ -30,10 +29,9 @@ class TranslationTest extends munit.FunSuite {
                 assert(plurals.formatTxt(qty, args).nonEmpty)
               }
           None
-        } catch {
+        catch
           case _: MatchError => None // Extra translation
           case e: Exception  => Some(s"${lang.code} $name $k -> $v - ${e.getMessage}")
-        }
       }
     }.toList
     println(s"$tested translations tested")
@@ -66,10 +64,9 @@ Voir les link3 sur ce coup pour vous entraîner."""
   }
 
   private def argsForKey(k: String): List[String] =
-    if (k contains "%s") List("arg1")
-    else if (k contains "%4$s") List("arg1", "arg2", "arg3", "arg4")
-    else if (k contains "%3$s") List("arg1", "arg2", "arg3")
-    else if (k contains "%2$s") List("arg1", "arg2")
-    else if (k contains "%1$s") List("arg1")
+    if k contains "%s" then List("arg1")
+    else if k contains "%4$s" then List("arg1", "arg2", "arg3", "arg4")
+    else if k contains "%3$s" then List("arg1", "arg2", "arg3")
+    else if k contains "%2$s" then List("arg1", "arg2")
+    else if k contains "%1$s" then List("arg1")
     else Nil
-}

@@ -56,7 +56,7 @@ final class Ip2ProxyServer(
       case Seq(ip) => apply(ip).dmap(Seq(_))
       case ips =>
         ips.flatMap(cache.getIfPresent).parallel flatMap { cached =>
-          if (cached.sizeIs == ips.size) fuccess(cached)
+          if cached.sizeIs == ips.size then fuccess(cached)
           else
             ws.url(s"$checkUrl/batch")
               .addQueryStringParameters("ips" -> ips.mkString(","))
@@ -68,7 +68,7 @@ final class Ip2ProxyServer(
                 }
               }
               .flatMap { res =>
-                if (res.sizeIs == ips.size) fuccess(res)
+                if res.sizeIs == ips.size then fuccess(res)
                 else fufail(s"Ip2Proxy missing results for $ips -> $res")
               }
               .addEffect {

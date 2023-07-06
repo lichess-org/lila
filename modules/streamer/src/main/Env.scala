@@ -28,6 +28,8 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     subsRepo: lila.relation.SubscriptionRepo,
     prefApi: lila.pref.PrefApi,
     db: lila.db.Db,

@@ -25,8 +25,8 @@ trait LilaLibraryExtensions extends LilaTypes:
     def atMost(topValue: Long): Long           = min(self, topValue)
     def squeeze(bottom: Long, top: Long): Long = max(min(self, top), bottom)
     def toSaturatedInt: Int =
-      if (self.toInt == self) self.toInt
-      else if (self > 0) Integer.MAX_VALUE
+      if self.toInt == self then self.toInt
+      else if self > 0 then Integer.MAX_VALUE
       else Integer.MIN_VALUE
 
   extension (self: Int)
@@ -53,16 +53,27 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
 
+    // move to scalalib? generalize Future away?
+    def soFu[B](f: A => Future[B]): Future[Option[B]] = self match
+      case Some(x) => f(x).map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
+      case None    => Future.successful(None)
+
+  extension (self: Boolean)
+    // move to scalalib? generalize Future away?
+    def soFu[B](f: => Future[B]): Future[Option[B]] =
+      if self then f.map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
+      else Future.successful(None)
+
   extension (s: String)
 
     def replaceIf(t: Char, r: Char): String =
-      if (s.indexOf(t.toInt) >= 0) s.replace(t, r) else s
+      if s.indexOf(t.toInt) >= 0 then s.replace(t, r) else s
 
     def replaceIf(t: Char, r: CharSequence): String =
-      if (s.indexOf(t.toInt) >= 0) s.replace(String.valueOf(t), r) else s
+      if s.indexOf(t.toInt) >= 0 then s.replace(String.valueOf(t), r) else s
 
     def replaceIf(t: CharSequence, r: CharSequence): String =
-      if (s.contains(t)) s.replace(t, r) else s
+      if s.contains(t) then s.replace(t, r) else s
 
     def replaceAllIn(regex: Regex, replacement: String) = regex.replaceAllIn(s, replacement)
 
@@ -96,7 +107,7 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension (d: FiniteDuration)
     def toCentis = chess.Centis(d)
-    def abs      = if (d.length < 0) -d else d
+    def abs      = if d.length < 0 then -d else d
 
   extension [E, A](v: Validated[E, A]) def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
 
@@ -291,15 +302,15 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension (fua: Fu[Boolean])
 
     def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if (_) fub else fuFalse }(EC.parasitic)
+      fua.flatMap { if _ then fub else fuFalse }(EC.parasitic)
 
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if (_) fuTrue else fub }(EC.parasitic)
+      fua.flatMap { if _ then fuTrue else fub }(EC.parasitic)
 
     def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
-      fua.flatMap { if (_) fub else fuccess(zero.zero) }(EC.parasitic)
+      fua.flatMap { if _ then fub else fuccess(zero.zero) }(EC.parasitic)
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
-      fua.map { if (_) fb else zero.zero }(EC.parasitic)
+      fua.map { if _ then fb else zero.zero }(EC.parasitic)
 
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 

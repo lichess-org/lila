@@ -1,6 +1,6 @@
 package lila.security
 
-case object Fixtures {
+case object Fixtures:
 
   def text = """
 leeching.net
@@ -1212,4 +1212,3 @@ zxcv.com
 zxcvbnm.com
 zzz.com
 """
-}

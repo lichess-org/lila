@@ -17,7 +17,7 @@ object RageSit extends OpaqueInt[RageSit]:
     def isLethal            = a.value <= -200
 
     def goneWeight: Float =
-      if (!isBad) 1f
+      if !isBad then 1f
       else (1 - 0.7 * sqrt(log10(-(a.counter / 10) - 3))).toFloat max 0.1f
 
     def counterView = a.counter / 10
@@ -38,10 +38,10 @@ object RageSit extends OpaqueInt[RageSit]:
         case (a, _) if a <= -4                   => -1
         case _                                   => 0
     } * {
-      if (loser.white) 1 else -1
+      if loser.white then 1 else -1
     } * {
-      if (game.speed <= Speed.Bullet) 5
-      else if (game.speed == Speed.Blitz) 10
+      if game.speed <= Speed.Bullet then 5
+      else if game.speed == Speed.Blitz then 10
       else 15
     }
   }

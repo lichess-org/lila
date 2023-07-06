@@ -11,4 +11,4 @@ final class RecentTvGames(gameRepo: GameRepo):
 
   def put(game: Game) =
     gameRepo.setTv(game.id)
-    (if (game.speed <= chess.Speed.Bullet) fast else slow) put game.id
+    (if game.speed <= chess.Speed.Bullet then fast else slow) put game.id

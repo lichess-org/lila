@@ -1,6 +1,5 @@
 package lila.swiss
 
-import cats.syntax.all.*
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
@@ -57,7 +56,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       }
       .parallel
       .map { res =>
-        if (res.exists(identity)) cache.featuredInTeam.invalidate(lichessTeamId)
+        if res.exists(identity) then cache.featuredInTeam.invalidate(lichessTeamId)
       }
 
   private def makeSwiss(config: Config, startAt: Instant) =

@@ -31,10 +31,9 @@ final class Opening(env: Env) extends LilaController(env):
         case None => Redirect(routes.Opening.index(key.some))
         case Some(page) =>
           val query = page.query.query
-          if (query.key.isEmpty) Redirect(routes.Opening.index(key.some))
-          else if (query.key != key)
-            Redirect(routes.Opening.byKeyAndMoves(query.key, moves))
-          else if (moves.nonEmpty && page.query.pgnUnderscored != moves && !getBool("r"))
+          if query.key.isEmpty then Redirect(routes.Opening.index(key.some))
+          else if query.key != key then Redirect(routes.Opening.byKeyAndMoves(query.key, moves))
+          else if moves.nonEmpty && page.query.pgnUnderscored != moves && !getBool("r") then
             Redirect:
               s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
           else
