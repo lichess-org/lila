@@ -89,7 +89,6 @@ export default class RoundController {
   justCaptured?: cg.Piece;
   shouldSendMoveTime = false;
   preDrop?: cg.Role;
-  lastDrawOfferAtPly?: Ply;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   private music?: any;
@@ -100,7 +99,6 @@ export default class RoundController {
     const d = (this.data = opts.data);
 
     this.ply = round.lastPly(d);
-    this.lastDrawOfferAtPly = d.player.lastDrawOfferAtPly;
     this.goneBerserk[d.player.color] = d.player.berserk;
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;
 
@@ -760,7 +758,8 @@ export default class RoundController {
     return true;
   }
 
-  canOfferDraw = (): boolean => game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < this.ply - 20;
+  canOfferDraw = (): boolean =>
+    game.drawable(this.data) && (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
 
   offerDraw = (v: boolean, immediately?: boolean): void => {
     if (this.canOfferDraw()) {
@@ -780,7 +779,7 @@ export default class RoundController {
   };
 
   private doOfferDraw = () => {
-    this.lastDrawOfferAtPly = this.ply;
+    this.data.player.lastDrawOfferAtPly = this.ply;
     this.socket.sendLoading('draw-yes', null);
   };
 
