@@ -1,5 +1,6 @@
 package lila.common
 
+import cats.data.NonEmptyList
 import chess.format.BoardFen
 
 case class Captcha(
