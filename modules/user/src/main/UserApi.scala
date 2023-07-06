@@ -2,6 +2,7 @@ package lila.user
 
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import akka.stream.scaladsl.*
+import cats.syntax.all.*
 
 import lila.rating.{ Perf, PerfType }
 import lila.memo.CacheApi
@@ -28,9 +29,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     def loggedIn(ids: PairOf[UserId], perfType: PerfType): Fu[Option[PairOf[User.WithPerf]]] =
       gamePlayersCache
         .get((ids._1.some, ids._2.some) -> perfType)
-        .dmap:
-          case (Some(x), Some(y)) => (x, y).some
-          case _                  => none
+        .dmap(_.tupled)
 
     private val gamePlayersCache = cacheApi[PlayersKey, GamePlayers](4096, "user.perf.pair"):
       _.expireAfterWrite(3 seconds).buildAsyncFuture:
