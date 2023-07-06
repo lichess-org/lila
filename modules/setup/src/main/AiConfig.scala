@@ -8,6 +8,7 @@ import lila.common.Days
 import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
+import lila.rating.PerfType
 
 case class AiConfig(
     variant: chess.variant.Variant,
@@ -25,33 +26,29 @@ case class AiConfig(
 
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
-  private def game(user: Option[User])(using IdGenerator): Fu[Game] =
-    fenGame { chessGame =>
-      val perfPicker = lila.game.PerfPicker.mainOrDefault(
-        chess.Speed(chessGame.clock.map(_.config)),
-        chessGame.situation.board.variant,
-        makeDaysPerTurn
-      )
+  private def game(user: Option[User.WithPerfs])(using IdGenerator): Fu[Game] =
+    fenGame: chessGame =>
+      val pt = PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
       Game
         .make(
           chess = chessGame,
           whitePlayer = creatorColor.fold(
-            Player.make(chess.White, user, perfPicker),
-            Player.make(chess.White, level.some)
+            Player.make(chess.White, user.map(_ only pt)),
+            Player.makeAnon(chess.White, level.some)
           ),
           blackPlayer = creatorColor.fold(
-            Player.make(chess.Black, level.some),
-            Player.make(chess.Black, user, perfPicker)
+            Player.makeAnon(chess.Black, level.some),
+            Player.make(chess.Black, user.map(_ only pt))
           ),
           mode = chess.Mode.Casual,
-          source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Ai,
+          source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           pgnImport = None
         )
         .withUniqueId
-    }.dmap(_.start)
+    .dmap(_.start)
 
-  def pov(user: Option[User])(using IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
+  def pov(user: Option[User.WithPerfs])(using IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def timeControlFromPosition =
     timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1

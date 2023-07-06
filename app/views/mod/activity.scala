@@ -37,7 +37,7 @@ object activity:
     views.html.base.bits
       .mselect(
         s"mod-activity__who-select box__top__actions",
-        span(if (p.who == Who.Team) "Team" else "My"),
+        span(if p.who == Who.Team then "Team" else "My"),
         List(
           a(
             cls  := (p.who == Who.Team).option("current"),

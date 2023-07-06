@@ -1,7 +1,6 @@
 package lila.tournament
 
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerPage
 import lila.common.Maths
@@ -38,22 +37,17 @@ final class LeaderboardApi(
 
   def chart(user: User): Fu[ChartData] =
     repo.coll
-      .aggregateList(
-        maxDocs = Int.MaxValue,
-        ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match($doc("u" -> user.id)) -> List(
           GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))
         )
-      }
-      .map {
+      .map:
         _ flatMap leaderboardAggResult.readOpt
-      }
-      .map { aggs =>
-        ChartData {
+      .map: aggs =>
+        ChartData:
           aggs
-            .flatMap { agg =>
+            .flatMap: agg =>
               PerfType.byId get agg._id map {
                 _ -> ChartData.PerfResult(
                   nb = agg.nb,
@@ -61,10 +55,7 @@ final class LeaderboardApi(
                   rank = ChartData.Ints(agg.ratios)
                 )
               }
-            }
             .sortLike(PerfType.leaderboardable, _._1)
-        }
-      }
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] =
     repo.coll.list[Entry](
@@ -80,15 +71,15 @@ final class LeaderboardApi(
     Paginator(
       currentPage = page,
       maxPerPage = maxPerPage,
-      adapter = new AdapterLike[TourEntry] {
+      adapter = new AdapterLike[TourEntry]:
         private val selector   = $doc("u" -> user.id)
         def nbResults: Fu[Int] = repo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
           repo.coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+            .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> List(
-                Sort(if (sortBest) Ascending("w") else Descending("d")),
+                Sort(if sortBest then Ascending("w") else Descending("d")),
                 Skip(offset),
                 Limit(length),
                 PipelineOperator(
@@ -101,15 +92,12 @@ final class LeaderboardApi(
                 ),
                 UnwindField("tour")
               )
-            }
-            .map { docs =>
-              for {
+            .map: docs =>
+              for
                 doc   <- docs
                 entry <- doc.asOpt[Entry]
                 tour  <- doc.getAsOpt[Tournament]("tour")
-              } yield TourEntry(tour, entry)
-            }
-      }
+              yield TourEntry(tour, entry)
     )
 
 object LeaderboardApi:

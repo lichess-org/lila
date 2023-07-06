@@ -40,7 +40,7 @@ object JsonApi:
     ) extends Request:
 
       def completeOrPartial =
-        if (analysis.headOption.so(_.isDefined)) CompleteAnalysis(fishnet, stockfish, analysis.flatten)
+        if analysis.headOption.so(_.isDefined) then CompleteAnalysis(fishnet, stockfish, analysis.flatten)
         else PartialAnalysis(fishnet, stockfish, analysis)
 
     case class CompleteAnalysis(
@@ -87,7 +87,7 @@ object JsonApi:
 
       case class Score(cp: Option[Cp], mate: Option[Mate]):
         def invert                  = copy(cp.map(_.invert), mate.map(_.invert))
-        def invertIf(cond: Boolean) = if (cond) invert else this
+        def invertIf(cond: Boolean) = if cond then invert else this
 
       val npsCeil = 10_000_000
 
@@ -100,7 +100,7 @@ object JsonApi:
 
   def fromGame(g: W.Game) =
     Game(
-      game_id = if (g.studyId.isDefined) "" else g.id,
+      game_id = if g.studyId.isDefined then "" else g.id,
       position = g.initialFen | g.variant.initialFen,
       variant = g.variant,
       moves = g.moves

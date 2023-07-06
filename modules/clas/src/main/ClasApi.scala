@@ -1,6 +1,5 @@
 package lila.clas
 
-import cats.syntax.all.*
 import reactivemongo.api.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -8,14 +7,15 @@ import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
-import lila.user.{ Authenticator, User, UserRepo }
-import lila.user.Me
+import lila.user.{ Authenticator, Me, User, UserRepo, UserPerfs, UserPerfsRepo }
+import lila.rating.{ Perf, PerfType }
 
 final class ClasApi(
     colls: ClasColls,
     studentCache: ClasStudentCache,
     nameGenerator: NameGenerator,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     msgApi: MsgApi,
     authenticator: Authenticator,
     baseUrl: BaseUrl
@@ -71,14 +71,14 @@ final class ClasApi(
         )
 
     def teachers(clas: Clas): Fu[List[User]] =
-      userRepo.byOrderedIds(clas.teachers.toList, ReadPreference.secondaryPreferred)
+      userRepo.byOrderedIds(clas.teachers.toList, readPref = _.sec)
 
     def isTeacherOf(teacher: User, clasId: Clas.Id): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
     def areKidsInSameClass(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
-        colls.student.aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
+        colls.student.aggregateExists(_.sec): framework =>
           import framework.*
           Match($doc("userId" $in List(kid1.id, kid2.id))) -> List(
             GroupField("clasId")("nb" -> SumAll),
@@ -88,7 +88,7 @@ final class ClasApi(
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
       studentCache.isStudent(student) so colls.student
-        .aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
+        .aggregateExists(_.sec): framework =>
           import framework.*
           Match($doc("userId" -> student)) -> List(
             Project($doc("clasId" -> true)),
@@ -114,7 +114,7 @@ final class ClasApi(
       coll.update
         .one(
           $id(c.id),
-          if (v) $set("archived" -> Clas.Recorded(t.id, nowInstant))
+          if v then $set("archived" -> Clas.Recorded(t.id, nowInstant))
           else $unset("archived")
         )
         .void
@@ -130,7 +130,7 @@ final class ClasApi(
 
     def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
       colls.student
-        .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+        .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
           Match($doc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
@@ -143,17 +143,29 @@ final class ClasApi(
             ),
             UnwindField("user")
           )
-        }
-        .map { docs =>
-          for {
+        .map: docs =>
+          for
             doc     <- docs
             student <- doc.asOpt[Student]
             user    <- doc.getAsOpt[User]("user")
-          } yield Student.WithUser(student, user)
-        }
+          yield Student.WithUser(student, user)
 
     def activeWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
       allWithUsers(clas, selectArchived(false))
+
+    def withPerfs(student: Student.WithUser): Fu[Student.WithUserPerfs] =
+      perfsRepo.perfsOf(student.user).map(student.withPerfs)
+
+    def withPerfs(students: List[Student.WithUser]): Fu[List[Student.WithUserPerfs]] =
+      perfsRepo.idsMap(students.map(_.user.id), _.sec).map { perfs =>
+        students.map(s => s.withPerfs(perfs.getOrElse(s.user.id, UserPerfs.default(s.user.id))))
+      }
+
+    def withPerf(students: List[Student.WithUser], perfType: PerfType): Fu[List[Student.WithUserPerf]] =
+      perfsRepo.idsMap(students.map(_.user.id), perfType).map { perfs =>
+        students.map: s =>
+          Student.WithUserPerf(s.student, s.user, perfs.getOrElse(s.user.id, Perf.default))
+      }
 
     private def of(selector: Bdoc): Fu[List[Student]] =
       coll
@@ -187,11 +199,11 @@ final class ClasApi(
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id) map2 { Student.WithUser(_, user) }
 
-    def withManagingClas(s: Student.WithUser, clas: Clas): Fu[Student.WithUserAndManagingClas] = {
-      if (s.student.managed) fuccess(clas.some)
+    def withManagingClas(s: Student.WithUserPerfs, clas: Clas): Fu[Student.WithUserAndManagingClas] = {
+      if s.student.managed then fuccess(clas.some)
       else
         colls.student
-          .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
+          .aggregateOne(_.sec): framework =>
             import framework.*
             Match($doc("userId" -> s.user.id, "managed" -> true)) -> List(
               PipelineOperator(
@@ -204,10 +216,8 @@ final class ClasApi(
               ),
               UnwindField("clas")
             )
-          }
-          .map {
+          .map:
             _.flatMap(_.getAsOpt[Clas]("clas"))
-          }
     } map { Student.WithUserAndManagingClas(s, _) }
 
     def update(from: Student, data: ClasForm.StudentData): Fu[Student] =
@@ -237,7 +247,7 @@ final class ClasApi(
           studentCache addStudent user.id
           val student = Student.make(user, clas, teacher.id, data.realName, managed = true)
           userRepo.setKid(user, v = true) >>
-            userRepo.setManagedUserInitialPerfs(user.id) >>
+            perfsRepo.setManagedUserInitialPerfs(user.id) >>
             coll.insert.one(student) >>
             sendWelcomeMessage(teacher.id, user, clas) inject
             Student.WithPassword(student, password)
@@ -356,7 +366,7 @@ ${clas.desc}""",
         invite: ClasInvite
     ): Fu[ClasInvite.Feedback] =
       val url = s"$baseUrl/class/invitation/${invite._id}"
-      if (student.kid) fuccess(ClasInvite.Feedback.CantMsgKid(url))
+      if student.kid then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
         import lila.i18n.I18nKeys.clas.*
         given play.api.i18n.Lang = student.realLang | lila.i18n.defaultLang

@@ -1,6 +1,5 @@
 package lila.importer
 
-import cats.syntax.either.*
 import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
 import chess.{ Color, Mode, Outcome, Replay, Status, ErrorStr }
@@ -21,8 +20,8 @@ final class ImporterForm:
     )(ImportData.apply)(unapply)
   )
 
-  def checkPgn(pgn: PgnStr): Either[ErrorStr, Preprocessed] = ImporterForm.catchOverflow:
-    () => ImportData(pgn, none).preprocess(none)
+  def checkPgn(pgn: PgnStr): Either[ErrorStr, Preprocessed] = ImporterForm.catchOverflow: () =>
+    ImportData(pgn, none).preprocess(none)
 
 object ImporterForm:
 
@@ -59,29 +58,27 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
           val variant = {
             parsed.tags.variant | {
-              if (fromPosition) chess.variant.FromPosition
+              if fromPosition then chess.variant.FromPosition
               else chess.variant.Standard
             }
-          } match {
+          } match
             case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) =>
               chess.variant.FromPosition
             case chess.variant.FromPosition if parsed.tags.fen.isEmpty => chess.variant.Standard
             case chess.variant.Standard if fromPosition                => chess.variant.FromPosition
             case v                                                     => v
-          }
           val game = state.copy(situation = state.situation withVariant variant)
           val initialFen = parsed.tags.fen flatMap {
             Fen.readWithMoveNumber(variant, _)
           } map Fen.write
 
-          val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
+          val status = parsed.tags(_.Termination).map(_.toLowerCase) match
             case Some("normal")                          => game.situation.status | Status.Resign
             case Some("abandoned")                       => Status.Aborted
             case Some("time forfeit")                    => Status.Outoftime
             case Some("rules infraction")                => Status.Cheat
             case Some(txt) if txt contains "won on time" => Status.Outoftime
             case _                                       => Status.UnknownFinish
-          }
 
           val date = parsed.tags.anyDate
 

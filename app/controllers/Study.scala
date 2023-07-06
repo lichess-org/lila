@@ -127,7 +127,7 @@ final class Study(
   def byTopic(name: String, order: Order, page: Int) = Open:
     Found(lila.study.StudyTopic fromStr name): topic =>
       env.study.pager.byTopic(topic, order, page) zip
-        ctx.me.so(u => env.study.topicApi.userTopics(u) dmap some) flatMap { (pag, topics) =>
+        ctx.userId.soFu(env.study.topicApi.userTopics) flatMap { (pag, topics) =>
           preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
         }
 
@@ -393,7 +393,7 @@ final class Study(
   )
 
   def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
-    val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
+    val cost = if isGranted(_.Coach) || me.hasTitle then 1 else 3
     CloneLimitPerUser(me, rateLimited, cost = cost):
       CloneLimitPerIP(ctx.ip, rateLimited, cost = cost):
         Found(env.study.api.byId(id)) { prev =>
@@ -483,7 +483,7 @@ final class Study(
         akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
-        .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
+        .pipe(asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn"))
         .as(pgnContentType)
 
   def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read): ctx ?=>
@@ -531,7 +531,7 @@ final class Study(
 
   def topics = Open:
     env.study.topicApi.popular(50) zip
-      ctx.me.so(me => env.study.topicApi.userTopics(me) dmap some) flatMap { (popular, mine) =>
+      ctx.userId.soFu(env.study.topicApi.userTopics) flatMap { (popular, mine) =>
         val form = mine map StudyForm.topicsForm
         Ok.page(html.study.topic.index(popular, mine, form))
       }

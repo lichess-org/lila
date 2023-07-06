@@ -97,7 +97,7 @@ trait ScalatagsPrefix:
 
     val frameborder = attr("frameborder")
 
-// what to import in a pure scalatags template
+// what to import in a scalatags template
 trait ScalatagsTemplate
     extends Cap
     with Aggregate
@@ -107,10 +107,9 @@ trait ScalatagsTemplate
     with ScalatagsSnippets
     with ScalatagsPrefix:
 
-  val trans     = lila.i18n.I18nKeys
-  def main      = scalatags.Text.tags2.main
-  def cssWidth  = scalatags.Text.styles.width
-  def cssHeight = scalatags.Text.styles.height
+  export lila.i18n.I18nKeys as trans
+  export scalatags.Text.tags2.main
+  export scalatags.Text.styles.{ width as cssWidth, height as cssHeight }
 
   /* Convert play URLs to scalatags attributes with toString */
   given GenericAttr[play.api.mvc.Call] = GenericAttr[play.api.mvc.Call]
@@ -145,7 +144,7 @@ trait ScalatagsExtensions:
   given AttrValue[List[(String, Boolean)]] with
     def apply(t: Builder, a: Attr, m: List[(String, Boolean)]): Unit =
       val cls = m collect { case (s, true) => s } mkString " "
-      if (cls.nonEmpty) t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
+      if cls.nonEmpty then t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
 
   val emptyFrag: Frag = RawFrag("")
   given Zero[Frag]    = Zero(emptyFrag)

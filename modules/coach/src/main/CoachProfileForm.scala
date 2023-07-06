@@ -52,9 +52,9 @@ object CoachProfileForm:
         listed = Coach.Listed(listed),
         available = Coach.Available(available),
         profile = profile,
-        languages = Json.parse(languages).validate[List[TagifyLang]] match {
+        languages = Json.parse(languages).validate[List[TagifyLang]] match
           case JsSuccess(langs, _) => langs.take(10).map(_.code).flatMap(Lang.get).map(_.code).distinct
           case _                   => Nil
-        },
+        ,
         updatedAt = nowInstant
       )

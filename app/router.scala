@@ -1,6 +1,6 @@
 package router
 
-import lila.app._
+import lila.app.*
 import lila.rating.Perf
 import lila.puzzle.PuzzleTheme
 import lila.report.Report

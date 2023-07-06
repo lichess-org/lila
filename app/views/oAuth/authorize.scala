@@ -92,7 +92,7 @@ object authorize:
       then p("Not using Lichess Mobile? ", a(href := prompt.cancelUrl)("Cancel"))
       else
         frag(
-          p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org"),
+          !prompt.trusted option p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org"),
           p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
         )
     )

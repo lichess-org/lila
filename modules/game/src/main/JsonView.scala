@@ -18,7 +18,7 @@ final class JsonView(rematches: Rematches):
         "id"        -> game.id,
         "variant"   -> game.variant,
         "speed"     -> game.speed.key,
-        "perf"      -> PerfPicker.key(game),
+        "perf"      -> game.perfKey,
         "rated"     -> game.rated,
         "fen"       -> Fen.write(game.chess),
         "turns"     -> game.ply,
@@ -61,7 +61,7 @@ final class JsonView(rematches: Rematches):
           "name" -> pov.game.variant.name
         ),
         "speed"    -> pov.game.speed.key,
-        "perf"     -> lila.game.PerfPicker.key(pov.game),
+        "perf"     -> pov.game.perfKey,
         "rated"    -> pov.game.rated,
         "hasMoved" -> pov.hasMoved,
         "opponent" -> Json
@@ -103,22 +103,19 @@ object JsonView:
 
   given OWrites[Crosstable.Result] = Json.writes
 
-  given OWrites[Crosstable.Users] with
-    def writes(users: Crosstable.Users) =
-      JsObject(users.toList.map { u =>
-        u.id.value -> JsNumber(u.score / 10d)
-      })
+  given OWrites[Crosstable.Users] = OWrites: users =>
+    JsObject(users.toList.map: u =>
+      u.id.value -> JsNumber(u.score / 10d))
 
-  given OWrites[Crosstable] with
-    def writes(c: Crosstable) =
-      Json.obj(
-        "users"   -> c.users,
-        "nbGames" -> c.nbGames
-        // "results" -> c.results
-      )
+  given OWrites[Crosstable] = OWrites: c =>
+    Json.obj(
+      "users"   -> c.users,
+      "nbGames" -> c.nbGames
+      // "results" -> c.results
+    )
 
-  given OWrites[Crosstable.Matchup] with
-    def writes(m: Crosstable.Matchup) = Json.obj(
+  given OWrites[Crosstable.Matchup] = OWrites: m =>
+    Json.obj(
       "users"   -> m.users,
       "nbGames" -> m.users.nbGames
     )
@@ -126,22 +123,20 @@ object JsonView:
   def crosstable(ct: Crosstable, matchup: Option[Crosstable.Matchup]) =
     Json.toJsObject(ct).add("matchup" -> matchup)
 
-  given OWrites[Blurs] = OWrites { blurs =>
+  given OWrites[Blurs] = OWrites: blurs =>
     Json.obj(
       "nb"   -> blurs.nb,
       "bits" -> blurs.binaryString
     )
-  }
 
-  given OWrites[chess.variant.Variant] = OWrites { v =>
+  given OWrites[chess.variant.Variant] = OWrites: v =>
     Json.obj(
       "key"   -> v.key,
       "name"  -> v.name,
       "short" -> v.shortName
     )
-  }
 
-  given OWrites[Clock] = OWrites { c =>
+  given OWrites[Clock] = OWrites: c =>
     Json.obj(
       "running"   -> c.isRunning,
       "initial"   -> c.limitSeconds,
@@ -150,35 +145,27 @@ object JsonView:
       "black"     -> c.remainingTime(Color.Black).toSeconds,
       "emerg"     -> c.config.emergSeconds
     )
-  }
 
-  given OWrites[CorrespondenceClock] = OWrites { c =>
+  given OWrites[CorrespondenceClock] = OWrites: c =>
     Json.obj(
       "daysPerTurn" -> c.daysPerTurn,
       "increment"   -> c.increment,
       "white"       -> c.whiteTime,
       "black"       -> c.blackTime
     )
-  }
 
-  given OWrites[chess.opening.Opening.AtPly] = OWrites { o =>
+  given OWrites[chess.opening.Opening.AtPly] = OWrites: o =>
     Json.obj(
       "eco"  -> o.opening.eco,
       "name" -> o.opening.name,
       "ply"  -> o.ply
     )
-  }
 
-  given OWrites[chess.Division] = OWrites { o =>
+  given OWrites[chess.Division] = OWrites: o =>
     Json.obj(
       "middle" -> o.middle,
       "end"    -> o.end
     )
-  }
 
-  given Writes[Source] = Writes { s =>
-    JsString(s.name)
-  }
-  given Writes[GameRule] = Writes { r =>
-    JsString(r.key)
-  }
+  given Writes[Source]   = writeAs(_.name)
+  given Writes[GameRule] = writeAs(_.key)

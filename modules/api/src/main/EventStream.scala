@@ -19,11 +19,7 @@ final class EventStream(
     gameJsonView: lila.game.JsonView,
     rematches: Rematches,
     lightUserApi: LightUserApi
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler
-):
+)(using system: ActorSystem)(using Executor, Scheduler):
 
   private case object SetOnline
 
@@ -98,9 +94,8 @@ final class EventStream(
       case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
         val json = challengeJson("challenge")(c) ++ challengeCompat(c)
         lila.common.LilaFuture // give time for anon challenger to load the challenge page
-          .delay(if (c.challengerIsAnon) 2.seconds else 0.seconds) {
+          .delay(if c.challengerIsAnon then 2.seconds else 0.seconds):
             queue.offer(json.some).void
-          }
           .unit
 
       case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
@@ -135,7 +130,7 @@ final class EventStream(
       me.is(c.destUserId) || me.is(c.challengerUserId)
 
   private def gameJson(game: Game, tpe: String)(using me: Me) =
-    Pov(game, me) map { pov =>
+    Pov(game, me).map: pov =>
       Json.obj(
         "type" -> tpe,
         "game" -> {
@@ -149,7 +144,6 @@ final class EventStream(
           )
         }
       )
-    }
 
   private def challengeJson(tpe: String)(c: Challenge) =
     Json.obj(

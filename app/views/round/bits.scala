@@ -30,7 +30,7 @@ object bits:
       openGraph = openGraph,
       moreJs = moreJs,
       moreCss = frag(
-        cssTag(if (variant == Crazyhouse) "round.zh" else "round"),
+        cssTag(if variant == Crazyhouse then "round.zh" else "round"),
         ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
         ctx.pref.hasVoice option cssTag("voice"),
         ctx.blind option cssTag("round.nvui"),
@@ -105,7 +105,7 @@ object bits:
               span(cls := "meta")(
                 playerText(pov.opponent, withRating = false),
                 span(cls := "indicator")(
-                  if (pov.isMyTurn)
+                  if pov.isMyTurn then
                     pov.remainingSeconds
                       .fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
                   else nbsp

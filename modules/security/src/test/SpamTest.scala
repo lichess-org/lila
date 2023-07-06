@@ -2,7 +2,7 @@ package lila.security
 
 import lila.common.Strings
 
-class SpamTest extends munit.FunSuite {
+class SpamTest extends munit.FunSuite:
 
   val spam   = new Spam(() => Strings(Nil))
   val foobar = """foo bar"""
@@ -16,4 +16,3 @@ class SpamTest extends munit.FunSuite {
     assertEquals(spam.replace(foobar), foobar)
     assertEquals(spam.replace(_c2), """https://chess24.com""")
   }
-}

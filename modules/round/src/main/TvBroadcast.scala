@@ -69,7 +69,7 @@ final private class TvBroadcast(
       )
       clients.foreach { client =>
         client.queue offer {
-          if (client.fromLichess) msg
+          if client.fromLichess then msg
           else feat.socketMsg
         }
       }

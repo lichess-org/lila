@@ -8,7 +8,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 import lila.common.licon
 
-trait FormHelper { self: I18nHelper =>
+trait FormHelper:
+  self: I18nHelper =>
 
   def errMsg(form: Field)(using Lang): Frag = errMsg(form.errors)
 
@@ -44,7 +45,7 @@ trait FormHelper { self: I18nHelper =>
       options: Iterable[(V, String)],
       checked: Set[V],
       prefix: String = "op"
-  ) = st.group(cls := "radio")(
+  ) = st.group(cls := "radio"):
     options.map { v =>
       val id = s"${field.id}_${v._1}"
       div(
@@ -58,7 +59,6 @@ trait FormHelper { self: I18nHelper =>
         label(`for` := s"$prefix$id")(v._2)
       )
     }.toList
-  )
 
   object form3:
 
@@ -75,7 +75,7 @@ trait FormHelper { self: I18nHelper =>
       p(cls := "error")(transKey(I18nKey(err.message), err.args))
 
     private def validationModifiers(field: Field): Seq[Modifier] =
-      field.constraints collect {
+      field.constraints.collect:
         /* Can't use constraint.required, because it applies to optional fields
          * such as `optional(nonEmptyText)`.
          * And we can't tell from the Field whether it's optional or not :(
@@ -85,7 +85,6 @@ trait FormHelper { self: I18nHelper =>
         case ("constraint.maxLength", Seq(m: Int)) => maxlength := m
         case ("constraint.min", Seq(m: Int))       => min       := m
         case ("constraint.max", Seq(m: Int))       => max       := m
-      }
 
     val split = div(cls := "form-split")
 
@@ -234,10 +233,8 @@ trait FormHelper { self: I18nHelper =>
     def passwordComplexityMeter(labelContent: Frag): Frag =
       div(cls := "password-complexity")(
         label(cls := "password-complexity-label")(labelContent),
-        div(cls := "password-complexity-meter")(
-          for (_ <- 1 to 4)
-            yield span()
-        )
+        div(cls := "password-complexity-meter"):
+          for (_ <- 1 to 4) yield span
       )
 
     def globalError(form: Form[?])(using Lang): Option[Frag] =
@@ -258,17 +255,15 @@ trait FormHelper { self: I18nHelper =>
         utc: Boolean = false,
         minDate: Option[String] = Some("today")
     ): Tag =
-      input(field, klass = s"flatpickr${if (utc) " flatpickr-utc" else ""}")(
+      input(field, klass = s"flatpickr${if utc then " flatpickr-utc" else ""}")(
         dataEnableTime := withTime,
         dataTime24h    := withTime,
-        dataMinDate := minDate.map {
+        dataMinDate := minDate.map:
           case "today" if utc => "yesterday"
           case d              => d
-        }
       )
 
     object file:
       def image(name: String): Frag =
         st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg")
       def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-}

@@ -16,7 +16,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
   private val chans = List("startGame", "finishGame")
 
   def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
-    val initialGames = if (withCurrentGames) currentGamesSource(userIds) else Source.empty
+    val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
     val startStream = Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead) mapMaterializedValue {
       queue =>
         def matches(game: Game) =
@@ -39,12 +39,9 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
   private def currentGamesSource(userIds: Set[UserId]): Source[Game, ?] =
     import lila.db.dsl.*
     import BSONHandlers.given
-    import reactivemongo.api.ReadPreference
     import reactivemongo.akkastream.cursorProducer
     gameRepo.coll
-      .aggregateWith[Game](
-        readPreference = ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match($doc(Game.BSONFields.playingUids $in userIds)),
@@ -55,7 +52,6 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
           ),
           Match($doc("both" -> true))
         )
-      }
       .documentSource()
       .throttle(30, 1.second)
 
@@ -69,25 +65,23 @@ private object GameStream:
           "rated"      -> g.rated,
           "variant"    -> g.variant.key,
           "speed"      -> g.speed.key,
-          "perf"       -> PerfPicker.key(g),
+          "perf"       -> g.perfKey,
           "createdAt"  -> g.createdAt,
           "status"     -> g.status.id,
           "statusName" -> g.status.name,
-          "players" -> JsObject(g.players.mapList { p =>
+          "players" -> JsObject(g.players.mapList: p =>
             p.color.name -> Json
               .obj(
                 "userId" -> p.userId,
                 "rating" -> p.rating
               )
-              .add("provisional" -> p.provisional)
-          })
+              .add("provisional" -> p.provisional))
         )
         .add("initialFen" -> initialFen)
-        .add("clock" -> g.clock.map { clock =>
+        .add("clock" -> g.clock.map: clock =>
           Json.obj(
             "initial"   -> clock.limitSeconds,
             "increment" -> clock.incrementSeconds
-          )
-        })
+          ))
         .add("daysPerTurn" -> g.daysPerTurn)
   }

@@ -6,7 +6,11 @@ import lila.i18n.I18nKeys.{ challenge as trans }
 import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Block, Follow }
-import lila.user.User
+import lila.user.{ User, Me }
+import scala.util.Try
+import lila.user.UserPerfs
+import lila.rating.Perf
+import lila.Lila
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 
@@ -36,6 +40,7 @@ object ChallengeDenied:
 
 final class ChallengeGranter(
     prefApi: lila.pref.PrefApi,
+    perfsRepo: lila.user.UserPerfsRepo,
     relationApi: lila.relation.RelationApi
 ):
 
@@ -43,38 +48,41 @@ final class ChallengeGranter(
 
   val ratingThreshold = 300
 
-  def isDenied(fromOption: Option[User], dest: User, perfType: Option[PerfType])(using
-      ec: Executor
-  ): Fu[Option[ChallengeDenied]] =
-    fromOption
-      .fold[Fu[Option[ChallengeDenied.Reason]]] {
-        prefApi.get(dest).map(_.challenge) map {
-          case Pref.Challenge.ALWAYS => none
-          case _                     => YouAreAnon.some
-        }
-      } { from =>
-        relationApi.fetchRelation(dest, from) zip
-          prefApi.get(dest).map(_.challenge) map {
-            case (Some(Block), _)                                  => YouAreBlocked.some
-            case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
-            case (Some(Follow), _)                                 => none // always accept from followed
-            case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
-            case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
-            case (_, Pref.Challenge.RATING) =>
-              perfType.so: pt =>
-                if (from.perfs(pt).provisional || dest.perfs(pt).provisional) RatingIsProvisional(pt).some
+  def isDenied(dest: User, perfType: PerfType)(using
+      Executor
+  )(using me: Option[Me]): Fu[Option[ChallengeDenied]] = me
+    .fold[Fu[Option[ChallengeDenied.Reason]]] {
+      prefApi.get(dest).map(_.challenge) map {
+        case Pref.Challenge.ALWAYS => none
+        case _                     => YouAreAnon.some
+      }
+    } { from =>
+      type Res = Option[ChallengeDenied.Reason]
+      given Conversion[Res, Fu[Res]] = fuccess
+      relationApi.fetchRelation(dest, from) zip
+        prefApi.get(dest).map(_.challenge) flatMap {
+          case (Some(Block), _)                                  => YouAreBlocked.some
+          case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
+          case (Some(Follow), _)                                 => none // always accept from followed
+          case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
+          case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
+          case (_, Pref.Challenge.RATING) =>
+            perfsRepo
+              .perfsOf(from.value -> dest, _.sec)
+              .map: (fromPerfs, destPerfs) =>
+                if fromPerfs(perfType).provisional || destPerfs(perfType).provisional
+                then RatingIsProvisional(perfType).some
                 else
-                  val diff = math.abs(from.perfs(pt).intRating.value - dest.perfs(pt).intRating.value)
-                  (diff > ratingThreshold) option RatingOutsideRange(pt)
-            case (_, Pref.Challenge.REGISTERED) => none
-            case _ if from == dest              => SelfChallenge.some
-            case _                              => none
-          }
-      }
-      .map {
-        case None if dest.isBot && perfType.has(PerfType.UltraBullet) => BotUltraBullet.some
-        case res                                                      => res
-      }
-      .map {
-        _.map { ChallengeDenied(dest, _) }
-      }
+                  val diff =
+                    math.abs(fromPerfs(perfType).intRating.value - destPerfs(perfType).intRating.value)
+                  (diff > ratingThreshold) option RatingOutsideRange(perfType)
+          case (_, Pref.Challenge.REGISTERED) => none
+          case _ if from == dest              => SelfChallenge.some
+          case _                              => none
+        }
+    }
+    .map:
+      case None if dest.isBot && perfType == PerfType.UltraBullet => BotUltraBullet.some
+      case res                                                    => res
+    .map:
+      _.map { ChallengeDenied(dest, _) }

@@ -93,7 +93,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       clock = clock,
       minutes = minutes,
       variant = realVariant,
-      mode = if (data.rated) Mode.Rated else Mode.Casual,
+      mode = if data.rated then Mode.Rated else Mode.Casual,
       startsAt = date.instant,
       schedule = Schedule(
         freq = Schedule.Freq.Unique,

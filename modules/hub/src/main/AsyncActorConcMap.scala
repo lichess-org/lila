@@ -25,11 +25,11 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
   def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 
   def askIfPresent[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[Option[A]] =
-    getIfPresent(id).so:
-      _ ask makeMsg dmap some
+    getIfPresent(id).soFu:
+      _ ask makeMsg
 
   def askIfPresentOrZero[A: Zero](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] =
-    askIfPresent(id)(makeMsg).dmap(~_)
+    askIfPresent(id)(makeMsg).dmap(_.orZero)
 
   def exists(id: Id): Boolean = asyncActors.get(id) != null
 
@@ -60,10 +60,9 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
     asyncActors
       .computeIfPresent(
         id,
-        (_, d) => {
+        (_, d) =>
           lastWill(d)
           nullD
-        }
       )
       .unit
 

@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.syntax.all.*
 import chess.*
 import chess.format.Uci
 import chess.format.pgn.SanStr
@@ -29,13 +28,13 @@ object BinaryFormat:
     private val logger = lila.log("clockHistory")
 
     def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) =
-      val timesToWrite = if (flagged) times.dropRight(1) else times
+      val timesToWrite = if flagged then times.dropRight(1) else times
       ByteArray(ClockEncoder.encode(Centis.raw(timesToWrite).to(Array), start.centis))
 
     def readSide(start: Centis, ba: ByteArray, flagged: Boolean) =
       val decoded: Vector[Centis] =
         Centis from ClockEncoder.decode(ba.value, start.centis).to(Vector)
-      if (flagged) decoded :+ Centis(0) else decoded
+      if flagged then decoded :+ Centis(0) else decoded
 
     def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) =
       Try {
@@ -44,7 +43,9 @@ object BinaryFormat:
           readSide(start, bb, flagged has Black)
         )
       }.fold(
-        e => { logger.warn(s"Exception decoding history", e); none },
+        e =>
+          logger.warn(s"Exception decoding history", e); none
+        ,
         some
       )
 
@@ -94,14 +95,14 @@ object BinaryFormat:
     }
 
     def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock =
-      color => {
+      color =>
         val ia = ba.value map toInt
 
         // ba.size might be greater than 12 with 5 bytes timers
         // ba.size might be 8 if there was no timer.
         // #TODO remove 5 byte timer case! But fix the DB first!
         val timer =
-          if (ia.lengthIs == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
+          if ia.lengthIs == 12 then readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
           else None
 
         ia match
@@ -122,7 +123,6 @@ object BinaryFormat:
               timer = timer
             )
           case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
-      }
 
     private def writeTimer(timer: Timestamp) =
       val centis = (timer - start).centis
@@ -137,7 +137,7 @@ object BinaryFormat:
       writeInt(nonZero)
 
     private def readTimer(l: Int) =
-      if (l != 0) Some(start + Centis(l)) else None
+      if l != 0 then Some(start + Centis(l)) else None
 
     private def writeClockLimit(limit: Int): Byte =
       // The database expects a byte for a limit, and this is limit / 60.
@@ -146,7 +146,7 @@ object BinaryFormat:
       // The max limit where limit % 60 == 0, returns 180 for limit / 60
       // So, for the limits where limit % 30 == 0, we can use the space
       // from 181-255, where 181 represents 0.25 and 182 represents 0.50...
-      (if (limit % 60 == 0) limit / 60 else limit / 15 + 180).toByte
+      (if limit % 60 == 0 then limit / 60 else limit / 15 + 180).toByte
 
   object clock:
     def apply(start: Instant) = new clock(Timestamp(start.toMillis))
@@ -156,7 +156,7 @@ object BinaryFormat:
         case Array(b1, b2, _*) => Clock.Config(readClockLimit(b1), Clock.IncrementSeconds(b2)).some
         case _                 => None
 
-    def readClockLimit(i: Int) = Clock.LimitSeconds(if (i < 181) i * 60 else (i - 180) * 15)
+    def readClockLimit(i: Int) = Clock.LimitSeconds(if i < 181 then i * 60 else (i - 180) * 15)
 
   object castleLastMove:
 
@@ -181,11 +181,11 @@ object BinaryFormat:
     private def doRead(b1: Int, b2: Int) =
       CastleLastMove(
         castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
-        lastMove = for {
+        lastMove = for
           orig <- Square.at((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
           dest <- Square.at((b2 & 63) >> 3, b2 & 7)
           if orig != Square.A1 || dest != Square.A1
-        } yield Uci.Move(orig, dest)
+        yield Uci.Move(orig, dest)
       )
 
   object piece:
@@ -246,13 +246,13 @@ object BinaryFormat:
     val emptyByteArray = ByteArray(Array(0, 0))
 
     def write(o: UnmovedRooks): ByteArray =
-      if (o.isEmpty) emptyByteArray
+      if o.isEmpty then emptyByteArray
       else
         ByteArray {
           var white = 0
           var black = 0
           o.toList.foreach { pos =>
-            if (pos.rank == Rank.First) white = white | (1 << (7 - pos.file.index))
+            if pos.rank == Rank.First then white = white | (1 << (7 - pos.file.index))
             else black = black | (1 << (7 - pos.file.index))
           }
           Array(white.toByte, black.toByte)
@@ -269,11 +269,11 @@ object BinaryFormat:
       var set = Set.empty[Square]
       arrIndexes.foreach { i =>
         val int = ba.value(i).toInt
-        if (int != 0)
-          if (int == -127) set = if (i == 0) whiteStd else set ++ blackStd
+        if int != 0 then
+          if int == -127 then set = if i == 0 then whiteStd else set ++ blackStd
           else
             bitIndexes.foreach { j =>
-              if (bitAt(int, j) == 1) set = set + Square.at(7 - j, 7 * i).get
+              if bitAt(int, j) == 1 then set = set + Square.at(7 - j, 7 * i).get
             }
       }
       UnmovedRooks(set)
@@ -281,19 +281,19 @@ object BinaryFormat:
   @inline private def toInt(b: Byte): Int = b & 0xff
 
   def writeInt24(int: Int) =
-    val i = if (int < (1 << 24)) int else 0
+    val i = if int < (1 << 24) then int else 0
     Array((i >>> 16).toByte, (i >>> 8).toByte, i.toByte)
 
   private val int23Max = 1 << 23
   def writeSignedInt24(int: Int) =
-    val i = if (int < 0) int23Max - int else math.min(int, int23Max)
+    val i = if int < 0 then int23Max - int else math.min(int, int23Max)
     writeInt24(i)
 
   def readInt24(b1: Int, b2: Int, b3: Int) = (b1 << 16) | (b2 << 8) | b3
 
   def readSignedInt24(b1: Int, b2: Int, b3: Int) =
     val i = readInt24(b1, b2, b3)
-    if (i > int23Max) int23Max - i else i
+    if i > int23Max then int23Max - i else i
 
   def writeInt(i: Int) =
     Array(

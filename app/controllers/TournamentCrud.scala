@@ -42,7 +42,7 @@ final class TournamentCrud(env: Env) extends LilaController(env):
         data =>
           crud.create(data, me.value) map { tour =>
             Redirect {
-              if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
+              if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
               else routes.TournamentCrud.edit(tour.id)
             }.flashSuccess
           }

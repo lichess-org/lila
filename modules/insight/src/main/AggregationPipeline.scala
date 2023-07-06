@@ -113,7 +113,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
               (acc, mat) =>
                 $doc(
                   "$cond" -> $arr(
-                    $doc((if (mat.negative) "$lt" else "$lte") -> $arr("$" + F.moves("i"), mat.imbalance)),
+                    $doc((if mat.negative then "$lt" else "$lte") -> $arr("$" + F.moves("i"), mat.imbalance)),
                     mat.id,
                     acc
                   )
@@ -169,7 +169,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
         val bsonRatioToPercent = $doc("v" -> $divide("$v", ratioBsonMultiplier / 100))
 
         def group(d: InsightDimension[?], f: GroupFunction): List[Option[PipelineOperator]] =
-          List(dimensionGrouping(d) match {
+          List(dimensionGrouping(d) match
             case Grouping.Group =>
               groupOptions(dimensionGroupId(d))(
                 "v"   -> f.some,
@@ -182,7 +182,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 "nb"  -> SumAll.some,
                 "ids" -> addGameId
               )
-          }) map some
+          ) map some
 
         def groupMulti(d: InsightDimension[?], metricDbKey: String): List[Option[PipelineOperator]] =
           dimensionGrouping(d) ap {

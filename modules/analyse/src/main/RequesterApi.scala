@@ -14,7 +14,7 @@ final class RequesterApi(coll: Coll)(using Executor):
         $id(requester),
         $inc(
           "total"                     -> 1,
-          formatter.print(nowInstant) -> (if (ownGame) 1 else 2)
+          formatter.print(nowInstant) -> (if ownGame then 1 else 2)
         ),
         upsert = true
       )

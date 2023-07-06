@@ -31,7 +31,7 @@ case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[Va
 ):
   def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine.map(_ map f), peer.map(_ map f))
   def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
-  def asAvailable                 = for { m <- mine; p <- peer } yield TutorBothValuesAvailable(m, p)
+  def asAvailable                 = for m <- mine; p <- peer yield TutorBothValuesAvailable(m, p)
   def grade(using TutorNumber[A]): Option[Grade] = asAvailable.map(_.grade)
 
   def mix(other: TutorBothValueOptions[A])(using number: TutorNumber[A]): TutorBothValueOptions[A] =

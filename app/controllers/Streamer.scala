@@ -57,7 +57,8 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         for
           sws      <- env.streamer.liveStreamApi of s
           activity <- env.activity.read.recentAndPreload(sws.user)
-          page     <- renderPage(html.streamer.show(sws, activity))
+          perfs    <- env.user.perfsRepo.perfsOf(sws.user)
+          page     <- renderPage(html.streamer.show(sws, perfs, activity))
         yield Ok(page)
 
   def redirect(username: UserStr) = Open:
@@ -104,7 +105,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
                 BadRequest.page(html.streamer.edit(sws, error, forMod)),
             data =>
               api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
-                if (change.decline) logApi.streamerDecline(s.user.id)
+                if change.decline then logApi.streamerDecline(s.user.id)
                 change.list foreach { logApi.streamerList(s.user.id, _) }
                 change.tier foreach { logApi.streamerTier(s.user.id, _) }
                 if data.approval.flatMap(_.quick).isDefined
@@ -114,7 +115,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
                       nextId.fold(s"${routes.Streamer.index()}?requests=1"): id =>
                         s"${routes.Streamer.edit.url}?u=$id"
                 else
-                  val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
+                  val next = if sws.streamer is me then "" else s"?u=${sws.user.id}"
                   Redirect(s"${routes.Streamer.edit.url}$next")
               }
           )
@@ -166,7 +167,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")
       lila
         .log("streamer")
-        .info(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
+        .debug(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
       Ok(challenge)
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context): Fu[Result] =

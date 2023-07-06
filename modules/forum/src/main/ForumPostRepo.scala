@@ -2,7 +2,6 @@ package lila.forum
 
 import Filter.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -15,7 +14,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
       SafeAnd(u.id)
     })
-  def withFilter(f: Filter) = if (f == filter) this else new ForumPostRepo(coll, f)
+  def withFilter(f: Filter) = if f == filter then this else new ForumPostRepo(coll, f)
   def unsafe                = withFilter(Unsafe)
 
   import BSONHandlers.given
@@ -63,7 +62,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def allByUserCursor(user: User): AkkaStreamCursor[ForumPost] =
     coll
       .find($doc("userId" -> user.id))
-      .cursor[ForumPost](temporarilyPrimary)
+      .cursor[ForumPost](ReadPref.priTemp)
 
   def countByCateg(categ: ForumCateg): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
@@ -82,7 +81,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   val selectNotErased = $doc("erasedAt" $exists false)
 
   def selectLangs(langs: List[String]) =
-    if (langs.isEmpty) $empty
+    if langs.isEmpty then $empty
     else $doc("lang" $in langs)
 
   def findDuplicate(post: ForumPost): Fu[Option[ForumPost]] =
@@ -97,16 +96,16 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def sortQuery = $sort.createdAsc
 
   def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
-    coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+    coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), _.sec)
 
   def allUserIdsByTopicId(topicId: ForumTopicId): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](
       "userId",
       $doc("topicId" -> topicId) ++ selectNotErased,
-      ReadPreference.secondaryPreferred
+      _.sec
     )
 
   def nonGhostCursor =
     coll
       .find($doc("userId" $ne User.ghostId))
-      .cursor[ForumPost](ReadPreference.secondaryPreferred)
+      .cursor[ForumPost](ReadPref.sec)

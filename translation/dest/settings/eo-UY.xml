@@ -2,6 +2,7 @@
 <resources>
   <string name="settings">Agordoj</string>
   <string name="closeAccount">Fermi konton</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Via konto estas administrata, kaj ne povas esti fermata.</string>
   <string name="closingIsDefinitive">Fermado estas definitiva. Ne eblos malfari. Ĉu vi certas?</string>
   <string name="cantOpenSimilarAccount">Vi ne rajtos malfermi novan konton kun la sama nomo, eĉ se la uskleco estos malsama.</string>
   <string name="changedMindDoNotCloseAccount">Mi ŝanĝis mian opinion, mi ne volas fermi mian konton</string>

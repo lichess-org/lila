@@ -55,14 +55,14 @@ final private class SwissBoardApi(
                 .distinct
                 .take(displayBoards)
                 .flatMap { pairing =>
-                  for {
+                  for
                     p1 <- playerMap get pairing.white
                     p2 <- playerMap get pairing.black
                     u1 <- lightUserApi sync p1.userId
                     u2 <- lightUserApi sync p2.userId
                     r1 <- ranks get p1.userId
                     r2 <- ranks get p2.userId
-                  } yield SwissBoard(
+                  yield SwissBoard(
                     pairing.gameId,
                     white = SwissBoard.Player(u1, r1, p1.rating),
                     black = SwissBoard.Player(u2, r2, p2.rating)

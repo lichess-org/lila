@@ -4,7 +4,7 @@ import scala.concurrent.duration.*
 import com.typesafe.config.*
 import play.api.{ ConfigLoader, Configuration }
 
-class AutoConfigTest extends munit.FunSuite {
+class AutoConfigTest extends munit.FunSuite:
 
   private def parse(c: String) = Configuration(ConfigFactory.parseString(c.stripMargin))
 
@@ -105,4 +105,3 @@ class AutoConfigTest extends munit.FunSuite {
 
     assertEquals(config.get[Bar]("bar"), Bar("hello", "goodbye")(4.2))
   }
-}

@@ -1,6 +1,5 @@
 package lila.swiss
 
-import cats.syntax.all.*
 import chess.{ Black, Color, White }
 
 import lila.db.dsl.{ *, given }
@@ -23,10 +22,10 @@ final private class SwissDirector(
     (manualPairing(from) | pairingSystem(from))
       .flatMap { pendings =>
         val pendingPairings = pendings.collect { case Right(p) => p }
-        if (pendingPairings.isEmpty) fuccess(none) // terminate
+        if pendingPairings.isEmpty then fuccess(none) // terminate
         else
           val swiss = from.startRound
-          for {
+          for
             players <- SwissPlayer.fields { f =>
               mongo.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
             }
@@ -67,10 +66,10 @@ final private class SwissDirector(
             games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
             _ <- games.traverse_ : game =>
               gameRepo.insertDenormalized(game) >>- onStart(game.id)
-          } yield swiss.some
+          yield swiss.some
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
-        if (msg contains "The number of rounds is larger than the reported number of rounds.") none
+        if msg contains "The number of rounds is larger than the reported number of rounds." then none
         else
           logger.warn(s"BBPairing ${from.id} $msg")
           logger.info(s"BBPairing ${from.id} $input")
@@ -84,7 +83,7 @@ final private class SwissDirector(
         chess = chess
           .Game(
             variantOption = Some {
-              if (swiss.settings.position.isEmpty) swiss.variant
+              if swiss.settings.position.isEmpty then swiss.variant
               else chess.variant.FromPosition
             },
             fen = swiss.settings.position

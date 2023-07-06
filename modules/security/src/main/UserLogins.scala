@@ -98,7 +98,7 @@ final class UserLoginsApi(
       max: Int
   ): Fu[List[OtherUser[User]]] =
     ipSet.nonEmpty so store.coll
-      .aggregateList(max, readPreference = temporarilyPrimary): framework =>
+      .aggregateList(max, _.priTemp): framework =>
         import framework.*
         import FingerHash.given
         Match(
@@ -219,11 +219,10 @@ object UserLogins:
   case class WithMeSortedWithEmails[U: UserIdOf](
       others: List[OtherUser[U]],
       emails: Map[UserId, EmailAddress]
-  ) {
+  ):
     def withUsers[V: UserIdOf](newUsers: List[V]) = copy(others = others.flatMap { o =>
       newUsers.find(_ is o.user).map { u => o.copy(user = u) }
     })
-  }
 
   def withMeSortedWithEmails(
       userRepo: UserRepo,
@@ -243,8 +242,7 @@ object UserLogins:
       notes: List[lila.user.Note],
       bans: Map[UserId, Int],
       max: Int
-  ) {
+  ):
     def withUsers[V: UserIdOf](users: List[V]) = copy(
       othersWithEmail = othersWithEmail.withUsers(users)
     )
-  }

@@ -54,7 +54,7 @@ final class AccountClosure(
     _       <- streamerApi.demote(u.id)
     reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
     _ <-
-      if (selfClose) modLogApi.selfCloseAccount(u.id, reports)
+      if selfClose then modLogApi.selfCloseAccount(u.id, reports)
       else modLogApi.closeAccount(u.id)
     _ <- appealApi.onAccountClose(u)
     _ <- u.marks.troll so relationApi.fetchFollowing(u.id).flatMap {

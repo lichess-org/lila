@@ -23,7 +23,7 @@ final class StudyMultiBoard(
   import StudyMultiBoard.*
 
   def json(studyId: StudyId, page: Int, playing: Boolean): Fu[JsObject] = {
-    if (page == 1 && !playing) firstPageCache.get(studyId)
+    if page == 1 && !playing then firstPageCache.get(studyId)
     else fetch(studyId, page, playing)
   } map { PaginatorJson(_) }
 
@@ -54,7 +54,7 @@ final class StudyMultiBoard(
     def slice(offset: Int, length: Int): Fu[Seq[ChapterPreview]] =
       chapterRepo
         .coll {
-          _.aggregateList(length, readPreference = readPref) { framework =>
+          _.aggregateList(length, _.pri): framework =>
             import framework.*
             Match(selector) -> List(
               Sort(Ascending("order")),
@@ -85,7 +85,7 @@ final class StudyMultiBoard(
                                         [root['_'], undefined, '', undefined]
                                       ).slice(0, 2) : [root['_'], undefined];
                                     const [whiteClock, blackClock] = clockTicking ? node.f.includes(" b") ? [node.l, clockTicking.l] : [clockTicking.l, node.l] : [undefined, undefined]
-                                    
+
                                     return {
                                       node: {
                                         fen: node.f,
@@ -106,9 +106,8 @@ final class StudyMultiBoard(
                 )
               )
             )
-          }
         }
-        .map { r =>
+        .map: r =>
           for
             doc  <- r
             id   <- doc.getAsOpt[StudyChapterId]("_id")
@@ -133,7 +132,6 @@ final class StudyMultiBoard(
             playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*"),
             outcome = tags.flatMap(_.outcome)
           )
-        }
 
   import lila.common.Json.{ writeAs, given }
 

@@ -31,25 +31,24 @@ final class ActivityReadApi(
 
   private given Ordering[Double] = scala.math.Ordering.Double.TotalOrdering
 
-  def recentAndPreload(u: User)(using lang: Lang): Fu[Vector[ActivityView]] =
-    for {
-      activities <-
-        coll(
-          _.find(regexId(u.id))
-            .sort($sort desc "_id")
-            .cursor[Activity]()
-            .vector(Activity.recentNb)
-        ).dmap(_.filterNot(_.isEmpty))
-          .mon(_.user segment "activity.raws")
-      practiceStructure <- activities
-        .exists(_.practice.isDefined)
-        .so:
-          practiceApi.structure.get dmap some
-      views <- activities.map { a =>
+  def recentAndPreload(u: User)(using lang: Lang): Fu[Vector[ActivityView]] = for
+    activities <-
+      coll(
+        _.find(regexId(u.id))
+          .sort($sort desc "_id")
+          .cursor[Activity]()
+          .vector(Activity.recentNb)
+      ).dmap(_.filterNot(_.isEmpty))
+        .mon(_.user segment "activity.raws")
+    practiceStructure <- activities
+      .exists(_.practice.isDefined)
+      .soFu(practiceApi.structure.get)
+    views <- activities
+      .map: a =>
         one(practiceStructure, a).mon(_.user segment "activity.view")
-      }.parallel
-      _ <- preloadAll(views)
-    } yield addSignup(u.createdAt, views)
+      .parallel
+    _ <- preloadAll(views)
+  yield addSignup(u.createdAt, views)
 
   private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for
     _ <- lightUserApi.preloadMany(views.flatMap(_.follows.so(_.allUserIds)))
@@ -58,35 +57,36 @@ final class ActivityReadApi(
 
   private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
     for
-      allForumPosts <- a.forumPosts.so: p =>
+      allForumPosts <- a.forumPosts.soFu: p =>
         forumPostApi
           .liteViewsByIds(p.value)
-          .mon(_.user segment "activity.posts") dmap some
+          .mon(_.user segment "activity.posts")
       hiddenForumTeamIds <- teamRepo.filterHideForum(
         (~allForumPosts).flatMap(_.topic.possibleTeamId).distinct
       )
       forumPosts = allForumPosts.map(
         _.filterNot(_.topic.possibleTeamId.exists(hiddenForumTeamIds.contains))
       )
-      ublogPosts <- a.ublogPosts.so: p =>
-        ublogApi
-          .liveLightsByIds(p.value)
-          .mon(_.user segment "activity.ublogs")
-          .dmap(_.some.filter(_.nonEmpty))
-      practice = (for {
+      ublogPosts <- a.ublogPosts
+        .soFu: p =>
+          ublogApi
+            .liveLightsByIds(p.value)
+            .mon(_.user segment "activity.ublogs")
+        .dmap(_.filter(_.nonEmpty))
+      practice = for
         p      <- a.practice
         struct <- practiceStructure
-      } yield p.value.flatMap { (studyId, nb) =>
+      yield p.value.flatMap { (studyId, nb) =>
         struct study studyId map (_ -> nb)
-      }.toMap)
-      forumPostView = forumPosts.map { p =>
-        p.groupBy(_.topic)
-          .view
-          .mapValues { posts =>
-            posts.view.map(_.post).sortBy(_.createdAt).toList
-          }
-          .toMap
-      } filter (_.nonEmpty)
+      }.toMap
+      forumPostView = forumPosts
+        .map: p =>
+          p.groupBy(_.topic)
+            .view
+            .mapValues: posts =>
+              posts.view.map(_.post).sortBy(_.createdAt).toList
+            .toMap
+        .filter(_.nonEmpty)
       corresMoves <- a.corres.so: corres =>
         getLightPovs(a.id.userId, corres.movesIn).dmap:
           _.map(corres.moves -> _)
@@ -96,13 +96,13 @@ final class ActivityReadApi(
             Score.make(povs) -> povs
       simuls <-
         a.simuls
-          .so: simuls =>
-            simulApi byIds simuls.value dmap some
+          .soFu: simuls =>
+            simulApi byIds simuls.value
           .dmap(_.filter(_.nonEmpty))
       studies <-
         a.studies
-          .so: studies =>
-            studyApi publicIdNames studies.value dmap some
+          .soFu: studies =>
+            studyApi publicIdNames studies.value
           .dmap(_.filter(_.nonEmpty))
       tours <- a.games
         .exists(_.hasNonCorres)
@@ -169,7 +169,7 @@ final class ActivityReadApi(
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at))
+    if !found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at) then
       views :+ ActivityView(
         interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true

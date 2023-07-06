@@ -8,42 +8,6 @@ import lila.Lila.Fu
 
 object LilaFuture:
 
-  def fold[T, R](list: List[T])(acc: R)(op: (R, T) => Fu[R])(using Executor): Fu[R] =
-    list match
-      case head :: rest =>
-        op(acc, head) flatMap { res =>
-          fold(rest)(res)(op)
-        }
-      case Nil => fuccess(acc)
-
-  def lazyFold[T, R](futures: LazyList[Fu[T]])(acc: R)(op: (R, T) => R)(using Executor): Fu[R] =
-    LazyList.cons
-      .unapply(futures)
-      .fold(fuccess(acc)): (future, rest) =>
-        future.flatMap: f =>
-          lazyFold(rest)(op(acc, f))(op)
-
-  def filter[A](list: List[A])(f: A => Fu[Boolean])(using Executor): Fu[List[A]] =
-    ScalaFu
-      .sequence:
-        list.map: element =>
-          f(element).dmap(_ option element)
-      .dmap(_.flatten)
-
-  def filterNot[A](list: List[A])(f: A => Fu[Boolean])(using Executor): Fu[List[A]] =
-    filter(list)(a => !f(a))
-
-  def find[A](list: List[A])(f: A => Fu[Boolean])(using Executor): Fu[Option[A]] =
-    list match
-      case Nil => fuccess(none)
-      case h :: t =>
-        f(h).flatMap:
-          if _ then fuccess(h.some)
-          else find(t)(f)
-
-  def exists[A](list: List[A])(pred: A => Fu[Boolean])(using Executor): Fu[Boolean] =
-    find(list)(pred).dmap(_.isDefined)
-
   def delay[A](
       duration: FiniteDuration
   )(run: => Fu[A])(using ec: lila.Lila.Executor, scheduler: Scheduler): Fu[A] =

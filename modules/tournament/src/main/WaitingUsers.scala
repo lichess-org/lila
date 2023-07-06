@@ -19,8 +19,8 @@ private case class WaitingUsers(
   // 5+0  -> 36  -> 36
   // 10+0 -> 66  -> 50
   private val waitSeconds: Int =
-    if (clock.estimateTotalSeconds < 30) 8
-    else if (clock.estimateTotalSeconds < 60) 10
+    if clock.estimateTotalSeconds < 30 then 8
+    else if clock.estimateTotalSeconds < 60 then 10
     else (clock.estimateTotalSeconds / 10 + 6) atMost 50 atLeast 15
 
   lazy val all  = hash.keySet
@@ -30,7 +30,7 @@ private case class WaitingUsers(
 
   // skips the most recent user if odd
   def evenNumber: Set[UserId] =
-    if (isOdd) all - hash.maxBy(_._2.toMillis)._1
+    if isOdd then all - hash.maxBy(_._2.toMillis)._1
     else all
 
   lazy val haveWaitedEnough: Boolean =
@@ -56,7 +56,7 @@ private case class WaitingUsers(
   def addApiUser(userId: UserId) =
     val memo = apiUsers | new ExpireSetMemo[UserId](70 seconds)
     memo put userId
-    if (apiUsers.isEmpty) copy(apiUsers = memo.some) else this
+    if apiUsers.isEmpty then copy(apiUsers = memo.some) else this
 
   def removePairedUsers(us: Set[UserId]) =
     apiUsers.foreach(_ removeAll us)
@@ -75,11 +75,10 @@ final private class WaitingUsersApi:
   def registerWaitingUsers(tourId: TourId, users: Set[UserId]) =
     store.computeIfPresent(
       tourId,
-      (_: TourId, cur: WaitingUsers.WithNext) => {
+      (_: TourId, cur: WaitingUsers.WithNext) =>
         val newWaiting = cur.waiting.update(users)
         cur.next.foreach(_ success newWaiting)
         WaitingUsers.WithNext(newWaiting, none)
-      }
     )
 
   def registerPairedUsers(tourId: TourId, users: Set[UserId]) =

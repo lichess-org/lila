@@ -50,7 +50,7 @@ object OpeningQuery:
     )
 
   def apply(q: Query, config: OpeningConfig): Option[OpeningQuery] =
-    if (q.key.isEmpty && q.moves.isEmpty) fromPgn(PgnMovesStr(""), config)
+    if q.key.isEmpty && q.moves.isEmpty then fromPgn(PgnMovesStr(""), config)
     else q.moves.flatMap(fromPgn(_, config)) orElse byOpening(q.key, config)
 
   private lazy val openingsByLowerCaseKey: Map[OpeningKey, Opening] =
@@ -63,10 +63,10 @@ object OpeningQuery:
     }
   }.map(_.pgn) flatMap { fromPgn(_, config) }
 
-  private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig) = for {
+  private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig) = for
     parsed <- chess.format.pgn.Reader.full(pgn into PgnStr).toOption
     replay <- parsed.valid.toOption
-  } yield OpeningQuery(replay, config)
+  yield OpeningQuery(replay, config)
 
   val firstYear  = 2017
   val firstMonth = s"$firstYear-01"

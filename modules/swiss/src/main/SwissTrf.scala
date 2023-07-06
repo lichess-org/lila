@@ -1,7 +1,5 @@
 package lila.swiss
 
-import cats.syntax.all.*
-
 import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
 
@@ -63,7 +61,7 @@ final class SwissTrf(
           97 -> pairing.map(_ colorOf p.userId).so(_.fold("w", "b")),
           99 -> {
             import SwissSheet.Outcome.*
-            outcome match {
+            outcome match
               case Absent      => "-"
               case Late        => "H"
               case Bye         => "U"
@@ -73,7 +71,6 @@ final class SwissTrf(
               case Ongoing     => "Z"
               case ForfeitLoss => "-"
               case ForfeitWin  => "+"
-            }
           }
         ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
       }
@@ -113,16 +110,16 @@ final class SwissTrf(
           .toMap
 
   private def forbiddenPairings(swiss: Swiss, playerIds: PlayerIds): Source[String, ?] =
-    if (swiss.settings.forbiddenPairings.isEmpty) Source.empty[String]
+    if swiss.settings.forbiddenPairings.isEmpty then Source.empty[String]
     else
       Source.fromIterator { () =>
         swiss.settings.forbiddenPairings.linesIterator.flatMap {
           _.trim.toLowerCase.split(' ').map(_.trim) match
             case Array(u1, u2) if u1 != u2 =>
-              for {
+              for
                 id1 <- playerIds.get(UserId(u1))
                 id2 <- playerIds.get(UserId(u2))
-              } yield s"XXP $id1 $id2"
+              yield s"XXP $id1 $id2"
             case _ => none
         }
       }

@@ -40,7 +40,7 @@ final private class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V
       index2 = index2 -- k2s
     )
 
-  def reset(newValues: Set[V]) = if (newValues == values) this else MultiKeyMap(newValues)(toK1, toK2)
+  def reset(newValues: Set[V]) = if newValues == values then this else MultiKeyMap(newValues)(toK1, toK2)
 
   private def copy(index1: Map[K1, V], index2: Map[K2, V]) =
     new MultiKeyMap(index1, index2)(toK1, toK2)

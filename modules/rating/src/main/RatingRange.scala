@@ -29,16 +29,16 @@ object RatingRange:
   def readRating(str: String) = IntRating from str.toIntOption
 
   // ^\d{3,4}\-\d{3,4}$
-  def apply(from: String): Option[RatingRange] = for {
+  def apply(from: String): Option[RatingRange] = for
     min <- readRating(from.takeWhile('-' !=))
     if acceptable(min)
     max <- readRating(from.dropWhile('-' !=).tail)
     if acceptable(max)
     if min < max
-  } yield RatingRange(min, max)
+  yield RatingRange(min, max)
 
   def apply(rating: IntRating, deltaMin: Option[String], deltaMax: Option[String]): Option[RatingRange] =
-    for {
+    for
       dmin <- deltaMin.flatMap(_.toIntOption)
       min = rating + dmin
       if acceptable(min)
@@ -46,14 +46,14 @@ object RatingRange:
       max = rating + dmax
       if acceptable(max)
       if min < max
-    } yield RatingRange(min, max)
+    yield RatingRange(min, max)
 
   def orDefault(from: String) = apply(from) | default
   def orDefault(rating: Option[IntRating], deltaMin: Option[String], deltaMax: Option[String]) =
     rating.flatMap(r => apply(r, deltaMin, deltaMax)) | default
 
   def noneIfDefault(from: String) =
-    if (from == default.toString) none
+    if from == default.toString then none
     else apply(from).filter(_ != default)
 
   def valid(from: String) = apply(from).isDefined

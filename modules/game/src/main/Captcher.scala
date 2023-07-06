@@ -2,7 +2,6 @@ package lila.game
 
 import akka.actor.*
 import akka.pattern.pipe
-import cats.data.NonEmptyList
 import chess.format.pgn.{ Sans, Tags, SanStr }
 import chess.format.{ pgn, Fen }
 import chess.{ Game as ChessGame }
@@ -45,8 +44,7 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
     private var challenges = NonEmptyList.one(Captcha.default)
 
     private def add(c: Captcha): Unit =
-      if (find(c.gameId).isEmpty)
-        challenges = NonEmptyList(c, challenges.toList take capacity)
+      if find(c.gameId).isEmpty then challenges = NonEmptyList(c, challenges.toList take capacity)
 
     private def find(id: GameId): Option[Captcha] =
       challenges.find(_.gameId == id)

@@ -1,6 +1,5 @@
 package lila.plan
 
-import cats.syntax.all.*
 import java.util.Currency
 
 case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):
@@ -32,16 +31,16 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
   )
 
   def pricingFor(currency: Currency): Fu[Option[PlanPricing]] =
-    if (currency == USD) fuccess(usdPricing.some)
-    else if (currency == EUR) fuccess(eurPricing.some)
+    if currency == USD then fuccess(usdPricing.some)
+    else if currency == EUR then fuccess(eurPricing.some)
     else
-      for {
+      for
         allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).parallel.map(_.sequence)
         suggestions = allSuggestions.map(_.distinct)
         min      <- convertAndRound(usdPricing.min, currency)
         max      <- convertAndRound(usdPricing.max, currency)
         lifetime <- convertAndRound(usdPricing.lifetime, currency)
-      } yield (suggestions, min, max, lifetime).mapN(PlanPricing.apply)
+      yield (suggestions, min, max, lifetime).mapN(PlanPricing.apply)
 
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 
@@ -60,7 +59,7 @@ object PlanPricingApi:
   def nicelyRound(amount: BigDecimal): BigDecimal = {
     val double   = amount.toDouble
     val scale    = math.floor(math.log10(double));
-    val fraction = if (scale > 1) 2d else 1d
+    val fraction = if scale > 1 then 2d else 1d
     math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
   } atLeast 1
 

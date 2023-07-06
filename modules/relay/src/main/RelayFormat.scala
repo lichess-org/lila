@@ -41,26 +41,25 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(u
         case _ => fuccess(none)
 
     def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
-      lila.common.LilaFuture.find(
-        List(
-          url.some,
-          !url.pathSegments.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
-        ).flatten.distinct
-      )(looksLikePgn) dmap2 { (u: URL) =>
+      List(
+        url.some,
+        !url.pathSegments.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
+      ).flatten.distinct.findM(looksLikePgn) dmap2 { (u: URL) =>
         SingleFile(pgnDoc(u))
       }
 
     def guessManyFiles(url: URL): Fu[Option[RelayFormat]] =
-      lila.common.LilaFuture.find(
-        List(url) ::: mostCommonIndexNames.filterNot(url.pathSegments.contains).map(addPart(url, _))
-      )(looksLikeJson) flatMapz { index =>
-        val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
-        val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
-        looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
-          looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
-            ManyFiles(index, _)
-          }
-      }
+      (List(url) ::: mostCommonIndexNames
+        .filterNot(url.pathSegments.contains)
+        .map(addPart(url, _)))
+        .findM(looksLikeJson)
+        .flatMapz: index =>
+          val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
+          val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
+          looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
+            looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
+              ManyFiles(index, _)
+            }
 
     guessLcc(originalUrl) orElse
       guessSingleFile(originalUrl) orElse

@@ -1,12 +1,12 @@
 package lila.simul
 
-import cats.syntax.all.*
 import play.api.libs.json.*
 
 import lila.common.LightUser
 import lila.common.Json.given
 import lila.game.{ Game, GameRepo }
 import lila.gathering.Condition.WithVerdicts
+import lila.rating.PerfType
 
 final class JsonView(
     gameRepo: GameRepo,
@@ -16,7 +16,7 @@ final class JsonView(
 )(using Executor):
 
   private def fetchGames(simul: Simul): Fu[List[Game]] =
-    if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
+    if simul.isFinished then gameRepo gamesFromSecondary simul.gameIds
     else simul.gameIds.map(proxyRepo.game).parallel.dmap(_.flatten)
 
   def apply(simul: Simul, verdicts: WithVerdicts): Fu[JsObject] = for
@@ -58,12 +58,12 @@ final class JsonView(
       started: List[Simul],
       finished: List[Simul]
   ): Fu[JsObject] =
-    for {
+    for
       pendingJson  <- api(pending)
       createdJson  <- api(created)
       startedJson  <- api(started)
       finishedJson <- api(finished)
-    } yield Json.obj(
+    yield Json.obj(
       "pending"  -> pendingJson,
       "created"  -> createdJson,
       "started"  -> startedJson,
@@ -97,7 +97,7 @@ final class JsonView(
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) =
     Json.obj(
       "key"  -> v.key,
-      "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.icon.toString),
+      "icon" -> PerfType(v, speed).icon.toString,
       "name" -> v.name
     )
 

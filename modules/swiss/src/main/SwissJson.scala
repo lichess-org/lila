@@ -8,7 +8,7 @@ import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.quote.Quote.given
 import lila.socket.{ SocketVersion, given }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 
@@ -19,6 +19,7 @@ final class SwissJson(
     boardApi: SwissBoardApi,
     statsApi: SwissStatsApi,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
 
@@ -41,14 +42,14 @@ final class SwissJson(
       socketVersion: Option[SocketVersion] = None,
       playerInfo: Option[SwissPlayer.ViewExt] = None
   )(using lang: Lang): Fu[JsObject] = {
-    for {
+    for
       myInfo <- me.so { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
       standing <- standingApi(swiss, page)
       podium   <- podiumJson(swiss)
       boards   <- boardApi(swiss.id)
       stats    <- statsApi(swiss)
-    } yield swissJsonBase(swiss) ++ Json
+    yield swissJsonBase(swiss) ++ Json
       .obj(
         "canJoin" -> {
           {
@@ -74,9 +75,9 @@ final class SwissJson(
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMapz { player =>
       updatePlayerRating(swiss, player, me) >>
-        SwissPairing.fields { f =>
+        SwissPairing.fields: f =>
           (swiss.nbOngoing > 0)
-            .so {
+            .so:
               mongo.pairing
                 .find(
                   $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
@@ -84,29 +85,26 @@ final class SwissJson(
                 )
                 .one[Bdoc]
                 .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
-            }
-            .flatMap { gameId =>
+            .flatMap: gameId =>
               rankingApi(swiss).dmap(_ get player.userId) map2 {
                 MyInfo(_, gameId, me, player)
               }
-            }
-        }
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
-    swiss.settings.rated
-      .option(user perfs swiss.perfType)
-      .filter(_.intRating != player.rating)
-      .so { perf =>
-        SwissPlayer.fields { f =>
-          mongo.player.update
-            .one(
-              $id(SwissPlayer.makeId(swiss.id, user.id)),
-              $set(f.rating -> perf.intRating)
-            )
-            .void
-        }
-      }
+    swiss.settings.rated.so:
+      for
+        perf <- perfsRepo.perfOf(user, swiss.perfType)
+        changed = perf.intRating != player.rating
+        _ <- changed.so:
+          SwissPlayer.fields: f =>
+            mongo.player.update
+              .one(
+                $id(SwissPlayer.makeId(swiss.id, user.id)),
+                $set(f.rating -> perf.intRating)
+              )
+              .void
+      yield ()
 
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
     swiss.isFinished so {
@@ -169,8 +167,8 @@ object SwissJson:
         "nbPlayers" -> swiss.nbPlayers,
         "nbOngoing" -> swiss.nbOngoing,
         "status" -> {
-          if (swiss.isStarted) "started"
-          else if (swiss.isFinished) "finished"
+          if swiss.isStarted then "started"
+          else if swiss.isFinished then "finished"
           else "created"
         }
       )
@@ -243,8 +241,8 @@ object SwissJson:
 
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
     val status =
-      if (pairing.isOngoing) "o"
-      else pairing.resultFor(player.userId).fold("d") { r => if (r) "w" else "l" }
+      if pairing.isOngoing then "o"
+      else pairing.resultFor(player.userId).fold("d") { r => if r then "w" else "l" }
     s"${pairing.gameId}$status"
 
   private def pairingJson(player: SwissPlayer, pairing: SwissPairing) =

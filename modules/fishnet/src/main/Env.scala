@@ -103,16 +103,17 @@ final class Env(
 
   // api actor
   system.actorOf(
-    Props(new Actor {
-      def receive = {
-        case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-          analyser(
-            gameId,
-            Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
-          ).unit
-        case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req).unit
-      }
-    }),
+    Props(
+      new Actor:
+        def receive = {
+          case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
+            analyser(
+              gameId,
+              Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
+            ).unit
+          case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req).unit
+        }
+    ),
     name = config.actorName
   )
 

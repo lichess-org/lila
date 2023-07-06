@@ -22,6 +22,8 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     chatApi: lila.chat.ChatApi,
     notifyApi: lila.notify.NotifyApi,
     historyApi: lila.history.HistoryApi,
@@ -74,17 +76,16 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
-        import cats.syntax.all.*
-        (whiteUserOption.filter(_.enabled.yes), blackUserOption.filter(_.enabled.yes)) mapN {
-          (whiteUser, blackUser) =>
-            sandbagWatch(game)
-            assessApi.onGameReady(game, whiteUser, blackUser)
+        def userPerf = (u: Option[User.WithPerfs]) => u.filter(_.enabled.yes).map(_.only(game.perfType))
+        (userPerf(whiteUserOption), userPerf(blackUserOption)) mapN { (whiteUser, blackUser) =>
+          sandbagWatch(game)
+          assessApi.onGameReady(game, whiteUser, blackUser)
         }
-        if (game.status == chess.Status.Cheat)
-          game.loserUserId foreach { userId =>
+        if game.status == chess.Status.Cheat then
+          game.loserUserId.foreach: userId =>
             logApi.cheatDetectedAndCount(userId, game.id) flatMap { count =>
               (count >= 3) so {
-                if (game.hasClock)
+                if game.hasClock then
                   api.autoMark(
                     SuspectId(userId),
                     s"Cheat detected during game, ${count} times"
@@ -92,7 +93,6 @@ final class Env(
                 else reportApi.autoCheatDetectedReport(userId, count)
               }
             }
-          }
     },
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis).unit

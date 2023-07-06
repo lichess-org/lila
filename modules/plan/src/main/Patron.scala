@@ -27,7 +27,7 @@ case class Patron(
     )
 
   def expireInOneMonth(cond: Boolean): Patron =
-    if (cond) expireInOneMonth
+    if cond then expireInOneMonth
     else copy(expiresAt = none)
 
   def removeStripe =

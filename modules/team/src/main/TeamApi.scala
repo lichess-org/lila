@@ -1,10 +1,8 @@
 package lila.team
 
 import play.api.libs.json.{ JsSuccess, Json, Reads }
-import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 import scala.util.Try
-import cats.syntax.traverse.*
 
 import lila.chat.ChatApi
 import lila.common.Bus
@@ -14,7 +12,7 @@ import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LeaderTeam
 import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
-import lila.user.{ User, UserRepo, Me }
+import lila.user.{ User, UserApi, UserRepo, Me }
 import lila.security.Granter
 import java.time.Period
 
@@ -23,6 +21,7 @@ final class TeamApi(
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     userRepo: UserRepo,
+    userApi: UserApi,
     cached: Cached,
     notifier: Notifier,
     timeline: lila.hub.actors.Timeline,
@@ -112,7 +111,7 @@ final class TeamApi(
     cached
       .teamIdsList(userIdOf(member))
       .map(_.take(lila.team.Team.maxJoinCeiling)) flatMap { allIds =>
-      if (viewer.exists(_ is member) || Granter.opt(_.UserModView)) fuccess(allIds)
+      if viewer.exists(_ is member) || Granter.opt(_.UserModView) then fuccess(allIds)
       else
         allIds.nonEmpty.so:
           teamRepo.filterHideMembers(allIds) flatMap { hiddenIds =>
@@ -141,11 +140,10 @@ final class TeamApi(
   yield withUsers
 
   private def requestsWithUsers(requests: List[Request]): Fu[List[RequestWithUser]] =
-    userRepo optionsByIds requests.map(_.user) map { users =>
-      requests zip users collect {
-        case (request, Some(user)) if user.enabled.yes => RequestWithUser(request, user)
-      }
-    }
+    userApi
+      .listWithPerfs(requests.map(_.user))
+      .map: users =>
+        RequestWithUser.combine(requests, users.filter(_.enabled.yes))
 
   def join(team: Team, request: Option[String], password: Option[String])(using Me): Fu[Requesting] =
     if team.open then
@@ -158,17 +156,15 @@ final class TeamApi(
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
       createRequest(team, txt) inject Requesting.Joined
 
-  def requestable(teamId: TeamId)(using Me): Fu[Option[Team]] =
-    for
-      teamOption <- teamEnabled(teamId)
-      able       <- teamOption.so(requestable)
-    yield teamOption ifTrue able
+  def requestable(teamId: TeamId)(using Me): Fu[Option[Team]] = for
+    teamOption <- teamEnabled(teamId)
+    able       <- teamOption.so(requestable)
+  yield teamOption ifTrue able
 
-  def requestable(team: Team)(using me: Me): Fu[Boolean] =
-    for
-      belongs   <- belongsTo(team.id, me)
-      requested <- requestRepo.exists(team.id, me)
-    yield !belongs && !requested
+  def requestable(team: Team)(using me: Me): Fu[Boolean] = for
+    belongs   <- belongsTo(team.id, me)
+    requested <- requestRepo.exists(team.id, me)
+  yield !belongs && !requested
 
   def createRequest(team: Team, msg: String)(using me: Me): Funit =
     requestable(team).flatMapz {
@@ -242,7 +238,7 @@ final class TeamApi(
     cached.teamIdsList(username.id) flatMap teamsByIds
 
   def teamsByIds(ids: List[TeamId]) =
-    teamRepo.coll.byIds[Team, TeamId](ids, ReadPreference.secondaryPreferred)
+    teamRepo.coll.byIds[Team, TeamId](ids, _.sec)
 
   def quit(team: Team, userId: UserId): Funit =
     memberRepo.remove(team.id, userId) flatMap { res =>
@@ -314,18 +310,18 @@ final class TeamApi(
       idsNoKids            <- userRepo.filterNotKid(allIds.toSeq)
       previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)
       ids =
-        (if (idsNoKids(User.lichessId) && !byMod && !previousValidLeaders(User.lichessId))
-           idsNoKids - User.lichessId
-         else idsNoKids)
-      _ <- ids.nonEmpty so {
-        if (ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod)
+        if idsNoKids(User.lichessId) && !byMod && !previousValidLeaders(User.lichessId)
+        then idsNoKids - User.lichessId
+        else idsNoKids
+      _ <- ids.nonEmpty.so:
+        if ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod
+        then
           cached.leaders.put(team.id, fuccess(ids))
           logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
         else
           logger.info(s"invalid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           funit
-      }
     yield ()
 
   def isLeaderOf(leader: UserId, member: UserId) =
@@ -334,18 +330,16 @@ final class TeamApi(
     }
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
-    if (
-      Granter(_.ManageTeam) || me.is(team.createdBy) ||
+    if Granter(_.ManageTeam) || me.is(team.createdBy) ||
       (team.leaders(me) && !team.leaders(team.createdBy))
-    )
+    then
       logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me}: $explain")
-      if (team.enabled)
+      if team.enabled then
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
           requestRepo.removeByTeam(team.id).void >>-
           (indexer ! RemoveTeam(team.id))
-      else
-        teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
+      else teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
     else teamRepo.setLeaders(team.id, team.leaders - me)
 
   // delete for ever, with members but not forums
@@ -366,7 +360,7 @@ final class TeamApi(
     teamRepo.leads(teamId, u.id)
 
   def filterExistingIds(ids: Set[TeamId]): Fu[Set[TeamId]] =
-    teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids), ReadPreference.secondaryPreferred)
+    teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids), _.sec)
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
     teamRepo.coll
@@ -377,7 +371,7 @@ final class TeamApi(
         )
       )
       .sort($sort desc "nbMembers")
-      .cursor[Team](ReadPreference.secondaryPreferred)
+      .cursor[Team](ReadPref.sec)
       .list(max)
 
   export cached.nbRequests.{ get as nbRequests }

@@ -4,7 +4,7 @@ package lila.shutup
  * We reject and condemn them. They are here so we can verify
  * that Lichess detects them, to help moderators keeping the site nice.
  */
-class AnalyserTest extends munit.FunSuite {
+class AnalyserTest extends munit.FunSuite:
 
   private def find(t: String)  = Analyser(t).badWords
   private def dirty(t: String) = Analyser(t).dirty
@@ -85,4 +85,3 @@ class AnalyserTest extends munit.FunSuite {
       )
     )
   }
-}

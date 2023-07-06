@@ -15,6 +15,7 @@
   <string name="voteToLoadNextOne">Voĉdonu por iri al la venonta puzlo!</string>
   <string name="upVote">Supren voĉdoni puzlo</string>
   <string name="downVote">Malsupren voĉdoni puzlo</string>
+  <string name="yourPuzzleRatingWillNotChange">Via puzla rango ne ŝanĝiĝos. Notu, ke puzloj ne estas konkurso. Via rango helpis elekti la plej bonaj puzloj por via nuna lerto.</string>
   <string name="findTheBestMoveForWhite">Trovu la plej bonan movon por blanko.</string>
   <string name="findTheBestMoveForBlack">Trovu la plej bonan movon por nigro.</string>
   <string name="puzzleId">Puzlo %s</string>
@@ -28,6 +29,8 @@
   <string name="puzzleComplete">Puzlo kompletigita!</string>
   <string name="byOpenings">Laŭ malfermoj</string>
   <string name="puzzlesByOpenings">Puzloj laŭ malfermoj</string>
+  <string name="openingsYouPlayedTheMost">Malfermoj kiujn vi plej ludis en rangaj ludoj</string>
+  <string name="useCtrlF">Uzu Ctrl+f por trovi vian plej ŝatatan malfermon!</string>
   <string name="notTheMove">Tiu ne estas la movo!</string>
   <string name="trySomethingElse">Provu ion alian.</string>
   <string name="ratingX">Taksado: %s</string>
@@ -42,6 +45,10 @@
   <string name="normal">Normale</string>
   <string name="easier">Facile</string>
   <string name="easiest">Tre facile</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Unu poento sub via puzla rango</item>
+    <item quantity="other">%s poentoj sub via puzla rango</item>
+  </plurals>
   <string name="harder">Malfacile</string>
   <string name="hardest">Tre malfacile</string>
   <string name="example">Ekzamplo</string>
@@ -57,6 +64,7 @@
   <string name="continueTheStreak">Daŭrigi la sinsekvon</string>
   <string name="newStreak">Nova sinsekvo</string>
   <string name="fromMyGames">De miaj ludoj</string>
+  <string name="fromXGames">Puzloj el %s\' ludoj</string>
   <string name="searchPuzzles">Serĉi puzlojn</string>
   <string name="puzzleDashboardDescription">Trejnu, analizu, pliboniĝu</string>
   <plurals name="nbPlayed">

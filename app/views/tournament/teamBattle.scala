@@ -1,7 +1,6 @@
 package views.html
 package tournament
 
-import cats.syntax.all.*
 import controllers.routes
 import play.api.data.Form
 
@@ -25,7 +24,7 @@ object teamBattle:
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")(tour.name()),
           standardFlash,
-          if (tour.isFinished) p("This tournament is over, and the teams can no longer be updated.")
+          if tour.isFinished then p("This tournament is over, and the teams can no longer be updated.")
           else p("List the teams that will compete in this battle."),
           postForm(cls := "form3", action := routes.Tournament.teamBattleUpdate(tour.id))(
             form3.group(

@@ -2,7 +2,7 @@ package lila.api
 
 import lila.common.config.NetDomain
 
-class LpvGameRegexTest extends munit.FunSuite {
+class LpvGameRegexTest extends munit.FunSuite:
 
   val re = LpvGameRegex(NetDomain("boo.org:8080"))
 
@@ -129,4 +129,3 @@ class LpvGameRegexTest extends munit.FunSuite {
   test("blog links extract game id 2") {
     assert(group(re.gamePgnsRe, "boo.org:8080/1234abcd1234#123", 1).contains("1234abcd"))
   }
-}

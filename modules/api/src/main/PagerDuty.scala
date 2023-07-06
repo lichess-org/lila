@@ -34,10 +34,9 @@ final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDut
         .addEffects(
           err => logger.error("lilaRestart failed", err),
           res =>
-            if (res.status != 201) {
+            if res.status != 201 then
               println(res.body)
               logger.warn(s"lilaRestart status=${res.status}")
-            }
         )
         .void
 

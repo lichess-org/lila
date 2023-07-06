@@ -318,6 +318,16 @@ abstract private[controllers] class LilaController(val env: Env)
           pageHit
           f(using ctx.withLang(lang))
 
+  import lila.rating.{ Perf, PerfType }
+  def WithMyPerf[A](pt: PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+    .soFu(env.user.perfsRepo.perfOf(_, pt))
+    .flatMap: perf =>
+      f(using perf | Perf.default)
+  def WithMyPerfs[A](f: Option[lila.user.User.WithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+    .soFu(me => env.user.api.withPerfs(me.value))
+    .flatMap:
+      f(using _)
+
   /* We roll our own action, as we don't want to compose play Actions. */
   private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
     import play.api.libs.streams.Accumulator

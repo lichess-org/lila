@@ -13,24 +13,23 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
 
   def addResult(userId: UserId, p: Pairing, version: Version, streakable: Streakable): Sheet =
     val berserk =
-      if (p berserkOf userId)
-        if p.notSoQuickFinish then Berserk.Valid else Berserk.Invalid
+      if p berserkOf userId then if p.notSoQuickFinish then Berserk.Valid else Berserk.Invalid
       else Berserk.No
     val score = p.winner match
       case None if p.quickDraw => Score(Result.DQ, Flag.Normal, berserk)
       case None =>
         Score(
           Result.Draw,
-          if (streakable && isOnFire) Flag.Double
-          else if (version != Version.V1 && !p.longGame(variant) && isDrawStreak(scores)) Flag.Null
+          if streakable && isOnFire then Flag.Double
+          else if version != Version.V1 && !p.longGame(variant) && isDrawStreak(scores) then Flag.Null
           else Flag.Normal,
           berserk
         )
       case Some(w) if userId == w =>
         Score(
           Result.Win,
-          if (!streakable) Flag.Normal
-          else if (isOnFire) Flag.Double
+          if !streakable then Flag.Normal
+          else if isOnFire then Flag.Double
           else Flag.StreakStarter,
           berserk
         )
@@ -44,9 +43,8 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
 
   def scoresToString: String =
     val sb = new java.lang.StringBuilder(16)
-    scores foreach { score =>
+    scores.foreach: score =>
       sb append score.value
-    }
     sb.toString
 
 object Sheet:

@@ -19,7 +19,7 @@ final private class LeaderboardIndexer(
   //     tournamentRepo.coll
   //       .find(tournamentRepo.finishedSelect)
   //       .sort($sort desc "startsAt")
-  //       .cursor[Tournament](ReadPreference.secondaryPreferred)
+  //       .cursor[Tournament](ReadPref.sec)
   //       .documentSource()
   //       .via(lila.common.LilaStream.logRate[Tournament]("leaderboard index tour")(logger))
   //       .mapAsyncUnordered(1)(generateTourEntries)
@@ -38,10 +38,10 @@ final private class LeaderboardIndexer(
     entries.nonEmpty so leaderboardRepo.coll.insert.many(entries).void
 
   private def generateTourEntries(tour: Tournament): Fu[List[Entry]] =
-    for {
+    for
       nbGames <- pairingRepo.countByTourIdAndUserIds(tour.id)
       players <- playerRepo.bestByTourWithRank(tour.id, nb = 9000, skip = 0)
-    } yield players.flatMap { case RankedPlayer(rank, player) =>
+    yield players.flatMap { case RankedPlayer(rank, player) =>
       nbGames get player.userId map { nb =>
         Entry(
           id = player._id,
@@ -50,7 +50,7 @@ final private class LeaderboardIndexer(
           nbGames = nb,
           score = player.score,
           rank = rank,
-          rankRatio = Ratio(if (tour.nbPlayers > 0) rank.value.toDouble / tour.nbPlayers else 0),
+          rankRatio = Ratio(if tour.nbPlayers > 0 then rank.value.toDouble / tour.nbPlayers else 0),
           freq = tour.schedule.map(_.freq),
           speed = tour.schedule.map(_.speed),
           perf = tour.perfType,

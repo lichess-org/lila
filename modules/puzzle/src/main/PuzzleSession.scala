@@ -4,7 +4,8 @@ import chess.Color
 import scala.util.chaining.*
 
 import lila.memo.CacheApi
-import lila.user.User
+import lila.user.{ User, Me }
+import lila.rating.Perf
 
 private case class PuzzleSession(
     settings: PuzzleSettings,
@@ -45,8 +46,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       _ map { session =>
         // yes, even if the completed puzzle was not the current session puzzle
         // in that case we just skip a puzzle on the path, which doesn't matter
-        if (session.path.angle == angle)
-          sessions.put(round.userId, fuccess(session.next))
+        if session.path.angle == angle then sessions.put(round.userId, fuccess(session.next))
       }
     }
 
@@ -55,58 +55,57 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       .getIfPresent(user.id)
       .fold[Fu[PuzzleSettings]](fuccess(PuzzleSettings.default))(_.dmap(_.settings))
 
-  def setDifficulty(user: User, difficulty: PuzzleDifficulty): Funit =
-    updateSession(user): prev =>
+  def setDifficulty(difficulty: PuzzleDifficulty)(using Me, Perf): Funit =
+    updateSession: prev =>
       (prev.fold(true)(_.settings.difficulty != difficulty)) option
         createSessionFor(
-          user,
           prev.map(_.path.angle) | PuzzleAngle.mix,
           PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
         )
 
-  def setAngleAndColor(user: User, angle: PuzzleAngle, color: Option[Color]): Funit =
-    updateSession(user): prev =>
+  def setAngleAndColor(angle: PuzzleAngle, color: Option[Color])(using Me, Perf): Funit =
+    updateSession: prev =>
       (prev.fold(true)(p => p.settings.color != color || p.path.angle != angle)) option
         createSessionFor(
-          user,
           angle,
           PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
         )
 
-  private[puzzle] def set(user: User, session: PuzzleSession) = sessions.put(user.id, fuccess(session))
+  private[puzzle] def set(session: PuzzleSession)(using me: Me) = sessions.put(me.userId, fuccess(session))
 
-  private def updateSession(user: User)(f: Option[PuzzleSession] => Option[Fu[PuzzleSession]]): Funit =
+  private def updateSession(f: Option[PuzzleSession] => Option[Fu[PuzzleSession]])(using me: Me): Funit =
     sessions
-      .getIfPresent(user.id)
+      .getIfPresent(me.userId)
       .fold(fuccess(none[PuzzleSession]))(_ dmap some)
       .flatMap: prev =>
-        f(prev).fold(funit):
+        f(prev).so:
           _.map: next =>
-            !prev.exists(next.similarTo) so sessions.put(user.id, fuccess(next))
+            !prev.exists(next.similarTo) so sessions.put(me.userId, fuccess(next))
 
   private val sessions = cacheApi.notLoading[UserId, PuzzleSession](32768, "puzzle.session"):
     _.expireAfterWrite(1 hour).buildAsync()
 
   private[puzzle] def continueOrCreateSessionFor(
-      user: User,
       angle: PuzzleAngle,
       canFlush: Boolean
-  ): Fu[PuzzleSession] =
+  )(using me: Me, perf: Perf): Fu[PuzzleSession] =
     sessions
-      .getFuture(user.id, _ => createSessionFor(user, angle, PuzzleSettings.default))
+      .getFuture(me.userId, _ => createSessionFor(angle, PuzzleSettings.default))
       .flatMap: current =>
-        if current.path.angle != angle || (canFlush && shouldFlushSession(user, current))
-        then createSessionFor(user, angle, current.settings) tap { sessions.put(user.id, _) }
+        if current.path.angle != angle || (canFlush && shouldFlushSession(current))
+        then createSessionFor(angle, current.settings) tap { sessions.put(me.userId, _) }
         else fuccess(current)
 
   // renew the session often for provisional players
-  private def shouldFlushSession(user: User, session: PuzzleSession) = !session.brandNew && {
-    val perf = user.perfs.puzzle
+  private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew && {
     perf.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
   }
 
-  private def createSessionFor(user: User, angle: PuzzleAngle, settings: PuzzleSettings): Fu[PuzzleSession] =
+  private def createSessionFor(angle: PuzzleAngle, settings: PuzzleSettings)(using
+      me: Me,
+      perf: Perf
+  ): Fu[PuzzleSession] =
     pathApi
-      .nextFor(user, angle, PuzzleTier.top, settings.difficulty, Set.empty)
-      .orFail(s"No puzzle path found for ${user.id}, angle: $angle")
+      .nextFor(angle, PuzzleTier.top, settings.difficulty, Set.empty)
+      .orFail(s"No puzzle path found for ${me.username}, angle: $angle")
       .dmap(pathId => PuzzleSession(settings, pathId, 0))

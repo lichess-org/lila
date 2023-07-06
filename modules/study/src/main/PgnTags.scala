@@ -19,7 +19,7 @@ object PgnTags:
     })
 
   private def removeContradictingTermination(tags: Tags) =
-    if (tags.outcome.isDefined)
+    if tags.outcome.isDefined then
       Tags(tags.value.filterNot { t =>
         t.name == Tag.Termination && t.value.toLowerCase == "unterminated"
       })

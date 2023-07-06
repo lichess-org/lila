@@ -16,6 +16,7 @@ import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, P
 import lila.user.User
 import lila.common.LangPath
 import play.api.i18n.Lang
+import lila.rating.{ Perf, PerfType }
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -28,10 +29,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       newMe: Option[Me] = None,
       apiVersion: Option[ApiVersion] = None
   )(using ctx: Context): Fu[JsObject] =
-    given Option[Me] = newMe orElse ctx.me
-    if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
-    then env.puzzle.jsonView.bc(puzzle)
-    else env.puzzle.jsonView(puzzle, angle.some, replay)
+    given me: Option[Me] = newMe orElse ctx.me
+    WithPuzzlePerf:
+      if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
+      then env.puzzle.jsonView.bc(puzzle)
+      else env.puzzle.jsonView(puzzle, angle.some, replay)
 
   private def renderShow(
       puzzle: Puz,
@@ -39,14 +41,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       color: Option[Color] = None,
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       langPath: Option[LangPath] = None
-  )(using ctx: Context) =
-    for
-      json     <- renderJson(puzzle, angle, replay)
-      settings <- ctx.me.so(u => env.puzzle.session.getSettings(u) dmap some)
-      prefJson = env.puzzle.jsonView.pref(ctx.pref)
-      page <- renderPage:
-        views.html.puzzle.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
-    yield Ok(page).enableSharedArrayBuffer
+  )(using ctx: Context) = for
+    json     <- renderJson(puzzle, angle, replay)
+    settings <- ctx.user.soFu(env.puzzle.session.getSettings)
+    prefJson = env.puzzle.jsonView.pref(ctx.pref)
+    page <- renderPage:
+      views.html.puzzle.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
+  yield Ok(page).enableSharedArrayBuffer
 
   def daily = Open:
     NoBot:
@@ -58,11 +59,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiDaily = Anon:
     Found(env.puzzle.daily.get): daily =>
-      JsonOk(env.puzzle.jsonView(daily.puzzle, none, none))
+      WithPuzzlePerf:
+        JsonOk(env.puzzle.jsonView(daily.puzzle, none, none))
 
   def apiShow(id: PuzzleId) = Anon:
     Found(env.puzzle.api.puzzle find id): puzzle =>
-      JsonOk(env.puzzle.jsonView(puzzle, none, none))
+      WithPuzzlePerf:
+        JsonOk(env.puzzle.jsonView(puzzle, none, none))
 
   def home = Open(serveHome)
 
@@ -82,11 +85,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   )(using ctx: Context): Fu[Option[Puz]] =
     ctx.me match
       case Some(me) =>
-        ctx.req.session.get(cookieDifficulty).flatMap(PuzzleDifficulty.find).so {
-          env.puzzle.session.setDifficulty(me, _)
-        } >>
-          color.so { env.puzzle.session.setAngleAndColor(me, angle, _) } >>
-          env.puzzle.selector.nextPuzzleFor(me, angle)
+        given Me = me
+        WithPuzzlePerf:
+          ctx.req.session
+            .get(cookieDifficulty)
+            .flatMap(PuzzleDifficulty.find)
+            .so(env.puzzle.session.setDifficulty)
+            >>
+              color.so(env.puzzle.session.setAngleAndColor(angle, _)) >>
+              env.puzzle.selector.nextPuzzleFor(angle)
       case None => env.puzzle.anon.getOneFor(angle, difficulty, ~color)
 
   private def redirectNoPuzzle: Fu[Result] =
@@ -94,12 +101,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def complete(angleStr: String, id: PuzzleId) = OpenBody:
     NoBot:
-      Puz.toId(id) so { pid =>
+      Puz.toId(id).so { pid =>
         onComplete(env.puzzle.forms.round)(pid, PuzzleAngle findOrMix angleStr, mobileBc = false)
       }
 
   def mobileBcRound(nid: Long) = OpenBody:
-    Puz.numericalId(nid) so {
+    Puz.numericalId(nid).so {
       onComplete(env.puzzle.forms.bc.round)(_, PuzzleAngle.mix, mobileBc = true)
     }
 
@@ -107,7 +114,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val userId = name flatMap lila.user.User.validateId
     for
       user    <- userId.so(env.user.repo.enabledById) orElse fuccess(ctx.me.map(_.value))
-      puzzles <- user.so { env.puzzle.api.puzzle.of(_, page) dmap some }
+      puzzles <- user.soFu(env.puzzle.api.puzzle.of(_, page))
       page    <- renderPage(views.html.puzzle.ofPlayer(name.so(_.value), user, puzzles))
     yield Ok(page)
 
@@ -139,54 +146,56 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated).increment()
               ctx.me match
                 case Some(me) =>
-                  env.puzzle.finisher(id, angle, me, data.win, data.mode) flatMapz { (round, perf) =>
-                    val newMe = me.map(_.copy(perfs = me.perfs.copy(puzzle = perf)))
-                    for
-                      _ <- env.puzzle.session.onComplete(round, angle)
-                      json <-
-                        if mobileBc then
-                          fuccess:
-                            env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
-                              "round" -> Json.obj(
-                                "ratingDiff" -> 0,
-                                "win"        -> data.win
-                              ),
-                              "voted" -> round.vote
-                            )
-                        else
-                          (data.replayDays, angle.asTheme) match {
-                            case (Some(replayDays), Some(theme)) =>
-                              for
-                                _    <- env.puzzle.replay.onComplete(round, replayDays, angle)
-                                next <- env.puzzle.replay(me, replayDays.some, theme)
-                                json <- next match
-                                  case None => fuccess(Json.obj("replayComplete" -> true))
-                                  case Some((puzzle, replay)) =>
-                                    renderJson(puzzle, angle, replay.some) map { nextJson =>
-                                      Json.obj(
-                                        "round" -> env.puzzle.jsonView.roundJson.web(round, perf)(using me),
-                                        "next"  -> nextJson
-                                      )
-                                    }
-                              yield json
-                            case _ =>
-                              for
-                                next     <- nextPuzzleForMe(angle, none)
-                                nextJson <- next.so { renderJson(_, angle, none, newMe.some) dmap some }
-                              yield Json.obj(
-                                "round" -> env.puzzle.jsonView.roundJson.web(round, perf)(using me),
-                                "next"  -> nextJson
+                  given Me = me
+                  WithPuzzlePerf:
+                    env.puzzle.finisher(id, angle, data.win, data.mode) flatMapz { (round, perf) =>
+                      val newMe = me.value withPerf perf
+                      for
+                        _ <- env.puzzle.session.onComplete(round, angle)
+                        json <-
+                          if mobileBc then
+                            fuccess:
+                              env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
+                                "round" -> Json.obj(
+                                  "ratingDiff" -> 0,
+                                  "win"        -> data.win
+                                ),
+                                "voted" -> round.vote
                               )
-                          }
-                    yield json
-                  }
+                          else
+                            (data.replayDays, angle.asTheme) match
+                              case (Some(replayDays), Some(theme)) =>
+                                for
+                                  _    <- env.puzzle.replay.onComplete(round, replayDays, angle)
+                                  next <- env.puzzle.replay(me, replayDays.some, theme)
+                                  json <- next match
+                                    case None => fuccess(Json.obj("replayComplete" -> true))
+                                    case Some((puzzle, replay)) =>
+                                      renderJson(puzzle, angle, replay.some) map { nextJson =>
+                                        Json.obj(
+                                          "round" -> env.puzzle.jsonView.roundJson.web(round, perf)(using me),
+                                          "next"  -> nextJson
+                                        )
+                                      }
+                                yield json
+                              case _ =>
+                                for
+                                  next <- nextPuzzleForMe(angle, none)
+                                  nextJson <- next.soFu:
+                                    renderJson(_, angle, none, Me.from(newMe.user.some))
+                                yield Json.obj(
+                                  "round" -> env.puzzle.jsonView.roundJson.web(round, perf)(using me),
+                                  "next"  -> nextJson
+                                )
+                      yield json
+                    }
                 case None =>
                   env.puzzle.finisher.incPuzzlePlays(id)
-                  if (mobileBc) fuccess(Json.obj("user" -> false))
+                  if mobileBc then fuccess(Json.obj("user" -> false))
                   else
                     nextPuzzleForMe(angle, data.color map some)
                       .flatMap:
-                        _ so { renderJson(_, angle) dmap some }
+                        _.so(renderJson(_, angle))
                       .map: json =>
                         Json.obj("next" -> json)
           } dmap JsonOk
@@ -204,6 +213,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def streakJsonAndPuzzle(using Lang) =
     given Option[Me] = none
+    given Perf       = Perf.default
     env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
       env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none) map { puzzleJson =>
         (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
@@ -212,7 +222,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def setStreakResult(userId: UserId, score: Int) =
     lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
-    env.user.repo.addStreakRun(userId, score)
+    env.user.perfsRepo.addStreakRun(userId, score)
 
   def apiStreak = Anon:
     streakJsonAndPuzzle.orNotFound: (json, _) =>
@@ -256,9 +266,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .fold(
           doubleJsonFormError,
           diff =>
-            PuzzleDifficulty.find(diff) so { env.puzzle.session.setDifficulty(me, _) } inject
-              Redirect(routes.Puzzle.show(theme))
-                .withCookies(env.lilaCookie.session(cookieDifficulty, diff))
+            WithPuzzlePerf:
+              PuzzleDifficulty.find(diff).so(env.puzzle.session.setDifficulty) inject
+                Redirect(routes.Puzzle.show(theme))
+                  .withCookies(env.lilaCookie.session(cookieDifficulty, diff))
         )
   }
 
@@ -370,18 +381,20 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { _ ?=> user =>
     Reasonable(page):
-      Ok.pageAsync:
-        env.puzzle
-          .history(user, page)
-          .map:
-            views.html.puzzle.history(user, _)
+      WithPuzzlePerf: perf ?=>
+        Ok.pageAsync:
+          env.puzzle
+            .history(user withPerf perf, page)
+            .map:
+              views.html.puzzle.history(user, _)
   }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
-    batchSelect(PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
+    WithPuzzlePerf:
+      batchSelect(PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
 
   private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty"))
-  private def batchSelect(angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int)(using me: Option[Me]) =
+  private def batchSelect(angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int)(using Option[Me], Perf) =
     env.puzzle.batch.nextForMe(angle, difficulty, nb atMost 50) flatMap
       env.puzzle.jsonView.batch
 
@@ -392,24 +405,27 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         err => BadRequest(err.toString),
         data =>
           val angle = PuzzleAngle findOrMix angleStr
-          for
-            rounds <- ctx.me match
-              case Some(me) =>
-                env.puzzle.finisher.batch(me, angle, data.solutions).map {
-                  _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
-                }
-              case None =>
-                data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
-            given Option[Me] <- ctx.me.so(env.user.repo.me)
-            nextPuzzles      <- batchSelect(angle, reqDifficulty, ~getInt("nb"))
-            result = nextPuzzles ++ Json.obj("rounds" -> rounds)
-          yield Ok(result)
+          WithPuzzlePerf:
+            for
+              rounds <- ctx.me match
+                case Some(me) =>
+                  given Me = me
+                  env.puzzle.finisher.batch(angle, data.solutions).map {
+                    _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
+                  }
+                case None =>
+                  data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
+              given Option[Me] <- ctx.me.so(env.user.repo.me)
+              nextPuzzles      <- batchSelect(angle, reqDifficulty, ~getInt("nb"))
+              result = nextPuzzles ++ Json.obj("rounds" -> rounds)
+            yield Ok(result)
       )
 
   def mobileBcLoad(nid: Long) = Open:
     negotiateJson:
       FoundOk(Puz.numericalId(nid) so env.puzzle.api.puzzle.find): puz =>
-        env.puzzle.jsonView.bc(puz)
+        WithPuzzlePerf:
+          env.puzzle.jsonView.bc(puz)
 
   // XHR load next play puzzle
   def mobileBcNew = Open:
@@ -426,11 +442,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def mobileBcBatchSelect = Auth { ctx ?=> _ ?=>
     negotiateJson:
       val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
-      env.puzzle.batch
-        .nextForMe(PuzzleDifficulty.default, nb)
-        .flatMap: puzzles =>
-          env.puzzle.jsonView.bc.batch(puzzles)
-        .dmap(Ok(_))
+      WithPuzzlePerf:
+        env.puzzle.batch
+          .nextForMe(PuzzleDifficulty.default, nb)
+          .flatMap: puzzles =>
+            env.puzzle.jsonView.bc.batch(puzzles)
+          .dmap(Ok(_))
   }
 
   /* Mobile API: tell the server about puzzles solved while offline */
@@ -443,18 +460,20 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .fold(
           err => BadRequest(err.toString),
           data =>
-            data.solutions.lastOption
-              .flatMap: solution =>
-                Puz
-                  .numericalId(solution.id)
-                  .map(_ -> PuzzleWin(solution.win))
-              .so: (id, solution) =>
-                env.puzzle.finisher(id, PuzzleAngle.mix, me, solution, chess.Mode.Rated)
-              .map:
-                case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
-                case Some((round, perf)) =>
-                  env.puzzle.session.onComplete(round, PuzzleAngle.mix)
-                  Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
+            WithPuzzlePerf: perf ?=>
+              data.solutions.lastOption
+                .flatMap: solution =>
+                  Puz
+                    .numericalId(solution.id)
+                    .map(_ -> PuzzleWin(solution.win))
+                .so: (id, solution) =>
+                  env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Mode.Rated)
+                .map:
+                  case None =>
+                    Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
+                  case Some((round, newPerf)) =>
+                    env.puzzle.session.onComplete(round, PuzzleAngle.mix)
+                    Ok(env.puzzle.jsonView.bc.userJson(newPerf.intRating))
         )
   }
 
@@ -481,9 +500,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .so(env.user.repo.byId)
         .flatMapz: user =>
           (fuccess(isGranted(_.CheatHunter)) >>|
-            (user.enabled.yes so env.clas.api.clas.isTeacherOf(me, user.id))) map {
+            user.enabled.yes.so(env.clas.api.clas.isTeacherOf(me, user.id))) map {
             _ option user
           }
         .dmap(_ | me.value)
         .flatMap(f(_))
     }
+
+  def WithPuzzlePerf[A](f: Perf ?=> Fu[A])(using Option[Me]): Fu[A] =
+    WithMyPerf(lila.rating.PerfType.Puzzle)(f)

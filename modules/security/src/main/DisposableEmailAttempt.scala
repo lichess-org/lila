@@ -25,12 +25,12 @@ final class DisposableEmailAttempt(
       _.expireAfterWrite(1 day).build()
     }
 
-  def onFail(form: Form[?], ip: IpAddress): Unit = for {
+  def onFail(form: Form[?], ip: IpAddress): Unit = for
     email <- form("email").value flatMap EmailAddress.from
     if email.domain.exists(disposableApi.apply)
     str <- form("username").value
     u   <- UserStr read str
-  } yield
+  yield
     val attempt = Attempt(u.id, email, ip)
     byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt).unit
     byId.underlying.asMap.compute(u.id, (_, attempts) => ~Option(attempts) + attempt).unit

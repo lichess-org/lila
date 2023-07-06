@@ -6,12 +6,13 @@ import lila.common.{ Bus, Uptime }
 import lila.game.actorApi.{ AbortedBy, FinishGame }
 import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.playban.PlaybanApi
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserApi }
 import lila.i18n.{ defaultLang, I18nKeys as trans }
 
 final private class Finisher(
     gameRepo: GameRepo,
     userRepo: UserRepo,
+    userApi: UserApi,
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
     playban: PlaybanApi,
@@ -41,10 +42,11 @@ final private class Finisher(
       }
 
   def outOfTime(game: Game)(using GameProxy): Fu[Events] =
-    if (!game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt))
+    if !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
+    then
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
-    else if (game.player(!game.player.color).isOfferingDraw)
+    else if game.player(!game.player.color).isOfferingDraw then
       apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
     else
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
@@ -57,7 +59,8 @@ final private class Finisher(
     game.playerWhoDidNotMove.so: culprit =>
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
-      if (game.isMandatory || game.metadata.hasRule(_.NoAbort)) apply(game, _.NoStart, Some(!culprit.color))
+      if game.isMandatory || game.metadata.hasRule(_.NoAbort) then
+        apply(game, _.NoStart, Some(!culprit.color))
       else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
 
   def other(
@@ -68,7 +71,7 @@ final private class Finisher(
   )(using GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
 
-  private def recordLagStats(game: Game) = for {
+  private def recordLagStats(game: Game) = for
     clock  <- game.clock
     player <- clock.players.all
     lt    = player.lag
@@ -81,7 +84,7 @@ final private class Finisher(
     compEstStdErr <- lt.compEstStdErr
     quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
     compEstOvers = lt.compEstOvers.centis
-  } {
+  do
     import lila.mon.round.move.{ lag as lRec }
     lRec.mean.record(Math.round(10 * mean))
     lRec.stdDev.record(Math.round(10 * sd))
@@ -95,7 +98,6 @@ final private class Finisher(
       case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
     lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
     lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
-  }
 
   private def apply(
       prev: Game,
@@ -106,7 +108,7 @@ final private class Finisher(
     val status = makeStatus(Status)
     val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
     val game   = prog.game
-    if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
+    if game.nonAi && game.isCorrespondence then Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game
       .finish(
         variant = game.variant.key.value,
@@ -124,40 +126,36 @@ final private class Finisher(
         winnerId = winnerC flatMap (game.player(_).userId),
         status = prog.game.status
       ) >>
-      userRepo
-        .pair(game.whitePlayer.userId, game.blackPlayer.userId)
-        .flatMap { (whiteO, blackO) =>
+      userApi
+        .pairWithPerfs(game.userIdPair)
+        .flatMap: (whiteO, blackO) =>
           val finish = FinishGame(game, whiteO, blackO)
-          updateCountAndPerfs(finish) map { ratingDiffs =>
+          updateCountAndPerfs(finish).map: ratingDiffs =>
             message foreach { messenger(game, _) }
             gameRepo game game.id foreach { newGame =>
               newGame foreach proxy.setFinishedGame
               val newFinish = finish.copy(game = newGame | game)
               Bus.publish(newFinish, "finishGame")
-              game.userIds foreach { userId =>
+              game.userIds.foreach: userId =>
                 Bus.publish(newFinish, s"userFinishGame:$userId")
-              }
             }
             List(lila.game.Event.EndData(game, ratingDiffs))
-          }
-        }
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted).so:
-      import cats.syntax.all.*
       (finish.white, finish.black).mapN((_, _)) so { (white, black) =>
         crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
       } zip
         (finish.white so incNbGames(finish.game)) zip
         (finish.black so incNbGames(finish.game)) dmap (_._1._1)
 
-  private def incNbGames(game: Game)(user: User): Funit =
+  private def incNbGames(game: Game)(user: User.WithPerfs): Funit =
     game.finished so { user.noBot || game.nonAi } so {
       val totalTime = (game.hasClock && user.playTime.isDefined) so game.durationSeconds
       val tvTime    = totalTime ifTrue recentTvGames.get(game.id)
       val result =
-        if (game.winnerUserId has user.id) 1
-        else if (game.loserUserId has user.id) -1
+        if game.winnerUserId has user.id then 1
+        else if game.loserUserId has user.id then -1
         else 0
       userRepo
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)

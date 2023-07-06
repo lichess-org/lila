@@ -32,13 +32,13 @@ private[study] object CommentParser:
   private type ClockAndComment = (Option[Centis], String)
 
   private def readCentis(hours: String, minutes: String, seconds: String): Option[Centis] =
-    for {
+    for
       h <- hours.toIntOption
       m <- minutes.toIntOption
       cs <- seconds.toDoubleOption match
         case Some(s) => Some(Maths.roundAt(s * 100, 0).toInt)
         case _       => none
-    } yield Centis(h * 360000 + m * 6000 + cs)
+    yield Centis(h * 360000 + m * 6000 + cs)
 
   private val clockHourMinuteRegex                 = """^(\d++):(\d+)$""".r
   private val clockHourMinuteSecondRegex           = """^(\d++):(\d++)[:\.](\d+)$""".r
@@ -70,10 +70,10 @@ private[study] object CommentParser:
     comment match
       case circlesRegex(str) =>
         val circles = str.split(',').toList.map(_.trim).flatMap { c =>
-          for {
+          for
             color <- c.headOption
             pos   <- Square fromKey c.drop(1)
-          } yield Shape.Circle(toBrush(color), pos)
+          yield Shape.Circle(toBrush(color), pos)
         }
         Shapes(circles) -> circlesRemoveRegex.replaceAllIn(comment, "").trim
       case _ => Shapes(Nil) -> comment
@@ -82,11 +82,11 @@ private[study] object CommentParser:
     comment match
       case arrowsRegex(str) =>
         val arrows = str.split(',').toList.flatMap { c =>
-          for {
+          for
             color <- c.headOption
             orig  <- Square fromKey c.slice(1, 3)
             dest  <- Square fromKey c.slice(3, 5)
-          } yield Shape.Arrow(toBrush(color), orig, dest)
+          yield Shape.Arrow(toBrush(color), orig, dest)
         }
         Shapes(arrows) -> arrowsRemoveRegex.replaceAllIn(comment, "").trim
       case _ => Shapes(Nil) -> comment

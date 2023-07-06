@@ -23,9 +23,9 @@ object edit:
       main(cls := "page-menu")(
         bits.menu("edit", s.some),
         div(cls := "page-menu__content box streamer-edit")(
-          if (ctx.is(s.user))
+          if ctx.is(s.user) then
             div(cls := "streamer-header")(
-              if (s.streamer.hasPicture)
+              if s.streamer.hasPicture then
                 a(
                   targetBlank,
                   cls   := "picture-edit",
@@ -40,7 +40,8 @@ object edit:
                     a(targetBlank, cls := "button", href := routes.Streamer.picture)(
                       uploadPicture()
                     )
-                ),
+                )
+              ,
               div(cls := "overview")(
                 h1(s.streamer.name),
                 bits.rules
@@ -52,9 +53,9 @@ object edit:
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(
                 cls      := s"status is${granted so "-green"}",
-                dataIcon := (if (granted) licon.Checkmark else licon.InfoCircle)
+                dataIcon := (if granted then licon.Checkmark else licon.InfoCircle)
               )(
-                if (granted)
+                if granted then
                   frag(
                     approved(),
                     s.streamer.approval.tier > 0 option frag(
@@ -68,10 +69,10 @@ object edit:
                   )
                 else
                   frag(
-                    if (s.streamer.approval.requested) pendingReview()
+                    if s.streamer.approval.requested then pendingReview()
                     else
                       frag(
-                        if (s.streamer.completeEnough)
+                        if s.streamer.completeEnough then
                           whenReady(
                             postForm(action := routes.Streamer.approvalRequest)(
                               button(tpe := "submit", cls := "button", (!ctx.is(s.user)) option disabled)(
@@ -164,7 +165,7 @@ object edit:
                       frag("Embed stream chat too"),
                       half = true
                     ),
-                    if (granted)
+                    if granted then
                       form3.group(
                         form("approval.tier"),
                         raw("Homepage tier"),

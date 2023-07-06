@@ -15,12 +15,12 @@ case class ClasProgress(
     days: Int,
     students: Map[UserId, StudentProgress]
 ):
-  def apply(user: User) =
+  def apply(user: User.WithPerf) =
     students.getOrElse(
       user.id,
       StudentProgress(
         nb = 0,
-        rating = (user.perfs(perfType).intRating, user.perfs(perfType).intRating),
+        rating = (user.perf.intRating, user.perf.intRating),
         wins = 0,
         millis = 0
       )
@@ -35,11 +35,12 @@ case class StudentProgress(
     rating: (IntRating, IntRating)
 ):
   def ratingProgress = (rating._2 - rating._1) into IntRatingDiff
-  def winRate        = if (nb > 0) wins * 100 / nb else 0
+  def winRate        = if nb > 0 then wins * 100 / nb else 0
   def duration       = Duration.ofMillis(millis)
 
 final class ClasProgressApi(
     gameRepo: GameRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     historyApi: lila.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
     studentCache: ClasStudentCache
@@ -52,10 +53,14 @@ final class ClasProgressApi(
     val userIds = users.map(_.id)
 
     val playStatsFu =
-      if (perfType == PerfType.Puzzle) getPuzzleStats(userIds, days)
+      if perfType == PerfType.Puzzle
+      then getPuzzleStats(userIds, days)
       else getGameStats(perfType, userIds, days)
 
-    val progressesFu = historyApi.progresses(users, perfType, days)
+    val progressesFu = for
+      usersWithPerf <- perfsRepo.withPerf(users, perfType)
+      progresses    <- historyApi.progresses(usersWithPerf, perfType, days)
+    yield progresses
 
     playStatsFu zip progressesFu map { case (playStats, progresses) =>
       ClasProgress(
@@ -74,18 +79,15 @@ final class ClasProgressApi(
     }
 
   private def getPuzzleStats(userIds: List[UserId], days: Int): Fu[Map[UserId, PlayStats]] =
-    puzzleColls.round {
-      _.aggregateList(
-        maxDocs = Int.MaxValue,
-        ReadPreference.secondaryPreferred
-      ) { framework =>
+    puzzleColls.round:
+      _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
           $doc(
             PuzzleRound.BSONFields.user $in userIds,
             PuzzleRound.BSONFields.date $gt nowInstant.minusDays(days)
           )
-        ) -> List(
+        ) -> List:
           GroupField("u")(
             "nb" -> SumAll,
             "win" -> Sum(
@@ -94,9 +96,8 @@ final class ClasProgressApi(
               )
             )
           )
-        )
-      }.map {
-        _.flatMap { obj =>
+      .map:
+        _.flatMap: obj =>
           obj.getAsOpt[UserId]("_id") map { id =>
             id -> PlayStats(
               nb = ~obj.int("nb"),
@@ -104,9 +105,7 @@ final class ClasProgressApi(
               millis = 0
             )
           }
-        }.toMap
-      }
-    }
+        .toMap
 
   private def getGameStats(
       perfType: PerfType,
@@ -116,10 +115,7 @@ final class ClasProgressApi(
     import Game.{ BSONFields as F }
     import lila.game.Query
     gameRepo.coll
-      .aggregateList(
-        maxDocs = Int.MaxValue,
-        ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
           $doc(
@@ -148,9 +144,8 @@ final class ClasProgressApi(
             "ms" -> SumField("ms")
           )
         )
-      }
-      .map {
-        _.flatMap { obj =>
+      .map:
+        _.flatMap: obj =>
           obj.getAsOpt[UserId](F.id) map { id =>
             id -> PlayStats(
               nb = ~obj.int("nb"),
@@ -158,8 +153,7 @@ final class ClasProgressApi(
               millis = ~obj.long("ms")
             )
           }
-        }.toMap
-      }
+        .toMap
 
   private[clas] def onFinishGame(game: lila.game.Game): Unit =
-    if (game.userIds.exists(studentCache.isStudent)) gameRepo.denormalizePerfType(game)
+    if game.userIds.exists(studentCache.isStudent) then gameRepo.denormalizePerfType(game)

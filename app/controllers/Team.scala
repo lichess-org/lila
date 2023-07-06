@@ -74,7 +74,7 @@ final class Team(
     _ <- env.user.lightUserApi preloadMany {
       team.leaders.toList ::: info.userIds ::: chat.so(_.chat.userIds)
     }
-    version <- hasChat so env.team.version(team.id).dmap(some)
+    version <- hasChat soFu env.team.version(team.id)
     page    <- renderPage(html.team.show(team, members, info, chat, version, requestModView, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
@@ -327,7 +327,6 @@ final class Team(
     }
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
-    import cats.syntax.all.*
     Found(for
       requestOption <- api request requestId
       teamOption    <- requestOption.so(req => env.team.teamRepo.byLeader(req.team, me))

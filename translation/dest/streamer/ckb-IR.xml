@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">پێشکەشکارانی lichess</string>
+  <string name="lichessStreamer">پێشکەشکارانی lichess</string>
+  <string name="live">ڕاستەوخۆ!</string>
+  <string name="offline">دەرھێڵ</string>
+  <string name="currentlyStreaming">لە ئێستادا پێشکەش دەکرێت: %s</string>
+  <string name="lastStream">کۆتا پەخشکردن %s</string>
+  <string name="becomeStreamer">ببە بە پێشکەشکارێکی لیچێس</string>
+  <string name="doYouHaveStream">کەناڵی Twitch یان Youtube\'ت هەیە?</string>
+  <string name="hereWeGo">دەستمان پێکرد!</string>
+  <string name="allStreamers">ھەموو پێشکەشکاران</string>
+  <string name="editPage">دەستکاری لاپەڕەی پێشکەشکار بکە</string>
+  <string name="yourPage">لاپەڕەی پێشکەشکردنت</string>
+  <string name="downloadKit">دابەزاندنی پێداویستی پێشکەشکردن</string>
+  <string name="xIsStreaming">%s پەخشدەکات</string>
+  <string name="rules">یاساکانی پەخشکردن</string>
+  <string name="rule1">وشەی سەرەکی \"lichess.org\" لە ناونیشانی پەخشکردنەکەتدا دابنێ و کۆمەڵێک وشەی \"شەترەنج\" بەکاربهێنە کاتێک پەخش دەکەیت لەسەر Lichess</string>
+</resources>

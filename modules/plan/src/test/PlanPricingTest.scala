@@ -1,6 +1,6 @@
 package lila.plan
 
-class PlanPricingTest extends munit.FunSuite {
+class PlanPricingTest extends munit.FunSuite:
 
   import PlanPricingApi.nicelyRound
 
@@ -31,5 +31,3 @@ class PlanPricingTest extends munit.FunSuite {
     assertEquals(nicelyRound(77), BigDecimal(80))
     assertEquals(nicelyRound(1009), BigDecimal(1000))
   }
-
-}

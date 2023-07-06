@@ -1,7 +1,6 @@
 package lila.ublog
 
 import akka.stream.scaladsl.*
-import cats.syntax.all.*
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
@@ -86,8 +85,9 @@ final class UblogRank(
         $doc("blog" -> blog.id),
         $doc("likes" -> true, "lived" -> true, "language" -> true).some
       )
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list(500) flatMap:
+      .cursor[Bdoc](ReadPref.sec)
+      .list(500)
+      .flatMap:
         _.traverse_ : doc =>
           (
             doc.string("_id"),
@@ -105,7 +105,7 @@ final class UblogRank(
     colls.blog
       .find($empty)
       .sort($sort desc "tier")
-      .cursor[UblogBlog](ReadPreference.secondaryPreferred)
+      .cursor[UblogBlog](ReadPref.sec)
       .documentSource()
       .mapAsyncUnordered(4)(recomputeRankOfAllPostsOfBlog)
       .runWith(lila.common.LilaStream.sinkCount)

@@ -1,6 +1,5 @@
 package lila.swiss
 
-import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -12,9 +11,7 @@ final private class SwissRankingApi(
 )(using Executor):
 
   def apply(swiss: Swiss): Fu[Ranking] =
-    fuccess(scoreCache.getIfPresent(swiss.id)) getOrElse {
-      dbCache get swiss.id
-    }
+    fuccess(scoreCache.getIfPresent(swiss.id)) getOrElse dbCache.get(swiss.id)
 
   def update(res: SwissScoring.Result): Unit =
     scoreCache.put(

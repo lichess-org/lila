@@ -21,15 +21,15 @@ final private[tournament] class PairingSystem(
       ranking: FullRanking,
       smallTourNbActivePlayers: Option[Int]
   ): Fu[List[Pairing.WithPlayers]] = {
-    for {
+    for
       lastOpponents <-
-        if (tour.isRecentlyStarted) fuccess(Pairing.LastOpponents(Map.empty))
+        if tour.isRecentlyStarted then fuccess(Pairing.LastOpponents(Map.empty))
         else pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
       onlyTwoActivePlayers = smallTourNbActivePlayers.exists(2 ==)
       data                 = Data(tour, lastOpponents, ranking.ranking, onlyTwoActivePlayers)
       preps    <- evenOrAll(data, users)
       pairings <- prepsToPairings(tour, preps)
-    } yield pairings
+    yield pairings
   }.chronometer
     .logIfSlow(500, pairingLogger) { pairings =>
       s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
@@ -46,13 +46,13 @@ final private[tournament] class PairingSystem(
 
   private def makePreps(data: Data, users: Set[UserId]): Fu[List[Pairing.Prep]] = {
     import data.*
-    if (users.sizeIs < 2) fuccess(Nil)
+    if users.sizeIs < 2 then fuccess(Nil)
     else
       playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
         lazy val nbIdles = idles.size
-        if (nbIdles < 2) Nil
-        else if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle) initialPairings(idles)
-        else if (nbIdles <= maxGroupSize) bestPairings(data, idles)
+        if nbIdles < 2 then Nil
+        else if data.tour.isRecentlyStarted && !data.tour.isTeamBattle then initialPairings(idles)
+        else if nbIdles <= maxGroupSize then bestPairings(data, idles)
         else
           // make sure groupSize is even with / 4 * 2
           val groupSize = (nbIdles / 4 * 2) atMost maxGroupSize
@@ -116,7 +116,6 @@ private object PairingSystem:
       players: List[RankedPlayerWithColorHistory]
   ): (RankedPlayerWithColorHistory, RankedPlayerWithColorHistory) => Int =
     val maxRank = players.maxBy(_.rank.value).rank
-    (a, b) => {
+    (a, b) =>
       val rank = a.rank atMost b.rank
       300 + 1700 * (maxRank - rank).value / maxRank.value
-    }

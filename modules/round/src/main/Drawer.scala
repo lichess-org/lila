@@ -20,7 +20,7 @@ final private[round] class Drawer(
   def autoThreefold(game: Game): Fu[Option[Pov]] = game.drawable.so:
     Pov(game)
       .map: pov =>
-        if (game.playerHasOfferedDrawRecently(pov.color)) fuccess(pov.some)
+        if game.playerHasOfferedDrawRecently(pov.color) then fuccess(pov.some)
         else
           pov.player.userId so { uid => prefApi.get(uid, _.autoThreefold) } map { autoThreefold =>
             autoThreefold == Pref.AutoThreefold.ALWAYS || {
@@ -51,7 +51,7 @@ final private[round] class Drawer(
       case _ => fuccess(List(Event.ReloadOwner))
 
   def no(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
-    pov match {
+    pov match
       case Pov(g, color) if pov.player.isOfferingDraw =>
         proxy.save {
           messenger.system(g, trans.drawOfferCanceled.txt())
@@ -67,7 +67,7 @@ final private[round] class Drawer(
           }
         } inject List(Event.DrawOffer(by = none))
       case _ => fuccess(List(Event.ReloadOwner))
-    }: Fu[Events]
+    : Fu[Events]
 
   def claim(pov: Pov)(using GameProxy): Fu[Events] =
     (pov.game.drawable && pov.game.history.threefoldRepetition) so
@@ -75,13 +75,13 @@ final private[round] class Drawer(
 
   def force(game: Game)(using GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
-  private def publishDrawOffer(game: Game): Unit = if (game.nonAi)
-    if (game.isCorrespondence)
+  private def publishDrawOffer(game: Game): Unit = if game.nonAi then
+    if game.isCorrespondence then
       Bus.publish(
         lila.hub.actorApi.round.CorresDrawOfferEvent(game.id),
         "offerEventCorres"
       )
-    if (lila.game.Game.isBoardOrBotCompatible(game))
+    if lila.game.Game.isBoardOrBotCompatible(game) then
       Bus.publish(
         lila.game.actorApi.BoardDrawOffer(game),
         lila.game.actorApi.BoardDrawOffer makeChan game.id

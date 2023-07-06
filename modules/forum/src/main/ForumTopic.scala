@@ -28,11 +28,11 @@ case class ForumTopic(
   inline def id = _id
 
   def updatedAt(forUser: Option[User]): Instant =
-    if (forUser.exists(_.marks.troll)) updatedAtTroll else updatedAt
-  def nbPosts(forUser: Option[User]): Int   = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
+    if forUser.exists(_.marks.troll) then updatedAtTroll else updatedAt
+  def nbPosts(forUser: Option[User]): Int   = if forUser.exists(_.marks.troll) then nbPostsTroll else nbPosts
   def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
   def lastPostId(forUser: Option[User]): ForumPostId =
-    if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
+    if forUser.exists(_.marks.troll) then lastPostIdTroll else lastPostId
 
   def open = !closed
 
@@ -49,12 +49,12 @@ case class ForumTopic(
 
   def withPost(post: ForumPost): ForumTopic =
     copy(
-      nbPosts = if (post.troll) nbPosts else nbPosts + 1,
-      lastPostId = if (post.troll) lastPostId else post.id,
-      updatedAt = if (isTooBig || post.troll) updatedAt else post.createdAt,
+      nbPosts = if post.troll then nbPosts else nbPosts + 1,
+      lastPostId = if post.troll then lastPostId else post.id,
+      updatedAt = if isTooBig || post.troll then updatedAt else post.createdAt,
       nbPostsTroll = nbPostsTroll + 1,
       lastPostIdTroll = post.id,
-      updatedAtTroll = if (isTooBig) updatedAt else post.createdAt
+      updatedAtTroll = if isTooBig then updatedAt else post.createdAt
     )
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
@@ -72,7 +72,7 @@ object ForumTopic:
   def nameToId(name: String) =
     (lila.common.String slugify name) pipe { slug =>
       // if most chars are not latin, go for random slug
-      if (slug.lengthIs > (name.lengthIs / 2)) slug else ThreadLocalRandom nextString 8
+      if slug.lengthIs > (name.lengthIs / 2) then slug else ThreadLocalRandom nextString 8
     }
 
   val idSize = 8

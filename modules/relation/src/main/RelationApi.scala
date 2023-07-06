@@ -27,9 +27,8 @@ final class RelationApi(
   val coll = repo.coll
 
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =
-    (u1 != u2) so {
-      coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r")
-    }
+    (u1 != u2) so coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r")
+
   def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
 
   def fetchRelations(u1: UserId, u2: UserId): Fu[Relations] =
@@ -39,9 +38,7 @@ final class RelationApi(
 
   def fetchFriends(userId: UserId) =
     coll
-      .aggregateWith[Bdoc](
-        readPreference = ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Match(
@@ -56,11 +53,9 @@ final class RelationApi(
           ),
           Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
         )
-      }
       .headOption
-      .map {
+      .map:
         ~_.flatMap(_.getAsOpt[Set[UserId]]("_id")) - userId
-      }
 
   def fetchFollows(u1: UserId, u2: UserId): Fu[Boolean] =
     (u1 != u2) so coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))

@@ -5,7 +5,7 @@ import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }
+import reactivemongo.api.{ Cursor, WriteConcern }
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
@@ -25,15 +25,15 @@ final class GameRepo(val coll: Coll)(using Executor):
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
 
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] =
-    coll.byOrderedIds[Game, GameId](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+    coll.byOrderedIds[Game, GameId](gameIds, readPref = _.sec)(_.id)
 
   // #TODO FIXME
   // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
   def gamesTemporarilyFromPrimary(gameIds: Seq[GameId]): Fu[List[Game]] =
-    coll.byOrderedIds[Game, GameId](gameIds, readPreference = temporarilyPrimary)(_.id)
+    coll.byOrderedIds[Game, GameId](gameIds, readPref = _.priTemp)(_.id)
 
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
-    coll.optionsByOrderedIds[Game, GameId](gameIds, none, temporarilyPrimary)(_.id)
+    coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.priTemp)(_.id)
 
   object light:
 
@@ -53,7 +53,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       coll.byOrderedIds[LightGame, GameId](
         gameIds,
         projection = LightGame.projection.some,
-        readPreference = ReadPreference.secondaryPreferred
+        _.sec
       )(_.id)
 
   def finished(gameId: GameId): Fu[Option[Game]] =
@@ -90,9 +90,9 @@ final class GameRepo(val coll: Coll)(using Executor):
   def userPovsByGameIds(
       gameIds: List[GameId],
       user: User,
-      readPreference: ReadPreference = temporarilyPrimary
+      readPref: ReadPref = _.priTemp
   ): Fu[List[Pov]] =
-    coll.byOrderedIds[Game, GameId](gameIds, readPreference = readPreference)(_.id) dmap {
+    coll.byOrderedIds[Game, GameId](gameIds, readPref = readPref)(_.id) dmap {
       _.flatMap(g => Pov(g, user))
     }
 
@@ -105,7 +105,7 @@ final class GameRepo(val coll: Coll)(using Executor):
     coll
       .find(select)
       .sort(Query.sortCreated)
-      .cursor[Game](temporarilyPrimary)
+      .cursor[Game](ReadPref.priTemp)
 
   def gamesForAssessment(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
@@ -118,7 +118,7 @@ final class GameRepo(val coll: Coll)(using Executor):
           ++ Query.clockHistory(true)
       )
       .sort($sort asc F.createdAt)
-      .cursor[Game](temporarilyPrimary)
+      .cursor[Game](ReadPref.priTemp)
       .list(nb)
 
   def extraGamesForIrwin(userId: UserId, nb: Int): Fu[List[Game]] =
@@ -132,34 +132,34 @@ final class GameRepo(val coll: Coll)(using Executor):
           ++ Query.clock(true)
       )
       .sort($sort asc F.createdAt)
-      .cursor[Game](ReadPreference.secondaryPreferred)
+      .cursor[Game](ReadPref.sec)
       .list(nb)
 
   def unanalysedGames(gameIds: Seq[GameId], max: config.Max = config.Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
-      .cursor[Game](temporarilyPrimary)
+      .cursor[Game](ReadPref.priTemp)
       .list(max.value)
 
   def cursor(
       selector: Bdoc,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPref: ReadPref = _.sec
   ): AkkaStreamCursor[Game] =
-    coll.find(selector).cursor[Game](readPreference)
+    coll.find(selector).cursor[Game](readPref)
 
   def docCursor(
       selector: Bdoc,
-      readPreference: ReadPreference = temporarilyPrimary
+      readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Bdoc] =
-    coll.find(selector).cursor[Bdoc](readPreference)
+    coll.find(selector).cursor[Bdoc](readPref)
 
   def sortedCursor(
       selector: Bdoc,
       sort: Bdoc,
       batchSize: Int = 0,
-      readPreference: ReadPreference = temporarilyPrimary
+      readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Game] =
-    coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
+    coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPref)
 
   def byIdsCursor(ids: Iterable[GameId]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
 
@@ -188,7 +188,7 @@ final class GameRepo(val coll: Coll)(using Executor):
           .void
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
-    if (doc.isEmpty) $empty else $doc(mod -> doc)
+    if doc.isEmpty then $empty else $doc(mod -> doc)
 
   def setRatingDiffs(id: GameId, diffs: RatingDiffs) =
     coll.update.one(
@@ -225,14 +225,14 @@ final class GameRepo(val coll: Coll)(using Executor):
     coll.distinctEasy[GameId, List](
       F.id,
       Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true),
-      ReadPreference.secondaryPreferred
+      _.sec
     )
 
   def lastPlayedPlayingId(userId: UserId): Fu[Option[GameId]] =
     coll
       .find(Query recentlyPlaying userId, $id(true).some)
       .sort(Query.sortMovedAtNoIndex)
-      .one[Bdoc](readPreference = ReadPreference.primary)
+      .one[Bdoc](readPreference = ReadPref.pri)
       .dmap { _.flatMap(_.getAsOpt[GameId](F.id)) }
 
   def allPlaying[U: UserIdOf](user: U): Fu[List[Pov]] =
@@ -323,17 +323,17 @@ final class GameRepo(val coll: Coll)(using Executor):
           $doc($inIds(povs.map(_.gameId)), holdAlertSelector),
           holdAlertProjection.some
         )
-        .cursor[Bdoc](ReadPreference.secondaryPreferred)
+        .cursor[Bdoc](ReadPref.sec)
         .listAll() map { docs =>
         val idColors = povs.view.map { p =>
           p.gameId -> p.color
         }.toMap
-        val holds = for {
+        val holds = for
           doc   <- docs
           id    <- doc.getAsOpt[GameId]("_id")
           color <- idColors get id
           holds <- holdAlertOf(doc, color)
-        } yield id -> holds
+        yield id -> holds
         holds.toMap
       }
 
@@ -392,7 +392,7 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Epd] = None): Funit =
     val g2 =
-      if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
+      if g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))) then
         g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
@@ -402,9 +402,9 @@ final class GameRepo(val coll: Coll)(using Executor):
         .filterNot(_.isInitial)
     }
     val checkInHours =
-      if (g2.isPgnImport) none
-      else if (g2.fromApi) some(24 * 7)
-      else if (g2.hasClock) 1.some
+      if g2.isPgnImport then none
+      else if g2.fromApi then some(24 * 7)
+      else if g2.hasClock then 1.some
       else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
@@ -438,10 +438,11 @@ final class GameRepo(val coll: Coll)(using Executor):
     coll.primitiveOne[Fen.Epd]($id(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[Fen.Epd]] =
-    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
-      case None if game.variant == chess.variant.Chess960 => Fen.initial.some
-      case fen                                            => fen
-    }
+    if game.imported || !game.variant.standardInitialPosition then
+      initialFen(game.id) dmap {
+        case None if game.variant == chess.variant.Chess960 => Fen.initial.some
+        case fen                                            => fen
+      }
     else fuccess(none)
 
   def gameWithInitialFen(gameId: GameId): Fu[Option[Game.WithInitialFen]] =
@@ -468,10 +469,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       gameLimit: Int
   ): Fu[List[(UserId, Int)]] =
     coll
-      .aggregateList(
-        maxDocs = opponentLimit,
-        ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateList(maxDocs = opponentLimit, _.sec): framework =>
         import framework.*
         Match($doc(F.playerUids -> userId)) -> List(
           Match($doc(F.playerUids -> $doc("$size" -> 2))),
@@ -489,12 +487,10 @@ final class GameRepo(val coll: Coll)(using Executor):
           Sort(Descending("gs")),
           Limit(opponentLimit)
         )
-      }
-      .map(_.flatMap { obj =>
+      .map(_.flatMap: obj =>
         obj.getAsOpt[UserId](F.id) flatMap { id =>
           obj.int("gs") map { id -> _ }
-        }
-      })
+        })
 
   def random: Fu[Option[Game]] =
     coll
@@ -543,10 +539,9 @@ final class GameRepo(val coll: Coll)(using Executor):
           ++ Query.turnsGt(20)
       )
       .sort(Query.sortCreated)
-      .cursor[Game](ReadPreference.secondaryPreferred)
+      .cursor[Game](ReadPref.sec)
       .list(nb)
 
   // only for student games, for aggregation
   def denormalizePerfType(game: Game): Unit =
-    game.perfType.so: pt =>
-      coll.updateFieldUnchecked($id(game.id), F.perfType, pt.id)
+    coll.updateFieldUnchecked($id(game.id), F.perfType, game.perfType.id)

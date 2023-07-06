@@ -29,9 +29,9 @@ case class TextAnalysis(
   lazy val nbWords = text.split("""\s+""").length
 
   def ratio: Double = {
-    if (nbWords == 0) 0 else badWords.size.toDouble / nbWords
+    if nbWords == 0 then 0 else badWords.size.toDouble / nbWords
   } * {
-    if (critical) 3 else 1
+    if critical then 3 else 1
   }
 
   def dirty = ratio > 0
