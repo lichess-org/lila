@@ -338,40 +338,6 @@ final class Study(
               .map:
                 _.fold(notFound): pgn =>
                   Ok(html.study.embed(sc.study, sc.chapter, pgn))
-    // studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
-    //   _.fold(NotFound.page(html.study.embed.notFound)) { case WithChapter(study, chapter) =>
-    //     for
-    //       studyJson <- env.study.jsonView(
-    //         study.copy(
-    //           members = lila.study.StudyMembers(Map.empty) // don't need no members
-    //         ),
-    //         List(chapter.metadata),
-    //         chapter,
-    //         none
-    //       )
-    //       setup      = chapter.setup
-    //       initialFen = chapter.root.fen.some
-    //       pov        = userAnalysisC.makePov(initialFen, setup.variant)
-    //       baseData = env.round.jsonView.userAnalysisJson(
-    //         pov,
-    //         lila.pref.Pref.default,
-    //         initialFen,
-    //         setup.orientation,
-    //         owner = false
-    //       )
-    //       analysis = baseData ++ Json.obj(
-    //         "treeParts" -> partitionTreeJsonWriter.writes {
-    //           lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-    //         }
-    //       )
-    //       data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
-    //       result <- negotiate(
-    //         html = Ok(html.study.embed(study, chapter, chapters, data)),
-    //         api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis))
-    //       )
-    //     yield result
-    //   }
-    // } dmap (_.noCache)
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     Found(env.study.api.byId(id)): study =>
