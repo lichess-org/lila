@@ -12,8 +12,8 @@ object MatchMaking:
     def ratingDiff = p1 ratingDiff p2
 
   def apply(members: Vector[PoolMember]): Vector[Couple] =
-    members.partition(_.lame) match
-      case (lames, fairs) => naive(lames) ++ (wmMatching(fairs) | naive(fairs))
+    val (lames, fairs) = members.partition(_.lame)
+    naive(lames) ++ (wmMatching(fairs) | naive(fairs))
 
   private def naive(members: Vector[PoolMember]): Vector[Couple] =
     members.sortBy(_.rating)(using intOrdering[IntRating].reverse) grouped 2 collect { case Vector(p1, p2) =>
@@ -37,23 +37,26 @@ object MatchMaking:
     // quality of a potential pairing. Lower is better.
     // None indicates a forbidden pairing
     private def pairScore(a: PoolMember, b: PoolMember): Option[Int] =
-      ! {
+      val conflict =
         ratingRangeConflict(a, b) ||
-        ratingRangeConflict(b, a) ||
-        blockList(a, b) ||
-        blockList(b, a)
-      } so {
-        a.ratingDiff(b).value
-          - missBonus(a).atMost(missBonus(b))
-          - rangeBonus(a, b)
-          - ragesitBonus(a, b)
-
-      }.some.filter(score => score <= ratingToMaxScore(a.rating atMost b.rating))
+          ratingRangeConflict(b, a) ||
+          blockList(a, b) ||
+          blockList(b, a)
+      if conflict then none
+      else
+        val score =
+          a.ratingDiff(b).value
+            - missBonus(a).atMost(missBonus(b))
+            - rangeBonus(a, b)
+            - ragesitBonus(a, b)
+        score.some.filter(_ <= ratingToMaxScore(a.rating atMost b.rating))
 
     // score bonus based on how many waves the member missed
     // when the user's sit counter is lower than -3, the maximum bonus becomes lower
     private def missBonus(p: PoolMember) =
-      (p.misses * 12) atMost ((460 + (p.rageSitCounter atMost -3) * 20) atLeast 0)
+      (p.misses * 12)
+        .atMost(460 + (p.rageSitCounter atMost -3) * 20)
+        .atLeast(0)
 
     // if players have conflicting rating ranges
     private def ratingRangeConflict(a: PoolMember, b: PoolMember): Boolean =
@@ -61,7 +64,8 @@ object MatchMaking:
 
     // bonus if both players have rating ranges, and they're compatible
     private def rangeBonus(a: PoolMember, b: PoolMember) =
-      if a.ratingRange.exists(_ contains b.rating) && b.ratingRange.exists(_ contains a.rating) then 200
+      if a.ratingRange.exists(_ contains b.rating) && b.ratingRange.exists(_ contains a.rating)
+      then 200
       else 0
 
     // if players block each other
@@ -83,8 +87,5 @@ object MatchMaking:
           logger.error("WMMatching", err)
           none
         ,
-        pairs =>
-          Some {
-            pairs.view.map { case (a, b) => Couple(a, b) } to Vector
-          }
+        _.map(Couple.apply).toVector.some
       )
