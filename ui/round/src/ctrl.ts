@@ -795,11 +795,10 @@ export default class RoundController {
     return true;
   }
 
-  canOfferDraw = (): boolean => {
-    return (
-      !this.preventDrawOffer && game.drawable(this.data) && (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20
-    );
-  };
+  canOfferDraw = (): boolean =>
+    !this.preventDrawOffer &&
+    game.drawable(this.data) &&
+    (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
 
   cancelTakebackPreventDraws = () => {
     this.socket.sendLoading('takeback-no');
