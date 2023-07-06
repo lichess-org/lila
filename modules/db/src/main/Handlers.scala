@@ -1,6 +1,5 @@
 package lila.db
 
-import cats.data.NonEmptyList
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException

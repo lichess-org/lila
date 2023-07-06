@@ -1,6 +1,5 @@
 package lila.insight
 
-import cats.data.NonEmptyList
 import chess.opening.OpeningDb
 import chess.{ Ply, Centis, Clock, Role, Situation, Stats }
 import chess.format.pgn.SanStr

@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import cats.data.NonEmptyList
 import chess.format.{ Fen, Uci }
 import chess.Ply
 

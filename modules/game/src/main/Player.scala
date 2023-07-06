@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.Eq
 import cats.derived.*
 import chess.{ Ply, Color, ByColor }
 

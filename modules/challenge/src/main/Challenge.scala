@@ -1,6 +1,5 @@
 package lila.challenge
 
-import cats.Eq
 import cats.derived.*
 
 import chess.format.Fen

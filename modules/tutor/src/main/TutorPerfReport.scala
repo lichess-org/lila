@@ -1,6 +1,5 @@
 package lila.tutor
 
-import cats.data.NonEmptyList
 import chess.{ ByColor, Color }
 
 import lila.analyse.AccuracyPercent

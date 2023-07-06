@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.Eq
 import cats.derived.*
 
 enum Source(val id: Int) derives Eq:

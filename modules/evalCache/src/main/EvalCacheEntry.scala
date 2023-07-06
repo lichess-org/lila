@@ -1,7 +1,6 @@
 package lila.evalCache
 
 import chess.variant.Variant
-import cats.data.NonEmptyList
 import lila.tree.Score
 
 case class EvalCacheEntry(

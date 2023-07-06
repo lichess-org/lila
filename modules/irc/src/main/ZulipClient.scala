@@ -9,7 +9,6 @@ import play.api.libs.ws.WSAuthScheme
 import lila.common.config.Secret
 import lila.common.String.urlencode
 import play.api.ConfigLoader
-import cats.Show
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     Executor

@@ -1,7 +1,5 @@
 package lila.insight
 
-import cats.data.NonEmptyList
-
 import lila.analyse.{ AccuracyPercent, WinPercent }
 
 enum RelativeStrength(val id: Int, val name: String):

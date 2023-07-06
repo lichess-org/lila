@@ -7,7 +7,6 @@ import lila.game.{ Game, Query }
 import lila.user.User
 
 import play.api.mvc.Request
-import cats.data.NonEmptyList
 import play.api.data.FormBinding
 import play.api.i18n.Lang
 
@@ -83,7 +82,7 @@ object GameFilterMenu:
         filter: GameFilter,
         me: Option[User],
         page: Int
-    )(using req: Request[?], formBinding: FormBinding, lang: Lang): Fu[Paginator[Game]] =
+    )(using Request[?], FormBinding, Lang): Fu[Paginator[Game]] =
       val nb               = cachedNbOf(user, nbs, filter)
       def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
       filter match
@@ -120,7 +119,7 @@ object GameFilterMenu:
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
       filter: GameFilter
-  )(using req: Request[?], formBinding: FormBinding, lang: Lang): play.api.data.Form[?] =
+  )(using Request[?], FormBinding, Lang): play.api.data.Form[?] =
     filter match
       case Search => userGameSearch.requestForm
       case _      => userGameSearch.defaultForm

@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.Eq
 import chess.Color.{ Black, White }
 import chess.format.{ Fen, Uci }
 import chess.format.pgn.SanStr

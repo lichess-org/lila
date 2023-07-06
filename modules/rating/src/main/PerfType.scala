@@ -1,6 +1,5 @@
 package lila.rating
 
-import cats.Eq
 import cats.derived.*
 
 import chess.Centis

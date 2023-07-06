@@ -1,6 +1,5 @@
 package lila.report
 
-import cats.Eq
 import cats.derived.*
 
 import lila.user.Me

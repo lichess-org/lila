@@ -1,6 +1,5 @@
 package lila.streamer
 
-import cats.Eq
 import cats.derived.*
 
 import lila.memo.PicfitImage

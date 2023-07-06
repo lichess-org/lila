@@ -1,6 +1,5 @@
 package lila.oauth
 
-import cats.Eq
 import cats.derived.*
 import lila.i18n.I18nKey
 import lila.i18n.I18nKeys.{ oauthScope as trans }

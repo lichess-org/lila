@@ -1,6 +1,5 @@
 package lila.report
 
-import cats.data.NonEmptyList
 import ornicar.scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 

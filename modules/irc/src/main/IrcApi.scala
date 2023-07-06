@@ -4,7 +4,6 @@ import lila.common.{ EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*
 import lila.user.Me
 import lila.user.User
-import cats.Show
 import lila.user.Me
 
 final class IrcApi(

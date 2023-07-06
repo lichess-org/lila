@@ -1,6 +1,5 @@
 package views.html.mod
 
-import cats.data.NonEmptyList
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes

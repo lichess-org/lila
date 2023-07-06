@@ -2,7 +2,6 @@ package lila.game
 
 import akka.actor.*
 import akka.pattern.pipe
-import cats.data.NonEmptyList
 import chess.format.pgn.{ Sans, Tags, SanStr }
 import chess.format.{ pgn, Fen }
 import chess.{ Game as ChessGame }
