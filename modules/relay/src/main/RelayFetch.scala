@@ -97,7 +97,7 @@ final private class RelayFetch(
       case _ => continueRelay(rt)
 
   private def continueRelay(rt: RelayRound.WithTour): RelayRound =
-    rt.round.sync.upstream.fold(rt.round) { upstream =>
+    rt.round.sync.upstream.fold(rt.round): upstream =>
       val seconds: Seconds =
         if rt.round.sync.log.alwaysFails then
           rt.round.sync.log.events.lastOption
@@ -117,7 +117,6 @@ final private class RelayFetch(
             }.value
           } some
         )
-    }
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
     clocks = true,
@@ -131,7 +130,7 @@ final private class RelayFetch(
   )
 
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
-    rt.round.sync.upstream so {
+    rt.round.sync.upstream.so:
       case UpstreamIds(ids) =>
         gameRepo.gamesFromSecondary(ids) flatMap
           gameProxy.upgradeIfPresent flatMap
@@ -150,7 +149,6 @@ final private class RelayFetch(
           }
       case url: UpstreamUrl =>
         delayer(url, rt, doFetchUrl)
-    }
 
   private def doFetchUrl(upstream: UpstreamUrl, max: Int): Fu[RelayGames] =
     import RelayFetch.DgtJson.*
@@ -189,10 +187,9 @@ final private class RelayFetch(
     ws.url(url.toString)
       .withRequestTimeout(4.seconds)
       .get()
-      .flatMap {
-        case res if res.status == 200 => fuccess(res.body)
-        case res                      => fufail(s"[${res.status}] $url")
-      }
+      .flatMap: res =>
+        if res.status == 200 then fuccess(res.body)
+        else fufail(s"[${res.status}] $url")
 
   private def httpGetPgn(url: URL): Fu[PgnStr] = PgnStr from httpGet(url)
 
@@ -260,7 +257,7 @@ private[relay] object RelayFetch:
 
     def apply(multiPgn: MultiPgn): Try[Vector[RelayGame]] =
       multiPgn.value
-        .foldLeft[Try[(Vector[RelayGame], Int)]](Success(Vector.empty -> 0)) {
+        .foldLeft[Try[(Vector[RelayGame], Int)]](Success(Vector.empty -> 0)):
           case (Success((acc, index)), pgn) =>
             pgnCache.get(pgn) flatMap { f =>
               val game = f(index)
@@ -268,7 +265,6 @@ private[relay] object RelayFetch:
               else Success((acc :+ game, index + 1))
             }
           case (acc, _) => acc
-        }
         .map(_._1)
 
     private val pgnCache: LoadingCache[PgnStr, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
@@ -282,7 +278,7 @@ private[relay] object RelayFetch:
         .fold(
           err => Failure(LilaInvalid(err.value)),
           res =>
-            Success(index =>
+            Success: index =>
               RelayGame(
                 index = index,
                 tags = res.tags,
@@ -293,5 +289,4 @@ private[relay] object RelayFetch:
                 ),
                 end = res.end
               )
-            )
         )

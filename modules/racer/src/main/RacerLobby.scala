@@ -4,16 +4,15 @@ import lila.common.config.Max
 
 final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: akka.actor.Scheduler):
 
-  def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue {
-    currentRace flatMap {
-      case race if race.players.sizeIs >= RacerRace.maxPlayers => makeNewRace(7)
-      case race if race.startsInMillis.exists(_ < 3000)        => makeNewRace(10)
-      case race                                                => fuccess(race.id)
-    } map { raceId =>
-      api.join(raceId, player)
-      raceId
-    }
-  }
+  def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue:
+    currentRace
+      .flatMap:
+        case race if race.players.sizeIs >= RacerRace.maxPlayers => makeNewRace(7)
+        case race if race.startsInMillis.exists(_ < 3000)        => makeNewRace(10)
+        case race                                                => fuccess(race.id)
+      .map: raceId =>
+        api.join(raceId, player)
+        raceId
 
   private val workQueue = lila.hub.AsyncActorSequencer(
     maxSize = Max(128),

@@ -9,8 +9,8 @@ import lila.storm.StormPuzzle
 
 private object RacerBsonHandlers:
 
-  given BSONDocumentReader[StormPuzzle] with
-    def readDocument(r: BSONDocument) = for
+  given BSONDocumentReader[StormPuzzle] = r =>
+    for
       id      <- r.getAsTry[PuzzleId]("_id")
       fen     <- r.getAsTry[Fen.Epd]("fen")
       lineStr <- r.getAsTry[String]("line")

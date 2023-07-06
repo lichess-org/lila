@@ -38,7 +38,7 @@ final class RacerApi(
     }
 
   def create(player: RacerPlayer.Id, countdownSeconds: Int): Fu[RacerRace.Id] =
-    selector.apply map { puzzles =>
+    selector.apply.map: puzzles =>
       val race = RacerRace
         .make(
           owner = player,
@@ -48,7 +48,6 @@ final class RacerApi(
       store.put(race.id, race)
       lila.mon.racer.race(lobby = race.isLobby).increment()
       race.id
-    }
 
   private val rematchQueue = lila.hub.AsyncActorSequencer(
     maxSize = Max(32),
@@ -62,12 +61,11 @@ final class RacerApi(
       join(found.id, player)
       fuccess(found.id)
     case None =>
-      rematchQueue {
+      rematchQueue:
         createKeepOwnerAndJoin(race, player) map { rematchId =>
           save(race.copy(rematch = rematchId.some))
           rematchId
         }
-      }
 
   def makePlayer(id: RacerPlayer.Id) =
     RacerPlayer.make(id, RacerPlayer.Id.userIdOf(id).map(lightUser))
@@ -85,25 +83,21 @@ final class RacerApi(
   }
 
   private def doStart(race: RacerRace): Option[RacerRace] =
-    race.startCountdown.map { starting =>
-      scheduler.scheduleOnce(RacerRace.duration.seconds + race.countdownSeconds.seconds + 50.millis) {
+    race.startCountdown.map: starting =>
+      scheduler.scheduleOnce(RacerRace.duration.seconds + race.countdownSeconds.seconds + 50.millis):
         finish(race.id)
-      }
       starting
-    }
 
   private def finish(id: RacerRace.Id): Unit =
-    get(id) foreach { race =>
+    get(id).foreach: race =>
       lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
-      race.players foreach { player =>
+      race.players.foreach: player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
         player.user.ifTrue(player.score > 0) foreach { user =>
           Bus.publish(lila.hub.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
           perfsRepo.addRacerRun(user.id, player.score)
         }
-      }
       publish(race)
-    }
 
   def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit =
     if score > 160 then logger.warn(s"$id $player score: $score")
