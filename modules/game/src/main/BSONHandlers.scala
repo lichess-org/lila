@@ -63,7 +63,7 @@ object BSONHandlers:
     { case arr: BSONArray =>
       Success(arr.values.foldLeft(GameDrawOffers.empty) {
         case (offers, BSONInteger(p)) =>
-          if (p > 0) offers.copy(white = offers.white incl Ply(p))
+          if p > 0 then offers.copy(white = offers.white incl Ply(p))
           else offers.copy(black = offers.black incl Ply(-p))
         case (offers, _) => offers
       })
@@ -127,10 +127,10 @@ object BSONHandlers:
               halfMoveClock = decoded.halfMoveClock,
               positionHashes = decoded.positionHashes,
               unmovedRooks = decoded.unmovedRooks,
-              checkCount = if (gameVariant.threeCheck) {
+              checkCount = if gameVariant.threeCheck then
                 val counts = r.intsD(F.checkCount)
                 CheckCount(~counts.headOption, ~counts.lastOption)
-              } else Game.emptyCheckCount
+              else Game.emptyCheckCount
             ),
             variant = gameVariant,
             crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
@@ -217,7 +217,7 @@ object BSONHandlers:
         F.analysed          -> w.boolO(o.metadata.analysed),
         F.rules             -> o.metadata.nonEmptyRules
       ) ++ {
-        if (o.variant.standard)
+        if o.variant.standard then
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans take Game.maxPlies.value))
         else
           val f = PgnStorage.OldBin

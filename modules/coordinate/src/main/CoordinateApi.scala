@@ -1,7 +1,6 @@
 package lila.coordinate
 
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ given, * }
 import chess.{ Color, ByColor }
@@ -32,10 +31,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
 
   def bestScores(userIds: List[UserId]): Fu[Map[UserId, ByColor[Int]]] =
     scoreColl
-      .aggregateList(
-        maxDocs = Int.MaxValue,
-        readPreference = ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
         Match($doc("_id" $in userIds)) -> List(
           Project(
@@ -45,14 +41,9 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
             )
           )
         )
-      }
-      .map {
-        _.flatMap { doc =>
+      .map:
+        _.flatMap: doc =>
           doc.getAsOpt[UserId]("_id") map {
-            _ -> ByColor(
-              ~doc.int("white"),
-              ~doc.int("black")
-            )
+            _ -> ByColor(~doc.int("white"), ~doc.int("black"))
           }
-        }.toMap
-      }
+        .toMap

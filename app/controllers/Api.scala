@@ -40,7 +40,6 @@ final class Api(
     userRateLimit(ctx.ip, rateLimited):
       userApi.extended(
         name,
-        ctx.me,
         withFollows = userWithFollows,
         withTrophies = getBool("trophies")
       ) map toApiResult map toHttp
@@ -61,8 +60,8 @@ final class Api(
     val cost      = usernames.size / 4
     UsersRateLimitPerIP(req.ipAddress, rateLimited, cost = cost):
       lila.mon.api.users.increment(cost.toLong)
-      env.user.repo byIds usernames map {
-        _.map { env.user.jsonView.full(_, none, withRating = true, withProfile = true) }
+      env.user.api.listWithPerfs(usernames) map {
+        _.map { u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true) }
       } map toApiResult map toHttp
 
   def usersStatus = ApiRequest:
@@ -216,7 +215,7 @@ final class Api(
       val result =
         if csv then csvDownload(lila.tournament.TournamentCsv(source))
         else jsonDownload(source.map(lila.tournament.JsonView.playerResultWrites.writes))
-      result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if (csv) "csv" else "ndjson")))
+      result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if csv then "csv" else "ndjson")))
     }
 
   def tournamentTeams(id: TourId) = Anon:
@@ -307,7 +306,7 @@ final class Api(
       transform: String => Option[Id]
   )(f: Set[Id] => Result): Result =
     val ids = req.body.split(',').view.filter(_.nonEmpty).flatMap(s => transform(s.trim)).toSet
-    if (ids.size > max) JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
+    if ids.size > max then JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
 
   val cloudEval =

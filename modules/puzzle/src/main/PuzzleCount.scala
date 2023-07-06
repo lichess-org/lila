@@ -33,10 +33,10 @@ final private class PuzzleCountApi(
               )
             }.map {
               _.flatMap { obj =>
-                for {
+                for
                   key   <- obj string "_id"
                   count <- obj int "nb"
-                } yield PuzzleTheme.Key(key) -> count
+                yield PuzzleTheme.Key(key) -> count
               }.toMap
             }.flatMap { themed =>
               colls.puzzle(_.countAll) map { all =>

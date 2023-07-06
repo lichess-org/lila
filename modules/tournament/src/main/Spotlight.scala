@@ -1,8 +1,9 @@
 package lila.tournament
 
 import lila.common.Heapsort.topN
-import lila.user.Me
+import lila.user.{ User, Me }
 import lila.common.licon
+import lila.rating.Perf
 
 case class Spotlight(
     headline: String,
@@ -18,16 +19,17 @@ object Spotlight:
 
   private given Ordering[Tournament] = Ordering.by[Tournament, Int](_.schedule.so(_.freq.importance))
 
-  def select(tours: List[Tournament], max: Int)(using me: Option[Me]): List[Tournament] =
+  def select(tours: List[Tournament], max: Int)(using me: Option[User.WithPerfs]): List[Tournament] =
     me.foldUse(select(tours))(selectForMe(tours)) topN max
 
   private def select(tours: List[Tournament]): List[Tournament] =
-    tours filter { tour => tour.spotlight.fold(true) { manually(tour, _) } }
+    tours.filter: tour =>
+      tour.spotlight.fold(true)(manually(tour, _))
 
-  private def selectForMe(tours: List[Tournament])(using Me): List[Tournament] =
+  private def selectForMe(tours: List[Tournament])(using User.WithPerfs): List[Tournament] =
     tours filter selectForMe
 
-  private def selectForMe(tour: Tournament)(using Me): Boolean =
+  private def selectForMe(tour: Tournament)(using User.WithPerfs): Boolean =
     !tour.isFinished &&
       tour.spotlight.fold(automatically(tour)) { manually(tour, _) }
 
@@ -35,12 +37,9 @@ object Spotlight:
     spotlight.homepageHours.exists: hours =>
       tour.startsAt.minusHours(hours).isBeforeNow
 
-  private def automatically(tour: Tournament)(using me: Me): Boolean =
+  private def automatically(tour: Tournament)(using me: User.WithPerfs): Boolean =
     tour.schedule.so: sched =>
-      def playedSinceWeeks(weeks: Int) =
-        me.perfs(tour.perfType).latest so {
-          _.plusWeeks(weeks).isAfterNow
-        }
+      def playedSinceWeeks(weeks: Int) = me.perfs(tour.perfType).latest.so(_.plusWeeks(weeks).isAfterNow)
       sched.freq match
         case Hourly                               => canMaybeJoinLimited(tour) && playedSinceWeeks(2)
         case Daily | Eastern                      => playedSinceWeeks(2)
@@ -49,12 +48,14 @@ object Spotlight:
         case Monthly | Shield | Marathon | Yearly => true
         case ExperimentalMarathon                 => false
 
-  private def canMaybeJoinLimited(tour: Tournament)(using Me): Boolean =
+  private def canMaybeJoinLimited(tour: Tournament)(using me: User.WithPerfs): Boolean =
+    given Me   = Me(me.user)
+    given Perf = me.perfs(tour.perfType)
     tour.conditions.isRatingLimited &&
-      tour.conditions.nbRatedGame.fold(true) { c =>
-        c(tour.perfType).accepted
-      } &&
-      tour.conditions.minRating.fold(true) { c =>
-        c(tour.perfType).accepted
-      } &&
-      tour.conditions.maxRating.fold(true)(_.maybe(tour.perfType))
+    tour.conditions.nbRatedGame.fold(true) { c =>
+      c(tour.perfType).accepted
+    } &&
+    tour.conditions.minRating.fold(true) { c =>
+      c(tour.perfType).accepted
+    } &&
+    tour.conditions.maxRating.fold(true)(_.maybe(tour.perfType))

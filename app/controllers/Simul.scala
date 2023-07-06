@@ -43,18 +43,19 @@ final class Simul(env: Env) extends LilaController(env):
   def show(id: SimulId) = Open:
     env.simul.repo find id flatMap {
       _.fold(simulNotFound): sim =>
-        for
-          verdicts <- env.simul.api.getVerdicts(sim)
-          version  <- env.simul.version(sim.id)
-          json     <- env.simul.jsonView(sim, verdicts)
-          chat <- canHaveChat(sim) so env.chat.api.userChat.cached
-            .findMine(sim.id into ChatId)
-            .map(some)
-          _ <- chat.so: c =>
-            env.user.lightUserApi.preloadMany(c.chat.userIds)
-          stream <- env.streamer.liveStreamApi one sim.hostId
-          page   <- renderPage(html.simul.show(sim, version, json, chat, stream, verdicts))
-        yield Ok(page).noCache
+        WithMyPerf(sim.mainPerfType):
+          for
+            verdicts <- env.simul.api.getVerdicts(sim)
+            version  <- env.simul.version(sim.id)
+            json     <- env.simul.jsonView(sim, verdicts)
+            chat <- canHaveChat(sim) so env.chat.api.userChat.cached
+              .findMine(sim.id into ChatId)
+              .map(some)
+            _ <- chat.so: c =>
+              env.user.lightUserApi.preloadMany(c.chat.userIds)
+            stream <- env.streamer.liveStreamApi one sim.hostId
+            page   <- renderPage(html.simul.show(sim, version, json, chat, stream, verdicts))
+          yield Ok(page).noCache
     }
 
   private[controllers] def canHaveChat(simul: Sim)(using ctx: Context): Boolean =
@@ -142,7 +143,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   def withdraw(id: SimulId) = Auth { ctx ?=> me ?=>
     env.simul.api.removeApplicant(id, me) inject {
-      if (HTTPRequest isXhr ctx.req) jsonOkResult
+      if HTTPRequest isXhr ctx.req then jsonOkResult
       else Redirect(routes.Simul.show(id))
     }
   }

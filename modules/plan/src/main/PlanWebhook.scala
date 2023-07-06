@@ -51,10 +51,10 @@ final class PlanWebhook(api: PlanApi)(using Executor):
             Json
               .fromJson[PayPalCapture](event.resource)
               .fold(
-                _ => {
+                _ =>
                   log.error(s"Unreadable PayPalCapture ${Json stringify event.resource take 2000}")
                   funit
-                },
+                ,
                 capture =>
                   fuccess {
                     api.payPal.onCaptureCompleted(capture)
@@ -64,10 +64,10 @@ final class PlanWebhook(api: PlanApi)(using Executor):
             Json
               .fromJson[PayPalSale](event.resource)
               .fold(
-                _ => {
+                _ =>
                   log.error(s"Unreadable PayPalSale ${Json stringify event.resource take 2000}")
                   funit
-                },
+                ,
                 sale =>
                   fuccess {
                     api.payPal.onCaptureCompleted(sale.toCapture)

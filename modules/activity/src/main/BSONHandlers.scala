@@ -18,20 +18,19 @@ private object BSONHandlers:
 
   given BSONHandler[Id] = tryHandler(
     { case BSONString(v) =>
-      v split idSep match {
+      v split idSep match
         case Array(userId, dayStr) => Success(Id(UserId(userId), LichessDay(Integer.parseInt(dayStr))))
         case _                     => handlerBadValue(s"Invalid activity id $v")
-      }
     },
     id => BSONString(s"${id.userId}$idSep${id.day.value}")
   )
 
   private given BSONHandler[RatingProg] = tryHandler(
     { case v: BSONArray =>
-      for {
+      for
         before <- v.getAsTry[IntRating](0)
         after  <- v.getAsTry[IntRating](1)
-      } yield RatingProg(before, after)
+      yield RatingProg(before, after)
     },
     o => BSONArray(o.before, o.after)
   )

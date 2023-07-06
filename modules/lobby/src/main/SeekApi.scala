@@ -2,13 +2,14 @@ package lila.lobby
 
 import lila.common.config.*
 import lila.db.dsl.{ *, given }
-import lila.user.Me
+import lila.user.User
 import lila.memo.CacheApi.*
 
 final class SeekApi(
     config: SeekApi.Config,
     biter: Biter,
     relationApi: lila.relation.RelationApi,
+    perfsRepo: lila.user.UserPerfsRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
   import config.*
@@ -37,10 +38,13 @@ final class SeekApi(
 
   def forAnon = cache get ForAnon
 
-  def forMe(using me: Me): Fu[List[Seek]] =
-    relationApi.fetchBlocking(me.userId) flatMap { blocking =>
-      forUser(LobbyUser.make(me.value, lila.pool.Blocking(blocking)))
-    }
+  def forMe(using me: User | User.WithPerfs): Fu[List[Seek]] = for
+    user <- me match
+      case u: User.WithPerfs => fuccess(u)
+      case u: User           => perfsRepo.withPerfs(u)
+    blocking <- relationApi.fetchBlocking(user.id)
+    seeks    <- forUser(LobbyUser.make(user, lila.pool.Blocking(blocking)))
+  yield seeks
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =
     cache get ForUser map { seeks =>
@@ -55,7 +59,7 @@ final class SeekApi(
         case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
         case ((res, h), seek) =>
           val seekH = List(seek.variant, seek.daysPerTurn, seek.mode, seek.color, seek.user.id) mkString ","
-          if (h contains seekH) (res, h)
+          if h contains seekH then (res, h)
           else (seek :: res, h + seekH)
       }
       ._1

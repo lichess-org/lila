@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 object topnav:
 
   private def linkTitle(url: String, name: Frag)(using ctx: Context) =
-    if (ctx.blind) h3(name) else a(href := url)(name)
+    if ctx.blind then h3(name) else a(href := url)(name)
 
   private def canSeeClasMenu(using ctx: PageContext) =
     ctx.hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
@@ -25,7 +25,7 @@ object topnav:
           )
         ),
         div(role := "group")(
-          if (ctx.noBot) a(href := s"${langHref("/")}?any#hook")(trans.createAGame())
+          if ctx.noBot then a(href := s"${langHref("/")}?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
             a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),

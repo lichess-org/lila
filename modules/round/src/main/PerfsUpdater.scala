@@ -3,14 +3,15 @@ package lila.round
 import chess.{ ByColor, Color, Speed }
 
 import lila.rating.glicko2
-import lila.game.{ Game, GameRepo, PerfPicker, RatingDiffs }
+import lila.game.{ Game, GameRepo, RatingDiffs }
 import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator }
-import lila.user.{ Perfs, RankingApi, User, UserRepo }
+import lila.user.{ UserPerfs, RankingApi, User, UserRepo, UserPerfsRepo }
 
 final class PerfsUpdater(
     gameRepo: GameRepo,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     historyApi: HistoryApi,
     rankingApi: RankingApi,
     botFarming: BotFarming,
@@ -18,62 +19,60 @@ final class PerfsUpdater(
 )(using Executor):
 
   // returns rating diffs
-  def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =
+  def save(game: Game, white: User.WithPerfs, black: User.WithPerfs): Fu[Option[RatingDiffs]] =
     botFarming(game) flatMap {
       if _ then fuccess(none)
       else
-        PerfPicker
-          .main(game)
-          .so: mainPerf =>
-            (game.rated && game.finished && game.accountable && !white.lame && !black.lame).so:
-              val ratingsW = mkRatings(white.perfs)
-              val ratingsB = mkRatings(black.perfs)
-              game.ratingVariant match
-                case chess.variant.Chess960 =>
-                  updateRatings(ratingsW.chess960, ratingsB.chess960, game)
-                case chess.variant.KingOfTheHill =>
-                  updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
-                case chess.variant.ThreeCheck =>
-                  updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, game)
-                case chess.variant.Antichess =>
-                  updateRatings(ratingsW.antichess, ratingsB.antichess, game)
-                case chess.variant.Atomic =>
-                  updateRatings(ratingsW.atomic, ratingsB.atomic, game)
-                case chess.variant.Horde =>
-                  updateRatings(ratingsW.horde, ratingsB.horde, game)
-                case chess.variant.RacingKings =>
-                  updateRatings(ratingsW.racingKings, ratingsB.racingKings, game)
-                case chess.variant.Crazyhouse =>
-                  updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game)
-                case chess.variant.Standard =>
-                  game.speed match
-                    case Speed.Bullet =>
-                      updateRatings(ratingsW.bullet, ratingsB.bullet, game)
-                    case Speed.Blitz =>
-                      updateRatings(ratingsW.blitz, ratingsB.blitz, game)
-                    case Speed.Rapid =>
-                      updateRatings(ratingsW.rapid, ratingsB.rapid, game)
-                    case Speed.Classical =>
-                      updateRatings(ratingsW.classical, ratingsB.classical, game)
-                    case Speed.Correspondence =>
-                      updateRatings(ratingsW.correspondence, ratingsB.correspondence, game)
-                    case Speed.UltraBullet =>
-                      updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
-                case _ =>
-              val perfsW                      = mkPerfs(ratingsW, white -> black, game)
-              val perfsB                      = mkPerfs(ratingsB, black -> white, game)
-              def intRatingLens(perfs: Perfs) = mainPerf(perfs).glicko.intRating
-              val ratingDiffs = ByColor(
-                intRatingLens(perfsW) - intRatingLens(white.perfs),
-                intRatingLens(perfsB) - intRatingLens(black.perfs)
-              ).map(_ into IntRatingDiff)
-              gameRepo.setRatingDiffs(game.id, ratingDiffs) zip
-                userRepo.setPerfs(white, perfsW, white.perfs) zip
-                userRepo.setPerfs(black, perfsB, black.perfs) zip
-                historyApi.add(white, game, perfsW) zip
-                historyApi.add(black, game, perfsB) zip
-                rankingApi.save(white, game.perfType, perfsW) zip
-                rankingApi.save(black, game.perfType, perfsB) inject ratingDiffs.some
+        game.ratingPerfType.so: mainPerf =>
+          (game.rated && game.finished && game.accountable && !white.lame && !black.lame).so:
+            val ratingsW = mkRatings(white.perfs)
+            val ratingsB = mkRatings(black.perfs)
+            game.ratingVariant match
+              case chess.variant.Chess960 =>
+                updateRatings(ratingsW.chess960, ratingsB.chess960, game)
+              case chess.variant.KingOfTheHill =>
+                updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
+              case chess.variant.ThreeCheck =>
+                updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, game)
+              case chess.variant.Antichess =>
+                updateRatings(ratingsW.antichess, ratingsB.antichess, game)
+              case chess.variant.Atomic =>
+                updateRatings(ratingsW.atomic, ratingsB.atomic, game)
+              case chess.variant.Horde =>
+                updateRatings(ratingsW.horde, ratingsB.horde, game)
+              case chess.variant.RacingKings =>
+                updateRatings(ratingsW.racingKings, ratingsB.racingKings, game)
+              case chess.variant.Crazyhouse =>
+                updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game)
+              case chess.variant.Standard =>
+                game.speed match
+                  case Speed.Bullet =>
+                    updateRatings(ratingsW.bullet, ratingsB.bullet, game)
+                  case Speed.Blitz =>
+                    updateRatings(ratingsW.blitz, ratingsB.blitz, game)
+                  case Speed.Rapid =>
+                    updateRatings(ratingsW.rapid, ratingsB.rapid, game)
+                  case Speed.Classical =>
+                    updateRatings(ratingsW.classical, ratingsB.classical, game)
+                  case Speed.Correspondence =>
+                    updateRatings(ratingsW.correspondence, ratingsB.correspondence, game)
+                  case Speed.UltraBullet =>
+                    updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
+              case _ =>
+            val perfsW                     = mkPerfs(ratingsW, white -> black, game)
+            val perfsB                     = mkPerfs(ratingsB, black -> white, game)
+            def ratingOf(perfs: UserPerfs) = perfs(mainPerf).glicko.intRating
+            val ratingDiffs = ByColor(
+              ratingOf(perfsW) - ratingOf(white.perfs),
+              ratingOf(perfsB) - ratingOf(black.perfs)
+            ).map(_ into IntRatingDiff)
+            gameRepo.setRatingDiffs(game.id, ratingDiffs) zip
+              perfsRepo.setPerfs(white.user, perfsW, white.perfs) zip
+              perfsRepo.setPerfs(black.user, perfsB, black.perfs) zip
+              historyApi.add(white.user, game, perfsW) zip
+              historyApi.add(black.user, game, perfsB) zip
+              rankingApi.save(white.user, game.perfType, perfsW) zip
+              rankingApi.save(black.user, game.perfType, perfsB) inject ratingDiffs.some
     }
 
   private case class Ratings(
@@ -93,7 +92,7 @@ final class PerfsUpdater(
       correspondence: glicko2.Rating
   )
 
-  private def mkRatings(perfs: Perfs) =
+  private def mkRatings(perfs: UserPerfs) =
     Ratings(
       chess960 = perfs.chess960.toRating,
       kingOfTheHill = perfs.kingOfTheHill.toRating,
@@ -123,7 +122,7 @@ final class PerfsUpdater(
     try Glicko.system.updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
-  private def mkPerfs(ratings: Ratings, users: (User, User), game: Game): Perfs =
+  private def mkPerfs(ratings: Ratings, users: PairOf[User.WithPerfs], game: Game): UserPerfs =
     users match
       case (player, opponent) =>
         val perfs            = player.perfs
@@ -131,10 +130,10 @@ final class PerfsUpdater(
         val isStd            = game.ratingVariant.standard
         val isHumanVsMachine = player.noBot && opponent.isBot
         def addRatingIf(cond: Boolean, perf: Perf, rating: glicko2.Rating) =
-          if (cond)
+          if cond then
             val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
-            if (isHumanVsMachine)
-              p.copy(glicko = p.glicko average perf.glicko) // halve rating diffs for human
+            if isHumanVsMachine
+            then p.copy(glicko = p.glicko average perf.glicko) // halve rating diffs for human
             else p
           else perf
         val perfs1 = perfs.copy(
@@ -172,4 +171,4 @@ final class PerfsUpdater(
           classical = r(PT.Classical, perfs.classical, perfs1.classical),
           correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
         )
-        if (isStd) perfs2.updateStandard else perfs2
+        if isStd then perfs2.updateStandard else perfs2

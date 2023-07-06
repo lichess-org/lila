@@ -53,6 +53,8 @@
     line-height: 1.7;
 
     th {
+      @extend %break-nope;
+      font-size: 0.9em;
       color: $c-font-dim;
       padding-#{$end-direction}: 1.2em;
       text-align: right;

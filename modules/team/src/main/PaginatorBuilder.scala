@@ -10,7 +10,7 @@ final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
   private val maxPerPage         = MaxPerPage(15)
@@ -53,7 +53,7 @@ final private[team] class PaginatorBuilder(
 
   final private class TeamAdapter(val team: Team) extends AdapterLike[LightUser] with MembersAdapter:
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
-      for {
+      for
         docs <-
           memberRepo.coll
             .find(selector, $doc("user" -> true, "_id" -> false).some)
@@ -63,13 +63,13 @@ final private[team] class PaginatorBuilder(
             .list(length)
         userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
         users <- lightUserApi asyncManyFallback userIds
-      } yield users
+      yield users
 
   final private class TeamAdapterWithDate(val team: Team)
       extends AdapterLike[TeamMember.UserAndDate]
       with MembersAdapter:
     def slice(offset: Int, length: Int): Fu[Seq[TeamMember.UserAndDate]] =
-      for {
+      for
         docs <-
           memberRepo.coll
             .find(selector, $doc("user" -> true, "date" -> true, "_id" -> false).some)
@@ -80,7 +80,7 @@ final private[team] class PaginatorBuilder(
         userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
         dates   = docs.flatMap(_.getAsOpt[Instant]("date"))
         users <- lightUserApi asyncManyFallback userIds
-      } yield users.zip(dates) map TeamMember.UserAndDate.apply
+      yield users.zip(dates) map TeamMember.UserAndDate.apply
 
   def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
     Paginator(
@@ -94,12 +94,12 @@ final private[team] class PaginatorBuilder(
     private def sorting  = $sort desc "date"
 
     def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] =
-      for {
+      for
         requests <- requestRepo.coll
           .find(selector)
           .sort(sorting)
           .skip(offset)
           .cursor[Request]()
           .list(length)
-        users <- userRepo usersFromSecondary requests.map(_.user)
-      } yield requests zip users map { case (request, user) => RequestWithUser(request, user) }
+        users <- userApi.listWithPerfs(requests.map(_.user))
+      yield RequestWithUser.combine(requests, users)

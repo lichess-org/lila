@@ -1,6 +1,5 @@
 package lila.report
 
-import cats.syntax.all.*
 import lila.game.GameRepo
 
 final private class ReportScore(
@@ -48,7 +47,7 @@ final private class ReportScore(
     private val gameRegex = ReportForm gameLinkRegex domain
 
     def dropScoreIfCheatReportHasNoAnalyzedGames(c: Report.Candidate.Scored): Fu[Report.Candidate.Scored] =
-      if (c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat)
+      if c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat then
         val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(m => GameId(m.group(1)))
         def isUsable(gameId: GameId) = gameRepo analysed gameId map { _.exists(_.ply > 30) }
         gameIds

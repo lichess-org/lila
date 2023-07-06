@@ -23,10 +23,16 @@ import scala.collection.Factory
 
 trait dsl:
 
-  // #TODO FIXME
-  // should be secondaryPreferred
-  // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-  val temporarilyPrimary = ReadPreference.primary
+  type ReadPref = ReadPref.type => ReadPreference
+  object ReadPref:
+    val pri: ReadPreference     = ReadPreference.primary
+    val sec: ReadPreference     = ReadPreference.secondaryPreferred
+    val secOnly: ReadPreference = ReadPreference.secondary
+    // #TODO FIXME
+    // should be sec
+    // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
+    val priTemp: ReadPreference                = ReadPreference.primary
+    given Conversion[ReadPref, ReadPreference] = _(ReadPref)
 
   type Coll = reactivemongo.api.bson.collection.BSONCollection
   type Bdoc = BSONDocument
@@ -127,7 +133,7 @@ trait dsl:
     $doc("$addToSet" -> $doc((Seq(item) ++ items)*))
 
   def $pop(item: (String, Int)): Bdoc =
-    if (item._2 != -1 && item._2 != 1)
+    if item._2 != -1 && item._2 != 1 then
       throw new IllegalArgumentException(s"${item._2} is not equal to: -1 | 1")
     $doc("$pop" -> $doc(item))
 
@@ -141,7 +147,7 @@ trait dsl:
   def $pull(item: ElementProducer): Bdoc = $doc("$pull" -> $doc(item))
 
   def $addOrPull[T: BSONWriter](key: String, value: T, add: Boolean): Bdoc =
-    $doc((if (add) "$addToSet" else "$pull") -> $doc(key -> value))
+    $doc((if add then "$addToSet" else "$pull") -> $doc(key -> value))
 
   // End ofTop Level Array Update Operators
   // **********************************************************************************************//
@@ -185,7 +191,8 @@ trait dsl:
       this.value ++ value
 
   /** MongoDB comparison operators. */
-  trait ComparisonOperators { self: ElementBuilder =>
+  trait ComparisonOperators:
+    self: ElementBuilder =>
 
     def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] =
       SimpleExpression(field, summon[BSONWriter[T]].writeTry(value).get)
@@ -221,13 +228,12 @@ trait dsl:
     def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
       SimpleExpression(field, $doc("$nin" -> values))
 
-  }
-
-  trait ElementOperators { self: ElementBuilder =>
+  trait ElementOperators:
+    self: ElementBuilder =>
     def $exists(v: Boolean): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$exists" -> v))
-  }
 
-  trait EvaluationOperators { self: ElementBuilder =>
+  trait EvaluationOperators:
+    self: ElementBuilder =>
     def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] =
       SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
 
@@ -236,9 +242,9 @@ trait dsl:
 
     def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       $regex(s"^$value", options)
-  }
 
-  trait ArrayOperators { self: ElementBuilder =>
+  trait ArrayOperators:
+    self: ElementBuilder =>
     def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] =
       SimpleExpression(field, $doc("$all" -> values))
 
@@ -246,7 +252,6 @@ trait dsl:
       SimpleExpression(field, $doc("$elemMatch" -> $doc(query*)))
 
     def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
-  }
 
   object $sort:
 
@@ -340,13 +345,13 @@ object dsl extends dsl with Handlers:
 
   extension (coll: Coll)(using Executor)
 
-    def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
-    def secondary          = coll withReadPreference ReadPreference.secondary
+    def secondaryPreferred = coll withReadPreference ReadPref.sec
+    def secondary          = coll withReadPreference ReadPref.secOnly
 
     // #TODO FIXME
     // should be secondaryPreferred
     // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-    def tempPrimary = coll withReadPreference ReadPreference.primary
+    def tempPrimary = coll withReadPreference ReadPref.pri
 
     def ext = this
 
@@ -358,9 +363,9 @@ object dsl extends dsl with Handlers:
 
     def list[D: BSONDocumentReader](
         selector: Bdoc,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPref: ReadPref = _.pri
     ): Fu[List[D]] =
-      coll.find(selector, none[Bdoc]).cursor[D](readPreference).list(Int.MaxValue)
+      coll.find(selector, none[Bdoc]).cursor[D](readPref).list(Int.MaxValue)
 
     def list[D: BSONDocumentReader](selector: Bdoc, limit: Int): Fu[List[D]] =
       coll.find(selector, none[Bdoc]).cursor[D]().list(limit = limit)
@@ -382,15 +387,15 @@ object dsl extends dsl with Handlers:
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
-        readPreference: ReadPreference = ReadPreference.primary
+        readPref: ReadPref = _.pri
     ): Fu[List[D]] =
-      list[D]($inIds(ids), readPreference)
+      list[D]($inIds(ids), readPref)
 
     def byStringIds[D: BSONDocumentReader](
         ids: Iterable[String],
-        readPreference: ReadPreference = ReadPreference.primary
+        readPref: ReadPref = _.pri
     ): Fu[List[D]] =
-      byIds[D, String](ids, readPreference)
+      byIds[D, String](ids, readPref)
 
     def countSel(selector: coll.pack.Document): Fu[Int] =
       coll
@@ -418,29 +423,29 @@ object dsl extends dsl with Handlers:
     def idsMap[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPref: ReadPref = _.pri
     )(docId: D => I): Fu[Map[I, D]] = ids.nonEmpty.so:
       projection
         .fold(coll find $inIds(ids)): proj =>
           coll.find($inIds(ids), proj.some)
-        .cursor[D](readPreference)
+        .cursor[D](readPref)
         .collect[List](Int.MaxValue)
         .map(_.mapBy(docId))
 
     def byOrderedIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPref: ReadPref = _.pri
     )(docId: D => I): Fu[List[D]] = ids.nonEmpty.so:
-      idsMap[D, I](ids, projection, readPreference)(docId).map: m =>
+      idsMap[D, I](ids, projection, readPref)(docId).map: m =>
         ids.view.flatMap(m.get).toList
 
     def optionsByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPref: ReadPref = _.pri
     )(docId: D => I): Fu[List[Option[D]]] = ids.nonEmpty.so:
-      idsMap[D, I](ids, projection, readPreference)(docId).map: m =>
+      idsMap[D, I](ids, projection, readPref)(docId).map: m =>
         ids.view.map(m.get).toList
 
     def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =
@@ -533,22 +538,22 @@ object dsl extends dsl with Handlers:
 
     def aggregateList(
         maxDocs: Int, // can actually return more documents (?)
-        readPreference: ReadPreference = ReadPreference.primary,
+        readPref: ReadPref = _.pri,
         allowDiskUse: Boolean = false
     )(
         f: coll.AggregationFramework => AggregationPipeline[coll.PipelineOperator]
-    )(using cp: CursorProducer[Bdoc]): Fu[List[Bdoc]] =
+    )(using CursorProducer[Bdoc]): Fu[List[Bdoc]] =
       coll
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
-          readPreference = readPreference
+          readPreference = readPref
         ): agg =>
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
         .collect[List](maxDocs = maxDocs)
 
     def aggregateOne(
-        readPreference: ReadPreference = ReadPreference.primary,
+        readPref: ReadPref = _.pri,
         allowDiskUse: Boolean = false
     )(
         f: coll.AggregationFramework => AggregationPipeline[coll.PipelineOperator]
@@ -556,7 +561,7 @@ object dsl extends dsl with Handlers:
       coll
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
-          readPreference = readPreference
+          readPreference = readPref
         ): agg =>
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
@@ -564,7 +569,7 @@ object dsl extends dsl with Handlers:
         .dmap(_.headOption) // .one[Bdoc] ?
 
     def aggregateExists(
-        readPreference: ReadPreference = ReadPreference.primary,
+        readPref: ReadPref = _.pri,
         allowDiskUse: Boolean = false
     )(
         f: coll.AggregationFramework => AggregationPipeline[coll.PipelineOperator]
@@ -572,7 +577,7 @@ object dsl extends dsl with Handlers:
       coll
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
-          readPreference = readPreference
+          readPreference = readPref
         ): agg =>
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
@@ -582,12 +587,12 @@ object dsl extends dsl with Handlers:
     def distinctEasy[T, M[_] <: Iterable[?]](
         key: String,
         selector: coll.pack.Document,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPref: ReadPref = _.pri
     )(using
         reader: coll.pack.NarrowValueReader[T],
         cbf: Factory[T, M[T]]
     ): Fu[M[T]] =
-      coll.withReadPreference(readPreference).distinct(key, selector.some, ReadConcern.Local, None)
+      coll.withReadPreference(readPref).distinct(key, selector.some, ReadConcern.Local, None)
 
     def findAndUpdateSimplified[D: BSONDocumentReader](
         selector: coll.pack.Document,

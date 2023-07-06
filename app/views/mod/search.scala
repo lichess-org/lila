@@ -58,16 +58,16 @@ object search:
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("Fingerprint: ", fh.value),
-            if (isGranted(_.Admin))
+            if isGranted(_.Admin) then
               postForm(cls := "box__top__actions", action := routes.Mod.printBan(!blocked, fh.value))(
                 submitButton(
                   cls := List(
                     "button text" -> true,
                     "active"      -> blocked
                   )
-                )(if (blocked) "Banned" else "Ban this print")
+                )(if blocked then "Banned" else "Ban this print")
               )
-            else if (blocked) div(cls := "banned")("BANNED")
+            else if blocked then div(cls := "banned")("BANNED")
             else emptyFrag
           ),
           isGranted(_.Admin) option div(cls := "box__pad")(
@@ -96,16 +96,16 @@ object search:
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("IP address: ", renderIp(address)),
-            if (isGranted(_.Admin))
+            if isGranted(_.Admin) then
               postForm(cls := "box__top__actions", action := routes.Mod.singleIpBan(!blocked, address.value))(
                 submitButton(
                   cls := List(
                     "button text" -> true,
                     "active"      -> blocked
                   )
-                )(if (blocked) "Banned" else "Ban this IP")
+                )(if blocked then "Banned" else "Ban this IP")
               )
-            else if (blocked) div(cls := "banned")("BANNED")
+            else if blocked then div(cls := "banned")("BANNED")
             else emptyFrag
           ),
           isGranted(_.Admin) option div(cls := "box__pad")(
@@ -168,11 +168,11 @@ object search:
                   td(a(href := clasRoutes.show(c.id.value))(s"${c.id}")),
                   td(c.name),
                   td(momentFromNow(c.created.at)),
-                  c.archived match {
+                  c.archived match
                     case None => td("No")
                     case Some(lila.clas.Clas.Recorded(closerId, at)) =>
                       td(userIdLink(closerId.some), nbsp, momentFromNow(at))
-                  },
+                  ,
                   td(c.teachers.toList.map(id => teacherLink(id)))
                 )
               )
@@ -235,7 +235,7 @@ object search:
       users: List[User.WithEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
-  )(using PageContext, Me) =
+  )(using Context, Me) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(
@@ -252,10 +252,10 @@ object search:
       tbody(
         users.map { case lila.user.User.WithEmails(u, emails) =>
           tr(
-            if showUsernames || Granter.canViewAltUsername(u)
+            if showUsernames || Granter.canViewAltUsername(u.user)
             then
               td(
-                userLink(u, withBestRating = true, params = "?mod"),
+                userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
                 isGranted(_.Admin) option
                   email(emails.strList.mkString(", "))
               )

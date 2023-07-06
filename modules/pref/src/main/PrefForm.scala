@@ -154,12 +154,12 @@ object PrefForm:
     def apply(pref: Pref): PrefData =
       PrefData(
         display = DisplayData(
-          highlight = if (pref.highlight) 1 else 0,
-          destination = if (pref.destination) 1 else 0,
+          highlight = if pref.highlight then 1 else 0,
+          destination = if pref.destination then 1 else 0,
           animation = pref.animation,
           coords = pref.coords,
           replay = pref.replay,
-          captured = if (pref.captured) 1 else 0,
+          captured = if pref.captured then 1 else 0,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,
@@ -167,7 +167,7 @@ object PrefForm:
         ),
         behavior = BehaviorData(
           moveEvent = pref.moveEvent.some,
-          premove = if (pref.premove) 1 else 0,
+          premove = if pref.premove then 1 else 0,
           takeback = pref.takeback,
           autoQueen = pref.autoQueen,
           autoThreefold = pref.autoThreefold,
@@ -179,11 +179,11 @@ object PrefForm:
         ),
         clock = ClockData(
           tenths = pref.clockTenths,
-          bar = if (pref.clockBar) 1 else 0,
-          sound = if (pref.clockSound) 1 else 0,
+          bar = if pref.clockBar then 1 else 0,
+          sound = if pref.clockSound then 1 else 0,
           moretime = pref.moretime
         ),
-        follow = if (pref.follow) 1 else 0,
+        follow = if pref.follow then 1 else 0,
         challenge = pref.challenge,
         message = pref.message,
         studyInvite = pref.studyInvite.some,

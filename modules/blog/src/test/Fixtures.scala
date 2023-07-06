@@ -1,6 +1,6 @@
 package lila.blog
 
-object Fixtures {
+object Fixtures:
 
   def noYoutube = Html {
     """
@@ -353,4 +353,3 @@ object Fixtures {
 <p>Beginners may be best served by playing conventional e4/d4 systems as white and the French as black. Avoid pawn moves which weaken key squares; fortify weak squares around your king. Maintain the initiative and attack. Sac when it draws the king out and you have a follow-up. Emphasize king safety over material gain. Calculate what your opponent (and you) can do with exchanged pieces before entering into tactical complications. Go crazy!</p>
 """
   }
-}

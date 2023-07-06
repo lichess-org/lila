@@ -27,7 +27,7 @@ final class Tv(
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
     trouper.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
-        for {
+        for
           game <- gameId so roundProxyGame
           games <-
             historyIds
@@ -37,7 +37,7 @@ final class Tv(
               .parallel
               .dmap(_.flatten)
           history = games map Pov.naturalOrientation
-        } yield game map (_ -> history)
+        yield game map (_ -> history)
     }
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =

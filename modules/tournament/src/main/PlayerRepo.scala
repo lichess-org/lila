@@ -1,6 +1,5 @@
 package lila.tournament
 
-import cats.syntax.all.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -101,7 +100,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
         .sorted.mapWithIndex: (rt, pos) =>
           rt.updateRank(pos + 1)
       } map { ranked =>
-      if (ranked.sizeIs == battle.teams.size) ranked
+      if ranked.sizeIs == battle.teams.size then ranked
       else
         ranked ::: battle.teams
           .foldLeft(List.empty[RankedTeam]) {
@@ -118,7 +117,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       teamId: TeamId
   ): Fu[TeamBattle.TeamInfo] =
     coll
-      .aggregateOne() { framework =>
+      .aggregateOne(): framework =>
         import framework.*
         Match(selectTour(tourId) ++ $doc("t" -> teamId)) -> List(
           Sort(Descending("m")),
@@ -136,9 +135,8 @@ final class PlayerRepo(coll: Coll)(using Executor):
             )
           )
         )
-      }
-      .map { docO =>
-        for {
+      .map: docO =>
+        for
           doc       <- docO
           aggs      <- doc.getAsOpt[List[Bdoc]]("agg")
           agg       <- aggs.headOption
@@ -147,8 +145,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
           perf   = agg.double("perf").so(math.round)
           score  = agg.double("score").so(math.round)
           topPlayers <- doc.getAsOpt[List[Player]]("topPlayers")
-        } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
-      }
+        yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
       .dmap(_ | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil))
 
   def bestTeamPlayers(tourId: TourId, teamId: TeamId, nb: Int): Fu[List[Player]] =
@@ -162,23 +159,20 @@ final class PlayerRepo(coll: Coll)(using Executor):
       .find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true).some)
       .cursor[Bdoc]()
       .listAll()
-      .map {
-        _.flatMap { doc =>
-          doc.getAsOpt[UserId]("uid") flatMap { userId =>
-            doc.getAsOpt[TeamId]("t") map { (userId, _) }
-          }
-        }
-      }
+      .map: doc =>
+        for
+          doc    <- doc
+          userId <- doc.getAsOpt[UserId]("uid")
+          teamId <- doc.getAsOpt[TeamId]("t")
+        yield (userId, teamId)
 
   def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
-    game.twoUserIds so { case (w, b) =>
+    game.twoUserIds.so: (w, b) =>
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
-        import cats.syntax.all.*
-        (m.get(w), m.get(b)).mapN((_, _)) so { case (wt, bt) =>
+        (m.get(w), m.get(b)).mapN((_, _)).so { (wt, bt) =>
           TeamBattle.TeamVs(chess.ByColor(wt, bt)).some
         }
       }
-    }
 
   def count(tourId: TourId): Fu[Int] = coll.countSel(selectTour(tourId))
 
@@ -215,23 +209,20 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   def join(
       tourId: TourId,
-      user: User,
-      perfType: PerfType,
+      user: User.WithPerf,
       team: Option[TeamId],
       prev: Option[Player]
-  ) =
-    prev match
-      case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
-      case Some(_)               => funit
-      case None                  => coll.insert.one(Player.make(tourId, user, perfType, team))
+  ) = prev match
+    case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
+    case Some(_)               => funit
+    case None                  => coll.insert.one(Player.make(tourId, user, team))
 
   def withdraw(tourId: TourId, userId: UserId) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: TourId): Fu[List[Player]] =
-    coll.list[Player](
+    coll.list[Player]:
       selectTour(tourId) ++ $doc("m" $gt 0)
-    )
 
   private[tournament] def nbActivePlayers(tourId: TourId): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
@@ -267,7 +258,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
             val playerIndex = new Array[TourPlayerId](all.size)
             val ranking     = Map.newBuilder[UserId, Rank]
             var r           = 0
-            for (u <- all.values)
+            for u <- all.values do
               val both   = u.asInstanceOf[BSONString].value
               val userId = UserId(both.drop(8))
               playerIndex(r) = TourPlayerId(both.take(8))
@@ -349,10 +340,10 @@ final class PlayerRepo(coll: Coll)(using Executor):
   private[tournament] def sortedCursor(
       tournamentId: TourId,
       batchSize: Int,
-      readPreference: ReadPreference = temporarilyPrimary
+      readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Player] =
     coll
       .find(selectTour(tournamentId))
       .sort($sort desc "m")
       .batchSize(batchSize)
-      .cursor[Player](readPreference)
+      .cursor[Player](readPref)

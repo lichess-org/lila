@@ -19,8 +19,7 @@ object created:
       path = path,
       moreJs = infiniteScrollTag
     ) {
-      if (pager.nbResults == 0)
-        div(cls := "box-pad")(u.username, " hasn't created any tournament yet!")
+      if pager.nbResults == 0 then div(cls := "box-pad")(u.username, " hasn't created any tournament yet!")
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(

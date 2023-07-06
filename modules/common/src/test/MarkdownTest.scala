@@ -3,7 +3,7 @@ package lila.common
 import chess.format.pgn.PgnStr
 import lila.common.config.AssetDomain
 
-class MarkdownTest extends munit.FunSuite {
+class MarkdownTest extends munit.FunSuite:
 
   val render: Markdown => Html = new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some)("test") _
 
@@ -87,4 +87,3 @@ class MarkdownTest extends munit.FunSuite {
 """
     )
   }
-}

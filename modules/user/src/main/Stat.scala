@@ -8,6 +8,6 @@ object Stat:
   def percentile(ratings: List[Int], rating: IntRating): (Int, Int) =
     ratings.zipWithIndex.foldLeft(0 -> 0) { case ((under, sum), (nb, i)) =>
       {
-        if (rating > minRating.value + i * group + group / 2) under + nb else under
+        if rating > minRating.value + i * group + group / 2 then under + nb else under
       } -> (sum + nb)
     }

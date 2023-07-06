@@ -47,14 +47,14 @@ object tourForm:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form")
-    )(menu match {
+    )(menu match
       case Some(active) =>
         main(cls := "page-small page-menu")(
           tour.pageMenu(active),
           div(cls := "page-menu__content box box-pad")(body)
         )
       case None => main(cls := "page-small box box-pad")(body)
-    })
+    )
 
   private def inner(form: Form[Data])(using PageContext) = frag(
     div(cls := "form-group")(bits.howToUse),
@@ -79,7 +79,7 @@ object tourForm:
         help = raw("Compute and display a simple leaderboard based on game results").some,
         half = true
       ),
-      if (isGranted(_.Relay))
+      if isGranted(_.Relay) then
         form3.group(
           form("tier"),
           raw("Official Lichess broadcast tier"),

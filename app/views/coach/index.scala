@@ -23,9 +23,7 @@ object index:
       langCodes: Set[String],
       countryCodes: Set[String],
       country: Option[Country]
-  )(using
-      ctx: PageContext
-  ) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = lichessCoaches.txt(),
       moreCss = cssTag("coach"),
@@ -48,7 +46,7 @@ object index:
           p(
             areYouCoach(a(href := "https://lichess.org/help/master")(nmOrFideTitle())),
             br,
-            if (!ctx.me.exists(_.hasTitle)) a(href := routes.Main.verifyTitle)(confirmTitle())
+            if !ctx.me.exists(_.hasTitle) then a(href := routes.Main.verifyTitle)(confirmTitle())
             else sendApplication(a(href := s"mailto:$contactEmailInClear")(contactEmailInClear))
           )
         ),
@@ -90,11 +88,10 @@ object index:
             )
           ),
           div(cls := "list infinite-scroll")(
-            pager.currentPageResults.map { c =>
+            pager.currentPageResults.map: c =>
               st.article(cls := "coach-widget paginated", attr("data-dedup") := c.coach.id.value)(
                 widget(c, link = true)
-              )
-            },
+              ),
             pagerNext(
               pager,
               np =>

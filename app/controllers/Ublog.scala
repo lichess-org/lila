@@ -222,7 +222,7 @@ final class Ublog(env: Env) extends LilaController(env):
       case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page))
       case ByHref.Refused(lang) => communityIndex(lang.some, page)
       case ByHref.Found(lang) =>
-        if (ctx.isAuth) communityIndex(lang.some, page)
+        if ctx.isAuth then communityIndex(lang.some, page)
         else communityIndex(lang.some, page)(using ctx.withLang(lang))
 
   def communityAll(page: Int) = Open:

@@ -1,6 +1,5 @@
 package lila.video
 
-import cats.syntax.all.*
 import play.api.libs.ws.StandaloneWSClient
 
 final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoApi)(using Executor):
@@ -52,7 +51,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
           api.video
             .removeNotIn(entries.map(_.youtubeId))
             .map: n =>
-              if (n > 0) logger.info(s"$n videos removed")
+              if n > 0 then logger.info(s"$n videos removed")
               processed
 
   private def fetch: Fu[List[Entry]] =
@@ -69,7 +68,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
               )
             }
             .flatMap { parsed =>
-              for {
+              for
                 p <- parsed
                 entry <- p match
                   case List(id, author, title, target, tags, lang, ads, _, include, start, _, _) =>
@@ -80,8 +79,8 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
                       title = title.trim,
                       targets = targets,
                       tags = tags.split(';').map(_.trim.toLowerCase).toList.filter(_.nonEmpty) ::: {
-                        if (targets contains 1) List("beginner")
-                        else if (targets contains 3) List("advanced")
+                        if targets contains 1 then List("beginner")
+                        else if targets contains 3 then List("advanced")
                         else Nil
                       },
                       lang = lang.trim,
@@ -92,7 +91,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
                   case _ => none
                 if entry.include
                 if entry.lang == "en"
-              } yield entry
+              yield entry
             }
             .toList
         }

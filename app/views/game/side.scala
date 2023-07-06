@@ -42,22 +42,22 @@ object side:
               div(cls := "header")(
                 div(cls := "setup")(
                   views.html.bookmark.toggle(game, bookmarked),
-                  if (game.imported)
+                  if game.imported then
                     div(
                       a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
                       separator,
-                      bits.variantLink(game.variant, initialFen = initialFen, shortName = true)
+                      bits.variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
                     )
                   else
                     frag(
                       widgets showClock game,
                       separator,
-                      (if (game.rated) trans.rated else trans.casual).txt(),
+                      (if game.rated then trans.rated else trans.casual).txt(),
                       separator,
                       bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
                 ),
-                game.pgnImport.flatMap(_.date).map(frag(_)) | momentFromNowWithPreload(game.createdAt)
+                game.pgnImport.flatMap(_.date).fold(momentFromNowWithPreload(game.createdAt))(frag(_))
               ),
               game.pgnImport
                 .flatMap(_.user)
@@ -74,7 +74,7 @@ object side:
             )
           ),
           div(cls := "game__meta__players")(
-            game.players.mapList { p =>
+            game.players.mapList: p =>
               frag(
                 div(cls := s"player color-icon is ${p.color.name} text")(
                   playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
@@ -83,56 +83,46 @@ object side:
                   teamLink(_, withIcon = false)(cls := "team")
                 }
               )
-            }
           )
         ),
-        game.finishedOrAborted option {
-          st.section(cls := "status")(
-            gameEndStatus(game),
-            game.winner.map { winner =>
-              frag(
-                separator,
-                winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious)()
-              )
-            }
-          )
-        },
-        game.variant.chess960.so {
+        game.finishedOrAborted option st.section(cls := "status")(
+          gameEndStatus(game),
+          game.winner.map: winner =>
+            frag(
+              separator,
+              winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious)()
+            )
+        ),
+        game.variant.chess960 so frag:
           chess.variant.Chess960
             .positionNumber(initialFen | chess.format.Fen.initial)
-            .map { number =>
-              st.section(
-                trans.chess960StartPosition(
-                  a(
-                    href := routes.UserAnalysis
-                      .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
-                  )(number)
-                )
-              )
-            }
-        }: Frag,
-        userTv.map { u =>
-          st.section(cls := "game__tv")(
+            .map: number =>
+              val url = routes.UserAnalysis
+                .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
+              st.section(trans.chess960StartPosition(a(href := url)(number)))
+        ,
+        userTv.map: u =>
+          st.section(cls := "game__tv"):
             h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := licon.AnalogTv)(u.titleUsername)
-          )
-        },
-        tour.map { t =>
-          st.section(cls := "game__tournament")(
-            a(cls := "text", dataIcon := licon.Trophy, href := routes.Tournament.show(t.tour.id))(
-              t.tour.name()
-            ),
-            div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)
-          )
-        } orElse game.tournamentId.map { tourId =>
-          st.section(cls := "game__tournament-link")(tournamentLink(tourId))
-        } orElse game.swissId.map { swissId =>
-          st.section(cls := "game__tournament-link")(
-            views.html.swiss.bits.link(SwissId(swissId))
-          )
-        } orElse simul.map { sim =>
-          st.section(cls := "game__simul-link")(
-            a(href := routes.Simul.show(sim.id))(sim.fullName)
-          )
-        }
+        ,
+        tour
+          .map: t =>
+            st.section(cls := "game__tournament")(
+              a(cls := "text", dataIcon := licon.Trophy, href := routes.Tournament.show(t.tour.id)):
+                t.tour.name()
+              ,
+              div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)
+            )
+          .orElse:
+            game.tournamentId.map: tourId =>
+              st.section(cls := "game__tournament-link")(tournamentLink(tourId))
+          .orElse:
+            game.swissId.map: swissId =>
+              st.section(cls := "game__tournament-link"):
+                views.html.swiss.bits.link(SwissId(swissId))
+          .orElse:
+            simul.map: sim =>
+              st.section(cls := "game__simul-link"):
+                a(href := routes.Simul.show(sim.id))(sim.fullName)
       )
     }

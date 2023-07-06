@@ -15,12 +15,11 @@ final class Gaussian(mu: Double, sigma: Double):
     * @return
     *   x s.t. cdf(x) = numYes
     */
-  def inverseCdf(p: Double): Double = {
+  def inverseCdf(p: Double): Double =
     require(p >= 0)
     require(p <= 1)
 
     mu + sigma * sqrt2 * erfInv(2 * p - 1)
-  }
 
   /** Computes the cumulative density function of the value x.
     */

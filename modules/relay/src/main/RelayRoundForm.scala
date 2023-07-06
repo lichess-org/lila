@@ -114,7 +114,7 @@ object RelayRoundForm:
         name = name,
         caption = caption,
         sync = makeSync(me).pipe: sync =>
-          if (relay.sync.playing) sync.play else sync,
+          if relay.sync.playing then sync.play else sync,
         startsAt = startsAt,
         finished = relay.finished && startsAt.fold(true)(_.isBeforeNow)
       )

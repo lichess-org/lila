@@ -15,10 +15,8 @@ final private class Pause:
     .expireAfterWrite(20 minutes)
     .build[UserId, Record]()
 
-  private def baseDelayOf(tour: Tournament) =
-    Delay {
-      tour.clock.estimateTotalSeconds / 15
-    }
+  private def baseDelayOf(tour: Tournament) = Delay:
+    tour.clock.estimateTotalSeconds / 15
 
   private def delayOf(record: Record, tour: Tournament) =
     // 10s for first pause
@@ -43,11 +41,10 @@ final private class Pause:
 object Pause:
 
   case class Record(pauses: Int, pausedAt: Instant):
-    def add =
-      copy(
-        pauses = pauses + 1,
-        pausedAt = nowInstant
-      )
+    def add = copy(
+      pauses = pauses + 1,
+      pausedAt = nowInstant
+    )
   val newRecord = Record(1, nowInstant)
 
   // pause counter of a player

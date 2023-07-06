@@ -13,7 +13,7 @@ case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal:
   def add(event: SyncLog.Event) =
     copy(
       events = {
-        if (events.sizeIs > SyncLog.historySize) events drop 1
+        if events.sizeIs > SyncLog.historySize then events drop 1
         else events
       } :+ event
     )

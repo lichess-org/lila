@@ -1,6 +1,6 @@
 package lila.common
 
-class HeapsortTest extends munit.FunSuite {
+class HeapsortTest extends munit.FunSuite:
   import lila.common.Heapsort.{ topN, botN }
   test("empty collection") {
     assertEquals(List.empty[Int].topN(10), List.empty[Int])
@@ -18,4 +18,3 @@ class HeapsortTest extends munit.FunSuite {
     assertEquals(Heapsort.topN(Vector(5, 3, 1, 4, 2), 2)(using Ordering.Int), Vector(5, 4))
     assertEquals(Heapsort.topN(Vector(5, 3, 1, 4, 2), 10)(using Ordering.Int), Vector(5, 4, 3, 2, 1))
   }
-}

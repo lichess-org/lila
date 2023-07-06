@@ -7,11 +7,12 @@ import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
     rematches: lila.game.Rematches,
@@ -26,12 +27,9 @@ final class Env(
     msgApi: lila.msg.MsgApi,
     baseUrl: BaseUrl
 )(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
     scheduler: Scheduler,
-    materializer: akka.stream.Materializer,
-    mode: play.api.Mode
-):
+    system: akka.actor.ActorSystem
+)(using Executor, akka.stream.Materializer, play.api.Mode):
 
   private val colls = wire[ChallengeColls]
 

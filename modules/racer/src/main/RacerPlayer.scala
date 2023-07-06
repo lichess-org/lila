@@ -18,7 +18,7 @@ object RacerPlayer:
     case Anon(sessionId: String)
   object Id:
     def apply(str: String) =
-      if (str startsWith "@") Anon(str drop 1)
+      if str startsWith "@" then Anon(str drop 1)
       else User(UserId(str))
     def userIdOf(id: Id) = id match
       case User(uid) => uid.some

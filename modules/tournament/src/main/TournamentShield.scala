@@ -39,8 +39,8 @@ final class TournamentShieldApi(
   private[tournament] def clear(): Unit = cache.invalidateUnit().unit
 
   private[tournament] def clearAfterMarking(userId: UserId): Funit = cache.getUnit map { hist =>
-    import cats.syntax.all.*
-    if (hist.value.exists(_._2.exists(_.owner == userId))) clear()
+    if hist.value.exists(_._2.exists(_.owner == userId))
+    then clear()
   }
 
   private val cache = cacheApi.unit[History]:
@@ -52,7 +52,7 @@ final class TournamentShieldApi(
             "status"        -> (Status.Finished: Status)
           )
         .sort($sort asc "startsAt")
-        .cursor[Tournament](temporarilyPrimary)
+        .cursor[Tournament](ReadPref.priTemp)
         .listAll()
         .map: tours =>
           for

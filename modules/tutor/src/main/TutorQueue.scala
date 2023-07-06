@@ -23,23 +23,18 @@ final private class TutorQueue(
 
   private val workQueue = lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 5.seconds, "tutorQueue")
 
-  private val durationCache = cacheApi.unit[FiniteDuration] {
-    _.refreshAfterWrite(1 minutes)
-      .buildAsyncFuture { _ =>
-        colls.report
-          .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
-            import framework.*
-            Sort(Descending(TutorFullReport.F.at)) -> List(
-              Limit(100),
-              Group(BSONNull)(TutorFullReport.F.millis -> AvgField(TutorFullReport.F.millis))
-            )
-          }
-          .map {
-            ~_.flatMap(_.getAsOpt[Double](TutorFullReport.F.millis))
-          }
-          .map(_.toInt.millis)
-      }
-  }
+  private val durationCache = cacheApi.unit[FiniteDuration]:
+    _.refreshAfterWrite(1 minutes).buildAsyncFuture: _ =>
+      colls.report
+        .aggregateOne(_.sec): framework =>
+          import framework.*
+          Sort(Descending(TutorFullReport.F.at)) -> List(
+            Limit(100),
+            Group(BSONNull)(TutorFullReport.F.millis -> AvgField(TutorFullReport.F.millis))
+          )
+        .map:
+          ~_.flatMap(_.getAsOpt[Double](TutorFullReport.F.millis))
+        .map(_.toInt.millis)
 
   def status(user: User): Fu[Status] = workQueue { fetchStatus(user) }
 

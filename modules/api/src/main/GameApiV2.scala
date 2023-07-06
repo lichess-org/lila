@@ -12,7 +12,7 @@ import lila.common.{ HTTPRequest, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.WithFlags
-import lila.game.{ Game, PerfPicker, Query }
+import lila.game.{ Game, Query }
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.User
@@ -104,7 +104,7 @@ final class GameApiV2(
     Source.futureSource:
       config.playerFile.so(realPlayerApi.apply) map { realPlayers =>
         val playerSelect =
-          if (config.finished)
+          if config.finished then
             config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) }
           else
             config.vs.map(_.id).fold(Query.nowPlaying(config.user.id)) {
@@ -119,7 +119,7 @@ final class GameApiV2(
           )
           .documentSource()
           .map(g => config.postFilter(g) option g)
-          .throttle(config.perSecond.value * 10, 1 second, e => if (e.isDefined) 10 else 2)
+          .throttle(config.perSecond.value * 10, 1 second, e => if e.isDefined then 10 else 2)
           .mapConcat(_.toList)
           .take(config.max | Int.MaxValue)
           .via(upgradeOngoingGame)
@@ -157,7 +157,6 @@ final class GameApiV2(
         } flatMap { playerTeams =>
           gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
             _.zip(pairings) collect { case (Some(game), pairing) =>
-              import cats.syntax.all.*
               (
                 game,
                 pairing,
@@ -178,7 +177,7 @@ final class GameApiV2(
           case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
           case Format.JSON =>
             def addBerserk(color: chess.Color)(json: JsObject) =
-              if (pairing berserkOf color)
+              if pairing berserkOf color then
                 json deepMerge Json.obj(
                   "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
                 )
@@ -263,10 +262,9 @@ final class GameApiV2(
   ): Fu[JsObject] = for
     lightUsers <- gameLightUsers(g)
     pgn <-
-      withFlags.pgnInJson so pgnDump
+      withFlags.pgnInJson soFu pgnDump
         .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
         .dmap(annotator.toPgnString)
-        .dmap(some)
     accuracy = analysisOption.ifTrue(withFlags.accuracy).flatMap {
       AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _)
     }
@@ -276,7 +274,7 @@ final class GameApiV2(
       "rated"      -> g.rated,
       "variant"    -> g.variant.key,
       "speed"      -> g.speed.key,
-      "perf"       -> PerfPicker.key(g),
+      "perf"       -> g.perfKey,
       "createdAt"  -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
@@ -320,7 +318,7 @@ object GameApiV2:
   enum Format:
     case PGN, JSON
   object Format:
-    def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else PGN
+    def byRequest(req: play.api.mvc.RequestHeader) = if HTTPRequest acceptsNdJson req then JSON else PGN
 
   sealed trait Config:
     val format: Format
@@ -357,7 +355,7 @@ object GameApiV2:
   ) extends Config:
     def postFilter(g: Game) =
       rated.fold(true)(g.rated ==) && {
-        perfType.isEmpty || g.perfType.exists(perfType.contains)
+        perfType.isEmpty || perfType.contains(g.perfType)
       } && color.fold(true) { c =>
         g.player(c).userId has user.id
       } && analysed.fold(true)(g.metadata.analysed ==)

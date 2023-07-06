@@ -46,5 +46,5 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using
   private def streamChan(streamId: String) = s"gamesByIdsStream:$streamId"
 
   private def gameSource(ids: Set[GameId]) =
-    if (ids.isEmpty) Source.empty[Game]
+    if ids.isEmpty then Source.empty[Game]
     else gameRepo.cursor($inIds(ids)).documentSource().throttle(50, 1.second)

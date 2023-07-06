@@ -172,7 +172,7 @@ Thank you all, you rock!""",
             at(day, 19) map { date =>
               Schedule(
                 Monthly,
-                if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
+                if variant == Chess960 || variant == Crazyhouse then Blitz else SuperBlitz,
                 variant,
                 none,
                 date
@@ -243,7 +243,7 @@ Thank you all, you rock!""",
         at(day, 19) map { date =>
           Schedule(
             Weekly,
-            if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
+            if variant == Chess960 || variant == Crazyhouse then Blitz else SuperBlitz,
             variant,
             none,
             date pipe orNextWeek
@@ -389,7 +389,7 @@ Thank you all, you rock!""",
               allowList = none
             )
             val finalWhen = when plusHours hourDelay
-            if (speed == Bullet)
+            if speed == Bullet then
               List(
                 Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan,
                 Schedule(Hourly, speed, Standard, none, finalWhen plusMinutes 30, conditions)
@@ -480,7 +480,7 @@ Thank you all, you rock!""",
   private def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
       .foldLeft(List[Tournament]()): (tourns, t) =>
-        if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
+        if overlaps(t, tourns) || overlaps(t, scheds) then tourns
         else t :: tourns
       .reverse
 

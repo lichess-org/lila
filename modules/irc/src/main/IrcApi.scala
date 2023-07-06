@@ -4,8 +4,6 @@ import lila.common.{ EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*
 import lila.user.Me
 import lila.user.User
-import cats.Show
-import cats.syntax.show.*
 import lila.user.Me
 
 final class IrcApi(
@@ -48,15 +46,17 @@ final class IrcApi(
         )
 
   def nameCloseVote(user: User)(using mod: Me): Funit =
-    zulip
-      .sendAndGetLink(_.mod.usernames, "/" + user.username)("/poll Close?\n🔨 Yes\n🍃 No")
-      .flatMapz: zulipLink =>
-        noteApi.write(
-          user,
-          s"username discussion: $zulipLink",
-          modOnly = true,
-          dox = false
-        )
+    val topic = "/" + user.username
+    zulip(_.mod.usernames, topic)(s"created on: ${user.createdAt.date}, ${user.count.game} games") >>
+      zulip
+        .sendAndGetLink(_.mod.usernames, topic)("/poll Close?\n🔨 Yes\n🍃 No")
+        .flatMapz: zulipLink =>
+          noteApi.write(
+            user,
+            s"username discussion: $zulipLink",
+            modOnly = true,
+            dox = false
+          )
 
   def usertableCheck(user: User)(using mod: Me): Funit =
     zulip(_.mod.cafeteria, "reports"):
@@ -65,7 +65,7 @@ final class IrcApi(
   def commlog(user: User, reportBy: Option[UserId])(using mod: Me): Funit =
     zulip(_.mod.adminLog, "private comms checks"):
       val checkedOut =
-        val finalS = if (user.username.value endsWith "s") "" else "s"
+        val finalS = if user.username.value endsWith "s" then "" else "s"
         s"**${markdown modLink mod.username}** checked out **${markdown userLink user.username}**'$finalS communications "
       checkedOut + reportBy
         .filterNot(_ is mod)
@@ -79,7 +79,8 @@ final class IrcApi(
 
   def chatPanic(mod: Me, v: Boolean): Funit =
     val msg =
-      s":stop: ${markdown.modLink(mod.username)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
+      s":stop: ${markdown.modLink(mod.username)} ${if v then "enabled" else "disabled"} ${markdown
+          .lichessLink("/mod/chat-panic", " Chat Panic")}"
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
 
   def broadcastError(id: RelayRoundId, name: String, error: String): Funit =
@@ -158,7 +159,7 @@ final class IrcApi(
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
 
     private def userAt(username: UserName) =
-      if (username == UserName("Anonymous")) username
+      if username == UserName("Anonymous") then username
       else s"@$username"
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"

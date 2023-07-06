@@ -18,7 +18,7 @@ object SemVer:
           y,
           z, {
             val e = extras.reverse ::: bits.drop(3).toList
-            if (e.isEmpty) None else Some(e.mkString("-"))
+            if e.isEmpty then None else Some(e.mkString("-"))
           },
           version
         )
@@ -28,7 +28,7 @@ object SemVer:
           y,
           0, {
             val e = extras.reverse ::: bits.drop(2).toList
-            if (e.isEmpty) None else Some(e.mkString("-"))
+            if e.isEmpty then None else Some(e.mkString("-"))
           },
           version
         )
@@ -38,7 +38,7 @@ object SemVer:
           0,
           0, {
             val e = extras.reverse ::: bits.drop(1).toList
-            if (e.isEmpty) None else Some(e.mkString("-"))
+            if e.isEmpty then None else Some(e.mkString("-"))
           },
           version
         )
@@ -65,9 +65,9 @@ case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], 
       case _               => false
 
   def compare(o: SemVer): Int =
-    if (major != o.major) major.compare(o.major)
-    else if (minor != o.minor) minor.compare(o.minor)
-    else if (point != o.point) point.compare(o.point)
+    if major != o.major then major.compare(o.major)
+    else if minor != o.minor then minor.compare(o.minor)
+    else if point != o.point then point.compare(o.point)
     else
       import scala.util.control.Exception.*
       val thsNumPrefix: Option[Long] = allCatch opt extra.get.takeWhile(_.isDigit).toLong

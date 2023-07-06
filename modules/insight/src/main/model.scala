@@ -117,10 +117,10 @@ enum QueenTrade(val id: Boolean, val name: String):
   case Yes extends QueenTrade(true, "Queen trade")
   case No  extends QueenTrade(false, "No queen trade")
 object QueenTrade:
-  def apply(v: Boolean): QueenTrade = if (v) Yes else No
+  def apply(v: Boolean): QueenTrade = if v then Yes else No
 
 enum Blur(val id: Boolean, val name: String):
   case Yes extends Blur(true, "Blur")
   case No  extends Blur(false, "No blur")
 object Blur:
-  def apply(v: Boolean): Blur = if (v) Yes else No
+  def apply(v: Boolean): Blur = if v then Yes else No

@@ -40,7 +40,7 @@ object bits:
           )
         )
       ),
-      div(cls := s"lobby__box ${if (ctx.pref.showRatings) "lobby__winners" else "lobby__wide-winners"}")(
+      div(cls := s"lobby__box ${if ctx.pref.showRatings then "lobby__winners" else "lobby__wide-winners"}")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := licon.Trophy)(trans.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
@@ -85,7 +85,7 @@ object bits:
     )
 
   def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(using
-      ctx: PageContext
+      ctx: Context
   ): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
       lichess.map: post =>
@@ -103,7 +103,8 @@ object bits:
           )
         )
       ,
-      ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
+      ctx.noKid option uposts.map:
+        views.html.ublog.post.card(_, showAuthor = false, showIntro = false)
     )
 
   def showUnreadLichessMessage =
@@ -117,7 +118,7 @@ object bits:
       )
     )
 
-  def playbanInfo(ban: lila.playban.TempBan)(using PageContext) =
+  def playbanInfo(ban: lila.playban.TempBan)(using Context) =
     nopeInfo(
       h1(trans.sorry()),
       p(trans.weHadToTimeYouOutForAWhile()),
@@ -145,7 +146,7 @@ object bits:
       )
     )
 
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(using PageContext) =
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(using Context) =
     nopeInfo(
       h1(trans.hangOn()),
       p(trans.gameInProgress(strong(current.opponent))),
@@ -165,7 +166,7 @@ object bits:
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
         button(cls := "text button button-red", dataIcon := licon.X)(
-          if (current.pov.game.abortableByUser) trans.abortTheGame() else trans.resignTheGame()
+          if current.pov.game.abortableByUser then trans.abortTheGame() else trans.resignTheGame()
         )
       ),
       br,
@@ -180,9 +181,9 @@ object bits:
       )
     )
 
-  def spotlight(e: lila.event.Event)(using PageContext) =
+  def spotlight(e: lila.event.Event)(using Context) =
     a(
-      href := (if (e.isNow || !e.countdown) e.url else routes.Event.show(e.id).url),
+      href := (if e.isNow || !e.countdown then e.url else routes.Event.show(e.id).url),
       cls := List(
         s"tour-spotlight event-spotlight id_${e.id}" -> true,
         "invert"                                     -> e.isNowOrSoon
@@ -193,7 +194,7 @@ object bits:
         span(cls := "name")(e.title),
         span(cls := "headline")(e.headline),
         span(cls := "more")(
-          if (e.isNow) trans.eventInProgress() else momentFromNow(e.startsAt)
+          if e.isNow then trans.eventInProgress() else momentFromNow(e.startsAt)
         )
       )
     )

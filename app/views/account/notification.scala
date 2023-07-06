@@ -5,7 +5,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
 
-object notification {
+object notification:
   import bits.*
   import trans.preferences.*
 
@@ -52,17 +52,16 @@ object notification {
       )
     }
 
-  private def makeRow(form: play.api.data.Form[_])(transFrag: Frag, filterName: String) =
+  private def makeRow(form: play.api.data.Form[?])(transFrag: Frag, filterName: String) =
     tr(
       td(transFrag),
       Seq("bell", "push") map { allow =>
         val name    = s"$filterName.$allow"
         val checked = form.data(name).contains("true")
         td(
-          if (!hiddenFields(s"$filterName.$allow"))
+          if !hiddenFields(s"$filterName.$allow") then
             div(cls := "toggle", form3.cmnToggle(name, name, checked))
-          else if (!checked)
-            div(iconTag(licon.X))
+          else if !checked then div(iconTag(licon.X))
           else
             div(
               cls := "always-on",
@@ -82,4 +81,3 @@ object notification {
     "gameEvent.bell",
     "challenge.bell"
   )
-}

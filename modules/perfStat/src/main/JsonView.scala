@@ -34,7 +34,7 @@ final class JsonView(getLightUser: LightUser.GetterSync):
 
   def apply(data: PerfStatData)(using Lang) =
     Json.obj(
-      "user"       -> data.user,
+      "user"       -> data.user.user,
       "perf"       -> data.user.perfs(data.stat.perfType),
       "rank"       -> data.rank,
       "percentile" -> data.percentile,

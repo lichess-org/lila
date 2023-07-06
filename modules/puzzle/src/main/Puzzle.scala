@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import cats.data.NonEmptyList
 import chess.format.{ Fen, Uci }
 import chess.Ply
 
@@ -63,13 +62,13 @@ object Puzzle:
 
     private def charToInt(c: Char) =
       val i = c.toInt
-      if (i > 96) i - 71
-      else if (i > 64) i - 65
+      if i > 96 then i - 71
+      else if i > 64 then i - 65
       else i + 4
 
     private def intToChar(i: Int): Char = {
-      if (i < 26) i + 65
-      else if (i < 52) i + 71
+      if i < 26 then i + 65
+      else if i < 52 then i + 71
       else i - 4
     }.toChar
 

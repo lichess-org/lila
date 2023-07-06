@@ -24,7 +24,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     Modlog(streamerId.some, Modlog.streamerDecline)
 
   def streamerList(streamerId: UserId, v: Boolean)(using Me.Id) = add:
-    Modlog(streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
+    Modlog(streamerId.some, if v then Modlog.streamerList else Modlog.streamerUnlist)
 
   def streamerTier(streamerId: UserId, v: Int)(using Me.Id) = add:
     Modlog(streamerId.some, Modlog.streamerTier, v.toString.some)
@@ -98,14 +98,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me) = add:
     Modlog(
       none,
-      if (closed) Modlog.closeTopic else Modlog.openTopic,
+      if closed then Modlog.closeTopic else Modlog.openTopic,
       details = s"$categ/$topicSlug".some
     )
 
   def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me) = add:
     Modlog(
       none,
-      if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic,
+      if sticky then Modlog.stickyTopic else Modlog.unstickyTopic,
       details = s"$categ/$topicSlug".some
     )
 
@@ -119,7 +119,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   )(using Me.Id) = add:
     Modlog(
       none,
-      if (edit) Modlog.editAsAnonMod else Modlog.postAsAnonMod,
+      if edit then Modlog.editAsAnonMod else Modlog.postAsAnonMod,
       details = s"$categ/$topic id: $postId ${text.take(400)}".some
     )
 
@@ -133,7 +133,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def toggleTeam(id: String, closing: Boolean, explain: String)(using Me.Id) = add:
     Modlog(
       none,
-      if (closing) Modlog.disableTeam else Modlog.enableTeam,
+      if closing then Modlog.disableTeam else Modlog.enableTeam,
       details = s"$id: ${explain take 200}".some
     ) indexAs "team"
 
@@ -156,7 +156,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       Modlog.permissions,
       details = permissions
         .map: (p, dir) =>
-          s"${if (dir) "+" else "-"}${p}"
+          s"${if dir then "+" else "-"}${p}"
         .mkString(", ")
         .some
     )
@@ -180,7 +180,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
         "mod" -> me.userId,
         "action" $in markActions
       ),
-      readPreference = ReadPreference.secondaryPreferred
+      _.sec
     )
 
   def reportban(sus: Suspect, v: Boolean)(using Me.Id) = add:
@@ -207,10 +207,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     Modlog.make(sus, Modlog.garbageCollect)
 
   def rankban(sus: Suspect, v: Boolean)(using Me.Id) = add:
-    Modlog.make(sus, if (v) Modlog.rankban else Modlog.unrankban)
+    Modlog.make(sus, if v then Modlog.rankban else Modlog.unrankban)
 
   def prizeban(sus: Suspect, v: Boolean)(using Me.Id) = add:
-    Modlog.make(sus, if (v) Modlog.prizeban else Modlog.unprizeban)
+    Modlog.make(sus, if v then Modlog.prizeban else Modlog.unprizeban)
 
   def teamKick(user: UserId, teamName: String)(using Me.Id) = add:
     Modlog(user.some, Modlog.teamKick, details = Some(teamName take 140))
@@ -260,7 +260,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       .cursor[Modlog]()
       .list(100)
 
-  def addModlog(users: List[User]): Fu[List[UserWithModlog]] =
+  def addModlog(users: List[User.WithPerfs]): Fu[List[UserWithModlog]] =
     coll.tempPrimary
       .find(
         $doc(

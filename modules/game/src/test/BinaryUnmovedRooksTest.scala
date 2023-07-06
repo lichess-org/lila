@@ -1,11 +1,11 @@
 package lila.game
 
-import chess._
-import chess.Square._
+import chess.*
+import chess.Square.*
 
 import lila.db.ByteArray
 
-class BinaryUnmovedRooksTest extends munit.FunSuite {
+class BinaryUnmovedRooksTest extends munit.FunSuite:
 
   val _0_ = "00000000"
   val _1_ = "11111111"
@@ -28,4 +28,3 @@ class BinaryUnmovedRooksTest extends munit.FunSuite {
     assertEquals(read(List("11100000", _0_)), UnmovedRooks(Set(A1, B1, C1)))
     assertEquals(read(List(_0_, "11100000")), UnmovedRooks(Set(A8, B8, C8)))
   }
-}

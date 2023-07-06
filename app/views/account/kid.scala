@@ -20,8 +20,7 @@ object kid:
         br,
         br,
         br,
-        if (managed)
-          p(trans.askYourChessTeacherAboutLiftingKidMode())
+        if managed then p(trans.askYourChessTeacherAboutLiftingKidMode())
         else
           postForm(cls := "form3", action := s"${routes.Account.kidPost}?v=${!u.kid}")(
             form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),
@@ -30,8 +29,9 @@ object kid:
                 "button"     -> true,
                 "button-red" -> u.kid
               )
-            )(if (u.kid) trans.disableKidMode.txt() else trans.enableKidMode.txt())
-          ),
+            )(if u.kid then trans.disableKidMode.txt() else trans.enableKidMode.txt())
+          )
+        ,
         br,
         br,
         p(trans.inKidModeTheLichessLogoGetsIconX(span(cls := "kiddo", title := trans.kidMode.txt())(":)")))

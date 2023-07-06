@@ -5,7 +5,7 @@ import lila.security.Granter
 import lila.user.{ LightUserApi, RankingApi, RankingsOf, User, UserRepo, Me }
 
 case class PerfStatData(
-    user: User,
+    user: User.WithPerfs,
     stat: PerfStat,
     ranks: UserRankMap,
     percentile: Option[Double]
@@ -23,20 +23,18 @@ final class PerfStatApi(
 
   def data(name: UserStr, perfKey: Perf.Key)(using me: Option[Me]): Fu[Option[PerfStatData]] =
     PerfType(perfKey).so: perfType =>
-      userRepo byId name flatMap {
+      userRepo withPerfs name.id flatMap {
         _.filter: u =>
           (u.enabled.yes && (!u.lame || me.exists(_ is u))) || me.soUse(Granter(_.UserModView))
         .so: u =>
           for
-            oldPerfStat <- get(u, perfType)
+            oldPerfStat <- get(u.user, perfType)
             perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-            distribution <- u.perfs(perfType).established so {
-              rankingApi.weeklyRatingDistribution(perfType) dmap some
-            }
+            distribution <- u.perfs(perfType).established soFu rankingApi.weeklyRatingDistribution(perfType)
             percentile = distribution.map: distrib =>
               val (under, sum) = lila.user.Stat.percentile(distrib, u.perfs(perfType).intRating)
               Math.round(under * 1000.0 / sum) / 10.0
-            _ = lightUserApi preloadUser u
+            _ = lightUserApi preloadUser u.user
             _ <- lightUserApi preloadMany perfStat.userIds
           yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile).some
       }

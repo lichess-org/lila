@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.*
-import lila.user.UserRepo
 
 @Module
 final class Env(
@@ -12,7 +11,8 @@ final class Env(
     db: lila.db.Db,
     colls: lila.puzzle.PuzzleColls,
     cacheApi: lila.memo.CacheApi,
-    userRepo: UserRepo
+    userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo
 )(using Executor):
 
   private lazy val dayColl = db(CollName("storm_day"))

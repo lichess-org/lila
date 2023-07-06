@@ -65,7 +65,7 @@ final class Challenge(
               case None    => Ok.page(html.challenge.mine(c, json, none, color))
           else
             Ok.pageAsync:
-              (c.challengerUserId so env.user.repo.byId) map {
+              c.challengerUserId.so(env.user.api.withPerf(_, c.perfType)).map {
                 html.challenge.theirs(c, json, _, color)
               }
         ,
@@ -88,7 +88,7 @@ final class Challenge(
       val cc = color flatMap chess.Color.fromName
       isForMe(c) so api
         .accept(c, ctx.req.sid, cc)
-        .flatMap {
+        .flatMap:
           case Validated.Valid(Some(pov)) =>
             negotiateApi(
               html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
@@ -102,7 +102,6 @@ final class Challenge(
                 case _                      => "The challenge has already been accepted"
               )
             )
-        }
 
   def apiAccept(id: ChallengeId) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me ?=>
@@ -130,7 +129,7 @@ final class Challenge(
         _ map { game =>
           env.lilaCookie.cookie(
             AnonCookie.name,
-            game.player(if (owner) c.finalColor else !c.finalColor).id.value,
+            game.player(if owner then c.finalColor else !c.finalColor).id.value,
             maxAge = AnonCookie.maxAge.some,
             httpOnly = false.some
           )
@@ -216,7 +215,6 @@ final class Challenge(
   }
 
   def apiStartClocks(id: GameId) = Anon:
-    import cats.syntax.all.*
     val accepted = OAuthScope.select(_.Challenge.Write) into EndpointScopes
     (Bearer from get("token1"), Bearer from get("token2"))
       .mapN:
@@ -267,7 +265,7 @@ final class Challenge(
                   case None                       => Redirect(routes.Challenge.show(c.id))
                   case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id))
                   case Some(dest) =>
-                    env.challenge.granter.isDenied(ctx.me, dest, c.perfType.some) flatMap {
+                    env.challenge.granter.isDenied(dest, c.perfType) flatMap {
                       case Some(denied) =>
                         showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
                       case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
@@ -291,26 +289,26 @@ final class Challenge(
                   val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
                   BotChallengeIpRateLimit(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
                     ChallengeUserRateLimit(me, rateLimited, cost = cost):
-                      val challenge = makeOauthChallenge(config, me, destUser)
-                      env.challenge.granter
-                        .isDenied(me.some, destUser, config.perfType)
-                        .flatMap:
+                      for
+                        challenge <- makeOauthChallenge(config, me, destUser)
+                        grant     <- env.challenge.granter.isDenied(destUser, config.perfType)
+                        res <- grant match
                           case Some(denied) =>
-                            JsonBadRequest:
-                              jsonError(lila.challenge.ChallengeDenied.translated(denied))
+                            fuccess:
+                              JsonBadRequest:
+                                jsonError(lila.challenge.ChallengeDenied.translated(denied))
                           case _ =>
                             env.challenge.api create challenge map {
                               if _ then
                                 val json = env.challenge.jsonView
                                   .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                                if config.keepAliveStream
-                                then
-                                  apiC.sourceToNdJsonOption(
+                                if config.keepAliveStream then
+                                  apiC.sourceToNdJsonOption:
                                     apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
-                                  )
                                 else JsonOk(json)
                               else JsonBadRequest(jsonError("Challenge not created"))
                             }
+                      yield res
               }
         )
     }
@@ -318,17 +316,20 @@ final class Challenge(
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
     import lila.challenge.Challenge.*
     val timeControl = TimeControl.make(config.clock, config.days)
-    lila.challenge.Challenge.make(
-      variant = config.variant,
-      initialFen = config.position,
-      timeControl = timeControl,
-      mode = config.mode,
-      color = config.color.name,
-      challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
-      destUser = dest.some,
-      rematchOf = none,
-      rules = config.rules
-    )
+    env.user.perfsRepo
+      .withPerfs(orig -> dest, _.sec)
+      .map: (orig, dest) =>
+        lila.challenge.Challenge.make(
+          variant = config.variant,
+          initialFen = config.position,
+          timeControl = timeControl,
+          mode = config.mode,
+          color = config.color.name,
+          challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
+          destUser = dest.some,
+          rematchOf = none,
+          rules = config.rules
+        )
 
   def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write): ctx ?=>
     env.setup.forms.api.open
@@ -353,7 +354,7 @@ final class Challenge(
     NoBot:
       Found(env.game.gameRepo game gameId): g =>
         Pov.opponentOf(g, me).flatMap(_.userId) so env.user.repo.byId orNotFound { opponent =>
-          env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
+          env.challenge.granter.isDenied(opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d))
             case _ =>
               api.offerRematchForGame(g, me) map {

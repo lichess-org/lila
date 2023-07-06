@@ -17,7 +17,7 @@ object bits:
     views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
 
   def jsI18n(streak: Boolean)(using Lang) =
-    if (streak) i18nJsObject(streakI18nKeys)
+    if streak then i18nJsObject(streakI18nKeys)
     else
       i18nJsObject(trainingI18nKeys) + {
         PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt())

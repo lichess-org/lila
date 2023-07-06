@@ -1,6 +1,5 @@
 package lila.report
 
-import cats.data.NonEmptyList
 import ornicar.scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
@@ -29,8 +28,8 @@ case class Report(
 
   def add(atom: Atom) =
     atomBy(atom.by)
-      .fold(copy(atoms = atom :: atoms)) { existing =>
-        if (existing.text contains atom.text) this
+      .fold(copy(atoms = atom :: atoms)): existing =>
+        if existing.text contains atom.text then this
         else
           copy(
             atoms = {
@@ -41,13 +40,10 @@ case class Report(
               ) :: atoms.toList.filterNot(_.by == atom.by)
             }.toNel | atoms
           )
-      }
       .recomputeScore
 
   def recomputeScore =
-    copy(
-      score = atoms.toList.foldLeft(Score(0))(_ + _.score)
-    )
+    copy(score = atoms.toList.foldLeft(Score(0))(_ + _.score))
 
   def recentAtom: Atom = atoms.head
   def oldestAtom: Atom = atoms.last
@@ -92,9 +88,9 @@ object Report:
     extension (a: Score)
       def +(s: Score): Score = a + s
       def color =
-        if (a >= 150) "red"
-        else if (a >= 100) "orange"
-        else if (a >= 50) "yellow"
+        if a >= 150 then "red"
+        else if a >= 100 then "orange"
+        else if a >= 50 then "yellow"
         else "green"
       def atLeast(s: Score): Score = math.max(a, s)
       def withinBounds: Score      = a atLeast 5 atMost 100
@@ -115,8 +111,7 @@ object Report:
 
   case class Inquiry(mod: UserId, seenAt: Instant)
 
-  case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean):
-
+  case class WithSuspect(report: Report, suspect: User.WithPerfs, isOnline: Boolean):
     def urgency: Int =
       report.score.value.toInt +
         (isOnline so 1000) +

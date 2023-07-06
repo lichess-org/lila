@@ -1,6 +1,5 @@
 package lila.evalCache
 
-import cats.data.NonEmptyList
 import chess.format.{ Uci, Fen }
 import chess.variant.Variant
 

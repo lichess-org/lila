@@ -23,7 +23,7 @@ object dashboard:
       days = days,
       path = "dashboard",
       title =
-        if (ctx is user) trans.puzzle.puzzleDashboard.txt()
+        if ctx is user then trans.puzzle.puzzleDashboard.txt()
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
@@ -62,7 +62,7 @@ object dashboard:
       days = days,
       "improvementAreas",
       title =
-        if (ctx is user) trans.puzzle.improvementAreas.txt()
+        if ctx is user then trans.puzzle.improvementAreas.txt()
         else s"${user.username} ${trans.puzzle.improvementAreas.txt()}",
       subtitle = trans.puzzle.improvementAreasDescription.txt(),
       dashOpt = dashOpt
@@ -76,7 +76,7 @@ object dashboard:
       days = days,
       "strengths",
       title =
-        if (ctx is user) trans.puzzle.strengths.txt()
+        if ctx is user then trans.puzzle.strengths.txt()
         else s"${user.username} ${trans.puzzle.strengths.txt()}",
       subtitle = trans.puzzle.strengthDescription.txt(),
       dashOpt = dashOpt
@@ -166,6 +166,6 @@ object dashboard:
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
         ),
-        iconTag(if (results.canReplay) licon.PlayTriangle else licon.Checkmark)
+        iconTag(if results.canReplay then licon.PlayTriangle else licon.Checkmark)
       )
     )

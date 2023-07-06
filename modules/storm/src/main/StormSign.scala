@@ -25,6 +25,6 @@ final class StormSign(secret: Secret, cacheApi: CacheApi):
       !Uptime.startedSinceMinutes(5) || {
         signer.sha1(store.get(user.id)) hash_= signed
       }
-    if (correct) store.put(user.id, signed)
+    if correct then store.put(user.id, signed)
     correct
   }

@@ -1,7 +1,6 @@
 package lila.security
 
 import play.api.mvc.RequestHeader
-import reactivemongo.api.ReadPreference
 
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
@@ -21,7 +20,7 @@ final class Firewall(
     val v = blocksIp {
       lila.common.HTTPRequest ipAddress req
     }
-    if (v) lila.mon.security.firewall.block.increment()
+    if v then lila.mon.security.firewall.block.increment()
     v
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
@@ -41,7 +40,7 @@ final class Firewall(
     coll.delete.one($inIds(ips)).void >>- loadFromDb.unit
 
   private def loadFromDb: Funit =
-    coll.distinctEasy[String, Set]("_id", $empty, ReadPreference.primary).map { ips =>
+    coll.distinctEasy[String, Set]("_id", $empty).map { ips =>
       current = ips
       lila.mon.security.firewall.ip.update(ips.size).unit
     }

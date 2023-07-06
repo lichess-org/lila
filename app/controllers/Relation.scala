@@ -111,17 +111,14 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   private def jsonRelatedPaginator(pag: Paginator[Related]) =
-    given Writes[UserModel] = lila.user.JsonView.nameWrites
+    given Writes[UserModel.WithPerfs] = lila.user.JsonView.nameWrites
     import lila.relation.JsonView.given
-    Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
+    Json.obj("paginator" -> PaginatorJson(pag.mapResults: r =>
       Json.toJsObject(r) ++ Json
-        .obj(
-          "perfs" -> r.user.perfs.bestPerfType.map { best =>
-            lila.user.JsonView.perfs(r.user, best.some)
-          }
-        )
-        .add("online" -> env.socket.isOnline(r.user.id))
-    }))
+        .obj:
+          "perfs" -> r.user.perfs.bestRatedPerf.map:
+            lila.user.JsonView.perfTypedJson
+        .add("online" -> env.socket.isOnline(r.user.id))))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, config.Max(20)):
@@ -139,12 +136,13 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     )
 
   private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related]] =
-    env.user.repo usersFromSecondary userIds flatMap { users =>
-      (ctx.isAuth so { env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
+    env.user.api.listWithPerfs(userIds.toList) flatMap { users =>
+      ctx.isAuth.so(env.pref.api.followableIds(users map (_.id))) flatMap { followables =>
         users.map { u =>
-          ctx.userId so { api.fetchRelation(_, u.id) } map { rel =>
-            lila.relation.Related(u, none, followables(u.id), rel)
-          }
+          ctx.userId
+            .so(api.fetchRelation(_, u.id))
+            .map: rel =>
+              lila.relation.Related(u, none, followables(u.id), rel)
         }.parallel
       }
     }

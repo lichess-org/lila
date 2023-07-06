@@ -41,15 +41,17 @@ trait GameHelper:
     val p2    = playerText(game.blackPlayer, withRating = true)
     val plays = if game.finishedOrAborted then "played" else "is playing"
     val speedAndClock =
-      if (game.imported) "imported"
+      if game.imported then "imported"
       else
-        game.clock.fold(chess.Speed.Correspondence.name) { c =>
+        game.clock.fold(chess.Speed.Correspondence.name): c =>
           s"${chess.Speed(c.config).name} (${c.config.show})"
-        }
+
     val mode = game.mode.name
     val variant =
-      if (game.variant == chess.variant.FromPosition) "position setup chess"
-      else if (game.variant.exotic) game.variant.name
+      if game.variant == chess.variant.FromPosition
+      then "position setup chess"
+      else if game.variant.exotic
+      then game.variant.name
       else "chess"
     import chess.Status.*
     val result = (game.winner, game.loser, game.status) match
@@ -93,16 +95,16 @@ trait GameHelper:
           withRating option frag(
             " (",
             player.rating.fold(frag("?")) { rating =>
-              if (player.provisional.yes) abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
+              if player.provisional.yes then
+                abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
               else rating
             },
             ")"
           )
         )
       }
-    ) { level =>
+    ): level =>
       frag(aiName(level))
-    }
 
   def playerText(player: Player, withRating: Boolean = false) =
     Namer.playerTextBlocking(player, withRating)(using lightUser)
@@ -129,11 +131,11 @@ trait GameHelper:
       case None =>
         val klass = cssClass.so(" " + _)
         span(cls := s"user-link$klass")(
-          (player.aiLevel, player.name) match {
+          (player.aiLevel, player.name) match
             case (Some(level), _) => aiNameFrag(level)
             case (_, Some(name))  => name
             case _                => trans.anonymous()
-          },
+          ,
           player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
           statusIcon
         )
@@ -141,7 +143,7 @@ trait GameHelper:
         frag(
           (if link then a else span) (
             cls                               := userClass(user.id, cssClass, withOnline),
-            (if link then href else dataHref) := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
+            (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
             playerUsername(player.light, withRating && ctx.pref.showRatings),
@@ -181,7 +183,7 @@ trait GameHelper:
         frag(
           (if link then a else span) (
             cls                               := userClass(user.id, cssClass, withOnline),
-            (if link then href else dataHref) := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
+            (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
             playerUsername(player, withRating && ctx.pref.showRatings),
@@ -201,7 +203,7 @@ trait GameHelper:
       case S.Aborted => trans.gameAborted.txt()
       case S.Mate    => trans.checkmate.txt()
       case S.Resign =>
-        (if (game.loser.exists(_.color.white)) trans.whiteResigned else trans.blackResigned).txt()
+        (if game.loser.exists(_.color.white) then trans.whiteResigned else trans.blackResigned).txt()
       case S.UnknownFinish => trans.finished.txt()
       case S.Stalemate     => trans.stalemate.txt()
       case S.Timeout =>
@@ -210,7 +212,7 @@ trait GameHelper:
           case (Some(_), _)                  => trans.blackLeftTheGame.txt()
           case (None, White)                 => trans.whiteLeftTheGame.txt() + " • " + trans.draw.txt()
           case (None, Black)                 => trans.blackLeftTheGame.txt() + " • " + trans.draw.txt()
-      case S.Draw => {
+      case S.Draw =>
         import lila.game.DrawReason.*
         game.drawReason match
           case Some(MutualAgreement)      => trans.drawByMutualAgreement.txt()
@@ -218,7 +220,6 @@ trait GameHelper:
           case Some(ThreefoldRepetition)  => trans.threefoldRepetition.txt() + " • " + trans.draw.txt()
           case Some(InsufficientMaterial) => trans.insufficientMaterial.txt() + " • " + trans.draw.txt()
           case _                          => trans.draw.txt()
-      }
       case S.Outoftime =>
         (game.turnColor, game.loser) match
           case (White, Some(_)) => trans.whiteTimeOut.txt()
@@ -226,7 +227,7 @@ trait GameHelper:
           case (Black, Some(_)) => trans.blackTimeOut.txt()
           case (Black, None)    => trans.blackTimeOut.txt() + " • " + trans.draw.txt()
       case S.NoStart =>
-        (if (game.loser.exists(_.color.white)) trans.whiteDidntMove else trans.blackDidntMove).txt()
+        (if game.loser.exists(_.color.white) then trans.whiteDidntMove else trans.blackDidntMove).txt()
       case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match
@@ -271,7 +272,7 @@ trait GameHelper:
       s"${titleNameOrId(reg.id)}${ctx.pref.showRatings so s" (${reg.rating.show})"}"
     }
     val players =
-      if (c.isOpen) "Open challenge"
+      if c.isOpen then "Open challenge"
       else
         c.destUser.fold(s"Challenge from $challenger") { dest =>
           s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings so s" (${dest.rating.show})"}"

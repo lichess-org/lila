@@ -87,7 +87,7 @@ final class GameStateStream(
         // prepend the full game JSON at the start of the stream
         queue offer json.some
         // close stream if game is over
-        if (init.game.finished) onGameOver(none)
+        if init.game.finished then onGameOver(none)
         else self ! SetOnline
       }
       lila.mon.bot.gameStream("start").increment()
@@ -98,7 +98,7 @@ final class GameStateStream(
       Bus.unsubscribe(self, classifiers)
       // hang around if game is over
       // so the opponent has a chance to rematch
-      context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second):
+      context.system.scheduler.scheduleOnce(if gameOver then 10 second else 1 second):
         Bus.publish(Tell(init.game.id.value, BotConnected(as, v = false)), "roundSocket")
       queue.complete()
       lila.mon.bot.gameStream("stop").increment().unit

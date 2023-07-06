@@ -1,21 +1,20 @@
 package lila.base
 
 import lila.common.{ Html, config }
-import RawHtml._
+import RawHtml.*
 
-class RawHtmlTest extends munit.FunSuite {
+class RawHtmlTest extends munit.FunSuite:
 
   given config.NetDomain = config.NetDomain("lichess.org")
   given munit.Compare[Html, String] with
     def isEqual(obtained: Html, expected: String): Boolean = obtained.value == expected
 
   val htmlTags = "<[^>]++>".r
-  def copyLinkConsistency(text: String) = {
+  def copyLinkConsistency(text: String) =
     // Plain text of linkified text >> linkify to the same result.
     val firstHtml = addLinks(text)
     val copyText  = htmlTags.replaceAllIn(firstHtml.value, "")
     assertEquals(firstHtml, addLinks(copyText))
-  }
 
   test("http external") {
     val url = "http://zombo.com"
@@ -270,4 +269,3 @@ class RawHtmlTest extends munit.FunSuite {
       "abc<br><br>def<br><br>abc<br><br>def"
     )
   }
-}

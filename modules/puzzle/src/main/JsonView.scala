@@ -20,7 +20,7 @@ final class JsonView(
       puzzle: Puzzle,
       angle: Option[PuzzleAngle],
       replay: Option[PuzzleReplay]
-  )(using Lang)(using Option[Me]): Fu[JsObject] =
+  )(using Lang)(using Option[Me], Perf): Fu[JsObject] =
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
@@ -47,20 +47,20 @@ final class JsonView(
                 Json.obj("key" -> op.key, "name" -> op.name))
         )
 
-  def userJson(using me: Option[Me]) = me.map: me =>
+  def userJson(using me: Option[Me], perf: Perf) = me.map: me =>
     Json
       .obj(
         "id"     -> me.userId,
-        "rating" -> me.perfs.puzzle.intRating
+        "rating" -> perf.intRating
       )
-      .add("provisional" -> me.perfs.puzzle.provisional)
+      .add("provisional" -> perf.provisional)
 
   private def replayJson(r: PuzzleReplay) =
     Json.obj("days" -> r.days, "i" -> r.i, "of" -> r.nb)
 
   object roundJson:
-    def web(round: PuzzleRound, perf: Perf)(using me: Me) =
-      base(round, IntRatingDiff(perf.intRating.value - me.perfs.puzzle.intRating.value))
+    def web(round: PuzzleRound, perf: Perf)(using me: Me, prevPerf: Perf) =
+      base(round, IntRatingDiff(perf.intRating.value - prevPerf.intRating.value))
         .add("vote" -> round.vote)
         .add("themes" -> round.nonEmptyThemes.map: rt =>
           JsObject:
@@ -108,7 +108,7 @@ final class JsonView(
     "performance"     -> res.performance
   )
 
-  def batch(puzzles: Seq[Puzzle])(using me: Option[Me]): Fu[JsObject] = for
+  def batch(puzzles: Seq[Puzzle])(using me: Option[Me], perf: Perf): Fu[JsObject] = for
     games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
     jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
       gameJson.noCache(game, puzzle.initialPly) map {
@@ -117,11 +117,11 @@ final class JsonView(
     }.parallel
   yield
     import lila.rating.Glicko.given
-    Json.obj("puzzles" -> jsons).add("glicko" -> me.map(_.perfs.puzzle.glicko))
+    Json.obj("puzzles" -> jsons).add("glicko" -> me.map(_ => perf.glicko))
 
   object bc:
 
-    def apply(puzzle: Puzzle)(using me: Option[Me]): Fu[JsObject] =
+    def apply(puzzle: Puzzle)(using me: Option[Me], perf: Perf): Fu[JsObject] =
       gameJson(
         gameId = puzzle.gameId,
         plies = puzzle.initialPly,
@@ -132,10 +132,10 @@ final class JsonView(
             "game"   -> gameJson,
             "puzzle" -> puzzleJson(puzzle)
           )
-          .add("user" -> me.map(_.perfs.puzzle.intRating).map(userJson))
+          .add("user" -> me.map(_ => perf.intRating).map(userJson))
       }
 
-    def batch(puzzles: Seq[Puzzle])(using me: Option[Me]): Fu[JsObject] = for
+    def batch(puzzles: Seq[Puzzle])(using me: Option[Me], perf: Perf): Fu[JsObject] = for
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
       jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
         gameJson.noCacheBc(game, puzzle.initialPly) map { gameJson =>
@@ -147,7 +147,7 @@ final class JsonView(
       }.parallel
     yield Json
       .obj("puzzles" -> jsons)
-      .add("user" -> me.map(_.perfs.puzzle.intRating).map(userJson))
+      .add("user" -> me.map(_ => perf.intRating).map(userJson))
 
     def userJson(rating: IntRating) = Json.obj(
       "rating" -> rating,

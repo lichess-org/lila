@@ -18,8 +18,7 @@ object list:
       pager: Paginator[lila.tournament.LeaderboardApi.TourEntry],
       count: String
   )(using Lang) =
-    if (pager.nbResults == 0)
-      div(cls := "box-pad")(u.username, " hasn't played in any tournament yet!")
+    if pager.nbResults == 0 then div(cls := "box-pad")(u.username, " hasn't played in any tournament yet!")
     else
       div(cls := "tournament-list")(
         table(cls := "slist")(
@@ -42,7 +41,7 @@ object list:
                     span(cls := "setup")(
                       e.tour.clock.show,
                       " • ",
-                      if (e.tour.variant.exotic) e.tour.variant.name else e.tour.perfType.trans,
+                      if e.tour.variant.exotic then e.tour.variant.name else e.tour.perfType.trans,
                       " • ",
                       momentFromNow(e.tour.startsAt)
                     )

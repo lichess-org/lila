@@ -1,6 +1,6 @@
 package lila.blog
 
-class YoutubeTest extends munit.FunSuite {
+class YoutubeTest extends munit.FunSuite:
 
   test("no youtube embed") {
     assertEquals(Youtube.fixStartTimes(Fixtures.noYoutube), Fixtures.noYoutube)
@@ -18,4 +18,3 @@ class YoutubeTest extends munit.FunSuite {
       )
     )
   }
-}

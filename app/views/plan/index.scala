@@ -72,7 +72,7 @@ object index:
               iconTag(patronIconChar),
               div(
                 h1(cls := "box__top")(thankYou()),
-                if (p.isLifetime) youHaveLifetime()
+                if p.isLifetime then youHaveLifetime()
                 else
                   p.expiresAt.map { expires =>
                     frag(
@@ -207,7 +207,7 @@ object index:
                   ),
                   div(cls := "service")(
                     div(cls := "buttons")(
-                      if (ctx.isAuth)
+                      if ctx.isAuth then
                         frag(
                           button(cls := "stripe button")(withCreditCard()),
                           div(cls := "paypal paypal--order"),

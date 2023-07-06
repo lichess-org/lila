@@ -35,7 +35,7 @@ object indexStripe:
           h1(
             userLink(me),
             " • ",
-            if (patron.isLifetime) strong(lifetimePatron())
+            if patron.isLifetime then strong(lifetimePatron())
             else patronForMonths(me.plan.months)
           )
         ),
@@ -64,14 +64,15 @@ object indexStripe:
               td(cls := "change") {
                 val cancelButton = a(dataForm := "cancel")(cancelSupport())
                 frag(
-                  if (pricing.currency != info.subscription.item.price.currency) cancelButton
+                  if pricing.currency != info.subscription.item.price.currency then cancelButton
                   else
                     xOrY(
                       a(dataForm := "switch")(
                         changeMonthlyAmount(info.subscription.item.price.money.display)
                       ),
                       cancelButton
-                    ),
+                    )
+                  ,
                   postForm(cls := "switch", action := routes.Plan.switch)(
                     p(decideHowMuch()),
                     strong(pricing.currency.getSymbol(ctx.lang.locale), nbsp),
@@ -80,7 +81,7 @@ object indexStripe:
                       min := pricing.min.amount,
                       max := pricing.max.amount,
                       step := {
-                        if (zeroDecimalCurrencies contains pricing.currency) "1"
+                        if zeroDecimalCurrencies contains pricing.currency then "1"
                         else "0.01"
                       },
                       name := "amount",

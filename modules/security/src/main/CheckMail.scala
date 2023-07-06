@@ -3,7 +3,6 @@ package lila.security
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
-import reactivemongo.api.ReadPreference
 import play.api.libs.ws.JsonBodyReadables.*
 
 import lila.common.Domain
@@ -38,11 +37,11 @@ final private class CheckMail(
           "_id" $regex s"^$prefix:",
           "v" -> false
         ),
-        ReadPreference.secondaryPreferred
-      ) map { ids =>
-      val dropSize = prefix.length + 1
-      ids.map(_ drop dropSize)
-    }
+        _.sec
+      )
+      .map: ids =>
+        val dropSize = prefix.length + 1
+        ids.map(_ drop dropSize)
 
   private val prefix = "security:check_mail"
 

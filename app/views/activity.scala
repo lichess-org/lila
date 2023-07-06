@@ -11,7 +11,7 @@ import lila.user.User
 
 object activity:
 
-  def apply(u: User, as: Iterable[lila.activity.ActivityView])(using Context) =
+  def apply(u: User.WithPerfs, as: Iterable[lila.activity.ActivityView])(using Context) =
     div(cls := "activity")(
       as.toSeq filterNot (_.isEmpty) map { a =>
         st.section(
@@ -25,29 +25,29 @@ object activity:
             a.streak map renderStreak,
             a.games map renderGames,
             a.forumPosts map renderForumPosts,
-            a.ublogPosts map renderUblogPosts(u),
+            a.ublogPosts map renderUblogPosts(u.user),
             a.corresMoves map renderCorresMoves,
             a.corresEnds map renderCorresEnds,
             a.follows map renderFollows,
-            a.simuls map renderSimuls(u),
+            a.simuls map renderSimuls(u.user),
             a.studies map renderStudies,
             a.tours map renderTours,
             a.swisses map renderSwisses,
             a.teams map renderTeams,
-            a.stream option renderStream(u),
+            a.stream option renderStream(u.user),
             a.signup option renderSignup
           )
         )
       }
     )
 
-  private def subCount(count: Int) = if (count >= maxSubEntries) s"$count+" else s"$count"
+  private def subCount(count: Int) = if count >= maxSubEntries then s"$count+" else s"$count"
 
   private def renderPatron(p: Patron)(using Context) =
     div(cls := "entry plan")(
       iconTag(licon.Wings),
       div(
-        if (p.months == 0) a(href := routes.Plan.index)("Lifetime Patron!")
+        if p.months == 0 then a(href := routes.Plan.index)("Lifetime Patron!")
         else
           trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
       )
@@ -59,10 +59,9 @@ object activity:
       iconTag(licon.Bullseye),
       div(
         ps.headOption map onePractice,
-        ps match {
+        ps match
           case _ :: rest if rest.nonEmpty => subTag(rest map onePractice)
           case _                          => emptyFrag
-        }
       )
     )
 
@@ -74,7 +73,7 @@ object activity:
       br
     )
 
-  private def renderPuzzles(u: User)(p: Puzzles)(using ctx: Context) =
+  private def renderPuzzles(u: User.WithPerfs)(p: Puzzles)(using ctx: Context) =
     entryTag(
       iconTag(licon.ArcheryTarget),
       scoreFrag(p.value),
@@ -224,7 +223,7 @@ object activity:
       div(
         List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten map { (f, in) =>
           frag(
-            if (in) trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
+            if in then trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
             else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
             subTag(
               fragList(f.ids.map(id => userIdLink(id.some))),
@@ -243,7 +242,7 @@ object activity:
       div(
         simuls.groupBy(_.isHost(u.some)).toSeq.map { (isHost, simuls) =>
           frag(
-            if (isHost) trans.activity.hostedNbSimuls.pluralSame(simuls.size)
+            if isHost then trans.activity.hostedNbSimuls.pluralSame(simuls.size)
             else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
             subTag(
               simuls.map: s =>
@@ -254,7 +253,7 @@ object activity:
                     " simul by ",
                     userIdLink(s.hostId.some)
                   ),
-                  if (isHost) scoreFrag(Score(s.wins, s.losses, s.draws, none))
+                  if isHost then scoreFrag(Score(s.wins, s.losses, s.draws, none))
                   else scoreFrag(Score(win.has(true) so 1, win.has(false) so 1, win.isEmpty so 1, none))
                 )
             )
@@ -360,7 +359,7 @@ object activity:
     ctx.pref.showRatings option ratingTag(r.after.value, ratingProgress(r.diff))
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(using Context) =
-    if (p == 0) ""
+    if p == 0 then ""
     else s"""<$tag>${wrapNumber(name.pluralSameTxt(p))}</$tag>"""
 
   private val wrapNumberRegex         = """(\d++)""".r

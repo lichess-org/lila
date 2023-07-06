@@ -8,7 +8,7 @@ import lila.rating.PerfType
 object gathering:
 
   def verdicts(vs: Condition.WithVerdicts, pt: PerfType, relevant: Boolean = true)(using
-      ctx: PageContext
+      ctx: Context
   ): Option[Tag] =
     vs.nonEmpty option st.section(
       dataIcon := relevant.option(if ctx.isAuth && vs.accepted then licon.Checkmark else licon.Padlock),
@@ -20,7 +20,7 @@ object gathering:
     )(
       div(
         vs.list.sizeIs < 2 option p(trans.conditionOfEntry()),
-        vs.list map { v =>
+        vs.list.map: v =>
           p(
             cls := List(
               "condition" -> true,
@@ -28,7 +28,7 @@ object gathering:
               "refused"   -> (relevant && ctx.isAuth && !v.verdict.accepted)
             ),
             title := relevant option v.verdict.reason.map(_(ctx.lang))
-          )(
+          ):
             v.condition match
               case Condition.TeamMember(teamId, teamName) =>
                 trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
@@ -41,7 +41,5 @@ object gathering:
                       "."
                     )
                   case _ => condition.name(pt)
-          )
-        }
       )
     )

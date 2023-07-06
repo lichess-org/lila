@@ -21,14 +21,15 @@ final private[timeline] class TimelinePush(
   private val dedup = lila.memo.OnceEvery.hashCode[Atom](10 minutes)
 
   def receive = { case Propagate(data, propagations) =>
-    if (dedup(data)) propagate(propagations) flatMap { users =>
-      unsubApi.filterUnsub(data.channel, users)
-    } foreach { users =>
-      if (users.nonEmpty)
-        insertEntry(users, data) >>-
-          lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
-      lila.mon.timeline.notification.increment(users.size)
-    }
+    if dedup(data) then
+      propagate(propagations) flatMap { users =>
+        unsubApi.filterUnsub(data.channel, users)
+      } foreach { users =>
+        if users.nonEmpty then
+          insertEntry(users, data) >>-
+            lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
+        lila.mon.timeline.notification.increment(users.size)
+      }
   }
 
   private def propagate(propagations: List[Propagation]): Fu[List[UserId]] =

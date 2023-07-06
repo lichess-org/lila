@@ -44,7 +44,7 @@ object post:
       csp = defaultCsp.withTwitter.withInlineIconFont.some
     ) {
       main(cls := "page-menu page-small")(
-        views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
+        views.html.blog.bits.menu(none, (if ctx is user then "mine" else "community").some),
         div(cls := "page-menu__content box box-pad ublog-post")(
           post.image.map { image =>
             frag(
@@ -64,7 +64,7 @@ object post:
               titleTag(user.title),
               user.username,
               !ctx.is(user) && isGranted(_.ModerateBlog) option
-                (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag) (
+                (if blog.tier <= UblogBlog.Tier.VISIBLE then badTag else goodTag) (
                   cls := "ublog-post__tier"
                 )(UblogBlog.Tier.name(blog.tier))
             ),
@@ -79,15 +79,15 @@ object post:
             span(cls := "ublog-post__views")(
               trans.ublog.nbViews.plural(post.views.value, strong(post.views.value.localize))
             ),
-            if (ctx is user)
+            if ctx is user then
               div(cls := "ublog-post__meta__owner")(
-                (if (post.live) goodTag else badTag) (
-                  if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
+                (if post.live then goodTag else badTag) (
+                  if post.live then trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
                 ),
                 " ",
                 editButton(post)
               )
-            else if (isGranted(_.ModerateBlog)) editButton(post)
+            else if isGranted(_.ModerateBlog) then editButton(post)
             else
               a(
                 titleOrText(trans.reportXToModerators.txt(user.username)),
@@ -135,7 +135,7 @@ object post:
   )(trans.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using PageContext) =
-    val text = if (liked) trans.study.unlike.txt() else trans.study.like.txt()
+    val text = if liked then trans.study.unlike.txt() else trans.study.like.txt()
     button(
       tpe := "button",
       cls := List(
@@ -181,7 +181,7 @@ object post:
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: Boolean = false,
       showIntro: Boolean = true
-  )(using PageContext) =
+  )(using Context) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
@@ -204,7 +204,7 @@ object post:
 
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
-  private[ublog] def newPostLink(using ctx: PageContext) = ctx.me.map: u =>
+  private[ublog] def newPostLink(using ctx: Context) = ctx.me.map: u =>
     a(
       href     := routes.Ublog.form(u.username),
       cls      := "button button-green",

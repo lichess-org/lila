@@ -38,7 +38,7 @@ object list:
             )
           },
           table(cls := "slist slist-pad")(
-            if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
+            if teams.nonEmpty then tbody(teams.map(bits.teamTr(_)))
             else noTeam()
           )
         )
@@ -53,7 +53,7 @@ object list:
           h1(cls := "box__top")(teamsIlead()),
           standardFlash,
           table(cls := "slist slist-pad")(
-            if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
+            if teams.nonEmpty then tbody(teams.map(bits.teamTr(_)))
             else noTeam()
           )
         )
@@ -90,7 +90,7 @@ object list:
           ),
           standardFlash,
           table(cls := "slist slist-pad")(
-            if (teams.nbResults > 0)
+            if teams.nbResults > 0 then
               tbody(cls := "infinite-scroll")(
                 teams.currentPageResults map { bits.teamTr(_) },
                 pagerNextTable(teams, nextPageUrl)

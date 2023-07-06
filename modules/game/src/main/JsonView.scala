@@ -18,7 +18,7 @@ final class JsonView(rematches: Rematches):
         "id"        -> game.id,
         "variant"   -> game.variant,
         "speed"     -> game.speed.key,
-        "perf"      -> PerfPicker.key(game),
+        "perf"      -> game.perfKey,
         "rated"     -> game.rated,
         "fen"       -> Fen.write(game.chess),
         "turns"     -> game.ply,
@@ -61,7 +61,7 @@ final class JsonView(rematches: Rematches):
           "name" -> pov.game.variant.name
         ),
         "speed"    -> pov.game.speed.key,
-        "perf"     -> lila.game.PerfPicker.key(pov.game),
+        "perf"     -> pov.game.perfKey,
         "rated"    -> pov.game.rated,
         "hasMoved" -> pov.hasMoved,
         "opponent" -> Json

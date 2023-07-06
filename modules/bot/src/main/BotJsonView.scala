@@ -27,12 +27,10 @@ final class BotJsonView(
     import wf.*
     Json
       .obj(
-        "id"      -> game.id,
-        "variant" -> game.variant,
-        "speed"   -> game.speed.key,
-        "perf" -> game.perfType.map { p =>
-          Json.obj("name" -> p.trans)
-        },
+        "id"         -> game.id,
+        "variant"    -> game.variant,
+        "speed"      -> game.speed.key,
+        "perf"       -> Json.obj("name" -> game.perfType.trans),
         "rated"      -> game.rated,
         "createdAt"  -> game.createdAt,
         "white"      -> playerJson(game.whitePov),
@@ -67,7 +65,7 @@ final class BotJsonView(
   def chatLine(username: UserName, text: String, player: Boolean) =
     Json.obj(
       "type"     -> "chatLine",
-      "room"     -> (if (player) "player" else "spectator"),
+      "room"     -> (if player then "player" else "spectator"),
       "username" -> username,
       "text"     -> text
     )

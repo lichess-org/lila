@@ -43,7 +43,7 @@ final class MemberRepo(val coll: Coll)(using Executor):
     coll.update
       .one(
         selectId(teamId, userId),
-        if (v) $unset("unsub")
+        if v then $unset("unsub")
         else $set("unsub" -> true)
       )
       .void

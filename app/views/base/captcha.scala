@@ -18,7 +18,7 @@ object captcha:
     frag(
       form3.hidden(form("gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(form("move"), captcha.solutions.head.some)
-      else {
+      else
         val url =
           netBaseUrl + routes.Round.watcher(captcha.gameId.value, captcha.color.name)
         div(
@@ -41,7 +41,7 @@ object captcha:
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(
-              if (captcha.color.white) trans.whiteCheckmatesInOneMove()
+              if captcha.color.white then trans.whiteCheckmatesInOneMove()
               else trans.blackCheckmatesInOneMove()
             ),
             br,
@@ -59,7 +59,6 @@ object captcha:
             form3.hidden(form("move"))
           )
         )
-      }
     )
 
   def hiddenEmpty(form: lila.common.Form.FormLike) = frag(

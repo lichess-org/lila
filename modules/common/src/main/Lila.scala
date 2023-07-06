@@ -14,6 +14,10 @@ object Lila extends Lila:
   export ornicar.scalalib.extensions.{ given, * }
   export ornicar.scalalib.time.*
 
+  export cats.syntax.all.*
+  export cats.{ Eq, Show }
+  export cats.data.NonEmptyList
+
   inline def nowNanos: Long  = System.nanoTime()
   inline def nowMillis: Long = System.currentTimeMillis()
   inline def nowCentis: Long = nowMillis / 10
@@ -50,5 +54,4 @@ trait Lila
     Some(Tuple.fromProductTyped(p))
 
   // move somewhere else when we have more Eqs
-  import cats.Eq
-  given Eq[play.api.i18n.Lang] = Eq.fromUniversalEquals
+  given cats.Eq[play.api.i18n.Lang] = cats.Eq.fromUniversalEquals

@@ -1,6 +1,6 @@
 package lila.common
 
-class MathsTest extends munit.FunSuite {
+class MathsTest extends munit.FunSuite:
 
   import lila.common.Maths.*
 
@@ -15,4 +15,3 @@ class MathsTest extends munit.FunSuite {
     // ~standardDeviation(List(46, 69, 32, 60, 52, 41)) must beCloseTo(13.31, 0.01) // sample
     assert(isCloseTo(~standardDeviation(List(46, 69, 32, 60, 52, 41)), 12.15, 0.01)) // population
   }
-}

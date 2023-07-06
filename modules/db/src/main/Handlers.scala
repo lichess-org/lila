@@ -1,6 +1,5 @@
 package lila.db
 
-import cats.data.NonEmptyList
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
@@ -163,7 +162,7 @@ trait Handlers:
   given BSONHandler[chess.Mode] = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 
   given [T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
-    { case arr: BSONArray => for { a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) } yield (a, b) },
+    { case arr: BSONArray => for a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) yield (a, b) },
     { case (a, b) => BSONArray(a, b) }
   )
 
@@ -191,10 +190,10 @@ trait Handlers:
   val clockConfigHandler = tryHandler[chess.Clock.Config](
     { case doc: BSONDocument =>
       import chess.Clock.*
-      for {
+      for
         limit <- doc.getAsTry[LimitSeconds]("limit")
         inc   <- doc.getAsTry[IncrementSeconds]("increment")
-      } yield Config(limit, inc)
+      yield Config(limit, inc)
     },
     c =>
       BSONDocument(

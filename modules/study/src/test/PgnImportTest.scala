@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
 import chess.{ ErrorStr, Ply }
 import chess.format.pgn.{ Tags, PgnStr }
 

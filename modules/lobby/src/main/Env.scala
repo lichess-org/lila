@@ -15,6 +15,8 @@ final class Env(
     playbanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     gameRepo: lila.game.GameRepo,
     poolApi: lila.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,

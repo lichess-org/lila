@@ -8,13 +8,17 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.rating.PerfType
-import lila.user.User
+import lila.user.{ User, UserPerfs }
 
 import controllers.routes
 
 object ratingDistribution:
 
-  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User])(using ctx: PageContext) =
+  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User.WithPerfs])(using
+      ctx: PageContext,
+      me: Option[User.WithPerfs]
+  ) =
+    val myVisiblePerfs = me.map(_.perfs) ifTrue ctx.pref.showRatings
     views.html.base.layout(
       title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
       moreCss = cssTag("user.rating.stats"),
@@ -23,7 +27,7 @@ object ratingDistribution:
         "chart.ratingDistribution",
         Json.obj(
           "freq"        -> data,
-          "myRating"    -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
+          "myRating"    -> myVisiblePerfs.map(_(perfType).intRating),
           "otherRating" -> otherUser.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
           "otherPlayer" -> otherUser.map(_.username),
           "i18n"        -> i18nJsObject(i18nKeys)
@@ -51,22 +55,20 @@ object ratingDistribution:
             )
           ),
           div(cls := "desc", dataIcon := perfType.icon)(
-            ctx.me.ifTrue(ctx.pref.showRatings).flatMap(_.perfs(perfType).glicko.establishedIntRating).map {
-              rating =>
-                lila.user.Stat.percentile(data, rating) match {
-                  case (under, sum) =>
-                    div(
-                      trans
-                        .nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
-                      br,
-                      trans.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
-                      br,
-                      trans.youAreBetterThanPercentOfPerfTypePlayers(
-                        strong((under * 100.0 / sum).round, "%"),
-                        perfType.trans
-                      )
-                    )
-                }
+            myVisiblePerfs.flatMap(_(perfType).glicko.establishedIntRating).map { rating =>
+              val (under, sum) = lila.user.Stat.percentile(data, rating)
+              div(
+                trans
+                  .nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
+                br,
+                trans.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
+                br,
+                trans.youAreBetterThanPercentOfPerfTypePlayers(
+                  strong((under * 100.0 / sum).round, "%"),
+                  perfType.trans
+                )
+              )
+
             } getOrElse div(
               trans.nbPerfTypePlayersThisWeek
                 .plural(data.sum, strong(data.sum.localize), perfType.trans),

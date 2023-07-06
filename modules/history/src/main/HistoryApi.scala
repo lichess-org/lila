@@ -7,7 +7,7 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ Perfs, User, UserRepo }
+import lila.user.{ UserPerfs, User, UserRepo }
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
     using ec: Executor
@@ -26,7 +26,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
       .void
   }
 
-  def add(user: User, game: Game, perfs: Perfs): Funit = withColl { coll =>
+  def add(user: User, game: Game, perfs: UserPerfs): Funit = withColl { coll =>
     val isStd = game.ratingVariant.standard
     val changes = List(
       isStd.option("standard"                                               -> perfs.standard),
@@ -78,23 +78,28 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
 
-  def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(IntRating, IntRating)]] =
+  def progresses(
+      users: List[User.WithPerf],
+      perfType: PerfType,
+      days: Int
+  ): Fu[List[(IntRating, IntRating)]] =
     withColl(
       _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
         $doc(perfType.key.value -> true).some
       )(_.getAsTry[UserId]("_id").get) map { hists =>
         import History.ratingsReader
-        users zip hists map { case (user, doc) =>
-          val current      = user.perfs(perfType).intRating
+        users zip hists map { (user, doc) =>
+          val current      = user.perf.intRating
           val previousDate = daysBetween(user.createdAt, nowInstant minusDays days)
           val previous =
-            doc.flatMap(_ child perfType.key.value).flatMap(ratingsReader.readOpt).fold(current) { hist =>
-              hist.foldLeft(hist.headOption.fold(current)(_._2)) {
-                case (_, (d, r)) if d < previousDate => r
-                case (acc, _)                        => acc
-              }
-            }
+            doc
+              .flatMap(_ child perfType.key.value)
+              .flatMap(ratingsReader.readOpt)
+              .fold(current): hist =>
+                hist.foldLeft(hist.headOption.fold(current)(_._2)):
+                  case (_, (d, r)) if d < previousDate => r
+                  case (acc, _)                        => acc
           previous -> current
         }
       }
@@ -106,7 +111,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
     private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating"):
       _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
-        userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
+        userRepo.withPerfs(userId) orFail s"No such user: $userId" flatMap { user =>
           val currentRating = user.perfs(perf).intRating
           val firstDay      = daysBetween(user.createdAt, nowInstant minusWeeks 1)
           val days          = firstDay to (firstDay + 6) toList

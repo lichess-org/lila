@@ -1,7 +1,5 @@
 package lila.tournament
 
-import reactivemongo.api.ReadPreference
-
 import chess.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl.{ *, given }
 import Schedule.{ Freq, Speed }
@@ -75,7 +73,7 @@ final class WinnersApi(
         )
       )
       .sort($sort desc "startsAt")
-      .cursor[Tournament](ReadPreference.secondaryPreferred)
+      .cursor[Tournament](ReadPref.sec)
       .list(Int.MaxValue)
 
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
@@ -89,14 +87,14 @@ final class WinnersApi(
     tours.find(_.variant == variant).flatMap(_.winner)
 
   private def fetchAll: Fu[AllWinners] =
-    for {
+    for
       yearlies  <- fetchLastFreq(Freq.Yearly, nowInstant.minusYears(1))
       monthlies <- fetchLastFreq(Freq.Monthly, nowInstant.minusMonths(2))
       weeklies  <- fetchLastFreq(Freq.Weekly, nowInstant.minusWeeks(2))
       dailies   <- fetchLastFreq(Freq.Daily, nowInstant.minusDays(2))
       elites    <- fetchLastFreq(Freq.Weekend, nowInstant.minusWeeks(3))
       marathons <- fetchLastFreq(Freq.Marathon, nowInstant.minusMonths(13))
-    } yield
+    yield
       def standardFreqWinners(speed: Speed): FreqWinners =
         FreqWinners(
           yearly = firstStandardWinner(yearlies, speed),
@@ -134,11 +132,11 @@ final class WinnersApi(
 
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament): Unit =
-    if (tour.schedule.exists(_.freq.isDailyOrBetter))
+    if tour.schedule.exists(_.freq.isDailyOrBetter) then
       scheduler.scheduleOnce(5.seconds) { allCache.invalidate {}.unit }.unit
 
   private[tournament] def clearAfterMarking(userId: UserId): Funit = all map { winners =>
-    if (winners.userIds contains userId) allCache.invalidate {}.unit
+    if winners.userIds contains userId then allCache.invalidate {}.unit
   }
 
 object WinnersApi:

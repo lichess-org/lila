@@ -281,16 +281,16 @@ object tree:
       val isMarked = playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban
       main(cls := "page page-small box box-pad appeal force-ltr")(
         h1(cls := "box__top")("Appeal"),
-        div(cls := s"nav-tree${if (isMarked) " marked" else ""}")(
-          if ((me.enabled.no && !me.marks.anyVisible) || query.contains("alt")) altScreen
+        div(cls := s"nav-tree${if isMarked then " marked" else ""}")(
+          if (me.enabled.no && !me.marks.anyVisible) || query.contains("alt") then altScreen
           else
             renderNode(
               {
-                if (me.marks.engine || query.contains("engine")) engineMenu
-                else if (me.marks.boost || query.contains("boost")) boostMenu
-                else if (me.marks.troll || query.contains("shadowban")) muteMenu
-                else if (playban || query.contains("playban")) playbanMenu
-                else if (me.marks.rankban || query.contains("rankban")) rankBanMenu
+                if me.marks.engine || query.contains("engine") then engineMenu
+                else if me.marks.boost || query.contains("boost") then boostMenu
+                else if me.marks.troll || query.contains("shadowban") then muteMenu
+                else if playban || query.contains("playban") then playbanMenu
+                else if me.marks.rankban || query.contains("rankban") then rankBanMenu
                 else cleanMenu
               },
               none,

@@ -20,7 +20,7 @@ final private class ExplorerGame(
     }
 
   def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, UciPath)]] =
-    if (position.chapter.isOverweight)
+    if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
     else
@@ -46,7 +46,7 @@ final private class ExplorerGame(
     val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Branch])) {
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode.id
-        if (fromNode.children.nodeAt(nextPath).isDefined) (nextPath, none)
+        if fromNode.children.nodeAt(nextPath).isDefined then (nextPath, none)
         else (path, gameNode.some)
       case (found, _) => found
     }

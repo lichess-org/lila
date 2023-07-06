@@ -14,7 +14,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
       SafeAnd(u.id)
     })
-  def withFilter(f: Filter) = if (f == filter) this else new ForumTopicRepo(coll, f)
+  def withFilter(f: Filter) = if f == filter then this else new ForumTopicRepo(coll, f)
   def unsafe                = withFilter(Unsafe)
 
   private val noTroll = $doc("troll" -> false)
@@ -56,7 +56,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     val slug = ForumTopic.nameToId(name) + ~(it != 1).option("-" + it)
     // also take troll topic into accounts
     unsafe.byTree(categ.id, slug) flatMap { found =>
-      if (found.isDefined) nextSlug(categ, name, it + 1)
+      if found.isDefined then nextSlug(categ, name, it + 1)
       else fuccess(slug)
     }
 
