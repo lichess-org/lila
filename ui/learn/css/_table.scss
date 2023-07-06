@@ -1,8 +1,10 @@
 .learn__table {
-  align-self: center;
-
   .wrap {
     @extend %box-neat, %box-radius-force;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: $c-bg-box;
   }
 
   .title {
@@ -29,17 +31,19 @@
 
   .goal {
     @extend %flex-center;
-    background: $c-bg-box;
+    flex: 1;
     border: $border;
     border-top: none;
     padding: $block-gap;
     text-align: center;
     justify-content: center;
     white-space: pre-line;
-    min-height: 130px;
+    min-height: 5rem;
+    font-size: 1.1em;
   }
   .result {
     @extend %flex-center;
+    flex: 1;
     justify-content: center;
     flex-flow: column nowrap;
     border: $border;
@@ -47,7 +51,7 @@
     text-align: center;
     cursor: pointer;
     @include transition();
-    min-height: 130px;
+    min-height: 5rem;
     padding: 0;
     font-size: 1.7em;
 
