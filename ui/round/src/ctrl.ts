@@ -89,7 +89,6 @@ export default class RoundController {
   justCaptured?: cg.Piece;
   shouldSendMoveTime = false;
   preDrop?: cg.Role;
-  lastDrawOfferAtPly?: Ply;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   private music?: any;
@@ -777,7 +776,7 @@ export default class RoundController {
 
   opponentGone = (): number | boolean => {
     const d = this.data;
-    return d.opponent.gone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.gone;
+    return d.opponent.isGone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.isGone;
   };
 
   rematch(accept?: boolean): boolean {
@@ -798,7 +797,7 @@ export default class RoundController {
 
   canOfferDraw = (): boolean => {
     return (
-      !this.preventDrawOffer && game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < this.ply - 20
+      !this.preventDrawOffer && game.drawable(this.data) && (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20
     );
   };
 
@@ -829,7 +828,7 @@ export default class RoundController {
   };
 
   private doOfferDraw = () => {
-    this.lastDrawOfferAtPly = this.ply;
+    this.data.player.lastDrawOfferAtPly = this.ply;
     this.socket.sendLoading('draw-yes', null);
   };
 

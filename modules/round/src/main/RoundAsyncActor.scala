@@ -52,7 +52,7 @@ final private[round] class RoundAsyncActor(
     def isOnline = offlineSince.isEmpty || botConnected
 
     def setOnline(on: Boolean): Unit =
-      isLongGone foreach { _ so notifyGone(color, gone = false) }
+      isLongGone.foreach(_ so notifyGone(color, gone = !on))
       offlineSince = if on then None else offlineSince orElse nowMillis.some
       bye = bye && !on
     def setBye(): Unit =
