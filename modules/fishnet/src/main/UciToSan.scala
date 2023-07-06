@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import cats.syntax.all.*
 import chess.format.pgn.SanStr
 import chess.format.Uci
 import chess.{ Ply, MoveOrDrop, Replay, Situation }

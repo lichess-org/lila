@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import cats.syntax.all.*
 import lila.rating.glicko2
 import scala.util.chaining.*
 

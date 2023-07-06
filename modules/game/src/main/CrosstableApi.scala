@@ -12,23 +12,19 @@ final class CrosstableApi(
   import Crosstable.{ BSONFields as F }
 
   def apply(game: Game): Fu[Option[Crosstable]] =
-    game.twoUserIds.so: (u1, u2) =>
-      apply(u1, u2) dmap some
+    game.twoUserIds.soFu(apply.tupled)
 
   def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] =
-    game.twoUserIds.so: (u1, u2) =>
-      withMatchup(u1, u2) dmap some
+    game.twoUserIds.soFu(withMatchup.tupled)
 
   def apply(u1: UserId, u2: UserId): Fu[Crosstable] =
-    justFetch(u1, u2) dmap { _ | Crosstable.empty(u1, u2) }
+    justFetch(u1, u2).dmap(_ | Crosstable.empty(u1, u2))
 
   def justFetch(u1: UserId, u2: UserId): Fu[Option[Crosstable]] =
     coll.one[Crosstable](select(u1, u2))
 
   def withMatchup(u1: UserId, u2: UserId): Fu[Crosstable.WithMatchup] =
-    apply(u1, u2) zip getMatchup(u1, u2) dmap { (crosstable, matchup) =>
-      Crosstable.WithMatchup(crosstable, matchup)
-    }
+    apply(u1, u2) zip getMatchup(u1, u2) dmap Crosstable.WithMatchup.apply.tupled
 
   def nbGames(u1: UserId, u2: UserId): Fu[Int] =
     coll

@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.syntax.all.*
 import chess.format.Fen
 import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
 import chess.format.{ pgn as chessPgn }

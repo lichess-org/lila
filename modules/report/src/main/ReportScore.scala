@@ -1,6 +1,5 @@
 package lila.report
 
-import cats.syntax.all.*
 import lila.game.GameRepo
 
 final private class ReportScore(

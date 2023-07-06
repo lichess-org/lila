@@ -1,7 +1,5 @@
 package lila.streamer
 
-import cats.syntax.all.*
-
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints

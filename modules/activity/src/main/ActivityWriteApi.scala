@@ -1,6 +1,5 @@
 package lila.activity
 
-import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently

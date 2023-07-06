@@ -2,7 +2,6 @@ package lila.mod
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import cats.syntax.all.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*

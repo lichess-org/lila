@@ -1,6 +1,5 @@
 package lila.plan
 
-import cats.syntax.all.*
 import ornicar.scalalib.ThreadLocalRandom
 
 case class Charge(

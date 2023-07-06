@@ -76,7 +76,6 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
-        import cats.syntax.all.*
         def userPerf = (u: Option[User.WithPerfs]) => u.filter(_.enabled.yes).map(_.only(game.perfType))
         (userPerf(whiteUserOption), userPerf(blackUserOption)) mapN { (whiteUser, blackUser) =>
           sandbagWatch(game)

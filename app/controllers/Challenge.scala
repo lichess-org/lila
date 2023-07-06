@@ -215,7 +215,6 @@ final class Challenge(
   }
 
   def apiStartClocks(id: GameId) = Anon:
-    import cats.syntax.all.*
     val accepted = OAuthScope.select(_.Challenge.Write) into EndpointScopes
     (Bearer from get("token1"), Bearer from get("token2"))
       .mapN:

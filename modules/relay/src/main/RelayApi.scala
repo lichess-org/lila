@@ -6,7 +6,6 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
-import cats.syntax.all.*
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }

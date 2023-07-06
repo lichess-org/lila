@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import cats.syntax.all.*
 import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
 import chess.format.{ pgn as chessPgn }
 

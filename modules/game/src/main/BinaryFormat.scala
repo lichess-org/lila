@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.syntax.all.*
 import chess.*
 import chess.format.Uci
 import chess.format.pgn.SanStr

@@ -1,6 +1,5 @@
 package lila.relay
 
-import cats.syntax.all.*
 import io.mola.galimatias.URL
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient

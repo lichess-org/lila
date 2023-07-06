@@ -157,7 +157,6 @@ final class GameApiV2(
         } flatMap { playerTeams =>
           gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
             _.zip(pairings) collect { case (Some(game), pairing) =>
-              import cats.syntax.all.*
               (
                 game,
                 pairing,
@@ -263,10 +262,9 @@ final class GameApiV2(
   ): Fu[JsObject] = for
     lightUsers <- gameLightUsers(g)
     pgn <-
-      withFlags.pgnInJson so pgnDump
+      withFlags.pgnInJson soFu pgnDump
         .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
         .dmap(annotator.toPgnString)
-        .dmap(some)
     accuracy = analysisOption.ifTrue(withFlags.accuracy).flatMap {
       AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _)
     }

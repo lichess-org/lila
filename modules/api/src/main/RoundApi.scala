@@ -46,13 +46,13 @@ final private[api] class RoundApi(
         jsonView.playerJson(
           pov,
           ctx.pref.some,
-          user.map(Right.apply),
+          user,
           flags = ctxFlags,
           initialFen = initialFen
         ) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.myId.ifTrue(ctx.isMobileApi) so (noteApi.get(pov.gameId, _))) zip
+          (ctx.myId.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _))) zip
           forecastApi.loadForDisplay(pov) zip
           bookmarkApi.exists(pov.game, ctx.me)
     yield (

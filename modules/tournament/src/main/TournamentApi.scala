@@ -1,6 +1,5 @@
 package lila.tournament
 
-import cats.syntax.all.*
 import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import java.nio.charset.StandardCharsets.UTF_8
@@ -18,6 +17,7 @@ import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.user.Me
+import lila.tournament.TeamBattle.TeamInfo
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -120,7 +120,7 @@ final class TournamentApi(
     socket.reload(tour.id)
 
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.TeamInfo]] =
-    tour.teamBattle.exists(_ teams teamId) so cached.teamInfo.get(tour.id -> teamId)
+    tour.teamBattle.exists(_ teams teamId) soFu cached.teamInfo.get(tour.id -> teamId)
 
   private val hadPairings = lila.memo.ExpireSetMemo[TourId](1 hour)
 
@@ -169,7 +169,6 @@ final class TournamentApi(
           .result
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
-    import cats.syntax.all.*
     tour.featuredId.ifTrue(pairings.nonEmpty) so pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
         pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank.value) so {
@@ -552,15 +551,15 @@ final class TournamentApi(
   object gameView:
 
     def player(pov: Pov): Fu[Option[GameView]] =
-      (pov.game.tournamentId so get) flatMapz { tour =>
+      pov.game.tournamentId.so(get) flatMapz { tour =>
         getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { (teamVs, ranks) =>
-          teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
-            cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map2 { info =>
-              TournamentTop(info.topPlayers take tournamentTopNb)
-            }
-          } dmap {
-            GameView(tour, teamVs, ranks, _).some
-          }
+          teamVs
+            .fold(tournamentTop(tour.id)): vs =>
+              cached.teamInfo.get(tour.id -> vs.teams(pov.color)).map { info =>
+                TournamentTop(info.topPlayers take tournamentTopNb)
+              }
+            .dmap: top =>
+              GameView(tour, teamVs, ranks, top.some).some
         }
       }
 
@@ -592,7 +591,6 @@ final class TournamentApi(
       game.whitePlayer.userId.ifTrue(tour.isStarted) so { whiteId =>
         game.blackPlayer.userId so { blackId =>
           cached ranking tour map { ranking =>
-            import cats.syntax.all.*
             (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
               GameRanks(whiteR + 1, blackR + 1)
             }

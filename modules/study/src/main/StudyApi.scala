@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
 import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis

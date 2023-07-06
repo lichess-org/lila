@@ -3,7 +3,6 @@ package lila.team
 import play.api.libs.json.{ JsSuccess, Json, Reads }
 import scala.util.chaining.*
 import scala.util.Try
-import cats.syntax.traverse.*
 
 import lila.chat.ChatApi
 import lila.common.Bus

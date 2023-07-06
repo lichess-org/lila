@@ -28,9 +28,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     def loggedIn(ids: PairOf[UserId], perfType: PerfType): Fu[Option[PairOf[User.WithPerf]]] =
       gamePlayersCache
         .get((ids._1.some, ids._2.some) -> perfType)
-        .dmap:
-          case (Some(x), Some(y)) => (x, y).some
-          case _                  => none
+        .dmap(_.tupled)
 
     private val gamePlayersCache = cacheApi[PlayersKey, GamePlayers](4096, "user.perf.pair"):
       _.expireAfterWrite(3 seconds).buildAsyncFuture:
@@ -55,19 +53,18 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def withPerf[U: UserIdOf](id: U, pt: PerfType): Fu[Option[User.WithPerf]] =
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
 
-  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] =
-    for
-      (x, y) <- userRepo.pair.tupled(userIds)
-      perfs  <- perfsRepo.perfsOf(List(x, y).flatten.map(_.id))
-      make = (u: Option[User]) => u.map(u => User.WithPerfs(u, perfs.get(u.id)))
-    yield make(x) -> make(y)
+  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] = for
+    (x, y) <- userRepo.pair.tupled(userIds)
+    perfs  <- perfsRepo.perfsOf(List(x, y).flatten.map(_.id))
+    make = (u: Option[User]) => u.map(u => User.WithPerfs(u, perfs.get(u.id)))
+  yield make(x) -> make(y)
 
-  def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[Either[LightUser.Ghost, User.WithPerf]]] =
+  def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[LightUser.Ghost | User.WithPerf]] =
     userRepo
       .byIdOrGhost(id)
       .flatMapz:
-        case Left(g)  => fuccess(Left(g).some)
-        case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => Right(u withPerf p).some)
+        case Left(g)  => fuccess(g.some)
+        case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => u.withPerf(p).some)
 
   def setBot(user: User): Funit =
     if user.count.game > 0

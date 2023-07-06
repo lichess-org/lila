@@ -1,6 +1,5 @@
 package controllers
 
-import cats.syntax.all.*
 import lila.app.{ given, * }
 import views.*
 import lila.common.config

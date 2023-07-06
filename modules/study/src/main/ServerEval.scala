@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
 import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*

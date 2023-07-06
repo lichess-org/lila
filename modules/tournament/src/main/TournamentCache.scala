@@ -56,11 +56,11 @@ final class TournamentCache(
       .buildAsyncFuture(playerRepo.computeRanking)
 
   private[tournament] val teamInfo =
-    cacheApi[(TourId, TeamId), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo"):
+    cacheApi[(TourId, TeamId), TeamBattle.TeamInfo](16, "tournament.teamInfo"):
       _.expireAfterWrite(5 seconds)
         .maximumSize(64)
         .buildAsyncFuture: (tourId, teamId) =>
-          playerRepo.teamInfo(tourId, teamId) dmap some
+          playerRepo.teamInfo(tourId, teamId)
 
   object battle:
 

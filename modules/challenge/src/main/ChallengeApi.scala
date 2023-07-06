@@ -1,6 +1,5 @@
 package lila.challenge
 
-import cats.syntax.all.*
 import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
 

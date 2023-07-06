@@ -87,7 +87,7 @@ object home:
             !ctx.isBot option {
               val nbManual = events.size + relays.size
               val simulBBB = simuls.find(isFeaturable(_) && nbManual < 4)
-              val nbForced = nbManual + simulBBB.size
+              val nbForced = nbManual + simulBBB.size.toInt
               val tourBBBs = if nbForced > 3 then 0 else if nbForced == 3 then 1 else 3 - nbForced
               frag(
                 lila.tournament.Spotlight.select(tours, tourBBBs).map {

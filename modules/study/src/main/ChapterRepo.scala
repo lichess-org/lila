@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
 import akka.stream.scaladsl.*
 import chess.format.pgn.Tags
 import chess.format.UciPath

@@ -30,9 +30,7 @@ final class PerfStatApi(
           for
             oldPerfStat <- get(u.user, perfType)
             perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-            distribution <- u.perfs(perfType).established so {
-              rankingApi.weeklyRatingDistribution(perfType) dmap some
-            }
+            distribution <- u.perfs(perfType).established soFu rankingApi.weeklyRatingDistribution(perfType)
             percentile = distribution.map: distrib =>
               val (under, sum) = lila.user.Stat.percentile(distrib, u.perfs(perfType).intRating)
               Math.round(under * 1000.0 / sum) / 10.0

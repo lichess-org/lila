@@ -1,7 +1,5 @@
 package lila.practice
 
-import cats.syntax.all.*
-
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*

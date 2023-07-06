@@ -1,6 +1,5 @@
 package lila.round
 
-import cats.syntax.traverse.*
 import chess.Color
 
 import lila.game.{ Event, Game, Pov, Progress }

@@ -1,6 +1,5 @@
 package lila.oauth
 
-import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.common.Bearer

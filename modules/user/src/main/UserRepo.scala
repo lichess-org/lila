@@ -1,6 +1,5 @@
 package lila.user
 
-import cats.syntax.all.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -22,7 +21,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
   def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = // TODO aggregation
-    byId(id).flatMapz(u => withPerfs(u).dmap(some))
+    byId(id).flatMap(_ soFu withPerfs)
 
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)

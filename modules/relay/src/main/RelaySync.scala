@@ -1,7 +1,5 @@
 package lila.relay
 
-import cats.syntax.traverse.*
-import cats.syntax.foldable.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
 import lila.socket.Socket.Sri

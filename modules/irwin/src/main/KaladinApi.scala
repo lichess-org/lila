@@ -1,6 +1,5 @@
 package lila.irwin
 
-import cats.syntax.all.*
 import chess.Speed
 import reactivemongo.api.bson.*
 import reactivemongo.api.Cursor

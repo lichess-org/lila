@@ -85,7 +85,7 @@ object bits:
     )
 
   def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(using
-      ctx: PageContext
+      ctx: Context
   ): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
       lichess.map: post =>
@@ -103,7 +103,8 @@ object bits:
           )
         )
       ,
-      ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
+      ctx.noKid option uposts.map:
+        views.html.ublog.post.card(_, showAuthor = false, showIntro = false)
     )
 
   def showUnreadLichessMessage =
@@ -117,7 +118,7 @@ object bits:
       )
     )
 
-  def playbanInfo(ban: lila.playban.TempBan)(using PageContext) =
+  def playbanInfo(ban: lila.playban.TempBan)(using Context) =
     nopeInfo(
       h1(trans.sorry()),
       p(trans.weHadToTimeYouOutForAWhile()),
@@ -145,7 +146,7 @@ object bits:
       )
     )
 
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(using PageContext) =
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(using Context) =
     nopeInfo(
       h1(trans.hangOn()),
       p(trans.gameInProgress(strong(current.opponent))),
@@ -180,7 +181,7 @@ object bits:
       )
     )
 
-  def spotlight(e: lila.event.Event)(using PageContext) =
+  def spotlight(e: lila.event.Event)(using Context) =
     a(
       href := (if e.isNow || !e.countdown then e.url else routes.Event.show(e.id).url),
       cls := List(

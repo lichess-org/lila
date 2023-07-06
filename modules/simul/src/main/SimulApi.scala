@@ -1,6 +1,5 @@
 package lila.simul
 
-import cats.syntax.all.*
 import akka.actor.*
 import chess.variant.Variant
 import play.api.libs.json.Json

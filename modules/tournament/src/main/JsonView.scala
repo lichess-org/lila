@@ -355,10 +355,10 @@ final class JsonView(
     tour.isTeamBattle.soFu(teamStandingJsonCache get tour.id)
 
   def apiTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
-    tour.teamBattle.so: battle =>
+    tour.teamBattle.soFu: battle =>
       if battle.hasTooManyTeams
-      then bigTeamStandingJsonCache get tour.id dmap some
-      else teamStandingJsonCache get tour.id dmap some
+      then bigTeamStandingJsonCache get tour.id
+      else teamStandingJsonCache get tour.id
 
   private val teamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStanding"):
     _.expireAfterWrite(500 millis)
@@ -392,36 +392,34 @@ final class JsonView(
         _.find(_.teamId == teamId)
       }
 
-  private val teamInfoCache =
-    cacheApi[(TourId, TeamId), Option[JsObject]](16, "tournament.teamInfo.json"):
-      _.expireAfterWrite(5 seconds)
-        .maximumSize(32)
-        .buildAsyncFuture: (tourId, teamId) =>
-          cached.teamInfo.get(tourId -> teamId) flatMapz { info =>
-            lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json
-              .obj(
-                "id"        -> teamId,
-                "nbPlayers" -> info.nbPlayers,
-                "rating"    -> info.avgRating,
-                "perf"      -> info.avgPerf,
-                "score"     -> info.avgScore,
-                "topPlayers" -> info.topPlayers.flatMap: p =>
-                  lightUserApi.sync(p.userId) map { user =>
-                    Json
-                      .obj(
-                        "name"   -> user.name,
-                        "rating" -> p.rating,
-                        "score"  -> p.score
-                      )
-                      .add("fire" -> p.fire)
-                      .add("title" -> user.title)
-                  }
-              )
-              .some
-          }
+  private val teamInfoCache = cacheApi[(TourId, TeamId), JsObject](16, "tournament.teamInfo.json"):
+    _.expireAfterWrite(5 seconds)
+      .maximumSize(32)
+      .buildAsyncFuture: (tourId, teamId) =>
+        cached.teamInfo.get(tourId -> teamId) flatMap { info =>
+          lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json
+            .obj(
+              "id"        -> teamId,
+              "nbPlayers" -> info.nbPlayers,
+              "rating"    -> info.avgRating,
+              "perf"      -> info.avgPerf,
+              "score"     -> info.avgScore,
+              "topPlayers" -> info.topPlayers.flatMap: p =>
+                lightUserApi.sync(p.userId) map { user =>
+                  Json
+                    .obj(
+                      "name"   -> user.name,
+                      "rating" -> p.rating,
+                      "score"  -> p.score
+                    )
+                    .add("fire" -> p.fire)
+                    .add("title" -> user.title)
+                }
+            )
+        }
 
   def teamInfo(tour: Tournament, teamId: TeamId): Fu[Option[JsObject]] =
-    tour.isTeamBattle so teamInfoCache.get(tour.id -> teamId)
+    tour.isTeamBattle soFu teamInfoCache.get(tour.id -> teamId)
 
   private[tournament] def commonTournamentJson(
       tour: Tournament,

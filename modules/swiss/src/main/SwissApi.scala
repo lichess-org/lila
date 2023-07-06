@@ -1,6 +1,5 @@
 package lila.swiss
 
-import cats.syntax.all.*
 import alleycats.Zero
 import akka.stream.scaladsl.*
 import java.nio.charset.StandardCharsets.UTF_8
@@ -319,7 +318,6 @@ final class SwissApi(
     game.whitePlayer.userId.ifTrue(swiss.isStarted) so { whiteId =>
       game.blackPlayer.userId.so: blackId =>
         rankingApi(swiss).map: ranking =>
-          import cats.syntax.all.*
           (ranking.get(whiteId), ranking.get(blackId)) mapN GameRanks.apply
     }
 
