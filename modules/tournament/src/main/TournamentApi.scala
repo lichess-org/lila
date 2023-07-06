@@ -556,14 +556,12 @@ final class TournamentApi(
       pov.game.tournamentId.so(get) flatMapz { tour =>
         getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { (teamVs, ranks) =>
           teamVs
-            .fold(tournamentTop(tour.id) dmap some): vs =>
-              val top: Fu[Option[TournamentTop]] = cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map {
-                _ map { info =>
-                  TournamentTop(info.topPlayers take tournamentTopNb)
-                }
+            .fold(tournamentTop(tour.id)): vs =>
+              cached.teamInfo.get(tour.id -> vs.teams(pov.color)).map { info =>
+                TournamentTop(info.topPlayers take tournamentTopNb)
               }
-            .dmap:
-              GameView(tour, teamVs, ranks, _)
+            .dmap: top =>
+              GameView(tour, teamVs, ranks, top.some).some
         }
       }
 
