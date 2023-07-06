@@ -41,11 +41,11 @@ final class GameSearchApi(
   private def toDoc(game: Game, analysed: Boolean) =
     Json
       .obj(
-        Fields.status -> (game.status match {
+        Fields.status -> (game.status match
           case s if s.is(_.Timeout) => chess.Status.Resign
           case s if s.is(_.NoStart) => chess.Status.Resign
           case _                    => game.status
-        }).id,
+        ).id,
         Fields.turns         -> (game.ply.value + 1) / 2,
         Fields.rated         -> game.rated,
         Fields.perf          -> game.perfType.id,

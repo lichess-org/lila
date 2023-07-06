@@ -114,7 +114,7 @@ final class ClasApi(
       coll.update
         .one(
           $id(c.id),
-          if (v) $set("archived" -> Clas.Recorded(t.id, nowInstant))
+          if v then $set("archived" -> Clas.Recorded(t.id, nowInstant))
           else $unset("archived")
         )
         .void
@@ -366,7 +366,7 @@ ${clas.desc}""",
         invite: ClasInvite
     ): Fu[ClasInvite.Feedback] =
       val url = s"$baseUrl/class/invitation/${invite._id}"
-      if (student.kid) fuccess(ClasInvite.Feedback.CantMsgKid(url))
+      if student.kid then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
         import lila.i18n.I18nKeys.clas.*
         given play.api.i18n.Lang = student.realLang | lila.i18n.defaultLang

@@ -122,8 +122,8 @@ object ModActivity:
     case Week, Month, Year
   object Period:
     def apply(str: String): Period =
-      if (str == "year") Year
-      else if (str == "month") Month
+      if str == "year" then Year
+      else if str == "month" then Month
       else Week
     def dateSince(period: Period) = period match
       case Period.Week  => nowInstant.minusWeeks(1)

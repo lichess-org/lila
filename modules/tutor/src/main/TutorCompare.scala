@@ -17,10 +17,10 @@ case class TutorCompare[D, V](
   lazy val dimensionComparisons: List[AnyComparison] =
     val myPoints: List[(D, ValueCount[V])] =
       points.collect { case (dim, TutorBothValueOptions(Some(mine), _)) => dim -> mine }
-    for {
+    for
       (dim1, met1) <- myPoints.filter(_._2 relevantTo totalCountMine)
       avg = number.mean(myPoints.filter(_._1 != dim1).map(_._2))
-    } yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg), color)
+    yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg), color)
 
   lazy val peerComparisons: List[AnyComparison] = points.collect {
     case (dim, TutorBothValueOptions(Some(mine), Some(peer)))
@@ -75,6 +75,7 @@ object TutorCompare:
       }
       .toList
 
-  sealed trait Reference[V] { val value: ValueCount[V] }
+  sealed trait Reference[V]:
+    val value: ValueCount[V]
   case class Peers[V](value: ValueCount[V])  extends Reference[V]
   case class DimAvg[V](value: ValueCount[V]) extends Reference[V]

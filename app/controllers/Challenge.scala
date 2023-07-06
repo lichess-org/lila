@@ -129,7 +129,7 @@ final class Challenge(
         _ map { game =>
           env.lilaCookie.cookie(
             AnonCookie.name,
-            game.player(if (owner) c.finalColor else !c.finalColor).id.value,
+            game.player(if owner then c.finalColor else !c.finalColor).id.value,
             maxAge = AnonCookie.maxAge.some,
             httpOnly = false.some
           )

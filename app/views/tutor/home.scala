@@ -13,8 +13,8 @@ object home:
     bits.layout(menu = menu(full, user, none))(
       cls := "tutor__home box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
-      if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
-      else {
+      if full.report.perfs.isEmpty then empty.mascotSaysInsufficient
+      else
         bits.mascotSays(
           p(
             strong(
@@ -29,7 +29,7 @@ object home:
             "It should give us some idea about what your strengths are, and where you have room for improvement."
           )
         )
-      },
+      ,
       div(cls := "tutor__perfs tutor-cards")(
         full.report.perfs.toList map { perfReportCard(full.report, _, user) }
       )

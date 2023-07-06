@@ -27,7 +27,7 @@ final class SwissStandingApi(
   def apply(swiss: Swiss, forPage: Int): Fu[JsObject] =
     val page = forPage atMost Math.ceil(swiss.nbPlayers.toDouble / perPage).toInt atLeast 1
     fuccess(pageCache.getIfPresent(swiss.id -> page)) getOrElse {
-      if (page == 1) first get swiss.id
+      if page == 1 then first get swiss.id
       else compute(swiss, page)
     }
 
@@ -73,7 +73,7 @@ final class SwissStandingApi(
     mongo.swiss.byId[Swiss](id) orFail s"No such tournament: $id" flatMap { compute(_, page) }
 
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
-    for {
+    for
       rankedPlayers <- bestWithRankByPage(swiss.id, perPage, page atLeast 1)
       pairings <- !swiss.isCreated so SwissPairing.fields { f =>
         mongo.pairing
@@ -85,7 +85,7 @@ final class SwissStandingApi(
       }
       sheets = SwissSheet.many(swiss, rankedPlayers.map(_.player), pairings)
       users <- lightUserApi asyncManyFallback rankedPlayers.map(_.player.userId)
-    } yield Json.obj(
+    yield Json.obj(
       "page" -> page,
       "players" -> rankedPlayers
         .zip(users)

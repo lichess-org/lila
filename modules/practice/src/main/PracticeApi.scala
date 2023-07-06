@@ -77,7 +77,7 @@ final class PracticeApi(
     def clear() = cache.invalidateUnit()
     def onSave(study: Study) =
       get foreach { structure =>
-        if (structure.hasStudy(study.id)) clear()
+        if structure.hasStudy(study.id) then clear()
       }
 
   object progress:

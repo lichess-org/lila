@@ -91,7 +91,7 @@ case class UserPerfs(
     ps.foldLeft(none[IntRating]):
       case (ro, p) if p.nb >= minNb =>
         ro.fold(p.intRating) { r =>
-          if (p.intRating > r) p.intRating else r
+          if p.intRating > r then p.intRating else r
         }.some
       case (ro, _) => ro
     .getOrElse(Perf.default.intRating)
@@ -108,7 +108,7 @@ case class UserPerfs(
   def bestProgressIn(types: List[PerfType]): IntRatingDiff =
     types.foldLeft(IntRatingDiff(0)): (max, t) =>
       val p = apply(t).progress
-      if (p > max) p else max
+      if p > max then p else max
 
   lazy val perfsMap: Map[Perf.Key, Perf] = Map(
     Perf.Key("chess960")       -> chess960,

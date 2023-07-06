@@ -71,7 +71,7 @@ object post:
                 ).some
               else
                 frag(
-                  if (canModCateg || topic.isUblogAuthor(me))
+                  if canModCateg || topic.isUblogAuthor(me) then
                     a(
                       cls      := "mod delete button button-empty",
                       href     := routes.ForumPost.delete(categ.slug, post.id),
@@ -144,7 +144,7 @@ object post:
           title := {
             if size > 0 then
               val who =
-                if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} others"
+                if size > 10 then s"${users take 8 mkString ", "} and ${size - 8} others"
                 else users mkString ", "
               s"$who reacted with $r"
             else r.key

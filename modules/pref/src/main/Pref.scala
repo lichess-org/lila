@@ -57,7 +57,7 @@ case class Pref(
 
   val themeColorLight = "#dbd7d1"
   val themeColorDark  = "#2e2a24"
-  def themeColor      = if (bg == Bg.LIGHT) themeColorLight else themeColorDark
+  def themeColor      = if bg == Bg.LIGHT then themeColorLight else themeColorDark
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -90,9 +90,9 @@ case class Pref(
         SoundSet.allByKey get value map { s =>
           copy(soundSet = s.key)
         }
-      case "zen"          => copy(zen = if (value == "1") 1 else 0).some
-      case "voice"        => copy(voice = if (value == "1") 1.some else 0.some).some
-      case "keyboardMove" => copy(keyboardMove = if (value == "1") 1 else 0).some
+      case "zen"          => copy(zen = if value == "1" then 1 else 0).some
+      case "voice"        => copy(voice = if value == "1" then 1.some else 0.some).some
+      case "keyboardMove" => copy(keyboardMove = if value == "1" then 1 else 0).some
       case _              => none
 
   def animationMillis: Int =
@@ -450,7 +450,7 @@ object Pref:
       if user.createdAt.isAfter(systemByDefaultSince) then Bg.SYSTEM
       else if user.createdAt.isAfter(darkByDefaultSince) then Bg.DARK
       else Bg.LIGHT,
-    agreement = if (user.createdAt isAfter Agreement.changedAt) Agreement.current else 0
+    agreement = if user.createdAt isAfter Agreement.changedAt then Agreement.current else 0
   )
 
   lazy val default = Pref(

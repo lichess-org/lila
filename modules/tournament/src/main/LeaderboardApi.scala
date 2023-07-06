@@ -71,7 +71,7 @@ final class LeaderboardApi(
     Paginator(
       currentPage = page,
       maxPerPage = maxPerPage,
-      adapter = new AdapterLike[TourEntry] {
+      adapter = new AdapterLike[TourEntry]:
         private val selector   = $doc("u" -> user.id)
         def nbResults: Fu[Int] = repo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
@@ -79,7 +79,7 @@ final class LeaderboardApi(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> List(
-                Sort(if (sortBest) Ascending("w") else Descending("d")),
+                Sort(if sortBest then Ascending("w") else Descending("d")),
                 Skip(offset),
                 Limit(length),
                 PipelineOperator(
@@ -98,8 +98,6 @@ final class LeaderboardApi(
                 entry <- doc.asOpt[Entry]
                 tour  <- doc.getAsOpt[Tournament]("tour")
               yield TourEntry(tour, entry)
-
-      }
     )
 
 object LeaderboardApi:

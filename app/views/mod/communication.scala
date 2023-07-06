@@ -48,7 +48,7 @@ object communication:
                 dataIcon := licon.Agent
               ),
               isGranted(_.ViewPrivateComms) option {
-                if (priv)
+                if priv then
                   a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
                 else
                   a(
@@ -98,7 +98,7 @@ object communication:
           )
         ),
         h2("Dubious public chats"),
-        if (publicLines.isEmpty) strong("None!")
+        if publicLines.isEmpty then strong("None!")
         else
           ul(cls := "public_chats")(
             publicLines.reverse.map: line =>
@@ -116,7 +116,8 @@ object communication:
                 nbsp,
                 span(cls := "message")(highlightBad(line.text))
               )
-          ),
+          )
+        ,
         priv option frag(
           h2("Recent private chats"),
           div(cls := "player_chats")(
@@ -170,7 +171,7 @@ object communication:
                       val author = msg.user == u.id
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowServer(msg.date)),
-                        td(strong(if (author) u.username else modConvo.contact.username)),
+                        td(strong(if author then u.username else modConvo.contact.username)),
                         td(cls := "message")(highlightBad(msg.text))
                       )
                   )
@@ -184,7 +185,7 @@ object communication:
   // incompatible with richText
   def highlightBad(text: String): Frag =
     val words = Analyser(text).badWords
-    if (words.isEmpty) frag(text)
+    if words.isEmpty then frag(text)
     else
       val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
       def tag(word: String) = s"<bad>$word</bad>"

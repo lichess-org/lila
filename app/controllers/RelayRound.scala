@@ -95,11 +95,10 @@ final class RelayRound(
             val sc =
               if rt.round.sync.ongoing then
                 env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
-                  chapters.find(_.looksAlive) orElse chapters.headOption match {
+                  chapters.find(_.looksAlive) orElse chapters.headOption match
                     case Some(chapter) =>
                       env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
                     case None => env.study.api byIdWithChapter rt.round.studyId
-                  }
                 }
               else env.study.api byIdWithChapter rt.round.studyId
             sc orNotFound { doShow(rt, _) }

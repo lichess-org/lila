@@ -65,9 +65,10 @@ final class Analyser(
       else
         import req.*
         val sender = Work.Sender(req.userId, none, mod = false, system = false)
-        (if (req.unlimited) fuccess(Analyser.Result.Ok)
+        (if req.unlimited then fuccess(Analyser.Result.Ok)
          else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)) flatMap { result =>
-          if (!result.ok) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
+          if !result.ok then
+            logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           result.ok so {
             val work = makeWork(
               game = Work.Game(

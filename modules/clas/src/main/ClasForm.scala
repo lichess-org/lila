@@ -21,12 +21,11 @@ final class ClasForm(
         "desc" -> cleanText(minLength = 0, maxLength = 2000),
         "teachers" -> nonEmptyText.verifying(
           "Invalid teacher list",
-          str => {
+          str =>
             val ids = readTeacherIds(str)
             ids.nonEmpty && ids.sizeIs <= 10 && ids.forall { id =>
               blockingFetchUser(id into UserStr).isDefined
             }
-          }
         )
       )(ClasData.apply)(unapply)
     )

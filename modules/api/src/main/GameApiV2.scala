@@ -104,7 +104,7 @@ final class GameApiV2(
     Source.futureSource:
       config.playerFile.so(realPlayerApi.apply) map { realPlayers =>
         val playerSelect =
-          if (config.finished)
+          if config.finished then
             config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) }
           else
             config.vs.map(_.id).fold(Query.nowPlaying(config.user.id)) {
@@ -119,7 +119,7 @@ final class GameApiV2(
           )
           .documentSource()
           .map(g => config.postFilter(g) option g)
-          .throttle(config.perSecond.value * 10, 1 second, e => if (e.isDefined) 10 else 2)
+          .throttle(config.perSecond.value * 10, 1 second, e => if e.isDefined then 10 else 2)
           .mapConcat(_.toList)
           .take(config.max | Int.MaxValue)
           .via(upgradeOngoingGame)
@@ -177,7 +177,7 @@ final class GameApiV2(
           case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
           case Format.JSON =>
             def addBerserk(color: chess.Color)(json: JsObject) =
-              if (pairing berserkOf color)
+              if pairing berserkOf color then
                 json deepMerge Json.obj(
                   "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
                 )
@@ -318,7 +318,7 @@ object GameApiV2:
   enum Format:
     case PGN, JSON
   object Format:
-    def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else PGN
+    def byRequest(req: play.api.mvc.RequestHeader) = if HTTPRequest acceptsNdJson req then JSON else PGN
 
   sealed trait Config:
     val format: Format

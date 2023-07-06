@@ -171,4 +171,4 @@ final class PerfsUpdater(
           classical = r(PT.Classical, perfs.classical, perfs1.classical),
           correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
         )
-        if (isStd) perfs2.updateStandard else perfs2
+        if isStd then perfs2.updateStandard else perfs2

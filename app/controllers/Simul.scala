@@ -143,7 +143,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   def withdraw(id: SimulId) = Auth { ctx ?=> me ?=>
     env.simul.api.removeApplicant(id, me) inject {
-      if (HTTPRequest isXhr ctx.req) jsonOkResult
+      if HTTPRequest isXhr ctx.req then jsonOkResult
       else Redirect(routes.Simul.show(id))
     }
   }

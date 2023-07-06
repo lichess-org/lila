@@ -16,7 +16,7 @@ final private[plan] class PlanNotifier(
 
   def onCharge(user: User) =
     Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, user.plan.months), "plan")
-    if (user.plan.months > 1) onRenew(user) else onStart(user)
+    if user.plan.months > 1 then onRenew(user) else onStart(user)
 
   private def onStart(user: User): Unit =
     system.scheduler.scheduleOnce(5 seconds) {

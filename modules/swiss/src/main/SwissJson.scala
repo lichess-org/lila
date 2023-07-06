@@ -42,14 +42,14 @@ final class SwissJson(
       socketVersion: Option[SocketVersion] = None,
       playerInfo: Option[SwissPlayer.ViewExt] = None
   )(using lang: Lang): Fu[JsObject] = {
-    for {
+    for
       myInfo <- me.so { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
       standing <- standingApi(swiss, page)
       podium   <- podiumJson(swiss)
       boards   <- boardApi(swiss.id)
       stats    <- statsApi(swiss)
-    } yield swissJsonBase(swiss) ++ Json
+    yield swissJsonBase(swiss) ++ Json
       .obj(
         "canJoin" -> {
           {
@@ -167,8 +167,8 @@ object SwissJson:
         "nbPlayers" -> swiss.nbPlayers,
         "nbOngoing" -> swiss.nbOngoing,
         "status" -> {
-          if (swiss.isStarted) "started"
-          else if (swiss.isFinished) "finished"
+          if swiss.isStarted then "started"
+          else if swiss.isFinished then "finished"
           else "created"
         }
       )
@@ -241,8 +241,8 @@ object SwissJson:
 
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
     val status =
-      if (pairing.isOngoing) "o"
-      else pairing.resultFor(player.userId).fold("d") { r => if (r) "w" else "l" }
+      if pairing.isOngoing then "o"
+      else pairing.resultFor(player.userId).fold("d") { r => if r then "w" else "l" }
     s"${pairing.gameId}$status"
 
   private def pairingJson(player: SwissPlayer, pairing: SwissPairing) =

@@ -17,13 +17,12 @@ object header:
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: PageContext) =
     frag(
       div(cls := "box__top user-show__header")(
-        if (u.isPatron)
-          h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
+        if u.isPatron then
+          h1(cls := s"user-link ${if isOnline(u.id) then "online" else "offline"}")(
             a(href := routes.Plan.index)(patronIcon),
             userSpan(u, withPowerTip = false, withOnline = false)
           )
-        else
-          h1(userSpan(u, withPowerTip = false)),
+        else h1(userSpan(u, withPowerTip = false)),
         div(
           cls := List(
             "trophies" -> true,
@@ -137,16 +136,15 @@ object header:
       !ctx.is(u) option noteZone(u, social.notes),
       isGranted(_.UserModView) option div(cls := "mod-zone mod-zone-full none"),
       standardFlash,
-      angle match {
+      angle match
         case UserInfo.Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
         case _ =>
           val profile   = u.profileOrDefault
           val hideTroll = u.marks.troll && !ctx.is(u)
           div(id := "us_profile")(
-            if (info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)))
+            if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
               div(cls := "rating-history")(spinner)
-            else
-              (ctx.is(u) && u.count.game < 10) option newPlayer(u),
+            else (ctx.is(u) && u.count.game < 10) option newPlayer(u),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
@@ -219,12 +217,12 @@ object header:
                 a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := licon.Target)(
                   span(
                     strong("Chess Insights"),
-                    em("Analytics from ", if (ctx.is(u)) "your" else s"${u.username}'s", " games")
+                    em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
                   )
                 )
             )
           )
-      },
+      ,
       info.ublog.so(_.latests).nonEmpty option div(cls := "user-show__blog ublog-post-cards")(
         info.ublog.so(_.latests) map { views.html.ublog.post.card(_, showAuthor = false) }
       ),
@@ -262,7 +260,7 @@ object header:
       form3.textarea(lila.user.UserForm.note("text"))(
         placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
       ),
-      if (isGranted(_.ModNote))
+      if isGranted(_.ModNote) then
         div(cls := "mod-note")(
           submitButton(cls := "button", name := "noteType", value := "mod")("Save Mod Note"),
           isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")(
@@ -287,7 +285,7 @@ object header:
           userIdLink(note.from.some),
           br,
           note.dox option "dox ",
-          if (isGranted(_.ModNote)) momentFromNowServer(note.date)
+          if isGranted(_.ModNote) then momentFromNowServer(note.date)
           else momentFromNow(note.date),
           (ctx.me.exists(note.isFrom) && !note.mod) option frag(
             br,

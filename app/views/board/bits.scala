@@ -12,7 +12,7 @@ object bits:
   private val dataState = attr("data-state")
 
   private def miniOrientation(pov: Pov): chess.Color =
-    if (pov.game.variant == chess.variant.RacingKings) chess.White else pov.player.color
+    if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color
 
   def mini(pov: Pov): Tag => Tag =
     mini(

@@ -292,7 +292,7 @@ object InsightDimension:
     )
 
   def valueKey[X](d: InsightDimension[X])(v: X): String =
-    (d match {
+    (d match
       case Date                    => v.toString
       case Period                  => v.days.toString
       case Perf                    => v.key
@@ -315,7 +315,7 @@ object InsightDimension:
       case ClockPercentRange       => v.bottom.toInt
       case Blur                    => v.id
       case TimeVariance            => v.id
-    }).toString
+    ).toString
 
   def valueJson[X](d: InsightDimension[X])(v: X)(using lang: Lang): JsValue =
     d match
@@ -375,11 +375,9 @@ object InsightDimension:
             $doc(
               "$or" -> many.map { range =>
                 val intRange = lila.insight.MaterialRange.toRange(range)
-                if (intRange._1 == intRange._2) $doc(d.dbKey -> intRange._1)
-                else if (range.negative)
-                  $doc(d.dbKey $gte intRange._1 $lt intRange._2)
-                else
-                  $doc(d.dbKey $gt intRange._1 $lte intRange._2)
+                if intRange._1 == intRange._2 then $doc(d.dbKey -> intRange._1)
+                else if range.negative then $doc(d.dbKey $gte intRange._1 $lt intRange._2)
+                else $doc(d.dbKey $gt intRange._1 $lte intRange._2)
               }
             )
       case InsightDimension.EvalRange =>
@@ -389,10 +387,8 @@ object InsightDimension:
             $doc(
               "$or" -> many.map { range =>
                 val intRange = lila.insight.EvalRange.toRange(range)
-                if (range.eval < 0)
-                  $doc(d.dbKey $gte intRange._1 $lt intRange._2)
-                else
-                  $doc(d.dbKey $gt intRange._1 $lte intRange._2)
+                if range.eval < 0 then $doc(d.dbKey $gte intRange._1 $lt intRange._2)
+                else $doc(d.dbKey $gt intRange._1 $lte intRange._2)
               }
             )
       case InsightDimension.WinPercentRange =>

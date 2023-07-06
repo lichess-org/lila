@@ -1,12 +1,12 @@
 package lila.game
 
 import chess.{ Centis, Clock, White }
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.db.ByteArray
 import lila.common.Maths
 
-class BinaryClockTest extends munit.FunSuite {
+class BinaryClockTest extends munit.FunSuite:
 
   val _0_                  = "00000000"
   val since                = nowInstant.minusHours(1)
@@ -88,4 +88,3 @@ class BinaryClockTest extends munit.FunSuite {
     val b3 = Clock(60, 2).goBerserk(White)
     assertEquals(readBytes(writeBytes(b3), true), b3)
   }
-}

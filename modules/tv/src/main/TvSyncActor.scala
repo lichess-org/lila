@@ -53,7 +53,7 @@ final private[tv] class TvSyncActor(
     case GetChampions(promise) => promise success Tv.Champions(channelChampions)
 
     case lila.game.actorApi.StartGame(g) =>
-      if (g.hasClock)
+      if g.hasClock then
         val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
         channelTroupers collect {
           case (chan, trouper) if chan filter candidate => trouper
@@ -88,7 +88,7 @@ final private[tv] class TvSyncActor(
         }
       )
       Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
-      if (channel == Tv.Channel.Best)
+      if channel == Tv.Channel.Best then
         actorAsk(renderer.actor, RenderFeaturedJs(game))(makeTimeout(100 millis)) foreach {
           case html: String =>
             val pov = Pov naturalOrientation game

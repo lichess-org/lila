@@ -73,7 +73,7 @@ final private class Rematcher(
     def createGame(withId: Option[GameId]) = for
       nextGame <- returnGame(pov, withId).map(_.start)
       _ = rematches.accept(pov.gameId, nextGame.id)
-      _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
+      _ = if pov.game.variant == Chess960 && !chess960.get(pov.gameId) then chess960.put(nextGame.id)
       _ <- gameRepo insertDenormalized nextGame
     yield
       messenger.volatile(pov.game, trans.rematchOfferAccepted.txt())
@@ -86,7 +86,7 @@ final private class Rematcher(
       case Some(Rematches.NextGame.Offered(_, id)) => createGame(id.some)
 
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
-    for {
+    for
       initialFen <- gameRepo initialFen pov.game
       situation = initialFen.flatMap(Fen.readWithMoveNumber(pov.game.variant, _))
       pieces = pov.game.variant match
@@ -123,7 +123,7 @@ final private class Rematcher(
         pgnImport = None
       )
       game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy withId id) }
-    } yield game
+    yield game
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User.WithPerf]): lila.game.Player =
     game.opponent(color).aiLevel match

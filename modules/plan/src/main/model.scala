@@ -53,12 +53,13 @@ object StripeAmount extends OpaqueInt[lila.plan.StripeAmount]:
   extension (e: StripeAmount)
     def toMoney(currency: Currency) =
       Money(
-        if (CurrencyApi zeroDecimalCurrencies currency) e
+        if CurrencyApi zeroDecimalCurrencies currency then e
         else BigDecimal(e) / 100,
         currency
       )
   def apply(money: Money): StripeAmount = StripeAmount {
-    if (CurrencyApi.zeroDecimalCurrencies(money.currency)) money.amount.toInt else (money.amount * 100).toInt
+    if CurrencyApi.zeroDecimalCurrencies(money.currency) then money.amount.toInt
+    else (money.amount * 100).toInt
   }
 
 case class StripeSubscriptions(data: List[StripeSubscription])
@@ -148,7 +149,7 @@ case class StripeCompletedSession(
     amount_total: StripeAmount,
     currency: Currency
 ):
-  def freq                   = if (mode == "subscription") Freq.Monthly else Freq.Onetime
+  def freq                   = if mode == "subscription" then Freq.Monthly else Freq.Onetime
   def money                  = amount_total toMoney currency
   def giftTo: Option[UserId] = UserId.from(metadata get "giftTo")
 
@@ -220,11 +221,11 @@ case class PayPalPlanId(value: String) extends AnyVal with StringValue
 case class PayPalPlan(id: PayPalPlanId, name: String, status: String, billing_cycles: JsArray):
   import JsonHandlers.payPal.given
   def active = status == "ACTIVE"
-  val currency = for {
+  val currency = for
     cycle   <- billing_cycles.value.headOption
     pricing <- cycle obj "pricing_scheme"
     price   <- pricing.get[PayPalAmount]("fixed_price")
-  } yield price.money.currency
+  yield price.money.currency
 case class PayPalTransactionId(value: String) extends AnyVal with StringValue
 case class PayPalCapture(
     id: PayPalTransactionId,

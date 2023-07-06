@@ -64,7 +64,7 @@ final class IrcApi(
   def commlog(user: User, reportBy: Option[UserId])(using mod: Me): Funit =
     zulip(_.mod.adminLog, "private comms checks"):
       val checkedOut =
-        val finalS = if (user.username.value endsWith "s") "" else "s"
+        val finalS = if user.username.value endsWith "s" then "" else "s"
         s"**${markdown modLink mod.username}** checked out **${markdown userLink user.username}**'$finalS communications "
       checkedOut + reportBy
         .filterNot(_ is mod)
@@ -78,7 +78,8 @@ final class IrcApi(
 
   def chatPanic(mod: Me, v: Boolean): Funit =
     val msg =
-      s":stop: ${markdown.modLink(mod.username)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
+      s":stop: ${markdown.modLink(mod.username)} ${if v then "enabled" else "disabled"} ${markdown
+          .lichessLink("/mod/chat-panic", " Chat Panic")}"
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
 
   def broadcastError(id: RelayRoundId, name: String, error: String): Funit =
@@ -157,7 +158,7 @@ final class IrcApi(
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
 
     private def userAt(username: UserName) =
-      if (username == UserName("Anonymous")) username
+      if username == UserName("Anonymous") then username
       else s"@$username"
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"

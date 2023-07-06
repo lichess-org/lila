@@ -76,9 +76,8 @@ final class JsonView(
               .dmap(some)
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi currentOwner tour }
-      teamsToJoinWith <- full.so(~(for {
-        u <- me; battle <- tour.teamBattle
-      } yield getMyTeamIds(u) map { teams =>
+      teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
+      yield getMyTeamIds(u) map { teams =>
         battle.teams.intersect(teams.toSet).toList
       }))
       teamStanding <- getTeamStanding(tour)
@@ -134,7 +133,7 @@ final class JsonView(
 
   def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
     js + ("reloadEndpoint" -> JsString({
-      if (useLilaHttp(tour)) reloadEndpointSetting.get() else reloadEndpointSetting.default
+      if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
     }.replace("{id}", tour.id.value)))
 
   def clearCache(tour: Tournament): Unit =
@@ -201,7 +200,7 @@ final class JsonView(
         )
 
   private def fetchCurrentGameId(tour: Tournament, user: User): Fu[Option[GameId]] =
-    if (Uptime.startedSinceSeconds(60)) fuccess(duelStore.find(tour, user))
+    if Uptime.startedSinceSeconds(60) then fuccess(duelStore.find(tour, user))
     else pairingRepo.playingByTourAndUserId(tour.id, user.id)
 
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
@@ -209,11 +208,11 @@ final class JsonView(
       proxyRepo game pairing.gameId flatMapz { game =>
         cached ranking tour flatMap { ranking =>
           playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2) map { pairOption =>
-            for {
+            for
               (p1, p2) <- pairOption
               rp1      <- RankedPlayer(ranking.ranking)(p1)
               rp2      <- RankedPlayer(ranking.ranking)(p2)
-            } yield FeaturedGame(game, rp1, rp2)
+            yield FeaturedGame(game, rp1, rp2)
           }
         }
       }

@@ -132,7 +132,7 @@ object User:
         if check(p.password) then
           user.totpSecret.fold[Result](Result.Success(user)) { tp =>
             p.token.fold[Result](Result.MissingTotpToken) { token =>
-              if (tp verify token) Result.Success(user) else Result.InvalidTotpToken
+              if tp verify token then Result.Success(user) else Result.InvalidTotpToken
             }
           }
         else if isBlanked then Result.BlankedPassword

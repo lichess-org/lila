@@ -59,14 +59,13 @@ final class ReportApi(
           .flatMap { prev =>
             val report = Report.make(scored, prev)
             lila.mon.mod.report.create(report.reason.key, scored.score.value.toInt).increment()
-            if (
-              report.isRecentComm &&
+            if report.isRecentComm &&
               report.score.value >= thresholds.discord() &&
               prev.exists(_.score.value < thresholds.discord())
-            ) ircApi.commReportBurst(c.suspect.user)
+            then ircApi.commReportBurst(c.suspect.user)
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate) >>- {
-                if (report.isCheat)
+                if report.isCheat then
                   Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
               }
           } >>-
@@ -223,7 +222,7 @@ final class ReportApi(
     yield open
 
   def reopenReports(suspect: Suspect): Funit =
-    for {
+    for
       all <- recent(suspect, 10)
       closed = all
         .filter(_.done.map(_.by) has User.lichessId.into(ModId))
@@ -236,7 +235,7 @@ final class ReportApi(
             multi = true
           )
           .void
-    } yield ()
+    yield ()
 
   // `seriousness` depends on the number of previous warnings, and number of games throwed away
   def autoBoostReport(winnerId: UserId, loserId: UserId, seriousness: Int): Funit =
@@ -244,7 +243,7 @@ final class ReportApi(
       userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
         case ((isSame, Some((winner, loser))), reporter) if !winner.lame && !loser.lame =>
           val loginsText =
-            if (isSame) "Found matching IP/print"
+            if isSame then "Found matching IP/print"
             else "No IP/print match found"
           create(
             Candidate(
@@ -281,7 +280,7 @@ final class ReportApi(
       maxScoreCache.invalidateUnit() >>-
       lila.mon.mod.report.close.increment().unit
 
-  def autoProcess(sus: Suspect, rooms: Set[Room])(using Me.Id): Funit = {
+  def autoProcess(sus: Suspect, rooms: Set[Room])(using Me.Id): Funit =
     val selector = $doc(
       "user" -> sus.user.id,
       "room" $in rooms,
@@ -290,7 +289,6 @@ final class ReportApi(
     doProcessReport(selector, unsetInquiry = true).void >>-
       maxScoreCache.invalidateUnit() >>-
       lila.mon.mod.report.close.increment().unit
-  }
 
   private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: Me.Id): Funit =
     coll.update
@@ -435,7 +433,7 @@ final class ReportApi(
       opens <- findBest(nb, selectOpenInRoom(room, snoozedIds))
       nbClosed = nb - opens.size
       closed <-
-        if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
+        if room.has(Room.Xfiles) || nbClosed < 1 then fuccess(Nil)
         else findRecent(nbClosed, closedSelect ++ roomSelect(room))
       withNotes <- addSuspectsAndNotes(opens ++ closed)
     yield withNotes
@@ -477,7 +475,7 @@ final class ReportApi(
               .sort(sortLastAtomAt)
               .cursor[Report](ReadPref.sec)
               .list(20) flatMap { reports =>
-              if (reports.sizeIs < 4) fuccess(none) // not enough data to know
+              if reports.sizeIs < 4 then fuccess(none) // not enough data to know
               else
                 val userIds = reports.map(_.user).distinct
                 userRepo countEngines userIds map { nbEngines =>
@@ -563,7 +561,7 @@ final class ReportApi(
         id: String | Either[Report.Id, UserId]
     )(using mod: Me): Fu[(Option[Report], Option[Report])] =
       def findByUser(userId: UserId) = coll.one[Report]($doc("user" -> userId, "inquiry.mod" $exists true))
-      for {
+      for
         report <- id match
           case Left(reportId) => coll.byId[Report](reportId)
           case Right(userId)  => findByUser(userId)
@@ -579,7 +577,7 @@ final class ReportApi(
                 Report.Inquiry(mod.userId, nowInstant)
               )
               .void
-      } yield (current, report.filter(_.inquiry.isEmpty))
+      yield (current, report.filter(_.inquiry.isEmpty))
 
     def toggleNext(room: Room)(using Me): Fu[Option[Report]] =
       workQueue:

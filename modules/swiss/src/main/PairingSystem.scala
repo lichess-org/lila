@@ -21,8 +21,8 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
   private def invoke(swiss: Swiss, input: Source[String, ?]): Fu[List[String]] =
     withTempFile(swiss, input) { file =>
       val flavour =
-        if (swiss.nbPlayers < 250) "dutch"
-        else if (swiss.nbPlayers < 700) "burstein"
+        if swiss.nbPlayers < 250 then "dutch"
+        else if swiss.nbPlayers < 700 then "burstein"
         else "fast"
       val command = s"$executable --$flavour $file -p"
       val stdout  = new collection.mutable.ListBuffer[String]
@@ -32,9 +32,9 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
           command ! ProcessLogger(stdout append _, stderr append _ unit)
         }
       }
-      if (status != 0)
+      if status != 0 then
         val error = stderr.toString
-        if (error contains "No valid pairing exists") Nil
+        if error contains "No valid pairing exists" then Nil
         else throw PairingSystem.BBPairingException(error, swiss)
       else stdout.toList
     }
@@ -49,10 +49,10 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
             Left(SwissPairing.Bye(userId))
           }
         case Array(w, b) =>
-          for {
+          for
             white <- w.toIntOption flatMap idsToPlayers.get
             black <- b.toIntOption flatMap idsToPlayers.get
-          } yield Right(SwissPairing.Pending(white, black))
+          yield Right(SwissPairing.Pending(white, black))
       }
       .flatten
 

@@ -37,7 +37,7 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     def anyVisible = a.boost || a.engine
 
     def set(sel: UserMark.type => UserMark, v: Boolean) = UserMarks {
-      if (v) sel(UserMark) :: a.value
+      if v then sel(UserMark) :: a.value
       else a.value.filter(sel(UserMark) !=)
     }
 

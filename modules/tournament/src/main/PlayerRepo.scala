@@ -100,7 +100,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
         .sorted.mapWithIndex: (rt, pos) =>
           rt.updateRank(pos + 1)
       } map { ranked =>
-      if (ranked.sizeIs == battle.teams.size) ranked
+      if ranked.sizeIs == battle.teams.size then ranked
       else
         ranked ::: battle.teams
           .foldLeft(List.empty[RankedTeam]) {
@@ -258,7 +258,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
             val playerIndex = new Array[TourPlayerId](all.size)
             val ranking     = Map.newBuilder[UserId, Rank]
             var r           = 0
-            for (u <- all.values)
+            for u <- all.values do
               val both   = u.asInstanceOf[BSONString].value
               val userId = UserId(both.drop(8))
               playerIndex(r) = TourPlayerId(both.take(8))

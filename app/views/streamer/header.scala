@@ -13,7 +13,9 @@ object header:
       div(cls := "overview")(
         bits.streamerTitle(s),
         s.streamer.headline.map(_.value).map { d =>
-          p(cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}")(
+          p(cls := s"headline ${
+              if d.length < 60 then "small" else if d.length < 120 then "medium" else "large"
+            }")(
             d
           )
         },

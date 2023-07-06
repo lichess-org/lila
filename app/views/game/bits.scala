@@ -55,7 +55,7 @@ object bits:
           case v => routes.ContentPage.variant(v.key).url
         ,
         title = variant.title,
-        name = (if (shortName && variant == chess.variant.KingOfTheHill) variant.shortName
+        name = (if shortName && variant == chess.variant.KingOfTheHill then variant.shortName
                 else variant.name).toUpperCase
       )
     else if perfType == Correspondence then

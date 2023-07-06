@@ -28,11 +28,11 @@ object mine:
     ) {
       val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
       main(cls := s"page-small challenge-page box box-pad challenge--${c.status.name}")(
-        c.status match {
+        c.status match
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
               h1(cls := "box__top")(
-                if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()
+                if c.isOpen then c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()
               ),
               bits.details(c, color),
               c.destUserId.map { destId =>
@@ -42,7 +42,7 @@ object mine:
                   p(trans.waitingForOpponent())
                 )
               } getOrElse {
-                if (c.isOpen)
+                if c.isOpen then
                   div(cls := "waiting")(
                     spinner,
                     p(trans.waitingForOpponent())
@@ -119,6 +119,5 @@ object mine:
               bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
-        }
       )
     }

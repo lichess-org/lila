@@ -105,7 +105,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
                 BadRequest.page(html.streamer.edit(sws, error, forMod)),
             data =>
               api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
-                if (change.decline) logApi.streamerDecline(s.user.id)
+                if change.decline then logApi.streamerDecline(s.user.id)
                 change.list foreach { logApi.streamerList(s.user.id, _) }
                 change.tier foreach { logApi.streamerTier(s.user.id, _) }
                 if data.approval.flatMap(_.quick).isDefined
@@ -115,7 +115,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
                       nextId.fold(s"${routes.Streamer.index()}?requests=1"): id =>
                         s"${routes.Streamer.edit.url}?u=$id"
                 else
-                  val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
+                  val next = if sws.streamer is me then "" else s"?u=${sws.user.id}"
                   Redirect(s"${routes.Streamer.edit.url}$next")
               }
           )

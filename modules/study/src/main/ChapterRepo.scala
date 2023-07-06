@@ -10,7 +10,7 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.tree.{ Branch, Branches }
 
-import Node.{ BsonFields => F }
+import Node.{ BsonFields as F }
 
 final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materializer):
 

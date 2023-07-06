@@ -83,7 +83,7 @@ final class ChallengeApi(
   def createdByChallengerId = repo.createdByChallengerId()
 
   def createdByDestId(userId: UserId, max: Int = 50) = countInFor get userId flatMap { nb =>
-    if (nb > 5) repo.createdByPopularDestId(max)(userId)
+    if nb > 5 then repo.createdByPopularDestId(max)(userId)
     else repo.createdByDestId()(userId)
   }
 
@@ -212,4 +212,4 @@ final class ChallengeApi(
 
   // work around circular dependency
   private var socket: Option[ChallengeSocket]               = None
-  private[challenge] def registerSocket(s: ChallengeSocket) = { socket = s.some }
+  private[challenge] def registerSocket(s: ChallengeSocket) = socket = s.some

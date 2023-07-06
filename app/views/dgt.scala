@@ -90,7 +90,7 @@ object dgt:
         form(action := routes.DgtCtrl.generateToken, method := "post")(
           st.section(
             h2("Lichess connectivity"),
-            if (token.isDefined)
+            if token.isDefined then
               p(cls := "text", dataIcon := licon.Checkmark)(
                 "You have an OAuth token suitable for DGT play.",
                 br,

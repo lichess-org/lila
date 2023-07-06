@@ -36,7 +36,7 @@ final private class PushApi(
       case _ => funit
 
   def finish(game: Game): Funit =
-    if (!game.isCorrespondence || game.hasAi) funit
+    if !game.isCorrespondence || game.hasAi then funit
     else
       game.userIds
         .map { userId =>
@@ -49,11 +49,11 @@ final private class PushApi(
                     _.finish,
                     NotificationPref.GameEvent,
                     PushApi.Data(
-                      title = pov.win match {
+                      title = pov.win match
                         case Some(true)  => "You won!"
                         case Some(false) => "You lost."
                         case _           => "It's a draw."
-                      },
+                      ,
                       body = s"Your game with $opponent is over.",
                       stacking = Stacking.GameFinish,
                       urgency = Urgency.VeryLow,
@@ -316,7 +316,7 @@ final private class PushApi(
                   "type"     -> "tourSoon",
                   "tourId"   -> tour.tourId,
                   "tourName" -> tour.tourName,
-                  "path"     -> s"/${if (tour.swiss) "swiss" else "tournament"}/${tour.tourId}"
+                  "path"     -> s"/${if tour.swiss then "swiss" else "tournament"}/${tour.tourId}"
                 )
               )
           )
@@ -396,11 +396,11 @@ final private class PushApi(
     import lila.challenge.Challenge.TimeControl.*
     List(
       if c.mode.rated then "Rated" else "Casual",
-      c.timeControl match {
+      c.timeControl match
         case Unlimited         => "Unlimited"
         case Correspondence(d) => s"$d days"
         case c: Clock          => c.show
-      },
+      ,
       c.variant.name
     ) mkString " • "
 

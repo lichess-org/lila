@@ -31,7 +31,7 @@ object invite:
         invite.accepted.fold(true)(false.==) option
           postForm(cls := "form3", action := clasRoutes.invitationAccept(invite._id.value))(
             form3.actions(
-              if (!invite.accepted.has(false))
+              if !invite.accepted.has(false) then
                 form3.submit(
                   trans.decline(),
                   nameValue = ("v" -> false.toString).some,

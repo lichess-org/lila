@@ -72,14 +72,13 @@ final class RacerApi(
   def makePlayer(id: RacerPlayer.Id) =
     RacerPlayer.make(id, RacerPlayer.Id.userIdOf(id).map(lightUser))
 
-  def join(id: RacerRace.Id, playerId: RacerPlayer.Id): Option[RacerRace] = {
+  def join(id: RacerRace.Id, playerId: RacerPlayer.Id): Option[RacerRace] =
     val player = makePlayer(playerId)
     get(id).flatMap(_ join player) map { r =>
       val race = (r.isLobby so doStart(r)) | r
       saveAndPublish(race)
       race
     }
-  }
 
   private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby so {
     doStart(race) foreach saveAndPublish
@@ -107,7 +106,7 @@ final class RacerApi(
     }
 
   def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit =
-    if (score > 160) logger.warn(s"$id $player score: $score")
+    if score > 160 then logger.warn(s"$id $player score: $score")
     else get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
 
   private def save(race: RacerRace): Unit =
@@ -121,4 +120,4 @@ final class RacerApi(
 
   // work around circular dependency
   private var socket: Option[RacerSocket]           = None
-  private[racer] def registerSocket(s: RacerSocket) = { socket = s.some }
+  private[racer] def registerSocket(s: RacerSocket) = socket = s.some

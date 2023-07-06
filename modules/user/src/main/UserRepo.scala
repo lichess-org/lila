@@ -44,10 +44,9 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
     User.noGhost(u.id) so coll.one[User](enabledSelect ++ $id(u))
 
-  def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] = {
+  def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(User.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), _.priTemp)
-  }
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
     if User isGhost id
@@ -164,8 +163,8 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
         _.fold(ThreadLocalRandom.nextBoolean()): doc =>
           doc.string("_id") contains u1
       .addEffect: v =>
-        incColor(u1, if (v) 1 else -1)
-        incColor(u2, if (v) -1 else 1)
+        incColor(u1, if v then 1 else -1)
+        incColor(u2, if v then -1 else 1)
 
   def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean] =
     (u1O, u2O).mapN(firstGetsWhite) | fuccess(ThreadLocalRandom.nextBoolean())
@@ -175,7 +174,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       .update(ordered = false, WriteConcern.Unacknowledged)
       .one(
         // limit to -3 <= colorIt <= 5 but set when undefined
-        $id(userId) ++ $doc(F.colorIt -> $not(if (value < 0) $lte(-3) else $gte(5))),
+        $id(userId) ++ $doc(F.colorIt -> $not(if value < 0 then $lte(-3) else $gte(5))),
         $inc(F.colorIt -> value)
       )
       .unit
@@ -188,12 +187,12 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
     coll.updateField($id(id), F.profile, profile).void
 
   def setUsernameCased(id: UserId, name: UserName): Funit =
-    if (id is name)
+    if id is name then
       coll.update.one(
         $id(id) ++ (F.changedCase $exists false),
         $set(F.username -> name, F.changedCase -> true)
       ) flatMap { result =>
-        if (result.n == 0) fufail(s"You have already changed your username")
+        if result.n == 0 then fufail(s"You have already changed your username")
         else funit
       }
     else fufail(s"Proposed username $name does not match old username $id")
@@ -210,7 +209,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   val enabledSelect  = $doc(F.enabled -> true)
   val disabledSelect = $doc(F.enabled -> false)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
-    if (v) $doc(F.marks -> mark.key)
+    if v then $doc(F.marks -> mark.key)
     else F.marks $ne mark.key
   def engineSelect       = markSelect(UserMark.Engine)
   def trollSelect        = markSelect(UserMark.Troll)
@@ -236,12 +235,12 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       "count.game".some,
       rated option "count.rated",
       ai option "count.ai",
-      (result match {
+      (result match
         case -1 => "count.loss".some
         case 1  => "count.win".some
         case 0  => "count.draw".some
         case _  => none
-      }),
+      ),
       (result match {
         case -1 => "count.lossH".some
         case 1  => "count.winH".some
@@ -360,7 +359,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       .one(
         $id(user.id),
         $set(F.enabled -> false) ++ $unset(F.roles) ++ {
-          if (keepEmail) $unset(F.mustConfirmEmail)
+          if keepEmail then $unset(F.mustConfirmEmail)
           else $doc("$rename" -> $doc(F.email -> F.prevEmail))
         }
       )

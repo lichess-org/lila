@@ -125,13 +125,13 @@ final class AssessApi(
       def consistentMoveTimes(game: Game)(player: Player) =
         Statistics.moderatelyConsistentMoveTimes(Pov(game, player))
       val shouldAssess =
-        if (!game.source.exists(assessableSources.contains)) false
-        else if (game.mode.casual) false
-        else if (Player.HoldAlert suspicious holdAlerts) true
-        else if (game.isCorrespondence) false
-        else if (game.playedTurns < PlayerAssessment.minPlies) false
-        else if (game.players exists consistentMoveTimes(game)) true
-        else if (game.createdAt isBefore bottomDate) false
+        if !game.source.exists(assessableSources.contains) then false
+        else if game.mode.casual then false
+        else if Player.HoldAlert suspicious holdAlerts then true
+        else if game.isCorrespondence then false
+        else if game.playedTurns < PlayerAssessment.minPlies then false
+        else if game.players exists consistentMoveTimes(game) then true
+        else if game.createdAt isBefore bottomDate then false
         else true
       shouldAssess.so {
         createPlayerAssessment(PlayerAssessment.make(game pov White, analysis, holdAlerts.white)) >>
@@ -204,39 +204,39 @@ final class AssessApi(
     yield wR <= lR - 300)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
-      if (!game.analysable) fuccess(none)
-      else if (game.speed >= chess.Speed.Blitz && (white.hasTitle || black.hasTitle))
+      if !game.analysable then fuccess(none)
+      else if game.speed >= chess.Speed.Blitz && (white.hasTitle || black.hasTitle) then
         fuccess(TitledPlayer.some)
-      else if (!game.source.exists(assessableSources.contains)) fuccess(none)
+      else if !game.source.exists(assessableSources.contains) then fuccess(none)
       // give up on correspondence games
-      else if (game.isCorrespondence) fuccess(none)
+      else if game.isCorrespondence then fuccess(none)
       // stop here for short games
-      else if (game.playedTurns < PlayerAssessment.minPlies) fuccess(none)
+      else if game.playedTurns < PlayerAssessment.minPlies then fuccess(none)
       // stop here for long games
-      else if (game.playedTurns > 95) fuccess(none)
+      else if game.playedTurns > 95 then fuccess(none)
       // stop here for casual games
-      else if (!game.mode.rated) fuccess(none)
+      else if !game.mode.rated then fuccess(none)
       // discard old games
-      else if (game.createdAt isBefore bottomDate) fuccess(none)
-      else if (isUpset) fuccess(Upset.some)
+      else if game.createdAt isBefore bottomDate then fuccess(none)
+      else if isUpset then fuccess(Upset.some)
       // white has consistent move times
-      else if (whiteSuspCoefVariation.isDefined) fuccess(WhiteMoveTime.some)
+      else if whiteSuspCoefVariation.isDefined then fuccess(WhiteMoveTime.some)
       // black has consistent move times
-      else if (blackSuspCoefVariation.isDefined) fuccess(BlackMoveTime.some)
+      else if blackSuspCoefVariation.isDefined then fuccess(BlackMoveTime.some)
       else
         // someone is using a bot
         gameRepo.holdAlert game game map { holdAlerts =>
-          if (Player.HoldAlert suspicious holdAlerts) HoldAlert.some
+          if Player.HoldAlert suspicious holdAlerts then HoldAlert.some
           // don't analyse most of other bullet games
-          else if (game.speed == chess.Speed.Bullet && randomPercent(70)) none
+          else if game.speed == chess.Speed.Bullet && randomPercent(70) then none
           // someone blurs a lot
-          else if (game.players exists manyBlurs) Blurs.some
+          else if game.players exists manyBlurs then Blurs.some
           // the winner shows a great rating progress
-          else if (game.players exists winnerGreatProgress) WinnerRatingProgress.some
+          else if game.players exists winnerGreatProgress then WinnerRatingProgress.some
           // analyse some tourney games
           // else if (game.isTournament) randomPercent(20) option "Tourney random"
           /// analyse new player games
-          else if (winnerNbGames.so(40 >) && randomPercent(75)) NewPlayerWin.some
+          else if winnerNbGames.so(40 >) && randomPercent(75) then NewPlayerWin.some
           else none
         }
 

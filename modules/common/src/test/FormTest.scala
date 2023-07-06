@@ -1,14 +1,14 @@
 package lila.common
 
-import play.api.data._
-import play.api.data.format._
-import play.api.data.format.Formats._
-import play.api.data.Forms._
-import play.api.data.validation._
+import play.api.data.*
+import play.api.data.format.*
+import play.api.data.format.Formats.*
+import play.api.data.Forms.*
+import play.api.data.validation.*
 
-import lila.common.Form._
+import lila.common.Form.*
 
-class FormTest extends munit.FunSuite {
+class FormTest extends munit.FunSuite:
 
   val date = java.time.LocalDateTime.of(2023, 4, 12, 11, 1, 15, 337_000_000)
   test("format iso datetime") {
@@ -157,5 +157,3 @@ class FormTest extends munit.FunSuite {
     assertEquals(single("t" -> cleanTextWithSymbols).bind(Map("t" -> half.toString)), Right(half.toString))
     assertEquals(single("t" -> cleanText).bind(Map("t" -> half.toString)), Right(half.toString))
   }
-
-}

@@ -23,7 +23,7 @@ object Blurs extends OpaqueLong[Blurs]:
     def nb = java.lang.Long.bitCount(bits)
 
     def add(moveIndex: Int): Blurs =
-      if (moveIndex < 0 || moveIndex > 63) bits
+      if moveIndex < 0 || moveIndex > 63 then bits
       else Blurs(bits | (1L << moveIndex))
 
     def asInt = ((bits >>> 32) == 0) option bits.toInt

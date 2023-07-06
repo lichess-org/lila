@@ -17,9 +17,9 @@ final private class Aes(secret: Secret):
   private val sKey =
     val sk    = Base64.getDecoder.decode(secret.value)
     val kBits = sk.length * 8
-    if (kBits != 128)
-      if (!(kBits == 192 || kBits == 256)) throw new IllegalArgumentException
-      if (kBits > Cipher.getMaxAllowedKeyLength("AES/CTS/NoPadding"))
+    if kBits != 128 then
+      if !(kBits == 192 || kBits == 256) then throw new IllegalArgumentException
+      if kBits > Cipher.getMaxAllowedKeyLength("AES/CTS/NoPadding") then
         throw new IllegalStateException(s"$kBits bit AES unavailable")
     new SecretKeySpec(sk, "AES")
 

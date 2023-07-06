@@ -11,7 +11,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)
       .flatMap: user =>
         val w = base(user) + {
           // more trust when vote != win
-          if (vote == round.win.value) -2 else 2
+          if vote == round.win.value then -2 else 2
         }
         // distrust provisional ratings and distant ratings
         (w > 0)
@@ -63,10 +63,10 @@ final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)
   private def patronBonus(user: User) = (~user.planMonths * 5) atMost 15
 
   private def modBonus(user: User) =
-    if (user.roles.exists(_ contains "ROLE_PUZZLE_CURATOR")) 100
-    else if (user.isAdmin) 50
-    else if (user.isVerified) 30
+    if user.roles.exists(_ contains "ROLE_PUZZLE_CURATOR") then 100
+    else if user.isAdmin then 50
+    else if user.isVerified then 30
     else 0
 
   private def lameBonus(user: User) =
-    if (user.lameOrTroll) -30 else 0
+    if user.lameOrTroll then -30 else 0

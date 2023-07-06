@@ -60,8 +60,8 @@ final class Report(
   }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
-    if (inquiry.isRecentComm) Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
-    else if (inquiry.isComm) Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
+    if inquiry.isRecentComm then Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
+    else if inquiry.isComm then Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
   protected[controllers] def onModAction(goTo: Suspect)(using ctx: BodyContext[?], me: Me): Fu[Result] =
@@ -131,7 +131,7 @@ final class Report(
 
   def form = Auth { _ ?=> _ ?=>
     getUserStr("username") so env.user.repo.byId flatMap { user =>
-      if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact)
+      if user.map(_.id) has UserModel.lichessId then Redirect(controllers.routes.Main.contact)
       else
         Ok.pageAsync:
           val form = env.report.forms.create

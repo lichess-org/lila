@@ -22,7 +22,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   def tick(): Unit = {
     val now = LocalTime.now
-    if (now.isAfter(runAfter) && now.isBefore(runBefore)) run()
+    if now.isAfter(runAfter) && now.isBefore(runBefore) then run()
   }.unit
 
   private def run() =

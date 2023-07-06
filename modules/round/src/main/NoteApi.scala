@@ -14,7 +14,7 @@ final class NoteApi(coll: Coll)(using Executor):
     coll.primitiveOne[String]($id(makeId(gameId, userId)), noteField) dmap (~_)
 
   def set(gameId: GameId, userId: UserId, text: String) = {
-    if (text.isEmpty) coll.delete.one($id(makeId(gameId, userId)))
+    if text.isEmpty then coll.delete.one($id(makeId(gameId, userId)))
     else
       coll.update.one(
         $id(makeId(gameId, userId)),

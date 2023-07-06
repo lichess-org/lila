@@ -27,12 +27,12 @@ final private class MsgSecurity(
     val verified = 5
     val hog      = 1
     def apply(u: User.Contact): Int =
-      if (u.isApiHog) hog
-      else if (u.isVerified) verified
-      else if (u isDaysOld 30) normal
-      else if (u isDaysOld 7) normal * 2
-      else if (u isDaysOld 3) normal * 3
-      else if (u isHoursOld 12) normal * 4
+      if u.isApiHog then hog
+      else if u.isVerified then verified
+      else if u isDaysOld 30 then normal
+      else if u isDaysOld 7 then normal * 2
+      else if u isDaysOld 3 then normal * 3
+      else if u isHoursOld 12 then normal * 4
       else normal * 5
 
   private val CreateLimitPerUser = RateLimit[UserId](
@@ -159,7 +159,7 @@ final private class MsgSecurity(
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       import contacts.*
-      if (!isNew || !hasKid) fuTrue
+      if !isNew || !hasKid then fuTrue
       else
         (orig.isKid, dest.isKid) match
           case (true, true)  => Bus.ask[Boolean]("clas") { AreKidsInSameClass(orig.id, dest.id, _) }

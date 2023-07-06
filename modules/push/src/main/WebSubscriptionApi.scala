@@ -40,7 +40,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
   private[push] def getSubscriptions(userIds: Iterable[UserId], maxPerUser: Int): Fu[List[WebSubscription]] =
     coll
       .aggregateList(100_000, _.sec): framework =>
-        import framework._
+        import framework.*
         Match($doc("userId" $in userIds)) -> List(
           Sort(Descending("seenAt")),
           GroupField("userId")("subs" -> Push(BSONString("$$ROOT"))),

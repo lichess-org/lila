@@ -13,7 +13,7 @@ object index:
   ) =
 
     val tagString =
-      s"${if (control.filter.tags.nonEmpty) control.filter.tags.mkString(" + ") + " • " else ""}"
+      s"${if control.filter.tags.nonEmpty then control.filter.tags.mkString(" + ") + " • " else ""}"
 
     layout(
       title = s"${tagString}Free Chess Videos",
@@ -21,7 +21,7 @@ object index:
         .OpenGraph(
           title = s"${tagString}free, carefully curated chess videos",
           description = s"${videos.nbResults} curated chess videos${
-              if (tagString.nonEmpty) " matching the tags " + tagString
+              if tagString.nonEmpty then " matching the tags " + tagString
               else " • "
             }free for all",
           url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
@@ -31,7 +31,7 @@ object index:
     )(
       boxTop(
         h1(
-          if (control.filter.tags.nonEmpty) frag(pluralize("video", videos.nbResults), " found")
+          if control.filter.tags.nonEmpty then frag(pluralize("video", videos.nbResults), " found")
           else "Chess videos"
         ),
         bits.searchForm(control.query)
@@ -48,7 +48,7 @@ object index:
       div(cls := "list box__pad infinite-scroll")(
         videos.currentPageResults.map { bits.card(_, control) },
         videos.currentPageResults.sizeIs < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
-          if (videos.currentPageResults.isEmpty) "No videos for these tags:"
+          if videos.currentPageResults.isEmpty then "No videos for these tags:"
           else "That's all we got for these tags:",
           control.filter.tags.map { tag =>
             a(cls := "tag", dataIcon := licon.Tag, href := s"${routes.Video.index}?tags=$tag")(tag.capitalize)

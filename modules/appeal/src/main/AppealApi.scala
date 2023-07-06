@@ -79,7 +79,7 @@ final class AppealApi(
       .aggregateList(maxDocs = nb, _.sec): framework =>
         import framework.*
         Match(selector) -> List(
-          Sort((if (ascending) Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
+          Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
           Limit(nb),
           PipelineOperator(
             $lookup.simple(

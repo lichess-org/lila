@@ -169,7 +169,7 @@ final class ActivityReadApi(
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at))
+    if !found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at) then
       views :+ ActivityView(
         interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true

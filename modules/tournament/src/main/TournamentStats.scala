@@ -24,10 +24,10 @@ final class TournamentStatsApi(
   }
 
   private def fetch(tournamentId: TourId): Fu[TournamentStats] =
-    for {
+    for
       rating   <- playerRepo.averageRating(tournamentId)
       rawStats <- pairingRepo.rawStats(tournamentId)
-    } yield TournamentStats.readAggregation(rating)(rawStats)
+    yield TournamentStats.readAggregation(rating)(rawStats)
 
 case class TournamentStats(
     games: Int,

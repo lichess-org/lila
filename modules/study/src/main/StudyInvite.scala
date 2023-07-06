@@ -45,13 +45,13 @@ final private class StudyInvite(
     _         <- relation.has(Block) so fufail[Unit]("This user does not want to join")
     isPresent <- getIsPresent(invited.id)
     _ <-
-      if (isPresent || Granter(_.StudyAdmin)) funit
+      if isPresent || Granter(_.StudyAdmin) then funit
       else
         prefApi.get(invited).map(_.studyInvite).flatMap {
           case Pref.StudyInvite.ALWAYS => funit
           case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
           case Pref.StudyInvite.FRIEND =>
-            if (relation.has(Follow)) funit
+            if relation.has(Follow) then funit
             else fufail("This user only accept study invitations from friends")
         }
     _ <- studyRepo.addMember(study, StudyMember make invited)

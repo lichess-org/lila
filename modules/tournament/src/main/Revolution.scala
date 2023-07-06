@@ -33,12 +33,12 @@ final class RevolutionApi(
           .cursor[Bdoc](ReadPref.sec)
           .list(300) map { docOpt =>
           val awards =
-            for {
+            for
               doc     <- docOpt
               winner  <- doc.getAsOpt[UserId]("winner")
               variant <- doc.getAsOpt[Variant.Id]("variant") map Variant.orDefault
               id      <- doc.getAsOpt[TourId]("_id")
-            } yield Award(
+            yield Award(
               owner = winner,
               variant = variant,
               tourId = id

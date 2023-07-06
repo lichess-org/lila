@@ -4,7 +4,8 @@ import lila.app.{ given, * }
 import lila.game.{ AnonCookie, Game as GameModel, Pov }
 import play.api.mvc.*
 
-private[controllers] trait TheftPrevention { self: LilaController =>
+private[controllers] trait TheftPrevention:
+  self: LilaController =>
 
   protected def PreventTheft(pov: Pov)(ok: => Fu[Result])(using Context): Fu[Result] =
     if isTheft(pov) then Redirect(routes.Round.watcher(pov.gameId, pov.color.name))
@@ -38,4 +39,3 @@ private[controllers] trait TheftPrevention { self: LilaController =>
   protected lazy val theftResponse = Unauthorized(
     jsonError("This game requires authentication")
   ) as JSON
-}

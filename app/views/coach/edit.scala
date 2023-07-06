@@ -40,7 +40,7 @@ object edit:
       div(cls := "account coach-edit box")(
         div(cls := "top")(
           div(cls := "picture_wrap")(
-            if (c.coach.hasPicture)
+            if c.coach.hasPicture then
               a(
                 cls   := "upload_picture",
                 href  := routes.Coach.picture,

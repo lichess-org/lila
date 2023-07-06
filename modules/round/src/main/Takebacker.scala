@@ -23,10 +23,9 @@ final private class Takebacker(
       pov match
         case Pov(game, color) if pov.opponent.isProposingTakeback =>
           {
-            if (
-              pov.opponent.proposeTakebackAt == pov.game.ply &&
+            if pov.opponent.proposeTakebackAt == pov.game.ply &&
               color == pov.opponent.proposeTakebackAt.turn
-            ) single(game)
+            then single(game)
             else double(game)
           } >>- publishTakeback(pov) dmap (_ -> situation.reset)
         case Pov(game, _) if pov.game.playableByAi =>
@@ -70,7 +69,7 @@ final private class Takebacker(
     game.canTakebackOrAddTime so isAllowedByPrefs(game)
 
   private def isAllowedByPrefs(game: Game): Fu[Boolean] =
-    if (game.hasAi) fuTrue
+    if game.hasAi then fuTrue
     else
       game.userIds.map {
         prefApi.get(_, (p: Pref) => p.takeback)
@@ -81,8 +80,8 @@ final private class Takebacker(
       }
 
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
-    if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))
-    else if (!game.canTakebackOrAddTime) fufail(ClientError("[takebacker] game disallows it " + game.id))
+    if !game.playable then fufail(ClientError("[takebacker] game is over " + game.id))
+    else if !game.canTakebackOrAddTime then fufail(ClientError("[takebacker] game disallows it " + game.id))
     else
       isAllowedByPrefs(game) flatMap {
         if _ then f
@@ -90,15 +89,15 @@ final private class Takebacker(
       }
 
   private def single(game: Game)(using GameProxy): Fu[Events] =
-    for {
+    for
       fen      <- gameRepo initialFen game
       progress <- Rewind(game, fen).toFuture
       _        <- fuccess { uciMemo.drop(game, 1) }
       events   <- saveAndNotify(progress)
-    } yield events
+    yield events
 
   private def double(game: Game)(using GameProxy): Fu[Events] =
-    for {
+    for
       fen   <- gameRepo initialFen game
       prog1 <- Rewind(game, fen).toFuture
       prog2 <- Rewind(prog1.game, fen).toFuture dmap { progress =>
@@ -106,7 +105,7 @@ final private class Takebacker(
       }
       _      <- fuccess { uciMemo.drop(game, 2) }
       events <- saveAndNotify(prog2)
-    } yield events
+    yield events
 
   private def saveAndNotify(p1: Progress)(using proxy: GameProxy): Fu[Events] =
     val p2 = p1 + Event.Reload
@@ -114,14 +113,14 @@ final private class Takebacker(
     proxy.save(p2) inject p2.events
 
   private def publishTakebackOffer(game: Game): Unit =
-    if (lila.game.Game.isBoardOrBotCompatible(game))
+    if lila.game.Game.isBoardOrBotCompatible(game) then
       Bus.publish(
         lila.game.actorApi.BoardTakebackOffer(game),
         lila.game.actorApi.BoardTakebackOffer makeChan game.id
       )
 
   private def publishTakeback(prevPov: Pov)(using proxy: GameProxy): Unit =
-    if (lila.game.Game.isBoardOrBotCompatible(prevPov.game))
+    if lila.game.Game.isBoardOrBotCompatible(prevPov.game) then
       proxy
         .withPov(prevPov.color) { p =>
           fuccess(

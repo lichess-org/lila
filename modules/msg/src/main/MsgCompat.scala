@@ -70,8 +70,8 @@ final class MsgCompat(
       "name" -> c.contact.name,
       "posts" -> c.msgs.reverse.map: msg =>
         Json.obj(
-          "sender"    -> renderUser(if (msg.user == c.contact.id) c.contact else me.light),
-          "receiver"  -> renderUser(if (msg.user != c.contact.id) c.contact else me.light),
+          "sender"    -> renderUser(if msg.user == c.contact.id then c.contact else me.light),
+          "receiver"  -> renderUser(if msg.user != c.contact.id then c.contact else me.light),
           "text"      -> msg.text,
           "createdAt" -> msg.date
         )

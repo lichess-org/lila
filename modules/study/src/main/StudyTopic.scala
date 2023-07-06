@@ -77,7 +77,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   def userTopics(user: User, json: String): Funit =
     val topics =
-      if (json.trim.isEmpty) StudyTopics.empty
+      if json.trim.isEmpty then StudyTopics.empty
       else
         Json.parse(json).validate[List[TagifyTopic]] match
           case JsSuccess(topics, _) => StudyTopics.fromStrs(topics.map(_.value), StudyTopics.userMax)

@@ -1,9 +1,9 @@
 package lila.evaluation
 
 import chess.Centis
-import Statistics._
+import Statistics.*
 
-class StatisticsTest extends munit.FunSuite {
+class StatisticsTest extends munit.FunSuite:
   test("be highly consistent (1)") {
     assert(
       cvIndicatesHighlyFlatTimes(
@@ -93,4 +93,3 @@ class StatisticsTest extends munit.FunSuite {
       )
     )
   }
-}

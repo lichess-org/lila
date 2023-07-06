@@ -14,7 +14,7 @@ case class SimpleOpening(ref: Opening, name: SimpleOpening.Name, family: LilaOpe
   import SimpleOpening.*
   val key            = nameToKey(name into OpeningName) into Key
   def isFamily       = ref.variation.isEmpty
-  def familyKeyOrKey = if (isFamily) Key(family.key.value) else key
+  def familyKeyOrKey = if isFamily then Key(family.key.value) else key
   def variation      = ref.variation | otherVariations
   inline def nbMoves = ref.nbMoves
   inline def lastUci = ref.lastUci
@@ -42,7 +42,7 @@ object SimpleOpening:
       LilaOpeningFamily(ref.family.key into LilaOpeningFamily.Key).fold(acc): fam =>
         val op   = SimpleOpening(ref, nameOf(ref), fam)
         val prev = acc get op.key
-        if (prev.fold(true)(_.nbMoves > op.nbMoves)) acc.updated(op.key, op)
+        if prev.fold(true)(_.nbMoves > op.nbMoves) then acc.updated(op.key, op)
         else acc
 
   lazy val openingList = openings.values.toList.sortBy(_.name.value)

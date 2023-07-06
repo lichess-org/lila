@@ -185,7 +185,7 @@ final class Mod(
               case _ if Granter(_.BoostHunter) => ModDomain.Boost
               case _                           => ModDomain.Admin
             ,
-            room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
+            room = if report.isSpontaneous then "Spontaneous inquiry" else report.room.name
           ) inject NoContent
     }
   }
@@ -301,10 +301,10 @@ final class Mod(
                   .flashFailure(s"Currently processed by ${mod.name}")
           case _ =>
             val f =
-              if (isAppeal) env.report.api.inquiries.appeal
+              if isAppeal then env.report.api.inquiries.appeal
               else env.report.api.inquiries.spontaneous
             f(Suspect(user)) inject {
-              if (isAppeal) Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
+              if isAppeal then Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
               else redirect(user.username, mod = true)
             }
         }

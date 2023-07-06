@@ -35,10 +35,10 @@ final class ForumPaginator(
     Paginator(
       currentPage = page,
       maxPerPage = config.topicMaxPerPage,
-      adapter = new AdapterLike[TopicView] {
+      adapter = new AdapterLike[TopicView]:
 
         def nbResults: Fu[Int] =
-          if (categ.isTeam) topicRepo.coll countSel selector
+          if categ.isTeam then topicRepo.coll countSel selector
           else fuccess(1000)
 
         def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
@@ -65,5 +65,4 @@ final class ForumPaginator(
               yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, me)
 
         private def selector = topicRepo.forUser(me) byCategNotStickyQuery categ
-      }
     )

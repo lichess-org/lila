@@ -79,7 +79,7 @@ final class HcaptchaReal(
 
   def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]] =
     skip.getFu map { skip =>
-      lila.mon.security.hCaptcha.form(HTTPRequest clientName req, if (skip) "skip" else "show").increment()
+      lila.mon.security.hCaptcha.form(HTTPRequest clientName req, if skip then "skip" else "show").increment()
       HcaptchaForm(form, config.public, skip)
     }
 
@@ -98,15 +98,15 @@ final class HcaptchaReal(
         res.body[JsValue].validate[GoodResponse] match
           case JsSuccess(res, _) =>
             lila.mon.security.hCaptcha.hit(client, "success").increment()
-            if (res.success && res.hostname == netDomain.value) Result.Valid
+            if res.success && res.hostname == netDomain.value then Result.Valid
             else Result.Fail
           case JsError(err) =>
             res.body[JsValue].validate[BadResponse].asOpt match
               case Some(err) if err.missingInput =>
-                if (HTTPRequest.apiVersion(req).isDefined)
+                if HTTPRequest.apiVersion(req).isDefined then
                   lila.mon.security.hCaptcha.hit(client, "api").increment()
                   Result.Pass
-                else if (skip.get)
+                else if skip.get then
                   lila.mon.security.hCaptcha.hit(client, "skip").increment()
                   skip.record
                   Result.Skip

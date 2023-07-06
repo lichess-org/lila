@@ -31,7 +31,7 @@ final class UblogPaginator(
         collection = colls.post,
         selector = $doc("blog" -> blog, "live" -> live),
         projection = previewPostProjection.some,
-        sort = if (live) $doc("lived.at" -> -1) else $doc("created.at" -> -1),
+        sort = if live then $doc("lived.at" -> -1) else $doc("created.at" -> -1),
         _.sec
       ),
       currentPage = page,
@@ -40,12 +40,12 @@ final class UblogPaginator(
 
   def liveByCommunity(lang: Option[Lang], page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
-      adapter = new AdapterLike[PreviewPost] {
+      adapter = new AdapterLike[PreviewPost]:
         val select = $doc("live" -> true, "topics" $ne UblogTopic.offTopic) ++ lang.so: l =>
           $doc("language" -> l.code)
         def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
-      },
+      ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
@@ -65,11 +65,11 @@ final class UblogPaginator(
 
   def liveByTopic(topic: UblogTopic, page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
-      adapter = new AdapterLike[PreviewPost] {
+      adapter = new AdapterLike[PreviewPost]:
         def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
           aggregateVisiblePosts($doc("topics" -> topic), offset, length)
-      },
+      ,
       currentPage = page,
       maxPerPage = maxPerPage
     )

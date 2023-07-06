@@ -27,7 +27,7 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
         .documentSource()
         .throttle(300, 1.second)
         .toMat(Sink.fold[Int, Bdoc](0) { case (counter, doc) =>
-          if (counter % 500 == 0) logger.info(s"ClasStudentCache.rebuild $counter")
+          if counter % 500 == 0 then logger.info(s"ClasStudentCache.rebuild $counter")
           doc.string("userId") foreach nextBloom.add
           counter + 1
         })(Keep.right)

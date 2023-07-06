@@ -29,7 +29,7 @@ object Request:
   )
 
 case class RequestWithUser(request: Request, user: User.WithPerfs):
-  export request.{ user => _, * }
+  export request.{ user as _, * }
 
 object RequestWithUser:
   def combine(reqs: List[Request], users: List[User.WithPerfs]): List[RequestWithUser] = for

@@ -172,7 +172,7 @@ final class ForumPostApi(
   def nbByUser(userId: UserId) = postRepo.coll.countSel($doc("userId" -> userId))
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
-    for {
+    for
       categs <- categRepo visibleWithTeams teams
       views <- categs.map { categ =>
         get(categ lastPostId forUser) map { topicPost =>
@@ -185,7 +185,7 @@ final class ForumPostApi(
           )
         }
       }.parallel
-    } yield views
+    yield views
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll

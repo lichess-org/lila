@@ -68,17 +68,16 @@ object ModPresets:
           .map(_.linesIterator.toList)
           .filter(_.nonEmpty)
           .flatMap {
-            case perms :: rest => {
+            case perms :: rest =>
               val cleanRest = rest.dropWhile(_.isEmpty)
-              for {
+              for
                 name <- cleanRest.headOption
                 text = cleanRest.tail
-              } yield ModPreset(
+              yield ModPreset(
                 name,
                 text.dropWhile(_.isEmpty) mkString "\n",
                 toPermisssions(perms)
               )
-            }
             case _ => none
           }
       }

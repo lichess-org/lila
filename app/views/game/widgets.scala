@@ -63,22 +63,20 @@ object widgets:
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(
-            if (g.isBeingPlayed) trans.playingRightNow()
-            else {
-              if (g.finishedOrAborted)
-                span(cls := g.winner.flatMap(w => fromPlayer.map(p => if (p == w) "win" else "loss")))(
-                  gameEndStatus(g),
-                  g.winner.map { winner =>
-                    frag(
-                      " • ",
-                      winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
-                    )
-                  }
-                )
-              else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
-            }
+            if g.isBeingPlayed then trans.playingRightNow()
+            else if g.finishedOrAborted then
+              span(cls := g.winner.flatMap(w => fromPlayer.map(p => if p == w then "win" else "loss")))(
+                gameEndStatus(g),
+                g.winner.map { winner =>
+                  frag(
+                    " • ",
+                    winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+                  )
+                }
+              )
+            else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
           ),
-          if (g.playedTurns > 0) {
+          if g.playedTurns > 0 then
             div(cls := "opening")(
               (!g.fromPosition so g.opening) map { opening =>
                 strong(opening.opening.name)
@@ -92,7 +90,7 @@ object widgets:
                 g.ply > 6 option s" ... ${1 + (g.ply.value - 1) / 2} moves "
               )
             )
-          } else frag(br, br),
+          else frag(br, br),
           notes get g.id map { note =>
             div(cls := "notes")(strong("Notes: "), note)
           },

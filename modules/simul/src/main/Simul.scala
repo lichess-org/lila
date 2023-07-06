@@ -97,7 +97,7 @@ case class Simul(
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
 
   private def finishIfDone =
-    if (isStarted && pairings.forall(_.finished))
+    if isStarted && pairings.forall(_.finished) then
       copy(
         status = SimulStatus.Finished,
         finishedAt = nowInstant.some,
@@ -128,7 +128,7 @@ case class Simul(
   def setPairingHostColor(gameId: GameId, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
-  private def Created(s: => Simul): Simul = if (isCreated) s else this
+  private def Created(s: => Simul): Simul = if isCreated then s else this
 
   def wins    = pairings.count(p => p.finished && p.wins.has(false))
   def draws   = pairings.count(p => p.finished && p.wins.isEmpty)

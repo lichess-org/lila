@@ -98,7 +98,7 @@ final class JsonView(
                   "coords"            -> pref.coords,
                   "resizeHandle"      -> pref.resizeHandle,
                   "replay"            -> pref.replay,
-                  "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER
+                  "autoQueen" -> (if pov.game.variant == chess.variant.Antichess then Pref.AutoQueen.NEVER
                                   else pref.autoQueen),
                   "clockTenths" -> pref.clockTenths,
                   "moveEvent"   -> pref.moveEvent
@@ -322,7 +322,7 @@ final class JsonView(
 
   private def animationMillis(pov: Pov, pref: Pref) =
     pref.animationMillis * {
-      if (pov.game.finished) 1
+      if pov.game.finished then 1
       else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
     }
 

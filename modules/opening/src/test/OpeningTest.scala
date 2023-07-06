@@ -2,7 +2,7 @@ package lila.opening
 
 import chess.opening.OpeningName
 
-class OpeningTest extends munit.FunSuite {
+class OpeningTest extends munit.FunSuite:
   import NameSection.variationName
 
   def vn(prev: String, next: String, expected: String) =
@@ -59,4 +59,3 @@ class OpeningTest extends munit.FunSuite {
       "Semi-Slav Defense"
     )
   }
-}

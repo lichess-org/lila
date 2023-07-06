@@ -37,10 +37,10 @@ final private class GameStarter(
   ): Fu[Option[Pairing]] =
     import couple.*
     (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) so { (perf1, perf2) =>
-      for {
+      for
         p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
-        (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1
-        (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
+        (whitePerf, blackPerf)     = if p1White then perf1 -> perf2 else perf2 -> perf1
+        (whiteMember, blackMember) = if p1White then p1 -> p2 else p2 -> p1
         game = makeGame(
           id,
           pool,
@@ -48,7 +48,7 @@ final private class GameStarter(
           blackMember.userId -> blackPerf
         ).start
         _ <- gameRepo insertDenormalized game
-      } yield
+      yield
         onStart(game.id)
         Pairing(
           game,

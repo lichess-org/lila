@@ -66,7 +66,7 @@ final class PuzzleApi(
           .find(user, id)
           .flatMapz { prevRound =>
             trustApi.vote(user, prevRound, vote) flatMapz { weight =>
-              val voteValue = (if (vote) 1 else -1) * weight
+              val voteValue = (if vote then 1 else -1) * weight
               lila.mon.puzzle.vote.count(vote, prevRound.win.yes).increment()
               updatePuzzle(id, voteValue, prevRound.vote) zip
                 colls.round {
@@ -105,10 +105,10 @@ final class PuzzleApi(
         }
       }
 
-  def angles: Fu[PuzzleAngle.All] = for {
+  def angles: Fu[PuzzleAngle.All] = for
     themes   <- theme.categorizedWithCount
     openings <- openingApi.collection
-  } yield PuzzleAngle.All(themes, openings)
+  yield PuzzleAngle.All(themes, openings)
 
   object theme:
 
@@ -126,7 +126,7 @@ final class PuzzleApi(
         round.themeVote(theme, vote) so { newThemes =>
           import PuzzleRound.{ BSONFields as F }
           val update =
-            if (newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes))
+            if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes) then
               fuccess($unset(F.themes, F.puzzle).some)
             else
               vote match

@@ -22,13 +22,15 @@ object widget:
     val profile = c.user.profileOrDefault
     frag(
       link option a(cls := "overlay", href := routes.Coach.show(c.user.username)),
-      picture.thumbnail(c, if (link) 300 else 350),
+      picture.thumbnail(c, if link then 300 else 350),
       div(cls := "overview")(
-        (if (link) h2 else h1) (cls := "coach-name")(titleName(c)),
+        (if link then h2 else h1) (cls := "coach-name")(titleName(c)),
         c.coach.profile.headline
           .map: h =>
             p(
-              cls := s"headline ${if (h.length < 60) "small" else if (h.length < 120) "medium" else "large"}"
+              cls := s"headline ${
+                  if h.length < 60 then "small" else if h.length < 120 then "medium" else "large"
+                }"
             )(h),
         table(
           tbody(

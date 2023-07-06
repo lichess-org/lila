@@ -51,8 +51,8 @@ final class Moretimer(
           p == Pref.Moretime.ALWAYS || (p == Pref.Moretime.CASUAL && game.casual)
 
   private def IfAllowed[A](game: Game)(f: => A): Fu[A] =
-    if (!game.playable) fufail(ClientError("[moretimer] game is over " + game.id))
-    else if (!game.canTakebackOrAddTime || game.metadata.hasRule(_.NoGiveTime))
+    if !game.playable then fufail(ClientError("[moretimer] game is over " + game.id))
+    else if !game.canTakebackOrAddTime || game.metadata.hasRule(_.NoGiveTime) then
       fufail(ClientError("[moretimer] game disallows it " + game.id))
     else
       isAllowedByPrefs(game) flatMap {

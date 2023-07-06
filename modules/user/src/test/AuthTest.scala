@@ -2,11 +2,11 @@ package lila.user
 
 import java.util.Base64
 import Authenticator.AuthData
-import User.{ ClearPassword => P }
+import User.{ ClearPassword as P }
 import lila.common.config.Secret
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class AuthTest extends munit.FunSuite {
+class AuthTest extends munit.FunSuite:
 
   given Conversion[String, UserId] = UserId(_)
 
@@ -86,4 +86,3 @@ class AuthTest extends munit.FunSuite {
   test("migrated wrong sha") {
     assert(!auth.compare(shaToBcrypt.copy(sha512 = Some(true)), P("password")))
   }
-}

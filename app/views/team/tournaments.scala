@@ -68,7 +68,7 @@ object tournaments:
                   span(cls := "setup")(
                     t.clock.show,
                     " • ",
-                    if (t.variant.exotic) t.variant.name else t.perfType.trans,
+                    if t.variant.exotic then t.variant.name else t.perfType.trans,
                     t.position.isDefined option frag(" • ", trans.thematic()),
                     " • ",
                     if t.mode.rated then trans.ratedTournament() else trans.casualTournament(),
@@ -82,9 +82,9 @@ object tournaments:
                   span(cls := "setup")(
                     s.clock.show,
                     " • ",
-                    if (s.variant.exotic) s.variant.name else s.perfType.trans,
+                    if s.variant.exotic then s.variant.name else s.perfType.trans,
                     " • ",
-                    (if (s.settings.rated) trans.ratedTournament else trans.casualTournament) ()
+                    (if s.settings.rated then trans.ratedTournament else trans.casualTournament) ()
                   )
                 )
             )
@@ -114,5 +114,5 @@ object tournaments:
     )
 
   private def renderStartsAt(any: TeamInfo.AnyTour)(using Lang): Frag =
-    if (any.isEnterable && any.startsAt.isBeforeNow) trans.playingRightNow()
+    if any.isEnterable && any.startsAt.isBeforeNow then trans.playingRightNow()
     else momentFromNowOnce(any.startsAt)

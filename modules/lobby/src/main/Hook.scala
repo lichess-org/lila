@@ -67,7 +67,7 @@ case class Hook(
       "perf"  -> perfType.key,
       "t"     -> clock.estimateTotalSeconds,
       "s"     -> speed.id,
-      "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
+      "i"     -> (if clock.incrementSeconds > 0 then 1 else 0)
     )
     .add("prov" -> perf.map(_.provisional))
     .add("u" -> user.map(_.username))

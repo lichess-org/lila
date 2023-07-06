@@ -94,7 +94,7 @@ final class EventStream(
       case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
         val json = challengeJson("challenge")(c) ++ challengeCompat(c)
         lila.common.LilaFuture // give time for anon challenger to load the challenge page
-          .delay(if (c.challengerIsAnon) 2.seconds else 0.seconds):
+          .delay(if c.challengerIsAnon then 2.seconds else 0.seconds):
             queue.offer(json.some).void
           .unit
 

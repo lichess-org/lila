@@ -20,7 +20,7 @@ final class Firewall(
     val v = blocksIp {
       lila.common.HTTPRequest ipAddress req
     }
-    if (v) lila.mon.security.firewall.block.increment()
+    if v then lila.mon.security.firewall.block.increment()
     v
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)

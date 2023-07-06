@@ -21,7 +21,7 @@ object newPlayer:
         )
       ),
       p(
-        if (u.kid) "Kid mode is enabled."
+        if u.kid then "Kid mode is enabled."
         else
           frag(
             "Will a child use this account? You might want to enable ",

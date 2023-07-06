@@ -35,7 +35,7 @@ object BSONHandlers:
 
   given BSONDocumentHandler[RelayTour] = Macros.handler
 
-  def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for {
+  def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for
     round <- doc.asOpt[RelayRound]
     tour  <- doc.getAsOpt[RelayTour]("tour")
-  } yield RelayRound.WithTour(round, tour)
+  yield RelayRound.WithTour(round, tour)
