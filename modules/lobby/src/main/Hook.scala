@@ -43,11 +43,21 @@ case class Hook(
       (userId.isEmpty || userId != h.userId)
 
   private def ratingRangeCompatibleWith(h: Hook) =
-    realRatingRange.fold(true): range =>
-      h.rating so range.contains
+    h.rating so ratingRangeOrDefault.contains
 
-  lazy val realRatingRange: Option[RatingRange] = isAuth.so:
-    RatingRange noneIfDefault ratingRange
+  private lazy val manualRatingRange = isAuth.so(RatingRange noneIfDefault ratingRange)
+
+  private def nonWideRatingRange =
+    val r = rating | lila.rating.Glicko.default.intRating
+    manualRatingRange.filter:
+      _ != RatingRange(r - 500, r + 500)
+
+  lazy val ratingRangeOrDefault: RatingRange =
+    nonWideRatingRange orElse
+      rating.map(RatingRange.defaultFor) getOrElse
+      RatingRange.default
+
+  println(ratingRangeOrDefault)
 
   def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
@@ -92,7 +102,7 @@ case class Hook(
         userId = u.id,
         sri = sri,
         rating = rating | lila.rating.Glicko.default.intRating,
-        ratingRange = realRatingRange,
+        ratingRange = manualRatingRange,
         lame = user.so(_.lame),
         blocking = user.so(_.blocking),
         rageSitCounter = 0

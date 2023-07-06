@@ -3,8 +3,8 @@ import play.sbt.PlayCommands
 import play.sbt.PlayInternalKeys.playDependencyClasspath
 import play.sbt.routes.RoutesKeys
 
-import BuildSettings._
-import Dependencies._
+import BuildSettings.*
+import Dependencies.*
 
 lazy val root = Project("lila", file("."))
   .enablePlugins(JavaServerAppPackaging, RoutesCompiler)
@@ -153,7 +153,7 @@ lazy val common = module("common",
 
 lazy val rating = module("rating",
   Seq(i18n, memo),
-  reactivemongo.bundle ++ tests.bundle
+  reactivemongo.bundle ++ tests.bundle ++ Seq(apacheMath)
 ).dependsOn(common % "test->test")
 
 lazy val perfStat = module("perfStat",
@@ -268,7 +268,7 @@ lazy val importer = module("importer",
 
 lazy val insight = module("insight",
   Seq(round),
-  Seq(scalatags, apacheMath) ++ reactivemongo.bundle
+  Seq(scalatags) ++ reactivemongo.bundle
 )
 
 lazy val tutor = module("tutor",

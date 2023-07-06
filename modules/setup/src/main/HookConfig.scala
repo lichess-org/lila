@@ -22,14 +22,7 @@ case class HookConfig(
 
   def withinLimits(using me: Option[Me], perf: Perf): HookConfig =
     if me.isEmpty then this
-    else
-      copy(
-        ratingRange = ratingRange.withinLimits(
-          rating = perf.intRating,
-          delta = 400,
-          multipleOf = 50
-        )
-      )
+    else copy(ratingRange = ratingRange.withinLimits(perf.intRating, 500))
 
   def perfType = PerfType(variant, makeSpeed)
 

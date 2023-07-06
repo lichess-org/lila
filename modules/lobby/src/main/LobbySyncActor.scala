@@ -151,7 +151,6 @@ final private class LobbySyncActor(
         .mapN((_, _))
         .so: (u1, u2) =>
           recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
-
     }
 
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs register g

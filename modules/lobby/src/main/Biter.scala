@@ -111,8 +111,7 @@ final private class Biter(
         !hook.userId.contains(u.id) &&
         !hook.userId.so(u.blocking.value.contains) &&
         !hook.user.so(_.blocking).value.contains(u.id) &&
-        hook.realRatingRange.fold(true):
-          _.contains(u.ratingAt(hook.perfType))
+        hook.ratingRangeOrDefault.contains(u.ratingAt(hook.perfType))
 
   def canJoin(seek: Seek, user: LobbyUser): Boolean =
     seek.user.id != user.id &&

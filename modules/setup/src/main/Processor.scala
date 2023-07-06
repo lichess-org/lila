@@ -12,7 +12,7 @@ final private[setup] class Processor(
     perfsRepo: UserPerfsRepo,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart
-)(using ec: Executor, idGenerator: IdGenerator):
+)(using Executor, IdGenerator):
 
   def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
     me  <- me.map(_.value).soFu(perfsRepo.withPerfs)
