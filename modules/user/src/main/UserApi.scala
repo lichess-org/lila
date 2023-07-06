@@ -55,12 +55,11 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def withPerf[U: UserIdOf](id: U, pt: PerfType): Fu[Option[User.WithPerf]] =
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
 
-  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] =
-    for
-      (x, y) <- userRepo.pair.tupled(userIds)
-      perfs  <- perfsRepo.perfsOf(List(x, y).flatten.map(_.id))
-      make = (u: Option[User]) => u.map(u => User.WithPerfs(u, perfs.get(u.id)))
-    yield make(x) -> make(y)
+  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] = for
+    (x, y) <- userRepo.pair.tupled(userIds)
+    perfs  <- perfsRepo.perfsOf(List(x, y).flatten.map(_.id))
+    make = (u: Option[User]) => u.map(u => User.WithPerfs(u, perfs.get(u.id)))
+  yield make(x) -> make(y)
 
   def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[Either[LightUser.Ghost, User.WithPerf]]] =
     userRepo

@@ -37,18 +37,17 @@ final private class Rematcher(
   def yes(pov: Pov): Fu[Events] =
     pov match
       case Pov(game, color) if game.playerCouldRematch =>
-        if (isOffering(!pov) || game.opponent(color).isAi)
-          rematches.getAcceptedId(game.id).fold(rematchJoin(pov))(rematchExists(pov))
-        else if (!declined.get(pov.flip.fullId) && rateLimit.zero(pov.fullId)(true))
-          rematchCreate(pov)
+        if isOffering(!pov) || game.opponent(color).isAi
+        then rematches.getAcceptedId(game.id).fold(rematchJoin(pov))(rematchExists(pov))
+        else if !declined.get(pov.flip.fullId) && rateLimit.zero(pov.fullId)(true)
+        then rematchCreate(pov)
         else fuccess(List(Event.RematchOffer(by = none)))
       case _ => fuccess(List(Event.ReloadOwner))
 
   def no(pov: Pov): Fu[Events] =
     if isOffering(pov) then
-      pov.opponent.userId foreach { forId =>
+      pov.opponent.userId.foreach: forId =>
         Bus.publish(lila.hub.actorApi.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
-      }
       messenger.volatile(pov.game, trans.rematchOfferCanceled.txt())
     else if isOffering(!pov) then
       declined put pov.fullId
@@ -64,20 +63,19 @@ final private class Rematcher(
   private def rematchCreate(pov: Pov): Fu[Events] =
     rematches.offer(pov.ref) map { _ =>
       messenger.volatile(pov.game, trans.rematchOfferSent.txt())
-      pov.opponent.userId foreach { forId =>
+      pov.opponent.userId.foreach: forId =>
         Bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
-      }
       List(Event.RematchOffer(by = pov.color.some))
     }
 
   private def rematchJoin(pov: Pov): Fu[Events] =
 
-    def createGame(withId: Option[GameId]) = for {
+    def createGame(withId: Option[GameId]) = for
       nextGame <- returnGame(pov, withId).map(_.start)
       _ = rematches.accept(pov.gameId, nextGame.id)
       _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
       _ <- gameRepo insertDenormalized nextGame
-    } yield
+    yield
       messenger.volatile(pov.game, trans.rematchOfferAccepted.txt())
       onStart(nextGame.id)
       redirectEvents(nextGame)
@@ -93,7 +91,7 @@ final private class Rematcher(
       situation = initialFen.flatMap(Fen.readWithMoveNumber(pov.game.variant, _))
       pieces = pov.game.variant match
         case Chess960 =>
-          if (chess960 get pov.gameId) Chess960.pieces
+          if chess960 get pov.gameId then Chess960.pieces
           else situation.fold(Chess960.pieces)(_.situation.board.pieces)
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
@@ -112,9 +110,8 @@ final private class Rematcher(
             board = board,
             color = situation.fold[chess.Color](White)(_.situation.color)
           ),
-          clock = pov.game.clock map { c =>
-            Clock(c.config)
-          },
+          clock = pov.game.clock.map: c =>
+            Clock(c.config),
           ply = ply,
           startedAtPly = ply
         ),

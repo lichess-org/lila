@@ -118,7 +118,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       teamId: TeamId
   ): Fu[TeamBattle.TeamInfo] =
     coll
-      .aggregateOne() { framework =>
+      .aggregateOne(): framework =>
         import framework.*
         Match(selectTour(tourId) ++ $doc("t" -> teamId)) -> List(
           Sort(Descending("m")),
@@ -136,9 +136,8 @@ final class PlayerRepo(coll: Coll)(using Executor):
             )
           )
         )
-      }
-      .map { docO =>
-        for {
+      .map: docO =>
+        for
           doc       <- docO
           aggs      <- doc.getAsOpt[List[Bdoc]]("agg")
           agg       <- aggs.headOption
@@ -147,8 +146,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
           perf   = agg.double("perf").so(math.round)
           score  = agg.double("score").so(math.round)
           topPlayers <- doc.getAsOpt[List[Player]]("topPlayers")
-        } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
-      }
+        yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
       .dmap(_ | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil))
 
   def bestTeamPlayers(tourId: TourId, teamId: TeamId, nb: Int): Fu[List[Player]] =
@@ -162,23 +160,20 @@ final class PlayerRepo(coll: Coll)(using Executor):
       .find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true).some)
       .cursor[Bdoc]()
       .listAll()
-      .map {
-        _.flatMap { doc =>
-          doc.getAsOpt[UserId]("uid") flatMap { userId =>
-            doc.getAsOpt[TeamId]("t") map { (userId, _) }
-          }
-        }
-      }
+      .map: doc =>
+        for
+          doc    <- doc
+          userId <- doc.getAsOpt[UserId]("uid")
+          teamId <- doc.getAsOpt[TeamId]("t")
+        yield (userId, teamId)
 
   def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
-    game.twoUserIds so { case (w, b) =>
+    game.twoUserIds.so: (w, b) =>
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
-        import cats.syntax.all.*
-        (m.get(w), m.get(b)).mapN((_, _)) so { case (wt, bt) =>
+        (m.get(w), m.get(b)).mapN((_, _)).so { (wt, bt) =>
           TeamBattle.TeamVs(chess.ByColor(wt, bt)).some
         }
       }
-    }
 
   def count(tourId: TourId): Fu[Int] = coll.countSel(selectTour(tourId))
 

@@ -18,6 +18,7 @@ import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.user.Me
+import lila.tournament.TeamBattle.TeamInfo
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -120,7 +121,7 @@ final class TournamentApi(
     socket.reload(tour.id)
 
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.TeamInfo]] =
-    tour.teamBattle.exists(_ teams teamId) so cached.teamInfo.get(tour.id -> teamId)
+    tour.teamBattle.exists(_ teams teamId) soFu cached.teamInfo.get(tour.id -> teamId)
 
   private val hadPairings = lila.memo.ExpireSetMemo[TourId](1 hour)
 
@@ -552,15 +553,17 @@ final class TournamentApi(
   object gameView:
 
     def player(pov: Pov): Fu[Option[GameView]] =
-      (pov.game.tournamentId so get) flatMapz { tour =>
+      pov.game.tournamentId.so(get) flatMapz { tour =>
         getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { (teamVs, ranks) =>
-          teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
-            cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map2 { info =>
-              TournamentTop(info.topPlayers take tournamentTopNb)
-            }
-          } dmap {
-            GameView(tour, teamVs, ranks, _).some
-          }
+          teamVs
+            .fold(tournamentTop(tour.id) dmap some): vs =>
+              val top: Fu[Option[TournamentTop]] = cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map {
+                _ map { info =>
+                  TournamentTop(info.topPlayers take tournamentTopNb)
+                }
+              }
+            .dmap:
+              GameView(tour, teamVs, ranks, _)
         }
       }
 

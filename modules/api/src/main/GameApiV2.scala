@@ -263,10 +263,9 @@ final class GameApiV2(
   ): Fu[JsObject] = for
     lightUsers <- gameLightUsers(g)
     pgn <-
-      withFlags.pgnInJson so pgnDump
+      withFlags.pgnInJson soFu pgnDump
         .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
         .dmap(annotator.toPgnString)
-        .dmap(some)
     accuracy = analysisOption.ifTrue(withFlags.accuracy).flatMap {
       AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _)
     }

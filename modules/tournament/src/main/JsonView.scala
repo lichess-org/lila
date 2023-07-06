@@ -356,10 +356,10 @@ final class JsonView(
     tour.isTeamBattle.soFu(teamStandingJsonCache get tour.id)
 
   def apiTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
-    tour.teamBattle.so: battle =>
+    tour.teamBattle.soFu: battle =>
       if battle.hasTooManyTeams
-      then bigTeamStandingJsonCache get tour.id dmap some
-      else teamStandingJsonCache get tour.id dmap some
+      then bigTeamStandingJsonCache get tour.id
+      else teamStandingJsonCache get tour.id
 
   private val teamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStanding"):
     _.expireAfterWrite(500 millis)
