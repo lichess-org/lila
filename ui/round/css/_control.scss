@@ -119,10 +119,6 @@
   }
   .follow-up {
     @extend %flex-column;
-    border-bottom: $border;
-    .board-layout-1 & {
-      border-bottom: none;
-    }
     position: relative; /* for rematch-decline */
     .fbt {
       padding: 12px 0;

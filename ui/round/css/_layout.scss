@@ -22,10 +22,8 @@
     @extend %zen;
     grid-area: under;
     @include breakpoint($mq-col3) {
-      .board-layout-1 & {
-        margin-left: calc(#{$square-9} + #{$hand-gap});
-        width: $col3-uniboard-width;
-      }
+      margin-left: calc(#{$square-9} + #{$hand-gap});
+      width: $col3-uniboard-width;
     }
   }
   &__underchat {
@@ -55,27 +53,21 @@
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $hand-gap auto;
     grid-template-rows: fit-content(0);
     grid-template-areas:
-      'side  app   app'
-      'uchat under .';
-    .board-layout-1 & {
-      grid-template-areas:
-        'side  . app   app'
-        'uchat . under .';
-      grid-template-columns: $col3-uniboard-side $hand-gap auto;
-      grid-gap: 0;
-      &__underboard,
-      &__underchat {
-        margin-top: 3vmin;
-      }
-      &__underboard:empty {
-        display: none;
-      }
-      &__underchat:has(div.none) {
-        display: none;
-      }
+      'side  . app   app'
+      'uchat . under .';
+    grid-gap: 0;
+    &__underboard,
+    &__underchat {
+      margin-top: 3vmin;
+    }
+    &__underboard:empty {
+      display: none;
+    }
+    &__underchat:has(div.none) {
+      display: none;
     }
     .compact-layout & {
       .mchat {

@@ -43,27 +43,14 @@ $mq-col3: $mq-col3-uniboard;
       'side'
       'main';
   }
-  grid-gap: 3vmin;
-  .board-layout-1 &--run {
-    grid-gap: 0;
-  }
 
   @include breakpoint($mq-col2) {
     &--run {
-      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-      grid-template-rows: min-content 1fr min-content auto;
+      grid-template-rows: fit-content(0);
+      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $hand-gap $col3-uniboard-table-no-hands;
       grid-template-areas:
-        'main hand-top'
-        'main table'
-        'main hand-bot'
-        'side .';
-      .board-layout-1 & {
-        grid-template-rows: fit-content(0);
-        grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $hand-gap $col3-uniboard-table-no-hands;
-        grid-template-areas:
-          'hand-top  .    main .  hand-bot . table'
-          'side      side side .  .        . .';
-      }
+        'hand-top  .    main .  hand-bot . table'
+        'side      side side .  .        . .';
     }
     &--map {
       grid-template-areas: 'side main';
@@ -76,21 +63,11 @@ $mq-col3: $mq-col3-uniboard;
 
   @include breakpoint($mq-col3) {
     &--run {
-      grid-template-rows: min-content 1fr min-content 1fr;
-      grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
+      grid-template-rows: fit-content(0);
+      grid-template-columns: $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
       grid-template-areas:
-        'side main hand-top'
-        'side main table'
-        'side main hand-bot'
-        'side . .';
-
-      .board-layout-1 & {
-        grid-template-rows: fit-content(0);
-        grid-template-columns: $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-        grid-template-areas:
-          'side . hand-top . main . hand-bot . table'
-          'side . .        . .    . .        . .';
-      }
+        'side . hand-top . main . hand-bot . table'
+        'side . .        . .    . .        . .';
     }
   }
 }

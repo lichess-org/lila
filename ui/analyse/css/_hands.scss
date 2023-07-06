@@ -26,53 +26,29 @@
     'chat'
     'uchat';
   @include breakpoint($mq-col2) {
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+    grid-template-rows: fit-content(0);
     grid-template-areas:
-      'board      gauge hand-top'
-      'board      gauge tools'
-      'board      gauge hand-bot'
-      'under      .     controls'
-      'under      .     acpl'
-      'under      .     side'
-      'chat       .     side'
-      'uchat      .     side';
+      'hand-top . board . hand-bot gauge tools'
+      '.        . under .       .    .   controls'
+      '.        . under .       .    .   acpl'
+      '.        . under .       .    .   side'
+      '.        . chat  .       .    .   side'
+      '.        . uchat .       .    .   side';
   }
+
+  @include breakpoint($mq-col2-uniboard-squeeze-1) {
+    grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
+  }
+
   @include breakpoint($mq-col3) {
-    grid-template-rows: min-content $meta-height 1fr min-content;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
     grid-template-areas:
-      'side    . board gauge hand-top'
-      'side    . board gauge tools'
-      'chat    . board gauge tools'
-      'chat    . board gauge hand-bot'
-      'uchat   . under .     controls'
-      'uchat   . under .     acpl';
-  }
-  .board-layout-1 & {
-    @include breakpoint($mq-col2) {
-      grid-template-rows: fit-content(0);
-      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-      grid-template-areas:
-        'hand-top . board . hand-bot gauge tools'
-        '.        . under .       .    .   controls'
-        '.        . under .       .    .   acpl'
-        '.        . under .       .    .   side'
-        '.        . chat  .       .    .   side'
-        '.        . uchat .       .    .   side';
-    }
-
-    @include breakpoint($mq-col2-uniboard-squeeze-1) {
-      grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
-    }
-
-    @include breakpoint($mq-col3) {
-      grid-template-rows: auto 1fr auto;
-      grid-template-columns: $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-      grid-template-areas:
-        'side   . hand-top . board . hand-bot gauge tools'
-        'chat   . hand-top . board . hand-bot gauge tools'
-        'uchat  . .        . under . .        .     controls'
-        'uchat  . .        . under . .        .     acpl';
-    }
+      'side   . hand-top . board . hand-bot gauge tools'
+      'chat   . hand-top . board . hand-bot gauge tools'
+      'uchat  . .        . under . .        .     controls'
+      'uchat  . .        . under . .        .     acpl';
   }
 }
 

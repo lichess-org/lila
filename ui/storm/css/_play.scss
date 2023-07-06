@@ -12,21 +12,12 @@
     display: grid;
 
     grid-row-gap: $block-gap;
-    grid-column-gap: $block-gap;
     grid-template-areas: 'hand-top' 'board' 'hand-bot' 'side';
 
     @include breakpoint($mq-col2) {
-      grid-template-columns: $col2-uniboard-width $col3-uniboard-table;
       grid-template-rows: min-content 1fr min-content;
-      grid-template-areas:
-        'board   hand-top'
-        'board   side'
-        'board   hand-bot';
-      .board-layout-1 & {
-        grid-column-gap: 0;
-        grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-        grid-template-areas: 'hand-top . board . hand-bot . side';
-      }
+      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+      grid-template-areas: 'hand-top . board . hand-bot . side';
     }
   }
 }

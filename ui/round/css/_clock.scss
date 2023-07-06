@@ -128,9 +128,6 @@
     color: $c-font-clearer;
   }
   &.over {
-    display: none;
-  }
-  .board-layout-1 &.over {
     display: flex;
     .time,
     .byoyomi {

@@ -52,41 +52,22 @@ $mq-col3: $mq-x-large;
   grid-row-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-width $block-gap $col2-uniboard-table;
+    grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
     grid-template-rows: fit-content(0);
     grid-template-areas:
-      'board    . table'
-      'board    . button'
-      'progress . side'
-      '.        . side';
+      '. . board    . . . table'
+      '. . board    . . . button'
+      '. . progress . . . side'
+      '. . .        . . . side';
   }
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
-      'side . board    . table'
-      'side . board    . button'
-      '.    . progress . .';
-    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
-  }
-
-  .board-layout-1 & {
-    @include breakpoint($mq-col2) {
-      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-      grid-template-rows: fit-content(0);
-      grid-template-areas:
-        '. . board    . . . table'
-        '. . board    . . . button'
-        '. . progress . . . side'
-        '. . .        . . . side';
-    }
-
-    @include breakpoint($mq-col3) {
-      grid-template-areas:
-        'side . . . board    . . . table'
-        'side . . . board    . . . button'
-        '.    . . . progress . . . .';
-      grid-template-columns: $col3-uniboard-side $hand-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-    }
+      'side . . . board    . . . table'
+      'side . . . board    . . . button'
+      '.    . . . progress . . . .';
+    grid-template-rows: fit-content(0);
+    grid-template-columns: $col3-uniboard-side $hand-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
   }
 
   .box {

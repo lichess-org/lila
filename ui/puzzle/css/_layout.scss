@@ -69,27 +69,15 @@ $hand-col1-height: auto;
   }
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-width $gauge-gap $col2-uniboard-table;
-    grid-template-rows: min-content 1fr min-content auto auto 1fr;
+    grid-template-rows: fit-content(0);
+    grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
     grid-template-areas:
-      'board   gauge hand-top'
-      'board   gauge tools'
-      'board   gauge hand-bot'
-      'session .     controls'
-      'kb-move .     .'
-      'side    side  side';
-
-    .board-layout-1 & {
-      grid-template-rows: fit-content(0);
-      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-      grid-template-areas:
-        'hand-top . board   . hand-bot gauge tools'
-        '.        . session . .        .     controls'
-        '.        . kb-move . .        .     .'
-        '.        . side    side side   side  side';
-      @include breakpoint($mq-col2-uniboard-squeeze-1) {
-        grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
-      }
+      'hand-top . board   . hand-bot gauge tools'
+      '.        . session . .        .     controls'
+      '.        . kb-move . .        .     .'
+      '.        . side    side side   side  side';
+    @include breakpoint($mq-col2-uniboard-squeeze-1) {
+      grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
     }
 
     &__moves {
@@ -98,28 +86,15 @@ $hand-col1-height: auto;
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-areas:
-      'side    . board   gauge hand-top'
-      'side    . board   gauge tools'
-      'side    . board   gauge hand-bot'
-      'side    . session .     controls'
-      'side    . kb-move .     .'
-      'side    . .       .     .';
+    grid-template-rows: fit-content(0);
     grid-template-columns:
-      $col3-uniboard-side $block-gap $col3-uniboard-width $gauge-gap
-      $col3-uniboard-table;
-
-    .board-layout-1 & {
-      grid-template-rows: fit-content(0);
-      grid-template-columns:
-        $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap
-        $col3-uniboard-table-no-hands;
-      grid-template-areas:
-        'side . hand-top  . board   . hand-bot gauge tools'
-        'side . .         . session . .        .     controls'
-        'side . .         . kb-move . .        .     .'
-        'side . .         . .       . .        .     .';
-    }
+      $col3-uniboard-side $block-gap $square-9 $hand-gap $col3-uniboard-width $hand-gap $square-9 $gauge-gap
+      $col3-uniboard-table-no-hands;
+    grid-template-areas:
+      'side . hand-top  . board   . hand-bot gauge tools'
+      'side . .         . session . .        .     controls'
+      'side . .         . kb-move . .        .     .'
+      'side . .         . .       . .        .     .';
   }
 
   &__side {

@@ -57,10 +57,7 @@
 
   .areplay {
     display: block;
-    flex: 2 1 6.1rem;
-    .board-layout-1 & {
-      flex: 2 1 0;
-    }
+    flex: 2 1 0;
     overflow-y: auto;
     overflow-x: hidden; // else a scrollbar appears sometimes
     border-top: $border;
@@ -68,12 +65,6 @@
     will-change: scroll-position;
     .moves {
       white-space: normal;
-    }
-    body:not(.board-layout-1) & {
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-        width: 0px;
-      }
     }
   }
 }

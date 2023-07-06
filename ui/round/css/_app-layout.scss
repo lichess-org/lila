@@ -93,25 +93,20 @@
   }
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
     grid-template-areas:
-      'board hand-top'
-      'board .'
-      'board clock-top'
-      'board expi-top'
-      'board user-top'
-      'board moves'
-      'board controls'
-      'board user-bot'
-      'board expi-bot'
-      'board clock-bot'
-      'board .'
-      'board hand-bot'
-      'kb-move .';
-    grid-column-gap: $block-gap;
-    &__table {
-      grid-area: 4 / 2 / 10 / 3;
+      'hand-top  . board    . hand-bot  . clock-top'
+      'hand-top  . board    . hand-bot  . expi-top'
+      'hand-top  . board    . hand-bot  . user-top'
+      'hand-top  . board    . hand-bot  . moves'
+      'hand-top  . board    . hand-bot  . controls'
+      'hand-top  . board    . hand-bot  . user-bot'
+      'hand-top  . board    . hand-bot  . expi-bot'
+      'hand-top  . board    . hand-bot  . clock-bot'
+      '.         . kb-move  . .         . .';
+    .round__app__table {
+      grid-area: 2 / 7 / 8 / 8;
     }
     .expiration-top {
       display: flex;
@@ -123,48 +118,27 @@
         background: none;
       }
       &.impasse {
-        display: none;
+        display: flex;
       }
     }
     .keyboard-move {
       margin: $block-gap 0 0 0;
     }
-    .board-layout-1 & {
-      grid-template-rows: auto auto auto minmax(0, 1fr);
-      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
-      grid-template-areas:
-        'hand-top  . board    . hand-bot  . clock-top'
-        'hand-top  . board    . hand-bot  . expi-top'
-        'hand-top  . board    . hand-bot  . user-top'
-        'hand-top  . board    . hand-bot  . moves'
-        'hand-top  . board    . hand-bot  . controls'
-        'hand-top  . board    . hand-bot  . user-bot'
-        'hand-top  . board    . hand-bot  . expi-bot'
-        'hand-top  . board    . hand-bot  . clock-bot'
-        '.         . kb-move  . .         . .';
-      grid-column-gap: 0;
-      .round__app__table {
-        grid-area: 2 / 7 / 8 / 8;
-      }
-      .rcontrols {
-        align-self: flex-end;
-        .ricons {
-          &.empty {
-            display: none;
-          }
-          &.confirm > button {
-            visibility: visible;
-            opacity: 0.5;
-            pointer-events: none;
-          }
+    .rcontrols {
+      align-self: flex-end;
+      .ricons {
+        &.empty {
+          display: none;
+        }
+        &.confirm > button {
+          visibility: visible;
+          opacity: 0.5;
+          pointer-events: none;
         }
       }
-      .rmoves.impasse {
-        display: flex;
-      }
-      @include breakpoint($mq-col2-uniboard-squeeze-1) {
-        grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
-      }
+    }
+    @include breakpoint($mq-col2-uniboard-squeeze-1) {
+      grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
     }
 
     .compact-layout & {

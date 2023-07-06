@@ -26,13 +26,8 @@ $mq-col3: $mq-col3-uniboard;
     grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
-      'side app   app'
-      'side under .';
-    .board-layout-1 & {
-      grid-template-areas:
-        'side . app   app'
-        'side . under .';
-    }
+      'side . app   app'
+      'side . under .';
 
     @include crosstable-large;
   }

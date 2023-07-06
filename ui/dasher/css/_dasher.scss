@@ -202,9 +202,9 @@
       width: 100%;
     }
     &.loading {
-      height: 550px;
-      body.board-layout-1 & {
-        height: 400px;
+      height: 400px;
+      body.hands-background & {
+        height: 550px;
       }
       .spinner {
         display: flex;
@@ -244,7 +244,7 @@
         outline: 1px solid #1b1b1b;
       }
     }
-    body.board-layout-1:not(.hands-background) & .hands {
+    body:not(.hands-background) & .hands {
       display: none;
     }
   }
