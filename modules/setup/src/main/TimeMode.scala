@@ -17,6 +17,6 @@ object TimeMode:
   def orDefault(id: Int) = apply(id) | default
 
   def ofGame(game: lila.game.Game) =
-    if (game.hasClock) RealTime
-    else if (game.hasCorrespondenceClock) Correspondence
+    if game.hasClock then RealTime
+    else if game.hasCorrespondenceClock then Correspondence
     else Unlimited

@@ -28,9 +28,9 @@ case class ForumPost(
   inline def id = _id
 
   private def showAuthor: String =
-    author.map(_.trim).filter("" !=) | (if (~modIcon) User.anonymous.value else User.anonMod)
+    author.map(_.trim).filter("" !=) | (if ~modIcon then User.anonymous.value else User.anonMod)
 
-  def showUserIdOrAuthor: String = if (erased) "<erased>" else userId.fold(showAuthor)(_.value)
+  def showUserIdOrAuthor: String = if erased then "<erased>" else userId.fold(showAuthor)(_.value)
 
   def isTeam = ForumCateg.isTeamSlug(categId)
 

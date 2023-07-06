@@ -7,7 +7,6 @@ import lila.tree.Root
 import chess.variant.Standard
 import lila.tree.NewRoot
 
-import cats.syntax.all.*
 import monocle.syntax.all.*
 import lila.study.Helpers.*
 

@@ -6,7 +6,6 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
-import cats.syntax.all.*
 
 import lila.common.{ given, * }
 import lila.common.config.NetConfig
@@ -71,7 +70,7 @@ final private class YouTubeApi(
     else
       val deleted = (xml \ "deleted-entry" \@ "ref")
       if deleted.nonEmpty
-      then logger.warn(s"onYouTubeVideo deleted-entry $deleted")
+      then logger.debug(s"onYouTubeVideo deleted-entry $deleted")
       funit
 
   private def onVideo(channelId: String, videoId: String): Funit =
@@ -89,7 +88,7 @@ final private class YouTubeApi(
               logger.info(s"YouTube: LIVE and ONLINE ${s.id} vid:$videoId ch:$channelId")
               coll.update.one($doc("_id" -> s.id), $set("youTube.pubsubVideoId" -> videoId))
             else if isLive then logger.warn(s"YouTube: LIVE but OFFLINE ${s.id} vid:$videoId ch:$channelId")
-            else logger.warn(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
+            else logger.debug(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
           logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
 

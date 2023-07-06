@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.syntax.all.*
 import chess.format.Fen
 import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
 import chess.format.{ pgn as chessPgn }
@@ -65,7 +64,7 @@ final class PgnDump(
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
   private def eventOf(game: Game) =
-    val perf = game.perfType.fold("Standard")(_.trans(using lila.i18n.defaultLang))
+    val perf = game.perfType.trans(using lila.i18n.defaultLang)
     game.tournamentId.map { id =>
       s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
     } orElse game.simulId.map { id =>
@@ -76,7 +75,7 @@ final class PgnDump(
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
     p.ratingDiff.map { rd =>
-      Tag(tag(Tag), s"${if (rd >= 0) "+" else ""}$rd")
+      Tag(tag(Tag), s"${if rd >= 0 then "+" else ""}$rd")
     }
 
   def tags(
@@ -94,7 +93,7 @@ final class PgnDump(
           List[Option[Tag]](
             Tag(
               _.Event,
-              imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
+              imported.flatMap(_.tags(_.Event)) | { if game.imported then "Import" else eventOf(game) }
             ).some,
             Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
             Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,

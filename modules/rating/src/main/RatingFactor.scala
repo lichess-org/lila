@@ -20,10 +20,10 @@ object RatingFactor extends OpaqueDouble[RatingFactor]:
   private def read(s: String): RatingFactors =
     s.split(separator).toList.map(_.trim.split('=')) flatMap {
       case Array(ptk, fs) =>
-        for {
+        for
           pt <- PerfType(Perf.Key(ptk))
           f  <- fs.toDoubleOption
-        } yield pt -> RatingFactor(f)
+        yield pt -> RatingFactor(f)
       case _ => None
     } toMap
 

@@ -90,10 +90,10 @@ final private class ForumTopicApi(
               promotion.save(post.text)
               shutup ! {
                 val text = s"${topic.name} ${post.text}"
-                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
+                if post.isTeam then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, text)
               }
-              if (!post.troll && !categ.quiet)
+              if !post.troll && !categ.quiet then
                 timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))
                   .toFollowersOf(me)
                   .withTeam(categ.team)

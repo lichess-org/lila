@@ -18,7 +18,7 @@ object bits:
       moreCss = cssTag("clas"),
       moreJs = jsModule("clas")
     )(
-      if (isGranted(_.Teacher))
+      if isGranted(_.Teacher) then
         main(cls := "page-menu")(
           st.nav(cls := "page-menu__menu subnav")(
             a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)(

@@ -1,7 +1,5 @@
 package lila.tutor
 
-import cats.data.NonEmptyList
-
 import lila.insight.*
 import lila.rating.PerfType
 import lila.rating.BSONHandlers.perfTypeIdHandler

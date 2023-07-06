@@ -19,6 +19,8 @@ case class LobbyCounters(members: Int, rounds: Int)
 final class LobbySocket(
     biter: Biter,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
@@ -79,7 +81,7 @@ final class LobbySocket(
       case RemoveHook(hookId) => removedHookIds.append(hookId).unit
 
       case SendHookRemovals =>
-        if (removedHookIds.nonEmpty)
+        if removedHookIds.nonEmpty then
           tellActiveHookSubscribers(makeMessage("hrm", removedHookIds.toString))
           removedHookIds.clear()
         scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals).unit
@@ -153,7 +155,11 @@ final class LobbySocket(
 
   def controller(member: Member): SocketController =
     case ("join", o) if !member.bot =>
-      HookPoolLimit(member, cost = if (member.isAuth) 4 else 5, msg = s"join $o ${member.userId | "anon"}") {
+      HookPoolLimit(
+        member,
+        cost = if member.isAuth then 4 else 5,
+        msg = s"join $o ${member.userId | "anon"}"
+      ) {
         o str "d" foreach { id =>
           lobby ! BiteHook(id, member.sri, member.user)
         }
@@ -164,32 +170,32 @@ final class LobbySocket(
       }
     case ("joinSeek", o) if !member.bot =>
       HookPoolLimit(member, cost = 5, msg = s"joinSeek $o") {
-        for {
+        for
           id   <- o str "d"
           user <- member.user
-        } lobby ! BiteSeek(id, user)
+        do lobby ! BiteSeek(id, user)
       }
     case ("cancelSeek", o) =>
       HookPoolLimit(member, cost = 1, msg = s"cancelSeek $o") {
-        for {
+        for
           id   <- o str "d"
           user <- member.user
-        } lobby ! CancelSeek(id, user)
+        do lobby ! CancelSeek(id, user)
       }
     case ("idle", o) => actor ! SetIdle(member.sri, ~(o boolean "d"))
     // entering a pool
     case ("poolIn", o) if !member.bot =>
       HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
-        for {
+        for
           user     <- member.user
           d        <- o obj "d"
           id       <- d str "id"
           perfType <- poolApi.poolPerfTypes get PoolConfig.Id(id)
           ratingRange = d str "range" flatMap RatingRange.apply
           blocking    = d.get[UserId]("blocking")
-        } yield
+        yield
           lobby ! CancelHook(member.sri) // in case there's one...
-          userRepo.glicko(user.id, perfType) foreach { glicko =>
+          perfsRepo.glicko(user.id, perfType) foreach { glicko =>
             poolApi.join(
               PoolConfig.Id(id),
               PoolApi.Joiner(
@@ -220,8 +226,9 @@ final class LobbySocket(
 
   private def getOrConnect(sri: Sri, userOpt: Option[UserId]): Fu[Member] =
     actor.ask[Option[Member]](GetMember(sri, _)) getOrElse {
-      userOpt so userRepo.enabledById flatMap { user =>
+      userOpt so userApi.withPerfs flatMap { user =>
         user
+          .filter(_.enabled.yes)
           .so: u =>
             remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
             relationApi.fetchBlocking(u.id)
@@ -281,19 +288,18 @@ private object LobbySocket:
       val reader: P.In.Reader = raw =>
         raw.path match
           case "counters" =>
-            import cats.syntax.all.*
             raw.get(2) { case Array(m, r) =>
               (m.toIntOption, r.toIntOption).mapN(Counters.apply)
             }
           case _ => P.In.baseReader(raw)
     object Out:
       def pairings(pairings: List[PoolApi.Pairing]) =
-        val redirs = for {
+        val redirs = for
           pairing <- pairings
           color   <- chess.Color.all
           sri    = pairing sri color
           fullId = pairing.game fullIdOf color
-        } yield s"$sri:$fullId"
+        yield s"$sri:$fullId"
         s"lobby/pairings ${P.Out.commas(redirs)}"
       def tellLobby(payload: JsObject)       = s"tell/lobby ${Json stringify payload}"
       def tellLobbyActive(payload: JsObject) = s"tell/lobby/active ${Json stringify payload}"

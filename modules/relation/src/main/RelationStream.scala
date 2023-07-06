@@ -2,31 +2,31 @@ package lila.relation
 
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ given, * }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserApi }
 
-final class RelationStream(colls: Colls, userRepo: UserRepo)(using akka.stream.Materializer):
+final class RelationStream(colls: Colls, userApi: UserApi)(using akka.stream.Materializer):
 
   import RelationStream.*
 
   private val coll = colls.relation
 
-  def follow(user: User, direction: Direction, perSecond: MaxPerSecond): Source[User, ?] =
+  def follow(user: User, direction: Direction, perSecond: MaxPerSecond): Source[User.WithPerfs, ?] =
     coll
       .find(
         $doc(selectField(direction) -> user.id, "r" -> Follow),
         $doc(projectField(direction) -> true, "_id" -> false).some
       )
       .batchSize(perSecond.value)
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .cursor[Bdoc](ReadPref.sec)
       .documentSource()
       .grouped(perSecond.value)
       .map(_.flatMap(_.getAsOpt[UserId](projectField(direction))))
       .throttle(1, 1 second)
-      .mapAsync(1)(userRepo.usersFromSecondary)
+      .mapAsync(1): ids =>
+        userApi.listWithPerfs(ids.toList)
       .mapConcat(identity)
 
   private def selectField(d: Direction) = d match

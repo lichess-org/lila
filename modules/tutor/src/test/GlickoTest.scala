@@ -2,7 +2,7 @@ package lila.tutor
 
 import lila.rating.Perf
 
-class GlickoTest extends munit.FunSuite {
+class GlickoTest extends munit.FunSuite:
 
   test("glicko for arbitrary outcomes") {
     assertEquals(
@@ -16,4 +16,3 @@ class GlickoTest extends munit.FunSuite {
       1669
     )
   }
-}

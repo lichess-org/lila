@@ -97,7 +97,7 @@ case class Simul(
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
 
   private def finishIfDone =
-    if (isStarted && pairings.forall(_.finished))
+    if isStarted && pairings.forall(_.finished) then
       copy(
         status = SimulStatus.Finished,
         finishedAt = nowInstant.some,
@@ -108,12 +108,8 @@ case class Simul(
   def gameIds = pairings.map(_.gameId)
 
   def perfTypes: List[PerfType] =
-    variants.flatMap: variant =>
-      lila.game.PerfPicker.perfType(
-        speed = Speed(clock.config.some),
-        variant = variant,
-        daysPerTurn = none
-      )
+    variants.map:
+      PerfType(_, Speed(clock.config.some))
 
   def mainPerfType =
     perfTypes.find(pt => PerfType.variantOf(pt).standard) orElse perfTypes.headOption getOrElse PerfType.Rapid
@@ -132,7 +128,7 @@ case class Simul(
   def setPairingHostColor(gameId: GameId, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
-  private def Created(s: => Simul): Simul = if (isCreated) s else this
+  private def Created(s: => Simul): Simul = if isCreated then s else this
 
   def wins    = pairings.count(p => p.finished && p.wins.has(false))
   def draws   = pairings.count(p => p.finished && p.wins.isEmpty)
@@ -146,7 +142,7 @@ object Simul:
   case class OnStart(simul: Simul) extends AnyVal
 
   def make(
-      host: User,
+      host: User.WithPerfs,
       name: String,
       clock: SimulClock,
       variants: List[Variant],
@@ -162,19 +158,15 @@ object Simul:
     status = SimulStatus.Created,
     clock = clock,
     hostId = host.id,
-    hostRating = host.perfs.bestRatingIn {
-      variants.flatMap { variant =>
-        lila.game.PerfPicker.perfType(
-          speed = Speed(clock.config.some),
-          variant = variant,
-          daysPerTurn = none
-        )
+    hostRating = host.perfs.bestRatingIn:
+      variants.map {
+        PerfType(_, Speed(clock.config.some))
       } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
-    },
+    ,
     hostGameId = none,
     createdAt = nowInstant,
     estimatedStartAt = estimatedStartAt,
-    variants = if (position.isDefined) List(chess.variant.Standard) else variants,
+    variants = if position.isDefined then List(chess.variant.Standard) else variants,
     position = position,
     applicants = Nil,
     pairings = Nil,

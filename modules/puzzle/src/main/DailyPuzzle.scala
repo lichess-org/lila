@@ -54,7 +54,7 @@ final private[puzzle] class DailyPuzzle(
     findNew flatMap {
       case None => tryAgainMaybe
       case Some(p) if p.hasTheme(anastasiaMate, arabianMate) && !odds(3) =>
-        tryAgainMaybe dmap (_ orElse p.some)
+        tryAgainMaybe.dmap(_ orElse p.some)
       case p => fuccess(p)
     }
 

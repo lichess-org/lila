@@ -25,7 +25,7 @@ object irwin:
           boxTop(
             h1(
               "Irwin status: ",
-              if (dashboard.seenRecently) span(cls := "up")("Operational")
+              if dashboard.seenRecently then span(cls := "up")("Operational")
               else
                 span(cls := "down")(
                   dashboard.lastSeenAt.map { seenAt =>
@@ -115,9 +115,7 @@ object irwin:
                     ),
                     br,
                     pov.game.isTournament so frag(iconTag(licon.Trophy), " "),
-                    pov.game.perfType.map { pt =>
-                      iconTag(pt.icon)
-                    },
+                    iconTag(pov.game.perfType.icon),
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",
                     momentFromNowServer(pov.game.createdAt)

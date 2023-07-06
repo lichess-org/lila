@@ -8,8 +8,9 @@ case class StartGame(game: Game)
 
 case class FinishGame(
     game: Game,
-    white: Option[User],
-    black: Option[User]
+    // users and perfs BEFORE the game result is applied
+    white: Option[User.WithPerfs],
+    black: Option[User.WithPerfs]
 ):
   def isVsSelf = white.isDefined && white == black
 

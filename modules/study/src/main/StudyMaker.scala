@@ -55,7 +55,7 @@ final private class StudyMaker(
       user: User,
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {
-    for {
+    for
       root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
       tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
       name <- StudyChapterName from Namer.gameVsText(pov.game, withRatings)(using lightUserApi.async)
@@ -76,7 +76,7 @@ final private class StudyMaker(
         gamebook = false,
         conceal = None
       )
-    } yield Study.WithChapter(study withChapter chapter, chapter)
+    yield Study.WithChapter(study withChapter chapter, chapter)
   } addEffect { swc =>
     chapterMaker.notifyChat(swc.study, pov.game, user.id)
   }

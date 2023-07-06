@@ -1,6 +1,5 @@
 package lila.user
 
-import cats.syntax.all.*
 import reactivemongo.api.bson.*
 import scala.util.Success
 
@@ -19,9 +18,8 @@ final class RankingApi(
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
-  def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
-    perfType.so: pt =>
-      save(user, pt, perfs(pt))
+  def save(user: User, perfType: PerfType, perfs: UserPerfs): Funit =
+    save(user, perfType, perfs(perfType))
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
     (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)) so coll:
@@ -65,7 +63,7 @@ final class RankingApi(
             .parallel.dmap(_.flatten)
     }
 
-  private[user] def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] =
+  private[user] def fetchLeaderboard(nb: Int): Fu[UserPerfs.Leaderboards] =
     for
       ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)
       bullet        <- topPerf(PerfType.Bullet.id, nb)
@@ -80,7 +78,7 @@ final class RankingApi(
       horde         <- topPerf(PerfType.Horde.id, nb)
       racingKings   <- topPerf(PerfType.RacingKings.id, nb)
       crazyhouse    <- topPerf(PerfType.Crazyhouse.id, nb)
-    yield Perfs.Leaderboards(
+    yield UserPerfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,
       blitz = blitz,

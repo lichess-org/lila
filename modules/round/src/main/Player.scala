@@ -1,6 +1,5 @@
 package lila.round
 
-import cats.syntax.all.*
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status, ErrorStr }
@@ -74,24 +73,24 @@ final private class Player(
       progress: Progress,
       moveOrDrop: MoveOrDrop
   )(using GameProxy): Fu[Events] =
-    if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
+    if pov.game.hasAi then uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
-    if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
-    else {
-      if (progress.game.playableByAi) requestFishnet(progress.game, round)
-      if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-      if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-      if (progress.game.forecastable) moveOrDrop.move.foreach { move =>
-        round ! ForecastPlay(move)
-      }
+    if progress.game.finished then moveFinish(progress.game) dmap { progress.events ::: _ }
+    else
+      if progress.game.playableByAi then requestFishnet(progress.game, round)
+      if pov.opponent.isOfferingDraw then round ! DrawNo(pov.player.id)
+      if pov.player.isProposingTakeback then round ! TakebackNo(pov.player.id)
+      if progress.game.forecastable then
+        moveOrDrop.move.foreach { move =>
+          round ! ForecastPlay(move)
+        }
       scheduleExpiration(progress.game)
       fuccess(progress.events)
-    }
 
   private[round] def fishnet(game: Game, sign: String, uci: Uci)(using proxy: GameProxy): Fu[Events] =
-    if (game.playable && game.player.isAi)
+    if game.playable && game.player.isAi then
       uciMemo sign game flatMap { expectedSign =>
-        if (expectedSign == sign)
+        if expectedSign == sign then
           applyUci(game, uci, blur = false, metrics = fishnetLag)
             .fold(errs => fufail(ClientError(ErrorStr raw errs)), fuccess)
             .flatMap {
@@ -101,9 +100,8 @@ final private class Player(
                   uciMemo.add(progress.game, moveOrDrop) >>-
                   lila.mon.fishnet.move(~game.aiLevel).increment().unit >>-
                   notifyMove(moveOrDrop, progress.game) >> {
-                    if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
-                    else
-                      fuccess(progress.events)
+                    if progress.game.finished then moveFinish(progress.game) dmap { progress.events ::: _ }
+                    else fuccess(progress.events)
                   }
             }
         else
@@ -122,7 +120,7 @@ final private class Player(
 
   private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
     game.playableByAi.so:
-      if (game.ply <= fishnetPlayer.maxPlies) fishnetPlayer(game)
+      if game.ply <= fishnetPlayer.maxPlies then fishnetPlayer(game)
       else fuccess(round ! actorApi.round.ResignAi)
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
@@ -168,7 +166,7 @@ final private class Player(
     Bus.publish(MoveGameEvent(game, moveEvent.fen, moveEvent.move), MoveGameEvent makeChan game.id)
 
     // publish correspondence moves
-    if (game.isCorrespondence && game.nonAi)
+    if game.isCorrespondence && game.nonAi then
       Bus.publish(
         CorresMoveEvent(
           move = moveEvent,

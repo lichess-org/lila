@@ -26,7 +26,7 @@ final class CurrencyApi(
 
   private val ratesCache = mongoCache.unit[Map[String, Double]](
     "currency:rates",
-    if (mode == Mode.Prod) 120 minutes // i.e. 377/month, under the 1000/month limit of free OER plan
+    if mode == Mode.Prod then 120 minutes // i.e. 377/month, under the 1000/month limit of free OER plan
     else 1 day
   ) { loader =>
     _.refreshAfterWrite(121 minutes)
@@ -48,10 +48,10 @@ final class CurrencyApi(
 
   def convert(money: Money, currency: Currency): Fu[Option[Money]] =
     ratesCache.get {} map { rates =>
-      for {
+      for
         fromRate <- rates get money.currencyCode
         toRate   <- rates get currency.getCurrencyCode
-      } yield Money(money.amount / fromRate * toRate, currency)
+      yield Money(money.amount / fromRate * toRate, currency)
     }
 
   def toUsd(money: Money): Fu[Option[Usd]] =

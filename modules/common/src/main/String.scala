@@ -108,7 +108,7 @@ object String:
   def shorten(text: String, length: Int): String = shorten(text, length, "…")
   def shorten(text: String, length: Int, sep: String): String =
     val oneline = onelineR.replaceAllIn(text, " ")
-    if (oneline.lengthIs > length + sep.length) oneline.take(length) ++ sep
+    if oneline.lengthIs > length + sep.length then oneline.take(length) ++ sep
     else oneline
 
   def isShouting(text: String) =
@@ -122,7 +122,7 @@ object String:
           case _                => i
       } > 0
     }
-  def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
+  def noShouting(str: String): String = if isShouting(str) then str.toLowerCase else str
 
   object base64:
     import java.util.Base64
@@ -145,7 +145,7 @@ object String:
     ): Frag =
       raw:
         val withLinks = RawHtml.addLinks(rawText, expandImg)
-        if (nl2br) RawHtml.nl2br(withLinks.value) else withLinks
+        if nl2br then RawHtml.nl2br(withLinks.value) else withLinks
 
     def nl2brUnsafe(text: String): Frag =
       raw:
@@ -163,7 +163,7 @@ object String:
     def markdownLinksOrRichText(text: String)(using config.NetDomain): Frag =
       val escaped = Html(escapeHtmlRaw(text))
       val marked  = RawHtml.justMarkdownLinks(escaped)
-      if (marked == escaped) richText(text)
+      if marked == escaped then richText(text)
       else nl2brUnsafe(marked.value)
 
     def safeJsonValue(jsValue: JsValue): String =

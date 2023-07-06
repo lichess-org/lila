@@ -3,7 +3,6 @@ package lila.tournament
 import akka.stream.scaladsl.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
-import reactivemongo.api.ReadPreference
 
 import lila.common.{ LilaScheduler, LilaStream }
 import lila.common.Json.given
@@ -22,9 +21,10 @@ final class TournamentLilaHttp(
 )(using akka.stream.Materializer, Scheduler, Executor):
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
-  def handledIds                = isOnLilaHttp.keys
+  private def handledIds        = isOnLilaHttp.keys
   def hit(tour: Tournament) =
-    if (tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
+    if tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)
+    then isOnLilaHttp.put(tour.id)
 
   private val isOnLilaHttp = ExpireSetMemo[TourId](3 hours)
   private val hitCounter   = FrequencyThreshold[TourId](10, 20 seconds)
@@ -36,47 +36,36 @@ final class TournamentLilaHttp(
     tournamentRepo
       .idsCursor(handledIds)
       .documentSource()
-      .mapAsyncUnordered(4) { tour =>
-        if (tour.finishedSinceSeconds.exists(_ > 20)) isOnLilaHttp.remove(tour.id)
-        arenaFullJson(tour)
-      }
-      .map { json =>
-        val str = Json stringify json
+      .mapAsyncUnordered(4): tour =>
+        if tour.finishedSinceSeconds.exists(_ > 20) then isOnLilaHttp.remove(tour.id)
+        arenaFullJson(tour) map Json.stringify
+      .map: str =>
         lila.mon.tournament.lilaHttp.fullSize.record(str.size)
         conn.async.publish(channel, str).unit
-      }
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
       .monSuccess(_.tournament.lilaHttp.tick)
       .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_).unit)
       .void
   }
 
-  private def arenaFullJson(tour: Tournament): Fu[JsObject] = for {
+  private def arenaFullJson(tour: Tournament): Fu[JsObject] = for
     data  <- jsonView.cachableData get tour.id
     stats <- statsApi(tour)
-    teamStanding <- tour.isTeamBattle so jsonView
-      .fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
-      .dmap(some)
+    teamStanding <- tour.isTeamBattle.soFu:
+      jsonView.fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
     fullStanding <- playerRepo
-      .sortedCursor(tour.id, 100, ReadPreference.primary)
+      .sortedCursor(tour.id, 100, _.pri)
       .documentSource()
       .zipWithIndex
-      .mapAsync(16) { case (player, index) =>
-        for {
+      .mapAsync(16): (player, index) =>
+        for
           sheet <- cached.sheet(tour, player.userId)
-          json <- playerJson(
-            tour,
-            sheet,
-            RankedPlayer(Rank(index.toInt + 1), player)
-          )
-        } yield json
-      }
-      .toMat(Sink.seq)(Keep.right)
-      .run()
+          ranked = RankedPlayer(Rank(index.toInt + 1), player)
+          json <- playerJson(tour, sheet, ranked)
+        yield json
+      .runWith(Sink.seq)
       .map(JsArray(_))
-
-  } yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
+  yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
     .obj(
       "id" -> tour.id,
       "ongoingUserGames" -> {
@@ -107,7 +96,5 @@ final class TournamentLilaHttp(
         .add("withdraw" -> p.withdraw)
         .add("team" -> p.team)
         .add("fire" -> p.fire)
-        .add("pause" -> {
-          p.withdraw so pause.remainingDelay(p.userId, tour)
-        })
+        .add("pause" -> p.withdraw.so(pause.remainingDelay(p.userId, tour)))
     }

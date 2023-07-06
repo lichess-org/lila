@@ -33,7 +33,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
             div(cls := "bar", style := s"width: ${data.progressPercent}%")
           ),
           postForm(action := routes.Practice.reset)(
-            if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
+            if ctx.isAuth then (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
             else a(href := routes.Auth.signup)("Sign up to save your progress")
           )
         ),
@@ -45,7 +45,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
                 section.studies.filter(s => !s.hide || isGranted(_.PracticeConfig)).map { stud =>
                   val prog = data.progressOn(stud.id)
                   a(
-                    cls  := s"study ${if (prog.complete) "done" else "ongoing"}",
+                    cls  := s"study ${if prog.complete then "done" else "ongoing"}",
                     href := routes.Practice.show(section.id, stud.slug, stud.id)
                   )(
                     ctx.isAuth option span(cls := "ribbon-wrapper")(

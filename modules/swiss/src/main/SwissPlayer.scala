@@ -37,17 +37,13 @@ object SwissPlayer:
 
   def makeId(swissId: SwissId, userId: UserId) = Id(s"$swissId:$userId")
 
-  private[swiss] def make(
-      swissId: SwissId,
-      user: User,
-      perf: PerfType
-  ): SwissPlayer =
+  private[swiss] def make(swissId: SwissId, user: User.WithPerf): SwissPlayer =
     SwissPlayer(
       id = makeId(swissId, user.id),
       swissId = swissId,
       userId = user.id,
-      rating = user.perfs(perf).intRating,
-      provisional = user.perfs(perf).provisional,
+      rating = user.perf.intRating,
+      provisional = user.perf.provisional,
       points = SwissPoints fromDoubled 0,
       tieBreak = Swiss.TieBreak(0),
       performance = none,

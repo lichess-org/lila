@@ -36,13 +36,11 @@ private object PgnStorage:
     def decode(bytes: ByteArray, plies: Ply, id: GameId): Decoded =
       monitor(_.game.pgn.decode("huffman")) {
         val decoded =
-          try {
-            Encoder.decode(bytes.value, plies.value)
-          } catch {
+          try Encoder.decode(bytes.value, plies.value)
+          catch
             case e: java.nio.BufferUnderflowException =>
               logger.error(s"Can't decode game $id PGN", e)
               throw e
-          }
         val unmovedRooks = decoded.unmovedRooks.asScala.view.map(Square(_)).toSet
         Decoded(
           sans = SanStr from decoded.pgnMoves.toVector,

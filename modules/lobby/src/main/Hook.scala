@@ -5,10 +5,10 @@ import chess.variant.Variant
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.socket.Socket.Sri
 import lila.user.User
+import lila.rating.PerfType
 
 // realtime chess, volatile
 case class Hook(
@@ -53,9 +53,9 @@ case class Hook(
   def username = user.fold(User.anonymous)(_.username)
   def lame     = user.so(_.lame)
 
-  lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
+  lazy val perfType: PerfType = PerfType(realVariant, speed)
 
-  lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
+  lazy val perf: Option[LobbyPerf] = user.map(_.perfAt(perfType))
   def rating: Option[IntRating]    = perf.map(_.rating)
 
   import lila.common.Json.given
@@ -64,9 +64,10 @@ case class Hook(
       "id"    -> id,
       "sri"   -> sri,
       "clock" -> clock.show,
+      "perf"  -> perfType.key,
       "t"     -> clock.estimateTotalSeconds,
       "s"     -> speed.id,
-      "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
+      "i"     -> (if clock.incrementSeconds > 0 then 1 else 0)
     )
     .add("prov" -> perf.map(_.provisional))
     .add("u" -> user.map(_.username))
@@ -74,7 +75,6 @@ case class Hook(
     .add("variant" -> realVariant.exotic.option(realVariant.key))
     .add("ra" -> realMode.rated.option(1))
     .add("c" -> chess.Color.fromName(color).map(_.name))
-    .add("perf" -> perfType.map(_.key))
 
   def randomColor = color == "random"
 
@@ -111,7 +111,7 @@ object Hook:
       clock: Clock.Config,
       mode: Mode,
       color: String,
-      user: Option[User],
+      user: Option[User.WithPerfs],
       sid: Option[String],
       ratingRange: RatingRange,
       blocking: lila.pool.Blocking,
@@ -124,7 +124,7 @@ object Hook:
       clock = clock,
       mode = mode.id,
       color = color,
-      user = user map { LobbyUser.make(_, blocking) },
+      user = user.map(LobbyUser.make(_, blocking)),
       sid = sid,
       ratingRange = ratingRange.toString,
       createdAt = nowInstant,

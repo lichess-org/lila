@@ -27,7 +27,8 @@ object TreeBuilder:
       case (init, games, error) =>
         error foreach logChessError(game.id)
         val openingOf: OpeningOf =
-          if (withFlags.opening && Variant.list.openingSensibleVariants(game.variant)) OpeningDb.findByEpdFen
+          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant) then
+            OpeningDb.findByEpdFen
           else _ => None
         val fen                       = Fen write init
         val infos: Vector[Info]       = analysis.so(_.infos.toVector)

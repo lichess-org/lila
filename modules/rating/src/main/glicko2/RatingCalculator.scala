@@ -44,16 +44,15 @@ final class RatingCalculator(
     val players = results.getParticipants
     players foreach { player =>
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
-      if (results.getResults(player).sizeIs > 0) {
+      if results.getResults(player).sizeIs > 0 then
         calculateNewRating(player, results.getResults(player), elapsedRatingPeriods)
-      } else {
+      else
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
         player.workingRating = player.getGlicko2Rating
         player.workingRatingDeviation =
           calculateNewRD(player.getGlicko2RatingDeviation, player.volatility, elapsedRatingPeriods)
         player.workingVolatility = player.volatility
-      }
     }
 
     // now iterate through the participants and confirm their new ratings
@@ -74,9 +73,7 @@ final class RatingCalculator(
       val interval = java.time.Duration.between(periodEnd, ratingPeriodEndDate)
       elapsedRatingPeriods = interval.toMillis * ratingPeriodsPerMilli
     }
-    if (reverse) {
-      elapsedRatingPeriods = -elapsedRatingPeriods
-    }
+    if reverse then elapsedRatingPeriods = -elapsedRatingPeriods
     val newRD = calculateNewRD(player.getGlicko2RatingDeviation, player.volatility, elapsedRatingPeriods)
     convertRatingDeviationToOriginalGlickoScale(newRD)
 
@@ -96,17 +93,14 @@ final class RatingCalculator(
     // step 5.2 - set the initial values of the iterative algorithm to come in step 5.4
     var A: Double = a
     var B: Double = 0
-    if (Math.pow(delta, 2) > Math.pow(phi, 2) + v) {
-      B = Math.log(Math.pow(delta, 2) - Math.pow(phi, 2) - v)
-    } else {
+    if Math.pow(delta, 2) > Math.pow(phi, 2) + v then B = Math.log(Math.pow(delta, 2) - Math.pow(phi, 2) - v)
+    else
       var k = 1d
       B = a - (k * Math.abs(tau))
 
-      while (f(B, delta, phi, v, a, tau) < 0) {
+      while f(B, delta, phi, v, a, tau) < 0 do
         k = k + 1
         B = a - (k * Math.abs(tau))
-      }
-    }
 
     // step 5.3
     var fA = f(A, delta, phi, v, a, tau)
@@ -114,28 +108,24 @@ final class RatingCalculator(
 
     // step 5.4
     var iterations = 0
-    while (Math.abs(B - A) > CONVERGENCE_TOLERANCE && iterations < ITERATION_MAX) {
+    while Math.abs(B - A) > CONVERGENCE_TOLERANCE && iterations < ITERATION_MAX do
       iterations = iterations + 1
       // println(String.format("%f - %f (%f) > %f", B, A, Math.abs(B - A), CONVERGENCE_TOLERANCE))
       val C  = A + (((A - B) * fA) / (fB - fA))
       val fC = f(C, delta, phi, v, a, tau)
 
-      if (fC * fB <= 0) {
+      if fC * fB <= 0 then
         A = B
         fA = fB
-      } else {
-        fA = fA / 2.0
-      }
+      else fA = fA / 2.0
 
       B = C
       fB = fC
-    }
-    if (iterations == ITERATION_MAX) {
+    if iterations == ITERATION_MAX then
       println(String.format("Convergence fail at %d iterations", iterations))
       println(player.toString())
       results foreach println
       throw new RuntimeException("Convergence fail")
-    }
 
     val newSigma = Math.exp(A / 2.0)
 

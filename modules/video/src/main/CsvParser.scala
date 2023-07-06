@@ -38,94 +38,76 @@ object CSVParser:
     var pos                    = 0
     val buflen                 = buf.length
 
-    if (buf.length > 0 && buf(0) == '\uFEFF')
-      pos += 1
+    if buf.length > 0 && buf(0) == '\uFEFF' then pos += 1
 
-    while (state != End && pos < buflen)
+    while state != End && pos < buflen do
       val c = buf(pos)
       (state: @switch) match
-        case Start => {
+        case Start =>
           c match
-            case `quoteChar` => {
+            case `quoteChar` =>
               state = QuoteStart
               pos += 1
-            }
-            case `delimiter` => {
+            case `delimiter` =>
               fields :+= field.toString
               field = new StringBuilder
               state = Delimiter
               pos += 1
-            }
-            case '\n' | '\u2028' | '\u2029' | '\u0085' => {
+            case '\n' | '\u2028' | '\u2029' | '\u0085' =>
               fields :+= field.toString
               field = new StringBuilder
               state = End
               pos += 1
-            }
-            case '\r' => {
-              if (pos + 1 < buflen && buf(1) == '\n')
-                pos += 1
+            case '\r' =>
+              if pos + 1 < buflen && buf(1) == '\n' then pos += 1
               fields :+= field.toString
               field = new StringBuilder
               state = End
               pos += 1
-            }
-            case x => {
+            case x =>
               field += x
               state = Field
               pos += 1
-            }
-        }
-        case Delimiter => {
+        case Delimiter =>
           c match
-            case `quoteChar` => {
+            case `quoteChar` =>
               state = QuoteStart
               pos += 1
-            }
-            case `escapeChar` => {
-              if (
-                pos + 1 < buflen
+            case `escapeChar` =>
+              if pos + 1 < buflen
                 && (buf(pos + 1) == escapeChar || buf(pos + 1) == delimiter)
-              )
+              then
                 field += buf(pos + 1)
                 state = Field
                 pos += 2
               else throw new MalformedCSVException(buf.mkString)
-            }
-            case `delimiter` => {
+            case `delimiter` =>
               fields :+= field.toString
               field = new StringBuilder
               state = Delimiter
               pos += 1
-            }
-            case '\n' | '\u2028' | '\u2029' | '\u0085' => {
+            case '\n' | '\u2028' | '\u2029' | '\u0085' =>
               fields :+= field.toString
               field = new StringBuilder
               state = End
               pos += 1
-            }
-            case '\r' => {
-              if (pos + 1 < buflen && buf(1) == '\n')
-                pos += 1
+            case '\r' =>
+              if pos + 1 < buflen && buf(1) == '\n' then pos += 1
               fields :+= field.toString
               field = new StringBuilder
               state = End
               pos += 1
-            }
-            case x => {
+            case x =>
               field += x
               state = Field
               pos += 1
-            }
-        }
-        case Field => {
+        case Field =>
           c match
-            case `escapeChar` => {
-              if (pos + 1 < buflen)
-                if (
-                  buf(pos + 1) == escapeChar
+            case `escapeChar` =>
+              if pos + 1 < buflen then
+                if buf(pos + 1) == escapeChar
                   || buf(pos + 1) == delimiter
-                )
+                then
                   field += buf(pos + 1)
                   state = Field
                   pos += 2
@@ -133,97 +115,77 @@ object CSVParser:
               else
                 state = QuoteEnd
                 pos += 1
-            }
-            case `delimiter` => {
+            case `delimiter` =>
               fields :+= field.toString
               field = new StringBuilder
               state = Delimiter
               pos += 1
-            }
-            case '\n' | '\u2028' | '\u2029' | '\u0085' => {
+            case '\n' | '\u2028' | '\u2029' | '\u0085' =>
               fields :+= field.toString
               field = new StringBuilder
               state = End
               pos += 1
-            }
-            case '\r' => {
-              if (pos + 1 < buflen && buf(1) == '\n')
-                pos += 1
+            case '\r' =>
+              if pos + 1 < buflen && buf(1) == '\n' then pos += 1
               fields :+= field.toString
               field = new StringBuilder
               state = End
               pos += 1
-            }
-            case x => {
+            case x =>
               field += x
               state = Field
               pos += 1
-            }
-        }
-        case QuoteStart => {
+        case QuoteStart =>
           c match
-            case `escapeChar` if escapeChar != quoteChar => {
-              if (pos + 1 < buflen)
-                if (
-                  buf(pos + 1) == escapeChar
+            case `escapeChar` if escapeChar != quoteChar =>
+              if pos + 1 < buflen then
+                if buf(pos + 1) == escapeChar
                   || buf(pos + 1) == quoteChar
-                )
+                then
                   field += buf(pos + 1)
                   state = QuotedField
                   pos += 2
                 else throw new MalformedCSVException(buf.mkString)
-              else
-                throw new MalformedCSVException(buf.mkString)
-            }
-            case `quoteChar` => {
-              if (pos + 1 < buflen && buf(pos + 1) == quoteChar)
+              else throw new MalformedCSVException(buf.mkString)
+            case `quoteChar` =>
+              if pos + 1 < buflen && buf(pos + 1) == quoteChar then
                 field += quoteChar
                 state = QuotedField
                 pos += 2
               else
                 state = QuoteEnd
                 pos += 1
-            }
-            case x => {
+            case x =>
               field += x
               state = QuotedField
               pos += 1
-            }
-        }
-        case QuoteEnd => {
+        case QuoteEnd =>
           c match
-            case `delimiter` => {
+            case `delimiter` =>
               fields :+= field.toString
               field = new StringBuilder
               state = Delimiter
               pos += 1
-            }
-            case '\n' | '\u2028' | '\u2029' | '\u0085' => {
+            case '\n' | '\u2028' | '\u2029' | '\u0085' =>
               fields :+= field.toString
               field = new StringBuilder
               state = End
               pos += 1
-            }
-            case '\r' => {
-              if (pos + 1 < buflen && buf(1) == '\n')
-                pos += 1
+            case '\r' =>
+              if pos + 1 < buflen && buf(1) == '\n' then pos += 1
               fields :+= field.toString
               field = new StringBuilder
               state = End
               pos += 1
-            }
-            case _ => {
+            case _ =>
               throw new MalformedCSVException(buf.mkString)
-            }
-        }
-        case QuotedField => {
+        case QuotedField =>
           c match
-            case `escapeChar` if escapeChar != quoteChar => {
-              if (pos + 1 < buflen)
-                if (
-                  buf(pos + 1) == escapeChar
+            case `escapeChar` if escapeChar != quoteChar =>
+              if pos + 1 < buflen then
+                if buf(pos + 1) == escapeChar
                   || buf(pos + 1) == quoteChar
-                )
+                then
                   field += buf(pos + 1)
                   state = QuotedField
                   pos += 2
@@ -232,41 +194,31 @@ object CSVParser:
                   field += buf(pos + 1)
                   state = QuotedField
                   pos += 2
-              else
-                throw new MalformedCSVException(buf.mkString)
-            }
-            case `quoteChar` => {
-              if (pos + 1 < buflen && buf(pos + 1) == quoteChar)
+              else throw new MalformedCSVException(buf.mkString)
+            case `quoteChar` =>
+              if pos + 1 < buflen && buf(pos + 1) == quoteChar then
                 field += quoteChar
                 state = QuotedField
                 pos += 2
               else
                 state = QuoteEnd
                 pos += 1
-            }
-            case x => {
+            case x =>
               field += x
               state = QuotedField
               pos += 1
-            }
-        }
-        case End => {
+        case End =>
           sys.error("unexpected error")
-        }
     (state: @switch) match
-      case Delimiter => {
+      case Delimiter =>
         fields :+= ""
         Some(fields.toList)
-      }
-      case QuotedField => {
+      case QuotedField =>
         None
-      }
-      case _ => {
+      case _ =>
         // When no crlf at end of file
         state match
-          case Field | QuoteEnd => {
+          case Field | QuoteEnd =>
             fields :+= field.toString
-          }
           case _ => {}
         Some(fields.toList)
-      }

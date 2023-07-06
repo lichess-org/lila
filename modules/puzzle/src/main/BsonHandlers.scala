@@ -13,7 +13,7 @@ object BsonHandlers:
   import Puzzle.BSONFields.*
 
   private[puzzle] given puzzleReader: BSONDocumentReader[Puzzle] with
-    def readDocument(r: BSONDocument) = for {
+    def readDocument(r: BSONDocument) = for
       id      <- r.getAsTry[PuzzleId](id)
       gameId  <- r.getAsTry[GameId](gameId)
       fen     <- r.getAsTry[Fen.Epd](fen)
@@ -23,7 +23,7 @@ object BsonHandlers:
       plays   <- r.getAsTry[Int](plays)
       vote    <- r.getAsTry[Float](vote)
       themes  <- r.getAsTry[Set[PuzzleTheme.Key]](themes)
-    } yield Puzzle(
+    yield Puzzle(
       id = id,
       gameId = gameId,
       fen = fen,
@@ -36,10 +36,9 @@ object BsonHandlers:
 
   private[puzzle] given roundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
     { case BSONString(v) =>
-      v split PuzzleRound.idSep match {
+      v split PuzzleRound.idSep match
         case Array(userId, puzzleId) => Success(PuzzleRound.Id(UserId(userId), PuzzleId(puzzleId)))
         case _                       => handlerBadValue(s"Invalid puzzle round id $v")
-      }
     },
     id => BSONString(id.toString)
   )
@@ -52,7 +51,7 @@ object BsonHandlers:
           Success(PuzzleRound.Theme(theme.key, v.head == '+'))
         }
     },
-    rt => BSONString(s"${if (rt.vote) "+" else "-"}${rt.theme}")
+    rt => BSONString(s"${if rt.vote then "+" else "-"}${rt.theme}")
   )
 
   private[puzzle] given roundHandler: BSON[PuzzleRound] with

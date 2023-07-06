@@ -38,8 +38,8 @@ object Crosstable:
     val nbGames = (user1.score + user2.score) / 10
 
     def user(id: UserId): Option[User] =
-      if (id == user1.id) Some(user1)
-      else if (id == user2.id) Some(user2)
+      if id == user1.id then Some(user1)
+      else if id == user2.id then Some(user2)
       else None
 
     def toList = List(user1, user2)
@@ -51,17 +51,17 @@ object Crosstable:
         case x    => x
 
     def showOpponentScore(userId: UserId) =
-      if (userId == user1.id) showScore(user2.id).some
-      else if (userId == user2.id) showScore(user1.id).some
+      if userId == user1.id then showScore(user2.id).some
+      else if userId == user2.id then showScore(user1.id).some
       else none
 
     def fromPov(userId: UserId) =
-      if (userId == user2.id) copy(user1 = user2, user2 = user1)
+      if userId == user2.id then copy(user1 = user2, user2 = user1)
       else this
 
     def winnerId =
-      if (user1.score > user2.score) Some(user1.id)
-      else if (user1.score < user2.score) Some(user2.id)
+      if user1.score > user2.score then Some(user1.id)
+      else if user1.score < user2.score then Some(user2.id)
       else None
 
   case class Result(gameId: GameId, winnerId: Option[UserId])
@@ -78,7 +78,7 @@ object Crosstable:
       )
 
   private[game] def makeKey(u1: UserId, u2: UserId): String =
-    if (u1.value < u2.value) s"$u1/$u2" else s"$u2/$u1"
+    if u1.value < u2.value then s"$u1/$u2" else s"$u2/$u1"
 
   import reactivemongo.api.bson.*
   import lila.db.BSON
@@ -99,12 +99,11 @@ object Crosstable:
           Crosstable(
             users = Users(User(UserId(u1Id), r intD score1), User(UserId(u2Id), r intD score2)),
             results = r.get[List[String]](results).map { r =>
-              r drop 8 match {
+              r drop 8 match
                 case ""  => Result(GameId(r), Some(UserId(u1Id)))
                 case "-" => Result(GameId(r take 8), Some(UserId(u2Id)))
                 case "=" => Result(GameId(r take 8), none)
                 case _   => sys error s"Invalid result string $r"
-              }
             }
           )
         case x => sys error s"Invalid crosstable id $x"

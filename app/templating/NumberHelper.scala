@@ -5,7 +5,8 @@ import java.text.NumberFormat
 import java.util.concurrent.ConcurrentHashMap
 import play.api.i18n.Lang
 
-trait NumberHelper { self: I18nHelper =>
+trait NumberHelper:
+  self: I18nHelper =>
 
   private val formatters = new ConcurrentHashMap[String, NumberFormat]
 
@@ -19,4 +20,3 @@ trait NumberHelper { self: I18nHelper =>
 
   extension (e: Int) def localize(using Lang): String  = formatter format e
   extension (e: Long) def localize(using Lang): String = formatter format e
-}

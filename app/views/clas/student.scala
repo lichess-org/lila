@@ -65,11 +65,11 @@ object student:
             )
           )
         },
-        views.html.activity(s.user, activities)
+        views.html.activity(s.withPerfs, activities)
       )
     )
 
-  private def top(clas: Clas, s: Student.WithUser)(using PageContext) =
+  private def top(clas: Clas, s: Student.WithUserLike)(using Context) =
     div(cls := "student-show__top")(
       boxTop(
         h1(dataIcon := licon.User)(
@@ -104,9 +104,7 @@ object student:
           a(
             href := routes.Puzzle.dashboard(7, "home", s.user.username.value.some),
             cls  := "button button-empty"
-          )(
-            trans.puzzle.puzzleDashboard()
-          ),
+          )(trans.puzzle.puzzleDashboard()),
           isGranted(_.Beta) option a(
             href := routes.Tutor.user(s.user.username.value),
             cls  := "button button-empty"
@@ -115,7 +113,7 @@ object student:
       )
     )
 
-  private def realNameField(form: Form[?], fieldName: String = "realName")(using PageContext) =
+  private def realNameField(form: Form[?], fieldName: String = "realName")(using Context) =
     form3.group(
       form(fieldName),
       trans.clas.realName(),

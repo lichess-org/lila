@@ -31,11 +31,11 @@ final class Env(
 
   def apply(me: Option[User])(text: String, page: Int) =
     Paginator[Study.WithChaptersAndLiked](
-      adapter = new AdapterLike[Study] {
+      adapter = new AdapterLike[Study]:
         def query                           = Query(text take 100, me.map(_.id))
         def nbResults                       = api count query
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
-      } mapFutureList pager.withChaptersAndLiking(me),
+      .mapFutureList(pager.withChaptersAndLiking(me)),
       currentPage = page,
       maxPerPage = pager.maxPerPage
     )

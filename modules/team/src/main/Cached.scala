@@ -1,7 +1,6 @@
 package lila.team
 
 import reactivemongo.api.bson.BSONNull
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
@@ -30,7 +29,7 @@ final class Cached(
     initialCapacity = 131072,
     compute = u =>
       memberRepo.coll
-        .aggregateOne(readPreference = ReadPreference.secondaryPreferred): framework =>
+        .aggregateOne(_.sec): framework =>
           import framework.*
           Match($doc("_id" $startsWith s"$u@")) -> List(
             Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.value.size + 1, -1)))),

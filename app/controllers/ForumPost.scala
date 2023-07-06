@@ -97,8 +97,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                 topic     <- topicRepo.forUser(me.some).byId(post.topicId)
                 reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
                 preset =
-                  if (isGranted(_.ModerateForum)) MsgPreset.forumDeletion.byModerator
-                  else if (topic.exists(_ isUblogAuthor me))
+                  if isGranted(_.ModerateForum) then MsgPreset.forumDeletion.byModerator
+                  else if topic.exists(_ isUblogAuthor me) then
                     MsgPreset.forumDeletion.byBlogAuthor(me.username)
                   else MsgPreset.forumDeletion.byTeamLeader(categId)
               do env.msg.api.systemPost(userId, preset(reason))

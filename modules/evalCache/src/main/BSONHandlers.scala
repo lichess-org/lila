@@ -2,7 +2,6 @@ package lila.evalCache
 
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
-import cats.data.NonEmptyList
 
 import chess.format.Uci
 import lila.db.dsl.{ *, given }
@@ -43,7 +42,7 @@ private object BSONHandlers:
 
   given BSONHandler[Id] = tryHandler[Id](
     { case BSONString(value) =>
-      value split ':' match {
+      value split ':' match
         case Array(fen) => Success(Id(chess.variant.Standard, SmallFen(fen)))
         case Array(variantId, fen) =>
           import chess.variant.Variant
@@ -56,11 +55,10 @@ private object BSONHandlers:
             )
           )
         case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id $value")
-      }
     },
     x =>
       BSONString {
-        if (x.variant.standard || x.variant.fromPosition) x.smallFen.value
+        if x.variant.standard || x.variant.fromPosition then x.smallFen.value
         else s"${x.variant.id}:${x.smallFen.value}"
       }
   )

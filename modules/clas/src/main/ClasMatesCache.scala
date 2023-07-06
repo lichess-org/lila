@@ -1,7 +1,6 @@
 package lila.clas
 
 import reactivemongo.api.bson.BSONNull
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -21,7 +20,7 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
 
   private def fetchMatesAndTeachers(studentId: UserId): Fu[Set[UserId]] =
     colls.student
-      .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
+      .aggregateOne(_.sec): framework =>
         import framework.*
         Match($doc("userId" -> studentId)) -> List(
           Group(BSONNull)("classes" -> PushField("clasId")),
@@ -84,16 +83,13 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
             )
           )
         )
-      }
-      .map { docO =>
-        for {
+      .map: docO =>
+        for
           doc      <- docO
           mates    <- doc.getAsOpt[Set[UserId]]("mates")
           teachers <- doc.getAsOpt[Set[UserId]]("teachers")
-        } yield mates ++ teachers
-      }
+        yield mates ++ teachers
       .dmap(~_)
-      .recover {
+      .recover:
         // can happen, probably in case of student cache bloom filter false positive
         case e: DatabaseException if e.getMessage.contains("resulting value was: MISSING") => Set.empty
-      }

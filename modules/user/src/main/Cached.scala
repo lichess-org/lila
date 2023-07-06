@@ -20,7 +20,7 @@ final class Cached(
   private given BSONDocumentHandler[LightPerf]  = Macros.handler
   private given BSONDocumentHandler[LightCount] = Macros.handler
 
-  val top10 = cacheApi.unit[Perfs.Leaderboards] {
+  val top10 = cacheApi.unit[UserPerfs.Leaderboards] {
     _.refreshAfterWrite(2 minutes)
       .buildAsyncFuture { _ =>
         rankingApi
@@ -94,10 +94,9 @@ final class Cached(
   private def userIdsLikeFetch(text: UserStr) =
     userRepo.userIdsLikeFilter(text, $empty, 12)
 
-  private val userIdsLikeCache = cacheApi[UserStr, List[UserId]](1024, "user.like") {
+  private val userIdsLikeCache = cacheApi[UserStr, List[UserId]](1024, "user.like"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
-  }
 
   def userIdsLike(text: UserStr): Fu[List[UserId]] =
-    if (text.value.lengthIs < 5) userIdsLikeCache get text
+    if text.value.lengthIs < 5 then userIdsLikeCache get text
     else userIdsLikeFetch(text)

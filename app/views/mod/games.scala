@@ -118,9 +118,7 @@ object games:
                         pov.game.correspondenceClock.fold(Int.MaxValue)(_.daysPerTurn * 3600 * 24)
                       )(_.config.estimateTotalSeconds)
                     )(
-                      pov.game.perfType.map { pt =>
-                        iconTag(pt.icon)(cls := "text")
-                      },
+                      iconTag(pov.game.perfType.icon)(cls := "text"),
                       shortClockName(pov.game)
                     ),
                     td(dataSort := pov.game.tournamentId.so(_.value))(
@@ -141,22 +139,21 @@ object games:
                     ),
                     td(dataSort := pov.moves)(pov.moves),
                     td(dataSort := ~pov.player.ratingDiff)(
-                      pov.win match {
+                      pov.win match
                         case Some(true)  => goodTag(cls := "result")("1")
                         case Some(false) => badTag(cls := "result")("0")
                         case None        => span(cls := "result")("½")
-                      },
-                      pov.player.ratingDiff match {
+                      ,
+                      pov.player.ratingDiff match
                         case Some(d) if d > 0 => goodTag(s"+$d")
                         case Some(d) if d < 0 => badTag(d)
                         case _                => span("-")
-                      }
                     ),
-                    assessment match {
+                    assessment match
                       case Some(Left(full)) => td(dataSort := full.analysis.avg)(full.analysis.toString)
                       case _                => td
-                    },
-                    assessment match {
+                    ,
+                    assessment match
                       case Some(ass) =>
                         ass.fold(_.basics, identity) pipe { basics =>
                           frag(
@@ -173,7 +170,7 @@ object games:
                           )
                         }
                       case _ => frag(td, td)
-                    },
+                    ,
                     td(dataSort := pov.game.movedAt.toSeconds.toString)(
                       a(href := routes.Round.watcher(pov.gameId, pov.color.name), cls := "glpt")(
                         momentFromNowServerText(pov.game.movedAt)

@@ -91,7 +91,8 @@ class SwissScoringTest extends munit.FunSuite:
 
   extension (e: SwissPlayer)
     def pointsAndTieBreak: (Float, Float) = (e.points.value, e.tieBreak.value.toFloat)
-    def print                             = { println(e); e }
+    def print =
+      println(e); e
 
   def makeUserId(name: Char) = UserId(s"user-$name")
   def makeSwissId            = SwissId("swissId")

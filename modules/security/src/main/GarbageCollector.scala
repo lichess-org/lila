@@ -1,6 +1,5 @@
 package lila.security
 
-import cats.syntax.all.*
 import play.api.mvc.RequestHeader
 import ornicar.scalalib.ThreadLocalRandom
 

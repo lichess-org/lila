@@ -1,6 +1,5 @@
 package views.html.opening
 
-import cats.syntax.all.*
 import controllers.routes
 
 import lila.app.templating.Environment.{ given, * }
@@ -45,7 +44,7 @@ object show:
                   case Right((name, key)) =>
                     val className = s"opening__name__section opening__name__section--${i + 1}"
                     frag(
-                      if (i == 0) emptyFrag else if (i == 1) ": " else ", ",
+                      if i == 0 then emptyFrag else if i == 1 then ": " else ", ",
                       key.fold(span(cls := className)(name)) { k =>
                         a(href := keyUrl(k))(cls := className)(name)
                       }
@@ -82,7 +81,7 @@ object show:
                   href     := s"${routes.UserAnalysis.pgn(page.query.sans mkString "_")}#explorer"
                 )(trans.openingExplorer())
               ),
-              if (page.explored.so(_.history).nonEmpty)
+              if page.explored.so(_.history).nonEmpty then
                 div(cls := "opening__popularity opening__popularity--chart")(
                   canvas(cls := "opening__popularity__chart")
                 )

@@ -1,7 +1,6 @@
 package lila.ublog
 
 import reactivemongo.api.bson.BSONNull
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -47,7 +46,7 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
     cacheApi.unit[List[UblogTopic.WithPosts]]:
       _.refreshAfterWrite(30 seconds).buildAsyncFuture: _ =>
         colls.post
-          .aggregateList(UblogTopic.all.size, ReadPreference.secondaryPreferred): framework =>
+          .aggregateList(UblogTopic.all.size, _.sec): framework =>
             import framework.*
             Facet(
               UblogTopic.all.map: topic =>

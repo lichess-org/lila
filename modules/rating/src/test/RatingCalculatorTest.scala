@@ -3,7 +3,7 @@ package lila.rating
 import glicko2.*
 import chess.{ Color, White, Black }
 
-class RatingCalculatorTest extends lila.common.LilaTest {
+class RatingCalculatorTest extends lila.common.LilaTest:
 
   def updateRatings(wRating: Rating, bRating: Rating, winner: Option[Color]) =
     val result = winner match
@@ -190,4 +190,3 @@ class RatingCalculatorTest extends lila.common.LilaTest {
       assertCloseTo(br.volatility, 0.062006, 0.000001d)
     }
   }
-}

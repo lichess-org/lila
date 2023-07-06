@@ -52,9 +52,9 @@ object bits:
                 span(cls := "setup")(
                   s.clock.show,
                   " • ",
-                  if (s.variant.exotic) s.variant.name else s.perfType.trans,
+                  if s.variant.exotic then s.variant.name else s.perfType.trans,
                   " • ",
-                  if (s.settings.rated) trans.ratedTournament() else trans.casualTournament(),
+                  if s.settings.rated then trans.ratedTournament() else trans.casualTournament(),
                   " • ",
                   s.estimatedDurationString
                 )
@@ -74,7 +74,7 @@ object bits:
       case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
       case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
       case None =>
-        if (s.settings.intervalSeconds < 60)
+        if s.settings.intervalSeconds < 60 then
           trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
 
@@ -86,7 +86,7 @@ object bits:
         span(cls := "more")(
           trans.nbPlayers.plural(s.nbPlayers, s.nbPlayers.localize),
           " • ",
-          if (s.isStarted) trans.eventInProgress() else momentFromNow(s.startsAt)
+          if s.isStarted then trans.eventInProgress() else momentFromNow(s.startsAt)
         )
       )
     )

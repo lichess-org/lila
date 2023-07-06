@@ -14,28 +14,26 @@ object Youtube:
   def fixStartTimes(html: Html) = Html {
     EmbedRegex.replaceAllIn(
       html.value,
-      m => {
+      m =>
         val orig = m group 0
         parseSeconds(m group 1).fold(orig)(seconds => s"$orig&start=$seconds")
-      }
     )
   }
 
   private def parseSeconds(text: String) =
     text match
       case HourMinSecRegex(hourS, minS, secS) =>
-        for {
+        for
           hour <- hourS.toIntOption
           min  <- minS.toIntOption
           sec  <- secS.toIntOption
-        } yield 3600 * hour + 60 * min + sec
+        yield 3600 * hour + 60 * min + sec
       case MinSecRegex(minS, secS) =>
-        for {
+        for
           min <- minS.toIntOption
           sec <- secS.toIntOption
-        } yield 60 * min + sec
+        yield 60 * min + sec
       case SecRegex(secS) =>
-        for {
-          sec <- secS.toIntOption
-        } yield sec
+        for sec <- secS.toIntOption
+        yield sec
       case _ => None

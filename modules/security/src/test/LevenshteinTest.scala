@@ -2,32 +2,25 @@ package lila.security
 import scala.util.Random
 import lila.common.base.StringUtils
 
-object LevenshteinTest {
-  def check0(a: String, b: String): Boolean = {
+object LevenshteinTest:
+  def check0(a: String, b: String): Boolean =
     val d = StringUtils.levenshtein(a, b)
     !Levenshtein.isDistanceLessThan(a, b, d) &&
     Levenshtein.isDistanceLessThan(a, b, d + 1)
-  }
   def check(a: String, b: String) = check0(a, b) && check0(b, a)
-  def rndStr(r: Random, l: Int, sigma: Int): String = {
+  def rndStr(r: Random, l: Int, sigma: Int): String =
     val sb = new StringBuilder(l)
-    for (_ <- 0 until l) sb.append((48 + r.nextInt(sigma)).toChar)
+    for _ <- 0 until l do sb.append((48 + r.nextInt(sigma)).toChar)
     sb.result()
-  }
-  def rt(r: Random, l1: Int, l2: Int, sigma: Int) = {
+  def rt(r: Random, l1: Int, l2: Int, sigma: Int) =
     val s1 = rndStr(r, l1, sigma)
     val s2 = rndStr(r, l2, sigma)
     check(s1, s2)
-  }
-  def mt(seed: Int, nt: Int, l: Int, sigma: Int) = {
+  def mt(seed: Int, nt: Int, l: Int, sigma: Int) =
     val r = new Random(seed)
-    (0 until nt).forall(_ => {
-      rt(r, r.nextInt(l + 1), l, sigma)
-    })
-  }
-}
+    (0 until nt).forall(_ => rt(r, r.nextInt(l + 1), l, sigma))
 
-class LevenshteinTest extends munit.FunSuite {
+class LevenshteinTest extends munit.FunSuite:
   import LevenshteinTest.{ check, mt }
   test("Levenshtein random") {
     assertEquals(mt(1, 1000, 10, 2), true)
@@ -69,4 +62,3 @@ class LevenshteinTest extends munit.FunSuite {
       false
     )
   }
-}

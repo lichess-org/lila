@@ -1,7 +1,5 @@
 package lila.bookmark
 
-import reactivemongo.api.ReadPreference
-
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.game.Game
@@ -26,7 +24,7 @@ final class PaginatorBuilder(
 
     def slice(offset: Int, length: Int): Fu[Seq[Game]] =
       coll
-        .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+        .aggregateList(length, _.sec): framework =>
           import framework.*
           Match(selector) -> List(
             Sort(Descending("d")),
@@ -46,9 +44,7 @@ final class PaginatorBuilder(
             Unwind("game"),
             ReplaceRootField("game")
           )
-        }
-        .map {
+        .map:
           _.flatMap(lila.game.BSONHandlers.gameBSONHandler.readOpt)
-        }
 
     private def selector = $doc("u" -> user.id)

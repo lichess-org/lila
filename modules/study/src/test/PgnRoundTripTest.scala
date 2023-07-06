@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
 import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{ PgnStr, Tags }
 

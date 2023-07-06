@@ -11,6 +11,7 @@ import akka.actor.ActorSystem
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
@@ -23,10 +24,8 @@ final class Env(
 
   lazy val pager = wire[CoachPager]
 
-  lila.common.Bus.subscribeFun("finishGame") {
+  lila.common.Bus.subscribeFun("finishGame"):
     case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
-      if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
+      if lila.rating.PerfType.standard.has(game.perfType) then
         white so api.setRating
         black so api.setRating
-      }.unit
-  }

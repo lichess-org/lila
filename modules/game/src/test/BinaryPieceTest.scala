@@ -6,7 +6,7 @@ import chess.Square.*
 import lila.db.ByteArray
 import chess.variant.Standard
 
-class BinaryPieceTest extends munit.FunSuite {
+class BinaryPieceTest extends munit.FunSuite:
 
   val noop = "00000000"
   def write(all: PieceMap): List[String] =
@@ -50,4 +50,3 @@ class BinaryPieceTest extends munit.FunSuite {
   test("read B1 black pawn") {
     assertEquals(read("00001110" :: List.fill(31)(noop)), Map(B1 -> Black.pawn))
   }
-}

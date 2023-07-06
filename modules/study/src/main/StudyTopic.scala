@@ -58,7 +58,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           .coll {
             _.find($doc("_id".$startsWith(java.util.regex.Pattern.quote(str), "i")))
               .sort($sort.naturalAsc)
-              .cursor[Bdoc](readPref)
+              .cursor[Bdoc]()
               .list(nb - favs.size)
           }
           .dmap { _ flatMap docTopic }
@@ -77,7 +77,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   def userTopics(user: User, json: String): Funit =
     val topics =
-      if (json.trim.isEmpty) StudyTopics.empty
+      if json.trim.isEmpty then StudyTopics.empty
       else
         Json.parse(json).validate[List[TagifyTopic]] match
           case JsSuccess(topics, _) => StudyTopics.fromStrs(topics.map(_.value), StudyTopics.userMax)

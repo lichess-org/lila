@@ -1,7 +1,6 @@
 package lila.relation
 
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -20,7 +19,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
 
   def freshFollowersFromSecondary(userId: UserId): Fu[List[UserId]] =
     coll
-      .aggregateOne(readPreference = ReadPreference.secondaryPreferred): framework =>
+      .aggregateOne(_.sec): framework =>
         import framework.*
         Match($doc("u2" -> userId, "r" -> Follow)) -> List(
           PipelineOperator(
@@ -55,25 +54,18 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
   private def relaters(
       userId: UserId,
       relation: Relation,
-      rp: ReadPreference = ReadPreference.primary
+      readPref: ReadPref = _.pri
   ): Fu[Set[UserId]] =
-    coll
-      .distinctEasy[UserId, Set](
-        "u1",
-        $doc(
-          "u2" -> userId,
-          "r"  -> relation
-        ),
-        rp
-      )
+    coll.distinctEasy[UserId, Set](
+      "u1",
+      $doc("u2" -> userId, "r" -> relation),
+      readPref
+    )
 
   private def relating(userId: UserId, relation: Relation): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](
       "u2",
-      $doc(
-        "u1" -> userId,
-        "r"  -> relation
-      )
+      $doc("u1" -> userId, "r" -> relation)
     )
 
   def follow(u1: UserId, u2: UserId): Funit   = save(u1, u2, Follow)

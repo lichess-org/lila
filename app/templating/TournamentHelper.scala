@@ -32,7 +32,7 @@ trait TournamentHelper extends HasEnv:
   def tournamentLink(tour: Tournament)(using Lang): Frag =
     a(
       dataIcon := licon.Trophy.value,
-      cls      := (if (tour.isScheduled) "text is-gold" else "text"),
+      cls      := (if tour.isScheduled then "text is-gold" else "text"),
       href     := routes.Tournament.show(tour.id.value).url
     )(tour.name())
 
@@ -57,9 +57,8 @@ trait TournamentHelper extends HasEnv:
       pt.trans(using lila.i18n.defaultLang) -> icon(pt.icon)
     }
     def apply(name: String): Frag = raw:
-      replacements.foldLeft(name) { case (n, (from, to)) =>
-        n.replace(from, to)
-      }
+      replacements.foldLeft(name):
+        case (n, (from, to)) => n.replace(from, to)
 
   def tournamentIcon(tour: Tournament): licon.Icon =
     tour.schedule.map(_.freq) match

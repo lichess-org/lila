@@ -4,11 +4,12 @@ import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.notify.NotifyApi
 import lila.security.Granter
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ Me, User, UserRepo, UserPerfsRepo }
 
 final class CoachApi(
     coachColl: Coll,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     picfitApi: PicfitApi,
     cacheApi: lila.memo.CacheApi,
     notifyApi: NotifyApi
@@ -25,14 +26,14 @@ final class CoachApi(
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
     canCoach(user).so:
-      byId(user.id).dmap:
-        _ map withUser(user)
+      byId(user.id).flatMapz: coach =>
+        perfsRepo.withPerfs(user) dmap coach.withUser dmap some
 
   def findOrInit(using me: Me): Fu[Option[Coach.WithUser]] =
     val user = me.value
     canCoach(user).so:
-      find(user) orElse {
-        val c = Coach.WithUser(Coach make user, user)
+      find(user) orElse perfsRepo.withPerfs(user).flatMap { user =>
+        val c = Coach.make(user).withUser(user)
         coachColl.insert.one(c.coach) inject c.some
       }
 
@@ -46,10 +47,10 @@ final class CoachApi(
     canCoach(user).so:
       coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
 
-  def setRating(userPre: User): Funit =
-    canCoach(userPre).so:
-      userRepo.byId(userPre.id) flatMapz { user =>
-        coachColl.update.one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
+  def setRating(u: User.WithPerfs): Funit =
+    canCoach(u.user).so:
+      perfsRepo.perfsOf(u.id).flatMap { perfs =>
+        coachColl.update.one($id(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
       }
 
   def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =
@@ -82,4 +83,4 @@ final class CoachApi(
         )
   def allCountries: Fu[Set[String]] = countriesCache.get {}
 
-  private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
+  private def withUser(user: User.WithPerfs)(coach: Coach) = Coach.WithUser(coach, user)

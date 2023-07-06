@@ -28,35 +28,26 @@ final class Cached(
     game.userIds foreach lastPlayedPlayingIdCache.invalidate
   }
 
-  private val nbPlayingCache = cacheApi[UserId, Int](256, "game.nbPlaying") {
-    _.expireAfterWrite(15 seconds)
-      .buildAsyncFuture { userId =>
-        gameRepo.coll.countSel(Query nowPlaying userId)
-      }
-  }
+  private val nbPlayingCache = cacheApi[UserId, Int](256, "game.nbPlaying"):
+    _.expireAfterWrite(15 seconds).buildAsyncFuture: userId =>
+      gameRepo.coll.countSel(Query nowPlaying userId)
 
   private val nbImportedCache = mongoCache[UserId, Int](
     4096,
     "game:imported",
     30 days,
     _.value
-  ) { loader =>
+  ): loader =>
     _.expireAfterAccess(10 minutes)
-      .buildAsyncFuture {
-        loader { userId =>
+      .buildAsyncFuture:
+        loader: userId =>
           gameRepo.coll countSel Query.imported(userId)
-        }
-      }
-  }
 
   private val nbTotalCache = mongoCache.unit[Long](
     "game:total",
     29 minutes
-  ) { loader =>
+  ): loader =>
     _.refreshAfterWrite(30 minutes)
-      .buildAsyncFuture {
-        loader { _ =>
+      .buildAsyncFuture:
+        loader: _ =>
           gameRepo.coll.countAll
-        }
-      }
-  }

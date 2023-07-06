@@ -6,7 +6,7 @@ import chess.variant.{ FromPosition, Standard }
 import lila.game.Game
 import chess.Clock
 
-final class JoinerTest extends munit.FunSuite {
+final class JoinerTest extends munit.FunSuite:
 
   val timeControl =
     Challenge.TimeControl.Clock(Clock.Config(Clock.LimitSeconds(300), Clock.IncrementSeconds(0)))
@@ -38,4 +38,3 @@ final class JoinerTest extends munit.FunSuite {
     )
     assertEquals(ChallengeJoiner.createGame(challenge, None, None).chess.startedAtPly, Ply(6))
   }
-}

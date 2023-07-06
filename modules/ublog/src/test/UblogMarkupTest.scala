@@ -2,7 +2,7 @@ package lila.ublog
 
 import lila.common.Markdown
 
-class UblogMarkupTest extends munit.FunSuite {
+class UblogMarkupTest extends munit.FunSuite:
 
   val m = UblogMarkup
 
@@ -47,4 +47,3 @@ class UblogMarkupTest extends munit.FunSuite {
     assertEquals(m.unescapeAtUsername(Markdown("""> \(By @neio_1\)""")), Markdown("""> \(By @neio_1\)"""))
     assertEquals(m.unescapeAtUsername(Markdown("""> \(By @neio\_1\)""")), Markdown("""> \(By @neio_1\)"""))
   }
-}

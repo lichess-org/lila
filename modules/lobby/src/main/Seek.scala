@@ -7,8 +7,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Days
 import lila.common.Json.given
-import lila.game.PerfPicker
-import lila.rating.{ Perf, RatingRange }
+import lila.rating.{ PerfType, Perf, RatingRange }
 import lila.user.User
 
 // correspondence chess, persistent
@@ -38,17 +37,17 @@ case class Seek(
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
   private def ratingRangeCompatibleWith(s: Seek) =
-    realRatingRange.fold(true) { range =>
-      s.rating so range.contains
-    }
+    realRatingRange.fold(true): range =>
+      range.contains(s.rating)
 
   private def compatibilityProperties = (variant, mode, daysPerTurn)
 
   lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
 
-  def perf = perfType map user.perfAt
+  lazy val perfType = PerfType(realVariant, Speed.Correspondence)
 
-  def rating = perf.map(_.rating)
+  def perf   = user.perfAt(perfType)
+  def rating = perf.rating
 
   def render: JsObject =
     Json
@@ -57,16 +56,12 @@ case class Seek(
         "username" -> user.username,
         "rating"   -> rating,
         "variant"  -> Json.obj("key" -> realVariant.key),
+        "perf"     -> Json.obj("key" -> perfType.key),
         "mode"     -> realMode.id,
         "color"    -> (chess.Color.fromName(color).so(_.name): String)
       )
       .add("days" -> daysPerTurn)
-      .add("perf" -> perfType.map { pt =>
-        Json.obj("key" -> pt.key)
-      })
-      .add("provisional" -> perf.exists(_.provisional.yes))
-
-  lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
+      .add("provisional" -> perf.provisional.yes)
 
 object Seek:
 
@@ -79,7 +74,7 @@ object Seek:
       daysPerTurn: Option[Days],
       mode: Mode,
       color: String,
-      user: User,
+      user: User.WithPerfs,
       ratingRange: RatingRange,
       blocking: lila.pool.Blocking
   ): Seek = Seek(

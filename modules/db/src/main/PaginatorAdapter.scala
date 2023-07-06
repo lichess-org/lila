@@ -22,7 +22,7 @@ final class Adapter[A: BSONDocumentReader](
     selector: Bdoc,
     projection: Option[Bdoc],
     sort: Bdoc,
-    readPreference: ReadPreference = ReadPreference.primary,
+    readPref: ReadPref = _.pri,
     hint: Option[Bdoc] = None
 )(using Executor)
     extends AdapterLike[A]:
@@ -39,7 +39,7 @@ final class Adapter[A: BSONDocumentReader](
           case None    => query
           case Some(h) => query.hint(collection hint h)
       }
-      .cursor[A](readPreference)
+      .cursor[A](readPref)
       .list(length)
 
   def withNbResults(nb: Fu[Int]) = new CachedAdapter(this, nb)

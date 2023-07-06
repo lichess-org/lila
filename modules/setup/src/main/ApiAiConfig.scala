@@ -8,6 +8,7 @@ import lila.common.Days
 import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
+import lila.rating.PerfType
 
 final case class ApiAiConfig(
     variant: Variant,
@@ -25,40 +26,37 @@ final case class ApiAiConfig(
   val time      = clock.so(_.limit.roundSeconds / 60)
   val increment = clock.fold(Clock.IncrementSeconds(0))(_.incrementSeconds)
   val timeMode =
-    if (clock.isDefined) TimeMode.RealTime
-    else if (daysO.isDefined) TimeMode.Correspondence
+    if clock.isDefined then TimeMode.RealTime
+    else if daysO.isDefined then TimeMode.Correspondence
     else TimeMode.Unlimited
 
-  private def game(user: Option[User])(using IdGenerator): Fu[Game] =
-    fenGame { chessGame =>
-      val perfPicker = lila.game.PerfPicker.mainOrDefault(
-        chess.Speed(chessGame.clock.map(_.config)),
-        chessGame.situation.board.variant,
-        makeDaysPerTurn
-      )
+  private def game(user: Option[User.WithPerfs])(using IdGenerator): Fu[Game] =
+    fenGame: chessGame =>
+      val pt = PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
       Game
         .make(
           chess = chessGame,
           whitePlayer = creatorColor.fold(
-            Player.make(chess.White, user, perfPicker),
-            Player.make(chess.White, level.some)
+            Player.make(chess.White, user.map(_ only pt)),
+            Player.makeAnon(chess.White, level.some)
           ),
           blackPlayer = creatorColor.fold(
-            Player.make(chess.Black, level.some),
-            Player.make(chess.Black, user, perfPicker)
+            Player.makeAnon(chess.Black, level.some),
+            Player.make(chess.Black, user.map(_ only pt))
           ),
           mode = chess.Mode.Casual,
-          source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Ai,
+          source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           pgnImport = None
         )
         .withUniqueId
-    }.dmap(_.start)
+    .dmap(_.start)
 
-  def pov(user: Option[User])(using IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
+  def pov(user: Option[User.WithPerfs])(using IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def autoVariant =
-    if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)
+    if variant.standard && fen.exists(!_.isInitial)
+    then copy(variant = FromPosition)
     else this
 
 object ApiAiConfig extends BaseConfig:
@@ -73,7 +71,7 @@ object ApiAiConfig extends BaseConfig:
       c: Option[String],
       pos: Option[Fen.Epd]
   ) =
-    new ApiAiConfig(
+    ApiAiConfig(
       variant = Variant.orDefault(v),
       clock = cl,
       daysO = d,

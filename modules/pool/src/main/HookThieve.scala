@@ -14,7 +14,7 @@ final private class HookThieve()(using Executor, Scheduler):
 
   def stolen(poolHooks: Vector[PoolHook], monId: String) =
     lila.mon.lobby.pool.thieve.stolen(monId).record(poolHooks.size)
-    if (poolHooks.nonEmpty) Bus.publish(StolenHookIds(poolHooks.map(_.hookId)), "lobbyActor")
+    if poolHooks.nonEmpty then Bus.publish(StolenHookIds(poolHooks.map(_.hookId)), "lobbyActor")
 
 object HookThieve:
 

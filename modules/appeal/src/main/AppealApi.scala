@@ -2,7 +2,6 @@ package lila.appeal
 
 import lila.db.dsl.{ given, * }
 import lila.user.{ Me, NoteApi, User, UserRepo }
-import reactivemongo.api.ReadPreference
 import lila.user.Me
 
 final class AppealApi(
@@ -77,13 +76,10 @@ final class AppealApi(
 
   private def fetchQueue(selector: Bdoc, ascending: Boolean, nb: Int): Fu[List[Appeal.WithUser]] =
     coll
-      .aggregateList(
-        maxDocs = nb,
-        ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateList(maxDocs = nb, _.sec): framework =>
         import framework.*
         Match(selector) -> List(
-          Sort((if (ascending) Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
+          Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
           Limit(nb),
           PipelineOperator(
             $lookup.simple(
@@ -95,14 +91,12 @@ final class AppealApi(
           ),
           UnwindField("user")
         )
-      }
-      .map { docs =>
-        for {
+      .map: docs =>
+        for
           doc    <- docs
           appeal <- doc.asOpt[Appeal]
           user   <- doc.getAsOpt[User]("user")
-        } yield Appeal.WithUser(appeal, user)
-      }
+        yield Appeal.WithUser(appeal, user)
 
   def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void

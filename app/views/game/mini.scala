@@ -29,7 +29,7 @@ object mini:
     )
 
   def noCtx(pov: Pov, tv: Boolean = false): Tag =
-    val link = if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
+    val link = if tv then routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
     renderMini(pov, link.url.some)(using defaultLang)
 
   private def renderMini(
@@ -39,7 +39,7 @@ object mini:
   )(using Lang): Tag =
     val game   = pov.game
     val isLive = game.isBeingPlayed
-    val tag    = if (link.isDefined) a else span
+    val tag    = if link.isDefined then a else span
     tag(
       href     := link,
       cls      := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
@@ -60,14 +60,14 @@ object mini:
         playerUsername(pov.player.light, withRating = false),
         withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
-      if (pov.game.finished) renderResult(pov)
+      if pov.game.finished then renderResult(pov)
       else pov.game.clock.map { renderClock(_, pov.color) }
     )
 
   private def renderResult(pov: Pov) =
     span(cls := "mini-game__result")(
       pov.game.winnerColor.fold("½") { c =>
-        if (c == pov.color) "1" else "0"
+        if c == pov.color then "1" else "0"
       }
     )
 

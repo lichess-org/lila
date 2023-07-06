@@ -16,6 +16,7 @@ final class AssessApi(
     assessRepo: AssessmentRepo,
     modApi: ModApi,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
@@ -37,14 +38,14 @@ final class AssessApi(
     assessRepo.coll
       .find($doc("userId" -> userId))
       .sort($sort desc "date")
-      .cursor[PlayerAssessment](temporarilyPrimary)
+      .cursor[PlayerAssessment](ReadPref.priTemp)
       .list(nb)
 
   private def getPlayerAggregateAssessment(
       userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment]] =
-    userRepo byId userId flatMap {
+    userRepo withPerfs userId flatMap {
       _.filter(_.noBot) so { user =>
         getPlayerAssessmentsByUserId(userId, nb) map { games =>
           games.nonEmpty option PlayerAggregateAssessment(user, games)
@@ -89,52 +90,48 @@ final class AssessApi(
       assessRepo.coll
         .idsMap[PlayerAssessment, String](
           ids = povs.map(p => s"${p.gameId}/${p.color.name}"),
-          readPreference = temporarilyPrimary
+          readPref = _.pri
         )(_.gameId.value)
-        .flatMap { fulls =>
+        .flatMap: fulls =>
           val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId.value))
           gameRepo.holdAlert.povs(basicsPovs) map { holds =>
-            povs map { pov =>
+            povs.map: pov =>
               pov -> {
                 fulls.get(pov.gameId.value) match
                   case Some(full) => Left(full)
                   case None       => Right(PlayerAssessment.makeBasics(pov, holds get pov.gameId))
               }
-            }
           }
-        }
 
   def getPlayerAggregateAssessmentWithGames(
       userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment.WithGames]] =
-    getPlayerAggregateAssessment(userId, nb) flatMapz { pag =>
-      withGames(pag) dmap some
-    }
+    getPlayerAggregateAssessment(userId, nb).flatMap(_ soFu withGames)
 
   def refreshAssessOf(user: User): Funit =
     !user.isBot so
-      (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
-        gs.map { g =>
+      gameRepo.gamesForAssessment(user.id, 100).flatMap { gs =>
+        gs.map: g =>
           analysisRepo.byGame(g) flatMapz {
             onAnalysisReady(g, _, thenAssessUser = false)
           }
-        }.parallel
+        .parallel
           .void
-      }) >> assessUser(user.id)
+      } >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
     gameRepo.holdAlert game game flatMap { holdAlerts =>
       def consistentMoveTimes(game: Game)(player: Player) =
         Statistics.moderatelyConsistentMoveTimes(Pov(game, player))
       val shouldAssess =
-        if (!game.source.exists(assessableSources.contains)) false
-        else if (game.mode.casual) false
-        else if (Player.HoldAlert suspicious holdAlerts) true
-        else if (game.isCorrespondence) false
-        else if (game.playedTurns < PlayerAssessment.minPlies) false
-        else if (game.players exists consistentMoveTimes(game)) true
-        else if (game.createdAt isBefore bottomDate) false
+        if !game.source.exists(assessableSources.contains) then false
+        else if game.mode.casual then false
+        else if Player.HoldAlert suspicious holdAlerts then true
+        else if game.isCorrespondence then false
+        else if game.playedTurns < PlayerAssessment.minPlies then false
+        else if game.players exists consistentMoveTimes(game) then true
+        else if game.createdAt isBefore bottomDate then false
         else true
       shouldAssess.so {
         createPlayerAssessment(PlayerAssessment.make(game pov White, analysis, holdAlerts.white)) >>
@@ -177,7 +174,7 @@ final class AssessApi(
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent
 
-  def onGameReady(game: Game, white: User, black: User): Funit =
+  def onGameReady(game: Game, white: User.WithPerf, black: User.WithPerf): Funit =
 
     import AutoAnalysis.Reason.*
 
@@ -185,17 +182,13 @@ final class AssessApi(
       game.playerBlurPercent(player.color) >= 70
 
     def winnerGreatProgress(player: Player): Boolean =
-      game.winner.has(player) && game.perfType.so: perfType =>
-        player.color.fold(white, black).perfs(perfType).progress >= 90
+      game.winner.has(player) && player.color.fold(white, black).perf.progress >= 90
 
     def noFastCoefVariation(player: Player): Option[Float] =
       Statistics.noFastMoves(Pov(game, player)) so Statistics.moveTimeCoefVariation(Pov(game, player))
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
-    def winnerNbGames = for
-      user     <- winnerUserOption
-      perfType <- game.perfType
-    yield user.perfs(perfType).nb
+    def winnerNbGames    = winnerUserOption.map(_.perf.nb)
 
     def suspCoefVariation(c: Color) =
       val x = noFastCoefVariation(game player c)
@@ -211,39 +204,39 @@ final class AssessApi(
     yield wR <= lR - 300)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
-      if (!game.analysable) fuccess(none)
-      else if (game.speed >= chess.Speed.Blitz && (white.hasTitle || black.hasTitle))
+      if !game.analysable then fuccess(none)
+      else if game.speed >= chess.Speed.Blitz && (white.hasTitle || black.hasTitle) then
         fuccess(TitledPlayer.some)
-      else if (!game.source.exists(assessableSources.contains)) fuccess(none)
+      else if !game.source.exists(assessableSources.contains) then fuccess(none)
       // give up on correspondence games
-      else if (game.isCorrespondence) fuccess(none)
+      else if game.isCorrespondence then fuccess(none)
       // stop here for short games
-      else if (game.playedTurns < PlayerAssessment.minPlies) fuccess(none)
+      else if game.playedTurns < PlayerAssessment.minPlies then fuccess(none)
       // stop here for long games
-      else if (game.playedTurns > 95) fuccess(none)
+      else if game.playedTurns > 95 then fuccess(none)
       // stop here for casual games
-      else if (!game.mode.rated) fuccess(none)
+      else if !game.mode.rated then fuccess(none)
       // discard old games
-      else if (game.createdAt isBefore bottomDate) fuccess(none)
-      else if (isUpset) fuccess(Upset.some)
+      else if game.createdAt isBefore bottomDate then fuccess(none)
+      else if isUpset then fuccess(Upset.some)
       // white has consistent move times
-      else if (whiteSuspCoefVariation.isDefined) fuccess(WhiteMoveTime.some)
+      else if whiteSuspCoefVariation.isDefined then fuccess(WhiteMoveTime.some)
       // black has consistent move times
-      else if (blackSuspCoefVariation.isDefined) fuccess(BlackMoveTime.some)
+      else if blackSuspCoefVariation.isDefined then fuccess(BlackMoveTime.some)
       else
         // someone is using a bot
         gameRepo.holdAlert game game map { holdAlerts =>
-          if (Player.HoldAlert suspicious holdAlerts) HoldAlert.some
+          if Player.HoldAlert suspicious holdAlerts then HoldAlert.some
           // don't analyse most of other bullet games
-          else if (game.speed == chess.Speed.Bullet && randomPercent(70)) none
+          else if game.speed == chess.Speed.Bullet && randomPercent(70) then none
           // someone blurs a lot
-          else if (game.players exists manyBlurs) Blurs.some
+          else if game.players exists manyBlurs then Blurs.some
           // the winner shows a great rating progress
-          else if (game.players exists winnerGreatProgress) WinnerRatingProgress.some
+          else if game.players exists winnerGreatProgress then WinnerRatingProgress.some
           // analyse some tourney games
           // else if (game.isTournament) randomPercent(20) option "Tourney random"
           /// analyse new player games
-          else if (winnerNbGames.so(40 >) && randomPercent(75)) NewPlayerWin.some
+          else if winnerNbGames.so(40 >) && randomPercent(75) then NewPlayerWin.some
           else none
         }
 

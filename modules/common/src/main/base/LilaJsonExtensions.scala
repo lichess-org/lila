@@ -45,13 +45,13 @@ trait JsonExtensions:
       }
 
     def add(pair: (String, Boolean)): JsObject =
-      if (pair._2) js + (pair._1 -> JsBoolean(true))
+      if pair._2 then js + (pair._1 -> JsBoolean(true))
       else js
 
     def add[A](pair: (String, A))(using sr: SameRuntime[A, Boolean]): JsObject = add(pair._1, sr(pair._2))
 
     def add(key: String, value: Boolean): JsObject =
-      if (value) js + (key -> JsBoolean(true))
+      if value then js + (key -> JsBoolean(true))
       else js
 
     def add[A](key: String, value: A)(using sr: SameRuntime[A, Boolean]): JsObject = add(key, sr(value))

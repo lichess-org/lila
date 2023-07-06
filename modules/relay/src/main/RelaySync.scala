@@ -1,7 +1,5 @@
 package lila.relay
 
-import cats.syntax.traverse.*
-import cats.syntax.foldable.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
 import lila.socket.Socket.Sri
@@ -62,7 +60,7 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if (nbGames == 1 || game.looksLikeLichess) chapters find game.staticTagsMatch
+    if nbGames == 1 || game.looksLikeLichess then chapters find game.staticTagsMatch
     else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(
@@ -119,7 +117,7 @@ final private class RelaySync(
                 .some
             )(who) inject position + n
           } inject {
-            if (chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty)
+            if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
               studyApi.reloadChapters(study)
             node.mainline.size
           }
@@ -132,7 +130,7 @@ final private class RelaySync(
       game: RelayGame
   ): Fu[Boolean] =
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
-      if (!chapter.tags.value.has(tag)) newTags + tag
+      if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
     val newEndTag = game.end
       .ifFalse(gameTags(_.Result).isDefined)
@@ -142,7 +140,7 @@ final private class RelaySync(
     val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
     (chapterNewTags != chapter.tags) so {
-      if (vs(chapterNewTags) != vs(chapter.tags))
+      if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
       studyApi.setTags(
         studyId = study.id,

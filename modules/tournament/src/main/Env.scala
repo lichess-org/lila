@@ -17,6 +17,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     proxyRepo: lila.round.GameProxyRepo,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
@@ -70,8 +71,8 @@ final class Env(
     clearWinnersCache = winners.clearCache,
     clearTrophyCache = tour =>
       {
-        if (tour.isShield) scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
-        else if (Revolution is tour) scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }.unit
+        if tour.isShield then scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
+        else if Revolution is tour then scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }.unit
       }.unit,
     indexLeaderboard = leaderboardIndexer.indexOne
   )

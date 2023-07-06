@@ -185,7 +185,7 @@ final class Mod(
               case _ if Granter(_.BoostHunter) => ModDomain.Boost
               case _                           => ModDomain.Admin
             ,
-            room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
+            room = if report.isSpontaneous then "Spontaneous inquiry" else report.room.name
           ) inject NoContent
     }
   }
@@ -301,10 +301,10 @@ final class Mod(
                   .flashFailure(s"Currently processed by ${mod.name}")
           case _ =>
             val f =
-              if (isAppeal) env.report.api.inquiries.appeal
+              if isAppeal then env.report.api.inquiries.appeal
               else env.report.api.inquiries.spontaneous
             f(Suspect(user)) inject {
-              if (isAppeal) Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
+              if isAppeal then Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
               else redirect(user.username, mod = true)
             }
         }
@@ -444,15 +444,16 @@ final class Mod(
         val email    = query.headOption.flatMap(EmailAddress.from)
         val username = query lift 1
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-          env.mod.search(q).map(_.filter(_.user.enabled.yes)) flatMap {
+          env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
             case List(UserModel.WithEmails(user, _)) =>
-              (!user.everLoggedIn).so {
-                lila.mon.user.register.modConfirmEmail.increment()
-                modApi.setEmail(user.id, setEmail)
-              } >>
-                env.user.repo.email(user.id).flatMap { email =>
-                  Ok.page(html.mod.emailConfirm("", user.some, email)).dmap(some)
+              for
+                _ <- (!user.everLoggedIn).so {
+                  lila.mon.user.register.modConfirmEmail.increment()
+                  modApi.setEmail(user.id, setEmail)
                 }
+                email <- env.user.repo.email(user.id)
+                page  <- renderPage(html.mod.emailConfirm("", user.some, email))
+              yield Ok(page).some
             case _ => fuccess(none)
           }
         email.so { em =>

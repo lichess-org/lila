@@ -7,8 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.report.Room
 import lila.user.User
-import java.time.Instant
-import java.time.LocalDateTime
+import java.time.{ Instant, LocalDateTime }
 
 final class Gamify(
     logRepo: ModlogRepo,
@@ -46,8 +45,8 @@ final class Gamify(
   private def buildHistoryAfter(afterYear: Int, afterMonth: Int, until: LocalDateTime): Funit =
     (afterYear to until.getYear)
       .flatMap { year =>
-        ((if (year == afterYear) afterMonth + 1 else 1) to
-          (if (year == until.getYear) until.getMonthValue else 12)).map { month =>
+        ((if year == afterYear then afterMonth + 1 else 1) to
+          (if year == until.getYear then until.getMonthValue else 12)).map { month =>
           mixedLeaderboard(
             after = instantOf(year, month, 1, 0, 0).pp("compute mod history"),
             before = instantOf(year, month, 1, 0, 0).plusMonths(1).some
@@ -103,7 +102,7 @@ final class Gamify(
 
   private def actionLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModCount]] =
     logRepo.coll
-      .aggregateList(maxDocs = 100, readPreference = temporarilyPrimary) { framework =>
+      .aggregateList(maxDocs = 100, _.priTemp): framework =>
         import framework.*
         Match(
           $doc(
@@ -115,20 +114,13 @@ final class Gamify(
           Sort(Descending("nb")),
           Limit(100)
         )
-      }
-      .map {
-        _.flatMap { obj =>
-          import cats.syntax.all.*
+      .map:
+        _.flatMap: obj =>
           (obj.getAsOpt[UserId]("_id"), obj.int("nb")) mapN ModCount.apply
-        }
-      }
 
   private def reportLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModCount]] =
     reportApi.coll
-      .aggregateList(
-        maxDocs = Int.MaxValue,
-        readPreference = temporarilyPrimary
-      ) { framework =>
+      .aggregateList(maxDocs = Int.MaxValue, _.priTemp): framework =>
         import framework.*
         Match(
           $doc(
@@ -146,14 +138,12 @@ final class Gamify(
           ),
           Sort(Descending("nb"))
         )
-      }
-      .map { docs =>
-        for {
+      .map: docs =>
+        for
           doc <- docs
           id  <- doc.getAsOpt[UserId]("_id")
           nb  <- doc.int("nb")
-        } yield ModCount(id, nb)
-      }
+        yield ModCount(id, nb)
 
 object Gamify:
 

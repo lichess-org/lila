@@ -27,10 +27,10 @@ object PracticeGoal:
       case DrawInR(movesStr)  => movesStr.toIntOption map DrawIn.apply
       case EqualInR(movesStr) => movesStr.toIntOption map EqualIn.apply
       case EvalInR(cpStr, movesStr) =>
-        for {
+        for
           cp    <- cpStr.toIntOption
           moves <- movesStr.toIntOption
-        } yield EvalIn(cp, moves)
+        yield EvalIn(cp, moves)
       case PromotionR(cpStr) => cpStr.toIntOption map Promotion.apply
       case _                 => none
     } | Mate // default to mate

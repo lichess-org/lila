@@ -45,7 +45,7 @@ final class Env(
   lazy val flood = wire[Flood]
 
   lazy val hcaptcha: Hcaptcha =
-    if (config.hcaptcha.enabled) wire[HcaptchaReal]
+    if config.hcaptcha.enabled then wire[HcaptchaReal]
     else wire[HcaptchaSkip]
 
   lazy val forms = wire[SecurityForm]
@@ -57,7 +57,7 @@ final class Env(
   lazy val store = Store(db(config.collection.security), cacheApi)
 
   lazy val ip2proxy: Ip2Proxy =
-    if (config.ip2Proxy.enabled && config.ip2Proxy.url.nonEmpty)
+    if config.ip2Proxy.enabled && config.ip2Proxy.url.nonEmpty then
       def mk = (url: String) => wire[Ip2ProxyServer]
       mk(config.ip2Proxy.url)
     else wire[Ip2ProxySkip]
@@ -75,7 +75,7 @@ final class Env(
     mk((() => ugcArmedSetting.get()))
 
   lazy val emailConfirm: EmailConfirm =
-    if (config.emailConfirm.enabled)
+    if config.emailConfirm.enabled then
       EmailConfirmMailer(
         userRepo = userRepo,
         mailer = mailer,
@@ -128,7 +128,7 @@ final class Env(
 
   lazy val promotion = wire[PromotionApi]
 
-  if (config.disposableEmail.enabled)
+  if config.disposableEmail.enabled then
     scheduler.scheduleOnce(33 seconds)(disposableEmailDomain.refresh())
     scheduler.scheduleWithFixedDelay(
       config.disposableEmail.refreshDelay,
@@ -139,7 +139,7 @@ final class Env(
 
   lazy val tor: Tor = wire[Tor]
 
-  if (config.tor.enabled)
+  if config.tor.enabled then
     scheduler.scheduleOnce(44 seconds)(tor.refresh.unit)
     scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay) { () =>
       tor.refresh flatMap firewall.unblockIps

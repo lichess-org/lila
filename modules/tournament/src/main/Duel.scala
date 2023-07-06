@@ -51,7 +51,7 @@ final private class DuelStore:
     get(tour.id) flatMap { _.find(_ has user).map(_.gameId) }
 
   def add(tour: Tournament, game: Game, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit =
-    for {
+    for
       p1 <- tbUser(p1, ranking)
       p2 <- tbUser(p2, ranking)
       tb = Duel(
@@ -60,22 +60,21 @@ final private class DuelStore:
         p2 = p2,
         averageRating = IntRating((p1.rating.value + p2.rating.value) / 2)
       )
-    } byTourId.compute(
-      tour.id,
-      (_: TourId, v: TreeSet[Duel]) => {
-        if (v == null) TreeSet(tb)(gameIdOrdering)
-        else v + tb
-      }
-    )
+    do
+      byTourId.compute(
+        tour.id,
+        (_: TourId, v: TreeSet[Duel]) =>
+          if v == null then TreeSet(tb)(gameIdOrdering)
+          else v + tb
+      )
 
   def remove(game: Game): Unit =
     game.tournamentId foreach { tourId =>
       byTourId.computeIfPresent(
         tourId,
-        (_: TourId, tb: TreeSet[Duel]) => {
+        (_: TourId, tb: TreeSet[Duel]) =>
           val w = tb - emptyGameId(game.id)
-          if (w.isEmpty) null else w
-        }
+          if w.isEmpty then null else w
       )
     }
   def remove(tour: Tournament): Unit = byTourId.remove(tour.id).unit

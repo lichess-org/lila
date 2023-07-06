@@ -55,8 +55,8 @@ object security:
         tr(
           td(cls := "icon")(
             span(
-              cls      := curSessionId.map { cur => s"is-${if (cur == s.session.id) "gold" else "green"}" },
-              dataIcon := (if (s.session.isMobile) licon.PhoneMobile else licon.ScreenDesktop)
+              cls := curSessionId.map { cur => s"is-${if cur == s.session.id then "gold" else "green"}" },
+              dataIcon := (if s.session.isMobile then licon.PhoneMobile else licon.ScreenDesktop)
             )
           ),
           td(cls := "info")(
@@ -87,13 +87,12 @@ object security:
           td(cls := "info")(
             strong(client.origin),
             p(cls := "ua")(
-              if (client.scopes.nonEmpty)
+              if client.scopes.nonEmpty then
                 frag(
                   "Third party application with permissions: ",
                   client.scopes.map(_.name.txt()).mkString(", ")
                 )
-              else
-                frag("Third party application using only public data.")
+              else frag("Third party application using only public data.")
             ),
             client.usedAt map { usedAt =>
               p(cls := "date")(
