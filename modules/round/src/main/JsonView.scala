@@ -72,18 +72,21 @@ final class JsonView(
           .obj(
             "game" -> gameJsonView.baseWithChessDenorm(game, initialFen),
             "player" -> {
-              commonPlayerJson(game, player, playerUser, flags) ++ Json.obj(
-                "id"      -> playerId,
-                "version" -> socket.version
-              )
-            }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
+              commonPlayerJson(game, player, playerUser, flags) ++ Json
+                .obj(
+                  "id"      -> playerId,
+                  "version" -> socket.version
+                )
+                .add("onGame" -> (player.isAi || socket.onGame(player.color)))
+                .add("lastDrawOfferAtPly" -> game.metadata.drawOffers.lastBy(player.color))
+            },
             "opponent" -> {
-              commonPlayerJson(game, opponent, opponentUser, flags) ++ Json.obj(
-                "color" -> opponent.color.name,
-                "ai"    -> opponent.aiLevel
-              )
-            }.add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
-              .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
+              commonPlayerJson(game, opponent, opponentUser, flags) ++ Json
+                .obj("color" -> opponent.color.name)
+                .add("ai" -> opponent.aiLevel)
+                .add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
+                .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color)))
+            },
             "url" -> flags.lichobileCompat.option:
               Json.obj(
                 "socket" -> s"/play/$fullId/v${ApiVersion.lichobile}",
