@@ -99,7 +99,7 @@ final class Analyse(
         case Some(pgn) =>
           render:
             case AcceptsPgn() => Ok(pgn)
-            case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color)))
+            case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true))
         case _ =>
           render:
             case AcceptsPgn() => NotFound("*")

@@ -15,7 +15,10 @@ object embed:
     )(
       div(cls := "is2d")(div(pgn)),
       jsModule("lpv.embed"),
-      views.html.analyse.embed.lpvJs(orientation = none)
+      views.html.analyse.embed.lpvJs(
+        orientation = none,
+        getPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
+      )
     )
 
   def notFound(using EmbedContext) =
