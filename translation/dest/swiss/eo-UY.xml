@@ -44,6 +44,8 @@
 Ĝi povas esti bona elekto por kluboj kaj oficialaj turniroj.</string>
   <string name="pointsCalculationQ">Kiel oni kalkulas poentojn?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger poentaro</string>
+  <string name="dutchSystem">Nederlanda sistemo</string>
+  <string name="FIDEHandbook">FIDE-a manlibro</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
   <string name="joinOrCreateTeam">Aliĝi aŭ krei teamon</string>
   <string name="nowPlaying">Ludante</string>
