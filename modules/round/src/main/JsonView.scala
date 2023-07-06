@@ -76,7 +76,8 @@ final class JsonView(
                 "id"      -> playerId,
                 "version" -> socket.version
               )
-            }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
+            }.add("onGame" -> (player.isAi || socket.onGame(player.color)))
+              .add("lastDrawOfferAtPly" -> game.metadata.drawOffers.lastBy(player.color)),
             "opponent" -> {
               commonPlayerJson(game, opponent, opponentUser, flags) ++ Json.obj(
                 "color" -> opponent.color.name,
