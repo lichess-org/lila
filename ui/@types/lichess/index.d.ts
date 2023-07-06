@@ -103,6 +103,18 @@ interface UserCompleteOpts {
   swiss?: string;
 }
 
+interface QuestionChoice {
+  action: () => void;
+  icon?: string;
+  key?: I18nKey;
+}
+
+interface QuestionOpts {
+  prompt: string; // TODO i18nkey, or just always pretranslate
+  yes?: QuestionChoice;
+  no?: QuestionChoice;
+}
+
 interface SoundI {
   loadOggOrMp3(name: string, path: string, noSoundSet?: boolean): void;
   loadStandard(name: string, soundSet?: string): void;
@@ -205,42 +217,42 @@ declare namespace Voice {
   export type Listener = (msgText: string, msgType: MsgType) => void;
 
   export interface Microphone {
-    setLang: (language: string) => void;
+    setLang(language: string): void;
 
-    getMics: () => Promise<MediaDeviceInfo[]>;
-    setMic: (micId: string) => void;
+    getMics(): Promise<MediaDeviceInfo[]>;
+    setMic(micId: string): void;
 
-    initRecognizer: (
+    initRecognizer(
       words: string[],
       also?: {
         recId?: string; // = 'default' if not provided
         partial?: boolean; // = false
         listener?: Listener; // = undefined
-        listenerId?: string; // = recId (needed to disambiguate multiple listeners on the same recId)
+        listenerId?: string; // = recId (specify for multiple listeners on same recId)
       }
-    ) => void;
-    setRecognizer: (recId: string) => void;
+    ): void;
+    setRecognizer(recId: string): void;
 
-    addListener: (
+    addListener(
       listener: Listener,
       also?: {
         recId?: string; // = 'default'
         listenerId?: string; // = recId
       }
-    ) => void;
-    removeListener: (listenerId: string) => void;
-    setController: (listener: Listener) => void; // for status display, indicators, etc
-    stopPropagation: () => void; // interrupt broadcast propagation on current rec (for modal interactions)
+    ): void;
+    removeListener(listenerId: string): void;
+    setController(listener: Listener): void; // for status display, indicators, etc
+    stopPropagation(): void; // interrupt broadcast propagation on current rec (for modal interactions)
 
-    start: (listen?: boolean) => Promise<void>; // listen = true if not provided, if false just initialize
-    stop: () => void; // stop listening/downloading/whatever
-    pause: () => void;
-    resume: () => void;
+    start(listen?: boolean): Promise<void>; // listen = true if not provided, if false just initialize
+    stop(): void; // stop listening/downloading/whatever
+    pause(): void;
+    resume(): void;
 
     readonly isListening: boolean;
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
     readonly status: string; // status display for setController listener
-    readonly recId: string; // get/set current recognizer
+    readonly recId: string; // get current recognizer
     readonly micId: string;
     readonly lang: string; // defaults to 'en'
   }

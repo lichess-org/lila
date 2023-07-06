@@ -17,7 +17,7 @@
 
   .suggestion,
   .pending,
-  .negotiation {
+  .question {
     padding: 0.5em 3%;
     background: $c-bg-zebra;
     border: $border;
@@ -51,11 +51,6 @@
     }
   }
 
-  .draw-yes.button {
-    font-size: 1.4em;
-    padding: 0.1em 1em;
-  }
-
   @keyframes flash-once {
     from {
       background: $c-accent;
@@ -68,10 +63,10 @@
     }
   }
 
-  .negotiation {
+  .question {
     @extend %flex-center-nowrap;
     animation: flash-once 1s ease-in;
-
+    border: none;
     padding: 1px;
 
     p {
@@ -85,12 +80,11 @@
       background: $c-bg-box;
     }
 
-    .accept {
+    .yes {
       color: $c-good;
-      margin-#{$end-direction}: 1px;
     }
 
-    .decline {
+    .no {
       color: $c-bad;
     }
 
@@ -99,7 +93,7 @@
       background: $c-good;
     }
 
-    a.decline:hover {
+    a.no:hover {
       background: $c-bad;
     }
 
