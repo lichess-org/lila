@@ -28,17 +28,20 @@ export function ctrl(
   redraw: Redraw,
   close: Close
 ): PieceCtrl {
-  const main = document.body.querySelector('main');
+  const isChushogi = !!document.body.querySelector(
+      'main.variant-chushogi, div.round__app.variant-chushogi, div.board-editor.variant-chushogi'
+    ),
+    isKyotoshogi =
+      !isChushogi &&
+      !!document.body.querySelector(
+        'main.variant-kyotoshogi, div.round__app.variant-kyotoshogi, div.board-editor.variant-kyotoshogi'
+      );
   return {
     trans,
     std: std,
     chu: chu,
     kyo: kyo,
-    activeTab: main?.classList.contains('variant-chushogi')
-      ? 'chushogi'
-      : main?.classList.contains('variant-kyotoshogi')
-      ? 'kyotoshogi'
-      : 'default',
+    activeTab: isChushogi ? 'chushogi' : isKyotoshogi ? 'kyotoshogi' : 'default',
     setActiveTab(s: Tab) {
       this.activeTab = s;
       redraw();
