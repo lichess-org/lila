@@ -640,7 +640,7 @@ export default class RoundController {
     }
   };
 
-  question(): QuestionOpts | false {
+  question = (): QuestionOpts | false => {
     if (this.moveToSubmit || this.dropToSubmit) {
       this.voiceMove?.listenForResponse('submitMove', this.submitMove);
       return {
@@ -649,7 +649,7 @@ export default class RoundController {
         no: { action: () => this.submitMove(false), key: 'cancel' },
       };
     } else if (this.data.player.proposingTakeback) {
-      this.voiceMove?.listenForResponse('cancelTakeback', this.cancelTakebackPreventDraws.bind(this));
+      this.voiceMove?.listenForResponse('cancelTakeback', this.cancelTakebackPreventDraws);
       return {
         prompt: this.noarg('takebackPropositionSent'),
         no: { action: this.cancelTakebackPreventDraws, key: 'cancel' },
@@ -674,7 +674,7 @@ export default class RoundController {
       };
     else if (this.voiceMove) return this.voiceMove.question();
     else return false;
-  }
+  };
 
   opponentRequest(req: string, i18nKey: string) {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
