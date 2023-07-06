@@ -214,8 +214,8 @@ export function askQuestion(ctrl: RoundController) {
       ? h('button', { hook: util.bind('click', action) }, ctrl.noarg(i18nKey))
       : h(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: util.bind('click', action) });
 
-  const noBtn = o.no && btn('no', o.noIcon || licon.X, o.noKey || 'decline', o.no!);
-  const yesBtn = o.yes && btn('yes', o.yesIcon || licon.Checkmark, o.yesKey || 'accept', o.yes!);
+  const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.key || 'decline', o.no.action);
+  const yesBtn = o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.key || 'accept', o.yes.action);
 
   return h('div.question', [noBtn, h('p', o.prompt), yesBtn]);
 }

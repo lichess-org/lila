@@ -369,12 +369,9 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
 
   function question(): QuestionOpts | false {
     const mkOpts = (prompt: string, yesIcon: string) => ({
-      prompt: prompt,
-      yes: () => command?.action?.(true),
-      no: () => command?.action?.(false),
-      yesKey: 'yes',
-      noKey: 'no',
-      yesIcon,
+      prompt,
+      yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
+      no: { action: () => command?.action?.(false), key: 'no' },
     });
     return command?.key === 'resign'
       ? mkOpts('Confirm resignation', licon.FlagOutline)
