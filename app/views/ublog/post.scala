@@ -181,7 +181,7 @@ object post:
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: Boolean = false,
       showIntro: Boolean = true
-  )(using PageContext) =
+  )(using Context) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
@@ -204,7 +204,7 @@ object post:
 
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
-  private[ublog] def newPostLink(using ctx: PageContext) = ctx.me.map: u =>
+  private[ublog] def newPostLink(using ctx: Context) = ctx.me.map: u =>
     a(
       href     := routes.Ublog.form(u.username),
       cls      := "button button-green",
