@@ -157,7 +157,7 @@ object layout:
       )
     )
 
-  private def warnNoAutoplay(using ctx: PageContext) =
+  private val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
       a(dataIcon := licon.Mute, target := "_blank", href := routes.Main.faq.url + "#autoplay")
     )
