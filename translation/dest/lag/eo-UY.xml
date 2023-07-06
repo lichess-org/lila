@@ -7,7 +7,9 @@
   <string name="yesItWillBeFixedSoon">Jes. Ĝi estos baldaŭ riparita!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Kaj nun, la longa respondo! Prokrasto de ludo estas kunmetita de du senrilataj valoroj (pli malalta estas pli bona):</string>
   <string name="lichessServerLatency">Servila respondotempo de Lichess</string>
+  <string name="lichessServerLatencyExplanation">La tempo necesa por prilabori movon en la servilo. Estas same por ĉiuj, kaj nur rilatas al la servila ŝarĝo. Ju pli ludantoj, des pli ĝi altiĝas, sed Lichess programistoj faras sian eblon por teni ĝin malalta. Ĝi rare transpasis 10ms.</string>
   <string name="networkBetweenLichessAndYou">Retkonekto inter Lichess kaj vi</string>
+  <string name="networkBetweenLichessAndYouExplanation">La tempo necesa por sendi movon de via komputilo al la Lichess servilo, kaj ricevi la respondon reen. Ĝi estas specifa al via distanco al Lichess, kaj al la kvalito de via interreta konekto. Lichess programistoj ne povas ripari vian vifion aŭ rapidigas lumon.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Vi povas trovi ambaŭ ĉi tiujn valorojn per alklaki vian uzantnomon en la supra breto.</string>
   <string name="lagCompensation">Prokrasta kompenso</string>
 </resources>
