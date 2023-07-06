@@ -1,6 +1,5 @@
 package lila.push
 
-import cats.syntax.all.*
 import akka.actor.*
 import play.api.libs.json.*
 

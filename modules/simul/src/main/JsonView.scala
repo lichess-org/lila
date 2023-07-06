@@ -1,6 +1,5 @@
 package lila.simul
 
-import cats.syntax.all.*
 import play.api.libs.json.*
 
 import lila.common.LightUser

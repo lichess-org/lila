@@ -2,7 +2,6 @@ package lila.game
 
 import cats.Eq
 import cats.derived.*
-import cats.syntax.all.*
 import chess.{ Ply, Color, ByColor }
 
 import lila.user.User

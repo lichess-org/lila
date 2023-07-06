@@ -147,12 +147,11 @@ object Schedule:
 
     def build: Tournament =
       val t = Tournament.scheduleAs(addCondition(schedule), durationFor(schedule))
-      buildFunc.foldRight(t) { _(_) }
+      buildFunc.fold(t) { _(t) }
 
-    def map(f: Tournament => Tournament) =
-      copy(
-        buildFunc = buildFunc.fold(f)(f.compose).some
-      )
+    def map(f: Tournament => Tournament) = copy(
+      buildFunc = buildFunc.fold(f)(f.compose).some
+    )
 
   enum Freq(val id: Int, val importance: Int) extends Ordered[Freq] derives Eq:
     case Hourly               extends Freq(10, 10)

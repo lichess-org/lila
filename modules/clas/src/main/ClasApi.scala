@@ -1,6 +1,5 @@
 package lila.clas
 
-import cats.syntax.all.*
 import reactivemongo.api.*
 import ornicar.scalalib.ThreadLocalRandom
 

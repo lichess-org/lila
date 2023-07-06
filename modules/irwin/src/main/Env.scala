@@ -1,6 +1,5 @@
 package lila.irwin
 
-import cats.syntax.all.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration

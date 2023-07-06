@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import cats.syntax.all.*
 import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr

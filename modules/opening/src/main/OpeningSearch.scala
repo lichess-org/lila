@@ -1,6 +1,5 @@
 package lila.opening
 
-import cats.syntax.all.*
 import chess.opening.{ Opening, OpeningDb }
 import java.text.Normalizer
 

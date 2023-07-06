@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 import chess.variant.Variant

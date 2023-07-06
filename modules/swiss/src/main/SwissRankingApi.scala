@@ -1,6 +1,5 @@
 package lila.swiss
 
-import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

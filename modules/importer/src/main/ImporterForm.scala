@@ -1,6 +1,5 @@
 package lila.importer
 
-import cats.syntax.either.*
 import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
 import chess.{ Color, Mode, Outcome, Replay, Status, ErrorStr }

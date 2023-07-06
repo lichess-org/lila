@@ -1,6 +1,5 @@
 package lila.video
 
-import cats.syntax.all.*
 import play.api.libs.ws.StandaloneWSClient
 
 final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoApi)(using Executor):

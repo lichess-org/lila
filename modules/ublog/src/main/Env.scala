@@ -1,7 +1,5 @@
 package lila.ublog
 
-import cats.syntax.all.*
-
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 

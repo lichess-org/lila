@@ -1,6 +1,5 @@
 package lila.tutor
 
-import cats.syntax.all.*
 import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi

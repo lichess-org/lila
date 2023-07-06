@@ -1,7 +1,6 @@
 package views.html
 package tournament
 
-import cats.syntax.all.*
 import controllers.routes
 import play.api.data.Form
 

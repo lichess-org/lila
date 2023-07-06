@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import cats.syntax.all.*
-
 import lila.common.paginator.Paginator
 import lila.common.config.{ Max, MaxPerPage }
 import lila.db.dsl.{ *, given }

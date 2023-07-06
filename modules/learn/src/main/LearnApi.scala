@@ -1,7 +1,5 @@
 package lila.learn
 
-import cats.syntax.all.*
-
 import lila.db.dsl.{ *, given }
 import lila.user.User
 

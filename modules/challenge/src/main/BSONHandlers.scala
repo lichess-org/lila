@@ -26,7 +26,6 @@ private object BSONHandlers:
     }
   )
   given BSON[TimeControl] with
-    import cats.syntax.all.*
     import chess.Clock
     def reads(r: Reader) =
       (r.getO[Clock.LimitSeconds]("l"), r.getO[Clock.IncrementSeconds]("i")) mapN { (limit, inc) =>

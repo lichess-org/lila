@@ -1,6 +1,5 @@
 package lila.round
 
-import cats.syntax.all.*
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status, ErrorStr }

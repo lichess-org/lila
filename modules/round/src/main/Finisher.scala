@@ -142,7 +142,6 @@ final private class Finisher(
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted).so:
-      import cats.syntax.all.*
       (finish.white, finish.black).mapN((_, _)) so { (white, black) =>
         crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
       } zip

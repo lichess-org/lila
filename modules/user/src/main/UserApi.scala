@@ -2,7 +2,6 @@ package lila.user
 
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import akka.stream.scaladsl.*
-import cats.syntax.all.*
 
 import lila.rating.{ Perf, PerfType }
 import lila.memo.CacheApi

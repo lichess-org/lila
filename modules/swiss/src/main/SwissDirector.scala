@@ -1,6 +1,5 @@
 package lila.swiss
 
-import cats.syntax.all.*
 import chess.{ Black, Color, White }
 
 import lila.db.dsl.{ *, given }

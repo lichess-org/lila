@@ -5,7 +5,6 @@ import lila.hub.actorApi.irc.*
 import lila.user.Me
 import lila.user.User
 import cats.Show
-import cats.syntax.show.*
 import lila.user.Me
 
 final class IrcApi(

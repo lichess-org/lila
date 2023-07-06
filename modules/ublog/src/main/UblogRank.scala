@@ -1,7 +1,6 @@
 package lila.ublog
 
 import akka.stream.scaladsl.*
-import cats.syntax.all.*
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*

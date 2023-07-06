@@ -1,7 +1,6 @@
 package lila.lobby
 
 import actorApi.*
-import cats.syntax.all.*
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game

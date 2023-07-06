@@ -1,6 +1,5 @@
 package lila.tournament
 
-import cats.syntax.all.*
 import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import java.nio.charset.StandardCharsets.UTF_8
@@ -170,7 +169,6 @@ final class TournamentApi(
           .result
 
   private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit =
-    import cats.syntax.all.*
     tour.featuredId.ifTrue(pairings.nonEmpty) so pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
         pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank.value) so {
@@ -593,7 +591,6 @@ final class TournamentApi(
       game.whitePlayer.userId.ifTrue(tour.isStarted) so { whiteId =>
         game.blackPlayer.userId so { blackId =>
           cached ranking tour map { ranking =>
-            import cats.syntax.all.*
             (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
               GameRanks(whiteR + 1, blackR + 1)
             }

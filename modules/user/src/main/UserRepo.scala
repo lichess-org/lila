@@ -1,6 +1,5 @@
 package lila.user
 
-import cats.syntax.all.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*

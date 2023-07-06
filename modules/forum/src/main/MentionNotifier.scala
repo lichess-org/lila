@@ -1,6 +1,5 @@
 package lila.forum
 
-import cats.syntax.all.*
 import lila.notify.MentionedInThread
 
 /** Notifier to inform users if they have been mentioned in a post

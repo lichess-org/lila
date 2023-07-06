@@ -1,7 +1,5 @@
 package lila.relay
 
-import cats.syntax.all.*
-
 import akka.actor.*
 import chess.Ply
 import chess.format.pgn.{ Tags, SanStr, PgnStr }

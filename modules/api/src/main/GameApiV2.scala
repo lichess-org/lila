@@ -157,7 +157,6 @@ final class GameApiV2(
         } flatMap { playerTeams =>
           gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
             _.zip(pairings) collect { case (Some(game), pairing) =>
-              import cats.syntax.all.*
               (
                 game,
                 pairing,

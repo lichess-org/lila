@@ -3,7 +3,6 @@ package lila.game
 import chess.*
 import chess.format.pgn.{ Move, SanStr }
 import chess.format.pgn.PgnTree.*
-import cats.syntax.all.*
 
 class PgnDumpTest extends munit.FunSuite:
 

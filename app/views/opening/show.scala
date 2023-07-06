@@ -1,6 +1,5 @@
 package views.html.opening
 
-import cats.syntax.all.*
 import controllers.routes
 
 import lila.app.templating.Environment.{ given, * }

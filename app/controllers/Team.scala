@@ -327,7 +327,6 @@ final class Team(
     }
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
-    import cats.syntax.all.*
     Found(for
       requestOption <- api request requestId
       teamOption    <- requestOption.so(req => env.team.teamRepo.byLeader(req.team, me))

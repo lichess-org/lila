@@ -1,6 +1,5 @@
 package lila.opening
 
-import cats.syntax.all.*
 import chess.format.pgn.{ Pgn, SanStr }
 import chess.format.{ Fen, OpeningFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }

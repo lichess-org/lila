@@ -1,7 +1,5 @@
 package lila.swiss
 
-import cats.syntax.all.*
-
 import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
 

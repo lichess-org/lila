@@ -1,6 +1,5 @@
 package lila.user
 
-import cats.syntax.all.*
 import reactivemongo.api.bson.*
 import scala.util.Success
 

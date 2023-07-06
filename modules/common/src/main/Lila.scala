@@ -14,6 +14,8 @@ object Lila extends Lila:
   export ornicar.scalalib.extensions.{ given, * }
   export ornicar.scalalib.time.*
 
+  export cats.syntax.all.*
+
   inline def nowNanos: Long  = System.nanoTime()
   inline def nowMillis: Long = System.currentTimeMillis()
   inline def nowCentis: Long = nowMillis / 10

@@ -6,7 +6,6 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
-import cats.syntax.all.*
 
 import lila.common.{ given, * }
 import lila.common.config.NetConfig
