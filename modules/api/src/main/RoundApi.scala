@@ -46,7 +46,7 @@ final private[api] class RoundApi(
         jsonView.playerJson(
           pov,
           ctx.pref.some,
-          user.map(Right.apply),
+          user,
           flags = ctxFlags,
           initialFen = initialFen
         ) zip

@@ -120,7 +120,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       .list(nb)
 
   def botsByIds(ids: Iterable[UserId]): Fu[List[User]] =
-    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](temporarilyPrimary).listAll()
+    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPref.priTemp).listAll()
 
   def enabledTitledCursor(proj: Option[Bdoc]) =
     coll
@@ -128,7 +128,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
         enabledSelect ++ $doc(F.title -> $doc("$exists" -> true, "$ne" -> List(Title.LM, Title.BOT))),
         proj
       )
-      .cursor[Bdoc](temporarilyPrimary)
+      .cursor[Bdoc](ReadPref.priTemp)
 
   def usernameById(id: UserId): Fu[Option[UserName]] =
     coll.primitiveOne[UserName]($id(id), F.username)
@@ -450,7 +450,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
         $inIds(ids),
         $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
       )
-      .cursor[Bdoc](temporarilyPrimary)
+      .cursor[Bdoc](ReadPref.priTemp)
       .listAll()
       .map: docs =>
         for

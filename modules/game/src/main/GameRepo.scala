@@ -105,7 +105,7 @@ final class GameRepo(val coll: Coll)(using Executor):
     coll
       .find(select)
       .sort(Query.sortCreated)
-      .cursor[Game](temporarilyPrimary)
+      .cursor[Game](ReadPref.priTemp)
 
   def gamesForAssessment(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
@@ -118,7 +118,7 @@ final class GameRepo(val coll: Coll)(using Executor):
           ++ Query.clockHistory(true)
       )
       .sort($sort asc F.createdAt)
-      .cursor[Game](temporarilyPrimary)
+      .cursor[Game](ReadPref.priTemp)
       .list(nb)
 
   def extraGamesForIrwin(userId: UserId, nb: Int): Fu[List[Game]] =
@@ -138,7 +138,7 @@ final class GameRepo(val coll: Coll)(using Executor):
   def unanalysedGames(gameIds: Seq[GameId], max: config.Max = config.Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
-      .cursor[Game](temporarilyPrimary)
+      .cursor[Game](ReadPref.priTemp)
       .list(max.value)
 
   def cursor(

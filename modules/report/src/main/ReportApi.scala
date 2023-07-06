@@ -394,7 +394,7 @@ final class ReportApi(
         coll
           .find($doc("atoms.by" -> user.id))
           .sort(sortLastAtomAt)
-          .cursor[Report](temporarilyPrimary)
+          .cursor[Report](ReadPref.priTemp)
           .list(nb)
       about <- recent(Suspect(user), nb, _.priTemp)
     yield Report.ByAndAbout(by, Room.filterGranted(about))

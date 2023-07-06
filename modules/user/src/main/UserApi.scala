@@ -2,6 +2,7 @@ package lila.user
 
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import akka.stream.scaladsl.*
+import cats.syntax.all.*
 
 import lila.rating.{ Perf, PerfType }
 import lila.memo.CacheApi
@@ -28,9 +29,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     def loggedIn(ids: PairOf[UserId], perfType: PerfType): Fu[Option[PairOf[User.WithPerf]]] =
       gamePlayersCache
         .get((ids._1.some, ids._2.some) -> perfType)
-        .dmap:
-          case (Some(x), Some(y)) => (x, y).some
-          case _                  => none
+        .dmap(_.tupled)
 
     private val gamePlayersCache = cacheApi[PlayersKey, GamePlayers](4096, "user.perf.pair"):
       _.expireAfterWrite(3 seconds).buildAsyncFuture:
@@ -61,12 +60,12 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     make = (u: Option[User]) => u.map(u => User.WithPerfs(u, perfs.get(u.id)))
   yield make(x) -> make(y)
 
-  def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[Either[LightUser.Ghost, User.WithPerf]]] =
+  def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[LightUser.Ghost | User.WithPerf]] =
     userRepo
       .byIdOrGhost(id)
       .flatMapz:
-        case Left(g)  => fuccess(Left(g).some)
-        case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => Right(u withPerf p).some)
+        case Left(g)  => fuccess(g.some)
+        case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => u.withPerf(p).some)
 
   def setBot(user: User): Funit =
     if user.count.game > 0
@@ -78,7 +77,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def botsByIdsStream(ids: Iterable[UserId], nb: Option[Int]): Source[User.WithPerfs, _] =
     userRepo.coll
       .find($inIds(ids) ++ userRepo.botSelect(true))
-      .cursor[User](temporarilyPrimary)
+      .cursor[User](ReadPref.priTemp)
       .documentSource(nb | Int.MaxValue)
       .grouped(40)
       .mapAsync(1)(perfsRepo.withPerfs(_))
