@@ -4,7 +4,7 @@ import { colors, MouchEvent } from 'shogiground/types';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
 import { findHandicaps, isHandicap } from 'shogiops/handicaps';
 import { roleToKanji } from 'shogiops/notation/util';
-import { initialSfen, parseSfen, roleToForsyth } from 'shogiops/sfen';
+import { initialSfen, makeSfen, parseSfen, roleToForsyth } from 'shogiops/sfen';
 import { Handicap, Piece, Role, RULES, Rules } from 'shogiops/types';
 import { allRoles, handRoles, promote } from 'shogiops/variant/util';
 import { defaultPosition } from 'shogiops/variant/variant';
@@ -12,6 +12,8 @@ import { VNode, h } from 'snabbdom';
 import EditorCtrl from './ctrl';
 import { EditorState, Selected } from './interfaces';
 import * as ground from './shogiground';
+import { makeKifHeader, parseKifHeader } from 'shogiops/notation/kif/kif';
+import { makeCsaHeader, parseCsaHeader } from 'shogiops/notation/csa/csa';
 
 const pieceValueOrder: Role[] = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook', 'tokin', 'king'];
 function pieceCounter(ctrl: EditorCtrl): VNode {
@@ -393,6 +395,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
 
 function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
   if (ctrl.data.embed) return;
+  const pos = parseSfen(ctrl.rules, sfen);
   return h('div.copyables', [
     h('p', [
       h('strong', 'SFEN'),
@@ -423,7 +426,7 @@ function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
       }),
     ]),
     h('p', [
-      h('strong.name', 'URL '), // en space
+      h('strong.name', 'URL'),
       h('input.copyable.autoselect', {
         attrs: {
           readonly: true,
@@ -432,6 +435,76 @@ function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
         },
       }),
     ]),
+    h('p', [
+      h('strong', 'KIF'),
+      h('textarea.copyable.autoselect.kif', {
+        attrs: {
+          spellcheck: false,
+        },
+        props: {
+          value: pos.isOk ? makeKifHeader(pos.value) : '',
+        },
+        on: {
+          change(e) {
+            const el = e.target as HTMLTextAreaElement;
+            const pos = parseKifHeader(el.value);
+            if (pos.isOk) {
+              const sfen = makeSfen(pos.value);
+              ctrl.setSfen(sfen);
+            }
+            el.reportValidity();
+          },
+          input(e) {
+            const el = e.target as HTMLTextAreaElement;
+            const valid = parseKifHeader(el.value).isOk;
+            el.setCustomValidity(valid ? '' : ctrl.trans.noarg('invalidNotation'));
+          },
+          blur(e) {
+            const el = e.target as HTMLTextAreaElement;
+            const pos = parseSfen(ctrl.rules, ctrl.getSfen());
+            if (pos.isOk) el.value = makeKifHeader(pos.value);
+            else el.value = '';
+            el.setCustomValidity('');
+          },
+        },
+      }),
+    ]),
+    ctrl.rules === 'standard'
+      ? h('p', [
+          h('strong', 'CSA'),
+          h('textarea.copyable.autoselect.csa', {
+            attrs: {
+              spellcheck: false,
+            },
+            props: {
+              value: pos.isOk ? makeCsaHeader(pos.value) : '',
+            },
+            on: {
+              change(e) {
+                const el = e.target as HTMLTextAreaElement;
+                const pos = parseCsaHeader(el.value);
+                if (pos.isOk) {
+                  const sfen = makeSfen(pos.value);
+                  ctrl.setSfen(sfen);
+                }
+                el.reportValidity();
+              },
+              input(e) {
+                const el = e.target as HTMLTextAreaElement;
+                const valid = parseCsaHeader(el.value).isOk;
+                el.setCustomValidity(valid ? '' : ctrl.trans.noarg('invalidNotation'));
+              },
+              blur(e) {
+                const el = e.target as HTMLTextAreaElement;
+                const pos = parseSfen(ctrl.rules, ctrl.getSfen());
+                if (pos.isOk) el.value = makeCsaHeader(pos.value);
+                else el.value = '';
+                el.setCustomValidity('');
+              },
+            },
+          }),
+        ])
+      : null,
   ]);
 }
 
