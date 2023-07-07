@@ -45,6 +45,8 @@
   <string name="pointsCalculationQ">Kiel oni kalkulas poentojn?</string>
   <string name="tiebreaksCalculationQ">Kiel estas egalvenka rompado kalkulata?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger poentaro</string>
+  <string name="tiebreaksCalculationA">Per la %s.
+Adiciu la poentarojn de ĉiu kontraŭlo, kiujn la ludanto venkas, kaj duonu la poentaro de ĉiu kontraŭulo, kiujn la ludanto egalvenkas.</string>
   <string name="pairingsQ">Kiel oni deciditas paroj?</string>
   <string name="dutchSystem">Nederlanda sistemo</string>
   <string name="FIDEHandbook">FIDE-a manlibro</string>
@@ -52,6 +54,9 @@
   <string name="moreRoundsThanPlayersQ">Kio okazas se la turniro havas pli da raŭndoj ol ludantoj?</string>
   <string name="moreRoundsThanPlayersA">Kiam ĉiuj eblaj paroj estas luditaj, la turniro estos finata kaj venkanto deklarita.</string>
   <string name="restrictedToTeamsQ">Kial ĝi limigita al teamoj?</string>
+  <string name="restrictedToTeamsA">Svisaj turniroj ne projektis por retŝako. Tiuj postulas akuratecon, klopodeco, kaj pacienceco el la ludantoj.
+Ni pensas, ke tiuj kondiĉoj estas pli ŝance estos renkontiĝi en teamo ol en mondaj turniroj.</string>
+  <string name="numberOfByesQ">Kiom da malplenaj raŭndoj ludanto povas havi?</string>
   <string name="earlyDrawsQ">Kio okazas kun fruaj egalvenkoj?</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
   <string name="joinOrCreateTeam">Aliĝi aŭ krei teamon</string>
