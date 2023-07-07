@@ -203,15 +203,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function auxMove(orig: Key, dest: Key, role?: Role) {
-    withGround(g => {
-      if (!role) {
+    if (role) playUserMove(orig, dest, role);
+    else
+      withGround(g => {
         g.move(orig, dest);
         g.state.movable.dests = undefined;
         g.state.turnColor = opposite(g.state.turnColor);
-        if (promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.promotionHook() })) return;
-      }
-      playUserMove(orig, dest, role);
-    });
+      });
   }
 
   function userMove(orig: Key, dest: Key): void {
