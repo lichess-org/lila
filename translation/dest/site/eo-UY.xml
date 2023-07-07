@@ -909,6 +909,7 @@
   <string name="streamerManager">Filmprezentista administranto</string>
   <string name="cancelTournament">Nuligi la turniron</string>
   <string name="tournDescription">Turnira priskribo</string>
+  <string name="tournDescriptionHelp">Ĉu io ajn speciala, ke vi volas diri al la partoprenantoj? Provu teni ĝin mallonga. Markdown ligoj estas disponebla: [name](https://url)</string>
   <string name="ratedFormHelp">Ludoj estas rangaj
 kaj influas la rangojn de ludantoj</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
@@ -918,6 +919,10 @@ kaj influas la rangojn de ludantoj</string>
   <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
   <string name="onlyTitled">Nuraj titolaj ludantoj</string>
   <string name="onlyTitledHelp">Necesigi la oficiala titolo por aliĝi al la turniro</string>
+  <string name="positionInputHelp">Alglui validan FEN por komenci ĉiujn ludojn el donita pozicio.
+Tio nur funkcias por normaj ludoj, ne kun variantoj.
+Vi povas uzi la %s por krei FEN pozicio, tiam alglui ĝin ĉi tie.
+Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="cancelSimul">Nuligi la samtempludo</string>
   <string name="simulHostcolor">Gastiganta koloro por ĉiu ludo</string>
   <string name="estimatedStart">Proksimuma komenca tempo</string>

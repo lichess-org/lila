@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">Nova persona API atinga ĵetono</string>
+  <string name="tokenGrantsPermission">Ĵetono donas al aliuloj permeson uzi vian konton.</string>
+  <string name="carefullySelect">Zorgeme elekti tion, kion ĝi rajtas fari en via nomo.</string>
+  <string name="tokenDescription">Ĵetona priskribo</string>
+  <string name="whatTheTokenCanDo">Kion la ĵetono povas fari en via nomo:</string>
+  <string name="doNotShareIt">La ĵetono donos atingon al via konto. Ne disdiru ĝin al iu ajn!</string>
+  <string name="copyTokenNow">Nepre nun kopiu vian novan persona atinga ĵetono. Vi ne denove povos vidi ĝin!</string>
+  <string name="preferenceRead">Legi preferojn</string>
+  <string name="preferenceWrite">Skribi preferojn</string>
+  <string name="emailRead">Legi retpoŝtadresojn</string>
+  <string name="challengeRead">Legi envenajn defiojn</string>
+  <string name="challengeWrite">Sendi, akcepti, kaj malakcepti defiojn</string>
+  <string name="challengeBulk">Krei samtempe multajn ludojn por aliaj ludantoj</string>
+  <string name="studyRead">Legi privatajn studojn kaj elsendojn</string>
+  <string name="studyWrite">Krei, ĝisdatigi, forigi studojn kaj elsendojn</string>
+  <string name="tournamentWrite">Krei, ĝisdatigi, kaj aliĝi al turnirojn</string>
+  <string name="puzzleRead">Legi puzlan aktivecon</string>
+</resources>

@@ -37,7 +37,10 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
   </plurals>
   <string name="thisIsPrivate">Tio estas privata turniro</string>
   <string name="shareUrl">Kunhavigu ĉi tiun URLon por lasi homojn aliĝi: %s</string>
+  <string name="drawStreakStandard">Egalvenkaj sinsekvoj: Kiam ludanto sinsekve egalvenkas en areno, nur la unua egalvenko estos rezultigi poenton, aŭ egalvenkoj daŭre pli ol %s movoj en normaj ludaj. La egalvenka sinsekvo povas rompita nur per venko, ne malvenko aŭ egalvenko.</string>
+  <string name="drawStreakVariants">La minimuma daŭro de egalvenkaj ludoj kiuj aljuĝas poentojn diferencas per variaĵo. La malsupra tabelo listas la komenco de ĉiuj variaĵoj.</string>
   <string name="variant">Variaĵo</string>
+  <string name="minimumGameLength">Minimuma daŭro de ludoj</string>
   <string name="history">Historia Areno</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Rigardi la teamon</item>
@@ -45,8 +48,15 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
   </plurals>
   <string name="newTeamBattle">Nova teama batalo</string>
   <string name="customStartDate">Agorda komenca dato</string>
+  <string name="customStartDateHelp">En via loka horzono. Ĉi tiu transpasis la \"Tempo ĝis la turniro komeciĝas\" agordon</string>
   <string name="allowBerserk">Permesi uzi la Berserkon</string>
+  <string name="allowBerserkHelp">Lasi ludantojn duonigi sian horloĝan tempon por gajni ekstran poenton</string>
   <string name="allowChatHelp">Permesi uzi la turniran babilejon</string>
+  <string name="arenaStreaks">Arenaj sinsekvoj</string>
+  <string name="arenaStreaksHelp">Poste 2 venkoj, sinsekvaj venkoj donas 4 poentojn anstataŭ 2.</string>
+  <string name="noBerserkAllowed">Berserko ne permesas</string>
+  <string name="noArenaStreaks">Ne Arenaj sinsekvoj</string>
+  <string name="averagePerformance">Meznombra rendimento</string>
   <string name="averageScore">Averaĝa poentaro</string>
   <string name="myTournaments">Mia turniroj</string>
 </resources>

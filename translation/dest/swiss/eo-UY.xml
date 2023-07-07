@@ -44,8 +44,14 @@
 Ĝi povas esti bona elekto por kluboj kaj oficialaj turniroj.</string>
   <string name="pointsCalculationQ">Kiel oni kalkulas poentojn?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger poentaro</string>
+  <string name="pairingsQ">Kiel oni deciditas paroj?</string>
   <string name="dutchSystem">Nederlanda sistemo</string>
   <string name="FIDEHandbook">FIDE-a manlibro</string>
+  <string name="pairingsA">Kun la %1$s, efektivigita per %2$s, konforme al la %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Kio okazas se la turniro havas pli da raŭndoj ol ludantoj?</string>
+  <string name="moreRoundsThanPlayersA">Kiam ĉiuj eblaj paroj estas luditaj, la turniro estos finata kaj venkanto deklarita.</string>
+  <string name="restrictedToTeamsQ">Kial ĝi limigita al teamoj?</string>
+  <string name="earlyDrawsQ">Kio okazas kun fruaj egalvenkoj?</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
   <string name="joinOrCreateTeam">Aliĝi aŭ krei teamon</string>
   <string name="nowPlaying">Ludante</string>
