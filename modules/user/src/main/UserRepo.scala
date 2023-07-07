@@ -7,8 +7,6 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.db.dsl.{ *, given }
-import lila.rating.Glicko
-import lila.rating.{ Perf, PerfType }
 
 final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
 
@@ -102,20 +100,6 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
 
   def disabledById(id: UserId): Fu[Option[User]] =
     User.noGhost(id) so coll.one[User](disabledSelect ++ $id(id))
-
-  // expensive, send to secondary
-  def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User]] =
-    coll
-      .find(
-        $doc(
-          F.enabled -> true,
-          F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key),
-          "perfs.standard.gl.d" $lt Glicko.provisionalDeviation
-        ) ++ $inIds(ids) ++ botSelect(false)
-      )
-      .sort($sort desc "perfs.standard.gl.r")
-      .cursor[User](ReadPref.sec)
-      .list(nb)
 
   def botsByIds(ids: Iterable[UserId]): Fu[List[User]] =
     coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPref.priTemp).listAll()
@@ -217,9 +201,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   val lameOrTroll        = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key))
   val notLame            = $doc(F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key))
   val enabledNoBotSelect = enabledSelect ++ $doc(F.title $ne Title.BOT)
-  def stablePerfSelect(perf: String) =
-    $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
-  val patronSelect = $doc(s"${F.plan}.active" -> true)
+  val patronSelect       = $doc(s"${F.plan}.active" -> true)
 
   val sortCreatedAtDesc = $sort desc F.createdAt
 

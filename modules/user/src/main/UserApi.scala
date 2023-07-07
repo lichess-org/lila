@@ -8,6 +8,7 @@ import lila.memo.CacheApi
 import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 import lila.db.BSON.Reader
+import lila.rating.Glicko
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
@@ -82,3 +83,33 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .mapAsync(1)(perfsRepo.withPerfs(_))
       .throttle(1, 1 second)
       .mapConcat(identity)
+
+  // expensive, send to secondary
+  def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User.WithPerfs]] = userRepo.coll
+    .aggregateList(nb, _.sec): framework =>
+      import framework.*
+      import User.{ BSONFields as F }
+      Match(
+        $doc(
+          F.enabled -> true,
+          F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key)
+        ) ++ $inIds(ids) ++ userRepo.botSelect(false)
+      ) -> List(
+        PipelineOperator:
+          $lookup.pipeline(
+            from = perfsRepo.collName,
+            as = "perfs",
+            local = "_id",
+            foreign = "_id",
+            pipe = List($doc("$match" -> $doc("standard.gl.d" $lt Glicko.provisionalDeviation)))
+          )
+        ,
+        Sort(Descending("perfs.0.standard.gl.r")),
+        Limit(nb)
+      )
+    .map: docs =>
+      for
+        doc  <- docs
+        user <- doc.asOpt[User]
+        perfs = perfsRepo.aggregate.read(doc, user)
+      yield User.WithPerfs(user, perfs)

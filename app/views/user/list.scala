@@ -35,12 +35,12 @@ object list:
         div(cls := "community page-menu__content box box-pad")(
           st.section(cls := "community__online")(
             h2(trans.onlinePlayers()),
-            ol(cls := "user-top")(online map { u =>
-              li(
-                userLink(u),
-                ctx.pref.showRatings option showBestPerf(u.perfs)
-              )
-            })
+            ol(cls := "user-top"):
+              online.map: u =>
+                li(
+                  userLink(u),
+                  ctx.pref.showRatings option showBestPerf(u.perfs)
+                )
           ),
           div(cls := "community__leaders")(
             h2(trans.leaderboard()),

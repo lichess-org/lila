@@ -185,14 +185,13 @@ final class User(
   def online = Anon:
     val max = 50
     negotiateJson:
-      for
-        users <- env.user.cached.getTop50Online
-        users <- env.user.perfsRepo.withPerfs:
-          users.take(getInt("nb").fold(10)(_ min max))
-      yield Ok:
-        Json.toJson:
-          users.map: u =>
-            env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
+      env.user.cached.getTop50Online.map: users =>
+        Ok:
+          Json.toJson:
+            users
+              .take(getInt("nb").fold(10)(_ min max))
+              .map: u =>
+                env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
 
   def ratingHistory(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -250,7 +249,6 @@ final class User(
           nbAllTime      <- env.user.cached.top10NbGame.get {}
           tourneyWinners <- env.tournament.winners.all.map(_.top)
           topOnline      <- env.user.cached.getTop50Online
-          topOnline      <- env.user.perfsRepo.withPerfs(topOnline)
           _              <- lightUserApi preloadMany tourneyWinners.map(_.userId)
           page <- renderPage:
             html.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)

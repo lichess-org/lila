@@ -11,6 +11,8 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
 
   import UserPerfs.given
 
+  private[user] def collName = coll.name
+
   def glickoField(perf: Perf.Key) = s"$perf.gl"
 
   def byId[U: UserIdOf](u: U): Fu[UserPerfs] =

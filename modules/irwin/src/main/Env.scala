@@ -59,9 +59,10 @@ final class Env(
       yield ()).unit
     scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes): () =>
       (for
-        topOnline <- userCache.getTop50Online.map(_ map Suspect.apply)
-        _         <- irwinApi.requests.topOnline(topOnline)
-        _         <- kaladinApi.topOnline(topOnline)
+        topOnline <- userCache.getTop50Online
+        suspects = topOnline.map(_.user) map Suspect.apply
+        _ <- irwinApi.requests.topOnline(suspects)
+        _ <- kaladinApi.topOnline(suspects)
       yield ()).unit
 
     scheduler.scheduleWithFixedDelay(83 seconds, 5 seconds): () =>
