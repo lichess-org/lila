@@ -17,6 +17,7 @@
   <string name="studyRead">Legi privatajn studojn kaj elsendojn</string>
   <string name="studyWrite">Krei, ĝisdatigi, forigi studojn kaj elsendojn</string>
   <string name="tournamentWrite">Krei, ĝisdatigi, kaj aliĝi al turnirojn</string>
+  <string name="racerWrite">Krei kaj aliĝi al puzlaj konkursoj</string>
   <string name="puzzleRead">Legi puzlan aktivecon</string>
   <string name="teamRead">Legi privatan teaman informon</string>
   <string name="teamWrite">Aliĝi kaj forlasi teamojn</string>
