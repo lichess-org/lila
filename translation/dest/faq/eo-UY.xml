@@ -92,11 +92,19 @@ Ne petu por la LM titolo.</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">ludis rangan ludon ene la lasta semajno por ĉi tiu rango,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">posedas rangan devion sub %1$s, en norma ŝako, kaj malpli ol %2$s en variantoj,</string>
   <string name="beInTopTen">esti en la supraj 10 en ĉi tiu rango.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La dua postulo estas tiel, ke ludantoj kiuj ne plu uzas iliajn kontojn ĉesi plenigi rangtabulojn.</string>
+  <string name="whyAreRatingHigher">Kial estas rangoj pli alta ol aliaj retejoj kaj organizaĵoj kiel FIDE, USCF, kaj la ICC?</string>
   <string name="howToHideRatingWhilePlaying">Kiel kaŝi mian rangon dum la ludoj?</string>
   <string name="enableZenMode">Ŝaltu amikan reĝimon en %1$s, aŭ per premo de %2$s dum ludo.</string>
   <string name="displayPreferences">aperigi preferojn</string>
   <string name="connexionLostCanIGetMyRatingBack">Mi perdis ludon pro malfruo/malkonekto. Ĉu mi povas ricevi la perditajn rangpoentojn?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Bedaŭrinde, ni ne povas realjuĝas rangajn poentojn por ludoj malvenkis per prokrasto aŭ malkonekto, sendepende se la problemo estis ĉe via aŭ nia fino. La lasta tamen, estas tre malofta. Ankaŭ notu, ke kiam Lichess restarigis kaj vi malvenki per tempo pro tio, ni halti la ludo por preventi maljustan malvenkon.</string>
   <string name="howToThreeDots">Kiel...</string>
   <string name="enableDisableNotificationPopUps">Ŝalti aǔ malŝalti komentojn en ŝprucfenestroj?</string>
   <string name="viewSiteInformationPopUp">Vidi komentan ŝprucfenestron de la retejo</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess povas laŭvole sendi ŝprucfenestrajn sciigojn, ekzemple kiam estas via vico aŭ kiam vi ricevante privatan mesaĝon.
+
+Alklaku la ŝlosilan ikonon apud la lichess.org retadreso en la URL breto de via retumilo.
+
+Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
 </resources>
