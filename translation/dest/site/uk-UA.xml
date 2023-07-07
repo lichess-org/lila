@@ -314,7 +314,7 @@
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Запит на повторну гру надіслано</string>
   <string name="rematchOfferAccepted">Запит на повторну гру прийнято</string>
-  <string name="rematchOfferCanceled">Запит на повторну гру відмовлено</string>
+  <string name="rematchOfferCanceled">Запит на повторну гру відхилено</string>
   <string name="rematchOfferDeclined">Запит на повторну гру відхилено</string>
   <string name="cancelRematchOffer">Скасувати запит на повторну гру</string>
   <string name="viewRematch">Дивитися повторну гру</string>
@@ -356,9 +356,9 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s грає</item>
-    <item quantity="few">%s грає</item>
-    <item quantity="many">%s грає</item>
-    <item quantity="other">%s грає</item>
+    <item quantity="few">%s грають</item>
+    <item quantity="many">%s грають</item>
+    <item quantity="other">%s грають</item>
   </plurals>
   <string name="exportGames">Експорт ігор</string>
   <string name="ratingRange">Діапазон рейтингу</string>
@@ -404,7 +404,7 @@
   <string name="noDrawBeforeSwissLimit">Нічия не можлива до 30 ходу гри у турнірі за швейцарською системою.</string>
   <string name="thematic">Тематичний</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">%s рейтингова гра</item>
+    <item quantity="one">≥ %s рейтингова гра</item>
     <item quantity="few">≥ %s рейтингові гри</item>
     <item quantity="many">≥ %s рейтингових ігор</item>
     <item quantity="other">≥ %s рейтингових ігор</item>
@@ -423,7 +423,7 @@
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Ви повинні зіграти ще %s рейтингову гру</item>
-    <item quantity="few">Ви повинні зіграти ще %s рейтингові гри</item>
+    <item quantity="few">Вам потрібно зіграти ще %s рейтингові гри</item>
     <item quantity="many">Ви повинні зіграти ще %s рейтингових ігор</item>
     <item quantity="other">Ви повинні зіграти ще %s рейтингових ігор</item>
   </plurals>
@@ -462,7 +462,7 @@
   <string name="importGameCaveat">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпортована гра</item>
-    <item quantity="few">%s імпортованих гри</item>
+    <item quantity="few">%s імпортовані гри</item>
     <item quantity="many">%s імпортованих ігор</item>
     <item quantity="other">%s імпортованих ігор</item>
   </plurals>
@@ -492,14 +492,14 @@
   <string name="followsYou">Спостерігає за вами</string>
   <string name="xStartedFollowingY">%1$s починає спостерігати за %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s спостерігачів</item>
-    <item quantity="few">%s спостерігачів</item>
+    <item quantity="one">%s спостерігач</item>
+    <item quantity="few">%s спостерігачі</item>
     <item quantity="many">%s спостерігачів</item>
     <item quantity="other">%s спостерігачів</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s спостерігає</item>
-    <item quantity="few">%s спостерігає</item>
+    <item quantity="few">%s спостерігають</item>
     <item quantity="many">%s спостерігають</item>
     <item quantity="other">%s спостерігають</item>
   </plurals>
@@ -710,10 +710,10 @@
   <string name="whiteCastlingKingside">Білі O-O</string>
   <string name="blackCastlingKingside">Чорні O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s повідомлення на форумі</item>
-    <item quantity="few">%s повідомлення на форумі</item>
-    <item quantity="many">%s повідомлень на форумі</item>
-    <item quantity="other">%s повідомлень на форумі</item>
+    <item quantity="one">%s допис на форумі</item>
+    <item quantity="few">%s дописи на форумі</item>
+    <item quantity="many">%s дописів на форумі</item>
+    <item quantity="other">%s дописів на форумі</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Дивитись ігри</string>
@@ -725,7 +725,7 @@
   <string name="webmasters">Розробникам</string>
   <string name="about">Про сайт</string>
   <string name="aboutX">Про %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s), шаховим сервером з відкритим кодом без реклами.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s) шаховим сервером без реклами та з відкритим кодом.</string>
   <string name="really">дійсно</string>
   <string name="contribute">Сприяти розвитку</string>
   <string name="termsOfService">Умови користування</string>
@@ -754,7 +754,7 @@
   <string name="lichessTournaments">Турніри Lichess</string>
   <string name="tournamentFAQ">ЧаПи про турнір Арена</string>
   <string name="timeBeforeTournamentStarts">Час до початку турніру</string>
-  <string name="averageCentipawnLoss">У середньому втрачено сотих пішаків.</string>
+  <string name="averageCentipawnLoss">Середня втрата сотих пішаків</string>
   <string name="accuracy">Точність</string>
   <string name="keyboardShortcuts">Комбінації клавіш</string>
   <string name="keyMoveBackwardOrForward">хід назад/вперед</string>
