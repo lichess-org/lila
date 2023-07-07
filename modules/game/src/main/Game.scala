@@ -306,7 +306,8 @@ case class Game(
       ply >= 2 &&
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
-      !playerHasOfferedDrawRecently(color) &&
+      (!playerHasOfferedDrawRecently(color) ||
+      !playerIsMostRecentDrawer(color)) &&
       !swissPreventsDraw &&
       !rulePreventsDraw
 
@@ -315,6 +316,9 @@ case class Game(
 
   def playerHasOfferedDrawRecently(color: Color) =
     drawOffers.lastBy(color).exists(_ >= ply - 20)
+
+  def playerIsMostRecentDrawer(color: Color) =
+    drawOffers.lastAddedDrawColorIs(color)
 
   def offerDraw(color: Color) = copy(
     metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))

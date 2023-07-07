@@ -31,12 +31,16 @@ private[game] object Metadata:
   val empty =
     Metadata(None, None, None, None, None, analysed = false, GameDrawOffers.empty, rules = Set.empty)
 
-case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
+case class GameDrawOffers(white: Set[Ply], black: Set[Ply], lastDrawColor: Option[Color]):
 
   def lastBy(color: Color): Option[Ply] = color.fold(white, black).maxOption(intOrdering)
 
+  def lastAddedDrawColorIs(color: Color) =
+    lastDrawColor.contains(color)
+
   def add(color: Color, ply: Ply) =
-    color.fold(copy(white = white incl ply), copy(black = black incl ply))
+    color.fold(copy(white = white incl ply, lastDrawColor = Some(color)), 
+      copy(black = black incl ply, lastDrawColor = Some(color)))
 
   def isEmpty = this == GameDrawOffers.empty
 
@@ -49,7 +53,7 @@ case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
   def normalizedPlies: Set[Ply] = normalize(chess.White) ++ normalize(chess.Black)
 
 object GameDrawOffers:
-  val empty = GameDrawOffers(Set.empty, Set.empty)
+  val empty = GameDrawOffers(Set.empty, Set.empty, None)
 
 enum GameRule:
   case NoAbort, NoRematch, NoGiveTime, NoClaimWin, NoEarlyDraw

@@ -112,7 +112,10 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       if (ctrl.isPlaying()) {
         ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
         const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
-        if (fromOp) ctrl.opponentRequest('draw', 'yourOpponentOffersADraw');
+        if (fromOp) {
+          ctrl.opponentRequest('draw', 'yourOpponentOffersADraw');
+          ctrl.data.player.lastDrawOfferAtPly = undefined;
+        }
       }
       if (by) {
         let ply = ctrl.lastPly();
