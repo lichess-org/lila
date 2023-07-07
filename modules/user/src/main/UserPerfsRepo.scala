@@ -58,7 +58,7 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
       bson <- wr.writeOpt(perfs(pt))
     yield BSONElement(pt.key.value, bson)
     diff.nonEmpty so coll.update
-      .one($id(user.id), $doc("$set" -> $doc(diff*)))
+      .one($id(user.id), $doc("$set" -> $doc(diff*)), upsert = true)
       .void
 
   def setManagedUserInitialPerfs(id: UserId) =
@@ -67,9 +67,7 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
     coll.update.one($id(id), UserPerfs.defaultBot(id), upsert = true).void
 
   def setPerf(userId: UserId, pt: PerfType, perf: Perf) =
-    coll.updateField($id(userId), s"${pt.key}", perf).void
-
-  def sortPerfDesc(perf: String) = $sort desc s"$perf.gl.r"
+    coll.update.one($id(userId), $set(pt.key.value -> perf), upsert = true).void
 
   def glicko(userId: UserId, perfType: PerfType): Fu[Glicko] =
     coll
@@ -87,8 +85,9 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
     coll.update
       .one(
         $id(userId),
-        $inc(s"perfs.$field.runs" -> 1) ++
-          $doc("$max" -> $doc(s"perfs.$field.score" -> score))
+        $inc(s"$field.runs" -> 1) ++
+          $doc("$max" -> $doc(s"$field.score" -> score)),
+        upsert = true
       )
       .void
 
