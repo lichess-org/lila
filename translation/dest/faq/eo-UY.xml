@@ -57,11 +57,16 @@ La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="threeFoldHasToBeClaimed">Ripetado necesas esti reklamaciita de unu de la ludantoj. Vi povas fari tion premante la butonon ke estas montrita aŭ oferante egalvenkon antaŭ vian finan ripetan movon, ne gravos se la kontraŭbatalanto malakceptas la egalvenkan oferon, ĝi estos akceptita ĉiel. Vi povas ankaŭ %1$s Lichess por aŭtomate reklamacii ripetadojn por vi. Aldone, kvinfoja ripetado ĉiam tuje finiĝos la ludon.</string>
   <string name="configure">agordi</string>
   <string name="accounts">Kontoj</string>
+  <string name="verificationForm">kontrola formularo</string>
   <string name="noUpperCaseDot">Ne.</string>
+  <string name="whatUsernameCanIchoose">Kio povas esti mia uzantnomo?</string>
   <string name="guidelines">gvidlinioj</string>
   <string name="canIChangeMyUsername">Ĉu mi povas ŝanĝi mian uzantnomon?</string>
   <string name="uniqueTrophies">Unikaj trofeoj</string>
+  <string name="aHourlyBulletTournament">hore kugla turniro</string>
   <string name="lichessRatings">Lichess rangoj</string>
+  <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
+  <string name="whatIsProvisionalRating">Kial demandsigno (?) staras apud rango?</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
   <string name="inOrderToAppearsYouMust">Por alveni al %1$s vi devus:</string>
   <string name="ratingLeaderboards">ĉefo tabulo de rango</string>
