@@ -9,6 +9,7 @@ import lila.rating.RatingRange
 import lila.socket.Socket.Sri
 import lila.user.User
 import lila.rating.PerfType
+import lila.lobby.Seek.realRatingRange
 
 // realtime chess, volatile
 case class Hook(
@@ -43,7 +44,9 @@ case class Hook(
       (userId.isEmpty || userId != h.userId)
 
   private def ratingRangeCompatibleWith(h: Hook) =
-    h.rating so ratingRangeOrDefault.contains
+    !isAuth || {
+      h.rating so ratingRangeOrDefault.contains
+    }
 
   private lazy val manualRatingRange = isAuth.so(RatingRange noneIfDefault ratingRange)
 
