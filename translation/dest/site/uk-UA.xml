@@ -87,7 +87,7 @@
   <string name="whiteDrawBlack">Білі / Нічия / Чорні</string>
   <string name="averageRatingX">Середній рейтинг %s</string>
   <string name="recentGames">Останні ігри</string>
-  <string name="topGames">Кращі ігри</string>
+  <string name="topGames">Найкращі ігри</string>
   <string name="masterDbExplanation">Ігор за дошкою гравців FIDE з рейтингом %1$s+ з %2$s по %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s напівхід</item>
@@ -360,7 +360,7 @@
     <item quantity="many">%s грають</item>
     <item quantity="other">%s грають</item>
   </plurals>
-  <string name="exportGames">Експорт ігор</string>
+  <string name="exportGames">Експортувати ігри</string>
   <string name="ratingRange">Діапазон рейтингу</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Додати %s секунду</item>
@@ -452,8 +452,8 @@
   <string name="gameAsGIF">Зберегти як GIF</string>
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
-  <string name="orUploadPgnFile">Або завантажте PGN файл</string>
-  <string name="fromPosition">Із позиції</string>
+  <string name="orUploadPgnFile">Або завантажте файл PGN</string>
+  <string name="fromPosition">З позиції</string>
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="toStudy">Дослідження</string>
   <string name="importGame">Імпортувати гру</string>
@@ -482,12 +482,12 @@
   </plurals>
   <string name="favoriteOpponents">Улюблені суперники</string>
   <string name="follow">Спостерігати</string>
-  <string name="following">Спостерігаю</string>
-  <string name="unfollow">Відмовитися</string>
-  <string name="followX">Стежити за %s</string>
+  <string name="following">Спостерігають</string>
+  <string name="unfollow">Не спостерігати</string>
+  <string name="followX">Спостерігати за %s</string>
   <string name="unfollowX">Не стежити за %s</string>
-  <string name="block">Блокувати</string>
-  <string name="blocked">Заблокований</string>
+  <string name="block">Заблокувати</string>
+  <string name="blocked">Заблоковано</string>
   <string name="unblock">Розблокувати</string>
   <string name="followsYou">Спостерігає за вами</string>
   <string name="xStartedFollowingY">%1$s починає спостерігати за %2$s</string>
