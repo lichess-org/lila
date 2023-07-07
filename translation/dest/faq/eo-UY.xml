@@ -26,6 +26,7 @@
   <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
   <string name="pleaseReadFairPlayPage">Por pli informo, bonvole legu nian %s</string>
   <string name="fairPlayPage">paĝon de honesta ludo</string>
+  <string name="youCanUseOpeningBookNoEngine">Ĉe Lichess, la ĉefa diferenco en reguloj por koresponda ŝako estas, ke malferma libro estas permesita. La uzado de motoroj daŭre estas malpermesita kaj rezultigos esti markita por motora asistado. Kvankam, ICCF permesas motora uzado en korespondo, Lichess ne permesas.</string>
   <string name="gameplay">Ludmaniero</string>
   <string name="howBulletBlitzEtcDecided">Kial estas Kugla, Blitza, kaj alia tempregado decidis?</string>
   <string name="basedOnGameDuration">Lichess tempokontroloj baziĝas sur laŭtaksa daŭro de ludo = %1$s
