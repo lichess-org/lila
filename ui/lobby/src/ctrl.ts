@@ -99,7 +99,7 @@ export default class LobbyController {
     this.startWatching();
 
     if (this.playban) {
-      if (this.playban.remainingSecond < 86400)
+      if (this.playban.remainingSeconds < 86400)
         setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
     } else {
       setInterval(() => {
