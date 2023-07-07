@@ -43,6 +43,7 @@
   <string name="swissVsArenaA">En svisa turniro, ĉiuj partoprenantoj ludas la saman nombron da ludoj, kaj ludas unu kontraŭ la alia nur unufoje.
 Ĝi povas esti bona elekto por kluboj kaj oficialaj turniroj.</string>
   <string name="pointsCalculationQ">Kiel oni kalkulas poentojn?</string>
+  <string name="tiebreaksCalculationQ">Kiel estas egalvenka rompado kalkulata?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger poentaro</string>
   <string name="pairingsQ">Kiel oni deciditas paroj?</string>
   <string name="dutchSystem">Nederlanda sistemo</string>
@@ -59,4 +60,5 @@
   <string name="comparison">Komparado</string>
   <string name="identicalForbidden">Malpermesita</string>
   <string name="pause">Paŭzo</string>
+  <string name="playYourGames">Ludu viajn ludojn</string>
 </resources>
