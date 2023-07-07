@@ -1,20 +1,19 @@
 package lila.round
 
-import actorApi.{ GetSocketStatus, SocketStatus }
+import scala.util.matching.Regex
 import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
 import lila.common.{ Bus, Uptime }
+import lila.common.autoconfig.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
-import lila.hub.actors
 import lila.memo.SettingStore
-import scala.util.matching.Regex
+import lila.round.actorApi.{ GetSocketStatus, SocketStatus }
 
 @Module
 private class RoundConfig(
@@ -32,8 +31,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    timeline: actors.Timeline,
-    bookmark: actors.Bookmark,
+    timeline: lila.hub.actors.Timeline,
+    bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
@@ -63,13 +62,13 @@ final class Env(
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
-  private val defaultGoneWeight                     = fuccess(1f)
-  private def goneWeight(userId: UserId): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
+  private val defaultGoneWeight = fuccess(1f)
   private val goneWeightsFor: Game => Fu[(Float, Float)] = (game: Game) =>
     if !game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1) then fuccess(1f -> 1f)
     else
-      game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
-        game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
+      def of(color: chess.Color): Fu[Float] =
+        game.player(color).userId.fold(defaultGoneWeight)(uid => playban.getRageSit(uid).dmap(_.goneWeight))
+      of(chess.White) zip of(chess.Black)
 
   private val isSimulHost =
     IsSimulHost(userId => Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId))
