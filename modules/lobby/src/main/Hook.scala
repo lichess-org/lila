@@ -57,8 +57,6 @@ case class Hook(
       rating.map(RatingRange.defaultFor) getOrElse
       RatingRange.default
 
-  println(ratingRangeOrDefault)
-
   def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
   def lame     = user.so(_.lame)
