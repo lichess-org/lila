@@ -9,7 +9,6 @@ import lila.rating.RatingRange
 import lila.socket.Socket.Sri
 import lila.user.User
 import lila.rating.PerfType
-import lila.lobby.Seek.realRatingRange
 
 // realtime chess, volatile
 case class Hook(
