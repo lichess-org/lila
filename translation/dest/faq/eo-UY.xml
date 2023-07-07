@@ -85,8 +85,12 @@ Ne petu por la LM titolo.</string>
   <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
   <string name="whatIsProvisionalRating">Kial demandsigno (?) staras apud rango?</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
+  <string name="howDoLeaderoardsWork">Kiel rangoj kaj rangtabuloj funkcias?</string>
   <string name="inOrderToAppearsYouMust">Por alveni al %1$s vi devus:</string>
   <string name="ratingLeaderboards">ĉefo tabulo de rango</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">ludis pli ol 30 rangaj ludoj ĉe donita rango,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ludis rangan ludon ene la lasta semajno por ĉi tiu rango,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">posedas rangan devion sub %1$s, en norma ŝako, kaj malpli ol %2$s en variantoj,</string>
   <string name="beInTopTen">esti en la supraj 10 en ĉi tiu rango.</string>
   <string name="howToHideRatingWhilePlaying">Kiel kaŝi mian rangon dum la ludoj?</string>
   <string name="enableZenMode">Ŝaltu amikan reĝimon en %1$s, aŭ per premo de %2$s dum ludo.</string>
