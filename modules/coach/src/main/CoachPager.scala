@@ -77,7 +77,7 @@ final class CoachPager(
               doc   <- docs
               coach <- doc.asOpt[Coach]
               user  <- doc.getAsOpt[User]("_user")
-              perfs = perfsRepo.aggregate.read(doc, user)
+              perfs = perfsRepo.aggregate.readFirst(doc, user)
             yield coach withUser User.WithPerfs(user, perfs)
 
     Paginator(

@@ -1,6 +1,7 @@
 package lila.user
 
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.api.bson.BSONNull
 import akka.stream.scaladsl.*
 
 import lila.rating.{ Perf, PerfType }
@@ -85,31 +86,45 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .mapConcat(identity)
 
   // expensive, send to secondary
-  def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User.WithPerfs]] = userRepo.coll
-    .aggregateList(nb, _.sec): framework =>
-      import framework.*
-      import User.{ BSONFields as F }
-      Match(
-        $doc(
-          F.enabled -> true,
-          F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key)
-        ) ++ $inIds(ids) ++ userRepo.botSelect(false)
-      ) -> List(
-        PipelineOperator:
-          $lookup.pipeline(
-            from = perfsRepo.collName,
-            as = "perfs",
-            local = "_id",
-            foreign = "_id",
-            pipe = List($doc("$match" -> $doc("standard.gl.d" $lt Glicko.provisionalDeviation)))
-          )
-        ,
-        Sort(Descending("perfs.0.standard.gl.r")),
-        Limit(nb)
-      )
-    .map: docs =>
-      for
-        doc  <- docs
-        user <- doc.asOpt[User]
-        perfs = perfsRepo.aggregate.read(doc, user)
-      yield User.WithPerfs(user, perfs)
+  def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User.WithPerfs]] =
+    userRepo.coll
+      .aggregateList(nb, _.sec): framework =>
+        import framework.*
+        import User.{ BSONFields as F }
+        Match(
+          $doc(
+            F.enabled -> true,
+            F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key)
+          ) ++ $inIds(ids) ++ userRepo.botSelect(false)
+        ) -> List(
+          Project($id(true)),
+          Group(BSONNull)("ids" -> PushField("_id")),
+          PipelineOperator:
+            $lookup.simple(
+              from = perfsRepo.coll,
+              as = "perfs",
+              local = "ids",
+              foreign = "_id"
+            )
+          ,
+          Match($doc("perfs.0.standard.gl.d" $lt Glicko.provisionalDeviation)),
+          Project($doc("perfs" -> true)),
+          UnwindField("perfs"),
+          Sort(Descending("perfs.standard.gl.r")),
+          Limit(nb),
+          PipelineOperator:
+            $lookup.simple(
+              from = userRepo.coll,
+              as = "user",
+              local = "perfs._id",
+              foreign = "_id"
+            )
+          ,
+          UnwindField("user")
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          user <- doc.getAsOpt[User]("user")
+          perfs = perfsRepo.aggregate.readOne(doc, user)
+        yield User.WithPerfs(user, perfs)

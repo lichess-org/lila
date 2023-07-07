@@ -7,11 +7,9 @@ import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.rating.Glicko
 
-final class UserPerfsRepo(coll: Coll)(using Executor):
+final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
   import UserPerfs.given
-
-  private[user] def collName = coll.name
 
   def glickoField(perf: Perf.Key) = s"$perf.gl"
 
@@ -154,5 +152,7 @@ final class UserPerfsRepo(coll: Coll)(using Executor):
         "foreignField" -> "_id",
         "as"           -> "perfs"
       )
-    def read[U: UserIdOf](root: Bdoc, u: U) =
+    def readFirst[U: UserIdOf](root: Bdoc, u: U) =
       root.getAsOpt[List[UserPerfs]]("perfs").flatMap(_.headOption).getOrElse(UserPerfs.default(u.id))
+    def readOne[U: UserIdOf](root: Bdoc, u: U) =
+      root.getAsOpt[UserPerfs]("perfs").getOrElse(UserPerfs.default(u.id))
