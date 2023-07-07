@@ -58,6 +58,7 @@ Adiciu la poentarojn de ĉiu kontraŭlo, kiujn la ludanto venkas, kaj duonu la p
 Ni pensas, ke tiuj kondiĉoj estas pli ŝance estos renkontiĝi en teamo ol en mondaj turniroj.</string>
   <string name="numberOfByesQ">Kiom da malplenaj raŭndoj ludanto povas havi?</string>
   <string name="earlyDrawsQ">Kio okazas kun fruaj egalvenkoj?</string>
+  <string name="whatIfOneDoesntPlayQ">Kio okazas, se ludanto ne ludas ludon?</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
   <string name="joinOrCreateTeam">Aliĝi aŭ krei teamon</string>
   <string name="nowPlaying">Ludante</string>
