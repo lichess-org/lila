@@ -76,11 +76,14 @@ final class Api(
           .add("streaming" -> streamingIds(u.id))
       if getBool("withGameIds")
       then
-        users.map { u =>
-          (env.round.playing(u.id) so env.game.cached.lastPlayedPlayingId(u.id)) map { gameId =>
-            toJson(u).add("playingId", gameId)
-          }
-        }.parallel map toApiResult
+        users
+          .traverse: u =>
+            env.round
+              .playing(u.id)
+              .so(env.game.cached.lastPlayedPlayingId(u.id))
+              .map: gameId =>
+                toJson(u).add("playingId", gameId)
+          .map(toApiResult)
       else fuccess(toApiResult(users map toJson))
     }
 
