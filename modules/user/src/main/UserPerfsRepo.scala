@@ -145,13 +145,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
         _.fold(true)(UserPerfs.dubiousPuzzle(puzzle, _))
 
   object aggregate:
-    val lookup = $doc:
-      "$lookup" -> $doc(
-        "from"         -> coll.name,
-        "localField"   -> "_id",
-        "foreignField" -> "_id",
-        "as"           -> "perfs"
-      )
+    val lookup = $lookup.simple(coll, "perfs", "_id", "_id")
     def readFirst[U: UserIdOf](root: Bdoc, u: U) =
       root.getAsOpt[List[UserPerfs]]("perfs").flatMap(_.headOption).getOrElse(UserPerfs.default(u.id))
     def readOne[U: UserIdOf](root: Bdoc, u: U) =

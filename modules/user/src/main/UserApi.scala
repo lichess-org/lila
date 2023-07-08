@@ -10,6 +10,7 @@ import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 import lila.db.BSON.Reader
 import lila.rating.Glicko
+import lila.user.User.userHandler
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
@@ -45,6 +46,25 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = userRepo.withPerfs(id)
   def enabledWithPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
     withPerfs(id).dmap(_.filter(_.enabled.yes))
+
+  def listAggWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
+    us.nonEmpty.so:
+      val ids = us.map(_.id)
+      userRepo.coll
+        .aggregateList(Int.MaxValue, readPref): framework =>
+          import framework.*
+          Match($inIds(ids)) -> List:
+            PipelineOperator:
+              perfsRepo.aggregate.lookup
+        .map: docs =>
+          for
+            doc  <- docs
+            user <- doc.asOpt[User]
+            perfs = perfsRepo.aggregate.readFirst(doc, user)
+          yield User.WithPerfs(user, perfs)
+        .map: users =>
+          val byId: Map[UserId, User.WithPerfs] = users.mapBy(_.id)
+          ids.flatMap(byId.get)
 
   def listWithPerfs[U: UserIdOf](ids: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] = for
     users <- userRepo.byIds(ids, readPref)
