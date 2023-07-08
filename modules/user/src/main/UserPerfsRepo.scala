@@ -146,7 +146,19 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
   object aggregate:
     val lookup = $lookup.simple(coll, "perfs", "_id", "_id")
-    def readFirst[U: UserIdOf](root: Bdoc, u: U) =
+
+    def lookup(pt: PerfType): Bdoc =
+      val pipe = List($doc("$project" -> $doc(pt.key.value -> true)))
+      $lookup.pipeline(coll, "perfs", "_id", "_id", pipe)
+
+    def readFirst[U: UserIdOf](root: Bdoc, u: U): UserPerfs =
       root.getAsOpt[List[UserPerfs]]("perfs").flatMap(_.headOption).getOrElse(UserPerfs.default(u.id))
-    def readOne[U: UserIdOf](root: Bdoc, u: U) =
+
+    def readFirst[U: UserIdOf](root: Bdoc, pt: PerfType): Perf = (for
+      perfs <- root.getAsOpt[List[Bdoc]]("perfs")
+      perfs <- perfs.headOption
+      perf  <- perfs.getAsOpt[Perf](pt.key.value)
+    yield perf).getOrElse(Perf.default)
+
+    def readOne[U: UserIdOf](root: Bdoc, u: U): UserPerfs =
       root.getAsOpt[UserPerfs]("perfs").getOrElse(UserPerfs.default(u.id))

@@ -81,11 +81,36 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def withPerf[U: UserIdOf](id: U, pt: PerfType): Fu[Option[User.WithPerf]] =
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
 
-  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] = for
-    (x, y) <- userRepo.pair.tupled(userIds)
-    perfs  <- perfsRepo.perfsOf(List(x, y).flatten.map(_.id))
-    make = (u: Option[User]) => u.map(u => User.WithPerfs(u, perfs.get(u.id)))
-  yield make(x) -> make(y)
+  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] =
+    val (x, y) = userIds
+    listWithPerfs(List(x, y).flatten).map: users =>
+      (x.flatMap(id => users.find(_.id == id)), y.flatMap(id => users.find(_.id == id)))
+
+  def listWithPerf[U: UserIdOf](
+      us: List[U],
+      pt: PerfType,
+      readPref: ReadPref = _.sec
+  ): Fu[List[User.WithPerf]] = us.nonEmpty.so:
+    val ids = us.map(_.id)
+    userRepo.coll
+      .aggregateList(Int.MaxValue, readPref): framework =>
+        import framework.*
+        Match($inIds(ids)) -> List(
+          PipelineOperator(perfsRepo.aggregate.lookup(pt)),
+          AddFields($sort.orderField(ids)),
+          Sort(Ascending("_order"))
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          user <- doc.asOpt[User]
+          perf = perfsRepo.aggregate.readFirst(doc, pt)
+        yield User.WithPerf(user, perf)
+
+  def pairWithPerf(userIds: GameUserIds, pt: PerfType): Fu[PairOf[Option[User.WithPerf]]] =
+    val (x, y) = userIds
+    listWithPerf(List(x, y).flatten, pt).map: users =>
+      (x.flatMap(id => users.find(_.id == id)), y.flatMap(id => users.find(_.id == id)))
 
   def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[LightUser.Ghost | User.WithPerf]] =
     userRepo
