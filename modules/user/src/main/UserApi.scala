@@ -47,7 +47,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def enabledWithPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
     withPerfs(id).dmap(_.filter(_.enabled.yes))
 
-  def listAggWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
+  def listWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
     us.nonEmpty.so:
       val ids = us.map(_.id)
       userRepo.coll
@@ -64,12 +64,6 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
             user <- doc.asOpt[User]
             perfs = perfsRepo.aggregate.readFirst(doc, user)
           yield User.WithPerfs(user, perfs)
-
-  def listWithPerfs[U: UserIdOf](ids: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] = for
-    users <- userRepo.byIds(ids, readPref)
-    perfs <- perfsRepo.idsMap(ids, readPref)
-  yield users.map: user =>
-    User.WithPerfs(user, perfs.get(user.id))
 
   def withPerf[U: UserIdOf](id: U, pt: PerfType): Fu[Option[User.WithPerf]] =
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
