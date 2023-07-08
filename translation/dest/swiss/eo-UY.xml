@@ -67,13 +67,17 @@ Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝ
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
   <string name="willSwissReplaceArenasQ">Ĉu svisoj anstataŭi arenajn turnirojn?</string>
   <string name="willSwissReplaceArenasA">Ne. Tiuj estas komplementaj funkcioj.</string>
+  <string name="roundRobinQ">Kio pri Ronda Rubando?</string>
   <string name="otherSystemsQ">Kio pri alia turniraj sistemoj?</string>
   <string name="otherSystemsA">Ni ne planas aldoni pliajn turnirajn sistemojn al Lichess je la momento.</string>
+  <string name="teamOnly">Svisaj turniroj esti kreita nur de teamestroj, kaj nur teamanoj povas ludi ilin.
+%1$s por komenci ludi en svisaj turniroj.</string>
   <string name="joinOrCreateTeam">Aliĝi aŭ krei teamon</string>
   <string name="nowPlaying">Ludante</string>
   <string name="startingSoon">Baldaŭ komencos</string>
   <string name="comparison">Komparado</string>
   <string name="tournDuration">Daŭro de la turniro</string>
+  <string name="predefinedDuration">Antaŭdefinita daŭro en minutoj</string>
   <string name="durationUnknown">Antaŭdefinita maksimumo de roŭndoj, sed daŭron ne scias</string>
   <string name="numberOfGames">Kiom da ludoj</string>
   <string name="numberOfGamesAsManyAsPossible">Tiom eblas ludebla dum la permesita tempo</string>
@@ -81,7 +85,20 @@ Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝ
   <string name="pairingSystem">Pariga sistemo</string>
   <string name="pairingSystemArena">Ĉiu ajn dispona kontraŭulo kun simila rango</string>
   <string name="pairingSystemSwiss">Plej bone parigo baziĝas sur poentoj kaj egalvenka romoj</string>
+  <string name="pairingWaitTime">Pariga atendtempo</string>
+  <string name="pairingWaitTimeArena">Rapida: ne atendis ĉiujn ludantojn</string>
+  <string name="pairingWaitTimeSwiss">Malrapida: atendas ĉiujn ludantojn</string>
+  <string name="identicalPairing">Identa parigo</string>
+  <string name="possibleButNotConsecutive">Ebla, sed ne sinsekve</string>
   <string name="identicalForbidden">Malpermesita</string>
+  <string name="lateJoin">Malfrua aliĝo</string>
+  <string name="lateJoinUntil">Jes, ĝis pli ol duono da roŭndoj komencitaj</string>
   <string name="pause">Paŭzo</string>
+  <string name="pauseSwiss">Jes, sed eble redukti la nombro da roŭndoj</string>
+  <string name="streaksAndBerserk">Sinsekvoj kaj Berserko</string>
+  <string name="similarToOTB">Simile al ĉestaj turniroj</string>
+  <string name="unlimitedAndFree">Senlima kaj libera</string>
+  <string name="predefinedUsers">Permesi nur prefinitajn uzantojn aliĝi</string>
+  <string name="forbiddedUsers">Se ĉi tiu listo ne estas malplena, tiam uzantoj forestante el ĉi tiu listo ne eblas aliĝi. Unu uzantnomo po lino.</string>
   <string name="playYourGames">Ludu viajn ludojn</string>
 </resources>
