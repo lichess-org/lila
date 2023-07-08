@@ -56,7 +56,7 @@ object pref:
             ),
             setting(
               zenMode(),
-              radios(form("display.zen"), translatedZenChoices, Some(valueAliasesZenChoices))
+              radios_with_aliases(form("display.zen"), translatedZenChoices, Some(valueAliasesZenChoices))
             ),
             setting(
               displayBoardResizeHandle(),
