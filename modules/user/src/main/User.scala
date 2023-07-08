@@ -277,7 +277,7 @@ object User:
   import lila.db.dsl.{ *, given }
   import Plan.given
 
-  given BSONDocumentHandler[User] = new BSON[User]:
+  given userHandler: BSONDocumentHandler[User] = new BSON[User]:
 
     import BSONFields.*
     import UserMark.given

@@ -10,6 +10,7 @@ import lila.common.config.CollName
 final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using Executor, Scheduler):

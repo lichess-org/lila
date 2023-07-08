@@ -10,6 +10,7 @@ import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 import lila.db.BSON.Reader
 import lila.rating.Glicko
+import lila.user.User.userHandler
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
@@ -41,25 +42,75 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
             make = (u: Option[User]) => u.map(u => u.withPerf(perfs.getOrElse(u.id, Perf.default)))
           yield make(x) -> make(y)
 
-  def withPerfs(u: User): Fu[User.WithPerfs]                    = perfsRepo.withPerfs(u)
-  def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = userRepo.withPerfs(id)
+  def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
+
+  def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
+    userRepo.coll
+      .aggregateOne(): framework =>
+        import framework.*
+        Match($id(id)) -> List:
+          PipelineOperator(perfsRepo.aggregate.lookup)
+      .map: docO =>
+        for
+          doc  <- docO
+          user <- doc.asOpt[User]
+          perfs = perfsRepo.aggregate.readFirst(doc, user)
+        yield User.WithPerfs(user, perfs)
+
   def enabledWithPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
     withPerfs(id).dmap(_.filter(_.enabled.yes))
 
-  def listWithPerfs[U: UserIdOf](ids: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] = for
-    users <- userRepo.byIds(ids, readPref)
-    perfs <- perfsRepo.idsMap(ids, readPref)
-  yield users.map: user =>
-    User.WithPerfs(user, perfs.get(user.id))
+  def listWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
+    us.nonEmpty.so:
+      val ids = us.map(_.id)
+      userRepo.coll
+        .aggregateList(Int.MaxValue, readPref): framework =>
+          import framework.*
+          Match($inIds(ids)) -> List(
+            PipelineOperator(perfsRepo.aggregate.lookup),
+            AddFields($sort.orderField(ids)),
+            Sort(Ascending("_order"))
+          )
+        .map: docs =>
+          for
+            doc  <- docs
+            user <- doc.asOpt[User]
+            perfs = perfsRepo.aggregate.readFirst(doc, user)
+          yield User.WithPerfs(user, perfs)
 
   def withPerf[U: UserIdOf](id: U, pt: PerfType): Fu[Option[User.WithPerf]] =
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
 
-  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] = for
-    (x, y) <- userRepo.pair.tupled(userIds)
-    perfs  <- perfsRepo.perfsOf(List(x, y).flatten.map(_.id))
-    make = (u: Option[User]) => u.map(u => User.WithPerfs(u, perfs.get(u.id)))
-  yield make(x) -> make(y)
+  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] =
+    val (x, y) = userIds
+    listWithPerfs(List(x, y).flatten).map: users =>
+      (x.flatMap(id => users.find(_.id == id)), y.flatMap(id => users.find(_.id == id)))
+
+  def listWithPerf[U: UserIdOf](
+      us: List[U],
+      pt: PerfType,
+      readPref: ReadPref = _.sec
+  ): Fu[List[User.WithPerf]] = us.nonEmpty.so:
+    val ids = us.map(_.id)
+    userRepo.coll
+      .aggregateList(Int.MaxValue, readPref): framework =>
+        import framework.*
+        Match($inIds(ids)) -> List(
+          PipelineOperator(perfsRepo.aggregate.lookup(pt)),
+          AddFields($sort.orderField(ids)),
+          Sort(Ascending("_order"))
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          user <- doc.asOpt[User]
+          perf = perfsRepo.aggregate.readFirst(doc, pt)
+        yield User.WithPerf(user, perf)
+
+  def pairWithPerf(userIds: GameUserIds, pt: PerfType): Fu[PairOf[Option[User.WithPerf]]] =
+    val (x, y) = userIds
+    listWithPerf(List(x, y).flatten, pt).map: users =>
+      (x.flatMap(id => users.find(_.id == id)), y.flatMap(id => users.find(_.id == id)))
 
   def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[LightUser.Ghost | User.WithPerf]] =
     userRepo
