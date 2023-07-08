@@ -5,9 +5,11 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.api.Context.given
 import lila.common.Json.given
-import lila.game.{ Game, Pov }
+import lila.common.{ HTTPRequest, ApiVersion }
+import lila.game.{ Game, Pov, GameUsers }
+import lila.memo.MongoCache.Api
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
 import lila.round.JsonView.WithFlags
@@ -18,8 +20,6 @@ import lila.swiss.{ GameView as SwissView }
 import lila.tournament.{ GameView as TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
-import lila.api.Context.given
-import lila.memo.MongoCache.Api
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -27,7 +27,6 @@ final private[api] class RoundApi(
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameRepo: lila.game.GameRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
     tourApi: lila.tournament.TournamentApi,
     swissApi: lila.swiss.SwissApi,
     simulApi: lila.simul.SimulApi,
@@ -37,16 +36,15 @@ final private[api] class RoundApi(
     getLightUser: lila.common.LightUser.GetterSync
 )(using Executor):
 
-  def player(pov: Pov, tour: Option[TourView])(using ctx: Context): Fu[JsObject] = {
+  def player(pov: Pov, users: GameUsers, tour: Option[TourView])(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- gameRepo.initialFen(pov.game)
-      user       <- ctx.me.soFu(perfsRepo.withPerf(_, pov.game.perfType))
       given Lang = ctx.lang
       (((((json, simul), swiss), note), forecast), bookmarked) <-
         jsonView.playerJson(
           pov,
           ctx.pref.some,
-          user,
+          users,
           flags = ctxFlags,
           initialFen = initialFen
         ) zip
@@ -68,6 +66,7 @@ final private[api] class RoundApi(
 
   def watcher(
       pov: Pov,
+      users: GameUsers,
       tour: Option[TourView],
       tv: Option[lila.round.OnTv],
       initialFenO: Option[Option[Fen.Epd]] = None
@@ -78,6 +77,7 @@ final private[api] class RoundApi(
         given Lang = ctx.lang
         jsonView.watcherJson(
           pov,
+          users,
           ctx.pref.some,
           ctx.me,
           tv,
@@ -86,7 +86,7 @@ final private[api] class RoundApi(
         ) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
-          (ctx.me.ifTrue(ctx.isMobileApi) so (me => noteApi.get(pov.gameId, me))) zip
+          ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)) zip
           bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
             (
               withTournament(pov, tour) compose
@@ -110,6 +110,7 @@ final private[api] class RoundApi(
 
   def review(
       pov: Pov,
+      users: GameUsers,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
       initialFen: Option[Fen.Epd],
@@ -119,6 +120,7 @@ final private[api] class RoundApi(
     given Lang = ctx.lang
     jsonView.watcherJson(
       pov,
+      users,
       ctx.pref.some,
       ctx.me,
       tv,
@@ -269,9 +271,8 @@ final private[api] class RoundApi(
         })
         .add(
           "top",
-          v.top.map {
+          v.top.map:
             lila.tournament.JsonView.top(_, getLightUser)
-          }
         )
         .add(
           "team",
@@ -282,29 +283,26 @@ final private[api] class RoundApi(
     })
 
   def withSwiss(sv: Option[SwissView])(json: JsObject) =
-    json.add("swiss" -> sv.map { s =>
+    json.add("swiss" -> sv.map: s =>
       Json
         .obj(
           "id"      -> s.swiss.id,
           "running" -> s.swiss.isStarted
         )
-        .add("ranks" -> s.ranks.map { r =>
+        .add("ranks" -> s.ranks.map: r =>
           Json.obj(
             "white" -> r.whiteRank,
             "black" -> r.blackRank
-          )
-        })
-    })
+          )))
 
   private def withSimul(simulOption: Option[Simul])(json: JsObject) =
     json.add(
       "simul",
-      simulOption.map { simul =>
+      simulOption.map: simul =>
         Json.obj(
           "id"        -> simul.id,
           "hostId"    -> simul.hostId,
           "name"      -> simul.name,
           "nbPlaying" -> simul.playingPairings.size
         )
-      }
     )

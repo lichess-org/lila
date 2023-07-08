@@ -164,3 +164,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private[controllers] def preloadUsers(game: lila.game.Game): Funit =
     env.user.lightUserApi preloadMany game.userIds
+  private[controllers] def preloadUsers(users: Seq[Option[lila.user.User.WithPerf]]): Unit =
+    env.user.lightUserApi preloadUsers users.collect:
+      case Some(lila.user.User.WithPerf(u, _)) => u

@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.db.BSON.Reader
 import lila.rating.Glicko
 import lila.user.User.userHandler
+import chess.ByColor
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
@@ -20,27 +21,25 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   private type GameUserIds = PairOf[Option[UserId]]
 
   object gamePlayers:
-    private type PlayersKey  = (GameUserIds, PerfType)
-    private type GamePlayers = PairOf[Option[User.WithPerf]]
+    private type PlayersKey = (GameUserIds, PerfType)
 
     // hit by game rounds
-    // TODO aggregation to save 1 req? maybe not
-    def apply(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GamePlayers] =
-      gamePlayersCache.get(userIds -> perfType)
+    def apply(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
+      cache.get(userIds -> perfType)
+
+    def apply(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[ByColor[Option[User.WithPerf]]] =
+      apply(userIds.toPair, perfType).dmap((w, b) => ByColor(w, b))
 
     def loggedIn(ids: PairOf[UserId], perfType: PerfType): Fu[Option[PairOf[User.WithPerf]]] =
-      gamePlayersCache
+      cache
         .get((ids._1.some, ids._2.some) -> perfType)
         .dmap(_.tupled)
 
-    private val gamePlayersCache = cacheApi[PlayersKey, GamePlayers](4096, "user.perf.pair"):
+    private val cache = cacheApi[PlayersKey, GameUsers](4096, "user.perf.pair"):
       _.expireAfterWrite(3 seconds).buildAsyncFuture:
         case ((x, y), perfType) =>
-          for
-            (x, y) <- userRepo.pair(x, y)
-            perfs  <- perfsRepo.perfOf(List(x, y).flatten.map(_.id), perfType)
-            make = (u: Option[User]) => u.map(u => u.withPerf(perfs.getOrElse(u.id, Perf.default)))
-          yield make(x) -> make(y)
+          listWithPerf(List(x, y).flatten, perfType).map: users =>
+            (x.flatMap(id => users.find(_.id == id)), y.flatMap(id => users.find(_.id == id)))
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
 
