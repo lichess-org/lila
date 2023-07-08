@@ -57,13 +57,30 @@ Adiciu la poentarojn de ĉiu kontraŭlo, kiujn la ludanto venkas, kaj duonu la p
   <string name="restrictedToTeamsA">Svisaj turniroj ne projektis por retŝako. Tiuj postulas akuratecon, klopodeco, kaj pacienceco el la ludantoj.
 Ni pensas, ke tiuj kondiĉoj estas pli ŝance estos renkontiĝi en teamo ol en mondaj turniroj.</string>
   <string name="numberOfByesQ">Kiom da malplenaj raŭndoj ludanto povas havi?</string>
+  <string name="numberOfByesA">Ludanto ricevas unu poenton da malplena raŭndo ĉiufoje, kiam la pariga sistemo ne trovas paro por tiu.
+Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝas al turniro.</string>
   <string name="earlyDrawsQ">Kio okazas kun fruaj egalvenkoj?</string>
+  <string name="earlyDrawsA">Ludanto ricevas unu poenton da malplena raŭndo ĉiufoje, kiam la pariga sistemo ne trovas paro por tiu.
+Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝas al turniro.</string>
   <string name="whatIfOneDoesntPlayQ">Kio okazas, se ludanto ne ludas ludon?</string>
+  <string name="protectionAgainstNoShowQ">Kio estas farita pri neaperoj?</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
+  <string name="willSwissReplaceArenasQ">Ĉu svisoj anstataŭi arenajn turnirojn?</string>
+  <string name="willSwissReplaceArenasA">Ne. Tiuj estas komplementaj funkcioj.</string>
+  <string name="otherSystemsQ">Kio pri alia turniraj sistemoj?</string>
+  <string name="otherSystemsA">Ni ne planas aldoni pliajn turnirajn sistemojn al Lichess je la momento.</string>
   <string name="joinOrCreateTeam">Aliĝi aŭ krei teamon</string>
   <string name="nowPlaying">Ludante</string>
   <string name="startingSoon">Baldaŭ komencos</string>
   <string name="comparison">Komparado</string>
+  <string name="tournDuration">Daŭro de la turniro</string>
+  <string name="durationUnknown">Antaŭdefinita maksimumo de roŭndoj, sed daŭron ne scias</string>
+  <string name="numberOfGames">Kiom da ludoj</string>
+  <string name="numberOfGamesAsManyAsPossible">Tiom eblas ludebla dum la permesita tempo</string>
+  <string name="numberOfGamesPreDefined">Antaŭelektita, same por ĉiuj ludantoj</string>
+  <string name="pairingSystem">Pariga sistemo</string>
+  <string name="pairingSystemArena">Ĉiu ajn dispona kontraŭulo kun simila rango</string>
+  <string name="pairingSystemSwiss">Plej bone parigo baziĝas sur poentoj kaj egalvenka romoj</string>
   <string name="identicalForbidden">Malpermesita</string>
   <string name="pause">Paŭzo</string>
   <string name="playYourGames">Ludu viajn ludojn</string>
