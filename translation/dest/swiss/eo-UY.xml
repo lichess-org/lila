@@ -63,7 +63,13 @@ Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝ
   <string name="earlyDrawsA">Ludanto ricevas unu poenton da malplena raŭndo ĉiufoje, kiam la pariga sistemo ne trovas paro por tiu.
 Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝas al turniro.</string>
   <string name="whatIfOneDoesntPlayQ">Kio okazas, se ludanto ne ludas ludon?</string>
+  <string name="whatIfOneDoesntPlayA">Ties horloĝo klakos, tiu flagiĝos kaj malvenkos.
+Tiam la sistemo eltiros la ludanton el la turniro, tiel tiu ne malvenkos pli da ludoj.
+Tiu povas realigi al la turniro iam ajn.</string>
   <string name="protectionAgainstNoShowQ">Kio estas farita pri neaperoj?</string>
+  <string name="protectionAgainstNoShowA">Ludantoj kiuj aliĝas al svisaj eventoj, sed ne ludas ties ludoj povas esti problema.
+Lichess mildigas tiu per portempe malpermesas aliĝi al svisaj eventoj por tiuj, kiuj aliĝas al tiaj eventoj kaj ne ludas en ili.
+Tamen, la kreanto de svisa evento povas decidi lasi tiuj ludantoj aliĝi al la evento.</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
   <string name="willSwissReplaceArenasQ">Ĉu svisoj anstataŭi arenajn turnirojn?</string>
   <string name="willSwissReplaceArenasA">Ne. Tiuj estas komplementaj funkcioj.</string>
