@@ -53,18 +53,17 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.coll
         .aggregateList(Int.MaxValue, readPref): framework =>
           import framework.*
-          Match($inIds(ids)) -> List:
-            PipelineOperator:
-              perfsRepo.aggregate.lookup
+          Match($inIds(ids)) -> List(
+            PipelineOperator(perfsRepo.aggregate.lookup),
+            AddFields($sort.orderField(ids)),
+            Sort(Ascending("_order"))
+          )
         .map: docs =>
           for
             doc  <- docs
             user <- doc.asOpt[User]
             perfs = perfsRepo.aggregate.readFirst(doc, user)
           yield User.WithPerfs(user, perfs)
-        .map: users =>
-          val byId: Map[UserId, User.WithPerfs] = users.mapBy(_.id)
-          ids.flatMap(byId.get)
 
   def listWithPerfs[U: UserIdOf](ids: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] = for
     users <- userRepo.byIds(ids, readPref)

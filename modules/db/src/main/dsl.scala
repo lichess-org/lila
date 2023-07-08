@@ -265,6 +265,9 @@ trait dsl:
     val createdAsc  = asc("createdAt")
     val createdDesc = desc("createdAt")
 
+    def orderField[A: BSONWriter](values: Iterable[A], field: String = "_id") =
+      $doc("_order" -> $doc("$indexOfArray" -> $arr(values, "$" + field)))
+
   object $lookup:
     def simple(from: String, as: String, local: String, foreign: String): Bdoc = $doc(
       "$lookup" -> $doc(
@@ -389,7 +392,7 @@ object dsl extends dsl with Handlers:
         ids: Iterable[I],
         readPref: ReadPref = _.pri
     ): Fu[List[D]] =
-      list[D]($inIds(ids), readPref)
+      ids.nonEmpty so list[D]($inIds(ids), readPref)
 
     def byStringIds[D: BSONDocumentReader](
         ids: Iterable[String],
