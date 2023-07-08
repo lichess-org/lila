@@ -42,8 +42,21 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
             make = (u: Option[User]) => u.map(u => u.withPerf(perfs.getOrElse(u.id, Perf.default)))
           yield make(x) -> make(y)
 
-  def withPerfs(u: User): Fu[User.WithPerfs]                    = perfsRepo.withPerfs(u)
-  def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = userRepo.withPerfs(id)
+  def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
+
+  def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
+    userRepo.coll
+      .aggregateOne(): framework =>
+        import framework.*
+        Match($id(id)) -> List:
+          PipelineOperator(perfsRepo.aggregate.lookup)
+      .map: docO =>
+        for
+          doc  <- docO
+          user <- doc.asOpt[User]
+          perfs = perfsRepo.aggregate.readFirst(doc, user)
+        yield User.WithPerfs(user, perfs)
+
   def enabledWithPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
     withPerfs(id).dmap(_.filter(_.enabled.yes))
 

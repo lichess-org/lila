@@ -45,7 +45,7 @@ final class AssessApi(
       userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment]] =
-    userRepo withPerfs userId flatMap {
+    userApi withPerfs userId flatMap {
       _.filter(_.noBot) so { user =>
         getPlayerAssessmentsByUserId(userId, nb) map { games =>
           games.nonEmpty option PlayerAggregateAssessment(user, games)

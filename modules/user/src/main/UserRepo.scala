@@ -18,16 +18,15 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
   def withColl[A](f: Coll => A): A = f(coll)
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
-  def withPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] = // TODO aggregation
-    byId(id).flatMap(_ soFu withPerfs)
 
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
 
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
-    User.noGhost(u.id) so coll.byId[User](u).recover {
-      case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
-    }
+    User.noGhost(u.id) so coll
+      .byId[User](u)
+      .recover:
+        case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
 
   def byIds[U: UserIdOf](
       us: Iterable[U],

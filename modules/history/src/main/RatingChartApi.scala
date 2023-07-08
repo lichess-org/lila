@@ -22,33 +22,27 @@ final class RatingChartApi(
       ratingsMapToJson(user.createdAt, _)
     } map JsArray.apply
 
-  private val cache = cacheApi[UserId, String](4096, "history.rating") {
+  private val cache = cacheApi[UserId, String](4096, "history.rating"):
     _.expireAfterWrite(10 minutes)
       .maximumSize(4096)
-      .buildAsyncFuture { userId =>
+      .buildAsyncFuture: userId =>
         build(userId).dmap(~_)
-      }
-  }
 
   private def ratingsMapToJson(createdAt: Instant, ratingsMap: RatingsMap) =
-    ratingsMap.map { (days, rating) =>
+    ratingsMap.map: (days, rating) =>
       val date = createdAt.plusDays(days).date
       Json.arr(date.getYear, date.getMonthValue - 1, date.getDayOfMonth, rating)
-    }
 
   private def build(userId: UserId): Fu[Option[String]] =
     userRepo.createdAtById(userId) flatMapz { createdAt =>
       historyApi get userId map2 { (history: History) =>
-        lila.common.String.html.safeJsonValue {
-          Json.toJson {
-            RatingChartApi.perfTypes map { pt =>
+        lila.common.String.html.safeJsonValue:
+          Json.toJson:
+            RatingChartApi.perfTypes.map: pt =>
               Json.obj(
                 "name"   -> pt.trans(using lila.i18n.defaultLang),
                 "points" -> ratingsMapToJson(createdAt, history(pt))
               )
-            }
-          }
-        }
       }
     }
 

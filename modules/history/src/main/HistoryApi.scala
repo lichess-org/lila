@@ -7,9 +7,9 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ UserPerfs, User, UserRepo }
+import lila.user.{ UserPerfs, User, UserApi }
 
-final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
+final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
     using ec: Executor
 ):
 
@@ -111,7 +111,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
     private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating"):
       _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
-        userRepo.withPerfs(userId) orFail s"No such user: $userId" flatMap { user =>
+        userApi.withPerfs(userId) orFail s"No such user: $userId" flatMap { user =>
           val currentRating = user.perfs(perf).intRating
           val firstDay      = daysBetween(user.createdAt, nowInstant minusWeeks 1)
           val days          = firstDay to (firstDay + 6) toList
