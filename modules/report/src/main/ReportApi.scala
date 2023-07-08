@@ -109,9 +109,8 @@ final class ReportApi(
 
   def getLichessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
   def getLichessReporter: Fu[Reporter] =
-    getLichessMod map { l =>
+    getLichessMod.map: l =>
       Reporter(l.user)
-    }
 
   def autoAltPrintReport(userId: UserId): Funit =
     coll.exists(
@@ -186,10 +185,9 @@ final class ReportApi(
     (minutes > 60 * 24) so userLoginsApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
       playbanApi
         .bans(userId :: ids.toList)
-        .map {
-          _ filter { case (_, bans) => bans > 4 }
-        }
-        .flatMap { bans =>
+        .map:
+          _ filter { (_, bans) => bans > 4 }
+        .flatMap: bans =>
           val topSum = Heapsort.topNToList(bans.values, 10).sum
           (topSum >= 80) so {
             userRepo.byId(userId) zip
@@ -208,7 +206,6 @@ final class ReportApi(
                 case _ => funit
               }
           }
-        }
     }
 
   def processAndGetBySuspect(suspect: Suspect): Fu[List[Report]] =
@@ -329,9 +326,8 @@ final class ReportApi(
   private val sortLastAtomAt     = $doc("atoms.0.at" -> -1)
 
   private def roomSelect(room: Option[Room]): Bdoc =
-    room.fold($doc("room" $in Room.allButXfiles)) { r =>
+    room.fold($doc("room" $in Room.allButXfiles)): r =>
       $doc("room" -> r)
-    }
 
   private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[Report.Id]) =
     $doc("open" -> true) ++ roomSelect(room) ++ {
@@ -341,30 +337,26 @@ final class ReportApi(
   private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[Report.Id]) =
     selectOpenInRoom(room, exceptIds) ++ $doc("inquiry" $exists false)
 
-  private val maxScoreCache = cacheApi.unit[Room.Scores] {
-    _.refreshAfterWrite(5 minutes)
-      .buildAsyncFuture { _ =>
-        Room.allButXfiles
-          .map { room =>
-            coll // hits the best_open partial index
-              .primitiveOne[Float](
-                selectOpenAvailableInRoom(room.some, Nil),
-                $sort desc "score",
-                "score"
-              )
-              .dmap(room -> _)
-          }
-          .parallel
-          .dmap { scores =>
-            Room.Scores(scores.map { (room, s) =>
-              room -> s.so(_.toInt)
-            }.toMap)
-          }
-          .addEffect { scores =>
-            lila.mon.mod.report.highest.update(scores.highest).unit
-          }
-      }
-  }
+  private val maxScoreCache = cacheApi.unit[Room.Scores]:
+    _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
+      Room.allButXfiles
+        .map: room =>
+          coll // hits the best_open partial index
+            .primitiveOne[Float](
+              selectOpenAvailableInRoom(room.some, Nil),
+              $sort desc "score",
+              "score"
+            )
+            .dmap(room -> _)
+        .parallel
+        .dmap: scores =>
+          Room.Scores:
+            scores
+              .map: (room, s) =>
+                room -> s.so(_.toInt)
+              .toMap
+        .addEffect: scores =>
+          lila.mon.mod.report.highest.update(scores.highest).unit
 
   def maxScores = maxScoreCache.getUnit
 
@@ -408,13 +400,12 @@ final class ReportApi(
     )
 
   def currentCheatReport(suspect: Suspect): Fu[Option[Report]] =
-    coll.one[Report](
+    coll.one[Report]:
       $doc(
         "user" -> suspect.user.id,
         "room" -> Room.Cheat.key,
         "open" -> true
       )
-    )
 
   def recentReportersOf(sus: Suspect): Fu[List[ReporterId]] =
     coll
@@ -461,20 +452,19 @@ final class ReportApi(
   object accuracy:
 
     private val cache =
-      cacheApi[ReporterId, Option[Accuracy]](512, "report.accuracy") {
-        _.expireAfterWrite(24 hours)
-          .buildAsyncFuture { reporterId =>
-            coll
-              .find(
-                $doc(
-                  "atoms.by" -> reporterId,
-                  "room"     -> Room.Cheat.key,
-                  "open"     -> false
-                )
+      cacheApi[ReporterId, Option[Accuracy]](512, "report.accuracy"):
+        _.expireAfterWrite(24 hours).buildAsyncFuture: reporterId =>
+          coll
+            .find:
+              $doc(
+                "atoms.by" -> reporterId,
+                "room"     -> Room.Cheat.key,
+                "open"     -> false
               )
-              .sort(sortLastAtomAt)
-              .cursor[Report](ReadPref.sec)
-              .list(20) flatMap { reports =>
+            .sort(sortLastAtomAt)
+            .cursor[Report](ReadPref.sec)
+            .list(20)
+            .flatMap: reports =>
               if reports.sizeIs < 4 then fuccess(none) // not enough data to know
               else
                 val userIds = reports.map(_.user).distinct
@@ -483,9 +473,6 @@ final class ReportApi(
                     Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
                   }.some
                 }
-            }
-          }
-      }
 
     private def of(reporter: ReporterId): Fu[Option[Accuracy]] =
       cache get reporter
@@ -523,11 +510,9 @@ final class ReportApi(
     def allBySuspect: Fu[Map[UserId, Report.Inquiry]] =
       coll.list[Report]($doc("inquiry.mod" $exists true)) map {
         _.view
-          .flatMap { r =>
-            r.inquiry map { i =>
+          .flatMap: r =>
+            r.inquiry.map: i =>
               r.user -> i
-            }
-          }
           .toMap
       }
 
@@ -621,11 +606,10 @@ final class ReportApi(
       }
 
     private[report] def expire: Funit =
-      workQueue {
+      workQueue:
         val selector = $doc(
           "inquiry.mod" $exists true,
           "inquiry.seenAt" $lt nowInstant.minusMinutes(20)
         )
         coll.delete.one(selector ++ $doc("text" -> Report.spontaneousText)) >>
           coll.update.one(selector, $unset("inquiry"), multi = true).void
-      }
