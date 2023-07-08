@@ -57,6 +57,8 @@
   <string name="opening">Malfermo</string>
   <string name="pawnEndgame">Peona finaĵo</string>
   <string name="pawnEndgameDescription">Finaĵo nur kun peonoj.</string>
+  <string name="pin">Alpinglo</string>
+  <string name="pinDescription">Taktiko temas pri alpingloj, kie ŝakpeco ne povas movi sen malkovri atakon sur pli valora ŝakpeco.</string>
   <string name="promotion">Damigo</string>
   <string name="promotionDescription">Damigi unu el viaj peonoj al damo, ĉevalo, kuriero aŭ turo.</string>
   <string name="queenEndgame">Dama finaĵo</string>
@@ -69,6 +71,7 @@
   <string name="sacrifice">Ofero</string>
   <string name="short">Mallonga puzlo</string>
   <string name="shortDescription">Du movoj por venki.</string>
+  <string name="skewer">Trapiko</string>
   <string name="trappedPiece">Kaptita ŝakpeco</string>
   <string name="underPromotion">Subdamigo</string>
   <string name="underPromotionDescription">Damigi al ĉevalo, kuriero aŭ turo.</string>
