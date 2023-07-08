@@ -43,6 +43,8 @@
   <string name="swissVsArenaA">En svisa turniro, ĉiuj partoprenantoj ludas la saman nombron da ludoj, kaj ludas unu kontraŭ la alia nur unufoje.
 Ĝi povas esti bona elekto por kluboj kaj oficialaj turniroj.</string>
   <string name="pointsCalculationQ">Kiel oni kalkulas poentojn?</string>
+  <string name="pointsCalculationA">Venko egalas unu poenton, egalveno egalas duonpoenton, kaj malvenko egalas nul poentojn.
+Kiam ludanto ne povas pariĝi dum roŭndo, tiu ricevos unu poenton da malplena roŭndo.</string>
   <string name="tiebreaksCalculationQ">Kiel estas egalvenka rompado kalkulata?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger poentaro</string>
   <string name="tiebreaksCalculationA">Per la %s.
@@ -71,6 +73,8 @@ Tiu povas realigi al la turniro iam ajn.</string>
 Lichess mildigas tiu per portempe malpermesas aliĝi al svisaj eventoj por tiuj, kiuj aliĝas al tiaj eventoj kaj ne ludas en ili.
 Tamen, la kreanto de svisa evento povas decidi lasi tiuj ludantoj aliĝi al la evento.</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
+  <string name="lateJoinA">Jes, ĝis komenciĝos pli ol duono de la roŭndoj; ekzemple, Ludantoj en 11-roŭnda sviso povas aliĝi ĝis la 6-a roŭndo kaj en 12-roŭndsviso ĝis la 7-a roŭndo komenciĝas.
+Malfruaj aliĝantoj ricevas unu malplenan roŭndon, eĉ se ili partoprenas en kelkaj roŭndoj.</string>
   <string name="willSwissReplaceArenasQ">Ĉu svisoj anstataŭi arenajn turnirojn?</string>
   <string name="willSwissReplaceArenasA">Ne. Tiuj estas komplementaj funkcioj.</string>
   <string name="roundRobinQ">Kio pri Ronda Rubando?</string>
