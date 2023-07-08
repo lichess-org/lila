@@ -78,8 +78,12 @@ Malfruaj aliĝantoj ricevas unu malplenan roŭndon, eĉ se ili partoprenas en ke
   <string name="willSwissReplaceArenasQ">Ĉu svisoj anstataŭi arenajn turnirojn?</string>
   <string name="willSwissReplaceArenasA">Ne. Tiuj estas komplementaj funkcioj.</string>
   <string name="roundRobinQ">Kio pri Ronda Rubando?</string>
+  <string name="roundRobinA">Ni volas aldoni ĝin, sed bedaŭrinde Ronda Rubando malfunkcias rete.
+La kialo estas, ke ne estas rimedo por traktas homojn, kiu frue eliras el la turniro. Ni ne povas atendi, ke ĉiuj ludantoj ludos ĉiun ties ludojn ĉe retevento. Tio simple ne okazos, tial plej multaj Rondrubandaj turniroj estus difekta kaj malhonesta, kio malvenkas ties ekzakta kialo por ekzisti.
+La plej proksime vi povas atingi kiel Ronda Rubando rete estas ludi Svisa turniro kun tre alta nombro da roŭndoj. Tiam ĉiuj eblaj parigoj estos ludita antaŭ la findo de la turniro.</string>
   <string name="otherSystemsQ">Kio pri alia turniraj sistemoj?</string>
   <string name="otherSystemsA">Ni ne planas aldoni pliajn turnirajn sistemojn al Lichess je la momento.</string>
+  <string name="swissDescription">En Svisa turniro %1$s, ĉiu konkursanto ne nepre ludi ĉiujn aliajn aliĝantojn. Konkursantoj renkontas unu kontraŭ unu en ĉiu raŭndo kaj estas parigita per regularo projektis por certigi ludi inter ludantaj kun similaj nune turniraj poentaroj, sed ne parigi la saman duopon dufoje. La venkanto estas la konoursanto kun la plej alta sumo de poentoj gajnita dum ĉiuj roŭndoj. Ciuj konkursantoj ludi ĉiun roŭndo, krom se estas nepara nombro de ludantoj.</string>
   <string name="teamOnly">Svisaj turniroj esti kreita nur de teamestroj, kaj nur teamanoj povas ludi ilin.
 %1$s por komenci ludi en svisaj turniroj.</string>
   <string name="joinOrCreateTeam">Aliĝi aŭ krei teamon</string>
