@@ -9,9 +9,9 @@ import scala.math
 import lila.common.{ Preload, ApiVersion, LightUser }
 import lila.common.Json.given
 import lila.game.JsonView.given
-import lila.game.{ Game, Player as GamePlayer, Pov, GameUser, GameUsers }
+import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
-import lila.user.User
+import lila.user.{ User, GameUser, GameUsers }
 import lila.rating.{ PerfType, Perf }
 
 final class JsonView(
@@ -38,11 +38,12 @@ final class JsonView(
   ): JsObject =
     Json
       .obj("color" -> p.color.name)
-      .add("user" -> user.map:
-        case u: User.WithPerf =>
-          val p = withFlags.rating.option(Perf.Typed(u.perf, g.perfType))
-          userJsonView.roundPlayer(u.user, p)
-        case _ => userJsonView.ghost
+      .add("user" -> user.match
+        case Some(User.WithPerf(user, perf)) =>
+          val p = withFlags.rating.option(Perf.Typed(perf, g.perfType))
+          userJsonView.roundPlayer(user, p).some
+        case _ if p.hasUser => userJsonView.ghost.some
+        case _              => none
       )
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
@@ -154,10 +155,11 @@ final class JsonView(
         "color" -> p.color.name,
         "name"  -> p.name
       )
-      .add("user" -> user.map:
-        case User.WithPerf(user, perf) =>
-          userJsonView.roundPlayer(user, withFlags.rating.option(Perf.Typed(perf, g.perfType)))
-        case _ => userJsonView.ghost
+      .add("user" -> user.match
+        case Some(User.WithPerf(user, perf)) =>
+          userJsonView.roundPlayer(user, withFlags.rating.option(Perf.Typed(perf, g.perfType))).some
+        case _ if p.hasUser => userJsonView.ghost.some
+        case _              => none
       )
       .add("ai" -> p.aiLevel)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))

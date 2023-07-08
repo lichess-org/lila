@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.{ Black, Color, White }
+import chess.{ Black, Color, White, ByColor }
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
@@ -89,8 +89,10 @@ final private class SwissDirector(
             fen = swiss.settings.position
           )
           .copy(clock = swiss.clock.toClock.some),
-        whitePlayer = makePlayer(White, players get pairing.white err s"Missing pairing white $pairing"),
-        blackPlayer = makePlayer(Black, players get pairing.black err s"Missing pairing black $pairing"),
+        players = ByColor: c =>
+          val player = players get pairing(c) err s"Missing pairing $c $pairing"
+          lila.game.Player.make(c, player.userId, player.rating, player.provisional)
+        ,
         mode = chess.Mode(swiss.settings.rated),
         source = lila.game.Source.Swiss,
         pgnImport = None

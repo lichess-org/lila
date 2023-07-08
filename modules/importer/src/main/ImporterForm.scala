@@ -2,23 +2,22 @@ package lila.importer
 
 import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
-import chess.{ Color, Mode, Outcome, Replay, Status, ErrorStr }
+import chess.{ Color, ByColor, Mode, Outcome, Replay, Status, ErrorStr }
+import chess.format.pgn.Sans
 import play.api.data.*
 import play.api.data.Forms.*
 import scala.util.chaining.*
 
 import lila.game.*
 import lila.common.Form.into
-import chess.format.pgn.Sans
 
 final class ImporterForm:
 
-  lazy val importForm = Form(
+  lazy val importForm = Form:
     mapping(
       "pgn"     -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => checkPgn(p).isRight),
       "analyse" -> optional(nonEmptyText)
     )(ImportData.apply)(unapply)
-  )
 
   def checkPgn(pgn: PgnStr): Either[ErrorStr, Preprocessed] = ImporterForm.catchOverflow: () =>
     ImportData(pgn, none).preprocess(none)
@@ -85,16 +84,12 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
           val dbGame = Game
             .make(
               chess = game,
-              whitePlayer = Player.makeImported(
-                chess.White,
-                parsed.tags(_.White),
-                IntRating from parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
-              ),
-              blackPlayer = Player.makeImported(
-                chess.Black,
-                parsed.tags(_.Black),
-                IntRating from parsed.tags(_.BlackElo).flatMap(_.toIntOption)
-              ),
+              players = ByColor: c =>
+                Player.makeImported(
+                  c,
+                  parsed.tags.players(c),
+                  IntRating from parsed.tags.elos(c)
+                ),
               mode = Mode.Casual,
               source = Source.Import,
               pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some

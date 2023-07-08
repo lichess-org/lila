@@ -46,7 +46,7 @@ final class Env(
     lila.security.Granter(_.Teacher) || studentCache.isStudent(me)
 
   lila.common.Bus.subscribeFuns(
-    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
+    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
       progressApi.onFinishGame(game).unit
     },
     "clas" -> {

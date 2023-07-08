@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Black, Color, White }
+import chess.{ Black, Color, White, ByColor }
 
 import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
 
@@ -25,8 +25,7 @@ final class AutoPairing(
             fen = fen
           )
           .copy(clock = clock.some),
-        whitePlayer = makePlayer(White, pairing.player1),
-        blackPlayer = makePlayer(Black, pairing.player2),
+        players = ByColor(makePlayer(White, pairing.player1), makePlayer(Black, pairing.player2)),
         mode = tour.mode,
         source = Source.Arena,
         pgnImport = None

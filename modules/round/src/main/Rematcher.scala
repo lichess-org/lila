@@ -2,13 +2,13 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGame, Situation }
+import chess.{ Board, Castles, Clock, ByColor, Color as ChessColor, Ply, Game as ChessGame, Situation }
 import ChessColor.{ Black, White }
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches, Source }
 import lila.memo.ExpireSetMemo
-import lila.user.{ User, UserApi }
+import lila.user.{ User, UserApi, GameUsers }
 import lila.i18n.{ defaultLang, I18nKeys as trans }
 
 final private class Rematcher(
@@ -95,8 +95,7 @@ final private class Rematcher(
           else situation.fold(Chess960.pieces)(_.situation.board.pieces)
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
-      (whiteUser, blackUser) <- userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType)
-      users = List(whiteUser, blackUser).flatten
+      users <- userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType)
       board = Board(pieces, variant = pov.game.variant).updateHistory(
         _.copy(
           lastMove = situation.flatMap(_.situation.board.history.lastMove),
@@ -115,9 +114,8 @@ final private class Rematcher(
           ply = ply,
           startedAtPly = ply
         ),
-        whitePlayer = returnPlayer(pov.game, White, users),
-        blackPlayer = returnPlayer(pov.game, Black, users),
-        mode = if users.exists(_.user.lame) then chess.Mode.Casual else pov.game.mode,
+        players = ByColor(returnPlayer(pov.game, _, users)),
+        mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
@@ -125,16 +123,11 @@ final private class Rematcher(
       game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy withId id) }
     yield game
 
-  private def returnPlayer(game: Game, color: ChessColor, users: List[User.WithPerf]): lila.game.Player =
+  private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.game.Player =
     game.opponent(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
       case None =>
-        lila.game.Player.make(
-          color,
-          game.opponent(color).userId.flatMap { id =>
-            users.find(_.id == id)
-          }
-        )
+        lila.game.Player.make(color, users(!color))
 
   private def redirectEvents(game: Game): Events =
     val whiteId = game fullIdOf White

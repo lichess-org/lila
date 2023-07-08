@@ -72,18 +72,17 @@ private[tournament] object Pairing:
       tourId: TourId,
       u1: UserId,
       u2: UserId
-  ) =
-    new Pairing(
-      id = gameId,
-      tourId = tourId,
-      status = chess.Status.Created,
-      user1 = u1,
-      user2 = u2,
-      winner = none,
-      turns = none,
-      berserk1 = false,
-      berserk2 = false
-    )
+  ) = Pairing(
+    id = gameId,
+    tourId = tourId,
+    status = chess.Status.Created,
+    user1 = u1,
+    user2 = u2,
+    winner = none,
+    turns = none,
+    berserk1 = false,
+    berserk2 = false
+  )
 
   case class Prep(player1: Player, player2: Player):
     def toPairing(tourId: TourId, gameId: GameId): Pairing.WithPlayers =

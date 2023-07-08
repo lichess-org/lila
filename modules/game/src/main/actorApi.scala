@@ -3,15 +3,16 @@ package actorApi
 
 import chess.format.Fen
 import lila.user.User
+import chess.ByColor
 
 case class StartGame(game: Game)
 
 case class FinishGame(
     game: Game,
     // users and perfs BEFORE the game result is applied
-    white: Option[User.WithPerfs],
-    black: Option[User.WithPerfs]
+    users: ByColor[Option[User.WithPerfs]]
 ):
+  export users.{ white, black }
   def isVsSelf = white.isDefined && white == black
 
 case class InsertGame(game: Game)

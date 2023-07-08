@@ -1,11 +1,11 @@
 package lila.lobby
 
-import chess.{ Game as ChessGame, Situation }
+import chess.{ Game as ChessGame, Situation, ByColor }
 
 import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ Game, Player }
 import lila.socket.Socket.Sri
-import lila.user.User
+import lila.user.{ User, GameUsers }
 
 final private class Biter(
     userRepo: lila.user.UserRepo,
@@ -25,15 +25,11 @@ final private class Biter(
 
   private def join(hook: Hook, sri: Sri, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] =
     for
-      (joinerOption, ownerOption) <- userApi.gamePlayers(
-        lobbyUserOption.map(_.id) -> hook.userId,
-        hook.perfType
-      )
-      creatorColor <- assignCreatorColor(ownerOption, joinerOption, hook.realColor)
+      users        <- userApi.gamePlayers(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
+      creatorColor <- assignCreatorColor(users.white, users.black, hook.realColor)
       game <- makeGame(
         hook,
-        whiteUser = creatorColor.fold(ownerOption, joinerOption),
-        blackUser = creatorColor.fold(joinerOption, ownerOption)
+        users.creatorColor.fold(users.flip, users)
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
     yield
@@ -73,37 +69,32 @@ final private class Biter(
       case Color.White => fuccess(chess.White)
       case Color.Black => fuccess(chess.Black)
 
-  private def makeGame(hook: Hook, whiteUser: Option[User.WithPerf], blackUser: Option[User.WithPerf]) =
-    val clock = hook.clock.toClock
-    Game
-      .make(
-        chess = ChessGame(
-          situation = Situation(hook.realVariant),
-          clock = clock.some
-        ),
-        whitePlayer = Player.make(chess.White, whiteUser),
-        blackPlayer = Player.make(chess.Black, blackUser),
-        mode = hook.realMode,
-        source = lila.game.Source.Lobby,
-        pgnImport = None
-      )
-      .start
+  private def makeGame(hook: Hook, users: GameUsers) = Game
+    .make(
+      chess = ChessGame(
+        situation = Situation(hook.realVariant),
+        clock = hook.clock.toClock.some
+      ),
+      players = users.mapWithColor(Player.make),
+      mode = hook.realMode,
+      source = lila.game.Source.Lobby,
+      pgnImport = None
+    )
+    .start
 
-  private def makeGame(seek: Seek, whiteUser: Option[User.WithPerf], blackUser: Option[User.WithPerf]) =
-    Game
-      .make(
-        chess = ChessGame(
-          situation = Situation(seek.realVariant),
-          clock = none
-        ),
-        whitePlayer = Player.make(chess.White, whiteUser),
-        blackPlayer = Player.make(chess.Black, blackUser),
-        mode = seek.realMode,
-        source = lila.game.Source.Lobby,
-        daysPerTurn = seek.daysPerTurn,
-        pgnImport = None
-      )
-      .start
+  private def makeGame(seek: Seek, users: GameUsers) = Game
+    .make(
+      chess = ChessGame(
+        situation = Situation(seek.realVariant),
+        clock = none
+      ),
+      players = users.mapWithColor(Player.make),
+      mode = seek.realMode,
+      source = lila.game.Source.Lobby,
+      daysPerTurn = seek.daysPerTurn,
+      pgnImport = None
+    )
+    .start
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
     hook.isAuth == user.isDefined && user.fold(true): u =>
