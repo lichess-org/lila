@@ -54,6 +54,14 @@ final class User(
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 
+  private val UserShowRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
+    key = "user.show.ip",
+    enforce = env.net.rateLimit.value
+  )(
+    ("fast", 300, 10.minutes),
+    ("slow", 5000, 1.day)
+  )
+
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
       negotiate(
@@ -64,16 +72,17 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest isSynchronousHttp ctx.req
     then
-      for
-        as     <- env.activity.read.recentAndPreload(u)
-        nbs    <- env.userNbGames(u, withCrosstable = false)
-        info   <- env.userInfo(u, nbs)
-        _      <- env.userInfo.preloadTeams(info)
-        social <- env.socialInfo(u)
-        page <- renderPage:
-          lila.mon.chronoSync(_.user segment "renderSync"):
-            html.user.show.page.activity(as, info, social)
-      yield status(page).withCanonical(routes.User.show(u.username))
+      UserShowRateLimitPerIP(req.ipAddress, rateLimited):
+        for
+          as     <- env.activity.read.recentAndPreload(u)
+          nbs    <- env.userNbGames(u, withCrosstable = false)
+          info   <- env.userInfo(u, nbs)
+          _      <- env.userInfo.preloadTeams(info)
+          social <- env.socialInfo(u)
+          page <- renderPage:
+            lila.mon.chronoSync(_.user segment "renderSync"):
+              html.user.show.page.activity(as, info, social)
+        yield status(page).withCanonical(routes.User.show(u.username))
     else
       for
         withPerfs <- env.user.perfsRepo.withPerfs(u)
