@@ -115,9 +115,8 @@ case class Tournament(
   def streakable  = !noStreak
 
   def clockStatus =
-    secondsToFinish pipe { s =>
+    secondsToFinish.pipe: s =>
       "%02d:%02d".format(s / 60, s % 60)
-    }
 
   def schedulePair = schedule map { this -> _ }
 
