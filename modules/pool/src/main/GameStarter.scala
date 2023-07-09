@@ -33,7 +33,7 @@ final private class GameStarter(
   ): Fu[Option[Pairing]] =
     import couple.*
     (perfs.get(p1.userId), perfs.get(p2.userId))
-      .mapN((_, _))
+      .tupled
       .soFu: (perf1, perf2) =>
         for
           p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
