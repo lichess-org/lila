@@ -404,8 +404,8 @@
   <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa do xogo e unha ligazón para compartila.</string>
   <string name="importGameCaveat">As variantes borraranse. Pra conservalas, importa o PGN mediante un estudo.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Partidas importadas</item>
-    <item quantity="other">%s Partidas importadas</item>
+    <item quantity="one">%s partida importada</item>
+    <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Isto é un CAPTCHA de xadrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Fai clic no tableiro para facer a túa xogada, e probar que es humano.</string>
