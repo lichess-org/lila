@@ -22,7 +22,7 @@ final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(us
       managedById: UserId,
       template: Option[Template]
   ): Funit =
-    List(users, users.flip)
+    List(users, users.swap)
       .map(_.toPair)
       .map: (u1, u2) =>
         sendGameMessage(gameId, u1, u2, managedById, template)

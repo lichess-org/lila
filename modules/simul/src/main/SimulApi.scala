@@ -231,7 +231,7 @@ final class SimulApi(
     user <- userApi withPerfs pairing.player.user orFail s"No user with id ${pairing.player.user}"
     hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
     us        = ByColor(host, user)
-    users     = hostColor.fold(us, us.flip)
+    users     = hostColor.fold(us, us.swap)
     clock     = simul.clock.chessClockOf(hostColor)
     perfType  = PerfType(pairing.player.variant, chess.Speed(clock.config))
     game1 = Game.make(
