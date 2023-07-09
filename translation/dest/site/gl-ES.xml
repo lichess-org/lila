@@ -408,13 +408,13 @@
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Isto é un CAPTCHA de xadrez.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Fai clic no tableiro para facer a túa xogada, e probar que es humano.</string>
-  <string name="captcha.fail">Por favor resolve o captcha de xadrez.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Clica no taboleiro para facer a túa xogada e demostrar que es humano.</string>
+  <string name="captcha.fail">Por favor resolve o CAPTCHA de xadrez.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
   <string name="whiteCheckmatesInOneMove">Xogas brancas e dan mate nunha</string>
   <string name="blackCheckmatesInOneMove">Xogas negras e dan mate nunha</string>
-  <string name="retry">Reintentar</string>
-  <string name="reconnecting">Reconectando</string>
+  <string name="retry">Tentar de novo</string>
+  <string name="reconnecting">Conectando de novo</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amizade conectada</item>
     <item quantity="other">%s amizades conectadas</item>
@@ -423,7 +423,7 @@
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Deixar de seguir</string>
-  <string name="followX">Segue a %s</string>
+  <string name="followX">Seguir a %s</string>
   <string name="unfollowX">Deixar de seguir a %s</string>
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
@@ -431,12 +431,12 @@
   <string name="followsYou">Séguete</string>
   <string name="xStartedFollowingY">%1$s comezou a seguir a %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s seguidores</item>
+    <item quantity="one">%s seguidor</item>
     <item quantity="other">%s seguidores</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s seguindo</item>
-    <item quantity="other">%s seguindo</item>
+    <item quantity="one">Seguindo a %s xogador</item>
+    <item quantity="other">Seguindo a %s xogadores</item>
   </plurals>
   <string name="more">Máis</string>
   <string name="memberSince">Membro dende</string>
@@ -445,7 +445,7 @@
   <string name="list">Lista</string>
   <string name="graph">Gráfica</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos de %s minutos</item>
+    <item quantity="one">Menos de %s minuto</item>
     <item quantity="other">Menos de %s minutos</item>
   </plurals>
   <string name="required">Obrigatorio.</string>
@@ -454,16 +454,16 @@
   <string name="winner">Gañador</string>
   <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un novo torneo</string>
-  <string name="tournamentCalendar">Calendario do torneo</string>
+  <string name="tournamentCalendar">Calendario de torneos</string>
   <string name="conditionOfEntry">Condicións de participación:</string>
   <string name="advancedSettings">Axustes avanzados</string>
-  <string name="safeTournamentName">Escolla un nome seguro para o torneo.</string>
-  <string name="inappropriateNameWarning">Calquera comportamento lixeiramente inadecuado podería levar ao peche da súa conta.</string>
-  <string name="emptyTournamentName">Deixe en branco e o torneo terá o nome aleatorio de un Grande Mestre.</string>
-  <string name="recommendNotTouching">Nós recomendamos que non toque nestas opcións.</string>
+  <string name="safeTournamentName">Escolle un nome seguro para o torneo.</string>
+  <string name="inappropriateNameWarning">Calquera comportamento minimamente inadecuado podería levar ao peche da túa conta.</string>
+  <string name="emptyTournamentName">Deixar en branco para poñerlle ó torneo o nome dun Grande Mestre notable.</string>
+  <string name="recommendNotTouching">Non recomendamos cambiar estes axustes.</string>
   <string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
   <string name="showAdvancedSettings">Amosar axustes avanzados</string>
-  <string name="makePrivateTournament">Convirte o torneo en privado e restrinxe o acceso cun contrasinal</string>
+  <string name="makePrivateTournament">Fai que o torneo sexa privado e restrinxe o acceso cun contrasinal</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Retirarse</string>
   <string name="points">Puntos</string>
@@ -471,12 +471,12 @@
   <string name="losses">Derrotas</string>
   <string name="createdBy">Creado por</string>
   <string name="tournamentIsStarting">O torneo vai comezar</string>
-  <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo están pechados agora.</string>
+  <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo xa están pechados.</string>
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Continuar</string>
   <string name="youArePlaying">Estás xogando!</string>
-  <string name="winRate">Porcentaxe de victorias</string>
+  <string name="winRate">Porcentaxe de vitorias</string>
   <string name="berserkRate">Porcentaxe de berserk</string>
   <string name="performance">Rendemento</string>
   <string name="tournamentComplete">Torneo rematado</string>
@@ -485,15 +485,15 @@
   <string name="blackWins">Negras gañan</string>
   <string name="draws">Táboas</string>
   <string name="nextXTournament">Seguinte torneo %s:</string>
-  <string name="averageOpponent">Opoñente promedio</string>
+  <string name="averageOpponent">Opoñente medio</string>
   <string name="boardEditor">Editor de taboleiro</string>
   <string name="setTheBoard">Configurar o taboleiro</string>
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posicións de finais</string>
-  <string name="chess960StartPosition">Posición de comezo Chess960: %s</string>
+  <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
-  <string name="clearBoard">Limpar taboleiro</string>
-  <string name="loadPosition">Cargar posición</string>
+  <string name="clearBoard">Limpar o taboleiro</string>
+  <string name="loadPosition">Cargar unha posición</string>
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Denunciar a %s ós moderadores</string>
   <string name="profileCompletion">Perfil completado ao %s</string>
@@ -506,20 +506,20 @@
   <string name="biography">Biografía</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Grazas!</string>
-  <string name="socialMediaLinks">Enlaces ás redes sociais</string>
+  <string name="socialMediaLinks">Ligazóns ás redes sociais</string>
   <string name="oneUrlPerLine">Unha URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="savingMoves">Almaceamento temporal</string>
-  <string name="savingMovesHelp">Gardando as túas variacións na caché do navegador.</string>
+  <string name="savingMoves">Almacenamento temporal das xogadas</string>
+  <string name="savingMovesHelp">Sempre gardamos as túas variantes na caché do teu navegador.</string>
   <string name="makeAStudy">Para gardar e partillar, conviña crear un estudo.</string>
   <string name="clearSavedMoves">Eliminar movementos</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
   <string name="onlinePlayers">Xogadores en liña</string>
   <string name="activePlayers">Xogadores activos</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Atención, a partida é puntuada pero sen reloxo</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Atención, a partida é puntuada pero sen límite de tempo!</string>
   <string name="success">Éxito</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partidas en xogo</item>
+    <item quantity="one">%s partida en xogo</item>
     <item quantity="other">%s partidas en xogo</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticamente á seguinte partida despois de mover</string>
