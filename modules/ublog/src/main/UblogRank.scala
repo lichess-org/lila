@@ -71,7 +71,7 @@ final class UblogRank(
                   "likes" -> likes,
                   "rank"  -> computeRank(likes, liveAt, language, tier, hasImage)
                 )
-              ) >>- {
+              ) andDo {
                 if res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW
                 then timeline ! (Propagate(UblogPostLike(me, id.value, title)) toFollowersOf me)
               } inject likes

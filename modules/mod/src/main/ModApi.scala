@@ -65,11 +65,11 @@ final class ModApi(
     val changed = value != prev.user.marks.troll
     val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
     changed so {
-      userRepo.updateTroll(sus.user).void >>- {
+      userRepo.updateTroll(sus.user).void andDo {
         logApi.troll(sus)
         Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
       }
-    } >>- {
+    } andDo {
       if value then notifier.reporters(me.modId, sus).unit
     } inject sus
 
@@ -107,12 +107,12 @@ final class ModApi(
       title match
         case None =>
           userRepo.removeTitle(user.id) >>
-            logApi.removeTitle(user.id) >>-
+            logApi.removeTitle(user.id) andDo
             lightUserApi.invalidate(user.id)
         case Some(t) =>
           Title.names.get(t) so { tFull =>
             userRepo.addTitle(user.id, t) >>
-              logApi.addTitle(user.id, s"$t ($tFull)") >>-
+              logApi.addTitle(user.id, s"$t ($tFull)") andDo
               lightUserApi.invalidate(user.id)
           }
 

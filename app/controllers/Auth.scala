@@ -356,24 +356,26 @@ final class Auth(
           renderPage(html.auth.bits.passwordResetConfirm(token, err, false.some))
         } { data =>
           HasherRateLimit:
-            env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
-              env.user.repo.setEmailConfirmed(user.id).flatMapz {
+            for
+              _         <- env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1))
+              confirmed <- env.user.repo.setEmailConfirmed(user.id)
+              _ <- confirmed.so:
                 welcome(user, _, sendWelcomeEmail = false)
-              } >>
-              env.user.repo.disableTwoFactor(user.id) >>
-              env.security.store.closeAllSessionsOf(user.id) >>
-              env.push.webSubscriptionApi.unsubscribeByUser(user) >>
-              env.push.unregisterDevices(user) >>
-              authenticateUser(user, remember = true) >>-
-              lila.mon.user.auth.passwordResetConfirm("success").increment().unit
+              _   <- env.user.repo.disableTwoFactor(user.id)
+              _   <- env.security.store.closeAllSessionsOf(user.id)
+              _   <- env.push.webSubscriptionApi.unsubscribeByUser(user)
+              _   <- env.push.unregisterDevices(user)
+              res <- authenticateUser(user, remember = true)
+            yield
+              lila.mon.user.auth.passwordResetConfirm("success").increment()
+              res
         }
     }
 
   private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
     renderAsync:
-      env.security.forms.magicLink map { baseForm =>
+      env.security.forms.magicLink.map: baseForm =>
         html.auth.bits.magicLink(form.foldLeft(baseForm)(_ withForm _), fail)
-      }
 
   def magicLink = Open:
     Firewall:
@@ -425,7 +427,7 @@ final class Auth(
               notFound
             case Some(user) =>
               authLog(user.username, none, "Magic link")
-              authenticateUser(user, remember = true) >>-
+              authenticateUser(user, remember = true) andDo
                 lila.mon.user.auth.magicLinkConfirm("success").increment().unit
           }
 

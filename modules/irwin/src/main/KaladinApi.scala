@@ -55,7 +55,7 @@ final class KaladinApi(
   yield KaladinUser.Dashboard(completed ::: queued)
 
   def modRequest(user: Suspect)(using me: Me) =
-    request(user, KaladinUser.Requester.Mod(me)) >>- notification.add(user.id)
+    request(user, KaladinUser.Requester.Mod(me)) andDo notification.add(user.id)
 
   private def request(sus: Suspect, requester: KaladinUser.Requester) = sus.user.noBot.so:
     sequence(sus):
@@ -93,7 +93,7 @@ final class KaladinApi(
   private def readResponse(user: KaladinUser): Funit = user.response.so: res =>
     res.pred match
       case Some(pred) =>
-        markOrReport(user, pred) >>- {
+        markOrReport(user, pred) andDo {
           notification(user)
           lila.mon.mod.kaladin.activation.record(pred.percent).unit
         }
@@ -122,8 +122,8 @@ final class KaladinApi(
       userRepo.hasTitle(user.id) flatMap {
         if _ then sendReport
         else
-          modApi.autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id)) >>-
-            lila.mon.mod.kaladin.mark.increment().unit
+          modApi.autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id)) andDo
+            lila.mon.mod.kaladin.mark.increment()
       }
     else if pred.percent >= thresholds.get().report then sendReport
     else funit

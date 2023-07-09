@@ -35,16 +35,17 @@ final class UblogApi(
     }
 
   private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
-    rank.computeRank(blog, post).so { rank =>
-      colls.post.updateField($id(post.id), "rank", rank).void
-    } >>- {
-      lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-      if blog.visible then
-        timeline ! Propagate(
-          lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
-        ).toFollowersOf(user.id)
-        if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post).unit
-    }
+    rank
+      .computeRank(blog, post)
+      .so: rank =>
+        colls.post.updateField($id(post.id), "rank", rank).void
+      .andDo:
+        lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+        if blog.visible then
+          timeline ! Propagate(
+            lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
+          ).toFollowersOf(user.id)
+          if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post).unit
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)) getOrElse {

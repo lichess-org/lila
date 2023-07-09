@@ -54,13 +54,13 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
     }
 
   def update(old: Event, data: EventForm.Data)(using Me): Fu[Int] =
-    (coll.update.one($id(old.id), data.update(old)) >>- promotable.invalidateUnit()).dmap(_.n)
+    (coll.update.one($id(old.id), data.update(old)) andDo promotable.invalidateUnit()).dmap(_.n)
 
   def createForm = EventForm.form
 
   def create(data: EventForm.Data)(using me: Me.Id): Fu[Event] =
     val event = data.make
-    coll.insert.one(event) >>- promotable.invalidateUnit() inject event
+    coll.insert.one(event) andDo promotable.invalidateUnit() inject event
 
   def clone(old: Event) =
     old.copy(

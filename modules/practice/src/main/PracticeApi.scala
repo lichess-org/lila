@@ -95,11 +95,11 @@ final class PracticeApi(
     def setNbMoves(user: User, chapterId: StudyChapterId, score: NbMoves): Funit =
       get(user).flatMap { prog =>
         save(prog.withNbMoves(chapterId, score))
-      } >>- studyApi.studyIdOf(chapterId).foreach {
-        _ so { studyId =>
-          Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), "finishPractice")
-        }
-      }
+      } andDo studyApi
+        .studyIdOf(chapterId)
+        .foreach:
+          _.so: studyId =>
+            Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), "finishPractice")
 
     def reset(user: User) =
       coll.delete.one($id(user.id)).void

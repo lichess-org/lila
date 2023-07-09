@@ -44,11 +44,10 @@ final class TeamApi(
 
   def create(setup: TeamSetup, me: User): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
-    chatApi.exists(bestId into ChatId) map {
-      if _ then Team.randomId()
-      else bestId
-    } flatMap { id =>
-      val team = Team.make(
+    for
+      exists <- chatApi.exists(bestId into ChatId)
+      id = if exists then Team.randomId() else bestId
+      team = Team.make(
         id = id,
         name = setup.name,
         password = setup.password,
@@ -58,16 +57,14 @@ final class TeamApi(
         open = setup.isOpen,
         createdBy = me
       )
-      teamRepo.coll.insert.one(team) >>
-        memberRepo.add(team.id, me.id) >>- {
-          cached invalidateTeamIds me.id
-          indexer ! InsertTeam(team)
-          timeline ! Propagate(
-            TeamCreate(me.id, team.id)
-          ).toFollowersOf(me.id)
-          Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
-        } inject team
-    }
+      _ <- teamRepo.coll.insert.one(team)
+      _ <- memberRepo.add(team.id, me.id)
+    yield
+      cached invalidateTeamIds me.id
+      indexer ! InsertTeam(team)
+      timeline ! Propagate(TeamCreate(me.id, team.id)).toFollowersOf(me.id)
+      Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
+      team
 
   def update(team: Team, edit: TeamEdit)(using me: Me): Funit =
     team
@@ -85,7 +82,7 @@ final class TeamApi(
         teamRepo.coll.update.one($id(team.id), team).void >>
           (!team.leaders(me)).so {
             modLog.teamEdit(team.createdBy, team.name)
-          } >>- {
+          } andDo {
             cached.forumAccess.invalidate(team.id)
             indexer ! InsertTeam(team)
           }
@@ -173,7 +170,7 @@ final class TeamApi(
         user = me,
         message = if me.marks.troll then Request.defaultMessage else msg
       )
-      requestRepo.coll.insert.one(request).void >>- (cached.nbRequests invalidate team.createdBy)
+      requestRepo.coll.insert.one(request).void andDo cached.nbRequests.invalidate(team.createdBy)
     }
 
   def cancelRequestOrQuit(team: Team)(using me: Me): Funit =
@@ -211,7 +208,7 @@ final class TeamApi(
   def doJoin(team: Team)(using me: Me): Funit = {
     !belongsTo(team.id, me) flatMapz {
       memberRepo.add(team.id, me) >>
-        teamRepo.incMembers(team.id, +1) >>- {
+        teamRepo.incMembers(team.id, +1) andDo {
           cached invalidateTeamIds me
           timeline ! Propagate(TeamJoin(me, team.id)).toFollowersOf(me)
           Bus.publish(JoinTeam(id = team.id, userId = me), "team")
@@ -248,7 +245,7 @@ final class TeamApi(
             .contains(userId)
             .so:
               teamRepo.setLeaders(team.id, team.leaders - userId)
-      } >>- {
+      } andDo {
         Bus.publish(LeaveTeam(teamId = team.id, userId = userId), "teamLeave")
         cached.invalidateTeamIds(userId)
       }
@@ -281,7 +278,7 @@ final class TeamApi(
       quit(team, userId) >>
         (!team.leaders(me)).so {
           modLog.teamKick(userId, team.name)
-        } >>-
+        } andDo
         Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
     }
 
@@ -337,15 +334,15 @@ final class TeamApi(
       if team.enabled then
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
-          requestRepo.removeByTeam(team.id).void >>-
+          requestRepo.removeByTeam(team.id).void andDo
           (indexer ! RemoveTeam(team.id))
-      else teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
+      else teamRepo.enable(team).void andDo (indexer ! InsertTeam(team))
     else teamRepo.setLeaders(team.id, team.leaders - me)
 
   // delete for ever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit =
     teamRepo.coll.delete.one($id(team.id)) >>
-      memberRepo.removeByTeam(team.id) >>- {
+      memberRepo.removeByTeam(team.id) andDo {
         logger.info(s"delete team ${team.id} by @${by.id}: $explain")
         (indexer ! RemoveTeam(team.id))
       }

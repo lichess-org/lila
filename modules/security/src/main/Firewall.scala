@@ -37,7 +37,7 @@ final class Firewall(
     }.parallel >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.delete.one($inIds(ips)).void >>- loadFromDb.unit
+    coll.delete.one($inIds(ips)).void andDo loadFromDb.unit
 
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty).map { ips =>

@@ -43,21 +43,21 @@ final class PlaybanApi(
   def abort(pov: Pov, isOnGame: Set[Color]): Funit =
     IfBlameable(pov.game) {
       pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) so { userId =>
-        save(Outcome.Abort, userId, RageSit.Update.Reset, pov.game.source) >>- feedback.abort(pov)
+        save(Outcome.Abort, userId, RageSit.Update.Reset, pov.game.source) andDo feedback.abort(pov)
       }
     }
 
   def noStart(pov: Pov): Funit =
     IfBlameable(pov.game) {
       pov.player.userId so { userId =>
-        save(Outcome.NoPlay, userId, RageSit.Update.Reset, pov.game.source) >>- feedback.noStart(pov)
+        save(Outcome.NoPlay, userId, RageSit.Update.Reset, pov.game.source) andDo feedback.noStart(pov)
       }
     }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
     IfBlameable(game) {
       game.player(quitterColor).userId so { userId =>
-        save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor), game.source) >>-
+        save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor), game.source) andDo
           feedback.rageQuit(Pov(game, quitterColor))
       }
     }
@@ -75,9 +75,9 @@ final class PlaybanApi(
         userId <- game.player(flaggerColor).userId
         seconds = nowSeconds - game.movedAt.toSeconds
         if unreasonableTime.exists(seconds >= _)
-      yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>-
-        feedback.sitting(Pov(game, flaggerColor)) >>
-        propagateSitting(game, userId)
+      yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>
+        propagateSitting(game, userId) andDo
+        feedback.sitting(Pov(game, flaggerColor))
 
     // flagged after waiting a short time;
     // but the previous move used a long time.
@@ -90,9 +90,9 @@ final class PlaybanApi(
           limit        <- unreasonableTime
         yield lastMovetime.toSeconds >= limit)
       } map { userId =>
-        save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>-
-          feedback.sitting(Pov(game, flaggerColor)) >>
-          propagateSitting(game, userId)
+        save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>
+          propagateSitting(game, userId) andDo
+          feedback.sitting(Pov(game, flaggerColor))
       }
 
     IfBlameable(game) {
@@ -114,26 +114,23 @@ final class PlaybanApi(
         loserId <- loser.userId
       yield
         if Status.NoStart is status then
-          save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source) >>- feedback.noStart(Pov(game, !w))
+          save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source) andDo
+            feedback.noStart(Pov(game, !w))
         else
           game.clock
-            .filter {
+            .filter:
               _.remainingTime(loser.color) < Centis(1000) &&
                 game.turnOf(loser) &&
                 Status.Resign.is(status)
-            }
-            .map { c =>
+            .map: c =>
               (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)
-            }
             .exists(_ < nowSeconds - game.movedAt.toSeconds)
-            .option {
-              save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source) >>-
-                feedback.sitting(Pov(game, loser.color)) >>
-                propagateSitting(game, loserId)
-            }
-            .getOrElse {
+            .option:
+              save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source) >>
+                propagateSitting(game, loserId) andDo
+                feedback.sitting(Pov(game, loser.color))
+            .getOrElse:
               good(game, !w)
-            }
       )
     }
 
@@ -146,18 +143,16 @@ final class PlaybanApi(
   private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
 
   def currentBan[U: UserIdOf](user: U): Fu[Option[TempBan]] =
-    !cleanUserIds.get(user.id) so {
-      coll
-        .find(
-          $doc("_id" -> user.id, "b.0" $exists true),
-          $doc("_id" -> false, "b" -> $doc("$slice" -> -1)).some
-        )
-        .one[Bdoc]
-        .dmap:
-          _.flatMap(_.getAsOpt[List[TempBan]]("b")).so(_.find(_.inEffect))
-        .addEffect: ban =>
-          if ban.isEmpty then cleanUserIds put user.id
-    }
+    !cleanUserIds.get(user.id) so coll
+      .find(
+        $doc("_id" -> user.id, "b.0" $exists true),
+        $doc("_id" -> false, "b" -> $doc("$slice" -> -1)).some
+      )
+      .one[Bdoc]
+      .dmap:
+        _.flatMap(_.getAsOpt[List[TempBan]]("b")).so(_.find(_.inEffect))
+      .addEffect: ban =>
+        if ban.isEmpty then cleanUserIds put user.id
 
   def hasCurrentBan[U: UserIdOf](u: U): Fu[Boolean] = currentBan(u).map(_.isDefined)
 
@@ -248,14 +243,14 @@ final class PlaybanApi(
             fetchNewObject = true
           )
       }
-      .dmap(_ | record) >>- cleanUserIds.remove(record.userId)
+      .dmap(_ | record) andDo cleanUserIds.remove(record.userId)
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
     update match
       case RageSit.Update.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
         (delta < 0 && record.rageSit.isVeryBad) so {
-          messenger.postPreset(record.userId, MsgPreset.sittingAuto).void >>- {
+          messenger.postPreset(record.userId, MsgPreset.sittingAuto).void andDo {
             Bus.publish(
               lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
               "autoWarning"
@@ -263,10 +258,9 @@ final class PlaybanApi(
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then
               userRepo
                 .byId(record.userId)
-                .flatMapz { user =>
-                  noteApi.lichessWrite(user, "Closed for ragesit recidive") >>-
+                .flatMapz: user =>
+                  noteApi.lichessWrite(user, "Closed for ragesit recidive") andDo
                     Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose")
-                }
                 .unit
           }
         }

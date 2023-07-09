@@ -22,7 +22,7 @@ final private class ChallengeJoiner(
       else
         c.challengerUserId.so(userApi.withPerf(_, c.perfType)) flatMap { origUser =>
           val game = ChallengeJoiner.createGame(c, origUser, destUser)
-          (gameRepo insertDenormalized game) >>- onStart(game.id) inject
+          (gameRepo insertDenormalized game) andDo onStart(game.id) inject
             Valid(Pov(game, !c.finalColor))
         }
     }

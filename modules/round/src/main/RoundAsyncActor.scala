@@ -232,7 +232,7 @@ final private[round] class RoundAsyncActor(
         val berserked = pov.game.goBerserk(color)
         berserked.so { progress =>
           proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
-        } >>- promise.success(berserked.isDefined)
+        } andDo promise.success(berserked.isDefined)
 
     case ResignForce(playerId) =>
       handle(playerId): pov =>
@@ -377,7 +377,7 @@ final private[round] class RoundAsyncActor(
               }
       } | funit
 
-    case Stop => proxy.terminate() >>- socketSend(RP.Out.stop(roomId))
+    case Stop => proxy.terminate() andDo socketSend(RP.Out.stop(roomId))
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 

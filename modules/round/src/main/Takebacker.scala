@@ -27,18 +27,18 @@ final private class Takebacker(
               color == pov.opponent.proposeTakebackAt.turn
             then single(game)
             else double(game)
-          } >>- publishTakeback(pov) dmap (_ -> situation.reset)
+          } andDo publishTakeback(pov) dmap (_ -> situation.reset)
         case Pov(game, _) if pov.game.playableByAi =>
-          single(game) >>- publishTakeback(pov) dmap (_ -> situation)
+          single(game) andDo publishTakeback(pov) dmap (_ -> situation)
         case Pov(game, _) if pov.opponent.isAi =>
-          double(game) >>- publishTakeback(pov) dmap (_ -> situation)
+          double(game) andDo publishTakeback(pov) dmap (_ -> situation)
         case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable =>
           {
             messenger.volatile(game, trans.takebackPropositionSent.txt())
             val progress = Progress(game) map { g =>
               g.updatePlayer(color, _ proposeTakeback g.ply)
             }
-            proxy.save(progress) >>-
+            proxy.save(progress) andDo
               publishTakebackOffer(progress.game) inject
               List(Event.TakebackOffers(color.white, color.black))
           } dmap (_ -> situation)
@@ -52,7 +52,7 @@ final private class Takebacker(
         val progress = Progress(game) map { g =>
           g.updatePlayer(color, _.removeTakebackProposition)
         }
-        proxy.save(progress) >>-
+        proxy.save(progress) andDo
           publishTakebackOffer(progress.game) inject
           List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
@@ -60,7 +60,7 @@ final private class Takebacker(
         val progress = Progress(game) map { g =>
           g.updatePlayer(!color, _.removeTakebackProposition)
         }
-        proxy.save(progress) >>-
+        proxy.save(progress) andDo
           publishTakebackOffer(progress.game) inject
           List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))

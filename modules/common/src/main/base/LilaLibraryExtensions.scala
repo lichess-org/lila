@@ -141,15 +141,12 @@ trait LilaLibraryExtensions extends LilaTypes:
     inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(EC.parasitic)
     inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
 
-    def >>-(sideEffect: => Unit)(using Executor): Fu[A] =
-      fua andThen { case _ =>
-        sideEffect
-      }
+    def andDo(sideEffect: => Unit)(using Executor): Fu[A] =
+      fua.andThen:
+        case _ => sideEffect
 
     def >>[B](fub: => Fu[B])(using Executor): Fu[B] =
-      fua flatMap { _ =>
-        fub
-      }
+      fua.flatMap(_ => fub)
 
     inline def void: Fu[Unit] =
       dmap(_ => ())

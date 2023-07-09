@@ -158,7 +158,7 @@ final class AccessTokenApi(
           F.id     -> id,
           F.userId -> user.id
         )
-      .void >>- onRevoke(id)
+      .void andDo onRevoke(id)
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     coll
@@ -183,7 +183,7 @@ final class AccessTokenApi(
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.Id from bearer
-    coll.delete.one($id(id)) >>- onRevoke(id)
+    coll.delete.one($id(id)) andDo onRevoke(id)
 
   private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 

@@ -23,14 +23,15 @@ final private class FishnetRepo(
   def getOfflineClient: Fu[Client] =
     getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
-    client.updateInstance(instance).fold(fuccess(client)) { updated =>
-      clientColl.update.one($id(client.key), $set("instance" -> updated.instance)) >>-
-        clientCache.invalidate(client.key) inject updated
-    }
+    client
+      .updateInstance(instance)
+      .fold(fuccess(client)): updated =>
+        clientColl.update.one($id(client.key), $set("instance" -> updated.instance)) andDo
+          clientCache.invalidate(client.key) inject updated
   def addClient(client: Client)     = clientColl.insert.one(client)
-  def deleteClient(key: Client.Key) = clientColl.delete.one($id(key)) >>- clientCache.invalidate(key)
+  def deleteClient(key: Client.Key) = clientColl.delete.one($id(key)) andDo clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update.one($id(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
+    clientColl.update.one($id(key), $set("enabled" -> v)).void andDo clientCache.invalidate(key)
   def allRecentClients =
     clientColl.list[Client](
       $doc(

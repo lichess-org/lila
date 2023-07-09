@@ -158,7 +158,7 @@ final class RoundSocket(
 
   remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 16)(
     roundHandler orElse remoteSocketApi.baseHandler
-  ) >>- send(P.Out.boot)
+  ) andDo send(P.Out.boot)
 
   Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame"):
     case TvSelect(gameId, speed, json) =>

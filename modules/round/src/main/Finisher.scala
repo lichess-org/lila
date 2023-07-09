@@ -25,21 +25,18 @@ final private class Finisher(
   private given play.api.i18n.Lang = defaultLang
 
   def abort(pov: Pov)(using GameProxy): Fu[Events] =
-    apply(pov.game, _.Aborted, None) >>- {
-      getSocketStatus(pov.game) foreach { ss =>
+    apply(pov.game, _.Aborted, None).andDo:
+      getSocketStatus(pov.game).foreach: ss =>
         playban.abort(pov, ss.colorsOnGame)
-      }
       Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
-    }
 
   def abortForce(game: Game)(using GameProxy): Fu[Events] =
     apply(game, _.Aborted, None)
 
   def rageQuit(game: Game, winner: Option[Color])(using GameProxy): Fu[Events] =
-    apply(game, _.Timeout, winner) >>-
-      winner.foreach { color =>
+    apply(game, _.Timeout, winner).andDo:
+      winner.foreach: color =>
         playban.rageQuit(game, !color)
-      }
 
   def outOfTime(game: Game)(using GameProxy): Fu[Events] =
     if !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
@@ -50,10 +47,9 @@ final private class Finisher(
       apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
     else
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
-      apply(game, _.Outoftime, winner) >>-
-        winner.foreach { w =>
+      apply(game, _.Outoftime, winner).andDo:
+        winner.foreach: w =>
           playban.flag(game, !w)
-        }
 
   def noStart(game: Game)(using GameProxy): Fu[Events] =
     game.playerWhoDidNotMove.so: culprit =>
@@ -69,7 +65,7 @@ final private class Finisher(
       winner: Option[Color],
       message: Option[Messenger.SystemMessage] = None
   )(using GameProxy): Fu[Events] =
-    apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
+    apply(game, status, winner, message) andDo playban.other(game, status, winner).unit
 
   private def recordLagStats(game: Game) = for
     clock  <- game.clock

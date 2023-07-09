@@ -71,7 +71,7 @@ final private class SimulSocket(
 
   remoteSocketApi.subscribe("simul-in", RP.In.reader)(
     handler orElse remoteSocketApi.baseHandler
-  ) >>- send(P.Out.boot)
+  ) andDo send(P.Out.boot)
 
 private object SimulSocket:
   object Protocol:

@@ -47,7 +47,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         ),
         upsert = true
       )
-      .void >>- cache.put(op.key, compute(op.key))
+      .void andDo cache.put(op.key, compute(op.key))
 
   def popularOpeningsWithShortWiki: Fu[List[Opening]] =
     coll

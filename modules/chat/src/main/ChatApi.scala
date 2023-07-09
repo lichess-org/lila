@@ -86,7 +86,7 @@ final class ChatApi(
           if _ then
             linkCheck(line, publicSource) flatMap {
               if _ then
-                (persist so persistLine(chatId, line)) >>- {
+                (persist so persistLine(chatId, line)).andDo:
                   if persist then
                     if publicSource.isDefined then cached invalidate chatId
                     shutup ! publicSource.match
@@ -97,7 +97,6 @@ final class ChatApi(
                       .increment()
                       .unit
                   publish(chatId, ChatLine(chatId, line), busChan)
-                }
               else
                 logger.info(s"Link check rejected $line in $publicSource")
                 funit
@@ -123,10 +122,9 @@ final class ChatApi(
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
       val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
-      persistLine(chatId, line) >>- {
+      persistLine(chatId, line).andDo:
         cached.invalidate(chatId)
         publish(chatId, ChatLine(chatId, line), busChan)
-      }
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
@@ -196,12 +194,11 @@ final class ChatApi(
         )
         val c2   = c.markDeleted(user)
         val chat = line.fold(c2)(c2.add)
-        coll.update.one($id(chat.id), chat).void >>- {
+        coll.update.one($id(chat.id), chat).void andDo {
           cached.invalidate(chat.id)
           publish(chat.id, OnTimeout(chat.id, user.id), busChan)
-          line foreach { l =>
+          line.foreach: l =>
             publish(chat.id, ChatLine(chat.id, l), busChan)
-          }
           if isMod(mod) || isRelayMod(mod) then
             lila.common.Bus.publish(
               lila.hub.actorApi.mod.ChatTimeout(
@@ -223,7 +220,7 @@ final class ChatApi(
       val chat   = c.markDeleted(user)
       val change = chat != c
       change.so {
-        coll.update.one($id(chat.id), chat).void >>- {
+        coll.update.one($id(chat.id), chat).void andDo {
           cached invalidate chat.id
           publish(chat.id, OnTimeout(chat.id, user.id), busChan)
         }
@@ -274,12 +271,10 @@ final class ChatApi(
       coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, none, _.sec)(_.id)
 
     def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
-      makeLine(chatId, color, text) so { line =>
-        persistLine(chatId, line) >>- {
+      makeLine(chatId, color, text).so: line =>
+        persistLine(chatId, line).andDo:
           publish(chatId, ChatLine(chatId, line), busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment().unit
-        }
-      }
 
     private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
       Writer.preprocessUserInput(t1, none) flatMap { t2 =>

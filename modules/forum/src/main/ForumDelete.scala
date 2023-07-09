@@ -46,14 +46,16 @@ final class ForumDelete(
   private def doDelete(view: PostView) =
     postRepo.isFirstPost(view.topic.id, view.post.id).flatMap {
       if _ then
-        postRepo.idsByTopicId(view.topic.id) flatMap { postIds =>
-          (postRepo removeByTopic view.topic.id zip topicRepo.remove(view.topic)) >>
-            (categApi denormalize view.categ) >>-
-            (indexer ! RemovePosts(postIds))
-        }
+        for
+          postIds <- postRepo.idsByTopicId(view.topic.id)
+          _       <- postRepo removeByTopic view.topic.id
+          _       <- topicRepo.remove(view.topic)
+          _       <- categApi denormalize view.categ
+        yield indexer ! RemovePosts(postIds)
       else
-        postRepo.remove(view.post) >>
-          (topicApi denormalize view.topic) >>
-          (categApi denormalize view.categ) >>-
-          (indexer ! RemovePost(view.post.id))
+        for
+          _ <- postRepo.remove(view.post)
+          _ <- topicApi.denormalize(view.topic)
+          _ <- categApi.denormalize(view.categ)
+        yield indexer ! RemovePost(view.post.id)
     }

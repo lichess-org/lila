@@ -103,14 +103,14 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
     val bson = {
       engineHandler writeOpt engine err "external engine bson"
     } ++ $doc("oauthToken" -> oauthTokenId)
-    coll.insert.one(bson) >>- reloadCache(by.id) inject engine
+    coll.insert.one(bson) andDo reloadCache(by.id) inject engine
 
   def find(by: User, id: String): Fu[Option[ExternalEngine]] =
     list(by).map(_.find(_._id == id))
 
   def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] =
     val engine = data update prev
-    coll.update.one($id(engine._id), engine) >>- reloadCache(engine.userId) inject engine
+    coll.update.one($id(engine._id), engine) andDo reloadCache(engine.userId) inject engine
 
   def delete(by: User, id: String): Fu[Boolean] =
     coll.delete.one($doc("userId" -> by.id) ++ $id(id)) map { result =>
@@ -120,5 +120,5 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   private[analyse] def onTokenRevoke(id: String) =
     coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId") flatMapz { userId =>
-      coll.delete.one($doc("oauthToken" -> id)).void >>- reloadCache(userId)
+      coll.delete.one($doc("oauthToken" -> id)).void andDo reloadCache(userId)
     }

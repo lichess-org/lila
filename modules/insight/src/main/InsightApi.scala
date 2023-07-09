@@ -61,19 +61,15 @@ final class InsightApi(
     }
 
   def indexAll(user: User) =
-    indexer.all(user).monSuccess(_.insight.index) >>- userCache.put(user.id, computeUser(user.id))
+    indexer.all(user).monSuccess(_.insight.index) andDo userCache.put(user.id, computeUser(user.id))
 
   def updateGame(g: Game) =
-    Pov(g)
-      .map { pov =>
-        pov.player.userId so { userId =>
-          storage find InsightEntry.povToId(pov) flatMapz {
-            indexer.update(g, userId, _)
-          }
+    Pov(g).traverse_ { pov =>
+      pov.player.userId.so: userId =>
+        storage find InsightEntry.povToId(pov) flatMapz {
+          indexer.update(g, userId, _)
         }
-      }
-      .parallel
-      .void
+    }
 
   def coll = storage.coll
 

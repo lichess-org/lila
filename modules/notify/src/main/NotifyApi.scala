@@ -80,24 +80,23 @@ final class NotifyApi(
     getNotifications(userId, page) zip unreadCount(userId) map AndUnread.apply
 
   def markAllRead(userId: UserId): Funit =
-    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(UnreadCount(0)))
+    repo.markAllRead(userId) andDo unreadCountCache.put(userId, fuccess(UnreadCount(0)))
 
   def markAllRead(userIds: Iterable[UserId]): Funit =
-    repo.markAllRead(userIds) >>- userIds.foreach {
+    repo.markAllRead(userIds) andDo userIds.foreach:
       unreadCountCache.put(_, fuccess(UnreadCount(0)))
-    }
 
   def unreadCount(userId: UserId): Fu[UnreadCount] =
     unreadCountCache get userId
 
   def insertNotification(notification: Notification): Funit =
-    repo.insert(notification) >>- unreadCountCache.update(notification.to, _ + 1)
+    repo.insert(notification) andDo unreadCountCache.update(notification.to, _ + 1)
 
   def remove(to: UserId, selector: Bdoc = $empty): Funit =
-    repo.remove(to, selector) >>- unreadCountCache.invalidate(to)
+    repo.remove(to, selector) andDo unreadCountCache.invalidate(to)
 
   def markRead(to: UserId, selector: Bdoc): Funit =
-    repo.markManyRead(selector ++ $doc("notifies" -> to, "read" -> false)) >>-
+    repo.markManyRead(selector ++ $doc("notifies" -> to, "read" -> false)) andDo
       unreadCountCache.invalidate(to)
 
   def exists = repo.exists
@@ -129,7 +128,7 @@ final class NotifyApi(
     bellMany(recips, content)
 
   private def bellOne(note: Notification): Funit =
-    insertNotification(note) >>-
+    insertNotification(note) andDo
       Bus.publish(
         SendTo.onlineUser(
           note.to,
@@ -147,7 +146,7 @@ final class NotifyApi(
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent): Funit =
     val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells foreach unreadCountCache.invalidate // or maybe update only if getIfPresent?
-    repo.insertMany(bells.map(to => Notification.make(to, content))) >>-
+    repo.insertMany(bells.map(to => Notification.make(to, content))) andDo
       Bus.publish(
         SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true)),
         "socketUsers"

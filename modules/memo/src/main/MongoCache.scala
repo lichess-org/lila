@@ -43,7 +43,7 @@ final class MongoCache[K, V: BSONHandler] private (
   def get = cache.get
 
   def invalidate(key: K): Funit =
-    coll.delete.one($id(makeDbKey(key))).void >>-
+    coll.delete.one($id(makeDbKey(key))).void andDo
       cache.invalidate(key)
 
   private def makeDbKey(key: K) = s"$name:${keyToString(key)}"

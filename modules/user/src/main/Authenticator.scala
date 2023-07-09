@@ -51,7 +51,7 @@ final class Authenticator(
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean =
     val res = compare(auth, p)
     if res && auth.salt.isDefined then
-      setPassword(id = auth._id, p) >>- lila.mon.user.auth.bcFullMigrate.increment().unit
+      setPassword(id = auth._id, p) andDo lila.mon.user.auth.bcFullMigrate.increment()
     res
 
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] = {

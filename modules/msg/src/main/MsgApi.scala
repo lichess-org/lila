@@ -145,7 +145,7 @@ final class MsgApi(
                     // keep maskWith.date always valid (though sometimes redundant)
                     // unset "deleted by receiver" unless the message is muted
                   )
-            (msgWrite zip threadWrite).void >>- {
+            (msgWrite zip threadWrite).void andDo {
               import MsgSecurity.*
               import lila.hub.actorApi.socket.SendTo
               import lila.socket.Socket.makeMessage

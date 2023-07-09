@@ -30,7 +30,7 @@ object ServerEval:
           fuccess(unlimited) >>|
             fuccess(userId == User.lichessId) >>| userRepo.me(userId).map(Granter.opt(_.Relay)(using _))
         unlimitedFu flatMap { unlimited =>
-          chapterRepo.startServerEval(chapter) >>- {
+          chapterRepo.startServerEval(chapter) andDo {
             fishnet ! StudyChapterRequest(
               studyId = study.id,
               chapterId = chapter.id,
@@ -108,11 +108,11 @@ object ServerEval:
                         )
                   } inject path + node.id
                 } void
-            } >>- {
+            } andDo {
               chapterRepo
                 .byId(analysis.id into StudyChapterId)
                 .foreach:
-                  _ so { chapter =>
+                  _.so: chapter =>
                     socket.onServerEval(
                       studyId,
                       ServerEval.Progress(
@@ -122,7 +122,6 @@ object ServerEval:
                         division = divisionOf(chapter)
                       )
                     )
-                  }
             } logFailure logger
         }
       }
