@@ -2,6 +2,7 @@ import { Classes, h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import perfIcons from 'common/perfIcons';
 import { Clock, Ctrl, Lane, Tournament } from './interfaces';
+import dragscroll from 'dragscroll';
 
 const scale = 8;
 let now: number, startTime: number, stopTime: number;
@@ -276,6 +277,8 @@ export default function (ctrl: Ctrl) {
             const bitLater = now + 15 * 60 * 1000;
             const scroll = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
             el.scrollLeft = document.dir == 'rtl' ? -1 * scroll : scroll;
+
+            dragscroll.reset();
 
             el.addEventListener('mousedown', e => {
               mousedownAt = [e.clientX, e.clientY];

@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -913,6 +913,9 @@ importers:
       '@types/cash':
         specifier: workspace:*
         version: link:../@types/cash
+      '@types/dragscroll':
+        specifier: 0.0.0
+        version: 0.0.0
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
@@ -2896,6 +2899,10 @@ packages:
 
   /@types/dom-screen-wake-lock@1.0.0:
     resolution: {integrity: sha512-3o5jkfJsuhFcKj2EZ3PiEoiQQbB3J/nffsXJBKtyubkBHsX2siS6b4uij3ukr5xgDHsF4BaT9fHo8DneAw/YxA==}
+    dev: false
+
+  /@types/dragscroll@0.0.0:
+    resolution: {integrity: sha512-rWr/ryzOUi9r/zUA2GK2qLWGBIBmDeIojBQXuvR76pulHUoEGMJ2A7NWShUaA5AE90ha+l9tlsyGz2UioQE9cg==}
     dev: false
 
   /@types/fnando__sparkline@0.3.4:
