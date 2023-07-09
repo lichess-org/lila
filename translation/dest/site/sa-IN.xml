@@ -18,6 +18,7 @@
   <string name="white">श्वेतः</string>
   <string name="black">कृष्ण</string>
   <string name="asWhite">श्वेतेव</string>
+  <string name="asBlack">यथा कृष्णः</string>
   <string name="randomColor">यादृच्छिको वर्ण​:</string>
   <string name="createAGame">द्यूतम् कल्पयस्व</string>
   <string name="whiteIsVictorious">श्वेतो विजितवान्</string>
@@ -43,6 +44,7 @@
   <string name="blackResigned">मित्रेण सह  क्रीडतु</string>
   <string name="whiteLeftTheGame">मित्रेण सह  क्रीडतु</string>
   <string name="blackLeftTheGame">मित्रेण सह  क्रीडतुमित्रेण सह  क्रीडतुमित्रेण सह  क्रीडतु</string>
+  <string name="whiteDidntMove">श्वेतः न क्रीडति</string>
   <string name="requestAComputerAnalysis">सङ्गणकयन्त्र-विश्लेषणस्य आवेदनम् कुरु |</string>
   <string name="computerAnalysis">सङ्गणकयन्त्र-विश्लेषणम्</string>
   <string name="computerAnalysisAvailable">सङ्गणकयन्त्र-विश्लेषणम् विद्यते |</string>
