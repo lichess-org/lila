@@ -148,7 +148,7 @@ final private class LobbySyncActor(
     hookRepo.filter(_ compatibleWith hook).find { existing =>
       biter.canJoin(existing, hook.user) &&
       !(existing.user, hook.user)
-        .mapN((_, _))
+        .tupled
         .so: (u1, u2) =>
           recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
     }

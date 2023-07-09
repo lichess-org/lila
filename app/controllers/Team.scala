@@ -330,7 +330,7 @@ final class Team(
     Found(for
       requestOption <- api request requestId
       teamOption    <- requestOption.so(req => env.team.teamRepo.byLeader(req.team, me))
-    yield (teamOption, requestOption).mapN((_, _))): (team, request) =>
+    yield (teamOption, requestOption).tupled): (team, request) =>
       forms.processRequest
         .bindFromRequest()
         .fold(
