@@ -4,6 +4,7 @@
   <string name="tokenGrantsPermission">Ĵetono donas al aliuloj permeson uzi vian konton.</string>
   <string name="carefullySelect">Zorgeme elekti tion, kion ĝi rajtas fari en via nomo.</string>
   <string name="tokenDescription">Ĵetona priskribo</string>
+  <string name="rememberTokenUse">Do vi memoras por kio, ĉi tiu ĵetono estas uzata</string>
   <string name="whatTheTokenCanDo">Kion la ĵetono povas fari en via nomo:</string>
   <string name="doNotShareIt">La ĵetono donos atingon al via konto. Ne disdiru ĝin al iu ajn!</string>
   <string name="copyTokenNow">Nepre nun kopiu vian novan persona atinga ĵetono. Vi ne denove povos vidi ĝin!</string>
@@ -16,5 +17,18 @@
   <string name="studyRead">Legi privatajn studojn kaj elsendojn</string>
   <string name="studyWrite">Krei, ĝisdatigi, forigi studojn kaj elsendojn</string>
   <string name="tournamentWrite">Krei, ĝisdatigi, kaj aliĝi al turnirojn</string>
+  <string name="racerWrite">Krei kaj aliĝi al puzlaj konkursoj</string>
   <string name="puzzleRead">Legi puzlan aktivecon</string>
+  <string name="teamRead">Legi privatan teaman informon</string>
+  <string name="teamWrite">Aliĝi kaj forlasi teamojn</string>
+  <string name="teamLead">Administri teamojn, kiujn vi estras: sendi PM-ojn, forpeli membrojn</string>
+  <string name="followRead">Legi sekvatajn ludantojn</string>
+  <string name="followWrite">Sekvi kaj malsekvi aliajn ludantojn</string>
+  <string name="msgWrite">Sendi privatajn mesaĝojn al aliaj ludantoj</string>
+  <string name="boardPlay">Ludi ludojn per tabula API</string>
+  <string name="botPlay">Ludi ludojn per robota API</string>
+  <string name="engineRead">Vidi kaj uzi viajn eksterajn motorojn</string>
+  <string name="engineWrite">Krei kaj ĝisdatigi eksterajn motorojn</string>
+  <string name="webLogin">Krei aŭtentigitajn retejajn sesiojn (donas plena atingo!)</string>
+  <string name="webMod">Uzi administrantajn ilojn (ene la limoj de via permeso)</string>
 </resources>

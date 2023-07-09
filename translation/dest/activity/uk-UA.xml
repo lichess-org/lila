@@ -18,7 +18,7 @@
     <item quantity="one">Вирішено %s тактичну задачу</item>
     <item quantity="few">Вирішено %s тактичні задачі</item>
     <item quantity="many">Вирішено %s тактичних задач</item>
-    <item quantity="other">Вирішені %s тактичні задачі</item>
+    <item quantity="other">Вирішено %s тактичних задач</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Зіграно %1$s гру в %2$s</item>

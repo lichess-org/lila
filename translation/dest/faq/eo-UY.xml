@@ -22,10 +22,13 @@
   <string name="whenAmIEligibleRatinRefund">Kiam mi aŭtomate reakiras la perditajn poentojn pro trompantoj?</string>
   <string name="preventLeavingGameWithoutResigning">Kio estas fari pri ludantoj forlasantaj ludojn sen rezigni?</string>
   <string name="howCanIBecomeModerator">Kiel mi fariĝis moderatoro?</string>
+  <string name="youCannotApply">Ne eblas peti por fariĝi moderatoro. Se ni vidi iun, kiun ni pensi, estus bone kiel moderatoro, ni kontaktos ilin direkte.</string>
   <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
   <string name="pleaseReadFairPlayPage">Por pli informo, bonvole legu nian %s</string>
   <string name="fairPlayPage">paĝon de honesta ludo</string>
+  <string name="youCanUseOpeningBookNoEngine">Ĉe Lichess, la ĉefa diferenco en reguloj por koresponda ŝako estas, ke malferma libro estas permesita. La uzado de motoroj daŭre estas malpermesita kaj rezultigos esti markita por motora asistado. Kvankam, ICCF permesas motora uzado en korespondo, Lichess ne permesas.</string>
   <string name="gameplay">Ludmaniero</string>
+  <string name="howBulletBlitzEtcDecided">Kial estas Kugla, Blitza, kaj alia tempregado decidis?</string>
   <string name="basedOnGameDuration">Lichess tempokontroloj baziĝas sur laŭtaksa daŭro de ludo = %1$s
 Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj.</string>
   <string name="durationFormula">(horloĝa komenca horo) + 40 × (horloĝa pliigo)</string>
@@ -47,6 +50,7 @@ La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="discoveringEnPassant">Kial povas peonon kaptiĝi alian peonon kiam ĝi estas pasita? (pasante)</string>
   <string name="goodIntroduction">bona enkonduko</string>
   <string name="lichessTraining">trejniĝo en Lichess</string>
+  <string name="watchIMRosenCheckmate">Spektu International Master Eric Rosen ŝakmati %s.</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
   <string name="threefoldRepetitionExplanation">Se pozicio okazas 3 fojoj, ludantoj povas reklamacii kiel egalvenko por %1$s. Lichess efektivigas la oficialajn FIDE regulojn, kiel priskribiĝas en Artikolo 9.2 (d) de la %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triobla ripeto</string>
@@ -57,20 +61,50 @@ La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="threeFoldHasToBeClaimed">Ripetado necesas esti reklamaciita de unu de la ludantoj. Vi povas fari tion premante la butonon ke estas montrita aŭ oferante egalvenkon antaŭ vian finan ripetan movon, ne gravos se la kontraŭbatalanto malakceptas la egalvenkan oferon, ĝi estos akceptita ĉiel. Vi povas ankaŭ %1$s Lichess por aŭtomate reklamacii ripetadojn por vi. Aldone, kvinfoja ripetado ĉiam tuje finiĝos la ludon.</string>
   <string name="configure">agordi</string>
   <string name="accounts">Kontoj</string>
+  <string name="titlesAvailableOnLichess">Kiuj titoloj ekzistas ĉe Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess agnoskas ĉiuj FIDE titolojn gajnis el OTB (fizike kun aliulo) luda, kaj ankaŭ %1$s. Ĉi tie estas listo de FIDE titoloj:</string>
+  <string name="showYourTitle">Se vi havas OTB titolon, vi povas peti por montranta ĝin ĉe via konto per kompleti la %1$s, inkluzive klaran bildon de identiga dokumento/carto kaj memfoton de vi tenante la dokumenton/karton.
+
+Kontroli kiel titolita ludanton ĉe Lichess donas atingo por ludi en la Titolataj Arenaj eventoj.
+
+Fine, tiu estas honora %2$s titolo.</string>
+  <string name="verificationForm">kontrola formularo</string>
+  <string name="canIbecomeLM">Ĉu mi povas atingi la Lichess Master (LM) titolon?</string>
   <string name="noUpperCaseDot">Ne.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Ĉi tiu honora titolo estas neoficiala kaj nur ekzistas ĉe Lichess.
+
+Ni rare aljuĝas ĝin al alte noteblaj ludantoj, kiuj estas bonaj civitanoj de Lichess, laŭ nia bontrovo. Vi ne ricevas la LM titolon, la LM titolo akiras vin. Se vi kvalifikus, vi ricevos mesaĝon de ni pri ĝi kaj la elekteblon akcepti aŭ malakcepti.
+
+Ne petu por la LM titolo.</string>
+  <string name="whatUsernameCanIchoose">Kio povas esti mia uzantnomo?</string>
   <string name="guidelines">gvidlinioj</string>
   <string name="canIChangeMyUsername">Ĉu mi povas ŝanĝi mian uzantnomon?</string>
   <string name="uniqueTrophies">Unikaj trofeoj</string>
+  <string name="aHourlyBulletTournament">hore kugla turniro</string>
   <string name="lichessRatings">Lichess rangoj</string>
+  <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
+  <string name="whatIsProvisionalRating">Kial demandsigno (?) staras apud rango?</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
+  <string name="howDoLeaderoardsWork">Kiel rangoj kaj rangtabuloj funkcias?</string>
   <string name="inOrderToAppearsYouMust">Por alveni al %1$s vi devus:</string>
   <string name="ratingLeaderboards">ĉefo tabulo de rango</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">ludis pli ol 30 rangaj ludoj ĉe donita rango,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ludis rangan ludon ene la lasta semajno por ĉi tiu rango,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">posedas rangan devion sub %1$s, en norma ŝako, kaj malpli ol %2$s en variantoj,</string>
   <string name="beInTopTen">esti en la supraj 10 en ĉi tiu rango.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La dua postulo estas tiel, ke ludantoj kiuj ne plu uzas iliajn kontojn ĉesi plenigi rangtabulojn.</string>
+  <string name="whyAreRatingHigher">Kial estas rangoj pli alta ol aliaj retejoj kaj organizaĵoj kiel FIDE, USCF, kaj la ICC?</string>
   <string name="howToHideRatingWhilePlaying">Kiel kaŝi mian rangon dum la ludoj?</string>
   <string name="enableZenMode">Ŝaltu amikan reĝimon en %1$s, aŭ per premo de %2$s dum ludo.</string>
   <string name="displayPreferences">aperigi preferojn</string>
   <string name="connexionLostCanIGetMyRatingBack">Mi perdis ludon pro malfruo/malkonekto. Ĉu mi povas ricevi la perditajn rangpoentojn?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Bedaŭrinde, ni ne povas realjuĝas rangajn poentojn por ludoj malvenkis per prokrasto aŭ malkonekto, sendepende se la problemo estis ĉe via aŭ nia fino. La lasta tamen, estas tre malofta. Ankaŭ notu, ke kiam Lichess restarigis kaj vi malvenki per tempo pro tio, ni halti la ludo por preventi maljustan malvenkon.</string>
   <string name="howToThreeDots">Kiel...</string>
   <string name="enableDisableNotificationPopUps">Ŝalti aǔ malŝalti komentojn en ŝprucfenestroj?</string>
   <string name="viewSiteInformationPopUp">Vidi komentan ŝprucfenestron de la retejo</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess povas laŭvole sendi ŝprucfenestrajn sciigojn, ekzemple kiam estas via vico aŭ kiam vi ricevante privatan mesaĝon.
+
+Alklaku la ŝlosilan ikonon apud la lichess.org retadreso en la URL breto de via retumilo.
+
+Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
 </resources>

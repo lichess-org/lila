@@ -10,15 +10,15 @@
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
   <string name="strength">Nivel</string>
-  <string name="toggleTheChat">(Des)activar o chat</string>
+  <string name="toggleTheChat">(Des)activar a sala de conversa</string>
   <string name="chat">Chat</string>
-  <string name="resign">Abandoar</string>
+  <string name="resign">Abandonar</string>
   <string name="checkmate">Xaque mate</string>
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
   <string name="black">Negras</string>
-  <string name="asWhite">de brancas</string>
-  <string name="asBlack">de negras</string>
+  <string name="asWhite">con brancas</string>
+  <string name="asBlack">con negras</string>
   <string name="randomColor">Cor aleatoria</string>
   <string name="createAGame">Crear unha partida</string>
   <string name="whiteIsVictorious">As brancas gañan</string>
@@ -40,31 +40,31 @@
     <item quantity="one">O teu opoñente saíu da partida. Poderás reclamar a vitoria en %s segundo.</item>
     <item quantity="other">O teu opoñente saíu da partida. Poderás reclamar a vitoria en %s segundos.</item>
   </plurals>
-  <string name="opponentLeftChoices">Pode que o outro xogador saíse da partida. Podes reclamar a vitoria, declarar táboas ou agardar.</string>
-  <string name="forceResignation">Reclamar vitoria</string>
-  <string name="forceDraw">Táboas forzadas</string>
-  <string name="talkInChat">Por favor, sé correcto no chat!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira persoa que chegue a este URL xogará contra ti</string>
+  <string name="opponentLeftChoices">O teu opoñente saíu da partida. Poderás reclamar a vitoria, declarar as táboas ou agardar.</string>
+  <string name="forceResignation">Reclamar a vitoria</string>
+  <string name="forceDraw">Reclamar as táboas</string>
+  <string name="talkInChat">Por favor, sé correcto na sala de conversa!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira persoa que chegue a esta ligazón xogará contra ti.</string>
   <string name="whiteResigned">As brancas abandonaron</string>
   <string name="blackResigned">As negras abandonaron</string>
   <string name="whiteLeftTheGame">As brancas saíron da partida</string>
   <string name="blackLeftTheGame">As negras saíron da partida</string>
-  <string name="whiteDidntMove">As brancas non poden mover</string>
-  <string name="blackDidntMove">As negras non poden mover</string>
+  <string name="whiteDidntMove">As brancas non moveron</string>
+  <string name="blackDidntMove">As negras non moveron</string>
   <string name="requestAComputerAnalysis">Solicitar unha análise por computador</string>
   <string name="computerAnalysis">Análise por computador</string>
   <string name="computerAnalysisAvailable">Análise de ordenador dispoñible</string>
-  <string name="computerAnalysisDisabled">Análise de ordenador deshabilitada</string>
+  <string name="computerAnalysisDisabled">Análise de ordenador desactivada</string>
   <string name="analysis">Taboleiro de análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidor</string>
   <string name="loadingEngine">Cargando módulo ...</string>
   <string name="calculatingMoves">Calculando movementos...</string>
-  <string name="engineFailed">Erro ao cargar motor no dispositivo local</string>
-  <string name="cloudAnalysis">Análise na nube</string>
+  <string name="engineFailed">Erro ao cargar o motor de análise</string>
+  <string name="cloudAnalysis">Análise no servidor</string>
   <string name="goDeeper">Con máis detalle</string>
   <string name="showThreat">Amosar ameaza</string>
-  <string name="inLocalBrowser">en navegador local</string>
+  <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Avaliación local</string>
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Converter en liña principal</string>
@@ -86,12 +86,12 @@
   <string name="averageRatingX">Puntuación media: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Mellores partidas</string>
-  <string name="masterDbExplanation">Dous millóns de partidas de xogadores con ELO FIDE de %1$s+, dende %2$s a %3$s</string>
+  <string name="masterDbExplanation">Partidas de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s xogadas</item>
+    <item quantity="one">Mate en %s medias xogadas</item>
     <item quantity="other">Mate en %s xogadas</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de movementos intermedios ata a próxima captura ou movemento de peón</string>
+  <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de medias xogadas ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
   <string name="maxDepthReached">Chegouse á máxima profundidade!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
@@ -100,9 +100,9 @@
   <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">Xoga o primeiro movemento do explorador de aperturas/finais</string>
-  <string name="winPreventedBy50MoveRule">Victoria impedida pola regra das 50 xogadas</string>
+  <string name="winPreventedBy50MoveRule">Vitoria impedida pola regra das 50 xogadas</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
-  <string name="winOr50MovesByPriorMistake">Victoria ou 50 movementos a causa dun erro anterior</string>
+  <string name="winOr50MovesByPriorMistake">Vitoria ou 50 movementos a causa dun erro anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota ou 50 movementos a causa dun erro anterior</string>
   <string name="unknownDueToRounding">A vitoria ou derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón, debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy.</string>
   <string name="allSet">Todo listo!</string>
@@ -121,13 +121,13 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
-  <string name="engineManager">Administrador do módulo</string>
+  <string name="engineManager">Administrador do motor de análise</string>
   <string name="blunder">Metida de zoca</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisión</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s erros graves</item>
-    <item quantity="other">%s erro grave</item>
+    <item quantity="one">%s metida de zoca</item>
+    <item quantity="other">%s metidas de zoca</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s erro</item>
@@ -144,35 +144,35 @@
   <string name="offerDraw">Ofrecer táboas</string>
   <string name="draw">Táboas</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s xogadores</item>
+    <item quantity="one">%s xogador</item>
     <item quantity="other">%s xogadores</item>
   </plurals>
   <string name="drawByMutualAgreement">Táboas de mutuo acordo</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movementos sen progreso</string>
   <string name="currentGames">Partidas en curso</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Partidas</item>
-    <item quantity="other">%s Partidas</item>
+    <item quantity="one">%s partida</item>
+    <item quantity="other">%s partidas</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">puntuación %1$s en %2$s partida</item>
+    <item quantity="one">Puntuación %1$s en %2$s partida</item>
     <item quantity="other">Puntuación %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Marcadores</item>
-    <item quantity="other">%s Marcadores</item>
+    <item quantity="one">%s partida favorita</item>
+    <item quantity="other">%s partidas favoritas</item>
   </plurals>
   <string name="viewInFullSize">Ver a tamaño completo</string>
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
-  <string name="rememberMe">Lembrarme</string>
+  <string name="rememberMe">Manterme conectado</string>
   <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
   <string name="signUp">Rexistrarse</string>
   <string name="computersAreNotAllowedToPlay">Non están permitidos os ordenadores ou os xogadores asistidos por eles. Por favor non te axudes de módulos de xadrez, bases de datos ou otros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión</string>
   <string name="games">Partidas</string>
   <string name="forum">Foro</string>
   <string name="xPostedInForumY">%1$s escribiu no fío %2$s</string>
-  <string name="latestForumPosts">Últimas publicacions no foro</string>
+  <string name="latestForumPosts">Últimas publicacións no foro</string>
   <string name="players">Xogadores</string>
   <string name="friends">Amizades</string>
   <string name="discussions">Conversas</string>
@@ -187,11 +187,11 @@
   <string name="daysPerTurn">Días por xogada</string>
   <string name="oneDay">Un día</string>
   <plurals name="nbDays">
-    <item quantity="one">%s días</item>
+    <item quantity="one">%s día</item>
     <item quantity="other">%s días</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horas</item>
+    <item quantity="one">%s hora</item>
     <item quantity="other">%s horas</item>
   </plurals>
   <plurals name="nbMinutes">
@@ -206,7 +206,7 @@
   <string name="changeUsername">Cambiar nome de usuario</string>
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
-  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario \"axeitado para a familia\" (family-friendly). Non poderás cambialo despois e calquera conta con nome de usuario inapropiado será cancelada!</string>
+  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo despois, e calquera conta con nome de usuario inadecuado será cancelada!</string>
   <string name="signupEmailHint">Só se usará para restablecer o contrasinal.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
@@ -217,33 +217,33 @@
   <string name="error.weakPassword">Ese contrasinal é extremadamente común e demasiado doado de adiviñar.</string>
   <string name="error.namePassword">Por favor, non uses o teu usuario como contrasinal.</string>
   <string name="blankedPassword">Empregaches o mesmo contrasinal noutro sitio e a seguridade dese sitio foi comprometida. Para confirmar a seguridade da túa conta de Lichess, necesitamos que indiques un novo contrasinal. Grazas e perdón polas molestias.</string>
-  <string name="youAreLeavingLichess">Estas abandoando Lichess</string>
+  <string name="youAreLeavingLichess">Estas saíndo de Lichess</string>
   <string name="neverTypeYourPassword">Nunca empregues o teu contrasinal de Lichess noutro sitio web!</string>
-  <string name="proceedToX">Redirixindo a %s</string>
-  <string name="passwordSuggestion">Non empregues un contrasinal suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
-  <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
+  <string name="proceedToX">Ir a %s</string>
+  <string name="passwordSuggestion">Non empregues un contrasinal suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
+  <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
   <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
   <string name="emailConfirmNotReceived">Non recibiches correo de confirmación despois de rexistrarte?</string>
-  <string name="whatSignupUsername">Que nome de usuario quere empregar para rexistrarte?</string>
-  <string name="usernameNotFound">Non puidemos atopar nengún usuario/a con este nome: %s.</string>
+  <string name="whatSignupUsername">Que nome de usuario empregaches para rexistrarte?</string>
+  <string name="usernameNotFound">Non puidemos atopar ningún usuario/a con este nome: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Podes empregar este nome de usuario para crear unha nova conta</string>
   <string name="emailSent">Enviámosche un correo a %s.</string>
   <string name="emailCanTakeSomeTime">Pode tardar un tempo en chegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Agarda 5 minutos e refresca a túa caixa de correo.</string>
-  <string name="checkSpamFolder">Comproba tamén o teu buzón de spam, puido rematar aí. Se así foi, quítalle a marca de correo non desexado.</string>
+  <string name="checkSpamFolder">Comproba tamén a túa caixa de correos non solicitados, puido rematar aí. Se así foi, quítalle a marca de correo non desexado.</string>
   <string name="emailForSignupHelp">Se todo falla, entón envíanos un correo:</string>
   <string name="copyTextToEmail">Copia e pega o seguinte texto e envíao a %s</string>
   <string name="waitForSignupHelp">Volveremos dentro de pouco para axudarche a completar o teu rexistro.</string>
   <string name="accountConfirmed">O usuario %s foi confirmado correctamente.</string>
-  <string name="accountCanLogin">Agora podes loguearte como %s.</string>
+  <string name="accountCanLogin">Podes iniciar sesión agora mesmo coma %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Non necesitas un correo de confirmación.</string>
   <string name="accountClosed">A conta %s está pechada.</string>
   <string name="accountRegisteredWithoutEmail">A conta %s foi rexistrada sen correo electrónico.</string>
-  <string name="rank">Clasificación</string>
-  <string name="rankX">Clasificación: %s</string>
+  <string name="rank">Posición</string>
+  <string name="rankX">Posición: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">A clasificación actualízase cada minuto</item>
-    <item quantity="other">A clasificación actualízase cada %s minutos</item>
+    <item quantity="one">A posición actualízase cada minuto</item>
+    <item quantity="other">A posición actualízase cada %s minutos</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
@@ -251,7 +251,7 @@
   </plurals>
   <string name="gamesPlayed">Partidas xogadas</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partidas contigo</item>
+    <item quantity="one">%s partida contigo</item>
     <item quantity="other">%s partidas contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
@@ -260,10 +260,10 @@
   <string name="drawOfferSent">Oferta de táboas enviada</string>
   <string name="drawOfferAccepted">Oferta de táboas aceptada</string>
   <string name="drawOfferCanceled">Oferta de táboas cancelada</string>
-  <string name="whiteOffersDraw">O branco ofrece táboas</string>
-  <string name="blackOffersDraw">O negro ofrece táboas</string>
-  <string name="whiteDeclinesDraw">O branco rexeita as táboas</string>
-  <string name="blackDeclinesDraw">O negro rexeita as táboas</string>
+  <string name="whiteOffersDraw">As brancas ofrecen táboas</string>
+  <string name="blackOffersDraw">As negras ofrecen táboas</string>
+  <string name="whiteDeclinesDraw">As brancas rexeitan as táboas</string>
+  <string name="blackDeclinesDraw">As negras rexeitan as táboas</string>
   <string name="yourOpponentOffersADraw">O teu rival ofrece táboas</string>
   <string name="accept">Aceptar</string>
   <string name="decline">Rexeitar</string>
@@ -277,7 +277,7 @@
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
   <string name="casual">Amigable</string>
-  <string name="rated">Puntuado</string>
+  <string name="rated">Puntuada</string>
   <string name="casualTournament">Amigable</string>
   <string name="ratedTournament">Puntuado</string>
   <string name="thisGameIsRated">Esta partida é puntuada</string>
@@ -290,9 +290,9 @@
   <string name="viewRematch">Ver desquite</string>
   <string name="confirmMove">Confirma o movemento</string>
   <string name="play">Xogar</string>
-  <string name="inbox">Bandexa de entrada</string>
-  <string name="chatRoom">Sala de chat</string>
-  <string name="loginToChat">Inicia sesión para chatear</string>
+  <string name="inbox">Caixa do correo</string>
+  <string name="chatRoom">Sala de conversa</string>
+  <string name="loginToChat">Inicia sesión para conversar</string>
   <string name="youHaveBeenTimedOut">Foches silenciado temporalmente.</string>
   <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escribir mensaxe</string>
@@ -301,15 +301,15 @@
   <string name="incrementInSeconds">Incremento en segundos</string>
   <string name="freeOnlineChess">Xadrez libre en liña</string>
   <plurals name="nbRated">
-    <item quantity="one">%s puntuadas</item>
+    <item quantity="one">%s puntuada</item>
     <item quantity="other">%s puntuadas</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s vitorias</item>
+    <item quantity="one">%s vitoria</item>
     <item quantity="other">%s vitorias</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s derrotas</item>
+    <item quantity="one">%s derrota</item>
     <item quantity="other">%s derrotas</item>
   </plurals>
   <plurals name="nbDraws">
@@ -323,7 +323,7 @@
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rango de puntuación</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dar %s segundos</item>
+    <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="thisAccountViolatedTos">Esta conta violou os Termos de Servizo de Lichess</string>
