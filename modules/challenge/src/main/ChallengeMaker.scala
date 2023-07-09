@@ -2,11 +2,12 @@ package lila.challenge
 
 import Challenge.TimeControl
 import lila.game.{ Game, GameRepo, Pov, Rematches }
-import lila.user.User
+import lila.user.{ User, GameUser, UserApi, UserPerfsRepo }
 import lila.game.Player
 
 final class ChallengeMaker(
-    userApi: lila.user.UserApi,
+    userApi: UserApi,
+    perfsRepo: UserPerfsRepo,
     gameRepo: GameRepo,
     rematches: Rematches
 )(using Executor):
@@ -21,7 +22,7 @@ final class ChallengeMaker(
       toChallenge(Pov(data.game, data.challenger), data.orig, data.dest, nextId) dmap some
     }
 
-  private case class Data(game: Game, challenger: Player, orig: Option[User.WithPerfs], dest: User.WithPerfs)
+  private case class Data(game: Game, challenger: Player, orig: GameUser, dest: User.WithPerf)
 
   private def collectDataFor(gameId: GameId, dest: User): Future[Option[Data]] =
     gameRepo.game(gameId) flatMapz { game =>
@@ -29,22 +30,22 @@ final class ChallengeMaker(
         .opponentByUserId(dest.id)
         .so: challenger =>
           for
-            orig <- challenger.userId.so(userApi.withPerfs)
-            dest <- userApi.withPerfs(dest)
+            orig <- challenger.userId.so(userApi.withPerf(_, game.perfType))
+            dest <- perfsRepo.withPerf(dest, game.perfType)
           yield Data(game, challenger, orig, dest).some
     }
 
   private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
     Pov(game, challenger.id).so: pov =>
-      pov.opponent.userId so userApi.withPerfs flatMapz { dest =>
+      pov.opponent.userId.so(userApi.withPerf(_, game.perfType)).flatMapz { dest =>
         for
-          challenger <- userApi.withPerfs(challenger)
+          challenger <- perfsRepo.withPerf(challenger, game.perfType)
           rematch    <- makeRematch(pov, challenger.some, dest)
         yield rematch.some
       }
 
   // pov of the challenger
-  private def makeRematch(pov: Pov, challenger: Option[User.WithPerfs], dest: User.WithPerfs): Fu[Challenge] =
+  private def makeRematch(pov: Pov, challenger: GameUser, dest: User.WithPerf): Fu[Challenge] =
     for
       nextGameId <- rematches.offer(pov.ref)
       challenge  <- toChallenge(pov, challenger, dest, nextGameId)
@@ -52,8 +53,8 @@ final class ChallengeMaker(
 
   private def toChallenge(
       pov: Pov,
-      challenger: Option[User.WithPerfs],
-      dest: User.WithPerfs,
+      challenger: GameUser,
+      dest: User.WithPerf,
       nextId: GameId
   ): Fu[Challenge] =
     gameRepo initialFen pov.game map { initialFen =>
@@ -70,7 +71,7 @@ final class ChallengeMaker(
         // for anon, we don't know the secret, but this challenge is only serialized to json and sent to a listening bot anyway,
         // which doesn't use the secret, so we just use an empty string
         challenger = challenger
-          .fold(Challenge.Challenger.Anonymous(""))(Challenge.toRegistered(pov.game.variant, timeControl)),
+          .fold(Challenge.Challenger.Anonymous(""))(Challenge.toRegistered),
         destUser = dest.some,
         rematchOf = pov.gameId.some,
         id = nextId.some

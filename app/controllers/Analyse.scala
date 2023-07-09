@@ -41,7 +41,7 @@ final class Analyse(
       for
         initialFen <- env.game.gameRepo initialFen pov.gameId
         users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfType)
-        _ = gameC.preloadUsers(users.all)
+        _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
           (env.analyse.analyser get pov.game) zip
             (!pov.game.metadata.analysed so env.fishnet.api.userAnalysisExists(pov.gameId)) zip

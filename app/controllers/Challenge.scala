@@ -8,7 +8,7 @@ import views.html
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.{ Id as ChallengeId }
-import lila.common.{ Bearer, IpAddress, Template }
+import lila.common.{ Bearer, IpAddress, Template, Preload }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ OAuthScope, EndpointScopes }
 import lila.setup.ApiConfig
@@ -92,7 +92,7 @@ final class Challenge(
           case Validated.Valid(Some(pov)) =>
             negotiateApi(
               html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
-              api = _ => env.api.roundApi.player(pov, none) map { Ok(_) }
+              api = _ => env.api.roundApi.player(pov, Preload.none, none) map { Ok(_) }
             ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
           case invalid =>
             negotiate(
@@ -317,7 +317,7 @@ final class Challenge(
     import lila.challenge.Challenge.*
     val timeControl = TimeControl.make(config.clock, config.days)
     env.user.perfsRepo
-      .withPerfs(orig -> dest, _.sec)
+      .withPerf(orig -> dest, config.perfType, _.sec)
       .map: (orig, dest) =>
         lila.challenge.Challenge.make(
           variant = config.variant,
@@ -325,7 +325,7 @@ final class Challenge(
           timeControl = timeControl,
           mode = config.mode,
           color = config.color.name,
-          challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
+          challenger = ChallengeModel.toRegistered(orig),
           destUser = dest.some,
           rematchOf = none,
           rules = config.rules

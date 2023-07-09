@@ -4,11 +4,11 @@ import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Mode, Situation }
+import chess.{ Mode, Situation, ByColor }
 import scala.util.chaining.*
 
 import lila.game.{ Game, Player, Pov, Source }
-import lila.user.User
+import lila.user.GameUser
 
 final private class ChallengeJoiner(
     gameRepo: lila.game.GameRepo,
@@ -16,11 +16,11 @@ final private class ChallengeJoiner(
     onStart: lila.round.OnStart
 )(using Executor):
 
-  def apply(c: Challenge, destUser: Option[User.WithPerfs]): Fu[Validated[String, Pov]] =
+  def apply(c: Challenge, destUser: GameUser): Fu[Validated[String, Pov]] =
     gameRepo exists c.id.into(GameId) flatMap {
       if _ then fuccess(Invalid("The challenge has already been accepted"))
       else
-        c.challengerUserId.so(userApi.withPerfs) flatMap { origUser =>
+        c.challengerUserId.so(userApi.withPerf(_, c.perfType)) flatMap { origUser =>
           val game = ChallengeJoiner.createGame(c, origUser, destUser)
           (gameRepo insertDenormalized game) >>- onStart(game.id) inject
             Valid(Pov(game, !c.finalColor))
@@ -31,15 +31,15 @@ private object ChallengeJoiner:
 
   def createGame(
       c: Challenge,
-      origUser: Option[User.WithPerfs],
-      destUser: Option[User.WithPerfs]
+      origUser: GameUser,
+      destUser: GameUser
   ): Game =
     val (chessGame, state) = gameSetup(c.variant, c.timeControl, c.initialFen)
     Game
       .make(
         chess = chessGame,
-        whitePlayer = Player.make(chess.White, c.finalColor.fold(origUser, destUser).map(_ only c.perfType)),
-        blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, origUser).map(_ only c.perfType)),
+        players = ByColor: color =>
+          Player.make(color, if c.finalColor == color then origUser else destUser),
         mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
         source = Source.Friend,
         daysPerTurn = c.daysPerTurn,

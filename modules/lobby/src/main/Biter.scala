@@ -25,34 +25,35 @@ final private class Biter(
 
   private def join(hook: Hook, sri: Sri, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] =
     for
-      users        <- userApi.gamePlayers(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
-      creatorColor <- assignCreatorColor(users.white, users.black, hook.realColor)
+      users <- userApi.gamePlayers(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
+      (joiner, owner) = users.toPair
+      ownerColor <- assignCreatorColor(owner, joiner, hook.realColor)
       game <- makeGame(
         hook,
-        users.creatorColor.fold(users.flip, users)
+        ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner))
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
     yield
       lila.mon.lobby.hook.join.increment()
       rememberIfFixedColor(hook.realColor, game)
-      JoinHook(sri, hook, game, creatorColor)
+      JoinHook(sri, hook, game, ownerColor)
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] =
     for
-      (joiner, owner) <- userApi.gamePlayers.loggedIn(
-        lobbyUser.id -> seek.user.id,
+      users <- userApi.gamePlayers.loggedIn(
+        ByColor(lobbyUser.id, seek.user.id),
         seek.perfType
       ) orFail s"No such seek users: $seek"
-      creatorColor <- assignCreatorColor(owner.some, joiner.some, seek.realColor)
+      (joiner, owner) = users.toPair
+      ownerColor <- assignCreatorColor(owner.some, joiner.some, seek.realColor)
       game <- makeGame(
         seek,
-        whiteUser = creatorColor.fold(owner.some, joiner.some),
-        blackUser = creatorColor.fold(joiner.some, owner.some)
+        ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner)).map(some)
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
     yield
       rememberIfFixedColor(seek.realColor, game)
-      JoinSeek(joiner.id, seek, game, creatorColor)
+      JoinSeek(joiner.id, seek, game, ownerColor)
 
   private def rememberIfFixedColor(color: Color, game: Game) =
     if color != Color.Random

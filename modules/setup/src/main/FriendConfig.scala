@@ -26,8 +26,6 @@ case class FriendConfig(
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 
-  def perfType: PerfType = PerfType(variant, chess.Speed(makeClock))
-
 object FriendConfig extends BaseHumanConfig:
 
   def from(

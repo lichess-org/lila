@@ -22,21 +22,21 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
   ): Fu[Map[UserId, UserPerfs]] =
     coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPref)(_.id)
 
-  def idsMap[U: UserIdOf](u: Seq[U], pt: PerfType): Fu[Map[UserId, Perf]] =
+  def idsMap[U: UserIdOf](u: Seq[U], pt: PerfType, readPref: ReadPref): Fu[Map[UserId, Perf]] =
     given BSONDocumentReader[(UserId, Perf)] = UserPerfs.idPerfReader(pt)
     coll
       .find($inIds(u.map(_.id)), $doc(pt.key.value -> true).some)
-      .cursor[(UserId, Perf)](ReadPref.sec)
+      .cursor[(UserId, Perf)](readPref)
       .listAll()
       .map(_.toMap)
 
   def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs] =
     coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
 
-  def perfsOf[U: UserIdOf](us: PairOf[U], readPref: ReadPref): Fu[PairOf[UserPerfs]] = us match
-    case (x, y) =>
-      idsMap(List(x, y), readPref).dmap: ps =>
-        ps.getOrElse(x.id, UserPerfs.default(x.id)) -> ps.getOrElse(y.id, UserPerfs.default(y.id))
+  def perfsOf[U: UserIdOf](us: PairOf[U], readPref: ReadPref): Fu[PairOf[UserPerfs]] =
+    val (x, y) = us
+    idsMap(List(x, y), readPref).dmap: ps =>
+      ps.getOrElse(x.id, UserPerfs.default(x.id)) -> ps.getOrElse(y.id, UserPerfs.default(y.id))
 
   def withPerfs(u: User): Fu[User.WithPerfs] =
     perfsOf(u).dmap(User.WithPerfs(u, _))
@@ -136,6 +136,15 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
   def withPerf(user: User, perfType: PerfType): Fu[User.WithPerf] =
     perfOf(user.id, perfType).dmap(user.withPerf)
+
+  def withPerf(us: PairOf[User], perfType: PerfType, readPref: ReadPref): Fu[PairOf[User.WithPerf]] =
+    perfOf(us, perfType, readPref).dmap: (x, y) =>
+      User.WithPerf(us._1, y) -> User.WithPerf(us._2, x)
+
+  def perfOf[U: UserIdOf](us: PairOf[U], perfType: PerfType, readPref: ReadPref): Fu[PairOf[Perf]] =
+    val (x, y) = us
+    idsMap(List(x, y), perfType, readPref).dmap: ps =>
+      ps.getOrElse(x.id, Perf.default) -> ps.getOrElse(y.id, Perf.default)
 
   def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean] =
     if puzzle.glicko.rating < 2500

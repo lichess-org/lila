@@ -25,17 +25,24 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     def apply(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
       cache.get(userIds.toPair -> perfType)
 
-    def loggedIn(ids: ByColor[UserId], perfType: PerfType): Fu[GameUsers] =
-      apply(ids.map(some), perfType)
+    def noCache(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
+      fetch(userIds.toPair, perfType)
+
+    def loggedIn(ids: ByColor[UserId], perfType: PerfType): Fu[Option[ByColor[User.WithPerf]]] =
+      apply(ids.map(some), perfType).map:
+        case ByColor(Some(x), Some(y)) => ByColor(x, y).some
+        case _                         => none
 
     private val cache = cacheApi[PlayersKey, GameUsers](4096, "user.perf.pair"):
-      _.expireAfterWrite(3 seconds).buildAsyncFuture:
-        case ((x, y), perfType) =>
-          listWithPerf(List(x, y).flatten, perfType).map: users =>
-            ByColor(
-              x.flatMap(id => users.find(_.id == id)),
-              y.flatMap(id => users.find(_.id == id))
-            )
+      _.expireAfterWrite(3 seconds).buildAsyncFuture(fetch)
+
+    private def fetch(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
+      val (x, y) = userIds
+      listWithPerf(List(x, y).flatten, perfType).map: users =>
+        ByColor(
+          x.flatMap(id => users.find(_.id == id)),
+          y.flatMap(id => users.find(_.id == id))
+        )
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
 
@@ -52,8 +59,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           perfs = perfsRepo.aggregate.readFirst(doc, user)
         yield User.WithPerfs(user, perfs)
 
-  def enabledWithPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
-    withPerfs(id).dmap(_.filter(_.enabled.yes))
+  def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[User.WithPerf]] =
+    withPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
 
   def listWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
     us.nonEmpty.so:

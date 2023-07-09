@@ -117,7 +117,7 @@ final class ChallengeApi(
       requestedColor: Option[chess.Color] = None
   )(using me: Option[Me]): Fu[Validated[String, Option[Pov]]] =
     acceptQueue:
-      def withPerfs = me.map(_.value).soFu(perfsRepo.withPerfs)
+      def withPerf = me.map(_.value).soFu(perfsRepo.withPerf(_, c.perfType))
       if c.canceled
       then fuccess(Invalid("The challenge has been canceled."))
       else if c.declined
@@ -135,13 +135,13 @@ final class ChallengeApi(
         val color = openFixedColor orElse requestedColor
         if c.challengerIsOpen
         then
-          withPerfs.flatMap: me =>
+          withPerf.flatMap: me =>
             repo.setChallenger(c.setChallenger(me, sid), color) inject Valid(none)
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then fuccess(Invalid("This color has already been chosen"))
         else
           for
-            me   <- withPerfs
+            me   <- withPerf
             join <- joiner(c, me)
             result <- join match
               case Valid(pov) =>
@@ -160,7 +160,7 @@ final class ChallengeApi(
     }
 
   def setDestUser(c: Challenge, u: User): Funit = for
-    user <- perfsRepo.withPerfs(u)
+    user <- perfsRepo.withPerf(u, c.perfType)
     challenge = c setDestUser user
     _ <- repo.update(challenge)
   yield

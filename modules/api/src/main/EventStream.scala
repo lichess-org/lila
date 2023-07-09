@@ -89,7 +89,7 @@ final class EventStream(
 
       case StartGame(game) => queue.offer(gameJson(game, "gameStart")).unit
 
-      case FinishGame(game, _, _) => queue.offer(gameJson(game, "gameFinish")).unit
+      case FinishGame(game, _) => queue.offer(gameJson(game, "gameFinish")).unit
 
       case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
         val json = challengeJson("challenge")(c) ++ challengeCompat(c)

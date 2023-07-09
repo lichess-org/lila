@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Black, Situation, White, FullMoveNumber }
+import chess.{ Black, Situation, White, FullMoveNumber, ByColor }
 import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
@@ -76,8 +76,7 @@ final class UserAnalysis(
             situation = from.situation,
             ply = from.ply
           ),
-          whitePlayer = lila.game.Player.make(White, none),
-          blackPlayer = lila.game.Player.make(Black, none),
+          players = ByColor(lila.game.Player.make(_, none)),
           mode = chess.Mode.Casual,
           source = lila.game.Source.Api,
           pgnImport = None
@@ -112,32 +111,32 @@ final class UserAnalysis(
 
   private def mobileAnalysis(pov: Pov)(using
       ctx: Context
-  ): Fu[Result] =
-    env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
-      val owner = isMyPov(pov)
-      gameC.preloadUsers(pov.game) zip
-        (env.analyse.analyser get pov.game) zip
-        env.game.crosstableApi(pov.game) flatMap { case ((_, analysis), crosstable) =>
-          import lila.game.JsonView.given
-          env.api.roundApi.review(
-            pov,
-            tv = none,
-            analysis,
-            initialFen = initialFen,
-            withFlags = WithFlags(
-              division = true,
-              opening = true,
-              clocks = true,
-              movetimes = true,
-              rating = ctx.pref.showRatings,
-              lichobileCompat = HTTPRequest.isLichobile(ctx.req)
-            ),
-            owner = owner
-          ) map { data =>
-            Ok(data.add("crosstable", crosstable))
-          }
-        }
-    }
+  ): Fu[Result] = for
+    initialFen <- env.game.gameRepo initialFen pov.gameId
+    users      <- env.user.api.gamePlayers.noCache(pov.game.userIdPair, pov.game.perfType)
+    owner = isMyPov(pov)
+    _     = gameC.preloadUsers(users)
+    analysis   <- env.analyse.analyser.get(pov.game)
+    crosstable <- env.game.crosstableApi(pov.game)
+    data <- env.api.roundApi.review(
+      pov,
+      users,
+      tv = none,
+      analysis,
+      initialFen = initialFen,
+      withFlags = WithFlags(
+        division = true,
+        opening = true,
+        clocks = true,
+        movetimes = true,
+        rating = ctx.pref.showRatings,
+        lichobileCompat = HTTPRequest.isLichobile(ctx.req)
+      ),
+      owner = owner
+    )
+  yield
+    import lila.game.JsonView.given
+    Ok(data.add("crosstable", crosstable))
 
   private def forecastReload = JsonOk(Json.obj("reload" -> true))
 
