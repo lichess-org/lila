@@ -1,11 +1,11 @@
 package lila.lobby
 
-import chess.{ Game as ChessGame, Situation }
+import chess.{ Game as ChessGame, Situation, ByColor }
 
 import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ Game, Player }
 import lila.socket.Socket.Sri
-import lila.user.User
+import lila.user.{ User, GameUsers }
 
 final private class Biter(
     userRepo: lila.user.UserRepo,
@@ -25,38 +25,35 @@ final private class Biter(
 
   private def join(hook: Hook, sri: Sri, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] =
     for
-      (joinerOption, ownerOption) <- userApi.gamePlayers(
-        lobbyUserOption.map(_.id) -> hook.userId,
-        hook.perfType
-      )
-      creatorColor <- assignCreatorColor(ownerOption, joinerOption, hook.realColor)
+      users <- userApi.gamePlayers(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
+      (joiner, owner) = users.toPair
+      ownerColor <- assignCreatorColor(owner, joiner, hook.realColor)
       game <- makeGame(
         hook,
-        whiteUser = creatorColor.fold(ownerOption, joinerOption),
-        blackUser = creatorColor.fold(joinerOption, ownerOption)
+        ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner))
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
     yield
       lila.mon.lobby.hook.join.increment()
       rememberIfFixedColor(hook.realColor, game)
-      JoinHook(sri, hook, game, creatorColor)
+      JoinHook(sri, hook, game, ownerColor)
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] =
     for
-      (joiner, owner) <- userApi.gamePlayers.loggedIn(
-        lobbyUser.id -> seek.user.id,
+      users <- userApi.gamePlayers.loggedIn(
+        ByColor(lobbyUser.id, seek.user.id),
         seek.perfType
       ) orFail s"No such seek users: $seek"
-      creatorColor <- assignCreatorColor(owner.some, joiner.some, seek.realColor)
+      (joiner, owner) = users.toPair
+      ownerColor <- assignCreatorColor(owner.some, joiner.some, seek.realColor)
       game <- makeGame(
         seek,
-        whiteUser = creatorColor.fold(owner.some, joiner.some),
-        blackUser = creatorColor.fold(joiner.some, owner.some)
+        ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner)).map(some)
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
     yield
       rememberIfFixedColor(seek.realColor, game)
-      JoinSeek(joiner.id, seek, game, creatorColor)
+      JoinSeek(joiner.id, seek, game, ownerColor)
 
   private def rememberIfFixedColor(color: Color, game: Game) =
     if color != Color.Random
@@ -73,37 +70,32 @@ final private class Biter(
       case Color.White => fuccess(chess.White)
       case Color.Black => fuccess(chess.Black)
 
-  private def makeGame(hook: Hook, whiteUser: Option[User.WithPerf], blackUser: Option[User.WithPerf]) =
-    val clock = hook.clock.toClock
-    Game
-      .make(
-        chess = ChessGame(
-          situation = Situation(hook.realVariant),
-          clock = clock.some
-        ),
-        whitePlayer = Player.make(chess.White, whiteUser),
-        blackPlayer = Player.make(chess.Black, blackUser),
-        mode = hook.realMode,
-        source = lila.game.Source.Lobby,
-        pgnImport = None
-      )
-      .start
+  private def makeGame(hook: Hook, users: GameUsers) = Game
+    .make(
+      chess = ChessGame(
+        situation = Situation(hook.realVariant),
+        clock = hook.clock.toClock.some
+      ),
+      players = users.mapWithColor(Player.make),
+      mode = hook.realMode,
+      source = lila.game.Source.Lobby,
+      pgnImport = None
+    )
+    .start
 
-  private def makeGame(seek: Seek, whiteUser: Option[User.WithPerf], blackUser: Option[User.WithPerf]) =
-    Game
-      .make(
-        chess = ChessGame(
-          situation = Situation(seek.realVariant),
-          clock = none
-        ),
-        whitePlayer = Player.make(chess.White, whiteUser),
-        blackPlayer = Player.make(chess.Black, blackUser),
-        mode = seek.realMode,
-        source = lila.game.Source.Lobby,
-        daysPerTurn = seek.daysPerTurn,
-        pgnImport = None
-      )
-      .start
+  private def makeGame(seek: Seek, users: GameUsers) = Game
+    .make(
+      chess = ChessGame(
+        situation = Situation(seek.realVariant),
+        clock = none
+      ),
+      players = users.mapWithColor(Player.make),
+      mode = seek.realMode,
+      source = lila.game.Source.Lobby,
+      daysPerTurn = seek.daysPerTurn,
+      pgnImport = None
+    )
+    .start
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
     hook.isAuth == user.isDefined && user.fold(true): u =>

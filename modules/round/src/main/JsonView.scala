@@ -2,7 +2,7 @@ package lila.round
 
 import actorApi.SocketStatus
 import chess.format.Fen
-import chess.{ Clock, Color }
+import chess.{ Speed, ByColor, Clock, Color }
 import play.api.libs.json.*
 import scala.math
 
@@ -11,12 +11,10 @@ import lila.common.Json.given
 import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
-import lila.user.{ User, UserApi }
-import chess.Speed
+import lila.user.{ User, GameUser, GameUsers }
 import lila.rating.{ PerfType, Perf }
 
 final class JsonView(
-    userApi: UserApi,
     lightUserGet: LightUser.Getter,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
@@ -35,16 +33,17 @@ final class JsonView(
   private def commonPlayerJson(
       g: Game,
       p: GamePlayer,
-      user: Option[LightUser.Ghost | User.WithPerf],
+      user: GameUser,
       withFlags: WithFlags
   ): JsObject =
     Json
       .obj("color" -> p.color.name)
-      .add("user" -> user.map:
-        case u: User.WithPerf =>
-          val p = withFlags.rating.option(Perf.Typed(u.perf, g.perfType))
-          userJsonView.roundPlayer(u.user, p)
-        case _ => userJsonView.ghost
+      .add("user" -> user.match
+        case Some(User.WithPerf(user, perf)) =>
+          val p = withFlags.rating.option(Perf.Typed(perf, g.perfType))
+          userJsonView.roundPlayer(user, p).some
+        case _ if p.hasUser => userJsonView.ghost.some
+        case _              => none
       )
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
@@ -59,20 +58,19 @@ final class JsonView(
   def playerJson(
       pov: Pov,
       pref: Option[Pref],
-      playerUser: Option[LightUser.Ghost | User.WithPerf],
+      users: GameUsers,
       initialFen: Option[Fen.Epd],
       flags: WithFlags
   ): Fu[JsObject] =
     getSocketStatus(pov.game) zip
-      pov.opponent.userId.so(userApi.byIdOrGhostWithPerf(_, pov.game.perfType)) zip
       takebacker.isAllowedIn(pov.game) zip
-      moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
+      moretimer.isAllowedIn(pov.game) map { case ((socket, takebackable), moretimeable) =>
         import pov.*
         Json
           .obj(
             "game" -> gameJsonView.baseWithChessDenorm(game, initialFen),
             "player" -> {
-              commonPlayerJson(game, player, playerUser, flags) ++ Json
+              commonPlayerJson(game, player, users(pov.color), flags) ++ Json
                 .obj(
                   "id"      -> playerId,
                   "version" -> socket.version
@@ -81,7 +79,7 @@ final class JsonView(
                 .add("lastDrawOfferAtPly" -> game.metadata.drawOffers.lastBy(player.color))
             },
             "opponent" -> {
-              commonPlayerJson(game, opponent, opponentUser, flags) ++ Json
+              commonPlayerJson(game, opponent, users(pov.opponent.color), flags) ++ Json
                 .obj("color" -> opponent.color.name)
                 .add("ai" -> opponent.aiLevel)
                 .add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
@@ -149,7 +147,7 @@ final class JsonView(
   private def commonWatcherJson(
       g: Game,
       p: GamePlayer,
-      user: Option[User.WithPerf],
+      user: GameUser,
       withFlags: WithFlags
   ): JsObject =
     Json
@@ -157,8 +155,12 @@ final class JsonView(
         "color" -> p.color.name,
         "name"  -> p.name
       )
-      .add("user" -> user.map: u =>
-        userJsonView.roundPlayer(u.user, withFlags.rating.option(Perf.Typed(u.perf, g.perfType))))
+      .add("user" -> user.match
+        case Some(User.WithPerf(user, perf)) =>
+          userJsonView.roundPlayer(user, withFlags.rating.option(Perf.Typed(perf, g.perfType))).some
+        case _ if p.hasUser => userJsonView.ghost.some
+        case _              => none
+      )
       .add("ai" -> p.aiLevel)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
@@ -169,67 +171,65 @@ final class JsonView(
 
   def watcherJson(
       pov: Pov,
+      users: GameUsers,
       pref: Option[Pref],
       me: Option[UserId],
       tv: Option[OnTv],
       initialFen: Option[Fen.Epd] = None,
       flags: WithFlags
   ) =
-    getSocketStatus(pov.game) zip
-      userApi.gamePlayers(pov.player.userId -> pov.opponent.userId, pov.game.perfType) map {
-        case (socket, (playerUser, opponentUser)) =>
-          import pov.*
-          Json
-            .obj(
-              "game" -> gameJsonView
-                .baseWithChessDenorm(game, initialFen)
-                .add("moveCentis" -> (flags.movetimes so game.moveTimes.map(_.map(_.centis))))
-                .add("division" -> flags.division.option(divider(game, initialFen)))
-                .add("opening" -> game.opening)
-                .add("importedBy" -> game.pgnImport.flatMap(_.user)),
-              "clock"          -> game.clock.map(clockJson),
-              "correspondence" -> game.correspondenceClock,
-              "player" -> {
-                commonWatcherJson(game, player, playerUser, flags) ++ Json
-                  .obj(
-                    "version"   -> socket.version,
-                    "spectator" -> true
-                  )
-                  .add("id" -> flags.lichobileCompat.so(me.flatMap(game.player).map(_.id)))
-              }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
-              "opponent" -> commonWatcherJson(game, opponent, opponentUser, flags).add(
-                "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
-              ),
-              "orientation" -> pov.color.name,
-              "url" -> flags.lichobileCompat.option:
-                Json.obj(
-                  "socket" -> s"/watch/$gameId/${color.name}/v${ApiVersion.lichobile}",
-                  "round"  -> s"/$gameId/${color.name}"
-                )
-              ,
-              "pref" -> pref.map: pref =>
-                Json
-                  .obj(
-                    "animationDuration" -> animationMillis(pov, pref),
-                    "coords"            -> pref.coords,
-                    "resizeHandle"      -> pref.resizeHandle,
-                    "replay"            -> pref.replay,
-                    "clockTenths"       -> pref.clockTenths
-                  )
-                  .add("is3d" -> pref.is3d)
-                  .add("clockBar" -> pref.clockBar)
-                  .add("highlight" -> pref.highlight)
-                  .add("destination" -> (pref.destination && !pref.isBlindfold))
-                  .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
-                  .add("showCaptured" -> pref.captured)
+    getSocketStatus(pov.game).map: socket =>
+      import pov.*
+      Json
+        .obj(
+          "game" -> gameJsonView
+            .baseWithChessDenorm(game, initialFen)
+            .add("moveCentis" -> (flags.movetimes so game.moveTimes.map(_.map(_.centis))))
+            .add("division" -> flags.division.option(divider(game, initialFen)))
+            .add("opening" -> game.opening)
+            .add("importedBy" -> game.pgnImport.flatMap(_.user)),
+          "clock"          -> game.clock.map(clockJson),
+          "correspondence" -> game.correspondenceClock,
+          "player" -> {
+            commonWatcherJson(game, player, users(pov.color), flags) ++ Json
+              .obj(
+                "version"   -> socket.version,
+                "spectator" -> true
+              )
+              .add("id" -> flags.lichobileCompat.so(me.flatMap(game.player).map(_.id)))
+          }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
+          "opponent" -> commonWatcherJson(game, opponent, users(pov.opponent.color), flags).add(
+            "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
+          ),
+          "orientation" -> pov.color.name,
+          "url" -> flags.lichobileCompat.option:
+            Json.obj(
+              "socket" -> s"/watch/$gameId/${color.name}/v${ApiVersion.lichobile}",
+              "round"  -> s"/$gameId/${color.name}"
             )
-            .add("tv" -> tv.collect { case OnTv.Lichess(channel, flip) =>
-              Json.obj("channel" -> channel, "flip" -> flip)
-            })
-            .add("userTv" -> tv.collect { case OnTv.User(userId) =>
-              Json.obj("id" -> userId)
-            })
-      }
+          ,
+          "pref" -> pref.map: pref =>
+            Json
+              .obj(
+                "animationDuration" -> animationMillis(pov, pref),
+                "coords"            -> pref.coords,
+                "resizeHandle"      -> pref.resizeHandle,
+                "replay"            -> pref.replay,
+                "clockTenths"       -> pref.clockTenths
+              )
+              .add("is3d" -> pref.is3d)
+              .add("clockBar" -> pref.clockBar)
+              .add("highlight" -> pref.highlight)
+              .add("destination" -> (pref.destination && !pref.isBlindfold))
+              .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
+              .add("showCaptured" -> pref.captured)
+        )
+        .add("tv" -> tv.collect { case OnTv.Lichess(channel, flip) =>
+          Json.obj("channel" -> channel, "flip" -> flip)
+        })
+        .add("userTv" -> tv.collect { case OnTv.User(userId) =>
+          Json.obj("id" -> userId)
+        })
 
   def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Epd]) =
     pov.game.whitePlayer.userId.so(lightUserGet) zip pov.game.blackPlayer.userId.so(lightUserGet) map {

@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import chess.format.Fen
 
 import lila.app.{ given, * }
-import lila.common.{ IpAddress, HTTPRequest }
+import lila.common.{ IpAddress, HTTPRequest, Preload }
 import lila.game.{ AnonCookie, Pov }
 import lila.rating.Perf
 import lila.setup.Processor.HookResult
@@ -59,7 +59,7 @@ final class Setup(
               processor.ai(config).flatMap { pov =>
                 negotiateApi(
                   html = redirectPov(pov),
-                  api = _ => env.api.roundApi.player(pov, none).map(Created(_))
+                  api = _ => env.api.roundApi.player(pov, Preload.none, none).map(Created(_))
                 )
               }
           )
@@ -73,8 +73,8 @@ final class Setup(
             doubleJsonFormError,
             config =>
               for
-                origUser <- ctx.user soFu env.user.api.withPerfs
-                destUser <- userId so env.user.api.enabledWithPerfs
+                origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
+                destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
                 denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfType))
                 result <- denied match
                   case Some(denied) =>
@@ -94,7 +94,7 @@ final class Setup(
                       mode = config.mode,
                       color = config.color.name,
                       challenger = (origUser, ctx.req.sid) match
-                        case (Some(orig), _) => toRegistered(config.variant, timeControl)(orig)
+                        case (Some(orig), _) => toRegistered(orig)
                         case (_, Some(sid))  => Challenger.Anonymous(sid)
                         case _               => Challenger.Open
                       ,

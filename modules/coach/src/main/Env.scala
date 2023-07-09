@@ -25,7 +25,7 @@ final class Env(
   lazy val pager = wire[CoachPager]
 
   lila.common.Bus.subscribeFun("finishGame"):
-    case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
+    case lila.game.actorApi.FinishGame(game, users) if game.rated =>
       if lila.rating.PerfType.standard.has(game.perfType) then
-        white so api.setRating
-        black so api.setRating
+        users.white so api.setRating
+        users.black so api.setRating

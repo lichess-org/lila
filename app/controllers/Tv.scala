@@ -41,16 +41,20 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       val natural = Pov naturalOrientation game
       val pov     = if flip then !natural else natural
       val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
-      negotiateApi(
-        html = for
-          tour   <- env.tournament.api.gameView.watcher(pov.game)
-          data   <- env.api.roundApi.watcher(pov, tour, tv = onTv.some)
-          cross  <- env.game.crosstableApi.withMatchup(game)
-          champs <- env.tv.tv.getChampions
-          page   <- renderPage(html.tv.index(channel, champs, pov, data, cross, history))
-        yield Ok(page).noCache,
-        api = _ => env.api.roundApi.watcher(pov, none, tv = onTv.some) dmap { Ok(_) }
-      )
+      env.user.api
+        .gamePlayers(game.userIdPair, game.perfType)
+        .flatMap: users =>
+          gameC.preloadUsers(users)
+          negotiateApi(
+            html = for
+              tour   <- env.tournament.api.gameView.watcher(pov.game)
+              data   <- env.api.roundApi.watcher(pov, users, tour, tv = onTv.some)
+              cross  <- env.game.crosstableApi.withMatchup(game)
+              champs <- env.tv.tv.getChampions
+              page   <- renderPage(html.tv.index(channel, champs, pov, data, cross, history))
+            yield Ok(page).noCache,
+            api = _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some) dmap { Ok(_) }
+          )
 
   def games = gamesChannel(Channel.Best.key)
 

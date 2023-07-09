@@ -24,10 +24,6 @@ case class HookConfig(
     if me.isEmpty then this
     else copy(ratingRange = ratingRange.withinLimits(perf.intRating, 500))
 
-  def perfType = PerfType(variant, makeSpeed)
-
-  def makeSpeed = chess.Speed(makeClock)
-
   def fixColor = copy(
     color =
       if mode == Mode.Rated &&

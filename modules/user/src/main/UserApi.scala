@@ -11,36 +11,38 @@ import lila.db.dsl.{ *, given }
 import lila.db.BSON.Reader
 import lila.rating.Glicko
 import lila.user.User.userHandler
+import chess.ByColor
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
     akka.stream.Materializer
 ):
 
-  private type GameUserIds = PairOf[Option[UserId]]
-
+  // hit by game rounds
   object gamePlayers:
-    private type PlayersKey  = (GameUserIds, PerfType)
-    private type GamePlayers = PairOf[Option[User.WithPerf]]
+    private type PlayersKey = (PairOf[Option[UserId]], PerfType)
 
-    // hit by game rounds
-    // TODO aggregation to save 1 req? maybe not
-    def apply(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GamePlayers] =
-      gamePlayersCache.get(userIds -> perfType)
+    def apply(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
+      cache.get(userIds.toPair -> perfType)
 
-    def loggedIn(ids: PairOf[UserId], perfType: PerfType): Fu[Option[PairOf[User.WithPerf]]] =
-      gamePlayersCache
-        .get((ids._1.some, ids._2.some) -> perfType)
-        .dmap(_.tupled)
+    def noCache(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
+      fetch(userIds.toPair, perfType)
 
-    private val gamePlayersCache = cacheApi[PlayersKey, GamePlayers](4096, "user.perf.pair"):
-      _.expireAfterWrite(3 seconds).buildAsyncFuture:
-        case ((x, y), perfType) =>
-          for
-            (x, y) <- userRepo.pair(x, y)
-            perfs  <- perfsRepo.perfOf(List(x, y).flatten.map(_.id), perfType)
-            make = (u: Option[User]) => u.map(u => u.withPerf(perfs.getOrElse(u.id, Perf.default)))
-          yield make(x) -> make(y)
+    def loggedIn(ids: ByColor[UserId], perfType: PerfType): Fu[Option[ByColor[User.WithPerf]]] =
+      apply(ids.map(some), perfType).map:
+        case ByColor(Some(x), Some(y)) => ByColor(x, y).some
+        case _                         => none
+
+    private val cache = cacheApi[PlayersKey, GameUsers](4096, "user.perf.pair"):
+      _.expireAfterWrite(3 seconds).buildAsyncFuture(fetch)
+
+    private def fetch(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
+      val (x, y) = userIds
+      listWithPerf(List(x, y).flatten, perfType).map: users =>
+        ByColor(
+          x.flatMap(id => users.find(_.id == id)),
+          y.flatMap(id => users.find(_.id == id))
+        )
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
 
@@ -57,8 +59,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           perfs = perfsRepo.aggregate.readFirst(doc, user)
         yield User.WithPerfs(user, perfs)
 
-  def enabledWithPerfs[U: UserIdOf](id: U): Fu[Option[User.WithPerfs]] =
-    withPerfs(id).dmap(_.filter(_.enabled.yes))
+  def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[User.WithPerf]] =
+    withPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
 
   def listWithPerfs[U: UserIdOf](us: List[U], readPref: ReadPref = _.sec): Fu[List[User.WithPerfs]] =
     us.nonEmpty.so:
@@ -81,10 +83,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def withPerf[U: UserIdOf](id: U, pt: PerfType): Fu[Option[User.WithPerf]] =
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
 
-  def pairWithPerfs(userIds: GameUserIds): Fu[PairOf[Option[User.WithPerfs]]] =
-    val (x, y) = userIds
-    listWithPerfs(List(x, y).flatten).map: users =>
-      (x.flatMap(id => users.find(_.id == id)), y.flatMap(id => users.find(_.id == id)))
+  def pairWithPerfs(userIds: ByColor[Option[UserId]]): Fu[ByColor[Option[User.WithPerfs]]] =
+    listWithPerfs(userIds.all.flatten).map: users =>
+      userIds.map(_.flatMap(id => users.find(_.id == id)))
 
   def listWithPerf[U: UserIdOf](
       us: List[U],
@@ -107,10 +108,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           perf = perfsRepo.aggregate.readFirst(doc, pt)
         yield User.WithPerf(user, perf)
 
-  def pairWithPerf(userIds: GameUserIds, pt: PerfType): Fu[PairOf[Option[User.WithPerf]]] =
-    val (x, y) = userIds
-    listWithPerf(List(x, y).flatten, pt).map: users =>
-      (x.flatMap(id => users.find(_.id == id)), y.flatMap(id => users.find(_.id == id)))
+  def pairWithPerf(userIds: ByColor[Option[UserId]], pt: PerfType): Fu[ByColor[Option[User.WithPerf]]] =
+    listWithPerf(userIds.all.flatten, pt).map: users =>
+      userIds.map(_.flatMap(id => users.find(_.id == id)))
 
   def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[LightUser.Ghost | User.WithPerf]] =
     userRepo

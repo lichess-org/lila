@@ -75,9 +75,8 @@ final class Env(
 
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
-        def userPerf = (u: Option[User.WithPerfs]) => u.filter(_.enabled.yes).map(_.only(game.perfType))
-        (userPerf(whiteUserOption), userPerf(blackUserOption)) mapN { (whiteUser, blackUser) =>
+      case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
+        users.map(_.filter(_.enabled.yes).map(_.only(game.perfType))).toPair.mapN { (whiteUser, blackUser) =>
           sandbagWatch(game)
           assessApi.onGameReady(game, whiteUser, blackUser)
         }

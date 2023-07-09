@@ -19,7 +19,7 @@ import chess.format.pgn.{
 }
 import chess.format.{ EpdFen, Uci }
 import chess.variant.{ Variant, Standard }
-import chess.{ Clock, Node, Ply, MoveOrDrop, Situation }
+import chess.{ Clock, Node, Ply, MoveOrDrop, Situation, ByColor }
 import chess.MoveOrDrop.*
 
 import lila.common.config.NetDomain
@@ -59,8 +59,7 @@ case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expec
     lila.game.Game
       .make(
         g,
-        whitePlayer = lila.game.Player.make(chess.White, none),
-        blackPlayer = lila.game.Player.make(chess.Black, none),
+        ByColor(lila.game.Player.make(_, none)),
         mode = chess.Mode.Casual,
         source = lila.game.Source.Api,
         pgnImport = none

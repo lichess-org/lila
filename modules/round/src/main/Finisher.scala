@@ -128,10 +128,10 @@ final private class Finisher(
       ) >>
       userApi
         .pairWithPerfs(game.userIdPair)
-        .flatMap: (whiteO, blackO) =>
-          val finish = FinishGame(game, whiteO, blackO)
+        .flatMap: users =>
+          val finish = FinishGame(game, users)
           updateCountAndPerfs(finish).map: ratingDiffs =>
-            message foreach { messenger(game, _) }
+            message.foreach { messenger(game, _) }
             gameRepo game game.id foreach { newGame =>
               newGame foreach proxy.setFinishedGame
               val newFinish = finish.copy(game = newGame | game)

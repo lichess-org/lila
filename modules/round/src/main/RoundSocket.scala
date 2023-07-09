@@ -177,7 +177,7 @@ final class RoundSocket(
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
       }
-    case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
+    case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
       }

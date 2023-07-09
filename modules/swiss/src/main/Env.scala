@@ -97,7 +97,7 @@ final class Env(
     "adjustBooster",
     "teamLeave"
   ) {
-    case lila.game.actorApi.FinishGame(game, _, _)        => api.finishGame(game).unit
+    case lila.game.actorApi.FinishGame(game, _)           => api.finishGame(game).unit
     case lila.hub.actorApi.team.LeaveTeam(teamId, userId) => api.leaveTeam(teamId, userId).unit
     case lila.hub.actorApi.mod.MarkCheater(userId, true)  => api.kickLame(userId).unit
     case lila.hub.actorApi.mod.MarkBooster(userId)        => api.kickLame(userId).unit

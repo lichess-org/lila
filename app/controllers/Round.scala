@@ -6,7 +6,7 @@ import views.*
 
 import lila.app.{ given, * }
 import lila.chat.Chat
-import lila.common.HTTPRequest
+import lila.common.{ Preload, HTTPRequest }
 import lila.game.{ Game as GameModel, PgnDump, Pov }
 import lila.tournament.{ Tournament as Tour }
 import lila.user.{ User as UserModel }
@@ -23,49 +23,48 @@ final class Round(
     with TheftPrevention:
 
   private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
-    negotiateApi(
-      html =
-        if !pov.game.started then notFound
-        else
-          PreventTheft(pov):
-            pov.game.playableByAi so env.fishnet.player(pov.game)
-            env.tournament.api.gameView.player(pov).flatMap { tour =>
-              gameC.preloadUsers(pov.game) zip
-                (pov.game.simulId so env.simul.repo.find) zip
-                getPlayerChat(pov.game, tour.map(_.tour)) zip
-                (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
-                (pov.game.isSwitchable so otherPovs(pov.game)) zip
-                env.bookmark.api.exists(pov.game, ctx.me) zip
-                env.api.roundApi.player(pov, tour) flatMap {
-                  case ((((((_, simul), chatOption), crosstable), playing), bookmarked), data) =>
-                    simul foreach env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                    Ok.page(
-                      html.round.player(
-                        pov,
-                        data,
-                        tour = tour,
-                        simul = simul,
-                        cross = crosstable,
-                        playing = playing,
-                        chatOption = chatOption,
-                        bookmarked = bookmarked
-                      )
-                    ).dmap(_.noCache)
-                }
-            }
-      ,
-      api = _ =>
-        if isTheft(pov) then theftResponse
-        else
-          env.tournament.api.gameView.mobile(pov.game) flatMap { tour =>
-            pov.game.playableByAi so env.fishnet.player(pov.game)
-            gameC.preloadUsers(pov.game) zip
-              env.api.roundApi.player(pov, tour) zip
-              getPlayerChat(pov.game, none) map { case ((_, data), chat) =>
-                Ok(data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))).noCache
-              }
-          }
-    )
+    pov.game.playableByAi so env.fishnet.player(pov.game)
+    for
+      tour  <- env.tournament.api.gameView.player(pov)
+      users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfType)
+      _ = gameC.preloadUsers(users)
+      res <- negotiateApi(
+        html =
+          if !pov.game.started then notFound
+          else
+            PreventTheft(pov):
+              for
+                (((((simul, chatOption), crosstable), playing), bookmarked), data) <-
+                  (pov.game.simulId so env.simul.repo.find) zip
+                    getPlayerChat(pov.game, tour.map(_.tour)) zip
+                    (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
+                    (pov.game.isSwitchable so otherPovs(pov.game)) zip
+                    env.bookmark.api.exists(pov.game, ctx.me) zip
+                    env.api.roundApi.player(pov, Preload(users), tour)
+                _ = simul foreach env.simul.api.onPlayerConnection(pov.game, ctx.me)
+                page <- renderPage(
+                  html.round.player(
+                    pov,
+                    data,
+                    tour = tour,
+                    simul = simul,
+                    cross = crosstable,
+                    playing = playing,
+                    chatOption = chatOption,
+                    bookmarked = bookmarked
+                  )
+                )
+              yield Ok(page).noCache
+        ,
+        api = _ =>
+          if isTheft(pov) then theftResponse
+          else
+            for
+              data <- env.api.roundApi.player(pov, Preload(users), tour)
+              chat <- getPlayerChat(pov.game, none)
+            yield Ok(data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))).noCache
+      )
+    yield res
 
   def player(fullId: GameFullId) = Open:
     env.round.proxyRepo.pov(fullId) flatMap {
@@ -74,18 +73,15 @@ final class Round(
     }
 
   private def otherPovs(game: GameModel)(using ctx: Context) =
-    ctx.me so { user =>
+    ctx.me.so: user =>
       env.round.proxyRepo urgentGames user map {
-        _ filter { pov =>
+        _.filter: pov =>
           pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
-        }
       }
-    }
 
   private def getNext(currentGame: GameModel)(povs: List[Pov]) =
-    povs find { pov =>
+    povs.find: pov =>
       pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
-    }
 
   def whatsNext(fullId: GameFullId) = Open:
     Found(env.round.proxyRepo.pov(fullId)): currentPov =>
@@ -145,32 +141,29 @@ final class Round(
           html =
             if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
             else if HTTPRequest.isHuman(ctx.req) then
-              env.tournament.api.gameView.watcher(pov.game) zip
-                (pov.game.simulId so env.simul.repo.find) zip
-                getWatcherChat(pov.game) zip
-                (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
-                env.bookmark.api.exists(pov.game, ctx.me) flatMap {
-                  case ((((tour, simul), chat), crosstable), bookmarked) =>
-                    env.api.roundApi
-                      .watcher(
-                        pov,
-                        tour,
-                        tv = userTv.map: u =>
-                          lila.round.OnTv.User(u.id)
-                      )
-                      .flatMap: data =>
-                        Ok.page:
-                          html.round.watcher(
-                            pov,
-                            data,
-                            tour.map(_.tourAndTeamVs),
-                            simul,
-                            crosstable,
-                            userTv = userTv,
-                            chatOption = chat,
-                            bookmarked = bookmarked
-                          )
-                }
+              for
+                users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfType)
+                ((((tour, simul), chat), crosstable), bookmarked) <- env.tournament.api.gameView
+                  .watcher(pov.game) zip
+                  (pov.game.simulId so env.simul.repo.find) zip
+                  getWatcherChat(pov.game) zip
+                  (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
+                  env.bookmark.api.exists(pov.game, ctx.me)
+                tv = userTv.map: u =>
+                  lila.round.OnTv.User(u.id)
+                data <- env.api.roundApi.watcher(pov, users, tour, tv)
+                page <- renderPage:
+                  html.round.watcher(
+                    pov,
+                    data,
+                    tour.map(_.tourAndTeamVs),
+                    simul,
+                    crosstable,
+                    userTv = userTv,
+                    chatOption = chat,
+                    bookmarked = bookmarked
+                  )
+              yield Ok(page)
             else
               for // web crawlers don't need the full thing
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
@@ -180,8 +173,9 @@ final class Round(
           ,
           api = _ =>
             for
+              users    <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfType)
               tour     <- env.tournament.api.gameView.watcher(pov.game)
-              data     <- env.api.roundApi.watcher(pov, tour, tv = none)
+              data     <- env.api.roundApi.watcher(pov, users, tour, tv = none)
               analysis <- env.analyse.analyser get pov.game
               chat     <- getWatcherChat(pov.game)
             yield Ok:
@@ -193,22 +187,21 @@ final class Round(
   private[controllers] def getWatcherChat(
       game: GameModel
   )(using ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.contains)) && ctx.me.fold(
+    ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.has)) && ctx.me.fold(
       HTTPRequest isHuman ctx.req
     )(env.chat.panic.allowed(_)) && {
-      game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
+      game.finishedOrAborted || !ctx.userId.exists(game.userIds.has)
     }
-  } so {
+  }.so:
     val id = ChatId(s"${game.id}/w")
     env.chat.api.userChat.findMineIf(id, !game.justCreated) flatMap { chat =>
       env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
     }
-  }
 
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(using
       ctx: Context
   ): Fu[Option[Chat.GameOrEvent]] =
-    ctx.noKid so {
+    ctx.noKid.so:
       def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =
         Chat
           .GameOrEvent:
@@ -240,7 +233,6 @@ final class Round(
                     Chat.Restricted(chat, restricted = game.fromLobby && ctx.isAnon)
                 .some
             }
-    }
 
   def sides(gameId: GameId, color: String) = Open:
     FoundPage(proxyPov(gameId, color)): pov =>

@@ -16,7 +16,7 @@ object permissions:
         cssTag("mod.permission"),
         cssTag("form3")
       )
-    ) {
+    ):
       val userPerms = Permission(u.roles)
       main(cls := "mod-permissions page-small box box-pad")(
         boxTop(h1(userLink(u), " permissions")),
@@ -59,4 +59,3 @@ object permissions:
           )
         )
       )
-    }

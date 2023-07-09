@@ -7,6 +7,7 @@ import chess.{ Clock, Game as ChessGame, Situation, Speed }
 import lila.common.Days
 import lila.game.Game
 import lila.lobby.Color
+import lila.rating.PerfType
 
 private[setup] trait Config:
 
@@ -56,6 +57,10 @@ private[setup] trait Config:
 
   def makeDaysPerTurn: Option[Days] = (timeMode == TimeMode.Correspondence) option days
 
+  def makeSpeed: Speed = chess.Speed(makeClock)
+
+  def perfType: PerfType = PerfType(variant, makeSpeed)
+
 trait Positional:
   self: Config =>
 
@@ -63,11 +68,9 @@ trait Positional:
 
   def strictFen: Boolean
 
-  lazy val validFen = variant != FromPosition || {
-    fen exists { f =>
+  lazy val validFen = variant != FromPosition ||
+    fen.exists: f =>
       Fen.read(f).exists(_ playable strictFen)
-    }
-  }
 
   def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] =
     val baseState = fen.ifTrue(variant.fromPosition) flatMap {

@@ -1,7 +1,6 @@
 package lila.challenge
 
 import akka.stream.scaladsl.*
-import chess.Speed
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
@@ -13,7 +12,7 @@ import lila.hub.AsyncActorSequencers
 import lila.rating.PerfType
 import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
-import chess.Clock
+import chess.{ Clock, ByColor, Speed }
 import lila.common.config.Max
 
 final class ChallengeBulkApi(
@@ -22,11 +21,7 @@ final class ChallengeBulkApi(
     gameRepo: lila.game.GameRepo,
     userApi: lila.user.UserApi,
     onStart: lila.round.OnStart
-)(using
-    ec: Executor,
-    mat: akka.stream.Materializer,
-    scheduler: Scheduler
-):
+)(using Executor, akka.stream.Materializer, Scheduler):
 
   import lila.game.BSONHandlers.given
   private given BSONDocumentHandler[ScheduledGame]      = Macros.handler
@@ -92,16 +87,15 @@ final class ChallengeBulkApi(
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
-        userApi.gamePlayers.loggedIn(game.white -> game.black, bulk.perfType) map2 { (white, black) =>
-          (game.id, white, black)
+        userApi.gamePlayers.loggedIn(game.userIds, bulk.perfType) map2 { users =>
+          (game.id, users)
         }
       .mapConcat(_.toList)
-      .map: (id, white, black) =>
+      .map: (id, users) =>
         val game = Game
           .make(
             chess = chessGame,
-            whitePlayer = Player.make(chess.White, white.some),
-            blackPlayer = Player.make(chess.Black, black.some),
+            players = users.map(some).mapWithColor(Player.make),
             mode = bulk.mode,
             source = lila.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,
@@ -111,11 +105,11 @@ final class ChallengeBulkApi(
           .withId(id)
           .pipe(ChallengeJoiner.addGameHistory(state))
           .start
-        (game, white, black)
-      .mapAsyncUnordered(8): (game, white, black) =>
-        gameRepo.insertDenormalized(game) >>- onStart(game.id) inject (game, white, black)
-      .mapAsyncUnordered(8): (game, white, black) =>
-        msgApi.onApiPair(game.id, white.light, black.light)(bulk.by, bulk.message)
+        (game, users)
+      .mapAsyncUnordered(8): (game, users) =>
+        gameRepo.insertDenormalized(game) >>- onStart(game.id) inject (game, users)
+      .mapAsyncUnordered(8): (game, users) =>
+        msgApi.onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .addEffect { nb =>
