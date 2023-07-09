@@ -17,9 +17,9 @@ final private class TournamentBusHandler(
     "playban",
     "teamLeave",
     "berserk"
-  ) {
+  ):
 
-    case FinishGame(game, _, _) => api.finishGame(game).unit
+    case FinishGame(game, _) => api.finishGame(game).unit
 
     case lila.playban.SittingDetected(game, player) => api.sittingDetected(game, player).unit
 
@@ -43,7 +43,6 @@ final private class TournamentBusHandler(
     case lila.hub.actorApi.playban.Playban(userId, _, true) => api.pausePlaybanned(userId).unit
 
     case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
-  }
 
   private def ejectFromEnterable(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {

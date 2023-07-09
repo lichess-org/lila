@@ -2,11 +2,11 @@ package lila.game
 
 import alleycats.Zero
 import cats.Monoid
-import chess.PositionHash
+import chess.{ ByColor, PositionHash }
 
 export lila.Lila.{ *, given }
 
-type RatingDiffs = chess.ByColor[IntRatingDiff]
+type RatingDiffs = ByColor[IntRatingDiff]
 
 given Zero[PositionHash] = Zero(Monoid[PositionHash].empty)
 

@@ -67,7 +67,7 @@ case class Game(
 
   def hasUserId(userId: UserId) = players.exists(_.userId.has(userId))
 
-  def userIdPair: PairOf[Option[UserId]] = players.map(_.userId).toPair
+  def userIdPair: ByColor[Option[UserId]] = players.map(_.userId)
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -677,8 +677,7 @@ object Game:
 
   def make(
       chess: ChessGame,
-      whitePlayer: Player,
-      blackPlayer: Player,
+      players: ByColor[Player],
       mode: Mode,
       source: Source,
       pgnImport: Option[PgnImport],
@@ -689,7 +688,7 @@ object Game:
     NewGame:
       Game(
         id = IdGenerator.uncheckedGame,
-        players = ByColor(whitePlayer, blackPlayer),
+        players = players,
         chess = chess,
         status = Status.Created,
         daysPerTurn = daysPerTurn,

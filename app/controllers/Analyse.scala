@@ -38,8 +38,11 @@ final class Analyse(
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
     if HTTPRequest.isCrawler(ctx.req).yes then replayBot(pov)
     else
-      env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
-        gameC.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
+      for
+        initialFen <- env.game.gameRepo initialFen pov.gameId
+        users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfType)
+        _ = gameC.preloadUsers(users)
+        res <- RedirectAtFen(pov, initialFen):
           (env.analyse.analyser get pov.game) zip
             (!pov.game.metadata.analysed so env.fishnet.api.userAnalysisExists(pov.gameId)) zip
             (pov.game.simulId so env.simul.repo.find) zip
@@ -55,6 +58,7 @@ final class Analyse(
               case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
                 env.api.roundApi.review(
                   pov,
+                  users,
                   tv = userTv.map: u =>
                     lila.round.OnTv.User(u.id),
                   analysis,
@@ -86,8 +90,7 @@ final class Analyse(
                   ).map(_.enableSharedArrayBuffer)
                 }
             }
-        }
-      }
+      yield res
 
   def embed(gameId: GameId, color: String) = embedReplayGame(gameId, color)
 

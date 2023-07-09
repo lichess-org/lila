@@ -1,11 +1,10 @@
 package lila.analyse
 
-import chess.{ Color, Ply }
 import lila.common.Maths.isCloseTo
 import lila.common.config.{ NetDomain, BaseUrl }
 import lila.tree.Eval
 import chess.format.pgn.{ Pgn, PgnStr, InitialComments, Tag, Tags, Parser, PgnTree }
-import chess.{ Node, Move }
+import chess.{ Node, Move, ByColor, Color, Ply }
 import lila.game.PgnDump
 
 class AnnotatorTest extends munit.FunSuite:
@@ -17,8 +16,7 @@ class AnnotatorTest extends munit.FunSuite:
     lila.game.Game
       .make(
         g,
-        whitePlayer = lila.game.Player.make(chess.White, none),
-        blackPlayer = lila.game.Player.make(chess.Black, none),
+        ByColor(lila.game.Player.make(_, none)),
         mode = chess.Mode.Casual,
         source = lila.game.Source.Api,
         pgnImport = none

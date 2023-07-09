@@ -26,7 +26,7 @@ final private class CorresAlarm(
 
   private given BSONDocumentHandler[Alarm] = Macros.handler
 
-  Bus.subscribeFun("finishGame") { case lila.game.actorApi.FinishGame(game, _, _) =>
+  Bus.subscribeFun("finishGame") { case lila.game.actorApi.FinishGame(game, _) =>
     if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one($id(game.id)).unit
   }
 

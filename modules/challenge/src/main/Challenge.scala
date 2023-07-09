@@ -11,7 +11,7 @@ import lila.common.Days
 import lila.game.{ Game, GameRule }
 import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, GameUser }
 
 case class Challenge(
     _id: Challenge.Id,
@@ -70,13 +70,12 @@ case class Challenge(
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 
-  def setChallenger(u: Option[User.WithPerfs], secret: Option[String]) =
+  def setChallenger(u: GameUser, secret: Option[String]) =
     copy(
-      challenger = u.map(toRegistered(variant, timeControl)) orElse
+      challenger = u.map(toRegistered) orElse
         secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open
     )
-  def setDestUser(u: User.WithPerfs) =
-    copy(destUser = toRegistered(variant, timeControl)(u).some)
+  def setDestUser(u: User.WithPerf) = copy(destUser = toRegistered(u).some)
 
   def speed = speedOf(timeControl)
 
@@ -193,8 +192,8 @@ object Challenge:
 
   private def randomId = ThreadLocalRandom nextString idSize
 
-  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User.WithPerfs): Challenger.Registered =
-    Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
+  def toRegistered(u: User.WithPerf): Challenger.Registered =
+    Challenger.Registered(u.id, Rating(u.perf))
 
   def randomColor = chess.Color.fromWhite(ThreadLocalRandom.nextBoolean())
 
@@ -205,7 +204,7 @@ object Challenge:
       mode: Mode,
       color: String,
       challenger: Challenger,
-      destUser: Option[User.WithPerfs],
+      destUser: GameUser,
       rematchOf: Option[GameId],
       name: Option[String] = None,
       id: Option[GameId] = None,
@@ -236,7 +235,7 @@ object Challenge:
       colorChoice = colorChoice,
       finalColor = finalColor,
       challenger = challenger,
-      destUser = destUser map toRegistered(variant, timeControl),
+      destUser = destUser map toRegistered,
       rematchOf = rematchOf,
       createdAt = nowInstant,
       seenAt = !isOpen option nowInstant,

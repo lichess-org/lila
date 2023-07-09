@@ -13,16 +13,15 @@ trait ILightUserApi:
 
 final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) extends ILightUserApi:
 
-  val async =
-    LightUser.Getter(id => if User.isGhost(id) then fuccess(LightUser.ghost.some) else cache.async(id))
-  val asyncFallback = LightUser.GetterFallback(id =>
+  val async = LightUser.Getter: id =>
+    if User.isGhost(id) then fuccess(LightUser.ghost.some) else cache.async(id)
+  val asyncFallback = LightUser.GetterFallback: id =>
     if User.isGhost(id) then fuccess(LightUser.ghost)
     else cache.async(id).dmap(_ | LightUser.fallback(id into UserName))
-  )
-  val sync = LightUser.GetterSync(id => if User.isGhost(id) then LightUser.ghost.some else cache.sync(id))
-  val syncFallback = LightUser.GetterSyncFallback(id =>
+  val sync = LightUser.GetterSync: id =>
+    if User.isGhost(id) then LightUser.ghost.some else cache.sync(id)
+  val syncFallback = LightUser.GetterSyncFallback: id =>
     if User.isGhost(id) then LightUser.ghost else cache.sync(id) | LightUser.fallback(id into UserName)
-  )
 
   export cache.{ asyncMany, invalidate, preloadOne, preloadMany }
 

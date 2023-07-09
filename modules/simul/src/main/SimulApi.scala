@@ -2,6 +2,7 @@ package lila.simul
 
 import akka.actor.*
 import chess.variant.Variant
+import chess.ByColor
 import play.api.libs.json.Json
 
 import lila.common.{ Bus, Debouncer }
@@ -229,8 +230,8 @@ final class SimulApi(
   ): Fu[(Game, chess.Color)] = for
     user <- userApi withPerfs pairing.player.user orFail s"No user with id ${pairing.player.user}"
     hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
-    whiteUser = hostColor.fold(host, user)
-    blackUser = hostColor.fold(user, host)
+    us        = ByColor(host, user)
+    users     = hostColor.fold(us, us.flip)
     clock     = simul.clock.chessClockOf(hostColor)
     perfType  = PerfType(pairing.player.variant, chess.Speed(clock.config))
     game1 = Game.make(
@@ -244,8 +245,7 @@ final class SimulApi(
           fen = simul.position
         )
         .copy(clock = clock.start.some),
-      whitePlayer = lila.game.Player.make(chess.White, whiteUser.only(perfType).some),
-      blackPlayer = lila.game.Player.make(chess.Black, blackUser.only(perfType).some),
+      players = users.mapWithColor((c, u) => lila.game.Player.make(c, u.only(perfType).some)),
       mode = chess.Mode.Casual,
       source = lila.game.Source.Simul,
       pgnImport = None

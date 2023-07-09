@@ -3,7 +3,7 @@ package lila.setup
 import akka.stream.scaladsl.*
 import chess.variant.{ FromPosition, Variant }
 import chess.format.Fen
-import chess.{ Clock, Mode }
+import chess.{ Clock, Mode, ByColor }
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
@@ -116,7 +116,8 @@ object SetupBulk:
 
   case class BadToken(token: Bearer, error: OAuthServer.AuthError)
 
-  case class ScheduledGame(id: GameId, white: UserId, black: UserId)
+  case class ScheduledGame(id: GameId, white: UserId, black: UserId):
+    def userIds = ByColor(white, black)
 
   case class ScheduledBulk(
       _id: String,

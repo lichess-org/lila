@@ -15,7 +15,7 @@ final private[setup] class Processor(
 )(using Executor, IdGenerator):
 
   def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
-    me  <- me.map(_.value).soFu(perfsRepo.withPerfs)
+    me  <- me.map(_.value).soFu(perfsRepo.withPerf(_, config.perfType))
     pov <- config pov me
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
@@ -23,7 +23,7 @@ final private[setup] class Processor(
   yield pov
 
   def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
-    me  <- perfsRepo.withPerfs(me)
+    me  <- perfsRepo.withPerf(me, config.perfType)
     pov <- config pov me.some
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)

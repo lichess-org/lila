@@ -68,7 +68,7 @@ final class Env(
     simulSocket.rooms.ask[SocketVersion](simulId into RoomId)(GetVersion.apply)
 
   Bus.subscribeFuns(
-    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
+    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
       api finishGame game
       ()
     },

@@ -36,7 +36,7 @@ final class Env(
 
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write.game(game).unit
+      case lila.game.actorApi.FinishGame(game, _) if !game.aborted => write.game(game).unit
     },
     "finishPuzzle" -> { case res: lila.puzzle.Puzzle.UserResult =>
       write.puzzle(res).unit

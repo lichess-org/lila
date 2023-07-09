@@ -20,7 +20,7 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using
       val chans      = List("startGame", "finishGame", streamChan(streamId))
       val sub = Bus.subscribeFun(chans*) {
         case StartGame(game) if watchedIds(game.id) => queue.offer(game).unit
-        case FinishGame(game, _, _) if watchedIds(game.id) =>
+        case FinishGame(game, _) if watchedIds(game.id) =>
           queue.offer(game).unit
           watchedIds = watchedIds - game.id
         case WatchGames(ids) =>
