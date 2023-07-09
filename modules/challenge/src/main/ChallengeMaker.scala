@@ -27,7 +27,7 @@ final class ChallengeMaker(
   private def collectDataFor(gameId: GameId, dest: User): Future[Option[Data]] =
     gameRepo.game(gameId) flatMapz { game =>
       game
-        .opponentByUserId(dest.id)
+        .opponentOf(dest)
         .so: challenger =>
           for
             orig <- challenger.userId.so(userApi.withPerf(_, game.perfType))

@@ -72,7 +72,7 @@ final private class SandbagWatch(
 
   private def outcomeOf(game: Game, loser: Color, userId: UserId): Outcome =
     game
-      .playerByUserId(userId)
+      .player(userId)
       .ifTrue(isSandbag(game))
       .fold[Outcome](Good): player =>
         if player.color == loser then game.winnerUserId.fold[Outcome](Good)(Sandbag.apply)

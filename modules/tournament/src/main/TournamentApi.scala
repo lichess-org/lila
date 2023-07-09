@@ -440,7 +440,7 @@ final class TournamentApi(
     }
 
   private def performanceOf(g: Game, userId: UserId): Option[IntRating] = for
-    opponent       <- g.opponentByUserId(userId)
+    opponent       <- g.opponentOf(userId)
     opponentRating <- opponent.rating
     multiplier = g.winnerUserId.so(winner => if winner == userId then 1 else -1)
   yield opponentRating + 500 * multiplier
@@ -455,21 +455,18 @@ final class TournamentApi(
 
   def pausePlaybanned(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "pausePlaybanned") flatMap {
-      _.map {
-        playerRepo.withdraw(_, userId)
-      }.parallel.void
+      _.traverse_(playerRepo.withdraw(_, userId))
     }
 
   private[tournament] def kickFromTeam(teamId: TeamId, userId: UserId): Funit =
     tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam") flatMap {
-      _.map { tourId =>
-        Parallel(tourId, "kickFromTeam")(tournamentRepo.byId) { tour =>
+      _.traverse: tourId =>
+        Parallel(tourId, "kickFromTeam")(tournamentRepo.byId): tour =>
           val fu =
             if tour.isCreated then playerRepo.remove(tour.id, userId)
             else playerRepo.withdraw(tour.id, userId)
           fu >> updateNbPlayers(tourId) >>- socket.reload(tourId)
-        }
-      }.parallel.void
+      .void
     }
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
@@ -478,16 +475,14 @@ final class TournamentApi(
       if tour.isCreated then playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
       else
         playerRepo.remove(tourId, userId) >> {
-          tour.isStarted so {
+          tour.isStarted.so:
             pairingRepo.findPlaying(tour.id, userId).map {
-              _ foreach { currentPairing =>
+              _.foreach: currentPairing =>
                 tellRound(currentPairing.gameId, AbortForce)
-              }
             } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
               pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
                 uids.toList.traverse_(recomputePlayerAndSheet(tour))
             }
-          }
         } >>
           updateNbPlayers(tour.id) >>-
           socket.reload(tour.id) >>- publish()

@@ -26,7 +26,7 @@ private[controllers] trait TheftPrevention:
   protected def playablePovForReq(game: GameModel)(using Context) =
     (!game.isPgnImport && game.playable).so:
       ctx.userId
-        .flatMap(game.playerByUserId)
+        .flatMap(game.player)
         .orElse:
           ctx.req.cookies
             .get(AnonCookie.name)

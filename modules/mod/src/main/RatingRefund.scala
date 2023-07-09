@@ -31,10 +31,9 @@ final private class RatingRefund(
       else
         def lastGames =
           gameRepo.coll
-            .find(
+            .find:
               Query.user(sus.user.id) ++ Query.rated ++ Query
                 .createdSince(nowInstant minusDays 3) ++ Query.finished
-            )
             .sort(Query.sortCreated)
             .cursor[Game](ReadPref.sec)
             .list(40)
@@ -42,7 +41,7 @@ final private class RatingRefund(
         def makeRefunds(games: List[Game]) =
           games.foldLeft(Refunds(List.empty)): (refs, g) =>
             (for
-              op <- g.playerByUserId(sus.user.id) map g.opponent
+              op <- g.opponentOf(sus.user)
               if op.provisional.no
               victim <- op.userId
               diff   <- op.ratingDiff

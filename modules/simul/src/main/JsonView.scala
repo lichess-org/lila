@@ -128,9 +128,9 @@ final class JsonView(
       .obj(
         "id"       -> g.id,
         "status"   -> g.status.id,
-        "fen"      -> (chess.format.Fen writeBoardAndColor g.situation),
+        "fen"      -> chess.format.Fen.writeBoardAndColor(g.situation),
         "lastMove" -> (g.lastMoveKeys.orZero: String),
-        "orient"   -> g.playerByUserId(hostId).map(_.color)
+        "orient"   -> g.player(hostId).map(_.color)
       )
       .add(
         "clock" -> g.clock.ifTrue(g.isBeingPlayed).map { c =>

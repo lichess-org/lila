@@ -45,22 +45,15 @@ case class Game(
   export chess.situation.board
   export chess.situation.board.{ history, variant }
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
-  export players.{ white as whitePlayer, black as blackPlayer }
+  export players.{ white as whitePlayer, black as blackPlayer, apply as player }
 
   lazy val clockHistory = chess.clock flatMap loadClockHistory
 
-  def player(color: Color): Player = players(color)
-
-  def player(playerId: GamePlayerId): Option[Player] =
-    players.find(_.id == playerId)
-
-  def player[U: UserIdOf](user: U): Option[Player] =
-    players.find(_.isUser(user))
+  def player(playerId: GamePlayerId): Option[Player]   = players.find(_.id == playerId)
+  def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
+  def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)
 
   def player: Player = players(turnColor)
-
-  def playerByUserId(userId: UserId): Option[Player]   = players.find(_.userId.has(userId))
-  def opponentByUserId(userId: UserId): Option[Player] = playerByUserId(userId).map(opponent)
 
   def hasUserIds(userId1: UserId, userId2: UserId) =
     players.reduce((w, b) => w.userId.has(userId1) && b.userId.has(userId2))
@@ -70,8 +63,7 @@ case class Game(
   def userIdPair: ByColor[Option[UserId]] = players.map(_.userId)
 
   def opponent(p: Player): Player = opponent(p.color)
-
-  def opponent(c: Color): Player = player(!c)
+  def opponent(c: Color): Player  = player(!c)
 
   lazy val naturalOrientation =
     if variant.racingKings then White else Color.fromWhite(players.reduce(_ before _))

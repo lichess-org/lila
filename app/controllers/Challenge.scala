@@ -353,7 +353,7 @@ final class Challenge(
   def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me ?=>
     NoBot:
       Found(env.game.gameRepo game gameId): g =>
-        Pov.opponentOf(g, me).flatMap(_.userId) so env.user.repo.byId orNotFound { opponent =>
+        g.opponentOf(me).flatMap(_.userId) so env.user.repo.byId orNotFound { opponent =>
           env.challenge.granter.isDenied(opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d))
             case _ =>

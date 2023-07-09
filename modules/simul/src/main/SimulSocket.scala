@@ -31,12 +31,12 @@ final private class SimulSocket(
     rooms.tell(simulId into RoomId, NotifyVersion("aborted", Json.obj()))
 
   def startSimul(simul: Simul, firstGame: Game): Unit =
-    firstGame.playerByUserId(simul.hostId) foreach { player =>
+    firstGame.player(simul.hostId) foreach { player =>
       redirectPlayer(simul, Pov(firstGame, player))
     }
 
   def startGame(simul: Simul, game: Game): Unit =
-    game.playerByUserId(simul.hostId) foreach { opponent =>
+    game.player(simul.hostId) foreach { opponent =>
       redirectPlayer(simul, Pov(game, !opponent.color))
     }
 

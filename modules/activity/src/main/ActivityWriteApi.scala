@@ -20,7 +20,7 @@ final class ActivityWriteApi(
   def game(game: Game): Funit =
     (for
       userId <- game.userIds
-      player <- game playerByUserId userId
+      player <- game player userId
     yield update(userId): a =>
       val setGames = !game.isCorrespondence so $doc(
         ActivityFields.games -> a.games.orZero
