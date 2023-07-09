@@ -1,13 +1,9 @@
 import view from './view';
 
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import dragscroll from 'dragscroll';
 import { Opts, Tournament } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
-
-dragscroll; // required to include the dependency :( :( :(
-
 export function initModule(opts: Opts) {
   lichess.StrongSocket.defaultParams.flag = 'tournament';
 
