@@ -86,12 +86,12 @@
   <string name="averageRatingX">Puntuación media: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Mellores partidas</string>
-  <string name="masterDbExplanation">Dous millóns de partidas de xogadores con ELO FIDE de %1$s+, dende %2$s a %3$s</string>
+  <string name="masterDbExplanation">Partidas de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s xogadas</item>
+    <item quantity="one">Mate en %s medias xogadas</item>
     <item quantity="other">Mate en %s xogadas</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de movementos intermedios ata a próxima captura ou movemento de peón</string>
+  <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de medias xogadas ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
   <string name="maxDepthReached">Chegouse á máxima profundidade!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
@@ -100,9 +100,9 @@
   <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">Xoga o primeiro movemento do explorador de aperturas/finais</string>
-  <string name="winPreventedBy50MoveRule">Victoria impedida pola regra das 50 xogadas</string>
+  <string name="winPreventedBy50MoveRule">Vitoria impedida pola regra das 50 xogadas</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
-  <string name="winOr50MovesByPriorMistake">Victoria ou 50 movementos a causa dun erro anterior</string>
+  <string name="winOr50MovesByPriorMistake">Vitoria ou 50 movementos a causa dun erro anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota ou 50 movementos a causa dun erro anterior</string>
   <string name="unknownDueToRounding">A vitoria ou derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón, debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy.</string>
   <string name="allSet">Todo listo!</string>
@@ -121,13 +121,13 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
-  <string name="engineManager">Administrador do módulo</string>
+  <string name="engineManager">Administrador do motor de análise</string>
   <string name="blunder">Metida de zoca</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisión</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s erros graves</item>
-    <item quantity="other">%s erro grave</item>
+    <item quantity="one">%s metida de zoca</item>
+    <item quantity="other">%s metidas de zoca</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s erro</item>
@@ -144,35 +144,35 @@
   <string name="offerDraw">Ofrecer táboas</string>
   <string name="draw">Táboas</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s xogadores</item>
+    <item quantity="one">%s xogador</item>
     <item quantity="other">%s xogadores</item>
   </plurals>
   <string name="drawByMutualAgreement">Táboas de mutuo acordo</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movementos sen progreso</string>
   <string name="currentGames">Partidas en curso</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Partidas</item>
-    <item quantity="other">%s Partidas</item>
+    <item quantity="one">%s partida</item>
+    <item quantity="other">%s partidas</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">puntuación %1$s en %2$s partida</item>
+    <item quantity="one">Puntuación %1$s en %2$s partida</item>
     <item quantity="other">Puntuación %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Marcadores</item>
-    <item quantity="other">%s Marcadores</item>
+    <item quantity="one">%s partida favorita</item>
+    <item quantity="other">%s partidas favoritas</item>
   </plurals>
   <string name="viewInFullSize">Ver a tamaño completo</string>
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
-  <string name="rememberMe">Lembrarme</string>
+  <string name="rememberMe">Manterme conectado</string>
   <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
   <string name="signUp">Rexistrarse</string>
   <string name="computersAreNotAllowedToPlay">Non están permitidos os ordenadores ou os xogadores asistidos por eles. Por favor non te axudes de módulos de xadrez, bases de datos ou otros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión</string>
   <string name="games">Partidas</string>
   <string name="forum">Foro</string>
   <string name="xPostedInForumY">%1$s escribiu no fío %2$s</string>
-  <string name="latestForumPosts">Últimas publicacions no foro</string>
+  <string name="latestForumPosts">Últimas publicacións no foro</string>
   <string name="players">Xogadores</string>
   <string name="friends">Amizades</string>
   <string name="discussions">Conversas</string>
