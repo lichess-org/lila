@@ -301,15 +301,15 @@
   <string name="incrementInSeconds">Incremento en segundos</string>
   <string name="freeOnlineChess">Xadrez libre en liña</string>
   <plurals name="nbRated">
-    <item quantity="one">%s puntuadas</item>
+    <item quantity="one">%s puntuada</item>
     <item quantity="other">%s puntuadas</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s vitorias</item>
+    <item quantity="one">%s vitoria</item>
     <item quantity="other">%s vitorias</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s derrotas</item>
+    <item quantity="one">%s derrota</item>
     <item quantity="other">%s derrotas</item>
   </plurals>
   <plurals name="nbDraws">
@@ -323,7 +323,7 @@
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rango de puntuación</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dar %s segundos</item>
+    <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="thisAccountViolatedTos">Esta conta violou os Termos de Servizo de Lichess</string>
