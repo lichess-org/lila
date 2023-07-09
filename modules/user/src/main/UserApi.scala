@@ -84,7 +84,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
 
   def pairWithPerfs(userIds: ByColor[Option[UserId]]): Fu[ByColor[Option[User.WithPerfs]]] =
-    listWithPerfs(userIds.all.flatten).map: users =>
+    listWithPerfs(userIds.flatten).map: users =>
       userIds.map(_.flatMap(id => users.find(_.id == id)))
 
   def listWithPerf[U: UserIdOf](
@@ -109,7 +109,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         yield User.WithPerf(user, perf)
 
   def pairWithPerf(userIds: ByColor[Option[UserId]], pt: PerfType): Fu[ByColor[Option[User.WithPerf]]] =
-    listWithPerf(userIds.all.flatten, pt).map: users =>
+    listWithPerf(userIds.flatten, pt).map: users =>
       userIds.map(_.flatMap(id => users.find(_.id == id)))
 
   def byIdOrGhostWithPerf(id: UserId, pt: PerfType): Fu[Option[LightUser.Ghost | User.WithPerf]] =
