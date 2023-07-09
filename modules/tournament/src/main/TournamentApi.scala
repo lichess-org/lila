@@ -99,6 +99,7 @@ final class TournamentApi(
     val finalized = tour.copy(
       conditions = data.conditions
         .copy(teamMember = old.conditions.teamMember), // can't change that
+      startsAt = if old.isCreated then tour.startsAt else old.startsAt,
       mode = if tour.position.isDefined then chess.Mode.Casual else tour.mode
     )
     tournamentRepo.update(finalized) >>- cached.tourCache.clear(tour.id) inject finalized
