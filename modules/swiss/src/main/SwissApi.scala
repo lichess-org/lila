@@ -315,11 +315,10 @@ final class SwissApi(
     }
 
   private def getGameRanks(swiss: Swiss, game: Game): Fu[Option[GameRanks]] =
-    game.whitePlayer.userId.ifTrue(swiss.isStarted) so { whiteId =>
-      game.blackPlayer.userId.so: blackId =>
+    swiss.isStarted.so:
+      game.players.traverse(_.userId).so: ids =>
         rankingApi(swiss).map: ranking =>
-          (ranking.get(whiteId), ranking.get(blackId)) mapN GameRanks.apply
-    }
+          ids.traverse(ranking.get).map(_.reduce(GameRanks.apply))
 
   private[swiss] def leaveTeam(teamId: TeamId, userId: UserId) =
     joinedPlayableSwissIds(userId, List(teamId))
