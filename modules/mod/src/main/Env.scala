@@ -32,10 +32,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.irc.IrcApi,
     msgApi: lila.msg.MsgApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, Scheduler):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
   private lazy val historyRepo    = HistoryRepo(db(CollName("mod_gaming_history")))
@@ -105,7 +102,6 @@ final class Env(
     "selfReportMark" -> { case lila.hub.actorApi.mod.SelfReportMark(suspectId, name) =>
       api
         .autoMark(SuspectId(suspectId), s"Self report: ${name}")(using User.lichessIdAsMe)
-        .unit
     },
     "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id)).unit

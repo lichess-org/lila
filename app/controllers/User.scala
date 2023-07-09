@@ -61,14 +61,12 @@ final class User(
         apiGames(u, GameFilter.All.name, 1)
       )
 
-  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using
-      ctx: Context
-  ): Fu[Result] =
+  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest isSynchronousHttp ctx.req
     then
       for
         as     <- env.activity.read.recentAndPreload(u)
-        nbs    <- env.userNbGames(u, ctx, withCrosstable = false)
+        nbs    <- env.userNbGames(u, withCrosstable = false)
         info   <- env.userInfo(u, nbs)
         _      <- env.userInfo.preloadTeams(info)
         social <- env.socialInfo(u)
@@ -102,7 +100,7 @@ final class User(
         else
           negotiate(
             html = for
-              nbs <- env.userNbGames(u, ctx, withCrosstable = true)
+              nbs <- env.userNbGames(u, withCrosstable = true)
               filters = GameFilterMenu(u, nbs, filter, ctx.isAuth)
               pag <- env.gamePaginator(
                 user = u,
