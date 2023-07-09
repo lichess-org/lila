@@ -152,23 +152,18 @@ trait LilaLibraryExtensions extends LilaTypes:
       }
 
     inline def void: Fu[Unit] =
-      dmap { _ =>
-        ()
-      }
+      dmap(_ => ())
 
     inline def inject[B](b: => B): Fu[B] =
-      dmap { _ =>
-        b
-      }
+      dmap(_ => b)
 
     def injectAnyway[B](b: => B)(using Executor): Fu[B] = fold(_ => b, _ => b)
 
     def effectFold(fail: Exception => Unit, succ: A => Unit)(using Executor): Unit =
-      fua onComplete {
+      fua.onComplete:
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
-      }
 
     def fold[B](fail: Exception => B, succ: A => B)(using Executor): Fu[B] =
       fua map succ recover { case e: Exception => fail(e) }
@@ -177,15 +172,14 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
     def logFailure(logger: => lila.log.Logger, msg: Throwable => String)(using Executor): Fu[A] =
-      addFailureEffect { e =>
+      addFailureEffect: e =>
         logger.warn(msg(e), e)
-      }
+
     def logFailure(logger: => lila.log.Logger)(using Executor): Fu[A] = logFailure(logger, _.toString)
 
     def addFailureEffect(effect: Throwable => Unit)(using Executor) =
-      fua.failed.foreach { (e: Throwable) =>
+      fua.failed.foreach: (e: Throwable) =>
         effect(e)
-      }
       fua
 
     def addEffect(effect: A => Unit)(using Executor): Fu[A] =
@@ -193,11 +187,10 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua
 
     def addEffects(fail: Exception => Unit, succ: A => Unit)(using Executor): Fu[A] =
-      fua onComplete {
+      fua.onComplete:
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
-      }
       fua
 
     def addEffects(f: Try[A] => Unit)(using Executor): Fu[A] =
@@ -205,20 +198,17 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua
 
     def addEffectAnyway(inAnyCase: => Unit)(using Executor): Fu[A] =
-      fua onComplete { _ =>
+      fua.onComplete: _ =>
         inAnyCase
-      }
       fua
 
     def mapFailure(f: Exception => Exception)(using Executor): Fu[A] =
-      fua recoverWith { case cause: Exception =>
-        fufail(f(cause))
-      }
+      fua.recoverWith:
+        case cause: Exception => fufail(f(cause))
 
     def prefixFailure(p: => String)(using Executor): Fu[A] =
-      mapFailure { e =>
+      mapFailure: e =>
         LilaException(s"$p ${e.getMessage}")
-      }
 
     def thenPp(using Executor): Fu[A] =
       effectFold(
@@ -280,9 +270,10 @@ trait LilaLibraryExtensions extends LilaTypes:
     def mon(path: lila.mon.TimerPath): Fu[A]              = chronometer.mon(path).result
     def monTry(path: Try[A] => lila.mon.TimerPath): Fu[A] = chronometerTry.mon(r => path(r)(lila.mon)).result
     def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer): Fu[A] =
-      chronometerTry.mon { r =>
-        path(lila.mon)(r.isSuccess)
-      }.result
+      chronometerTry
+        .mon: r =>
+          path(lila.mon)(r.isSuccess)
+        .result
     def monValue(path: A => lila.mon.TimerPath): Fu[A] = chronometer.monValue(path).result
 
     def logTime(name: String): Fu[A]                               = chronometer pp name
@@ -291,13 +282,12 @@ trait LilaLibraryExtensions extends LilaTypes:
     def recoverDefault(using Executor)(using z: Zero[A]): Fu[A] = recoverDefault(z.zero)
 
     def recoverDefault(using Executor)(default: => A): Fu[A] =
-      fua recover {
+      fua.recover:
         case _: LilaException                         => default
         case _: java.util.concurrent.TimeoutException => default
         case e: Exception =>
           lila.log("common").warn("Future.recoverDefault", e)
           default
-      }
 
   extension (fua: Fu[Boolean])
 
@@ -317,21 +307,17 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension [A](fua: Fu[Option[A]])
 
     def orFail(msg: => String)(using Executor): Fu[A] =
-      fua flatMap {
+      fua.flatMap:
         _.fold[Fu[A]](fufail(msg))(fuccess)
-      }
 
     def orFailWith(err: => Exception)(using Executor): Fu[A] =
-      fua flatMap {
+      fua.flatMap:
         _.fold[Fu[A]](fufail(err))(fuccess)
-      }
 
     def orElse(other: => Fu[Option[A]])(using Executor): Fu[Option[A]] =
-      fua flatMap {
-        _.fold(other) { x =>
+      fua.flatMap:
+        _.fold(other): x =>
           fuccess(Some(x))
-        }
-      }
 
     def getOrElse(other: => Fu[A])(using Executor): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
     @targetName("orZeroFu")

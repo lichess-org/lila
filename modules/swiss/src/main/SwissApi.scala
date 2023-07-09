@@ -353,22 +353,21 @@ final class SwissApi(
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
 
   private def kickFromSwissIds(userId: UserId, swissIds: Seq[SwissId], forfeit: Boolean = false): Funit =
-    swissIds.map { withdraw(_, userId, forfeit) }.parallel.void
+    swissIds.traverse_(withdraw(_, userId, forfeit))
 
   def withdraw(id: SwissId, userId: UserId, forfeit: Boolean = false): Funit =
     Sequencing(id)(cache.swissCache.notFinishedById): swiss =>
-      SwissPlayer
-        .fields: f =>
-          val selId = $id(SwissPlayer.makeId(swiss.id, userId))
-          if swiss.isStarted then
-            mongo.player.updateField(selId, f.absent, true) >>
-              forfeit.so { forfeitPairings(swiss, userId) }
-          else
-            mongo.player.delete.one(selId) flatMap { res =>
-              (res.n == 1).so:
-                mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void >>-
-                  cache.swissCache.clear(swiss.id)
-            }
+      SwissPlayer.fields: f =>
+        val selId = $id(SwissPlayer.makeId(swiss.id, userId))
+        if swiss.isStarted then
+          mongo.player.updateField(selId, f.absent, true) >>
+            forfeit.so { forfeitPairings(swiss, userId) }
+        else
+          mongo.player.delete.one(selId) flatMap { res =>
+            (res.n == 1).so:
+              mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void >>-
+                cache.swissCache.clear(swiss.id)
+          }
     .void >> recomputeAndUpdateAll(id)
 
   private def forfeitPairings(swiss: Swiss, userId: UserId): Funit =
@@ -430,9 +429,8 @@ final class SwissApi(
                     }
                   } inject true
             } >>- cache.swissCache.clear(swiss.id)
-      .flatMap:
-        if _ then recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
-        else funit
+      .flatMapz:
+        recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
 
   private[swiss] def destroy(swiss: Swiss): Funit =
     mongo.swiss.delete.one($id(swiss.id)) >>
@@ -451,7 +449,7 @@ final class SwissApi(
     SwissPlayer
       .fields: f =>
         mongo.player.primitiveOne[UserId]($doc(f.swissId -> swiss.id), $sort desc f.score, f.userId)
-      .flatMap { winnerUserId =>
+      .flatMap: winnerUserId =>
         mongo.swiss.update
           .one(
             $id(swiss.id),
@@ -462,12 +460,12 @@ final class SwissApi(
             )
           )
           .void zip
-          SwissPairing.fields { f =>
-            mongo.pairing.delete.one($doc(f.swissId -> swiss.id, f.status -> true)) map { res =>
-              if res.n > 0 then logger.warn(s"Swiss ${swiss.id} finished with ${res.n} ongoing pairings")
-            }
-          } void
-      } >>- {
+          SwissPairing
+            .fields: f =>
+              mongo.pairing.delete.one($doc(f.swissId -> swiss.id, f.status -> true)) map { res =>
+                if res.n > 0 then logger.warn(s"Swiss ${swiss.id} finished with ${res.n} ongoing pairings")
+              }
+      .void >>- {
       systemChat(swiss.id, s"Tournament completed!")
       cache.swissCache clear swiss.id
       socket.reload(swiss.id)
