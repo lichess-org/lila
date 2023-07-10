@@ -82,7 +82,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
           _.map: next =>
             !prev.exists(next.similarTo) so sessions.put(me.userId, fuccess(next))
 
-  private val sessions = cacheApi.notLoading[UserId, PuzzleSession](32768, "puzzle.session"):
+  private val sessions = cacheApi.notLoading[UserId, PuzzleSession](16_384, "puzzle.session"):
     _.expireAfterWrite(1 hour).buildAsync()
 
   private[puzzle] def continueOrCreateSessionFor(
