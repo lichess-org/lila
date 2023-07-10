@@ -859,11 +859,11 @@
   <string name="temporaryInconvenience">Pedímosche desculpas polas molestias,</string>
   <string name="wishYouGreatGames">e desexámosche grandes partidas en lichess.org.</string>
   <string name="thankYouForReading">Grazas por pararte a ler isto!</string>
-  <string name="lifetimeScore">Marcador histórico</string>
+  <string name="lifetimeScore">Resultados totais</string>
   <string name="currentMatchScore">Resultados deste enfrontamento</string>
-  <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, un libro, unha base de datos ou de outra persoa).</string>
+  <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, libro, base de datos ou doutra persoa).</string>
   <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Estou dacordo con que non crearei múltiples contas (excepto polas razóns indicadas en %s).</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Comprométome a non crear múltiples contas (excepto polas razóns indicadas nos %s).</string>
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
@@ -872,10 +872,10 @@
   <string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 30 segundos</string>
   <string name="bulletDesc">Partidas moi rápidas: menos de 3 minutos</string>
   <string name="blitzDesc">Partidas rápidas: de 3 a 8 minutos</string>
-  <string name="rapidDesc">Partidas rápidas: de 3 a 8 minutos</string>
+  <string name="rapidDesc">Partidas rápidas: de 8 a 25 minutos</string>
   <string name="classicalDesc">Partidas clásicas: 25 minutos ou máis</string>
   <string name="correspondenceDesc">Partidas por correspondencia: un ou varios días por xogada</string>
-  <string name="puzzleDesc">Entrenador de tácticas de xadrez</string>
+  <string name="puzzleDesc">Adestrador de tácticas de xadrez</string>
   <string name="important">Importante</string>
   <string name="yourQuestionMayHaveBeenAnswered">Pode que a túa pregunta xa teña resposta %1$s</string>
   <string name="inTheFAQ">nas preguntas frecuentes.</string>
