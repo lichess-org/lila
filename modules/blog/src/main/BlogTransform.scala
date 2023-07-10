@@ -25,7 +25,7 @@ object BlogTransform:
 
     private val PreRegex = """<pre>markdown(.+)</pre>""".r
 
-    def apply(html: Html): Html = Html {
+    def apply(html: Html): Html = Html:
       PreRegex.replaceAllIn(
         html.value,
         m =>
@@ -36,4 +36,3 @@ object BlogTransform:
           )
           Regex.quoteReplacement(markup.value)
       )
-    }
