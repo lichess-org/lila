@@ -298,7 +298,7 @@ final class Study(
   }
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
-    get("sri") so { sri =>
+    get("sri").so: sri =>
       StudyForm.importPgn.form
         .bindFromRequest()
         .fold(
@@ -311,7 +311,6 @@ final class Study(
               ctx.pref.showRatings
             )(Who(me, lila.socket.Socket.Sri(sri))) inject NoContent
         )
-    }
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
