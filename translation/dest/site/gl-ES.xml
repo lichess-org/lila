@@ -529,7 +529,7 @@
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
   <string name="descPrivate">Descrición privada</string>
-  <string name="descPrivateHelp">Este texto só poden velo os membros do equipo. O texto que escribas aquí reemplazará a descrición pública para os membros do equipo.</string>
+  <string name="descPrivateHelp">Texto que só verán os membros do equipo. Se se emprega, substitúe a túa descrición pública cando sexa visto polos membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
   <string name="help">Axuda:</string>
@@ -537,7 +537,7 @@
   <string name="topics">Temas</string>
   <string name="posts">Entradas</string>
   <string name="lastPost">Última entrada</string>
-  <string name="views">Vistas</string>
+  <string name="views">Visitas</string>
   <string name="replies">Respostas</string>
   <string name="replyToThisTopic">Responder a este tema</string>
   <string name="reply">Responder</string>
@@ -546,7 +546,7 @@
   <string name="reportAUser">Denunciar a un usuario</string>
   <string name="user">Usuario</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">Qué pasou?</string>
+  <string name="whatIsIheMatter">Que pasou?</string>
   <string name="cheat">Trampa</string>
   <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
