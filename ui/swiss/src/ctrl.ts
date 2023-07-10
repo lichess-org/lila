@@ -128,7 +128,6 @@ export default class SwissCtrl {
   userLastPage = () => this.userSetPage(players(this).nbPages);
 
   showPlayerInfo = (player: Player) => {
-    console.log('askReload');
     this.playerInfoId = this.playerInfoId === player.user.id ? undefined : player.user.id;
     if (this.playerInfoId) xhr.playerInfo(this, this.playerInfoId);
   };
@@ -146,7 +145,6 @@ export default class SwissCtrl {
   private reloadSoonThrottle: () => void;
 
   private reloadSoon = () => {
-    console.log('reloadSoon');
     if (!this.reloadSoonThrottle)
       this.reloadSoonThrottle = throttlePromiseDelay(
         () => Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
