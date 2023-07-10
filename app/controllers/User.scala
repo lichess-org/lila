@@ -20,7 +20,6 @@ import lila.socket.UserLagCache
 import lila.user.{ User as UserModel }
 import lila.security.{ Granter, UserLogins }
 import lila.mod.UserWithModlog
-import play.api.i18n.Lang
 
 final class User(
     override val env: Env,

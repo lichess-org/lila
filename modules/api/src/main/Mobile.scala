@@ -41,6 +41,7 @@ object Mobile:
 
   object LichessMobileUa:
     private val Regex = """lichess mobile/(\S+) \((\d*)\) as:(\S+) os:(\w+)/(\S+) dev:(.*)""".r
+    def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req) flatMap parse
     def parse(ua: UserAgent): Option[LichessMobileUa] = ua.value.toLowerCase match
       case Regex(version, build, as, osName, osVersion, device) =>
         val user = (as != "anon") option UserStr(as).id
