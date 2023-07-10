@@ -4,8 +4,7 @@ import scala.util.Try
 import io.prismic.*
 import play.api.mvc.RequestHeader
 import play.api.libs.ws.StandaloneWSClient
-import java.util.regex.Pattern
-import scala.util.matching.Regex
+import java.util.regex.{ Pattern, Matcher }
 
 import lila.common.Bus
 import lila.common.config.{ BaseUrl, MaxPerPage }
@@ -109,7 +108,7 @@ final class BlogApi(
       pgnCache
         .getIfPresent(m.group(1))
         .fold(m.matched): pgn =>
-          val esc = Regex.quoteReplacement:
+          val esc = Matcher.quoteReplacement:
             lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
           val color = Option(m.group(2)).getOrElse("white")
           val ply   = Option(m.group(3)).getOrElse("last")
@@ -122,7 +121,7 @@ final class BlogApi(
       pgnCache
         .getIfPresent(m.group(1))
         .fold(m.matched): pgn =>
-          val esc = Regex.quoteReplacement:
+          val esc = Matcher.quoteReplacement:
             lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
           val ply = Option(m.group(2)).getOrElse("last")
           s"""<div class="lpv--autostart" data-pgn="$esc" data-ply="$ply"></div>"""
