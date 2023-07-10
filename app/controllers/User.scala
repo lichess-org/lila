@@ -291,10 +291,10 @@ final class User(
     else Found(topNbUsers(nb, perfKey)) { users => topNbJson(users._1) }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
-    PerfType(perfKey).so: perfType =>
+    PerfType(perfKey).soFu: perfType =>
       env.user.cached.top200Perf get perfType.id dmap {
         _.take(nb atLeast 1 atMost 200) -> perfType
-      } dmap some
+      }
 
   private def topNbJson(users: List[UserModel.LightPerf]) =
     given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)

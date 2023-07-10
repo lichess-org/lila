@@ -62,13 +62,13 @@ final class JsonView(
         ,
         withScores = withScores
       )
-      playerInfoJson <- playerInfoExt.so: pie =>
-        playerInfoExtended(tour, pie).map(_.some)
+      playerInfoJson <- playerInfoExt.soFu:
+        playerInfoExtended(tour, _)
       verdicts <- full.so:
         (me, myInfo) match
           case (None, _)                                   => fuccess(tour.conditions.accepted.some)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
-          case (Some(me), Some(_)) => verify.rejoin(tour.conditions)(using me) map some
+          case (Some(me), Some(_)) => verify.rejoin(tour.conditions)(using me) dmap some
           case (Some(me), None) =>
             perfsRepo
               .usingPerfOf(me, tour.perfType):

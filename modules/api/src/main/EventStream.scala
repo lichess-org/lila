@@ -34,16 +34,13 @@ final class EventStream(
     // kill previous one if any
     Bus.publish(PoisonPill, s"eventStreamFor:${me.userId}")
 
-    blueprint mapMaterializedValue { queue =>
+    blueprint.mapMaterializedValue: queue =>
       gamesInProgress map { gameJson(_, "gameStart") } foreach queue.offer
       challenges map challengeJson("challenge") map some foreach queue.offer
 
       val actor = system.actorOf(Props(mkActor(queue)))
 
-      queue.watchCompletion().addEffectAnyway {
-        actor ! PoisonPill
-      }
-    }
+      queue.watchCompletion().addEffectAnyway { actor ! PoisonPill }
 
   private def mkActor(queue: SourceQueueWithComplete[Option[JsObject]])(using me: Me): Actor = new:
 
