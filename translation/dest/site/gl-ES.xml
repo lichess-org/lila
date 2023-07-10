@@ -577,12 +577,12 @@
   <string name="privacyPolicy">Política de privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir a outros xogadores seguirte</string>
   <string name="letOtherPlayersChallengeYou">Permitir a outros xogadores retarte</string>
-  <string name="letOtherPlayersInviteYouToStudy">Deixa que outros xogadores che conviden a estudos</string>
+  <string name="letOtherPlayersInviteYouToStudy">Deixa que outros xogadores te conviden a estudos</string>
   <string name="sound">Son</string>
   <string name="none">Ningunha</string>
-  <string name="fast">Rápido</string>
+  <string name="fast">Rápida</string>
   <string name="normal">Normal</string>
-  <string name="slow">Lento</string>
+  <string name="slow">Lenta</string>
   <string name="insideTheBoard">Dentro do taboleiro</string>
   <string name="outsideTheBoard">Fóra do taboleiro</string>
   <string name="onSlowGames">En partidas lentas</string>
@@ -594,7 +594,7 @@
   <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="defeatVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="drawVsYInZ">%1$s contra %2$s en %3$s</string>
-  <string name="timeline">Historial</string>
+  <string name="timeline">Cronoloxía</string>
   <string name="starting">Comezo:</string>
   <string name="allInformationIsPublicAndOptional">Toda a información é pública e opcional.</string>
   <string name="biographyDescription">Cóntanos sobre ti, que che gusta do xadrez, as túas aperturas preferidas, partidas, xogadores…</string>
