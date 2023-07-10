@@ -116,7 +116,7 @@ interface QuestionOpts {
 
 interface SoundI {
   ctx: AudioContext;
-  load(name: string, path?: string, isThemed?: boolean): void;
+  load(name: string, path?: string): void;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
   move(node?: { san?: string; uci?: Uci }): void;

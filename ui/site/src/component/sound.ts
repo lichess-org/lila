@@ -7,23 +7,12 @@ import { charRole } from 'chess';
 type Name = string;
 type Path = string;
 
-class Sound {
-  node: GainNode;
-  constructor(ctx: AudioContext, readonly buffer: AudioBuffer, readonly isThemed: boolean) {
-    this.node = ctx.createGain();
-    this.node.connect(ctx.destination);
-  }
-  maybeClose(): boolean {
-    if (this.isThemed) this.node.disconnect();
-    return this.isThemed;
-  }
-}
-
 export type SoundMove = (node?: { san?: string; uci?: string }) => void;
 
 export default new (class implements SoundI {
   ctx = new AudioContext();
-  sounds = new Map<Name, Sound>(); // The loaded sounds and their instances
+  sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
+  paths = new Map<Name, Path>(); // sound names to paths
   theme = $('body').data('sound-set');
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
@@ -34,57 +23,56 @@ export default new (class implements SoundI {
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
       this.ctx = new AudioContext();
-      for (const s of this.sounds.values()) s.node.connect(this.ctx.destination);
+      for (const s of this.sounds.values()) s.rewire(this.ctx);
     }
     if (this.ctx.state === 'suspended') await this.ctx.resume();
 
     return this.ctx;
   }
 
-  async load(name: Name, path?: Path, isThemed = false): Promise<Sound> {
-    if (!path) {
-      path = this.themePath(name);
-      isThemed = true;
-    }
+  async load(name: Name, path?: Path): Promise<Sound | undefined> {
+    if (!this.enabled()) return;
+    if (path) this.paths.set(name, path);
+    else if (this.paths.has(name)) path = this.paths.get(name);
+    path ??= this.resolve(name);
+    if (!path) return;
+    if (this.sounds.has(path)) return this.sounds.get(path);
+
     const result = await fetch(`${path}.mp3`);
     if (!result.ok) throw new Error(`${path}.mp3 failed ${result.status}`);
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await this.ctx.decodeAudioData(arrayBuffer);
-    const sound = new Sound(this.ctx, audioBuffer, isThemed);
-    this.sounds.set(name, sound);
+    const sound = new Sound(this.ctx, audioBuffer);
+    this.sounds.set(path, sound);
+    this.paths.set(name, path);
     return sound;
   }
 
-  async cache(name: Name, theme?: string): Promise<Sound> {
-    return this.sounds.get(name) ?? this.load(name, this.themePath(name, theme), true);
+  resolve(name: Name): string | undefined {
+    if (!this.enabled()) return;
+    let dir = this.theme;
+    if (this.theme === 'music' || this.theme === 'speech') {
+      if (['move', 'capture', 'check'].includes(name)) return;
+      if (name === 'genericNotify' || this.theme === 'speech') dir = 'standard';
+      else dir = 'instrument';
+    }
+    return `${this.baseUrl}/${dir}/${name[0].toUpperCase() + name.slice(1)}`;
   }
 
   async play(name: Name, volume = 1): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!this.enabled()) resolve();
-      let theme = this.theme;
-      if (theme === 'music' || this.speechStorage.get()) {
-        if (['move', 'capture', 'check'].includes(name)) return resolve();
-        else theme = 'standard';
-      }
-      this.cache(name, theme)
-        .then(async s => {
+      this.load(name)
+        .then(async sound => {
+          if (!sound) return resolve();
           const resumeTimer = setTimeout(() => {
             $('#warn-no-autoplay').addClass('shown');
             reject();
           }, 400);
           await this.context();
           clearTimeout(resumeTimer);
-          s.node.gain.setValueAtTime(this.getVolume() * volume, this.ctx.currentTime);
-          const source = this.ctx.createBufferSource();
-          source.buffer = s.buffer;
-          source.connect(s.node);
-          source.onended = () => {
-            source.disconnect();
-            resolve();
-          };
-          source.start(0);
+          sound.play(this.getVolume() * volume, resolve);
         })
         .catch(reject);
     });
@@ -102,7 +90,7 @@ export default new (class implements SoundI {
       while (count > 0) {
         const promises = [new Promise(r => setTimeout(r, interval)), this.play(`countDown${count}`)];
 
-        if (--count > 0) promises.push(this.cache(`countDown${count}`));
+        if (--count > 0) promises.push(this.load(`countDown${count}`));
         await Promise.all(promises);
       }
       await this.play('genericNotify');
@@ -163,8 +151,6 @@ export default new (class implements SoundI {
   publish = () => pubsub.emit('sound_set', this.theme);
 
   changeSet = (s: string) => {
-    if (this.theme !== s)
-      this.sounds = new Map([...this.sounds.entries()].filter(([, s]) => !s.maybeClose()));
     this.theme = s;
     this.publish();
     this.move();
@@ -210,12 +196,34 @@ export default new (class implements SoundI {
   }
 
   preloadBoardSounds() {
-    if (this.enabled() && this.theme !== 'music')
-      for (const name of ['move', 'capture', 'check', 'genericNotify'])
-        this.load(name, this.themePath(name), true);
-  }
-
-  themePath(name: Name, theme?: string) {
-    return `${this.baseUrl}/${theme ?? this.theme}/${name[0].toUpperCase() + name.slice(1)}`;
+    for (const name of ['move', 'capture', 'check', 'genericNotify']) this.load(name);
   }
 })();
+
+class Sound {
+  node: GainNode;
+  ctx: AudioContext;
+
+  constructor(ctx: AudioContext, readonly buffer: AudioBuffer) {
+    this.rewire(ctx);
+  }
+
+  play(volume = 1, onend?: () => void) {
+    this.node.gain.setValueAtTime(volume, this.ctx!.currentTime);
+    const source = this.ctx!.createBufferSource();
+    source.buffer = this.buffer;
+    source.connect(this.node);
+    source.onended = () => {
+      source.disconnect();
+      onend?.();
+    };
+    source.start(0);
+  }
+
+  rewire(ctx: AudioContext) {
+    this.node?.disconnect();
+    this.ctx = ctx;
+    this.node = this.ctx.createGain();
+    this.node.connect(this.ctx.destination);
+  }
+}
