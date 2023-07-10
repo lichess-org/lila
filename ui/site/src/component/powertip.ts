@@ -2,6 +2,8 @@ import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { requestIdleCallback } from './functions';
 
+// Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
+
 const inCrosstable = (el: HTMLElement) => document.querySelector('.crosstable')?.contains(el);
 
 const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el: HTMLAnchorElement) => {
