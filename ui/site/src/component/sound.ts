@@ -45,7 +45,6 @@ export default new (class implements SoundI {
     const audioBuffer = await this.ctx.decodeAudioData(arrayBuffer);
     const sound = new Sound(this.ctx, audioBuffer);
     this.sounds.set(path, sound);
-    this.paths.set(name, path);
     return sound;
   }
 
