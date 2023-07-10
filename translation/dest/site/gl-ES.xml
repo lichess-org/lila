@@ -891,15 +891,15 @@
   <string name="youCannotPostYetPlaySomeGames">Aínda non podes publicar nos foros. Xoga algunhas partidas!</string>
   <string name="subscribe">Subscribirse</string>
   <string name="unsubscribe">Cancelar a subscrición</string>
-  <string name="mentionedYouInX">fuches mencionad@ en \"%1$s\".</string>
-  <string name="xMentionedYouInY">%1$s mencionouche en \"%2$s\".</string>
-  <string name="invitedYouToX">invitouche a \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s invitouche a \"%2$s\".</string>
-  <string name="youAreNowPartOfTeam">Agora es parte do equipo.</string>
+  <string name="mentionedYouInX">mencionoute en \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s mencionoute en \"%2$s\".</string>
+  <string name="invitedYouToX">invitoute a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s invitoute a \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Agora formas parte do equipo.</string>
   <string name="youHaveJoinedTeamX">Unícheste a \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Alguén que reportaches foi banead@</string>
+  <string name="someoneYouReportedWasBanned">Alguén a quen denunciaches foi proscrito</string>
   <string name="congratsYouWon">Parabéns, gañaches!</string>
-  <string name="gameVsX">Xogo contra %1$s</string>
+  <string name="gameVsX">Partida contra %1$s</string>
   <string name="resVsX">%1$s contra %2$s</string>
   <string name="lostAgainstTOSViolator">Perdiches con alguén que incumpriu as condicións de servizo de Lichess</string>
   <string name="refundXpointsTimeControlY">Recuperaches %1$s puntos en %2$s.</string>
@@ -908,16 +908,17 @@
   <string name="download">Descarga</string>
   <string name="welcome">Benvid@!</string>
   <string name="lichessPatronInfo">Lichess é unha organización benéfica e un software totalmente libre e de código aberto.
-Tódolos custos de funcionamento, desenvolvemento e contidos financianse unicamente mediante as doazóns d@s usuari@s.</string>
-  <string name="coachManager">Administrador de adestradores/as</string>
-  <string name="streamerManager">Administrador de streamers</string>
+Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
+  <string name="coachManager">Administrador de adestradores</string>
+  <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>
-  <string name="tournDescription">Descripción do torneo</string>
-  <string name="tournDescriptionHelp">Tes algo en especial que dicir ás participantes? Tenta ser breve. Poden engadir ligazóns de Markdown [name](https://url)</string>
-  <string name="ratedFormHelp">As partidas son puntuadas e impactan nas calificacións das xogadoras</string>
+  <string name="tournDescription">Descrición do torneo</string>
+  <string name="tournDescriptionHelp">Queres dicirlles algo en especial ós participantes? Tenta ser breve. Hai dispoñibles ligazóns de Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">As partidas son puntuadas
+e afectan ás puntuacións dos xogadores</string>
   <string name="onlyMembersOfTeam">Só membros do equipo</string>
   <string name="noRestriction">Sen restrición</string>
-  <string name="minimumRatedGames">Mínimo de partidas por puntos</string>
+  <string name="minimumRatedGames">Mínimo de partidas puntuadas</string>
   <string name="minimumRating">Mínima puntuación</string>
   <string name="maximumWeeklyRating">Máxima puntuación semanal</string>
   <string name="onlyTitled">Só xogadoras tituladas</string>
