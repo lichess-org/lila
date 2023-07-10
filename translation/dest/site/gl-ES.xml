@@ -621,11 +621,11 @@
   <string name="error.unknown">Valor non válido</string>
   <string name="error.required">Este campo é obrigatorio</string>
   <string name="error.email">Este enderezo de correo non é válido</string>
-  <string name="error.email_acceptable">Este enderezo de correo non é aceptable. Por favor, volve a comprobala e téntao de novo.</string>
-  <string name="error.email_unique">Enderezo de correo inválido ou xa foi empregado</string>
+  <string name="error.email_acceptable">Este enderezo de correo non é aceptable. Por favor, volve comprobalo e téntao de novo.</string>
+  <string name="error.email_unique">Este enderezo de correo non é válido ou xa foi empregado</string>
   <string name="error.email_different">Este xa é o teu enderezo de correo electrónico</string>
-  <string name="error.minLength">A lonxitude mínima é de %s</string>
-  <string name="error.maxLength">A lonxitude máxima é de %s</string>
+  <string name="error.minLength">A lonxitude mínima é de %s caracteres</string>
+  <string name="error.maxLength">A lonxitude máxima é de %s caracteres</string>
   <string name="error.min">Debe ser maior ou igual que %s</string>
   <string name="error.max">Debe ser menor ou igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
@@ -637,8 +637,8 @@
   <string name="whiteCastlingKingside">Brancas O-O</string>
   <string name="blackCastlingKingside">Negras O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Mensaxes no Foro</item>
-    <item quantity="other">%s Mensaxes no Foro</item>
+    <item quantity="one">%s mensaxe no foro</item>
+    <item quantity="other">%s mensaxes no foro</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo xogando: %s</string>
   <string name="watchGames">Ver partidas</string>
@@ -650,8 +650,8 @@
   <string name="webmasters">Administradores web</string>
   <string name="about">Acerca de</string>
   <string name="aboutX">Acerca de %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuito (%2$s), libre, e sen publicidade.</string>
-  <string name="really">realmente</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuíto (%2$s), libre, e sen publicidade.</string>
+  <string name="really">de verdade</string>
   <string name="contribute">Contribuír</string>
   <string name="termsOfService">Termos do Servizo</string>
   <string name="sourceCode">Código Fonte</string>
@@ -665,9 +665,9 @@
   <string name="returnToSimulHomepage">Voltar á paxina de simultáneas</string>
   <string name="aboutSimul">As simultáneas son partidas dun xogador contra varios ó mesmo tempo.</string>
   <string name="aboutSimulImage">De 50 rivais, Fischer gañou 47 partidas, empatou 2 e perdeu 1.</string>
-  <string name="aboutSimulRealLife">O concepto tómase de eventos reais. Nestes, un simultaneador móvese de mesa en mesa e fai unha xogada de cada vez.</string>
-  <string name="aboutSimulRules">Cando as simultáneas comezan, cada xogador comeza unha partida contra o simultaneador, que xoga con brancas. As simultáneas rematan cando todas as partidas rematan.</string>
-  <string name="aboutSimulSettings">As simultáneas son sempre amigables. As opcións de revancha, cambio de xogada e engadir tempo están deshabilitadas.</string>
+  <string name="aboutSimulRealLife">O concepto tómase de eventos reais. Nestes, o anfitrión das simultáneas móvese de mesa en mesa e fai unha xogada de cada vez.</string>
+  <string name="aboutSimulRules">Cando as simultáneas comezan, cada xogador inicia unha partida contra o anfitrión. As simultáneas finalizan cando todas as partidas rematan.</string>
+  <string name="aboutSimulSettings">As simultáneas son sempre amigables. As opcións de desquite, de desfacer a xogada e de engadir tempo non están activadas.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cando creas unha simultánea, podes xogar contra varios xogadores ó mesmo tempo.</string>
   <string name="simulVariantsHint">Se seleccionas distintas variantes, cada xogador pode escoller cal xogar.</string>
