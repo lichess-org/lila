@@ -158,9 +158,7 @@ object layout:
     )
 
   private def warnNoAutoplay(using ctx: PageContext) =
-    div(id := "warn-no-autoplay")(
-      a(dataIcon := licon.Mute, target := "_blank", href := routes.Main.faq.url + "#autoplay")
-    )
+    div(id := "warn-no-autoplay")(a(dataIcon := licon.Mute))
 
   private def current2dTheme(using ctx: PageContext) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default

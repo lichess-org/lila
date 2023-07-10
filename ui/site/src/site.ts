@@ -162,7 +162,7 @@ lichess.load.then(() => {
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {
       lichess.unload.expected = true;
-      lichess.redirect(d, true); // is this always a game?
+      lichess.redirect(d);
     });
     pubsub.on('socket.in.fen', e =>
       document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))

@@ -210,7 +210,7 @@ export default new (class implements SoundI {
   }
 
   preloadBoardSounds() {
-    if (this.theme !== 'music')
+    if (this.enabled() && this.theme !== 'music')
       for (const name of ['move', 'capture', 'check', 'genericNotify'])
         this.load(name, this.themePath(name), true);
   }

@@ -25,7 +25,7 @@ interface Lichess {
   blindMode: boolean;
   unload: { expected: boolean };
   watchers(el: HTMLElement): void;
-  redirect(o: RedirectTo, notify?: boolean): void; // = false
+  redirect(o: RedirectTo, notify?: 'countdown' | 'beep'): void;
   reload(): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
