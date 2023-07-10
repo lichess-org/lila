@@ -31,10 +31,9 @@ export default new (class implements SoundI {
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
-    if (!this.enabled()) return;
     if (path) this.paths.set(name, path);
     else if (this.paths.has(name)) path = this.paths.get(name);
-    path ??= this.resolve(name);
+    else path ??= this.resolve(name);
     if (!path) return;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
