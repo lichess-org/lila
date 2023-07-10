@@ -1,7 +1,7 @@
 import { objectStorage } from 'common/objectStorage';
 import { Selector, Selectable } from 'common/selector';
 import { storedStringProp } from 'common/storage';
-import { VoskModule } from 'voice';
+import { VoskModule, VOSK_TS_VERSION } from 'voice';
 
 type Audio = { vosk?: AudioNode; source?: AudioNode; ctx?: AudioContext };
 
@@ -131,6 +131,7 @@ export const mic = new (class implements Voice.Microphone {
       if (listen && this.isListening && this.recId === this.recs.key) return;
       this.busy = true;
       await this.initModel();
+      if (!this.busy) throw '';
       for (const [recId, rec] of this.recs.group) this.initKaldi(recId, rec);
       this.recs.select(listen && this.recId);
       this.vosk?.select(listen && this.recId);
@@ -139,7 +140,7 @@ export const mic = new (class implements Voice.Microphone {
       this.broadcast(listen ? 'Listening...' : '', 'start');
     } catch (e: any) {
       this.stop([e.toString(), 'error']);
-      throw e;
+      if (e !== '') throw e;
     }
   }
 
@@ -208,7 +209,8 @@ export const mic = new (class implements Voice.Microphone {
     const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
     const audioAsync = this.initAudio();
 
-    this.vosk ??= await lichess.loadEsm('voice.vosk');
+    this.vosk ??= await lichess.loadEsm<VoskModule>('voice.vosk', { url: { version: VOSK_TS_VERSION } });
+
     await downloadAsync;
     await this.vosk.initModel(modelUrl, this.lang);
     await audioAsync;

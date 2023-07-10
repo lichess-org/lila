@@ -39,6 +39,7 @@ case class Pref(
     zen: Int,
     ratings: Int,
     rookCastle: Int,
+    pairingCountdown: Int,
     moveEvent: Int,
     pieceNotation: Int,
     resizeHandle: Int,
@@ -258,8 +259,9 @@ object Pref:
       EVERYBODY -> "With everybody"
     )
 
-  object KeyboardMove extends BooleanPref
-  object Voice        extends BooleanPref
+  object KeyboardMove     extends BooleanPref
+  object Voice            extends BooleanPref
+  object PairingCountdown extends BooleanPref
 
   object RookCastle:
     val NO  = 0
@@ -490,6 +492,7 @@ object Pref:
     zen = Zen.NO,
     ratings = Ratings.YES,
     rookCastle = RookCastle.YES,
+    pairingCountdown = PairingCountdown.NO,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,

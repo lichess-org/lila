@@ -157,6 +157,10 @@ object pref:
             setting(
               scrollOnTheBoardToReplayMoves(),
               radios(form("behavior.scrollMoves"), booleanChoices)
+            ),
+            setting(
+              "Countdown when paired with opponent",
+              radios(form("behavior.pairingCountdown"), booleanChoices)
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(

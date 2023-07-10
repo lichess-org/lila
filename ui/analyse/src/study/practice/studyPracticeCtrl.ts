@@ -18,8 +18,8 @@ export default function (
     success = prop<boolean | null>(null),
     autoNext = storedBooleanProp('analyse.practice-auto-next', true);
 
-  lichess.sound.loadOggOrMp3('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`, true);
-  lichess.sound.loadOggOrMp3('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`, true);
+  lichess.sound.load('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`);
+  lichess.sound.load('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`);
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);

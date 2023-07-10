@@ -19,7 +19,6 @@ import { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfa
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;
   private redraw: () => void;
-  private music?: any;
   pref: StormPrefs;
   run: Run;
   vm: StormVm;
@@ -65,19 +64,13 @@ export default class StormCtrl implements PuzCtrl {
         this.redraw();
       }
     }, config.timeToStart + 1000);
-    lichess.pubsub.on('sound_set', (set: string) => {
-      if (!this.music && set === 'music')
-        lichess.loadIife('javascripts/music/play.js').then(() => {
-          this.music = lichess.playMusic();
-        });
-      if (this.music && set !== 'music') this.music = undefined;
-    });
     lichess.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       xhr.setZen(zen);
     });
     $('#zentog').on('click', this.toggleZen);
+    lichess.sound.move();
   }
 
   end = (): void => {
@@ -149,7 +142,7 @@ export default class StormCtrl implements PuzCtrl {
         if (this.run.clock.flag()) this.end();
         else if (!this.incPuzzle()) this.end();
       }
-      if (this.music) this.music.jump({ san: makeSan(pos, move), uci });
+      lichess.sound.move({ san: makeSan(pos, move), uci });
       this.redraw();
       this.redrawQuick();
       this.redrawSlow();

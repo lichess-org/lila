@@ -34,16 +34,14 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js > ../../public/compiled/deps.min.js",
     "compile": "tsc",
-    "dev": "tsc",
-    "prod": "cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js"
+    "dev": "tsc"
   },
   "lichess": {
     "modules": {
       "iife": {},
       "esm": {
-        "src/site.ts": "site",
+        "src/site.ts": "lichess",
         "src/tvEmbed.ts": "tvEmbed",
         "src/puzzleEmbed.ts": "puzzle.embed",
         "src/user.ts": "user",
@@ -74,7 +72,8 @@
         "src/tvGames.ts": "tvGames",
         "src/ublog.ts": "ublog",
         "src/ublogForm.ts": "ublogForm",
-        "src/streamer.ts": "streamer"
+        "src/streamer.ts": "streamer",
+        "src/soundMove.ts": "soundMove"
       }
     },
     "copy": [

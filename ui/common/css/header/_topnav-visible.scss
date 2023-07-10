@@ -46,6 +46,9 @@
       box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
       border-radius: 0 3px 3px 3px;
       border-#{$start-direction}: 2px solid $c-primary;
+      @if $theme == 'transp' {
+        @include back-blur();
+      }
 
       a {
         display: block;

@@ -1,8 +1,5 @@
 .board-menu {
   @extend %flex-column, %dropdown-shadow;
-  @if $theme == 'transp' {
-    @include back-blur();
-  }
   background: $c-bg-popup;
   padding: 0.5em 1.5em;
   user-select: none;
