@@ -138,44 +138,36 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[User.WithPerfs]] =
-    userRepo.coll
+    perfsRepo.coll
       .aggregateList(nb, _.sec): framework =>
         import framework.*
         import User.{ BSONFields as F }
         Match(
-          $doc(
-            F.enabled -> true,
-            F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key)
-          ) ++ $inIds(ids) ++ userRepo.botSelect(false)
+          $inIds(ids) ++ $doc("standard.gl.d" $lt Glicko.provisionalDeviation)
         ) -> List(
-          Project($id(true)),
-          Group(BSONNull)("ids" -> PushField("_id")),
-          PipelineOperator:
-            $lookup.simple(
-              from = perfsRepo.coll,
-              as = "perfs",
-              local = "ids",
-              foreign = "_id"
-            )
-          ,
-          Match($doc("perfs.0.standard.gl.d" $lt Glicko.provisionalDeviation)),
-          Project($doc("perfs" -> true)),
-          UnwindField("perfs"),
-          Sort(Descending("perfs.standard.gl.r")),
-          Limit(nb),
+          Sort(Descending("standard.gl.r")),
+          Limit(nb * 5),
           PipelineOperator:
             $lookup.simple(
               from = userRepo.coll,
               as = "user",
-              local = "perfs._id",
+              local = "_id",
               foreign = "_id"
             )
           ,
-          UnwindField("user")
+          UnwindField("user"),
+          Match:
+            $doc(
+              s"user.${F.enabled}" -> true,
+              s"user.${F.marks}" $nin List(UserMark.Engine.key, UserMark.Boost.key),
+              s"user.${F.title}" $ne Title.BOT
+            )
+          ,
+          Limit(nb)
         )
       .map: docs =>
         for
           doc  <- docs
           user <- doc.getAsOpt[User]("user")
-          perfs = perfsRepo.aggregate.readOne(doc, user)
+          perfs = perfsRepo.aggregate.readFrom(doc, user)
         yield User.WithPerfs(user, perfs)

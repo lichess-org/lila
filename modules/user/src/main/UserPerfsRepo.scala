@@ -169,5 +169,5 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
       perf  <- perfs.getAsOpt[Perf](pt.key.value)
     yield perf).getOrElse(Perf.default)
 
-    def readOne[U: UserIdOf](root: Bdoc, u: U): UserPerfs =
-      root.getAsOpt[UserPerfs]("perfs").getOrElse(UserPerfs.default(u.id))
+    def readFrom[U: UserIdOf](doc: Bdoc, u: U): UserPerfs =
+      doc.asOpt[UserPerfs].getOrElse(UserPerfs.default(u.id))
