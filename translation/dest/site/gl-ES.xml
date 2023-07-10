@@ -597,13 +597,13 @@
   <string name="timeline">Cronoloxía</string>
   <string name="starting">Comezo:</string>
   <string name="allInformationIsPublicAndOptional">Toda a información é pública e opcional.</string>
-  <string name="biographyDescription">Cóntanos sobre ti, que che gusta do xadrez, as túas aperturas preferidas, partidas, xogadores…</string>
+  <string name="biographyDescription">Cóntanos sobre ti, os teus intereses, que che gusta do xadrez, as túas aperturas e xogadores preferidos…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Máximo: %s caracteres.</item>
+    <item quantity="one">Máximo: %s carácter.</item>
     <item quantity="other">Máximo: %s caracteres.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s bloqueos</item>
+    <item quantity="one">%s bloqueo</item>
     <item quantity="other">%s bloqueos</item>
   </plurals>
   <string name="listBlockedPlayers">Listar os xogadores que bloqueaches</string>
