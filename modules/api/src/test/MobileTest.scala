@@ -4,6 +4,8 @@ class MobileTest extends munit.FunSuite:
 
   import Mobile.*
 
+  given Conversion[String, UserAgent] = UserAgent(_)
+
   test("valid UAs"):
     assertEquals(
       LichessMobileUa.parse("Lichess Mobile/0.2.1 (897) as:THibaULT os:android/11.0.2 dev:Moto G (4)"),
