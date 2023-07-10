@@ -428,10 +428,11 @@ class TooltipController {
   constructor(readonly options: Options) {
     this.tipElement = $('#' + options.popupId);
     this.scoped = session.scoped[options.popupId!] ??= {};
-
     // build and append tooltip div if it does not already exist
     if (this.tipElement.length === 0) {
-      this.tipElement = $('<div id="' + options.popupId + '"/>');
+      const tip = document.createElement('div');
+      tip.id = options.popupId!;
+      this.tipElement = $(tip);
       $('body').append(this.tipElement);
     }
 
