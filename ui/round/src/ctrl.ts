@@ -776,13 +776,7 @@ export default class RoundController {
 
   opponentGone = (): number | boolean => {
     const d = this.data;
-    return (
-      !!d.clock &&
-      d.opponent.isGone !== false &&
-      !game.isPlayerTurn(d) &&
-      game.resignable(d) &&
-      d.opponent.isGone
-    );
+    return d.opponent.isGone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.isGone;
   };
 
   rematch(accept?: boolean): boolean {
