@@ -26,6 +26,8 @@ final class PerfStatApi(
       userApi withPerfs name.id flatMap {
         _.filter: u =>
           (u.enabled.yes && (!u.lame || me.exists(_ is u))) || me.soUse(Granter(_.UserModView))
+        .filter: u =>
+          !u.isBot || (perfType =!= PerfType.UltraBullet)
         .soFu: u =>
           for
             oldPerfStat <- get(u.user, perfType)
