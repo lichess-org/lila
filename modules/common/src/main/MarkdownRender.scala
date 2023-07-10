@@ -87,23 +87,20 @@ final class MarkdownRender(
 
   // https://github.com/vsch/flexmark-java/issues/496
   private val tooManyUnderscoreRegex = """(_{4,})""".r
-  private def preventStackOverflow(text: Markdown) = Markdown(
+  private def preventStackOverflow(text: Markdown) = Markdown:
     tooManyUnderscoreRegex.replaceAllIn(text.value, "_" * 3)
-  )
 
-  def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html {
+  def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     Chronometer
-      .sync {
+      .sync:
         try renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)).value))
         catch
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
             text.value
-      }
       .mon(_.markdown.time)
       .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.value.size}")
       .result
-  }
 
 object MarkdownRender:
 

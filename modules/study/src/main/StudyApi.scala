@@ -555,11 +555,11 @@ final class StudyApi(
                     chapter <- chapterMaker(study, data, order, who.u, withRatings)
                     _       <- doAddChapter(study, chapter, sticky, who)
                   yield ()
-              .addFailureEffect {
+              .recover:
                 case ChapterMaker.ValidationException(error) =>
                   sendTo(study.id)(_.validationError(error, who.sri))
+              .addFailureEffect:
                 case u => logger.error(s"StudyApi.addChapter to $studyId", u)
-              }
 
   def rename(studyId: StudyId, name: StudyName): Funit =
     sequenceStudy(studyId): old =>

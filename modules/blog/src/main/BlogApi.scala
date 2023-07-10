@@ -4,13 +4,13 @@ import scala.util.Try
 import io.prismic.*
 import play.api.mvc.RequestHeader
 import play.api.libs.ws.StandaloneWSClient
+import java.util.regex.{ Pattern, Matcher }
 
 import lila.common.Bus
 import lila.common.config.{ BaseUrl, MaxPerPage }
 import lila.common.paginator.*
 import lila.hub.actorApi.lpv.AllPgnsFromText
 import chess.format.pgn.PgnStr
-import java.util.regex.Pattern
 
 final class BlogApi(
     config: BlogConfig,
@@ -91,9 +91,8 @@ final class BlogApi(
   def masterContext(using
       linkResolver: (Api, Option[String]) => DocumentLinkResolver
   ): Fu[BlogApi.Context] =
-    prismicApi map { api =>
+    prismicApi.map: api =>
       BlogApi.Context(api, api.master.ref, linkResolver(api, none))
-    }
 
   def all(page: Int = 1)(using prismic: BlogApi.Context): Fu[List[Document]] =
     recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
@@ -106,22 +105,26 @@ final class BlogApi(
   private def expandGames(html: String) = expandGameRegex.replaceAllIn(
     html,
     m =>
-      pgnCache.getIfPresent(m.group(1)).fold(m.matched) { pgn =>
-        val esc   = lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
-        val color = Option(m.group(2)).getOrElse("white")
-        val ply   = Option(m.group(3)).getOrElse("last")
-        s"""<div class="lpv--autostart" data-pgn="$esc" data-orientation="$color" data-ply="$ply"></div>"""
-      }
+      pgnCache
+        .getIfPresent(m.group(1))
+        .fold(m.matched): pgn =>
+          val esc = Matcher.quoteReplacement:
+            lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
+          val color = Option(m.group(2)).getOrElse("white")
+          val ply   = Option(m.group(3)).getOrElse("last")
+          s"""<div class="lpv--autostart" data-pgn="$esc" data-orientation="$color" data-ply="$ply"></div>"""
   )
 
   private def expandChapters(html: String) = expandChapterRegex.replaceAllIn(
     html,
     m =>
-      pgnCache.getIfPresent(m.group(1)).fold(m.matched) { pgn =>
-        val esc = lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
-        val ply = Option(m.group(2)).getOrElse("last")
-        s"""<div class="lpv--autostart" data-pgn="$esc" data-ply="$ply"></div>"""
-      }
+      pgnCache
+        .getIfPresent(m.group(1))
+        .fold(m.matched): pgn =>
+          val esc = Matcher.quoteReplacement:
+            lila.common.base.StringUtils.escapeHtmlRaw(pgn.value)
+          val ply = Option(m.group(2)).getOrElse("last")
+          s"""<div class="lpv--autostart" data-pgn="$esc" data-ply="$ply"></div>"""
   )
 
   // match the entire <a.../> tag with scheme & domain.  href value should be identical to inner text

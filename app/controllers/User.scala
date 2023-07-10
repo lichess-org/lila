@@ -20,10 +20,9 @@ import lila.socket.UserLagCache
 import lila.user.{ User as UserModel }
 import lila.security.{ Granter, UserLogins }
 import lila.mod.UserWithModlog
-import play.api.i18n.Lang
 
 final class User(
-    env: Env,
+    override val env: Env,
     roundC: => Round,
     gameC: => Game,
     modC: => Mod
@@ -54,13 +53,7 @@ final class User(
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 
-  private val UserShowRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
-    key = "user.show.ip",
-    enforce = env.net.rateLimit.value
-  )(
-    ("fast", 300, 10.minutes),
-    ("slow", 5000, 1.day)
-  )
+  private[controllers] val userShowRateLimit = env.security.ipTrust.rateLimit(5_000, 1.day, "user.show.ip")
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -72,7 +65,7 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest isSynchronousHttp ctx.req
     then
-      UserShowRateLimitPerIP(req.ipAddress, rateLimited):
+      userShowRateLimit(req.ipAddress, rateLimited, cost = if env.socket.isOnline(u.id) then 1 else 2):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)
@@ -291,10 +284,10 @@ final class User(
     else Found(topNbUsers(nb, perfKey)) { users => topNbJson(users._1) }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
-    PerfType(perfKey).so: perfType =>
+    PerfType(perfKey).soFu: perfType =>
       env.user.cached.top200Perf get perfType.id dmap {
         _.take(nb atLeast 1 atMost 200) -> perfType
-      } dmap some
+      }
 
   private def topNbJson(users: List[UserModel.LightPerf]) =
     given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
@@ -537,8 +530,8 @@ final class User(
         ,
         JsonOk:
           getBool("graph")
-            .so:
-              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType) map some
+            .soFu:
+              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType)
             .map: graph =>
               env.perfStat.jsonView(data).add("graph", graph)
       )
