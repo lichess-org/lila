@@ -27,3 +27,22 @@ object Mobile:
       HTTPRequest apiVersion req filter acceptedVersions.contains
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
+
+  // Lichess Mobile/{version} ({build-number}) as:{username|anon} os:{android|ios}/{os-version} dev:{device info}
+  // see modules/api/src/test/MobileTest.scala
+  case class LichessMobileUa(
+      version: String,
+      build: Int,
+      as: Option[UserId],
+      osName: String,
+      osVersion: String,
+      device: String
+  )
+
+  object LichessMobileUa:
+    private val Regex = """lichess mobile/(\S+) \((\d*)\) as:(\S+) os:(\w+)/(\S+) dev:(.*)""".r
+    def parse(ua: String): Option[LichessMobileUa] = ua.toLowerCase match
+      case Regex(version, build, as, osName, osVersion, device) =>
+        val user = (as != "anon") option UserStr(as).id
+        LichessMobileUa(version, ~build.toIntOption, user, osName, osVersion, device).some
+      case _ => none
