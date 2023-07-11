@@ -17,50 +17,50 @@ para traela ata a estrela!</string>
   <string name="theFewerMoves">Cantos menos movementos fagas,
 máis puntos gañarás!</string>
   <string name="useTwoRooks">Emprega dúas torres
-para acelerar as cousas!</string>
+para acabar antes!</string>
   <string name="rookComplete">Parabéns! Dominaches con éxito a torre.</string>
   <string name="theBishop">O bispo</string>
   <string name="itMovesDiagonally">Move en diagonal</string>
-  <string name="bishopIntro">A continuación imos aprender como maniobrar un bispo!</string>
-  <string name="youNeedBothBishops">Un bispo de casillas brancas,
-un bispo de casillas negras.
+  <string name="bishopIntro">De seguido imos aprender como manobrar un bispo!</string>
+  <string name="youNeedBothBishops">Un bispo de casas brancas,
+un bispo de casas negras.
 Precisas ambos!</string>
   <string name="bishopComplete">Parabéns! Podes comandar un bispo.</string>
   <string name="theQueen">A dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
-  <string name="queenIntro">A peza de xadrez máis poderosa entra. A súa maxestade a dama!</string>
+  <string name="queenIntro">E agora, a peza de xadrez máis poderosa: a súa maxestade a dama!</string>
   <string name="queenComplete">Parabéns! As damas non teñen segredos para ti.</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peza máis importante</string>
   <string name="kingIntro">Ti es o rei. Se caes na batalla, o xogo está perdido.</string>
   <string name="theKingIsSlow">O rei é lento.</string>
   <string name="lastOne">O último!</string>
-  <string name="kingComplete">Agora podes comandar o comandante!</string>
+  <string name="kingComplete">Agora podes comandar ó comandante!</string>
   <string name="theKnight">O cabalo</string>
   <string name="itMovesInAnLShape">Move en forma de L</string>
   <string name="knightIntro">Aquí hai un reto para ti. O cabalo é... unha peza complicada.</string>
-  <string name="knightsHaveAFancyWay">Os cabalos teñen unha forma divertida
-de ir saltando!</string>
+  <string name="knightsHaveAFancyWay">Os cabalos teñen unha forma extravagante
+de ir dando chimpos!</string>
   <string name="knightsCanJumpOverObstacles">Os cabalos poden saltar por riba dos obstáculos!
 Escapa e derrota as estrelas!</string>
   <string name="knightComplete">Parabéns! Dominaches o cabalo.</string>
   <string name="thePawn">O peón</string>
-  <string name="itMovesForwardOnly">So move cara adiante</string>
+  <string name="itMovesForwardOnly">Só move cara adiante</string>
   <string name="pawnIntro">Os peóns son débiles, pero gardan unha chea de potencial.</string>
-  <string name="pawnsMoveOneSquareOnly">Os peóns moven so unha casilla.
-Pero cando chegan ó outro extremo do taboleiro, convírtense nunha peza máis forte!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">A maior parte das veces coronar a unha dama é o mellor.
+  <string name="pawnsMoveOneSquareOnly">Os peóns só moven unha casa.
+Pero cando chegan ó outro extremo do taboleiro, convértense nunha peza máis forte!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Case sempre coroar coma dama é o mellor.
 Pero ás veces un cabalo pode vir ben!</string>
   <string name="pawnsMoveForward">Os peóns moven cara adiante,
 pero capturan en diagonal!</string>
-  <string name="captureThenPromote">Captura, despois corona!</string>
-  <string name="useAllThePawns">Emprega tódolos peóns!
-Non precisas coronar.</string>
-  <string name="aPawnOnTheSecondRank">Un peón na segunda fila pode mover 2 casillas dunha vez!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Colle tódalas estrelas!
-Non precisas coronar.</string>
+  <string name="captureThenPromote">Captura, despois coroa!</string>
+  <string name="useAllThePawns">Emprega todos os peóns!
+Non precisas coroar.</string>
+  <string name="aPawnOnTheSecondRank">Un peón na segunda fila pode mover 2 casas dunha vez!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Colle todas as estrelas!
+Non precisas coroar.</string>
   <string name="pawnComplete">Parabéns! Os peóns non teñen segredos para ti.</string>
-  <string name="pawnPromotion">Coronación de peón</string>
+  <string name="pawnPromotion">Coroación de peón</string>
   <string name="yourPawnReachedTheEndOfTheBoard">O teu peón alcanzou o final do taboleiro!</string>
   <string name="itNowPromotesToAStrongerPiece">Agora promociona a unha peza máis forte.</string>
   <string name="selectThePieceYouWant">Escolle a peza que queres!</string>
