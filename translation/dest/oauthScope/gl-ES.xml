@@ -21,14 +21,14 @@
   <string name="puzzleRead">Ler a actividade de problemas</string>
   <string name="teamRead">Ler a información privada de equipo</string>
   <string name="teamWrite">Unirse e saír de equipos</string>
-  <string name="teamLead">Administra os equipos que lideres: envía mensaxes privadas, expulsa aos membros</string>
-  <string name="followRead">Le xogadores/as ás que segues</string>
-  <string name="followWrite">Segue e deixa de seguir a outras xogadores/as</string>
-  <string name="msgWrite">Envía mensaxes privadas a outras xogadoras</string>
-  <string name="boardPlay">Xoga partidas coa Api de taboleiro</string>
-  <string name="botPlay">Xoga partidas coa Api de Bot</string>
-  <string name="engineRead">Mira e emprega os teus motores de cálculo</string>
-  <string name="engineWrite">Crea e actualiza os teus motores de cálculo</string>
-  <string name="webLogin">Crea sesións web autenticadas (concede acceso completo!)</string>
+  <string name="teamLead">Administrar os equipos que lideres: enviar mensaxes privadas, expulsar aos membros</string>
+  <string name="followRead">Ver os xogadores ós que segues</string>
+  <string name="followWrite">Seguir e deixar de seguir a outros xogadores</string>
+  <string name="msgWrite">Enviar mensaxes privadas a outros xogadores</string>
+  <string name="boardPlay">Xoga partidas coa API de taboleiro</string>
+  <string name="botPlay">Xoga partidas coa API de Bots</string>
+  <string name="engineRead">Ver e empregar os teus motores de xadrez externos</string>
+  <string name="engineWrite">Crear e actualizar os teus motores de xadrez externos</string>
+  <string name="webLogin">Crear sesións web autenticadas (concede acceso completo!)</string>
   <string name="webMod">Empregar ferramentas de moderador (dentro dos límites do teu permiso)</string>
 </resources>
