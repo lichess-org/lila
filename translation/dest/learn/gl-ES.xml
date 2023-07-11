@@ -4,7 +4,7 @@
   <string name="byPlaying">xogando!</string>
   <string name="menu">Menú</string>
   <string name="progressX">Progreso: %s</string>
-  <string name="resetMyProgress">Reinicia-lo meu progreso</string>
+  <string name="resetMyProgress">Reiniciar o meu progreso</string>
   <string name="youWillLoseAllYourProgress">Perderás todo o teu progreso!</string>
   <string name="play">xogar!</string>
   <string name="chessPieces">Pezas de xadrez</string>
