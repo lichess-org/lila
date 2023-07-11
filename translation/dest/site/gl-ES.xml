@@ -897,7 +897,7 @@
   <string name="xInvitedYouToY">%1$s invitoute a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Agora formas parte do equipo.</string>
   <string name="youHaveJoinedTeamX">Unícheste a \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Alguén a quen denunciaches foi proscrito</string>
+  <string name="someoneYouReportedWasBanned">Alguén a quen denunciaches foi suspendido</string>
   <string name="congratsYouWon">Parabéns, gañaches!</string>
   <string name="gameVsX">Partida contra %1$s</string>
   <string name="resVsX">%1$s contra %2$s</string>
@@ -931,8 +931,8 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="simulHostcolor">Cor do anfitrión para cada partida</string>
   <string name="estimatedStart">Tempo estimado de comezo</string>
   <string name="simulFeatured">Amosar simultánea en %s</string>
-  <string name="simulFeaturedHelp">Amosa as simultáneas publicamente en %s. Desactivar nas simultáneas privadas.</string>
-  <string name="simulDescription">Descrición da simulación</string>
+  <string name="simulFeaturedHelp">Amosar as simultáneas publicamente en %s. Desactivar nas simultáneas privadas.</string>
+  <string name="simulDescription">Descrición das simultáneas</string>
   <string name="simulDescriptionHelp">Queres dicirlle algo ós participantes?</string>
   <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
   <string name="embedsAvailable">Pega unha ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
