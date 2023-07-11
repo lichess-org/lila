@@ -58,7 +58,7 @@
   <string name="analysis">Taboleiro de análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidor</string>
-  <string name="loadingEngine">Cargando módulo ...</string>
+  <string name="loadingEngine">Cargando o motor de análise...</string>
   <string name="calculatingMoves">Calculando movementos...</string>
   <string name="engineFailed">Erro ao cargar o motor de análise</string>
   <string name="cloudAnalysis">Análise no servidor</string>
@@ -377,7 +377,7 @@
   <string name="yourPerfRatingIsTooLow">A túa puntuación %1$s (%2$s) é demasiado baixa</string>
   <string name="ratedMoreThanInPerf">Puntuación ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s na última semana</string>
-  <string name="mustBeInTeam">Tés que estar no equipo %s</string>
+  <string name="mustBeInTeam">Tes que estar no equipo %s</string>
   <string name="youAreNotInTeam">Non estás no equipo %s</string>
   <string name="backToGame">Voltar á partida</string>
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de complementos. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
@@ -603,7 +603,7 @@
     <item quantity="other">Máximo: %s caracteres.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s bloqueo</item>
+    <item quantity="one">%s xogador bloqueado</item>
     <item quantity="other">%s bloqueos</item>
   </plurals>
   <string name="listBlockedPlayers">Listar os xogadores que bloqueaches</string>
@@ -953,18 +953,18 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="closedAccountChangedMind">Se pechaches a túa conta pero mudaches de idea, tes unha oportunidade de volver a reactivala.</string>
   <string name="onlyWorksOnce">Só funcionará unha vez.</string>
   <string name="cantDoThisTwice">Se pechas a túa conta de novo, non haberá maneira de recuperala.</string>
-  <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada á conta</string>
+  <string name="emailAssociatedToaccount">Enderezo de correo electrónico asociado á conta</string>
   <string name="sentEmailWithLink">Enviámosche un correo electrónico cunha ligazón.</string>
   <string name="tournamentEntryCode">Código de participación no torneo</string>
   <string name="hangOn">Agarda!</string>
   <string name="gameInProgress">Estás xogando unha partida con %s.</string>
-  <string name="abortTheGame">Abortar partida</string>
-  <string name="resignTheGame">Abandoar partida</string>
+  <string name="abortTheGame">Abortar a partida</string>
+  <string name="resignTheGame">Renderse</string>
   <string name="youCantStartNewGame">Non podes comezar unha nova partida ata que esta remate.</string>
   <string name="since">Desde</string>
   <string name="until">Ata</string>
-  <string name="lichessDbExplanation">Partidas por puntos de todos os xogadores/as de Lichess</string>
-  <string name="switchSides">Cambiar de lado</string>
+  <string name="lichessDbExplanation">Partidas puntuadas de todos os xogadores de Lichess</string>
+  <string name="switchSides">Cambiar de cor</string>
   <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
 </resources>
