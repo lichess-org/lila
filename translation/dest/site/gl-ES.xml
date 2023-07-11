@@ -86,7 +86,7 @@
   <string name="averageRatingX">Puntuación media: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Mellores partidas</string>
-  <string name="masterDbExplanation">Partidas de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
+  <string name="masterDbExplanation">Partidas cara a cara de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate en %s medias xogadas</item>
     <item quantity="other">Mate en %s xogadas</item>
@@ -225,12 +225,12 @@
   <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
   <string name="emailConfirmNotReceived">Non recibiches correo de confirmación despois de rexistrarte?</string>
   <string name="whatSignupUsername">Que nome de usuario empregaches para rexistrarte?</string>
-  <string name="usernameNotFound">Non puidemos atopar ningún usuario/a con este nome: %s.</string>
+  <string name="usernameNotFound">Non puidemos atopar ningún usuario con este nome: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Podes empregar este nome de usuario para crear unha nova conta</string>
   <string name="emailSent">Enviámosche un correo a %s.</string>
   <string name="emailCanTakeSomeTime">Pode tardar un tempo en chegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Agarda 5 minutos e refresca a túa caixa de correo.</string>
-  <string name="checkSpamFolder">Comproba tamén a túa caixa de correos non solicitados, puido rematar aí. Se así foi, quítalle a marca de correo non desexado.</string>
+  <string name="checkSpamFolder">Comproba tamén o teu cartafol de correos non solicitados, puido rematar aí. Se foi así, quítalle a marca de correo non desexado.</string>
   <string name="emailForSignupHelp">Se todo falla, entón envíanos un correo:</string>
   <string name="copyTextToEmail">Copia e pega o seguinte texto e envíao a %s</string>
   <string name="waitForSignupHelp">Volveremos dentro de pouco para axudarche a completar o teu rexistro.</string>
@@ -335,7 +335,7 @@
   <string name="takebackPropositionAccepted">Proposta de cambio aceptada</string>
   <string name="takebackPropositionCanceled">Proposta de cambio cancelada</string>
   <string name="yourOpponentProposesATakeback">O teu rival propón rectificar a xogada</string>
-  <string name="bookmarkThisGame">Marcar esta partida</string>
+  <string name="bookmarkThisGame">Marcar esta partida coma favorita</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Puntos en torneos</string>
@@ -380,7 +380,7 @@
   <string name="mustBeInTeam">Tes que estar no equipo %s</string>
   <string name="youAreNotInTeam">Non estás no equipo %s</string>
   <string name="backToGame">Voltar á partida</string>
-  <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de complementos. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
+  <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de complementos. Xoga ó xadrez contra o ordenador, amigos ou rivais ó chou.</string>
   <string name="xJoinedTeamY">%1$s uniuse ó equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creou o equipo %2$s</string>
   <string name="startedStreaming">comezou unha retransmisión</string>
@@ -482,7 +482,7 @@
   <string name="tournamentComplete">Torneo rematado</string>
   <string name="movesPlayed">Movementos xogados</string>
   <string name="whiteWins">Brancas gañan</string>
-  <string name="blackWins">Negras gañan</string>
+  <string name="blackWins">Vitorias das negras</string>
   <string name="draws">Táboas</string>
   <string name="nextXTournament">Seguinte torneo %s:</string>
   <string name="averageOpponent">Opoñente medio</string>
@@ -575,9 +575,9 @@
   <string name="clockIncrement">Incremento do reloxo</string>
   <string name="privacy">Privacidade</string>
   <string name="privacyPolicy">Política de privacidade</string>
-  <string name="letOtherPlayersFollowYou">Permitir a outros xogadores seguirte</string>
-  <string name="letOtherPlayersChallengeYou">Permitir a outros xogadores retarte</string>
-  <string name="letOtherPlayersInviteYouToStudy">Deixa que outros xogadores te conviden a estudos</string>
+  <string name="letOtherPlayersFollowYou">Permitir que outros xogadores te sigan</string>
+  <string name="letOtherPlayersChallengeYou">Permitir que outros xogadores te reten</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permite que outros xogadores te conviden a estudos</string>
   <string name="sound">Son</string>
   <string name="none">Ningunha</string>
   <string name="fast">Rápida</string>
@@ -662,7 +662,7 @@
   <string name="hostANewSimul">Crear unha nova simultánea</string>
   <string name="noSimulFound">Simultánea non atopada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea non existe.</string>
-  <string name="returnToSimulHomepage">Voltar á paxina de simultáneas</string>
+  <string name="returnToSimulHomepage">Volver á paxina principal das simultáneas</string>
   <string name="aboutSimul">As simultáneas son partidas dun xogador contra varios ó mesmo tempo.</string>
   <string name="aboutSimulImage">De 50 rivais, Fischer gañou 47 partidas, empatou 2 e perdeu 1.</string>
   <string name="aboutSimulRealLife">O concepto tómase de eventos reais. Nestes, o anfitrión das simultáneas móvese de mesa en mesa e fai unha xogada de cada vez.</string>
@@ -674,7 +674,7 @@
   <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coas simultáneas.</string>
   <string name="simulHostExtraTime">Tempo extra para o anfitrión</string>
-  <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reloxo por cada xogador que se una á simultáneas.</string>
+  <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reloxo por cada xogador que se una ás simultáneas.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo extra do anfitrión por cada xogador</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes sobre torneos</string>
@@ -711,8 +711,8 @@
   <string name="cumulative">Acumulado</string>
   <string name="glicko2Rating">Puntuación Glicko-2</string>
   <string name="checkYourEmail">Revisa o teu correo</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Enviámosche un correo electrónico. Preme na ligazón do correo para activares a súa conta.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa noutros cartafoles onde poda estar, coma no lixo, co correo non desexado ou de redes sociais.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Enviámosche un correo electrónico. Preme na ligazón do correo para activares a túa conta.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa noutros cartafoles onde poida estar, coma no lixo, co correo non desexado ou de redes sociais.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámosche un correo a %s. Segue a ligazón no correo para restaurar o teu contrasinal.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ó rexistrarte, aceptas os nosos %s.</string>
   <string name="readAboutOur">Le acerca da nosa %s.</string>
@@ -783,7 +783,7 @@
   <string name="usernameUnacceptable">Este nome de usuario non é aceptable.</string>
   <string name="playChessInStyle">Xogar ao xadrez con estilo</string>
   <string name="chessBasics">Fundamentos de xadrez</string>
-  <string name="coaches">Entrenadores</string>
+  <string name="coaches">Adestradores</string>
   <string name="invalidPgn">PGN non válido</string>
   <string name="invalidFen">FEN non válido</string>
   <string name="custom">Á medida</string>
@@ -798,7 +798,7 @@
   <string name="anotherWasX">Outro era %s</string>
   <string name="bestWasX">O mellor era %s</string>
   <string name="youBrowsedAway">Saíches da revisión</string>
-  <string name="resumePractice">Continuar a prática</string>
+  <string name="resumePractice">Seguir practicando</string>
   <string name="drawByFiftyMoves">A partida rematou en táboas pola regra dos cincuenta movementos.</string>
   <string name="theGameIsADraw">A partida remata en táboas.</string>
   <string name="computerThinking">Computadora pensando...</string>
