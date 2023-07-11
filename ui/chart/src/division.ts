@@ -37,7 +37,7 @@ export default function (div: Division | undefined, trans: Trans) {
       },
       color: textWeak,
       width: div.middle === null ? 0 : 1,
-      value: div.middle,
+      value: div.middle - 1,
       zIndex: 5,
     });
   }
@@ -54,7 +54,7 @@ export default function (div: Division | undefined, trans: Trans) {
       },
       color: textWeak,
       width: div.end === null ? 0 : 1,
-      value: div.end,
+      value: div.end - 1,
       zIndex: 5,
     });
   return lines;
