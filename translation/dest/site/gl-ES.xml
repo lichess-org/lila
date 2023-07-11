@@ -919,35 +919,35 @@ e afectan ás puntuacións dos xogadores</string>
   <string name="onlyMembersOfTeam">Só membros do equipo</string>
   <string name="noRestriction">Sen restrición</string>
   <string name="minimumRatedGames">Mínimo de partidas puntuadas</string>
-  <string name="minimumRating">Mínima puntuación</string>
+  <string name="minimumRating">Puntuación mínima</string>
   <string name="maximumWeeklyRating">Máxima puntuación semanal</string>
-  <string name="onlyTitled">Só xogadoras tituladas</string>
-  <string name="onlyTitledHelp">Require un título oficial para xogar o torneo</string>
-  <string name="positionInputHelp">Pega un FEN válido para comezar cada partida dende unha posición determinada.
-Só funciona para xogos estándar, non con variantes.
+  <string name="onlyTitled">Só xogadores con título</string>
+  <string name="onlyTitledHelp">É necesario un título oficial para unirse ó torneo</string>
+  <string name="positionInputHelp">Pega un FEN válido para comezar as partidas dende unha posición determinada.
+Só funciona en partidas estándar, non en variantes.
 Podes empregar o %s para xerar unha posición FEN e despois pegala aquí.
-Deixa en branco para comezar partidas dende a posición inicial normal.</string>
-  <string name="cancelSimul">Cancela a simulación</string>
+Deixa en branco para comezar as partidas dende a posición inicial normal.</string>
+  <string name="cancelSimul">Cancela as simultáneas</string>
   <string name="simulHostcolor">Cor do anfitrión para cada partida</string>
   <string name="estimatedStart">Tempo estimado de comezo</string>
   <string name="simulFeatured">Amosar simultánea en %s</string>
-  <string name="simulFeaturedHelp">Amosa a simultánea públicamente en %s. Deshabilitado para simultáneas privadas.</string>
+  <string name="simulFeaturedHelp">Amosa as simultáneas publicamente en %s. Desactivar nas simultáneas privadas.</string>
   <string name="simulDescription">Descrición da simulación</string>
-  <string name="simulDescriptionHelp">Algo que queiras dicir ás persoas participantes?</string>
+  <string name="simulDescriptionHelp">Queres dicirlle algo ós participantes?</string>
   <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
   <string name="embedsAvailable">Pega unha ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
   <string name="inYourLocalTimezone">Na túa zona horaria</string>
-  <string name="tournChat">Chat do torneo</string>
-  <string name="noChat">Sen chat</string>
+  <string name="tournChat">Sala de conversa do torneo</string>
+  <string name="noChat">Sen sala de conversa</string>
   <string name="onlyTeamLeaders">Só líderes de equipo</string>
   <string name="onlyTeamMembers">Só membros do equipo</string>
-  <string name="navigateMoveTree">Navegar a árbore de movementos</string>
+  <string name="navigateMoveTree">Desprazarse pola lista de movementos</string>
   <string name="mouseTricks">Trucos co rato</string>
-  <string name="toggleLocalAnalysis">Cambiar a análise local da computadora</string>
-  <string name="toggleAllAnalysis">Cambiar todo a análise da computadora</string>
+  <string name="toggleLocalAnalysis">Activar/desactivar a análise local no navegador</string>
+  <string name="toggleAllAnalysis">Activar/desactivar todas as análises por computador</string>
   <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
   <string name="analysisOptions">Opcións de análise</string>
-  <string name="focusChat">Enfocar o chat</string>
+  <string name="focusChat">Poñer o cursor na sala de conversa</string>
   <string name="showHelpDialog">Amosa este diálogo de axuda</string>
   <string name="reopenYourAccount">Abre de novo a túa conta</string>
   <string name="closedAccountChangedMind">Se pechaches a túa conta pero mudaches de idea, tes unha oportunidade de volver a reactivala.</string>
