@@ -60,7 +60,7 @@ export default new (class implements SoundI {
 
   async play(name: Name, volume = 1): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (!this.enabled()) resolve();
+      if (!this.enabled()) return resolve();
       this.load(name)
         .then(async sound => {
           if (!sound) return resolve();
