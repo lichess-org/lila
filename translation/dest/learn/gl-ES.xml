@@ -76,19 +76,18 @@ E non perdas as túas.</string>
   <string name="keepYourPiecesSafe">Mantén as túas pezas a salvo</string>
   <string name="protectionIntro">Identifica as pezas que o teu rival ataca, e deféndeas!</string>
   <string name="protectionComplete">Parabéns! Unha peza que non perdes é unha peza que gañas!</string>
-  <string name="escape">Estás baixo ataque!
-Escapa á ameaza!</string>
+  <string name="escape">Están atacándote!
+Fuxe da ameaza!</string>
   <string name="noEscape">Non hai escapatoria,
-pero podes defender!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Non deixes que tomen
-ningunha peza sen defender!</string>
+pero podes defenderte!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Non permitas que capturen ningunha peza indefensa!</string>
   <string name="combat">Combate</string>
   <string name="captureAndDefendPieces">Capturar e defender pezas</string>
-  <string name="combatIntro">Un bo guerreiro sabe atacar e mais defender!</string>
+  <string name="combatIntro">Un bo guerreiro sabe atacar e máis defender!</string>
   <string name="combatComplete">Parabéns! Sabes como loitar coas pezas de xadrez!</string>
   <string name="checkInOne">Xaque nunha</string>
-  <string name="attackTheOpponentsKing">Ataca o rei rival</string>
-  <string name="checkInOneIntro">Para poñer en xaque ao teu rival, ataca o seu rei. Debe defendelo!</string>
+  <string name="attackTheOpponentsKing">Ataca ao rei rival</string>
+  <string name="checkInOneIntro">Para poñer en xaque ao teu rival, ataca ao seu rei. Debe defendelo!</string>
   <string name="checkInOneGoal">Apunta ao rei rival
 nun movemento!</string>
   <string name="checkInOneComplete">Parabéns! Puxeches en xaque ao teu rival, forzándoo a defende-lo seu rei!</string>
