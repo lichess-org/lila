@@ -36,12 +36,12 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
     req.headers get HeaderNames.USER_AGENT
 
-  val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isChrome113Plus  = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
-  val isFirefox114Plus = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
-  val isMobileBrowser  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
-  val isLichessMobile  = UaMatcher("""Lichess Mobile/""")
-  val isLichobile      = UaMatcher("""Lichobile/""")
+  val isChrome96Plus                      = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isChrome113Plus                     = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
+  val isFirefox114Plus                    = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
+  val isMobileBrowser                     = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  def isLichessMobile(req: RequestHeader) = userAgent(req).exists(_.value startsWith "Lichess Mobile/")
+  def isLichobile(req: RequestHeader)     = userAgent(req).exists(_.value startsWith "Lichobile/")
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
 
@@ -64,7 +64,7 @@ object HTTPRequest:
 
   final class UaMatcher(rStr: String):
     private val regex: Regex               = rStr.r
-    def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(ua => regex.find(ua.value))
+    def apply(req: RequestHeader): Boolean = userAgent(req).exists(ua => regex.find(ua.value))
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean =
     userAgent(req).fold(false)(ua => regex.find(ua.value))
@@ -127,8 +127,9 @@ object HTTPRequest:
     isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccountClose(req)
 
   def clientName(req: RequestHeader) =
-    // the mobile app sends XHR headers
-    if isXhr(req) then apiVersion(req).fold("xhr")(v => s"mobile/$v")
+    // lichobile sends XHR headers
+    if isXhr(req) then apiVersion(req).fold("xhr")(v => s"lichobile/$v")
+    else if isLichessMobile(req) then "mobile"
     else if isCrawler(req).yes then "crawler"
     else "browser"
 
