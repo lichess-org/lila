@@ -5,13 +5,14 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.*
-import lila.user.UserRepo
+import lila.user.{ UserRepo, UserApi }
 
 @Module
 final class Env(
     appConfig: Configuration,
     net: NetConfig,
     userRepo: UserRepo,
+    userApi: UserApi,
     settingStore: lila.memo.SettingStore.Builder,
     lightUser: lila.user.LightUserApi
 )(using Executor, ActorSystem, Scheduler):
