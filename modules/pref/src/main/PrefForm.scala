@@ -51,11 +51,10 @@ object PrefForm:
             numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp)
           else bitCheckedNumber(Pref.SubmitMove.choices)
         ,
-        "confirmResign"    -> checkedNumber(Pref.ConfirmResign.choices),
-        "keyboardMove"     -> optional(booleanNumber),
-        "voice"            -> optional(booleanNumber),
-        "rookCastle"       -> optional(booleanNumber),
-        "pairingCountdown" -> optional(booleanNumber)
+        "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
+        "keyboardMove"  -> optional(booleanNumber),
+        "voice"         -> optional(booleanNumber),
+        "rookCastle"    -> optional(booleanNumber)
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
         "tenths"   -> checkedNumber(Pref.ClockTenths.choices),
@@ -95,8 +94,7 @@ object PrefForm:
       confirmResign: Int,
       keyboardMove: Option[Int],
       voice: Option[Int],
-      rookCastle: Option[Int],
-      pairingCountdown: Option[Int]
+      rookCastle: Option[Int]
   )
 
   case class ClockData(
@@ -149,8 +147,7 @@ object PrefForm:
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
-        moveEvent = behavior.moveEvent | pref.moveEvent,
-        pairingCountdown = behavior.pairingCountdown | pref.pairingCountdown
+        moveEvent = behavior.moveEvent | pref.moveEvent
       )
 
   object PrefData:
@@ -178,8 +175,7 @@ object PrefForm:
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
           voice = pref.voice.getOrElse(0).some,
-          rookCastle = pref.rookCastle.some,
-          pairingCountdown = pref.pairingCountdown.some
+          rookCastle = pref.rookCastle.some
         ),
         clock = ClockData(
           tenths = pref.clockTenths,
