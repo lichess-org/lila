@@ -21,7 +21,7 @@ para acabar antes!</string>
   <string name="rookComplete">Parabéns! Dominaches con éxito a torre.</string>
   <string name="theBishop">O bispo</string>
   <string name="itMovesDiagonally">Move en diagonal</string>
-  <string name="bishopIntro">De seguido imos aprender como manobrar un bispo!</string>
+  <string name="bishopIntro">Deseguido imos aprender como manobrar un bispo!</string>
   <string name="youNeedBothBishops">Un bispo de casas brancas,
 un bispo de casas negras.
 Precisas ambos!</string>
@@ -35,7 +35,7 @@ Precisas ambos!</string>
   <string name="kingIntro">Ti es o rei. Se caes na batalla, o xogo está perdido.</string>
   <string name="theKingIsSlow">O rei é lento.</string>
   <string name="lastOne">O último!</string>
-  <string name="kingComplete">Agora podes comandar ó comandante!</string>
+  <string name="kingComplete">Agora podes comandar o comandante!</string>
   <string name="theKnight">O cabalo</string>
   <string name="itMovesInAnLShape">Move en forma de L</string>
   <string name="knightIntro">Aquí hai un reto para ti. O cabalo é... unha peza complicada.</string>
@@ -62,14 +62,14 @@ Non precisas coroar.</string>
   <string name="pawnComplete">Parabéns! Os peóns non teñen segredos para ti.</string>
   <string name="pawnPromotion">Coroación de peón</string>
   <string name="yourPawnReachedTheEndOfTheBoard">O teu peón alcanzou o final do taboleiro!</string>
-  <string name="itNowPromotesToAStrongerPiece">Agora promociona a unha peza máis forte.</string>
+  <string name="itNowPromotesToAStrongerPiece">Agora coroa coma unha peza máis forte.</string>
   <string name="selectThePieceYouWant">Escolle a peza que queres!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
-  <string name="takeTheEnemyPieces">Toma as pezas enemigas</string>
+  <string name="takeTheEnemyPieces">Captura as pezas inimigas</string>
   <string name="captureIntro">Identifica as pezas rivais non defendidas, e captúraas!</string>
-  <string name="takeTheBlackPieces">Toma as pezas negras!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Toma as pezas negras!
+  <string name="takeTheBlackPieces">Captura as pezas negras!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Captura as pezas negras!
 E non perdas as túas.</string>
   <string name="captureComplete">Parabéns! Sabes como loitar coas pezas de xadrez!</string>
   <string name="protection">Protección</string>
@@ -108,7 +108,7 @@ ou bloquea o ataque!</string>
   <string name="defeatTheOpponentsKing">Derrota o rei rival</string>
   <string name="mateInOneIntro">Ti gañas cando o teu rival non pode defenderse dun xaque.</string>
   <string name="attackYourOpponentsKing">Ataca ao rei do teu rival
-dun xeito que non se poda defender!</string>
+dun xeito que non se poida defender!</string>
   <string name="mateInOneComplete">Parabéns! Así é como gañas partidas de xadrez!</string>
   <string name="intermediate">Intermedio</string>
   <string name="boardSetup">Disposición do taboleiro</string>
@@ -134,7 +134,7 @@ Fai calquera movemento para continuar.</string>
   <string name="theSpecialKingMove">O movemento especial do rei</string>
   <string name="castlingIntro">Pon o teu rei a salvo e desprega as túas torres para o ataque!</string>
   <string name="castleKingSide">Move o teu rei dúas casas
-para enrocar no flanco de rei!</string>
+para enrocar en curto!</string>
   <string name="castleQueenSide">Move o teu rei dúas casas
 para enrocar en longo!</string>
   <string name="theKnightIsInTheWay">O cabalo está no medio!
@@ -158,9 +158,9 @@ Bloquea o xaque e despois enroca!</string>
   <string name="blackJustMovedThePawnByTwoSquares">As negras moveron o peón
 dúas casas!
 Captúrao ao paso.</string>
-  <string name="enPassantOnlyWorksImmediately">A captura ao paso só serve
+  <string name="enPassantOnlyWorksImmediately">A captura ao paso só se pode facer
 inmediatamente despois de que o rival
-movese o peón.</string>
+mova o peón.</string>
   <string name="enPassantOnlyWorksOnFifthRank">A captura ao paso só se permite
 se o teu peón está na 5ª fila.</string>
   <string name="takeAllThePawnsEnPassant">Come todos os peóns ao paso!</string>
@@ -169,29 +169,29 @@ se o teu peón está na 5ª fila.</string>
   <string name="theGameIsADraw">A partida é táboas</string>
   <string name="stalemateIntro">Cando un xogador non está en xaque e non ten xogada legal, está afogado. A partida son táboas: ninguén gaña, ninguén perde.</string>
   <string name="stalemateGoal">Para afogar ás negras:
-- As negras non poden mover a ningures
-- Non hai xaque.</string>
+— As negras non poden mover a ningures
+— Non hai xaque.</string>
   <string name="stalemateComplete">Parabéns! Mellor estar afogado que en xaque mate!</string>
   <string name="advanced">Avanzados</string>
   <string name="pieceValue">Valor das pezas</string>
-  <string name="evaluatePieceStrength">Evalúa a forza das pezas</string>
-  <string name="pieceValueIntro">As pezas con maior mobilidade teñen un maior valor!
+  <string name="evaluatePieceStrength">Avalía a forza das pezas</string>
+  <string name="pieceValueIntro">As pezas con maior mobilidade teñen máis valor!
 Dama = 9
 Torre = 5
 Bispo = 3
 Cabalo = 3
 Peón = 1
 O rei ten un valor incalculable! Perdelo significa perder a partida.</string>
-  <string name="queenOverBishop">Toma a peza
+  <string name="queenOverBishop">Captura a peza
 de maior valor!
 Dama &gt; Bispo</string>
-  <string name="pieceValueExchange">Toma a peza co valor máis alto!
+  <string name="pieceValueExchange">Captura a peza co valor máis alto!
 Non cambies
-unha peza por outra dunha menor valor.</string>
-  <string name="pieceValueLegal">Toma a peza
+unha peza por outra de menor valor.</string>
+  <string name="pieceValueLegal">Captura a peza
 co valor máis alto!
 Asegúrate que o teu movemento é legal!</string>
-  <string name="takeThePieceWithTheHighestValue">Toma a peza
+  <string name="takeThePieceWithTheHighestValue">Captura a peza
 de maior valor!</string>
   <string name="pieceValueComplete">Parabéns! Sabes o valor do material!
 Dama = 9
@@ -204,26 +204,26 @@ Peón = 1</string>
   <string name="checkInTwoIntro">Atopa a combinación axeitada de dous movementos que dan xaque ao rei rival!</string>
   <string name="checkInTwoGoal">Ameaza o rei rival
 en dous movementos!</string>
-  <string name="checkInTwoComplete">Parabéns! Puxeches en xaque ao teu rival, forzándoo a defende-lo seu rei!</string>
+  <string name="checkInTwoComplete">Parabéns! Puxeches en xaque ao teu rival, forzándoo a defender o seu rei!</string>
   <string name="whatNext">E despois que?</string>
-  <string name="youKnowHowToPlayChess">Sabes como se xoga ao xadrez, parabéns! Queres convertirte nun xogador máis forte?</string>
+  <string name="youKnowHowToPlayChess">Sabes como se xoga ao xadrez, parabéns! Queres converterte nun xogador máis forte?</string>
   <string name="register">Rexistrarse</string>
-  <string name="getAFreeLichessAccount">Obtén unha conta gratuita en Lichess</string>
+  <string name="getAFreeLichessAccount">Obtén unha conta gratuíta en Lichess</string>
   <string name="practice">Practicar</string>
   <string name="learnCommonChessPositions">Aprende posicións comúns de xadrez</string>
   <string name="puzzles">Problemas</string>
   <string name="exerciseYourTacticalSkills">Exercita as túas habilidades tácticas</string>
   <string name="videos">Vídeos</string>
-  <string name="watchInstructiveChessVideos">Observa vídeos instructivos de xadrez</string>
+  <string name="watchInstructiveChessVideos">Ve vídeos instrutivos de xadrez</string>
   <string name="playPeople">Xogar con xente</string>
   <string name="opponentsFromAroundTheWorld">Rivais de todas as partes do mundo</string>
   <string name="playMachine">Xogar contra a máquina</string>
   <string name="testYourSkillsWithTheComputer">Proba as túas habilidades coa máquina</string>
   <string name="letsGo">Imos!</string>
   <string name="stageX">Nivel %s</string>
-  <string name="awesome">Fabuloso!</string>
+  <string name="awesome">Bárbaro!</string>
   <string name="excellent">Excelente!</string>
-  <string name="greatJob">Gran traballo!</string>
+  <string name="greatJob">Bo traballo!</string>
   <string name="perfect">Perfecto!</string>
   <string name="outstanding">Excepcional!</string>
   <string name="wayToGo">Así se fai!</string>
@@ -236,5 +236,5 @@ en dous movementos!</string>
   <string name="nextX">Seguinte: %s</string>
   <string name="backToMenu">Voltar ao menú</string>
   <string name="puzzleFailed">Problema fallado!</string>
-  <string name="retry">Volver tentar</string>
+  <string name="retry">Tentar de novo</string>
 </resources>
