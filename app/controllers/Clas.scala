@@ -90,7 +90,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         isGranted(_.UserModView) so
           FoundPage(env.clas.api.clas.byId(id)): clas =>
             env.clas.api.student.allWithUsers(clas) flatMap { students =>
-              env.user.repo.withEmails(students.map(_.user)) map {
+              env.user.api.withEmails(students.map(_.user)) map {
                 html.mod.search.clas(clas, _)
               }
             }

@@ -8,16 +8,12 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.db.dsl.{ *, given }
 
-final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
+final class UserRepo(val coll: Coll)(using Executor):
 
   import User.{ BSONFields as F, given }
   import UserMark.given
 
-  export perfsRepo.{ byId as perfs, setPerfs, perfOf }
-
   def withColl[A](f: Coll => A): A = f(coll)
-
-  def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
 
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
@@ -364,7 +360,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       .map: _ =>
         lila.common.Bus.publish(lila.hub.actorApi.user.ChangeEmail(id, email), "email")
 
-  private def anyEmail(doc: Bdoc): Option[EmailAddress] =
+  private[user] def anyEmail(doc: Bdoc): Option[EmailAddress] =
     doc.getAsOpt[EmailAddress](F.verbatimEmail) orElse doc.getAsOpt[EmailAddress](F.email)
 
   private def anyEmailOrPrevious(doc: Bdoc): Option[EmailAddress] =
@@ -402,26 +398,6 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       .one[Bdoc]
       .mapz: doc =>
         anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
-
-  def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
-    withEmails(List(u)).map(_.headOption)
-
-  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] = for
-    perfs <- perfsRepo.idsMap(users, _.sec)
-    users <- coll
-      .list[Bdoc]($inIds(users.map(_.id)), _.priTemp)
-      .map: docs =>
-        for
-          doc  <- docs
-          user <- r readOpt doc
-        yield User.WithEmails(
-          User.WithPerfs(user, perfs.get(user.id)),
-          User.Emails(
-            current = anyEmail(doc),
-            previous = doc.getAsOpt[NormalizedEmailAddress](F.prevEmail)
-          )
-        )
-  yield users
 
   def emailMap(ids: List[UserId]): Fu[Map[UserId, EmailAddress]] =
     coll

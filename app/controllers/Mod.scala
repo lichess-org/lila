@@ -372,7 +372,7 @@ final class Mod(
     for
       uids       <- env.security.api recentUserIdsByFingerHash hash
       users      <- env.user.repo usersFromSecondary uids.reverse
-      withEmails <- env.user.repo withEmails users
+      withEmails <- env.user.api withEmails users
       uas        <- env.security.api.printUas(hash)
       page <- renderPage(html.mod.search.print(hash, withEmails, uas, env.security.printBan blocks hash))
     yield Ok(page)
@@ -389,7 +389,7 @@ final class Mod(
       for
         uids       <- env.security.api recentUserIdsByIp address
         users      <- env.user.repo usersFromSecondary uids.reverse
-        withEmails <- env.user.repo withEmails users
+        withEmails <- env.user.api withEmails users
         uas        <- env.security.api.ipUas(address)
         blocked = env.security.firewall blocksIp address
         page <- renderPage(html.mod.search.ip(address, withEmails, uas, blocked))

@@ -337,7 +337,7 @@ final class User(
       ctx: Context,
       me: Me
   ): Fu[Result] =
-    env.user.repo withEmails username orFail s"No such user $username" flatMap {
+    env.user.api withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         withPageContext:
           import html.user.{ mod as view }
@@ -428,7 +428,7 @@ final class User(
     }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
-    env.user.repo withEmails username orFail s"No such user $username" flatMap {
+    env.user.api withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
           Ok.page:
