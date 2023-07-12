@@ -352,7 +352,7 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
       _.map { _.hashToken }
     }
 
-  def setEmail(id: UserId, email: EmailAddress): Funit = {
+  def setEmail(id: UserId, email: EmailAddress): Funit =
     val normalized = email.normalize
     coll.update
       .one(
@@ -361,8 +361,8 @@ final class UserRepo(val coll: Coll, perfsRepo: UserPerfsRepo)(using Executor):
           $set(F.email -> normalized) ++ $unset(F.prevEmail, F.verbatimEmail)
         else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
       )
-      .void
-  } >>- lila.common.Bus.publish(lila.hub.actorApi.user.ChangeEmail(id, email), "email")
+      .map: _ =>
+        lila.common.Bus.publish(lila.hub.actorApi.user.ChangeEmail(id, email), "email")
 
   private def anyEmail(doc: Bdoc): Option[EmailAddress] =
     doc.getAsOpt[EmailAddress](F.verbatimEmail) orElse doc.getAsOpt[EmailAddress](F.email)

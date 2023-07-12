@@ -72,7 +72,7 @@ final class SeekApi(
     coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
       case seeks if seeks.sizeIs <= maxPerUser.value => funit
       case seeks                                     => seeks.drop(maxPerUser.value).map(remove).parallel
-    }.void >>- cacheClear()
+    }.void andDo cacheClear()
 
   def findByUser(userId: UserId): Fu[List[Seek]] =
     coll
@@ -82,16 +82,16 @@ final class SeekApi(
       .list(100)
 
   def remove(seek: Seek) =
-    coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear()
+    coll.delete.one($doc("_id" -> seek.id)).void andDo cacheClear()
 
   def archive(seek: Seek, gameId: GameId) =
     val archiveDoc = bsonWriteObjTry[Seek](seek).get ++ $doc(
       "gameId"     -> gameId,
       "archivedAt" -> nowInstant
     )
-    coll.delete.one($doc("_id" -> seek.id)).void >>-
-      cacheClear() >>
-      archiveColl.insert.one(archiveDoc)
+    coll.delete.one($doc("_id" -> seek.id)).void >>
+      archiveColl.insert.one(archiveDoc) andDo
+      cacheClear()
 
   def findArchived(gameId: GameId): Fu[Option[Seek]] =
     archiveColl.find($doc("gameId" -> gameId)).one[Seek]
@@ -104,10 +104,10 @@ final class SeekApi(
           "user.id" -> userId
         )
       )
-      .void >>- cacheClear()
+      .void andDo cacheClear()
 
   def removeByUser(user: lila.user.User) =
-    coll.delete.one($doc("user.id" -> user.id)).void >>- cacheClear()
+    coll.delete.one($doc("user.id" -> user.id)).void andDo cacheClear()
 
 private object SeekApi:
 

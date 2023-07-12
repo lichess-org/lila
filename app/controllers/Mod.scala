@@ -146,7 +146,7 @@ final class Mod(
         _ => redirect(username, mod = true),
         title =>
           modApi.setTitle(username, title) >>
-            env.mailer.automaticEmail.onTitleSet(username) >>-
+            env.mailer.automaticEmail.onTitleSet(username) andDo
             env.user.lightUserApi.invalidate(username.id) inject
             redirect(username, mod = false)
       )

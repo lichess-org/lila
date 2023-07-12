@@ -115,8 +115,9 @@ final class Practice(
         renderAsync:
           api.structure.get.map(html.practice.config(_, err))
       } { text =>
-        ~api.config.set(text).toOption >>-
-          api.structure.clear() >>
-          env.mod.logApi.practiceConfig inject Redirect(routes.Practice.config)
+        ~api.config.set(text).toOption >>
+          env.mod.logApi.practiceConfig andDo
+          api.structure.clear() inject
+          Redirect(routes.Practice.config)
       }
   }

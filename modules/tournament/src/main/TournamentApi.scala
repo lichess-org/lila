@@ -102,7 +102,7 @@ final class TournamentApi(
       startsAt = if old.isCreated then tour.startsAt else old.startsAt,
       mode = if tour.position.isDefined then chess.Mode.Casual else tour.mode
     )
-    tournamentRepo.update(finalized) >>- cached.tourCache.clear(tour.id) inject finalized
+    tournamentRepo.update(finalized) andDo cached.tourCache.clear(tour.id) inject finalized
 
   def teamBattleUpdate(
       tour: Tournament,
@@ -148,14 +148,13 @@ final class TournamentApi(
                 case pairings =>
                   pairingRepo.insert(pairings.map(_.pairing)) >>
                     pairings
-                      .map { pairing =>
+                      .map: pairing =>
                         autoPairing(tour, pairing, ranking.ranking)
                           .mon(_.tournament.pairing.createAutoPairing)
                           .map { socket.startGame(tour.id, _) }
-                      }
                       .parallel
                       .void
-                      .mon(_.tournament.pairing.createInserts) >>- {
+                      .mon(_.tournament.pairing.createInserts) andDo {
                       lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
                       waitingUsers.registerPairedUsers(tour.id, pairings.view.flatMap(_.pairing.users).toSet)
                       socket.reload(tour.id)
@@ -183,13 +182,12 @@ final class TournamentApi(
       }
 
   private[tournament] def start(oldTour: Tournament): Funit =
-    Parallel(oldTour.id, "start")(cached.tourCache.created) { tour =>
-      tournamentRepo.setStatus(tour.id, Status.Started) >>- {
+    Parallel(oldTour.id, "start")(cached.tourCache.created): tour =>
+      tournamentRepo.setStatus(tour.id, Status.Started) andDo {
         cached.tourCache clear tour.id
         socket reload tour.id
         publish()
       }
-    }
 
   private[tournament] def destroy(tour: Tournament): Funit = for
     _ <- tournamentRepo.remove(tour).void
@@ -357,7 +355,7 @@ final class TournamentApi(
   private def withdraw(tourId: TourId, userId: UserId, isPause: Boolean, isStalling: Boolean): Funit =
     Parallel(tourId, "withdraw")(cached.tourCache.enterable) {
       case tour if tour.isCreated =>
-        playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- {
+        playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) andDo {
           socket.reload(tour.id)
           publish()
         }
@@ -407,7 +405,7 @@ final class TournamentApi(
           Parallel(tourId, "finishGame")(cached.tourCache.started): tour =>
             pairingOpt.so { pairing =>
               game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).parallel.void
-            } >>- {
+            } andDo {
               duelStore.remove(game)
               socket.reload(tour.id)
               updateTournamentStanding(tour)
@@ -433,9 +431,8 @@ final class TournamentApi(
               }.toInt
             } | player.performance
           )
-        } >>- game.whitePlayer.userId.foreach { whiteUserId =>
+        } andDo game.whitePlayer.userId.foreach: whiteUserId =>
           colorHistoryApi.inc(player.id, chess.Color.fromWhite(player is whiteUserId))
-        }
       }
     }
 
@@ -465,7 +462,7 @@ final class TournamentApi(
           val fu =
             if tour.isCreated then playerRepo.remove(tour.id, userId)
             else playerRepo.withdraw(tour.id, userId)
-          fu >> updateNbPlayers(tourId) >>- socket.reload(tourId)
+          fu >> updateNbPlayers(tourId) andDo socket.reload(tourId)
       .void
     }
 
@@ -484,8 +481,8 @@ final class TournamentApi(
                 uids.toList.traverse_(recomputePlayerAndSheet(tour))
             }
         } >>
-          updateNbPlayers(tour.id) >>-
-          socket.reload(tour.id) >>- publish()
+          updateNbPlayers(tour.id) andDo
+          socket.reload(tour.id) andDo publish()
     }
 
   private def recomputePlayerAndSheet(tour: Tournament)(userId: UserId): Funit =

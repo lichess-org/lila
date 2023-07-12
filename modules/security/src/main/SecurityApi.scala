@@ -79,7 +79,7 @@ final class SecurityApi(
       token: Option[String]
   ): LoginCandidate.Result =
     import LoginCandidate.Result.*
-    candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword) { c =>
+    candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
       val result = c(User.PasswordAndToken(password, token map User.TotpToken.apply))
       if result == BlankedPassword then
         lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
@@ -88,7 +88,6 @@ final class SecurityApi(
         lila.common.Bus.publish(c.user, "loginWithWeakPassword")
         WeakPassword
       else result
-    }
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
       req: RequestHeader

@@ -16,7 +16,7 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
           api.ping(challenge.id).unit
         }
         def completeWith(msg: String) = {
-          queue.offer(Json.obj("done" -> msg)) >>- queue.complete()
+          queue.offer(Json.obj("done" -> msg)) andDo queue.complete()
         }.unit
         val sub = Bus.subscribeFun("challenge") {
           case Event.Accept(c, _) if c.id == challenge.id => completeWith("accepted")

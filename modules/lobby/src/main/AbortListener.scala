@@ -10,8 +10,8 @@ final private class AbortListener(
 )(using Executor):
 
   def apply(pov: Pov): Funit =
-    (pov.game.isCorrespondence so recreateSeek(pov)) >>-
-      cancelColorIncrement(pov) >>-
+    (pov.game.isCorrespondence so recreateSeek(pov)) andDo
+      cancelColorIncrement(pov) andDo
       lobbyActor.registerAbortedGame(pov.game)
 
   private def cancelColorIncrement(pov: Pov): Unit =

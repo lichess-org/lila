@@ -11,9 +11,10 @@ object mon:
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
-    private val t = timer("http.time")
+    private val reqTime = timer("http.time")
+    private val mobTime = timer("http.mobile")
     def time(action: String, client: String, method: String, code: Int) =
-      t.withTags:
+      reqTime.withTags:
         tags(
           "action" -> action,
           "client" -> client,
@@ -27,6 +28,14 @@ object mon:
           "client" -> client,
           "method" -> method,
           "code"   -> code.toLong
+        )
+    def mobile(action: String, version: String, auth: Boolean, os: String) =
+      mobTime.withTags:
+        tags(
+          "action"  -> action,
+          "version" -> version,
+          "auth"    -> (if auth then "auth" else "anon"),
+          "os"      -> os
         )
     def path(p: String) = counter("http.path.count").withTag("path", p)
     val userGamesCost   = counter("http.userGames.cost").withoutTags()

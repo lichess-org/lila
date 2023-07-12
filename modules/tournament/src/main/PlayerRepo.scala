@@ -169,8 +169,8 @@ final class PlayerRepo(coll: Coll)(using Executor):
   def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
     game.twoUserIds.so: (w, b) =>
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
-        (m.get(w), m.get(b)).mapN((_, _)).so { (wt, bt) =>
-          TeamBattle.TeamVs(chess.ByColor(wt, bt)).some
+        (m.get(w), m.get(b)).mapN { (wt, bt) =>
+          TeamBattle.TeamVs(chess.ByColor(wt, bt))
         }
       }
 

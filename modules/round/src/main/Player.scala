@@ -93,30 +93,28 @@ final private class Player(
         if expectedSign == sign then
           applyUci(game, uci, blur = false, metrics = fishnetLag)
             .fold(errs => fufail(ClientError(ErrorStr raw errs)), fuccess)
-            .flatMap {
+            .flatMap:
               case Flagged => finisher.outOfTime(game)
               case MoveApplied(progress, moveOrDrop, _) =>
-                proxy.save(progress) >>-
-                  uciMemo.add(progress.game, moveOrDrop) >>-
-                  lila.mon.fishnet.move(~game.aiLevel).increment().unit >>-
-                  notifyMove(moveOrDrop, progress.game) >> {
+                proxy
+                  .save(progress)
+                  .andDo:
+                    uciMemo.add(progress.game, moveOrDrop)
+                    lila.mon.fishnet.move(~game.aiLevel).increment().unit
+                    notifyMove(moveOrDrop, progress.game)
+                  .>> {
                     if progress.game.finished then moveFinish(progress.game) dmap { progress.events ::: _ }
                     else fuccess(progress.events)
                   }
-            }
         else
-          fufail(
-            FishnetError(
+          fufail:
+            FishnetError:
               s"Invalid game hash: $sign id: ${game.id} playable: ${game.playable} player: ${game.player}"
-            )
-          )
       }
     else
-      fufail(
-        FishnetError(
+      fufail:
+        FishnetError:
           s"Not AI turn move: $uci id: ${game.id} playable: ${game.playable} player: ${game.player}"
-        )
-      )
 
   private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
     game.playableByAi.so:

@@ -67,13 +67,9 @@ final class Team(
     members <- paginator.teamMembers(team, page)
     log     <- (requestModView && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(team, info, requestModView)
-    chat <-
-      hasChat so env.chat.api.userChat.cached
-        .findMine(ChatId(team.id))
-        .map(some)
-    _ <- env.user.lightUserApi preloadMany {
+    chat <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
+    _ <- env.user.lightUserApi.preloadMany:
       team.leaders.toList ::: info.userIds ::: chat.so(_.chat.userIds)
-    }
     version <- hasChat soFu env.team.version(team.id)
     page    <- renderPage(html.team.show(team, members, info, chat, version, requestModView, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
@@ -330,7 +326,7 @@ final class Team(
     Found(for
       requestOption <- api request requestId
       teamOption    <- requestOption.so(req => env.team.teamRepo.byLeader(req.team, me))
-    yield (teamOption, requestOption).mapN((_, _))): (team, request) =>
+    yield (teamOption, requestOption).tupled): (team, request) =>
       forms.processRequest
         .bindFromRequest()
         .fold(

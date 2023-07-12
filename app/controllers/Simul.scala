@@ -48,9 +48,7 @@ final class Simul(env: Env) extends LilaController(env):
             verdicts <- env.simul.api.getVerdicts(sim)
             version  <- env.simul.version(sim.id)
             json     <- env.simul.jsonView(sim, verdicts)
-            chat <- canHaveChat(sim) so env.chat.api.userChat.cached
-              .findMine(sim.id into ChatId)
-              .map(some)
+            chat     <- canHaveChat(sim) soFu env.chat.api.userChat.cached.findMine(sim.id into ChatId)
             _ <- chat.so: c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds)
             stream <- env.streamer.liveStreamApi one sim.hostId

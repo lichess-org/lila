@@ -246,9 +246,8 @@ final class Study(
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.noKid && ctx.noBot &&                    // no public chats for kids and bots
     ctx.me.fold(true)(env.chat.panic.allowed(_)) // anon can see public chats
-  } so env.chat.api.userChat
+  } soFu env.chat.api.userChat
     .findMine(study.id into ChatId)
-    .dmap(some)
     .mon(_.chat.fetch("study"))
 
   def createAs = AuthBody { ctx ?=> me ?=>
@@ -299,7 +298,7 @@ final class Study(
   }
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
-    get("sri") so { sri =>
+    get("sri").so: sri =>
       StudyForm.importPgn.form
         .bindFromRequest()
         .fold(
@@ -312,7 +311,6 @@ final class Study(
               ctx.pref.showRatings
             )(Who(me, lila.socket.Socket.Sri(sri))) inject NoContent
         )
-    }
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>

@@ -25,18 +25,15 @@ final private class Cleaner(
       .sort($sort desc "acquired.date")
       .cursor[Work.Analysis]()
       .documentSource()
-      .filter { ana =>
+      .filter: ana =>
         ana.acquiredAt.so(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
-      }
       .take(200)
-      .mapAsyncUnordered(4) { ana =>
-        repo.updateOrGiveUpAnalysis(ana, _.timeout) >>- {
+      .mapAsyncUnordered(4): ana =>
+        repo.updateOrGiveUpAnalysis(ana, _.timeout).andDo {
           logger.info(s"Timeout analysis $ana")
-          ana.acquired.foreach { ack =>
+          ana.acquired.foreach: ack =>
             Monitor.timeout(ack.userId)
-          }
         }
-      }
       .runWith(Sink.ignore)
       .void
 

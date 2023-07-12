@@ -160,10 +160,7 @@ final class GameApiV2(
               (
                 game,
                 pairing,
-                (
-                  playerTeams.get(pairing.user1),
-                  playerTeams.get(pairing.user2)
-                ) mapN chess.ByColor.apply[TeamId]
+                ByColor(pairing.user1, pairing.user2).traverse(playerTeams.get)
               )
             }
           }

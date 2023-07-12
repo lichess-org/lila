@@ -363,7 +363,7 @@ final private class PushApi(
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     webPush(webRecips, pushData).addEffects { res =>
       lila.mon.push.send.streamStart("web", res.isSuccess, webRecips.size)
-    } >>- {
+    } andDo {
       recips collect { case u if u.allows.device => u.userId } foreach {
         firebasePush(_, pushData).addEffects { res =>
           lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)

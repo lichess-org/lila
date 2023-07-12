@@ -80,7 +80,7 @@ final class SimulApi(
       featurable = some(~setup.featured && me.canBeFeatured),
       conditions = setup.conditions
     )
-    repo.update(simul) >>- publish() inject simul
+    repo.update(simul) andDo publish() inject simul
 
   def getVerdicts(simul: Simul)(using
       me: Option[Me]
@@ -106,7 +106,7 @@ final class SimulApi(
                     _.accepted.so:
                       val player   = SimulPlayer.make(user, variant)
                       val newSimul = simul addApplicant SimulApplicant(player, accepted = false)
-                      repo.update(newSimul) >>- {
+                      repo.update(newSimul) andDo {
                         timeline ! Propagate(SimulJoin(me.userId, simul.id, simul.fullName))
                           .toFollowersOf(user.id)
                         socket.reload(newSimul.id)
@@ -134,7 +134,7 @@ final class SimulApi(
             }
           } flatMap { s =>
             Bus.publish(Simul.OnStart(s), "startSimul")
-            update(s) >>- currentHostIdsCache.invalidateUnit()
+            update(s) andDo currentHostIdsCache.invalidateUnit()
           }
       }
 
@@ -146,13 +146,13 @@ final class SimulApi(
   def abort(simulId: SimulId): Funit =
     workQueue(simulId):
       repo.findCreated(simulId) flatMapz { simul =>
-        (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
+        (repo remove simul) andDo socket.aborted(simul.id) andDo publish()
       }
 
   def setText(simulId: SimulId, text: String): Funit =
     workQueue(simulId):
       repo.find(simulId) flatMapz { simul =>
-        repo.setText(simul, text) >>- socket.reload(simulId)
+        repo.setText(simul, text) andDo socket.reload(simulId)
       }
 
   def finishGame(game: Game): Funit =
@@ -163,9 +163,8 @@ final class SimulApi(
             game.id,
             _.finish(game.status, game.winnerUserId)
           )
-          update(simul2) >>- {
+          update(simul2).andDo:
             if simul2.isFinished then onComplete(simul2)
-          }
         }
 
   private def onComplete(simul: Simul): Unit =
@@ -261,7 +260,7 @@ final class SimulApi(
     game2 -> hostColor
 
   private def update(simul: Simul): Funit =
-    repo.update(simul) >>- socket.reload(simul.id) >>- publish()
+    repo.update(simul) andDo socket.reload(simul.id) andDo publish()
 
   private def WithSimul(
       finding: SimulId => Fu[Option[Simul]],

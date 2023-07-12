@@ -64,11 +64,10 @@ final class ReportApi(
               prev.exists(_.score.value < thresholds.discord())
             then ircApi.commReportBurst(c.suspect.user)
             coll.update.one($id(report.id), report, upsert = true).void >>
-              autoAnalysis(candidate) >>- {
+              autoAnalysis(candidate).andDo:
                 if report.isCheat then
                   Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
-              }
-          } >>-
+          } andDo
           maxScoreCache.invalidateUnit()
       }
     }
@@ -271,11 +270,12 @@ final class ReportApi(
 
   def byId(id: Report.Id) = coll.byId[Report](id)
 
-  def process(report: Report)(using Me): Funit =
-    accuracy.invalidate($id(report.id)) >>
-      doProcessReport($id(report.id), unsetInquiry = true).void >>-
-      maxScoreCache.invalidateUnit() >>-
-      lila.mon.mod.report.close.increment().unit
+  def process(report: Report)(using Me): Funit = for
+    _ <- accuracy.invalidate($id(report.id))
+    _ <- doProcessReport($id(report.id), unsetInquiry = true)
+  yield
+    maxScoreCache.invalidateUnit()
+    lila.mon.mod.report.close.increment()
 
   def autoProcess(sus: Suspect, rooms: Set[Room])(using Me.Id): Funit =
     val selector = $doc(
@@ -283,8 +283,8 @@ final class ReportApi(
       "room" $in rooms,
       "open" -> true
     )
-    doProcessReport(selector, unsetInquiry = true).void >>-
-      maxScoreCache.invalidateUnit() >>-
+    doProcessReport(selector, unsetInquiry = true).void andDo
+      maxScoreCache.invalidateUnit() andDo
       lila.mon.mod.report.close.increment().unit
 
   private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: Me.Id): Funit =

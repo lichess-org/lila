@@ -111,7 +111,7 @@ final class RelationApi(
           case (Some(Follow), _) => funit
           case (_, Some(Block))  => funit
           case _ =>
-            repo.follow(u1, u2) >> limitFollow(u1) >>- {
+            repo.follow(u1, u2) >> limitFollow(u1) andDo {
               countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
               timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1)
               Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
@@ -135,7 +135,7 @@ final class RelationApi(
         .flatMap:
           case Nil => repo.drop(u, true, nb - config.maxFollow.value)
           case inactiveIds =>
-            repo.unfollowMany(u, inactiveIds) >>-
+            repo.unfollowMany(u, inactiveIds) andDo
               countFollowingCache.update(u, _ - inactiveIds.size)
       }
 
@@ -147,20 +147,23 @@ final class RelationApi(
     (u1 != u2 && u2 != User.lichessId) so fetchBlocks(u1, u2).flatMap {
       if _ then funit
       else
-        repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
+        for
+          _ <- repo.block(u1, u2)
+          _ <- limitBlock(u1)
+          _ <- unfollow(u2, u1)
+        yield
           Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
           Bus.publish(
             lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
             "socketUsers"
           )
           lila.mon.relation.block.increment().unit
-        }
     }
 
   def unfollow(u1: UserId, u2: UserId): Funit =
     (u1 != u2) so
       fetchFollows(u1, u2).flatMapz {
-        repo.unfollow(u1, u2) >>- {
+        repo.unfollow(u1, u2) andDo {
           countFollowingCache.update(u1, _ - 1)
           Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
           lila.mon.relation.unfollow.increment().unit
@@ -172,7 +175,7 @@ final class RelationApi(
   def unblock(u1: UserId, u2: UserId): Funit =
     (u1 != u2) so fetchBlocks(u1, u2).flatMap {
       if _ then
-        repo.unblock(u1, u2) >>- {
+        repo.unblock(u1, u2) andDo {
           Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
           Bus.publish(
             lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),

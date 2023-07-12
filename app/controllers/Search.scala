@@ -55,8 +55,8 @@ final class Search(env: Env) extends LilaController(env):
                       ),
                     data =>
                       data.nonEmptyQuery
-                        .so: query =>
-                          env.gameSearch.paginator(query, page) map some
+                        .soFu:
+                          env.gameSearch.paginator(_, page)
                         .flatMap: pager =>
                           negotiate(
                             Ok.page(html.search.index(searchForm fill data, pager, nbGames)),

@@ -27,15 +27,18 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         .flatMap:
           if _ then notFoundJson()
           else
-            env.tournament.api.withdrawAll(me) >>
-              env.team.cached.teamIdsList(me).flatMap { env.swiss.api.withdrawAll(me, _) } >>
-              env.user.api.setBot(me) >>
-              env.pref.api.setBot(me) >>
-              env.streamer.api.delete(me) >>-
-              env.user.lightUserApi.invalidate(me) pipe
-              toResult recover { case lila.base.LilaInvalid(msg) =>
-                BadRequest(jsonError(msg))
-              }
+            {
+              for
+                _       <- env.tournament.api.withdrawAll(me)
+                teamIds <- env.team.cached.teamIdsList(me)
+                _       <- env.swiss.api.withdrawAll(me, teamIds)
+                _       <- env.user.api.setBot(me)
+                _       <- env.pref.api.setBot(me)
+                _       <- env.streamer.api.delete(me)
+              yield env.user.lightUserApi.invalidate(me)
+            } pipe toResult recover { case lila.base.LilaInvalid(msg) =>
+              BadRequest(jsonError(msg))
+            }
     else impl.command(cmd)(WithPovAsBot)
   }
 

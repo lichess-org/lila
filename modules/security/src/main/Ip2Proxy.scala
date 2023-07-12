@@ -79,9 +79,8 @@ final class Ip2ProxyServer(
               }
         }
 
-  private val cache: AsyncLoadingCache[IpAddress, IsProxy] = cacheApi.scaffeine
-    .expireAfterWrite(1 days)
-    .buildAsyncFuture { ip =>
+  private val cache = cacheApi[IpAddress, IsProxy](16_384, "ip2proxy.ip"):
+    _.expireAfterWrite(1 days).buildAsyncFuture: ip =>
       ws
         .url(checkUrl)
         .addQueryStringParameters("ip" -> ip.value)
@@ -90,10 +89,8 @@ final class Ip2ProxyServer(
         .dmap(_.body[JsValue])
         .dmap(readProxyName)
         .monSuccess(_.security.proxy.request)
-        .addEffect { result =>
+        .addEffect: result =>
           lila.mon.security.proxy.result(result.value).increment().unit
-        }
-    }
 
   private def readProxyName(js: JsValue): IsProxy = IsProxy {
     for

@@ -14,7 +14,8 @@ import lila.gathering.Condition.GetMyTeamIds
 
 final class Api(
     env: Env,
-    gameC: => Game
+    gameC: => Game,
+    userC: => User
 ) extends LilaController(env):
 
   import Api.*
@@ -35,9 +36,8 @@ final class Api(
   def index = Anon:
     Ok(views.html.site.bits.api)
 
-  private val userRateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.api.ip")
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
-    userRateLimit(ctx.ip, rateLimited):
+    userC.userShowRateLimit(ctx.ip, rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
       userApi.extended(
         name,
         withFollows = userWithFollows,

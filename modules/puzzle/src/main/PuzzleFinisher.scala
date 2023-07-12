@@ -134,7 +134,7 @@ final private[puzzle] class PuzzleFinisher(
                   (userPerf != perf).so {
                     perfsRepo.setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent) zip
                       historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf) void
-                  } >>- {
+                  } andDo {
                     if prevRound.isEmpty then
                       Bus.publish(
                         Puzzle

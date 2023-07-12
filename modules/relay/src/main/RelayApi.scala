@@ -192,7 +192,7 @@ final class RelayApi(
     tourRepo.coll.insert.one(tour) inject tour
 
   def tourUpdate(tour: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
-    tourRepo.coll.update.one($id(tour.id), data.update(tour)).void >>-
+    tourRepo.coll.update.one($id(tour.id), data.update(tour)).void andDo
       leaderboard.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound] =
@@ -240,19 +240,16 @@ final class RelayApi(
     studyApi.rename(round.studyId, round.name into StudyName) >> {
       if round == from then fuccess(round)
       else
-        roundRepo.coll.update.one($id(round.id), round).void >> {
-          (round.sync.playing != from.sync.playing) so sendToContributors(
-            round.id,
-            "relaySync",
-            jsonView sync round
-          )
-        } >> {
-          (round.finished != from.finished) so denormalizeTourActive(round.tourId)
-        } >>- {
+        for
+          _ <- roundRepo.coll.update.one($id(round.id), round).void
+          _ <- (round.sync.playing != from.sync.playing) so
+            sendToContributors(round.id, "relaySync", jsonView sync round)
+          _ <- (round.finished != from.finished) so denormalizeTourActive(round.tourId)
+        yield
           round.sync.log.events.lastOption.ifTrue(round.sync.log != from.sync.log).foreach { event =>
             sendToContributors(round.id, "relayLog", Json.toJsObject(event))
           }
-        } inject round
+          round
     }
 
   def reset(old: RelayRound)(using me: Me): Funit =
@@ -261,7 +258,7 @@ final class RelayApi(
         old.hasStartedEarly so roundRepo.coll.update
           .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
           .void
-      } >>- {
+      } andDo {
         multiboard invalidate relay.studyId
         leaderboard invalidate relay.tourId
       }

@@ -338,7 +338,7 @@ final class Account(
         notFound
       case Some(user) =>
         env.report.api.reopenReports(lila.report.Suspect(user)) >>
-          auth.authenticateUser(user, remember = true) >>-
+          auth.authenticateUser(user, remember = true) andDo
           lila.mon.user.auth.reopenConfirm("success").increment().unit
     }
 

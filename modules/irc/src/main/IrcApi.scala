@@ -151,7 +151,7 @@ final class IrcApi(
             else firsts
           displayMessage {
             s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
-          } >>- {
+          } andDo {
             buffer = Vector.empty
           }
 

@@ -83,24 +83,26 @@ final private class ForumTopicApi(
       findDuplicate(topic) flatMap {
         case Some(dup) => fuccess(dup)
         case None =>
-          postRepo.coll.insert.one(post) >>
-            topicRepo.coll.insert.one(topic withPost post) >>
-            categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-              !categ.quiet so (indexer ! InsertPost(post))
-              promotion.save(post.text)
-              shutup ! {
-                val text = s"${topic.name} ${post.text}"
-                if post.isTeam then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, text)
-              }
-              if !post.troll && !categ.quiet then
-                timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))
-                  .toFollowersOf(me)
-                  .withTeam(categ.team)
-              lila.mon.forum.post.create.increment()
-              mentionNotifier.notifyMentionedUsers(post, topic)
-              Bus.publish(CreatePost(post), "forumPost")
-            } inject topic
+          for
+            _ <- postRepo.coll.insert.one(post)
+            _ <- topicRepo.coll.insert.one(topic withPost post)
+            _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+          yield
+            !categ.quiet so (indexer ! InsertPost(post))
+            promotion.save(post.text)
+            shutup ! {
+              val text = s"${topic.name} ${post.text}"
+              if post.isTeam then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, text)
+              else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, text)
+            }
+            if !post.troll && !categ.quiet then
+              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                .toFollowersOf(me)
+                .withTeam(categ.team)
+            lila.mon.forum.post.create.increment()
+            mentionNotifier.notifyMentionedUsers(post, topic)
+            Bus.publish(CreatePost(post), "forumPost")
+            topic
       }
     }
 
@@ -152,20 +154,20 @@ final private class ForumTopicApi(
     )
     makeNewTopic(categ, topic, post)
 
-  private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) =
-    postRepo.coll.insert.one(post) >>
-      topicRepo.coll.insert.one(topic withPost post) >>
-      categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>-
-      (indexer ! InsertPost(post)) >>-
-      Bus.publish(CreatePost(post), "forumPost") void
+  private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) = for
+    _ <- postRepo.coll.insert.one(post)
+    _ <- topicRepo.coll.insert.one(topic withPost post)
+    _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+  yield
+    indexer ! InsertPost(post)
+    Bus.publish(CreatePost(post), "forumPost")
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ) flatMap { topics =>
-      topics.map { topic =>
+      topics.traverse: topic =>
         postRepo.coll.byId[ForumPost](topic lastPostId forUser) map { post =>
           TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
         }
-      }.parallel
     }
 
   def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =

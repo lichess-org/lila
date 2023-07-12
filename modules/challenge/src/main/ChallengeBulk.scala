@@ -107,7 +107,7 @@ final class ChallengeBulkApi(
           .start
         (game, users)
       .mapAsyncUnordered(8): (game, users) =>
-        gameRepo.insertDenormalized(game) >>- onStart(game.id) inject (game, users)
+        gameRepo.insertDenormalized(game) andDo onStart(game.id) inject (game, users)
       .mapAsyncUnordered(8): (game, users) =>
         msgApi.onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)
       .toMat(LilaStream.sinkCount)(Keep.right)

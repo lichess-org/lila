@@ -134,10 +134,10 @@ final class GameStateStream(
     }
 
     def onGameOver(g: Option[Game]) =
-      g.so(pushState) >>- {
-        gameOver = true
-        self ! PoisonPill
-      }
+      g.so(pushState)
+        .andDo:
+          gameOver = true
+          self ! PoisonPill
 
 private object GameStateStream:
 

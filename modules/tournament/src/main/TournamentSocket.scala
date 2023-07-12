@@ -76,7 +76,7 @@ final private class TournamentSocket(
 
   remoteSocketApi.subscribe("tour-in", Protocol.In.reader)(
     tourHandler orElse handler orElse remoteSocketApi.baseHandler
-  ) >>- send(P.Out.boot)
+  ) andDo send(P.Out.boot)
 
   object Protocol:
 

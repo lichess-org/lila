@@ -85,7 +85,7 @@ z-index: 99;
       case x if x == nbPages - 1 => List(nbPages.some)
       case _ if showPost         => List(none, nbPages.some)
       case _                     => List(none)
-    pre ::: (fromPage to toPage).view.map(Some.apply).toList ::: post
+    pre ::: (fromPage to toPage).view.map(some).toList ::: post
 
   def ariaTabList(prefix: String, selected: String)(tabs: (String, String, Frag)*) = frag(
     div(cls := "tab-list", role := "tablist")(

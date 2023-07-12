@@ -73,10 +73,11 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
-        users.map(_.filter(_.enabled.yes).map(_.only(game.perfType))).toPair.mapN { (whiteUser, blackUser) =>
-          sandbagWatch(game)
-          assessApi.onGameReady(game, whiteUser, blackUser)
-        }
+        users
+          .map(_.filter(_.enabled.yes).map(_.only(game.perfType)))
+          .mapN: (whiteUser, blackUser) =>
+            sandbagWatch(game)
+            assessApi.onGameReady(game, whiteUser, blackUser)
         if game.status == chess.Status.Cheat then
           game.loserUserId.foreach: userId =>
             logApi.cheatDetectedAndCount(userId, game.id) flatMap { count =>

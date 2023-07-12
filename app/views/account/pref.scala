@@ -143,7 +143,7 @@ object pref:
               radios(form("behavior.keyboardMove"), booleanChoices)
             ),
             setting(
-              "Input moves with your voice",
+              inputMovesWithVoice(),
               radios(form("behavior.voice"), booleanChoices)
             ),
             setting(

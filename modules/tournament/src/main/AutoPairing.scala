@@ -33,7 +33,7 @@ final class AutoPairing(
       .withId(pairing.pairing.gameId)
       .withTournamentId(tour.id)
       .start
-    (gameRepo insertDenormalized game) >>- {
+    gameRepo.insertDenormalized(game) andDo {
       onStart(game.id)
       import lila.rating.intZero
       duelStore.add(

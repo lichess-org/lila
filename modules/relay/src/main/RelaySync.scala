@@ -160,7 +160,7 @@ final private class RelaySync(
         userId = study.ownerId,
         unlimited = true
       )
-    } >>- {
+    } andDo {
       multiboard.invalidate(study.id)
       studyApi.reloadChapters(study)
       leaderboard invalidate tour.id
@@ -197,7 +197,7 @@ final private class RelaySync(
           )
           .some
       )
-      studyApi.doAddChapter(study, chapter, sticky = false, actorApi.Who(study.ownerId, sri)) >>-
+      studyApi.doAddChapter(study, chapter, sticky = false, actorApi.Who(study.ownerId, sri)) andDo
         multiboard.invalidate(study.id) inject chapter
     }
 
