@@ -33,16 +33,13 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         case ByColor(Some(x), Some(y)) => ByColor(x, y).some
         case _                         => none
 
-    private val cache = cacheApi[PlayersKey, GameUsers](4096, "user.perf.pair"):
+    private val cache = cacheApi[PlayersKey, GameUsers](1024, "user.perf.pair"):
       _.expireAfterWrite(3 seconds).buildAsyncFuture(fetch)
 
     private def fetch(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
       val (x, y) = userIds
       listWithPerf(List(x, y).flatten, perfType).map: users =>
-        ByColor(
-          x.flatMap(id => users.find(_.id == id)),
-          y.flatMap(id => users.find(_.id == id))
-        )
+        ByColor(x, y).map(_.flatMap(id => users.find(_.id == id)))
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
 
