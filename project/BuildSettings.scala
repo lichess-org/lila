@@ -1,15 +1,15 @@
-import play.sbt.PlayImport.*
-import sbt.*, Keys.*
+import play.sbt.PlayImport._
+import sbt._, Keys._
 
-object BuildSettings:
+object BuildSettings {
 
-  import Dependencies.*
+  import Dependencies._
 
   val lilaVersion        = "4.0"
   val globalScalaVersion = "3.3.0"
 
   val shadedMongo = !System.getProperty("os.arch").toLowerCase.startsWith("aarch")
-  if shadedMongo then println("--- shaded native reactivemongo ---")
+  if (shadedMongo) println("--- shaded native reactivemongo ---")
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
@@ -30,7 +30,7 @@ object BuildSettings:
       play.api,
       chess,
       scalalib,
-      kittens
+      kittens,
     )
 
   def module(
@@ -39,7 +39,7 @@ object BuildSettings:
       libs: Seq[ModuleID]
   ) =
     Project(name, file("modules/" + name))
-      .dependsOn(deps*)
+      .dependsOn(deps: _*)
       .settings(
         libraryDependencies ++= defaultLibs ++ libs,
         buildSettings,
@@ -66,3 +66,4 @@ object BuildSettings:
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
+}
