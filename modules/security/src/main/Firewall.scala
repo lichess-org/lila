@@ -24,7 +24,7 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
-  def blockIps(ips: Iterable[IpAddress]): Funit =
+  def blockIps(ips: Seq[IpAddress]): Funit =
     ips.traverse_ { ip =>
       coll.update
         .one(

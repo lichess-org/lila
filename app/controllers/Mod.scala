@@ -402,7 +402,7 @@ final class Mod(
       if v then env.security.firewall.blockIps
       else env.security.firewall.unblockIps
     val ipAddr = IpAddress from ip
-    op(ipAddr).inject:
+    op(ipAddr.toList).inject:
       if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Mod.singleIp(ip))
   }

@@ -185,7 +185,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
           ) map some
 
         def groupMulti(d: InsightDimension[?], metricDbKey: String): List[Option[PipelineOperator]] =
-          dimensionGrouping(d) ap {
+          dimensionGrouping(d) match {
             case Grouping.Group =>
               List(
                 groupOptions($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
@@ -226,20 +226,18 @@ final private class AggregationPipeline(store: InsightStorage)(using
             extraMatcher :: question.filters.collect {
               case f if f.dimension.isInMove => f.matcher
             } ::: dimension
-              .ap {
+              .match
                 case D.TimeVariance         => "v".some
                 case D.CplRange             => "c".some
                 case D.AccuracyPercentRange => "a".some
                 case D.EvalRange            => "e".some
                 case D.WinPercentRange      => "w".some
                 case _                      => none
-              }
               .map(moveField => $doc(F.moves(moveField) $exists true))
               .toList :::
-              metric.ap {
+              metric.match
                 case InsightMetric.MeanAccuracy => List($doc(F.moves("a") $exists true))
                 case _                          => List.empty[Bdoc]
-              }
           ).some.filterNot(_.isEmpty) map Match.apply
 
         def projectForMove: Option[PipelineOperator] =
@@ -260,7 +258,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 $doc(F.provisional $ne true)
               }
         ) -> {
-          sortDate ::: limitGames :: (metric.ap {
+          sortDate ::: limitGames :: (metric.match {
             case M.MeanCpl =>
               List(
                 projectForMove,
@@ -286,11 +284,9 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 matchMoves(),
                 limitMoves,
                 AddFields(
-                  $doc(
-                    "step" -> $doc(
+                  $doc:
+                    "step" -> $doc:
                       "$divide" -> $arr(1, $doc("$max" -> $arr(1, $divide("$m.a", percentBsonMultiplier))))
-                    )
-                  )
                 ).some
               ) :::
                 group(dimension, SumField("step")) :::
@@ -374,16 +370,13 @@ final private class AggregationPipeline(store: InsightStorage)(using
             case M.Performance =>
               group(
                 dimension,
-                Avg(
-                  $doc(
-                    "$avg" -> $doc(
+                Avg:
+                  $doc:
+                    "$avg" -> $doc:
                       "$add" -> $arr(
                         "$or",
                         $doc("$multiply" -> $arr(500, $doc("$subtract" -> $arr(2, "$r"))))
                       )
-                    )
-                  )
-                )
               ) ::: List(includeSomeGameIds)
             case M.OpponentRating =>
               group(dimension, AvgField(F.opponentRating)) ::: List(includeSomeGameIds)
@@ -411,9 +404,9 @@ final private class AggregationPipeline(store: InsightStorage)(using
                   GroupFunction("$avg", $divide("$" + F.moves("v"), TimeVariance.intFactor))
                 ) :::
                 List(includeSomeGameIds)
-          } ::: dimension.ap {
+          } ::: dimension.match
             case D.OpeningVariation | D.OpeningFamily => List(sortNb, limit(12))
             case _                                    => Nil
-          }).flatten
+          ).flatten
         }
         pipeline

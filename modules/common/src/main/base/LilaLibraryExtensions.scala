@@ -16,9 +16,7 @@ import scala.annotation.targetName
 
 trait LilaLibraryExtensions extends LilaTypes:
 
-  extension [A](self: A)
-    def unit: Unit          = ()
-    def ap[B](f: A => B): B = f(self)
+  extension [A](self: A) def unit: Unit = ()
 
   extension (self: Long)
     def atLeast(bottomValue: Long): Long       = max(self, bottomValue)
