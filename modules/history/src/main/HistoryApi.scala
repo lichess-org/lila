@@ -10,12 +10,12 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.{ UserPerfs, User, UserApi }
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
-    using ec: Executor
+    using Executor
 ):
 
   import History.{ given, * }
 
-  def addPuzzle(user: User, completedAt: Instant, perf: Perf): Funit = withColl { coll =>
+  def addPuzzle(user: User, completedAt: Instant, perf: Perf): Funit = withColl: coll =>
     val days = daysBetween(user.createdAt, completedAt)
     coll.update
       .one(
@@ -24,9 +24,8 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
         upsert = true
       )
       .void
-  }
 
-  def add(user: User, game: Game, perfs: UserPerfs): Funit = withColl { coll =>
+  def add(user: User, game: Game, perfs: UserPerfs): Funit = withColl: coll =>
     val isStd = game.ratingVariant.standard
     val changes = List(
       isStd.option("standard"                                               -> perfs.standard),
@@ -44,23 +43,20 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
       (isStd && game.speed == Speed.Rapid).option("rapid"                   -> perfs.rapid),
       (isStd && game.speed == Speed.Classical).option("classical"           -> perfs.classical),
       (isStd && game.speed == Speed.Correspondence).option("correspondence" -> perfs.correspondence)
-    ).flatten.map { case (k, p) =>
+    ).flatten.map: (k, p) =>
       k -> p.intRating
-    }
     val days = daysBetween(user.createdAt, game.movedAt)
     coll.update
       .one(
         $id(user.id),
-        $doc("$set" -> $doc(changes.map { (perf, rating) =>
-          (s"$perf.$days", $int(rating))
-        })),
+        $doc("$set" -> $doc(changes.map: (perf, rating) =>
+          (s"$perf.$days", $int(rating)))),
         upsert = true
       )
       .void
-  }
 
   // used for rating refunds
-  def setPerfRating(user: User, perf: PerfType, rating: IntRating): Funit = withColl { coll =>
+  def setPerfRating(user: User, perf: PerfType, rating: IntRating): Funit = withColl: coll =>
     val days = daysBetween(user.createdAt, nowInstant)
     coll.update
       .one(
@@ -68,7 +64,6 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
         $set(s"${perf.key}.$days" -> $int(rating))
       )
       .void
-  }
 
   private def daysBetween(from: Instant, to: Instant): Int =
     ornicar.scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
@@ -83,7 +78,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
       perfType: PerfType,
       days: Int
   ): Fu[List[(IntRating, IntRating)]] =
-    withColl(
+    withColl:
       _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
         $doc(perfType.key.value -> true).some
@@ -103,7 +98,6 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
           previous -> current
         }
       }
-    )
 
   object lastWeekTopRating:
 
@@ -115,19 +109,15 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
           val currentRating = user.perfs(perf).intRating
           val firstDay      = daysBetween(user.createdAt, nowInstant minusWeeks 1)
           val days          = firstDay to (firstDay + 6) toList
-          val project = BSONDocument {
-            ("_id" -> BSONBoolean(false)) :: days.map { d =>
+          val project = $doc:
+            ("_id" -> BSONBoolean(false)) :: days.map: d =>
               s"${perf.key}.$d" -> BSONBoolean(true)
-            }
-          }
           withColl(_.find($id(user.id), project.some).one[Bdoc].map {
-            _.flatMap {
+            _.flatMap:
               _.child(perf.key.value) map {
-                _.elements.foldLeft(currentRating) {
+                _.elements.foldLeft(currentRating):
                   case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
                   case (max, _)                                         => max
-                }
               }
-            }
           }).dmap(_ | currentRating)
         }
