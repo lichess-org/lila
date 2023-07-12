@@ -60,10 +60,14 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="numberOfByesQ">Hány szabadkört kaphat egy játékos?</string>
   <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
 Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki késve csatlakozik a versenyhez.</string>
+  <string name="earlyDrawsQ">Mi lesz a korai döntetlenekkel?</string>
+  <string name="earlyDrawsA">A játékos kap egy bye pontot minden alkalommal, amikor a párosító program nem tudja párosítani senkivel. Továbbá fél pontot kap, ha későn csatlakozik a versenyhez.</string>
   <string name="whatIfOneDoesntPlayQ">Mi történik, ha egy játékos nem játssza a partit?</string>
   <string name="whatIfOneDoesntPlayA">Az órájuk ugyanúgy ketyeg, az idejük lejár és elvesztik a játszmát.
 A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.
  Bármikor újracsatlakozhatnak a versenyhez.</string>
+  <string name="protectionAgainstNoShowQ">Mi lesz ha nem jelenik meg egy játékos?</string>
+  <string name="protectionAgainstNoShowA">Játékosok akik regisztrálnak egy svájci rendszerű versenyre, de nem játszák le játszmáikat, az problémás lehet. Hogy enyhítsen a dolgon, Lichess egy adott időre megakadályozza ezeket a játékosokat hogy új svájci rendszerű versenyre jelentkezzenek. Egy verseny szervezője dönthet úgy, hogy ennek ellenére is játszhassanak.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
   <string name="lateJoinA">Igen, amíg nem több, mint a fordulók fele elkezdődött; például egy 11 fordulósban játékosok csatlakozhatnak a 6. forduló kezdete előtt illetve egy 12 fordulósban a 7. forduló kezdetéig.
 A későn csatlakozók egy pontot érő szabadkört kapnak akkor is, ha több fordulóból maradtak ki.</string>
@@ -106,4 +110,5 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
   <string name="predefinedUsers">Csak engedélyezett játékosok csatlakozhatnak</string>
   <string name="forbiddedUsers">Amennyiben a lista nem üres, úgy a listán nem szereplő játékosok nem csatlakozhatnak. Soronként egy felhasználónév.</string>
+  <string name="playYourGames">Játszd le a játszmáidat</string>
 </resources>

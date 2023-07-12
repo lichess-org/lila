@@ -7,8 +7,8 @@
     <item quantity="other">Apoiou a lichess.org durante %1$s meses como %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Practicou %1$s posición en %2$s</item>
-    <item quantity="other">Practicou %1$s posicións en %2$s</item>
+    <item quantity="one">Practicaches %1$s posición en %2$s</item>
+    <item quantity="other">Practicaches %1$s posicións en %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Resolveu %s exercicio de táctica</item>
@@ -55,8 +55,8 @@
     <item quantity="other">Creou %s novos estudos</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Competiu nun torneo</item>
-    <item quantity="other">Competiu en %s torneos</item>
+    <item quantity="one">Competiu en %s torneo Arena</item>
+    <item quantity="other">Competiu en %s torneos Arena</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">%1$sº na clasificación (no %2$s%% mellor) con %3$s partida en %4$s</item>
@@ -66,10 +66,10 @@
     <item quantity="one">Competiu en %s torneo suízo</item>
     <item quantity="other">Competiu en %s torneos suízos</item>
   </plurals>
-  <string name="rankedInSwissTournament">%1$s na clasificación de %2$s</string>
+  <string name="rankedInSwissTournament">%1$sº na clasificación de %2$s</string>
   <string name="signedUp">Rexistrado en lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Uniuse a %s equipa</item>
-    <item quantity="other">Uniuse a %s equipas</item>
+    <item quantity="one">Uniuse a %s equipo</item>
+    <item quantity="other">Uniuse a %s equipos</item>
   </plurals>
 </resources>
