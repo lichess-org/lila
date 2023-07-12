@@ -33,7 +33,7 @@ final class MongoRateLimit[K](
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(
       op: => Fu[A]
   )(default: => A)(using Executor): Fu[A] =
-    if (cost < 1) op
+    if cost < 1 then op
     else
       val dbKey = makeDbKey(k)
       coll.one[Entry]($id(dbKey)) flatMap {
@@ -44,7 +44,7 @@ final class MongoRateLimit[K](
         case Some(Entry(_, _, clearAt)) if clearAt.isBeforeNow =>
           coll.update.one($id(dbKey), Entry(dbKey, cost, makeClearAt), upsert = true) >> op
         case _ if enforce =>
-          if (log) logger.info(s"$credits/$duration $k cost: $cost $msg")
+          if log then logger.info(s"$credits/$duration $k cost: $cost $msg")
           monitor.increment()
           fuccess(default)
         case _ =>

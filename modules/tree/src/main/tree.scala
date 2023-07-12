@@ -83,15 +83,15 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
     path.split match
       case None => Some(this -> false)
       case Some((head, tail)) =>
-        for {
+        for
           node                  <- get(head)
           mainlineNode          <- this.first
           (newChildren, isDone) <- node.children promoteUpAt tail
           newNode = node.copy(children = newChildren)
-        } yield
-          if (isDone) update(newNode) -> true
-          else if (newNode.id == mainlineNode.id) update(newNode) -> false
-          else Branches(newNode :: nodes.filterNot(newNode ==))   -> true
+        yield
+          if isDone then update(newNode) -> true
+          else if newNode.id == mainlineNode.id then update(newNode) -> false
+          else Branches(newNode :: nodes.filterNot(newNode ==))      -> true
 
   def updateAt(path: UciPath, f: Branch => Branch): Option[Branches] =
     path.split flatMap {
@@ -117,17 +117,17 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
     updateWith(id, _ withChildren f)
 
   def updateMainline(f: Branch => Branch): Branches =
-    Branches(nodes match {
+    Branches(nodes match
       case main :: others =>
         val newNode = f(main)
         newNode.copy(children = newNode.children.updateMainline(f)) :: others
       case x => x
-    })
+    )
 
   def takeMainlineWhile(f: Branch => Boolean): Branches =
     updateMainline { node =>
       node.children.first.fold(node) { mainline =>
-        if (f(mainline)) node
+        if f(mainline) then node
         else node.withoutChildren
       }
     }
@@ -207,7 +207,7 @@ case class Root(
   // def addChild(branch: Branch)     = copy(children = children :+ branch)
   def addChild(child: Branch)      = copy(children = children addNode child)
   def prependChild(branch: Branch) = copy(children = branch :: children)
-  def dropFirstChild = copy(children = if (children.isEmpty) children else Branches(children.variations))
+  def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
   def withChildren(f: Branches => Option[Branches]) =
     f(children) map { newChildren =>
@@ -217,36 +217,36 @@ case class Root(
   def withoutChildren = copy(children = Branches.empty)
 
   def nodeAt(path: UciPath): Option[Node] =
-    if (path.isEmpty) this.some else children nodeAt path
+    if path.isEmpty then this.some else children nodeAt path
 
   def pathExists(path: UciPath): Boolean = nodeAt(path).isDefined
 
   def setShapesAt(shapes: Shapes, path: UciPath): Option[Root] =
-    if (path.isEmpty) copy(shapes = shapes).some
+    if path.isEmpty then copy(shapes = shapes).some
     else updateChildrenAt(path, _ setShapes shapes)
 
   def setCommentAt(comment: Comment, path: UciPath): Option[Root] =
-    if (path.isEmpty) copy(comments = comments set comment).some
+    if path.isEmpty then copy(comments = comments set comment).some
     else updateChildrenAt(path, _ setComment comment)
 
   def deleteCommentAt(commentId: Comment.Id, path: UciPath): Option[Root] =
-    if (path.isEmpty) copy(comments = comments delete commentId).some
+    if path.isEmpty then copy(comments = comments delete commentId).some
     else updateChildrenAt(path, _ deleteComment commentId)
 
   def setGamebookAt(gamebook: Gamebook, path: UciPath): Option[Root] =
-    if (path.isEmpty) copy(gamebook = gamebook.some).some
+    if path.isEmpty then copy(gamebook = gamebook.some).some
     else updateChildrenAt(path, _ setGamebook gamebook)
 
   def toggleGlyphAt(glyph: Glyph, path: UciPath): Option[Root] =
-    if (path.isEmpty) copy(glyphs = glyphs toggle glyph).some
+    if path.isEmpty then copy(glyphs = glyphs toggle glyph).some
     else updateChildrenAt(path, _ toggleGlyph glyph)
 
   def setClockAt(clock: Option[Centis], path: UciPath): Option[Root] =
-    if (path.isEmpty) copy(clock = clock).some
+    if path.isEmpty then copy(clock = clock).some
     else updateChildrenAt(path, _ withClock clock)
 
   def forceVariationAt(force: Boolean, path: UciPath): Option[Root] =
-    if (path.isEmpty) copy(clock = clock).some
+    if path.isEmpty then copy(clock = clock).some
     else updateChildrenAt(path, _ withForceVariation force)
 
   private def updateChildrenAt(path: UciPath, f: Branch => Branch): Option[Root] =
@@ -375,7 +375,7 @@ case class Branch(
     )
 
   def prependChild(branch: Branch) = copy(children = branch :: children)
-  def dropFirstChild = copy(children = if (children.isEmpty) children else Branches(children.variations))
+  def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
   def setComp = copy(comp = true)
 
@@ -445,13 +445,13 @@ object Node:
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
       def findBy(author: Comment.Author) = a.value.find(_.by is author)
-      def set(comment: Comment): Comments = {
-        if (a.value.exists(_.by.is(comment.by))) a.value.map {
-          case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
-          case c                        => c
-        }
+      def set(comment: Comment): Comments =
+        if a.value.exists(_.by.is(comment.by)) then
+          a.value.map {
+            case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
+            case c                        => c
+          }
         else a.value :+ comment
-      }
       def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
       def +(comment: Comment): Comments           = comment :: a.value
       def ++(comments: Comments): Comments        = a.value ::: comments.value
@@ -537,10 +537,10 @@ object Node:
           .add("san", moveOption.map(_.san))
           .add("check", check)
           .add("eval", eval.filterNot(_.isEmpty))
-          .add("comments", if (comments.nonEmpty) Some(comments) else None)
+          .add("comments", if comments.nonEmpty then Some(comments) else None)
           .add("gamebook", gamebook)
           .add("glyphs", glyphs.nonEmpty)
-          .add("shapes", if (shapes.value.nonEmpty) Some(shapes.value) else None)
+          .add("shapes", if shapes.value.nonEmpty then Some(shapes.value) else None)
           .add("opening", opening)
           .add("dests", dests)
           .add("drops", drops.map(drops => JsString(drops.map(_.key).mkString)))
@@ -549,8 +549,9 @@ object Node:
           .add("comp", comp)
           .add(
             "children",
-            if (alwaysChildren || children.nonEmpty) Some:
-              nodeListJsonWriter(true) writes children.nodes
+            if alwaysChildren || children.nonEmpty then
+              Some:
+                nodeListJsonWriter(true) writes children.nodes
             else None
           )
           .add("forceVariation", forceVariation)

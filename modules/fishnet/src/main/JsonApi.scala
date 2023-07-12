@@ -156,7 +156,7 @@ object JsonApi:
     given Writes[Variant] = writeAs(_.key)
     given Writes[Game]    = Json.writes
     given OWrites[Work] = OWrites { work =>
-      (work match {
+      (work match
         case a: Analysis =>
           Json.obj(
             "work" -> Json.obj(
@@ -173,5 +173,5 @@ object JsonApi:
             ),
             "skipPositions" -> a.skipPositions
           )
-      }) ++ Json.toJson(work.game).as[JsObject]
+      ) ++ Json.toJson(work.game).as[JsObject]
     }

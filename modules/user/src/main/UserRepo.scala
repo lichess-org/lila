@@ -217,12 +217,12 @@ final class UserRepo(val coll: Coll)(using Executor):
         case 0  => "count.draw".some
         case _  => none
       ),
-      (result match {
+      (result match
         case -1 => "count.lossH".some
         case 1  => "count.winH".some
         case 0  => "count.drawH".some
         case _  => none
-      }) ifFalse ai
+      ) ifFalse ai
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
       totalTime map (v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
       tvTime map (v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
