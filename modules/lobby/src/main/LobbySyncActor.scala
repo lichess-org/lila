@@ -59,12 +59,11 @@ final private class LobbySyncActor(
       socket ! RemoveSeek(seekId)
 
     case BiteHook(hookId, sri, user) =>
-      NoPlayban(user) {
+      NoPlayban(user):
         biteHook(hookId, sri, user)
-      }
 
     case BiteSeek(seekId, user) =>
-      NoPlayban(user.some) {
+      NoPlayban(user.some):
         gameCache.nbPlaying(user.id) foreach { nbPlaying =>
           if lila.game.Game.maxPlaying > nbPlaying then
             lila.mon.lobby.seek.join.increment()
@@ -73,7 +72,6 @@ final private class LobbySyncActor(
                 biter(seek, user) foreach this.!
             }
         }
-      }
 
     case msg @ JoinHook(_, hook, game, _) =>
       onStart(game.id)
@@ -147,8 +145,7 @@ final private class LobbySyncActor(
   private def findCompatible(hook: Hook): Option[Hook] =
     hookRepo.filter(_ compatibleWith hook).find { existing =>
       biter.canJoin(existing, hook.user) &&
-      !(existing.user, hook.user)
-        .tupled
+      !(existing.user, hook.user).tupled
         .so: (u1, u2) =>
           recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
     }
