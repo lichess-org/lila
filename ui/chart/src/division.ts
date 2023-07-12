@@ -19,7 +19,7 @@ const divisionLine = (division: string, ply: number) => {
   };
 };
 
-export default function (div: Division | undefined, trans: Trans) {
+export default function (div: Division | undefined, trans: Trans, firstPly: number) {
   const lines = [];
   lines.push({
     color: window.Highcharts.theme.lichess.line.accent,
@@ -27,10 +27,11 @@ export default function (div: Division | undefined, trans: Trans) {
     value: 0,
     zIndex: 6,
   });
-  if (div?.middle) {
-    if (div.middle > 1) lines.push(divisionLine(trans('opening'), 0));
-    if (div?.end !== 1) lines.push(divisionLine(trans('middlegame'), div.middle - 1));
+  if (firstPly == 0 || (div?.middle && div.middle > 1)) lines.push(divisionLine(trans('opening'), 0));
+  if (div?.middle) lines.push(divisionLine(trans('middlegame'), div.middle - 1));
+  if (div?.end) {
+    if (div.end > 1 && !div?.middle) lines.push(divisionLine(trans('middlegame'), 0));
+    lines.push(divisionLine(trans('endgame'), div.end - 1));
   }
-  if (div?.end) lines.push(divisionLine(trans('endgame'), div.end - 1));
   return lines;
 }
