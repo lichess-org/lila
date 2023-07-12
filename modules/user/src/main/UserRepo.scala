@@ -156,7 +156,6 @@ final class UserRepo(val coll: Coll)(using Executor):
         $id(userId) ++ $doc(F.colorIt -> $not(if value < 0 then $lte(-3) else $gte(5))),
         $inc(F.colorIt -> value)
       )
-      .unit
 
   def lichess = byId(User.lichessId)
   def irwin   = byId(User.irwinId)
@@ -168,7 +167,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setUsernameCased(id: UserId, name: UserName): Funit =
     if id is name then
       coll.update.one(
-        $id(id) ++ (F.changedCase $exists false),
+        $id(id) ++ F.changedCase.$exists(false),
         $set(F.username -> name, F.changedCase -> true)
       ) flatMap { result =>
         if result.n == 0 then fufail(s"You have already changed your username")

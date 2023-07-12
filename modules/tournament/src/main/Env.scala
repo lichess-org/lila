@@ -70,10 +70,8 @@ final class Env(
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
     clearTrophyCache = tour =>
-      {
-        if tour.isShield then scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
-        else if Revolution is tour then scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }.unit
-      }.unit,
+      if tour.isShield then scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
+      else if Revolution is tour then scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() },
     indexLeaderboard = leaderboardIndexer.indexOne
   )
 
@@ -115,9 +113,8 @@ final class Env(
 
   wire[TournamentScheduler]
 
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) :() =>
     tournamentRepo.countCreated foreach { lila.mon.tournament.created.update(_) }
-  }
 
   private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
   val lilaHttp            = wire[TournamentLilaHttp]

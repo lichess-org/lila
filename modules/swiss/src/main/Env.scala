@@ -91,28 +91,19 @@ final class Env(
 
   wire[SwissNotify]
 
-  lila.common.Bus.subscribeFun(
-    "finishGame",
-    "adjustCheater",
-    "adjustBooster",
-    "teamLeave"
-  ) {
-    case lila.game.actorApi.FinishGame(game, _)           => api.finishGame(game).unit
-    case lila.hub.actorApi.team.LeaveTeam(teamId, userId) => api.leaveTeam(teamId, userId).unit
-    case lila.hub.actorApi.mod.MarkCheater(userId, true)  => api.kickLame(userId).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId)        => api.kickLame(userId).unit
-  }
+  lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "teamLeave"):
+    case lila.game.actorApi.FinishGame(game, _)           => api.finishGame(game)
+    case lila.hub.actorApi.team.LeaveTeam(teamId, userId) => api.leaveTeam(teamId, userId)
+    case lila.hub.actorApi.mod.MarkCheater(userId, true)  => api.kickLame(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)        => api.kickLame(userId)
 
-  LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds))(
+  LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
     api.startPendingRounds
-  )
 
-  LilaScheduler("Swiss.checkOngoingGames", _.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(
+  LilaScheduler("Swiss.checkOngoingGames", _.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds)):
     api.checkOngoingGames
-  )
 
-  LilaScheduler("Swiss.generate", _.Every(3 hours), _.AtMost(15 seconds), _.Delay(15 minutes))(
+  LilaScheduler("Swiss.generate", _.Every(3 hours), _.AtMost(15 seconds), _.Delay(15 minutes)):
     officialSchedule.generate
-  )
 
 final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)

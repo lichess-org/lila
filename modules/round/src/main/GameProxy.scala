@@ -79,7 +79,8 @@ final private class GameProxy(
 
   private def scheduleFlushProgress(): Unit =
     scheduledFlush.cancel()
-    scheduledFlush = scheduler.scheduleOnce(scheduleDelay) { flushProgress().unit }
+    scheduledFlush = scheduler.scheduleOnce(scheduleDelay):
+      flushProgress()
 
   private def flushProgress(): Funit =
     scheduledFlush.cancel()

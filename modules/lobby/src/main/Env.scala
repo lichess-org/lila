@@ -47,4 +47,4 @@ final class Env(
   val socket = wire[LobbySocket]
 
   lila.common.Bus.subscribeFun("abortGame"):
-    case lila.game.actorApi.AbortedBy(pov) => abortListener(pov).unit
+    case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)

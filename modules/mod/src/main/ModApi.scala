@@ -20,7 +20,7 @@ final class ModApi(
       _ <- userRepo.setAlt(prev.user.id, v)
       sus = prev.set(_.withMarks(_.set(_.Alt, v)))
       _ <- logApi.alt(sus, v)
-    yield if v then notifier.reporters(me.modId, sus).unit
+    yield if v then notifier.reporters(me.modId, sus)
 
   def setEngine(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
     (prev.user.marks.engine != v) so {
@@ -64,14 +64,15 @@ final class ModApi(
   def setTroll(prev: Suspect, value: Boolean)(using me: Me.Id): Fu[Suspect] =
     val changed = value != prev.user.marks.troll
     val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
-    changed so {
-      userRepo.updateTroll(sus.user).void andDo {
-        logApi.troll(sus)
-        Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
-      }
-    } andDo {
-      if value then notifier.reporters(me.modId, sus).unit
-    } inject sus
+    changed
+      .so:
+        userRepo.updateTroll(sus.user).void andDo {
+          logApi.troll(sus)
+          Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
+        }
+      .andDo:
+        if value then notifier.reporters(me.modId, sus)
+      .inject(sus)
 
   def autoTroll(sus: Suspect, note: String): Funit =
     given Me.Id = User.lichessIdAsMe

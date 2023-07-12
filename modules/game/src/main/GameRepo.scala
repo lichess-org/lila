@@ -412,7 +412,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll.insert.one(bson) addFailureEffect {
-      case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision.increment().unit
+      case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision.increment()
     } void
 
   def removeRecentChallengesOf(userId: UserId) =
@@ -428,7 +428,7 @@ final class GameRepo(val coll: Coll)(using Executor):
     coll.unsetField($id(id), F.checkAt).void
 
   def unsetPlayingUids(g: Game): Unit =
-    coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids)).unit
+    coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids))
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =

@@ -29,18 +29,18 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
 
   val baseHandler: Handler =
     case In.ConnectUser(userId) =>
-      onlineUserIds.getAndUpdate(_ + userId).unit
+      onlineUserIds.getAndUpdate(_ + userId)
     case In.ConnectUsers(userIds) =>
-      onlineUserIds.getAndUpdate(_ ++ userIds).unit
+      onlineUserIds.getAndUpdate(_ ++ userIds)
     case In.DisconnectUsers(userIds) =>
-      onlineUserIds.getAndUpdate(_ -- userIds).unit
+      onlineUserIds.getAndUpdate(_ -- userIds)
     case In.NotifiedBatch(userIds) =>
       Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
       lags.foreach: (userId, centis) =>
         UserLagCache.put(userId, centis)
       // this shouldn't be necessary... ensure that users are known to be online
-      onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys).unit
+      onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
@@ -91,13 +91,13 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       send(Out.impersonate(userId, modId))
     case ApiUserIsOnline(userId, value) =>
       send(Out.apiUserOnline(userId, value))
-      if value then onlineUserIds.getAndUpdate(_ + userId).unit
+      if value then onlineUserIds.getAndUpdate(_ + userId)
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
-    def apply(msg: String)               = if !stopping then super.send(channel, msg).unit
+    def apply(msg: String)               = if !stopping then super.send(channel, msg)
     def sticky(_id: String, msg: String) = apply(msg)
 
   final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
@@ -107,7 +107,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     def sticky(id: String, msg: String): Unit = publish(id.hashCode.abs % parallelism, msg)
 
     private def publish(subChannel: Int, msg: String) =
-      if !stopping then conn.async.publish(s"$channel:$subChannel", msg).unit
+      if !stopping then conn.async.publish(s"$channel:$subChannel", msg)
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
     if parallelism > 1 then RoundRobinSender(redisClient.connectPubSub(), channel, parallelism)

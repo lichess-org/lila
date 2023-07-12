@@ -102,7 +102,9 @@ final class GarbageCollector(
             s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${!armed so " [SIMULATION]"}"
           logger.info(message)
           noteApi.lichessWrite(user, s"Garbage collected because of $msg")
-          if armed then scheduler.scheduleOnce(wait) { doCollect(user.id) }.unit
+          if armed then
+            scheduler.scheduleOnce(wait):
+              doCollect(user.id)
       }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =

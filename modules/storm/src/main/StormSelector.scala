@@ -41,80 +41,70 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     acc + nb
   }
 
-  private val current = cacheApi.unit[List[StormPuzzle]] {
-    _.refreshAfterWrite(6 seconds)
-      .buildAsyncFuture { _ =>
-        colls
-          .path {
-            _.aggregateList(poolSize) { framework =>
-              import framework.*
-              val fenColorRegex = $doc(
-                "$regexMatch" -> $doc(
-                  "input" -> "$fen",
-                  "regex" -> { if scala.util.Random.nextBoolean() then " w " else " b " }
-                )
+  private val current = cacheApi.unit[List[StormPuzzle]]:
+    _.refreshAfterWrite(6 seconds).buildAsyncFuture: _ =>
+      colls
+        .path:
+          _.aggregateList(poolSize): framework =>
+            import framework.*
+            val fenColorRegex = $doc:
+              "$regexMatch" -> $doc(
+                "input" -> "$fen",
+                "regex" -> { if scala.util.Random.nextBoolean() then " w " else " b " }
               )
-              Facet(
-                ratingBuckets.map { (rating, nbPuzzles) =>
-                  rating.toString -> List(
-                    Match(
-                      $doc(
-                        "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
-                        "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
-                      )
-                    ),
-                    Sample(1),
-                    Project($doc("_id" -> false, "ids" -> true)),
-                    UnwindField("ids"),
-                    // ensure we have enough after filtering deviation & color
-                    Sample(nbPuzzles * 7),
-                    PipelineOperator(
-                      $lookup.pipelineFull(
-                        from = colls.puzzle.name.value,
-                        as = "puzzle",
-                        let = $doc("id" -> "$ids"),
-                        pipe = List(
-                          $doc(
-                            "$match" -> $expr(
-                              $and(
-                                $doc("$eq"  -> $arr("$_id", "$$id")),
-                                $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-                                fenColorRegex
-                              )
+            Facet(
+              ratingBuckets.map: (rating, nbPuzzles) =>
+                rating.toString -> List(
+                  Match:
+                    $doc(
+                      "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
+                      "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
+                    )
+                  ,
+                  Sample(1),
+                  Project($doc("_id" -> false, "ids" -> true)),
+                  UnwindField("ids"),
+                  // ensure we have enough after filtering deviation & color
+                  Sample(nbPuzzles * 7),
+                  PipelineOperator:
+                    $lookup.pipelineFull(
+                      from = colls.puzzle.name.value,
+                      as = "puzzle",
+                      let = $doc("id" -> "$ids"),
+                      pipe = List(
+                        $doc:
+                          "$match" -> $expr:
+                            $and(
+                              $doc("$eq"  -> $arr("$_id", "$$id")),
+                              $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+                              fenColorRegex
                             )
-                          ),
-                          $doc(
-                            "$project" -> $doc(
-                              "fen"    -> true,
-                              "line"   -> true,
-                              "rating" -> $doc("$toInt" -> "$glicko.r")
-                            )
+                        ,
+                        $doc:
+                          "$project" -> $doc(
+                            "fen"    -> true,
+                            "line"   -> true,
+                            "rating" -> $doc("$toInt" -> "$glicko.r")
                           )
-                        )
                       )
-                    ),
-                    UnwindField("puzzle"),
-                    Sample(nbPuzzles),
-                    ReplaceRootField("puzzle")
-                  )
-                }
-              ) -> List(
-                Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
-                UnwindField("all"),
-                ReplaceRootField("all"),
-                Sort(Ascending("rating")),
-                Limit(poolSize)
-              )
-            }.map {
-              _.flatMap(puzzleReader.readOpt)
-            }
-          }
-          .mon(_.storm.selector.time)
-          .addEffect { puzzles =>
-            monitor(puzzles.toVector, poolSize)
-          }
-      }
-  }
+                    )
+                  ,
+                  UnwindField("puzzle"),
+                  Sample(nbPuzzles),
+                  ReplaceRootField("puzzle")
+                )
+            ) -> List(
+              Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
+              UnwindField("all"),
+              ReplaceRootField("all"),
+              Sort(Ascending("rating")),
+              Limit(poolSize)
+            )
+          .map:
+            _.flatMap(puzzleReader.readOpt)
+        .mon(_.storm.selector.time)
+        .addEffect: puzzles =>
+          monitor(puzzles.toVector, poolSize)
 
   private def monitor(puzzles: Vector[StormPuzzle], poolSize: Int): Unit =
     val nb = puzzles.size
@@ -123,7 +113,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     if nb > 1 then
       val rest = puzzles.toVector drop 1
       lila.common.Maths.mean(IntRating raw rest.map(_.rating)) foreach { r =>
-        lila.mon.storm.selector.rating.record(r.toInt).unit
+        lila.mon.storm.selector.rating.record(r.toInt)
       }
       (0 to poolSize by 10) foreach { i =>
         val slice = rest drop i take 10

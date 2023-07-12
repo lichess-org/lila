@@ -285,7 +285,7 @@ final class ReportApi(
     )
     doProcessReport(selector, unsetInquiry = true).void andDo
       maxScoreCache.invalidateUnit() andDo
-      lila.mon.mod.report.close.increment().unit
+      lila.mon.mod.report.close.increment()
 
   private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: Me.Id): Funit =
     coll.update
@@ -356,7 +356,7 @@ final class ReportApi(
                 room -> s.so(_.toInt)
               .toMap
         .addEffect: scores =>
-          lila.mon.mod.report.highest.update(scores.highest).unit
+          lila.mon.mod.report.highest.update(scores.highest)
 
   def maxScores = maxScoreCache.getUnit
 

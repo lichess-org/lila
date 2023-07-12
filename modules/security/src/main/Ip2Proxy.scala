@@ -71,7 +71,7 @@ final class Ip2ProxyServer(
               .addEffect:
                 _.zip(ips).foreach: (proxy, ip) =>
                   cache.put(ip, fuccess(proxy))
-                  lila.mon.security.proxy.result(proxy.value).increment().unit
+                  lila.mon.security.proxy.result(proxy.value).increment()
         }
 
   private val cache = cacheApi[IpAddress, IsProxy](16_384, "ip2proxy.ip"):
@@ -85,7 +85,7 @@ final class Ip2ProxyServer(
         .dmap(readProxyName)
         .monSuccess(_.security.proxy.request)
         .addEffect: result =>
-          lila.mon.security.proxy.result(result.value).increment().unit
+          lila.mon.security.proxy.result(result.value).increment()
 
   private def readProxyName(js: JsValue): IsProxy = IsProxy {
     for

@@ -27,7 +27,7 @@ final class Env(
     text = "Permille of mails to send using secondary SMTP configuration".some
   )
 
-  lazy val mailer = new Mailer(
+  lazy val mailer = Mailer(
     config,
     getSecondaryPermille = () => mailerSecondaryPermilleSetting.get()
   )
@@ -36,19 +36,19 @@ final class Env(
 
   lila.common.Bus.subscribeFuns(
     "fishnet" -> { case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
-      automaticEmail.onFishnetKey(userId, key).unit
+      automaticEmail.onFishnetKey(userId, key)
     },
     "planStart" -> {
       case lila.hub.actorApi.plan.PlanStart(userId) =>
-        automaticEmail.onPatronNew(userId).unit
+        automaticEmail.onPatronNew(userId)
       case lila.hub.actorApi.plan.PlanGift(from, to, lifetime) =>
-        automaticEmail.onPatronGift(from, to, lifetime).unit
+        automaticEmail.onPatronGift(from, to, lifetime)
     },
     "planExpire" -> { case lila.hub.actorApi.plan.PlanExpire(userId) =>
-      automaticEmail.onPatronStop(userId).unit
+      automaticEmail.onPatronStop(userId)
     },
     "dailyCorrespondenceNotif" -> {
       case lila.hub.actorApi.mailer.CorrespondenceOpponents(userId, opponents) =>
-        automaticEmail.dailyCorrespondenceNotice(userId, opponents).unit
+        automaticEmail.dailyCorrespondenceNotice(userId, opponents)
     }
   )

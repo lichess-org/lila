@@ -63,14 +63,12 @@ final class Env(
   // start the sync scheduler
   wire[RelayFetch]
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
     api.autoStart >> api.autoFinishNotSyncing
-    ()
-  }
 
   lila.common.Bus.subscribeFuns(
     "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId, _) =>
-      api.onStudyRemove(studyId).unit
+      api.onStudyRemove(studyId)
     },
     "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {

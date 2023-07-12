@@ -177,7 +177,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 env.msg.api
                   .multiPost(Source(students.map(_.user.id)), full)
                   .addEffect: nb =>
-                    lila.mon.msg.clasBulk(clas.id.value).record(nb).unit
+                    lila.mon.msg.clasBulk(clas.id.value).record(nb)
                   .inject(redirectTo(clas).flashSuccess)
             }
         )

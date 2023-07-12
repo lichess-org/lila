@@ -96,7 +96,7 @@ final class Env(
       onStart(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
-      selfReport(userId, ip, fullId, name).unit
+      selfReport(userId, ip, fullId, name)
     },
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       resignAllGamesOf(userId)

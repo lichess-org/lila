@@ -12,7 +12,8 @@ final class Firewall(
 
   private var current: Set[String] = Set.empty
 
-  scheduler.scheduleOnce(10 minutes)(loadFromDb.unit)
+  scheduler.scheduleOnce(10 minutes):
+    loadFromDb
 
   def blocksIp(ip: IpAddress): Boolean = current contains ip.value
 
@@ -36,7 +37,7 @@ final class Firewall(
     } >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.delete.one($inIds(ips)).void andDo loadFromDb.unit
+    coll.delete.one($inIds(ips)).void andDo loadFromDb
 
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty).map { ips =>

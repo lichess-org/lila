@@ -108,13 +108,13 @@ final class RoundSocket(
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
       gameIfPresent(id).foreach:
         _.foreach:
-          messenger.owner(_, color, msg).unit
+          messenger.owner(_, color, msg)
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
-      messenger.owner(id, userId, msg).unit
+      messenger.owner(id, userId, msg)
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
-      messenger.watcher(id, userId, msg).unit
+      messenger.watcher(id, userId, msg)
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
-      messenger.timeout(ChatId(s"$roomId/w"), suspect, reason, text)(using modId).unit
+      messenger.timeout(ChatId(s"$roomId/w"), suspect, reason, text)(using modId)
     case Protocol.In.Berserk(gameId, userId) => Bus.publish(Berserk(gameId, userId), "berserk")
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines.foreach:
@@ -197,7 +197,7 @@ final class RoundSocket(
     rounds.tellAll(RoundAsyncActor.Tick)
 
   scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds): () =>
-    lila.mon.round.asyncActorCount.update(rounds.size).unit
+    lila.mon.round.asyncActorCount.update(rounds.size)
 
   private val terminationDelay = TerminationDelay(scheduler, 1 minute, finishRound)
 
@@ -425,16 +425,14 @@ object RoundSocket:
     private[this] val terminations = ConcurrentHashMap[GameId, Cancellable](65536)
 
     def schedule(gameId: GameId): Unit =
-      terminations
-        .compute(
-          gameId,
-          (id, canc) =>
-            Option(canc).foreach(_.cancel())
-            scheduler.scheduleOnce(duration):
-              terminations remove id
-              terminate(id)
-        )
-        .unit
+      terminations.compute(
+        gameId,
+        (id, canc) =>
+          Option(canc).foreach(_.cancel())
+          scheduler.scheduleOnce(duration):
+            terminations remove id
+            terminate(id)
+      )
 
     def cancel(gameId: GameId): Unit =
       Option(terminations remove gameId).foreach(_.cancel())

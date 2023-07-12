@@ -50,7 +50,7 @@ object Bus:
       .withTimeout(timeout, s"Bus.ask $channel $msg")
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
 
-  private val bus = new EventBus[Matchable, Channel, Tellable](
+  private val bus = EventBus[Matchable, Channel, Tellable](
     initialCapacity = 4096,
     publish = (tellable, event) => tellable ! event
   )
@@ -60,9 +60,7 @@ final private class EventBus[Event, Channel, Subscriber](
     publish: (Subscriber, Event) => Unit
 ):
 
-  import java.util.concurrent.ConcurrentHashMap
-
-  private val entries = new ConcurrentHashMap[Channel, Set[Subscriber]](initialCapacity)
+  private val entries = java.util.concurrent.ConcurrentHashMap[Channel, Set[Subscriber]](initialCapacity)
   export entries.size
 
   def subscribe(subscriber: Subscriber, channel: Channel): Unit =
@@ -71,7 +69,6 @@ final private class EventBus[Event, Channel, Subscriber](
         channel,
         (_: Channel, subs: Set[Subscriber]) => Option(subs).fold(Set(subscriber))(_ + subscriber)
       )
-      .unit
 
   def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
     entries
@@ -82,7 +79,6 @@ final private class EventBus[Event, Channel, Subscriber](
           if newSubs.isEmpty then null
           else newSubs
       )
-      .unit
 
   def publish(event: Event, channel: Channel): Unit =
     Option(entries get channel).foreach:

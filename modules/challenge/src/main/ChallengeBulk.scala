@@ -113,7 +113,7 @@ final class ChallengeBulkApi(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .addEffect { nb =>
-        lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb).unit
+        lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb)
       } >> {
       if bulk.startClocksAt.isDefined
       then coll.updateField($id(bulk._id), "pairedAt", nowInstant)

@@ -51,7 +51,7 @@ final class LobbySocket(
       case GetSrisP(promise) =>
         promise success Sris(members.asMap().keySet.map(Sri(_)).toSet)
         lila.mon.lobby.socket.idle.update(idleSris.size)
-        lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size).unit
+        lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size)
 
       case Cleanup =>
         val membersMap = members.asMap()
@@ -78,13 +78,13 @@ final class LobbySocket(
           )
         )
 
-      case RemoveHook(hookId) => removedHookIds.append(hookId).unit
+      case RemoveHook(hookId) => removedHookIds.append(hookId)
 
       case SendHookRemovals =>
         if removedHookIds.nonEmpty then
           tellActiveHookSubscribers(makeMessage("hrm", removedHookIds.toString))
           removedHookIds.clear()
-        scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals).unit
+        scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
 
       case JoinHook(sri, hook, game, creatorColor) =>
         lila.mon.lobby.hook.join.increment()

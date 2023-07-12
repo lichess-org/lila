@@ -48,22 +48,18 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   def findLike(str: String, myId: Option[UserId], nb: Int = 10): Fu[StudyTopics] = StudyTopics from {
     (str.lengthIs >= 2) so {
       val favsFu: Fu[List[StudyTopic]] =
-        myId.so { userId =>
-          userTopics(userId).map {
+        myId.so: userId =>
+          userTopics(userId).map:
             _.value.filter(_.value startsWith str) take nb
-          }
-        }
-      favsFu flatMap { favs =>
+      favsFu.flatMap: favs =>
         topicRepo
-          .coll {
+          .coll:
             _.find($doc("_id".$startsWith(java.util.regex.Pattern.quote(str), "i")))
               .sort($sort.naturalAsc)
               .cursor[Bdoc]()
               .list(nb - favs.size)
-          }
           .dmap { _ flatMap docTopic }
           .dmap { favs ::: _ }
-      }
     }
   }
 
@@ -82,34 +78,34 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
         Json.parse(json).validate[List[TagifyTopic]] match
           case JsSuccess(topics, _) => StudyTopics.fromStrs(topics.map(_.value), StudyTopics.userMax)
           case _                    => StudyTopics.empty
-    userTopicRepo.coll {
-      _.update.one(
-        $id(user.id),
-        $set("topics" -> topics),
-        upsert = true
-      )
-    }.void
+    userTopicRepo
+      .coll:
+        _.update.one(
+          $id(user.id),
+          $set("topics" -> topics),
+          upsert = true
+        )
+      .void
 
   def userTopicsAdd(userId: UserId, topics: StudyTopics): Funit =
     topics.value.nonEmpty so userTopics(userId).flatMap { prev =>
       val newTopics = prev ++ topics
       (newTopics != prev) so
-        userTopicRepo.coll {
-          _.update.one($id(userId), $set("topics" -> newTopics), upsert = true)
-        }.void
+        userTopicRepo
+          .coll:
+            _.update.one($id(userId), $set("topics" -> newTopics), upsert = true)
+          .void
     }
 
   def popular(nb: Int): Fu[StudyTopics] =
     StudyTopics from topicRepo
-      .coll {
+      .coll:
         _.find($empty)
           .sort($sort.naturalAsc)
           .cursor[Bdoc]()
           .list(nb)
-      }
-      .dmap {
+      .dmap:
         _ flatMap docTopic
-      }
 
   private def docTopic(doc: Bdoc): Option[StudyTopic] =
     doc.getAsOpt[StudyTopic]("_id")
@@ -122,27 +118,27 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   )
 
   def recompute(): Unit =
-    recomputeWorkQueue(LilaFuture.makeItLast(60 seconds)(recomputeNow)).recover {
+    recomputeWorkQueue(LilaFuture.makeItLast(60 seconds)(recomputeNow)).recover:
       case _: lila.hub.BoundedAsyncActor.EnqueueException => ()
       case e: Exception                                   => logger.warn("Can't recompute study topics!", e)
-    }.unit
 
   private def recomputeNow: Funit =
-    studyRepo.coll {
-      _.aggregateWith[Bdoc]() { framework =>
-        import framework.*
-        List(
-          Match(
-            $doc(
-              "topics" $exists true,
-              "visibility" -> "public"
-            )
-          ),
-          Project($doc("topics" -> true, "_id" -> false)),
-          UnwindField("topics"),
-          SortByFieldCount("topics"),
-          Project($doc("_id" -> true)),
-          Out(topicRepo.coll.name.value)
-        )
-      }.headOption
-    }.void
+    studyRepo
+      .coll:
+        _.aggregateWith[Bdoc](): framework =>
+          import framework.*
+          List(
+            Match(
+              $doc(
+                "topics" $exists true,
+                "visibility" -> "public"
+              )
+            ),
+            Project($doc("topics" -> true, "_id" -> false)),
+            UnwindField("topics"),
+            SortByFieldCount("topics"),
+            Project($doc("_id" -> true)),
+            Out(topicRepo.coll.name.value)
+          )
+        .headOption
+      .void

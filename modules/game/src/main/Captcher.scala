@@ -17,11 +17,11 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
 
     case AnyCaptcha => sender() ! Impl.current
 
-    case GetCaptcha(id) => Impl.get(id).pipeTo(sender()).unit
+    case GetCaptcha(id) => Impl.get(id).pipeTo(sender())
 
-    case actorApi.NewCaptcha => Impl.refresh.unit
+    case actorApi.NewCaptcha => Impl.refresh
 
-    case ValidCaptcha(id, solution) => Impl.get(id).map(_ valid solution).pipeTo(sender()).unit
+    case ValidCaptcha(id, solution) => Impl.get(id).map(_ valid solution).pipeTo(sender())
 
   private object Impl:
 

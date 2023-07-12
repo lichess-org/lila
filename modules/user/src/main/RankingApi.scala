@@ -200,7 +200,6 @@ final class RankingApi(
             lila.mon.rating.distribution(pt.key.value, rating).update(prev.toDouble / total)
           acc
         }
-        .unit
 
 object RankingApi:
 

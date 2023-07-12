@@ -69,7 +69,7 @@ final private class TournamentSocket(
     )
 
   private lazy val tourHandler: Handler = { case Protocol.In.WaitingUsers(roomId, users) =>
-    waitingUsers.registerWaitingUsers(roomId into TourId, users).unit
+    waitingUsers.registerWaitingUsers(roomId into TourId, users)
   }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply

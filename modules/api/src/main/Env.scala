@@ -120,7 +120,7 @@ final class Env(
       promise completeWith chatFreshness.of(source)
     },
     "announce" -> {
-      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit
+      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date)
     },
     "lpv" -> {
       case AllPgnsFromText(text, p)       => p completeWith textLpvExpand.allPgnsFromText(text)
@@ -129,7 +129,7 @@ final class Env(
   )
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
-    lila.mon.bus.classifiers.update(lila.common.Bus.size()).unit
+    lila.mon.bus.classifiers.update(lila.common.Bus.size())
     lila.mon.jvm.threads()
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)

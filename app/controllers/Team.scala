@@ -410,7 +410,7 @@ final class Team(
                     full
                   )
                   .addEffect: nb =>
-                    lila.mon.msg.teamBulk(team.id).record(nb).unit
+                    lila.mon.msg.teamBulk(team.id).record(nb)
                 // we don't wait for the stream to complete, it would make lichess time out
                 fuccess(Result.Through)
               }(Result.Limited)

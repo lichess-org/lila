@@ -34,7 +34,7 @@ final class CacheApi(mode: Mode)(using Executor, Scheduler):
       expireAfter: Syncache.ExpireAfter
   ): Syncache[K, V] =
     val actualCapacity =
-      if (mode != Mode.Prod) math.sqrt(initialCapacity.toDouble).toInt atLeast 1
+      if mode != Mode.Prod then math.sqrt(initialCapacity.toDouble).toInt atLeast 1
       else initialCapacity
     val cache = new Syncache(name, actualCapacity, compute, default, strategy, expireAfter)
     monitor(name, cache.cache)
@@ -68,7 +68,7 @@ final class CacheApi(mode: Mode)(using Executor, Scheduler):
     startMonitor(name, cache)
 
   def actualCapacity(c: Int) =
-    if (mode != Mode.Prod) math.sqrt(c.toDouble).toInt atLeast 1
+    if mode != Mode.Prod then math.sqrt(c.toDouble).toInt atLeast 1
     else c
 
 object CacheApi:
@@ -96,8 +96,5 @@ object CacheApi:
       name: String,
       cache: caffeine.cache.Cache[?, ?]
   )(using ec: Executor, scheduler: Scheduler): Unit =
-    scheduler
-      .scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-        lila.mon.caffeineStats(cache, name)
-      }
-      .unit
+    scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
+      lila.mon.caffeineStats(cache, name)

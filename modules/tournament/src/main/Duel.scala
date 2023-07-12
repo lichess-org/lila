@@ -69,12 +69,11 @@ final private class DuelStore:
       )
 
   def remove(game: Game): Unit =
-    game.tournamentId foreach { tourId =>
+    game.tournamentId.foreach: tourId =>
       byTourId.computeIfPresent(
         tourId,
         (_: TourId, tb: TreeSet[Duel]) =>
           val w = tb - emptyGameId(game.id)
           if w.isEmpty then null else w
       )
-    }
-  def remove(tour: Tournament): Unit = byTourId.remove(tour.id).unit
+  def remove(tour: Tournament): Unit = byTourId.remove(tour.id)

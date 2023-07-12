@@ -56,17 +56,17 @@ final class Env(
             .map(_.flatten.map(Suspect.apply))
         _ <- irwinApi.requests.fromTournamentLeaders(suspects)
         _ <- kaladinApi.tournamentLeaders(suspects)
-      yield ()).unit
+      yield ())
     scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes): () =>
       (for
         topOnline <- userCache.getTop50Online
         suspects = topOnline.map(_.user) map Suspect.apply
         _ <- irwinApi.requests.topOnline(suspects)
         _ <- kaladinApi.topOnline(suspects)
-      yield ()).unit
+      yield ())
 
     scheduler.scheduleWithFixedDelay(83 seconds, 5 seconds): () =>
-      kaladinApi.readResponses.unit
+      kaladinApi.readResponses
 
     scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
-      kaladinApi.monitorQueued.unit
+      kaladinApi.monitorQueued

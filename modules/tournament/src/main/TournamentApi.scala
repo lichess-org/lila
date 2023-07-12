@@ -154,13 +154,16 @@ final class TournamentApi(
                           .map { socket.startGame(tour.id, _) }
                       .parallel
                       .void
-                      .mon(_.tournament.pairing.createInserts) andDo {
-                      lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
-                      waitingUsers.registerPairedUsers(tour.id, pairings.view.flatMap(_.pairing.users).toSet)
-                      socket.reload(tour.id)
-                      hadPairings put tour.id
-                      featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
-                    }
+                      .mon(_.tournament.pairing.createInserts)
+                      .andDo:
+                        lila.mon.tournament.pairing.batchSize.record(pairings.size)
+                        waitingUsers.registerPairedUsers(
+                          tour.id,
+                          pairings.view.flatMap(_.pairing.users).toSet
+                        )
+                        socket.reload(tour.id)
+                        hadPairings put tour.id
+                        featureOneOf(tour, pairings, ranking.ranking) // do outside of queue
               }
           }
           .monSuccess(_.tournament.pairing.create)
@@ -718,7 +721,7 @@ final class TournamentApi(
           "sendToFlag"
         )
       }
-    def apply() = debouncer.push(()).unit
+    def apply() = debouncer.push(())
 
   private object updateTournamentStanding:
 

@@ -45,7 +45,6 @@ The Lichess team"""
       given Lang = lang
       import lila.i18n.I18nKeys.*
       s"""${welcome.txt()}\n${lichessPatronInfo.txt()}"""
-    .unit
 
   def onTitleSet(username: UserStr): Funit = {
     for
@@ -165,10 +164,9 @@ To make a new donation, head to $baseUrl/patron"""
           else "Patron wings for one month"
         alsoSendAsPrivateMessage(from): _ =>
           s"""You gift @${to.username} the $wings. Thank you so much!"""
-        .unit
         alsoSendAsPrivateMessage(to): _ =>
           s"""@${from.username} gifts you the $wings!"""
-        .unit
+
     }
 
   private[mailer] def dailyCorrespondenceNotice(

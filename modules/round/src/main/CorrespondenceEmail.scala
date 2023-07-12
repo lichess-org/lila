@@ -20,16 +20,15 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   private val (runAfter, runBefore) = (LocalTime parse "05:00", LocalTime parse "05:11")
 
-  def tick(): Unit = {
+  def tick(): Unit =
     val now = LocalTime.now
     if now.isAfter(runAfter) && now.isBefore(runBefore) then run()
-  }.unit
 
   private def run() =
     opponentStream
       .map { Bus.publish(_, "dailyCorrespondenceNotif") }
       .runWith(LilaStream.sinkCount)
-      .addEffect(lila.mon.round.correspondenceEmail.emails.record(_).unit)
+      .addEffect(lila.mon.round.correspondenceEmail.emails.record(_))
       .monSuccess(_.round.correspondenceEmail.time)
 
   private def opponentStream =

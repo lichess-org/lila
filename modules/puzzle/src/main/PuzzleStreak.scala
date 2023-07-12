@@ -34,63 +34,56 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
   private val poolSize = buckets.map(_._2).sum
   private val theme    = lila.puzzle.PuzzleTheme.mix.key
 
-  private val current = cacheApi.unit[Option[PuzzleStreak]] {
-    _.refreshAfterWrite(30 seconds)
-      .buildAsyncFuture { _ =>
-        colls
-          .path {
-            _.aggregateList(poolSize) { framework =>
-              import framework.*
-              Facet(
-                buckets.map { case (rating, nbPuzzles) =>
-                  val (tier, samples, deviation) =
-                    if rating > 2300 then (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
-                  rating.toString -> List(
-                    Match(
-                      $doc(
-                        "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
-                        "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
-                      )
-                    ),
-                    Sample(samples),
-                    Project($doc("_id" -> false, "ids" -> true)),
-                    UnwindField("ids"),
-                    // ensure we have enough after filtering deviation
-                    Sample(nbPuzzles * 4),
-                    PipelineOperator(
-                      $lookup.pipeline(
-                        from = colls.puzzle,
-                        as = "puzzle",
-                        local = "ids",
-                        foreign = "_id",
-                        pipe = List($doc("$match" -> $doc("glicko.d" $lte deviation)))
-                      )
-                    ),
-                    UnwindField("puzzle"),
-                    Sample(nbPuzzles),
-                    ReplaceRootField("puzzle")
-                  )
-                }
-              ) -> List(
-                Project($doc("all" -> $doc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
-                UnwindField("all"),
-                ReplaceRootField("all"),
-                Sort(Ascending("glicko.r")),
-                Limit(poolSize)
-              )
-            }.map {
-              _.flatMap(puzzleReader.readOpt)
-            }
-          }
-          .mon(_.streak.selector.time)
-          .addEffect(monitor)
-          .map { puzzles =>
-            puzzles.headOption map {
-              PuzzleStreak(puzzles.map(_.id) mkString " ", _)
-            }
-          }
-      }
-  }
+  private val current = cacheApi.unit[Option[PuzzleStreak]]:
+    _.refreshAfterWrite(30 seconds).buildAsyncFuture: _ =>
+      colls
+        .path:
+          _.aggregateList(poolSize): framework =>
+            import framework.*
+            Facet(
+              buckets.map { case (rating, nbPuzzles) =>
+                val (tier, samples, deviation) =
+                  if rating > 2300 then (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
+                rating.toString -> List(
+                  Match(
+                    $doc(
+                      "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
+                      "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
+                    )
+                  ),
+                  Sample(samples),
+                  Project($doc("_id" -> false, "ids" -> true)),
+                  UnwindField("ids"),
+                  // ensure we have enough after filtering deviation
+                  Sample(nbPuzzles * 4),
+                  PipelineOperator(
+                    $lookup.pipeline(
+                      from = colls.puzzle,
+                      as = "puzzle",
+                      local = "ids",
+                      foreign = "_id",
+                      pipe = List($doc("$match" -> $doc("glicko.d" $lte deviation)))
+                    )
+                  ),
+                  UnwindField("puzzle"),
+                  Sample(nbPuzzles),
+                  ReplaceRootField("puzzle")
+                )
+              }
+            ) -> List(
+              Project($doc("all" -> $doc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
+              UnwindField("all"),
+              ReplaceRootField("all"),
+              Sort(Ascending("glicko.r")),
+              Limit(poolSize)
+            )
+          .map:
+            _.flatMap(puzzleReader.readOpt)
+        .mon(_.streak.selector.time)
+        .addEffect(monitor)
+        .map: puzzles =>
+          puzzles.headOption.map:
+            PuzzleStreak(puzzles.map(_.id) mkString " ", _)
 
   private def monitor(puzzles: List[Puzzle]): Unit =
     val nb = puzzles.size
@@ -99,7 +92,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
     if nb > 1 then
       val rest = puzzles.toVector drop 1
       lila.common.Maths.mean(rest.map(_.glicko.intRating.value)) foreach { r =>
-        lila.mon.streak.selector.rating.record(r.toInt).unit
+        lila.mon.streak.selector.rating.record(r.toInt)
       }
       (0 to poolSize by 10) foreach { i =>
         val slice = rest drop i take 10

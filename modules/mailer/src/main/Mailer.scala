@@ -34,24 +34,18 @@ final class Mailer(
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     else
-      Future {
-        Chronometer.syncMon(_.email.send.time) {
-          blocking {
+      Future:
+        Chronometer.syncMon(_.email.send.time):
+          blocking:
             val (client, config) = randomClient()
-            client
-              .send(
-                Email(
-                  subject = msg.subject,
-                  from = config.sender,
-                  to = Seq(msg.to.value),
-                  bodyText = msg.text.some,
-                  bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
-                )
+            client.send:
+              Email(
+                subject = msg.subject,
+                from = config.sender,
+                to = Seq(msg.to.value),
+                bodyText = msg.text.some,
+                bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
               )
-              .unit
-          }
-        }
-      }
 
 object Mailer:
 

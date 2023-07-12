@@ -456,13 +456,13 @@ final private[round] class RoundAsyncActor(
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] =
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
-      lila.mon.round.error.fishnet.increment().unit
+      lila.mon.round.error.fishnet.increment()
     case e: BenignError =>
       logger.info(s"Round client error $name: ${e.getMessage}")
-      lila.mon.round.error.client.increment().unit
+      lila.mon.round.error.client.increment()
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")
-      lila.mon.round.error.other.increment().unit
+      lila.mon.round.error.other.increment()
 
   def roomId = gameId into RoomId
 

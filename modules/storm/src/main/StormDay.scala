@@ -58,24 +58,21 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsR
       user: Option[User],
       mobile: Boolean
   ): Fu[Option[StormHigh.NewHigh]] =
-    lila.mon.storm.run.score(user.isDefined).record(data.score).unit
-    user so { u =>
+    lila.mon.storm.run.score(user.isDefined).record(data.score)
+    user.so: u =>
       if mobile || sign.check(u, ~data.signed) then
         Bus.publish(lila.hub.actorApi.puzzle.StormRun(u.id, data.score), "stormRun")
         highApi get u.id flatMap { prevHigh =>
           val todayId = Id today u.id
           coll
             .one[StormDay]($id(todayId))
-            .map {
+            .map:
               _.getOrElse(StormDay empty todayId) add data
-            }
-            .flatMap { day =>
+            .flatMap: day =>
               coll.update.one($id(day._id), day, upsert = true)
-            }
-            .flatMap { _ =>
+            .flatMap: _ =>
               val high = highApi.update(u.id, prevHigh, data.score)
               perfsRepo.addStormRun(u.id, data.score) inject high
-            }
         }
       else
         if data.time > 40 then
@@ -89,7 +86,6 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsR
             )
             .increment()
         fuccess(none)
-    }
 
   def history(userId: UserId, page: Int): Fu[Paginator[StormDay]] =
     Paginator(

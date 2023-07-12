@@ -54,7 +54,7 @@ final class PuzzleSelector(
             .ratingDiff(angle.key, session.settings.difficulty.key)
             .record(math.abs(puzzle.glicko.intRating.value - perf.intRating.value))
           mon.ratingDev(angle.key).record(puzzle.glicko.intDeviation)
-          mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment().unit
+          mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment()
           puzzle
 
         nextPuzzleResult(session).flatMap:

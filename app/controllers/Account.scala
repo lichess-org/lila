@@ -339,7 +339,7 @@ final class Account(
       case Some(user) =>
         env.report.api.reopenReports(lila.report.Suspect(user)) >>
           auth.authenticateUser(user, remember = true) andDo
-          lila.mon.user.auth.reopenConfirm("success").increment().unit
+          lila.mon.user.auth.reopenConfirm("success").increment()
     }
 
   def data = Auth { _ ?=> me ?=>

@@ -27,12 +27,12 @@ final private class CorresAlarm(
   private given BSONDocumentHandler[Alarm] = Macros.handler
 
   Bus.subscribeFun("finishGame") { case lila.game.actorApi.FinishGame(game, _) =>
-    if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one($id(game.id)).unit
+    if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one($id(game.id))
   }
 
   Bus.subscribeFun("moveEventCorres") { case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, true, _) =>
-    proxyGame(move.gameId) foreach {
-      _ foreach { game =>
+    proxyGame(move.gameId).foreach:
+      _.foreach: game =>
         game.playableCorrespondenceClock.ifTrue(game.bothPlayersHaveMoved) so { clock =>
           val remainingSeconds = clock remainingTime game.turnColor
           val ringsAt          = nowInstant.plusSeconds(remainingSeconds.toInt * 8 / 10)
@@ -48,8 +48,6 @@ final private class CorresAlarm(
             )
             .void
         }
-      }
-    }
   }
 
   LilaScheduler("CorresAlarm", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)) {

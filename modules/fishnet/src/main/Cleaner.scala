@@ -37,9 +37,8 @@ final private class Cleaner(
       .runWith(Sink.ignore)
       .void
 
-  system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () =>
-    cleanAnalysis.unit
-  }
+  system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds): () =>
+    cleanAnalysis
 
 object Cleaner:
   val timeoutPerPly = 7.seconds

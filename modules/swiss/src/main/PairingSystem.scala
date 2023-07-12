@@ -27,11 +27,9 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
       val command = s"$executable --$flavour $file -p"
       val stdout  = new collection.mutable.ListBuffer[String]
       val stderr  = new StringBuilder
-      val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing) {
-        blocking {
-          command ! ProcessLogger(stdout append _, stderr append _ unit)
-        }
-      }
+      val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing):
+        blocking:
+          command ! ProcessLogger(stdout append _, stderr append _)
       if status != 0 then
         val error = stderr.toString
         if error contains "No valid pairing exists" then Nil
@@ -43,7 +41,7 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
     output
       .drop(1) // first line is the number of pairings
       .map(_ split ' ')
-      .collect {
+      .collect:
         case Array(p, "0") =>
           p.toIntOption flatMap idsToPlayers.get map { userId =>
             Left(SwissPairing.Bye(userId))
@@ -53,7 +51,6 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
             white <- w.toIntOption flatMap idsToPlayers.get
             black <- b.toIntOption flatMap idsToPlayers.get
           yield Right(SwissPairing.Pending(white, black))
-      }
       .flatten
 
   def withTempFile[A](swiss: Swiss, contents: Source[String, ?])(f: File => A): Fu[A] =

@@ -118,19 +118,17 @@ final class SwissJson(
           top3.headOption
             .map(_.userId)
             .filter(w => swiss.winnerId.fold(true)(w !=))
-            .foreach {
+            .foreach:
               mongo.swiss.updateField($id(swiss.id), "winnerId", _).void
-            }
-            .unit
+
           userRepo.filterLame(top3.map(_.userId)) map { lame =>
             JsArray(
-              top3.map { player =>
+              top3.map: player =>
                 playerJsonBase(
                   player,
                   lightUserApi.syncFallback(player.userId),
                   performance = true
                 ).add("lame", lame(player.userId))
-              }
             ).some
           }
         }
