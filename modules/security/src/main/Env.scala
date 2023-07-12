@@ -133,18 +133,16 @@ final class Env(
     scheduler.scheduleWithFixedDelay(
       config.disposableEmail.refreshDelay,
       config.disposableEmail.refreshDelay
-    ) { () =>
+    ): () =>
       disposableEmailDomain.refresh()
-    }
 
   lazy val tor: Tor = wire[Tor]
 
   if config.tor.enabled then
-    scheduler.scheduleOnce(44 seconds)(tor.refresh.unit)
-    scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay) { () =>
+    scheduler.scheduleOnce(44 seconds):
+      tor.refresh
+    scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay): () =>
       tor.refresh flatMap firewall.unblockIps
-      ()
-    }
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
 

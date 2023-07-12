@@ -82,24 +82,22 @@ final class EventStream(
               // gotta send a message to check if the client has disconnected
               queue offer None
               self ! SetOnline
-          .unit
 
-      case StartGame(game) => queue.offer(gameJson(game, "gameStart")).unit
+      case StartGame(game) => queue.offer(gameJson(game, "gameStart"))
 
-      case FinishGame(game, _) => queue.offer(gameJson(game, "gameFinish")).unit
+      case FinishGame(game, _) => queue.offer(gameJson(game, "gameFinish"))
 
       case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
         val json = challengeJson("challenge")(c) ++ challengeCompat(c)
         lila.common.LilaFuture // give time for anon challenger to load the challenge page
           .delay(if c.challengerIsAnon then 2.seconds else 0.seconds):
             queue.offer(json.some).void
-          .unit
 
       case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
-        queue.offer(challengeJson("challengeDeclined")(c).some).unit
+        queue.offer(challengeJson("challengeDeclined")(c).some)
 
       case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
-        queue.offer(challengeJson("challengeCanceled")(c).some).unit
+        queue.offer(challengeJson("challengeCanceled")(c).some)
 
       // pretend like the rematch is a challenge
       case lila.hub.actorApi.round.RematchOffer(gameId) =>
@@ -121,7 +119,7 @@ final class EventStream(
               .foreach:
                 _.foreach: c =>
                   val json = challengeJson("challengeCanceled")(c) ++ challengeCompat(c)
-                  queue.offer(json.some).unit
+                  queue.offer(json.some)
 
     private def isMyChallenge(c: Challenge) =
       me.is(c.destUserId) || me.is(c.challengerUserId)

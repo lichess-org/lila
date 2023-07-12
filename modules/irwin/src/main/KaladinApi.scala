@@ -95,12 +95,12 @@ final class KaladinApi(
       case Some(pred) =>
         markOrReport(user, pred) andDo {
           notification(user)
-          lila.mon.mod.kaladin.activation.record(pred.percent).unit
+          lila.mon.mod.kaladin.activation.record(pred.percent)
         }
       case None =>
         fuccess:
           res.err.foreach: err =>
-            lila.mon.mod.kaladin.error(err).increment().unit
+            lila.mon.mod.kaladin.error(err).increment()
 
   private def markOrReport(user: KaladinUser, pred: KaladinUser.Pred): Funit =
 
@@ -116,7 +116,9 @@ final class KaladinApi(
             text = pred.note
           )
       )
-    yield lila.mon.mod.kaladin.report.increment().unit
+    yield
+      lila.mon.mod.kaladin.report.increment()
+      ()
 
     if pred.percent >= thresholds.get().mark then
       userRepo.hasTitle(user.id) flatMap {
@@ -212,5 +214,5 @@ final class KaladinApi(
     userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
   lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>
-    getSuspect(userId) flatMap autoRequest(KaladinUser.Requester.Report) unit
+    getSuspect(userId) flatMap autoRequest(KaladinUser.Requester.Report)
   }

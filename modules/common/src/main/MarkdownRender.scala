@@ -142,59 +142,51 @@ object MarkdownRender:
     def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
       override def rendererOptions(options: MutableDataHolder) = ()
       override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
-        htmlRendererBuilder
-          .nodeRendererFactory(
-            new NodeRendererFactory:
-              override def apply(options: DataHolder) = new NodeRenderer:
-                override def getNodeRenderingHandlers() =
-                  Set(NodeRenderingHandler(classOf[Image], render _)).asJava
-          )
+        htmlRendererBuilder.nodeRendererFactory:
+          new:
+            override def apply(options: DataHolder) = new NodeRenderer:
+              override def getNodeRenderingHandlers() =
+                Set(NodeRenderingHandler(classOf[Image], render _)).asJava
 
       private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
         // Based on implementation in CoreNodeRenderer.
         if context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context) then
           context.renderChildren(node)
         else
-          {
-            val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-            val url          = resolvedLink.getUrl()
-            val altText      = new TextCollectingVisitor().collectAndGetText(node)
-            whitelistedSrc(url, assetDomain) match
-              case Some(src) =>
-                html
-                  .srcPos(node.getChars())
-                  .attr("src", src)
-                  .attr("alt", altText)
-                  .attr(resolvedLink.getNonNullAttributes())
-                  .withAttr(resolvedLink)
-                  .tagVoid("img")
-              case None =>
-                html
-                  .srcPos(node.getChars())
-                  .attr("href", url)
-                  .attr("rel", rel)
-                  .withAttr(resolvedLink)
-                  .tag("a")
-                  .text(altText)
-                  .tag("/a")
-          }.unit
+          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+          val url          = resolvedLink.getUrl()
+          val altText      = new TextCollectingVisitor().collectAndGetText(node)
+          whitelistedSrc(url, assetDomain) match
+            case Some(src) =>
+              html
+                .srcPos(node.getChars())
+                .attr("src", src)
+                .attr("alt", altText)
+                .attr(resolvedLink.getNonNullAttributes())
+                .withAttr(resolvedLink)
+                .tagVoid("img")
+            case None =>
+              html
+                .srcPos(node.getChars())
+                .attr("href", url)
+                .attr("rel", rel)
+                .withAttr(resolvedLink)
+                .tag("a")
+                .text(altText)
+                .tag("/a")
 
   private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
-      htmlRendererBuilder
-        .nodeRendererFactory(
-          new NodeRendererFactory:
-            override def apply(options: DataHolder) = new PgnEmbedNodeRenderer(expander)
-        )
-        .unit
+      htmlRendererBuilder.nodeRendererFactory:
+        new:
+          override def apply(options: DataHolder) = new PgnEmbedNodeRenderer(expander)
+
   private class PgnEmbedNodeRenderer(expander: PgnSourceExpand) extends NodeRenderer:
-    override def getNodeRenderingHandlers() =
-      new java.util.HashSet(
-        Arrays.asList(
-          new NodeRenderingHandler(classOf[Link], renderLink _),
-          new NodeRenderingHandler(classOf[AutoLink], renderAutoLink _)
-        )
+    override def getNodeRenderingHandlers() = java.util.HashSet:
+      Arrays.asList(
+        NodeRenderingHandler(classOf[Link], renderLink _),
+        NodeRenderingHandler(classOf[AutoLink], renderAutoLink _)
       )
 
     final class PgnRegexes(val game: Regex, val chapter: Regex)
@@ -241,7 +233,7 @@ object MarkdownRender:
       html.attr(link.getNonNullAttributes())
       html.srcPos(node.getChars()).withAttr(link).tag("a")
       context.renderChildren(node)
-      html.tag("/a").unit
+      html.tag("/a")
 
     private def renderPgnViewer(
         node: LinkNode,
@@ -268,26 +260,23 @@ object MarkdownRender:
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
-      htmlRendererBuilder
-        .attributeProviderFactory(
-          new IndependentAttributeProviderFactory:
-            override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
-        )
-        .unit
+      htmlRendererBuilder.attributeProviderFactory:
+        new IndependentAttributeProviderFactory:
+          override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
 
   private val lilaLinkAttributeProvider = new AttributeProvider:
     override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
       if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
-        attributes.replaceValue("rel", rel).unit
-        attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href"))).unit
+        attributes.replaceValue("rel", rel)
+        attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href")))
 
   private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
-    override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory(
+    override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory:
       new NodeRendererFactory:
         override def apply(options: DataHolder) = new NodeRenderer:
           override def getNodeRenderingHandlers() = Set(
-            new NodeRenderingHandler(
+            NodeRenderingHandler(
               classOf[TableBlock],
               (node: TableBlock, context: NodeRendererContext, html: HtmlWriter) =>
                 html.withAttr().attr("class", "slist-wrapper").tag("div")
@@ -295,4 +284,3 @@ object MarkdownRender:
                 html.tag("/div")
             )
           ).asJava
-    )

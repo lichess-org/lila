@@ -31,7 +31,6 @@ final class Env(
       api.stop()
       funit // don't wait for zulip aknowledgment to restart lila.
 
-  lila.common.Bus.subscribeFun("slack", "plan") {
-    case d: ChargeEvent => api.charge(d).unit
-    case e: Event       => api.publishEvent(e).unit
-  }
+  lila.common.Bus.subscribeFun("slack", "plan"):
+    case d: ChargeEvent => api.charge(d)
+    case e: Event       => api.publishEvent(e)

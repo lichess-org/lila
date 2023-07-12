@@ -1,12 +1,12 @@
 package lila.user
 
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.bson.BSONNull
+import reactivemongo.api.bson.*
 import akka.stream.scaladsl.*
 
 import lila.rating.{ Perf, PerfType }
 import lila.memo.CacheApi
-import lila.common.LightUser
+import lila.common.{ LightUser, NormalizedEmailAddress }
 import lila.db.dsl.{ *, given }
 import lila.db.BSON.Reader
 import lila.rating.Glicko
@@ -118,6 +118,26 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .flatMapz:
         case Left(g)  => fuccess(g.some)
         case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => u.withPerf(p).some)
+
+  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] = for
+    perfs <- perfsRepo.idsMap(users, _.sec)
+    users <- userRepo.coll
+      .list[Bdoc]($inIds(users.map(_.id)), _.priTemp)
+      .map: docs =>
+        for
+          doc  <- docs
+          user <- r readOpt doc
+        yield User.WithEmails(
+          User.WithPerfs(user, perfs.get(user.id)),
+          User.Emails(
+            current = userRepo.anyEmail(doc),
+            previous = doc.getAsOpt[NormalizedEmailAddress](User.BSONFields.prevEmail)
+          )
+        )
+  yield users
+
+  def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
+    withEmails(List(u)).map(_.headOption)
 
   def setBot(user: User): Funit =
     if user.count.game > 0

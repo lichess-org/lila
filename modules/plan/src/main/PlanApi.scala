@@ -635,9 +635,9 @@ final class PlanApi(
       .record(charge.usd.cents)
     charge.userId.so { userId =>
       mongo.charge.countSel($doc("userId" -> userId)) map {
-        case 1 => lila.mon.plan.charge.first(charge.serviceName).increment().unit
+        case 1 => lila.mon.plan.charge.first(charge.serviceName).increment()
         case _ =>
-      }
+      } void
     } >>
       monthlyGoalApi.get
         .map: m =>

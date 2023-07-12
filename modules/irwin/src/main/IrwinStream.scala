@@ -16,21 +16,20 @@ final class IrwinStream:
     Source
       .queue[IrwinRequest](64, akka.stream.OverflowStrategy.dropHead)
       .map(requestJson)
-      .map { js =>
+      .map: js =>
         s"${Json.stringify(js)}\n"
-      }
       .keepAlive(60.seconds, () => keepAliveMsg)
 
   def apply()(using Executor): Source[String, ?] =
     blueprint mapMaterializedValue { queue =>
       val sub = Bus.subscribeFun(channel) { case req: IrwinRequest =>
         lila.mon.mod.irwin.streamEventType("request").increment()
-        queue.offer(req).unit
+        queue.offer(req)
       }
-
-      queue.watchCompletion() addEffectAnyway {
-        Bus.unsubscribe(sub, channel)
-      }
+      queue
+        .watchCompletion()
+        .addEffectAnyway:
+          Bus.unsubscribe(sub, channel)
     }
 
   private def requestJson(req: IrwinRequest) =
@@ -58,8 +57,7 @@ final class IrwinStream:
               } orElse
                 info.mate.map { mate =>
                   Json.obj("mate" -> mate.value)
-                } getOrElse
-                JsNull
+                } getOrElse JsNull
             }
           }
         )

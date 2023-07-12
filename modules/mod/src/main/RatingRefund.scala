@@ -23,7 +23,7 @@ final private class RatingRefund(
 
   import RatingRefund.*
 
-  def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus).unit).unit
+  def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus))
 
   private def apply(sus: Suspect): Funit =
     logApi.wasUnengined(sus) flatMap {

@@ -2,12 +2,13 @@ package lila.pool
 
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
-import lila.user.UserRepo
+import lila.user.{ UserRepo, UserPerfsRepo }
 import lila.common.config.Max
 import chess.ByColor
 
 final private class GameStarter(
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
@@ -23,7 +24,7 @@ final private class GameStarter(
       workQueue:
         val userIds = couples.flatMap(_.userIds)
         for
-          (perfs, ids) <- userRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size)
+          (perfs, ids) <- perfsRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size)
           pairings     <- couples.zip(ids).map((one(pool, perfs)).tupled).parallel
         yield lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
 

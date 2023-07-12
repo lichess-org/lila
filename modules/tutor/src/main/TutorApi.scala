@@ -43,7 +43,7 @@ final class TutorApi(
         val expired =
           started.isBefore(nowInstant minusSeconds builder.maxTime.toSeconds.toInt) ||
             started.isBefore(Uptime.startedAt)
-        expired so queue.remove(next.userId) andDo lila.mon.tutor.buildTimeout.increment().unit
+        expired so queue.remove(next.userId) andDo lila.mon.tutor.buildTimeout.increment()
       }
 
   // we only wait for queue.start
@@ -61,12 +61,11 @@ final class TutorApi(
         queue.remove(userId)
     }
 
-  private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report") {
+  private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report"):
     // _.expireAfterAccess(if (mode == Mode.Prod) 5 minutes else 1 second)
     _.expireAfterAccess(3.minutes)
       .maximumSize(1024)
       .buildAsyncFuture(findLatest)
-  }
 
   private def findLatest(userId: UserId) = colls.report
     .find($doc(TutorFullReport.F.user -> userId))

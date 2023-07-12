@@ -81,11 +81,12 @@ final class Env(
   lazy val liveStreamApi = wire[LiveStreamApi]
 
   lila.common.Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.demote(userId).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => api.demote(userId).unit
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => api.demote(userId).unit
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.demote(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => api.demote(userId)
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => api.demote(userId)
   }
 
   scheduler.scheduleWithFixedDelay(1 hour, 1 day): () =>
-    api.autoDemoteFakes.unit
-  scheduler.scheduleWithFixedDelay(21 minutes, 8 days)(() => ytApi.subscribeAll.unit)
+    api.autoDemoteFakes
+  scheduler.scheduleWithFixedDelay(21 minutes, 8 days): () =>
+    ytApi.subscribeAll

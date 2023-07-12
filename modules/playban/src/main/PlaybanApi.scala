@@ -223,7 +223,7 @@ final class PlaybanApi(
     record
       .bannable(accCreatedAt)
       .ifFalse(record.banInEffect)
-      .so { ban =>
+      .so: ban =>
         lila.mon.playban.ban.count.increment()
         lila.mon.playban.ban.mins.record(ban.mins)
         Bus.publish(
@@ -242,14 +242,13 @@ final class PlaybanApi(
             ),
             fetchNewObject = true
           )
-      }
       .dmap(_ | record) andDo cleanUserIds.remove(record.userId)
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
     update match
       case RageSit.Update.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
-        (delta < 0 && record.rageSit.isVeryBad) so {
+        (delta < 0 && record.rageSit.isVeryBad).so:
           messenger.postPreset(record.userId, MsgPreset.sittingAuto).void andDo {
             Bus.publish(
               lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
@@ -261,7 +260,5 @@ final class PlaybanApi(
                 .flatMapz: user =>
                   noteApi.lichessWrite(user, "Closed for ragesit recidive") andDo
                     Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose")
-                .unit
           }
-        }
       case _ => funit

@@ -35,20 +35,17 @@ final class GarbageCollector(
   def delay(user: User, email: EmailAddress, req: RequestHeader, quickly: Boolean): Unit =
     if user.createdAt.isAfter(nowInstant minusDays 3) then
       val ip = HTTPRequest ipAddress req
-      scheduler
-        .scheduleOnce(6 seconds):
-          val applyData = ApplyData(user, ip, email, req, quickly)
-          logger.debug(s"delay $applyData")
-          lila.common.LilaFuture
-            .retry(
-              () => ensurePrintAvailable(applyData),
-              delay = 10 seconds,
-              retries = 5,
-              logger = none
-            )
-            .recoverDefault >> apply(applyData)
-          ()
-        .unit
+      scheduler.scheduleOnce(6 seconds):
+        val applyData = ApplyData(user, ip, email, req, quickly)
+        logger.debug(s"delay $applyData")
+        lila.common.LilaFuture
+          .retry(
+            () => ensurePrintAvailable(applyData),
+            delay = 10 seconds,
+            retries = 5,
+            logger = none
+          )
+          .recoverDefault >> apply(applyData)
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userLogins userHasPrint data.user flatMap {
@@ -105,7 +102,9 @@ final class GarbageCollector(
             s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${!armed so " [SIMULATION]"}"
           logger.info(message)
           noteApi.lichessWrite(user, s"Garbage collected because of $msg")
-          if armed then scheduler.scheduleOnce(wait) { doCollect(user.id) }.unit
+          if armed then
+            scheduler.scheduleOnce(wait):
+              doCollect(user.id)
       }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =

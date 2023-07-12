@@ -10,11 +10,12 @@ import lila.hub.actorApi.msg.SystemMsg
 import lila.hub.actorApi.mailer.CorrespondenceOpponent
 import lila.i18n.PeriodLocales.showDuration
 import lila.i18n.I18nKeys.emails as trans
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserApi }
 import lila.base.LilaException
 
 final class AutomaticEmail(
     userRepo: UserRepo,
+    userApi: UserApi,
     mailer: Mailer,
     baseUrl: BaseUrl,
     lightUser: lila.user.LightUserApi
@@ -44,7 +45,6 @@ The Lichess team"""
       given Lang = lang
       import lila.i18n.I18nKeys.*
       s"""${welcome.txt()}\n${lichessPatronInfo.txt()}"""
-    .unit
 
   def onTitleSet(username: UserStr): Funit = {
     for
@@ -164,17 +164,16 @@ To make a new donation, head to $baseUrl/patron"""
           else "Patron wings for one month"
         alsoSendAsPrivateMessage(from): _ =>
           s"""You gift @${to.username} the $wings. Thank you so much!"""
-        .unit
         alsoSendAsPrivateMessage(to): _ =>
           s"""@${from.username} gifts you the $wings!"""
-        .unit
+
     }
 
   private[mailer] def dailyCorrespondenceNotice(
       userId: UserId,
       opponents: List[CorrespondenceOpponent]
   ): Funit =
-    userRepo withEmails userId flatMapz { userWithEmail =>
+    userApi withEmails userId flatMapz { userWithEmail =>
       lightUser.preloadMany(opponents.flatMap(_.opponentId)) >>
         userWithEmail.emails.current
           .filterNot(_.isNoReply)

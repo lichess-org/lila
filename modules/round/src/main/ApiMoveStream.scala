@@ -64,7 +64,7 @@ final class ApiMoveStream(
                 val chans = List(MoveGameEvent makeChan game.id, "finishGame")
                 val sub = Bus.subscribeFun(chans*):
                   case MoveGameEvent(g, fen, move) =>
-                    queue.offer(toJson(g, fen, move.some)).unit
+                    queue.offer(toJson(g, fen, move.some))
                   case FinishGame(g, _) if g.id == game.id =>
                     queue offer makeGameJson(g)
                     (1 to buffer.size) foreach { _ => queue.offer(Json.obj()) } // push buffer content out

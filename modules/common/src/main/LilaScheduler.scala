@@ -19,10 +19,8 @@ object LilaScheduler:
       run()
         .withTimeout(timeout(config).value, s"LilaScheduler $name")
         .addEffectAnyway:
-          scheduler.scheduleOnce(every(config).value) { runAndScheduleNext() }.unit
-        .unit
+          scheduler.scheduleOnce(every(config).value) { runAndScheduleNext() }
 
     scheduler
       .scheduleOnce(initialDelay(config).value):
         runAndScheduleNext()
-      .unit

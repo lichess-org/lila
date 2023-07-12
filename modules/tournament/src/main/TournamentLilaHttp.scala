@@ -41,10 +41,10 @@ final class TournamentLilaHttp(
         arenaFullJson(tour) map Json.stringify
       .map: str =>
         lila.mon.tournament.lilaHttp.fullSize.record(str.size)
-        conn.async.publish(channel, str).unit
+        conn.async.publish(channel, str)
       .runWith(LilaStream.sinkCount)
       .monSuccess(_.tournament.lilaHttp.tick)
-      .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_).unit)
+      .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_))
       .void
   }
 

@@ -95,7 +95,7 @@ final class ChatApi(
                     lila.mon.chat
                       .message(publicSource.fold("player")(_.parentName), line.troll)
                       .increment()
-                      .unit
+
                   publish(chatId, ChatLine(chatId, line), busChan)
               else
                 logger.info(s"Link check rejected $line in $publicSource")
@@ -132,7 +132,7 @@ final class ChatApi(
       publish(chatId, ChatLine(chatId, line), busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
-      (if isVolatile then volatile else system) (chatId, text, busChan).unit
+      (if isVolatile then volatile else system) (chatId, text, busChan)
 
     def timeout(
         chatId: ChatId,
@@ -274,7 +274,7 @@ final class ChatApi(
       makeLine(chatId, color, text).so: line =>
         persistLine(chatId, line).andDo:
           publish(chatId, ChatLine(chatId, line), busChan)
-          lila.mon.chat.message("anonPlayer", troll = false).increment().unit
+          lila.mon.chat.message("anonPlayer", troll = false).increment()
 
     private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
       Writer.preprocessUserInput(t1, none) flatMap { t2 =>

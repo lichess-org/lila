@@ -59,10 +59,10 @@ final class Env(
   val forms = new ChallengeForm
 
   system.scheduler.scheduleWithFixedDelay(10 seconds, 3343 millis): () =>
-    api.sweep.unit
+    api.sweep
 
   system.scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis): () =>
-    bulk.tick.unit
+    bulk.tick
 
 private class ChallengeColls(db: lila.db.Db):
   val challenge = db(CollName("challenge"))

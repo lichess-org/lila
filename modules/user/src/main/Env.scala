@@ -32,7 +32,7 @@ final class Env(
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
   val perfsRepo = UserPerfsRepo(db(CollName("user_perf")))
-  val repo      = UserRepo(db(CollName("user4")), perfsRepo)
+  val repo      = UserRepo(db(CollName("user4")))
 
   val api = wire[UserApi]
 
@@ -74,13 +74,13 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       rankingApi remove userId
-      repo.setRoles(userId, Nil).unit
+      repo.setRoles(userId, Nil)
     },
     "adjustBooster" -> { case lila.hub.actorApi.mod.MarkBooster(userId) =>
       rankingApi remove userId
-      repo.setRoles(userId, Nil).unit
+      repo.setRoles(userId, Nil)
     },
     "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>
-      rankingApi.remove(userId).unit
+      rankingApi.remove(userId)
     }
   )

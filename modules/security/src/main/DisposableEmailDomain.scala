@@ -157,6 +157,7 @@ private object DisposableEmailDomain:
     "neuf.fr",
     "free.fr",
     /* German ISP domains */
+    "aikq.de",
     "gmx.de",
     "hotmail.de",
     "live.de",

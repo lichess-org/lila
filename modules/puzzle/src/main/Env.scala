@@ -86,7 +86,7 @@ final class Env(
   private lazy val tagger = wire[PuzzleTagger]
 
   scheduler.scheduleAtFixedRate(10 minutes, 1 day): () =>
-    tagger.addAllMissing unit
+    tagger.addAllMissing
 
   if mode == play.api.Mode.Prod then
     scheduler.scheduleAtFixedRate(1 hour, 1 hour): () =>

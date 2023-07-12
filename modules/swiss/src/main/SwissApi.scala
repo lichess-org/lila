@@ -465,26 +465,23 @@ final class SwissApi(
               mongo.pairing.delete.one($doc(f.swissId -> swiss.id, f.status -> true)) map { res =>
                 if res.n > 0 then logger.warn(s"Swiss ${swiss.id} finished with ${res.n} ongoing pairings")
               }
-      .void andDo {
-      systemChat(swiss.id, s"Tournament completed!")
-      cache.swissCache clear swiss.id
-      socket.reload(swiss.id)
-      scheduler
-        .scheduleOnce(10 seconds):
-          // we're delaying this to make sure the ranking has been recomputed
-          // since doFinish is called by finishGame before that
-          rankingApi(swiss) foreach { ranking =>
-            Bus.publish(SwissFinish(swiss.id, ranking), "swissFinish")
-          }
-        .unit
-    }
+      .void
+      .andDo:
+        systemChat(swiss.id, s"Tournament completed!")
+        cache.swissCache clear swiss.id
+        socket.reload(swiss.id)
+        scheduler
+          .scheduleOnce(10 seconds):
+            // we're delaying this to make sure the ranking has been recomputed
+            // since doFinish is called by finishGame before that
+            rankingApi(swiss).foreach: ranking =>
+              Bus.publish(SwissFinish(swiss.id, ranking), "swissFinish")
 
   def kill(swiss: Swiss): Funit = {
     if swiss.isStarted then
-      finish(swiss) andDo {
+      finish(swiss).andDo:
         logger.info(s"Tournament ${swiss.id} cancelled by its creator.")
         systemChat(swiss.id, "Tournament cancelled by its creator.")
-      }
     else if swiss.isCreated then destroy(swiss)
     else funit
   } andDo cache.featuredInTeam.invalidate(swiss.teamId)

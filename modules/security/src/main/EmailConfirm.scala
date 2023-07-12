@@ -7,7 +7,7 @@ import scalatags.Text.all.*
 import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
 import lila.i18n.I18nKeys.{ emails as trans }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserApi }
 import lila.mailer.Mailer
 
 trait EmailConfirm:
@@ -158,9 +158,9 @@ object EmailConfirm:
       single("username" -> lila.user.UserForm.historicalUsernameField)
     )
 
-    def getStatus(userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
+    def getStatus(userApi: UserApi, userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
       import Status.*
-      userRepo withEmails u flatMap {
+      userApi withEmails u flatMap {
         case None => fuccess(NoSuchUser(u into UserName))
         case Some(User.WithEmails(user, emails)) =>
           if user.enabled.no then fuccess(Closed(user.username))

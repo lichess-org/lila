@@ -41,7 +41,7 @@ final class IrwinApi(
       _ <- markOrReport(report)
     yield
       notification(report)
-      lila.mon.mod.irwin.ownerReport(report.owner).increment().unit
+      lila.mon.mod.irwin.ownerReport(report.owner).increment()
 
     def get(user: User): Fu[Option[IrwinReport]] =
       get(user.id)
@@ -80,7 +80,7 @@ final class IrwinApi(
                 text = s"${report.activation}% over ${report.games.size} games"
               )
             )
-          yield lila.mon.mod.irwin.report.increment().unit
+          yield lila.mon.mod.irwin.report.increment()
         else funit
       }
 

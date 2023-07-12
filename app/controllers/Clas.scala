@@ -90,7 +90,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         isGranted(_.UserModView) so
           FoundPage(env.clas.api.clas.byId(id)): clas =>
             env.clas.api.student.allWithUsers(clas) flatMap { students =>
-              env.user.repo.withEmails(students.map(_.user)) map {
+              env.user.api.withEmails(students.map(_.user)) map {
                 html.mod.search.clas(clas, _)
               }
             }
@@ -177,7 +177,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 env.msg.api
                   .multiPost(Source(students.map(_.user.id)), full)
                   .addEffect: nb =>
-                    lila.mon.msg.clasBulk(clas.id.value).record(nb).unit
+                    lila.mon.msg.clasBulk(clas.id.value).record(nb)
                   .inject(redirectTo(clas).flashSuccess)
             }
         )

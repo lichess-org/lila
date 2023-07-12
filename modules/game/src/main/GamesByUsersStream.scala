@@ -19,17 +19,16 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
     val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
     val startStream = Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead) mapMaterializedValue {
       queue =>
-        def matches(game: Game) =
-          game.userIds match
-            case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
-            case _                        => false
-        val sub = Bus.subscribeFun(chans*) {
-          case StartGame(game) if matches(game)     => queue.offer(game).unit
-          case FinishGame(game, _) if matches(game) => queue.offer(game).unit
-        }
-        queue.watchCompletion().addEffectAnyway {
-          Bus.unsubscribe(sub, chans)
-        }
+        def matches(game: Game) = game.userIds match
+          case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
+          case _                        => false
+        val sub = Bus.subscribeFun(chans*):
+          case StartGame(game) if matches(game)     => queue.offer(game)
+          case FinishGame(game, _) if matches(game) => queue.offer(game)
+        queue
+          .watchCompletion()
+          .addEffectAnyway:
+            Bus.unsubscribe(sub, chans)
     }
     initialGames
       .concat(startStream)
@@ -45,11 +44,10 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
         import framework.*
         List(
           Match($doc(Game.BSONFields.playingUids $in userIds)),
-          AddFields(
-            $doc(
+          AddFields:
+            $doc:
               "both" -> $doc("$setIsSubset" -> $arr("$" + Game.BSONFields.playingUids, userIds))
-            )
-          ),
+          ,
           Match($doc("both" -> true))
         )
       .documentSource()
@@ -57,7 +55,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
 
 private object GameStream:
 
-  val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites {
+  val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites:
     case Game.WithInitialFen(g, initialFen) =>
       Json
         .obj(
@@ -84,4 +82,3 @@ private object GameStream:
             "increment" -> clock.incrementSeconds
           ))
         .add("daysPerTurn" -> g.daysPerTurn)
-  }

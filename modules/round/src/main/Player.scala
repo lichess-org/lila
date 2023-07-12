@@ -100,7 +100,7 @@ final private class Player(
                   .save(progress)
                   .andDo:
                     uciMemo.add(progress.game, moveOrDrop)
-                    lila.mon.fishnet.move(~game.aiLevel).increment().unit
+                    lila.mon.fishnet.move(~game.aiLevel).increment()
                     notifyMove(moveOrDrop, progress.game)
                   .>> {
                     if progress.game.finished then moveFinish(progress.game) dmap { progress.events ::: _ }

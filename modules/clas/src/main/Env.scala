@@ -19,12 +19,7 @@ final class Env(
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer,
-    mode: play.api.Mode
-):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
@@ -47,7 +42,7 @@ final class Env(
 
   lila.common.Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
-      progressApi.onFinishGame(game).unit
+      progressApi.onFinishGame(game)
     },
     "clas" -> {
       case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>

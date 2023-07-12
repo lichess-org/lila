@@ -62,7 +62,7 @@ object RoomSocket:
             publicSource(roomId)(PublicSource),
             chatBusChan
           )
-          .unit
+
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
           localTimeout.so { _(roomId, modId, suspect) } foreach { local =>

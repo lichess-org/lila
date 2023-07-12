@@ -15,7 +15,7 @@ final class AutoAnalysis(
     else
       candidate.isPrint so fuccess:
         List(30, 90).foreach: minutes =>
-          scheduler.scheduleOnce(minutes minutes) { doItNow(candidate).unit }
+          scheduler.scheduleOnce(minutes minutes) { doItNow(candidate) }
 
   private def doItNow(candidate: Report.Candidate) =
     gamesToAnalyse(candidate).map: games =>

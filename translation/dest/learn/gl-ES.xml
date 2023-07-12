@@ -4,7 +4,7 @@
   <string name="byPlaying">xogando!</string>
   <string name="menu">Menú</string>
   <string name="progressX">Progreso: %s</string>
-  <string name="resetMyProgress">Reinicia-lo meu progreso</string>
+  <string name="resetMyProgress">Reiniciar o meu progreso</string>
   <string name="youWillLoseAllYourProgress">Perderás todo o teu progreso!</string>
   <string name="play">xogar!</string>
   <string name="chessPieces">Pezas de xadrez</string>
@@ -17,50 +17,50 @@ para traela ata a estrela!</string>
   <string name="theFewerMoves">Cantos menos movementos fagas,
 máis puntos gañarás!</string>
   <string name="useTwoRooks">Emprega dúas torres
-para acelerar as cousas!</string>
+para acabar antes!</string>
   <string name="rookComplete">Parabéns! Dominaches con éxito a torre.</string>
   <string name="theBishop">O bispo</string>
   <string name="itMovesDiagonally">Move en diagonal</string>
-  <string name="bishopIntro">A continuación imos aprender como maniobrar un bispo!</string>
-  <string name="youNeedBothBishops">Un bispo de casillas brancas,
-un bispo de casillas negras.
+  <string name="bishopIntro">De seguido imos aprender como manobrar un bispo!</string>
+  <string name="youNeedBothBishops">Un bispo de casas brancas,
+un bispo de casas negras.
 Precisas ambos!</string>
   <string name="bishopComplete">Parabéns! Podes comandar un bispo.</string>
   <string name="theQueen">A dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
-  <string name="queenIntro">A peza de xadrez máis poderosa entra. A súa maxestade a dama!</string>
+  <string name="queenIntro">E agora, a peza de xadrez máis poderosa: a súa maxestade a dama!</string>
   <string name="queenComplete">Parabéns! As damas non teñen segredos para ti.</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peza máis importante</string>
   <string name="kingIntro">Ti es o rei. Se caes na batalla, o xogo está perdido.</string>
   <string name="theKingIsSlow">O rei é lento.</string>
   <string name="lastOne">O último!</string>
-  <string name="kingComplete">Agora podes comandar o comandante!</string>
+  <string name="kingComplete">Agora podes comandar ó comandante!</string>
   <string name="theKnight">O cabalo</string>
   <string name="itMovesInAnLShape">Move en forma de L</string>
   <string name="knightIntro">Aquí hai un reto para ti. O cabalo é... unha peza complicada.</string>
-  <string name="knightsHaveAFancyWay">Os cabalos teñen unha forma divertida
-de ir saltando!</string>
+  <string name="knightsHaveAFancyWay">Os cabalos teñen unha forma extravagante
+de ir dando chimpos!</string>
   <string name="knightsCanJumpOverObstacles">Os cabalos poden saltar por riba dos obstáculos!
 Escapa e derrota as estrelas!</string>
   <string name="knightComplete">Parabéns! Dominaches o cabalo.</string>
   <string name="thePawn">O peón</string>
-  <string name="itMovesForwardOnly">So move cara adiante</string>
+  <string name="itMovesForwardOnly">Só move cara adiante</string>
   <string name="pawnIntro">Os peóns son débiles, pero gardan unha chea de potencial.</string>
-  <string name="pawnsMoveOneSquareOnly">Os peóns moven so unha casilla.
-Pero cando chegan ó outro extremo do taboleiro, convírtense nunha peza máis forte!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">A maior parte das veces coronar a unha dama é o mellor.
+  <string name="pawnsMoveOneSquareOnly">Os peóns só moven unha casa.
+Pero cando chegan ó outro extremo do taboleiro, convértense nunha peza máis forte!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Case sempre coroar coma dama é o mellor.
 Pero ás veces un cabalo pode vir ben!</string>
   <string name="pawnsMoveForward">Os peóns moven cara adiante,
 pero capturan en diagonal!</string>
-  <string name="captureThenPromote">Captura, despois corona!</string>
-  <string name="useAllThePawns">Emprega tódolos peóns!
-Non precisas coronar.</string>
-  <string name="aPawnOnTheSecondRank">Un peón na segunda fila pode mover 2 casillas dunha vez!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Colle tódalas estrelas!
-Non precisas coronar.</string>
+  <string name="captureThenPromote">Captura, despois coroa!</string>
+  <string name="useAllThePawns">Emprega todos os peóns!
+Non precisas coroar.</string>
+  <string name="aPawnOnTheSecondRank">Un peón na segunda fila pode mover 2 casas dunha vez!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Colle todas as estrelas!
+Non precisas coroar.</string>
   <string name="pawnComplete">Parabéns! Os peóns non teñen segredos para ti.</string>
-  <string name="pawnPromotion">Coronación de peón</string>
+  <string name="pawnPromotion">Coroación de peón</string>
   <string name="yourPawnReachedTheEndOfTheBoard">O teu peón alcanzou o final do taboleiro!</string>
   <string name="itNowPromotesToAStrongerPiece">Agora promociona a unha peza máis forte.</string>
   <string name="selectThePieceYouWant">Escolle a peza que queres!</string>
@@ -76,22 +76,21 @@ E non perdas as túas.</string>
   <string name="keepYourPiecesSafe">Mantén as túas pezas a salvo</string>
   <string name="protectionIntro">Identifica as pezas que o teu rival ataca, e deféndeas!</string>
   <string name="protectionComplete">Parabéns! Unha peza que non perdes é unha peza que gañas!</string>
-  <string name="escape">Estás baixo ataque!
-Escapa á ameaza!</string>
+  <string name="escape">Están atacándote!
+Fuxe da ameaza!</string>
   <string name="noEscape">Non hai escapatoria,
-pero podes defender!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Non deixes que tomen
-ningunha peza sen defender!</string>
+pero podes defenderte!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Non permitas que capturen ningunha peza indefensa!</string>
   <string name="combat">Combate</string>
   <string name="captureAndDefendPieces">Capturar e defender pezas</string>
-  <string name="combatIntro">Un bo guerreiro sabe atacar e mais defender!</string>
+  <string name="combatIntro">Un bo guerreiro sabe atacar e máis defender!</string>
   <string name="combatComplete">Parabéns! Sabes como loitar coas pezas de xadrez!</string>
   <string name="checkInOne">Xaque nunha</string>
   <string name="attackTheOpponentsKing">Ataca o rei rival</string>
   <string name="checkInOneIntro">Para poñer en xaque ao teu rival, ataca o seu rei. Debe defendelo!</string>
   <string name="checkInOneGoal">Apunta ao rei rival
 nun movemento!</string>
-  <string name="checkInOneComplete">Parabéns! Puxeches en xaque ao teu rival, forzándoo a defende-lo seu rei!</string>
+  <string name="checkInOneComplete">Parabéns! Puxeches en xaque ao teu rival, forzándoo a defender o seu rei!</string>
   <string name="outOfCheck">Fóra de xaque</string>
   <string name="defendYourKing">Defende o teu rei</string>
   <string name="outOfCheckIntro">Estás en xaque! Debes escapar ou bloquear o ataque.</string>
@@ -101,14 +100,14 @@ pero podes bloquear o ataque!</string>
   <string name="youCanGetOutOfCheckByTaking">Podes saír do xaque
 tomando a peza atacante.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Este cabalo está dando xaque
-entre as túas defensas!</string>
+a través das túas defensas!</string>
   <string name="escapeOrBlock">Escapa co rei
 ou bloquea o ataque!</string>
   <string name="outOfCheckComplete">Parabéns! O teu rei nunca pode ser tomado, asegúrate de que podes defenderte dun xaque!</string>
   <string name="mateInOne">Mate nunha</string>
   <string name="defeatTheOpponentsKing">Derrota o rei rival</string>
   <string name="mateInOneIntro">Ti gañas cando o teu rival non pode defenderse dun xaque.</string>
-  <string name="attackYourOpponentsKing">Ataca ao rei do reu rival
+  <string name="attackYourOpponentsKing">Ataca ao rei do teu rival
 dun xeito que non se poda defender!</string>
   <string name="mateInOneComplete">Parabéns! Así é como gañas partidas de xadrez!</string>
   <string name="intermediate">Intermedio</string>
@@ -119,7 +118,7 @@ dun xeito que non se poda defender!</string>
 de cada partida de xadrez!
 Fai calquera movemento para continuar.</string>
   <string name="firstPlaceTheRooks">Primeiro coloca as torres!
-Van nas esquiñas.</string>
+Van nas esquinas.</string>
   <string name="thenPlaceTheKnights">Despois coloca os cabalos!
 Van ao carón das torres.</string>
   <string name="placeTheBishops">Coloca os bispos!
@@ -128,20 +127,20 @@ Van ao carón dos cabalos.</string>
 Vai na súa cor.</string>
   <string name="placeTheKing">Coloca o rei.
 Xusto ao carón da súa dama.</string>
-  <string name="pawnsFormTheFrontLine">Peón forman a liña dianteira.
+  <string name="pawnsFormTheFrontLine">Os peóns forman a vangarda.
 Fai calquera movemento para continuar.</string>
-  <string name="boardSetupComplete">Parabéns! Sabes como colocar o taboleiro.</string>
+  <string name="boardSetupComplete">Parabéns! Sabes como colocar as pezas no taboleiro.</string>
   <string name="castling">Enroque</string>
   <string name="theSpecialKingMove">O movemento especial do rei</string>
-  <string name="castlingIntro">Trae o teu rei a salvo, e desplega a túa torre para o ataque!</string>
-  <string name="castleKingSide">Move o teu rei dúas casillas
+  <string name="castlingIntro">Pon o teu rei a salvo e desprega as túas torres para o ataque!</string>
+  <string name="castleKingSide">Move o teu rei dúas casas
 para enrocar no flanco de rei!</string>
-  <string name="castleQueenSide">Move o teu rei dúas casillas
+  <string name="castleQueenSide">Move o teu rei dúas casas
 para enrocar no flanco de dama!</string>
   <string name="theKnightIsInTheWay">O cabalo está no medio!
 Móveo, despois enroca no flanco de rei.</string>
   <string name="castleKingSideMovePiecesFirst">Enroca no flanco de rei!
-Precisas sacar as pezas primeiro.</string>
+Primeiro tes que sacar as pezas.</string>
   <string name="castleQueenSideMovePiecesFirst">Enroca no flanco de dama!
 Precisas sacar as pezas primeiro.</string>
   <string name="youCannotCastleIfMoved">Non podes enrocar se

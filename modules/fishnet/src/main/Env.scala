@@ -105,14 +105,11 @@ final class Env(
   system.actorOf(
     Props(
       new Actor:
-        def receive = {
+        def receive =
           case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-            analyser(
-              gameId,
-              Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
-            ).unit
-          case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req).unit
-        }
+            val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
+            analyser(gameId, sender)
+          case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req)
     ),
     name = config.actorName
   )
@@ -137,8 +134,7 @@ final class Env(
         repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
       case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
 
-  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId.value).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId.value).unit
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId.value).unit
-  }
+  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId.value)
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId.value)
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId.value)

@@ -61,7 +61,7 @@ final class Env(
 
   lila.common.Bus.subscribeFuns(
     "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-      api.deleteRequestsByUserId(userId).unit
+      api.deleteRequestsByUserId(userId)
     },
     "teamIsLeader" -> { case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
       promise completeWith cached.isLeader(teamId, userId)

@@ -53,10 +53,8 @@ final class Env(
         sheet.fetchAll map { nb => s"Processed $nb videos" }
 
   if mode == Mode.Prod then
-    scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay) { () =>
-      sheet.fetchAll.logFailure(logger).unit
-    }
+    scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay): () =>
+      sheet.fetchAll.logFailure(logger)
 
-    scheduler.scheduleWithFixedDelay(config.youtubeDelay, config.youtubeDelay) { () =>
-      youtube.updateAll.logFailure(logger).unit
-    }
+    scheduler.scheduleWithFixedDelay(config.youtubeDelay, config.youtubeDelay): () =>
+      youtube.updateAll.logFailure(logger)

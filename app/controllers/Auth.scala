@@ -428,7 +428,7 @@ final class Auth(
             case Some(user) =>
               authLog(user.username, none, "Magic link")
               authenticateUser(user, remember = true) andDo
-                lila.mon.user.auth.magicLinkConfirm("success").increment().unit
+                lila.mon.user.auth.magicLinkConfirm("success").increment()
           }
 
   def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>

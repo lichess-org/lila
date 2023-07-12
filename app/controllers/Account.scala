@@ -188,7 +188,7 @@ final class Account(
           .fold(
             err => BadRequest.page(html.account.emailConfirmHelp(err, none)),
             username =>
-              getStatus(env.user.repo, username).flatMap: status =>
+              getStatus(env.user.api, env.user.repo, username).flatMap: status =>
                 Ok.page(html.account.emailConfirmHelp(helpForm fill username, status.some))
           )
 
@@ -339,7 +339,7 @@ final class Account(
       case Some(user) =>
         env.report.api.reopenReports(lila.report.Suspect(user)) >>
           auth.authenticateUser(user, remember = true) andDo
-          lila.mon.user.auth.reopenConfirm("success").increment().unit
+          lila.mon.user.auth.reopenConfirm("success").increment()
     }
 
   def data = Auth { _ ?=> me ?=>

@@ -65,22 +65,20 @@ final class WinnersApi(
 
   private def fetchLastFreq(freq: Freq, since: Instant): Fu[List[Tournament]] =
     tournamentRepo.coll
-      .find(
+      .find:
         $doc(
           "schedule.freq" -> freq.name,
           "startsAt" $gt since.minusHours(12),
           "winner" $exists true
         )
-      )
       .sort($sort desc "startsAt")
       .cursor[Tournament](ReadPref.sec)
       .list(Int.MaxValue)
 
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
     tours
-      .find { t =>
+      .find: t =>
         t.variant.standard && t.schedule.exists(_.speed == speed)
-      }
       .flatMap(_.winner)
 
   private def firstVariantWinner(tours: List[Tournament], variant: Variant): Option[Winner] =
@@ -123,21 +121,18 @@ final class WinnersApi(
   private val allCache = mongoCache.unit[AllWinners](
     "tournament:winner:all",
     59 minutes
-  ) { loader =>
-    _.refreshAfterWrite(1 hour)
-      .buildAsyncFuture(loader(_ => fetchAll))
-  }
+  ): loader =>
+    _.refreshAfterWrite(1 hour).buildAsyncFuture(loader(_ => fetchAll))
 
   def all: Fu[AllWinners] = allCache.get {}
 
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament): Unit =
     if tour.schedule.exists(_.freq.isDailyOrBetter) then
-      scheduler.scheduleOnce(5.seconds) { allCache.invalidate {}.unit }.unit
+      scheduler.scheduleOnce(5.seconds) { allCache.invalidate {} }
 
-  private[tournament] def clearAfterMarking(userId: UserId): Funit = all map { winners =>
-    if winners.userIds contains userId then allCache.invalidate {}.unit
-  }
+  private[tournament] def clearAfterMarking(userId: UserId): Funit = all.map: winners =>
+    if winners.userIds contains userId then allCache.invalidate {}
 
 object WinnersApi:
 

@@ -50,4 +50,3 @@ final class BoardApiHookStream(
             // gotta send a message to check if the client has disconnected
             queue offer None
             self ! SetOnline
-          .unit

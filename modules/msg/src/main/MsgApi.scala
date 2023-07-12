@@ -276,9 +276,13 @@ final class MsgApi(
       .flatMap: res =>
         (res.nModified > 0) so notifier.onRead(threadId, me.id, contactId)
 
-  def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] = colls.thread.secondaryPreferred.exists(
-    $id(MsgThread.id(userId, User.lichessId)) ++ $doc("lastMsg.read" -> false)
+  private val hasUnreadLichessMessageSelect = $doc(
+    "lastMsg.read" -> false,
+    "lastMsg.text" -> $doc("$not" -> $doc("$regex" -> "^Welcome!"))
   )
+  def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] =
+    colls.thread.secondaryPreferred.exists:
+      $id(MsgThread.id(userId, User.lichessId)) ++ hasUnreadLichessMessageSelect
 
   def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread

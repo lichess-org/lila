@@ -26,7 +26,6 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
             Queued.Empty
           case _ => Queued.Another
     )
-    .unit
 
   private def runScheduled(id: Id): Unit = debounces
     .computeIfPresent(
@@ -38,6 +37,5 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
           Queued.Empty
         else nullToRemove
     )
-    .unit
 
   private[this] var nullToRemove: Queued = _

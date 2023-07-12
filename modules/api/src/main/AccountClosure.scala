@@ -29,9 +29,9 @@ final class AccountClosure(
 
   Bus.subscribeFuns(
     "garbageCollect" -> { case lila.hub.actorApi.security.GarbageCollect(userId) =>
-      (modApi.garbageCollect(userId) >> lichessClose(userId)).unit
+      (modApi.garbageCollect(userId) >> lichessClose(userId))
     },
-    "rageSitClose" -> { case lila.hub.actorApi.playban.RageSitClose(userId) => lichessClose(userId).unit }
+    "rageSitClose" -> { case lila.hub.actorApi.playban.RageSitClose(userId) => lichessClose(userId) }
   )
 
   def close(u: User)(using me: Me): Funit = for

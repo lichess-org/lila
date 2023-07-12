@@ -92,20 +92,19 @@ final class Env(
             }
     },
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
-      assessApi.onAnalysisReady(game, analysis).unit
+      assessApi.onAnalysisReady(game, analysis)
     },
     "deletePublicChats" -> { case lila.hub.actorApi.security.DeletePublicChats(userId) =>
-      publicChat.deleteAll(userId).unit
+      publicChat.deleteAll(userId)
     },
     "autoWarning" -> { case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
-      logApi.modMessage(userId, subject)(using User.lichessIdAsMe).unit
+      logApi.modMessage(userId, subject)(using User.lichessIdAsMe)
     },
     "selfReportMark" -> { case lila.hub.actorApi.mod.SelfReportMark(suspectId, name) =>
-      api
-        .autoMark(SuspectId(suspectId), s"Self report: ${name}")(using User.lichessIdAsMe)
+      api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using User.lichessIdAsMe)
     },
     "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
-      logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id)).unit
+      logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))
     },
     "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
     "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) }

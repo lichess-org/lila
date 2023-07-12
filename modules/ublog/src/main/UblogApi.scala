@@ -45,7 +45,7 @@ final class UblogApi(
           timeline ! Propagate(
             lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
           ).toFollowersOf(user.id)
-          if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post).unit
+          if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)) getOrElse {
