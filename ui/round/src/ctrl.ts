@@ -834,11 +834,6 @@ export default class RoundController {
   stepAt = (ply: Ply) => round.plyStep(this.data, ply);
 
   private delayedInit = () => {
-    const d = this.data;
-    if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
-      // lichess.sound.play('genericNotify');
-      // we do this before redirecting for autoplay reasons
-    }
     lichess.requestIdleCallback(() => {
       const d = this.data;
       if (this.isPlaying()) {
