@@ -106,11 +106,11 @@
   <string name="skewer">Espeto</string>
   <string name="skewerDescription">Manobra de cravada inversa na cal una peza de alto valor é atacada. Ó apartarse, permite capturar ou atacar unha peza de menor valor que se atopa detrás dela.</string>
   <string name="smotheredMate">Mate da couce</string>
-  <string name="smotheredMateDescription">Xaque mate no que o cabalo ataca a rei contrario, que non pode moverse ao atoparse rodeado (o afogado) polas súas propias pezas.</string>
-  <string name="superGM">Partidas de super grandes mestres</string>
-  <string name="superGMDescription">Exercicios de partidas d@s mellores xogadores/as do mundo.</string>
+  <string name="smotheredMateDescription">Un mate de cabalo executado sobre un rei inmobilizado (ou afogado) polas súas propias pezas.</string>
+  <string name="superGM">Partidas de súper Grandes Mestres</string>
+  <string name="superGMDescription">Problemas de partidas xogadas polos mellores xogadores do mundo.</string>
   <string name="trappedPiece">Peza atrapada</string>
-  <string name="trappedPieceDescription">Peza que non pode escapar da captura porque ten movementos limitados.</string>
+  <string name="trappedPieceDescription">Unha peza non pode evitar ser capturada porque ten limitados os seus movementos.</string>
   <string name="underPromotion">Promoción menor</string>
   <string name="underPromotionDescription">Promoción a un cabalo, alfil ou torre.</string>
   <string name="veryLong">Exercicio moi longo</string>
