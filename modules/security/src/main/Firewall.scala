@@ -17,16 +17,15 @@ final class Firewall(
   def blocksIp(ip: IpAddress): Boolean = current contains ip.value
 
   def blocks(req: RequestHeader): Boolean =
-    val v = blocksIp {
+    val v = blocksIp:
       lila.common.HTTPRequest ipAddress req
-    }
     if v then lila.mon.security.firewall.block.increment()
     v
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
   def blockIps(ips: Iterable[IpAddress]): Funit =
-    ips.map { ip =>
+    ips.traverse_ { ip =>
       coll.update
         .one(
           $id(ip),
@@ -34,7 +33,7 @@ final class Firewall(
           upsert = true
         )
         .void
-    }.parallel >> loadFromDb
+    } >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
     coll.delete.one($inIds(ips)).void andDo loadFromDb.unit
@@ -42,5 +41,5 @@ final class Firewall(
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty).map { ips =>
       current = ips
-      lila.mon.security.firewall.ip.update(ips.size).unit
+      lila.mon.security.firewall.ip.update(ips.size)
     }

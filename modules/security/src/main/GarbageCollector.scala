@@ -35,20 +35,17 @@ final class GarbageCollector(
   def delay(user: User, email: EmailAddress, req: RequestHeader, quickly: Boolean): Unit =
     if user.createdAt.isAfter(nowInstant minusDays 3) then
       val ip = HTTPRequest ipAddress req
-      scheduler
-        .scheduleOnce(6 seconds):
-          val applyData = ApplyData(user, ip, email, req, quickly)
-          logger.debug(s"delay $applyData")
-          lila.common.LilaFuture
-            .retry(
-              () => ensurePrintAvailable(applyData),
-              delay = 10 seconds,
-              retries = 5,
-              logger = none
-            )
-            .recoverDefault >> apply(applyData)
-          ()
-        .unit
+      scheduler.scheduleOnce(6 seconds):
+        val applyData = ApplyData(user, ip, email, req, quickly)
+        logger.debug(s"delay $applyData")
+        lila.common.LilaFuture
+          .retry(
+            () => ensurePrintAvailable(applyData),
+            delay = 10 seconds,
+            retries = 5,
+            logger = none
+          )
+          .recoverDefault >> apply(applyData)
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userLogins userHasPrint data.user flatMap {
