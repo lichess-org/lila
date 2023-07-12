@@ -121,11 +121,13 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
       .listAll()
       .map: docs =>
         for
-          doc <- docs
-          id  <- doc.getAsOpt[UserId]("_id")
-          perf = docPerf(doc, perfType) | Perf.default
+          doc  <- docs
+          id   <- doc.getAsOpt[UserId]("_id")
+          perf <- docPerf(doc, perfType)
         yield id -> perf
-      .dmap(_.toMap)
+      .map: pairs =>
+        val h = pairs.toMap
+        ids.map(id => id -> h.getOrElse(id, Perf.default)).toMap
 
   def perfsOf(ids: Iterable[UserId]): Fu[Map[UserId, UserPerfs]] = ids.nonEmpty.so:
     coll.find($inIds(ids)).cursor[UserPerfs]().listAll().map(_.mapBy(_.id))
