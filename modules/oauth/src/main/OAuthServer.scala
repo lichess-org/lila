@@ -44,7 +44,7 @@ final class OAuthServer(
                 }
               .foreach: req =>
                 logger.debug:
-                  s"${if (blocked) "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
+                  s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
             if blocked then fufail(OriginBlocked)
             else fuccess(OAuthScope.Scoped(u, at.scopes))
         }

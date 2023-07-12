@@ -45,15 +45,14 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     uploadSource(rel, source, userId)
 
   def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
-    if (part.fileSize > uploadMaxBytes)
-      fufail(s"File size must not exceed ${uploadMaxMb}MB.")
+    if part.fileSize > uploadMaxBytes then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
       part.contentType collect {
         case "image/png"  => "png"
         case "image/jpeg" => "jpg"
       } match
         case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
-        case Some(extension) => {
+        case Some(extension) =>
           val image = PicfitImage(
             _id = PicfitImage.Id(s"$userId:$rel:${ThreadLocalRandom nextString 8}.$extension"),
             user = userId,
@@ -65,7 +64,6 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
           picfitServer.store(image, part) >>
             deleteByRel(image.rel) >>
             coll.insert.one(image) inject image
-        }
 
   def deleteByRel(rel: String): Funit =
     coll

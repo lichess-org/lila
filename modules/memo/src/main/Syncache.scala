@@ -34,16 +34,17 @@ final class Syncache[K, V](
           case ExpireAfter.Write(duration)  => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
       }
       .recordStats
-      .build[K, Fu[V]](new CacheLoader[K, Fu[V]] {
-        def load(k: K) =
-          compute(k)
-            .mon(_ => recCompute) // monitoring: record async time
-            .recover { case e: Exception =>
-              logger.branch(s"syncache $name").warn(s"key=$k", e)
-              cache invalidate k
-              default(k)
-            }
-      })
+      .build[K, Fu[V]](
+        new CacheLoader[K, Fu[V]]:
+          def load(k: K) =
+            compute(k)
+              .mon(_ => recCompute) // monitoring: record async time
+              .recover { case e: Exception =>
+                logger.branch(s"syncache $name").warn(s"key=$k", e)
+                cache invalidate k
+                default(k)
+              }
+      )
 
   // get the value asynchronously, never blocks (preferred)
   def async(k: K): Fu[V] = cache get k
@@ -61,7 +62,7 @@ final class Syncache[K, V](
         strategy match
           case Strategy.NeverWait => default(k)
           case Strategy.WaitAfterUptime(duration, uptime) =>
-            if (Uptime startedSinceSeconds uptime) waitForResult(k, future, duration)
+            if Uptime startedSinceSeconds uptime then waitForResult(k, future, duration)
             else default(k)
 
   // maybe optimize later with cache batching

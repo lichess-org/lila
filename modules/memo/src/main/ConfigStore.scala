@@ -18,10 +18,10 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
       rawText.map {
         _.flatMap { text =>
           parse(text).fold(
-            errs => {
+            errs =>
               errs foreach { logger.warn(_) }
               none
-            },
+            ,
             res => res.some
           )
         }
@@ -49,10 +49,9 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
     val form = Form(
       single(
         "text" -> text.verifying(Constraint[String]("constraint.text_parsable") { t =>
-          parse(t) match {
+          parse(t) match
             case Left(errs) => Invalid(ValidationError(errs mkString ","))
             case _          => Valid
-          }
         })
       )
     )

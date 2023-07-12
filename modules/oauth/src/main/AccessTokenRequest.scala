@@ -19,7 +19,7 @@ object AccessTokenRequest:
       clientSecret: Option[String]
   ):
     def prepare: Validated[Error, Prepared] =
-      for {
+      for
         _    <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
         code <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
         codeVerifier <- codeVerifier
@@ -27,10 +27,10 @@ object AccessTokenRequest:
           .andThen(Protocol.CodeVerifier.from)
         clientId    <- clientId.toValid(Error.ClientIdRequired)
         redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toValid(Error.RedirectUriRequired)
-      } yield Prepared(code, codeVerifier.some, clientId, redirectUri, None)
+      yield Prepared(code, codeVerifier.some, clientId, redirectUri, None)
 
     def prepareLegacy(auth: Option[BasicAuth]): Validated[Error, Prepared] =
-      for {
+      for
         _        <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
         code     <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
         clientId <- clientId.orElse(auth.map(_.clientId)).toValid(Error.ClientIdRequired)
@@ -39,7 +39,7 @@ object AccessTokenRequest:
           .orElse(auth.map(_.clientSecret))
           .toValid(LegacyClientApi.ClientSecretRequired)
         redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toValid(Error.RedirectUriRequired)
-      } yield Prepared(code, None, clientId, redirectUri, clientSecret.some)
+      yield Prepared(code, None, clientId, redirectUri, clientSecret.some)
 
   case class Prepared(
       code: AuthorizationCode,
