@@ -161,11 +161,11 @@ Captúrao ao paso.</string>
   <string name="enPassantOnlyWorksImmediately">A captura ao paso só serve
 inmediatamente despois de que o rival
 movese o peón.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Ao paso so serve
+  <string name="enPassantOnlyWorksOnFifthRank">A captura ao paso só se permite
 se o teu peón está na 5ª fila.</string>
-  <string name="takeAllThePawnsEnPassant">Toma tódolos peón ao paso!</string>
-  <string name="enPassantComplete">Parabéns! Agora podes tomar ao paso.</string>
-  <string name="stalemate">Afogado</string>
+  <string name="takeAllThePawnsEnPassant">Come todos os peóns ao paso!</string>
+  <string name="enPassantComplete">Parabéns! Xa sabes capturar ao paso.</string>
+  <string name="stalemate">Rei afogado</string>
   <string name="theGameIsADraw">A partida é táboas</string>
   <string name="stalemateIntro">Cando un xogador non está en xaque e non ten xogada legal, está afogado. A partida son táboas: ninguén gaña, ninguén perde.</string>
   <string name="stalemateGoal">Para afogar ás negras:
