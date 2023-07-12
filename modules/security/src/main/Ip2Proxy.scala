@@ -80,7 +80,7 @@ final class Ip2ProxyServer(
         }
 
   private val cache = cacheApi[IpAddress, IsProxy](16_384, "ip2proxy.ip"):
-    _.expireAfterWrite(1 days).buildAsyncFuture: ip =>
+    _.expireAfterWrite(1 hour).buildAsyncFuture: ip =>
       ws
         .url(checkUrl)
         .addQueryStringParameters("ip" -> ip.value)
