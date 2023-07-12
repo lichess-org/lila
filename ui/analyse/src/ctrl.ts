@@ -119,7 +119,6 @@ export default class AnalyseCtrl {
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
   cgConfig: any; // latest chessground config (useful for revert)
-  music?: any;
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
 
@@ -183,14 +182,6 @@ export default class AnalyseCtrl {
       this.redraw();
     });
 
-    lichess.pubsub.on('sound_set', (set: string) => {
-      if (!this.music && set === 'music')
-        lichess.loadIife('javascripts/music/play.js').then(() => {
-          this.music = lichess.playMusic();
-        });
-      if (this.music && set !== 'music') this.music = undefined;
-    });
-
     lichess.pubsub.on('ply.trigger', () =>
       lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply)
     );
@@ -223,6 +214,7 @@ export default class AnalyseCtrl {
     this.fork = makeFork(this);
 
     lichess.sound.preloadBoardSounds();
+    lichess.sound.move();
   }
 
   private makeInitialPath = (): string => {
@@ -412,7 +404,7 @@ export default class AnalyseCtrl {
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
     }
-    if (this.music) this.music.jump(this.node);
+    lichess.sound.move(this.node);
     lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
   }

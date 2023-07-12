@@ -71,7 +71,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 }
 
 export function view(ctrl: SoundCtrl): VNode {
-  const current = ctrl.api.speech() ? 'speech' : ctrl.api.soundSet;
+  const current = ctrl.api.speech() ? 'speech' : ctrl.api.theme;
 
   return h(
     'div.sub.sound.' + current,

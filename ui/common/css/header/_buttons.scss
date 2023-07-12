@@ -100,6 +100,23 @@
       color: $c-good !important;
     }
   }
+
+  #warn-no-autoplay {
+    display: none;
+    padding: 0 0.8em;
+
+    &.shown {
+      display: block;
+    }
+
+    a {
+      color: $c-bad;
+    }
+
+    a:hover {
+      color: c-clearer($c-bad, 20%);
+    }
+  }
 }
 
 #user_tag {

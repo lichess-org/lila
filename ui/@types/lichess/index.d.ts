@@ -25,7 +25,7 @@ interface Lichess {
   blindMode: boolean;
   unload: { expected: boolean };
   watchers(el: HTMLElement): void;
-  redirect(o: RedirectTo): void;
+  redirect(o: RedirectTo, notify?: 'countdown' | 'beep'): void;
   reload(): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
@@ -39,7 +39,6 @@ interface Lichess {
   socket: any;
   sound: SoundI;
   mic: Voice.Microphone;
-  playMusic(): any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
   ab?: any;
@@ -116,10 +115,12 @@ interface QuestionOpts {
 }
 
 interface SoundI {
-  loadOggOrMp3(name: string, path: string, noSoundSet?: boolean): void;
-  loadStandard(name: string, soundSet?: string): void;
-  play(name: string, volume?: number): void;
+  ctx: AudioContext;
+  load(name: string, path?: string): void;
+  play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
+  move(node?: { san?: string; uci?: Uci }): void;
+  countdown(count: number, intervalMs?: number): Promise<void>; // default interval 1000ms
   getVolume(): number;
   setVolume(v: number): void;
   speech(v?: boolean): boolean;
@@ -128,7 +129,7 @@ interface SoundI {
   saySan(san?: San, cut?: boolean): void;
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
-  soundSet: string;
+  theme: string;
   baseUrl: string;
 }
 
@@ -300,13 +301,10 @@ type Nvui = (redraw: () => void) => {
 
 interface Window {
   lichess: Lichess;
-
+  un$<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
   Chessground: any;
-  readonly lichessReplayMusic: () => {
-    jump(node: Tree.Node): void;
-  };
   readonly hopscotch: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
@@ -576,3 +574,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
+declare const un$: <T>(cash: Cash) => T;

@@ -20,7 +20,7 @@ object pref:
     account.layout(
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",
       active = categ.slug
-    ) {
+    ):
       val booleanChoices = translatedBooleanIntChoices
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(bits.categName(categ)),
@@ -157,6 +157,10 @@ object pref:
             setting(
               scrollOnTheBoardToReplayMoves(),
               radios(form("behavior.scrollMoves"), booleanChoices)
+            ),
+            setting(
+              "Countdown when paired with opponent",
+              radios(form("behavior.pairingCountdown"), booleanChoices)
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(
@@ -184,4 +188,3 @@ object pref:
           p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())
         )
       )
-    }

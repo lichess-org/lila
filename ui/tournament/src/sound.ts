@@ -56,6 +56,6 @@ export function countDown(data: TournamentData) {
   // Preload countdown sounds.
   for (let i = 10; i >= 0; i--) {
     const s = 'countDown' + i;
-    lichess.sound.loadStandard(s);
+    lichess.sound.load(s);
   }
 }

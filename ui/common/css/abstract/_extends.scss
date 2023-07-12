@@ -102,10 +102,16 @@
 }
 
 %dropdown-shadow {
+  @if $theme == 'transp' {
+    @include back-blur();
+  }
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
 
 %popup-shadow {
+  @if $theme == 'transp' {
+    @include back-blur();
+  }
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
