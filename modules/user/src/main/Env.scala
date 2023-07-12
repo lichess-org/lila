@@ -32,7 +32,7 @@ final class Env(
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
   val perfsRepo = UserPerfsRepo(db(CollName("user_perf")))
-  val repo      = UserRepo(db(CollName("user4")), perfsRepo)
+  val repo      = UserRepo(db(CollName("user4")))
 
   val api = wire[UserApi]
 
