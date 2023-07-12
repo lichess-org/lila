@@ -136,12 +136,12 @@ Fai calquera movemento para continuar.</string>
   <string name="castleKingSide">Move o teu rei dúas casas
 para enrocar no flanco de rei!</string>
   <string name="castleQueenSide">Move o teu rei dúas casas
-para enrocar no flanco de dama!</string>
+para enrocar en longo!</string>
   <string name="theKnightIsInTheWay">O cabalo está no medio!
 Móveo, despois enroca no flanco de rei.</string>
-  <string name="castleKingSideMovePiecesFirst">Enroca no flanco de rei!
+  <string name="castleKingSideMovePiecesFirst">Enroca en curto!
 Primeiro tes que sacar as pezas.</string>
-  <string name="castleQueenSideMovePiecesFirst">Enroca no flanco de dama!
+  <string name="castleQueenSideMovePiecesFirst">Enroca en longo!
 Precisas sacar as pezas primeiro.</string>
   <string name="youCannotCastleIfMoved">Non podes enrocar se
 o rei xa moveu
