@@ -7,12 +7,12 @@
   <string name="isNotRated">Este torneo *non* é puntuado e *non* afectará á túa puntuación.</string>
   <string name="someRated">Algúns torneos son puntuados e afectarán á túa puntuación.</string>
   <string name="howAreScoresCalculated">Como se calculan as puntuacións?</string>
-  <string name="howAreScoresCalculatedAnswer">Unha victoria ten unha puntuación por defecto de 2 puntos, unhas táboas 1 punto e as derrotas ningún punto.
-Se gañas dúas partidas seguidas, comezarás unha racha de puntuación dobre, representada por unha icona de chama.
-As seguintes partidas continuarán valendo dobre mentres sigas gañando partidas.
-É dicir, unha victoria vale 4 puntos, unhas táboas 2 puntos e a derrota ningún punto.
+  <string name="howAreScoresCalculatedAnswer">Unha vitoria ten unha puntuación por defecto de 2 puntos, unhas táboas suman 1 punto e as derrotas ningún punto.
+Se gañas dúas partidas seguidas, comezarás unha secuencia de puntuación dobre, representada por unha icona de lapa.
+As seguintes partidas continuarán valendo dobre ata que pares de gañar.
+É dicir, unha vitoria valerá 4 puntos, unhas táboas 2 puntos e a derrota segue sen dar puntos.
 
-Por exemplo, dúas victorias seguidas por unhas táboas valen 6 puntos: 2 + 2 + (2 x 1)</string>
+Por exemplo, dúas vitorias seguidas por unhas táboas valen 6 puntos: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Modo Berserk</string>
   <string name="berserkAnswer">Cando un xogador pincha no botón de Berserk ao comezo da partida, perderá a metade do seu tempo no reloxio, pero a victoria, de conseguila, valerá un punto máis.
 
