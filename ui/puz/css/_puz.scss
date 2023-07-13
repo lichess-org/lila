@@ -11,6 +11,10 @@
     --main-max-width: auto;
   }
 
+  @include breakpoint($mq-not-small) {
+    --main-max-width: 100%;
+  }
+
   user-select: none;
 }
 
