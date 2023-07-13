@@ -246,7 +246,7 @@ export default async function (el: HTMLElement, data: AnalyseData, trans: Trans,
       labels: disabled,
       lineWidth: 0,
       tickWidth: 0,
-      plotLines: divisionLines(data.game.division, trans, data.treeParts[0].ply),
+      plotLines: divisionLines(data.game.division, trans),
       minPadding: showTotal ? -0.015 : 0.01,
     },
     yAxis: [
