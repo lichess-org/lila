@@ -3,6 +3,7 @@ package lila.api
 import play.api.mvc.RequestHeader
 
 import lila.common.{ ApiVersion, HTTPRequest }
+import lila.socket.Socket.Sri
 
 object Mobile:
 
@@ -28,25 +29,32 @@ object Mobile:
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
 
-  // Lichess Mobile/{version} ({build-number}) as:{username|anon} os:{android|ios}/{os-version} dev:{device info}
+  // Lichess Mobile/{version} ({build-number}) as:{username|anon} sri:{sri} os:{android|ios}/{os-version} dev:{device info}
   // see modules/api/src/test/MobileTest.scala
   case class LichessMobileUa(
       version: String,
       build: Int,
       userId: Option[UserId],
+      sri: Sri,
       osName: String,
       osVersion: String,
       device: String
   )
 
   object LichessMobileUa:
-    private val Regex = """lichess mobile/(\S+) \((\d*)\) as:(\S+) os:(android|ios)/(\S+) dev:(.*)""".r
+    private val RegexOld =
+      """lichess mobile/(\S+) \((\d*)\) as:(\S+) os:(android|ios)/(\S+) dev:(.*)""".r // remove soon
+    private val Regex =
+      """lichess mobile/(\S+) \((\d*)\) as:(\S+) sri:(\S+) os:(android|ios)/(\S+) dev:(.*)""".r
     def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req) flatMap parse
     def parse(ua: UserAgent): Option[LichessMobileUa] = ua.value
       .startsWith("Lichess Mobile/")
       .so:
         ua.value.toLowerCase match
-          case Regex(version, build, user, osName, osVersion, device) =>
+          case Regex(version, build, user, sri, osName, osVersion, device) =>
             val userId = (user != "anon") option UserId(user)
-            LichessMobileUa(version, ~build.toIntOption, userId, osName, osVersion, device).some
-          case _ => none
+            LichessMobileUa(version, ~build.toIntOption, userId, Sri(sri), osName, osVersion, device).some
+          case RegexOld(version, build, user, osName, osVersion, device) =>
+            val userId = (user != "anon") option UserId(user)
+            LichessMobileUa(version, ~build.toIntOption, userId, Sri("old"), osName, osVersion, device).some
+          case wut => none
