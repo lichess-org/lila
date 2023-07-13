@@ -8,6 +8,7 @@ import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { propWithEffect, Prop } from 'common';
 import { load as loadKeyboardMove } from './plugins/keyboardMove';
+import KeyboardChecker from './plugins/keyboardChecker';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -33,6 +34,7 @@ export interface KeyboardMove {
   vote(v: boolean): void;
   resign(v: boolean, immediately?: boolean): void;
   helpModalOpen: Prop<boolean>;
+  checker?: KeyboardChecker;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -143,6 +145,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     vote: (v: boolean) => root.vote?.(v),
     helpModalOpen,
     isFocused,
+    checker: root.clock ? new KeyboardChecker() : undefined,
   };
 }
 

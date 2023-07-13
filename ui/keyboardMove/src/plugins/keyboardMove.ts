@@ -126,6 +126,7 @@ export function initModule(opts: Opts) {
       // updates when it is still the player's turn
       setTimeout(() => lichess.sound.play('error'), 500);
       opts.input.value = '';
+      opts.ctrl.checker?.clear();
     } else {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
       if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
@@ -135,6 +136,7 @@ export function initModule(opts: Opts) {
   const clear = () => {
     opts.input.value = '';
     opts.input.classList.remove('wrong');
+    opts.ctrl.checker?.clear();
   };
   makeBindings(opts, submit, clear);
   // returns a function that is called when any move is played
@@ -169,12 +171,14 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
     if (v.includes('/')) {
       focusChat();
       clear();
-    else
     } else if (v == '' && e.key == 'Enter') opts.ctrl.confirmMove();
+    else {
+      opts.ctrl.checker?.press(e);
       submit(v, {
         force: e.key == 'Enter',
-        isTrusted: e.isTrusted,
+        isTrusted: true,
       });
+    }
   });
   opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
   opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
