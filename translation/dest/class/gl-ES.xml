@@ -65,12 +65,12 @@ Aquí está a ligazón para acceder.</string>
   <string name="release">Liberar</string>
   <string name="releaseTheAccount">Libera a conta para que o estudante poida xestionala de forma autónoma.</string>
   <string name="releaseDesc1">Unha conta liberada non pode ser supervisada de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
-  <string name="releaseDesc2">O estudante permanecerá na clase trala liberación da conta.</string>
-  <string name="realUniqueEmail">Dirección de correo electrónico real e única do estudante. Enviaremos unha mail de confirmación para el, cun link para liberar a conta.</string>
-  <string name="closeStudent">Pechar conta</string>
+  <string name="releaseDesc2">O estudante permanecerá na clase tras a liberación da conta.</string>
+  <string name="realUniqueEmail">Enderezo de correo electrónico real e único do estudante. Enviarémoslle un correo de confirmación cunha ligazón para liberar a conta.</string>
+  <string name="closeStudent">Pechar a conta</string>
   <string name="closeTheAccount">Pechar a conta de estudante permanentemente.</string>
-  <string name="closeDesc1">A estudante non poderá usar esta conta de novo. O peche é definitivo. Asegúrate que a estudante o entende e está dacordo.</string>
-  <string name="closeDesc2">Quizais queres darlle á estudante o control sobre a conta no seu lugar, de maneira que poida seguir empregándoa.</string>
+  <string name="closeDesc1">O estudante non poderá volver usar esta conta. O peche é definitivo. Asegúrate de que o estudante o entende e está de acordo.</string>
+  <string name="closeDesc2">Tamén podes transferir o control da conta ó estudante para que poida seguir usándoa.</string>
   <string name="teachers">Profesores</string>
   <plurals name="nbTeachers">
     <item quantity="one">Profesor</item>
@@ -82,36 +82,36 @@ Aquí está a ligazón para acceder.</string>
   </plurals>
   <string name="students">Estudantes</string>
   <string name="progress">Progreso</string>
-  <string name="noStudents">Non hai aínda estudantes na aula.</string>
+  <string name="noStudents">Aínda non hai estudantes na clase.</string>
   <string name="noRemovedStudents">Non hai estudantes eliminados.</string>
-  <string name="overDays">Durante días</string>
+  <string name="overDays">Ó longo dos días</string>
   <string name="timePlaying">Tempo xogado</string>
-  <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
-  <string name="winrate">Porcentaxe de victorias</string>
+  <string name="variantXOverLastY">%1$s nos últimos %2$s</string>
+  <string name="winrate">Porcentaxe de vitorias</string>
   <string name="na">Non dispoñible</string>
-  <string name="overview">Vista xeral</string>
+  <string name="overview">Visión xeral</string>
   <string name="news">Novas</string>
   <string name="classNews">Novidades da clase</string>
   <string name="editNews">Editar as novidades</string>
-  <string name="notifyAllStudents">Notificar todos os estudantes</string>
+  <string name="notifyAllStudents">Notificar a todos os estudantes</string>
   <string name="nothingHere">Nada aquí polo de agora.</string>
   <string name="newsEdit1">Todas as novidades sobre a clase nun único campo.</string>
-  <string name="newsEdit2">Engade as novas recente na parte superior. Non elimines as novidades previas.</string>
+  <string name="newsEdit2">Engade as novas recentes na parte superior. Non elimines as novas anteriores.</string>
   <string name="newsEdit3">Separa as novas con ---
 Amosará unha liña separadora horizontal.</string>
   <string name="invite">Convidar</string>
-  <string name="youHaveBeenInvitedByX">Fuches convidado/a por %s.</string>
+  <string name="youHaveBeenInvitedByX">Fuches convidado por %s.</string>
   <string name="youAcceptedThisInvitation">Aceptaches esta invitación.</string>
   <string name="youDeclinedThisInvitation">Rexeitaches esta invitación.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ou</string>
-  <string name="createMultipleAccounts">Crea múltiples contas de Lichess dunha vez</string>
+  <string name="createMultipleAccounts">Crea múltiples contas de Lichess á vez</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Tamén podes %s para crear varias contas de Lichess a partir dunha lista de nomes de estudantes.</string>
-  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">emprega este formulario</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">empregar este formulario</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ten en conta que unha clase pode ter ata %1$s estudantes. Para administrar máis estudantes, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">crea máis clases</string>
-  <string name="studentsRealNamesOnePerLine">Nomes dos/as estudantes, un por liña</string>
-  <string name="xisNowAStudentOfTheClass">%s é agora un/unha estudante da clase</string>
+  <string name="studentsRealNamesOnePerLine">Nomes reais dos estudantes, un por liña</string>
+  <string name="xisNowAStudentOfTheClass">%s xa é un novo estudante da clase</string>
   <string name="anInvitationHasBeenSentToX">Enviouse invitación a %s</string>
-  <string name="xAlreadyHasAPendingInvitation">%s aínda ten unha invitación pendente</string>
+  <string name="xAlreadyHasAPendingInvitation">%s xa ten unha invitación pendente</string>
   <string name="xIsAKidAccountWarning">%1$s é unha conta infantil e non pode recibir a túa mensaxe. Debes enviarlle a URL de invitación de xeito manual: %2$s</string>
 </resources>
