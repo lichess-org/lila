@@ -38,7 +38,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
     private def fetch(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
       val (x, y) = userIds
-      listWithPerf(List(x, y).flatten, perfType).map: users =>
+      listWithPerf(List(x, y).flatten, perfType, _.pri).map: users =>
         ByColor(x, y).map(_.flatMap(id => users.find(_.id == id)))
 
   def updatePerfs(ups: ByColor[(UserPerfs, UserPerfs)], gamePerfType: PerfType) =
