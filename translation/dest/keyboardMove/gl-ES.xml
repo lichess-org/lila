@@ -16,7 +16,7 @@
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Se non tes familiaridade coa anterior notación das xogadas, aprende máis aquí:</string>
   <string name="includingAXToIndicateACapture">Incluír un \"x\" para indicar unha captura é opcional</string>
   <string name="bothTheLetterOAndTheDigitZero">Tanto a letra \"o\" como o díxito cero \"0\" poden ser empregados cando enrocas</string>
-  <string name="ifItIsLegalToCastleBothWays">Se é legal enrocar en ambos sentidos, emprega enter para enrocar curto</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">A capitalización só importa en situacións ambiguas que impliquen un alfil e o peón b</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">Para realizar pre-movementos simplemente escríbeo antes de que sexa a túa quenda</string>
+  <string name="ifItIsLegalToCastleBothWays">Se é legal enrocar en ambos sentidos, emprega Enter para enrocar en curto</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">O uso de maiúsculas só importa en situacións ambiguas que impliquen un alfil e o peón b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Para realizar movementos anticipados, simplemente escríbeos antes de que sexa a túa quenda</string>
 </resources>
