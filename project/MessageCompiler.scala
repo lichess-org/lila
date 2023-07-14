@@ -1,11 +1,11 @@
 import _root_.java.io.File
-import sbt._, Keys._
+import sbt.*, Keys.*
 import scala.io.Source
 import scala.xml.XML
 
-object MessageCompiler {
+object MessageCompiler:
 
-  def apply(sourceDir: File, destDir: File, dbs: List[String], compileTo: File): Seq[File] = {
+  def apply(sourceDir: File, destDir: File, dbs: List[String], compileTo: File): Seq[File] =
     compileTo.mkdirs()
     val locales: List[String] = "en-GB" ::
       (destDir / "site").list.toList.map { _.takeWhile('.' !=) }.sorted
@@ -15,7 +15,6 @@ object MessageCompiler {
       }
       .filter(_._2.exists)
     writeRegistry(compileTo, localeFiles.map(_._1)) :: localeFiles.map(_._2)
-  }
 
   private def writeLocale(
       locale: String,
@@ -23,13 +22,14 @@ object MessageCompiler {
       destDir: File,
       compileTo: File,
       dbs: List[String]
-  ): File = {
+  ): File =
     val underLocale = locale.replace("-", "_")
     val javaFile    = compileTo / s"$underLocale.java"
     val xmlFiles =
-      if (locale == "en-GB") dbs.map { db =>
-        db -> (sourceDir / s"$db.xml")
-      }
+      if locale == "en-GB" then
+        dbs.map { db =>
+          db -> (sourceDir / s"$db.xml")
+        }
       else
         dbs.map { db =>
           db -> (destDir / db / s"$locale.xml")
@@ -38,19 +38,18 @@ object MessageCompiler {
     val isNew = xmlFiles.exists { case (_, file) =>
       !isFileEmpty(file) && file.lastModified > javaFile.lastModified
     }
-    if (!isNew) javaFile
+    if !isNew then javaFile
     else
       printToFile(javaFile) {
         val puts = xmlFiles flatMap { case (db, file) =>
-          try {
+          try
             val xml = XML.loadFile(file)
             xml.child.collect {
               case e if e.label == "string" =>
                 val safe = escape(e.text)
-                val translation = escapeHtmlOption(safe) match {
+                val translation = escapeHtmlOption(safe) match
                   case None          => s"""new Simple(\"$safe\")"""
                   case Some(escaped) => s"""new Escaped(\"$safe\",\"$escaped\")"""
-                }
                 s"""m.put(${toKey(e, db)},$translation);"""
               case e if e.label == "plurals" =>
                 val allItems: Map[String, String] = e.child
@@ -70,16 +69,13 @@ object MessageCompiler {
                 }
                 s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}));"""
             }
-          } catch {
-            case _: Exception => Nil
-          }
+          catch case _: Exception => Nil
         }
 
         val loadFactor      = 0.75
         val initialCapacity = (puts.size / loadFactor).toInt + 1
         val fullMapImports =
-          if (puts.exists(_.contains("ScalaRunTime$")))
-            """import scala.Predef$;
+          if puts.exists(_.contains("ScalaRunTime$")) then """import scala.Predef$;
 import scala.Tuple2;
 import scala.Tuple2$;
 import scala.runtime.ScalaRunTime$;"""
@@ -98,19 +94,17 @@ return m;
 }
 """
       }
-  }
 
   private def isFileEmpty(file: File) =
     !file.exists() || {
       val source = Source.fromFile(file, "UTF-8")
-      try {
+      try
         source.getLines.drop(1).next == "<resources></resources>"
-      } finally {
+      finally
         source.close()
-      }
     }
 
-  private def packageName(db: String) = if (db == "class") "clas" else db
+  private def packageName(db: String) = if db == "class" then "clas" else db
 
   private def writeRegistry(destDir: File, locales: Iterable[String]) =
     printToFile(destDir / "Registry.scala") {
@@ -136,7 +130,7 @@ private object Registry {
   private def ucfirst(str: String) = str(0).toUpper + str.drop(1)
 
   private def toKey(e: scala.xml.Node, db: String) =
-    if (db == "site") s""""${e.\("@name")}""""
+    if db == "site" then s""""${e.\("@name")}""""
     else s""""$db:${e.\("@name")}""""
 
   private val doubleUserBackslashRegex = """(\\.)""".r
@@ -144,7 +138,7 @@ private object Registry {
   private def doubleUserBackslash(str: String) =
     doubleUserBackslashRegex.replaceAllIn(
       str,
-      m => (if (Set("""\"""", """\n""")(m.group(1))) "\\" else "\\\\\\") + m.group(1)
+      m => (if Set("""\"""", """\n""")(m.group(1)) then "\\" else "\\\\\\") + m.group(1)
     )
 
   private def escape(str: String) =
@@ -157,45 +151,41 @@ private object Registry {
     )
 
   private def pluralMap(items: Map[String, String]): String =
-    if (items.size > 4) {
+    if items.size > 4 then
       val mapItems = items.map { case (k, v) =>
         """Tuple2$.MODULE$.apply""" + s"""(I18nQuantity$$.$k, $v)"""
       } mkString ","
       """(Map)Predef$.MODULE$.Map().apply(ScalaRunTime$.MODULE$.wrapRefArray(new Tuple2[]{""" + mapItems + """}))"""
-    } else
+    else
       s"""new Map.Map${items.size}<I18nQuantity, String>(${items.map { case (k, v) =>
           s"I18nQuantity$$.$k,$v"
         } mkString ","})"""
 
   private val badChars = """[<>&"'\r\n]""".r.pattern
   private def escapeHtmlOption(s: String): Option[String] =
-    if (badChars.matcher(s).find) Some {
-      val sb = new java.lang.StringBuilder(s.length + 10) // wet finger style
-      var i  = 0
-      while (i < s.length) {
-        s.charAt(i) match {
-          case '<'  => sb append "&lt;"
-          case '>'  => sb append "&gt;"
-          case '&'  => sb append "&amp;"
-          case '"'  => sb append "&quot;"
-          case '\'' => sb append "&#39;"
-          case '\r' => ()
-          case '\n' => sb append "<br />"
-          case c    => sb append c
-        }
-        i += 1
+    if badChars.matcher(s).find then
+      Some {
+        val sb = new java.lang.StringBuilder(s.length + 10) // wet finger style
+        var i  = 0
+        while i < s.length do
+          s.charAt(i) match
+            case '<'  => sb append "&lt;"
+            case '>'  => sb append "&gt;"
+            case '&'  => sb append "&amp;"
+            case '"'  => sb append "&quot;"
+            case '\'' => sb append "&#39;"
+            case '\r' => ()
+            case '\n' => sb append "<br />"
+            case c    => sb append c
+          i += 1
+        sb.toString.replace("\\&quot;", "&quot;")
       }
-      sb.toString.replace("\\&quot;", "&quot;")
-    }
     else None
 
-  private def printToFile(file: File)(content: String): File = {
+  private def printToFile(file: File)(content: String): File =
     val p = new java.io.PrintWriter(file, "UTF-8")
-    try {
+    try
       p.write(content)
-    } finally {
+    finally
       p.close()
-    }
     file
-  }
-}
