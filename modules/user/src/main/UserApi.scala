@@ -33,13 +33,18 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         case ByColor(Some(x), Some(y)) => ByColor(x, y).some
         case _                         => none
 
-    private val cache = cacheApi[PlayersKey, GameUsers](1024, "user.perf.pair"):
+    private[UserApi] val cache = cacheApi[PlayersKey, GameUsers](1024, "user.perf.pair"):
       _.expireAfterWrite(3 seconds).buildAsyncFuture(fetch)
 
     private def fetch(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
       val (x, y) = userIds
       listWithPerf(List(x, y).flatten, perfType).map: users =>
         ByColor(x, y).map(_.flatMap(id => users.find(_.id == id)))
+
+  def updatePerfs(ups: ByColor[(UserPerfs, UserPerfs)], gamePerfType: PerfType) =
+    import lila.memo.CacheApi.invalidate
+    ups.all.map(perfsRepo.updatePerfs).parallel andDo
+      gamePlayers.cache.invalidate(ups.map(_._1.id.some).toPair -> gamePerfType)
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
 
