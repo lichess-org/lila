@@ -53,8 +53,8 @@
   <string name="yourPreferencesHaveBeenSaved">As túas preferencias foron gardadas.</string>
   <string name="scrollOnTheBoardToReplayMoves">Usa a roda do rato pra amosar os movementos</string>
   <string name="correspondenceEmailNotification">Notificación diaria por email coas túas partidas por correspondencia</string>
-  <string name="notifyStreamStart">O/a Streamer conectouse</string>
-  <string name="notifyInboxMsg">Nova mensaxe na caixa do correo</string>
+  <string name="notifyStreamStart">Un presentador comeza unha transmisión en directo</string>
+  <string name="notifyInboxMsg">Novo correo</string>
   <string name="notifyForumMention">Un comentario do foro menciónate</string>
   <string name="notifyInvitedStudy">Invitación a estudo</string>
   <string name="notifyGameEvent">Actualizacións de partida por correspondencia</string>
