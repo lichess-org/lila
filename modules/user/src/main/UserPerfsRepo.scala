@@ -140,7 +140,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
   def withPerf(us: PairOf[User], perfType: PerfType, readPref: ReadPref): Fu[PairOf[User.WithPerf]] =
     perfOf(us, perfType, readPref).dmap: (x, y) =>
-      User.WithPerf(us._1, y) -> User.WithPerf(us._2, x)
+      User.WithPerf(us._1, x) -> User.WithPerf(us._2, y)
 
   def perfOf[U: UserIdOf](us: PairOf[U], perfType: PerfType, readPref: ReadPref): Fu[PairOf[Perf]] =
     val (x, y) = us
