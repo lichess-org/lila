@@ -460,7 +460,7 @@ export default class AnalyseCtrl {
         ...pgnImport(pgn),
         orientation: this.bottomColor(),
         pref: this.data.pref,
-        externalEngines: this.data.externalEngines
+        externalEngines: this.data.externalEngines,
       } as AnalyseData;
       if (andReload) {
         this.reloadData(data, false);
