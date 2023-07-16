@@ -41,12 +41,10 @@ final private class PoolActor(
       members.find(joiner.is) match
         case None =>
           members = members :+ PoolMember(joiner, rageSit)
-          if (members.sizeIs >= config.wave.players.value) self ! FullWave
+          if members.sizeIs >= config.wave.players.value then self ! FullWave
         case Some(member) if member.ratingRange != joiner.ratingRange =>
-          members = members.map {
-            case m if m == member => m withRange joiner.ratingRange
-            case m                => m
-          }
+          members = members.map: m =>
+            if m == member then m withRange joiner.ratingRange else m
         case _ => // no change
     case Leave(userId) =>
       members.find(_.userId == userId) foreach { member =>
@@ -76,31 +74,28 @@ final private class PoolActor(
       val pairedMembers = pairings.flatMap(_.members)
 
       hookThieve.stolen(
-        hooks.filter { h =>
-          pairedMembers.exists(h.is)
-        },
+        hooks.filter: h =>
+          pairedMembers.exists(h.is),
         monId
       )
 
       members = members.diff(pairedMembers).map(_.incMisses)
 
-      if (pairings.nonEmpty) gameStarter(config, pairings)
+      if pairings.nonEmpty then gameStarter(config, pairings)
 
       monitor.candidates(monId).record(candidates.size)
       monitor.paired(monId).record(pairedMembers.size)
       monitor.missed(monId).record(members.size)
-      pairings.foreach { p =>
+      pairings.foreach: p =>
         monitor.ratingDiff(monId).record(p.ratingDiff.value)
-      }
 
       lastPairedUserIds = pairedMembers.view.map(_.userId).toSet
 
       scheduleWave()
 
     case Sris(sris) =>
-      members = members.filter { m =>
+      members = members.filter: m =>
         sris contains m.sri
-      }
 
   val monitor = lila.mon.lobby.pool.wave
   val monId   = config.id.value.replace('+', '_')

@@ -27,7 +27,7 @@ case class RelayRound(
 
   lazy val slug =
     val s = lila.common.String slugify name.value
-    if (s.isEmpty) "-" else s
+    if s.isEmpty then "-" else s
 
   def finish =
     copy(
@@ -76,13 +76,13 @@ object RelayRound:
     def hasUpstream = upstream.isDefined
 
     def renew =
-      if (hasUpstream) copy(until = nowInstant.plusHours(1).some)
+      if hasUpstream then copy(until = nowInstant.plusHours(1).some)
       else pause
 
     def ongoing = until so nowInstant.isBefore
 
     def play =
-      if (hasUpstream) renew.copy(nextAt = nextAt orElse nowInstant.plusSeconds(3).some)
+      if hasUpstream then renew.copy(nextAt = nextAt orElse nowInstant.plusSeconds(3).some)
       else pause
 
     def pause =
@@ -129,7 +129,7 @@ object RelayRound:
     def link: RelayRound
     def fullName = s"${tour.name} • ${display.name}"
     def path: String =
-      s"/broadcast/${tour.slug}/${if (link.slug == tour.slug) "-" else link.slug}/${link.id}"
+      s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
 
   case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour:

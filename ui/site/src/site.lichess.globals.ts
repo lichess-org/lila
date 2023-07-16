@@ -1,4 +1,5 @@
 import StrongSocket from './component/socket';
+import Mousetrap from './component/mousetrap';
 import { requestIdleCallback, escapeHtml } from './component/functions';
 import once from './component/once';
 import { spinnerHtml } from 'common/spinner';
@@ -29,8 +30,10 @@ import { format as timeago, formatter as dateFormat } from './component/timeago'
 import watchers from './component/watchers';
 
 export default () => {
+  window.un$ = <T>(cash: Cash) => cash[0] as T;
   const l = window.lichess;
   l.StrongSocket = StrongSocket;
+  l.mousetrap = new Mousetrap(document);
   l.requestIdleCallback = requestIdleCallback;
   l.sri = sri;
   l.storage = storage;

@@ -70,7 +70,9 @@ object Permission:
   case object Streamers             extends Permission("STREAMERS", "Manage streamers")
   case object Verified              extends Permission("VERIFIED", "Verified badge")
   case object Prismic               extends Permission("PRISMIC", "Prismic preview")
-  case object MonitoredMod          extends Permission("MONITORED_MOD", "Monitored mod")
+  case object MonitoredCheatMod     extends Permission("MONITORED_MOD_CHEAT", "Monitored mod: cheat")
+  case object MonitoredBoostMod     extends Permission("MONITORED_MOD_BOOST", "Monitored mod: boost")
+  case object MonitoredCommMod      extends Permission("MONITORED_MOD_COMM", "Monitored mod: comms")
   case object StudyAdmin            extends Permission("STUDY_ADMIN", "Study admin")
   case object ApiHog                extends Permission("API_HOG", "API hog")
   case object ApiChallengeAdmin     extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
@@ -254,11 +256,15 @@ object Permission:
       GamifyView,
       Appeals,
       UserSearch,
-      MonitoredMod,
       ModNote,
       ModLog,
       ManageTeam,
       Streamers
+    ),
+    "Monitoring" -> List(
+      MonitoredBoostMod,
+      MonitoredCheatMod,
+      MonitoredCommMod
     ),
     "Content" -> List(
       Relay,

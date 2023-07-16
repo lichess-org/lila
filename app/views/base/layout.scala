@@ -157,6 +157,9 @@ object layout:
       )
     )
 
+  private val warnNoAutoplay =
+    div(id := "warn-no-autoplay")(a(dataIcon := licon.Mute))
+
   private def current2dTheme(using ctx: PageContext) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.pref.currentTheme
@@ -173,8 +176,7 @@ object layout:
       chessground option chessgroundTag,
       ctx.needsFp option fingerprintTag,
       ctx.nonce map inlineJs.apply,
-      if netConfig.minifiedAssets then jsModule("lichess")
-      else frag(depsTag, jsModule("site")),
+      frag(cashTag, jsModule("lichess")),
       moreJs,
       ctx.data.inquiry.isDefined option jsModule("mod.inquiry"),
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
@@ -418,6 +420,7 @@ object layout:
           )
         ),
         div(cls := "site-buttons")(
+          warnNoAutoplay,
           !ctx.isAppealUser option clinput,
           reports,
           teamRequests,

@@ -12,7 +12,7 @@ object GatheringClock:
   val timeDefault = 2d
   private def formatLimit(l: Double) =
     Clock.Config(LimitSeconds((l * 60).toInt), IncrementSeconds(0)).limitString + {
-      if (l <= 1) " minute" else " minutes"
+      if l <= 1 then " minute" else " minutes"
     }
   val timeChoices = optionsDouble(times, formatLimit)
 

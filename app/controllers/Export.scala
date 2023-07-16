@@ -27,10 +27,9 @@ final class Export(env: Env) extends LilaController(env):
   )
 
   private def exportImageOf[A](fetch: Fu[Option[A]])(convert: A => Fu[Result]) = Anon:
-    fetch.flatMap:
-      _.fold(notFoundJson()): res =>
-        ExportImageRateLimitByIp(req.ipAddress, rateLimitedFu):
-          ExportImageRateLimitGlobal("-", rateLimitedFu)(convert(res))
+    Found(fetch): res =>
+      ExportImageRateLimitByIp(req.ipAddress, rateLimited):
+        ExportImageRateLimitGlobal("-", rateLimited)(convert(res))
 
   def gif(id: GameId, color: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo gameWithInitialFen id) { g =>
@@ -39,7 +38,7 @@ final class Export(env: Env) extends LilaController(env):
         g.fen,
         Theme(theme).name,
         PieceSet.get(piece).name
-      ) pipe stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
+      ) pipe stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10)
     }
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
@@ -48,7 +47,7 @@ final class Export(env: Env) extends LilaController(env):
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo game id) { game =>
       env.game.gifExport.gameThumbnail(game, Theme(theme).name, PieceSet.get(piece).name) pipe
-        stream(cacheSeconds = if (game.finishedOrAborted) 3600 * 24 else 10)
+        stream(cacheSeconds = if game.finishedOrAborted then 3600 * 24 else 10)
     }
 
   def puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String]) =

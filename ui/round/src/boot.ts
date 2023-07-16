@@ -13,7 +13,10 @@ interface RoundApi {
 export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvui?: NvuiPlugin) => RoundApi) {
   const data = opts.data;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
-  lichess.socket = new lichess.StrongSocket(data.url.socket, data.player.version, {
+  const socketUrl = opts.data.player.spectator
+    ? `/watch/${data.game.id}/${data.player.color}/v6`
+    : `/play/${data.game.id}${data.player.id}/v6`;
+  lichess.socket = new lichess.StrongSocket(socketUrl, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);

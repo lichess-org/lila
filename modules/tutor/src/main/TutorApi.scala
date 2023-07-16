@@ -1,6 +1,5 @@
 package lila.tutor
 
-import cats.syntax.all.*
 import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -17,7 +16,7 @@ final class TutorApi(
 
   import TutorBsonHandlers.given
 
-  def availability(user: User): Fu[TutorFullReport.Availability] =
+  def availability(user: User.WithPerfs): Fu[TutorFullReport.Availability] =
     cache.get(user.id) flatMap {
       case Some(report) if report.isFresh => fuccess(TutorFullReport.Available(report, none))
       case Some(report) => queue.status(user) dmap some map { TutorFullReport.Available(report, _) }
@@ -44,7 +43,7 @@ final class TutorApi(
         val expired =
           started.isBefore(nowInstant minusSeconds builder.maxTime.toSeconds.toInt) ||
             started.isBefore(Uptime.startedAt)
-        expired so queue.remove(next.userId) >>- lila.mon.tutor.buildTimeout.increment().unit
+        expired so queue.remove(next.userId) andDo lila.mon.tutor.buildTimeout.increment()
       }
 
   // we only wait for queue.start
@@ -52,24 +51,21 @@ final class TutorApi(
   private def buildThenRemoveFromQueue(userId: UserId) =
     val chrono = Chronometer.start
     logger.info(s"Start $userId")
-    queue.start(userId) >>- {
-      builder(userId) foreach { built =>
-        logger.info(
+    queue.start(userId) andDo {
+      builder(userId).foreach: built =>
+        logger.info:
           s"${if built.isDefined then "Complete" else "Fail"} $userId in ${chrono().seconds} seconds"
-        )
         built match
           case Some(report) => cache.put(userId, fuccess(report.some))
           case None         => cache.put(userId, findLatest(userId))
         queue.remove(userId)
-      }
     }
 
-  private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report") {
+  private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report"):
     // _.expireAfterAccess(if (mode == Mode.Prod) 5 minutes else 1 second)
     _.expireAfterAccess(3.minutes)
       .maximumSize(1024)
       .buildAsyncFuture(findLatest)
-  }
 
   private def findLatest(userId: UserId) = colls.report
     .find($doc(TutorFullReport.F.user -> userId))

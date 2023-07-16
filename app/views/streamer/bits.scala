@@ -76,14 +76,12 @@ object bits:
     }
 
   def contextual(streamers: List[UserId])(using Lang): Option[Tag] =
-    streamers.nonEmpty option div(cls := "context-streamers")(
+    streamers.nonEmpty option div(cls := "context-streamers"):
       streamers map contextual
-    )
 
   def contextual(userId: UserId)(using Lang): Tag =
-    redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic)(
+    redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic):
       xIsStreaming(strong(titleNameOrId(userId)))
-    )
 
   def rules(using Lang) =
     ul(cls := "streamer-rules")(
@@ -108,9 +106,8 @@ object bits:
   def streamerTitle(s: lila.streamer.Streamer.WithContext) =
     span(cls := "streamer-title")(
       h1(dataIcon := licon.Mic)(titleTag(s.user.title), s.streamer.name),
-      s.streamer.lastStreamLang map { language =>
+      s.streamer.lastStreamLang.map: language =>
         span(cls := "streamer-lang")(LangList nameByStr language)
-      }
     )
 
   def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: PageContext): Option[Tag] =
@@ -130,7 +127,5 @@ object bits:
         trans.subscribe()
       )
     }
-  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using lang: Lang) =
-    span(cls := "streamer-profile")(
-      userLink(s.user)
-    )
+  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using Lang) =
+    span(cls := "streamer-profile")(userLink(s.user))

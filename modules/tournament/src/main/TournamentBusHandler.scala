@@ -17,11 +17,9 @@ final private class TournamentBusHandler(
     "playban",
     "teamLeave",
     "berserk"
-  ) {
+  ):
 
-    case FinishGame(game, _, _) => api.finishGame(game).unit
-
-    case lila.playban.SittingDetected(game, player) => api.sittingDetected(game, player).unit
+    case FinishGame(game, _) => api.finishGame(game)
 
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       ejectFromEnterable(userId) >>
@@ -36,18 +34,15 @@ final private class TournamentBusHandler(
         winnersApi.clearAfterMarking(userId)
       ()
 
-    case lila.hub.actorApi.mod.MarkBooster(userId) => ejectFromEnterable(userId).unit
-
-    case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId).unit
-
-    case lila.hub.actorApi.playban.Playban(userId, _, true) => api.pausePlaybanned(userId).unit
-
-    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
-  }
+    case lila.hub.actorApi.mod.MarkBooster(userId)           => ejectFromEnterable(userId)
+    case lila.hub.actorApi.round.Berserk(gameId, userId)     => api.berserk(gameId, userId)
+    case lila.hub.actorApi.playban.Playban(userId, _, true)  => api.pausePlaybanned(userId)
+    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId)
+    case lila.playban.SittingDetected(game, player)          => api.sittingDetected(game, player)
 
   private def ejectFromEnterable(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {
-      _.map {
+      _.traverse_ {
         api.ejectLameFromEnterable(_, userId)
-      }.parallel
+      }
     }

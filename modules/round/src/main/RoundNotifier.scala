@@ -11,25 +11,25 @@ final private class RoundNotifier(
 )(using Executor):
 
   def gameEnd(game: Game)(color: chess.Color) =
-    if (!game.aborted) game.player(color).userId foreach { userId =>
-      game.perfType.foreach: perfType =>
-        timeline ! (Propagate(
+    if !game.aborted then
+      game.player(color).userId.foreach { userId =>
+        timeline ! Propagate(
           TLGameEnd(
             fullId = game fullIdOf color,
             opponent = game.player(!color).userId,
             win = game.winnerColor map (color ==),
-            perf = perfType.key.value
+            perf = game.perfType.key.value
           )
-        ) toUser userId)
-      isUserPresent(game, userId).foreach:
-        case false =>
-          notifyApi.notifyOne(
-            userId,
-            GameEnd(
-              game fullIdOf color,
-              game.opponent(color).userId,
-              Win from game.wonBy(color)
+        ).toUser(userId)
+        isUserPresent(game, userId).foreach:
+          case false =>
+            notifyApi.notifyOne(
+              userId,
+              GameEnd(
+                game fullIdOf color,
+                game.opponent(color).userId,
+                Win from game.wonBy(color)
+              )
             )
-          )
-        case _ =>
-    }
+          case _ =>
+      }

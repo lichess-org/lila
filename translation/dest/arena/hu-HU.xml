@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Nyílt versenyek</string>
+  <string name="arenaTournaments">Aréna versenyek</string>
   <string name="isItRated">Rangsorolt?</string>
   <string name="willBeNotified">Értesítünk amikor a verseny elkezdődik, ezért várakozás alatt nyugodtan játszhatsz másik fülön.</string>
   <string name="isRated">Ez egy rangsorolt verseny, ami befolyásolja a pontszámodat.</string>
@@ -58,4 +58,5 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="noArenaStreaks">Nincsenek Aréna streak-ek</string>
   <string name="averagePerformance">Átlagos teljesítmény</string>
   <string name="averageScore">Átlagos pontszám</string>
+  <string name="myTournaments">Versenyeim</string>
 </resources>

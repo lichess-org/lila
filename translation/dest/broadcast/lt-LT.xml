@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transliacijos</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s transliacija</item>
+    <item quantity="few">%s transliacijos</item>
+    <item quantity="many">%s transliacijos</item>
+    <item quantity="other">%s transliacijų</item>
+  </plurals>
   <string name="liveBroadcasts">Vykstančios turnyrų transliacijos</string>
   <string name="newBroadcast">Nauja transliacija</string>
   <string name="addRound">Pridėti raundą</string>
@@ -27,4 +33,7 @@
   <string name="deleteRound">Ištrinti raundą</string>
   <string name="definitivelyDeleteRound">Užtikrintai ištrinti raundą ir jo partijas.</string>
   <string name="deleteAllGamesOfThisRound">Ištrinti visas partijas šiame raunde. Norint jas perkurti reikės aktyvaus šaltinio.</string>
+  <string name="editRoundStudy">Keisti raundo studiją</string>
+  <string name="deleteTournament">Ištrinti šį turnyrą</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Užtikrintai ištrinti visą turnyrą, visus raundus ir visas jų partijas.</string>
 </resources>

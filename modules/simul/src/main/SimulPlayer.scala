@@ -16,10 +16,10 @@ private[simul] case class SimulPlayer(
 
 private[simul] object SimulPlayer:
 
-  private[simul] def make(user: User, variant: Variant, perf: Perf): SimulPlayer =
+  private[simul] def make(user: User.WithPerf, variant: Variant): SimulPlayer =
     new SimulPlayer(
       user = user.id,
       variant = variant,
-      rating = perf.intRating,
-      provisional = perf.provisional.some
+      rating = user.perf.intRating,
+      provisional = user.perf.provisional.some
     )

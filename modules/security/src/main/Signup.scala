@@ -39,8 +39,8 @@ final class Signup(
     ): Fu[MustConfirmEmail] =
       val ip = HTTPRequest ipAddress req
       store.recentByIpExists(ip, 7.days) flatMap { ipExists =>
-        if (ipExists) fuccess(YesBecauseIpExists)
-        else if (HTTPRequest weirdUA req) fuccess(YesBecauseUA)
+        if ipExists then fuccess(YesBecauseIpExists)
+        else if HTTPRequest weirdUA req then fuccess(YesBecauseUA)
         else
           print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)) { fp =>
             store.recentByPrintExists(fp) map { printFound =>
@@ -109,9 +109,9 @@ final class Signup(
       apiVersion: Option[ApiVersion]
   )(user: User)(using RequestHeader, Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
-      if (mustConfirm.value)
+      if mustConfirm.value then
         emailConfirm.send(user, email) >> {
-          if (emailConfirm.effective)
+          if emailConfirm.effective then
             api.saveSignup(user.id, apiVersion, fingerPrint) inject
               Signup.Result.ConfirmEmail(user, email)
           else fuccess(Signup.Result.AllSet(user, email))

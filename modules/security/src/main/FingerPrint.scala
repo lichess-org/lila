@@ -22,4 +22,4 @@ object FingerHash extends OpaqueString[FingerHash]:
 
   private def normalize(fp: FingerPrint): String =
     val str = fp.value.replace("-", "")
-    if (str.length % 2 != 0) s"${str}0" else str
+    if str.length % 2 != 0 then s"${str}0" else str

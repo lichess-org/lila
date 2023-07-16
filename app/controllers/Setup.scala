@@ -7,9 +7,9 @@ import play.api.i18n.Lang
 import chess.format.Fen
 
 import lila.app.{ given, * }
-import lila.common.{ IpAddress, HTTPRequest }
+import lila.common.{ IpAddress, HTTPRequest, Preload }
 import lila.game.{ AnonCookie, Pov }
-import lila.rating.Glicko
+import lila.rating.Perf
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
@@ -49,34 +49,34 @@ final class Setup(
   )
 
   def ai = OpenBody:
-    BotAiRateLimit(ctx.userId | UserId(""), rateLimitedFu, cost = ctx.me.exists(_.isBot) so 1):
-      PostRateLimit(ctx.ip, rateLimitedFu):
+    BotAiRateLimit(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot) so 1):
+      PostRateLimit(ctx.ip, rateLimited):
         forms.ai
           .bindFromRequest()
           .fold(
-            jsonFormError,
+            doubleJsonFormError,
             config =>
-              processor.ai(config) flatMap { pov =>
+              processor.ai(config).flatMap { pov =>
                 negotiateApi(
                   html = redirectPov(pov),
-                  api = apiVersion =>
-                    env.api.roundApi.player(pov, none, apiVersion) map { data =>
-                      Created(data) as JSON
-                    }
+                  api = _ => env.api.roundApi.player(pov, Preload.none, none).map(Created(_))
                 )
               }
           )
 
   def friend(userId: Option[UserStr]) =
     OpenBody:
-      PostRateLimit(ctx.ip, rateLimitedFu):
+      PostRateLimit(ctx.ip, rateLimited):
         forms.friend
           .bindFromRequest()
           .fold(
-            jsonFormError,
+            doubleJsonFormError,
             config =>
-              userId so env.user.repo.enabledById flatMap { destUser =>
-                destUser so { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
+              for
+                origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
+                destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
+                denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfType))
+                result <- denied match
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
@@ -93,8 +93,8 @@ final class Setup(
                       timeControl = timeControl,
                       mode = config.mode,
                       color = config.color.name,
-                      challenger = (ctx.me, ctx.req.sid) match
-                        case (Some(user), _) => toRegistered(config.variant, timeControl)(user)
+                      challenger = (origUser, ctx.req.sid) match
+                        case (Some(orig), _) => toRegistered(orig)
                         case (_, Some(sid))  => Challenger.Anonymous(sid)
                         case _               => Challenger.Open
                       ,
@@ -113,8 +113,7 @@ final class Setup(
                           BadRequest(jsonError("Challenge not created"))
                         )
                     }
-                }
-              }
+              yield result
           )
 
   private def hookResponse(res: HookResult) = res match
@@ -132,37 +131,41 @@ final class Setup(
         forms.hook
           .bindFromRequest()
           .fold(
-            jsonFormError,
+            doubleJsonFormError,
             userConfig =>
-              PostRateLimit(req.ipAddress, rateLimitedFu):
-                AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = ctx.isAnon so 1):
-                  (ctx.userId so env.relation.api.fetchBlocking) flatMap { blocking =>
-                    processor.hook(
-                      userConfig withinLimits ctx.me,
+              PostRateLimit(req.ipAddress, rateLimited):
+                AnonHookRateLimit(req.ipAddress, rateLimited, cost = ctx.isAnon so 1):
+                  for
+                    me <- ctx.user soFu env.user.api.withPerfs
+                    given Perf = me.fold(Perf.default)(_.perfs(userConfig.perfType))
+                    blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
+                    res <- processor.hook(
+                      userConfig.withinLimits,
                       sri,
                       req.sid,
                       lila.pool.Blocking(blocking)
-                    ) map hookResponse
-                  }
+                    )(using me)
+                  yield hookResponse(res)
           )
 
   def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
-      PostRateLimit(ctx.ip, rateLimitedFu):
+      PostRateLimit(ctx.ip, rateLimited):
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo game gameId): game =>
             for
+              orig     <- ctx.user soFu env.user.api.withPerfs
               blocking <- ctx.userId so env.relation.api.fetchBlocking
               hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
               hookConfigWithRating = get("rr").fold(
                 hookConfig.withRatingRange(
-                  ctx.me.fold(Glicko.default.intRating.some)(_.perfs.ratingOf(game.perfKey)),
+                  orig.fold(lila.rating.Perf.default)(_.perfs(game.perfType)).intRating.some,
                   get("deltaMin"),
                   get("deltaMax")
                 )
               )(hookConfig.withRatingRange) updateFrom game
               allBlocking = lila.pool.Blocking(blocking ++ game.userIds)
-              hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)
+              hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)(using orig)
             yield hookResponse(hookResult)
 
   private val BoardApiHookConcurrencyLimitPerUserOrSri = lila.memo.ConcurrencyLimit[Either[Sri, UserId]](
@@ -188,29 +191,32 @@ final class Setup(
               ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
             .bindFromRequest()
             .fold(
-              newJsonFormError,
+              doubleJsonFormError,
               config =>
-                ctx.me.so(env.relation.api.fetchBlocking(_)).flatMap { blocking =>
-                  val uniqId = author.fold(_.value, u => s"sri:${u.id}")
-                  config.fixColor
-                    .hook(reqSri | Sri(uniqId), ctx.me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
-                    case Left(hook) =>
-                      PostRateLimit(req.ipAddress, rateLimitedFu):
-                        BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
-                          env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                        )(apiC.sourceToNdJsonOption)
-                    case Right(Some(seek)) =>
-                      author match
-                        case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks"))
-                        case Right(me) =>
-                          env.setup.processor.createSeekIfAllowed(seek)(using me) map {
-                            case HookResult.Refused =>
-                              BadRequest(Json.obj("error" -> "Already playing too many games"))
-                            case HookResult.Created(id) => Ok(Json.obj("id" -> id))
-                          }
-                    case Right(None) => notFoundJson()
-
-                }
+                for
+                  me       <- ctx.me so env.user.api.withPerfs
+                  blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
+                  uniqId = author.fold(_.value, u => s"sri:${u.id}")
+                  res <- config.fixColor
+                    .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking))
+                    .match
+                      case Left(hook) =>
+                        PostRateLimit(req.ipAddress, rateLimited):
+                          BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
+                            env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                          )(apiC.sourceToNdJsonOption).toFuccess
+                      case Right(Some(seek)) =>
+                        author match
+                          case Left(_) =>
+                            BadRequest(jsonError("Anonymous users cannot create seeks")).toFuccess
+                          case Right(me) =>
+                            env.setup.processor.createSeekIfAllowed(seek, me.id) map {
+                              case HookResult.Refused =>
+                                BadRequest(Json.obj("error" -> "Already playing too many games"))
+                              case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                            }
+                      case Right(None) => notFoundJson().toFuccess
+                yield res
             )
 
   def filterForm = Open:
@@ -222,12 +228,12 @@ final class Setup(
       case Some(v) => Ok.page(html.board.bits.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-    BotAiRateLimit(me, rateLimitedFu, cost = me.isBot so 1):
-      PostRateLimit(req.ipAddress, rateLimitedFu):
+    BotAiRateLimit(me, rateLimited, cost = me.isBot so 1):
+      PostRateLimit(req.ipAddress, rateLimited):
         forms.api.ai
           .bindFromRequest()
           .fold(
-            jsonFormError,
+            doubleJsonFormError,
             config =>
               processor.apiAi(config).map { pov =>
                 Created(env.game.jsonView.baseWithChessDenorm(pov.game, config.fen)) as JSON

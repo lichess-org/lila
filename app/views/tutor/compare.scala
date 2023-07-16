@@ -26,10 +26,10 @@ private object compare:
       " is ",
       showQuality(comp.grade),
       " ",
-      comp.reference match {
+      comp.reference match
         case TutorCompare.DimAvg(_) => frag("in ", otherDims(comp.dimensionType))
         case TutorCompare.Peers(_)  => frag("your peers'")
-      },
+      ,
       "."
     )
 
@@ -39,14 +39,14 @@ private object compare:
     case _                              => "others"
 
   private[tutor] def showQuality(quality: Grade) =
-    (if (quality.better) goodTag else if (quality.worse) badTag else span) (quality.wording.value)
+    (if quality.better then goodTag else if quality.worse then badTag else span) (quality.wording.value)
 
   private[tutor] def showMetric(comp: TutorCompare.AnyComparison): String =
-    (comp.metric match {
+    (comp.metric match
       case TutorMetric.GlobalClock => "global speed"
       case TutorMetric.ClockUsage  => "clock usage"
       case metric                  => metric.metric.name.toLowerCase
-    })
+    )
 
   private[tutor] def showDimension[D](dimension: D): String = dimension match
     case d: LilaOpeningFamily => s"the ${d.name.value}"

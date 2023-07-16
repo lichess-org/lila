@@ -1,8 +1,5 @@
 package lila.learn
 
-import reactivemongo.api.ReadPreference
-import cats.syntax.all.*
-
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -28,10 +25,7 @@ final class LearnApi(coll: Coll)(using Executor):
 
   def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
     coll
-      .aggregateList(
-        maxDocs = Int.MaxValue,
-        readPreference = ReadPreference.secondaryPreferred
-      ) { framework =>
+      .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
         Match($doc("_id" $in userIds)) -> List(
           Project($doc("stages" -> $doc("$objectToArray" -> "$stages"))),
@@ -53,13 +47,9 @@ final class LearnApi(coll: Coll)(using Executor):
           ),
           GroupField("_id")("nb" -> SumField("stages"))
         )
-      }
-      .map {
+      .map:
         _.view
-          .flatMap { obj =>
-            (obj.getAsOpt[UserId]("_id"), obj int "nb") mapN { (k, v) =>
+          .flatMap: obj =>
+            (obj.getAsOpt[UserId]("_id"), obj int "nb").mapN: (k, v) =>
               k -> (v * 100f / maxCompletion).toInt
-            }
-          }
           .toMap
-      }

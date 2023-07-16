@@ -59,11 +59,11 @@ final class Swiss(
             isLocalMod <- canChat so ctx.userId so { env.team.cached.isLeader(swiss.teamId, _) }
             page       <- renderPage(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
-        json = swissOption.fold(notFoundJson("No such swiss tournament")): swiss =>
+        json = swissOption.fold[Fu[Result]](notFoundJson("No such swiss tournament")): swiss =>
           for
             isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
             verdicts      <- env.swiss.api.verdicts(swiss)
-            socketVersion <- getBool("socketVersion").so(env.swiss version swiss.id dmap some)
+            socketVersion <- getBool("socketVersion").soFu(env.swiss version swiss.id)
             playerInfo <- getUserStr("playerInfo").so: u =>
               env.swiss.api.playerInfo(swiss, u.id)
             page = getInt("page").filter(0.<)
@@ -132,7 +132,7 @@ final class Swiss(
             .create(me)
             .bindFromRequest()
             .fold(
-              jsonFormError,
+              doubleJsonFormError,
               data =>
                 tourC.rateLimitCreation(isPrivate = true, rateLimited):
                   env.swiss.api.create(data, teamId) flatMap env.swiss.json.api map JsonOk
@@ -151,15 +151,9 @@ final class Swiss(
       case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied"))
   }
 
-  def join(id: SwissId) = AuthBody { _ ?=> _ ?=>
+  def join(id: SwissId) = AuthOrScopedBody(_.Tournament.Write) { _ ?=> _ ?=>
     NoLameOrBot:
       doJoin(id, bodyPassword)
-  }
-
-  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
-    if me.lame || me.isBot
-    then Unauthorized(Json.obj("error" -> "This user cannot join tournaments"))
-    else doJoin(id, bodyPassword)
   }
 
   private def bodyPassword(using Request[?]) =
@@ -180,7 +174,6 @@ final class Swiss(
         jsonOkResult
       )
   }
-  def apiWithdraw = withdraw
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
@@ -196,7 +189,7 @@ final class Swiss(
           err =>
             negotiate(
               BadRequest.page(html.swiss.form.edit(swiss, err)),
-              newJsonFormError(err)
+              jsonFormError(err)
             ),
           data =>
             env.swiss.api.update(swiss.id, data) >> negotiate(
@@ -214,15 +207,10 @@ final class Swiss(
         env.swiss.forms.nextRound
           .bindFromRequest()
           .fold(
-            err =>
-              render.async:
-                case Accepts.Json() => newJsonFormError(err)
-                case _              => Redirect(routes.Swiss.show(id))
-            ,
+            err => negotiate(Redirect(routes.Swiss.show(id)), jsonFormError(err)),
             date =>
-              env.swiss.api.scheduleNextRound(swiss, date) inject render:
-                case Accepts.Json() => NoContent
-                case _              => Redirect(routes.Swiss.show(id))
+              env.swiss.api.scheduleNextRound(swiss, date) >>
+                negotiate(Redirect(routes.Swiss.show(id)), NoContent)
           )
     }
 

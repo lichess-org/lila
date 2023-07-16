@@ -95,10 +95,9 @@ object Json:
 
   given NoJsonHandler[chess.Square] with {}
 
-  given OWrites[Crazyhouse.Pocket] = OWrites: v =>
+  given OWrites[Crazyhouse.Pocket] = OWrites: p =>
     JsObject:
-      v.values.collect:
-        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
+      p.flatMap((role, nb) => Option.when(nb > 0)(role.name -> JsNumber(nb)))
 
   given OWrites[chess.variant.Crazyhouse.Data] = OWrites: v =>
-    PlayJson.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+    PlayJson.obj("pockets" -> v.pockets.all)

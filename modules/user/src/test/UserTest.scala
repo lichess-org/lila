@@ -1,6 +1,6 @@
 package lila.user
 
-class UserTest extends munit.FunSuite {
+class UserTest extends munit.FunSuite:
 
   given Conversion[String, UserStr] = UserStr(_)
   given Conversion[String, UserId]  = UserId(_)
@@ -53,5 +53,3 @@ class UserTest extends munit.FunSuite {
     assert(couldBeUsername("G_FOo"))
     assert(couldBeUsername("g-foo"))
   }
-
-}

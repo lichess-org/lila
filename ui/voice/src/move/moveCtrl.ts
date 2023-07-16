@@ -1,6 +1,7 @@
 import { Api as CgApi } from 'chessground/api';
 import * as xhr from 'common/xhr';
 import * as prop from 'common/storage';
+import * as licon from 'common/licon';
 import * as cs from 'chess';
 import { src as src, dest as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
@@ -16,10 +17,11 @@ import {
   remove,
   pushMap,
   movesTo,
+  as,
   findTransforms,
 } from '../util';
 
-// shimmed so we can show the UI while fetching the module
+// shimmed to prevent pop-in while not overly complicating root controller's view construction
 export function load(ctrl: RootCtrl, initialFen: string): VoiceMove {
   let move: VoiceMove;
   const ui = makeCtrl({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
@@ -27,18 +29,13 @@ export function load(ctrl: RootCtrl, initialFen: string): VoiceMove {
   lichess.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initialFen } }).then(x => (move = x));
   return {
     ui,
-    initGrammar: () => move.initGrammar(),
-    update: fen => move.update(fen),
-    confirm: (request, callback) => move.confirm(request, callback),
-    get promotionHook() {
-      return move.promotionHook;
-    },
-    get allPhrases() {
-      return move.allPhrases;
-    },
-    get prefNodes() {
-      return move.prefNodes;
-    },
+    initGrammar: () => move?.initGrammar(),
+    update: (fen, canMove) => move?.update(fen, canMove),
+    listenForResponse: (key, action) => move?.listenForResponse(key, action),
+    question: () => move?.question(),
+    promotionHook: () => move?.promotionHook(),
+    allPhrases: () => move?.allPhrases(),
+    prefNodes: () => move?.prefNodes(),
   };
 }
 
@@ -46,7 +43,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   const root = opts.root;
   const ui = opts.ui;
   const initialFen = opts.initialFen;
-  const DEBUG = { emptyMatches: false, buildMoves: true, buildSquares: true, collapse: true };
+  const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
   const cg: CgApi = root.chessground;
   let entries: Entry[] = [];
   let partials = { commands: [], colors: [], numbers: [] };
@@ -58,32 +55,36 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
   const moves: SparseMap<Uci> = new Map(); // map values to all full legal moves
   const squares: SparseMap<Uci> = new Map(); // map values to selectable or reachable squares
   const sans: SparseMap<Uci> = new Map(); // map values to ucis of valid sans
-  const confirmations: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
+  type Confirm = { key: string; action: (_: boolean) => void };
+  let request: Confirm | undefined; // move confirm & accept/decline opponent requests
+  let command: Confirm | undefined; // confirm player commands (before sending request)
   let choices: Map<string, Uci> | undefined; // map choice arrows (yes, blue, red, 1, 2, etc) to moves
   let choiceTimeout: number | undefined; // timeout for ambiguity choices
   const clarityPref = prop.storedIntProp('voice.clarity', 0);
   const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
   const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
 
-  const commands: { [_: string]: () => void } = {
-    no: () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress()),
-    help: () => ui.showHelp(true),
-    list: () => ui.showHelp('list'),
-    'mic-off': () => lichess.mic.stop(),
-    flip: () => root.flipNow(),
-    rematch: () => root.rematch?.(true),
-    draw: () => root.offerDraw?.(true, false),
-    resign: () => root.resign?.(true, false),
-    next: () => root.next?.(),
-    takeback: () => root.takebackYes?.(),
-    upvote: () => root.vote?.(true),
-    downvote: () => root.vote?.(false),
-    solve: () => root.solve?.(),
+  const commands: { [_: string]: () => boolean } = {
+    // return true if command was handled (clearing any pending confirmations)
+    // "as" just assigns return values to void functions, hopefully making things easier to read
+    no: as(true, () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress())),
+    help: as(false, () => ui.showHelp(true)),
+    list: as(false, () => ui.showHelp('list')),
+    'mic-off': as(false, () => lichess.mic.stop()),
+    flip: as(false, () => root.flipNow()),
+    draw: as(false, () => confirmCommand('draw', v => v && root.offerDraw?.(true, true))),
+    resign: as(false, () => confirmCommand('resign', v => v && root.resign?.(true, true))),
+    takeback: as(false, () => confirmCommand('takeback', v => v && root.takebackYes?.())),
+    rematch: as(true, () => root.rematch?.(true)),
+    next: as(true, () => root.next?.()),
+    upvote: as(true, () => root.vote?.(true)),
+    downvote: as(true, () => root.vote?.(false)),
+    solve: as(true, () => root.solve?.()),
   };
 
   for (const [color, brush] of brushes) cg.state.drawable.brushes[`v-${color}`] = brush;
 
-  update(initialFen);
+  update(initialFen, true);
 
   initGrammar();
 
@@ -94,7 +95,8 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     allPhrases,
     update,
     promotionHook,
-    confirm,
+    listenForResponse,
+    question,
   };
 
   function prefNodes() {
@@ -132,34 +134,29 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
   }
 
-  function maxArrows() {
-    return Math.min(8, colorsPref() ? partials.colors.length : partials.numbers.length);
-  }
-
-  function update(fen: string) {
+  function update(fen: string, canMove: boolean) {
     board = cs.readFen(fen);
     cg.setShapes([]);
-    if (!cg.state.movable.dests) return;
-    ucis = cs.destsToUcis(cg.state.movable.dests);
+    ucis = canMove && cg.state.movable.dests ? cs.destsToUcis(cg.state.movable.dests) : [];
     buildMoves();
     buildSquares();
   }
 
-  function listen(text: string, msgType: Voice.MsgType) {
+  function listen(heard: string, msgType: Voice.MsgType) {
     if (msgType === 'stop' && !ui.pushTalk()) clearMoveProgress();
-    else if (msgType === 'full') {
-      try {
-        if (DEBUG.collapse) console.groupCollapsed(`listen '${text}'`);
-        else console.info(`listen '${text}'`);
-        if (handleCommand(text) || handleAmbiguity(text) || handleMove(text)) {
-          confirmations.forEach((cb, _) => cb(false));
-          confirmations.clear();
-        }
-      } finally {
-        if (DEBUG.collapse) console.groupEnd();
+    else if (msgType !== 'full') return;
+    try {
+      (DEBUG.collapse ? console.groupCollapsed : console.info)(`listen '${heard}'`);
+
+      const xval = matchOneTags(heard, ['command', 'choice']);
+
+      if (handleConfirm(xval) || handleCommand(xval) || handleAmbiguity(heard) || handleMove(heard)) {
+        clearConfirm();
+        root.redraw();
       }
+    } finally {
+      if (DEBUG.collapse) console.groupEnd();
     }
-    root.redraw();
   }
 
   function listenTimer(word: string) {
@@ -173,51 +170,43 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     cg.redrawAll();
   }
 
-  function makeArrows() {
-    if (!choices) return;
-    const arrowTime = choiceTimeout ? timer() : undefined;
-    cg.setShapes(
-      colorsPref()
-        ? coloredArrows([...choices], arrowTime)
-        : numberedArrows([...choices], arrowTime, cg.state.orientation === 'white')
-    );
+  function clearConfirm() {
+    request?.action(false);
+    command?.action(false);
+    request = command = undefined;
   }
 
-  function handleCommand(msgText: string): boolean {
-    const c = matchOneTags(msgText, ['command', 'choice'])?.[0];
-    if (!c) return false;
-
-    for (const [action, callback] of confirmations) {
-      if (c === 'yes' || c === 'no' || c === action) {
-        confirmations.delete(action);
-        callback(c !== 'no');
-        return true;
-      }
+  function handleConfirm(answer: string | false): boolean {
+    const confirm = request ?? command;
+    if (!confirm || !answer) return false;
+    if (['yes', 'no', confirm.key].includes(answer)) {
+      console.log(confirm.key, answer);
+      confirm.action(answer !== 'no');
+      request = command = undefined;
+      return true;
     }
-
-    if (!(c in commands)) return false;
-    commands[c]();
-    return true;
+    return false;
   }
 
-  function handleAmbiguity(phrase: string): boolean {
-    if (!choices || phrase.includes(' ')) return false;
+  function handleCommand(cmd: string | false): boolean {
+    if (cmd && cmd in commands) return commands[cmd]();
+    else return false;
+  }
+
+  function handleAmbiguity(heard: string): boolean {
+    if (!choices || heard.includes(' ')) return false;
 
     const chosen = matchOne(
-      phrase,
+      heard,
       [...choices].map(([w, uci]) => [wordVal(w), [uci]])
     );
     if (!chosen) {
       clearMoveProgress();
-      console.info('handleAmbiguity', `no match for '${phrase}' among`, choices);
+      console.info('handleAmbiguity', `no match for '${heard}' among`, choices);
       return false;
     }
-    console.info(
-      'handleAmbiguity',
-      `matched '${phrase}' to '${chosen[0]}' at cost=${chosen[1]} among`,
-      choices
-    );
-    submit(chosen[0]);
+    console.info('handleAmbiguity', `matched '${heard}' to '${chosen}' among`, choices);
+    submit(chosen);
     return true;
   }
 
@@ -254,11 +243,11 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     return sorted;
   }
 
-  function matchOne(heard: string, xvalsOut: [string, string[]][]): [string, Match] | undefined {
-    return matchMany(heard, xvalsOut, true)[0];
+  function matchOne(heard: string, xvalsOut: [string, string[]][]): string | false {
+    return matchMany(heard, xvalsOut, true)[0]?.[0] ?? false;
   }
 
-  function matchOneTags(heard: string, tags: string[], vals: string[] = []): [string, Match] | undefined {
+  function matchOneTags(heard: string, tags: string[], vals: string[] = []): string | false {
     return matchOne(heard, [...vals.map(v => [v, [v]]), ...byTags(tags).map(e => [e.val!, [e.val!]])] as [
       string,
       string[]
@@ -355,9 +344,42 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     return true;
   }
 
-  function confirm(request: string, callback?: (granted: boolean) => void) {
-    if (callback) confirmations.set(request, callback);
-    else confirmations.delete(request);
+  function maxArrows() {
+    return Math.min(8, colorsPref() ? partials.colors.length : partials.numbers.length);
+  }
+
+  function makeArrows() {
+    if (!choices) return;
+    const arrowTime = choiceTimeout ? timer() : undefined;
+    cg.setShapes(
+      colorsPref()
+        ? coloredArrows([...choices], arrowTime)
+        : numberedArrows([...choices], arrowTime, cg.state.orientation === 'white')
+    );
+  }
+
+  function confirmCommand(key: string, action: (v: boolean) => void) {
+    command = { key, action };
+    root.redraw();
+  }
+
+  function listenForResponse(key: string, action: (v: boolean) => void) {
+    request = { key, action };
+  }
+
+  function question(): QuestionOpts | false {
+    const mkOpts = (prompt: string, yesIcon: string) => ({
+      prompt,
+      yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
+      no: { action: () => command?.action?.(false), key: 'no' },
+    });
+    return command?.key === 'resign'
+      ? mkOpts('Confirm resignation', licon.FlagOutline)
+      : command?.key === 'draw'
+      ? mkOpts('Confirm draw offer', licon.OneHalf)
+      : command?.key === 'takeback'
+      ? mkOpts('Confirm takeback request', licon.Back)
+      : false;
   }
 
   function submit(uci: Uci) {
@@ -382,7 +404,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
       roles
         ? lichess.mic.addListener(
             (text: string) => {
-              const val = matchOneTags(text, ['role'], ['no'])?.[0];
+              const val = matchOneTags(text, ['role'], ['no']);
               lichess.mic.stopPropagation();
               if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
               else if (val === 'no') ctrl.cancel();

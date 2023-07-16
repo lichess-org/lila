@@ -87,7 +87,7 @@ final class GameStateStream(
         // prepend the full game JSON at the start of the stream
         queue offer json.some
         // close stream if game is over
-        if (init.game.finished) onGameOver(none)
+        if init.game.finished then onGameOver(none)
         else self ! SetOnline
       }
       lila.mon.bot.gameStream("start").increment()
@@ -98,21 +98,21 @@ final class GameStateStream(
       Bus.unsubscribe(self, classifiers)
       // hang around if game is over
       // so the opponent has a chance to rematch
-      context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second):
+      context.system.scheduler.scheduleOnce(if gameOver then 10 second else 1 second):
         Bus.publish(Tell(init.game.id.value, BotConnected(as, v = false)), "roundSocket")
       queue.complete()
-      lila.mon.bot.gameStream("stop").increment().unit
+      lila.mon.bot.gameStream("stop").increment()
 
     def receive =
-      case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g).unit
+      case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g)
       case lila.chat.ChatLine(chatId, UserLine(username, _, _, text, false, false)) =>
-        pushChatLine(username, text, chatId.value.lengthIs == GameId.size).unit
-      case FinishGame(g, _, _) if g.id == id                              => onGameOver(g.some).unit
-      case AbortedBy(pov) if pov.gameId == id                             => onGameOver(pov.game.some).unit
-      case BoardDrawOffer(g) if g.id == id                                => pushState(g).unit
-      case BoardTakebackOffer(g) if g.id == id                            => pushState(g).unit
-      case BoardTakeback(g) if g.id == id                                 => pushState(g).unit
-      case BoardGone(pov, seconds) if pov.gameId == id && pov.color != as => opponentGone(seconds).unit
+        pushChatLine(username, text, chatId.value.lengthIs == GameId.size)
+      case FinishGame(g, _) if g.id == id                                 => onGameOver(g.some)
+      case AbortedBy(pov) if pov.gameId == id                             => onGameOver(pov.game.some)
+      case BoardDrawOffer(g) if g.id == id                                => pushState(g)
+      case BoardTakebackOffer(g) if g.id == id                            => pushState(g)
+      case BoardTakeback(g) if g.id == id                                 => pushState(g)
+      case BoardGone(pov, seconds) if pov.gameId == id && pov.color != as => opponentGone(seconds)
       case SetOnline =>
         onlineApiUsers.setOnline(user.id)
         context.system.scheduler
@@ -121,7 +121,6 @@ final class GameStateStream(
             queue offer None
             self ! SetOnline
             Bus.publish(Tell(id.value, QuietFlag), "roundSocket")
-          .unit
 
     def pushState(g: Game): Funit =
       jsonView gameState Game.WithInitialFen(g, init.fen) dmap some flatMap queue.offer void
@@ -134,10 +133,10 @@ final class GameStateStream(
     }
 
     def onGameOver(g: Option[Game]) =
-      g.so(pushState) >>- {
-        gameOver = true
-        self ! PoisonPill
-      }
+      g.so(pushState)
+        .andDo:
+          gameOver = true
+          self ! PoisonPill
 
 private object GameStateStream:
 

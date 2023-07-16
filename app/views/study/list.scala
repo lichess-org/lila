@@ -119,17 +119,15 @@ object list:
     views.html.base.layout(
       title = ~doc.getText("doc.title"),
       moreCss = frag(cssTag("study.index"), cssTag("page"))
-    ) {
+    ):
       main(cls := "page-menu")(
         menu("staffPicks", Order.Mine, Nil),
-        main(cls := "page-menu__content box box-pad page")(
+        main(cls := "page-menu__content box box-pad page"):
           views.html.site.page.pageContent(doc, resolver)
-        )
       )
-    }
 
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using PageContext) =
-    if (pager.currentPageResults.isEmpty)
+    if pager.currentPageResults.isEmpty then
       div(cls := "nostudies")(
         iconTag(licon.StudyBoard),
         p(trans.study.noneYet())
@@ -145,26 +143,24 @@ object list:
   private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(using
       ctx: PageContext
   ) =
-    val nonMineOrder = if (order == Order.Mine) Order.Hot else order
+    val nonMineOrder = if order == Order.Mine then Order.Hot else order
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
       ctx.isAuth option bits.authLinks(active, nonMineOrder),
-      a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics)(
+      a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics):
         trans.study.topics()
-      ),
-      topics.map { topic =>
+      ,
+      topics.map: topic =>
         a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order.key))(
           topic.value
-        )
-      },
+        ),
       a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
       a(
         cls      := "text",
         dataIcon := licon.InfoCircle,
         href     := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way"
-      )(
+      ):
         trans.study.whatAreStudies()
-      )
     )
 
   private[study] def searchForm(placeholder: String, value: String) =

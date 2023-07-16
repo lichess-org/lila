@@ -67,14 +67,10 @@ final class Team(
     members <- paginator.teamMembers(team, page)
     log     <- (requestModView && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(team, info, requestModView)
-    chat <-
-      hasChat so env.chat.api.userChat.cached
-        .findMine(ChatId(team.id))
-        .map(some)
-    _ <- env.user.lightUserApi preloadMany {
+    chat <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
+    _ <- env.user.lightUserApi.preloadMany:
       team.leaders.toList ::: info.userIds ::: chat.so(_.chat.userIds)
-    }
-    version <- hasChat so env.team.version(team.id).dmap(some)
+    version <- hasChat soFu env.team.version(team.id)
     page    <- renderPage(html.team.show(team, members, info, chat, version, requestModView, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
@@ -189,7 +185,7 @@ final class Team(
         .fold(
           _ => funit,
           explain =>
-            api.delete(team, me.user, explain) >>
+            api.delete(team, me.value, explain) >>
               env.mod.logApi.deleteTeam(team.id, explain)
         ) inject Redirect(routes.Team all 1).flashSuccess
   }
@@ -222,7 +218,7 @@ final class Team(
     maxConcurrency = 1
   )
   def create = AuthBody { ctx ?=> me ?=>
-    OneAtATime(me, rateLimitedFu):
+    OneAtATime(me, rateLimited):
       LimitPerWeek:
         JoinLimit(tooManyTeamsHtml):
           forms.create
@@ -263,7 +259,7 @@ final class Team(
 
   def join(id: TeamId) = AuthOrScopedBody(_.Team.Write) { ctx ?=> me ?=>
     Found(api.teamEnabled(id)): team =>
-      OneAtATime(me, rateLimitedFu):
+      OneAtATime(me, rateLimited):
         JoinLimit(negotiate(tooManyTeamsHtml, tooManyTeamsJson)):
           negotiate(
             html = webJoin(team, request = none, password = none),
@@ -271,7 +267,7 @@ final class Team(
               .apiRequest(team)
               .bindFromRequest()
               .fold(
-                newJsonFormError,
+                jsonFormError,
                 setup =>
                   api.join(team, setup.message, setup.password) flatMap {
                     case Requesting.Joined       => jsonOkResult
@@ -304,7 +300,7 @@ final class Team(
 
   def requestCreate(id: TeamId) = AuthBody { ctx ?=> me ?=>
     Found(api.requestable(id)): team =>
-      OneAtATime(me, rateLimitedFu):
+      OneAtATime(me, rateLimited):
         JoinLimit(tooManyTeamsHtml):
           forms
             .request(team)
@@ -327,11 +323,10 @@ final class Team(
     }
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
-    import cats.syntax.all.*
     Found(for
       requestOption <- api request requestId
       teamOption    <- requestOption.so(req => env.team.teamRepo.byLeader(req.team, me))
-    yield (teamOption, requestOption).mapN((_, _))): (team, request) =>
+    yield (teamOption, requestOption).tupled): (team, request) =>
       forms.processRequest
         .bindFromRequest()
         .fold(
@@ -349,21 +344,19 @@ final class Team(
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
-    api team id flatMap {
-      _.fold(notFound): team =>
-        if team isOnlyLeader me then
-          val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
+    Found(api team id): team =>
+      if team isOnlyLeader me then
+        val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
+        negotiate(
+          html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
+          json = JsonBadRequest(msg)
+        )
+      else
+        api.cancelRequestOrQuit(team) >>
           negotiate(
-            html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
-            json = JsonBadRequest(msg)
+            html = Redirect(routes.Team.mine).flashSuccess,
+            json = jsonOkResult
           )
-        else
-          api.cancelRequestOrQuit(team) >>
-            negotiate(
-              html = Redirect(routes.Team.mine).flashSuccess,
-              json = jsonOkResult
-            )
-    }
   }
 
   def autocomplete = Anon:
@@ -417,7 +410,7 @@ final class Team(
                     full
                   )
                   .addEffect: nb =>
-                    lila.mon.msg.teamBulk(team.id).record(nb).unit
+                    lila.mon.msg.teamBulk(team.id).record(nb)
                 // we don't wait for the stream to complete, it would make lichess time out
                 fuccess(Result.Through)
               }(Result.Limited)

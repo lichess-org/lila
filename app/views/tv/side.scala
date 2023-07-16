@@ -49,14 +49,14 @@ object side:
             div(cls := "setup")(
               views.html.game.widgets showClock game,
               separator,
-              (if (game.rated) trans.rated else trans.casual).txt(),
+              (if game.rated then trans.rated else trans.casual).txt(),
               separator,
               views.html.game.bits.variantLink(game.variant, game.perfType, shortName = true)
             )
           )
         ),
         div(cls := "game__meta__players")(
-          game.players.map { p =>
+          game.players.mapList { p =>
             div(cls := s"player color-icon is ${p.color.name} text")(
               playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
             )

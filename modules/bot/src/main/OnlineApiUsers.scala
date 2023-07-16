@@ -19,7 +19,7 @@ final class OnlineApiUsers(
   def setOnline(userId: UserId): Unit =
     val wasOffline = !isOnline(userId) && !cache.get(userId)
     cache.put(userId)
-    if (wasOffline) publish(userId, isOnline = true)
+    if wasOffline then publish(userId, isOnline = true)
 
   def get: Set[UserId] = cache.keySet
 

@@ -24,7 +24,7 @@ final class GameProxyRepo(
 
   // get the proxied version of the game
   def upgradeIfPresent(game: Game): Fu[Game] =
-    if (game.finishedOrAborted) fuccess(game)
+    if game.finishedOrAborted then fuccess(game)
     else roundSocket upgradeIfPresent game
 
   def upgradeIfPresent(pov: Pov): Fu[Pov] =

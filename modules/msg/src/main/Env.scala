@@ -52,7 +52,7 @@ final class Env(
 
   Bus.subscribeFuns(
     "msgSystemSend" -> { case lila.hub.actorApi.msg.SystemMsg(userId, text) =>
-      api.systemPost(userId, text).unit
+      api.systemPost(userId, text)
     },
     "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>
       msg.get[UserId]("d") foreach { api.setRead(userId, _) }

@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒时</string>
   <string name="moveConfirmation">确认走棋</string>
+  <string name="explainCanThenBeTemporarilyDisabled">可以在游戏中使用棋盘菜单禁用此功能</string>
   <string name="inCorrespondenceGames">通信棋局</string>
   <string name="correspondenceAndUnlimited">通信和无限</string>
   <string name="confirmResignationAndDrawOffers">认输以及提出和棋需要确认</string>
@@ -46,6 +47,7 @@
   <string name="castleByMovingTwoSquares">将王移动两格</string>
   <string name="castleByMovingOntoTheRook">将王移到车上</string>
   <string name="inputMovesWithTheKeyboard">用键盘输入棋步</string>
+  <string name="inputMovesWithVoice">用语音输入您的着法</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">吸附箭头到有效着</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">输棋、和棋后自动发送：“厉害，玩得不错！”</string>
   <string name="yourPreferencesHaveBeenSaved">您的设置已保存。</string>

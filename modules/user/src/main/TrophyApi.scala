@@ -15,10 +15,10 @@ final class TrophyApi(
     cacheApi.sync[String, TrophyKind](
       name = "trophy.kind",
       initialCapacity = 32,
-      compute = id => {
+      compute = id =>
         given BSONDocumentReader[TrophyKind] = Macros.reader[TrophyKind]
         kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown)
-      },
+      ,
       default = _ => TrophyKind.Unknown,
       strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
       expireAfter = Syncache.ExpireAfter.Write(1 hour)

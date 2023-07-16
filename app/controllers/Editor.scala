@@ -48,7 +48,7 @@ final class Editor(env: Env) extends LilaController(env):
         else editorUrl(get("fen").fold(Fen.write(game.chess))(Fen.Epd.clean), game.variant)
 
   private[controllers] def editorUrl(fen: Fen.Epd, variant: Variant): String =
-    if (fen == Fen.initial && variant.standard) routes.Editor.index.url
+    if fen == Fen.initial && variant.standard then routes.Editor.index.url
     else
       val params = variant.exotic so s"?variant=${variant.key}"
       routes.Editor.load(lila.common.String.underscoreFen(fen)).url + params

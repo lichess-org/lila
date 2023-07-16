@@ -5,7 +5,7 @@ import chess.format.Fen
 import chess.variant.{ Variant, FromPosition }
 
 import lila.common.Days
-import lila.game.{ GameRule, PerfPicker }
+import lila.game.GameRule
 import lila.rating.PerfType
 
 final case class OpenConfig(
@@ -20,12 +20,13 @@ final case class OpenConfig(
     expiresAt: Option[Instant]
 ):
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
+  def perfType = PerfType(variant, chess.Speed(clock))
 
   def validFen = ApiConfig.validFen(variant, position)
 
   def autoVariant =
-    if (variant.standard && position.exists(!_.isInitial)) copy(variant = FromPosition)
+    if variant.standard && position.exists(!_.isInitial)
+    then copy(variant = FromPosition)
     else this
 
 object OpenConfig:

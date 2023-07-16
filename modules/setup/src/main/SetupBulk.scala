@@ -3,7 +3,7 @@ package lila.setup
 import akka.stream.scaladsl.*
 import chess.variant.{ FromPosition, Variant }
 import chess.format.Fen
-import chess.{ Clock, Mode }
+import chess.{ Clock, Mode, ByColor }
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
@@ -13,6 +13,7 @@ import lila.common.{ Bearer, Days, Template }
 import lila.game.{ GameRule, IdGenerator }
 import lila.oauth.{ OAuthScope, OAuthServer, EndpointScopes }
 import lila.user.User
+import lila.rating.PerfType
 
 object SetupBulk:
 
@@ -38,7 +39,7 @@ object SetupBulk:
     def validFen = ApiConfig.validFen(variant, fen)
 
     def autoVariant =
-      if (variant.standard && fen.exists(!_.isInitial)) copy(variant = FromPosition)
+      if variant.standard && fen.exists(!_.isInitial) then copy(variant = FromPosition)
       else this
 
   private def timestampInNearFuture = longNumber(
@@ -115,7 +116,8 @@ object SetupBulk:
 
   case class BadToken(token: Bearer, error: OAuthServer.AuthError)
 
-  case class ScheduledGame(id: GameId, white: UserId, black: UserId)
+  case class ScheduledGame(id: GameId, white: UserId, black: UserId):
+    def userIds = ByColor(white, black)
 
   case class ScheduledBulk(
       _id: String,
@@ -137,6 +139,7 @@ object SetupBulk:
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty option rules
+    def perfType      = PerfType(variant, chess.Speed(clock.left.toOption))
 
   enum ScheduleError:
     case BadTokens(tokens: List[BadToken])
@@ -222,15 +225,14 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
             val nbGames = pairs.size
             val cost    = nbGames * (if me.isVerified || me.isApiHog then 1 else 3)
             rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
-              lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames).unit
+              lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames)
               idGenerator
                 .games(nbGames)
                 .map:
                   _.toList zip pairs
                 .map:
-                  _.map { case (id, (w, b)) =>
-                    ScheduledGame(id, w, b)
-                  }
+                  _.map:
+                    case (id, (w, b)) => ScheduledGame(id, w, b)
                 .dmap:
                   ScheduledBulk(
                     _id = ThreadLocalRandom nextString 8,

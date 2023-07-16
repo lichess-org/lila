@@ -96,7 +96,7 @@ object show:
         ),
         pager(cls := "pagination--top"),
         table(cls := "slist slist-pad")(
-          pairings.currentPageResults map { p =>
+          pairings.currentPageResults.map: p =>
             tr(cls := "paginated")(
               td(a(href := routes.Round.watcher(p.gameId, "white"), cls := "glpt")(s"#${p.gameId}")),
               td(userIdLink(p.white.some)),
@@ -104,7 +104,6 @@ object show:
               td(p strResultOf chess.Black),
               td(userIdLink(p.black.some))
             )
-          }
         ),
         pager(cls := "pagination--bottom")
       )

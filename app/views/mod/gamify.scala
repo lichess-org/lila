@@ -1,6 +1,5 @@
 package views.html.mod
 
-import cats.syntax.all.*
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }

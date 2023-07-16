@@ -45,7 +45,8 @@ export function initModule(opts: LobbyOpts) {
       redirect(e: RedirectTo) {
         lobbyCtrl.leavePool();
         lobbyCtrl.setRedirecting();
-        lichess.redirect(e);
+        lichess.redirect(e, 'beep');
+        return true;
       },
       fen(e: any) {
         lobbyCtrl.gameActivity(e.id);

@@ -6,8 +6,6 @@ import { init as initSnabbdom, VNode, classModule, attributesModule } from 'snab
 
 const patch = initSnabbdom([classModule, attributesModule]);
 
-export { type DasherCtrl };
-
 export function load() {
   return lichess.loadEsm<DasherCtrl>('dasher');
 }

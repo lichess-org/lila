@@ -58,4 +58,5 @@ Xem tất cả %s đội</item>
   <string name="noArenaStreaks">Không có chuỗi Giải đấu</string>
   <string name="averagePerformance">Hiệu suất trung bình</string>
   <string name="averageScore">Điểm trung bình</string>
+  <string name="myTournaments">Giải đấu của tôi</string>
 </resources>

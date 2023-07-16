@@ -37,13 +37,19 @@ final private class RoundMobileSocket(
     Json
       .obj(
         "game" -> {
-          jsonView.base(game, initialFen) ++ Json.obj(
-            "pgn" -> game.sans.mkString(" ")
-          )
+          jsonView.base(game, initialFen) ++ Json
+            .obj("pgn" -> game.sans.mkString(" "))
+            .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
         },
         "white"  -> playerJson(Color.White),
         "black"  -> playerJson(Color.Black),
         "socket" -> socket.version
+      )
+      .add("expiration" -> game.expirable.option:
+        Json.obj(
+          "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
+          "millisToMove" -> game.timeForFirstMove.millis
+        )
       )
       .add("clock", game.clock.map(roundJson.clockJson))
       .add("correspondence", game.correspondenceClock)

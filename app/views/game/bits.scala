@@ -12,13 +12,11 @@ import controllers.routes
 object bits:
 
   def gameIcon(game: Game): licon.Icon =
-    game.perfType match
-      case _ if game.fromPosition         => licon.Feather
-      case _ if game.imported             => licon.UploadCloud
-      case Some(p) if game.variant.exotic => p.icon
-      case _ if game.hasAi                => licon.Cogs
-      case Some(p)                        => p.icon
-      case _                              => licon.Crown
+    if game.fromPosition then licon.Feather
+    else if game.imported then licon.UploadCloud
+    else if game.variant.exotic then game.perfType.icon
+    else if game.hasAi then licon.Cogs
+    else game.perfType.icon
 
   def sides(
       pov: Pov,
@@ -37,7 +35,7 @@ object bits:
 
   def variantLink(
       variant: chess.variant.Variant,
-      perfType: Option[lila.rating.PerfType] = None,
+      perfType: lila.rating.PerfType,
       initialFen: Option[chess.format.Fen.Epd] = None,
       shortName: Boolean = false
   )(using Lang): Frag =
@@ -57,16 +55,13 @@ object bits:
           case v => routes.ContentPage.variant(v.key).url
         ,
         title = variant.title,
-        name = (if (shortName && variant == chess.variant.KingOfTheHill) variant.shortName
+        name = (if shortName && variant == chess.variant.KingOfTheHill then variant.shortName
                 else variant.name).toUpperCase
       )
-    else
-      perfType match
-        case Some(Correspondence) =>
-          link(
-            href = s"${routes.Main.faq}#correspondence",
-            title = Correspondence.desc,
-            name = Correspondence.trans
-          )
-        case Some(pt) => span(title := pt.desc)(pt.trans)
-        case _        => variant.name.toUpperCase
+    else if perfType == Correspondence then
+      link(
+        href = s"${routes.Main.faq}#correspondence",
+        title = Correspondence.desc,
+        name = Correspondence.trans
+      )
+    else span(title := perfType.desc)(perfType.trans)

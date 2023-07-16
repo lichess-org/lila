@@ -36,7 +36,7 @@ object BSONHandlers:
 
   private val BSONBooleanNullHandler = quickHandler[Boolean](
     { case BSONBoolean(v) => v; case BSONNull => false },
-    v => if (v) BSONBoolean(true) else BSONNull
+    v => if v then BSONBoolean(true) else BSONNull
   )
 
   given BSONHandler[TimeVariance] = BSONIntegerHandler.as[TimeVariance](

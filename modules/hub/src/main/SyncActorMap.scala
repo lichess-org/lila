@@ -10,13 +10,13 @@ final class SyncActorMap[Id, T <: SyncActor](
 
   def getOrMake(id: Id): T = actors get id
 
-  def touchOrMake(id: Id): Unit = getOrMake(id).unit
+  def touchOrMake(id: Id): Unit = getOrMake(id)
 
   def getIfPresent(id: Id): Option[T] = actors getIfPresent id
 
   def tell(id: Id, msg: Matchable): Unit = getOrMake(id) ! msg
 
-  def tellIfPresent(id: Id, msg: => Matchable): Unit = getIfPresent(id) foreach (_ ! msg)
+  def tellIfPresent(id: Id, msg: => Matchable): Unit = getIfPresent(id).foreach(_ ! msg)
 
   def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 

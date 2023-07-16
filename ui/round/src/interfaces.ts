@@ -51,10 +51,6 @@ export interface RoundData extends GameData {
   forecastCount?: number;
   crazyhouse?: CrazyData;
   correspondence: CorresClockData;
-  url: {
-    socket: string;
-    round: string;
-  };
   tv?: Tv;
   userTv?: {
     id: string;

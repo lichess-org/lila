@@ -38,7 +38,7 @@ final class RelayRound(
             err =>
               negotiate(
                 BadRequest.page(html.relay.roundForm.create(err, tour)),
-                BadRequest(apiFormError(err))
+                jsonFormError(err)
               ),
             setup =>
               rateLimitCreation(whenRateLimited):
@@ -74,7 +74,7 @@ final class RelayRound(
         (old, err) =>
           negotiate(
             BadRequest.page(html.relay.roundForm.edit(old, err)),
-            BadRequest(apiFormError(err))
+            jsonFormError(err)
           ),
         rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
       )
@@ -95,11 +95,10 @@ final class RelayRound(
             val sc =
               if rt.round.sync.ongoing then
                 env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
-                  chapters.find(_.looksAlive) orElse chapters.headOption match {
+                  chapters.find(_.looksAlive) orElse chapters.headOption match
                     case Some(chapter) =>
                       env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
                     case None => env.study.api byIdWithChapter rt.round.studyId
-                  }
                 }
               else env.study.api byIdWithChapter rt.round.studyId
             sc orNotFound { doShow(rt, _) }

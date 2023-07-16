@@ -28,6 +28,8 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     subsRepo: lila.relation.SubscriptionRepo,
     prefApi: lila.pref.PrefApi,
     db: lila.db.Db,
@@ -79,11 +81,12 @@ final class Env(
   lazy val liveStreamApi = wire[LiveStreamApi]
 
   lila.common.Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.demote(userId).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => api.demote(userId).unit
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => api.demote(userId).unit
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.demote(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => api.demote(userId)
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => api.demote(userId)
   }
 
   scheduler.scheduleWithFixedDelay(1 hour, 1 day): () =>
-    api.autoDemoteFakes.unit
-  scheduler.scheduleWithFixedDelay(21 minutes, 8 days)(() => ytApi.subscribeAll.unit)
+    api.autoDemoteFakes
+  scheduler.scheduleWithFixedDelay(21 minutes, 8 days): () =>
+    ytApi.subscribeAll

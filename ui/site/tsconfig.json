@@ -3,7 +3,8 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "noImplicitReturns": false,
-    "noEmit": true
+    "noEmit": true,
+    "allowJs": true
   },
   "isolatedModules": true,
   "references": [

@@ -28,7 +28,7 @@ object side:
               separator,
               views.html.game.bits.variantLink(
                 tour.variant,
-                tour.perfType.some,
+                tour.perfType,
                 shortName = true
               ),
               tour.position.isDefined so s"$separator${trans.thematic.txt()}",
@@ -60,7 +60,7 @@ object side:
           tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
         } map { case (team, link) =>
           st.section(
-            if (isMyTeamSync(team.id)) frag(trans.team.team(), " ", link)
+            if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
             else trans.team.joinLichessVariantTeam(link)
           )
         },

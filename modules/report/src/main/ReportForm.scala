@@ -10,18 +10,14 @@ import lila.user.User
 
 final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,
-    val captcher: lila.hub.actors.Captcher,
     domain: config.NetDomain
-)(using Executor)
-    extends lila.hub.CaptchedForm:
-  val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink") { setup =>
-    if (setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined)
-      Valid
-    else
-      Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
-  }
+):
+  val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>
+    if setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined
+    then Valid
+    else Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
 
-  val create = Form(
+  val create = Form:
     mapping(
       "username" -> lila.user.UserForm.historicalUsernameField
         .verifying("Unknown username", { blockingFetchUser(_).isDefined })
@@ -34,31 +30,22 @@ final private[report] class ReportForm(
           u => !User.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
-      "text"   -> text(minLength = 5, maxLength = 2000),
-      "gameId" -> of[GameId],
-      "move"   -> text
-    ) { case (username, reason, text, gameId, move) =>
+      "text"   -> text(minLength = 5, maxLength = 2000)
+    ) { (username, reason, text) =>
       ReportSetup(
         user = blockingFetchUser(username) err "Unknown username " + username,
         reason = reason,
-        text = text,
-        gameId = gameId,
-        move = move
+        text = text
       )
     }(_.values.some)
-      .verifying(captchaFailMessage, validateCaptcha)
       .verifying(cheatLinkConstraint)
-  )
 
-  def createWithCaptcha = withCaptcha(create)
-
-  val flag = Form(
+  val flag = Form:
     mapping(
       "username" -> lila.user.UserForm.historicalUsernameField,
       "resource" -> nonEmptyText,
       "text"     -> text(minLength = 3, maxLength = 140)
     )(ReportFlag.apply)(unapply)
-  )
 
   private def blockingFetchUser(username: UserStr) =
     lightUserAsync(username.id).await(1 second, "reportUser")
@@ -75,11 +62,9 @@ private[report] case class ReportFlag(
 case class ReportSetup(
     user: LightUser,
     reason: String,
-    text: String,
-    gameId: GameId,
-    move: String
+    text: String
 ):
 
   def suspect = SuspectId(user.id)
 
-  def values = (user.name into UserStr, reason, text, gameId, move)
+  def values = (user.name into UserStr, reason, text)

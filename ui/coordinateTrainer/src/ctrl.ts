@@ -93,9 +93,9 @@ export default class CoordinateTrainerCtrl {
     });
 
     $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
-    window.Mousetrap.bind('z', () => lichess.pubsub.emit('zen'));
+    lichess.mousetrap.bind('z', () => lichess.pubsub.emit('zen'));
 
-    window.Mousetrap.bind('enter', () => (this.playing ? null : this.start()));
+    lichess.mousetrap.bind('enter', () => (this.playing ? null : this.start()));
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
 

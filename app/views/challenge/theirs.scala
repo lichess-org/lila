@@ -12,7 +12,7 @@ object theirs:
   def apply(
       c: Challenge,
       json: play.api.libs.json.JsObject,
-      user: Option[lila.user.User],
+      user: Option[lila.user.User.WithPerf],
       color: Option[chess.Color]
   )(using ctx: PageContext) =
     views.html.base.layout(
@@ -25,19 +25,13 @@ object theirs:
         c.status match
           case Status.Created | Status.Offline =>
             frag(
-              boxTop(
-                h1(
+              boxTop:
+                h1:
                   if c.isOpen then c.name | "Open challenge"
                   else
                     user.fold[Frag]("Anonymous"): u =>
-                      frag(
-                        userLink(u),
-                        " (",
-                        u.perfs(c.perfType).glicko.display,
-                        ")"
-                      )
-                )
-              ),
+                      frag(userLink(u.user), " (", u.perf.glicko.display, ")")
+              ,
               bits.details(c, color),
               c.notableInitialFen.map: fen =>
                 div(cls := "board-preview", views.html.board.bits.mini(fen.board, !c.finalColor)(div)),
@@ -47,12 +41,12 @@ object theirs:
                   fragList((~c.open.flatMap(_.userIdList)).map(uid => userIdLink(uid.some)), " and "),
                   " to start the game."
                 )
-              else if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
+              else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) then
                 badTag(
                   // very rare message, don't translate
                   s"You have the wrong color link for this open challenge. The ${color.so(_.name)} player has already joined."
                 )
-              else if (!c.mode.rated || ctx.isAuth) {
+              else if !c.mode.rated || ctx.isAuth then
                 frag(
                   (c.mode.rated && c.unlimited) option
                     badTag(trans.bewareTheGameIsRatedButHasNoClock()),
@@ -62,7 +56,7 @@ object theirs:
                     )
                   )
                 )
-              } else
+              else
                 frag(
                   hr,
                   badTag(

@@ -1,6 +1,5 @@
 package views.html.setup
 
-import cats.syntax.all.*
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ given, * }

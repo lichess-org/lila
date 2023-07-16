@@ -23,6 +23,7 @@ final class Env(
     db: lila.db.Db,
     timeline: actors.Timeline,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
 )(using

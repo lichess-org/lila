@@ -67,9 +67,10 @@ export interface Player {
   proposingTakeback?: boolean;
   offeringRematch?: boolean;
   offeringDraw?: boolean;
-  ai: number | null;
+  ai?: number;
   onGame: boolean;
-  gone: number | boolean;
+  lastDrawOfferAtPly?: Ply;
+  isGone: number | boolean;
   blurs?: Blurs;
   hold?: Hold;
   ratingDiff?: number;

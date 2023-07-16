@@ -25,7 +25,7 @@ interface Lichess {
   blindMode: boolean;
   unload: { expected: boolean };
   watchers(el: HTMLElement): void;
-  redirect(o: RedirectTo): void;
+  redirect(o: RedirectTo, notify?: 'countdown' | 'beep'): void;
   reload(): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
@@ -39,11 +39,11 @@ interface Lichess {
   socket: any;
   sound: SoundI;
   mic: Voice.Microphone;
-  playMusic(): any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
   ab?: any;
 
+  mousetrap: LichessMousetrap;
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
@@ -74,6 +74,14 @@ type RedirectTo = string | { url: string; cookie: Cookie };
 
 type UserComplete = (opts: UserCompleteOpts) => void;
 
+interface LichessMousetrap {
+  bind(
+    keys: string | string[],
+    callback: (e: KeyboardEvent) => void,
+    action?: 'keypress' | 'keydown' | 'keyup'
+  ): LichessMousetrap;
+}
+
 interface LichessPowertip {
   watchMouse(): void;
   manualGameIn(parent: HTMLElement): void;
@@ -94,11 +102,25 @@ interface UserCompleteOpts {
   swiss?: string;
 }
 
+interface QuestionChoice {
+  action: () => void;
+  icon?: string;
+  key?: I18nKey;
+}
+
+interface QuestionOpts {
+  prompt: string; // TODO i18nkey, or just always pretranslate
+  yes?: QuestionChoice;
+  no?: QuestionChoice;
+}
+
 interface SoundI {
-  loadOggOrMp3(name: string, path: string, noSoundSet?: boolean): void;
-  loadStandard(name: string, soundSet?: string): void;
-  play(name: string, volume?: number): void;
+  ctx: AudioContext;
+  load(name: string, path?: string): void;
+  play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
+  move(node?: { san?: string; uci?: Uci }): void;
+  countdown(count: number, intervalMs?: number): Promise<void>; // default interval 1000ms
   getVolume(): number;
   setVolume(v: number): void;
   speech(v?: boolean): boolean;
@@ -107,7 +129,7 @@ interface SoundI {
   saySan(san?: San, cut?: boolean): void;
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
-  soundSet: string;
+  theme: string;
   baseUrl: string;
 }
 
@@ -196,42 +218,42 @@ declare namespace Voice {
   export type Listener = (msgText: string, msgType: MsgType) => void;
 
   export interface Microphone {
-    setLang: (language: string) => void;
+    setLang(language: string): void;
 
-    getMics: () => Promise<MediaDeviceInfo[]>;
-    setMic: (micId: string) => void;
+    getMics(): Promise<MediaDeviceInfo[]>;
+    setMic(micId: string): void;
 
-    initRecognizer: (
+    initRecognizer(
       words: string[],
       also?: {
         recId?: string; // = 'default' if not provided
         partial?: boolean; // = false
         listener?: Listener; // = undefined
-        listenerId?: string; // = recId (needed to disambiguate multiple listeners on the same recId)
+        listenerId?: string; // = recId (specify for multiple listeners on same recId)
       }
-    ) => void;
-    setRecognizer: (recId: string) => void;
+    ): void;
+    setRecognizer(recId: string): void;
 
-    addListener: (
+    addListener(
       listener: Listener,
       also?: {
         recId?: string; // = 'default'
         listenerId?: string; // = recId
       }
-    ) => void;
-    removeListener: (listenerId: string) => void;
-    setController: (listener: Listener) => void; // for status display, indicators, etc
-    stopPropagation: () => void; // interrupt broadcast propagation on current rec (for modal interactions)
+    ): void;
+    removeListener(listenerId: string): void;
+    setController(listener: Listener): void; // for status display, indicators, etc
+    stopPropagation(): void; // interrupt broadcast propagation on current rec (for modal interactions)
 
-    start: (listen?: boolean) => Promise<void>; // listen = true if not provided, if false just initialize
-    stop: () => void; // stop listening/downloading/whatever
-    pause: () => void;
-    resume: () => void;
+    start(listen?: boolean): Promise<void>; // listen = true if not provided, if false just initialize
+    stop(): void; // stop listening/downloading/whatever
+    pause(): void;
+    resume(): void;
 
     readonly isListening: boolean;
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
     readonly status: string; // status display for setController listener
-    readonly recId: string; // get/set current recognizer
+    readonly recId: string; // get current recognizer
     readonly micId: string;
     readonly lang: string; // defaults to 'en'
   }
@@ -279,14 +301,10 @@ type Nvui = (redraw: () => void) => {
 
 interface Window {
   lichess: Lichess;
-
+  un$<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
-  readonly Mousetrap: any;
   Chessground: any;
-  readonly lichessReplayMusic: () => {
-    jump(node: Tree.Node): void;
-  };
   readonly hopscotch: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
@@ -556,3 +574,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
+declare const un$: <T>(cash: Cash) => T;

@@ -2,7 +2,7 @@ package lila.api
 
 import lila.common.config.BaseUrl
 
-class ReferrerRedirectTest extends munit.FunSuite {
+class ReferrerRedirectTest extends munit.FunSuite:
 
   def r = new ReferrerRedirect(BaseUrl("https://lichess.org"))
 
@@ -32,4 +32,3 @@ class ReferrerRedirectTest extends munit.FunSuite {
     assertEquals(r.valid("/ /evil.com"), None)
     assertEquals(r.valid("http://lichess.org/"), None) // downgrade to http
   }
-}

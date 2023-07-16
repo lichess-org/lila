@@ -30,13 +30,16 @@
   <string name="puzzleComplete">مەتەڵەکە تەواو بوو!</string>
   <string name="byOpenings">بەپێی دەستپێکەکان</string>
   <string name="puzzlesByOpenings">مەتەڵەکان بەپێی دەستپێک</string>
+  <string name="openingsYouPlayedTheMost">ئەو کردنەوانەی زۆرترین یاریت پێکردوون لە یاریە ڕەیتیدەکان</string>
+  <string name="useFindInPage">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
+  <string name="useCtrlF">Ctrl+f بەکاربهێنە بۆ دۆزینەوەی ئۆپنینگی دڵخوازت!</string>
   <string name="notTheMove">ئەوە جوڵەکە نییە!</string>
   <string name="trySomethingElse">شتێکی دیقە تاقی بکەرەوە.</string>
-  <string name="ratingX">هەڵسەنگاندن: %s</string>
+  <string name="ratingX">ئاست: %s</string>
   <string name="hidden">شاردراوە</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s جار یاریت کردووە</item>
-    <item quantity="other">%s جار یاریت کردووە</item>
+    <item quantity="other">%s جار یاری کردووە</item>
   </plurals>
   <string name="fromGameLink">لە یاری %s</string>
   <string name="continueTraining">بەردەوامبە لە ڕاهێنان</string>
@@ -48,6 +51,7 @@
   <string name="hardest">قورسترین</string>
   <string name="example">نموونە</string>
   <string name="addAnotherTheme">زیادکردنی بابەتێکی دیکە</string>
+  <string name="nextPuzzle">مەتەڵی دواتر</string>
   <string name="jumpToNextPuzzleImmediately">بەخێرایی بچۆ سەر مەتەڵێکی دیکە</string>
   <string name="puzzleDashboard">تەختەی مەتەڵ</string>
   <string name="improvementAreas">ناوچەی باشترکردن</string>
@@ -55,4 +59,29 @@
   <string name="history">مێژووی مەتەڵ</string>
   <string name="solved">شیکارکراو</string>
   <string name="failed">شکست</string>
+  <string name="streakDescription">مەتەڵی قوڕستر شیکاربکە و زنجیرەیەک بردنەوە تۆماربکە. کات بوونی نییە، بۆیە کاتی خۆت وەرگرە و پەلەمەکە. یەک جوڵەی هەڵە دەبێتە کۆتایی یاریەکە! لەگەڵ ئەوەشدا دەتوانی جوڵەیەک تێبپەڕێنی لە زنجیرەیەکدا.</string>
+  <string name="yourStreakX">نمرەکەت: %s</string>
+  <string name="streakSkipExplanation">جوڵەکە بپەڕێنە بۆ پاراستنی نمرەکەت! تەنیا یەک جار بەکاردێت لە خولێکدا.</string>
+  <string name="continueTheStreak">بەردەوامبوونی نمرەکەم</string>
+  <string name="newStreak">نمرەی نوێ</string>
+  <string name="fromMyGames">لە یاریەکانمەوە</string>
+  <string name="lookupOfPlayer">گەڕان بۆ مەتەڵ لە یاری یاریزانانی ترەوە</string>
+  <string name="fromXGames">مەتەڵێک لە یاری %s</string>
+  <string name="searchPuzzles">گەڕان بۆ مەتەڵ</string>
+  <string name="fromMyGamesNone">هیچ مەتەڵێکت نییە لە داتابەیس، بەڵام لیچێس هێشتا خۆشەویستی زۆری بۆت هەیە.
+یاری ڕاپید یان کلاسیک بکە بۆ بەرزکردنەوەی چانسی دەستکەوتنی مەتەڵی یاریەکانی خۆت!</string>
+  <string name="fromXGamesFound">%1$s مەتەڵ دۆزرایەوە لە %2$s یاریەدا</string>
+  <string name="puzzleDashboardDescription">ڕاهێنان ، شیکردنەوە، بەرەوپێشچوون</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s یاری کرد</item>
+    <item quantity="other">%s یاری کرد</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s بۆ دووبارەکردنەوە</item>
+    <item quantity="other">%s دووبارە شیکارکردنەوە</item>
+  </plurals>
+  <string name="percentSolved">%s شیکارکراو</string>
+  <string name="noPuzzlesToShow">هیچشتێک نییە بۆ نیشاندان، سەرەتا هەندێک مەتەڵ شیکاربکە!</string>
+  <string name="improvementAreasDescription">ڕاهێنانی ئەمانە بکە بۆ باشتر بەرەوپێشچوونت!</string>
+  <string name="strengthDescription">تۆ باشترینت ئەنجامدا لەم بابەتەدا</string>
 </resources>

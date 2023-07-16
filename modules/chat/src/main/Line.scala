@@ -78,9 +78,9 @@ object Line:
       case _ => none
   def userLineToStr(x: UserLine): String =
     val sep =
-      if (x.troll) trollChar
-      else if (x.deleted) deletedChar
-      else if (x.patron) patronChar
+      if x.troll then trollChar
+      else if x.deleted then deletedChar
+      else if x.patron then patronChar
       else " "
     val tit = x.title.so(_.value + titleSep)
     s"$tit${x.username}$sep${x.text}"

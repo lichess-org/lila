@@ -71,7 +71,7 @@ object UblogPost:
 
   def slug(title: String) =
     val s = lila.common.String slugify title
-    if (s.isEmpty) "-" else s
+    if s.isEmpty then "-" else s
 
   object thumbnail:
     enum Size(val width: Int):

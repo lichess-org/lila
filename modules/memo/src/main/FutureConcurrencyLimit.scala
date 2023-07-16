@@ -11,7 +11,7 @@ final class FutureConcurrencyLimit[K](
     toString: K => String = (k: K) => k.toString
 )(using Executor):
 
-  private val storage = new ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
+  private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
 
   private lazy val monitor = lila.mon.security.concurrencyLimit(key)
 
@@ -22,6 +22,5 @@ final class FutureConcurrencyLimit[K](
         limited
       case c @ _ =>
         storage.inc(k)
-        op addEffectAnyway {
-          storage.dec(k).unit
-        }
+        op.addEffectAnyway:
+          storage.dec(k)

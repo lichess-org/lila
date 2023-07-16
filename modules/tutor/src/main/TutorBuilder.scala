@@ -14,15 +14,14 @@ import lila.insight.{
   Question
 }
 import lila.rating.PerfType
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserApi }
 import lila.common.config
-import cats.data.NonEmptyList
 
 final private class TutorBuilder(
     colls: TutorColls,
     insightApi: InsightApi,
     perfStatsApi: InsightPerfStatsApi,
-    userRepo: UserRepo,
+    userApi: UserApi,
     fishnet: TutorFishnet
 )(using Executor):
 
@@ -33,7 +32,7 @@ final private class TutorBuilder(
   val maxTime = fishnet.maxTime + 5.minutes
 
   def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
-    user     <- userRepo byId userId orFail s"No such user $userId"
+    user     <- userApi withPerfs userId orFail s"No such user $userId"
     hasFresh <- hasFreshReport(user)
     report <- !hasFresh so {
       val chrono = lila.common.Chronometer.lapTry(produce(user))
@@ -50,7 +49,7 @@ final private class TutorBuilder(
     }
   yield report
 
-  private def produce(user: User): Fu[TutorFullReport] = for
+  private def produce(user: User.WithPerfs): Fu[TutorFullReport] = for
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
     perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor buildSegment "perf-stats")
@@ -63,10 +62,9 @@ final private class TutorBuilder(
     perfs <- (tutorUsers.toNel so TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
   yield TutorFullReport(user.id, nowInstant, perfs)
 
-  private[tutor] def eligiblePerfTypesOf(user: User) =
-    PerfType.standardWithUltra.filter { pt =>
+  private[tutor] def eligiblePerfTypesOf(user: User.WithPerfs) =
+    PerfType.standardWithUltra.filter: pt =>
       user.perfs(pt).latest.exists(_ isAfter nowInstant.minusMonths(12))
-    }
 
   private def hasFreshReport(user: User): Fu[Boolean] = colls.report.exists(
     $doc(

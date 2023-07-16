@@ -6,10 +6,11 @@ import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
 export default (ctrl: KeyboardController) =>
-  window.Mousetrap.bind(['left', 'k'], () => {
-    control.prev(ctrl);
-    ctrl.redraw();
-  })
+  lichess.mousetrap
+    .bind(['left', 'k'], () => {
+      control.prev(ctrl);
+      ctrl.redraw();
+    })
     .bind(['right', 'j'], () => {
       control.next(ctrl);
       ctrl.redraw();

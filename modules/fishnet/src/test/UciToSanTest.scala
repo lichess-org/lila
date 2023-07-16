@@ -6,19 +6,18 @@ import chess.format.pgn.{ SanStr, Reader }
 
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
-import lila.tree.Eval._
+import lila.tree.Eval.*
 
-final class UciToSanTest extends munit.FunSuite {
+final class UciToSanTest extends munit.FunSuite:
 
   private given Conversion[Int, Ply] = Ply(_)
 
   private val now = nowInstant
 
   private def evenIncomplete(result: Reader.Result): Replay =
-    result match {
+    result match
       case Reader.Result.Complete(replay)      => replay
       case Reader.Result.Incomplete(replay, _) => replay
-    }
 
   test("convert UCI analysis to PGN") {
     val uciAnalysis = Analysis(
@@ -306,4 +305,3 @@ final class UciToSanTest extends munit.FunSuite {
     UciToSan(rep, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
   }
-}

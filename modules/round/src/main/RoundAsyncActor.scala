@@ -52,8 +52,8 @@ final private[round] class RoundAsyncActor(
     def isOnline = offlineSince.isEmpty || botConnected
 
     def setOnline(on: Boolean): Unit =
-      isLongGone foreach { _ so notifyGone(color, gone = false) }
-      offlineSince = if (on) None else offlineSince orElse nowMillis.some
+      isLongGone.foreach(_ so notifyGone(color, gone = !on))
+      offlineSince = if on then None else offlineSince orElse nowMillis.some
       bye = bye && !on
     def setBye(): Unit =
       bye = true
@@ -62,7 +62,7 @@ final private[round] class RoundAsyncActor(
 
     private def timeoutMillis: Long = {
       val base = {
-        if (bye) RoundSocket.ragequitTimeout
+        if bye then RoundSocket.ragequitTimeout
         else
           proxy.withGameOptionSync { g =>
             RoundSocket.povDisconnectTimeout(g pov color)
@@ -76,7 +76,7 @@ final private[round] class RoundAsyncActor(
     } so !isHostingSimul
 
     def showMillisToGone: Fu[Option[Long]] =
-      if (botConnected) fuccess(none)
+      if botConnected then fuccess(none)
       else
         val now = nowMillis
         offlineSince
@@ -87,13 +87,13 @@ final private[round] class RoundAsyncActor(
               !_ option (timeoutMillis + since - now)
 
     def setBotConnected(v: Boolean) =
-      botConnections = Math.max(0, botConnections + (if (v) 1 else -1))
+      botConnections = Math.max(0, botConnections + (if v then 1 else -1))
   end Player
 
   private val whitePlayer = Player(White)
   private val blackPlayer = Player(Black)
 
-  export proxy.{ game => getGame, update => updateGame }
+  export proxy.{ game as getGame, update as updateGame }
 
   val process: AsyncActor.ReceiveAsync =
 
@@ -104,7 +104,7 @@ final private[round] class RoundAsyncActor(
         mightBeSimul = game.isSimul
         whitePlayer.goneWeight = whiteGoneWeight
         blackPlayer.goneWeight = blackGoneWeight
-        if (game.playableByAi) player.requestFishnet(game, this)
+        if game.playableByAi then player.requestFishnet(game, this)
 
     // socket stuff
 
@@ -185,8 +185,8 @@ final private[round] class RoundAsyncActor(
 
     case p: HumanPlay =>
       handle(p.playerId): pov =>
-        if (pov.player.isAi) fufail(s"player $pov can't play AI")
-        else if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+        if pov.player.isAi then fufail(s"player $pov can't play AI")
+        else if pov.game.outoftime(withGrace = true) then finisher.outOfTime(pov.game)
         else
           recordLag(pov)
           player.human(p, this)(pov)
@@ -204,7 +204,7 @@ final private[round] class RoundAsyncActor(
     case p: BotPlay =>
       val res = proxy.withPov(p.playerId) {
         _.so: pov =>
-          if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+          if pov.game.outoftime(withGrace = true) then finisher.outOfTime(pov.game)
           else player.bot(p.uci, this)(pov)
       } dmap publish
       p.promise.foreach(_ completeWith res)
@@ -232,7 +232,7 @@ final private[round] class RoundAsyncActor(
         val berserked = pov.game.goBerserk(color)
         berserked.so { progress =>
           proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
-        } >>- promise.success(berserked.isDefined)
+        } andDo promise.success(berserked.isDefined)
 
     case ResignForce(playerId) =>
       handle(playerId): pov =>
@@ -275,7 +275,7 @@ final private[round] class RoundAsyncActor(
     case Abandon =>
       proxy.withGame: game =>
         game.abandoned.so:
-          if (game.abortable) finisher.other(game, _.Aborted, None)
+          if game.abortable then finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
     case DrawYes(playerId)   => handle(playerId)(drawer.yes)
@@ -350,8 +350,9 @@ final private[round] class RoundAsyncActor(
     case NoStart =>
       handle: game =>
         game.timeBeforeExpiration.exists(_.centis == 0) so {
-          if (game.isSwiss) game.startClock.so: g =>
-            proxy save g inject List(Event.Reload)
+          if game.isSwiss then
+            game.startClock.so: g =>
+              proxy save g inject List(Event.Reload)
           else finisher.noStart(game)
         }
 
@@ -368,15 +369,15 @@ final private[round] class RoundAsyncActor(
       proxy.withGameOptionSync { g =>
         (g.forceResignable && g.bothPlayersHaveMoved) so fuccess:
           Color.all.foreach: c =>
-            if (!getPlayer(c).isOnline && getPlayer(!c).isOnline)
+            if !getPlayer(c).isOnline && getPlayer(!c).isOnline then
               getPlayer(c).showMillisToGone foreach {
                 _.so: millis =>
-                  if (millis <= 0) notifyGone(c, gone = true)
+                  if millis <= 0 then notifyGone(c, gone = true)
                   else g.clock.exists(_.remainingTime(c).millis > millis + 3000) so notifyGoneIn(c, millis)
               }
       } | funit
 
-    case Stop => proxy.terminate() >>- socketSend(RP.Out.stop(roomId))
+    case Stop => proxy.terminate() andDo socketSend(RP.Out.stop(roomId))
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
@@ -392,7 +393,7 @@ final private[round] class RoundAsyncActor(
     }
 
   private def recordLag(pov: Pov): Unit =
-    if ((pov.game.playedTurns.value & 30) == 10)
+    if (pov.game.playedTurns.value & 30) == 10 then
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for
@@ -414,7 +415,7 @@ final private[round] class RoundAsyncActor(
         publishBoardBotGone(pov, millis.some)
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if (lila.game.Game.isBoardOrBotCompatible(pov.game))
+    if lila.game.Game.isBoardOrBotCompatible(pov.game) then
       lila.common.Bus.publish(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone makeChan gameId
@@ -455,13 +456,13 @@ final private[round] class RoundAsyncActor(
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] =
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
-      lila.mon.round.error.fishnet.increment().unit
+      lila.mon.round.error.fishnet.increment()
     case e: BenignError =>
       logger.info(s"Round client error $name: ${e.getMessage}")
-      lila.mon.round.error.client.increment().unit
+      lila.mon.round.error.client.increment()
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")
-      lila.mon.round.error.other.increment().unit
+      lila.mon.round.error.other.increment()
 
   def roomId = gameId into RoomId
 

@@ -12,9 +12,8 @@ final private class RacerSocket(
 
   import RacerSocket.*
 
-  def publishState(race: RacerRace): Unit = send(
+  def publishState(race: RacerRace): Unit = send:
     Protocol.Out.publishState(race.id, json state race)
-  )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("racer-out").apply
 
@@ -22,7 +21,7 @@ final private class RacerSocket(
 
   private lazy val racerHandler: Handler =
     case Protocol.In.PlayerJoin(raceId, playerId) =>
-      api.join(raceId, playerId).unit
+      api.join(raceId, playerId)
     case Protocol.In.PlayerScore(raceId, playerId, score) =>
       api.registerPlayerScore(raceId, playerId, score)
     case Protocol.In.RaceStart(raceId, playerId) =>
@@ -32,9 +31,8 @@ final private class RacerSocket(
         .filter(_.owner == playerId)
         .foreach(api.manualStart)
 
-  remoteSocketApi.subscribe("racer-in", Protocol.In.reader)(
+  remoteSocketApi.subscribe("racer-in", Protocol.In.reader):
     racerHandler orElse minRoomHandler(rooms, logger) orElse remoteSocketApi.baseHandler
-  )
 
   api registerSocket this
 

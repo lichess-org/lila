@@ -9,6 +9,7 @@ import lila.common.config.*
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     gameRepo: lila.game.GameRepo,
     historyApi: lila.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
@@ -18,12 +19,7 @@ final class Env(
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer,
-    mode: play.api.Mode
-):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
@@ -45,8 +41,8 @@ final class Env(
     lila.security.Granter(_.Teacher) || studentCache.isStudent(me)
 
   lila.common.Bus.subscribeFuns(
-    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
-      progressApi.onFinishGame(game).unit
+    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
+      progressApi.onFinishGame(game)
     },
     "clas" -> {
       case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>

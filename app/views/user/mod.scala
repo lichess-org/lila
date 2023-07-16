@@ -37,7 +37,7 @@ object mod:
       emails: User.Emails,
       erased: User.Erased,
       pmPresets: ModPresets
-  )(using PageContext): Frag =
+  )(using Context): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(
         isGranted(_.ModMessage) option {
@@ -153,7 +153,7 @@ object mod:
         }
       ),
       isGranted(_.CloseAccount) option div(cls := "btn-rack")(
-        if (u.enabled.yes) {
+        if u.enabled.yes then
           postForm(
             action := routes.Mod.closeAccount(u.username),
             title  := "Disables this account.",
@@ -161,9 +161,8 @@ object mod:
           )(
             submitButton(cls := "btn-rack__btn")("Close")
           )
-        } else if (erased.value) {
-          "Erased"
-        } else
+        else if erased.value then "Erased"
+        else
           frag(
             postForm(
               action := routes.Mod.reopenAccount(u.username),
@@ -223,13 +222,13 @@ object mod:
       )
     )
 
-  private def gdprEraseForm(u: User)(using PageContext) =
+  private def gdprEraseForm(u: User)(using Context) =
     postForm(
       action := routes.Mod.gdprErase(u.username),
       cls    := "gdpr-erasure"
     )(gdprEraseButton(u)(cls := "btn-rack__btn confirm"))
 
-  def gdprEraseButton(u: User)(using PageContext) =
+  def gdprEraseButton(u: User)(using Context) =
     val allowed = u.marks.clean || isGranted(_.Admin)
     submitButton(
       cls := !allowed option "disabled",
@@ -241,12 +240,12 @@ object mod:
       !allowed option disabled
     )("GDPR erasure")
 
-  def prefs(u: User)(pref: lila.pref.Pref)(using PageContext) =
+  def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
     frag(
       canViewRoles(u) option mzSection("roles")(
-        (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span) (
+        (if isGranted(_.ChangePermission) then a(href := routes.Mod.permissions(u.username)) else span) (
           strong(cls := "text inline", dataIcon := " ")("Permissions: "),
-          if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+          if u.roles.isEmpty then "Add some" else Permission(u.roles).map(_.name).mkString(", ")
         )
       ),
       mzSection("preferences")(
@@ -273,7 +272,7 @@ object mod:
       strong(cls := "fat")(rageSit.counterView, " / ", playbans)
     )
 
-  def plan(u: User)(charges: List[lila.plan.Charge])(using PageContext): Option[Frag] =
+  def plan(u: User)(charges: List[lila.plan.Charge])(using Context): Option[Frag] =
     charges.nonEmpty option
       mzSection("plan")(
         strong(cls := "text inline", dataIcon := patronIconChar)(
@@ -292,11 +291,11 @@ object mod:
         ul(
           charges.map { c =>
             li(
-              c.giftTo match {
+              c.giftTo match
                 case Some(giftedId) if u is giftedId => frag("Gift from", userIdLink(c.userId), " ")
                 case Some(giftedId)                  => frag("Gift to", userIdLink(giftedId.some), " ")
                 case _                               => emptyFrag
-              },
+              ,
               c.money.display,
               " with ",
               c.serviceName,
@@ -309,7 +308,7 @@ object mod:
         br
       )
 
-  def student(managed: lila.clas.Student.ManagedInfo)(using PageContext): Frag =
+  def student(managed: lila.clas.Student.ManagedInfo)(using Context): Frag =
     mzSection("student")(
       "Created by ",
       userLink(managed.createdBy),
@@ -317,7 +316,7 @@ object mod:
       a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
     )
 
-  def boardTokens(tokens: List[lila.oauth.AccessToken])(using PageContext): Frag =
+  def boardTokens(tokens: List[lila.oauth.AccessToken])(using Context): Frag =
     if tokens.isEmpty then emptyFrag
     else
       mzSection("boardTokens")(
@@ -330,6 +329,11 @@ object mod:
               token.usedAt map momentFromNowOnce
             )
       )
+
+  def teacher(u: User)(nb: Int)(using Context): Frag =
+    if nb == 0 then emptyFrag
+    else
+      mzSection("teacher")(strong(cls := "inline")(a(href := clasRoutes.teacher(u.username))(nb, " Classes")))
 
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Lang) =
     mzSection("mod_log")(
@@ -418,7 +422,7 @@ object mod:
     )
 
   def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using
-      PageContext
+      Context
   ): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
@@ -514,9 +518,7 @@ object mod:
                   pag.pov(result).map { p =>
                     a(href := routes.Round.watcher(p.gameId, p.color.name))(
                       p.game.isTournament option iconTag(licon.Trophy),
-                      p.game.perfType.map { pt =>
-                        iconTag(pt.icon)(cls := "text")
-                      },
+                      iconTag(p.game.perfType.icon)(cls := "text"),
                       shortClockName(p.game.clock.map(_.config))
                     )
                   }
@@ -539,7 +541,7 @@ object mod:
                 ),
                 td(
                   span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := licon.DiscBig),
-                  if (result.basics.hold) "Yes" else "No"
+                  if result.basics.hold then "Yes" else "No"
                 ),
                 td(
                   pag.pov(result).map { p =>
@@ -560,6 +562,7 @@ object mod:
     )
 
   private val sortNumberTh    = th(attr("data-sort-method") := "number")
+  private val sortNoneTh      = th(attr("data-sort-method") := "none")
   private val dataSort        = attr("data-sort")
   private val dataTags        = attr("data-tags")
   private val playban         = iconTag(licon.Clock)
@@ -571,12 +574,12 @@ object mod:
   private val clean: Frag     = iconTag(licon.User)
   private val reportban       = iconTag(licon.CautionTriangle)
   private val notesText       = iconTag(licon.Pencil)
-  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: PageContext) =
-    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
+  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
+    if nb > 0 then td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
 
   def otherUsers(mod: Me, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(using
-      ctx: PageContext,
+      ctx: Context,
       renderIp: RenderIp
   ): Tag =
     import data.*
@@ -605,20 +608,27 @@ object mod:
             sortNumberTh(iconTag(licon.InkQuill))(cls := "i", title := "Appeals"),
             sortNumberTh("Created"),
             sortNumberTh("Active"),
-            isGranted(_.CloseAccount) option th
+            isGranted(_.CloseAccount) option sortNoneTh(
+              select(style := "width: 2em")(
+                option(value := "")(""),
+                option(value := "all")("Select all"),
+                option(value := "none")("Select none"),
+                option(value := "alt")("Alt selected")
+              )
+            )
           )
         ),
         tbody(
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
-            val userNotes =
-              notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Admin)))
+            val userNotes = notes.filter: n =>
+              n.to.is(o.id) && (ctx.me.exists(n.isFrom) || isGranted(_.Admin))
             val userAppeal = appeals.find(_.isAbout(o.id))
             tr(
               dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
-              cls      := (o == u) option "same"
+              cls      := o.is(u) option "same"
             )(
-              if (o.is(u) || Granter.canViewAltUsername(o))
-                td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
+              if o.is(u) || Granter.canViewAltUsername(o)
+              then td(dataSort := o.id)(userLink(o, withPerfRating = o.perfs.some, params = "?mod"))
               else td,
               isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
               td(
@@ -626,9 +636,8 @@ object mod:
                 dataSort := other.score + (other.ips.nonEmpty so 1000000) + (other.fps.nonEmpty so 3000000)
               )(
                 List(other.ips.size -> "IP", other.fps.size -> "Print")
-                  .collect {
+                  .collect:
                     case (nb, name) if nb > 0 => s"$nb $name"
-                  }
                   .mkString(", ")
               ),
               td(dataSort := o.count.game)(o.count.game.localize),
@@ -650,7 +659,7 @@ object mod:
                   )
                 )
               } getOrElse td(dataSort := 0),
-              userAppeal match {
+              userAppeal match
                 case None => td(dataSort := 0)
                 case Some(appeal) =>
                   td(dataSort := 1)(
@@ -664,14 +673,16 @@ object mod:
                       title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted so " [MUTED]"}"
                     )(appeal.msgs.size)
                   )
-              },
+              ,
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
               canCloseAlt option td(
-                !o.marks.alt option button(
-                  cls  := "button button-empty button-thin button-red mark-alt",
-                  href := routes.Mod.alt(o.id, !o.marks.alt)
-                )("ALT")
+                input(
+                  tpe      := "checkbox",
+                  name     := "user[]",
+                  st.value := "all",
+                  disabled := o.marks.alt.option(true)
+                )
               )
             )
           }
@@ -685,7 +696,7 @@ object mod:
       case email                        => frag(email)
     }
 
-  def identification(logins: UserLogins)(using ctx: PageContext, renderIp: RenderIp): Frag =
+  def identification(logins: UserLogins)(using ctx: Context, renderIp: RenderIp): Frag =
     val canIpBan  = isGranted(_.IpBan)
     val canFpBan  = isGranted(_.PrintBan)
     val canLocate = isGranted(_.Admin)
@@ -735,7 +746,7 @@ object mod:
                 val parsed = userAgentParser.parse(ua.value)
                 tr(
                   td(title := ua.value)(
-                    if (parsed.device.family == "Other") "Computer" else parsed.device.family
+                    if parsed.device.family == "Other" then "Computer" else parsed.device.family
                   ),
                   td(parts(parsed.os.family.some, parsed.os.major)),
                   td(parts(parsed.userAgent.family.some, parsed.userAgent.major)),

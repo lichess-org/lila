@@ -58,10 +58,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
   const loadSound = (file: string, volume?: number, delay?: number) => {
-    setTimeout(
-      () => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true),
-      delay || 1000
-    );
+    setTimeout(() => lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
     return () => lichess.sound.play(file, volume);
   };
   const sound = {
@@ -71,7 +68,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     good: loadSound('lisp/PuzzleStormGood', 0.7, 500),
     end: loadSound('lisp/PuzzleStormEnd', 1, 1000),
   };
-  let music: any;
 
   let flipped = false;
 
@@ -155,6 +151,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     });
 
     instanciateCeval();
+    lichess.sound.move();
   }
 
   function position(): Chess {
@@ -203,22 +200,20 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function auxMove(orig: Key, dest: Key, role?: Role) {
-    withGround(g => {
-      if (!role) {
+    if (role) playUserMove(orig, dest, role);
+    else
+      withGround(g => {
         g.move(orig, dest);
         g.state.movable.dests = undefined;
         g.state.turnColor = opposite(g.state.turnColor);
-        if (promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.promotionHook() })) return;
-      }
-      playUserMove(orig, dest, role);
-    });
+      });
   }
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.promotionHook() }))
       playUserMove(orig, dest);
-    voiceMove?.update(vm.node.fen);
+    voiceMove?.update(vm.node.fen, true);
     keyboardMove?.update({ fen: vm.node.fen });
   }
 
@@ -270,7 +265,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     reorderChildren(path);
     redraw();
     lichess.sound.saySan(node.san, false);
-    if (music) music.jump(node);
+    lichess.sound.move(node);
   }
 
   function reorderChildren(path: Tree.Path, recursive?: boolean): void {
@@ -498,7 +493,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
     keyboardMove?.update({ fen: vm.node.fen });
-    voiceMove?.update(vm.node.fen);
+    voiceMove?.update(vm.node.fen, true);
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 
@@ -507,7 +502,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(g => g.selectSquare(null));
     jump(path);
     lichess.sound.saySan(vm.node.san, true);
-    if (music) music.jump(vm.node);
+    lichess.sound.move(vm.node);
   }
 
   function userJumpPlyDelta(plyDelta: Ply) {
@@ -608,14 +603,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   // chessground is not displayed, and the first move is not fully applied.
   // Make sure chessground is fully shown when the page goes back to being visible.
   document.addEventListener('visibilitychange', () => lichess.requestIdleCallback(() => jump(vm.path), 500));
-
-  lichess.pubsub.on('sound_set', (set: string) => {
-    if (!music && set === 'music')
-      lichess.loadIife('javascripts/music/play.js').then(() => {
-        music = lichess.playMusic();
-      });
-    if (music && set !== 'music') music = undefined;
-  });
 
   lichess.pubsub.on('zen', () => {
     const zen = $('body').toggleClass('zen').hasClass('zen');

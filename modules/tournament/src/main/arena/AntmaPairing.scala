@@ -21,10 +21,9 @@ private object AntmaPairing:
           lastOpponents.hash.get(u2).contains(u1)
 
       def pairScore(a: RPlayer, b: RPlayer): Option[Int] =
-        if (
-          justPlayedTogether(a.player.userId, b.player.userId) ||
+        if justPlayedTogether(a.player.userId, b.player.userId) ||
           !a.colorHistory.couldPlay(b.colorHistory, maxStrike)
-        ) None
+        then None
         else
           Some {
             Math.abs(a.rank.value - b.rank.value) * rankFactor(a, b) +
@@ -39,14 +38,14 @@ private object AntmaPairing:
       Chronometer.syncMon(_.tournament.pairing.wmmatching) {
         WMMatching(
           players.toArray,
-          if (data.tour.isTeamBattle) battleScore
-          else if (data.onlyTwoActivePlayers) duelScore
+          if data.tour.isTeamBattle then battleScore
+          else if data.onlyTwoActivePlayers then duelScore
           else pairScore
         ).fold(
-          err => {
+          err =>
             logger.error("WMMatching", err)
             Nil
-          },
+          ,
           _ map { case (a, b) =>
             Pairing.prepWithColor(a, b)
           }

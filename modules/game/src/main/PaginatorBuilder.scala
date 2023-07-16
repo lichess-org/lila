@@ -1,7 +1,5 @@
 package lila.game
 
-import reactivemongo.api.ReadPreference
-
 import lila.common.paginator.*
 import lila.common.config.MaxPerPage
 import lila.db.dsl.*
@@ -22,14 +20,13 @@ final class PaginatorBuilder(gameRepo: GameRepo)(using Executor):
   private def apply(adapter: AdapterLike[Game])(page: Int): Fu[Paginator[Game]] =
     paginator(adapter, page)
 
-  private def noCacheAdapter(selector: Bdoc, sort: Bdoc) =
-    new Adapter[Game](
-      collection = gameRepo.coll,
-      selector = selector,
-      projection = none,
-      sort = sort,
-      readPreference = ReadPreference.secondaryPreferred
-    )
+  private def noCacheAdapter(selector: Bdoc, sort: Bdoc) = Adapter[Game](
+    collection = gameRepo.coll,
+    selector = selector,
+    projection = none,
+    sort = sort,
+    _.sec
+  )
 
   private def paginator(adapter: AdapterLike[Game], page: Int): Fu[Paginator[Game]] =
     Paginator(adapter, currentPage = page, maxPerPage = MaxPerPage(12))

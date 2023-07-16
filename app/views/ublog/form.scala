@@ -38,7 +38,7 @@ object form:
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
-      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} blog • ${post.title}"
+      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
@@ -143,7 +143,7 @@ object form:
           div(id := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
         )
       },
-      post.toOption match {
+      post.toOption match
         case None =>
           form3.group(form("topics"), frag(trans.ublog.selectPostTopics()))(
             form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
@@ -178,7 +178,7 @@ object form:
               )
             )
           )
-      },
+      ,
       captcha.fold(views.html.base.captcha.hiddenEmpty(form)) { c =>
         views.html.base.captcha(form, c)
       },
@@ -189,7 +189,7 @@ object form:
         )(
           trans.cancel()
         ),
-        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft) ())
+        form3.submit((if post.isRight then trans.apply else trans.ublog.saveDraft) ())
       )
     )
 

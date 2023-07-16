@@ -135,7 +135,7 @@ final class SecurityForm(
     def samePasswords = newPasswd1 == newPasswd2
 
   def passwdChange(using Executor)(using me: Me) =
-    authenticator loginCandidate me.user map { candidate =>
+    authenticator.loginCandidate.map: candidate =>
       Form:
         mapping(
           "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
@@ -143,7 +143,6 @@ final class SecurityForm(
           "newPasswd2" -> newPasswordFieldForMe
         )(Passwd.apply)(unapply)
           .verifying("newPasswordsDontMatch", _.samePasswords)
-    }
 
   def magicLink(using req: RequestHeader) = hcaptcha.form(
     Form(
@@ -153,18 +152,17 @@ final class SecurityForm(
     )
   )
 
-  def changeEmail(old: Option[EmailAddress])(using me: Me) =
-    authenticator loginCandidate me map { candidate =>
+  def changeEmail(old: Option[EmailAddress])(using Me) =
+    authenticator.loginCandidate.map: candidate =>
       Form(
         mapping(
           "passwd" -> passwordMapping(candidate),
           "email"  -> fullyValidEmail.verifying(emailValidator differentConstraint old)
         )(ChangeEmail.apply)(unapply)
       ).fillOption(old.map { ChangeEmail("", _) })
-    }
 
-  def setupTwoFactor(u: User) =
-    authenticator loginCandidate u map { candidate =>
+  def setupTwoFactor(using Me) =
+    authenticator.loginCandidate.map: candidate =>
       Form(
         mapping(
           "secret" -> nonEmptyText,
@@ -181,17 +179,17 @@ final class SecurityForm(
           token = ""
         )
       )
-    }
 
-  def disableTwoFactor(u: User) =
-    authenticator loginCandidate u map { candidate =>
-      Form(
+  def disableTwoFactor(using me: Me) =
+    authenticator.loginCandidate.map: candidate =>
+      Form:
         tuple(
           "passwd" -> passwordMapping(candidate),
-          "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.so(_.verify(TotpToken(t))))
+          "token" -> text.verifying(
+            "invalidAuthenticationCode",
+            t => me.totpSecret.so(_.verify(TotpToken(t)))
+          )
         )
-      )
-    }
 
   def fixEmail(old: EmailAddress) =
     Form(
@@ -202,22 +200,20 @@ final class SecurityForm(
     single("email" -> anyEmail.verifying(emailValidator uniqueConstraint user.some))
   )
 
-  private def passwordProtected(using me: Me) =
-    authenticator loginCandidate me.user map { candidate =>
+  private def passwordProtected(using Me) =
+    authenticator.loginCandidate.map: candidate =>
       Form(single("passwd" -> passwordMapping(candidate)))
-    }
 
   def closeAccount(using Me) = passwordProtected
 
   def toggleKid(using Me) = passwordProtected
 
   def reopen(using RequestHeader) = hcaptcha.form(
-    Form(
+    Form:
       mapping(
         "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
         "email"    -> sendableEmail // allow unacceptable emails for BC
       )(Reopen.apply)(_ => None)
-    )
   )
 
   private def passwordMapping(candidate: User.LoginCandidate) =

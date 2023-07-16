@@ -21,7 +21,7 @@ final class SwissBanApi(mongo: SwissMongo)(using Executor):
   def onGameFinish(game: Game) =
     game.userIds
       .map { userId =>
-        if (game.playerWhoDidNotMove.exists(_.userId has userId)) onStall(userId)
+        if game.playerWhoDidNotMove.exists(_.userId has userId) then onStall(userId)
         else onGoodGame(userId)
       }
       .parallel
@@ -30,8 +30,8 @@ final class SwissBanApi(mongo: SwissMongo)(using Executor):
   private def onStall(user: UserId): Funit = get(user) flatMap { prev =>
     val hours: Int = prev
       .fold(24) { ban =>
-        if (ban.until.isBefore(nowInstant)) ban.hours * 2 // consecutive
-        else (ban.hours * 1.5).toInt                      // simultaneous
+        if ban.until.isBefore(nowInstant) then ban.hours * 2 // consecutive
+        else (ban.hours * 1.5).toInt                         // simultaneous
       }
       .atMost(30 * 24)
     mongo.ban.update

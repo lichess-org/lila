@@ -3,7 +3,6 @@ package lila.puzzle
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerSecond
 import lila.common.Json.given
@@ -32,7 +31,7 @@ final class PuzzleActivity(
         )
           .sort($sort desc PuzzleRound.BSONFields.date)
           .batchSize(perSecond.value)
-          .cursor[PuzzleRound](ReadPreference.secondaryPreferred)
+          .cursor[PuzzleRound](ReadPref.sec)
           .documentSource(config.max | Int.MaxValue)
           .grouped(perSecond.value)
           .throttle(1, 1 second)
@@ -45,7 +44,7 @@ final class PuzzleActivity(
     colls.puzzle:
       _.optionsByOrderedIds[Puzzle, PuzzleId](
         rounds.map(_.id.puzzleId),
-        readPreference = ReadPreference.secondaryPreferred
+        readPref = _.sec
       )(_.id).map: puzzles =>
         rounds.zip(puzzles).collect { case (round, Some(puzzle)) =>
           Json.obj(

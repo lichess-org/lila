@@ -10,8 +10,8 @@ function loadShepherd(f) {
       ? 'default'
       : 'dark');
   lichess.loadCss('vendor/' + theme + '.css');
-  lichess.loadScript('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
-    lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
+  lichess.loadIife('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
+    lichess.loadIife('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
       f(theme);
     });
   });

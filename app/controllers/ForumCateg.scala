@@ -12,7 +12,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
       pageHit
       for
         allTeamIds <- ctx.userId so teamCache.teamIdsList
-        teamIds <- lila.common.LilaFuture.filter(allTeamIds):
+        teamIds <- allTeamIds.filterA:
           teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
         categs <- postApi.categsForUser(teamIds, ctx.me)
         _      <- env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)

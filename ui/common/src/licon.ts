@@ -130,3 +130,5 @@ export const Ibeam = ''; // e072
 export const Voice = ''; // e073
 export const Mask = ''; // e074
 export const Move = ''; // e075
+export const OneHalf = ''; // e076
+export const Mute = ''; // e077

@@ -15,6 +15,7 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     teamSearch: lila.hub.actors.TeamSearch,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     modLog: ModlogApi,
     notifyApi: NotifyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
@@ -23,12 +24,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
     db: lila.db.Db
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    mode: play.api.Mode,
-    materializer: akka.stream.Materializer
-):
+)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer):
 
   lazy val teamRepo    = TeamRepo(db(CollName("team")))
   lazy val memberRepo  = MemberRepo(db(CollName("team_member")))
@@ -65,7 +61,7 @@ final class Env(
 
   lila.common.Bus.subscribeFuns(
     "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-      api.deleteRequestsByUserId(userId).unit
+      api.deleteRequestsByUserId(userId)
     },
     "teamIsLeader" -> { case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
       promise completeWith cached.isLeader(teamId, userId)

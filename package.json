@@ -22,16 +22,16 @@
     "pnpm": "^8.6"
   },
   "dependencies": {
-    "@types/node": "^18.11.17",
+    "@types/node": "^18.16.18",
     "@types/web": "^0.0.84",
-    "@typescript-eslint/eslint-plugin": "^5.46.1",
-    "@typescript-eslint/parser": "^5.46.1",
-    "ab": "https://github.com/lichess-org/ab-stub",
-    "chessground": "^8.3.9",
-    "eslint": "^8.30.0",
-    "eslint-config-prettier": "^8.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "ab": "github:lichess-org/ab-stub",
+    "chessground": "^8.3.11",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
     "prettier": "2.8.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.5"
   },
   "scripts": {
     "format": "prettier --write . --loglevel warn",

@@ -25,11 +25,10 @@ object PoolConfig:
 
   import play.api.libs.json.*
   import lila.common.Json.given
-  given OWrites[PoolConfig] = OWrites { p =>
+  given OWrites[PoolConfig] = OWrites: p =>
     Json.obj(
       "id"   -> p.id,
       "lim"  -> p.clock.limitInMinutes,
       "inc"  -> p.clock.incrementSeconds,
       "perf" -> p.perfType.trans(using lila.i18n.defaultLang)
     )
-  }

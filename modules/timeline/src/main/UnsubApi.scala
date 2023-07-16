@@ -11,7 +11,7 @@ final class UnsubApi(coll: Coll)(using Executor):
   private def select(channel: String, userId: UserId) = $id(makeId(channel, userId))
 
   def set(channel: String, userId: UserId, v: Boolean): Funit = {
-    if (v) coll.insert.one(select(channel, userId)).void
+    if v then coll.insert.one(select(channel, userId)).void
     else coll.delete.one(select(channel, userId)).void
   } recover { case _: Exception =>
     ()

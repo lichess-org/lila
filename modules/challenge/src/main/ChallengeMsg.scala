@@ -2,6 +2,7 @@ package lila.challenge
 
 import lila.common.{ LightUser, Template }
 import lila.user.{ LightUserApi, User }
+import chess.ByColor
 
 final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using Executor):
 
@@ -17,11 +18,12 @@ final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(us
     }
 
   // bulk
-  def onApiPair(gameId: GameId, u1: LightUser, u2: LightUser)(
+  def onApiPair(gameId: GameId, users: ByColor[LightUser])(
       managedById: UserId,
       template: Option[Template]
   ): Funit =
-    List(u1 -> u2, u2 -> u1)
+    List(users, users.swap)
+      .map(_.toPair)
       .map: (u1, u2) =>
         sendGameMessage(gameId, u1, u2, managedById, template)
       .parallel

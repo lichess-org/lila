@@ -26,14 +26,13 @@ case class RacerRace(
 
   def registerScore(playerId: RacerPlayer.Id, score: Int): Option[RacerRace] =
     !finished option copy(
-      players = players map {
-        case p if p.id == playerId => p.copy(score = score)
-        case p                     => p
-      }
+      players = players.map: p =>
+        if p.id == playerId then p.copy(score = score)
+        else p
     )
 
   def startCountdown: Option[RacerRace] =
-    startsAt.isEmpty && players.size > (if (isLobby) 2 else 1) option
+    startsAt.isEmpty && players.size > (if isLobby then 2 else 1) option
       copy(startsAt = nowInstant.plusSeconds(countdownSeconds).some)
 
   def startsInMillis = startsAt.map(d => d.toMillis - nowMillis)

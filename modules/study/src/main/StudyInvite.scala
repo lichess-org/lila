@@ -45,23 +45,21 @@ final private class StudyInvite(
     _         <- relation.has(Block) so fufail[Unit]("This user does not want to join")
     isPresent <- getIsPresent(invited.id)
     _ <-
-      if (isPresent || Granter(_.StudyAdmin)) funit
+      if isPresent || Granter(_.StudyAdmin) then funit
       else
         prefApi.get(invited).map(_.studyInvite).flatMap {
           case Pref.StudyInvite.ALWAYS => funit
           case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
           case Pref.StudyInvite.FRIEND =>
-            if (relation.has(Follow)) funit
+            if relation.has(Follow) then funit
             else fufail("This user only accept study invitations from friends")
         }
     _ <- studyRepo.addMember(study, StudyMember make invited)
     shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
-      if (Granter(_.StudyAdmin)) 1
-      else if (relation has Follow) 10
-      else if (inviter.roles has "ROLE_COACH") 20
-      else if (inviter.hasTitle) 20
-      else if (inviter.perfs.bestRating >= 2000) 50
+      if Granter(_.StudyAdmin) then 1
+      else if relation has Follow then 5
+      else if inviter.hasTitle then 10
       else 100
     _ <- shouldNotify so notifyRateLimit.zero(inviter.userId, rateLimitCost):
       notifyApi

@@ -61,17 +61,15 @@ final class Tutor(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> me ?=>
-      def proceed(user: UserModel) = env.tutor.api.availability(user) flatMap f(user)
-      if me.user is username then proceed(me.user)
+      def proceed(user: UserModel.WithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
+      if me is username then env.user.api.withPerfs(me.value).flatMap(proceed)
       else
-        env.user.repo.byId(username) flatMap {
-          _.fold(notFound): user =>
-            if isGranted(_.SeeInsight) then proceed(user)
-            else
-              (user.enabled.yes so env.clas.api.clas.isTeacherOf(me, user.id)) flatMap {
-                if _ then proceed(user) else notFound
-              }
-        }
+        Found(env.user.api.withPerfs(username)): user =>
+          if isGranted(_.SeeInsight) then proceed(user)
+          else
+            (user.enabled.yes so env.clas.api.clas.isTeacherOf(me, user.id)) flatMap {
+              if _ then proceed(user) else notFound
+            }
     }
 
   private def TutorPage(
@@ -82,9 +80,11 @@ final class Tutor(env: Env) extends LilaController(env):
         case TutorFullReport.InsufficientGames =>
           BadRequest.page(views.html.tutor.empty.insufficientGames(user))
         case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
-          env.tutor.queue.waitingGames(user) flatMap { waitGames =>
-            Accepted.page(views.html.tutor.empty.queued(in, user, waitGames))
-          }
+          for
+            waitGames <- env.tutor.queue.waitingGames(user)
+            user      <- env.user.api.withPerfs(user)
+            page      <- renderPage(views.html.tutor.empty.queued(in, user, waitGames))
+          yield Accepted(page)
         case TutorFullReport.Empty(_)             => Accepted.page(views.html.tutor.empty.start(user))
         case available: TutorFullReport.Available => f(user)(available)
     }

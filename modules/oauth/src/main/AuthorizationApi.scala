@@ -37,12 +37,10 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
             request.clientSecret
               .toValid(LegacyClientApi.ClientSecretIgnored)
               .ensure(LegacyClientApi.MismatchingClientSecret)(_.matches(hashedClientSecret))
-              .map(_.unit)
           case Right(codeChallenge) =>
             request.codeVerifier
               .toValid(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
-              .map(_.unit)
       yield AccessTokenRequest.Granted(pending.userId, pending.scopes into TokenScopes, pending.redirectUri)
     }
 

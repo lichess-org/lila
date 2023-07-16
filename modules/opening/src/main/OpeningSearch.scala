@@ -1,6 +1,5 @@
 package lila.opening
 
-import cats.syntax.all.*
 import chess.opening.{ Opening, OpeningDb }
 import java.text.Normalizer
 
@@ -86,23 +85,21 @@ private object OpeningSearch:
     def exactMatch(token: Token) =
       entry.tokens(token) ||
         entry.tokens(s"${token}s") // King's and Queen's can be matched by king and queen
-    if (
-      entry.opening.pgn.value.startsWith(query.raw) ||
+    if entry.opening.pgn.value.startsWith(query.raw) ||
       entry.opening.pgn.value.startsWith(query.numberedPgn) ||
       entry.opening.uci.value.startsWith(query.raw)
-    )
-      (query.raw.size * 1000 - entry.opening.nbMoves)
+    then (query.raw.size * 1000 - entry.opening.nbMoves)
     else
       query.tokens
         .foldLeft((query.tokens, 0)) { case ((remaining, score), token) =>
-          if (exactMatch(token)) (remaining - token, score + token.size * 100)
+          if exactMatch(token) then (remaining - token, score + token.size * 100)
           else (remaining, score)
         } match
         case (remaining, score) =>
           score + remaining.map { t =>
             entry.tokens.map { e =>
-              if (e startsWith t) t.size * 50
-              else if (e contains t) t.size * 20
+              if e startsWith t then t.size * 50
+              else if e contains t then t.size * 20
               else 0
             }.sum
           }.sum

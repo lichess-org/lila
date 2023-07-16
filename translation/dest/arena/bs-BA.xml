@@ -61,4 +61,5 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
   <string name="noArenaStreaks">Nije dopušteno ostvarivanje niza pobjeda u areni</string>
   <string name="averagePerformance">Prosječna izvedba</string>
   <string name="averageScore">Prosječan rezultat</string>
+  <string name="myTournaments">Moji turniri</string>
 </resources>

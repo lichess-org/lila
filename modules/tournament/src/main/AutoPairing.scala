@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Black, Color, White }
+import chess.{ Black, Color, White, ByColor }
 
 import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
 
@@ -19,14 +19,13 @@ final class AutoPairing(
         chess = chess
           .Game(
             variantOption = Some {
-              if (tour.position.isEmpty) tour.variant
+              if tour.position.isEmpty then tour.variant
               else chess.variant.FromPosition
             },
             fen = fen
           )
           .copy(clock = clock.some),
-        whitePlayer = makePlayer(White, pairing.player1),
-        blackPlayer = makePlayer(Black, pairing.player2),
+        players = ByColor(makePlayer(White, pairing.player1), makePlayer(Black, pairing.player2)),
         mode = tour.mode,
         source = Source.Arena,
         pgnImport = None
@@ -34,7 +33,7 @@ final class AutoPairing(
       .withId(pairing.pairing.gameId)
       .withTournamentId(tour.id)
       .start
-    (gameRepo insertDenormalized game) >>- {
+    gameRepo.insertDenormalized(game) andDo {
       onStart(game.id)
       import lila.rating.intZero
       duelStore.add(

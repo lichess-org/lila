@@ -27,15 +27,18 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         .flatMap:
           if _ then notFoundJson()
           else
-            env.tournament.api.withdrawAll(me) >>
-              env.team.cached.teamIdsList(me).flatMap { env.swiss.api.withdrawAll(me, _) } >>
-              env.user.repo.setBot(me) >>
-              env.pref.api.setBot(me) >>
-              env.streamer.api.delete(me) >>-
-              env.user.lightUserApi.invalidate(me) pipe
-              toResult recover { case lila.base.LilaInvalid(msg) =>
-                BadRequest(jsonError(msg))
-              }
+            {
+              for
+                _       <- env.tournament.api.withdrawAll(me)
+                teamIds <- env.team.cached.teamIdsList(me)
+                _       <- env.swiss.api.withdrawAll(me, teamIds)
+                _       <- env.user.api.setBot(me)
+                _       <- env.pref.api.setBot(me)
+                _       <- env.streamer.api.delete(me)
+              yield env.user.lightUserApi.invalidate(me)
+            } pipe toResult recover { case lila.base.LilaInvalid(msg) =>
+              BadRequest(jsonError(msg))
+            }
     else impl.command(cmd)(WithPovAsBot)
   }
 
@@ -74,8 +77,8 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
           as(GameAnyId(id)): pov =>
             env.bot.form.chat
               .bindFromRequest()
-              .fold(
-                jsonFormError,
+              .fold[Fu[Result]](
+                doubleJsonFormError,
                 res => env.bot.player.chat(pov.gameId, res) inject jsonOkResult
               ) pipe catchClientError
         case Array("game", id, "abort") =>
@@ -147,16 +150,16 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
     }
 
   def botOnline = Open:
-    Ok.pageAsync:
-      env.user.repo
-        .botsByIds(env.bot.onlineApiUsers.get)
-        .map(views.html.user.bots(_))
+    for
+      users <- env.user.repo.botsByIds(env.bot.onlineApiUsers.get)
+      users <- env.user.perfsRepo.withPerfs(users)
+      page  <- renderPage(views.html.user.bots(users))
+    yield Ok(page)
 
   def botOnlineApi = Anon:
     apiC
       .jsonDownload:
-        env.user.repo
-          .botsByIdsCursor(env.bot.onlineApiUsers.get)
-          .documentSource(getInt("nb") | Int.MaxValue)
-          .throttle(50, 1 second)
-          .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
+        env.user.api
+          .botsByIdsStream(env.bot.onlineApiUsers.get, getInt("nb"))
+          .map: u =>
+            env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)

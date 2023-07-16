@@ -11,10 +11,10 @@ import lila.user.User
 object side:
 
   def apply(
-      u: User,
+      u: User.WithPerfs,
       rankMap: lila.rating.UserRankMap,
       active: Option[lila.rating.PerfType]
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
       perf.nonEmpty option showPerf(perf, perfType)
@@ -29,30 +29,33 @@ object side:
           "active" -> active.has(perfType)
         ),
         href := ctx.pref.showRatings.so:
-          if (isPuzzle) routes.Puzzle.dashboard(30, "home", u.username.some).url
+          if isPuzzle then routes.Puzzle.dashboard(30, "home", u.username.some).url
           else routes.User.perfStat(u.username, perfType.key).url
         ,
         span(
           h3(perfType.trans),
-          if (isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u) && ctx.pref.showRatings) st.rating(strong("?"))
+          if isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u) && ctx.pref.showRatings then
+            st.rating(strong("?"))
           else
             st.rating(
               ctx.pref.showRatings option frag(
-                if (perf.glicko.clueless) strong("?")
+                if perf.glicko.clueless then strong("?")
                 else
                   strong(
                     perf.glicko.intRating,
                     perf.provisional.yes option "?"
-                  ),
+                  )
+                ,
                 " ",
                 ratingProgress(perf.progress),
                 " "
               ),
               span(
-                if (perfType.key.value == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
+                if perfType.key.value == "puzzle" then trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
                 else trans.nbGames.plural(perf.nb, perf.nb.localize)
               )
-            ),
+            )
+          ,
           rankMap get perfType ifTrue ctx.pref.showRatings map { rank =>
             span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(
               trans.rankX(rank.localize)

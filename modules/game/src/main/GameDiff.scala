@@ -28,14 +28,14 @@ object GameDiff:
 
     def d[A](name: String, getter: Game => A, toBson: A => BSONValue): Unit =
       val vb = getter(b)
-      if (getter(a) != vb)
-        if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
-        else setBuilder += name                                         -> toBson(vb)
+      if getter(a) != vb then
+        if vb == None || vb == null || vb == "" then unsetBuilder += (name -> bTrue)
+        else setBuilder += name                                            -> toBson(vb)
 
     def dOpt[A](name: String, getter: Game => A, toBson: A => Option[BSONValue]): Unit =
       val vb = getter(b)
-      if (getter(a) != vb)
-        if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
+      if getter(a) != vb then
+        if vb == None || vb == null || vb == "" then unsetBuilder += (name -> bTrue)
         else
           toBson(vb) match
             case None    => unsetBuilder += (name -> bTrue)
@@ -45,19 +45,19 @@ object GameDiff:
       d[A](name, getter, a => toBson(a).get)
 
     def getClockHistory(color: Color)(g: Game): Option[ClockHistorySide] =
-      for {
+      for
         clk     <- g.clock
         history <- g.clockHistory
         curColor = g.turnColor
         times    = history(color)
-      } yield (clk.limit, times, g.flagged has color)
+      yield (clk.limit, times, g.flagged has color)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) =
       o.flatMap { case (x, y, z) =>
         byteArrayHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
       }
 
-    if (a.variant.standard) dTry(huffmanPgn, _.sans, writeBytes compose PgnStorage.Huffman.encode)
+    if a.variant.standard then dTry(huffmanPgn, _.sans, writeBytes compose PgnStorage.Huffman.encode)
     else
       val f = PgnStorage.OldBin
       dTry(oldPgn, _.sans, writeBytes compose f.encode)
@@ -66,13 +66,13 @@ object GameDiff:
       dTry(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
       dTry(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveHandler.writeTry)
       // since variants are always OldBin
-      if (a.variant.threeCheck)
+      if a.variant.threeCheck then
         dOpt(
           checkCount,
           _.history.checkCount,
           (o: CheckCount) => o.nonEmpty so { BSONHandlers.checkCountWriter writeOpt o }
         )
-      if (a.variant.crazyhouse)
+      if a.variant.crazyhouse then
         dOpt(
           crazyData,
           _.board.crazyData,
@@ -91,10 +91,10 @@ object GameDiff:
         }
     )
     dTry(drawOffers, _.drawOffers, BSONHandlers.gameDrawOffersHandler.writeTry)
-    for (i <- 0 to 1)
+    for i <- 0 to 1 do
       import Player.BSONFields.*
       val name                   = s"p$i."
-      val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
+      val player: Game => Player = if i == 0 then (_.whitePlayer) else (_.blackPlayer)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, ply => w.intO(ply.value))
       dTry(s"$name$blursBits", player(_).blurs, Blurs.blursHandler.writeTry)

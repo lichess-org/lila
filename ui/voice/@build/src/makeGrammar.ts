@@ -32,9 +32,9 @@ function buildCostMap(
 
 async function main() {
   const subMap = new Map<string, SubInfo>();
-  const opThreshold = parseInt(getArg('max-ops') ?? '1');
-  const freqThreshold = parseFloat(getArg('freq') ?? '0.002');
-  const countThreshold = parseInt(getArg('count') ?? '6');
+  const opThreshold = Number(getArg('max-ops') ?? '1');
+  const freqThreshold = Number(getArg('freq') ?? '0.002');
+  const countThreshold = Number(getArg('count') ?? '6');
   const grammar = ps.argv.slice(2).filter(x => !x.startsWith('-'))[0] ?? getArg('grammar') ?? 'move-en';
   const lexicon = JSON.parse(fs.readFileSync(`lexicon/${grammar}-lex.json`, 'utf-8')) as Lexicon;
 

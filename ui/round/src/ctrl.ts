@@ -68,7 +68,6 @@ export default class RoundController {
   voiceMove?: VoiceMove;
   moveOn: MoveOn;
   promotion: PromotionCtrl;
-
   ply: number;
   firstSeconds = true;
   flip = false;
@@ -83,16 +82,15 @@ export default class RoundController {
   goneBerserk: GoneBerserk = {};
   resignConfirm?: Timeout = undefined;
   drawConfirm?: Timeout = undefined;
+  preventDrawOffer?: Timeout = undefined;
   // will be replaced by view layer
   autoScroll: () => void = () => {};
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
   shouldSendMoveTime = false;
   preDrop?: cg.Role;
-  lastDrawOfferAtPly?: Ply;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
-  private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw, readonly nvui?: NvuiPlugin) {
     round.massage(opts.data);
@@ -153,14 +151,6 @@ export default class RoundController {
       this.redraw();
     });
 
-    lichess.pubsub.on('sound_set', (set: string) => {
-      if (!this.music && set === 'music')
-        lichess.loadIife('javascripts/music/play.js').then(() => {
-          this.music = lichess.playMusic();
-        });
-      if (this.music && set !== 'music') this.music = undefined;
-    });
-
     lichess.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
@@ -168,6 +158,8 @@ export default class RoundController {
     });
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
+
+    lichess.sound.move();
   }
 
   private showExpiration = () => {
@@ -283,8 +275,9 @@ export default class RoundController {
       if (/[+#]/.test(s.san)) sound.check();
     }
     this.autoScroll();
-    this.voiceMove?.update(s.fen);
-    this.keyboardMove?.update(s);
+    const canMove = ply === this.lastPly() && this.data.player.color === config.turnColor;
+    this.voiceMove?.update(s.fen, canMove);
+    this.keyboardMove?.update(s), canMove;
     lichess.pubsub.emit('ply', ply);
     return true;
   };
@@ -360,7 +353,6 @@ export default class RoundController {
     this.resign(false);
     if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
       this.moveToSubmit = move;
-      this.voiceMove?.confirm('submitMove', this.submitMove);
       this.redraw();
     } else {
       this.actualSendMove('move', move, {
@@ -376,7 +368,6 @@ export default class RoundController {
     this.resign(false);
     if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
       this.dropToSubmit = drop;
-      this.voiceMove?.confirm('submitMove', this.submitMove);
       this.redraw();
     } else {
       this.actualSendMove('drop', drop, {
@@ -504,8 +495,8 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     this.keyboardMove?.update(step, playedColor != d.player.color);
-    this.voiceMove?.update(step.fen /*, playedColor != d.player.color*/);
-    if (this.music) this.music.jump(o);
+    this.voiceMove?.update(step.fen, playedColor != d.player.color);
+    lichess.sound.move(o);
     lichess.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
@@ -541,7 +532,7 @@ export default class RoundController {
     this.onChange();
     this.setLoading(false);
     this.keyboardMove?.update(d.steps[d.steps.length - 1]);
-    this.voiceMove?.update(d.steps[d.steps.length - 1].fen);
+    this.voiceMove?.update(d.steps[d.steps.length - 1].fen, true);
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -641,8 +632,46 @@ export default class RoundController {
     }
   };
 
+  question = (): QuestionOpts | false => {
+    if (this.moveToSubmit || this.dropToSubmit) {
+      this.voiceMove?.listenForResponse('submitMove', this.submitMove);
+      return {
+        prompt: this.noarg('confirmMove'),
+        yes: { action: () => this.submitMove(true) },
+        no: { action: () => this.submitMove(false), key: 'cancel' },
+      };
+    } else if (this.data.player.proposingTakeback) {
+      this.voiceMove?.listenForResponse('cancelTakeback', this.cancelTakebackPreventDraws);
+      return {
+        prompt: this.noarg('takebackPropositionSent'),
+        no: { action: this.cancelTakebackPreventDraws, key: 'cancel' },
+      };
+    } else if (this.data.player.offeringDraw) {
+      this.voiceMove?.listenForResponse('cancelDraw', v => !v && this.socket.sendLoading('draw-no'));
+      return {
+        prompt: this.noarg('drawOfferSent'),
+        no: { action: () => this.socket.sendLoading('draw-no'), key: 'cancel' },
+      };
+    } else if (this.data.opponent.proposingTakeback)
+      return {
+        prompt: this.noarg('yourOpponentProposesATakeback'),
+        yes: { action: () => this.socket.send('takeback-yes'), icon: licon.Back },
+        no: { action: () => this.socket.send('takeback-no') },
+      };
+    else if (this.data.opponent.offeringDraw)
+      return {
+        prompt: this.noarg('yourOpponentOffersADraw'),
+        yes: { action: () => this.socket.send('draw-yes'), icon: licon.OneHalf },
+        no: { action: () => this.socket.send('draw-no') },
+      };
+    else if (this.voiceMove) return this.voiceMove.question();
+    else return false;
+  };
+
   opponentRequest(req: string, i18nKey: string) {
-    this.voiceMove?.confirm(req, (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`));
+    this.voiceMove?.listenForResponse(req, (v: boolean) =>
+      this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`)
+    );
     notify(this.noarg(i18nKey));
   }
 
@@ -740,7 +769,7 @@ export default class RoundController {
 
   opponentGone = (): number | boolean => {
     const d = this.data;
-    return d.opponent.gone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.gone;
+    return d.opponent.isGone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.isGone;
   };
 
   rematch(accept?: boolean): boolean {
@@ -759,7 +788,19 @@ export default class RoundController {
     return true;
   }
 
-  canOfferDraw = (): boolean => game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < this.ply - 20;
+  canOfferDraw = (): boolean =>
+    !this.preventDrawOffer &&
+    game.drawable(this.data) &&
+    (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
+
+  cancelTakebackPreventDraws = () => {
+    this.socket.sendLoading('takeback-no');
+    clearTimeout(this.preventDrawOffer);
+    this.preventDrawOffer = setTimeout(() => {
+      this.preventDrawOffer = undefined;
+      this.redraw();
+    }, 4000);
+  };
 
   offerDraw = (v: boolean, immediately?: boolean): void => {
     if (this.canOfferDraw()) {
@@ -779,7 +820,7 @@ export default class RoundController {
   };
 
   private doOfferDraw = () => {
-    this.lastDrawOfferAtPly = this.ply;
+    this.data.player.lastDrawOfferAtPly = this.ply;
     this.socket.sendLoading('draw-yes', null);
   };
 
@@ -793,10 +834,6 @@ export default class RoundController {
   stepAt = (ply: Ply) => round.plyStep(this.data, ply);
 
   private delayedInit = () => {
-    const d = this.data;
-    if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
-      lichess.sound.play('genericNotify');
-    }
     lichess.requestIdleCallback(() => {
       const d = this.data;
       if (this.isPlaying()) {
@@ -817,10 +854,12 @@ export default class RoundController {
           });
 
         if (!this.nvui && d.pref.submitMove) {
-          window.Mousetrap.bind('esc', () => {
-            this.submitMove(false);
-            this.chessground.cancelMove();
-          }).bind('return', () => this.submitMove(true));
+          lichess.mousetrap
+            .bind('esc', () => {
+              this.submitMove(false);
+              this.chessground.cancelMove();
+            })
+            .bind('return', () => this.submitMove(true));
         }
         cevalSub.subscribe(this);
       }

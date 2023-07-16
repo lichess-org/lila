@@ -4,75 +4,97 @@ import { storage } from './storage';
 import { isIOS } from 'common/mobile';
 import { charRole } from 'chess';
 
-declare class Howl {
-  constructor(opts: { src: string | string[] });
-  volume(vol: number): Howl;
-  play(): number;
-}
-
-interface Howler {
-  ctx: AudioContext;
-}
-
-declare const Howler: Howler;
-
 type Name = string;
 type Path = string;
 
+export type SoundMove = (node?: { san?: string; uci?: string }) => void;
+
 export default new (class implements SoundI {
-  soundSetSounds = new Map<Name, Howl>(); // The loaded sounds and their instances
-  standaloneSounds = new Map<Name, Howl>(); // Sounds that are independent of the sound set
-  soundSet = $('body').data('sound-set');
+  ctx = new AudioContext();
+  sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
+  paths = new Map<Name, Path>(); // sound names to paths
+  theme = $('body').data('sound-set');
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
-  baseUrl = assetUrl('sound', {
-    version: '_____1', // 6 random letters to update
-  });
+  baseUrl = assetUrl('sound', { version: '_____1' });
+  soundMove?: SoundMove;
 
-  constructor() {
-    if (this.soundSet == 'music') setTimeout(this.publish, 500);
-  }
-
-  loadOggOrMp3 = (name: Name, path: Path, noSoundSet = false) =>
-    (noSoundSet ? this.standaloneSounds : this.soundSetSounds).set(
-      name,
-      new Howl({
-        src: ['ogg', 'mp3'].map(ext => `${path}.${ext}`),
-      })
-    );
-
-  loadStandard = (name: Name, soundSet?: string) => {
-    if (!this.enabled()) return;
-    const path = name[0].toUpperCase() + name.slice(1);
-    this.loadOggOrMp3(name, `${this.baseUrl}/${soundSet || this.soundSet}/${path}`);
-  };
-
-  preloadBoardSounds() {
-    if (this.soundSet !== 'music')
-      ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
-  }
-
-  private getOrLoadSound = (name: string, set: string): Howl => {
-    let s = this.soundSetSounds.get(name) ?? this.standaloneSounds.get(name);
-    if (!s) {
-      this.loadStandard(name, set);
-      s = this.soundSetSounds.get(name)!;
+  async context() {
+    if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
+      // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
+      this.ctx = new AudioContext();
+      for (const s of this.sounds.values()) s.rewire(this.ctx);
     }
-    return s;
-  };
+    if (this.ctx.state === 'suspended') await this.ctx.resume();
 
-  play(name: string, volume?: number) {
+    return this.ctx;
+  }
+
+  async load(name: Name, path?: Path): Promise<Sound | undefined> {
+    if (path) this.paths.set(name, path);
+    else if (this.paths.has(name)) path = this.paths.get(name);
+    else path ??= this.resolve(name);
+    if (!path) return;
+    if (this.sounds.has(path)) return this.sounds.get(path);
+
+    const result = await fetch(`${path}.mp3`);
+    if (!result.ok) throw new Error(`${path}.mp3 failed ${result.status}`);
+
+    const arrayBuffer = await result.arrayBuffer();
+    const audioBuffer = await this.ctx.decodeAudioData(arrayBuffer);
+    const sound = new Sound(this.ctx, audioBuffer);
+    this.sounds.set(path, sound);
+    return sound;
+  }
+
+  resolve(name: Name): string | undefined {
     if (!this.enabled()) return;
-    let set = this.soundSet;
-    if (set === 'music' || this.speechStorage.get()) {
+    let dir = this.theme;
+    if (this.theme === 'music' || this.theme === 'speech') {
       if (['move', 'capture', 'check'].includes(name)) return;
-      set = 'standard';
+      if (name === 'genericNotify' || this.theme === 'speech') dir = 'standard';
+      else dir = 'instrument';
     }
-    const s = this.getOrLoadSound(name, set);
+    return `${this.baseUrl}/${dir}/${name[0].toUpperCase() + name.slice(1)}`;
+  }
 
-    const doPlay = () => s.volume(this.getVolume() * (volume || 1)).play();
-    if (Howler.ctx?.state === 'suspended') Howler.ctx.resume().then(doPlay);
-    else doPlay();
+  async play(name: Name, volume = 1): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!this.enabled()) return resolve();
+      this.load(name)
+        .then(async sound => {
+          if (!sound) return resolve();
+          const resumeTimer = setTimeout(() => {
+            $('#warn-no-autoplay').addClass('shown');
+            reject();
+          }, 400);
+          await this.context();
+          clearTimeout(resumeTimer);
+          sound.play(this.getVolume() * volume, resolve);
+        })
+        .catch(reject);
+    });
+  }
+
+  async move(node?: { san?: string; uci?: string }) {
+    if (this.theme !== 'music') return;
+    this.soundMove ??= await lichess.loadEsm<SoundMove>('soundMove');
+    this.soundMove(node);
+  }
+
+  async countdown(count: number, interval = 500): Promise<void> {
+    if (!this.enabled()) return;
+    try {
+      while (count > 0) {
+        const promises = [new Promise(r => setTimeout(r, interval)), this.play(`countDown${count}`)];
+
+        if (--count > 0) promises.push(this.load(`countDown${count}`));
+        await Promise.all(promises);
+      }
+      await this.play('genericNotify');
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   playOnce(name: string): void {
@@ -95,7 +117,7 @@ export default new (class implements SoundI {
     return v >= 0 ? v : 0.7;
   };
 
-  enabled = () => this.soundSet !== 'silent';
+  enabled = () => this.theme !== 'silent';
 
   speech = (v?: boolean): boolean => {
     if (v !== undefined) this.speechStorage.set(v);
@@ -124,15 +146,15 @@ export default new (class implements SoundI {
 
   sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
 
-  publish = () => pubsub.emit('sound_set', this.soundSet);
+  publish = () => pubsub.emit('sound_set', this.theme);
 
   changeSet = (s: string) => {
-    this.soundSet = s;
-    this.soundSetSounds.clear();
+    this.theme = s;
     this.publish();
+    this.move();
   };
 
-  set = () => this.soundSet;
+  set = () => this.theme;
 
   saySan(san?: San, cut?: boolean) {
     const text = !san
@@ -170,4 +192,36 @@ export default new (class implements SoundI {
           .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
     this.say(text, cut);
   }
+
+  preloadBoardSounds() {
+    for (const name of ['move', 'capture', 'check', 'genericNotify']) this.load(name);
+  }
 })();
+
+class Sound {
+  node: GainNode;
+  ctx: AudioContext;
+
+  constructor(ctx: AudioContext, readonly buffer: AudioBuffer) {
+    this.rewire(ctx);
+  }
+
+  play(volume = 1, onend?: () => void) {
+    this.node.gain.setValueAtTime(volume, this.ctx!.currentTime);
+    const source = this.ctx!.createBufferSource();
+    source.buffer = this.buffer;
+    source.connect(this.node);
+    source.onended = () => {
+      source.disconnect();
+      onend?.();
+    };
+    source.start(0);
+  }
+
+  rewire(ctx: AudioContext) {
+    this.node?.disconnect();
+    this.ctx = ctx;
+    this.node = this.ctx.createGain();
+    this.node.connect(this.ctx.destination);
+  }
+}

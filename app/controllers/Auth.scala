@@ -22,18 +22,14 @@ final class Auth(
   private def api   = env.security.api
   private def forms = env.security.forms
 
-  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] =
-    env.round.proxyRepo urgentGames u map { povs =>
-      Ok:
-        env.user.jsonView.full(
-          u,
-          withRating = ctx.pref.showRatings,
-          withProfile = true
-        ) ++ Json.obj(
-          "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
-          "sessionId"  -> sessionId
-        )
-    }
+  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] = for
+    povs  <- env.round.proxyRepo urgentGames u
+    perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo perfsOf u)
+  yield Ok:
+    env.user.jsonView.full(u, perfs, withProfile = true) ++ Json.obj(
+      "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
+      "sessionId"  -> sessionId
+    )
 
   private def getReferrerOption(using ctx: Context): Option[String] =
     get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
@@ -92,7 +88,7 @@ final class Auth(
   def authenticate = OpenBody:
     NoCrawlers:
       Firewall:
-        def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
+        def redirectTo(url: String) = if HTTPRequest isXhr ctx.req then Ok(s"ok:$url") else Redirect(url)
         val referrer                = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers)
         api.loginForm
           .bindFromRequest()
@@ -100,7 +96,7 @@ final class Auth(
             err =>
               negotiate(
                 Unauthorized.page(html.auth.login(err, referrer)),
-                Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
+                Unauthorized(doubleJsonFormErrorBody(err))
               ),
             (login, pass) =>
               LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
@@ -120,7 +116,7 @@ final class Auth(
                             case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
                             case _ => Unauthorized.page(html.auth.login(err, referrer))
                           ,
-                          Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
+                          Unauthorized(doubleJsonFormErrorBody(err))
                         )
                       ,
                       result =>
@@ -177,8 +173,8 @@ final class Auth(
         forms.preloadEmailDns() >> negotiateApi(
           html = env.security.signup
             .website(ctx.blind)
-            .flatMap {
-              case Signup.Result.RateLimited => limitedDefault.zero
+            .flatMap:
+              case Signup.Result.RateLimited => rateLimited
               case Signup.Result.MissingCaptcha =>
                 forms.signup.website.flatMap: form =>
                   BadRequest.page(html.auth.signup(form))
@@ -191,30 +187,29 @@ final class Auth(
                     .make(env.lilaCookie, user, email)(using ctx.req)
               case Signup.Result.AllSet(user, email) =>
                 welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
-            },
+          ,
           api = apiVersion =>
             env.security.signup
               .mobile(apiVersion)
-              .flatMap {
-                case Signup.Result.RateLimited        => limitedDefault.zero
+              .flatMap:
+                case Signup.Result.RateLimited        => rateLimited
                 case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
-                case Signup.Result.Bad(err)           => jsonFormError(err)
+                case Signup.Result.Bad(err)           => doubleJsonFormError(err)
                 case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
                 case Signup.Result.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user, remember = true)
-              }
         )
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
       ctx: Context
   ): Funit =
     garbageCollect(user)(email)
-    if (sendWelcomeEmail) env.mailer.automaticEmail.welcomeEmail(user, email)
+    if sendWelcomeEmail then env.mailer.automaticEmail.welcomeEmail(user, email)
     env.mailer.automaticEmail.welcomePM(user)
     env.pref.api.saveNewUserPrefs(user, ctx.req)
 
   private def garbageCollect(user: UserModel)(email: EmailAddress)(using ctx: Context) =
-    env.security.garbageCollector.delay(user, email, ctx.req)
+    env.security.garbageCollector.delay(user, email, ctx.req, quickly = lila.api.AnnounceStore.get.isDefined)
 
   def checkYourEmail = Open:
     RedirectToProfileIfLoggedIn:
@@ -241,7 +236,7 @@ final class Auth(
                   case false => Redirect(routes.Auth.login)
                   case _ =>
                     val newUserEmail = userEmail.copy(email = email)
-                    EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimitedFu):
+                    EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
                       lila.mon.email.send.fix.increment()
                       env.user.repo.setEmail(user.id, newUserEmail.email) >>
                         env.security.emailConfirm
@@ -356,29 +351,31 @@ final class Auth(
         notFound
       case Some(me) =>
         given Me = me
-        val user = me.user
+        val user = me.value
         FormFuResult(forms.passwdResetForMe) { err =>
           renderPage(html.auth.bits.passwordResetConfirm(token, err, false.some))
         } { data =>
           HasherRateLimit:
-            env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
-              env.user.repo.setEmailConfirmed(user.id).flatMapz {
+            for
+              _         <- env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1))
+              confirmed <- env.user.repo.setEmailConfirmed(user.id)
+              _ <- confirmed.so:
                 welcome(user, _, sendWelcomeEmail = false)
-              } >>
-              env.user.repo.disableTwoFactor(user.id) >>
-              env.security.store.closeAllSessionsOf(user.id) >>
-              env.push.webSubscriptionApi.unsubscribeByUser(user) >>
-              env.push.unregisterDevices(user) >>
-              authenticateUser(user, remember = true) >>-
-              lila.mon.user.auth.passwordResetConfirm("success").increment().unit
+              _   <- env.user.repo.disableTwoFactor(user.id)
+              _   <- env.security.store.closeAllSessionsOf(user.id)
+              _   <- env.push.webSubscriptionApi.unsubscribeByUser(user)
+              _   <- env.push.unregisterDevices(user)
+              res <- authenticateUser(user, remember = true)
+            yield
+              lila.mon.user.auth.passwordResetConfirm("success").increment()
+              res
         }
     }
 
   private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
     renderAsync:
-      env.security.forms.magicLink map { baseForm =>
+      env.security.forms.magicLink.map: baseForm =>
         html.auth.bits.magicLink(form.foldLeft(baseForm)(_ withForm _), fail)
-      }
 
   def magicLink = Open:
     Firewall:
@@ -387,7 +384,7 @@ final class Auth(
   def magicLinkApply = OpenBody:
     Firewall:
       env.security.hcaptcha.verify() flatMap { captcha =>
-        if (captcha.ok)
+        if captcha.ok then
           forms.magicLink flatMap {
             _.form
               .bindFromRequest()
@@ -396,7 +393,7 @@ final class Auth(
                 data =>
                   env.user.repo.enabledWithEmail(data.email.normalize) flatMap {
                     case Some((user, storedEmail)) =>
-                      MagicLinkRateLimit(user, storedEmail, ctx.req, rateLimitedFu):
+                      MagicLinkRateLimit(user, storedEmail, ctx.req, rateLimited):
                         lila.mon.user.auth.magicLinkRequest("success").increment()
                         env.security.magicLink.send(user, storedEmail) inject Redirect:
                           routes.Auth.magicLinkSent
@@ -406,8 +403,7 @@ final class Auth(
                   }
               )
           }
-        else
-          renderMagicLink(none, fail = true) map { BadRequest(_) }
+        else renderMagicLink(none, fail = true) map { BadRequest(_) }
       }
 
   def magicLinkSent = Open:
@@ -424,15 +420,15 @@ final class Auth(
     then Redirect(routes.Lobby.home)
     else
       Firewall:
-        magicLinkLoginRateLimitPerToken(token, rateLimitedFu):
+        magicLinkLoginRateLimitPerToken(token, rateLimited):
           env.security.magicLink confirm token flatMap {
             case None =>
               lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
               notFound
             case Some(user) =>
               authLog(user.username, none, "Magic link")
-              authenticateUser(user, remember = true) >>-
-                lila.mon.user.auth.magicLinkConfirm("success").increment().unit
+              authenticateUser(user, remember = true) andDo
+                lila.mon.user.auth.magicLinkConfirm("success").increment()
           }
 
   def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>
@@ -440,7 +436,7 @@ final class Auth(
     then lila.log("oauth").info(s"api makeLoginToken ${me.username} ${HTTPRequest printClient ctx.req}")
     JsonOk:
       env.security.loginToken
-        .generate(me.user)
+        .generate(me.value)
         .map: token =>
           Json.obj(
             "userId" -> me.userId,
@@ -476,31 +472,31 @@ final class Auth(
       case Some(user) => f(user)
     }
 
-  private given limitedDefault: Zero[Result] = Zero(rateLimited)
-
   private[controllers] object LoginRateLimit:
     private val lastAttemptIp =
       env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](64, "login.lastIp"):
         _.expireAfterWrite(10.seconds).build()
-    def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result]): Fu[Result] =
+    def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result])(using
+        Context
+    ): Fu[Result] =
       val ip          = req.ipAddress
       val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
       env.security.ipTrust
         .isSuspicious(ip)
         .flatMap: ipSusp =>
           PasswordHasher.rateLimit[Result](
-            rateLimitedFu,
+            rateLimited,
             enforce = env.net.rateLimit,
             ipCost = 1 + ipSusp.so(15) + EmailAddress.isValid(id.value).so(2),
             userCost = 1 + multipleIps.so(4)
           )(id, req)(run)
 
-  private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, req: RequestHeader): Fu[Result] =
+  private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
     env.security
-      .ip2proxy(req.ipAddress)
+      .ip2proxy(ctx.ip)
       .flatMap: proxy =>
         PasswordHasher.rateLimit[Result](
-          rateLimitedFu,
+          rateLimited,
           enforce = env.net.rateLimit,
           ipCost = if proxy.is then 10 else 1
         )(me.userId into UserIdOrEmail, req)(_ => run)

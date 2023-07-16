@@ -4,7 +4,7 @@ export class Countdown {
   played = new Set<number>();
 
   public constructor(readonly clock: Clock, readonly onStart: () => void, readonly redraw: () => void) {
-    for (let i = 10; i >= 0; i--) lichess.sound.loadStandard(`countDown${i}`);
+    for (let i = 10; i >= 0; i--) lichess.sound.load(`countDown${i}`);
   }
 
   start = (startsAt: Date, aloud: boolean): void => {

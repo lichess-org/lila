@@ -18,7 +18,7 @@ final class Authenticator(
   def compare(auth: AuthData, p: ClearPassword): Boolean =
     val newP = auth.salt.fold(p) { s =>
       val salted = s"${p.value}{$s}" // BC
-      ClearPassword(if (~auth.sha512) salted.sha512 else salted.sha1)
+      ClearPassword(if ~auth.sha512 then salted.sha512 else salted.sha1)
     }
     passHasher.check(auth.bpass, newP)
 
@@ -31,8 +31,8 @@ final class Authenticator(
   ): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _ option passwordAndToken } }
 
-  def loginCandidate(u: User): Fu[User.LoginCandidate] =
-    loginCandidateById(u.id) dmap { _ | User.LoginCandidate(u, _ => false, false) }
+  def loginCandidate(using me: Me): Fu[User.LoginCandidate] =
+    loginCandidateById(me.userId) dmap { _ | User.LoginCandidate(me, _ => false, false) }
 
   def loginCandidateById(id: UserId): Fu[Option[User.LoginCandidate]] =
     loginCandidate($id(id))
@@ -50,8 +50,8 @@ final class Authenticator(
 
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean =
     val res = compare(auth, p)
-    if (res && auth.salt.isDefined)
-      setPassword(id = auth._id, p) >>- lila.mon.user.auth.bcFullMigrate.increment().unit
+    if res && auth.salt.isDefined then
+      setPassword(id = auth._id, p) andDo lila.mon.user.auth.bcFullMigrate.increment()
     res
 
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] = {

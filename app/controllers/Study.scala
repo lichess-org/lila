@@ -125,13 +125,11 @@ final class Study(
   }
 
   def byTopic(name: String, order: Order, page: Int) = Open:
-    lila.study.StudyTopic fromStr name match
-      case None => notFound
-      case Some(topic) =>
-        env.study.pager.byTopic(topic, order, page) zip
-          ctx.me.so(u => env.study.topicApi.userTopics(u) dmap some) flatMap { (pag, topics) =>
-            preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
-          }
+    Found(lila.study.StudyTopic fromStr name): topic =>
+      env.study.pager.byTopic(topic, order, page) zip
+        ctx.userId.soFu(env.study.topicApi.userTopics) flatMap { (pag, topics) =>
+          preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
+        }
 
   private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
     env.user.lightUserApi.preloadMany(
@@ -248,9 +246,8 @@ final class Study(
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.noKid && ctx.noBot &&                    // no public chats for kids and bots
     ctx.me.fold(true)(env.chat.panic.allowed(_)) // anon can see public chats
-  } so env.chat.api.userChat
+  } soFu env.chat.api.userChat
     .findMine(study.id into ChatId)
-    .dmap(some)
     .mon(_.chat.fetch("study"))
 
   def createAs = AuthBody { ctx ?=> me ?=>
@@ -282,10 +279,8 @@ final class Study(
   }
 
   private def createStudy(data: StudyForm.importGame.Data, me: lila.user.User)(using ctx: Context) =
-    env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
-      _.fold(notFound): sc =>
-        Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
-    }
+    Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
+      Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
@@ -303,11 +298,11 @@ final class Study(
   }
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
-    get("sri") so { sri =>
+    get("sri").so: sri =>
       StudyForm.importPgn.form
         .bindFromRequest()
         .fold(
-          jsonFormError,
+          doubleJsonFormError,
           data =>
             env.study.api.importPgns(
               id,
@@ -316,7 +311,6 @@ final class Study(
               ctx.pref.showRatings
             )(Who(me, lila.socket.Socket.Sri(sri))) inject NoContent
         )
-    }
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
@@ -342,40 +336,6 @@ final class Study(
               .map:
                 _.fold(notFound): pgn =>
                   Ok(html.study.embed(sc.study, sc.chapter, pgn))
-    // studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
-    //   _.fold(NotFound.page(html.study.embed.notFound)) { case WithChapter(study, chapter) =>
-    //     for
-    //       studyJson <- env.study.jsonView(
-    //         study.copy(
-    //           members = lila.study.StudyMembers(Map.empty) // don't need no members
-    //         ),
-    //         List(chapter.metadata),
-    //         chapter,
-    //         none
-    //       )
-    //       setup      = chapter.setup
-    //       initialFen = chapter.root.fen.some
-    //       pov        = userAnalysisC.makePov(initialFen, setup.variant)
-    //       baseData = env.round.jsonView.userAnalysisJson(
-    //         pov,
-    //         lila.pref.Pref.default,
-    //         initialFen,
-    //         setup.orientation,
-    //         owner = false
-    //       )
-    //       analysis = baseData ++ Json.obj(
-    //         "treeParts" -> partitionTreeJsonWriter.writes {
-    //           lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-    //         }
-    //       )
-    //       data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
-    //       result <- negotiate(
-    //         html = Ok(html.study.embed(study, chapter, chapters, data)),
-    //         api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis))
-    //       )
-    //     yield result
-    //   }
-    // } dmap (_.noCache)
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     Found(env.study.api.byId(id)): study =>
@@ -397,9 +357,9 @@ final class Study(
   )
 
   def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
-    val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
-    CloneLimitPerUser(me, rateLimitedFu, cost = cost):
-      CloneLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
+    val cost = if isGranted(_.Coach) || me.hasTitle then 1 else 3
+    CloneLimitPerUser(me, rateLimited, cost = cost):
+      CloneLimitPerIP(ctx.ip, rateLimited, cost = cost):
         Found(env.study.api.byId(id)) { prev =>
           CanView(prev) {
             env.study.api.clone(me, prev) map { study =>
@@ -416,7 +376,7 @@ final class Study(
   )
 
   def pgn(id: StudyId) = Open:
-    PgnRateLimitPerIp(ctx.ip, rateLimitedFu, msg = id):
+    PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
       Found(env.study.api byId id): study =>
         CanView(study) {
           doPgn(study)
@@ -487,7 +447,7 @@ final class Study(
         akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
-        .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
+        .pipe(asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn"))
         .as(pgnContentType)
 
   def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read): ctx ?=>
@@ -508,8 +468,8 @@ final class Study(
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:
-    env.study.api.byIdWithChapter(id, chapterId) flatMap {
-      _.fold(notFound) { case WithChapter(study, chapter) =>
+    Found(env.study.api.byIdWithChapter(id, chapterId)):
+      case WithChapter(study, chapter) =>
         CanView(study) {
           env.study.gifExport.ofChapter(chapter, theme, piece) map { stream =>
             Ok.chunked(stream)
@@ -519,8 +479,6 @@ final class Study(
             BadRequest(msg)
           }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
-      }
-    }
 
   def multiBoard(id: StudyId, page: Int) = Open:
     Found(env.study.api byId id): study =>
@@ -537,7 +495,7 @@ final class Study(
 
   def topics = Open:
     env.study.topicApi.popular(50) zip
-      ctx.me.so(me => env.study.topicApi.userTopics(me) dmap some) flatMap { (popular, mine) =>
+      ctx.userId.soFu(env.study.topicApi.userTopics) flatMap { (popular, mine) =>
         val form = mine map StudyForm.topicsForm
         Ok.page(html.study.topic.index(popular, mine, form))
       }
@@ -580,10 +538,10 @@ final class Study(
       f: => Fu[Result]
   )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
     me match
-      case _ if !study.isPrivate                       => f
-      case None                                        => unauthorized
-      case Some(me) if study.members.contains(me.user) => f
-      case _                                           => forbidden
+      case _ if !study.isPrivate                        => f
+      case None                                         => unauthorized
+      case Some(me) if study.members.contains(me.value) => f
+      case _                                            => forbidden
 
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
 

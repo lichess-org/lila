@@ -31,7 +31,7 @@ object index:
               postView.newPostLink
             )
           ),
-          if (posts.nbResults > 0)
+          if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, postView.editUrlOfPost) },
               pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
@@ -112,7 +112,7 @@ object index:
               )
             )
           ),
-          if (posts.nbResults > 0)
+          if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, showAuthor = true) },
               pagerNext(
@@ -123,8 +123,7 @@ object index:
                     .url
               )
             )
-          else
-            div(cls := "ublog-index__posts--empty")("Nothing to show.")
+          else div(cls := "ublog-index__posts--empty")("Nothing to show.")
         )
       )
     }
@@ -171,13 +170,12 @@ object index:
         views.html.blog.bits.menu(none, menuItem.some),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(h1(title)),
-          if (posts.nbResults > 0)
+          if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, showAuthor = true) },
               pagerNext(posts, np => route(np).url)
             )
-          else
-            div(cls := "ublog-index__posts--empty")(onEmpty)
+          else div(cls := "ublog-index__posts--empty")(onEmpty)
         )
       )
     }

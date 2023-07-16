@@ -38,9 +38,9 @@ final class FishnetPlayer(
   private val defaultClock = Clock(Clock.LimitSeconds(300), Clock.IncrementSeconds(0))
 
   private def delayFor(g: Game): Option[FiniteDuration] =
-    if (!g.bothPlayersHaveMoved) 2.seconds.some
+    if !g.bothPlayersHaveMoved then 2.seconds.some
     else
-      for {
+      for
         pov <- g.aiPov
         clock     = g.clock | defaultClock
         totalTime = clock.estimateTotalTime.centis
@@ -51,13 +51,13 @@ final class FishnetPlayer(
         if sleep > 25
         millis     = sleep * 10
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
-        divided    = randomized / (if (g.ply > 9) 1 else 2)
-      } yield divided.toInt.millis
+        divided    = randomized / (if g.ply > 9 then 1 else 2)
+      yield divided.toInt.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
-    if (game.situation playable true)
-      if (game.ply <= maxPlies) gameRepo.initialFen(game) zip uciMemo.get(game) map {
-        case (initialFen, moves) =>
+    if game.situation playable true then
+      if game.ply <= maxPlies then
+        gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
           Work.Move(
             _id = Work.makeId,
             game = Work.Game(
@@ -68,7 +68,7 @@ final class FishnetPlayer(
               moves = moves mkString " "
             ),
             level =
-              if (level < 3 && game.clock.exists(_.config.limit.toSeconds < 60)) 3
+              if level < 3 && game.clock.exists(_.config.limit.toSeconds < 60) then 3
               else level,
             clock = game.clock.map { clk =>
               Work.Clock(
@@ -78,6 +78,6 @@ final class FishnetPlayer(
               )
             }
           )
-      }
+        }
       else fufail(s"[fishnet] Too many moves (${game.ply}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")

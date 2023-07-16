@@ -22,10 +22,9 @@ final private class BotFarming(
       case Some((u1, u2)) if g.finished && g.rated && g.userIds.exists(isBotSync) =>
         crosstableApi(u1, u2) flatMap { ct =>
           gameRepo.gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId)) map {
-            _ exists { prev =>
-              g.winnerUserId == prev.winnerUserId &&
-              g.sans.take(SAME_PLIES) == prev.sans.take(SAME_PLIES)
-            }
+            _.exists: prev =>
+              g.winnerUserId === prev.winnerUserId &&
+                g.sans.take(SAME_PLIES) === prev.sans.take(SAME_PLIES)
           }
         }
       case _ => fuccess(false)

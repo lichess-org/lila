@@ -19,7 +19,6 @@ object Me extends TotalWrapper[Me, User]:
   given lila.db.NoDbHandler[Me] with {}
   extension (me: Me)
     def userId: UserId      = me.id
-    inline def user: User   = me
     inline def modId: ModId = userId into ModId
     inline def myId: MyId   = userId into MyId
 

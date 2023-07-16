@@ -22,7 +22,9 @@ object empty:
       )
     )
 
-  def queued(in: TutorQueue.InQueue, user: User, waitGames: List[(Pov, PgnStr)])(using PageContext) =
+  def queued(in: TutorQueue.InQueue, user: User.WithPerfs, waitGames: List[(Pov, PgnStr)])(using
+      PageContext
+  ) =
     bits.layout(
       menu = emptyFrag,
       title = "Lichess Tutor - Examining games...",
@@ -44,9 +46,8 @@ object empty:
           "."
         )
       ),
-      div(cls := "tutor__waiting-games")(
+      div(cls := "tutor__waiting-games"):
         div(cls := "tutor__waiting-games__carousel")(waitGames.map(waitGame))
-      )
     )
 
   private def waitGame(game: (Pov, PgnStr)) =
@@ -56,12 +57,10 @@ object empty:
       st.data("pov") := game._1.color.name
     )
 
-  private def nbGames(user: User)(using Lang) = {
-    val nb = lila.rating.PerfType.standardWithUltra.foldLeft(0) { (nb, pt) =>
+  private def nbGames(user: User.WithPerfs)(using Lang) =
+    val nb = lila.rating.PerfType.standardWithUltra.foldLeft(0): (nb, pt) =>
       nb + user.perfs(pt).nb
-    }
     p(s"Looks like you have ", strong(nb.atMost(10_000).localize), " rated games to look at, excellent!")
-  }
 
   private def examinationMethod = p(
     "Using the best chess engine: ",

@@ -99,5 +99,8 @@ object message:
   def temporarilyDisabled(using PageContext) = apply("Temporarily disabled"):
     "Sorry, this feature is temporarily disabled while we figure out a way to bring it back."
 
+  def rateLimited(msg: String = "Too many requests")(using PageContext) = apply(msg):
+    "Your device or network has sent too many requests in a short amount of time. Please try again later."
+
   def notYet(text: String)(using PageContext) =
     apply("Not yet available")(text)

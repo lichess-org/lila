@@ -22,18 +22,16 @@ object form:
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")(
-            if (fields.isTeamBattle) trans.arena.newTeamBattle()
+            if fields.isTeamBattle then trans.arena.newTeamBattle()
             else trans.createANewTournament()
           ),
-          postForm(cls := "form3", action := routes.Tournament.create)(
+          postForm(cls := "form3", action := routes.Tournament.webCreate)(
             div(cls := "form-group")(
               a(
                 dataIcon := licon.InfoCircle,
                 cls      := "text",
                 href     := routes.ContentPage.loneBookmark("event-tips")
-              )(
-                trans.ourEventTips()
-              )
+              )(trans.ourEventTips())
             ),
             form3.globalError(form),
             fields.name,
@@ -74,7 +72,7 @@ object form:
             form3.split(fields.rated, fields.variant),
             fields.clock,
             form3.split(
-              if (TournamentForm.minutes contains tour.minutes) form3.split(fields.minutes)
+              if TournamentForm.minutes contains tour.minutes then form3.split(fields.minutes)
               else
                 form3.group(form("minutes"), trans.duration(), half = true)(
                   form3.input(_)(tpe := "number")
@@ -195,7 +193,7 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using Pa
       div(
         form3.input(f),
         " ",
-        if (isTeamBattle) "Team Battle" else "Arena",
+        if isTeamBattle then "Team Battle" else "Arena",
         br,
         small(cls := "form-help")(
           trans.safeTournamentName(),

@@ -23,10 +23,10 @@ object dev:
           settings.map { s =>
             postForm(action := routes.Dev.settingsPost(s.id))(
               p(s.text | s.id),
-              s.form.value match {
+              s.form.value match
                 case Some(v: Boolean) => div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
                 case v                => input(name := "v", value := v.map(_.toString))
-              },
+              ,
               submitButton(cls := "button button-empty", dataIcon := licon.Checkmark)
             )
           }

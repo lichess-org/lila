@@ -14,7 +14,7 @@ object studentDashboard:
       c: Clas,
       wall: Html,
       teachers: List[User],
-      students: List[Student.WithUser]
+      students: List[Student.WithUserPerfs]
   )(using PageContext) =
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "clas-show dashboard dashboard-student",
@@ -28,15 +28,15 @@ object studentDashboard:
         )
       },
       table(cls := "slist slist-pad teachers")(
-        thead(
+        thead:
           tr(
             th(trans.clas.nbTeachers(teachers.size)),
             th,
             th
           )
-        ),
-        tbody(
-          teachers.map { user =>
+        ,
+        tbody:
+          teachers.map: user =>
             tr(
               td(
                 userLink(
@@ -49,22 +49,19 @@ object studentDashboard:
                 )
               ),
               td(
-                user.seenAt.map { seen =>
+                user.seenAt.map: seen =>
                   trans.lastSeenActive(momentFromNow(seen))
-                }
               ),
               challengeTd(user)
             )
-          }
-        )
       ),
       c.wall.value.nonEmpty option div(cls := "box__pad clas-wall")(rawHtml(wall)),
       div(cls := "students")(studentList(students))
     )
 
-  def studentList(students: List[Student.WithUser])(using PageContext) =
+  def studentList(students: List[Student.WithUserPerfs])(using PageContext) =
     table(cls := "slist slist-pad sortable")(
-      thead(
+      thead:
         tr(
           th(dataSortDefault)(trans.clas.nbStudents(students.size)),
           dataSortNumberTh(trans.rating()),
@@ -72,33 +69,33 @@ object studentDashboard:
           dataSortNumberTh(trans.puzzles()),
           th
         )
-      ),
-      tbody(
-        students.sortBy(-_.user.seenAt.so(_.toMillis)).map { case Student.WithUser(student, user) =>
-          tr(
-            td(
-              userLink(
-                user,
-                name = span(
-                  strong(user.username),
-                  em(student.realName)
-                ).some,
-                withTitle = false
-              )
-            ),
-            td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.bestAny3Perfs.map {
-              showPerfRating(user, _)
-            }),
-            td(user.count.game.localize),
-            td(user.perfs.puzzle.nb.localize),
-            challengeTd(user)
-          )
+      ,
+      tbody:
+        students.sortBy(-_.user.seenAt.so(_.toMillis)).map {
+          case Student.WithUserPerfs(student, user, perfs) =>
+            tr(
+              td(
+                userLink(
+                  user,
+                  name = span(
+                    strong(user.username),
+                    em(student.realName)
+                  ).some,
+                  withTitle = false
+                )
+              ),
+              td(dataSort := perfs.bestRating, cls := "rating")(cls := "rating")(perfs.bestAny3Perfs.map:
+                showPerfRating(perfs, _)
+              ),
+              td(user.count.game.localize),
+              td(perfs.puzzle.nb.localize),
+              challengeTd(user)
+            )
         }
-      )
     )
 
   private def challengeTd(user: lila.user.User)(using ctx: PageContext) =
-    if (ctx is user) td
+    if ctx is user then td
     else
       val online = isOnline(user.id)
       td(

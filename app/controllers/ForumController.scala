@@ -5,7 +5,8 @@ import play.api.mvc.*
 import lila.app.{ given, * }
 import lila.forum.ForumTopic
 
-private[controllers] trait ForumController { self: LilaController =>
+private[controllers] trait ForumController:
+  self: LilaController =>
 
   protected def categApi  = env.forum.categApi
   protected def topicApi  = env.forum.topicApi
@@ -55,4 +56,3 @@ private[controllers] trait ForumController { self: LilaController =>
           else Forbidden("You cannot moderate this forum")
         }
     }
-}

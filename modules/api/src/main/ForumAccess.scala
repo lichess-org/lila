@@ -13,18 +13,19 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
     case Read, Write
 
   private def isGranted(categId: ForumCategId, op: Operation)(using me: Option[Me]): Fu[Boolean] =
-    ForumCateg.toTeamId(categId).fold(fuTrue) { teamId =>
-      teamCached.forumAccess get teamId flatMap {
-        case Team.Access.NONE     => fuFalse
-        case Team.Access.EVERYONE =>
-          // when the team forum is open to everyone, you still need to belong to the team in order to post
-          op match
-            case Operation.Read  => fuTrue
-            case Operation.Write => me so { teamApi.belongsTo(teamId, _) }
-        case Team.Access.MEMBERS => me so { teamApi.belongsTo(teamId, _) }
-        case Team.Access.LEADERS => me so { teamApi.leads(teamId, _) }
-      }
-    }
+    ForumCateg
+      .toTeamId(categId)
+      .fold(fuTrue): teamId =>
+        teamCached.forumAccess get teamId flatMap {
+          case Team.Access.NONE     => fuFalse
+          case Team.Access.EVERYONE =>
+            // when the team forum is open to everyone, you still need to belong to the team in order to post
+            op match
+              case Operation.Read  => fuTrue
+              case Operation.Write => me so { teamApi.belongsTo(teamId, _) }
+          case Team.Access.MEMBERS => me so { teamApi.belongsTo(teamId, _) }
+          case Team.Access.LEADERS => me so { teamApi.leads(teamId, _) }
+        }
 
   def isGrantedRead(categId: ForumCategId)(using me: Option[Me]): Fu[Boolean] =
     if Granter.opt(_.Shusher) then fuTrue

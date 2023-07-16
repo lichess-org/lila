@@ -15,6 +15,7 @@ final class Env(
     stormJson: StormJson,
     stormSign: StormSign,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     lightUserGetter: LightUser.GetterSyncFallback,
     remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db

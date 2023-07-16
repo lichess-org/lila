@@ -1,6 +1,5 @@
 package lila.storm
 
-import cats.data.NonEmptyList
 import chess.format.{ Fen, Uci }
 
 case class StormPuzzle(

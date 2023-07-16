@@ -38,13 +38,13 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def createdByDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
     createdList($doc("destUser.id" -> userId), max)
 
-  def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for {
+  def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for
     realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l" $exists true), max)
     corres <- (realTime.sizeIs < max) so createdList(
       $doc($doc("destUser.id" -> userId), "timeControl.l" $exists false),
       max - realTime.size
     )
-  } yield realTime ::: corres
+  yield realTime ::: corres
 
   def setChallenger(c: Challenge, color: Option[chess.Color]) =
     coll.update

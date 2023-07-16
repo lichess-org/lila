@@ -36,11 +36,14 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
     req.headers get HeaderNames.USER_AGENT
 
-  val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isChrome113Plus  = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
-  val isFirefox114Plus = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
-  val isMobileBrowser  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
-  val isLichessMobile  = UaMatcher("""Lichess Mobile/""")
+  val isChrome96Plus                      = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isChrome113Plus                     = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
+  val isFirefox114Plus                    = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
+  val isMobileBrowser                     = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  def isLichessMobile(req: RequestHeader) = userAgent(req).exists(_.value startsWith "Lichess Mobile/")
+  def isLichobile(req: RequestHeader)     = userAgent(req).exists(_.value contains "Lichobile/")
+  def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
+    isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
 
   def origin(req: RequestHeader): Option[String]  = req.headers get HeaderNames.ORIGIN
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
@@ -54,15 +57,14 @@ object HTTPRequest:
 
   def isCrawler(req: RequestHeader) = Crawler(crawlerMatcher(req))
 
-  private val crawlerMatcher = UaMatcher {
+  private val crawlerMatcher = UaMatcher:
     """(?i)googlebot|googlebot-mobile|googlebot-image|mediapartners-google|bingbot|slurp|java|wget|curl|python-requests|commons-httpclient|python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|adidxbot|blekkobot|teoma|ia_archiver|gingercrawler|webmon|httrack|webcrawler|fast-webcrawler|fastenterprisecrawler|convera|biglotron|grub\.org|usinenouvellecrawler|antibot|netresearchserver|speedy|fluffy|jyxobot|bibnum\.bnf|findlink|exabot|gigabot|msrbot|seekbot|ngbot|panscient|yacybot|aisearchbot|ioi|ips-agent|tagoobot|mj12bot|dotbot|woriobot|yanga|buzzbot|mlbot|purebot|lingueebot|yandex\.com/bots|""" +
       """voyager|cyberpatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|ezooms|dotbot|mail\.ru|discobot|zombie\.js|heritrix|findthatfile|europarchive\.org|nerdbynature\.bot|sistrixcrawler|ahrefsbot|aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|yeti|retrevopageanalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|duckduckbot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnamgnamspider|web-archive-net\.com\.bot|backlinkcrawler|""" +
       """coccoc|integromedb|contentcrawlerspider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler\.com|siteexplorer\.info|elisabot|proximic|changedetection|blexbot|arabot|wesee:search|niki-bot|crystalsemanticsbot|rogerbot|360spider|psbot|interfaxscanbot|lipperheyseoservice|ccmetadatascaper|g00g1e\.net|grapeshotcrawler|urlappendbot|brainobot|fr-crawler|binlar|simplecrawler|simplecrawler|livelapbot|twitterbot|cxensebot|smtbot|facebookexternalhit|daumoa|sputnikimagebot|visionutils|yisouspider|parsijoobot|mediatoolkit\.com|semrushbot"""
-  }
 
   final class UaMatcher(rStr: String):
     private val regex: Regex               = rStr.r
-    def apply(req: RequestHeader): Boolean = userAgent(req).fold(false)(ua => regex.find(ua.value))
+    def apply(req: RequestHeader): Boolean = userAgent(req).exists(ua => regex.find(ua.value))
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean =
     userAgent(req).fold(false)(ua => regex.find(ua.value))
@@ -125,8 +127,9 @@ object HTTPRequest:
     isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccountClose(req)
 
   def clientName(req: RequestHeader) =
-    // the mobile app sends XHR headers
-    if isXhr(req) then apiVersion(req).fold("xhr")(v => s"mobile/$v")
+    // lichobile sends XHR headers
+    if isXhr(req) then apiVersion(req).fold("xhr")(v => s"lichobile/$v")
+    else if isLichessMobile(req) then "mobile"
     else if isCrawler(req).yes then "crawler"
     else "browser"
 

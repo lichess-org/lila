@@ -38,7 +38,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
       uciMove: String,
       steps: Forecast.Steps
   ): Funit =
-    if (!pov.isMyTurn) funit
+    if !pov.isMyTurn then funit
     else
       Uci.Move(uciMove).fold[Funit](fufail(lila.round.ClientError(s"Invalid move $uciMove on $pov"))) { uci =>
         val promise = Promise[Unit]()
@@ -58,7 +58,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
     pov.forecastable so coll.byId[Forecast](pov.fullId) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
-        if (firstStep(fc.steps).exists(_.ply != pov.game.ply + 1)) clearPov(pov) inject none
+        if firstStep(fc.steps).exists(_.ply != pov.game.ply + 1) then clearPov(pov) inject none
         else fuccess(fc.some)
     }
 
@@ -66,7 +66,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
     pov.game.forecastable so coll.byId[Forecast](pov.fullId) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
-        if (firstStep(fc.steps).exists(_.ply != pov.game.ply)) clearPov(pov) inject none
+        if firstStep(fc.steps).exists(_.ply != pov.game.ply) then clearPov(pov) inject none
         else fuccess(fc.some)
     }
 

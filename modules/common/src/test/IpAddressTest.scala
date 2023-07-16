@@ -1,6 +1,6 @@
 package lila.common
 
-class IpAddressTest extends munit.FunSuite {
+class IpAddressTest extends munit.FunSuite:
 
   test("iso ipv4") {
     assertEquals(IpAddress.unchecked("0.0.0.0").toString, "0.0.0.0")
@@ -30,5 +30,3 @@ class IpAddressTest extends munit.FunSuite {
   test("equality mixed") {
     assertNotEquals(IpAddress.unchecked("0.0.0.0"), IpAddress.unchecked("::"))
   }
-
-}

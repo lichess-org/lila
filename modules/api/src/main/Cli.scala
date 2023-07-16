@@ -24,11 +24,11 @@ final private[api] class Cli(
   private val logger = lila.log("cli")
 
   def apply(args: List[String]): Fu[String] =
-    run(args).dmap(_ + "\n") ~ {
-      _.logFailure(logger, _ => args mkString " ") foreach { output =>
+    run(args)
+      .dmap(_ + "\n")
+      .logFailure(logger, _ => args mkString " ")
+      .addEffect: output =>
         logger.info("%s\n%s".format(args mkString " ", output))
-      }
-    }
 
   def process =
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")

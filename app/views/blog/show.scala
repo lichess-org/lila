@@ -42,20 +42,19 @@ object show:
           ),
           ctx.noKid option
             div(cls := "footer")(
-              if (prismic.maybeRef.isEmpty) {
-                (doc
+              if prismic.maybeRef.isEmpty then
+                doc
                   .getDate("blog.date")
-                  .exists(
+                  .exists:
                     _.value.atStartOfDay.instant isAfter nowInstant.minusWeeks(2)
-                  )) option
-                  a(
-                    href     := routes.Blog.discuss(doc.id),
-                    cls      := "button text discuss",
-                    dataIcon := licon.BubbleConvo
-                  )(
-                    "Discuss this blog post in the forum"
-                  )
-              } else p("This is a preview."),
+                  .option:
+                    a(
+                      href     := routes.Blog.discuss(doc.id),
+                      cls      := "button text discuss",
+                      dataIcon := licon.BubbleConvo
+                    ):
+                      "Discuss this blog post in the forum"
+              else p("This is a preview."),
               views.html.base.bits.connectLinks,
               p(cls := "patron-info")(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
             )

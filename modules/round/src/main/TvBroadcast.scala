@@ -55,7 +55,7 @@ final private class TvBroadcast(
         Json.obj(
           "id"          -> pov.gameId,
           "orientation" -> pov.color.name,
-          "players" -> pov.game.players.map { p =>
+          "players" -> pov.game.players.mapList { p =>
             val user = p.userId.flatMap(lightUserSync)
             Json
               .obj("color" -> p.color.name)
@@ -69,7 +69,7 @@ final private class TvBroadcast(
       )
       clients.foreach { client =>
         client.queue offer {
-          if (client.fromLichess) msg
+          if client.fromLichess then msg
           else feat.socketMsg
         }
       }

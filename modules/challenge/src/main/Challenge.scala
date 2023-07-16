@@ -1,6 +1,5 @@
 package lila.challenge
 
-import cats.Eq
 import cats.derived.*
 
 import chess.format.Fen
@@ -9,10 +8,10 @@ import chess.{ Color, Mode, Speed }
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Days
-import lila.game.{ Game, GameRule, PerfPicker }
+import lila.game.{ Game, GameRule }
 import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, GameUser }
 
 case class Challenge(
     _id: Challenge.Id,
@@ -71,13 +70,12 @@ case class Challenge(
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 
-  def setChallenger(u: Option[User], secret: Option[String]) =
+  def setChallenger(u: GameUser, secret: Option[String]) =
     copy(
-      challenger = u.map(toRegistered(variant, timeControl)) orElse
+      challenger = u.map(toRegistered) orElse
         secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open
     )
-  def setDestUser(u: User) =
-    copy(destUser = toRegistered(variant, timeControl)(u).some)
+  def setDestUser(u: User.WithPerf) = copy(destUser = toRegistered(u).some)
 
   def speed = speedOf(timeControl)
 
@@ -183,30 +181,19 @@ object Challenge:
           else if m is u2 then ColorChoice.Black.some
           else none
 
-  private def speedOf(timeControl: TimeControl) =
-    timeControl match
-      case TimeControl.Clock(config) => Speed(config)
-      case _                         => Speed.Correspondence
+  private def speedOf(timeControl: TimeControl) = timeControl match
+    case TimeControl.Clock(config) => Speed(config)
+    case _                         => Speed.Correspondence
 
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
-    PerfPicker
-      .perfType(
-        speedOf(timeControl),
-        variant,
-        timeControl match
-          case TimeControl.Correspondence(d) => d.some
-          case _                             => none
-      )
-      .orElse:
-        (variant == FromPosition) option perfTypeOf(chess.variant.Standard, timeControl)
-      .|(PerfType.Correspondence)
+    PerfType(variant, speedOf(timeControl))
 
   private val idSize = 8
 
   private def randomId = ThreadLocalRandom nextString idSize
 
-  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User): Challenger.Registered =
-    Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
+  def toRegistered(u: User.WithPerf): Challenger.Registered =
+    Challenger.Registered(u.id, Rating(u.perf))
 
   def randomColor = chess.Color.fromWhite(ThreadLocalRandom.nextBoolean())
 
@@ -217,7 +204,7 @@ object Challenge:
       mode: Mode,
       color: String,
       challenger: Challenger,
-      destUser: Option[User],
+      destUser: GameUser,
       rematchOf: Option[GameId],
       name: Option[String] = None,
       id: Option[GameId] = None,
@@ -248,7 +235,7 @@ object Challenge:
       colorChoice = colorChoice,
       finalColor = finalColor,
       challenger = challenger,
-      destUser = destUser map toRegistered(variant, timeControl),
+      destUser = destUser map toRegistered,
       rematchOf = rematchOf,
       createdAt = nowInstant,
       seenAt = !isOpen option nowInstant,

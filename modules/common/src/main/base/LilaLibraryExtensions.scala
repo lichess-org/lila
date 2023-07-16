@@ -16,17 +16,13 @@ import scala.annotation.targetName
 
 trait LilaLibraryExtensions extends LilaTypes:
 
-  extension [A](self: A)
-    def unit: Unit          = ()
-    def ap[B](f: A => B): B = f(self)
-
   extension (self: Long)
     def atLeast(bottomValue: Long): Long       = max(self, bottomValue)
     def atMost(topValue: Long): Long           = min(self, topValue)
     def squeeze(bottom: Long, top: Long): Long = max(min(self, top), bottom)
     def toSaturatedInt: Int =
-      if (self.toInt == self) self.toInt
-      else if (self > 0) Integer.MAX_VALUE
+      if self.toInt == self then self.toInt
+      else if self > 0 then Integer.MAX_VALUE
       else Integer.MIN_VALUE
 
   extension (self: Int)
@@ -53,16 +49,27 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
 
+    // move to scalalib? generalize Future away?
+    def soFu[B](f: A => Future[B]): Future[Option[B]] = self match
+      case Some(x) => f(x).map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
+      case None    => Future.successful(None)
+
+  extension (self: Boolean)
+    // move to scalalib? generalize Future away?
+    def soFu[B](f: => Future[B]): Future[Option[B]] =
+      if self then f.map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
+      else Future.successful(None)
+
   extension (s: String)
 
     def replaceIf(t: Char, r: Char): String =
-      if (s.indexOf(t.toInt) >= 0) s.replace(t, r) else s
+      if s.indexOf(t.toInt) >= 0 then s.replace(t, r) else s
 
     def replaceIf(t: Char, r: CharSequence): String =
-      if (s.indexOf(t.toInt) >= 0) s.replace(String.valueOf(t), r) else s
+      if s.indexOf(t.toInt) >= 0 then s.replace(String.valueOf(t), r) else s
 
     def replaceIf(t: CharSequence, r: CharSequence): String =
-      if (s.contains(t)) s.replace(t, r) else s
+      if s.contains(t) then s.replace(t, r) else s
 
     def replaceAllIn(regex: Regex, replacement: String) = regex.replaceAllIn(s, replacement)
 
@@ -92,9 +99,11 @@ trait LilaLibraryExtensions extends LilaTypes:
         case scala.util.Right(res) => Right(res)
         case scala.util.Left(_)    => other
 
+    def toFuture: Fu[B] = v.fold(err => fufail(err.toString), fuccess)
+
   extension (d: FiniteDuration)
     def toCentis = chess.Centis(d)
-    def abs      = if (d.length < 0) -d else d
+    def abs      = if d.length < 0 then -d else d
 
   extension [E, A](v: Validated[E, A]) def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
 
@@ -128,34 +137,26 @@ trait LilaLibraryExtensions extends LilaTypes:
     inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(EC.parasitic)
     inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
 
-    def >>-(sideEffect: => Unit)(using Executor): Fu[A] =
-      fua andThen { case _ =>
-        sideEffect
-      }
+    def andDo(sideEffect: => Unit)(using Executor): Fu[A] =
+      fua.andThen:
+        case _ => sideEffect
 
     def >>[B](fub: => Fu[B])(using Executor): Fu[B] =
-      fua flatMap { _ =>
-        fub
-      }
+      fua.flatMap(_ => fub)
 
     inline def void: Fu[Unit] =
-      dmap { _ =>
-        ()
-      }
+      dmap(_ => ())
 
     inline def inject[B](b: => B): Fu[B] =
-      dmap { _ =>
-        b
-      }
+      dmap(_ => b)
 
     def injectAnyway[B](b: => B)(using Executor): Fu[B] = fold(_ => b, _ => b)
 
     def effectFold(fail: Exception => Unit, succ: A => Unit)(using Executor): Unit =
-      fua onComplete {
+      fua.onComplete:
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
-      }
 
     def fold[B](fail: Exception => B, succ: A => B)(using Executor): Fu[B] =
       fua map succ recover { case e: Exception => fail(e) }
@@ -164,15 +165,14 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
     def logFailure(logger: => lila.log.Logger, msg: Throwable => String)(using Executor): Fu[A] =
-      addFailureEffect { e =>
+      addFailureEffect: e =>
         logger.warn(msg(e), e)
-      }
+
     def logFailure(logger: => lila.log.Logger)(using Executor): Fu[A] = logFailure(logger, _.toString)
 
     def addFailureEffect(effect: Throwable => Unit)(using Executor) =
-      fua.failed.foreach { (e: Throwable) =>
+      fua.failed.foreach: (e: Throwable) =>
         effect(e)
-      }
       fua
 
     def addEffect(effect: A => Unit)(using Executor): Fu[A] =
@@ -180,11 +180,10 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua
 
     def addEffects(fail: Exception => Unit, succ: A => Unit)(using Executor): Fu[A] =
-      fua onComplete {
+      fua.onComplete:
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
-      }
       fua
 
     def addEffects(f: Try[A] => Unit)(using Executor): Fu[A] =
@@ -192,20 +191,17 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua
 
     def addEffectAnyway(inAnyCase: => Unit)(using Executor): Fu[A] =
-      fua onComplete { _ =>
+      fua.onComplete: _ =>
         inAnyCase
-      }
       fua
 
     def mapFailure(f: Exception => Exception)(using Executor): Fu[A] =
-      fua recoverWith { case cause: Exception =>
-        fufail(f(cause))
-      }
+      fua.recoverWith:
+        case cause: Exception => fufail(f(cause))
 
     def prefixFailure(p: => String)(using Executor): Fu[A] =
-      mapFailure { e =>
+      mapFailure: e =>
         LilaException(s"$p ${e.getMessage}")
-      }
 
     def thenPp(using Executor): Fu[A] =
       effectFold(
@@ -267,9 +263,10 @@ trait LilaLibraryExtensions extends LilaTypes:
     def mon(path: lila.mon.TimerPath): Fu[A]              = chronometer.mon(path).result
     def monTry(path: Try[A] => lila.mon.TimerPath): Fu[A] = chronometerTry.mon(r => path(r)(lila.mon)).result
     def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer): Fu[A] =
-      chronometerTry.mon { r =>
-        path(lila.mon)(r.isSuccess)
-      }.result
+      chronometerTry
+        .mon: r =>
+          path(lila.mon)(r.isSuccess)
+        .result
     def monValue(path: A => lila.mon.TimerPath): Fu[A] = chronometer.monValue(path).result
 
     def logTime(name: String): Fu[A]                               = chronometer pp name
@@ -278,47 +275,42 @@ trait LilaLibraryExtensions extends LilaTypes:
     def recoverDefault(using Executor)(using z: Zero[A]): Fu[A] = recoverDefault(z.zero)
 
     def recoverDefault(using Executor)(default: => A): Fu[A] =
-      fua recover {
+      fua.recover:
         case _: LilaException                         => default
         case _: java.util.concurrent.TimeoutException => default
         case e: Exception =>
           lila.log("common").warn("Future.recoverDefault", e)
           default
-      }
 
   extension (fua: Fu[Boolean])
 
     def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if (_) fub else fuFalse }(EC.parasitic)
+      fua.flatMap { if _ then fub else fuFalse }(EC.parasitic)
 
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-      fua.flatMap { if (_) fuTrue else fub }(EC.parasitic)
+      fua.flatMap { if _ then fuTrue else fub }(EC.parasitic)
 
     def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
-      fua.flatMap { if (_) fub else fuccess(zero.zero) }(EC.parasitic)
+      fua.flatMap { if _ then fub else fuccess(zero.zero) }(EC.parasitic)
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
-      fua.map { if (_) fb else zero.zero }(EC.parasitic)
+      fua.map { if _ then fb else zero.zero }(EC.parasitic)
 
     inline def unary_! = fua.map { !_ }(EC.parasitic)
 
   extension [A](fua: Fu[Option[A]])
 
     def orFail(msg: => String)(using Executor): Fu[A] =
-      fua flatMap {
+      fua.flatMap:
         _.fold[Fu[A]](fufail(msg))(fuccess)
-      }
 
     def orFailWith(err: => Exception)(using Executor): Fu[A] =
-      fua flatMap {
+      fua.flatMap:
         _.fold[Fu[A]](fufail(err))(fuccess)
-      }
 
     def orElse(other: => Fu[Option[A]])(using Executor): Fu[Option[A]] =
-      fua flatMap {
-        _.fold(other) { x =>
+      fua.flatMap:
+        _.fold(other): x =>
           fuccess(Some(x))
-        }
-      }
 
     def getOrElse(other: => Fu[A])(using Executor): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
     @targetName("orZeroFu")

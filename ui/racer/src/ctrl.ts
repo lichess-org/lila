@@ -272,5 +272,5 @@ export default class RacerCtrl implements PuzCtrl {
 
   private toggleZen = () => lichess.pubsub.emit('zen');
 
-  private hotkeys = () => window.Mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
+  private hotkeys = () => lichess.mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
 }

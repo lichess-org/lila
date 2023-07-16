@@ -8,7 +8,8 @@ import lila.app.ui.ScalatagsTemplate.*
 import lila.common.AssetVersion
 import lila.common.String.html.safeJsonValue
 
-trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
+trait AssetHelper extends HasEnv:
+  self: I18nHelper with SecurityHelper =>
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -32,7 +33,7 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
     cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
-    if (theme == "system")
+    if theme == "system" then
       frag(
         cssTagWithDirAndSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
         cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
@@ -40,10 +41,12 @@ trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>
     else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
 
   private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
-    cssAt(s"css/$name.${if (isRTL) "rtl" else "ltr"}.$theme.${if (minifiedAssets) "min" else "dev"}.css")
+    cssAt(
+      s"css/$name.${if isRTL then "rtl" else "ltr"}.$theme.${if minifiedAssets then "min" else "dev"}.css"
+    )
 
   def cssTagNoTheme(name: String): Frag =
-    cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
+    cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")
 
   private def cssAt(path: String): Tag =
     link(href := assetUrl(path), rel := "stylesheet")
@@ -79,7 +82,6 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def roundNvuiTag(using ctx: PageContext)      = ctx.blind option jsModule("round.nvui")
   def infiniteScrollTag(using ctx: PageContext) = jsModuleInit("infiniteScroll", "'.infinite-scroll'")
   def captchaTag                                = jsModule("captcha")
-  def depsTag                                   = iifeModule("compiled/deps.min.js")
   def chessgroundTag                            = iifeModule("javascripts/vendor/chessground.min.js")
   def cashTag                                   = iifeModule("javascripts/vendor/cash.min.js")
   def fingerprintTag                            = iifeModule("javascripts/fipr.js")
@@ -128,4 +130,3 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
 
   def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =
     embedJsUnsafe(s"""lichess.load.then(()=>{$js})""", nonce)
-}

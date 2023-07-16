@@ -119,7 +119,6 @@ export default class AnalyseCtrl {
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
   cgConfig: any; // latest chessground config (useful for revert)
-  music?: any;
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
 
@@ -169,21 +168,18 @@ export default class AnalyseCtrl {
 
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
-      this.getCeval().selectedEngine(urlEngine);
-      if (!this.ceval.enabled()) this.toggleCeval();
+      try {
+        this.getCeval().selectedEngine(urlEngine);
+        this.ensureCevalRunning();
+      } catch (e) {
+        console.info(e);
+      }
+      lichess.redirect('/analysis');
     }
 
     lichess.pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
-    });
-
-    lichess.pubsub.on('sound_set', (set: string) => {
-      if (!this.music && set === 'music')
-        lichess.loadIife('javascripts/music/play.js').then(() => {
-          this.music = lichess.playMusic();
-        });
-      if (this.music && set !== 'music') this.music = undefined;
     });
 
     lichess.pubsub.on('ply.trigger', () =>
@@ -218,6 +214,7 @@ export default class AnalyseCtrl {
     this.fork = makeFork(this);
 
     lichess.sound.preloadBoardSounds();
+    lichess.sound.move();
   }
 
   private makeInitialPath = (): string => {
@@ -407,7 +404,7 @@ export default class AnalyseCtrl {
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
     }
-    if (this.music) this.music.jump(this.node);
+    lichess.sound.move(this.node);
     lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
   }
@@ -710,6 +707,12 @@ export default class AnalyseCtrl {
       } else this.ceval.stop();
     }
   });
+
+  ensureCevalRunning = () => {
+    if (!this.showComputer()) this.toggleComputer();
+    if (!this.ceval.enabled()) this.toggleCeval();
+    if (this.threatMode()) this.toggleThreatMode();
+  };
 
   toggleCeval = () => {
     if (!this.showComputer()) return;

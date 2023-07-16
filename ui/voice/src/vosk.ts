@@ -3,7 +3,8 @@ import { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/di
 import { Selector, Selectable } from 'common/selector';
 import { RecognizerOpts, VoskModule } from './interfaces';
 
-// Thanks to Sam 'Spammy' Ezeh who found Vosk-browser and first got it working in lichess.
+// IMPORTANT: When changing this file, you must also change VOSK_VERSION in ./main.ts
+// we don't want everyone to redownload this 5MB WASM just because the server restarts
 
 const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
 

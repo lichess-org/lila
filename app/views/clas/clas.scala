@@ -41,7 +41,7 @@ object clas:
 
   def teacherIndex(classes: List[Clas], closed: Boolean)(using PageContext) =
     val (active, archived) = classes.partition(_.isActive)
-    val (current, others)  = if (closed) (archived, active) else (active, archived)
+    val (current, others)  = if closed then (archived, active) else (active, archived)
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
@@ -53,16 +53,14 @@ object clas:
           dataIcon := licon.PlusButton
         )
       ),
-      if (current.isEmpty)
-        frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
-      else
-        renderClasses(current),
+      if current.isEmpty then frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
+      else renderClasses(current),
       (closed || others.nonEmpty) option div(cls := "clas-index__others")(
         a(href := s"${clasRoutes.index}?closed=${!closed}")(
           "And ",
           others.size.localize,
           " ",
-          if (closed) "active" else "archived",
+          if closed then "active" else "archived",
           " classes"
         )
       )
@@ -152,7 +150,7 @@ object clas:
         frag(trans.clas.classDescription()),
         help = trans.clas.visibleByBothStudentsAndTeachers().some
       )(form3.textarea(_)(rows := 5)),
-      clas match {
+      clas match
         case None => form3.hidden(form("teachers"), UserId raw ctx.userId)
         case Some(_) =>
           form3.group(
@@ -160,7 +158,7 @@ object clas:
             trans.clas.teachersOfTheClass(),
             help = trans.clas.addLichessUsernames().some
           )(form3.textarea(_)(rows := 4))
-      },
+      ,
       form3.actions(
         a(href := clas.fold(clasRoutes.index)(c => clasRoutes.show(c.id.value)))(trans.cancel()),
         form3.submit(trans.apply())

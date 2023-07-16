@@ -10,15 +10,14 @@ final class Env(
     lightUser: lila.common.LightUser.GetterSync,
     lightUserApi: lila.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     rankingsOf: lila.user.RankingsOf,
     rankingApi: lila.user.RankingApi,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using Executor, Scheduler):
 
-  private lazy val storage = PerfStatStorage(
-    coll = yoloDb(CollName("perf_stat")).failingSilently()
-  )
+  private lazy val storage = PerfStatStorage:
+    yoloDb(CollName("perf_stat")).failingSilently()
 
   lazy val indexer = wire[PerfStatIndexer]
 
@@ -26,9 +25,8 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  lila.common.Bus.subscribeFun("finishGame") {
-    case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted =>
+  lila.common.Bus.subscribeFun("finishGame"):
+    case lila.game.actorApi.FinishGame(game, _) if !game.aborted =>
       indexer addGame game addFailureEffect { e =>
         lila.log("perfStat").error(s"index game ${game.id}", e)
-      } unit
-  }
+      }

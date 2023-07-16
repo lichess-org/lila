@@ -47,37 +47,32 @@ object History:
   import reactivemongo.api.bson.*
 
   private[history] given ratingsReader: BSONDocumentReader[RatingsMap] with
-    def readDocument(doc: BSONDocument) =
-      Success(
-        doc.elements
-          .flatMap {
-            case BSONElement(k, BSONInteger(v)) => k.toIntOption map (_ -> IntRating(v))
-            case _                              => none
-          }
-          .sortBy(_._1)
-          .toList
-      )
+    def readDocument(doc: BSONDocument) = Success:
+      doc.elements
+        .flatMap:
+          case BSONElement(k, BSONInteger(v)) => k.toIntOption.map(_ -> IntRating(v))
+          case _                              => none
+        .sortBy(_._1)
+        .toList
 
   private[history] given BSONDocumentReader[History] with
-    def readDocument(doc: BSONDocument) =
-      Success {
-        def ratingsMap(key: String): RatingsMap = ~doc.getAsOpt[RatingsMap](key)
-        History(
-          standard = ratingsMap("standard"),
-          chess960 = ratingsMap("chess960"),
-          kingOfTheHill = ratingsMap("kingOfTheHill"),
-          threeCheck = ratingsMap("threeCheck"),
-          antichess = ratingsMap("antichess"),
-          atomic = ratingsMap("atomic"),
-          horde = ratingsMap("horde"),
-          racingKings = ratingsMap("racingKings"),
-          crazyhouse = ratingsMap("crazyhouse"),
-          ultraBullet = ratingsMap("ultraBullet"),
-          bullet = ratingsMap("bullet"),
-          blitz = ratingsMap("blitz"),
-          rapid = ratingsMap("rapid"),
-          classical = ratingsMap("classical"),
-          correspondence = ratingsMap("correspondence"),
-          puzzle = ratingsMap("puzzle")
-        )
-      }
+    def readDocument(doc: BSONDocument) = Success:
+      def ratingsMap(key: String): RatingsMap = ~doc.getAsOpt[RatingsMap](key)
+      History(
+        standard = ratingsMap("standard"),
+        chess960 = ratingsMap("chess960"),
+        kingOfTheHill = ratingsMap("kingOfTheHill"),
+        threeCheck = ratingsMap("threeCheck"),
+        antichess = ratingsMap("antichess"),
+        atomic = ratingsMap("atomic"),
+        horde = ratingsMap("horde"),
+        racingKings = ratingsMap("racingKings"),
+        crazyhouse = ratingsMap("crazyhouse"),
+        ultraBullet = ratingsMap("ultraBullet"),
+        bullet = ratingsMap("bullet"),
+        blitz = ratingsMap("blitz"),
+        rapid = ratingsMap("rapid"),
+        classical = ratingsMap("classical"),
+        correspondence = ratingsMap("correspondence"),
+        puzzle = ratingsMap("puzzle")
+      )

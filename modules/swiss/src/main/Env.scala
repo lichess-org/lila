@@ -14,6 +14,8 @@ final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
     onStart: lila.round.OnStart,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi,
@@ -83,34 +85,25 @@ final class Env(
 
   lazy val cache: SwissCache = wire[SwissCache]
 
-  lazy val getName = new GetSwissName(cache.name)
+  lazy val getName = GetSwissName(cache.name)
 
   private lazy val officialSchedule = wire[SwissOfficialSchedule]
 
   wire[SwissNotify]
 
-  lila.common.Bus.subscribeFun(
-    "finishGame",
-    "adjustCheater",
-    "adjustBooster",
-    "teamLeave"
-  ) {
-    case lila.game.actorApi.FinishGame(game, _, _)        => api.finishGame(game).unit
-    case lila.hub.actorApi.team.LeaveTeam(teamId, userId) => api.leaveTeam(teamId, userId).unit
-    case lila.hub.actorApi.mod.MarkCheater(userId, true)  => api.kickLame(userId).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId)        => api.kickLame(userId).unit
-  }
+  lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "teamLeave"):
+    case lila.game.actorApi.FinishGame(game, _)           => api.finishGame(game)
+    case lila.hub.actorApi.team.LeaveTeam(teamId, userId) => api.leaveTeam(teamId, userId)
+    case lila.hub.actorApi.mod.MarkCheater(userId, true)  => api.kickLame(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)        => api.kickLame(userId)
 
-  LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds))(
+  LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
     api.startPendingRounds
-  )
 
-  LilaScheduler("Swiss.checkOngoingGames", _.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds))(
+  LilaScheduler("Swiss.checkOngoingGames", _.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds)):
     api.checkOngoingGames
-  )
 
-  LilaScheduler("Swiss.generate", _.Every(3 hours), _.AtMost(15 seconds), _.Delay(15 minutes))(
+  LilaScheduler("Swiss.generate", _.Every(3 hours), _.AtMost(15 seconds), _.Delay(15 minutes)):
     officialSchedule.generate
-  )
 
 final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)

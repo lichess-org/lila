@@ -31,8 +31,8 @@ final class PrefApi(
     else
       coll.update
         .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
-        .void >>- { cache invalidate user.id }
-  } >>- { cache invalidate user.id }
+        .void andDo { cache invalidate user.id }
+  } andDo { cache invalidate user.id }
 
   def getPrefById(id: UserId): Fu[Option[Pref]] = cache get id
 
@@ -79,7 +79,7 @@ final class PrefApi(
     unmentionableIds(userIds) map userIds.diff
 
   def setPref(pref: Pref): Funit =
-    coll.update.one($id(pref.id), pref, upsert = true).void >>-
+    coll.update.one($id(pref.id), pref, upsert = true).void andDo
       cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =
@@ -90,7 +90,7 @@ final class PrefApi(
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
 
   def agree(user: User): Funit =
-    coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void >>-
+    coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void andDo
       cache.invalidate(user.id)
 
   def setBot(user: User): Funit = setPref(

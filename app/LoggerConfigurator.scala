@@ -3,12 +3,12 @@ package lila.app
 import java.io.File
 import java.net.URL
 
-import ch.qos.logback.classic._
+import ch.qos.logback.classic.*
 import ch.qos.logback.classic.jul.LevelChangePropagator
 import ch.qos.logback.classic.util.ContextInitializer
-import ch.qos.logback.core.util._
+import ch.qos.logback.core.util.*
 import org.slf4j.{ LoggerFactory, ILoggerFactory }
-import org.slf4j.bridge._
+import org.slf4j.bridge.*
 
 private object LoggerConfigurator:
 
@@ -20,7 +20,7 @@ private object LoggerConfigurator:
       new File(sys.props.get("logger.file").getOrElse("conf/logger.dev.xml")).toURI.toURL
     )
 
-  def configure(properties: Map[String, String], configUrl: URL): Unit = {
+  def configure(properties: Map[String, String], configUrl: URL): Unit =
     // Touching LoggerContext is not thread-safe, and so if you run several
     // application tests at the same time (spec2 / scalatest with "new WithApplication()")
     // then you will see NullPointerException as the array list loggerContextListenerList
@@ -71,7 +71,6 @@ private object LoggerConfigurator:
 
     StatusPrinter.printIfErrorsOccured(ctx)
     // }
-  }
 
   def shutdown(): Unit =
     val ctx = loggerFactory.asInstanceOf[LoggerContext]

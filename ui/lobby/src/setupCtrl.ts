@@ -242,7 +242,7 @@ export default class SetupController {
   ratingRange = (): string => {
     if (!this.root.data.ratingMap) return '';
     const rating = this.root.data.ratingMap[this.selectedPerf()].rating;
-    return `${rating + this.ratingMin()}-${rating + this.ratingMax()}`;
+    return `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}`;
   };
 
   hookToPoolMember = (color: Color | 'random'): PoolMember | null => {

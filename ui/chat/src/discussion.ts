@@ -133,7 +133,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
     })
   );
 
-  window.Mousetrap.bind('c', () => chatEl.focus());
+  lichess.mousetrap.bind('c', () => chatEl.focus());
 
   // Ensure clicks remove chat focus.
   // See lichess-org/chessground#109

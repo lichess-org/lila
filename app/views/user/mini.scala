@@ -9,7 +9,7 @@ import controllers.routes
 object mini:
 
   def apply(
-      u: User,
+      u: User.WithPerfs,
       playing: Option[lila.game.Pov],
       blocked: Boolean,
       followable: Boolean,
@@ -35,12 +35,11 @@ object mini:
           ),
           ping map bits.signalBars
         ),
-        if (u.lame && !ctx.is(u) && !isGranted(_.UserModView))
-          div(cls := "upt__info__warning")(trans.thisAccountViolatedTos())
+        if u.lame && !ctx.is(u) && !isGranted(_.UserModView)
+        then div(cls := "upt__info__warning")(trans.thisAccountViolatedTos())
         else
-          ctx.pref.showRatings option div(cls := "upt__info__ratings")(u.best8Perfs map {
-            showPerfRating(u, _)
-          })
+          ctx.pref.showRatings option div(cls := "upt__info__ratings"):
+            u.perfs.best8Perfs.map(showPerfRating(u.perfs, _))
       ),
       ctx.userId.map: myId =>
         frag(
@@ -72,8 +71,11 @@ object mini:
               cls   := "upt__score",
               href  := s"${routes.User.games(u.username, "me")}#games",
               title := trans.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
-            )(trans.yourScore(raw(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross
-                .showOpponentScore(myId)}</strong>""")))
+            ):
+              trans.yourScore(raw:
+                val opponent = ~cross.showOpponentScore(myId)
+                s"""<strong>${cross.showScore(myId)}</strong> - <strong>$opponent</strong>"""
+              )
           }
         ),
       isGranted(_.UserModView) option div(cls := "upt__mod")(
@@ -82,9 +84,7 @@ object mini:
           " ",
           momentFromNowOnce(u.createdAt)
         ),
-        (u.lameOrTroll || u.enabled.no) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
+        (u.lameOrTroll || u.enabled.no) option span(cls := "upt__mod__marks")(mod.userMarks(u.user, None))
       ),
-      playing.ifFalse(ctx.pref.isBlindfold).map {
-        views.html.game.mini(_)
-      }
+      playing.ifFalse(ctx.pref.isBlindfold).map(views.html.game.mini(_))
     )

@@ -34,7 +34,7 @@ object bits:
 
   def opponents(u: User, sugs: List[lila.relation.Related])(using ctx: PageContext) =
     layout(s"${u.username} • ${trans.favoriteOpponents.txt()}")(
-      boxTop(
+      boxTop:
         h1(
           a(href := routes.User.show(u.username), dataIcon := licon.LessThan, cls := "text"),
           trans.favoriteOpponents(),
@@ -42,29 +42,25 @@ object bits:
           trans.nbGames.pluralSame(FavoriteOpponents.gameLimit),
           ")"
         )
-      ),
-      table(cls := "slist slist-pad")(
-        tbody(
-          if (sugs.nonEmpty) sugs.map { r =>
-            tr(
-              td(userLink(r.user)),
-              ctx.pref.showRatings option td(showBestPerf(r.user)),
-              td(
-                r.nbGames.filter(_ > 0).map { nbGames =>
-                  a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}")(
-                    trans.nbGames.plural(nbGames, nbGames.localize)
-                  )
-                }
-              ),
-              td(
-                views.html.relation
-                  .actions(r.user.light, r.relation, followable = r.followable, blocked = false)
+      ,
+      table(cls := "slist slist-pad"):
+        tbody:
+          if sugs.nonEmpty then
+            sugs.map: r =>
+              tr(
+                td(userLink(r.user)),
+                ctx.pref.showRatings option td(showBestPerf(r.user.perfs)),
+                td:
+                  r.nbGames.filter(_ > 0).map { nbGames =>
+                    a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}"):
+                      trans.nbGames.plural(nbGames, nbGames.localize)
+                  }
+                ,
+                td:
+                  views.html.relation
+                    .actions(r.user.light, r.relation, followable = r.followable, blocked = false)
               )
-            )
-          }
           else tr(td(trans.none()))
-        )
-      )
     )
 
   def layout(title: String)(content: Modifier*)(using PageContext) =
@@ -72,22 +68,21 @@ object bits:
       title = title,
       moreCss = cssTag("relation"),
       moreJs = infiniteScrollTag
-    ) {
+    ):
       main(cls := "box page-small")(content)
-    }
 
-  private def pagTable(pager: Paginator[Related], call: Call)(using ctx: PageContext) =
+  private def pagTable(pager: Paginator[Related], call: Call)(using ctx: Context) =
     table(cls := "slist slist-pad")(
-      if (pager.nbResults > 0)
+      if pager.nbResults > 0
+      then
         tbody(cls := "infinite-scroll")(
-          pager.currentPageResults.map { r =>
+          pager.currentPageResults.map: r =>
             tr(cls := "paginated")(
               td(userLink(r.user)),
-              ctx.pref.showRatings option td(showBestPerf(r.user)),
+              ctx.pref.showRatings option td(showBestPerf(r.user.perfs)),
               td(trans.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
               td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
-            )
-          },
+            ),
           pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )
       else tbody(tr(td(colspan := 2)(trans.none())))

@@ -30,10 +30,10 @@ object Statistics:
     coefVariation(a.map(_.centis + 10))
 
   def moveTimeCoefVariation(pov: lila.game.Pov): Option[Float] =
-    for {
+    for
       mt   <- moveTimes(pov)
       coef <- moveTimeCoefVariation(mt)
-    } yield coef
+    yield coef
 
   def moveTimes(pov: lila.game.Pov): Option[List[Centis]] =
     pov.game.moveTimes(pov.color)

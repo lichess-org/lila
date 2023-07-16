@@ -25,7 +25,7 @@ object PrefForm:
   private lazy val booleanNumber =
     number.verifying(Pref.BooleanPref.verify)
 
-  val pref = Form(
+  def pref(lichobile: Boolean) = Form(
     mapping(
       "display" -> mapping(
         "animation"     -> numberIn(Set(0, 1, 2, 3)),
@@ -45,7 +45,12 @@ object PrefForm:
         "takeback"      -> checkedNumber(Pref.Takeback.choices),
         "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices),
         "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
-        "submitMove"    -> optional(bitCheckedNumber(Pref.SubmitMove.choices)),
+        "submitMove" -> optional:
+          if lichobile then
+            import Pref.SubmitMove.{ lichobile as compat }
+            numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp)
+          else bitCheckedNumber(Pref.SubmitMove.choices)
+        ,
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
         "keyboardMove"  -> optional(booleanNumber),
         "voice"         -> optional(booleanNumber),
@@ -149,12 +154,12 @@ object PrefForm:
     def apply(pref: Pref): PrefData =
       PrefData(
         display = DisplayData(
-          highlight = if (pref.highlight) 1 else 0,
-          destination = if (pref.destination) 1 else 0,
+          highlight = if pref.highlight then 1 else 0,
+          destination = if pref.destination then 1 else 0,
           animation = pref.animation,
           coords = pref.coords,
           replay = pref.replay,
-          captured = if (pref.captured) 1 else 0,
+          captured = if pref.captured then 1 else 0,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,
@@ -162,7 +167,7 @@ object PrefForm:
         ),
         behavior = BehaviorData(
           moveEvent = pref.moveEvent.some,
-          premove = if (pref.premove) 1 else 0,
+          premove = if pref.premove then 1 else 0,
           takeback = pref.takeback,
           autoQueen = pref.autoQueen,
           autoThreefold = pref.autoThreefold,
@@ -174,11 +179,11 @@ object PrefForm:
         ),
         clock = ClockData(
           tenths = pref.clockTenths,
-          bar = if (pref.clockBar) 1 else 0,
-          sound = if (pref.clockSound) 1 else 0,
+          bar = if pref.clockBar then 1 else 0,
+          sound = if pref.clockSound then 1 else 0,
           moretime = pref.moretime
         ),
-        follow = if (pref.follow) 1 else 0,
+        follow = if pref.follow then 1 else 0,
         challenge = pref.challenge,
         message = pref.message,
         studyInvite = pref.studyInvite.some,
@@ -186,7 +191,7 @@ object PrefForm:
         ratings = pref.ratings.some
       )
 
-  def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
+  def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))
 
   val theme = Form(
     single(

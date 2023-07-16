@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.data.Validated
 import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair }
@@ -27,7 +26,7 @@ object PgnImport:
       statusText: String
   )
 
-  def apply(pgn: PgnStr, contributors: List[LightUser]): Validated[ErrorStr, Result] =
+  def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
@@ -91,11 +90,11 @@ object PgnImport:
           (
             (shapes ++ s),
             c orElse clock,
-            (str.trim match {
+            (str.trim match
               case "" => comments
               case com =>
                 comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
-            })
+            )
           )
     }
 
@@ -120,10 +119,10 @@ object PgnImport:
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
-            val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
+            val game   = moveOrDrop.applyGame(prev)
             val uci    = moveOrDrop.toUci
-            val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
-            parseComments(node.value.metas.comments, annotator) match {
+            val sanStr = moveOrDrop.toSanStr
+            parseComments(node.value.metas.comments, annotator) match
               case (shapes, clock, comments) =>
                 Branch(
                   id = UciCharPair(uci),
@@ -138,7 +137,6 @@ object PgnImport:
                   crazyData = game.situation.board.crazyData,
                   children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
                 ).some
-            }
         )
     catch
       case _: StackOverflowError =>
@@ -156,7 +154,7 @@ object PgnImport:
       case Some(main) if children.variations.exists(_.id == main.id) =>
         Branches {
           main +: children.variations.flatMap { node =>
-            if (node.id == main.id) node.children.nodes
+            if node.id == main.id then node.children.nodes
             else List(node)
           }
         }

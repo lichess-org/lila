@@ -7,11 +7,11 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
-import lila.user.UserRepo
+import lila.user.UserApi
 
 final class SelfReport(
     tellRound: TellRound,
-    userRepo: UserRepo,
+    userApi: UserApi,
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
@@ -25,34 +25,33 @@ final class SelfReport(
       fullId: GameFullId,
       name: String
   ): Funit =
-    userId so userRepo.byId map { user =>
+    userId so userApi.withPerfs map { user =>
       val known = user.exists(_.marks.engine)
       // user.ifTrue(!known && name != "ceval") so { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
       def doLog(): Unit =
-        if (name != "ceval")
+        if name != "ceval" then
           if logOnceEvery(ip.str) then
             lila.log("cheat").branch("jslog").info {
               s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
             }
             lila.mon.cheat.selfReport(name, userId.isDefined).increment()
-      if (fullId.value == "____________") doLog()
+      if fullId.value == "____________" then doLog()
       else
         proxyRepo
           .pov(fullId)
           .foreach:
             _.so: pov =>
-              if (!known) doLog()
+              if !known then doLog()
               user.foreach: u =>
-                if (
-                  endGameSetting.get().matches(name) ||
+                if endGameSetting.get().matches(name) ||
                   (name.startsWith("soc") && (
                     name.contains("stockfish") || name.contains("userscript") ||
                       name.contains("__puppeteer_evaluation_script__")
                   ))
-                ) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
-                if (markUserSetting.get().matches(name))
+                then tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
+                if markUserSetting.get().matches(name) then
                   val rating = u.perfs.bestRating
                   val hours =
                     if rating > 2500 then 0

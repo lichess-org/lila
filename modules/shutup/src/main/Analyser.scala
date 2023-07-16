@@ -5,16 +5,11 @@ import lila.common.constants.bannedYoutubeIds
 object Analyser:
 
   def apply(raw: String): TextAnalysis = lila.common.Chronometer
-    .sync {
+    .sync:
       val lower = raw.take(2000).toLowerCase
-      TextAnalysis(
-        lower,
-        (
-          latinBigRegex.findAllMatchIn(latinify(lower)).toList :::
-            ruBigRegex.findAllMatchIn(lower).toList
-        ).map(_.toString)
-      )
-    }
+      val matches = latinBigRegex.findAllMatchIn(latinify(lower)).toList :::
+        ruBigRegex.findAllMatchIn(lower).toList
+      TextAnalysis(lower, matches.map(_.toString))
     .mon(_.shutup.analyzer)
     .logIfSlow(100, logger)(_ => s"Slow shutup analyser ${raw take 400}")
     .result

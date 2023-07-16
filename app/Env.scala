@@ -184,7 +184,7 @@ final class EnvBoot(
   export netConfig.{ domain, baseUrl }
 
   // eagerly load the Uptime object to fix a precise date
-  lila.common.Uptime.startedAt.unit
+  lila.common.Uptime.startedAt
 
   // wire all the lila modules
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]

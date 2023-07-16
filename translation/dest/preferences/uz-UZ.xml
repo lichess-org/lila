@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Shaxsiy sozlanmalar</string>
+  <string name="display">Displey</string>
+  <string name="privacy">Maxfiylik</string>
+  <string name="notifications">Bildirishnomalar</string>
   <string name="pieceAnimation">Qism animatsiyalar</string>
   <string name="materialDifference">Materiallar farqi</string>
   <string name="boardHighlights">Doskadagi rang bilan ajratsih (oxirgi yurish va shoh)</string>
@@ -11,6 +14,7 @@
   <string name="chessPieceSymbol">Sipoh belgisi</string>
   <string name="pgnLetter">Harflar (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen holati (faqat doska va soat)</string>
+  <string name="showPlayerRatings">Oʻyinchi reytinglarini koʻrsatish</string>
   <string name="displayBoardResizeHandle">Doskani o\'lchamini o\'gartiruvchi uskunani namoyishi</string>
   <string name="onlyOnInitialPosition">Faqat boshlang\'ich holatda</string>
   <string name="blindfoldChess">Ko\'zlar berklitilgan shahmat (sipohlar ko\'rinmas holda)</string>

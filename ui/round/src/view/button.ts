@@ -117,7 +117,7 @@ export function standard(
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    [h('span', hint == 'offerDraw' ? ['½'] : ctrl.nvui ? [ctrl.noarg(hintFn())] : util.justIcon(icon))]
+    [h('span', ctrl.nvui ? [ctrl.noarg(hintFn())] : util.justIcon(icon))]
   );
 }
 
@@ -166,14 +166,10 @@ export const resignConfirm = (ctrl: RoundController): VNode =>
 
 export const drawConfirm = (ctrl: RoundController): VNode =>
   h('div.act-confirm', [
-    h(
-      'button.fbt.yes.draw-yes',
-      {
-        attrs: { title: ctrl.noarg('offerDraw') },
-        hook: util.bind('click', () => ctrl.offerDraw(true)),
-      },
-      h('span', '½')
-    ),
+    h('button.fbt.yes.draw-yes', {
+      attrs: { title: ctrl.noarg('offerDraw'), 'data-icon': licon.OneHalf },
+      hook: util.bind('click', () => ctrl.offerDraw(true)),
+    }),
     fbtCancel(ctrl, ctrl.offerDraw),
   ]);
 
@@ -209,90 +205,19 @@ export function threefoldSuggestion(ctrl: RoundController) {
     : null;
 }
 
-export function cancelDrawOffer(ctrl: RoundController) {
-  return ctrl.data.player.offeringDraw ? h('div.pending', [h('p', ctrl.noarg('drawOfferSent'))]) : null;
-}
+export function askQuestion(ctrl: RoundController) {
+  const o = ctrl.question();
+  if (!o) return null;
 
-export function answerOpponentDrawOffer(ctrl: RoundController) {
-  return ctrl.data.opponent.offeringDraw
-    ? h('div.negotiation.draw', [
-        declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no')),
-        h('p', ctrl.noarg('yourOpponentOffersADraw')),
-        acceptButton(ctrl, 'draw-yes', () => ctrl.socket.sendLoading('draw-yes')),
-      ])
-    : null;
-}
+  const btn = (tpe: 'yes' | 'no', icon: string, i18nKey: I18nKey, action: () => void) =>
+    ctrl.nvui
+      ? h('button', { hook: util.bind('click', action) }, ctrl.noarg(i18nKey))
+      : h(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: util.bind('click', action) });
 
-export function cancelTakebackProposition(ctrl: RoundController) {
-  return ctrl.data.player.proposingTakeback
-    ? h('div.pending', [
-        h('p', ctrl.noarg('takebackPropositionSent')),
-        h(
-          'button.button',
-          {
-            hook: util.bind('click', () => ctrl.socket.sendLoading('takeback-no')),
-          },
-          ctrl.noarg('cancel')
-        ),
-      ])
-    : null;
-}
+  const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.key || 'decline', o.no.action);
+  const yesBtn = o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.key || 'accept', o.yes.action);
 
-function acceptButton(ctrl: RoundController, klass: string, action: () => void, i18nKey: I18nKey = 'accept') {
-  const text = ctrl.noarg(i18nKey);
-  return ctrl.nvui
-    ? h(
-        'button.' + klass,
-        {
-          hook: util.bind('click', action),
-        },
-        text
-      )
-    : h('a.accept', {
-        attrs: {
-          'data-icon': licon.Checkmark,
-          title: text,
-        },
-        hook: util.bind('click', action),
-      });
-}
-function declineButton(ctrl: RoundController, action: () => void, i18nKey: I18nKey = 'decline') {
-  const text = ctrl.noarg(i18nKey);
-  return ctrl.nvui
-    ? h(
-        'button',
-        {
-          hook: util.bind('click', action),
-        },
-        text
-      )
-    : h('a.decline', {
-        attrs: {
-          'data-icon': licon.X,
-          title: text,
-        },
-        hook: util.bind('click', action),
-      });
-}
-
-export function answerOpponentTakebackProposition(ctrl: RoundController) {
-  return ctrl.data.opponent.proposingTakeback
-    ? h('div.negotiation.takeback', [
-        declineButton(ctrl, () => ctrl.socket.sendLoading('takeback-no')),
-        h('p', ctrl.noarg('yourOpponentProposesATakeback')),
-        acceptButton(ctrl, 'takeback-yes', ctrl.takebackYes),
-      ])
-    : null;
-}
-
-export function submitMove(ctrl: RoundController): VNode | undefined {
-  return ctrl.moveToSubmit || ctrl.dropToSubmit
-    ? h('div.negotiation.move-confirm', [
-        declineButton(ctrl, () => ctrl.submitMove(false), 'cancel'),
-        h('p', ctrl.noarg('confirmMove')),
-        acceptButton(ctrl, 'confirm-yes', () => ctrl.submitMove(true)),
-      ])
-    : undefined;
+  return h('div.question', { key: o.prompt }, [noBtn, h('p', o.prompt), yesBtn]);
 }
 
 export function backToTournament(ctrl: RoundController): VNode | undefined {
