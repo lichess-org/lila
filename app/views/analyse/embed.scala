@@ -1,6 +1,6 @@
 package views.html.analyse
 
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsObject }
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -20,19 +20,25 @@ object embed:
       lpvJs(orientation, getPgn)
     )
 
-  def lpvJs(orientation: Option[Color], getPgn: Boolean)(using config: EmbedContext) = embedJsUnsafe(
+  def lpvJs(orientation: Option[Color], getPgn: Boolean)(using config: EmbedContext): Frag = lpvJs:
+    lpvConfig(orientation, getPgn)
+
+  def lpvJs(lpvConfig: JsObject)(using ctx: EmbedContext): Frag = embedJsUnsafe(
     s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
-        Json
-          .obj(
-            "i18n" -> i18nJsObject(lpvI18n),
-            "menu" -> Json.obj(
-              "getPgn" -> Json.obj("enabled" -> getPgn)
-            )
-          )
-          .add("orientation", orientation.map(_.name))
+        lpvConfig ++ Json.obj(
+          "i18n" -> i18nJsObject(lpvI18n)
+        )
       )})})""",
-    config.nonce
+    ctx.nonce
   )
+
+  def lpvConfig(orientation: Option[Color], getPgn: Boolean)(using config: EmbedContext) = Json
+    .obj(
+      "menu" -> Json.obj(
+        "getPgn" -> Json.obj("enabled" -> getPgn)
+      )
+    )
+    .add("orientation", orientation.map(_.name))
 
   val lpvI18n = List(
     trans.flipBoard,
