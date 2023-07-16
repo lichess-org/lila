@@ -320,7 +320,7 @@ final class SwissApi(
         .traverse(_.userId)
         .so: ids =>
           rankingApi(swiss).map: ranking =>
-            ids.traverse(ranking.get).map(_.reduce(GameRanks.apply))
+            ids.traverseReduce(ranking.get)(GameRanks.apply)
 
   private[swiss] def leaveTeam(teamId: TeamId, userId: UserId) =
     joinedPlayableSwissIds(userId, List(teamId))
