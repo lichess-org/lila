@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -275,8 +275,8 @@ importers:
         specifier: workspace:*
         version: link:../@types/lichess
       lichess-pgn-viewer:
-        specifier: ^1.6.0
-        version: 1.6.0
+        specifier: ^1.6.1
+        version: 1.6.1
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -566,8 +566,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^1.6.0
-        version: 1.6.0
+        specifier: ^1.6.1
+        version: 1.6.1
 
   ui/palantir:
     dependencies:
@@ -794,8 +794,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       lichess-pgn-viewer:
-        specifier: ^1.6.0
-        version: 1.6.0
+        specifier: ^1.6.1
+        version: 1.6.1
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -953,8 +953,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: ^1.6.0
-        version: 1.6.0
+        specifier: ^1.6.1
+        version: 1.6.1
 
   ui/voice:
     dependencies:
@@ -3525,6 +3525,10 @@ packages:
     resolution: {integrity: sha512-t/kL/WK5KOkHx/EGON2/sTkKMLeKfZtg3zDPabzt8HCesYQuWHXcsXIMMKzltc8Tyv5VNXDwKd8d5JeoU++ucA==}
     dev: false
 
+  /chessground@8.3.13:
+    resolution: {integrity: sha512-H063phgP0OWXNOwu24Zm+HmW8aDCjBobdbZDVM3N3exDZ3cClfttH6nr4vc8XEcNUFt8mM+2L09OZvWtIwaAlA==}
+    dev: false
+
   /chessops@0.12.7:
     resolution: {integrity: sha512-ylWwKOudgTNJCDq7vx/Rs9fkZwPB3CEk0AJ8NtAfEYOoA3DGRQdS/Z/oQRsnQvs92rUu0yEobn4ZIPzLh8y9/w==}
     dependencies:
@@ -5082,11 +5086,11 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lichess-pgn-viewer@1.6.0:
-    resolution: {integrity: sha512-YvG/vVng/MT0Uxe09WYYrFJ7YepwsJ1059A7NosjrysW+xK7r2xXChOJTl1vB0i4v1t8KxepRzSLG3GO4R2DUw==}
+  /lichess-pgn-viewer@1.6.1:
+    resolution: {integrity: sha512-rKGRbpqy7xgcQ8S5Wneu86UFuJnsTPyVw0TJYCUHxO/+x5eIN8GF8TCxf2Q/aZ6YR4kec2SLjIBTik4KejHeZw==}
     dependencies:
       '@types/node': 18.16.18
-      chessground: 8.3.11
+      chessground: 8.3.13
       chessops: 0.12.7
       snabbdom: 3.5.1
     dev: false
