@@ -85,7 +85,7 @@ final class TournamentForm:
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
       "startDate"   -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
       "variant"     -> optional(text.verifying(v => guessVariant(v).isDefined)),
-      "position"    -> optional(lila.common.Form.fen.playableStrict),
+      "position"    -> optional(lila.common.Form.fen.mapping),
       "mode"        -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
       "rated"       -> optional(boolean),
       "password"    -> optional(cleanNonEmptyText),
@@ -100,6 +100,7 @@ final class TournamentForm:
       .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
       .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
       .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
+      .verifying("Invalid starting position", _.validPosition)
 
 object TournamentForm:
 
@@ -154,6 +155,9 @@ private[tournament] case class TournamentSetup(
 ):
 
   def validClock = (clockTime + clockIncrement.value) > 0
+
+  def validPosition =
+    position.fold(true)(Fen.read(realVariant, _).exists(_ playable (strict = true)))
 
   def realMode =
     if realPosition.isDefined then Mode.Casual

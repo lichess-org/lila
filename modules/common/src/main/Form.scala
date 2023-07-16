@@ -1,6 +1,7 @@
 package lila.common
 
 import chess.Color
+import chess.variant.{ Standard, Variant }
 import chess.format.Fen
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
@@ -174,10 +175,12 @@ object Form:
 
   object fen:
     val mapping = trim(of[String]).into[Fen.Epd]
-    def playable(strict: Boolean) = mapping
-      .verifying("Invalid position", fen => Fen.read(fen).exists(_ playable strict))
+    def playableWithVariant(variant: Variant)(strict: Boolean) = mapping
+      .verifying("Invalid position", fen => Fen.read(variant, fen).exists(_ playable strict))
       .transform[Fen.Epd](if strict then truncateMoveNumber else identity, identity)
-    val playableStrict = playable(strict = true)
+
+    def playable(strict: Boolean) = playableWithVariant(Standard)(strict)
+
     def truncateMoveNumber(fen: Fen.Epd) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if g.fullMoveNumber >= 150 then

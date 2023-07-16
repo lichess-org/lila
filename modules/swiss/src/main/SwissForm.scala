@@ -29,7 +29,7 @@ final class SwissForm(using mode: Mode):
         "rated"         -> optional(boolean),
         "nbRounds"      -> number(min = minRounds, max = 100),
         "description"   -> optional(cleanNonEmptyText),
-        "position"      -> optional(lila.common.Form.fen.playableStrict),
+        "position"      -> optional(lila.common.Form.fen.mapping),
         "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
         "roundInterval" -> optional(numberIn(roundIntervals)),
         "password"      -> optional(cleanNonEmptyText),
@@ -53,6 +53,7 @@ final class SwissForm(using mode: Mode):
         )
       )(SwissData.apply)(unapply)
         .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
+        .verifying("Invalid starting position", _.validPosition)
     )
 
   def create(user: User) =
@@ -185,6 +186,9 @@ object SwissForm:
     def validRatedVariant =
       !isRated ||
         lila.game.Game.allowRated(realVariant, clock.some)
+
+    def validPosition =
+      position.fold(true)(Fen.read(realVariant, _).exists(_ playable (strict = true)))
 
   def autoInterval(clock: ClockConfig) = {
     import Speed.*

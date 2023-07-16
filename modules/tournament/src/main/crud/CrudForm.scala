@@ -25,7 +25,7 @@ final class CrudForm(repo: TournamentRepo):
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> typeIn(Variant.list.all.map(_.id).toSet),
-      "position"       -> optional(lila.common.Form.fen.playableStrict),
+      "position"       -> optional(lila.common.Form.fen.mapping),
       "date"           -> PrettyDateTime.mapping,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
@@ -39,6 +39,7 @@ final class CrudForm(repo: TournamentRepo):
     )(Data.apply)(unapply)
       .verifying("Invalid clock", _.validClock)
       .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
+      .verifying("Invalid starting position", _.validPosition)
   ) fill Data(
     id = Tournament.makeId,
     name = "",
@@ -90,6 +91,9 @@ object CrudForm:
     def realPosition: Option[Fen.Opening] = position.ifTrue(realVariant.standard).map(_.opening)
 
     def validClock = (clockTime + clockIncrement.value) > 0
+
+    def validPosition =
+      position.fold(true)(Fen.read(realVariant, _).exists(_ playable(strict = true)))
 
     def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
 

@@ -96,7 +96,7 @@ object SimulForm:
         "variants" -> list {
           typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
         }.verifying("At least one variant", _.nonEmpty),
-        "position"         -> optional(lila.common.Form.fen.playableStrict),
+        "position"         -> optional(lila.common.Form.fen.playable(true)),
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
