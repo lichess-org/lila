@@ -14,6 +14,7 @@ import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ User, UserRepo, Me }
+import lila.socket.Socket.Sri
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -106,6 +107,9 @@ final class SecurityApi(
     val sessionId = SecureRandom nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
 
+  def upsertOauth(access: OAuthScope.Access, sri: Option[Sri])(using req: RequestHeader): Funit =
+    store.upsertOAuth(access.user.id, access.tokenId, sri, req)
+
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
     firewall.accepts(req) so reqSessionId(req) so { sessionId =>
@@ -120,17 +124,24 @@ final class SecurityApi(
       : Fu[Option[AppealOrUser]]
     }
 
+  private val shouldOauthUpsert = lila.memo.OnceEvery[UserId](1.hour)
   def oauthScoped(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    oAuthServer.auth(req, required) map { _ map stripRolesOfOAuthUser }
+    oAuthServer
+      .auth(req, required)
+      .map(_ map stripRolesOfOAuthUser)
+      .addEffect:
+        case Right(access) if shouldOauthUpsert(access.user.id) =>
+          upsertOauth(access)(using req)
+        case _ => ()
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 
-  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
-    if scoped.scopes.has(_.Web.Mod) then scoped
-    else scoped.copy(me = stripRolesOf(scoped.me))
+  private def stripRolesOfOAuthUser(access: OAuthScope.Access) =
+    if access.scopes.has(_.Web.Mod) then access
+    else access.copy(scoped = OAuthScope.Scoped(me = stripRolesOf(access.me)))
 
   private def stripRolesOfCookieUser(me: Me) =
     if mode == Mode.Prod && me.totpSecret.isEmpty then stripRolesOf(me)
@@ -159,7 +170,7 @@ final class SecurityApi(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
-  def shareAnIpOrFp = store.shareAnIpOrFp
+  export store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), _.sec)
@@ -184,9 +195,8 @@ final class SecurityApi(
 
     private val prefix = "appeal:"
 
-    private val store = cacheApi.notLoadingSync[SessionId, UserId](256, "security.session.appeal")(
+    private val store = cacheApi.notLoadingSync[SessionId, UserId](256, "security.session.appeal"):
       _.expireAfterAccess(2.days).build()
-    )
 
     def authenticate(sessionId: SessionId): Option[UserId] =
       sessionId.startsWith(prefix) so store.getIfPresent(sessionId)
