@@ -205,6 +205,7 @@
   <string name="email">ई-मेल</string>
   <string name="passwordReset">पासवर्ड रिसेट</string>
   <string name="forgotPassword">परवलीचा शब्द विसरलात?</string>
+  <string name="proceedToX">%s कडे जा</string>
   <string name="rank">मानांकन</string>
   <string name="rankX">मानांकन: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
