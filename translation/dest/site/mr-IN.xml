@@ -342,7 +342,7 @@
   <string name="youAreNotInTeam">तुम्ही %s संघात नाही</string>
   <string name="backToGame">खेळात परत या</string>
   <string name="siteDescription">विनामूल्य ऑनलाइन बुद्धीबळ सर्व्हर. सुरेख दृश्यात बुद्धिबळ खेळा. कोणतीही नोंदणी, जाहिराती आवश्यक नाही. संगणक, मित्र किंवा यादृच्छिक विरोधकांबरोबर बुद्धीबळ खेळा.</string>
-  <string name="xJoinedTeamY">%1$s ने %2$s संघ जोडला</string>
+  <string name="xJoinedTeamY">%1$s %2$s संघात सामील झाले</string>
   <string name="xCreatedTeamY">%1$s ने %2$s संघ बनवला</string>
   <string name="xStartedStreaming">%s ने खेळाचे प्रसारण सुरू केले</string>
   <string name="averageElo">सरासरी गुण</string>
@@ -705,7 +705,7 @@
   <string name="gameAnalysis">डेटा विश्लेषण</string>
   <string name="xHostsY">%1$s ने %2$s चे आयोजन केले</string>
   <string name="xJoinsY">%1$s %2$s मध्ये सहभागी झाले</string>
-  <string name="xLikesY">%1$s आवडले %2$s</string>
+  <string name="xLikesY">%1$s ने %2$s ला पसंत केले</string>
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">लॉबी</string>
   <string name="anonymous">अनामिक</string>
