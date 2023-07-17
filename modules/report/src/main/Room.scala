@@ -1,9 +1,11 @@
 package lila.report
 
+import cats.derived.*
+
 import lila.user.Me
 import lila.common.Iso
 
-enum Room:
+enum Room derives Eq:
 
   case Cheat, Boost, Print, Comm, Other, Xfiles
 
@@ -21,36 +23,27 @@ object Room:
   def apply(key: String): Option[Room] = byKey get key
 
   def apply(reason: Reason): Room =
+    import lila.report.{ Reason as R }
     reason match
-      case Reason.Cheat                        => Cheat
-      case Reason.Boost                        => Boost
-      case Reason.AltPrint | Reason.CheatPrint => Print
-      case Reason.Comm                         => Comm
-      case Reason.Other | Reason.Playbans      => Other
-
-  def toReasons(room: Room): Set[Reason] =
-    room match
-      case Cheat  => Set(Reason.Cheat)
-      case Boost  => Set(Reason.Boost)
-      case Print  => Set(Reason.AltPrint)
-      case Comm   => Set(Reason.Comm)
-      case Other  => Set(Reason.Playbans, Reason.Other)
-      case Xfiles => Set.empty
+      case R.Cheat                           => Cheat
+      case R.Boost                           => Boost
+      case R.AltPrint | R.CheatPrint         => Print
+      case R.Comm | R.Sexism                 => Comm
+      case R.Other | R.Playbans | R.Username => Other
 
   case class Scores(value: Map[Room, Int]):
     def get     = value.get
     def highest = ~value.values.maxOption
 
-  def isGrantedFor(mod: Me)(room: Room) =
+  def isGranted(room: Room)(using Me) =
     import lila.security.Granter
     room match
-      case Cheat  => Granter.is(_.MarkEngine)(mod)
-      case Boost  => Granter.is(_.MarkBooster)(mod)
-      case Print  => Granter.is(_.Admin)(mod)
-      case Comm   => Granter.is(_.Shadowban)(mod)
-      case Other  => Granter.is(_.Admin)(mod)
-      case Xfiles => Granter.is(_.MarkEngine)(mod)
+      case Cheat  => Granter(_.MarkEngine)
+      case Boost  => Granter(_.MarkBooster)
+      case Print  => Granter(_.Admin)
+      case Comm   => Granter(_.Shadowban)
+      case Other  => Granter(_.Admin)
+      case Xfiles => Granter(_.MarkEngine)
 
-  def filterGranted(mod: Me, reports: List[Report]) = reports.filter { r =>
-    isGrantedFor(mod)(r.room) && (r.user.isnt(mod) || mod.user.isSuperAdmin)
-  }
+  def filterGranted(reports: List[Report])(using mod: Me) = reports.filter: r =>
+    isGranted(r.room) && (r.user.isnt(mod) || mod.isSuperAdmin)

@@ -54,14 +54,14 @@ final private[puzzle] class DailyPuzzle(
     findNew flatMap {
       case None => tryAgainMaybe
       case Some(p) if p.hasTheme(anastasiaMate, arabianMate) && !odds(3) =>
-        tryAgainMaybe dmap (_ orElse p.some)
+        tryAgainMaybe.dmap(_ orElse p.some)
       case p => fuccess(p)
     }
 
   private def findNew: Fu[Option[Puzzle]] =
     colls
-      .path {
-        _.aggregateOne() { framework =>
+      .path:
+        _.aggregateOne(): framework =>
           import framework.*
           val forbiddenThemes = List(PuzzleTheme.oneMove) :::
             odds(2).so(List(PuzzleTheme.checkFirst))
@@ -93,15 +93,10 @@ final private[puzzle] class DailyPuzzle(
             Sort(Descending("dayScore")),
             Limit(1)
           )
+      .flatMap: docOpt =>
+        docOpt.flatMap(puzzleReader.readOpt).so { puzzle =>
+          colls.puzzle(_.updateField($id(puzzle.id), F.day, nowInstant)) inject puzzle.some
         }
-      }
-      .flatMap { docOpt =>
-        docOpt.flatMap(puzzleReader.readOpt) so { puzzle =>
-          colls.puzzle {
-            _.updateField($id(puzzle.id), F.day, nowInstant)
-          } inject puzzle.some
-        }
-      }
 
 object DailyPuzzle:
   type Try = () => Fu[Option[DailyPuzzle.WithHtml]]

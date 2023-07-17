@@ -1,20 +1,19 @@
 package lila.round
 
-import actorApi.{ GetSocketStatus, SocketStatus }
+import scala.util.matching.Regex
 import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
 import lila.common.{ Bus, Uptime }
+import lila.common.autoconfig.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
-import lila.hub.actors
 import lila.memo.SettingStore
-import scala.util.matching.Regex
+import lila.round.actorApi.{ GetSocketStatus, SocketStatus }
 
 @Module
 private class RoundConfig(
@@ -30,8 +29,10 @@ final class Env(
     gameRepo: GameRepo,
     idGenerator: lila.game.IdGenerator,
     userRepo: lila.user.UserRepo,
-    timeline: actors.Timeline,
-    bookmark: actors.Bookmark,
+    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.user.UserApi,
+    timeline: lila.hub.actors.Timeline,
+    bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
@@ -61,14 +62,13 @@ final class Env(
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
-  private val defaultGoneWeight                     = fuccess(1f)
-  private def goneWeight(userId: UserId): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
+  private val defaultGoneWeight = fuccess(1f)
   private val goneWeightsFor: Game => Fu[(Float, Float)] = (game: Game) =>
-    if (!game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1))
-      fuccess(1f -> 1f)
+    if !game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1) then fuccess(1f -> 1f)
     else
-      game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
-        game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
+      def of(color: chess.Color): Fu[Float] =
+        game.player(color).userId.fold(defaultGoneWeight)(uid => playban.getRageSit(uid).dmap(_.goneWeight))
+      of(chess.White) zip of(chess.Black)
 
   private val isSimulHost =
     IsSimulHost(userId => Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId))
@@ -96,7 +96,7 @@ final class Env(
       onStart(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
-      selfReport(userId, ip, fullId, name).unit
+      selfReport(userId, ip, fullId, name)
     },
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       resignAllGamesOf(userId)
@@ -109,7 +109,7 @@ final class Env(
   lazy val onStart: OnStart = OnStart: gameId =>
     proxyRepo game gameId foreach {
       _.foreach: game =>
-        lightUserApi.preloadMany(game.userIds) >>- {
+        lightUserApi.preloadMany(game.userIds) andDo {
           val sg = lila.game.actorApi.StartGame(game)
           Bus.publish(sg, "startGame")
           game.userIds.foreach: userId =>
@@ -196,8 +196,8 @@ final class Env(
   val apiMoveStream = wire[ApiMoveStream]
 
   def resign(pov: Pov): Unit =
-    if (pov.game.abortableByUser) tellRound(pov.gameId, Abort(pov.playerId))
-    else if (pov.game.resignable) tellRound(pov.gameId, Resign(pov.playerId))
+    if pov.game.abortableByUser then tellRound(pov.gameId, Abort(pov.playerId))
+    else if pov.game.resignable then tellRound(pov.gameId, Resign(pov.playerId))
 
 trait SelfReportEndGame
 trait SelfReportMarkUser

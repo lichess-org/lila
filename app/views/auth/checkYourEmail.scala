@@ -12,13 +12,13 @@ object checkYourEmail:
   def apply(
       userEmail: Option[lila.security.EmailConfirm.UserEmail],
       form: Option[Form[?]] = None
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = "Check your email",
       moreCss = cssTag("email-confirm")
     ) {
       main(
-        cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error" else "anim"}"
+        cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
       )(
         boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.checkYourEmail())),
         p(trans.weHaveSentYouAnEmailClickTheLink()),

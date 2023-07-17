@@ -13,10 +13,10 @@ object list:
 
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
-      online: List[User],
-      leaderboards: lila.user.Perfs.Leaderboards,
+      online: List[User.WithPerfs],
+      leaderboards: lila.user.UserPerfs.Leaderboards,
       nbAllTime: List[User.LightCount]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.players.txt(),
       moreCss = cssTag("user.list"),
@@ -35,12 +35,12 @@ object list:
         div(cls := "community page-menu__content box box-pad")(
           st.section(cls := "community__online")(
             h2(trans.onlinePlayers()),
-            ol(cls := "user-top")(online map { u =>
-              li(
-                userLink(u),
-                ctx.pref.showRatings option showBestPerf(u)
-              )
-            })
+            ol(cls := "user-top"):
+              online.map: u =>
+                li(
+                  userLink(u),
+                  ctx.pref.showRatings option showBestPerf(u.perfs)
+                )
           ),
           div(cls := "community__leaders")(
             h2(trans.leaderboard()),
@@ -66,7 +66,7 @@ object list:
       )
     }
 
-  private def tournamentWinners(winners: List[lila.tournament.Winner])(using WebContext) =
+  private def tournamentWinners(winners: List[lila.tournament.Winner])(using Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := licon.Trophy)(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
@@ -81,7 +81,7 @@ object list:
       })
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: WebContext) =
+  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.icon)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
@@ -95,7 +95,7 @@ object list:
     )
 
   private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[licon.Icon])(using
-      WebContext
+      Context
   ) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),

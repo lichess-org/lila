@@ -3,8 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chat ui",
-  "type": "module",
-  "module": "dist/main.js",
   "types": "dist/main.d.ts",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
@@ -21,8 +19,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "chat"
+    "modules": {
+      "esm": {
+        "dist/main.js": "chat"
+      }
     }
   }
 }

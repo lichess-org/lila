@@ -12,7 +12,7 @@ object homeInner:
       createds: List[lila.simul.Simul],
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     div(cls := "box")(
       h1(cls := "box__top")(trans.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
@@ -51,7 +51,7 @@ object homeInner:
           },
           tr(cls := "create")(
             td(colspan := "4")(
-              if (ctx.isAuth)
+              if ctx.isAuth then
                 a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
               else
                 a(href := routes.Auth.signup, cls := "action button text")("Sign up to host or join a simul")
@@ -103,7 +103,7 @@ object homeInner:
       )
     )
 
-  private def simHost(sim: lila.simul.Simul)(using ctx: WebContext) =
+  private def simHost(sim: lila.simul.Simul)(using ctx: PageContext) =
     td(cls := "host")(
       userIdLink(sim.hostId.some, withOnline = false),
       ctx.pref.showRatings option frag(

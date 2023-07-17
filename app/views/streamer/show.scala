@@ -6,6 +6,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.streamer.Stream.YouTube
+import lila.user.{ User, UserPerfs }
 
 object show:
 
@@ -13,8 +14,9 @@ object show:
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
+      perfs: UserPerfs,
       activities: Vector[lila.activity.ActivityView]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
@@ -30,11 +32,11 @@ object show:
         )
         .some,
       csp = defaultCsp.finalizeWithTwitch.some
-    )(
+    ):
       main(cls := "page-menu streamer-show")(
         st.aside(cls := "page-menu__menu")(
           s.streamer.approval.chatEnabled option div(cls := "streamer-chat")(
-            s.stream match {
+            s.stream match
               case Some(YouTube.Stream(_, _, videoId, _, _)) =>
                 iframe(
                   frame.credentialless,
@@ -48,15 +50,14 @@ object show:
                     frame.credentialless,
                     st.frameborder  := "0",
                     frame.scrolling := "yes",
-                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") so "darkpopout&"}parent=${netConfig.domain}"
+                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.pref.currentBg != "light") so "darkpopout&"}parent=${netConfig.domain}"
                   )
                 }
-            }
           ),
           bits.menu("show", s.some)
         ),
         div(cls := "page-menu__content")(
-          s.stream match {
+          s.stream match
             case Some(YouTube.Stream(_, _, videoId, _, _)) =>
               div(cls := "box embed youTube")(
                 iframe(
@@ -76,15 +77,14 @@ object show:
                   )
                 )
               } getOrElse div(cls := "box embed")(div(cls := "nostream")(offline()))
-          },
+          ,
           div(cls := "box streamer")(
             views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
-            ctx.pref.showRatings option a(cls := "ratings", href := routes.User.show(s.user.username))(
-              s.user.best6Perfs.map { showPerfRating(s.user, _) }
-            ),
-            views.html.activity(s.user, activities)
+            ctx.pref.showRatings option a(cls := "ratings", href := routes.User.show(s.user.username)):
+              perfs.best6Perfs.map { showPerfRating(perfs, _) }
+            ,
+            views.html.activity(User.WithPerfs(s.user, perfs), activities)
           )
         )
       )
-    )

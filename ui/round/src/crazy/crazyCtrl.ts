@@ -57,7 +57,7 @@ export function onEnd() {
 export const crazyKeys: Array<number> = [];
 
 export function init(ctrl: RoundController) {
-  const k = window.Mousetrap;
+  const k = lichess.mousetrap;
 
   let activeCursor: string | undefined;
 

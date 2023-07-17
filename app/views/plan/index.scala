@@ -24,7 +24,7 @@ object index:
       recentIds: List[UserId],
       bestIds: List[UserId],
       pricing: lila.plan.PlanPricing
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang) so { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
@@ -72,7 +72,7 @@ object index:
               iconTag(patronIconChar),
               div(
                 h1(cls := "box__top")(thankYou()),
-                if (p.isLifetime) youHaveLifetime()
+                if p.isLifetime then youHaveLifetime()
                 else
                   p.expiresAt.map { expires =>
                     frag(
@@ -207,7 +207,7 @@ object index:
                   ),
                   div(cls := "service")(
                     div(cls := "buttons")(
-                      if (ctx.isAuth)
+                      if ctx.isAuth then
                         frag(
                           button(cls := "stripe button")(withCreditCard()),
                           div(cls := "paypal paypal--order"),
@@ -257,7 +257,7 @@ object index:
       )
     }
 
-  private def showCurrency(cur: Currency)(using ctx: WebContext) =
+  private def showCurrency(cur: Currency)(using ctx: PageContext) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
   private def faq(using Lang) =

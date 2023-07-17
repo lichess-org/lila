@@ -1,5 +1,7 @@
 package lila.streamer
 
+import cats.derived.*
+
 import lila.memo.PicfitImage
 import lila.user.User
 
@@ -84,7 +86,7 @@ object Streamer:
   opaque type Description = String
   object Description extends OpaqueString[Description]
 
-  case class Twitch(userId: String):
+  case class Twitch(userId: String) derives Eq:
     def fullUrl = s"https://www.twitch.tv/$userId"
     def minUrl  = s"twitch.tv/$userId"
   object Twitch:
@@ -97,7 +99,8 @@ object Streamer:
         case UrlRegex(u)    => u.some
         case _              => none
 
-  case class YouTube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String]):
+  case class YouTube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String])
+      derives Eq:
     def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
     def minUrl  = s"youtube.com/channel/$channelId/live"
   object YouTube:
@@ -121,10 +124,9 @@ object Streamer:
       subscribed: Boolean = false
   ) extends WithContext:
     def redirectToLiveUrl: Option[String] =
-      stream so { s =>
+      stream.so: s =>
         streamer.twitch.ifTrue(s.twitch).map(_.fullUrl) orElse
           streamer.youTube.ifTrue(s.youTube).map(_.fullUrl)
-      }
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean)
 

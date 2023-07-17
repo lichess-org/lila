@@ -10,14 +10,15 @@ import controllers.routes
 
 object hosted:
 
-  def apply(user: User, pager: Paginator[lila.simul.Simul])(using WebContext) =
+  def apply(user: User, pager: Paginator[lila.simul.Simul])(using PageContext) =
     views.html.base.layout(
       title = s"${user.username} hosted simuls",
       moreCss = cssTag("user-simul"),
       moreJs = infiniteScrollTag
     ) {
       main(cls := "page-small box simul-list")(
-        if (pager.nbResults == 0) div(cls := "box__top")(h1(userLink(user), " hasn't hosted any simuls yet!"))
+        if pager.nbResults == 0 then
+          div(cls := "box__top")(h1(userLink(user), " hasn't hosted any simuls yet!"))
         else
           table(cls := "slist slist-pad")(
             thead(
@@ -28,7 +29,7 @@ object hosted:
               )
             ),
             tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map { s =>
+              pager.currentPageResults.map: s =>
                 val hostColor = s.color match
                   case Some(color) => color
                   case None        => "random"
@@ -43,7 +44,7 @@ object hosted:
                   ),
                   td(s"${s.wins} / ${s.draws} / ${s.losses}")
                 )
-              },
+              ,
               pagerNextTable(pager, np => routes.Simul.byUser(user.username, np).url)
             )
           )

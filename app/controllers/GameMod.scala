@@ -16,20 +16,19 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
   import GameMod.*
 
   def index(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> _ ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       val form   = filterForm.bindFromRequest()
       val filter = form.fold(_ => emptyFilter, identity)
-      env.tournament.leaderboardApi.recentByUser(user, 1) zip
-        env.activity.read.recentSwissRanks(user.id) zip
-        fetchGames(user, filter) flatMap { case ((arenas, swisses), povs) =>
-          {
-            if isGranted(_.UserEvaluate)
-            then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map Right.apply
-            else fuccess(Left(povs))
-          } map { games =>
-            Ok(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
-          }
-        }
+      for
+        arenas  <- env.tournament.leaderboardApi.recentByUser(user, 1)
+        swisses <- env.activity.read.recentSwissRanks(user.id)
+        povs    <- fetchGames(user, filter)
+        games <-
+          if isGranted(_.UserEvaluate)
+          then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map Right.apply
+          else fuccess(Left(povs))
+        page <- renderPage(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
+      yield Ok(page)
   }
 
   private def fetchGames(user: lila.user.User, filter: Filter) =
@@ -38,9 +37,8 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
     env.game.gameRepo
       .recentGamesFromSecondaryCursor(select)
       .documentSource(10_000)
-      .filter { game =>
+      .filter: game =>
         filter.perf.fold(true)(game.perfKey ==)
-      }
       .take(filter.nbGames)
       .mapConcat { lila.game.Pov(_, user).toList }
       .toMat(Sink.seq)(Keep.right)
@@ -48,7 +46,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       .map(_.toList)
 
   def post(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       actionForm
         .bindFromRequest()
         .fold(
@@ -62,7 +60,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
         )
   }
 
-  private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using WebContext) =
+  private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using Context) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
         env.fishnet
@@ -103,13 +101,12 @@ object GameMod:
       nbGamesOpt: Option[Int]
   ):
     def opponentIds: List[UserId] = UserStr
-      .from {
+      .from:
         (~opponents)
           .take(800)
           .replace(",", " ")
           .split(' ')
           .map(_.trim)
-      }
       .flatMap(lila.user.User.validateId)
       .toList
       .distinct

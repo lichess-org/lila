@@ -3,7 +3,6 @@ package lila.msg
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
-import reactivemongo.api.ReadPreference
 
 import lila.common.config.*
 import lila.common.Json.given
@@ -53,7 +52,7 @@ final class MsgCompat(
     _.expireAfterWrite(10 seconds)
       .buildAsyncFuture[UserId, Int] { userId =>
         colls.thread
-          .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
+          .aggregateOne(_.sec): framework =>
             import framework.*
             Match($doc("users" -> userId, "del" $ne userId)) -> List(
               Sort(Descending("lastMsg.date")),
@@ -61,7 +60,6 @@ final class MsgCompat(
               Match($doc("lastMsg.read" -> false, "lastMsg.user" $ne userId)),
               Count("nb")
             )
-          }
           .map(~_.flatMap(_.getAsOpt[Int]("nb")))
       }
   }
@@ -72,8 +70,8 @@ final class MsgCompat(
       "name" -> c.contact.name,
       "posts" -> c.msgs.reverse.map: msg =>
         Json.obj(
-          "sender"    -> renderUser(if (msg.user == c.contact.id) c.contact else me.light),
-          "receiver"  -> renderUser(if (msg.user != c.contact.id) c.contact else me.light),
+          "sender"    -> renderUser(if msg.user == c.contact.id then c.contact else me.light),
+          "receiver"  -> renderUser(if msg.user != c.contact.id then c.contact else me.light),
           "text"      -> msg.text,
           "createdAt" -> msg.date
         )

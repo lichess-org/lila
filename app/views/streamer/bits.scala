@@ -11,7 +11,7 @@ object bits:
 
   import trans.streamer.*
 
-  def create(using WebContext) =
+  def create(using PageContext) =
     views.html.site.message(
       title = becomeStreamer.txt(),
       icon = Some(licon.Mic),
@@ -30,7 +30,7 @@ object bits:
       )
     )
 
-  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(using ctx: WebContext) =
+  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(using ctx: PageContext) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
       s.map { st =>
@@ -76,14 +76,12 @@ object bits:
     }
 
   def contextual(streamers: List[UserId])(using Lang): Option[Tag] =
-    streamers.nonEmpty option div(cls := "context-streamers")(
+    streamers.nonEmpty option div(cls := "context-streamers"):
       streamers map contextual
-    )
 
   def contextual(userId: UserId)(using Lang): Tag =
-    redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic)(
+    redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic):
       xIsStreaming(strong(titleNameOrId(userId)))
-    )
 
   def rules(using Lang) =
     ul(cls := "streamer-rules")(
@@ -91,8 +89,10 @@ object bits:
       ul(
         li(rule1()),
         li(rule2()),
-        li(rule4(a(href := routes.Page.loneBookmark("streaming-fairplay-faq"))(streamingFairplayFAQ()))),
-        li(a(href := routes.Page.loneBookmark("streamer-page-activation"))(rule3()))
+        li(
+          rule4(a(href := routes.ContentPage.loneBookmark("streaming-fairplay-faq"))(streamingFairplayFAQ()))
+        ),
+        li(a(href := routes.ContentPage.loneBookmark("streamer-page-activation"))(rule3()))
       ),
       h2(perks()),
       ul(
@@ -106,12 +106,11 @@ object bits:
   def streamerTitle(s: lila.streamer.Streamer.WithContext) =
     span(cls := "streamer-title")(
       h1(dataIcon := licon.Mic)(titleTag(s.user.title), s.streamer.name),
-      s.streamer.lastStreamLang map { language =>
+      s.streamer.lastStreamLang.map: language =>
         span(cls := "streamer-lang")(LangList nameByStr language)
-      }
     )
 
-  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: WebContext): Option[Tag] =
+  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: PageContext): Option[Tag] =
     ctx.isAuth && !ctx.is(s.user) option {
       val id = s"streamer-subscribe-${s.streamer.userId}"
       label(cls := "streamer-subscribe")(
@@ -128,7 +127,5 @@ object bits:
         trans.subscribe()
       )
     }
-  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using lang: Lang) =
-    span(cls := "streamer-profile")(
-      userLink(s.user)
-    )
+  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using Lang) =
+    span(cls := "streamer-profile")(userLink(s.user))

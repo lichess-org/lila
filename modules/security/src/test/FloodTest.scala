@@ -2,9 +2,9 @@ package lila.security
 
 import java.time.Instant
 
-class FloodTest extends munit.FunSuite {
+class FloodTest extends munit.FunSuite:
 
-  import Flood._
+  import Flood.*
 
   private def isDup = duplicateMessage _
 
@@ -33,4 +33,3 @@ class FloodTest extends munit.FunSuite {
     assert(isDup(m("hey"), List(m(s"hey!"))))
     assert(!isDup(m("hey"), List(m(s"hey!!"))))
   }
-}

@@ -5,11 +5,7 @@ lichess.load.then(() => {
     const minDate = this.dataset['mindate'];
     const config = this.classList.contains('flatpickr-utc')
       ? {}
-      : {
-          dateFormat: 'Z',
-          altInput: true,
-          altFormat: 'Y-m-d h:i K',
-        };
+      : { dateFormat: 'Z', altInput: true, altFormat: 'Y-m-d h:i K' };
     flatpickr(this, {
       minDate: minDate == 'yesterday' ? new Date(Date.now() - 1000 * 3600 * 24) : minDate,
       maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31 * 12),
@@ -19,5 +15,3 @@ lichess.load.then(() => {
     });
   });
 });
-
-export default (window as any).LichessFlatpickr = flatpickr; // esbuild

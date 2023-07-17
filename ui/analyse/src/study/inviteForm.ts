@@ -80,8 +80,8 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess.userComplete().then(uac => {
-              uac({
+            lichess
+              .userComplete({
                 input,
                 tag: 'span',
                 onSelect(v) {
@@ -89,9 +89,8 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                   ctrl.invite(v.name);
                   ctrl.redraw();
                 },
-              });
-              input.focus();
-            })
+              })
+              .then(() => input.focus())
           ),
         }),
       ]),

@@ -1,7 +1,5 @@
 package lila.tournament
 
-import reactivemongo.api.ReadPreference
-
 import chess.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl.{ *, given }
 import Schedule.{ Freq, Speed }
@@ -67,36 +65,34 @@ final class WinnersApi(
 
   private def fetchLastFreq(freq: Freq, since: Instant): Fu[List[Tournament]] =
     tournamentRepo.coll
-      .find(
+      .find:
         $doc(
           "schedule.freq" -> freq.name,
           "startsAt" $gt since.minusHours(12),
           "winner" $exists true
         )
-      )
       .sort($sort desc "startsAt")
-      .cursor[Tournament](ReadPreference.secondaryPreferred)
+      .cursor[Tournament](ReadPref.sec)
       .list(Int.MaxValue)
 
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
     tours
-      .find { t =>
+      .find: t =>
         t.variant.standard && t.schedule.exists(_.speed == speed)
-      }
       .flatMap(_.winner)
 
   private def firstVariantWinner(tours: List[Tournament], variant: Variant): Option[Winner] =
     tours.find(_.variant == variant).flatMap(_.winner)
 
   private def fetchAll: Fu[AllWinners] =
-    for {
+    for
       yearlies  <- fetchLastFreq(Freq.Yearly, nowInstant.minusYears(1))
       monthlies <- fetchLastFreq(Freq.Monthly, nowInstant.minusMonths(2))
       weeklies  <- fetchLastFreq(Freq.Weekly, nowInstant.minusWeeks(2))
       dailies   <- fetchLastFreq(Freq.Daily, nowInstant.minusDays(2))
       elites    <- fetchLastFreq(Freq.Weekend, nowInstant.minusWeeks(3))
       marathons <- fetchLastFreq(Freq.Marathon, nowInstant.minusMonths(13))
-    } yield
+    yield
       def standardFreqWinners(speed: Speed): FreqWinners =
         FreqWinners(
           yearly = firstStandardWinner(yearlies, speed),
@@ -125,21 +121,18 @@ final class WinnersApi(
   private val allCache = mongoCache.unit[AllWinners](
     "tournament:winner:all",
     59 minutes
-  ) { loader =>
-    _.refreshAfterWrite(1 hour)
-      .buildAsyncFuture(loader(_ => fetchAll))
-  }
+  ): loader =>
+    _.refreshAfterWrite(1 hour).buildAsyncFuture(loader(_ => fetchAll))
 
   def all: Fu[AllWinners] = allCache.get {}
 
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament): Unit =
-    if (tour.schedule.exists(_.freq.isDailyOrBetter))
-      scheduler.scheduleOnce(5.seconds) { allCache.invalidate {}.unit }.unit
+    if tour.schedule.exists(_.freq.isDailyOrBetter) then
+      scheduler.scheduleOnce(5.seconds) { allCache.invalidate {} }
 
-  private[tournament] def clearAfterMarking(userId: UserId): Funit = all map { winners =>
-    if (winners.userIds contains userId) allCache.invalidate {}.unit
-  }
+  private[tournament] def clearAfterMarking(userId: UserId): Funit = all.map: winners =>
+    if winners.userIds contains userId then allCache.invalidate {}
 
 object WinnersApi:
 

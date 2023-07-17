@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import cats.syntax.all.*
 import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr
@@ -44,7 +43,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
               )
             )
             errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))
-            if (analysis.valid) then
+            if analysis.valid then
               if !isPartial && analysis.emptyRatio >= 1d / 10 then
                 fufail:
                   s"${work.game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}"
@@ -83,6 +82,6 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
           eval = Eval(after.score.cp, after.score.mate, best),
           variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToSan
         )
-        if (info.ply.isOdd) info.invert else info
+        if info.ply.isOdd then info.invert else info
       case ((_, _), index) => Info(startedAtPly + index + 1, Eval.empty, Nil)
     }

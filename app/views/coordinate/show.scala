@@ -9,21 +9,14 @@ import lila.common.LangPath
 
 object show:
 
-  def apply(scoreOption: Option[lila.coordinate.Score])(using WebContext) =
+  def apply(scoreOption: Option[lila.coordinate.Score])(using PageContext) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
       moreCss = frag(
         cssTag("coordinateTrainer"),
         cssTag("voice")
       ),
-      moreJs = frag(
-        jsModule("coordinateTrainer"),
-        embedJsUnsafeLoadThen(
-          s"""LichessCoordinateTrainer(document.getElementById('trainer'), ${safeJsonValue(
-              bits.coordinateConfig(scoreOption)
-            )});"""
-        )
-      ),
+      moreJs = jsModuleInit("coordinateTrainer", bits.coordinateConfig(scoreOption)),
       csp = defaultCsp.withPeer.withWebAssembly.some,
       openGraph = lila.app.ui
         .OpenGraph(

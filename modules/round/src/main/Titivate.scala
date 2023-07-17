@@ -30,7 +30,7 @@ final private[round] class Titivate(
 
   given Executor = context.system.dispatcher
 
-  def scheduleNext(): Unit = context.system.scheduler.scheduleOnce(5 seconds, self, Run).unit
+  def scheduleNext(): Unit = context.system.scheduler.scheduleOnce(5 seconds, self, Run)
 
   def receive =
     case ReceiveTimeout =>
@@ -48,7 +48,7 @@ final private[round] class Titivate(
           .via(gameFlow)
           .toMat(LilaStream.sinkCount)(Keep.right)
           .run()
-          .addEffect(lila.mon.round.titivate.game.record(_).unit)
+          .addEffect(lila.mon.round.titivate.game.record(_))
           .>> {
             gameRepo
               .countSec(_.checkableOld)
@@ -56,7 +56,7 @@ final private[round] class Titivate(
           }
           .monSuccess(_.round.titivate.time)
           .logFailure(logBranch)
-          .addEffectAnyway(scheduleNext().unit)
+          .addEffectAnyway(scheduleNext())
       }
 
   private val logBranch = logger branch "titivate"

@@ -8,8 +8,8 @@ import lila.common.LightUser.lightUserWrites
 final class Msg(env: Env) extends LilaController(env):
 
   def home = Auth { _ ?=> me ?=>
-    negotiate(
-      html = inboxJson.map(views.html.msg.home),
+    negotiateApi(
+      html = Ok.pageAsync(inboxJson map views.html.msg.home),
       api = v =>
         JsonOk:
           if v.value >= 5 then inboxJson
@@ -22,15 +22,11 @@ final class Msg(env: Env) extends LilaController(env):
     then Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
       env.msg.api.convoWithMe(username, before).flatMap {
-        case None =>
-          negotiate(
-            html = Redirect(routes.Msg.home),
-            api = _ => notFoundJson()
-          )
+        case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
         case Some(c) =>
           def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
-          negotiate(
-            html = newJson map views.html.msg.home,
+          negotiateApi(
+            html = Ok.pageAsync(newJson map views.html.msg.home),
             api = v =>
               JsonOk:
                 if v.value >= 5 then newJson
@@ -59,43 +55,32 @@ final class Msg(env: Env) extends LilaController(env):
   def compatCreate = AuthBody { ctx ?=> me ?=>
     ctx.noKid so ctx.noBot so env.msg.compat.create
       .fold(
-        jsonFormError,
+        doubleJsonFormError,
         _.map: id =>
           Ok(Json.obj("ok" -> true, "id" -> id))
       )
   }
 
-  def apiPost(username: UserStr) =
+  def apiPost(username: UserStr) = AuthOrScopedBody(_.Msg.Write) { ctx ?=> me ?=>
     val userId = username.id
-    AuthOrScopedBody(_.Msg.Write)(
-      // compat: reply
-      auth = ctx ?=>
-        me ?=>
-          env.msg.compat
-            .reply(userId)
-            .fold(
-              jsonFormError,
-              _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
-            ),
-      // new API: create/reply
-      scoped = ctx ?=>
-        me ?=>
-          (!me.kid && !me.is(userId)) so {
-            import play.api.data.*
-            import play.api.data.Forms.*
-            Form(single("text" -> nonEmptyText))
-              .bindFromRequest()
-              .fold(
-                jsonFormError,
-                text =>
-                  env.msg.api.post(me, userId, text) map {
-                    case lila.msg.MsgApi.PostResult.Success => jsonOkResult
-                    case lila.msg.MsgApi.PostResult.Limited => rateLimitedJson
-                    case _ => BadRequest(jsonError("The message was rejected"))
-                  }
-              )
-          }
-    )
+    if ctx.isWebAuth then // compat: reply
+      env.msg.compat
+        .reply(userId)
+        .fold(doubleJsonFormError, _ inject Ok(Json.obj("ok" -> true, "id" -> userId)))
+    else // new API: create/reply
+      (!me.kid && !me.is(userId)).so:
+        env.msg.textForm
+          .bindFromRequest()
+          .fold(
+            doubleJsonFormError,
+            text =>
+              env.msg.api.post(me, userId, text) flatMap {
+                case lila.msg.MsgApi.PostResult.Success => jsonOkResult
+                case lila.msg.MsgApi.PostResult.Limited => rateLimited
+                case _                                  => BadRequest(jsonError("The message was rejected"))
+              }
+          )
+  }
 
   private def inboxJson(using me: Me) =
     env.msg.api.myThreads flatMap env.msg.json.threads map { threads =>

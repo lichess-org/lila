@@ -9,12 +9,12 @@ import lila.user.User
 
 object home:
 
-  def apply(full: TutorFullReport.Available, user: User)(using WebContext) =
+  def apply(full: TutorFullReport.Available, user: User)(using PageContext) =
     bits.layout(menu = menu(full, user, none))(
       cls := "tutor__home box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
-      if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient
-      else {
+      if full.report.perfs.isEmpty then empty.mascotSaysInsufficient
+      else
         bits.mascotSays(
           p(
             strong(
@@ -29,14 +29,14 @@ object home:
             "It should give us some idea about what your strengths are, and where you have room for improvement."
           )
         )
-      },
+      ,
       div(cls := "tutor__perfs tutor-cards")(
         full.report.perfs.toList map { perfReportCard(full.report, _, user) }
       )
     )
 
   private[tutor] def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(using
-      WebContext
+      PageContext
   ) = frag(
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map { p =>
@@ -48,7 +48,7 @@ object home:
   )
 
   private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(using
-      WebContext
+      PageContext
   ) =
     st.article(
       cls      := "tutor__perfs__perf tutor-card tutor-card--link",

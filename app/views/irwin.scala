@@ -14,7 +14,7 @@ object irwin:
       case p if p < 80 => "orange"
       case _           => "red"
 
-  def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(using WebContext) =
+  def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(using PageContext) =
     views.html.base.layout(
       title = "Irwin dashboard",
       moreCss = cssTag("mod.misc")
@@ -25,7 +25,7 @@ object irwin:
           boxTop(
             h1(
               "Irwin status: ",
-              if (dashboard.seenRecently) span(cls := "up")("Operational")
+              if dashboard.seenRecently then span(cls := "up")("Operational")
               else
                 span(cls := "down")(
                   dashboard.lastSeenAt.map { seenAt =>
@@ -71,7 +71,7 @@ object irwin:
       )
     }
 
-  def report(report: lila.irwin.IrwinReport.WithPovs)(using WebContext): Frag =
+  def report(report: lila.irwin.IrwinReport.WithPovs)(using PageContext): Frag =
     div(cls := "mz-section mz-section--irwin", dataRel := "irwin")(
       header(
         a(cls := "title", href := routes.Irwin.dashboard)(
@@ -115,9 +115,7 @@ object irwin:
                     ),
                     br,
                     pov.game.isTournament so frag(iconTag(licon.Trophy), " "),
-                    pov.game.perfType.map { pt =>
-                      iconTag(pt.icon)
-                    },
+                    iconTag(pov.game.perfType.icon),
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",
                     momentFromNowServer(pov.game.createdAt)

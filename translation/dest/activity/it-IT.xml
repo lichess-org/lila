@@ -11,8 +11,8 @@
     <item quantity="other">Ha studiato %1$s posizioni in %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Ha risolto %s problemi tattici</item>
-    <item quantity="other">Ha risolto %s problemi tattici</item>
+    <item quantity="one">Ha risolto %s puzzle</item>
+    <item quantity="other">Ha risolto %s puzzle</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Ha giocato %1$s partita %2$s</item>
@@ -47,8 +47,8 @@
     <item quantity="other">Ha ospitato %s esibizioni simultanee</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Ha partecipato a %s simultanea</item>
-    <item quantity="other">Ha partecipato a %s simultanee</item>
+    <item quantity="one">Ha partecipato ad %s esibizione simultanea</item>
+    <item quantity="other">Ha partecipato a %s esibizioni simultanee</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Ha creato %s nuovo studio</item>
@@ -69,7 +69,7 @@
   <string name="rankedInSwissTournament">Classificato #%1$s in %2$s</string>
   <string name="signedUp">Si è registrato su lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Si è unito ad %s gruppo</item>
-    <item quantity="other">Si è unito a %s gruppi</item>
+    <item quantity="one">Si è unito ad %s squadra</item>
+    <item quantity="other">Si è unito a %s squadre</item>
   </plurals>
 </resources>

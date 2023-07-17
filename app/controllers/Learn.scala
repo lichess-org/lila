@@ -14,13 +14,13 @@ final class Learn(env: Env) extends LilaController(env):
   def index     = Open(serveIndex)
   def indexLang = LangPage(routes.Learn.index)(serveIndex)
 
-  private def serveIndex(using ctx: WebContext) = NoBot:
+  private def serveIndex(using ctx: Context) = NoBot:
     pageHit
     ctx.me
-      .so: me =>
-        env.learn.api.get(me) map { Json.toJson(_) } map some
-      .map: progress =>
-        Ok(html.learn.index(progress))
+      .soFu: me =>
+        env.learn.api.get(me) map Json.toJson
+      .flatMap: progress =>
+        Ok.page(html.learn.index(progress))
 
   private val scoreForm = Form:
     mapping(

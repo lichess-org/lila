@@ -108,13 +108,13 @@ final class RoundSocket(
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
       gameIfPresent(id).foreach:
         _.foreach:
-          messenger.owner(_, color, msg).unit
+          messenger.owner(_, color, msg)
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
-      messenger.owner(id, userId, msg).unit
+      messenger.owner(id, userId, msg)
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
-      messenger.watcher(id, userId, msg).unit
+      messenger.watcher(id, userId, msg)
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
-      messenger.timeout(ChatId(s"$roomId/w"), suspect, reason, text)(using modId).unit
+      messenger.timeout(ChatId(s"$roomId/w"), suspect, reason, text)(using modId)
     case Protocol.In.Berserk(gameId, userId) => Bus.publish(Berserk(gameId, userId), "berserk")
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines.foreach:
@@ -158,7 +158,7 @@ final class RoundSocket(
 
   remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 16)(
     roundHandler orElse remoteSocketApi.baseHandler
-  ) >>- send(P.Out.boot)
+  ) andDo send(P.Out.boot)
 
   Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame"):
     case TvSelect(gameId, speed, json) =>
@@ -177,7 +177,7 @@ final class RoundSocket(
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
       }
-    case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
+    case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
       }
@@ -197,7 +197,7 @@ final class RoundSocket(
     rounds.tellAll(RoundAsyncActor.Tick)
 
   scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds): () =>
-    lila.mon.round.asyncActorCount.update(rounds.size).unit
+    lila.mon.round.asyncActorCount.update(rounds.size)
 
   private val terminationDelay = TerminationDelay(scheduler, 1 minute, finishRound)
 
@@ -245,7 +245,7 @@ final class RoundSocket(
       .andThen:
         case scala.util.Success(loadedIds) =>
           val missingIds = gamePromises.keySet -- loadedIds
-          if (missingIds.nonEmpty)
+          if missingIds.nonEmpty then
             bootLog.warn:
               s"RoundSocket ${missingIds.size} round games could not be loaded: ${missingIds.take(20) mkString " "}"
             missingIds.foreach: id =>
@@ -263,20 +263,23 @@ object RoundSocket:
   val disconnectTimeout = 40.seconds
 
   def povDisconnectTimeout(pov: Pov): FiniteDuration =
-    disconnectTimeout * {
-      pov.game.speed match
-        case Speed.Classical => 3
-        case Speed.Rapid     => 2
-        case _               => 1
-    } / {
-      import chess.variant.*
-      (pov.game.chess.board.materialImbalance, pov.game.variant) match
-        case (_, Antichess | Crazyhouse | Horde)                                   => 1
-        case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
-        case _                                                                     => 1
-    } / {
-      if pov.player.hasUser then 1 else 2
-    }
+    if !pov.game.hasClock
+    then 30.days
+    else
+      disconnectTimeout * {
+        pov.game.speed match
+          case Speed.Classical => 3
+          case Speed.Rapid     => 2
+          case _               => 1
+      } / {
+        import chess.variant.*
+        (pov.game.chess.board.materialImbalance, pov.game.variant) match
+          case (_, Antichess | Crazyhouse | Horde)                                   => 1
+          case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
+          case _                                                                     => 1
+      } / {
+        if pov.player.hasUser then 1 else 2
+      }
 
   object Protocol:
 
@@ -367,12 +370,12 @@ object RoundSocket:
           case _           => RP.In.reader(raw)
 
       private def centis(s: String): Option[Centis] =
-        if (s == "-") none
+        if s == "-" then none
         else Centis from s.toIntOption
 
       private def readColor(s: String) =
-        if (s == "w") Some(White)
-        else if (s == "b") Some(Black)
+        if s == "w" then Some(White)
+        else if s == "b" then Some(Black)
         else None
 
     object Out:
@@ -385,14 +388,14 @@ object RoundSocket:
 
       def tellVersion(roomId: RoomId, version: SocketVersion, e: Event) =
         val flags = StringBuilder(2)
-        if (e.watcher) flags += 's'
-        else if (e.owner) flags += 'p'
+        if e.watcher then flags += 's'
+        else if e.owner then flags += 'p'
         else
           e.only.map(_.fold('w', 'b')).orElse {
             e.moveBy.map(_.fold('W', 'B'))
           } foreach flags.+=
-        if (e.troll) flags += 't'
-        if (flags.isEmpty) flags += '-'
+        if e.troll then flags += 't'
+        if flags.isEmpty then flags += '-'
         s"r/ver $roomId $version $flags ${e.typ} ${e.data}"
 
       def tvSelect(gameId: GameId, speed: chess.Speed, data: JsObject) =
@@ -422,16 +425,14 @@ object RoundSocket:
     private[this] val terminations = ConcurrentHashMap[GameId, Cancellable](65536)
 
     def schedule(gameId: GameId): Unit =
-      terminations
-        .compute(
-          gameId,
-          (id, canc) =>
-            Option(canc).foreach(_.cancel())
-            scheduler.scheduleOnce(duration):
-              terminations remove id
-              terminate(id)
-        )
-        .unit
+      terminations.compute(
+        gameId,
+        (id, canc) =>
+          Option(canc).foreach(_.cancel())
+          scheduler.scheduleOnce(duration):
+            terminations remove id
+            terminate(id)
+      )
 
     def cancel(gameId: GameId): Unit =
       Option(terminations remove gameId).foreach(_.cancel())

@@ -30,18 +30,18 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       username = UserStr from get("username")
     )
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: WebContext): Fu[Result] =
+  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
     reqToAuthorizationRequest.prompt match
       case Validated.Valid(prompt) =>
         AuthorizationRequest.logPrompt(prompt, ctx.me)
         f(prompt)
       case Validated.Invalid(error) =>
-        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description)))
+        BadRequest.page(html.site.message("Bad authorization request")(stringFrag(error.description)))
 
   def authorize = Open:
     withPrompt: prompt =>
-      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri)))): me =>
-        Ok:
+      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri))).toFuccess): me =>
+        Ok.page:
           html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
 
   def legacyAuthorize = Anon:
@@ -133,7 +133,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()
         .fold(
-          err => BadRequest(apiFormError(err)),
+          jsonFormError,
           data =>
             env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
               JsonOk(tokens.view.mapValues(_.plain).toMap)

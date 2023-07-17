@@ -1,28 +1,29 @@
 package lila.simul
 
-import cats.syntax.all.*
 import akka.actor.*
 import chess.variant.Variant
+import chess.ByColor
 import play.api.libs.json.Json
 
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo, PerfPicker }
+import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.socket.SendToFlag
-import lila.user.{ User, UserRepo }
-import lila.common.config.Max
+import lila.user.{ User, Me, UserRepo, UserPerfsRepo, UserApi, UserPerfs }
 import lila.common.Json.given
 import lila.hub.LeaderTeam
 import lila.gathering.Condition
-import lila.gathering.Condition.GetUserTeamIds
-import lila.rating.PerfType
+import lila.gathering.Condition.GetMyTeamIds
+import lila.rating.{ Perf, PerfType }
 import lila.common.paginator.Paginator
-import lila.common.config.MaxPerPage
+import lila.common.config.{ Max, MaxPerPage }
 
 final class SimulApi(
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
+    userApi: UserApi,
     gameRepo: GameRepo,
     onGameStart: lila.round.OnStart,
     socket: SimulSocket,
@@ -47,24 +48,27 @@ final class SimulApi(
     _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
       repo.allStarted dmap (_.view.map(_.hostId).toSet)
 
-  def create(setup: SimulForm.Setup, me: User, teams: Seq[LeaderTeam]): Fu[Simul] =
-    val simul = Simul.make(
+  def create(setup: SimulForm.Setup, teams: Seq[LeaderTeam])(using me: Me): Fu[Simul] = for
+    host <- userApi.withPerfs(me.value)
+    simul = Simul.make(
       name = setup.name,
       clock = setup.clock,
       variants = setup.actualVariants,
       position = setup.realPosition,
-      host = me,
+      host = host,
       color = setup.color,
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
       featurable = some(~setup.featured && me.canBeFeatured),
       conditions = setup.conditions
     )
-    repo.create(simul) >>- publish() >>- {
-      timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
-    } inject simul
+    _ <- repo.create(simul)
+  yield
+    publish()
+    timeline ! (Propagate(SimulCreate(me.userId, simul.id, simul.fullName)) toFollowersOf me.userId)
+    simul
 
-  def update(prev: Simul, setup: SimulForm.Setup, me: User, teams: Seq[LeaderTeam]): Fu[Simul] =
+  def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LeaderTeam])(using me: Me): Fu[Simul] =
     val simul = prev.copy(
       name = setup.name,
       clock = setup.clock,
@@ -76,41 +80,38 @@ final class SimulApi(
       featurable = some(~setup.featured && me.canBeFeatured),
       conditions = setup.conditions
     )
-    repo.update(simul) >>- publish() inject simul
+    repo.update(simul) andDo publish() inject simul
 
-  def getVerdicts(simul: Simul, me: Option[User])(using
-      getTeams: GetUserTeamIds
-  ): Fu[Condition.WithVerdicts] =
-    me match
-      case None       => fuccess(simul.conditions.accepted)
-      case Some(user) => verify(simul, user, simul.mainPerfType)
+  def getVerdicts(simul: Simul)(using
+      me: Option[Me]
+  )(using GetMyTeamIds, Perf): Fu[Condition.WithVerdicts] =
+    me.foldUse(fuccess(simul.conditions.accepted)):
+      verify(simul, simul.mainPerfType)
 
-  def addApplicant(simulId: SimulId, user: User, variantKey: Variant.LilaKey)(using
-      getTeams: GetUserTeamIds
-  ): Funit = workQueue(simulId):
-    repo.findCreated(simulId) flatMapz { simul =>
-      Variant(variantKey)
-        .filter(simul.variants.contains)
-        .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime) so { variant =>
-        val perfType = PerfType(variant, chess.Speed.Rapid)
-        verify(simul, user, perfType).map:
-          _.accepted so {
-            timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
-            val newSimul = simul addApplicant SimulApplicant.make(
-              SimulPlayer.make(
-                user,
-                variant,
-                PerfPicker.mainOrDefault(
-                  speed = chess.Speed(simul.clock.config.some),
-                  variant = variant,
-                  daysPerTurn = none
-                )(user.perfs)
-              )
-            )
-            repo.update(newSimul) >>- socket.reload(newSimul.id) >>- publish()
-          }
-      }
-    }
+  def addApplicant(simulId: SimulId, variantKey: Variant.LilaKey)(using me: Me)(using GetMyTeamIds): Funit =
+    workQueue(simulId):
+      repo
+        .findCreated(simulId)
+        .flatMapz: simul =>
+          Variant(variantKey)
+            .filter(simul.variants.contains)
+            .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime)
+            .so: variant =>
+              val perfType = PerfType(variant, chess.Speed.Rapid)
+              perfsRepo
+                .withPerf(me.value, perfType)
+                .flatMap: user =>
+                  given Perf = user.perf
+                  verify(simul, perfType).flatMap:
+                    _.accepted.so:
+                      val player   = SimulPlayer.make(user, variant)
+                      val newSimul = simul addApplicant SimulApplicant(player, accepted = false)
+                      repo.update(newSimul) andDo {
+                        timeline ! Propagate(SimulJoin(me.userId, simul.id, simul.fullName))
+                          .toFollowersOf(user.id)
+                        socket.reload(newSimul.id)
+                        publish()
+                      }
 
   def removeApplicant(simulId: SimulId, user: User): Funit =
     WithSimul(repo.findCreated, simulId) { _ removeApplicant user.id }
@@ -121,59 +122,50 @@ final class SimulApi(
     }
 
   def start(simulId: SimulId): Funit =
-    workQueue(simulId) {
+    workQueue(simulId):
       repo.findCreated(simulId) flatMapz { simul =>
-        simul.start so { started =>
-          userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
+        simul.start.so: started =>
+          userApi withPerfs started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
             started.pairings.mapWithIndex(makeGame(started, host)).parallel map { games =>
-              games.headOption foreach { (game, _) =>
+              games.headOption.foreach: (game, _) =>
                 socket.startSimul(simul, game)
-              }
-              games.foldLeft(started) { case (s, (g, hostColor)) =>
-                s.setPairingHostColor(g.id, hostColor)
-              }
+              games.foldLeft(started):
+                case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
             }
           } flatMap { s =>
             Bus.publish(Simul.OnStart(s), "startSimul")
-            update(s) >>- currentHostIdsCache.invalidateUnit()
+            update(s) andDo currentHostIdsCache.invalidateUnit()
           }
-        }
       }
-    }
 
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit =
-    if (user.exists(simul.isHost) && simul.isRunning)
+    if user.exists(simul.isHost) && simul.isRunning then
       repo.setHostGameId(simul, game.id)
       socket.hostIsOn(simul.id, game.id)
 
   def abort(simulId: SimulId): Funit =
-    workQueue(simulId) {
+    workQueue(simulId):
       repo.findCreated(simulId) flatMapz { simul =>
-        (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
+        (repo remove simul) andDo socket.aborted(simul.id) andDo publish()
       }
-    }
 
   def setText(simulId: SimulId, text: String): Funit =
-    workQueue(simulId) {
+    workQueue(simulId):
       repo.find(simulId) flatMapz { simul =>
-        repo.setText(simul, text) >>- socket.reload(simulId)
+        repo.setText(simul, text) andDo socket.reload(simulId)
       }
-    }
 
   def finishGame(game: Game): Funit =
-    game.simulId so { simulId =>
-      workQueue(simulId) {
+    game.simulId.so: simulId =>
+      workQueue(simulId):
         repo.findStarted(simulId) flatMapz { simul =>
           val simul2 = simul.updatePairing(
             game.id,
             _.finish(game.status, game.winnerUserId)
           )
-          update(simul2) >>- {
-            if (simul2.isFinished) onComplete(simul2)
-          }
+          update(simul2).andDo:
+            if simul2.isFinished then onComplete(simul2)
         }
-      }
-    }
 
   private def onComplete(simul: Simul): Unit =
     currentHostIdsCache.invalidateUnit()
@@ -192,31 +184,26 @@ final class SimulApi(
     )
 
   def ejectCheater(userId: UserId): Unit =
-    repo.allNotFinished foreach {
-      _ foreach { oldSimul =>
-        workQueue(oldSimul.id) {
-          repo.findCreated(oldSimul.id) flatMapz { simul =>
-            (simul ejectCheater userId) so { simul2 =>
+    repo.allNotFinished.foreach:
+      _.foreach: oldSimul =>
+        workQueue(oldSimul.id):
+          repo.findCreated(oldSimul.id).flatMapz { simul =>
+            simul.ejectCheater(userId).so { simul2 =>
               update(simul2).void
             }
           }
-        }
-      }
-    }
 
   def hostPing(simul: Simul): Funit =
-    simul.isCreated so {
+    simul.isCreated.so:
       repo.setHostSeenNow(simul) >> {
         val applicantIds = simul.applicants.view.map(_.player.user).toSet
         socket.filterPresent(simul, applicantIds) flatMap { online =>
           val leaving = applicantIds diff online.toSet
           leaving.nonEmpty so
-            WithSimul(repo.findCreated, simul.id) {
+            WithSimul(repo.findCreated, simul.id):
               _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user)))
-            }
         }
       }
-    }
 
   def idToName(id: SimulId): Fu[Option[String]] =
     repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
@@ -236,59 +223,54 @@ final class SimulApi(
       _.expireAfterWrite(5.minutes).buildAsyncFuture(repo.countByHost)
     export cache.get
 
-  private def makeGame(simul: Simul, host: User)(
+  private def makeGame(simul: Simul, host: User.WithPerfs)(
       pairing: SimulPairing,
       number: Int
-  ): Fu[(Game, chess.Color)] =
-    for {
-      user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
-      hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
-      whiteUser = hostColor.fold(host, user)
-      blackUser = hostColor.fold(user, host)
-      clock     = simul.clock.chessClockOf(hostColor)
-      perfPicker =
-        lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
-      game1 = Game.make(
-        chess = chess
-          .Game(
-            variantOption = Some {
-              if (simul.position.isEmpty) pairing.player.variant
-              else chess.variant.FromPosition
-            },
-            fen = simul.position
-          )
-          .copy(clock = clock.start.some),
-        whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
-        blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
-        mode = chess.Mode.Casual,
-        source = lila.game.Source.Simul,
-        pgnImport = None
-      )
-      game2 =
-        game1
-          .withId(pairing.gameId)
-          .withSimulId(simul.id)
-          .start
-      _ <-
-        (gameRepo insertDenormalized game2) >>-
-          onGameStart(game2.id) >>-
-          socket.startGame(simul, game2)
-    } yield game2 -> hostColor
+  ): Fu[(Game, chess.Color)] = for
+    user <- userApi withPerfs pairing.player.user orFail s"No user with id ${pairing.player.user}"
+    hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
+    us        = ByColor(host, user)
+    users     = hostColor.fold(us, us.swap)
+    clock     = simul.clock.chessClockOf(hostColor)
+    perfType  = PerfType(pairing.player.variant, chess.Speed(clock.config))
+    game1 = Game.make(
+      chess = chess
+        .Game(
+          variantOption = Some:
+            if simul.position.isEmpty
+            then pairing.player.variant
+            else chess.variant.FromPosition
+          ,
+          fen = simul.position
+        )
+        .copy(clock = clock.start.some),
+      players = users.mapWithColor((c, u) => lila.game.Player.make(c, u.only(perfType).some)),
+      mode = chess.Mode.Casual,
+      source = lila.game.Source.Simul,
+      pgnImport = None
+    )
+    game2 = game1
+      .withId(pairing.gameId)
+      .withSimulId(simul.id)
+      .start
+    _ <- gameRepo.insertDenormalized(game2)
+  yield
+    onGameStart(game2.id)
+    socket.startGame(simul, game2)
+    game2 -> hostColor
 
   private def update(simul: Simul): Funit =
-    repo.update(simul) >>- socket.reload(simul.id) >>- publish()
+    repo.update(simul) andDo socket.reload(simul.id) andDo publish()
 
   private def WithSimul(
       finding: SimulId => Fu[Option[Simul]],
       simulId: SimulId
   )(updating: Simul => Simul): Funit =
-    workQueue(simulId) {
-      finding(simulId) flatMapz { simul =>
+    workQueue(simulId):
+      finding(simulId).flatMapz: simul =>
         update(updating(simul))
-      }
-    }
 
   private object publish:
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
     private val debouncer   = Debouncer[Unit](5 seconds, 1)(_ => Bus.publish(siteMessage, "sendToFlag"))
-    def apply()             = debouncer.push(()).unit
+    def apply()             = debouncer.push(())

@@ -10,7 +10,7 @@ import lila.security.{ Granter, Permission }
 
 object bits:
 
-  def searchForm(search: String = "")(using WebContext) =
+  def searchForm(search: String = "")(using PageContext) =
     div(cls := "box__top__actions")(
       form(cls := "search", action := routes.ForumPost.search())(
         input(
@@ -23,7 +23,7 @@ object bits:
     )
 
   def authorLink(post: ForumPost, cssClass: Option[String] = None, withOnline: Boolean = true)(using
-      WebContext
+      PageContext
   ): Frag =
     if !Granter.opt(_.ModerateForum) && post.erased
     then span(cls := "author")("<erased>")

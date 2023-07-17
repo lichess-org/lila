@@ -281,7 +281,6 @@ export const overboard = (ctrl: StudyCtrl) =>
     : undefined;
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
-  if (ctrl.embed) return [];
   if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();

@@ -1,6 +1,6 @@
 import { Dests, files } from 'chessground/types';
 import { sanWriter, SanToUci, destsToUcis } from 'chess';
-import { KeyboardMove } from '../main';
+import { KeyboardMoveHandler, KeyboardMove } from '../main';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -11,10 +11,6 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 // accept partial ICCF because submit runs on every keypress
 const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 
-interface Opts {
-  input: HTMLInputElement;
-  ctrl: KeyboardMove;
-}
 interface SubmitOpts {
   isTrusted: boolean;
   force?: boolean;
@@ -22,7 +18,16 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-export default (window as any).LichessKeyboardMove = (opts: Opts) => {
+interface Opts {
+  input: HTMLInputElement;
+  ctrl: KeyboardMove;
+}
+
+export function load(opts: Opts): Promise<KeyboardMoveHandler> {
+  return lichess.loadEsm('keyboardMove', { init: opts });
+}
+
+export function initModule(opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
@@ -121,6 +126,7 @@ export default (window as any).LichessKeyboardMove = (opts: Opts) => {
       // updates when it is still the player's turn
       setTimeout(() => lichess.sound.play('error'), 500);
       opts.input.value = '';
+      opts.ctrl.checker?.clear();
     } else {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
       if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
@@ -130,16 +136,19 @@ export default (window as any).LichessKeyboardMove = (opts: Opts) => {
   const clear = () => {
     opts.input.value = '';
     opts.input.classList.remove('wrong');
+    opts.ctrl.checker?.clear();
   };
   makeBindings(opts, submit, clear);
+  // returns a function that is called when any move is played
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
+    // this plays a premove if it is available in the input
     submit(opts.input.value, {
       isTrusted: true,
       yourMove: yourMove,
     });
   };
-};
+}
 
 function iccfToUci(v: string) {
   const chars = v.split('');
@@ -149,8 +158,8 @@ function iccfToUci(v: string) {
   return chars.join('');
 }
 
-function makeBindings(opts: any, submit: Submit, clear: () => void) {
-  window.Mousetrap.bind('enter', () => opts.input.focus());
+function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
+  lichess.mousetrap.bind('enter', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
    * is not available yet. Reported by:
@@ -162,12 +171,14 @@ function makeBindings(opts: any, submit: Submit, clear: () => void) {
     if (v.includes('/')) {
       focusChat();
       clear();
-    } else if (v === '' && e.which == 13) opts.ctrl.confirmMove();
-    else
+    } else if (v == '' && e.key == 'Enter') opts.ctrl.confirmMove();
+    else {
+      opts.ctrl.checker?.press(e);
       submit(v, {
-        force: e.which === 13,
-        isTrusted: e.isTrusted,
+        force: e.key == 'Enter',
+        isTrusted: true,
       });
+    }
   });
   opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
   opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));

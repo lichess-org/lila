@@ -5,7 +5,6 @@ import akka.stream.scaladsl.*
 import BSONHandlers.given
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
@@ -47,8 +46,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           case (acc, List(u1, u2)) =>
             val b1   = userIds.contains(u1)
             val b2   = !b1 || userIds.contains(u2)
-            val acc1 = if (!b1 || acc.contains(u1)) acc else acc.updated(u1, u2)
-            if (!b2 || acc.contains(u2)) acc1 else acc1.updated(u2, u1)
+            val acc1 = if !b1 || acc.contains(u1) then acc else acc.updated(u1, u2)
+            if !b2 || acc.contains(u2) then acc1 else acc1.updated(u2, u1)
           case (acc, _) => acc
         }
         .takeWhile(
@@ -126,7 +125,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   private[tournament] def countByTourIdAndUserIds(tourId: TourId): Fu[Map[UserId, Int]] =
     val max = 10_000
     coll
-      .aggregateList(maxDocs = max, temporarilyPrimary) { framework =>
+      .aggregateList(maxDocs = max, _.priTemp): framework =>
         import framework.*
         Match(selectTour(tourId)) -> List(
           Project($doc("u" -> true, "_id" -> false)),
@@ -135,14 +134,12 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           Sort(Descending("nb")),
           Limit(max)
         )
-      }
-      .map { docs =>
+      .map: docs =>
         for
           doc <- docs
           uid <- doc.getAsOpt[UserId]("_id")
           nb  <- doc.int("nb")
         yield (uid, nb)
-      }
       .map(_.toMap)
 
   def removePlaying(tourId: TourId) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
@@ -171,7 +168,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     }.void
 
   def finishAndGet(g: Game): Fu[Option[Pairing]] =
-    if (g.aborted) coll.delete.one($id(g.id)) inject none
+    if g.aborted then coll.delete.one($id(g.id)) inject none
     else
       coll.findAndUpdateSimplified[Pairing](
         selector = $id(g.id),
@@ -184,8 +181,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       )
 
   def setBerserk(pairing: Pairing, userId: UserId) = {
-    if (pairing.user1 == userId) "b1".some
-    else if (pairing.user2 == userId) "b2".some
+    if pairing.user1 == userId then "b1".some
+    else if pairing.user2 == userId then "b2".some
     else none
   } so { field =>
     coll.update
@@ -200,16 +197,16 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       tournamentId: TourId,
       userId: Option[UserId],
       batchSize: Int = 0,
-      readPreference: ReadPreference = temporarilyPrimary
+      readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Pairing] =
     coll
       .find(selectTour(tournamentId) ++ userId.so(selectUser))
       .sort(recentSort)
       .batchSize(batchSize)
-      .cursor[Pairing](readPreference)
+      .cursor[Pairing](readPref)
 
   private[tournament] def rawStats(tourId: TourId): Fu[List[Bdoc]] =
-    coll.aggregateList(maxDocs = 3) { framework =>
+    coll.aggregateList(maxDocs = 3): framework =>
       import framework.*
       Match(selectTour(tourId)) -> List(
         Project(
@@ -228,4 +225,3 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           "b2"    -> SumField("b2")
         )
       )
-    }

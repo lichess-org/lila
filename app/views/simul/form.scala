@@ -12,7 +12,7 @@ import lila.gathering.ConditionForm
 
 object form:
 
-  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using WebContext) =
+  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using PageContext) =
     views.html.base.layout(
       title = trans.hostANewSimul.txt(),
       moreCss = cssTag("simul.form"),
@@ -34,7 +34,7 @@ object form:
       )
     }
 
-  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(using WebContext) =
+  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(using PageContext) =
     views.html.base.layout(
       title = s"Edit ${simul.fullName}",
       moreCss = cssTag("simul.form"),
@@ -58,7 +58,7 @@ object form:
     }
 
   private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     import lila.simul.SimulForm.*
     frag(

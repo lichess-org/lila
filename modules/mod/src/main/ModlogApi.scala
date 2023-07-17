@@ -24,7 +24,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     Modlog(streamerId.some, Modlog.streamerDecline)
 
   def streamerList(streamerId: UserId, v: Boolean)(using Me.Id) = add:
-    Modlog(streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
+    Modlog(streamerId.some, if v then Modlog.streamerList else Modlog.streamerUnlist)
 
   def streamerTier(streamerId: UserId, v: Int)(using Me.Id) = add:
     Modlog(streamerId.some, Modlog.streamerTier, v.toString.some)
@@ -98,14 +98,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me) = add:
     Modlog(
       none,
-      if (closed) Modlog.closeTopic else Modlog.openTopic,
+      if closed then Modlog.closeTopic else Modlog.openTopic,
       details = s"$categ/$topicSlug".some
     )
 
   def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me) = add:
     Modlog(
       none,
-      if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic,
+      if sticky then Modlog.stickyTopic else Modlog.unstickyTopic,
       details = s"$categ/$topicSlug".some
     )
 
@@ -119,7 +119,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   )(using Me.Id) = add:
     Modlog(
       none,
-      if (edit) Modlog.editAsAnonMod else Modlog.postAsAnonMod,
+      if edit then Modlog.editAsAnonMod else Modlog.postAsAnonMod,
       details = s"$categ/$topic id: $postId ${text.take(400)}".some
     )
 
@@ -133,7 +133,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def toggleTeam(id: String, closing: Boolean, explain: String)(using Me.Id) = add:
     Modlog(
       none,
-      if (closing) Modlog.disableTeam else Modlog.enableTeam,
+      if closing then Modlog.disableTeam else Modlog.enableTeam,
       details = s"$id: ${explain take 200}".some
     ) indexAs "team"
 
@@ -156,7 +156,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       Modlog.permissions,
       details = permissions
         .map: (p, dir) =>
-          s"${if (dir) "+" else "-"}${p}"
+          s"${if dir then "+" else "-"}${p}"
         .mkString(", ")
         .some
     )
@@ -165,13 +165,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
 
   def wasMarkedBy(user: UserId)(using me: Me): Fu[Boolean] =
-    coll.secondaryPreferred.exists(
+    coll.secondaryPreferred.exists:
       $doc(
         "user" -> user,
         "mod"  -> me.userId,
         "action" $in markActions
       )
-    )
 
   def wereMarkedBy(users: List[UserId])(using me: Me): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](
@@ -181,7 +180,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
         "mod" -> me.userId,
         "action" $in markActions
       ),
-      readPreference = ReadPreference.secondaryPreferred
+      _.sec
     )
 
   def reportban(sus: Suspect, v: Boolean)(using Me.Id) = add:
@@ -201,17 +200,17 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     _         <- cheatDetected(user, gameId)
   yield prevCount + 1
 
-  def cli(by: ModId, command: String) = add:
-    Modlog(by, none, Modlog.cli, command.some)
+  def cli(command: String)(using by: Me.Id) = add:
+    Modlog(none, Modlog.cli, command.some)
 
   def garbageCollect(sus: Suspect)(using Me.Id) = add:
     Modlog.make(sus, Modlog.garbageCollect)
 
   def rankban(sus: Suspect, v: Boolean)(using Me.Id) = add:
-    Modlog.make(sus, if (v) Modlog.rankban else Modlog.unrankban)
+    Modlog.make(sus, if v then Modlog.rankban else Modlog.unrankban)
 
   def prizeban(sus: Suspect, v: Boolean)(using Me.Id) = add:
-    Modlog.make(sus, if (v) Modlog.prizeban else Modlog.unprizeban)
+    Modlog.make(sus, if v then Modlog.prizeban else Modlog.unprizeban)
 
   def teamKick(user: UserId, teamName: String)(using Me.Id) = add:
     Modlog(user.some, Modlog.teamKick, details = Some(teamName take 140))
@@ -238,23 +237,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().list(60)
 
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
-    coll.secondaryPreferred.countSel(
+    coll.secondaryPreferred.countSel:
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
         "date" $gte nowInstant.minusMonths(6)
       )
-    )
 
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
-    coll.secondaryPreferred.countSel(
+    coll.secondaryPreferred.countSel:
       $doc(
         "user"   -> userId,
         "action" -> Modlog.modMessage,
         $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
         "date" $gte nowInstant.minusMonths(6)
       )
-    )
 
   def recentBy(mod: Mod) =
     coll.tempPrimary
@@ -263,7 +260,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       .cursor[Modlog]()
       .list(100)
 
-  def addModlog(users: List[User]): Fu[List[UserWithModlog]] =
+  def addModlog(users: List[User.WithPerfs]): Fu[List[UserWithModlog]] =
     coll.tempPrimary
       .find(
         $doc(
@@ -279,18 +276,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
         ),
         $doc("user" -> true, "action" -> true, "date" -> true).some
       )
-      .sort($sort desc "date")
+      .sort($sort asc "date")
       .cursor[Modlog.UserEntry]()
       .listAll()
-      .map {
-        _.foldLeft(users.map(UserWithModlog(_, Nil))) { (users, log) =>
-          users.map {
+      .map:
+        _.foldLeft(users.map(UserWithModlog(_, Nil))): (users, log) =>
+          users.map:
             case UserWithModlog(user, prevLog) if log.user is user =>
               UserWithModlog(user, log :: prevLog)
             case u => u
-          }
-        }
-      }
 
   private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()
@@ -315,17 +309,24 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
-    userRepo.isMonitoredMod(m.mod) flatMapz {
+    userRepo.getRoles(m.mod).map(Permission(_)) flatMap { permissions =>
+      import IrcApi.{ ModDomain as domain }
       val monitorType = m.action match
         case M.closeAccount | M.alt => None
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>
-          Some(IrcApi.ModDomain.Cheat)
-        case M.booster | M.unbooster => Some(IrcApi.ModDomain.Boost)
+          Some(domain.Cheat)
+        case M.booster | M.unbooster => Some(domain.Boost)
         case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam | M.enableTeam |
             M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
-          Some(IrcApi.ModDomain.Comm)
-        case _ => Some(IrcApi.ModDomain.Other)
-      monitorType.so:
-        ircApi.monitorMod(icon = icon, text = text, _)
+          Some(domain.Comm)
+        case _ => Some(domain.Other)
+      import Permission.*
+      monitorType.so: dom =>
+        val monitorable = dom match
+          case domain.Cheat => permissions(MonitoredCheatMod)
+          case domain.Boost => permissions(MonitoredBoostMod)
+          case domain.Comm  => permissions(MonitoredCommMod)
+          case domain.Other => permissions(MonitoredCommMod) || permissions(MonitoredBoostMod)
+          case _            => false
+        monitorable so ircApi.monitorMod(icon = icon, text = text, dom)
     }
-    ircApi.logMod(icon = icon, text = text)

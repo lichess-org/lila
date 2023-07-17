@@ -1,78 +1,37 @@
 package views.html.study
 
 import controllers.routes
+import chess.format.pgn.PgnStr
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.EmbedConfig
-import lila.app.ui.EmbedConfig.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.i18n.{ I18nKeys as trans }
 
 object embed:
 
-  def apply(
-      s: lila.study.Study,
-      chapter: lila.study.Chapter,
-      chapters: List[lila.study.Chapter.IdName],
-      data: lila.study.JsonView.JsData
-  )(using config: EmbedConfig) =
+  def apply(s: lila.study.Study, chapter: lila.study.Chapter, pgn: PgnStr)(using ctx: EmbedContext) =
+    import views.html.analyse.embed.*
+    val canGetPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
     views.html.base.embed(
       title = s"${s.name} ${chapter.name}",
-      cssModule = "analyse.embed"
+      cssModule = "lpv.embed"
     )(
-      div(cls := "is2d")(
-        main(cls := "analyse")
-      ),
-      footer {
-        val url = routes.Study.chapter(s.id, chapter.id)
-        frag(
-          div(cls := "left")(
-            select(id := "chapter-selector")(chapters.map { c =>
-              option(
-                value := c.id,
-                (c.id == chapter.id) option selected
-              )(c.name)
-            }),
-            a(targetBlank, href := url)(h1(s.name))
-          ),
-          a(
-            targetBlank,
-            cls      := "open",
-            dataIcon := licon.Expand,
-            href     := url,
-            title    := trans.study.open.txt()
+      div(cls := "is2d")(div(pgn)),
+      jsModule("lpv.embed"),
+      lpvJs:
+        lpvConfig(orientation = none, getPgn = canGetPgn) ++ Json
+          .obj()
+          .add(
+            "gamebook" -> chapter.isGamebook
+              .option(Json.obj("url" -> routes.Study.chapter(s.id, chapter.id).url))
           )
-        )
-      },
-      views.html.base.layout.inlineJs(config.nonce)(using config.lang),
-      depsTag,
-      jsModule("analysisBoard.embed"),
-      analyseStudyTag,
-      embedJsUnsafeLoadThen(
-        s"""analyseEmbed(${safeJsonValue(
-            Json.obj(
-              "study"  -> data.study,
-              "data"   -> data.analysis,
-              "embed"  -> true,
-              "i18n"   -> jsI18n.embed(chapter),
-              "userId" -> none[String]
-            )
-          )});
-document.getElementById('chapter-selector').onchange = function() {
-  location.href = this.value + location.search;
-}""",
-        config.nonce
-      )
     )
 
-  def notFound(using EmbedConfig) =
+  def notFound(using EmbedContext) =
     views.html.base.embed(
       title = s"404 - ${trans.study.studyNotFound.txt()}",
-      cssModule = "analyse.embed"
-    )(
-      div(cls := "not-found")(
+      cssModule = "lpv.embed"
+    ):
+      div(cls := "not-found"):
         h1(trans.study.studyNotFound())
-      )
-    )

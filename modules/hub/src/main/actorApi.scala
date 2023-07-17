@@ -97,7 +97,6 @@ package captcha:
   case class ValidCaptcha(id: GameId, solution: String)
 
 package lpv:
-  case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, chess.format.pgn.PgnStr]])
   case class AllPgnsFromText(text: String, promise: Promise[Map[String, chess.format.pgn.PgnStr]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
 
@@ -212,7 +211,6 @@ package fishnet:
 package user:
 
   import lila.common.EmailAddress
-  case class Note(from: UserName, to: UserName, text: String, mod: Boolean)
   case class ChangeEmail(id: UserId, email: EmailAddress)
 
 package round:

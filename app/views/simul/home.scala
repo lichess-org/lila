@@ -12,7 +12,7 @@ object home:
       opens: List[lila.simul.Simul],
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("simul.list"),
       moreJs = embedJsUnsafeLoadThen(s"""

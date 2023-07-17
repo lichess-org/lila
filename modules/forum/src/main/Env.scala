@@ -38,11 +38,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer
-):
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
@@ -51,7 +47,7 @@ final class Env(
   lazy val postRepo  = new ForumPostRepo(db(CollName("f_post")))
 
   private lazy val detectLanguage =
-    new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
+    DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
   private lazy val textExpand = wire[ForumTextExpand]
 
@@ -68,13 +64,12 @@ final class Env(
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
   lazy val forms                            = wire[ForumForm]
 
-  lazy val recentTeamPosts =
-    RecentTeamPosts(id => postRepo.recentInCateg(ForumCateg.fromTeamId(id), 6) flatMap postApi.miniPosts)
+  lazy val recentTeamPosts = RecentTeamPosts: id =>
+    postRepo.recentInCateg(ForumCateg.fromTeamId(id), 6) flatMap postApi.miniPosts
 
-  lila.common.Bus.subscribeFun("team", "gdprErase") {
-    case CreateTeam(id, name, _)        => categApi.makeTeam(id, name).unit
-    case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user).unit
-  }
+  lila.common.Bus.subscribeFun("team", "gdprErase"):
+    case CreateTeam(id, name, _)        => categApi.makeTeam(id, name)
+    case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[MiniForumPost]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType

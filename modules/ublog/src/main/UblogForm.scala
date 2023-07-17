@@ -92,9 +92,8 @@ object UblogForm:
         title = title,
         intro = intro,
         markdown = markdown,
-        image = prev.image.map { i =>
-          i.copy(alt = imageAlt, credit = imageCredit)
-        },
+        image = prev.image.map: i =>
+          i.copy(alt = imageAlt, credit = imageCredit),
         language = LangList.removeRegion(realLanguage | prev.language),
         topics = topics so UblogTopic.fromStrList,
         live = live,

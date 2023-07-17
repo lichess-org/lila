@@ -7,7 +7,7 @@ import controllers.routes
 
 object index:
 
-  def apply(tokens: List[lila.oauth.AccessToken])(using WebContext) =
+  def apply(tokens: List[lila.oauth.AccessToken])(using PageContext) =
 
     val title = "Personal API access tokens"
 
@@ -50,8 +50,8 @@ object index:
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
           div(cls := "box__pad brand")(
-            if (token.isDangerous) iconTag(licon.CautionTriangle)(cls := "is-red")
-            else iconTag(licon.Checkmark)(cls                         := "is-green"),
+            if token.isDangerous then iconTag(licon.CautionTriangle)(cls := "is-red")
+            else iconTag(licon.Checkmark)(cls                            := "is-green"),
             div(
               if token.isDangerous
               then p(strong(trans.oauthScope.doNotShareIt()))

@@ -2,11 +2,13 @@ package lila.pool
 
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
-import lila.user.UserRepo
+import lila.user.{ UserRepo, UserPerfsRepo }
 import lila.common.config.Max
+import chess.ByColor
 
 final private class GameStarter(
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
@@ -18,44 +20,39 @@ final private class GameStarter(
     lila.hub.AsyncActorSequencer(maxSize = Max(32), timeout = 10 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
-    couples.nonEmpty so {
-      workQueue {
+    couples.nonEmpty.so:
+      workQueue:
         val userIds = couples.flatMap(_.userIds)
-        userRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size) flatMap {
-          case (perfs, ids) =>
-            couples.zip(ids).map((one(pool, perfs)).tupled).parallel.map { pairings =>
-              lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
-            }
-        }
-      }
-    }
+        for
+          (perfs, ids) <- perfsRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size)
+          pairings     <- couples.zip(ids).map((one(pool, perfs)).tupled).parallel
+        yield lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
 
   private def one(pool: PoolConfig, perfs: Map[UserId, Perf])(
       couple: MatchMaking.Couple,
       id: GameId
   ): Fu[Option[Pairing]] =
     import couple.*
-    import cats.syntax.all.*
-    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) so { (perf1, perf2) =>
-      for {
-        p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
-        (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1
-        (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
-        game = makeGame(
-          id,
-          pool,
-          whiteMember.userId -> whitePerf,
-          blackMember.userId -> blackPerf
-        ).start
-        _ <- gameRepo insertDenormalized game
-      } yield
-        onStart(game.id)
-        Pairing(
-          game,
-          whiteSri = whiteMember.sri,
-          blackSri = blackMember.sri
-        ).some
-    }
+    (perfs.get(p1.userId), perfs.get(p2.userId)).tupled
+      .soFu: (perf1, perf2) =>
+        for
+          p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
+          (whitePerf, blackPerf)     = if p1White then perf1 -> perf2 else perf2 -> perf1
+          (whiteMember, blackMember) = if p1White then p1 -> p2 else p2 -> p1
+          game = makeGame(
+            id,
+            pool,
+            whiteMember.userId -> whitePerf,
+            blackMember.userId -> blackPerf
+          ).start
+          _ <- gameRepo insertDenormalized game
+        yield
+          onStart(game.id)
+          Pairing(
+            game,
+            whiteSri = whiteMember.sri,
+            blackSri = blackMember.sri
+          )
 
   private def makeGame(
       id: GameId,
@@ -69,8 +66,7 @@ final private class GameStarter(
         situation = chess.Situation(chess.variant.Standard),
         clock = pool.clock.toClock.some
       ),
-      whitePlayer = Player.make(chess.White, whiteUser),
-      blackPlayer = Player.make(chess.Black, blackUser),
+      players = ByColor(whiteUser, blackUser).mapWithColor(Player.make),
       mode = chess.Mode.Rated,
       status = chess.Status.Created,
       daysPerTurn = none,

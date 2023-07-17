@@ -19,9 +19,9 @@
   <string name="startDate">Öz saat qurşağınızdakı başlama tarixi</string>
   <string name="startDateHelp">İstəyə bağlı, tədbirin başlama vaxtını bilirsinizsə</string>
   <string name="credits">Mənbəyə bax</string>
-  <string name="resetRound">Bu turu sıfırla</string>
-  <string name="deleteRound">Bu turu sil</string>
   <string name="broadcastUrl">Yayım URL-i</string>
   <string name="currentRoundUrl">Hazırkı tur URL-i</string>
   <string name="currentGameUrl">Hazırkı oyun URL-i</string>
+  <string name="resetRound">Bu turu sıfırla</string>
+  <string name="deleteRound">Bu turu sil</string>
 </resources>

@@ -55,7 +55,7 @@ object Maths:
   @scala.annotation.tailrec
   def boxedNormalDistribution(mean: Int, deviation: Int, factor: Double): Int =
     val normal = mean + deviation * ThreadLocalRandom.nextGaussian() * factor.atMost(1)
-    if (normal > mean - deviation && normal < mean + deviation) normal.toInt
+    if normal > mean - deviation && normal < mean + deviation then normal.toInt
     else boxedNormalDistribution(mean, deviation, factor)
 
   // https://www.scribbr.com/statistics/standard-deviation/

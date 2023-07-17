@@ -1,7 +1,9 @@
 package lila.oauth
 
+import cats.derived.*
 import lila.i18n.I18nKey
 import lila.i18n.I18nKeys.{ oauthScope as trans }
+import lila.user.User
 
 sealed abstract class OAuthScope(val key: String, val name: I18nKey):
   override def toString = s"Scope($key)"
@@ -11,7 +13,7 @@ object OAuthScopes extends TotalWrapper[OAuthScopes, List[OAuthScope]]:
   extension (e: OAuthScopes)
     def has(s: OAuthScope): Boolean             = e contains s
     def has(s: OAuthScope.Selector): Boolean    = has(s(OAuthScope))
-    def keyList: String                         = e.map(_.key) mkString ", "
+    def keyList: String                         = e.map(_.key) mkString ","
     def intersects(other: OAuthScopes): Boolean = e.exists(other.has)
     def isEmpty                                 = e.isEmpty
 
@@ -28,6 +30,8 @@ object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
     def compatible(token: TokenScopes): Boolean = e.exists(token.has)
 
 object OAuthScope:
+
+  given Eq[OAuthScope] = Eq.fromUniversalEquals
 
   object Preference:
     case object Read  extends OAuthScope("preference:read", lila.i18n.I18nKeys.oauthScope.preferenceRead)
@@ -82,7 +86,8 @@ object OAuthScope:
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
     case object Mod    extends OAuthScope("web:mod", trans.webMod)
 
-  case class Scoped(me: lila.user.Me, scopes: TokenScopes)
+  case class Scoped(me: lila.user.Me, scopes: TokenScopes):
+    def user: User = me.value
 
   type Selector = OAuthScope.type => OAuthScope
 

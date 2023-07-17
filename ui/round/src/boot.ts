@@ -1,14 +1,22 @@
 import * as xhr from 'common/xhr';
-import { RoundOpts, RoundData } from './interfaces';
-import { RoundApi, RoundMain } from './main';
+import { RoundOpts, RoundData, NvuiPlugin } from './interfaces';
+import MoveOn from './moveOn';
 import { ChatCtrl } from 'chat';
 import { TourPlayer } from 'game';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
 
-export default function (opts: RoundOpts): void {
+interface RoundApi {
+  socketReceive(typ: string, data: any): boolean;
+  moveOn: MoveOn;
+}
+
+export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvui?: NvuiPlugin) => RoundApi) {
   const data = opts.data;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
-  lichess.socket = new lichess.StrongSocket(data.url.socket, data.player.version, {
+  const socketUrl = opts.data.player.spectator
+    ? `/watch/${data.game.id}/${data.player.color}/v6`
+    : `/play/${data.game.id}${data.player.id}/v6`;
+  lichess.socket = new lichess.StrongSocket(socketUrl, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);
@@ -62,7 +70,10 @@ export default function (opts: RoundOpts): void {
   opts.element = document.querySelector('.round__app') as HTMLElement;
   opts.socketSend = lichess.socket.send;
 
-  const round: RoundApi = (window.LichessRound as RoundMain).app(opts);
+  const round: RoundApi = roundMain(
+    opts,
+    lichess.blindMode ? await lichess.loadEsm<NvuiPlugin>('round.nvui') : undefined
+  );
   const chatOpts = opts.chat;
   if (chatOpts) {
     if (data.tournament?.top) {

@@ -31,13 +31,13 @@ final class I18n(env: Env) extends LilaController(env):
                     val pageUrl = new java.net.URI(str).parseServerAuthority().toURL()
                     val path    = pageUrl.getPath
                     val query   = pageUrl.getQuery
-                    if (query == null) path
+                    if query == null then path
                     else path + "?" + query
                   catch case _: Exception => routes.Lobby.home.url
               if ctx.isAnon
               then redir.withCookies(env.lilaCookie.session("lang", lang.code))
               else redir
             ,
-            api = _ => Ok(Json.obj("lang" -> lang.code))
+            Ok(Json.obj("lang" -> lang.code))
           )
       )

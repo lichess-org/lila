@@ -11,7 +11,7 @@ import controllers.routes
 
 object emailConfirmHelp:
 
-  def apply(form: Form[?], status: Option[Status])(using WebContext) =
+  def apply(form: Form[?], status: Option[Status])(using PageContext) =
     views.html.base.layout(
       title = trans.emailConfirmHelp.txt(),
       moreCss = cssTag("email-confirm")

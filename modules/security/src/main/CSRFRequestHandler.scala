@@ -19,14 +19,14 @@ final class CSRFRequestHandler(net: NetConfig):
     /* Cross origin XHR is not allowed by browsers,
      * therefore all XHR requests can be accepted
      */
-    if (isXhr(req)) true
+    if isXhr(req) then true
     /* GET, HEAD and OPTIONS never modify the server data,
      * so we accept them
      */
-    else if (isSafe(req)) true
+    else if isSafe(req) then true
     /* The origin header is set to a known value used by the mobile app,
      * so we accept it */
-    else if (appOrigin(req).isDefined) true
+    else if appOrigin(req).isDefined then true
     else
       origin(req) match
         case None =>

@@ -5,10 +5,10 @@ import chess.variant.Variant
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.socket.Socket.Sri
 import lila.user.User
+import lila.rating.PerfType
 
 // realtime chess, volatile
 case class Hook(
@@ -43,21 +43,29 @@ case class Hook(
       (userId.isEmpty || userId != h.userId)
 
   private def ratingRangeCompatibleWith(h: Hook) =
-    realRatingRange.fold(true) { range =>
-      h.rating so range.contains
+    !isAuth || {
+      h.rating so ratingRangeOrDefault.contains
     }
 
-  lazy val realRatingRange: Option[RatingRange] = isAuth so {
-    RatingRange noneIfDefault ratingRange
-  }
+  private lazy val manualRatingRange = isAuth.so(RatingRange noneIfDefault ratingRange)
+
+  private def nonWideRatingRange =
+    val r = rating | lila.rating.Glicko.default.intRating
+    manualRatingRange.filter:
+      _ != RatingRange(r - 500, r + 500)
+
+  lazy val ratingRangeOrDefault: RatingRange =
+    nonWideRatingRange orElse
+      rating.map(RatingRange.defaultFor) getOrElse
+      RatingRange.default
 
   def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
-  def lame     = user so (_.lame)
+  def lame     = user.so(_.lame)
 
-  lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
+  lazy val perfType: PerfType = PerfType(realVariant, speed)
 
-  lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
+  lazy val perf: Option[LobbyPerf] = user.map(_.perfAt(perfType))
   def rating: Option[IntRating]    = perf.map(_.rating)
 
   import lila.common.Json.given
@@ -66,9 +74,10 @@ case class Hook(
       "id"    -> id,
       "sri"   -> sri,
       "clock" -> clock.show,
+      "perf"  -> perfType.key,
       "t"     -> clock.estimateTotalSeconds,
       "s"     -> speed.id,
-      "i"     -> (if (clock.incrementSeconds > 0) 1 else 0)
+      "i"     -> (if clock.incrementSeconds > 0 then 1 else 0)
     )
     .add("prov" -> perf.map(_.provisional))
     .add("u" -> user.map(_.username))
@@ -76,7 +85,6 @@ case class Hook(
     .add("variant" -> realVariant.exotic.option(realVariant.key))
     .add("ra" -> realMode.rated.option(1))
     .add("c" -> chess.Color.fromName(color).map(_.name))
-    .add("perf" -> perfType.map(_.key))
 
   def randomColor = color == "random"
 
@@ -87,20 +95,19 @@ case class Hook(
   def compatibleWithPool(poolClock: chess.Clock.Config) =
     compatibleWithPools && clock == poolClock
 
-  def toPool = user map { u =>
+  def toPool = user.map: u =>
     lila.pool.HookThieve.PoolHook(
       hookId = id,
       member = lila.pool.PoolMember(
         userId = u.id,
         sri = sri,
         rating = rating | lila.rating.Glicko.default.intRating,
-        ratingRange = realRatingRange,
+        ratingRange = manualRatingRange,
         lame = user.so(_.lame),
         blocking = user.so(_.blocking),
         rageSitCounter = 0
       )
     )
-  }
 
   private lazy val speed = Speed(clock)
 
@@ -114,7 +121,7 @@ object Hook:
       clock: Clock.Config,
       mode: Mode,
       color: String,
-      user: Option[User],
+      user: Option[User.WithPerfs],
       sid: Option[String],
       ratingRange: RatingRange,
       blocking: lila.pool.Blocking,
@@ -127,7 +134,7 @@ object Hook:
       clock = clock,
       mode = mode.id,
       color = color,
-      user = user map { LobbyUser.make(_, blocking) },
+      user = user.map(LobbyUser.make(_, blocking)),
       sid = sid,
       ratingRange = ratingRange.toString,
       createdAt = nowInstant,

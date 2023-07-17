@@ -4,17 +4,18 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, UserApi }
 
 final class UserSearch(
     securityApi: lila.security.SecurityApi,
-    userRepo: UserRepo
+    userRepo: UserRepo,
+    userApi: UserApi
 )(using Executor):
 
   def apply(query: String): Fu[List[User.WithEmails]] =
     EmailAddress.from(query).map(searchEmail) orElse
       IpAddress.from(query).map(searchIp) getOrElse
-      searchUsername(UserStr(query)) flatMap userRepo.withEmails
+      searchUsername(UserStr(query)) flatMap userApi.withEmails
 
   private def searchIp(ip: IpAddress) =
     securityApi recentUserIdsByIp ip map (_.reverse) flatMap userRepo.usersFromSecondary

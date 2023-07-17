@@ -29,14 +29,22 @@ case class TextAnalysis(
   lazy val nbWords = text.split("""\s+""").length
 
   def ratio: Double = {
-    if (nbWords == 0) 0 else badWords.size.toDouble / nbWords
+    if nbWords == 0 then 0 else badWords.size.toDouble / nbWords
   } * {
-    if (critical) 3 else 1
+    if critical then 3 else 1
   }
 
   def dirty = ratio > 0
 
   lazy val critical = badWords.nonEmpty && Analyser.isCritical(text)
+
+  def removeEngineIfBot(isBot: => Fu[Boolean]) =
+    if badWords.has("engine")
+    then
+      isBot.dmap:
+        if _ then copy(badWords = badWords.filterNot(_ == "engine"))
+        else this
+    else fuccess(this)
 
 enum TextType(val key: String, val rotation: Int, val name: String):
   case PublicForumMessage extends TextType("puf", 20, "Public forum message")

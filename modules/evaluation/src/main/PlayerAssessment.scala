@@ -41,6 +41,22 @@ object PlayerAssessment:
       }
     }
 
+  private def antichessCorrectedGameAssessment(
+      assessment: GameAssessment,
+      pov: Pov,
+      flags: PlayerFlags
+  ): GameAssessment =
+    import pov.{ color, game }
+    if game.variant != chess.variant.Antichess ||
+      (assessment != GameAssessment.Cheating && assessment != GameAssessment.LikelyCheating)
+    then assessment
+    else if flags.highlyConsistentMoveTimes && flags.suspiciousErrorRate && game.playedTurns < 50 && game
+        .sansOf(!color)
+        .takeRight(12)
+        .count(_.value.startsWith("B")) > 6
+    then GameAssessment.Unclear
+    else assessment
+
   def makeBasics(pov: Pov, holdAlerts: Option[Player.HoldAlert]): PlayerAssessment.Basics =
     import Statistics.*
     import pov.{ color, game }
@@ -79,11 +95,11 @@ object PlayerAssessment:
       }
 
     lazy val suspiciousErrorRate: Boolean =
-      listAverage(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten) < (game.speed match {
+      listAverage(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten) < (game.speed match
         case Speed.Bullet => 25
         case Speed.Blitz  => 20
         case _            => 15
-      })
+      )
 
     lazy val alwaysHasAdvantage: Boolean =
       !analysis.infos.exists { info =>
@@ -134,10 +150,10 @@ object PlayerAssessment:
         case PlayerFlags(F, F, _, _, _, _, _, _) => NotCheating // low accuracy, doesn't hold advantage
         case _                                   => NotCheating
 
-      if (flags.suspiciousHoldAlert) assessment
-      else if (~game.wonBy(color)) assessment
-      else if (assessment == Cheating) LikelyCheating
-      else if (assessment == LikelyCheating) Unclear
+      if flags.suspiciousHoldAlert then assessment
+      else if ~game.wonBy(color) then antichessCorrectedGameAssessment(assessment, pov, flags)
+      else if assessment == Cheating then LikelyCheating
+      else if assessment == LikelyCheating then Unclear
       else assessment
 
     val tcFactor: Double = game.speed match

@@ -10,7 +10,7 @@ import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
 
 object theme:
 
-  def list(all: PuzzleAngle.All)(using ctx: WebContext) =
+  def list(all: PuzzleAngle.All)(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
       moreCss = cssTag("puzzle.page"),
@@ -36,20 +36,20 @@ object theme:
       )
     )
 
-  private[puzzle] def info(using WebContext) =
+  private[puzzle] def info(using PageContext) =
     p(cls := "puzzle-themes__db text", dataIcon := licon.Heart)(
       trans.puzzleTheme.puzzleDownloadInformation(
         a(href := "https://database.lichess.org/")("database.lichess.org")
       )
     )
 
-  private def themeCategory(cat: I18nKey, themes: List[PuzzleTheme.WithCount])(using WebContext) =
+  private def themeCategory(cat: I18nKey, themes: List[PuzzleTheme.WithCount])(using PageContext) =
     frag(
       h2(id := cat.value)(cat()),
       div(cls := s"puzzle-themes__list ${cat.value.replace(":", "-")}")(
         themes.map { pt =>
           val url =
-            if (pt.theme == PuzzleTheme.mix) routes.Puzzle.home
+            if pt.theme == PuzzleTheme.mix then routes.Puzzle.home
             else routes.Puzzle.show(pt.theme.key.value)
           a(cls := "puzzle-themes__link", href := (pt.count > 0).option(langHref(url)))(
             span(

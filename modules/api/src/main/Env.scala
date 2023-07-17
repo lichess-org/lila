@@ -51,6 +51,7 @@ final class Env(
     pushEnv: lila.push.Env,
     reportEnv: lila.report.Env,
     modEnv: lila.mod.Env,
+    notifyEnv: lila.notify.Env,
     appealApi: lila.appeal.AppealApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
@@ -104,7 +105,7 @@ final class Env(
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if (mode == Mode.Prod) scheduler.scheduleOnce(5 seconds)(influxEvent.start())
+  if mode == Mode.Prod then scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness     = wire[ChatFreshness]
@@ -119,17 +120,16 @@ final class Env(
       promise completeWith chatFreshness.of(source)
     },
     "announce" -> {
-      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit
+      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date)
     },
     "lpv" -> {
-      case GamePgnsFromText(text, p)      => p completeWith textLpvExpand.gamePgnsFromText(text)
       case AllPgnsFromText(text, p)       => p completeWith textLpvExpand.allPgnsFromText(text)
       case LpvLinkRenderFromText(text, p) => p completeWith textLpvExpand.linkRenderFromText(text)
     }
   )
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
-    lila.mon.bus.classifiers.update(lila.common.Bus.size()).unit
+    lila.mon.bus.classifiers.update(lila.common.Bus.size())
     lila.mon.jvm.threads()
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)

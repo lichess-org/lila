@@ -8,7 +8,7 @@ import controllers.routes
 
 object search:
 
-  def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using WebContext) =
+  def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using PageContext) =
     layout(title = s"${control.query.getOrElse("Search")} • Free Chess Videos", control = control)(
       boxTop(
         h1(pluralize("video", videos.nbResults), " found"),
@@ -17,7 +17,7 @@ object search:
       div(cls := "list infinitescroll box__pad")(
         videos.currentPageResults.map { bits.card(_, control) },
         videos.currentPageResults.sizeIs < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
-          if (videos.currentPageResults.isEmpty) "No videos for this search:"
+          if videos.currentPageResults.isEmpty then "No videos for this search:"
           else "That's all we got for this search:",
           s""""${~control.query}"""",
           br,

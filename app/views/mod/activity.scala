@@ -1,6 +1,7 @@
 package views.html.mod
 
 import controllers.routes
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -9,16 +10,12 @@ import lila.mod.ModActivity.*
 
 object activity:
 
-  def apply(p: Result)(using WebContext) =
+  def apply(p: Result)(using PageContext) =
     views.html.base.layout(
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),
-      moreJs = frag(
-        jsModule("mod.activity"),
-        embedJsUnsafeLoadThen(
-          s"""LichessModActivity.activity(${safeJsonValue(lila.mod.ModActivity.json(p))})"""
-        )
-      )
+      moreJs =
+        jsModuleInit("mod.activity", Json.obj("op" -> "activity", "data" -> lila.mod.ModActivity.json(p)))
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("activity"),
@@ -40,7 +37,7 @@ object activity:
     views.html.base.bits
       .mselect(
         s"mod-activity__who-select box__top__actions",
-        span(if (p.who == Who.Team) "Team" else "My"),
+        span(if p.who == Who.Team then "Team" else "My"),
         List(
           a(
             cls  := (p.who == Who.Team).option("current"),

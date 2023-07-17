@@ -2,7 +2,7 @@ package lila.opening
 
 import chess.opening.OpeningName
 
-class OpeningSearchTest extends munit.FunSuite {
+class OpeningSearchTest extends munit.FunSuite:
 
   def search(q: String) = OpeningSearch(q, 10)
 
@@ -25,4 +25,3 @@ class OpeningSearchTest extends munit.FunSuite {
   test("progressive") {
     assertEquals(search("Sicil").headOption.map(_.name), OpeningName("Sicilian Defense").some)
   }
-}

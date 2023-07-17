@@ -1,14 +1,10 @@
 import view from './view';
 
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import dragscroll from 'dragscroll';
 import { Opts, Tournament } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
-
-dragscroll; // required to include the dependency :( :( :(
-
-export default (window as any).LichessTournamentSchedule = function (opts: Opts) {
+export function initModule(opts: Opts) {
   lichess.StrongSocket.defaultParams.flag = 'tournament';
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
@@ -35,7 +31,7 @@ export default (window as any).LichessTournamentSchedule = function (opts: Opts)
     };
     redraw();
   });
-};
+}
 
 function update(prevs: Tournament[], news: Tournament[]) {
   // updates ignore team tournaments (same for all)

@@ -11,5 +11,5 @@ final class Notify(env: Env) extends LilaController(env):
   }
 
   def clear = Auth { _ ?=> me ?=>
-    env.notifyM.api.remove(me)
+    env.notifyM.api.remove(me) inject NoContent
   }

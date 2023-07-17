@@ -33,7 +33,7 @@ final private class LinkCheck(
   import LinkCheck.*
 
   def apply(line: UserLine, source: PublicSource): Fu[Boolean] =
-    if (multipleLinks find line.text) fuFalse
+    if multipleLinks find line.text then fuFalse
     else
       line.text match
         case tournamentLinkR(id) => withSource(source, tourLink)(id, line)
@@ -56,7 +56,7 @@ final private class LinkCheck(
       case _                           => fuccess(none)
   } flatMapz { source =>
     // the owners of a chat can post whichever link they like
-    if (source.owners(line.userId)) fuTrue
+    if source.owners(line.userId) then fuTrue
     else f(id, source)
   }
 

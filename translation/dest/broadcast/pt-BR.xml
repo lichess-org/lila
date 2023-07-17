@@ -23,13 +23,15 @@
   <string name="startDate">Data de início em seu próprio fuso horário</string>
   <string name="startDateHelp">Opcional, se você sabe quando o evento começa</string>
   <string name="credits">Crédito a fonte</string>
-  <string name="resetRound">Reiniciar esta rodada</string>
-  <string name="deleteRound">Excluir esta rodada</string>
   <string name="broadcastUrl">URL da transmissão</string>
   <string name="currentRoundUrl">URL da rodada atual</string>
   <string name="currentGameUrl">URL da partida atual</string>
   <string name="downloadAllRounds">Baixar todas as rodadas</string>
+  <string name="resetRound">Reiniciar esta rodada</string>
+  <string name="deleteRound">Excluir esta rodada</string>
   <string name="definitivelyDeleteRound">Deletar permanentemente todas as partidas desta rodada.</string>
   <string name="deleteAllGamesOfThisRound">Deletar todas as partidas desta rodada. A fonte deverá estar ativa para criá-las novamente.</string>
   <string name="editRoundStudy">Editar estudo da rodada</string>
+  <string name="deleteTournament">Excluir este torneio</string>
+  <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
 </resources>

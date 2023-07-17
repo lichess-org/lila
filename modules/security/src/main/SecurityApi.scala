@@ -6,7 +6,6 @@ import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, Valid
 import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 import ornicar.scalalib.SecureRandom
 
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
@@ -80,7 +79,7 @@ final class SecurityApi(
       token: Option[String]
   ): LoginCandidate.Result =
     import LoginCandidate.Result.*
-    candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword) { c =>
+    candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
       val result = c(User.PasswordAndToken(password, token map User.TotpToken.apply))
       if result == BlankedPassword then
         lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
@@ -89,7 +88,6 @@ final class SecurityApi(
         lila.common.Bus.publish(c.user, "loginWithWeakPassword")
         WeakPassword
       else result
-    }
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
@@ -98,7 +96,7 @@ final class SecurityApi(
       if _ then fufail(SecurityApi MustConfirmEmail userId)
       else
         val sessionId = SecureRandom nextString 22
-        if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"Tor login $userId")
+        if tor isExitNode HTTPRequest.ipAddress(req) then logger.info(s"Tor login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
@@ -111,7 +109,7 @@ final class SecurityApi(
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
     firewall.accepts(req) so reqSessionId(req) so { sessionId =>
-      appeal.authenticate(sessionId) match {
+      appeal.authenticate(sessionId) match
         case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(Me(u))) }
         case None =>
           store.authInfo(sessionId) flatMapz { d =>
@@ -119,7 +117,7 @@ final class SecurityApi(
               _ map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
             }
           }
-      }: Fu[Option[AppealOrUser]]
+      : Fu[Option[AppealOrUser]]
     }
 
   def oauthScoped(
@@ -147,10 +145,10 @@ final class SecurityApi(
     }
 
   def dedup(userId: UserId, req: RequestHeader): Funit =
-    reqSessionId(req) so { store.dedup(userId, _) }
+    reqSessionId(req).so(store.dedup(userId, _))
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
-    reqSessionId(req) so { store.setFingerPrint(_, fp) map some }
+    reqSessionId(req).soFu(store.setFingerPrint(_, fp))
 
   val sessionIdKey = "sessionId"
 
@@ -164,10 +162,10 @@ final class SecurityApi(
   def shareAnIpOrFp = store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
+    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), _.sec)
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), ReadPreference.secondaryPreferred)
+    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), _.sec)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[UserId]] =
     store.coll.distinctEasy[UserId, List](
@@ -176,7 +174,7 @@ final class SecurityApi(
         field -> value,
         "date" $gt nowInstant.minusYears(1)
       ),
-      ReadPreference.secondaryPreferred
+      _.sec
     )
 
   // special temporary auth for marked closed accounts so they can use appeal endpoints

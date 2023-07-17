@@ -1,9 +1,9 @@
 import * as xhr from 'common/xhr';
-import { loadDasher } from 'common/dasher';
+import { load as loadDasher } from 'dasher';
 import main from './main';
 import { LobbyOpts } from './interfaces';
 
-export default function LichessLobby(opts: LobbyOpts) {
+export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
   opts.tableElement = document.querySelector('.lobby__table') as HTMLElement;
   opts.pools = [
@@ -45,7 +45,8 @@ export default function LichessLobby(opts: LobbyOpts) {
       redirect(e: RedirectTo) {
         lobbyCtrl.leavePool();
         lobbyCtrl.setRedirecting();
-        lichess.redirect(e);
+        lichess.redirect(e, 'beep');
+        return true;
       },
       fen(e: any) {
         lobbyCtrl.gameActivity(e.id);
@@ -73,8 +74,6 @@ export default function LichessLobby(opts: LobbyOpts) {
   if (!opts.data.me) suggestBgSwitch();
 }
 
-(window as any).LichessLobby = LichessLobby; // esbuild
-
 // if anon with system theme and system prefers light, offer switch to get the dark theme back
 function suggestBgSwitch() {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -84,8 +83,6 @@ function suggestBgSwitch() {
   $('.bg-switch')
     .addClass('active')
     .on('click', () =>
-      loadDasher().then(dasher =>
-        dasher.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark')
-      )
+      loadDasher().then(m => m.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark'))
     );
 }

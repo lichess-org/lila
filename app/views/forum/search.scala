@@ -8,7 +8,7 @@ import controllers.routes
 
 object search:
 
-  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using WebContext) =
+  def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using PageContext) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
@@ -35,7 +35,7 @@ object search:
                   bits.authorLink(view.post)
                 )
               tr(cls := "paginated")(
-                if (viewWithRead.canRead)
+                if viewWithRead.canRead then
                   frag(
                     td(
                       a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(

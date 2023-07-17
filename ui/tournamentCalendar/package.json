@@ -24,8 +24,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "tournament.calendar"
+    "modules": {
+      "esm": {
+        "src/main.ts": "tournament.calendar"
+      }
     }
   }
 }

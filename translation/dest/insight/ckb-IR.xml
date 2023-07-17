@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xChessInsights">%s\'s تێڕوانینەکانی شەترەنج</string>
+  <string name="xChessInsights">%s\'s وردبینیەکانی شەترەنج</string>
+  <string name="xHasNoChessInsights">%s لە ئێستادا هیچ وردبینیەکی شەترەنج نییە!</string>
+  <string name="insightsAreProtected">%s\'وردبینییەکانی شەترەنج پارێزراون</string>
+  <string name="cantSeeInsights">ببورە، تۆ ناتوانی ورببینەکانی شەترەنجی %s ببینی.</string>
+  <string name="generateInsights">دروستکردنی وردبینیەکانی شەترەنج بۆ %s.</string>
+  <string name="crunchingData">ئێستا داتاکانت بۆ ورد دەکرێتەوە!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">ڕەنگە داوایان لێبکەیت %s یان بگۆڕن?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">رێکخستنی وردبینیەکان</string>
 </resources>

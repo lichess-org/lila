@@ -14,8 +14,8 @@ private type IdPlayers = Map[Int, UserId]
 
 opaque type SwissPoints = Int
 object SwissPoints:
-  def fromDouble(d: Int): SwissPoints = d
+  def fromDoubled(d: Int): SwissPoints = d
   extension (p: SwissPoints)
-    def doubled: Int      = p
-    def value: Float      = p / 2f
-    def +(o: SwissPoints) = SwissPoints.doubled(p + o)
+    def doubled: Int                   = p
+    def value: Float                   = p / 2f
+    def +(o: SwissPoints): SwissPoints = SwissPoints.doubled(p + o)

@@ -1,6 +1,8 @@
 package lila.game
 
-enum Source(val id: Int):
+import cats.derived.*
+
+enum Source(val id: Int) derives Eq:
 
   def name = toString.toLowerCase
 

@@ -10,7 +10,7 @@ object request:
 
   import trans.team.*
 
-  def requestForm(t: lila.team.Team, form: Form[?])(using WebContext) =
+  def requestForm(t: lila.team.Team, form: Form[?])(using PageContext) =
 
     val title = s"${joinTeam.txt()} ${t.name}"
 
@@ -41,7 +41,7 @@ object request:
       )
     }
 
-  def all(requests: List[lila.team.RequestWithUser])(using WebContext) =
+  def all(requests: List[lila.team.RequestWithUser])(using PageContext) =
     val title = xJoinRequests.pluralSameTxt(requests.size)
     bits.layout(title = title) {
       main(cls := "page-menu")(
@@ -54,13 +54,13 @@ object request:
     }
 
   private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     table(cls := "slist requests @if(t.isEmpty){all}else{for-team} datatable")(
       tbody(
         requests.map { request =>
           tr(
-            if (t.isEmpty) td(userLink(request.user), " ", teamLink(request.team))
+            if t.isEmpty then td(userLink(request.user), " ", teamLink(request.team))
             else td(userLink(request.user)),
             td(request.message),
             td(momentFromNow(request.date)),

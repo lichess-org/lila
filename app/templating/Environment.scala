@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import lila.app.ui.ScalatagsTemplate.*
-import lila.user.UserContext
 
 object Environment
     extends StringHelper
@@ -24,13 +23,13 @@ object Environment
     with ChessgroundHelper:
 
   export lila.Lila.{ id as _, *, given }
-  export lila.api.context.{ *, given }
-  export lila.api.Nonce
+  export lila.api.Context.{ *, given }
+  export lila.api.{ PageData, Nonce }
   export lila.user.Me
   export lila.common.licon
 
   private var envVar: Option[Env] = None
-  def setEnv(e: Env)              = { envVar = Some(e) }
+  def setEnv(e: Env)              = envVar = Some(e)
   def env: Env                    = envVar.get
 
   type FormWithCaptcha = (play.api.data.Form[?], lila.common.Captcha)
@@ -41,10 +40,10 @@ object Environment
   given lila.common.config.NetDomain = env.net.domain
 
   lazy val siteName: String =
-    if (env.net.siteName == "localhost:9663") "lichess.dev"
+    if env.net.siteName == "localhost:9663" then "lichess.dev"
     else env.net.siteName
   lazy val siteNameFrag: Frag =
-    if (siteName == "lichess.org") frag("lichess", span(".org"))
+    if siteName == "lichess.org" then frag("lichess", span(".org"))
     else frag(siteName)
 
   def apiVersion = lila.api.Mobile.Api.currentVersion

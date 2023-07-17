@@ -20,7 +20,7 @@ final class ModApi(
       _ <- userRepo.setAlt(prev.user.id, v)
       sus = prev.set(_.withMarks(_.set(_.Alt, v)))
       _ <- logApi.alt(sus, v)
-    yield if (v) notifier.reporters(me.modId, sus).unit
+    yield if v then notifier.reporters(me.modId, sus)
 
   def setEngine(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
     (prev.user.marks.engine != v) so {
@@ -30,7 +30,7 @@ final class ModApi(
         _ <- logApi.engine(sus, v)
       yield
         Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
-        if (v)
+        if v then
           notifier.reporters(me.modId, sus)
           refunder schedule sus
     }
@@ -64,14 +64,15 @@ final class ModApi(
   def setTroll(prev: Suspect, value: Boolean)(using me: Me.Id): Fu[Suspect] =
     val changed = value != prev.user.marks.troll
     val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
-    changed so {
-      userRepo.updateTroll(sus.user).void >>- {
-        logApi.troll(sus)
-        Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
-      }
-    } >>- {
-      if (value) notifier.reporters(me.modId, sus).unit
-    } inject sus
+    changed
+      .so:
+        userRepo.updateTroll(sus.user).void andDo {
+          logApi.troll(sus)
+          Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
+        }
+      .andDo:
+        if value then notifier.reporters(me.modId, sus)
+      .inject(sus)
 
   def autoTroll(sus: Suspect, note: String): Funit =
     given Me.Id = User.lichessIdAsMe
@@ -107,12 +108,12 @@ final class ModApi(
       title match
         case None =>
           userRepo.removeTitle(user.id) >>
-            logApi.removeTitle(user.id) >>-
+            logApi.removeTitle(user.id) andDo
             lightUserApi.invalidate(user.id)
         case Some(t) =>
           Title.names.get(t) so { tFull =>
             userRepo.addTitle(user.id, t) >>
-              logApi.addTitle(user.id, s"$t ($tFull)") >>-
+              logApi.addTitle(user.id, s"$t ($tFull)") andDo
               lightUserApi.invalidate(user.id)
           }
 
@@ -143,7 +144,7 @@ final class ModApi(
 
   def setRankban(sus: Suspect, v: Boolean)(using Me.Id): Funit =
     (sus.user.marks.rankban != v) so {
-      if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
+      if v then Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
     }
 

@@ -1,7 +1,6 @@
 package lila.challenge
 
 import akka.stream.scaladsl.*
-import chess.Speed
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
@@ -11,22 +10,18 @@ import lila.game.{ Game, Player }
 import lila.hub.actorApi.map.TellMany
 import lila.hub.AsyncActorSequencers
 import lila.rating.PerfType
-import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame }
+import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
-import chess.Clock
+import chess.{ Clock, ByColor, Speed }
 import lila.common.config.Max
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
     msgApi: ChallengeMsg,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     onStart: lila.round.OnStart
-)(using
-    ec: Executor,
-    mat: akka.stream.Materializer,
-    scheduler: Scheduler
-):
+)(using Executor, akka.stream.Materializer, Scheduler):
 
   import lila.game.BSONHandlers.given
   private given BSONDocumentHandler[ScheduledGame]      = Macros.handler
@@ -56,32 +51,29 @@ final class ChallengeBulkApi(
       .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", nowInstant)
       .map(_.n == 1)
 
-  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
+  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by):
     coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
-      if bulks.sizeIs >= 10 then fuccess(Left("Already too many bulks queued"))
+      if bulks.sizeIs >= maxBulks then fuccess(Left("Already too many bulks queued"))
       else if bulks.map(_.games.size).sum >= 1000
       then fuccess(Left("Already too many games queued"))
       else if bulks.exists(_ collidesWith bulk)
       then fuccess(Left("A bulk containing the same players is scheduled at the same time"))
       else coll.insert.one(bulk) inject Right(bulk)
     }
-  }
 
   private[challenge] def tick: Funit =
     checkForPairing >> checkForClocks
 
   private def checkForPairing: Funit =
     coll.one[ScheduledBulk]($doc("pairAt" $lte nowInstant, "pairedAt" $exists false)) flatMapz { bulk =>
-      workQueue(bulk.by) {
+      workQueue(bulk.by):
         makePairings(bulk).void
-      }
     }
 
   private def checkForClocks: Funit =
     coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz { bulk =>
-      workQueue(bulk.by) {
+      workQueue(bulk.by):
         startClocksNow(bulk)
-      }
     }
 
   private def startClocksNow(bulk: ScheduledBulk): Funit =
@@ -94,18 +86,16 @@ final class ChallengeBulkApi(
     val (chessGame, state) = ChallengeJoiner.gameSetup(bulk.variant, timeControl, bulk.fen)
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
-      .mapAsyncUnordered(8) { game =>
-        userRepo.pair(game.white, game.black) map2 { case (white, black) =>
-          (game.id, white, black)
+      .mapAsyncUnordered(8): game =>
+        userApi.gamePlayers.loggedIn(game.userIds, bulk.perfType) map2 { users =>
+          (game.id, users)
         }
-      }
       .mapConcat(_.toList)
-      .map { case (id, white, black) =>
+      .map: (id, users) =>
         val game = Game
           .make(
             chess = chessGame,
-            whitePlayer = Player.make(chess.White, white.some, _(perfType)),
-            blackPlayer = Player.make(chess.Black, black.some, _(perfType)),
+            players = users.map(some).mapWithColor(Player.make),
             mode = bulk.mode,
             source = lila.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,
@@ -115,22 +105,17 @@ final class ChallengeBulkApi(
           .withId(id)
           .pipe(ChallengeJoiner.addGameHistory(state))
           .start
-        (game, white, black)
-      }
-      .mapAsyncUnordered(8) { case (game, white, black) =>
-        gameRepo.insertDenormalized(game) >>- onStart(game.id) inject {
-          (game, white, black)
-        }
-      }
-      .mapAsyncUnordered(8) { case (game, white, black) =>
-        msgApi.onApiPair(game.id, white.light, black.light)(bulk.by, bulk.message)
-      }
+        (game, users)
+      .mapAsyncUnordered(8): (game, users) =>
+        gameRepo.insertDenormalized(game) andDo onStart(game.id) inject (game, users)
+      .mapAsyncUnordered(8): (game, users) =>
+        msgApi.onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .addEffect { nb =>
-        lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb).unit
+        lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb)
       } >> {
-      if (bulk.startClocksAt.isDefined)
-        coll.updateField($id(bulk._id), "pairedAt", nowInstant)
+      if bulk.startClocksAt.isDefined
+      then coll.updateField($id(bulk._id), "pairedAt", nowInstant)
       else coll.delete.one($id(bulk._id))
     }.void

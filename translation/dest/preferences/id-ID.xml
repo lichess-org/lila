@@ -6,7 +6,7 @@
   <string name="notifications">Notifikasi</string>
   <string name="pieceAnimation">Animasi Buah Catur</string>
   <string name="materialDifference">Perbedaan materi</string>
-  <string name="boardHighlights">Tanda papan (langkah terakhir dan skak)</string>
+  <string name="boardHighlights">Sorotan papan (langkah terakhir dan skak)</string>
   <string name="pieceDestinations">Jejak buah catur (langkah sah dan premove)</string>
   <string name="boardCoordinates">Koordinat Papan (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Daftar langkah ketika bermain</string>
@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Langsung Remis pada pengulangan ketiga kali</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ketika waktu tersisa &lt; 30 detik</string>
   <string name="moveConfirmation">Konfirmasi langkah</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Dapat dimatikan selama permainan pada menu papan</string>
   <string name="inCorrespondenceGames">Pada partai korespondensi</string>
   <string name="correspondenceAndUnlimited">Korespondensi dan permainan tanpa batas waktu</string>
   <string name="confirmResignationAndDrawOffers">Mengonfirmasi tawaran menyerah dan remis</string>
@@ -50,12 +51,15 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Ucapkan \"Good game, well played\" apabila kalah atau seri</string>
   <string name="yourPreferencesHaveBeenSaved">Preferensi telah disimpan.</string>
   <string name="scrollOnTheBoardToReplayMoves">Gulir pada papan untuk mengulang gerakan</string>
+  <string name="correspondenceEmailNotification">Email harian yang berisi daftar permainan korespondensi anda</string>
   <string name="notifyStreamStart">Streamer memulai siaran</string>
   <string name="notifyInboxMsg">Pesan masuk</string>
   <string name="notifyForumMention">Komentar forum menyebutkan Anda</string>
   <string name="notifyInvitedStudy">Undangan studi</string>
+  <string name="notifyGameEvent">Update permainan korespondensi</string>
   <string name="notifyChallenge">Tantangan</string>
   <string name="notifyTournamentSoon">Turnamen akan segera dimulai</string>
+  <string name="notifyTimeAlarm">Waktu korespondensi akan habis</string>
   <string name="notifyBell">Notifikasi bel didalam Lichess</string>
   <string name="notifyPush">Notifikasi perangkat saat anda tidak di Lichess</string>
   <string name="notifyWeb">Browser</string>

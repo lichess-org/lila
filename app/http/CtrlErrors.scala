@@ -10,6 +10,11 @@ import lila.i18n.{ Translator, I18nKey }
 
 trait CtrlErrors extends ControllerHelpers:
 
+  def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
+
+  def notFoundJson(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
+  def notFoundText(msg: String = "Not found"): Result = Results.NotFound(msg)
+
   private val jsonGlobalErrorRenamer: Reads[JsObject] =
     import play.api.libs.json.*
     __.json update (
@@ -28,14 +33,21 @@ trait CtrlErrors extends ControllerHelpers:
         .toMap
     json validate jsonGlobalErrorRenamer getOrElse json
 
-  def apiFormError(form: Form[?]): JsObject =
-    Json.obj("error" -> errorsAsJson(form)(using lila.i18n.defaultLang))
+  /* This is what we want
+   * { "error" -> { "key" -> "value" } }
+   */
+  def jsonFormError(form: Form[?])(using Lang) =
+    BadRequest(jsonError(errorsAsJson(form)))
 
-  def ridiculousBackwardCompatibleJsonError(err: JsObject): JsObject =
-    err ++ Json.obj("error" -> err)
+  /* For compat with old clients
+   * { "error" -> { "key" -> "value" }, "key" -> "value" }
+   */
+  def doubleJsonFormErrorBody(form: Form[?])(using Lang): JsObject =
+    val json = errorsAsJson(form)
+    json ++ jsonError(json)
 
-  def jsonFormError(err: Form[?])(using Lang) = fuccess:
-    BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err)))
+  def doubleJsonFormError(form: Form[?])(using Lang) =
+    BadRequest(doubleJsonFormErrorBody(form))
 
-  def newJsonFormError(err: Form[?])(using Lang) = fuccess:
-    BadRequest(errorsAsJson(err))
+  def badJsonFormError(form: Form[?])(using Lang) =
+    BadRequest(errorsAsJson(form))

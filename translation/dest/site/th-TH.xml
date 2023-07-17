@@ -89,7 +89,9 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">จนใน %s ตา</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" พร้อมการปัดตัวเลข ตามจำนวนการเดินหมากครึ่งตา จนกว่าจะเกิดการกินหมากหรือการเดินตัวเบี้ย</string>
   <string name="noGameFound">ไม่พบเกม</string>
+  <string name="maxDepthReached">ถึงระดับความลึกสูงสุดแล้ว</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">แนะนำให้ลองเพิ่มเกมที่เมนูตั้งค่า</string>
   <string name="openings">การเปิดเกม</string>
   <string name="openingExplorer">ชมการเปิดเกม</string>

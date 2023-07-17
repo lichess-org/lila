@@ -13,7 +13,7 @@ object index:
   import trans.search.*
 
   def apply(form: Form[?], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     val commons = bits of form
     import commons.*
@@ -75,7 +75,7 @@ object index:
           paginator.map { pager =>
             val permalink =
               a(cls := "permalink", href := routes.Search.index(), noFollow)("Permalink")
-            if (pager.nbResults > 0)
+            if pager.nbResults > 0 then
               frag(
                 div(cls := "search__status box__pad")(
                   strong(xGamesFound(pager.nbResults.localize, pager.nbResults)),

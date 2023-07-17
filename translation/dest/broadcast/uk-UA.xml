@@ -25,12 +25,15 @@
   <string name="startDate">Дата початку у вашому часовому поясі</string>
   <string name="startDateHelp">За бажанням, якщо ви знаєте, коли починається подія</string>
   <string name="credits">Вдячність джерелу</string>
-  <string name="resetRound">Скинути цей тур</string>
-  <string name="deleteRound">Видалити цей тур</string>
   <string name="broadcastUrl">Посилання на трансляцію</string>
   <string name="currentRoundUrl">Посилання на поточний тур</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
   <string name="downloadAllRounds">Завантажити всі тури</string>
+  <string name="resetRound">Скинути цей тур</string>
+  <string name="deleteRound">Видалити цей тур</string>
   <string name="definitivelyDeleteRound">Видалити всі ігри цього раунду.</string>
   <string name="deleteAllGamesOfThisRound">Видалити всі ігри цього раунду. Джерело має бути активним для того, щоб повторно відтворити його.</string>
+  <string name="editRoundStudy">Редагувати дослідження туру</string>
+  <string name="deleteTournament">Видалити турнір</string>
+  <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
 </resources>

@@ -19,33 +19,31 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],
       shieldOwner: Option[UserId]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
-      moreJs = frag(
-        jsModule("tournament"),
-        embedJsUnsafeLoadThen(s"""LichessTournament(${safeJsonValue(
-            Json.obj(
-              "data"   -> data,
-              "i18n"   -> bits.jsI18n(tour),
-              "userId" -> ctx.userId,
-              "chat" -> chatOption.map { c =>
-                chat.json(
-                  c.chat,
-                  name = trans.chatRoom.txt(),
-                  timeout = c.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
-                  localMod = ctx.userId has tour.createdBy,
-                  writeable = !c.locked
-                )
-              },
-              "showRatings" -> ctx.pref.showRatings
+      moreJs = jsModuleInit(
+        "tournament",
+        Json.obj(
+          "data"   -> data,
+          "i18n"   -> bits.jsI18n(tour),
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map { c =>
+            chat.json(
+              c.chat,
+              name = trans.chatRoom.txt(),
+              timeout = c.timeout,
+              public = true,
+              resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
+              localMod = ctx.userId has tour.createdBy,
+              writeable = !c.locked
             )
-          )})""")
+          },
+          "showRatings" -> ctx.pref.showRatings
+        )
       ),
       moreCss = cssTag {
-        if (tour.isTeamBattle) "tournament.show.team-battle"
+        if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
       },
       chessground = false,

@@ -1,6 +1,5 @@
 package lila.study
 
-import cats.data.Validated
 import monocle.syntax.all.*
 import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{
@@ -30,7 +29,7 @@ object NewPgnImport:
       end: Option[PgnImport.End]
   )
 
-  def apply(pgn: PgnStr, contributors: List[LightUser]): Validated[ErrorStr, Result] =
+  def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = PgnImport.findAnnotator(parsedPgn, contributors)
@@ -98,11 +97,11 @@ object NewPgnImport:
     data
       .san(context.game.situation)
       .map(moveOrDrop =>
-        val game   = moveOrDrop.fold(context.game.apply, context.game.applyDrop)
-        val uci    = moveOrDrop.fold(_.toUci, _.toUci)
+        val game   = moveOrDrop.applyGame(context.game)
+        val uci    = moveOrDrop.toUci
         val id     = UciCharPair(uci)
         val path   = context.path + id
-        val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
+        val sanStr = moveOrDrop.toSanStr
         (
           Context(game, path),
           PgnImport.parseComments(data.metas.comments, annotator) match

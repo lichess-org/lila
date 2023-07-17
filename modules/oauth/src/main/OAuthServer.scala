@@ -23,6 +23,8 @@ final class OAuthServer(
       auth(_, accepted, req.some)
     } recover { case e: AuthError =>
       Left(e)
+    } addEffect { res =>
+      monitorAuth(res.isRight, req)
     }
 
   def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
@@ -42,7 +44,7 @@ final class OAuthServer(
                 }
               .foreach: req =>
                 logger.debug:
-                  s"${if (blocked) "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
+                  s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
             if blocked then fufail(OriginBlocked)
             else fuccess(OAuthScope.Scoped(u, at.scopes))
         }
@@ -62,7 +64,7 @@ final class OAuthServer(
     result <-
       if user1.me is user2.me
       then Left(OneUserWithTwoTokens)
-      else Right(user1.me.user -> user2.me.user)
+      else Right(user1.user -> user2.user)
   yield result
 
   private val bearerSigner = Algo hmac mobileSecret.value
@@ -77,6 +79,12 @@ final class OAuthServer(
           logger.warn(s"Web:Mobile token requested but not signed: $token")
           none
         else token.some
+
+  private val cleanUaRegex = """ user:[\w\-]{2,30}""".r
+  private def monitorAuth(success: Boolean, req: RequestHeader) =
+    val ua      = HTTPRequest.userAgent(req).fold("none")(_.value)
+    val cleanUa = cleanUaRegex.replaceAllIn(ua, "")
+    lila.mon.user.oauth.request(cleanUa, success).increment()
 
 object OAuthServer:
 

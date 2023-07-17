@@ -8,8 +8,8 @@ object CuteNameGenerator:
 
   def make(maxSize: Int = 20, triesLeft: Int = 100): Option[UserName] =
     val name = makeForSure
-    if (name.value.sizeIs <= maxSize) name.some
-    else if (triesLeft <= 0) none
+    if name.value.sizeIs <= maxSize then name.some
+    else if triesLeft <= 0 then none
     else make(maxSize, triesLeft - 1)
 
   def makeForSure: UserName = UserName(anyOf(combinations).map(anyOf).mkString)

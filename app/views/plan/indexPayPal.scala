@@ -16,7 +16,7 @@ object indexPayPal:
       patron: lila.plan.Patron,
       subscription: lila.plan.PayPalSubscription,
       gifts: List[lila.plan.Charge.Gift]
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
@@ -27,7 +27,7 @@ object indexPayPal:
           h1(
             userLink(me),
             " • ",
-            if (patron.isLifetime) strong(lifetimePatron())
+            if patron.isLifetime then strong(lifetimePatron())
             else patronForMonths(me.plan.months)
           )
         ),

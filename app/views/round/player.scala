@@ -19,7 +19,7 @@ object player:
       playing: List[Pov],
       chatOption: Option[lila.chat.Chat.GameOrEvent],
       bookmarked: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
 
     val chatJson = chatOption.map(_.either).map {
       case Left(c) =>
@@ -44,26 +44,26 @@ object player:
 
     bits.layout(
       variant = pov.game.variant,
-      title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)}",
+      title = s"${trans.play.txt()} ${if ctx.pref.isZen then "ZEN" else playerText(pov.opponent)}",
       moreJs = frag(
         roundNvuiTag,
-        roundTag,
-        embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
-            Json
-              .obj(
-                "data"   -> data,
-                "i18n"   -> jsI18n(pov.game),
-                "userId" -> ctx.userId,
-                "chat"   -> chatJson
-              )
-              .add("noab" -> ctx.me.exists(_.marks.engine))
-          )})""")
+        jsModuleInit(
+          "round",
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(pov.game),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson
+            )
+            .add("noab" -> ctx.me.exists(_.marks.engine))
+        )
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false,
       playing = true,
       zenable = true
-    )(
+    ):
       main(cls := "round")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
@@ -82,4 +82,3 @@ object player:
         ),
         div(cls := "round__underchat")(bits underchat pov.game)
       )
-    )

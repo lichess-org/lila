@@ -29,7 +29,8 @@ interface LearnServerOpts {
   i18n: I18nDict;
 }
 
-export default (window as any).LichessLearn = function (element: Element, { data, i18n }: LearnServerOpts) {
+export function initModule({ data, i18n }: LearnServerOpts) {
+  const element = document.getElementById('learn-app')!;
   const _storage = storage(data);
 
   const opts: LearnOpts = {
@@ -61,4 +62,4 @@ export default (window as any).LichessLearn = function (element: Element, { data
   } as _mithril.MithrilRoutes<any>);
 
   return {};
-};
+}

@@ -1,5 +1,6 @@
 import { Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
+import { defer } from 'common/defer';
 import { fenColor } from 'common/mini-game';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
@@ -47,7 +48,7 @@ export default class ExplorerCtrl {
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   withGames: boolean;
-  effectiveVariant: VariantKey;
+  private effectiveVariant: VariantKey;
   config: ExplorerConfigCtrl;
 
   loading = prop(true);
@@ -55,13 +56,13 @@ export default class ExplorerCtrl {
   hovering = prop<Hovering | null>(null);
   movesAway = prop(0);
   gameMenu = prop<string | null>(null);
-  lastStream: Sync<true> | undefined;
-  abortController: AbortController | undefined;
-  cache: Dictionary<ExplorerData> = {};
+  private lastStream: Sync<true> | undefined;
+  private abortController: AbortController | undefined;
+  private cache: Dictionary<ExplorerData> = {};
 
   constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, previous?: ExplorerCtrl) {
-    this.allowed = prop(previous ? previous.allowed() : !root.embed);
-    this.enabled = root.embed ? prop(false) : storedBooleanProp('analyse.explorer.enabled', false);
+    this.allowed = prop(previous ? previous.allowed() : true);
+    this.enabled = storedBooleanProp('analyse.explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant =
       root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
@@ -70,9 +71,9 @@ export default class ExplorerCtrl {
     this.checkHash();
   }
 
-  checkHash = (e?: HashChangeEvent) => {
+  private checkHash = (e?: HashChangeEvent) => {
     const parts = location.hash.split('/');
-    if ((parts[0] == '#explorer' || parts[0] == '#opening') && !this.root.embed) {
+    if (parts[0] == '#explorer' || parts[0] == '#opening') {
       this.enabled(true);
       if (parts[1] == 'lichess' || parts[1] === 'masters') this.config.data.db(parts[1]);
       else if (parts[1]?.match(/[A-Za-z0-9_-]{2,30}/)) {
@@ -96,7 +97,7 @@ export default class ExplorerCtrl {
     config: this.config.data,
   });
 
-  fetch = debounce(
+  private fetch = debounce(
     () => {
       const fen = this.root.node.fen;
       const processData = (res: ExplorerData) => {
@@ -113,11 +114,14 @@ export default class ExplorerCtrl {
           this.root.redraw();
         }
       };
+      console.log(this);
+      this.abortController?.abort();
+      this.abortController = new AbortController();
       if (this.withGames && this.tablebaseRelevant(this.effectiveVariant, fen))
-        xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen).then(processData, onError);
+        xhr
+          .tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen, this.abortController.signal)
+          .then(processData, onError);
       else {
-        this.abortController?.abort();
-        this.abortController = new AbortController();
         this.lastStream = sync(
           xhr
             .opening(
@@ -143,7 +147,7 @@ export default class ExplorerCtrl {
     true
   );
 
-  empty: OpeningData = {
+  private empty: OpeningData = {
     white: 0,
     black: 0,
     draws: 0,
@@ -153,7 +157,7 @@ export default class ExplorerCtrl {
     opening: this.root.data.game.opening,
   };
 
-  tablebaseRelevant = (variant: VariantKey, fen: Fen) =>
+  private tablebaseRelevant = (variant: VariantKey, fen: Fen) =>
     pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.ceval.possible;
 
   setNode = () => {
@@ -200,28 +204,20 @@ export default class ExplorerCtrl {
     }
   };
   isIndexing = () => !!this.lastStream && !defined(this.lastStream.sync);
-  fetchMasterOpening = (() => {
-    const masterCache: Dictionary<OpeningData> = {};
-    return (fen: Fen): Promise<OpeningData> => {
-      const val = masterCache[fen];
-      if (val) return Promise.resolve(val);
-      return new Promise(resolve =>
-        xhr.opening(
-          {
-            ...this.baseXhrOpening(),
-            db: 'masters',
-            rootFen: fen,
-            play: [],
-            fen,
-          },
-          (res: OpeningData) => {
-            masterCache[fen] = res;
-            resolve(res);
-          }
-        )
-      );
-    };
-  })();
+  fetchMasterOpening = async (fen: Fen): Promise<OpeningData> => {
+    const deferred = defer<OpeningData>();
+    await xhr.opening(
+      {
+        ...this.baseXhrOpening(),
+        db: 'masters',
+        rootFen: fen,
+        play: [],
+        fen,
+      },
+      deferred.resolve
+    );
+    return await deferred.promise;
+  };
   fetchTablebaseHit = async (fen: Fen): Promise<SimpleTablebaseHit> => {
     const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
     const move = res.moves[0];
@@ -230,6 +226,6 @@ export default class ExplorerCtrl {
       fen,
       best: move && move.uci,
       winner: res.checkmate ? opposite(fenColor(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
-    } as SimpleTablebaseHit;
+    };
   };
 }

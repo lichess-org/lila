@@ -12,9 +12,9 @@ import lila.user.User
 
 object history:
 
-  def apply(user: User, pager: Paginator[PuzzleSession])(using ctx: WebContext) =
+  def apply(user: User, pager: Paginator[PuzzleSession])(using ctx: PageContext) =
     val title =
-      if (ctx is user) trans.puzzle.history.txt()
+      if ctx is user then trans.puzzle.history.txt()
       else s"${user.username} ${trans.puzzle.history.txt()}"
     views.html.base.layout(
       title = title,
@@ -35,7 +35,7 @@ object history:
       )
     )
 
-  private def renderSession(session: PuzzleSession)(using ctx: WebContext) =
+  private def renderSession(session: PuzzleSession)(using ctx: PageContext) =
     div(cls := "puzzle-history__session")(
       h2(cls := "puzzle-history__session__title")(
         strong(PuzzleTheme(session.theme).name()),
@@ -44,14 +44,14 @@ object history:
       div(cls := "puzzle-history__session__rounds")(session.puzzles.toList.reverse map renderRound)
     )
 
-  private def renderRound(r: SessionRound)(using WebContext) =
+  private def renderRound(r: SessionRound)(using PageContext) =
     a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id))(
       views.html.board.bits.mini(r.puzzle.fenAfterInitialMove.board, r.puzzle.color, r.puzzle.line.head.some)(
         span(cls := "puzzle-history__round__puzzle")
       ),
       span(cls := "puzzle-history__round__meta")(
         span(cls := "puzzle-history__round__result")(
-          if (r.round.win.yes) goodTag(trans.puzzle.solved())
+          if r.round.win.yes then goodTag(trans.puzzle.solved())
           else badTag(trans.puzzle.failed())
         ),
         span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id}")

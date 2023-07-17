@@ -21,20 +21,18 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
   private def invoke(swiss: Swiss, input: Source[String, ?]): Fu[List[String]] =
     withTempFile(swiss, input) { file =>
       val flavour =
-        if (swiss.nbPlayers < 250) "dutch"
-        else if (swiss.nbPlayers < 700) "burstein"
+        if swiss.nbPlayers < 250 then "dutch"
+        else if swiss.nbPlayers < 700 then "burstein"
         else "fast"
       val command = s"$executable --$flavour $file -p"
       val stdout  = new collection.mutable.ListBuffer[String]
       val stderr  = new StringBuilder
-      val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing) {
-        blocking {
-          command ! ProcessLogger(stdout append _, stderr append _ unit)
-        }
-      }
-      if (status != 0)
+      val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing):
+        blocking:
+          command ! ProcessLogger(stdout append _, stderr append _)
+      if status != 0 then
         val error = stderr.toString
-        if (error contains "No valid pairing exists") Nil
+        if error contains "No valid pairing exists" then Nil
         else throw PairingSystem.BBPairingException(error, swiss)
       else stdout.toList
     }
@@ -43,17 +41,16 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
     output
       .drop(1) // first line is the number of pairings
       .map(_ split ' ')
-      .collect {
+      .collect:
         case Array(p, "0") =>
           p.toIntOption flatMap idsToPlayers.get map { userId =>
             Left(SwissPairing.Bye(userId))
           }
         case Array(w, b) =>
-          for {
+          for
             white <- w.toIntOption flatMap idsToPlayers.get
             black <- b.toIntOption flatMap idsToPlayers.get
-          } yield Right(SwissPairing.Pending(white, black))
-      }
+          yield Right(SwissPairing.Pending(white, black))
       .flatten
 
   def withTempFile[A](swiss: Swiss, contents: Source[String, ?])(f: File => A): Fu[A] =

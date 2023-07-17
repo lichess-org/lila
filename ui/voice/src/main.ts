@@ -4,24 +4,17 @@ import { VoiceCtrl, VoiceModule } from './interfaces';
 
 export * from './interfaces';
 export * from './move/interfaces';
-export { makeVoiceMove } from './move/shim';
+export { load as makeVoiceMove } from './move/moveCtrl';
 export { renderVoiceBar } from './view';
 
-export type VoiceUIOpts = {
+export const VOSK_TS_VERSION = '_____1'; // this versions the wasm asset (see vosk.ts)
+export const supportedLangs = [['en', 'English']];
+
+export function makeCtrl(opts: {
   redraw: () => void;
   module?: () => VoiceModule;
   tpe: 'move' | 'coords';
-};
-
-export const supportedLangs = [
-  ['en', 'English'] /*
-  ['fr', 'Français'],
-  ['de', 'Deutsch'],
-  ['tr', 'Türkçe'],
-  ['vi', 'Tiếng Việt'],*/,
-];
-
-export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
+}): VoiceCtrl {
   function toggle() {
     if (pushTalk()) {
       enabled(false);

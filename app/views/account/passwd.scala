@@ -8,16 +8,11 @@ import controllers.routes
 
 object passwd:
 
-  def apply(form: play.api.data.Form[?])(using WebContext) =
+  def apply(form: play.api.data.Form[?])(using PageContext) =
     account.layout(
       title = trans.changePassword.txt(),
       active = "password",
-      evenMoreJs = frag(
-        embedJsUnsafeLoadThen("""
-          lichess.loadModule('passwordComplexity').then(() =>
-            passwordComplexity.addPasswordChangeListener('form3-newPasswd1')
-          )""")
-      )
+      evenMoreJs = jsModuleInit("passwordComplexity", "'form3-newPasswd1'")
     ) {
       div(cls := "account box box-pad")(
         h1(cls := "box__top")(trans.changePassword()),

@@ -16,13 +16,11 @@ final class PrefApi(
 
   private def fetchPref(id: UserId): Fu[Option[Pref]] = coll.find($id(id)).one[Pref]
 
-  private val cache = cacheApi[UserId, Option[Pref]](65536, "pref.fetchPref") {
-    _.expireAfterAccess(10 minutes)
-      .buildAsyncFuture(fetchPref)
-  }
+  private val cache = cacheApi[UserId, Option[Pref]](200_000, "pref.fetchPref"):
+    _.expireAfterAccess(10 minutes).buildAsyncFuture(fetchPref)
 
   def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) = {
-    if (value)
+    if value then
       coll.update
         .one(
           $id(user.id),
@@ -33,25 +31,25 @@ final class PrefApi(
     else
       coll.update
         .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
-        .void >>- { cache invalidate user.id }
-  } >>- { cache invalidate user.id }
+        .void andDo { cache invalidate user.id }
+  } andDo { cache invalidate user.id }
 
   def getPrefById(id: UserId): Fu[Option[Pref]] = cache get id
 
-  def getPref(user: User): Fu[Pref] = cache get user.id dmap {
+  def get(user: User): Fu[Pref] = cache get user.id dmap {
     _ getOrElse Pref.create(user)
   }
 
-  def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) dmap pref
+  def get[A](user: User, pref: Pref => A): Fu[A] = get(user) dmap pref
 
-  def getPref[A](userId: UserId, pref: Pref => A): Fu[A] =
+  def get[A](userId: UserId, pref: Pref => A): Fu[A] =
     getPrefById(userId).dmap(p => pref(p | Pref.default))
 
-  def getPref(user: User, req: RequestHeader): Fu[Pref] =
-    getPref(user) dmap RequestPref.queryParamOverride(req)
+  def get(user: User, req: RequestHeader): Fu[Pref] =
+    get(user) dmap RequestPref.queryParamOverride(req)
 
-  def getPref(user: Option[User], req: RequestHeader): Fu[Pref] = user match
-    case Some(u) => getPref(u) dmap RequestPref.queryParamOverride(req)
+  def get(user: Option[User], req: RequestHeader): Fu[Pref] = user match
+    case Some(u) => get(u) dmap RequestPref.queryParamOverride(req)
     case None    => fuccess(RequestPref.fromRequest(req))
 
   def followable(userId: UserId): Fu[Boolean] =
@@ -81,18 +79,18 @@ final class PrefApi(
     unmentionableIds(userIds) map userIds.diff
 
   def setPref(pref: Pref): Funit =
-    coll.update.one($id(pref.id), pref, upsert = true).void >>-
+    coll.update.one($id(pref.id), pref, upsert = true).void andDo
       cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =
-    getPref(user) map change flatMap setPref
+    get(user) map change flatMap setPref
 
   def setPrefString(user: User, name: String, value: String): Funit =
-    getPref(user) map { _.set(name, value) } orFail
+    get(user) map { _.set(name, value) } orFail
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
 
   def agree(user: User): Funit =
-    coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void >>-
+    coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void andDo
       cache.invalidate(user.id)
 
   def setBot(user: User): Funit = setPref(

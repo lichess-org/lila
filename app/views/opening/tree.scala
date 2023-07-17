@@ -10,7 +10,7 @@ object tree:
 
   import bits.*
 
-  def apply(root: OpeningTree, config: OpeningConfig)(using WebContext) =
+  def apply(root: OpeningTree, config: OpeningConfig)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(none),
@@ -36,11 +36,11 @@ object tree:
     node.children map { case (op, node) =>
       val fold = level < 4 && node.children.nonEmpty
       val content = frag(
-        (if (fold) summary else div) (op match {
+        (if fold then summary else div) (op match
           case (name, None)     => name
           case (name, Some(op)) => a(href := openingUrl(op))(name)
-        }),
+        ),
         renderChildren(node, level + 1)
       )
-      if (fold) details(content) else content
+      if fold then details(content) else content
     }

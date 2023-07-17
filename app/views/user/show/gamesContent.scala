@@ -17,7 +17,7 @@ object gamesContent:
       filters: lila.app.mashup.GameFilterMenu,
       filterName: String,
       notes: Map[GameId, String]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map { f =>
@@ -31,8 +31,8 @@ object gamesContent:
         views.html.game.crosstable(_, none)
       },
       div(cls := "search__result")(
-        if (filterName == "search") {
-          if (pager.nbResults > 0)
+        if filterName == "search" then
+          if pager.nbResults > 0 then
             frag(
               div(cls := "search__status")(
                 strong(trans.search.gamesFound.plural(pager.nbResults, pager.nbResults.localize))
@@ -42,21 +42,22 @@ object gamesContent:
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
-          else
-            div(cls := "search__status")(strong(trans.noGameFound.txt()))
-        } else
+          else div(cls := "search__status")(strong(trans.noGameFound.txt()))
+        else
           div(
             cls := List(
               "games infinite-scroll" -> true,
               "now-playing center"    -> (filterName == "playing" && pager.nbResults > 2)
             )
           )(
-            if (filterName == "playing" && pager.nbResults > 2)
+            if filterName == "playing" && pager.nbResults > 2 then
               pager.currentPageResults.flatMap { Pov(_, u) }.map { pov =>
                 views.html.game.mini(pov)(cls := "paginated")
               }
             else
-              views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),
+              views.html.game
+                .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u)
+            ,
             pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
           )
       )

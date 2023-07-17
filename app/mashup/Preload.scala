@@ -19,6 +19,7 @@ import lila.user.{ User, Me }
 final class Preload(
     tv: lila.tv.Tv,
     gameRepo: lila.game.GameRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     userCached: lila.user.Cached,
     tourWinners: lila.tournament.WinnersApi,
     timelineApi: lila.timeline.EntryApi,
@@ -32,7 +33,8 @@ final class Preload(
     lastPostCache: lila.blog.LastPostCache,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi,
-    relayApi: lila.relay.RelayApi
+    relayApi: lila.relay.RelayApi,
+    notifyApi: lila.notify.NotifyApi
 )(using Executor):
 
   import Preload.*
@@ -43,9 +45,26 @@ final class Preload(
       events: Fu[List[Event]],
       simuls: Fu[List[Simul]],
       streamerSpots: Int
-  )(using ctx: WebContext): Fu[Homepage] =
-    given Option[Me] = ctx.me
-    lobbyApi.apply.mon(_.lobby segment "lobbyApi") zip
+  )(using ctx: Context): Fu[Homepage] = for
+    nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
+    withPerfs       <- ctx.user.soFu(perfsRepo.withPerfs)
+    given Option[User.WithPerfs] = withPerfs
+    (
+      (
+        (
+          (
+            (
+              (((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle),
+              streams
+            ),
+            playban
+          ),
+          blindGames
+        ),
+        ublogPosts
+      ),
+      lichessMsg
+    ) <- lobbyApi.apply.mon(_.lobby segment "lobbyApi") zip
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip
       simuls.mon(_.lobby segment "simuls") zip
@@ -61,40 +80,36 @@ final class Preload(
       (ctx.blind so ctx.me so roundProxy.urgentGames) zip
       lastPostsCache.get {} zip
       ctx.userId
-        .ifTrue(ctx.nbNotifications > 0)
+        .ifTrue(nbNotifications > 0)
         .filterNot(liveStreamApi.isStreaming)
-        .so(msgApi.hasUnreadLichessMessage) flatMap {
-        // format: off
-        case ((((((((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
-        // format: on
-          (ctx.me soUse currentGameMyTurn(povs, lightUserApi.sync))
-            .mon(_.lobby segment "currentGame") zip
-            lightUserApi
-              .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
-              .mon(_.lobby segment "lightUsers") map { (currentGame, _) =>
-              Homepage(
-                data,
-                entries,
-                tours,
-                swiss,
-                events,
-                relayApi.spotlight,
-                simuls,
-                feat,
-                lead,
-                tWinners,
-                puzzle,
-                streams.excludeUsers(events.flatMap(_.hostedBy)),
-                playban,
-                currentGame,
-                simulIsFeaturable,
-                blindGames,
-                lastPostCache.apply,
-                ublogPosts,
-                hasUnreadLichessMessage = lichessMsg
-              )
-            }
-      }
+        .so(msgApi.hasUnreadLichessMessage)
+    (currentGame, _) <- (ctx.me soUse currentGameMyTurn(povs, lightUserApi.sync))
+      .mon(_.lobby segment "currentGame") zip
+      lightUserApi
+        .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
+        .mon(_.lobby segment "lightUsers")
+  yield Homepage(
+    data,
+    entries,
+    tours,
+    swiss,
+    events,
+    relayApi.spotlight,
+    simuls,
+    feat,
+    lead,
+    tWinners,
+    puzzle,
+    streams.excludeUsers(events.flatMap(_.hostedBy)),
+    playban,
+    currentGame,
+    simulIsFeaturable,
+    blindGames,
+    lastPostCache.apply,
+    ublogPosts,
+    withPerfs,
+    hasUnreadLichessMessage = lichessMsg
+  )
 
   def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
     gameRepo.playingRealtimeNoAi(me).flatMap {
@@ -135,6 +150,7 @@ object Preload:
       blindGames: List[Pov],
       lastPost: Option[lila.blog.MiniPost],
       ublogPosts: List[UblogPost.PreviewPost],
+      me: Option[User.WithPerfs],
       hasUnreadLichessMessage: Boolean
   )
 

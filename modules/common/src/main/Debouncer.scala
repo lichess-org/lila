@@ -6,7 +6,7 @@ import scala.jdk.CollectionConverters.*
 
 final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     f: Id => Unit
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   // can't use a boolean or int,
   // the ConcurrentHashMap uses weird defaults instead of null for missing values
@@ -26,7 +26,6 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
             Queued.Empty
           case _ => Queued.Another
     )
-    .unit
 
   private def runScheduled(id: Id): Unit = debounces
     .computeIfPresent(
@@ -38,6 +37,5 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
           Queued.Empty
         else nullToRemove
     )
-    .unit
 
   private[this] var nullToRemove: Queued = _

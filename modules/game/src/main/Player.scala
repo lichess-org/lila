@@ -1,11 +1,11 @@
 package lila.game
 
-import cats.syntax.all.*
+import cats.derived.*
 import chess.{ Ply, Color, ByColor }
 
 import lila.user.User
 
-case class PlayerUser(id: UserId, rating: IntRating, ratingDiff: Option[IntRatingDiff])
+case class PlayerUser(id: UserId, rating: IntRating, ratingDiff: Option[IntRatingDiff]) derives Eq
 
 case class Player(
     id: GamePlayerId,
@@ -21,7 +21,7 @@ case class Player(
     blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
     name: Option[String] = None
-):
+) derives Eq:
 
   def playerUser =
     userId flatMap { uid =>
@@ -34,7 +34,7 @@ case class Player(
 
   def hasUser = userId.isDefined
 
-  def isUser[U: UserIdOf](u: U) = userId.fold(false)(_ is u)
+  def isUser[U: UserIdOf](u: U) = userId.has(u.id)
 
   def userInfos: Option[Player.UserInfo] =
     (userId, rating) mapN { (id, ra) =>
@@ -69,11 +69,11 @@ case class Player(
       case ((None, _), (Some(_), _))              => false
       case ((_, a), (_, b))                       => a.value < b.value
 
-  def ratingAfter = rating.map(_ + ~ratingDiff)
+  def ratingAfter = rating.map(_.applyDiff(~ratingDiff))
 
   def stableRating = rating ifFalse provisional.value
 
-  def stableRatingAfter = stableRating.map(_ + ~ratingDiff)
+  def stableRatingAfter = stableRating.map(_.applyDiff(~ratingDiff))
 
   def light = LightPlayer(color, aiLevel, userId, rating, ratingDiff, provisional, berserk)
 
@@ -81,7 +81,7 @@ object Player:
 
   private val nameSplitRegex = """([^(]++)\((\d++)\)""".r
 
-  def make(color: Color, aiLevel: Option[Int] = None): Player = Player(
+  def makeAnon(color: Color, aiLevel: Option[Int] = None): Player = Player(
     id = IdGenerator.player(color),
     color = color,
     aiLevel = aiLevel
@@ -109,14 +109,8 @@ object Player:
       provisional = provisional
     )
 
-  def make(
-      color: Color,
-      user: Option[User],
-      perfPicker: lila.user.Perfs => lila.rating.Perf
-  ): Player =
-    user.fold(make(color)) { u =>
-      make(color, (u.id, perfPicker(u.perfs)))
-    }
+  def make(color: Color, user: Option[User.WithPerf]): Player =
+    user.fold(makeAnon(color))(u => make(color, u.user.id -> u.perf))
 
   def makeImported(
       color: Color,

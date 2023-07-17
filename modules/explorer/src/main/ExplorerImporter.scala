@@ -19,14 +19,11 @@ final class ExplorerImporter(
       case Some(game) if !game.isPgnImport || game.createdAt.isAfter(masterGameEncodingFixedAt) =>
         fuccess(game.some)
       case _ =>
-        gameRepo.remove(id) >> fetchPgn(id) flatMap {
-          case None => fuccess(none)
-          case Some(pgn) =>
-            gameImporter(
-              ImportData(pgn, none),
-              user = lila.user.User.lichessId.some,
-              forceId = id.some
-            ) map some
+        gameRepo.remove(id) >> fetchPgn(id).flatMapz { pgn =>
+          gameImporter(
+            ImportData(pgn, none),
+            forceId = id.some
+          )(using lila.user.User.lichessIdAsMe.some) map some
         }
     }
 

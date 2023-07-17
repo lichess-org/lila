@@ -30,12 +30,10 @@ final class ModStream:
       }
 
   def apply()(using Executor): Source[String, ?] =
-    blueprint mapMaterializedValue { queue =>
-      val sub = Bus.subscribeFun(classifier) { case signup: UserSignup =>
-        queue.offer(signup).unit
-      }
-
-      queue.watchCompletion() addEffectAnyway {
-        Bus.unsubscribe(sub, classifier)
-      }
-    }
+    blueprint.mapMaterializedValue: queue =>
+      val sub = Bus.subscribeFun(classifier):
+        case signup: UserSignup => queue.offer(signup)
+      queue
+        .watchCompletion()
+        .addEffectAnyway:
+          Bus.unsubscribe(sub, classifier)

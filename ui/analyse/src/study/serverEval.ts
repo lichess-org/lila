@@ -1,9 +1,9 @@
-import { AcplChart } from 'chart/dist/interface';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { spinnerVdom } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
+import { ChartGame, AcplChart } from 'chart';
 
 export default class ServerEval {
   requested = false;
@@ -34,8 +34,7 @@ export function view(ctrl: ServerEval): VNode {
     {
       hook: onInsert(el => {
         lichess.requestIdleCallback(async () => {
-          await lichess.loadModule('chart.game');
-          ctrl.chart = await window.LichessChartGame!.acpl(
+          (await lichess.loadEsm<ChartGame>('chart.game')).acpl(
             el,
             ctrl.root.data,
             ctrl.root.mainline,

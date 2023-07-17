@@ -7,14 +7,10 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.db.dsl.*
 
-final class ClasStudentCache(colls: ClasColls)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: Materializer
-):
+final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using Executor, Materializer):
 
   private val falsePositiveRate = 0.00003
-  // Stick to [String], it does unsafe operation that don't play well with opaque types
+  // Stick to [String], it does unsafe operations that don't play well with opaque types
   private var bloomFilter: BloomFilter[String] =
     BloomFilter[String](100, falsePositiveRate) // temporary empty filter
 
@@ -23,26 +19,22 @@ final class ClasStudentCache(colls: ClasColls)(using
   def addStudent(userId: UserId): Unit = bloomFilter add userId.value
 
   private def rebuildBloomFilter(): Unit =
-    colls.student.countAll foreach { count =>
+    colls.student.countAll.foreach: count =>
       val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
       colls.student
         .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
-        .cursor[Bdoc](temporarilyPrimary)
+        .cursor[Bdoc](ReadPref.priTemp)
         .documentSource()
         .throttle(300, 1.second)
-        .toMat(Sink.fold[Int, Bdoc](0) { case (counter, doc) =>
-          if (counter % 500 == 0) logger.info(s"ClasStudentCache.rebuild $counter")
+        .runWith(Sink.fold[Int, Bdoc](0): (counter, doc) =>
+          if counter % 500 == 0 then logger.info(s"ClasStudentCache.rebuild $counter")
           doc.string("userId") foreach nextBloom.add
           counter + 1
-        })(Keep.right)
-        .run()
-        .addEffect { nb =>
+        )
+        .addEffect: nb =>
           lila.mon.clas.student.bloomFilter.count.update(nb)
           bloomFilter.dispose()
           bloomFilter = nextBloom
-        }
         .monSuccess(_.clas.student.bloomFilter.fu)
-        .unit
-    }
 
-  scheduler.scheduleWithFixedDelay(71.seconds, 24.hours) { (() => rebuildBloomFilter()) }.unit
+  scheduler.scheduleWithFixedDelay(71.seconds, 24.hours) { (() => rebuildBloomFilter()) }

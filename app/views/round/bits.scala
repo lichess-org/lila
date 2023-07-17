@@ -24,13 +24,13 @@ object bits:
       zenable: Boolean = false,
       robots: Boolean = false,
       withHrefLangs: Option[LangPath] = None
-  )(body: Frag)(using ctx: WebContext) =
+  )(body: Frag)(using ctx: PageContext) =
     views.html.base.layout(
       title = title,
       openGraph = openGraph,
       moreJs = moreJs,
       moreCss = frag(
-        cssTag(if (variant == Crazyhouse) "round.zh" else "round"),
+        cssTag(if variant == Crazyhouse then "round.zh" else "round"),
         ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
         ctx.pref.hasVoice option cssTag("voice"),
         ctx.blind option cssTag("round.nvui"),
@@ -45,16 +45,15 @@ object bits:
       withHrefLangs = withHrefLangs
     )(body)
 
-  def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: WebContext) =
-    cross map { c =>
+  def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
+    cross.map: c =>
       views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
-    }
 
-  def underchat(game: Game)(using ctx: WebContext) =
+  def underchat(game: Game)(using ctx: Context) =
     frag(
       views.html.chat.spectatorsFrag,
       isGranted(_.ViewBlurs) option div(cls := "round__mod")(
-        game.players.filter(p => game.playerBlurPercent(p.color) > 30) map { p =>
+        game.players.all.filter(p => game.playerBlurPercent(p.color) > 30) map { p =>
           div(
             playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true),
             s" ${p.blurs.nb}/${game.playerMoves(p.color)} blurs ",
@@ -72,7 +71,7 @@ object bits:
       )
     )
 
-  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(using WebContext) =
+  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(using Context) =
     frag(
       h3(
         simul.map { s =>
@@ -106,7 +105,7 @@ object bits:
               span(cls := "meta")(
                 playerText(pov.opponent, withRating = false),
                 span(cls := "indicator")(
-                  if (pov.isMyTurn)
+                  if pov.isMyTurn then
                     pov.remainingSeconds
                       .fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
                   else nbsp
@@ -125,7 +124,7 @@ object bits:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(using WebContext) =
+  )(using Context) =
     views.html.game.side(
       pov,
       (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
@@ -135,7 +134,7 @@ object bits:
       bookmarked = bookmarked
     )
 
-  def roundAppPreload(pov: Pov)(using WebContext) =
+  def roundAppPreload(pov: Pov)(using Context) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(chessground(pov)),
       div(cls := "col1-rmoves-preload")

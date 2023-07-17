@@ -26,8 +26,8 @@ case class Pairing(
   def notContains(user: UserId)                 = !contains(user)
 
   def opponentOf(userId: UserId) =
-    if (userId == user1) user2.some
-    else if (userId == user2) user1.some
+    if userId == user1 then user2.some
+    else if userId == user2 then user1.some
     else none
 
   def finished = status >= chess.Status.Mate
@@ -36,25 +36,25 @@ case class Pairing(
   def quickFinish      = finished && turns.exists(20 >)
   def quickDraw        = draw && turns.exists(20 >)
   def notSoQuickFinish = finished && turns.exists(14 <=)
-  def longGame(variant: Variant) = turns.exists(_ >= (variant match {
+  def longGame(variant: Variant) = turns.exists(_ >= (variant match
     case Standard | Chess960 | Horde            => 60
     case Antichess | Crazyhouse | KingOfTheHill => 40
     case ThreeCheck | Atomic | RacingKings      => 20
-  }))
+  ))
 
-  def wonBy(user: UserId): Boolean     = winner.has(user)
-  def lostBy(user: UserId): Boolean    = winner.exists(user !=)
-  def notLostBy(user: UserId): Boolean = winner.fold(true)(user ==)
+  def wonBy(user: UserId): Boolean     = winner.exists(user is _)
+  def lostBy(user: UserId): Boolean    = winner.exists(user isnt _)
+  def notLostBy(user: UserId): Boolean = winner.fold(true)(user is _)
   def draw: Boolean                    = finished && winner.isEmpty
 
   def colorOf(userId: UserId): Option[Color] =
-    if (userId == user1) Color.White.some
-    else if (userId == user2) Color.Black.some
+    if userId is user1 then Color.White.some
+    else if userId is user2 then Color.Black.some
     else none
 
   def berserkOf(userId: UserId): Boolean =
-    if (userId == user1) berserk1
-    else if (userId == user2) berserk2
+    if userId is user1 then berserk1
+    else if userId is user2 then berserk2
     else false
 
   def berserkOf(color: Color) = color.fold(berserk1, berserk2)
@@ -72,27 +72,26 @@ private[tournament] object Pairing:
       tourId: TourId,
       u1: UserId,
       u2: UserId
-  ) =
-    new Pairing(
-      id = gameId,
-      tourId = tourId,
-      status = chess.Status.Created,
-      user1 = u1,
-      user2 = u2,
-      winner = none,
-      turns = none,
-      berserk1 = false,
-      berserk2 = false
-    )
+  ) = Pairing(
+    id = gameId,
+    tourId = tourId,
+    status = chess.Status.Created,
+    user1 = u1,
+    user2 = u2,
+    winner = none,
+    turns = none,
+    berserk1 = false,
+    berserk2 = false
+  )
 
   case class Prep(player1: Player, player2: Player):
     def toPairing(tourId: TourId, gameId: GameId): Pairing.WithPlayers =
       WithPlayers(make(gameId, tourId, player1.userId, player2.userId), player1, player2)
 
   def prepWithColor(p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
-    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => ThreadLocalRandom.nextBoolean()))
+    if p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => ThreadLocalRandom.nextBoolean()) then
       Prep(p1.player, p2.player)
     else Prep(p2.player, p1.player)
 
   def prepWithRandomColor(p1: Player, p2: Player) =
-    if (ThreadLocalRandom.nextBoolean()) Prep(p1, p2) else Prep(p2, p1)
+    if ThreadLocalRandom.nextBoolean() then Prep(p1, p2) else Prep(p2, p1)

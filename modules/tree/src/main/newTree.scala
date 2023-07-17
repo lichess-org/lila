@@ -1,7 +1,6 @@
 package lila.tree
 
 import alleycats.Zero
-import cats.syntax.all.*
 import monocle.syntax.all.*
 
 import chess.{ Centis, HasId, Situation, Node as ChessNode, Variation, Ply, Square, Check, Mergeable, Tree }
@@ -110,8 +109,7 @@ case class NewBranch(
 object NewBranch:
   given HasId[NewBranch, UciCharPair] = _.id
   given Mergeable[NewBranch] with
-    extension (a: NewBranch)
-      def merge(other: NewBranch): Option[NewBranch] = a.merge(other)
+    extension (a: NewBranch) def merge(other: NewBranch): Option[NewBranch] = a.merge(other)
 
 type NewTree = ChessNode[NewBranch]
 

@@ -44,34 +44,26 @@ object BSONHandlers:
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*
     def reads(r: BSON.Reader) =
+      val (white, black) = r.str("p").view.flatMap(chess.Piece.fromChar).to(List).partition(_ is chess.White)
       Crazyhouse.Data(
-        pockets = {
-          val (white, black) = {
-            r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
-          }.partition(_ is chess.White)
-          ByColor(
-            white = Pocket(white.map(_.role)),
-            black = Pocket(black.map(_.role))
-          )
-        },
+        pockets = ByColor(white, black).map(pieces => Pocket(pieces.map(_.role))),
         promoted = chess.bitboard.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
       )
+
     def writes(w: BSON.Writer, o: Crazyhouse.Data) =
-      def roles(color: Color) = o.pockets(color).values.flatMap { (role, nb) =>
-        List.fill(nb)(role)
-      }
+      def roles = o.pockets.mapWithColor: (color, pocket) =>
+        pocket.flatMap((role, nb) => List.fill(nb)(role.forsythBy(color))).mkString
+
       BSONDocument(
-        "p" -> {
-          roles(chess.White).map(_.forsythUpper).mkString + roles(chess.Black).map(_.forsyth).mkString
-        },
-        "t" -> o.promoted.squares.map(_.asChar).mkString
+        "p" -> roles.reduce(_ + _),
+        "t" -> o.promoted.map(_.asChar).mkString
       )
 
   private[game] given gameDrawOffersHandler: BSONHandler[GameDrawOffers] = tryHandler[GameDrawOffers](
     { case arr: BSONArray =>
       Success(arr.values.foldLeft(GameDrawOffers.empty) {
         case (offers, BSONInteger(p)) =>
-          if (p > 0) offers.copy(white = offers.white incl Ply(p))
+          if p > 0 then offers.copy(white = offers.white incl Ply(p))
           else offers.copy(black = offers.black incl Ply(-p))
         case (offers, _) => offers
       })
@@ -135,10 +127,10 @@ object BSONHandlers:
               halfMoveClock = decoded.halfMoveClock,
               positionHashes = decoded.positionHashes,
               unmovedRooks = decoded.unmovedRooks,
-              checkCount = if (gameVariant.threeCheck) {
+              checkCount = if gameVariant.threeCheck then
                 val counts = r.intsD(F.checkCount)
                 CheckCount(~counts.headOption, ~counts.lastOption)
-              } else Game.emptyCheckCount
+              else Game.emptyCheckCount
             ),
             variant = gameVariant,
             crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
@@ -158,8 +150,7 @@ object BSONHandlers:
 
       Game(
         id = light.id,
-        whitePlayer = whitePlayer,
-        blackPlayer = blackPlayer,
+        players = ByColor(whitePlayer, blackPlayer),
         chess = chessGame,
         loadClockHistory = clk =>
           for
@@ -192,12 +183,15 @@ object BSONHandlers:
     def writes(w: BSON.Writer, o: Game) =
       BSONDocument(
         F.id        -> o.id,
-        F.playerIds -> (o.whitePlayer.id.value + o.blackPlayer.id.value),
-        F.playerUids -> ((o.whitePlayer.userId, o.blackPlayer.userId) match
-          case (None, None)    => None
-          case (Some(w), None) => Some(List(w.value))
-          case (wo, Some(b))   => Some(List(wo.so(_.value), b.value))
-        ),
+        F.playerIds -> o.players.reduce(_.id.value + _.id.value),
+        F.playerUids -> o.players
+          .map(_.userId)
+          .toPair
+          .match
+            case (None, None)    => None
+            case (Some(w), None) => Some(List(w.value))
+            case (wo, Some(b))   => Some(List(wo.so(_.value), b.value))
+        ,
         F.whitePlayer   -> w.docO(Player.playerWrite(o.whitePlayer)),
         F.blackPlayer   -> w.docO(Player.playerWrite(o.blackPlayer)),
         F.status        -> o.status,
@@ -223,7 +217,7 @@ object BSONHandlers:
         F.analysed          -> w.boolO(o.metadata.analysed),
         F.rules             -> o.metadata.nonEmptyRules
       ) ++ {
-        if (o.variant.standard)
+        if o.variant.standard then
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans take Game.maxPlies.value))
         else
           val f = PgnStorage.OldBin

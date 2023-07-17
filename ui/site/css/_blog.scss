@@ -134,10 +134,6 @@
       @extend %video;
 
       margin: $block-gap auto;
-
-      &--study {
-        @extend %study-embed;
-      }
     }
   }
 

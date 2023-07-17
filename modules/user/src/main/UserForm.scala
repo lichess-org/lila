@@ -27,7 +27,7 @@ final class UserForm:
 
   def usernameOf(user: User) = username(user) fill user.username
 
-  val profile = Form(
+  val profile: Form[Profile] = Form(
     mapping(
       "country"    -> optional(text.verifying(Countries.codeSet contains _)),
       "location"   -> optional(cleanNonEmptyText(maxLength = 80)),

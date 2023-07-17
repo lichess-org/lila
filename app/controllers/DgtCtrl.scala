@@ -5,17 +5,17 @@ import lila.app.{ given, * }
 final class DgtCtrl(env: Env) extends LilaController(env):
 
   def index = Auth { _ ?=> _ ?=>
-    views.html.dgt.index
+    Ok.page:
+      views.html.dgt.index
   }
 
   def config = Auth { _ ?=> me ?=>
-    findToken(me) map {
-      views.html.dgt.config
-    }
+    Ok.pageAsync:
+      findToken.map(views.html.dgt.config)
   }
 
   def generateToken = Auth { _ ?=> me ?=>
-    findToken(me).flatMap: t =>
+    findToken.flatMap: t =>
       t.isEmpty.so {
         env.oAuth.tokenApi.create(
           lila.oauth.OAuthTokenForm.Data(
@@ -30,11 +30,11 @@ final class DgtCtrl(env: Env) extends LilaController(env):
   }
 
   def play = Auth { _ ?=> me ?=>
-    findToken(me).map:
+    findToken.flatMap:
       case None => Redirect(routes.DgtCtrl.config)
       case Some(t) =>
-        if (!ctx.pref.hasDgt) env.pref.api.saveTag(me, _.dgt, true)
-        Ok(views.html.dgt.play(t))
+        if !ctx.pref.hasDgt then env.pref.api.saveTag(me, _.dgt, true)
+        Ok.page(views.html.dgt.play(t))
   }
 
   private val dgtScopes = lila.oauth.OAuthScope.select(
@@ -45,5 +45,5 @@ final class DgtCtrl(env: Env) extends LilaController(env):
     _.Board.Play
   )
 
-  private def findToken(me: lila.user.User) =
+  private def findToken(using me: Me) =
     env.oAuth.tokenApi.findCompatiblePersonal(me, dgtScopes)

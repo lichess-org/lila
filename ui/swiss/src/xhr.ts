@@ -7,7 +7,7 @@ import { isOutcome } from './util';
 const onFail = () => lichess.reload();
 
 const join = (ctrl: SwissCtrl, password?: string) =>
-  json(`/swiss/${ctrl.data.id}/join`, {
+  json(`/api/swiss/${ctrl.data.id}/join`, {
     method: 'post',
     body: form({
       password: password || '',
@@ -15,7 +15,7 @@ const join = (ctrl: SwissCtrl, password?: string) =>
   }).catch(onFail);
 
 const withdraw = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
+  json(`/api/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
 
 const loadPage = (ctrl: SwissCtrl, p: number, callback?: () => void) =>
   json(`/swiss/${ctrl.data.id}/standing/${p}`).then(data => {

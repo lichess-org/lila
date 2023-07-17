@@ -1,6 +1,5 @@
 package views.html.opening
 
-import cats.data.NonEmptyList
 import chess.opening.{ OpeningKey, Opening }
 import controllers.routes
 import play.api.libs.json.Json
@@ -40,7 +39,7 @@ object bits:
           )
       )
 
-  def configForm(config: OpeningConfig, thenTo: String)(using WebContext) =
+  def configForm(config: OpeningConfig, thenTo: String)(using PageContext) =
     import OpeningConfig.*
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
@@ -68,18 +67,16 @@ object bits:
       )
     )
 
-  def moreJs(page: Option[OpeningPage])(using WebContext) = frag(
-    jsModule("opening"),
-    embedJsUnsafeLoadThen:
-      page match
-        case Some(p) =>
-          import lila.common.Json.given
-          s"""LichessOpening.page(${safeJsonValue(
-              Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
-            )})"""
-        case None =>
-          s"""LichessOpening.search()"""
-  )
+  def moreJs(page: Option[OpeningPage])(using PageContext) =
+    page match
+      case Some(p) =>
+        import lila.common.Json.given
+        jsModuleInit(
+          "opening",
+          Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
+        )
+      case None =>
+        jsModule("opening")
 
   def splitName(op: Opening) =
     NameSection.sectionsOf(op.name) match

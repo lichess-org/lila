@@ -1,6 +1,5 @@
 package views.html.setup
 
-import cats.syntax.all.*
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ given, * }
@@ -9,7 +8,7 @@ import lila.rating.RatingRange
 
 object filter:
 
-  def apply(form: Form[?])(using ctx: WebContext) =
+  def apply(form: Form[?])(using ctx: PageContext) =
     frag(
       st.form(novalidate)(
         table(

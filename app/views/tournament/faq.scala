@@ -10,7 +10,7 @@ object faq:
 
   import trans.arena.*
 
-  def page(using WebContext) =
+  def page(using PageContext) =
     views.html.base.layout(
       title = trans.tournamentFAQ.txt(),
       moreCss = cssTag("page")
@@ -26,7 +26,7 @@ object faq:
       )
     }
 
-  def apply(rated: Option[Boolean] = None, privateId: Option[String] = None)(using WebContext) =
+  def apply(rated: Option[Boolean] = None, privateId: Option[String] = None)(using PageContext) =
     frag(
       privateId.map { id =>
         frag(
@@ -36,11 +36,11 @@ object faq:
       },
       p(trans.arena.willBeNotified()),
       h2(trans.arena.isItRated()),
-      rated match {
+      rated match
         case Some(true)  => p(trans.arena.isRated())
         case Some(false) => p(trans.arena.isNotRated())
         case None        => p(trans.arena.someRated())
-      },
+      ,
       h2(howAreScoresCalculated()),
       p(howAreScoresCalculatedAnswer()),
       h2(berserk()),

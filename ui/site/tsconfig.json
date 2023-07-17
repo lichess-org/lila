@@ -3,8 +3,14 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "noImplicitReturns": false,
-    "noEmit": true
+    "noEmit": true,
+    "allowJs": true
   },
   "isolatedModules": true,
-  "references": [{ "path": "../chat/tsconfig.json" }, { "path": "../common/tsconfig.json" }]
+  "references": [
+    { "path": "../chat/tsconfig.json" },
+    { "path": "../chess/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../voice/tsconfig.json" }
+  ]
 }

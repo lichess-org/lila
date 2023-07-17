@@ -8,9 +8,10 @@ import controllers.routes
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LightTeam.TeamName
 
-trait TeamHelper { self: HasEnv with RouterHelper =>
+trait TeamHelper:
+  self: HasEnv with RouterHelper =>
 
-  def isMyTeamSync(teamId: TeamId)(using ctx: WebContext): Boolean =
+  def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
     ctx.userId.so { env.team.api.syncBelongsTo(teamId, _) }
 
   def teamIdToName(id: TeamId): TeamName = env.team.getTeamName(id).getOrElse(id.value)
@@ -31,4 +32,3 @@ trait TeamHelper { self: HasEnv with RouterHelper =>
     lila.team.Team.variants.view.mapValues { team =>
       (team, teamLink(team.id, team.name, true))
     }.toMap
-}

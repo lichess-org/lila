@@ -8,7 +8,7 @@ object OnceEvery:
 
     key =>
       val isNew = !cache.get(key)
-      if (isNew) cache.put(key)
+      if isNew then cache.put(key)
       isNew
 
   def hashCode[A](ttl: FiniteDuration): A => Boolean =
@@ -17,5 +17,5 @@ object OnceEvery:
 
     key =>
       val isNew = !cache.get(key)
-      if (isNew) cache.put(key)
+      if isNew then cache.put(key)
       isNew

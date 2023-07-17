@@ -1,6 +1,6 @@
 package views.html.board
 
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsArray }
 import controllers.routes
 
 import chess.format.Fen
@@ -14,17 +14,14 @@ object editor:
 
   def apply(
       fen: Option[Fen.Epd],
-      positionsJson: String,
-      endgamePositionsJson: String
-  )(using WebContext) =
+      positionsJson: JsArray,
+      endgamePositionsJson: JsArray
+  )(using PageContext) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
-      moreJs = frag(
-        jsModule("editor"),
-        embedJsUnsafeLoadThen(
-          s"""const data=${safeJsonValue(jsData(fen))};data.positions=$positionsJson;
-data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementById('board-editor'), data);"""
-        )
+      moreJs = jsModuleInit(
+        "editor",
+        jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
       ),
       moreCss = cssTag("editor"),
       chessground = false,
@@ -46,7 +43,7 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
       )
     )
 
-  def jsData(fen: Option[Fen.Epd] = None)(using ctx: WebContext) =
+  def jsData(fen: Option[Fen.Epd] = None)(using ctx: Context) =
     Json
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",

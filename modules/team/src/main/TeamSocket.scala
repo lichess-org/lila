@@ -28,4 +28,4 @@ final private class TeamSocket(
 
   remoteSocketApi.subscribe("team-in", RP.In.reader)(
     handler orElse remoteSocketApi.baseHandler
-  ) >>- send(P.Out.boot)
+  ) andDo send(P.Out.boot)

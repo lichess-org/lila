@@ -27,15 +27,18 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         .flatMap:
           if _ then notFoundJson()
           else
-            env.tournament.api.withdrawAll(me) >>
-              env.team.cached.teamIdsList(me).flatMap { env.swiss.api.withdrawAll(me, _) } >>
-              env.user.repo.setBot(me) >>
-              env.pref.api.setBot(me) >>
-              env.streamer.api.delete(me) >>-
-              env.user.lightUserApi.invalidate(me) pipe
-              toResult recover { case lila.base.LilaInvalid(msg) =>
-                BadRequest(jsonError(msg))
-              }
+            {
+              for
+                _       <- env.tournament.api.withdrawAll(me)
+                teamIds <- env.team.cached.teamIdsList(me)
+                _       <- env.swiss.api.withdrawAll(me, teamIds)
+                _       <- env.user.api.setBot(me)
+                _       <- env.pref.api.setBot(me)
+                _       <- env.streamer.api.delete(me)
+              yield env.user.lightUserApi.invalidate(me)
+            } pipe toResult recover { case lila.base.LilaInvalid(msg) =>
+              BadRequest(jsonError(msg))
+            }
     else impl.command(cmd)(WithPovAsBot)
   }
 
@@ -58,7 +61,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   // common code for bot & board APIs
   private object impl:
 
-    def gameStream(pov: Pov)(using AnyContext, Me) =
+    def gameStream(pov: Pov)(using Context, Me) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color))
       }
@@ -74,8 +77,8 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
           as(GameAnyId(id)): pov =>
             env.bot.form.chat
               .bindFromRequest()
-              .fold(
-                jsonFormError,
+              .fold[Fu[Result]](
+                doubleJsonFormError,
                 res => env.bot.player.chat(pov.gameId, res) inject jsonOkResult
               ) pipe catchClientError
         case Array("game", id, "abort") =>
@@ -133,12 +136,12 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         BadRequest(jsonError("This game cannot be played with the Bot API."))
       else f(pov)
 
-  private def WithPovAsBoard(anyId: GameAnyId)(f: Pov => Fu[Result])(using me: Me) =
+  private def WithPovAsBoard(anyId: GameAnyId)(f: Pov => Fu[Result])(using ctx: Context)(using Me) =
     WithPov(anyId): pov =>
-      if me.isBot then notForBotAccounts
-      else if !lila.game.Game.isBoardCompatible(pov.game) then
-        BadRequest(jsonError("This game cannot be played with the Board API."))
-      else f(pov)
+      NoBot:
+        if !lila.game.Game.isBoardCompatible(pov.game) then
+          BadRequest(jsonError("This game cannot be played with the Board API."))
+        else f(pov)
 
   private def WithPov(anyId: GameAnyId)(f: Pov => Fu[Result])(using me: Me) =
     env.round.proxyRepo.game(anyId.gameId) flatMap {
@@ -147,16 +150,16 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
     }
 
   def botOnline = Open:
-    env.user.repo
-      .botsByIds(env.bot.onlineApiUsers.get)
-      .map: users =>
-        Ok(views.html.user.bots(users))
+    for
+      users <- env.user.repo.botsByIds(env.bot.onlineApiUsers.get)
+      users <- env.user.perfsRepo.withPerfs(users)
+      page  <- renderPage(views.html.user.bots(users))
+    yield Ok(page)
 
   def botOnlineApi = Anon:
     apiC
       .jsonDownload:
-        env.user.repo
-          .botsByIdsCursor(env.bot.onlineApiUsers.get)
-          .documentSource(getInt("nb") | Int.MaxValue)
-          .throttle(50, 1 second)
-          .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
+        env.user.api
+          .botsByIdsStream(env.bot.onlineApiUsers.get, getInt("nb"))
+          .map: u =>
+            env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)

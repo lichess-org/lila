@@ -12,7 +12,10 @@
   <string name="myTeams">Miaj teamoj</string>
   <string name="noTeamFound">Ne trovis teamon</string>
   <string name="joinTeam">Aliĝi al teamo</string>
+  <string name="onlyLeaderLeavesTeam">Bonvolu aldoni novan teamestron antaŭ ol forlasi aŭ fermu la teamo.</string>
   <string name="quitTeam">Eksiĝi de teamo</string>
+  <string name="manuallyReviewAdmissionRequests">Permane revizii aliĝpetojn</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Se markita, ludantoj devos skribi aliĝpeton por aliĝi al la teamo, kiun vi povas malakcepti aŭ akcepti.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamestro</item>
     <item quantity="other">Teamestroj</item>
@@ -26,10 +29,13 @@
   </plurals>
   <string name="willBeReviewed">La teamestro revizios vian aliĝpeton.</string>
   <string name="beingReviewed">La teamestro revizias vian aliĝpeton.</string>
+  <string name="requestDeclined">Vian aliĝpeton malakceptas teamestro.</string>
   <string name="subToTeamMessages">Abonu al teamaj mesaĝoj</string>
   <string name="teamBattle">Teama batalo</string>
+  <string name="teamBattleOverview">Batalo de pluraj teamoj, ĉiu ludanto poentas por sia teamo</string>
   <string name="teamTournament">Teama turniro</string>
   <string name="teamTournamentOverview">Arena turniro al kiu nur membroj de via teamo povas aliĝi</string>
+  <string name="swissTournamentOverview">Svisa turniro al kiu, nur membroj de via teamo povas aliĝi</string>
   <string name="messageAllMembers">Mesaĝi al ĉiuj membroj</string>
   <string name="messageAllMembersOverview">Sendi privatan mesaĝon al ĉiu membro de la teamo</string>
   <string name="messageAllMembersLongDescription">Sendu privatan mesaĝon al ĈIUJ membroj de la teamo.
@@ -40,4 +46,14 @@ Ludantoj, kiuj ne ŝatas ricevi viajn mesaĝojn povus forlasi la teamon.</string
   <string name="usersWhoCanManageThisTeam">Uzantoj, kiuj povas administri ĉi tiun teamon</string>
   <string name="leadersChat">Tujmesaĝiloj de teametroj</string>
   <string name="closeTeam">Fermu teamon</string>
+  <string name="closeTeamDescription">Fermas la teamo konstante.</string>
+  <string name="entryCode">Teama enirkodo</string>
+  <string name="entryCodeDescriptionForLeader">(Nedevige) Enirkodo, kiun novaj membroj devas scii por aliĝu al ĉi tiu teamo.</string>
+  <string name="incorrectEntryCode">Malĝusta enirkodo.</string>
+  <string name="teamAlreadyExists">Ĉi tiu teamo jam ekzistas.</string>
+  <string name="upcomingTourns">Venontaj turniroj</string>
+  <string name="completedTourns">Kompletigitaj turniroj</string>
+  <string name="declinedRequests">Malakceptitaj aliĝpetoj</string>
+  <string name="joinLichessVariantTeam">Aliĝu al la oficiala %s teamo por novaĵoj kaj eventoj</string>
+  <string name="teamPage">Teama paĝo</string>
 </resources>

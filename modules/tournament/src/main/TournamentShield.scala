@@ -1,5 +1,6 @@
 package lila.tournament
 
+import chess.variant.Variant.given
 import lila.common.licon
 import lila.db.dsl.*
 import lila.user.User
@@ -35,12 +36,11 @@ final class TournamentShieldApi(
         history(none).map(_.current(cat).map(_.owner))
       }
 
-  private[tournament] def clear(): Unit = cache.invalidateUnit().unit
+  private[tournament] def clear(): Unit = cache.invalidateUnit()
 
-  private[tournament] def clearAfterMarking(userId: UserId): Funit = cache.getUnit map { hist =>
-    import cats.syntax.all.*
-    if (hist.value.exists(_._2.exists(_.owner == userId))) clear()
-  }
+  private[tournament] def clearAfterMarking(userId: UserId): Funit = cache.getUnit.map: hist =>
+    if hist.value.exists(_._2.exists(_.owner == userId))
+    then clear()
 
   private val cache = cacheApi.unit[History]:
     _.refreshAfterWrite(1 day).buildAsyncFuture: _ =>
@@ -51,7 +51,7 @@ final class TournamentShieldApi(
             "status"        -> (Status.Finished: Status)
           )
         .sort($sort asc "startsAt")
-        .cursor[Tournament](temporarilyPrimary)
+        .cursor[Tournament](ReadPref.priTemp)
         .listAll()
         .map: tours =>
           for

@@ -1,5 +1,7 @@
 package lila.rating
 
+import cats.derived.*
+
 import chess.Centis
 import chess.Speed
 import play.api.i18n.Lang
@@ -13,7 +15,7 @@ enum PerfType(
     private val name: String,
     private val title: String,
     val icon: licon.Icon
-):
+) derives Eq:
 
   def iconString                = icon.toString
   def trans(using Lang): String = PerfType.trans(this)

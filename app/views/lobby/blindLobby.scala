@@ -6,14 +6,14 @@ import lila.game.Pov
 
 object blindLobby:
 
-  def apply(games: List[Pov])(using WebContext) =
+  def apply(games: List[Pov])(using PageContext) =
     div(
       h2(games.size, " ongoing games"),
       games.nonEmpty option ongoingGames(games),
       div(cls := "lobby__app")
     )
 
-  private def ongoingGames(games: List[Pov])(using WebContext) =
+  private def ongoingGames(games: List[Pov])(using PageContext) =
     games.partition(_.isMyTurn) match
       case (myTurn, opTurn) =>
         frag(
@@ -23,7 +23,7 @@ object blindLobby:
           ul(opTurn map renderGame)
         )
 
-  private def renderGame(pov: Pov)(using WebContext) =
+  private def renderGame(pov: Pov)(using PageContext) =
     li(
       a(href := gameLink(pov))(
         playerText(pov.opponent),

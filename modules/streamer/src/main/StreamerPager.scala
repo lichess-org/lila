@@ -4,11 +4,12 @@ import reactivemongo.api.*
 
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ Me, User, UserRepo, UserPerfsRepo }
 
 final class StreamerPager(
     coll: Coll,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     maxPerPage: lila.common.config.MaxPerPage,
     subsRepo: lila.relation.SubscriptionRepo
 )(using Executor):
@@ -37,8 +38,8 @@ final class StreamerPager(
 
     def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithContext]] =
       coll
-        .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
-          import framework._
+        .aggregateList(length, _.sec): framework =>
+          import framework.*
           Match(
             $doc(
               "approval.granted" -> true,
@@ -72,8 +73,8 @@ final class StreamerPager(
 
     def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithContext]] =
       coll
-        .aggregateList(length, ReadPreference.secondaryPreferred): framework =>
-          import framework._
+        .aggregateList(length, _.sec): framework =>
+          import framework.*
           Match(selector) -> List(
             Sort(Ascending("updatedAt")),
             Skip(offset),

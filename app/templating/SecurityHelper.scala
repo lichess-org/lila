@@ -4,13 +4,13 @@ package templating
 import lila.app.ui.ScalatagsTemplate.*
 
 import lila.security.{ Granter, Permission }
-import lila.user.{ User, UserContext, Me }
+import lila.user.{ User, Me }
 
 trait SecurityHelper:
 
   export Granter.canGrant
 
-  def isGranted(permission: Permission.Selector)(using ctx: AnyContext): Boolean =
+  def isGranted(permission: Permission.Selector)(using ctx: Context): Boolean =
     ctx.me soUse Granter.opt(permission)
 
   def isGranted(permission: Permission.Selector, user: User): Boolean =

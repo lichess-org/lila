@@ -9,7 +9,8 @@ const patch = init([classModule, attributesModule]);
 
 registerMultipleSelect();
 
-export default (window as any).LichessInsight = function (element: Element, opts: Env) {
+export function initModule(opts: Env) {
+  const element = document.getElementById('insight')!;
   const ctrl = new Ctrl(opts, element, redraw);
 
   const blueprint = view(ctrl);
@@ -24,4 +25,4 @@ export default (window as any).LichessInsight = function (element: Element, opts
   }
 
   return ctrl;
-};
+}

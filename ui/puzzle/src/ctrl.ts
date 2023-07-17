@@ -1,4 +1,3 @@
-import * as speech from './speech';
 import * as xhr from './xhr';
 import * as router from 'common/router';
 import computeAutoShapes from './autoShape';
@@ -7,16 +6,7 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
-import {
-  Vm,
-  Controller,
-  PuzzleOpts,
-  PuzzleData,
-  MoveTest,
-  ThemeKey,
-  NvuiPlugin,
-  ReplayEnd,
-} from './interfaces';
+import { Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -68,10 +58,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
   const loadSound = (file: string, volume?: number, delay?: number) => {
-    setTimeout(
-      () => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true),
-      delay || 1000
-    );
+    setTimeout(() => lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
     return () => lichess.sound.play(file, volume);
   };
   const sound = {
@@ -81,7 +68,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     good: loadSound('lisp/PuzzleStormGood', 0.7, 500),
     end: loadSound('lisp/PuzzleStormEnd', 1, 1000),
   };
-  let music: any;
 
   let flipped = false;
 
@@ -141,7 +127,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
     vm.isDaily = location.href.endsWith('/daily');
 
-    setPath(window.LichessPuzzleNvui ? initialPath : treePath.init(initialPath));
+    setPath(lichess.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
       () => {
         jump(initialPath);
@@ -165,6 +151,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     });
 
     instanciateCeval();
+    lichess.sound.move();
   }
 
   function position(): Chess {
@@ -213,22 +200,20 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function auxMove(orig: Key, dest: Key, role?: Role) {
-    withGround(g => {
-      if (!role) {
+    if (role) playUserMove(orig, dest, role);
+    else
+      withGround(g => {
         g.move(orig, dest);
         g.state.movable.dests = undefined;
         g.state.turnColor = opposite(g.state.turnColor);
-        if (promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.promotionHook() })) return;
-      }
-      playUserMove(orig, dest, role);
-    });
+      });
   }
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.promotionHook() }))
       playUserMove(orig, dest);
-    voiceMove?.update(vm.node.fen);
+    voiceMove?.update(vm.node.fen, true);
     keyboardMove?.update({ fen: vm.node.fen });
   }
 
@@ -279,8 +264,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (progress) applyProgress(progress);
     reorderChildren(path);
     redraw();
-    speech.node(node, false);
-    if (music) music.jump(node);
+    lichess.sound.saySan(node.san, false);
+    lichess.sound.move(node);
   }
 
   function reorderChildren(path: Tree.Path, recursive?: boolean): void {
@@ -301,7 +286,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function revertUserMove(): void {
-    if (window.LichessPuzzleNvui) instantRevertUserMove();
+    if (lichess.blindMode) instantRevertUserMove();
     else setTimeout(instantRevertUserMove, 100);
   }
 
@@ -364,7 +349,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       vm.round = res.round;
       if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
     }
-    if (win) speech.success();
+    if (win) lichess.sound.say('Success!');
     if (next) {
       vm.next.resolve(data.replay && res.replayComplete ? data.replay : next);
       if (streak && win) streak.onComplete(true, res.next);
@@ -508,7 +493,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
     keyboardMove?.update({ fen: vm.node.fen });
-    voiceMove?.update(vm.node.fen);
+    voiceMove?.update(vm.node.fen, true);
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 
@@ -516,8 +501,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (tree.nodeAtPath(path)?.puzzle == 'fail' && vm.mode != 'view') return;
     withGround(g => g.selectSquare(null));
     jump(path);
-    speech.node(vm.node, true);
-    if (music) music.jump(vm.node);
+    lichess.sound.saySan(vm.node.san, true);
+    lichess.sound.move(vm.node);
   }
 
   function userJumpPlyDelta(plyDelta: Ply) {
@@ -619,16 +604,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   // Make sure chessground is fully shown when the page goes back to being visible.
   document.addEventListener('visibilitychange', () => lichess.requestIdleCallback(() => jump(vm.path), 500));
 
-  speech.setup();
-
-  lichess.pubsub.on('sound_set', (set: string) => {
-    if (!music && set === 'music')
-      lichess.loadScript('javascripts/music/play.js').then(() => {
-        music = lichess.playMusic();
-      });
-    if (music && set !== 'music') music = undefined;
-  });
-
   lichess.pubsub.on('zen', () => {
     const zen = $('body').toggleClass('zen').hasClass('zen');
     window.dispatchEvent(new Event('resize'));
@@ -702,7 +677,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flip,
     flipped: () => flipped,
     showRatings: opts.showRatings,
-    nvui: window.LichessPuzzleNvui ? (window.LichessPuzzleNvui(redraw) as NvuiPlugin) : undefined,
     menu,
   };
 }

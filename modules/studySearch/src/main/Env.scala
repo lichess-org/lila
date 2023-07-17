@@ -16,12 +16,7 @@ final class Env(
     chapterRepo: lila.study.ChapterRepo,
     pager: lila.study.StudyPager,
     makeClient: Index => ESClient
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer
-):
+)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
 
   private val client = makeClient(Index("study"))
 
@@ -31,22 +26,20 @@ final class Env(
 
   def apply(me: Option[User])(text: String, page: Int) =
     Paginator[Study.WithChaptersAndLiked](
-      adapter = new AdapterLike[Study] {
+      adapter = new AdapterLike[Study]:
         def query                           = Query(text take 100, me.map(_.id))
         def nbResults                       = api count query
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
-      } mapFutureList pager.withChaptersAndLiking(me),
+      .mapFutureList(pager.withChaptersAndLiking(me)),
       currentPage = page,
       maxPerPage = pager.maxPerPage
     )
 
-  def cli =
-    new lila.common.Cli:
-      def process =
-        case "study" :: "search" :: "reset" :: Nil          => api.reset("reset") inject "done"
-        case "study" :: "search" :: "index" :: since :: Nil => api.reset(since) inject "done"
+  def cli = new lila.common.Cli:
+    def process =
+      case "study" :: "search" :: "reset" :: Nil          => api.reset("reset") inject "done"
+      case "study" :: "search" :: "index" :: since :: Nil => api.reset(since) inject "done"
 
-  Bus.subscribeFun("study") {
-    case lila.study.actorApi.SaveStudy(study) => api.store(study).unit
-    case RemoveStudy(id, _)                   => client.deleteById(id into Id).unit
-  }
+  Bus.subscribeFun("study"):
+    case lila.study.actorApi.SaveStudy(study) => api.store(study)
+    case RemoveStudy(id, _)                   => client.deleteById(id into Id)

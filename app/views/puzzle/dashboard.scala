@@ -17,40 +17,35 @@ object dashboard:
   private val metricClass = s"${baseClass}__metric"
   private val themeClass  = s"${baseClass}__theme"
 
-  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
+  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
       user = user,
       days = days,
       path = "dashboard",
       title =
-        if (ctx is user) trans.puzzle.puzzleDashboard.txt()
+        if ctx is user then trans.puzzle.puzzleDashboard.txt()
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
       moreJs = dashOpt so { dash =>
-        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
-          PuzzleTheme(key).name.txt()
-        }
-        frag(
-          jsModule("puzzle.dashboard"),
-          embedJsUnsafeLoadThen(s"""LichessPuzzleDashboard.renderRadar(${safeJsonValue(
-              Json
-                .obj(
-                  "radar" -> Json.obj(
-                    "labels" -> mostPlayed.map { case (key, _) =>
-                      PuzzleTheme(key).name.txt()
-                    },
-                    "datasets" -> Json.arr(
-                      Json.obj(
-                        "label" -> "Performance",
-                        "data" -> mostPlayed.map { case (_, results) =>
-                          results.performance
-                        }
-                      )
-                    )
-                  )
+        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) => PuzzleTheme(key).name.txt() }
+        jsModuleInit(
+          "puzzle.dashboard",
+          Json.obj(
+            "radar" -> Json.obj(
+              "labels" -> mostPlayed.map { case (key, _) =>
+                PuzzleTheme(key).name.txt()
+              },
+              "datasets" -> Json.arr(
+                Json.obj(
+                  "label" -> "Performance",
+                  "data" -> mostPlayed.map { case (_, results) =>
+                    results.performance
+                  }
                 )
-            )})""")
+              )
+            )
+          )
         )
       }
     ) { dash =>
@@ -61,13 +56,13 @@ object dashboard:
         )
     }
 
-  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
       user = user,
       days = days,
       "improvementAreas",
       title =
-        if (ctx is user) trans.puzzle.improvementAreas.txt()
+        if ctx is user then trans.puzzle.improvementAreas.txt()
         else s"${user.username} ${trans.puzzle.improvementAreas.txt()}",
       subtitle = trans.puzzle.improvementAreasDescription.txt(),
       dashOpt = dashOpt
@@ -75,13 +70,13 @@ object dashboard:
       dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
     }
 
-  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
+  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
       user = user,
       days = days,
       "strengths",
       title =
-        if (ctx is user) trans.puzzle.strengths.txt()
+        if ctx is user then trans.puzzle.strengths.txt()
         else s"${user.username} ${trans.puzzle.strengths.txt()}",
       subtitle = trans.puzzle.strengthDescription.txt(),
       dashOpt = dashOpt
@@ -99,7 +94,7 @@ object dashboard:
       moreJs: Frag = emptyFrag
   )(
       body: PuzzleDashboard => Option[Frag]
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
@@ -133,7 +128,7 @@ object dashboard:
     )
 
   private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     themes.map { case (key, results) =>
       div(cls := themeClass)(
@@ -148,7 +143,7 @@ object dashboard:
     }
 
   private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
-      ctx: WebContext
+      ctx: PageContext
   ) =
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(
@@ -171,6 +166,6 @@ object dashboard:
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
         ),
-        iconTag(if (results.canReplay) licon.PlayTriangle else licon.Checkmark)
+        iconTag(if results.canReplay then licon.PlayTriangle else licon.Checkmark)
       )
     )

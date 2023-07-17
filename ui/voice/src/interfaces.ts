@@ -20,6 +20,13 @@ export interface VoiceModule {
   allPhrases: () => [string, string][];
 }
 
+export interface VoskModule {
+  initModel: (url: string, lang: string) => Promise<void>;
+  initRecognizer: (opts: RecognizerOpts) => AudioNode | undefined;
+  isLoaded: (lang?: string) => boolean;
+  select: (recId: string | false) => void;
+}
+
 export interface RecognizerOpts {
   words: string[];
   recId: string;

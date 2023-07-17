@@ -19,10 +19,10 @@
   <string name="startDate">Дата пачатаку ў вашым часавым поясе</string>
   <string name="startDateHelp">Па жаданні, калі вы ведаеце пачатак падзеі</string>
   <string name="credits">Падзякаваць крыніцы</string>
-  <string name="resetRound">Скасаваць гэты тур</string>
-  <string name="deleteRound">Выдаліць гэты тур</string>
   <string name="broadcastUrl">Спасылка на трансляцыю</string>
   <string name="currentRoundUrl">Спасылка на бягучы тур</string>
   <string name="currentGameUrl">Спасылка на бягучую гульню</string>
   <string name="downloadAllRounds">Спампаваць усе туры</string>
+  <string name="resetRound">Скасаваць гэты тур</string>
+  <string name="deleteRound">Выдаліць гэты тур</string>
 </resources>

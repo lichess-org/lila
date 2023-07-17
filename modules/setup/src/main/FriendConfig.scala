@@ -5,7 +5,6 @@ import chess.{ Mode, Clock }
 import chess.variant.Variant
 
 import lila.common.Days
-import lila.game.PerfPicker
 import lila.lobby.Color
 import lila.rating.PerfType
 
@@ -26,8 +25,6 @@ case class FriendConfig(
   def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, color.name, fen).some
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
-
-  def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(makeClock), variant, makeDaysPerTurn)
 
 object FriendConfig extends BaseHumanConfig:
 

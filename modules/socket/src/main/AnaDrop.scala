@@ -1,6 +1,5 @@
 package lila.socket
 
-import cats.data.Validated
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.*
 import chess.variant.Variant
@@ -21,31 +20,33 @@ case class AnaDrop(
     chapterId: Option[StudyChapterId]
 ) extends AnaAny:
 
-  def branch: Validated[ErrorStr, Branch] =
-    chess.Game(variant.some, fen.some).drop(role, pos) andThen { (game, drop) =>
-      game.sans.lastOption toValid ErrorStr("Dropped but no last move!") map { san =>
-        val uci     = Uci(drop)
-        val movable = !game.situation.end
-        val fen     = chess.format.Fen write game
-        Branch(
-          id = UciCharPair(uci),
-          ply = game.ply,
-          move = Uci.WithSan(uci, san),
-          fen = fen,
-          check = game.situation.check,
-          dests = Some(movable so game.situation.destinations),
-          opening = OpeningDb findByEpdFen fen,
-          drops = if (movable) game.situation.drops else Some(Nil),
-          crazyData = game.situation.board.crazyData
-        )
-      }
-    }
+  def branch: Either[ErrorStr, Branch] =
+    chess
+      .Game(variant.some, fen.some)
+      .drop(role, pos)
+      .flatMap: (game, drop) =>
+        game.sans.lastOption
+          .toRight(ErrorStr("Dropped but no last move!"))
+          .map: san =>
+            val uci     = Uci(drop)
+            val movable = !game.situation.end
+            val fen     = chess.format.Fen write game
+            Branch(
+              id = UciCharPair(uci),
+              ply = game.ply,
+              move = Uci.WithSan(uci, san),
+              fen = fen,
+              check = game.situation.check,
+              dests = Some(movable so game.situation.destinations),
+              opening = OpeningDb findByEpdFen fen,
+              drops = if movable then game.situation.drops else Some(Nil),
+              crazyData = game.situation.board.crazyData
+            )
 
   def newBranch: Either[ErrorStr, NewBranch] =
     chess
       .Game(variant.some, fen.some)
       .drop(role, pos)
-      .toEither
       .flatMap: (game, move) =>
         game.sans.lastOption
           .toRight(ErrorStr("Moved but no last move!"))

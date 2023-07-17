@@ -10,7 +10,7 @@ import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
 
-  def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using WebContext) =
+  def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using PageContext) =
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
@@ -22,7 +22,11 @@ object form:
           h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             div(cls := "form-group")(
-              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+              a(
+                dataIcon := licon.InfoCircle,
+                cls      := "text",
+                href     := routes.ContentPage.loneBookmark("event-tips")
+              )(
                 trans.ourEventTips()
               )
             ),
@@ -47,7 +51,7 @@ object form:
       )
     }
 
-  def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using WebContext) =
+  def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using PageContext) =
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
@@ -87,7 +91,7 @@ object form:
   private def advancedSettings(settings: Frag*) =
     details(summary("Advanced settings"), settings)
 
-  private def condition(form: Form[SwissForm.SwissData])(using ctx: WebContext) =
+  private def condition(form: Form[SwissForm.SwissData])(using ctx: PageContext) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
@@ -112,7 +116,7 @@ object form:
       )
     )
 
-final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[Swiss])(using WebContext):
+final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[Swiss])(using PageContext):
 
   private def disabledAfterStart = swiss.exists(!_.isCreated)
 

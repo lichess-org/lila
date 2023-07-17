@@ -19,12 +19,15 @@
   <string name="startDate">Startdatum i din egen tidszon</string>
   <string name="startDateHelp">Valfritt, om du vet när händelsen startar</string>
   <string name="credits">Kreditera källan</string>
-  <string name="resetRound">Återställ den här omgången</string>
-  <string name="deleteRound">Ta bort den här omgången</string>
   <string name="broadcastUrl">Länk till direktsändning (URL)</string>
   <string name="currentRoundUrl">Länk till aktuellt runda (URL)</string>
   <string name="currentGameUrl">Länk till aktuellt parti (URL)</string>
   <string name="downloadAllRounds">Ladda ner alla omgångar</string>
+  <string name="resetRound">Återställ den här omgången</string>
+  <string name="deleteRound">Ta bort den här omgången</string>
   <string name="definitivelyDeleteRound">Ta bort denna runda och dess partier definitivt.</string>
   <string name="deleteAllGamesOfThisRound">Radera alla partier i denna runda. Källan kommer behöva vara aktiv för att återskapa dem.</string>
+  <string name="editRoundStudy">Redigera studie för ronden</string>
+  <string name="deleteTournament">Radera turnering</string>
+  <string name="definitivelyDeleteTournament">Definitivt radera turnering.</string>
 </resources>

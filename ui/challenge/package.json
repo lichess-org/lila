@@ -17,8 +17,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "challenge"
+    "modules": {
+      "esm": {
+        "src/main.ts": "challenge"
+      }
     }
   }
 }

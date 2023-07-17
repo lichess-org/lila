@@ -55,7 +55,7 @@ case class Pov(game: Game, color: Color):
 
 object Pov:
 
-  def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
+  def apply(game: Game): List[Pov] = game.players.mapList(apply(game, _))
 
   def naturalOrientation(game: Game) = apply(game, game.naturalOrientation)
 
@@ -67,10 +67,7 @@ object Pov:
     game player playerId map { apply(game, _) }
 
   def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
-    game playerByUserId user.id map { apply(game, _) }
-
-  def opponentOf[U: UserIdOf](game: Game, user: U): Option[Player] =
-    apply(game, user.id).map(_.opponent)
+    game player user map { apply(game, _) }
 
   def ofCurrentTurn(game: Game) = Pov(game, game.turnColor)
 
@@ -78,14 +75,14 @@ object Pov:
   private def isFresher(a: Pov, b: Pov) = a.game.movedAt isAfter b.game.movedAt
 
   def priority(a: Pov, b: Pov) =
-    if (!a.isMyTurn && !b.isMyTurn) isFresher(a, b)
-    else if (!a.isMyTurn && b.isMyTurn) false
-    else if (a.isMyTurn && !b.isMyTurn) true
+    if !a.isMyTurn && !b.isMyTurn then isFresher(a, b)
+    else if !a.isMyTurn && b.isMyTurn then false
+    else if a.isMyTurn && !b.isMyTurn then true
     // first move has priority over games with more than 30s left
-    else if (orInf(a.remainingSeconds) < 30 && orInf(b.remainingSeconds) > 30) true
-    else if (orInf(b.remainingSeconds) < 30 && orInf(a.remainingSeconds) > 30) false
-    else if (!a.hasMoved && b.hasMoved) true
-    else if (!b.hasMoved && a.hasMoved) false
+    else if orInf(a.remainingSeconds) < 30 && orInf(b.remainingSeconds) > 30 then true
+    else if orInf(b.remainingSeconds) < 30 && orInf(a.remainingSeconds) > 30 then false
+    else if !a.hasMoved && b.hasMoved then true
+    else if !b.hasMoved && a.hasMoved then false
     else orInf(a.remainingSeconds) < orInf(b.remainingSeconds)
 
 case class PovRef(gameId: GameId, color: Color):

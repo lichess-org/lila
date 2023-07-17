@@ -18,7 +18,7 @@ object side:
       streamers: List[UserId],
       shieldOwner: Option[UserId],
       chat: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       div(cls := "tour__meta")(
         st.section(dataIcon := tour.perfType.icon.toString)(
@@ -28,7 +28,7 @@ object side:
               separator,
               views.html.game.bits.variantLink(
                 tour.variant,
-                tour.perfType.some,
+                tour.perfType,
                 shortName = true
               ),
               tour.position.isDefined so s"$separator${trans.thematic.txt()}",
@@ -38,8 +38,7 @@ object side:
             if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
             separator,
             "Arena",
-            (isGranted(_.ManageTournament) || (ctx.userId
-              .has(tour.createdBy) && !tour.isFinished)) option frag(
+            (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && !tour.isFinished)) option frag(
               " ",
               a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag(licon.Gear))
             )
@@ -61,7 +60,7 @@ object side:
           tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
         } map { case (team, link) =>
           st.section(
-            if (isMyTeamSync(team.id)) frag(trans.team.team(), " ", link)
+            if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
             else trans.team.joinLichessVariantTeam(link)
           )
         },
@@ -90,11 +89,11 @@ object side:
       chat option views.html.chat.frag
     )
 
-  private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: WebContext) =
+  private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: PageContext) =
     st.section(cls := "team-battle")(
       p(cls := "team-battle__title text", dataIcon := licon.Group)(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
-        (ctx.userId.has(tour.createdBy) || isGranted(_.ManageTournament)) option
+        (ctx.is(tour.createdBy) || isGranted(_.ManageTournament)) option
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(
             iconTag(licon.Gear)
           )

@@ -7,7 +7,7 @@ interface ChallengeOpts {
   data: any;
 }
 
-export default (window as any).challengePageStart = function (opts: ChallengeOpts) {
+export function initModule(opts: ChallengeOpts) {
   const selector = '.challenge-page';
   let accepting: boolean;
 
@@ -45,15 +45,13 @@ export default (window as any).challengePageStart = function (opts: ChallengeOpt
       .find('input.friend-autocomplete')
       .each(function (this: HTMLInputElement) {
         const input = this;
-        lichess.userComplete().then(uac =>
-          uac({
-            input: input,
-            friend: true,
-            tag: 'span',
-            focus: true,
-            onSelect: () => setTimeout(() => (input.parentNode as HTMLFormElement).submit(), 100),
-          })
-        );
+        lichess.userComplete({
+          input: input,
+          friend: true,
+          tag: 'span',
+          focus: true,
+          onSelect: () => setTimeout(() => (input.parentNode as HTMLFormElement).submit(), 100),
+        });
       });
   }
 
@@ -67,4 +65,4 @@ export default (window as any).challengePageStart = function (opts: ChallengeOpt
   }
 
   pingNow();
-};
+}

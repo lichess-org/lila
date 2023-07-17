@@ -32,13 +32,13 @@ final class Env(
 
   private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
 
-  lazy val entryApi = new EntryApi(
+  lazy val entryApi = EntryApi(
     coll = db(config.entryColl),
     cacheApi = cacheApi,
     userMax = config.userDisplayMax
   )
 
-  lazy val unsubApi = new UnsubApi(db(config.unsubColl))
+  lazy val unsubApi = UnsubApi(db(config.unsubColl))
 
   def isUnsub(channel: String)(using me: Me): Fu[Boolean] =
     unsubApi.get(channel, me)
@@ -56,5 +56,5 @@ final class Env(
   system.actorOf(Props(wire[TimelinePush]), name = config.userActorName)
 
   lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-    entryApi.removeRecentFollowsBy(userId).unit
+    entryApi.removeRecentFollowsBy(userId)
   }

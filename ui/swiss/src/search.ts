@@ -22,8 +22,8 @@ export function input(ctrl: TournamentController): VNode {
         spellcheck: 'false',
       },
       hook: onInsert((el: HTMLInputElement) => {
-        lichess.userComplete().then(uac => {
-          uac({
+        lichess
+          .userComplete({
             input: el,
             swiss: ctrl.data.id,
             tag: 'span',
@@ -32,9 +32,8 @@ export function input(ctrl: TournamentController): VNode {
               ctrl.jumpToPageOf(r.id);
               ctrl.redraw();
             },
-          });
-          el.focus();
-        });
+          })
+          .then(() => el.focus());
         $(el).on('keydown', e => {
           if (e.code === 'Enter') {
             const rank = parseInt(e.target.value);

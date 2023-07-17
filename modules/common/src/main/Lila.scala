@@ -14,6 +14,10 @@ object Lila extends Lila:
   export ornicar.scalalib.extensions.{ given, * }
   export ornicar.scalalib.time.*
 
+  export cats.syntax.all.*
+  export cats.{ Eq, Show }
+  export cats.data.NonEmptyList
+
   inline def nowNanos: Long  = System.nanoTime()
   inline def nowMillis: Long = System.currentTimeMillis()
   inline def nowCentis: Long = nowMillis / 10
@@ -48,3 +52,6 @@ trait Lila
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
     Some(Tuple.fromProductTyped(p))
+
+  // move somewhere else when we have more Eqs
+  given cats.Eq[play.api.i18n.Lang] = cats.Eq.fromUniversalEquals

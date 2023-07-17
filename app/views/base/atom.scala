@@ -25,9 +25,8 @@ object atom:
       link(rel := "self", tpe      := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
       tag("title")(title),
       tag("updated")(updated map atomDate),
-      elems.map { el =>
-        tag("entry")(elem(el))
-      },
+      elems.map: el =>
+        tag("entry")(elem(el)),
       raw("</feed>")
     )
 

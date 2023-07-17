@@ -14,7 +14,7 @@ object widgets:
       notes: Map[GameId, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
-  )(using WebContext): Frag =
+  )(using Context): Frag =
     games map { g =>
       val fromPlayer  = user flatMap g.player
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
@@ -27,22 +27,22 @@ object widgets:
           div(cls := "header", dataIcon := bits.gameIcon(g))(
             div(cls := "header__text")(
               strong(
-                if (g.imported)
+                if g.imported then
                   frag(
                     span("IMPORT"),
                     g.pgnImport.flatMap(_.user).map { user =>
                       frag(" ", trans.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
-                    bits.variantLink(g.variant)
+                    bits.variantLink(g.variant, g.perfType)
                   )
                 else
                   frag(
                     showClock(g),
                     separator,
-                    g.perfType.fold(chess.variant.FromPosition.name)(_.trans),
+                    if g.fromPosition then g.variant.name else g.perfType.trans,
                     separator,
-                    if (g.rated) trans.rated.txt() else trans.casual.txt()
+                    (if g.rated then trans.rated else trans.casual).txt()
                   )
               ),
               g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
@@ -63,22 +63,20 @@ object widgets:
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(
-            if (g.isBeingPlayed) trans.playingRightNow()
-            else {
-              if (g.finishedOrAborted)
-                span(cls := g.winner.flatMap(w => fromPlayer.map(p => if (p == w) "win" else "loss")))(
-                  gameEndStatus(g),
-                  g.winner.map { winner =>
-                    frag(
-                      " • ",
-                      winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
-                    )
-                  }
-                )
-              else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
-            }
+            if g.isBeingPlayed then trans.playingRightNow()
+            else if g.finishedOrAborted then
+              span(cls := g.winner.flatMap(w => fromPlayer.map(p => if p == w then "win" else "loss")))(
+                gameEndStatus(g),
+                g.winner.map { winner =>
+                  frag(
+                    " • ",
+                    winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+                  )
+                }
+              )
+            else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
           ),
-          if (g.playedTurns > 0) {
+          if g.playedTurns > 0 then
             div(cls := "opening")(
               (!g.fromPosition so g.opening) map { opening =>
                 strong(opening.opening.name)
@@ -92,7 +90,7 @@ object widgets:
                 g.ply > 6 option s" ... ${1 + (g.ply.value - 1) / 2} moves "
               )
             )
-          } else frag(br, br),
+          else frag(br, br),
           notes get g.id map { note =>
             div(cls := "notes")(strong("Notes: "), note)
           },
@@ -105,51 +103,45 @@ object widgets:
       )
     }
 
-  def showClock(game: Game)(using WebContext) =
-    game.clock.map { clock =>
-      frag(clock.config.show)
-    } getOrElse {
-      game.daysPerTurn
-        .map { days =>
-          span(title := trans.correspondence.txt())(
-            if (days.value == 1) trans.oneDay()
-            else trans.nbDays.pluralSame(days.value)
-          )
-        }
-        .getOrElse {
-          span(title := trans.unlimited.txt())("∞")
-        }
-    }
+  def showClock(game: Game)(using Context) =
+    game.clock
+      .map: clock =>
+        frag(clock.config.show)
+      .getOrElse:
+        game.daysPerTurn
+          .map: days =>
+            span(title := trans.correspondence.txt()):
+              if days.value == 1 then trans.oneDay()
+              else trans.nbDays.pluralSame(days.value)
+          .getOrElse:
+            span(title := trans.unlimited.txt())("∞")
 
   private lazy val anonSpan = span(cls := "anon")(lila.user.User.anonymous)
 
-  private def gamePlayer(player: Player)(using ctx: WebContext) =
-    div(cls := s"player ${player.color.name}")(
-      player.playerUser map { playerUser =>
-        frag(
-          userIdLink(playerUser.id.some, withOnline = false),
-          br,
-          player.berserk option berserkIconSpan,
-          ctx.pref.showRatings option frag(
-            playerUser.rating,
-            player.provisional.yes option "?",
-            playerUser.ratingDiff map { d =>
-              frag(" ", showRatingDiff(d))
-            }
-          )
-        )
-      } getOrElse {
-        player.aiLevel map { level =>
-          span(aiNameFrag(level))
-        } getOrElse {
-          player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
-            frag(
-              span(name),
-              rating.map { r =>
-                frag(br, r)
+  private def gamePlayer(player: Player)(using ctx: Context) =
+    div(cls := s"player ${player.color.name}"):
+      player.playerUser
+        .map: playerUser =>
+          frag(
+            userIdLink(playerUser.id.some, withOnline = false),
+            br,
+            player.berserk option berserkIconSpan,
+            ctx.pref.showRatings option frag(
+              playerUser.rating,
+              player.provisional.yes option "?",
+              playerUser.ratingDiff map { d =>
+                frag(" ", showRatingDiff(d))
               }
             )
-          }
-        }
-      }
-    )
+          )
+        .getOrElse:
+          player.aiLevel
+            .map: level =>
+              span(aiNameFrag(level))
+            .getOrElse:
+              player.nameSplit.fold[Frag](anonSpan): (name, rating) =>
+                frag(
+                  span(name),
+                  rating.map:
+                    frag(br, _)
+                )

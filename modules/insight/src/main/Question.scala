@@ -20,7 +20,7 @@ object Question:
     // { "_id" : null, "ratings" : 1878.1484907826184 }
     // > db.insight.aggregate([{$sample:{size:10000000}},{$project:{_id:0,mr:1}},{$match:{mr:{$exists:1}}},{$group:{_id:null,ratings:{$stdDevSamp:'$mr'}}}])
     // { "_id" : null, "ratings" : 357.42969844387625 }
-    Gaussian(1878d, 357d)
+    lila.rating.Gaussian(1878d, 357d)
 
   case class Peers(rating: MeanRating):
     lazy val ratingRange: Range =

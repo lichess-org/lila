@@ -1,6 +1,5 @@
 package lila.challenge
 
-import cats.syntax.all.*
 import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
 
@@ -10,22 +9,19 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi.*
-import lila.user.{ Me, LightUserApi, User, UserRepo }
+import lila.user.{ Me, LightUserApi, User, UserRepo, UserPerfsRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,
     challengeMaker: ChallengeMaker,
     userRepo: UserRepo,
+    perfsRepo: UserPerfsRepo,
     lightUserApi: LightUserApi,
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     cacheApi: lila.memo.CacheApi
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler
-):
+)(using Executor, akka.actor.ActorSystem, Scheduler):
 
   import Challenge.*
 
@@ -53,14 +49,14 @@ final class ChallengeApi(
       rules = config.rules,
       expiresAt = config.expiresAt
     )
-    doCreate(c) >>- me.foreach(me => openCreatedBy.put(c.id, me)) inject c
+    doCreate(c) andDo me.foreach(me => openCreatedBy.put(c.id, me)) inject c
 
   private val openCreatedBy =
     cacheApi.notLoadingSync[Id, UserId](512, "challenge.open.by"):
       _.expireAfterWrite(1 hour).build()
 
   private def doCreate(c: Challenge) =
-    repo.insertIfMissing(c) >>- {
+    repo.insertIfMissing(c) andDo {
       uncacheAndNotify(c)
       Bus.publish(Event.Create(c), "challenge")
     }
@@ -87,17 +83,17 @@ final class ChallengeApi(
   def createdByChallengerId = repo.createdByChallengerId()
 
   def createdByDestId(userId: UserId, max: Int = 50) = countInFor get userId flatMap { nb =>
-    if (nb > 5) repo.createdByPopularDestId(max)(userId)
+    if nb > 5 then repo.createdByPopularDestId(max)(userId)
     else repo.createdByDestId()(userId)
   }
 
   def cancel(c: Challenge) =
-    repo.cancel(c) >>- {
+    repo.cancel(c) andDo {
       uncacheAndNotify(c)
       Bus.publish(Event.Cancel(c.cancel), "challenge")
     }
 
-  private def offline(c: Challenge) = repo.offline(c) >>- uncacheAndNotify(c)
+  private def offline(c: Challenge) = repo.offline(c) andDo uncacheAndNotify(c)
 
   private[challenge] def ping(id: Id): Funit =
     repo statusById id flatMap {
@@ -107,7 +103,7 @@ final class ChallengeApi(
     }
 
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
-    repo.decline(c, reason) >>- {
+    repo.decline(c, reason) andDo {
       uncacheAndNotify(c)
       Bus.publish(Event.Decline(c declineWith reason), "challenge")
     }
@@ -121,6 +117,7 @@ final class ChallengeApi(
       requestedColor: Option[chess.Color] = None
   )(using me: Option[Me]): Fu[Validated[String, Option[Pov]]] =
     acceptQueue:
+      def withPerf = me.map(_.value).soFu(perfsRepo.withPerf(_, c.perfType))
       if c.canceled
       then fuccess(Invalid("The challenge has been canceled."))
       else if c.declined
@@ -137,17 +134,23 @@ final class ChallengeApi(
         yield chess.Color.fromWhite(me is userIds._1)
         val color = openFixedColor orElse requestedColor
         if c.challengerIsOpen
-        then repo.setChallenger(c.setChallenger(me, sid), color) inject Valid(none)
+        then
+          withPerf.flatMap: me =>
+            repo.setChallenger(c.setChallenger(me, sid), color) inject Valid(none)
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then fuccess(Invalid("This color has already been chosen"))
         else
-          joiner(c, me).flatMap:
-            case Valid(pov) =>
-              (repo accept c) >>- {
-                uncacheAndNotify(c)
-                Bus.publish(Event.Accept(c, me), "challenge")
-              } inject Valid(pov.some)
-            case Invalid(err) => fuccess(Invalid(err))
+          for
+            me   <- withPerf
+            join <- joiner(c, me)
+            result <- join match
+              case Valid(pov) =>
+                repo.accept(c) andDo {
+                  uncacheAndNotify(c)
+                  Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
+                } inject Valid(pov.some)
+              case Invalid(err) => fuccess(Invalid(err))
+          yield result
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
     challengeMaker.makeRematchOf(game, user) flatMapz { challenge =>
@@ -156,18 +159,16 @@ final class ChallengeApi(
         false
     }
 
-  def setDestUser(c: Challenge, u: User): Funit =
-    val challenge = c setDestUser u
-    repo.update(challenge) >>- {
-      uncacheAndNotify(challenge)
-      Bus.publish(Event.Create(challenge), "challenge")
-    }
+  def setDestUser(c: Challenge, u: User): Funit = for
+    user <- perfsRepo.withPerf(u, c.perfType)
+    challenge = c setDestUser user
+    _ <- repo.update(challenge)
+  yield
+    uncacheAndNotify(challenge)
+    Bus.publish(Event.Create(challenge), "challenge")
 
   def removeByUserId(userId: UserId): Funit =
     repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void
-
-  def oauthAccept(dest: User, challenge: Challenge): Fu[Validated[String, Game]] =
-    joiner(challenge, dest.some).map(_.map(_.game))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
     if c.hasClock then fuFalse
@@ -185,7 +186,7 @@ final class ChallengeApi(
       repo.expired(50).flatMap(_.traverse_(remove))
 
   private def remove(c: Challenge) =
-    repo.remove(c.id) >>- uncacheAndNotify(c)
+    repo.remove(c.id) andDo uncacheAndNotify(c)
 
   private def uncacheAndNotify(c: Challenge): Unit =
     c.destUserId so countInFor.invalidate
@@ -211,4 +212,4 @@ final class ChallengeApi(
 
   // work around circular dependency
   private var socket: Option[ChallengeSocket]               = None
-  private[challenge] def registerSocket(s: ChallengeSocket) = { socket = s.some }
+  private[challenge] def registerSocket(s: ChallengeSocket) = socket = s.some

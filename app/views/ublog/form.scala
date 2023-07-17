@@ -15,9 +15,9 @@ object form:
 
   import views.html.ublog.{ post as postView }
 
-  private def moreCss(using WebContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
+  private def moreCss(using PageContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
-  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using WebContext) =
+  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
@@ -34,11 +34,11 @@ object form:
       )
     }
 
-  def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: WebContext) =
+  def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
-      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} blog • ${post.title}"
+      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
@@ -68,7 +68,7 @@ object form:
       )
     }
 
-  private def imageForm(post: UblogPost)(using ctx: WebContext) =
+  private def imageForm(post: UblogPost)(using ctx: PageContext) =
     postForm(
       cls     := "ublog-post-form__image",
       action  := routes.Ublog.image(post.id),
@@ -112,7 +112,7 @@ object form:
     postView.thumbnail(post, _.Size.Small)(cls := post.image.isDefined.option("user-image"))
 
   private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(using
-      WebContext
+      PageContext
   ) =
     postForm(
       cls    := "form3 ublog-post-form__main",
@@ -143,7 +143,7 @@ object form:
           div(id := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
         )
       },
-      post.toOption match {
+      post.toOption match
         case None =>
           form3.group(form("topics"), frag(trans.ublog.selectPostTopics()))(
             form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
@@ -178,7 +178,7 @@ object form:
               )
             )
           )
-      },
+      ,
       captcha.fold(views.html.base.captcha.hiddenEmpty(form)) { c =>
         views.html.base.captcha(form, c)
       },
@@ -189,17 +189,17 @@ object form:
         )(
           trans.cancel()
         ),
-        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft) ())
+        form3.submit((if post.isRight then trans.apply else trans.ublog.saveDraft) ())
       )
     )
 
-  private def etiquette(using WebContext) = div(cls := "ublog-post-form__etiquette")(
+  private def etiquette(using PageContext) = div(cls := "ublog-post-form__etiquette")(
     p(trans.ublog.safeAndRespectfulContent()),
     p(trans.ublog.inappropriateContentAccountClosed()),
     p(
       a(
         dataIcon := licon.InfoCircle,
-        href     := routes.Page.loneBookmark("blog-etiquette"),
+        href     := routes.ContentPage.loneBookmark("blog-etiquette"),
         cls      := "text",
         targetBlank
       )("Blog Etiquette")
@@ -207,9 +207,9 @@ object form:
     p(tips)
   )
 
-  def tips(using WebContext) = a(
+  def tips(using PageContext) = a(
     dataIcon := licon.InfoCircle,
-    href     := routes.Page.loneBookmark("blog-tips"),
+    href     := routes.ContentPage.loneBookmark("blog-tips"),
     cls      := "text",
     targetBlank
   )(trans.ublog.blogTips())

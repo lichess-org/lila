@@ -43,13 +43,13 @@ final private class PayPalClient(
 
   private val patronMonthProductId = "PATRON-MONTH"
 
-  private val plans = cacheApi(32, "plan.payPal.plans") {
-    _.buildAsyncFuture[Currency, PayPalPlan] { cur =>
-      getPlans() flatMap {
-        _.find(p => p.currency.has(cur)).fold(createPlan(cur))(fuccess)
-      }
-    }
-  }
+  // todo: proper Eq implementation
+  given Eq[Currency] = Eq.fromUniversalEquals
+
+  private val plans = cacheApi(32, "plan.payPal.plans"):
+    _.buildAsyncFuture[Currency, PayPalPlan]: cur =>
+      getPlans().flatMap:
+        _.find(_.currency.has(cur)).fold(createPlan(cur))(fuccess)
 
   def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] = postOne[PayPalOrderCreated](
     path.orders,
@@ -129,10 +129,10 @@ final private class PayPalClient(
       s"${path.plans}?product_id=$patronMonthProductId&page_size=$plansPerPage&page=$page"
     )(using (__ \ "plans").read[List[PayPalPlan]])
     current
-      .flatMap { (plans: List[PayPalPlan]) =>
-        if (plans.size == plansPerPage) getPlans(page + 1).map(plans ::: _)
+      .flatMap: plans =>
+        if plans.size == plansPerPage
+        then getPlans(page + 1).map(plans ::: _)
         else fuccess(plans)
-      }
       .map(_.filter(_.active))
 
   def createPlan(currency: Currency): Fu[PayPalPlan] =

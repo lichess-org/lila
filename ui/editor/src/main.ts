@@ -6,11 +6,15 @@ import { init, attributesModule, eventListenersModule, classModule, propsModule 
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
-export default function LichessEditor(element: HTMLElement, config: Editor.Config): LichessEditor {
+export function initModule(config: Editor.Config): LichessEditor {
   const ctrl = new EditorCtrl(config, redraw);
-  element.innerHTML = '';
+
+  const el = config.el || document.getElementById('board-editor')!;
+
+  el.innerHTML = '';
+
   const inner = document.createElement('div');
-  element.appendChild(inner);
+  el.appendChild(inner);
   let vnode = patch(inner, view(ctrl));
 
   function redraw() {
@@ -28,5 +32,3 @@ export default function LichessEditor(element: HTMLElement, config: Editor.Confi
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-
-(window as any).LichessEditor = LichessEditor; // esbuild

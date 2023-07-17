@@ -1,6 +1,5 @@
 package lila.forum
 
-import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 
 import lila.common.Bus
@@ -48,26 +47,28 @@ final class ForumPostApi(
       postRepo findDuplicate post flatMap {
         case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
         case _ =>
-          postRepo.coll.insert.one(post) >>
-            topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
-            categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-              !categ.quiet so (indexer ! InsertPost(post))
-              promotion.save(post.text)
-              shutup ! {
-                if post.isTeam
-                then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, post.text)
-                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, post.text)
+          for
+            _ <- postRepo.coll.insert.one(post)
+            _ <- topicRepo.coll.update.one($id(topic.id), topic withPost post)
+            _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+          yield
+            !categ.quiet so (indexer ! InsertPost(post))
+            promotion.save(post.text)
+            shutup ! {
+              if post.isTeam
+              then lila.hub.actorApi.shutup.RecordTeamForumMessage(me, post.text)
+              else lila.hub.actorApi.shutup.RecordPublicForumMessage(me, post.text)
+            }
+            if anonMod
+            then logAnonPost(post, edit = false)
+            else if !post.troll && !categ.quiet then
+              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
+                _ toFollowersOf me toUsers topicUserIds exceptUser me withTeam categ.team
               }
-              if anonMod
-              then logAnonPost(post, edit = false)
-              else if !post.troll && !categ.quiet then
-                timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
-                  _ toFollowersOf me toUsers topicUserIds exceptUser me withTeam categ.team
-                }
-              lila.mon.forum.post.create.increment()
-              mentionNotifier.notifyMentionedUsers(post, topic)
-              Bus.publish(CreatePost(post), "forumPost")
-            } inject post
+            lila.mon.forum.post.create.increment()
+            mentionNotifier.notifyMentionedUsers(post, topic)
+            Bus.publish(CreatePost(post), "forumPost")
+            post
       }
     }
 
@@ -83,7 +84,7 @@ final class ForumPostApi(
           (newPost.text != post.text).so {
             postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
               logAnonPost(newPost, edit = true)
-            } >>- promotion.save(newPost.text)
+            } andDo promotion.save(newPost.text)
           } inject newPost
       }
 
@@ -119,11 +120,11 @@ final class ForumPostApi(
             if v then $addToSet(s"reactions.$reaction" -> me.userId)
             else $pull(s"reactions.$reaction"          -> me.userId),
           fetchNewObject = true
-        ) >>- {
-        if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
-          scheduler.scheduleOnce(5 minutes):
-            react(categSlug, postId, reaction.key, false)
-      }
+        )
+        .andDo:
+          if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
+            scheduler.scheduleOnce(5 minutes):
+              react(categSlug, postId, reaction.key, false)
     }
 
   def views(posts: List[ForumPost]): Fu[List[PostView]] =
@@ -173,7 +174,7 @@ final class ForumPostApi(
   def nbByUser(userId: UserId) = postRepo.coll.countSel($doc("userId" -> userId))
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
-    for {
+    for
       categs <- categRepo visibleWithTeams teams
       views <- categs.map { categ =>
         get(categ lastPostId forUser) map { topicPost =>
@@ -186,7 +187,7 @@ final class ForumPostApi(
           )
         }
       }.parallel
-    } yield views
+    yield views
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll
@@ -196,19 +197,18 @@ final class ForumPostApi(
           "topicId" -> topic.id,
           "number" $gt (newPostNumber - 20)
         ),
-        ReadPreference.secondaryPreferred
+        _.sec
       )
 
   def erasePost(post: ForumPost) =
-    postRepo.coll.update.one($id(post.id), post.erase).void >>-
+    postRepo.coll.update.one($id(post.id), post.erase).void andDo
       (indexer ! RemovePost(post.id))
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
-      .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
-      .map { ids =>
+      .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
+      .map: ids =>
         indexer ! RemovePosts(ids)
-      }
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId) flatMapz { post =>

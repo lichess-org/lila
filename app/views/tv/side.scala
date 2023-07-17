@@ -40,7 +40,7 @@ object side:
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(using WebContext): Frag =
+  def meta(pov: lila.game.Pov)(using PageContext): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(
@@ -49,14 +49,14 @@ object side:
             div(cls := "setup")(
               views.html.game.widgets showClock game,
               separator,
-              (if (game.rated) trans.rated else trans.casual).txt(),
+              (if game.rated then trans.rated else trans.casual).txt(),
               separator,
               views.html.game.bits.variantLink(game.variant, game.perfType, shortName = true)
             )
           )
         ),
         div(cls := "game__meta__players")(
-          game.players.map { p =>
+          game.players.mapList { p =>
             div(cls := s"player color-icon is ${p.color.name} text")(
               playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
             )
@@ -75,7 +75,7 @@ object side:
   def sides(
       pov: lila.game.Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
-  )(using WebContext) =
+  )(using PageContext) =
     div(cls := "sides")(
       cross.map {
         views.html.game.crosstable(_, pov.gameId.some)

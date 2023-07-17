@@ -11,7 +11,7 @@ object layout:
       title: String,
       control: lila.video.UserControl,
       openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Modifier*)(using WebContext) =
+  )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("video"),
@@ -38,10 +38,9 @@ object layout:
             }
           ),
           div(cls := "under-tags")(
-            if (control.filter.tags.nonEmpty)
+            if control.filter.tags.nonEmpty then
               a(cls := "button button-empty", href := routes.Video.index)("Clear search")
-            else
-              a(dataIcon := licon.Tag, href := routes.Video.tags)("View more tags")
+            else a(dataIcon := licon.Tag, href := routes.Video.tags)("View more tags")
           )
         ),
         div(cls := "page-menu__content box")(body)

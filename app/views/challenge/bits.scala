@@ -11,34 +11,31 @@ import controllers.routes
 
 object bits:
 
-  def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using WebContext) =
-    frag(
-      jsModule("challengePage"),
-      embedJsUnsafeLoadThen(s"""challengePageStart(${safeJsonValue(
-          Json.obj(
-            "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
-            "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
-            "owner"     -> owner,
-            "data"      -> json
-          )
-        )})""")
+  def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using PageContext) =
+    jsModuleInit(
+      "challengePage",
+      Json.obj(
+        "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
+        "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
+        "owner"     -> owner,
+        "data"      -> json
+      )
     )
 
-  def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: WebContext) =
+  def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: PageContext) =
     div(cls := "details")(
       div(
         cls      := "variant",
         dataIcon := (if c.initialFen.isDefined then licon.Feather else c.perfType.icon)
       )(
         div(
-          views.html.game.bits.variantLink(c.variant, c.perfType.some, c.initialFen),
+          views.html.game.bits.variantLink(c.variant, c.perfType, c.initialFen),
           br,
-          span(cls := "clock")(
-            c.daysPerTurn map { days =>
-              if (days.value == 1) trans.oneDay()
-              else trans.nbDays.pluralSame(days.value)
-            } getOrElse shortClockName(c.clock.map(_.config))
-          )
+          span(cls := "clock"):
+            c.daysPerTurn
+              .fold(shortClockName(c.clock.map(_.config))): days =>
+                if days.value == 1 then trans.oneDay()
+                else trans.nbDays.pluralSame(days.value)
         )
       ),
       div(cls := "mode")(

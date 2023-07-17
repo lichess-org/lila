@@ -107,7 +107,7 @@ final class StudySearchApi(
       case c: ESClientHttp =>
         {
           val sinceOption: Either[Unit, Option[LocalDate]] =
-            if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
+            if sinceStr == "reset" then Left(()) else Right(parseDate(sinceStr))
           val since = sinceOption match
             case Right(None) => sys error "Missing since date argument"
             case Right(Some(date)) =>
@@ -133,8 +133,7 @@ final class StudySearchApi(
             .mapAsyncUnordered(8) { study =>
               lila.common.LilaFuture.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
             }
-            .toMat(Sink.ignore)(Keep.right)
-            .run()
+            .runWith(Sink.ignore)
         } >> client.refresh
       case _ => funit
 

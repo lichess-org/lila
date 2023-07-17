@@ -14,7 +14,7 @@ object kaladin:
     case p if p < 80 => "orange"
     case _           => "red"
 
-  def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(using WebContext) =
+  def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(using PageContext) =
     views.html.base.layout(
       title = "Kaladin dashboard",
       moreCss = cssTag("mod.misc")
@@ -25,7 +25,7 @@ object kaladin:
           boxTop(
             h1(
               "Kaladin status: ",
-              if (dashboard.seenRecently) span(cls := "up")("Operational")
+              if dashboard.seenRecently then span(cls := "up")("Operational")
               else
                 span(cls := "down")(
                   dashboard.lastSeenAt.map { seenAt =>
@@ -61,10 +61,9 @@ object kaladin:
                   td(cls := "little")(entry.startedAt map { momentFromNow(_) }),
                   td(cls := "little completed")(entry.response.map(_.at) map { momentFromNow(_) }),
                   td {
-                    entry.queuedBy match {
+                    entry.queuedBy match
                       case KaladinUser.Requester.Mod(id) => userIdLink(id.some)
                       case requester                     => em(requester.name)
-                    }
                   },
                   entry.response.fold(td) { res =>
                     res.pred
@@ -92,8 +91,7 @@ object kaladin:
     div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
       header(
         span(cls := "title")(
-          a(href := routes.Irwin.kaladin)("Kaladin "),
-          strong(cls := "beta")("BETA")
+          a(href := routes.Irwin.kaladin)("Kaladin")
         ),
         div(cls := "infos")(
           p("Updated ", momentFromNowServer(response.at))

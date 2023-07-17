@@ -8,7 +8,7 @@ const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 
-export function start(opts: RacerOpts) {
+export function initModule(opts: RacerOpts) {
   const element = document.querySelector('.racer-app') as HTMLElement;
 
   let vnode: VNode;
@@ -30,5 +30,3 @@ export function start(opts: RacerOpts) {
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-
-(window as any).LichessRacer = { start };

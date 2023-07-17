@@ -7,6 +7,7 @@ import chess.{ Clock, Game as ChessGame, Situation, Speed }
 import lila.common.Days
 import lila.game.Game
 import lila.lobby.Color
+import lila.rating.PerfType
 
 private[setup] trait Config:
 
@@ -51,22 +52,25 @@ private[setup] trait Config:
   protected def justMakeClock =
     Clock.Config(
       Clock.LimitSeconds((time * 60).toInt),
-      if (clockHasTime) increment else Clock.IncrementSeconds(1)
+      if clockHasTime then increment else Clock.IncrementSeconds(1)
     )
 
   def makeDaysPerTurn: Option[Days] = (timeMode == TimeMode.Correspondence) option days
 
-trait Positional { self: Config =>
+  def makeSpeed: Speed = chess.Speed(makeClock)
+
+  def perfType: PerfType = PerfType(variant, makeSpeed)
+
+trait Positional:
+  self: Config =>
 
   def fen: Option[Fen.Epd]
 
   def strictFen: Boolean
 
-  lazy val validFen = variant != FromPosition || {
-    fen exists { f =>
+  lazy val validFen = variant != FromPosition ||
+    fen.exists: f =>
       Fen.read(f).exists(_ playable strictFen)
-    }
-  }
 
   def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] =
     val baseState = fen.ifTrue(variant.fromPosition) flatMap {
@@ -80,8 +84,8 @@ trait Positional { self: Config =>
           startedAtPly = sit.ply,
           clock = makeClock.map(_.toClock)
         )
-        if (Fen.write(game).isInitial) makeGame(chess.variant.Standard) -> none
-        else game                                                       -> baseState
+        if Fen.write(game).isInitial then makeGame(chess.variant.Standard) -> none
+        else game                                                          -> baseState
     }
     builder(chessGame) dmap { game =>
       state.fold(game) { case sit @ Situation.AndFullMoveNumber(Situation(board, _), _) =>
@@ -98,7 +102,6 @@ trait Positional { self: Config =>
         )
       }
     }
-}
 
 object Config extends BaseConfig
 

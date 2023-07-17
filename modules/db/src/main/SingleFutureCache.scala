@@ -12,7 +12,7 @@ final private class SingleFutureCache[A](compute: () => Fu[A], expireAfterMillis
 
   def get: Fu[A] =
     val now = nowMillis
-    if (now > expiresAt)
+    if now > expiresAt then
       expiresAt = now + expireAfterMillis
       current = compute()
     current

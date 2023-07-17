@@ -11,6 +11,7 @@ import standing from './standing';
 import * as boards from './boards';
 import podium from './podium';
 import playerInfo from './playerInfo';
+import flatpickr from 'flatpickr';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -113,7 +114,7 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
           value: ctrl.data.nextRound?.at || '',
         },
         hook: onInsert((el: HTMLInputElement) =>
-          window.LichessFlatpickr(el, {
+          flatpickr(el, {
             minDate: 'today',
             maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
             dateFormat: 'Z',
@@ -221,7 +222,7 @@ function confetti(data: SwissData): VNode | undefined {
   return data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id)
     ? h('canvas#confetti', {
         hook: {
-          insert: _ => lichess.loadScript('javascripts/confetti.js'),
+          insert: _ => lichess.loadIife('javascripts/confetti.js'),
         },
       })
     : undefined;

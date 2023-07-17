@@ -1,6 +1,7 @@
 package views.html.user
 
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -17,7 +18,7 @@ object perfStat:
   def apply(
       data: PerfStatData,
       ratingChart: Option[String]
-  )(using WebContext) =
+  )(using PageContext) =
     import data.*
     import stat.perfType
     views.html.base.layout(
@@ -25,17 +26,14 @@ object perfStat:
       robots = false,
       moreJs = frag(
         jsModule("user"),
-        ratingChart.map { rc =>
-          frag(
-            jsModule("chart.ratingHistory"),
-            embedJsUnsafeLoadThen {
-              s"LichessChartRatingHistory($rc,{singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'});"
-            }
+        ratingChart.map: rc =>
+          jsModuleInit(
+            "chart.ratingHistory",
+            s"{data:$rc,singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'}"
           )
-        }
       ),
       moreCss = cssTag("perf-stat")
-    ) {
+    ):
       main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(user, ranks, perfType.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
@@ -67,18 +65,17 @@ object perfStat:
           )
         )
       )
-    }
 
   private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(using
-      ctx: WebContext
+      ctx: Context
   ): Frag =
     st.section(cls := "glicko")(
       h2(
         trans.perfRatingX(
           strong(
-            if (perf.glicko.clueless) "?"
+            if perf.glicko.clueless then "?"
             else decimal(perf.glicko.rating).toString
           )
         ),
@@ -92,12 +89,12 @@ object perfStat:
         ". ",
         percentile.filter(_ != 0.0 && perf.glicko.provisional.no).map { percentile =>
           span(cls := "details")(
-            if (ctx is u) {
+            if ctx is u then
               trans.youAreBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
                 a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
-            } else {
+            else
               trans.userIsBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.show(u.username))(u.username),
                 a(href := routes.User.ratingDistribution(perfType.key, u.username.some))(
@@ -105,7 +102,6 @@ object perfStat:
                 ),
                 a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
-            }
           )
         }
       ),
@@ -113,8 +109,8 @@ object perfStat:
         progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if (perf.progress > 0) tag("green")(dataIcon := licon.ArrowUpRight)(perf.progress)
-          else if (perf.progress < 0) tag("red")(dataIcon := licon.ArrowDownRight)(-perf.progress)
+          if perf.progress > 0 then tag("green")(dataIcon := licon.ArrowUpRight)(perf.progress)
+          else if perf.progress < 0 then tag("red")(dataIcon := licon.ArrowDownRight)(-perf.progress)
           else "-"
         ),
         ". ",
@@ -190,7 +186,9 @@ object perfStat:
             ),
             tr(cls := "full")(
               th(disconnections()),
-              td(if (count.disconnects > count.all * 100 / 15) tag("red") else emptyFrag)(count.disconnects),
+              td(if count.disconnects > count.all * 100 / 15 then tag("red") else emptyFrag)(
+                count.disconnects
+              ),
               td(pct(count.disconnects, count.all))
             )
           )
@@ -219,11 +217,10 @@ object perfStat:
       case Some(from) =>
         fromXToY(
           a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientInstant(from.at)),
-          s.to match {
+          s.to match
             case Some(to) =>
               a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientInstant(to.at))
             case None => now()
-          }
         )
       case None => nbsp
 
@@ -233,7 +230,7 @@ object perfStat:
     div(cls := "streak")(
       h3(
         title(
-          if (s.v > 0) tag(color)(trans.nbGames.plural(s.v, strong(s.v)))
+          if s.v > 0 then tag(color)(trans.nbGames.plural(s.v, strong(s.v)))
           else "-"
         )
       ),
@@ -291,7 +288,7 @@ object perfStat:
       div(cls := "streak")(
         h3(
           title(
-            if (s.v > 0) trans.nbGames.plural(s.v, strong(s.v))
+            if s.v > 0 then trans.nbGames.plural(s.v, strong(s.v))
             else "-"
           )
         ),

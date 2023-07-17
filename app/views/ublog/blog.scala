@@ -13,7 +13,7 @@ object blog:
 
   import views.html.ublog.{ post as postView }
 
-  def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: WebContext) =
+  def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     val title = trans.ublog.xBlog.txt(user.username)
     views.html.base.layout(
       moreCss = cssTag("ublog"),
@@ -29,12 +29,12 @@ object blog:
       robots = netConfig.crawlable && blog.listed
     ) {
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
+        views.html.blog.bits.menu(none, (if ctx is user then "mine" else "community").some),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(trans.ublog.xBlog(userLink(user))),
             div(cls := "box__top__actions")(
-              if (ctx is user)
+              if ctx is user then
                 frag(
                   a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
                   postView.newPostLink
@@ -52,7 +52,7 @@ object blog:
             )
           ),
           standardFlash,
-          if (posts.nbResults > 0)
+          if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_) },
               pagerNext(posts, np => s"${routes.Ublog.index(user.username, np).url}")

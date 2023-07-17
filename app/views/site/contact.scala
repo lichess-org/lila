@@ -17,10 +17,10 @@ object contact:
 
   def contactEmailLinkEmpty(email: String = contactEmailInClear) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
-  def contactEmailLink(email: String = contactEmailInClear)(using WebContext) =
+  def contactEmailLink(email: String = contactEmailInClear)(using PageContext) =
     contactEmailLinkEmpty(email)(trans.clickToRevealEmailAddress())
 
-  private def reopenLeaf(prefix: String)(using WebContext) =
+  private def reopenLeaf(prefix: String)(using PageContext) =
     Leaf(
       s"$prefix-reopen",
       wantReopen(),
@@ -30,7 +30,7 @@ object contact:
       )
     )
 
-  private def howToReportBugs(using WebContext): Frag =
+  private def howToReportBugs(using PageContext): Frag =
     frag(
       ul(
         li(
@@ -49,7 +49,7 @@ object contact:
       p(howToReportBug())
     )
 
-  private def menu(using WebContext): Branch =
+  private def menu(using PageContext): Branch =
     Branch(
       "root",
       whatCanWeHelpYouWith(),
@@ -98,7 +98,7 @@ object contact:
               "title",
               wantTitle(),
               p(
-                a(href := routes.Page.master)(visitTitleConfirmation()),
+                a(href := routes.ContentPage.master)(visitTitleConfirmation()),
                 "."
               )
             ),
@@ -339,7 +339,7 @@ object contact:
 
   val dmcaUrl = "/dmca"
 
-  def apply()(using WebContext) =
+  def apply()(using PageContext) =
     page.layout(
       title = trans.contact.contact.txt(),
       active = "contact",

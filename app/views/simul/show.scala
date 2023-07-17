@@ -20,32 +20,30 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
       verdicts: Condition.WithVerdicts
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     val userIsHost = ctx.userId has sim.hostId
     views.html.base.layout(
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
-      moreJs = frag(
-        jsModule("simul"),
-        embedJsUnsafeLoadThen(s"""LichessSimul.start(${safeJsonValue(
-            Json.obj(
-              "data"          -> data,
-              "i18n"          -> bits.jsI18n(),
-              "socketVersion" -> socketVersion,
-              "userId"        -> ctx.userId,
-              "chat" -> chatOption.map { c =>
-                views.html.chat.json(
-                  c.chat,
-                  name = trans.chatRoom.txt(),
-                  timeout = c.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-                  localMod = userIsHost
-                )
-              },
-              "showRatings" -> ctx.pref.showRatings
+      moreJs = jsModuleInit(
+        "simul",
+        Json.obj(
+          "data"          -> data,
+          "i18n"          -> bits.jsI18n(),
+          "socketVersion" -> socketVersion,
+          "userId"        -> ctx.userId,
+          "chat" -> chatOption.map { c =>
+            views.html.chat.json(
+              c.chat,
+              name = trans.chatRoom.txt(),
+              timeout = c.timeout,
+              public = true,
+              resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
+              localMod = userIsHost
             )
-          )})""")
+          },
+          "showRatings" -> ctx.pref.showRatings
+        )
       )
     ):
       main(cls := "simul")(

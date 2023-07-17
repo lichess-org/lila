@@ -12,14 +12,15 @@ import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
-import lila.user.{ Me, User as UserModel }
+import lila.user.{ User as UserModel }
 import scala.annotation.nowarn
 
 final class Mod(
     env: Env,
     reportC: => report.Report,
     userC: => User
-) extends LilaController(env):
+)(using akka.stream.Materializer)
+    extends LilaController(env):
 
   private def modApi    = env.mod.api
   private def assessApi = env.mod.assessApi
@@ -35,6 +36,16 @@ final class Mod(
       yield sus.some
   }(reportC.onModAction)
 
+  def altMany = SecureBody(parse.tolerantText)(_.CloseAccount) { ctx ?=> me ?=>
+    import akka.stream.scaladsl.*
+    Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
+      .mapAsync(1): username =>
+        withSuspect(username): sus =>
+          modApi.setAlt(sus, true) >> (sus.user.enabled.yes so env.api.accountClosure.close(sus.user))
+      .runWith(Sink.ignore)
+      .void inject NoContent
+  }
+
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me ?=>
       withSuspect(username): sus =>
@@ -42,8 +53,8 @@ final class Mod(
     }(reportC.onModAction)
 
   def publicChat = Secure(_.PublicChatView) { ctx ?=> _ ?=>
-    env.mod.publicChat.all.map: (tournamentsAndChats, swissesAndChats) =>
-      Ok(html.mod.publicChat(tournamentsAndChats, swissesAndChats))
+    env.mod.publicChat.all.flatMap: (tournamentsAndChats, swissesAndChats) =>
+      Ok.page(html.mod.publicChat(tournamentsAndChats, swissesAndChats))
   }
 
   def publicChatTimeout = SecureOrScopedBody(_.ChatTimeout) { _ ?=> me ?=>
@@ -51,7 +62,7 @@ final class Mod(
       .bindFromRequest()
       .fold(
         form => BadRequest(form.errors mkString "\n"),
-        data => env.chat.api.userChat.publicTimeout(data)
+        data => env.chat.api.userChat.publicTimeout(data) inject NoContent
       )
   }
 
@@ -122,9 +133,9 @@ final class Mod(
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
     else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId) then
-      OptionFuRedirect(env.user.repo byId username): user =>
+      Found(env.user.repo byId username): user =>
         env.mod.impersonate.start(me, user)
-        fuccess(routes.User.show(user.username))
+        Redirect(routes.User.show(user.username))
     else notFound
   }
 
@@ -135,14 +146,14 @@ final class Mod(
         _ => redirect(username, mod = true),
         title =>
           modApi.setTitle(username, title) >>
-            env.mailer.automaticEmail.onTitleSet(username) >>-
+            env.mailer.automaticEmail.onTitleSet(username) andDo
             env.user.lightUserApi.invalidate(username.id) inject
             redirect(username, mod = false)
       )
   }
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       env.security.forms
         .modEmail(user)
         .bindFromRequest()
@@ -158,7 +169,7 @@ final class Mod(
     env.report.api.inquiries ofModId me.id flatMap {
       case None => Redirect(report.routes.Report.list)
       case Some(report) =>
-        env.user.repo byId report.user flatMapz { user =>
+        Found(env.user.repo byId report.user): user =>
           import lila.report.Room
           import lila.irc.IrcApi.ModDomain
           env.irc.api.inquiry(
@@ -174,9 +185,8 @@ final class Mod(
               case _ if Granter(_.BoostHunter) => ModDomain.Boost
               case _                           => ModDomain.Admin
             ,
-            room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
+            room = if report.isSpontaneous then "Spontaneous inquiry" else report.room.name
           ) inject NoContent
-        }
     }
   }
 
@@ -185,22 +195,24 @@ final class Mod(
 
   private def SendToZulip(username: UserStr, method: UserModel => Me ?=> Funit) =
     Secure(_.SendToZulip) { _ ?=> _ ?=>
-      env.user.repo byId username flatMapz { method(_) inject NoContent }
+      env.user.repo byId username orNotFound { method(_) inject NoContent }
     }
 
-  def table = Secure(_.ModLog) { ctx ?=> _ ?=>
-    modApi.allMods map { html.mod.table(_) }
+  def table = Secure(_.Admin) { ctx ?=> _ ?=>
+    Ok.pageAsync:
+      modApi.allMods.map(html.mod.table(_))
   }
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
-    env.mod.logApi.recentBy(me) map { html.mod.log(_) }
+    Ok.pageAsync:
+      env.mod.logApi.recentBy(me).map(html.mod.log(_))
   }
 
   private def communications(username: UserStr, priv: Boolean) =
     Secure { perms =>
       if priv then perms.ViewPrivateComms else perms.Shadowban
     } { ctx ?=> me ?=>
-      OptionFuOk(env.user.repo byId username): user =>
+      FoundPage(env.user.repo byId username): user =>
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)
@@ -230,15 +242,14 @@ final class Mod(
               env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
               } flatMap { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
-                if (priv)
-                  if (!inquiry.so(_.isRecentCommOf(Suspect(user))))
-                    env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
-                    if (isGranted(_.MonitoredMod))
-                      env.irc.api.monitorMod(
-                        "eyes",
-                        s"spontaneously checked out @${user.username}'s private comms",
-                        lila.irc.IrcApi.ModDomain.Comm
-                      )
+                if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
+                  env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
+                  if isGranted(_.MonitoredCommMod) then
+                    env.irc.api.monitorMod(
+                      "eyes",
+                      s"spontaneously checked out @${user.username}'s private comms",
+                      lila.irc.IrcApi.ModDomain.Comm
+                    )
                 env.appeal.api
                   .byUserIds(user.id :: logins.userLogins.otherUserIds)
                   .map: appeals =>
@@ -271,7 +282,7 @@ final class Mod(
     s"${routes.User.show(username.value).url}${mod so "?mod"}"
 
   def refreshUserAssess(username: UserStr) = Secure(_.MarkEngine) { ctx ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       assessApi.refreshAssessOf(user) >>
         env.irwin.irwinApi.requests.fromMod(Suspect(user)) >>
         env.irwin.kaladinApi.modRequest(Suspect(user)) >>
@@ -279,7 +290,7 @@ final class Mod(
   }
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
+    Found(env.user.repo byId username): user =>
       (isGranted(_.Appeals) so env.appeal.api.exists(user)) flatMap { isAppeal =>
         isAppeal.so(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
           case Some(ongoing) if ongoing.mod != me.id =>
@@ -290,10 +301,10 @@ final class Mod(
                   .flashFailure(s"Currently processed by ${mod.name}")
           case _ =>
             val f =
-              if (isAppeal) env.report.api.inquiries.appeal
+              if isAppeal then env.report.api.inquiries.appeal
               else env.report.api.inquiries.spontaneous
-            f(me, Suspect(user)) inject {
-              if (isAppeal) Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
+            f(Suspect(user)) inject {
+              if isAppeal then Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
               else redirect(user.username, mod = true)
             }
         }
@@ -301,42 +312,46 @@ final class Mod(
   }
 
   def gamify = Secure(_.GamifyView) { ctx ?=> _ ?=>
-    env.mod.gamify.leaderboards zip
-      env.mod.gamify.history(orCompute = true) map { case (leaderboards, history) =>
-        Ok(html.mod.gamify.index(leaderboards, history))
-      }
+    for
+      leaderboards <- env.mod.gamify.leaderboards
+      history      <- env.mod.gamify.history(orCompute = true)
+      page         <- renderPage(html.mod.gamify.index(leaderboards, history))
+    yield Ok(page)
   }
+
   def gamifyPeriod(periodStr: String) = Secure(_.GamifyView) { ctx ?=> _ ?=>
-    lila.mod.Gamify
-      .Period(periodStr)
-      .fold(notFound): period =>
-        env.mod.gamify.leaderboards.map: leaderboards =>
-          Ok(html.mod.gamify.period(leaderboards, period))
+    Found(lila.mod.Gamify.Period(periodStr)): period =>
+      Ok.pageAsync:
+        env.mod.gamify.leaderboards.map:
+          html.mod.gamify.period(_, period)
   }
 
   def activity = activityOf("team", "month")
 
   def activityOf(who: String, period: String) = Secure(_.GamifyView) { ctx ?=> me ?=>
-    env.mod
-      .activity(who, period)(me.user)
-      .map: activity =>
-        Ok(html.mod.activity(activity))
+    Ok.pageAsync:
+      env.mod.activity(who, period)(me.user).map(html.mod.activity(_))
   }
 
   def queues(period: String) = Secure(_.GamifyView) { ctx ?=> _ ?=>
-    env.mod
-      .queueStats(period)
-      .map: stats =>
-        Ok(html.mod.queueStats(stats))
+    Ok.pageAsync:
+      env.mod.queueStats(period).map(html.mod.queueStats(_))
   }
 
   def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
     UserSearch.form
       .bindFromRequest()
       .fold(
-        err => BadRequest(html.mod.search(err, Nil)),
-        query => env.mod.search(query) map { html.mod.search(UserSearch.form.fill(query), _) }
+        err => BadRequest.page(html.mod.search(err, Nil)),
+        query =>
+          Ok.pageAsync:
+            env.mod.search(query) map { html.mod.search(UserSearch.form.fill(query), _) }
       )
+  }
+
+  def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
+    Ok.pageAsync:
+      env.user.noteApi.search(q.trim, page, withDox = true).map(html.mod.search.notes(q, _))
   }
 
   def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> me ?=>
@@ -348,28 +363,24 @@ final class Mod(
         case Left(err)  => res flashFailure err
   }
 
-  protected[controllers] def searchTerm(q: String)(using WebContext, Me) =
-    env.mod
-      .search(q)
-      .map: users =>
-        Ok(html.mod.search(UserSearch.form fill q, users))
+  protected[controllers] def searchTerm(q: String)(using Context, Me) =
+    Ok.pageAsync:
+      env.mod.search(q).map(html.mod.search(UserSearch.form fill q, _))
 
   def print(fh: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
     val hash = FingerHash(fh)
     for
       uids       <- env.security.api recentUserIdsByFingerHash hash
       users      <- env.user.repo usersFromSecondary uids.reverse
-      withEmails <- env.user.repo withEmails users
+      withEmails <- env.user.api withEmails users
       uas        <- env.security.api.printUas(hash)
-    yield Ok(html.mod.search.print(hash, withEmails, uas, env.security.printBan blocks hash))
+      page <- renderPage(html.mod.search.print(hash, withEmails, uas, env.security.printBan blocks hash))
+    yield Ok(page)
   }
 
   def printBan(v: Boolean, fh: String) = Secure(_.PrintBan) { _ ?=> me ?=>
     val hash = FingerHash(fh)
-    env.security.printBan.toggle(hash, v) >>
-      env.security.api.recentUserIdsByFingerHash(hash) flatMap { userIds =>
-        env.irc.api.printBan(fh, v, userIds)
-      } inject Redirect(routes.Mod.print(fh))
+    env.security.printBan.toggle(hash, v) inject Redirect(routes.Mod.print(fh))
   }
 
   def singleIp(ip: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
@@ -378,9 +389,11 @@ final class Mod(
       for
         uids       <- env.security.api recentUserIdsByIp address
         users      <- env.user.repo usersFromSecondary uids.reverse
-        withEmails <- env.user.repo withEmails users
+        withEmails <- env.user.api withEmails users
         uas        <- env.security.api.ipUas(address)
-      yield Ok(html.mod.search.ip(address, withEmails, uas, env.security.firewall blocksIp address))
+        blocked = env.security.firewall blocksIp address
+        page <- renderPage(html.mod.search.ip(address, withEmails, uas, blocked))
+      yield Ok(page)
     }
   }
 
@@ -389,14 +402,9 @@ final class Mod(
       if v then env.security.firewall.blockIps
       else env.security.firewall.unblockIps
     val ipAddr = IpAddress from ip
-    op(ipAddr) >> (ipAddr so {
-      env.security.api.recentUserIdsByIp(_) flatMap { userIds =>
-        env.irc.api.ipBan(ip, v, userIds)
-      }
-    }) inject {
+    op(ipAddr.toList).inject:
       if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Mod.singleIp(ip))
-    }
   }
 
   def chatUser(username: UserStr) = Secure(_.ChatTimeout) { _ ?=> _ ?=>
@@ -406,18 +414,17 @@ final class Mod(
   }
 
   def permissions(username: UserStr) = Secure(_.ChangePermission) { _ ?=> _ ?=>
-    OptionOk(env.user.repo byId username):
+    FoundPage(env.user.repo byId username):
       html.mod.permissions(_)
   }
 
   def savePermissions(username: UserStr) = SecureBody(_.ChangePermission) { ctx ?=> me ?=>
     import lila.security.Permission
-    OptionFuResult(env.user.repo byId username): user =>
-      Form(
-        single("permissions" -> list(text.verifying(Permission.allByDbKey.contains)))
-      ).bindFromRequest()
+    Found(env.user.repo byId username): user =>
+      Form(single("permissions" -> list(text.verifying(Permission.allByDbKey.contains))))
+        .bindFromRequest()
         .fold(
-          _ => BadRequest(html.mod.permissions(user)),
+          _ => BadRequest.page(html.mod.permissions(user)),
           permissions =>
             val newPermissions = Permission(permissions) diff Permission(user.roles)
             modApi.setPermissions(user.username, Permission(permissions)) >> {
@@ -431,32 +438,33 @@ final class Mod(
 
   def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     get("q") match
-      case None => Ok(html.mod.emailConfirm("", none, none))
+      case None => Ok.page(html.mod.emailConfirm("", none, none))
       case Some(rawQuery) =>
         val query    = rawQuery.trim.split(' ').toList
         val email    = query.headOption.flatMap(EmailAddress.from)
         val username = query lift 1
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-          env.mod.search(q).map(_.filter(_.user.enabled.yes)) flatMap {
+          env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
             case List(UserModel.WithEmails(user, _)) =>
-              (!user.everLoggedIn).so {
-                lila.mon.user.register.modConfirmEmail.increment()
-                modApi.setEmail(user.id, setEmail)
-              } >>
-                env.user.repo.email(user.id).map { email =>
-                  Ok(html.mod.emailConfirm("", user.some, email)).some
+              for
+                _ <- (!user.everLoggedIn).so {
+                  lila.mon.user.register.modConfirmEmail.increment()
+                  modApi.setEmail(user.id, setEmail)
                 }
+                email <- env.user.repo.email(user.id)
+                page  <- renderPage(html.mod.emailConfirm("", user.some, email))
+              yield Ok(page).some
             case _ => fuccess(none)
           }
         email.so { em =>
           tryWith(em, em.value) orElse {
             username so { tryWith(em, _) }
           } recover lila.db.recoverDuplicateKey(_ => none)
-        } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none))
+        } getOrElse BadRequest.page(html.mod.emailConfirm(rawQuery, none, none))
   }
 
   def chatPanic = Secure(_.Shadowban) { ctx ?=> _ ?=>
-    html.mod.chatPanic(env.chat.panic.get)
+    Ok.page(html.mod.chatPanic(env.chat.panic.get))
   }
 
   def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me ?=>
@@ -470,19 +478,17 @@ final class Mod(
     env.mod.presets
       .get(group)
       .fold(notFound): setting =>
-        html.mod.presets(group, setting.form)
+        Ok.page(html.mod.presets(group, setting.form))
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>
-    env.mod.presets
-      .get(group)
-      .fold(notFound): setting =>
-        setting.form
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(html.mod.presets(group, err)),
-            v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
-          )
+    Found(env.mod.presets.get(group)): setting =>
+      setting.form
+        .bindFromRequest()
+        .fold(
+          err => BadRequest.page(html.mod.presets(group, err)),
+          v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
+        )
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>
@@ -491,7 +497,7 @@ final class Mod(
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me ?=>
     import lila.common.Json.given
-    env.user.repo byId username flatMapz { user =>
+    Found(env.user.repo byId username): user =>
       for
         logs      <- env.mod.logApi.userHistory(user.id)
         notes     <- env.socialInfo.fetchNotes(user)
@@ -506,32 +512,27 @@ final class Mod(
           "notes" -> notesJson
         )
       )
-    }
   }
 
   private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
-  private def OAuthMod[A](perm: Permission.Selector)(f: AnyContext ?=> Me ?=> Fu[Option[A]])(
-      thenWhat: A => (WebContext, Me) ?=> Fu[Result]
+  private def OAuthMod[A](perm: Permission.Selector)(f: Context ?=> Me ?=> Fu[Option[A]])(
+      thenWhat: A => (Context, Me) ?=> Fu[Result]
   ): EssentialAction =
     SecureOrScoped(perm) { ctx ?=> me ?=>
-      f.flatMapz: res =>
-        ctx match
-          case web: WebContext => thenWhat(res)(using web, me)
-          case _               => fuccess(jsonOkResult)
+      f.orNotFound: res =>
+        if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
   private def OAuthModBody[A](perm: Permission.Selector)(f: Me ?=> Fu[Option[A]])(
-      thenWhat: A => (WebBodyContext[?], Me) ?=> Fu[Result]
+      thenWhat: A => (BodyContext[?], Me) ?=> Fu[Result]
   ): EssentialAction =
     SecureOrScopedBody(perm) { ctx ?=> me ?=>
-      f.flatMapz: res =>
-        ctx match
-          case web: WebBodyContext[?] => thenWhat(res)(using web, me)
-          case _                      => fuccess(jsonOkResult)
+      f.orNotFound: res =>
+        if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
 
-  private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: WebContext, me: Me): Fu[Result] =
+  private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: Context, me: Me): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then redirect(username)
     else userC.renderModZoneActions(username)

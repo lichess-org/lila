@@ -10,7 +10,7 @@ import lila.tournament.Tournament
 
 object history:
 
-  def apply(freq: Freq, pager: Paginator[Tournament])(using WebContext) =
+  def apply(freq: Freq, pager: Paginator[Tournament])(using PageContext) =
     views.html.base.layout(
       title = "Tournament history",
       moreJs = infiniteScrollTag,
@@ -38,7 +38,7 @@ object history:
       )
     }
 
-  private def nameOf(f: Freq) = if (f == Freq.Weekend) "Elite" else f.name
+  private def nameOf(f: Freq) = if f == Freq.Weekend then "Elite" else f.name
 
   private val allFreqs = List(
     Freq.Unique,

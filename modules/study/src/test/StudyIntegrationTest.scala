@@ -1,7 +1,5 @@
 package lila.study
 
-import cats.syntax.all.*
-
 import chess.{ Square, White }
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }

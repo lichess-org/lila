@@ -1,6 +1,5 @@
 package lila.forum
 
-import reactivemongo.api.ReadPreference
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
@@ -36,15 +35,15 @@ final class ForumPaginator(
     Paginator(
       currentPage = page,
       maxPerPage = config.topicMaxPerPage,
-      adapter = new AdapterLike[TopicView] {
+      adapter = new AdapterLike[TopicView]:
 
         def nbResults: Fu[Int] =
-          if (categ.isTeam) topicRepo.coll countSel selector
+          if categ.isTeam then topicRepo.coll countSel selector
           else fuccess(1000)
 
         def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
           topicRepo.coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred): framework =>
+            .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> List(
                 Sort(Descending("updatedAt")),
@@ -66,5 +65,4 @@ final class ForumPaginator(
               yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, me)
 
         private def selector = topicRepo.forUser(me) byCategNotStickyQuery categ
-      }
     )

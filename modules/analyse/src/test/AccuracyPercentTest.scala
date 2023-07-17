@@ -4,9 +4,9 @@ import chess.{ ByColor, Color }
 import lila.tree.Eval.Cp
 import lila.common.Maths.isCloseTo
 
-class AccuracyPercentTest extends munit.FunSuite {
+class AccuracyPercentTest extends munit.FunSuite:
 
-  import AccuracyPercent._
+  import AccuracyPercent.*
   type AccMap = ByColor[AccuracyPercent]
 
   def compute(cps: List[Int]): Option[AccMap] =
@@ -102,4 +102,3 @@ class AccuracyPercentTest extends munit.FunSuite {
     assert(isCloseTo(a.black.value, 10d, 5d))
     assert(isCloseTo(a.white.value, 10d, 5d))
   }
-}

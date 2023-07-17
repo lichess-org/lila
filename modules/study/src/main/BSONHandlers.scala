@@ -48,10 +48,9 @@ object BSONHandlers:
 
   given BSONHandler[UciCharPair] = tryHandler[UciCharPair](
     { case BSONString(v) =>
-      v.toArray match {
+      v.toArray match
         case Array(a, b) => Success(UciCharPair(a, b))
         case _           => handlerBadValue(s"Invalid UciCharPair $v")
-      }
     },
     x => BSONString(x.toString)
   )
@@ -65,10 +64,10 @@ object BSONHandlers:
       case BSONString(name)                                                 => Comment.Author.External(name)
       case doc: Bdoc =>
         {
-          for {
+          for
             id   <- doc.getAsOpt[UserId]("id")
             name <- doc.getAsOpt[String]("name")
-          } yield Comment.Author.User(id, name)
+          yield Comment.Author.User(id, name)
         } err s"Invalid comment author $doc"
       case _ => Comment.Author.Unknown
     },
@@ -85,7 +84,7 @@ object BSONHandlers:
 
   private given BSON[Crazyhouse.Data] with
     private def writePocket(p: Crazyhouse.Pocket) =
-      p.values.flatMap { (role, nb) => List.fill(nb)(role.forsyth) }.mkString
+      p.flatMap((role, nb) => List.fill(nb)(role.forsyth)).mkString
     private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
     def reads(r: Reader) =
       Crazyhouse.Data(
@@ -313,10 +312,9 @@ object BSONHandlers:
 
   given BSONHandler[Tag] = tryHandler[Tag](
     { case BSONString(v) =>
-      v.split(":", 2) match {
+      v.split(":", 2) match
         case Array(name, value) => Success(Tag(name, value))
         case _                  => handlerBadValue(s"Invalid pgn tag $v")
-      }
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
@@ -354,22 +352,21 @@ object BSONHandlers:
   import Study.From
   private[study] given BSONHandler[From] = tryHandler[From](
     { case BSONString(v) =>
-      v.split(' ') match {
+      v.split(' ') match
         case Array("scratch")   => Success(From.Scratch)
         case Array("game", id)  => Success(From.Game(GameId(id)))
         case Array("study", id) => Success(From.Study(StudyId(id)))
         case Array("relay")     => Success(From.Relay(none))
         case Array("relay", id) => Success(From.Relay(StudyId(id).some))
         case _                  => handlerBadValue(s"Invalid from $v")
-      }
     },
     x =>
-      BSONString(x match {
+      BSONString(x match
         case From.Scratch   => "scratch"
         case From.Game(id)  => s"game $id"
         case From.Study(id) => s"study $id"
         case From.Relay(id) => s"relay${id.fold("")(" " + _)}"
-      })
+      )
   )
   import Settings.UserSelection
   private[study] given BSONHandler[UserSelection] = tryHandler[UserSelection](
@@ -402,7 +399,7 @@ object BSONHandlers:
       )
 
   given BSONDocumentReader[Chapter.Metadata] with
-    def readDocument(doc: Bdoc) = for {
+    def readDocument(doc: Bdoc) = for
       id    <- doc.getAsTry[StudyChapterId]("_id")
       name  <- doc.getAsTry[StudyChapterName]("name")
       setup <- doc.getAsTry[Chapter.Setup]("setup")
@@ -414,4 +411,4 @@ object BSONHandlers:
             .map(Outcome.fromResult)
         }
       hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
-    } yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)
+    yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)

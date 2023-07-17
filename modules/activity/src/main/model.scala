@@ -15,7 +15,7 @@ object model:
         case _                      => rp2O orElse rp1O
     def make(player: lila.game.LightPlayer) =
       player.rating map { rating =>
-        RatingProg(rating, rating + ~player.ratingDiff)
+        RatingProg(rating, rating.applyDiff(~player.ratingDiff))
       }
 
   case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]):

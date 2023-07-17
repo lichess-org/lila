@@ -9,7 +9,7 @@ import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
 import lila.report.Report.{ Id as ReportId }
-import lila.user.{ Me, User as UserModel }
+import lila.user.{ User as UserModel }
 
 final class Report(
     env: Env,
@@ -23,38 +23,32 @@ final class Report(
 
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
-    then Forbidden(html.site.message.streamingMod)
-    else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
+    then Forbidden.page(html.site.message.streamingMod)
+    else renderList(env.report.modFilters.get(me).fold("all")(_.key))
   }
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     env.report.modFilters.set(me, Room(room))
-    if Room(room).fold(true)(Room.isGrantedFor(me))
-    then renderList(me, room)
+    if Room(room).fold(true)(Room.isGranted)
+    then renderList(room)
     else notFound
   }
 
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(me: Me, room: String)(using WebContext) =
-    api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
+  private def renderList(room: String)(using Context, Me) =
+    api.openAndRecentWithFilter(12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
-        env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) inject
-          Ok:
-            html.report
-              .list(
-                reports.filter(r => lila.report.Reason.isGrantedFor(me)(r.report.reason)),
-                room,
-                scores,
-                streamers,
-                appeals
-              )
+        env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) >>
+          Ok.page:
+            val filteredReports = reports.filter(r => lila.report.Reason.isGranted(r.report.reason))
+            html.report.list(filteredReports, room, scores, streamers, appeals)
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     api.inquiries
-      .toggle(me, reportOrAppealId)
+      .toggle(reportOrAppealId)
       .flatMap: (prev, next) =>
         prev.filter(_.isAppeal).map(_.user).so(env.appeal.api.setUnreadById) inject
           next.fold(
@@ -66,11 +60,11 @@ final class Report(
   }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
-    if (inquiry.isRecentComm) Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
-    else if (inquiry.isComm) Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
+    if inquiry.isRecentComm then Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
+    else if inquiry.isComm then Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
-  protected[controllers] def onModAction(goTo: Suspect)(using ctx: WebBodyContext[?], me: Me): Fu[Result] =
+  protected[controllers] def onModAction(goTo: Suspect)(using ctx: BodyContext[?], me: Me): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then userC.renderModZoneActions(goTo.user.username)
     else
       api.inquiries
@@ -80,7 +74,7 @@ final class Report(
   protected[controllers] def onInquiryAction(
       inquiry: ReportModel,
       processed: Boolean = false
-  )(using ctx: WebBodyContext[?], me: Me): Fu[Result] =
+  )(using ctx: BodyContext[?], me: Me): Fu[Result] =
     val dataOpt = ctx.body.body match
       case AnyContentAsFormUrlEncoded(data) => data.some
       case _                                => none
@@ -101,7 +95,7 @@ final class Report(
             then Redirect(modC.userUrl(inquiry.user, mod = true))
             else
               api.inquiries
-                .toggleNext(me, inquiry.room)
+                .toggleNext(inquiry.room)
                 .map:
                   _.fold(redirectToList)(onInquiryStart)
           }
@@ -109,46 +103,48 @@ final class Report(
         else onInquiryStart(inquiry)
 
   def process(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> me ?=>
-    api byId id flatMap {
+    api byId id flatMap:
       _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
         inquiry.isAppeal.so(env.appeal.api.setReadById(inquiry.user)) >>
           api.process(inquiry) >>
           onInquiryAction(inquiry, processed = true)
-    }
   }
 
-  def xfiles(id: UserStr) = Secure(_.SeeReport) { _ ?=> _ ?=>
-    api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
+  def xfiles(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
+    api byId id flatMap:
+      _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
+        api.moveToXfiles(id) >> onInquiryAction(inquiry, processed = true)
   }
 
-  def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> me ?=>
+  def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> _ ?=>
     api
-      .snooze(me, id, dur)
+      .snooze(id, dur)
       .map:
         _.fold(Redirect(routes.Report.list))(onInquiryStart)
   }
 
   def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { _ ?=> me ?=>
-    OptionFuResult(env.user.repo byId username): user =>
-      api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
-        api.inquiries.toggle(me, Left(report.id)).void
-      }
+    Found(env.user.repo byId username): user =>
+      Found(api.currentCheatReport(lila.report.Suspect(user))): report =>
+        api.inquiries.toggle(Left(report.id)) inject NoContent
   }
 
   def form = Auth { _ ?=> _ ?=>
     getUserStr("username") so env.user.repo.byId flatMap { user =>
-      if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact)
+      if user.map(_.id) has UserModel.lichessId then Redirect(controllers.routes.Main.contact)
       else
-        env.report.forms.createWithCaptcha map { (form, captcha) =>
+        Ok.pageAsync:
+          val form = env.report.forms.create
           val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
             case (Some(u), Some(pid)) =>
-              form.fill(
-                lila.report
-                  .ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", GameId(""), "")
-              )
+              form.fill:
+                lila.report.ReportSetup(
+                  u.light,
+                  reason = ~get("reason"),
+                  text = s"$pid\n\n"
+                )
             case _ => form
-          Ok(html.report.form(filledForm, user, captcha))
-        }
+          html.report.form(filledForm, user)
     }
   }
 
@@ -157,13 +153,12 @@ final class Report(
       .bindFromRequest()
       .fold(
         err =>
-          getUserStr("username") so env.user.repo.byId flatMap { user =>
-            env.report.forms.anyCaptcha map { captcha =>
-              BadRequest(html.report.form(err, user, captcha))
-            }
-          },
+          for
+            user <- getUserStr("username") so env.user.repo.byId
+            page <- renderPage(html.report.form(err, user))
+          yield BadRequest(page),
         data =>
-          if data.user.id == me.id then notFound
+          if me.is(data.user.id) then notFound
           else
             api.create(data, Reporter(me)) inject
               Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
@@ -176,10 +171,9 @@ final class Report(
       .fold(
         _ => BadRequest,
         data =>
-          env.user.repo byId data.username flatMapz { user =>
-            if (user == me) BadRequest
+          Found(env.user.repo byId data.username): user =>
+            if user == me then BadRequest
             else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
-          }
       )
   }
 
@@ -188,7 +182,8 @@ final class Report(
       .get("reported")
       .flatMap(UserStr.read)
       .fold(Redirect("/").toFuccess): reported =>
-        env.relation.api.fetchBlocks(me, reported.id) map { blocked =>
-          html.report.thanks(reported.id, blocked)
-        }
+        Ok.pageAsync:
+          env.relation.api.fetchBlocks(me, reported.id) map {
+            html.report.thanks(reported.id, _)
+          }
   }

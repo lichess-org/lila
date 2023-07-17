@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">イベント中継</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="other">%s ブロードキャスト</item>
+  </plurals>
   <string name="liveBroadcasts">実戦トーナメントのライブ中継</string>
   <string name="newBroadcast">新しいライブ中継</string>
   <string name="addRound">ラウンドを追加</string>
@@ -19,12 +22,15 @@
   <string name="startDate">開始日付（あなたの現地時間）</string>
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
   <string name="credits">ソースを表示する</string>
-  <string name="resetRound">このラウンドをリセット</string>
-  <string name="deleteRound">このラウンドを削除</string>
   <string name="broadcastUrl">ブロードキャスト URL</string>
   <string name="currentRoundUrl">現在のラウンドの URL</string>
   <string name="currentGameUrl">現在のゲームの URL</string>
   <string name="downloadAllRounds">全ラウンドをダウンロード</string>
+  <string name="resetRound">このラウンドをリセット</string>
+  <string name="deleteRound">このラウンドを削除</string>
   <string name="definitivelyDeleteRound">このラウンドのゲームをすべて削除する。</string>
   <string name="deleteAllGamesOfThisRound">このラウンドのすべてのゲームを削除します。復活させるには情報源がアクティブでなくてはなりません。</string>
+  <string name="editRoundStudy">ラウンドの研究を編集</string>
+  <string name="deleteTournament">このトーナメントを削除</string>
+  <string name="definitivelyDeleteTournament">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
 </resources>

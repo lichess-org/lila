@@ -39,7 +39,7 @@ object leaderboard:
       )
     )
 
-  def apply(winners: lila.tournament.AllWinners)(using WebContext) =
+  def apply(winners: lila.tournament.AllWinners)(using PageContext) =
     views.html.base.layout(
       title = "Tournament leaderboard",
       moreCss = cssTag("tournament.leaderboard"),

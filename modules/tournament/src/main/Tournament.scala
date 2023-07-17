@@ -48,10 +48,10 @@ case class Tournament(
   def isTeamBattle = teamBattle.isDefined
 
   def name(full: Boolean = true)(using Lang): String =
-    if (isMarathon || isUnique) name
-    else if (isTeamBattle && full) lila.i18n.I18nKeys.tourname.xTeamBattle.txt(name)
-    else if (isTeamBattle) name
-    else schedule.fold(if (full) s"$name Arena" else name)(_.name(full))
+    if isMarathon || isUnique then name
+    else if isTeamBattle && full then lila.i18n.I18nKeys.tourname.xTeamBattle.txt(name)
+    else if isTeamBattle then name
+    else schedule.fold(if full then s"$name Arena" else name)(_.name(full))
 
   def isMarathon =
     schedule.map(_.freq) exists {
@@ -108,16 +108,15 @@ case class Tournament(
   def perfType: PerfType = PerfType(variant, speed)
 
   def durationString =
-    if (minutes < 60) s"${minutes}m"
-    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${minutes % 60}m" else "")
+    if minutes < 60 then s"${minutes}m"
+    else s"${minutes / 60}h" + (if minutes % 60 != 0 then s" ${minutes % 60}m" else "")
 
   def berserkable = !noBerserk && clock.berserkable
   def streakable  = !noStreak
 
   def clockStatus =
-    secondsToFinish pipe { s =>
+    secondsToFinish.pipe: s =>
       "%02d:%02d".format(s / 60, s % 60)
-    }
 
   def schedulePair = schedule map { this -> _ }
 
@@ -133,7 +132,7 @@ case class Tournament(
 
   def nonLichessCreatedBy = (createdBy != User.lichessId) option createdBy
 
-  def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
+  def ratingVariant = if variant.fromPosition then chess.variant.Standard else variant
 
   def startingPosition = position flatMap Thematic.byFen
 

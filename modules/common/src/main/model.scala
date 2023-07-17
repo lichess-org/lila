@@ -10,12 +10,13 @@ import ornicar.scalalib.SecureRandom
 opaque type ApiVersion = Int
 object ApiVersion extends OpaqueInt[ApiVersion]:
   def puzzleV2(v: ApiVersion) = v >= 6
-  val mobile: ApiVersion      = 10
+  val lichobile: ApiVersion   = 6
+  val mobile: ApiVersion      = 10 // i.e. github.com/lichess-org/mobile
 
 opaque type AssetVersion = String
 object AssetVersion extends OpaqueString[AssetVersion]:
   var current        = random
-  def change()       = { current = random }
+  def change()       = current = random
   private def random = AssetVersion(SecureRandom nextString 6)
 
 opaque type Bearer = String
@@ -36,7 +37,7 @@ case class IpV6Address(value: String) extends IpAddress:
 
 object IpAddress:
   private def parse(str: String): Try[IpAddress] = Try {
-    if (str.contains(".")) IpV4Address(parseIPv4Address(str).toString)
+    if str.contains(".") then IpV4Address(parseIPv4Address(str).toString)
     else IpV6Address(parseIPv6Address(str).toString)
   }
   def from(str: String): Option[IpAddress] = parse(str).toOption

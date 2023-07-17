@@ -12,15 +12,14 @@ object created:
 
   private val path = "created"
 
-  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using WebContext) =
+  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using PageContext) =
     bits.layout(
       u = u,
       title = s"${u.username} created tournaments",
       path = path,
       moreJs = infiniteScrollTag
     ) {
-      if (pager.nbResults == 0)
-        div(cls := "box-pad")(u.username, " hasn't created any tournament yet!")
+      if pager.nbResults == 0 then div(cls := "box-pad")(u.username, " hasn't created any tournament yet!")
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(

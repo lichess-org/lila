@@ -8,7 +8,7 @@ import lila.common.HTTPRequest
 
 trait RequestGetter:
 
-  private given (using ctx: AnyContext): RequestHeader = ctx.req
+  private given (using ctx: Context): RequestHeader = ctx.req
 
   protected def get(name: String)(using req: RequestHeader): Option[String] =
     HTTPRequest.queryStringGet(req, name)

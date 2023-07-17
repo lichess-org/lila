@@ -15,6 +15,7 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     teamSearch: lila.hub.actors.TeamSearch,
     userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     modLog: ModlogApi,
     notifyApi: NotifyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
@@ -23,16 +24,11 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
     db: lila.db.Db
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    mode: play.api.Mode,
-    materializer: akka.stream.Materializer
-):
+)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer):
 
-  lazy val teamRepo    = new TeamRepo(db(CollName("team")))
-  lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
-  lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
+  lazy val teamRepo    = TeamRepo(db(CollName("team")))
+  lazy val memberRepo  = MemberRepo(db(CollName("team_member")))
+  lazy val requestRepo = RequestRepo(db(CollName("team_request")))
 
   lazy val forms = wire[TeamForm]
 
@@ -54,9 +50,18 @@ final class Env(
 
   lazy val api = wire[TeamApi]
 
+  def cli: lila.common.Cli = new:
+    def process =
+      case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
+        for
+          team <- teamRepo byId TeamId(teamId) orFail s"Team $teamId not found"
+          userIds = members.split(',').flatMap(UserStr.read).map(_.id)
+          _ <- api.addMembers(team, userIds)
+        yield s"Added ${userIds.size} members to team ${team.name}"
+
   lila.common.Bus.subscribeFuns(
     "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-      api.deleteRequestsByUserId(userId).unit
+      api.deleteRequestsByUserId(userId)
     },
     "teamIsLeader" -> { case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
       promise completeWith cached.isLeader(teamId, userId)

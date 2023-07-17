@@ -7,10 +7,10 @@ import alleycats.Zero
 opaque type Allows = Int
 object Allows extends OpaqueInt[Allows]:
   extension (e: Allows)
-    def push: Boolean   = (e & NotificationPref.PUSH) != 0
-    def web: Boolean    = (e & NotificationPref.WEB) != 0
-    def device: Boolean = (e & NotificationPref.DEVICE) != 0
-    def bell: Boolean   = (e & NotificationPref.BELL) != 0
+    def push: Boolean   = (e & PUSH) != 0
+    def web: Boolean    = (e & WEB) != 0
+    def device: Boolean = (e & DEVICE) != 0
+    def bell: Boolean   = (e & BELL) != 0
     def any: Boolean    = e != 0
 
   given Zero[Allows] = Zero(Allows(0))
@@ -20,6 +20,8 @@ object Allows extends OpaqueInt[Allows]:
 
   def toForm(allows: Allows): Some[(Boolean, Boolean)] =
     Some((allows.bell, allows.push))
+
+  val all = Allows(BELL | WEB | DEVICE | PUSH)
 
 case class NotifyAllows(userId: UserId, allows: Allows)
 

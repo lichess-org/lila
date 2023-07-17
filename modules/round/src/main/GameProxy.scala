@@ -21,7 +21,7 @@ final private class GameProxy(
   def save(progress: Progress): Funit =
     set(progress.game)
     dirtyProgress = dirtyProgress.fold(progress.dropEvents)(_ withGame progress.game).some
-    if (shouldFlushProgress(progress)) flushProgress()
+    if shouldFlushProgress(progress) then flushProgress()
     else fuccess(scheduleFlushProgress())
 
   def update(f: Game => Game): Funit =
@@ -79,7 +79,8 @@ final private class GameProxy(
 
   private def scheduleFlushProgress(): Unit =
     scheduledFlush.cancel()
-    scheduledFlush = scheduler.scheduleOnce(scheduleDelay) { flushProgress().unit }
+    scheduledFlush = scheduler.scheduleOnce(scheduleDelay):
+      flushProgress()
 
   private def flushProgress(): Funit =
     scheduledFlush.cancel()

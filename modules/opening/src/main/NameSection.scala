@@ -1,7 +1,6 @@
 package lila.opening
 
 import chess.opening.{ Opening, OpeningName }
-import cats.data.NonEmptyList
 
 opaque type NameSection = String
 object NameSection extends OpaqueString[NameSection]:

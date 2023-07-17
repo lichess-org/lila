@@ -5,6 +5,7 @@ import { Prop } from 'common';
 import type { Palantir } from 'palantir';
 
 export interface ChatOpts {
+  el: Element;
   data: ChatData;
   writeable: boolean;
   kobold: boolean;
@@ -18,7 +19,6 @@ export interface ChatOpts {
   preset?: string;
   noteId?: string;
   noteText?: string;
-  loadCss: (url: string) => void;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
 }

@@ -7,12 +7,12 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
 import lila.memo.PicfitApi
 import lila.security.Granter
-import lila.user.{ User, UserRepo, Me }
+import lila.user.{ User, UserApi, Me }
 
 final class UblogApi(
     colls: UblogColls,
     rank: UblogRank,
-    userRepo: UserRepo,
+    userApi: UserApi,
     picfitApi: PicfitApi,
     timeline: lila.hub.actors.Timeline,
     irc: lila.irc.IrcApi
@@ -21,35 +21,39 @@ final class UblogApi(
   import UblogBsonHandlers.{ *, given }
 
   def create(data: UblogForm.UblogPostData)(using me: Me): Fu[UblogPost] =
-    val post = data.create(me.user)
+    val post = data.create(me.value)
     colls.post.insert.one(
       bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(me.userId))
     ) inject post
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
-    getUserBlog(me.user, insertMissing = true) flatMap { blog =>
-      val post = data.update(me.user, prev)
+    getUserBlog(me.value, insertMissing = true) flatMap { blog =>
+      val post = data.update(me.value, prev)
       colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty) so onFirstPublish(me.user, blog, post)
+        (post.live && prev.lived.isEmpty) so onFirstPublish(me.value, blog, post)
       } inject post
     }
 
   private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
-    rank.computeRank(blog, post).so { rank =>
-      colls.post.updateField($id(post.id), "rank", rank).void
-    } >>- {
-      lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-      if (blog.visible)
-        timeline ! Propagate(
-          lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
-        ).toFollowersOf(user.id)
-        if (blog.modTier.isEmpty) sendPostToZulipMaybe(user, post).unit
-    }
+    rank
+      .computeRank(blog, post)
+      .so: rank =>
+        colls.post.updateField($id(post.id), "rank", rank).void
+      .andDo:
+        lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+        if blog.visible then
+          timeline ! Propagate(
+            lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
+          ).toFollowersOf(user.id)
+          if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)) getOrElse {
-      val blog = UblogBlog make user
-      (insertMissing so colls.blog.insert.one(blog).void) inject blog
+      userApi
+        .withPerfs(user)
+        .flatMap: user =>
+          val blog = UblogBlog make user
+          (insertMissing so colls.blog.insert.one(blog).void) inject blog
     }
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
@@ -68,7 +72,7 @@ final class UblogApi(
     colls.post
       .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
+      .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
@@ -88,14 +92,14 @@ final class UblogApi(
     colls.post
       .find($doc("live" -> true), previewPostProjection.some)
       .sort($doc("rank" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
+      .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
   def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("blog" -> blog, "live" -> true, "_id" $ne post.id), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
+      .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
   def postPreview(id: UblogPostId) =
@@ -140,14 +144,13 @@ final class UblogApi(
       .void
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
-    colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](temporarilyPrimary)
+    colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
-    if (v) fuccess(UblogBlog.Tier.HIDDEN)
-    else userRepo.byId(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
-  } flatMap {
+    if v then fuccess(UblogBlog.Tier.HIDDEN)
+    else userApi.withPerfs(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
+  }.flatMap:
     setTier(UblogBlog.Id.User(userId), _)
-  }
 
   def canBlog(u: User) =
     !u.isBot && {

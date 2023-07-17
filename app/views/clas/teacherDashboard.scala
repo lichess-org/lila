@@ -13,9 +13,9 @@ object teacherDashboard:
 
   private[clas] def layout(
       c: Clas,
-      students: List[Student.WithUser],
+      students: List[Student.WithUserLike],
       active: String
-  )(modifiers: Modifier*)(using WebContext) =
+  )(modifiers: Modifier*)(using PageContext) =
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
@@ -34,21 +34,19 @@ object teacherDashboard:
         )
       ),
       standardFlash,
-      c.archived map { archived =>
+      c.archived.map: archived =>
         div(cls := "clas-show__archived archived")(
           bits.showArchived(archived),
-          postForm(action := clasRoutes.archive(c.id.value, v = false))(
+          postForm(action := clasRoutes.archive(c.id.value, v = false)):
             form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
-          )
-        )
-      },
+        ),
       modifiers
     )
 
   def overview(
       c: Clas,
-      students: List[Student.WithUser]
-  )(using WebContext) =
+      students: List[Student.WithUserPerfs]
+  )(using PageContext) =
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
         c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc)),
@@ -68,9 +66,9 @@ object teacherDashboard:
 
   def students(
       c: Clas,
-      all: List[Student.WithUser],
+      all: List[Student.WithUserPerfs],
       invites: List[ClasInvite]
-  )(using WebContext) =
+  )(using PageContext) =
     layout(c, all.filter(_.student.isActive), "students"):
       val archived = all.filter(_.student.isArchived)
       val inviteBox =
@@ -93,8 +91,8 @@ object teacherDashboard:
                   )
           )
       val archivedBox =
-        if (archived.isEmpty)
-          div(cls := "box__pad students__empty")(h2(trans.clas.noRemovedStudents()))
+        if archived.isEmpty
+        then div(cls := "box__pad students__empty")(h2(trans.clas.noRemovedStudents()))
         else
           div(cls := "box__pad")(
             h2(trans.clas.removedStudents()),
@@ -102,7 +100,7 @@ object teacherDashboard:
           )
       frag(inviteBox, archivedBox)
 
-  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using WebContext) =
+  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using PageContext) =
     layout(c, students, active)(
       div(cls := "box__pad students__empty")(
         p(
@@ -120,9 +118,9 @@ object teacherDashboard:
 
   def progress(
       c: Clas,
-      students: List[Student.WithUser],
+      students: List[Student.WithUserPerf],
       progress: ClasProgress
-  )(using WebContext) =
+  )(using PageContext) =
     layout(c, students, "progress")(
       progressHeader(c, progress.some),
       div(cls := "students")(
@@ -133,28 +131,28 @@ object teacherDashboard:
                 trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.txt(progress.days)),
                 dataSortNumberTh(trans.rating()),
                 dataSortNumberTh(trans.clas.progress()),
-                dataSortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
-                if (progress.isPuzzle) dataSortNumberTh(trans.clas.winrate())
+                dataSortNumberTh(if progress.isPuzzle then trans.puzzles() else trans.games()),
+                if progress.isPuzzle then dataSortNumberTh(trans.clas.winrate())
                 else dataSortNumberTh(trans.clas.timePlaying()),
                 th
               )
             ),
             tbody(
-              students.sortBy(_.user.username.value).map { case s @ Student.WithUser(_, user) =>
-                val prog = progress(user)
+              students.sortBy(_.user.username.value).map { case s @ Student.WithUserPerf(_, user, perf) =>
+                val prog = progress(user withPerf perf)
                 tr(
                   studentTd(c, s),
-                  td(dataSort := user.perfs(progress.perfType).intRating, cls := "rating")(
-                    user.perfs(progress.perfType).showRatingProvisional
+                  td(dataSort := perf.intRating, cls := "rating")(
+                    perf.showRatingProvisional
                   ),
                   td(dataSort := prog.ratingProgress)(
                     ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
                   ),
                   td(prog.nb),
-                  if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
+                  if progress.isPuzzle then td(dataSort := prog.winRate)(prog.winRate, "%")
                   else td(dataSort := prog.millis)(showDuration(prog.duration)),
                   td(
-                    if (progress.isPuzzle)
+                    if progress.isPuzzle then
                       a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
                         trans.puzzle.puzzleDashboard()
                       )
@@ -177,7 +175,7 @@ object teacherDashboard:
       basicCompletion: Map[UserId, Int],
       practiceCompletion: Map[UserId, Int],
       coordScores: Map[UserId, chess.ByColor[Int]]
-  )(using WebContext) =
+  )(using PageContext) =
     layout(c, students, "progress")(
       progressHeader(c, none),
       div(cls := "students")(
@@ -216,7 +214,7 @@ object teacherDashboard:
       )
     )
 
-  private def progressHeader(c: Clas, progress: Option[ClasProgress])(using WebContext) =
+  private def progressHeader(c: Clas, progress: Option[ClasProgress])(using PageContext) =
     div(cls := "progress")(
       div(cls := "progress-perf")(
         label(trans.variant()),
@@ -254,10 +252,10 @@ object teacherDashboard:
       }
     )
 
-  private def studentList(c: Clas, students: List[Student.WithUser])(using WebContext) =
+  private def studentList(c: Clas, students: List[Student.WithUserPerfs])(using Context) =
     div(cls := "students")(
       table(cls := "slist slist-pad sortable")(
-        thead(
+        thead:
           tr(
             th(dataSortDefault)(trans.clas.nbStudents(students.size)),
             dataSortNumberTh(trans.rating()),
@@ -266,37 +264,30 @@ object teacherDashboard:
             dataSortNumberTh(trans.clas.lastActiveDate()),
             th(iconTag(licon.Shield)(title := trans.clas.managed.txt()))
           )
-        ),
-        tbody(
-          students.sortBy(_.user.username.value).map { case s @ Student.WithUser(student, user) =>
+        ,
+        tbody:
+          students.sortBy(_.user.username.value).map { case s @ Student.WithUserPerfs(student, user, perfs) =>
             tr(
               studentTd(c, s),
-              td(dataSort := user.perfs.bestRating, cls := "rating")(user.bestAny3Perfs.map {
-                showPerfRating(user, _)
-              }),
+              td(dataSort := perfs.bestRating, cls := "rating")(perfs.bestAny3Perfs.map:
+                showPerfRating(perfs, _)
+              ),
               td(user.count.game.localize),
-              td(user.perfs.puzzle.nb),
+              td(perfs.puzzle.nb),
               td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce)),
               td(
-                dataSort := (if (student.managed) 1 else 0),
+                dataSort := (if student.managed then 1 else 0),
                 student.managed option iconTag(licon.Shield)(title := trans.clas.managed.txt())
               )
             )
           }
-        )
       )
     )
 
-  private def studentTd(c: Clas, s: Student.WithUser)(using WebContext) =
-    td(
-      a(href := clasRoutes.studentShow(c.id.value, s.user.username))(
-        userSpan(
-          s.user,
-          name = span(
-            s.user.username,
-            em(s.student.realName)
-          ).some,
-          withTitle = false
-        )
+  private def studentTd(c: Clas, s: Student.WithUserLike)(using Context) = td:
+    a(href := clasRoutes.studentShow(c.id.value, s.user.username)):
+      userSpan(
+        s.user,
+        name = span(s.user.username, em(s.student.realName)).some,
+        withTitle = false
       )
-    )

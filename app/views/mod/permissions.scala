@@ -9,14 +9,14 @@ import controllers.routes
 
 object permissions:
 
-  def apply(u: User)(using ctx: WebContext, me: Me) =
+  def apply(u: User)(using ctx: PageContext, me: Me) =
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
         cssTag("mod.permission"),
         cssTag("form3")
       )
-    ) {
+    ):
       val userPerms = Permission(u.roles)
       main(cls := "mod-permissions page-small box box-pad")(
         boxTop(h1(userLink(u), " permissions")),
@@ -59,4 +59,3 @@ object permissions:
           )
         )
       )
-    }

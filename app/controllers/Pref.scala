@@ -13,11 +13,12 @@ final class Pref(env: Env) extends LilaController(env):
   private def forms = lila.pref.PrefForm
 
   def apiGet = Scoped(_.Preference.Read) { _ ?=> me ?=>
-    env.pref.api.getPref(me) map { prefs =>
+    env.pref.api.get(me) map { prefs =>
       JsonOk:
         import play.api.libs.json.*
-        import lila.pref.JsonView.given
-        Json.obj("prefs" -> prefs).add("language" -> me.lang)
+        Json
+          .obj("prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false))
+          .add("language" -> me.lang)
     }
   }
 
@@ -33,20 +34,23 @@ final class Pref(env: Env) extends LilaController(env):
         Auth { ctx ?=> me ?=>
           lila.pref.PrefCateg(categSlug) match
             case None if categSlug == "notification" =>
-              env.notifyM.api.prefs.form(me) map { form =>
-                Ok(html.account.notification(form))
-              }
+              Ok.pageAsync:
+                env.notifyM.api.prefs.form(me) map {
+                  html.account.notification(_)
+                }
             case None        => notFound
-            case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ))
+            case Some(categ) => Ok.page(html.account.pref(me, forms prefOf ctx.pref, categ))
         }
 
   def formApply = AuthBody { ctx ?=> _ ?=>
-    def onSuccess(data: lila.pref.PrefForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
-    forms.pref
+    def onSuccess(data: lila.pref.PrefForm.PrefData) =
+      api.setPref(data(ctx.pref)) inject Ok("saved")
+    val form = forms.pref(lichobile = HTTPRequest.isLichobile(req))
+    form
       .bindFromRequest()
       .fold(
         _ =>
-          forms.pref
+          form
             .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
             .fold(
               err => BadRequest(err.toString).toFuccess,
@@ -99,7 +103,7 @@ final class Pref(env: Env) extends LilaController(env):
     "keyboardMove" -> (forms.keyboardMove -> save("keyboardMove"))
   )
 
-  private def save(name: String)(value: String, ctx: WebContext): Fu[Cookie] =
+  private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me so {
       api.setPrefString(_, name, value)
     } inject env.lilaCookie.session(name, value)(using ctx.req)

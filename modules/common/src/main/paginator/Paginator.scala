@@ -19,7 +19,7 @@ final class Paginator[A] private[paginator] (
     (currentPage < nbPages && currentPageResults.nonEmpty) option (currentPage + 1)
 
   def nbPages: Int =
-    if (maxPerPage.value > 0) (nbResults + maxPerPage.value - 1) / maxPerPage.value
+    if maxPerPage.value > 0 then (nbResults + maxPerPage.value - 1) / maxPerPage.value
     else 0
 
   def hasToPaginate: Boolean = nbResults > maxPerPage.value
@@ -85,13 +85,13 @@ object Paginator:
       currentPage: Int = 1,
       maxPerPage: MaxPerPage = MaxPerPage(10)
   )(using Executor): Validated[String, Fu[Paginator[A]]] =
-    if (currentPage < 1) Validated.invalid("Current page must be greater than zero")
-    else if (maxPerPage.value <= 0) Validated.invalid("Max per page must be greater than zero")
+    if currentPage < 1 then Validated.invalid("Current page must be greater than zero")
+    else if maxPerPage.value <= 0 then Validated.invalid("Max per page must be greater than zero")
     else
-      Validated.valid(for {
+      Validated.valid(for
         nbResults <- adapter.nbResults
         safePage = currentPage.squeeze(1, Math.ceil(nbResults.toDouble / maxPerPage.value).toInt)
         // would rather let upstream code know the value they passed in was bad.
         // unfortunately can't do that without completing nbResults, so ig it's on them to check after
         results <- adapter.slice((safePage - 1) * maxPerPage.value, maxPerPage.value)
-      } yield new Paginator(safePage, maxPerPage, results, nbResults))
+      yield new Paginator(safePage, maxPerPage, results, nbResults))

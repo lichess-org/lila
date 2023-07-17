@@ -12,7 +12,7 @@ import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
 
-  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using WebContext) =
+  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using PageContext) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -22,14 +22,16 @@ object form:
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")(
-            if (fields.isTeamBattle) trans.arena.newTeamBattle()
+            if fields.isTeamBattle then trans.arena.newTeamBattle()
             else trans.createANewTournament()
           ),
-          postForm(cls := "form3", action := routes.Tournament.create)(
+          postForm(cls := "form3", action := routes.Tournament.webCreate)(
             div(cls := "form-group")(
-              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("event-tips"))(
-                trans.ourEventTips()
-              )
+              a(
+                dataIcon := licon.InfoCircle,
+                cls      := "text",
+                href     := routes.ContentPage.loneBookmark("event-tips")
+              )(trans.ourEventTips())
             ),
             form3.globalError(form),
             fields.name,
@@ -55,7 +57,7 @@ object form:
       )
     }
 
-  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using WebContext) =
+  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using PageContext) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -70,7 +72,7 @@ object form:
             form3.split(fields.rated, fields.variant),
             fields.clock,
             form3.split(
-              if (TournamentForm.minutes contains tour.minutes) form3.split(fields.minutes)
+              if TournamentForm.minutes contains tour.minutes then form3.split(fields.minutes)
               else
                 form3.group(form("minutes"), trans.duration(), half = true)(
                   form3.input(_)(tpe := "number")
@@ -106,7 +108,7 @@ object form:
       fields: TourFields,
       teams: List[LeaderTeam],
       tour: Option[Tournament]
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     frag(
       form3.split(
         fields.entryCode,
@@ -180,7 +182,7 @@ object form:
       tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
 
-final private class TourFields(form: Form[?], tour: Option[Tournament])(using WebContext):
+final private class TourFields(form: Form[?], tour: Option[Tournament])(using PageContext):
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 
@@ -191,7 +193,7 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using We
       div(
         form3.input(f),
         " ",
-        if (isTeamBattle) "Team Battle" else "Arena",
+        if isTeamBattle then "Team Battle" else "Arena",
         br,
         small(cls := "form-help")(
           trans.safeTournamentName(),

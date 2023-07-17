@@ -13,7 +13,6 @@ function init() {
       $board = $captcha.find('.mini-board'),
       $input = $captcha.find('input').val(''),
       cg = domData.get($board[0]!, 'chessground') as ChessgroundApi;
-
     if (!cg) {
       failed = true;
       return;

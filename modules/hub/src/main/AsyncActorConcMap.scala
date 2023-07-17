@@ -25,16 +25,16 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
   def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 
   def askIfPresent[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[Option[A]] =
-    getIfPresent(id).so:
-      _ ask makeMsg dmap some
+    getIfPresent(id).soFu:
+      _ ask makeMsg
 
   def askIfPresentOrZero[A: Zero](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] =
-    askIfPresent(id)(makeMsg).dmap(~_)
+    askIfPresent(id)(makeMsg).dmap(_.orZero)
 
   def exists(id: Id): Boolean = asyncActors.get(id) != null
 
   def foreachKey(f: Id => Unit): Unit =
-    asyncActors.forEachKey(16, k => f(k))
+    asyncActors.forEachKey(16, f(_))
 
   def tellAllWithAck(makeMsg: Promise[Unit] => Matchable)(using Executor): Fu[Int] =
     asyncActors.values.asScala
@@ -45,27 +45,22 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
   def size: Int = asyncActors.size()
 
   def loadOrTell(id: Id, load: () => D, tell: D => Unit): Unit =
-    asyncActors
-      .compute(
-        id,
-        (_, a) =>
-          Option(a).fold(load()) { present =>
-            tell(present)
-            present
-          }
-      )
-      .unit
+    asyncActors.compute(
+      id,
+      (_, a) =>
+        Option(a).fold(load()) { present =>
+          tell(present)
+          present
+        }
+    )
 
   def terminate(id: Id, lastWill: AsyncActor => Unit): Unit =
-    asyncActors
-      .computeIfPresent(
-        id,
-        (_, d) => {
-          lastWill(d)
-          nullD
-        }
-      )
-      .unit
+    asyncActors.computeIfPresent(
+      id,
+      (_, d) =>
+        lastWill(d)
+        nullD
+    )
 
   private[this] val asyncActors = new ConcurrentHashMap[Id, D](initialCapacity)
 

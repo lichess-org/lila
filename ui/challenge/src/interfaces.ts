@@ -1,4 +1,5 @@
 export interface ChallengeOpts {
+  el: Element;
   data?: ChallengeData;
   show(): void;
   setCount(nb: number): void;

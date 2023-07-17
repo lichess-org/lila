@@ -6,8 +6,7 @@ import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
-  const kbd = window.Mousetrap;
-  if (!kbd) return;
+  const kbd = window.lichess.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
       control.prev(ctrl);
@@ -42,8 +41,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.treeView.toggle();
       ctrl.redraw();
     });
-
-  if (ctrl.embed) return;
 
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();

@@ -15,7 +15,7 @@ object index:
 
   import views.html.ublog.{ post as postView }
 
-  def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using WebContext) =
+  def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
       moreJs = posts.hasNextPage option infiniteScrollTag,
@@ -31,7 +31,7 @@ object index:
               postView.newPostLink
             )
           ),
-          if (posts.nbResults > 0)
+          if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, postView.editUrlOfPost) },
               pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
@@ -44,7 +44,7 @@ object index:
       )
     }
 
-  def friends(posts: Paginator[UblogPost.PreviewPost])(using WebContext) = list(
+  def friends(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
     title = "Friends blogs",
     posts = posts,
     menuItem = "friends",
@@ -52,7 +52,7 @@ object index:
     onEmpty = "Nothing to show. Follow some authors!"
   )
 
-  def liked(posts: Paginator[UblogPost.PreviewPost])(using WebContext) = list(
+  def liked(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
     title = "Liked blog posts",
     posts = posts,
     menuItem = "liked",
@@ -60,7 +60,7 @@ object index:
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost])(using WebContext) = list(
+  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
     title = s"Blog posts about $top",
     posts = posts,
     menuItem = "topics",
@@ -68,7 +68,7 @@ object index:
     onEmpty = "Nothing to show."
   )
 
-  def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(using ctx: WebContext) =
+  def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
@@ -112,7 +112,7 @@ object index:
               )
             )
           ),
-          if (posts.nbResults > 0)
+          if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, showAuthor = true) },
               pagerNext(
@@ -123,13 +123,12 @@ object index:
                     .url
               )
             )
-          else
-            div(cls := "ublog-index__posts--empty")("Nothing to show.")
+          else div(cls := "ublog-index__posts--empty")("Nothing to show.")
         )
       )
     }
 
-  def topics(tops: List[UblogTopic.WithPosts])(using WebContext) =
+  def topics(tops: List[UblogTopic.WithPosts])(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       title = "All blog topics"
@@ -161,7 +160,7 @@ object index:
       menuItem: String,
       route: Int => Call,
       onEmpty: => Frag
-  )(using WebContext) =
+  )(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
@@ -171,13 +170,12 @@ object index:
         views.html.blog.bits.menu(none, menuItem.some),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(h1(title)),
-          if (posts.nbResults > 0)
+          if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, showAuthor = true) },
               pagerNext(posts, np => route(np).url)
             )
-          else
-            div(cls := "ublog-index__posts--empty")(onEmpty)
+          else div(cls := "ublog-index__posts--empty")(onEmpty)
         )
       )
     }

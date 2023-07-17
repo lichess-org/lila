@@ -1,6 +1,6 @@
 package lila.app
 
-import java.io._
+import java.io.*
 
 import play.api.{ Application, Environment, Play, Configuration, Mode }
 import play.core.server.{ RealServerProcess, ServerProcess, Server, ServerStartException, ServerConfig }
@@ -10,7 +10,7 @@ import play.api.inject.DefaultApplicationLifecycle
 // The program entry point.
 // To run with bloop:
 // /path/to/bloop run lila -m lila.app.Lila -c /path/to/lila/.bloop
-object Lila {
+object Lila:
 
   def main(args: Array[String]): Unit = start(new RealServerProcess(args.toIndexedSeq))
 
@@ -96,8 +96,7 @@ object Lila {
         val address = configuration.getOptional[String]("play.server.http.address").getOrElse("0.0.0.0")
 
         val mode =
-          if (configuration.getOptional[String]("play.mode").contains("prod")) Mode.Prod
+          if configuration.getOptional[String]("play.mode").contains("prod") then Mode.Prod
           else Mode.Dev
 
         ServerConfig(rootDir, httpPort, address, mode, process.properties, configuration)
-}

@@ -12,12 +12,11 @@ import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Me, User }
 
 case class UserInfo(
-    user: User,
+    user: User.WithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
     ratingChart: Option[String],
     nbs: UserInfo.NbGames,
-    nbFollowers: Int,
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
@@ -50,7 +49,7 @@ object UserInfo:
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
   ):
-    def apply(u: User)(using ctx: WebContext): Fu[Social] =
+    def apply(u: User)(using ctx: Context): Fu[Social] =
       ctx.userId.so {
         relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
       } zip
@@ -85,10 +84,10 @@ object UserInfo:
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
   ):
-    def apply(u: User, ctx: WebContext, withCrosstable: Boolean): Fu[NbGames] =
-      (withCrosstable so ctx.me.filterNot(u.is(_)) so { me =>
-        crosstableApi.withMatchup(me, u.id) dmap some
-      }).mon(_.user segment "crosstable") zip
+    def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
+      (withCrosstable so me
+        .filter(u.isnt(_))
+        .soFu(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user segment "crosstable"))) zip
         gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
         gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported") zip
         bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks") dmap {
@@ -105,6 +104,7 @@ object UserInfo:
       relationApi: RelationApi,
       postApi: ForumPostApi,
       ublogApi: UblogApi,
+      perfsRepo: lila.user.UserPerfsRepo,
       studyRepo: lila.study.StudyRepo,
       simulApi: lila.simul.SimulApi,
       relayApi: lila.relay.RelayApi,
@@ -117,9 +117,9 @@ object UserInfo:
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share
   )(using Executor):
-    def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: WebContext): Fu[UserInfo] =
+    def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart") zip
-        relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
+        perfsRepo.withPerfs(user) zip
         (!user.is(User.lichessId) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts")
         } zip
@@ -134,14 +134,13 @@ object UserInfo:
         (user.count.rated >= 10).so(insightShare.grant(user)) zip
         (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")) map {
           // format: off
-          case ((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
+          case ((((((((((((ratingChart, user), nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
           // format: on
-            new UserInfo(
+            UserInfo(
               user = user,
               nbs = nbs,
               hasSimul = hasSimul,
               ratingChart = ratingChart,
-              nbFollowers = nbFollowers,
               nbForumPosts = nbForumPosts,
               ublog = ublog,
               nbStudies = nbStudies,

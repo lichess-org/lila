@@ -29,16 +29,14 @@ case class Chapter(
 ) extends Chapter.Like:
 
   def updateRoot(f: Root => Option[Root]) =
-    f(root) map { newRoot =>
+    f(root).map: newRoot =>
       copy(root = newRoot)
-    }
 
   def addNode(node: Branch, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
-    updateRoot {
+    updateRoot:
       _.withChildren(_.addNodeAt(node, path))
-    } map {
+    .map:
       _.copy(relay = newRelay orElse relay)
-    }
 
   def setShapes(shapes: Shapes, path: UciPath): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
@@ -89,7 +87,7 @@ case class Chapter(
 
   def withoutChildren = copy(root = root.withoutChildren)
 
-  def withoutChildrenIfPractice = if (isPractice) copy(root = root.withoutChildren) else this
+  def withoutChildrenIfPractice = if isPractice then copy(root = root.withoutChildren) else this
 
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 

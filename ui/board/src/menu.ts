@@ -64,7 +64,6 @@ export class BoardMenu {
       id: 'voice',
       checked: toggle(),
       change: toggle,
-      cls: 'setting--nag',
       disabled: !enabled,
     });
 

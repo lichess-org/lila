@@ -87,7 +87,10 @@ export default class TournamentController {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        lichess.redirect('/' + gameId);
+        lichess.redirect(
+          '/' + gameId,
+          lichess.storage.boolean('pairingCountdown').get() ? 'countdown' : 'beep'
+        );
       }
     }, delay);
   };

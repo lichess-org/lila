@@ -303,7 +303,7 @@
           "cost": 0.8827586206896552
         },
         {
-          "to": "J",
+          "to": "O",
           "cost": 0.4
         }
       ]
@@ -628,37 +628,37 @@
       "in": "short castle",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "x!"
+      "tok": "{!"
     },
     {
       "in": "king side castle",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "Ky!"
+      "tok": "K|!"
     },
     {
       "in": "castle king side",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "!Ky"
+      "tok": "!K|"
     },
     {
       "in": "long castle",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "z!"
+      "tok": "}!"
     },
     {
       "in": "castle queen side",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "!Qy"
+      "tok": "!Q|"
     },
     {
       "in": "queen side castle",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "Qy!"
+      "tok": "Q|!"
     },
     {
       "in": "take",
@@ -761,10 +761,22 @@
       ]
     },
     {
+      "in": "takeback",
+      "val": "takeback",
+      "tags": ["command", "round"],
+      "tok": "+",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
       "in": "undo",
       "val": "takeback",
-      "tags": ["command"],
-      "tok": "+",
+      "tags": ["command", "round"],
+      "tok": "-",
       "subs": [
         {
           "to": "",
@@ -775,8 +787,8 @@
     {
       "in": "oops",
       "val": "takeback",
-      "tags": ["command"],
-      "tok": "-",
+      "tags": ["command", "round"],
+      "tok": ".",
       "subs": [
         {
           "to": "",
@@ -788,7 +800,7 @@
       "in": "draw",
       "val": "draw",
       "tags": ["command", "round"],
-      "tok": ".",
+      "tok": "/",
       "subs": [
         {
           "to": "",
@@ -800,19 +812,19 @@
       "in": "offer draw",
       "val": "draw",
       "tags": ["command", "round"],
-      "tok": "{."
+      "tok": "Ā/"
     },
     {
       "in": "accept draw",
       "val": "draw",
       "tags": ["command", "round"],
-      "tok": "|."
+      "tok": "F/"
     },
     {
       "in": "resign",
       "val": "resign",
       "tags": ["command", "round"],
-      "tok": "/",
+      "tok": "0",
       "subs": [
         {
           "to": "",
@@ -824,7 +836,7 @@
       "in": "rematch",
       "val": "rematch",
       "tags": ["command", "round"],
-      "tok": "0",
+      "tok": "9",
       "subs": [
         {
           "to": "",
@@ -836,7 +848,7 @@
       "in": "flip",
       "val": "flip",
       "tags": ["command"],
-      "tok": "9",
+      "tok": ":",
       "subs": [
         {
           "to": "",
@@ -848,7 +860,7 @@
       "in": "clock",
       "val": "clock",
       "tags": ["command", "round"],
-      "tok": ":",
+      "tok": ";",
       "subs": [
         {
           "to": "",
@@ -860,7 +872,7 @@
       "in": "opponent",
       "val": "who",
       "tags": ["command", "round"],
-      "tok": ";",
+      "tok": "<",
       "subs": [
         {
           "to": "",
@@ -872,7 +884,7 @@
       "in": "next",
       "val": "next",
       "tags": ["command", "puzzle"],
-      "tok": "<",
+      "tok": "=",
       "subs": [
         {
           "to": "",
@@ -884,7 +896,7 @@
       "in": "continue",
       "val": "next",
       "tags": ["command", "puzzle"],
-      "tok": "=",
+      "tok": ">",
       "subs": [
         {
           "to": "",
@@ -896,19 +908,19 @@
       "in": "thumbs up",
       "val": "upvote",
       "tags": ["command", "puzzle"],
-      "tok": "}Ā"
+      "tok": "āĂ"
     },
     {
       "in": "thumbs down",
       "val": "downvote",
       "tags": ["command", "puzzle"],
-      "tok": "}ā"
+      "tok": "āă"
     },
     {
       "in": "solution",
       "val": "solve",
       "tags": ["command", "puzzle"],
-      "tok": ">",
+      "tok": "?",
       "subs": [
         {
           "to": "",
@@ -920,7 +932,7 @@
       "in": "help",
       "val": "help",
       "tags": ["command"],
-      "tok": "?",
+      "tok": "@",
       "subs": [
         {
           "to": "",
@@ -932,7 +944,7 @@
       "in": "stop",
       "val": "stop",
       "tags": ["command"],
-      "tok": "@",
+      "tok": "A",
       "subs": [
         {
           "to": "",
@@ -944,19 +956,19 @@
       "in": "stop listening",
       "val": "mic-off",
       "tags": ["command"],
-      "tok": "@Ă"
+      "tok": "AĄ"
     },
     {
       "in": "stop recording",
       "val": "mic-off",
       "tags": ["command"],
-      "tok": "@ă"
+      "tok": "Aą"
     },
     {
       "in": "list",
       "val": "list",
       "tags": ["command"],
-      "tok": "A",
+      "tok": "C",
       "subs": [
         {
           "to": "",
@@ -968,19 +980,19 @@
       "in": "list moves",
       "val": "list",
       "tags": ["command"],
-      "tok": "AĄ"
+      "tok": "CĆ"
     },
     {
       "in": "show moves",
       "val": "list",
       "tags": ["command"],
-      "tok": "ąĄ"
+      "tok": "ćĆ"
     },
     {
       "in": "yes",
       "val": "yes",
       "tags": ["choice"],
-      "tok": "C",
+      "tok": "D",
       "subs": [
         {
           "to": "",
@@ -1000,7 +1012,19 @@
       "in": "confirm",
       "val": "yes",
       "tags": ["choice"],
-      "tok": "D",
+      "tok": "E",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "accept",
+      "val": "yes",
+      "tags": ["choice"],
+      "tok": "F",
       "subs": [
         {
           "to": "",
@@ -1012,7 +1036,7 @@
       "in": "no",
       "val": "no",
       "tags": ["choice"],
-      "tok": "E",
+      "tok": "G",
       "subs": [
         {
           "to": "",
@@ -1028,7 +1052,7 @@
       "in": "clear",
       "val": "no",
       "tags": ["choice"],
-      "tok": "F",
+      "tok": "H",
       "subs": [
         {
           "to": "",
@@ -1040,7 +1064,7 @@
       "in": "close",
       "val": "no",
       "tags": ["choice"],
-      "tok": "G",
+      "tok": "I",
       "subs": [
         {
           "to": "",
@@ -1052,7 +1076,19 @@
       "in": "cancel",
       "val": "no",
       "tags": ["choice"],
-      "tok": "H",
+      "tok": "J",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "decline",
+      "val": "no",
+      "tags": ["choice"],
+      "tok": "L",
       "subs": [
         {
           "to": "",
@@ -1064,7 +1100,7 @@
       "in": "abort",
       "val": "no",
       "tags": ["choice"],
-      "tok": "I",
+      "tok": "M",
       "subs": [
         {
           "to": "",
@@ -1076,7 +1112,7 @@
       "in": "blue",
       "val": "blue",
       "tags": ["color", "choice"],
-      "tok": "J",
+      "tok": "O",
       "subs": [
         {
           "to": "",
@@ -1096,7 +1132,7 @@
       "in": "green",
       "val": "green",
       "tags": ["color", "choice"],
-      "tok": "L",
+      "tok": "S",
       "subs": [
         {
           "to": "",
@@ -1116,7 +1152,7 @@
       "in": "yellow",
       "val": "yellow",
       "tags": ["color", "choice"],
-      "tok": "M",
+      "tok": "T",
       "subs": [
         {
           "to": "",
@@ -1128,7 +1164,7 @@
       "in": "red",
       "val": "red",
       "tags": ["color", "choice"],
-      "tok": "O",
+      "tok": "U",
       "subs": [
         {
           "to": "",
@@ -1144,7 +1180,7 @@
       "in": "pink",
       "val": "pink",
       "tags": ["color", "choice"],
-      "tok": "S",
+      "tok": "V",
       "subs": [
         {
           "to": "",
@@ -1156,7 +1192,7 @@
       "in": "purple",
       "val": "purple",
       "tags": ["color", "choice"],
-      "tok": "T",
+      "tok": "W",
       "subs": [
         {
           "to": "",
@@ -1168,7 +1204,7 @@
       "in": "orange",
       "val": "orange",
       "tags": ["color", "choice"],
-      "tok": "U",
+      "tok": "X",
       "subs": [
         {
           "to": "",
@@ -1180,7 +1216,7 @@
       "in": "brown",
       "val": "brown",
       "tags": ["color", "choice"],
-      "tok": "V",
+      "tok": "Y",
       "subs": [
         {
           "to": "",
@@ -1192,7 +1228,7 @@
       "in": "white",
       "val": "white",
       "tags": ["color", "choice"],
-      "tok": "W",
+      "tok": "Z",
       "subs": [
         {
           "to": "",
@@ -1208,7 +1244,7 @@
       "in": "alfa",
       "val": "a",
       "tags": ["file", "move", "phonetic"],
-      "tok": "X",
+      "tok": "[",
       "subs": [
         {
           "to": "",
@@ -1220,7 +1256,7 @@
       "in": "bravo",
       "val": "b",
       "tags": ["file", "move", "phonetic"],
-      "tok": "Y",
+      "tok": "\\",
       "subs": [
         {
           "to": "",
@@ -1232,7 +1268,7 @@
       "in": "charlie",
       "val": "c",
       "tags": ["file", "move", "phonetic"],
-      "tok": "Z",
+      "tok": "]",
       "subs": [
         {
           "to": "",
@@ -1244,7 +1280,7 @@
       "in": "delta",
       "val": "d",
       "tags": ["file", "move", "phonetic"],
-      "tok": "[",
+      "tok": "^",
       "subs": [
         {
           "to": "",
@@ -1256,7 +1292,7 @@
       "in": "echo",
       "val": "e",
       "tags": ["file", "move", "phonetic"],
-      "tok": "\\",
+      "tok": "_",
       "subs": [
         {
           "to": "",
@@ -1268,7 +1304,7 @@
       "in": "foxtrot",
       "val": "f",
       "tags": ["file", "move", "phonetic"],
-      "tok": "]",
+      "tok": "`",
       "subs": [
         {
           "to": "",
@@ -1280,7 +1316,7 @@
       "in": "golf",
       "val": "g",
       "tags": ["file", "move", "phonetic"],
-      "tok": "^",
+      "tok": "i",
       "subs": [
         {
           "to": "",
@@ -1292,7 +1328,7 @@
       "in": "hotel",
       "val": "h",
       "tags": ["file", "move", "phonetic"],
-      "tok": "_",
+      "tok": "j",
       "subs": [
         {
           "to": "",
@@ -1304,7 +1340,7 @@
       "in": "mate",
       "val": "",
       "tags": ["move", "ignore"],
-      "tok": "`",
+      "tok": "k",
       "subs": [
         {
           "to": "",
@@ -1324,7 +1360,7 @@
       "in": "check",
       "val": "",
       "tags": ["move", "ignore"],
-      "tok": "i",
+      "tok": "l",
       "subs": [
         {
           "to": "",
@@ -1336,7 +1372,7 @@
       "in": "puzzle",
       "val": "",
       "tags": ["ignore"],
-      "tok": "j",
+      "tok": "m",
       "subs": [
         {
           "to": "",
@@ -1348,7 +1384,7 @@
       "in": "lee",
       "val": "",
       "tags": ["ignore"],
-      "tok": "k",
+      "tok": "n",
       "subs": [
         {
           "to": "",
@@ -1360,7 +1396,7 @@
       "in": "chess",
       "val": "",
       "tags": ["ignore"],
-      "tok": "l",
+      "tok": "o",
       "subs": [
         {
           "to": "",
@@ -1372,7 +1408,7 @@
       "in": "and",
       "val": "",
       "tags": ["ignore"],
-      "tok": "m",
+      "tok": "p",
       "subs": [
         {
           "to": "",
@@ -1384,7 +1420,7 @@
       "in": "oh",
       "val": "",
       "tags": ["ignore"],
-      "tok": "n",
+      "tok": "q",
       "subs": [
         {
           "to": "",
@@ -1396,7 +1432,7 @@
       "in": "um",
       "val": "",
       "tags": ["ignore"],
-      "tok": "o",
+      "tok": "r",
       "subs": [
         {
           "to": "",
@@ -1408,7 +1444,7 @@
       "in": "uh",
       "val": "",
       "tags": ["ignore"],
-      "tok": "p",
+      "tok": "s",
       "subs": [
         {
           "to": "",
@@ -1420,7 +1456,7 @@
       "in": "hmm",
       "val": "",
       "tags": ["ignore"],
-      "tok": "q",
+      "tok": "t",
       "subs": [
         {
           "to": "",
@@ -1432,7 +1468,7 @@
       "in": "huh",
       "val": "",
       "tags": ["ignore"],
-      "tok": "r",
+      "tok": "u",
       "subs": [
         {
           "to": "",
@@ -1444,7 +1480,7 @@
       "in": "his",
       "val": "",
       "tags": ["ignore"],
-      "tok": "s",
+      "tok": "v",
       "subs": [
         {
           "to": "",
@@ -1456,7 +1492,7 @@
       "in": "her",
       "val": "",
       "tags": ["ignore"],
-      "tok": "t",
+      "tok": "w",
       "subs": [
         {
           "to": "",
@@ -1468,7 +1504,7 @@
       "in": "the",
       "val": "",
       "tags": ["ignore"],
-      "tok": "u",
+      "tok": "x",
       "subs": [
         {
           "to": "",
@@ -1492,7 +1528,7 @@
       "in": "their",
       "val": "",
       "tags": ["ignore"],
-      "tok": "v",
+      "tok": "y",
       "subs": [
         {
           "to": "",
@@ -1504,7 +1540,7 @@
       "in": "training",
       "val": "",
       "tags": ["ignore"],
-      "tok": "w",
+      "tok": "z",
       "subs": [
         {
           "to": "",
@@ -1514,7 +1550,7 @@
     },
     {
       "in": "short",
-      "tok": "x",
+      "tok": "{",
       "tags": ["part"],
       "subs": [
         {
@@ -1525,7 +1561,7 @@
     },
     {
       "in": "side",
-      "tok": "y",
+      "tok": "|",
       "tags": ["part"],
       "subs": [
         {
@@ -1536,7 +1572,7 @@
     },
     {
       "in": "long",
-      "tok": "z",
+      "tok": "}",
       "tags": ["part"],
       "subs": [
         {
@@ -1555,39 +1591,6 @@
     },
     {
       "in": "offer",
-      "tok": "{",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "accept",
-      "tok": "|",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "thumbs",
-      "tok": "}",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "up",
       "tok": "Ā",
       "tags": ["part"],
       "subs": [
@@ -1598,7 +1601,7 @@
       ]
     },
     {
-      "in": "down",
+      "in": "thumbs",
       "tok": "ā",
       "tags": ["part"],
       "subs": [
@@ -1609,7 +1612,7 @@
       ]
     },
     {
-      "in": "listening",
+      "in": "up",
       "tok": "Ă",
       "tags": ["part"],
       "subs": [
@@ -1620,7 +1623,7 @@
       ]
     },
     {
-      "in": "recording",
+      "in": "down",
       "tok": "ă",
       "tags": ["part"],
       "subs": [
@@ -1631,7 +1634,7 @@
       ]
     },
     {
-      "in": "moves",
+      "in": "listening",
       "tok": "Ą",
       "tags": ["part"],
       "subs": [
@@ -1642,8 +1645,30 @@
       ]
     },
     {
-      "in": "show",
+      "in": "recording",
       "tok": "ą",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "moves",
+      "tok": "Ć",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "show",
+      "tok": "ć",
       "tags": ["part"],
       "subs": [
         {

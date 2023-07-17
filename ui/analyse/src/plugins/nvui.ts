@@ -50,8 +50,8 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default (window as any).LichessAnalyseNvui = function (ctrl: AnalyseController) {
-  const notify = new Notify(ctrl.redraw),
+export function initModule(ctrl: AnalyseController) {
+  const notify = new Notify(),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
     prefixStyle = prefixSetting(),
@@ -63,10 +63,11 @@ export default (window as any).LichessAnalyseNvui = function (ctrl: AnalyseContr
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 
-  window.Mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
+  lichess.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
 
   return {
     render(): VNode {
+      notify.redraw = ctrl.redraw;
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.chessground)
@@ -283,7 +284,7 @@ export default (window as any).LichessAnalyseNvui = function (ctrl: AnalyseContr
       ]);
     },
   };
-};
+}
 
 const NOT_ALLOWED = 'local evaluation not allowed';
 const NOT_POSSIBLE = 'local evaluation not possible';

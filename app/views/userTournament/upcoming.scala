@@ -8,14 +8,13 @@ import lila.user.User
 
 object upcoming:
 
-  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using WebContext) =
+  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using PageContext) =
     bits.layout(
       u = u,
       title = s"${u.username} upcoming tournaments",
       path = "upcoming"
     ) {
-      if (pager.nbResults == 0)
-        div(cls := "box-pad")(u.username, " hasn't joined any tournament yet!")
+      if pager.nbResults == 0 then div(cls := "box-pad")(u.username, " hasn't joined any tournament yet!")
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(

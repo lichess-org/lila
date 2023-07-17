@@ -17,7 +17,7 @@ object bits:
     views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
 
   def jsI18n(streak: Boolean)(using Lang) =
-    if (streak) i18nJsObject(streakI18nKeys)
+    if streak then i18nJsObject(streakI18nKeys)
     else
       i18nJsObject(trainingI18nKeys) + {
         PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt())
@@ -32,7 +32,7 @@ object bits:
         "static"  -> static.mkString(" ")
       )
 
-  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: WebContext) =
+  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: PageContext) =
     val u = user.filterNot(ctx.is).map(_.username)
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.Puzzle.home)(

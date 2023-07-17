@@ -12,10 +12,10 @@ import lila.study.{ Order, Study }
 
 object bits:
 
-  def orderSelect(order: Order, active: String, url: String => Call)(using WebContext) =
+  def orderSelect(order: Order, active: String, url: String => Call)(using PageContext) =
     val orders =
-      if (active == "all") Order.withoutSelector
-      else if (active startsWith "topic") Order.list
+      if active == "all" then Order.withoutSelector
+      else if active startsWith "topic" then Order.list
       else Order.withoutMine
     views.html.base.bits.mselect(
       "orders",
@@ -25,7 +25,7 @@ object bits:
       }
     )
 
-  def newForm()(using WebContext) =
+  def newForm()(using PageContext) =
     postForm(cls := "new-study", action := routes.Study.create)(
       submitButton(
         cls      := "button button-green",
@@ -34,7 +34,7 @@ object bits:
       )
     )
 
-  def authLinks(active: String, order: Order)(using WebContext) =
+  def authLinks(active: String, order: Order)(using PageContext) =
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
       a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),
@@ -48,7 +48,7 @@ object bits:
       a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies())
     )
 
-  def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: WebContext) =
+  def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: PageContext) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
       div(cls := "top", dataIcon := licon.StudyBoard)(
@@ -59,7 +59,7 @@ object bits:
               iconTag(licon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
               " "
             ),
-            iconTag(if (s.liked) licon.Heart else licon.HeartOutline),
+            iconTag(if s.liked then licon.Heart else licon.HeartOutline),
             " ",
             s.study.likes.value,
             " • ",
@@ -73,7 +73,7 @@ object bits:
         ol(cls := "chapters")(
           s.chapters.map { name =>
             li(cls := "text", dataIcon := licon.DiscBigOutline)(
-              if (ctx.userId.exists(s.study.isMember)) name
+              if ctx.userId.exists(s.study.isMember) then name
               else removeMultibyteSymbols(name.value)
             )
           }
@@ -82,7 +82,7 @@ object bits:
           s.study.members.members.values
             .take(Study.previewNbMembers)
             .map { m =>
-              li(cls := "text", dataIcon := (if (m.canContribute) licon.RadioTower else licon.Eye))(
+              li(cls := "text", dataIcon := (if m.canContribute then licon.RadioTower else licon.Eye))(
                 titleNameOrId(m.id)
               )
             }

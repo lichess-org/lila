@@ -25,12 +25,12 @@ private object TutorBsonHandlers:
     quickHandler[Option[ValueCount[V]]](
       {
         case arr: BSONArray =>
-          for { v <- arr.getAsOpt[V](0); c <- arr.getAsOpt[Int](1) } yield ValueCount(v, c)
+          for v <- arr.getAsOpt[V](0); c <- arr.getAsOpt[Int](1) yield ValueCount(v, c)
         case _ => None
       },
       vcOpt =>
         {
-          for { vc <- vcOpt; v <- handler.writeOpt(vc.value) } yield $arr(v, BSONInteger(vc.count))
+          for vc <- vcOpt; v <- handler.writeOpt(vc.value) yield $arr(v, BSONInteger(vc.count))
         } getOrElse BSONNull
     )
 

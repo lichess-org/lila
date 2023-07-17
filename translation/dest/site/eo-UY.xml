@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" kun rondigo, bazita en nombro de inter-movoj ĝis sekva kapto aŭ peona movo</string>
   <string name="noGameFound">Neniu ludo trovita</string>
+  <string name="maxDepthReached">Maksimuma profundeco kulminas!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivi pli da ludoj de la menuo de preferoj?</string>
   <string name="openings">Ludkomencoj</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="openingEndgameExplorer">Esplorilo de malfermoj/finaĵoj</string>
   <string name="xOpeningExplorer">%s esplorilo de malfermoj</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Ludi unua malferme/finaĵe-esplorila movo</string>
   <string name="winPreventedBy50MoveRule">Venko blokita per la regulo pri 50-movoj</string>
   <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la regulo pri 50-movoj</string>
   <string name="winOr50MovesByPriorMistake">Venko aŭ 50 movoj de antaŭa eraro</string>
@@ -119,6 +121,7 @@
   <string name="memory">Memoro</string>
   <string name="infiniteAnalysis">Senfina analizo</string>
   <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
+  <string name="engineManager">Motora administranto</string>
   <string name="blunder">Erarego</string>
   <string name="mistake">Eraro</string>
   <string name="inaccuracy">Erareto</string>
@@ -150,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s ludo</item>
     <item quantity="other">%s ludoj</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rango trans %2$s ludo</item>
+    <item quantity="other">%1$s rangoj trans %2$s ludoj</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s paĝmarko</item>
@@ -342,6 +349,7 @@
   </plurals>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
+  <string name="noDrawBeforeSwissLimit">Vi ne povas egalvenki antaŭ 30 movoj estas luditaj en svisa turniro.</string>
   <string name="thematic">Tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s taksa ludo</item>
@@ -663,6 +671,7 @@
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>
   <string name="simulHostExtraTime">Plia tempo por la gastiganto</string>
   <string name="simulAddExtraTimePerPlayer">Aldoni komencan tempon al via horloĝo por ĉiu ludanto, kiu aliĝis al la samtempludo.</string>
+  <string name="simulHostExtraTimePerPlayer">Plia tempo por la gastiganto po ludanto</string>
   <string name="lichessTournaments">Turniroj de Lichess</string>
   <string name="tournamentFAQ">Oftaj demandoj pri la turnira areno</string>
   <string name="timeBeforeTournamentStarts">Tempo ĝis la turniro komenciĝas</string>
@@ -673,6 +682,11 @@
   <string name="keyGoToStartOrEnd">iri al komenco/fino</string>
   <string name="keyShowOrHideComments">(mal)montri komentojn</string>
   <string name="keyEnterOrExitVariation">eniru/forlasu variaĵon</string>
+  <string name="keyRequestComputerAnalysis">Peti komputilan analizon, Lerni de viaj eraroj</string>
+  <string name="keyNextLearnFromYourMistakes">Sekvo (Lerni de viaj eraroj)</string>
+  <string name="keyNextBlunder">Sekva erarego</string>
+  <string name="keyNextMistake">Sekva eraro</string>
+  <string name="keyNextInaccuracy">Sekva erareto</string>
   <string name="newTournament">Nova konkurso</string>
   <string name="tournamentHomeTitle">Ŝaka konkurso kun diversaj tempokontroloj kaj variaĵoj</string>
   <string name="tournamentHomeDescription">Ludu en rapidaj konkursoj! Aliĝu al oficialaj konkursoj aŭ kreu vian propran. Unminuta ŝako, Kvinminuta ŝako, Klasika ŝako, Ŝak960, Triŝako kaj aliaj variaĵoj haveblas por senfina ĝuo.</string>
@@ -770,6 +784,7 @@
   <string name="invalidFen">Nevalida FEN</string>
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
+  <string name="notificationsX">Sciigoj: %1$s</string>
   <string name="perfRatingX">Rango: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
@@ -864,6 +879,8 @@
   <string name="useTheReportForm">uzu la raportformularon</string>
   <string name="toRequestSupport">Por peti subtenon, %1$s</string>
   <string name="tryTheContactPage">provu la kontaktopaĝon</string>
+  <string name="makeSureToRead">Certe legos %1$s</string>
+  <string name="theForumEtiquette">la foruma etiketo</string>
   <string name="thisTopicIsArchived">Ĉi tiu temo eniris la arkivon kaj oni ne plu rajtas respondi.</string>
   <string name="joinTheTeamXToPost">Aliĝu al %1$s, por afiŝi en ĉi tiu forumo</string>
   <string name="teamNamedX">%1$s teamo</string>
@@ -888,8 +905,11 @@
   <string name="welcome">Bonvenon!</string>
   <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
+  <string name="coachManager">Trejnista administranto</string>
+  <string name="streamerManager">Filmprezentista administranto</string>
   <string name="cancelTournament">Nuligi la turniron</string>
   <string name="tournDescription">Turnira priskribo</string>
+  <string name="tournDescriptionHelp">Ĉu io ajn speciala, ke vi volas diri al la partoprenantoj? Provu teni ĝin mallonga. Markdown ligoj estas disponebla: [name](https://url)</string>
   <string name="ratedFormHelp">Ludoj estas rangaj
 kaj influas la rangojn de ludantoj</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
@@ -899,17 +919,26 @@ kaj influas la rangojn de ludantoj</string>
   <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
   <string name="onlyTitled">Nuraj titolaj ludantoj</string>
   <string name="onlyTitledHelp">Necesigi la oficiala titolo por aliĝi al la turniro</string>
+  <string name="positionInputHelp">Alglui validan FEN por komenci ĉiujn ludojn el donita pozicio.
+Tio nur funkcias por normaj ludoj, ne kun variantoj.
+Vi povas uzi la %s por krei FEN pozicio, tiam alglui ĝin ĉi tie.
+Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="cancelSimul">Nuligi la samtempludo</string>
+  <string name="simulHostcolor">Gastiganta koloro por ĉiu ludo</string>
   <string name="estimatedStart">Proksimuma komenca tempo</string>
+  <string name="simulFeatured">Prezenti ĉe %s</string>
   <string name="simulFeaturedHelp">Montri vian samtempludon al ĉiuj en %s. Malaktivigi por privataj samtempludoj.</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
   <string name="simulDescriptionHelp">Ĉu vi volas diri ion al la partoprenantoj?</string>
   <string name="markdownAvailable">%s estas havebla por pli progresinta sintakso.</string>
+  <string name="embedsAvailable">Algui luda URL aŭ studa ĉapitro URL enkorpigi ĝin.</string>
   <string name="inYourLocalTimezone">En via loka horzono</string>
   <string name="tournChat">Babilejo de turnira</string>
   <string name="noChat">Malaktivigi babilejon</string>
   <string name="onlyTeamLeaders">Nuraj teamaj gvidantoj</string>
   <string name="onlyTeamMembers">Nuraj teamaj membroj</string>
+  <string name="navigateMoveTree">Navigi la movarbon</string>
+  <string name="mouseTricks">Musaj lertaĵoj</string>
   <string name="toggleLocalAnalysis">Baskuligu lokan komputilan analizon</string>
   <string name="toggleAllAnalysis">Baskuligu ĉiujn komputilan analizon</string>
   <string name="playComputerMove">Ludi la plej bonan komputilan movon</string>
@@ -922,11 +951,16 @@ kaj influas la rangojn de ludantoj</string>
   <string name="cantDoThisTwice">Se vi fermos vian konton je la dua fojo, ne estos maniero por regajni ĝin.</string>
   <string name="emailAssociatedToaccount">Retpoŝtadreso, ke asociitas al la konto</string>
   <string name="sentEmailWithLink">Ni sendis retmesaĝon kun ligilo al vi.</string>
+  <string name="tournamentEntryCode">Turnira enirkodo</string>
   <string name="hangOn">Atendu!</string>
+  <string name="gameInProgress">Vi havas ludon en progreso kun %s.</string>
   <string name="abortTheGame">Ĉesigu ludon</string>
   <string name="resignTheGame">Rezignu la ludo</string>
+  <string name="youCantStartNewGame">Vi ne povas komenci novan ludon ĝis ĉi tiu finiĝos.</string>
   <string name="since">Ekde</string>
   <string name="until">Ĝis</string>
   <string name="lichessDbExplanation">Rangaj ludoj luditaj per Lichess</string>
+  <string name="switchSides">Ŝanĝi flankojn</string>
+  <string name="closingAccountWithdrawAppeal">Fermata de via konto estos eltiri vian apelacion</string>
   <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
 </resources>

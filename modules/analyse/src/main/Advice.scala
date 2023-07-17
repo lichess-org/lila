@@ -15,10 +15,11 @@ sealed trait Advice:
     withEval.so(evalComment so { c =>
       s"($c) "
     }) +
-      this.match {
+      (this.match
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
-      } + "." + {
+      )
+      + "." + {
         withBestMove.so:
           info.variation.headOption.so: move =>
             s" $move was best."
@@ -57,7 +58,7 @@ private[analyse] object CpAdvice:
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] =
-    for {
+    for
       cp     <- prev.cp
       infoCp <- info.cp
       prevWinningChances    = WinPercent.winningChances(cp)
@@ -66,7 +67,7 @@ private[analyse] object CpAdvice:
         info.color.fold(-d, d)
       }
       judgement <- winningChanceJudgements find { case (d, _) => d <= delta } map (_._2)
-    } yield CpAdvice(judgement, info, prev)
+    yield CpAdvice(judgement, info, prev)
 
 sealed abstract private[analyse] class MateSequence(val desc: String)
 private[analyse] case object MateCreated

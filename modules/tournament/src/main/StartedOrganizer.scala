@@ -13,45 +13,36 @@ final private class StartedOrganizer(
 
   var runCounter = 0
 
-  LilaScheduler(
-    "Tournament.StartedOrganizer",
-    _.Every(1 seconds),
-    _.AtMost(30 seconds),
-    _.Delay(26 seconds)
-  ) {
+  LilaScheduler("Tournament.StartedOrganizer", _.Every(1 seconds), _.AtMost(30 seconds), _.Delay(26 seconds)):
 
     val doAllTournaments = runCounter % 15 == 0
 
     tournamentRepo
-      .startedCursorWithNbPlayersGte {
-        if (doAllTournaments) none // every 15s, do all tournaments
-        else if (runCounter % 2 == 0) 50.some // every 2s, do all decent tournaments
+      .startedCursorWithNbPlayersGte:
+        if doAllTournaments then none // every 15s, do all tournaments
+        else if runCounter % 2 == 0 then 50.some // every 2s, do all decent tournaments
         else 1000.some // always do massive tournaments
-      }
       .documentSource()
-      .mapAsyncUnordered(4) { tour =>
+      .mapAsyncUnordered(4): tour =>
         processTour(tour) recover { case e: Exception =>
           logger.error(s"StartedOrganizer $tour", e)
           0
         }
-      }
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .addEffect { nb =>
-        if (doAllTournaments) lila.mon.tournament.started.update(nb).unit
+      .addEffect: nb =>
+        if doAllTournaments then lila.mon.tournament.started.update(nb)
         runCounter = runCounter + 1
-      }
       .monSuccess(_.tournament.startedOrganizer.tick)
       .void
-  }
 
   private def processTour(tour: Tournament): Funit =
-    if (tour.secondsToFinish <= 0) api finish tour
-    else if (api.killSchedule contains tour.id)
+    if tour.secondsToFinish <= 0 then api finish tour
+    else if api.killSchedule contains tour.id then
       api.killSchedule remove tour.id
       api finish tour
-    else if (tour.nbPlayers < 2) funit
-    else if (tour.nbPlayers < 30)
+    else if tour.nbPlayers < 2 then funit
+    else if tour.nbPlayers < 30 then
       playerRepo nbActivePlayers tour.id flatMap { nb =>
         (nb >= 2) so startPairing(tour, nb.some)
       }
@@ -62,7 +53,6 @@ final private class StartedOrganizer(
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
-        .flatMap { waiting =>
-          lila.mon.tournament.waitingPlayers.record(waiting.size).unit
+        .flatMap: waiting =>
+          lila.mon.tournament.waitingPlayers.record(waiting.size)
           api.makePairings(tour, waiting, smallTourNbActivePlayers)
-        }

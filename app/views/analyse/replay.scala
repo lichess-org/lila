@@ -30,7 +30,7 @@ object replay:
       userTv: Option[lila.user.User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
 
     import pov.*
 
@@ -123,19 +123,19 @@ object replay:
         ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(
-        analyseTag,
         analyseNvuiTag,
-        embedJsUnsafeLoadThen(s"""LichessAnalyse.boot(${safeJsonValue(
-            Json
-              .obj(
-                "data"   -> data,
-                "i18n"   -> jsI18n(),
-                "userId" -> ctx.userId,
-                "chat"   -> chatJson
-              )
-              .add("hunter" -> isGranted(_.ViewBlurs)) ++
-              views.html.board.bits.explorerAndCevalConfig
-          )})""")
+        analyseInit(
+          "replay",
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson
+            )
+            .add("hunter" -> isGranted(_.ViewBlurs)) ++
+            views.html.board.bits.explorerAndCevalConfig
+        )
       ),
       openGraph = povOpenGraph(pov).some
     )(
@@ -171,7 +171,7 @@ object replay:
               ),
               div(cls := "analyse__underboard__panels")(
                 game.analysable option div(cls := "computer-analysis")(
-                  if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
+                  if analysis.isDefined || analysisStarted then div(id := "acpl-chart")
                   else
                     postForm(
                       cls    := s"future-game-analysis${ctx.isAnon so " must-login"}",

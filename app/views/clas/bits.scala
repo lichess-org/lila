@@ -12,13 +12,13 @@ object bits:
       title: String,
       active: Either[Clas.WithStudents, String],
       student: Option[Student] = none
-  )(body: Modifier*)(using WebContext) =
+  )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("clas"),
       moreJs = jsModule("clas")
     )(
-      if (isGranted(_.Teacher))
+      if isGranted(_.Teacher) then
         main(cls := "page-menu")(
           st.nav(cls := "page-menu__menu subnav")(
             a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)(
@@ -48,7 +48,7 @@ object bits:
       else main(cls := "page-small box")(body)
     )
 
-  def showArchived(archived: Clas.Recorded)(using WebContext) =
+  def showArchived(archived: Clas.Recorded)(using PageContext) =
     div(
       trans.clas.removedByX(userIdLink(archived.by.some)),
       " ",

@@ -13,32 +13,34 @@ final class PoolApi(
     gameStarter: GameStarter,
     playbanApi: lila.playban.PlaybanApi,
     system: ActorSystem
-):
-
+)(using Executor):
   import PoolApi.*
   import PoolActor.*
 
-  private val actors: Map[PoolConfig.Id, ActorRef] = configs.map { config =>
-    config.id -> system.actorOf(
-      Props(new PoolActor(config, hookThieve, gameStarter)),
-      name = s"pool-${config.id}"
-    )
-  }.toMap
+  private val actors: Map[PoolConfig.Id, ActorRef] = configs
+    .map: config =>
+      config.id -> system
+        .actorOf(
+          Props(PoolActor(config, hookThieve, gameStarter)),
+          name = s"pool-${config.id}"
+        )
+    .toMap
 
-  val poolPerfTypes: Map[PoolConfig.Id, PerfType] =
-    configs.map { config =>
+  val poolPerfTypes: Map[PoolConfig.Id, PerfType] = configs
+    .map: config =>
       config.id -> config.perfType
-    }.toMap
+    .toMap
 
   def join(poolId: PoolConfig.Id, joiner: Joiner): Unit =
-    playbanApi.hasCurrentBan(joiner).dforeach {
-      case false =>
-        actors.foreach:
-          case (id, actor) if id == poolId =>
-            playbanApi.getRageSit(joiner.me).dforeach(actor ! Join(joiner, _))
-          case (_, actor) => actor ! Leave(joiner.me)
-      case _ =>
-    }
+    playbanApi
+      .hasCurrentBan(joiner)
+      .foreach:
+        case false =>
+          actors.foreach:
+            case (id, actor) if id == poolId =>
+              playbanApi.getRageSit(joiner.me).foreach(actor ! Join(joiner, _))
+            case (_, actor) => actor ! Leave(joiner.me)
+        case _ =>
 
   def leave(poolId: PoolConfig.Id, userId: UserId) = sendTo(poolId, Leave(userId))
 

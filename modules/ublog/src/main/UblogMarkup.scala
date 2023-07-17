@@ -14,7 +14,7 @@ final class UblogMarkup(
     cacheApi: CacheApi,
     netDomain: config.NetDomain,
     assetDomain: config.AssetDomain
-)(using ec: Executor, scheduler: Scheduler, mode: Mode):
+)(using Executor, Scheduler)(using mode: Mode):
 
   import UblogMarkup.*
 
@@ -36,13 +36,14 @@ final class UblogMarkup(
     assetDomain.some
   )
 
-  def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map { html =>
-    scalatags.Text.all.raw(html.value)
-  }
+  def apply(post: UblogPost) = cache
+    .get((post.id, post.markdown))
+    .map: html =>
+      scalatags.Text.all.raw(html.value)
 
   private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup"):
     _.maximumSize(2048)
-      .expireAfterWrite(if (mode == Mode.Prod) 15 minutes else 1 second)
+      .expireAfterWrite(if mode == Mode.Prod then 15 minutes else 1 second)
       .buildAsyncFuture: (id, markdown) =>
         Bus.ask("lpv")(AllPgnsFromText(markdown.value, _)) andThen { case scala.util.Success(pgns) =>
           pgnCache.putAll(pgns)

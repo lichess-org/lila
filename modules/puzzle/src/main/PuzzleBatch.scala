@@ -2,6 +2,7 @@ package lila.puzzle
 
 import lila.db.dsl.*
 import lila.user.Me
+import lila.rating.Perf
 
 // mobile app
 final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(using
@@ -10,21 +11,21 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
 
   import BsonHandlers.given
 
-  def nextForMe(difficulty: PuzzleDifficulty, nb: Int)(using Option[Me]): Fu[Vector[Puzzle]] =
+  def nextForMe(difficulty: PuzzleDifficulty, nb: Int)(using Option[Me], Perf): Fu[Vector[Puzzle]] =
     nextForMe(PuzzleAngle.mix, difficulty, nb)
 
   def nextForMe(
       angle: PuzzleAngle,
       difficulty: PuzzleDifficulty,
       nb: Int
-  )(using me: Option[Me]): Fu[Vector[Puzzle]] = (nb > 0).so:
-    me.fold(anonApi.getBatchFor(angle, difficulty, nb)): me =>
+  )(using me: Option[Me], perf: Perf): Fu[Vector[Puzzle]] = (nb > 0).so:
+    me.foldUse(anonApi.getBatchFor(angle, difficulty, nb)): me ?=>
       val tier =
-        if me.perfs.puzzle.nb > 5000 then PuzzleTier.good
+        if perf.nb > 5000 then PuzzleTier.good
         else if PuzzleDifficulty.isExtreme(difficulty) then PuzzleTier.good
         else PuzzleTier.top
       pathApi
-        .nextFor(me, angle, tier, difficulty, Set.empty)
+        .nextFor(angle, tier, difficulty, Set.empty)
         .orFail(s"No puzzle path for ${me.username} $tier")
         .flatMap: pathId =>
           colls.path:

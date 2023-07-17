@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">پەڕەی کەسی%s</string>
+  <string name="newPost">پەیامی نوێ</string>
+  <string name="editYourBlogPost">دەستکاریکردنی پەیامی پەڕەی تایبەتیت</string>
+  <string name="saveDraft">پاشەکەوتکردنی  ڕەشنووس</string>
+  <string name="postTitle">ناونیشانی پەیام</string>
+  <string name="postIntro">پێشەکی پەیام</string>
+  <string name="postBody">ناوەرۆکی پەیام</string>
+  <string name="drafts">ڕەشنووسەکان</string>
+  <string name="published">بڵاوکراوەکان</string>
+  <string name="createBlogDiscussion">چالاککردنی سەرنجدان</string>
+  <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت درووستدەکرێت بۆ ئەوەی خەڵک سەرنج لەسەر پەیامەکەت بدەن</string>
+  <string name="publishOnYourBlog">بڵاوکردنەوە لە پەڕەی کەسیدا</string>
+  <string name="xPublishedY">%1$s،%2$sبڵاوکردەوە</string>
+  <string name="thisPostIsPublished">ئەم پەیامە بڵاوکرایەوە</string>
+  <string name="thisIsADraft">ئەمە ڕەشنووسە</string>
+  <string name="moreBlogPostsBy">پەیامی زیاتر لەلایەن %s</string>
+  <string name="noPostsInThisBlogYet">هیچ پەیامێک نییە لەم پەڕە کەسییەدا، لە ئێستادا.</string>
+  <string name="noDrafts">هیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
+  <string name="latestBlogPosts">کۆتا پەیامەکانی پەڕەی کەسی</string>
+  <string name="uploadAnImageForYourPost">بەرزکردنەوەی وێنەیەک بۆ پەیامەکەت</string>
+  <string name="imageAlt">نوسینی جێگرەوە بۆ وێنە</string>
+  <string name="imageCredit">دروستکەری وێنە</string>
+  <string name="deleteBlog">سڕینەوەی ئەم پەیامە کەسییە بە دڵنیاییەوە</string>
+  <string name="deleteImage">سڕینەوەی وێنە</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">بەکارهێنانی وێنە لەم پەڕەئەلیکترۆنیانە بەتەواوەتی ڕێپێدراوە: </string>
+  <string name="selectPostTopics">دیاریکردنی ناونیشانی پەیامەکەت، کە دەربارەی</string>
+  <string name="useImagesYouMadeYourself">هەروەها دەتوانی ئەو وینانە بەکاربهێنی کە خۆت بەرهەمت هێناون، ئەو وێنانەی کە گرتووتن یان ئەو وێنە شاشەییانەی لە لیچێسەوە گرتووتن.. هەرشتێک کە خاوەندارێتی کەسیتری بەسەرەوە نەبێت.</string>
+  <string name="safeAndRespectfulContent">تکایە تەنیا بابەتی پارێزراو وە وە لەسنوری ڕێزدا بکە بە پەیام، بابتی کەسی تر لەبەر مەگرەوە.</string>
+  <string name="inappropriateContentAccountClosed">هەرشتێکی نەگوونجاو دەشێت ببێتە هۆی داخستنی هەژمارەکەت.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">پێشنیارە سادەکانی ئێمە بۆ نوسینی پەیامێکی کەسی بەهێز</string>
+</resources>

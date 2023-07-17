@@ -11,7 +11,7 @@ import lila.common.paginator.Paginator
 
 object topic:
 
-  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(using WebContext) =
+  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(using PageContext) =
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
@@ -46,7 +46,7 @@ object topic:
           ),
           p(
             trans.makeSureToRead(
-              strong(a(href := routes.Page.loneBookmark("forum-etiquette"))(trans.theForumEtiquette()))
+              strong(a(href := routes.ContentPage.loneBookmark("forum-etiquette"))(trans.theForumEtiquette()))
             )
           )
         ),
@@ -77,7 +77,7 @@ object topic:
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
@@ -127,11 +127,9 @@ object topic:
         ),
         pager,
         div(cls := "forum-topic__actions")(
-          if (topic.isOld)
-            p(trans.thisTopicIsArchived())
-          else if (formWithCaptcha.isDefined)
-            h2(id := "reply")(trans.replyToThisTopic())
-          else if (topic.closed) p(trans.thisTopicIsNowClosed())
+          if topic.isOld then p(trans.thisTopicIsArchived())
+          else if formWithCaptcha.isDefined then h2(id := "reply")(trans.replyToThisTopic())
+          else if topic.closed then p(trans.thisTopicIsNowClosed())
           else
             teamOnly.map { teamId =>
               p(
@@ -140,13 +138,14 @@ object topic:
                 )
               )
             } orElse {
-              if (ctx.me.exists(_.isBot)) p("Bots cannot post in the forum.").some
+              if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
               else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
-            },
+            }
+          ,
           div(
             unsub.map { uns =>
               postForm(
-                cls    := s"unsub ${if (uns) "on" else "off"}",
+                cls    := s"unsub ${if uns then "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
                 button(cls := "button button-empty text on", dataIcon := licon.Eye, bits.dataUnsub := "off")(
@@ -160,13 +159,13 @@ object topic:
             canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor)) option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
-                  if (topic.closed) "Reopen" else "Close"
+                  if topic.closed then "Reopen" else "Close"
                 )
               ),
             canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
-                  if (topic.isSticky) "Unsticky" else "Sticky"
+                  if topic.isSticky then "Unsticky" else "Sticky"
                 )
               ),
             canModCateg || ctx.me.exists(topic.isAuthor) option deleteModal
@@ -184,7 +183,7 @@ object topic:
               help = a(
                 dataIcon := licon.InfoCircle,
                 cls      := "text",
-                href     := routes.Page.loneBookmark("forum-etiquette")
+                href     := routes.ContentPage.loneBookmark("forum-etiquette")
               )(
                 "Forum etiquette"
               ).some

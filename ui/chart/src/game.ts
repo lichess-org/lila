@@ -1,2 +1,12 @@
-export { default as movetime } from './movetime';
-export { default as acpl } from './acpl';
+import { ChartGame, AcplChart } from './interface';
+import movetime from './movetime';
+import acpl from './acpl';
+
+export { type ChartGame, type AcplChart };
+
+export function initModule(): ChartGame {
+  return {
+    acpl,
+    movetime,
+  };
+}

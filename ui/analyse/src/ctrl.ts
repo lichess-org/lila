@@ -2,7 +2,6 @@ import * as cg from 'chessground/types';
 import * as chessUtil from 'chess';
 import * as game from 'game';
 import * as keyboard from './keyboard';
-import * as speech from './speech';
 import * as util from './util';
 import { plural } from './view/util';
 import debounce from 'common/debounce';
@@ -94,7 +93,6 @@ export default class AnalyseCtrl {
 
   // display flags
   flipped = false;
-  embed: boolean;
   showComments = true; // whether to display comments in the move tree
   showAutoShapes = storedBooleanProp('analyse.show-auto-shapes', true);
   showGauge = storedBooleanProp('analyse.show-gauge', true);
@@ -121,16 +119,14 @@ export default class AnalyseCtrl {
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
   cgConfig: any; // latest chessground config (useful for revert)
-  music?: any;
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw, makeStudy?: typeof makeStudyCtrl) {
     this.data = opts.data;
     this.element = opts.element;
-    this.embed = opts.embed;
     this.trans = opts.trans;
-    this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
+    this.treeView = treeViewCtrl('column');
     this.promotion = new PromotionCtrl(
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),
@@ -139,7 +135,8 @@ export default class AnalyseCtrl {
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
-    if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(this) as NvuiPlugin;
+    if (lichess.blindMode)
+      lichess.loadEsm<NvuiPlugin>('analysisBoard.nvui', { init: this }).then(nvui => (this.nvui = nvui));
 
     this.instanciateEvalCache();
 
@@ -147,7 +144,7 @@ export default class AnalyseCtrl {
 
     this.initialize(this.data, false);
 
-    this.persistence = this.embed || opts.study || this.synthetic ? undefined : new Persistence(this);
+    this.persistence = opts.study || this.synthetic ? undefined : new Persistence(this);
 
     this.instanciateCeval();
 
@@ -171,21 +168,18 @@ export default class AnalyseCtrl {
 
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
-      this.getCeval().selectedEngine(urlEngine);
-      if (!this.ceval.enabled()) this.toggleCeval();
+      try {
+        this.getCeval().selectedEngine(urlEngine);
+        this.ensureCevalRunning();
+      } catch (e) {
+        console.info(e);
+      }
+      lichess.redirect('/analysis');
     }
 
     lichess.pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
-    });
-
-    lichess.pubsub.on('sound_set', (set: string) => {
-      if (!this.music && set === 'music')
-        lichess.loadScript('javascripts/music/play.js').then(() => {
-          this.music = lichess.playMusic();
-        });
-      if (this.music && set !== 'music') this.music = undefined;
     });
 
     lichess.pubsub.on('ply.trigger', () =>
@@ -196,7 +190,6 @@ export default class AnalyseCtrl {
       this.redraw();
     });
     lichess.pubsub.on('theme.change', redraw);
-    speech.setup();
     this.persistence?.merge();
   }
 
@@ -221,6 +214,7 @@ export default class AnalyseCtrl {
     this.fork = makeFork(this);
 
     lichess.sound.preloadBoardSounds();
+    lichess.sound.move();
   }
 
   private makeInitialPath = (): string => {
@@ -313,7 +307,7 @@ export default class AnalyseCtrl {
   }
 
   private getDests: () => void = throttle(800, () => {
-    if (!this.embed && !defined(this.node.dests))
+    if (!defined(this.node.dests))
       this.socket.sendAnaDests({
         variant: this.data.game.variant.key,
         fen: this.node.fen,
@@ -331,21 +325,16 @@ export default class AnalyseCtrl {
         ? gamebookPlay.movableColor()
         : this.practice
         ? this.bottomColor()
-        : !this.embed && ((dests && dests.size > 0) || drops === null || drops.length)
+        : (dests && dests.size > 0) || drops === null || drops.length
         ? color
         : undefined,
       config: ChessgroundConfig = {
         fen: node.fen,
         turnColor: color,
-        movable: this.embed
-          ? {
-              color: undefined,
-              dests: new Map(),
-            }
-          : {
-              color: movableColor,
-              dests: (movableColor === color && dests) || new Map(),
-            },
+        movable: {
+          color: movableColor,
+          dests: (movableColor === color && dests) || new Map(),
+        },
         check: !!node.check,
         lastMove: uciToMove(node.uci),
       };
@@ -403,7 +392,7 @@ export default class AnalyseCtrl {
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
-      speech.node(this.node);
+      lichess.sound.saySan(this.node.san, true);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();
@@ -415,7 +404,7 @@ export default class AnalyseCtrl {
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
     }
-    if (this.music) this.music.jump(this.node);
+    lichess.sound.move(this.node);
     lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
   }
@@ -672,7 +661,7 @@ export default class AnalyseCtrl {
     this.ceval = new CevalCtrl({
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
-      possible: !this.embed && (this.synthetic || !game.playable(this.data)),
+      possible: this.synthetic || !game.playable(this.data),
       emit: (ev: Tree.ClientEval, work: EvalMeta) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
@@ -718,6 +707,12 @@ export default class AnalyseCtrl {
       } else this.ceval.stop();
     }
   });
+
+  ensureCevalRunning = () => {
+    if (!this.showComputer()) this.toggleComputer();
+    if (!this.ceval.enabled()) this.toggleCeval();
+    if (this.threatMode()) this.toggleThreatMode();
+  };
 
   toggleCeval = () => {
     if (!this.showComputer()) return;

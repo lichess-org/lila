@@ -11,7 +11,14 @@
     <item quantity="few">%s kola po švicarskom sistemu</item>
     <item quantity="other">%s kola po švicarskom sistemu</item>
   </plurals>
+  <string name="earlyDrawsQ">Šta se događa u slučaju brzih remija?</string>
+  <string name="earlyDrawsA">Igrač dobija bod svaki put kad mu sistem za parovanje ne može naći protivnika. Osim toga, igrač dobija pola boda u slučaju kada se turniru priključi s kašnjenjem.</string>
+  <string name="protectionAgainstNoShowQ">Šta kada se neki igrač ne pojavi?</string>
+  <string name="protectionAgainstNoShowA">Igrači koji se prijave za turnire po švicarskom sistemu, ali ne odigraju svoje partije mogu biti problematični.
+Kako bi se ovaj problem ublažio, Lichess sprečava igrače koji nisu uspjeli odigrati nijednu partiju da se pridruže novom turniru po švicarskom sistemu na određenu količinu vremena.
+No, kreator turnira može im svejedno dozvoliti učešće.</string>
   <string name="streaksAndBerserk">Pruge i Berzerk</string>
   <string name="predefinedUsers">Dozvolite pridruživanje samo unaprijed određenim korisnicima</string>
   <string name="forbiddedUsers">Ako ovaj spisak nije prazan, onda će korisnicima kojih nema na njemu biti zabranjeno da se pridruže. Jedno korisničko ime po retku.</string>
+  <string name="playYourGames">Igrajte Vaše partije (do kraja)</string>
 </resources>

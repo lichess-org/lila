@@ -7,13 +7,15 @@ object header:
 
   import trans.streamer.*
 
-  def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(using WebContext) =
+  def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(using PageContext) =
     div(cls := "streamer-header")(
       picture.thumbnail(s.streamer, s.user),
       div(cls := "overview")(
         bits.streamerTitle(s),
         s.streamer.headline.map(_.value).map { d =>
-          p(cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}")(
+          p(cls := s"headline ${
+              if d.length < 60 then "small" else if d.length < 120 then "medium" else "large"
+            }")(
             d
           )
         },

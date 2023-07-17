@@ -13,36 +13,37 @@ interface Lichess {
   loadCss(path: string): void;
   loadCssPath(path: string): Promise<void>;
   jsModule(name: string): string;
-  loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
-  loadModule(name: string): Promise<void>;
-  loadIife(name: string, iife: keyof Window): Promise<any>;
+  loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
+  loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
   hopscotch: any;
-  userComplete: () => Promise<UserComplete>;
+  userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
   slider(): Promise<void>;
   makeChat(data: any): any;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
   contentLoaded(parent?: HTMLElement): void;
   blindMode: boolean;
-  unload: {
-    expected: boolean;
-  };
+  unload: { expected: boolean };
   watchers(el: HTMLElement): void;
-  redirect(o: RedirectTo): void;
+  redirect(o: RedirectTo, notify?: 'countdown' | 'beep'): void;
   reload(): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
-
   siteI18n: I18nDict;
   trans(i18n: I18nDict): Trans;
+  timeago(date: number | Date): string;
+  dateFormat: () => (date: Date) => string;
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
-
   socket: any;
   sound: SoundI;
   mic: Voice.Microphone;
+  quietMode?: boolean;
+  analysis?: any; // expose the analysis ctrl
+  ab?: any;
 
+  mousetrap: LichessMousetrap;
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
@@ -53,26 +54,17 @@ interface Lichess {
     update(node: HTMLElement, data: MiniGameUpdateData): void;
     finish(node: HTMLElement, win?: Color): void;
   };
-  ab?: any;
-
   // socket.js
   StrongSocket: {
     new (url: string, version: number | false, cfg?: any): any;
     firstConnect: Promise<(tpe: string, data: any) => void>;
     defaultParams: Record<string, any>;
   };
-
-  timeago(date: number | Date): string;
-  dateFormat: () => (date: Date) => string;
-
   // misc
   advantageChart?: {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
-  playMusic(): any;
-  quietMode?: boolean;
-  analysis?: any; // expose the analysis ctrl
 }
 
 type I18nDict = { [key: string]: string };
@@ -81,6 +73,14 @@ type I18nKey = string;
 type RedirectTo = string | { url: string; cookie: Cookie };
 
 type UserComplete = (opts: UserCompleteOpts) => void;
+
+interface LichessMousetrap {
+  bind(
+    keys: string | string[],
+    callback: (e: KeyboardEvent) => void,
+    action?: 'keypress' | 'keydown' | 'keyup'
+  ): LichessMousetrap;
+}
 
 interface LichessPowertip {
   watchMouse(): void;
@@ -102,19 +102,34 @@ interface UserCompleteOpts {
   swiss?: string;
 }
 
+interface QuestionChoice {
+  action: () => void;
+  icon?: string;
+  key?: I18nKey;
+}
+
+interface QuestionOpts {
+  prompt: string; // TODO i18nkey, or just always pretranslate
+  yes?: QuestionChoice;
+  no?: QuestionChoice;
+}
+
 interface SoundI {
-  loadOggOrMp3(name: string, path: string, noSoundSet?: boolean): void;
-  loadStandard(name: string, soundSet?: string): void;
-  play(name: string, volume?: number): void;
+  ctx: AudioContext;
+  load(name: string, path?: string): void;
+  play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
+  move(node?: { san?: string; uci?: Uci }): void;
+  countdown(count: number, intervalMs?: number): Promise<void>; // default interval 1000ms
   getVolume(): number;
   setVolume(v: number): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
   say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
+  saySan(san?: San, cut?: boolean): void;
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
-  soundSet: string;
+  theme: string;
   baseUrl: string;
 }
 
@@ -203,42 +218,42 @@ declare namespace Voice {
   export type Listener = (msgText: string, msgType: MsgType) => void;
 
   export interface Microphone {
-    setLang: (language: string) => void;
+    setLang(language: string): void;
 
-    getMics: () => Promise<MediaDeviceInfo[]>;
-    setMic: (micId: string) => void;
+    getMics(): Promise<MediaDeviceInfo[]>;
+    setMic(micId: string): void;
 
-    initRecognizer: (
+    initRecognizer(
       words: string[],
       also?: {
         recId?: string; // = 'default' if not provided
         partial?: boolean; // = false
         listener?: Listener; // = undefined
-        listenerId?: string; // = recId (needed to disambiguate multiple listeners on the same recId)
+        listenerId?: string; // = recId (specify for multiple listeners on same recId)
       }
-    ) => void;
-    setRecognizer: (recId: string) => void;
+    ): void;
+    setRecognizer(recId: string): void;
 
-    addListener: (
+    addListener(
       listener: Listener,
       also?: {
         recId?: string; // = 'default'
         listenerId?: string; // = recId
       }
-    ) => void;
-    removeListener: (listenerId: string) => void;
-    setController: (listener: Listener) => void; // for status display, indicators, etc
-    stopPropagation: () => void; // interrupt broadcast propagation on current rec (for modal interactions)
+    ): void;
+    removeListener(listenerId: string): void;
+    setController(listener: Listener): void; // for status display, indicators, etc
+    stopPropagation(): void; // interrupt broadcast propagation on current rec (for modal interactions)
 
-    start: (listen?: boolean) => Promise<void>; // listen = true if not provided, if false just initialize
-    stop: () => void; // stop listening/downloading/whatever
-    pause: () => void;
-    resume: () => void;
+    start(listen?: boolean): Promise<void>; // listen = true if not provided, if false just initialize
+    stop(): void; // stop listening/downloading/whatever
+    pause(): void;
+    resume(): void;
 
     readonly isListening: boolean;
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
     readonly status: string; // status display for setController listener
-    readonly recId: string; // get/set current recognizer
+    readonly recId: string; // get current recognizer
     readonly micId: string;
     readonly lang: string; // defaults to 'en'
   }
@@ -246,6 +261,7 @@ declare namespace Voice {
 
 declare namespace Editor {
   export interface Config {
+    el: HTMLElement;
     baseUrl: string;
     fen?: string;
     options?: Editor.Options;
@@ -285,35 +301,11 @@ type Nvui = (redraw: () => void) => {
 
 interface Window {
   lichess: Lichess;
-
+  un$<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
-  readonly Mousetrap: any;
   Chessground: any;
-  readonly InfiniteScroll: (selector: string) => void;
-  readonly lichessReplayMusic: () => {
-    jump(node: Tree.Node): void;
-  };
   readonly hopscotch: any;
-  LichessSpeech?: LichessSpeech;
-  readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
-  LichessChat: (element: Element, opts: any) => any;
-  readonly LichessFlatpickr: (element: Element, opts: any) => any;
-  readonly LichessNotify: (element: any, opts: any) => any;
-  readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: HTMLElement, toggle: HTMLElement) => any;
-  readonly LichessAnalyse: any;
-  readonly LichessCli: any;
-  readonly LichessRound: any;
-  readonly LichessRoundNvui?: Nvui;
-  readonly LichessPuzzleNvui?: Nvui;
-  readonly LichessAnalyseNvui?: (ctrl: any) => {
-    render(): any;
-  };
-  readonly LichessChartRatingHistory?: any;
-  readonly LichessKeyboardMove?: any;
-  readonly LichessVoiceMove?: any;
-  readonly LichessVoicePlugin: { mic: Voice.Microphone; vosk: any };
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;
@@ -321,13 +313,6 @@ interface Window {
   readonly Sortable: any;
   readonly Peer: any;
   readonly Highcharts: any;
-  readonly LilaLpv: {
-    autostart(): void;
-    loadPgnAndStart(el: HTMLElement, url: string, opts: any): Promise<void>;
-  };
-
-  readonly Palantir: unknown;
-  readonly passwordComplexity: unknown;
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;
@@ -589,3 +574,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
+declare const un$: <T>(cash: Cash) => T;

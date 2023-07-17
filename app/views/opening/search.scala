@@ -36,7 +36,7 @@ object search:
       }
     )
 
-  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using WebContext) =
+  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(none),

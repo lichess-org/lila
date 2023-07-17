@@ -1,6 +1,5 @@
 import pubsub from './pubsub';
-import { loadCssPath, loadModule } from './assets';
-import { loadDasher } from 'common/dasher';
+import { loadCssPath, loadEsm } from './assets';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
@@ -35,35 +34,34 @@ export default function () {
 
   {
     // challengeApp
-    let instance: any, booted: boolean;
+    let instance: Promise<any> | undefined;
     const $toggle = $('#challenge-toggle'),
       $countSpan = $toggle.find('span');
     $toggle.one('mouseover click', () => load());
     const load = function (data?: any) {
-      if (booted) return;
-      booted = true;
+      if (instance) return;
       const $el = $('#challenge-app').html(initiatingHtml);
       loadCssPath('challenge');
-      loadModule('challenge').then(
-        () =>
-          (instance = window.LichessChallenge($el[0], {
-            data,
-            show() {
-              if (!isVisible('#challenge-app')) $toggle.trigger('click');
-            },
-            setCount(nb: number) {
-              const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
-              $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
-            },
-            pulse() {
-              $toggle.addClass('pulse');
-            },
-          }))
-      );
+      instance = loadEsm('challenge', {
+        init: {
+          el: $el[0],
+          data,
+          show() {
+            if (!isVisible('#challenge-app')) $toggle.trigger('click');
+          },
+          setCount(nb: number) {
+            const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
+            $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
+          },
+          pulse() {
+            $toggle.addClass('pulse');
+          },
+        },
+      });
     };
-    pubsub.on('socket.in.challenges', data => {
+    pubsub.on('socket.in.challenges', async data => {
       if (!instance) load(data);
-      else instance.update(data);
+      else (await instance).update(data);
     });
 
     pubsub.on('challenge-app.open', () => $toggle.trigger('click'));
@@ -71,18 +69,18 @@ export default function () {
 
   {
     // notifyApp
-    let instance: any, booted: boolean;
+    let instance: Promise<any> | undefined;
     const $toggle = $('#notify-toggle'),
       $countSpan = $toggle.find('span'),
       selector = '#notify-app';
 
     const load = (data?: any) => {
-      if (booted) return;
-      booted = true;
+      if (instance) return;
       const $el = $('#notify-app').html(initiatingHtml);
       loadCssPath('notify');
-      loadModule('notify').then(() => {
-        instance = window.LichessNotify($el.empty()[0], {
+      instance = loadEsm('notify', {
+        init: {
+          el: $el.empty()[0],
           data,
           isVisible: () => isVisible(selector),
           updateUnread(nb: number | 'increment') {
@@ -102,7 +100,7 @@ export default function () {
           pulse() {
             $toggle.addClass('pulse');
           },
-        });
+        },
       });
     };
 
@@ -110,29 +108,27 @@ export default function () {
       .one('mouseover click', () => load())
       .on('click', () => {
         if ('Notification' in window) Notification.requestPermission();
-        setTimeout(() => {
-          if (instance && isVisible(selector)) instance.onShow();
+        setTimeout(async () => {
+          if (instance && isVisible(selector)) (await instance).onShow();
         }, 200);
       });
 
-    pubsub.on('socket.in.notifications', data => {
+    pubsub.on('socket.in.notifications', async data => {
       if (!instance) load(data);
-      else instance.update(data);
+      else (await instance).update(data);
     });
-    pubsub.on('notify-app.set-read', user => {
+    pubsub.on('notify-app.set-read', async user => {
       if (!instance) load();
-      else instance.setMsgRead(user);
+      else (await instance).setMsgRead(user);
     });
   }
 
-  {
-    // dasher
-    $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
-      $(this).removeAttr('href');
-      loadCssPath('dasher');
-      loadDasher();
-    });
-  }
+  // dasher
+  $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
+    $(this).removeAttr('href');
+    loadCssPath('dasher');
+    loadEsm('dasher');
+  });
 
   {
     // cli
@@ -143,10 +139,7 @@ export default function () {
     const boot = () => {
       if (booted) return;
       booted = true;
-      loadModule('cli').then(
-        () => window.LichessCli.app($input[0]),
-        () => (booted = false)
-      );
+      loadEsm('cli', { init: { input: $input[0] } }).catch(() => (booted = false));
     };
     $input.on({
       blur() {
@@ -164,9 +157,13 @@ export default function () {
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
     });
-    window.Mousetrap.bind('/', () => {
-      $input.val('/');
-      $input[0]!.focus();
-    }).bind('s', () => $input[0]!.focus());
+    lichess.mousetrap
+      .bind('/', () => {
+        $input.val('/');
+        $input[0]!.focus();
+      })
+      .bind('s', () => $input[0]!.focus());
   }
+
+  $('#warn-no-autoplay a').on('click', () => $('#warn-no-autoplay').removeClass('shown'));
 }

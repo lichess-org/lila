@@ -11,8 +11,8 @@ final class AssessmentRepo(val coll: lila.db.dsl.Coll)
 final class HistoryRepo(val coll: lila.db.dsl.Coll)
 final class ModQueueStatsRepo(val coll: lila.db.dsl.Coll)
 
-case class UserWithModlog(user: User, log: List[Modlog.UserEntry]):
-  export user.*
+case class UserWithModlog(user: User.WithPerfs, log: List[Modlog.UserEntry]):
+  export user.user.*
   def dateOf(action: Modlog.type => String): Option[Instant] =
     log.find(_.action == action(Modlog)).map(_.date)
 

@@ -16,7 +16,7 @@ object list:
       scores: lila.report.Room.Scores,
       streamers: Int,
       appeals: Int
-  )(using WebContext) =
+  )(using PageContext) =
     layout(filter, scores, streamers, appeals)(
       table(cls := "slist slist-pad see")(
         thead(
@@ -36,7 +36,7 @@ object list:
                   br,
                   userLink(sus.user, params = "?mod"),
                   br,
-                  p(cls := "perfs")(showBestPerfs(sus.user, 2)),
+                  p(cls := "perfs")(showBestPerfs(sus.perfs, 2)),
                   views.html.user.mod.userMarks(sus.user, none)
                 ),
                 td(cls := "atoms")(
@@ -60,9 +60,9 @@ object list:
                   r.atoms.size > 3 option i(cls := "more")("And ", r.atoms.size - 3, " more")
                 ),
                 td(
-                  r.inquiry match {
+                  r.inquiry match
                     case None =>
-                      if (r.done.isDefined)
+                      if r.done.isDefined then
                         postForm(action := reportRoutes.inquiry(r.id), cls := "reopen")(
                           submitButton(dataIcon := licon.PlayTriangle, cls := "text button button-metal")(
                             "Reopen"
@@ -77,7 +77,6 @@ object list:
                         "Open by ",
                         userIdLink(inquiry.mod.some)
                       )
-                  }
                 )
               )
             case _ => emptyFrag
@@ -90,7 +89,7 @@ object list:
 
   def layout(filter: String, scores: lila.report.Room.Scores, streamers: Int, appeals: Int)(
       body: Frag
-  )(using ctx: WebContext) =
+  )(using ctx: PageContext) =
     views.html.base.layout(
       title = "Reports",
       moreCss = cssTag("mod.report")
@@ -108,9 +107,9 @@ object list:
                 "All",
                 scoreTag(scores.highest)
               ),
-              ctx.me so { me =>
+              ctx.me.soUse {
                 lila.report.Room.values
-                  .filter(lila.report.Room.isGrantedFor(Me(me)))
+                  .filter(lila.report.Room.isGranted)
                   .map { room =>
                     a(
                       href := reportRoutes.listWithFilter(room.key),

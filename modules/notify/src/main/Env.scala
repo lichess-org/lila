@@ -3,6 +3,7 @@ package lila.notify
 import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
+import akka.stream.Materializer
 
 import lila.db.dsl.Coll
 import lila.common.Bus
@@ -19,7 +20,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     subsRepo: lila.relation.SubscriptionRepo
-)(using Executor, ActorSystem):
+)(using Executor, ActorSystem, Materializer):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
@@ -36,15 +37,11 @@ final class Env(
   // api actor
   Bus.subscribeFuns(
     "notify" -> {
-      case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
-        api.markAllRead(userIds) unit
+      case lila.hub.actorApi.notify.NotifiedBatch(userIds) => api.markAllRead(userIds)
       case lila.game.actorApi.CorresAlarmEvent(pov) =>
         pov.player.userId.so: userId =>
           lila.game.Namer.playerText(pov.opponent)(using getLightUser) foreach { opponent =>
-            api.notifyOne(
-              userId,
-              CorresAlarm(gameId = pov.gameId, opponent = opponent)
-            )
+            api.notifyOne(userId, CorresAlarm(gameId = pov.gameId, opponent = opponent))
           }
     },
     "streamStart" -> { case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
@@ -53,6 +50,8 @@ final class Env(
       }
     }
   )
+
+  lazy val cli = wire[NotifyCli]
 
 final class NotifyColls(val notif: Coll, val pref: Coll)
 

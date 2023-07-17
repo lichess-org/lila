@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object menu:
 
-  def apply(active: String)(using WebContext) =
+  def apply(active: String)(using PageContext) =
     st.nav(cls := "page-menu__menu subnav")(
       isGranted(_.SeeReport) option
         a(cls := active.active("report"), href := reportRoutes.list)("Reports"),
@@ -24,6 +24,8 @@ object menu:
         a(cls := active.active("log"), href := routes.Mod.log)("My logs"),
       isGranted(_.UserSearch) option
         a(cls := active.active("search"), href := routes.Mod.search)("Search users"),
+      isGranted(_.Admin) option
+        a(cls := active.active("notes"), href := routes.Mod.notes())("Mod notes"),
       isGranted(_.SetEmail) option
         a(cls := active.active("email"), href := routes.Mod.emailConfirm)("Email confirm"),
       isGranted(_.PracticeConfig) option
@@ -39,7 +41,7 @@ object menu:
       isGranted(_.Shadowban) option
         a(cls := active.active("panic"), href := routes.Mod.chatPanic)(
           "Chat Panic: ",
-          strong(if (isChatPanicEnabled) "ON" else "OFF")
+          strong(if isChatPanicEnabled then "ON" else "OFF")
         ),
       isGranted(_.Admin) option
         a(cls := active.active("mods"), href := routes.Mod.table)("Mods"),

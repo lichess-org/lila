@@ -10,7 +10,8 @@ import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
 
-trait SetupHelper { self: I18nHelper =>
+trait SetupHelper:
+  self: I18nHelper =>
 
   type SelectChoice = (String, String, Option[String])
 
@@ -55,9 +56,8 @@ trait SetupHelper { self: I18nHelper =>
     "150",
     "165",
     "180"
-  ).map { v =>
+  ).map: v =>
     (v, v, none)
-  }
 
   val clockIncrementChoices: List[SelectChoice] = {
     (0 to 20).toList ::: List(25, 30, 35, 40, 45, 60, 90, 120, 150, 180)
@@ -83,6 +83,8 @@ trait SetupHelper { self: I18nHelper =>
       (Reason.Comm.key, trans.insult.txt()),
       (Reason.Boost.key, trans.ratingManipulation.txt()),
       (Reason.Comm.key, trans.troll.txt()),
+      (Reason.Sexism.key, "Sexual harassment or Sexist remarks"),
+      (Reason.Username.key, trans.username.txt()),
       (Reason.Other.key, trans.other.txt())
     )
 
@@ -324,4 +326,3 @@ trait SetupHelper { self: I18nHelper =>
       false -> trans.no.txt(),
       true  -> trans.yes.txt()
     )
-}

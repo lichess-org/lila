@@ -26,7 +26,7 @@ final class PuzzleAnon(
 
   private def selectWithColor(color: Color)(puzzles: Vector[Puzzle]): Option[Puzzle] =
     def nextTry(attempts: Int): Option[Puzzle] =
-      if (attempts < 10)
+      if attempts < 10 then
         ThreadLocalRandom oneOf puzzles filter (_.color == color) orElse nextTry(attempts + 1)
       else ThreadLocalRandom oneOf puzzles.filter(_.color == color)
     nextTry(1)

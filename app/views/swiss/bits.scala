@@ -21,7 +21,7 @@ object bits:
 
   def idToName(id: SwissId): String = env.swiss.getName sync id getOrElse "Tournament"
 
-  def notFound()(using WebContext) =
+  def notFound()(using PageContext) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
@@ -35,7 +35,7 @@ object bits:
       )
     }
 
-  def forTeam(swisses: List[Swiss])(using WebContext) =
+  def forTeam(swisses: List[Swiss])(using PageContext) =
     table(cls := "slist")(
       tbody(
         swisses map { s =>
@@ -52,9 +52,9 @@ object bits:
                 span(cls := "setup")(
                   s.clock.show,
                   " • ",
-                  if (s.variant.exotic) s.variant.name else s.perfType.trans,
+                  if s.variant.exotic then s.variant.name else s.perfType.trans,
                   " • ",
-                  if (s.settings.rated) trans.ratedTournament() else trans.casualTournament(),
+                  if s.settings.rated then trans.ratedTournament() else trans.casualTournament(),
                   " • ",
                   s.estimatedDurationString
                 )
@@ -74,11 +74,11 @@ object bits:
       case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
       case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
       case None =>
-        if (s.settings.intervalSeconds < 60)
+        if s.settings.intervalSeconds < 60 then
           trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
 
-  def homepageSpotlight(s: Swiss)(using WebContext) =
+  def homepageSpotlight(s: Swiss)(using PageContext) =
     a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
       iconTag(s.perfType.icon)(cls := "img icon"),
       span(cls := "content")(
@@ -86,12 +86,12 @@ object bits:
         span(cls := "more")(
           trans.nbPlayers.plural(s.nbPlayers, s.nbPlayers.localize),
           " • ",
-          if (s.isStarted) trans.eventInProgress() else momentFromNow(s.startsAt)
+          if s.isStarted then trans.eventInProgress() else momentFromNow(s.startsAt)
         )
       )
     )
 
-  def jsI18n(using WebContext) = i18nJsObject(i18nKeys)
+  def jsI18n(using PageContext) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.join,

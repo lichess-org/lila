@@ -48,9 +48,6 @@ export interface AnalyseData {
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
-  url: {
-    socket: string;
-  };
   userTv?: {
     id: string;
   };
@@ -137,7 +134,6 @@ export interface AnalyseOpts {
   data: AnalyseData;
   userId?: string;
   hunter: boolean;
-  embed: boolean;
   explorer: ExplorerOpts;
   socketSend: AnalyseSocketSend;
   trans: Trans;

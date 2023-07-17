@@ -101,6 +101,7 @@
   <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="openingEndgameExplorer">Istraživač otvaranja/završnica</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Odigrajte prvi potez u pretraživaču za otvaranja / završnice</string>
   <string name="winPreventedBy50MoveRule">Pobjeda spriječena zbog pravila o 50 poteza bez pomjeranja ijednog pješaka i bez ikakvog uzimanja figura</string>
   <string name="lossSavedBy50MoveRule">Poraz spriječen zbog pravila o 50 poteza bez pomjeranja ijednog pješaka i bez ikakvog uzimanja figura</string>
   <string name="winOr50MovesByPriorMistake">Pobjeda ili pravilo 50 poteza zbog prijašnje greške</string>
@@ -712,6 +713,11 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="keyGoToStartOrEnd">idi na početak/kraj</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijaciju</string>
+  <string name="keyRequestComputerAnalysis">Zatražite računarsku analizu, učite na svojim greškama</string>
+  <string name="keyNextLearnFromYourMistakes">Sljedeće (Učite na svojim greškama)</string>
+  <string name="keyNextBlunder">Sljedeći grubi previd</string>
+  <string name="keyNextMistake">Sljedeća greška</string>
+  <string name="keyNextInaccuracy">Sljedeća nepreciznost</string>
   <string name="newTournament">Novi turnir</string>
   <string name="tournamentHomeTitle">Šahovski turniri sa različitim vremenskim kontrolama i varijantama</string>
   <string name="tournamentHomeDescription">Igrajte brze turnire! Pridružite se zvaničnom turniru ili kreirajte svoj turnir. Bullet, Blitz, Klasični šah, Šah 960, Kralj u centru, Tri šaha, i još više opcija za neograničenu šahovsku zabavu.</string>

@@ -1,6 +1,5 @@
 package lila.tournament
 
-import cats.syntax.all.*
 import chess.format.Fen
 import chess.{ Clock, Mode }
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
@@ -157,7 +156,7 @@ private[tournament] case class TournamentSetup(
   def validClock = (clockTime + clockIncrement.value) > 0
 
   def realMode =
-    if (realPosition.isDefined) Mode.Casual
+    if realPosition.isDefined then Mode.Casual
     else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
@@ -187,18 +186,18 @@ private[tournament] case class TournamentSetup(
   // update all fields and use default values for missing fields
   // meant for HTML form updates
   def updateAll(old: Tournament): Tournament =
-    val newVariant = if (old.isCreated && variant.isDefined) realVariant else old.variant
+    val newVariant = if old.isCreated && variant.isDefined then realVariant else old.variant
     old
       .copy(
         name = name | old.name,
-        clock = if (old.isCreated) clockConfig else old.clock,
+        clock = if old.isCreated then clockConfig else old.clock,
         minutes = minutes,
         mode = realMode,
         variant = newVariant,
         startsAt = startDate | old.startsAt,
         password = password,
         position = newVariant.standard so {
-          if (old.isCreated || old.position.isDefined) realPosition
+          if old.isCreated || old.position.isDefined then realPosition
           else old.position
         },
         noBerserk = !isBerserkable,
@@ -211,18 +210,18 @@ private[tournament] case class TournamentSetup(
   // update only fields that are specified
   // meant for API updates
   def updatePresent(old: Tournament): Tournament =
-    val newVariant = if (old.isCreated) realVariant else old.variant
+    val newVariant = if old.isCreated then realVariant else old.variant
     old
       .copy(
         name = name | old.name,
-        clock = if (old.isCreated) clockConfig else old.clock,
+        clock = if old.isCreated then clockConfig else old.clock,
         minutes = minutes,
-        mode = if (rated.isDefined) realMode else old.mode,
+        mode = if rated.isDefined then realMode else old.mode,
         variant = newVariant,
         startsAt = startDate | old.startsAt,
         password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
         position = newVariant.standard so {
-          if (position.isDefined && (old.isCreated || old.position.isDefined)) realPosition
+          if position.isDefined && (old.isCreated || old.position.isDefined) then realPosition
           else old.position
         },
         noBerserk = berserkable.fold(old.noBerserk)(!_) || timeControlPreventsBerserk,

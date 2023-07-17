@@ -32,7 +32,7 @@ final private class SandbagWatch(
     if record.immaculate then
       fuccess:
         records invalidate userId
-    else if game.isTournament && game.winnerUserId.has(userId) then
+    else if game.isTournament && userId.is(game.winnerUserId) then
       // if your opponent always resigns to you in a tournament
       // we'll assume you're not boosting
       funit
@@ -45,13 +45,15 @@ final private class SandbagWatch(
           val boostCount         = record.samePlayerBoostCount
           val sandbagSeriousness = sandbagCount + nbWarnings
           val boostSeriousness   = boostCount + nbWarnings
-          if (sandbagCount == 3) sendMessage(userId, MsgPreset.sandbagAuto)
-          else if (sandbagCount == 4) game.loserUserId so { loser =>
-            reportApi.autoSandbagReport(record.sandbagOpponents, loser, sandbagSeriousness)
-          }
-          else if (boostCount == 3) sendMessage(userId, MsgPreset.boostAuto)
-          else if (boostCount == 4)
-            withWinnerAndLoser(game)((u1, u2) => reportApi.autoBoostReport(u1, u2, boostSeriousness))
+          if sandbagCount == 3
+          then sendMessage(userId, MsgPreset.sandbagAuto)
+          else if sandbagCount == 4 then
+            game.loserUserId.so:
+              reportApi.autoSandbagReport(record.sandbagOpponents, _, sandbagSeriousness)
+          else if boostCount == 3
+          then sendMessage(userId, MsgPreset.boostAuto)
+          else if boostCount == 4
+          then withWinnerAndLoser(game)((u1, u2) => reportApi.autoBoostReport(u1, u2, boostSeriousness))
           else funit
 
   private def sendMessage(userId: UserId, preset: MsgPreset): Funit =
@@ -70,15 +72,15 @@ final private class SandbagWatch(
 
   private def outcomeOf(game: Game, loser: Color, userId: UserId): Outcome =
     game
-      .playerByUserId(userId)
+      .player(userId)
       .ifTrue(isSandbag(game))
       .fold[Outcome](Good): player =>
-        if (player.color == loser) game.winnerUserId.fold[Outcome](Good)(Sandbag.apply)
+        if player.color == loser then game.winnerUserId.fold[Outcome](Good)(Sandbag.apply)
         else game.loserUserId.fold[Outcome](Good)(Boost.apply)
 
   private def isSandbag(game: Game): Boolean =
     game.playedTurns <= {
-      if (game.variant == chess.variant.Atomic) 3
+      if game.variant == chess.variant.Atomic then 3
       else 8
     } && game.winner.so(~_.ratingDiff > 0)
 

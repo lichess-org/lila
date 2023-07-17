@@ -51,7 +51,7 @@
   <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
   <string name="whiteDidntMove">Világos nem lépett</string>
   <string name="blackDidntMove">Sötét nem lépett</string>
-  <string name="requestAComputerAnalysis">Számítógépes elemzés</string>
+  <string name="requestAComputerAnalysis">Számítógépes elemzés kérése</string>
   <string name="computerAnalysis">Számítógépes elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="computerAnalysisDisabled">Számítógépes elemzés letiltva</string>
@@ -183,7 +183,7 @@
   <string name="variants">Variánsok</string>
   <string name="timeControl">Játékidő</string>
   <string name="realTime">Valós idő</string>
-  <string name="correspondence">Levelezés</string>
+  <string name="correspondence">Levelezős</string>
   <string name="daysPerTurn">Nap lépésenként</string>
   <string name="oneDay">Egy nap</string>
   <plurals name="nbDays">
@@ -347,9 +347,13 @@
     <item quantity="one">%s tanulmány</item>
     <item quantity="other">%s tanulmány</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s szimultán</item>
+    <item quantity="other">%s szimultán</item>
+  </plurals>
   <string name="viewTournament">Verseny megtekintése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
-  <string name="noDrawBeforeSwissLimit">Nem ajánlhatsz döntetlent 30 lépés előtt egy Svájci rendszerű versenyen.</string>
+  <string name="noDrawBeforeSwissLimit">Nem ajánlhatsz döntetlent 30 lépés előtt egy svájci rendszerű versenyen.</string>
   <string name="thematic">Tematikus</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s értékelt játszma</item>
@@ -585,11 +589,11 @@
   <string name="always">Mindig</string>
   <string name="never">Soha</string>
   <string name="xCompetesInY">%1$s részt vett ezen a versenyen: %2$s</string>
-  <string name="victory">Helyes megoldás</string>
+  <string name="victory">Győzelem</string>
   <string name="defeat">Vereség</string>
-  <string name="victoryVsYInZ">%1$s %2$s ellen %3$s játékban</string>
-  <string name="defeatVsYInZ">%1$s %2$s ellen %3$s játékban</string>
-  <string name="drawVsYInZ">%1$s %2$s ellen %3$s játékban</string>
+  <string name="victoryVsYInZ">%1$s %2$s ellen %3$s játszmában</string>
+  <string name="defeatVsYInZ">%1$s %2$s ellen %3$s játszmában</string>
+  <string name="drawVsYInZ">%1$s %2$s ellen %3$s játszmában</string>
   <string name="timeline">Idővonal</string>
   <string name="starting">Kezdés:</string>
   <string name="allInformationIsPublicAndOptional">Minden adat nyilvános, megadása nem kötelező.</string>
@@ -646,7 +650,7 @@
   <string name="webmasters">Webmester</string>
   <string name="about">Rólunk</string>
   <string name="aboutX">%s névjegy</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s egy ingyenes (%2$s), szabad, reklámmentes, nyílt forráskódú sakkszerver.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">A %1$s egy ingyenes (%2$s), szabad, reklámmentes, nyílt forráskódú sakkszerver.</string>
   <string name="really">tényleg</string>
   <string name="contribute">Hozzájárul</string>
   <string name="termsOfService">Felhasználási feltételek</string>
@@ -689,7 +693,7 @@
   <string name="keyNextInaccuracy">Következő pontatlanság</string>
   <string name="newTournament">Új torna</string>
   <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
-  <string name="tournamentHomeDescription">Vegyél részt villám-versenyeken! Csatlakozz hivatalos versenyekhez, vagy hozz létre egyet saját magad. Bullet, Blitz, Hagyományos, Sakk960, King of the Hill, Threecheck és mások elérhetők, hogy minél jobban élvezd a sakkot.</string>
+  <string name="tournamentHomeDescription">Vegyél részt pörgős versenyeken! Csatlakozz hivatalos versenyekhez, vagy hozz létre egyet saját magad. Bullet, Blitz, Hagyományos, Chess960, King of the Hill, Threecheck és sok más lehetőség elérhető, hogy minél jobban élvezd a sakkot.</string>
   <string name="tournamentNotFound">A verseny nem található</string>
   <string name="tournamentDoesNotExist">Ez a torna nem létezik.</string>
   <string name="tournamentMayHaveBeenCanceled">A versenyt törölték, mivel az összes játékos kilépett, mielőtt elkezdődött volna.</string>
@@ -743,7 +747,7 @@
   <string name="zeroAdvertisement">Nincsenek hirdetések</string>
   <string name="fullFeatured">Teljeskörű funkciók</string>
   <string name="phoneAndTablet">Telefon vagy táblagép</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, hagyományos</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, klasszikus</string>
   <string name="correspondenceChess">Levelező sakk</string>
   <string name="onlineAndOfflinePlay">Játssz adatkapcsolattal vagy adatkapcsolat nélkül</string>
   <string name="viewTheSolution">Megoldás megtekintése</string>
@@ -898,7 +902,7 @@
   <string name="gameVsX">Játszma %1$s ellen</string>
   <string name="resVsX">%1$s %2$s ellen</string>
   <string name="lostAgainstTOSViolator">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
-  <string name="refundXpointsTimeControlY">Visszatérítve: %1$s %2$s értékpont.</string>
+  <string name="refundXpointsTimeControlY">Visszakaptál %1$s %2$s pontot.</string>
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
   <string name="clickToRevealEmailAddress">[Kattints az email cím megtekintéséhez]</string>
   <string name="download">Letöltés</string>

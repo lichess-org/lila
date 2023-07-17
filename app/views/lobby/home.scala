@@ -12,32 +12,22 @@ import lila.game.Pov
 
 object home:
 
-  def apply(homepage: Homepage)(using ctx: WebContext) =
+  def apply(homepage: Homepage)(using ctx: PageContext): Frag =
     import homepage.*
     views.html.base.layout(
       title = "",
-      fullTitle = Some {
-        s"$siteName • ${trans.freeOnlineChess.txt()}"
-      },
-      moreJs = frag(
-        jsModule("lobby"),
-        embedJsUnsafeLoadThen(
-          s"""LichessLobby(${safeJsonValue(
-              Json
-                .obj(
-                  "data" -> data,
-                  "i18n" -> i18nJsObject(i18nKeys)
-                )
-                .add("hideRatings" -> !ctx.pref.showRatings)
-                .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
-                .add(
-                  "playban",
-                  playban.map { pb =>
-                    Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
-                  }
-                )
-            )})"""
-        )
+      fullTitle = s"$siteName • ${trans.freeOnlineChess.txt()}".some,
+      moreJs = jsModuleInit(
+        "lobby",
+        Json
+          .obj("data" -> data, "i18n" -> i18nJsObject(i18nKeys))
+          .add("hideRatings" -> !ctx.pref.showRatings)
+          .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
+          .add(
+            "playban",
+            playban.map: pb =>
+              Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
+          )
       ),
       moreCss = cssTag("lobby"),
       chessground = false,
@@ -52,6 +42,7 @@ object home:
         .some,
       withHrefLangs = LangPath("/").some
     ) {
+      given Option[lila.user.User.WithPerfs] = homepage.me
       main(
         cls := List(
           "lobby"      -> true,
@@ -72,12 +63,15 @@ object home:
             button(cls := "button button-metal", tpe := "button", trans.playWithTheMachine())
           )
         ),
-        currentGame.map(bits.currentGameInfo) orElse
-          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
-          playban.map(bits.playbanInfo) getOrElse {
-            if (ctx.blind) blindLobby(blindGames)
-            else bits.lobbyApp
-          },
+        currentGame
+          .map(bits.currentGameInfo)
+          .orElse:
+            hasUnreadLichessMessage.option(bits.showUnreadLichessMessage)
+          .orElse:
+            playban.map(bits.playbanInfo)
+          .getOrElse:
+            if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
+        ,
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(
@@ -93,10 +87,10 @@ object home:
             !ctx.isBot option {
               val nbManual = events.size + relays.size
               val simulBBB = simuls.find(isFeaturable(_) && nbManual < 4)
-              val nbForced = nbManual + simulBBB.size
+              val nbForced = nbManual + simulBBB.size.toInt
               val tourBBBs = if nbForced > 3 then 0 else if nbForced == 3 then 1 else 3 - nbForced
               frag(
-                lila.tournament.Spotlight.select(tours, ctx.me, tourBBBs) map {
+                lila.tournament.Spotlight.select(tours, tourBBBs).map {
                   views.html.tournament.homepageSpotlight(_)
                 },
                 swiss.ifTrue(nbForced < 3) map views.html.swiss.bits.homepageSpotlight,
@@ -154,7 +148,7 @@ object home:
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
-          a(href := routes.Page.tos)(trans.termsOfService()),
+          a(href := routes.ContentPage.tos)(trans.termsOfService()),
           a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
           a(href := "/ads")("Ads"),

@@ -1,7 +1,5 @@
 package lila.insight
 
-import cats.data.NonEmptyList
-import cats.syntax.all.*
 import chess.opening.OpeningDb
 import chess.{ Ply, Centis, Clock, Role, Situation, Stats }
 import chess.format.pgn.SanStr
@@ -33,14 +31,14 @@ final private class PovToEntry(
       (_ flatMap convert toRight game)
 
   private def removeWrongAnalysis(game: Game): Boolean =
-    if (game.metadata.analysed && !game.analysable)
+    if game.metadata.analysed && !game.analysable then
       gameRepo setUnanalysed game.id
       analysisRepo remove game.id.value
       true
     else false
 
   private def enrich(game: Game, userId: UserId, provisional: Boolean): Fu[Option[RichPov]] =
-    if (removeWrongAnalysis(game)) fuccess(none)
+    if removeWrongAnalysis(game) then fuccess(none)
     else
       lila.game.Pov(game, userId) so { pov =>
         gameRepo.initialFen(game) zip
@@ -91,7 +89,7 @@ final private class PovToEntry(
     }
     val roles = from.pov.game.sansOf(from.pov.color) map sanToRole
     val situations =
-      val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
+      val pivot = if from.pov.color == from.pov.game.startColor then 0 else 1
       from.situations.toList.zipWithIndex.collect {
         case (e, i) if (i % 2) == pivot => e
       }
@@ -124,7 +122,7 @@ final private class PovToEntry(
         }
         val accuracyPercent = accuracyPercents flatMap { accs =>
           accs lift i orElse {
-            if (i == situations.size - 1) // last eval missing if checkmate
+            if i == situations.size - 1 then // last eval missing if checkmate
               ~from.pov.win && from.pov.game.status.is(_.Mate) option AccuracyPercent.perfect
             else none // evals can be missing in super long games (300 plies, used to be 200)
           }
@@ -150,7 +148,7 @@ final private class PovToEntry(
   private def slidingMoveTimesCvs(movetimes: Vector[Centis]): Seq[Option[Float]] =
     val sliding = 13 // should be odd
     val nb      = movetimes.size
-    if (nb < sliding) Vector.fill(nb)(none[Float])
+    if nb < sliding then Vector.fill(nb)(none[Float])
     else
       val sides = Vector.fill(sliding / 2)(none[Float])
       val cvs = movetimes
@@ -179,8 +177,7 @@ final private class PovToEntry(
     import from.*
     import pov.game
     for
-      myId     <- pov.player.userId
-      perfType <- game.perfType
+      myId <- pov.player.userId
       myRating = pov.player.stableRating
       opRating = pov.opponent.stableRating
       opening  = findOpening(from)
@@ -188,12 +185,12 @@ final private class PovToEntry(
       id = InsightEntry povToId pov,
       userId = myId,
       color = pov.color,
-      perf = perfType,
+      perf = game.perfType,
       opening = opening,
       myCastling = Castling.fromMoves(game sansOf pov.color),
       rating = myRating,
       opponentRating = opRating,
-      opponentStrength = for { m <- myRating; o <- opRating } yield RelativeStrength(m, o),
+      opponentStrength = for m <- myRating; o <- opRating yield RelativeStrength(m, o),
       opponentCastling = Castling.fromMoves(game sansOf !pov.color),
       moves = makeMoves(from),
       queenTrade = queenTrade(from),

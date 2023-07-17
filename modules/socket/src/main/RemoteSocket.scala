@@ -29,16 +29,18 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
 
   val baseHandler: Handler =
     case In.ConnectUser(userId) =>
-      onlineUserIds.getAndUpdate(_ + userId).unit
+      onlineUserIds.getAndUpdate(_ + userId)
+    case In.ConnectUsers(userIds) =>
+      onlineUserIds.getAndUpdate(_ ++ userIds)
     case In.DisconnectUsers(userIds) =>
-      onlineUserIds.getAndUpdate(_ -- userIds).unit
+      onlineUserIds.getAndUpdate(_ -- userIds)
     case In.NotifiedBatch(userIds) =>
       Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
       lags.foreach: (userId, centis) =>
         UserLagCache.put(userId, centis)
       // this shouldn't be necessary... ensure that users are known to be online
-      onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys).unit
+      onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
@@ -63,13 +65,14 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
   ) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
-      if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
+      if connectedUsers.nonEmpty then send(Out.tellUsers(connectedUsers, payload))
     case SendTo(userId, payload) =>
-      if (onlineUserIds.get.contains(userId)) send(Out.tellUser(userId, payload))
+      if onlineUserIds.get.contains(userId) then send(Out.tellUser(userId, payload))
     case SendToOnlineUser(userId, makePayload) =>
-      if (onlineUserIds.get.contains(userId)) makePayload() foreach { payload =>
-        send(Out.tellUser(userId, payload))
-      }
+      if onlineUserIds.get.contains(userId) then
+        makePayload() foreach { payload =>
+          send(Out.tellUser(userId, payload))
+        }
     case Announce(_, _, json) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
     case Mlat(millis) =>
@@ -88,13 +91,13 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       send(Out.impersonate(userId, modId))
     case ApiUserIsOnline(userId, value) =>
       send(Out.apiUserOnline(userId, value))
-      if (value) onlineUserIds.getAndUpdate(_ + userId).unit
+      if value then onlineUserIds.getAndUpdate(_ + userId)
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
-    def apply(msg: String)               = if (!stopping) super.send(channel, msg).unit
+    def apply(msg: String)               = if !stopping then super.send(channel, msg)
     def sticky(_id: String, msg: String) = apply(msg)
 
   final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
@@ -104,7 +107,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     def sticky(id: String, msg: String): Unit = publish(id.hashCode.abs % parallelism, msg)
 
     private def publish(subChannel: Int, msg: String) =
-      if (!stopping) conn.async.publish(s"$channel:$subChannel", msg).unit
+      if !stopping then conn.async.publish(s"$channel:$subChannel", msg)
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
     if parallelism > 1 then RoundRobinSender(redisClient.connectPubSub(), channel, parallelism)
@@ -136,9 +139,10 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
 
   private def connectAndSubscribe(channel: Channel)(f: String => Unit): Funit =
     val conn = redisClient.connectPubSub()
-    conn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
-      override def message(_channel: String, message: String): Unit = f(message)
-    })
+    conn.addListener(
+      new pubsub.RedisPubSubAdapter[String, String]:
+        override def message(_channel: String, message: String): Unit = f(message)
+    )
     val subPromise = Promise[Unit]()
     conn.async
       .subscribe(channel)
@@ -189,7 +193,8 @@ object RemoteSocket:
 
       case object WsBoot                                                               extends In
       case class ConnectUser(userId: UserId)                                           extends In
-      case class DisconnectUsers(userId: Iterable[UserId])                             extends In
+      case class ConnectUsers(userIds: Iterable[UserId])                               extends In
+      case class DisconnectUsers(userIds: Iterable[UserId])                            extends In
       case class ConnectSris(cons: Iterable[(Sri, Option[UserId])])                    extends In
       case class DisconnectSris(sris: Iterable[Sri])                                   extends In
       case class NotifiedBatch(userIds: Iterable[UserId])                              extends In
@@ -203,6 +208,7 @@ object RemoteSocket:
       val baseReader: Reader = raw =>
         raw.path match
           case "connect/user"     => ConnectUser(UserId(raw.args)).some
+          case "connect/users"    => ConnectUsers(UserId.from(commas(raw.args))).some
           case "disconnect/users" => DisconnectUsers(UserId from commas(raw.args)).some
           case "connect/sris" =>
             ConnectSris {
@@ -218,21 +224,20 @@ object RemoteSocket:
             }
           case "lags" =>
             Lags(commas(raw.args).flatMap {
-              _ split ':' match {
+              _ split ':' match
                 case Array(user, l) =>
                   l.toIntOption map { lag =>
                     UserId(user) -> Centis(lag)
                   }
                 case _ => None
-              }
             }.toMap).some
           case "tell/sri" => raw.get(3)(tellSriMapper)
           case "tell/user" =>
             raw.get(2) { case Array(user, payload) =>
-              for {
+              for
                 obj <- Json.parse(payload).asOpt[JsObject]
                 typ <- obj str "t"
-              } yield TellUser(UserId(user), typ, obj)
+              yield TellUser(UserId(user), typ, obj)
             }
           case "req/response" =>
             raw.get(2) { case Array(reqId, response) =>
@@ -243,15 +248,15 @@ object RemoteSocket:
           case _      => none
 
       def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
-        for {
+        for
           obj <- Json.parse(payload).asOpt[JsObject]
           typ <- obj str "t"
-        } yield TellSri(Sri(sri), UserId from optional(user), typ, obj)
+        yield TellSri(Sri(sri), UserId from optional(user), typ, obj)
       }
 
-      def commas(str: String): Array[String]    = if (str == "-") Array.empty else str split ','
+      def commas(str: String): Array[String]    = if str == "-" then Array.empty else str split ','
       def boolean(str: String): Boolean         = str == "+"
-      def optional(str: String): Option[String] = if (str == "-") None else Some(str)
+      def optional(str: String): Option[String] = if str == "-" then None else Some(str)
 
     object Out:
       def tellUser(userId: UserId, payload: JsObject) =
@@ -282,8 +287,8 @@ object RemoteSocket:
       def pong(id: String)                       = s"pong $id"
       def stop(reqId: Int)                       = s"lila/stop $reqId"
 
-      def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
-      def boolean(v: Boolean): String         = if (v) "+" else "-"
+      def commas(strs: Iterable[Any]): String = if strs.isEmpty then "-" else strs mkString ","
+      def boolean(v: Boolean): String         = if v then "+" else "-"
       def optional(str: Option[String])       = str getOrElse "-"
       def color(c: Color): String             = c.fold("w", "b")
       def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))

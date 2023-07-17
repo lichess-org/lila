@@ -41,11 +41,9 @@ GET   /api/tv/feed                     controllers.Tv.feed
 GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey)
 
 # Relation
-POST  /rel/follow/:userId              controllers.Relation.follow(userId)
-POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId)
 GET   /api/rel/following               controllers.Relation.apiFollowing
-POST  /api/rel/follow/:userId          controllers.Relation.apiFollow(userId)
-POST  /api/rel/unfollow/:userId        controllers.Relation.apiUnfollow(userId)
+POST  /api/rel/follow/:user            controllers.Relation.follow(user)
+POST  /api/rel/unfollow/:user          controllers.Relation.unfollow(user)
 POST  /rel/block/:userId               controllers.Relation.block(userId)
 POST  /rel/unblock/:userId             controllers.Relation.unblock(userId)
 GET   /@/:username/following           controllers.Relation.following(username, page: Int ?= 1)
@@ -341,7 +339,7 @@ GET   /round/help                                controllers.Round.help
 GET   /tournament                             controllers.Tournament.home
 GET   /tournament/featured                    controllers.Tournament.featured
 GET   /tournament/new                         controllers.Tournament.form
-POST  /tournament/new                         controllers.Tournament.create
+POST  /tournament/new                         controllers.Tournament.webCreate
 GET   /tournament/team-battle/new/:teamId     controllers.Tournament.teamBattleForm(teamId)
 GET   /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleEdit(id)
 POST  /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleUpdate(id)
@@ -380,8 +378,6 @@ POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId)
 GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id)
 GET   /swiss/$id<\w{8}>/round/:round          controllers.Swiss.round(id, round: Int)
 GET   /swiss/$id<\w{8}>.trf                   controllers.Swiss.exportTrf(id)
-POST  /swiss/$id<\w{8}>/join                  controllers.Swiss.join(id)
-POST  /swiss/$id<\w{8}>/withdraw              controllers.Swiss.withdraw(id)
 GET   /swiss/$id<\w{8}>/edit                  controllers.Swiss.edit(id)
 POST  /swiss/$id<\w{8}>/edit                  controllers.Swiss.update(id)
 POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id)
@@ -532,6 +528,7 @@ GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token)
 
 # Mod
 POST  /mod/:username/alt/:v            controllers.Mod.alt(username, v: Boolean)
+POST  /mod/alt-many                    controllers.Mod.altMany
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username, v: Boolean)
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username, v: Boolean)
@@ -564,6 +561,7 @@ GET   /mod/activity                    controllers.Mod.activity
 GET   /mod/activity/:who/:period       controllers.Mod.activityOf(who, period)
 GET   /mod/queues/:period              controllers.Mod.queues(period)
 GET   /mod/search                      controllers.Mod.search
+GET   /mod/notes                       controllers.Mod.notes(page: Int ?= 1, q ?= "")
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username)
 GET   /mod/:username/permissions       controllers.Mod.permissions(username)
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username)
@@ -676,8 +674,8 @@ POST  /api/tournament/$id<\w{8}>/terminate  controllers.Tournament.apiTerminate(
 POST  /api/tournament/team-battle/:id  controllers.Tournament.apiTeamBattleUpdate(id)
 POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId)
 POST  /api/swiss/$id<\w{8}>/edit       controllers.Swiss.apiUpdate(id)
-POST  /api/swiss/$id<\w{8}>/join       controllers.Swiss.apiJoin(id)
-POST  /api/swiss/$id<\w{8}>/withdraw   controllers.Swiss.apiWithdraw(id)
+POST  /api/swiss/$id<\w{8}>/join       controllers.Swiss.join(id)
+POST  /api/swiss/$id<\w{8}>/withdraw   controllers.Swiss.withdraw(id)
 POST  /api/swiss/$id<\w{8}>/terminate  controllers.Swiss.apiTerminate(id)
 GET   /api/swiss/$id<\w{8}>            controllers.Swiss.apiShow(id)
 GET   /api/swiss/$id<\w{8}>/games      controllers.Api.swissGames(id)
@@ -831,22 +829,22 @@ POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
-GET   /terms-of-service                controllers.Page.tos
-GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.Page.menuBookmark(bookmark)
+GET   /terms-of-service                controllers.ContentPage.tos
+GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.ContentPage.menuBookmark(bookmark)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
-GET   /source                          controllers.Page.source
+GET   /source                          controllers.ContentPage.source
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
-GET   /how-to-cheat                    controllers.Page.loneBookmark(bookmark = "how-to-cheat")
-GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark)
+GET   /how-to-cheat                    controllers.ContentPage.loneBookmark(bookmark = "how-to-cheat")
+GET   /page/:bookmark                  controllers.ContentPage.loneBookmark(bookmark)
 
 # Variants
-GET   /variant                         controllers.Page.variantHome
-GET   /variant/:key                    controllers.Page.variant(key)
+GET   /variant                         controllers.ContentPage.variantHome
+GET   /variant/:key                    controllers.ContentPage.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.Page.help
-GET   /help/master                     controllers.Page.master
+GET   /help/contribute                 controllers.ContentPage.help
+GET   /help/master                     controllers.ContentPage.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

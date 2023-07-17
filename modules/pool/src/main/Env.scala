@@ -8,6 +8,7 @@ import lila.game.Game
 @Module
 final class Env(
     userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     gameRepo: lila.game.GameRepo,
     idGenerator: lila.game.IdGenerator,
     playbanApi: lila.playban.PlaybanApi

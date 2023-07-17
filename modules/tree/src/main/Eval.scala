@@ -59,12 +59,12 @@ object Eval:
       inline def showPawns: String = "%.2f" format pawns
 
       inline def ceiled: Cp =
-        if (cp.value > Cp.CEILING) Cp.CEILING
-        else if (cp.value < -Cp.CEILING) -Cp.CEILING
+        if cp.value > Cp.CEILING then Cp.CEILING
+        else if cp.value < -Cp.CEILING then -Cp.CEILING
         else cp
 
       inline def invert: Cp                  = Cp(-cp.value)
-      inline def invertIf(cond: Boolean): Cp = if (cond) invert else cp
+      inline def invertIf(cond: Boolean): Cp = if cond then invert else cp
 
       def signum: Int = Math.signum(cp.value.toFloat).toInt
 
@@ -76,9 +76,9 @@ object Eval:
       inline def moves: Int = mate.value
 
       inline def invert: Mate                  = Mate(-moves)
-      inline def invertIf(cond: Boolean): Mate = if (cond) invert else mate
+      inline def invertIf(cond: Boolean): Mate = if cond then invert else mate
 
-      inline def signum: Int = if (positive) 1 else -1
+      inline def signum: Int = if positive then 1 else -1
 
       inline def positive = mate.value > 0
       inline def negative = mate.value < 0

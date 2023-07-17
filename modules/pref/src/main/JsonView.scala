@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 object JsonView:
 
-  given OWrites[Pref] = OWrites[Pref] { p =>
+  def write(p: Pref, lichobileCompat: Boolean) =
     Json.obj(
       "dark"          -> (p.bg != Pref.Bg.LIGHT),
       "transp"        -> (p.bg == Pref.Bg.TRANSPARENT),
@@ -33,7 +33,10 @@ object JsonView:
       "replay"        -> p.replay,
       "challenge"     -> p.challenge,
       "message"       -> p.message,
-      "submitMove"    -> p.submitMove,
+      "submitMove" -> {
+        if lichobileCompat then Pref.SubmitMove.lichobile.serverToApp(p.submitMove)
+        else p.submitMove
+      },
       "confirmResign" -> p.confirmResign,
       "insightShare"  -> p.insightShare,
       "keyboardMove"  -> p.keyboardMove,
@@ -41,4 +44,3 @@ object JsonView:
       "moveEvent"     -> p.moveEvent,
       "rookCastle"    -> p.rookCastle
     )
-  }

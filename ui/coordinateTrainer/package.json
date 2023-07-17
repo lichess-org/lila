@@ -26,8 +26,10 @@
     "prod": "tsc"
   },
   "lichess": {
-    "bundles": {
-      "src/main.ts": "coordinateTrainer"
+    "modules": {
+      "esm": {
+        "src/main.ts": "coordinateTrainer"
+      }
     }
   }
 }

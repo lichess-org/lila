@@ -19,7 +19,7 @@ object side:
       verdicts: WithVerdicts,
       streamers: List[UserId],
       chat: Boolean
-  )(using ctx: WebContext) =
+  )(using ctx: Context) =
     frag(
       div(cls := "swiss__meta")(
         st.section(dataIcon := s.perfType.icon.toString)(
@@ -27,9 +27,9 @@ object side:
             p(
               s.clock.show,
               separator,
-              views.html.game.bits.variantLink(s.variant, s.perfType.some, shortName = true),
+              views.html.game.bits.variantLink(s.variant, s.perfType, shortName = true),
               separator,
-              if (s.settings.rated) trans.ratedTournament() else trans.casualTournament()
+              if s.settings.rated then trans.ratedTournament() else trans.casualTournament()
             ),
             p(
               span(cls := "swiss__meta__round")(
@@ -37,7 +37,7 @@ object side:
               ),
               separator,
               a(href := routes.Swiss.home)("Swiss"),
-              (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
+              (isGranted(_.ManageTournament) || (ctx.is(s.createdBy) && !s.isFinished)) option frag(
                 " ",
                 a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(licon.Gear))
               )
@@ -45,18 +45,16 @@ object side:
             bits.showInterval(s)
           )
         ),
-        s.settings.description map { d =>
-          st.section(cls := "description")(markdownLinksOrRichText(d))
-        },
+        s.settings.description.map: d =>
+          st.section(cls := "description")(markdownLinksOrRichText(d)),
         s.looksLikePrize option views.html.tournament.bits.userPrizeDisclaimer(s.createdBy),
         s.settings.position.flatMap(p => lila.tournament.Thematic.byFen(p.opening)) map { pos =>
           div(a(targetBlank, href := pos.url)(pos.name))
-        } orElse s.settings.position.map { fen =>
+        } orElse s.settings.position.map: fen =>
           div(
             "Custom position • ",
             views.html.base.bits.fenAnalysisLink(fen)
-          )
-        },
+          ),
         teamLink(s.teamId),
         views.html.gathering.verdicts(verdicts, s.perfType) | br,
         small(trans.by(userIdLink(s.createdBy.some))),

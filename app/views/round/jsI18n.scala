@@ -8,9 +8,9 @@ import lila.i18n.{ I18nKeys as trans }
 object jsI18n:
 
   def apply(g: lila.game.Game)(using Lang) =
-    i18nJsObject {
+    i18nJsObject:
       baseTranslations ++ {
-        if (g.isCorrespondence) correspondenceTranslations
+        if g.isCorrespondence then correspondenceTranslations
         else realtimeTranslations
       } ++ {
         g.variant.exotic so variantTranslations
@@ -19,7 +19,6 @@ object jsI18n:
       } ++ {
         g.isSwiss so swissTranslations
       }
-    }
 
   private val correspondenceTranslations = Vector(
     trans.oneDay,

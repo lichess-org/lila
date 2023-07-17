@@ -97,6 +97,7 @@
   <string name="openingExplorer">开局浏览器</string>
   <string name="openingEndgameExplorer">开局/残局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
+  <string name="playFirstOpeningEndgameExplorerMove">播放首次打开/端Game-浏览器移动</string>
   <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
   <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
   <string name="winOr50MovesByPriorMistake">赢棋或因先前错误而50步作和</string>
@@ -118,6 +119,7 @@
   <string name="memory">内存</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使您的电脑发热</string>
+  <string name="engineManager">开炮</string>
   <string name="blunder">失策</string>
   <string name="mistake">失误</string>
   <string name="inaccuracy">失准</string>
@@ -144,6 +146,9 @@
   <string name="currentGames">正在对局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s个对局</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%2$s 個場次內的%1$s 積分</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">书签里有%s盘棋</item>

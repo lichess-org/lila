@@ -12,7 +12,7 @@ object bits:
   private val dataState = attr("data-state")
 
   private def miniOrientation(pov: Pov): chess.Color =
-    if (pov.game.variant == chess.variant.RacingKings) chess.White else pov.player.color
+    if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color
 
   def mini(pov: Pov): Tag => Tag =
     mini(
@@ -30,12 +30,12 @@ object bits:
   def miniSpan(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None) =
     mini(fen, color, lastMove)(span)
 
-  private def explorerConfig(using ctx: WebContext) = Json.obj(
+  private def explorerConfig(using ctx: Context) = Json.obj(
     "endpoint"          -> explorerEndpoint,
     "tablebaseEndpoint" -> tablebaseEndpoint,
     "showRatings"       -> ctx.pref.showRatings
   )
-  def explorerAndCevalConfig(using ctx: WebContext) =
+  def explorerAndCevalConfig(using ctx: Context) =
     Json.obj(
       "explorer"               -> explorerConfig,
       "externalEngineEndpoint" -> externalEngineEndpoint

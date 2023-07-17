@@ -19,7 +19,7 @@ final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = tru
     stateRef.getAndUpdate { state =>
       Some {
         state.fold(emptyQueue) { q =>
-          if (q.size >= maxSize.value) q
+          if q.size >= maxSize.value then q
           else q enqueue msg
         }
       }
@@ -29,17 +29,16 @@ final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = tru
         true
       case Some(q) =>
         val success = q.size < maxSize.value
-        if (!success)
+        if !success then
           lila.mon.asyncActor.overflow(name).increment()
-          if (logging) lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
-        else if (logging && q.size >= monitorQueueSize)
-          lila.mon.asyncActor.queueSize(name).record(q.size)
+          if logging then lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
+        else if logging && q.size >= monitorQueueSize then lila.mon.asyncActor.queueSize(name).record(q.size)
         success
 
   def ask[A](makeMsg: Promise[A] => Matchable): Fu[A] =
     val promise = Promise[A]()
     val success = this ! makeMsg(promise)
-    if (!success) promise failure new EnqueueException(s"The $name asyncActor queue is full ($maxSize)")
+    if !success then promise failure new EnqueueException(s"The $name asyncActor queue is full ($maxSize)")
     promise.future
 
   def queueSize = stateRef.get().fold(0)(_.size + 1)
@@ -59,10 +58,9 @@ final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = tru
   private[this] val postRun = (_: Matchable) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
-  private[this] lazy val fallback = { (msg: Any) =>
+  private[this] lazy val fallback = (msg: Any) =>
     lila.log("asyncActor").warn(s"[$name] unhandled msg: $msg")
     funit
-  }
 
 object BoundedAsyncActor:
 

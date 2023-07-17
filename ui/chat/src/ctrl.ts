@@ -105,7 +105,7 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
         resourceId: data.resourceId,
         redraw,
       });
-      opts.loadCss('chat.mod');
+      lichess.loadCssPath('chat.mod');
     }
   }
   instanciateModeration();
