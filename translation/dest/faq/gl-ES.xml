@@ -101,30 +101,30 @@ Non solicites o título de LM.</string>
   <string name="ownerUniqueTrophies">Este trofeo é único na historia de Lichess, ninguén máis ca %1$s poderá obtelo.</string>
   <string name="wayOfBerserkExplanation">Para obtelo, hiimgosu desafiouse a si mesmo a facer o berserk e gañar todas as partidas dun %s.</string>
   <string name="aHourlyBulletTournament">torneo Bala horario</string>
-  <string name="goldenZeeExplanation">ZugAddict estaba a transmitir e durante as dúas últimas horas tratara de derrotar á I.A. nivel 8 en partidas 1+0, sen éxito. Thibault díxolle que se o lograba durante a transmisión, obtería un trofeo único. Unha hora despois, venceu a Stockfish e cumpríuse a promesa.</string>
+  <string name="goldenZeeExplanation">ZugAddict estaba a transmitir e durante as dúas últimas horas tratara de derrotar á I.A. nivel 8 en partidas 1+0, sen éxito. Thibault díxolle que se o lograba durante a transmisión, obtería un trofeo único. Unha hora despois, venceu a Stockfish e concedéuselle o prometido.</string>
   <string name="lichessRatings">Puntuacións en Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Que sistema de puntuación emprega Lichess?</string>
   <string name="ratingSystemUsedByLichess">As puntuacións calcúlanse empregando o método Glicko-2 desenvolto por Mark Glickman. É un método de puntuación moi popular e que utilizan moitas organizacións de xadrez (a FIDE é un contraexemplo notable, xa que todavía utiliza o anticuado sistema de puntuación Elo).
 
-En síntese, as puntuacións Glicko usan \"intervalos de confianza\" ao calcular e representar a túa puntuación. Cando empregas por primeira vez a páxina, a túa puntuación é de 1500 ± 1000. O 1500 representa a túa puntuación, e o 1000 representa o intervalo de confianza.
+En síntese, a puntuación Glicko usa \"intervalos de confianza\" ao calcular e representar a túa puntuación. Cando empregas por primeira vez a páxina, a túa puntuación é de 1500 ± 1000. O 1500 representa a túa puntuación, e o 1000 representa o intervalo de confianza.
 
-Basicamente, o sistema ten un 95% de seguridade de que a túa puntuación está entre 500 e 2500. Isto significa que hai moita incerteza. Por iso, cando un xogador acaba de comezar, a súa puntuación cambiará de forma moi brusca, incluso varios centos de puntos de cada vez. Só tras algunhas partidas contra xogadores máis veteranos, o intervalo de confianza será máis pequeno e a cantidade de puntos gañados/perdidos despois de cada partida disminuirá.
+Basicamente, o sistema ten a seguridade ó 95% de que a túa puntuación está entre 500 e 2500. Isto significa que hai moita incerteza. Por iso, cando un xogador acaba de comezar, a súa puntuación cambiará de forma moi brusca, incluso varios centos de puntos de cada vez. Só tras algunhas partidas contra xogadores máis veteranos, o intervalo de confianza será máis pequeno e a cantidade de puntos gañados/perdidos despois de cada partida disminuirá.
 
-Outro punto que cabe sinalar é que, se pasa un tempo sen xogares, o intervalo de confianza volverá aumentar. Isto permite gañar/perder puntos máis rapidamente para igualar calquera cambio na túa forza de xogo durante ese tempo que pasaches sen xogar.</string>
+Outro punto que cabe sinalar é que, se pasa un tempo sen xogares, o intervalo de confianza aumentará. Isto permite gañar/perder puntos máis rapidamente para igualar calquera cambio na túa forza de xogo durante ese tempo que pasaches sen xogar.</string>
   <string name="whatIsProvisionalRating">Por que hai unha marca de interrogación (?) xunto á puntuación?</string>
   <string name="provisionalRatingExplanation">A marca de interrogación significa que a puntuación é provisional. Os motivos son:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">O xogador/a non finalizou suficientes partidas por puntos contra %1$s na categoría.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">O xogador non finalizou suficientes partidas puntuadas contra %1$s na categoría.</string>
   <string name="similarOpponents">opoñentes de similar forza</string>
-  <string name="notPlayedRecently">O xogador/a non xogou suficientes partidas recentemente. Dependendo do número de partidas que xogaras, pode pasar arredor dun ano de inactividade para que a túa puntuación volva ser provisional.</string>
+  <string name="notPlayedRecently">O xogador non xogou suficientes partidas recentemente. Dependendo do número de partidas que xogaras, pode pasar arredor dun ano de inactividade para que a túa puntuación volva ser provisional.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que a desviación Glicko-2 é maior ca 110. A desviación é o nivel de confianza que ten o sistema na puntuación. Canto máis baixa sexa a desviación, máis estable será unha puntuación.</string>
   <string name="howDoLeaderoardsWork">Como funcionan as clasificacións e as listaxes de líderes?</string>
-  <string name="inOrderToAppearsYouMust">Para chegar ao %1$s deberías:</string>
+  <string name="inOrderToAppearsYouMust">Para chegar á %1$s deberías:</string>
   <string name="ratingLeaderboards">listaxe de líderes</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">ter xogado cando menos 30 partidas por puntos nunha modalidade dada,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter xogado unha partida por puntos na última semana nesta modalidade,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">ter unha desviación da puntuación menor de %1$s, en xadrez estándar, e menor de %2$s en variantes,</string>
-  <string name="beInTopTen">estar entre os 10 mellores nesta modalidade.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">A razón de ser da segunda condición é que os xogadores/as que xa non usan as súas contas deixen de aparecer na listaxe de líderes.</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">Ter xogado cando menos 30 partidas puntuadas nunha modalidade,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">Ter xogado unha partida puntuada na última semana nesta modalidade,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">Ter unha desviación da puntuación menor de %1$s, en xadrez estándar, e menor de %2$s en variantes,</string>
+  <string name="beInTopTen">Estar entre os 10 mellores nesta modalidade.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">A razón de ser da segunda condición é que os xogadores que xa non usan as súas contas deixen de aparecer na listaxe de líderes.</string>
   <string name="whyAreRatingHigher">Por que son máis altas as puntuacións en comparación con outras páxinas e organizacións coma a FIDE, a USCF e o ICC?</string>
   <string name="whyAreRatingHigherExplanation">O mellor é non considerar as puntuacións coma cifras absolutas, nin comparalas coas doutras organizacións. As diferentes organizacións teñen distintos níveis de xogadores/as e sistemas de puntuación (Elo, Glicko, Glicko-2 ou unha versión modificada dos primeiros). Estes factores poden afectar drasticamente os números absolutos (puntuacións).
 
