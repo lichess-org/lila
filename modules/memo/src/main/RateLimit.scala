@@ -84,10 +84,9 @@ object RateLimit:
     new RateLimiter[K]:
 
       def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A =
-        val accepted = limiters.foldLeft(true) {
+        val accepted = limiters.foldLeft(true):
           case (true, limiter) => limiter(k, false, cost, msg)(true)
           case (false, _)      => false
-        }
         if accepted then op else default
 
       def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A =
