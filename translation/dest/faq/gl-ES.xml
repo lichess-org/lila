@@ -9,20 +9,20 @@
   <string name="whyLiveLightLibre">En directo, porque as partidas xóganse e vense en tempo real 24/7; lixeiro e libre porque Lichess é de código aberto e sen os refugallos propietarios que abundan noutras páxinas.</string>
   <string name="whyIsLilaCalledLila">Do mesmo xeito, o código fonte de Lichess, %1$s, significa li[chess en sca]la, dado que a maior parte de Lichess está escrito en %2$s, unha intuitiva linguaxe de programación.</string>
   <string name="howCanIContributeToLichess">Como podo contribuír a Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess mantense con doazóns de patróns/as e co esforzo dun equipo de voluntarios/as.</string>
-  <string name="findMoreAndSeeHowHelp">Podes aprender máis sobre %1$s (incluíndo un %2$s). Se queres axudar a Lichess voluntariamente co teu tempo e habilidades, hai moitas %3$s.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess mantense mediante doazóns de patróns e co esforzo dun equipo de voluntarios.</string>
+  <string name="findMoreAndSeeHowHelp">Podes aprender máis sobre %1$s (incluíndo a %2$s). Se queres axudar a Lichess voluntariamente co teu tempo e habilidades, hai moitas %3$s.</string>
   <string name="beingAPatron">ser patrón</string>
-  <string name="breakdownOfOurCosts">desglose dos nosos gastos</string>
+  <string name="breakdownOfOurCosts">descrición dos nosos gastos</string>
   <string name="otherWaysToHelp">outras maneiras de axudar</string>
   <string name="areThereWebsitesBasedOnLichess">Hai sitios web baseados en Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Si. Lichess inspirou outras páxinas de código aberto que utilizan o noso %1$s, %2$s ou %3$s.</string>
-  <string name="keyboardShortcuts">Que atallos de teclado hai?</string>
+  <string name="keyboardShortcuts">Cales son os atallos de teclado?</string>
   <string name="keyboardShortcutsExplanation">Algunhas páxinas de Lichess teñen atallos de teclado que podes empregar. Proba a pulsar a tecla \'?\' nunha páxina de estudo, análise, crebacabezas ou partida para veres os atallos de teclado dispoñibles.</string>
   <string name="fairPlay">Xogo limpo</string>
   <string name="whenAmIEligibleRatinRefund">En que casos me devolven automaticamente os puntos perdidos contra un tramposo?</string>
-  <string name="ratingRefundExplanation">Un minuto despois de marcar a un xogador como tramposo, tómanse as súas derradeiras 40 partidas por puntos dos tres últimos días. Se ti fuches opoñente nesas partidas, perdiches puntos nelas (ben porque perdiches, ben porque empataches) e a túa puntuación non era provisional, entón devólvenseche os puntos. Este reembolso está limitado pola túa puntuación máxima e por como progresara a túa puntuación despois daquela partida.
-(Por exemplo, se a túa puntuación subiu moito despois daquelas partidas, pode que non se che devolvan os puntos ou que só se che devolvan algúns). A devolución en ningún caso será de máis de 150 puntos.</string>
-  <string name="preventLeavingGameWithoutResigning">Que pasa cos xogadores/as que abandonan partidas sen se renderen?</string>
+  <string name="ratingRefundExplanation">Un minuto despois de que un xogador é declarado trampulleiro, tómanse as súas derradeiras 40 partidas puntuadas dos tres últimos días. Se fuches o seu rival nalgunha desas partidas, perdiches puntos nelas (ó seres derrotado ou ó empatares) e a túa puntuación non era provisional, entón reintégranseche os puntos. Este reembolso está limitado pola túa puntuación máxima e pola evolución da túa puntuación despois desas partidas.
+(Por exemplo, se a túa puntuación subiu moito despois desas partidas, pode que non se che devolvan os puntos ou que só se che devolva unha parte). A devolución en ningún caso será de máis de 150 puntos.</string>
+  <string name="preventLeavingGameWithoutResigning">Que pasa cos xogadores que abandonan as partidas sen se renderen?</string>
   <string name="leavingGameWithoutResigningExplanation">Se o teu opoñente aborta/abandona habitualmente as partidas, recibe a marca \"prohibido xogar\", o que significa que está temporalemente suspendido para xogar. Iso non se indica publicamente no seu perfil. Se persiste neste comportamento, a duración da suspención aumenta e pode conlevar o peche da conta.</string>
   <string name="howCanIBecomeModerator">Como podo converterme en moderador?</string>
   <string name="youCannotApply">Non se pode solicitar ser moderador. Se vemos a alguén que pensamos que sería un bo moderador, porémonos en contacto con el/ela directamente.</string>
