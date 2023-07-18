@@ -74,7 +74,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
   ): Funit =
     val id = s"TOK-${tokenId.value.take(20)}"
     val ua = mobile
-      .map(m => s"""Lichess Mobile ${m.version} ${m.osName} ${m.osVersion} ${m.device}""")
+      .map(Mobile.LichessMobileUaTrim.write)
       .orElse(HTTPRequest.userAgent(req).map(_.value))
       .getOrElse("?")
     coll.update

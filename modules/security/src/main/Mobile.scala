@@ -43,9 +43,9 @@ object Mobile:
 
   object LichessMobileUa:
     private val RegexOld =
-      """(?i)lichess mobile/(\S+) \((\d*)\) as:(\S+) os:(android|ios)/(\S+) dev:(.*)""".r // remove soon
+      """(?i)lichess mobile/(\S+) \((\d*)\) as:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r // remove soon
     private val Regex =
-      """(?i)lichess mobile/(\S+) \((\d*)\) as:(\S+) sri:(\S+) os:(android|ios)/(\S+) dev:(.*)""".r
+      """(?i)lichess mobile/(\S+) \((\d*)\) as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
     def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req) flatMap parse
     def parse(ua: UserAgent): Option[LichessMobileUa] = ua.value
       .startsWith("Lichess Mobile/")
@@ -57,4 +57,19 @@ object Mobile:
           case RegexOld(version, build, user, osName, osVersion, device) =>
             val userId = (user != "anon") option UserStr(user).id
             LichessMobileUa(version, ~build.toIntOption, userId, Sri("old"), osName, osVersion, device).some
-          case wut => none
+          case _ => none
+
+  // LM/{version} {android|ios}/{os-version} {device info}
+  // stored in security documents
+  case class LichessMobileUaTrim(version: String, osName: String, osVersion: String, device: String)
+
+  object LichessMobileUaTrim:
+    private val Regex = """LM/(\S+) (Android|iOS)/(\S+) (.*)""".r
+    def parse(ua: UserAgent): Option[LichessMobileUaTrim] = ua.value
+      .startsWith("LM/")
+      .so:
+        ua.value match
+          case Regex(version, osName, osVersion, device) =>
+            LichessMobileUaTrim(version, osName, osVersion, device).some
+          case _ => none
+    def write(m: LichessMobileUa) = s"""LM/${m.version} ${m.osName}/${m.osVersion} ${m.device}"""

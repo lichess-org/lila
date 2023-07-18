@@ -14,7 +14,7 @@ import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
-import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, userAgentParser }
+import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, UserAgentParser }
 import lila.user.{ Me, User }
 
 object mod:
@@ -743,7 +743,7 @@ object mod:
             logins.uas
               .sortBy(-_.seconds)
               .map { case Dated(ua, date) =>
-                val parsed = userAgentParser.parse(ua.value)
+                val parsed = UserAgentParser.parse(ua)
                 tr(
                   td(title := ua.value)(
                     if parsed.device.family == "Other" then "Computer" else parsed.device.family

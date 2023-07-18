@@ -11,7 +11,7 @@ import ornicar.scalalib.SecureRandom
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.common.Form.into
 import lila.db.dsl.{ *, given }
-import lila.oauth.{ OAuthScope, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthServer, AccessToken }
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ User, UserRepo, Me }
 import lila.socket.Socket.Sri
@@ -133,8 +133,8 @@ final class SecurityApi(
       .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
 
   private object upsertOauth:
-    private val sometimes = lila.memo.OnceEvery[UserId](1.hour)
-    def apply(access: OAuthScope.Access, req: RequestHeader): Unit = if sometimes(access.user.id) then
+    private val sometimes = lila.memo.OnceEvery.hashCode[AccessToken.Id](1.hour)
+    def apply(access: OAuthScope.Access, req: RequestHeader): Unit = if sometimes(access.tokenId) then
       val mobile = Mobile.LichessMobileUa.parse(req)
       store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
 

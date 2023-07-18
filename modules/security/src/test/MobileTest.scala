@@ -11,14 +11,14 @@ class MobileTest extends munit.FunSuite:
   test("valid UAs"):
     assertEquals(
       LichessMobileUa.parse(
-        "Lichess Mobile/0.2.1 (897) as:THibaULT sri:uw-y3_79sz os:android/11.0.2 dev:Moto G (4)"
+        "Lichess Mobile/0.2.1 (897) as:THibaULT sri:uw-y3_79sz os:Android/11.0.2 dev:Moto G (4)"
       ),
       LichessMobileUa(
         "0.2.1",
         897,
         Some(UserId("thibault")),
         Sri("uw-y3_79sz"),
-        "android",
+        "Android",
         "11.0.2",
         "Moto G (4)"
       ).some
@@ -53,7 +53,7 @@ class MobileTest extends munit.FunSuite:
     )
     assertEquals(
       LichessMobileUa.parse(
-        "prefixed Lichess Mobile/0.2.1 (897) as:THibaULT os:android/11.0.2 dev:Moto G (4)"
+        "prefixed Lichess Mobile/0.2.1 (897) as:THibaULT os:Android/11.0.2 dev:Moto G (4)"
       ),
       none
     )
