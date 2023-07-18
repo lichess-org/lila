@@ -47,7 +47,7 @@ case class Pov(game: Game, color: Color):
 
   def forecastable = game.forecastable && game.turnColor != color
 
-  def mightClaimWin = game.resignable && !game.hasAi && game.hasClock && !isMyTurn
+  def mightClaimWin = game.forceResignable && !isMyTurn
 
   def sideAndStart = Game.SideAndStart(color, game.chess.startedAtPly)
 

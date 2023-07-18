@@ -32,7 +32,7 @@ final private class RoundMobileSocket(
       val player = game player color
       jsonView
         .player(player, users(color))
-        .add("isGone" -> (!player.isAi && socket.isGone(player.color)))
+        .add("isGone" -> (game.forceDrawable && socket.isGone(player.color)))
         .add("onGame" -> (player.isAi || socket.onGame(player.color)))
     Json
       .obj(
