@@ -11,7 +11,6 @@ SEPARATOR="\n\n=========================================\n\n"
 echo -e "Java version: $(java --version)\n"
 echo -e "SBT  version: $(sbt sbtVersion)\n"
 echo -e "Node version: $(node --version)\n"
-echo -e "Yarn version: $(yarn --version)\n"
 
 echo -e $SEPARATOR
 
