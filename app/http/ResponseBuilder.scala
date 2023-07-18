@@ -68,7 +68,7 @@ trait ResponseBuilder(using Executor)
   def JsonBadRequest(msg: String): Result         = JsonBadRequest(jsonError(msg))
 
   def negotiateApi(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: Context): Fu[Result] =
-    lila.api.Mobile.Api
+    lila.security.Mobile.Api
       .requestVersion(ctx.req)
       .fold(html): v =>
         api(v).dmap(_ as JSON)

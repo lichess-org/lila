@@ -69,10 +69,14 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
   private[security] def upsertOAuth(
       userId: UserId,
       tokenId: AccessToken.Id,
-      sri: Option[Sri],
+      mobile: Option[Mobile.LichessMobileUa],
       req: RequestHeader
   ): Funit =
     val id = s"TOK-${tokenId.value.take(20)}"
+    val ua = mobile
+      .map(m => s"""Lichess Mobile ${m.version} ${m.osName} ${m.osVersion} ${m.device}""")
+      .orElse(HTTPRequest.userAgent(req).map(_.value))
+      .getOrElse("?")
     coll.update
       .one(
         $id(id),
@@ -80,10 +84,10 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           "_id"  -> id,
           "user" -> userId,
           "ip"   -> HTTPRequest.ipAddress(req),
-          "ua"   -> HTTPRequest.userAgent(req).fold("?")(_.value),
+          "ua"   -> ua,
           "date" -> nowInstant,
           "up"   -> true,
-          "fp"   -> sri.map(_.value) // lichess mobile
+          "fp"   -> mobile.map(_.sri.value)
         ),
         upsert = true
       )

@@ -107,9 +107,6 @@ final class SecurityApi(
     val sessionId = SecureRandom nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
 
-  def upsertOauth(access: OAuthScope.Access, sri: Option[Sri])(using req: RequestHeader): Funit =
-    store.upsertOAuth(access.user.id, access.tokenId, sri, req)
-
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
     firewall.accepts(req) so reqSessionId(req) so { sessionId =>
@@ -124,30 +121,37 @@ final class SecurityApi(
       : Fu[Option[AppealOrUser]]
     }
 
-  private val shouldOauthUpsert = lila.memo.OnceEvery[UserId](1.hour)
   def oauthScoped(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
     oAuthServer
       .auth(req, required)
-      .map(_ map stripRolesOfOAuthUser)
       .addEffect:
-        case Right(access) if shouldOauthUpsert(access.user.id) =>
-          upsertOauth(access)(using req)
-        case _ => ()
+        case Right(access) => upsertOauth(access, req)
+        case _             => ()
+      .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
+
+  private object upsertOauth:
+    private val sometimes = lila.memo.OnceEvery[UserId](1.hour)
+    def apply(access: OAuthScope.Access, req: RequestHeader): Unit = if sometimes(access.user.id) then
+      val mobile = Mobile.LichessMobileUa.parse(req)
+      store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 
-  private def stripRolesOfOAuthUser(access: OAuthScope.Access) =
-    if access.scopes.has(_.Web.Mod) then access
-    else access.copy(scoped = OAuthScope.Scoped(me = stripRolesOf(access.me)))
+  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
+    if scoped.scopes.has(_.Web.Mod) then scoped
+    else scoped.copy(me = stripRolesOf(scoped.me))
 
   private def stripRolesOfCookieUser(me: Me) =
     if mode == Mode.Prod && me.totpSecret.isEmpty then stripRolesOf(me)
     else me
 
-  private def stripRolesOf(me: Me) = me.map(_.copy(roles = me.roles.filter(nonModRoles.contains)))
+  private def stripRolesOf(me: Me) =
+    if me.roles.nonEmpty
+    then me.map(_.copy(roles = me.roles.filter(nonModRoles.contains)))
+    else me
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {

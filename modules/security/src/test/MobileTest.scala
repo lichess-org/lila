@@ -1,4 +1,4 @@
-package lila.api
+package lila.security
 
 import lila.socket.Socket.Sri
 
@@ -20,18 +20,26 @@ class MobileTest extends munit.FunSuite:
         Sri("uw-y3_79sz"),
         "android",
         "11.0.2",
-        "moto g (4)"
+        "Moto G (4)"
       ).some
     )
     assertEquals(
       LichessMobileUa.parse("Lichess Mobile/1.0.0_ALPHA-2 () as:anon sri:uwy379sz os:iOS/what-3v3r dev:"),
-      LichessMobileUa("1.0.0_alpha-2", 0, None, Sri("uwy379sz"), "ios", "what-3v3r", "").some
+      LichessMobileUa("1.0.0_ALPHA-2", 0, None, Sri("uwy379sz"), "iOS", "what-3v3r", "").some
+    )
+
+  test("sri casing"):
+    assertEquals(
+      LichessMobileUa
+        .parse("Lichess Mobile/1.0.0_ALPHA-2 () as:anon sri:fp_Osk6zKPF96MXI os:iOS/what-3v3r dev:")
+        .map(_.sri),
+      Some(Sri("fp_Osk6zKPF96MXI"))
     )
 
   test("old instance"):
     assertEquals(
       LichessMobileUa.parse("Lichess Mobile/1.0.0_ALPHA-2 () as:anon os:iOS/what-3v3r dev:"),
-      LichessMobileUa("1.0.0_alpha-2", 0, None, Sri("old"), "ios", "what-3v3r", "").some
+      LichessMobileUa("1.0.0_ALPHA-2", 0, None, Sri("old"), "iOS", "what-3v3r", "").some
     )
 
   test("invalid UAs"):

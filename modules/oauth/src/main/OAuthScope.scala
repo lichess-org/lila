@@ -86,7 +86,7 @@ object OAuthScope:
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
     case object Mod    extends OAuthScope("web:mod", trans.webMod)
 
-  case class Scoped(me: lila.user.Me, token: TokenScopes):
+  case class Scoped(me: lila.user.Me, scopes: TokenScopes):
     def user: User = me.value
 
   case class Access(scoped: Scoped, tokenId: AccessToken.Id):

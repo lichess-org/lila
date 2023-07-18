@@ -11,6 +11,7 @@ import lila.app.{ given, * }
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
 import lila.gathering.Condition.GetMyTeamIds
+import lila.security.Mobile
 
 final class Api(
     env: Env,
@@ -23,14 +24,14 @@ final class Api(
 
   private lazy val apiStatusJson = Json.obj(
     "api" -> Json.obj(
-      "current" -> lila.api.Mobile.Api.currentVersion.value,
+      "current" -> Mobile.Api.currentVersion.value,
       "olds"    -> Json.arr()
     )
   )
 
   val status = Anon:
     val appVersion  = get("v")
-    val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade
+    val mustUpgrade = appVersion exists Mobile.AppVersion.mustUpgrade
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
   def index = Anon:
@@ -379,7 +380,7 @@ final class Api(
     js map toHttp
 
   def MobileApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:
-    if lila.api.Mobile.Api.requested(req)
+    if lila.security.Mobile.Api.requested(req)
     then js map toHttp
     else NotFound
 
