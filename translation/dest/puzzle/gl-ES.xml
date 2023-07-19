@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Problemas</string>
+  <string name="puzzles">Crebacabezas</string>
   <string name="puzzleThemes">Temas de quebracabezas</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
@@ -13,15 +13,15 @@
   <string name="specialMoves">Movementos especiais</string>
   <string name="didYouLikeThisPuzzle">Gustouche este crebacabezas?</string>
   <string name="voteToLoadNextOne">Vota para cargar o seguinte!</string>
-  <string name="upVote">Vota a favor do puzzle</string>
+  <string name="upVote">Vota a favor do crebacabezas</string>
   <string name="downVote">Vota en contra do puzzle</string>
-  <string name="yourPuzzleRatingWillNotChange">A túa puntuación en crebacabezas non cambia. Ten en conta que os crebacabezas non son unha competición. A clasificación axuda a escollerte os mellores crebacabezas para a túa puntuación actual.</string>
-  <string name="findTheBestMoveForWhite">Atopa a mellor xogada para o branco.</string>
-  <string name="findTheBestMoveForBlack">Atopa a mellor xogada para o negro.</string>
+  <string name="yourPuzzleRatingWillNotChange">A túa puntuación en crebacabezas non cambia. Ten en conta que os crebacabezas non son unha competición. A puntuación axuda a escollerche os crebacabezas máis axeitados segundo a túa puntuación actual.</string>
+  <string name="findTheBestMoveForWhite">Atopa a mellor xogada para as brancas.</string>
+  <string name="findTheBestMoveForBlack">Atopa a mellor xogada para as negras.</string>
   <string name="toGetPersonalizedPuzzles">Para conseguir crebacabezas personalizados:</string>
   <string name="puzzleId">Crebacabezas %s</string>
   <string name="puzzleOfTheDay">Crebacabezas do día</string>
-  <string name="dailyPuzzle">Problema do día</string>
+  <string name="dailyPuzzle">Crebacabezas do día</string>
   <string name="clickToSolve">Fai clic para resolver</string>
   <string name="goodMove">Bo movemento</string>
   <string name="bestMove">O mellor movemento!</string>
@@ -30,15 +30,15 @@
   <string name="puzzleComplete">Crebacabezas terminado!</string>
   <string name="byOpenings">Por aperturas</string>
   <string name="puzzlesByOpenings">Exercicios por aperturas</string>
-  <string name="openingsYouPlayedTheMost">Aperturas que máis xogaches en partidas puntuables</string>
+  <string name="openingsYouPlayedTheMost">As aperturas que máis xogaches en partidas puntuadas</string>
   <string name="useFindInPage">Usa \"Encontrar na páxina\" no menú do navegador para atopar a túa apertura favorita!</string>
   <string name="useCtrlF">Usa Ctrl+f para atopar a túa apertura favorita!</string>
-  <string name="notTheMove">Ese non é o movemento!</string>
+  <string name="notTheMove">Esa non é a xogada!</string>
   <string name="trySomethingElse">Proba outra cosa.</string>
   <string name="ratingX">Puntuación: %s</string>
   <string name="hidden">oculta</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Xogado %s veces</item>
+    <item quantity="one">Xogado %s vez</item>
     <item quantity="other">Xogado %s veces</item>
   </plurals>
   <string name="fromGameLink">Extraído da partida %s</string>
@@ -48,14 +48,14 @@
   <string name="easier">Máis fácil</string>
   <string name="easiest">O máis fácil</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">%s puntos por debaixo da túa puntuación de exercicios</item>
-    <item quantity="other">%s puntos por debaixo da túa puntuación de exercicios</item>
+    <item quantity="one">%s punto por debaixo da túa puntuación de crebacabezas</item>
+    <item quantity="other">%s puntos por debaixo da túa puntuación de crebacabezas</item>
   </plurals>
   <string name="harder">Máis difícil</string>
   <string name="hardest">O máis difícil</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Un punto por riba da túa puntuación de exercicios</item>
-    <item quantity="other">%s puntos por riba da túa puntuación de exercicios</item>
+    <item quantity="other">%s puntos por riba da túa puntuación de crebacabezas</item>
   </plurals>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Engadir outro tema</string>
@@ -67,29 +67,30 @@
   <string name="history">Historial de crebacabezas</string>
   <string name="solved">resoltos</string>
   <string name="failed">fallados</string>
-  <string name="streakDescription">Soluciona exercicios cada vez máis difíciles e consigue unha racha de victorias. Non hai conta atrás, así que podes ir a modo. Se te equivocas nun só movemento, acabouse! Pero lembra que podes omitir un movemento por sesión.</string>
-  <string name="yourStreakX">A túa puntuación: %s</string>
-  <string name="streakSkipExplanation">Omite este movemento para conservar o teu combo. Só funciona unha vez por corrida.</string>
-  <string name="continueTheStreak">Continúa a racha</string>
-  <string name="newStreak">Nova racha</string>
+  <string name="streakDescription">Soluciona exercicios cada vez máis difíciles e consigue unha secuencia de vitorias. Non hai conta atrás, así que podes ir amodo. Se te equivocas nun só movemento, acabouse! Pero lembra que podes omitir unha xogada por sesión.</string>
+  <string name="yourStreakX">A túa secuencia de vitorias: %s</string>
+  <string name="streakSkipExplanation">Omite este movemento para conservar a túa secuencia. Só se pode facer unha vez por sesión.</string>
+  <string name="continueTheStreak">Continúa a secuencia</string>
+  <string name="newStreak">Nova secuencia de vitorias</string>
   <string name="fromMyGames">Das miñas partidas</string>
-  <string name="lookupOfPlayer">Buscar exercicios das partidas dun xogador/a</string>
-  <string name="fromXGames">Exercicios das partidas de %s</string>
-  <string name="searchPuzzles">Busca exercicios</string>
-  <string name="fromMyGamesNone">Non tes exercicios na base de datos, pero Lichess aínda te quiere un montón.
-Xoga partidas rápidas e clásicas para ter máis posibilidades de que se engadan os teus exercicios!</string>
-  <string name="fromXGamesFound">%1$s exercicios atopados en %2$s partidas</string>
+  <string name="lookupOfPlayer">Buscar crebacabezas das partidas dun xogador</string>
+  <string name="fromXGames">Crebacabezas das partidas de %s</string>
+  <string name="searchPuzzles">Busca crebacabezas</string>
+  <string name="fromMyGamesNone">Non tes crebacabezas na base de datos e aínda así Lichess quérete moito.
+Xoga partidas rápidas e clásicas para ter máis opcións de que se engadan os teus crebacabezas!</string>
+  <string name="fromXGamesFound">%1$s crebacabezas atopados en %2$s partidas</string>
   <string name="puzzleDashboardDescription">Adestra, analiza, mellora</string>
   <plurals name="nbPlayed">
-    <item quantity="one">%s xogados</item>
+    <item quantity="one">%s xogado</item>
     <item quantity="other">%s xogados</item>
   </plurals>
   <plurals name="nbToReplay">
     <item quantity="one">%s a repetir</item>
     <item quantity="other">%s a repetir</item>
   </plurals>
-  <string name="percentSolved">%s resoltos</string>
-  <string name="noPuzzlesToShow">Nada que amosar, xoga algúns Problemas primeiro!</string>
-  <string name="improvementAreasDescription">Adestra estes para optimizar o teu progreso!</string>
-  <string name="strengthDescription">O teu rendemento é mellor nestes temas</string>
+  <string name="percentSolved">%s
+resoltos</string>
+  <string name="noPuzzlesToShow">Non hai nada que amosar, primeiro resolve algún crebacabezas!</string>
+  <string name="improvementAreasDescription">Adestra nestes temas para progresar!</string>
+  <string name="strengthDescription">Estas son as áreas nas que es máis forte</string>
 </resources>

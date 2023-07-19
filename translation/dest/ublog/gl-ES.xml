@@ -4,43 +4,43 @@
   <string name="newPost">Novo artigo</string>
   <string name="editYourBlogPost">Edita o teu artigo</string>
   <string name="saveDraft">Gardar borrador</string>
-  <string name="postTitle">Título da entrada</string>
-  <string name="postIntro">Intro do artigo</string>
+  <string name="postTitle">Título da publicación</string>
+  <string name="postIntro">Introdución do artigo</string>
   <string name="postBody">Corpo do artigo</string>
   <string name="drafts">Borradores</string>
   <string name="published">Publicado</string>
   <string name="createBlogDiscussion">Activar comentarios</string>
   <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
-  <string name="publishHelp">Se está chequeado, o post será listado no teu blog. Se non, será privado, e estará nos teus borradores</string>
+  <string name="publishHelp">Se está marcado, o artigo publicarase no teu blog. Se non, será privado, e estará xunto ós teus borradores</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">Publicada unha entrada de blogue</item>
-    <item quantity="other">Publicadas %s entradas de blogue</item>
+    <item quantity="one">Publicou un artigo no blog</item>
+    <item quantity="other">Publicou %s artigos no blog</item>
   </plurals>
   <plurals name="nbViews">
-    <item quantity="one">Una vista</item>
-    <item quantity="other">%s vistas</item>
+    <item quantity="one">Unha visualización</item>
+    <item quantity="other">%s visualizacións</item>
   </plurals>
   <string name="xPublishedY">%1$s publicou %2$s</string>
-  <string name="thisPostIsPublished">Post publicado</string>
-  <string name="thisIsADraft">Este é un borrador</string>
-  <string name="moreBlogPostsBy">Máis post de %s</string>
-  <string name="noPostsInThisBlogYet">Aínda non hai posts.</string>
-  <string name="noDrafts">Non hai empates que amosar.</string>
-  <string name="latestBlogPosts">Últimas entradas</string>
+  <string name="thisPostIsPublished">Este artigo está publicado</string>
+  <string name="thisIsADraft">Isto é un borrador</string>
+  <string name="moreBlogPostsBy">Máis publicacións de %s</string>
+  <string name="noPostsInThisBlogYet">Aínda non hai publicacións neste blog.</string>
+  <string name="noDrafts">Non hai borradores que amosar.</string>
+  <string name="latestBlogPosts">Últimas publicacións</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">Ver un post</item>
-    <item quantity="other">Ver %s posts</item>
+    <item quantity="one">Ver unha publicación</item>
+    <item quantity="other">Ver todas as %s publicacións</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Sube unha imaxe para o teu artigo</string>
   <string name="imageAlt">Texto alternativo da imaxe</string>
-  <string name="imageCredit">Créditos das imaxes</string>
-  <string name="deleteBlog">Borra esta publicación do blog definitivamente</string>
+  <string name="imageCredit">Créditos da imaxe</string>
+  <string name="deleteBlog">Borra para sempre esta publicación do blog</string>
   <string name="deleteImage">Borra a imaxe</string>
   <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">É seguro usar imaxes das seguintes webs: </string>
-  <string name="selectPostTopics">Selecciona os temas dos que publicas</string>
-  <string name="useImagesYouMadeYourself">Podes tamén empregar imaxes que deseñaras ti mesmo/a, fotos túas, pantallazos de Lichess... calquera que non teña copyright de outra persoa.</string>
-  <string name="safeAndRespectfulContent">Por favor só publica contido seguro e respectuoso. Non copies contido.</string>
-  <string name="inappropriateContentAccountClosed">Calquera cousa inapropiada pode facer que pechemos a túa conta.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">As nosas recomendacións para escribir boas publicacións</string>
+  <string name="selectPostTopics">Selecciona os temas dos que trata este artigo</string>
+  <string name="useImagesYouMadeYourself">Tamén podes usar imaxes deseñadas por ti, as túas fotos, capturas de pantalla de Lichess... calquera cousa que non teña dereitos de autor doutra persoa.</string>
+  <string name="safeAndRespectfulContent">Por favor, publica só contido seguro e respectuoso. Non copies o contido doutra persoa.</string>
+  <string name="inappropriateContentAccountClosed">Calquera cousa inadecuada pode facer que pechemos a túa conta.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Os nosos sinxelos consellos para escribir boas publicacións</string>
 </resources>

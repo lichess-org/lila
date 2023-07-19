@@ -27,7 +27,7 @@
   <string name="bestRated">गुणांनुसार सर्वोच्च विजय</string>
   <string name="worstRated">गुणांनुसार सर्वात वाईट पराभव</string>
   <string name="gamesInARow">सलग खेळ</string>
-  <string name="lessThanOneHour">खेळांमध्ये एक तासापेक्षा कमी वेळ</string>
+  <string name="lessThanOneHour">दोन डावांमध्ये एका तासापेक्षा कमी वेळ</string>
   <string name="maxTimePlaying">खेळण्यात घालवलेला सर्वाधिक वेळ</string>
   <string name="now">आता</string>
 </resources>

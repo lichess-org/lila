@@ -805,7 +805,7 @@
   <string name="whiteWinsGame">Blanko venkas</string>
   <string name="blackWinsGame">Nigro venkas</string>
   <string name="learnFromYourMistakes">Lerni de viaj eraroj</string>
-  <string name="learnFromThisMistake">Lerni de tio ĉi eraro</string>
+  <string name="learnFromThisMistake">Lerni de tiu ĉi eraro</string>
   <string name="skipThisMove">Preterpasi tion ĉi movon</string>
   <string name="next">Sekva</string>
   <string name="xWasPlayed">%s ludita</string>
