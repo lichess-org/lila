@@ -42,8 +42,6 @@ object Mobile:
   )
 
   object LichessMobileUa:
-    private val RegexOld =
-      """(?i)lichess mobile/(\S+) \((\d*)\) as:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r // remove soon
     private val Regex =
       """(?i)lichess mobile/(\S+) \((\d*)\) as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
     def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req) flatMap parse
@@ -54,9 +52,6 @@ object Mobile:
           case Regex(version, build, user, sri, osName, osVersion, device) =>
             val userId = (user != "anon") option UserStr(user).id
             LichessMobileUa(version, ~build.toIntOption, userId, Sri(sri), osName, osVersion, device).some
-          case RegexOld(version, build, user, osName, osVersion, device) =>
-            val userId = (user != "anon") option UserStr(user).id
-            LichessMobileUa(version, ~build.toIntOption, userId, Sri("old"), osName, osVersion, device).some
           case _ => none
 
   // LM/{version} {android|ios}/{os-version} {device info}
