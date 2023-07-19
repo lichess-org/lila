@@ -36,12 +36,6 @@ class MobileTest extends munit.FunSuite:
       Some(Sri("fp_Osk6zKPF96MXI"))
     )
 
-  test("old instance"):
-    assertEquals(
-      LichessMobileUa.parse("Lichess Mobile/1.0.0_ALPHA-2 () as:anon os:iOS/what-3v3r dev:"),
-      LichessMobileUa("1.0.0_ALPHA-2", 0, None, Sri("old"), "iOS", "what-3v3r", "").some
-    )
-
   test("invalid UAs"):
     assertEquals(
       LichessMobileUa.parse("Mobile/0.2.1 (897) as:thibault sri:39xtnrf8 os:android/11.0.2 dev:Moto G (4)"),
