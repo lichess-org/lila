@@ -62,7 +62,7 @@ lichess.load.then(() => {
 
 function submitMoveChoices(name: string) {
   let sum = 0;
-  $(`input[type="checkbox"][data-name="${name}"]:checked`).each(function (this: HTMLInputElement) {
+  $(`input[type="checkbox"][name="${name}"]:checked`).each(function (this: HTMLInputElement) {
     sum |= parseInt(this.value);
   });
   $(`input[type="hidden"][name="${name}"]`).val(sum.toString());

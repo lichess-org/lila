@@ -71,7 +71,8 @@ object bits:
               st.id := id,
               checked option st.checked,
               tpe      := "checkbox",
-              st.value := key.toString
+              st.value := key.toString,
+              name     := field.name
             ),
             label(`for` := id)(value)
           )
