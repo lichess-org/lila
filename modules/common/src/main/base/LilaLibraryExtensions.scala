@@ -105,10 +105,6 @@ trait LilaLibraryExtensions extends LilaTypes:
     def toCentis = chess.Centis(d)
     def abs      = if d.length < 0 then -d else d
 
-  extension [E, A](v: Validated[E, A]) def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
-
-  extension [A](list: List[Try[A]]) def sequence: Try[List[A]] = Try(list map { _.get })
-
   extension [A](list: List[A])
     def sortLike[B](other: Seq[B], f: A => B): List[A] =
       list.sortWith { (x, y) =>
