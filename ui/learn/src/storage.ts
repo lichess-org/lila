@@ -6,6 +6,7 @@ export interface Storage {
   data: LearnProgress;
   saveScore(stage: Stage, level: { id: number }, score: number): void;
   reset(): void;
+  partial_reset(stageKey: string): void;
 }
 
 const key = 'learn.progress';
@@ -30,6 +31,16 @@ function xhrReset() {
   return m.request({
     method: 'POST',
     url: '/learn/reset',
+  });
+}
+
+function xhrPartialReset(stageKey: string) {
+  return m.request({
+    method: 'POST',
+    url: '/learn/partial_reset',
+    data: {
+      stage: stageKey,
+    },
   });
 }
 
@@ -58,6 +69,11 @@ export default function (d?: LearnProgress): Storage {
         lichess.storage.remove(key);
         location.reload();
       }
+    },
+    partial_reset: function (stageKey: string) {
+      xhrPartialReset(stageKey).then(function () {
+        location.reload();
+      });
     },
   };
 }

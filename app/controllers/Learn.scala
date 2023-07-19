@@ -44,3 +44,16 @@ final class Learn(env: Env) extends LilaController(env):
   def reset = AuthBody { _ ?=> me ?=>
     env.learn.api.reset(me) inject Ok(Json.obj("ok" -> true))
   }
+
+  val partialResetForm = Form:
+    single("stage" -> nonEmptyText)
+
+  def partial_reset = AuthBody { _ ?=> me ?=>
+    partialResetForm
+      .bindFromRequest()
+      .fold(
+        _ => BadRequest,
+        (stage) => 
+          env.learn.api.unsetScore(me, stage) inject Ok(Json.obj("ok" -> true))
+      )
+  }

@@ -18,6 +18,9 @@ final class LearnApi(coll: Coll)(using Executor):
       save(prog.withScore(stage, level, score))
     }
 
+  def unsetScore(user: User, stage: String) =
+    coll.unsetField($id(user.id), ("stages." + stage)).void
+
   def reset(user: User) =
     coll.delete.one($id(user.id)).void
 

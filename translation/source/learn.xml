@@ -3,8 +3,11 @@
   <string name="learnChess">Learn chess</string>
   <string name="byPlaying">by playing!</string>
   <string name="menu">Menu</string>
+  <string name="choose">Choose</string>
+  <string name="everything">Everything</string>
   <string name="progressX">Progress: %s</string>
   <string name="resetMyProgress">Reset my progress</string>
+  <string name="resetMyProgressStage">Reset my progress for %s ?</string>
   <string name="youWillLoseAllYourProgress">You will lose all your progress!</string>
   <string name="play">play!</string>
   <string name="chessPieces">Chess pieces</string>

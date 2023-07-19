@@ -259,6 +259,7 @@ GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.str
 GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
+POST  /learn/partial_reset             controllers.Learn.partial_reset
 GET   /$lang<\w\w\w?>/learn            controllers.Learn.indexLang(lang)
 
 # Patron

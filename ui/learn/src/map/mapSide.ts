@@ -9,6 +9,7 @@ export interface SideCtrl {
   categId: _mithril.MithrilBasicProperty<number>;
   data: LearnProgress;
   reset(): void;
+  partial_reset(stageKey: string): void;
   active(): number | null;
   inStage(): boolean;
   setStage(stage: stages.Stage): void;
@@ -89,19 +90,76 @@ function renderHome(ctrl: SideCtrl) {
         },
       }),
     ]),
-    m('div.actions', [
+    m(
+      'div.actions',
       progress > 0
-        ? m(
-            'a.confirm',
-            {
-              onclick: function () {
-                if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
+        ? [
+            m(
+              'label',
+              {
+                for: 'reset-categ-dropdown',
               },
-            },
-            ctrl.trans.noarg('resetMyProgress')
-          )
-        : null,
-    ]),
+              ctrl.trans.noarg('resetMyProgress')
+            ),
+            m(
+              'select',
+              {
+                name: 'reset-categ-dropdown',
+                id: 'reset-categ-dropdown',
+                oninput: (value: Event | null) => {
+                  const target = value?.target as HTMLSelectElement;
+                  const question = target.selectedOptions[0].getAttribute('question');
+                  if (question) {
+                    if (target.value !== '' && confirm(question)) {
+                      if (target.value === 'ALL') {
+                        ctrl.reset();
+                      } else {
+                        ctrl.partial_reset(target.value);
+                      }
+                    }
+                    target.value = '';
+                  }
+                },
+              },
+              ...[
+                ...[
+                  m(
+                    'option',
+                    {
+                      value: '',
+                    },
+                    ctrl.trans.noarg('choose')
+                  ),
+                  m(
+                    'option',
+                    {
+                      value: 'ALL',
+                      question: ctrl.trans.noarg('youWillLoseAllYourProgress'),
+                    },
+                    ctrl.trans.noarg('everything')
+                  ),
+                ],
+                ...[
+                  ...stages.categs.map(function (categ) {
+                    return categ.stages.map(function (s) {
+                      return ctrl.data.stages[s.key]
+                        ? m(
+                            'option',
+                            {
+                              value: s.key,
+                              question: ctrl.trans('resetMyProgressStage', ctrl.trans.noarg(s.title)),
+                            },
+                            ctrl.trans.noarg(s.title)
+                          )
+                        : undefined;
+                    });
+                  }),
+                ],
+              ]
+            ),
+          ]
+        : null
+    ),
   ]);
 }
 
@@ -134,6 +192,7 @@ export default function (opts: LearnOpts, trans: Trans) {
           return Math.round((total / max) * 100);
         },
         reset: opts.storage.reset,
+        partial_reset: opts.storage.partial_reset,
         trans: trans,
       };
     },
