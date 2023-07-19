@@ -57,7 +57,7 @@ object perfStat:
           div(cls := "box__pad perf-stat__content")(
             glicko(user, perfType, user.perfs(perfType), percentile),
             counter(stat.count),
-            highlow(stat, percentile_low, percentile_high),
+            highlow(stat, percentileLow, percentileHigh),
             resultStreak(stat.resultStreak),
             result(stat, user),
             playStreakNb(stat.playStreak),
@@ -207,14 +207,14 @@ object perfStat:
       )
     case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
 
-  private def highlow(stat: PerfStat, percentile_low: Option[Double], percentile_high: Option[Double])(using Lang): Frag =
+  private def highlow(stat: PerfStat, percentileLow: Option[Double], percentileHigh: Option[Double])(using Lang): Frag =
     import stat.perfType
     st.section(cls := "highlow split")(
-      highlowSide(highestRating(_), stat.highest, percentile_high.map { highValue =>
-      trans.currentlyRepresentingBeingBetterThanPercentPlayers.txt(highValue.toString() + "%", perfType.trans)
+      highlowSide(highestRating(_), stat.highest, percentileHigh.map { highValue =>
+      trans.betterThanPercentPlayers.txt(highValue.toString() + "%", perfType.trans)
       }, "green"),
-      highlowSide(lowestRating(_), stat.lowest, percentile_low.map { lowValue =>
-      trans.currentlyRepresentingBeingBetterThanPercentPlayers.txt(lowValue.toString() + "%", perfType.trans)
+      highlowSide(lowestRating(_), stat.lowest, percentileLow.map { lowValue =>
+      trans.betterThanPercentPlayers.txt(lowValue.toString() + "%", perfType.trans)
       }, "red")
     )
 

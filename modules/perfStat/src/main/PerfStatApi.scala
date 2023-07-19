@@ -9,8 +9,8 @@ case class PerfStatData(
     stat: PerfStat,
     ranks: UserRankMap,
     percentile: Option[Double],
-    percentile_low: Option[Double],
-    percentile_high: Option[Double],
+    percentileLow: Option[Double],
+    percentileHigh: Option[Double],
 ):
   def rank = ranks get stat.perfType
 
@@ -39,18 +39,18 @@ final class PerfStatApi(
 
             distribution <- u.perfs(perfType).established soFu rankingApi.weeklyRatingDistribution(perfType)
             percentile = calc_percentile(distribution, u.perfs(perfType).intRating)
-            percentile_low = perfStat.lowest.flatMap{r => calc_percentile(distribution, r.int)}
-            percentile_high = perfStat.highest.flatMap{r => calc_percentile(distribution, r.int)}
+            percentileLow = perfStat.lowest.flatMap{r => calc_percentile(distribution, r.int)}
+            percentileHigh = perfStat.highest.flatMap{r => calc_percentile(distribution, r.int)}
             _ = lightUserApi preloadUser u.user
             _ <- lightUserApi preloadMany perfStat.userIds
-          yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentile_low, percentile_high)
+          yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
       }
 
-  private def calc_percentile(wrd: Option[List[Int]], intRating: IntRating): Option[Double] = {
-    return (wrd.map: distrib =>
+  private def calc_percentile(wrd: Option[List[Int]], intRating: IntRating): Option[Double] = 
+    wrd.map: distrib =>
       val (under, sum) = lila.user.Stat.percentile(distrib, intRating)
-      Math.round(under * 1000.0 / sum) / 10.0)
-  }
+      Math.round(under * 1000.0 / sum) / 10.0
+  
 
 
   def get(user: User, perfType: PerfType): Fu[PerfStat] =
