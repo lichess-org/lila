@@ -1,7 +1,5 @@
 package lila.oauth
 
-import cats.data.Validated
-
 import lila.user.User
 
 object AuthorizationRequest:
@@ -19,9 +17,9 @@ object AuthorizationRequest:
   ):
     // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
-    def prompt: Validated[Error, Prompt] = for
-      redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
-      clientId    <- clientId.toValid(Error.ClientIdRequired)
+    def prompt: Either[Error, Prompt] = for
+      redirectUri <- redirectUri.toRight(Error.RedirectUriRequired).flatMap(RedirectUri.from)
+      clientId    <- clientId.toRight(Error.ClientIdRequired)
     yield Prompt(
       redirectUri,
       state,
@@ -47,14 +45,13 @@ object AuthorizationRequest:
 
     def cancelUrl = errorUrl(Error.AccessDenied)
 
-    private def validScopes: Validated[Error, OAuthScopes] =
+    private def validScopes: Either[Error, OAuthScopes] =
       (~scope)
         .split(" ")
         .filter(_ != "")
-        .foldLeft(Validated.valid[Error, List[OAuthScope]](List.empty[OAuthScope])) { case (acc, key) =>
-          acc.andThen: valid =>
-            OAuthScope.byKey.get(key).toValid(Error.InvalidScope(key)).map(_ :: valid)
-        }
+        .toList
+        .foldLeftM(List.empty[OAuthScope]): (acc, key) =>
+          OAuthScope.byKey.get(key).toRight(Error.InvalidScope(key)).map(_ :: acc)
         .map(OAuthScopes(_))
 
     def scopes: OAuthScopes = validScopes.getOrElse(OAuthScopes(Nil))
@@ -75,24 +72,24 @@ object AuthorizationRequest:
     def authorize(
         user: User,
         legacy: (ClientId, RedirectUri) => Fu[Option[LegacyClientApi.HashedClientSecret]]
-    ): Fu[Validated[Error, Authorized]] =
+    ): Fu[Either[Error, Authorized]] =
       codeChallengeMethod
         .match
           case None =>
             legacy(clientId, redirectUri).dmap(
-              _.toValid[Error](Error.CodeChallengeMethodRequired).map(Left.apply)
+              _.toRight[Error](Error.CodeChallengeMethodRequired).map(Left.apply)
             )
           case Some(method) =>
-            fuccess(CodeChallengeMethod.from(method).andThen { _ =>
+            fuccess(CodeChallengeMethod.from(method).flatMap { _ =>
               codeChallenge
-                .toValid[Error](Error.CodeChallengeRequired)
+                .toRight[Error](Error.CodeChallengeRequired)
                 .map(Right.apply)
             })
         .dmap: challenge =>
           for
             challenge <- challenge
             scopes    <- validScopes
-            _         <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+            _         <- responseType.toRight(Error.ResponseTypeRequired).flatMap(ResponseType.from)
           yield Authorized(
             clientId,
             redirectUri,
