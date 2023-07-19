@@ -557,7 +557,7 @@ object I18nKeys:
   val `yourPerfTypeRatingIsRating` = I18nKey("yourPerfTypeRatingIsRating")
   val `youAreBetterThanPercentOfPerfTypePlayers` = I18nKey("youAreBetterThanPercentOfPerfTypePlayers")
   val `userIsBetterThanPercentOfPerfTypePlayers` = I18nKey("userIsBetterThanPercentOfPerfTypePlayers")
-  val `currentlyRepresentingBeingBetterThanPercentPlayers` = I18nKey("currentlyRepresentingBeingBetterThanPercentPlayers")
+  val `betterThanPercentPlayers` = I18nKey("betterThanPercentPlayers")
   val `youDoNotHaveAnEstablishedPerfTypeRating` = I18nKey("youDoNotHaveAnEstablishedPerfTypeRating")
   val `yourRating` = I18nKey("yourRating")
   val `cumulative` = I18nKey("cumulative")

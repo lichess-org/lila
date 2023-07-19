@@ -57,7 +57,7 @@ object perfStat:
           div(cls := "box__pad perf-stat__content")(
             glicko(user, perfType, user.perfs(perfType), percentile),
             counter(stat.count),
-            highlow(stat, percentile_low, percentile_high),
+            highlow(stat, percentileLow, percentileHigh),
             resultStreak(stat.resultStreak),
             result(stat, user),
             playStreakNb(stat.playStreak),
@@ -196,26 +196,42 @@ object perfStat:
       )
     )
 
-  private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], 
-    pctStr: Option[String], color: String)(using
+  private def highlowSide(
+      title: Frag => Frag,
+      opt: Option[lila.perfStat.RatingAt],
+      pct: Option[String],
+      color: String
+  )(using
       Lang
   ): Frag = opt match
     case Some(r) =>
       div(
-        h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
+        h2(title(strong(tag(color)(r.int, pct.map(st.title := _))))),
         a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientInstant(r.at))
       )
     case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
 
-  private def highlow(stat: PerfStat, percentile_low: Option[Double], percentile_high: Option[Double])(using Lang): Frag =
+  private def highlow(stat: PerfStat, percentileLow: Option[Double], percentileHigh: Option[Double])(using
+      Lang
+  ): Frag =
     import stat.perfType
     st.section(cls := "highlow split")(
-      highlowSide(highestRating(_), stat.highest, percentile_high.map { highValue =>
-      trans.currentlyRepresentingBeingBetterThanPercentPlayers.txt(highValue.toString() + "%", perfType.trans)
-      }, "green"),
-      highlowSide(lowestRating(_), stat.lowest, percentile_low.map { lowValue =>
-      trans.currentlyRepresentingBeingBetterThanPercentPlayers.txt(lowValue.toString() + "%", perfType.trans)
-      }, "red")
+      highlowSide(
+        highestRating(_),
+        stat.highest,
+        percentileHigh.map { highValue =>
+          trans.betterThanPercentPlayers.txt(highValue.toString() + "%", perfType.trans)
+        },
+        "green"
+      ),
+      highlowSide(
+        lowestRating(_),
+        stat.lowest,
+        percentileLow.map { lowValue =>
+          trans.betterThanPercentPlayers.txt(lowValue.toString() + "%", perfType.trans)
+        },
+        "red"
+      )
     )
 
   private def fromTo(s: lila.perfStat.Streak)(using Lang): Frag =
