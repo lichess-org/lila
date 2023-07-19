@@ -145,7 +145,7 @@ final private class RelayFetch(
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
               )
           } flatMap {
-            RelayFetch.multiPgnToGames(_).future
+            RelayFetch.multiPgnToGames(_).toFuture
           }
       case url: UpstreamUrl =>
         delayer(url, rt, doFetchUrl)
@@ -181,7 +181,7 @@ final private class RelayFetch(
               MultiPgn(results.sortBy(_._1).map(_._2))
             }
         }
-    } flatMap { RelayFetch.multiPgnToGames(_).future }
+    } flatMap { RelayFetch.multiPgnToGames(_).toFuture }
 
   private def httpGet(url: URL): Fu[String] =
     ws.url(url.toString)
@@ -253,40 +253,37 @@ private[relay] object RelayFetch:
 
   object multiPgnToGames:
 
-    import scala.util.{ Failure, Success, Try }
-
-    def apply(multiPgn: MultiPgn): Try[Vector[RelayGame]] =
+    def apply(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
       multiPgn.value
-        .foldLeft[Try[(Vector[RelayGame], Int)]](Success(Vector.empty -> 0)):
-          case (Success((acc, index)), pgn) =>
-            pgnCache.get(pgn) flatMap { f =>
-              val game = f(index)
-              if game.isEmpty then Failure(LilaInvalid(s"Found an empty PGN at index $index"))
-              else Success((acc :+ game, index + 1))
-            }
-          case (acc, _) => acc
+        .foldLeftM(Vector.empty[RelayGame] -> 0):
+          case ((acc, index), pgn) =>
+            pgnCache
+              .get(pgn)
+              .flatMap: f =>
+                val game = f(index)
+                if game.isEmpty then LilaInvalid(s"Found an empty PGN at index $index").asLeft
+                else (acc :+ game, index + 1).asRight[LilaInvalid]
         .map(_._1)
 
-    private val pgnCache: LoadingCache[PgnStr, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(2 minutes)
-      .maximumSize(512)
-      .build(compute)
+    private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, Int => RelayGame]] =
+      CacheApi.scaffeineNoScheduler
+        .expireAfterAccess(2 minutes)
+        .maximumSize(512)
+        .build(compute)
 
-    private def compute(pgn: PgnStr): Try[Int => RelayGame] =
+    private def compute(pgn: PgnStr): Either[LilaInvalid, Int => RelayGame] =
       lila.study
         .PgnImport(pgn, Nil)
-        .fold(
-          err => Failure(LilaInvalid(err.value)),
-          res =>
-            Success: index =>
-              RelayGame(
-                index = index,
-                tags = res.tags,
-                variant = res.variant,
-                root = res.root.copy(
-                  comments = Comments.empty,
-                  children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
-                ),
-                end = res.end
-              )
-        )
+        .leftMap(err => LilaInvalid(err.value))
+        .map: res =>
+          index =>
+            RelayGame(
+              index = index,
+              tags = res.tags,
+              variant = res.variant,
+              root = res.root.copy(
+                comments = Comments.empty,
+                children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
+              ),
+              end = res.end
+            )

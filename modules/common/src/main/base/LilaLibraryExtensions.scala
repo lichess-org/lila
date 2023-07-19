@@ -88,18 +88,13 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def future: Fu[A] = fold(Future.failed, fuccess)
 
-    def toEither: Either[Throwable, A] =
-      v match
-        case scala.util.Success(res) => Right(res)
-        case scala.util.Failure(err) => Left(err)
-
   extension [A, B](v: Either[A, B])
-    def orElse(other: => Either[A, B]): Either[A, B] =
-      v match
-        case scala.util.Right(res) => Right(res)
-        case scala.util.Left(_)    => other
-
-    def toFuture: Fu[B] = v.fold(err => fufail(err.toString), fuccess)
+    def toFuture: Fu[B] = v match
+      case Right(res) => fuccess(res)
+      case Left(err) =>
+        err match
+          case e: Exception => Future.failed(e)
+          case _            => fufail(err.toString)
 
   extension (d: FiniteDuration)
     def toCentis = chess.Centis(d)
