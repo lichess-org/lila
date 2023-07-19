@@ -64,12 +64,12 @@ export default new (class implements SoundI {
       this.load(name)
         .then(async sound => {
           if (!sound) return resolve();
-          const resumeTimer = setTimeout(() => {
+          /*const resumeTimer = setTimeout(() => {
             $('#warn-no-autoplay').addClass('shown');
             reject();
           }, 400);
           await this.context();
-          clearTimeout(resumeTimer);
+          clearTimeout(resumeTimer);*/
           sound.play(this.getVolume() * volume, resolve);
         })
         .catch(reject);

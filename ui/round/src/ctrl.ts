@@ -839,6 +839,9 @@ export default class RoundController {
     lichess.requestIdleCallback(() => {
       const d = this.data;
       if (this.isPlaying()) {
+        if (game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
+          lichess.sound.play('genericNotify');
+        }
         if (!d.simul) blur.init(d.steps.length > 2);
 
         title.init();
