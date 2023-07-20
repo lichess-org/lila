@@ -41,29 +41,27 @@ object Mobile:
   )
 
   object LichessMobileUa:
+    def is(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
     private val Regex =
       """(?i)lichess mobile/(\S+)(?: \(\d*\))? as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
     def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req) flatMap parse
-    def parse(ua: UserAgent): Option[LichessMobileUa] = ua.value
-      .startsWith("Lichess Mobile/")
-      .so:
-        ua.value match
-          case Regex(version, user, sri, osName, osVersion, device) =>
-            val userId = (user != "anon") option UserStr(user).id
-            LichessMobileUa(version, userId, Sri(sri), osName, osVersion, device).some
-          case _ => none
+    def parse(ua: UserAgent): Option[LichessMobileUa] = is(ua).so:
+      ua.value match
+        case Regex(version, user, sri, osName, osVersion, device) =>
+          val userId = (user != "anon") option UserStr(user).id
+          LichessMobileUa(version, userId, Sri(sri), osName, osVersion, device).some
+        case _ => none
 
   // LM/{version} {Android|iOS}/{os-version} {device info}
   // stored in security documents
   case class LichessMobileUaTrim(version: String, osName: String, osVersion: String, device: String)
 
   object LichessMobileUaTrim:
-    private val Regex = """LM/(\S+) (Android|iOS)/(\S+) (.*)""".r
-    def parse(ua: UserAgent): Option[LichessMobileUaTrim] = ua.value
-      .startsWith("LM/")
-      .so:
-        ua.value match
-          case Regex(version, osName, osVersion, device) =>
-            LichessMobileUaTrim(version, osName, osVersion, device).some
-          case _ => none
+    def is(ua: UserAgent): Boolean = ua.value.startsWith("LM/")
+    private val Regex              = """LM/(\S+) (Android|iOS)/(\S+) (.*)""".r
+    def parse(ua: UserAgent): Option[LichessMobileUaTrim] = is(ua).so:
+      ua.value match
+        case Regex(version, osName, osVersion, device) =>
+          LichessMobileUaTrim(version, osName, osVersion, device).some
+        case _ => none
     def write(m: LichessMobileUa) = s"""LM/${m.version} ${m.osName}/${m.osVersion} ${m.device take 60}"""
