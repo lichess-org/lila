@@ -702,6 +702,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="yourPerfTypeRatingIsRating">A tua pontuação em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">És melhor que %1$s dos jogadores de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é melhor que %2$s dos jogadores de %3$s.</string>
+  <string name="betterThanPercentPlayers">Melhor que %1$s de %2$s jogadores</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Não tens uma pontuação estabelecida em %s.</string>
   <string name="yourRating">A tua pontuação</string>
   <string name="cumulative">Acumulativo</string>
