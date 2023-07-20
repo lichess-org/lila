@@ -10,7 +10,7 @@ type Path = string;
 export type SoundMove = (node?: { san?: string; uci?: string }) => void;
 
 export default new (class implements SoundI {
-  ctx = new AudioContext();
+  ctx = new (AudioContext || window.webkitAudioContext)();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
   theme = $('body').data('sound-set');
@@ -22,7 +22,7 @@ export default new (class implements SoundI {
   async context() {
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
-      this.ctx = new AudioContext();
+      this.ctx = new (AudioContext || window.webkitAudioContext)();
       for (const s of this.sounds.values()) s.rewire(this.ctx);
     }
     if (this.ctx.state === 'suspended') await this.ctx.resume();
