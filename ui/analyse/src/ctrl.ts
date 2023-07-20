@@ -728,7 +728,7 @@ export default class AnalyseCtrl {
   };
 
   toggleThreatMode = () => {
-    if (this.node.check) return;
+    if (this.node.check || !this.showComputer()) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
     this.threatMode(!this.threatMode());
