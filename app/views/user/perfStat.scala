@@ -196,10 +196,12 @@ object perfStat:
       )
     )
 
-  private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], 
-    pctStr: Option[String], color: String)(using
-      Lang
-  ): Frag = opt match
+  private def highlowSide(
+      title: Frag => Frag,
+      opt: Option[lila.perfStat.RatingAt],
+      pctStr: Option[String],
+      color: String
+  )(using Lang): Frag = opt match
     case Some(r) =>
       div(
         h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
