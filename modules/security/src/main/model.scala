@@ -20,14 +20,12 @@ case class AppealUser(me: Me)
 case class UserSession(
     _id: String,
     ip: IpAddress,
-    ua: String,
+    ua: UserAgent,
     api: Option[Int],
     date: Option[Instant]
 ):
-
   inline def id = _id
-
-  def isMobile = api.isDefined
+  def isMobile  = api.isDefined || Mobile.LichessMobileUaTrim.parse(ua).isDefined
 
 case class LocatedSession(session: UserSession, location: Option[Location])
 
