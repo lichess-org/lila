@@ -39,7 +39,7 @@ final class KeyPages(val env: Env)(using Executor)
     NotFound.page(html.base.notFound())
 
   def blacklisted(using ctx: Context): Fu[Result] =
-    if lila.api.Mobile.Api requested ctx.req then
+    if lila.security.Mobile.Api requested ctx.req then
       fuccess:
         Results.Unauthorized:
           Json.obj:

@@ -89,6 +89,9 @@ object OAuthScope:
   case class Scoped(me: lila.user.Me, scopes: TokenScopes):
     def user: User = me.value
 
+  case class Access(scoped: Scoped, tokenId: AccessToken.Id):
+    export scoped.*
+
   type Selector = OAuthScope.type => OAuthScope
 
   val all: List[OAuthScope] = List(

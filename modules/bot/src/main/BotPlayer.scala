@@ -94,20 +94,17 @@ final class BotPlayer(
       tellRound(pov.gameId, if v then TakebackYes(pov.playerId) else TakebackNo(pov.playerId))
 
   def claimVictory(pov: Pov): Funit =
-    pov.mightClaimWin so {
+    pov.mightClaimWin.so:
       tellRound(pov.gameId, ResignForce(pov.playerId))
-      lila.common.LilaFuture.delay(500 millis) {
-        gameRepo.finished(pov.gameId) map {
+      lila.common.LilaFuture.delay(500 millis):
+        gameRepo.finished(pov.gameId).map {
           _.exists(_.winner.map(_.id) has pov.playerId)
+        } flatMap {
+          if _ then funit
+          else clientError("You cannot claim the win on this game")
         }
-      }
-    } flatMap {
-      if _ then funit
-      else clientError("You cannot claim the win on this game")
-    }
 
   def berserk(game: Game)(using me: Me): Boolean =
-    game.berserkable so {
+    game.berserkable.so:
       Bus.publish(Berserk(game.id, me), "berserk")
       true
-    }

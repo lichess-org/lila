@@ -29,7 +29,7 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     val actionName = HTTPRequest actionName req
     val reqTime    = nowMillis - startTime
     val statusCode = result.header.status
-    val mobile     = lila.api.Mobile.LichessMobileUa.parse(req)
+    val mobile     = lila.security.Mobile.LichessMobileUa.parse(req)
     val client     = if mobile.isDefined then "mobile" else HTTPRequest clientName req
     lila.mon.http.time(actionName, client, req.method, statusCode).record(reqTime)
     if logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")

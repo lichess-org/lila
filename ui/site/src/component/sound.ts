@@ -59,20 +59,20 @@ export default new (class implements SoundI {
   }
 
   async play(name: Name, volume = 1): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       if (!this.enabled()) return resolve();
       this.load(name)
         .then(async sound => {
           if (!sound) return resolve();
           const resumeTimer = setTimeout(() => {
             $('#warn-no-autoplay').addClass('shown');
-            reject();
+            resolve();
           }, 400);
           await this.context();
           clearTimeout(resumeTimer);
           sound.play(this.getVolume() * volume, resolve);
         })
-        .catch(reject);
+        .catch(resolve);
     });
   }
 

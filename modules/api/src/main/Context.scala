@@ -47,7 +47,7 @@ class Context(
   def ip                    = HTTPRequest ipAddress req
   lazy val blind            = req.cookies.get(ApiConfig.blindCookie.name).exists(_.value.nonEmpty)
   def noBlind               = !blind
-  lazy val mobileApiVersion = Mobile.Api requestVersion req
+  lazy val mobileApiVersion = lila.security.Mobile.Api requestVersion req
   def isMobileApi           = mobileApiVersion.isDefined
   def flash(name: String): Option[String] = req.flash get name
   def withLang(l: Lang)                   = new Context(req, l, userContext, pref)

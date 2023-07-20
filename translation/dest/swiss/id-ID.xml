@@ -27,6 +27,7 @@
   <string name="numberOfRoundsHelp">Sebuah babak yang ganjil mengizinkan keseimbangan warna yang optimal.</string>
   <string name="roundInterval">Jarak antar ronde</string>
   <string name="newSwiss">Turnamen Swiss baru</string>
+  <string name="pointsCalculationQ">Bagaimana skor dihitung?</string>
   <string name="sonnebornBergerScore">penilaian Sonneborn–Berger</string>
   <string name="lateJoinQ">Dapatkah pemain telat bergabung?</string>
   <string name="lateJoinA">Ya, sampai lebih dari setengah putaran dimulai; misalnya dalam 11 ronde swiss, pemain dapat bergabung sebelum ronde 6 dimulai dan dalam 12 ronde, sebelum ronde 7 dimulai.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Emisións</string>
+  <string name="broadcasts">Emisións en directo</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s emisión</item>
     <item quantity="other">%s emisións</item>
@@ -11,27 +11,27 @@
   <string name="ongoing">En curso</string>
   <string name="upcoming">Proximamente</string>
   <string name="completed">Completadas</string>
-  <string name="roundName">Nome da ronda</string>
+  <string name="roundName">Nome de ronda</string>
   <string name="roundNumber">Número de ronda</string>
   <string name="tournamentName">Nome do torneo</string>
-  <string name="tournamentDescription">Nome curto do torneo</string>
+  <string name="tournamentDescription">Breve descrición do torneo</string>
   <string name="fullDescription">Descrición completa do evento</string>
   <string name="fullDescriptionHelp">Descrición longa opcional da retransmisión. %1$s está dispoñíbel. A lonxitude debe ser menor de %2$s caracteres.</string>
   <string name="sourceUrlOrGameIds">Ligazón de orixe ou identificador da partida</string>
   <string name="sourceUrlHelp">Ligazón que Lichess comprobará para obter actualizacións dos PGN. Debe ser publicamente accesíbel desde a Internet.</string>
-  <string name="gameIdsHelp">Alternativamente, podes introducir ata 64 identificadores de partida, separados por espacios.</string>
+  <string name="gameIdsHelp">Alternativamente, podes introducir ata 64 identificadores de partida, separados por espazos.</string>
   <string name="startDate">Data de inicio na túa zona horaria</string>
   <string name="startDateHelp">Opcional, se sabes cando comeza o evento</string>
   <string name="credits">Cita a fonte</string>
   <string name="broadcastUrl">Ligazón da transmisión</string>
   <string name="currentRoundUrl">Ligazón da ronda actual</string>
   <string name="currentGameUrl">Ligazón da partida actual</string>
-  <string name="downloadAllRounds">Descargar todas as partidas</string>
+  <string name="downloadAllRounds">Descargar todas as rondas</string>
   <string name="resetRound">Restablecer esta ronda</string>
-  <string name="deleteRound">Borra esta ronda</string>
+  <string name="deleteRound">Borrar esta ronda</string>
   <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e as súas partidas.</string>
-  <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta ronda. A emisión terá que estar activa para volver a crealas.</string>
-  <string name="editRoundStudy">Editar ronda de estudo</string>
-  <string name="deleteTournament">Elimina este torneo</string>
-  <string name="definitivelyDeleteTournament">Elimina o torneo de forma definitiva, con todas as súas rondas e as súas partidas.</string>
+  <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta ronda. A transmisión en orixe terá que estar activa para volver crealas.</string>
+  <string name="editRoundStudy">Editar o estudo da ronda</string>
+  <string name="deleteTournament">Eliminar este torneo</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Eliminar o torneo de forma definitiva, con todas as súas rondas e partidas.</string>
 </resources>

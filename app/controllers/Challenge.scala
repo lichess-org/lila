@@ -196,7 +196,7 @@ final class Challenge(
                   case Some(bearer) =>
                     val required = OAuthScope.select(_.Challenge.Write) into EndpointScopes
                     env.oAuth.server.auth(bearer, required, ctx.req.some) map {
-                      case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
+                      case Right(access) if pov.opponent.isUser(access.user) =>
                         lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                         jsonOkResult
                       case Right(_)  => BadRequest(jsonError("Not the opponent token"))

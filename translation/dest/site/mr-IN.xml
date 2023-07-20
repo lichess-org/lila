@@ -151,6 +151,10 @@
     <item quantity="one">%s खेळ</item>
     <item quantity="other">सर्व %s डाव पाहा</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s डावातील %1$s मानांकन</item>
+    <item quantity="other">%2$s डावांतील %1$s मानांकन</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s आवडते</item>
     <item quantity="other">%s आवडते</item>
@@ -205,6 +209,9 @@
   <string name="email">ई-मेल</string>
   <string name="passwordReset">पासवर्ड रिसेट</string>
   <string name="forgotPassword">परवलीचा शब्द विसरलात?</string>
+  <string name="youAreLeavingLichess">तुमही लिचेस सोडून जात आहात</string>
+  <string name="proceedToX">%s कडे जा</string>
+  <string name="accountClosed">खाते %s बंद झाले आहे.</string>
   <string name="rank">मानांकन</string>
   <string name="rankX">मानांकन: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -315,6 +322,7 @@
   </plurals>
   <string name="viewTournament">क्रीडासत्र पहा</string>
   <string name="backToTournament">क्रीडासत्रात परत जा</string>
+  <string name="noDrawBeforeSwissLimit">स्विस स्पर्धेमध्ये तुम्ही ३० चाली खेळल्याशिवाय डाव परस्पर संमतीने बरोबरीत सोडवू शकत नाही.</string>
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s गुणांकित खेळ</item>
@@ -342,8 +350,9 @@
   <string name="youAreNotInTeam">तुम्ही %s संघात नाही</string>
   <string name="backToGame">खेळात परत या</string>
   <string name="siteDescription">विनामूल्य ऑनलाइन बुद्धीबळ सर्व्हर. सुरेख दृश्यात बुद्धिबळ खेळा. कोणतीही नोंदणी, जाहिराती आवश्यक नाही. संगणक, मित्र किंवा यादृच्छिक विरोधकांबरोबर बुद्धीबळ खेळा.</string>
-  <string name="xJoinedTeamY">%1$s ने %2$s संघ जोडला</string>
+  <string name="xJoinedTeamY">%1$s %2$s संघात सामील झाले</string>
   <string name="xCreatedTeamY">%1$s ने %2$s संघ बनवला</string>
+  <string name="startedStreaming">प्रसारण सुरू केले</string>
   <string name="xStartedStreaming">%s ने खेळाचे प्रसारण सुरू केले</string>
   <string name="averageElo">सरासरी गुण</string>
   <string name="location">स्थळ</string>
@@ -628,6 +637,7 @@
   <string name="simulClockHint">फिशर क्लॉक सेटअप. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
   <string name="simulAddExtraTime">एकाच वेळी अनेकांचा सामना करण्यास सोपे व्हावे म्हणून आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>
   <string name="simulHostExtraTime">यजमानाचा जास्त वेळ</string>
+  <string name="simulHostExtraTimePerPlayer">प्रती खेळाडूनुसार यजमानासाठी जादा वेळ</string>
   <string name="lichessTournaments">लीचेस क्रीडासत्र</string>
   <string name="tournamentFAQ">क्रीडासत्राचे सामान्य प्रश्न</string>
   <string name="timeBeforeTournamentStarts">क्रीडासत्र सुरू होण्यास बाकी वेळ</string>
@@ -638,6 +648,10 @@
   <string name="keyGoToStartOrEnd">सुरवातीला/शेवटी जा</string>
   <string name="keyShowOrHideComments">प्रतिक्रिया दाखवा/लपवा</string>
   <string name="keyEnterOrExitVariation">variation च्या आत/बाहेर</string>
+  <string name="keyRequestComputerAnalysis">संगणक विश्लेषणासाठी विनतंती करा, तुमच्या चुकांपासून शिका</string>
+  <string name="keyNextLearnFromYourMistakes">पुढील (तुमच्या चुकांपासून शिका)</string>
+  <string name="keyNextBlunder">पुढील घोडचूक</string>
+  <string name="keyNextInaccuracy">पुढील अयोग्य चाल</string>
   <string name="newTournament">नविन क्रीडासत्र</string>
   <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
   <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
@@ -705,7 +719,7 @@
   <string name="gameAnalysis">डेटा विश्लेषण</string>
   <string name="xHostsY">%1$s ने %2$s चे आयोजन केले</string>
   <string name="xJoinsY">%1$s %2$s मध्ये सहभागी झाले</string>
-  <string name="xLikesY">%1$s आवडले %2$s</string>
+  <string name="xLikesY">%1$s ने %2$s ला पसंत केले</string>
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">लॉबी</string>
   <string name="anonymous">अनामिक</string>

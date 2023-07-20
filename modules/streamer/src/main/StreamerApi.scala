@@ -112,6 +112,9 @@ final class StreamerApi(
           tuber    <- streamer.getAsOpt[Streamer.YouTube]("youTube")
         yield ytApi.channelSubscribe(tuber.channelId, false)
 
+  private[streamer] def unignore(userId: UserId): Funit =
+    coll.updateField($id(userId), "approval.ignored", false).void
+
   def delete(user: User): Funit =
     coll
       .find($id(user.id))
