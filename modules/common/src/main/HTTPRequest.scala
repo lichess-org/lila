@@ -63,8 +63,8 @@ object HTTPRequest:
       """coccoc|integromedb|contentcrawlerspider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler\.com|siteexplorer\.info|elisabot|proximic|changedetection|blexbot|arabot|wesee:search|niki-bot|crystalsemanticsbot|rogerbot|360spider|psbot|interfaxscanbot|lipperheyseoservice|ccmetadatascaper|g00g1e\.net|grapeshotcrawler|urlappendbot|brainobot|fr-crawler|binlar|simplecrawler|simplecrawler|livelapbot|twitterbot|cxensebot|smtbot|facebookexternalhit|daumoa|sputnikimagebot|visionutils|yisouspider|parsijoobot|mediatoolkit\.com|semrushbot"""
 
   final class UaMatcher(rStr: String):
-    private val regex: Regex               = rStr.r
-    def apply(req: RequestHeader): Boolean = userAgent(req).exists(ua => regex.find(ua.value))
+    private val pattern                    = rStr.r.pattern
+    def apply(req: RequestHeader): Boolean = userAgent(req).exists(ua => pattern.matcher(ua.value).find)
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean =
     userAgent(req).fold(false)(ua => regex.find(ua.value))
