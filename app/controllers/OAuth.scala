@@ -19,14 +19,14 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   private def reqToAuthorizationRequest(using RequestHeader) =
     import lila.oauth.Protocol.*
     AuthorizationRequest.Raw(
-      clientId = ClientId from get("client_id"),
+      clientId = getAs[ClientId]("client_id"),
       responseType = get("response_type"),
       redirectUri = get("redirect_uri"),
-      state = State from get("state"),
+      state = getAs[State]("state"),
       codeChallengeMethod = get("code_challenge_method"),
-      codeChallenge = CodeChallenge from get("code_challenge"),
+      codeChallenge = getAs[CodeChallenge]("code_challenge"),
       scope = get("scope"),
-      username = UserStr from get("username")
+      username = getAs[UserStr]("username")
     )
 
   private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
