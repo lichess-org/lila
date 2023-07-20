@@ -30,15 +30,11 @@
 }
 
 @mixin hoverflow {
+  scrollbar-gutter: stable;
   overflow-y: auto;
-
   @media (hover: hover) {
     &:not(:hover) {
-      scrollbar-width: none;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      overflow: hidden;
     }
   }
 }
