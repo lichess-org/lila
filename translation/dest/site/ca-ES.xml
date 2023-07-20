@@ -706,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">La teva puntuació en %1$s és de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ets millor que un %1$s dels jugadors de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s és millor que el %2$s de %3$s jugadors.</string>
+  <string name="betterThanPercentPlayers">Millor que un %1$s dels jugadors de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tens establerta una puntuació de %s.</string>
   <string name="yourRating">La vostra valoració</string>
   <string name="cumulative">Acumulat</string>
