@@ -204,7 +204,6 @@
   <string name="forgotPassword">পাসওয়ার্ড ভুলে গেছেন?</string>
   <string name="youAreLeavingLichess">আপনি লিচেস ছেড়ে যাচ্ছেন</string>
   <string name="neverTypeYourPassword">লিচেসে ব্যবহৃত পাসওয়ার্ড অন্য কোনো ওয়েবসাইটে টাইপ/ব্যবহার করবেন না!</string>
-  <string name="proceedToX">% এগিয়ে যান</string>
   <string name="passwordSuggestion">অন্য কারো প্রস্তাবিত পাসওয়ার্ড ব্যবহার করবেন না, কারন আপনার অ্যাকাউন্ট অন্য কারো দ্বারা চুরি/ব্যাবহার হওয়ার সম্ভাবনা রয়েছে</string>
   <string name="emailSuggestion">অন্য কারো প্রস্তাবিত ই-মেইল ব্যবহার করবেন না, কারন আপনার অ্যাকাউন্ট অন্য কারো দ্বারা চুরি/ব্যাবহার হওয়ার সম্ভাবনা রয়েছে</string>
   <string name="emailConfirmHelp">ইমেল নিশ্চিতকরণের মাধ্যমে সাহায্য</string>
