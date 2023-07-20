@@ -2,7 +2,6 @@ package lila.oauth
 
 import java.util.Base64
 import scala.util.Try
-import cats.data.Validated
 import play.api.libs.json.Json
 import com.roundeights.hasher.Algo
 import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
@@ -24,10 +23,10 @@ object Protocol:
   object State extends OpaqueString[State]
 
   object CodeChallengeMethod:
-    def from(codeChallengeMethod: String): Validated[Error, Unit] =
+    def from(codeChallengeMethod: String): Either[Error, Unit] =
       codeChallengeMethod match
-        case "S256" => Validated.valid(())
-        case _      => Validated.invalid(Error.UnsupportedCodeChallengeMethod)
+        case "S256" => ().asRight
+        case _      => Error.UnsupportedCodeChallengeMethod.asLeft
 
   opaque type CodeChallenge = String
   object CodeChallenge extends OpaqueString[CodeChallenge]
@@ -38,23 +37,22 @@ object Protocol:
       def matches(challenge: CodeChallenge) =
         Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(a.value).bytes) == challenge
 
-    def from(value: String): Validated[Error, CodeVerifier] =
-      Validated
-        .valid(value)
+    def from(value: String): Either[Error, CodeVerifier] =
+        Right(value)
         .ensure(Error.CodeVerifierTooShort)(_.size >= 43)
         .map(CodeVerifier(_))
 
   object ResponseType:
-    def from(responseType: String): Validated[Error, Unit] =
+    def from(responseType: String): Either[Error, Unit] =
       responseType match
-        case "code" => Validated.valid(())
-        case _      => Validated.invalid(Error.UnsupportedResponseType)
+        case "code" => ().asRight
+        case _      => Error.UnsupportedResponseType.asLeft
 
   object GrantType:
-    def from(grantType: String): Validated[Error, Unit] =
+    def from(grantType: String): Either[Error, Unit] =
       grantType match
-        case "authorization_code" => Validated.valid(())
-        case _                    => Validated.invalid(Error.UnsupportedGrantType)
+        case "authorization_code" => ().asRight
+        case _                    => Error.UnsupportedGrantType.asLeft
 
   case class RedirectUri(value: URL) extends AnyVal:
 
@@ -84,11 +82,10 @@ object Protocol:
 
     def matches(other: UncheckedRedirectUri) = value.toString == other.value
   object RedirectUri:
-    def from(redirectUri: String): Validated[Error, RedirectUri] =
-      Try {
+    def from(redirectUri: String): Either[Error, RedirectUri] =
+      Either.catchNonFatal {
         URL.parse(URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance), redirectUri)
-      }.toOption
-        .toValid(Error.RedirectUriInvalid)
+      }.leftMap(_ => Error.RedirectUriInvalid)
         .ensure(Error.RedirectSchemeNotAllowed)(url =>
           List(
             // standard

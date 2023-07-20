@@ -8,7 +8,6 @@ import chess.MoveOrDrop.*
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
-import cats.data.Validated
 import scala.language.implicitConversions
 
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }

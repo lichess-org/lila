@@ -1,6 +1,5 @@
 package lila.oauth
 
-import cats.data.Validated
 import reactivemongo.api.bson.*
 import lila.db.dsl.*
 
@@ -23,23 +22,23 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
 
   def consume(
       request: AccessTokenRequest.Prepared
-  ): Fu[Validated[Protocol.Error, AccessTokenRequest.Granted]] =
+  ): Fu[Either[Protocol.Error, AccessTokenRequest.Granted]] =
     coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier) map { doc =>
       for
         pending <- doc
           .result[PendingAuthorization]
-          .toValid(Protocol.Error.AuthorizationCodeInvalid)
+          .toRight(Protocol.Error.AuthorizationCodeInvalid)
           .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowInstant))
           .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
           .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
         _ <- pending.challenge match
           case Left(hashedClientSecret) =>
             request.clientSecret
-              .toValid(LegacyClientApi.ClientSecretIgnored)
+              .toRight(LegacyClientApi.ClientSecretIgnored)
               .ensure(LegacyClientApi.MismatchingClientSecret)(_.matches(hashedClientSecret))
           case Right(codeChallenge) =>
             request.codeVerifier
-              .toValid(LegacyClientApi.CodeVerifierIgnored)
+              .toRight(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
       yield AccessTokenRequest.Granted(pending.userId, pending.scopes into TokenScopes, pending.redirectUri)
     }

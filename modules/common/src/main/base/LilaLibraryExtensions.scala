@@ -1,7 +1,6 @@
 package lila.base
 
 import alleycats.Zero
-import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import java.lang.Math.{ max, min }
@@ -104,8 +103,6 @@ trait LilaLibraryExtensions extends LilaTypes:
   extension (d: FiniteDuration)
     def toCentis = chess.Centis(d)
     def abs      = if d.length < 0 then -d else d
-
-  extension [E, A](v: Validated[E, A]) def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
 
   extension [A](list: List[Try[A]]) def sequence: Try[List[A]] = Try(list map { _.get })
 

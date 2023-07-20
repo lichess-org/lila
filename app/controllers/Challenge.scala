@@ -1,6 +1,5 @@
 package controllers
 
-import cats.data.Validated
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 import views.html
@@ -89,7 +88,7 @@ final class Challenge(
       isForMe(c) so api
         .accept(c, ctx.req.sid, cc)
         .flatMap:
-          case Validated.Valid(Some(pov)) =>
+          case Right(Some(pov)) =>
             negotiateApi(
               html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
               api = _ => env.api.roundApi.player(pov, Preload.none, none) map { Ok(_) }
@@ -98,8 +97,8 @@ final class Challenge(
             negotiate(
               Redirect(routes.Round.watcher(c.id.value, cc.fold("white")(_.name))),
               notFoundJson(invalid match
-                case Validated.Invalid(err) => err
-                case _                      => "The challenge has already been accepted"
+                case Left(err) => err
+                case _         => "The challenge has already been accepted"
               )
             )
 
