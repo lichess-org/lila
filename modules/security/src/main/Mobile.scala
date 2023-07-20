@@ -29,11 +29,10 @@ object Mobile:
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
 
-  // Lichess Mobile/{version} ({build-number}) as:{username|anon} sri:{sri} os:{android|ios}/{os-version} dev:{device info}
+  // Lichess Mobile/{version} as:{username|anon} sri:{sri} os:{Android|iOS}/{os-version} dev:{device info}
   // see modules/api/src/test/MobileTest.scala
   case class LichessMobileUa(
       version: String,
-      build: Int,
       userId: Option[UserId],
       sri: Sri,
       osName: String,
@@ -43,18 +42,18 @@ object Mobile:
 
   object LichessMobileUa:
     private val Regex =
-      """(?i)lichess mobile/(\S+) \((\d*)\) as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
+      """(?i)lichess mobile/(\S+)(?: \(\d*\))? as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
     def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req) flatMap parse
     def parse(ua: UserAgent): Option[LichessMobileUa] = ua.value
       .startsWith("Lichess Mobile/")
       .so:
         ua.value match
-          case Regex(version, build, user, sri, osName, osVersion, device) =>
+          case Regex(version, user, sri, osName, osVersion, device) =>
             val userId = (user != "anon") option UserStr(user).id
-            LichessMobileUa(version, ~build.toIntOption, userId, Sri(sri), osName, osVersion, device).some
+            LichessMobileUa(version, userId, Sri(sri), osName, osVersion, device).some
           case _ => none
 
-  // LM/{version} {android|ios}/{os-version} {device info}
+  // LM/{version} {Android|iOS}/{os-version} {device info}
   // stored in security documents
   case class LichessMobileUaTrim(version: String, osName: String, osVersion: String, device: String)
 
@@ -67,4 +66,4 @@ object Mobile:
           case Regex(version, osName, osVersion, device) =>
             LichessMobileUaTrim(version, osName, osVersion, device).some
           case _ => none
-    def write(m: LichessMobileUa) = s"""LM/${m.version} ${m.osName}/${m.osVersion} ${m.device}"""
+    def write(m: LichessMobileUa) = s"""LM/${m.version} ${m.osName}/${m.osVersion} ${m.device take 60}"""
