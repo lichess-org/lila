@@ -209,15 +209,12 @@ object perfStat:
       )
     case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
 
-  private def highlow(stat: PerfStat, percentileLow: Option[Double], percentileHigh: Option[Double])(using Lang): Frag =
+  private def highlow(stat: PerfStat, pctLow: Option[Double], pctHigh: Option[Double])(using Lang): Frag =
     import stat.perfType
+    def titleOf(v: Double) = trans.betterThanPercentPlayers.txt(s"$v%", perfType.trans)
     st.section(cls := "highlow split")(
-      highlowSide(highestRating(_), stat.highest, percentileHigh.map { highValue =>
-      trans.betterThanPercentPlayers.txt(highValue.toString() + "%", perfType.trans)
-      }, "green"),
-      highlowSide(lowestRating(_), stat.lowest, percentileLow.map { lowValue =>
-      trans.betterThanPercentPlayers.txt(lowValue.toString() + "%", perfType.trans)
-      }, "red")
+      highlowSide(highestRating(_), stat.highest, pctHigh.map(titleOf), "green"),
+      highlowSide(lowestRating(_), stat.lowest, pctLow.map(titleOf), "red")
     )
 
   private def fromTo(s: lila.perfStat.Streak)(using Lang): Frag =
