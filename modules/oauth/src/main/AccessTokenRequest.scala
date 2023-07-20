@@ -1,7 +1,5 @@
 package lila.oauth
 
-import cats.data.Validated
-
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 
@@ -18,27 +16,27 @@ object AccessTokenRequest:
       redirectUri: Option[String],
       clientSecret: Option[String]
   ):
-    def prepare: Validated[Error, Prepared] =
+    def prepare: Either[Error, Prepared] =
       for
-        _    <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
-        code <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
+        _    <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
+        code <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
         codeVerifier <- codeVerifier
-          .toValid(Protocol.Error.CodeVerifierRequired)
-          .andThen(Protocol.CodeVerifier.from)
-        clientId    <- clientId.toValid(Error.ClientIdRequired)
-        redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toValid(Error.RedirectUriRequired)
+          .toRight(Protocol.Error.CodeVerifierRequired)
+          .flatMap(Protocol.CodeVerifier.from)
+        clientId    <- clientId.toRight(Error.ClientIdRequired)
+        redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toRight(Error.RedirectUriRequired)
       yield Prepared(code, codeVerifier.some, clientId, redirectUri, None)
 
-    def prepareLegacy(auth: Option[BasicAuth]): Validated[Error, Prepared] =
+    def prepareLegacy(auth: Option[BasicAuth]): Either[Error, Prepared] =
       for
-        _        <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
-        code     <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
-        clientId <- clientId.orElse(auth.map(_.clientId)).toValid(Error.ClientIdRequired)
+        _        <- grantType.toRight(Error.GrantTypeRequired).flatMap(GrantType.from)
+        code     <- code.map(AuthorizationCode.apply).toRight(Error.CodeRequired)
+        clientId <- clientId.orElse(auth.map(_.clientId)).toRight(Error.ClientIdRequired)
         clientSecret <- clientSecret
           .map(LegacyClientApi.ClientSecret.apply)
           .orElse(auth.map(_.clientSecret))
-          .toValid(LegacyClientApi.ClientSecretRequired)
-        redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toValid(Error.RedirectUriRequired)
+          .toRight(LegacyClientApi.ClientSecretRequired)
+        redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toRight(Error.RedirectUriRequired)
       yield Prepared(code, None, clientId, redirectUri, clientSecret.some)
 
   case class Prepared(
