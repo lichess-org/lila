@@ -206,7 +206,7 @@
   <string name="changeUsername">Benutzernamen ändern</string>
   <string name="changeUsernameNotSame">Nur die Groß-/Kleinschreibung kann geändert werden, z.B. \"jondoe\" zu \"JonDoe\".</string>
   <string name="changeUsernameDescription">Ändere deinen Benutzernamen. Dies ist nur einmalig möglich und bezieht sich lediglich auf Anpassungen der Groß- und Kleinschreibung deines Benutzernamens.</string>
-  <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unangemessenen Benutzernamen werden geschlossen!</string>
+  <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unpassenden Benutzernamen werden geschlossen!</string>
   <string name="signupEmailHint">Wir werden sie nur zum Zurücksetzen deines Passworts verwenden.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändern</string>
@@ -706,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">Deine %1$s-Wertungszahl ist %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bist besser als %1$s aller %2$s-Spieler.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ist besser als %2$s der %3$s-Spieler.</string>
+  <string name="betterThanPercentPlayers">Besser als %1$s aller %2$s-Spieler</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hast keine feststehende %s-Wertung.</string>
   <string name="yourRating">Deine Wertungszahl</string>
   <string name="cumulative">Summiert</string>

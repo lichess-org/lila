@@ -153,6 +153,10 @@
     <item quantity="one">%s jogo</item>
     <item quantity="other">%s jogos</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Avaliação %1$s em %2$s partidas</item>
+    <item quantity="other">Avaliação %1$s em %2$s partidas</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s favorito</item>
     <item quantity="other">%s favoritos</item>
@@ -678,6 +682,11 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
   <string name="keyShowOrHideComments">mostrar/ocultar os comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
+  <string name="keyRequestComputerAnalysis">Solicite análise do computador, Aprenda com seus erros</string>
+  <string name="keyNextLearnFromYourMistakes">Seguinte (Aprenda com os seus erros)</string>
+  <string name="keyNextBlunder">Próxima gafe</string>
+  <string name="keyNextMistake">Próximo erro</string>
+  <string name="keyNextInaccuracy">Próxima imprecisão</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos ritmos de jogo e variantes</string>
   <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, blitz, clássico, chess960, rei da colina, três xeques e mais opções disponíveis para uma diversão ilimitada.</string>
@@ -693,6 +702,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="yourPerfTypeRatingIsRating">A tua pontuação em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">És melhor que %1$s dos jogadores de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é melhor que %2$s dos jogadores de %3$s.</string>
+  <string name="betterThanPercentPlayers">Melhor que %1$s de %2$s jogadores</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Não tens uma pontuação estabelecida em %s.</string>
   <string name="yourRating">A tua pontuação</string>
   <string name="cumulative">Acumulativo</string>

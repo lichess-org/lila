@@ -782,6 +782,7 @@
   <string name="yourPerfTypeRatingIsRating">דירוגך במשחקי %1$s הוא %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">דירוגך גבוה יותר מ-%1$s משחקני %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s טוב יותר מ-%2$s משחקני ה%3$s.</string>
+  <string name="betterThanPercentPlayers">יותר טוב מ-%1$s משחקני ה־%2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">טרם נקבע לך דירוג במשחקי %s.</string>
   <string name="yourRating">הדירוג שלך</string>
   <string name="cumulative">מצטבר</string>

@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Unha peza ataca ou defende un escaque a través dunha peza do opoñente.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">O rival ten os movementos limitados e calquera xogada que faga empeora a súa posición.</string>
-  <string name="healthyMix">Mezcla equilibrada</string>
-  <string name="healthyMixDescription">Un pouco de todo. Non sabes que te agarda, así que prepárate para calquera cousa! Coma nas partidas de verdade.</string>
+  <string name="healthyMix">Mestura equilibrada</string>
+  <string name="healthyMixDescription">Un pouco de todo. Non sabes que vai vir, así que prepárate para calquera cousa! Coma nas partidas de verdade.</string>
   <string name="playerGames">Partidas de xogadores</string>
   <string name="playerGamesDescription">Busca crebacabezas xerados a partir das túas partidas ou das doutros xogadores.</string>
   <string name="puzzleDownloadInformation">Estes problemas son de dominio público e poden ser descargados en %s.</string>

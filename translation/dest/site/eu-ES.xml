@@ -347,6 +347,10 @@
     <item quantity="one">Azterlan %s</item>
     <item quantity="other">%s azterlan</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">Aldibereko %s</item>
+    <item quantity="other">%s aldibereko</item>
+  </plurals>
   <string name="viewTournament">Txapelketa ikusi</string>
   <string name="backToTournament">Txapelketara itzuli</string>
   <string name="noDrawBeforeSwissLimit">Ezin duzu 30 jokaldi baino lehen berdinketa egin Txapelketa Suitzar baten.</string>
@@ -702,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">Zure %1$s balorazioa %2$s da.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%1$s baino hobea zara, %2$s jokalaritik.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s jokalarien %2$s baino hobea da.</string>
+  <string name="betterThanPercentPlayers">%2$s jokalaritik %1$s baino hobea</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ez duzu zehaztutako %s baloraziorik.</string>
   <string name="yourRating">Zure puntuazioa</string>
   <string name="cumulative">Metaketa</string>

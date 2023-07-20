@@ -3,7 +3,7 @@
   <string name="perfStats">Estatísticas de %s</string>
   <string name="viewTheGames">Ver as partidas</string>
   <string name="provisional">provisional</string>
-  <string name="notEnoughRatedGames">No se xogaron suficientes partides puntuadas para poder establecer unha puntuación fiábel.</string>
+  <string name="notEnoughRatedGames">No se xogaron suficientes partidas puntuadas para poder establecer unha puntuación fiábel.</string>
   <string name="progressOverLastXGames">Progresión nas últimas %s partidas:</string>
   <string name="ratingDeviation">Desviación da puntuación: %s.</string>
   <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Un valor baixo significa que a puntuación é máis estable. Por riba de %1$s, a puntuación considérase provisional. Para que se inclúa nas clasificacións, este valor debe ser inferior a %2$s (xadrez estándar) ou %3$s (variantes).</string>
@@ -22,7 +22,7 @@
   <string name="fromXToY">de %1$s a %2$s</string>
   <string name="winningStreak">Vitorias consecutivas</string>
   <string name="losingStreak">Derrotas consecutivas</string>
-  <string name="longestStreak">Mellor secuencia: %s</string>
+  <string name="longestStreak">Secuencia máis longa: %s</string>
   <string name="currentStreak">Secuencia actual: %s</string>
   <string name="bestRated">Mellores vitorias puntuadas</string>
   <string name="worstRated">Peores derrotas puntuadas</string>

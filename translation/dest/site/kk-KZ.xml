@@ -99,6 +99,7 @@
   <string name="openingExplorer">Бастаулар қазынасы</string>
   <string name="openingEndgameExplorer">Бастау/ойынсоңы қоры</string>
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Бастау/ойынсоңы қорынан бірінші қадам жасау</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережемен жеңіске жеткізбеу</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережемен жеңілістен құтылу</string>
   <string name="winOr50MovesByPriorMistake">Жеңіс немесе 50 жүріс ережесі</string>
@@ -345,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s зерттеу</item>
     <item quantity="other">%s зерттеу</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s көпшілікке қарсы ойын</item>
+    <item quantity="other">%s көпшілікке қарсы ойын</item>
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Жарысқа оралу</string>
@@ -682,6 +687,11 @@
   <string name="keyGoToStartOrEnd">басына/аяғына жүру</string>
   <string name="keyShowOrHideComments">пікірлерді көрсету/жасыру</string>
   <string name="keyEnterOrExitVariation">тармаққа кіру/шығу</string>
+  <string name="keyRequestComputerAnalysis">Компьютерлік талдауды бастаңыз, Әр қателіктен сабақ алыңыз</string>
+  <string name="keyNextLearnFromYourMistakes">Келесі (Қателіктен сабақ алыңыз)</string>
+  <string name="keyNextBlunder">Келесі өрескел қателік</string>
+  <string name="keyNextMistake">Келесі қателік</string>
+  <string name="keyNextInaccuracy">Келесі ағаттық</string>
   <string name="newTournament">Жаңа жарыс</string>
   <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
   <string name="tournamentHomeDescription">Қарқынды шахмат жарыстарына қош келдіңіз! Дайын жарысқа қосылу не жаңасын құрастыру – таңдау сізде. Буллит, Блитц, Классикалық, Шахмат960, Тау патшасы, Үш шах пен басқа да қызықты шахмат түрлерін ойнаңыз!</string>
@@ -697,6 +707,7 @@
   <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Сіз %2$s ойышыларының %1$s-ынан күштірексіз.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s ойышыларының %2$s-ынан күштірек.</string>
+  <string name="betterThanPercentPlayers">%1$s %2$s ойыншылардан озық</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
   <string name="yourRating">Рейтингіңіз</string>
   <string name="cumulative">Жинақылық</string>
@@ -779,6 +790,7 @@
   <string name="invalidFen">Қате FEN</string>
   <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
+  <string name="notificationsX">Хабарламалар: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>

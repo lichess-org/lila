@@ -204,6 +204,7 @@
   <string name="forgotPassword">忘记密码？</string>
   <string name="error.weakPassword">这个密码太常见了，而且很容易猜到。</string>
   <string name="error.namePassword">请不要把密码设为用户名。</string>
+  <string name="blankedPassword">您已在另一个站点使用了相同的密码，该站点已经失效。 为确保您的Lichess帐户安全，我们需要您设置一个新密码。感谢您的理解。</string>
   <string name="youAreLeavingLichess">您正在离开Lichess</string>
   <string name="neverTypeYourPassword">永远不要在其他网站输入您的Lichess密码 ！</string>
   <string name="proceedToX">前往 %s</string>
@@ -323,8 +324,12 @@
   <plurals name="nbStudies">
     <item quantity="other">%s 研讨</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s 个进行的车轮战棋局</item>
+  </plurals>
   <string name="viewTournament">观看锦标赛</string>
   <string name="backToTournament">回到锦标赛主页</string>
+  <string name="noDrawBeforeSwissLimit">你不能在瑞士锦标赛中30步棋之前和棋。</string>
   <string name="thematic">从常见开局开始的锦标赛</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">完成至少 %s 局排位赛</item>
@@ -369,6 +374,7 @@
   <string name="toStudy">研讨</string>
   <string name="importGame">导入棋局</string>
   <string name="importGameExplanation">粘贴PGN棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
+  <string name="importGameCaveat">变着分支将被删除。若要保存这些变着，请通过导入PGN棋谱创建一个研究。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s盘导入的棋局</item>
   </plurals>
@@ -631,6 +637,8 @@
   <string name="simulClockHint">菲舍尔时钟设置。挑战者越多，您所需时间就可能相应越多。</string>
   <string name="simulAddExtraTime">您可以为自己附加时间应对车轮战。</string>
   <string name="simulHostExtraTime">主持的额外时间</string>
+  <string name="simulAddExtraTimePerPlayer">每有一个玩家加入车轮战，您棋钟的初始时间都将增加。</string>
+  <string name="simulHostExtraTimePerPlayer">每个玩家加入后棋钟增加的额外时间</string>
   <string name="lichessTournaments">Lichess 锦标赛</string>
   <string name="tournamentFAQ">锦标赛常见问题</string>
   <string name="timeBeforeTournamentStarts">距比赛开始时间</string>
@@ -641,6 +649,11 @@
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
   <string name="keyShowOrHideComments">显示／隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入／退出变着</string>
+  <string name="keyRequestComputerAnalysis">请求计算机分析，并从您的失误中吸取教训</string>
+  <string name="keyNextLearnFromYourMistakes">下一个 ( 从您的失误中吸取教训)</string>
+  <string name="keyNextBlunder">下一个漏着</string>
+  <string name="keyNextMistake">下一个错着</string>
+  <string name="keyNextInaccuracy">下一个不精确的着法</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
   <string name="tournamentHomeDescription">参加快节奏的国际象棋锦标赛！欢迎参与Lichess官方的锦标赛或创建自己的锦标赛。子弹超快棋，闪电超快棋，经典，菲舍尔任意制，王居中，三次将军，并提供更多的选择给您带来无尽的国际象棋乐趣。</string>
@@ -655,6 +668,7 @@
   <string name="yourPerfTypeRatingIsRating">您的 %1$s 等级分是 %2$s。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您强于%1$s的%2$s棋手。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%2$s的%3$s棋手强</string>
+  <string name="betterThanPercentPlayers">比%1$s的%2$s棋手更强</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的 %s 等级分。</string>
   <string name="yourRating">你的等级分</string>
   <string name="cumulative">累计</string>
@@ -736,6 +750,7 @@
   <string name="invalidFen">FEN无法识别</string>
   <string name="custom">自定义</string>
   <string name="notifications">通知</string>
+  <string name="notificationsX">通知: %1$s</string>
   <string name="perfRatingX">等级分：%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">还剩%s秒走第一步</item>
@@ -827,6 +842,8 @@
   <string name="useTheReportForm">请使用举报表单</string>
   <string name="toRequestSupport">要请求支持，%1$s</string>
   <string name="tryTheContactPage">请尝试使用联系页面</string>
+  <string name="makeSureToRead">请确保您已阅读 %1$s</string>
+  <string name="theForumEtiquette">论坛礼仪</string>
   <string name="thisTopicIsArchived">此话题已被存档且不能再回复。</string>
   <string name="joinTheTeamXToPost">加入%1$s，以在此论坛发表意见</string>
   <string name="teamNamedX">%1$s 团队</string>
