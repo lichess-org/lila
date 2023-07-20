@@ -697,6 +697,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="yourPerfTypeRatingIsRating">Jou %1$s gradering is %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jy vaar beter as %1$s van %2$s spelers.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s is beter as %2$s van %3$s spelers.</string>
+  <string name="betterThanPercentPlayers">Beter as %1$s uit %2$s spelers</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jy het nie \'n gevestigde %s gradering nie.</string>
   <string name="yourRating">Jou gradering</string>
   <string name="cumulative">Kumulatiewe</string>
