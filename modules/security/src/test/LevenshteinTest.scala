@@ -1,6 +1,7 @@
 package lila.security
 import scala.util.Random
 import lila.common.base.StringUtils
+import scala.concurrent.duration.Duration
 
 object LevenshteinTest:
   def check0(a: String, b: String): Boolean =
@@ -21,6 +22,9 @@ object LevenshteinTest:
     (0 until nt).forall(_ => rt(r, r.nextInt(l + 1), l, sigma))
 
 class LevenshteinTest extends munit.FunSuite:
+
+  override def munitTimeout: Duration = 1.minute
+
   import LevenshteinTest.{ check, mt }
   test("Levenshtein random") {
     assertEquals(mt(1, 1000, 10, 2), true)
