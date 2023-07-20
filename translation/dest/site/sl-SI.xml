@@ -767,6 +767,7 @@
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rating je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Boljši si od %1$s %2$s igralcev.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je boljši od %2$s igralcev %3$s.</string>
+  <string name="betterThanPercentPlayers">Bolje kot %1$s od %2$s igralcev</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tvoj %s rating še ni uveljavljen.</string>
   <string name="yourRating">Vaš rating</string>
   <string name="cumulative">Skupno</string>
