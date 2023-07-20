@@ -668,6 +668,7 @@
   <string name="yourPerfTypeRatingIsRating">您的 %1$s 等级分是 %2$s。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您强于%1$s的%2$s棋手。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%2$s的%3$s棋手强</string>
+  <string name="betterThanPercentPlayers">比%1$s的%2$s棋手更强</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的 %s 等级分。</string>
   <string name="yourRating">你的等级分</string>
   <string name="cumulative">累计</string>
