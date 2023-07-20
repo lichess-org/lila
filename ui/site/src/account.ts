@@ -20,6 +20,11 @@ lichess.load.then(() => {
     const form = this,
       $form = $(form),
       showSaved = () => $form.find('.saved').removeClass('none');
+    // hotfix until next server deploy
+    $('input[name="behavior.submitMove"]')
+      .parents('.radio')
+      .find('input[type="checkbox"]')
+      .attr('data-name', 'behavior.submitMove');
     computeBitChoices($form, 'behavior.submitMove');
     $form.find('input').on('change', function (this: HTMLInputElement) {
       computeBitChoices($form, 'behavior.submitMove');
