@@ -58,8 +58,6 @@ object BuildSettings {
     "-language:postfixOps",
     "-language:implicitConversions",
     "-Xtarget:17"
-    // "-java-output-version:17",
-    // "-Xunchecked-java-output-version:17"
     // "-Wunused:all"
   )
 
