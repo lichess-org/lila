@@ -235,12 +235,26 @@
   <string name="blankedPassword">Вы выкарыстоўвалі той жа пароль на іншым сайце, і гэты сайт быў узламаны. Каб забяспечыць бяспеку вашага ўліковага запісу Lichess, трэба каб вы ўсталявалі новы пароль. Дзякуй за разуменне.</string>
   <string name="youAreLeavingLichess">Вы пакідаеце Lichess</string>
   <string name="neverTypeYourPassword">Ніколі не ўводзьце свой пароль Lichess на іншым сайце!</string>
+  <string name="proceedToX">Перайсці да %s</string>
   <string name="passwordSuggestion">Не ўстанаўлівайце пароль, прапанаваны кімсьці. Яго могуць выкарыстаць, каб скрасці ваш уліковы запіс.</string>
   <string name="emailSuggestion">Не ўстанаўлівайце адрас электроннай пошты, прапанаваны кімсьці. Яго могуць выкарыстаць, каб скрасці ваш уліковы запіс.</string>
   <string name="emailConfirmHelp">Дапамога з пацвярджэннем электроннай пошты</string>
+  <string name="emailConfirmNotReceived">Не атрымалі ліст з пацвярджэннем пасля рэгістрацыі?</string>
   <string name="whatSignupUsername">Якое імя карыстальніка вы выкарыстоўвалі для рэгістрацыі?</string>
   <string name="usernameNotFound">Мы не змаглі знайсці ніводнага карыстальніка з такім імем: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Вы можаце выкарыстоўваць гэтае імя карыстальніка для стварэння новага ўліковага запісу</string>
   <string name="emailSent">Мы адправілі электронны ліст на %s.</string>
+  <string name="emailCanTakeSomeTime">Ён можа прыйсці праз некаторы час.</string>
+  <string name="refreshInboxAfterFiveMinutes">Пачакайце 5 хвілін і абнавіце паштовую скрыню.</string>
+  <string name="checkSpamFolder">Таксама праверце папку са спамам, ён можа апынуцца там. Калі так, адзначце гэта як не спам.</string>
+  <string name="emailForSignupHelp">Калі ўсё астатняе не дапамагае, адпраўце нам гэты ліст:</string>
+  <string name="copyTextToEmail">Скапіруйце і ўстаўце прыведзены вышэй тэкст і адпраўце яго %s</string>
+  <string name="waitForSignupHelp">Мы звяжамся з вамі ў бліжэйшы час, каб дапамагчы вам завяршыць рэгістрацыю.</string>
+  <string name="accountConfirmed">Карыстальнік %s паспяхова пацверджаны.</string>
+  <string name="accountCanLogin">Вы можаце ўвайсці зараз як %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Вам не патрэбна пацвярджэнне па электроннай пошце.</string>
+  <string name="accountClosed">Уліковы запіс %s зачынены.</string>
+  <string name="accountRegisteredWithoutEmail">Уліковы запіс %s быў зарэгістраваны без электроннай пошты.</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Рэйтынг: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -373,6 +387,7 @@
   </plurals>
   <string name="viewTournament">Адкрыць турнір</string>
   <string name="backToTournament">Вярнуцца да турніру</string>
+  <string name="noDrawBeforeSwissLimit">У турніры па швейцарская сістэме вы не можаце згуляць унічыю раней, чым будзе зроблена 30 хадоў.</string>
   <string name="thematic">Тэматычны</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥%s рэйтынгавая гульня</item>
@@ -410,6 +425,7 @@
   <string name="siteDescription">Бясплатныя анлайн шахматы. Зручны інтэрфэйс. Без рэгістрацыі, без рэкламы, без дадатковых плагінаў. Гуляйце у шахматы з камп\'ютарам, сябрамі ці выпадковымі супернікамі.</string>
   <string name="xJoinedTeamY">%1$s далучыўся да каманды %2$s</string>
   <string name="xCreatedTeamY">%1$s стварыў каманду %2$s</string>
+  <string name="startedStreaming">пачаў трансляцыю</string>
   <string name="xStartedStreaming">%s пачаў трансляцыю</string>
   <string name="averageElo">Сярэдні рэйтынг</string>
   <string name="location">Месцазнаходжання</string>
@@ -428,6 +444,7 @@
   <string name="toStudy">Навучанне</string>
   <string name="importGame">Імпартаваць гульню</string>
   <string name="importGameExplanation">Калі вы імпартуеце PGN-натацыю гульні, вы атрымаеце спасылку на гэтую гульню і зможаце праглядаць яе паўтор у браўзеры і аналізаваць яе. Таксама будзе даступны чат.</string>
+  <string name="importGameCaveat">Варыянты будуць выдалены. Каб захаваць іх, імпартуйце PGN праз студыю.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпартаваная гульня</item>
     <item quantity="few">%s імпартаваныя гульні</item>
@@ -544,6 +561,9 @@
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="oneUrlPerLine">Адзін URL на радок.</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
+  <string name="savingMoves">Часовае сховішча хадоў</string>
+  <string name="savingMovesHelp">Мы заўсёды захоўваем вашы варыянты ў кэшы вашага браўзера.</string>
+  <string name="makeAStudy">Для захавання і сумеснага выкарыстання стварыце студыю.</string>
   <string name="clearSavedMoves">Ачысціць хады</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
@@ -594,6 +614,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Нататкі</string>
   <string name="typePrivateNotesHere">Тут можна зрабіць асабістыя нататкі аб гульні</string>
+  <string name="writeAPrivateNoteAboutThisUser">Напісаць прыватную нататку пра гэтага карыстальніка</string>
+  <string name="noNoteYet">Пакуль нататкаў няма</string>
   <string name="invalidUsernameOrPassword">Няправільнае імя карыстальніка або пароль</string>
   <string name="incorrectPassword">Няправільны пароль</string>
   <string name="invalidAuthenticationCode">Няправільны код пацверджання</string>
@@ -722,6 +744,10 @@
   <string name="keyGoToStartOrEnd">да пачатку/канцу</string>
   <string name="keyShowOrHideComments">паказаць/схаваць каментары</string>
   <string name="keyEnterOrExitVariation">увайсці/выйсці з варыянту</string>
+  <string name="keyNextLearnFromYourMistakes">Далей (Работа над памылкамі)</string>
+  <string name="keyNextBlunder">Наступны зявок</string>
+  <string name="keyNextMistake">Наступная памылка</string>
+  <string name="keyNextInaccuracy">Наступная недакладнасць</string>
   <string name="newTournament">Новы турнір</string>
   <string name="tournamentHomeTitle">Шахматны турнір</string>
   <string name="tournamentHomeDescription">Грайце ў хутка мінаючыя шахматныя турніры! Далучайцеся да любых з афіцыйна запланаваных турніраў ці стварыце ўласны. «Куля», бліц, класічныя, шахматы Фішэра, «кароль гары», тры шахі і яшчэ бясконцае мноства варыянтаў. Весяліцеся.</string>
@@ -739,6 +765,7 @@
   <string name="yourPerfTypeRatingIsRating">Ваш рэйтынг у рэжыме «%1$s» – %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы гуляеце ў «%1$s» лепей за %2$s гульцоў.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s лепей %2$s гульцоў у %3$s.</string>
+  <string name="betterThanPercentPlayers">Мацней за %1$s гульцоў у %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рэйтынг у рэжыме «%s» яшчэ не вызначаны.</string>
   <string name="yourRating">Ваш рэйтынг</string>
   <string name="cumulative">Сукупна</string>
@@ -803,6 +830,7 @@
   <string name="light">Светлы</string>
   <string name="dark">Цёмны</string>
   <string name="transparent">Празрысты</string>
+  <string name="deviceTheme">Тэма прылады</string>
   <string name="backgroundImageUrl">Спасылка на фон:</string>
   <string name="boardGeometry">Адмалёўка дошкі</string>
   <string name="boardTheme">Афармленне дошкі</string>
@@ -821,6 +849,7 @@
   <string name="invalidFen">Некарэктны FEN</string>
   <string name="custom">Свая гульня</string>
   <string name="notifications">Апавяшчэнні</string>
+  <string name="notificationsX">Апавяшчэнні: %1$s</string>
   <string name="perfRatingX">Рэйтынг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на першы ход</item>
@@ -921,6 +950,8 @@
   <string name="useTheReportForm">скарыстайцеся формай справаздачы</string>
   <string name="toRequestSupport">Каб атрымаць дапамогу, %1$s</string>
   <string name="tryTheContactPage">паспрабуйце старонку кантактаў</string>
+  <string name="makeSureToRead">Абавязкова прачытайце %1$s</string>
+  <string name="theForumEtiquette">этыкет форуму</string>
   <string name="thisTopicIsArchived">Гэта тэма была архівавана і абмяркаваць яе больш немагчыма.</string>
   <string name="joinTheTeamXToPost">Далучыцеся да %1$s, каб пакінуць пісаць на форуме</string>
   <string name="teamNamedX">каманда %1$s</string>
@@ -1002,4 +1033,5 @@
   <string name="lichessDbExplanation">Рэйтынгавыя партыі ўсіх гульцоў на Lichess</string>
   <string name="switchSides">Змяніць бок</string>
   <string name="closingAccountWithdrawAppeal">Закрыцце вашага ўліковага запісу адкліча вашу апеляцыю</string>
+  <string name="ourEventTips">Нашы парады па арганізацыі падзей</string>
 </resources>
