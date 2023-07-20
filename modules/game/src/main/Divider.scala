@@ -27,5 +27,4 @@ final class Divider:
         initialFen = initialFen,
         variant = variant
       )
-      .toOption
-      .fold(Division.empty)(chess.Divider.apply)
+      .fold(_ => Division.empty, chess.Divider.apply)
