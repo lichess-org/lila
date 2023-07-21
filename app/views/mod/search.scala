@@ -8,8 +8,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
 import lila.mod.IpRender.RenderIp
-import lila.security.FingerHash
-import lila.security.Granter
+import lila.security.{ Granter, IpTrust, IsProxy, FingerHash }
 import lila.user.{ Me, User }
 import lila.common.paginator.Paginator
 import lila.common.String.html.richText
@@ -82,6 +81,7 @@ object search:
       address: IpAddress,
       users: List[lila.user.User.WithEmails],
       uas: List[String],
+      data: IpTrust.IpData,
       blocked: Boolean
   )(using ctx: PageContext, renderIp: RenderIp, mod: Me) =
     views.html.base.layout(
@@ -106,7 +106,18 @@ object search:
             else if blocked then div(cls := "banned")("BANNED")
             else emptyFrag
           ),
-          userAgentsBox(uas),
+          div(cls := "mod-search__ip-data box__pad")(
+            p(
+              "Location: ",
+              data.location.toString,
+              br,
+              "Proxy: ",
+              data.proxy.toString,
+              br,
+              "TOR: ",
+              data.isTor.toString
+            )
+          ),
           userTable(users)
         )
       )

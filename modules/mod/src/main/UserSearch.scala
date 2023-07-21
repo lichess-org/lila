@@ -5,20 +5,14 @@ import play.api.data.Forms.*
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.{ User, UserRepo, UserApi }
+import lila.security.Ip2Proxy
+import lila.security.IsProxy
 
-final class UserSearch(
-    securityApi: lila.security.SecurityApi,
-    userRepo: UserRepo,
-    userApi: UserApi
-)(using Executor):
+final class UserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 
   def apply(query: String): Fu[List[User.WithEmails]] =
-    EmailAddress.from(query).map(searchEmail) orElse
-      IpAddress.from(query).map(searchIp) getOrElse
+    EmailAddress.from(query).map(searchEmail) getOrElse
       searchUsername(UserStr(query)) flatMap userApi.withEmails
-
-  private def searchIp(ip: IpAddress) =
-    securityApi recentUserIdsByIp ip map (_.reverse) flatMap userRepo.usersFromSecondary
 
   private def searchUsername(username: UserStr) = userRepo byId username map (_.toList)
 
@@ -29,7 +23,5 @@ final class UserSearch(
     }
 
 object UserSearch:
-
-  val form = Form(
+  val form = Form:
     single("q" -> lila.common.Form.trim(nonEmptyText))
-  )

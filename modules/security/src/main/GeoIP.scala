@@ -65,4 +65,4 @@ object Location:
       Option(res.getCity).flatMap(c => Option(c.getName))
     )
 
-  case class WithProxy(location: Location, proxy: Option[String])
+  case class WithProxy(location: Location, proxy: IsProxy)

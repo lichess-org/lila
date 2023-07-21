@@ -31,7 +31,8 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.irc.IrcApi,
-    msgApi: lila.msg.MsgApi
+    msgApi: lila.msg.MsgApi,
+    ip2proxy: lila.security.Ip2Proxy
 )(using Executor, Scheduler):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))

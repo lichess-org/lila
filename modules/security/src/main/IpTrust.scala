@@ -16,6 +16,11 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
   def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =
     isSuspicious(ipData.ip.value)
 
+  def data(ip: IpAddress): Fu[IpTrust.IpData] =
+    val location = geoApi orUnknown ip
+    val tor      = torApi isExitNode ip
+    proxyApi(ip).dmap(IpTrust.IpData(_, location, tor))
+
   final class rateLimit(credits: Int, duration: FiniteDuration, key: String, factor: Int = 3):
     import lila.memo.{ RateLimit as RL }
     private val limiter = RL[IpAddress](credits, duration, key)
@@ -37,3 +42,7 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
           true
         case _ => false
       )
+
+object IpTrust:
+
+  case class IpData(proxy: IsProxy, location: Location, isTor: Boolean)

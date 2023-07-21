@@ -1,13 +1,13 @@
 package lila.security
 
 import lila.user.{ User, UserRepo }
-import lila.common.EmailAddress
-import lila.common.Domain
+import lila.common.{ Domain, IpAddress, EmailAddress }
 
 final private[security] class Cli(
     userRepo: UserRepo,
     emailValidator: EmailAddressValidator,
-    checkMail: CheckMail
+    checkMail: CheckMail,
+    ip2proxy: Ip2Proxy
 )(using ec: Executor)
     extends lila.common.Cli:
 
