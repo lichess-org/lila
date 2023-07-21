@@ -64,9 +64,9 @@ object studentDashboard:
       thead:
         tr(
           th(dataSortDefault)(trans.clas.nbStudents(students.size)),
-          dataSortNumberTh(trans.rating()),
-          dataSortNumberTh(trans.games()),
-          dataSortNumberTh(trans.puzzles()),
+          thSortNumber(trans.rating()),
+          thSortNumber(trans.games()),
+          thSortNumber(trans.puzzles()),
           th
         )
       ,

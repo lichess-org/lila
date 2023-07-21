@@ -36,9 +36,9 @@ trait ScalatagsAttrs:
     val allowfullscreen = attr("allowfullscreen").empty
     val credentialless  = attr("credentialless").empty
 
-  val dataSortNumberTh = th(attr("data-sort-method") := "number")
-  val dataSort         = attr("data-sort")
-  val dataSortDefault  = attr("data-sort-default").empty
+  val thSortNumber    = th(attr("data-sort-method") := "number")
+  val dataSort        = attr("data-sort")
+  val dataSortDefault = attr("data-sort-default").empty
 
 // collection of lila snippets
 trait ScalatagsSnippets:

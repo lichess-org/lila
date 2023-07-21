@@ -13,10 +13,9 @@ import lila.rating.PerfType
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.user.User
+import views.html.mod.userTable.sortNoneTh
 
 object games:
-
-  private val sortNoneTh = th(attr("data-sort-method") := "none")
 
   def apply(
       user: User,
@@ -24,9 +23,7 @@ object games:
       games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
       swisses: Seq[(Swiss.IdName, Rank)]
-  )(using
-      ctx: PageContext
-  ) =
+  )(using PageContext) =
     views.html.base.layout(
       title = s"${user.username} games",
       moreCss = cssTag("mod.games"),
@@ -72,9 +69,7 @@ object games:
             cls   := "button button-empty button-thin",
             name  := "action",
             value := "analyse"
-          )(
-            "Analyse selected"
-          ),
+          )("Analyse selected"),
           submitButton(cls := "button button-empty button-thin", name := "action", value := "pgn")(
             "Download PGN"
           ),
@@ -88,15 +83,15 @@ object games:
                     st.value := "all"
                   )
                 ),
-                dataSortNumberTh("Opponent"),
-                dataSortNumberTh("Speed"),
+                thSortNumber("Opponent"),
+                thSortNumber("Speed"),
                 th(iconTag(licon.Trophy)),
-                dataSortNumberTh("Moves"),
-                dataSortNumberTh("Result"),
-                dataSortNumberTh("ACPL", br, "(Avg ± SD)"),
-                dataSortNumberTh("Times", br, "(Avg ± SD)"),
-                dataSortNumberTh("Blur"),
-                dataSortNumberTh(dataSortDefault)("Date")
+                thSortNumber("Moves"),
+                thSortNumber("Result"),
+                thSortNumber("ACPL", br, "(Avg ± SD)"),
+                thSortNumber("Times", br, "(Avg ± SD)"),
+                thSortNumber("Blur"),
+                thSortNumber(dataSortDefault)("Date")
               )
             ),
             tbody(
