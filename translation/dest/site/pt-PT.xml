@@ -702,7 +702,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="yourPerfTypeRatingIsRating">A tua pontuação em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">És melhor que %1$s dos jogadores de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é melhor que %2$s dos jogadores de %3$s.</string>
-  <string name="betterThanPercentPlayers">Melhor que %1$s de %2$s jogadores</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Melhor que %1$s de %2$s jogadores</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Não tens uma pontuação estabelecida em %s.</string>
   <string name="yourRating">A tua pontuação</string>
   <string name="cumulative">Acumulativo</string>
@@ -761,7 +761,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">O teu resultado: %s</string>
-  <string name="language">Idioma</string>
+  <string name="language">Lingua</string>
   <string name="background">Fundo</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
