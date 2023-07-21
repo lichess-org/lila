@@ -770,7 +770,11 @@ export default class RoundController {
   opponentGone = (): number | boolean => {
     const d = this.data;
     return (
-      defined(d.opponent.isGone) && d.opponent.isGone !== false && !game.isPlayerTurn(d) && game.resignable(d)
+      defined(d.opponent.isGone) &&
+      d.opponent.isGone !== false &&
+      !game.isPlayerTurn(d) &&
+      game.resignable(d) &&
+      d.opponent.isGone
     );
   };
 
