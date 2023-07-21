@@ -11,10 +11,6 @@
     --main-max-width: auto;
   }
 
-  @include breakpoint($mq-not-small) {
-    --main-max-width: 100%;
-  }
-
   user-select: none;
 }
 
@@ -29,5 +25,11 @@
 
   &-history {
     grid-area: history;
+  }
+}
+
+.puz-board {
+  @include breakpoint($mq-col2-uniboard-squeeze) {
+    width: 40vw;
   }
 }
