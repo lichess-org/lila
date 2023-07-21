@@ -15,8 +15,8 @@
     <item quantity="other">%s quendas</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Xogaches unha quenda de %2$s</item>
-    <item quantity="other">Xogaches %1$s rondas de %2$s</item>
+    <item quantity="one">Xogou unha quenda de %2$s</item>
+    <item quantity="other">Xogou %1$s quendas de %2$s</item>
   </plurals>
   <string name="highscoreX">Récord: %s</string>
   <string name="score">Resultados</string>
