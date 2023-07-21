@@ -7,8 +7,8 @@
     <item quantity="other">Apoiou a lichess.org durante %1$s meses como %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Practicaches %1$s posición en %2$s</item>
-    <item quantity="other">Practicaches %1$s posicións en %2$s</item>
+    <item quantity="one">Practicou %1$s posición en %2$s</item>
+    <item quantity="other">Practicou %1$s posicións en %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Resolveu %s exercicio de táctica</item>
