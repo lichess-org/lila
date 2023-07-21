@@ -31,6 +31,7 @@
   <string name="otherAmount">Іншая сума</string>
   <string name="pleaseEnterAmountInX">Калі ласка, увядзіце суму ў %s</string>
   <string name="withCreditCard">Банкаўская картка</string>
+  <string name="logInToDonate">Увайдзіце, каб ахвяраваць</string>
   <string name="weAreSmallTeam">Мы маленькая каманда, таму ваша дамога вельмі важлівая!</string>
   <string name="celebratedPatrons">Выдатныя спонсары, якія робяць Lichess магчымым</string>
   <string name="whereMoneyGoes">На што выкарыстоўваюцца грошы?</string>
@@ -44,7 +45,9 @@
 Ці можаце %s.</string>
   <string name="contactSupport">звязацца са службай дапамогі Lichess</string>
   <string name="otherMethods">Іншыя шляхі ахвяравання?</string>
+  <string name="lichessIsRegisteredWith">Lichess зарэгістраваны ў %s.</string>
   <string name="bankTransfers">Мы таксама прымаем банкаўскія пералікі</string>
+  <string name="onlyDonationFromAbove">Калі ласка, звярніце ўвагу, што толькі форма ахвяравання вышэй дасць статус спонсара.</string>
   <string name="patronFeatures">Можа нейкія ўнікальныя магчымасці прыдугледжаны для спонсараў?</string>
   <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бясплатны, назаўсёды і для кожнага. Гэта абяцанне.
 Аднак, спонсары атрымліваюць цудоўную іконку да профілю.</string>
