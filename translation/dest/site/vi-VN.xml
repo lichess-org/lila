@@ -668,6 +668,7 @@
   <string name="yourPerfTypeRatingIsRating">Xếp hạng %1$s của bạn là %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
+  <string name="betterThanPercentPlayers">%1$s tốt hơn %2$s người chơi %3$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có xếp hạng %s.</string>
   <string name="yourRating">Xếp hạng của bạn</string>
   <string name="cumulative">Tích luỹ</string>
