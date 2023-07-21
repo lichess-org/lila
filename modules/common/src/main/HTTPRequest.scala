@@ -61,7 +61,7 @@ object HTTPRequest:
     // spiders/crawlers
     """Googlebot|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|Twitterbot|Baiduspider""" +
       // http libs
-      """|HeadlessChrome|okhttp|axios|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|"""
+      """|HeadlessChrome|okhttp|axios|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus"""
 
   final class UaMatcher(rStr: String):
     private val pattern                    = rStr.r.pattern
