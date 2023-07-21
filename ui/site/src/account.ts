@@ -20,8 +20,14 @@ lichess.load.then(() => {
     const form = this,
       $form = $(form),
       showSaved = () => $form.find('.saved').removeClass('none');
+    // hotfix until next server deploy
+    $('input[name="behavior.submitMove"]')
+      .parents('.radio')
+      .find('input[type="checkbox"]')
+      .attr('data-name', 'behavior.submitMove');
+    computeBitChoices($form, 'behavior.submitMove');
     $form.find('input').on('change', function (this: HTMLInputElement) {
-      if (this.name == 'behavior.submitMove') submitMoveChoices(this);
+      computeBitChoices($form, 'behavior.submitMove');
       localPrefs.forEach(([categ, name, storeKey]) => {
         if (this.name == `${categ}.${name}`) {
           lichess.storage.boolean(storeKey).set(this.value == '1');
@@ -60,10 +66,10 @@ lichess.load.then(() => {
   });
 });
 
-function submitMoveChoices(input: HTMLInputElement) {
+function computeBitChoices($form: Cash, name: string) {
   let sum = 0;
-  $(`input[type="checkbox"][name="${input.name}"]:checked`).each(function (this: HTMLInputElement) {
+  $form.find(`input[type="checkbox"][data-name="${name}"]:checked`).each(function (this: HTMLInputElement) {
     sum |= parseInt(this.value);
   });
-  $(`input[type="hidden"][name="${input.name}"]`).val(sum.toString());
+  $form.find(`input[type="hidden"][name="${name}"]`).val(sum.toString());
 }

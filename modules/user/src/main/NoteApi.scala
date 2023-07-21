@@ -16,7 +16,7 @@ case class Note(
 ):
   def userIds            = List(from, to)
   def isFrom(user: User) = user.id is from
-  def searchable = mod && !dox && from.isnt(User.lichessId) && from.isnt(User.watcherbotId) &&
+  def searchable = mod && from.isnt(User.lichessId) && from.isnt(User.watcherbotId) &&
     !text.startsWith("Appeal reply:")
 
 final class NoteApi(userRepo: UserRepo, coll: Coll)(using

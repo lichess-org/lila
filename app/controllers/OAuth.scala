@@ -1,6 +1,5 @@
 package controllers
 
-import cats.data.Validated
 import play.api.data.Form
 import play.api.data.Forms.*
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
@@ -20,22 +19,22 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   private def reqToAuthorizationRequest(using RequestHeader) =
     import lila.oauth.Protocol.*
     AuthorizationRequest.Raw(
-      clientId = ClientId from get("client_id"),
+      clientId = getAs[ClientId]("client_id"),
       responseType = get("response_type"),
       redirectUri = get("redirect_uri"),
-      state = State from get("state"),
+      state = getAs[State]("state"),
       codeChallengeMethod = get("code_challenge_method"),
-      codeChallenge = CodeChallenge from get("code_challenge"),
+      codeChallenge = getAs[CodeChallenge]("code_challenge"),
       scope = get("scope"),
-      username = UserStr from get("username")
+      username = getAs[UserStr]("username")
     )
 
   private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
     reqToAuthorizationRequest.prompt match
-      case Validated.Valid(prompt) =>
+      case Right(prompt) =>
         AuthorizationRequest.logPrompt(prompt, ctx.me)
         f(prompt)
-      case Validated.Invalid(error) =>
+      case Left(error) =>
         BadRequest.page(html.site.message("Bad authorization request")(stringFrag(error.description)))
 
   def authorize = Open:
@@ -50,11 +49,11 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   def authorizeApply = Auth { _ ?=> me ?=>
     withPrompt: prompt =>
       prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
-        case Validated.Valid(authorized) =>
+        case Right(authorized) =>
           env.oAuth.authorizationApi.create(authorized) map { code =>
             SeeOther(authorized.redirectUrl(code))
           }
-        case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state))
+        case Left(error) => SeeOther(prompt.redirectUri.error(error, prompt.state))
       }
   }
 
@@ -74,9 +73,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def tokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
     _.prepare match
-      case Validated.Valid(prepared) =>
+      case Right(prepared) =>
         env.oAuth.authorizationApi.consume(prepared) flatMap {
-          case Validated.Valid(granted) =>
+          case Right(granted) =>
             env.oAuth.tokenApi.create(granted) map { token =>
               Ok(
                 Json
@@ -87,15 +86,15 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                   .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
               )
             }
-          case Validated.Invalid(err) => BadRequest(err.toJson)
+          case Left(err) => BadRequest(err.toJson)
         }
-      case Validated.Invalid(err) => BadRequest(err.toJson)
+      case Left(err) => BadRequest(err.toJson)
 
   def legacyTokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
     _.prepareLegacy(AccessTokenRequest.BasicAuth from req) match
-      case Validated.Valid(prepared) =>
+      case Right(prepared) =>
         env.oAuth.authorizationApi.consume(prepared) flatMap {
-          case Validated.Valid(granted) =>
+          case Right(granted) =>
             env.oAuth.tokenApi.create(granted) map { token =>
               Ok(
                 Json
@@ -107,9 +106,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                   .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
               )
             }
-          case Validated.Invalid(err) => BadRequest(err.toJson)
+          case Left(err) => BadRequest(err.toJson)
         }
-      case Validated.Invalid(err) => BadRequest(err.toJson)
+      case Left(err) => BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
     HTTPRequest.bearer(ctx.req) so { token =>

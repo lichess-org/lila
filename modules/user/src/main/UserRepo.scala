@@ -123,15 +123,14 @@ final class UserRepo(val coll: Coll)(using Executor):
         $doc(s"${F.count}.game" -> true).some
       )
       .cursor[Bdoc]()
-      .listAll() map { docs =>
-      docs
-        .sortBy {
-          _.child(F.count).flatMap(_.int("game"))
-        }
-        .flatMap(_.getAsOpt[UserId]("_id")) match
-        case List(u1, u2) => (u1, u2).some
-        case _            => none
-    }
+      .listAll()
+      .map: docs =>
+        docs
+          .sortBy:
+            _.child(F.count).flatMap(_.int("game"))
+          .flatMap(_.getAsOpt[UserId]("_id")) match
+          case List(u1, u2) => (u1, u2).some
+          case _            => none
 
   def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean] =
     coll

@@ -229,7 +229,7 @@ export const mic = new (class implements Voice.Microphone {
         deviceId: this.micId,
       },
     });
-    this.audioCtx = new AudioContext({
+    this.audioCtx = new (AudioContext || window.webkitAudioContext)({
       sampleRate: this.mediaStream.getAudioTracks()[0].getSettings().sampleRate,
     });
     this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);

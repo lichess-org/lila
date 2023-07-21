@@ -4,14 +4,11 @@ import chess.*
 
 private object Chess960:
 
-  def isStartPosition(board: Board) =
-    board valid {
-
+  def isStartPosition(sit: Situation) =
+    val strict =
       def rankMatches(f: Option[Piece] => Boolean)(rank: Rank) =
-        File.all forall { file =>
-          f(board(file, rank))
-        }
-
+        File.all.forall: file =>
+          f(sit.board(file, rank))
       rankMatches {
         case Some(Piece(White, King | Queen | Rook | Knight | Bishop)) => true
         case _                                                         => false
@@ -29,4 +26,5 @@ private object Chess960:
         case Some(Piece(Black, King | Queen | Rook | Knight | Bishop)) => true
         case _                                                         => false
       }(Rank.Eighth)
-    }
+
+    variant.Chess960.valid(sit, strict)

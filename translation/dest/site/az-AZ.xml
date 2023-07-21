@@ -207,6 +207,7 @@
   <string name="email">E-poçt</string>
   <string name="passwordReset">Şifrəni yenilə</string>
   <string name="forgotPassword">Şifrəni unutmusuz?</string>
+  <string name="error.namePassword">Zəhmət olmasa istifadəçi adınızı şifrə kimi istifadə etməyin.</string>
   <string name="emailConfirmHelp">Email təsdiqi üçün yardım</string>
   <string name="emailConfirmNotReceived">Qeydiyyatdan keçdikdən sonra doğrulama maili almadınız?</string>
   <string name="whatSignupUsername">Hansı istifadəçi adıyla qeydiyyatdan keçmisən?</string>

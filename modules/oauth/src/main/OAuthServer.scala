@@ -18,16 +18,16 @@ final class OAuthServer(
 
   import OAuthServer.*
 
-  def auth(req: RequestHeader, accepted: EndpointScopes): Fu[AuthResult] =
-    HTTPRequest.bearer(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
+  def auth(req: RequestHeader, accepted: EndpointScopes): Fu[AccessResult] =
+    HTTPRequest.bearer(req).fold[Fu[AccessResult]](fufail(MissingAuthorizationHeader)) {
       auth(_, accepted, req.some)
-    } recover { case e: AuthError =>
+    } map checkOauthUaUser(req) recover { case e: AuthError =>
       Left(e)
     } addEffect { res =>
       monitorAuth(res.isRight, req)
     }
 
-  def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
+  def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AccessResult] =
     getTokenFromSignedBearer(tokenId) orFailWith NoSuchToken flatMap {
       case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
         fufail(MissingScope(at.scopes))
@@ -46,7 +46,7 @@ final class OAuthServer(
                 logger.debug:
                   s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
             if blocked then fufail(OriginBlocked)
-            else fuccess(OAuthScope.Scoped(u, at.scopes))
+            else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
         }
     } dmap Right.apply recover { case e: AuthError =>
       Left(e)
@@ -66,6 +66,14 @@ final class OAuthServer(
       then Left(OneUserWithTwoTokens)
       else Right(user1.user -> user2.user)
   yield result
+
+  val UaUserRegex = """(?:user|as):\s?([\w\-]{3,31})""".r
+  private def checkOauthUaUser(req: RequestHeader)(access: AccessResult): AccessResult = access match
+    case Right(access) =>
+      HTTPRequest.userAgent(req).map(_.value) match
+        case Some(UaUserRegex(u)) if access.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
+        case _                                                  => Right(access)
+    case err => err
 
   private val bearerSigner = Algo hmac mobileSecret.value
   private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
@@ -88,7 +96,8 @@ final class OAuthServer(
 
 object OAuthServer:
 
-  type AuthResult = Either[AuthError, OAuthScope.Scoped]
+  type AccessResult = Either[AuthError, OAuthScope.Access]
+  type AuthResult   = Either[AuthError, OAuthScope.Scoped]
 
   sealed abstract class AuthError(val message: String) extends lila.base.LilaException
   case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
@@ -97,6 +106,7 @@ object OAuthServer:
   case object NoSuchUser                               extends AuthError("No such user")
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
   case object OriginBlocked        extends AuthError("Origin blocked")
+  case object UserAgentMismatch extends AuthError("The user in the user-agent doesn't match the token bearer")
 
   def responseHeaders(accepted: EndpointScopes, tokenScopes: TokenScopes)(res: Result): Result =
     res.withHeaders(

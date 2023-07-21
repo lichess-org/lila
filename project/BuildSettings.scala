@@ -16,6 +16,7 @@ object BuildSettings {
       resolvers ++= Seq(lilaMaven, sonashots),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
+      javacOptions ++= Seq("-source", "17", "-target", "17"),
       organization                           := "org.lichess",
       version                                := lilaVersion,
       Compile / doc / sources                := Seq.empty,
@@ -30,7 +31,7 @@ object BuildSettings {
       play.api,
       chess,
       scalalib,
-      kittens,
+      kittens
     )
 
   def module(
@@ -56,7 +57,7 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-Xtarget:12"
+    "-Xtarget:17"
     // "-Wunused:all"
   )
 

@@ -49,15 +49,14 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
     idsMap(us, readPref).map: perfs =>
       us.view.map(u => User.WithPerfs(u, perfs.get(u.id))).toList
 
-  def setPerfs(user: User, perfs: UserPerfs, prev: UserPerfs)(using wr: BSONHandler[Perf]) =
+  def updatePerfs(prev: UserPerfs, cur: UserPerfs)(using wr: BSONHandler[Perf]) =
     val diff = for
       pt <- PerfType.all
-      if perfs(pt).nb != prev(pt).nb
-      bson <- wr.writeOpt(perfs(pt))
+      if cur(pt).nb != prev(pt).nb
+      bson <- wr.writeOpt(cur(pt))
     yield BSONElement(pt.key.value, bson)
-    diff.nonEmpty so coll.update
-      .one($id(user.id), $doc("$set" -> $doc(diff*)), upsert = true)
-      .void
+    diff.nonEmpty so
+      coll.update.one($id(cur.id), $doc("$set" -> $doc(diff*)), upsert = true).void
 
   def setManagedUserInitialPerfs(id: UserId) =
     coll.update.one($id(id), UserPerfs.defaultManaged(id), upsert = true).void
@@ -141,7 +140,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
   def withPerf(us: PairOf[User], perfType: PerfType, readPref: ReadPref): Fu[PairOf[User.WithPerf]] =
     perfOf(us, perfType, readPref).dmap: (x, y) =>
-      User.WithPerf(us._1, y) -> User.WithPerf(us._2, x)
+      User.WithPerf(us._1, x) -> User.WithPerf(us._2, y)
 
   def perfOf[U: UserIdOf](us: PairOf[U], perfType: PerfType, readPref: ReadPref): Fu[PairOf[Perf]] =
     val (x, y) = us

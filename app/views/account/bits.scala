@@ -70,9 +70,9 @@ object bits:
             input(
               st.id := id,
               checked option st.checked,
-              tpe      := "checkbox",
-              st.value := key.toString,
-              name     := field.name
+              tpe               := "checkbox",
+              st.value          := key.toString,
+              attr("data-name") := field.name
             ),
             label(`for` := id)(value)
           )

@@ -67,5 +67,5 @@ private object RelayGame:
             ).render
           }.toList
         },
-      mul => RelayFetch.multiPgnToGames(mul).get
+      mul => RelayFetch.multiPgnToGames(mul).toOption.get
     )

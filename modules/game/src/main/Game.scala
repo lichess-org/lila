@@ -361,8 +361,9 @@ case class Game(
 
   def resignable      = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.NoClaimWin)
-  def drawable        = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
-  def forceDrawable   = playable && !abortable && !hasRule(_.NoClaimWin)
+  def forceResignableNow = forceResignable && bothPlayersHaveMoved
+  def drawable           = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
+  def forceDrawable      = playable && nonAi && !abortable && !isSwiss && !hasRule(_.NoClaimWin)
 
   def finish(status: Status, winner: Option[Color]): Game =
     copy(
@@ -740,7 +741,7 @@ case class CastleLastMove(castles: Castles, lastMove: Option[Uci])
 
 object CastleLastMove:
 
-  def init = CastleLastMove(Castles.all, None)
+  def init = CastleLastMove(Castles.init, None)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

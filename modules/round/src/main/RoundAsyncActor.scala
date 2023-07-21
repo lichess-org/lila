@@ -52,7 +52,9 @@ final private[round] class RoundAsyncActor(
     def isOnline = offlineSince.isEmpty || botConnected
 
     def setOnline(on: Boolean): Unit =
-      isLongGone.foreach(_ so notifyGone(color, gone = !on))
+      isLongGone.flatMapz:
+        proxy.withGame: g =>
+          g.forceResignableNow so notifyGone(color, gone = !on)
       offlineSince = if on then None else offlineSince orElse nowMillis.some
       bye = bye && !on
     def setBye(): Unit =
@@ -367,7 +369,7 @@ final private[round] class RoundAsyncActor(
 
     case Tick =>
       proxy.withGameOptionSync { g =>
-        (g.forceResignable && g.bothPlayersHaveMoved) so fuccess:
+        g.forceResignableNow so fuccess:
           Color.all.foreach: c =>
             if !getPlayer(c).isOnline && getPlayer(!c).isOnline then
               getPlayer(c).showMillisToGone foreach {

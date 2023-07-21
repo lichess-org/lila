@@ -1,7 +1,7 @@
 package lila.notify
 
 import akka.stream.Materializer
-import akka.stream.scaladsl.Source
+import akka.stream.scaladsl.*
 
 import lila.user.UserRepo
 import lila.db.dsl.{ *, given }
@@ -27,7 +27,8 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
     val notification = GenericLink(url, title, text, lila.common.licon.InfoCircle)
     userIds
       .grouped(20)
-      .mapAsyncUnordered(1)(api.notifyManyIgnoringPrefs(_, notification))
-      .runWith(LilaStream.sinkCount)
+      .mapAsyncUnordered(1): uids =>
+        api.notifyManyIgnoringPrefs(uids, notification) inject uids.size
+      .runWith(Sink.fold(0)(_ + _))
       .map: nb =>
         s"Notified $nb users"

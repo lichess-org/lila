@@ -7,7 +7,6 @@ import lila.common.LightUser
 import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
-import cats.data.Validated
 import scala.language.implicitConversions
 
 class PgnImportTest extends lila.common.LilaTest:

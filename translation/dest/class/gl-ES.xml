@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Clases</string>
-  <string name="teachClassesOfChessStudents">Dea clases de xadrez co paquete de ferramentas de Lichess para clases.</string>
+  <string name="teachClassesOfChessStudents">Imparte clases de xadrez coa ferramenta Clases de Lichess.</string>
   <string name="features">Funcións</string>
-  <string name="quicklyGenerateSafeUsernames">Xenera rapidamente nomes de usuarios e contrasinais seguros para os usuarios</string>
-  <string name="trackStudentProgress">Segue o progreso dos alumnos en partidas e problemas</string>
-  <string name="messageAllStudents">Avisa os alumnos de que hai novo material</string>
-  <string name="freeForAllForever">100% gratuito para todo o mundo e sen anuncios ou uso de datos</string>
-  <string name="applyToBeLichessTeacher">Postúlate como adestrador en Lichess</string>
-  <string name="noClassesYet">Aínda non hay clases.</string>
-  <string name="teachersX">Adestradores: %s</string>
-  <string name="newClass">Clase nova</string>
+  <string name="quicklyGenerateSafeUsernames">Xera rapidamente nomes de usuario e contrasinais seguros para os estudantes</string>
+  <string name="trackStudentProgress">Segue o progreso dos alumnos nas partidas e crebacabezas</string>
+  <string name="messageAllStudents">Envía unha mensaxe a todos os estudantes sobre o novo material da clase</string>
+  <string name="freeForAllForever">100% libre e gratuíto para todo o mundo, para sempre, sen anuncios nin rastrexadores</string>
+  <string name="applyToBeLichessTeacher">Solicita ser Profesor de Lichess</string>
+  <string name="noClassesYet">Aínda non hai clases.</string>
+  <string name="teachersX">Profesores: %s</string>
+  <string name="newClass">Nova clase</string>
   <string name="closeClass">Pechar clase</string>
-  <string name="removedByX">Eliminado por %s</string>
+  <string name="removedByX">Retirado por %s</string>
   <string name="reopen">Reabrir</string>
-  <string name="removeStudent">Eliminar alumno</string>
-  <string name="removedStudents">Eliminar</string>
-  <string name="inviteTheStudentBack">Volver invitar a un alumno</string>
-  <string name="sendAMessage">Enviar unha mensaxe a tódolos alumnos.</string>
-  <string name="aLinkToTheClassWillBeAdded">Enviarase unha ligazón á clase automáticamente ó fondo da mensaxe. Non precisas incluilo.</string>
+  <string name="removeStudent">Retirar alumno</string>
+  <string name="removedStudents">Retirado</string>
+  <string name="inviteTheStudentBack">Invitar novamente ao estudante</string>
+  <string name="sendAMessage">Enviar unha mensaxe a todos os alumnos.</string>
+  <string name="aLinkToTheClassWillBeAdded">Ao final da mensaxe engadirase automaticamente unha ligazón á clase, así que non tes que incluíla.</string>
   <string name="className">Nome da clase</string>
   <string name="classDescription">Descrición da clase</string>
-  <string name="visibleByBothStudentsAndTeachers">Visible para adestradores e alumnos</string>
-  <string name="teachersOfTheClass">Adestradores desta clase</string>
-  <string name="addLichessUsernames">Invita usuarios de Lichess para seren adestradores (un por liña).</string>
-  <string name="resetPassword">Reiniciar o contrasinal</string>
+  <string name="visibleByBothStudentsAndTeachers">Visible para os profesores e os alumnos</string>
+  <string name="teachersOfTheClass">Profesores desta clase</string>
+  <string name="addLichessUsernames">Engadir usuarios de Lichess para convidalos como profesores. Un per liña.</string>
+  <string name="resetPassword">Restablecer o contrasinal</string>
   <string name="makeSureToCopy">Asegúrate de copiar agora o contrasinal. Non o volverás ver!</string>
   <string name="passwordX">Contrasinal: %s</string>
-  <string name="generateANewPassword">Xenera un contrasinal novo para o alumno</string>
+  <string name="generateANewPassword">Xera un contrasinal novo para o alumno</string>
   <string name="invitedToXByY">Invitado a %1$s por %2$s</string>
   <string name="realName">Nome real</string>
-  <string name="privateWillNeverBeShown">Privado: non se amosará fóra desta clase. Está para axudarche a lembrar quen é cada alumno.</string>
+  <string name="privateWillNeverBeShown">Privado. Nunca se amosará fóra da clase. Axuda a lembrar quen é cada alumno.</string>
   <string name="addStudent">Engadir alumno</string>
   <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
   <string name="studentCredentials">Alumno: %1$s
 Nome de usuario: %2$s
 Contrasinal %3$s</string>
   <string name="inviteALichessAccount">Invita unha conta de Lichess</string>
-  <string name="inviteDesc1">Se o alumno xa tes conta en Lichess, invítao á clase.</string>
+  <string name="inviteDesc1">Se o alumno xa ten conta en Lichess, pódelo invitar á clase.</string>
   <string name="inviteDesc2">Recibirán unha mensaxe en Lichess coa ligazón para unirse á clase.</string>
   <string name="inviteDesc3">Importante: invita só estudantes que coñezas e queiran unirse á clase.</string>
-  <string name="inviteDesc4">Non envíes invitacións non desexadas.</string>
+  <string name="inviteDesc4">Nunca envíes invitacións a xogadores que non as pediran.</string>
   <string name="createANewLichessAccount">Crea unha conta en Lichess</string>
   <string name="createDesc1">Se o alumno non ten conta en Lichess, podes crearlla desde aquí.</string>
-  <string name="createDesc2">Non se precisa dirección de correo. Xerarase un contrasinal que debes pasar ó alumno para que poidan acceder.</string>
+  <string name="createDesc2">Non se precisa enderezo de correo electrónico. Xerarase un contrasinal que debes pasarlle ó alumno para que poida acceder.</string>
   <string name="createDesc3">Importante: os alumnos non deben ter máis dunha conta.</string>
   <string name="createDesc4">Se xa a teñen, usa o formulario de invitación.</string>
-  <string name="createStudentWarning">Crea só contas para estudantes reais. Non uses isto para crear moitas contas para ti mesmo/a. Serás baneado/a.</string>
+  <string name="createStudentWarning">Crea só contas para estudantes reais. Non uses isto para crear contas múltiples para ti. Serías bloqueado.</string>
   <string name="lichessUsername">Nome de usuario en Lichess</string>
-  <string name="generateANewUsername">Xenera un novo nome de usuario</string>
-  <string name="welcomeToClass">Benvido á túa clase %s
+  <string name="generateANewUsername">Xera un novo nome de usuario</string>
+  <string name="welcomeToClass">Benvido á túa clase: %s
 Aquí está a ligazón para acceder.</string>
-  <string name="invitationToClass">Invitáronte a entrar como alumno na clase %s.</string>
+  <string name="invitationToClass">Invitáronte a participar como alumno na clase \"%s\".</string>
   <string name="clickToViewInvitation">Preme na ligazón para ver a invitación:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Unha invitación pendente</item>
@@ -63,14 +63,14 @@ Aquí está a ligazón para acceder.</string>
   <string name="thisStudentAccountIsManaged">A conta deste estudante está supervisada</string>
   <string name="upgradeFromManaged">Actualizar de supervisada a autónoma</string>
   <string name="release">Liberar</string>
-  <string name="releaseTheAccount">Libera a conta para que o estudante poda xestionala de forma autónoma.</string>
-  <string name="releaseDesc1">Unha conta liberada non pode volver ser supervisada de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
-  <string name="releaseDesc2">O estudante permanecerá na clase trala liberación da conta.</string>
-  <string name="realUniqueEmail">Dirección de correo electrónico real e única do estudante. Enviaremos unha mail de confirmación para el, cun link para liberar a conta.</string>
-  <string name="closeStudent">Pechar conta</string>
+  <string name="releaseTheAccount">Libera a conta para que o estudante poida xestionala de forma autónoma.</string>
+  <string name="releaseDesc1">Unha conta liberada non pode ser supervisada de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
+  <string name="releaseDesc2">O estudante permanecerá na clase tras a liberación da conta.</string>
+  <string name="realUniqueEmail">Enderezo de correo electrónico real e único do estudante. Enviarémoslle un correo de confirmación cunha ligazón para liberar a conta.</string>
+  <string name="closeStudent">Pechar a conta</string>
   <string name="closeTheAccount">Pechar a conta de estudante permanentemente.</string>
-  <string name="closeDesc1">A estudante non poderá usar esta conta de novo. O peche é definitivo. Asegúrate que a estudante o entende e está dacordo.</string>
-  <string name="closeDesc2">Quizais queres darlle á estudante o control sobre a conta no seu lugar, de maneira que poida seguir empregándoa.</string>
+  <string name="closeDesc1">O estudante non poderá volver usar esta conta. O peche é definitivo. Asegúrate de que o estudante o entende e está de acordo.</string>
+  <string name="closeDesc2">Tamén podes transferir o control da conta ó estudante para que poida seguir usándoa.</string>
   <string name="teachers">Profesores</string>
   <plurals name="nbTeachers">
     <item quantity="one">Profesor</item>
@@ -82,36 +82,36 @@ Aquí está a ligazón para acceder.</string>
   </plurals>
   <string name="students">Estudantes</string>
   <string name="progress">Progreso</string>
-  <string name="noStudents">Non hai aínda estudantes na aula.</string>
+  <string name="noStudents">Aínda non hai estudantes na clase.</string>
   <string name="noRemovedStudents">Non hai estudantes eliminados.</string>
-  <string name="overDays">Durante días</string>
+  <string name="overDays">Ó longo dos días</string>
   <string name="timePlaying">Tempo xogado</string>
-  <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
-  <string name="winrate">Porcentaxe de victorias</string>
+  <string name="variantXOverLastY">%1$s nos últimos %2$s</string>
+  <string name="winrate">Porcentaxe de vitorias</string>
   <string name="na">Non dispoñible</string>
-  <string name="overview">Vista xeral</string>
+  <string name="overview">Visión xeral</string>
   <string name="news">Novas</string>
   <string name="classNews">Novidades da clase</string>
   <string name="editNews">Editar as novidades</string>
-  <string name="notifyAllStudents">Notificar todos os estudantes</string>
+  <string name="notifyAllStudents">Notificar a todos os estudantes</string>
   <string name="nothingHere">Nada aquí polo de agora.</string>
   <string name="newsEdit1">Todas as novidades sobre a clase nun único campo.</string>
-  <string name="newsEdit2">Engade as novas recente na parte superior. Non elimines as novidades previas.</string>
+  <string name="newsEdit2">Engade as novas recentes na parte superior. Non elimines as novas anteriores.</string>
   <string name="newsEdit3">Separa as novas con ---
 Amosará unha liña separadora horizontal.</string>
   <string name="invite">Convidar</string>
-  <string name="youHaveBeenInvitedByX">Fuches convidado/a por %s.</string>
+  <string name="youHaveBeenInvitedByX">Fuches convidado por %s.</string>
   <string name="youAcceptedThisInvitation">Aceptaches esta invitación.</string>
   <string name="youDeclinedThisInvitation">Rexeitaches esta invitación.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ou</string>
-  <string name="createMultipleAccounts">Crea múltiples contas de Lichess dunha vez</string>
+  <string name="createMultipleAccounts">Crea múltiples contas de Lichess á vez</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Tamén podes %s para crear varias contas de Lichess a partir dunha lista de nomes de estudantes.</string>
-  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">emprega este formulario</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">empregar este formulario</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ten en conta que unha clase pode ter ata %1$s estudantes. Para administrar máis estudantes, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">crea máis clases</string>
-  <string name="studentsRealNamesOnePerLine">Nomes dos/as estudantes, un por liña</string>
-  <string name="xisNowAStudentOfTheClass">%s é agora un/unha estudante da clase</string>
+  <string name="studentsRealNamesOnePerLine">Nomes reais dos estudantes, un por liña</string>
+  <string name="xisNowAStudentOfTheClass">%s xa é un novo estudante da clase</string>
   <string name="anInvitationHasBeenSentToX">Enviouse invitación a %s</string>
-  <string name="xAlreadyHasAPendingInvitation">%s aínda ten unha invitación pendente</string>
+  <string name="xAlreadyHasAPendingInvitation">%s xa ten unha invitación pendente</string>
   <string name="xIsAKidAccountWarning">%1$s é unha conta infantil e non pode recibir a túa mensaxe. Debes enviarlle a URL de invitación de xeito manual: %2$s</string>
 </resources>

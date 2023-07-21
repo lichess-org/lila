@@ -20,14 +20,12 @@ case class AppealUser(me: Me)
 case class UserSession(
     _id: String,
     ip: IpAddress,
-    ua: String,
+    ua: UserAgent,
     api: Option[Int],
     date: Option[Instant]
 ):
-
   inline def id = _id
-
-  def isMobile = api.isDefined
+  def isMobile  = api.isDefined || Mobile.LichessMobileUaTrim.is(ua)
 
 case class LocatedSession(session: UserSession, location: Option[Location])
 
@@ -55,5 +53,5 @@ enum UserClient:
 object UserClient:
   def apply(ua: UserAgent): UserClient =
     if ua.value contains "Lichobile" then UserClient.App
-    else if ua.value contains "Mobile" then UserClient.Mob
+    else if Mobile.LichessMobileUaTrim.is(ua) then UserClient.Mob
     else UserClient.PC

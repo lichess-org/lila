@@ -1,7 +1,5 @@
 package lila.challenge
 
-import cats.data.Validated
-import cats.data.Validated.{ Invalid, Valid }
 import chess.format.Fen
 import chess.variant.Variant
 import chess.{ Mode, Situation, ByColor }
@@ -16,14 +14,14 @@ final private class ChallengeJoiner(
     onStart: lila.round.OnStart
 )(using Executor):
 
-  def apply(c: Challenge, destUser: GameUser): Fu[Validated[String, Pov]] =
+  def apply(c: Challenge, destUser: GameUser): Fu[Either[String, Pov]] =
     gameRepo exists c.id.into(GameId) flatMap {
-      if _ then fuccess(Invalid("The challenge has already been accepted"))
+      if _ then fuccess(Left("The challenge has already been accepted"))
       else
         c.challengerUserId.so(userApi.withPerf(_, c.perfType)) flatMap { origUser =>
           val game = ChallengeJoiner.createGame(c, origUser, destUser)
           (gameRepo insertDenormalized game) andDo onStart(game.id) inject
-            Valid(Pov(game, !c.finalColor))
+            Right(Pov(game, !c.finalColor))
         }
     }
 

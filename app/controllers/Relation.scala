@@ -18,26 +18,25 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   val api = env.relation.api
 
-  private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) =
-    env.user.lightUserApi.asyncFallbackName(username) flatMap { user =>
-      (ctx.userId so { api.fetchRelation(_, user.id) }) zip
-        (ctx.isAuth so { env.pref.api followable user.id }) zip
-        (ctx.userId so { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
-          negotiate(
-            Ok.page:
-              if mini
-              then html.relation.mini(user.id, blocked = blocked, followable = followable, relation)
-              else html.relation.actions(user, relation, blocked = blocked, followable = followable)
-            ,
-            Ok:
-              Json.obj(
-                "followable" -> followable,
-                "following"  -> relation.contains(true),
-                "blocking"   -> relation.contains(false)
-              )
-          )
-        }
-    }
+  private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) = for
+    user       <- env.user.lightUserApi.asyncFallbackName(username)
+    relation   <- ctx.userId.so(api.fetchRelation(_, user.id))
+    followable <- ctx.isAuth.so(env.pref.api followable user.id)
+    blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
+    res <- negotiate(
+      Ok.page:
+        if mini
+        then html.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+        else html.relation.actions(user, relation, blocked = blocked, followable = followable)
+      ,
+      Ok:
+        Json.obj(
+          "followable" -> followable,
+          "following"  -> relation.contains(true),
+          "blocking"   -> relation.contains(false)
+        )
+    )
+  yield res
 
   private val FollowLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 150,
@@ -135,14 +134,12 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       maxPerPage = lila.common.config.MaxPerPage(30)
     )
 
-  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related]] =
-    env.user.api.listWithPerfs(userIds.toList) flatMap { users =>
-      ctx.isAuth.so(env.pref.api.followableIds(users map (_.id))) flatMap { followables =>
-        users.map { u =>
-          ctx.userId
-            .so(api.fetchRelation(_, u.id))
-            .map: rel =>
-              lila.relation.Related(u, none, followables(u.id), rel)
-        }.parallel
-      }
-    }
+  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related]] = for
+    users       <- env.user.api.listWithPerfs(userIds.toList)
+    followables <- ctx.isAuth.so(env.pref.api.followableIds(users.map(_.id)))
+    rels <- users.traverse: u =>
+      ctx.userId
+        .so(api.fetchRelation(_, u.id))
+        .map: rel =>
+          lila.relation.Related(u, none, followables(u.id), rel)
+  yield rels
