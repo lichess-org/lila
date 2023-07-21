@@ -168,6 +168,12 @@
     <item quantity="few">%s partij</item>
     <item quantity="other">%s partij</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating v %2$s igri</item>
+    <item quantity="two">%1$s rating v %2$s igrah</item>
+    <item quantity="few">%1$s rating v %2$s igrah</item>
+    <item quantity="other">%1$s rating v %2$s igrah</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s zaznamek</item>
     <item quantity="two">%s zaznamka</item>
@@ -386,6 +392,12 @@
     <item quantity="two">%s študiji</item>
     <item quantity="few">%s študije</item>
     <item quantity="other">%s študij</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanka</item>
+    <item quantity="two">%s simultanki</item>
+    <item quantity="few">%s simultanke</item>
+    <item quantity="other">%s simultank</item>
   </plurals>
   <string name="viewTournament">Glej turnir</string>
   <string name="backToTournament">Nazaj k turnirju</string>
