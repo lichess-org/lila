@@ -16,7 +16,7 @@ object BuildSettings {
       resolvers ++= Seq(lilaMaven, sonashots),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
-      javacOptions ++= Seq("-source", "17", "-target", "17"),
+      javacOptions ++= Seq("--release", "17"),
       organization                           := "org.lichess",
       version                                := lilaVersion,
       Compile / doc / sources                := Seq.empty,
@@ -57,7 +57,7 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-Xtarget:17"
+    "-release:17",
     // "-Wunused:all"
   )
 
