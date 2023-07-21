@@ -67,20 +67,21 @@ Non precisas coroar.</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
   <string name="takeTheEnemyPieces">Captura as pezas inimigas</string>
-  <string name="captureIntro">Identifica as pezas rivais non defendidas, e captúraas!</string>
+  <string name="captureIntro">Identifica as pezas rivais non defendidas e captúraas!</string>
   <string name="takeTheBlackPieces">Captura as pezas negras!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Captura as pezas negras!
 E non perdas as túas.</string>
   <string name="captureComplete">Parabéns! Sabes como loitar coas pezas de xadrez!</string>
   <string name="protection">Protección</string>
   <string name="keepYourPiecesSafe">Mantén as túas pezas a salvo</string>
-  <string name="protectionIntro">Identifica as pezas que o teu rival ataca, e deféndeas!</string>
+  <string name="protectionIntro">Identifica as pezas que o teu rival ataca e deféndeas!</string>
   <string name="protectionComplete">Parabéns! Unha peza que non perdes é unha peza que gañas!</string>
   <string name="escape">Están atacándote!
 Fuxe da ameaza!</string>
   <string name="noEscape">Non hai escapatoria,
 pero podes defenderte!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Non permitas que capturen ningunha peza indefensa!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Non permitas que capturen
+ningunha peza indefensa!</string>
   <string name="combat">Combate</string>
   <string name="captureAndDefendPieces">Capturar e defender pezas</string>
   <string name="combatIntro">Un bo guerreiro sabe atacar e máis defender!</string>
