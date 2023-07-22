@@ -732,6 +732,7 @@
   <string name="yourPerfTypeRatingIsRating">Scorul %1$s este %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ești mai bun ca %1$s dintre jucătorii de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">Jucătorul %1$s este mai bun ca %2$s dintre jucătorii de %3$s.</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Mai bun decât %1$s dintre jucătorii de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nu aveți un scor %s definit.</string>
   <string name="yourRating">Scorul tău</string>
   <string name="cumulative">Cumulativ</string>
