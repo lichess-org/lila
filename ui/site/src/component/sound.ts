@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS, isSafariUnder } from 'common/mobile';
+import { isIOS } from 'common/mobile';
 import { charRole } from 'chess';
 
 type Name = string;
@@ -9,10 +9,8 @@ type Path = string;
 
 export type SoundMove = (node?: { san?: string; uci?: string }) => void;
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-
 export default new (class implements SoundI {
-  ctx = new AudioContext();
+  ctx = makeAudioContext();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
   theme = $('body').data('sound-set');
@@ -24,7 +22,7 @@ export default new (class implements SoundI {
   async context() {
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
-      this.ctx = new AudioContext();
+      this.ctx = makeAudioContext();
       for (const s of this.sounds.values()) s.rewire(this.ctx);
     }
     if (this.ctx.state === 'suspended') await this.ctx.resume();
@@ -64,7 +62,7 @@ export default new (class implements SoundI {
   }
 
   async play(name: Name, volume = 1): Promise<void> {
-    if (isSafariUnder(15)) this.ctx.resume(); // iOS < 15 only resumes within call stack of gesture event
+    if (isIOS()) this.ctx.resume();
     return new Promise(resolve => {
       if (!this.enabled()) return resolve();
       this.load(name)
@@ -89,6 +87,7 @@ export default new (class implements SoundI {
   }
 
   async countdown(count: number, interval = 500): Promise<void> {
+    if (isIOS()) this.ctx.resume();
     if (!this.enabled()) return;
     try {
       while (count > 0) {
@@ -104,6 +103,7 @@ export default new (class implements SoundI {
   }
 
   playOnce(name: string): void {
+    if (isIOS()) this.ctx.resume();
     // increase chances that the first tab can put a local storage lock
     const doIt = () => {
       const storage = lichess.storage.make('just-played');
@@ -131,6 +131,7 @@ export default new (class implements SoundI {
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
+    if (isIOS()) this.ctx.resume();
     try {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
@@ -155,6 +156,7 @@ export default new (class implements SoundI {
   publish = () => pubsub.emit('sound_set', this.theme);
 
   changeSet = (s: string) => {
+    if (isIOS()) this.ctx.resume();
     this.theme = s;
     this.publish();
     this.move();
@@ -163,6 +165,7 @@ export default new (class implements SoundI {
   set = () => this.theme;
 
   saySan(san?: San, cut?: boolean) {
+    if (isIOS()) this.ctx.resume();
     const text = !san
       ? 'Game start'
       : san.includes('O-O-O#')
@@ -230,4 +233,8 @@ class Sound {
     this.node = this.ctx.createGain();
     this.node.connect(this.ctx.destination);
   }
+}
+
+function makeAudioContext() {
+  return window.webkitAudioContext ? new window.webkitAudioContext() : new AudioContext();
 }
