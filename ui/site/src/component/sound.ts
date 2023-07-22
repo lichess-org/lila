@@ -30,31 +30,6 @@ export default new (class implements SoundI {
     $('body').on('click touchstart', this.primer);
   }
 
-  async context(): Promise<boolean> {
-    let success = true;
-    if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
-      // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
-      this.ctx = makeAudioContext();
-      for (const s of this.sounds.values()) s.rewire(this.ctx);
-    }
-    if (this.ctx.state === 'suspended')
-      await new Promise<void>(resolve => {
-        const resumeTimer = setTimeout(() => {
-          $('#warn-no-autoplay').addClass('shown');
-          success = false;
-          resolve();
-        }, 400);
-        this.ctx
-          .resume()
-          .then(() => {
-            clearTimeout(resumeTimer);
-            resolve();
-          })
-          .catch(resolve);
-      });
-    return success;
-  }
-
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
     if (path) this.paths.set(name, path);
     else if (this.paths.has(name)) path = this.paths.get(name);
@@ -93,7 +68,7 @@ export default new (class implements SoundI {
       this.load(name)
         .then(async sound => {
           if (!sound) return resolve();
-          if (await this.context()) sound.play(this.getVolume() * volume, resolve);
+          if (await this.resumeContext()) sound.play(this.getVolume() * volume, resolve);
           else resolve();
         })
         .catch(resolve);
@@ -220,6 +195,32 @@ export default new (class implements SoundI {
 
   preloadBoardSounds() {
     for (const name of ['move', 'capture', 'check', 'genericNotify']) this.load(name);
+  }
+
+  async resumeContext(): Promise<boolean> {
+    let success = true;
+    if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
+      // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
+      this.ctx = makeAudioContext();
+      for (const s of this.sounds.values()) s.rewire(this.ctx);
+    }
+    if (this.ctx.state === 'suspended')
+      await new Promise<void>(resolve => {
+        // wrap audioContext.resume() as sometimes it never resolves
+        const resumeTimer = setTimeout(() => {
+          $('#warn-no-autoplay').addClass('shown');
+          success = false;
+          resolve();
+        }, 400);
+        this.ctx
+          .resume()
+          .then(() => {
+            clearTimeout(resumeTimer);
+            resolve();
+          })
+          .catch(resolve);
+      });
+    return success;
   }
 })();
 
