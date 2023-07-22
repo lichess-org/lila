@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS } from 'common/mobile';
+import { isIOS, isSafariUnder } from 'common/mobile';
 import { charRole } from 'chess';
 
 type Name = string;
@@ -9,8 +9,10 @@ type Path = string;
 
 export type SoundMove = (node?: { san?: string; uci?: string }) => void;
 
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+
 export default new (class implements SoundI {
-  ctx = new (AudioContext || window.webkitAudioContext)();
+  ctx = new AudioContext();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
   theme = $('body').data('sound-set');
@@ -22,18 +24,17 @@ export default new (class implements SoundI {
   async context() {
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
-      this.ctx = new (AudioContext || window.webkitAudioContext)();
+      this.ctx = new AudioContext();
       for (const s of this.sounds.values()) s.rewire(this.ctx);
     }
     if (this.ctx.state === 'suspended') await this.ctx.resume();
-
     return this.ctx;
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
     if (path) this.paths.set(name, path);
     else if (this.paths.has(name)) path = this.paths.get(name);
-    else path ??= this.resolve(name);
+    else path ??= this.resolvePath(name);
     if (!path) return;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
@@ -41,24 +42,29 @@ export default new (class implements SoundI {
     if (!result.ok) throw new Error(`${path}.mp3 failed ${result.status}`);
 
     const arrayBuffer = await result.arrayBuffer();
-    const audioBuffer = await this.ctx.decodeAudioData(arrayBuffer);
+    const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
+      if (this.ctx.decodeAudioData.length === 1)
+        this.ctx.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
+      else this.ctx.decodeAudioData(arrayBuffer, resolve, reject);
+    });
     const sound = new Sound(this.ctx, audioBuffer);
     this.sounds.set(path, sound);
     return sound;
   }
 
-  resolve(name: Name): string | undefined {
+  resolvePath(name: Name): string | undefined {
     if (!this.enabled()) return;
     let dir = this.theme;
-    if (this.theme === 'music' || this.theme === 'speech') {
+    if (this.theme === 'music' || this.speech()) {
       if (['move', 'capture', 'check'].includes(name)) return;
-      if (name === 'genericNotify' || this.theme === 'speech') dir = 'standard';
+      if (name === 'genericNotify' || this.speech()) dir = 'standard';
       else dir = 'instrument';
     }
     return `${this.baseUrl}/${dir}/${name[0].toUpperCase() + name.slice(1)}`;
   }
 
   async play(name: Name, volume = 1): Promise<void> {
+    if (isSafariUnder(15)) this.ctx.resume(); // iOS < 15 only resumes within call stack of gesture event
     return new Promise(resolve => {
       if (!this.enabled()) return resolve();
       this.load(name)
@@ -127,7 +133,7 @@ export default new (class implements SoundI {
   say = (text: string, cut = false, force = false, translated = false) => {
     try {
       if (cut) speechSynthesis.cancel();
-      if (!this.speechStorage.get() && !force) return false;
+      if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
       msg.lang = translated ? document.documentElement!.lang : 'en-US';

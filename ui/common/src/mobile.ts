@@ -44,6 +44,10 @@ export const isMobile = (): boolean => isAndroid() || isIOS();
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
 export const isIOS = (): boolean => /iPhone|iPod/.test(navigator.userAgent) || isIPad();
+export const isSafariUnder = (version: number) => {
+  if (!isIOS()) return false;
+  return parseFloat(navigator.userAgent.slice(navigator.userAgent.indexOf('Version/') + 8)) < version;
+};
 
 // some newer iPads pretend to be Macs, hence checking for "Macintosh"
 export const isIPad = (): boolean =>
