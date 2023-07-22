@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Fjern alle parti frå denne runden. Kjelda må vera aktiv om dei skal kunne rettast opp att.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringa</string>
-  <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Slett heile turneringa med alle rundene og alle partia.</string>
 </resources>
