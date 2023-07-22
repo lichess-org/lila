@@ -8,4 +8,18 @@
   <string name="hearItPronouncedBySpecialist">بە مانای پسپۆر لە بوارەکەدا دێت</string>
   <string name="whyLiveLightLibre">ڕاستەوخۆیە ئەتوانی یاری بکەت ٢٤ کاتژمێر لە ھەفتەیەکدا واتا ھەموو کات
 ئاسانە و ئازادە سەرچاوەکان کراوەن و بارگرانی بۆ بەکارھێنەرتیا نیە</string>
+  <string name="whyIsLilaCalledLila">بە هەمان شێوە، کۆدی سەرچاوەی Lichess، %1$s، کورتکراوەی li[chess in sca]la، بەو پێیەی بەشێکی زۆری Lichess بە %2$s نووسراوە، کە زمانێکی بەرنامەسازییە</string>
+  <string name="howCanIContributeToLichess">چۆن دەتوانم بەشداری بکەم لە لیچێس؟</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">لیچێس بە بەخشینەکانی خاوەنکارەکان و هەوڵەکانی تیمێکی خۆبەخشەکان بەهێز دەکرێت.</string>
+  <string name="findMoreAndSeeHowHelp">دەتوانیت زیاتر دەربارەی %1$s بزانیت (لەوانەش %2$s). ئەگەر دەتەوێت یارمەتی لیچێس بدەیت بە خۆبەخشی کات و لێهاتووییەکانت، ئەوا %3$ زۆرە.</string>
+  <string name="beingAPatron">پشتگیریمان بکە</string>
+  <string name="breakdownOfOurCosts">تێکچوونی تێچوەکانی ئێمە</string>
+  <string name="otherWaysToHelp">ڕێگەکانی تر بۆ یارمەتیدان</string>
+  <string name="areThereWebsitesBasedOnLichess">ئایا ماڵپەڕ هەیە لەسەر بنەمای لیچێس?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">بەڵێ. بەڕاستی Lichess ئیلهامبەخش بووە بۆ سایتە سەرچاوە کراوەکانی تر کە %1$s، %2$s، یان %3$s ی ئێمە بەکاردەهێنن.</string>
+  <string name="keyboardShortcuts">چ کورتکراوەی کیبۆردێکت هەیە؟</string>
+  <string name="keyboardShortcutsExplanation">هەندێک لە لاپەڕەکانی Lichess کورتکراوەی کیبۆردیان هەیە کە دەتوانیت بەکاری بهێنیت. هەوڵبدە \'؟\' کلیل لەسەر لاپەڕەی لێکۆڵینەوە، شیکاری، مەتەڵ، یان یاری بۆ لیستکردنی کورتکراوەی کیبۆرد بەکاربێنیت</string>
+  <string name="fairPlay">یاری ئاگرین</string>
+  <string name="whenAmIEligibleRatinRefund">کەی شایستەی گەڕاندنەوەی پارەی ئۆتۆماتیکی ڕیزبەندیم لە فێڵبازەکانەوە؟</string>
+  <string name="ratingRefundExplanation">دوای یەک خولەک دوای ئەوەی یاریزانێک نیشانە دەکرێت، ٤٠ دوایین یارییەکەی کە لە ٣ ڕۆژی ڕابردوودا ڕیزبەندی کراوە، دەگیرێت. ئەگەر لە یەکێک لەو یارییانەدا ڕکابەری ئەوان بوویت، ڕیتینگت لەدەستدا (بەهۆی دۆڕان یان یەکسانبوون)، و ڕیتینگەکەت کاتی نەبوو، ئەوا ڕیتینگەکەت بۆ دەگەڕێتەوە. گەڕاندنەوەی ڕەیتینگەکە بە پشتبەستن بە لوتکەی ڕیزبەندی و پێشکەوتنی ڕیزبەندیەکەت دوای یارییەکە کۆتایی پێدێت. (بۆ نموونە ئەگەر دوای ئەو یارییە ڕیزبەندیەکەت زۆر زیادی کرد، لەوانەیە هیچ ڕەیتینگێکت بۆ نەگەرێتەوە یان تەنها بەشێکی رەیتینگەکەت بۆ بگەڕێتەوە.) گەڕاندنەوەی رەیتینگەکەت هەرگیز لە ١٥٠ خاڵ زیاتر نابێت.</string>
 </resources>
