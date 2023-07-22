@@ -20,20 +20,18 @@ export default new (class implements SoundI {
   soundMove?: SoundMove;
 
   primer = () => {
-    this.ctx.resume();
+    if (isIOS()) this.ctx.resume();
     $('#warn-no-autoplay').removeClass('shown');
     $('body').off('click touchstart', this.primer);
   };
 
   constructor() {
-    if (!isIOS()) return;
     $('body').on('click touchstart', this.primer);
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
     if (path) this.paths.set(name, path);
-    else if (this.paths.has(name)) path = this.paths.get(name);
-    else path ??= this.resolvePath(name);
+    else path = this.paths.get(name) ?? this.resolvePath(name);
     if (!path) return;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
