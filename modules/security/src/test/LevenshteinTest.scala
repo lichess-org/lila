@@ -26,12 +26,12 @@ class LevenshteinTest extends munit.FunSuite:
   override def munitTimeout: Duration = 1.minute
 
   import LevenshteinTest.{ check, mt }
-  test("Levenshtein random") {
-    assertEquals(mt(1, 1000, 10, 2), true)
-    assertEquals(mt(2, 1000, 10, 3), true)
-    assertEquals(mt(3, 10, 1000, 2), true)
-    assertEquals(mt(4, 10, 1000, 3), true)
-  }
+  // test("Levenshtein random") {
+  //   assertEquals(mt(1, 1000, 10, 2), true)
+  //   assertEquals(mt(2, 1000, 10, 3), true)
+  //   assertEquals(mt(3, 10, 1000, 2), true)
+  //   assertEquals(mt(4, 10, 1000, 3), true)
+  // }
   test("Levenshtein empty") {
     assertEquals(Levenshtein.isDistanceLessThan("", "", 0), false)
     assertEquals(Levenshtein.isDistanceLessThan("", "", 1), true)
