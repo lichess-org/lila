@@ -24,7 +24,9 @@ final class Importer(env: Env) extends LilaController(env):
     val data = lila.importer.ImportData(PgnStr(pgn), None)
     Ok.page(html.game.importGame(env.importer.forms.importForm.fill(data)))
 
-  def sendGame = OpenOrScopedBody(parse.anyContent)(): ctx ?=>
+  def sendGame    = OpenOrScopedBody(parse.anyContent)()(doSendGame)
+  def apiSendGame = AnonOrScopedBody(parse.anyContent)()(doSendGame)
+  private def doSendGame(using ctx: BodyContext[Any]) =
     env.importer.forms.importForm
       .bindFromRequest()
       .fold(
@@ -72,8 +74,6 @@ final class Importer(env: Env) extends LilaController(env):
                 )
             }
       )
-
-  def apiSendGame = sendGame
 
   def masterGame(id: GameId, orientation: String) = Open:
     Found(env.explorer.importer(id)): game =>
