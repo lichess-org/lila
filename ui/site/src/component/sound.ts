@@ -33,7 +33,7 @@ export default new (class implements SoundI {
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
     if (path) this.paths.set(name, path);
     else if (this.paths.has(name)) path = this.paths.get(name);
-    else path ??= this.resolve(name);
+    else path ??= this.resolvePath(name);
     if (!path) return;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
@@ -47,12 +47,12 @@ export default new (class implements SoundI {
     return sound;
   }
 
-  resolve(name: Name): string | undefined {
+  resolvePath(name: Name): string | undefined {
     if (!this.enabled()) return;
     let dir = this.theme;
-    if (this.theme === 'music' || this.theme === 'speech') {
+    if (this.theme === 'music' || this.speech()) {
       if (['move', 'capture', 'check'].includes(name)) return;
-      if (name === 'genericNotify' || this.theme === 'speech') dir = 'standard';
+      if (name === 'genericNotify' || this.speech()) dir = 'standard';
       else dir = 'instrument';
     }
     return `${this.baseUrl}/${dir}/${name[0].toUpperCase() + name.slice(1)}`;
@@ -127,7 +127,7 @@ export default new (class implements SoundI {
   say = (text: string, cut = false, force = false, translated = false) => {
     try {
       if (cut) speechSynthesis.cancel();
-      if (!this.speechStorage.get() && !force) return false;
+      if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
       msg.lang = translated ? document.documentElement!.lang : 'en-US';
