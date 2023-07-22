@@ -18,4 +18,4 @@ case class StormPuzzle(
     yield Fen write sit2
   } err s"Can't apply puzzle $id first move"
 
-  def color = !fen.color
+  def color = !fen.colorOrWhite

@@ -6,6 +6,7 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.{ Ply, Square, Check }
+import chess.bitboard.Bitboard
 import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -155,7 +156,7 @@ sealed trait Node:
   def fen: Fen.Epd
   def check: Check
   // None when not computed yet
-  def dests: Option[Map[Square, List[Square]]]
+  def dests: Option[Map[Square, Bitboard]]
   def drops: Option[List[Square]]
   def eval: Option[Eval]
   def shapes: Node.Shapes
@@ -186,7 +187,7 @@ case class Root(
     fen: Fen.Epd,
     check: Check,
     // None when not computed yet
-    dests: Option[Map[Square, List[Square]]] = None,
+    dests: Option[Map[Square, Bitboard]] = None,
     drops: Option[List[Square]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
@@ -315,7 +316,7 @@ case class Branch(
     fen: Fen.Epd,
     check: Check,
     // None when not computed yet
-    dests: Option[Map[Square, List[Square]]] = None,
+    dests: Option[Map[Square, Bitboard]] = None,
     drops: Option[List[Square]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
@@ -560,17 +561,17 @@ object Node:
           e.printStackTrace()
           sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
 
-  def destString(dests: Map[Square, List[Square]]): String =
+  def destString(dests: Map[Square, Bitboard]): String =
     val sb    = java.lang.StringBuilder(80)
     var first = true
     dests.foreach: (orig, dests) =>
       if first then first = false
       else sb append " "
       sb append orig.asChar
-      dests foreach { sb append _.asChar }
+      dests.foreach(sb append _.asChar)
     sb.toString
 
-  given Writes[Map[Square, List[Square]]] = Writes: dests =>
+  given Writes[Map[Square, Bitboard]] = Writes: dests =>
     JsString(destString(dests))
 
   val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
