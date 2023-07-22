@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Slett alle partiene i denne runden. Kilden må være aktiv for å gjenopprette dem.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringen</string>
-  <string name="definitivelyDeleteTournament">Slett hele turneringen for godt, sammen med alle rundene og alle partiene.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Slett hele turneringen for godt, sammen med alle rundene og alle partiene.</string>
 </resources>
