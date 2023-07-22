@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">A túa puntuación en %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Es mellor có %1$s dos xogadores de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é mellor có %2$s dos xogadores de %3$s.</string>
-  <string name="betterThanPercentPlayers">Mellor có %1$s dos xogadores de %2$s</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Mellor có %1$s dos xogadores de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non tes unha puntuación establecida en %s.</string>
   <string name="yourRating">A túa puntuación</string>
   <string name="cumulative">Acumulado</string>
