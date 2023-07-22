@@ -7,6 +7,8 @@ import { charRole } from 'chess';
 type Name = string;
 type Path = string;
 
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+
 export type SoundMove = (node?: { san?: string; uci?: string }) => void;
 
 export default new (class implements SoundI {

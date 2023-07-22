@@ -24,7 +24,7 @@ final class OAuthServer(
     } map checkOauthUaUser(req) recover { case e: AuthError =>
       Left(e)
     } addEffect { res =>
-      monitorAuth(res.isRight, req)
+      monitorAuth(res.isRight)
     }
 
   def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AccessResult] =
@@ -88,11 +88,8 @@ final class OAuthServer(
           none
         else token.some
 
-  private val cleanUaRegex = """ user:[\w\-]{2,30}""".r
-  private def monitorAuth(success: Boolean, req: RequestHeader) =
-    val ua      = HTTPRequest.userAgent(req).fold("none")(_.value)
-    val cleanUa = cleanUaRegex.replaceAllIn(ua, "")
-    lila.mon.user.oauth.request(cleanUa, success).increment()
+  private def monitorAuth(success: Boolean) =
+    lila.mon.user.oauth.request(success).increment()
 
 object OAuthServer:
 
