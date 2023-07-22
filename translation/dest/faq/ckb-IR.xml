@@ -3,7 +3,6 @@
   <string name="faqAbbreviation">پرسیارەکان</string>
   <string name="frequentlyAskedQuestions">پرسیارە باوەکان</string>
   <string name="whyIsLichessCalledLichess">بۆچی ناوی لی چێس ـە?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">وشەی لیچێس وەرگیراوە لە \"( ڕاستەوخۆ/ئاسان/ئازاد)\"</string>
   <string name="leechess">لی چێس</string>
   <string name="hearItPronouncedBySpecialist">بە مانای پسپۆر لە بوارەکەدا دێت</string>
   <string name="whyLiveLightLibre">ڕاستەوخۆیە ئەتوانی یاری بکەت ٢٤ کاتژمێر لە ھەفتەیەکدا واتا ھەموو کات
@@ -11,7 +10,6 @@
   <string name="whyIsLilaCalledLila">بە هەمان شێوە، کۆدی سەرچاوەی Lichess، %1$s، کورتکراوەی li[chess in sca]la، بەو پێیەی بەشێکی زۆری Lichess بە %2$s نووسراوە، کە زمانێکی بەرنامەسازییە</string>
   <string name="howCanIContributeToLichess">چۆن دەتوانم بەشداری بکەم لە لیچێس؟</string>
   <string name="lichessPoweredByDonationsAndVolunteers">لیچێس بە بەخشینەکانی خاوەنکارەکان و هەوڵەکانی تیمێکی خۆبەخشەکان بەهێز دەکرێت.</string>
-  <string name="findMoreAndSeeHowHelp">دەتوانیت زیاتر دەربارەی %1$s بزانیت (لەوانەش %2$s). ئەگەر دەتەوێت یارمەتی لیچێس بدەیت بە خۆبەخشی کات و لێهاتووییەکانت، ئەوا %3$ زۆرە.</string>
   <string name="beingAPatron">پشتگیریمان بکە</string>
   <string name="breakdownOfOurCosts">تێکچوونی تێچوەکانی ئێمە</string>
   <string name="otherWaysToHelp">ڕێگەکانی تر بۆ یارمەتیدان</string>
@@ -54,25 +52,18 @@
 لە حاڵەتە دەگمەنەکاندا ئەمە دەتوانێت قورس بێت کە بڕیار بدرێت بە شێوەیەکی ئۆتۆماتیکی (هێڵی زۆرەملێ، قەڵا). بە شێوازی پێشوەختە هەمیشە لایەنگری ئەو یاریزانە دەبین کە کاتەکەی تەواو نەبووە.
 
 سەرنج بدەن کە دەتوانرێت لەگەڵ ئەسپ یان فیل جووت بکرێت ئەگەر بەرامبەرەکە پارچەیەکی هەبێت کە بتوانێت ڕێگری لە پاشا بکات.</string>
-  <string name="fideHandbookX">بەڵگەی یەکێتی نێو دەوڵەتی شەترەنج FIDE</string>
   <string name="discoveringEnPassant">بۆچی ئوتوانم سەربازێک بخۆم لە کاتێکا لە من دەرچوەو لە تەنیشتم نیە( خواردن بە تێپەریو)</string>
-  <string name="explainingEnPassant">ئەمە خواردنێکی یاساییە لە کاتێکا ڕووئەدات کە سەربازی بەرانبەر زیاتر ھاتبێتە پێشەوە تۆش سەربازەکەی خۆت دوو چوارگۆشە پاڵبنێی بۆ پێشەوە بەم شێوەیە پێی ئەوترێ ( خواردن بە تێپەریو) ھەر چەند سەربازەکەی تۆ لە شوێنێک نیە سەربوزەکەیبئەو نتوانێت بیخوات بەلام ھەر ئەتوانێت بیخوات
-ئەتوانی لە بەشی شیکاری زیاتر سودمەند بیت لەم حاڵەتە و راھێنانیتیا بکەی.</string>
   <string name="goodIntroduction">پێشەکییەکی باش</string>
   <string name="lichessTraining">ڕاھێنان لە لیچێس</string>
-  <string name="watchIMRosenCheckmate">سەیری مامۆستای نێودەوڵەتی ئیریک روزن بکە چۆن کش مات ئەکا</string>
   <string name="threefoldRepetition">سێ جار دووبارە بونەوە</string>
-  <string name="threefoldRepetitionExplanation">ئەگەر حالەتەکە سێ جار دوبارە بویەوە ڕاستەو خۆ یاریەکە بە یەکسان بون کۆتایی دێت بە پێی بەندی ٩-٢ لە یاساکانی نێودەولەتی شەترەنج FIDE</string>
   <string name="threefoldRepetitionLowerCase">سێ جار دووبارە بونەوە</string>
   <string name="notRepeatedMoves">بۆ چی یاریەکە بە یەکسان بون کۆتایی ھات لە کاتێکدا ئێمە جوڵەکانمان سێ جار دووبارە نەبونەوە؟ </string>
-  <string name="repeatedPositionsThatMatters">دووبارەکردنەوەی سێ قات پەیوەندی بە دووبارەبوونەوەی %1$ ەوە هەیە نەک جوڵە. مەرج نییە دووبارەبوونەوە بە یەکەوە ڕووبدات.</string>
   <string name="positions">شوێنی پارچەکان بە گشتی لە یاریدا</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">سێی جار جوڵەیەکمان دووبارە کردەوە بۆچی یاریەکە بە یەکسان بون کۆتایی نەھات؟ </string>
   <string name="threeFoldHasToBeClaimed">دووبارەبوونەوەی پێویستی بە ئیدیعای یەکێک لە یاریزانەکان هەیە. دەتوانیت ئەوە بکەیت بە فشاردان لەسەر ئەو دوگمەیەی کە نیشان دەدرێت، یان بە پێشکەشکردنی یەکسانبوون پێش جوڵەی دووبارەبوونەوەی کۆتاییت، گرنگ نابێت ئەگەر بەرامبەرەکەت ئۆفەری یەکسانبوونەکە ڕەت بکاتەوە، تیروپشکی دووبارەبوونەوەی سێ قات بە هەر شێوەیەک بێت داوای دەکرێت. هەروەها دەتوانیت %1$s Lichess بکەیت کە بە شێوەیەکی ئۆتۆماتیکی داوای دووبارەکردنەوەکانت بۆ بکات. سەرەڕای ئەوەش، دووبارەکردنەوەی پێنج جار هەمیشە یەکسەر کۆتایی بە یارییەکە دەهێنێت.</string>
   <string name="configure">ڕێکخستن</string>
   <string name="accounts">ھەژمارەکان</string>
   <string name="titlesAvailableOnLichess">ئەو نازناوانە چین کە لە لیچێسا ھەن ؟</string>
-  <string name="lichessRecognizeAllOTBtitles">ھەموو ئەو نازناوانەی کە FIDE ئەیبەخشێتە یاریزانەکان لەسەر تەختە لێرەش ھەیە</string>
   <string name="showYourTitle">ئەگەر ناونیشانی OTBت هەیە، دەتوانیت داواکاری پێشکەش بکەیت بۆ ئەوەی ئەمە لە ئەکاونتەکەتدا پیشان بدرێت بە تەواوکردنی %1$s، لەوانەش وێنەیەکی ڕوونی بەڵگەنامە/کارتێکی ناسێنەر و وێنەیەکی سێڵفی کە تۆ بەڵگەنامە/کارتەکەت بەدەستەوەیە.
 
 پشتڕاستکردنەوە وەک یاریزانێکی نازناو لە Lichess دەستڕاگەیشتن بە یاریکردن لە ڕووداوەکانی Titled Arena دەدات.
@@ -88,13 +79,11 @@
 
 داوای نازناوی LM مەکە.</string>
   <string name="whatUsernameCanIchoose">ئەتوانم چ ناوێک بەکار بێنم؟ </string>
-  <string name="usernamesNotOffensive">ناوی بەکارھێنەرانی تر نەبێت یاخود ناوزراندنی کەسێکی تر نەبێت یاخود ریکلام کردن نەبێت جیا لەمانە ئەتوانی ھەموو شتێک بەکار بێنیت .</string>
   <string name="guidelines">ڕێنماییەکان</string>
   <string name="canIChangeMyUsername">ئەتوانم ناوی بەکارھێنراوم بگۆڕم ؟ </string>
   <string name="usernamesCannotBeChanged">نەخێر ناتوانی بیگۆڕیت بەھۆی ئەو داتازۆرەی تۆمار ئەکرێت بەشێکی لای ئەوانەیە کە یاریت لەگەل کردون بەشێکیشی لای رێکخستنی تیمی لیچیسە .</string>
   <string name="uniqueTrophies">جامە ناوازەکە</string>
   <string name="ownerUniqueTrophies">ئەو جامە لە مێژووی لیچێسدا ناوازەیە، جگە لە %1$s کەسی تر هەرگیز ئەو جامەی نابێت.</string>
-  <string name="wayOfBerserkExplanation">لە پێناو بە دەسھێنانی جامەکە، یاریزان hiimgosu رکابەری خۆی کرد و بە رێژەی 100% یاریەکانی بردەوە</string>
   <string name="aHourlyBulletTournament">پاڵەوانێتی فیشەک ی سەعاتی</string>
   <string name="goldenZeeExplanation">ZugAddict ستریمی دەکرد و لە ماوەی ٢ کاتژمێری ڕابردوودا هەوڵی شکستی بە A.I. ئاستی ٨ لە یارییەکی ١+٠، بەبێ سەرکەوتن. تیبۆڵ پێی وت ئەگەر بە سەرکەوتوویی لە ستریمدا ئەو کارە بکات، ئەوا جامێکی ناوازە بەدەست دەهێنێت. دوای کاتژمێرێک، ستۆکفیشی شکاند و بەڵێنەکە جێبەجێ کرا.</string>
   <string name="lichessRatings">ڕاھێنان کردن لە لیچێس</string>
