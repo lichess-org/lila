@@ -11,9 +11,10 @@ import ornicar.scalalib.SecureRandom
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.common.Form.into
 import lila.db.dsl.{ *, given }
-import lila.oauth.{ OAuthScope, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthServer, AccessToken }
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ User, UserRepo, Me }
+import lila.socket.Socket.Sri
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -124,7 +125,18 @@ final class SecurityApi(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    oAuthServer.auth(req, required) map { _ map stripRolesOfOAuthUser }
+    oAuthServer
+      .auth(req, required)
+      .addEffect:
+        case Right(access) => upsertOauth(access, req)
+        case _             => ()
+      .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
+
+  private object upsertOauth:
+    private val sometimes = lila.memo.OnceEvery.hashCode[AccessToken.Id](1.hour)
+    def apply(access: OAuthScope.Access, req: RequestHeader): Unit = if sometimes(access.tokenId) then
+      val mobile = Mobile.LichessMobileUa.parse(req)
+      store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 
@@ -136,7 +148,10 @@ final class SecurityApi(
     if mode == Mode.Prod && me.totpSecret.isEmpty then stripRolesOf(me)
     else me
 
-  private def stripRolesOf(me: Me) = me.map(_.copy(roles = me.roles.filter(nonModRoles.contains)))
+  private def stripRolesOf(me: Me) =
+    if me.roles.nonEmpty
+    then me.map(_.copy(roles = me.roles.filter(nonModRoles.contains)))
+    else me
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {
@@ -159,7 +174,7 @@ final class SecurityApi(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
-  def shareAnIpOrFp = store.shareAnIpOrFp
+  export store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), _.sec)
@@ -184,9 +199,8 @@ final class SecurityApi(
 
     private val prefix = "appeal:"
 
-    private val store = cacheApi.notLoadingSync[SessionId, UserId](256, "security.session.appeal")(
+    private val store = cacheApi.notLoadingSync[SessionId, UserId](256, "security.session.appeal"):
       _.expireAfterAccess(2.days).build()
-    )
 
     def authenticate(sessionId: SessionId): Option[UserId] =
       sessionId.startsWith(prefix) so store.getIfPresent(sessionId)

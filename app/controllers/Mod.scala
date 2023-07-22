@@ -341,12 +341,7 @@ final class Mod(
   def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
     UserSearch.form
       .bindFromRequest()
-      .fold(
-        err => BadRequest.page(html.mod.search(err, Nil)),
-        query =>
-          Ok.pageAsync:
-            env.mod.search(query) map { html.mod.search(UserSearch.form.fill(query), _) }
-      )
+      .fold(err => BadRequest.page(html.mod.search(err, Nil)), searchTerm)
   }
 
   def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
@@ -363,9 +358,14 @@ final class Mod(
         case Left(err)  => res flashFailure err
   }
 
-  protected[controllers] def searchTerm(q: String)(using Context, Me) =
-    Ok.pageAsync:
-      env.mod.search(q).map(html.mod.search(UserSearch.form fill q, _))
+  protected[controllers] def searchTerm(query: String)(using Context, Me) =
+    IpAddress.from(query) match
+      case Some(ip) => Redirect(routes.Mod.singleIp(ip.value)).toFuccess
+      case None =>
+        for
+          users <- env.mod.search(query)
+          page  <- renderPage(html.mod.search(UserSearch.form.fill(query), users))
+        yield Ok(page)
 
   def print(fh: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
     val hash = FingerHash(fh)
@@ -391,8 +391,9 @@ final class Mod(
         users      <- env.user.repo usersFromSecondary uids.reverse
         withEmails <- env.user.api withEmails users
         uas        <- env.security.api.ipUas(address)
+        data       <- env.security.ipTrust.data(address)
         blocked = env.security.firewall blocksIp address
-        page <- renderPage(html.mod.search.ip(address, withEmails, uas, blocked))
+        page <- renderPage(html.mod.search.ip(address, withEmails, uas, data, blocked))
       yield Ok(page)
     }
   }

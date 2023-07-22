@@ -82,7 +82,7 @@ final class JsonView(
               commonPlayerJson(game, opponent, users(pov.opponent.color), flags) ++ Json
                 .obj("color" -> opponent.color.name)
                 .add("ai" -> opponent.aiLevel)
-                .add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
+                .add("isGone" -> (pov.game.forceDrawable && socket.isGone(opponent.color)))
                 .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color)))
             },
             "url" -> flags.lichobileCompat.option:
@@ -103,7 +103,6 @@ final class JsonView(
                                   else pref.autoQueen),
                   "clockTenths" -> pref.clockTenths,
                   "moveEvent"   -> pref.moveEvent
-                  // "ratings"     -> pref.showRatings
                 )
                 .add("is3d" -> pref.is3d)
                 .add("clockBar" -> pref.clockBar)

@@ -46,7 +46,7 @@ import {
   Position,
   NvuiPlugin,
 } from './interfaces';
-import { Toggle, toggle } from 'common';
+import { defined, Toggle, toggle } from 'common';
 import { Redraw } from 'common/snabbdom';
 
 interface GoneBerserk {
@@ -769,7 +769,13 @@ export default class RoundController {
 
   opponentGone = (): number | boolean => {
     const d = this.data;
-    return d.opponent.isGone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.isGone;
+    return (
+      defined(d.opponent.isGone) &&
+      d.opponent.isGone !== false &&
+      !game.isPlayerTurn(d) &&
+      game.resignable(d) &&
+      d.opponent.isGone
+    );
   };
 
   rematch(accept?: boolean): boolean {

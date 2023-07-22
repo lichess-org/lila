@@ -1,7 +1,6 @@
 package lila.base
 
 import alleycats.Zero
-import cats.data.Validated
 import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
 import java.lang.Math.{ max, min }
@@ -78,36 +77,17 @@ trait LilaLibraryExtensions extends LilaTypes:
     def seconds(name: String): Int             = config.getDuration(name, TimeUnit.SECONDS).toInt
     def duration(name: String): FiniteDuration = millis(name).millis
 
-  extension [A](v: Try[A])
-
-    def fold[B](fe: Exception => B, fa: A => B): B =
-      v match
-        case scala.util.Failure(e: Exception) => fe(e)
-        case scala.util.Failure(e)            => throw e
-        case scala.util.Success(a)            => fa(a)
-
-    def future: Fu[A] = fold(Future.failed, fuccess)
-
-    def toEither: Either[Throwable, A] =
-      v match
-        case scala.util.Success(res) => Right(res)
-        case scala.util.Failure(err) => Left(err)
-
   extension [A, B](v: Either[A, B])
-    def orElse(other: => Either[A, B]): Either[A, B] =
-      v match
-        case scala.util.Right(res) => Right(res)
-        case scala.util.Left(_)    => other
-
-    def toFuture: Fu[B] = v.fold(err => fufail(err.toString), fuccess)
+    def toFuture: Fu[B] = v match
+      case Right(res) => fuccess(res)
+      case Left(err) =>
+        err match
+          case e: Exception => Future.failed(e)
+          case _            => fufail(err.toString)
 
   extension (d: FiniteDuration)
     def toCentis = chess.Centis(d)
     def abs      = if d.length < 0 then -d else d
-
-  extension [E, A](v: Validated[E, A]) def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
-
-  extension [A](list: List[Try[A]]) def sequence: Try[List[A]] = Try(list map { _.get })
 
   extension [A](list: List[A])
     def sortLike[B](other: Seq[B], f: A => B): List[A] =

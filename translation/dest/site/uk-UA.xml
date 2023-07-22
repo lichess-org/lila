@@ -783,6 +783,7 @@
   <string name="yourPerfTypeRatingIsRating">Ваш %1$s рейтинг становить %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ви сильніше %1$s гравців у %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s сильніше %2$s гравців у %3$s.</string>
+  <string name="betterThanPercentPlayers">Кращі за %1$s з %2$s гравців</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг %s ще не визначений.</string>
   <string name="yourRating">Ваш рейтинг</string>
   <string name="cumulative">Сукупний</string>

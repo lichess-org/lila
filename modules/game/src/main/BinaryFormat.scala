@@ -167,7 +167,7 @@ object BinaryFormat:
         case (acc, (true, p))  => acc + (1 << (3 - p))
       }
 
-      def posInt(pos: Square): Int = (pos.file.index << 3) + pos.rank.index
+      def posInt(pos: Square): Int = (pos.file.value << 3) + pos.rank.value
       val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { case (o, d) =>
         (posInt(o) << 6) + posInt(d)
       }
@@ -252,8 +252,8 @@ object BinaryFormat:
           var white = 0
           var black = 0
           o.toList.foreach { pos =>
-            if pos.rank == Rank.First then white = white | (1 << (7 - pos.file.index))
-            else black = black | (1 << (7 - pos.file.index))
+            if pos.rank == Rank.First then white = white | (1 << (7 - pos.file.value))
+            else black = black | (1 << (7 - pos.file.value))
           }
           Array(white.toByte, black.toByte)
         }

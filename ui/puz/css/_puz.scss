@@ -27,3 +27,9 @@
     grid-area: history;
   }
 }
+
+.puz-board {
+  @include breakpoint($mq-col2-uniboard-squeeze) {
+    width: 40vw;
+  }
+}

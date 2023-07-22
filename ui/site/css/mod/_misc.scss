@@ -30,6 +30,12 @@
     }
   }
 
+  &__user-agents {
+    max-height: 20vh;
+    overflow-y: auto;
+    margin-bottom: 2em;
+  }
+
   li {
     @extend %break-word-hard;
 

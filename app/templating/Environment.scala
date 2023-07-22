@@ -46,7 +46,7 @@ object Environment
     if siteName == "lichess.org" then frag("lichess", span(".org"))
     else frag(siteName)
 
-  def apiVersion = lila.api.Mobile.Api.currentVersion
+  def apiVersion = lila.security.Mobile.Api.currentVersion
 
   def explorerEndpoint       = env.explorerEndpoint
   def tablebaseEndpoint      = env.tablebaseEndpoint

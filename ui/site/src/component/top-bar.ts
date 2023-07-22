@@ -1,5 +1,6 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadEsm } from './assets';
+import { memoize } from 'common';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
@@ -123,12 +124,15 @@ export default function () {
     });
   }
 
-  // dasher
-  $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
-    $(this).removeAttr('href');
-    loadCssPath('dasher');
-    loadEsm('dasher');
-  });
+  {
+    // dasher
+    const load = memoize(() => loadEsm('dasher'));
+    $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
+      $(this).removeAttr('href');
+      loadCssPath('dasher');
+      load();
+    });
+  }
 
   {
     // cli

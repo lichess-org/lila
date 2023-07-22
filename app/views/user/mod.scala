@@ -14,10 +14,13 @@ import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
-import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, userAgentParser }
+import lila.security.{ Granter, Permission, UserLogins, Dated, UserClient, UserAgentParser }
 import lila.user.{ Me, User }
 
 object mod:
+
+  import views.html.mod.userTable
+
   private def mzSection(key: String) =
     div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
 
@@ -561,9 +564,6 @@ object mod:
       )
     )
 
-  private val sortNumberTh    = th(attr("data-sort-method") := "number")
-  private val sortNoneTh      = th(attr("data-sort-method") := "none")
-  private val dataSort        = attr("data-sort")
   private val dataTags        = attr("data-tags")
   private val playban         = iconTag(licon.Clock)
   private val alt: Frag       = i("A")
@@ -595,27 +595,20 @@ object mod:
               )
             ),
             isGranted(_.Admin) option th("Email"),
-            sortNumberTh(dataSortDefault)("Same"),
+            thSortNumber(dataSortDefault)("Same"),
             th("Games"),
-            sortNumberTh(playban)(cls                 := "i", title := "Playban"),
-            sortNumberTh(alt)(cls                     := "i", title := "Alt"),
-            sortNumberTh(shadowban)(cls               := "i", title := "Shadowban"),
-            sortNumberTh(boosting)(cls                := "i", title := "Boosting"),
-            sortNumberTh(engine)(cls                  := "i", title := "Engine"),
-            sortNumberTh(closed)(cls                  := "i", title := "Closed"),
-            sortNumberTh(reportban)(cls               := "i", title := "Reportban"),
-            sortNumberTh(notesText)(cls               := "i", title := "Notes"),
-            sortNumberTh(iconTag(licon.InkQuill))(cls := "i", title := "Appeals"),
-            sortNumberTh("Created"),
-            sortNumberTh("Active"),
-            isGranted(_.CloseAccount) option sortNoneTh(
-              select(style := "width: 2em")(
-                option(value := "")(""),
-                option(value := "all")("Select all"),
-                option(value := "none")("Select none"),
-                option(value := "alt")("Alt selected")
-              )
-            )
+            thSortNumber(playban)(cls                 := "i", title := "Playban"),
+            thSortNumber(alt)(cls                     := "i", title := "Alt"),
+            thSortNumber(shadowban)(cls               := "i", title := "Shadowban"),
+            thSortNumber(boosting)(cls                := "i", title := "Boosting"),
+            thSortNumber(engine)(cls                  := "i", title := "Engine"),
+            thSortNumber(closed)(cls                  := "i", title := "Closed"),
+            thSortNumber(reportban)(cls               := "i", title := "Reportban"),
+            thSortNumber(notesText)(cls               := "i", title := "Notes"),
+            thSortNumber(iconTag(licon.InkQuill))(cls := "i", title := "Appeals"),
+            thSortNumber("Created"),
+            thSortNumber("Active"),
+            userTable.selectAltAll
           )
         ),
         tbody(
@@ -676,14 +669,7 @@ object mod:
               ,
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
-              canCloseAlt option td(
-                input(
-                  tpe      := "checkbox",
-                  name     := "user[]",
-                  st.value := "all",
-                  disabled := o.marks.alt.option(true)
-                )
-              )
+              td(userTable.userCheckboxTd(o.marks.alt))
             )
           }
         )
@@ -709,7 +695,7 @@ object mod:
               th("Proxy"),
               th("Region"),
               th("City"),
-              sortNumberTh("Date")
+              thSortNumber("Date")
             )
           ),
           tbody(
@@ -718,7 +704,7 @@ object mod:
               .map { l =>
                 tr(
                   td(l.value.location.country),
-                  td(l.value.proxy map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                  td(l.value.proxy.value map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                   td(l.value.location.region),
                   td(l.value.location.city),
                   td(dataSort := l.date.toMillis)(momentFromNowServer(l.date))
@@ -735,7 +721,7 @@ object mod:
               th(pluralize("Device", logins.uas.size)),
               th("OS"),
               th("Client"),
-              sortNumberTh("Date"),
+              thSortNumber("Date"),
               th("Type")
             )
           ),
@@ -743,7 +729,7 @@ object mod:
             logins.uas
               .sortBy(-_.seconds)
               .map { case Dated(ua, date) =>
-                val parsed = userAgentParser.parse(ua.value)
+                val parsed = UserAgentParser.parse(ua)
                 tr(
                   td(title := ua.value)(
                     if parsed.device.family == "Other" then "Computer" else parsed.device.family
@@ -762,11 +748,11 @@ object mod:
           thead(
             tr(
               th(pluralize("IP", logins.ips.size)),
-              sortNumberTh("Alts"),
+              thSortNumber("Alts"),
               th,
               th("Client"),
-              sortNumberTh("Date"),
-              canIpBan option sortNumberTh
+              thSortNumber("Date"),
+              canIpBan option thSortNumber
             )
           ),
           tbody(
@@ -775,7 +761,7 @@ object mod:
               tr(cls := ip.blocked option "blocked")(
                 td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
-                td(ip.proxy map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                td(ip.proxy.value map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                 td(ip.clients.toList.map(_.toString).sorted mkString ", "),
                 td(dataSort := ip.ip.date.toMillis)(momentFromNowServer(ip.ip.date)),
                 canIpBan option td(dataSort := (9999 - ip.alts.cleans))(
@@ -797,10 +783,10 @@ object mod:
           thead(
             tr(
               th(pluralize("Print", logins.prints.size)),
-              sortNumberTh("Alts"),
+              thSortNumber("Alts"),
               th("Client"),
-              sortNumberTh("Date"),
-              canFpBan option sortNumberTh
+              thSortNumber("Date"),
+              canFpBan option thSortNumber
             )
           ),
           tbody(
@@ -826,6 +812,63 @@ object mod:
       )
     )
 
+  def apply(
+      users: List[User.WithEmails],
+      showUsernames: Boolean = false,
+      eraseButton: Boolean = false,
+      checkboxes: Boolean = false
+  )(using Context, Me) =
+    users.nonEmpty option table(cls := "slist slist-pad mod-user-table")(
+      thead(
+        tr(
+          th("User"),
+          th("Games"),
+          th("Marks"),
+          th("Closed"),
+          th("Created"),
+          th("Active"),
+          eraseButton option th,
+          checkboxes option userTable.selectAltAll
+        )
+      ),
+      tbody(
+        users.map { case lila.user.User.WithEmails(u, emails) =>
+          tr(
+            if showUsernames || Granter.canViewAltUsername(u.user)
+            then
+              td(
+                userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
+                isGranted(_.Admin) option
+                  userTable.email(emails.strList.mkString(", "))
+              )
+            else td,
+            td(u.count.game.localize),
+            td(
+              u.marks.alt option userTable.mark("ALT"),
+              u.marks.engine option userTable.mark("ENGINE"),
+              u.marks.boost option userTable.mark("BOOSTER"),
+              u.marks.troll option userTable.mark("SHADOWBAN")
+            ),
+            td(u.enabled.no option userTable.mark("CLOSED")),
+            td(momentFromNow(u.createdAt)),
+            td(u.seenAt.map(momentFromNow(_))),
+            eraseButton option td(
+              postForm(action := routes.Mod.gdprErase(u.username)):
+                views.html.user.mod.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
+            ),
+            if checkboxes then userTable.userCheckboxTd(u.marks.alt)
+            else
+              canCloseAlt option td(
+                !u.marks.alt option button(
+                  cls  := "button button-empty button-thin button-red mark-alt",
+                  href := routes.Mod.alt(u.id, !u.marks.alt)
+                )("ALT")
+              )
+          )
+        }
+      )
+    )
+
   private def parts(ps: Option[String]*) = ps.flatten.distinct mkString " "
 
   private def altMarks(alts: UserLogins.Alts) =
@@ -836,10 +879,9 @@ object mod:
       alts.alts     -> alt,
       alts.closed   -> closed,
       alts.cleans   -> clean
-    ) collect {
+    ).collect:
       case (nb, tag) if nb > 4 => frag(List.fill(3)(tag), "+", nb - 3)
       case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))
-    }
 
   private def reportSubmitButton(r: lila.report.Report)(using Lang) =
     submitButton(
@@ -851,9 +893,8 @@ object mod:
 
   def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(
-      playbans.map { nb =>
-        playban(nb)
-      },
+      playbans.map: nb =>
+        playban(nb),
       o.marks.troll option shadowban,
       o.marks.boost option boosting,
       o.marks.engine option engine,

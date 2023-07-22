@@ -129,11 +129,11 @@ object teacherDashboard:
             tr(
               th(dataSortDefault)(
                 trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.txt(progress.days)),
-                dataSortNumberTh(trans.rating()),
-                dataSortNumberTh(trans.clas.progress()),
-                dataSortNumberTh(if progress.isPuzzle then trans.puzzles() else trans.games()),
-                if progress.isPuzzle then dataSortNumberTh(trans.clas.winrate())
-                else dataSortNumberTh(trans.clas.timePlaying()),
+                thSortNumber(trans.rating()),
+                thSortNumber(trans.clas.progress()),
+                thSortNumber(if progress.isPuzzle then trans.puzzles() else trans.games()),
+                if progress.isPuzzle then thSortNumber(trans.clas.winrate())
+                else thSortNumber(trans.clas.timePlaying()),
                 th
               )
             ),
@@ -184,9 +184,9 @@ object teacherDashboard:
             tr(
               th(dataSortDefault)(
                 trans.clas.nbStudents.pluralSame(students.size),
-                dataSortNumberTh(trans.chessBasics()),
-                dataSortNumberTh(trans.practice()),
-                dataSortNumberTh(trans.coordinates.coordinates())
+                thSortNumber(trans.chessBasics()),
+                thSortNumber(trans.practice()),
+                thSortNumber(trans.coordinates.coordinates())
               )
             ),
             tbody(
@@ -258,10 +258,10 @@ object teacherDashboard:
         thead:
           tr(
             th(dataSortDefault)(trans.clas.nbStudents(students.size)),
-            dataSortNumberTh(trans.rating()),
-            dataSortNumberTh(trans.games()),
-            dataSortNumberTh(trans.puzzles()),
-            dataSortNumberTh(trans.clas.lastActiveDate()),
+            thSortNumber(trans.rating()),
+            thSortNumber(trans.games()),
+            thSortNumber(trans.puzzles()),
+            thSortNumber(trans.clas.lastActiveDate()),
             th(iconTag(licon.Shield)(title := trans.clas.managed.txt()))
           )
         ,

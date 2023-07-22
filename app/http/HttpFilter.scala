@@ -18,18 +18,19 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     else
       val startTime = nowMillis
       redirectWrongDomain(req) map fuccess getOrElse {
-        handle(req).map: result =>
-          monitoring(req, startTime):
-            addApiResponseHeaders(req):
-              addCrendentialless(req):
-                result
+        publicProxy(req).getOrElse:
+          handle(req).map: result =>
+            monitoring(req, startTime):
+              addApiResponseHeaders(req):
+                addCrendentialless(req):
+                  result
       }
 
   private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
     val actionName = HTTPRequest actionName req
     val reqTime    = nowMillis - startTime
     val statusCode = result.header.status
-    val mobile     = lila.api.Mobile.LichessMobileUa.parse(req)
+    val mobile     = lila.security.Mobile.LichessMobileUa.parse(req)
     val client     = if mobile.isDefined then "mobile" else HTTPRequest clientName req
     lila.mon.http.time(actionName, client, req.method, statusCode).record(reqTime)
     if logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
@@ -48,6 +49,14 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     // asset request going through the CDN, don't redirect
     !(req.host == env.net.assetDomain.value && HTTPRequest.hasFileExtension(req))
   } option Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${env.net.domain}${req.uri}")
+
+  private def publicProxy(req: RequestHeader): Fu[Option[Result]] =
+    if lila.common.Uptime.startedSinceSeconds(40)
+    then
+      env.security
+        .ip2proxy(HTTPRequest ipAddress req)
+        .map(_.pub option Results.Forbidden("Public proxies are unsafe to use."))
+    else fuccess(none)
 
   private def addApiResponseHeaders(req: RequestHeader)(result: Result) =
     if HTTPRequest.isApiOrApp(req)

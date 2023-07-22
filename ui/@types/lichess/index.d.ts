@@ -316,6 +316,7 @@ interface Window {
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;
+  readonly webkitAudioContext?: typeof AudioContext;
 }
 
 interface Study {

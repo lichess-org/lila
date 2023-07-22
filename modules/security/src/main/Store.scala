@@ -8,6 +8,8 @@ import scala.concurrent.blocking
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.user.User
+import lila.socket.Socket.Sri
+import lila.oauth.AccessToken
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
     ec: Executor
@@ -16,21 +18,16 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
   import Store.*
   import FingerHash.given
 
-  private val authCache = cacheApi[String, Option[AuthInfo]](65536, "security.authCache") {
-    _.expireAfterAccess(5 minutes)
-      .buildAsyncFuture[String, Option[AuthInfo]] { id =>
-        coll
-          .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
-          .one[Bdoc]
-          .map {
-            _.flatMap { doc =>
-              if doc.getAsOpt[Instant]("date").fold(true)(_ isBefore nowInstant.minusHours(12)) then
-                coll.updateFieldUnchecked($id(id), "date", nowInstant)
-              doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
-            }
-          }
-      }
-  }
+  private val authCache = cacheApi[String, Option[AuthInfo]](65536, "security.authCache"):
+    _.expireAfterAccess(5 minutes).buildAsyncFuture[String, Option[AuthInfo]]: id =>
+      coll
+        .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
+        .one[Bdoc]
+        .map:
+          _.flatMap: doc =>
+            if doc.getAsOpt[Instant]("date").fold(true)(_ isBefore nowInstant.minusHours(12)) then
+              coll.updateFieldUnchecked($id(id), "date", nowInstant)
+            doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
 
   def authInfo(sessionId: String) = authCache get sessionId
 
@@ -47,7 +44,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
   private def blockingUncache(sessionId: String) =
     authCache.underlying.synchronous.invalidate(sessionId)
 
-  def save(
+  private[security] def save(
       sessionId: String,
       userId: UserId,
       req: RequestHeader,
@@ -56,7 +53,57 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       fp: Option[FingerPrint]
   ): Funit =
     coll.insert
+      .one:
+        $doc(
+          "_id"  -> sessionId,
+          "user" -> userId,
+          "ip"   -> HTTPRequest.ipAddress(req),
+          "ua"   -> HTTPRequest.userAgent(req).fold("?")(_.value),
+          "date" -> nowInstant,
+          "up"   -> up,
+          "api"  -> apiVersion, // lichobile
+          "fp"   -> fp.flatMap(FingerHash.from)
+        )
+      .void
+
+  private[security] def upsertOAuth(
+      userId: UserId,
+      tokenId: AccessToken.Id,
+      mobile: Option[Mobile.LichessMobileUa],
+      req: RequestHeader
+  ): Funit =
+    val id = s"TOK-${tokenId.value.take(20)}"
+    val ua = mobile
+      .map(Mobile.LichessMobileUaTrim.write)
+      .orElse(HTTPRequest.userAgent(req).map(_.value))
+      .getOrElse("?")
+    coll.update
       .one(
+        $id(id),
+        $doc(
+          "_id"  -> id,
+          "user" -> userId,
+          "ip"   -> HTTPRequest.ipAddress(req),
+          "ua"   -> ua,
+          "date" -> nowInstant,
+          "up"   -> true,
+          "fp"   -> mobile.map(_.sri.value)
+        ),
+        upsert = true
+      )
+      .void
+
+  private[security] def save(
+      sessionId: String,
+      userId: UserId,
+      req: RequestHeader,
+      apiVersion: Option[ApiVersion],
+      up: Boolean,
+      fp: Option[FingerPrint],
+      sri: Option[Sri] = None
+  ): Funit =
+    coll.insert
+      .one:
         $doc(
           "_id"  -> sessionId,
           "user" -> userId,
@@ -65,11 +112,10 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           "date" -> nowInstant,
           "up"   -> up,
           "api"  -> apiVersion,
-          "fp"   -> fp.flatMap(FingerHash.from)
+          "fp"   -> fp.flatMap(FingerHash.from).map(_.value).orElse(sri.map(_.value)),
+          "sri"  -> sri
         )
-      )
       .void
-
   def delete(sessionId: String): Funit =
     coll.update
       .one(

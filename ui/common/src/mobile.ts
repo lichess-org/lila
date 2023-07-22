@@ -43,7 +43,7 @@ export const isMobile = (): boolean => isAndroid() || isIOS();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
-export const isIOS = (): boolean => /iPhone|iPod/.test(navigator.userAgent) || isIPad();
+export const isIOS = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
 
 // some newer iPads pretend to be Macs, hence checking for "Macintosh"
 export const isIPad = (): boolean =>

@@ -8,7 +8,6 @@ import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
-import cats.data.Validated
 import scala.language.implicitConversions
 
 import lila.tree.{ Branch, Branches, Root }

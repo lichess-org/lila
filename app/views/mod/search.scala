@@ -8,16 +8,12 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
 import lila.mod.IpRender.RenderIp
-import lila.security.FingerHash
-import lila.security.Granter
+import lila.security.{ Granter, IpTrust, IsProxy, FingerHash }
 import lila.user.{ Me, User }
 import lila.common.paginator.Paginator
 import lila.common.String.html.richText
 
 object search:
-
-  private val email = tag("email")
-  private val mark  = tag("marked")
 
   def apply(form: Form[?], users: List[User.WithEmails])(using PageContext, Me) =
     views.html.base.layout(
@@ -70,20 +66,22 @@ object search:
             else if blocked then div(cls := "banned")("BANNED")
             else emptyFrag
           ),
-          isGranted(_.Admin) option div(cls := "box__pad")(
-            h2("User agents"),
-            ul(uas.map(li(_)))
-          ),
-          br,
-          br,
+          userAgentsBox(uas),
           userTable(users)
         )
       )
+
+  private def userAgentsBox(uas: List[String])(using Context) =
+    isGranted(_.Admin) option div(cls := "box__pad")(
+      h2("User agents"),
+      ul(cls := "mod-search__user-agents")(uas.map(li(_)))
+    )
 
   def ip(
       address: IpAddress,
       users: List[lila.user.User.WithEmails],
       uas: List[String],
+      data: IpTrust.IpData,
       blocked: Boolean
   )(using ctx: PageContext, renderIp: RenderIp, mod: Me) =
     views.html.base.layout(
@@ -108,14 +106,18 @@ object search:
             else if blocked then div(cls := "banned")("BANNED")
             else emptyFrag
           ),
-          isGranted(_.Admin) option div(cls := "box__pad")(
-            h2("User agents"),
-            ul(uas map { ua =>
-              li(ua)
-            })
+          div(cls := "mod-search__ip-data box__pad")(
+            p(
+              "Location: ",
+              data.location.toString,
+              br,
+              "Proxy: ",
+              data.proxy.toString,
+              br,
+              "TOR: ",
+              data.isTor.toString
+            )
           ),
-          br,
-          br,
           userTable(users)
         )
       )
@@ -230,58 +232,3 @@ object search:
         titleTag(user),
         user.name
       )
-
-  private def userTable(
-      users: List[User.WithEmails],
-      showUsernames: Boolean = false,
-      eraseButton: Boolean = false
-  )(using Context, Me) =
-    users.nonEmpty option table(cls := "slist slist-pad")(
-      thead(
-        tr(
-          th("User"),
-          th("Games"),
-          th("Marks"),
-          th("Closed"),
-          th("Created"),
-          th("Active"),
-          isGranted(_.CloseAccount) option th,
-          eraseButton option th
-        )
-      ),
-      tbody(
-        users.map { case lila.user.User.WithEmails(u, emails) =>
-          tr(
-            if showUsernames || Granter.canViewAltUsername(u.user)
-            then
-              td(
-                userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
-                isGranted(_.Admin) option
-                  email(emails.strList.mkString(", "))
-              )
-            else td,
-            td(u.count.game.localize),
-            td(
-              u.marks.alt option mark("ALT"),
-              u.marks.engine option mark("ENGINE"),
-              u.marks.boost option mark("BOOSTER"),
-              u.marks.troll option mark("SHADOWBAN")
-            ),
-            td(u.enabled.no option mark("CLOSED")),
-            td(momentFromNow(u.createdAt)),
-            td(u.seenAt.map(momentFromNow(_))),
-            canCloseAlt option td(
-              !u.marks.alt option button(
-                cls  := "button button-empty button-thin button-red mark-alt",
-                href := routes.Mod.alt(u.id, !u.marks.alt)
-              )("ALT")
-            ),
-            eraseButton option td(
-              postForm(action := routes.Mod.gdprErase(u.username))(
-                views.html.user.mod.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
-              )
-            )
-          )
-        }
-      )
-    )

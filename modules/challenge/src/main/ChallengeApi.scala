@@ -1,8 +1,5 @@
 package lila.challenge
 
-import cats.data.Validated
-import cats.data.Validated.{ Invalid, Valid }
-
 import lila.common.Bus
 import lila.common.config.Max
 import lila.game.{ Game, Pov }
@@ -115,17 +112,17 @@ final class ChallengeApi(
       c: Challenge,
       sid: Option[String],
       requestedColor: Option[chess.Color] = None
-  )(using me: Option[Me]): Fu[Validated[String, Option[Pov]]] =
+  )(using me: Option[Me]): Fu[Either[String, Option[Pov]]] =
     acceptQueue:
       def withPerf = me.map(_.value).soFu(perfsRepo.withPerf(_, c.perfType))
       if c.canceled
-      then fuccess(Invalid("The challenge has been canceled."))
+      then fuccess(Left("The challenge has been canceled."))
       else if c.declined
-      then fuccess(Invalid("The challenge has been declined."))
+      then fuccess(Left("The challenge has been declined."))
       else if me.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config)))
-      then fuccess(Invalid("Game incompatible with a BOT account"))
+      then fuccess(Left("Game incompatible with a BOT account"))
       else if c.open.exists(!_.canJoin)
-      then fuccess(Invalid("The challenge is not for you to accept."))
+      then fuccess(Left("The challenge is not for you to accept."))
       else
         val openFixedColor = for
           me      <- me
@@ -136,20 +133,20 @@ final class ChallengeApi(
         if c.challengerIsOpen
         then
           withPerf.flatMap: me =>
-            repo.setChallenger(c.setChallenger(me, sid), color) inject Valid(none)
+            repo.setChallenger(c.setChallenger(me, sid), color) inject none.asRight
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
-        then fuccess(Invalid("This color has already been chosen"))
+        then fuccess(Left("This color has already been chosen"))
         else
           for
             me   <- withPerf
             join <- joiner(c, me)
             result <- join match
-              case Valid(pov) =>
+              case Right(pov) =>
                 repo.accept(c) andDo {
                   uncacheAndNotify(c)
                   Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
-                } inject Valid(pov.some)
-              case Invalid(err) => fuccess(Invalid(err))
+                } inject Right(pov.some)
+              case Left(err) => fuccess(Left(err))
           yield result
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
