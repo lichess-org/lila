@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">Precisas da tua palavra-passe e de um código de autenticação do teu aplicativo autenticador para desativar a autenticação de dois fatores.
 Se perdeste o acesso aos teus códigos de autenticação, também podes redefinir a palavra-passe por e-mail.</string>
   <string name="openTwoFactorApp">Abre a aplicação de autenticação de dois fatores no teu dispositivo para veres o código de autenticação e verificares a tua identidade.</string>
+  <string name="setupReminder">Por favor, habilite a autenticação de dois fatores para proteger a sua conta em https://lichess.org/account/twofactor.
+Você recebeu esta mensagem porque a sua conta tem responsabilidades especiais, como líder da equipa, treinador, professor ou streamer</string>
 </resources>
