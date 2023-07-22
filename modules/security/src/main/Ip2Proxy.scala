@@ -80,7 +80,7 @@ final class Ip2ProxyServer(
         .url(checkUrl)
         .addQueryStringParameters("ip" -> ip.value)
         .get()
-        .withTimeout(2 seconds, "Ip2Proxy.cache")
+        .withTimeout(100.millis, "Ip2Proxy.fetch")
         .dmap(_.body[JsValue])
         .dmap(readProxyName)
         .monSuccess(_.security.proxy.request)
