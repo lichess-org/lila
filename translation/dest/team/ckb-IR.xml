@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="team">یانە</string>
+  <string name="teams">یانەکان</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s ئەندام</item>
+    <item quantity="other">%s ئەندامەکان</item>
+  </plurals>
+  <string name="allTeams">هەموو یانەکان</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">سەرکردەی یانە</string>
+  <string name="newTeam">یانەی نوێ</string>
+  <string name="myTeams">یانەکەم</string>
+  <string name="noTeamFound">هیچ یانەیەک نەدۆزرایەوە</string>
+  <string name="joinTeam">پەیوەندی بە یانەکە بکە</string>
+  <string name="onlyLeaderLeavesTeam">تکایە پێش ڕۆشتن سەرکردەیەکی نوێ زیاد بکە، یان یانەکە دابخە.</string>
+  <string name="quitTeam">یانەکە بەجێبهێڵە</string>
+  <string name="manuallyReviewAdmissionRequests">بە دەست پێداچوونەوە بە داواکارییەکانی وەرگرتن بکە</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">ئەگەر پشکنینیان بۆ کرا، پێویستە یاریزانەکان داواکارییەک بنووسن بۆ بەشداریکردن لە یانەکە، کە دەتوانیت ڕەتی بکەیتەوە یان قبوڵ بکەیت.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">سەرۆکی یانە</item>
+    <item quantity="other">سەرۆکی یانەکان</item>
+  </plurals>
+  <string name="teamRecentMembers">نوێترین ئەندامەکان</string>
+  <string name="kickSomeone">کەسێک لە یانەکە دەربکەن</string>
+  <string name="whoToKick">دەتەوێت کێ لە یانەکە دەربکەیت?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s داواکاری بەشداریکردن</item>
+    <item quantity="other">%s داواکارییەکانی بەشداریکردن</item>
+  </plurals>
+  <string name="willBeReviewed">پێداچوونەوەی بۆداواکاری بەشداریکردنت لەلایەن سەرۆکی یانەوە دەکرێت.</string>
+  <string name="beingReviewed">داواکاریەکەت بۆ بەشداریکردن هێشتا لەلایەن سەرۆکی یانکەوە پێداچونەوەی بۆ دەکرێت.</string>
+  <string name="requestDeclined">داواکاری بەشداریکردنت لەلایەن سەرۆکی یانەکە ڕەتکرایەوە.</string>
+  <string name="subToTeamMessages">بەشداری نامەکانی یانە بکە</string>
+</resources>
