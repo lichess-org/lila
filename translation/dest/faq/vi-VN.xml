@@ -99,7 +99,6 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ, và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
   <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
   <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
-  <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván và giành chiến thắng 100%% tất cả các ván trong một %s.</string>
   <string name="aHourlyBulletTournament">một giải đấu Cờ Siêu Chớp hàng giờ</string>
   <string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại A.I. cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đập vỡ Stockfish, và lời hứa đã được tôn vinh.</string>
   <string name="lichessRatings">Xếp hạng Lichess</string>

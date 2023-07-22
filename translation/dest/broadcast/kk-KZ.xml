@@ -5,7 +5,7 @@
     <item quantity="one">%s көрсетілім</item>
     <item quantity="other">%s көрсетілім</item>
   </plurals>
-  <string name="liveBroadcasts">Тікелей жарыс көрсетілімдері</string>
+  <string name="liveBroadcasts">Жарыстың тікелей көрсетілімдері</string>
   <string name="newBroadcast">Жаңа тікелей көрсетілім</string>
   <string name="addRound">Айналым қосу</string>
   <string name="ongoing">Болып жатқан</string>

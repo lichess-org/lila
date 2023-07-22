@@ -21,7 +21,7 @@ para acabar antes!</string>
   <string name="rookComplete">Parabéns! Dominaches con éxito a torre.</string>
   <string name="theBishop">O bispo</string>
   <string name="itMovesDiagonally">Move en diagonal</string>
-  <string name="bishopIntro">Deseguido imos aprender como manobrar un bispo!</string>
+  <string name="bishopIntro">Deseguido imos aprender como manexar o bispo!</string>
   <string name="youNeedBothBishops">Un bispo de casas brancas,
 un bispo de casas negras.
 Precisas ambos!</string>
@@ -67,20 +67,21 @@ Non precisas coroar.</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
   <string name="takeTheEnemyPieces">Captura as pezas inimigas</string>
-  <string name="captureIntro">Identifica as pezas rivais non defendidas, e captúraas!</string>
+  <string name="captureIntro">Identifica as pezas rivais non defendidas e captúraas!</string>
   <string name="takeTheBlackPieces">Captura as pezas negras!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Captura as pezas negras!
 E non perdas as túas.</string>
   <string name="captureComplete">Parabéns! Sabes como loitar coas pezas de xadrez!</string>
   <string name="protection">Protección</string>
   <string name="keepYourPiecesSafe">Mantén as túas pezas a salvo</string>
-  <string name="protectionIntro">Identifica as pezas que o teu rival ataca, e deféndeas!</string>
+  <string name="protectionIntro">Identifica as pezas que o teu rival ataca e deféndeas!</string>
   <string name="protectionComplete">Parabéns! Unha peza que non perdes é unha peza que gañas!</string>
   <string name="escape">Están atacándote!
 Fuxe da ameaza!</string>
   <string name="noEscape">Non hai escapatoria,
 pero podes defenderte!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Non permitas que capturen ningunha peza indefensa!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Non permitas que capturen
+ningunha peza indefensa!</string>
   <string name="combat">Combate</string>
   <string name="captureAndDefendPieces">Capturar e defender pezas</string>
   <string name="combatIntro">Un bo guerreiro sabe atacar e máis defender!</string>
@@ -106,7 +107,7 @@ ou bloquea o ataque!</string>
   <string name="outOfCheckComplete">Parabéns! O teu rei nunca pode ser tomado, asegúrate de que podes defenderte dun xaque!</string>
   <string name="mateInOne">Mate nunha</string>
   <string name="defeatTheOpponentsKing">Derrota o rei rival</string>
-  <string name="mateInOneIntro">Ti gañas cando o teu rival non pode defenderse dun xaque.</string>
+  <string name="mateInOneIntro">Gañas cando o teu rival non pode defenderse dun xaque.</string>
   <string name="attackYourOpponentsKing">Ataca ao rei do teu rival
 dun xeito que non se poida defender!</string>
   <string name="mateInOneComplete">Parabéns! Así é como gañas partidas de xadrez!</string>
@@ -228,8 +229,8 @@ en dous movementos!</string>
   <string name="outstanding">Excepcional!</string>
   <string name="wayToGo">Así se fai!</string>
   <string name="yesYesYes">Si, si, si!</string>
-  <string name="youreGoodAtThis">Eres bo nesto!</string>
-  <string name="nailedIt">Claváchelo.</string>
+  <string name="youreGoodAtThis">Isto dáseche ben!</string>
+  <string name="nailedIt">Craváchelo.</string>
   <string name="rightOn">Exactamente!</string>
   <string name="stageXComplete">Nivel %s completado</string>
   <string name="next">Seguinte</string>

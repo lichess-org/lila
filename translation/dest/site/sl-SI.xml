@@ -97,6 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50 \'\' z zaokroževanjem, odvisno od števila pol-potez do naslednjega zajema ali poteze kmeta</string>
   <string name="noGameFound">Igra ni najdena</string>
+  <string name="maxDepthReached">Največja globina je dosežena!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bi vključili več partij v meniju nastavitev?</string>
   <string name="openings">Otvoritve</string>
   <string name="openingExplorer">Raziskovalec otvoritev</string>
@@ -166,6 +167,12 @@
     <item quantity="two">%s partiji</item>
     <item quantity="few">%s partij</item>
     <item quantity="other">%s partij</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating v %2$s igri</item>
+    <item quantity="two">%1$s rating v %2$s igrah</item>
+    <item quantity="few">%1$s rating v %2$s igrah</item>
+    <item quantity="other">%1$s rating v %2$s igrah</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s zaznamek</item>
@@ -386,8 +393,15 @@
     <item quantity="few">%s študije</item>
     <item quantity="other">%s študij</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanka</item>
+    <item quantity="two">%s simultanki</item>
+    <item quantity="few">%s simultanke</item>
+    <item quantity="other">%s simultank</item>
+  </plurals>
   <string name="viewTournament">Glej turnir</string>
   <string name="backToTournament">Nazaj k turnirju</string>
+  <string name="noDrawBeforeSwissLimit">V Švicarskem turnirju ni mogoče remizirati pred 30. potezo.</string>
   <string name="thematic">Tematski</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rangirana partija</item>
@@ -444,6 +458,7 @@
   <string name="toStudy">Študiraj</string>
   <string name="importGame">Uvozi igro</string>
   <string name="importGameExplanation">Ko prilepite PGN partijo imate na voljo brskanje partije, računalniško analizo, klepet o igri in povezavo, ki jo lahko delite.</string>
+  <string name="importGameCaveat">Variante bodo izbrisane. Če jih želite obdržat, uvozite PGN kot študijo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvožena igra</item>
     <item quantity="two">%s uvoženi igri</item>
@@ -767,6 +782,7 @@
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rating je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Boljši si od %1$s %2$s igralcev.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je boljši od %2$s igralcev %3$s.</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Bolje kot %1$s od %2$s igralcev</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tvoj %s rating še ni uveljavljen.</string>
   <string name="yourRating">Vaš rating</string>
   <string name="cumulative">Skupno</string>
@@ -784,7 +800,7 @@
   <string name="downloadImported">Prenesi uvoženo PGN datoteko</string>
   <string name="crosstable">Medsebojni dvoboji</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Lahko se skozi partijo pomikaš tudi z miško</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Pomaknite se preko računalniških različicah, da jih ogledate.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Za predogled variant računalniške analize podrsajte z miškinim koleščkom.</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ali desni klik za risanje krožcev in puščic po šahovnici</string>
   <string name="letOtherPlayersMessageYou">Dovoli drugim, da ti pišejo sporočila</string>
   <string name="receiveForumNotifications">Prejemajte obvestila, ko so omenjena na forumu</string>

@@ -715,6 +715,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="yourPerfTypeRatingIsRating">Dini %1$s-Wertig isch %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vu allne %2$s-Schpiller.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo allne %3$s-Schpiller.</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Besser als %1$s vu %2$s Schpiller</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du häsch kei fixi %s-Wertig.</string>
   <string name="yourRating">Dini Wertig</string>
   <string name="cumulative">Summiert</string>
