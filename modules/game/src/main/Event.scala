@@ -18,6 +18,7 @@ import chess.{
 }
 import chess.format.{ Fen, BoardFen }
 import chess.format.pgn.SanStr
+import chess.bitboard.Bitboard
 import JsonView.{ *, given }
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
@@ -48,7 +49,7 @@ object Event:
         threefold: Boolean,
         state: State,
         clock: Option[ClockEvent],
-        possibleMoves: Map[Square, List[Square]],
+        possibleMoves: Map[Square, Bitboard],
         possibleDrops: Option[List[Square]],
         crazyData: Option[Crazyhouse.Data]
     )(extra: JsObject) =
@@ -81,7 +82,7 @@ object Event:
       castle: Option[Castling],
       state: State,
       clock: Option[ClockEvent],
-      possibleMoves: Map[Square, List[Square]],
+      possibleMoves: Map[Square, Bitboard],
       possibleDrops: Option[List[Square]],
       crazyData: Option[Crazyhouse.Data]
   ) extends Event:
@@ -129,7 +130,7 @@ object Event:
       threefold: Boolean,
       state: State,
       clock: Option[ClockEvent],
-      possibleMoves: Map[Square, List[Square]],
+      possibleMoves: Map[Square, Bitboard],
       crazyData: Option[Crazyhouse.Data],
       possibleDrops: Option[List[Square]]
   ) extends Event:
@@ -163,7 +164,7 @@ object Event:
     )
 
   object PossibleMoves:
-    def json(moves: Map[Square, List[Square]]): JsValue =
+    def json(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
         val sb    = new java.lang.StringBuilder(128)
@@ -172,14 +173,14 @@ object Event:
           if first then first = false
           else sb append " "
           sb append orig.key
-          dests foreach { sb append _.key }
+          dests.foreach(s => sb.append(s.key))
         JsString(sb.toString)
 
-    def oldJson(moves: Map[Square, List[Square]]): JsValue =
+    def oldJson(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
         moves.foldLeft(JsObject(Nil)):
-          case (res, (o, d)) => res + (o.key -> JsString(d.map(_.key) mkString))
+          case (res, (o, d)) => res + (o.key -> JsString(d.map(_.key).mkString))
 
   case class Enpassant(pos: Square, color: Color) extends Event:
     def typ = "enpassant"

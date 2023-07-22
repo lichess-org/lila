@@ -12,6 +12,7 @@ import chess.{ Ply, Square, Check }
 import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
+import chess.bitboard.Bitboard
 
 import lila.common.Json.{ given, * }
 
@@ -26,7 +27,7 @@ case class Metas(
     fen: Fen.Epd,
     check: Check,
     // None when not computed yet
-    dests: Option[Map[Square, List[Square]]] = None,
+    dests: Option[Map[Square, Bitboard]] = None,
     drops: Option[List[Square]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Shapes.empty,

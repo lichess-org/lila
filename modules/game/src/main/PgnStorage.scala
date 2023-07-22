@@ -41,11 +41,11 @@ private object PgnStorage:
             case e: java.nio.BufferUnderflowException =>
               logger.error(s"Can't decode game $id PGN", e)
               throw e
-        val unmovedRooks = decoded.unmovedRooks.asScala.view.map(Square(_)).toSet
+        val unmovedRooks: Set[Square] = decoded.unmovedRooks.asScala.view.map(Square.unsafe(_)).toSet
         Decoded(
           sans = SanStr from decoded.pgnMoves.toVector,
           pieces = decoded.pieces.asScala.view.map { (k, v) =>
-            Square(k) -> chessPiece(v)
+            Square.unsafe(k) -> chessPiece(v)
           }.toMap,
           positionHashes = PositionHash(decoded.positionHashes),
           unmovedRooks = UnmovedRooks(unmovedRooks),

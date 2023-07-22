@@ -26,7 +26,7 @@ case class Puzzle(
   lazy val fenAfterInitialMove: Fen.Epd =
     situationAfterInitialMove map Fen.write err s"Can't apply puzzle $id first move"
 
-  def color = !fen.color
+  def color = !fen.colorOrWhite
 
   def hasTheme(anyOf: PuzzleTheme*) = anyOf.exists(t => themes(t.key))
 
