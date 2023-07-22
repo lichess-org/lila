@@ -198,18 +198,16 @@ export default new (class implements SoundI {
   }
 
   async resumeContext(): Promise<boolean> {
-    let success = true;
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
       this.ctx = makeAudioContext();
       for (const s of this.sounds.values()) s.rewire(this.ctx);
     }
+    // if suspended, try audioContext.resume() with a timeout (sometimes it never resolves)
     if (this.ctx.state === 'suspended')
       await new Promise<void>(resolve => {
-        // wrap audioContext.resume() as sometimes it never resolves
         const resumeTimer = setTimeout(() => {
           $('#warn-no-autoplay').addClass('shown');
-          success = false;
           resolve();
         }, 400);
         this.ctx
@@ -220,7 +218,7 @@ export default new (class implements SoundI {
           })
           .catch(resolve);
       });
-    return success;
+    return this.ctx.state === 'running';
   }
 })();
 
