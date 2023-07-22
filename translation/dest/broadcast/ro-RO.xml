@@ -28,5 +28,5 @@
   <string name="definitivelyDeleteRound">Șterge definitiv runda și jocurile sale.</string>
   <string name="deleteAllGamesOfThisRound">Șterge toate jocurile din această rundă. Sursa va trebui să fie activă pentru a le recrea.</string>
   <string name="deleteTournament">Șterge acest turneu</string>
-  <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
 </resources>
