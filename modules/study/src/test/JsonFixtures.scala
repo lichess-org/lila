@@ -18,7 +18,7 @@ object JsonFixtures:
   """.trim
 
   val j5 = """
-  [{"ply":3,"fen":"rnbqkbnr/pp1ppppp/2p5/8/3P1P2/8/PPP1P1PP/RNBQKBNR b KQkq - 0 2","comments":[{"id":"i","text":"custom position with Black to move","by":{"id":"nt9","name":"nt9"}}],"dests":"QI 0SK 5O 1TL 7GPY WOG 3VN ZRJ !TV 2UM XPH"},{"ply":4,"fen":"rnbqkbnr/pp1pppp1/2p5/7p/3P1P2/8/PPP1P1PP/RNBQKBNR w KQkq - 0 3","id":"ZJ","uci":"h7h5","san":"h5"},{"ply":5,"fen":"rnbqkbnr/pp1pppp1/2p5/7p/1P1P1P2/8/P1P1P1PP/RNBQKBNR b KQkq - 0 3","id":",<","uci":"b2b4","san":"b4"}]
+  [{"ply":3,"fen":"rnbqkbnr/pp1ppppp/2p5/8/3P1P2/8/PPP1P1PP/RNBQKBNR b KQkq - 0 2","comments":[{"id":"i","text":"custom position with Black to move","by":{"id":"nt9","name":"nt9"}}],"dests":"QI 0KS 5O 1LT 7GPY WGO 3NV ZJR !TV 2MU XHP"},{"ply":4,"fen":"rnbqkbnr/pp1pppp1/2p5/7p/3P1P2/8/PPP1P1PP/RNBQKBNR w KQkq - 0 3","id":"ZJ","uci":"h7h5","san":"h5"},{"ply":5,"fen":"rnbqkbnr/pp1pppp1/2p5/7p/1P1P1P2/8/P1P1P1PP/RNBQKBNR b KQkq - 0 3","id":",<","uci":"b2b4","san":"b4"}]
   """.trim
 
   val all = List(j1, j2, j3, j4, j5)
