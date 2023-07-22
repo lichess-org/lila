@@ -35,5 +35,5 @@
   <string name="deleteAllGamesOfThisRound">Vymazať všetky partie tohto kola. K opätovnému vytvoreniu partií bude potrebné aby bol zdroj aktívny.</string>
   <string name="editRoundStudy">Upraviť kolo štúdií</string>
   <string name="deleteTournament">Vymazať tento turnaj</string>
-  <string name="definitivelyDeleteTournament">Definitívne odstrániť celý turnaj so všetkými kolami a všetkými partiami.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Definitívne odstrániť celý turnaj so všetkými kolami a všetkými partiami.</string>
 </resources>
