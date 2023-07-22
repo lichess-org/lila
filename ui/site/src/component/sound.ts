@@ -7,8 +7,6 @@ import { charRole } from 'chess';
 type Name = string;
 type Path = string;
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-
 export type SoundMove = (node?: { san?: string; uci?: string }) => void;
 
 export default new (class implements SoundI {
@@ -20,6 +18,14 @@ export default new (class implements SoundI {
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', { version: '_____1' });
   soundMove?: SoundMove;
+
+  constructor() {
+    if (!isIOS()) return;
+    $('body').on('click touchstart', () => {
+      this.ctx.resume();
+      $('body').off('click touchstart');
+    });
+  }
 
   async context() {
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
@@ -64,7 +70,6 @@ export default new (class implements SoundI {
   }
 
   async play(name: Name, volume = 1): Promise<void> {
-    if (isIOS()) this.ctx.resume();
     return new Promise(resolve => {
       if (!this.enabled()) return resolve();
       this.load(name)
@@ -89,7 +94,6 @@ export default new (class implements SoundI {
   }
 
   async countdown(count: number, interval = 500): Promise<void> {
-    if (isIOS()) this.ctx.resume();
     if (!this.enabled()) return;
     try {
       while (count > 0) {
@@ -105,7 +109,6 @@ export default new (class implements SoundI {
   }
 
   playOnce(name: string): void {
-    if (isIOS()) this.ctx.resume();
     // increase chances that the first tab can put a local storage lock
     const doIt = () => {
       const storage = lichess.storage.make('just-played');
@@ -133,7 +136,6 @@ export default new (class implements SoundI {
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
-    if (isIOS()) this.ctx.resume();
     try {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
@@ -167,7 +169,6 @@ export default new (class implements SoundI {
   set = () => this.theme;
 
   saySan(san?: San, cut?: boolean) {
-    if (isIOS()) this.ctx.resume();
     const text = !san
       ? 'Game start'
       : san.includes('O-O-O#')
