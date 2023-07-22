@@ -19,12 +19,14 @@ export default new (class implements SoundI {
   baseUrl = assetUrl('sound', { version: '_____1' });
   soundMove?: SoundMove;
 
+  primer = () => {
+    this.ctx.resume();
+    $('body').off('click touchstart', this.primer);
+  };
+
   constructor() {
     if (!isIOS()) return;
-    $('body').on('click touchstart', () => {
-      this.ctx.resume();
-      $('body').off('click touchstart');
-    });
+    $('body').on('click touchstart', this.primer);
   }
 
   async context() {
