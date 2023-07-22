@@ -74,7 +74,7 @@ final class Ip2ProxyServer(
                   lila.mon.security.proxy.result(proxy.value).increment()
         }
 
-  private val cache = cacheApi[IpAddress, IsProxy](16_384, "ip2proxy.ip"):
+  private val cache = cacheApi[IpAddress, IsProxy](32_768, "ip2proxy.ip"):
     _.expireAfterWrite(1 hour).buildAsyncFuture: ip =>
       ws
         .url(checkUrl)
@@ -87,10 +87,5 @@ final class Ip2ProxyServer(
         .addEffect: result =>
           lila.mon.security.proxy.result(result.value).increment()
 
-  private def readProxyName(js: JsValue): IsProxy = IsProxy {
-    for
-      tpe <- (js \ "proxy_type").asOpt[String]
-      if tpe != "-"
-      country = (js \ "country_short").asOpt[String]
-    yield s"$tpe:${country | "?"}"
-  }
+  private def readProxyName(js: JsValue): IsProxy = IsProxy:
+    (js \ "proxy_type").asOpt[String].filter(_ != "-")
