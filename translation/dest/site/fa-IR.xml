@@ -698,7 +698,7 @@
   <string name="yourPerfTypeRatingIsRating">.است %1$s شما %2$s ریتینگ</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s بهتر از %2$s از بازیکنان %3$s میباشد.</string>
-  <string name="betterThanPercentPlayers">بهتر از %1$s بازیکنان در %2$s</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">بهتر از %1$s بازیکنان در %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
   <string name="yourRating">ریتینگ شما</string>
   <string name="cumulative">تجمعی</string>
