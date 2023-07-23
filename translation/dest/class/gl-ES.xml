@@ -2,7 +2,7 @@
 <resources>
   <string name="lichessClasses">Clases</string>
   <string name="teachClassesOfChessStudents">Imparte clases de xadrez coa ferramenta Clases de Lichess.</string>
-  <string name="features">Funcións</string>
+  <string name="features">Características</string>
   <string name="quicklyGenerateSafeUsernames">Xera rapidamente nomes de usuario e contrasinais seguros para os estudantes</string>
   <string name="trackStudentProgress">Segue o progreso dos alumnos nas partidas e crebacabezas</string>
   <string name="messageAllStudents">Envía unha mensaxe a todos os estudantes sobre o novo material da clase</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Descrición da clase</string>
   <string name="visibleByBothStudentsAndTeachers">Visible para os profesores e os alumnos</string>
   <string name="teachersOfTheClass">Profesores desta clase</string>
-  <string name="addLichessUsernames">Engadir usuarios de Lichess para convidalos como profesores. Un per liña.</string>
+  <string name="addLichessUsernames">Engadir usuarios de Lichess para convidalos como profesores. Un por liña.</string>
   <string name="resetPassword">Restablecer o contrasinal</string>
   <string name="makeSureToCopy">Asegúrate de copiar agora o contrasinal. Non o volverás ver!</string>
   <string name="passwordX">Contrasinal: %s</string>
@@ -32,16 +32,16 @@
   <string name="realName">Nome real</string>
   <string name="privateWillNeverBeShown">Privado. Nunca se amosará fóra da clase. Axuda a lembrar quen é cada alumno.</string>
   <string name="addStudent">Engadir alumno</string>
-  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado para %2$s.</string>
   <string name="studentCredentials">Alumno: %1$s
 Nome de usuario: %2$s
 Contrasinal %3$s</string>
-  <string name="inviteALichessAccount">Invita unha conta de Lichess</string>
+  <string name="inviteALichessAccount">Invitar unha conta de Lichess</string>
   <string name="inviteDesc1">Se o alumno xa ten conta en Lichess, pódelo invitar á clase.</string>
   <string name="inviteDesc2">Recibirán unha mensaxe en Lichess coa ligazón para unirse á clase.</string>
   <string name="inviteDesc3">Importante: invita só estudantes que coñezas e queiran unirse á clase.</string>
   <string name="inviteDesc4">Nunca envíes invitacións a xogadores que non as pediran.</string>
-  <string name="createANewLichessAccount">Crea unha conta en Lichess</string>
+  <string name="createANewLichessAccount">Crear unha nova conta en Lichess</string>
   <string name="createDesc1">Se o alumno non ten conta en Lichess, podes crearlla desde aquí.</string>
   <string name="createDesc2">Non se precisa enderezo de correo electrónico. Xerarase un contrasinal que debes pasarlle ó alumno para que poida acceder.</string>
   <string name="createDesc3">Importante: os alumnos non deben ter máis dunha conta.</string>
