@@ -101,27 +101,26 @@ final private class RelaySync(
             position = Position(chapter, path).ref,
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
-        } >> newNode.so { node =>
-          node.mainline.foldM(Position(chapter, path).ref) { case (position, n) =>
-            studyApi.addNode(
-              studyId = study.id,
-              position = position,
-              node = n,
-              opts = moveOpts.copy(clock = n.clock),
-              relay = Chapter
-                .Relay(
-                  index = game.index,
-                  path = position.path + n.id,
-                  lastMoveAt = nowInstant
-                )
-                .some
-            )(who) inject position + n
-          } inject {
-            if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
-              studyApi.reloadChapters(study)
-            node.mainline.size
-          }
-        }
+        } >> newNode.so: node =>
+          node.mainline
+            .foldM(Position(chapter, path).ref): (position, n) =>
+              studyApi.addNode(
+                studyId = study.id,
+                position = position,
+                node = n,
+                opts = moveOpts.copy(clock = n.clock),
+                relay = Chapter
+                  .Relay(
+                    index = game.index,
+                    path = position.path + n.id,
+                    lastMoveAt = nowInstant
+                  )
+                  .some
+              )(who) inject position + n
+            .inject:
+              if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
+                studyApi.reloadChapters(study)
+              node.mainline.size
 
   private def updateChapterTags(
       tour: RelayTour,
