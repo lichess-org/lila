@@ -290,10 +290,10 @@
   <string name="viewRematch">Ver desquite</string>
   <string name="confirmMove">Confirma o movemento</string>
   <string name="play">Xogar</string>
-  <string name="inbox">Caixa do correo</string>
+  <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de conversa</string>
   <string name="loginToChat">Inicia sesión para conversar</string>
-  <string name="youHaveBeenTimedOut">Foches silenciado temporalmente.</string>
+  <string name="youHaveBeenTimedOut">Fuches silenciado temporalmente.</string>
   <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escribir mensaxe</string>
   <string name="subject">Asunto</string>
