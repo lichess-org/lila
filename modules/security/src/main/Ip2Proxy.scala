@@ -15,9 +15,7 @@ trait Ip2Proxy:
 
 opaque type IsProxy = Option[String]
 object IsProxy extends TotalWrapper[IsProxy, Option[String]]:
-  extension (a: IsProxy)
-    def is  = a.value.isDefined
-    def pub = a.value.has("PUB")
+  extension (a: IsProxy) def is           = a.value.isDefined
   def unapply(a: IsProxy): Option[String] = a.value
 
 final class Ip2ProxySkip extends Ip2Proxy:
