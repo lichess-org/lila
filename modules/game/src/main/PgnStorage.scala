@@ -13,16 +13,13 @@ private object PgnStorage:
   case object OldBin:
 
     def encode(sans: Vector[SanStr]) =
-      ByteArray {
-        monitor(_.game.pgn.encode("old")) {
+      ByteArray:
+        monitor(_.game.pgn.encode("old")):
           format.pgn.Binary.writeMoves(sans).get
-        }
-      }
 
     def decode(bytes: ByteArray, plies: Ply): Vector[SanStr] =
-      monitor(_.game.pgn.decode("old")) {
+      monitor(_.game.pgn.decode("old")):
         format.pgn.Binary.readMoves(bytes.value.toList, plies.value).get.toVector
-      }
 
   case object Huffman:
 
@@ -30,14 +27,12 @@ private object PgnStorage:
     import scala.jdk.CollectionConverters.*
 
     def encode(sans: Vector[SanStr]) =
-      ByteArray {
-        monitor(_.game.pgn.encode("huffman")) {
+      ByteArray:
+        monitor(_.game.pgn.encode("huffman")):
           Encoder.encode(SanStr raw sans.toArray)
-        }
-      }
 
     def decode(bytes: ByteArray, plies: Ply, id: GameId): Decoded =
-      monitor(_.game.pgn.decode("huffman")) {
+      monitor(_.game.pgn.decode("huffman")):
         val decoded =
           try Encoder.decode(bytes.value, plies.value)
           catch
@@ -59,7 +54,6 @@ private object PgnStorage:
           ),
           halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )
-      }
 
     private def chessBoard(b: JavaBoard): BBoard =
       BBoard(
