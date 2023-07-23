@@ -310,6 +310,9 @@ POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)
 
+# LocalPlay
+GET   /local-play                      controllers.LocalPlay.index
+
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId, color = "white")
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId, color)

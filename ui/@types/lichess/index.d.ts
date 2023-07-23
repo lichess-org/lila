@@ -301,7 +301,7 @@ type Nvui = (redraw: () => void) => {
 
 interface Window {
   lichess: Lichess;
-  un$<T>(cash: Cash): T;
+  $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
   Chessground: any;
@@ -575,4 +575,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-declare const un$: <T>(cash: Cash) => T;
+declare const $as: <T>(cash: Cash) => T;

@@ -1,0 +1,21 @@
+$mq-col2: $mq-col2-uniboard;
+
+#local-play {
+  display: grid;
+
+  grid-row-gap: $block-gap;
+  grid-column-gap: $block-gap;
+  grid-template-areas: 'board' 'side';
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: var(--col2-uniboard-width) $col2-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas: 'board   side';
+  }
+
+  .about__link {
+    margin-top: 2vh;
+    text-align: center;
+    font-size: 0.8em;
+  }
+}

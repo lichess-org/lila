@@ -30,7 +30,7 @@ import { format as timeago, formatter as dateFormat } from './component/timeago'
 import watchers from './component/watchers';
 
 export default () => {
-  window.un$ = <T>(cash: Cash) => cash[0] as T;
+  window.$as = <T>(cash: Cash) => cash[0] as T;
   const l = window.lichess;
   l.StrongSocket = StrongSocket;
   l.mousetrap = new Mousetrap(document);
