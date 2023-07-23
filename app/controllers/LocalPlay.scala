@@ -16,4 +16,4 @@ final class LocalPlay(env: Env) extends LilaController(env):
 
   def index = Open:
     NoBot:
-      Ok.page(views.html.localPlay.index)
+      Ok.page(views.html.localPlay.index).map(_.enableSharedArrayBuffer)

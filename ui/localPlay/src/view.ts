@@ -7,10 +7,11 @@ import { makeConfig as makeCgConfig } from './chessground';
 //import { onInsert } from 'common/snabbdom';
 
 export default function (ctrl: any): VNode {
-  return h('div.local-play', renderPlay(ctrl));
+  return h('div#local-play', renderPlay(ctrl));
 }
 
 function chessground(ctrl: any): VNode {
+  console.log('chessground');
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl))),

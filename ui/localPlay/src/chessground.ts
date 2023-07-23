@@ -21,14 +21,14 @@ export function makeConfig(ctrl: Ctrl): CgConfig {
     turnColor: opts.turnColor,
     check: opts.check,
     lastMove: opts.lastMove,
-    coordinates: pref.coords !== Prefs.Coords.Hidden,
+    coordinates: true, //pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: pref.is3d,
     addDimensionsCssVarsTo: document.body,
     movable: {
       free: false,
       color: opts.movable!.color,
       dests: opts.movable!.dests,
-      showDests: pref.destination,
+      showDests: true, //pref.destination,
       rookCastle: pref.rookCastle,
     },
     draggable: {

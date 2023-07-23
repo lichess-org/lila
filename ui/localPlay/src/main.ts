@@ -9,10 +9,10 @@ const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts) {
   // make a StrongSocket
-  const ctrl = new Ctrl(opts);
+  const ctrl = new Ctrl(opts, redraw);
 
   const blueprint = view(ctrl as Controller);
-  const element = document.querySelector('main#local-play') as HTMLElement;
+  const element = document.querySelector('main') as HTMLElement;
   element.innerHTML = '';
   let vnode = patch(element, blueprint);
 

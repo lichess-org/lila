@@ -22,10 +22,8 @@ object localPlay:
           url = s"$netBaseUrl${controllers.routes.LocalPlay.index}"
         )
         .some,
-      chessground = false,
-      withHrefLangs = lila.common.LangPath(controllers.routes.LocalPlay.index).some
+      zoomable = true,
+      chessground = false
     ) {
-      main(id := "local-play")(
-        div
-      )
+      main
     }
