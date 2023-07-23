@@ -80,12 +80,13 @@ final class Ip2ProxyServer(
         .url(checkUrl)
         .addQueryStringParameters("ip" -> ip.value)
         .get()
-        .withTimeout(100.millis, "Ip2Proxy.fetch")
+        .withTimeout(150.millis, "Ip2Proxy.fetch")
         .dmap(_.body[JsValue])
         .dmap(readProxyName)
         .monSuccess(_.security.proxy.request)
         .addEffect: result =>
           lila.mon.security.proxy.result(result.value).increment()
+        .recoverDefault(IsProxy(none))
 
   private def readProxyName(js: JsValue): IsProxy = IsProxy:
     (js \ "proxy_type").asOpt[String].filter(_ != "-")
