@@ -367,6 +367,54 @@ object faq:
             ),
             "."
           )
+        ),
+        question(
+          "autoplay",
+          "Enable autoplay for sounds?",
+          p("""
+            Most browsers can prevent sound from playing on a freshly loaded page to protect users. 
+            Imagine if every website could immediately bombard you with audio ads.
+          """),
+          p("""
+            The red mute icon appears when your browser prevents lichess.org from playing a sound.
+            Usually this restriction is lifted once you click something, but a new game is a fresh page
+            which resets that temporary permission. And your browser does not know or care that
+            you were waiting to be paired in an unwatched tab.
+          """),
+          p("""
+            We show the red icon to alert you when this happens. Often you can explicitly allow
+            lichess.org to play sounds. Here are instructions for doing so on recent versions of
+            some popular browsers.
+          """),
+          h3("Mozilla Firefox (desktop):"),
+          ul(
+            li("Go to lichess.org"),
+            li("Press ctrl-i on linux/windows or cmd-i on macos"),
+            li("Click the Permissions tab"),
+            li("Allow Audio and Video on lichess.org")
+          ),
+          h3("Google Chrome (desktop):"),
+          ul(
+            li("Go to lichess.org"),
+            li("Click the lock icon in the address bar"),
+            li("Click Site Settings"),
+            li("Allow Sound")
+          ),
+          h3("Safari (desktop):"),
+          ul(
+            li("Go to lichess.org"),
+            li("Click Safari in the menu bar"),
+            li("Click Settings for This Website"),
+            li("Allow Auto-Play")
+          ),
+          h3("Microsoft Edge (desktop):"),
+          ul(
+            li("Click the three dots in the top right corner"),
+            li("Click Settings"),
+            li("Click Cookies and Site Permissions"),
+            li("Scroll down and click Media autoplay"),
+            li("Add lichess.org to Allow")
+          )
         )
       )
     }
