@@ -669,7 +669,7 @@ object mod:
               ,
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
-              td(userTable.userCheckboxTd(o.marks.alt))
+              userTable.userCheckboxTd(o.marks.alt)
             )
           }
         )
