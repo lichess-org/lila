@@ -13,14 +13,17 @@ trait Ip2Proxy:
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]]
 
-opaque type IsProxy = Option[String]
-object IsProxy extends TotalWrapper[IsProxy, Option[String]]:
-  extension (a: IsProxy) def is           = a.value.isDefined
-  def unapply(a: IsProxy): Option[String] = a.value
+opaque type IsProxy = String
+object IsProxy extends OpaqueString[IsProxy]:
+  extension (a: IsProxy)
+    def is   = a.value.nonEmpty
+    def name = a.value.nonEmpty option a.value
+  def unapply(a: IsProxy): Option[String] = a.name
+  val empty                               = IsProxy("")
 
 final class Ip2ProxySkip extends Ip2Proxy:
 
-  def apply(ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy(none))
+  def apply(ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy.empty)
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
 
@@ -31,11 +34,7 @@ final class Ip2ProxyServer(
 )(using Executor, Scheduler)
     extends Ip2Proxy:
 
-  def apply(ip: IpAddress): Fu[IsProxy] =
-    cache.get(ip).recover { case e: Exception =>
-      logger.warn(s"Ip2Proxy $ip", e)
-      IsProxy(none)
-    }
+  def apply(ip: IpAddress): Fu[IsProxy] = cache.get(ip.value)
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] =
     batch(ips)
@@ -54,7 +53,7 @@ final class Ip2ProxyServer(
       case Nil     => fuccess(Seq.empty[IsProxy])
       case Seq(ip) => apply(ip).dmap(Seq(_))
       case ips =>
-        ips.flatMap(cache.getIfPresent).parallel flatMap { cached =>
+        ips.flatMap(ip => cache.getIfPresent(ip.value)).parallel flatMap { cached =>
           if cached.sizeIs == ips.size then fuccess(cached)
           else
             ws.url(s"$checkUrl/batch")
@@ -70,23 +69,23 @@ final class Ip2ProxyServer(
                 else fufail(s"Ip2Proxy missing results for $ips -> $res")
               .addEffect:
                 _.zip(ips).foreach: (proxy, ip) =>
-                  cache.put(ip, fuccess(proxy))
-                  lila.mon.security.proxy.result(proxy.value).increment()
+                  cache.put(ip.value, fuccess(proxy))
+                  lila.mon.security.proxy.result(proxy.name).increment()
         }
 
-  private val cache = cacheApi[IpAddress, IsProxy](32_768, "ip2proxy.ip"):
+  private val cache = cacheApi[String, IsProxy](32_768, "ip2proxy.ip"):
     _.expireAfterWrite(1 hour).buildAsyncFuture: ip =>
       ws
         .url(checkUrl)
-        .addQueryStringParameters("ip" -> ip.value)
+        .addQueryStringParameters("ip" -> ip)
         .get()
         .withTimeout(150.millis, "Ip2Proxy.fetch")
         .dmap(_.body[JsValue])
         .dmap(readProxyName)
         .monSuccess(_.security.proxy.request)
         .addEffect: result =>
-          lila.mon.security.proxy.result(result.value).increment()
-        .recoverDefault(IsProxy(none))
+          lila.mon.security.proxy.result(result.name).increment()
+        .recoverDefault(IsProxy.empty)
 
   private def readProxyName(js: JsValue): IsProxy = IsProxy:
-    (js \ "proxy_type").asOpt[String].filter(_ != "-")
+    (js \ "proxy_type").asOpt[String].filter(_ != "-") | ""

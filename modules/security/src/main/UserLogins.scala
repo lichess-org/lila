@@ -69,7 +69,7 @@ final class UserLoginsApi(
                 ip,
                 firewall blocksIp ip.value,
                 geoIP orUnknown ip.value,
-                IsProxy(proxies.get(ip.value)),
+                IsProxy(proxies.getOrElse(ip.value, "")),
                 Alts(othersByIp.getOrElse(ip.value, Set.empty)),
                 ipClients.getOrElse(ip.value, Set.empty)
               )
