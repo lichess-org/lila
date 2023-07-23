@@ -3,6 +3,8 @@ package lila.game
 import chess.*
 import chess.format.Uci
 import chess.format.pgn.SanStr
+import chess.bitboard.Bitboard
+import chess.bitboard.Board as BBoard
 
 import lila.db.ByteArray
 
@@ -24,7 +26,7 @@ private object PgnStorage:
 
   case object Huffman:
 
-    import org.lichess.compression.game.{ Encoder, Piece as JavaPiece, Role as JavaRole }
+    import org.lichess.compression.game.{ Encoder, Board as JavaBoard }
     import scala.jdk.CollectionConverters.*
 
     def encode(sans: Vector[SanStr]) =
@@ -33,6 +35,7 @@ private object PgnStorage:
           Encoder.encode(SanStr raw sans.toArray)
         }
       }
+
     def decode(bytes: ByteArray, plies: Ply, id: GameId): Decoded =
       monitor(_.game.pgn.decode("huffman")) {
         val decoded =
@@ -41,39 +44,39 @@ private object PgnStorage:
             case e: java.nio.BufferUnderflowException =>
               logger.error(s"Can't decode game $id PGN", e)
               throw e
-        val unmovedRooks: Set[Square] = decoded.unmovedRooks.asScala.view.map(Square.unsafe(_)).toSet
+        val unmovedRooks = UnmovedRooks(decoded.board.castlingRights)
         Decoded(
           sans = SanStr from decoded.pgnMoves.toVector,
-          pieces = decoded.pieces.asScala.view.map { (k, v) =>
-            Square.unsafe(k) -> chessPiece(v)
-          }.toMap,
+          board = chessBoard(decoded.board),
           positionHashes = PositionHash(decoded.positionHashes),
-          unmovedRooks = UnmovedRooks(unmovedRooks),
+          unmovedRooks = unmovedRooks,
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,
           castles = Castles(
-            whiteKingSide = unmovedRooks(Square.H1),
-            whiteQueenSide = unmovedRooks(Square.A1),
-            blackKingSide = unmovedRooks(Square.H8),
-            blackQueenSide = unmovedRooks(Square.A8)
+            whiteKingSide = unmovedRooks.contains(Square.H1),
+            whiteQueenSide = unmovedRooks.contains(Square.A1),
+            blackKingSide = unmovedRooks.contains(Square.H8),
+            blackQueenSide = unmovedRooks.contains(Square.A8)
           ),
           halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )
       }
 
-    private def chessRole(role: JavaRole): Role =
-      role match
-        case JavaRole.PAWN   => Pawn
-        case JavaRole.KNIGHT => Knight
-        case JavaRole.BISHOP => Bishop
-        case JavaRole.ROOK   => Rook
-        case JavaRole.QUEEN  => Queen
-        case JavaRole.KING   => King
-    private def chessPiece(piece: JavaPiece): Piece =
-      Piece(Color.fromWhite(piece.white), chessRole(piece.role))
+    private def chessBoard(b: JavaBoard): BBoard =
+      BBoard(
+        occupied = Bitboard(b.occupied),
+        white = Bitboard(b.white),
+        black = Bitboard(b.black),
+        pawns = Bitboard(b.pawns),
+        knights = Bitboard(b.knights),
+        bishops = Bitboard(b.bishops),
+        rooks = Bitboard(b.rooks),
+        queens = Bitboard(b.queens),
+        kings = Bitboard(b.kings)
+      )
 
   case class Decoded(
       sans: Vector[SanStr],
-      pieces: PieceMap,
+      board: BBoard,
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks,   // irrelevant after game ends
       lastMove: Option[Uci],
