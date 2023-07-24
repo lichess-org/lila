@@ -30,11 +30,9 @@ case class RelayGame(
     tags = tags.copy(value = tags.value.filter(_.name != Tag.Result))
   )
 
-  lazy val looksLikeLichess = tags(_.Site) exists { site =>
-    RelayGame.lichessDomains exists { domain =>
+  lazy val looksLikeLichess = tags(_.Site).exists: site =>
+    RelayGame.lichessDomains.exists: domain =>
       site startsWith s"https://$domain/"
-    }
-  }
 
 private object RelayGame:
 
@@ -58,14 +56,11 @@ private object RelayGame:
     )
     Iso[RelayGames, MultiPgn](
       gs =>
-        MultiPgn {
-          gs.view.map { g =>
-            Pgn(
-              tags = g.tags,
-              initial = InitialComments.empty,
-              lila.study.PgnDump.rootToTree(g.root)
-            ).render
-          }.toList
-        },
+        MultiPgn:
+          gs.view
+            .map: g =>
+              Pgn(g.tags, InitialComments.empty, lila.study.PgnDump.rootToTree(g.root)).render
+            .toList
+      ,
       mul => RelayFetch.multiPgnToGames(mul).toOption.get
     )

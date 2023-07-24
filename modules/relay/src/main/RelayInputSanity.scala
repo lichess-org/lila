@@ -28,10 +28,9 @@ private object RelayInputSanity:
         games.lift(relay.index) match
           case None => Fail.Missing(relay.index).some
           case Some(game) if !game.staticTagsMatch(chapter) =>
-            games.zipWithIndex collectFirst {
+            games.zipWithIndex.collectFirst:
               case (otherGame, otherPos) if otherGame staticTagsMatch chapter =>
                 Fail.Misplaced(otherPos, relay.index)
-            }
           case _ => None
       .headOption
 
