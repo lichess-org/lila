@@ -391,7 +391,7 @@
   <string name="reset">Restablecer</string>
   <string name="apply">Aplicar</string>
   <string name="save">Gardar</string>
-  <string name="leaderboard">Clasificación</string>
+  <string name="leaderboard">Lista de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
