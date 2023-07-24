@@ -60,7 +60,8 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if nbGames == 1 || game.looksLikeLichess then chapters find game.staticTagsMatch
+    if nbGames == 1 || game.looksLikeLichess
+    then chapters.find(c => game.staticTagsMatch(c.tags))
     else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(
