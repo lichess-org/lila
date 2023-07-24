@@ -66,8 +66,9 @@ final class Ip2ProxyServer(
         ips.flatMap(getCached).parallel flatMap { cached =>
           if cached.sizeIs == ips.size then fuccess(cached)
           else
+            val uncachedIps = ips.filterNot(cached.contains)
             ws.url(s"$checkUrl/batch")
-              .addQueryStringParameters("ips" -> ips.mkString(","))
+              .addQueryStringParameters("ips" -> uncachedIps.mkString(","))
               .get()
               .withTimeout(1 second, "Ip2Proxy.batch")
               .map:
@@ -75,12 +76,14 @@ final class Ip2ProxyServer(
                   _.map(readProxyName)
                 }
               .flatMap: res =>
-                if res.sizeIs == ips.size then fuccess(res)
-                else fufail(s"Ip2Proxy missing results for $ips -> $res")
+                if res.sizeIs == uncachedIps.size then fuccess(res)
+                else fufail(s"Ip2Proxy missing results for $uncachedIps -> $res")
               .addEffect:
-                _.zip(ips).foreach: (proxy, ip) =>
+                _.zip(uncachedIps).foreach: (proxy, ip) =>
                   cache.put(ip.value, fuccess(proxy))
                   lila.mon.security.proxy.result(proxy.name).increment()
+              .map: res =>
+                cached ++ res
         }
 
   private val cache = cacheApi[String, IsProxy](32_768, "ip2proxy.ip"):
