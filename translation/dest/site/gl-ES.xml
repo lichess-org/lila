@@ -168,7 +168,7 @@
   <string name="rememberMe">Manterme conectado</string>
   <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
   <string name="signUp">Rexistrarse</string>
-  <string name="computersAreNotAllowedToPlay">Non están permitidos os ordenadores ou os xogadores asistidos por eles. Por favor non te axudes de módulos de xadrez, bases de datos ou otros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión</string>
+  <string name="computersAreNotAllowedToPlay">Non están permitidos nin os ordenadores nin os xogadores asistidos por eles. Por favor, non te axudes de módulos de xadrez, bases de datos ou doutros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión.</string>
   <string name="games">Partidas</string>
   <string name="forum">Foro</string>
   <string name="xPostedInForumY">%1$s escribiu no fío %2$s</string>
