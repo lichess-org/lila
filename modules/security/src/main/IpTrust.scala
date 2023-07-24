@@ -4,19 +4,15 @@ import lila.common.IpAddress
 
 final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall):
 
-  def isSuspicious(ip: IpAddress): Fu[Boolean] =
+  private[security] def isSuspicious(ip: IpAddress): Fu[Boolean] =
     if firewallApi blocksIp ip then fuTrue
     else if torApi isExitNode ip then fuTrue
-    else
-      val location = geoApi orUnknown ip
-      if location == Location.unknown || location == Location.tor then fuTrue
-      else if isUndetectedProxy(location) then fuTrue
-      else proxyApi(ip).dmap(_.is)
+    else proxyApi(ip).dmap(_.is)
 
-  def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =
+  private[security] def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =
     isSuspicious(ipData.ip.value)
 
-  def data(ip: IpAddress): Fu[IpTrust.IpData] =
+  private def data(ip: IpAddress): Fu[IpTrust.IpData] =
     val location = geoApi orUnknown ip
     val tor      = torApi isExitNode ip
     proxyApi(ip).dmap(IpTrust.IpData(_, location, tor))
@@ -30,18 +26,6 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
       isSuspicious(ip).flatMap: susp =>
         val realCost = cost * (if susp then factor else 1)
         limiter[Fu[A]](ip, default, realCost, msg)(op)
-
-  /* lichess blacklist of proxies that ip2proxy doesn't know about */
-  private def isUndetectedProxy(location: Location): Boolean =
-    location.shortCountry == "Iran" ||
-      location.shortCountry == "United Arab Emirates" || (location match
-        case Location("Poland", _, Some("Subcarpathian Voivodeship"), Some("Stalowa Wola")) => true
-        case Location("Poland", _, Some("Lesser Poland Voivodeship"), Some("Krakow"))       => true
-        case Location("Russia", _, Some(region), Some("Ufa" | "Sterlitamak"))
-            if region contains "Bashkortostan" =>
-          true
-        case _ => false
-      )
 
 object IpTrust:
 

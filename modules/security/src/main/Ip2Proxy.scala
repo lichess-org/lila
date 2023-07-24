@@ -19,6 +19,7 @@ object IsProxy extends OpaqueString[IsProxy]:
     def is   = a.value.nonEmpty
     def name = a.value.nonEmpty option a.value
   def unapply(a: IsProxy): Option[String] = a.name
+  val tor                                 = IsProxy("TOR")
   val empty                               = IsProxy("")
 
 final class Ip2ProxySkip extends Ip2Proxy:
@@ -30,11 +31,20 @@ final class Ip2ProxySkip extends Ip2Proxy:
 final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
-    checkUrl: String
+    checkUrl: String,
+    tor: Tor
 )(using Executor, Scheduler)
     extends Ip2Proxy:
 
-  def apply(ip: IpAddress): Fu[IsProxy] = cache.get(ip.value)
+  def apply(ip: IpAddress): Fu[IsProxy] =
+    if tor.isExitNode(ip)
+    then fuccess(IsProxy.tor)
+    else cache.get(ip.value)
+
+  def getCached(ip: IpAddress): Option[Fu[IsProxy]] =
+    if tor.isExitNode(ip)
+    then fuccess(IsProxy.tor).some
+    else cache.getIfPresent(ip.value)
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] =
     batch(ips)
@@ -53,13 +63,13 @@ final class Ip2ProxyServer(
       case Nil     => fuccess(Seq.empty[IsProxy])
       case Seq(ip) => apply(ip).dmap(Seq(_))
       case ips =>
-        ips.flatMap(ip => cache.getIfPresent(ip.value)).parallel flatMap { cached =>
+        ips.flatMap(getCached).parallel flatMap { cached =>
           if cached.sizeIs == ips.size then fuccess(cached)
           else
             ws.url(s"$checkUrl/batch")
               .addQueryStringParameters("ips" -> ips.mkString(","))
               .get()
-              .withTimeout(3 seconds, "Ip2Proxy.batch")
+              .withTimeout(1 second, "Ip2Proxy.batch")
               .map:
                 _.body[JsValue].asOpt[Seq[JsObject]] so {
                   _.map(readProxyName)
