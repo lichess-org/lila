@@ -677,7 +677,7 @@
   <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reloxo por cada xogador que se una ás simultáneas.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo extra do anfitrión por cada xogador</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
-  <string name="tournamentFAQ">Preguntas frecuentes sobre torneos</string>
+  <string name="tournamentFAQ">Preguntas Frecuentes dos torneos Arena</string>
   <string name="timeBeforeTournamentStarts">Tempo antes de que o torneo comece</string>
   <string name="averageCentipawnLoss">Perda media de centipeóns</string>
   <string name="accuracy">Precisión</string>
