@@ -20,6 +20,7 @@ object IsProxy extends OpaqueString[IsProxy]:
     def name = a.value.nonEmpty option a.value
   def unapply(a: IsProxy): Option[String] = a.name
   val tor                                 = IsProxy("TOR")
+  val pub                                 = IsProxy("PUB")
   val empty                               = IsProxy("")
 
 final class Ip2ProxySkip extends Ip2Proxy:
