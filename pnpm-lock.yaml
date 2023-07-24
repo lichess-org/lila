@@ -491,7 +491,7 @@ importers:
         specifier: workspace:*
         version: link:../tree
       zerofish:
-        specifier: 0.0.2
+        specifier: ^0.0.3
         version: link:../../../zerofish
 
   ui/mod:

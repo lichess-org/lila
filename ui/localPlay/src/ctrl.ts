@@ -1,24 +1,23 @@
 import { LocalPlayOpts } from './interfaces';
 import { PromotionCtrl } from 'chess/promotion';
-import { prop, Prop } from 'common';
 import { makeFen } from 'chessops/fen';
-import { Chess, makeSquare, parseSquare } from 'chessops';
+import { Chess, makeSquare, parseSquare, opposite } from 'chessops';
 import makeZerofish, { Zerofish } from 'zerofish';
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import { Key } from 'chessground/types';
 
+type Player = 'human' | 'zero' | 'fish';
 export class Ctrl {
   promotion: PromotionCtrl;
-  ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
+  cg: CgApi;
   flipped = false;
   chess = Chess.default();
   zf: { white: Zerofish; black: Zerofish };
-  whiteEl: Cash;
-  blackEl: Cash;
+  players: { white: Player; black: Player } = { white: 'human', black: 'fish' };
 
   constructor(readonly opts: LocalPlayOpts, readonly redraw: () => void) {
-    this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
+    this.promotion = new PromotionCtrl(f => f(this.cg), this.setGround, this.redraw);
     Promise.all([makeZerofish(), makeZerofish()]).then(([wz, bz]) => {
       this.zf ??= { white: wz, black: bz };
     });
@@ -27,12 +26,11 @@ export class Ctrl {
   dropHandler(color: 'white' | 'black', el: HTMLElement) {
     const $el = $(el);
     $el.on('dragenter dragover dragleave drop', e => {
-      console.log('gibbins');
       e.preventDefault();
       e.stopPropagation();
     });
-    $el.on('dragenter dragover', e => $(e.eventTarget).addClass('hilite'));
-    $el.on('dragleave drop', e => $(e.eventTarget).removeClass('hilite'));
+    $el.on('dragenter dragover', _ => $el.addClass('hilite'));
+    $el.on('dragleave drop', _ => $el.removeClass('hilite'));
     $el.on('drop', e => {
       const reader = new FileReader();
       const weights = e.dataTransfer.files.item(0) as File;
@@ -43,13 +41,17 @@ export class Ctrl {
   setZero(color: 'white' | 'black', f: File, data: Uint8Array) {
     this.zf[color].setZeroWeights(data);
     $(`#${color}`).text(f.name);
+    this.players[color] = 'zero';
+    if (this.players[opposite(color)] !== 'human') $('#go').removeClass('disabled');
   }
   go() {
     //const numTimes = parseInt($('#num-games').val() as string) || 1;
     this.chess.reset();
-    this.zf.white.goZero(makeFen(this.chess.toSetup())).then(m => {
-      this.apiMove(m);
-    });
+    this.cg.set({ fen: makeFen(this.chess.toSetup()) });
+    console.log(makeFen(this.chess.toSetup()));
+    this.zf.white.reset();
+    this.zf.black.reset();
+    this.botMove();
   }
   getCgOpts = (): CgConfig => {
     const cgDests = new Map(
@@ -69,55 +71,55 @@ export class Ctrl {
     };
   };
 
-  withGround = <A>(f: (cg: CgApi) => A): A | false => {
-    const g = this.ground();
-    return g && f(g);
-  };
-
   apiMove = (uci: Uci) => {
-    console.log('apiMove', uci);
-    console.log(`apiMove ${uci} by ${this.chess.turn}`);
     this.chess.play({ from: parseSquare(uci.slice(0, 2))!, to: parseSquare(uci.slice(2))! });
-    console.log('apiMove after', this.chess.turn);
-    this.withGround(g => {
-      g.move(uci.slice(0, 2) as Key, uci.slice(2) as Key);
-      g.set({
-        turnColor: this.chess.turn,
-        /*movable: {
-          dests: new Map(
-            [...this.chess.allDests()].map(
-              ([s, ds]) => [makeSquare(s), [...ds].map(d => makeSquare(d))] as [Key, Key[]]
-            )
-          ),
-        },*/
-      });
+    this.cg.move(uci.slice(0, 2) as Key, uci.slice(2) as Key);
+    this.cg.set({
+      turnColor: this.chess.turn,
+      movable: {
+        dests: new Map(
+          [...this.chess.allDests()].map(
+            ([s, ds]) => [makeSquare(s), [...ds].map(d => makeSquare(d))] as [Key, Key[]]
+          )
+        ),
+      },
+      check: this.chess.isCheck(),
     });
     this.redraw();
-    setTimeout(() => {
-      console.log('calling makeZero');
-      this.zf[this.chess.turn]
-        .goZero(makeFen(this.chess.toSetup()))
-        .then(m => {
-          console.log('makeZero returned', m);
-          this.apiMove(m);
-        })
-        .catch(e => console.log('makeZero error', e));
-    });
+    if (this.chess.isEnd()) {
+      console.log('game over');
+      return;
+    }
+    if (this.players[this.chess.turn] === 'human') return;
+    setTimeout(() => this.botMove());
   };
 
   userMove = (orig: Key, dest: Key) => {
     this.chess.play({ from: parseSquare(orig)!, to: parseSquare(dest)! });
-
-    /*this.zf.goFish(makeBoardFen(this.chess.board), { depth: 10 }).then(m => {
-      this.apiMove(m[0].moves[0]);
-    });*/
+    if (this.chess.isEnd()) {
+      console.log('game over');
+      return;
+    }
+    this.botMove();
   };
 
+  botMove() {
+    if (this.players[this.chess.turn] === 'human') return;
+    if (this.players[this.chess.turn] === 'zero') {
+      this.zf[this.chess.turn].goZero(makeFen(this.chess.toSetup())).then(m => {
+        this.apiMove(m);
+      });
+    } else {
+      this.zf[this.chess.turn].goFish(makeFen(this.chess.toSetup()), { depth: 10 }).then(pvs => {
+        this.apiMove(pvs[0].moves[0]);
+      });
+    }
+  }
   flip = () => {
     this.flipped = !this.flipped;
-    this.withGround(g => g.toggleOrientation());
+    this.cg.toggleOrientation();
     this.redraw();
   };
 
-  private setGround = () => this.withGround(g => g.set(this.getCgOpts()));
+  private setGround = () => this.cg.set(this.getCgOpts());
 }
