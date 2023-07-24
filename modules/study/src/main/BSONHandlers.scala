@@ -323,8 +323,8 @@ object BSONHandlers {
   implicit val ChapterBSONHandler         = Macros.handler[Chapter]
   implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
 
-  implicit val PositionRefBSONHandler = tryHandler[Position.Ref](
-    { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },
+  implicit val PositionRefBSONHandler = quickHandler[Position.Ref](
+    { case BSONString(v) => Position.Ref.decode(v) },
     x => BSONString(x.encode)
   )
   implicit val StudyMemberRoleBSONHandler = tryHandler[StudyMember.Role](
