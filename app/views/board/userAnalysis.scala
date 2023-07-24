@@ -6,7 +6,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.rating.PerfType.iconByVariant
 import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
@@ -54,10 +53,10 @@ object userAnalysis {
         pov.game.synthetic option st.aside(cls := "analyse__side")(
           views.html.base.bits.mselect(
             "analyse-variant",
-            span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(variantName(pov.game.variant)),
+            span(cls := "text", dataIcon := variantIcon(pov.game.variant))(variantName(pov.game.variant)),
             shogi.variant.Variant.all.map { v =>
               a(
-                dataIcon := iconByVariant(v),
+                dataIcon := variantIcon(v),
                 cls      := (pov.game.variant == v).option("current"),
                 href     := routes.UserAnalysis.parseArg(v.key)
               )(variantName(v))
