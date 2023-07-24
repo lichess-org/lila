@@ -11,7 +11,6 @@
   <string name="whyIsLilaCalledLila">بە هەمان شێوە، کۆدی سەرچاوەی Lichess، %1$s، کورتکراوەی li[chess in sca]la، بەو پێیەی بەشێکی زۆری Lichess بە %2$s نووسراوە، کە زمانێکی بەرنامەسازییە</string>
   <string name="howCanIContributeToLichess">چۆن دەتوانم بەشداری بکەم لە لیچێس؟</string>
   <string name="lichessPoweredByDonationsAndVolunteers">لیچێس بە بەخشینەکانی خاوەنکارەکان و هەوڵەکانی تیمێکی خۆبەخشەکان بەهێز دەکرێت.</string>
-  <string name="findMoreAndSeeHowHelp">دەتوانیت زیاتر دەربارەی %1$s بزانیت (لەوانەش %2$s). ئەگەر دەتەوێت یارمەتی لیچێس بدەیت بە خۆبەخشی کات و لێهاتووییەکانت، ئەوا %3$ زۆرە.</string>
   <string name="beingAPatron">پشتگیریمان بکە</string>
   <string name="breakdownOfOurCosts">تێکچوونی تێچوەکانی ئێمە</string>
   <string name="otherWaysToHelp">ڕێگەکانی تر بۆ یارمەتیدان</string>
@@ -54,7 +53,6 @@
 لە حاڵەتە دەگمەنەکاندا ئەمە دەتوانێت قورس بێت کە بڕیار بدرێت بە شێوەیەکی ئۆتۆماتیکی (هێڵی زۆرەملێ، قەڵا). بە شێوازی پێشوەختە هەمیشە لایەنگری ئەو یاریزانە دەبین کە کاتەکەی تەواو نەبووە.
 
 سەرنج بدەن کە دەتوانرێت لەگەڵ ئەسپ یان فیل جووت بکرێت ئەگەر بەرامبەرەکە پارچەیەکی هەبێت کە بتوانێت ڕێگری لە پاشا بکات.</string>
-  <string name="fideHandbookX">ئیسپاتی یەکێتی نێو دەولەتی شەترەنج FIDE</string>
   <string name="discoveringEnPassant">بۆچی ئوتوانم سەربازێک بخۆم لە کاتێکا لە من دەرچوەو لە تەنیشتم نیە( خواردن بە تێپەریو)</string>
   <string name="goodIntroduction">پێشەکییەکی باش</string>
   <string name="lichessTraining">ڕاھێنان لە لیچێس</string>
