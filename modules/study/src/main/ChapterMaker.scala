@@ -3,8 +3,11 @@ package lila.study
 import shogi.format.Tags
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
+
+import lila.common.String.shorten
 import lila.game.{ Game, Namer }
 import lila.user.User
+import lila.tree.Node.{ Comment, Comments }
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,
@@ -38,9 +41,32 @@ final private class ChapterMaker(
   ): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- NotationImport(notation, contributors.flatten).toFuture recoverWith { case e: Exception =>
-        fufail(ValidationException(e.getMessage))
-      }
+      // do better later
+      parsed <- fuccess(
+        NotationImport(notation, contributors.flatten).valueOr { err =>
+          NotationImport.Result(
+            root = Node.Root(
+              ply = 0,
+              sfen = Variant.default.initialSfen,
+              check = false,
+              gameMainline = none,
+              children = Node.emptyChildren,
+              comments = Comments(
+                List(
+                  Comment(
+                    Comment.Id.make,
+                    Comment.Text(shorten(err, 64)),
+                    Comment.Author.Lishogi
+                  )
+                )
+              )
+            ),
+            variant = Variant.default,
+            tags = Tags.empty,
+            end = None
+          )
+        }
+      )
     } yield Chapter.make(
       studyId = study.id,
       name = parsed.tags(_.Sente).flatMap { sente =>
@@ -158,8 +184,6 @@ final private class ChapterMaker(
 }
 
 private[study] object ChapterMaker {
-
-  case class ValidationException(message: String) extends lila.base.LilaException
 
   sealed trait Mode {
     def key = toString.toLowerCase

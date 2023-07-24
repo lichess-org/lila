@@ -606,10 +606,8 @@ final class StudyApi(
                         _.filter(_.isEmptyInitial) ?? chapterRepo.delete
                       }
                     } >> doAddChapter(study, chapter, sticky, who)
-                  } addFailureEffect {
-                    case ChapterMaker.ValidationException(error) =>
-                      sendTo(study.id)(_.validationError(error, who.sri))
-                    case u => logger.error(s"StudyApi.addChapter to $studyId", u)
+                  } addFailureEffect { case u =>
+                    logger.error(s"StudyApi.addChapter to $studyId", u)
                   }
                 }
             }
