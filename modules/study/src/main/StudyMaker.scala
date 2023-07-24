@@ -141,12 +141,11 @@ final private class StudyMaker(
 
   // studies are limited to 400 nodes, split longer games into multiple roots
   private def makeRoots(pov: Pov): List[Node.Root] = {
-    val nodeLimit = chapterNodeLimit(pov)
-    val usiMovesList =
-      if (pov.game.usiMoves.nonEmpty)
+    val nodeLimit    = chapterNodeLimit(pov)
+    val usiMovesList = if (pov.game.usiMoves.nonEmpty)
         pov.game.usiMoves.grouped(nodeLimit)
       else Iterator(Vector.empty[shogi.format.usi.Usi])
-    val clocks = makeClocks(pov).map(_.grouped(nodeLimit).toVector)
+    val clocks       = makeClocks(pov).map(_.grouped(nodeLimit).toVector)
     usiMovesList
       .foldLeft(List.empty[Node.Root]) { case (acc, cur) =>
         val gm = Node.GameMainline(
