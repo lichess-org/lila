@@ -2,9 +2,9 @@
 <resources>
 	<string name="preferences">Sửa giao diện</string>
 	<string name="gameDisplay">Hiển thị ván cờ</string>
-	<string name="boardLayout">Board layout</string>
+	<string name="boardLayout">Chỉnh sửa bàn cờ</string>
 	<string name="clearHands">Ẩn ảnh ảo các quân trên tay</string>
-	<string name="handsBackground">Show background behind pieces in hand</string>
+	<string name="handsBackground">Hiện ảnh nền sau quân trên tay</string>
 	<string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
 	<string name="materialDifference">Khác chất</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
@@ -44,6 +44,6 @@
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
-	<string name="kifNotation">Kif notation</string>
+	<string name="kifNotation">Kí hiệu trẻ em</string>
 	<string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
 </resources>

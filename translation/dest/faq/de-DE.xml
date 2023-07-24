@@ -34,7 +34,7 @@ Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 * 60 
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lishogi spielen?</string>
-	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi unterstützt Standard-Shogi und %1$s.</string>
 	<string name="whatIsACPL">Was ist \"durchschnittlicher Centipawn-Verlust\"/ACPL?</string>
 	<string name="acplExplanation">Der Zentibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Zentibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Zentibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
 
@@ -47,7 +47,7 @@ Die Computeranalyse wird auf Lishogi von Stockfish durchgeführt.</string>
 	<string name="goodIntroduction">guten ersten Eindruck</string>
 	<string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
 	<string name="lishogiTraining">Lishogi-Training</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">Dreifache Stellungswiederholung</string>
 	<string name="handBookPDF">Handbuch (pdf)</string>
 	<string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie immer noch durch Stellungswiederholung Remis erklärt?</string>
 	<string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>

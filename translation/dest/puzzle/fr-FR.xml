@@ -49,17 +49,17 @@
   <string name="addAnotherTheme">Ajouter un autre thème</string>
   <string name="jumpToNextPuzzleImmediately">Passer immédiatement au problème suivant</string>
   <string name="puzzleDashboard">Tableau de bord des problèmes</string>
-  <string name="puzzleDashboardSubtitle">Train, analyse, improve</string>
+  <string name="puzzleDashboardSubtitle">S\'entraîner, analyser, s\'améliorer</string>
   <string name="improvementAreas">Aspects à améliorer</string>
   <string name="improvementAreasSubtitle">Train these to optimize your progress!</string>
   <string name="strengths">Points forts</string>
-  <string name="strengthsSubtitle">You perform the best in these themes</string>
+  <string name="strengthsSubtitle">Vous réussissez mieux avec ces thèmes</string>
   <string name="history">Historique des problèmes</string>
   <string name="solved">résolu</string>
   <string name="failed">échoué</string>
-  <string name="fromMyGames">From my games</string>
-  <string name="lookupOfPlayer">Lookup puzzles from a player\'s games</string>
+  <string name="fromMyGames">De vos parties</string>
+  <string name="lookupOfPlayer">Regarder des puzzles à partir d\'un joueur</string>
   <string name="fromXGames">Puzzles from %s\' games</string>
-  <string name="searchPuzzles">Search puzzles</string>
-  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
+  <string name="searchPuzzles">Rechercher des problèmes</string>
+  <string name="fromXGamesFound">%1$s Problèmes trouvés dans %2$s parties</string>
 </resources>

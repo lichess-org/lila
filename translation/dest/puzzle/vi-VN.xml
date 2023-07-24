@@ -47,17 +47,17 @@
   <string name="addAnotherTheme">Thêm chủ đề khác</string>
   <string name="jumpToNextPuzzleImmediately">Chuyển tới câu đố tiếp theo ngay lập tức</string>
   <string name="puzzleDashboard">Bảng điều khiển câu đố</string>
-  <string name="puzzleDashboardSubtitle">Train, analyse, improve</string>
+  <string name="puzzleDashboardSubtitle">Đào tạo, phân tích, cải thiện</string>
   <string name="improvementAreas">Điều cần cải thiện</string>
-  <string name="improvementAreasSubtitle">Train these to optimize your progress!</string>
+  <string name="improvementAreasSubtitle">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
   <string name="strengths">Sức cờ</string>
-  <string name="strengthsSubtitle">You perform the best in these themes</string>
+  <string name="strengthsSubtitle">Bạn thể hiện tốt nhất ở những chiến thuật này</string>
   <string name="history">Lịch sử câu đố</string>
   <string name="solved">đã giải</string>
   <string name="failed">đã thất bại</string>
-  <string name="fromMyGames">From my games</string>
-  <string name="lookupOfPlayer">Lookup puzzles from a player\'s games</string>
-  <string name="fromXGames">Puzzles from %s\' games</string>
-  <string name="searchPuzzles">Search puzzles</string>
-  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
+  <string name="fromMyGames">Từ ván đấu của tôi</string>
+  <string name="lookupOfPlayer">Tìm cờ thế từ ván đấu của người khác</string>
+  <string name="fromXGames">Thế cờ từ ván cờ %s</string>
+  <string name="searchPuzzles">Tìm thế cờ</string>
+  <string name="fromXGamesFound">%1$s tìm được trong %2$s ván đấu</string>
 </resources>

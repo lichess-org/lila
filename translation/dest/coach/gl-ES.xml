@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Adestradores de Lishogi</string>
+	<string name="lishogiCoach">Adestrador de Lishogi</string>
+	<string name="areYouCoach">Es un grande adestrador de shogi cun %s?</string>
+	<string name="becomeACoach">Es un grande adestrador de shogi con experiencia e queres ser incluído en Lishogi?</string>
+	<string name="nmOrFideTitle">título</string>
+	<string name="confirmTitle">Confirma o teu título e revisaremos a túa solicitude.</string>
+	<string name="sendApplication">Envíamos un correo a %s e revisaremos a túa solicitude.</string>
+	<string name="location">Localización</string>
+	<string name="languages">Idiomas</string>
+	<string name="rating">Puntuación</string>
+	<string name="hourlyRate">Tarifa por hora</string>
+	<string name="availability">Dispoñibilidade</string>
+	<string name="accepting">Acepta estudantes</string>
+	<string name="notAccepting">Non acepta estudantes neste momento</string>
+	<string name="xCoachesStudents">%s adestra a estudantes de shogi</string>
+	<string name="viewXProfile">Ver o perfil de %s</string>
+	<string name="sendPM">Enviar mensaxe privada</string>
+	<string name="aboutMe">Sobre min</string>
+	<string name="playingExperience">Experiencia como xogador</string>
+	<string name="teachingExperience">Experiencia como adestrador</string>
+	<string name="otherExperiences">Outras experiencias</string>
+	<string name="bestSkills">Mellores habilidades</string>
+	<string name="teachingMethod">Metodoloxía de adestramento</string>
+	<string name="publicStudies">Estudos públicos</string>
+	<string name="youtubeVideos">Vídeos do YouTube</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Unha revisión dos estudantes</item>
+		<item quantity="other">%s revisións dos estudantes</item>
+	</plurals>
+	<string name="thankYouForReview">Gracias pola revisión!</string>
+	<string name="xWillApproveIt">%s vaina aprobar deseguido ou un moderador botaralle unha ollada.</string>
+	<string name="reviewCoach">Revisa a este adestrador</string>
+	<string name="describeExperienceWith">Describe a túa experiencia de adestramento con %s</string>
+</resources>

@@ -65,7 +65,7 @@
   <string name="joiningPawn">Joining pawn</string>
   <string name="joiningPawnDescription">A tactic in which a pawn is sacrificially dropped in front of opponent\'s piece.</string>
   <string name="dancingPawns">Dancing pawns</string>
-  <string name="dancingPawnsDescription">A tactic to capture opponent\'s gold with sacrificing a pawn.</string>
+  <string name="dancingPawnsDescription">Eine Taktik, um den Goldgeneral deines Gegners zu schlagen, ist, einen Bauern zu opfern.</string>
   <string name="edgeAttack">Randangriff</string>
   <string name="edgeAttackDescription">A tactic involving attacking opponent\'s first or ninth file.</string>
   <string name="veryLong">Sehr lange Aufgabe</string>

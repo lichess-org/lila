@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Crebacabezas</string>
+  <string name="puzzleThemes">Temas de crebacabezas</string>
+  <string name="recommended">Recomendados</string>
+  <string name="phases">Fases do xogo</string>
+  <string name="motifs">Motivos</string>
+  <string name="advanced">Avanzados</string>
+  <string name="lengths">Duración</string>
+  <string name="mates">Mates</string>
+  <string name="goals">Obxectivos</string>
+  <string name="origin">Fonte</string>
+  <string name="specialMoves">Movementos especiais</string>
+  <string name="didYouLikeThisPuzzle">Gustouche este crebacabezas?</string>
+  <string name="voteToLoadNextOne">Vota para cargar o seguinte!</string>
+  <string name="yourPuzzleRatingX">A túa puntuación de crebacabezas: %s</string>
+  <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Atopa a mellor xogada para %s.</string>
+  <string name="toGetPersonalizedPuzzles">Para obter crebacabezas personalizados:</string>
+  <string name="puzzleId">Crebacabezas %s</string>
+  <string name="puzzleOfTheDay">Crebacabezas do día</string>
+  <string name="clickToSolve">Fai clic para resolver</string>
+  <string name="goodMove">Boa xogada</string>
+  <string name="bestMove">A mellor xogada!</string>
+  <string name="keepGoing">Continúa…</string>
+  <string name="puzzleSuccess">Éxito!</string>
+  <string name="puzzleComplete">Crebacabezas rematado!</string>
+  <string name="notTheMove">Esa non é a xogada!</string>
+  <string name="trySomethingElse">Proba outra cousa.</string>
+  <string name="ratingX">Puntuación: %s</string>
+  <string name="hidden">oculta</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Xogado %s vez</item>
+    <item quantity="other">Xogado %s veces</item>
+  </plurals>
+  <plurals name="xMovesLeft">
+    <item quantity="one">%s movemento restante</item>
+    <item quantity="other">%s movementos restantes</item>
+  </plurals>
+  <string name="fromGameLink">Da partida %s</string>
+  <string name="puzzleSource">Fonte: %s</string>
+  <string name="continueTraining">Continuar o adestramento</string>
+  <string name="difficultyLevel">Nivel de dificultade</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Máis fácil</string>
+  <string name="easiest">O máis fácil</string>
+  <string name="harder">Máis difícil</string>
+  <string name="hardest">O máis difícil</string>
+  <string name="example">Exemplo</string>
+  <string name="addAnotherTheme">Engadir outro tema</string>
+  <string name="jumpToNextPuzzleImmediately">Ir ó seguinte crebacabezas inmediatamente</string>
+  <string name="puzzleDashboard">Panel de crebacabezas</string>
+  <string name="puzzleDashboardSubtitle">Adestra, analiza, mellora</string>
+  <string name="improvementAreas">Áreas de mellora</string>
+  <string name="improvementAreasSubtitle">Adestra nestes temas para progresar!</string>
+  <string name="strengths">Puntos fortes</string>
+  <string name="strengthsSubtitle">Estas son as áreas nas que es máis forte</string>
+  <string name="history">Historial de crebacabezas</string>
+  <string name="solved">resolto</string>
+  <string name="failed">fallado</string>
+  <string name="fromMyGames">Das miñas partidas</string>
+  <string name="lookupOfPlayer">Busca crebacabezas nas partidas dun xogador</string>
+  <string name="fromXGames">Crebacabezas das partidas de %s</string>
+  <string name="searchPuzzles">Buscar crebacabezas</string>
+  <string name="fromXGamesFound">%1$s crebacabezas atopados nas partidas de %2$s</string>
+</resources>

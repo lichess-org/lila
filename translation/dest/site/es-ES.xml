@@ -252,7 +252,7 @@
 	<string name="play">Jugar</string>
 	<string name="inbox">Mensajes</string>
 	<string name="streamerManager">Gestor de transmisiones en directo</string>
-	<string name="coachManager">Coach manager</string>
+	<string name="coachManager">Gestor de entrenadores</string>
 	<string name="chatRoom">Sala de chat</string>
 	<string name="loginToChat">Inicia sesión para chatear</string>
 	<string name="youHaveBeenTimedOut">Has sido silenciado temporalmente.</string>
@@ -675,7 +675,7 @@
 	<string name="simulDescription">Descripción del simultaneo</string>
 	<string name="anythingTellParticipants">¿Algo que quiera decirle a los participantes?</string>
 	<string name="lishogiTournaments">Torneos de Lishogi</string>
-	<string name="tournamentShields">Tournament shields</string>
+	<string name="tournamentShields">Escudos de torneo</string>
 	<string name="tournamentFAQ">Preguntas frecuentes de los torneos</string>
 	<string name="tournamentOfficial">Oficial</string>
 	<string name="timeBeforeTournamentStarts">Tiempo antes de que comience el torneo</string>
@@ -928,14 +928,14 @@
 	<string name="challengeDeclined">Desafío rechazado</string>
 	<string name="challengeAccepted">Desafío aceptado</string>
 	<string name="challengeCanceled">Desafío cancelado</string>
-	<string name="openChallenge" comment="A challenge that any 2 players can join">Open challenge</string>
-	<string name="challengeDescription">Join the challenge or watch the game</string>
-	<string name="challengeFromX" comment="From username">Challenge from %s</string>
-	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s challenges %2$s</string>
-	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
-	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
-	<string name="clickGame">Click to replay, analyse, and discuss the game!</string>
-	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
-	<string name="back" comment="As in: go back">Back</string>
-	<string name="preview">Preview</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Abre el desafío</string>
+	<string name="challengeDescription">Únete al desafío o ve la partida</string>
+	<string name="challengeFromX" comment="From username">%s te desafía</string>
+	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s desafía a %2$s</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Pulsa %s para activar el teclado</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Pulsa %s para enviar</string>
+	<string name="clickGame">¡Haz clic para reproducir, analizar y discutir la partida!</string>
+	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analizar</string>
+	<string name="back" comment="As in: go back">Volver</string>
+	<string name="preview">Vista previa</string>
 </resources>

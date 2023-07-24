@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Coordenadas</string>
+	<string name="coordinateTraining">Adestramento de coordenadas</string>
+	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Puntuación media con %1$s: %2$s</string>
+	<string name="knowingTheShogiBoard">Coñecer as coordenadas do taboleiro de shogi é unha habilidade moi importante:</string>
+	<string name="mostShogiCourses">Todos os cursos e exercicios de shogi empregan algún tipo de notación. Podes escoller entre a notación xaponesa ou a occidental.</string>
+	<string name="talkToYourShogiFriends">Isto facilita a comunicación con outros xogadores, xa que todos entendedes a \"linguaxe do shogi\".</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Podes analizar unha partida con máis eficacia se recoñeces con rapidez as coordenadas.</string>
+	<string name="aSquareNameAppears">Unhas coordenadas aparecen no taboleiro e debes facer clic no cadro correspondente. Tes 30 segundos para marcar correctamente tantos cadros como sexa posible!</string>
+	<string name="startTraining">Comezar o adestramento</string>
+</resources>

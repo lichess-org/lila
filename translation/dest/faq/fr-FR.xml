@@ -30,11 +30,11 @@
 	<string name="howBulletBlitzEtcDecided">Comment sont décidés les bullet, blitz et autres cadences ?</string>
 	<string name="basedOnGameDuration">Les contrôles de temps de lishogi sont basés sur la durée estimée du jeu = %1$s
 Par exemple, la durée estimée d\'un jeu 5+3|4 est de 60 x 5 + 60 × 3 + 25 x 4 = 580 secondes.</string>
-	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
+	<string name="formulaOfDuration">60 x (temps initial de la pendule en minutes) + 60 x (incrément de la pendule) + 25 x (Byoyomi de la pendule) x (Périodes de la pendule)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Quelles variantes puis-je jouer sur Lishogi ?</string>
-	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supporte le shogi standard et %1$s</string>
 	<string name="whatIsACPL">Quelle est la perte moyenne de centipions (ACPL) ?</string>
 	<string name="acplExplanation">Le centipion est l\'unité de mesure utilisée aux échecs comme représentation de l\'avantage. Un centipion est égal à 1/100ème d\'un pion. Donc 100 centipions = 1 pion. Ces valeurs ne jouent aucun rôle formel dans le jeu mais sont utiles aux joueurs, et essentielles aux échecs informatiques, pour évaluer les positions.
 

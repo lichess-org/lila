@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="learnShogi">Aprende shogi</string>
+	<string name="byPlaying">xogando!</string>
+	<string name="menu">Menú</string>
+	<string name="progressX">Progreso: %s</string>
+	<string name="resetMyProgress">Reiniciar o meu progreso</string>
+	<string name="youWillLoseAllYourProgress">Perderás todo o teu progreso!</string>
+	<string name="play">xogar!</string>
+	<string name="shogiPieces">Pezas do shogi</string>
+	<string name="theIntroduction">Introdución</string>
+	<string name="introBasics">Aprendamos algúns conceptos básicos.</string>
+	<string name="introIntro">O teu viaxe comeza aquí.</string>
+	<string name="clickHereAfterYouveChosen">Fai clic aquí despois de elixir o deseño de pezas que che guste.</string>
+	<string name="choosePieceDesign">É importante que saibas distinguir as pezas, así que asegúrate de escoller o conxunto de pezas axeitado.
+Para facelo, preme na engrenaxe ou no teu nome de usuario (recanto superior dereito) e logo pulsa en \"Estilo das pezas\".</string>
+	<string name="promotionZone">Cando algunhas das túas pezas chegan ou saen das tres primeiras ringleiras do territorio do teu rival, podes escoller coroar a túa peza e facela máis forte.</string>
+	<string name="senteGoesFirst">No shogi o xogador que move primeiro chámase sente e o que move segundo, gote. Sente ás veces represéntase coa cor negra e gote coa cor branca. Fai calquera xogada con sente para continuar.</string>
+	<string name="introComplete">Xa sabes os conceptos básicos, pero este titorial aínda está en construción. Polo de agora aprende como moven as pezas individuais.</string>
+	<string name="introCompleteTwo">Xa sabes os conceptos básicos! Agora aprende como moven as pezas individuais.</string>
+	<string name="theRook">A torre</string>
+	<string name="itMovesInStraightLines">Move en liña recta</string>
+	<string name="rookIntro">A torre é unha peza poderosa. Estás preparado para dirixila?</string>
+	<string name="rookGoal">Preme na torre para levala ata a estrela!</string>
+	<string name="grabAllTheStarsRemember">Recolle todas as estrelas! Lembra mirar fóra do taboleiro.</string>
+	<string name="rookPromotion">A torre coroa como o poderoso dragón. Non esquezas que tamén podes coroar as pezas que saen da zona de promoción</string>
+	<string name="rookSummary">A torre pode mover cara arriba, abaixo, dereita ou esquerda todo o que queira.</string>
+	<string name="dragonSummary">Móvese igual cá torre sen coroar, pero tamén un cadro en calquera diagonal, facendo que sexa moito máis forte.</string>
+	<string name="dragonSummaryTwo">O dragón móvese igual cá torre sen coroar, pero tamén un cadro en calquera diagonal, facendo que sexa moito máis forte.</string>
+	<string name="grabAllTheStars">Recolle todas as estrelas!</string>
+	<string name="theFewerMoves">Cantos menos movementos fagas, máis puntos gañas!</string>
+	<string name="rookComplete">Parabéns! Dominaches con éxito a torre.</string>
+	<string name="theBishop">O bispo</string>
+	<string name="itMovesDiagonally">Move en diagonal</string>
+	<string name="bishopIntro">Deseguido imos aprender como manexar o bispo!</string>
+	<string name="ehThereIsNoPiece">Eh? Non hai pezas en xogo... pero mira fóra do taboleiro, un bispo! Este é o lugar onde van as pezas que capturaches. Agora podes guindar a peza no taboleiro. Coma sempre, recolle todas as estrelas.</string>
+	<string name="bishopPromotion">Coroares o teu alfil fará que sexa máis forte, converterase nunha peza chamada \"o cabalo\".</string>
+	<string name="bishopSummary">O bispo móvese en calquera dirección diagonal.</string>
+	<string name="horseSummary">O bispo coroado tamén move en diagonal, pero ademais pode ir un cadro arriba, abaixo, á dereita ou á esquerda.</string>
+	<string name="bishopComplete">Parabéns! Podes comandar un bispo.</string>
+	<string name="theKing">O rei</string>
+	<string name="theMostImportantPiece">A peza máis importante</string>
+	<string name="kingIntro">Ti es o rei. Se caes na batalla, o xogo está perdido.</string>
+	<string name="theKingIsSlow">O rei é máis ben lento.</string>
+	<string name="kingSummary">O rei pode mover en calquera dirección, pero só unha casa.</string>
+	<string name="kingComplete">Agora podes comandar o comandante!</string>
+	<string name="theKnight">O cabaleiro</string>
+	<string name="itMovesInAnLShape">Move en forma de L, pero só CARA DIANTE!</string>
+	<string name="knightIntro">Aquí hai outro reto para ti. O cabaleiro é... unha peza complicada.</string>
+	<string name="knightsHaveAFancyWay">Os cabaleiros teñen unha forma extravagante
+de ir dando chimpos!</string>
+	<string name="knightsCanJumpOverObstacles">Os cabaleiros poden saltar por riba dos obstáculos!</string>
+	<string name="knightSummary">O cabaleiro pode saltar en forma de L, pero só dúas casas cara diante e unha casa de lado. O seu movemento non está restrinxido polas outras pezas — simplemente chimpa sobre elas.</string>
+	<string name="pknightSummary">O cabaleiro coroado move de xeito completamente distinto. Repara en que se despraza igual có xeneral de ouro, así que estuda en profundidade os movementos desta última peza.</string>
+	<string name="knightPromotion">O cabaleiro tamén pode coroar. Os seus movementos cambian moito tras facelo, polo que debes prestar atención.</string>
+	<string name="knightComplete">Parabéns! Manexas o cabaleiro coma un mestre.</string>
+	<string name="thePawn">O peón</string>
+	<string name="itMovesForwardOnly">Camiña cara diante!</string>
+	<string name="pawnIntro">Os peóns son febles, pero gardan unha chea de potencial.</string>
+	<string name="pawnsMoveOneSquareOnly">Os peóns só moven á casa que está directamente diante deles. Capturan do mesmo xeito.</string>
+	<string name="pawnPromotion">O peón tamén coroa e, cando o fai, móvese igual ca un xeneral de ouro.</string>
+	<string name="pawnComplete">Parabéns! Os peóns non teñen segredos para ti.</string>
+	<string name="pawnSummary">O peón é unha peza moi sinxela de entender.</string>
+	<string name="tokinSummary">Xa deberías estar familiarizado con este patrón.</string>
+	<string name="theLance">A lanza</string>
+	<string name="itMovesStraightForward">Só move cara diante.</string>
+	<string name="lanceIntro">Úsao con sabedoría.</string>
+	<string name="lancesAreStraighforward">Só tes que movelo cara diante tanto como queiras. Isto ten que ser fácil para ti.</string>
+	<string name="lancePromotion">Unha vez que coroa, cambian os seus movementos; claro que xa oíches falar disto — move igual ca un xeneral de ouro.</string>
+	<string name="lanceSummary">Move cara diante. Isto é moi fácil.</string>
+	<string name="planceSummary">É o mesmo có xeneral de ouro.</string>
+	<string name="planceSummaryTwo">A lanza coroada move igual có xeneral de ouro.</string>
+	<string name="lanceComplete">Bo traballo!</string>
+	<string name="theGold">O xeneral de ouro</string>
+	<string name="itMovesInAnyDirectionExceptDiagonallyBack">O xeneral de ouro move en calquera dirección EXCEPTO diagonalmente cara atrás.</string>
+	<string name="goldIntro">Os movementos do xeneral de ouro poden ser un anaco máis difíciles de lembrar ó comezo, pero de seguro que o farás.</string>
+	<string name="goldDoesntPromote">O xeneral de ouro e o rei son as únicas pezas que NON PODEN coroar.</string>
+	<string name="goldSummary">Tenta lembrar estes movementos, pois moitas pezas se moven igual tras coroar.</string>
+	<string name="goldComplete">Parabéns! Conseguíchelo.</string>
+	<string name="theSilver">O xeneral de prata</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">O xeneral de prata pode mover un cadro en calquera diagonal ou cara adiante.</string>
+	<string name="silverIntro">Esta é outra peza que move de forma pouco habitual. Esta é a última, prometido!</string>
+	<string name="silverPromotion">Cando o xeneral de prata coroa, os seus movementos pasan a ser iguais cós do xeneral de ouro.</string>
+	<string name="silverSummary">Seguro que lembrarás estes movementos coa práctica.</string>
+	<string name="psilverSummary">Ó mesmo có xeneral de ouro, é algo moi común.</string>
+	<string name="silverComplete">Parabéns! Tes a sorte de cara.</string>
+	<string name="promotion">Esta peza pode coroar.</string>
+	<string name="yourPieceReachedThePromotionZone">A túa peza entrou na zona de promoción!</string>
+	<string name="itNowPromotesToAStrongerPiece">Agora pode ser promovida a unha peza máis forte.</string>
+	<string name="selectThePieceYouWant">Selecciona a peza que queiras!</string>
+	<string name="fundamentals">Fundamentos</string>
+	<string name="capture">Captura</string>
+	<string name="takeTheEnemyPieces">Captura as pezas inimigas</string>
+	<string name="captureIntro">Identifica as pezas rivais non defendidas e captúraas!</string>
+	<string name="takeTheEnemyPiecesAndDontLoseYours">Captura as pezas inimigas!
+E non perdas as túas.</string>
+	<string name="captureComplete">Parabéns! Xa sabes como loitar coas pezas do shogi!</string>
+	<string name="pieceDrops">Pezas guindadas</string>
+	<string name="reuseCapturedPieces">Volve usar as pezas capturadas!</string>
+	<string name="dropIntro">Unha vez máis, captura todas as pezas inimigas sen perderes as túas!</string>
+	<string name="capturedPiecesCanBeDropped">As pezas capturadas poden guindarse no taboleiro na túa quenda!</string>
+	<string name="dropLimitations">Non podes guindar unha peza sobre outra peza ou facelo onde non dispoña de movementos legais. Guindar unha peza na zona de promoción non implica a promoción desa peza.
+Toma as pezas inimigas!</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">Non podes ter dous peóns sen coroar na mesma columna.</string>
+	<string name="protection">Protección</string>
+	<string name="keepYourPiecesSafe">Mantén as túas pezas a salvo</string>
+	<string name="protectionIntro">Identifica as pezas que o teu rival ataca e deféndeas!</string>
+	<string name="protectionComplete">Parabéns! Unha peza que non perdes é unha peza que gañas!</string>
+	<string name="escape">Están atacándote!
+Fuxe da ameaza!</string>
+	<string name="noEscape">Non hai escapatoria,
+pero podes defenderte!</string>
+	<string name="makeSureAllSafe">Asegúrate de que todas as túas pezas están a salvo!</string>
+	<string name="dontForgetYouCanDropToDefend">Non esquezas que podes guindar pezas para defender!</string>
+	<string name="dontLetThemTakeAnyUndefendedPiece">Non permitas que capturen
+ningunha peza indefensa!</string>
+	<string name="combat">Combate</string>
+	<string name="captureAndDefendPieces">Capturar e defender pezas</string>
+	<string name="combatIntro">Un bo guerreiro sabe atacar e máis defender!</string>
+	<string name="combatComplete">Parabéns! Xa sabes como loitar coas pezas do shogi!</string>
+	<string name="checkInOne">Xaque nunha</string>
+	<string name="attackTheOpponentsKing">Ataca o rei rival</string>
+	<string name="checkInOneIntro">Para poñer en xaque ao teu rival, ataca o seu rei. Debe defendelo!</string>
+	<string name="checkInOneGoal">Ameaza o rei do opoñente
+nun movemento!</string>
+	<string name="checkInOneComplete">Parabéns! Puxeches en xaque ao teu rival, forzándoo a defender o seu rei!</string>
+	<string name="outOfCheck">Fóra de xaque</string>
+	<string name="defendYourKing">Defende o teu rei</string>
+	<string name="outOfCheckIntro">Estás en xaque! Debes escapar ou bloquear o ataque.</string>
+	<string name="ifYourKingIsAttacked">Se hai un ataque sobre o teu rei, tes que facerlle fronte.</string>
+	<string name="escapeWithTheKing">Escapa co rei!</string>
+	<string name="theKingCannotEscapeButBlock">O rei non pode escapar,
+pero podes bloquear o ataque!</string>
+	<string name="youCanGetOutOfCheckByTaking">Podes saír do xaque
+tomando a peza atacante.</string>
+	<string name="thisKnightIsCheckingThroughYourDefenses">Este cabalo está dando xaque
+a través das túas defensas!</string>
+	<string name="getOutOfCheck">Escapa do xaque!</string>
+	<string name="watchOutForYourOpponentsReply">Coidado coa resposta do teu opoñente!</string>
+	<string name="escapeOrBlock">Escapa co rei
+ou bloquea o ataque!</string>
+	<string name="outOfCheckComplete">Parabéns! O teu rei nunca pode ser capturado, asegúrate de que podes defendelo contra xaque!</string>
+	<string name="mateInOne">Mate nunha</string>
+	<string name="defeatTheOpponentsKing">Derrota o rei rival</string>
+	<string name="mateInOneIntro">Gañas cando o teu rival non pode defenderse dun xaque.</string>
+	<string name="toWinInShogi">Para gañar no shogi tes que dar xaque ó rei rival de modo que non poida defenderse. A isto chámaselle mate ou tsume.</string>
+	<string name="dropsCommonDeliverMate">Guindar pezas é unha forma moi común de dar mate.</string>
+	<string name="attackYourOpponentsKing">Ataca ao rei do teu rival
+de xeito que non se poida defender!</string>
+	<string name="chooseYourPieceCarefully">Escolle con coidado a túa peza!</string>
+	<string name="mateWithADroppedPawnIs">Dar mate guindando un peón é ilegal — nunha partida de verdade perderías!</string>
+	<string name="mateWithAPushedPawnIs">Dar mate avanzando un peón é correcto.</string>
+	<string name="mateInOneComplete">Parabéns! Así se gañan as partidas de shogi!</string>
+	<string name="intermediate">Intermedio</string>
+	<string name="boardSetup">Disposición do taboleiro</string>
+	<string name="howTheGameStarts">Como comeza a partida</string>
+	<string name="boardSetupIntro">Os dous exércitos enfróntanse, listos para a batalla.</string>
+	<string name="thisIsTheInitialPosition">Esta é a posición inicial
+de todas as partidas de shogi!
+Fai calquera movemento para continuar.</string>
+	<string name="firstPlaceTheKing">Hai dúas formas tradicionais de colocar as pezas antes dunha partida. Amosarémosche o estilo Oohashi (大橋), máis comunmente utilizado por profesionais. O rei vai primeiro. Move o rei ó cadro central da primeira fila.</string>
+	<string name="dropAGold">Guinda un ouro á esquerda do rei, logo coloca outro na dereita.</string>
+	<string name="thenPlaceASilver">A continuación pon unha prata a carón do ouro da esquerda, logo a outra prata xunto ó ouro da dereita.</string>
+	<string name="dropTheKnights">Guinda os cabalos do mesmo xeito que puxeches as pratas. O teu opoñente vaino facer ó estilo Itou (伊藤).</string>
+	<string name="dropTheLances">Guinda as lanzas. O teu opoñente comezará a colocar peóns de esquerda a dereita antes cás lanzas. Este é o estilo Itou.</string>
+	<string name="placeTheBishopThenRook">Pon o bispo diante do cabaleiro da esquerda, logo a torre diante do cabaleiro da dereita. Por suposto, nas partidas de verdade non é necesario facelo ó mesmo tempo có rival.</string>
+	<string name="placeThePawns">Finalmente, guinda os peóns na terceira fileira do mesmo xeito que colocaches as pezas da primeira. O círculo vaicho indicar.</string>
+	<string name="pushingThe3rdPawn">Avanzar o terceiro peón para abrir a diagonal do bispo é a primeira xogada máis común. Fai este movemento para continuar.</string>
+	<string name="boardSetupComplete">Parabéns! Xa sabes como colocar as pezas no taboleiro!</string>
+	<string name="repetition">Repetición</string>
+	<string name="fourfoldRepetitionIsADrawExcept">A repetición cuádrupla son táboas, EXCEPTO...</string>
+	<string name="repetitionIntro">A repetición cuádrupla son táboas. O xaque perpetuo é unha derrota.</string>
+	<string name="ifTheSamePositionOccurs">No shogi, se a mesma posición se repite 4 veces, as táboas son automáticas. Esta situación chámase sennichite (千日手). Fai a única xogada legal.</string>
+	<string name="perpetualCheckIsALoss">Mais facer xaques perpetuos ó rei rival considérase unha derrota para o lado que dá os xaques. Desafortunadamente para o teu rival, non o sabe! Fai a única xogada legal.</string>
+	<string name="boardFlippedFindBestMove">Démoslle a volta ó taboleiro. Cal é a mellor xogada?</string>
+	<string name="repetitionComplete">A razón pola que os xaques perpetuos son unha derrota é para disuadir ós xogadores que queiran forzar unhas táboas desta maneira.</string>
+	<string name="advanced">Avanzado</string>
+	<string name="pieceValue">Valor das pezas</string>
+	<string name="evaluatePieceStrength">Avalía a forza das pezas</string>
+	<string name="pieceValueIntroNew">As pezas con maior mobilidade teñen máis valor!
+O rei ten un valor incalculable! Perdelo significa perder a partida.</string>
+	<string name="queenOverBishop">Captura a peza
+de maior valor!
+Dama &gt; Bispo</string>
+	<string name="pawnsAreTheLeastValuable">Os peóns son as pezas de menor valor, seguidos polas lanzas. Os cabaleiros valen algo máis cás lanzas. Captura a peza máis valiosa.</string>
+	<string name="knightSilverGold">Cabaleiro &lt; Prata &lt; Ouro
+Captura a peza de máis valor sen perder a túa.</string>
+	<string name="goldBishopRook">Ouro &lt; Bispo &lt; Torre
+Captura a peza de maior valor.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Captura todas as pezas en orde, comezando pola máis valiosa ata a de menor valor!</string>
+	<string name="anExchangeIs">Nun intercambio capturas unha peza e perdes outra. Cal é o mellor intercambio? Prata por torre ou ouro por cabaleiro?</string>
+	<string name="theOpponentJustGaveAway">O opoñente acaba de entregar gratis a súa valiosa torre! Vas capturala?</string>
+	<string name="yourKingsValueIsInfinite">O valor do rei é infinito comparado co da torre. Cal é a mellor xogada nesta posición?</string>
+	<string name="twoGeneralsAreBetter">Dous xenerais poden valer máis ca unha peza maior. Un cabaleiro e unha lanza poden ser mellores ca un xeneral. Encontra unha maneira de sacrificar o alfil e gañar dous xenerais.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Lembras que peza ten maior valor?</string>
+	<string name="takeThePieceWithTheHighestValue">Captura a peza
+máis valiosa!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">O rei é máis valioso có resto das pezas xuntas. Pode ser correcto sacrificar pezas para atacar o rei rival. Só que non debes esquecer a seguranza do teu propio rei!</string>
+	<string name="checkInTwo">Xaque en dúas</string>
+	<string name="twoMovesToGiveCheck">Dúas xogadas para dar un xaque</string>
+	<string name="checkInTwoIntro">Atopa a combinación correcta de dúas xogadas que dá xaque ó rei rival!</string>
+	<string name="checkInTwoGoal">Ameaza o rei rival
+en dúas xogadas!</string>
+	<string name="checkInTwoComplete">Parabéns! Décheslle xaque ó rival, forzándoo a defender o seu rei!</string>
+	<string name="whatNext">E agora que?</string>
+	<string name="youKnowHowToPlayShogi">Parabéns, xa sabes xogar ó shogi! Queres converterte nun xogador aínda máis forte?</string>
+	<string name="register">Rexistrarse</string>
+	<string name="getAFreeLishogiAccount">Consegue unha conta gratuíta en Lishogi</string>
+	<string name="practice">Practicar</string>
+	<string name="learnCommonShogiPositions">Aprende posicións comúns do shogi</string>
+	<string name="puzzles">Crebacabezas</string>
+	<string name="exerciseYourTacticalSkills">Exercita as túas habilidades tácticas</string>
+	<string name="shogiResources">Recursos sobre shogi</string>
+	<string name="curatedShogiResources">Mira a nosa lista seleccionada de recursos</string>
+	<string name="videos">Vídeos</string>
+	<string name="watchInstructiveShogiVideos">Ve vídeos instrutivos sobre shogi</string>
+	<string name="playPeople">Xogar con xente</string>
+	<string name="opponentsFromAroundTheWorld">Rivais de todas as partes do mundo</string>
+	<string name="playMachine">Xogar contra a máquina</string>
+	<string name="testYourSkillsWithTheComputer">Proba as túas habilidades coa máquina</string>
+	<string name="letsGo">Imos!</string>
+	<string name="stageX">Nivel %s</string>
+	<string name="awesome">Bárbaro!</string>
+	<string name="excellent">Excelente!</string>
+	<string name="greatJob">Bo traballo!</string>
+	<string name="perfect">Perfecto!</string>
+	<string name="outstanding">Excepcional!</string>
+	<string name="wayToGo">Así se fai!</string>
+	<string name="yesYesYes">Si, si, si!</string>
+	<string name="youreGoodAtThis">Isto dáseche ben!</string>
+	<string name="nailedIt">Craváchelo.</string>
+	<string name="rightOn">Exactamente!</string>
+	<string name="stageXComplete">Nivel %s completado</string>
+	<string name="yourScore">A túa puntuación</string>
+	<string name="next">Seguinte</string>
+	<string name="backToMenu">Volver ao menú</string>
+	<string name="puzzleFailed">Crebacabezas fallado!</string>
+	<string name="retry">Tentar de novo</string>
+</resources>

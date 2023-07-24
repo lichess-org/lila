@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Autenticación en dous pasos</string>
+  <string name="twoFactorHelp">A autenticación en dous pasos engade unha capa de seguridade adicional á túa conta</string>
+  <string name="twoFactorApp">Obtén unha aplicación para a autenticación en dous pasos, por exemplo Google Authenticator para %1$s ou %2$s.</string>
+  <string name="scanTheCode">Escanea o código QR coa aplicación.</string>
+  <string name="enterPassword">Introduce o teu contrasinal e o código de autenticación xerado pola aplicación para completar a configuración. Necesitarás un código de autenticación cada vez que inicies sesión.</string>
+  <string name="authenticationCode">Código de autenticación</string>
+  <string name="ifYouLoseAccess">Nota: se perdes o acceso ós teus códigos de autenticación en dous pasos, podes restablecer o teu contrasinal a través do teu correo electrónico.</string>
+  <string name="enableTwoFactor">Activar a autenticación en dous pasos</string>
+  <string name="disableTwoFactor">Desactivar a autenticación en dous pasos</string>
+  <string name="twoFactorEnabled">Autenticación en dous pasos activada</string>
+  <string name="twoFactorDisable">Precisas do teu contrasinal e dun código de autenticación en dous pasos para desactivar a autenticación en dous pasos.
+Se perdes o acceso ós teus códigos de autenticación, podes restablecer o teu contrasinal a través do teu correo electrónico.</string>
+</resources>
