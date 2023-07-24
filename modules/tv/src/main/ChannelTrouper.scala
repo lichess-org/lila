@@ -60,7 +60,7 @@ final private[tv] class ChannelTrouper(
           }
           manyIds = candidates
             .sortBy { g =>
-              -(~g.averageUsersRating)
+              -(~g.averageUsersRating(0))
             }
             .take(50)
             .map(_.id)
