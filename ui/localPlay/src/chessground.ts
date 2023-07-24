@@ -30,6 +30,9 @@ export function makeConfig(ctrl: Ctrl): CgConfig {
       dests: opts.movable!.dests,
       showDests: true, //pref.destination,
       rookCastle: pref.rookCastle,
+      events: {
+        after: ctrl.userMove,
+      },
     },
     draggable: {
       enabled: pref.moveEvent > 0,
@@ -39,7 +42,6 @@ export function makeConfig(ctrl: Ctrl): CgConfig {
       enabled: pref.moveEvent !== 1,
     },
     events: {
-      move: ctrl.userMove,
       insert(elements) {
         resizeHandle(elements, Prefs.ShowResizeHandle.OnlyAtStart, 0, p => p == 0);
       },

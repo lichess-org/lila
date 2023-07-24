@@ -28,6 +28,11 @@
       "esm": {
         "src/main.ts": "localPlay"
       }
-    }
+    },
+    "copy": [
+      { "src": "node_modules/zerofish/dist/zerofishEngine.js", "dest": "../../public/compiled" },
+      { "src": "node_modules/zerofish/dist/zerofishEngine.wasm", "dest": "../../public/compiled" },
+      { "src": "node_modules/zerofish/dist/zerofishEngine.worker.js", "dest": "../../public/compiled" }
+    ]
   }
 }

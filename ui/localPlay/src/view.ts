@@ -1,17 +1,13 @@
-//import { Controller } from './interfaces';
 import { Chessground } from 'chessground';
 import { h, VNode } from 'snabbdom';
 import { makeConfig as makeCgConfig } from './chessground';
-//import { getNow } from 'puz/util';
-//import * as licon from 'common/licon';
-//import { onInsert } from 'common/snabbdom';
+import { onInsert } from 'common/snabbdom';
 
 export default function (ctrl: any): VNode {
   return h('div#local-play', renderPlay(ctrl));
 }
 
 function chessground(ctrl: any): VNode {
-  console.log('chessground');
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl))),
@@ -23,23 +19,28 @@ function renderPlay(ctrl: any): VNode[] {
   return [
     h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
     h('div.puz-side', [
-      renderStart(ctrl),
-      h('div.puz-bots', [
-        // ...
+      h(
+        'div',
+        h('div#black.puz-bot', { hook: onInsert(el => ctrl.dropHandler('black', el)) }, [
+          h('p', 'Drop black weights here'),
+        ])
+      ),
+      h('div#pgn'),
+      h('div', [
+        h('div#white.puz-bot', { hook: onInsert(el => ctrl.dropHandler('white', el)) }, [
+          h('p', 'Drop white weights here'),
+        ]),
+        h('hr'),
+        h('span', [
+          h('input#num-games', { attrs: { type: 'text', value: '1' } }),
+          'games',
+          h(
+            'button#go.button',
+            { hook: onInsert(el => el.addEventListener('click', ctrl.go.bind(ctrl))) },
+            'GO'
+          ),
+        ]),
       ]),
-      h('div.puz-side__table', [renderControls(ctrl)]),
     ]),
   ];
-}
-
-function renderControls(ctrl: any): VNode {
-  ctrl;
-  return h('div.puz-side__control', ['gah']);
-}
-
-function renderStart(ctrl: any): VNode {
-  ctrl;
-  return h('div.puz-side__top.puz-side__start', [
-    h('div.puz-side__start__text', [h('strong', 'Play vs Bots'), h('span', 'gah')]),
-  ]);
 }
