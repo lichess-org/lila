@@ -197,7 +197,7 @@ export default new (class implements SoundI {
   }
 
   async resumeContext(): Promise<boolean> {
-    if (this.ctx === undefined) return false;
+    if (!this.ctx) return false;
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
       this.ctx = makeAudioContext();
@@ -252,7 +252,7 @@ class Sound {
   }
 }
 
-function makeAudioContext() {
+function makeAudioContext(): AudioContext | undefined {
   return window.webkitAudioContext
     ? new window.webkitAudioContext()
     : typeof AudioContext !== 'undefined'
