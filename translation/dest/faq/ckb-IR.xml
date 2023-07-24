@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">پرسیارەکان</string>
+  <string name="faqAbbreviation">پرسیارەکان باوەکان</string>
   <string name="frequentlyAskedQuestions">پرسیارە باوەکان</string>
   <string name="whyIsLichessCalledLichess">بۆچی ناوی لی چێس ـە?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">لیچێس تێکەڵەیەکە لە زیندوو/ئاسان/ئازاد و شەترەنج. بە %1$s دەخوێندرێتەوە.</string>
   <string name="leechess">لی چێس</string>
   <string name="hearItPronouncedBySpecialist">بە مانای پسپۆر لە بوارەکەدا دێت</string>
   <string name="whyLiveLightLibre">ڕاستەوخۆیە ئەتوانی یاری بکەت ٢٤ کاتژمێر لە ھەفتەیەکدا واتا ھەموو کات
