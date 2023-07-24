@@ -45,7 +45,7 @@ object coordinate {
           ),
           form(cls := "color buttons", action := routes.Coordinate.color)(
             st.group(cls := "radio")(
-              List(Color.GOTE, Color.RANDOM, Color.SENTE).map { id =>
+              List(Color.SENTE, Color.RANDOM, Color.GOTE).map { id =>
                 div(
                   input(
                     tpe   := "radio",
