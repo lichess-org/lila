@@ -68,12 +68,11 @@ final class OAuthServer(
   yield result
 
   val UaUserRegex = """(?:user|as):\s?([\w\-]{3,31})""".r
-  private def checkOauthUaUser(req: RequestHeader)(access: AccessResult): AccessResult = access match
-    case Right(access) =>
+  private def checkOauthUaUser(req: RequestHeader)(access: AccessResult): AccessResult =
+    access.flatMap: a =>
       HTTPRequest.userAgent(req).map(_.value) match
-        case Some(UaUserRegex(u)) if access.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
-        case _                                                  => Right(access)
-    case err => err
+        case Some(UaUserRegex(u)) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
+        case _                                             => Right(a)
 
   private val bearerSigner = Algo hmac mobileSecret.value
   private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =

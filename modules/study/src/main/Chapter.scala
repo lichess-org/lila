@@ -128,11 +128,9 @@ object Chapter:
 
     def looksAlive =
       tags.outcome.isEmpty &&
-        relay.lastMoveAt.isAfter {
-          nowInstant.minusMinutes {
+        relay.lastMoveAt.isAfter:
+          nowInstant.minusMinutes:
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
-          }
-        }
 
     def looksOver = !looksAlive
 

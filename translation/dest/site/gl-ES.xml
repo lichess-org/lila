@@ -9,7 +9,7 @@
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
-  <string name="strength">Nivel</string>
+  <string name="strength">Forza</string>
   <string name="toggleTheChat">(Des)activar a sala de conversa</string>
   <string name="chat">Chat</string>
   <string name="resign">Abandonar</string>
@@ -44,7 +44,7 @@
   <string name="forceResignation">Reclamar a vitoria</string>
   <string name="forceDraw">Reclamar as táboas</string>
   <string name="talkInChat">Por favor, sé correcto na sala de conversa!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira persoa que chegue a esta ligazón xogará contra ti.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira persoa que chegue a este URL xogará contra ti</string>
   <string name="whiteResigned">As brancas abandonaron</string>
   <string name="blackResigned">As negras abandonaron</string>
   <string name="whiteLeftTheGame">As brancas saíron da partida</string>
@@ -290,10 +290,10 @@
   <string name="viewRematch">Ver desquite</string>
   <string name="confirmMove">Confirma o movemento</string>
   <string name="play">Xogar</string>
-  <string name="inbox">Caixa do correo</string>
+  <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de conversa</string>
   <string name="loginToChat">Inicia sesión para conversar</string>
-  <string name="youHaveBeenTimedOut">Foches silenciado temporalmente.</string>
+  <string name="youHaveBeenTimedOut">Fuches silenciado temporalmente.</string>
   <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escribir mensaxe</string>
   <string name="subject">Asunto</string>
@@ -391,7 +391,7 @@
   <string name="reset">Restablecer</string>
   <string name="apply">Aplicar</string>
   <string name="save">Gardar</string>
-  <string name="leaderboard">Clasificación</string>
+  <string name="leaderboard">Lista de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
@@ -408,7 +408,7 @@
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Isto é un CAPTCHA de xadrez.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Clica no taboleiro para facer a túa xogada e demostrar que es humano.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Preme no taboleiro para facer a túa xogada e demostrar que es humano.</string>
   <string name="captcha.fail">Por favor resolve o CAPTCHA de xadrez.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
   <string name="whiteCheckmatesInOneMove">Xogas brancas e dan mate nunha</string>
