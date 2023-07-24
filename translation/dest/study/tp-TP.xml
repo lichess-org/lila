@@ -82,7 +82,6 @@
   <string name="start">o open</string>
   <string name="save">awen</string>
   <string name="clearChat">weka e toki lon tomo toki</string>
-  <string name="deleteTheStudyChatHistory">sina wile ala wile weka e tenpo pini pi tomo toki? ni li tawa tenpo ale a!</string>
   <string name="deleteStudy">o weka e lipu sona</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">sina wile ala wile weka e lipu sona ale? ni li tawa tenpo ale a! o sitelen e nimi pi lipu sona: %s</string>
   <string name="whereDoYouWantToStudyThat">sina wile kama sona e ni lon ma seme?</string>
