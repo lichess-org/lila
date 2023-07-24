@@ -24,12 +24,6 @@ final private class TournamentScheduler(
    * Last week: Monthly tournaments
    */
 
-  // def marathonDates = List(
-  // Spring -> Saturday of the weekend after Orthodox Easter Sunday
-  // Summer -> first Saturday of August
-  // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
-  // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
-  // )
   private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] = {
     val today       = rightNow.withTimeAtStartOfDay
     val startOfYear = today.dayOfYear.withMinimumValue
@@ -80,7 +74,7 @@ final private class TournamentScheduler(
               spotlight = Spotlight(
                 headline = s"$yo years of free shogi!",
                 description = s"""
-We've had $yo great shogi year together!
+We've had $yo great shogi years together!
 
 Thank you all, you rock!"""
               ).some
