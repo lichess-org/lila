@@ -36,7 +36,10 @@ object FullPost {
       image = image,
       author = author,
       category = category,
-      allLangIds = doc.getText(s"$coll.alllangids").flatMap(BlogLang.Ids.apply)
+      allLangIds = doc
+        .getText(s"$coll.alllangids")
+        .flatMap(BlogLang.Ids.apply)
+        .filter(ids => doc.id == ids.en || doc.id == ids.ja)
     )
 
 }
