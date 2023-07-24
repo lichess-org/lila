@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">پەخشەکان.</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s پەخش دەکرێت</item>
+    <item quantity="other">%s پەخش دەکرێت </item>
+  </plurals>
+  <string name="liveBroadcasts">پەخشی ڕاستەوخۆی پاڵەوانییەتیەکان</string>
+  <string name="newBroadcast">پەخشێکی تازە</string>
+  <string name="addRound">زیادکردنی خولێکی تر</string>
+  <string name="ongoing">بەردەوامە</string>
+  <string name="upcoming">لە داھاتوو دا</string>
+  <string name="completed">تەواو بوو</string>
+  <string name="roundName">ناوی خولەکە</string>
+  <string name="roundNumber">ناوی خول</string>
+  <string name="tournamentName">ناوی پاڵەوانێتیەکە</string>
+  <string name="tournamentDescription">باسی پاڵەوانێتیەکە بکە</string>
+  <string name="fullDescription">بە گشتی باسی پالەوانێتیەکە بکە</string>
+  <string name="fullDescriptionHelp">وەسفێکی درێژی ھەڵبژاردنی پاڵەوانێتییەکە. %1$s بەردەستە. درێژی دەبێت کەمتر بێت لە کاراکتەرەکانی %2$s.</string>
+  <string name="sourceUrlOrGameIds">URL سەرچاوە، یا ID یارییەکە</string>
+  <string name="sourceUrlHelp">URL مافی لی چێسە بۆ بەردەست خستنی تازەکردنەوە PGN پێویستە بۆ ھەموان بەردەست بێت لەسەر ئەنتەرنێت</string>
+  <string name="gameIdsHelp">یان دەتوانیت تا ٦٤ ناسنامەی یاری Lichess دابنێیت، کە بە بۆشایی جیا دەکرێنەوە.</string>
+  <string name="startDate">بەرواری دەستپێکردن لە چوارچێوەی کاتی خۆتدا</string>
+  <string name="startDateHelp">بە ھەلبژاردنی خۆتە چ کاتێک دەس پێ بکات</string>
+  <string name="credits">لە سەرچاوەکە دڵنیابە</string>
+  <string name="broadcastUrl">لینکی پالەوانێتیەکە</string>
+  <string name="currentRoundUrl">لینکی خولی یەکەم</string>
+  <string name="currentGameUrl">لینکی یاریەکانی ئێستا</string>
+  <string name="downloadAllRounds">دابەزاندنی ھەموو خولەکان</string>
+  <string name="resetRound">دەسکاری کردنی ئەم خولە</string>
+  <string name="deleteRound">سڕینەوەی ئەم خولە</string>
   <string name="definitivelyDeleteRound">بە دڵنیاییەوە خولەکە و یاریەکانی بسڕەوە.</string>
   <string name="deleteAllGamesOfThisRound">هەموو یارییەکانی ئەم خولە بسڕەوە. سەرچاوەکە پێویستی بە چالاکبوون دەبێت بۆ ئەوەی دووبارە دروستیان بکاتەوە.</string>
+  <string name="editRoundStudy">دەسکاری کردنی خولی فێربون</string>
   <string name="deleteTournament">ئەم پاڵەوانێتییە بسڕەوە</string>
   <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
 </resources>
