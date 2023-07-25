@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">پێشبڕکێ سویسریەکان</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">سەیری خولەکە بکە</item>
+    <item quantity="other">سەیری ھەموو%s خولەکان بکە</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%sخول</item>
+    <item quantity="other">%sخولەکان</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%sخولی سویسری</item>
+    <item quantity="other">%s خولەکانی سویسری</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">ڕۆژانە یەک خول</item>
+    <item quantity="other">یەک خول لە هەر %s ڕۆژێکدا</item>
+  </plurals>
 </resources>
