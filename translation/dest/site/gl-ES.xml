@@ -726,7 +726,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamén podes usar a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
   <string name="analysisShapesHowTo">Pulsa Maiúsculas+clic ou preme o botón dereito do rato para debuxar círculos e frechas no taboleiro.</string>
-  <string name="letOtherPlayersMessageYou">Permitir que outros xogadores te envíen mensaxes</string>
+  <string name="letOtherPlayersMessageYou">Permitir que outros xogadores che envíen mensaxes</string>
   <string name="receiveForumNotifications">Recibe notificacións cando alguén te mencione no foro</string>
   <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
   <string name="withNobody">Con ninguén</string>
@@ -860,7 +860,7 @@
   <string name="temporaryInconvenience">Pedímosche desculpas polas molestias,</string>
   <string name="wishYouGreatGames">e desexámosche grandes partidas en lichess.org.</string>
   <string name="thankYouForReading">Grazas por pararte a ler isto!</string>
-  <string name="lifetimeScore">Resultados totais</string>
+  <string name="lifetimeScore">Marcador histórico</string>
   <string name="currentMatchScore">Resultados deste enfrontamento</string>
   <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, libro, base de datos ou doutra persoa).</string>
   <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>
