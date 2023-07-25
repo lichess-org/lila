@@ -21,18 +21,29 @@ $mq-col2: $mq-col2-uniboard;
 
   .puz-side {
     .puz-bot {
+      @extend %flex-column;
+      align-items: center;
       width: 300px;
       height: 100px;
       border: 2px dashed #888;
     }
+    .totals {
+      font-size: xx-large;
+      text-align: center;
+    }
+
     .puz-bot.hilite {
       background-color: #888;
     }
     #pgn {
       height: 100%;
     }
+    #num-games {
+      width: 120px;
+    }
     span {
       @extend %flex-between;
+      flex-wrap: nowrap;
       * {
         margin: 0 15px;
       }

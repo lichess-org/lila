@@ -1,7 +1,7 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import { Ctrl } from './ctrl';
 import view from './view';
-import { LocalPlayOpts, Controller } from './interfaces';
+import { LocalPlayOpts } from './interfaces';
 import menuHover from 'common/menuHover';
 import { Chessground } from 'chessground';
 
@@ -11,7 +11,7 @@ export async function initModule(opts: LocalPlayOpts) {
   // make a StrongSocket
   const ctrl = new Ctrl(opts, redraw);
 
-  const blueprint = view(ctrl as Controller);
+  const blueprint = view(ctrl);
   const element = document.querySelector('main') as HTMLElement;
   element.innerHTML = '';
   let vnode = patch(element, blueprint);
