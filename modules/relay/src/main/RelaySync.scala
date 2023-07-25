@@ -14,17 +14,16 @@ final private class RelaySync(
     leaderboard: RelayLeaderboardApi
 )(using Executor):
 
-  def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
-    for
-      study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
-      chapters       <- chapterRepo.orderedByStudy(study.id)
-      sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
-      nbGames = sanitizedGames.size
-      chapterUpdates <- sanitizedGames.traverse(createOrUpdateChapter(_, rt, study, chapters, nbGames))
-      result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
-      _      = lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
-      _ <- tourRepo.setSyncedNow(rt.tour)
-    yield result
+  def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
+    study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
+    chapters       <- chapterRepo.orderedByStudy(study.id)
+    sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
+    nbGames = sanitizedGames.size
+    chapterUpdates <- sanitizedGames.traverse(createOrUpdateChapter(_, rt, study, chapters, nbGames))
+    result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
+    _      = lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
+    _ <- tourRepo.setSyncedNow(rt.tour)
+  yield result
 
   private def createOrUpdateChapter(
       game: RelayGame,

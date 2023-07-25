@@ -348,7 +348,7 @@ final class User(
 
           val modLog = for
             history <- env.mod.logApi.userHistory(user.id)
-            appeal  <- isGranted(_.Appeals) so env.appeal.api.get(user)
+            appeal  <- isGranted(_.Appeals) so env.appeal.api.byId(user)
           yield view.modLog(history, appeal)
 
           val plan =
