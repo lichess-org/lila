@@ -22,6 +22,7 @@ final class PersonalDataExport(
     ublogApi: lila.ublog.UblogApi,
     streamerApi: lila.streamer.StreamerApi,
     coachApi: lila.coach.CoachApi,
+    appealApi: lila.appeal.AppealApi,
     picfitUrl: lila.memo.PicfitUrl
 )(using Executor, Materializer):
 
@@ -173,6 +174,14 @@ final class PersonalDataExport(
             .mkString("\n") + bigSep
           .throttle(heavyPerSecond, 1 second)
 
+    val appeal = Source.futureSource:
+      appealApi.byId(user).map { opt =>
+        Source:
+          opt.so: appeal =>
+            List(textTitle("Appeal")) ++ appeal.msgs.map: msg =>
+              s"${textDate(msg.at)} by ${msg.by}\n${msg.text}$bigSep"
+      }
+
     val outro = Source(List(textTitle("End of data export.")))
 
     List[Source[String, ?]](
@@ -186,6 +195,7 @@ final class PersonalDataExport(
       privateMessages,
       spectatorGameChats,
       gameNotes,
+      appeal,
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
       .keepAlive(15 seconds, () => " ")
