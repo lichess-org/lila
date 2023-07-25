@@ -13,14 +13,15 @@ case class RelayGame(
 ):
 
   def staticTagsMatch(chapterTags: Tags): Boolean =
-    import RelayGame.*
-    def allSame(tagNames: TagNames) = tagNames.forall { tag => chapterTags(tag) == tags(tag) }
-    allSame(staticTags) && {
-      if fideIdTags.forall(id => chapterTags.exists(id) && tags.exists(id))
-      then allSame(fideIdTags)
-      else allSame(nameTags)
-    }
-  def staticTagsMatch(chapter: Chapter): Boolean = staticTagsMatch(chapter.tags)
+    allSame(chapterTags, RelayGame.roundTags) && playerTagsMatch(chapterTags)
+
+  def playerTagsMatch(chapterTags: Tags): Boolean =
+    if RelayGame.fideIdTags.forall(id => chapterTags.exists(id) && tags.exists(id))
+    then allSame(chapterTags, RelayGame.fideIdTags)
+    else allSame(chapterTags, RelayGame.nameTags)
+
+  private def allSame(chapterTags: Tags, tagNames: RelayGame.TagNames) = tagNames.forall: tag =>
+    chapterTags(tag) == tags(tag)
 
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
 
@@ -30,18 +31,16 @@ case class RelayGame(
     tags = tags.copy(value = tags.value.filter(_.name != Tag.Result))
   )
 
-  lazy val looksLikeLichess = tags(_.Site) exists { site =>
-    RelayGame.lichessDomains exists { domain =>
+  lazy val looksLikeLichess = tags(_.Site).exists: site =>
+    RelayGame.lichessDomains.exists: domain =>
       site startsWith s"https://$domain/"
-    }
-  }
 
 private object RelayGame:
 
   val lichessDomains = List("lichess.org", "lichess.dev")
 
   type TagNames = List[Tag.type => TagType]
-  val staticTags: TagNames = List(_.Round, _.Event, _.Site)
+  val roundTags: TagNames  = List(_.Round, _.Event, _.Site)
   val nameTags: TagNames   = List(_.White, _.Black)
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
 
@@ -58,14 +57,11 @@ private object RelayGame:
     )
     Iso[RelayGames, MultiPgn](
       gs =>
-        MultiPgn {
-          gs.view.map { g =>
-            Pgn(
-              tags = g.tags,
-              initial = InitialComments.empty,
-              lila.study.PgnDump.rootToTree(g.root)
-            ).render
-          }.toList
-        },
+        MultiPgn:
+          gs.view
+            .map: g =>
+              Pgn(g.tags, InitialComments.empty, lila.study.PgnDump.rootToTree(g.root)).render
+            .toList
+      ,
       mul => RelayFetch.multiPgnToGames(mul).toOption.get
     )

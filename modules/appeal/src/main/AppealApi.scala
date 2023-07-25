@@ -13,18 +13,14 @@ final class AppealApi(
 
   import BsonHandlers.given
 
-  def mine(using me: Me.Id): Fu[Option[Appeal]] = coll.byId[Appeal](me)
-
-  def get(user: User) = coll.byId[Appeal](user.id)
+  def byId[U: UserIdOf](u: U): Fu[Option[Appeal]] = coll.byId[Appeal](u.id)
 
   def byUserIds(userIds: List[UserId]) = coll.byIds[Appeal, UserId](userIds)
-
-  def byId(appealId: UserId) = coll.byId[Appeal](appealId)
 
   def exists(user: User) = coll.exists($id(user.id))
 
   def post(text: String)(using me: Me) =
-    mine.flatMap:
+    byId(me).flatMap:
       case None =>
         val appeal =
           Appeal(

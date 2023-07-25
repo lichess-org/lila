@@ -112,10 +112,7 @@ object search:
               data.location.toString,
               br,
               "Proxy: ",
-              data.proxy.toString,
-              br,
-              "TOR: ",
-              data.isTor.toString
+              data.proxy.toString
             )
           ),
           userTable(users)

@@ -48,7 +48,7 @@ export const selector =
         select.value = '';
         if (action == 'all' || action == 'none')
           $(table)
-            .find('tbody input:not(:disabled)')
+            .find('tbody tr:not(.none) input:not(:disabled)')
             .prop('checked', action == 'all');
         else f(action);
       }

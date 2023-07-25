@@ -150,7 +150,7 @@ lichess.load.then(() => {
           return false;
         });
       let selected: string | undefined;
-      const valueOf = (el: HTMLTableRowElement) => $(el).find('td:first-child').text();
+      const valueOf = (el: HTMLTableRowElement) => $(el).data('value');
       const applyFilter = (v?: string) =>
         v
           ? $inZone.find('.mz-section--others tbody tr').each(function (this: HTMLElement) {

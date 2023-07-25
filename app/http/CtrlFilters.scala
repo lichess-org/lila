@@ -45,10 +45,12 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     if env.security.firewall.accepts(ctx.req) then a
     else keyPages.blacklisted
 
-  def NoTor(res: => Fu[Result])(using ctx: Context): Fu[Result] =
-    if env.security.tor.isExitNode(ctx.ip)
-    then Unauthorized.page(views.html.auth.bits.tor())
-    else res
+  def NoTor(res: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
+    env.security.ipTrust
+      .isPubOrTor(ctx.ip)
+      .flatMap:
+        if _ then Unauthorized.page(views.html.auth.bits.tor())
+        else res
 
   def NoEngine[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     if ctx.me.exists(_.marks.engine)

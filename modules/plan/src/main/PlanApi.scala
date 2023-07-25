@@ -86,7 +86,7 @@ final class PlanApi(
           logger.info(s"Charged anon customer $charge")
           funit
         case Some(prevPatron) =>
-          logger.info(s"Charged proxy:${proxy.flatMap(_.value)} $charge $prevPatron")
+          logger.info(s"Charged proxy:${proxy.flatMap(_.name)} $charge $prevPatron")
           userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
