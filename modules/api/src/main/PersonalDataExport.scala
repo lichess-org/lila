@@ -30,21 +30,19 @@ final class PersonalDataExport(
 
   def apply(user: User): Source[String, ?] =
 
-    val intro =
-      Source.futureSource {
-        userRepo.currentOrPrevEmail(user.id) map { email =>
-          Source(
-            List(
-              textTitle(s"Personal data export for ${user.username}"),
-              "All dates are UTC",
-              bigSep,
-              s"Signup date: ${textDate(user.createdAt)}",
-              s"Last seen: ${user.seenAt so textDate}",
-              s"Public profile: ${user.profile.so(_.toString)}",
-              s"Email: ${email.so(_.value)}"
-            )
+    val intro = Source.futureSource:
+      userRepo.currentOrPrevEmail(user.id) map { email =>
+        Source(
+          List(
+            textTitle(s"Personal data export for ${user.username}"),
+            "All dates are UTC",
+            bigSep,
+            s"Signup date: ${textDate(user.createdAt)}",
+            s"Last seen: ${user.seenAt so textDate}",
+            s"Public profile: ${user.profile.so(_.toString)}",
+            s"Email: ${email.so(_.value)}"
           )
-        }
+        )
       }
 
     val connections =
@@ -53,16 +51,14 @@ final class PersonalDataExport(
           s"${s.date.so(textDate)} ${s.ip} ${s.ua}"
         }
 
-    val followedUsers =
-      Source.futureSource {
-        relationEnv.api.fetchFollowing(user.id) map { userIds =>
-          Source(List(textTitle("Followed players")) ++ userIds.map(_.value))
-        }
+    val followedUsers = Source.futureSource:
+      relationEnv.api.fetchFollowing(user.id) map { userIds =>
+        Source(List(textTitle("Followed players")) ++ userIds.map(_.value))
       }
 
-    val streamer = Source.futureSource {
+    val streamer = Source.futureSource:
       streamerApi.find(user) map {
-        _.map(_.streamer).so { s =>
+        _.map(_.streamer).so: s =>
           List(textTitle("Streamer profile")) :::
             List(
               "name"     -> s.name,
@@ -75,16 +71,13 @@ final class PersonalDataExport(
               "updatedAt"   -> textDate(s.updatedAt),
               "seenAt"      -> textDate(s.seenAt),
               "liveAt"      -> s.liveAt.so(textDate)
-            ).map { case (k, v) =>
+            ).map: (k, v) =>
               s"$k: $v"
-            }
-        }
       } map Source.apply
-    }
 
-    val coach = Source.futureSource {
+    val coach = Source.futureSource:
       coachApi.find(user) map {
-        _.map(_.coach).so { c =>
+        _.map(_.coach).so: c =>
           List(textTitle("Coach profile")) :::
             c.profile.textLines :::
             List(
@@ -92,12 +85,9 @@ final class PersonalDataExport(
               "languages" -> c.languages.mkString(", "),
               "createdAt" -> textDate(c.createdAt),
               "updatedAt" -> textDate(c.updatedAt)
-            ).map { case (k, v) =>
+            ).map: (k, v) =>
               s"$k: $v"
-            }
-        }
       } map Source.apply
-    }
 
     val forumPosts =
       Source(List(textTitle("Forum posts"))) concat
@@ -110,13 +100,12 @@ final class PersonalDataExport(
         msgEnv.api
           .allMessagesOf(user.id)
           .throttle(heavyPerSecond, 1 second)
-          .map { case (text, date) =>
+          .map: (text, date) =>
             s"${textDate(date)}\n$text$bigSep"
-          }
 
     def gameChatsLookup(lookup: Bdoc) =
       gameEnv.gameRepo.coll
-        .aggregateWith[Bdoc](readPreference = ReadPref.priTemp) { framework =>
+        .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
           import framework.*
           List(
             Match($doc(Game.BSONFields.playerUids -> user.id)),
@@ -128,28 +117,24 @@ final class PersonalDataExport(
             Unwind("l"),
             Match("l".$startsWith(s"${user.id} ", "i"))
           )
-        }
         .documentSource()
-        .map { doc => doc.string("l").so(_.drop(user.id.value.size + 1)) }
+        .map { _.string("l").so(_.drop(user.id.value.size + 1)) }
         .throttle(heavyPerSecond, 1 second)
 
     val spectatorGameChats =
       Source(List(textTitle("Spectator game chat messages"))) concat
-        gameChatsLookup(
+        gameChatsLookup:
           $lookup.pipelineFull(
             from = chatEnv.coll.name,
             as = "chat",
             let = $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
             pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
           )
-        )
 
     val gameNotes =
       Source(List(textTitle("Game notes"))) concat
         gameEnv.gameRepo.coll
-          .aggregateWith[Bdoc](
-            readPreference = ReadPref.priTemp
-          ) { framework =>
+          .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
             import framework.*
             List(
               Match($doc(Game.BSONFields.playerUids -> user.id)),
@@ -166,9 +151,8 @@ final class PersonalDataExport(
               ReplaceRootField("note"),
               Project($doc("_id" -> false, "t" -> true))
             )
-          }
           .documentSource()
-          .map { doc => ~doc.string("t") }
+          .map { ~_.string("t") }
           .throttle(heavyPerSecond, 1 second)
 
     val ublogPosts =
