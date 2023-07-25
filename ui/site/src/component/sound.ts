@@ -221,7 +221,7 @@ export default new (class implements SoundI {
     if (isIOS({ below: 13 })) {
       this.ctx = makeAudioContext()!;
       for (const s of this.sounds.values()) s.rewire(this.ctx);
-    } else this.ctx?.resume();
+    } else if (this.ctx?.state === 'suspended') this.ctx.resume();
     $('body').off('click touchstart', this.primer);
     setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
   };
