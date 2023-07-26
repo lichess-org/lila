@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Privát</string>
-  <string name="myStudies">Saját tanulmányok</string>
-  <string name="studiesIContributeTo">Tanulmányok szerkesztőként</string>
+  <string name="myStudies">Tanulmányaim</string>
+  <string name="studiesIContributeTo">Tanulmányaim szerkesztőként</string>
   <string name="myPublicStudies">Nyilvános tanulmányaim</string>
   <string name="myPrivateStudies">Privát tanulmányaim</string>
   <string name="myFavoriteStudies">Kedvenc tanulmányaim</string>
@@ -81,33 +81,33 @@
   <string name="importFromChapterX">Importálás innen: %s</string>
   <string name="orientation">Szemszög</string>
   <string name="analysisMode">Elemzés típusa</string>
-  <string name="pinnedChapterComment">Rögzített megjegyzés</string>
+  <string name="pinnedChapterComment">Rögzített megjegyzés a fejezethez</string>
   <string name="saveChapter">Fejezet mentése</string>
-  <string name="clearAnnotations">Jelölések eltávolítása</string>
+  <string name="clearAnnotations">Megjegyzések törlése</string>
   <string name="clearVariations">Változatok törlése</string>
   <string name="deleteChapter">Fejezet törlése</string>
   <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
   <string name="clearAllCommentsInThisChapter">Minden megjegyzés, lépésjelölés és rajz törlése a fejezetből</string>
-  <string name="rightUnderTheBoard">Közvetlen a tábla alatt</string>
+  <string name="rightUnderTheBoard">Közvetlenül a tábla alatt</string>
   <string name="noPinnedComment">Nincs</string>
   <string name="normalAnalysis">Normál elemzés</string>
   <string name="hideNextMoves">Következő lépések elrejtése</string>
   <string name="interactiveLesson">Interaktív lecke</string>
-  <string name="chapterX">Fejezet: %s</string>
+  <string name="chapterX">%s. fejezet</string>
   <string name="empty">Üres</string>
   <string name="startFromInitialPosition">Kezdés az alapállásból</string>
   <string name="editor">Szerkesztő</string>
-  <string name="startFromCustomPosition">Kezdés egyedi felállásból</string>
-  <string name="loadAGameByUrl">Játszmák betöltése URL-ről</string>
+  <string name="startFromCustomPosition">Kezdés tetszőleges állásból</string>
+  <string name="loadAGameByUrl">Játszmák betöltése linkkel</string>
   <string name="loadAPositionFromFen">Állás betöltése FEN-ből</string>
   <string name="loadAGameFromPgn">Játszmák betöltése PGN-ből</string>
   <string name="automatic">Automatikus</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
-    <item quantity="other">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
+    <item quantity="other">Illeszd be a PGN szövegét (legfeljebb %s játszma)</item>
   </plurals>
-  <string name="urlOfTheGame">URL a játszmákhoz, soronként egy</string>
-  <string name="loadAGameFromXOrY">Játszmák betöltése %1$s vagy %2$s-ról</string>
+  <string name="urlOfTheGame">Játszmák linkje, soronként egy</string>
+  <string name="loadAGameFromXOrY">Játszmák betöltése %1$s vagy %2$s szerverről</string>
   <string name="createChapter">Fejezet létrehozása</string>
   <string name="createStudy">Tanulmány létrehozása</string>
   <string name="editStudy">Tanulmány szerkesztése</string>
@@ -118,25 +118,25 @@
   <string name="allowCloning">Klónozható</string>
   <string name="nobody">Senki</string>
   <string name="onlyMe">Csak én</string>
-  <string name="contributors">Közreműködők</string>
+  <string name="contributors">Szerkesztők</string>
   <string name="members">Tagok</string>
   <string name="everyone">Mindenki</string>
   <string name="enableSync">Sync engedélyezése</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Igen: mindenki ugyanazt az állást követi</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Igen: mindenki ugyanazt az állást látja</string>
   <string name="noLetPeopleBrowseFreely">Nem: szabadon böngészhető</string>
-  <string name="pinnedStudyComment">Rögzített megjegyzés</string>
-  <string name="start">Kezdés</string>
+  <string name="pinnedStudyComment">Rögzített megjegyzés a tanulmányhoz</string>
+  <string name="start">Mehet</string>
   <string name="save">Mentés</string>
   <string name="clearChat">Chat törlése</string>
-  <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeit? Ezt nem lehet visszavonni!</string>
+  <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeket a tanulmányból? Ezt nem lehet visszavonni!</string>
   <string name="deleteStudy">Tanulmány törlése</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni! Gépeld be a tanulmány nevét a megerősítéshez: %s</string>
-  <string name="whereDoYouWantToStudyThat">Hol szeretnéd a tanulmányt elhelyezni?</string>
+  <string name="whereDoYouWantToStudyThat">Melyik tanulmányba kerüljön?</string>
   <string name="goodMove">Jó lépés</string>
   <string name="mistake">Hiba</string>
   <string name="brilliantMove">Kiváló lépés</string>
   <string name="blunder">Durva hiba</string>
-  <string name="interestingMove">Èrdekes lépés</string>
+  <string name="interestingMove">Érdekes lépés</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Szokatlan lépés</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Egyetlen lépés</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Lépéskényszer</string>
@@ -160,11 +160,11 @@
   <string name="prevChapter">Előző fejezet</string>
   <string name="studyActions">Műveletek a tanulmányban</string>
   <string name="topics">Témakörök</string>
-  <string name="myTopics">Saját témaköreim</string>
+  <string name="myTopics">Témaköreim</string>
   <string name="popularTopics">Népszerű témakörök</string>
   <string name="manageTopics">Témakörök kezelése</string>
   <string name="back">Vissza</string>
   <string name="playAgain">Újra</string>
   <string name="whatWouldYouPlay">Mit lépnél ebben az állásban?</string>
-  <string name="youCompletedThisLesson">Gratulálunk! Sikeresen befejezted ezt a részt.</string>
+  <string name="youCompletedThisLesson">Gratulálok! A fejezet végére értél.</string>
 </resources>
