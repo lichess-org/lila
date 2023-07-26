@@ -35,6 +35,10 @@
   <string name="optionalOrEmpty">ئارەزوومەندانە. ئەگەر هیچ نەبوو بە بەتاڵی بەجێی بهێڵە</string>
   <string name="youTubeChannelId">ID کەناڵی یوتوبەکەت</string>
   <string name="streamerName">ناوی پەخشەکەی تۆ لە لیچێس</string>
+  <plurals name="keepItShort">
+    <item quantity="one">کورتی بکەرەوە: زۆرترین پیت %s</item>
+    <item quantity="other">کورتی بکەرەوە: زۆرترین پیت %s</item>
+  </plurals>
   <string name="visibility">لە پەیجی ستریمەرەکاندا دیارە</string>
   <string name="whenApproved">دوای ئەوەی بەرێوەبەرەکان قبوڵیان کرد</string>
   <string name="headline">ناونیشان</string>
