@@ -64,10 +64,7 @@ export default class SwissCtrl {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        lichess.redirect(
-          '/' + gameId,
-          lichess.storage.boolean('pairingCountdown').get() ? 'countdown' : 'beep'
-        );
+        lichess.redirect('/' + gameId, 'beep');
       }
     }, delay);
   };
