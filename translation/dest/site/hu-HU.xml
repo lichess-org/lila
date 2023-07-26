@@ -384,7 +384,7 @@
   <string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
   <string name="startedStreaming">közvetítések kezdete</string>
-  <string name="xStartedStreaming">%s elkezdte a közvetítést</string>
+  <string name="xStartedStreaming">%s élő műsort ad</string>
   <string name="averageElo">Átlag értékszám</string>
   <string name="location">Hely</string>
   <string name="filterGames">Játékok szűrése</string>
@@ -402,7 +402,7 @@
   <string name="toStudy">Tanulmány</string>
   <string name="importGame">Játszma importálása</string>
   <string name="importGameExplanation">Ha PGN formátumban adsz hozzá játszmát, visszanézheted a partit, elemezheted számítógéppel, chatelhetsz és linkkel meg tudod osztani másokkal.</string>
-  <string name="importGameCaveat">A változatok törölve lesznek, azonban ha a PGN-t tanulmányba importálod, megtarthatod őket.</string>
+  <string name="importGameCaveat">A változatok törlődnek. Ha meg akarod tartani, akkor importáld a PGN-t egy tanulmányban.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importált játszma</item>
     <item quantity="other">%s Importált játszma</item>
@@ -509,8 +509,8 @@
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="oneUrlPerLine">Egy URL soronként.</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
-  <string name="savingMoves">Átmeneti lépés tároló</string>
-  <string name="savingMovesHelp">A variációkat mindig a böngésző gyorsítótárában tároljuk.</string>
+  <string name="savingMoves">Átmeneti lépéstároló</string>
+  <string name="savingMovesHelp">A változatokat mindig a böngésződ gyorsítótárában tároljuk.</string>
   <string name="makeAStudy">A biztonság kedvéért és a későbbi megosztás lehetőségéért fontold meg egy tanulmány létrehozását.</string>
   <string name="clearSavedMoves">Lépések törlése</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
@@ -643,7 +643,7 @@
   <string name="tpTimeSpentPlaying">Játékkal töltött idő: %s</string>
   <string name="watchGames">Játszmák megtekintése</string>
   <string name="tpTimeSpentOnTV">TV-n töltött idő: %s</string>
-  <string name="watch">Néznivaló</string>
+  <string name="watch">Műsor</string>
   <string name="videoLibrary">Videó könyvtár</string>
   <string name="streamersMenu">Közvetítők</string>
   <string name="mobileApp">Mobil alkalmazás</string>
@@ -784,7 +784,7 @@
   <string name="usernameUnacceptable">A felhasználói név nem megfelelő.</string>
   <string name="playChessInStyle">Sakkozz stílusosan</string>
   <string name="chessBasics">A sakk alapjai</string>
-  <string name="coaches">Oktatók</string>
+  <string name="coaches">Edzők</string>
   <string name="invalidPgn">Hibás PGN</string>
   <string name="invalidFen">Hibás FEN</string>
   <string name="custom">Egyéni</string>
