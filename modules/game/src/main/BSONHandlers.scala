@@ -108,7 +108,8 @@ object BSONHandlers:
           PgnStorage.Decoded(
             sans = sans,
             pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
-            positionHashes = r.getD[chess.PositionHash](F.positionHashes),
+            positionHashes =
+              r.getO[Array[Byte]](F.positionHashes).map(chess.PositionHash.apply) | chess.PositionHash.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
             lastMove = clm.lastMove,
             castles = clm.castles,
@@ -117,6 +118,7 @@ object BSONHandlers:
                 Fen.readHalfMoveClockAndFullMoveNumber(fen)._1
               } getOrElse playedPlies.into(HalfMoveClock)
           )
+
       val chessGame = ChessGame(
         situation = chess.Situation(
           chess.Board(
@@ -181,6 +183,7 @@ object BSONHandlers:
       )
 
     def writes(w: BSON.Writer, o: Game) =
+
       BSONDocument(
         F.id        -> o.id,
         F.playerIds -> o.players.reduce(_.id.value + _.id.value),
@@ -224,7 +227,7 @@ object BSONHandlers:
           $doc(
             F.oldPgn         -> f.encode(o.sans take Game.maxPlies.value),
             F.binaryPieces   -> BinaryFormat.piece.write(o.board.pieces),
-            F.positionHashes -> o.history.positionHashes,
+            F.positionHashes -> o.history.positionHashes.value,
             F.unmovedRooks   -> o.history.unmovedRooks,
             F.castleLastMove -> CastleLastMove(castles = o.history.castles, lastMove = o.history.lastMove),
             F.checkCount     -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
