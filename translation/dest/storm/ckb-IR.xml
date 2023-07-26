@@ -10,6 +10,10 @@
   <string name="newAllTimeHighscore">نمرەی بەرزی نوێی هەموو کاتەکان!</string>
   <string name="previousHighscoreWasX">بەرزترین نمرەی پێشوو %s</string>
   <string name="playAgain">دووبارە یاری بکەوە</string>
+  <plurals name="xRuns">
+    <item quantity="one">جەولەی یەکەم%s</item>
+    <item quantity="other">%sخول</item>
+  </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">یاری جەولەی یەکەمم کرد%2$s</item>
     <item quantity="other">یاریم کرد%1$s لە جەولەی%2$s</item>
