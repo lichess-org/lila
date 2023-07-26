@@ -23,14 +23,20 @@
   <string name="searchByUsername">لە ڕێگەی ناوی بەکارھێنەرەوە بگەڕێ</string>
   <string name="spectator">بینەر</string>
   <string name="contributor">بەشدار</string>
+  <string name="kick">بیکە دەرەوە</string>
   <string name="leaveTheStudy">لێکۆڵینەوەکە جێبهێڵە</string>
   <string name="youAreNowAContributor">ئێستا تۆ بەشداری</string>
   <string name="youAreNowASpectator">ئێستا تۆ بینەری</string>
+  <string name="pgnTags">تاگەکانی PGN</string>
   <string name="like">بەدڵ بوون</string>
+  <string name="unlike">بە دڵم نیە</string>
+  <string name="newTag">تاگ ـی نوێ</string>
   <string name="commentThisPosition">لێدوان لەسەر ئەو پێگەیە</string>
   <string name="commentThisMove">لێدوان لەسەر ئەو جوڵانەوەیه</string>
+  <string name="annotateWithGlyphs">لێدوان بە حەرفی سەرەتایی</string>
   <string name="theChapterIsTooShortToBeAnalysed">ئەو بەشە بەهۆی کورتییەوە ناتوانرێت شیکار بکرێت.</string>
   <string name="onlyContributorsCanRequestAnalysis">تەنها بەشداربووانی لێکۆڵینەوەکە دەتوانن داوای شیکارکردنی کۆمپیوتەر بکەن.</string>
+  <string name="getAFullComputerAnalysis">شیکارییەکی تەواوی کۆمپیوتەر لە لایەن سێرڤەرەوە - بۆ هێڵی سەرەکی بەدەست بهێنە.</string>
   <string name="makeSureTheChapterIsComplete">دڵنیا ببەوه لەوەی کە بەشەکە تەواو کراوە. تەنها بۆ یەکجار دەتوانیت ئەو شیکارکردنە بکەیت.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">هەموو ئەندامەکانی SYNC لەسەر هەمان پێگە بمێننەوە</string>
   <string name="shareChanges">گۆڕانکاریەکان لەگەڵ بینەرەکان بەشداری پێبکە و لەسەر سێرڤەرەکە دایانبکه</string>
@@ -39,26 +45,59 @@
   <string name="previous">پێشوو</string>
   <string name="next">دواتر</string>
   <string name="last">دواترین</string>
+  <string name="shareAndExport">هاوبەشی بکە &amp; هەناردە</string>
+  <string name="cloneStudy">لەبەرگرتنەوە</string>
+  <string name="studyPgn">خوێندنی PGN</string>
+  <string name="downloadAllGames">دابەزاندنی ھەموو یاریەکان</string>
+  <string name="chapterPgn">بەشی PGN</string>
   <string name="copyChapterPgn">PNG کۆپی بکە</string>
   <string name="copyChapterPgnDescription">بەشی PNG کۆپی بکە بۆ کلیپبۆرد.</string>
+  <string name="downloadGame">دابەزاندی یاری</string>
+  <string name="studyUrl">خوێندنی URL</string>
+  <string name="currentChapterUrl">لینکی یاریەکانی ئێستا</string>
+  <string name="youCanPasteThisInTheForumToEmbed">دەتوانیت ئەمە لە مەکۆکە یان بلۆگی لیچێسەکەتدا لێبدەیت بۆ جێگیرکردن</string>
   <string name="startAtInitialPosition">له شوێنێکی سەرەتایی دەستپێبکە</string>
+  <string name="startAtX">دەس پێ ئەکات لە %s</string>
+  <string name="embedInYourWebsite">لە ماڵپەڕەکەتدا جێگیر بکە</string>
+  <string name="readMoreAboutEmbedding">زیاتر بخوێنەوە دەربارەی جێگیرکردن</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">تەنها خوێندنی گشتی دەتوانرێت جێگیر بکرێت!</string>
   <string name="open">کردنەوە</string>
+  <string name="xBroughtToYouByY">%1$s، لەلایەن %2$sەوە بۆت دەهێنرێت</string>
   <string name="studyNotFound">لێکۆڵینەوەکە نەدۆزرایەوە</string>
   <string name="editChapter">چاککردنی بەش</string>
   <string name="newChapter">بەشێکی نوێ</string>
+  <string name="importFromChapterX">هاوردەکردن لە %s</string>
   <string name="orientation">ڕێکخستن</string>
   <string name="analysisMode">شێوازی شیکردنەوە</string>
+  <string name="pinnedChapterComment">لێدوان بۆ بابەتی ھەلواسراو</string>
   <string name="saveChapter">داکردنی بەش</string>
+  <string name="clearAnnotations">سڕینەوەی نیشانەکان</string>
+  <string name="clearVariations">سڕینەوەی لایەنەکانی تر</string>
   <string name="deleteChapter">سڕینەوەی بەش</string>
   <string name="deleteThisChapter">سڕینەوەی ئەم بەشە؟ گەڕانەوەی بۆ نییه!</string>
+  <string name="clearAllCommentsInThisChapter">هەموو سەرنج و و شێوە کێشراوەکان لەم بابەتەدا پاک بکەرەوە</string>
   <string name="rightUnderTheBoard">ڕێک لەژێر تەختەکە</string>
   <string name="noPinnedComment">هیچ کامێکیان</string>
   <string name="normalAnalysis">شیکردنەوەی ئاسایی</string>
   <string name="hideNextMoves">شاردنەوەی جوولەکانی دواتر</string>
   <string name="interactiveLesson">وانەی دوولایەنە</string>
+  <string name="chapterX">بەش %s</string>
   <string name="empty">بەتاڵ</string>
   <string name="startFromInitialPosition">دەستپێکردن لە پێگەی سەرەتاوە</string>
+  <string name="editor">دەستکاریکەر</string>
+  <string name="startFromCustomPosition">لە شوێنی تایبەتمەندەوە دەست پێ بکە</string>
+  <string name="loadAGameByUrl">یارییەکان بەپێی URL بار بکە</string>
+  <string name="loadAPositionFromFen">لە FEN ەوە پۆستێک بار بکە</string>
+  <string name="loadAGameFromPgn">یارییەکان لە PGN ەوە بار بکە</string>
   <string name="automatic">خوودکاری</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">دەقی PGN ـەکەت لێرەدا لێبدە، تا یارییەکانی %s</item>
+    <item quantity="other">دەقی PGN ـەکەت لێرەدا لێبدە، تا یاری %s
+
+دەقی PGN ـەکەت لێرەدا لێبدە، تا یارییەکانی %s</item>
+  </plurals>
+  <string name="urlOfTheGame">URL ی یارییەکان، بۆ هەر دێڕێک یەک دانە</string>
+  <string name="loadAGameFromXOrY">یارییەکان لە %1$s یان %2$s بار بکە</string>
   <string name="createChapter">دروستکردنی بەش</string>
   <string name="createStudy">دروستکردنی لێکۆڵینەوە</string>
   <string name="editStudy">چاککردنی لێکۆڵینەوە</string>
@@ -82,6 +121,13 @@
   <string name="deleteTheStudyChatHistory">سڕینەوەی مێژووی گفتوگۆی خوێندن؟ پاشگەزبوونەوەی نییە!</string>
   <string name="deleteStudy">سڕینەوەی خوێندن</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">سڕینەوەی تەواوی خوێندن؟ پاشگەزبوونەوەی نییە! ناوی ئەو دەرسە بنوسە بۆ دڵنیاکردنەوە: %s</string>
+  <string name="whereDoYouWantToStudyThat">لە کوێ دەتەوێت ئەوە بخوێنی ?</string>
+  <string name="goodMove">جوڵەیەکی باش</string>
+  <string name="mistake">ھەڵەی بچوک</string>
+  <string name="brilliantMove">جوڵەیەکی زۆر جوان</string>
+  <string name="blunder">ھەڵەیەکی گەورە</string>
+  <string name="interestingMove">جوڵەیەک پێویستی بە ھەڵوەستە کردن ھەیە</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">جوڵەیەکی گوماناوییە</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تەنیا جوڵان</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">زوگزوانگ</string>
   <string name="equalPosition">پۆزشنی یەکسان</string>
