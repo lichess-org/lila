@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Adások</string>
+  <string name="broadcasts">Versenyközvetítések</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s közvetítés</item>
-    <item quantity="other">%s közvetítések</item>
+    <item quantity="one">%s versenyközvetítés</item>
+    <item quantity="other">%s versenyközvetítés</item>
   </plurals>
-  <string name="liveBroadcasts">Versenyek élő adásai</string>
-  <string name="newBroadcast">Új élő adás</string>
+  <string name="liveBroadcasts">Közvetítések élő versenyekről</string>
+  <string name="newBroadcast">Új élő versenyközvetítés</string>
   <string name="addRound">Forduló hozzáadása</string>
   <string name="ongoing">Folyamatban</string>
   <string name="upcoming">Közelgő</string>
@@ -17,7 +17,7 @@
   <string name="tournamentDescription">Verseny rövid leírása</string>
   <string name="fullDescription">Esemény teljes leírása</string>
   <string name="fullDescriptionHelp">Opcionális a közvetítés még bővebb leírása. %1$s használható. A hossz nem lehet több, mint %2$s karakter.</string>
-  <string name="sourceUrlOrGameIds">Forráslink, vagy játszmaazonosítók</string>
+  <string name="sourceUrlOrGameIds">Forrás URL vagy játszmaazonosítók</string>
   <string name="sourceUrlHelp">URL amit a Lichess időnként PGN frissítésekért ellenőriz. Ennek nyilvános internetcímnek kell lennie.</string>
   <string name="gameIdsHelp">Illetve megadhatsz legfeljebb 64 Lichess játszmaazonosítót, szóközökkel elválasztva.</string>
   <string name="startDate">Kezdés időpontja a saját időzónádban</string>
@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Minden játék törlése ebben a fordulóban. A forrásnak aktívnak kell lennie, hogy újra létre lehessen hozni őket.</string>
   <string name="editRoundStudy">Forduló tanulmányának szerkesztése</string>
   <string name="deleteTournament">Verseny törlése</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Az egész verseny törlése az összes fordulójával és játszmájával együtt.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Az egész verseny végleges törlése az összes fordulóval és játszmával együtt.</string>
 </resources>
