@@ -14,8 +14,8 @@
   <string name="challengeRead">Beérkező kihívások olvasása</string>
   <string name="challengeWrite">Kihívások elfogadása, elutasítása és küldése</string>
   <string name="challengeBulk">Hozz létre egyszerre több játékot más játékosok számára</string>
-  <string name="studyRead">Privát tanulmányok és közvetítések olvasása</string>
-  <string name="studyWrite">Tanulmányok és közvetítések létrehozása, frissítése és törlése</string>
+  <string name="studyRead">Privát tanulmányok és versenyközvetítések olvasása</string>
+  <string name="studyWrite">Tanulmányok és versenyközvetítések létrehozása, frissítése és törlése</string>
   <string name="tournamentWrite">Versenyekhez csatlakozás, létrehozás és frissítés</string>
   <string name="racerWrite">Hozz létre rejtvény versenyeket és vegyél részt rajtuk</string>
   <string name="puzzleRead">Feladvány-aktivitási adatok olvasása</string>
