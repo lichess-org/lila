@@ -68,8 +68,8 @@ object userTable:
               u.marks.troll option mark("SHADOWBAN")
             ),
             td(u.enabled.no option mark("CLOSED")),
-            td(momentFromNow(u.createdAt)),
-            td(u.seenAt.map(momentFromNow(_))),
+            td(dataSort := u.createdAt.toMillis)(momentFromNowServer(u.createdAt)),
+            td(dataSort := u.seenAt.map(_.toMillis.toString))(u.seenAt.map(momentFromNowServer)),
             eraseButton option td(
               postForm(action := routes.Mod.gdprErase(u.username)):
                 views.html.user.mod.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
