@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">گۆڕەپانی یاری خێرای کاتژمێرانە</string>
-  <string name="hourlyRapid">یاری خێرای کاتژمێرانە</string>
-  <string name="hourlyXArena">کاتژمێرانە %s مەیدان</string>
+  <string name="hourlyRapidArena">یاریگای ڕاپیتی کاتژمێری</string>
+  <string name="hourlyRapid">ڕاپیتی کاتژمێری</string>
+  <string name="hourlyXArena">کاتژمێری%s یاریگا</string>
   <string name="hourlyX">کاتژمێرانە%s</string>
   <string name="dailyRapidArena">میدان مسابقه سریع روزانه</string>
   <string name="dailyRapid">یاریکردنی رۆژانەی ڕاپیت</string>
@@ -26,10 +26,22 @@
   <string name="monthlyRapid">مانگانەی ڕاپیت</string>
   <string name="monthlyClassicalArena">مانگانەی یاری کلاسیک</string>
   <string name="monthlyClassical">مانگانەی یاری کلاسیک</string>
+  <string name="monthlyXArena">خولی %s مانگانە</string>
   <string name="monthlyX">مانگانە%s</string>
   <string name="yearlyRapidArena">یاریگای ھەفتەیی ڕاپیت</string>
   <string name="yearlyRapid">ڕاپیتی ساڵانە</string>
   <string name="yearlyClassicalArena">یاریگای ساڵانەی کلاسیک</string>
   <string name="yearlyClassical">ساڵانەی کلاسیک</string>
   <string name="yearlyXArena">ساڵانە %s یاریگا</string>
+  <string name="yearlyX">ساڵانە%s</string>
+  <string name="rapidShieldArena">یاریگای ڕاپیتی بەرگری</string>
+  <string name="rapidShield">بەرگری ڕاپیت</string>
+  <string name="classicalShieldArena">یاریگای کلاسیکی بەرگری</string>
+  <string name="classicalShield">کلاسیکی بەرگری</string>
+  <string name="xShieldArena">%s یاریگای بەرگری</string>
+  <string name="xShield">%s قەڵغان</string>
+  <string name="xTeamBattle">شەڕی تیم</string>
+  <string name="eliteXArena">یاریگای %s باشترینەکان</string>
+  <string name="eliteX">باشترینەکان %s</string>
+  <string name="xArena">%sیاریگا</string>
 </resources>
