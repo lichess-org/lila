@@ -84,4 +84,24 @@
 نزیکترین شێوازی خول لە ڕاوند ڕۆبنەوە بریتییە لە خولی سویسڕی کە دەشێت بەشێوازی سەرھێڵیش ئەنجامبدرێت بەڵام دەبێت قۆناغی زۆری تیادا بێت، ئەوکاتیش ھەموو ئەگەرەکانی بەریەککەوتنی یاریزانان ڕوودەدات پێش ئەوەی خولەکە کۆتایی پێبێت.</string>
   <string name="otherSystemsQ">چی لەبارەی سیستەمەکانی دیکەی خولەکانەوە؟</string>
   <string name="otherSystemsA">لەئێستادا لە پلانماندا نییە ھیچ سیستەمێکی تری خولەکانی دیکە زیادبکەین بۆ لیچێس.</string>
+  <string name="swissDescription">لە پاڵەوانێتی سویسڕی%1$s،بەژداربوو پێویستناکا لەگەڵ هەموو بەژداربووەکانی تر یاری بکات. بەژداربووان یەک دژی یەک بەیەکدەگەن لەهەر گەڕێکدا و بەریەک کەوتن بەکۆمەڵێک یاسا ڕێکخراوە کە هەر بەژداربوویەک بەر ڕکابەرێکی هاوئاستی خۆی بکەوێت لەو ئەنجامەی بەدەستی هێناوە لە خولەکەدا. وە ڕکابەرەکان یەکجار بەر یەکتری دەکەون لەهەمان خولدا، براوە ئەو بەژداربووەیە کە بەرزترین خاڵی تۆمارکراوی هەیە لە تەواوی گەڕەکاندا. هەموو بەژداربووان لەهەموو گەڕەکاندا یاریدەکەن مەگەر کۆی ژمارەی بەژداربووان تاکبێت.</string>
+  <string name="teamOnly">پاڵەوانێتی سویسری تەنیا لەلایەن تیم لیدەر دروست دەکرێت، وە تەنی ئەندامانی تیمەکە دەتوانن یاری بکەن.
+%1$sبۆ دەستکردن بە یاری لە پاڵەوانێتی سویسڕی.</string>
+  <string name="joinOrCreateTeam">بەژداری کردن یان دروستکردنی تیم</string>
+  <string name="nowPlaying">یاریەکانی ئێستا</string>
+  <string name="startingSoon">بەزووی دەستپێدەکات</string>
+  <string name="comparison">بەراوردەکان</string>
+  <string name="tournDuration">ماوەی پاڵەوانیەتیەکە</string>
+  <string name="predefinedDuration">دیاریدەکرێت بە خولەک</string>
+  <string name="durationUnknown">دیاریدەکرێت بە زۆرترین گەڕ، بەڵام ماوەکەی دیارینەکراوە</string>
+  <string name="numberOfGames">ژمارەی یاریەکان</string>
+  <string name="numberOfGamesAsManyAsPossible">هەرچەندێک کە بتواندرێت ئەنجام بدرێت لە ماوەی تەرخانکراودا</string>
+  <string name="numberOfGamesPreDefined">بە پێشکەوتن بڕیاڕدەدرێت، بۆ هەموو یاریزانان هەمان شتە</string>
+  <string name="pairingSystem">سیستەمی بەریەک کەوتن</string>
+  <string name="pairingSystemArena">بەژداربوو دژی ڕکابەری هاو ئاست</string>
+  <string name="pairingSystemSwiss">باشترین بەریەک کەوتن لەسەر بنەمای خاڵەکان و خاڵی یەکسانە</string>
+  <string name="pairingWaitTime">کاتی چاوەڕوانی بەریەک کەوتن</string>
+  <string name="pairingWaitTimeArena">خێرا: ناوەستێت لەسەر هەموو بەژداربوان</string>
+  <string name="pairingWaitTimeSwiss">هێواش: دەوەستێت لەسەر هەموو بەژداربوان</string>
+  <string name="identicalPairing">بەریەک کەوتنی دووبارە</string>
 </resources>
