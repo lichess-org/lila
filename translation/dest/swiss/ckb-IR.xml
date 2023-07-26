@@ -104,4 +104,16 @@
   <string name="pairingWaitTimeArena">خێرا: ناوەستێت لەسەر هەموو بەژداربوان</string>
   <string name="pairingWaitTimeSwiss">هێواش: دەوەستێت لەسەر هەموو بەژداربوان</string>
   <string name="identicalPairing">بەریەک کەوتنی دووبارە</string>
+  <string name="possibleButNotConsecutive">دەگونجێت، بەڵام یەک لەدوای یەک</string>
+  <string name="identicalForbidden">ڕێگە پێنەدراوە</string>
+  <string name="lateJoin">دواکەوتنی بەژداریکردن</string>
+  <string name="lateJoinUntil">دەکرێت بەژداربوو دوابکەوێت تا نیوە یان زیاتری گەڕەکانی ئەنجامدراو</string>
+  <string name="pause">وەستاندن</string>
+  <string name="pauseSwiss">دگونجێت بەڵام دەشێت ژمارەی گەڕەکان کەم بکرێتەوە</string>
+  <string name="streaksAndBerserk">(ستریک)نەدۆڕان و (بریزێرک)دووکەرتکردنی کات</string>
+  <string name="similarToOTB">هاوشێوەیە لەگەڵ پاڵەوانێتی سەر بۆڕد</string>
+  <string name="unlimitedAndFree">بێسنوور و خۆڕایی</string>
+  <string name="predefinedUsers">تەنیا ڕێگە بەو بەکارهێنەرانە دەدرێت کە پێشوەختە ناسێندراون بۆ بەژداریکردن</string>
+  <string name="forbiddedUsers">گەر ئەم لیستە بەتاڵ نەبوو، ئەوکاتە بەژداربووی ئامادەنەبوو لە لیستەکەدا ڕێگەی پێنادرێ بەژداربێت. یەک ناو لە دێڕێکدا</string>
+  <string name="playYourGames">یاریەکانت بکە</string>
 </resources>
