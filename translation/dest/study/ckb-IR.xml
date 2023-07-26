@@ -17,6 +17,12 @@
   <string name="mostPopular">دیارترین</string>
   <string name="alphabetical">ڕیزکردن بەپێی ئەلفوبێ</string>
   <string name="addNewChapter">بەشێکی نوێ زیاد بکە</string>
+  <plurals name="nbChapters">
+    <item quantity="one">بەش  %s
+بەشەکان %s</item>
+    <item quantity="other">بەش %s
+بەشەکان %s</item>
+  </plurals>
   <string name="addMembers">ئەندامەکان زیاد بکە</string>
   <string name="inviteToTheStudy">بانگێشتکردن بۆ لێکۆڵینەوەکه</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">تکایە تەنھا ئەو کەسانە بانگێشت بکە کە دەیانناسیت و دەیانەوێت بە شێوەیەکی چالاکانە بێنە پاڵ ئەو لێکۆڵینەوەیه.</string>
