@@ -17,4 +17,43 @@
     <item quantity="one">ڕۆژانە یەک خول</item>
     <item quantity="other">یەک خول لە هەر %s ڕۆژێکدا</item>
   </plurals>
+  <string name="roundsAreStartedManually">خولەکان بە شێوەیەکی ئۆتۆماتیکی دەست پێناکەن</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s چرکە لە نێوان خولەکاندا</item>
+    <item quantity="other">%s چرکەکان لە نێوان خولەکاندا</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s دەقە لە نێوان خولەکاندا</item>
+    <item quantity="other">%s دەقەکان لە نێوان خولەکاندا</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">دەستپێدەکات لە</string>
+  <string name="nextRound">خولی دواتر</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">یاری بەردەوام</item>
+    <item quantity="other">یارییە بەردەوامەکان</item>
+  </plurals>
+  <string name="tournStartDate">بەرواری دەستپێکردنی پاڵەوانێتییەکە</string>
+  <string name="numberOfRounds">ژمارەی قۆناغەکان</string>
+  <string name="numberOfRoundsHelp">ژمارەی تاکی خولەکان ڕێگە بە هاوسەنگی زیاتر دەدات.</string>
+  <string name="roundInterval">ماوەی نێوان خولەکان</string>
+  <string name="forbiddenPairings">جووتە قەدەغەکراوەکان</string>
+  <string name="forbiddenPairingsHelp">ناوی بەکارهێنەری ئەو یاریزانانە کە نابێت پێکەوە یاری بکەن (بۆ نموونە خوشک و براکان). دوو ناوی بەکارهێنەر لە هەر دێڕێکدا، بە بۆشایی جیا دەکرێنەوە.</string>
+  <string name="newSwiss">پاڵەوانێتی نوێی سویسری</string>
+  <string name="swissVsArenaQ">کەی پاڵەوانێتی سویسرا بەکاردەهێنیت لە جیاتی پاڵەوانیەتی ئاسایی?</string>
+  <string name="swissVsArenaA">لە پاڵەوانێتییەکی سویسریدا هەموو بەشداربووان هەمان ژمارەی یارییەکان ئەنجام دەدەن، و تەنها یەکجار دەتوانن بەرامبەر یەکتر یاری بکەن.
+دەکرێت بژاردەیەکی باش بێت بۆ یانەکان و پاڵەوانێتیە فەرمییەکان.</string>
+  <string name="pointsCalculationQ">چۆن نمرەکان حیسابی بۆ دەکرێت?</string>
+  <string name="pointsCalculationA">بردنەوە بەهای خاڵێکە، دۆڕان نیو خاڵە، دۆڕانیش سفر خاڵە.
+کاتێک یاریزانێک ناتوانێت لە کاتی خولێکدا یاری بکاتبێت، بایتێک بەدەست دەهێنێت کە بەهای 1 خاڵە.</string>
+  <string name="tiebreaksCalculationQ">چۆن بڕینی یەکسانبوون حیسابی بۆ دەکرێت?</string>
+  <string name="sonnebornBergerScore">بەھای Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">لەگەڵ %s
+بۆ هەر ڕکابەرێک خاڵێک زیاد دەکرێت کە یاریزانەکە شکستی دەهێنێت و نیو خاڵیش بۆ هەر ڕکابەرێک کە یاریزانەکە لەگەڵیدا یەکسان دەبێت.</string>
+  <string name="pairingsQ">پێکەوەبونی یاریزانان چۆن دیاری دەکرێت?</string>
+  <string name="dutchSystem">سیستەمی ھۆڵندی</string>
+  <string name="FIDEHandbook">بەپێی یاساکانی فیدەی</string>
+  <string name="pairingsA">لەگەڵ %1$s، کە لەلایەن %2$s جێبەجێ دەکرێت، بەپێی %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">چی ڕوودەدات ئەگەر پاڵەوانێتییەکە گەڕی زیاتری هەبێت لە یاریزانەکان?</string>
+  <string name="moreRoundsThanPlayersA">کاتێک هەموو یاریان بەرامبەر یەکتر ئەنجامدرا، پاڵەوانێتییەکە کۆتایی پێدێت و براوەیەک ڕادەگەیەنرێت.</string>
+  <string name="restrictedToTeamsQ">بۆچی تەنها تایبەتە بە تیمەکان?</string>
 </resources>
