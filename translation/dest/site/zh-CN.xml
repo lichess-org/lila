@@ -471,7 +471,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">个人简介</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">旗子</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">旗帜</string>
   <string name="thankYou">致谢！</string>
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="oneUrlPerLine">每行一个URL。</string>
