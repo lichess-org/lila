@@ -566,7 +566,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="invalidUsernameOrPassword">Nome de utilizador ou palavra-passe incorretos</string>
   <string name="incorrectPassword">Palavra-passe incorreta</string>
   <string name="invalidAuthenticationCode">Código de autenticação inválido</string>
-  <string name="emailMeALink">Envie-me um link</string>
+  <string name="emailMeALink">Envie-me um link por e-mail</string>
   <string name="currentPassword">Palavra-passe atual</string>
   <string name="newPassword">Nova palavra-chave</string>
   <string name="newPasswordAgain">Nova palavra-passe (novamente)</string>
@@ -967,6 +967,6 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="until">Até</string>
   <string name="lichessDbExplanation">Jogos avaliados por amostragem de todos os jogadores Lichess</string>
   <string name="switchSides">Trocar de lado</string>
-  <string name="closingAccountWithdrawAppeal">Encerrar a sua conta anulará o seu apelo</string>
+  <string name="closingAccountWithdrawAppeal">Encerrar a tua conta anula o teu apelo</string>
   <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
 </resources>
