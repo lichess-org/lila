@@ -375,7 +375,7 @@ object I18nKeys:
   val `firstName` = I18nKey("firstName")
   val `lastName` = I18nKey("lastName")
   val `biography` = I18nKey("biography")
-  val `countryOrFlag` = I18nKey("countryOrFlag")
+  val `flag` = I18nKey("flag")
   val `thankYou` = I18nKey("thankYou")
   val `socialMediaLinks` = I18nKey("socialMediaLinks")
   val `oneUrlPerLine` = I18nKey("oneUrlPerLine")

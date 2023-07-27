@@ -20,7 +20,7 @@ case class Profile(
       case Nil   => none
       case names => (names mkString " ").some
 
-  def countryInfo = country flatMap Countries.info
+  def countryInfo = country flatMap Flags.info
 
   def nonEmptyLocation = ne(location)
 
