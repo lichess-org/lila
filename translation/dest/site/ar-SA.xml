@@ -619,7 +619,6 @@
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
   <string name="biography">نبذة عنك</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
