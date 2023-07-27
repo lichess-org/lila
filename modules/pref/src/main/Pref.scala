@@ -258,9 +258,8 @@ object Pref:
       EVERYBODY -> "With everybody"
     )
 
-  object KeyboardMove     extends BooleanPref
-  object Voice            extends BooleanPref
-  object PairingCountdown extends BooleanPref
+  object KeyboardMove extends BooleanPref
+  object Voice        extends BooleanPref
 
   object RookCastle:
     val NO  = 0

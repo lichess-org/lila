@@ -6,7 +6,6 @@ lichess.load.then(() => {
     ['behavior', 'arrowSnap', 'arrow.snap', true],
     ['behavior', 'courtesy', 'courtesy', false],
     ['behavior', 'scrollMoves', 'scrollMoves', true],
-    ['behavior', 'pairingCountdown', 'pairingCountdown', false],
     ['notification', 'playBellSound', 'playBellSound', true],
   ];
 
@@ -20,11 +19,6 @@ lichess.load.then(() => {
     const form = this,
       $form = $(form),
       showSaved = () => $form.find('.saved').removeClass('none');
-    // hotfix until next server deploy
-    $('input[name="behavior.submitMove"]')
-      .parents('.radio')
-      .find('input[type="checkbox"]')
-      .attr('data-name', 'behavior.submitMove');
     computeBitChoices($form, 'behavior.submitMove');
     $form.find('input').on('change', function (this: HTMLInputElement) {
       computeBitChoices($form, 'behavior.submitMove');
@@ -54,7 +48,7 @@ lichess.load.then(() => {
     let isDanger = false;
     const checkDanger = () => {
       isDanger = !!form.find('.danger input:checked').length;
-      submit.toggleClass('button-red confirm', isDanger);
+      submit.toggleClass('button-red', isDanger);
       submit.attr('data-icon', isDanger ? licon.CautionTriangle : licon.Checkmark);
       submit.attr('title', isDanger ? submit.data('danger-title') : '');
     };

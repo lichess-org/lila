@@ -44,20 +44,20 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="minimumGameLength">Duración mínima de la partida</string>
   <string name="history">Historial de torneos</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">Ver equipo</item>
-    <item quantity="other">Ver los %s equipos</item>
+    <item quantity="one">Ver el equipo</item>
+    <item quantity="other">Ver todos los %s equipos</item>
   </plurals>
   <string name="newTeamBattle">Nueva batalla de equipo</string>
   <string name="customStartDate">Fecha de inicio personalizada</string>
-  <string name="customStartDateHelp">En tu propia zona horaria local. Esto reemplaza la configuración de «Tiempo antes de que comience el torneo».</string>
+  <string name="customStartDateHelp">En tu zona horaria. Esto reemplazará la configuración de \"Tiempo antes de que comience el torneo\"</string>
   <string name="allowBerserk">Permitir Berserk</string>
-  <string name="allowBerserkHelp">Permite a los jugadores reducir el tiempo de la partida a la mitad para ganar un punto extra</string>
-  <string name="allowChatHelp">Permite a los jugadores comunicarse en una sala de chat</string>
-  <string name="arenaStreaks">Rachas de torneos</string>
+  <string name="allowBerserkHelp">Permite a los jugadores reducir su tiempo a la mitad para ganar un punto extra</string>
+  <string name="allowChatHelp">Permite a los jugadores comunicarse en la sala de chat</string>
+  <string name="arenaStreaks">Racha de victorias</string>
   <string name="arenaStreaksHelp">Después de ganar 2 partidas seguidas, cada victoria consecutiva concede 4 puntos en lugar de 2.</string>
   <string name="noBerserkAllowed">No permitir Berserk</string>
-  <string name="noArenaStreaks">Sin rachas de torneo</string>
-  <string name="averagePerformance">Rendimiento medio</string>
-  <string name="averageScore">Puntuación media</string>
+  <string name="noArenaStreaks">Sin rachas de victorias</string>
+  <string name="averagePerformance">Rendimiento promedio</string>
+  <string name="averageScore">Puntuación promedia</string>
   <string name="myTournaments">Mis torneos</string>
 </resources>

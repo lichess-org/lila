@@ -564,6 +564,7 @@ object mod:
       )
     )
 
+  private val dataValue       = attr("data-value")
   private val dataTags        = attr("data-tags")
   private val playban         = iconTag(licon.Clock)
   private val alt: Frag       = i("A")
@@ -583,6 +584,7 @@ object mod:
       renderIp: RenderIp
   ): Tag =
     import data.*
+    val canLocate = isGranted(_.Admin)
     mzSection("others")(
       table(cls := "slist")(
         thead(
@@ -617,8 +619,12 @@ object mod:
               n.to.is(o.id) && (ctx.me.exists(n.isFrom) || isGranted(_.Admin))
             val userAppeal = appeals.find(_.isAbout(o.id))
             tr(
-              dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
-              cls      := o.is(u) option "same"
+              dataTags := List(
+                other.ips.map(renderIp),
+                other.fps,
+                canLocate.so(userLogins.distinctLocationIdsOf(other.ips))
+              ).flatten.mkString(" "),
+              cls := o.is(u) option "same"
             )(
               if o.is(u) || Granter.canViewAltUsername(o)
               then td(dataSort := o.id)(userLink(o, withPerfRating = o.perfs.some, params = "?mod"))
@@ -669,7 +675,7 @@ object mod:
               ,
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
-              td(userTable.userCheckboxTd(o.marks.alt))
+              userTable.userCheckboxTd(o.marks.alt)
             )
           }
         )
@@ -688,7 +694,7 @@ object mod:
     val canLocate = isGranted(_.Admin)
     mzSection("identification")(
       canLocate option div(cls := "spy_locs")(
-        table(cls := "slist slist--sort")(
+        table(cls := "slist slist--sort spy_filter")(
           thead(
             tr(
               th("Country"),
@@ -701,15 +707,14 @@ object mod:
           tbody(
             logins.distinctLocations.toList
               .sortBy(-_.seconds)
-              .map { l =>
-                tr(
+              .map: l =>
+                tr(dataValue := l.value.location.id)(
                   td(l.value.location.country),
-                  td(l.value.proxy.value map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                  td(l.value.proxy.name map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                   td(l.value.location.region),
                   td(l.value.location.city),
                   td(dataSort := l.date.toMillis)(momentFromNowServer(l.date))
                 )
-              }
               .toList
           )
         )
@@ -758,10 +763,10 @@ object mod:
           tbody(
             logins.ips.sortBy(ip => (-ip.alts.score, -ip.ip.seconds)).map { ip =>
               val renderedIp = renderIp(ip.ip.value)
-              tr(cls := ip.blocked option "blocked")(
+              tr(cls := ip.blocked option "blocked", dataValue := renderedIp, dataTags := ip.location.id)(
                 td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
-                td(ip.proxy.value map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                td(ip.proxy.name map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                 td(ip.clients.toList.map(_.toString).sorted mkString ", "),
                 td(dataSort := ip.ip.date.toMillis)(momentFromNowServer(ip.ip.date)),
                 canIpBan option td(dataSort := (9999 - ip.alts.cleans))(
@@ -791,7 +796,7 @@ object mod:
           ),
           tbody(
             logins.prints.sortBy(fp => (-fp.alts.score, -fp.fp.seconds)).map { fp =>
-              tr(cls := fp.banned option "blocked")(
+              tr(cls := fp.banned option "blocked", dataValue := fp.fp.value)(
                 td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
                 td(dataSort := fp.alts.score)(altMarks(fp.alts)),
                 td(fp.client.toString),

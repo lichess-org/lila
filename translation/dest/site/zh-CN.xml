@@ -668,7 +668,7 @@
   <string name="yourPerfTypeRatingIsRating">您的 %1$s 等级分是 %2$s。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您强于%1$s的%2$s棋手。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%2$s的%3$s棋手强</string>
-  <string name="betterThanPercentPlayers">比%1$s的%2$s棋手更强</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">比%1$s的%2$s棋手更强</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的 %s 等级分。</string>
   <string name="yourRating">你的等级分</string>
   <string name="cumulative">累计</string>

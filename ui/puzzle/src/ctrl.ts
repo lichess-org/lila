@@ -501,8 +501,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (tree.nodeAtPath(path)?.puzzle == 'fail' && vm.mode != 'view') return;
     withGround(g => g.selectSquare(null));
     jump(path);
-    lichess.sound.saySan(vm.node.san, true);
     lichess.sound.move(vm.node);
+    lichess.sound.say('Is not the move, try something else!');
   }
 
   function userJumpPlyDelta(plyDelta: Ply) {

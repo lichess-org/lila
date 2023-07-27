@@ -43,12 +43,21 @@ export const isMobile = (): boolean => isAndroid() || isIOS();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
-export const isIOS = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
+export const isIOS = (constraint?: { below?: number; atLeast?: number }) => {
+  let answer = ios();
+  if (!constraint || !answer) return answer;
+  const version = parseFloat(navigator.userAgent.slice(navigator.userAgent.indexOf('Version/') + 8));
+  if (constraint?.below) answer = version < constraint.below;
+  if (answer && constraint?.atLeast) answer = version >= constraint.atLeast;
+  return answer;
+};
+
+export const isTouchDevice = () => !hasMouse();
 
 // some newer iPads pretend to be Macs, hence checking for "Macintosh"
 export const isIPad = (): boolean =>
   navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
-const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+const ios = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
 
-export const isTouchDevice = () => !hasMouse();
+const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);

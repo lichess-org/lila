@@ -12,6 +12,15 @@
   <string name="createBlogDiscussion">چالاککردنی سەرنجدان</string>
   <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت درووستدەکرێت بۆ ئەوەی خەڵک سەرنج لەسەر پەیامەکەت بدەن</string>
   <string name="publishOnYourBlog">بڵاوکردنەوە لە پەڕەی کەسیدا</string>
+  <string name="publishHelp">ئەگەر پشکنین کرا، پۆستەکە لە بلۆگەکەتدا دەخرێتە لیستی پۆستەکەوە. ئەگەر نا، تایبەت دەبێت، لە ڕەشنووسی پۆستەکانتاندا</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">پەیامەکانی بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
+    <item quantity="other">پەیامەکانی%s بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">%s بینەر</item>
+    <item quantity="other">بینراو%s</item>
+  </plurals>
   <string name="xPublishedY">%1$s،%2$sبڵاوکردەوە</string>
   <string name="thisPostIsPublished">ئەم پەیامە بڵاوکرایەوە</string>
   <string name="thisIsADraft">ئەمە ڕەشنووسە</string>
@@ -19,6 +28,11 @@
   <string name="noPostsInThisBlogYet">هیچ پەیامێک نییە لەم پەڕە کەسییەدا، لە ئێستادا.</string>
   <string name="noDrafts">هیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
   <string name="latestBlogPosts">کۆتا پەیامەکانی پەڕەی کەسی</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">بینەری یەک بلاو کراوە 
+بینەری ھەموو %s بڵاوکراوەکانت</item>
+    <item quantity="other">نیشاندانی هەموو پەیامەکانی %s</item>
+  </plurals>
   <string name="uploadAnImageForYourPost">بەرزکردنەوەی وێنەیەک بۆ پەیامەکەت</string>
   <string name="imageAlt">نوسینی جێگرەوە بۆ وێنە</string>
   <string name="imageCredit">دروستکەری وێنە</string>

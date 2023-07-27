@@ -41,11 +41,11 @@ case class Appeal(
     )
 
   def canAddMsg: Boolean =
-    val recentWithoutMod = msgs.foldLeft(Vector.empty[AppealMsg]) {
+    val recentWithoutMod = msgs.foldLeft(Vector.empty[AppealMsg]):
       case (_, msg) if isByMod(msg)                              => Vector.empty
       case (acc, msg) if msg.at isAfter nowInstant.minusWeeks(1) => acc :+ msg
       case (acc, _)                                              => acc
-    }
+
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
     recentSize < Appeal.maxLength
 
@@ -76,17 +76,13 @@ object Appeal:
   import play.api.data.*
   import play.api.data.Forms.*
 
-  val form =
-    Form(
-      single("text" -> lila.common.Form.cleanNonEmptyText(minLength = 2, maxLength = maxLength))
-    )
+  val form = Form:
+    single("text" -> lila.common.Form.cleanNonEmptyText(minLength = 2, maxLength = maxLength))
 
-  val modForm =
-    Form(
-      tuple(
-        "text"    -> lila.common.Form.cleanNonEmptyText,
-        "process" -> boolean
-      )
+  val modForm = Form:
+    tuple(
+      "text"    -> lila.common.Form.cleanNonEmptyText,
+      "process" -> boolean
     )
 
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Appeal.Id)

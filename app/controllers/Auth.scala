@@ -482,23 +482,23 @@ final class Auth(
       val ip          = req.ipAddress
       val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
       env.security.ipTrust
-        .isSuspicious(ip)
-        .flatMap: ipSusp =>
+        .rateLimitCost(ip, 10)
+        .flatMap: cost =>
           PasswordHasher.rateLimit[Result](
             rateLimited,
             enforce = env.net.rateLimit,
-            ipCost = 1 + ipSusp.so(15) + EmailAddress.isValid(id.value).so(2),
+            ipCost = cost + EmailAddress.isValid(id.value).so(2),
             userCost = 1 + multipleIps.so(4)
           )(id, req)(run)
 
   private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
-    env.security
-      .ip2proxy(ctx.ip)
-      .flatMap: proxy =>
+    env.security.ipTrust
+      .rateLimitCost(ctx.ip, 10)
+      .flatMap: cost =>
         PasswordHasher.rateLimit[Result](
           rateLimited,
           enforce = env.net.rateLimit,
-          ipCost = if proxy.is then 10 else 1
+          ipCost = cost
         )(me.userId into UserIdOrEmail, req)(_ => run)
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]

@@ -384,7 +384,7 @@
   <string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
   <string name="startedStreaming">közvetítések kezdete</string>
-  <string name="xStartedStreaming">%s elkezdte a közvetítést</string>
+  <string name="xStartedStreaming">%s élő műsort ad</string>
   <string name="averageElo">Átlag értékszám</string>
   <string name="location">Hely</string>
   <string name="filterGames">Játékok szűrése</string>
@@ -402,7 +402,7 @@
   <string name="toStudy">Tanulmány</string>
   <string name="importGame">Játszma importálása</string>
   <string name="importGameExplanation">Ha PGN formátumban adsz hozzá játszmát, visszanézheted a partit, elemezheted számítógéppel, chatelhetsz és linkkel meg tudod osztani másokkal.</string>
-  <string name="importGameCaveat">A változatok törölve lesznek, azonban ha a PGN-t tanulmányba importálod, megtarthatod őket.</string>
+  <string name="importGameCaveat">A változatok törlődnek. Ha meg akarod tartani, akkor importáld a PGN-t egy tanulmányban.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importált játszma</item>
     <item quantity="other">%s Importált játszma</item>
@@ -509,8 +509,8 @@
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="oneUrlPerLine">Egy URL soronként.</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
-  <string name="savingMoves">Átmeneti lépés tároló</string>
-  <string name="savingMovesHelp">A variációkat mindig a böngésző gyorsítótárában tároljuk.</string>
+  <string name="savingMoves">Átmeneti lépéstároló</string>
+  <string name="savingMovesHelp">A változatokat mindig a böngésződ gyorsítótárában tároljuk.</string>
   <string name="makeAStudy">A biztonság kedvéért és a későbbi megosztás lehetőségéért fontold meg egy tanulmány létrehozását.</string>
   <string name="clearSavedMoves">Lépések törlése</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
@@ -643,7 +643,7 @@
   <string name="tpTimeSpentPlaying">Játékkal töltött idő: %s</string>
   <string name="watchGames">Játszmák megtekintése</string>
   <string name="tpTimeSpentOnTV">TV-n töltött idő: %s</string>
-  <string name="watch">Néznivaló</string>
+  <string name="watch">Műsor</string>
   <string name="videoLibrary">Videó könyvtár</string>
   <string name="streamersMenu">Közvetítők</string>
   <string name="mobileApp">Mobil alkalmazás</string>
@@ -706,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">A te %1$s pontszámod %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jobb vagy, mint a %2$s játékosok %1$s-a.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s jobb, mint a %3$s játékosok %2$s-a.</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Jobb vagy, mint a %2$s játékosok %1$s -a</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Még nincs meghatározott %s pontszámod.</string>
   <string name="yourRating">Értékszámod</string>
   <string name="cumulative">Összesített</string>
@@ -759,7 +760,7 @@
   <string name="gameAnalysis">Játék elemzés</string>
   <string name="xHostsY">%1$s létrehozta a %2$s-t</string>
   <string name="xJoinsY">%1$s csatlakozott a %2$shoz</string>
-  <string name="xLikesY">%1$s kedveli %2$s</string>
+  <string name="xLikesY">%1$s kedvel egy tanulmányt: %2$s</string>
   <string name="quickPairing">Gyors játszma</string>
   <string name="lobby">Lobbi</string>
   <string name="anonymous">Névtelen</string>
@@ -783,7 +784,7 @@
   <string name="usernameUnacceptable">A felhasználói név nem megfelelő.</string>
   <string name="playChessInStyle">Sakkozz stílusosan</string>
   <string name="chessBasics">A sakk alapjai</string>
-  <string name="coaches">Oktatók</string>
+  <string name="coaches">Edzők</string>
   <string name="invalidPgn">Hibás PGN</string>
   <string name="invalidFen">Hibás FEN</string>
   <string name="custom">Egyéni</string>

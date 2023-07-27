@@ -707,7 +707,7 @@
   <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Сіз %2$s ойышыларының %1$s-ынан күштірексіз.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s ойышыларының %2$s-ынан күштірек.</string>
-  <string name="betterThanPercentPlayers">%1$s %2$s ойыншылардан озық</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">%1$s %2$s ойыншылардан озық</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
   <string name="yourRating">Рейтингіңіз</string>
   <string name="cumulative">Жинақылық</string>

@@ -44,6 +44,10 @@ GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey)
 GET   /api/rel/following               controllers.Relation.apiFollowing
 POST  /api/rel/follow/:user            controllers.Relation.follow(user)
 POST  /api/rel/unfollow/:user          controllers.Relation.unfollow(user)
+# lichobile BC
+POST  /rel/unfollow/:user              controllers.Relation.unfollowBc(user)
+POST  /rel/follow/:user                controllers.Relation.followBc(user)
+# end lichobile BC
 POST  /rel/block/:userId               controllers.Relation.block(userId)
 POST  /rel/unblock/:userId             controllers.Relation.unblock(userId)
 GET   /@/:username/following           controllers.Relation.following(username, page: Int ?= 1)

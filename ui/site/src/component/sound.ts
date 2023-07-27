@@ -19,30 +19,14 @@ export default new (class implements SoundI {
   baseUrl = assetUrl('sound', { version: '_____1' });
   soundMove?: SoundMove;
 
-  primer = () => {
-    this.ctx.resume();
-    $('body').off('click touchstart', this.primer);
-  };
-
   constructor() {
-    if (!isIOS()) return;
     $('body').on('click touchstart', this.primer);
   }
 
-  async context() {
-    if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
-      // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
-      this.ctx = makeAudioContext();
-      for (const s of this.sounds.values()) s.rewire(this.ctx);
-    }
-    if (this.ctx.state === 'suspended') await this.ctx.resume();
-    return this.ctx;
-  }
-
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
+    if (!this.ctx) return;
     if (path) this.paths.set(name, path);
-    else if (this.paths.has(name)) path = this.paths.get(name);
-    else path ??= this.resolvePath(name);
+    else path = this.paths.get(name) ?? this.resolvePath(name);
     if (!path) return;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
@@ -51,9 +35,9 @@ export default new (class implements SoundI {
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
-      if (this.ctx.decodeAudioData.length === 1)
-        this.ctx.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
-      else this.ctx.decodeAudioData(arrayBuffer, resolve, reject);
+      if (this.ctx?.decodeAudioData.length === 1)
+        this.ctx?.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
+      else this.ctx?.decodeAudioData(arrayBuffer, resolve, reject);
     });
     const sound = new Sound(this.ctx, audioBuffer);
     this.sounds.set(path, sound);
@@ -77,13 +61,8 @@ export default new (class implements SoundI {
       this.load(name)
         .then(async sound => {
           if (!sound) return resolve();
-          const resumeTimer = setTimeout(() => {
-            $('#warn-no-autoplay').addClass('shown');
-            resolve();
-          }, 400);
-          await this.context();
-          clearTimeout(resumeTimer);
-          sound.play(this.getVolume() * volume, resolve);
+          if (await this.resumeContext()) sound.play(this.getVolume() * volume, resolve);
+          else resolve();
         })
         .catch(resolve);
     });
@@ -162,7 +141,7 @@ export default new (class implements SoundI {
   publish = () => pubsub.emit('sound_set', this.theme);
 
   changeSet = (s: string) => {
-    if (isIOS()) this.ctx.resume();
+    if (isIOS()) this.ctx?.resume();
     this.theme = s;
     this.publish();
     this.move();
@@ -210,6 +189,42 @@ export default new (class implements SoundI {
   preloadBoardSounds() {
     for (const name of ['move', 'capture', 'check', 'genericNotify']) this.load(name);
   }
+
+  async resumeContext(): Promise<boolean> {
+    if (!this.ctx) return false;
+    if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
+      // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
+      this.ctx = makeAudioContext();
+      if (this.ctx) {
+        for (const s of this.sounds.values()) s.rewire(this.ctx);
+      }
+    }
+    // if suspended, try audioContext.resume() with a timeout (sometimes it never resolves)
+    if (this.ctx?.state === 'suspended')
+      await new Promise<void>(resolve => {
+        const resumeTimer = setTimeout(() => {
+          $('#warn-no-autoplay').addClass('shown');
+          resolve();
+        }, 400);
+        this.ctx
+          ?.resume()
+          .then(() => {
+            clearTimeout(resumeTimer);
+            resolve();
+          })
+          .catch(resolve);
+      });
+    return this.ctx?.state === 'running';
+  }
+
+  primer = () => {
+    if (isIOS({ below: 13 })) {
+      this.ctx = makeAudioContext()!;
+      for (const s of this.sounds.values()) s.rewire(this.ctx);
+    } else if (this.ctx?.state === 'suspended') this.ctx.resume();
+    $('body').off('click touchstart', this.primer);
+    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+  };
 })();
 
 class Sound {
@@ -240,6 +255,10 @@ class Sound {
   }
 }
 
-function makeAudioContext() {
-  return window.webkitAudioContext ? new window.webkitAudioContext() : new AudioContext();
+function makeAudioContext(): AudioContext | undefined {
+  return window.webkitAudioContext
+    ? new window.webkitAudioContext()
+    : typeof AudioContext !== 'undefined'
+    ? new AudioContext()
+    : undefined;
 }

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmissões</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s transmissão</item>
+    <item quantity="other">%s transmissões</item>
+  </plurals>
   <string name="liveBroadcasts">Transmissões do torneio em direto</string>
   <string name="newBroadcast">Nova transmissão em direto</string>
   <string name="addRound">Adicionar uma ronda</string>
@@ -11,7 +15,7 @@
   <string name="roundNumber">Número da ronda</string>
   <string name="tournamentName">Nome do torneio</string>
   <string name="tournamentDescription">Breve descrição do torneio</string>
-  <string name="fullDescription">Descrição ccompleta do evento</string>
+  <string name="fullDescription">Descrição completa do evento</string>
   <string name="fullDescriptionHelp">Descrição longa do evento opcional da transmissão. %1$s está disponível. Tem de ter menos que %2$s carácteres.</string>
   <string name="sourceUrlOrGameIds">URL de origem ou IDs do jogo</string>
   <string name="sourceUrlHelp">Link que o Lichess vai verificar para obter atualizações da PGN. Deve ser acessível ao público a partir da internet.</string>
@@ -27,6 +31,7 @@
   <string name="deleteRound">Apagar esta ronda</string>
   <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e os seus jogos.</string>
   <string name="deleteAllGamesOfThisRound">Eliminar todos os jogos desta ronda. A fonte deverá estar ativa para poder recriá-los.</string>
+  <string name="editRoundStudy">Editar estudo da ronda</string>
   <string name="deleteTournament">Eliminar este torneio</string>
-  <string name="definitivelyDeleteTournament">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
 </resources>

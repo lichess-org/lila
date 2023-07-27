@@ -35,5 +35,5 @@
   <string name="deleteAllGamesOfThisRound">Izbriši vse igre tega kroga. Vir bo moral biti aktiven, da jih lahko znova ustvarite.</string>
   <string name="editRoundStudy">Uredi krog študije</string>
   <string name="deleteTournament">Zbrišite ta turnir</string>
-  <string name="definitivelyDeleteTournament">Dokončno izbrišite celoten turnir, vse njegove kroge in vse njegove igre.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Dokončno izbrišite celoten turnir, vse njegove kroge in vse njegove igre.</string>
 </resources>

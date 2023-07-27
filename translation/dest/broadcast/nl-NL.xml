@@ -32,5 +32,5 @@
   <string name="definitivelyDeleteRound">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
   <string name="deleteAllGamesOfThisRound">Alle partijen van deze ronde verwijderen. De bron zal actief moeten zijn om ze opnieuw te maken.</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>
-  <string name="definitivelyDeleteTournament">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
 </resources>

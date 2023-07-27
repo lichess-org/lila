@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">在某些情况下，若发现玩家在与 AI 的对弈中利用 AI 骗取等级分，那么这场排位赛将不会被授予积分。</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果您遇到错误页面，您可以举报：</string>
+  <string name="wantBroadcastTournament">我想直播一个锦标赛</string>
+  <string name="learnHowToMakeBroadcasts">学习如何在Lichess创建您自己的直播</string>
+  <string name="contactAboutOfficialBroadcasts">就官方直播相关事宜，您还可以与直播团队联系。</string>
   <string name="banAppeal">申请禁令或限制IP</string>
   <string name="engineAppeal">引擎或作弊标记</string>
   <string name="sendAppealTo">您可以向 %s 发出申诉。</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%sئامارەکان</string>
+  <string name="perfStats">%sئامارەکان </string>
   <string name="viewTheGames">بینینی یارییەکان</string>
   <string name="provisional">کاتیی</string>
   <string name="notEnoughRatedGames">یاریی پلەبەندی پێویست ئەنجام نەدراوە بۆ جێگیرکردنی پلەبەندیەکی جێی متمانە.</string>
@@ -10,6 +10,7 @@
   <string name="totalGames">کۆی یارییەکان</string>
   <string name="ratedGames">یارییە پلەبەندیەکان</string>
   <string name="tournamentGames">یارییەکانی پاڵەوانێتی</string>
+  <string name="berserkedGames">یاریە مەترسیدارەکان</string>
   <string name="timeSpentPlaying">ئەوکاتەی کە بەیاریکردن بەسەرتبردووە</string>
   <string name="averageOpponent">تێکڕای ڕکابەر</string>
   <string name="victories">سەرکەوتنەکان</string>
@@ -22,6 +23,7 @@
   <string name="winningStreak">بردنەوەی یەک لە دوای یەک</string>
   <string name="losingStreak">دۆڕانی یەک بە دوای یەک</string>
   <string name="longestStreak">درێژترین ماوەی یەک بە دوای یەک: %s</string>
+  <string name="currentStreak">بردنەوەی یەکبەدوای یەکی ئێستات:%s</string>
   <string name="bestRated">باشترین سەرکەوتنەکانی پلەبەندی</string>
   <string name="worstRated">خراپترین شکستەکانی پلەبەندی</string>
   <string name="gamesInARow">یارییەکان لەسەریەک ئەنجامدراون</string>

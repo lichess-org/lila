@@ -31,7 +31,7 @@ final class Analyser(
         ) flatMap { result =>
           result.ok so {
             makeWork(game, sender) flatMap { work =>
-              workQueue {
+              workQueue:
                 repo getSimilarAnalysis work flatMap {
                   // already in progress, do nothing
                   case Some(similar) if similar.isAcquired => funit
@@ -48,7 +48,6 @@ final class Analyser(
                       repo addAnalysis work.copy(skipPositions = skipPositions)
                     }
                 }
-              }
             }
           } inject result
         }

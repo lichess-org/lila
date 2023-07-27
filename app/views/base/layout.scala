@@ -158,7 +158,9 @@ object layout:
     )
 
   private val warnNoAutoplay =
-    div(id := "warn-no-autoplay")(a(dataIcon := licon.Mute))
+    div(id := "warn-no-autoplay")(
+      a(dataIcon := licon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
+    )
 
   private def current2dTheme(using ctx: PageContext) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default

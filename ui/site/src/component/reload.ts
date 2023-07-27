@@ -7,8 +7,7 @@ interface Opts {
 
 export const redirect = async (opts: string | Opts, notify?: 'countdown' | 'beep') => {
   try {
-    if (notify === 'countdown') await lichess.sound.countdown(3);
-    else if (notify === 'beep') await lichess.sound.play('genericNotify');
+    if (notify === 'beep') await lichess.sound.play('genericNotify');
   } catch (e) {
     console.warn(e);
   }

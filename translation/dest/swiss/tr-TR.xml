@@ -66,7 +66,7 @@ Bununla birlikte, turnuvaya geç katılan oyuncuya tek seferliğine yarım puan 
 Sonrasında sistem bu oyuncuyu daha fazla oyun kaybetmemesi için turnuvadan çeker.
 Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="protectionAgainstNoShowQ">Rakibim gelmezse ne olacak?</string>
-  <string name="protectionAgainstNoShowA">İsviçre sistemi etkinliklere kaydolup maçlara gelmeyen oyuncular can sıkıcı olabilir. Bu durumu biraz hafifletmek için Lichess, maçlara çıkmayan oyuncuların İsviçre sistemi turnuvalarına katılmasını bir süreliğine engeller. Etkinliği düzenleyen kişi isterse bu oyuncuları turnuvaya alabilir.</string>
+  <string name="protectionAgainstNoShowA">İsviçre sistemi etkinliklere kaydolan oyuncuların maçlara gelmemesi can sıkıcı olabilir. Bu durumu biraz hafifletmek için, maçlara çıkmayan oyuncuların İsviçre sistemi turnuvalarına katılması Lichess tarafından bir süreliğine engellenir. Etkinliği düzenleyen kişi isterse bu oyuncuları turnuvaya alabilir.</string>
   <string name="lateJoinQ">Turnuvaya geç katılmak mümkün mü?</string>
   <string name="lateJoinA">Evet, toplam tur sayısının yarısına ulaşana dek turnuvaya katılmak mümkün. Örneğin 11 turluk bir turnuvaya 6. tur başlayana kadar, 12 turluk bir turnuvaya ise 7. tur başlayana kadar katılabilirsiniz. Geç katılan oyunculara, birkaç tur kaçırmış olsalar dahi yalnızca yarım puan verilir.</string>
   <string name="willSwissReplaceArenasQ">İsviçre sistemi turnuvalar, arena turnuvalarının yerini mi alacak?</string>

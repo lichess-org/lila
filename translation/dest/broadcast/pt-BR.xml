@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">Deletar todas as partidas desta rodada. A fonte deverá estar ativa para criá-las novamente.</string>
   <string name="editRoundStudy">Editar estudo da rodada</string>
   <string name="deleteTournament">Excluir este torneio</string>
-  <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
 </resources>

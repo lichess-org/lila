@@ -35,5 +35,5 @@
   <string name="deleteAllGamesOfThisRound">Видалити всі ігри цього раунду. Джерело має бути активним для того, щоб повторно відтворити його.</string>
   <string name="editRoundStudy">Редагувати дослідження туру</string>
   <string name="deleteTournament">Видалити турнір</string>
-  <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
+  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
 </resources>

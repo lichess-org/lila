@@ -14,17 +14,16 @@ final private class RelaySync(
     leaderboard: RelayLeaderboardApi
 )(using Executor):
 
-  def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
-    for
-      study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
-      chapters       <- chapterRepo.orderedByStudy(study.id)
-      sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
-      nbGames = sanitizedGames.size
-      chapterUpdates <- sanitizedGames.traverse(createOrUpdateChapter(_, rt, study, chapters, nbGames))
-      result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
-      _      = lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
-      _ <- tourRepo.setSyncedNow(rt.tour)
-    yield result
+  def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
+    study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
+    chapters       <- chapterRepo.orderedByStudy(study.id)
+    sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
+    nbGames = sanitizedGames.size
+    chapterUpdates <- sanitizedGames.traverse(createOrUpdateChapter(_, rt, study, chapters, nbGames))
+    result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
+    _      = lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
+    _ <- tourRepo.setSyncedNow(rt.tour)
+  yield result
 
   private def createOrUpdateChapter(
       game: RelayGame,
@@ -60,7 +59,8 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if nbGames == 1 || game.looksLikeLichess then chapters find game.staticTagsMatch
+    if nbGames == 1 || game.looksLikeLichess
+    then chapters.find(c => game.staticTagsMatch(c.tags))
     else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(
@@ -101,27 +101,26 @@ final private class RelaySync(
             position = Position(chapter, path).ref,
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
-        } >> newNode.so { node =>
-          node.mainline.foldM(Position(chapter, path).ref) { case (position, n) =>
-            studyApi.addNode(
-              studyId = study.id,
-              position = position,
-              node = n,
-              opts = moveOpts.copy(clock = n.clock),
-              relay = Chapter
-                .Relay(
-                  index = game.index,
-                  path = position.path + n.id,
-                  lastMoveAt = nowInstant
-                )
-                .some
-            )(who) inject position + n
-          } inject {
-            if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
-              studyApi.reloadChapters(study)
-            node.mainline.size
-          }
-        }
+        } >> newNode.so: node =>
+          node.mainline
+            .foldM(Position(chapter, path).ref): (position, n) =>
+              studyApi.addNode(
+                studyId = study.id,
+                position = position,
+                node = n,
+                opts = moveOpts.copy(clock = n.clock),
+                relay = Chapter
+                  .Relay(
+                    index = game.index,
+                    path = position.path + n.id,
+                    lastMoveAt = nowInstant
+                  )
+                  .some
+              )(who) inject position + n
+            .inject:
+              if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
+                studyApi.reloadChapters(study)
+              node.mainline.size
 
   private def updateChapterTags(
       tour: RelayTour,

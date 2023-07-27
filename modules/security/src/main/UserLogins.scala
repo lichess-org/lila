@@ -20,12 +20,15 @@ case class UserLogins(
 
   def otherUserIds = otherUsers.map(_.userId)
 
-  def usersSharingIp =
-    otherUsers.collect {
-      case OtherUser(user, ips, _) if ips.nonEmpty => user
-    }
+  def usersSharingIp = otherUsers.collect:
+    case OtherUser(user, ips, _) if ips.nonEmpty => user
 
   def distinctLocations = UserLogins.distinctRecent(ips.map(_.datedLocation).sortBy(-_.seconds))
+
+  def distinctLocationIdsOf(inIps: Set[IpAddress]) = ips
+    .collect:
+      case ip if inIps(ip.ip.value) => ip.location.id
+    .distinct
 
 final class UserLoginsApi(
     firewall: Firewall,
@@ -69,7 +72,7 @@ final class UserLoginsApi(
                 ip,
                 firewall blocksIp ip.value,
                 geoIP orUnknown ip.value,
-                IsProxy(proxies.get(ip.value)),
+                IsProxy(proxies.getOrElse(ip.value, "")),
                 Alts(othersByIp.getOrElse(ip.value, Set.empty)),
                 ipClients.getOrElse(ip.value, Set.empty)
               )
@@ -180,10 +183,9 @@ object UserLogins:
   // assumes all is sorted by most recent first
   def distinctRecent[V](all: List[Dated[V]]): scala.collection.View[Dated[V]] =
     all
-      .foldLeft(Map.empty[V, Instant]) {
+      .foldLeft(Map.empty[V, Instant]):
         case (acc, Dated(v, _)) if acc.contains(v) => acc
         case (acc, Dated(v, date))                 => acc + (v -> date)
-      }
       .view
       .map(Dated.apply)
 

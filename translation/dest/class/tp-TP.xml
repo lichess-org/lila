@@ -53,4 +53,5 @@ nimi awen: %3$s</string>
   <string name="winrate">nanpa pi pini pona</string>
   <string name="na">jo ken ala</string>
   <string name="editNews">ante e kama sin</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">anu</string>
 </resources>

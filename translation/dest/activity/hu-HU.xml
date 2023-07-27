@@ -51,7 +51,7 @@
     <item quantity="other">%s szimultán bemutatón vett részt</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">%s új tanulmány</item>
+    <item quantity="one">%s új tanulmányt készített</item>
     <item quantity="other">%s új tanulmány</item>
   </plurals>
   <plurals name="competedInNbTournaments">

@@ -9,7 +9,7 @@
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
-  <string name="strength">Nivel</string>
+  <string name="strength">Forza</string>
   <string name="toggleTheChat">(Des)activar a sala de conversa</string>
   <string name="chat">Chat</string>
   <string name="resign">Abandonar</string>
@@ -44,7 +44,7 @@
   <string name="forceResignation">Reclamar a vitoria</string>
   <string name="forceDraw">Reclamar as táboas</string>
   <string name="talkInChat">Por favor, sé correcto na sala de conversa!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira persoa que chegue a esta ligazón xogará contra ti.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira persoa que chegue a este URL xogará contra ti</string>
   <string name="whiteResigned">As brancas abandonaron</string>
   <string name="blackResigned">As negras abandonaron</string>
   <string name="whiteLeftTheGame">As brancas saíron da partida</string>
@@ -168,7 +168,7 @@
   <string name="rememberMe">Manterme conectado</string>
   <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
   <string name="signUp">Rexistrarse</string>
-  <string name="computersAreNotAllowedToPlay">Non están permitidos os ordenadores ou os xogadores asistidos por eles. Por favor non te axudes de módulos de xadrez, bases de datos ou otros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión</string>
+  <string name="computersAreNotAllowedToPlay">Non están permitidos nin os ordenadores nin os xogadores asistidos por eles. Por favor, non te axudes de módulos de xadrez, bases de datos ou doutros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión.</string>
   <string name="games">Partidas</string>
   <string name="forum">Foro</string>
   <string name="xPostedInForumY">%1$s escribiu no fío %2$s</string>
@@ -290,10 +290,10 @@
   <string name="viewRematch">Ver desquite</string>
   <string name="confirmMove">Confirma o movemento</string>
   <string name="play">Xogar</string>
-  <string name="inbox">Caixa do correo</string>
+  <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de conversa</string>
   <string name="loginToChat">Inicia sesión para conversar</string>
-  <string name="youHaveBeenTimedOut">Foches silenciado temporalmente.</string>
+  <string name="youHaveBeenTimedOut">Fuches silenciado temporalmente.</string>
   <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escribir mensaxe</string>
   <string name="subject">Asunto</string>
@@ -391,7 +391,7 @@
   <string name="reset">Restablecer</string>
   <string name="apply">Aplicar</string>
   <string name="save">Gardar</string>
-  <string name="leaderboard">Clasificación</string>
+  <string name="leaderboard">Lista de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
@@ -408,7 +408,7 @@
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Isto é un CAPTCHA de xadrez.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Clica no taboleiro para facer a túa xogada e demostrar que es humano.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Preme no taboleiro para facer a túa xogada e demostrar que es humano.</string>
   <string name="captcha.fail">Por favor resolve o CAPTCHA de xadrez.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
   <string name="whiteCheckmatesInOneMove">Xogas brancas e dan mate nunha</string>
@@ -677,7 +677,7 @@
   <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reloxo por cada xogador que se una ás simultáneas.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo extra do anfitrión por cada xogador</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
-  <string name="tournamentFAQ">Preguntas frecuentes sobre torneos</string>
+  <string name="tournamentFAQ">Preguntas Frecuentes dos torneos Arena</string>
   <string name="timeBeforeTournamentStarts">Tempo antes de que o torneo comece</string>
   <string name="averageCentipawnLoss">Perda media de centipeóns</string>
   <string name="accuracy">Precisión</string>
@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">A túa puntuación en %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Es mellor có %1$s dos xogadores de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é mellor có %2$s dos xogadores de %3$s.</string>
-  <string name="betterThanPercentPlayers">Mellor có %1$s dos xogadores de %2$s</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Mellor có %1$s dos xogadores de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non tes unha puntuación establecida en %s.</string>
   <string name="yourRating">A túa puntuación</string>
   <string name="cumulative">Acumulado</string>
@@ -726,7 +726,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamén podes usar a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
   <string name="analysisShapesHowTo">Pulsa Maiúsculas+clic ou preme o botón dereito do rato para debuxar círculos e frechas no taboleiro.</string>
-  <string name="letOtherPlayersMessageYou">Permitir que outros xogadores te envíen mensaxes</string>
+  <string name="letOtherPlayersMessageYou">Permitir que outros xogadores che envíen mensaxes</string>
   <string name="receiveForumNotifications">Recibe notificacións cando alguén te mencione no foro</string>
   <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
   <string name="withNobody">Con ninguén</string>
@@ -860,7 +860,7 @@
   <string name="temporaryInconvenience">Pedímosche desculpas polas molestias,</string>
   <string name="wishYouGreatGames">e desexámosche grandes partidas en lichess.org.</string>
   <string name="thankYouForReading">Grazas por pararte a ler isto!</string>
-  <string name="lifetimeScore">Resultados totais</string>
+  <string name="lifetimeScore">Marcador histórico</string>
   <string name="currentMatchScore">Resultados deste enfrontamento</string>
   <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, libro, base de datos ou doutra persoa).</string>
   <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>

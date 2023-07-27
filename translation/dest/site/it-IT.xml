@@ -707,6 +707,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s è più forte del %2$s di giocatori %3$s.</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Meglio del %1$s dei giocatori %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un punteggio %s consolidato.</string>
   <string name="yourRating">Il tuo punteggio</string>
   <string name="cumulative">Percentile</string>
