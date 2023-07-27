@@ -505,6 +505,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="firstName">Nome</string>
   <string name="lastName">Cognome</string>
   <string name="biography">Biografia</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandiera</string>
   <string name="thankYou">Grazie!</string>
   <string name="socialMediaLinks">Collegamenti ai social media</string>
   <string name="oneUrlPerLine">Un URL per riga.</string>
