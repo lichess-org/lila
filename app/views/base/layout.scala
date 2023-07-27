@@ -294,13 +294,14 @@ object layout:
               baseClass              -> true,
               "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
               "piece-letter"         -> pref.pieceNotationIsLetter,
-              "zen"                  -> pref.isZen,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> playing,
+              "no-rating"            -> !pref.showRatings,
+              "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
               "zenable"              -> zenable,
-              "no-rating"            -> !pref.showRatings
+              "zen-auto"             -> (zenable && pref.isZenAuto)
             )
           },
           dataDev,

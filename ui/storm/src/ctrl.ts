@@ -67,7 +67,9 @@ export default class StormCtrl implements PuzCtrl {
     lichess.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
-      xhr.setZen(zen);
+      if (!$('body').hasClass('zen-auto')) {
+        xhr.setZen(zen);
+      }
     });
     $('#zentog').on('click', this.toggleZen);
     lichess.sound.move();
