@@ -482,7 +482,7 @@ final class Auth(
       val ip          = req.ipAddress
       val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
       env.security.ipTrust
-        .rateLimitCost(ip, 10)
+        .rateLimitCostFactor(ip, 10)
         .flatMap: cost =>
           PasswordHasher.rateLimit[Result](
             rateLimited,
@@ -493,7 +493,7 @@ final class Auth(
 
   private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
     env.security.ipTrust
-      .rateLimitCost(ctx.ip, 10)
+      .rateLimitCostFactor(ctx.ip, 10)
       .flatMap: cost =>
         PasswordHasher.rateLimit[Result](
           rateLimited,

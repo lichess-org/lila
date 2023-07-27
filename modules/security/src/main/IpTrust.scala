@@ -24,10 +24,10 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
     def apply[A](ip: IpAddress, default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(op: => Fu[A])(using
         Executor
     ): Fu[A] =
-      rateLimitCost(ip, factor).flatMap: ipCost =>
-        limiter[Fu[A]](ip, default, cost * ipCost, msg)(op)
+      rateLimitCostFactor(ip, factor).flatMap: ipCostFactor =>
+        limiter[Fu[A]](ip, default, cost * ipCostFactor, msg)(op)
 
-  def rateLimitCost(ip: IpAddress, factor: Int): Fu[Int] = proxyApi(ip).dmap:
+  def rateLimitCostFactor(ip: IpAddress, factor: Int): Fu[Int] = proxyApi(ip).dmap:
     case IsProxy.empty => 1
     case IsProxy.pub   => factor * 3
     case _             => factor
