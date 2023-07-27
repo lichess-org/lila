@@ -17,12 +17,6 @@
   <string name="mostPopular">دیارترین</string>
   <string name="alphabetical">ڕیزکردن بەپێی ئەلفوبێ</string>
   <string name="addNewChapter">بەشێکی نوێ زیاد بکە</string>
-  <plurals name="nbChapters">
-    <item quantity="one">بەش  %s
-بەشەکان %s</item>
-    <item quantity="other">بەش %s
-بەشەکان %s</item>
-  </plurals>
   <string name="addMembers">ئەندامەکان زیاد بکە</string>
   <string name="inviteToTheStudy">بانگێشتکردن بۆ لێکۆڵینەوەکه</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">تکایە تەنھا ئەو کەسانە بانگێشت بکە کە دەیانناسیت و دەیانەوێت بە شێوەیەکی چالاکانە بێنە پاڵ ئەو لێکۆڵینەوەیه.</string>
@@ -96,12 +90,6 @@
   <string name="loadAPositionFromFen">لە FEN ەوە پۆستێک بار بکە</string>
   <string name="loadAGameFromPgn">یارییەکان لە PGN ەوە بار بکە</string>
   <string name="automatic">خوودکاری</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">دەقی PGN ـەکەت لێرەدا لێبدە، تا یارییەکانی %s</item>
-    <item quantity="other">دەقی PGN ـەکەت لێرەدا لێبدە، تا یاری %s
-
-دەقی PGN ـەکەت لێرەدا لێبدە، تا یارییەکانی %s</item>
-  </plurals>
   <string name="urlOfTheGame">URL ی یارییەکان، بۆ هەر دێڕێک یەک دانە</string>
   <string name="loadAGameFromXOrY">یارییەکان لە %1$s یان %2$s بار بکە</string>
   <string name="createChapter">دروستکردنی بەش</string>
