@@ -13,10 +13,8 @@ object BinaryFormat:
 
   object pgn:
 
-    def write(moves: Vector[SanStr]): ByteArray =
-      ByteArray {
-        format.pgn.Binary.writeMoves(moves).get
-      }
+    def write(moves: Vector[SanStr]): ByteArray = ByteArray:
+      format.pgn.Binary.writeMoves(moves).get
 
     def read(ba: ByteArray): Vector[SanStr] =
       format.pgn.Binary.readMoves(ba.value.toList).get.toVector
@@ -55,7 +53,7 @@ object BinaryFormat:
     private val size = 16
     private val buckets =
       List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
-    private val encodeCutoffs = buckets zip buckets.tail map { case (i1, i2) =>
+    private val encodeCutoffs = buckets zip buckets.tail map { (i1, i2) =>
       (i1 + i2) / 2
     } toVector
 
@@ -101,9 +99,7 @@ object BinaryFormat:
         // ba.size might be greater than 12 with 5 bytes timers
         // ba.size might be 8 if there was no timer.
         // #TODO remove 5 byte timer case! But fix the DB first!
-        val timer =
-          if ia.lengthIs == 12 then readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
-          else None
+        val timer = ia.lengthIs == 12 so readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
 
         ia match
           case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
@@ -162,13 +158,12 @@ object BinaryFormat:
 
     def write(clmt: CastleLastMove): ByteArray = ByteArray {
 
-      val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0) {
+      val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0):
         case (acc, (false, _)) => acc
         case (acc, (true, p))  => acc + (1 << (3 - p))
-      }
 
       def posInt(pos: Square): Int = (pos.file.value << 3) + pos.rank.value
-      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { case (o, d) =>
+      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { (o, d) =>
         (posInt(o) << 6) + posInt(d)
       }
       Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte)
@@ -196,26 +191,23 @@ object BinaryFormat:
 
     def write(pieces: PieceMap): ByteArray =
       def posInt(pos: Square): Int =
-        (pieces get pos).fold(0) { piece =>
+        (pieces get pos).fold(0): piece =>
           piece.color.fold(0, 8) + roleToInt(piece.role)
-        }
-      ByteArray(groupedPos map { case (p1, p2) =>
-        ((posInt(p1) << 4) + posInt(p2)).toByte
-      })
+      ByteArray:
+        groupedPos.map: (p1, p2) =>
+          ((posInt(p1) << 4) + posInt(p2)).toByte
 
     def read(ba: ByteArray, variant: Variant): PieceMap =
       def splitInts(b: Byte) =
         val int = b.toInt
         Array(int >> 4, int & 0x0f)
       def intPiece(int: Int): Option[Piece] =
-        intToRole(int & 7, variant) map { role =>
+        intToRole(int & 7, variant).map: role =>
           Piece(Color.fromWhite((int & 8) == 0), role)
-        }
       val pieceInts = ba.value flatMap splitInts
       (Square.all zip pieceInts).view
-        .flatMap { case (pos, int) =>
+        .flatMap: (pos, int) =>
           intPiece(int) map (pos -> _)
-        }
         .to(Map)
 
     // cache standard start position
@@ -248,15 +240,13 @@ object BinaryFormat:
     def write(o: UnmovedRooks): ByteArray =
       if o.isEmpty then emptyByteArray
       else
-        ByteArray {
+        ByteArray:
           var white = 0
           var black = 0
-          o.toList.foreach { pos =>
+          o.toList.foreach: pos =>
             if pos.rank == Rank.First then white = white | (1 << (7 - pos.file.value))
             else black = black | (1 << (7 - pos.file.value))
-          }
           Array(white.toByte, black.toByte)
-        }
 
     private def bitAt(n: Int, k: Int) = (n >> k) & 1
 
@@ -267,15 +257,13 @@ object BinaryFormat:
 
     def read(ba: ByteArray) =
       var set = Set.empty[Square]
-      arrIndexes.foreach { i =>
+      arrIndexes.foreach: i =>
         val int = ba.value(i).toInt
         if int != 0 then
           if int == -127 then set = if i == 0 then whiteStd else set ++ blackStd
           else
-            bitIndexes.foreach { j =>
+            bitIndexes.foreach: j =>
               if bitAt(int, j) == 1 then set = set + Square.at(7 - j, 7 * i).get
-            }
-      }
       UnmovedRooks(set)
 
   @inline private def toInt(b: Byte): Int = b & 0xff
