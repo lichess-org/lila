@@ -502,7 +502,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(g => g.selectSquare(null));
     jump(path);
     lichess.sound.move(vm.node);
-    lichess.sound.say('Is not the move, try something else!');
+    if (vm.mode !== 'view') lichess.sound.say('Is not the move, try something else!');
+    else {
+      lichess.sound.saySan(vm.node.san, true);
+      lichess.sound.say('Is the correct move!');
+    }
   }
 
   function userJumpPlyDelta(plyDelta: Ply) {
