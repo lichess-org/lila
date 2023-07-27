@@ -471,6 +471,7 @@
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
   <string name="biography">Tiểu sử</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc kì</string>
   <string name="thankYou">Cảm ơn!</string>
   <string name="socialMediaLinks">Liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một URL mỗi dòng.</string>
