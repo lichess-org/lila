@@ -27,8 +27,8 @@
   <string name="msgWrite">Enviar mensagens privadas a outros jogadores</string>
   <string name="boardPlay">Jogar partidas com a API do tabuleiro</string>
   <string name="botPlay">Jogar partidas com a API do bot</string>
-  <string name="engineRead">Ver e usar seus motores externos</string>
-  <string name="engineWrite">Criar e atualizar o motor externo</string>
+  <string name="engineRead">Ver e usar os teus motores externos</string>
+  <string name="engineWrite">Criar e atualizar os motores externos</string>
   <string name="webLogin">Crie sessões de sites autenticados (garante acesso completo!)</string>
-  <string name="webMod">Use ferramentas de moderação (dentro dos limites da sua permissão)</string>
+  <string name="webMod">Use ferramentas de moderação (dentro dos limites da tua permissão)</string>
 </resources>
