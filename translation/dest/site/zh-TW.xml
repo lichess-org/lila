@@ -519,7 +519,7 @@
   </plurals>
   <string name="listBlockedPlayers">显示黑名单用户列表</string>
   <string name="human">人类</string>
-  <string name="computer">电脑</string>
+  <string name="computer">電腦</string>
   <string name="side">方</string>
   <string name="clock">鐘</string>
   <string name="opponent">对手</string>
@@ -611,7 +611,7 @@
   <string name="cumulative">平均累積</string>
   <string name="glicko2Rating">Glicko-2 積分</string>
   <string name="checkYourEmail">請檢查您的電子郵件</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱. 点击邮件中的链接以激活您的账号.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">我們已經發送了一封電子郵件到你的郵箱. 點擊郵件中的連結以激活您的賬號.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
   <string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>

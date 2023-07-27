@@ -56,7 +56,7 @@ object pref:
             ),
             setting(
               zenMode(),
-              radios(form("display.zen"), booleanChoices)
+              radios(form("display.zen"), translatedZenChoices)
             ),
             setting(
               displayBoardResizeHandle(),
@@ -157,10 +157,6 @@ object pref:
             setting(
               scrollOnTheBoardToReplayMoves(),
               radios(form("behavior.scrollMoves"), booleanChoices)
-            ),
-            setting(
-              "Countdown when paired with opponent",
-              radios(form("behavior.pairingCountdown"), booleanChoices)
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(

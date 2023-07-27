@@ -9,7 +9,7 @@ import lila.coach.CoachPager.Order.Login
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.security.Permission
-import lila.user.{ Country, User, UserMark, UserRepo, UserPerfsRepo }
+import lila.user.{ Flag, User, UserMark, UserRepo, UserPerfsRepo }
 import lila.user.UserPerfs
 
 final class CoachPager(
@@ -26,7 +26,7 @@ final class CoachPager(
   def apply(
       lang: Option[Lang],
       order: Order,
-      country: Option[Country],
+      country: Option[Flag],
       page: Int
   ): Fu[Paginator[Coach.WithUser]] =
     def selector = listableSelector ++ lang.so { l => $doc("languages" -> l.code) }

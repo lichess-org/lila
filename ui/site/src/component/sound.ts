@@ -19,12 +19,6 @@ export default new (class implements SoundI {
   baseUrl = assetUrl('sound', { version: '_____1' });
   soundMove?: SoundMove;
 
-  primer = () => {
-    if (isIOS()) this.ctx?.resume();
-    $('#warn-no-autoplay').removeClass('shown');
-    $('body').off('click touchstart', this.primer);
-  };
-
   constructor() {
     $('body').on('click touchstart', this.primer);
   }
@@ -222,6 +216,15 @@ export default new (class implements SoundI {
       });
     return this.ctx?.state === 'running';
   }
+
+  primer = () => {
+    if (isIOS({ below: 13 })) {
+      this.ctx = makeAudioContext()!;
+      for (const s of this.sounds.values()) s.rewire(this.ctx);
+    } else if (this.ctx?.state === 'suspended') this.ctx.resume();
+    $('body').off('click touchstart', this.primer);
+    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+  };
 })();
 
 class Sound {

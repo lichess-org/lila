@@ -90,7 +90,7 @@ case class Pref(
         SoundSet.allByKey get value map { s =>
           copy(soundSet = s.key)
         }
-      case "zen"          => copy(zen = if value == "1" then 1 else 0).some
+      case "zen"          => copy(zen = ~value.toIntOption.filter(Zen.choices.map(_._1).contains)).some
       case "voice"        => copy(voice = if value == "1" then 1.some else 0.some).some
       case "keyboardMove" => copy(keyboardMove = if value == "1" then 1 else 0).some
       case _              => none
@@ -115,7 +115,8 @@ case class Pref(
 
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
-  def isZen = zen == Zen.YES
+  def isZen     = zen == Zen.YES
+  def isZenAuto = zen == Zen.GAME_AUTO
 
   val showRatings = ratings == Ratings.YES
 
@@ -258,9 +259,8 @@ object Pref:
       EVERYBODY -> "With everybody"
     )
 
-  object KeyboardMove     extends BooleanPref
-  object Voice            extends BooleanPref
-  object PairingCountdown extends BooleanPref
+  object KeyboardMove extends BooleanPref
+  object Voice        extends BooleanPref
 
   object RookCastle:
     val NO  = 0
@@ -437,7 +437,17 @@ object Pref:
     val changedAt  = instantOf(2021, 12, 28, 8, 0)
     val showPrompt = changedAt.isAfter(nowInstant minusMonths 6)
 
-  object Zen     extends BooleanPref
+  object Zen:
+    val NO        = 0
+    val YES       = 1
+    val GAME_AUTO = 2
+
+    val choices = Seq(
+      NO        -> "No",
+      YES       -> "Yes",
+      GAME_AUTO -> "In-game only"
+    )
+
   object Ratings extends BooleanPref
 
   val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)

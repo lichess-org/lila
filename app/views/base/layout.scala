@@ -158,7 +158,9 @@ object layout:
     )
 
   private val warnNoAutoplay =
-    div(id := "warn-no-autoplay")(a(dataIcon := licon.Mute))
+    div(id := "warn-no-autoplay")(
+      a(dataIcon := licon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
+    )
 
   private def current2dTheme(using ctx: PageContext) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
@@ -292,13 +294,14 @@ object layout:
               baseClass              -> true,
               "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
               "piece-letter"         -> pref.pieceNotationIsLetter,
-              "zen"                  -> pref.isZen,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> playing,
+              "no-rating"            -> !pref.showRatings,
+              "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
               "zenable"              -> zenable,
-              "no-rating"            -> !pref.showRatings
+              "zen-auto"             -> (zenable && pref.isZenAuto)
             )
           },
           dataDev,

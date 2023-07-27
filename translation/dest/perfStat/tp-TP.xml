@@ -6,6 +6,7 @@
   <string name="berserkedGames">musi pi nasin pi tenpo lili</string>
   <string name="victories">pini pona</string>
   <string name="defeats">pini ike</string>
+  <string name="fromXToY">tenpo %1$s tawa tenpo %2$s</string>
   <string name="losingStreak">kulupu pi pini ike</string>
   <string name="now">tenpo ni</string>
 </resources>

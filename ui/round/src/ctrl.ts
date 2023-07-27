@@ -154,7 +154,9 @@ export default class RoundController {
     lichess.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
-      xhr.setZen(zen);
+      if (!$('body').hasClass('zen-auto')) {
+        xhr.setZen(zen);
+      }
     });
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
@@ -566,6 +568,12 @@ export default class RoundController {
       )
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
+
+    if ($('body').hasClass('zen-auto') && $('body').hasClass('zen')) {
+      $('body').toggleClass('zen');
+      window.dispatchEvent(new Event('resize'));
+    }
+
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();

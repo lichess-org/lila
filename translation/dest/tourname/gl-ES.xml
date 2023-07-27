@@ -11,7 +11,7 @@
   <string name="dailyXArena">Arena %s diaria</string>
   <string name="dailyX">%s diario</string>
   <string name="easternRapidArena">Arena Rápida oriental</string>
-  <string name="easternRapid">Rápido Oriental</string>
+  <string name="easternRapid">Rápido oriental</string>
   <string name="easternClassicalArena">Arena Clásica oriental</string>
   <string name="easternClassical">Clásico oriental</string>
   <string name="easternXArena">Arena %s oriental</string>
@@ -34,11 +34,11 @@
   <string name="yearlyClassical">Clásico anual</string>
   <string name="yearlyXArena">Arena %s anual</string>
   <string name="yearlyX">%s anual</string>
-  <string name="rapidShieldArena">Escudo da Arena Rápida</string>
+  <string name="rapidShieldArena">Arena Escudo Rápido</string>
   <string name="rapidShield">Escudo Rápido</string>
-  <string name="classicalShieldArena">Escudo da Arena Clásica</string>
+  <string name="classicalShieldArena">Arena Escudo Clásico</string>
   <string name="classicalShield">Escudo Clásico</string>
-  <string name="xShieldArena">Escudo da Arena %s</string>
+  <string name="xShieldArena">Arena Escudo %s</string>
   <string name="xShield">Escudo %s</string>
   <string name="xTeamBattle">Batalla por equipos %s</string>
   <string name="eliteXArena">Arena %s de Elite</string>
