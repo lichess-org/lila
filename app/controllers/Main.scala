@@ -55,12 +55,10 @@ final class Main(
 
   def redirectToAppStore = Open:
     pageHit
-    val redirectUrl = ctx.req.headers.get("User-Agent") match
-      case Some(userAgent) if userAgent.contains("Android") =>
-        "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-      case _ =>
-        "https://apps.apple.com/us/app/lichess-online-chess/id968371784"
-    Redirect(redirectUrl)
+    Redirect:
+      if HTTPRequest.isAndroid(req)
+      then "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
+      else "https://apps.apple.com/us/app/lichess-online-chess/id968371784"
 
   private def serveMobile(using Context) =
     pageHit
