@@ -448,7 +448,6 @@
   <string name="firstName">Berilgan nom</string>
   <string name="lastName">Familiya</string>
   <string name="biography">Biografiya</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Mamlakat yoki bayroq</string>
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="inlineNotation">Ichki yozuv</string>
