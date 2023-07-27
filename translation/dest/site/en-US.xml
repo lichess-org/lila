@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">No game found</string>
+  <string name="maxDepthReached">Max depth reached!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openings">Openings</string>
   <string name="openingExplorer">Opening explorer</string>
   <string name="openingEndgameExplorer">Opening/endgame explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Play first opening/endgame-explorer move</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
@@ -119,6 +121,7 @@
   <string name="memory">Memory</string>
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
+  <string name="engineManager">Engine manager</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Mistake</string>
   <string name="inaccuracy">Inaccuracy</string>
@@ -150,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s game</item>
     <item quantity="other">%s games</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating over %2$s game</item>
+    <item quantity="other">%1$s rating over %2$s games</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bookmark</item>
@@ -340,8 +347,13 @@
     <item quantity="one">%s study</item>
     <item quantity="other">%s studies</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simul</item>
+    <item quantity="other">%s simul</item>
+  </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
+  <string name="noDrawBeforeSwissLimit">You cannot draw before 30 moves are played in a Swiss tournament.</string>
   <string name="thematic">Thematic</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rated game</item>
@@ -675,6 +687,11 @@ computer analysis, game chat and shareable URL.</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
+  <string name="keyRequestComputerAnalysis">Request computer analysis, learn from your mistakes</string>
+  <string name="keyNextLearnFromYourMistakes">Next (learn from your mistakes)</string>
+  <string name="keyNextBlunder">Next blunder</string>
+  <string name="keyNextMistake">Next mistake</string>
+  <string name="keyNextInaccuracy">Next inaccuracy</string>
   <string name="newTournament">New tournament</string>
   <string name="tournamentHomeTitle">Chess tournaments featuring various time controls and variants</string>
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
@@ -690,6 +707,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">You are better than %1$s of %2$s players.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s is better than %2$s of %3$s players.</string>
+  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Better than %1$s of %2$s players</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">You do not have an established %s rating.</string>
   <string name="yourRating">Your rating</string>
   <string name="cumulative">Cumulative</string>
@@ -772,6 +790,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="invalidFen">Invalid FEN</string>
   <string name="custom">Custom</string>
   <string name="notifications">Notifications</string>
+  <string name="notificationsX">Notifications: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s second to play the first move</item>

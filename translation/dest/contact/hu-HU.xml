@@ -56,8 +56,8 @@
   <string name="errorPage">Hibaoldal</string>
   <string name="reportErrorPage">Ha hibaoldallal találkoztál, itt jelentheted:</string>
   <string name="wantBroadcastTournament">Szeretnék közvetíteni egy versenyt</string>
-  <string name="learnHowToMakeBroadcasts">Tanuld meg hogyan készíthetsz saját közvetítést Lichess-en</string>
-  <string name="contactAboutOfficialBroadcasts">Kapcsolatba is léphetsz a közvetítő csapattal a hivatalos közvetítésekkel kapcsolatban.</string>
+  <string name="learnHowToMakeBroadcasts">Tudd meg, hogyan indíthatod el a saját közvetítésedet</string>
+  <string name="contactAboutOfficialBroadcasts">Felveheted a kapcsolatot a közvetítő csapattal a hivatalos közvetítésekkel kapcsolatban.</string>
   <string name="banAppeal">Fellebbezés kitiltás vagy IP cím korlátozás miatt</string>
   <string name="engineAppeal">Sakkprogram használat vagy csalás</string>
   <string name="sendAppealTo">A fellebbezést a %s címre küldheted.</string>

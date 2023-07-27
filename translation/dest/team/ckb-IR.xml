@@ -31,4 +31,29 @@
   <string name="beingReviewed">داواکاریەکەت بۆ بەشداریکردن هێشتا لەلایەن سەرۆکی یانکەوە پێداچونەوەی بۆ دەکرێت.</string>
   <string name="requestDeclined">داواکاری بەشداریکردنت لەلایەن سەرۆکی یانەکە ڕەتکرایەوە.</string>
   <string name="subToTeamMessages">بەشداری نامەکانی یانە بکە</string>
+  <string name="teamBattle">شەڕی تیم</string>
+  <string name="teamBattleOverview">شەڕکردنی لە نێوان چەند تیمێک ھەر یاریزانێک خال کۆ ئەکاتەوە بۆ تیمەکەی</string>
+  <string name="teamTournament">تیمی پاڵەوانێتی</string>
+  <string name="teamTournamentOverview">پاڵەوانێتی ئارێنا کە تەنها ئەندامانی تیپەکەت دەتوانن بەشداری بکەن</string>
+  <string name="swissTournamentOverview">پاڵەوانێتی ئارێنا کە تەنها ئەندامانی تیپەکەت دەتوانن بەشداری بکەن</string>
+  <string name="messageAllMembers">نامەیەک بۆ ھەموو ئەندامەکانت</string>
+  <string name="messageAllMembersOverview">نامەیەکی تایبەت بۆ هەموو ئەندامێکی تیمەکە بنێرن</string>
+  <string name="messageAllMembersLongDescription">نامەیەکی تایبەت بنێرە بۆ هەموو ئەندامانی تیمەکە.
+دەتوانیت ئەمە بەکاربهێنیت بۆ بانگکردنی یاریزانەکان بۆ ئەوەی بەشداری پاڵەوانێتییەک یان شەڕی تیمی بکەن.
+ئەو یاریزانانەی حەز بە وەرگرتنی نامەکانت ناکەن لەوانەیە تیپەکە بەجێبهێڵن.</string>
+  <string name="teamsIlead">ئەو تیمانەی کە من سەرکردایەتی دەکەم</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">لەوانەیە بتەوێت یەکێک لەم پاڵەوانێتییەکانی داهاتوو بەیەکەوە ببەستیتەوە?</string>
+  <string name="usersWhoCanManageThisTeam">ئەو بەکارهێنەرانەی کە دەتوانن ئەم تیمە بەڕێوەببەن</string>
+  <string name="leadersChat">بەڕێوبەری گفتوگۆ</string>
+  <string name="closeTeam">داخستنی تیم</string>
+  <string name="closeTeamDescription">داخستنی تیم بۆ ھەمیشە.</string>
+  <string name="entryCode">وشەی نھێنی چونەژورەوەی تیم</string>
+  <string name="entryCodeDescriptionForLeader">(ئارەزوومەندانە) کۆدێکی چوونە ژوورەوە کە ئەندامانی نوێ دەبێت بزانن بۆ ئەوەی بەشداری ئەم تیمە بکەن.</string>
+  <string name="incorrectEntryCode">وشەی تێپەڕ ھەڵەیە.</string>
+  <string name="teamAlreadyExists">ئەم تیمە لە ڕاستیا بەردەستە.</string>
+  <string name="upcomingTourns">پاڵەوانێتیەکانی داھاتوو</string>
+  <string name="completedTourns">پاڵەوانێتیەکە کۆتای ھاتوە</string>
+  <string name="declinedRequests">رەتکردنەوەی داواکردن</string>
+  <string name="joinLichessVariantTeam">بەشداری تیمی فەرمی %s بکە بۆ زانینی هەواڵ و ڕووداوەکان</string>
+  <string name="teamPage">پەڕەی تیم</string>
 </resources>

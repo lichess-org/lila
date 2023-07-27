@@ -99,6 +99,7 @@
   <string name="openingExplorer">Explorador de aberturas</string>
   <string name="openingEndgameExplorer">Explorador de Aberturas/Finais de Jogos</string>
   <string name="xOpeningExplorer">Explorador de aberturas de %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Jogar o primeiro lance do explorador de aberturas/finais</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
   <string name="winOr50MovesByPriorMistake">Vitória ou 50 movimentos por engano anterior</string>
@@ -345,6 +346,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s estudo</item>
     <item quantity="other">%s estudos</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultânea</item>
+    <item quantity="other">%s simultâneas</item>
   </plurals>
   <string name="viewTournament">Ver o torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>

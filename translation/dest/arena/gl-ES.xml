@@ -14,21 +14,21 @@ As seguintes partidas continuarán valendo dobre ata que pares de gañar.
 
 Por exemplo, dúas vitorias seguidas por unhas táboas valen 6 puntos: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Modo Berserk</string>
-  <string name="berserkAnswer">Cando un xogador pincha no botón de Berserk ao comezo da partida, perde a metade do seu tempo no reloxio, pero a vitoria, de conseguila, valerá un punto máis.
+  <string name="berserkAnswer">Cando un xogador preme no botón de Berserk ao comezo da partida, perde a metade do seu tempo no reloxo, pero a vitoria, de conseguila, valerá un punto máis.
 
-Facer Berserk en controles de tempo con incremento tamén cancela o incremento (1+2 é unha excepción, xa que se converte en 1+0).
+Facer o Berserk en controis de tempo con incremento tamén cancela o incremento (1+2 é unha excepción, xa que se converte en 1+0).
 
 O modo Berserk non está dispoñible en partidas con tempo inicial cero (0+1, 0+2).
 
-O modo Berserk so garante un punto adicional no caso de que se realicen polo menos 7 xogadas na partida.</string>
+O modo Berserk só garante un punto adicional no caso de que se realicen polo menos 7 xogadas na partida.</string>
   <string name="howIsTheWinnerDecided">Como se decide o gañador?</string>
   <string name="howIsTheWinnerDecidedAnswer">O(s) xogador(es) con máis puntos á conclusión do tempo establecido para o torneo será(n) proclamado(s) gañador(es).</string>
   <string name="howDoesPairingWork">Como funcionan os emparellamentos?</string>
   <string name="howDoesPairingWorkAnswer">Ao comezo do torneo, os xogadores son emparellados segundo a súa puntuación.
-Así que rematas unha partida, voltas á sala de espera: alí serás emparellado cun xogador que estea preto na clasificación. Isto garante un mínimo tempo de espera, aínda que poida que non xogues contra todos os participantes do torneo.
+Así que rematas unha partida, voltas á sala de espera: alí serás emparellado cun xogador que estea preto na clasificación. Isto garante un mínimo tempo de espera, aínda que pode que non xogues contra todos os xogadores do torneo.
 Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis puntos.</string>
   <string name="howDoesItEnd">Como remata?</string>
-  <string name="howDoesItEndAnswer">O torneo ten unha conta atrás de tempo. Cando chega a cero, a clasificación do torneo se conxela, e o gañador é proclamado. As partidas en curso nese momento deben ser rematadas, pero non contan para a clasificación do torneo.</string>
+  <string name="howDoesItEndAnswer">O torneo ten un reloxo cunha conta atrás. Cando chega a cero, a clasificación do torneo se conxela e se proclama ó gañador. As partidas en curso nese momento deben rematar, pero non contan para a clasificación do torneo.</string>
   <string name="otherRules">Outras regras importantes</string>
   <string name="thereIsACountdown">Hai unha conta atrás para a túa primeira xogada. Non executala neste tempo dará a vitoria ao teu opoñente.</string>
   <plurals name="drawingWithinNbMoves">
@@ -54,7 +54,7 @@ Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis 
   <string name="allowChatHelp">Permite que os xogadores se comuniquen nunha sala de conversas</string>
   <string name="arenaStreaks">Secuencia de vitorias na Arena</string>
   <string name="arenaStreaksHelp">Tras 2 vitorias, as seguintes vitorias consecutivas dan 4 puntos en lugar de 2.</string>
-  <string name="noBerserkAllowed">Non está permitido o Berserk</string>
+  <string name="noBerserkAllowed">Non está permitido facer o Berserk</string>
   <string name="noArenaStreaks">Arena sen secuencias de vitorias</string>
   <string name="averagePerformance">Rendemento medio</string>
   <string name="averageScore">Puntuación media</string>
