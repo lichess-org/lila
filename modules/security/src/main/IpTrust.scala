@@ -18,7 +18,7 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
     case IsProxy.pub | IsProxy.tor => true
     case _                         => false
 
-  final class rateLimit(credits: Int, duration: FiniteDuration, key: String, factor: Int = 3):
+  final class rateLimit(credits: Int, duration: FiniteDuration, key: String, factor: Int = 2):
     import lila.memo.{ RateLimit as RL }
     private val limiter = RL[IpAddress](credits, duration, key)
     def apply[A](ip: IpAddress, default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(op: => Fu[A])(using
@@ -29,7 +29,7 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
 
   def rateLimitCost(ip: IpAddress, factor: Int): Fu[Int] = proxyApi(ip).dmap:
     case IsProxy.empty => 1
-    case IsProxy.pub   => factor * 2
+    case IsProxy.pub   => factor * 3
     case _             => factor
 
 object IpTrust:
