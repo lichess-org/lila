@@ -429,7 +429,6 @@
   <string name="editProfile">Дур гьумер хисизе</string>
   <string name="firstName">ЦӀар</string>
   <string name="biography">ГӀумрухъвай</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Улка яги байрахъ</string>
   <string name="thankYou">Баркала!</string>
   <string name="oneUrlPerLine">Мухъда цо бухьен.</string>
   <string name="success">Бергьенлъи</string>
