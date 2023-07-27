@@ -504,6 +504,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
   <string name="biography">Biografi</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flag</string>
   <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="oneUrlPerLine">En URL pr. linje.</string>
