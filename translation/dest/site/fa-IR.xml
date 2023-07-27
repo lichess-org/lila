@@ -503,6 +503,7 @@
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
   <string name="biography">زندگی نامه</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">پرچم</string>
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="oneUrlPerLine">یک ادرس اینترنتی در هر خط.</string>
