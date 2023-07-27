@@ -184,6 +184,13 @@ trait SetupHelper:
       (Pref.Animation.SLOW, trans.slow.txt())
     )
 
+  def translatedZenChoices(using Lang) =
+    List(
+      (Pref.Zen.NO, trans.no.txt()),
+      (Pref.Zen.YES, trans.yes.txt()),
+      (Pref.Zen.GAME_AUTO, trans.preferences.inGameOnly.txt())
+    )
+
   def translatedBoardCoordinateChoices(using Lang) =
     List(
       (Pref.Coords.NONE, trans.no.txt()),

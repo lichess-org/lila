@@ -30,9 +30,11 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
     private val limiter = RL[IpAddress](credits, duration, key)
     def apply[A](ip: IpAddress, default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(op: => Fu[A])(using
         Executor
-    ): Fu[A] =
-      rateLimitCostFactor(ip, strategy).flatMap: ipCostFactor =>
-        limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, msg)(op)
+    ): Fu[A] = for
+      proxy <- proxyApi(ip)
+      ipCostFactor = strategy(IpTrust)(proxy)
+      res <- limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, s"$msg proxy:$proxy")(op)
+    yield res
 
   def rateLimitCostFactor(
       ip: IpAddress,
