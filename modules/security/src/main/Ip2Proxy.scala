@@ -19,9 +19,15 @@ object IsProxy extends OpaqueString[IsProxy]:
     def is   = a.value.nonEmpty
     def name = a.value.nonEmpty option a.value
   def unapply(a: IsProxy): Option[String] = a.name
-  val tor                                 = IsProxy("TOR")
-  val pub                                 = IsProxy("PUB")
-  val empty                               = IsProxy("")
+  // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
+  val vpn         = IsProxy("VPN") // paid VPNs (safe for users)
+  val tor         = IsProxy("TOR") // tor exit node
+  val server      = IsProxy("DCH") // servers
+  val public      = IsProxy("PUB") // public proxies (unsafe for users)
+  val web         = IsProxy("WEB") // web proxies (garbage)
+  val search      = IsProxy("SES") // search engine crawlers
+  val residential = IsProxy("RES") // residential proxies (suspect)
+  val empty       = IsProxy("")
 
 final class Ip2ProxySkip extends Ip2Proxy:
 
