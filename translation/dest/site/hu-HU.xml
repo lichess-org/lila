@@ -416,8 +416,8 @@
   <string name="retry">Újra</string>
   <string name="reconnecting">Újrakapcsolódás</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s elérhető barát</item>
-    <item quantity="other">%s elérhető barát</item>
+    <item quantity="one">%s barát online</item>
+    <item quantity="other">%s barát online</item>
   </plurals>
   <string name="favoriteOpponents">Kedvenc ellenfelek</string>
   <string name="follow">Követés</string>
@@ -439,7 +439,7 @@
     <item quantity="other">%s követve</item>
   </plurals>
   <string name="more">Több</string>
-  <string name="memberSince">Tagság kezdete</string>
+  <string name="memberSince">Tagság kezdete:</string>
   <string name="lastSeenActive">Utoljára aktív: %s</string>
   <string name="player">Játékos</string>
   <string name="list">Lista</string>
@@ -504,7 +504,6 @@
   <string name="firstName">Keresztnév</string>
   <string name="lastName">Vezetéknév</string>
   <string name="biography">Bemutatkozás</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ország vagy zászló</string>
   <string name="thankYou">Köszönjük!</string>
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="oneUrlPerLine">Egy URL soronként.</string>
@@ -706,7 +705,7 @@
   <string name="yourPerfTypeRatingIsRating">A te %1$s pontszámod %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jobb vagy, mint a %2$s játékosok %1$s-a.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s jobb, mint a %3$s játékosok %2$s-a.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Jobb vagy, mint a %2$s játékosok %1$s -a</string>
+  <string name="betterThanPercentPlayers">Jobb vagy, mint a %2$s játékosok %1$s -a</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Még nincs meghatározott %s pontszámod.</string>
   <string name="yourRating">Értékszámod</string>
   <string name="cumulative">Összesített</string>
