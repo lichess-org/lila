@@ -2,7 +2,10 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "esModuleInterop": true,
-    "noEmit": true
+    "noEmit": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "allowUnreachableCode": true,
   },
   "references": [
     { "path": "../chess/tsconfig.json" },
