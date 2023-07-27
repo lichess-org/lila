@@ -53,6 +53,15 @@ final class Main(
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
+  def redirectToAppStore = Open:
+    pageHit
+    val redirectUrl = ctx.req.headers.get("User-Agent") match
+      case Some(userAgent) if userAgent.contains("Android") =>
+        "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
+      case _ =>
+        "https://apps.apple.com/us/app/lichess-online-chess/id968371784"
+    Redirect(redirectUrl)
+
   private def serveMobile(using Context) =
     pageHit
     FoundPage(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
