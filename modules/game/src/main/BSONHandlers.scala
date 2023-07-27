@@ -109,7 +109,6 @@ object BSONHandlers:
           PgnStorage.Decoded(
             sans = sans,
             board = BBoard.fromMap(BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant)),
-            positionHashes = r.getD[chess.PositionHash](F.positionHashes),
             positionHashes =
               r.getO[Array[Byte]](F.positionHashes).map(chess.PositionHash.apply) | chess.PositionHash.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -185,7 +184,6 @@ object BSONHandlers:
       )
 
     def writes(w: BSON.Writer, o: Game) =
-
       BSONDocument(
         F.id        -> o.id,
         F.playerIds -> o.players.reduce(_.id.value + _.id.value),
