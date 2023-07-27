@@ -61,9 +61,16 @@ Julgamos que essas condições são mais susceptíveis de serem cumpridas numa e
   <string name="numberOfByesQ">Quantas byes pode obter um jogador?</string>
   <string name="numberOfByesA">Um jogador recebe um bye de um ponto toda vez que o sistema não conseguir emparelhá-lo.
 Além disso, é atribuído um único bye de meio ponto quando um jogador entra atrasado num torneio.</string>
+  <string name="earlyDrawsQ">O que acontece com os empates iniciais?</string>
+  <string name="earlyDrawsA">Um jogador recebe um bye de um ponto toda vez que o sistema não conseguir emparelhá-lo.
+Além disso, é atribuído um único bye de meio ponto quando um jogador entra atrasado num torneio.</string>
   <string name="whatIfOneDoesntPlayQ">O que sucede se um jogador não jogar um jogo?</string>
   <string name="whatIfOneDoesntPlayA">O seu relógio vai contar, serão sinalizados e perderão o jogo.
 Então o sistema irá retirar o jogador do torneio, para não perder mais jogos. Podem entrar novamente no torneio a qualquer momento.</string>
+  <string name="protectionAgainstNoShowQ">O que é feito em relação aos que não comparecem?</string>
+  <string name="protectionAgainstNoShowA">Jogadores que se inscreveram para eventos suíços, mas não jogam os seus jogos podem se tornar problemáticos.
+Para amenizar este problema, o Lichess impede os jogadores que não participaram de uma partida de participar de um novo evento suíço por um determinado período.
+O criador de um evento suíço pode permitir que eles participem de qualquer maneira.</string>
   <string name="lateJoinQ">Os jogadores podem juntar-se tardiamente?</string>
   <string name="lateJoinA">Sim, até que mais de metade das rondas tenham começado; por exemplo: num torneio suiço de 11 rondas, os jogadores podem entrar antes que a ronda 6 comece, e num torneio de 12 pessoas, até antes que a ronda 7 comece.
 Jogadores que entraram mais tarde só têm um bye, mesmo que tenham perdido várias rondas.</string>

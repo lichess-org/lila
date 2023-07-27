@@ -7,33 +7,33 @@
   <string name="currentlyStreaming">Transmitindo agora mesmo: %s</string>
   <string name="lastStream">Última transmisión %s</string>
   <string name="becomeStreamer">Convértete nun presentador de Lichess</string>
-  <string name="doYouHaveStream">Tes unha conta de Twitch ou unha canle de Youtube?</string>
+  <string name="doYouHaveStream">Tes unha canle de Twitch ou de YouTube?</string>
   <string name="hereWeGo">Imos!</string>
   <string name="allStreamers">Todos os presentadores</string>
-  <string name="editPage">Edita a túa páxina de presentador</string>
+  <string name="editPage">Edita a páxina de presentador</string>
   <string name="yourPage">A túa páxina de presentador</string>
   <string name="downloadKit">Descarga o equipo de presentador</string>
   <string name="xIsStreaming">%s está transmitindo</string>
   <string name="rules">Normas das transmisións</string>
-  <string name="rule1">Inclúe a palabra-chave \"lichess.org\" no título da túa transmisión e usa a categoría \"Chess\" cando retransmitas en Lichess.</string>
-  <string name="rule2">Elimina a palabra-chave cando transmitas contido que non estea relacionado con Lichess.</string>
+  <string name="rule1">Inclúe a palabra chave \"lichess.org\" no título da túa transmisión e usa a categoría \"Chess\" cando retransmitas en Lichess.</string>
+  <string name="rule2">Elimina a palabra chave cando transmitas contido que non estea relacionado con Lichess.</string>
   <string name="rule3">Lichess detectará a túa transmisión automaticamente e habilitará os seguintes beneficios:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Le as %s para garantir que todo os participantes actúen con deportividade durante a transmisión.</string>
   <string name="streamingFairplayFAQ">Preguntas Frecuentes sobre xogo limpo en retransmisións</string>
-  <string name="perks">Beneficios de transmitir coa palabra-chave</string>
+  <string name="perks">Beneficios de transmitir coa palabra chave</string>
   <string name="perk1">Obtén unha flamexante icona de presentador no teu perfil de Lichess.</string>
   <string name="perk2">Sube ao curuto da lista de presentadores.</string>
   <string name="perk3">Notifica aos teus seguidos de Lichess.</string>
   <string name="perk4">Amosa a túa transmisión nas túas partidas, torneos e estudos.</string>
   <string name="approved">A túa transmisión está aprobada.</string>
   <string name="pendingReview">A túa transmisión está sendo revisada polos moderadores.</string>
-  <string name="pleaseFillIn">Por favor, enche a túa información de presentador e sube unha foto.</string>
+  <string name="pleaseFillIn">Por favor, cubre a túa información de presentador e sube unha foto.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Cando esteas preparado para seres un presentador de Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicita unha revisión dun moderador</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicita a revisión dun moderador</string>
   <string name="streamerLanguageSettings">A páxina de presentador de Lichess diríxese á túa audiencia co idioma proporcionado pola túa plataforma de transmisións. Establece o idioma predeterminado axeitado para as túas transmisións de xadrez na aplicación ou no servizo que uses para retransmitir.</string>
   <string name="twitchUsername">O teu usuario de Twitch ou URL</string>
   <string name="optionalOrEmpty">Opcional. Déixao baleiro se non tes</string>
-  <string name="youTubeChannelId">O teu ID da canle de Youtube</string>
+  <string name="youTubeChannelId">O ID da túa canle de YouTube ou URL</string>
   <string name="streamerName">O teu nome de presentador en Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Sé breve: máximo %s carácter</item>
@@ -44,7 +44,7 @@
   <string name="headline">Titular</string>
   <string name="tellUsAboutTheStream">Cóntanos sobre a túa transmisión nunha frase</string>
   <string name="longDescription">Descrición longa</string>
-  <string name="xStreamerPicture">Imaxe de presentador de %s</string>
+  <string name="xStreamerPicture">Imaxe do presentador %s</string>
   <string name="changePicture">Cambia/borra a túa foto</string>
   <string name="uploadPicture">Sube unha foto</string>
   <string name="maxSize">Tamaño máximo: %s</string>

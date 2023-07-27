@@ -23,6 +23,7 @@
   <string name="winningStreak">بردنەوەی یەک لە دوای یەک</string>
   <string name="losingStreak">دۆڕانی یەک بە دوای یەک</string>
   <string name="longestStreak">درێژترین ماوەی یەک بە دوای یەک: %s</string>
+  <string name="currentStreak">بردنەوەی یەکبەدوای یەکی ئێستات:%s</string>
   <string name="bestRated">باشترین سەرکەوتنەکانی پلەبەندی</string>
   <string name="worstRated">خراپترین شکستەکانی پلەبەندی</string>
   <string name="gamesInARow">یارییەکان لەسەریەک ئەنجامدراون</string>

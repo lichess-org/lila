@@ -47,8 +47,16 @@
   <string name="normal">ئاسایی</string>
   <string name="easier">ئاسانتر</string>
   <string name="easiest">ئاسانترین</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">یەک پۆینت لەخوار ئاستی ئیلۆی مەتەڵەکانت</item>
+    <item quantity="other">%sپۆینت لە خوار ئاستی ئیلۆی مەتەڵەکانت</item>
+  </plurals>
   <string name="harder">قورستر</string>
   <string name="hardest">قورسترین</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">یەک پۆینت سەروو ئاستی ئیلۆی مەتەڵەکانت</item>
+    <item quantity="other">%s پۆینت سەروو ئاستی ئیلۆی مەتەڵەکانت</item>
+  </plurals>
   <string name="example">نموونە</string>
   <string name="addAnotherTheme">زیادکردنی بابەتێکی دیکە</string>
   <string name="nextPuzzle">مەتەڵی دواتر</string>
