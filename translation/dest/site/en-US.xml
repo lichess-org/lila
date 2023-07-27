@@ -505,6 +505,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="firstName">First name</string>
   <string name="lastName">Last name</string>
   <string name="biography">Biography</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flag</string>
   <string name="thankYou">Thank you!</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="oneUrlPerLine">One URL per line.</string>
