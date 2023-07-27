@@ -570,6 +570,7 @@
   <string name="firstName">שם פרטי</string>
   <string name="lastName">שם משפחה</string>
   <string name="biography">ביוגרפיה</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">דגל</string>
   <string name="thankYou">תודות מקרב לב</string>
   <string name="socialMediaLinks">קישורים לרשתות חברתיות</string>
   <string name="oneUrlPerLine">שורה עבור כל כתובת.</string>
