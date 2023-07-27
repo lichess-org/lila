@@ -28,7 +28,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   private def renderAppealOrTree(
       err: Option[Form[String]] = None
-  )(using Context)(using me: Me): Fu[Frag] = env.appeal.api.mine flatMap {
+  )(using Context)(using me: Me): Fu[Frag] = env.appeal.api.byId(me) flatMap {
     case None =>
       renderAsync:
         env.playban.api.currentBan(me).dmap(_.isDefined) map { html.appeal.tree(me, _) }
@@ -127,7 +127,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       username: UserStr
   )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using Context): Fu[Result] =
     env.user.repo byId username flatMapz { user =>
-      env.appeal.api get user flatMapz { appeal =>
+      env.appeal.api byId user flatMapz { appeal =>
         f(appeal, Suspect(user)) dmap some
       }
     } flatMap {

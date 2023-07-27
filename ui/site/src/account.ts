@@ -6,7 +6,6 @@ lichess.load.then(() => {
     ['behavior', 'arrowSnap', 'arrow.snap', true],
     ['behavior', 'courtesy', 'courtesy', false],
     ['behavior', 'scrollMoves', 'scrollMoves', true],
-    ['behavior', 'pairingCountdown', 'pairingCountdown', false],
     ['notification', 'playBellSound', 'playBellSound', true],
   ];
 
@@ -49,7 +48,7 @@ lichess.load.then(() => {
     let isDanger = false;
     const checkDanger = () => {
       isDanger = !!form.find('.danger input:checked').length;
-      submit.toggleClass('button-red confirm', isDanger);
+      submit.toggleClass('button-red', isDanger);
       submit.attr('data-icon', isDanger ? licon.CautionTriangle : licon.Checkmark);
       submit.attr('title', isDanger ? submit.data('danger-title') : '');
     };

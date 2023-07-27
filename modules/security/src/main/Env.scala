@@ -56,6 +56,8 @@ final class Env(
 
   lazy val store = Store(db(config.collection.security), cacheApi)
 
+  private lazy val tor: Tor = wire[Tor]
+
   lazy val ip2proxy: Ip2Proxy =
     if config.ip2Proxy.enabled && config.ip2Proxy.url.nonEmpty then
       def mk = (url: String) => wire[Ip2ProxyServer]
@@ -135,14 +137,6 @@ final class Env(
       config.disposableEmail.refreshDelay
     ): () =>
       disposableEmailDomain.refresh()
-
-  lazy val tor: Tor = wire[Tor]
-
-  if config.tor.enabled then
-    scheduler.scheduleOnce(44 seconds):
-      tor.refresh
-    scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay): () =>
-      tor.refresh flatMap firewall.unblockIps
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
 
