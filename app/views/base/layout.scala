@@ -301,7 +301,7 @@ object layout:
               "no-rating"            -> !pref.showRatings,
               "zen"                  -> (pref.isZen || (playing && pref.isZenAutomatic)),
               "zenable"              -> zenable,
-              "zen-automatic"        -> pref.isZenAutomatic
+              "zen-automatic"        -> (zenable && pref.isZenAutomatic)
             )
           },
           dataDev,
