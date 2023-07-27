@@ -8,6 +8,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
+import lila.common.HTTPRequest
 
 final class Main(
     env: Env,
@@ -15,12 +16,11 @@ final class Main(
     assetsC: ExternalAssets
 ) extends LilaController(env):
 
-  private lazy val blindForm = Form(
+  private lazy val blindForm = Form:
     tuple(
       "enable"   -> nonEmptyText,
       "redirect" -> nonEmptyText
     )
-  )
 
   def toggleBlindMode = OpenBody:
     blindForm
@@ -53,7 +53,7 @@ final class Main(
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
-  def redirectToAppStore = Open:
+  def redirectToAppStore = Anon:
     pageHit
     Redirect:
       if HTTPRequest.isAndroid(req)
