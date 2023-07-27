@@ -299,9 +299,9 @@ object layout:
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> playing,
               "no-rating"            -> !pref.showRatings,
-              "zen"                  -> (pref.isZen || (playing && pref.isZenAutomatic)),
+              "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
               "zenable"              -> zenable,
-              "zen-automatic"        -> (zenable && pref.isZenAutomatic)
+              "zen-auto"             -> (zenable && pref.isZenAuto)
             )
           },
           dataDev,

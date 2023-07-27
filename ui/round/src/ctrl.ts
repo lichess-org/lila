@@ -154,7 +154,7 @@ export default class RoundController {
     lichess.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
-      if (!$('body').hasClass('zen-automatic')) {
+      if (!$('body').hasClass('zen-auto')) {
         xhr.setZen(zen);
       }
     });
@@ -569,7 +569,7 @@ export default class RoundController {
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
 
-    if ($('body').hasClass('zen-automatic') && $('body').hasClass('zen')) {
+    if ($('body').hasClass('zen-auto') && $('body').hasClass('zen')) {
       $('body').toggleClass('zen');
       window.dispatchEvent(new Event('resize'));
     }

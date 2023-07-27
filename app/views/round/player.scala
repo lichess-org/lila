@@ -45,7 +45,7 @@ object player:
     bits.layout(
       variant = pov.game.variant,
       title = s"${trans.play
-          .txt()} ${if ctx.pref.isZen || ctx.pref.isZenAutomatic then "ZEN" else playerText(pov.opponent)}",
+          .txt()} ${if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)}",
       moreJs = frag(
         roundNvuiTag,
         jsModuleInit(

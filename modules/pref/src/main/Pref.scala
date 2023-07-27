@@ -115,8 +115,8 @@ case class Pref(
 
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
-  def isZen          = zen == Zen.YES
-  def isZenAutomatic = zen == Zen.GAME_AUTO
+  def isZen     = zen == Zen.YES
+  def isZenAuto = zen == Zen.GAME_AUTO
 
   val showRatings = ratings == Ratings.YES
 

@@ -611,7 +611,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   lichess.pubsub.on('zen', () => {
     const zen = $('body').toggleClass('zen').hasClass('zen');
     window.dispatchEvent(new Event('resize'));
-    if (!$('body').hasClass('zen-automatic')) {
+    if (!$('body').hasClass('zen-auto')) {
       xhr.setZen(zen);
     }
   });
