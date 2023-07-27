@@ -15,6 +15,7 @@ import chess.{
   UnmovedRooks
 }
 import chess.format.Fen
+import chess.bitboard.Board as BBoard
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
 
@@ -107,7 +108,8 @@ object BSONHandlers:
               .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
-            pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
+            board = BBoard.fromMap(BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant)),
+            positionHashes = r.getD[chess.PositionHash](F.positionHashes),
             positionHashes =
               r.getO[Array[Byte]](F.positionHashes).map(chess.PositionHash.apply) | chess.PositionHash.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -122,7 +124,7 @@ object BSONHandlers:
       val chessGame = ChessGame(
         situation = chess.Situation(
           chess.Board(
-            pieces = decoded.pieces,
+            board = decoded.board,
             history = ChessHistory(
               lastMove = decoded.lastMove,
               castles = decoded.castles,
