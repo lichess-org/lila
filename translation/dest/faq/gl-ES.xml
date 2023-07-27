@@ -89,7 +89,7 @@ Finalmente, existe o título honorífico %2$s.</string>
   <string name="noUpperCaseDot">Non.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico non é oficial e só existe en Lichess.
 
-En raras ocasións outorgámollo a eito a xogadores moi destacados que son bos cidadáns de Lichess. O título de LM non se consegue, senon que chega ós xogadores. Se cumpres os requisitos, recibirás unha mensaxe nosa ao respecto e a opción de aceptar ou rexeitar o título.
+En raras ocasións outorgámosllelo a eito aos xogadores moi destacados que son bos cidadáns de Lichess. O título de LM non se consegue, senon que chega ós xogadores. Se cumpres os requisitos, recibirás unha mensaxe nosa ao respecto e a opción de aceptar ou rexeitar o título.
 
 Non solicites o título de LM.</string>
   <string name="whatUsernameCanIchoose">Cal pode ser o meu nome de usuario?</string>
@@ -108,11 +108,11 @@ Non solicites o título de LM.</string>
 
 En síntese, a puntuación Glicko usa \"intervalos de confianza\" ao calcular e representar a túa puntuación. Cando empregas por primeira vez a páxina, a túa puntuación é de 1500 ± 1000. O 1500 representa a túa puntuación, e o 1000 representa o intervalo de confianza.
 
-Basicamente, o sistema ten a seguridade ó 95% de que a túa puntuación está entre 500 e 2500. Isto significa que hai moita incerteza. Por iso, cando un xogador acaba de comezar, a súa puntuación cambiará de forma moi brusca, incluso varios centos de puntos de cada vez. Só tras algunhas partidas contra xogadores máis veteranos, o intervalo de confianza será máis pequeno e a cantidade de puntos gañados/perdidos despois de cada partida disminuirá.
+Basicamente, o sistema ten a seguranza ó 95% de que a túa puntuación está entre 500 e 2500. Isto significa que hai moita incerteza. Por iso, cando un xogador se rexistra, a súa puntuación cambiará de forma moi brusca, incluso varios centos de puntos de cada vez. Só tras algunhas partidas contra xogadores máis veteranos, o intervalo de confianza será máis pequeno e a cantidade de puntos gañados/perdidos despois de cada partida diminuirá.
 
 Outro punto que cabe sinalar é que, se pasa un tempo sen xogares, o intervalo de confianza aumentará. Isto permite gañar/perder puntos máis rapidamente para igualar calquera cambio na túa forza de xogo durante ese tempo que pasaches sen xogar.</string>
-  <string name="whatIsProvisionalRating">Por que hai unha marca de interrogación (?) xunto á puntuación?</string>
-  <string name="provisionalRatingExplanation">A marca de interrogación significa que a puntuación é provisional. Os motivos son:</string>
+  <string name="whatIsProvisionalRating">Por que hai un signo de interrogación (?) xunto á puntuación?</string>
+  <string name="provisionalRatingExplanation">O signo de interrogación significa que a puntuación é provisional. Os motivos son:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">O xogador non finalizou suficientes partidas puntuadas contra %1$s na categoría.</string>
   <string name="similarOpponents">opoñentes de similar forza</string>
   <string name="notPlayedRecently">O xogador non xogou suficientes partidas recentemente. Dependendo do número de partidas que xogaras, pode pasar arredor dun ano de inactividade para que a túa puntuación volva ser provisional.</string>
