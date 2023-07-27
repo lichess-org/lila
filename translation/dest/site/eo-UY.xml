@@ -500,6 +500,7 @@
   <string name="firstName">Persona nomo</string>
   <string name="lastName">Familia nomo</string>
   <string name="biography">Biografio</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flago</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
