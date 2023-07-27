@@ -24,5 +24,9 @@
     cg-board square.move-dest {
       background: radial-gradient(rgba(8, 46, 8, 0.8) 19%, rgba(0, 0, 0, 0) 20%);
     }
+
+    cg-board square.oc.move-dest {
+      background: radial-gradient(transparent 0%, transparent 79%, rgba(20, 85, 0, 0.3) 80%);
+    }
   }
 }
