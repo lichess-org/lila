@@ -229,15 +229,11 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 240,
-    duration = 24.hour,
+    duration = 1.day,
     key = "tournament.user"
   )
 
-  private val CreateLimitPerIP = lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 400,
-    duration = 24.hour,
-    key = "tournament.ip"
-  )
+  private val CreateLimitPerIP = env.security.ipTrust.rateLimit(800, 1.day, "tournament.ip")
 
   private[controllers] def rateLimitCreation(
       isPrivate: Boolean,
