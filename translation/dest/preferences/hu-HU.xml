@@ -53,7 +53,7 @@
   <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
   <string name="scrollOnTheBoardToReplayMoves">Lépések visszajátszása görgetéssel</string>
   <string name="correspondenceEmailNotification">Napi email a folyamatban lévő levelezős játszmákról</string>
-  <string name="notifyStreamStart">Élő közvetítés</string>
+  <string name="notifyStreamStart">Egy streamer műsort ad</string>
   <string name="notifyInboxMsg">Új üzenet</string>
   <string name="notifyForumMention">Megemlítenek a fórumon</string>
   <string name="notifyInvitedStudy">Meghívó tanulmányba</string>
