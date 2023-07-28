@@ -62,7 +62,6 @@ final class JsonView(isOnline: lila.socket.IsOnline):
 
 object JsonView:
 
-  // val nameWrites: Writes[User]           = writeAs(_.username)
   val nameWrites: Writes[User.WithPerfs] = writeAs(_.user.username)
 
   given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf]: l =>
