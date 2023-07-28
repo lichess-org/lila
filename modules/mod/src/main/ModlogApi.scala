@@ -10,9 +10,10 @@ import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ User, UserRepo, Me }
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using Executor):
-
-  private def coll = repo.coll
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
+    Executor
+):
+  import repo.coll
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
@@ -289,11 +290,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
-    m.notable so {
+    m.notable.so:
       coll.insert.one {
         bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so($doc("human" -> true))
       } >> (m.notableZulip so zulipMonitor(m))
-    }
 
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.{ Modlog as M }
@@ -326,7 +326,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
           case domain.Cheat => permissions(MonitoredCheatMod)
           case domain.Boost => permissions(MonitoredBoostMod)
           case domain.Comm  => permissions(MonitoredCommMod)
-          case domain.Other => permissions(MonitoredCommMod) || permissions(MonitoredBoostMod)
-          case _            => false
+          case domain.Other if m.action == M.modMessage =>
+            val presetPerms = m.details.so(presetsApi.permissionsByName)
+            if presetPerms(Permission.Shusher) then permissions(MonitoredCommMod)
+            else if presetPerms(Permission.BoostHunter) then permissions(MonitoredBoostMod)
+            else if presetPerms(Permission.CheatHunter) then permissions(MonitoredCheatMod)
+            else false
+          case _ => false
         monitorable so ircApi.monitorMod(icon = icon, text = text, dom)
     }
