@@ -735,6 +735,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="yourPerfTypeRatingIsRating">Vaš %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s od %2$s igrača.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je bolji od %2$s %3$s igrača.</string>
+  <string name="betterThanPercentPlayers">Bolje od %1$s igrača %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemate utvrđen %s rejting.</string>
   <string name="yourRating">Vaš rejting</string>
   <string name="cumulative">Kumulativno</string>
