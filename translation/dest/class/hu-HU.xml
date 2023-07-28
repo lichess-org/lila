@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Tanulócsoportok</string>
-  <string name="teachClassesOfChessStudents">Tanítson sakk diákok osztályait a Lichess osztályok eszközkészlettel.</string>
+  <string name="teachClassesOfChessStudents">Taníts sakkozni diákokat a Lichess Tanulócsoportok funkciójával.</string>
   <string name="features">Jellemzők</string>
   <string name="quicklyGenerateSafeUsernames">Gyorsan előállíthat biztonságos felhasználóneveket és jelszavakat a hallgatók számára</string>
   <string name="trackStudentProgress">Kövesse nyomon a tanulók fejlődését a játékokban és a rejtvényekben</string>
   <string name="messageAllStudents">Üzenjen minden hallgatót az új tananyagról</string>
   <string name="freeForAllForever">100% ingyenes mindenkinek, örökre, hirdetés és nyomkövető nélkül</string>
-  <string name="applyToBeLichessTeacher">Jelentkezzen Lichess tanárnak</string>
-  <string name="noClassesYet">Még nincs osztály.</string>
+  <string name="applyToBeLichessTeacher">Jelentkezz Lichess tanárnak</string>
+  <string name="noClassesYet">Még nincs osztályod.</string>
   <string name="teachersX">Tanárok: %s</string>
   <string name="newClass">Új osztály</string>
   <string name="closeClass">Bezárás osztály</string>
@@ -49,69 +49,69 @@ Jelszó: %3$s</string>
   <string name="createStudentWarning">Csak valódi diákoknak hozz létre fiókot. Ne használd ezt a funkciót arra, hogy neked legyen több fiókod, mert ezért kitiltás jár.</string>
   <string name="lichessUsername">Lichess felhasználónév</string>
   <string name="generateANewUsername">Új felhasználónevet generál</string>
-  <string name="welcomeToClass">Üdvözöljük osztályában: %s.
-Itt található a link az osztály eléréséhez.</string>
-  <string name="invitationToClass">Meghívást kapsz, hogy csatlakozz a \"%s\" osztályhoz diákként.</string>
+  <string name="welcomeToClass">Üdvözlünk az új tanulócsoportodban: %s.
+A csoportot az alábbi linken éred el.</string>
+  <string name="invitationToClass">Meghívást kaptál, hogy csatlakozz \"%s\" tanulócsoport diákjaihoz.</string>
   <string name="clickToViewInvitation">Kattintson a linkre a meghívó megtekintéséhez:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Egy függőben lévő meghívó</item>
     <item quantity="other">%s függőben lévő meghívó</item>
   </plurals>
-  <string name="onlyVisibleToTeachers">Csak az osztályfőnökök láthatják</string>
+  <string name="onlyVisibleToTeachers">Csak a tanárok látják</string>
   <string name="lastActiveDate">Aktív</string>
-  <string name="managed">Kezelt</string>
-  <string name="thisStudentAccountIsManaged">Ezt a hallgatói fiókot kezelik</string>
-  <string name="upgradeFromManaged">Frissítés menedzseltről autonómra</string>
-  <string name="release">Kiadás</string>
-  <string name="releaseTheAccount">Engedje el a fiókot, hogy a hallgató önállóan kezelhesse.</string>
-  <string name="releaseDesc1">A kiadott fiókot nem lehet újra kezelni. A hallgató képes lesz a gyerek mód váltására és a jelszó visszaállítására.</string>
-  <string name="releaseDesc2">A tanuló a fiókja kiadása után az osztályban marad.</string>
-  <string name="realUniqueEmail">A hallgató valódi, egyedi e-mail címe. Küldünk neki egy visszaigazoló e-mailt, amelyben megtalálható egy link a fiók felszabadításához.</string>
-  <string name="closeStudent">Fiók törlése</string>
-  <string name="closeTheAccount">A tanulói fiók végleges törlése.</string>
-  <string name="closeDesc1">A tanuló soha többé nem fér újra hozzá ehhez a fiókhoz. A törlés végleges. Bizonyosodj meg, hogy a tanuló megérti és elfogadja ezt.</string>
-  <string name="closeDesc2">Lehetőséged van a fiók jogosultságait átadni a tanulónak, így továbbra is használhatja majd azt.</string>
+  <string name="managed">Kezelt fiók</string>
+  <string name="thisStudentAccountIsManaged">Ezt a tanulói fiókot tanár kezeli</string>
+  <string name="upgradeFromManaged">A tanuló kezelje a saját fiókját</string>
+  <string name="release">Átadás</string>
+  <string name="releaseTheAccount">Az átadás után a tanuló fogja kezelni a saját fiókját.</string>
+  <string name="releaseDesc1">Az átadott fiókot nem kezelheti többé a tanár. A tanuló ki-bekapcsolhatja a gyerek üzemmódot és új jelszót állíthat be magának.</string>
+  <string name="releaseDesc2">A tanuló a fiókja átadása után is a tanulócsóport tagja marad.</string>
+  <string name="realUniqueEmail">A hallgató valódi, egyedi e-mail címe. Küldünk neki egy visszaigazoló e-mailt, amelyre kattintva átveheti a fiókját.</string>
+  <string name="closeStudent">Fiók zárolása</string>
+  <string name="closeTheAccount">A tanulói fiók végleges lezárása.</string>
+  <string name="closeDesc1">A tanuló soha többé nem használhatja ezt a fiókot. A zárolás végleges. Bizonyosodj meg róla, hogy a tanuló érti és elfogadja ezt.</string>
+  <string name="closeDesc2">Ehelyett át is adhatod neki a fiókját, így továbbra is tudja használni.</string>
   <string name="teachers">Tanárok</string>
   <plurals name="nbTeachers">
     <item quantity="one">Tanár</item>
     <item quantity="other">%s tanár</item>
   </plurals>
   <plurals name="nbStudents">
-    <item quantity="one">Diák</item>
-    <item quantity="other">%s hallgató</item>
+    <item quantity="one">Tanuló</item>
+    <item quantity="other">%s tanuló</item>
   </plurals>
-  <string name="students">Diákok</string>
-  <string name="progress">Előrehalad</string>
-  <string name="noStudents">Még nincs tanuló az osztályban.</string>
-  <string name="noRemovedStudents">Nincs eltávolított hallgató.</string>
-  <string name="overDays">Napok alatt</string>
-  <string name="timePlaying">Idő játszik</string>
+  <string name="students">Tanulók</string>
+  <string name="progress">Haladás</string>
+  <string name="noStudents">Még nincs tanuló a csoportban.</string>
+  <string name="noRemovedStudents">Nincs eltávolított tanuló.</string>
+  <string name="overDays">Elmúlt napok</string>
+  <string name="timePlaying">Játékidő</string>
   <string name="variantXOverLastY">%1$s az elmúlt %2$s alatt</string>
-  <string name="winrate">Nyerési arány</string>
+  <string name="winrate">Győzelmi arány</string>
   <string name="na">N/A</string>
-  <string name="overview">Áttekintés</string>
+  <string name="overview">Áttekintő</string>
   <string name="news">Hírek</string>
-  <string name="classNews">Osztályhírek</string>
+  <string name="classNews">Tanulócsoport hírei</string>
   <string name="editNews">Hírek szerkesztése</string>
-  <string name="notifyAllStudents">Értesítsen minden hallgatót</string>
-  <string name="nothingHere">Itt még semmi.</string>
-  <string name="newsEdit1">Minden osztályhír egyetlen mezőben.</string>
-  <string name="newsEdit2">Adja hozzá a legfrissebb híreket a tetején. Ne törölje a korábbi híreket.</string>
-  <string name="newsEdit3">Különválaszthatja a ---
-Vízszintes vonalat jelenít meg.</string>
+  <string name="notifyAllStudents">Értesítsen minden tanulót</string>
+  <string name="nothingHere">Egyelőre nincs itt semmi.</string>
+  <string name="newsEdit1">A tanulócsoport hírei egy helyen.</string>
+  <string name="newsEdit2">A legfrissebb híreket írd felülre. A korábbiakat nem kell kitörölni.</string>
+  <string name="newsEdit3">Elválaszthatod egymástól a híreket így: ---
+Itt egy vízszintes vonal fog megjelenni.</string>
   <string name="invite">Meghívás</string>
-  <string name="youHaveBeenInvitedByX">%s meghívott küldött neked.</string>
-  <string name="youAcceptedThisInvitation">Elfogadtad ezt a meghívást.</string>
-  <string name="youDeclinedThisInvitation">Visszautasítottad ezt a meghívást.</string>
+  <string name="youHaveBeenInvitedByX">%s meghívót küldött neked.</string>
+  <string name="youAcceptedThisInvitation">Elfogadtad a meghívást.</string>
+  <string name="youDeclinedThisInvitation">Visszautasítottad a meghívást.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">vagy</string>
   <string name="createMultipleAccounts">Egyszerre több Lichess fiók létrehozása</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s létrehozhatsz egyszerre több Lichess fiókot a tanulók neveit tartalmazó listából.</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s létrehozhatsz egyszerre több Lichess fiókot a tanulók nevét tartalmazó listából.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">Ezen a felületen</string>
-  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Megjegyzendő, hogy egy osztály legfeljebb %1$s tanulóból állhat. Ennél több tanuló gondozásához %2$s.</string>
-  <string name="createMoreClasses" comment="Link text in maxStudentsNote">hozz létre több osztályt</string>
-  <string name="studentsRealNamesOnePerLine">Tanulók valódi nevei, soronként egy</string>
-  <string name="xisNowAStudentOfTheClass">%s mostmár az osztály tanulója</string>
-  <string name="anInvitationHasBeenSentToX">A meghívó elküldve %s részére</string>
-  <string name="xAlreadyHasAPendingInvitation">%s már rendelkezik egy függőben lévő meghívóval</string>
-  <string name="xIsAKidAccountWarning">%1$s gyerekfiókkal rendelkezik ezért nem fogadhatja az üzeneted. Más módon kell eljuttatnod a meghívó URL-jét: %2$s</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Figyelj rá, hogy egy tanulócsoport legfeljebb %1$s tanulóból állhat. Ennél több tanuló kezeléséhez %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">hozz létre több csoportot</string>
+  <string name="studentsRealNamesOnePerLine">Tanulók valódi neve, soronként egy</string>
+  <string name="xisNowAStudentOfTheClass">%s mostmár a csoport tanulója</string>
+  <string name="anInvitationHasBeenSentToX">A meghívót elküldtük %s részére</string>
+  <string name="xAlreadyHasAPendingInvitation">%s már kapott meghívót, még nem válaszolt rá</string>
+  <string name="xIsAKidAccountWarning">%1$s gyerekfiókkal rendelkezik ezért nem kapja meg az üzeneted. Juttasd el hozzá más csatornán a meghívó URL-jét: %2$s</string>
 </resources>
