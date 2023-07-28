@@ -177,6 +177,8 @@ function applyBackground(data: BackgroundData, list: Background[]) {
           '<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>'
         );
   }
+
+  lichess.pubsub.emit('background-theme-changed');
 }
 
 function replaceStylesheet(old: HTMLLinkElement, oldKey: string, newKey: string, media?: 'dark' | 'light') {

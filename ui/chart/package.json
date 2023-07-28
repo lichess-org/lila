@@ -9,6 +9,8 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/highcharts": "=4.2.57",
+    "@types/plotly.js-dist-min": "2.3.1",
+    "plotly.js-dist-min": "2.25.0",
     "@types/lichess": "workspace:*",
     "common": "workspace:*"
   },

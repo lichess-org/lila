@@ -211,9 +211,15 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      '@types/plotly.js-dist-min':
+        specifier: 2.3.1
+        version: 2.3.1
       common:
         specifier: workspace:*
         version: link:../common
+      plotly.js-dist-min:
+        specifier: 2.25.0
+        version: 2.25.0
 
   ui/chat:
     dependencies:
@@ -2972,6 +2978,16 @@ packages:
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
     dev: false
 
+  /@types/plotly.js-dist-min@2.3.1:
+    resolution: {integrity: sha512-9+rTvlyKDclIB9twal6ou6unUN6iTATLcRvakoFYaHGPnVRNe06LbUGOcgD8O+sddBFz3y2kS2hTKbUPGeVsHA==}
+    dependencies:
+      '@types/plotly.js': 2.12.25
+    dev: false
+
+  /@types/plotly.js@2.12.25:
+    resolution: {integrity: sha512-qNACFpr4Olm3+C/fjtC9KMx3UEis1xFAAAxukM/DY9zh2c+mxSyfyn9+wMRvndJBRfjHlK2m7jauzKgHN2uRXQ==}
+    dev: false
+
   /@types/prettier@2.7.1:
     resolution: {integrity: sha512-ri0UmynRRvZiiUJdiz38MmIblKK+oH30MztdBVR95dv/Ubw6neWSb8u1XpRb72L4qsZOhz+L+z9JD40SJmfWow==}
     dev: false
@@ -5383,6 +5399,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       find-up: 4.1.0
+    dev: false
+
+  /plotly.js-dist-min@2.25.0:
+    resolution: {integrity: sha512-hyUhc/9RdVorvyq+q3wdN59kh4+OOG7YSuYnszoV68rSUQtq22YSh24wgMR11PbKXalaxXYkg5t1dyBYwSWzCg==}
     dev: false
 
   /prelude-ls@1.1.2:
