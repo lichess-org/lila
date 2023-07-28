@@ -19,30 +19,24 @@ final private class PuzzleCountApi(
     case PuzzleAngle.Theme(theme)    => byTheme(theme)
     case PuzzleAngle.Opening(either) => openingApi.count(either)
 
-  private val byThemeCache =
-    cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
-      _.refreshAfterWrite(1 day)
-        .buildAsyncFuture { _ =>
-          import Puzzle.BSONFields.*
-          colls.puzzle {
-            _.aggregateList(Int.MaxValue) { framework =>
-              import framework.*
-              Project($doc(themes -> true)) -> List(
-                Unwind(themes),
-                GroupField(themes)("nb" -> SumAll)
-              )
-            }.map {
-              _.flatMap { obj =>
-                for
-                  key   <- obj string "_id"
-                  count <- obj int "nb"
-                yield PuzzleTheme.Key(key) -> count
-              }.toMap
-            }.flatMap { themed =>
-              colls.puzzle(_.countAll) map { all =>
-                themed + (PuzzleTheme.mix.key -> all.toInt)
-              }
-            }
-          }
-        }
-    }
+  private val byThemeCache = cacheApi.unit[Map[PuzzleTheme.Key, Int]]:
+    _.refreshAfterWrite(1 day).buildAsyncFuture: _ =>
+      import Puzzle.BSONFields.*
+      colls.puzzle:
+        _.aggregateList(Int.MaxValue): framework =>
+          import framework.*
+          Project($doc(themes -> true)) -> List(
+            Unwind(themes),
+            GroupField(themes)("nb" -> SumAll)
+          )
+        .map: objs =>
+          for
+            obj   <- objs
+            key   <- obj string "_id"
+            count <- obj int "nb"
+          yield PuzzleTheme.Key(key) -> count
+        .flatMap: themed =>
+          colls
+            .puzzle(_.countAll)
+            .map: all =>
+              themed.toMap + (PuzzleTheme.mix.key -> all.toInt)
