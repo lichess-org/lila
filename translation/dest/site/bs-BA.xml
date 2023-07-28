@@ -123,6 +123,7 @@
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računar može analizirati, i održava toplinu računara</string>
+  <string name="engineManager">Upravitelj šahovskog programa</string>
   <string name="blunder">Grubi previd</string>
   <string name="mistake">Greška</string>
   <string name="inaccuracy">Nepreciznost</string>
@@ -527,6 +528,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Prezime</string>
   <string name="biography">Biografija</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi na društvene mreže</string>
   <string name="oneUrlPerLine">Jedan link po redu.</string>
