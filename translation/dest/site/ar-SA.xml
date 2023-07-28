@@ -79,7 +79,7 @@
   <string name="variantWin">فوز بطريقة خاصة</string>
   <string name="insufficientMaterial">قطع غير كافية لإنهاء المباراة</string>
   <string name="pawnMove">نقلة بيدق</string>
-  <string name="capture">التقاط</string>
+  <string name="capture">أسر</string>
   <string name="close">إغلاق</string>
   <string name="winning">فائزة</string>
   <string name="losing">خاسرة</string>
@@ -1036,6 +1036,8 @@ https://lichess. org/study</string>
   <string name="useTheReportForm">إستخدم نموذج التبليغ</string>
   <string name="toRequestSupport">لطلب الدعم، %1$s</string>
   <string name="tryTheContactPage">جرب صفحة الإتصال</string>
+  <string name="makeSureToRead">تحقق من قراءة %1$s</string>
+  <string name="theForumEtiquette">آداب المنتدى</string>
   <string name="thisTopicIsArchived">تم أرشفة هذا الموضوع ولم يعد يمكن الرد عليه.</string>
   <string name="joinTheTeamXToPost">انضم إلى %1$s، للمشاركة في هذا المنتدى</string>
   <string name="teamNamedX">فريق %1$s</string>
