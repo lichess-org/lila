@@ -21,7 +21,8 @@ function insufficientMaterial(variant: VariantKey, fullFen: Fen): boolean {
   )
     return false;
   let fen = fullFen.split(' ')[0].replace(/[^a-z]/gi, '');
-  if (variant === 'threeCheck') return !/[pbnrq]/.test(fen) || !/[PBNRQ]/.test(fen);
+  if (/^[Kk]{2}$/.test(fen)) return true;
+  if (variant === 'threeCheck') return false;
   if (/[prq]/i.test(fen)) return false;
   if (/n/.test(fen)) return fen.length - fen.replace(/[a-z]/g, '').length <= 2 && !/[PBNR]/.test(fen);
   if (/N/.test(fen)) return fen.length - fen.replace(/[A-Z]/g, '').length <= 2 && !/[pbnr]/.test(fen);
