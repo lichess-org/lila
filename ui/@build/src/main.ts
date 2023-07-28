@@ -61,8 +61,10 @@ export interface LichessModule {
 
 export interface Copy {
   // same as copy -rf lila/node_modules/${src} lila/public/${dest}
-  src: string | string[];
+  src: string;
   dest: string;
+  mod: LichessModule;
+  isGlob?: boolean; // avoid reglobbing single files
 }
 
 export interface LichessBundle {

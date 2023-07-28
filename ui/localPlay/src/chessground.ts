@@ -31,7 +31,7 @@ export function makeConfig(ctrl: Ctrl): CgConfig {
       showDests: true, //pref.destination,
       rookCastle: pref.rookCastle,
       events: {
-        after: ctrl.userMove,
+        after: ctrl.cgUserMove,
       },
     },
     draggable: {

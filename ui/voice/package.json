@@ -33,11 +33,6 @@
         "src/move/moveCtrl.ts": "voice.move"
       }
     },
-    "copy": [
-      {
-        "src": "grammar",
-        "dest": "../../public/compiled"
-      }
-    ]
+    "copy": { "src": "grammar/**", "dest": "../../public/compiled/grammar" }
   }
 }
