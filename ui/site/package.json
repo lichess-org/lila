@@ -78,23 +78,11 @@
     },
     "copy": [
       {
-        "src": "node_modules/hopscotch/dist/js/hopscotch.min.js",
-        "dest": "../../public/vendor/hopscotch/dist/js"
-      },
-      {
-        "src": "node_modules/hopscotch/dist/css/hopscotch.min.css",
-        "dest": "../../public/vendor/hopscotch/dist/css"
-      },
-      {
-        "src": "node_modules/hopscotch/dist/img",
+        "src": "node_modules/hopscotch/dist/**",
         "dest": "../../public/vendor/hopscotch/dist"
       },
       {
-        "src": [
-          "node_modules/highcharts/highcharts.js",
-          "node_modules/highcharts/highcharts-more.js",
-          "node_modules/highcharts/highstock.js"
-        ],
+        "src": "node_modules/highcharts/*.js",
         "dest": "../../public/vendor/highcharts-4.2.5"
       },
       {
@@ -102,36 +90,8 @@
         "dest": "../../public/vendor/tagify"
       },
       {
-        "src": [
-          "node_modules/stockfish.js/stockfish.js",
-          "node_modules/stockfish.js/stockfish.wasm",
-          "node_modules/stockfish.js/stockfish.wasm.js"
-        ],
-        "dest": "../../public/vendor/stockfish.js"
-      },
-      {
-        "src": [
-          "node_modules/stockfish.wasm/stockfish.js",
-          "node_modules/stockfish.wasm/stockfish.wasm",
-          "node_modules/stockfish.wasm/stockfish.worker.js"
-        ],
-        "dest": "../../public/vendor/stockfish.wasm"
-      },
-      {
-        "src": [
-          "node_modules/stockfish-mv.wasm/stockfish.js",
-          "node_modules/stockfish-mv.wasm/stockfish.wasm",
-          "node_modules/stockfish-mv.wasm/stockfish.worker.js"
-        ],
-        "dest": "../../public/vendor/stockfish-mv.wasm"
-      },
-      {
-        "src": [
-          "node_modules/stockfish-nnue.wasm/stockfish.js",
-          "node_modules/stockfish-nnue.wasm/stockfish.wasm",
-          "node_modules/stockfish-nnue.wasm/stockfish.worker.js"
-        ],
-        "dest": "../../public/vendor/stockfish-nnue.wasm"
+        "src": "node_modules/stockfish*/*.{js,wasm}",
+        "dest": "../../public/vendor"
       }
     ]
   }

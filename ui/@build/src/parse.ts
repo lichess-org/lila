@@ -39,7 +39,6 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     pre: [],
     post: [],
     hasTsconfig: fs.existsSync(path.join(moduleDir, 'tsconfig.json')),
-    copy: pkg.lichess?.copy,
   };
   parseScripts(mod, 'scripts' in pkg ? pkg.scripts : {});
 
@@ -58,6 +57,21 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
         output: x[1] as string,
       }));
     }
+  }
+  if ('lichess' in pkg && 'copy' in pkg.lichess) {
+    const copy: any[] = Array.isArray(pkg.lichess.copy) ? pkg.lichess.copy : [pkg.lichess.copy];
+    const flattener = new Map<string, Set<string>>();
+    for (const s of copy) {
+      if (!Array.isArray(s.src)) s.src = [s.src];
+      for (const src of s.src) {
+        const srcDest = flattener.get(src) ?? new Set<string>();
+        srcDest.add(s.dest);
+        flattener.set(src, srcDest);
+      }
+    }
+    mod.copy = [];
+    for (const [src, dests] of flattener.entries())
+      for (const dest of dests) mod.copy.push({ src, dest, mod });
   }
   return mod;
 }

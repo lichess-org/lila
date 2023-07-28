@@ -4,45 +4,43 @@ import * as path from 'node:path';
 import { buildModules } from './build';
 import { env, colors as c, errorMark, lines } from './main';
 
-export async function tsc(onSuccess: () => void) {
-  if (!env.tsc) return onSuccess();
-  let successCallbackTriggered = false;
+export async function tsc(): Promise<void> {
+  return new Promise(resolve => {
+    if (!env.tsc) return resolve();
 
-  const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
-  const cfg: any = { files: [] };
-  cfg.references = buildModules
-    .filter(x => x.hasTsconfig)
-    .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
-  await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
+    const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
+    const cfg: any = { files: [] };
+    cfg.references = buildModules
+      .filter(x => x.hasTsconfig)
+      .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
+    fs.writeFileSync(cfgPath, JSON.stringify(cfg));
 
-  const tsc = cps.spawn(
-    'tsc',
-    ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force'])
-  );
+    const tsc = cps.spawn(
+      'tsc',
+      ['-b', cfgPath].concat(env.watch ? ['-w', '--preserveWatchOutput'] : ['--force'])
+    );
 
-  env.log(`Checking typescript`, { ctx: 'tsc' });
+    env.log(`Checking typescript`, { ctx: 'tsc' });
 
-  tsc.stdout?.on('data', (buf: Buffer) => {
-    // no way to magically get build events...
-    const txts = lines(buf.toString('utf8'));
-    for (const txt of txts) {
-      if (txt.includes('Found 0 errors')) {
-        if (!successCallbackTriggered) {
-          onSuccess();
-          successCallbackTriggered = true;
+    tsc.stdout?.on('data', (buf: Buffer) => {
+      // no way to magically get build events...
+      const txts = lines(buf.toString('utf8'));
+      for (const txt of txts) {
+        if (txt.includes('Found 0 errors')) {
+          resolve();
+          env.done(0, 'tsc');
+        } else {
+          tscLog(txt);
         }
-        env.done(0, 'tsc');
-      } else {
-        tscLog(txt);
       }
-    }
-  });
-  tsc.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
-  tsc.addListener('close', code => {
-    env.done(code || 0, 'tsc');
-    if (code) {
-      env.done(code, 'esbuild'); // fail both
-    } else onSuccess();
+    });
+    tsc.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
+    tsc.addListener('close', code => {
+      env.done(code || 0, 'tsc');
+      if (code) {
+        env.done(code, 'esbuild'); // fail both
+      } else resolve();
+    });
   });
 }
 

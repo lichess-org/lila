@@ -60,9 +60,10 @@ export interface LichessModule {
 }
 
 export interface Copy {
-  // same as copy -rf lila/node_modules/${src} lila/public/${dest}
-  src: string | string[];
+  // src must be a file or a glob expression, use <dir>/** to copy whole directory
+  src: string;
   dest: string;
+  mod: LichessModule;
 }
 
 export interface LichessBundle {
