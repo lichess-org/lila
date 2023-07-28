@@ -18,6 +18,7 @@
   <string name="explainShowPlayerRatings">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. Partie chönd immer no bewertet werde, es gaht nur um das, was du gsesch.</string>
   <string name="displayBoardResizeHandle">Zeig de Brättgrössi Regler</string>
   <string name="onlyOnInitialPosition">Nur bi de Afangsschtellig</string>
+  <string name="inGameOnly">Nur im Schpiel</string>
   <string name="blindfoldChess">Blindeschach (unsichtbari Figure)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zähntelsekunde</string>
