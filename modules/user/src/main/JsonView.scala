@@ -76,7 +76,7 @@ object JsonView:
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
 
-  val modWrites = OWrites[User] { u =>
+  val modWrites = OWrites[User]: u =>
     Json
       .obj(
         "id"       -> u.id,
@@ -86,9 +86,8 @@ object JsonView:
       )
       .add("tos" -> u.marks.dirty)
       .add("title" -> u.title)
-  }
 
-  given perfWrites: OWrites[Perf] = OWrites { o =>
+  given perfWrites: OWrites[Perf] = OWrites: o =>
     Json
       .obj(
         "games"  -> o.nb,
@@ -97,7 +96,6 @@ object JsonView:
         "prog"   -> o.progress
       )
       .add("prov", o.glicko.provisional)
-  }
 
   private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).toSet
 
