@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org local play",
-  "author": "Thibault Duplessis",
+  "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@types/cash": "workspace:*",
@@ -16,7 +16,7 @@
     "puz": "workspace:*",
     "snabbdom": "^3.5.1",
     "tree": "workspace:*",
-    "zerofish": "^0.0.6"
+    "zerofish": "^0.0.7"
   },
   "scripts": {
     "compile": "tsc",

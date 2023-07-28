@@ -1,7 +1,8 @@
 import { LocalPlayOpts } from './interfaces';
 import { PromotionCtrl } from 'chess/promotion';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
-import { Chess, makeSquare, parseSquare, opposite, charToRole, squareRank, Role } from 'chessops';
+import { Chess, Role } from 'chessops';
+import * as Chops from 'chessops';
 import makeZerofish, { Zerofish, PV } from 'zerofish';
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
@@ -16,15 +17,15 @@ export class Ctrl {
   chess = Chess.default();
   fiftyMovePly = 0;
   fen = '';
-  threefold: Map<string, number> = new Map();
-  botFight?: { gamesLeft: number; white: number; black: number; draw: number };
+  threefoldFens: Map<string, number> = new Map();
+  totals: { gamesLeft: number; white: number; black: number; draw: number };
   zf: { white: Zerofish; black: Zerofish };
   players: { white: Player; black: Player } = { white: 'human', black: 'fish' };
 
   constructor(readonly opts: LocalPlayOpts, readonly redraw: () => void) {
     this.promotion = new PromotionCtrl(
       f => f(this.cg),
-      () => this.cg.set(this.makeCgOpts()),
+      () => this.cg.set(this.cgOpts()),
       this.redraw
     );
     Promise.all([makeZerofish(), makeZerofish()]).then(([wz, bz]) => {
@@ -47,77 +48,74 @@ export class Ctrl {
         this.zf[color].setZeroWeights(new Uint8Array(e.target!.result as ArrayBuffer));
         $(`#${color} p`).first().text(weights.name);
         this.players[color] = 'zero';
-        if (this.players[opposite(color)] !== 'human') $('#go').removeClass('disabled');
+        if (this.players[Chops.opposite(color)] !== 'human') $('#go').removeClass('disabled');
       };
       reader.readAsArrayBuffer(weights);
     });
   }
 
   go(numGames?: number) {
-    if (numGames) {
-      this.botFight = { gamesLeft: numGames, white: 0, black: 0, draw: 0 };
-      $('#go').addClass('disabled');
-    }
+    this.totals ??= { gamesLeft: 1, white: 0, black: 0, draw: 0 };
+    if (numGames) this.totals.gamesLeft = numGames;
+    $('#go').addClass('disabled');
     this.fiftyMovePly = 0;
-    this.threefold.clear();
+    this.threefoldFens.clear();
     this.chess.reset();
     this.fen = makeFen(this.chess.toSetup());
     this.cg.set({ fen: this.fen });
-    console.log(makeFen(this.chess.toSetup()));
     this.zf.white.reset();
     this.zf.black.reset();
     this.getBotMove();
   }
 
-  gameOver(reason: 'threefold' | 'fifty' | 'white' | 'black' | 'draw') {
-    console.log(`game over ${reason}`);
+  checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): {
+    end: boolean;
+    result?: string;
+    reason?: string;
+  } {
+    let result = 'draw',
+      reason = userEnd ?? 'checkmate';
+    if (this.chess.isCheckmate()) result = Chops.opposite(this.chess.turn);
+    else if (this.chess.isInsufficientMaterial()) reason = 'insufficient';
+    else if (this.chess.isStalemate()) reason = 'stalemate';
+    else if (this.fifty()) reason = 'fifty';
+    else if (this.threefold()) reason = 'threefold';
+    else if (userEnd) {
+      if (userEnd !== 'mutualDraw') reason = 'resign';
+      if (userEnd === 'whiteResign') result = 'black';
+      else if (userEnd === 'blackResign') result = 'white';
+    } else return { end: false };
+    return { end: true, result, reason };
+  }
+
+  doGameOver(result: string, reason: string) {
+    console.log(`game over ${result} ${reason}`);
+
     // blah blah do outcome stuff
-    if (!this.botFight) return;
-    const bf = this.botFight;
-    const result = this.chess.outcome();
-    if (!result || !result.winner) bf.draw++;
-    else if (result.winner === 'white') bf.white++;
-    else bf.black++;
-    $('#white-totals').text(`${bf.white} / ${bf.draw} / ${bf.black}`);
-    $('#black-totals').text(`${bf.black} / ${bf.draw} / ${bf.white}`);
-    if (--bf.gamesLeft < 1) {
-      this.botFight = undefined;
-      $('#go').removeClass('disabled');
-      return;
-    }
-    setTimeout(() => this.go());
+    if (result === 'white') this.totals.white++;
+    else if (result === 'black') this.totals.black++;
+    else this.totals.draw++;
+    $('#white-totals').text(`${this.totals.white} / ${this.totals.draw} / ${this.totals.black}`);
+    $('#black-totals').text(`${this.totals.black} / ${this.totals.draw} / ${this.totals.white}`);
+    if (--this.totals.gamesLeft < 1) $('#go').removeClass('disabled');
+    else setTimeout(() => this.go());
   }
 
   move(uci: Uci, user = false) {
-    const promotion = charToRole(uci.slice(4)),
-      from = parseSquare(uci.slice(0, 2))!,
-      to = parseSquare(uci.slice(2, 4))!,
-      piece = this.chess.board.getRole(from),
-      move = { from, to, promotion };
-    let finished = false;
-
-    if (!this.chess.isLegal(move)) throw new Error(`illegal move ${uci}, ${makeFen(this.chess.toSetup())}}`);
-
-    if (piece === 'pawn' || this.chess.board.get(to)) this.fiftyMovePly = 0;
-    else this.fiftyMovePly++;
+    const move = Chops.parseUci(uci);
+    if (!move || !this.chess.isLegal(move))
+      throw new Error(`illegal move ${uci}, ${makeFen(this.chess.toSetup())}}`);
 
     this.chess.play(move);
     this.fen = makeFen(this.chess.toSetup());
-    const fenCount = (this.threefold.get(this.fen) ?? 0) + 1;
-    this.threefold.set(this.fen, fenCount);
-
-    if (this.chess.isEnd() || fenCount >= 3 || this.fiftyMovePly >= 100) {
-      this.gameOver(
-        this.chess.outcome()?.winner ??
-          (this.fiftyMovePly >= 100 ? 'fifty' : fenCount >= 3 ? 'threefold' : 'draw')
-      );
-      finished = true;
-    }
-    if (user && (squareRank(to) === 0 || squareRank(to) === 7) && piece === 'pawn') {
-      return;
-      // oh noes PromotionCtrl! put it back!
+    this.fifty(move);
+    this.threefold('update');
+    if (user && this.isPromotion(move)) {
+      return; // oh noes PromotionCtrl! put it back! put it back!
     } else this.cgMove(uci);
-    if (!finished) this.getBotMove();
+    const { end, result, reason } = this.checkGameOver();
+    if (end) this.doGameOver(result!, reason!);
+    else this.getBotMove();
   }
 
   userMove = (orig: Key, dest: Key) => {
@@ -130,12 +128,12 @@ export class Ctrl {
     const zf = this.zf[this.chess.turn];
     let move;
     if (moveType === 'zero') {
-      console.log(this.chess.turn, this.fen);
       const [zeroMove, lines] = await Promise.all([
         zf.goZero(this.fen),
         zf.goFish(this.fen, { pvs: 8, depth: 6 }),
       ]);
-      move = this.chess.turn === 'black' ? testAdjust(zeroMove, lines) : zeroMove;
+      // without randomSprinkle, lc0 will always play the same game
+      move = this.chess.turn === 'white' ? randomSprinkle(zeroMove, lines) : zeroMove;
       console.log(`${this.chess.turn} ${zeroMove === move ? 'zero' : 'ZEROFISH'} ${move}`);
     } else {
       move = (await zf.goFish(this.fen, { depth: 4 }))[0].moves[0];
@@ -145,44 +143,54 @@ export class Ctrl {
   }
 
   cgMove(uci: Uci) {
-    const from = uci.slice(0, 2) as Key,
-      to = uci.slice(2, 4) as Key,
-      role = charToRole(uci.slice(4)) as Role,
-      turn = this.chess.turn;
+    const { from, to, role } = splitUci(uci);
     this.cg.move(from, to);
     if (role) this.cg.setPieces(new Map([[to, { color: this.chess.turn, role, promoted: true }]]));
-    const dests =
-      this.players[turn] !== 'human'
-        ? new Map()
-        : new Map(
-            [...this.chess.allDests()].map(
-              ([s, ds]) => [makeSquare(s), [...ds].map(d => makeSquare(d))] as [Key, Key[]]
-            )
-          );
-    this.cg.set({
-      turnColor: turn,
-      movable: { dests },
-      check: this.chess.isCheck() ? turn : false,
-    });
+    this.cg.set(this.cgOpts(true));
   }
 
-  makeCgOpts = (): CgConfig => {
-    const cgDests = new Map(
-      [...this.chess.allDests()].map(
-        ([s, ds]) => [makeSquare(s), [...ds].map(d => makeSquare(d))] as [Key, Key[]]
-      )
-    );
+  cgOpts(withFen = true): CgConfig {
     return {
-      fen: makeFen(this.chess.toSetup()),
+      fen: withFen ? this.fen : undefined,
       orientation: this.flipped ? 'black' : 'white',
       turnColor: this.chess.turn,
-
+      check: this.chess.isCheck() ? this.chess.turn : false,
       movable: {
         color: this.chess.turn,
-        dests: cgDests,
+        dests:
+          this.players[this.chess.turn] !== 'human'
+            ? new Map()
+            : new Map([...this.chess.allDests()].map(([s, ds]) => [sq2key(s), [...ds].map(sq2key)])),
       },
     };
-  };
+  }
+
+  fifty(move?: Chops.Move) {
+    if (move)
+      if (
+        !('from' in move) ||
+        this.chess.board.getRole(move.from) === 'pawn' ||
+        this.chess.board.get(move.to)
+      )
+        this.fiftyMovePly = 0;
+      else this.fiftyMovePly++;
+    return this.fiftyMovePly >= 100;
+  }
+
+  threefold(update: 'update' | false = false) {
+    const boardFen = this.fen.split('-')[0];
+    const fenCount = (this.threefoldFens.get(boardFen) ?? 0) + 1;
+    if (update) this.threefoldFens.set(boardFen, fenCount);
+    return fenCount >= 3;
+  }
+
+  isPromotion(move: Chops.Move) {
+    return (
+      'from' in move &&
+      Chops.squareRank(move.to) === (this.chess.turn === 'white' ? 7 : 0) &&
+      this.chess.board.getRole(move.from) === 'pawn'
+    );
+  }
 
   flip = () => {
     this.flipped = !this.flipped;
@@ -191,18 +199,26 @@ export class Ctrl {
   };
 }
 
+function sq2key(sq: number): Key {
+  return Chops.makeSquare(sq);
+}
+
+function splitUci(uci: Uci): { from: Key; to: Key; role?: Role } {
+  return { from: uci.slice(0, 2) as Key, to: uci.slice(2, 4) as Key, role: Chops.charToRole(uci.slice(4)) };
+}
+
 function linesWithin(move: string, lines: PV[], bias = 0, threshold = 50) {
   const zeroScore = lines.find(line => line.moves[0] === move)?.score ?? Number.NaN;
   return lines.filter(fish => Math.abs(fish.score - bias - zeroScore) < threshold && fish.moves.length);
 }
 
-function testAdjust(move: string, lines: PV[]) {
-  //if (!occurs(0.5)) return move;
-  lines = linesWithin(move, lines, 40, 40);
+function randomSprinkle(move: string, lines: PV[]) {
+  lines = linesWithin(move, lines, 0, 20);
   if (!lines.length) return move;
   return lines[Math.floor(Math.random() * lines.length)].moves[0] ?? move;
 }
 
-/*function occurs(chance: number) {
+/*
+function occurs(chance: number) {
   return Math.random() < chance;
 }*/

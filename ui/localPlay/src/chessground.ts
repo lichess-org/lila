@@ -14,7 +14,7 @@ const pref = {
 };
 
 export function makeConfig(ctrl: Ctrl): CgConfig {
-  const opts = ctrl.makeCgOpts();
+  const opts = ctrl.cgOpts();
   return {
     fen: opts.fen,
     orientation: opts.orientation,
