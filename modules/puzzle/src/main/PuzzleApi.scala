@@ -11,7 +11,7 @@ final class PuzzleApi(
     trustApi: PuzzleTrustApi,
     countApi: PuzzleCountApi,
     openingApi: PuzzleOpeningApi
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor, Scheduler):
 
   import BsonHandlers.given
 
@@ -21,7 +21,7 @@ final class PuzzleApi(
       colls.puzzle(_.byId[Puzzle](id))
 
     def of(user: User, page: Int): Fu[Paginator[Puzzle]] =
-      colls.puzzle { coll =>
+      colls.puzzle: coll =>
         Paginator(
           adapter = new Adapter[Puzzle](
             collection = coll,
@@ -32,7 +32,6 @@ final class PuzzleApi(
           page,
           MaxPerPage(30)
         )
-      }
 
   private[puzzle] object round:
 
@@ -61,10 +60,10 @@ final class PuzzleApi(
     )
 
     def update(id: PuzzleId, user: User, vote: Boolean): Funit =
-      sequencer(id) {
+      sequencer(id):
         round
           .find(user, id)
-          .flatMapz { prevRound =>
+          .flatMapz: prevRound =>
             trustApi.vote(user, prevRound, vote) flatMapz { weight =>
               val voteValue = (if vote then 1 else -1) * weight
               lila.mon.puzzle.vote.count(vote, prevRound.win.yes).increment()
@@ -73,37 +72,37 @@ final class PuzzleApi(
                   _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
                 } void
             }
-          }
-      }.monSuccess(_.puzzle.vote.future).recoverDefault
+      .monSuccess(_.puzzle.vote.future)
+        .recoverDefault
 
     private def updatePuzzle(puzzleId: PuzzleId, newVote: Int, prevVote: Option[Int]): Funit =
-      colls.puzzle { coll =>
+      colls.puzzle: coll =>
         import Puzzle.{ BSONFields as F }
-        coll.one[Bdoc](
-          $id(puzzleId),
-          $doc(F.voteUp -> true, F.voteDown -> true, F.day -> true, F.id -> false)
-        ) flatMapz { doc =>
-          val prevUp   = ~doc.int(F.voteUp)
-          val prevDown = ~doc.int(F.voteDown)
-          val up       = (prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)) atLeast newVote
-          val down     = (prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)) atLeast -newVote
-          coll.update
-            .one(
-              $id(puzzleId),
-              $set(
-                F.voteUp   -> up,
-                F.voteDown -> down,
-                F.vote     -> ((up - down).toFloat / (up + down))
-              ) ++ {
-                (newVote <= -100 && doc
-                  .getAsOpt[Instant](F.day)
-                  .exists(_ isAfter nowInstant.minusDays(1))) so
-                  $unset(F.day)
-              }
-            )
-            .void
-        }
-      }
+        coll
+          .one[Bdoc](
+            $id(puzzleId),
+            $doc(F.voteUp -> true, F.voteDown -> true, F.day -> true, F.id -> false)
+          )
+          .flatMapz: doc =>
+            val prevUp   = ~doc.int(F.voteUp)
+            val prevDown = ~doc.int(F.voteDown)
+            val up       = (prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)) atLeast newVote
+            val down     = (prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)) atLeast -newVote
+            coll.update
+              .one(
+                $id(puzzleId),
+                $set(
+                  F.voteUp   -> up,
+                  F.voteDown -> down,
+                  F.vote     -> ((up - down).toFloat / (up + down))
+                ) ++ {
+                  (newVote <= -100 && doc
+                    .getAsOpt[Instant](F.day)
+                    .exists(_ isAfter nowInstant.minusDays(1))) so
+                    $unset(F.day)
+                }
+              )
+              .void
 
   def angles: Fu[PuzzleAngle.All] = for
     themes   <- theme.categorizedWithCount
@@ -113,13 +112,10 @@ final class PuzzleApi(
   object theme:
 
     private[PuzzleApi] def categorizedWithCount: Fu[List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])]] =
-      countApi.countsByTheme map { counts =>
-        PuzzleTheme.categorized.map { case (cat, puzzles) =>
-          cat -> puzzles.map { pt =>
+      countApi.countsByTheme.map: counts =>
+        PuzzleTheme.categorized.map: (cat, puzzles) =>
+          cat -> puzzles.map: pt =>
             PuzzleTheme.WithCount(pt, counts.getOrElse(pt.key, 0))
-          }
-        }
-      }
 
     def vote(user: User, id: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
       round.find(user, id) flatMapz { round =>
@@ -139,11 +135,10 @@ final class PuzzleApi(
                       F.weight -> weight
                     )
                   }
-          update flatMapz { up =>
+          update.flatMapz: up =>
             lila.mon.puzzle.vote.theme(theme.value, vote, round.win.yes).increment()
             colls.round(_.update.one($id(round.id), up)) zip
               colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)) void
-          }
         }
       }
 
