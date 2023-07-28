@@ -277,8 +277,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
   private def serveThemes(using Context) =
-    Ok.pageAsync:
-      env.puzzle.api.angles.map(views.html.puzzle.theme.list(_))
+    negotiate(
+      html = Ok.pageAsync:
+        env.puzzle.api.angles.map(views.html.puzzle.theme.list(_))
+      ,
+      json = JsonOk:
+        env.puzzle.api.angles.map(lila.puzzle.JsonView.angles)
+    )
 
   def openings(order: String) = Open:
     env.puzzle.opening.collection flatMap { collection =>
