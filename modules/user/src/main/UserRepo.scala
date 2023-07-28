@@ -102,7 +102,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def enabledTitledCursor(proj: Option[Bdoc]) =
     coll
       .find(
-        enabledSelect ++ $doc(F.title -> $doc("$exists" -> true, "$ne" -> List(Title.LM, Title.BOT))),
+        enabledSelect ++ $doc(F.title -> $doc("$exists" -> true, "$nin" -> List(Title.LM, Title.BOT))),
         proj
       )
       .cursor[Bdoc](ReadPref.priTemp)
