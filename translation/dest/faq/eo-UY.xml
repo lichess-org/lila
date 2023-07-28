@@ -86,6 +86,7 @@ Ne petu por la LM titolo.</string>
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
   <string name="whatIsProvisionalRating">Kial demandsigno (?) staras apud rango?</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">La ludanto ne finiĝis sufiĉe da rangaj ludoj kontraŭ %1$s en la rangkategorio.</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
   <string name="notPlayedRecently">La ludanto ne ludis sufiĉe da lastatempaj ludoj. Depende de la nombro da ludoj, kiujn vi ludis, eble daŭros ĉirkaŭ unu jaro da senaktiveco, por ke via rango reprovizoriĝas.</string>
   <string name="howDoLeaderoardsWork">Kiel rangoj kaj rangtabuloj funkcias?</string>
