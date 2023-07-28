@@ -19,7 +19,7 @@ object Dependencies {
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.5"
   val chess       = "org.lichess"                  %% "scalachess"                      % "15.6.1"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
-  val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
+  val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.1.0"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.7" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
