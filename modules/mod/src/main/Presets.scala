@@ -13,17 +13,19 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 
   import ModPresets.setting.given
 
-  def get(group: String) =
-    group match
-      case "PM"     => pmPresets.some
-      case "appeal" => appealPresets.some
-      case _        => none
+  def get(group: String) = group match
+    case "PM"     => pmPresets.some
+    case "appeal" => appealPresets.some
+    case _        => none
 
   def getPmPresets(using Me): ModPresets =
     ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_))))
 
   def getPmPresetsOpt(using mod: Option[Me]): ModPresets =
     mod.map(getPmPresets(using _)).getOrElse(ModPresets(Nil))
+
+  def permissionsByName(name: String): Set[Permission] =
+    pmPresets.get().value.find(_.name == name).so(_.permissions)
 
   private lazy val pmPresets = settingStore[ModPresets](
     "modPmPresets",
@@ -38,14 +40,12 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
   )
 
 case class ModPresets(value: List[ModPreset]):
-
   def named(name: String) = value.find(_.name == name)
-
   def findLike(text: String) =
     val clean = text.filter(_.isLetter)
     value.find(_.text.filter(_.isLetter) == clean)
-case class ModPreset(name: String, text: String, permissions: Set[Permission]):
 
+case class ModPreset(name: String, text: String, permissions: Set[Permission]):
   def isNameClose = name contains ModPresets.nameClosePresetName
 
 object ModPresets:
@@ -61,7 +61,7 @@ object ModPresets:
       } mkString "\n\n----------\n\n"
 
     private def read(s: String): ModPresets =
-      ModPresets {
+      ModPresets:
         "\n-{3,}\\s*\n".r
           .split(s.linesIterator.map(_.trim).dropWhile(_.isEmpty) mkString "\n")
           .toList
@@ -80,7 +80,6 @@ object ModPresets:
               )
             case _ => none
           }
-      }
 
     private def toPermisssions(s: String): Set[Permission] =
       Permission(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList) match
@@ -88,8 +87,6 @@ object ModPresets:
         case _                   => Set(Permission.Admin)
 
     given Iso.StringIso[ModPresets] = Iso.string(read, write)
-
-    given BSONHandler[ModPresets]  = lila.db.dsl.isoHandler
-    given StringReader[ModPresets] = StringReader.fromIso
-    given Formable[ModPresets] =
-      new Formable(presets => Form(single("v" -> text)) fill write(presets))
+    given BSONHandler[ModPresets]   = lila.db.dsl.isoHandler
+    given StringReader[ModPresets]  = StringReader.fromIso
+    given Formable[ModPresets]      = Formable(presets => Form(single("v" -> text)) fill write(presets))
