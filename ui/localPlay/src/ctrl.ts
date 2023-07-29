@@ -29,8 +29,8 @@ export class Ctrl {
       () => this.cg.set(this.cgOpts()),
       this.redraw
     );
-    Promise.all([/*makeZerofish(),*/ makeZerofish()]).then(([/*wz,*/ bz]) => {
-      this.zf ??= { white: /*wz*/ undefined, black: bz };
+    Promise.all([makeZerofish(), makeZerofish()]).then(([wz, bz]) => {
+      this.zf ??= { white: wz, black: bz };
     });
   }
 
@@ -113,7 +113,7 @@ export class Ctrl {
         zf!.goFish(this.fen, { pvs: 8, depth: 6 }),
       ]);
       // without randomSprinkle, lc0 will always play the same game
-      move = this.chess.turn === 'white' ? randomSprinkle(zeroMove, lines) : zeroMove;
+      move = Math.random() < 0.5 ? randomSprinkle(zeroMove, lines) : zeroMove;
       console.log(`${this.chess.turn} ${zeroMove === move ? 'zero' : 'ZEROFISH'} ${move}`);
     } else {
       move = (await zf!.goFish(this.fen, { depth: 3 }))[0].moves[0];
@@ -184,8 +184,8 @@ export class Ctrl {
       e.preventDefault();
       e.stopPropagation();
     });
-    $el.on('dragenter dragover', _ => this.zf[color]) && $el.addClass('hilite');
-    $el.on('dragleave drop', _ => this.zf[color] && $el.removeClass('hilite'));
+    $el.on('dragenter dragover', () => this.zf[color] && $el.addClass('hilite'));
+    $el.on('dragleave drop', () => this.zf[color] && $el.removeClass('hilite'));
     $el.on('drop', e => {
       if (!this.zf[color]) return;
       const reader = new FileReader();

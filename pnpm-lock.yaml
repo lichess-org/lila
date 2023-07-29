@@ -491,8 +491,8 @@ importers:
         specifier: workspace:*
         version: link:../tree
       zerofish:
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.8
+        version: 0.0.8
 
   ui/mod:
     dependencies:
@@ -6424,8 +6424,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /zerofish@0.0.7:
-    resolution: {integrity: sha512-fxSIWjQTSF0h5SSiIifEKqt/CPEpxNQOfsdU8l8ZBK2cKYam6Ak7WN+Wpinz6RgZKsJ+qAPp6WLwxt8Kw97p+A==}
+  /zerofish@0.0.8:
+    resolution: {integrity: sha512-PwOmIMRcSx+K87WFVAdwrDgy4tEUXX1q+LSUdslsnVkslaBtkwQHoWLrLzWHRzXXHNruQAnKgKTVEvemiYZOtQ==}
     dependencies:
       '@types/emscripten': 1.39.7
       '@types/node': 20.4.5
