@@ -807,7 +807,7 @@
   <string name="blackWinsGame">Nigro venkas</string>
   <string name="learnFromYourMistakes">Lerni de viaj eraroj</string>
   <string name="learnFromThisMistake">Lerni de tiu ĉi eraro</string>
-  <string name="skipThisMove">Preterpasi tion ĉi movon</string>
+  <string name="skipThisMove">Preterpasi tiun ĉi movon</string>
   <string name="next">Sekva</string>
   <string name="xWasPlayed">%s ludita</string>
   <string name="findBetterMoveForWhite">Trovi plibonan movon por blanka</string>
