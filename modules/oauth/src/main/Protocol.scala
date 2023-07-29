@@ -38,7 +38,7 @@ object Protocol:
         Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(a.value).bytes) == challenge
 
     def from(value: String): Either[Error, CodeVerifier] =
-        Right(value)
+      Right(value)
         .ensure(Error.CodeVerifierTooShort)(_.size >= 43)
         .map(CodeVerifier(_))
 
@@ -83,9 +83,11 @@ object Protocol:
     def matches(other: UncheckedRedirectUri) = value.toString == other.value
   object RedirectUri:
     def from(redirectUri: String): Either[Error, RedirectUri] =
-      Either.catchNonFatal {
-        URL.parse(URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance), redirectUri)
-      }.leftMap(_ => Error.RedirectUriInvalid)
+      Either
+        .catchNonFatal {
+          URL.parse(URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance), redirectUri)
+        }
+        .leftMap(_ => Error.RedirectUriInvalid)
         .ensure(Error.RedirectSchemeNotAllowed)(url =>
           List(
             // standard
