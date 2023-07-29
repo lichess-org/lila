@@ -55,7 +55,7 @@ final class PgnDump(
 
   private def rating(p: Player) = p.rating.orElse(p.nameSplit.flatMap(_._2)).fold("?")(_.toString)
 
-  def player(p: Player, u: Option[LightUser]) =
+  def player(p: Player, u: Option[LightUser]): String | UserName =
     p.aiLevel.fold(u.fold(p.nameSplit.map(_._1).orElse(p.name) | lila.user.User.anonymous)(_.name))(
       "lichess AI level " + _
     )
@@ -163,7 +163,7 @@ object PgnDump:
       san = san,
       secondsLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)
     )
-    Tree.build(moves.zipWithIndex, f)
+    Tree.buildWithIndex(moves, f)
 
   case class WithFlags(
       clocks: Boolean = true,
