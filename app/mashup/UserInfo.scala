@@ -12,11 +12,11 @@ import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Me, User }
 
 case class UserInfo(
+    nbs: UserInfo.NbGames,
     user: User.WithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
     ratingChart: Option[String],
-    nbs: UserInfo.NbGames,
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
@@ -118,40 +118,22 @@ object UserInfo:
       insightShare: lila.insight.Share
   )(using Executor):
     def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
-      ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart") zip
-        perfsRepo.withPerfs(user) zip
+      (
+        perfsRepo.withPerfs(user),
+        userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies"),
+        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")),
+        ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart"),
         (!user.is(User.lichessId) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts")
-        } zip
-        (withUblog so ublogApi.userBlogPreviewFor(user, 3)) zip
-        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
-        simulApi.countHostedByUser.get(user.id).mon(_.user segment "nbSimuls") zip
-        relayApi.countOwnedByUser.get(user.id).mon(_.user segment "nbBroadcasts") zip
-        userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies") zip
-        teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user segment "teamIds") zip
-        coachApi.isListedCoach(user).mon(_.user segment "coach") zip
-        streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
-        (user.count.rated >= 10).so(insightShare.grant(user)) zip
-        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")) map {
-          // format: off
-          case ((((((((((((ratingChart, user), nbForumPosts), ublog), nbStudies), nbSimuls), nbRelays), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
-          // format: on
-            UserInfo(
-              user = user,
-              nbs = nbs,
-              hasSimul = hasSimul,
-              ratingChart = ratingChart,
-              nbForumPosts = nbForumPosts,
-              ublog = ublog,
-              nbStudies = nbStudies,
-              nbSimuls = nbSimuls,
-              nbRelays = nbRelays,
-              trophies = trophiesAndAwards,
-              teamIds = teamIds,
-              isStreamer = isStreamer,
-              isCoach = isCoach,
-              insightVisible = insightVisible
-            )
-        }
+        },
+        withUblog so ublogApi.userBlogPreviewFor(user, 3),
+        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies"),
+        simulApi.countHostedByUser.get(user.id).mon(_.user segment "nbSimuls"),
+        relayApi.countOwnedByUser.get(user.id).mon(_.user segment "nbBroadcasts"),
+        teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user segment "teamIds"),
+        streamerApi.isActualStreamer(user).mon(_.user segment "streamer"),
+        coachApi.isListedCoach(user).mon(_.user segment "coach"),
+        (user.count.rated >= 10).so(insightShare.grant(user))
+      ).mapN(UserInfo.apply(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
     def preloadTeams(info: UserInfo) = teamCache.nameCache.preloadMany(info.teamIds)
