@@ -48,9 +48,9 @@ final class Env(
         api
           .latestPosts(lookInto)
           .map:
-            _.groupBy(_.blog)
+            _.pipe(ThreadLocalRandom.shuffle)
+              .groupBy(_.blog)
               .map(_._2.head)
-              .pipe(ThreadLocalRandom.shuffle)
               .toList
               .take(keep)
 
