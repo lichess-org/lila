@@ -50,20 +50,13 @@ object UserInfo:
       prefApi: lila.pref.PrefApi
   ):
     def apply(u: User)(using ctx: Context): Fu[Social] =
-      ctx.userId.so {
-        relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
-      } zip
-        ctx.me.soUse { _ ?=>
-          fetchNotes(u).mon(_.user segment "notes")
-        } zip
-        ctx.isAuth.so {
-          prefApi.followable(u.id).mon(_.user segment "followable")
-        } zip
-        ctx.userId.so { myId =>
-          relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks")
-        } dmap { case (((relation, notes), followable), blocked) =>
-          Social(relation, notes, followable, blocked)
-        }
+      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
+      (
+        ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")),
+        ctx.me.soUse(_ ?=> fetchNotes(u).mon(_.user segment "notes")),
+        ctx.isAuth.so(prefApi.followable(u.id).mon(_.user segment "followable")),
+        ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks"))
+      ).mapN(Social.apply)
 
     def fetchNotes(u: User)(using Me) =
       noteApi.get(u, Granter(_.ModNote)) dmap {
@@ -85,20 +78,15 @@ object UserInfo:
       crosstableApi: lila.game.CrosstableApi
   ):
     def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
-      (withCrosstable so me
-        .filter(u.isnt(_))
-        .soFu(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user segment "crosstable"))) zip
-        gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
-        gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported") zip
-        bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks") dmap {
-          case (((crosstable, playing), imported), bookmark) =>
-            NbGames(
-              crosstable,
-              playing = playing,
-              imported = imported,
-              bookmark = bookmark
-            )
-        }
+      given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
+      (
+        withCrosstable so me
+          .filter(u.isnt(_))
+          .soFu(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user segment "crosstable")),
+        gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying"),
+        gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported"),
+        bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks")
+      ).mapN(NbGames.apply)
 
   final class UserInfoApi(
       relationApi: RelationApi,
