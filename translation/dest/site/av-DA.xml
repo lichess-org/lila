@@ -397,12 +397,15 @@
     <item quantity="one">%s минутаялдаса дагьаб</item>
     <item quantity="other">%s минутаялдаса дагьаб</item>
   </plurals>
+  <string name="required">ХӀажатаб.</string>
   <string name="openTournaments">Рагьарал турнирал</string>
   <string name="duration">Халалъи</string>
   <string name="winner">Бергьарав</string>
   <string name="standing">Турниралъул таблица</string>
   <string name="createANewTournament">ЦӀияб турнир гьабизе</string>
   <string name="tournamentCalendar">Турниралъул рузнама</string>
+  <string name="conditionOfEntry">ГӀахьаллъиялъул тӀалабал:</string>
+  <string name="advancedSettings">Цере тӀурал рекъезариял</string>
   <string name="join">Жувазе</string>
   <string name="points">Балал</string>
   <string name="wins">Бергьенлъи</string>
