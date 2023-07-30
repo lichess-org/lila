@@ -254,9 +254,11 @@ export default class AnalyseCtrl {
   flip = () => {
     this.flipped = !this.flipped;
     this.study?.onFlip();
-    this.chessground.set({
-      orientation: this.bottomColor(),
-    });
+    if (this.chessground) {
+      this.chessground.set({
+        orientation: this.bottomColor(),
+      });
+    }
     if (this.retro && this.data.game.variant.key !== 'racingKings') {
       this.retro = makeRetro(this, this.bottomColor());
     }
