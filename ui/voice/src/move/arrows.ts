@@ -1,7 +1,7 @@
 import { Key } from 'chessground/types';
 import { DrawBrush, DrawShape } from 'chessground/draw';
-import { src, dest } from 'chess';
-import { pushMap, type SparseSet } from '../util';
+import { to, from } from 'chess';
+import { pushMap, type SparseSet } from 'common';
 
 export const brushes = new Map<string, DrawBrush>([
   ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],
@@ -29,12 +29,12 @@ export function numberedArrows(
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([, uci]) => {
     shapes.push({
-      orig: src(uci),
-      dest: dest(uci),
+      orig: from(uci),
+      dest: to(uci),
       brush: `v-grey`,
       modifiers: { hilite: uci === preferred },
     });
-    if (uci.length > 2) pushMap(dests, dest(uci), moveAngle(uci, asWhite));
+    if (uci.length > 2) pushMap(dests, to(uci), moveAngle(uci, asWhite));
   });
   if (timer) {
     shapes.push(
@@ -60,8 +60,8 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([c, uci]) => {
     shapes.push({
-      orig: src(uci),
-      dest: dest(uci),
+      orig: from(uci),
+      dest: to(uci),
       brush: `v-${c}`,
       modifiers: { hilite: uci === preferred },
     });
@@ -82,7 +82,7 @@ function timerShape(uci: Uci, offset: [number, number], duration: number, color:
     }
   });
   return {
-    orig: src(uci),
+    orig: from(uci),
     brush: 'v-grey',
     customSvg:
       (color !== 'grey'
@@ -112,7 +112,7 @@ function labelShape(
   const strokeW = 3;
   const [x, y] = labelOffset(uci, dests, asWhite).map(o => o + r - 50);
   return {
-    orig: src(uci),
+    orig: from(uci),
     brush: 'v-grey',
     customSvg: `
         <svg viewBox="${x} ${y} 100 100">
@@ -144,8 +144,8 @@ function squarePos(sq: Key, asWhite: boolean): [number, number] {
 }
 
 function moveAngle(uci: Uci, asWhite: boolean, asSlot = true) {
-  const [srcx, srcy] = squarePos(src(uci), asWhite);
-  const [destx, desty] = squarePos(dest(uci), asWhite);
+  const [srcx, srcy] = squarePos(from(uci), asWhite);
+  const [destx, desty] = squarePos(to(uci), asWhite);
   const angle = Math.atan2(desty - srcy, destx - srcx) + Math.PI;
   return asSlot ? (Math.round((angle * 8) / Math.PI) + 16) % 16 : angle;
 }
@@ -164,9 +164,9 @@ function labelOffset(uci: Uci, dests: Map<Key, SparseSet<number>>, asWhite: bool
   let mag = destMag(uci, asWhite);
   if (mag === 0) return [0, 0];
   const angle = moveAngle(uci, asWhite, false);
-  if (dests.has(dest(uci))) {
+  if (dests.has(to(uci))) {
     mag -= 52;
-    const slots = dests.get(dest(uci))!;
+    const slots = dests.get(to(uci))!;
     if (slots instanceof Set) {
       mag -= 125 / 8;
       const arc = moveAngle(uci, asWhite);

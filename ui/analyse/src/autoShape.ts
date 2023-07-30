@@ -80,13 +80,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       lineWidth: 8,
     });
   }
-  if (hovering && hovering.fen === nFen)
-    shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
+  ctrl.fork.hoverSelect(hovering?.uci);
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && instance.multiPv()) {
       const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
-      if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (
         instance.enabled() &&
         nCeval &&
@@ -147,7 +145,21 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     }
   }
+  if (ctrl.showAutoShapes() && ctrl.node.children.length > 1) shapes = shapes.concat(navigationArrows(ctrl));
   return shapes;
+}
+
+export function navigationArrows(ctrl: AnalyseCtrl): DrawShape[] {
+  const brushes = ctrl.chessground.state.drawable.brushes;
+  brushes.mainline = { key: 'vwh', color: '#66c', opacity: 0.8, lineWidth: 12 };
+  brushes.variation = { key: 'vgr', color: '#666', opacity: 0.8, lineWidth: 12 };
+  brushes.computer = { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 15 };
+  return ctrl.node.children.map((node, i) => ({
+    orig: node.uci!.slice(0, 2) as Key,
+    dest: node.uci?.slice(2, 4) as Key,
+    brush: i === 0 ? 'mainline' : ctrl.showComputer() && node.comp ? 'computer' : 'variation',
+    modifiers: { hilite: i === ctrl.fork.selected() },
+  }));
 }
 
 const prependDropShadow = (svgBase: string) =>

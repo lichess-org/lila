@@ -48,8 +48,8 @@ export const altCastles = {
 };
 
 // we must strive to redefine roles and promotions in each and every module
-export const src = (uci: Uci) => uci.slice(0, 2) as Key;
-export const dest = (uci: Uci) => uci.slice(2, 4) as Key;
+export const from = (uci: Uci) => uci.slice(0, 2) as Key;
+export const to = (uci: Uci) => uci.slice(2, 4) as Key;
 
 export const Roles = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'] as const;
 export type Role = typeof Roles[number];

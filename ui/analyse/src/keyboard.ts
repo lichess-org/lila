@@ -6,6 +6,13 @@ import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
 export const bind = (ctrl: AnalyseCtrl) => {
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key !== 'Shift') return;
+    if ((e.location === 1 && ctrl.fork.prev(true)) || (e.location === 2 && ctrl.fork.next(true))) {
+      ctrl.setAutoShapes();
+      ctrl.redraw();
+    }
+  });
   const kbd = window.lichess.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
@@ -16,20 +23,20 @@ export const bind = (ctrl: AnalyseCtrl) => {
       control.exitVariation(ctrl);
       ctrl.redraw();
     })
+    .bind(['shift+right', 'shift+j'], () => {})
     .bind(['right', 'j'], () => {
       if (!ctrl.fork.proceed()) control.next(ctrl);
-      ctrl.redraw();
-    })
-    .bind(['shift+right', 'shift+j'], () => {
-      control.enterVariation(ctrl);
+
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], () => {
       if (!ctrl.fork.prev()) control.first(ctrl);
+      else ctrl.setAutoShapes();
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], () => {
       if (!ctrl.fork.next()) control.last(ctrl);
+      else ctrl.setAutoShapes();
       ctrl.redraw();
     })
     .bind('shift+c', () => {

@@ -3,23 +3,13 @@ import * as xhr from 'common/xhr';
 import * as prop from 'common/storage';
 import * as licon from 'common/licon';
 import * as cs from 'chess';
-import { src as src, dest as dest } from 'chess';
+import { from as src, to as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import { RootCtrl, VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../main';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import {
-  type SparseMap,
-  type Transform,
-  spread,
-  spreadMap,
-  getSpread,
-  remove,
-  pushMap,
-  movesTo,
-  as,
-  findTransforms,
-} from '../util';
+import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap, as } from 'common';
+import { type Transform, movesTo, findTransforms } from '../util';
 
 // shimmed to prevent pop-in while not overly complicating root controller's view construction
 export function load(ctrl: RootCtrl, initialFen: string): VoiceMove {

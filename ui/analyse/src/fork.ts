@@ -11,8 +11,10 @@ export interface ForkCtrl {
     selected: number;
     displayed: boolean;
   };
-  next: () => boolean | undefined;
-  prev: () => boolean | undefined;
+  selected(): number | undefined;
+  next: (cycle?: boolean) => boolean | undefined;
+  prev: (cycle?: boolean) => boolean | undefined;
+  hoverSelect: (uci: Uci | null | undefined) => void;
   highlight: (it?: number) => void;
   proceed: (it?: number) => boolean | undefined;
 }
@@ -20,6 +22,7 @@ export interface ForkCtrl {
 export function make(root: AnalyseCtrl): ForkCtrl {
   let prev: Tree.Node | undefined;
   let selected = 0;
+  let hovering: number | undefined;
   function displayed() {
     return root.node.children.length > 1;
   }
@@ -36,19 +39,35 @@ export function make(root: AnalyseCtrl): ForkCtrl {
         displayed: displayed(),
       };
     },
-    next() {
+    next(cycle = false) {
       if (displayed()) {
-        selected = Math.min(root.node.children.length - 1, selected + 1);
+        selected = cycle
+          ? (selected + 1) % root.node.children.length
+          : Math.min(root.node.children.length - 1, selected + 1);
         return true;
       }
       return undefined;
     },
-    prev() {
+    prev(cycle = false) {
       if (displayed()) {
-        selected = Math.max(0, selected - 1);
+        selected = cycle
+          ? (selected + root.node.children.length - 1) % root.node.children.length
+          : Math.max(0, selected - 1);
         return true;
       }
       return undefined;
+    },
+    hoverSelect(uci: Uci | undefined | null) {
+      hovering = undefined;
+      root.node.children.forEach((n, i) => {
+        if (n.uci === uci) {
+          hovering = i;
+          return;
+        }
+      });
+    },
+    selected() {
+      return hovering ?? selected;
     },
     highlight(it) {
       if (!displayed() || !defined(it)) {
@@ -63,7 +82,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
     },
     proceed(it) {
       if (displayed()) {
-        it = defined(it) ? it : selected;
+        it = defined(it) ? it : hovering ? hovering : selected;
 
         const childNode = root.node.children[it];
         if (defined(childNode)) {
