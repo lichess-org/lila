@@ -406,6 +406,8 @@
   <string name="tournamentCalendar">Турниралъул рузнама</string>
   <string name="conditionOfEntry">ГӀахьаллъиялъул тӀалабал:</string>
   <string name="advancedSettings">Цере тӀурал рекъезариял</string>
+  <string name="safeTournamentName">Бище турниралъе расги хӀинкъи гьечӀеб цӀар.</string>
+  <string name="inappropriateNameWarning">Бокьараб, дагьаб рекъечӀеб гӀамалалъцин дур аккаунт къаялде бачине бегьула.</string>
   <string name="join">Жувазе</string>
   <string name="points">Балал</string>
   <string name="wins">Бергьенлъи</string>
