@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' бащдаб хъурщиялъул рикӀкӀен хадусеб чӀвай щвезегӀан яги пешка хъурщизегӀан кьочӀое босун</string>
   <string name="noGameFound">ХӀаял ратичӀо</string>
+  <string name="maxDepthReached">Бищун кӀудияб гъварилъиялде щвана!</string>
   <string name="openings">Байбихьиял</string>
   <string name="openingExplorer">Байбихьиязул база</string>
   <string name="openingEndgameExplorer">ХӀаялъул авал/ахиралъул база</string>
@@ -116,6 +117,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">РакӀалдачӀей</string>
   <string name="infiniteAnalysis">ЛъугӀи гьечӀеб анализ</string>
+  <string name="engineManager">МухӀарик менежер</string>
   <string name="blunder">КӀудияб гъалатӀ</string>
   <string name="mistake">ГъалатӀ</string>
   <string name="inaccuracy">ГьитӀинаб гъалатӀ</string>
