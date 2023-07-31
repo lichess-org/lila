@@ -86,9 +86,18 @@ class StringTest extends munit.FunSuite:
   }
 
   test("richText prize regex not find btc >> url") {
-    assertEquals(String.looksLikePrize(s"HqVrbTcy"), false)
-    assertEquals(String.looksLikePrize(s"10btc"), true)
-    assertEquals(String.looksLikePrize(s"ten btc"), true)
+    assertEquals(String.looksLikePrize("HqVrbTcy"), false)
+    assertEquals(String.looksLikePrize("10btc"), true)
+    assertEquals(String.looksLikePrize("ten btc"), true)
+  }
+
+  test("richText prize regex for TA description") {
+    assertEquals(
+      String.looksLikePrize("""Blitz Titled Arena July '23 Prizes: $500/$250/$125/$75/$50
+
+  [Warm-up event](https://lichess.org/tournament/jul23bua) """),
+      true
+    )
   }
 
   def extractPosts(s: String) = String.forumPostPathRegex.findAllMatchIn(s).toList.map(_.group(1))
