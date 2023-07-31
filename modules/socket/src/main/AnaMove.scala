@@ -28,25 +28,22 @@ case class AnaMove(
   def branch: Either[ErrorStr, Branch] =
     chess
       .Game(variant.some, fen.some)(orig, dest, promotion)
-      .flatMap: (game, move) =>
-        game.sans.lastOption
-          .toRight(ErrorStr("Moved but no last move!"))
-          .map: san =>
-            val uci     = Uci(move)
-            val movable = game.situation playable false
-            val fen     = chess.format.Fen write game
-            Branch(
-              id = UciCharPair(uci),
-              ply = game.ply,
-              move = Uci.WithSan(uci, san),
-              fen = fen,
-              check = game.situation.check,
-              dests = Some(movable so game.situation.destinations),
-              opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)) so
-                OpeningDb.findByEpdFen(fen),
-              drops = if movable then game.situation.drops else Some(Nil),
-              crazyData = game.situation.board.crazyData
-            )
+      .map: (game, move) =>
+        val uci     = Uci(move)
+        val movable = game.situation playable false
+        val fen     = chess.format.Fen write game
+        Branch(
+          id = UciCharPair(uci),
+          ply = game.ply,
+          move = Uci.WithSan(uci, move.san),
+          fen = fen,
+          check = game.situation.check,
+          dests = Some(movable so game.situation.destinations),
+          opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)) so
+            OpeningDb.findByEpdFen(fen),
+          drops = if movable then game.situation.drops else Some(Nil),
+          crazyData = game.situation.board.crazyData
+        )
 
 object AnaMove:
 
