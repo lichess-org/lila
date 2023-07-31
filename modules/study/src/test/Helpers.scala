@@ -19,8 +19,8 @@ object Helpers:
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
 
-  object NewRootC:
-    def fromRoot(root: Root) =
+  extension (root: Root)
+    def toNewRoot =
       NewRoot(NewTree.fromNode(root), NewTree(root))
 
   extension (newBranch: NewBranch)

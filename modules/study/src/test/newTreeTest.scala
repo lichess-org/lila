@@ -22,31 +22,10 @@ class NewTreeTest extends munit.FunSuite:
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
 
-  test("valid tree -> newTree first move"):
-    val x       = PgnImport("1. e4 *", Nil).toOption.get
-    val newRoot = NewRootC.fromRoot(x.root)
-    assertEquals(newRoot.tree.get.size, 1L)
-    assertEquals(newRoot.tree.get.mainline.map(sanStr), List("e4"))
-    assertEquals(newRoot.toRoot, x.root)
-
-  test("valid tree -> newTree first move with variation"):
-    val x       = PgnImport("1. e4 (1. d4??) *", Nil).toOption.get
-    val newRoot = NewRootC.fromRoot(x.root)
-    assertEquals(newRoot.tree.get.size, 2L)
-    assertEquals(newRoot.tree.get.variations.map(sanStr), List("d4"))
-    assertEquals(newRoot.toRoot, x.root)
-
-  test("valid tree -> newTree two moves"):
-    val x       = PgnImport("1. e4 e6 *", Nil).toOption.get
-    val newRoot = NewRootC.fromRoot(x.root)
-    assertEquals(newRoot.tree.get.size, 2L)
-    assertEquals(newRoot.tree.get.mainline.map(sanStr), List("e4", "e6"))
-    assertEquals(newRoot.toRoot, x.root)
-
-  test("valid tree <-> newTree more realistic conversion"):
+  test("tree <-> newTree conversion"):
     PgnFixtures.all.foreach: pgn =>
       val x       = PgnImport(pgn, Nil).toOption.get
-      val newRoot = NewRootC.fromRoot(x.root)
+      val newRoot = x.root.toNewRoot
       assertEquals(newRoot.toRoot, x.root)
 
   test("PgnImport works"):
@@ -56,5 +35,5 @@ class NewTreeTest extends munit.FunSuite:
       assertEquals(y.end, x.end)
       assertEquals(y.variant, x.variant)
       assertEquals(y.tags, x.tags)
-      val oldRoot = NewRootC.fromRoot(x.root).cleanup
+      val oldRoot = x.root.toNewRoot.cleanup
       assertEquals(y.root.cleanup, oldRoot)

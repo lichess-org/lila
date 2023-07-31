@@ -66,7 +66,7 @@ class JsonTest extends munit.FunSuite:
 
   extension (root: Root)
     def cleanCommentIds: Root =
-      NewRootC.fromRoot(root).cleanup.toRoot
+      root.toNewRoot.cleanup.toRoot
 
   def writeTree(tree: Root, variant: Variant) = partitionTreeJsonWriter
     .writes(lila.study.TreeBuilder(tree, variant))

@@ -49,7 +49,7 @@ class BsonHandlersTest extends munit.FunSuite:
       val x       = PgnImport(pgn, Nil).toOption.get.root
       val bdoc    = treeBson.writes(w, x)
       val y       = newTreeBson.reads(bdoc)
-      val oldRoot = NewRootC.fromRoot(x)
+      val oldRoot = x.toNewRoot
       assertEquals(oldRoot.cleanup, y.cleanup)
 
   test("Tree.reads.NewTree.writes == identity"):
@@ -57,5 +57,5 @@ class BsonHandlersTest extends munit.FunSuite:
       val x       = NewPgnImport(pgn, Nil).toOption.get.root
       val bdoc    = newTreeBson.writes(w, x)
       val y       = treeBson.reads(bdoc)
-      val oldRoot = NewRootC.fromRoot(y)
+      val oldRoot = y.toNewRoot
       assertEquals(oldRoot.cleanup, x.cleanup)
