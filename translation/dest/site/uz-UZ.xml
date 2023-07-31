@@ -93,7 +93,9 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">O\'yin topilmadi</string>
+  <string name="maxDepthReached">Maksimum miqdorga erishildi!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Balkim sozlamalar menusidan o\'yinlarni yuklash kerakdir?</string>
+  <string name="openings">Ochilishlar</string>
   <string name="openingExplorer">Sharhlovchini ochish</string>
   <string name="openingEndgameExplorer">Uyinni boshlamoq/tugatmoq</string>
   <string name="xOpeningExplorer">%s sharhlovchini ochish</string>
