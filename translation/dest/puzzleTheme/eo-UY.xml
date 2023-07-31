@@ -66,12 +66,14 @@
   <string name="queenRookEndgame">Damo kaj Turo</string>
   <string name="queenRookEndgameDescription">Finaĵo nur kun damoj, turoj kaj peonoj.</string>
   <string name="queensideAttack">Atako al la dama flanko</string>
+  <string name="quietMove">Trankvila movo</string>
   <string name="rookEndgame">Tura finaĵo</string>
   <string name="rookEndgameDescription">Finaĵo nur kun turoj kaj peonoj.</string>
   <string name="sacrifice">Ofero</string>
   <string name="short">Mallonga puzlo</string>
   <string name="shortDescription">Du movoj por venki.</string>
   <string name="skewer">Trapiko</string>
+  <string name="superGM">Super GM ludoj</string>
   <string name="trappedPiece">Kaptita ŝakpeco</string>
   <string name="underPromotion">Subdamigo</string>
   <string name="underPromotionDescription">Damigi al ĉevalo, kuriero aŭ turo.</string>
