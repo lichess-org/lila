@@ -89,6 +89,7 @@ object Flags:
     C("ES-EU", "Basque Country"),
     C("ES-GA", "Galicia"),
     C("ET", "Ethiopia"),
+    C("RU-FA", "Fart-Sakh"),
     C("FI", "Finland"),
     C("FJ", "Fiji"),
     C("FK", "Falkland Islands"),
