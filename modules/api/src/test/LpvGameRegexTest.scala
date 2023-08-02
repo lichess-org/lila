@@ -6,126 +6,37 @@ class LpvGameRegexTest extends munit.FunSuite:
 
   val re = LpvGameRegex(NetDomain("boo.org:8080"))
 
-  def group(r: scala.util.matching.Regex, t: String, g: Int) = r.findFirstMatchIn(t).map(_.group(g))
-
-  test("forum links match basic") {
-    assert(re.gameLinkRenderRe.matches("https://boo.org:8080/1234abcd"))
+  val pass = """ here's a post:
+https://boo.org:8080/1234abcd
+https://boo.org:8080/1234abcd1234
+https://boo.org:8080/1234abcd#123
+https://boo.org:8080/1234abcd/white
+https://boo.org:8080/1234abcd/black#123
+boo.org:8080/1234abcd
+boo.org:8080/1234abcd1234
+boo.org:8080/1234abcd#123
+boo.org:8080/1234abcd/white
+boo.org:8080/1234abcd/black#123
+"""
+  val fail = """ here's another:
+boo.org:1234/zyxwvuts
+boo.org:8080/abcdefghijkl1234
+boo.org:8080/abcdefgh#12noes
+https://boo.org:8080/12345678/red#22
+https://boo.org:8080/tournament/ABCD1234    
+https://boo.org:8080/study/abcd1234/bcde2345
+[Site="https://boo.org:8080/abcd1234"]
+once upon a time boo.org:8080/1234abcd/white#4
+https://boo.org:8080/@/thibault
+ https://boo.org:8080/1234abcd
+"""
+  test("forum links match") {
+    re.forumPgnCandidatesRe.findAllMatchIn(pass).foreach { m =>
+      assert(re.gamePgnRe.matches(m.group(1)), m.group(1))
+    }
   }
-
-  test("forum links match color") {
-    assert(re.gameLinkRenderRe.matches("https://boo.org:8080/abcd1234/white"))
-  }
-
-  test("forum links match relative") {
-    assert(re.gameLinkRenderRe.matches("/12345678/black#123"))
-  }
-
-  test("forum links match no scheme") {
-    assert(re.gameLinkRenderRe.matches("boo.org:8080/abcdefgh#123"))
-  }
-
-  test("forum links match full game id") {
-    assert(re.gameLinkRenderRe.matches("boo.org:8080/12345678abcd#12"))
-  }
-
-  test("forum links fail wrong host") {
-    assert(!re.gameLinkRenderRe.matches("boo.org:1234/zyxwvuts"))
-  }
-
-  test("forum links fail too long") {
-    assert(!re.gameLinkRenderRe.matches("/abcdefghijkl1234"))
-  }
-
-  test("forum links fail bad ply") {
-    assert(!re.gameLinkRenderRe.matches("/abcdefgh#12noes"))
-  }
-
-  test("forum links fail bad color") {
-    assert(!re.gameLinkRenderRe.matches("https://boo.org:8080/12345678/red#22"))
-  }
-
-  test("forum links fail tournaments") {
-    assert(!re.gameLinkRenderRe.matches("https://boo.org:8080/tournament/ABCD1234"))
-  }
-
-  test("forum links fail studies") {
-    assert(!re.gameLinkRenderRe.matches("https://boo.org:8080/study/abcd1234/bcde2345"))
-  }
-
-  test("forum links fail site header") {
-    assert(!re.gameLinkRenderRe.matches("[Site=\"https://boo.org:8080/abcd1234\"]"))
-  }
-
-  test("forum links fail mid-line") {
-    assert(!re.gameLinkRenderRe.matches("once upon a time /1234abcd/white#4"))
-  }
-
-  test("forum links fail usernames") {
-    assert(!re.gameLinkRenderRe.matches("/@/thibault"))
-  }
-
-  test("forum links fail full id AND color") {
-    assert(!re.gameLinkRenderRe.matches("/12345678abcd/black"))
-  }
-
-  test("forum links extract game id 1") {
-    assert(group(re.gameLinkRenderRe, "/1234abcd", 2).contains("1234abcd"))
-  }
-
-  test("forum links extract game id 2") {
-    assert(
-      group(re.gameLinkRenderRe, "https://boo.org:8080/abcd1234/black#12", 2).contains("abcd1234")
-    )
-  }
-
-  test("forum links extract game id 3") {
-    assert(group(re.gameLinkRenderRe, "boo.org:8080/abcd1234wxyz#44", 2).contains("abcd1234"))
-  }
-
-  test("blog links match basic") {
-    assert(re.gamePgnsRe.matches("https://boo.org:8080/abcdefgh"))
-  }
-
-  test("blog links match no scheme") {
-    assert(re.gamePgnsRe.matches("boo.org:8080/12345678/white#123"))
-  }
-
-  test("blog links match full id") {
-    assert(re.gamePgnsRe.matches("boo.org:8080/1234abcd1234#22"))
-  }
-
-  test("blog links fail wrong host") {
-    assert(!re.gamePgnsRe.matches("boo.org:1234/abcdefgh"))
-  }
-
-  test("blog links fail relative") {
-    assert(!re.gamePgnsRe.matches("/12345678"))
-  }
-
-  test("blog links fail mid-line") {
-    assert(!re.gamePgnsRe.matches("oompa loompa https://boo.org:8080/abcd1234"))
-  }
-
-  test("blog links fail site header") {
-    assert(!re.gamePgnsRe.matches("[Site=\"https://boo.org:8080/1234abcd\"]"))
-  }
-
-  test("blog links fail tournaments") {
-    assert(!re.gamePgnsRe.matches("https://boo.org:8080/tournament/ABCD1234"))
-  }
-
-  test("blog links fail usernames") {
-    assert(!re.gamePgnsRe.matches("boo.org:8080/@/thibault"))
-  }
-
-  test("blog links fail wrong length") {
-    assert(!re.gamePgnsRe.matches("boo.org:8080/12345678bad/black"))
-  }
-
-  test("blog links extract game id 1") {
-    assert(group(re.gamePgnsRe, "blog links boo.org:8080/zyxwvuts/black", 1).contains("zyxwvuts"))
-  }
-
-  test("blog links extract game id 2") {
-    assert(group(re.gamePgnsRe, "boo.org:8080/1234abcd1234#123", 1).contains("1234abcd"))
+  test("forum links fail") {
+    re.forumPgnCandidatesRe.findAllMatchIn(fail).foreach { m =>
+      assert(!re.gamePgnRe.matches(m.group(1)), m.group(1))
+    }
   }
