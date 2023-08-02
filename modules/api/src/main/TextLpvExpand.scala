@@ -108,13 +108,13 @@ final class LpvGameRegex(domain: NetDomain):
 
   private val quotedDomain = java.util.regex.Pattern.quote(domain.value)
 
-  val pgnCandidates        = raw"""(?:https?://)?$quotedDomain(/.{8,})\b"""
-  val blogPgnCandidatesRe  = pgnCandidates.r
-  val forumPgnCandidatesRe = s"(?m)^$pgnCandidates".r
-// linkified forum hrefs are relative but these regexes run pre-linkify, match path & id
-// note removed a ? from after the domain, this will probably break due to above
+  val pgnCandidates = raw"""(?:https?://)?$quotedDomain(/.{8,})\b"""
 
-  val params       = """(?:#(?:last|\d{1,4}))?"""
+  val blogPgnCandidatesRe  = pgnCandidates.r
+  val forumPgnCandidatesRe = raw"(?m)^$pgnCandidates".r
+
+  val params = raw"""(?:#(?:last|\d{1,4}))?"""
+
   val gamePgnRe    = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))$params)$$".r
   val chapterPgnRe = raw"^(/study/(?:embed/)?(?:\w{8})/(\w{8})$params)$$".r
   val studyPgnRe   = raw"^(/study/(?:embed/)?(\w{8})$params)$$".r
