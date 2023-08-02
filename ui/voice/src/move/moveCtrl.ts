@@ -170,7 +170,6 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     const confirm = request ?? command;
     if (!confirm || !answer) return false;
     if (['yes', 'no', confirm.key].includes(answer)) {
-      console.log(confirm.key, answer);
       confirm.action(answer !== 'no');
       request = command = undefined;
       return true;
@@ -342,9 +341,7 @@ export function initModule(opts: { root: RootCtrl; ui: VoiceCtrl; initialFen: st
     if (!choices) return;
     const arrowTime = choiceTimeout ? timer() : undefined;
     cg.setShapes(
-      colorsPref()
-        ? coloredArrows([...choices], arrowTime)
-        : numberedArrows([...choices], arrowTime, cg.state.orientation === 'white')
+      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime) //, cg.state.orientation === 'white')
     );
   }
 

@@ -14,7 +14,8 @@ export interface ForkCtrl {
   selected(): number | undefined;
   next: (cycle?: boolean) => boolean | undefined;
   prev: (cycle?: boolean) => boolean | undefined;
-  hoverSelect: (uci: Uci | null | undefined) => void;
+  onJump: () => void;
+  hover: (uci: Uci | null | undefined) => void;
   highlight: (it?: number) => void;
   proceed: (it?: number) => boolean | undefined;
 }
@@ -23,6 +24,8 @@ export function make(root: AnalyseCtrl): ForkCtrl {
   let prev: Tree.Node | undefined;
   let selected = 0;
   let hovering: number | undefined;
+  const selections = new Map<Tree.Path, number>();
+
   function displayed() {
     return root.node.children.length > 1;
   }
@@ -44,6 +47,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
         selected = cycle
           ? (selected + 1) % root.node.children.length
           : Math.min(root.node.children.length - 1, selected + 1);
+        selections.set(root.path, selected);
         return true;
       }
       return undefined;
@@ -53,18 +57,14 @@ export function make(root: AnalyseCtrl): ForkCtrl {
         selected = cycle
           ? (selected + root.node.children.length - 1) % root.node.children.length
           : Math.max(0, selected - 1);
+        selections.set(root.path, selected);
         return true;
       }
       return undefined;
     },
-    hoverSelect(uci: Uci | undefined | null) {
-      hovering = undefined;
-      root.node.children.forEach((n, i) => {
-        if (n.uci === uci) {
-          hovering = i;
-          return;
-        }
-      });
+    hover(uci: Uci | undefined | null) {
+      hovering = root.node.children.findIndex(n => n.uci === uci);
+      if (hovering < 0) hovering = undefined;
     },
     selected() {
       return hovering ?? selected;
@@ -79,6 +79,12 @@ export function make(root: AnalyseCtrl): ForkCtrl {
       const uci = defined(nodeUci) ? nodeUci : null;
 
       root.explorer.setHovering(root.node.fen, uci);
+    },
+    onJump() {
+      //console.log('onJump', selections);
+      //if (!displayed()) return;
+      //selected = selections.get(root.path) ?? 0;
+      //if (selected >= root.node.children.length) selected = 0;
     },
     proceed(it) {
       if (displayed()) {

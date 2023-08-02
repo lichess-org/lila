@@ -1,7 +1,5 @@
-import { Key } from 'chessground/types';
 import { DrawBrush, DrawShape } from 'chessground/draw';
 import { to, from } from 'chess';
-import { pushMap, type SparseSet } from 'common';
 
 export const brushes = new Map<string, DrawBrush>([
   ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],
@@ -16,41 +14,23 @@ export const brushes = new Map<string, DrawBrush>([
   ['white', { key: 'vwh', color: '#ffffff', opacity: 1.0, lineWidth: 15 }],
 ]);
 
-const LABEL_SIZE = 40; // size of arrow labels in svg user units, 100 is the width of a board square
-
-export function numberedArrows(
-  choices: [string, Uci][],
-  timer: number | undefined,
-  asWhite: boolean
-): DrawShape[] {
+export function numberedArrows(choices: [string, Uci][], timer: number | undefined): DrawShape[] {
   if (!choices) return [];
   const shapes: DrawShape[] = [];
-  const dests: Map<Key, SparseSet<number>> = new Map();
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
-  choices.forEach(([, uci]) => {
+  choices.forEach(([, uci], i) => {
     shapes.push({
       orig: from(uci),
       dest: to(uci),
       brush: `v-grey`,
       modifiers: { hilite: uci === preferred },
+      label: choices.length > 1 ? { text: `${i + 1}` } : undefined,
     });
-    if (uci.length > 2) pushMap(dests, to(uci), moveAngle(uci, asWhite));
   });
   if (timer) {
-    shapes.push(
-      timerShape(
-        choices[0][1],
-        choices.length > 1 ? labelOffset(choices[0][1], dests, asWhite) : [0, 0],
-        timer,
-        choices.length > 1 ? 'grey' : 'white',
-        0.6
-      )
-    );
+    shapes[0].modifiers!.overlayCustomSvg = choices.length > 1 ? 'label' : 'orig';
+    shapes[0].customSvg = timerShape(timer, choices.length > 1 ? 'grey' : 'white', 0.6);
   }
-  if (choices.length > 1)
-    choices.forEach(([, uci], i) => {
-      shapes.push(labelShape(uci, dests, `${i + 1}`, asWhite));
-    });
   return shapes;
 }
 
@@ -67,12 +47,13 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
     });
   });
   if (timer) {
-    shapes.push(timerShape(choices[0][1], [0, 0], timer, brushes.values().next().value.color));
+    shapes[0].modifiers!.overlayCustomSvg = 'orig';
+    shapes[0].customSvg = timerShape(timer, brushes.values().next().value.color);
   }
   return shapes;
 }
 
-function timerShape(uci: Uci, offset: [number, number], duration: number, color: string, alpha = 0.4) {
+function timerShape(duration: number, color: string, alpha = 0.4) {
   // works around a firefox stroke-dasharray animation bug
   setTimeout(() => {
     for (const anim of $('.voice-timer-arc').get() as any[]) {
@@ -81,97 +62,17 @@ function timerShape(uci: Uci, offset: [number, number], duration: number, color:
       if (color === 'grey') return; // don't show numbered arrow outlines
     }
   });
-  return {
-    orig: from(uci),
-    brush: 'v-grey',
-    customSvg:
-      (color !== 'grey'
-        ? `<svg width="100" height="100">`
-        : `<svg viewBox="${offset[0]} ${offset[1]} 100 100">`) +
-      `<circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
-               stroke-width="50" stroke-opacity="${alpha}" begin="indefinite" visibility="hidden">
-         <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
-                  values="0 ${Math.PI * 50}; ${Math.PI * 50} ${Math.PI * 50}"/>
-       </circle>
-       <circle cx="50" cy="50" r="50" fill="transparent" stroke="white" transform="rotate(270,50,50)"
-               stroke-width="4" stroke-opacity="0.7" begin="indefinite" visibility="hidden">
-         <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
-                  values="0 ${Math.PI * 100}; ${Math.PI * 100} ${Math.PI * 100}"/>
-       </circle></svg>`,
-  };
-}
-
-function labelShape(
-  uci: Uci,
-  dests: Map<Key, number | Set<number>>,
-  label: string,
-  asWhite: boolean
-): DrawShape {
-  const fontSize = Math.round(LABEL_SIZE * 0.82);
-  const r = LABEL_SIZE / 2;
-  const strokeW = 3;
-  const [x, y] = labelOffset(uci, dests, asWhite).map(o => o + r - 50);
-  return {
-    orig: from(uci),
-    brush: 'v-grey',
-    customSvg: `
-        <svg viewBox="${x} ${y} 100 100">
-          <circle cx="${r}" cy="${r}" r="${r - strokeW}" opacity="0.6" fill="#666666"/>
-          <text font-size="${fontSize}" fill="white" font-family="Noto Sans" text-anchor="middle"
-                dominant-baseline="middle" x="${r}" y="${r + 3}">
-            ${label}
-          </text>
-          <circle cx="${r}" cy="${r}" r="${r}" opacity="0.9" stroke="white" fill="transparent" stroke-width="${strokeW}"/>
-        </svg>`,
-  };
-}
-
-// we want to place labels at the junction of the destination shaft and arrowhead if possible.
-// if there's more than 1 arrow pointing to a square, the arrow shortens by 125 / 8 units.
-
-// to account for knights, find round(theta * 8 / pi) for every approach angle of incoming
-// moves to a destination square and fractions (knights) are rounded to the nearest odd
-// number yielding a mod 16 group. each member is considered a slot
-//
-// if knight arrows arrive at a square with an adjacent slot (+/- 1)%16, we further shorten
-// the knight move arrow by the label size value to avoid collision
-
-function squarePos(sq: Key, asWhite: boolean): [number, number] {
-  return [
-    asWhite ? sq.charCodeAt(0) - 97 : 104 - sq.charCodeAt(0),
-    asWhite ? 56 - sq.charCodeAt(1) : sq.charCodeAt(1) - 49,
-  ];
-}
-
-function moveAngle(uci: Uci, asWhite: boolean, asSlot = true) {
-  const [srcx, srcy] = squarePos(from(uci), asWhite);
-  const [destx, desty] = squarePos(to(uci), asWhite);
-  const angle = Math.atan2(desty - srcy, destx - srcx) + Math.PI;
-  return asSlot ? (Math.round((angle * 8) / Math.PI) + 16) % 16 : angle;
-}
-
-function destOffset(uci: Uci, asWhite: boolean): [number, number] {
-  const sign = asWhite ? 1 : -1;
-  const cc = [...uci].map(c => c.charCodeAt(0));
-  return uci.length < 4 ? [0, 0] : [sign * (cc[0] - cc[2]) * 100, -sign * (cc[1] - cc[3]) * 100];
-}
-
-function destMag(uci: Uci, asWhite: boolean): number {
-  return Math.sqrt(destOffset(uci, asWhite).reduce((acc, x) => acc + x * x, 0));
-}
-
-function labelOffset(uci: Uci, dests: Map<Key, SparseSet<number>>, asWhite: boolean): [number, number] {
-  let mag = destMag(uci, asWhite);
-  if (mag === 0) return [0, 0];
-  const angle = moveAngle(uci, asWhite, false);
-  if (dests.has(to(uci))) {
-    mag -= 52;
-    const slots = dests.get(to(uci))!;
-    if (slots instanceof Set) {
-      mag -= 125 / 8;
-      const arc = moveAngle(uci, asWhite);
-      if (slots.has((arc + 1) % 16) || slots.has((arc + 15) % 16)) if (arc & 1) mag -= LABEL_SIZE;
-    }
-  }
-  return [Math.cos(angle) * mag, Math.sin(angle) * mag];
+  return `
+    <svg width="100" height="100">
+      <circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
+              stroke-width="50" stroke-opacity="${alpha}" begin="indefinite" visibility="hidden">
+        <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
+          values="0 ${Math.PI * 50}; ${Math.PI * 50} ${Math.PI * 50}"/>
+      </circle>
+      <circle cx="50" cy="50" r="50" fill="transparent" stroke="white" transform="rotate(270,50,50)"
+              stroke-width="4" stroke-opacity="0.7" begin="indefinite" visibility="hidden">
+        <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
+                 values="0 ${Math.PI * 100}; ${Math.PI * 100} ${Math.PI * 100}"/>
+      </circle>
+    </svg>`;
 }
