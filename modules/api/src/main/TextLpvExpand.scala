@@ -108,13 +108,13 @@ final class LpvGameRegex(domain: NetDomain):
 
   private val quotedDomain = java.util.regex.Pattern.quote(domain.value)
 
-  val pgnCandidates = raw"""(?:https?://)?$quotedDomain(/.{8,})\b"""
+  val pgnCandidates = raw"""(?:https?://)?(?:lichess\.org|$quotedDomain)(/[/\w#]{8,})\b"""
 
   val blogPgnCandidatesRe  = pgnCandidates.r
   val forumPgnCandidatesRe = raw"(?m)^$pgnCandidates".r
 
   val params = raw"""(?:#(?:last|\d{1,4}))?"""
 
-  val gamePgnRe    = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))?$params)$$".r
-  val chapterPgnRe = raw"^(/study/(?:embed/)?(?:\w{8})/(\w{8})$params)$$".r
-  val studyPgnRe   = raw"^(/study/(?:embed/)?(\w{8})$params)$$".r
+  val gamePgnRe    = raw"^(/(\w{8})(?:\w{4}|/(?:white|black))?$params)".r
+  val chapterPgnRe = raw"^(/study/(?:embed/)?(?:\w{8})/(\w{8})$params)".r
+  val studyPgnRe   = raw"^(/study/(?:embed/)?(\w{8})$params)".r
