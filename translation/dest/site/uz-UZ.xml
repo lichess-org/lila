@@ -185,6 +185,10 @@
     <item quantity="one">%s soat</item>
     <item quantity="other">%s soatlar</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s daqiqa</item>
+    <item quantity="other">%s daqiqalar</item>
+  </plurals>
   <string name="time">Vaqt</string>
   <string name="rating">Reyting</string>
   <string name="ratingStats">Reyting statistikasi</string>
@@ -374,6 +378,8 @@
   <string name="follow">Kuzatmoq</string>
   <string name="following">Kuzatmoqda</string>
   <string name="unfollow">Kuzatishni To\'xtatish</string>
+  <string name="followX">%s ni kuzatish</string>
+  <string name="unfollowX">%s ni kuzatishni bekor qilish</string>
   <string name="block">Bloklash</string>
   <string name="blocked">Bloklangan</string>
   <string name="unblock">Blokdan chiqarish</string>
@@ -422,6 +428,8 @@
   <string name="tournamentIsStarting">Turnir boshlandi</string>
   <string name="tournamentPairingsAreNowClosed">Turnirda sherikchilik yopilgan.</string>
   <string name="standByX">%s kuting, sherik topilayabdi, tayyor turing!</string>
+  <string name="pause">Pauza</string>
+  <string name="resume">Qayta boshlash</string>
   <string name="youArePlaying">Siz o\'yindasiz!</string>
   <string name="winRate">G\'alaba uchun imkoniyat</string>
   <string name="berserkRate">Berserk hisobi</string>
@@ -453,6 +461,7 @@
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="inlineNotation">Ichki yozuv</string>
+  <string name="clearSavedMoves">Yurishlarni tozalash</string>
   <string name="previouslyOnLichessTV">Lichess TV dagi bundan oldingisi</string>
   <string name="onlinePlayers">Online o\'yinchilar</string>
   <string name="activePlayers">Faol o\'yinchilar</string>
@@ -496,6 +505,7 @@
   <string name="blog">Блог</string>
   <string name="notes">Yozuvlar</string>
   <string name="typePrivateNotesHere">Shaxsiy belgilashlaringizni bu yerga yozing</string>
+  <string name="noNoteYet">Xozircha izohlar yo‘q</string>
   <string name="invalidUsernameOrPassword">Foydalanuvchi nomi yoki parol noto\'g\'ri</string>
   <string name="incorrectPassword">Parol xato</string>
   <string name="invalidAuthenticationCode">Autentifikatsiya kodi xato</string>
@@ -552,8 +562,19 @@
   <string name="community">Jamoa</string>
   <string name="tools">Vositalar</string>
   <string name="increment">Oshirish</string>
+  <string name="error.unknown">Mos emas qiymat</string>
   <string name="error.required">Ushbu maydon to\'ldirilishi shart</string>
+  <string name="error.email">Ushbu email manzil xato</string>
+  <string name="error.email_acceptable">Ushbu email manzilni qabul qilib bo\'lmaydi. Iltimos, qayta ko‘rib chiqing va yana urinib ko‘ring.</string>
+  <string name="error.email_unique">Ushbu email manzil xato yoki kimdir undan foydalanayabdi</string>
+  <string name="error.email_different">Bu endi sizni email manzilingiz</string>
+  <string name="error.minLength">Kamida %s belgidan iborat bo‘lishi kerak</string>
+  <string name="error.maxLength">Ko‘pi bilan %s belgi bo‘lishi kerak</string>
+  <string name="error.min">Kamida %s bo‘lishi kerak</string>
+  <string name="error.max">Ko‘pi bilan %s bo‘lishi kerak</string>
   <string name="ifRatingIsPlusMinusX">Agar reyting ± %s</string>
+  <string name="ifRegistered">Agar ro‘yhatga olingan bo‘lsa</string>
+  <string name="onlyExistingConversations">Faqat mavjud suhbatlar</string>
   <string name="onlyFriends">Faqat do\'stlar</string>
   <string name="menu">Menyu</string>
   <string name="castling">Rokirovka</string>
@@ -597,15 +618,23 @@
   <string name="simulClockHint">Fisher soatini sozlash. Qancha ko\'p o\'yinchi olsangiz shunga mos vaqt olishingiz kerak bo\'ladi.</string>
   <string name="simulAddExtraTime">Seansga ulgurishingiz uchun siz soatingizga qo\'shimcha vaqt qo\'shishingiz mumkin.</string>
   <string name="simulHostExtraTime">Seanschi qo\'shimcha vaqti</string>
+  <string name="simulAddExtraTimePerPlayer">Simul ga qo‘shiluvchi har bir o‘yinchi uchun boshlang‘ich vaqtni soatingizga qo‘shing.</string>
+  <string name="simulHostExtraTimePerPlayer">Host qo‘shimcha vaqti, har bir o‘yinchiga</string>
   <string name="lichessTournaments">Lichess turnirlar</string>
   <string name="tournamentFAQ">Turnir arenasidan Savollar Va Javoblar</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlanishigacha vaqt</string>
   <string name="averageCentipawnLoss">O\'rtacha santipiyodalarni yo\'qotish</string>
+  <string name="accuracy">Aniqlik</string>
   <string name="keyboardShortcuts">Klaviatura yorliqlari</string>
   <string name="keyMoveBackwardOrForward">ortga/oldinga yurish</string>
   <string name="keyGoToStartOrEnd">boshiga/oxiriga o\'tish</string>
   <string name="keyShowOrHideComments">izohlarni ko\'rsatish/yashirish</string>
   <string name="keyEnterOrExitVariation">kirish/chiqishni almashtirish</string>
+  <string name="keyRequestComputerAnalysis">Kompyuter tahlilini so‘rash, o‘z xatolaringizdan o‘rganing</string>
+  <string name="keyNextLearnFromYourMistakes">Keyingi (O‘z xatolaringizdan o‘rganing)</string>
+  <string name="keyNextBlunder">Navbatdagi qo‘pol xato</string>
+  <string name="keyNextMistake">Navbatdagi xatolik</string>
+  <string name="keyNextInaccuracy">Navbatdagi noaniqlik</string>
   <string name="newTournament">Yangi turnir</string>
   <string name="tournamentHomeTitle">Turli xil vaqtlar va variantlar bilan yaratilgan shahmat turnirlari</string>
   <string name="tournamentHomeDescription">Dinamik shahmat turnirlarini o\'ynang! Rasmiy rejalashtirilgan turnirlarda qatnashing yoki o\'zingiz shaxsiy turnir yarating. Tezkor, Blitz, Klassik, Shahmat960, Tepalik qiroli, Uchtashoh va boshqa opsiyalardan foydalangan holatda o\'zingizga qiziqarli shahmat musobaqalarini uyushtirishingiz mumkin.</string>
@@ -621,6 +650,7 @@
   <string name="yourPerfTypeRatingIsRating">Sizning %1$s dagi reytingingiz %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Siz %2$s o\'yinchilardan %1$s tasiga qaraganda yaxshiroq o\'ynaysiz.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s, %3$s o\'yinchilardan %2$s tasiga qaraganda yaxshiroq.</string>
+  <string name="betterThanPercentPlayers">%2$s o\'yinchilardan %1$s tasiga qaraganda yaxshiroq</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sizda o\'rnatilgan %s reytingga ega emassiz.</string>
   <string name="yourRating">Sizning reytingingiz</string>
   <string name="cumulative">To\'plangani</string>
@@ -638,6 +668,7 @@
   <string name="downloadImported">Import qilinganni yuklash</string>
   <string name="crosstable">Doiraviy turnir</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Siz o\'yin davomida doska ustida sichqoncha yugurgichidan foydalanishingiz mumkin.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Kompyuter talqinlarini ko‘rib chiqish uchun skrolni yuqoriga harakatlantiring.</string>
   <string name="analysisShapesHowTo">Doskada strelka va aylanalarni chizish uchun shift+click tugmalarini bosing yoki sichqoncha o\'ng tugmasidan foydalaning.</string>
   <string name="letOtherPlayersMessageYou">Boshqa o\'yinchilarga siz bilan xabarlashishga imkon bering</string>
   <string name="shareYourInsightsData">O\'zingizni shahmat haqidagi ma\'lumotlaringiz bilan ulashing</string>
@@ -650,6 +681,7 @@
   <string name="enableKidMode">Bola rejimini yoqish</string>
   <string name="disableKidMode">Bola rejimini o\'chirish</string>
   <string name="security">Xavfsizlik</string>
+  <string name="sessions">Sessiyalar</string>
   <string name="revokeAllSessions">barcha sessiyalarni bekor qilish</string>
   <string name="playChessEverywhere">Shahmatni xamma joyda o\'ynash</string>
   <string name="asFreeAsLichess">Lichess kabi bepul</string>
@@ -680,6 +712,7 @@
   <string name="light">Yorqin</string>
   <string name="dark">To\'q</string>
   <string name="transparent">Shaffof</string>
+  <string name="deviceTheme">Qurilma mavzusi</string>
   <string name="backgroundImageUrl">Orqa fon URL:</string>
   <string name="boardGeometry">Doska geometriyasi</string>
   <string name="boardTheme">Doska mavzusi</string>
@@ -698,6 +731,7 @@
   <string name="invalidFen">FEN da xatolik</string>
   <string name="custom">Boshqa</string>
   <string name="notifications">Xabarlar</string>
+  <string name="notificationsX">Xabarlar: %1$s</string>
   <string name="perfRatingX">Reyting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish uchun %s sekund</item>
@@ -708,6 +742,7 @@
   <string name="bestWasX">Undan yaxshisi %s</string>
   <string name="youBrowsedAway">Siz ko\'rib chiqqansiz</string>
   <string name="resumePractice">Amaliyotni qaytadan boshlash</string>
+  <string name="drawByFiftyMoves">O‘yin 50 ta yurishlik qoidasi asosida durrang bo‘ldi.</string>
   <string name="theGameIsADraw">O\'yin - durrang.</string>
   <string name="computerThinking">Kompyuter o\'ylayabdi...</string>
   <string name="seeBestMove">Yaxshi yo\'lni ko\'rish</string>
@@ -771,6 +806,7 @@
   <string name="currentMatchScore">Joriy o\'yin holati</string>
   <string name="agreementAssistance">Men o\'yin davomida hech qanday (kompyuter shahmatidan, kitobdan, qandaydir ma\'lumotlar omboridan va boshqa odamlardan) yordam olmaslikka roziman.</string>
   <string name="agreementNice">Boshqa o\'yinchilarga hurmat bilan munosabatda bo\'lishga roziman.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Men bir nechta akkount ochmaslikka roziman (faqat %s da ko‘rsatilgan sabablardan tashqari holatda).</string>
   <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
   <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
   <string name="edit">Tahrirlash</string>
@@ -796,4 +832,34 @@
   <string name="youCannotPostYetPlaySomeGames">Siz xozircha ushbu forumda post qoldira olmaysiz. Oʻyinlar oʻynang!</string>
   <string name="subscribe">Obuna bo‘lish</string>
   <string name="unsubscribe">Obunani bekor qiling</string>
+  <string name="tournChat">Turnir suhbati</string>
+  <string name="noChat">Suhbat yo‘q</string>
+  <string name="onlyTeamLeaders">Faqat jamoa liderlari</string>
+  <string name="onlyTeamMembers">Faqat jamoa a‘zlolari</string>
+  <string name="navigateMoveTree">Yurishlar daraxti bo‘ylab harakatlaning</string>
+  <string name="mouseTricks">Sichqoncha imkoniyatlari</string>
+  <string name="toggleLocalAnalysis">Mahalliy kompyuter tahlilini ulang</string>
+  <string name="toggleAllAnalysis">Kompyuter barcha tahlillarini ulang</string>
+  <string name="playComputerMove">Eng yaxshi kompyuter yurishini o‘ynang</string>
+  <string name="analysisOptions">Tahlil ko‘rsatkichlari</string>
+  <string name="focusChat">Fokusli suhbat</string>
+  <string name="showHelpDialog">Ushbu yordamchi dialogni namoyish etish</string>
+  <string name="reopenYourAccount">Sizning akkountingizni qayta ochish</string>
+  <string name="closedAccountChangedMind">Agar siz akkountingizni yopgan bo‘lsangiz va fikringizdan qaytgan bo‘lsangiz u holda sizda akkountingizni qayta tiklash uchun bitta imkoniyat bor.</string>
+  <string name="onlyWorksOnce">Bu faqat bir marta ishlaydi.</string>
+  <string name="cantDoThisTwice">Agar siz akkountingizni ikkinchi bor yopsangiz uni ortga qaytarish imkoni yo‘q.</string>
+  <string name="emailAssociatedToaccount">Email manzil akkountga bog‘landi</string>
+  <string name="sentEmailWithLink">Biz sizga email va link jo‘natamiz.</string>
+  <string name="tournamentEntryCode">Turnirda ishtirok etish kodi</string>
+  <string name="hangOn">Kuting!</string>
+  <string name="gameInProgress">Sizda %s bilan o‘yin ketayabdi.</string>
+  <string name="abortTheGame">O‘yinni bekor qilish</string>
+  <string name="resignTheGame">Taslim bo‘lish</string>
+  <string name="youCantStartNewGame">Joriy o‘yinni yakunlamasdan siz yangi o‘yinni boshlay olmaysiz.</string>
+  <string name="since">Dan beri</string>
+  <string name="until">Toki</string>
+  <string name="lichessDbExplanation">Lichess o‘yinchilarining reytingli o‘yinlari</string>
+  <string name="switchSides">Tomonlarni almashtirish</string>
+  <string name="closingAccountWithdrawAppeal">Akkountingizni yopishingiz sizni murojaatlaringizni bekor qiladi</string>
+  <string name="ourEventTips">Tadbirlar o‘tkazish yuzasidan bizning maslahatlarimiz</string>
 </resources>
