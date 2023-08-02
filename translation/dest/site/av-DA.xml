@@ -363,6 +363,8 @@
   <string name="gameAsGIF">GIF-лъун цӀунизе</string>
   <string name="pasteTheFenStringHere">FEN текст гьаниб лъе</string>
   <string name="pasteThePgnStringHere">PGN текст гьаниб лъе</string>
+  <string name="fromPosition">Ругеб бакӀалдаса</string>
+  <string name="continueFromHere">Гьаниса хӀазе</string>
   <string name="importGame">ХӀай жаниб лъезе</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s жаниб лъураб хӀай</item>
@@ -410,6 +412,7 @@
   <string name="advancedSettings">Цере тӀурал рекъезариял</string>
   <string name="safeTournamentName">Бище турниралъе расги хӀинкъи гьечӀеб цӀар.</string>
   <string name="inappropriateNameWarning">Бокьараб, дагьаб рекъечӀеб гӀамалалъцин дур аккаунт къаялде бачине бегьула.</string>
+  <string name="showAdvancedSettings">ЦеретӀурал рекъезариял рихьизе</string>
   <string name="join">Жувазе</string>
   <string name="points">Балал</string>
   <string name="wins">Бергьенлъи</string>
@@ -417,9 +420,12 @@
   <string name="createdBy">Гьабуна</string>
   <string name="tournamentIsStarting">Турнир байбихьулеб буго</string>
   <string name="pause">ЧӀезабизе</string>
+  <string name="resume">Биччазе</string>
   <string name="youArePlaying">Мун хӀалев вуго!</string>
   <string name="winRate">Бергьенлъи</string>
   <string name="berserkRate">Берсерк рейтинг</string>
+  <string name="performance">Бажари</string>
+  <string name="tournamentComplete">Турнир лъугӀана</string>
   <string name="movesPlayed">Хъурщи гьабуна</string>
   <string name="whiteWins">ХъахӀаз бергьенлъи</string>
   <string name="blackWins">ЧӀегӀераз бергьенлъи</string>
