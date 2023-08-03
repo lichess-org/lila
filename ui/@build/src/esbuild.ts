@@ -62,9 +62,11 @@ const onEndPlugin = {
 
 function esbuildMessage(msg: es.Message, error = false) {
   const file = msg.location?.file.replace(/^[./]*/, '') ?? '<unknown>';
-  const line = msg.location?.line ? `line ${msg.location.line} of ` : '';
+  const line = msg.location?.line
+    ? `:${msg.location.line}`
+    : '' + (msg.location?.column ? `:${msg.location.column}` : '');
   const srcText = msg.location?.lineText;
-  env.log(`${error ? errorMark : c.warn('WARNING')} - ${line}'${c.cyan(file)}': ${msg.text}`, {
+  env.log(`${error ? errorMark : c.warn('WARNING')} - '${c.cyan(file + line)}' - ${msg.text}`, {
     ctx: 'esbuild',
   });
   if (srcText) env.log('  ' + c.magenta(srcText), { ctx: 'esbuild' });
