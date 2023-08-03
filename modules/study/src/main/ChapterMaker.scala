@@ -77,9 +77,7 @@ final private class ChapterMaker(
       case Orientation.Fixed(color)      => color
       case _ if isMe(tags.players.white) => Color.white
       case _ if isMe(tags.players.black) => Color.black
-      case _ if tags.outcome.isDefined   => Color.white
-      case _ if data.isGamebook          => !root.lastMainlineNode.color
-      case _                             => root.lastMainlineNode.color
+      case _                             => root.fen.colorOrWhite
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
