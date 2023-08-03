@@ -134,9 +134,10 @@ final class SecurityApi(
 
   private object upsertOauth:
     private val sometimes = lila.memo.OnceEvery.hashCode[AccessToken.Id](1.hour)
-    def apply(access: OAuthScope.Access, req: RequestHeader): Unit = if sometimes(access.tokenId) then
-      val mobile = Mobile.LichessMobileUa.parse(req)
-      store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
+    def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
+      if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
+        val mobile = Mobile.LichessMobileUa.parse(req)
+        store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 
