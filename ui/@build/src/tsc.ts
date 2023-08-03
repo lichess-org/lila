@@ -46,9 +46,7 @@ export async function tsc(): Promise<void> {
 function tscLog(text: string): void {
   if (text.includes('File change detected') || text.includes('Starting compilation')) return; // redundant
   text = text.replace(/\d?\d:\d\d:\d\d (PM|AM) - /, '');
-  if (text.match(/: error TS\d\d\d\d/)) {
-    text = fixTscError(text);
-  }
+  if (text.match(/: error TS\d\d\d\d/)) text = fixTscError(text);
   env.log(text.replace('. Watching for file changes.', ` - ${c.grey('Watching')}...`), { ctx: 'tsc' });
 }
 
@@ -57,5 +55,4 @@ const fixTscError = (text: string) =>
     .replace(/^[./]*/, `${errorMark} - '\x1b[36m`)
     .replace(/\.ts\((\d+),(\d+)\):/, ".ts:$1:$2\x1b[0m' -")
     .replace(/error (TS\d{4})/, '$1');
-// strip the ../../../../.. junk, highlight error
-// format location for terminal ctrl click
+// format location for vscode embedded terminal ctrl click
