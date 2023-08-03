@@ -33,12 +33,11 @@ final class SecurityApi(
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
-  lazy val loginForm = Form {
+  lazy val loginForm = Form:
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping
     )
-  }
   def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
 
   lazy val rememberForm = Form(single("remember" -> boolean))
@@ -68,11 +67,14 @@ final class SecurityApi(
       })
     )
 
-  def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] = {
-    EmailAddress.from(str.value) match
-      case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-      case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
-  } map loadedLoginForm
+  def loadLoginForm(str: UserStrOrEmail): Fu[Form[LoginCandidate.Result]] =
+    EmailAddress
+      .from(str.value)
+      .match
+        case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
+        case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
+      .map(_.filter(_.user isnt User.lichessId))
+      .map(loadedLoginForm)
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       login: UserStrOrEmail,
