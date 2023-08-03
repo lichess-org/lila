@@ -377,6 +377,7 @@
   <string name="whiteCheckmatesInOneMove">ХъахӀал цо хъурщиялъ мат гьабула</string>
   <string name="blackCheckmatesInOneMove">ЧӀегӀерал цо хъурщиялъ мат гьабула</string>
   <string name="retry">ЦӀидасан хӀалбихьизе</string>
+  <string name="reconnecting">Бухьен цӀидасан лъугьунеб буго</string>
   <string name="favoriteOpponents">ТӀаса рищарал дандеял</string>
   <string name="follow">Нахъвилълъине</string>
   <string name="following">Нахърилълъунел</string>
@@ -397,6 +398,7 @@
   <string name="memberSince">Хъвай-хъвагӀай гьабураб къо-моцӀ</string>
   <string name="player">ХӀалев</string>
   <string name="list">СияхӀ</string>
+  <string name="graph">График</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s минутаялдаса дагьаб</item>
     <item quantity="other">%s минутаялдаса дагьаб</item>
