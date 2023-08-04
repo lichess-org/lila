@@ -42,7 +42,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
-        advChart?.reflow();
       } else {
         $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
       }

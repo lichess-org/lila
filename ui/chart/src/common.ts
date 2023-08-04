@@ -1,21 +1,131 @@
-import { PlyChart } from './interface';
-import { currentTheme } from 'common/theme';
+import { currentTheme } from '../../common/src/theme';
+import Plotly from 'plotly.js-dist-min';
+import { Division } from './interface';
 
-export interface MovePoint {
-  y: number | null;
-  x?: number;
-  name?: any;
-  marker?: any;
+function getFont() {
+  return {
+    family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
+    color: '#888',
+  };
+}
+
+function divisionLine(division: string, ply: number) {
+  const font = getFont();
+  return {
+    shape: {
+      type: 'line',
+      x0: ply - 1,
+      x1: ply - 1,
+      y0: -1,
+      y1: 1,
+      line: {
+        color: '#888',
+        width: 1,
+      },
+    } as Plotly.Shape,
+    annotation: {
+      font,
+      xanchor: 'left',
+      yanchor: 'top',
+      x: ply - 1,
+      y: 1,
+      text: division,
+      textangle: '90',
+      showarrow: false,
+    } as Partial<Plotly.Annotations>,
+  };
+}
+
+async function divisionLines(div: Division | undefined, trans: Trans) {
+  if (!div) return { shapes: [], annotations: [] };
+
+  const lines = [];
+  if (div.middle) {
+    if (div.middle > 1) lines.push(divisionLine(trans('opening'), 0));
+    lines.push(divisionLine(trans('middlegame'), div.middle - 1));
+  }
+  if (div.end) {
+    if (div.end > 1 && !div.middle) lines.push(divisionLine(trans('middlegame'), 0));
+    lines.push(divisionLine(trans('endgame'), div.end - 1));
+  }
+
+  const shapes = lines.map(({ shape }) => shape);
+  const annotations = lines.map(({ annotation }) => annotation);
+
+  return { shapes, annotations };
+}
+
+export async function createBase(
+  el: HTMLElement,
+  options: {
+    min: number;
+    max: number;
+    indices?: [number, number];
+    trans: Trans;
+    division: Division | undefined;
+  }
+) {
+  const { min, max, indices, trans, division } = options;
+
+  (el as any).on(
+    'plotly_click',
+    (event: any) => event.points[0] && lichess.pubsub.emit('analysis.chart.click', event.points[0].x)
+  );
+
+  const applyTheme = async () => {
+    const light = currentTheme() === 'light';
+    const font = getFont();
+    if (light) font.color = '#444';
+    else font.color = '#DDD';
+
+    if (light) Plotly.relayout(el, { hoverlabel: { bgcolor: '#FFF', bordercolor: '#444' }, font });
+    else Plotly.relayout(el, { hoverlabel: { bgcolor: '#222', bordercolor: '#DDD' }, font });
+
+    if (!indices) return;
+
+    if (light) {
+      Plotly.update(el, { 'line.color': '#48E' }, {}, indices[0]);
+      Plotly.update(el, { 'line.color': '#000' }, {}, indices[1]);
+    } else {
+      Plotly.update(el, { 'line.color': '#AAA' }, {}, indices[0]);
+      Plotly.update(el, { 'line.color': '#48E' }, {}, indices[1]);
+    }
+  };
+
+  const lineInfo = await divisionLines(division, trans);
+  Plotly.relayout(el, { annotations: lineInfo.annotations });
+
+  const selectPly = (ply: number) => {
+    Plotly.relayout(el, {
+      shapes: [
+        ...lineInfo.shapes,
+        {
+          type: 'line',
+          x0: ply - 1,
+          x1: ply - 1,
+          y0: min,
+          y1: max,
+          line: {
+            color: '#E84',
+            width: 2,
+          },
+        },
+      ],
+    });
+  };
+
+  await applyTheme();
+  lichess.pubsub.on('background-theme-changed', applyTheme);
+
+  lichess.pubsub.on('ply', selectPly);
+  lichess.pubsub.emit('ply.trigger');
+
+  window.addEventListener('resize', () => Plotly.Plots.resize(el));
+
+  return { selectPly };
 }
 
 let highchartsPromise: Promise<any> | undefined;
-
-export function selectPly(this: PlyChart, ply: number, onMainline: boolean) {
-  const plyline = (this.xAxis[0] as any).plotLinesAndBands[0];
-  plyline.options.value = ply - 1 - this.firstPly;
-  plyline.svgElem?.dashstyleSetter(onMainline ? 'solid' : 'dash');
-  plyline.render();
-}
 
 export async function loadHighcharts(tpe: string) {
   if (highchartsPromise) return highchartsPromise;
