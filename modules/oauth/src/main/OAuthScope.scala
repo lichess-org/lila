@@ -141,6 +141,14 @@ object OAuthScope:
     _.Msg.Write
   )
 
+  val relevantToMods: OAuthScopes = OAuthScope.select(
+    _.Team.Lead,
+    _.Web.Login,
+    _.Web.Mobile,
+    _.Msg.Write,
+    _.Board.Play
+  )
+
   val byKey: Map[String, OAuthScope] = all.mapBy(_.key)
 
   def select(selectors: Iterable[Selector]): OAuthScopes =

@@ -56,27 +56,27 @@ export function preModule(mod: LichessModule | undefined) {
 }
 
 export async function copies() {
-  const copyDirs = new Map<string, Copy[]>();
-  const watchDirs = new Set<string>();
+  const watched = new Map<string, Copy[]>();
+  const updated = new Set<string>();
   let watchTimeout: NodeJS.Timeout | undefined;
   const fire = () => {
-    watchDirs.forEach(d => copyDirs.get(d)?.forEach(globCopy));
-    watchDirs.clear();
+    updated.forEach(d => watched.get(d)?.forEach(globCopy));
+    updated.clear();
     watchTimeout = undefined;
   };
   for (const mod of buildModules) {
     if (!mod?.copy) continue;
     for (const cp of mod.copy) {
       for (const src of await globCopy(cp)) {
-        copyDirs.set(src, [...(copyDirs.get(src) ?? []), cp]);
+        watched.set(src, [...(watched.get(src) ?? []), cp]);
       }
     }
     if (!env.watch) continue;
-    for (const dir of copyDirs.keys()) {
+    for (const dir of watched.keys()) {
       const watcher = fs.watch(dir);
       watcher.on('change', () => {
+        updated.add(dir);
         clearTimeout(watchTimeout);
-        watchDirs.add(dir);
         watchTimeout = setTimeout(fire, 600);
       });
       watcher.on('error', (err: Error) => env.error(err));
@@ -118,7 +118,11 @@ async function copyOne(absSrc: string, absDest: string, modName: string) {
         fs.promises.mkdir(path.dirname(absDest), { recursive: true }),
       ])
     ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
+<<<<<<< HEAD
     if (src && (!dest || quantize(src.mtimeMs) != quantize(dest.mtimeMs))) {
+=======
+    if (src && (!dest || quantize(src.mtimeMs) !== quantize(dest.mtimeMs))) {
+>>>>>>> upstream/master
       await fs.promises.copyFile(absSrc, absDest);
       fs.utimes(absDest, src.atime, src.mtime, () => {});
     }

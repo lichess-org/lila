@@ -45,7 +45,7 @@ private object PgnStorage:
           positionHashes = PositionHash(decoded.positionHashes),
           unmovedRooks = UnmovedRooks(decoded.board.castlingRights),
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,
-          castles = Castles(Bitboard(decoded.board.castlingRights)),
+          castles = Castles(decoded.board.castlingRights),
           halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )
 

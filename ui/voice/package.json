@@ -33,6 +33,9 @@
         "src/move/moveCtrl.ts": "voice.move"
       }
     },
-    "copy": { "src": "grammar/**", "dest": "../../public/compiled/grammar" }
+    "copy": {
+      "src": "grammar/**",
+      "dest": "../../public/compiled/grammar"
+    }
   }
 }

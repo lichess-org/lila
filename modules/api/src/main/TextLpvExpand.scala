@@ -1,12 +1,11 @@
 package lila.api
 
-import chess.format.pgn.Pgn
 import scalatags.Text.all.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.game.GameRepo
 import lila.memo.CacheApi
-import chess.format.pgn.PgnStr
+import chess.format.pgn.{ Pgn, PgnStr }
 import lila.common.config.NetDomain
 
 final class TextLpvExpand(
@@ -50,7 +49,7 @@ final class TextLpvExpand(
       .map: pgn =>
         div(
           cls              := "lpv--autostart is2d",
-          attr("data-pgn") := pgn.toString,
+          attr("data-pgn") := pgn.value,
           plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
           (url contains "/black").option(attr("data-orientation") := "black")
         )

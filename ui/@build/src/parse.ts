@@ -71,7 +71,7 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     }
     mod.copy = [];
     for (const [src, dests] of flattener.entries())
-      for (const dest of dests) mod.copy.push({ src, dest, mod, isGlob: true });
+      for (const dest of dests) mod.copy.push({ src, dest, mod });
   }
   return mod;
 }
