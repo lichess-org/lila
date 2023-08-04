@@ -118,11 +118,7 @@ async function copyOne(absSrc: string, absDest: string, modName: string) {
         fs.promises.mkdir(path.dirname(absDest), { recursive: true }),
       ])
     ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
-<<<<<<< HEAD
-    if (src && (!dest || quantize(src.mtimeMs) != quantize(dest.mtimeMs))) {
-=======
     if (src && (!dest || quantize(src.mtimeMs) !== quantize(dest.mtimeMs))) {
->>>>>>> upstream/master
       await fs.promises.copyFile(absSrc, absDest);
       fs.utimes(absDest, src.atime, src.mtime, () => {});
     }
