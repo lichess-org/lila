@@ -227,6 +227,18 @@
   <string name="whatSignupUsername">Siz qanday foydalanuvchi nomini ishlatgan edingiz ro‘yhatdan o‘tish(sign-up) da?</string>
   <string name="usernameNotFound">Biz bunday %s nomli foydalnuvchini topa olmadik.</string>
   <string name="usernameCanBeUsedForNewAccount">Siz ushbu foydalanuvchi nomini yangi hisob yaratish uchun ishlatishingiz mumkin</string>
+  <string name="emailSent">Biz sizga %s ga email yubordik.</string>
+  <string name="emailCanTakeSomeTime">Bu yetib borishi uchun bir oz vaqt olishi mumkin.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 minut kuting va email qutingizni qayta tekshiring (sahifani qayta yulashga to‘g‘ri kelishi ham mumkin).</string>
+  <string name="checkSpamFolder">Shuningdek spam papkasini tekshiring, u o‘sha yerda bo‘lishi ham mumkin. Agar shunday bo‘lsa, uni belgilab, bu spam emas deb belgilang.</string>
+  <string name="emailForSignupHelp">Agar xammasi natijasiz bo‘lsa u holda bizga ushbu emailga yozing:</string>
+  <string name="copyTextToEmail">Yuqoridagi matnni nusxalab qo‘ying va uni %s ga yuboring</string>
+  <string name="waitForSignupHelp">Biz tez orada sizga ro‘yhatdan o‘tish uchun yordamga chiqamiz.</string>
+  <string name="accountConfirmed">%s foydalanuvchi muvaffaqiyatli tasdiqlandi.</string>
+  <string name="accountCanLogin">Siz xoziroq %s nomidan kirishingiz mumkin.</string>
+  <string name="accountConfirmationEmailNotNeeded">Sizdan emailni tasdiqlash talab etilmaydi.</string>
+  <string name="accountClosed">%s hisob yopilgan.</string>
+  <string name="accountRegisteredWithoutEmail">%s hisob emailsiz ro‘yhatga olingan.</string>
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -335,8 +347,13 @@
     <item quantity="one">%s o\'rganish</item>
     <item quantity="other">%s o\'rganishlar</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s seans</item>
+    <item quantity="other">%s seanslar</item>
+  </plurals>
   <string name="viewTournament">Turnirni ko\'rish</string>
   <string name="backToTournament">Turnirga qaytish</string>
+  <string name="noDrawBeforeSwissLimit">Shveytsariya tizimiga binoan siz 30 ta yurishgacha durrang taklif qila olmaysiz.</string>
   <string name="thematic">Mavzulashtirilgan</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s reytingli o\'yin</item>
@@ -366,6 +383,7 @@
   <string name="siteDescription">Bepul online Shahmat Server. Qulay interfeysda Shahmatni xoziroq o\'ynang. Ro\'yhatdan o\'tish shart emas, reklamalar yo\'q, hech qanday qo\'shimcha uskunalarni o\'rnatish shart emas.</string>
   <string name="xJoinedTeamY">%1$s o\'yinchi %2$s jamoaga qo\'shildi</string>
   <string name="xCreatedTeamY">%1$s o\'yinchi %2$s jamoa yaratdi</string>
+  <string name="startedStreaming">strim boshlandi</string>
   <string name="xStartedStreaming">%s ta boshlangan ijro</string>
   <string name="averageElo">O\'rtacha reyting</string>
   <string name="location">Joylashuv</string>
@@ -374,6 +392,7 @@
   <string name="apply">Jo\'natish</string>
   <string name="save">Saqlash</string>
   <string name="leaderboard">Sardorlar ro\'yhati</string>
+  <string name="screenshotCurrentPosition">Joriy holatni skrinshot qilish</string>
   <string name="gameAsGIF">O‘yin GIF sifatida</string>
   <string name="pasteTheFenStringHere">FEN matnini shu yerga qo\'ying</string>
   <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
