@@ -37,5 +37,6 @@ Tez o\'ynang va turnir zaliga qayting, ko\'p yutib ko\'proq bal to\'plang.</stri
   </plurals>
   <string name="thisIsPrivate">Bu yopiq turnir</string>
   <string name="shareUrl">Odamlarga qo\'shilishi uchun URL ni ulashing: %s</string>
+  <string name="drawStreakStandard">Duranglar seriyasi: Agar o‘yinchi arenada ketma ket durrang oynasa shularning sonini anglatadi. Bu holatda faqat birinchi o‘yin hisobi hisobga olinadi yoki standart o‘yinlarda %s yurishdan keyin durrang hisoblanuvchi o‘yinniki olinadi. Durranglar seriyasini faqat g‘alaba bilan kesib o‘tish mumkin, mag‘lubiyat yoki yana bir durrang bilan emas.</string>
   <string name="history">Maydon tarixi</string>
 </resources>
