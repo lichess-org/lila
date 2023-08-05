@@ -18,6 +18,67 @@ $mq-col2: $mq-col2-uniboard;
     text-align: center;
     font-size: 0.8em;
   }
+  #moves {
+    flex: 2 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    // 0 size forces vertical scrollbar
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    // else a scrollbar appears sometimes
+    border-top: $border;
+    position: relative;
+
+    /* required so line::before scrolls along the moves! */
+    .result,
+    .status {
+      background: $c-bg-zebra;
+      text-align: center;
+    }
+
+    .result {
+      border-top: $border;
+      font-weight: bold;
+      font-size: 1.2em;
+      padding: 5px 0 3px 0;
+    }
+
+    .status {
+      font-size: 1em;
+      font-style: italic;
+      padding-bottom: 7px;
+    }
+
+    button.next {
+      border: 0;
+      background: $c-bg-box;
+      color: $c-link;
+      padding: 0.5em;
+      width: 100%;
+
+      @include transition;
+
+      &:hover {
+        color: $c-link-hover;
+      }
+
+      &::before {
+        margin-#{$end-direction}: 0.3em;
+      }
+
+      &.highlighted {
+        background: mix($c-primary, $c-bg-box, 80%);
+        color: $c-primary-over;
+
+        &:hover {
+          background: $c-primary;
+        }
+      }
+    }
+  }
 
   .puz-side {
     .puz-bot {

@@ -93,6 +93,7 @@ export default class RoundController {
   keyboardHelp: boolean = location.hash === '#keyboard';
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw, readonly nvui?: NvuiPlugin) {
+    console.log('rounds', JSON.stringify(opts.i18n, undefined, 2));
     round.massage(opts.data);
 
     const d = (this.data = opts.data);

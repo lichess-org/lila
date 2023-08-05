@@ -12,6 +12,7 @@ type Player = 'human' | 'zero' | 'fish';
 
 export class Ctrl {
   cg: CgApi;
+  path = '';
   chess = Chess.default();
   promotion: PromotionCtrl;
   zf: { white?: Zerofish; black?: Zerofish };
@@ -79,6 +80,18 @@ export class Ctrl {
     $('#black-totals').text(`${this.totals.black} / ${this.totals.draw} / ${this.totals.white}`);
     if (--this.totals.gamesLeft < 1) $('#go').removeClass('disabled');
     else setTimeout(() => this.go());
+  }
+
+  jump(path: string) {
+    path;
+    /*this.path = path;
+    this.chess = Chess.fromSetup(Chops.parseFen(path));
+    this.fen = makeFen(this.chess.toSetup());
+    this.cg.set(this.cgOpts());
+    this.fiftyMovePly = 0;
+    this.threefoldFens.clear();
+    this.zf.white?.reset();
+    this.zf.black?.reset();*/
   }
 
   move(uci: Uci, user = false) {
