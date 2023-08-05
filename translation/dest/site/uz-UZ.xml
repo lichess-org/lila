@@ -99,10 +99,12 @@
   <string name="openingExplorer">Sharhlovchini ochish</string>
   <string name="openingEndgameExplorer">Uyinni boshlamoq/tugatmoq</string>
   <string name="xOpeningExplorer">%s sharhlovchini ochish</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Birinchi debyut va endshpillar yurishlarini o‘ynash</string>
   <string name="winPreventedBy50MoveRule">50 yurish qoidasiga asosan g\'alabaga to\'sqinlik qilindi</string>
   <string name="lossSavedBy50MoveRule">Mag\'lubiyatdan 50 yurish qoidasaga asosan saqlanildi</string>
   <string name="winOr50MovesByPriorMistake">Hato uchun yutmoq yoki 50-ta qadam yurish</string>
   <string name="lossOr50MovesByPriorMistake">Hato uchun yutqazmoq yoki 50-ta qadam yurish</string>
+  <string name="unknownDueToRounding">Ga‘laba/Mag‘lubiyat kafolatlanadi agarda oxirgi figurani olish yoki Syzygy jadvalidagi DTZ ning qiymatiga asosan aylanaga olingan peshka yurishidan keyin tavsiya etilgan yurishlar ketma-ketligiga rioya qilingan bo‘linsa.</string>
   <string name="allSet">Xammasi yaxshi!</string>
   <string name="importPgn">PGN ni import qilish</string>
   <string name="delete">O\'chirish</string>
@@ -119,6 +121,7 @@
   <string name="memory">Xotira</string>
   <string name="infiniteAnalysis">Cheksiz vaqtli tahlil</string>
   <string name="removesTheDepthLimit">Chuqurlik cheagarasini olib tashlaydi va kompyuteringiz issiq tutadi</string>
+  <string name="engineManager">Harakatlantiruvchi boshqaruvchisi</string>
   <string name="blunder">Qo\'pol xato</string>
   <string name="mistake">Xato</string>
   <string name="inaccuracy">Noaniqlik</string>
@@ -145,10 +148,15 @@
     <item quantity="other">%s o\'yinchilar</item>
   </plurals>
   <string name="drawByMutualAgreement">O\'zaro kelishuv asosida durrang natija qayd etildi</string>
+  <string name="fiftyMovesWithoutProgress">Ellikta yurish birorta rivojsiz</string>
   <string name="currentGames">Joriy vaqtdagi o\'yinlar</string>
   <plurals name="nbGames">
     <item quantity="one">%s o\'yin</item>
     <item quantity="other">%s o\'yinlar</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s o‘yin uchun %1$s reyting</item>
+    <item quantity="other">%2$s o‘yinlar uchun %1$s reyting</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s xatcho\'p</item>
@@ -157,6 +165,7 @@
   <string name="viewInFullSize">To\'liq o\'lchamda ko\'rish</string>
   <string name="logOut">Chiqish</string>
   <string name="signIn">Kirish</string>
+  <string name="rememberMe">Meni kirgan holatda saqla</string>
   <string name="youNeedAnAccountToDoThat">Buning uchun sizga hisob qaydnomasi kerak</string>
   <string name="signUp">Ro\'yhatdan o\'tish</string>
   <string name="computersAreNotAllowedToPlay">Kompyuter va kompyuter-yordamchi o\'yinchilar uchun o\'ynashga ruhsat etilmaydi. Iltimos, o\'ynash paytida shaxmat dvigatellari, ma\'lumotlar bazalari yoki boshqa o\'yinchilar yordamidan foydalanmang. Shuni ham yodda tutingki, bir nechta hisoblarni ochish qat\'iyan taqiqlanadi va bu hisoblarni olib tashlash ya\'ni taqiqlanishiga olib keladi.</string>
@@ -197,12 +206,27 @@
   <string name="changeUsername">Foydalanuvchi nomini almashtirish</string>
   <string name="changeUsernameNotSame">Faqat harflar registrlari o\'zgarishi mumkin. Masalan, \"lobarpardaboyeva\" dan \"LobarPardaboyeva\"ga.</string>
   <string name="changeUsernameDescription">Foydalanuvchi nomini almashtiring. Bu faqat bir marta amalga oshirilishi mumkin va faqat harflar registrlarini almashtirishga imkon bor.</string>
+  <string name="signupUsernameHint">Oilangizga yaqin foydalanuvchi nomini berishga harakat qiling. Siz uni keyin o‘zgartira olmaysiz va nomaqbul foydalanuvchi nomlari yopiladi!</string>
+  <string name="signupEmailHint">Biz buni faqat kalit so‘zni o‘zgartirish uchun ishlatamiz.</string>
   <string name="password">Parol</string>
   <string name="changePassword">Parolni almashtirish</string>
   <string name="changeEmail">Emailni almashtirish</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Parolni tiklash</string>
   <string name="forgotPassword">Parolni unutdingizmi?</string>
+  <string name="error.weakPassword">Ushbu parol juda ko‘p umumiylikka ega bo‘lib uni taxmin qilish onson.</string>
+  <string name="error.namePassword">Iltimos foydalanuvchi nomi yoki kalit so‘zini ishlatmang.</string>
+  <string name="blankedPassword">Siz boshqa saytda ishlatgan parolingizni ishlatdingiz, u sayt bilan esa munozara qilingan. Lichess hisobingiz xavfsizligini ta‘minlash uchun biz sizni yangi kalit so‘z kiritishingizni istaymiz. Bizni to‘g‘ri tushunganingiz uchun rahmat.</string>
+  <string name="youAreLeavingLichess">Siz Lichess ni tark etayabsiz</string>
+  <string name="neverTypeYourPassword">Hech qachon Lichess parolini boshqa saytlarda yozmang!</string>
+  <string name="proceedToX">%s ga o‘tish</string>
+  <string name="passwordSuggestion">Boshqalar tomonidan taklif qilingan parolni ishlatmang. Ular sizni hisobingizni o‘g‘irlash uchun ishlatishi mumkin uni.</string>
+  <string name="emailSuggestion">Boshqalar tomonidan taklif qilingan email manzilni ishlatmang. Ular sizni hisobingizni o‘g‘irlash uchun ishlatmang mumkin uni.</string>
+  <string name="emailConfirmHelp">Email tasdiq bilan yordam</string>
+  <string name="emailConfirmNotReceived">Ro‘yhatdan o‘tganingizdan so‘ng tasdiq email olmadingizmi?</string>
+  <string name="whatSignupUsername">Siz qanday foydalanuvchi nomini ishlatgan edingiz ro‘yhatdan o‘tish(sign-up) da?</string>
+  <string name="usernameNotFound">Biz bunday %s nomli foydalnuvchini topa olmadik.</string>
+  <string name="usernameCanBeUsedForNewAccount">Siz ushbu foydalanuvchi nomini yangi hisob yaratish uchun ishlatishingiz mumkin</string>
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -350,6 +374,7 @@
   <string name="apply">Jo\'natish</string>
   <string name="save">Saqlash</string>
   <string name="leaderboard">Sardorlar ro\'yhati</string>
+  <string name="gameAsGIF">O‘yin GIF sifatida</string>
   <string name="pasteTheFenStringHere">FEN matnini shu yerga qo\'ying</string>
   <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
   <string name="orUploadPgnFile">Yoki PGN fayl yuklang</string>
@@ -358,6 +383,7 @@
   <string name="toStudy">O\'rganish</string>
   <string name="importGame">O\'yinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
+  <string name="importGameCaveat">Variantlar o‘chiriladi. Ularni saqlash uchun PGN yordamida \"ta‘lim\"da saqlang.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s import qilingan o\'yin</item>
     <item quantity="other">%s import qilingan o\'yinlar</item>
@@ -445,6 +471,7 @@
   <string name="setTheBoard">Doskani sozlash</string>
   <string name="popularOpenings">Mashhur shahmat yurishlari</string>
   <string name="endgamePositions">Endshpil pozitsiyalari</string>
+  <string name="chess960StartPosition">Chess960 (Fisher) shaxmatidagi boshlang‘ich holat: %s</string>
   <string name="startPosition">Boshlang\'ich joylashuv</string>
   <string name="clearBoard">Doskani tozalash</string>
   <string name="loadPosition">Shahmat ma\'lum bir holatini o\'qib olish</string>
@@ -458,9 +485,14 @@
   <string name="firstName">Berilgan nom</string>
   <string name="lastName">Familiya</string>
   <string name="biography">Biografiya</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bayroq</string>
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
+  <string name="oneUrlPerLine">Har qatorda bitta URL.</string>
   <string name="inlineNotation">Ichki yozuv</string>
+  <string name="savingMoves">Vaqtinchalik yurishlar zaxirasi</string>
+  <string name="savingMovesHelp">Biz doim sizning variantlaringizni sizning brovzeringiz keshida saqlaymiz.</string>
+  <string name="makeAStudy">Saqlash va ulashish uchun \"ta‘lim\" yaratishni ko‘rib chiqing.</string>
   <string name="clearSavedMoves">Yurishlarni tozalash</string>
   <string name="previouslyOnLichessTV">Lichess TV dagi bundan oldingisi</string>
   <string name="onlinePlayers">Online o\'yinchilar</string>
@@ -477,6 +509,8 @@
   <string name="tournamentWinners">Turnir g\'oliblari</string>
   <string name="name">Ism</string>
   <string name="description">Izoh</string>
+  <string name="descPrivate">Yopiq izoh</string>
+  <string name="descPrivateHelp">Faqat jamoa a‘zolari ko‘ra oladigan matn. Agar uni kiritsangiz, jamoaning barcha a‘zolarining namoyish izohlari shunga almashadi.</string>
   <string name="no">Yo\'q</string>
   <string name="yes">Ha</string>
   <string name="help">Yordam:</string>
@@ -497,14 +531,17 @@
   <string name="cheat">Firibgarlik</string>
   <string name="insult">Haqorat</string>
   <string name="troll">Yo\'q joydan janjal chiqarish</string>
+  <string name="ratingManipulation">Reyting nayrangliklari</string>
   <string name="other">Boshqa</string>
   <string name="reportDescriptionHelp">O\'yin(lar)ga murojaatni bering va ushbu o\'yinchini tutishini nimasi yaxshi emas izohlang. Faqatgina \"u aldayabdi\" deb qo\'ya qolmasdan, balkim nima uchun bunday xulosaga kelganingizni ingliz tilida tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga murojatni keltiring.</string>
   <string name="by">%s tomonidan</string>
+  <string name="importedByX">%s tomonidan import qilingan</string>
   <string name="thisTopicIsNowClosed">Ushbu mavzu xozir yopiq.</string>
   <string name="blog">Блог</string>
   <string name="notes">Yozuvlar</string>
   <string name="typePrivateNotesHere">Shaxsiy belgilashlaringizni bu yerga yozing</string>
+  <string name="writeAPrivateNoteAboutThisUser">Bu foydalanuvchi haqida yopiq eslatma yozish</string>
   <string name="noNoteYet">Xozircha izohlar yo‘q</string>
   <string name="invalidUsernameOrPassword">Foydalanuvchi nomi yoki parol noto\'g\'ri</string>
   <string name="incorrectPassword">Parol xato</string>
