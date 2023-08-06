@@ -7,6 +7,8 @@ import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
 
+export { type CorresClockData } from './corresClock/corresClockCtrl';
+
 export interface Untyped {
   [key: string]: any;
 }
@@ -87,6 +89,7 @@ export interface RoundOpts {
   crosstableEl: HTMLElement;
   i18n: I18nDict;
   chat?: ChatOpts;
+  local?: boolean;
 }
 
 export interface ChatOpts {

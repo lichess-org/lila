@@ -9,7 +9,8 @@ import { RoundOpts, NvuiPlugin } from './interfaces';
 const patch = init([classModule, attributesModule]);
 
 export function initModule(opts: RoundOpts) {
-  boot(opts, app);
+  if (opts.local) app(opts);
+  else boot(opts, app);
 }
 
 function app(opts: RoundOpts, nvui?: NvuiPlugin) {

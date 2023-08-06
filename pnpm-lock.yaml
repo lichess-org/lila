@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -484,6 +484,9 @@ importers:
       puz:
         specifier: workspace:*
         version: link:../puz
+      round:
+        specifier: workspace:*
+        version: link:../round
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1

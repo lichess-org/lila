@@ -13,6 +13,7 @@
     { "path": "../game/tsconfig.json" },
     { "path": "../puz/tsconfig.json" },
     { "path": "../nvui/tsconfig.json" },
+    { "path": "../round/tsconfig.json" },
     { "path": "../tree/tsconfig.json" }
   ],
   "isolatedModules": true

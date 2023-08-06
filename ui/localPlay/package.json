@@ -14,6 +14,7 @@
     "game": "workspace:*",
     "nvui": "workspace:*",
     "puz": "workspace:*",
+    "round": "workspace:*",
     "snabbdom": "^3.5.1",
     "tree": "workspace:*",
     "zerofish": "^0.0.8"
@@ -29,6 +30,9 @@
         "src/main.ts": "localPlay"
       }
     },
-    "copy": { "src": "node_modules/zerofish/dist/zerofishEngine.*", "dest": "../../public/compiled" }
+    "copy": {
+      "src": "node_modules/zerofish/dist/zerofishEngine.*",
+      "dest": "../../public/compiled"
+    }
   }
 }
