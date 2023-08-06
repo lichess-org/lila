@@ -45,10 +45,11 @@ final class PgnDump(
       realPlayers.fold(pgn)(_.update(game, pgn))
     }
 
-  def formatter(flags: WithFlags)
-      : (Game, Option[EpdFen], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Future[
-        String
-      ] =
+  def formatter(
+      flags: WithFlags
+  ): (Game, Option[EpdFen], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Future[
+    String
+  ] =
     (
         game: Game,
         initialFen: Option[Fen.Epd],
