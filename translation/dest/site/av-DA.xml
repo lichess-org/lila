@@ -439,6 +439,7 @@
   <string name="chess960StartPosition">Chess960 байбихьул бакӀал: %s</string>
   <string name="isPrivate">Къараб</string>
   <string name="reportXToModerators">%s-(и)л модераторазда бицине</string>
+  <string name="profileCompletion">Гьумер цӀей: %s</string>
   <string name="xRating">%s рейтинг</string>
   <string name="profile">Дур гьумер</string>
   <string name="editProfile">Дур гьумер хисизе</string>
