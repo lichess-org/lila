@@ -21,12 +21,16 @@
   <string name="toGetPersonalizedPuzzles">वैयक्तिकृत पहेलियाँ प्राप्त करने के लिए:</string>
   <string name="puzzleId">पहेलियाँ %s</string>
   <string name="puzzleOfTheDay">आज की पहेली</string>
+  <string name="dailyPuzzle">दैनिक पहेली</string>
   <string name="clickToSolve">हल करने के लिए क्लिक करें</string>
   <string name="goodMove">अच्छी चाल!</string>
   <string name="bestMove">सर्वश्रेष्ठ चाल!</string>
   <string name="keepGoing">लगे रहें…</string>
   <string name="puzzleSuccess">सफलता!</string>
   <string name="puzzleComplete">पहेली पूरी!</string>
+  <string name="byOpenings">उद्घाटन द्वारा</string>
+  <string name="puzzlesByOpenings">उद्घाटन द्वारा पहेलियाँ</string>
+  <string name="openingsYouPlayedTheMost">ओपनिंग्स आपने रेटेड गेम्स में सबसे ज्यादा खेले</string>
   <string name="notTheMove">यह कदम नहीं है!</string>
   <string name="trySomethingElse">कुछ और कोशिश करो।</string>
   <string name="ratingX">रेटिंग: %s</string>
