@@ -16,6 +16,7 @@
   <string name="otherWaysToHelp">मदद करने के अन्य तरीके</string>
   <string name="areThereWebsitesBasedOnLichess">क्या लाइकस पर आधारित वेबसाइटें हैं?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">हाँ। Lichess ने वास्तव में अन्य ओपन-सोर्स साइटों को प्रेरित किया है जो हमारे%1$s,%2$s, या%3$s का उपयोग करते हैं।</string>
+  <string name="keyboardShortcuts">वहां कौन से कीबोर्ड शॉर्टकट हैं?</string>
   <string name="fairPlay">फेयर प्ले</string>
   <string name="whenAmIEligibleRatinRefund">जब मैं थिएटर से स्वचालित रेटिंग वापसी के लिए योग्य हूं?</string>
   <string name="ratingRefundExplanation">एक खिलाड़ी के चिह्नित होने के एक मिनट बाद, पिछले 3 दिनों में उनके 40 नवीनतम रेटेड गेम लिए जाते हैं। यदि आप उन खेलों में उनके प्रतिद्वंद्वी हैं, तो आपने रेटिंग खो दी (नुकसान या ड्रा के कारण), और आपकी रेटिंग अनंतिम नहीं थी, आपको रेटिंग रिफंड मिलता है। रिफंड आपके पीक रेटिंग और गेम के बाद आपकी रेटिंग की प्रगति के आधार पर कैप किया गया है।
