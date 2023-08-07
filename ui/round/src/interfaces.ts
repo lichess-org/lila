@@ -52,7 +52,7 @@ export interface RoundData extends GameData {
   possibleDrops?: string;
   forecastCount?: number;
   crazyhouse?: CrazyData;
-  correspondence: CorresClockData;
+  correspondence?: CorresClockData;
   tv?: Tv;
   userTv?: {
     id: string;

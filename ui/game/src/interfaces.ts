@@ -80,6 +80,7 @@ export interface Player {
   engine?: boolean;
   berserk?: boolean;
   version: number;
+  image?: string;
 }
 
 export interface TournamentRanks {

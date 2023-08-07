@@ -1,116 +1,87 @@
 $mq-col2: $mq-col2-uniboard;
 
-#local-play {
-  display: grid;
+#bot-view {
+  display: flex;
+  flex-flow: column nowrap;
 
-  grid-row-gap: $block-gap;
-  grid-column-gap: $block-gap;
-  grid-template-areas: 'board' 'side';
-
-  @include breakpoint($mq-col2) {
-    grid-template-columns: var(--col2-uniboard-width) auto;
-    grid-template-rows: fit-content(0);
-    grid-template-areas: 'board   side';
-  }
-
-  .about__link {
-    margin-top: 2vh;
-    text-align: center;
-    font-size: 0.8em;
-  }
-  #moves {
-    flex: 2 1 0;
+  #bot-tabs {
+    flex: 0 0 auto;
     display: flex;
-    flex-direction: column;
+  }
+
+  .bot-tab {
+    @extend %roboto, %nowrap-hidden, %box-radius-top;
+
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 0.4em 10px;
+
+    cursor: pointer;
+    color: $c-font-page;
+
+    @include transition;
+
+    &:hover {
+      background: mix($c-accent, $c-bg-box, 15%);
+    }
+
+    &-active {
+      color: $c-font;
+      background: $c-bg-box !important;
+    }
+
+    span {
+      @extend %nowrap-ellipsis;
+    }
+
+    &:last-child {
+      border-#{$end-direction}: none;
+    }
+  }
+  #bot-content {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+}
+
+#bot-list {
+}
+
+.fancy-bot {
+  display: flex;
+  align-items: center;
+
+  &:nth-child(even) {
+    background: $c-bg-zebra;
     justify-content: space-between;
-
-    // 0 size forces vertical scrollbar
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    // else a scrollbar appears sometimes
-    border-top: $border;
-    position: relative;
-
-    /* required so line::before scrolls along the moves! */
-    .result,
-    .status {
-      background: $c-bg-zebra;
-      text-align: center;
-    }
-
-    .result {
-      border-top: $border;
-      font-weight: bold;
-      font-size: 1.2em;
-      padding: 5px 0 3px 0;
-    }
-
-    .status {
-      font-size: 1em;
-      font-style: italic;
-      padding-bottom: 7px;
-    }
-
-    button.next {
-      border: 0;
-      background: $c-bg-box;
-      color: $c-link;
-      padding: 0.5em;
-      width: 100%;
-
-      @include transition;
-
-      &:hover {
-        color: $c-link-hover;
-      }
-
-      &::before {
-        margin-#{$end-direction}: 0.3em;
-      }
-
-      &.highlighted {
-        background: mix($c-primary, $c-bg-box, 80%);
-        color: $c-primary-over;
-
-        &:hover {
-          background: $c-primary;
-        }
-      }
+    img.picture {
+      order: 3;
     }
   }
 
-  .puz-side {
-    .puz-bot {
-      @extend %flex-column;
-      align-items: center;
-      width: 300px;
-      height: 100px;
-      border: 2px dashed #888;
-    }
-    .totals {
-      font-size: xx-large;
-      text-align: center;
-    }
+  &:hover {
+    background: mix($c-link, $c-bg-box, 15%);
+  }
 
-    .puz-bot.hilite {
-      background-color: #888;
+  img.picture {
+    flex: 0 0 128px;
+
+    display: block;
+  }
+  span {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    * {
+      margin-right: 6px;
     }
-    #pgn {
-      height: 100%;
-    }
-    #num-games {
-      width: 120px;
-    }
-    span {
-      @extend %flex-between;
-      flex-wrap: nowrap;
-      * {
-        margin: 0 15px;
-      }
-    }
-    #go {
-      flex: auto;
-    }
+  }
+  .overview {
+    margin: 20px 10px 10px 2.5vw;
+    display: flex;
+    flex: auto;
+    flex-flow: column;
+    justify-content: space-between;
+    padding-bottom: 15px;
   }
 }

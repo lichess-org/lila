@@ -1,4 +1,5 @@
-import { /*RoundOpts,*/ RoundData } from 'round';
+import { RoundOpts, RoundData } from 'round';
+import { Ctrl } from './ctrl';
 //import { Player, GameData } from 'game';
 
 /*interface RoundApi {
@@ -10,8 +11,8 @@ const data: RoundData = {
   game: {
     id: 'x7hgwoir',
     variant: { key: 'standard', name: 'Standard', short: 'Std' },
-    speed: 'correspondence',
-    perf: 'correspondence',
+    speed: 'classical',
+    perf: 'classical',
     rated: false,
     fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
     turns: 0,
@@ -38,16 +39,17 @@ const data: RoundData = {
     color: 'black',
     user: {
       id: 'anonymous',
-      username: 'Anonymous',
+      username: 'Baby Howard',
       online: true,
       perfs: {},
     },
     id: '',
     isGone: false,
-    name: 'Anonymous',
+    name: 'Baby Howard',
     onGame: true,
-    rating: 1500,
+    rating: 800,
     version: 0,
+    image: '/assets/images/bots/baby-howard.webp',
   },
   pref: {
     animationDuration: 300,
@@ -67,51 +69,41 @@ const data: RoundData = {
     showCaptured: true,
     blindfold: false,
     is3d: false,
-    keyboardMove: true,
-    voiceMove: true,
+    keyboardMove: false,
+    voiceMove: false,
     ratings: true,
     submitMove: false,
   },
   steps: [{ ply: 0, san: '', uci: '', fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }],
-  correspondence: {
+  /*correspondence: {
     daysPerTurn: 2,
     increment: 0,
     white: 0,
     black: 0,
     showBar: true,
-  },
+  },*/
   takebackable: true,
   moretimeable: true,
 };
-gah();
-function gah() {
-  const socketUrl = /*opts.data.player.spectator
-    ? `/watch/${data.game.id}/${data.player.color}/v6`
-    :*/ `/play/${data.game.id}${data.player.id}/v6`;
-  lichess.socket = new lichess.StrongSocket(socketUrl, data.player.version, {
-    params: { userTv: false },
-    receive(t: string, d: any) {
-      t, d;
-      //round.socketReceive(t, d);
-    },
-    events: {},
-  });
 
-  if (location.pathname.lastIndexOf('/round-next/', 0) === 0) history.replaceState(null, '', '/' + data.game.id);
-  $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
-  lichess.storage.make('reload-round-tabs').listen(lichess.reload);
-
-  if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {
-    alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
-    lichess.socket.destroy();
+export async function makeRounds(ctrl: Ctrl): Promise<SocketSend> {
+  const moves: string[] = [];
+  console.log(ctrl.dests);
+  for (const from in ctrl.dests) {
+    moves.push(from + ctrl.dests[from]);
   }
-}
-
-export function makeRounds() {
-  const opts /*: RoundOpts*/ = {
+  const opts: RoundOpts = {
     element: document.querySelector('.round__app') as HTMLElement,
-    data,
-    socketSend: lichess.socket.send,
+    data: { ...data, possibleMoves: moves.join(' ') },
+    socketSend: (t: string, d: any) => {
+      if (t === 'move') {
+        ctrl.userMove(d.u);
+      }
+    },
+    crosstableEl: document.querySelector('.cross-table') as HTMLElement,
+    i18n: {},
+    onChange: (d: RoundData) => console.log(d),
+    local: true,
   };
-  lichess.loadEsm('round', { init: opts });
+  return lichess.loadEsm('round', { init: opts });
 }

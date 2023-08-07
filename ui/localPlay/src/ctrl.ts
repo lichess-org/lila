@@ -1,52 +1,28 @@
 import { LocalPlayOpts } from './interfaces';
-import { PromotionCtrl } from 'chess/promotion';
+import { makeRounds } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
-import { Chess, Role } from 'chessops';
+import { makeSanAndPlay } from 'chessops/san';
+import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 import makeZerofish, { Zerofish, PV } from 'zerofish';
-import { Api as CgApi } from 'chessground/api';
-import { Config as CgConfig } from 'chessground/config';
-import { Key } from 'chessground/types';
 
-type Player = 'human' | 'zero' | 'fish';
-
+type Tab = string;
 export class Ctrl {
-  cg: CgApi;
   path = '';
   chess = Chess.default();
-  promotion: PromotionCtrl;
-  zf: { white?: Zerofish; black?: Zerofish };
-  totals: { gamesLeft: number; white: number; black: number; draw: number };
-  players: { white: Player; black: Player } = { white: 'human', black: 'fish' };
-
+  zf: Zerofish | undefined;
+  round: SocketSend;
   fen = '';
-  flipped = false;
   fiftyMovePly = 0;
   threefoldFens: Map<string, number> = new Map();
 
   constructor(readonly opts: LocalPlayOpts, readonly redraw: () => void) {
-    this.promotion = new PromotionCtrl(
-      f => f(this.cg),
-      () => this.cg.set(this.cgOpts()),
-      this.redraw
-    );
-    Promise.all([makeZerofish(), makeZerofish()]).then(([wz, bz]) => {
-      this.zf ??= { white: wz, black: bz };
+    makeZerofish().then(zf => {
+      this.zf = zf;
+      // fetch model as arrraybuffer and
+      //this.zf!.setZeroWeights(new Uint8Array());
     });
-  }
-
-  go(numGames?: number) {
-    this.totals ??= { gamesLeft: 1, white: 0, black: 0, draw: 0 };
-    if (numGames) this.totals.gamesLeft = numGames;
-    this.fiftyMovePly = 0;
-    this.threefoldFens.clear();
-    this.chess.reset();
-    this.fen = makeFen(this.chess.toSetup());
-    this.cg.set({ fen: this.fen });
-    this.zf.white?.reset();
-    this.zf.black?.reset();
-    this.getBotMove();
-    $('#go').addClass('disabled');
+    makeRounds(this).then(round => (this.round = round));
   }
 
   checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): {
@@ -73,89 +49,43 @@ export class Ctrl {
     console.log(`game over ${result} ${reason}`);
 
     // blah blah do outcome stuff
-    if (result === 'white') this.totals.white++;
-    else if (result === 'black') this.totals.black++;
-    else this.totals.draw++;
-    $('#white-totals').text(`${this.totals.white} / ${this.totals.draw} / ${this.totals.black}`);
-    $('#black-totals').text(`${this.totals.black} / ${this.totals.draw} / ${this.totals.white}`);
-    if (--this.totals.gamesLeft < 1) $('#go').removeClass('disabled');
-    else setTimeout(() => this.go());
   }
 
-  jump(path: string) {
-    path;
-    /*this.path = path;
-    this.chess = Chess.fromSetup(Chops.parseFen(path));
-    this.fen = makeFen(this.chess.toSetup());
-    this.cg.set(this.cgOpts());
-    this.fiftyMovePly = 0;
-    this.threefoldFens.clear();
-    this.zf.white?.reset();
-    this.zf.black?.reset();*/
-  }
-
-  move(uci: Uci, user = false) {
+  move(uci: Uci) {
     const move = Chops.parseUci(uci);
     if (!move || !this.chess.isLegal(move))
       throw new Error(`illegal move ${uci}, ${makeFen(this.chess.toSetup())}}`);
-
-    this.chess.play(move);
+    console.log(
+      `before - turn ${this.chess.turn}, half ${this.chess.halfmoves}, full ${this.chess.fullmoves}, fen '${this.fen}'`
+    );
+    const san = makeSanAndPlay(this.chess, move);
+    console.log(this.chess.fullmoves);
     this.fen = makeFen(this.chess.toSetup());
+    console.log(
+      `after - turn ${this.chess.turn}, half ${this.chess.halfmoves}, full ${this.chess.fullmoves}, fen '${this.fen}'`
+    );
     this.fifty(move);
     this.threefold('update');
-    if (user && this.isPromotion(move)) {
-      return; // oh noes PromotionCtrl! put it back! put it back!
-    } else this.updateCgBoard(uci);
     const { end, result, reason } = this.checkGameOver();
     if (end) this.doGameOver(result!, reason!);
-    else this.getBotMove();
+
+    this.round('move', {
+      uci,
+      fen: this.fen,
+      ply: 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0),
+      dests: this.dests,
+      san,
+    });
   }
 
-  cgUserMove = (orig: Key, dest: Key) => {
-    this.move(orig + dest, true);
-  };
+  userMove(uci: Uci) {
+    this.move(uci);
+    this.getBotMove();
+  }
 
   async getBotMove() {
-    const moveType = this.players[this.chess.turn];
-    if (moveType === 'human') return;
-    const zf = this.zf[this.chess.turn];
-    let move;
-    if (moveType === 'zero') {
-      const [zeroMove, lines] = await Promise.all([
-        zf!.goZero(this.fen),
-        zf!.goFish(this.fen, { pvs: 8, depth: 6 }),
-      ]);
-      // without randomSprinkle, lc0 will always play the same game
-      move = Math.random() < 0.5 ? randomSprinkle(zeroMove, lines) : zeroMove;
-      console.log(`${this.chess.turn} ${zeroMove === move ? 'zero' : 'ZEROFISH'} ${move}`);
-    } else {
-      move = (await zf!.goFish(this.fen, { depth: 3 }))[0].moves[0];
-      console.log(`${this.chess.turn} fish ${move}`);
-    }
-    this.move(move);
-  }
-
-  updateCgBoard(uci: Uci) {
-    const { from, to, role } = splitUci(uci);
-    this.cg.move(from, to);
-    if (role) this.cg.setPieces(new Map([[to, { color: this.chess.turn, role, promoted: true }]]));
-    this.cg.set(this.cgOpts(true));
-  }
-
-  cgOpts(withFen = true): CgConfig {
-    return {
-      fen: withFen ? this.fen : undefined,
-      orientation: this.flipped ? 'black' : 'white',
-      turnColor: this.chess.turn,
-      check: this.chess.isCheck() ? this.chess.turn : false,
-      movable: {
-        color: this.chess.turn,
-        dests:
-          this.players[this.chess.turn] !== 'human'
-            ? new Map()
-            : new Map([...this.chess.allDests()].map(([s, ds]) => [sq2key(s), [...ds].map(sq2key)])),
-      },
-    };
+    const uci = (await this.zf!.goFish(this.fen, { depth: 10 }))[0].moves[0];
+    this.move(uci);
   }
 
   fifty(move?: Chops.Move) {
@@ -185,41 +115,13 @@ export class Ctrl {
     );
   }
 
-  flip = () => {
-    this.flipped = !this.flipped;
-    this.cg.toggleOrientation();
-    this.redraw();
-  };
-
-  dropHandler(color: 'white' | 'black', el: HTMLElement) {
-    const $el = $(el);
-    $el.on('dragenter dragover dragleave drop', e => {
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    $el.on('dragenter dragover', () => this.zf[color] && $el.addClass('hilite'));
-    $el.on('dragleave drop', () => this.zf[color] && $el.removeClass('hilite'));
-    $el.on('drop', e => {
-      if (!this.zf[color]) return;
-      const reader = new FileReader();
-      const weights = e.dataTransfer.files.item(0) as File;
-      reader.onload = e => {
-        this.zf[color]!.setZeroWeights(new Uint8Array(e.target!.result as ArrayBuffer));
-        $(`#${color} p`).first().text(weights.name);
-        this.players[color] = 'zero';
-        if (this.players[Chops.opposite(color)] !== 'human') $('#go').removeClass('disabled');
-      };
-      reader.readAsArrayBuffer(weights);
-    });
+  get dests() {
+    const dests: { [from: string]: string } = {};
+    [...this.chess.allDests()]
+      .filter(([, to]) => !to.isEmpty())
+      .forEach(([s, ds]) => (dests[Chops.makeSquare(s)] = [...ds].map(Chops.makeSquare).join('')));
+    return dests;
   }
-}
-
-function sq2key(sq: number): Key {
-  return Chops.makeSquare(sq);
-}
-
-function splitUci(uci: Uci): { from: Key; to: Key; role?: Role } {
-  return { from: uci.slice(0, 2) as Key, to: uci.slice(2, 4) as Key, role: Chops.charToRole(uci.slice(4)) };
 }
 
 function linesWithin(move: string, lines: PV[], bias = 0, threshold = 50) {

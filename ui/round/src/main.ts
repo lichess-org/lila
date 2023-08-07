@@ -8,14 +8,15 @@ import { RoundOpts, NvuiPlugin } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export function initModule(opts: RoundOpts) {
-  if (opts.local) app(opts);
+export function initModule(opts: RoundOpts): SocketSend | undefined {
+  if (opts.local) return app(opts).socketReceive;
   else boot(opts, app);
+  return undefined;
 }
 
 function app(opts: RoundOpts, nvui?: NvuiPlugin) {
   const ctrl = new RoundController(opts, redraw, nvui);
-
+  console.log('main', opts.element);
   const blueprint = view(ctrl);
   opts.element.innerHTML = '';
   let vnode = patch(opts.element, blueprint);

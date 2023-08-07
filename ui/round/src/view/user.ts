@@ -7,6 +7,23 @@ import RoundController from '../ctrl';
 export const aiName = (ctrl: RoundController, level: number) =>
   ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
 
+export function botHtml(ctrl: RoundController, player: Player, position: Position) {
+  ctrl;
+  return h(
+    `div.ruser-${position}.ruser.fancy-bot`,
+    {
+      class: {
+        online: true,
+        offline: false,
+      },
+    },
+    [
+      h('span', [h('img', { attrs: { src: player.image!, width: 48, height: 48 } }), h('name', player.name)]),
+      h('rating', player.rating),
+      //h('rating', player.ratingDiff),
+    ]
+  );
+}
 export function userHtml(ctrl: RoundController, player: Player, position: Position) {
   const d = ctrl.data,
     user = player.user,

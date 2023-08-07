@@ -311,7 +311,9 @@ GET   /streamer/:username              controllers.Streamer.show(username)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)
 
 # LocalPlay
-GET   /local-play                      controllers.LocalPlay.index
+GET   /local/vsbot                     controllers.LocalPlay.vsBot
+GET   /local/setup                     controllers.LocalPlay.setup
+GET   /local/botvsbot                  controllers.LocalPlay.botVsBot
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId, color = "white")

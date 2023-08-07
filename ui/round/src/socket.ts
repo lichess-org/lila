@@ -47,7 +47,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 }
 
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
-  lichess.socket.sign(ctrl.sign);
+  //lichess.socket.sign(ctrl.sign); // doing this in ctrl constructor
 
   const reload = (o?: Incoming, isRetry?: boolean) => {
     // avoid reload if possible!
@@ -84,8 +84,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     cclock(o: { white: number; black: number }) {
       if (ctrl.corresClock) {
-        ctrl.data.correspondence.white = o.white;
-        ctrl.data.correspondence.black = o.black;
+        ctrl.data.correspondence!.white = o.white;
+        ctrl.data.correspondence!.black = o.black;
         ctrl.corresClock.update(o.white, o.black);
         ctrl.redraw();
       }

@@ -1,4 +1,4 @@
-package views.html
+package views.html.localPlay
 
 import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
 
-object localPlay:
+object botVsBot:
   def index(using ctx: PageContext) =
     views.html.base.layout(
       title = "Play vs Bots",
@@ -19,7 +19,7 @@ object localPlay:
         .OpenGraph(
           title = "Play vs Bots",
           description = "Play vs Bots",
-          url = s"$netBaseUrl${controllers.routes.LocalPlay.index}"
+          url = s"$netBaseUrl${controllers.routes.LocalPlay.botVsBot}"
         )
         .some,
       zoomable = true,

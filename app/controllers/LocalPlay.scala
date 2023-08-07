@@ -14,6 +14,10 @@ import lila.rating.{ Perf, PerfType }
 
 final class LocalPlay(env: Env) extends LilaController(env):
 
-  def index = Open:
+  def vsBot = Open:
     NoBot:
-      Ok.page(views.html.localPlay.index).map(_.enableSharedArrayBuffer)
+      Ok.page(views.html.localPlay.vsBot.index).map(_.enableSharedArrayBuffer)
+
+  def botVsBot = Open:
+    NoBot:
+      Ok.page(views.html.localPlay.botVsBot.index).map(_.enableSharedArrayBuffer)

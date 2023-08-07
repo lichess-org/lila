@@ -1,48 +1,26 @@
-import { Chessground } from 'chessground';
 import { h, VNode } from 'snabbdom';
-import { makeConfig as makeCgConfig } from './chessground';
-import { onInsert } from 'common/snabbdom';
+//import * as licon from 'common/licon';
+//import { bind } from 'common/snabbdom';
+import { bots } from './bots';
 import { Ctrl } from './ctrl';
 
-export default function render(ctrl: Ctrl): VNode {
-  return h('div#local-play', [
-    h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
-    h('div.puz-side', [
-      h('div', bot(ctrl, 'black')),
-      h('div#pgn'),
-      h('div', [bot(ctrl, 'white'), h('hr'), controls(ctrl)]),
-    ]),
-  ]);
-}
-
-function chessground(ctrl: Ctrl): VNode {
-  return h('div.cg-wrap', {
-    hook: {
-      insert: vnode => (ctrl.cg = Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl))),
-    },
-  });
-}
-
-function bot(ctrl: Ctrl, color: Color): VNode {
-  return h(`div#${color}.puz-bot`, { hook: onInsert(el => ctrl.dropHandler(color, el)) }, [
-    h('p', 'Drop weights here (otherwise stockfish)'),
-    h(`p#${color}-totals.totals`),
-  ]);
-}
-
-function controls(ctrl: Ctrl) {
-  return h('span', [
+export default function (ctrl: Ctrl): VNode {
+  return h('section#bot-view', {}, [
+    h('div#bot-tabs', { attrs: { role: 'tablist' } }),
     h(
-      'button#go.button.disabled',
-      {
-        hook: onInsert(el =>
-          el.addEventListener('click', () => ctrl.go(parseInt($('#num-games').val() as string) || 1))
-        ),
-      },
-      'GO'
+      'div#bot-content',
+      h(
+        'div#bot-list',
+        bots.map(bot => botView(ctrl, bot))
+      )
     ),
-    h('input#num-games', {
-      attrs: { type: 'number', min: '1', max: '1000', value: '1' },
-    }),
+  ]);
+}
+
+function botView(ctrl: Ctrl, bot: any): VNode {
+  return h('div.fancy-bot', [
+    h('h1', bot.name),
+    h('p', bot.description),
+    h('img', { attrs: { src: bot.image } }),
   ]);
 }

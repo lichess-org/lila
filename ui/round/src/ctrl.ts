@@ -76,7 +76,7 @@ export default class RoundController {
   loading = false;
   loadingTimeout: number;
   redirecting = false;
-  transientMove: TransientMove;
+  transientMove?: TransientMove;
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
   goneBerserk: GoneBerserk = {};
@@ -106,7 +106,7 @@ export default class RoundController {
       this.firstSeconds = false;
       this.redraw();
     }, 3000);
-
+    if (!opts.local) lichess.socket.sign(this.sign);
     this.socket = makeSocket(opts.socketSend, this);
 
     if (d.clock)
@@ -133,7 +133,7 @@ export default class RoundController {
     this.setQuietMode();
 
     this.moveOn = new MoveOn(this, 'move-on');
-    this.transientMove = new TransientMove(this.socket);
+    if (!opts.local) this.transientMove = new TransientMove(this.socket);
 
     this.menu = toggle(false, redraw);
 
@@ -331,7 +331,7 @@ export default class RoundController {
     this.justDropped = meta.justDropped;
     this.justCaptured = meta.justCaptured;
     this.preDrop = undefined;
-    this.transientMove.register();
+    this.transientMove?.register();
     this.redraw();
   };
 
@@ -478,7 +478,7 @@ export default class RoundController {
     }
     this.redraw();
     if (playing && playedColor == d.player.color) {
-      this.transientMove.clear();
+      this.transientMove?.clear();
       this.moveOn.next();
       cevalSub.publish(d, o);
     }
@@ -525,7 +525,7 @@ export default class RoundController {
     this.clearJust();
     this.shouldSendMoveTime = false;
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
-    if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
+    if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();
     this.moveOn.next();
