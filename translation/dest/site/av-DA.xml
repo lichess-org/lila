@@ -444,10 +444,14 @@
   <string name="profile">Дур гьумер</string>
   <string name="editProfile">Дур гьумер хисизе</string>
   <string name="firstName">ЦӀар</string>
+  <string name="lastName">Хъизамалъул цӀар</string>
   <string name="biography">ГӀумрухъвай</string>
   <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Байрахъ</string>
   <string name="thankYou">Баркала!</string>
+  <string name="socialMediaLinks">Социалиял медиабазул бухьенал</string>
   <string name="oneUrlPerLine">Мухъда цо бухьен.</string>
+  <string name="inlineNotation">Мухъилаб нотация</string>
+  <string name="savingMoves">Заманалъе бугеб хъурщиязул ракӀалдачӀей</string>
   <string name="success">Бергьенлъи</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s хӀай</item>
@@ -525,9 +529,14 @@
   <string name="ifRatingIsPlusMinusX">Рейтинг ± %s батани</string>
   <string name="ifRegistered">ХӀисабалде восун ватани</string>
   <string name="onlyFriends">ЦохӀо гьудулзабазе</string>
+  <string name="menu">Мену</string>
   <string name="castling">Рокировка</string>
   <string name="whiteCastlingKingside">ХъахӀал О-О</string>
   <string name="blackCastlingKingside">ЧӀегӀерал О-О</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s хабар форумалда</item>
+    <item quantity="other">%s хабар форумалда</item>
+  </plurals>
   <string name="watchGames">ХӀаязухъ балагьизе</string>
   <string name="watch">Балагьизе</string>
   <string name="about">ХӀакъалъулъ</string>
