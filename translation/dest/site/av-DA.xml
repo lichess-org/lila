@@ -594,6 +594,8 @@
   <string name="downloadRaw">Бугеб куцалъ рещтӀинабизе</string>
   <string name="downloadImported">Жаниб лъураб рещтӀинабизе</string>
   <string name="letOtherPlayersMessageYou">Цогидазе духъе хабар битӀизе биччазе</string>
+  <string name="receiveForumNotifications">Форумалда рехсолаго ругьалаби росизе</string>
+  <string name="shareYourInsightsData">Дур шахматазул аналитика гӀахьал гьабизе</string>
   <string name="withFriends">Гьудулзабигун</string>
   <string name="withEverybody">Кинавгогун</string>
   <string name="playChessEverywhere">Шахматаби кибго хӀай</string>
@@ -621,6 +623,8 @@
   <string name="boardSize">Хъорщол кӀодолъи</string>
   <string name="usernameAlreadyUsed">Гьеб хӀалтӀизабулесда цӀар ккун буго, хӀалбихье цогидаб.</string>
   <string name="usernamePrefixInvalid">ХӀалтӀизабулесда цӀар хӀарпалдаса байбихьизе ккола.</string>
+  <string name="playChessInStyle">Шахматазул къагӀидаялъ хӀазе</string>
+  <string name="chessBasics">Шахматазул кьучӀ</string>
   <string name="coaches">Мударибзаби</string>
   <string name="invalidPgn">Мекъаб PGN</string>
   <string name="invalidFen">Мекъаб FEN</string>
@@ -646,6 +650,7 @@
   <string name="next">Хадусеб</string>
   <string name="youCanDoBetter">Жеги лъикӀаб буго</string>
   <string name="solution">БитӀун гьаби</string>
+  <string name="waitingForAnalysis">Анализалъухъ балагьун чӀун</string>
   <string name="noMistakesFoundForWhite">ХъахӀазул гъалатӀал ратичӀо</string>
   <string name="noMistakesFoundForBlack">ЧӀегӀеразул гъалатӀал ратичӀо</string>
   <string name="doneReviewingWhiteMistakes">ХъахӀазул гъалатӀазухъ балагьана</string>
@@ -658,7 +663,9 @@
     <item quantity="one">%s секунд</item>
     <item quantity="other">%s секунд</item>
   </plurals>
+  <string name="opening">Байбихьи</string>
   <string name="addCurrentVariation">Гьанжесеб вариант тӀаде жубазе</string>
+  <string name="playX">%s гьабе</string>
   <string name="sorry">ТӀаса лъугьа :(</string>
   <string name="timeoutExpires">Балагьун чӀеялъул заман %s лъугӀула.</string>
   <string name="why">Щай?</string>
@@ -666,9 +673,15 @@
   <string name="currentMatchScore">Гьанжесеб мачалъул рикӀкӀин</string>
   <string name="edit">Хисизе</string>
   <string name="rapid">Рапид</string>
+  <string name="bulletDesc">ЦӀакъ хехал хӀаял: 3 минуталдаса дагьаб</string>
+  <string name="blitzDesc">Хехал хӀаял: 3-ялдаса 8 минуталде щвезегӀан</string>
+  <string name="rapidDesc">Рапид хӀаял: 8-ялдаса 25 минуталде щвезегӀан</string>
   <string name="important">КӀвар буго</string>
+  <string name="inTheFAQ">Суалалги жаваблги ругеб бакӀалда</string>
+  <string name="teamNamedX">%1$s къокъа</string>
   <string name="subscribe">Нахъвилълъине</string>
   <string name="unsubscribe">Навилълъин нахъе бахъизе</string>
+  <string name="mentionedYouInX">мун \"%1$s\"-ялда рехсана.</string>
   <string name="invitedYouToX">мун \"%1$s\"-ялде ахӀана.</string>
   <string name="youHaveJoinedTeamX">Мун \"%1$s\"-алде жувана.</string>
   <string name="resVsX">%1$s vs %2$s</string>
