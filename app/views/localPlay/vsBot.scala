@@ -20,14 +20,15 @@ object vsBot:
         jsModuleInit(
           "localPlay",
           Json.obj(
-            "pref"   -> lila.pref.JsonView.write(ctx.pref, false),
-            "i18n"   -> i18n,
-            "userId" -> ctx.userId
+            "mode" -> "vsBot",
+            "pref" -> lila.pref.JsonView.write(ctx.pref, false),
+            "i18n" -> i18n
           )
-        )
+        ),
+        jsModule("round")
       ),
       moreCss = frag(
-        cssTag("local-play"),
+        cssTag("vs-bot"),
         cssTag("round"),
         ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
         ctx.pref.hasVoice option cssTag("voice")
@@ -47,9 +48,6 @@ object vsBot:
       main(cls := "round")(
         st.aside(cls := "round__side")(
           st.section(id := "bot-view")(
-            div(id := "bot-tabs")(
-              div(cls := "bot-tab")(nbsp)
-            ),
             div(id := "bot-content")
           )
         ),

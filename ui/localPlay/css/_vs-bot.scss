@@ -1,50 +1,11 @@
-$mq-col2: $mq-col2-uniboard;
-
 #bot-view {
   display: flex;
   flex-flow: column nowrap;
 
-  #bot-tabs {
-    flex: 0 0 auto;
-    display: flex;
-  }
-
-  .bot-tab {
-    @extend %roboto, %nowrap-hidden, %box-radius-top;
-
-    flex: 1 1 auto;
-    text-align: center;
-    padding: 0.4em 10px;
-
-    cursor: pointer;
-    color: $c-font-page;
-
-    @include transition;
-
-    &:hover {
-      background: mix($c-accent, $c-bg-box, 15%);
-    }
-
-    &-active {
-      color: $c-font;
-      background: $c-bg-box !important;
-    }
-
-    span {
-      @extend %nowrap-ellipsis;
-    }
-
-    &:last-child {
-      border-#{$end-direction}: none;
-    }
-  }
   #bot-content {
     flex: 1 1 auto;
     overflow: hidden;
   }
-}
-
-#bot-list {
 }
 
 .fancy-bot {

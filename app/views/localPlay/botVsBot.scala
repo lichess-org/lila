@@ -12,13 +12,13 @@ object botVsBot:
   def index(using ctx: PageContext) =
     views.html.base.layout(
       title = "Play vs Bots",
-      moreJs = jsModuleInit("localPlay"),
-      moreCss = cssTag("local-play"),
+      moreJs = jsModuleInit("localPlay", Json.obj("mode" -> "botVsBot")),
+      moreCss = cssTag("bot-vs-bot"),
       csp = analysisCsp.some,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Play vs Bots",
-          description = "Play vs Bots",
+          title = "Bots vs Bots",
+          description = "Bots vs Bots",
           url = s"$netBaseUrl${controllers.routes.LocalPlay.botVsBot}"
         )
         .some,

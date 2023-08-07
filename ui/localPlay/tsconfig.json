@@ -5,7 +5,7 @@
     "noEmit": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "allowUnreachableCode": true,
+    "allowUnreachableCode": true
   },
   "references": [
     { "path": "../chess/tsconfig.json" },

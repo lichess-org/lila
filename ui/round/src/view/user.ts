@@ -18,12 +18,13 @@ export function botHtml(ctrl: RoundController, player: Player, position: Positio
       },
     },
     [
-      h('span', [h('img', { attrs: { src: player.image!, width: 48, height: 48 } }), h('name', player.name)]),
+      h('span', [h('img', { attrs: { src: player.image!, width: 64, height: 64 } }), h('name', player.name)]),
       h('rating', player.rating),
       //h('rating', player.ratingDiff),
     ]
   );
 }
+
 export function userHtml(ctrl: RoundController, player: Player, position: Position) {
   const d = ctrl.data,
     user = player.user,

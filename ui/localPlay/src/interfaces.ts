@@ -1,2 +1,5 @@
-export interface LocalPlayOpts {}
-export interface Controller {}
+export interface LocalPlayOpts {
+  mode: 'vsBot' | 'botVsBot';
+  pref: any;
+  i18n: any;
+}

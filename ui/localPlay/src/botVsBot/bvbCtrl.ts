@@ -1,4 +1,4 @@
-import { LocalPlayOpts } from './interfaces';
+import { BvbOpts } from './bvbInterfaces';
 import { PromotionCtrl } from 'chess/promotion';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { Chess, Role } from 'chessops';
@@ -10,7 +10,7 @@ import { Key } from 'chessground/types';
 
 type Player = 'human' | 'zero' | 'fish';
 
-export class Ctrl {
+export class BvbCtrl {
   cg: CgApi;
   path = '';
   chess = Chess.default();
@@ -24,7 +24,7 @@ export class Ctrl {
   fiftyMovePly = 0;
   threefoldFens: Map<string, number> = new Map();
 
-  constructor(readonly opts: LocalPlayOpts, readonly redraw: () => void) {
+  constructor(readonly opts: BvbOpts, readonly redraw: () => void) {
     this.promotion = new PromotionCtrl(
       f => f(this.cg),
       () => this.cg.set(this.cgOpts()),
