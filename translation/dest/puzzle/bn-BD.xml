@@ -13,12 +13,15 @@
   <string name="specialMoves">বিশেশ চাল</string>
   <string name="didYouLikeThisPuzzle">আপনি এই ধাঁধা তি কি পছন্দ করেছেন?</string>
   <string name="voteToLoadNextOne">পরের ধাঁধা তি তে জেতে ভতে দিন!</string>
+  <string name="upVote">Puzzle কে আপ-ভোট করুন</string>
+  <string name="downVote">Puzzle কে ডাউন-ভোট করুন</string>
   <string name="yourPuzzleRatingWillNotChange">আপনার ধাঁধার রেটিং পরিবর্তীত হবে না। উল্লেখ্য, ধাঁধা প্রতিযোগীতামূলক নয়। আপনার রেটিং আপনার দক্ষতা অনুযায়ী ধাঁধা বাছাই করতে সাহায্য করে।</string>
   <string name="findTheBestMoveForWhite">সাদার জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="findTheBestMoveForBlack">কালোর জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="toGetPersonalizedPuzzles">আপনার ব্যাক্তিগত পাজল পেতে:</string>
   <string name="puzzleId">পাজল %s</string>
   <string name="puzzleOfTheDay">আজকের দিনের সেরা ধাঁধা</string>
+  <string name="dailyPuzzle">দৈনিক Puzzle</string>
   <string name="clickToSolve">সমাধানের জন্য ক্লিক করুন</string>
   <string name="goodMove">ভালো মানের মুভ</string>
   <string name="bestMove">সেরা মানের মুভ!</string>
