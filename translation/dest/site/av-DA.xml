@@ -470,6 +470,7 @@
   <string name="inlineNotation">Мухъилаб нотация</string>
   <string name="savingMoves">Заманалъе бугеб хъурщиязул ракӀалдачӀей</string>
   <string name="savingMovesHelp">Нижеца кидаго дур вариантал дур браузералъул кешалда цӀунула.</string>
+  <string name="makeAStudy">ЦӀунизеги гӀахьал гьабизеги, цӀех-рех гьабизе бегьула.</string>
   <string name="success">Бергьенлъи</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s хӀай</item>
