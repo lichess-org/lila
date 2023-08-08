@@ -104,6 +104,7 @@
   <string name="lossSavedBy50MoveRule">50-хъурщиялъул къагӀидаялъ къезе рес ккечӀо</string>
   <string name="winOr50MovesByPriorMistake">Бергьенлъи яги цебесеб гъалатӀалъ 50 хъурщи</string>
   <string name="lossOr50MovesByPriorMistake">Къей яги цебесеб гъалатӀалъ 50 хъурщи</string>
+  <string name="unknownDueToRounding">Бергьенлъиялъе/къеялъе гарантия кьезе бегьула цохӀо ахирисеб нухалъ чӀвараб яги пешка хъурщараб мехалдаса лъикӀаллъун рихьизарурал хъурщиял гьарун рукӀани, DTZ-ялъул къиматал Syzygy базаялда гургинлъизе рес букӀиналъ.</string>
   <string name="allSet">ХӀадур буго!</string>
   <string name="importPgn">PNG жаниб лъезе</string>
   <string name="delete">Хвезабизе</string>
@@ -111,7 +112,7 @@
   <string name="replayMode">Такраралъул къагӀида</string>
   <string name="realtimeReplay">БукӀараб куцалъ</string>
   <string name="byCPL">Камияз</string>
-  <string name="openStudy">ЦӀехрех рагьизе</string>
+  <string name="openStudy">ЦӀех-рех рагьизе</string>
   <string name="enable">Биччазе</string>
   <string name="bestMoveArrow">Бищун лъикӀаб хъурщиялъул чӀорил сурат</string>
   <string name="evaluationGauge">Къиматалъул роцен</string>
@@ -328,6 +329,10 @@
     <item quantity="one">%s турниралъул бал</item>
     <item quantity="other">%s турниралъул бал</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s цӀех-рех</item>
+    <item quantity="other">%s цӀех-рех</item>
+  </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s сеанс</item>
     <item quantity="other">%s сеанс</item>
@@ -376,6 +381,7 @@
   <string name="pasteThePgnStringHere">PGN текст гьаниб лъе</string>
   <string name="fromPosition">Ругеб бакӀалдаса</string>
   <string name="continueFromHere">Гьаниса хӀазе</string>
+  <string name="toStudy">ЦӀех-рех</string>
   <string name="importGame">ХӀай жаниб лъезе</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s жаниб лъураб хӀай</item>
@@ -463,6 +469,7 @@
   <string name="oneUrlPerLine">Мухъда цо бухьен.</string>
   <string name="inlineNotation">Мухъилаб нотация</string>
   <string name="savingMoves">Заманалъе бугеб хъурщиязул ракӀалдачӀей</string>
+  <string name="savingMovesHelp">Нижеца кидаго дур вариантал дур браузералъул кешалда цӀунула.</string>
   <string name="success">Бергьенлъи</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s хӀай</item>
@@ -536,6 +543,7 @@
   <string name="clock">СагӀат</string>
   <string name="opponent">Дандеяв</string>
   <string name="learnMenu">Ругьунлъизе</string>
+  <string name="studyMenu">ЦӀех-рех</string>
   <string name="practice">ХӀалбихьи</string>
   <string name="tools">Алатал</string>
   <string name="ifRatingIsPlusMinusX">Рейтинг ± %s батани</string>
@@ -577,6 +585,7 @@
   <string name="keyMoveBackwardOrForward">нахъехун/цебехун хъурщи</string>
   <string name="keyGoToStartOrEnd">авалалде/ахиралде ине</string>
   <string name="keyShowOrHideComments">комментал рихьизе/рахчизе</string>
+  <string name="keyEnterOrExitVariation">лъугьине варианталде/варианталдаса ине</string>
   <string name="keyRequestComputerAnalysis">Компутералъул анализ тӀалаб гьабизе, гъалатӀаздаса лъазе</string>
   <string name="keyNextLearnFromYourMistakes">Хадусеб (гъалатӀаздаса лъазе)</string>
   <string name="keyNextBlunder">Хадусеб кӀудияб гъалатӀ</string>
@@ -621,6 +630,7 @@
   </plurals>
   <string name="gameAnalysis">ХӀаялъул анализ</string>
   <string name="xHostsY">%1$s-(и)ца %2$s гьабуна</string>
+  <string name="xJoinsY">%1$s %2$s-алде жувана</string>
   <string name="xLikesY">%1$s-(и)е %2$s бокьана</string>
   <string name="quickPairing">Хехаб байбихьи</string>
   <string name="lobby">Лобби</string>
@@ -702,6 +712,7 @@
   <string name="mentionedYouInX">мун \"%1$s\"-ялда рехсана.</string>
   <string name="xMentionedYouInY">%1$s-(и)ца мун \"%2$s\"-ялда рехсана.</string>
   <string name="invitedYouToX">мун \"%1$s\"-ялде ахӀана.</string>
+  <string name="xInvitedYouToY">%1$s-(и)ца мун \"%2$s\"-ялде ахӀана.</string>
   <string name="youHaveJoinedTeamX">Мун \"%1$s\"-алде жувана.</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="download">РещтӀинабизе</string>
@@ -716,6 +727,7 @@
   <string name="simulHostcolor">Щибаб хӀаялда хосталъул кьер</string>
   <string name="simulFeatured">%s-алда бихьизе</string>
   <string name="simulDescriptionHelp">Щибниги гӀахьалчагӀазда абизе бокьун бугищ?</string>
+  <string name="embedsAvailable">ЦӀех-рех гъезе, гьелъул яги хӀаялъул бухьен лъе.</string>
   <string name="inYourLocalTimezone">Дурго бакӀалъулаб сагӀтил рачелалда</string>
   <string name="tournChat">Турниралъул чат</string>
   <string name="noChat">Чат гьечӀо</string>
