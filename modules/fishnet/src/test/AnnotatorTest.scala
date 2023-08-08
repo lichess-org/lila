@@ -4,7 +4,6 @@ import play.api.libs.json.Json
 
 import java.time.Instant
 import chess.format.pgn.{
-  Dumper,
   SanStr,
   PgnStr,
   PgnNodeData,
@@ -97,9 +96,6 @@ case class Context(sit: Situation, ply: Ply)
 
 extension (d: PgnNodeData)
   def toMove(context: Context): Option[(Situation, Move)] =
-    def toSan(mv: MoveOrDrop): SanStr =
-      mv.fold(x => Dumper(context.sit, x, x.situationAfter), x => Dumper(x, x.situationAfter))
-
     d.san(context.sit)
       .toOption
       .map(x =>
@@ -107,7 +103,7 @@ extension (d: PgnNodeData)
           x.situationAfter,
           Move(
             ply = context.ply,
-            san = toSan(x),
+            san = x.toSanStr,
             comments = d.comments,
             glyphs = d.glyphs,
             opening = None,
