@@ -6,17 +6,6 @@ import chess.ByColor
 
 final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using Executor):
 
-  // deprecated acceptByToken
-  def onApiPair(challenge: Challenge)(template: Option[Template]): Funit =
-    challenge.userIds.map(lightUserApi.async).parallel.flatMap {
-      _.flatten match
-        case List(u1, u2) =>
-          val gameId = challenge.id into GameId
-          sendGameMessage(gameId, u1, u2, u2.id, template) >>
-            sendGameMessage(gameId, u2, u1, u1.id, template).void
-        case _ => funit
-    }
-
   // bulk
   def onApiPair(gameId: GameId, users: ByColor[LightUser])(
       managedById: UserId,
