@@ -205,6 +205,9 @@ private object DisposableEmailDomain:
     "globo.com",
     "globomail.com",
     "oi.com.br",
+    /* Domains used in Portugal */
+    "sapo.pt",
+    "outlook.pt",
     /* Domains without an A record */
     "cabletv.on.ca",
     "live.ca",
