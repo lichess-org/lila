@@ -321,6 +321,10 @@
     <item quantity="one">%s турниралъул бал</item>
     <item quantity="other">%s турниралъул бал</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s сеанс</item>
+    <item quantity="other">%s сеанс</item>
+  </plurals>
   <string name="viewTournament">Турниралде балагьизе</string>
   <string name="backToTournament">Турниралде вуссине</string>
   <string name="noDrawBeforeSwissLimit">Швейцар турниралда 30 хъурщи гьабизегӀан дуда ращадккей гьабизе кӀоларо.</string>
@@ -481,6 +485,7 @@
   <string name="cheat">ХӀилла</string>
   <string name="insult">ХӀакъир гьави</string>
   <string name="troll">Иришгъат гьави</string>
+  <string name="ratingManipulation">Рейтингалъулъ рекӀкӀ гьаби</string>
   <string name="other">Цогидаб</string>
   <string name="by">%s-(и)ца</string>
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>
