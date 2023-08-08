@@ -94,10 +94,12 @@
   <string name="dtzWithRounding">DTZ50\'\' бащдаб хъурщиялъул рикӀкӀен хадусеб чӀвай щвезегӀан яги пешка хъурщизегӀан кьочӀое босун</string>
   <string name="noGameFound">ХӀаял ратичӀо</string>
   <string name="maxDepthReached">Бищун кӀудияб гъварилъиялде щвана!</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Жеги хӀаял рекъезариязул менуялдаса гъорлъе журалищ?</string>
   <string name="openings">Байбихьиял</string>
   <string name="openingExplorer">Байбихьиязул база</string>
   <string name="openingEndgameExplorer">ХӀаялъул авал/ахиралъул база</string>
   <string name="xOpeningExplorer">%s авалалъул база</string>
+  <string name="playFirstOpeningEndgameExplorerMove">ТӀоцесеб байбихьиялъул/ахиралъул базаялъул хъурщи гьабизе</string>
   <string name="winPreventedBy50MoveRule">50-хъурщиялъул къагӀидаялъ бергьине рес ккечӀо</string>
   <string name="lossSavedBy50MoveRule">50-хъурщиялъул къагӀидаялъ къезе рес ккечӀо</string>
   <string name="winOr50MovesByPriorMistake">Бергьенлъи яги цебесеб гъалатӀалъ 50 хъурщи</string>
@@ -149,6 +151,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s хӀай</item>
     <item quantity="other">%s хӀай</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s хӀаялъ %1$s рейтинг</item>
+    <item quantity="other">%2$s хӀаялъ %1$s рейтинг</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s гӀуж</item>
@@ -312,6 +318,7 @@
     <item quantity="one">%s секунд кьезе</item>
     <item quantity="other">%s секунд кьезе</item>
   </plurals>
+  <string name="openingExplorerAndTablebase">Байбихьиялъулги ахиралъулги база</string>
   <string name="takeback">ТӀадбуссинабизе</string>
   <string name="bookmarkThisGame">Гьаб хӀай хъвазе</string>
   <string name="tournament">Турнир</string>
@@ -726,6 +733,7 @@
   <string name="gameInProgress">Дур %sгун хӀай унеб буго.</string>
   <string name="since">-даса</string>
   <string name="until">ЩвезегӀан</string>
+  <string name="lichessDbExplanation">Lichess-алда хӀарал рейтингалъул хӀаял</string>
   <string name="switchSides">Рахъ хизисе</string>
   <string name="ourEventTips">Тадбирал гьабизелъун нижер гӀакълаби</string>
 </resources>
