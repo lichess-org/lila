@@ -841,6 +841,7 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
+    if (!this.isPlaying()) return;
     if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
     if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());

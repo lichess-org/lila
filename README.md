@@ -28,7 +28,7 @@ Pure chess logic is contained in the [scalachess](https://github.com/lichess-org
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](https://akka.io).
 WebSocket connections are handled by a [separate server](https://github.com/lichess-org/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/lichess-org/fishnet) of donated servers.
-It uses [MongoDB](https://www.mongodb.com) to store more than 1.7 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
+It uses [MongoDB](https://www.mongodb.com) to store more than 4.7 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
 HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.org).
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
