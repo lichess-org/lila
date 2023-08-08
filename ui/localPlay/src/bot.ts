@@ -1,3 +1,13 @@
+import makeZerofish, { Zerofish, PV } from 'zerofish';
+
+export interface Bot {
+  readonly name: string;
+  readonly description: string;
+  readonly image: string;
+  readonly ratings: Map<string, number>;
+  move: (fen: string) => Promise<Uci>;
+}
+
 export const bots = [
   {
     name: 'Coral',

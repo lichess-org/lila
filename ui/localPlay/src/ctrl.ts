@@ -4,25 +4,22 @@ import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops';
 import * as Chops from 'chessops';
-import makeZerofish, { Zerofish, PV } from 'zerofish';
 
-type Tab = string;
 export class Ctrl {
   path = '';
   chess = Chess.default();
-  zf: Zerofish | undefined;
-  round: SocketSend;
-  fen = '';
+  tellRound: SocketSend;
   fiftyMovePly = 0;
   threefoldFens: Map<string, number> = new Map();
 
   constructor(readonly opts: LocalPlayOpts, readonly redraw: () => void) {
-    makeZerofish().then(zf => {
-      this.zf = zf;
-      // fetch model as arrraybuffer and
-      //this.zf!.setZeroWeights(new Uint8Array());
-    });
-    makeRounds(this).then(round => (this.round = round));
+    makeRounds(this).then(sender => (this.tellRound = sender));
+  }
+
+  set(/*fen: string*/) {
+    this.fiftyMovePly = 0;
+    this.threefoldFens.clear();
+    this.chess.reset();
   }
 
   checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): {
@@ -53,48 +50,29 @@ export class Ctrl {
 
   move(uci: Uci) {
     const move = Chops.parseUci(uci);
-    if (!move || !this.chess.isLegal(move))
-      throw new Error(`illegal move ${uci}, ${makeFen(this.chess.toSetup())}}`);
-    console.log(
-      `before - turn ${this.chess.turn}, half ${this.chess.halfmoves}, full ${this.chess.fullmoves}, fen '${this.fen}'`
-    );
+    if (!move || !this.chess.isLegal(move)) throw new Error(`illegal move ${uci}, ${this.fen}}`);
     const san = makeSanAndPlay(this.chess, move);
-    console.log(this.chess.fullmoves);
-    this.fen = makeFen(this.chess.toSetup());
-    console.log(
-      `after - turn ${this.chess.turn}, half ${this.chess.halfmoves}, full ${this.chess.fullmoves}, fen '${this.fen}'`
-    );
     this.fifty(move);
     this.threefold('update');
     const { end, result, reason } = this.checkGameOver();
     if (end) this.doGameOver(result!, reason!);
 
-    this.round('move', {
-      uci,
-      fen: this.fen,
-      ply: 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0),
-      dests: this.dests,
-      san,
-    });
+    this.tellRound('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
   }
 
   userMove(uci: Uci) {
     this.move(uci);
-    this.getBotMove();
+    this.botMove();
   }
 
-  async getBotMove() {
+  async botMove() {
     const uci = (await this.zf!.goFish(this.fen, { depth: 10 }))[0].moves[0];
     this.move(uci);
   }
 
   fifty(move?: Chops.Move) {
     if (move)
-      if (
-        !('from' in move) ||
-        this.chess.board.getRole(move.from) === 'pawn' ||
-        this.chess.board.get(move.to)
-      )
+      if (!('from' in move) || this.chess.board.getRole(move.from) === 'pawn' || this.chess.board.get(move.to))
         this.fiftyMovePly = 0;
       else this.fiftyMovePly++;
     return this.fiftyMovePly >= 100;
@@ -121,6 +99,14 @@ export class Ctrl {
       .filter(([, to]) => !to.isEmpty())
       .forEach(([s, ds]) => (dests[Chops.makeSquare(s)] = [...ds].map(Chops.makeSquare).join('')));
     return dests;
+  }
+
+  get fen() {
+    return makeFen(this.chess.toSetup());
+  }
+
+  get ply() {
+    return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
   }
 }
 
