@@ -104,6 +104,13 @@ export class ExplorerConfigCtrl {
     this.data.playerName.open(false);
   };
 
+  removePlayer = (name?:string) => {
+    if (!name) return;
+    const previous = this.data.playerName.previous().filter(n => n!== name);
+    this.data.playerName.previous(previous.slice(0,20));
+
+  }
+
   toggleMany =
     <T>(c: StoredJsonProp<T[]>) =>
     (value: T) => {
@@ -317,6 +324,10 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
+  const onRemove = (name: string | undefined) => {
+    ctrl.removePlayer(name);
+    ctrl.root.redraw();
+  }
   return snabModal({
     class: 'explorer__config__player__choice',
     onClose() {
@@ -344,16 +355,30 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(
-          name =>
-            h(
-              `button.button${name == ctrl.myName ? '.button-green' : ''}`,
+        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()        ].map(name => {
+          const selfButton = name == ctrl.myName;
+          return h(
+            `button.button${selfButton ? '.button-green' : ''}`,
               {
                 hook: bind('click', () => onSelect(name)),
               },
-              name
-            )
-        )
+              selfButton || ctrl.participants.includes(name)
+              ? name
+              : [
+                  name,
+                  h('button.remove', {
+                    attrs: {
+                      title:ctrl.root.trans.noarg('Delete'),
+                      ...dataIcon(licon.X),
+                    },
+                    hook: bind('click', (event) => {
+                      event.stopPropagation();
+                      onRemove(name);
+                    }),
+                  }),
+                ]
+          );
+        })
       ),
     ],
   });

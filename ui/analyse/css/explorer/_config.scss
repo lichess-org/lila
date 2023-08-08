@@ -118,9 +118,21 @@
     .previous {
       @extend %flex-wrap;
       .button {
-        margin: 0.3em 0.2em;
+        margin: 1.3em 0.2em;
         text-transform: none;
+      }
+      .remove {
+        float: right;
+        top: -1.4em;
+        right: -1.6em;
+        background-color: rgb(60, 60, 50);
+        position: relative;
+        border-radius: 50%;
+        border: none;
+        &:hover{
+          background-color: $c-error;
+        }
+        }
       }
     }
   }
-}
