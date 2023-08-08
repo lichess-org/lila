@@ -23,14 +23,21 @@
       }
     }
     &__title {
-      @extend %flex-between-nowrap;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      .opening-name {
+        &__variation {
+          font-size: 0.8em;
+        }
+      }
     }
     &__name {
       @extend %roboto;
       flex: 1 1 auto;
       font-size: 1.3em;
       margin: 0 0 0.2em 0.5em;
-      white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
     }
@@ -38,6 +45,9 @@
       flex: 0 1 auto;
       font-size: 2em;
       margin: -1.2rem 0.5rem 0 0;
+    }
+    &__spacer {
+      height: 100%;
     }
     &__result-board {
       display: flex;
