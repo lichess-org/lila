@@ -216,16 +216,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 ),
                 ctrlToggle(
                   {
-                    name: 'Annotations on board',
-                    title: 'Display analysis symbols on the board',
-                    id: 'move-annotation',
-                    checked: ctrl.showMoveAnnotation(),
-                    change: ctrl.toggleMoveAnnotation,
-                  },
-                  ctrl
-                ),
-                ctrlToggle(
-                  {
                     name: 'infiniteAnalysis',
                     title: 'removesTheDepthLimit',
                     id: 'infinite',
@@ -320,6 +310,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
           ctrl.treeView.set(v);
           ctrl.actionMenu.toggle();
         },
+      },
+      ctrl
+    ),
+    ctrlToggle(
+      {
+        name: 'Annotations on board',
+        title: 'Display analysis symbols on the board',
+        id: 'move-annotation',
+        checked: ctrl.showMoveAnnotation(),
+        change: ctrl.toggleMoveAnnotation,
       },
       ctrl
     ),
