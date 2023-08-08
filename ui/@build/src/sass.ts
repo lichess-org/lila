@@ -65,7 +65,7 @@ const builder = new (class {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
-    this.timeout = setTimeout(this.fire.bind(this), 200);
+    this.timeout = setTimeout(() => this.fire(), 200);
     return this.fileSet.size > oldCount;
   }
 

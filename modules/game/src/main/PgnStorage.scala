@@ -39,19 +39,13 @@ private object PgnStorage:
             case e: java.nio.BufferUnderflowException =>
               logger.error(s"Can't decode game $id PGN", e)
               throw e
-        val unmovedRooks = UnmovedRooks(decoded.board.castlingRights)
         Decoded(
           sans = SanStr from decoded.pgnMoves.toVector,
           board = chessBoard(decoded.board),
           positionHashes = PositionHash(decoded.positionHashes),
-          unmovedRooks = unmovedRooks,
+          unmovedRooks = UnmovedRooks(decoded.board.castlingRights),
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,
-          castles = Castles(
-            whiteKingSide = unmovedRooks.contains(Square.H1),
-            whiteQueenSide = unmovedRooks.contains(Square.A1),
-            blackKingSide = unmovedRooks.contains(Square.H8),
-            blackQueenSide = unmovedRooks.contains(Square.A8)
-          ),
+          castles = Castles(decoded.board.castlingRights),
           halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )
 

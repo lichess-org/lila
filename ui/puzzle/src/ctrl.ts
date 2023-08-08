@@ -502,7 +502,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(g => g.selectSquare(null));
     jump(path);
     lichess.sound.move(vm.node);
-    lichess.sound.say('Is not the move, try something else!');
+    if (vm.mode !== 'view') lichess.sound.say('Is not the move, try something else!');
+    else {
+      lichess.sound.saySan(vm.node.san, true);
+      lichess.sound.say('Is the correct move!');
+    }
   }
 
   function userJumpPlyDelta(plyDelta: Ply) {
@@ -607,7 +611,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   lichess.pubsub.on('zen', () => {
     const zen = $('body').toggleClass('zen').hasClass('zen');
     window.dispatchEvent(new Event('resize'));
-    xhr.setZen(zen);
+    if (!$('body').hasClass('zen-auto')) {
+      xhr.setZen(zen);
+    }
   });
   $('body').addClass('playing'); // for zen
   $('#zentog').on('click', () => lichess.pubsub.emit('zen'));

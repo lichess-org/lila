@@ -48,7 +48,7 @@ final class Gamify(
         ((if year == afterYear then afterMonth + 1 else 1) to
           (if year == until.getYear then until.getMonthValue else 12)).map { month =>
           mixedLeaderboard(
-            after = instantOf(year, month, 1, 0, 0).pp("compute mod history"),
+            after = instantOf(year, month, 1, 0, 0),
             before = instantOf(year, month, 1, 0, 0).plusMonths(1).some
           ).map {
             _.headOption.map { champ =>

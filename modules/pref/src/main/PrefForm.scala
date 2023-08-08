@@ -35,7 +35,7 @@ object PrefForm:
         "coords"        -> checkedNumber(Pref.Coords.choices),
         "replay"        -> checkedNumber(Pref.Replay.choices),
         "pieceNotation" -> optional(booleanNumber),
-        "zen"           -> optional(booleanNumber),
+        "zen"           -> optional(checkedNumber(Pref.Zen.choices)),
         "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
         "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(unapply),
@@ -245,7 +245,7 @@ object PrefForm:
 
   val zen = Form(
     single(
-      "zen" -> text.verifying(Set("0", "1") contains _)
+      "zen" -> text.verifying(Set("0", "1", "2") contains _)
     )
   )
 

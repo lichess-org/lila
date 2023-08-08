@@ -60,7 +60,7 @@ object mobile:
                 cls     := "qrcode",
                 widthA  := "200",
                 heightA := "200",
-                src     := assetUrl("images/mobile/dynamic-qrcode.png"),
+                src     := assetUrl("images/mobile/qr-code.png"),
                 alt     := "Download QR code"
               )
             )

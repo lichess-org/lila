@@ -2,16 +2,16 @@ package lila.user
 
 import scala.*
 
-final class Country(
+final class Flag(
     val code: String,
     val name: String,
     val shortName: String
 )
 
-object Countries:
+object Flags:
 
-  @inline private def C(code: String, name: String)                    = new Country(code, name, name)
-  @inline private def C(code: String, name: String, shortName: String) = new Country(code, name, shortName)
+  private inline def C(code: String, name: String)                    = new Flag(code, name, name)
+  private inline def C(code: String, name: String, shortName: String) = new Flag(code, name, shortName)
 
   val all = List(
     C("AD", "Andorra"),
@@ -290,17 +290,15 @@ object Countries:
     C("_transgender", "Transgender")
   )
 
-  val allPairs = all map { c =>
+  val allPairs = all.map: c =>
     c.code -> c.name
-  }
 
-  val map: Map[String, Country] = all.mapBy(_.code)
+  val map: Map[String, Flag] = all.mapBy(_.code)
 
-  val nameMap: Map[Country, String] = all.view
-    .map { c =>
+  val nameMap: Map[Flag, String] = all.view
+    .map: c =>
       c -> c.name
-    }
-    .to(Map)
+    .toMap
 
   val codeSet = map.keySet
 
@@ -313,5 +311,5 @@ object Countries:
     "_transgender"
   )
 
-  def info(code: String): Option[Country] = map get code
-  def name(country: Country): String      = nameMap.getOrElse(country, country.name)
+  def info(code: String): Option[Flag] = map get code
+  def name(flag: Flag): String         = nameMap.getOrElse(flag, flag.name)

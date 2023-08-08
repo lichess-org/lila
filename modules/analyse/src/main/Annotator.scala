@@ -37,7 +37,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
   // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
   // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
   def toPgnString(pgn: Pgn): PgnStr = PgnStr:
-    s"$pgn\n\n\n".replaceIf("] } { [", "] [")
+    s"${pgn.render}\n\n\n".replaceIf("] } { [", "] [")
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
     lila.game.StatusText(status, winner, chess.variant.Standard) match

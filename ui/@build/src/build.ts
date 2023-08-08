@@ -2,11 +2,11 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cps from 'node:child_process';
 import * as ps from 'node:process';
-import { parseModules } from './parse';
+import { parseModules, globArray } from './parse';
 import { tsc } from './tsc';
 import { sass } from './sass';
 import { esbuild } from './esbuild';
-import { LichessModule, env, errorMark, colors as c } from './main';
+import { LichessModule, Copy, env, errorMark, colors as c } from './main';
 
 export let moduleDeps: Map<string, string[]>;
 export let modules: Map<string, LichessModule>;
@@ -32,7 +32,9 @@ export async function build(mods: string[]) {
   await fs.promises.mkdir(env.cssDir, { recursive: true });
 
   sass();
-  tsc(() => esbuild());
+  await tsc();
+  await copies();
+  await esbuild();
 }
 
 export function postBuild() {
@@ -51,29 +53,86 @@ export function preModule(mod: LichessModule | undefined) {
     const stdout = cps.execSync(`${args.join(' ')}`, { cwd: mod.root });
     if (stdout) env.log(stdout, { ctx: mod.name });
   });
-  if (mod?.copy)
-    for (const cp of mod.copy) {
-      const sources: string[] = [];
-      const dest = path.join(mod.root, cp.dest) + path.sep;
-      if (typeof cp.src === 'string') {
-        sources.push(path.join(mod.root, cp.src));
-        env.log(`[${c.grey(mod.name)}] copy '${c.cyan(cp.src)}'`);
-      } else if (Array.isArray(cp.src)) {
-        for (const s of cp.src) {
-          sources.push(path.join(mod.root, s));
-          env.log(`[${c.grey(mod.name)}] copy '${c.cyan(s)}'`);
-        }
-      }
-      fs.mkdirSync(dest, { recursive: true });
+}
 
-      cps.execFileSync('cp', ['-rf', ...sources, dest]);
+export async function copies() {
+  const watched = new Map<string, Copy[]>();
+  const updated = new Set<string>();
+  let watchTimeout: NodeJS.Timeout | undefined;
+  const fire = () => {
+    updated.forEach(d => watched.get(d)?.forEach(globCopy));
+    updated.clear();
+    watchTimeout = undefined;
+  };
+  for (const mod of buildModules) {
+    if (!mod?.copy) continue;
+    for (const cp of mod.copy) {
+      for (const src of await globCopy(cp)) {
+        watched.set(src, [...(watched.get(src) ?? []), cp]);
+      }
     }
+    if (!env.watch) continue;
+    for (const dir of watched.keys()) {
+      const watcher = fs.watch(dir);
+      watcher.on('change', () => {
+        updated.add(dir);
+        clearTimeout(watchTimeout);
+        watchTimeout = setTimeout(fire, 600);
+      });
+      watcher.on('error', (err: Error) => env.error(err));
+    }
+  }
+}
+
+const globRe = /[*?!{}[\]()]|\*\*|\[[^[\]]*\]/;
+
+async function globCopy(cp: Copy): Promise<Set<string>> {
+  const watchDirs = new Set<string>();
+  const dest = path.join(cp.mod.root, cp.dest) + path.sep;
+
+  const globIndex = cp.src.search(globRe);
+  const globRoot =
+    globIndex > 0 && cp.src[globIndex - 1] === path.sep
+      ? cp.src.slice(0, globIndex - 1)
+      : path.dirname(cp.src.slice(0, globIndex));
+
+  const srcs = await globArray(cp.src, { cwd: cp.mod.root, abs: false });
+
+  watchDirs.add(path.join(cp.mod.root, globRoot));
+  env.log(`[${c.grey(cp.mod.name)}] - Copy '${c.cyan(cp.src)}' to '${c.cyan(cp.dest)}'`);
+  for (const src of srcs) {
+    const srcPath = path.join(cp.mod.root, src);
+    watchDirs.add(path.dirname(srcPath));
+    const destPath = path.join(dest, src.slice(globRoot.length));
+    await copyOne(srcPath, destPath, cp.mod.name);
+  }
+  return watchDirs;
+}
+
+async function copyOne(absSrc: string, absDest: string, modName: string) {
+  try {
+    const [src, dest] = (
+      await Promise.allSettled([
+        fs.promises.stat(absSrc),
+        fs.promises.stat(absDest),
+        fs.promises.mkdir(path.dirname(absDest), { recursive: true }),
+      ])
+    ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
+    if (src && (!dest || quantize(src.mtimeMs) !== quantize(dest.mtimeMs))) {
+      await fs.promises.copyFile(absSrc, absDest);
+      fs.utimes(absDest, src.atime, src.mtime, () => {});
+    }
+  } catch (_) {
+    env.log(`[${c.grey(modName)}] - ${errorMark} - failed copy '${c.cyan(absSrc)}' to '${c.cyan(absDest)}'`);
+  }
 }
 
 function depsOne(modName: string): LichessModule[] {
   const collect = (dep: string): string[] => [...(moduleDeps.get(dep) || []).flatMap(d => collect(d)), dep];
   return unique(collect(modName).map(name => modules.get(name)));
 }
+
+const quantize = (n?: number, factor = 10000) => Math.floor((n ?? 0) / factor) * factor;
 
 const depsMany = (modNames: string[]): LichessModule[] => unique(modNames.flatMap(depsOne));
 

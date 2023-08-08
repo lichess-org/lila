@@ -154,7 +154,9 @@ export default class RoundController {
     lichess.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
-      xhr.setZen(zen);
+      if (!$('body').hasClass('zen-auto')) {
+        xhr.setZen(zen);
+      }
     });
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
@@ -541,6 +543,7 @@ export default class RoundController {
     d.game.status = o.status;
     d.game.boosted = o.boosted;
     this.userJump(this.lastPly());
+    d.game.fen = d.steps[d.steps.length - 1].fen;
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
     if (
       o.status.name === 'outoftime' &&
@@ -566,6 +569,12 @@ export default class RoundController {
       )
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
+
+    if ($('body').hasClass('zen-auto') && $('body').hasClass('zen')) {
+      $('body').toggleClass('zen');
+      window.dispatchEvent(new Event('resize'));
+    }
+
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
@@ -832,6 +841,7 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
+    if (!this.isPlaying()) return;
     if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
     if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());

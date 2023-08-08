@@ -39,6 +39,8 @@ final class Env(
   private lazy val historyRepo    = HistoryRepo(db(CollName("mod_gaming_history")))
   private lazy val queueStatsRepo = ModQueueStatsRepo(db(CollName("mod_queue_stat")))
 
+  lazy val presets = wire[ModPresetsApi]
+
   lazy val logApi = wire[ModlogApi]
 
   lazy val impersonate = wire[ImpersonateApi]
@@ -64,8 +66,6 @@ final class Env(
   lazy val inquiryApi = wire[InquiryApi]
 
   lazy val stream = wire[ModStream]
-
-  lazy val presets = wire[ModPresetsApi]
 
   lazy val ipRender = wire[IpRender]
 

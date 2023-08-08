@@ -217,3 +217,17 @@ object JsonView:
   )
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)
+
+  def angles(all: PuzzleAngle.All)(using Lang) = Json.obj(
+    "themes" -> JsObject:
+      all.themes.map: (i18n, themes) =>
+        i18n.txt() -> JsArray:
+          themes.map:
+            case PuzzleTheme.WithCount(theme, count) =>
+              Json.obj(
+                "key"   -> theme.key,
+                "name"  -> theme.name.txt(),
+                "desc"  -> theme.description.txt(),
+                "count" -> count
+              )
+  )

@@ -57,7 +57,7 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-release:17",
+    "-release:17"
     // "-Wunused:all"
   )
 

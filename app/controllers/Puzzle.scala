@@ -277,8 +277,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
   private def serveThemes(using Context) =
-    Ok.pageAsync:
-      env.puzzle.api.angles.map(views.html.puzzle.theme.list(_))
+    negotiate(
+      html = Ok.pageAsync:
+        env.puzzle.api.angles.map(views.html.puzzle.theme.list(_))
+      ,
+      json = JsonOk:
+        env.puzzle.api.angles.map(lila.puzzle.JsonView.angles)
+    )
 
   def openings(order: String) = Open:
     env.puzzle.opening.collection flatMap { collection =>
@@ -405,20 +410,21 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         err => BadRequest(err.toString),
         data =>
           val angle = PuzzleAngle findOrMix angleStr
-          WithPuzzlePerf:
-            for
-              rounds <- ctx.me match
-                case Some(me) =>
-                  given Me = me
+          for
+            rounds <- ctx.me match
+              case Some(me) =>
+                given Me = me
+                WithPuzzlePerf:
                   env.puzzle.finisher.batch(angle, data.solutions).map {
                     _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
                   }
-                case None =>
-                  data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
-              given Option[Me] <- ctx.me.so(env.user.repo.me)
-              nextPuzzles      <- batchSelect(angle, reqDifficulty, ~getInt("nb"))
-              result = nextPuzzles ++ Json.obj("rounds" -> rounds)
-            yield Ok(result)
+              case None =>
+                data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
+            given Option[Me] <- ctx.me.so(env.user.repo.me)
+            nextPuzzles <- WithPuzzlePerf:
+              batchSelect(angle, reqDifficulty, ~getInt("nb"))
+            result = nextPuzzles ++ Json.obj("rounds" -> rounds)
+          yield Ok(result)
       )
 
   def mobileBcLoad(nid: Long) = Open:

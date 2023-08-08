@@ -8,8 +8,8 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
-import lila.user.Countries
-import lila.user.Country
+import lila.user.Flags
+import lila.user.Flag
 import lila.common.LangPath
 
 object index:
@@ -22,7 +22,7 @@ object index:
       order: lila.coach.CoachPager.Order,
       langCodes: Set[String],
       countryCodes: Set[String],
-      country: Option[Country]
+      country: Option[Flag]
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = lichessCoaches.txt(),
@@ -37,9 +37,9 @@ object index:
         }
       val countrySelections = ("all", "All countries") :: {
         countryCodes map { c =>
-          c -> Countries.allPairs.toMap.apply(c)
+          c -> Flags.allPairs.toMap.apply(c)
         }
-      }.filter(el => !Countries.nonCountries.contains(el._1)).toList.sortBy(_._2)
+      }.filter(el => !Flags.nonCountries.contains(el._1)).toList.sortBy(_._2)
 
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
@@ -67,7 +67,7 @@ object index:
               ),
               views.html.base.bits.mselect(
                 "coach-country",
-                country.fold("All countries")(Countries.name),
+                country.fold("All countries")(Flags.name),
                 countrySelections
                   .map { case (code, name) =>
                     a(
