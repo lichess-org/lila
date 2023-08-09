@@ -456,10 +456,14 @@
   <string name="boardEditor">Хъарщил редактор</string>
   <string name="setTheBoard">Хъарщи чӀезабизе</string>
   <string name="chess960StartPosition">Chess960 байбихьул бакӀал: %s</string>
+  <string name="startPosition">Байбихьулеб бакӀ</string>
+  <string name="clearBoard">Хъарщи эркен гьабизе</string>
+  <string name="loadPosition">Позиция рещтӀинабизе</string>
   <string name="isPrivate">Къараб</string>
   <string name="reportXToModerators">%s-(и)л модераторазда бицине</string>
   <string name="profileCompletion">Гьумер цӀей: %s</string>
   <string name="xRating">%s рейтинг</string>
+  <string name="ifNoneLeaveEmpty">ГьечӀеб батани, чӀобого те</string>
   <string name="profile">Дур гьумер</string>
   <string name="editProfile">Дур гьумер хисизе</string>
   <string name="firstName">ЦӀар</string>
@@ -473,6 +477,7 @@
   <string name="savingMoves">Заманалъе бугеб хъурщиязул ракӀалдачӀей</string>
   <string name="savingMovesHelp">Нижеца кидаго дур вариантал дур браузералъул кешалда цӀунула.</string>
   <string name="makeAStudy">ЦӀунизеги гӀахьал гьабизеги, цӀех-рех гьабизе бегьула.</string>
+  <string name="clearSavedMoves">Хъурщиял нахъе росизе</string>
   <string name="success">Бергьенлъи</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s хӀай</item>
@@ -483,6 +488,7 @@
   <string name="name">ЦӀар</string>
   <string name="description">Гьелъул хӀакъалъулъ хъвай</string>
   <string name="descPrivate">Бахчараб бицин</string>
+  <string name="descPrivateHelp">ЦохӀо къокъаялда бихьизе бугеб бицин. Гъун батани, халкъияб бицин къокъадул лугбазе хисула.</string>
   <string name="no">Гуро</string>
   <string name="yes">У</string>
   <string name="help">Квербакъи:</string>
@@ -652,6 +658,7 @@
   <string name="deviceTheme">Девайсалъул куц</string>
   <string name="boardTheme">Хъорщол куц</string>
   <string name="boardSize">Хъорщол кӀодолъи</string>
+  <string name="pieceSet">Кескил куц</string>
   <string name="usernameAlreadyUsed">Гьеб хӀалтӀизабулесда цӀар ккун буго, хӀалбихье цогидаб.</string>
   <string name="usernamePrefixInvalid">ХӀалтӀизабулесда цӀар хӀарпалдаса байбихьизе ккола.</string>
   <string name="playChessInStyle">Шахматазул къагӀидаялъ хӀазе</string>
@@ -722,12 +729,14 @@
   <string name="xMentionedYouInY">%1$s-(и)ца мун \"%2$s\"-ялда рехсана.</string>
   <string name="invitedYouToX">мун \"%1$s\"-ялде ахӀана.</string>
   <string name="xInvitedYouToY">%1$s-(и)ца мун \"%2$s\"-ялде ахӀана.</string>
+  <string name="youAreNowPartOfTeam">Мун гьанже къокъаялда вуго.</string>
   <string name="youHaveJoinedTeamX">Мун \"%1$s\"-алде жувана.</string>
   <string name="gameVsX">%1$s-(и)да данде хӀай</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="download">РещтӀинабизе</string>
   <string name="welcome">ЛъикӀ щварав!</string>
   <string name="coachManager">Мударибзабазе</string>
+  <string name="onlyMembersOfTeam">ЦохӀо къокъаялъул лугбузе</string>
   <string name="noRestriction">ГӀорхъаби гьечӀо</string>
   <string name="minimumRatedGames">Бищун дагьаб рейтингалъул хӀай</string>
   <string name="minimumRating">Бишун дагьаб рейтинг</string>
@@ -746,8 +755,8 @@
   <string name="inYourLocalTimezone">Дурго бакӀалъулаб сагӀтил рачелалда</string>
   <string name="tournChat">Турниралъул чат</string>
   <string name="noChat">Чат гьечӀо</string>
-  <string name="onlyTeamLeaders">ЦохӀо къокъаялъул церехъаби</string>
-  <string name="onlyTeamMembers">ЦохӀо къокъаялъул гӀахьалчӀагӀи</string>
+  <string name="onlyTeamLeaders">ЦохӀо къокъадул церехъаби</string>
+  <string name="onlyTeamMembers">ЦохӀо къокъадул лугбал</string>
   <string name="mouseTricks">ГӀонкӀкӀол багъари</string>
   <string name="playComputerMove">Бищун лъикӀаб компутералъул хъурщи гьабизе</string>
   <string name="analysisOptions">Анализалъул параметраби</string>
