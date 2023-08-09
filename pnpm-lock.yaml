@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -494,8 +494,8 @@ importers:
         specifier: workspace:*
         version: link:../tree
       zerofish:
-        specifier: ^0.0.8
-        version: 0.0.8
+        specifier: ^0.0.11
+        version: 0.0.11
 
   ui/mod:
     dependencies:
@@ -745,6 +745,9 @@ importers:
       voice:
         specifier: workspace:*
         version: link:../voice
+      zerofish:
+        specifier: 0.0.11
+        version: 0.0.11
 
   ui/serviceWorker:
     dependencies:
@@ -3161,8 +3164,8 @@ packages:
     resolution: {integrity: sha512-GXZxEtOxYGFchyUzxvKI14iff9KZ2DI+A6a37o6EQevtg6uO9t+aUZKcaC1Te5Ng1OnLM7K9NVVj+FbecD9cJg==}
     dev: false
 
-  /@types/node@20.4.5:
-    resolution: {integrity: sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==}
+  /@types/node@20.4.9:
+    resolution: {integrity: sha512-8e2HYcg7ohnTUbHk8focoklEQYvemQmu9M/f43DZVx43kHn0tE3BY/6gSDxS7k0SprtS0NHvj+L80cGLnoOUcQ==}
     dev: false
 
   /@types/parse5@6.0.3:
@@ -6427,13 +6430,14 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /zerofish@0.0.8:
-    resolution: {integrity: sha512-PwOmIMRcSx+K87WFVAdwrDgy4tEUXX1q+LSUdslsnVkslaBtkwQHoWLrLzWHRzXXHNruQAnKgKTVEvemiYZOtQ==}
+  /zerofish@0.0.11:
+    resolution: {integrity: sha512-kNM+OonZ4RfFmSX2rCwR1DNXbRnKhscabChK+fosWD+wBULVV9HidjFgFCHQVJyreewZnOvfwSMU47pgikpyzw==}
     dependencies:
       '@types/emscripten': 1.39.7
-      '@types/node': 20.4.5
+      '@types/node': 20.4.9
       '@types/web': 0.0.84
       esbuild: 0.18.4
+      prettier: 2.8.1
       typescript: 5.1.6
     dev: false
 

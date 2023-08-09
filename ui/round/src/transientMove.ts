@@ -24,7 +24,8 @@ export default class TransientMove {
   };
 
   expire = () => {
-    xhr.text('/statlog?e=roundTransientExpire', { method: 'post' });
+    if (window.location.href.startsWith('https://lichess'))
+      xhr.text('/statlog?e=roundTransientExpire', { method: 'post' });
     this.socket.reload();
   };
 }

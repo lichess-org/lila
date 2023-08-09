@@ -64,7 +64,7 @@ final class Round(
               chat <- getPlayerChat(pov.game, none)
             yield Ok(data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))).noCache
       )
-    yield res
+    yield res.enableSharedArrayBuffer
 
   def player(fullId: GameFullId) = Open:
     env.round.proxyRepo.pov(fullId) flatMap {

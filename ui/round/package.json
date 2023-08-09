@@ -23,7 +23,8 @@
     "voice": "workspace:*",
     "nvui": "workspace:*",
     "board": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "^3.5.1",
+    "zerofish": "0.0.11"
   },
   "scripts": {
     "compile": "tsc",

@@ -19,6 +19,7 @@ private class FishnetConfig(
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("move.plies") val movePlies: Int,
+    @ConfigName("move.delay") val moveDelay: Option[FiniteDuration],
     @ConfigName("client_min_version") val clientMinVersion: String,
     @ConfigName("redis.uri") val redisUri: String,
     val explorerEndpoint: String

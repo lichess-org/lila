@@ -49,7 +49,7 @@ const data: RoundData = {
     onGame: true,
     rating: 800,
     version: 0,
-    image: '/assets/images/bots/baby-howard.webp',
+    image: '/assets/lifat/bots/images/coral.webp',
   },
   pref: {
     animationDuration: 300,

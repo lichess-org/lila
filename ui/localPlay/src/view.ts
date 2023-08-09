@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 //import * as licon from 'common/licon';
 //import { bind } from 'common/snabbdom';
-import { bots } from './bots';
+import { bots } from './bot';
 import { Ctrl } from './ctrl';
 
 export default function (ctrl: Ctrl): VNode {
@@ -21,6 +21,6 @@ function botView(ctrl: Ctrl, bot: any): VNode {
   return h('div.fancy-bot', [
     h('h1', bot.name),
     h('p', bot.description),
-    h('img', { attrs: { src: bot.image } }),
+    h('img', { attrs: { src: lichess.assetUrl(bot.image, { noVersion: true }) } }),
   ]);
 }
