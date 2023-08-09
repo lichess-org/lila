@@ -49,10 +49,10 @@
   <string name="blackResigned">ЧӀегӀерал къун чӀана</string>
   <string name="whiteLeftTheGame">ХъахӀаз хӀай рехун тана</string>
   <string name="blackLeftTheGame">ЧӀегӀераз хӀай рехун тана</string>
-  <string name="whiteDidntMove">ХъахӀал инчӀо</string>
-  <string name="blackDidntMove">ЧӀегӀерал инчӀо</string>
+  <string name="whiteDidntMove">ХъахӀал хъурщичӀо</string>
+  <string name="blackDidntMove">ЧӀегӀерал хъурщичӀо</string>
   <string name="requestAComputerAnalysis">Компутералъул анализ хӀалтӀизабизе</string>
-  <string name="computerAnalysis">Компутерил анализ</string>
+  <string name="computerAnalysis">Компутералъул анализ</string>
   <string name="computerAnalysisAvailable">Компутералъул анализ хӀалтӀизабизе рес буго</string>
   <string name="computerAnalysisDisabled">Компутералъул анализ свинабуна</string>
   <string name="analysis">Хъорщол анализ гьабизе</string>
@@ -213,7 +213,7 @@
   <string name="email">Электронияб поч</string>
   <string name="passwordReset">Парол нахъе рехизе</string>
   <string name="forgotPassword">Парол кӀочонищ тараб?</string>
-  <string name="error.weakPassword">Гьаб парол кутакалда тӀибитӀараб буго, гьединго гьалда нахъгӀунтӀизе бигьаяб буго.</string>
+  <string name="error.weakPassword">Гьаб парол кутакалда тӀибитӀараб буго, гьединго гьалда нахъгӀунтӀизе цӀакъ бигьаго буго.</string>
   <string name="error.namePassword">Дур хӀалтӀизабулесда цӀар пароллъун хӀалтӀизабуге.</string>
   <string name="blankedPassword">Дуца гьебго парол цогидаб сайталда хъвана, гьеб сайт къимат хвараб хӀалалда ккун буго. Дур Lichess аккаунталъул хъинкъи гьечӀебали ракӀчӀун лъазе, нижее къваригӀуна дуца цӀияб парол чӀезабизе. БичӀчӀулелъухъ баркала.</string>
   <string name="youAreLeavingLichess">Мун Lichess-алдаса унев вуго</string>
@@ -383,6 +383,8 @@
   <string name="continueFromHere">Гьаниса хӀазе</string>
   <string name="toStudy">ЦӀех-рех</string>
   <string name="importGame">ХӀай жаниб лъезе</string>
+  <string name="importGameExplanation">Балагьизе бегьулеб такрарги, компутералъул анализги, хӀаялъул чатги, гӀаммаб бухьенги щвезе, хӀаялъул PNG лъе.</string>
+  <string name="importGameCaveat">Вариантал хвезарула. Гьел цӀунизе, цӀех-рехалдаса PNG жаниб лъе.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s жаниб лъураб хӀай</item>
     <item quantity="other">%s жаниб лъураб хӀай</item>
@@ -502,6 +504,7 @@
   <string name="troll">Иришгъат гьави</string>
   <string name="ratingManipulation">Рейтингалъулъ рекӀкӀ гьаби</string>
   <string name="other">Цогидаб</string>
+  <string name="reportDescriptionHelp">ХӀаял(з)де бухьен лъе цинги гьав хӀалесул хьвада-чӀвадиялда щиб мекъи бугебали бице. ЦохӀо \"гьес рекӀкӀ гьабунилан\" абуге, дуда кин гьедин ккараб бице. Дур гӀарзаялъухъ жеги хехго балагьила гьеб ингилис мацӀалъ хъван батани.</string>
   <string name="by">%s-(и)ца</string>
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>
   <string name="thisTopicIsNowClosed">Гьаб тема къан буго.</string>
@@ -575,6 +578,9 @@
   <string name="simultaneousExhibitions">Цого заманалда хӀай</string>
   <string name="host">Хост</string>
   <string name="hostColorX">Хосталъул кьер: %s</string>
+  <string name="createdSimuls">Дагьаб цебегӀан гьабураб сеанс</string>
+  <string name="hostANewSimul">ЦӀияб сеанс гьабизе</string>
+  <string name="noSimulFound">Сеанс батичӀо</string>
   <string name="create">Гьабизе</string>
   <string name="simulHostExtraTime">Хосталъул тӀаде жубалеб заман</string>
   <string name="simulHostExtraTimePerPlayer">Щивав хӀалесе хосталъул тӀаде жубалеб заман</string>
@@ -615,6 +621,7 @@
   <string name="downloadAnnotated">Аннотациягун рещтӀинабизе</string>
   <string name="downloadRaw">Бугеб куцалъ рещтӀинабизе</string>
   <string name="downloadImported">Жаниб лъураб рещтӀинабизе</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Компутералъул вариантах рихьизе, гьел реге.</string>
   <string name="letOtherPlayersMessageYou">Цогидазе духъе хабар битӀизе биччазе</string>
   <string name="receiveForumNotifications">Форумалда рехсолаго ругьалаби росизе</string>
   <string name="shareYourInsightsData">Дур шахматазул аналитика гӀахьал гьабизе</string>
@@ -725,8 +732,13 @@
   <string name="maximumWeeklyRating">Бищун гӀемераб щибаб анкьил рейтинг</string>
   <string name="onlyTitled">ЦохӀо титул бугел хӀалел чагӀи</string>
   <string name="onlyTitledHelp">Турниралде жувазе, расмияб титул къваригӀуна</string>
+  <string name="positionInputHelp">Щибаб хӀай кьураб бакӀалдаса байбихьизе, битӀараб FEN лъей.
+Гьеб цохӀо гӀадатал хӀаязда хӀалтӀула, варианталгун гуро.
+Дуда %s хӀалтӀизабизе кӀола FEN бакӀ гьабизе цинги гьеб гьаниб лъезе.
+ХӀай гӀадатаб бакӀалдаса байбихьизе чӀобого те.</string>
   <string name="simulHostcolor">Щибаб хӀаялда хосталъул кьер</string>
   <string name="simulFeatured">%s-алда бихьизе</string>
+  <string name="simulDescription">Сеансалъул бицин</string>
   <string name="simulDescriptionHelp">Щибниги гӀахьалчагӀазда абизе бокьун бугищ?</string>
   <string name="embedsAvailable">ЦӀех-рех гъезе, гьелъул яги хӀаялъул бухьен лъе.</string>
   <string name="inYourLocalTimezone">Дурго бакӀалъулаб сагӀтил рачелалда</string>
@@ -748,5 +760,6 @@
   <string name="until">ЩвезегӀан</string>
   <string name="lichessDbExplanation">Lichess-алда хӀарал рейтингалъул хӀаял</string>
   <string name="switchSides">Рахъ хизисе</string>
+  <string name="closingAccountWithdrawAppeal">Дур аккаунт къаялъ дур хитӀаб нахъе ахӀула</string>
   <string name="ourEventTips">Тадбирал гьабизелъун нижер гӀакълаби</string>
 </resources>
