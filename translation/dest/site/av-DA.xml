@@ -364,7 +364,7 @@
   <string name="ratedMoreThanInPerf">%2$s-алда рейтинг ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Ахирисеб анкьалъ %2$s-алда рейтинг ≤ %1$s</string>
   <string name="mustBeInTeam">%s къокъаялда вукӀине ккола</string>
-  <string name="youAreNotInTeam">Мун %s къокъаялда гуро</string>
+  <string name="youAreNotInTeam">Мун %s къокъаялда гьечӀо</string>
   <string name="backToGame">ХӀаялде вуссине</string>
   <string name="xJoinedTeamY">%1$s %2$s къокъаялде жувана</string>
   <string name="xCreatedTeamY">%1$s(и)ца %2$s къокъа гьабуна</string>
@@ -482,6 +482,7 @@
   <string name="tournamentWinners">Турниралда бергьарал</string>
   <string name="name">ЦӀар</string>
   <string name="description">Гьелъул хӀакъалъулъ хъвай</string>
+  <string name="descPrivate">Бахчараб бицин</string>
   <string name="no">Гуро</string>
   <string name="yes">У</string>
   <string name="help">Квербакъи:</string>
@@ -722,6 +723,7 @@
   <string name="invitedYouToX">мун \"%1$s\"-ялде ахӀана.</string>
   <string name="xInvitedYouToY">%1$s-(и)ца мун \"%2$s\"-ялде ахӀана.</string>
   <string name="youHaveJoinedTeamX">Мун \"%1$s\"-алде жувана.</string>
+  <string name="gameVsX">%1$s-(и)да данде хӀай</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="download">РещтӀинабизе</string>
   <string name="welcome">ЛъикӀ щварав!</string>
