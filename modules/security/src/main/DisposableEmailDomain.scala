@@ -186,9 +186,9 @@ private object DisposableEmailDomain:
     "speedy.com.ar",
     "arnet.com.ar",
     /* Domains used in Vietnam */
-    "outlook.com.vn"
-    "yahoo.com.vn"
-    "vnnic.vn"
+    "outlook.com.vn",
+    "yahoo.com.vn",
+    "vnnic.vn",
     /* Domains used in Mexico */
     "yahoo.com.mx",
     "live.com.mx",
