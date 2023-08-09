@@ -3,7 +3,6 @@ package lila.study
 import monocle.syntax.all.*
 import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{
-  Dumper,
   Glyphs,
   ParsedPgn,
   ParsedPgnTree,
