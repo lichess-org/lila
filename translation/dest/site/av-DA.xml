@@ -403,6 +403,8 @@
   <string name="unfollow">Нахъвилълъин нахъе бахъизе</string>
   <string name="followX">%s-(и)да нахъвилълъине</string>
   <string name="unfollowX">%s-(и)да нахъвилълъин нахъе бахъизе</string>
+  <string name="block">Гьукъизе</string>
+  <string name="blocked">Гьукъана</string>
   <string name="followsYou">Дуда нахъвилълъуна</string>
   <string name="xStartedFollowingY">%1$s %2$s-(и)да нахъвилълъана</string>
   <plurals name="nbFollowers">
