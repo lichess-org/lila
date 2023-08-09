@@ -168,15 +168,18 @@ export default class RoundController {
 
     lichess.sound.move();
 
-    makeZerofish({ pbUrl: '/assets/lifat/bots/weights/maia-1100.pb' }).then(zf => (this.zerofish = zf));
+    makeZerofish({ pbUrl: '/assets/lifat/bots/weights/maia-1900.pb' }).then(zf => (this.zerofish = zf));
   }
 
-  private async updateZero(fen: string, canMove: boolean) {
-    if (!canMove) return;
+  private async updateZero(fen: string) {
+    if (this.ply !== this.lastPly() || this.data.player.color !== (this.ply % 2 === 0 ? 'white' : 'black'))
+      return;
     if (fen.split(' ')[0] === fen) fen += this.ply % 2 === 0 ? ' w' : ' b';
-    console.trace('updateZero', fen, canMove);
     const uci = await this.zerofish?.goZero(fen);
-    this.auxMove(uci?.slice(0, 2) as Key, uci?.slice(2, 4) as Key, Ch.charRole(uci!.slice(4)));
+    if (uci)
+      this.sendMove(uci?.slice(0, 2) as Key, uci?.slice(2, 4) as Key, Ch.charRole(uci!.slice(4)), {
+        premove: false,
+      });
   }
 
   private showExpiration = () => {
@@ -294,7 +297,7 @@ export default class RoundController {
     this.autoScroll();
     const canMove = ply === this.lastPly() && this.data.player.color === config.turnColor;
 
-    this.updateZero(s.fen, canMove);
+    this.updateZero(s.fen);
     this.voiceMove?.update(s.fen, canMove);
     this.keyboardMove?.update(s), canMove;
     lichess.pubsub.emit('ply', ply);
@@ -514,7 +517,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
 
-    this.updateZero(step.fen, playedColor != d.player.color);
+    this.updateZero(step.fen); //, playedColor != d.player.color);
     this.keyboardMove?.update(step, playedColor != d.player.color);
     this.voiceMove?.update(step.fen, playedColor != d.player.color);
     lichess.sound.move(o);
@@ -552,7 +555,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    this.updateZero(d.steps[d.steps.length - 1].fen, true);
+    this.updateZero(d.steps[d.steps.length - 1].fen); //, true);
     this.keyboardMove?.update(d.steps[d.steps.length - 1]);
     this.voiceMove?.update(d.steps[d.steps.length - 1].fen, true);
   };
@@ -912,7 +915,7 @@ export default class RoundController {
           location.href = '/page/play-extensions';
         }
       }, 1000);
-
+      this.updateZero(d.game.fen);
       this.onChange();
     }, 800);
   };
