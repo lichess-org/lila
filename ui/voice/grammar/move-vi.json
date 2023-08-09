@@ -444,7 +444,7 @@
       ]
     },
     {
-      "in": "tốt",
+      "in": "thích",
       "val": "upvote",
       "tags": ["command", "puzzle"],
       "tok": "+",
@@ -456,7 +456,7 @@
       ]
     },
     {
-      "in": "thích",
+      "in": "không thích",
       "val": "downvote",
       "tags": ["command", "puzzle"],
       "tok": "-",
@@ -468,7 +468,7 @@
       ]
     },
     {
-      "in": "không thích",
+      "in": "giải quyết",
       "val": "solve",
       "tags": ["command", "puzzle"],
       "tok": "9-"
