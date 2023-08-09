@@ -433,6 +433,7 @@
   <string name="advancedSettings">Цере тӀурал рекъезариял</string>
   <string name="safeTournamentName">Бище турниралъе расги хӀинкъи гьечӀеб цӀар.</string>
   <string name="inappropriateNameWarning">Бокьараб, дагьаб рекъечӀеб гӀамалалъцин дур аккаунт къаялде бачине бегьула.</string>
+  <string name="recommendNotTouching">Нижеца гӀакълу кьола гьел хъвагеян.</string>
   <string name="showAdvancedSettings">ЦеретӀурал рекъезариял рихьизе</string>
   <string name="join">Жувазе</string>
   <string name="points">Балал</string>
@@ -455,6 +456,8 @@
   <string name="averageOpponent">Гьоркьохъев дандеяв</string>
   <string name="boardEditor">Хъарщил редактор</string>
   <string name="setTheBoard">Хъарщи чӀезабизе</string>
+  <string name="popularOpenings">ТӀиритӀарал байбихьиял</string>
+  <string name="endgamePositions">Ахиралъул позицияби</string>
   <string name="chess960StartPosition">Chess960 байбихьул бакӀал: %s</string>
   <string name="startPosition">Байбихьулеб бакӀ</string>
   <string name="clearBoard">Хъарщи эркен гьабизе</string>
@@ -518,6 +521,7 @@
   <string name="notes">Хъвай-хъвагӀаял</string>
   <string name="noNoteYet">Жеги хъвай-хъвагӀай гьечӀо</string>
   <string name="incorrectPassword">Мекъаб парол</string>
+  <string name="emailMeALink">Дир почалъе бухьен битӀе</string>
   <string name="currentPassword">Гьанжесеб парол</string>
   <string name="newPassword">ЦӀияб парол</string>
   <string name="newPasswordAgain">ЦӀияб парол (цоги нухалъ)</string>
