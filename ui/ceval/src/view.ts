@@ -40,6 +40,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
   const t: Array<VNode | string> = evs.client.cloud
     ? [trans('depthX', depth), h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud')]
     : [trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth))];
+  if (ceval.infinite()) t.push(h('span.infinite', { attrs: { title: 'infiniteAnalysis' } }, 'infinite'));
   if (ceval.canGoDeeper())
     t.push(
       h('a.deeper', {
