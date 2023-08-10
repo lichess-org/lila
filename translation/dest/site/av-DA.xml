@@ -490,6 +490,7 @@
     <item quantity="one">%s хӀай</item>
     <item quantity="other">%s хӀай</item>
   </plurals>
+  <string name="autoSwitch">Авто хиси</string>
   <string name="puzzles">Масъала</string>
   <string name="tournamentWinners">Турниралда бергьарал</string>
   <string name="name">ЦӀар</string>
@@ -523,7 +524,9 @@
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>
   <string name="thisTopicIsNowClosed">Гьаб тема къан буго.</string>
   <string name="notes">Хъвай-хъвагӀаял</string>
+  <string name="typePrivateNotesHere">Балъгоял хъвай-хъвагӀаял гьанир хъвай</string>
   <string name="noNoteYet">Жеги хъвай-хъвагӀай гьечӀо</string>
+  <string name="invalidUsernameOrPassword">Мекъаб цӀар яги парол</string>
   <string name="incorrectPassword">Мекъаб парол</string>
   <string name="emailMeALink">Дир почалъе бухьен битӀе</string>
   <string name="currentPassword">Гьанжесеб парол</string>
@@ -556,6 +559,16 @@
   <string name="drawVsYInZ">%1$s - %2$s, %3$s</string>
   <string name="timeline">Таймлайн</string>
   <string name="starting">Байбихьула:</string>
+  <string name="biographyDescription">Дурго бице, дур интересазул, щиб шахматазда бокьулебали, дуе бищун рокьулел байбихьиязул, хӀалезул, ...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Бищун гӀемераб: %s хӀарп.</item>
+    <item quantity="other">Бищун гӀемераб: %s хӀарп.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s гьукъи</item>
+    <item quantity="other">%s гьукъи</item>
+  </plurals>
+  <string name="listBlockedPlayers">Дуца гьукъарал хӀалел чагӀи рикӀкӀе</string>
   <string name="human">ГӀадан</string>
   <string name="computer">Компутер</string>
   <string name="side">Рахъ</string>
@@ -564,7 +577,9 @@
   <string name="learnMenu">Ругьунлъизе</string>
   <string name="studyMenu">ЦӀех-рех</string>
   <string name="practice">ХӀалбихьи</string>
+  <string name="community">ЖамагӀат</string>
   <string name="tools">Алатал</string>
+  <string name="increment">ТӀаде бачӀин</string>
   <string name="ifRatingIsPlusMinusX">Рейтинг ± %s батани</string>
   <string name="ifRegistered">ХӀисабалде восун ватани</string>
   <string name="onlyFriends">ЦохӀо гьудулзабазе</string>
@@ -694,6 +709,7 @@
   <string name="learnFromThisMistake">Гьаб гъалатӀалъухъ балагьизе</string>
   <string name="skipThisMove">Гьаб хъурщи гьоркьоб тезе</string>
   <string name="next">Хадусеб</string>
+  <string name="xWasPlayed">%s гьабуна</string>
   <string name="youCanDoBetter">Жеги лъикӀаб буго</string>
   <string name="solution">БитӀун гьаби</string>
   <string name="waitingForAnalysis">Анализалъухъ балагьун чӀун</string>
@@ -741,6 +757,7 @@
   <string name="youHaveJoinedTeamX">Мун \"%1$s\"-алде жувана.</string>
   <string name="gameVsX">%1$s-(и)да данде хӀай</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="timeAlmostUp">Заман лъугӀизехъин буго!</string>
   <string name="download">РещтӀинабизе</string>
   <string name="welcome">ЛъикӀ щварав!</string>
   <string name="coachManager">Мударибзабазе</string>
