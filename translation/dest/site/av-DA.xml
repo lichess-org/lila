@@ -368,6 +368,8 @@
   <string name="backToGame">ХӀаялде вуссине</string>
   <string name="xJoinedTeamY">%1$s %2$s къокъаялде жувана</string>
   <string name="xCreatedTeamY">%1$s(и)ца %2$s къокъа гьабуна</string>
+  <string name="startedStreaming">стрим байбихьана</string>
+  <string name="xStartedStreaming">%s-(и)ца стрим байбихьана</string>
   <string name="averageElo">Гьоркьохъеб рейтинг</string>
   <string name="location">Геолокация</string>
   <string name="filterGames">ХӀаязул цӀура</string>
@@ -742,6 +744,7 @@
   <string name="download">РещтӀинабизе</string>
   <string name="welcome">ЛъикӀ щварав!</string>
   <string name="coachManager">Мударибзабазе</string>
+  <string name="streamerManager">Стрим менежер</string>
   <string name="onlyMembersOfTeam">ЦохӀо къокъаялъул лугбузе</string>
   <string name="noRestriction">ГӀорхъаби гьечӀо</string>
   <string name="minimumRatedGames">Бищун дагьаб рейтингалъул хӀай</string>
