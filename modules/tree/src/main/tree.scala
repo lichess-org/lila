@@ -411,10 +411,12 @@ object Node:
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author):
     def removeMeta = text.removeMeta map { t => copy(text = t) }
+
   object Comment:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
       def make = Id(ThreadLocalRandom nextString 4)
+
     private val metaReg = """\[%[^\]]++\]""".r
     opaque type Text = String
     object Text extends OpaqueString[Text]:
@@ -422,6 +424,7 @@ object Node:
         def removeMeta: Option[Text] =
           val v = metaReg.replaceAllIn(a.value, "").trim
           v.nonEmpty option Text(v)
+
     enum Author:
       case User(id: UserId, titleName: String)
       case External(name: String)
@@ -447,10 +450,9 @@ object Node:
       def findBy(author: Comment.Author) = a.value.find(_.by is author)
       def set(comment: Comment): Comments =
         if a.value.exists(_.by.is(comment.by)) then
-          a.value.map {
+          a.value.map:
             case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
             case c                        => c
-          }
         else a.value :+ comment
       def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
       def +(comment: Comment): Comments           = comment :: a.value

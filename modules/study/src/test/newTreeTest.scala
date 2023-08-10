@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.{ Centis, ErrorStr, Node as PgnNode }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Situation }
 import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
@@ -8,12 +8,14 @@ import chess.MoveOrDrop.*
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
+import cats.syntax.all.*
+import StudyArbitraries.*
+import org.scalacheck.Prop.forAll
 import scala.language.implicitConversions
 
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
 
-// in lila.study to have access to PgnImport
-class NewTreeTest extends munit.FunSuite:
+class NewTreeTest extends munit.ScalaCheckSuite:
 
   import PgnImport.*
   import lila.tree.NewTree.*
@@ -27,6 +29,12 @@ class NewTreeTest extends munit.FunSuite:
       val x       = PgnImport(pgn, Nil).toOption.get
       val newRoot = x.root.toNewRoot
       assertEquals(newRoot.toRoot, x.root)
+
+  test("conversion check"):
+    forAll(genRoot(Situation(chess.variant.Standard))): root =>
+      val oldRoot = root.toRoot
+      val newRoot = oldRoot.toNewRoot
+      assertEquals(root, newRoot)
 
   test("PgnImport works"):
     PgnFixtures.all.foreach: pgn =>

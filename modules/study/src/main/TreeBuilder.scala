@@ -13,7 +13,7 @@ object TreeBuilder:
 
   def apply(root: NewRoot, variant: Variant) =
     val dests =
-      if (variant.standard && root.fen.isInitial) initialStandardDests
+      if variant.standard && root.fen.isInitial then initialStandardDests
       else
         val sit = chess.Game(variant.some, root.fen.some).situation
         sit.playable(false) so sit.destinations

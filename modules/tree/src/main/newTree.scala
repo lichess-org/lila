@@ -8,7 +8,6 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.opening.Opening
 import chess.variant.{ Variant, Crazyhouse }
-import ornicar.scalalib.ThreadLocalRandom
 import chess.bitboard.Bitboard
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
