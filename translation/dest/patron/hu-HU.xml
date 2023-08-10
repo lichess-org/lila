@@ -20,7 +20,7 @@
   <string name="weAreNonProfit">Non-profit szervezet vagyunk, mert hiszünk egy mindenki számára elérhető, ingyenes és világszínvonalú sakk platformban.</string>
   <string name="weRelyOnSupport">Hozzád hasonló hozzájárulókra támaszkodunk, hogy ezt megvalósítsuk. Ha tetszik a Lichess légyszíves fontold meg támogatásunkat adománnyal és légy Te is Patron!</string>
   <string name="lifetime">Életre szóló</string>
-  <string name="payLifetimeOnce">Adakozz %s egyszer. Legyél Lichess Patron örökre!</string>
+  <string name="payLifetimeOnce">%s egyszeri adománnyal legyél Lichess Patron örökre!</string>
   <string name="lifetimePatron">Életre szóló Lichess Patron</string>
   <string name="monthly">Havonta</string>
   <string name="recurringBilling">Rendszeres számlázás, megújítva a Patron szárnyakat minden hónapban.</string>

@@ -347,6 +347,10 @@
     <item quantity="one">%s ստուդիա</item>
     <item quantity="other">%s ուսուցում</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s խաղաշար</item>
+    <item quantity="other">%s խաղաշար</item>
+  </plurals>
   <string name="viewTournament">Դիտել մրցաշարը</string>
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
   <string name="noDrawBeforeSwissLimit">Դուք չեք կարող ոչ-ոքի առաջարկել մինչև 30-րդ քայլը շվեյցարական համակարգով մրցաշարում։</string>
@@ -500,7 +504,7 @@
   <string name="firstName">Անուն</string>
   <string name="lastName">Ազգանուն</string>
   <string name="biography">Կենսագրություն</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Երկիր կամ դրոշ</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Դրոշ</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>

@@ -465,7 +465,6 @@
   <string name="firstName">Nome datu</string>
   <string name="lastName">Cugnome</string>
   <string name="biography">Biugraffia</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Paese o bandera</string>
   <string name="thankYou">À ringrazià vi!</string>
   <string name="socialMediaLinks">Leie di e rete suciale</string>
   <string name="oneUrlPerLine">Una URL per ogni linea.</string>

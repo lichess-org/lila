@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Phát sóng</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="other">%s phát sóng</item>
+  </plurals>
   <string name="liveBroadcasts">Giải đấu phát trực tuyến</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
   <string name="addRound">Thêm một vòng</string>
