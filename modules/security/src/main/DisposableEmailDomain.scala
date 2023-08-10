@@ -72,6 +72,7 @@ private object DisposableEmailDomain:
     "google.com",
     "hotmail.com",
     "hotmail.co.uk",
+    "ikmail.com",
     "mac.com",
     "me.com",
     "mail.com",
