@@ -151,7 +151,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     });
 
     instanciateCeval();
-    lichess.sound.move();
   }
 
   function position(): Chess {
@@ -261,11 +260,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(g => g.playPremove());
 
     const progress = moveTest(vm, data.puzzle);
+    if (progress === 'fail') lichess.sound.say('incorrect');
     if (progress) applyProgress(progress);
     reorderChildren(path);
     redraw();
-    lichess.sound.saySan(node.san, false);
-    lichess.sound.move(node);
   }
 
   function reorderChildren(path: Tree.Path, recursive?: boolean): void {
@@ -280,8 +278,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function instantRevertUserMove(): void {
-    withGround(g => g.cancelPremove());
-    userJump(treePath.init(vm.path));
+    withGround(g => {
+      g.cancelPremove();
+      g.selectSquare(null);
+    });
+    jump(treePath.init(vm.path));
     redraw();
   }
 
@@ -477,6 +478,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(showGround);
     if (pathChanged) {
       if (isForwardStep) {
+        lichess.sound.saySan(vm.node.san);
+        lichess.sound.move({ uci: vm.node.uci }); // music
+        // TODO - consolidate piece move handling for music & other sound sets
         if (!vm.node.uci) sound.move();
         // initial position
         else if (!vm.justPlayed || vm.node.uci.includes(vm.justPlayed)) {
@@ -501,12 +505,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (tree.nodeAtPath(path)?.puzzle == 'fail' && vm.mode != 'view') return;
     withGround(g => g.selectSquare(null));
     jump(path);
-    lichess.sound.move(vm.node);
-    if (vm.mode !== 'view') lichess.sound.say('Is not the move, try something else!');
-    else {
-      lichess.sound.saySan(vm.node.san, true);
-      lichess.sound.say('Is the correct move!');
-    }
   }
 
   function userJumpPlyDelta(plyDelta: Ply) {
