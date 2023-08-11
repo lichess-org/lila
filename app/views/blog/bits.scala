@@ -11,21 +11,27 @@ object bits:
 
   def menu(year: Option[Int], active: Option[String])(using ctx: Context) =
     st.nav(cls := "page-menu__menu subnav force-ltr")(
-      a(cls := active.has("community").option("active"), href := langHref(routes.Ublog.communityAll()))(
-        "Community blogs"
+      ctx.noKid option a(
+        cls  := active.has("community").option("active"),
+        href := langHref(routes.Ublog.communityAll())
+      )("Community blogs"),
+      ctx.noKid option a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)(
+        "Blog topics"
       ),
-      a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)("Blog topics"),
-      ctx.isAuth option a(cls := active.has("friends").option("active"), href := routes.Ublog.friends())(
-        "Friends blogs"
+      (ctx.isAuth && ctx.noKid) option a(
+        cls  := active.has("friends").option("active"),
+        href := routes.Ublog.friends()
+      )("Friends blogs"),
+      ctx.noKid option a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())(
+        "Liked blog posts"
       ),
-      a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())("Liked blog posts"),
-      ctx.me map { me =>
-        a(cls := active.has("mine").option("active"), href := routes.Ublog.index(me.username))("My blog")
-      },
+      ctx.me
+        .ifTrue(ctx.noKid)
+        .map: me =>
+          a(cls := active.has("mine").option("active"), href := routes.Ublog.index(me.username))("My blog"),
       a(cls := active.has("lichess").option("active"), href := routes.Blog.index())("Lichess blog"),
-      year.isDefined || active.has("lichess") option lila.blog.allYears.map { y =>
+      year.isDefined || active.has("lichess") option lila.blog.allYears.map: y =>
         a(cls := (year has y).option("active"), href := routes.Blog.year(y))(y)
-      }
     )
 
   private[blog] def postCard(
