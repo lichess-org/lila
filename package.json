@@ -43,12 +43,8 @@
     "typescript": "^5.1.5"
   },
   "scripts": {
-    "prettier": "prettier --write ui/**/*.scss",
-    "prettier-check": "prettier --check ui/**/*.scss",
-    "dprint": "dprint fmt",
-    "dprint-check": "dprint check",
-    "format": "pnpm prettier && pnpm dprint",
-    "format-check": "pnpm prettier-check && pnpm dprint-check",
+    "format": "pnpm dprint fmt && pnpm prettier --write ui/**/_*.scss",
+    "format-check": "pnpm dprint check && pnpm prettier --check ui/**/_*.scss",
     "lint": "eslint . --ext .ts",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
