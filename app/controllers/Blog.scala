@@ -34,9 +34,8 @@ final class Blog(
           checkSlug(maybeDocument, slug):
             case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
             case Right(doc)    => Ok.page(views.html.blog.show(doc))
-        .recoverWith {
+        .recoverWith:
           case e: RuntimeException if e.getMessage contains "Not Found" => notFound
-        }
     }
 
   def preview(token: String) =
@@ -56,13 +55,11 @@ final class Blog(
   import lila.memo.CacheApi.*
   private val atomCache = env.memo.cacheApi.unit[String]:
     _.refreshAfterWrite(30.minutes)
-      .buildAsyncFuture { _ =>
-        blogApi.masterContext flatMap { prismic =>
+      .buildAsyncFuture: _ =>
+        blogApi.masterContext.flatMap: prismic =>
           blogApi.recent(prismic.api, 1, MaxPerPage(50), none) mapz { docs =>
             views.html.blog.atom(docs)(using prismic).render
           }
-        }
-      }
 
   def atom = Anon:
     atomCache.getUnit.map: xml =>
@@ -70,15 +67,13 @@ final class Blog(
 
   private val sitemapCache = env.memo.cacheApi.unit[String] {
     _.refreshAfterWrite(3.hours)
-      .buildAsyncFuture { _ =>
-        blogApi.masterContext flatMap { prismic =>
-          blogApi.all()(using prismic) map {
-            _.map { doc =>
+      .buildAsyncFuture: _ =>
+        blogApi.masterContext.flatMap: prismic =>
+          blogApi.all()(using prismic).map {
+            _.map: doc =>
               s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
-            } mkString "\n"
+            .mkString("\n")
           }
-        }
-      }
   }
 
   def sitemapTxt = Anon:

@@ -570,7 +570,7 @@
   <string name="firstName">שם פרטי</string>
   <string name="lastName">שם משפחה</string>
   <string name="biography">ביוגרפיה</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">מדינה או דגל</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">דגל</string>
   <string name="thankYou">תודות מקרב לב</string>
   <string name="socialMediaLinks">קישורים לרשתות חברתיות</string>
   <string name="oneUrlPerLine">שורה עבור כל כתובת.</string>
@@ -782,7 +782,7 @@
   <string name="yourPerfTypeRatingIsRating">דירוגך במשחקי %1$s הוא %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">דירוגך גבוה יותר מ-%1$s משחקני %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s טוב יותר מ-%2$s משחקני ה%3$s.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">יותר טוב מ-%1$s משחקני ה־%2$s</string>
+  <string name="betterThanPercentPlayers">יותר טוב מ-%1$s משחקני ה־%2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">טרם נקבע לך דירוג במשחקי %s.</string>
   <string name="yourRating">הדירוג שלך</string>
   <string name="cumulative">מצטבר</string>

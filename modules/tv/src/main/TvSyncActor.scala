@@ -63,29 +63,26 @@ final private[tv] class TvSyncActor(
 
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
-      given Ordering[lila.game.Player] = Ordering.by { p =>
+      given Ordering[lila.game.Player] = Ordering.by: p =>
         p.rating.fold(0)(_.value) + ~p.userId
           .flatMap(lightUserApi.sync)
           .flatMap(_.title)
           .flatMap(Tv.titleScores.get)
-      }
       val player = game.players.all.sorted.lastOption | game.player(game.naturalOrientation)
       val user   = player.userId flatMap lightUserApi.sync
-      (user, player.rating) mapN { (u, r) =>
-        channelChampions += (channel -> Tv.Champion(u, r, game.id))
-      }
+      (user, player.rating).mapN: (u, r) =>
+        channelChampions += (channel -> Tv.Champion(u, r, game.id, game.naturalOrientation))
       recentTvGames.put(game)
       val data = Json.obj(
         "channel" -> channel.key,
         "id"      -> game.id,
         "color"   -> game.naturalOrientation.name,
-        "player" -> user.map { u =>
+        "player" -> user.map: u =>
           Json.obj(
             "name"   -> u.name,
             "title"  -> u.title,
             "rating" -> player.rating
           )
-        }
       )
       Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
       if channel == Tv.Channel.Best then

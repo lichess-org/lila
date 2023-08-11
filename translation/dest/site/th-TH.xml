@@ -454,7 +454,6 @@
   <string name="firstName">ชื่อจริง</string>
   <string name="lastName">นามสกุล</string>
   <string name="biography">ชีวประวัติ</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ประเทศหรือธง</string>
   <string name="thankYou">ขอบคุณ!</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="oneUrlPerLine">หนึ่ง URL ต่อบรรทัด</string>

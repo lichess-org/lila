@@ -459,7 +459,6 @@
   <string name="firstName">ಹೆಸರು</string>
   <string name="lastName">ಕುಟುಂಬನಾಮ (surname)</string>
   <string name="biography">ನಿಮ್ಮ ಬಗ್ಗೆ</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ದೇಶ ಅಥವಾ ಬಾವುಟ</string>
   <string name="thankYou">ಧನ್ಯವಾದಗಳು!</string>
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>
   <string name="oneUrlPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL.</string>

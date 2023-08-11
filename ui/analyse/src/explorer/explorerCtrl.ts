@@ -114,7 +114,6 @@ export default class ExplorerCtrl {
           this.root.redraw();
         }
       };
-      console.log(this);
       this.abortController?.abort();
       this.abortController = new AbortController();
       if (this.withGames && this.tablebaseRelevant(this.effectiveVariant, fen))

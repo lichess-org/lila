@@ -17,22 +17,22 @@
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
   <string name="black">Pretas</string>
-  <string name="asWhite">como brancas</string>
+  <string name="asWhite">com as brancas</string>
   <string name="asBlack">com as pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
-  <string name="blackIsVictorious">as pretas ganham</string>
+  <string name="blackIsVictorious">Pretas vencem</string>
   <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
   <string name="youPlayTheBlackPieces">Tu jogas com as peças pretas</string>
   <string name="itsYourTurn">É a tua vez!</string>
-  <string name="cheatDetected">Fraude detectada</string>
+  <string name="cheatDetected">Fraude detetada</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
   <string name="variantEnding">Fim da variante</string>
   <string name="newOpponent">Novo adversário</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">O teu adversário quer jogar uma nova partida contra ti</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">O teu adversário quer jogar outra vez contra ti</string>
   <string name="joinTheGame">Entrar no jogo</string>
   <string name="whitePlays">Jogam as brancas</string>
   <string name="blackPlays">Jogam as pretas</string>
@@ -51,14 +51,14 @@
   <string name="blackLeftTheGame">As pretas deixaram a partida</string>
   <string name="whiteDidntMove">As brancas não se moveram</string>
   <string name="blackDidntMove">As pretas não se moveram</string>
-  <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
+  <string name="requestAComputerAnalysis">Solicitar uma análise de computador</string>
   <string name="computerAnalysis">Análise de computador</string>
   <string name="computerAnalysisAvailable">Análise de computador disponível</string>
-  <string name="computerAnalysisDisabled">Análise de computador desactivada</string>
+  <string name="computerAnalysisDisabled">Análise de computador desativada</string>
   <string name="analysis">Análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">A usar a análise do servidor</string>
-  <string name="loadingEngine">A carregar o motor de jogo ...</string>
+  <string name="loadingEngine">A carregar o motor de jogo...</string>
   <string name="calculatingMoves">A calcular as jogadas...</string>
   <string name="engineFailed">Erro ao carregar o motor</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
@@ -77,8 +77,8 @@
   <string name="pawnMove">Movimento de peão</string>
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
-  <string name="winning">Jogada vantajosa</string>
-  <string name="losing">Perdendo</string>
+  <string name="winning">Ganhas</string>
+  <string name="losing">Perdidas</string>
   <string name="drawn">Empatado</string>
   <string name="unknown">Desconhecidos</string>
   <string name="database">Base de dados</string>
@@ -86,7 +86,7 @@
   <string name="averageRatingX">Pontuação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Melhores partidas</string>
-  <string name="masterDbExplanation">Dois milhões de jogos de tabuleiro de jogadores de classificação FIDE %1$s+ desde %2$s a %3$s</string>
+  <string name="masterDbExplanation">de partidas OTB de jogadores com +%1$s rating FIDE de %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Xeque-mate em %s meio-movimento</item>
     <item quantity="other">Xeque-mate em %s meio-movimentos</item>
@@ -97,7 +97,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openings">Aberturas</string>
   <string name="openingExplorer">Explorador de aberturas</string>
-  <string name="openingEndgameExplorer">Explorador de Aberturas/Finais de Jogos</string>
+  <string name="openingEndgameExplorer">Explorador de Aberturas/Finais</string>
   <string name="xOpeningExplorer">Explorador de aberturas de %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">Jogar o primeiro lance do explorador de aberturas/finais</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
@@ -155,8 +155,8 @@
     <item quantity="other">%s jogos</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">Avaliação %1$s em %2$s partidas</item>
-    <item quantity="other">Avaliação %1$s em %2$s partidas</item>
+    <item quantity="one">%2$s partida %1$s avaliada</item>
+    <item quantity="other">%2$s partidas %1$s avaliadas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s favorito</item>
@@ -505,7 +505,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="firstName">Nome próprio</string>
   <string name="lastName">Apelido</string>
   <string name="biography">Biografia</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandeira</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="oneUrlPerLine">Um URL por linha.</string>
@@ -566,7 +566,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="invalidUsernameOrPassword">Nome de utilizador ou palavra-passe incorretos</string>
   <string name="incorrectPassword">Palavra-passe incorreta</string>
   <string name="invalidAuthenticationCode">Código de autenticação inválido</string>
-  <string name="emailMeALink">Envie-me um link</string>
+  <string name="emailMeALink">Envie-me um link por e-mail</string>
   <string name="currentPassword">Palavra-passe atual</string>
   <string name="newPassword">Nova palavra-chave</string>
   <string name="newPasswordAgain">Nova palavra-passe (novamente)</string>
@@ -707,7 +707,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="yourPerfTypeRatingIsRating">A tua pontuação em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">És melhor que %1$s dos jogadores de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é melhor que %2$s dos jogadores de %3$s.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Melhor que %1$s de %2$s jogadores</string>
+  <string name="betterThanPercentPlayers">Melhor que %1$s de %2$s jogadores</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Não tens uma pontuação estabelecida em %s.</string>
   <string name="yourRating">A tua pontuação</string>
   <string name="cumulative">Acumulativo</string>
@@ -967,6 +967,6 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="until">Até</string>
   <string name="lichessDbExplanation">Jogos avaliados por amostragem de todos os jogadores Lichess</string>
   <string name="switchSides">Trocar de lado</string>
-  <string name="closingAccountWithdrawAppeal">Encerrar a sua conta anulará o seu apelo</string>
+  <string name="closingAccountWithdrawAppeal">Encerrar a tua conta anula o teu apelo</string>
   <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
 </resources>

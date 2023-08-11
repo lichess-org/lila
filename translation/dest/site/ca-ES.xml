@@ -504,7 +504,7 @@
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
   <string name="biography">Biografia</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
+  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandera</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes socials</string>
   <string name="oneUrlPerLine">Una URL per línia.</string>
@@ -706,7 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">La teva puntuació en %1$s és de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ets millor que un %1$s dels jugadors de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s és millor que el %2$s de %3$s jugadors.</string>
-  <string name="betterThanPercentPlayers" comment="betterThanPercentPlayers&#10;&#10;%1$s is a percentage&#10;%2$s is a time control or variant e.g. &amp;quot;Blitz&amp;quot; or &amp;quot;Antichess&amp;quot;&#10;&#10;Example: Better than 75% of Blitz players&#10;&#10;This is shown as a hover tooltip on the highest and lowest rating of a player i.e. the meaning is along the lines of &amp;quot;The player's highest rating of 2500 makes/made them better than 75% of Blitz players&amp;quot;">Millor que un %1$s dels jugadors de %2$s</string>
+  <string name="betterThanPercentPlayers">Millor que un %1$s dels jugadors de %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tens establerta una puntuació de %s.</string>
   <string name="yourRating">La vostra valoració</string>
   <string name="cumulative">Acumulat</string>

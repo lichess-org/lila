@@ -45,7 +45,8 @@
   }
 
   .engine {
-    .cloud {
+    .cloud,
+    .infinite {
       @extend %roboto, %box-radius;
 
       margin-#{$start-direction}: 4px;
