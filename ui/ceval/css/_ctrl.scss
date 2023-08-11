@@ -45,17 +45,7 @@
   }
 
   .engine {
-    .cloud {
-      @extend %roboto, %box-radius;
-
-      margin-#{$start-direction}: 4px;
-      background: $c-secondary-dim;
-      color: $c-secondary-over;
-      padding: 1px 3px;
-      text-transform: uppercase;
-      font-size: 11px;
-    }
-
+    .cloud,
     .infinite {
       @extend %roboto, %box-radius;
 
