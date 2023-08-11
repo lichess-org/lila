@@ -3,13 +3,35 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org: the forever free, adless and open source chess server",
-  "repository": { "type": "git", "url": "https://github.com/lichess-org/lila.git" },
-  "keywords": ["chess", "lichess"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lichess-org/lila.git"
+  },
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
   "author": "Thibault Duplessis and the gang",
   "license": "AGPL-3.0-or-later",
-  "bugs": { "url": "https://github.com/lichess-org/lila/issues" },
+  "bugs": {
+    "url": "https://github.com/lichess-org/lila/issues"
+  },
   "homepage": "https://lichess.org",
-  "engines": { "node": ">=14", "pnpm": "^8.6" },
+  "engines": {
+    "node": ">=14",
+    "pnpm": "^8.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "pnpm format-check && pnpm lint"
+    }
+  },
+  "lint-staged": {
+    "*.css": "prettier --write",
+    "*.scss": "prettier --write",
+    "*.{js,ts,md,json,toml,yaml}": "dprint fmt"
+  },
   "dependencies": {
     "@types/node": "^18.16.18",
     "@types/web": "^0.0.84",
@@ -19,11 +41,18 @@
     "chessground": "^8.3.11",
     "dprint": "^0.40.2",
     "eslint": "^8.43.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.1",
     "typescript": "^5.1.5"
   },
   "scripts": {
-    "format": "dprint fmt",
-    "check-format": "dprint check",
+    "prettier": "prettier --write ui/**/*.scss",
+    "prettier-check": "prettier --check ui/**/*.scss",
+    "dprint": "dprint fmt",
+    "dprint-check": "dprint check",
+    "format": "pnpm prettier && pnpm dprint",
+    "format-check": "pnpm prettier-check && pnpm dprint-check",
     "lint": "eslint . --ext .ts",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
